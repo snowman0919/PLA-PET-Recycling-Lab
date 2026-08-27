@@ -48,8 +48,12 @@ def validate_assembly() -> None:
     )
     dryer = doc.getObject("DryerFeeder").Shape.BoundBox
     extruder = doc.getObject("Extruder").Shape.BoundBox
+    forming = doc.getObject("CoolingGaugePuller").Shape.BoundBox
+    spooler = doc.getObject("Spooler").Shape.BoundBox
     require(dryer.XLength >= 320.0 and dryer.ZLength >= 580.0, "dryer proof envelope regressed")
     require(extruder.XLength >= 850.0 and extruder.YLength >= 220.0, "extruder proof envelope regressed")
+    require(forming.XLength >= 760.0 and forming.YLength >= 160.0, "forming-line proof envelope regressed")
+    require(spooler.XLength >= 355.0 and spooler.ZLength >= 320.0, "spooler proof envelope regressed")
     App.closeDocument(doc.Name)
 
 
@@ -88,6 +92,17 @@ def validate_exports() -> None:
         "extruder_die",
         "extruder_thrust_plate",
         "extruder_proof",
+        "cooling_tunnel_segment",
+        "diameter_gauge_enclosure",
+        "diameter_gauge_optical_proof",
+        "puller_roller_pair",
+        "gauge_calibration_fixture",
+        "forming_line_proof",
+        "spooler_shaft",
+        "spool_adapter_set",
+        "traverse_carriage",
+        "spooler_bearing_plate",
+        "spooler_proof",
     )
     for stem in stems:
         step_shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
@@ -107,6 +122,10 @@ def validate_exports() -> None:
     require("OUTLINE_T6" in dryer_dxf and dryer_dxf.rstrip().endswith("EOF"), "dryer base DXF is incomplete")
     extruder_dxf = (ROOT / "exports" / "dxf" / "extruder_thrust_plate.dxf").read_text(encoding="ascii")
     require("SHAFT_CLEARANCE_D20" in extruder_dxf and "FRAME_M8" in extruder_dxf and extruder_dxf.rstrip().endswith("EOF"), "extruder thrust plate DXF is incomplete")
+    cooling_dxf = (ROOT / "exports" / "dxf" / "cooling_fan_plate.dxf").read_text(encoding="ascii")
+    require("FAN_AIR_D68_8" in cooling_dxf and "FAN_M4" in cooling_dxf and cooling_dxf.rstrip().endswith("EOF"), "cooling fan plate DXF is incomplete")
+    spooler_dxf = (ROOT / "exports" / "dxf" / "spooler_bearing_plate.dxf").read_text(encoding="ascii")
+    require("BEARING_6001_D28" in spooler_dxf and spooler_dxf.rstrip().endswith("EOF"), "spooler bearing plate DXF is incomplete")
 
 
 def validate_stage1_assembly() -> None:
@@ -253,6 +272,58 @@ def validate_extruder_assembly() -> None:
     App.closeDocument(doc.Name)
 
 
+def validate_forming_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "forming_line_proof.FCStd"))
+    expected = {
+        "Frame",
+        "CoolingTunnel",
+        "CoolingFans",
+        "GaugeEnclosure",
+        "GaugeOptics",
+        "OpticalRayKeepouts",
+        "PullerRollers",
+        "OdometerAndSlipEncoder",
+        "PullerGuardAndSupport",
+        "FilamentReference",
+    }
+    require(expected == {o.Name for o in doc.Objects}, "forming-line proof object set differs")
+    for obj in doc.Objects:
+        require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null forming-line shape: {obj.Name}")
+        require(obj.Shape.isValid(), f"invalid forming-line shape: {obj.Name}")
+    require(doc.getObject("CoolingTunnel").Shape.BoundBox.XLength >= 440.0, "cooling tunnel length missing")
+    require(doc.getObject("Frame").Shape.BoundBox.XLength >= 760.0, "forming line rail length missing")
+    for stem in ("cooling_tunnel_segment", "diameter_gauge_enclosure", "puller_roller_pair", "gauge_calibration_fixture"):
+        shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
+        require(max(shape.BoundBox.XLength, shape.BoundBox.YLength, shape.BoundBox.ZLength) <= 210.0, f"{stem} exceeds print-bed envelope")
+    App.closeDocument(doc.Name)
+
+
+def validate_spooler_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "spooler_proof.FCStd"))
+    expected = {
+        "BaseAndMetalFrame",
+        "SpoolShaft",
+        "SpoolBearings",
+        "LoadedSpoolReference",
+        "InstalledAdapters",
+        "Dancer",
+        "DancerSweepKeepout",
+        "Traverse",
+        "DriveAndTorqueGuard",
+        "SpoolGuard",
+    }
+    require(expected == {o.Name for o in doc.Objects}, "spooler proof object set differs")
+    for obj in doc.Objects:
+        require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null spooler shape: {obj.Name}")
+        require(obj.Shape.isValid(), f"invalid spooler shape: {obj.Name}")
+    spool = doc.getObject("LoadedSpoolReference").Shape.BoundBox
+    require(spool.YLength >= 73.0 and max(spool.XLength, spool.ZLength) >= 199.9, "full spool reference regressed")
+    for stem in ("spool_adapter_set", "traverse_carriage"):
+        shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
+        require(max(shape.BoundBox.XLength, shape.BoundBox.YLength, shape.BoundBox.ZLength) <= 210.0, f"{stem} exceeds print-bed envelope")
+    App.closeDocument(doc.Name)
+
+
 def validate_stage1_envelope() -> None:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["stage1"]
     tip_root_clearance = p["shaft_center_distance_mm"] - (
@@ -274,6 +345,8 @@ def main() -> None:
     validate_sorter_assembly()
     validate_dryer_assembly()
     validate_extruder_assembly()
+    validate_forming_assembly()
+    validate_spooler_assembly()
     validate_stage1_envelope()
     print("CAD_VALIDATION_OK")
 

@@ -1,0 +1,74 @@
+{
+  "revision": "0.1.0-preflight",
+  "overall": {
+    "x_mm": 760.0,
+    "y_mm": 160.0,
+    "z_mm": 185.0,
+    "fits_210_cube": false
+  },
+  "cooling_segment": {
+    "x_mm": 146.667,
+    "y_mm": 140.0,
+    "z_mm": 120.0,
+    "fits_210_cube": true
+  },
+  "gauge": {
+    "x_mm": 110.0,
+    "y_mm": 160.0,
+    "z_mm": 140.0,
+    "fits_210_cube": true
+  },
+  "puller": {
+    "x_mm": 150.0,
+    "y_mm": 160.0,
+    "z_mm": 150.0,
+    "fits_210_cube": true
+  },
+  "layout": {
+    "module_length_mm": 760.0,
+    "cooling_length_mm": 440.0,
+    "die_to_gauge_mm": 470.0,
+    "puller_start_mm": 600.0
+  },
+  "outputs": {
+    "assembly": {
+      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/forming_line_proof.FCStd",
+      "step": "/home/monad/develop/PPR/exports/step/forming_line_proof.step",
+      "stl": "/home/monad/develop/PPR/exports/stl/forming_line_proof.stl"
+    },
+    "components": {
+      "cooling_segment": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/cooling_tunnel_segment.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/cooling_tunnel_segment.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/cooling_tunnel_segment.stl"
+      },
+      "gauge_enclosure": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/diameter_gauge_enclosure.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/diameter_gauge_enclosure.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/diameter_gauge_enclosure.stl"
+      },
+      "gauge_optical_proof": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/diameter_gauge_optical_proof.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/diameter_gauge_optical_proof.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/diameter_gauge_optical_proof.stl"
+      },
+      "puller_rollers": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/puller_roller_pair.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/puller_roller_pair.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/puller_roller_pair.stl"
+      },
+      "calibration_fixture": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/gauge_calibration_fixture.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/gauge_calibration_fixture.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/gauge_calibration_fixture.stl"
+      }
+    },
+    "fan_plate_dxf": "/home/monad/develop/PPR/exports/dxf/cooling_fan_plate.dxf"
+  },
+  "limitations": [
+    "Fan blocks and optical parts are supplier keep-outs; mounting holes, cable bends, focus threads and airflow plenums require selection.",
+    "Reference rays prove two orthogonal line crossings, not focus, distortion, mirror flatness or uncertainty.",
+    "The first hot strand-facing duct must be metal or temperature-qualified; PLA is prohibited near an unverified hot strand.",
+    "Roller tyre compression, shaft bearings, synchronized gears, spring adjustment and guard interlock require detailed drawings and coupons."
+  ]
+}

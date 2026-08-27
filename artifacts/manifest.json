@@ -1,9 +1,24 @@
 {
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
-  "generated_utc": "2026-08-27T19:07:00Z",
-  "artifact_count": 175,
+  "generated_utc": "2026-08-27T19:34:56Z",
+  "artifact_count": 231,
   "artifacts": [
+    {
+      "path": "cad/generation/fcstd/cooling_tunnel_segment.FCStd",
+      "bytes": 5752,
+      "sha256": "5fec2d5bffdfe43faed13b8c1e1671c3abc3e73e70e8d2c5c410854e754db3d7"
+    },
+    {
+      "path": "cad/generation/fcstd/diameter_gauge_enclosure.FCStd",
+      "bytes": 6298,
+      "sha256": "15539be6c7dbab87e00252ddd96cd83c2ab81907177c4a110c67c6713bbc3830"
+    },
+    {
+      "path": "cad/generation/fcstd/diameter_gauge_optical_proof.FCStd",
+      "bytes": 7076,
+      "sha256": "fd01c64c2fbaa9627e5f408cfeb5e740b728dda510fddfae46e1bfc3d225436c"
+    },
     {
       "path": "cad/generation/fcstd/dryer_auger_housing.FCStd",
       "bytes": 39729,
@@ -60,9 +75,24 @@
       "sha256": "59cbd62d385dd5d538f9d266e79eec1aace49e6ad0c854a29c8b151fc20e074c"
     },
     {
+      "path": "cad/generation/fcstd/forming_line_proof.FCStd",
+      "bytes": 44422,
+      "sha256": "6e8e0d3a502de6284d826076ac997bd1b761b3dfc81c9952db6ad2829016ff27"
+    },
+    {
       "path": "cad/generation/fcstd/full_assembly_skeleton.FCStd",
-      "bytes": 23224,
-      "sha256": "083cec5b5d3329db2cf82f12acdcd5bdc5fa9500a99468a9aa874bdb81d58bec"
+      "bytes": 23275,
+      "sha256": "fb6f0f5b4aaf33867388b7f871f1d890da97504802dbbe4d928206e1745cfd3b"
+    },
+    {
+      "path": "cad/generation/fcstd/gauge_calibration_fixture.FCStd",
+      "bytes": 3876,
+      "sha256": "68cc09ef6578f592050fd1b5f3d5e8f763c22ad0dca442d867450b53b03e1354"
+    },
+    {
+      "path": "cad/generation/fcstd/puller_roller_pair.FCStd",
+      "bytes": 3243,
+      "sha256": "aedc55a5cbed66205f611a0aa1e705c0f12675014d4bbd38a43a4cd5e9c8e037"
     },
     {
       "path": "cad/generation/fcstd/sorter_base_plate.FCStd",
@@ -83,6 +113,26 @@
       "path": "cad/generation/fcstd/sorter_top_screen_6mm.FCStd",
       "bytes": 30307,
       "sha256": "70e3c6798a56497792fe0dd60c11244af80c3f6134a3974e35174ee78aa23dc2"
+    },
+    {
+      "path": "cad/generation/fcstd/spool_adapter_set.FCStd",
+      "bytes": 3248,
+      "sha256": "2dc5d15db39bff07390977b135230810ccb9fded4c7e02239b38b193d66d36ba"
+    },
+    {
+      "path": "cad/generation/fcstd/spooler_bearing_plate.FCStd",
+      "bytes": 3728,
+      "sha256": "ba0027a2fafc10b833d75e36ccadb17fb58723d90e3c9497a0ca7536e8c575c0"
+    },
+    {
+      "path": "cad/generation/fcstd/spooler_proof.FCStd",
+      "bytes": 28972,
+      "sha256": "c1e2b0d7f14028e9bd37aefe74be636a064d99141eddb7cd015cd9f25dea29e2"
+    },
+    {
+      "path": "cad/generation/fcstd/spooler_shaft.FCStd",
+      "bytes": 2311,
+      "sha256": "27ad2072a2fbe00f3fe23849dd5d6bbcce1e5063d6dfa7715c75475cff56986e"
     },
     {
       "path": "cad/generation/fcstd/stage1_bearing_plate.FCStd",
@@ -165,9 +215,19 @@
       "sha256": "896d98518405d5bea59a6b8a59690c2548d3f8e1841a32954221c85fe10daa94"
     },
     {
+      "path": "cad/generation/fcstd/traverse_carriage.FCStd",
+      "bytes": 2872,
+      "sha256": "2562e7487207a53b9955535136a263308c72e3a2c3ca8d6493793113965f3594"
+    },
+    {
       "path": "cad/generation/fcstd/vibratory_sorter_proof.FCStd",
       "bytes": 97161,
       "sha256": "715aecfabba8863d777698c4955919a96f54ede1097cbc9383e190444379c47d"
+    },
+    {
+      "path": "exports/dxf/cooling_fan_plate.dxf",
+      "bytes": 578,
+      "sha256": "950ed2cceb76073fbcd473accadbc86fbb12c4982fa592e3999148f50f035fec"
     },
     {
       "path": "exports/dxf/dryer_base_plate.dxf",
@@ -185,6 +245,11 @@
       "sha256": "3c861ee0f70468a064457c00f0af0ffb1bfcc15d6ee126f84b73eac46f0bf5a3"
     },
     {
+      "path": "exports/dxf/spooler_bearing_plate.dxf",
+      "bytes": 372,
+      "sha256": "895cb350ce40ecfc89dbfcfceecd533f4eb1e0974a15afa8f316fcc6ad2599a4"
+    },
+    {
       "path": "exports/dxf/stage1_bearing_plate.dxf",
       "bytes": 752,
       "sha256": "26489f71a22fcfb8315412d1d7d424fb11247799c739b223095bab3b2a3ea3db"
@@ -198,6 +263,21 @@
       "path": "exports/dxf/stage3_bearing_plate.dxf",
       "bytes": 660,
       "sha256": "a26b70cf77f4846ce76737838a808374543c379ad2d947a791b82e9a3d2e5e17"
+    },
+    {
+      "path": "exports/step/cooling_tunnel_segment.step",
+      "bytes": 28063,
+      "sha256": "badaa89e5f78c6b3f1f8c70a391dff94a8e84c6ce78d67652beace6f2a446f85"
+    },
+    {
+      "path": "exports/step/diameter_gauge_enclosure.step",
+      "bytes": 30230,
+      "sha256": "8090c04ab26bbc58d1907cb67032535b6b80b5677c6d3baec8ee2f447e427175"
+    },
+    {
+      "path": "exports/step/diameter_gauge_optical_proof.step",
+      "bytes": 45644,
+      "sha256": "4757ecab66c855617ab7c712d55f444051ca422a91e2939ac4795449d6d663d1"
     },
     {
       "path": "exports/step/dryer_auger_housing.step",
@@ -255,9 +335,24 @@
       "sha256": "8e4e99bbaddb4f6ed55a59753817945f13bccae10daced4884619658b491a156"
     },
     {
+      "path": "exports/step/forming_line_proof.step",
+      "bytes": 338356,
+      "sha256": "5c9eb3a977bb04221e7410090bc7247b88c97bb0fc5f7f059beaf02be277f814"
+    },
+    {
       "path": "exports/step/full_assembly_skeleton.step",
-      "bytes": 115301,
-      "sha256": "35d077827a07e622e03175fc8543cd3a27f589afce993145b9509797cff11be0"
+      "bytes": 115353,
+      "sha256": "119f95bbaf114c794bf8d9ff653f7d80daccdc803bdfbeff9943503e4861d560"
+    },
+    {
+      "path": "exports/step/gauge_calibration_fixture.step",
+      "bytes": 12690,
+      "sha256": "fe193600858ba866466b8cf1c5800f056b4624dd734c58a05a734be076e9c1a6"
+    },
+    {
+      "path": "exports/step/puller_roller_pair.step",
+      "bytes": 9404,
+      "sha256": "de82707f9707f3873704ca2910b7237162d0228367af2a3ff7972216317527b3"
     },
     {
       "path": "exports/step/sorter_base_plate.step",
@@ -278,6 +373,26 @@
       "path": "exports/step/sorter_top_screen_6mm.step",
       "bytes": 367487,
       "sha256": "81dfcc1f7d2d5921188f3144c1fdf7c70cb80913fb6b983441eb83dbaf081e76"
+    },
+    {
+      "path": "exports/step/spool_adapter_set.step",
+      "bytes": 8391,
+      "sha256": "3aca2d8be892db7715a770ee6688f800e877bc8ac37c0c709ae6d543eb73f3cc"
+    },
+    {
+      "path": "exports/step/spooler_bearing_plate.step",
+      "bytes": 11272,
+      "sha256": "9d1e4d3ce87ad8f7605b6677d858e39b2ad21a61c1d8d10d7b3f892f8c0342ec"
+    },
+    {
+      "path": "exports/step/spooler_proof.step",
+      "bytes": 187694,
+      "sha256": "5937caca3a9df9b6a387aa2e60fd9deb5efccfb821670a363557e42acccc8fdb"
+    },
+    {
+      "path": "exports/step/spooler_shaft.step",
+      "bytes": 3513,
+      "sha256": "4120500bca3475752e6c5f4382802962ce0773f2e3622cad497f2e8c8810b907"
     },
     {
       "path": "exports/step/stage1_bearing_plate.step",
@@ -360,9 +475,29 @@
       "sha256": "c42ef2ae35742df499192c186f5b24af9801a9e100609614e8f8ef5ba5d320af"
     },
     {
+      "path": "exports/step/traverse_carriage.step",
+      "bytes": 8306,
+      "sha256": "a7e2e952f781b8d2bbd2b283472d468d528c03e04ecddccffc458aa815b5edbc"
+    },
+    {
       "path": "exports/step/vibratory_sorter_proof.step",
       "bytes": 1172909,
       "sha256": "ffd1cfd2f3b4f41ce4525d3e69d2db55179597cf368b953ba9cd92dcf6bd8acb"
+    },
+    {
+      "path": "exports/stl/cooling_tunnel_segment.stl",
+      "bytes": 4084,
+      "sha256": "ced01cc1e433e29a79c016b939c8034a5bee40b02a041d09969b41d4eac3632e"
+    },
+    {
+      "path": "exports/stl/diameter_gauge_enclosure.stl",
+      "bytes": 55084,
+      "sha256": "8d63cb072ce83497c726650f469b7c3da4038fdfb6f6e969cc1caf641f087e4c"
+    },
+    {
+      "path": "exports/stl/diameter_gauge_optical_proof.stl",
+      "bytes": 128684,
+      "sha256": "1b7af6bb25d565aa699947849319e15f81cb872a5c28d7d600cb4ad20a7589e4"
     },
     {
       "path": "exports/stl/dryer_auger_housing.stl",
@@ -420,9 +555,24 @@
       "sha256": "7fba4cb968821d673537754d3faa6cc76712d74d1714178bb57348e0dc3b4260"
     },
     {
+      "path": "exports/stl/forming_line_proof.stl",
+      "bytes": 489284,
+      "sha256": "2ce14de1f670ab99d44bd6472065de102c6353e291262d7251c40660cdaae039"
+    },
+    {
       "path": "exports/stl/full_assembly_skeleton.stl",
       "bytes": 12084,
-      "sha256": "a84b5ca634c3fd80ceb120efa6c59d9ac3cec64d60e456283927ca4ccf9e6d60"
+      "sha256": "bece361a6202a93c48273016968ac7f56d5bc1ef41c00bd81c4f39a65aa3553b"
+    },
+    {
+      "path": "exports/stl/gauge_calibration_fixture.stl",
+      "bytes": 102284,
+      "sha256": "372e4a5f8377d1d063e76b3210eacbe38683cf67fe17514ccdbf2024fc47cec3"
+    },
+    {
+      "path": "exports/stl/puller_roller_pair.stl",
+      "bytes": 100084,
+      "sha256": "32c5cb8cc2214d77e0cedf43c455e8c4276bc93cec00cbf748fdc7e9f80c9c74"
     },
     {
       "path": "exports/stl/sorter_base_plate.stl",
@@ -443,6 +593,26 @@
       "path": "exports/stl/sorter_top_screen_6mm.stl",
       "bytes": 32484,
       "sha256": "04e2054c285f120a2730fb33afcb837a5540857f6c57e4c820675f34ecdc9ffe"
+    },
+    {
+      "path": "exports/stl/spool_adapter_set.stl",
+      "bytes": 138684,
+      "sha256": "1ac5ec1fafd42d8a64cc96b1e08081cae00e385ceee0628ff212807bf1379c93"
+    },
+    {
+      "path": "exports/stl/spooler_bearing_plate.stl",
+      "bytes": 76884,
+      "sha256": "06e64228ea5e3a0428ff2f4a361addace4f155a32950be2d8b43059e21802594"
+    },
+    {
+      "path": "exports/stl/spooler_proof.stl",
+      "bytes": 1107084,
+      "sha256": "3ab946184504183179b3b2a9af66b367901c8135b2942a09b7530057fefa0c5d"
+    },
+    {
+      "path": "exports/stl/spooler_shaft.stl",
+      "bytes": 25084,
+      "sha256": "3d3155956fcf955067cb71f058d4cdb55ff2e4fbf796ac820f6449f88366406d"
     },
     {
       "path": "exports/stl/stage1_bearing_plate.stl",
@@ -525,24 +695,29 @@
       "sha256": "31b866043fce3a3204ad247d6aaa4d0c00ebc2f0790fb98052aff1e37c31e6d7"
     },
     {
+      "path": "exports/stl/traverse_carriage.stl",
+      "bytes": 26084,
+      "sha256": "2c9a92f555ca5a144dc11b480c18de1e6eabb5f1083347e8691515a26a46f1de"
+    },
+    {
       "path": "exports/stl/vibratory_sorter_proof.stl",
       "bytes": 525284,
       "sha256": "6a976c20a8b1f4b59122c8f067f6e747c08df27221b7b4ce4e5c15a0547474d7"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_bottom.png",
-      "bytes": 12090,
-      "sha256": "3c06470cfe50bc1ff876485014a8645c4764f53b3824569f54ab149ad9030fab"
+      "bytes": 11920,
+      "sha256": "43e1fe49e5ca8e4f121d14c89ef9682f17e74ad8896e4af8a59dd731f0e03df9"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_front.png",
-      "bytes": 12900,
-      "sha256": "3cb1bd8dba9bc0d7876f05c6d2518479bceb10cb13254afe71674244bdfb128d"
+      "bytes": 12664,
+      "sha256": "94a10d8bc48fd8646629565a523dc43c57cbdbee604c460ae880d1778b4438c5"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_isometric.png",
-      "bytes": 30215,
-      "sha256": "6c869991a8192c3edade373aa45ad9af8515a342c93039fe612150bc0d44181f"
+      "bytes": 30730,
+      "sha256": "f166d31014e2c82e915220850183ea9c2f48d9a10304b76374684191deb78379"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_left.png",
@@ -551,8 +726,8 @@
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_rear.png",
-      "bytes": 12717,
-      "sha256": "4a5d28180fec4f5dd0a6fb96dd144517d3992102bff266defe71a78c4515aa31"
+      "bytes": 12647,
+      "sha256": "bee8e7c86b62e7c9079588d0a3a88158ae35e11ac50a2dc55c6742ace5b9a6a2"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_right.png",
@@ -561,8 +736,43 @@
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_top.png",
-      "bytes": 12108,
-      "sha256": "d3e34079f59218edeea1ab40db5ae372e5daa3e29d64a6fb6447fb866359933a"
+      "bytes": 11720,
+      "sha256": "d2b176582147eaf58ad8aed5979e05cc560c561a21716e8f58f497956b5463f7"
+    },
+    {
+      "path": "renders/modules/diameter_gauge_optical_proof_bottom.png",
+      "bytes": 10469,
+      "sha256": "0d6f18b6f450053c2d0a29da32bdd8a99252b11383ed837e76995225d64194bc"
+    },
+    {
+      "path": "renders/modules/diameter_gauge_optical_proof_front.png",
+      "bytes": 11960,
+      "sha256": "8116732bff657d1bff1d21fd6eb9cb533a927884604fd96f1e7e656d140e25ab"
+    },
+    {
+      "path": "renders/modules/diameter_gauge_optical_proof_isometric.png",
+      "bytes": 25858,
+      "sha256": "5053b377c7b504a134ce57f154b40441a7c1af7421382eaa2388cc8dc073c56c"
+    },
+    {
+      "path": "renders/modules/diameter_gauge_optical_proof_left.png",
+      "bytes": 12097,
+      "sha256": "ff9fa759497e5015e7fedea0f78e1d291a6ebdd01bb1839ef3fcfb768d2f8edc"
+    },
+    {
+      "path": "renders/modules/diameter_gauge_optical_proof_rear.png",
+      "bytes": 12506,
+      "sha256": "9f1fcb70f9dff5161503298184e7b299fbe563daadc684d48f7abe93496945d7"
+    },
+    {
+      "path": "renders/modules/diameter_gauge_optical_proof_right.png",
+      "bytes": 12763,
+      "sha256": "a4f130d17189393472a776ccf46ac833fec59156fc611a7940d9447b33031a98"
+    },
+    {
+      "path": "renders/modules/diameter_gauge_optical_proof_top.png",
+      "bytes": 10836,
+      "sha256": "f39fc5f0243e6c3627011f905dfeefe248a7b228700ca4124f9e231899e98503"
     },
     {
       "path": "renders/modules/dryer_feeder_proof_bottom.png",
@@ -668,6 +878,76 @@
       "path": "renders/modules/extruder_screw_top.png",
       "bytes": 13458,
       "sha256": "15b6bfa04b666a5fbb66016244352495b12b74904e7d8ecfb9d0d64af94d06f5"
+    },
+    {
+      "path": "renders/modules/forming_line_proof_bottom.png",
+      "bytes": 14109,
+      "sha256": "6d3d5cfbc568da0292a85d4e7d7dfc463aff239db0696680551f2b6919849ab3"
+    },
+    {
+      "path": "renders/modules/forming_line_proof_front.png",
+      "bytes": 16223,
+      "sha256": "c2adf94d0b33a388071716c2f65265d2bdb6b5e6a95c7581684087cb4a68dd61"
+    },
+    {
+      "path": "renders/modules/forming_line_proof_isometric.png",
+      "bytes": 67027,
+      "sha256": "d29312ca17d607a8ed11361e724739091636993b1c919068c66d9aad2618b89e"
+    },
+    {
+      "path": "renders/modules/forming_line_proof_left.png",
+      "bytes": 37854,
+      "sha256": "7c99dcd3f4662680d96b63384eedbe320844d1c531f1c62f0e0cc29834a5e036"
+    },
+    {
+      "path": "renders/modules/forming_line_proof_rear.png",
+      "bytes": 16524,
+      "sha256": "6e2e20d4149a8200b6d08d18b73c97aaf0ec664dd4588feb794483f9713da45f"
+    },
+    {
+      "path": "renders/modules/forming_line_proof_right.png",
+      "bytes": 33530,
+      "sha256": "b5415db4607059e082a6ca2773c8893e3515c9a60c9f5fabbbcb0b7e82628a5c"
+    },
+    {
+      "path": "renders/modules/forming_line_proof_top.png",
+      "bytes": 23886,
+      "sha256": "7227508b1785511a1b5fe0e4af4961ee0a87fe756c63a46798ef6543e955bb26"
+    },
+    {
+      "path": "renders/modules/spooler_proof_bottom.png",
+      "bytes": 11895,
+      "sha256": "7d64a39a851b590b607ca80812a1c6f67eb734ba7a7c634de00554522a7f5498"
+    },
+    {
+      "path": "renders/modules/spooler_proof_front.png",
+      "bytes": 69107,
+      "sha256": "f33f07632ab25cac1858161cb23d149a8d077c1d144651037d65ba83248509dd"
+    },
+    {
+      "path": "renders/modules/spooler_proof_isometric.png",
+      "bytes": 102243,
+      "sha256": "dc46dea9f79c0ccc62534b15a1754ea2b950b9591bfa4f50e03798d5c3e9e7f5"
+    },
+    {
+      "path": "renders/modules/spooler_proof_left.png",
+      "bytes": 35009,
+      "sha256": "44de6f761cba0315e18242a5ceb9079fb1aa67e3f63c2fec4ae413f5eb51b4fa"
+    },
+    {
+      "path": "renders/modules/spooler_proof_rear.png",
+      "bytes": 56449,
+      "sha256": "6f90b07bf2bd72d5ed7030e63ce7c2c083b454a69005a755acf2e8f4e5f506c0"
+    },
+    {
+      "path": "renders/modules/spooler_proof_right.png",
+      "bytes": 37060,
+      "sha256": "82d671ad23534eaa38fff702cf23f70163ac2869daa88797110a0bf09c6ff111"
+    },
+    {
+      "path": "renders/modules/spooler_proof_top.png",
+      "bytes": 36993,
+      "sha256": "5f0999a8fb2cd601463f078b00baa174f21cc2a24b5e9f4b70c72f2ac5453da3"
     },
     {
       "path": "renders/modules/stage1_cutter_stack_bottom.png",

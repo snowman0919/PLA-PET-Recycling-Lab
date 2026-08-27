@@ -118,6 +118,9 @@ def main() -> None:
     render("dryer_feeder_proof", "modules", (0.72, 0.48, 0.18))
     render("extruder_screw", "modules", (0.58, 0.58, 0.62))
     render("extruder_proof", "modules", (0.68, 0.28, 0.18))
+    render("forming_line_proof", "modules", (0.26, 0.54, 0.66))
+    render("diameter_gauge_optical_proof", "modules", (0.42, 0.64, 0.78))
+    render("spooler_proof", "modules", (0.30, 0.48, 0.68))
     render("full_assembly_skeleton", "assembly", (0.35, 0.62, 0.86))
 
 

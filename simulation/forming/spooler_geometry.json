@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "shaft_bearing_contact_mm": 0.0,
+    "shaft_bearing_intersection_mm3": 0.0,
+    "bearing_frame_contact_mm": 0.0,
+    "adapter_spool_contact_mm": 0.0,
+    "adapter_spool_intersection_mm3": 0.0,
+    "adapter_shaft_radial_clearance_mm": 0.1,
+    "dancer_sweep_spool_intersection_mm3": 0.0,
+    "minimum_dancer_spool_clearance_mm": 6.445068,
+    "spool_guard_radial_clearance_mm": 5.0,
+    "drive_shaft_contact_mm": 0.0,
+    "base_x_min_mm": -15.0,
+    "base_x_max_mm": 340.0,
+    "spool_width_mm": 73.0,
+    "spool_outer_diameter_mm": 200.0,
+    "shaft_safety_factor": 30.509838,
+    "shaft_deflection_mm": 0.006274
+  },
+  "status": "PASS",
+  "limits": [
+    "The adapter has 0.1 mm nominal shaft clearance; a separate metal clamp/key must transmit torque and retain the spool axially.",
+    "Dancer clearance is a rigid end-angle envelope and excludes arm flex, roller runout, loose filament and guard deflection.",
+    "The 4 g shaft screen does not qualify printed adapters, frame joints, bearings, tip stability or resonance.",
+    "Traverse geometry proves travel space only; backlash, layer reversal and full-spool winding require a physical coupon."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "cooling_segment_length_mm": 146.666667,
+    "tunnel_length_mm": 440.0,
+    "fan_tunnel_contact_mm": 0.0,
+    "frame_tunnel_contact_mm": 0.0,
+    "filament_tunnel_intersection_mm3": 0.0,
+    "filament_gauge_enclosure_intersection_mm3": 0.0,
+    "direct_ray_filament_intersection_mm3": 3.095655,
+    "orthogonal_ray_filament_intersection_mm3": 3.095518,
+    "nip_gap_mm": 1.5,
+    "filament_nip_intersection_mm3": 0.402854,
+    "filament_puller_guard_intersection_mm3": 0.0,
+    "odometer_filament_contact_mm": 0.0
+  },
+  "status": "PASS",
+  "limits": [
+    "Ray cylinders prove only nominal dual-axis crossings; they do not prove optical resolution or uncertainty.",
+    "The 1.5 mm nip gap intentionally compresses a nominal 1.75 mm strand by 0.25 mm across compliant tyres.",
+    "Fan contact and openings do not prove occupied-duct air speed, pressure loss or thermal resistance.",
+    "Odometer zero distance is intended light contact; spring force, wheel runout and slip are unverified."
+  ]
+}

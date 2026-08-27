@@ -32,6 +32,10 @@ Dryer/feeder generator는 ID 140 mm 금속 hopper/cone, 40 mm 단열, ventilated
 
 Extruder generator는 18 mm×24 L/D single screw의 24회전 helical flight, 가변 root, ID18.2/OD38 barrel, cooled feed throat, breaker/screen interface, Ø3 mm die, 51102 thrust path, heater/insulation/shield와 pressure/rupture keep-out을 만든다. Flight는 10° chord의 닫힌 B-rep proof이며 smooth CNC toolpath 자체가 아니다.
 
+Forming-line generator는 3분할 440 mm 횡류 공랭 덕트, 두 직교 광로를 갖는 직경 게이지, Ø40 mm 동기 nip roller와 독립 Ø30 mm odometer를 만든다. `diameter_gauge_optical_proof`는 enclosure를 제거한 광학 배치 확인용이고, reference ray는 초점·왜곡·불확도 인증을 대신하지 않는다. 첫 hot-strand 덕트는 금속 또는 온도 적합 재료로 제작한다.
+
+Spooler generator는 Ø200×73 mm 최대 1 kg급 spool reference, 12 mm steel shaft/6001 bearing 지지, 교체형 taper adapter, 120 mm dancer, 70 mm traverse와 보호 cage를 만든다. Printed adapter는 유일한 torque·축방향 하중경로가 아니며 drive와 slip clutch는 공급품 keep-out이다.
+
 표준 review view는 FreeCAD 환경의 VTK로 STL triangle을 읽고 Pillow software projection으로 생성한다. OpenGL/EGL이 필요하지 않는다.
 
 ```bash

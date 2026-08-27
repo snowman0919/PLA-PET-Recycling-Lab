@@ -47,11 +47,11 @@ def build():
         # the hot-line service corridor.
         ("DryerFeeder", "MOD-DRYER", (470, 0, 60), (320, 270, 580)),
         ("Extruder", "MOD-EXTRUDER", (450, 300, 40), (850, 220, 240)),
-        # Downstream envelopes remain conservative placeholders until their
-        # component proofs are generated.  Their placement preserves about
-        # 760 mm from die exit through cooling/gauging to the spool centreline.
-        ("GaugePuller", "MOD-GAUGE-PULLER", (1360, 330, 70), (300, 120, 150)),
-        ("Spooler", "MOD-SPOOLER", (1800, 270, 20), (260, 240, 320)),
+        # Forming and spooler envelopes now match their proof CAD.  Their small
+        # X overlap is the guarded dancer/threading transition, not a rigid
+        # component collision.
+        ("CoolingGaugePuller", "MOD-COOL-GAUGE-PULLER", (1228, 330, 40), (760, 160, 180)),
+        ("Spooler", "MOD-SPOOLER", (1940, 270, 20), (355, 240, 320)),
         ("ControlEnclosure", "MOD-CONTROL", (820, 20, 60), (300, 220, 180)),
     ]
     for name, part_id, xyz, size in modules:
@@ -68,8 +68,8 @@ def build():
         "module_count": len(modules),
         "notes": [
             "Module solids are keep-out envelopes, not fabrication geometry.",
-            "Dryer and extruder envelopes match their current proof CAD; gauge/puller and spooler remain conservative placeholders.",
-            "The 2.06 m by 0.52 m workbench footprint preserves the 0.76 m downstream filament conditioning line.",
+            "Dryer, extruder, cooling/gauge/puller and spooler envelopes match their current proof CAD.",
+            "The 2.295 m by 0.52 m workbench footprint preserves about 0.96 m from die to loaded-spool centreline.",
             "Tower center of mass and anchoring require later validation.",
             "No safety acceptance may be inferred from this skeleton.",
         ],
