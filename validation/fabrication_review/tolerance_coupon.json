@@ -1,0 +1,34 @@
+{
+  "revision": "0.1.0-preflight",
+  "base": {
+    "x_mm": 100.0,
+    "y_mm": 70.0,
+    "z_mm": 5.0,
+    "fits_210_cube": true
+  },
+  "comb": {
+    "x_mm": 100.0,
+    "y_mm": 34.0,
+    "z_mm": 5.0,
+    "fits_210_cube": true
+  },
+  "gap_series_mm": [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "hole_diameters_mm": [
+    3.8,
+    4.0,
+    4.2,
+    4.4,
+    4.6
+  ],
+  "outputs": {
+    "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/tolerance_coupon.FCStd",
+    "step": "/home/monad/develop/PPR/exports/step/tolerance_coupon.step",
+    "stl": "/home/monad/develop/PPR/exports/stl/tolerance_coupon.stl"
+  }
+}

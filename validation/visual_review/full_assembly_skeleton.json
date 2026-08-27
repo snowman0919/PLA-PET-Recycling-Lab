@@ -1,0 +1,19 @@
+{
+  "revision": "0.1.0-preflight",
+  "overall_mm": {
+    "x": 1300.0,
+    "y": 400.0,
+    "z": 720.0
+  },
+  "module_count": 10,
+  "notes": [
+    "Module solids are keep-out envelopes, not fabrication geometry.",
+    "Filament-line length and tower center of mass require later validation.",
+    "No safety acceptance may be inferred from this skeleton."
+  ],
+  "outputs": {
+    "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/full_assembly_skeleton.FCStd",
+    "step": "/home/monad/develop/PPR/exports/step/full_assembly_skeleton.step",
+    "stl": "/home/monad/develop/PPR/exports/stl/full_assembly_skeleton.stl"
+  }
+}

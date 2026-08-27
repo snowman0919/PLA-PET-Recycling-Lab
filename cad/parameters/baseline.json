@@ -1,0 +1,31 @@
+{
+  "revision": "0.1.0-preflight",
+  "print_bed_limit_mm": 210.0,
+  "fits": {
+    "locating_clearance_mm": 0.10,
+    "sliding_clearance_mm": 0.25,
+    "flake_exposed_clearance_mm": 0.40
+  },
+  "stage1": {
+    "cutter_outer_diameter_mm": 60.0,
+    "cutter_root_diameter_mm": 38.0,
+    "cutter_thickness_mm": 6.0,
+    "shaft_center_distance_mm": 50.0,
+    "shaft_diameter_mm": 17.0,
+    "active_width_mm": 66.0,
+    "bearing_span_mm": 80.0
+  },
+  "assembly": {
+    "tower_width_mm": 440.0,
+    "tower_depth_mm": 360.0,
+    "tower_height_mm": 720.0,
+    "filament_line_length_mm": 760.0,
+    "profile_heavy_mm": 40.0,
+    "profile_light_mm": 20.0
+  },
+  "tolerance_coupon": {
+    "gaps_mm": [0.10, 0.20, 0.30, 0.40, 0.50],
+    "nominal_tab_mm": 10.0,
+    "hole_diameters_mm": [3.8, 4.0, 4.2, 4.4, 4.6]
+  }
+}
