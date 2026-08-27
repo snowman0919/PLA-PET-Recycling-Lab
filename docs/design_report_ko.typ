@@ -42,7 +42,7 @@
 
 Mega가 위험 actuator 최종 권한을 가지고 Pi는 vision, recipe와 log를 담당한다. E-stop, guard chain, thermal fuse, pressure trip과 contactor는 firmware 밖에서 동작한다.
 
-43개 시스템 요구사항은 `requirements/compliance_matrix.md`에서 one-to-one 추적한다. 현재 집계는 automated pass 3, design evidence 29, physical open 5, external-blocked 6이며 해석·host test를 물리 T/D 합격으로 바꾸지 않았다.
+43개 시스템 요구사항은 `requirements/compliance_matrix.md`에서 one-to-one 추적한다. 현재 집계는 automated pass 3, design evidence 30, physical open 4, external-blocked 6이며 해석·host test를 물리 T/D 합격으로 바꾸지 않았다.
 
 = 입력 분류와 저장
 
@@ -174,6 +174,8 @@ Metal partition 기준 좌우 keep-out gap은 30 mm이고 전원/히터와 logic
 ]
 
 = 검증 상태와 잔여 위험
+
+Stage 1 shaft/cutter/plate, reducer output, extruder thrust plate, spooler shaft와 frame column은 20-element Euler–Bernoulli FEA와 닫힌형 해를 교차검증했다. 미확정 15 mm reducer overhang과 brace 없는 단일 frame column은 `REVIEW_REQUIRED`다. 이는 1D screening이며 3D contact/notch/joint·impact·fatigue 해석을 대체하지 않는다.
 
 #table(
   columns: (1.4fr, 1fr, 2.2fr), inset: 4pt, stroke: 0.5pt + rgb("c8d5d9"),

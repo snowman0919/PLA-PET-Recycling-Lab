@@ -7,7 +7,8 @@
 - 43개 요구사항의 증거·물리 미검증·외부 blocker one-to-one 감사표 추가
 - 구매/CNC/print/project-lab/donor 및 required/optional을 분리한 비용 rollup 추가
 - 34행 CNC/sheet-fabrication DFM·RFQ precheck package 추가
-- Release artifact 288개와 자동검증 24-gate 체계로 확장
+- 7개 load path의 analytic·20-element beam FEA 교차검증과 review gate 추가
+- Release artifact 290개와 자동검증 25-gate 체계로 확장
 
 ## 0.1.0-preflight — 2026-08-28
 

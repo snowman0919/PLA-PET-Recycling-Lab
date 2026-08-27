@@ -2,7 +2,7 @@
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
   "generated_utc": "2026-08-27T20:15:00Z",
-  "artifact_count": 288,
+  "artifact_count": 290,
   "artifacts": [
     {
       "path": "bom/bom.md",
@@ -285,14 +285,19 @@
       "sha256": "715aecfabba8863d777698c4955919a96f54ede1097cbc9383e190444379c47d"
     },
     {
+      "path": "calculations/structural/beam_fea.md",
+      "bytes": 1990,
+      "sha256": "3b72d8aacb82ddc9b92112a4efc75d32df2af70198cc884cccea7b3e90eb3ef9"
+    },
+    {
       "path": "docs/build_manual_ko.pdf",
       "bytes": 1013393,
       "sha256": "276d7a577f91d437600af1e0ff82959b36cc3461dc0ffd8aeded03d9ce0c3ef5"
     },
     {
       "path": "docs/design_report_ko.pdf",
-      "bytes": 896121,
-      "sha256": "653f7dc58f88e928c24c2bed82b4180185ac6c343c9976b24c019a2662e238f3"
+      "bytes": 897349,
+      "sha256": "8e4ab49c412f2c056768afd0712c9782438106493f3089db75649c0550760305"
     },
     {
       "path": "exports/cnc_quote_packages/README.md",
@@ -1436,13 +1441,18 @@
     },
     {
       "path": "requirements/compliance_matrix.csv",
-      "bytes": 9768,
-      "sha256": "b2ec6fae15e7eb6fd258f3844a95bb32dfb068d172726d2af80c68327cd9f8e8"
+      "bytes": 9877,
+      "sha256": "a7ae5c495b75b579ec2cee9731d7fca034e4229295c67b6b603269bd14cd28a4"
     },
     {
       "path": "requirements/compliance_matrix.md",
-      "bytes": 11957,
-      "sha256": "55ae11931aaa269bf9496952104e3473c427f3fdfb477e4b9c4dcbe63083a525"
+      "bytes": 12081,
+      "sha256": "a3748a83d8a256a514593bc603e0cd3e8006624fedfbd31b6974c894dda24bf8"
+    },
+    {
+      "path": "simulation/structural/beam_crosscheck.json",
+      "bytes": 7377,
+      "sha256": "e76b945c0bfc0ce86bec86cd02d79f93703088734569ae262993977526407f76"
     }
   ]
 }

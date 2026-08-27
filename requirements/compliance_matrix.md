@@ -8,8 +8,8 @@
 |---|---:|
 | AUTOMATED_PASS | 3 |
 | BLOCKED_EXTERNAL | 6 |
-| DESIGN_EVIDENCE | 29 |
-| PHYSICAL_OPEN | 5 |
+| DESIGN_EVIDENCE | 30 |
+| PHYSICAL_OPEN | 4 |
 
 총 43개 요구사항이다. 물리 시험이나 외부 증거가 필요한 행은 자동 검사 통과로 닫지 않는다.
 
@@ -39,7 +39,7 @@
 | REQ-MECH-002 | DESIGN_EVIDENCE | `docs/design_report_ko.typ`<br>`cad/freecad/full_assembly/generate.py` | `validation/test_cad_generation.py` | Assembly inspection of metal load path and frame joints | User |
 | REQ-MECH-003 | AUTOMATED_PASS | `cad/parameters/baseline.json`<br>`validation/test_cad_generation.py` | `validation/test_cad_generation.py` | None for current generated geometry | Codex |
 | REQ-MECH-004 | DESIGN_EVIDENCE | `calculations/shredder/stage1_proof_design.md`<br>`exports/drawings/stage1_cutter_notes.md` | `validation/test_stage1_kinematics.py` | Measured shim stack and loaded-clearance test | User |
-| REQ-MECH-005 | PHYSICAL_OPEN | `calculations/shredder/stage1_proof_design.md`<br>`calculations/forming/line_design.md` | `validation/test_stage1_kinematics.py`<br>`validation/test_spooler_geometry.py` | Finite-element cross-check for all required shafts and loaded physical confirmation | Codex and User |
+| REQ-MECH-005 | DESIGN_EVIDENCE | `calculations/shredder/stage1_proof_design.md`<br>`calculations/forming/line_design.md`<br>`calculations/structural/beam_fea.md`<br>`simulation/structural/beam_crosscheck.json` | `validation/test_stage1_kinematics.py`<br>`validation/test_spooler_geometry.py`<br>`validation/test_structural_beam_fea.py` | 3D mesh/contact/notch/joint convergence and loaded physical confirmation | Codex and User |
 | REQ-MECH-006 | DESIGN_EVIDENCE | `exports/drawings/stage1_bearing_plate_notes.md`<br>`exports/drawings/extruder_notes.md`<br>`docs/maintenance.md` | `validation/test_cad_generation.py` | Tool-access and module-removal physical review | User |
 | REQ-THERM-001 | DESIGN_EVIDENCE | `calculations/extruder/screw_design.md`<br>`firmware/arduino_mega/filament_recycler_mega.ino` | `validation/test_extruder_design.py`<br>`firmware/arduino_mega/tests/test_sketch_compile.cpp` | Zone sensor heater and recipe commissioning trace | User |
 | REQ-THERM-002 | PHYSICAL_OPEN | `calculations/thermal/dryer_feeder.md`<br>`electronics/schematics/safety_power_control.md` | `validation/test_dryer_feeder_budget.py` | Worst-case thermocouple test on guards and polymer housings | User |
