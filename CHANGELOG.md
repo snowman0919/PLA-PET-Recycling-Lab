@@ -13,6 +13,7 @@
 - 조립 PDF에 필수 40개 topic과 81행 BOM·출력/CNC/배선/교정/정비 appendix 수록
 - 압출기 insulation 실두께 50 mm 변경, shield/인접 polymer 정상·fault 열저항 gate와 직접 복사 시야 금지 추가
 - Release artifact 314개와 자동검증 28-gate 체계로 확장
+- 현재 revision clean clone의 CAD/render/Nix Typst PDF/28-gate 재생성과 deterministic artifact 일치 확인
 - TFT-independent 9-page UI core, startup/purge interlock, Mega–Pi UI snapshot 계약 추가
 - 사용자 요청의 2-tower rack 재범위, 보유 IRLZ44N/camera 조달 처리, concrete render와 draft 문서 정책 기록
 

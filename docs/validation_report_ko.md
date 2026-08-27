@@ -54,6 +54,6 @@ Revision: `0.1.0-preflight`
 
 ## 재현 상태
 
-`v0.1.0-preflight` 기준 별도 임시 clean clone의 22-gate와 `52c5b3f` 기준 26-gate에 이어, 현재 revision clean clone에서도 generator→표준/review render→Nix Typst PDF→28-gate 전체 재실행을 요구한다. 최종 clean-clone 결과는 이 변경의 검증 완료 시점에 갱신한다.
+`v0.1.0-preflight` 기준 별도 임시 clean clone의 22-gate와 `52c5b3f` 기준 26-gate에 이어, 현재 revision clean clone에서도 generator→표준/review render→Nix Typst PDF→28-gate 전체 재실행이 PASS했다. 재생성 전후 STEP/STL/DXF/133개 PNG/두 PDF와 계산 Markdown/JSON 변경은 0건이었다. FreeCAD container 51개와 해당 실행 bytes를 기록한 manifest만 예상대로 달라졌다.
 
 STEP header timestamp와 review JSON 경로는 deterministic 값/저장소 상대경로로 정규화한다. STL, DXF, 표준/review render, Nix Typst 0.15.1 PDF, 계산 JSON과 review JSON은 clean clone에서 byte-identical했다. FCStd 51개는 FreeCAD가 생성 시각·UUID·내부 object ID를 기록하므로 형상·object-set 검증은 재현되지만 container byte hash는 실행마다 달라질 수 있다. Manifest는 해당 실행에서 전달되는 실제 파일의 hash를 기록한다.
