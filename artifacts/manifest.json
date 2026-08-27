@@ -1,8 +1,8 @@
 {
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
-  "generated_utc": "2026-08-27T18:24:00Z",
-  "artifact_count": 142,
+  "generated_utc": "2026-08-27T19:07:00Z",
+  "artifact_count": 175,
   "artifacts": [
     {
       "path": "cad/generation/fcstd/dryer_auger_housing.FCStd",
@@ -30,9 +30,39 @@
       "sha256": "c6047df35aa37570c7ad8ebf322c45f02ed92c29dc03ce578eb139895e4a02bb"
     },
     {
+      "path": "cad/generation/fcstd/extruder_barrel.FCStd",
+      "bytes": 57228,
+      "sha256": "4262a88041b01246086569e408999d741eaf5df317505fc338d76072a10be1f9"
+    },
+    {
+      "path": "cad/generation/fcstd/extruder_breaker_plate.FCStd",
+      "bytes": 3273,
+      "sha256": "32df74152a18993d9bc926abcce5038ccd0de9d8ce98612c531ec8bc59b3be18"
+    },
+    {
+      "path": "cad/generation/fcstd/extruder_die.FCStd",
+      "bytes": 3199,
+      "sha256": "e5c7052fa2b5800172dbea62b1d478d83f64266eba2ff359fc1b64db35806ce6"
+    },
+    {
+      "path": "cad/generation/fcstd/extruder_proof.FCStd",
+      "bytes": 2907215,
+      "sha256": "42fc14aef278c7a93e64db2b231f57c45ad61646f102fd2fa60e7a2f5f0b0489"
+    },
+    {
+      "path": "cad/generation/fcstd/extruder_screw.FCStd",
+      "bytes": 2815342,
+      "sha256": "61de19c9c2a72214eaa74a4ed549b72a087ef9b1d2b87b6d7e83b21c087183fc"
+    },
+    {
+      "path": "cad/generation/fcstd/extruder_thrust_plate.FCStd",
+      "bytes": 3669,
+      "sha256": "59cbd62d385dd5d538f9d266e79eec1aace49e6ad0c854a29c8b151fc20e074c"
+    },
+    {
       "path": "cad/generation/fcstd/full_assembly_skeleton.FCStd",
-      "bytes": 23223,
-      "sha256": "c645af741999e7fec1f5fe3aa781107a96ed048c64427addcfde76a2b271685b"
+      "bytes": 23224,
+      "sha256": "083cec5b5d3329db2cf82f12acdcd5bdc5fa9500a99468a9aa874bdb81d58bec"
     },
     {
       "path": "cad/generation/fcstd/sorter_base_plate.FCStd",
@@ -145,6 +175,11 @@
       "sha256": "587690d3c3aed27799dd0de67ad25fdddf80fa6063dbff3232c94a0e643e4bb1"
     },
     {
+      "path": "exports/dxf/extruder_thrust_plate.dxf",
+      "bytes": 375,
+      "sha256": "a76fde6f488e26a02267ef5fdb23fa374722a413f391f45e722050547ee8149e"
+    },
+    {
       "path": "exports/dxf/sorter_base_plate.dxf",
       "bytes": 420,
       "sha256": "3c861ee0f70468a064457c00f0af0ffb1bfcc15d6ee126f84b73eac46f0bf5a3"
@@ -190,9 +225,39 @@
       "sha256": "122dc33d23110565963d7683a10df6130965c738ade76b63fd765b1c1f8d960e"
     },
     {
+      "path": "exports/step/extruder_barrel.step",
+      "bytes": 86953,
+      "sha256": "b35ec5ee112390e3b679aad732d7bf7ad78b0409a1fd9cc42992696b91054e0e"
+    },
+    {
+      "path": "exports/step/extruder_breaker_plate.step",
+      "bytes": 14097,
+      "sha256": "dc6017287659798cb3264637c499e04da827bc73d66cf6570c382bbe4995bb7e"
+    },
+    {
+      "path": "exports/step/extruder_die.step",
+      "bytes": 6894,
+      "sha256": "ff8a96c8b3b88136eefc3e9d39eaf54a71c5da7ca2835e861faa0949c7fe54ce"
+    },
+    {
+      "path": "exports/step/extruder_proof.step",
+      "bytes": 8799710,
+      "sha256": "7a346b5052e2236137d86a5415b075bc41ddece3f540564942ff395ace39163f"
+    },
+    {
+      "path": "exports/step/extruder_screw.step",
+      "bytes": 8413266,
+      "sha256": "cfaed1188d4828d2dfe62501eff85efbbf1f446b56c65907d62b1bde98c1b639"
+    },
+    {
+      "path": "exports/step/extruder_thrust_plate.step",
+      "bytes": 11340,
+      "sha256": "8e4e99bbaddb4f6ed55a59753817945f13bccae10daced4884619658b491a156"
+    },
+    {
       "path": "exports/step/full_assembly_skeleton.step",
-      "bytes": 115263,
-      "sha256": "685efbbd851ad77598f67a920b893d63f676b6c964e51ed243a178b29688ee73"
+      "bytes": 115301,
+      "sha256": "35d077827a07e622e03175fc8543cd3a27f589afce993145b9509797cff11be0"
     },
     {
       "path": "exports/step/sorter_base_plate.step",
@@ -325,9 +390,39 @@
       "sha256": "984a58ace27f24a33ac14ae161f71e8293efeb3e4df1b3f963e45c4726f3a16c"
     },
     {
+      "path": "exports/stl/extruder_barrel.stl",
+      "bytes": 242484,
+      "sha256": "0d0f60d44ce80a774f0bc94c8023f3c2a67cbdebadcbbeb83150ef785dde1f2e"
+    },
+    {
+      "path": "exports/stl/extruder_breaker_plate.stl",
+      "bytes": 202884,
+      "sha256": "acf93449f725457b85a61cb07bacfcefc892563d33314e4b79d294953b8ab2bb"
+    },
+    {
+      "path": "exports/stl/extruder_die.stl",
+      "bytes": 113484,
+      "sha256": "92d43e31f87bfa9af430264ec61ced55d77038f73861e1d831370f5c9bf03230"
+    },
+    {
+      "path": "exports/stl/extruder_proof.stl",
+      "bytes": 3325184,
+      "sha256": "f0a2b059a7e3adc3bf1d3e4e1864885069467b1c4ba7e6efd430697eb518c591"
+    },
+    {
+      "path": "exports/stl/extruder_screw.stl",
+      "bytes": 1576984,
+      "sha256": "52e845b47d9d93b99db41709930f141b243c4094cbd7195f80b3a9f457146c78"
+    },
+    {
+      "path": "exports/stl/extruder_thrust_plate.stl",
+      "bytes": 76884,
+      "sha256": "7fba4cb968821d673537754d3faa6cc76712d74d1714178bb57348e0dc3b4260"
+    },
+    {
       "path": "exports/stl/full_assembly_skeleton.stl",
       "bytes": 12084,
-      "sha256": "1c7e753a1cba6646c36f057929d301d0883ac772a7a0b58bc32bfff6d9596f3d"
+      "sha256": "a84b5ca634c3fd80ceb120efa6c59d9ac3cec64d60e456283927ca4ccf9e6d60"
     },
     {
       "path": "exports/stl/sorter_base_plate.stl",
@@ -436,38 +531,38 @@
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_bottom.png",
-      "bytes": 12384,
-      "sha256": "9540cbaabde89fa9e39e0e8864d3d13175f5f160aca16a1f843acb35e43607f5"
+      "bytes": 12090,
+      "sha256": "3c06470cfe50bc1ff876485014a8645c4764f53b3824569f54ab149ad9030fab"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_front.png",
-      "bytes": 14438,
-      "sha256": "2cfef558245c898976fcbf1f54a47c4ee7a9c014158fc30b42245c39d07447ee"
+      "bytes": 12900,
+      "sha256": "3cb1bd8dba9bc0d7876f05c6d2518479bceb10cb13254afe71674244bdfb128d"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_isometric.png",
-      "bytes": 32265,
-      "sha256": "38b108f9690a7830fe73af4dd1eec58e076f1df2abdf46231d5434910cd2a173"
+      "bytes": 30215,
+      "sha256": "6c869991a8192c3edade373aa45ad9af8515a342c93039fe612150bc0d44181f"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_left.png",
-      "bytes": 13494,
-      "sha256": "cd562e218082d06e26416bab0c058c59d835ab78f9526b1b70d710246244e469"
+      "bytes": 13748,
+      "sha256": "55f7c0cbb45f3dbf982214d1c51156260ae38086ff0ceb46a3f278d822951f90"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_rear.png",
-      "bytes": 14699,
-      "sha256": "a6ba959cb6dd0303a45357e5707de5beff6342f5c8c2de26866a7d1c8cd9f46d"
+      "bytes": 12717,
+      "sha256": "4a5d28180fec4f5dd0a6fb96dd144517d3992102bff266defe71a78c4515aa31"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_right.png",
-      "bytes": 12884,
-      "sha256": "61b784b4023d47737fd5fabd4b50971021e2f51d333807cf93da2e40533615bf"
+      "bytes": 12836,
+      "sha256": "84a7c0cbe2aef2bb027a2554a000d4ea0b7445fe6565674928272c7ec26194b4"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_top.png",
-      "bytes": 12259,
-      "sha256": "f4010f0a450f594e308308d8aff1a77944ea70c73e57c9922a05fc2f43623b4f"
+      "bytes": 12108,
+      "sha256": "d3e34079f59218edeea1ab40db5ae372e5daa3e29d64a6fb6447fb866359933a"
     },
     {
       "path": "renders/modules/dryer_feeder_proof_bottom.png",
@@ -503,6 +598,76 @@
       "path": "renders/modules/dryer_feeder_proof_top.png",
       "bytes": 84550,
       "sha256": "dbb5c517aeddcfba9f2a8fd4127bc544299be98e085a12e86e2652f4fae35da7"
+    },
+    {
+      "path": "renders/modules/extruder_proof_bottom.png",
+      "bytes": 9835,
+      "sha256": "1bb6b995ed9abaa066bba906bbacbb6ed4427a98f85ba4e127593f7c130fe39a"
+    },
+    {
+      "path": "renders/modules/extruder_proof_front.png",
+      "bytes": 17904,
+      "sha256": "566cf706665cbe7b4ba46d201421a0d139133fd2a2da5cc2cd62d293d2df0bb8"
+    },
+    {
+      "path": "renders/modules/extruder_proof_isometric.png",
+      "bytes": 71649,
+      "sha256": "154578ecea53cc00acfb9cf60da3d5f219702e367912fbca05c374b25625e0c0"
+    },
+    {
+      "path": "renders/modules/extruder_proof_left.png",
+      "bytes": 24032,
+      "sha256": "36220584de011756343f724154b666996753c8e8f4506f4c307bf3aab1bbf8fe"
+    },
+    {
+      "path": "renders/modules/extruder_proof_rear.png",
+      "bytes": 17995,
+      "sha256": "74e738b5fe4148753205349aedfe9c5268ce870ee220e4ed8bbf0750b80eba27"
+    },
+    {
+      "path": "renders/modules/extruder_proof_right.png",
+      "bytes": 43698,
+      "sha256": "c5b7db8798d2a90b2b0918c0d586fc929e50a9b6086d4e8c3a9f2fe7a7504048"
+    },
+    {
+      "path": "renders/modules/extruder_proof_top.png",
+      "bytes": 19507,
+      "sha256": "8dc591d8363b2e1a3d3e6afbc04cc1b19313b56df450254df9f7af972ef04f36"
+    },
+    {
+      "path": "renders/modules/extruder_screw_bottom.png",
+      "bytes": 13104,
+      "sha256": "0e1d3097f1d00e2e020d87a851bcac0ec675ffbd8e488ffccb0988327dcbbfa4"
+    },
+    {
+      "path": "renders/modules/extruder_screw_front.png",
+      "bytes": 13369,
+      "sha256": "8ffe73d8f738b15e78b4cd8d7e9d5ac83f478380a1e31113d60d66c3e30e966c"
+    },
+    {
+      "path": "renders/modules/extruder_screw_isometric.png",
+      "bytes": 48585,
+      "sha256": "8b5c3ef554f3c8423c9e19e9caf20bb44e77d4a28b886e0a2438ac37cae60342"
+    },
+    {
+      "path": "renders/modules/extruder_screw_left.png",
+      "bytes": 63989,
+      "sha256": "b75bdd996b01c17f864d12c0211b1faba41aa7e9062407af77de5851960b4342"
+    },
+    {
+      "path": "renders/modules/extruder_screw_rear.png",
+      "bytes": 13136,
+      "sha256": "4e7d16a0d3072f20b5d1ea07fecec42a690b18e844e3278ee4423a96bea32939"
+    },
+    {
+      "path": "renders/modules/extruder_screw_right.png",
+      "bytes": 107095,
+      "sha256": "9750aa835f67e4698373e91bd5b3e48d87ab091a443de59d9b876d76823c2543"
+    },
+    {
+      "path": "renders/modules/extruder_screw_top.png",
+      "bytes": 13458,
+      "sha256": "15b6bfa04b666a5fbb66016244352495b12b74904e7d8ecfb9d0d64af94d06f5"
     },
     {
       "path": "renders/modules/stage1_cutter_stack_bottom.png",

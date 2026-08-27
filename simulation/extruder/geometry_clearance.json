@@ -1,0 +1,33 @@
+{
+  "checks": {
+    "screw_barrel_vertex_envelope_clearance_mm": 0.1,
+    "maximum_screw_radius_in_barrel_mm": 9.0,
+    "screw_breaker_bbox_gap_mm": 2.0,
+    "breaker_die_contact_mm": 0.0,
+    "thrust_bearing_shoulder_contact_mm": 0.0,
+    "thrust_bearing_support_contact_mm": 0.0,
+    "barrel_support_contact_mm": 0.0,
+    "drive_support_contact_mm": 0.0,
+    "barrel_bore_probe_clearance_mm": 0.1,
+    "barrel_bore_probe_intersection_mm3": 0.0,
+    "pressure_port_probe_intersection_mm3": 0.0,
+    "rupture_port_probe_intersection_mm3": 0.0,
+    "die_land_probe_intersection_mm3": 0.0,
+    "heater_insulation_contact_mm": 0.0,
+    "insulation_shield_air_gap_mm": 8.0,
+    "flight_chord_error_mm": 0.034248,
+    "thrust_bearing_to_hot_barrel_mm": 73.0,
+    "support_base_x_min_mm": -90.0,
+    "support_base_x_max_mm": 760.0,
+    "pressure_devices_x_max_mm": 756.0
+  },
+  "status": "PASS",
+  "limits": [
+    "Rigid nominal geometry excludes machined runout, thermal differential growth, bending, wear and polymer wedging.",
+    "Screw/barrel clearance is a complete B-rep vertex-envelope proof: the convex planar flight facets lie at or inside their 9 mm-radius vertices; an all-face boolean was rejected as too slow for repeatable CI.",
+    "The flight uses 36 planar facets per turn; a smooth machined helix must preserve the dimensioned OD and measured clearance.",
+    "Zero-distance bearing and clamp contacts are load-path envelopes, not fit/preload or fastener approval.",
+    "The drive-support check proves only geometric contact to the cradle/pedestal; bolt patterns and vibration isolation remain supplier-dependent.",
+    "Pressure and rupture probes only prove open ports; thread strength, diaphragm rating and relief discharge are unverified."
+  ]
+}

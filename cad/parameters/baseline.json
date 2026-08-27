@@ -267,6 +267,9 @@
     "screw_diameter_mm": 18.0,
     "barrel_inner_diameter_mm": 18.2,
     "barrel_outer_diameter_mm": 38.0,
+    "screw_tail_diameter_mm": 15.0,
+    "screw_tail_length_mm": 140.0,
+    "screw_barrel_radial_clearance_mm": 0.1,
     "length_to_diameter_ratio": 24.0,
     "pitch_ratio": 1.0,
     "flight_width_ratio": 0.1,
@@ -288,8 +291,16 @@
     "die_land_mm": 12.0,
     "breaker_hole_count": 7,
     "breaker_hole_diameter_mm": 1.5,
+    "breaker_thickness_mm": 6.0,
+    "base_origin_x_mm": -90.0,
+    "base_length_mm": 850.0,
+    "base_width_mm": 220.0,
+    "base_thickness_mm": 6.0,
+    "support_plate_thickness_mm": 12.0,
+    "minimum_thrust_heat_break_mm": 50.0,
     "insulation_thickness_mm": 40.0,
     "shield_air_gap_mm": 8.0,
+    "shield_thickness_mm": 1.0,
     "heater_zone_power_w": [80.0, 80.0, 80.0, 60.0],
     "heater_peak_power_w": 300.0,
     "pla_profile_c": [180.0, 190.0, 200.0, 190.0],
@@ -307,6 +318,12 @@
       "static_rating_n": 16800.0,
       "maximum_catalog_temperature_c": 120.0,
       "bearing_plate_target_max_c": 70.0
+    },
+    "radial_bearing": {
+      "designation_candidate": "6002-2RS",
+      "bore_mm": 15.0,
+      "outer_diameter_mm": 32.0,
+      "width_mm": 9.0
     }
   },
   "assembly": {
@@ -314,6 +331,9 @@
     "tower_depth_mm": 360.0,
     "tower_height_mm": 720.0,
     "filament_line_length_mm": 760.0,
+    "overall_length_mm": 2060.0,
+    "overall_depth_mm": 520.0,
+    "overall_height_mm": 720.0,
     "profile_heavy_mm": 40.0,
     "profile_light_mm": 20.0
   },

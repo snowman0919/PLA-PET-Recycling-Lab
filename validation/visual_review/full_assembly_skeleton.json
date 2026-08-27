@@ -1,14 +1,16 @@
 {
   "revision": "0.1.0-preflight",
   "overall_mm": {
-    "x": 1300.0,
-    "y": 400.0,
+    "x": 2060.0,
+    "y": 520.0,
     "z": 720.0
   },
   "module_count": 10,
   "notes": [
     "Module solids are keep-out envelopes, not fabrication geometry.",
-    "Filament-line length and tower center of mass require later validation.",
+    "Dryer and extruder envelopes match their current proof CAD; gauge/puller and spooler remain conservative placeholders.",
+    "The 2.06 m by 0.52 m workbench footprint preserves the 0.76 m downstream filament conditioning line.",
+    "Tower center of mass and anchoring require later validation.",
     "No safety acceptance may be inferred from this skeleton."
   ],
   "outputs": {

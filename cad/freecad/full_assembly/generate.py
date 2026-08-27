@@ -41,11 +41,18 @@ def build():
         ("ShredderStage2", "MOD-SHRED-2", (105, 110, 325), (230, 140, 95)),
         ("GranulatorStage3", "MOD-SHRED-3", (115, 115, 210), (210, 130, 95)),
         ("VibratorySorter", "MOD-SORTER", (80, 80, 90), (280, 200, 95)),
-        ("DryerFeeder", "MOD-DRYER", (470, 50, 310), (180, 180, 300)),
-        ("Extruder", "MOD-EXTRUDER", (470, 245, 235), (330, 90, 90)),
-        ("GaugePuller", "MOD-GAUGE-PULLER", (820, 245, 225), (210, 90, 110)),
-        ("Spooler", "MOD-SPOOLER", (1060, 180, 130), (240, 220, 300)),
-        ("ControlEnclosure", "MOD-CONTROL", (470, 50, 60), (220, 170, 180)),
+        # The dryer and extruder use their validated proof envelopes.  They are
+        # separated laterally so a flexible, grounded metal transfer tube can
+        # connect the auger outlet to the cooled feed throat without occupying
+        # the hot-line service corridor.
+        ("DryerFeeder", "MOD-DRYER", (470, 0, 60), (320, 270, 580)),
+        ("Extruder", "MOD-EXTRUDER", (450, 300, 40), (850, 220, 240)),
+        # Downstream envelopes remain conservative placeholders until their
+        # component proofs are generated.  Their placement preserves about
+        # 760 mm from die exit through cooling/gauging to the spool centreline.
+        ("GaugePuller", "MOD-GAUGE-PULLER", (1360, 330, 70), (300, 120, 150)),
+        ("Spooler", "MOD-SPOOLER", (1800, 270, 20), (260, 240, 320)),
+        ("ControlEnclosure", "MOD-CONTROL", (820, 20, 60), (300, 220, 180)),
     ]
     for name, part_id, xyz, size in modules:
         objects.append(box(doc, name, part_id, part_id, xyz, size, "Envelope only"))
@@ -61,7 +68,9 @@ def build():
         "module_count": len(modules),
         "notes": [
             "Module solids are keep-out envelopes, not fabrication geometry.",
-            "Filament-line length and tower center of mass require later validation.",
+            "Dryer and extruder envelopes match their current proof CAD; gauge/puller and spooler remain conservative placeholders.",
+            "The 2.06 m by 0.52 m workbench footprint preserves the 0.76 m downstream filament conditioning line.",
+            "Tower center of mass and anchoring require later validation.",
             "No safety acceptance may be inferred from this skeleton.",
         ],
         "outputs": outputs,

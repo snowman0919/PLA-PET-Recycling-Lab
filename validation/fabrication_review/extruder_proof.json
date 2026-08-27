@@ -1,0 +1,78 @@
+{
+  "revision": "0.1.0-preflight",
+  "screw": {
+    "x_mm": 576.0,
+    "y_mm": 22.993,
+    "z_mm": 23.0,
+    "fits_210_cube": false
+  },
+  "barrel": {
+    "x_mm": 438.0,
+    "y_mm": 37.988,
+    "z_mm": 105.0,
+    "fits_210_cube": false
+  },
+  "die": {
+    "x_mm": 34.0,
+    "y_mm": 37.988,
+    "z_mm": 38.0,
+    "fits_210_cube": true
+  },
+  "flight": {
+    "turns": 24.0,
+    "facets_per_turn": 36,
+    "maximum_radial_chord_error_mm": 0.03424771717429009
+  },
+  "pressure_mpa": {
+    "clean_target": 3.0,
+    "warning": 5.0,
+    "reduction": 6.5,
+    "latched_trip": 8.0,
+    "mechanical_relief_candidate": 10.0,
+    "structure_proof": 20.0
+  },
+  "thrust_heat_break_mm": 73.0,
+  "outputs": {
+    "assembly": {
+      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/extruder_proof.FCStd",
+      "step": "/home/monad/develop/PPR/exports/step/extruder_proof.step",
+      "stl": "/home/monad/develop/PPR/exports/stl/extruder_proof.stl"
+    },
+    "components": {
+      "screw": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/extruder_screw.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/extruder_screw.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/extruder_screw.stl"
+      },
+      "barrel": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/extruder_barrel.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/extruder_barrel.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/extruder_barrel.stl"
+      },
+      "breaker": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/extruder_breaker_plate.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/extruder_breaker_plate.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/extruder_breaker_plate.stl"
+      },
+      "die": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/extruder_die.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/extruder_die.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/extruder_die.stl"
+      },
+      "thrust_plate": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/extruder_thrust_plate.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/extruder_thrust_plate.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/extruder_thrust_plate.stl",
+        "dxf": "/home/monad/develop/PPR/exports/dxf/extruder_thrust_plate.dxf"
+      }
+    },
+    "thrust_plate_dxf": "/home/monad/develop/PPR/exports/dxf/extruder_thrust_plate.dxf"
+  },
+  "limitations": [
+    "The 10-degree faceted flight is a collision/manufacturing-path proof; the machinist must generate a smooth 18 mm helix from the dimension table.",
+    "Pressure-sensor and rupture-device solids are keep-outs; threads, rated diaphragms and guarded discharge hardware are not selected.",
+    "Heaters, insulation and shield are envelopes; clamp contact, wiring, thermocouple wells and thermal bridges are not detailed.",
+    "Bearing seats, seals, keyway, surface finish, heat treatment and screw/barrel runout tolerances require a controlled fabrication drawing.",
+    "No polymer operation is allowed before hydrostatic/thermal/pressure-relief and material-flow coupons pass."
+  ]
+}

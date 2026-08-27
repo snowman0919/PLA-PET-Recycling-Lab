@@ -30,6 +30,8 @@ Vibratory sorter generator는 8° 경사의 2단 cassette와 세 배출 경로, 
 
 Dryer/feeder generator는 ID 140 mm 금속 hopper/cone, 40 mm 단열, ventilated shield, agitator, double gate와 30 mm metering-auger proof를 만든다. PET hot path는 전부 금속으로 표시하며 auger flight와 dry-air 장치는 계산/공간 envelope이지 제작 승인 형상이 아니다.
 
+Extruder generator는 18 mm×24 L/D single screw의 24회전 helical flight, 가변 root, ID18.2/OD38 barrel, cooled feed throat, breaker/screen interface, Ø3 mm die, 51102 thrust path, heater/insulation/shield와 pressure/rupture keep-out을 만든다. Flight는 10° chord의 닫힌 B-rep proof이며 smooth CNC toolpath 자체가 아니다.
+
 표준 review view는 FreeCAD 환경의 VTK로 STL triangle을 읽고 Pillow software projection으로 생성한다. OpenGL/EGL이 필요하지 않는다.
 
 ```bash

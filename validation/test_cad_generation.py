@@ -34,12 +34,22 @@ def validate_coupon() -> None:
 
 
 def validate_assembly() -> None:
+    p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["assembly"]
     doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "full_assembly_skeleton.FCStd"))
     modules = [o for o in doc.Objects if o.Name.startswith("MOD") or o.Label.startswith("MOD-")]
     require(len(modules) == 10, f"expected 10 module envelopes, found {len(modules)}")
     shapes = [o.Shape for o in doc.Objects if hasattr(o, "Shape") and not o.Shape.isNull()]
     bb = Part.makeCompound(shapes).BoundBox
-    require(bb.XLength <= 1300.001 and bb.YLength <= 400.001 and bb.ZLength <= 720.001, "assembly exceeds baseline envelope")
+    require(
+        bb.XLength <= p["overall_length_mm"] + 0.001
+        and bb.YLength <= p["overall_depth_mm"] + 0.001
+        and bb.ZLength <= p["overall_height_mm"] + 0.001,
+        "assembly exceeds baseline envelope",
+    )
+    dryer = doc.getObject("DryerFeeder").Shape.BoundBox
+    extruder = doc.getObject("Extruder").Shape.BoundBox
+    require(dryer.XLength >= 320.0 and dryer.ZLength >= 580.0, "dryer proof envelope regressed")
+    require(extruder.XLength >= 850.0 and extruder.YLength >= 220.0, "extruder proof envelope regressed")
     App.closeDocument(doc.Name)
 
 
@@ -72,6 +82,12 @@ def validate_exports() -> None:
         "dryer_metering_auger",
         "dryer_auger_housing",
         "dryer_feeder_proof",
+        "extruder_screw",
+        "extruder_barrel",
+        "extruder_breaker_plate",
+        "extruder_die",
+        "extruder_thrust_plate",
+        "extruder_proof",
     )
     for stem in stems:
         step_shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
@@ -89,6 +105,8 @@ def validate_exports() -> None:
     require("ISOLATOR_M6" in sorter_dxf and sorter_dxf.rstrip().endswith("EOF"), "sorter base DXF is incomplete")
     dryer_dxf = (ROOT / "exports" / "dxf" / "dryer_base_plate.dxf").read_text(encoding="ascii")
     require("OUTLINE_T6" in dryer_dxf and dryer_dxf.rstrip().endswith("EOF"), "dryer base DXF is incomplete")
+    extruder_dxf = (ROOT / "exports" / "dxf" / "extruder_thrust_plate.dxf").read_text(encoding="ascii")
+    require("SHAFT_CLEARANCE_D20" in extruder_dxf and "FRAME_M8" in extruder_dxf and extruder_dxf.rstrip().endswith("EOF"), "extruder thrust plate DXF is incomplete")
 
 
 def validate_stage1_assembly() -> None:
@@ -204,6 +222,37 @@ def validate_dryer_assembly() -> None:
     App.closeDocument(doc.Name)
 
 
+def validate_extruder_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "extruder_proof.FCStd"))
+    expected = {
+        "SupportFrame",
+        "HelicalScrew",
+        "BarrelAndFeedThroat",
+        "FeedThroatCooling",
+        "BreakerPlate",
+        "FilamentDie",
+        "HeaterClamps",
+        "Insulation",
+        "VentilatedShield",
+        "ThrustBearing",
+        "RadialBearings",
+        "DriveAndCoupling",
+        "PressureSafetyAndCatch",
+    }
+    require(expected == {o.Name for o in doc.Objects}, "extruder proof object set differs")
+    for obj in doc.Objects:
+        require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null extruder shape: {obj.Name}")
+        require(obj.Shape.isValid(), f"invalid extruder shape: {obj.Name}")
+    require(doc.getObject("HelicalScrew").Shape.BoundBox.XLength > 570.0, "18 mm 24 L/D screw/tail length missing")
+    require(doc.getObject("BarrelAndFeedThroat").Shape.BoundBox.XLength > 430.0, "extruder barrel length missing")
+    for name in ("FilamentDie",):
+        box = doc.getObject(name).Shape.BoundBox
+        require(max(box.XLength, box.YLength, box.ZLength) <= 210.0, f"{name} exceeds print-bed envelope")
+    thrust_plate = Part.read(str(ROOT / "exports" / "step" / "extruder_thrust_plate.step"))
+    require(max(thrust_plate.BoundBox.XLength, thrust_plate.BoundBox.YLength, thrust_plate.BoundBox.ZLength) <= 210.0, "thrust plate exceeds 210 mm envelope")
+    App.closeDocument(doc.Name)
+
+
 def validate_stage1_envelope() -> None:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["stage1"]
     tip_root_clearance = p["shaft_center_distance_mm"] - (
@@ -224,6 +273,7 @@ def main() -> None:
     validate_stage3_assembly()
     validate_sorter_assembly()
     validate_dryer_assembly()
+    validate_extruder_assembly()
     validate_stage1_envelope()
     print("CAD_VALIDATION_OK")
 
