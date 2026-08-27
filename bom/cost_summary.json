@@ -1,0 +1,28 @@
+{
+  "revision": "0.1.0-preflight",
+  "generated_date": "2026-08-28",
+  "bom_row_count": 81,
+  "critical_row_count": 56,
+  "status_counts": {
+    "AVAILABLE": 2,
+    "NEEDS_DYNO": 1,
+    "NEEDS_INSPECTION": 6,
+    "NEEDS_INVENTORY": 3,
+    "NEEDS_SELECTION": 28,
+    "PROVISIONAL": 41
+  },
+  "target_budget_cap_krw": 200000,
+  "public_candidate_floor_krw": 235200,
+  "public_candidate_floor_over_cap_krw": 35200,
+  "public_candidate_floor_includes": [
+    "GAU-CAM-001",
+    "SAF-REL-001"
+  ],
+  "target_budget_status": "CONDITIONAL_ONLY_IF_SAFETY_RELAY_AND_CAMERA_ARE_VALIDATED_STOCK",
+  "engineering_recommended_total_status": "TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES",
+  "pricing_assumptions": [
+    "Planning conversion uses 1 USD = 1400 KRW and is not a live FX quote.",
+    "Public prices exclude shipping, tax, customs, E-stop actuator, contactor and all unpriced rows.",
+    "Zero cash applies only to user-stated on-hand Pi, Mega and PSU after inspection."
+  ]
+}
