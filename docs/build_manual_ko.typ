@@ -38,6 +38,7 @@
   [요구사항], [`requirements/system_requirements.md`, `requirements/compliance_matrix.md`],
   [3D source], [`cad/freecad/**/generate.py`, `cad/parameters/baseline.json`],
   [BOM], [`bom/bom.csv`, 두 design CSV, `cost_rollup.csv`],
+  [가공견적], [`exports/cnc_quote_packages` — RFQ precheck only],
   [배선], [`electronics/schematics/safety_power_control.md`, H01–H18],
   [교정], [`docs/calibration.md`, module coupon plans],
   [승인], [`validation/release_checklist.md`],

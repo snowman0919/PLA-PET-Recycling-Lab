@@ -24,6 +24,8 @@ PATTERNS = (
     "bom/cost_rollup.csv",
     "requirements/compliance_matrix.csv",
     "requirements/compliance_matrix.md",
+    "exports/cnc_quote_packages/README.md",
+    "exports/cnc_quote_packages/*_package.csv",
 )
 
 

@@ -167,6 +167,8 @@ Metal partition 기준 좌우 keep-out gap은 30 mm이고 전원/히터와 logic
 
 `cost_rollup.csv`는 신규구매 28 line(미가격 26), CNC/fabrication 33, print filament 6, project-lab replacement 3, donor replacement 11을 분리한다. Baseline 81 line은 모두 required이고 optional로 숨긴 항목은 0이다.
 
+`exports/cnc_quote_packages`의 34행은 STEP/DXF/도면 메모를 묶은 DFM/RFQ precheck다. Mixed-source thrust plate를 보조 포함했으며 최종 GD&T·재료·열처리 승인 전에는 fabrication release가 아니다.
+
 #status[
   Target Budget는 safety relay와 camera를 포함한 검증된 project-lab stock이 있을 때만 조건부다. Engineering Recommended 총액은 donor inventory, MPN과 CNC quote 전 `TBD`이며 임의 가격으로 채우지 않았다.
 ]

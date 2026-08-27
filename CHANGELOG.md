@@ -6,7 +6,8 @@
 - 전체 `.ino` host compile, Pi `DRY_STAGE`/확장 telemetry와 5개 fail-safe commissioning lock 검증
 - 43개 요구사항의 증거·물리 미검증·외부 blocker one-to-one 감사표 추가
 - 구매/CNC/print/project-lab/donor 및 required/optional을 분리한 비용 rollup 추가
-- Release artifact 284개와 자동검증 23-gate 체계로 확장
+- 34행 CNC/sheet-fabrication DFM·RFQ precheck package 추가
+- Release artifact 288개와 자동검증 24-gate 체계로 확장
 
 ## 0.1.0-preflight — 2026-08-28
 
