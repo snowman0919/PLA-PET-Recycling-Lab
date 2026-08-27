@@ -75,5 +75,6 @@
 - donor motor, driver, PSU, heater, sensor의 라벨과 실측값
 - PLA/PET 시편별 Stage 1 peak torque 및 허용 최대 PLA 실질 두께
 - dryer의 실제 수분 제거 성능과 extrusion 품질
+- 18 mm screw/barrel의 실제 flake solids conveying, melt pressure, torque, 200 g/h 질량수지와 rupture-element 작동
 - 분류 정확도, optical gauge 불확도, 30분 직경 안정성
 - CNC 및 신규 구매의 실견적
