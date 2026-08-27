@@ -39,6 +39,12 @@ def main() -> None:
         path = ROOT / "renders" / "assembly" / f"full_assembly_skeleton_{view}.png"
         assert path.stat().st_size > 5_000, path
 
+    report_paths = sorted((ROOT / "validation" / "fabrication_review").glob("*.json"))
+    report_paths.append(ROOT / "validation" / "visual_review" / "full_assembly_skeleton.json")
+    for path in report_paths:
+        text = path.read_text(encoding="utf-8")
+        assert str(ROOT) not in text and '": "/' not in text, f"absolute path leaked into {path}"
+
     manifest = json.loads((ROOT / "artifacts" / "manifest.json").read_text())
     artifacts = manifest["artifacts"]
     assert manifest["artifact_count"] == len(artifacts) == 281

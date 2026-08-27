@@ -33,33 +33,33 @@
   },
   "outputs": {
     "assembly": {
-      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/spooler_proof.FCStd",
-      "step": "/home/monad/develop/PPR/exports/step/spooler_proof.step",
-      "stl": "/home/monad/develop/PPR/exports/stl/spooler_proof.stl"
+      "fcstd": "cad/generation/fcstd/spooler_proof.FCStd",
+      "step": "exports/step/spooler_proof.step",
+      "stl": "exports/stl/spooler_proof.stl"
     },
     "components": {
       "shaft": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/spooler_shaft.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/spooler_shaft.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/spooler_shaft.stl"
+        "fcstd": "cad/generation/fcstd/spooler_shaft.FCStd",
+        "step": "exports/step/spooler_shaft.step",
+        "stl": "exports/stl/spooler_shaft.stl"
       },
       "adapters": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/spool_adapter_set.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/spool_adapter_set.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/spool_adapter_set.stl"
+        "fcstd": "cad/generation/fcstd/spool_adapter_set.FCStd",
+        "step": "exports/step/spool_adapter_set.step",
+        "stl": "exports/stl/spool_adapter_set.stl"
       },
       "carriage": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/traverse_carriage.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/traverse_carriage.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/traverse_carriage.stl"
+        "fcstd": "cad/generation/fcstd/traverse_carriage.FCStd",
+        "step": "exports/step/traverse_carriage.step",
+        "stl": "exports/stl/traverse_carriage.stl"
       },
       "bearing_plate": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/spooler_bearing_plate.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/spooler_bearing_plate.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/spooler_bearing_plate.stl"
+        "fcstd": "cad/generation/fcstd/spooler_bearing_plate.FCStd",
+        "step": "exports/step/spooler_bearing_plate.step",
+        "stl": "exports/stl/spooler_bearing_plate.stl"
       }
     },
-    "bearing_plate_dxf": "/home/monad/develop/PPR/exports/dxf/spooler_bearing_plate.dxf"
+    "bearing_plate_dxf": "exports/dxf/spooler_bearing_plate.dxf"
   },
   "limitations": [
     "The loaded spool is a 200 by 73 mm maximum reference; hub-hole geometry is intentionally adapter-dependent.",

@@ -64,7 +64,7 @@ def build():
     dxf_dir = ensure_dir(ROOT / "exports" / "dxf")
     dxf_path = dxf_dir / "stage2_bearing_plate.dxf"
     write_plate_dxf(dxf_path, params)
-    components["plate"]["dxf"] = str(dxf_path)
+    components["plate"]["dxf"] = str(dxf_path.relative_to(ROOT))
 
     doc = App.newDocument("Stage2ShredderProof")
     objects = [

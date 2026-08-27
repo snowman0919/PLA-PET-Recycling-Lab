@@ -79,7 +79,7 @@ def build():
         "storage_diverter": bounding_box_report(storage_doc.getObject("SevenPortFrame")),
         "port_count": len(diverter_port_centres(params)),
         "gate_separation_mm": params["gate_separation_mm"],
-        "outputs": {"input": input_outputs, "storage": storage_outputs, "components": components, "gate_dxf": str(gate_dxf)},
+        "outputs": {"input": input_outputs, "storage": storage_outputs, "components": components, "gate_dxf": str(gate_dxf.relative_to(ROOT))},
         "limitations": [
             "The two gates prove mutually exclusive blocking positions; hinge, cam interlock, positive-opening switches and impact containment need sourced hardware and coupons.",
             "Camera, backlight, bottle and optical ray are keep-outs; material accuracy requires a source-object-grouped dataset.",

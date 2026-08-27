@@ -67,7 +67,7 @@ def build():
     dxf_dir = ensure_dir(ROOT / "exports" / "dxf")
     dxf = dxf_dir / "stage3_bearing_plate.dxf"
     write_plate_dxf(dxf, params)
-    components["plate"]["dxf"] = str(dxf)
+    components["plate"]["dxf"] = str(dxf.relative_to(ROOT))
 
     doc = App.newDocument("Stage3GranulatorProof")
     objects = [

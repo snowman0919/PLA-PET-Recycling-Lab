@@ -16,26 +16,26 @@
   "nominal_blade_clearance_mm": 0.2,
   "outputs": {
     "assembly": {
-      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/stage2_shredder_proof.FCStd",
-      "step": "/home/monad/develop/PPR/exports/step/stage2_shredder_proof.step",
-      "stl": "/home/monad/develop/PPR/exports/stl/stage2_shredder_proof.stl"
+      "fcstd": "cad/generation/fcstd/stage2_shredder_proof.FCStd",
+      "step": "exports/step/stage2_shredder_proof.step",
+      "stl": "exports/stl/stage2_shredder_proof.stl"
     },
     "components": {
       "rotor": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/stage2_rotor.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/stage2_rotor.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/stage2_rotor.stl"
+        "fcstd": "cad/generation/fcstd/stage2_rotor.FCStd",
+        "step": "exports/step/stage2_rotor.step",
+        "stl": "exports/stl/stage2_rotor.stl"
       },
       "bed_knife": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/stage2_bed_knife.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/stage2_bed_knife.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/stage2_bed_knife.stl"
+        "fcstd": "cad/generation/fcstd/stage2_bed_knife.FCStd",
+        "step": "exports/step/stage2_bed_knife.step",
+        "stl": "exports/stl/stage2_bed_knife.stl"
       },
       "plate": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/stage2_bearing_plate.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/stage2_bearing_plate.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/stage2_bearing_plate.stl",
-        "dxf": "/home/monad/develop/PPR/exports/dxf/stage2_bearing_plate.dxf"
+        "fcstd": "cad/generation/fcstd/stage2_bearing_plate.FCStd",
+        "step": "exports/step/stage2_bearing_plate.step",
+        "stl": "exports/stl/stage2_bearing_plate.stl",
+        "dxf": "exports/dxf/stage2_bearing_plate.dxf"
       }
     }
   },

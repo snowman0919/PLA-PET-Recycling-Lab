@@ -88,7 +88,7 @@ def build():
         "spool": bounding_box_report(doc.getObject("LoadedSpoolReference")),
         "dancer_clearance_mm": minimum_dancer_spool_clearance_mm(params),
         "shaft_analysis": analysis,
-        "outputs": {"assembly": outputs, "components": components, "bearing_plate_dxf": str(dxf)},
+        "outputs": {"assembly": outputs, "components": components, "bearing_plate_dxf": str(dxf.relative_to(ROOT))},
         "limitations": [
             "The loaded spool is a 200 by 73 mm maximum reference; hub-hole geometry is intentionally adapter-dependent.",
             "Printed taper adapters center the spool but may not be the sole torque or axial-retention load path.",

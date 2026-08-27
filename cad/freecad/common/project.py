@@ -46,7 +46,11 @@ def export_document(doc, stem: str, export_objects=None) -> dict[str, str]:
     objects = export_objects or [o for o in doc.Objects if hasattr(o, "Shape") and not o.Shape.isNull()]
     Part.export(objects, str(step_path))
     Mesh.export(objects, str(stl_path))
-    return {"fcstd": str(fcstd_path), "step": str(step_path), "stl": str(stl_path)}
+    return {
+        "fcstd": str(fcstd_path.relative_to(ROOT)),
+        "step": str(step_path.relative_to(ROOT)),
+        "stl": str(stl_path.relative_to(ROOT)),
+    }
 
 
 def bounding_box_report(obj) -> dict[str, float | bool]:

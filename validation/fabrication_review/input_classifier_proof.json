@@ -22,28 +22,28 @@
   "gate_separation_mm": 110.0,
   "outputs": {
     "input": {
-      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/input_classifier_proof.FCStd",
-      "step": "/home/monad/develop/PPR/exports/step/input_classifier_proof.step",
-      "stl": "/home/monad/develop/PPR/exports/stl/input_classifier_proof.stl"
+      "fcstd": "cad/generation/fcstd/input_classifier_proof.FCStd",
+      "step": "exports/step/input_classifier_proof.step",
+      "stl": "exports/stl/input_classifier_proof.stl"
     },
     "storage": {
-      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/classification_storage_proof.FCStd",
-      "step": "/home/monad/develop/PPR/exports/step/classification_storage_proof.step",
-      "stl": "/home/monad/develop/PPR/exports/stl/classification_storage_proof.stl"
+      "fcstd": "cad/generation/fcstd/classification_storage_proof.FCStd",
+      "step": "exports/step/classification_storage_proof.step",
+      "stl": "exports/stl/classification_storage_proof.stl"
     },
     "components": {
       "gate_half": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/classifier_gate_pair.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/classifier_gate_pair.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/classifier_gate_pair.stl"
+        "fcstd": "cad/generation/fcstd/classifier_gate_pair.FCStd",
+        "step": "exports/step/classifier_gate_pair.step",
+        "stl": "exports/stl/classifier_gate_pair.stl"
       },
       "diverter_rotor": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/color_diverter_rotor.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/color_diverter_rotor.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/color_diverter_rotor.stl"
+        "fcstd": "cad/generation/fcstd/color_diverter_rotor.FCStd",
+        "step": "exports/step/color_diverter_rotor.step",
+        "stl": "exports/stl/color_diverter_rotor.stl"
       }
     },
-    "gate_dxf": "/home/monad/develop/PPR/exports/dxf/classifier_gate_half.dxf"
+    "gate_dxf": "exports/dxf/classifier_gate_half.dxf"
   },
   "limitations": [
     "The two gates prove mutually exclusive blocking positions; hinge, cam interlock, positive-opening switches and impact containment need sourced hardware and coupons.",

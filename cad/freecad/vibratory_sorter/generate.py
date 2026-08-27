@@ -69,7 +69,7 @@ def build():
     dxf_dir = ensure_dir(ROOT / "exports" / "dxf")
     dxf = dxf_dir / "sorter_base_plate.dxf"
     write_base_dxf(dxf, params)
-    components["base"]["dxf"] = str(dxf)
+    components["base"]["dxf"] = str(dxf.relative_to(ROOT))
 
     doc = App.newDocument("VibratorySorterProof")
     objects = [

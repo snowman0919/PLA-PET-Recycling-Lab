@@ -40,33 +40,33 @@
   },
   "outputs": {
     "assembly": {
-      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_feeder_proof.FCStd",
-      "step": "/home/monad/develop/PPR/exports/step/dryer_feeder_proof.step",
-      "stl": "/home/monad/develop/PPR/exports/stl/dryer_feeder_proof.stl"
+      "fcstd": "cad/generation/fcstd/dryer_feeder_proof.FCStd",
+      "step": "exports/step/dryer_feeder_proof.step",
+      "stl": "exports/stl/dryer_feeder_proof.stl"
     },
     "components": {
       "hopper": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_metal_hopper.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/dryer_metal_hopper.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/dryer_metal_hopper.stl"
+        "fcstd": "cad/generation/fcstd/dryer_metal_hopper.FCStd",
+        "step": "exports/step/dryer_metal_hopper.step",
+        "stl": "exports/stl/dryer_metal_hopper.stl"
       },
       "shield": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_heat_shield.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/dryer_heat_shield.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/dryer_heat_shield.stl"
+        "fcstd": "cad/generation/fcstd/dryer_heat_shield.FCStd",
+        "step": "exports/step/dryer_heat_shield.step",
+        "stl": "exports/stl/dryer_heat_shield.stl"
       },
       "auger": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_metering_auger.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/dryer_metering_auger.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/dryer_metering_auger.stl"
+        "fcstd": "cad/generation/fcstd/dryer_metering_auger.FCStd",
+        "step": "exports/step/dryer_metering_auger.step",
+        "stl": "exports/stl/dryer_metering_auger.stl"
       },
       "housing": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_auger_housing.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/dryer_auger_housing.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/dryer_auger_housing.stl"
+        "fcstd": "cad/generation/fcstd/dryer_auger_housing.FCStd",
+        "step": "exports/step/dryer_auger_housing.step",
+        "stl": "exports/stl/dryer_auger_housing.stl"
       }
     },
-    "base_dxf": "/home/monad/develop/PPR/exports/dxf/dryer_base_plate.dxf"
+    "base_dxf": "exports/dxf/dryer_base_plate.dxf"
   },
   "limitations": [
     "Auger flights are axial pitch envelopes, not a fabrication-ready continuous helix.",

@@ -32,38 +32,38 @@
   },
   "outputs": {
     "assembly": {
-      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/forming_line_proof.FCStd",
-      "step": "/home/monad/develop/PPR/exports/step/forming_line_proof.step",
-      "stl": "/home/monad/develop/PPR/exports/stl/forming_line_proof.stl"
+      "fcstd": "cad/generation/fcstd/forming_line_proof.FCStd",
+      "step": "exports/step/forming_line_proof.step",
+      "stl": "exports/stl/forming_line_proof.stl"
     },
     "components": {
       "cooling_segment": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/cooling_tunnel_segment.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/cooling_tunnel_segment.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/cooling_tunnel_segment.stl"
+        "fcstd": "cad/generation/fcstd/cooling_tunnel_segment.FCStd",
+        "step": "exports/step/cooling_tunnel_segment.step",
+        "stl": "exports/stl/cooling_tunnel_segment.stl"
       },
       "gauge_enclosure": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/diameter_gauge_enclosure.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/diameter_gauge_enclosure.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/diameter_gauge_enclosure.stl"
+        "fcstd": "cad/generation/fcstd/diameter_gauge_enclosure.FCStd",
+        "step": "exports/step/diameter_gauge_enclosure.step",
+        "stl": "exports/stl/diameter_gauge_enclosure.stl"
       },
       "gauge_optical_proof": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/diameter_gauge_optical_proof.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/diameter_gauge_optical_proof.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/diameter_gauge_optical_proof.stl"
+        "fcstd": "cad/generation/fcstd/diameter_gauge_optical_proof.FCStd",
+        "step": "exports/step/diameter_gauge_optical_proof.step",
+        "stl": "exports/stl/diameter_gauge_optical_proof.stl"
       },
       "puller_rollers": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/puller_roller_pair.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/puller_roller_pair.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/puller_roller_pair.stl"
+        "fcstd": "cad/generation/fcstd/puller_roller_pair.FCStd",
+        "step": "exports/step/puller_roller_pair.step",
+        "stl": "exports/stl/puller_roller_pair.stl"
       },
       "calibration_fixture": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/gauge_calibration_fixture.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/gauge_calibration_fixture.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/gauge_calibration_fixture.stl"
+        "fcstd": "cad/generation/fcstd/gauge_calibration_fixture.FCStd",
+        "step": "exports/step/gauge_calibration_fixture.step",
+        "stl": "exports/stl/gauge_calibration_fixture.stl"
       }
     },
-    "fan_plate_dxf": "/home/monad/develop/PPR/exports/dxf/cooling_fan_plate.dxf"
+    "fan_plate_dxf": "exports/dxf/cooling_fan_plate.dxf"
   },
   "limitations": [
     "Fan blocks and optical parts are supplier keep-outs; mounting holes, cable bends, focus threads and airflow plenums require selection.",

@@ -81,7 +81,7 @@ def build():
             "pla": params["pla_profile"],
             "pet": params["pet_profile"],
         },
-        "outputs": {"assembly": outputs, "components": components, "base_dxf": str(dxf)},
+        "outputs": {"assembly": outputs, "components": components, "base_dxf": str(dxf.relative_to(ROOT))},
         "limitations": [
             "Auger flights are axial pitch envelopes, not a fabrication-ready continuous helix.",
             "Insulation and dry-air equipment are keep-out solids; seals, ducts and cartridge internals are not detailed.",

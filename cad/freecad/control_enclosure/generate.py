@@ -68,7 +68,7 @@ def build():
         "split_door": bounding_box_report(doc.getObject("SplitDoor")),
         "logic_partition_x_mm": params["logic_partition_x_mm"],
         "minimum_partition_gap_mm": params["minimum_partition_gap_mm"],
-        "outputs": {"assembly": outputs, "components": components, "door_half_dxf": str(dxf)},
+        "outputs": {"assembly": outputs, "components": components, "door_half_dxf": str(dxf.relative_to(ROOT))},
         "limitations": [
             "All electrical devices are keep-outs; exact MPN dimensions, heat dissipation, creepage, SCCR and terminal bend radii require selection.",
             "The enclosure is a grounded sheet-metal topology proof, not a certified panel or mains wiring drawing.",

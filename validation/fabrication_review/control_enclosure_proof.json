@@ -16,23 +16,23 @@
   "minimum_partition_gap_mm": 15.0,
   "outputs": {
     "assembly": {
-      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/control_enclosure_proof.FCStd",
-      "step": "/home/monad/develop/PPR/exports/step/control_enclosure_proof.step",
-      "stl": "/home/monad/develop/PPR/exports/stl/control_enclosure_proof.stl"
+      "fcstd": "cad/generation/fcstd/control_enclosure_proof.FCStd",
+      "step": "exports/step/control_enclosure_proof.step",
+      "stl": "exports/stl/control_enclosure_proof.stl"
     },
     "components": {
       "door": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/control_door_split.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/control_door_split.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/control_door_split.stl"
+        "fcstd": "cad/generation/fcstd/control_door_split.FCStd",
+        "step": "exports/step/control_door_split.step",
+        "stl": "exports/stl/control_door_split.stl"
       },
       "backplate": {
-        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/control_backplate_partition.FCStd",
-        "step": "/home/monad/develop/PPR/exports/step/control_backplate_partition.step",
-        "stl": "/home/monad/develop/PPR/exports/stl/control_backplate_partition.stl"
+        "fcstd": "cad/generation/fcstd/control_backplate_partition.FCStd",
+        "step": "exports/step/control_backplate_partition.step",
+        "stl": "exports/stl/control_backplate_partition.stl"
       }
     },
-    "door_half_dxf": "/home/monad/develop/PPR/exports/dxf/control_door_half.dxf"
+    "door_half_dxf": "exports/dxf/control_door_half.dxf"
   },
   "limitations": [
     "All electrical devices are keep-outs; exact MPN dimensions, heat dissipation, creepage, SCCR and terminal bend radii require selection.",

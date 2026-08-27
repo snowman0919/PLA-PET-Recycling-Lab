@@ -71,7 +71,7 @@ def build():
     dxf_dir = ensure_dir(ROOT / "exports" / "dxf")
     dxf = dxf_dir / "extruder_thrust_plate.dxf"
     write_thrust_plate_dxf(dxf, params)
-    components["thrust_plate"]["dxf"] = str(dxf)
+    components["thrust_plate"]["dxf"] = str(dxf.relative_to(ROOT))
 
     doc = App.newDocument("ExtruderProof")
     objects = [
@@ -111,7 +111,7 @@ def build():
             "structure_proof": params["structural_proof_pressure_mpa"],
         },
         "thrust_heat_break_mm": FLIGHT_START_X - 2.0 - (THRUST_BEARING_X + params["thrust_bearing"]["height_mm"]),
-        "outputs": {"assembly": outputs, "components": components, "thrust_plate_dxf": str(dxf)},
+        "outputs": {"assembly": outputs, "components": components, "thrust_plate_dxf": str(dxf.relative_to(ROOT))},
         "limitations": [
             "The 10-degree faceted flight is a collision/manufacturing-path proof; the machinist must generate a smooth 18 mm helix from the dimension table.",
             "Pressure-sensor and rupture-device solids are keep-outs; threads, rated diaphragms and guarded discharge hardware are not selected.",

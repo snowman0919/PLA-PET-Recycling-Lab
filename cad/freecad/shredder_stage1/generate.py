@@ -65,7 +65,7 @@ def build_component_sources(params: dict) -> dict:
     dxf_dir = ensure_dir(ROOT / "exports" / "dxf")
     dxf_path = dxf_dir / "stage1_bearing_plate.dxf"
     write_plate_dxf(dxf_path, params)
-    return {"cutter": cutter_outputs, "plate": {**plate_outputs, "dxf": str(dxf_path)}}
+    return {"cutter": cutter_outputs, "plate": {**plate_outputs, "dxf": str(dxf_path.relative_to(ROOT))}}
 
 
 def build():

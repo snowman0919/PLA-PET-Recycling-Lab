@@ -112,7 +112,7 @@ def build():
             "die_to_gauge_mm": params["die_to_gauge_distance_mm"],
             "puller_start_mm": 600.0,
         },
-        "outputs": {"assembly": outputs, "components": components, "fan_plate_dxf": str(dxf)},
+        "outputs": {"assembly": outputs, "components": components, "fan_plate_dxf": str(dxf.relative_to(ROOT))},
         "limitations": [
             "Fan blocks and optical parts are supplier keep-outs; mounting holes, cable bends, focus threads and airflow plenums require selection.",
             "Reference rays prove two orthogonal line crossings, not focus, distortion, mirror flatness or uncertainty.",
