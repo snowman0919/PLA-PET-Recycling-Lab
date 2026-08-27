@@ -64,6 +64,58 @@
     },
     "phase_offset_deg": 22.5
   },
+  "stage2": {
+    "rotor_outer_diameter_mm": 50.0,
+    "rotor_core_diameter_mm": 38.0,
+    "rotor_blade_count": 3,
+    "blade_axial_segments": 8,
+    "blade_total_skew_deg": 14.0,
+    "blade_tangential_thickness_mm": 4.0,
+    "blade_clearance_mm": 0.2,
+    "active_width_mm": 64.0,
+    "shaft_diameter_mm": 20.0,
+    "shaft_length_mm": 130.0,
+    "key_width_mm": 6.0,
+    "keyway_radial_depth_mm": 3.0,
+    "bed_knife_radial_thickness_mm": 8.0,
+    "bed_knife_tangential_width_mm": 20.0,
+    "bed_knife_bolt_diameter_mm": 6.6,
+    "carrier_radial_thickness_mm": 20.0,
+    "carrier_tangential_width_mm": 32.0,
+    "bearing": {
+      "designation_candidate": "6004-2RS",
+      "bore_mm": 20.0,
+      "outer_diameter_mm": 42.0,
+      "width_mm": 12.0
+    },
+    "plate": {
+      "width_mm": 110.0,
+      "height_mm": 100.0,
+      "thickness_mm": 14.0,
+      "shaft_center_x_mm": 40.0,
+      "shaft_center_y_mm": 50.0,
+      "through_bore_mm": 36.0,
+      "counterbore_mm": 42.0,
+      "counterbore_depth_mm": 11.8,
+      "frame_hole_mm": 5.5,
+      "retainer_hole_mm": 4.2
+    },
+    "axial_layout": {
+      "shaft_start_z_mm": -25.0,
+      "left_plate_z_mm": -16.0,
+      "right_plate_z_mm": 66.0,
+      "left_bearing_z_mm": -16.2,
+      "right_bearing_z_mm": 68.2,
+      "left_retainer_z_mm": -19.2,
+      "right_retainer_z_mm": 80.2,
+      "rotor_z_mm": 0.0,
+      "carrier_z_mm": -2.0
+    },
+    "speed_range_rpm": [60.0, 120.0],
+    "continuous_torque_target_nm": [10.0, 18.0],
+    "trip_torque_target_nm": [35.0, 45.0],
+    "structural_proof_torque_nm": 60.0
+  },
   "assembly": {
     "tower_width_mm": 440.0,
     "tower_depth_mm": 360.0,

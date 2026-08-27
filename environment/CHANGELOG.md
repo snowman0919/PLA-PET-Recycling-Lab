@@ -53,3 +53,10 @@
 - API key, endpoint credential과 raw header는 저장·출력하지 않음
 - 최종 설계 판단은 parent 해석, FreeCAD solid 검사와 기록된 가정에 기반함
 - 후속 fast 감사 재호출은 HTTP 403으로 거절되어 응답을 미채택; 비밀값은 출력하지 않음
+
+## 2026-08-28 — Stage 2 통합 생성 결함 수정
+
+- 첫 `generate_all.py` 실행에서 Stage 1/2의 동일한 short module 이름 `geometry`가 `sys.modules` cache에서 충돌
+- 개별 generator 산출물은 유효했지만 전체 재생성은 ImportError로 실패하여 해당 통합 실행을 미채택
+- 각 stage generator 전 `geometry` cache entry를 제거하도록 runner를 수정
+- 후속 tolerance coupon → Stage 1 → Stage 2 → full assembly 전체 생성과 CAD/kinematic 검증 통과

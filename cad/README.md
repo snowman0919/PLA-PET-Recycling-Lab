@@ -22,6 +22,8 @@ Stage 1 상세 proof generator는 다음을 함께 만든다.
 
 축방향 plate·bearing·retainer·timing 위치는 `baseline.json`의 `stage1.axial_layout`에서 함께 관리한다. 타이밍 기어 envelope와 실제 gear tooth geometry를 혼동하면 안 된다.
 
+Stage 2 proof generator는 50 mm single rotor, fixed bed knife, carrier, 양쪽 bearing plate/6004/retainer와 plate DXF를 생성한다. `stage2.axial_layout`과 0.2 mm nominal blade clearance가 source parameter다. fused rotor는 제작 승인 형상이 아니라 kinematic·load envelope이며 blade pocket/fastener/balance는 후속 상세 설계다.
+
 표준 review view는 FreeCAD 환경의 VTK로 STL triangle을 읽고 Pillow software projection으로 생성한다. OpenGL/EGL이 필요하지 않는다.
 
 ```bash
