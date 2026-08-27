@@ -13,6 +13,7 @@ PATTERNS = (
     "cad/generation/fcstd/*.FCStd",
     "exports/step/*.step",
     "exports/stl/*.stl",
+    "exports/dxf/*.dxf",
     "renders/assembly/*.png",
     "renders/modules/*.png",
 )

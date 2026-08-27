@@ -1,0 +1,58 @@
+{
+  "revision": "0.1.0-preflight",
+  "cutter": {
+    "x_mm": 60.0,
+    "y_mm": 60.0,
+    "z_mm": 6.0,
+    "fits_210_cube": true
+  },
+  "plate": {
+    "x_mm": 150.0,
+    "y_mm": 120.0,
+    "z_mm": 14.0,
+    "fits_210_cube": true
+  },
+  "cutter_volume_mm3": 8751.0,
+  "cutter_mass_steel_kg_each": 0.0687,
+  "cutter_count_total": 10,
+  "bearing_candidate": {
+    "designation_candidate": "6004-2RS",
+    "bore_mm": 20.0,
+    "outer_diameter_mm": 42.0,
+    "width_mm": 12.0,
+    "dynamic_rating_n": 9950.0,
+    "static_rating_n": 5000.0
+  },
+  "outputs": {
+    "assembly": {
+      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/stage1_shredder_proof.FCStd",
+      "step": "/home/monad/develop/PPR/exports/step/stage1_shredder_proof.step",
+      "stl": "/home/monad/develop/PPR/exports/stl/stage1_shredder_proof.stl"
+    },
+    "cutter_stack": {
+      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/stage1_cutter_stack.FCStd",
+      "step": "/home/monad/develop/PPR/exports/step/stage1_cutter_stack.step",
+      "stl": "/home/monad/develop/PPR/exports/stl/stage1_cutter_stack.stl"
+    },
+    "components": {
+      "cutter": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/stage1_cutter_disc.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/stage1_cutter_disc.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/stage1_cutter_disc.stl"
+      },
+      "plate": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/stage1_bearing_plate.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/stage1_bearing_plate.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/stage1_bearing_plate.stl",
+        "dxf": "/home/monad/develop/PPR/exports/dxf/stage1_bearing_plate.dxf"
+      }
+    }
+  },
+  "limitations": [
+    "Timing gears are pitch-envelope cylinders, not tooth geometry.",
+    "The third plate and two bearings are the Engineering Recommended timing-gear support; Target Budget omission needs a lower validated trip load.",
+    "Cutter material, heat treatment and edge grind remain unselected.",
+    "Bearing counterbore fit and retainer preload require fabrication drawing tolerances.",
+    "Hopper, chamber liners, seals and service guard are not included in this proof assembly."
+  ]
+}

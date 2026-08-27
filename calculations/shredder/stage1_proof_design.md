@@ -13,9 +13,10 @@
 | 축간거리 | 50 mm | tip overlap 10 mm; 정확한 phase/collision은 CAD 검사 필요 |
 | cutter 두께 | 6 mm | 저가 plate stock 후보; 최종 axial clearance는 shim 시험 |
 | hook 수 | 8/disc 후보 | tip pitch 약 23.6 mm로 15~30 mm 목표와 부합 |
-| active width | 60~72 mm | 200 mm 폭을 동시에 전단하지 않고 throat에서 접힘·순차 포획 |
-| bearing span | 80 mm 목표 | active stack와 seal을 좁게 유지; reducer overhang load는 별도 계산 |
-| shaft | 17 mm keyed steel 후보 | 6203 계열 표준 bore 후보; 재질·key는 확정 전 |
+| active width | 62 mm | 200 mm 폭을 동시에 전단하지 않고 throat에서 접힘·순차 포획 |
+| bearing span | 81 mm | active stack와 shoulder/retainer를 포함한 주 bearing span |
+| shaft | 20 mm keyed steel 후보 | 17 mm keyway sensitivity가 SF 2 미만이라 상향 |
+| bearing | 6004-2RS 후보, 20×42×12 mm | 50 mm 축간 plate의 counterbore 사이 web 8 mm 유지 |
 | output speed | 15~30 rpm 탐색 | throughput보다 안전한 capture와 peak torque 우선 |
 | continuous torque target | 15~25 N·m | feed-limited normal envelope; coupon에서 갱신 |
 | overload trip target | 약 40~50 N·m | reverse 전에 current/speed 기반 차단, 실제 drive에 맞춰 낮출 수 있음 |
@@ -44,16 +45,29 @@ F = \tau_s b t n_p n_e, \qquad T = F r K
 
 ## shaft screening
 
-output torque 60 N·m, 유효반경 25 mm, bearing span 80 mm, simply-supported 중앙 집중하중, steel `E=200 GPa`, 보수적 yield `305 MPa`로 계산했다. keyed section 응력집중과 fatigue는 아직 포함하지 않았으므로 추가 margin이 필요하다.
+output torque 60 N·m, 유효반경 25 mm, bearing span 81 mm, simply-supported 중앙 집중하중, steel `E=200 GPa`, 보수적 yield `305 MPa`로 계산했다. keyway 형상을 상세 FEA하지 않은 상태라 sensitivity factor `Kt=1.6`을 nominal safety factor에 보수적으로 적용해 별도 표시한다.
 
-| shaft d | von Mises | 정적 SF | 중앙 처짐 |
-|---:|---:|---:|---:|
-| 12 mm | 417.0 MPa | 0.73 | 0.126 mm |
-| 15 mm | 213.5 MPa | 1.43 | 0.052 mm |
-| 17 mm | 146.7 MPa | 2.08 | 0.031 mm |
-| 20 mm | 90.1 MPa | 3.39 | 0.016 mm |
+| shaft d | nominal von Mises | nominal SF | SF / 1.6 sensitivity | 중앙 처짐 |
+|---:|---:|---:|---:|---:|
+| 12 mm | 419.4 MPa | 0.73 | 0.45 | 0.131 mm |
+| 15 mm | 214.7 MPa | 1.42 | 0.89 | 0.053 mm |
+| 17 mm | 147.5 MPa | 2.07 | 1.29 | 0.032 mm |
+| 20 mm | 90.6 MPa | 3.37 | 2.10 | 0.017 mm |
 
-현재 baseline은 17 mm이나, gear overhang과 keyway를 포함한 해석에서 SF 2 미만이거나 처짐이 최종 radial clearance의 1/3을 넘으면 20 mm 또는 span 축소로 변경한다.
+따라서 baseline을 20 mm로 변경했다. 6×6 mm provisional key, 유효 길이 50 mm에서 60 N·m의 단순 key shear와 bearing stress도 계산한다. 실제 key 규격, shaft shoulder를 포함한 상세 FEA 및 fatigue 전에는 CNC 승인하지 않는다.
+
+6004 후보의 proof 반력은 각 bearing 약 1.2 kN, 정적 정격비는 4.17이다. 제조사 catalog 정격 `C=9.95 kN`, `C0=5.0 kN`을 사용한 이상적 L10은 30 rpm에서 약 316,704 h이지만 shock spectrum, contamination, misalignment, housing fit와 grease life가 제외되므로 수명 보증값으로 사용하지 않는다. 6×6 mm key의 단순 shear/bearing stress는 각각 20/40 MPa다.
+
+### timing gear overhang 민감도
+
+외부 지지판이 없는 Target Budget 변형을 별도로 보수 검토했다. 총 shaft torque의 절반이 pitch radius 25 mm의 동기 기어로 전달되고, 주 bearing 밖 overhang이 16 mm이며, cutter load와 같은 bending plane에 최악 방향으로 더해진다고 가정했다.
+
+| torque | gear 접선력 | 추가 gear moment | combined von Mises | SF / 1.6 sensitivity |
+|---:|---:|---:|---:|---:|
+| 50 N·m | 1,000 N | 16.0 N·m | 90.6 MPa | 2.10 |
+| 60 N·m | 1,200 N | 19.2 N·m | 108.8 MPa | 1.75 |
+
+이는 상세 FEA가 아니라 worst-plane 선형 중첩 민감도다. 60 N·m proof에서 목표 여유 2를 잃으므로 Engineering Recommended baseline은 기어 바깥에 제3 plate와 두 개의 6004 bearing을 두어 gear를 straddle 지지한다. 이 지지는 overhang 항을 제거하지만 실제 gear tooth load distribution, shoulder stress와 plate compliance는 여전히 검증 대상이다.
 
 ## drive 비교
 
@@ -77,6 +91,6 @@ G \ge \frac{T_{out}}{\eta T_{motor}},\quad n_{motor}=G n_{out}
 
 1. donor motor label, shaft, phase resistance, driver IC 확인
 2. torque-limited manual coupon rig로 PET body, PET folded seam, PLA 1.2/2.0/3.0 mm shell 측정
-3. 17 mm shaft + 60 mm cutter CAD collision/phase sweep
+3. 20 mm shaft + 60 mm cutter CAD 1° collision/phase sweep
 4. gearmotor 구매 후보는 price/label/datasheet 검증 후 사용자 승인
 5. CNC cutter 전에 low-cost replaceable tooth coupon으로 geometry 검증

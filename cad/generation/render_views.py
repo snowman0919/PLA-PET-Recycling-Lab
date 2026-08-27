@@ -110,6 +110,8 @@ def render(stem: str, category: str, colour: tuple[float, float, float]) -> None
 
 def main() -> None:
     render("tolerance_coupon", "modules", (0.95, 0.70, 0.15))
+    render("stage1_cutter_stack", "modules", (0.72, 0.34, 0.18))
+    render("stage1_shredder_proof", "modules", (0.78, 0.35, 0.22))
     render("full_assembly_skeleton", "assembly", (0.35, 0.62, 0.86))
 
 

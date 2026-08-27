@@ -2,32 +2,97 @@
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
   "generated_utc": "2026-08-27T16:55:00Z",
-  "artifact_count": 20,
+  "artifact_count": 47,
   "artifacts": [
     {
       "path": "cad/generation/fcstd/full_assembly_skeleton.FCStd",
-      "bytes": 23225,
-      "sha256": "4d0866770b3ed8f1542b8669ccd29e94e7ea22b1c26da431de8ed17e8e43f492"
+      "bytes": 23220,
+      "sha256": "52f166338e2d390efced9ebba5d4a330e49e317aae12b213bc51b014c1025192"
+    },
+    {
+      "path": "cad/generation/fcstd/stage1_bearing_plate.FCStd",
+      "bytes": 4424,
+      "sha256": "4e97a6e124321a8e2f350266e7bb9e280df2995eff0f93a05cdca7e3a2a43c0c"
+    },
+    {
+      "path": "cad/generation/fcstd/stage1_cutter_disc.FCStd",
+      "bytes": 11973,
+      "sha256": "a7d7ffbd56559177e15ae6d1cf5567f4034fe528c3ebbd7e772a3a573eb66b5d"
+    },
+    {
+      "path": "cad/generation/fcstd/stage1_cutter_stack.FCStd",
+      "bytes": 125981,
+      "sha256": "0c8fd189f5d7e017f090593d6173416029f53936dddcdff38bac13513fc0340d"
+    },
+    {
+      "path": "cad/generation/fcstd/stage1_shredder_proof.FCStd",
+      "bytes": 149021,
+      "sha256": "6acfd48b9b4ae157c65e5cdaa9856c64273913c1d73eefd23b93a7be9aa26d62"
     },
     {
       "path": "cad/generation/fcstd/tolerance_coupon.FCStd",
-      "bytes": 10919,
-      "sha256": "589b6af4f24c6cddfd4e1aeb64ea9043a4e03b6a4eb24cb0a388d8f97a6f73e6"
+      "bytes": 10923,
+      "sha256": "0aab50d4de4e29bab5ef380af0255c84f2fa0f10a97801cbd6f21305e0733dfc"
+    },
+    {
+      "path": "exports/dxf/stage1_bearing_plate.dxf",
+      "bytes": 752,
+      "sha256": "26489f71a22fcfb8315412d1d7d424fb11247799c739b223095bab3b2a3ea3db"
     },
     {
       "path": "exports/step/full_assembly_skeleton.step",
       "bytes": 115261,
-      "sha256": "207f934d50c165cf937789909545b6ddbfbb54434d1ca1ca44013d3bc8dbac85"
+      "sha256": "152e5e628afb5ce432cc1270607d7ea6b4c738293addcc12d5e456d23fef10be"
+    },
+    {
+      "path": "exports/step/stage1_bearing_plate.step",
+      "bytes": 24774,
+      "sha256": "4b768a1ac1db64bee6af80424343c3ad0453c6b7361d6700e0ce4b1d6a013561"
+    },
+    {
+      "path": "exports/step/stage1_cutter_disc.step",
+      "bytes": 91910,
+      "sha256": "b811284697e135d1ba7c1782914a4cae66b9b7ef0d589e0ac49d85e9946a95a9"
+    },
+    {
+      "path": "exports/step/stage1_cutter_stack.step",
+      "bytes": 1034087,
+      "sha256": "26ca970fe2eea42fc69e93dc83800c3e4a9c1d3bda5c658aa3501a64a5c7520d"
+    },
+    {
+      "path": "exports/step/stage1_shredder_proof.step",
+      "bytes": 1194711,
+      "sha256": "d2893b39cb21753c09afbce319cb6f457a8381be7d8d79945add482b5148ee5d"
     },
     {
       "path": "exports/step/tolerance_coupon.step",
       "bytes": 75525,
-      "sha256": "adf7df0a364652bdcf428f437e7e4d41fd46d6d2f15ea5d97792f719b5787c08"
+      "sha256": "07239463a0d798e5b2e14b15392f8302ac643412c5614cbd6d79e84467456405"
     },
     {
       "path": "exports/stl/full_assembly_skeleton.stl",
       "bytes": 12084,
       "sha256": "1c7e753a1cba6646c36f057929d301d0883ac772a7a0b58bc32bfff6d9596f3d"
+    },
+    {
+      "path": "exports/stl/stage1_bearing_plate.stl",
+      "bytes": 305084,
+      "sha256": "9539b5d33f6d39d18ab2b8922aea4c4ba4742987228d7c7c44f7216d9d936c3f"
+    },
+    {
+      "path": "exports/stl/stage1_cutter_disc.stl",
+      "bytes": 40084,
+      "sha256": "63711a80b7deadf8cb8b59b2a75738bd8448889ab0edfb50f8b6618dc4227ac8"
+    },
+    {
+      "path": "exports/stl/stage1_cutter_stack.stl",
+      "bytes": 963884,
+      "sha256": "742757296a27ed05312e6ddf8e84966614a7eff20f988295c4686354d26f850a"
+    },
+    {
+      "path": "exports/stl/stage1_shredder_proof.stl",
+      "bytes": 2791484,
+      "sha256": "e4a6bb25985c4eeb60bf27e823e98d932cba07317200eb593653487378708bda"
     },
     {
       "path": "exports/stl/tolerance_coupon.stl",
@@ -68,6 +133,76 @@
       "path": "renders/assembly/full_assembly_skeleton_top.png",
       "bytes": 12259,
       "sha256": "f4010f0a450f594e308308d8aff1a77944ea70c73e57c9922a05fc2f43623b4f"
+    },
+    {
+      "path": "renders/modules/stage1_cutter_stack_bottom.png",
+      "bytes": 71778,
+      "sha256": "fab8b052c6b664ff43b213377782f47ac62de2affb03ef81335a706d9d18b6e2"
+    },
+    {
+      "path": "renders/modules/stage1_cutter_stack_front.png",
+      "bytes": 35251,
+      "sha256": "667e38eaa505eeadcdfff5a23833c1ba801d9deb6f522734e59aeaeab569137f"
+    },
+    {
+      "path": "renders/modules/stage1_cutter_stack_isometric.png",
+      "bytes": 52647,
+      "sha256": "a079943c1e54e5edcafcb043f4a0c16537633c0c318c496621fe297c8571191f"
+    },
+    {
+      "path": "renders/modules/stage1_cutter_stack_left.png",
+      "bytes": 25454,
+      "sha256": "77fe03d9c10232a380b217c265ddacd2ddb2c41c5678591b0864508ef4549e23"
+    },
+    {
+      "path": "renders/modules/stage1_cutter_stack_rear.png",
+      "bytes": 36460,
+      "sha256": "a9732a72fd87f60e3a947627477919178bb8b7fb97b5a939d45c8e73d2df6b91"
+    },
+    {
+      "path": "renders/modules/stage1_cutter_stack_right.png",
+      "bytes": 25720,
+      "sha256": "6acd9f3549e33b6c1d70422c30ec383e2d4e2fd68b3da56e8696d38af96aa95d"
+    },
+    {
+      "path": "renders/modules/stage1_cutter_stack_top.png",
+      "bytes": 69517,
+      "sha256": "8593d855ed3f62a5716d114b29a4dad83ae3f48ad99e16bb93044cb4371a09c2"
+    },
+    {
+      "path": "renders/modules/stage1_shredder_proof_bottom.png",
+      "bytes": 92796,
+      "sha256": "feecf060450069129453d283729f984875682b1c36f3fca2e0b8e24432240089"
+    },
+    {
+      "path": "renders/modules/stage1_shredder_proof_front.png",
+      "bytes": 42550,
+      "sha256": "70636da42c9db6efd5c02690f11552b38fa70d35a3ad9b117aefa7bdf3d9265d"
+    },
+    {
+      "path": "renders/modules/stage1_shredder_proof_isometric.png",
+      "bytes": 78613,
+      "sha256": "ccfd28c85f97e49de78846bb0156d22cd57133b226298569d757e5710064f10f"
+    },
+    {
+      "path": "renders/modules/stage1_shredder_proof_left.png",
+      "bytes": 31228,
+      "sha256": "0d962762fa0aa4e9ad68660e78925c9ad86f8337df49bf272c2e82917b0b1540"
+    },
+    {
+      "path": "renders/modules/stage1_shredder_proof_rear.png",
+      "bytes": 43418,
+      "sha256": "e880ee0075ad02b4d2c45d843260c3f6f9ba6fcfffe4f1d4318b39006e325dff"
+    },
+    {
+      "path": "renders/modules/stage1_shredder_proof_right.png",
+      "bytes": 30455,
+      "sha256": "6605f5b753ef9f889a9cdc92c77067e2ecefbaf776b053d7cf3a70fe8a8eb155"
+    },
+    {
+      "path": "renders/modules/stage1_shredder_proof_top.png",
+      "bytes": 96630,
+      "sha256": "5c10026267fca34c6883f07ff3a1f67805f5c05722d911047097e800d14d21df"
     },
     {
       "path": "renders/modules/tolerance_coupon_bottom.png",

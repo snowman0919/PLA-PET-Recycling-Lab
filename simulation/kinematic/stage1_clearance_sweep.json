@@ -1,0 +1,27 @@
+{
+  "phase_step_deg": 1,
+  "phase_samples": 361,
+  "phase_offset_deg": 22.5,
+  "min_adjacent_cutter_gap_mm": 0.4634,
+  "minimum_gap_angle_deg": 73,
+  "max_cutter_intersection_mm3": 0.0,
+  "min_hook_to_opposite_spacer_gap_mm": 1.0,
+  "plate_gap_left_mm": 3.0,
+  "plate_gap_right_mm": 2.2,
+  "counterbore_center_web_mm": 8.0,
+  "cutter_keyway_root_ligament_mm": 5.4,
+  "timing_pitch_envelope_gap_mm": 1.0,
+  "right_retainer_to_timing_gap_mm": 0.3,
+  "timing_to_support_retainer_gap_mm": 0.5,
+  "support_retainer_to_bearing_contact_mm": 0.0,
+  "support_bearing_to_plate_contact_mm": 0.0,
+  "support_contact_intersection_mm3": 0.0,
+  "status": "PASS",
+  "limits": [
+    "Rigid perfect geometry; shaft/cutter runout and deflection are not included.",
+    "Timing cylinders are pitch envelopes, not real gear teeth.",
+    "Nominal zero gaps at retainer/bearing and bearing/counterbore are intended seats, not running interfaces.",
+    "The 0.3/0.5 mm gear-side values are nominal CAD gaps; tolerance stack and thermal growth remain unverified.",
+    "0.2 mm axial gap must be established by ground spacers/shims, not FDM tolerance."
+  ]
+}

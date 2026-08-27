@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 GENERATORS = [
     ROOT / "cad" / "freecad" / "tolerance_coupon" / "generate.py",
+    ROOT / "cad" / "freecad" / "shredder_stage1" / "generate.py",
     ROOT / "cad" / "freecad" / "full_assembly" / "generate.py",
 ]
 

@@ -44,11 +44,39 @@ def validate_assembly() -> None:
 
 
 def validate_exports() -> None:
-    for stem in ("tolerance_coupon", "full_assembly_skeleton"):
+    stems = (
+        "tolerance_coupon",
+        "full_assembly_skeleton",
+        "stage1_cutter_disc",
+        "stage1_bearing_plate",
+        "stage1_cutter_stack",
+        "stage1_shredder_proof",
+    )
+    for stem in stems:
         step_shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
         require(not step_shape.isNull(), f"{stem} STEP is null")
+        require(step_shape.isValid(), f"{stem} STEP is invalid")
         mesh = Mesh.Mesh(str(ROOT / "exports" / "stl" / f"{stem}.stl"))
         require(mesh.CountFacets > 0, f"{stem} STL has no facets")
+    dxf = (ROOT / "exports" / "dxf" / "stage1_bearing_plate.dxf").read_text(encoding="ascii")
+    require("CBORE_DEPTH_11_8" in dxf and dxf.rstrip().endswith("EOF"), "Stage 1 plate DXF is incomplete")
+
+
+def validate_stage1_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "stage1_shredder_proof.FCStd"))
+    counts = {
+        "plates": len([o for o in doc.Objects if o.Name.endswith("Plate")]),
+        "bearings": len([o for o in doc.Objects if o.Name.startswith("Bearing")]),
+        "retainers": len([o for o in doc.Objects if o.Name.endswith("Retainer")]),
+        "timing_envelopes": len([o for o in doc.Objects if o.Name.startswith("TimingEnvelope")]),
+    }
+    require(counts == {"plates": 3, "bearings": 6, "retainers": 3, "timing_envelopes": 2}, f"Stage 1 object counts differ: {counts}")
+    require(doc.getObject("TimingSupportPlate") is not None, "timing support plate missing")
+    require(doc.getObject("InputCouplingEnvelope") is not None, "input coupling envelope missing")
+    for obj in doc.Objects:
+        if hasattr(obj, "Shape") and not obj.Shape.isNull():
+            require(obj.Shape.isValid(), f"invalid Stage 1 shape: {obj.Name}")
+    App.closeDocument(doc.Name)
 
 
 def validate_stage1_envelope() -> None:
@@ -66,6 +94,7 @@ def main() -> None:
     validate_coupon()
     validate_assembly()
     validate_exports()
+    validate_stage1_assembly()
     validate_stage1_envelope()
     print("CAD_VALIDATION_OK")
 

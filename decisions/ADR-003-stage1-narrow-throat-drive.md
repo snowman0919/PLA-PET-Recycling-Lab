@@ -5,7 +5,7 @@
 
 ## 결정
 
-200 x 200 mm 외형의 입력을 200 mm cutter 폭으로 한 번에 자르지 않는다. anti-reach hopper와 agitator/gate가 병과 hollow PLA 출력물을 60~72 mm active cutter stack으로 순차 포획하도록 한다. 초기 cutter는 OD 60 mm, 축간거리 50 mm, 17 mm shaft, 15~30 rpm 탐색범위를 사용한다.
+200 x 200 mm 외형의 입력을 200 mm cutter 폭으로 한 번에 자르지 않는다. anti-reach hopper와 agitator/gate가 병과 hollow PLA 출력물을 62 mm active cutter stack으로 순차 포획하도록 한다. 초기 cutter는 OD 60 mm, 축간거리 50 mm, 20 mm shaft, 15~30 rpm 탐색범위를 사용한다.
 
 Stage 1 drive는 donor NEMA17로 확정하지 않는다. 첫 비교 우선순위는 실제 donor dyno 결과, 24 V DC geared motor, geared motor + guarded chain final reduction 순이다.
 
@@ -17,5 +17,5 @@ Stage 1 drive는 donor NEMA17로 확정하지 않는다. 첫 비교 우선순위
 
 - bottle/PLA coupon이 throat에서 지속 bridge
 - 200 g/h에서 feed duty가 과도하거나 flake shape가 Stage 2 요구와 불일치
-- 17 mm shaft 해석이 keyway, overhang 포함 SF 2 또는 clearance/3 기준 미달
+- 20 mm shaft 해석이 keyway, overhang 포함 SF 2 또는 clearance/3 기준 미달
 - 안전한 anti-reach path 안에서 500 mL 병 capture 실패

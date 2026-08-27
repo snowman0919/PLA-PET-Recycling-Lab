@@ -44,3 +44,12 @@
 - `dgx-moa`: Stage 1 shaft 독립 검토 prompt가 90초 동안 무응답, 미채택
 - API key와 raw request header는 저장·출력하지 않음
 - 영향: subagent 검증 완료로 표기하지 않고 parent 계산과 자동 검사만 증거로 유지
+
+## 2026-08-28 — subagent 축소 검토 성공 및 일반 모델 timeout
+
+- `dgx-moa-fast`: Stage 1 phase sweep 검사 항목과 cutter 형상 제조성 검토 응답 수신
+- 채택 범위: 1° counter-rotation, hook-root/axial gap 검사와 작은 tip land를 parent 계산·CAD 검사 후 반영
+- `dgx-moa`: 17 mm 대 20 mm shaft/bearing 독립 검토가 60초 timeout으로 결과를 반환하지 않아 미채택
+- API key, endpoint credential과 raw header는 저장·출력하지 않음
+- 최종 설계 판단은 parent 해석, FreeCAD solid 검사와 기록된 가정에 기반함
+- 후속 fast 감사 재호출은 HTTP 403으로 거절되어 응답을 미채택; 비밀값은 출력하지 않음
