@@ -55,6 +55,13 @@ def validate_exports() -> None:
         "stage2_bed_knife",
         "stage2_bearing_plate",
         "stage2_shredder_proof",
+        "stage3_rotor",
+        "stage3_stator",
+        "stage3_bearing_plate",
+        "stage3_screen_4mm",
+        "stage3_screen_5mm",
+        "stage3_screen_6mm",
+        "stage3_granulator_proof",
     )
     for stem in stems:
         step_shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
@@ -66,6 +73,8 @@ def validate_exports() -> None:
     require("CBORE_DEPTH_11_8" in dxf and dxf.rstrip().endswith("EOF"), "Stage 1 plate DXF is incomplete")
     dxf2 = (ROOT / "exports" / "dxf" / "stage2_bearing_plate.dxf").read_text(encoding="ascii")
     require("CBORE_DEPTH_11_8" in dxf2 and dxf2.rstrip().endswith("EOF"), "Stage 2 plate DXF is incomplete")
+    dxf3 = (ROOT / "exports" / "dxf" / "stage3_bearing_plate.dxf").read_text(encoding="ascii")
+    require("CBORE_DEPTH_11_8" in dxf3 and dxf3.rstrip().endswith("EOF"), "Stage 3 plate DXF is incomplete")
 
 
 def validate_stage1_assembly() -> None:
@@ -106,6 +115,28 @@ def validate_stage2_assembly() -> None:
     App.closeDocument(doc.Name)
 
 
+def validate_stage3_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "stage3_granulator_proof.FCStd"))
+    expected = {
+        "Shaft",
+        "Rotor",
+        "Stator",
+        "StatorCarrier",
+        "BaselineScreen",
+        "LeftPlate",
+        "RightPlate",
+        "LeftBearing",
+        "RightBearing",
+        "LeftRetainer",
+        "RightRetainer",
+    }
+    require(expected == {o.Name for o in doc.Objects}, "Stage 3 proof object set differs")
+    for obj in doc.Objects:
+        require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null Stage 3 shape: {obj.Name}")
+        require(obj.Shape.isValid(), f"invalid Stage 3 shape: {obj.Name}")
+    App.closeDocument(doc.Name)
+
+
 def validate_stage1_envelope() -> None:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["stage1"]
     tip_root_clearance = p["shaft_center_distance_mm"] - (
@@ -123,6 +154,7 @@ def main() -> None:
     validate_exports()
     validate_stage1_assembly()
     validate_stage2_assembly()
+    validate_stage3_assembly()
     validate_stage1_envelope()
     print("CAD_VALIDATION_OK")
 

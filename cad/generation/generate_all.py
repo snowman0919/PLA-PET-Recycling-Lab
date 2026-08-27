@@ -13,6 +13,7 @@ GENERATORS = [
     ROOT / "cad" / "freecad" / "tolerance_coupon" / "generate.py",
     ROOT / "cad" / "freecad" / "shredder_stage1" / "generate.py",
     ROOT / "cad" / "freecad" / "shredder_stage2" / "generate.py",
+    ROOT / "cad" / "freecad" / "granulator_stage3" / "generate.py",
     ROOT / "cad" / "freecad" / "full_assembly" / "generate.py",
 ]
 

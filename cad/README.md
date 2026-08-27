@@ -24,6 +24,8 @@ Stage 1 상세 proof generator는 다음을 함께 만든다.
 
 Stage 2 proof generator는 50 mm single rotor, fixed bed knife, carrier, 양쪽 bearing plate/6004/retainer와 plate DXF를 생성한다. `stage2.axial_layout`과 0.2 mm nominal blade clearance가 source parameter다. fused rotor는 제작 승인 형상이 아니라 kinematic·load envelope이며 blade pocket/fastener/balance는 후속 상세 설계다.
 
+Stage 3 generator는 40 mm staggered rotor/stator proof, 17 mm/6203 shaft support와 4/5/6 mm flat screen coupon family를 만든다. 조립에는 5 mm screen이 들어가지만 세 screen 모두 FCStd/STEP/STL로 export된다. flat screen은 opening 비교용이며 최종 curved containment로 사용하지 않는다.
+
 표준 review view는 FreeCAD 환경의 VTK로 STL triangle을 읽고 Pillow software projection으로 생성한다. OpenGL/EGL이 필요하지 않는다.
 
 ```bash

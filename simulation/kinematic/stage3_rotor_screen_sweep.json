@@ -1,0 +1,27 @@
+{
+  "phase_step_deg": 0.5,
+  "phase_samples": 721,
+  "min_rotor_stator_clearance_mm": 0.1501,
+  "minimum_clearance_angle_deg": 176.5,
+  "min_rotor_screen_gap_mm": 1.0001,
+  "max_fixed_part_intersection_mm3": 0.0,
+  "rotor_plate_gaps_mm": [
+    2.0,
+    2.0
+  ],
+  "intended_contact_intersection_mm3": 0.0,
+  "rotor_keyway_root_ligament_mm": 4.9,
+  "screen_6mm_pitch_web_mm": 2.0,
+  "screen_6mm_min_edge_web_mm": 1.0,
+  "screen_candidate_solid_volumes_mm3": {
+    "4mm": 5842.832,
+    "5mm": 5079.425,
+    "6mm": 4146.372
+  },
+  "status": "PASS",
+  "limits": [
+    "Rigid perfect geometry excludes runout, deflection, thermal growth and flake wedging.",
+    "Flat screen is unsupported proof geometry, not fatigue-qualified containment.",
+    "Nominal 0.15 mm stator clearance requires measured metal shims."
+  ]
+}

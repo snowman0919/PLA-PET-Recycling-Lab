@@ -2,57 +2,92 @@
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
   "generated_utc": "2026-08-27T16:55:00Z",
-  "artifact_count": 67,
+  "artifact_count": 96,
   "artifacts": [
     {
       "path": "cad/generation/fcstd/full_assembly_skeleton.FCStd",
-      "bytes": 23225,
-      "sha256": "64e8b09894a7be2f1fa15c949549b29a9d9e8cb264602dcc358a496ae1441eeb"
+      "bytes": 23221,
+      "sha256": "745cff3631be600886bd2537441162db44b5da2328e07b4672afeaeab5e1a843"
     },
     {
       "path": "cad/generation/fcstd/stage1_bearing_plate.FCStd",
-      "bytes": 4424,
-      "sha256": "e1547f1294cec11c7fcfeb5498071419c17b9eccd35c837c9454a482bc3705db"
+      "bytes": 4427,
+      "sha256": "0594da390917382da89d8a7870b475e7368a84cbd70614593bed93d5dd533f83"
     },
     {
       "path": "cad/generation/fcstd/stage1_cutter_disc.FCStd",
-      "bytes": 11966,
-      "sha256": "c9c07349f7d056c02802e4e982271e8717aa0437c46e3f13c4099e6ff499994c"
+      "bytes": 11960,
+      "sha256": "b0a0aa924c4933072a5bf97125d54ddc908a9fe17cdacc65ab013b00fd4896bf"
     },
     {
       "path": "cad/generation/fcstd/stage1_cutter_stack.FCStd",
-      "bytes": 125972,
-      "sha256": "97d3b60e059472a83a40140e05850253f8bea0a783f4f9f73039c9687d01966a"
+      "bytes": 125981,
+      "sha256": "10f2f0e95ac5b75e83e162901f9b62ca54ef6f6b0cc90b78ac4b82fa5e38cbad"
     },
     {
       "path": "cad/generation/fcstd/stage1_shredder_proof.FCStd",
-      "bytes": 149014,
-      "sha256": "be976904a0cfb828d0d5de6f029580541b75fcc6782bdd4a5a2b340cf5660ad9"
+      "bytes": 149024,
+      "sha256": "8632a25cb53fae3cf9184126485f62786048f9aedecf1822314c0e063de7aedf"
     },
     {
       "path": "cad/generation/fcstd/stage2_bearing_plate.FCStd",
-      "bytes": 4158,
-      "sha256": "81476060f8354eb1f6a166267786fb884112e07bb3bb5e34bd5326881a34ca0f"
+      "bytes": 4159,
+      "sha256": "5a7b213e0eb30938281a299a53015f807cde757723744dfc7b8ac89e3766e762"
     },
     {
       "path": "cad/generation/fcstd/stage2_bed_knife.FCStd",
       "bytes": 3253,
-      "sha256": "ada481ba4058e7ffa5cdac98787c3683ee3cb13016f46608e27f71c756cb4c86"
+      "sha256": "7815a59926c17804438b4dccc282ad5470a809f2862d292a8021780ab1fd7212"
     },
     {
       "path": "cad/generation/fcstd/stage2_rotor.FCStd",
-      "bytes": 28113,
-      "sha256": "facfe75f9ab121831cc9fc81a9d7f63c84fdb3c901a72b108b5bd6f39bb40247"
+      "bytes": 28110,
+      "sha256": "710baff31a843e5342d96597293f817fe48eec3bc98407720effc70a83ca8a4b"
     },
     {
       "path": "cad/generation/fcstd/stage2_shredder_proof.FCStd",
-      "bytes": 43372,
-      "sha256": "ea860b1643e6991fb37ae28c056c734a9e1450cdab9d4bc5d138727164483825"
+      "bytes": 43381,
+      "sha256": "46255dd580e4ba45016c95c6ca0497987c30c3b12c21af22f555c922e3d4667c"
+    },
+    {
+      "path": "cad/generation/fcstd/stage3_bearing_plate.FCStd",
+      "bytes": 4168,
+      "sha256": "9133fa5496e8cc1dda861a0ff3fd177ac89c97f6e71e413029a8e9eddb129a58"
+    },
+    {
+      "path": "cad/generation/fcstd/stage3_granulator_proof.FCStd",
+      "bytes": 71484,
+      "sha256": "58d7dbdc53790508b359a251a451e6ba4adfd1268a9541494ffc757ea371b0bd"
+    },
+    {
+      "path": "cad/generation/fcstd/stage3_rotor.FCStd",
+      "bytes": 50608,
+      "sha256": "461ebe7f854db6eb5032dabb6c54ace4427a6a2d1b033ded0ce46eb86e10f78f"
+    },
+    {
+      "path": "cad/generation/fcstd/stage3_screen_4mm.FCStd",
+      "bytes": 7267,
+      "sha256": "b72f65f3a70c8f172efc5b151f1d877b205130845af37fc0f974cb57854a590c"
+    },
+    {
+      "path": "cad/generation/fcstd/stage3_screen_5mm.FCStd",
+      "bytes": 7272,
+      "sha256": "e6b3ee9ab839d5bf825e2c3d58439a9115f7127c370761ca2a64456f95dcb63b"
+    },
+    {
+      "path": "cad/generation/fcstd/stage3_screen_6mm.FCStd",
+      "bytes": 7300,
+      "sha256": "a6721fe383d5809ced169c574e7be36776a2d022af1343b869b46e681b2224f2"
+    },
+    {
+      "path": "cad/generation/fcstd/stage3_stator.FCStd",
+      "bytes": 3258,
+      "sha256": "11c7c0a86e667aa7fab75c1a0d249dbc7a8fd239f9d8b489b6404c916d61ca8d"
     },
     {
       "path": "cad/generation/fcstd/tolerance_coupon.FCStd",
-      "bytes": 10921,
-      "sha256": "54f12fcafb44d7eba6a4414151d14e7b1d1d3779839d2b066c4fc2ddb7799e11"
+      "bytes": 10918,
+      "sha256": "6c4c7f01489d3f1f8915ddbcce2f480fc33f16b0e48f9087c0561f8ea2079a6a"
     },
     {
       "path": "exports/dxf/stage1_bearing_plate.dxf",
@@ -65,54 +100,94 @@
       "sha256": "493395265245b5f6a70be748694cd9613789aac60a33d7bfe040ae952b93a4b1"
     },
     {
+      "path": "exports/dxf/stage3_bearing_plate.dxf",
+      "bytes": 660,
+      "sha256": "a26b70cf77f4846ce76737838a808374543c379ad2d947a791b82e9a3d2e5e17"
+    },
+    {
       "path": "exports/step/full_assembly_skeleton.step",
       "bytes": 115263,
-      "sha256": "347d6d3282942a294e75734a6372d5302c2af48771a319d2af6c6a4b61b27b43"
+      "sha256": "0644f05e009147ed5ffc649442b37e312b9cf8323608d066cef9e308f99949d2"
     },
     {
       "path": "exports/step/stage1_bearing_plate.step",
       "bytes": 24774,
-      "sha256": "a85ae3e8b8e9adedbd3099a08dab9aa0cf54ebf3d3579bfd884864a31a9c10b0"
+      "sha256": "dd0126200b64604791db1f1a16d1d6fb7475a9ba6a31251d7bdc84613cc602f0"
     },
     {
       "path": "exports/step/stage1_cutter_disc.step",
       "bytes": 91910,
-      "sha256": "fcabab177f38f483c3d65db40d10c2a16763e60532d129ddc119e034c4db27ea"
+      "sha256": "83befd8de3e241d64229f72ab23867a4f1472963df3347ffc8f43af01854a7e0"
     },
     {
       "path": "exports/step/stage1_cutter_stack.step",
       "bytes": 1034087,
-      "sha256": "156f9a6d864a321626c125485206a2fef48c930ddbc0bf8b9bd8a13756cc5d3f"
+      "sha256": "ef54c615ed5656a571cd9764d5c29ee7f38c0b2d4f2572931daed98980a36d08"
     },
     {
       "path": "exports/step/stage1_shredder_proof.step",
       "bytes": 1194711,
-      "sha256": "ccfbfb765bb64966a7dcbb0d55f3b195145dccb79698c6bc0cd49ab23fb34ff3"
+      "sha256": "c7968ce3d097af21b95ba8386180f19c1d999945e0c1545a8ccfae5256bba022"
     },
     {
       "path": "exports/step/stage2_bearing_plate.step",
       "bytes": 21623,
-      "sha256": "f7eb71f9e3878585edad3ee99a11bb9158017c741e1bfc9d4dc1ae2c53ad7c26"
+      "sha256": "06d75d617bc083ae6506f8d4243953496b8a5a1cdac49d3b6cb2ce0eea8fb6df"
     },
     {
       "path": "exports/step/stage2_bed_knife.step",
       "bytes": 12749,
-      "sha256": "8402fc35c20f9f2b3759a0083c147dedc43f0ccfa8a409a43a9750a339c95bcf"
+      "sha256": "4e59494d425806b577e1c3c8c0f380a52b08d3cf54918f0a1a58a0bb76c75740"
     },
     {
       "path": "exports/step/stage2_rotor.step",
       "bytes": 223974,
-      "sha256": "2084490db656c945f6b062fbdd9faef3178e7d57df2f3c2ece42659d785dfc40"
+      "sha256": "025a2fe73c3ff6fd9a5e70cd529b17c0889126da2fd184bc62c40f5832b05a28"
     },
     {
       "path": "exports/step/stage2_shredder_proof.step",
       "bytes": 328840,
-      "sha256": "681fcdf0d6c4055ed6d6f3d1c0d3503c8d4f0c399d19107b777699db2b5e71ab"
+      "sha256": "73526b79c99eda3c92ad967e741cb4442acd592f92cc3740685f9b424916fa60"
+    },
+    {
+      "path": "exports/step/stage3_bearing_plate.step",
+      "bytes": 21586,
+      "sha256": "6ea209b0452e4f1a255d12d4aeab4aa4ee64ed91528a2f4b5f8ba597d137ff66"
+    },
+    {
+      "path": "exports/step/stage3_granulator_proof.step",
+      "bytes": 615600,
+      "sha256": "a5c26092bc41941626be73a475a5a5cabec5e6686ffaf60dd3bde8f6e2109fe5"
+    },
+    {
+      "path": "exports/step/stage3_rotor.step",
+      "bytes": 443413,
+      "sha256": "031641b092dccf123ef8b96194042c2cacc4b72e42720879b135627a00d0f0fc"
+    },
+    {
+      "path": "exports/step/stage3_screen_4mm.step",
+      "bytes": 60063,
+      "sha256": "d75ea3b1611555e1c229d211dac0462f8417bb8e58e78d44362150a1b0244dde"
+    },
+    {
+      "path": "exports/step/stage3_screen_5mm.step",
+      "bytes": 60279,
+      "sha256": "3101385de615e1f2e1f2025572684715e3a1bcf3736ebe4783299eaf7aa03d7b"
+    },
+    {
+      "path": "exports/step/stage3_screen_6mm.step",
+      "bytes": 60063,
+      "sha256": "01b975e0c998d10de9a7f5641c898a8e4b5169be5bb69fedaa61b2ba774317b4"
+    },
+    {
+      "path": "exports/step/stage3_stator.step",
+      "bytes": 12825,
+      "sha256": "e21f516c072c1f69ec3313179e1ba3ad279357fb8199efc1bf6f2993a1c81176"
     },
     {
       "path": "exports/step/tolerance_coupon.step",
       "bytes": 75525,
-      "sha256": "5333946385a7d5a81299c23a4dd706dafe3cd3f8b7f4bd2690e2592e32f86d3b"
+      "sha256": "717b85d07b7cb6d806e05cc5820f65abb4fe85814e9e463dee7be8866a698d35"
     },
     {
       "path": "exports/stl/full_assembly_skeleton.stl",
@@ -158,6 +233,41 @@
       "path": "exports/stl/stage2_shredder_proof.stl",
       "bytes": 1227784,
       "sha256": "ec4c3c0d7a8eb6cef04e42a5b3a8708a2696d24115f434c2582fcc7a7cb2ad49"
+    },
+    {
+      "path": "exports/stl/stage3_bearing_plate.stl",
+      "bytes": 254484,
+      "sha256": "dfa7f9da8e444ec4d9a6643198d0f588661c7dba3c63e4b751225ae65671f074"
+    },
+    {
+      "path": "exports/stl/stage3_granulator_proof.stl",
+      "bytes": 2176084,
+      "sha256": "222cd0a22aa1ca6cd473ef01684182ba639beb2fc9ed85407d552475d4e28a2e"
+    },
+    {
+      "path": "exports/stl/stage3_rotor.stl",
+      "bytes": 115084,
+      "sha256": "ac21c4588aa87452ff04f2257e9355e9d83688389e55b82e6be1e99f39771c36"
+    },
+    {
+      "path": "exports/stl/stage3_screen_4mm.stl",
+      "bytes": 915084,
+      "sha256": "a456597d90c1b05d74ee36c18cd00f91c3d8f47f0c758946b243023d80aa97f7"
+    },
+    {
+      "path": "exports/stl/stage3_screen_5mm.stl",
+      "bytes": 915084,
+      "sha256": "947e6e05d335d0096241607c32e8510483dac40eb0f84fadd14ab68196af6f54"
+    },
+    {
+      "path": "exports/stl/stage3_screen_6mm.stl",
+      "bytes": 915084,
+      "sha256": "ba8a260d9c0b9bc2059b661ca42db4ef244e3d8ea12288aa1c3829482d92872c"
+    },
+    {
+      "path": "exports/stl/stage3_stator.stl",
+      "bytes": 102284,
+      "sha256": "5328998735fc15bb14d0b14a8b153152681200b9f324fef215feb2abaa04ff84"
     },
     {
       "path": "exports/stl/tolerance_coupon.stl",
@@ -303,6 +413,41 @@
       "path": "renders/modules/stage2_shredder_proof_top.png",
       "bytes": 102291,
       "sha256": "76a63ff3d178102bfad7c729d29bdf8b7390819ff68c9170281c7d020f8d21b6"
+    },
+    {
+      "path": "renders/modules/stage3_granulator_proof_bottom.png",
+      "bytes": 111899,
+      "sha256": "cda593e3973c1704070ff7bf20ceff018c232e23e26fad7c4f502e61257e8355"
+    },
+    {
+      "path": "renders/modules/stage3_granulator_proof_front.png",
+      "bytes": 32947,
+      "sha256": "977702d906e4cf5641462cc1bc236ced8fc2f4b77916f4625f159a55ae51a868"
+    },
+    {
+      "path": "renders/modules/stage3_granulator_proof_isometric.png",
+      "bytes": 69381,
+      "sha256": "64b880a33057cc28182a1e4b06b041e1b1c61f332963811058df17ab2e7b5064"
+    },
+    {
+      "path": "renders/modules/stage3_granulator_proof_left.png",
+      "bytes": 22211,
+      "sha256": "55813fddb094816883845702b8289d642436b6dace16bc0a2968f9a6d4956826"
+    },
+    {
+      "path": "renders/modules/stage3_granulator_proof_rear.png",
+      "bytes": 25458,
+      "sha256": "9ae67dc21434642ac5eb7232db80016954f6a563f7713866a8ef6f5c61f937fe"
+    },
+    {
+      "path": "renders/modules/stage3_granulator_proof_right.png",
+      "bytes": 25717,
+      "sha256": "cf0ee47056802205f2ff01f08ad0700c37f276a0feb06651724bfe4af23978dd"
+    },
+    {
+      "path": "renders/modules/stage3_granulator_proof_top.png",
+      "bytes": 112155,
+      "sha256": "5bcf2bb314a080cb7d7a2001272cc38cb5d1aba2de01d62c66a3c8e3f949423a"
     },
     {
       "path": "renders/modules/tolerance_coupon_bottom.png",

@@ -113,6 +113,7 @@ def main() -> None:
     render("stage1_cutter_stack", "modules", (0.72, 0.34, 0.18))
     render("stage1_shredder_proof", "modules", (0.78, 0.35, 0.22))
     render("stage2_shredder_proof", "modules", (0.64, 0.32, 0.24))
+    render("stage3_granulator_proof", "modules", (0.50, 0.30, 0.24))
     render("full_assembly_skeleton", "assembly", (0.35, 0.62, 0.86))
 
 
