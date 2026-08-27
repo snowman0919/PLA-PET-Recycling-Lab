@@ -58,7 +58,7 @@ Revision: `0.1.0-preflight`
 
 ## 재현 상태
 
-이전 revision의 generator→표준/review render→Nix Typst PDF→30-gate 재생성은 PASS했다. 현재 31-gate 2-tower revision도 별도 clean clone에서 전체 gate가 PASS했으며, 저장된 CUDA evidence는 GPU가 없는 clone에서도 device/sample/threshold/CPU cross-check와 contract/source hash를 검증했다.
+이전 revision의 generator→표준/review render→Nix Typst PDF→30-gate 재생성은 PASS했다. 현재 KiCad 추가 revision은 커밋 `3195b8e`의 별도 clean clone에서 32개 gate와 manifest 353개가 모두 PASS했으며, 저장된 CUDA evidence는 GPU가 없는 clone에서도 device/sample/threshold/CPU cross-check와 contract/source hash를 검증했다.
 
 STEP header timestamp와 review JSON 경로는 deterministic 값/저장소 상대경로로 정규화한다. STL, DXF, 표준/review render, Nix Typst 0.15.1 PDF, 계산 JSON과 review JSON은 clean clone에서 byte-identical했다. FCStd 51개는 FreeCAD가 생성 시각·UUID·내부 object ID를 기록하므로 형상·object-set 검증은 재현되지만 container byte hash는 실행마다 달라질 수 있다. Manifest는 해당 실행에서 전달되는 실제 파일의 hash를 기록한다.
 
