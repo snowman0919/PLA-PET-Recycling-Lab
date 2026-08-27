@@ -37,7 +37,7 @@ def validate_assembly() -> None:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["assembly"]
     doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "full_assembly_skeleton.FCStd"))
     modules = [o for o in doc.Objects if o.Name.startswith("MOD") or o.Label.startswith("MOD-")]
-    require(len(modules) == 10, f"expected 10 module envelopes, found {len(modules)}")
+    require(len(modules) == 11, f"expected 11 module envelopes, found {len(modules)}")
     shapes = [o.Shape for o in doc.Objects if hasattr(o, "Shape") and not o.Shape.isNull()]
     bb = Part.makeCompound(shapes).BoundBox
     require(
@@ -50,16 +50,26 @@ def validate_assembly() -> None:
     extruder = doc.getObject("Extruder").Shape.BoundBox
     forming = doc.getObject("CoolingGaugePuller").Shape.BoundBox
     spooler = doc.getObject("Spooler").Shape.BoundBox
+    classifier = doc.getObject("InputClassifier").Shape.BoundBox
+    storage = doc.getObject("ClassificationStorage").Shape.BoundBox
+    control = doc.getObject("ControlEnclosure").Shape.BoundBox
+    require(classifier.XLength >= 320.0 and classifier.ZLength >= 220.0, "input-classifier proof envelope regressed")
+    require(storage.XLength >= 320.0 and storage.YLength >= 320.0, "classification-storage proof envelope regressed")
     require(dryer.XLength >= 320.0 and dryer.ZLength >= 580.0, "dryer proof envelope regressed")
     require(extruder.XLength >= 850.0 and extruder.YLength >= 220.0, "extruder proof envelope regressed")
     require(forming.XLength >= 760.0 and forming.YLength >= 160.0, "forming-line proof envelope regressed")
     require(spooler.XLength >= 355.0 and spooler.ZLength >= 320.0, "spooler proof envelope regressed")
+    require(control.XLength >= 300.0 and control.YLength >= 220.0, "control-enclosure proof envelope regressed")
     App.closeDocument(doc.Name)
 
 
 def validate_exports() -> None:
     stems = (
         "tolerance_coupon",
+        "classifier_gate_pair",
+        "color_diverter_rotor",
+        "input_classifier_proof",
+        "classification_storage_proof",
         "full_assembly_skeleton",
         "stage1_cutter_disc",
         "stage1_bearing_plate",
@@ -103,6 +113,9 @@ def validate_exports() -> None:
         "traverse_carriage",
         "spooler_bearing_plate",
         "spooler_proof",
+        "control_door_split",
+        "control_backplate_partition",
+        "control_enclosure_proof",
     )
     for stem in stems:
         step_shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
@@ -126,6 +139,10 @@ def validate_exports() -> None:
     require("FAN_AIR_D68_8" in cooling_dxf and "FAN_M4" in cooling_dxf and cooling_dxf.rstrip().endswith("EOF"), "cooling fan plate DXF is incomplete")
     spooler_dxf = (ROOT / "exports" / "dxf" / "spooler_bearing_plate.dxf").read_text(encoding="ascii")
     require("BEARING_6001_D28" in spooler_dxf and spooler_dxf.rstrip().endswith("EOF"), "spooler bearing plate DXF is incomplete")
+    classifier_dxf = (ROOT / "exports" / "dxf" / "classifier_gate_half.dxf").read_text(encoding="ascii")
+    require("HINGE_M4" in classifier_dxf and classifier_dxf.rstrip().endswith("EOF"), "classifier gate DXF is incomplete")
+    control_dxf = (ROOT / "exports" / "dxf" / "control_door_half.dxf").read_text(encoding="ascii")
+    require("DOOR_M4" in control_dxf and control_dxf.rstrip().endswith("EOF"), "control door DXF is incomplete")
 
 
 def validate_stage1_assembly() -> None:
@@ -324,6 +341,41 @@ def validate_spooler_assembly() -> None:
     App.closeDocument(doc.Name)
 
 
+def validate_classifier_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "input_classifier_proof.FCStd"))
+    expected = {
+        "FrameAndLightShield",
+        "UpperClosedGate",
+        "LowerOpenGate",
+        "CameraLighting",
+        "BottleReference",
+        "RejectFlapAndChute",
+    }
+    require(expected == {o.Name for o in doc.Objects}, "input-classifier proof object set differs")
+    for obj in doc.Objects:
+        require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null classifier shape: {obj.Name}")
+        require(obj.Shape.isValid(), f"invalid classifier shape: {obj.Name}")
+    App.closeDocument(doc.Name)
+
+
+def validate_control_enclosure_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "control_enclosure_proof.FCStd"))
+    expected = {
+        "GroundedShell",
+        "BackplatePartitionDIN",
+        "HighCurrentDevices",
+        "LogicDevices",
+        "SplitDoor",
+        "FaceControls",
+        "CableManagementPE",
+    }
+    require(expected == {o.Name for o in doc.Objects}, "control-enclosure proof object set differs")
+    for obj in doc.Objects:
+        require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null control-enclosure shape: {obj.Name}")
+        require(obj.Shape.isValid(), f"invalid control-enclosure shape: {obj.Name}")
+    App.closeDocument(doc.Name)
+
+
 def validate_stage1_envelope() -> None:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["stage1"]
     tip_root_clearance = p["shaft_center_distance_mm"] - (
@@ -347,6 +399,8 @@ def main() -> None:
     validate_extruder_assembly()
     validate_forming_assembly()
     validate_spooler_assembly()
+    validate_classifier_assembly()
+    validate_control_enclosure_assembly()
     validate_stage1_envelope()
     print("CAD_VALIDATION_OK")
 

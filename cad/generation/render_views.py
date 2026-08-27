@@ -110,6 +110,8 @@ def render(stem: str, category: str, colour: tuple[float, float, float]) -> None
 
 def main() -> None:
     render("tolerance_coupon", "modules", (0.95, 0.70, 0.15))
+    render("input_classifier_proof", "modules", (0.28, 0.56, 0.72))
+    render("classification_storage_proof", "modules", (0.36, 0.58, 0.42))
     render("stage1_cutter_stack", "modules", (0.72, 0.34, 0.18))
     render("stage1_shredder_proof", "modules", (0.78, 0.35, 0.22))
     render("stage2_shredder_proof", "modules", (0.64, 0.32, 0.24))
@@ -121,6 +123,7 @@ def main() -> None:
     render("forming_line_proof", "modules", (0.26, 0.54, 0.66))
     render("diameter_gauge_optical_proof", "modules", (0.42, 0.64, 0.78))
     render("spooler_proof", "modules", (0.30, 0.48, 0.68))
+    render("control_enclosure_proof", "modules", (0.46, 0.50, 0.56))
     render("full_assembly_skeleton", "assembly", (0.35, 0.62, 0.86))
 
 

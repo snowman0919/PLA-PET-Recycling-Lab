@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "assembly_valid": true,
+    "shell_width_mm": 300.0,
+    "shell_depth_mm": 220.0,
+    "shell_height_mm": 180.0,
+    "high_logic_partition_gap_mm": 30.0,
+    "high_logic_intersection_mm3": 0.0,
+    "split_door_max_part_mm": 180.0,
+    "face_control_solid_count": 5,
+    "cable_management_solid_count": 5,
+    "partition_present": true
+  },
+  "status": "PASS",
+  "limitations": [
+    "Rigid envelopes prove spatial segregation only; selected device creepage, heat, terminal access and wire bend radii remain open.",
+    "PE stud geometry does not prove bonding resistance or fault-current capacity.",
+    "Door cutouts and control envelopes require supplier drawings and an impact/ingress review."
+  ]
+}

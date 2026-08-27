@@ -36,11 +36,12 @@ def build():
         objects.append(box(doc, f"FrameRail{i+1}", f"FRM-RAIL-{i+1}", f"FRM-RAIL-{i+1}", (x, y, z), (sx, sy, 40), "Aluminum profile 4040"))
 
     modules = [
-        ("InputClassifier", "MOD-INPUT", (60, 70, 560), (320, 220, 120)),
+        ("InputClassifier", "MOD-INPUT", (60, 70, 470), (320, 220, 220)),
         ("ShredderStage1", "MOD-SHRED-1", (90, 100, 440), (260, 160, 105)),
         ("ShredderStage2", "MOD-SHRED-2", (105, 110, 325), (230, 140, 95)),
         ("GranulatorStage3", "MOD-SHRED-3", (115, 115, 210), (210, 130, 95)),
         ("VibratorySorter", "MOD-SORTER", (80, 80, 90), (280, 200, 95)),
+        ("ClassificationStorage", "MOD-BIN-DIVERTER", (60, 20, 10), (320, 320, 70)),
         # The dryer and extruder use their validated proof envelopes.  They are
         # separated laterally so a flexible, grounded metal transfer tube can
         # connect the auger outlet to the cooled feed throat without occupying
@@ -68,7 +69,7 @@ def build():
         "module_count": len(modules),
         "notes": [
             "Module solids are keep-out envelopes, not fabrication geometry.",
-            "Dryer, extruder, cooling/gauge/puller and spooler envelopes match their current proof CAD.",
+            "Input classifier, seven-port storage, dryer, extruder, forming line, spooler and control-enclosure envelopes match their current proof CAD.",
             "The 2.295 m by 0.52 m workbench footprint preserves about 0.96 m from die to loaded-spool centreline.",
             "Tower center of mass and anchoring require later validation.",
             "No safety acceptance may be inferred from this skeleton.",

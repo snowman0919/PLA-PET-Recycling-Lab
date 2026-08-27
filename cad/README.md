@@ -12,6 +12,8 @@ PY"
 
 생성 대상은 `cad/generation/fcstd`, `exports/step`, `exports/stl`이다. full assembly skeleton의 module box는 keep-out envelope이며 제작 부품이 아니다. tolerance coupon을 먼저 출력·측정한 뒤 공차 parameter를 수정한다.
 
+Input-classifier generator는 최대 500 mL 병 envelope, 상·하 이중 게이트의 상호 배타 위치, 차광 카메라/백라이트 광로, reject flap과 6색+Reject 7-port 분배기를 만든다. 광학 부품과 병은 keep-out이고, 힌지·positive-opening interlock·충격 containment 및 재료 정확도는 실물 coupon으로 검증한다.
+
 Stage 1 상세 proof generator는 다음을 함께 만든다.
 
 - 8-hook cutter disc와 5-disc/shaft 교차 stack
@@ -35,6 +37,8 @@ Extruder generator는 18 mm×24 L/D single screw의 24회전 helical flight, 가
 Forming-line generator는 3분할 440 mm 횡류 공랭 덕트, 두 직교 광로를 갖는 직경 게이지, Ø40 mm 동기 nip roller와 독립 Ø30 mm odometer를 만든다. `diameter_gauge_optical_proof`는 enclosure를 제거한 광학 배치 확인용이고, reference ray는 초점·왜곡·불확도 인증을 대신하지 않는다. 첫 hot-strand 덕트는 금속 또는 온도 적합 재료로 제작한다.
 
 Spooler generator는 Ø200×73 mm 최대 1 kg급 spool reference, 12 mm steel shaft/6001 bearing 지지, 교체형 taper adapter, 120 mm dancer, 70 mm traverse와 보호 cage를 만든다. Printed adapter는 유일한 torque·축방향 하중경로가 아니며 drive와 slip clutch는 공급품 keep-out이다.
+
+Control-enclosure generator는 300×220×180 mm grounded sheet shell, metal partition/DIN rail, 고전류와 logic keep-out, 분할 door, E-stop/TFT 조작부, 분리 duct/gland와 PE stud를 만든다. 실제 MPN 치수·열·SCCR·연면거리·배선 굽힘 반경은 부품 선정 뒤 다시 승인한다.
 
 표준 review view는 FreeCAD 환경의 VTK로 STL triangle을 읽고 Pillow software projection으로 생성한다. OpenGL/EGL이 필요하지 않는다.
 

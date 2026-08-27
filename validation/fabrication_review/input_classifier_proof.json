@@ -1,0 +1,54 @@
+{
+  "revision": "0.1.0-preflight",
+  "input_classifier": {
+    "x_mm": 320.0,
+    "y_mm": 220.0,
+    "z_mm": 220.0,
+    "fits_210_cube": false
+  },
+  "maximum_bottle": {
+    "x_mm": 65.979,
+    "y_mm": 210.0,
+    "z_mm": 66.0,
+    "fits_210_cube": true
+  },
+  "storage_diverter": {
+    "x_mm": 320.0,
+    "y_mm": 319.901,
+    "z_mm": 50.0,
+    "fits_210_cube": false
+  },
+  "port_count": 7,
+  "gate_separation_mm": 110.0,
+  "outputs": {
+    "input": {
+      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/input_classifier_proof.FCStd",
+      "step": "/home/monad/develop/PPR/exports/step/input_classifier_proof.step",
+      "stl": "/home/monad/develop/PPR/exports/stl/input_classifier_proof.stl"
+    },
+    "storage": {
+      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/classification_storage_proof.FCStd",
+      "step": "/home/monad/develop/PPR/exports/step/classification_storage_proof.step",
+      "stl": "/home/monad/develop/PPR/exports/stl/classification_storage_proof.stl"
+    },
+    "components": {
+      "gate_half": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/classifier_gate_pair.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/classifier_gate_pair.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/classifier_gate_pair.stl"
+      },
+      "diverter_rotor": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/color_diverter_rotor.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/color_diverter_rotor.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/color_diverter_rotor.stl"
+      }
+    },
+    "gate_dxf": "/home/monad/develop/PPR/exports/dxf/classifier_gate_half.dxf"
+  },
+  "limitations": [
+    "The two gates prove mutually exclusive blocking positions; hinge, cam interlock, positive-opening switches and impact containment need sourced hardware and coupons.",
+    "Camera, backlight, bottle and optical ray are keep-outs; material accuracy requires a source-object-grouped dataset.",
+    "Seven ports map six fixed color bins plus Reject; external grounded hoses/bins and material-batch segregation are not modeled.",
+    "The reject flap is a kinematic envelope without actuator, bearing, seal or fragment-load detail."
+  ]
+}
