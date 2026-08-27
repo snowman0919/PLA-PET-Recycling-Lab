@@ -1,0 +1,16 @@
+CXX ?= g++
+CXXFLAGS ?= -std=c++17 -Wall -Wextra -Werror -pedantic -O2
+BUILD_DIR := build
+TEST_BIN := $(BUILD_DIR)/test_control_core
+
+.PHONY: test clean
+
+test: $(TEST_BIN)
+	$(TEST_BIN)
+
+$(TEST_BIN): src/control_core.cpp src/control_core.h src/protocol.cpp src/protocol.h tests/test_control_core.cpp
+	mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -Isrc src/control_core.cpp src/protocol.cpp tests/test_control_core.cpp -o $(TEST_BIN)
+
+clean:
+	rm -f $(TEST_BIN)
