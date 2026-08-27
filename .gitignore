@@ -1,0 +1,18 @@
+.env
+
+# Python / tooling
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Regenerable engineering outputs
+datasheets/
+bom/orders/
+*.bak
+*.FCStd1
+*.FCBak
+
+# Local logs and secrets
+*.log
+.DS_Store
