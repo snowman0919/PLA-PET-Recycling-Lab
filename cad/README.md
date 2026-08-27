@@ -26,6 +26,8 @@ Stage 2 proof generator는 50 mm single rotor, fixed bed knife, carrier, 양쪽 
 
 Stage 3 generator는 40 mm staggered rotor/stator proof, 17 mm/6203 shaft support와 4/5/6 mm flat screen coupon family를 만든다. 조립에는 5 mm screen이 들어가지만 세 screen 모두 FCStd/STEP/STL로 export된다. flat screen은 opening 비교용이며 최종 curved containment로 사용하지 않는다.
 
+Vibratory sorter generator는 8° 경사의 2단 cassette와 세 배출 경로, 4개 isolator, donor motor/eccentric envelope, M5 service clamp를 만든다. 상단 6 mm 잔류물은 재순환, 하단 3 mm 잔류물은 acceptable, 하단 통과물은 fines다. screen bar와 chute는 proof envelope이며 sourced mesh/seal 상세가 아니다.
+
 표준 review view는 FreeCAD 환경의 VTK로 STL triangle을 읽고 Pillow software projection으로 생성한다. OpenGL/EGL이 필요하지 않는다.
 
 ```bash

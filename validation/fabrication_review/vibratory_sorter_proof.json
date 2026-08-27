@@ -1,0 +1,54 @@
+{
+  "revision": "0.1.0-preflight",
+  "assembly": {
+    "x_mm": 323.009,
+    "y_mm": 140.0,
+    "z_mm": 88.107,
+    "fits_210_cube": false
+  },
+  "screen_open_area_nominal": {
+    "top_6mm": 0.5625,
+    "bottom_3mm": 0.36
+  },
+  "routing": {
+    "top_retained": "oversize_recirculation",
+    "bottom_retained": "acceptable_to_dryer_or_storage",
+    "bottom_pass": "sealed_fines_bin"
+  },
+  "outputs": {
+    "assembly": {
+      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/vibratory_sorter_proof.FCStd",
+      "step": "/home/monad/develop/PPR/exports/step/vibratory_sorter_proof.step",
+      "stl": "/home/monad/develop/PPR/exports/stl/vibratory_sorter_proof.stl"
+    },
+    "components": {
+      "base": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/sorter_base_plate.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/sorter_base_plate.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/sorter_base_plate.stl",
+        "dxf": "/home/monad/develop/PPR/exports/dxf/sorter_base_plate.dxf"
+      },
+      "top_screen": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/sorter_top_screen_6mm.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/sorter_top_screen_6mm.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/sorter_top_screen_6mm.stl"
+      },
+      "bottom_screen": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/sorter_bottom_screen_3mm.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/sorter_bottom_screen_3mm.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/sorter_bottom_screen_3mm.stl"
+      },
+      "clamp": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/sorter_service_clamp.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/sorter_service_clamp.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/sorter_service_clamp.stl"
+      }
+    }
+  },
+  "limitations": [
+    "Screen bars are a pitch/opening proof representation, not a sourced woven-mesh specification.",
+    "Chutes are routing envelopes; seals, flexible boots and captive service latches remain to be detailed.",
+    "Donor motor torque, bearing life, eccentric retention and balance require bench inspection.",
+    "No simultaneous optical measurement is permitted until frame modal/transmissibility testing passes."
+  ]
+}

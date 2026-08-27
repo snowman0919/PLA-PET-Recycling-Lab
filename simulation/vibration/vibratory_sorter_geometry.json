@@ -1,0 +1,39 @@
+{
+  "motion_clearance_allowance_mm": 2.8,
+  "checks": {
+    "isolator_to_frame": {
+      "distance_mm": 0.0,
+      "intersection_mm3": 136.52368
+    },
+    "motor_to_bracket": {
+      "distance_mm": 0.0,
+      "intersection_mm3": 0.0
+    },
+    "motor_to_base": {
+      "distance_mm": 46.96352,
+      "intersection_mm3": 0.0
+    },
+    "bracket_to_base": {
+      "distance_mm": 36.65935,
+      "intersection_mm3": 0.0
+    },
+    "motor_to_fines_bin": {
+      "distance_mm": 22.51691,
+      "intersection_mm3": 0.0
+    },
+    "eccentric_to_bracket": {
+      "distance_mm": 4.0,
+      "intersection_mm3": 0.0
+    }
+  },
+  "deck_normal_clearance_mm": 30.5,
+  "deck_vertical_pitch_mm": 31.68858,
+  "top_screen_wire_mm": 2.0,
+  "bottom_screen_wire_mm": 2.0,
+  "status": "PASS",
+  "limits": [
+    "Nominal rigid geometry does not replace one-isolator-failed or startup resonance testing.",
+    "Motor bracket contact is an envelope; sourced motor mounting face and bolts are not modeled.",
+    "Flexible chute boots and wiring service loops are not modeled."
+  ]
+}

@@ -62,6 +62,11 @@ def validate_exports() -> None:
         "stage3_screen_5mm",
         "stage3_screen_6mm",
         "stage3_granulator_proof",
+        "sorter_base_plate",
+        "sorter_top_screen_6mm",
+        "sorter_bottom_screen_3mm",
+        "sorter_service_clamp",
+        "vibratory_sorter_proof",
     )
     for stem in stems:
         step_shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
@@ -75,6 +80,8 @@ def validate_exports() -> None:
     require("CBORE_DEPTH_11_8" in dxf2 and dxf2.rstrip().endswith("EOF"), "Stage 2 plate DXF is incomplete")
     dxf3 = (ROOT / "exports" / "dxf" / "stage3_bearing_plate.dxf").read_text(encoding="ascii")
     require("CBORE_DEPTH_11_8" in dxf3 and dxf3.rstrip().endswith("EOF"), "Stage 3 plate DXF is incomplete")
+    sorter_dxf = (ROOT / "exports" / "dxf" / "sorter_base_plate.dxf").read_text(encoding="ascii")
+    require("ISOLATOR_M6" in sorter_dxf and sorter_dxf.rstrip().endswith("EOF"), "sorter base DXF is incomplete")
 
 
 def validate_stage1_assembly() -> None:
@@ -137,6 +144,33 @@ def validate_stage3_assembly() -> None:
     App.closeDocument(doc.Name)
 
 
+def validate_sorter_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "vibratory_sorter_proof.FCStd"))
+    expected = {
+        "BasePlate",
+        "Isolators",
+        "TrayFrame",
+        "TopScreen6",
+        "BottomScreen3",
+        "ScrewClamps",
+        "MotorBracket",
+        "DriveMotor",
+        "EccentricMass",
+        "OversizeAndAcceptableChutes",
+        "FinesBin",
+    }
+    require(expected == {o.Name for o in doc.Objects}, "sorter proof object set differs")
+    for obj in doc.Objects:
+        require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null sorter shape: {obj.Name}")
+        require(obj.Shape.isValid(), f"invalid sorter shape: {obj.Name}")
+    top = doc.getObject("TopScreen6").Shape.BoundBox
+    bottom = doc.getObject("BottomScreen3").Shape.BoundBox
+    require(top.Center.z - bottom.Center.z >= 30.0, "sorter deck separation is too small")
+    clamp = Part.read(str(ROOT / "exports" / "step" / "sorter_service_clamp.step"))
+    require(max(clamp.BoundBox.XLength, clamp.BoundBox.YLength, clamp.BoundBox.ZLength) <= 210.0, "service clamp exceeds print bed")
+    App.closeDocument(doc.Name)
+
+
 def validate_stage1_envelope() -> None:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["stage1"]
     tip_root_clearance = p["shaft_center_distance_mm"] - (
@@ -155,6 +189,7 @@ def main() -> None:
     validate_stage1_assembly()
     validate_stage2_assembly()
     validate_stage3_assembly()
+    validate_sorter_assembly()
     validate_stage1_envelope()
     print("CAD_VALIDATION_OK")
 
