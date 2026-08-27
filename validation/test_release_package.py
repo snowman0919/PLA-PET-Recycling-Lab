@@ -46,8 +46,9 @@ def main() -> None:
         assert str(ROOT) not in text and '": "/' not in text, f"absolute path leaked into {path}"
 
     for path in sorted((ROOT / "exports" / "step").glob("*.step")):
-        header = path.read_text(encoding="ascii")[:500]
+        header = path.read_text(encoding="ascii")[:1_500]
         assert "'2000-01-01T00:00:00'" in header, f"non-reproducible STEP header: {path}"
+        assert "Open CASCADE STEP translator 7.9 0" in header, f"non-reproducible STEP product ID: {path}"
 
     manifest = json.loads((ROOT / "artifacts" / "manifest.json").read_text())
     artifacts = manifest["artifacts"]

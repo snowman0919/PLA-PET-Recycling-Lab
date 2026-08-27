@@ -56,6 +56,11 @@ def export_document(doc, stem: str, export_objects=None) -> dict[str, str]:
     )
     if substitutions != 1:
         raise RuntimeError(f"could not normalize STEP timestamp: {step_path}")
+    step_text = re.sub(
+        r"(Open CASCADE STEP translator [0-9.]+) [0-9]+",
+        r"\1 0",
+        step_text,
+    )
     step_path.write_text(step_text, encoding="ascii", newline="\n")
     Mesh.export(objects, str(stl_path))
     return {
