@@ -41,7 +41,8 @@ Cold metrology에서 모든 위치의 실제 radial clearance가 승인 범위 �
 - PLA setpoints: 180/190/200/190 °C; independent high limit 230 °C
 - bottle PET setpoints: 250/270/280/275 °C; independent high limit 295 °C
 - thermal fuse 후보 300 °C, hot-zone design maximum 310 °C
-- insulation 40 mm, grounded ventilated shield air gap 8 mm, 접근 표면 목표 50 °C 이하
+- insulation 실두께 50 mm, grounded ventilated shield air gap 8 mm, 정상 접근 표면 목표 50 °C 이하
+- 310 °C fault envelope에서 PLA/ABS 부품은 shield 직접 복사 시야를 금지하고 grounded metal baffle로 유효 view factor ≤0.60을 유지한다. 상세 thermal-bridge/복사 gate는 `calculations/thermal/hot_zone_guard.md`를 따른다.
 - thrust bearing–hot barrel axial heat break: 73 mm; bearing plate 목표 70 °C 이하
 
 각 zone은 heater control sensor와 독립 high-limit sensor를 분리한다. SSR welded-on, sensor open/short, MCU hang에서도 독립 접촉기와 one-shot thermal fuse가 heater branch를 차단해야 한다. Feed throat cooling은 PLA 공급원 지침에 따라 항상 proof하고, 냉각 유량 상실 시 feed와 screw를 정지한다. PET/PLA profile 변경에는 material purge와 수동 승인 절차를 둔다.

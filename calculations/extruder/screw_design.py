@@ -144,8 +144,9 @@ def main() -> dict:
     barrel_stress_with_features = barrel_hoop * 1.5
 
     length = P["screw_diameter_mm"] * P["length_to_diameter_ratio"] / 1000
-    insulation_outer_r = ro + P["insulation_thickness_mm"] / 1000
-    radial_r = log(insulation_outer_r / ro) / (2 * pi * 0.04 * length)
+    heater_outer_r = ro + 0.003
+    insulation_outer_r = heater_outer_r + P["insulation_thickness_mm"] / 1000
+    radial_r = log(insulation_outer_r / heater_outer_r) / (2 * pi * 0.04 * length)
     heater_coupled_power = P["heater_peak_power_w"] * 0.85
     barrel_mass_kg = pi * (ro**2 - ri**2) * length * 7850
     metal_mass_kg = barrel_mass_kg + 1.3  # screw, breaker, die and clamp-envelope allowance
@@ -154,7 +155,7 @@ def main() -> dict:
     for material, target_c, cp_kj, fusion_kj in (("pla", 210.0, 1.8, 50.0), ("pet", 280.0, 1.3, 80.0)):
         delta = target_c - 25.0
         material_w = P["stable_mass_flow_target_gph"] / 1000 / 3600 * (cp_kj * 1000 * delta + fusion_kj * 1000)
-        loss_w = delta / radial_r * 2.5
+        loss_w = delta / radial_r * P["thermal_bridge_factor"]
         ramp_s = metal_mass_kg * metal_cp_j_kgk * delta / (heater_coupled_power - loss_w / 2)
         thermal[material] = {
             "target_melt_c": target_c,

@@ -200,13 +200,13 @@ def make_heaters(params: dict):
 
 def make_insulation(params: dict):
     inner = params["barrel_outer_diameter_mm"] / 2 + 3.0
-    outer = params["barrel_outer_diameter_mm"] / 2 + params["insulation_thickness_mm"]
+    outer = inner + params["insulation_thickness_mm"]
     segments = [(FLIGHT_START_X + 42.0, 112.0), (FLIGHT_START_X + 162.0, 126.0), (FLIGHT_START_X + 296.0, 132.0)]
     return Part.makeCompound([_ring(outer, inner, length, x) for x, length in segments])
 
 
 def make_heat_shield(params: dict):
-    insulation_outer = params["barrel_outer_diameter_mm"] / 2 + params["insulation_thickness_mm"]
+    insulation_outer = params["barrel_outer_diameter_mm"] / 2 + 3.0 + params["insulation_thickness_mm"]
     inner = insulation_outer + params["shield_air_gap_mm"]
     outer = inner + params["shield_thickness_mm"]
     x = FLIGHT_START_X + 38.0

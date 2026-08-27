@@ -75,7 +75,7 @@ Die 출구 3.0 mm에서 1.75 mm로의 면적 drawdown은 2.94:1이다. 200 g/h�
 
 출력 목표는 45 rpm에서 continuous 20 N·m(94.2 W mechanical), 75% 효율 가정 125.7 W electrical이며 torque trip은 30 N·m다. NEMA17·donor motor 어느 것도 라벨과 dyno 없이 이 성능을 가진다고 보지 않는다.
 
-3개 barrel heater 80 W와 die 60 W, 합계 300 W를 둔다. OD38 barrel에 40 mm insulation을 적용한 1-D radial model과 bridge/end factor 2.5에서 steady cold-feed 요구는 PLA 65.6 W, PET 83.9 W이고, heater duty는 21.9/28.0%다. 4.26 kg hot metal, heater coupling 85% 가정의 empty cold ramp는 PLA 28.2 min, PET 40.4 min이다. Hot-zone 설계 최대는 310 °C이며 shield 외부 PLA 구조물은 해석이 아니라 thermocouple 시험으로 45 °C 미만을 확인한다.
+3개 barrel heater 80 W와 die 60 W, 합계 300 W를 둔다. Heater envelope 밖 실두께 50 mm insulation을 적용한 1-D radial model과 bridge factor 2.5에서 steady cold-feed 요구는 PLA 63.6 W, PET 81.2 W이고, heater duty는 21.2/27.1%다. 4.26 kg hot metal, heater coupling 85% 가정의 empty cold ramp는 PLA 28.1 min, PET 40.1 min이다. Hot-zone 설계 최대는 310 °C다. 정상/fault shield와 인접 polymer gate는 `calculations/thermal/hot_zone_guard.md`에 있으며 실제 seam·clamp·slot·penetration hotspot은 thermocouple 시험으로 확인한다.
 
 각 zone은 제어 sensor와 독립 high-limit monitor를 분리한다. Keyed recipe selection의 독립 한계는 PLA 230 °C, PET 295 °C이고, 각 heater branch에는 300 °C one-shot thermal fuse 후보와 전류 fuse를 직렬로 둔다. Fuse 공차의 최악 상한이 310 °C 설계한계보다 낮은 공급품을 고르기 전에는 hot test를 하지 않는다. Mega, Pi, SSR/MOSFET 중 하나가 고장나도 독립 monitor/contactor와 thermal fuse가 heater energy를 제거해야 한다.
 

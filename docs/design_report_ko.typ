@@ -129,6 +129,8 @@ Metal hopper ID140×320 mm, 40 mm insulation과 closed dry-air path를 선택했
 
 Heater profile은 PLA 180/190/200/190 °C, PET 250/270/280/275 °C다. 각 branch는 별도 sensor/fuse이며 PLA/PET independent limit 후보는 230/295 °C다.
 
+압출기 insulation은 기존 40 mm에서 실두께 50 mm로 변경했다. 정상 PET 280 °C lumped thermal network에서 shield는 약 48.8 °C, 인접 polymer는 약 27.2 °C다. 310 °C·열교 1.5배·환기 저하 fault envelope에서 grounded metal baffle로 유효 복사 view factor를 0.60 이하로 제한하면 polymer 약 40.5 °C지만 shield는 약 70.7 °C이므로 cooldown 상태다. 직접 시야는 polymer 약 48.6 °C로 실패하므로 hot zone의 PLA/ABS 부품은 금지한다. 이 민감도 모델은 seam/clamp/slot/penetration 열전대 시험을 대체하지 않는다.
+
 = Cooling·dual-view gauge·puller
 
 Ø1.75 mm, 200 g/h 선속은 PLA 1.118 m/min, PET 0.997 m/min이다. 440 mm cross-flow tunnel은 2.5 m/s 명목에서 PLA 필요길이 365.0 mm, PET 211.6 mm이며 250 g/h/4 m/s PLA worst margin은 54.5 mm다.

@@ -9,10 +9,10 @@
 - 34행 CNC/sheet-fabrication DFM·RFQ precheck package 추가
 - 7개 load path의 analytic·20-element beam FEA, support reaction·전단·비틀림 조합검증과 review gate 추가
 - 21개 section/x-ray/exploded/tool/cable/slicing CAD review variant 추가
-- Release artifact 311개와 자동검증 26-gate 체계로 확장
-- 현재 revision clean clone의 CAD/render/Nix Typst PDF/27-gate 재생성과 byte 재현성 확인
+- 이전 revision clean clone의 CAD/render/Nix Typst PDF/27-gate 재생성과 byte 재현성 확인
 - 조립 PDF에 필수 40개 topic과 81행 BOM·출력/CNC/배선/교정/정비 appendix 수록
-- Release artifact 312개와 자동검증 27-gate 체계로 확장
+- 압출기 insulation 실두께 50 mm 변경, shield/인접 polymer 정상·fault 열저항 gate와 직접 복사 시야 금지 추가
+- Release artifact 314개와 자동검증 28-gate 체계로 확장
 - TFT-independent 9-page UI core, startup/purge interlock, Mega–Pi UI snapshot 계약 추가
 - 사용자 요청의 2-tower rack 재범위, 보유 IRLZ44N/camera 조달 처리, concrete render와 draft 문서 정책 기록
 

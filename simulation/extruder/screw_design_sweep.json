@@ -139,24 +139,24 @@
   },
   "thermal": {
     "barrel_metal_length_mm": 432.0,
-    "insulation_thickness_mm": 40.0,
-    "radial_thermal_resistance_k_w": 10.436239680155898,
+    "insulation_thickness_mm": 50.0,
+    "radial_thermal_resistance_k_w": 10.920015453481591,
     "heater_peak_w": 300.0,
     "heated_metal_mass_kg": 4.263772000016632,
     "profiles": {
       "pla": {
         "target_melt_c": 210.0,
         "cold_feed_material_heating_w": 21.27777777777778,
-        "insulated_loss_with_bridges_w": 44.31672845530998,
-        "steady_heater_duty": 0.21864835411029251,
-        "empty_cold_ramp_minutes": 28.230840866962474
+        "insulated_loss_with_bridges_w": 42.35341991686859,
+        "steady_heater_duty": 0.2121039923154879,
+        "empty_cold_ramp_minutes": 28.11232005812509
       },
       "pet": {
         "target_melt_c": 280.0,
         "cold_feed_material_heating_w": 22.86111111111111,
-        "insulated_loss_with_bridges_w": 61.08522030326511,
-        "steady_heater_duty": 0.2798211047145874,
-        "empty_cold_ramp_minutes": 40.36630518672693
+        "insulated_loss_with_bridges_w": 58.379038263791834,
+        "steady_heater_duty": 0.27080049791634314,
+        "empty_cold_ramp_minutes": 40.124424097602414
       }
     }
   },

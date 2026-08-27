@@ -145,7 +145,7 @@ PET baseline은 140 °C 2 h+160 °C 4 h, PLA는 45 °C 6 h다. Dew point ≤−4
 #module_figure("../renders/modules/extruder_proof_isometric.png", [18 mm pressure-limited extruder proof])
 #module_figure("../renders/modules/extruder_screw_isometric.png", [24회전 faceted helical proof — smooth CNC toolpath가 아니다])
 
-Heater 네 branch, control/high-limit sensor, branch fuse, one-shot fuse, pressure transducer, mechanical relief와 guarded catch를 설치한다. 구조 계산 20 MPa는 임의 hydro/pneumatic proof 지시가 아니다.
+Heater 네 branch, control/high-limit sensor, branch fuse, one-shot fuse, pressure transducer, mechanical relief와 guarded catch를 설치한다. Heater envelope 밖에는 실두께 50 mm insulation과 8 mm air gap의 grounded metal shield를 둔다. PLA/ABS 부품은 shield 직접 복사 시야에 두지 않고 metal baffle의 유효 view factor를 0.60 이하로 제한한다. 정상 shield ≤50 °C와 인접 polymer ≤45 °C를 seam/clamp/slot/penetration 열전대로 확인한다. 구조 계산 20 MPa와 열저항 모델은 임의 pressure/thermal proof 지시가 아니다.
 
 = Cooling·gauge·puller
 
