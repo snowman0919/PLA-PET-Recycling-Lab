@@ -1,4 +1,4 @@
-# Release checklist — Revision 0.1.0-preflight
+# Release checklist — Revision 0.1.0-preflight+unreleased
 
 ## Source와 재현성
 
@@ -7,15 +7,17 @@
 - [x] FCStd/STEP/STL 생성
 - [x] tolerance coupon print-volume 및 part-separation 자동 검사
 - [x] 표준 7-view render 생성
+- [x] section/x-ray/exploded/tool/cable/slicing review variant 생성
 - [x] 11개 module의 proof CAD/keep-out 생성
 - [x] 현재 proof 범위의 DXF와 제작 주석 생성
-- [ ] 현재 26-gate clean clone 전체 재실행 (`v0.1.0-preflight`의 22-gate는 통과)
+- [x] 현재 26-gate clean clone 전체 재실행
 
 ## 해석
 
 - [x] Stage 1 1차 torque/shaft screening
 - [x] Stage 1/2/3 kinematic clearance·shaft screening
 - [x] Vibration, dryer/feeder, extruder, forming, spooler, power/control screening
+- [x] 7개 load path의 analytic·1D beam FEA 교차검증
 - [ ] Stage 1 detailed cutter/contact FEA와 모든 최종 load case
 - [ ] Optical U95와 실제 material/control plant cross-check
 
@@ -35,6 +37,7 @@
 - [x] baseline requirements/safety/responsibility
 - [x] initial BOM with unknown cost explicitly marked TBD
 - [x] 공개 후보 가격 증거와 target/recommended BOM 분리
+- [x] 43개 요구사항 감사표와 34행 CNC/RFQ precheck package
 - [ ] dated vendor pricing and actual CNC quotes
 - [x] Korean build/design PDFs와 시각 렌더 검토
 - [ ] user physical safety approval

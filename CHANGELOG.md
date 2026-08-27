@@ -10,6 +10,7 @@
 - 7개 load path의 analytic·20-element beam FEA 교차검증과 review gate 추가
 - 21개 section/x-ray/exploded/tool/cable/slicing CAD review variant 추가
 - Release artifact 311개와 자동검증 26-gate 체계로 확장
+- 현재 revision clean clone의 CAD/render/Nix Typst PDF/26-gate 재생성과 byte 재현성 확인
 
 ## 0.1.0-preflight — 2026-08-28
 

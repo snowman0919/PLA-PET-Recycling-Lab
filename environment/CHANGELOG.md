@@ -60,3 +60,10 @@
 - 개별 generator 산출물은 유효했지만 전체 재생성은 ImportError로 실패하여 해당 통합 실행을 미채택
 - 각 stage generator 전 `geometry` cache entry를 제거하도록 runner를 수정
 - 후속 tolerance coupon → Stage 1 → Stage 2 → full assembly 전체 생성과 CAD/kinematic 검증 통과
+
+## 2026-08-28 — 현재 revision clean-clone 재현
+
+- Nix FreeCAD 1.1.3과 Typst 0.15.1로 CAD→표준/review render→PDF→26-gate 전체 재실행 통과
+- STEP/STL/DXF/PNG/PDF/계산 JSON/review JSON 변경 0건
+- FCStd 51개는 생성시각·UUID·내부 ID 때문에 container hash가 달라지며 shape/object-set gate로 검증
+- Docker Typst 0.13.1 임시 PDF는 폐기하고 Nix Typst 0.15.1 고정 CreationDate 산출물로 교체
