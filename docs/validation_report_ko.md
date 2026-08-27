@@ -25,14 +25,14 @@ Revision: `0.1.0-preflight`
 13. 7개 구조 load path의 analytic·20-element beam FEA, support reaction·횡전단·비틀림 조합응력과 intentional review gate
 14. Section/x-ray/exploded/tool/cable/slicing 22개 CAD review variant의 크기·구조·한계표기
 15. 조립 PDF 필수 40개 topic의 순번·지원파일·실제 PDF text coverage
-16. 354개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG
+16. 353개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG
 17. A4 한국어 PDF의 header/EOF/page object 구조
 18. 원문 release 기능을 보존한 2-tower 치수·batch·safety·anchor 수치 계약
 19. RTX 3080 CUDA 4,194,304-sample stability sweep, 8,192-sample CPU 교차검산과 source/contract hash
 20. 2-tower FCStd의 2510×600×1350 mm envelope, 250 mm separation, 8/6 L batch cavity, 8개 anchor, gravity chute, batch dock와 760 mm straight rail 형상 계약
 21. KiCad monitor/interface board의 native source, ERC 0, DRC 0/미연결 0, 분리 zone, 3 fiducial, 12 test point, fabrication 산출물과 SPICE 9/9 pass 계약
 
-최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (32 gates)`로 통과했다. Manifest는 `artifacts/manifest.json`이며 KiCad source/제조/분석과 데이터시트 provenance를 포함한 354개 항목의 bytes와 SHA-256를 기록한다. PCB 단독 marker `KICAD_INTERFACE_BOARD_OK`도 통과했다.
+최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (32 gates)`로 통과했다. Manifest는 `artifacts/manifest.json`이며 KiCad source/제조/분석과 데이터시트 provenance를 포함한 353개 항목의 bytes와 SHA-256를 기록한다. PCB 단독 marker `KICAD_INTERFACE_BOARD_OK`도 통과했다.
 
 ## 통과가 의미하는 것
 

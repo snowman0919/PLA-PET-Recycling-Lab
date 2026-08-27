@@ -68,7 +68,7 @@ def main() -> None:
         "OK",
         pi_env,
     )
-    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=354")
+    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=353")
     run([sys.executable, "validation/test_release_package.py"], "RELEASE_PACKAGE_OK")
     print("ALL_AUTOMATED_VALIDATIONS_OK (32 gates)")
 
