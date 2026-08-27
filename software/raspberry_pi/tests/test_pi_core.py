@@ -11,7 +11,7 @@ from recycler.diameter import DualViewGauge, Region, fit_view_scale
 from recycler.history import ProductionHistory
 from recycler.protocol import ProtocolError, decode_frame, encode_frame, sequence_is_newer
 from recycler.runtime import ProductionRuntime
-from recycler.supervisor import MegaSupervisor, parse_telemetry
+from recycler.supervisor import MegaSupervisor, parse_telemetry, parse_ui_command
 
 
 class ProtocolTests(unittest.TestCase):
@@ -33,11 +33,12 @@ class ProtocolTests(unittest.TestCase):
         supervisor.heartbeat()
         supervisor.select_profile("PLA")
         supervisor.select_dryer_stage("PLA_45")
+        supervisor.acknowledge_purge()
         supervisor.request_run("EXTRUDE_SPOOL")
         frames = stream.getvalue().splitlines(keepends=True)
         self.assertEqual(
             [decode_frame(frame).message_type for frame in frames],
-            ["HB", "PROFILE", "DRY_STAGE", "RUN"],
+            ["HB", "PROFILE", "DRY_STAGE", "PURGE_ACK", "RUN"],
         )
         with self.assertRaises(ValueError):
             supervisor.select_dryer_stage("PET_999")
@@ -64,6 +65,27 @@ class ProtocolTests(unittest.TestCase):
         self.assertAlmostEqual(parsed["p"], 2.5)
         self.assertAlmostEqual(parsed["load"], 0.72)
         self.assertEqual(parsed["retry"], 2)
+
+    def test_ui_snapshots_and_bounded_commands(self) -> None:
+        stream = io.BytesIO()
+        supervisor = MegaSupervisor(stream, clock=lambda: 0.0)
+        supervisor.send_ui_classification(2, 92, 1, 3, 17, False, True)
+        supervisor.send_ui_production(1.74, 1.76, 125.5, 372, 18, True)
+        supervisor.send_ui_stock(65, 0x04)
+        frames = [decode_frame(raw) for raw in stream.getvalue().splitlines(keepends=True)]
+        self.assertEqual(
+            [frame.message_type for frame in frames],
+            ["UI_CLASS", "UI_PROD", "UI_STOCK"],
+        )
+        self.assertIn("dx_um=1740,dy_um=1760", frames[1].payload)
+        self.assertEqual(parse_ui_command("MATERIAL=PET"), ("MATERIAL", "PET"))
+        self.assertEqual(parse_ui_command("BATCH=17"), ("BATCH", "17"))
+        with self.assertRaises(ProtocolError):
+            parse_ui_command("MATERIAL=TPU")
+        with self.assertRaises(ProtocolError):
+            parse_ui_command("BATCH=017")
+        with self.assertRaises(ValueError):
+            supervisor.send_ui_stock(101, 0)
 
 
 class DiameterTests(unittest.TestCase):

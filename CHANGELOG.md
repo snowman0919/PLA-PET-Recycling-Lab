@@ -13,6 +13,7 @@
 - 현재 revision clean clone의 CAD/render/Nix Typst PDF/27-gate 재생성과 byte 재현성 확인
 - 조립 PDF에 필수 40개 topic과 81행 BOM·출력/CNC/배선/교정/정비 appendix 수록
 - Release artifact 312개와 자동검증 27-gate 체계로 확장
+- TFT-independent 9-page UI core, startup/purge interlock, Mega–Pi UI snapshot 계약 추가
 
 ## 0.1.0-preflight — 2026-08-28
 

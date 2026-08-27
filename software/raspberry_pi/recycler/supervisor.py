@@ -36,6 +36,30 @@ def parse_telemetry(payload: str) -> dict[str, int | float | str]:
     return parsed
 
 
+def parse_ui_command(payload: str) -> tuple[str, str]:
+    """Parse a display request; callers still enforce workflow and safety state."""
+    if payload.count("=") != 1:
+        raise ProtocolError("UI command field")
+    command, value = payload.split("=", 1)
+    fixed = {
+        "ACK_STARTUP": {"1"},
+        "MATERIAL": {"AUTO", "PLA", "PET"},
+        "CALIBRATION": {"REQUEST"},
+        "MAINTENANCE": {"REQUEST"},
+    }
+    if command in {"COLOR", "BATCH"}:
+        if not value.isdecimal() or str(int(value)) != value:
+            raise ProtocolError("non-canonical UI integer")
+        numeric = int(value)
+        if (command == "COLOR" and not 0 <= numeric <= 7) or (
+            command == "BATCH" and not 1 <= numeric <= 999
+        ):
+            raise ProtocolError("UI integer outside range")
+    elif command not in fixed or value not in fixed[command]:
+        raise ProtocolError("unsupported UI command")
+    return command, value
+
+
 class MegaSupervisor:
     def __init__(self, stream: BinaryIO, clock: Callable[[], float] = monotonic) -> None:
         self.stream = stream
@@ -96,6 +120,64 @@ class MegaSupervisor:
 
     def request_pause(self) -> bytes:
         return self._send("PAUSE")
+
+    def acknowledge_purge(self) -> bytes:
+        """Request purge completion; Mega also requires local BACK while stopped."""
+        return self._send("PURGE_ACK")
+
+    def send_ui_classification(
+        self,
+        detected: int,
+        confidence_pct: int,
+        selected: int,
+        color_bin: int,
+        batch_number: int,
+        purge_required: bool,
+        classifier_qualified: bool,
+    ) -> bytes:
+        if not 0 <= detected <= 4 or not 0 <= selected <= 4:
+            raise ValueError("UI material code outside enum")
+        if not 0 <= confidence_pct <= 100 or not 0 <= color_bin <= 7:
+            raise ValueError("UI classification value outside range")
+        if not 0 <= batch_number <= 999:
+            raise ValueError("UI batch outside range")
+        payload = (
+            f"det={detected},conf={confidence_pct},selected={selected},"
+            f"color={color_bin},batch={batch_number},purge={int(purge_required)},"
+            f"classok={int(classifier_qualified)}"
+        )
+        return self._send("UI_CLASS", payload)
+
+    def send_ui_production(
+        self,
+        diameter_x_mm: float,
+        diameter_y_mm: float,
+        length_m: float,
+        weight_g: int,
+        eta_minutes: int,
+        gauge_qualified: bool,
+    ) -> bytes:
+        dx_um = round(diameter_x_mm * 1000)
+        dy_um = round(diameter_y_mm * 1000)
+        length_mm = round(length_m * 1000)
+        if not 0 <= dx_um <= 10000 or not 0 <= dy_um <= 10000:
+            raise ValueError("UI diameter outside range")
+        if (
+            not 0 <= length_mm <= 0xFFFFFFFF
+            or not 0 <= weight_g <= 0xFFFFFFFF
+            or not 0 <= eta_minutes <= 65535
+        ):
+            raise ValueError("UI production value outside range")
+        return self._send(
+            "UI_PROD",
+            f"dx_um={dx_um},dy_um={dy_um},len_mm={length_mm},weight_g={weight_g},"
+            f"eta_min={eta_minutes},gaugeok={int(gauge_qualified)}",
+        )
+
+    def send_ui_stock(self, hopper_fill_pct: int, full_bin_mask: int) -> bytes:
+        if not 0 <= hopper_fill_pct <= 100 or not 0 <= full_bin_mask <= 0xFF:
+            raise ValueError("UI stock value outside range")
+        return self._send("UI_STOCK", f"hopper={hopper_fill_pct},full={full_bin_mask:02X}")
 
     def receive(self, raw: bytes) -> Frame | None:
         try:

@@ -1,6 +1,6 @@
 # Arduino Mega 펌웨어
 
-`filament_recycler_mega.ino`가 Arduino integration source이고 `src/control_core.*`와 `src/protocol.*`는 host에서도 시험 가능한 안전·제어 core다.
+`filament_recycler_mega.ino`가 Arduino integration source이고 `src/control_core.*`, `src/protocol.*`, `src/ui_core.*`는 host에서도 시험 가능한 안전·제어·UI core다.
 
 구현 범위:
 
@@ -12,6 +12,8 @@
 - phase 상호배제와 provisional 480 W software ceiling의 heater power scaling
 - current RMS/peak/derivative + tach speed ratio + vibration 기반 feed limit, 300 ms stop, 800 ms reverse, 최대 3회 retry
 - AVR 2 s hardware watchdog와 모든 출력 safe-low 초기화
+- TFT-independent 9-page view model, fault 강제화면, startup 금지원료/환기 확인, rotary/button debounce
+- material/color/batch 요청, calibration/maintenance energy gate와 material-change purge latch
 
 Host core test:
 
@@ -27,4 +29,4 @@ make -C firmware/arduino_mega test
 
 ## Build 상태
 
-Portable core와 전체 `.ino` integration은 Arduino API stub 아래 `g++ -std=c++17 -Wall -Wextra -Werror`로 검증한다. 실제 Arduino AVR core/board compile은 board package version이 release 환경에 고정될 때 추가한다. TFT driver, 실제 sensor front-end, motor driver pulse timing과 high-PPR tach ISR은 donor inventory 이후 pin-compatible adapter에서 완성해야 하며 현재 물리 운전 승인을 뜻하지 않는다.
+Portable core와 전체 `.ino` integration은 Arduino API stub 아래 `g++ -std=c++17 -Wall -Wextra -Werror`로 검증한다. UI test는 모든 필수 화면, fault preemption, 입력 debounce, startup/purge run gate를 확인한다. 실제 Arduino AVR core/board compile은 board package version이 release 환경에 고정될 때 추가한다. TFT controller/logic level이 확인되기 전에는 CS를 deselect하고 reset을 assert한 채 `UiFrame` renderer adapter만 비워 둔다. 실제 TFT driver, sensor front-end, motor driver pulse timing과 high-PPR tach ISR은 donor inventory 이후 pin-compatible adapter에서 완성해야 하며 현재 물리 운전 승인을 뜻하지 않는다.

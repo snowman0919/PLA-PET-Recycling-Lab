@@ -55,7 +55,7 @@ def main() -> None:
     for script, marker in FREECAD_TESTS:
         code = f"import runpy; runpy.run_path({script!r}, run_name='__main__')"
         run(["FreeCADCmd", "-c", code], marker)
-    run(["make", "-C", "firmware/arduino_mega", "test"], "MEGA_SKETCH_COMPILE_OK")
+    run(["make", "-C", "firmware/arduino_mega", "test"], "MEGA_UI_CORE_OK")
     pi_env = os.environ.copy()
     pi_env["PYTHONPATH"] = str(ROOT / "software" / "raspberry_pi")
     run(

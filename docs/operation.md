@@ -15,8 +15,9 @@
 3. PE, fuse indicator, thermal fuse/high-limit, pressure relief discharge와 connector label을 확인한다.
 4. 원료 batch ID, source object/batch, recycling generation, material/color truth와 금지물 검사 결과를 등록한다.
 5. PSU label/branch current가 승인된 configuration과 일치하는지 확인한다.
-6. E-stop을 release하고 monitored manual reset을 수행한다. Pi heartbeat와 local BACK/ABORT를 함께 사용해 Mega SELF_TEST를 시작한다.
-7. SELF_TEST가 E-stop/contact mirror, lid/service/thermal chain, sensor open/short, pressure/airflow, encoder/limit 상태를 모두 통과해야 READY가 된다.
+6. TFT startup 화면의 환기, 허용·금지 원료, label/metal/food 제거, guard/bin 설치 경고를 읽고 rotary PUSH로 확인한다. 이 확인 전 Mega는 `RESET/RUN` 요청을 폐기한다.
+7. E-stop을 release하고 monitored manual reset을 수행한다. Pi heartbeat와 local BACK/ABORT를 함께 사용해 Mega SELF_TEST를 시작한다.
+8. SELF_TEST가 E-stop/contact mirror, lid/service/thermal chain, sensor open/short, pressure/airflow, encoder/limit 상태를 모두 통과해야 READY가 된다.
 
 ## 분류·파쇄·선별
 
@@ -31,7 +32,7 @@
 
 PLA baseline은 45 °C 6 h, PET baseline은 140 °C 2 h+160 °C 4 h 계산 profile이다. 실제 resin supplier 자료와 물리 coupon이 우선한다. PET는 outlet moisture ≤50 ppm, 외부 dew point ≤−40 °C를 증명하지 못하면 extrusion하지 않는다.
 
-PLA/PET heater branch는 hardware selector로 상호배제한다. Hopper batch가 선택한 material/color와 다르거나 이전 material purge 기록이 없으면 feeder가 열리지 않아야 한다.
+PLA/PET heater branch는 hardware selector로 상호배제한다. Profile 변경은 Mega의 purge latch를 set하며 `EXTRUDE_SPOOL`을 차단한다. 승인된 purge와 waste 격리를 기록한 뒤 Pi `PURGE_ACK`와 정지 상태의 local BACK/ABORT를 동시에 확인해야 latch가 풀린다. Hopper batch가 선택한 material/color와 다르거나 이전 material purge 기록이 없으면 feeder가 열리지 않아야 한다.
 
 ## 압출·첫 strand
 

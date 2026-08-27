@@ -21,6 +21,7 @@ PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조,
 - 설계·검증 보고서: `docs/design_report_ko.pdf`
 - 요구사항/가정/감사표: `requirements/system_requirements.md`, `requirements/assumptions.md`, `requirements/compliance_matrix.md`
 - 안전·운전·교정: `docs/safety.md`, `docs/operation.md`, `docs/calibration.md`
+- TFT UI 화면·adapter gate: `docs/ui_screens.md`
 - CAD source/output: `cad/freecad`, `cad/generation/fcstd`, `exports`, `renders`
 - CAD review variants: `renders/review` (section/x-ray/exploded/tool/cable/slicing)
 - 배선·pinout/protocol: `electronics/schematics`, `electronics/wiring`, `electronics/pinout`, `electronics/protocol`

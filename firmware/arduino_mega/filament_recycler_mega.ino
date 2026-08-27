@@ -6,6 +6,7 @@
 #include "src/configuration.h"
 #include "src/control_core.h"
 #include "src/protocol.h"
+#include "src/ui_core.h"
 
 using namespace recycler;
 
@@ -73,6 +74,8 @@ constexpr uint8_t kShredderVibrationAnalog = A15;
 namespace {
 SafetyCore safety;
 JamController shredder_jam;
+UiCore ui;
+UiInputFilter ui_inputs;
 const HeaterConfig kPlaHeaterConfig{0.08F, 0.005F, -20.0F, 330.0F, 230.0F,
                                      30.0F, 2.0F, 60000UL};
 const HeaterConfig kPetHeaterConfig{0.06F, 0.004F, -20.0F, 330.0F, 295.0F,
@@ -101,11 +104,14 @@ bool have_rx_sequence = false;
 uint32_t tx_sequence = 0;
 uint32_t last_heartbeat_ms = 0;
 uint32_t last_telemetry_ms = 0;
+uint32_t last_ui_render_ms = 0;
 uint32_t last_loop_ms = 0;
 uint8_t malformed_burst = 0;
 bool pending_reset = false;
 bool pending_start = false;
 bool pending_pause = false;
+bool pending_purge_ack = false;
+uint32_t pending_purge_ack_ms = 0;
 Phase requested_phase = Phase::IDLE;
 bool pet_profile = false;
 float dryer_setpoint_c = 45.0F;
@@ -132,6 +138,8 @@ LoadFeatures latest_load_features{false, NAN, NAN, NAN, NAN, NAN};
 
 float temperature_c[6] = {NAN, NAN, NAN, NAN, NAN, NAN};
 float pressure_mpa = NAN;
+UiTelemetry ui_telemetry{};
+UiFrame last_ui_frame{};
 
 bool loop_closed(uint8_t pin) { return digitalRead(pin) == LOW; }
 
@@ -243,10 +251,12 @@ void handle_frame(const ProtocolFrame& frame) {
     last_heartbeat_ms = millis();
   } else if (!strcmp(frame.type, "PROFILE")) {
     if (!strcmp(frame.payload, "PLA")) {
+      if (pet_profile) ui_telemetry.purge_required = true;
       pet_profile = false;
       dryer_setpoint_c = 45.0F;
     }
     if (!strcmp(frame.payload, "PET")) {
+      if (!pet_profile) ui_telemetry.purge_required = true;
       pet_profile = true;
       dryer_setpoint_c = 140.0F;
     }
@@ -261,6 +271,62 @@ void handle_frame(const ProtocolFrame& frame) {
     pending_start = requested_phase != Phase::IDLE;
   } else if (!strcmp(frame.type, "PAUSE")) {
     pending_pause = true;
+  } else if (!strcmp(frame.type, "PURGE_ACK")) {
+    const bool stopped = last_safe.state == SafetyState::SAFE_OFF ||
+                         last_safe.state == SafetyState::READY ||
+                         last_safe.state == SafetyState::PAUSED;
+    pending_purge_ack = stopped;
+    pending_purge_ack_ms = millis();
+  } else if (!strcmp(frame.type, "UI_CLASS")) {
+    unsigned detected = 0;
+    unsigned confidence = 0;
+    unsigned selected = 0;
+    unsigned color = 7;
+    unsigned batch = 0;
+    unsigned purge = 0;
+    unsigned qualified = 0;
+    if (sscanf(frame.payload,
+               "det=%u,conf=%u,selected=%u,color=%u,batch=%u,purge=%u,classok=%u",
+               &detected, &confidence, &selected, &color, &batch, &purge,
+               &qualified) == 7 &&
+        detected <= static_cast<unsigned>(UiMaterial::REJECT) &&
+        selected <= static_cast<unsigned>(UiMaterial::REJECT) &&
+        confidence <= 100 && color <= 7 && batch <= 999 && purge <= 1 &&
+        qualified <= 1) {
+      ui_telemetry.detected_material = static_cast<UiMaterial>(detected);
+      ui_telemetry.classifier_confidence_pct = static_cast<uint8_t>(confidence);
+      ui_telemetry.selected_material = static_cast<UiMaterial>(selected);
+      ui_telemetry.color_bin = static_cast<uint8_t>(color);
+      ui_telemetry.batch_number = static_cast<uint16_t>(batch);
+      if (purge == 1) ui_telemetry.purge_required = true;
+      ui_telemetry.classifier_valid = qualified == 1;
+    }
+  } else if (!strcmp(frame.type, "UI_PROD")) {
+    unsigned long dx_um = 0;
+    unsigned long dy_um = 0;
+    unsigned long length_mm = 0;
+    unsigned long weight_g = 0;
+    unsigned long eta_min = 0;
+    unsigned long gauge_ok = 0;
+    if (sscanf(frame.payload,
+               "dx_um=%lu,dy_um=%lu,len_mm=%lu,weight_g=%lu,eta_min=%lu,gaugeok=%lu",
+               &dx_um, &dy_um, &length_mm, &weight_g, &eta_min, &gauge_ok) == 6 &&
+        dx_um <= 10000 && dy_um <= 10000 && eta_min <= 65535 && gauge_ok <= 1) {
+      ui_telemetry.diameter_x_mm = dx_um / 1000.0F;
+      ui_telemetry.diameter_y_mm = dy_um / 1000.0F;
+      ui_telemetry.produced_length_m = length_mm / 1000.0F;
+      ui_telemetry.produced_weight_g = static_cast<float>(weight_g);
+      ui_telemetry.eta_minutes = static_cast<uint16_t>(eta_min);
+      ui_telemetry.diameter_gauge_qualified = gauge_ok == 1;
+    }
+  } else if (!strcmp(frame.type, "UI_STOCK")) {
+    unsigned hopper = 0;
+    unsigned full_mask = 0;
+    if (sscanf(frame.payload, "hopper=%u,full=%x", &hopper, &full_mask) == 2 &&
+        hopper <= 100 && full_mask <= 0xFF) {
+      ui_telemetry.hopper_fill_pct = static_cast<uint8_t>(hopper);
+      ui_telemetry.full_bin_mask = static_cast<uint8_t>(full_mask);
+    }
   }
 }
 
@@ -437,6 +503,73 @@ void send_telemetry(const SafetyOutputs& safe) {
   const size_t length = encode_frame(frame, sizeof(frame), "TEL", ++tx_sequence, payload);
   if (length) Serial.write(reinterpret_cast<const uint8_t*>(frame), length);
 }
+
+void send_ui_action(const UiAction& action) {
+  if (action.type == UiActionType::NONE) return;
+  char payload[48];
+  switch (action.type) {
+    case UiActionType::ACK_STARTUP:
+      snprintf(payload, sizeof(payload), "ACK_STARTUP=1");
+      break;
+    case UiActionType::SET_MATERIAL:
+      ui_telemetry.selected_material = static_cast<UiMaterial>(action.value);
+      snprintf(payload, sizeof(payload), "MATERIAL=%s",
+               ui_material_name(ui_telemetry.selected_material));
+      break;
+    case UiActionType::SET_COLOR_BIN:
+      ui_telemetry.color_bin = static_cast<uint8_t>(action.value);
+      snprintf(payload, sizeof(payload), "COLOR=%d", action.value);
+      break;
+    case UiActionType::SELECT_BATCH:
+      ui_telemetry.batch_number = static_cast<uint16_t>(action.value);
+      snprintf(payload, sizeof(payload), "BATCH=%d", action.value);
+      break;
+    case UiActionType::REQUEST_CALIBRATION:
+      snprintf(payload, sizeof(payload), "CALIBRATION=REQUEST");
+      break;
+    case UiActionType::REQUEST_MAINTENANCE:
+      snprintf(payload, sizeof(payload), "MAINTENANCE=REQUEST");
+      break;
+    case UiActionType::NONE:
+      return;
+  }
+  char frame[kMaximumFrameBytes];
+  const size_t length = encode_frame(frame, sizeof(frame), "UI_CMD", ++tx_sequence,
+                                     payload);
+  if (length) Serial.write(reinterpret_cast<const uint8_t*>(frame), length);
+}
+
+void update_local_ui_telemetry(const SafetyOutputs& safe) {
+  ui_telemetry.state = safe.state;
+  ui_telemetry.phase = safe.active_phase;
+  ui_telemetry.faults = safe.latched_faults;
+  for (uint8_t i = 0; i < 6; ++i) ui_telemetry.temperatures_c[i] = temperature_c[i];
+  ui_telemetry.motor_current_a[0] = latest_load_features.valid
+                                        ? latest_load_features.rms_current_a
+                                        : NAN;
+  ui_telemetry.motor_current_a[1] = NAN;
+  ui_telemetry.motor_current_a[2] = NAN;
+}
+
+void render_tft_frame(const UiFrame& frame) {
+  (void)frame;
+  // The deterministic frame is ready for a thin SPI driver adapter.  Keep CS
+  // deselected and RESET asserted until the donor controller and logic level
+  // are identified; never guess a controller command set or voltage.
+}
+
+void service_ui(uint32_t now_ms, bool render) {
+  const UiEvent event = ui_inputs.update(
+      {now_ms, digitalRead(pins::kRotaryA) == HIGH,
+       digitalRead(pins::kRotaryB) == HIGH,
+       digitalRead(pins::kRotaryPush) == LOW,
+       digitalRead(pins::kBackAbort) == LOW});
+  send_ui_action(ui.handle(event, ui_telemetry));
+  if (render) {
+    last_ui_frame = ui.compose(ui_telemetry);
+    render_tft_frame(last_ui_frame);
+  }
+}
 }  // namespace
 
 void setup() {
@@ -448,7 +581,8 @@ void setup() {
       pins::kHopperGateEnable,
       pins::kExtruderDirection, pins::kFeederDirection, pins::kTraverseDirection,
       pins::kSpoolerDirection, pins::kPullerDirection, pins::kTraverseStep,
-      pins::kSorterPwm, pins::kFeederStepPwm, pins::kBuzzer};
+      pins::kSorterPwm, pins::kFeederStepPwm, pins::kTftDc, pins::kTftCs,
+      pins::kTftReset, pins::kBuzzer};
   for (uint8_t pin : outputs) {
     pinMode(pin, OUTPUT);
     digitalWrite(pin, LOW);
@@ -459,6 +593,8 @@ void setup() {
   }
   pinMode(pins::kDryerPlaHeater, OUTPUT);
   pinMode(pins::kDryerPetHeater, OUTPUT);
+  digitalWrite(pins::kTftCs, HIGH);
+  digitalWrite(pins::kTftReset, LOW);
   const uint8_t safety_inputs[] = {
       pins::kEstopAux, pins::kContactorFeedback, pins::kLidAux,
       pins::kServiceAux, pins::kThermalChainAux, pins::kPressureTripAux,
@@ -466,7 +602,19 @@ void setup() {
       pins::kBackAbort, pins::kRotaryPush};
   for (uint8_t pin : safety_inputs) pinMode(pin, INPUT_PULLUP);
   pinMode(pins::kShredderSpeedPulse, INPUT_PULLUP);
+  pinMode(pins::kRotaryA, INPUT_PULLUP);
+  pinMode(pins::kRotaryB, INPUT_PULLUP);
   pinMode(pins::kShredderVibrationAnalog, INPUT);
+  ui_telemetry.detected_material = UiMaterial::UNKNOWN;
+  ui_telemetry.selected_material = UiMaterial::AUTO;
+  ui_telemetry.color_bin = 7;
+  ui_telemetry.purge_required = true;
+  ui_telemetry.diameter_x_mm = NAN;
+  ui_telemetry.diameter_y_mm = NAN;
+  ui_telemetry.produced_length_m = NAN;
+  ui_telemetry.produced_weight_g = NAN;
+  for (float& value : ui_telemetry.temperatures_c) value = NAN;
+  for (float& value : ui_telemetry.motor_current_a) value = NAN;
   reset_load_window(millis());
   Serial.begin(kPiBaud);
   last_heartbeat_ms = millis() - 10000UL;
@@ -519,6 +667,22 @@ void loop() {
   const bool local_reset_held = !digitalRead(pins::kBackAbort);
   const bool local_start_held = !digitalRead(pins::kStartPause);
   const bool pressure_discrete_ok = loop_closed(pins::kPressureTripAux);
+  update_local_ui_telemetry(last_safe);
+  service_ui(now, false);
+  const bool stopped_for_purge_ack =
+      last_safe.state == SafetyState::SAFE_OFF ||
+      last_safe.state == SafetyState::READY ||
+      last_safe.state == SafetyState::PAUSED;
+  if (pending_purge_ack && now - pending_purge_ack_ms > 5000UL)
+    pending_purge_ack = false;
+  if (pending_purge_ack && local_reset_held && stopped_for_purge_ack) {
+    ui_telemetry.purge_required = false;
+    pending_purge_ack = false;
+  }
+  if (!ui.startup_acknowledged()) {
+    pending_reset = false;
+    pending_start = false;
+  }
   SafetyInputs in{
       now,
       now - last_heartbeat_ms,
@@ -529,8 +693,9 @@ void loop() {
       sensors_ok && kPressureFrontendQualified && pressure_discrete_ok,
       kAirflowFrontendQualified && loop_closed(pins::kAirflowAux),
       loop_closed(pins::kContactorFeedback),
-      pending_reset && local_reset_held,
-      pending_start && local_start_held,
+      pending_reset && local_reset_held && ui.startup_acknowledged(),
+      pending_start && local_start_held &&
+          ui.run_permitted(requested_phase, ui_telemetry),
       pending_pause || (local_start_held && !pending_start),
       jam_output.state == JamState::FAULT,
       power_fault_latched,
@@ -541,6 +706,7 @@ void loop() {
   const SafetyOutputs safe = safety.tick(in);
   apply_outputs(safe, now);
   last_safe = safe;
+  update_local_ui_telemetry(safe);
   if (in.reset_requested) pending_reset = false;
   if (in.start_requested) pending_start = false;
   pending_pause = false;
@@ -548,6 +714,10 @@ void loop() {
   if (now - last_telemetry_ms >= kTelemetryPeriodMs) {
     last_telemetry_ms = now;
     send_telemetry(safe);
+  }
+  if (now - last_ui_render_ms >= kTelemetryPeriodMs) {
+    last_ui_render_ms = now;
+    service_ui(now, true);
   }
   wdt_reset();
 }

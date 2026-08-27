@@ -19,7 +19,7 @@ Revision: `0.1.0-preflight`
 7. Stage 1/2/3 cutter/rotor/screen kinematic clearance
 8. Input double-gate/reach probe/7-port와 control-enclosure segregation
 9. 전체 FCStd object set, STEP validity, STL facet, DXF marker와 210 mm print gate
-10. Arduino Mega portable core와 전체 `.ino` host integration compile, Raspberry Pi Python 9-test suite
+10. Arduino Mega portable safety/UI core와 전체 `.ino` host integration compile, startup/purge/UI gate, Raspberry Pi Python 10-test suite
 11. 43개 시스템 요구사항의 one-to-one 증거·미검증 gate 추적
 12. 34행 CNC/RFQ precheck package의 BOM·STEP·DXF·drawing trace와 미승인 상태
 13. 7개 구조 load path의 analytic·20-element beam FEA 교차검증과 intentional review gate
