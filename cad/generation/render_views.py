@@ -7,7 +7,7 @@ from math import sqrt
 from pathlib import Path
 
 import vtk
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -60,7 +60,8 @@ def shaded(base, normal, camera_direction):
     return tuple(max(0, min(255, round(255 * channel * factor))) for channel in base)
 
 
-def render_view(triangles, target: Path, base_colour, camera_direction, nominal_up):
+def render_view(triangles, target: Path, base_colour, camera_direction, nominal_up,
+                mode="solid", colour_for=None, annotation=None):
     cam = normalize(camera_direction)
     right = normalize(cross(nominal_up, cam))
     up = normalize(cross(cam, right))
@@ -72,7 +73,7 @@ def render_view(triangles, target: Path, base_colour, camera_direction, nominal_
         ys.extend(p[1] for p in plane)
         edge1 = subtract(triangle[1], triangle[0])
         edge2 = subtract(triangle[2], triangle[0])
-        projected.append((sum(p[2] for p in plane) / 3, plane, cross(edge1, edge2)))
+        projected.append((sum(p[2] for p in plane) / 3, plane, cross(edge1, edge2), triangle))
     span_x = max(xs) - min(xs)
     span_y = max(ys) - min(ys)
     scale = min((WIDTH - 2 * MARGIN) / max(span_x, 1e-9), (HEIGHT - 2 * MARGIN) / max(span_y, 1e-9))
@@ -82,13 +83,162 @@ def render_view(triangles, target: Path, base_colour, camera_direction, nominal_
     image = Image.new("RGB", (WIDTH, HEIGHT), (255, 255, 255))
     draw = ImageDraw.Draw(image)
     # Low depth is farther from a camera placed in +cam direction.
-    for _depth, plane, normal in sorted(projected, key=lambda item: item[0]):
+    for _depth, plane, normal, triangle in sorted(projected, key=lambda item: item[0]):
         polygon = [
             (WIDTH / 2 + (x - center_x) * scale, HEIGHT / 2 - (y - center_y) * scale)
             for x, y, _z in plane
         ]
-        draw.polygon(polygon, fill=shaded(base_colour, normal, cam), outline=(42, 42, 42), width=1)
+        if mode == "wireframe":
+            draw.line(polygon + [polygon[0]], fill=(74, 103, 119), width=1)
+        else:
+            colour = colour_for(triangle) if colour_for else base_colour
+            draw.polygon(polygon, fill=shaded(colour, normal, cam), outline=(42, 42, 42), width=1)
+    if annotation:
+        annotation(draw, image)
     image.save(target)
+
+
+def triangle_centroid(triangle):
+    return tuple(sum(point[axis] for point in triangle) / 3 for axis in range(3))
+
+
+def section_triangles(triangles, axis=1, retained_fraction=0.52):
+    centroids = [triangle_centroid(triangle)[axis] for triangle in triangles]
+    low, high = min(centroids), max(centroids)
+    cut = low + retained_fraction * (high - low)
+    kept = [triangle for triangle, value in zip(triangles, centroids) if value <= cut]
+    if not kept:
+        raise RuntimeError("empty section scene")
+    return kept
+
+
+def exploded_triangles(triangles, expansion=0.38):
+    parent = list(range(len(triangles)))
+
+    def find(index):
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
+    def union(left, right):
+        left, right = find(left), find(right)
+        if left != right:
+            parent[right] = left
+
+    owners = {}
+    for index, triangle in enumerate(triangles):
+        for point in triangle:
+            key = tuple(round(value, 5) for value in point)
+            prior = owners.setdefault(key, index)
+            union(index, prior)
+    groups = {}
+    for index in range(len(triangles)):
+        groups.setdefault(find(index), []).append(index)
+    all_points = [point for triangle in triangles for point in triangle]
+    global_center = tuple(sum(point[axis] for point in all_points) / len(all_points) for axis in range(3))
+    transformed = [None] * len(triangles)
+    for order, indices in enumerate(sorted(groups.values(), key=lambda group: min(group))):
+        points = [point for index in indices for point in triangles[index]]
+        center = tuple(sum(point[axis] for point in points) / len(points) for axis in range(3))
+        shift = tuple((center[axis] - global_center[axis]) * expansion for axis in range(3))
+        if len(groups) > 1:
+            shift = (shift[0], shift[1], shift[2] + ((order % 5) - 2) * 2.0)
+        for index in indices:
+            transformed[index] = [
+                tuple(point[axis] + shift[axis] for axis in range(3))
+                for point in triangles[index]
+            ]
+    return transformed
+
+
+def label_annotation(title, subtitle=""):
+    def annotate(draw, _image):
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 30)
+        small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
+        draw.rectangle((32, 28, 760, 96 if subtitle else 72), fill=(255, 255, 255), outline=(38, 74, 92), width=2)
+        draw.text((48, 36), title, fill=(23, 62, 81), font=font)
+        if subtitle:
+            draw.text((48, 72), subtitle, fill=(70, 70, 70), font=small)
+    return annotate
+
+
+def cable_annotation(draw, _image):
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
+    routes = [
+        ((180, 900), (540, 700), (880, 760), (1380, 520)),
+        ((210, 980), (610, 850), (1000, 900), (1420, 690)),
+        ((170, 1050), (560, 1010), (940, 1040), (1390, 910)),
+    ]
+    colours = ((198, 48, 48), (32, 116, 176), (36, 142, 78))
+    labels = ("PWR", "SENSOR", "PE")
+    for points, colour, label in zip(routes, colours, labels):
+        draw.line(points, fill=colour, width=10, joint="curve")
+        draw.ellipse((points[-1][0] - 9, points[-1][1] - 9,
+                      points[-1][0] + 9, points[-1][1] + 9), fill=colour)
+        draw.text((points[0][0] - 10, points[0][1] - 38), label, fill=colour, font=font)
+    label_annotation("CABLE ROUTING REVIEW", "schematic paths; verify harness lengths and bend radii")(draw, _image)
+
+
+def tool_annotation(draw, _image):
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
+    for x, y, radius in ((380, 630, 115), (790, 520, 100), (1180, 690, 130)):
+        draw.ellipse((x - radius, y - radius, x + radius, y + radius),
+                     outline=(206, 111, 25), width=8)
+        draw.line((x, y, x + radius + 70, y - radius - 45), fill=(206, 111, 25), width=8)
+    draw.text((1200, 420), "TOOL SWEEP", fill=(168, 78, 18), font=font)
+    label_annotation("TOOL ACCESS REVIEW", "overlay is a service-volume prompt; physical reach test remains open")(draw, _image)
+
+
+def render_review_variants():
+    output = RENDERS / "review"
+    output.mkdir(parents=True, exist_ok=True)
+    iso = ((1, -1, 0.8), (0, 0, 1))
+    sections = (
+        "input_classifier_proof", "stage1_shredder_proof", "stage2_shredder_proof",
+        "stage3_granulator_proof", "dryer_feeder_proof", "extruder_proof",
+    )
+    for stem in sections:
+        triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
+        render_view(section_triangles(triangles), output / f"{stem}_section.png",
+                    (0.68, 0.43, 0.22), *iso,
+                    annotation=label_annotation("SECTION / CUTAWAY", "centroid-clipped review scene; no section cap"))
+    transparent = (
+        "input_classifier_proof", "dryer_feeder_proof", "extruder_proof",
+        "control_enclosure_proof",
+    )
+    for stem in transparent:
+        triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
+        render_view(triangles, output / f"{stem}_transparent.png", (0.4, 0.65, 0.76), *iso,
+                    mode="wireframe",
+                    annotation=label_annotation("TRANSPARENT / X-RAY", "all triangle edges shown; hidden-line removal disabled"))
+    exploded = (
+        "full_assembly_skeleton", "stage1_shredder_proof", "dryer_feeder_proof",
+        "extruder_proof", "spooler_proof",
+    )
+    for stem in exploded:
+        triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
+        render_view(exploded_triangles(triangles), output / f"{stem}_exploded.png",
+                    (0.36, 0.58, 0.72), *iso,
+                    annotation=label_annotation("EXPLODED REVIEW", "connected shells displaced from assembly centroid"))
+    for stem in ("full_assembly_skeleton", "extruder_proof", "spooler_proof"):
+        triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
+        render_view(triangles, output / f"{stem}_tool_access.png", (0.42, 0.59, 0.68), *iso,
+                    annotation=tool_annotation)
+    for stem in ("full_assembly_skeleton", "control_enclosure_proof"):
+        triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
+        render_view(triangles, output / f"{stem}_cable_routing.png", (0.52, 0.58, 0.62), *iso,
+                    annotation=cable_annotation)
+    triangles = triangles_from_stl(ROOT / "exports" / "stl" / "tolerance_coupon.stl")
+    z_values = [triangle_centroid(triangle)[2] for triangle in triangles]
+    low, high = min(z_values), max(z_values)
+    palette = ((0.24, 0.56, 0.76), (0.25, 0.70, 0.56), (0.92, 0.67, 0.18), (0.82, 0.34, 0.22))
+    def layer_colour(triangle):
+        ratio = (triangle_centroid(triangle)[2] - low) / max(high - low, 1e-9)
+        return palette[min(len(palette) - 1, int(ratio * len(palette)))]
+    render_view(triangles, output / "tolerance_coupon_slicing_preview.png", (0.5, 0.5, 0.5), *iso,
+                colour_for=layer_colour,
+                annotation=label_annotation("SLICING ORIENTATION PREVIEW", "height bands only; generate and inspect machine-specific G-code"))
 
 
 def render(stem: str, category: str, colour: tuple[float, float, float]) -> None:
@@ -125,6 +275,7 @@ def main() -> None:
     render("spooler_proof", "modules", (0.30, 0.48, 0.68))
     render("control_enclosure_proof", "modules", (0.46, 0.50, 0.56))
     render("full_assembly_skeleton", "assembly", (0.35, 0.62, 0.86))
+    render_review_variants()
 
 
 if __name__ == "__main__":

@@ -187,6 +187,38 @@ H01–H18 harness schedule대로 AC disconnect→PSU→dual-channel E-stop relay
 
 Mega pin은 `mega_pinout.csv`, FRP1은 `frp1.md`를 따른다. Sensor front-end와 shredder motion feedback이 미선정인 현재 firmware qualification flag 5개는 false라 self-test가 의도적으로 arm되지 않는다.
 
+= 제작 검토용 CAD 변형 뷰
+
+표준 7-view 외에 section·x-ray·exploded·tool/cable·slicing 검토 뷰를 제공한다. 아래 overlay는 assembly 검토를 돕지만 최종 단면도·fastener별 공구 reach·harness 길이·G-code 승인을 대신하지 않는다.
+
+#figure(
+  grid(columns: (1fr, 1fr), gutter: 5pt,
+    image("../renders/review/input_classifier_proof_section.png", width: 100%),
+    image("../renders/review/stage1_shredder_proof_section.png", width: 100%),
+  ), caption: [입력 double-gate와 Stage 1 cutaway review]
+)
+
+#figure(
+  grid(columns: (1fr, 1fr), gutter: 5pt,
+    image("../renders/review/dryer_feeder_proof_transparent.png", width: 100%),
+    image("../renders/review/extruder_proof_transparent.png", width: 100%),
+  ), caption: [Dryer와 extruder hidden-line x-ray review]
+)
+
+#figure(
+  grid(columns: (1fr, 1fr), gutter: 5pt,
+    image("../renders/review/full_assembly_skeleton_exploded.png", width: 100%),
+    image("../renders/review/extruder_proof_tool_access.png", width: 100%),
+  ), caption: [전체 모듈 exploded와 extruder service sweep prompt]
+)
+
+#figure(
+  grid(columns: (1fr, 1fr), gutter: 5pt,
+    image("../renders/review/full_assembly_skeleton_cable_routing.png", width: 100%),
+    image("../renders/review/tolerance_coupon_slicing_preview.png", width: 100%),
+  ), caption: [Cable topology overlay와 height-band slicing orientation preview]
+)
+
 = 시운전과 인수
 
 무부하 순서는 PE/continuity→E-stop/contact mirror→guard wire-open→sensor open/short→driver default-off→encoder direction→개별 저속 motor→무수지 heater→airflow→pressure signal이다. 각 단계 실패 시 다음 에너지 단계로 가지 않는다.

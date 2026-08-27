@@ -177,6 +177,8 @@ Metal partition 기준 좌우 keep-out gap은 30 mm이고 전원/히터와 logic
 
 Stage 1 shaft/cutter/plate, reducer output, extruder thrust plate, spooler shaft와 frame column은 20-element Euler–Bernoulli FEA와 닫힌형 해를 교차검증했다. 미확정 15 mm reducer overhang과 brace 없는 단일 frame column은 `REVIEW_REQUIRED`다. 이는 1D screening이며 3D contact/notch/joint·impact·fatigue 해석을 대체하지 않는다.
 
+표준 112개 7-view에 더해 section 6, x-ray 4, exploded 5, tool-access 3, cable-routing 2, slicing-orientation 1개의 review image를 생성했다. Section cap·실제 tool reach·harness bend radius·machine G-code는 여전히 별도 gate다.
+
 #table(
   columns: (1.4fr, 1fr, 2.2fr), inset: 4pt, stroke: 0.5pt + rgb("c8d5d9"),
   [*영역*], [*상태*], [*남은 Gate*],

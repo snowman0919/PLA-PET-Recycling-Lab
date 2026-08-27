@@ -28,6 +28,7 @@ PATTERNS = (
     "exports/cnc_quote_packages/*_package.csv",
     "calculations/structural/beam_fea.md",
     "simulation/structural/beam_crosscheck.json",
+    "renders/review/*.png",
 )
 
 

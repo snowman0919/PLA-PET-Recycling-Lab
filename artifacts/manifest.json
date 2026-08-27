@@ -2,7 +2,7 @@
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
   "generated_utc": "2026-08-27T20:15:00Z",
-  "artifact_count": 290,
+  "artifact_count": 311,
   "artifacts": [
     {
       "path": "bom/bom.md",
@@ -291,13 +291,13 @@
     },
     {
       "path": "docs/build_manual_ko.pdf",
-      "bytes": 1013393,
-      "sha256": "276d7a577f91d437600af1e0ff82959b36cc3461dc0ffd8aeded03d9ce0c3ef5"
+      "bytes": 1515287,
+      "sha256": "058a89eeec61f438e5da253b4925a1bf04ca4ea91ec32f0072269e90c69b8e95"
     },
     {
       "path": "docs/design_report_ko.pdf",
-      "bytes": 897349,
-      "sha256": "8e4ab49c412f2c056768afd0712c9782438106493f3089db75649c0550760305"
+      "bytes": 897819,
+      "sha256": "501cedfaf3709542e1e96875cfa59d3fc6568c118b99346572e6067fada8bd9a"
     },
     {
       "path": "exports/cnc_quote_packages/README.md",
@@ -1440,14 +1440,119 @@
       "sha256": "a1db94682a47ac9d96f703368598a89a8e09514a7c105e747814808eef0a5203"
     },
     {
+      "path": "renders/review/control_enclosure_proof_cable_routing.png",
+      "bytes": 57139,
+      "sha256": "845b60c199185c8ca81098586cd6e8d8f2e26b9167c38a9eec2eba68fa71307b"
+    },
+    {
+      "path": "renders/review/control_enclosure_proof_transparent.png",
+      "bytes": 98742,
+      "sha256": "fc94523a6c07ac8b1604d170556e8b65769f02ceaa6e35a93cefa1beeb27aacd"
+    },
+    {
+      "path": "renders/review/dryer_feeder_proof_exploded.png",
+      "bytes": 55335,
+      "sha256": "0b37e0460c3814b09f50b8a4e2ee216ebe1c91a7bbf7dcca84d8f98ff82d0b1a"
+    },
+    {
+      "path": "renders/review/dryer_feeder_proof_section.png",
+      "bytes": 52002,
+      "sha256": "d04dc434cbccc3413d38a01b2bed62fb7c6cc9ecce13b8790d4147374c5ba438"
+    },
+    {
+      "path": "renders/review/dryer_feeder_proof_transparent.png",
+      "bytes": 49304,
+      "sha256": "a30b4c0b932fc071a1140663c87a893967c6ce72eb944636a281b90591f0aac0"
+    },
+    {
+      "path": "renders/review/extruder_proof_exploded.png",
+      "bytes": 89057,
+      "sha256": "e98e50796945ca3205fb8c1291c3145cd73d8071d526a08f140af4b58a2024b6"
+    },
+    {
+      "path": "renders/review/extruder_proof_section.png",
+      "bytes": 73550,
+      "sha256": "8f93fb08ea1872a397915b91957fa7ba2b019417948b67878514b1a367c6d260"
+    },
+    {
+      "path": "renders/review/extruder_proof_tool_access.png",
+      "bytes": 92813,
+      "sha256": "655fe98b1138d8602d2f1e68c5e6607be2b1989383801ee90d289a42990fbd51"
+    },
+    {
+      "path": "renders/review/extruder_proof_transparent.png",
+      "bytes": 79241,
+      "sha256": "0e5a152ed584f87f8eae47de2639cb47e046000639d44b4abffcc595fa709455"
+    },
+    {
+      "path": "renders/review/full_assembly_skeleton_cable_routing.png",
+      "bytes": 48317,
+      "sha256": "fe60c75175876e5a5900c44858dc239b88c22788a81a71de276ccc7bee4085d9"
+    },
+    {
+      "path": "renders/review/full_assembly_skeleton_exploded.png",
+      "bytes": 38351,
+      "sha256": "83a71debb084fa9d53152a065a692bbc52e97eeab6fa2cf2634b8d497d989a41"
+    },
+    {
+      "path": "renders/review/full_assembly_skeleton_tool_access.png",
+      "bytes": 49191,
+      "sha256": "9c0ad7a11f9742a8e59e4bcbeba584ba8bbe67e262319b8fb761505a768be7b5"
+    },
+    {
+      "path": "renders/review/input_classifier_proof_section.png",
+      "bytes": 47626,
+      "sha256": "3e7be84b0fcc0760acb71e9ed91938aa907ddc276e3f9888697568029bf957cd"
+    },
+    {
+      "path": "renders/review/input_classifier_proof_transparent.png",
+      "bytes": 82278,
+      "sha256": "8b15c8249500a66737a747158ab4389a1133eb118ef7fca4487f918adc49396b"
+    },
+    {
+      "path": "renders/review/spooler_proof_exploded.png",
+      "bytes": 103771,
+      "sha256": "8a80024c8a5d36cfe62da1f38a297cce40b2e983709bd9959911b615ddcd4a53"
+    },
+    {
+      "path": "renders/review/spooler_proof_tool_access.png",
+      "bytes": 119383,
+      "sha256": "878cbb3ae9eaa01b93c4d70aa54e9f5fde98284d1f9330c797d4ba05137f33df"
+    },
+    {
+      "path": "renders/review/stage1_shredder_proof_exploded.png",
+      "bytes": 90605,
+      "sha256": "219fc46899ed137553579eeb4e77f587ea283fa6d2da97b2a062b446dffc66f9"
+    },
+    {
+      "path": "renders/review/stage1_shredder_proof_section.png",
+      "bytes": 78685,
+      "sha256": "046398d0e3297344f8b4e40c178599a4db585be15cf97cda4a9f6066d2bf436f"
+    },
+    {
+      "path": "renders/review/stage2_shredder_proof_section.png",
+      "bytes": 61357,
+      "sha256": "67145c8c323f1a389f04305c668541d251dcc69adf48c6fe98e6601ba15e07c2"
+    },
+    {
+      "path": "renders/review/stage3_granulator_proof_section.png",
+      "bytes": 67222,
+      "sha256": "88675ea9a09eef342406e6a657b77c86a9bdb667c88789510cc21e5e7632922f"
+    },
+    {
+      "path": "renders/review/tolerance_coupon_slicing_preview.png",
+      "bytes": 64056,
+      "sha256": "cf655b5d7b5727490b253ac5fb74c6ea8da735801cf478b6054e9021cecad791"
+    },
+    {
       "path": "requirements/compliance_matrix.csv",
-      "bytes": 9877,
-      "sha256": "a7ae5c495b75b579ec2cee9731d7fca034e4229295c67b6b603269bd14cd28a4"
+      "bytes": 10101,
+      "sha256": "10705a07d8a398f19a51c4eb076b9f4855a98a686488d413d701c691b46406c3"
     },
     {
       "path": "requirements/compliance_matrix.md",
-      "bytes": 12081,
-      "sha256": "a3748a83d8a256a514593bc603e0cd3e8006624fedfbd31b6974c894dda24bf8"
+      "bytes": 12330,
+      "sha256": "869490a3df17e9cc24da9859399e133ae15c0161d140ba1d7d8bebf4cc5d0310"
     },
     {
       "path": "simulation/structural/beam_crosscheck.json",
