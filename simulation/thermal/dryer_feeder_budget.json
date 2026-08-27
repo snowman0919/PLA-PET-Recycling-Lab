@@ -1,0 +1,37 @@
+{
+  "hopper_geometric_volume_l": 4.9260172808287965,
+  "hopper_bulk_capacity_kg": 1.2315043202071991,
+  "design_inventory_kg": 1.2,
+  "residence_at_200_gph_h": 5.999999999999999,
+  "pla": {
+    "sensible_energy_kj": 53.8,
+    "steady_heat_loss_w": 5.426833766296868,
+    "continuous_cold_feed_heating_w": 1.3333333333333333,
+    "ideal_ramp_minutes": 15.652297935760476,
+    "steady_heater_duty": 0.11266945166050335
+  },
+  "pet": {
+    "sensible_energy_kj": 363.15,
+    "steady_heat_loss_w": 36.63112792250386,
+    "continuous_cold_feed_heating_w": 9.0,
+    "ideal_ramp_minutes": 27.302322653549247,
+    "steady_heater_duty": 0.19012969967709942
+  },
+  "auger": {
+    "theoretical_displacement_cm3_rev": 15.079644737231007,
+    "assumed_grams_per_rev": 0.9424777960769379,
+    "rpm_for_200_gph": 3.53677651315323,
+    "configured_range_rpm": [
+      2.0,
+      6.0
+    ]
+  },
+  "pet_profile_gate": {
+    "preheat": "140 C for 2 h",
+    "dry": "160 C for 4 h",
+    "maximum_dew_point_c": -40.0,
+    "target_moisture_ppm": 50.0,
+    "note": "PET profile is not approved until crystallization/agglomeration and outlet moisture are physically verified."
+  },
+  "status": "CALCULATED_NOT_PHYSICALLY_VALIDATED"
+}

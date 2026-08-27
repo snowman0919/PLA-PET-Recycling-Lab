@@ -2,7 +2,10 @@ Branch,Phase,Nominal voltage V,Continuous current A,Peak current A,Continuous po
 PSU total,All,24,TBD,TBD,TBD,600,User inventory,NEEDS_LABEL,600 W is nominal user statement; derating pending
 Shredder drive,SORT_SHRED,24,TBD,TBD,TBD,TBD,Donor or buy,NEEDS_SELECTION,Mutually exclusive with full heater power
 Vibratory sorter,SORT_SHRED,24,TBD,TBD,TBD,TBD,Donor,NEEDS_INVENTORY,Optical measurement may require time separation
-Dryer heater,DRY_PREHEAT,24,TBD,TBD,TBD,TBD,Buy,NEEDS_THERMAL_CALC,Independent thermal fuse
+Dryer PLA heater,DRY_PREHEAT,24,0.5,2.5,12,60,Buy,PROVISIONAL,60 C independent trip and 72 C fuse
+Dryer PET heater,DRY_PREHEAT,24,1.9,10.0,46,240,Buy,PROVISIONAL,170 C independent trip and 184 C fuse; duty from thermal model
+Dryer blower agitator feeder,DRY_PREHEAT|EXTRUDE_SPOOL,24,2.0,4.0,48,96,Donor or buy,NEEDS_SELECTION,Load cell and motor coupon pending
+Desiccant regeneration,DRY_PREHEAT,24,TBD,6.25,TBD,150,Buy or lab,NEEDS_SELECTION,Must not coincide with extrusion peak heating
 Extruder heaters,DRY_PREHEAT|EXTRUDE_SPOOL,24,TBD,TBD,TBD,TBD,Buy,NEEDS_THERMAL_CALC,Three barrel zones plus die
 Extruder drive,EXTRUDE_SPOOL,24,TBD,TBD,TBD,TBD,Donor or buy,NEEDS_SELECTION,No direct NEMA17 assumption
 Puller and spooler,EXTRUDE_SPOOL,24,TBD,TBD,TBD,TBD,Donor,NEEDS_INVENTORY,Include encoder and traverse
