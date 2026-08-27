@@ -35,7 +35,7 @@ def main() -> None:
     manifest = {
         "project": "filament-recycler",
         "revision": parameters["revision"],
-        "generated_utc": "2026-08-27T16:55:00Z",
+        "generated_utc": "2026-08-27T18:24:00Z",
         "artifact_count": len(artifacts),
         "artifacts": artifacts,
     }

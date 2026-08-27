@@ -1,0 +1,78 @@
+{
+  "revision": "0.1.0-preflight",
+  "hopper": {
+    "x_mm": 144.0,
+    "y_mm": 143.955,
+    "z_mm": 434.0,
+    "fits_210_cube": false
+  },
+  "heat_shield": {
+    "x_mm": 238.0,
+    "y_mm": 237.985,
+    "z_mm": 344.0,
+    "fits_210_cube": false
+  },
+  "auger": {
+    "x_mm": 168.0,
+    "y_mm": 29.991,
+    "z_mm": 30.0,
+    "fits_210_cube": true
+  },
+  "thermal_profiles": {
+    "pla": {
+      "setpoint_c": 45.0,
+      "hold_hours": 6.0,
+      "heater_power_w": 60.0,
+      "independent_trip_c": 60.0,
+      "thermal_fuse_c": 72.0
+    },
+    "pet": {
+      "preheat_setpoint_c": 140.0,
+      "preheat_hours": 2.0,
+      "dry_setpoint_c": 160.0,
+      "dry_hours": 4.0,
+      "heater_power_w": 240.0,
+      "dry_air_dew_point_max_c": -40.0,
+      "moisture_target_ppm": 50.0,
+      "independent_trip_c": 170.0,
+      "thermal_fuse_c": 184.0
+    }
+  },
+  "outputs": {
+    "assembly": {
+      "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_feeder_proof.FCStd",
+      "step": "/home/monad/develop/PPR/exports/step/dryer_feeder_proof.step",
+      "stl": "/home/monad/develop/PPR/exports/stl/dryer_feeder_proof.stl"
+    },
+    "components": {
+      "hopper": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_metal_hopper.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/dryer_metal_hopper.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/dryer_metal_hopper.stl"
+      },
+      "shield": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_heat_shield.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/dryer_heat_shield.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/dryer_heat_shield.stl"
+      },
+      "auger": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_metering_auger.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/dryer_metering_auger.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/dryer_metering_auger.stl"
+      },
+      "housing": {
+        "fcstd": "/home/monad/develop/PPR/cad/generation/fcstd/dryer_auger_housing.FCStd",
+        "step": "/home/monad/develop/PPR/exports/step/dryer_auger_housing.step",
+        "stl": "/home/monad/develop/PPR/exports/stl/dryer_auger_housing.stl"
+      }
+    },
+    "base_dxf": "/home/monad/develop/PPR/exports/dxf/dryer_base_plate.dxf"
+  },
+  "limitations": [
+    "Auger flights are axial pitch envelopes, not a fabrication-ready continuous helix.",
+    "Insulation and dry-air equipment are keep-out solids; seals, ducts and cartridge internals are not detailed.",
+    "Double gates are open-bore proof plates; actuators, overlap timing and gas leakage are not validated.",
+    "The three-point support frame is a load-path envelope; joints, fasteners and load-cell side-load protection are not detailed.",
+    "PET operation remains prohibited until agglomeration, dew point and outlet moisture tests pass."
+  ]
+}

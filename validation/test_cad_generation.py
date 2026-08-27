@@ -67,6 +67,11 @@ def validate_exports() -> None:
         "sorter_bottom_screen_3mm",
         "sorter_service_clamp",
         "vibratory_sorter_proof",
+        "dryer_metal_hopper",
+        "dryer_heat_shield",
+        "dryer_metering_auger",
+        "dryer_auger_housing",
+        "dryer_feeder_proof",
     )
     for stem in stems:
         step_shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
@@ -82,6 +87,8 @@ def validate_exports() -> None:
     require("CBORE_DEPTH_11_8" in dxf3 and dxf3.rstrip().endswith("EOF"), "Stage 3 plate DXF is incomplete")
     sorter_dxf = (ROOT / "exports" / "dxf" / "sorter_base_plate.dxf").read_text(encoding="ascii")
     require("ISOLATOR_M6" in sorter_dxf and sorter_dxf.rstrip().endswith("EOF"), "sorter base DXF is incomplete")
+    dryer_dxf = (ROOT / "exports" / "dxf" / "dryer_base_plate.dxf").read_text(encoding="ascii")
+    require("OUTLINE_T6" in dryer_dxf and dryer_dxf.rstrip().endswith("EOF"), "dryer base DXF is incomplete")
 
 
 def validate_stage1_assembly() -> None:
@@ -171,6 +178,32 @@ def validate_sorter_assembly() -> None:
     App.closeDocument(doc.Name)
 
 
+def validate_dryer_assembly() -> None:
+    doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "dryer_feeder_proof.FCStd"))
+    expected = {
+        "BaseAndLoadCells",
+        "MetalHopper",
+        "Insulation",
+        "VentilatedShield",
+        "Lid",
+        "Agitator",
+        "DoubleGate",
+        "MeteringAuger",
+        "AugerHousing",
+        "DrivesAndDryAir",
+    }
+    require(expected == {o.Name for o in doc.Objects}, "dryer proof object set differs")
+    for obj in doc.Objects:
+        require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null dryer shape: {obj.Name}")
+        require(obj.Shape.isValid(), f"invalid dryer shape: {obj.Name}")
+    auger = doc.getObject("MeteringAuger").Shape.BoundBox
+    require(max(auger.XLength, auger.YLength, auger.ZLength) <= 210.0, "auger proof exceeds print bed envelope")
+    require(doc.getObject("MetalHopper").Shape.BoundBox.ZLength > 400.0, "dryer hopper active height missing")
+    support_gap = doc.getObject("BaseAndLoadCells").Shape.distToShape(doc.getObject("AugerHousing").Shape)[0]
+    require(support_gap < 1e-7, f"dryer support frame does not reach auger housing: {support_gap:.3f} mm")
+    App.closeDocument(doc.Name)
+
+
 def validate_stage1_envelope() -> None:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["stage1"]
     tip_root_clearance = p["shaft_center_distance_mm"] - (
@@ -190,6 +223,7 @@ def main() -> None:
     validate_stage2_assembly()
     validate_stage3_assembly()
     validate_sorter_assembly()
+    validate_dryer_assembly()
     validate_stage1_envelope()
     print("CAD_VALIDATION_OK")
 

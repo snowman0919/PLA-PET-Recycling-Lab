@@ -115,6 +115,7 @@ def main() -> None:
     render("stage2_shredder_proof", "modules", (0.64, 0.32, 0.24))
     render("stage3_granulator_proof", "modules", (0.50, 0.30, 0.24))
     render("vibratory_sorter_proof", "modules", (0.32, 0.52, 0.68))
+    render("dryer_feeder_proof", "modules", (0.72, 0.48, 0.18))
     render("full_assembly_skeleton", "assembly", (0.35, 0.62, 0.86))
 
 

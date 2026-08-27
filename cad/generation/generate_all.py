@@ -15,6 +15,7 @@ GENERATORS = [
     ROOT / "cad" / "freecad" / "shredder_stage2" / "generate.py",
     ROOT / "cad" / "freecad" / "granulator_stage3" / "generate.py",
     ROOT / "cad" / "freecad" / "vibratory_sorter" / "generate.py",
+    ROOT / "cad" / "freecad" / "dryer_feeder" / "generate.py",
     ROOT / "cad" / "freecad" / "full_assembly" / "generate.py",
 ]
 

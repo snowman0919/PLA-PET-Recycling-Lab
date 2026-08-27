@@ -28,6 +28,8 @@ Stage 3 generator는 40 mm staggered rotor/stator proof, 17 mm/6203 shaft suppor
 
 Vibratory sorter generator는 8° 경사의 2단 cassette와 세 배출 경로, 4개 isolator, donor motor/eccentric envelope, M5 service clamp를 만든다. 상단 6 mm 잔류물은 재순환, 하단 3 mm 잔류물은 acceptable, 하단 통과물은 fines다. screen bar와 chute는 proof envelope이며 sourced mesh/seal 상세가 아니다.
 
+Dryer/feeder generator는 ID 140 mm 금속 hopper/cone, 40 mm 단열, ventilated shield, agitator, double gate와 30 mm metering-auger proof를 만든다. PET hot path는 전부 금속으로 표시하며 auger flight와 dry-air 장치는 계산/공간 envelope이지 제작 승인 형상이 아니다.
+
 표준 review view는 FreeCAD 환경의 VTK로 STL triangle을 읽고 Pillow software projection으로 생성한다. OpenGL/EGL이 필요하지 않는다.
 
 ```bash
