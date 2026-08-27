@@ -12,7 +12,7 @@
 - [x] section/x-ray/exploded/tool/cable/slicing review variant 생성
 - [x] 11개 module의 proof CAD/keep-out 생성
 - [x] 현재 proof 범위의 DXF와 제작 주석 생성
-- [ ] 현재 30-gate clean clone 전체 재실행
+- [x] 현재 30-gate clean clone 전체 재실행
 
 ## 해석
 

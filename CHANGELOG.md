@@ -17,6 +17,7 @@
 - 원문 3단/6색+Reject release 범위를 보존한 2-tower 수치·batch·safety·anchor 계약 추가
 - RTX 3080 CUDA 4,194,304-sample Tower A stability sweep와 CPU/GPU 교차검산 추가
 - Release artifact 319개와 자동검증 30-gate 체계로 확장
+- 현재 revision clean clone의 30-gate 전체 재실행 확인
 - TFT-independent 9-page UI core, startup/purge interlock, Mega–Pi UI snapshot 계약 추가
 - 사용자 요청의 2-tower rack 재범위, 보유 IRLZ44N/camera 조달 처리, concrete render와 draft 문서 정책 기록
 
