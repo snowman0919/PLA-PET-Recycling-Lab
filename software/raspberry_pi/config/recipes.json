@@ -1,0 +1,20 @@
+{
+  "revision": "0.1.0-preflight",
+  "status": "CALCULATED_NOT_PHYSICALLY_VALIDATED",
+  "PLA": {
+    "dryer_temperature_c": 45,
+    "dryer_duration_h": 6,
+    "extruder_zone_setpoints_c": [180, 190, 200, 190],
+    "initial_line_speed_m_min": 1.1176,
+    "diameter_target_mm": 1.75,
+    "diameter_tolerance_mm": 0.05
+  },
+  "PET": {
+    "dryer_temperature_c": [140, 160],
+    "dryer_duration_h": [2, 4],
+    "extruder_zone_setpoints_c": [250, 270, 280, 275],
+    "initial_line_speed_m_min": 0.9970,
+    "diameter_target_mm": 1.75,
+    "diameter_tolerance_mm": 0.05
+  }
+}
