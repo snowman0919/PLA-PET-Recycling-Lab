@@ -16,6 +16,11 @@ PATTERNS = (
     "exports/dxf/*.dxf",
     "renders/assembly/*.png",
     "renders/modules/*.png",
+    "docs/*.pdf",
+    "bom/bom.md",
+    "bom/target_budget_design.csv",
+    "bom/engineering_recommended_design.csv",
+    "bom/cost_summary.json",
 )
 
 
@@ -35,7 +40,7 @@ def main() -> None:
     manifest = {
         "project": "filament-recycler",
         "revision": parameters["revision"],
-        "generated_utc": "2026-08-27T19:34:56Z",
+        "generated_utc": "2026-08-27T20:15:00Z",
         "artifact_count": len(artifacts),
         "artifacts": artifacts,
     }

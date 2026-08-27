@@ -2,7 +2,7 @@
 
 PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조, 압출, 직경제어하여 1.75 mm 필라멘트로 재생하는 모듈형 탁상 장치의 설계 저장소입니다.
 
-현재 상태는 **설계 및 검증 준비 단계**입니다. 계산, CAD, 펌웨어와 소프트웨어는 실제 donor 부품 실측과 단계별 물리 시험을 거쳐야 하며, 아직 완성 장비로 검증되지 않았습니다.
+현재 상태는 **fabrication review용 설계 패키지 완료 / 물리 release 미승인**입니다. 계산, parametric CAD, firmware/Pi core, 배선 topology와 한국어 문서는 자동 검증되지만 실제 donor 실측과 단계별 물리 시험 전에는 완성 장비로 간주하지 않습니다.
 
 ## 핵심 목표
 
@@ -14,13 +14,29 @@ PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조,
 - Arduino Mega 안전·실시간 제어와 Raspberry Pi 4 영상처리·로그
 - 24 V 600 W 전력 한도, 신규 구매 200,000 KRW 및 CNC 100,000 KRW 목표
 
-## 시작점
+## 주요 결과물
 
-- 요구사항: `requirements/system_requirements.md`
-- 가정과 미확정값: `requirements/assumptions.md`
-- 안전: `docs/safety.md`
-- donor 조사: `bom/donor_inventory_checklist.md`
-- 초기 BOM: `bom/bom.csv`
-- Stage 1 계산: `calculations/shredder/stage1_proof_design.md`
+- 제작·조립 매뉴얼: `docs/build_manual_ko.pdf`
+- 설계·검증 보고서: `docs/design_report_ko.pdf`
+- 요구사항/가정: `requirements/system_requirements.md`, `requirements/assumptions.md`
+- 안전·운전·교정: `docs/safety.md`, `docs/operation.md`, `docs/calibration.md`
+- CAD source/output: `cad/freecad`, `cad/generation/fcstd`, `exports`, `renders`
+- 배선·pinout/protocol: `electronics/schematics`, `electronics/wiring`, `electronics/pinout`, `electronics/protocol`
+- BOM: `bom/bom.csv`, `bom/target_budget_design.csv`, `bom/engineering_recommended_design.csv`
+- 검증 상태: `docs/validation_report_ko.md`, `validation/release_checklist.md`
+
+## 재현·검증
+
+```bash
+nix develop --command bash -lc \
+  "FreeCADCmd -c \"import runpy; runpy.run_path('cad/generation/generate_all.py', run_name='__main__')\""
+
+QT_QPA_PLATFORM=offscreen nix develop --command bash -lc \
+  "FreeCADCmd -c \"import runpy; runpy.run_path('cad/generation/render_views.py', run_name='__main__')\""
+
+nix develop --command python3 validation/run_all.py
+```
+
+전체 artifact의 크기와 SHA-256는 `artifacts/manifest.json`에 기록됩니다. 200,000 KRW 목표는 safety relay와 camera를 포함한 적합한 project-lab 재고가 확인될 때만 조건부이며, 현재 공개 후보 두 품목만 235,200 KRW입니다.
 
 설계 파일만 보고 cutter, heater 또는 고전류 회로를 바로 제작·가동하지 마십시오. 물리적 안전장치와 합격 시험은 `validation/release_checklist.md`에 따라 별도로 확인해야 합니다.

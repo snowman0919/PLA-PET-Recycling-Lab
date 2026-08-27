@@ -1,9 +1,59 @@
 {
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
-  "generated_utc": "2026-08-27T19:34:56Z",
-  "artifact_count": 231,
+  "generated_utc": "2026-08-27T20:15:00Z",
+  "artifact_count": 281,
   "artifacts": [
+    {
+      "path": "bom/bom.md",
+      "bytes": 1190,
+      "sha256": "df08c7a66ac7f476366794ecb2c8715e2341738ea1adf1f719e830bdf2247bf0"
+    },
+    {
+      "path": "bom/cost_summary.json",
+      "bytes": 988,
+      "sha256": "2c4a1b83ebde4816c0ba6976eda630cb341159cd9603e775f610ead8f866fe84"
+    },
+    {
+      "path": "bom/engineering_recommended_design.csv",
+      "bytes": 14183,
+      "sha256": "390ee04d786c6e44243f44b9212bb8fd268dcd2183ccd78b4a32428effa921a7"
+    },
+    {
+      "path": "bom/target_budget_design.csv",
+      "bytes": 14345,
+      "sha256": "7febab34d370ca1d520a74f2941aff70033b56b4366a3d2642a24d04651049b9"
+    },
+    {
+      "path": "cad/generation/fcstd/classification_storage_proof.FCStd",
+      "bytes": 8361,
+      "sha256": "7316ffc4b9c70a413d03a6decdbd252bc90f96123052c94215ee031f94381503"
+    },
+    {
+      "path": "cad/generation/fcstd/classifier_gate_pair.FCStd",
+      "bytes": 3532,
+      "sha256": "b047f6bd5222d0951300c08a8e84bc8e111610c138cb87331383bc46efa3dd12"
+    },
+    {
+      "path": "cad/generation/fcstd/color_diverter_rotor.FCStd",
+      "bytes": 3308,
+      "sha256": "7178540108649e0266e350cc00fdd65f2d374ea2b4e960c082b29e8c7d2ce746"
+    },
+    {
+      "path": "cad/generation/fcstd/control_backplate_partition.FCStd",
+      "bytes": 4594,
+      "sha256": "09611ef805b53b5789291744528ab5621a66868950721afb70b14d3a82245a25"
+    },
+    {
+      "path": "cad/generation/fcstd/control_door_split.FCStd",
+      "bytes": 4364,
+      "sha256": "01ba3b73c2b04309afe5dbe5bff8cf467df706e26f6a9fc8a7745f18712ee1df"
+    },
+    {
+      "path": "cad/generation/fcstd/control_enclosure_proof.FCStd",
+      "bytes": 23119,
+      "sha256": "61dcb84f7343288ea8e9ab04580b09df6b302331bc6c556e859609d988ac1f82"
+    },
     {
       "path": "cad/generation/fcstd/cooling_tunnel_segment.FCStd",
       "bytes": 5752,
@@ -81,13 +131,18 @@
     },
     {
       "path": "cad/generation/fcstd/full_assembly_skeleton.FCStd",
-      "bytes": 23275,
-      "sha256": "fb6f0f5b4aaf33867388b7f871f1d890da97504802dbbe4d928206e1745cfd3b"
+      "bytes": 24405,
+      "sha256": "293ceb060062b038850cba4757c31d00f0432d2a7ae445c1e11484d5207dafb1"
     },
     {
       "path": "cad/generation/fcstd/gauge_calibration_fixture.FCStd",
       "bytes": 3876,
       "sha256": "68cc09ef6578f592050fd1b5f3d5e8f763c22ad0dca442d867450b53b03e1354"
+    },
+    {
+      "path": "cad/generation/fcstd/input_classifier_proof.FCStd",
+      "bytes": 17273,
+      "sha256": "20ebdc5481949d4edea0b8135a692bff6aa0d895be0c78b20eb944e9a8c71d79"
     },
     {
       "path": "cad/generation/fcstd/puller_roller_pair.FCStd",
@@ -225,6 +280,26 @@
       "sha256": "715aecfabba8863d777698c4955919a96f54ede1097cbc9383e190444379c47d"
     },
     {
+      "path": "docs/build_manual_ko.pdf",
+      "bytes": 1009275,
+      "sha256": "7747f5001d68f7d27a9234b33825bbcb156e34c42bfbf294d615e9dccbb01eb8"
+    },
+    {
+      "path": "docs/design_report_ko.pdf",
+      "bytes": 892054,
+      "sha256": "48221d6df35916d563360977e0af057a4be2b99b3f534d733ab5011005286abd"
+    },
+    {
+      "path": "exports/dxf/classifier_gate_half.dxf",
+      "bytes": 394,
+      "sha256": "484516c7c103faa380cf3a47ea42ae1c8623661fcb772c8e9b8a2df50f728bf1"
+    },
+    {
+      "path": "exports/dxf/control_door_half.dxf",
+      "bytes": 400,
+      "sha256": "65d4bf7c386cf24efd90aafb9d537caa5a972103f62fb8f7fa01f282c0680f22"
+    },
+    {
       "path": "exports/dxf/cooling_fan_plate.dxf",
       "bytes": 578,
       "sha256": "950ed2cceb76073fbcd473accadbc86fbb12c4982fa592e3999148f50f035fec"
@@ -263,6 +338,36 @@
       "path": "exports/dxf/stage3_bearing_plate.dxf",
       "bytes": 660,
       "sha256": "a26b70cf77f4846ce76737838a808374543c379ad2d947a791b82e9a3d2e5e17"
+    },
+    {
+      "path": "exports/step/classification_storage_proof.step",
+      "bytes": 54833,
+      "sha256": "02c8ae1b948cd390c494bff50fadecf1926c0dbe9c84bdec8d82c8b5d34b3de9"
+    },
+    {
+      "path": "exports/step/classifier_gate_pair.step",
+      "bytes": 12291,
+      "sha256": "f1607de0c5457ada369504c681734dda9d877650f72d3f97dcb7ad4527a2598b"
+    },
+    {
+      "path": "exports/step/color_diverter_rotor.step",
+      "bytes": 8919,
+      "sha256": "66ddf6726f4ec8d03c195e67f0896ad65f7aa97ba8b318e09510ea46b2fc621c"
+    },
+    {
+      "path": "exports/step/control_backplate_partition.step",
+      "bytes": 23365,
+      "sha256": "3b2f0652a299f1f1914ffa61a791f49507bb71407c0b8ef955e3de1a82e753b3"
+    },
+    {
+      "path": "exports/step/control_door_split.step",
+      "bytes": 18705,
+      "sha256": "8b13a99e2005e24f9e62f6036e5ec1d6b460a6983d8ed95204c30dbeff27d499"
+    },
+    {
+      "path": "exports/step/control_enclosure_proof.step",
+      "bytes": 161259,
+      "sha256": "77984bcf636fc484779351f41fea928685687955863f5504dfdc027701d5aed3"
     },
     {
       "path": "exports/step/cooling_tunnel_segment.step",
@@ -341,13 +446,18 @@
     },
     {
       "path": "exports/step/full_assembly_skeleton.step",
-      "bytes": 115353,
-      "sha256": "119f95bbaf114c794bf8d9ff653f7d80daccdc803bdfbeff9943503e4861d560"
+      "bytes": 121130,
+      "sha256": "8bffd261c60773c4a3ffdb1d837d76eb3c5e675b4eac0ed2359d142012e1f4ff"
     },
     {
       "path": "exports/step/gauge_calibration_fixture.step",
       "bytes": 12690,
       "sha256": "fe193600858ba866466b8cf1c5800f056b4624dd734c58a05a734be076e9c1a6"
+    },
+    {
+      "path": "exports/step/input_classifier_proof.step",
+      "bytes": 114807,
+      "sha256": "edd6c07358f28eb820671a2baacff236bc4d7e8b5eafcea238d37d5b1514ea0f"
     },
     {
       "path": "exports/step/puller_roller_pair.step",
@@ -485,6 +595,36 @@
       "sha256": "ffd1cfd2f3b4f41ce4525d3e69d2db55179597cf368b953ba9cd92dcf6bd8acb"
     },
     {
+      "path": "exports/stl/classification_storage_proof.stl",
+      "bytes": 80284,
+      "sha256": "288cf1c42af40c741a0a8a87b44cbe958044b6f7aa693ec1a973c279cb782405"
+    },
+    {
+      "path": "exports/stl/classifier_gate_pair.stl",
+      "bytes": 1284,
+      "sha256": "60d0d05b6247add093eb911ca0ca42251ca66f9f753b4fc01990bbeaa2b92f6e"
+    },
+    {
+      "path": "exports/stl/color_diverter_rotor.stl",
+      "bytes": 25684,
+      "sha256": "d3c0cb58bc33e2349120bc5ab58651e9a8a249f92ab0715a29ff6a42aabdbe25"
+    },
+    {
+      "path": "exports/stl/control_backplate_partition.stl",
+      "bytes": 2484,
+      "sha256": "d664687d718d140d11910040fc5616c936fba2e377aa58ade9e9e2e1a850605e"
+    },
+    {
+      "path": "exports/stl/control_door_split.stl",
+      "bytes": 27684,
+      "sha256": "92279d88c17827db4c5ea74a5a67f9bcc5e9477d263cabe37ce93983e51580fb"
+    },
+    {
+      "path": "exports/stl/control_enclosure_proof.stl",
+      "bytes": 166484,
+      "sha256": "14d5f1368596d16b69e19550cd429ea454195a617f73ffb88a17a68a8c60897b"
+    },
+    {
       "path": "exports/stl/cooling_tunnel_segment.stl",
       "bytes": 4084,
       "sha256": "ced01cc1e433e29a79c016b939c8034a5bee40b02a041d09969b41d4eac3632e"
@@ -561,13 +701,18 @@
     },
     {
       "path": "exports/stl/full_assembly_skeleton.stl",
-      "bytes": 12084,
-      "sha256": "bece361a6202a93c48273016968ac7f56d5bc1ef41c00bd81c4f39a65aa3553b"
+      "bytes": 12684,
+      "sha256": "517b70b33508c84137817e9a962045c2862b104255dc7e430d3a8ccd14eb0c5b"
     },
     {
       "path": "exports/stl/gauge_calibration_fixture.stl",
       "bytes": 102284,
       "sha256": "372e4a5f8377d1d063e76b3210eacbe38683cf67fe17514ccdbf2024fc47cec3"
+    },
+    {
+      "path": "exports/stl/input_classifier_proof.stl",
+      "bytes": 86884,
+      "sha256": "308ac141ec1aede450d106577b844c6aa25bc80d13f4768343237b3b0c264102"
     },
     {
       "path": "exports/stl/puller_roller_pair.stl",
@@ -706,38 +851,108 @@
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_bottom.png",
-      "bytes": 11920,
-      "sha256": "43e1fe49e5ca8e4f121d14c89ef9682f17e74ad8896e4af8a59dd731f0e03df9"
+      "bytes": 11946,
+      "sha256": "ee9dc53b7a1cf52a89cb36b87f523d5c37391b74b5413c4af77b3e0dd85673ea"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_front.png",
-      "bytes": 12664,
-      "sha256": "94a10d8bc48fd8646629565a523dc43c57cbdbee604c460ae880d1778b4438c5"
+      "bytes": 12734,
+      "sha256": "e1c790a9a38aa799dd910a1edb70a43558b8c9b1d7ecd481fedd5e98545bf4a8"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_isometric.png",
-      "bytes": 30730,
-      "sha256": "f166d31014e2c82e915220850183ea9c2f48d9a10304b76374684191deb78379"
+      "bytes": 29871,
+      "sha256": "7b8a9a1cad19cd42ed8950fb001fd164e706f80786f6dcd7346765d51f3462d4"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_left.png",
-      "bytes": 13748,
-      "sha256": "55f7c0cbb45f3dbf982214d1c51156260ae38086ff0ceb46a3f278d822951f90"
+      "bytes": 13853,
+      "sha256": "671a47245e7e3f69a54a656c7cc0923674ba7335e0ae563eed6aa3809d0ce5f2"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_rear.png",
-      "bytes": 12647,
-      "sha256": "bee8e7c86b62e7c9079588d0a3a88158ae35e11ac50a2dc55c6742ace5b9a6a2"
+      "bytes": 12709,
+      "sha256": "ba04a5f11395c45f2dbaad6233b0b1e52778aa538cc210757db77c49b229898a"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_right.png",
-      "bytes": 12836,
-      "sha256": "84a7c0cbe2aef2bb027a2554a000d4ea0b7445fe6565674928272c7ec26194b4"
+      "bytes": 12948,
+      "sha256": "3af4b719cb48d9fbb846e7c2de7425d9185b5a64fff7f82d4a9dbd80327c105d"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_top.png",
-      "bytes": 11720,
-      "sha256": "d2b176582147eaf58ad8aed5979e05cc560c561a21716e8f58f497956b5463f7"
+      "bytes": 11832,
+      "sha256": "7d1cbceb964419140662b438ccd1da567b3f3aea86aff354f68b8a340c14b076"
+    },
+    {
+      "path": "renders/modules/classification_storage_proof_bottom.png",
+      "bytes": 41341,
+      "sha256": "175bcfcf3c65a4bb4ba808f2ae2ab70486b980f42bc55fb301c897b61d598f05"
+    },
+    {
+      "path": "renders/modules/classification_storage_proof_front.png",
+      "bytes": 16188,
+      "sha256": "08708ed90c5797b201e1f1e044a2216a11c1eb52c50b5bcbf6b86b34f2d00a13"
+    },
+    {
+      "path": "renders/modules/classification_storage_proof_isometric.png",
+      "bytes": 51628,
+      "sha256": "b599dcdc3233a6e7ade986f3a8a7e418482b6c37837c65f4c5ce6c309d4b4c16"
+    },
+    {
+      "path": "renders/modules/classification_storage_proof_left.png",
+      "bytes": 16041,
+      "sha256": "a229c60918b11db3fe11a792167cda995749efa40e0fe3ba92d003ecdfe76d69"
+    },
+    {
+      "path": "renders/modules/classification_storage_proof_rear.png",
+      "bytes": 16929,
+      "sha256": "4878f3cddd803da73c455720142eee1bad362f242935e3b6ed33a40f12a56e79"
+    },
+    {
+      "path": "renders/modules/classification_storage_proof_right.png",
+      "bytes": 16850,
+      "sha256": "fb456ce2304efe9d6424a34834162c557072664de9ef60ce236c31b1c2e821b0"
+    },
+    {
+      "path": "renders/modules/classification_storage_proof_top.png",
+      "bytes": 41109,
+      "sha256": "b655c6f43a3151b49ff89ebc5717bc055ec3b731b290baaeff98db3a164fab27"
+    },
+    {
+      "path": "renders/modules/control_enclosure_proof_bottom.png",
+      "bytes": 15028,
+      "sha256": "2a5d7ddc6e18231e65b2c082ea53437e4794f70beeb01ef75f1a592326041b1f"
+    },
+    {
+      "path": "renders/modules/control_enclosure_proof_front.png",
+      "bytes": 39678,
+      "sha256": "340f5c19a28c4662cd9729275b9d81a5e3a4c2dc577d89a143013f98f4fbdb93"
+    },
+    {
+      "path": "renders/modules/control_enclosure_proof_isometric.png",
+      "bytes": 39287,
+      "sha256": "6213a3e363f6cef8b9229444693c59f972eab4fd254259df3bc1bc75c3838f59"
+    },
+    {
+      "path": "renders/modules/control_enclosure_proof_left.png",
+      "bytes": 16325,
+      "sha256": "99de5b98ff09546423bd530577887ec4d2477e8eaeb63ec6a967b364395055ed"
+    },
+    {
+      "path": "renders/modules/control_enclosure_proof_rear.png",
+      "bytes": 11956,
+      "sha256": "3472db7435d7dbb9804f0506abebff4cd513728cbc32971b74a24a3bd564d392"
+    },
+    {
+      "path": "renders/modules/control_enclosure_proof_right.png",
+      "bytes": 15771,
+      "sha256": "7a6eed7952666e3c858bcd7dd2325133433f0f8205140f5340bd9c1e1937e7ab"
+    },
+    {
+      "path": "renders/modules/control_enclosure_proof_top.png",
+      "bytes": 14504,
+      "sha256": "ab03c38aff33775774b9468777389ffbe54b88992bb815c1e78a9d883dd17602"
     },
     {
       "path": "renders/modules/diameter_gauge_optical_proof_bottom.png",
@@ -913,6 +1128,41 @@
       "path": "renders/modules/forming_line_proof_top.png",
       "bytes": 23886,
       "sha256": "7227508b1785511a1b5fe0e4af4961ee0a87fe756c63a46798ef6543e955bb26"
+    },
+    {
+      "path": "renders/modules/input_classifier_proof_bottom.png",
+      "bytes": 15440,
+      "sha256": "6126cab1690bb2f2bad7a21377ebf635cc8ef78bf6a1a3905b73b4239dc42dc9"
+    },
+    {
+      "path": "renders/modules/input_classifier_proof_front.png",
+      "bytes": 12210,
+      "sha256": "f6a08d1aa1a29a85488b0b8eaee2974cfd06859706201d8e49d76a2a9f3061fb"
+    },
+    {
+      "path": "renders/modules/input_classifier_proof_isometric.png",
+      "bytes": 41956,
+      "sha256": "08f74010b3f88b27c33caae573b9973150faee28791e8568d520f1b02adaadc2"
+    },
+    {
+      "path": "renders/modules/input_classifier_proof_left.png",
+      "bytes": 11717,
+      "sha256": "1e7e06f2ca8f10463f183b85a07508524b0cd7adccd3e424417e74f726f8d5a9"
+    },
+    {
+      "path": "renders/modules/input_classifier_proof_rear.png",
+      "bytes": 12105,
+      "sha256": "239f7e6342306160f8f995f122cb1445c0a0916e8b08ea63df0f628de969c49b"
+    },
+    {
+      "path": "renders/modules/input_classifier_proof_right.png",
+      "bytes": 11692,
+      "sha256": "8cffa8e4375fe9bc8526e3f297e4a6329f1fbb085cbe764a9f76d77f7e458817"
+    },
+    {
+      "path": "renders/modules/input_classifier_proof_top.png",
+      "bytes": 15915,
+      "sha256": "b32d0e30dd9118dd6266b68895c4c2bb550066a3fb4a46c72305197c208ef11a"
     },
     {
       "path": "renders/modules/spooler_proof_bottom.png",
