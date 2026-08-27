@@ -68,7 +68,8 @@ SAF-FUS-001,Safety,Main and branch fuse distribution set,1,NEEDS_SELECTION,SELEC
 SAF-THM-001,Safety,Independent one-shot thermal fuses for four extruder and two dryer branches,6,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Zone temperature and mounting pending
 SAF-INT-001,Safety,Positive-opening lid service and forming guard switch set,3,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Wire-open and cover-open test pending
 ELE-HTR-DRV,Electronics,Six default-off heater MOSFET or SSR driver channels with isolation,6,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Welded-on fault injection pending
-ELE-SEN-IF,Electronics,Temperature pressure current airflow and encoder isolated interface set,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Mega commissioning locks remain closed
+ELE-SEN-IF,Electronics,Eight-channel 24 V dry-contact diagnostic isolation and eight-channel default-OFF logic interface assembly,1,PROOF_DESIGNED,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,KiCad ERC and DRC zero; review HOLD
+ELE-PCB-IF,Electronics,PPR isolated monitor interface bare PCB 190 x 130 mm two layer,1,FABRICATION_HOLD,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Gerber drill and render generated; EMC risk 52/100
 ELE-BUCK-001,Electronics,Qualified 24 V to 5 V Raspberry Pi buck converter and fuse,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Undervoltage and thermal test pending
 UI-TFT-001,User interface,SPI TFT display compatible with qualified logic level,1,NEEDS_INSPECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Pinout D47 to D52
 UI-CTL-001,User interface,Rotary encoder push START PAUSE BACK ABORT and buzzer set,1,NEEDS_INVENTORY,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Physical acknowledgement logic implemented

@@ -1,5 +1,15 @@
 # 환경 변경 이력
 
+## 2026-08-28 — KiCad PCB authoring 및 SPICE 임시 환경
+
+- Action: `/tmp/ppr-kiutils-venv`에 `kiutils==1.4.8`을 설치해 deterministic KiCad source를 생성하고, Nix 임시 shell에서 ngspice 45를 받아 9개 subcircuit를 실행했다.
+- Reason: 최소 감시/기본-OFF 인터페이스 보드를 네이티브 KiCad 9로 작성하고 ERC/DRC/SPICE/EMC 증거를 남기기 위함.
+- Commands: `/tmp/ppr-kiutils-venv/bin/python .../generate.py`, `kicad-cli sch erc`, `kicad-cli pcb drc`, `nix shell nixpkgs#ngspice --command ...`.
+- Paths affected: 재다운로드 가능한 `/tmp` venv와 `/nix/store` ngspice closure; repository에는 source와 검증 산출물만 저장.
+- Disk before/after: 별도 전체 filesystem snapshot 미수집; board tree 약 4.7 MiB, ngspice closure 11.4 MiB unpacked 안내.
+- Space reclaimed: 0; garbage collection 또는 사용자 cache 삭제 없음.
+- Risk/impact: system package/profile은 변경하지 않았다. `fill_zones.py`는 KiCad 9.0.9의 `/usr/bin/python3` pcbnew binding을 요구한다.
+
 ## 2026-08-28 — CUDA compiler/runtime for RTX 3080 validation
 
 - Action: Nix에서 `cuda_nvcc 12.9.86`, `cuda_cudart 12.9.79`와 build dependencies를 단일 `--impure`/`NIXPKGS_ALLOW_UNFREE=1` 호출로 가져와 CUDA C++ kernel을 컴파일했다.

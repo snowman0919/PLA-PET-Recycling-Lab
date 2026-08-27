@@ -2,32 +2,32 @@
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
   "generated_utc": "2026-08-27T20:15:00Z",
-  "artifact_count": 321,
+  "artifact_count": 354,
   "artifacts": [
     {
       "path": "bom/bom.md",
       "bytes": 1328,
-      "sha256": "6dc05d81bd06a461a6677a4d81f7eadacbc1dda6525b8d6e355e950f90fceab7"
+      "sha256": "252ee17a4ff9484e6802f18c2628ad6337fd6780d0b3956f59f4fe76a3d20c77"
     },
     {
       "path": "bom/cost_rollup.csv",
       "bytes": 1112,
-      "sha256": "e9b009c9969a5e1f4d77cbd6b9b6d8ff86f0f5e39ec925ae03819894a3de6d75"
+      "sha256": "67aa85e657e57659ff7ef5a4c4aba8ce1e1a92dc371a2efa1fb5c6af181dfb94"
     },
     {
       "path": "bom/cost_summary.json",
-      "bytes": 1189,
-      "sha256": "1d469cd2183ae860ae0e550790f56c4907b04e0f769b43ed270d8bb86f5bd5d0"
+      "bytes": 1241,
+      "sha256": "25ae7ff98578575ea61d8fa4f1d920324fcc173d6fbcbb1d57bd7949e12fa31b"
     },
     {
       "path": "bom/engineering_recommended_design.csv",
-      "bytes": 14183,
-      "sha256": "390ee04d786c6e44243f44b9212bb8fd268dcd2183ccd78b4a32428effa921a7"
+      "bytes": 14427,
+      "sha256": "2a349ba032d8c79b841969d321ebbe3e35386c16e0a7254bfb4d470437b8ef9f"
     },
     {
       "path": "bom/target_budget_design.csv",
-      "bytes": 14345,
-      "sha256": "7febab34d370ca1d520a74f2941aff70033b56b4366a3d2642a24d04651049b9"
+      "bytes": 14592,
+      "sha256": "3f7369e9cdd6e74c6c76439e3e26ad99cf019d9efe94b7c36577028fb7406f3f"
     },
     {
       "path": "cad/generation/fcstd/classification_storage_proof.FCStd",
@@ -308,6 +308,171 @@
       "path": "docs/manual_coverage.csv",
       "bytes": 3545,
       "sha256": "56b8fc4826f15d5f76a3eb22351f605de0b12ade72578d8c6e2f641d0b30d765"
+    },
+    {
+      "path": "electronics/pcb/interface_board/analysis/capability_mode.json",
+      "bytes": 247,
+      "sha256": "32cf800f3622febe74073d5d8b7df170c06e75e16155b4b6cbdbec14d443de37"
+    },
+    {
+      "path": "electronics/pcb/interface_board/analysis/cross.json",
+      "bytes": 6744,
+      "sha256": "e460c1bbd6560bb1ede4c981c3cc3e1023a5fa0a3eadbc13181be89f861b0294"
+    },
+    {
+      "path": "electronics/pcb/interface_board/analysis/emc.json",
+      "bytes": 133849,
+      "sha256": "2c56b12c00ff56399828606ae4eff31344a3d1398b4b7ef59b6bf765ba42a8fa"
+    },
+    {
+      "path": "electronics/pcb/interface_board/analysis/gerbers.json",
+      "bytes": 39365,
+      "sha256": "e623449e4e9bdd542dbcaf69853aa94acdf6d1692befa3f8296944423a731ca9"
+    },
+    {
+      "path": "electronics/pcb/interface_board/analysis/pcb.json",
+      "bytes": 504797,
+      "sha256": "2de31ed277e6901794644641532c60726e502723096727579bd413a68c67b46b"
+    },
+    {
+      "path": "electronics/pcb/interface_board/analysis/schematic.json",
+      "bytes": 617361,
+      "sha256": "6397c519fa060befb67c40b0c3c44cb1f0314c6f48c95838199b4760415f3b84"
+    },
+    {
+      "path": "electronics/pcb/interface_board/analysis/spice.json",
+      "bytes": 4554,
+      "sha256": "168482a9f92201b496d7a8a67e9038f7e96f950bb534e2f32a45d20aa29f55a0"
+    },
+    {
+      "path": "electronics/pcb/interface_board/analysis/thermal.json",
+      "bytes": 2359,
+      "sha256": "ff53be5019482f8e500041b5c17bd810011cb4d8a735347f55899372807a8296"
+    },
+    {
+      "path": "electronics/pcb/interface_board/datasheet_evidence.json",
+      "bytes": 959,
+      "sha256": "7ccb5ba5dd393bf8d388fd08d41baf333b3314bcb38d0993d3796dbc45a8a058"
+    },
+    {
+      "path": "electronics/pcb/interface_board/drc.rpt",
+      "bytes": 242,
+      "sha256": "0a3a94f712fffb95e300d7bfa0aff8c28c914e9ac7d800862d19ef795bc2c945"
+    },
+    {
+      "path": "electronics/pcb/interface_board/erc.rpt",
+      "bytes": 145,
+      "sha256": "e6d21d0304b898b7215435a4aaacfc403658704fa22b227ac413560ecf915723"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/drill_report.txt",
+      "bytes": 781,
+      "sha256": "469d3e84a449df584d711a8977c7890ece6b6de82d49a073d0f11386f461a6b1"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-B_Cu.gbl",
+      "bytes": 269922,
+      "sha256": "ac7007d187c535617e75727d78e6edcae506018c388d1f9f570650b5460162ca"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-B_Mask.gbs",
+      "bytes": 7418,
+      "sha256": "8f6b643f4f8b78c7c65da92b36827f5ef5fde4a2f534a12764db6a6e146a5412"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-Edge_Cuts.gm1",
+      "bytes": 669,
+      "sha256": "3b560a3d65e8c4af92b7208627cc75e9575d2184c82a46adfb1dd89c883ee1b3"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-F_Cu.gtl",
+      "bytes": 312753,
+      "sha256": "ab8450c4a68f20fe586e9b2076043834ccf6dca88e8e0a8edb0d319230ce8371"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-F_Mask.gts",
+      "bytes": 8658,
+      "sha256": "ab2ca0843426d15d7088ee396eb67bca353361c6a20dd654af58837d0ecd239d"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-F_Silkscreen.gto",
+      "bytes": 42508,
+      "sha256": "79a43c183968e3d10adbdbe64719f1d635841f38460354911575d8c057a49400"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-NPTH-drl_map.pdf",
+      "bytes": 7323,
+      "sha256": "12ba35fe58124cdfe8806ebb70de1a89daa41e64c7e848c7d4699032b2a86f68"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-NPTH.drl",
+      "bytes": 421,
+      "sha256": "868c1c9092e38a0da11ea96c08bde4b7a9467a18447083bd3652b8e2cc9112d8"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-PTH-drl_map.pdf",
+      "bytes": 22403,
+      "sha256": "cf25326e97ea707836296f3c51f2fb7b4f5cd498da8c41af0f3542e844f840a9"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-PTH.drl",
+      "bytes": 3749,
+      "sha256": "616823dc7ba7644c53355e1d1cff7a0df6f8d8356725be577d7c208f319d266c"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface-job.gbrjob",
+      "bytes": 2371,
+      "sha256": "db9988bcab337f66f0061c0c7f251dceb55dc81d4f138aa8b7369607fcc73485"
+    },
+    {
+      "path": "electronics/pcb/interface_board/fabrication/ppr_interface_pos.csv",
+      "bytes": 6161,
+      "sha256": "6654ea22b91f3f29c9c4fd4029c691b9364ea2002b758977885bd254d41f9d74"
+    },
+    {
+      "path": "electronics/pcb/interface_board/ppr_interface.kicad_dru",
+      "bytes": 160,
+      "sha256": "67b0920bdba09928d97eb2019c56d0c8efd4755e1b54129ab003305c38f690f8"
+    },
+    {
+      "path": "electronics/pcb/interface_board/ppr_interface.kicad_pcb",
+      "bytes": 1035955,
+      "sha256": "91c18c6d2ed0350a5d532810a9da83eed90ba4c2d47d64d9d5a9acb156b510df"
+    },
+    {
+      "path": "electronics/pcb/interface_board/ppr_interface.kicad_pro",
+      "bytes": 9974,
+      "sha256": "e93b5ce332fe82a42810caa4edcb9c70fe950d1777d8e5da842008a8d6638c01"
+    },
+    {
+      "path": "electronics/pcb/interface_board/ppr_interface.kicad_sch",
+      "bytes": 190158,
+      "sha256": "9e963618b47d883fa8e01df4f4deface8273ce2b463e2fcc904052f02da1a00e"
+    },
+    {
+      "path": "electronics/pcb/interface_board/ppr_interface_bom.csv",
+      "bytes": 1603,
+      "sha256": "fe2197502cbc8d06349418eec46ac94c12d4f603441450a21418b474411d6ed7"
+    },
+    {
+      "path": "electronics/pcb/interface_board/review/ppr_interface_bottom.png",
+      "bytes": 162948,
+      "sha256": "1b1e1b831f6be64269b0e3928bdcffd1cab74c32e3d3e397e3edb5e8ef596ac0"
+    },
+    {
+      "path": "electronics/pcb/interface_board/review/ppr_interface_iso.png",
+      "bytes": 910476,
+      "sha256": "697557e6108606ae02678ea50101e3564d6ad198d09a21bd9be7d7f5d4e4e44a"
+    },
+    {
+      "path": "electronics/pcb/interface_board/review/ppr_interface_schematic.pdf",
+      "bytes": 432711,
+      "sha256": "af8d4f1baf565bdb10349e5c487cac790b462aeecbfecac7532359dbc873be50"
+    },
+    {
+      "path": "electronics/pcb/interface_board/review/ppr_interface_top.png",
+      "bytes": 343213,
+      "sha256": "633c401d932d9134f3417b62152b0f0d80faa03256e61c0b73e777939e3b18cd"
     },
     {
       "path": "exports/cnc_quote_packages/README.md",

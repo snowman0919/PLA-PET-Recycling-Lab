@@ -38,6 +38,16 @@ PATTERNS = (
     "simulation/gpu/*_gpu.json",
     "renders/review/*.png",
     "docs/manual_coverage.csv",
+    "electronics/pcb/interface_board/*_evidence.json",
+    "electronics/pcb/interface_board/*.kicad_pro",
+    "electronics/pcb/interface_board/*.kicad_sch",
+    "electronics/pcb/interface_board/*.kicad_pcb",
+    "electronics/pcb/interface_board/*.kicad_dru",
+    "electronics/pcb/interface_board/*_bom.csv",
+    "electronics/pcb/interface_board/*.rpt",
+    "electronics/pcb/interface_board/analysis/*.json",
+    "electronics/pcb/interface_board/fabrication/*",
+    "electronics/pcb/interface_board/review/*",
 )
 
 

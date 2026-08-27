@@ -1,14 +1,16 @@
 {
   "revision": "0.1.0-preflight",
   "generated_date": "2026-08-28",
-  "bom_row_count": 81,
+  "bom_row_count": 82,
   "critical_row_count": 56,
   "status_counts": {
     "AVAILABLE": 2,
+    "FABRICATION_HOLD": 1,
     "NEEDS_DYNO": 1,
     "NEEDS_INSPECTION": 6,
     "NEEDS_INVENTORY": 3,
-    "NEEDS_SELECTION": 28,
+    "NEEDS_SELECTION": 27,
+    "PROOF_DESIGNED": 1,
     "PROVISIONAL": 41
   },
   "target_budget_cap_krw": 200000,
@@ -19,9 +21,9 @@
     "SAF-REL-001"
   ],
   "cost_rollup_file": "bom/cost_rollup.csv",
-  "required_baseline_line_count": 81,
+  "required_baseline_line_count": 82,
   "optional_addon_line_count": 0,
-  "required_baseline_tbd_line_count": 77,
+  "required_baseline_tbd_line_count": 78,
   "target_budget_status": "CONDITIONAL_ONLY_IF_SAFETY_RELAY_AND_CAMERA_ARE_VALIDATED_STOCK",
   "engineering_recommended_total_status": "TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES",
   "pricing_assumptions": [

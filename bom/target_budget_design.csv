@@ -68,7 +68,8 @@ SAF-FUS-001,Safety,Main and branch fuse distribution set,1,NEEDS_SELECTION,PROJE
 SAF-THM-001,Safety,Independent one-shot thermal fuses for four extruder and two dryer branches,6,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Zone temperature and mounting pending
 SAF-INT-001,Safety,Positive-opening lid service and forming guard switch set,3,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Wire-open and cover-open test pending
 ELE-HTR-DRV,Electronics,Six default-off heater MOSFET or SSR driver channels with isolation,6,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Welded-on fault injection pending
-ELE-SEN-IF,Electronics,Temperature pressure current airflow and encoder isolated interface set,1,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Mega commissioning locks remain closed
+ELE-SEN-IF,Electronics,Eight-channel 24 V dry-contact diagnostic isolation and eight-channel default-OFF logic interface assembly,1,PROOF_DESIGNED,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,KiCad ERC and DRC zero; review HOLD
+ELE-PCB-IF,Electronics,PPR isolated monitor interface bare PCB 190 x 130 mm two layer,1,FABRICATION_HOLD,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Gerber drill and render generated; EMC risk 52/100
 ELE-BUCK-001,Electronics,Qualified 24 V to 5 V Raspberry Pi buck converter and fuse,1,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Undervoltage and thermal test pending
 UI-TFT-001,User interface,SPI TFT display compatible with qualified logic level,1,NEEDS_INSPECTION,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Pinout D47 to D52
 UI-CTL-001,User interface,Rotary encoder push START PAUSE BACK ABORT and buzzer set,1,NEEDS_INVENTORY,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Physical acknowledgement logic implemented

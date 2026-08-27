@@ -17,6 +17,7 @@ PYTHON_TESTS = (
     ("validation/test_two_tower_contract.py", "TWO_TOWER_ARCHITECTURE_VALIDATION_OK"),
     ("validation/test_two_tower_gpu_evidence.py", "TWO_TOWER_GPU_EVIDENCE_VALIDATION_OK"),
     ("validation/test_electronics_interfaces.py", "ELECTRONICS_INTERFACES_OK"),
+    ("validation/test_kicad_interface_board.py", "KICAD_INTERFACE_BOARD_OK"),
     ("validation/test_extruder_design.py", "EXTRUDER_DESIGN_SWEEP_OK"),
     ("validation/test_forming_line.py", "FORMING_LINE_DESIGN_OK"),
     ("validation/test_sorter_dynamics.py", "SORTER_DYNAMICS_OK"),
@@ -53,7 +54,7 @@ def run(command: list[str], marker: str, env: dict[str, str] | None = None) -> N
 
 
 def main() -> None:
-    run([sys.executable, "bom/build_design_boms.py"], '"bom_row_count": 81')
+    run([sys.executable, "bom/build_design_boms.py"], '"bom_row_count": 82')
     for script, marker in PYTHON_TESTS:
         run([sys.executable, script], marker)
     for script, marker in FREECAD_TESTS:
@@ -67,9 +68,9 @@ def main() -> None:
         "OK",
         pi_env,
     )
-    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=321")
+    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=354")
     run([sys.executable, "validation/test_release_package.py"], "RELEASE_PACKAGE_OK")
-    print("ALL_AUTOMATED_VALIDATIONS_OK (31 gates)")
+    print("ALL_AUTOMATED_VALIDATIONS_OK (32 gates)")
 
 
 if __name__ == "__main__":

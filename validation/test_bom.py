@@ -25,7 +25,7 @@ def main() -> None:
     summary = json.loads((ROOT / "bom" / "cost_summary.json").read_text())
 
     ids = [row["Part ID"] for row in source]
-    assert len(source) == 81 and len(ids) == len(set(ids))
+    assert len(source) == 82 and len(ids) == len(set(ids))
     assert len(target) == len(recommended) == len(source)
     assert [row["Part ID"] for row in target] == ids
     assert [row["Part ID"] for row in recommended] == ids
@@ -51,10 +51,10 @@ def main() -> None:
         "REQUIRED_BASELINE", "OPTIONAL_ADDONS",
     }
     assert rollup_by_name["NEW_PURCHASE"]["Known planning floor KRW"] == "235200"
-    assert rollup_by_name["NEW_PURCHASE"]["TBD line count"] == "26"
+    assert rollup_by_name["NEW_PURCHASE"]["TBD line count"] == "27"
     assert rollup_by_name["CNC_FABRICATION"]["TBD line count"] == "33"
-    assert rollup_by_name["REQUIRED_BASELINE"]["BOM line count"] == "81"
-    assert rollup_by_name["REQUIRED_BASELINE"]["TBD line count"] == "77"
+    assert rollup_by_name["REQUIRED_BASELINE"]["BOM line count"] == "82"
+    assert rollup_by_name["REQUIRED_BASELINE"]["TBD line count"] == "78"
     assert rollup_by_name["OPTIONAL_ADDONS"]["BOM line count"] == "0"
 
     critical_ids = {row["Part ID"] for row in source if row["Criticality"] == "CRITICAL"}

@@ -1,6 +1,6 @@
 # 시스템 BOM 요약
 
-총 81개 line item, CRITICAL 56개다. 이 문서는 `build_design_boms.py`가 `bom.csv`에서 생성한 검사 요약이며 주문서가 아니다.
+총 82개 line item, CRITICAL 56개다. 이 문서는 `build_design_boms.py`가 `bom.csv`에서 생성한 검사 요약이며 주문서가 아니다.
 
 ## 모듈별 line item
 
@@ -13,7 +13,7 @@
 | Cooling | 1 |
 | Diameter gauge | 2 |
 | Dryer | 11 |
-| Electronics | 3 |
+| Electronics | 4 |
 | Extruder | 9 |
 | Frame | 1 |
 | Input classification | 2 |

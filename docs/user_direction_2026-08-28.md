@@ -195,7 +195,7 @@ gh repo create snowman0919/PPR --private --source=. --remote=origin --push
 9. **작업실 안전 inventory 부재:** 사용 가능한 safety relay/contactor, fused source, LOTO, guard와 thermal cutoff의 모델·정격이 아직 문서화되지 않아 신규구매가 필요한 범위를 판단할 수 없다.
 10. **기존 이미지의 오해 위험:** proof envelope가 완성 기계처럼 보일 수 있다. 새 render가 나오기 전 기존 이미지는 concept/proof로만 표시해야 한다.
 11. **원격 release:** GitHub 인증은 해결됐지만 remote 생성·push 후에도 물리 release tag를 만들 근거는 없다. 코드는 공유할 수 있어도 제작 승인 상태는 아니다.
-12. **PCB source 부재:** 현재 electronics 산출물은 Markdown/CSV 중심이며 `.kicad_sch`/`.kicad_pcb` source와 ERC/DRC 증거가 없다. 최종 harness/board 제작 판단은 아직 할 수 없다.
+12. **PCB proof는 생성됐으나 제작 HOLD:** `electronics/pcb/interface_board`에 네이티브 KiCad source, ERC/DRC 0, Gerber, SPICE/EMC/thermal 분석을 추가했다. 다만 keyed connector/passive MPN, harness/enclosure와 실제 전기·EMC 시험이 열려 있어 주문 승인본은 아니다.
 13. **GPU solver 선정:** GPU는 확인됐지만 DEM/thermal/flow/structural 항목별 solver와 validation benchmark가 아직 잠기지 않았다. GPU 사용률만 높고 물리가 틀린 모델을 피해야 한다.
 
 ## 권장 다음 순서
@@ -205,6 +205,6 @@ gh repo create snowman0919/PPR --private --source=. --remote=origin --push
 3. Parent Codex가 private remote를 즉시 생성·push하고 이후 변경을 작은 revision 단위로 남긴다.
 4. BOM의 `USER_STOCK/BUY/DNP` 분류와 비용 rollup을 재생성한다.
 5. 두 tower skeleton, load path, access/guard/chute/cable layout을 만들고 RTX 3080 virtual validation으로 stage/bin/brace/cooling 후보를 줄인다.
-6. architecture contract에 맞춘 최소 KiCad schematic과 단일-board 비교안을 작성해 CLI ERC, PCB DRC, SPICE/EMC/thermal review를 자동화한다.
+6. [완료 — 제작 HOLD] architecture contract에 맞춘 최소 KiCad schematic과 단일-board 비교안을 작성해 CLI ERC, PCB DRC, SPICE/EMC/thermal review를 자동화한다.
 7. concrete render review 후 살아남은 module detail만 단계적으로 이식한다.
 8. 기존 PDF를 draft watermark 상태로 재빌드하고 최종 조립 문서 작업을 CDR 뒤로 미룬다.

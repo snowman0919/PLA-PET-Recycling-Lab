@@ -29,6 +29,7 @@ PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조,
 - CAD source/output: `cad/freecad`, `cad/generation/fcstd`, `exports`, `renders`
 - CAD review variants: `renders/review` (section/x-ray/exploded/tool/cable/slicing)
 - 배선·pinout/protocol: `electronics/schematics`, `electronics/wiring`, `electronics/pinout`, `electronics/protocol`
+- KiCad 감시/로직 PCB proof: `electronics/pcb/interface_board` (ERC/DRC 0, 제작 HOLD)
 - BOM: `bom/bom.csv`, `bom/target_budget_design.csv`, `bom/engineering_recommended_design.csv`, `bom/cost_rollup.csv`
 - CNC/RFQ 사전검토: `exports/cnc_quote_packages` (제작 승인도 아님)
 - 구조 1D FEA·전단·비틀림 교차검증: `calculations/structural/beam_fea.md`, `simulation/structural/beam_crosscheck.json`

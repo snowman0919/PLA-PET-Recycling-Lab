@@ -45,7 +45,7 @@
 - [x] 43개 요구사항 감사표와 34행 CNC/RFQ precheck package
 - [ ] dated vendor pricing and actual CNC quotes
 - [x] Korean build/design PDFs와 시각 렌더 검토
-- [x] 조립 PDF 필수 40개 topic과 전체 81행 BOM 수록
+- [x] 조립 PDF 필수 40개 topic과 전체 82행 BOM source 추적(기존 PDF는 pre-PCB draft)
 - [ ] user physical safety approval
 
 현재 release 상태: **ARCHITECTURE RESCOPE IN PROGRESS — FABRICATION / PHYSICAL RELEASE NOT READY**

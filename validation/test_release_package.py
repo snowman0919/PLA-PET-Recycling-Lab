@@ -52,7 +52,7 @@ def main() -> None:
 
     manifest = json.loads((ROOT / "artifacts" / "manifest.json").read_text())
     artifacts = manifest["artifacts"]
-    assert manifest["artifact_count"] == len(artifacts) == 321
+    assert manifest["artifact_count"] == len(artifacts) == 354
     assert len({entry["path"] for entry in artifacts}) == len(artifacts)
     for entry in artifacts:
         path = ROOT / entry["path"]

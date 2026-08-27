@@ -142,7 +142,7 @@ def main() -> None:
             "Known planning floor KRW": public_floor_total,
             "TBD line count": source_counts["BUY"] - len(public_floor),
             "Total status": "INCOMPLETE_LANDED_TOTAL",
-            "Notes": "Two public candidates only; shipping tax customs and 26 purchase lines remain TBD.",
+            "Notes": f"Two public candidates only; shipping tax customs and {source_counts['BUY'] - len(public_floor)} purchase lines remain TBD.",
         },
         {
             "Rollup": "CNC_FABRICATION",
@@ -187,7 +187,7 @@ def main() -> None:
             "Known planning floor KRW": public_floor_total,
             "TBD line count": required_tbd_lines,
             "Total status": "INCOMPLETE_NOT_BUDGET_COMPLIANT",
-            "Notes": "All 81 baseline rows are required; 2 public floors and 2 conditional on-hand zero-cash rows are the only priced assumptions.",
+            "Notes": "All 82 baseline rows are required; 2 public floors and 2 conditional on-hand zero-cash rows are the only priced assumptions.",
         },
         {
             "Rollup": "OPTIONAL_ADDONS",
