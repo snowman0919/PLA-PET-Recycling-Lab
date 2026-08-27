@@ -29,6 +29,7 @@ PATTERNS = (
     "calculations/structural/beam_fea.md",
     "simulation/structural/beam_crosscheck.json",
     "renders/review/*.png",
+    "docs/manual_coverage.csv",
 )
 
 

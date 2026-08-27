@@ -59,7 +59,7 @@
 | REQ-COST-002 | BLOCKED_EXTERNAL | `bom/cost_rollup.csv`<br>`exports/cnc_quote_packages/README.md`<br>`requirements/responsibility_matrix.md` | `validation/test_bom.py`<br>`validation/test_cnc_quote_packages.py` | Final fabrication-release drawings and actual quotes totaling at or below 100000 KRW | Codex and User |
 | REQ-COST-003 | AUTOMATED_PASS | `bom/target_budget_design.csv`<br>`bom/engineering_recommended_design.csv`<br>`bom/cost_analysis.md` | `validation/test_bom.py` | None for document separation; prices remain external | Codex |
 | REQ-DOC-001 | AUTOMATED_PASS | `cad/generation/generate_all.py`<br>`cad/generation/render_views.py`<br>`artifacts/manifest.json`<br>`docs/validation_report_ko.md` | `validation/test_cad_generation.py`<br>`validation/test_review_variants.py`<br>`validation/test_release_package.py` | None for current package; FreeCAD runtime must be provisioned for each rebuild | Codex |
-| REQ-DOC-002 | DESIGN_EVIDENCE | `docs/build_manual_ko.pdf`<br>`bom/bom.csv`<br>`electronics/pinout/mega_pinout.csv`<br>`docs/calibration.md`<br>`docs/operation.md`<br>`docs/maintenance.md`<br>`docs/validation_report_ko.md` | `validation/test_release_package.py` | Independent third-party fabrication document review | User |
+| REQ-DOC-002 | DESIGN_EVIDENCE | `docs/build_manual_ko.pdf`<br>`docs/manual_coverage.csv`<br>`bom/bom.csv`<br>`electronics/pinout/mega_pinout.csv`<br>`docs/calibration.md`<br>`docs/operation.md`<br>`docs/maintenance.md`<br>`docs/validation_report_ko.md` | `validation/test_manual_coverage.py`<br>`validation/test_release_package.py` | Independent third-party fabrication document review | User |
 
 ## 해석 제한
 

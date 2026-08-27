@@ -1,0 +1,41 @@
+Number,Required topic,Manual section,Supporting file,Status
+1,시스템 개요,문서 사용법과 책임,requirements/system_requirements.md,INCLUDED
+2,안전 경고,표지 경고와 전기 제어 조립,docs/safety.md,INCLUDED
+3,허용 투입물,허용 금지 원료,requirements/constraints.md,INCLUDED
+4,필요한 공구,준비와 입고검사,docs/build_manual_ko.typ,INCLUDED
+5,전체 BOM,제작자료 주문 출력 Appendix,bom/bom.csv,INCLUDED
+6,donor 부품 회수 방법,준비와 입고검사,bom/donor_inventory_checklist.md,INCLUDED
+7,출력 설정,제작자료 주문 출력 Appendix,cad/README.md,INCLUDED
+8,출력 방향과 support,제작자료 주문 출력 Appendix,renders/review/tolerance_coupon_slicing_preview.png,INCLUDED
+9,CNC 주문 방법,제작자료 주문 출력 Appendix,exports/cnc_quote_packages/README.md,INCLUDED
+10,부품별 치수도,제작자료 주문 출력 Appendix,exports/drawings/stage1_cutter_notes.md,INCLUDED
+11,조립 전 검사,준비와 입고검사,validation/release_checklist.md,INCLUDED
+12,Stage 1 조립,Stage 1 대형 파쇄기 조립,exports/drawings/stage1_bearing_plate_notes.md,INCLUDED
+13,Stage 2 조립,Stage 2 중간 파쇄기 조립,exports/drawings/stage2_rotor_bed_knife_notes.md,INCLUDED
+14,Stage 3 조립,Stage 3 granulator 조립,exports/drawings/stage3_granulator_notes.md,INCLUDED
+15,vibratory sorter 조립,Vibratory sorter,exports/drawings/vibratory_sorter_notes.md,INCLUDED
+16,dryer feeder 조립,Dryer Feeder,exports/drawings/dryer_feeder_notes.md,INCLUDED
+17,extruder 조립,Extruder,exports/drawings/extruder_notes.md,INCLUDED
+18,cooling gauge puller 조립,Cooling dual-view gauge puller,exports/drawings/forming_line_notes.md,INCLUDED
+19,spooler 조립,Dancer traverse spooler,exports/drawings/spooler_notes.md,INCLUDED
+20,profile frame 조립,Frame과 전체 배치,cad/freecad/full_assembly/generate.py,INCLUDED
+21,제어 패널 조립,전기 제어 조립,exports/drawings/control_enclosure_notes.md,INCLUDED
+22,전원 배선,전기 최초전원 Appendix,electronics/schematics/safety_power_control.md,INCLUDED
+23,Arduino Mega 핀맵,전기 최초전원 Appendix,electronics/pinout/mega_pinout.csv,INCLUDED
+24,Raspberry Pi 연결,전기 최초전원 Appendix,electronics/protocol/frp1.md,INCLUDED
+25,heater wiring,전기 최초전원 Appendix,electronics/wiring/harness_schedule.csv,INCLUDED
+26,fuse와 E-stop,전기 최초전원 Appendix,electronics/schematics/safety_power_control.md,INCLUDED
+27,최초 전원 인가,전기 최초전원 Appendix,docs/operation.md,INCLUDED
+28,무부하 시험,시운전과 인수,docs/calibration.md,INCLUDED
+29,PLA calibration,교정 생산 Appendix,software/raspberry_pi/config/recipes.json,INCLUDED
+30,PET calibration,교정 생산 Appendix,software/raspberry_pi/config/recipes.json,INCLUDED
+31,색상 calibration,교정 생산 Appendix,docs/calibration.md,INCLUDED
+32,diameter gauge calibration,교정 생산 Appendix,docs/calibration.md,INCLUDED
+33,첫 filament 생산,교정 생산 Appendix,docs/operation.md,INCLUDED
+34,재질 변경과 purge,교정 생산 Appendix,docs/operation.md,INCLUDED
+35,유지보수,정비 기록 Appendix,docs/maintenance.md,INCLUDED
+36,cutter 청소,정비 기록 Appendix,docs/maintenance.md,INCLUDED
+37,screw 청소,정비 기록 Appendix,docs/maintenance.md,INCLUDED
+38,문제 해결,정비 기록 Appendix,docs/troubleshooting.md,INCLUDED
+39,정기 점검 주기,정비 기록 Appendix,docs/maintenance.md,INCLUDED
+40,revision 및 변경 이력,정비 기록 Appendix,CHANGELOG.md,INCLUDED
