@@ -1,0 +1,13 @@
+Signal,Direction,Voltage domain,Proposed pin,Safe state,Criticality,Status,Notes
+E_STOP_LOOP,Input,TBD,,Open means fault,CRITICAL,UNASSIGNED,Hardware cutoff independent of firmware
+LID_INTERLOCK,Input,TBD,,Open means drive disabled,CRITICAL,UNASSIGNED,Direct enable chain required
+SERVICE_INTERLOCK,Input,TBD,,Open means drive disabled,CRITICAL,UNASSIGNED,Direct enable chain required
+HEATER_ZONE1,Output,TBD,,Off,CRITICAL,UNASSIGNED,Independent thermal fuse
+HEATER_ZONE2,Output,TBD,,Off,CRITICAL,UNASSIGNED,Independent thermal fuse
+HEATER_ZONE3,Output,TBD,,Off,CRITICAL,UNASSIGNED,Independent thermal fuse
+HEATER_DIE,Output,TBD,,Off,CRITICAL,UNASSIGNED,Independent thermal fuse
+SHREDDER_ENABLE,Output,TBD,,Off,CRITICAL,UNASSIGNED,Direction and overload input separate
+EXTRUDER_ENABLE,Output,TBD,,Off,CRITICAL,UNASSIGNED,Thrust not carried by motor
+PULLER_ENABLE,Output,TBD,,Off,HIGH,UNASSIGNED,Diameter loop actuator
+SPOOLER_ENABLE,Output,TBD,,Off,HIGH,UNASSIGNED,Dancer follower only
+PI_HEARTBEAT,Serial,TBD,,Timeout to safe state,CRITICAL,UNASSIGNED,Protocol version and CRC required

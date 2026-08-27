@@ -1,0 +1,24 @@
+Part ID,Module,Description,Quantity,Source type,Donor source,Material,Manufacturing method,Vendor,Part number,Unit cost KRW,Total cost KRW,Shipping estimate,Lead time,Criticality,Substitute,Status,Validation evidence,Notes
+SYS-CTRL-001,Control,Raspberry Pi 4,1,REUSE,User inventory,Assembly,Reuse,,,0,0,0,On hand,CRITICAL,None,AVAILABLE,User statement,Vision logging classifier
+SYS-CTRL-002,Control,Arduino Mega 2560,1,REUSE,User inventory,Assembly,Reuse,,,0,0,0,On hand,CRITICAL,Compatible genuine-form board,AVAILABLE,User statement,Safety authority after hardware validation
+SYS-PWR-001,Power,24 V nominal 600 W PSU,1,REUSE,User inventory,Assembly,Reuse,,,0,0,0,On hand,CRITICAL,Engineering-recommended certified PSU,NEEDS_INSPECTION,DON-PSU-01,Label and terminal condition required
+SHR-SHAFT-001,Stage 1,Metal cutter shaft,2,CNC,,Steel,Turning,,,TBD,TBD,TBD,TBD,CRITICAL,Standard keyed shaft if geometry permits,PROVISIONAL,Calculation pending,Diameter not locked
+SHR-CUT-001,Stage 1,Replaceable hook cutter discs,TBD,CNC,,Tool or alloy steel,Laser/waterjet and finish grinding,,,TBD,TBD,TBD,TBD,CRITICAL,Commercial shredder cutters,PROVISIONAL,Coupon test pending,Count and thickness depend on torque sweep
+SHR-PLATE-001,Stage 1,Metal bearing side plate,2,CNC,,Steel or aluminum alloy,CNC or drill-template fabrication,,,TBD,TBD,TBD,TBD,CRITICAL,Project-lab plate stock,PROVISIONAL,FEA pending,Printed plate prohibited
+SHR-BRG-001,Stage 1,Shaft bearings,4,PROJECT_LAB,,Steel,Standard part,,,TBD,TBD,TBD,TBD,CRITICAL,Equivalent sealed bearing,NEEDS_SELECTION,Shaft diameter pending,No MPN before load and fit calculation
+SHR-DRV-001,Stage 1,Low-speed high-torque drive,1,REUSE,Zortrax M200 candidate,Assembly,Reuse with reducer,,,TBD,TBD,TBD,TBD,CRITICAL,24 V DC gearmotor,NEEDS_INSPECTION,Motor label and bench test,NEMA17 not assumed feasible
+SHR-GRD-001,Stage 1,Hopper chamber and anti-reach guard set,1,PRINT,,PLA/ABS plus metal shield,FDM,,,TBD,TBD,0,TBD,CRITICAL,Sheet-metal guard,PROVISIONAL,Reach-probe test pending,Low-temperature outer parts only
+SRT-VIB-001,Vibratory sorter,Eccentric drive motor and mass,1,REUSE,Zortrax M200 candidate,Assembly,Reuse/turning,,,TBD,TBD,TBD,TBD,MEDIUM,24 V vibration motor,NEEDS_INSPECTION,Vibration calculation pending,Isolate from cameras
+DRY-HTR-001,Dryer,24 V PTC heater module,1,BUY,,Assembly,Buy,,,TBD,TBD,TBD,TBD,CRITICAL,Guarded donor heater only after validation,NEEDS_SELECTION,Thermal calculation pending,Independent thermal fuse required
+DRY-SEN-001,Dryer,Temperature and humidity sensing set,1,BUY,,Assembly,Buy,,,TBD,TBD,TBD,TBD,HIGH,Project-lab sensor,NEEDS_SELECTION,Accuracy and temperature range pending,Humidity is process indicator not dew point
+EXT-SCR-001,Extruder,Single screw,1,CNC,,Steel,Turning/milling,,,TBD,TBD,TBD,TBD,CRITICAL,Commercial screw,NEEDS_CALCULATION,Screw sweep pending,12 to 18 mm design space
+EXT-BRL-001,Extruder,Barrel feed throat and die metal set,1,CNC,,Steel,CNC,,,TBD,TBD,TBD,TBD,CRITICAL,Commercial barrel set,NEEDS_CALCULATION,Thermal/pressure calculation pending,Quote approval required
+EXT-THR-001,Extruder,Thrust bearing and metal support,1,BUY,,Steel,Standard part and plate,,,TBD,TBD,TBD,TBD,CRITICAL,Project-lab equivalent,NEEDS_SELECTION,Axial load pending,Motor bearing cannot carry screw thrust
+EXT-HTR-001,Extruder,Three barrel heaters and die heater,4,BUY,,Assembly,Buy,,,TBD,TBD,TBD,TBD,CRITICAL,Clamp heater arrangement,NEEDS_SELECTION,Thermal calculation pending,Each branch fused
+GAU-CAM-001,Diameter gauge,Camera backlight mirror and enclosure set,1,PROJECT_LAB,,Mixed,Reuse/print,,,TBD,TBD,TBD,TBD,HIGH,Two line sensors,PROVISIONAL,Optical simulation pending,Requires dx and dy calibration
+PUL-ASM-001,Puller,Driven nip roller encoder and adjustment set,1,PRINT,,Mixed,FDM and standard parts,,,TBD,TBD,TBD,TBD,HIGH,Commercial puller,PROVISIONAL,Control simulation pending,Diameter loop actuator
+SPL-ASM-001,Spooler,Dancer traverse spool shaft and adapters,1,PRINT,,Mixed,FDM and standard parts,,,TBD,TBD,TBD,TBD,HIGH,Commercial winder,PROVISIONAL,Full-spool load test pending,1 kg base with adapters
+SAF-EST-001,Safety,Latching E-stop contact block and cutoff device,1,BUY,,Assembly,Buy,,,TBD,TBD,TBD,TBD,CRITICAL,Project-lab safety-rated parts,NEEDS_SELECTION,Fault test pending,Do not substitute UI button
+SAF-FUS-001,Safety,Main and branch fuse distribution set,1,BUY,,Assembly,Buy,,,TBD,TBD,TBD,TBD,CRITICAL,Project-lab fuse holders,NEEDS_SELECTION,Power budget pending,Includes heater branch protection
+SAF-THM-001,Safety,Independent thermal fuses,4,BUY,,Assembly,Buy,,,TBD,TBD,TBD,TBD,CRITICAL,Equivalent one-shot cutoff,NEEDS_SELECTION,Zone temperature pending,Not software resettable
+FRM-001,Frame,2020 2040 4040 aluminum profiles and T-nuts,TBD,PROJECT_LAB,Project lab,Aluminum,Reuse/cut,,,TBD,TBD,TBD,TBD,HIGH,Buy standard profile,NEEDS_INVENTORY,Profile length inventory pending,4040 priority at shredder

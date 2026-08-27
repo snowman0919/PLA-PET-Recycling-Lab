@@ -1,0 +1,11 @@
+Branch,Phase,Nominal voltage V,Continuous current A,Peak current A,Continuous power W,Peak power W,Source,Status,Notes
+PSU total,All,24,TBD,TBD,TBD,600,User inventory,NEEDS_LABEL,600 W is nominal user statement; derating pending
+Shredder drive,SORT_SHRED,24,TBD,TBD,TBD,TBD,Donor or buy,NEEDS_SELECTION,Mutually exclusive with full heater power
+Vibratory sorter,SORT_SHRED,24,TBD,TBD,TBD,TBD,Donor,NEEDS_INVENTORY,Optical measurement may require time separation
+Dryer heater,DRY_PREHEAT,24,TBD,TBD,TBD,TBD,Buy,NEEDS_THERMAL_CALC,Independent thermal fuse
+Extruder heaters,DRY_PREHEAT|EXTRUDE_SPOOL,24,TBD,TBD,TBD,TBD,Buy,NEEDS_THERMAL_CALC,Three barrel zones plus die
+Extruder drive,EXTRUDE_SPOOL,24,TBD,TBD,TBD,TBD,Donor or buy,NEEDS_SELECTION,No direct NEMA17 assumption
+Puller and spooler,EXTRUDE_SPOOL,24,TBD,TBD,TBD,TBD,Donor,NEEDS_INVENTORY,Include encoder and traverse
+Raspberry Pi buck,All,24,TBD,TBD,TBD,TBD,Buy or lab,NEEDS_SELECTION,5 V output and transient margin required
+Arduino and sensors,All,24,TBD,TBD,TBD,TBD,Lab,NEEDS_SELECTION,Logic rail architecture pending
+Fans,Variable,24,TBD,TBD,TBD,TBD,Donor,NEEDS_INVENTORY,Cooldown may remain enabled in safe state
