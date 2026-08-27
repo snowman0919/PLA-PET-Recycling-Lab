@@ -10,7 +10,7 @@
 
 ## Target Budget Design
 
-`target_budget_design.csv`가 source다. Pi, Mega와 PSU는 사용자 보유 진술에 따라 현금 0원으로 두되 inspection 전 사용 가능으로 보지 않는다. Safety relay, contactor, E-stop, camera, driver, sensor, motor, profile와 metal stock은 프로젝트실에서 정확한 모델·정격이 확인된 재고가 있을 때만 0원 전략을 사용할 수 있다.
+`target_budget_design.csv`가 source다. Pi와 Mega만 사용자 보유 진술에 따라 조건부 현금 0원으로 두며, PSU는 보유 진술이 있어도 label·terminal·부하검사와 replacement 판단 전 `TBD`다. Safety relay, contactor, E-stop, camera, driver, sensor, motor, profile와 metal stock은 프로젝트실에서 정확한 모델·정격이 확인된 재고가 있을 때만 0원 전략을 사용할 수 있다.
 
 Target 설계는 기능이나 안전장치를 삭제하지 않는다. 다음 하나라도 재고로 충당되지 않으면 `BLOCKED_WITHOUT_VALIDATED_STOCK`이고, 200,000 KRW 목표를 포기하거나 scope가 아니라 예산을 재승인해야 한다.
 
@@ -35,4 +35,4 @@ Target 설계는 기능이나 안전장치를 삭제하지 않는다. 다음 하
 5. 충분한 torque의 24 V geared drive와 reduction
 6. optical U95를 만족하는 close-up optic/mirror/backlight
 
-`cost_evidence.csv`에는 조회일과 URL을, `cost_summary.json`에는 line count와 budget floor를 저장한다. 가격·재고는 주문 직전 다시 확인하고, 사용자 승인 없이 주문 또는 CNC 발주를 진행하지 않는다.
+`cost_evidence.csv`에는 조회일과 URL을, `cost_summary.json`에는 line count와 budget floor를 저장한다. `cost_rollup.csv`는 신규 구매·CNC/fabrication·print filament·project-lab replacement·donor replacement와 required/optional을 분리한다. 가격·재고는 주문 직전 다시 확인하고, 사용자 승인 없이 주문 또는 CNC 발주를 진행하지 않는다.

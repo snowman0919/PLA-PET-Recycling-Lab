@@ -34,5 +34,6 @@
 - `target_budget_design.csv`: 검증된 project-lab/donor stock을 우선하며, critical stock이 없으면 BLOCKED다.
 - `engineering_recommended_design.csv`: 안전·압력·열 부품을 생략하지 않고 MPN 선정과 CNC quote를 요구한다.
 - `cost_evidence.csv`: 조회일·URL·계획 환율을 보존한다.
+- `cost_rollup.csv`: 신규 구매·CNC·print filament·project-lab replacement·donor replacement와 required/optional을 분리한다.
 
 주문·가공은 사용자 승인 전 진행하지 않는다.

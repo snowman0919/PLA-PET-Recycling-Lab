@@ -22,6 +22,15 @@ OUTPUT_FIELDS = [
     "Cost status",
     "Validation/approval gate",
 ]
+COST_ROLLUP_FIELDS = [
+    "Rollup",
+    "Included source types",
+    "BOM line count",
+    "Known planning floor KRW",
+    "TBD line count",
+    "Total status",
+    "Notes",
+]
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -32,6 +41,13 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 def write_variant(path: Path, rows: list[dict[str, str]]) -> None:
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=OUTPUT_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def write_cost_rollup(path: Path, rows: list[dict[str, str]]) -> None:
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=COST_ROLLUP_FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -111,6 +127,79 @@ def main() -> None:
     write_variant(ROOT / "bom" / "target_budget_design.csv", target)
     write_variant(ROOT / "bom" / "engineering_recommended_design.csv", recommended)
     public_floor_total = sum(public_floor.values())
+    source_counts = Counter(row["Source type"] for row in source)
+    known_zero_cash_ids = {
+        row["Part ID"]
+        for row in source
+        if row["Status"] == "AVAILABLE" and row["Source type"] == "REUSE"
+    }
+    required_tbd_lines = len(source) - len(public_floor) - len(known_zero_cash_ids)
+    rollup = [
+        {
+            "Rollup": "NEW_PURCHASE",
+            "Included source types": "BUY",
+            "BOM line count": source_counts["BUY"],
+            "Known planning floor KRW": public_floor_total,
+            "TBD line count": source_counts["BUY"] - len(public_floor),
+            "Total status": "INCOMPLETE_LANDED_TOTAL",
+            "Notes": "Two public candidates only; shipping tax customs and 26 purchase lines remain TBD.",
+        },
+        {
+            "Rollup": "CNC_FABRICATION",
+            "Included source types": "CNC+FABRICATE",
+            "BOM line count": source_counts["CNC"] + source_counts["FABRICATE"],
+            "Known planning floor KRW": 0,
+            "TBD line count": source_counts["CNC"] + source_counts["FABRICATE"],
+            "Total status": "TBD_QUOTES_REQUIRED",
+            "Notes": "No fabrication quote is represented as zero cost.",
+        },
+        {
+            "Rollup": "PRINT_FILAMENT",
+            "Included source types": "PRINT",
+            "BOM line count": source_counts["PRINT"],
+            "Known planning floor KRW": 0,
+            "TBD line count": source_counts["PRINT"],
+            "Total status": "TBD_SLICER_MASS_AND_MATERIAL_PRICE",
+            "Notes": "Requires final orientation support and slicer mass for each print set.",
+        },
+        {
+            "Rollup": "PROJECT_LAB_REPLACEMENT",
+            "Included source types": "PROJECT_LAB",
+            "BOM line count": source_counts["PROJECT_LAB"],
+            "Known planning floor KRW": 0,
+            "TBD line count": source_counts["PROJECT_LAB"],
+            "Total status": "TBD_INVENTORY_AND_REPLACEMENT_VALUE",
+            "Notes": "Project-lab availability is not a verified zero replacement value.",
+        },
+        {
+            "Rollup": "DONOR_REPLACEMENT",
+            "Included source types": "REUSE",
+            "BOM line count": source_counts["REUSE"],
+            "Known planning floor KRW": 0,
+            "TBD line count": source_counts["REUSE"],
+            "Total status": "TBD_AFTER_INSPECTION_AND_DYNO",
+            "Notes": "Current cash may be zero for two stated on-hand controllers; all replacement values remain TBD.",
+        },
+        {
+            "Rollup": "REQUIRED_BASELINE",
+            "Included source types": "ALL",
+            "BOM line count": len(source),
+            "Known planning floor KRW": public_floor_total,
+            "TBD line count": required_tbd_lines,
+            "Total status": "INCOMPLETE_NOT_BUDGET_COMPLIANT",
+            "Notes": "All 81 baseline rows are required; 2 public floors and 2 conditional on-hand zero-cash rows are the only priced assumptions.",
+        },
+        {
+            "Rollup": "OPTIONAL_ADDONS",
+            "Included source types": "NONE",
+            "BOM line count": 0,
+            "Known planning floor KRW": 0,
+            "TBD line count": 0,
+            "Total status": "NO_OPTIONAL_ROWS_IN_BASELINE",
+            "Notes": "No required item is reclassified as optional to make the cap appear achievable.",
+        },
+    ]
+    write_cost_rollup(ROOT / "bom" / "cost_rollup.csv", rollup)
     summary = {
         "revision": "0.1.0-preflight",
         "generated_date": "2026-08-28",
@@ -121,12 +210,16 @@ def main() -> None:
         "public_candidate_floor_krw": public_floor_total,
         "public_candidate_floor_over_cap_krw": public_floor_total - 200000,
         "public_candidate_floor_includes": sorted(public_floor),
+        "cost_rollup_file": "bom/cost_rollup.csv",
+        "required_baseline_line_count": len(source),
+        "optional_addon_line_count": 0,
+        "required_baseline_tbd_line_count": required_tbd_lines,
         "target_budget_status": "CONDITIONAL_ONLY_IF_SAFETY_RELAY_AND_CAMERA_ARE_VALIDATED_STOCK",
         "engineering_recommended_total_status": "TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES",
         "pricing_assumptions": [
             "Planning conversion uses 1 USD = 1400 KRW and is not a live FX quote.",
             "Public prices exclude shipping, tax, customs, E-stop actuator, contactor and all unpriced rows.",
-            "Zero cash applies only to user-stated on-hand Pi, Mega and PSU after inspection.",
+            "Conditional zero current cash applies only to the user-stated on-hand Pi and Mega; PSU fitness and replacement remain TBD.",
         ],
     }
     (ROOT / "bom" / "cost_summary.json").write_text(
@@ -155,6 +248,7 @@ def main() -> None:
             "- `target_budget_design.csv`: 검증된 project-lab/donor stock을 우선하며, critical stock이 없으면 BLOCKED다.",
             "- `engineering_recommended_design.csv`: 안전·압력·열 부품을 생략하지 않고 MPN 선정과 CNC quote를 요구한다.",
             "- `cost_evidence.csv`: 조회일·URL·계획 환율을 보존한다.",
+            "- `cost_rollup.csv`: 신규 구매·CNC·print filament·project-lab replacement·donor replacement와 required/optional을 분리한다.",
             "",
             "주문·가공은 사용자 승인 전 진행하지 않는다.",
         ]

@@ -18,11 +18,15 @@
     "GAU-CAM-001",
     "SAF-REL-001"
   ],
+  "cost_rollup_file": "bom/cost_rollup.csv",
+  "required_baseline_line_count": 81,
+  "optional_addon_line_count": 0,
+  "required_baseline_tbd_line_count": 77,
   "target_budget_status": "CONDITIONAL_ONLY_IF_SAFETY_RELAY_AND_CAMERA_ARE_VALIDATED_STOCK",
   "engineering_recommended_total_status": "TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES",
   "pricing_assumptions": [
     "Planning conversion uses 1 USD = 1400 KRW and is not a live FX quote.",
     "Public prices exclude shipping, tax, customs, E-stop actuator, contactor and all unpriced rows.",
-    "Zero cash applies only to user-stated on-hand Pi, Mega and PSU after inspection."
+    "Conditional zero current cash applies only to the user-stated on-hand Pi and Mega; PSU fitness and replacement remain TBD."
   ]
 }

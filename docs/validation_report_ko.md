@@ -8,7 +8,7 @@ Revision: `0.1.0-preflight`
 
 ## 실행 범위
 
-`nix develop --command python3 validation/run_all.py`가 다음 22개 gate를 순서대로 실행했다.
+`nix develop --command python3 validation/run_all.py`가 다음 23개 gate를 순서대로 실행했다.
 
 1. Source BOM 재생성 및 81행/56 CRITICAL/status/가격 증거 검사
 2. Dryer power·thermal·feed budget와 metal hot-path geometry
@@ -20,10 +20,11 @@ Revision: `0.1.0-preflight`
 8. Input double-gate/reach probe/7-port와 control-enclosure segregation
 9. 전체 FCStd object set, STEP validity, STL facet, DXF marker와 210 mm print gate
 10. Arduino Mega portable core와 전체 `.ino` host integration compile, Raspberry Pi Python 9-test suite
-11. 281개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG
-12. A4 한국어 PDF 20쪽/14쪽의 header/EOF/page object 구조
+11. 43개 시스템 요구사항의 one-to-one 증거·미검증 gate 추적
+12. 284개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG
+13. A4 한국어 PDF 20쪽/14쪽의 header/EOF/page object 구조
 
-최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (22 gates)`였다. Manifest는 `artifacts/manifest.json`이며 모든 281개 항목의 현재 bytes와 SHA-256가 재검사됐다.
+최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (23 gates)`였다. Manifest는 `artifacts/manifest.json`이며 모든 284개 항목의 현재 bytes와 SHA-256가 재검사됐다.
 
 ## 통과가 의미하는 것
 
@@ -49,6 +50,6 @@ Revision: `0.1.0-preflight`
 
 ## 재현 상태
 
-현재 작업본과 별도 임시 clean clone에서 generator→render→PDF→22-gate 전체 재실행이 모두 PASS했다. 최종 clean clone에서는 STEP 변경 0건, STL/DXF/render/PDF/review JSON 변경 0건을 추가 확인했다.
+`v0.1.0-preflight` 기준 별도 임시 clean clone에서 generator→render→PDF→22-gate 전체 재실행이 PASS했다. 이후 firmware integration과 요구사항 추적 gate를 추가한 현재 작업본은 FreeCAD 외 12개 gate가 PASS했으며, FreeCAD 11개 gate는 실행 파일을 다시 provision한 clean clone에서 재실행해야 한다. 최종 preflight clean clone에서는 STEP 변경 0건, STL/DXF/render/PDF/review JSON 변경 0건을 확인했다.
 
 STEP header timestamp와 review JSON 경로는 deterministic 값/저장소 상대경로로 정규화한다. STL, DXF, render, PDF, 계산 JSON과 review JSON은 clean clone에서 byte-identical했으며, FCStd는 FreeCAD가 생성 시각·UUID·내부 object ID를 기록하므로 형상·object-set 검증은 재현되지만 container byte hash는 실행마다 달라질 수 있다. Manifest는 해당 실행에서 전달되는 실제 파일의 hash를 기록한다.

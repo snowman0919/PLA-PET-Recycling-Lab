@@ -21,6 +21,9 @@ PATTERNS = (
     "bom/target_budget_design.csv",
     "bom/engineering_recommended_design.csv",
     "bom/cost_summary.json",
+    "bom/cost_rollup.csv",
+    "requirements/compliance_matrix.csv",
+    "requirements/compliance_matrix.md",
 )
 
 

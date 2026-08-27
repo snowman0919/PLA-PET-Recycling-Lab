@@ -42,6 +42,8 @@
 
 Mega가 위험 actuator 최종 권한을 가지고 Pi는 vision, recipe와 log를 담당한다. E-stop, guard chain, thermal fuse, pressure trip과 contactor는 firmware 밖에서 동작한다.
 
+43개 시스템 요구사항은 `requirements/compliance_matrix.md`에서 one-to-one 추적한다. 현재 집계는 automated pass 3, design evidence 29, physical open 5, external-blocked 6이며 해석·host test를 물리 T/D 합격으로 바꾸지 않았다.
+
 = 입력 분류와 저장
 
 입력 proof는 320×220×220 mm 외피에 최대 Ø66×210 mm bottle, 110 mm 간격의 상·하 gate, 차광 camera/backlight 광로와 reject path를 둔다. 7-port head는 고정된 6개 색상과 Reject를 배치한다. 자동 geometry test에서 닫힌 gate와 reach probe의 공통체적은 1600 mm³, 열린 gate와 probe는 0 mm³이며 port count는 7이다.
@@ -163,6 +165,8 @@ Metal partition 기준 좌우 keep-out gap은 30 mm이고 전원/히터와 logic
 
 시스템 BOM은 81 line, CRITICAL 56 line이다. 공개 후보 Camera USD25와 2-channel safety relay USD143만 planning FX 1,400 KRW/USD로 235,200 KRW이며 cap을 35,200 KRW 넘는다. 배송·세금·contactor·pressure·heater·CNC는 빠져 있다.
 
+`cost_rollup.csv`는 신규구매 28 line(미가격 26), CNC/fabrication 33, print filament 6, project-lab replacement 3, donor replacement 11을 분리한다. Baseline 81 line은 모두 required이고 optional로 숨긴 항목은 0이다.
+
 #status[
   Target Budget는 safety relay와 camera를 포함한 검증된 project-lab stock이 있을 때만 조건부다. Engineering Recommended 총액은 donor inventory, MPN과 CNC quote 전 `TBD`이며 임의 가격으로 채우지 않았다.
 ]
@@ -189,7 +193,7 @@ nix develop --command bash -lc "FreeCADCmd -c ...generate_all.py"
 nix develop --command bash -lc "FreeCADCmd -c ...render_views.py"
 make -C firmware/arduino_mega test
 PYTHONPATH=software/raspberry_pi python3 -m unittest discover ...
-python3 validation/test_all.py
+python3 validation/run_all.py
 ```
 
 Artifact SHA-256는 `artifacts/manifest.json`, 상세 test 상태는 `docs/validation_report_ko.md`에 있다. 설계 변경은 관련 generator, 계산, test, render, manual과 manifest를 함께 갱신한다.
