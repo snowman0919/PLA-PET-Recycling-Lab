@@ -1,0 +1,69 @@
+{
+  "status": "VIRTUAL_GEOMETRY_PASS_PHYSICAL_GATES_OPEN",
+  "source": "cad/generation/fcstd/full_assembly_skeleton.FCStd",
+  "overall_mm": [
+    2510.0,
+    600.0,
+    1350.0
+  ],
+  "tower_separation_mm": 250.0,
+  "anchor_patterns": {
+    "TowerA": {
+      "centers_mm": [
+        [
+          40.0,
+          40.0
+        ],
+        [
+          560.0,
+          40.0
+        ],
+        [
+          40.0,
+          560.0
+        ],
+        [
+          560.0,
+          560.0
+        ]
+      ]
+    },
+    "TowerB": {
+      "centers_mm": [
+        [
+          890.0,
+          40.0
+        ],
+        [
+          1710.0,
+          40.0
+        ],
+        [
+          890.0,
+          560.0
+        ],
+        [
+          1710.0,
+          560.0
+        ]
+      ]
+    }
+  },
+  "batch_volume_l": {
+    "gross": 7.999999999999999,
+    "usable": 6.0
+  },
+  "service_rail_mm": {
+    "start_x": 1750.0,
+    "end_x": 2510.0,
+    "length": 760.0
+  },
+  "module_count": 11,
+  "physical_gates_open": [
+    "anchor substrate and pullout test",
+    "measured mass and centre of gravity",
+    "operator reach and refill handling",
+    "profile joint and shelf load test",
+    "vibration, chute cleaning and service-path test"
+  ]
+}

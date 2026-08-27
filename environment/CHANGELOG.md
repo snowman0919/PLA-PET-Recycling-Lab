@@ -34,6 +34,13 @@
 - harmless function-call probe: 통과
 - 실무 prompt: fast 모델이 120초와 60초 timeout으로 결과를 반환하지 않아 미채택
 
+## 2026-08-28 — 2-tower 계약 변경 후 RTX 3080 재실행
+
+- Action: 기존 CUDA binary로 4,194,304-sample stability kernel과 8,192-sample CPU 교차검산 재실행
+- Reason: CAD baseline을 계산 계약의 단일 source of truth로 연결하면서 contract SHA-256가 변경됨
+- Result: RTX 3080 compute 8.6, kernel 0.929 ms, CPU/GPU 최대차 3.41e-13 N, p99 anchor-pair tension 509.3 N, 2 kN 후보 초과확률 0
+- Scope: virtual simulation evidence이며 substrate pullout 또는 물리 전도시험이 아님
+
 ## 2026-08-28 — Nix FreeCAD 환경 구성
 
 - Action: `flake.lock` 생성 후 Nix 개발환경에서 FreeCAD 1.1.3, Typst, Python, Git LFS closure 준비

@@ -37,10 +37,10 @@
   [직경], [1.75±0.05 mm], [Gauge/calibration software; optic U95 미실시],
   [개선/ovality], [±0.03 / ≤0.05 mm], [제어 simulation; production 미실시],
   [전원], [24 V 600 W 진술], [480 W provisional software cap; label 미확인],
-  [크기], [2295×520×720 mm], [Full assembly keep-out CAD],
+  [크기], [전체 2510×600×1350 mm], [A 600×600×1350, B 900×600×1150 + rail 760 mm],
 )
 
-Mega가 위험 actuator 최종 권한을 가지고 Pi는 vision, recipe와 log를 담당한다. E-stop, guard chain, thermal fuse, pressure trip과 contactor는 firmware 밖에서 동작한다.
+Tower A는 분류·3단 파쇄·선별·8 L sealed batch를 수직 배치하고, Tower B는 건조·압출·성형·권취·제어를 250 mm 떨어진 rack과 직선 760 mm rail에 배치한다. 각 tower는 4점 anchor 후보를 가지며 Tower A 계산 anchor-pair tension은 222.3 N이다. 질량·CG·anchor pullout·진동은 물리 검증 전 OPEN이다. Mega가 위험 actuator 최종 권한을 가지고 Pi는 vision, recipe와 log를 담당한다. E-stop, guard chain, thermal fuse, pressure trip과 contactor는 firmware 밖에서 동작한다.
 
 43개 시스템 요구사항은 `requirements/compliance_matrix.md`에서 one-to-one 추적한다. 현재 집계는 automated pass 3, design evidence 30, physical open 4, external-blocked 6이며 해석·host test를 물리 T/D 합격으로 바꾸지 않았다.
 
@@ -179,7 +179,7 @@ Metal partition 기준 좌우 keep-out gap은 30 mm이고 전원/히터와 logic
 
 Stage 1 shaft/cutter/plate, reducer output, extruder thrust plate, spooler shaft와 frame column은 20-element Euler–Bernoulli FEA와 닫힌형 해를 교차검증하고 support reaction 횡전단과 원형축 비틀림을 von Mises로 조합했다. Stage 1 20 mm shaft는 약 91 MPa/SF 3.35지만, 미확정 15 mm reducer overhang은 약 270 MPa/SF 1.13이고 brace 없는 단일 frame column은 처짐 초과이므로 `REVIEW_REQUIRED`다. 이는 nominal 1D screening이며 3D contact/notch/joint·impact·fatigue 해석을 대체하지 않는다.
 
-표준 112개 7-view에 더해 section 6, x-ray 4, exploded 5, tool-access 3, cable-routing 2, slicing-orientation 1개의 review image를 생성했다. Section cap·실제 tool reach·harness bend radius·machine G-code는 여전히 별도 gate다.
+표준 112개 7-view에 더해 section 7, x-ray 4, exploded 5, tool-access 3, cable-routing 2, slicing-orientation 1개의 review image를 생성했다. 전체 assembly section은 두 tower, gravity chute, batch dock와 straight rail을 색으로 구분한다. Section cap·실제 tool reach·harness bend radius·machine G-code는 여전히 별도 gate다.
 
 #table(
   columns: (1.4fr, 1fr, 2.2fr), inset: 4pt, stroke: 0.5pt + rgb("c8d5d9"),

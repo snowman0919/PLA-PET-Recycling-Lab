@@ -1,17 +1,185 @@
 {
   "revision": "0.1.0-preflight",
+  "architecture": "TWO_TOWER_CONTRACT",
   "overall_mm": {
-    "x": 2295.0,
-    "y": 520.0,
-    "z": 720.0
+    "x": 2510.0,
+    "y": 600.0,
+    "z": 1350.0
+  },
+  "contract_envelope_mm": {
+    "x": 2510.0,
+    "y": 600.0,
+    "z": 1350.0
+  },
+  "tower_separation_mm": 250.0,
+  "service_rail": {
+    "start_x_mm": 1750.0,
+    "length_mm": 760.0,
+    "straight": true
+  },
+  "anchor_patterns_mm": {
+    "tower_a": [
+      520.0,
+      520.0
+    ],
+    "tower_b": [
+      820.0,
+      520.0
+    ]
   },
   "module_count": 11,
+  "module_placements": {
+    "ClassificationStorage": {
+      "tower": "TowerA",
+      "origin_mm": [
+        140,
+        140,
+        40
+      ],
+      "size_mm": [
+        320,
+        320,
+        165
+      ]
+    },
+    "VibratorySorter": {
+      "tower": "TowerA",
+      "origin_mm": [
+        160,
+        200,
+        245
+      ],
+      "size_mm": [
+        280,
+        200,
+        95
+      ]
+    },
+    "GranulatorStage3": {
+      "tower": "TowerA",
+      "origin_mm": [
+        195,
+        235,
+        455
+      ],
+      "size_mm": [
+        210,
+        130,
+        95
+      ]
+    },
+    "ShredderStage2": {
+      "tower": "TowerA",
+      "origin_mm": [
+        185,
+        230,
+        665
+      ],
+      "size_mm": [
+        230,
+        140,
+        95
+      ]
+    },
+    "ShredderStage1": {
+      "tower": "TowerA",
+      "origin_mm": [
+        170,
+        220,
+        875
+      ],
+      "size_mm": [
+        260,
+        160,
+        105
+      ]
+    },
+    "InputClassifier": {
+      "tower": "TowerA",
+      "origin_mm": [
+        140,
+        190,
+        1070
+      ],
+      "size_mm": [
+        320,
+        220,
+        220
+      ]
+    },
+    "Extruder": {
+      "tower": "TowerB",
+      "origin_mm": [
+        850,
+        300,
+        80
+      ],
+      "size_mm": [
+        850,
+        220,
+        240
+      ]
+    },
+    "DryerFeeder": {
+      "tower": "TowerB",
+      "origin_mm": [
+        900,
+        20,
+        500
+      ],
+      "size_mm": [
+        320,
+        270,
+        580
+      ]
+    },
+    "ControlEnclosure": {
+      "tower": "TowerB",
+      "origin_mm": [
+        1360,
+        20,
+        80
+      ],
+      "size_mm": [
+        300,
+        220,
+        180
+      ]
+    },
+    "CoolingGaugePuller": {
+      "tower": "TowerB",
+      "origin_mm": [
+        1750,
+        320,
+        100
+      ],
+      "size_mm": [
+        760,
+        160,
+        180
+      ]
+    },
+    "Spooler": {
+      "tower": "TowerB",
+      "origin_mm": [
+        2110,
+        20,
+        40
+      ],
+      "size_mm": [
+        355,
+        240,
+        320
+      ]
+    }
+  },
+  "review_object_count": 72,
   "notes": [
-    "Module solids are keep-out envelopes, not fabrication geometry.",
-    "Input classifier, seven-port storage, dryer, extruder, forming line, spooler and control-enclosure envelopes match their current proof CAD.",
-    "The 2.295 m by 0.52 m workbench footprint preserves about 0.96 m from die to loaded-spool centreline.",
-    "Tower center of mass and anchoring require later validation.",
-    "No safety acceptance may be inferred from this skeleton."
+    "The former 2295 x 520 x 720 mm linear workbench skeleton is obsolete.",
+    "Module solids are conservative keep-out envelopes; frame, anchor, chute, dock and rail objects are explicit architecture-review geometry.",
+    "4040/2040 solids include generic four-face slot mouths and an axial centre bore but omit manufacturer-specific undercuts and joint hardware.",
+    "All four anchor feet per tower are candidates; substrate, edge distance and 1 kN per-point pullout remain physical gates.",
+    "No safety, cleaning, reach, vibration or fabrication acceptance may be inferred from this virtual assembly."
   ],
   "outputs": {
     "fcstd": "cad/generation/fcstd/full_assembly_skeleton.FCStd",

@@ -102,6 +102,42 @@ def triangle_centroid(triangle):
     return tuple(sum(point[axis] for point in triangle) / 3 for axis in range(3))
 
 
+def assembly_colour(triangle):
+    """Decision-review colours for the two-tower architecture STL.
+
+    STL has no material metadata, so this deterministic spatial map makes the
+    frame, process zones and two tower roles distinguishable without implying
+    final paint or polymer selection.
+    """
+    x, y, z = triangle_centroid(triangle)
+    aluminium = (0.62, 0.66, 0.68)
+    if x < 620:
+        if x < 90 or x > 510 or y < 90 or y > 510:
+            return aluminium
+        if z < 225:
+            return (0.28, 0.56, 0.38)  # sealed batch storage
+        if z < 410:
+            return (0.25, 0.52, 0.70)  # sorter
+        if z < 1040:
+            return (0.72, 0.34, 0.20)  # three-stage size reduction
+        return (0.30, 0.57, 0.76)      # optical input classifier
+    if x < 850:
+        return (0.88, 0.88, 0.88)      # deliberate separation corridor
+    if x <= 1750:
+        if x < 1240 and z > 450:
+            return (0.79, 0.56, 0.20)  # dryer / batch dock
+        if y > 275 and z < 350:
+            return (0.72, 0.25, 0.16)  # guarded extruder hot line
+        if x > 1320 and y < 270 and z < 430:
+            return (0.35, 0.40, 0.46)  # grounded controls / energy zone
+        return aluminium
+    if y < 290:
+        return (0.28, 0.43, 0.65)      # offset spooler
+    if z < 90:
+        return aluminium               # straight 2040 service rail
+    return (0.23, 0.58, 0.72)          # cooling / gauge / puller
+
+
 def section_triangles(triangles, axis=1, retained_fraction=0.52):
     centroids = [triangle_centroid(triangle)[axis] for triangle in triangles]
     low, high = min(centroids), max(centroids)
@@ -197,11 +233,13 @@ def render_review_variants():
     sections = (
         "input_classifier_proof", "stage1_shredder_proof", "stage2_shredder_proof",
         "stage3_granulator_proof", "dryer_feeder_proof", "extruder_proof",
+        "full_assembly_skeleton",
     )
     for stem in sections:
         triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
         render_view(section_triangles(triangles), output / f"{stem}_section.png",
                     (0.68, 0.43, 0.22), *iso,
+                    colour_for=assembly_colour if stem == "full_assembly_skeleton" else None,
                     annotation=label_annotation("SECTION / CUTAWAY", "centroid-clipped review scene; no section cap"))
     transparent = (
         "input_classifier_proof", "dryer_feeder_proof", "extruder_proof",
@@ -220,14 +258,17 @@ def render_review_variants():
         triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
         render_view(exploded_triangles(triangles), output / f"{stem}_exploded.png",
                     (0.36, 0.58, 0.72), *iso,
+                    colour_for=assembly_colour if stem == "full_assembly_skeleton" else None,
                     annotation=label_annotation("EXPLODED REVIEW", "connected shells displaced from assembly centroid"))
     for stem in ("full_assembly_skeleton", "extruder_proof", "spooler_proof"):
         triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
         render_view(triangles, output / f"{stem}_tool_access.png", (0.42, 0.59, 0.68), *iso,
+                    colour_for=assembly_colour if stem == "full_assembly_skeleton" else None,
                     annotation=tool_annotation)
     for stem in ("full_assembly_skeleton", "control_enclosure_proof"):
         triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
         render_view(triangles, output / f"{stem}_cable_routing.png", (0.52, 0.58, 0.62), *iso,
+                    colour_for=assembly_colour if stem == "full_assembly_skeleton" else None,
                     annotation=cable_annotation)
     triangles = triangles_from_stl(ROOT / "exports" / "stl" / "tolerance_coupon.stl")
     z_values = [triangle_centroid(triangle)[2] for triangle in triangles]
@@ -255,7 +296,10 @@ def render(stem: str, category: str, colour: tuple[float, float, float]) -> None
         "isometric": ((1, -1, 0.8), (0, 0, 1)),
     }
     for name, (direction, up) in views.items():
-        render_view(triangles, output / f"{stem}_{name}.png", colour, direction, up)
+        render_view(
+            triangles, output / f"{stem}_{name}.png", colour, direction, up,
+            colour_for=assembly_colour if stem == "full_assembly_skeleton" else None,
+        )
 
 
 def main() -> None:

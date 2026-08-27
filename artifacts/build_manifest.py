@@ -32,6 +32,7 @@ PATTERNS = (
     "calculations/thermal/hot_zone_guard.md",
     "simulation/thermal/hot_zone_guard.json",
     "simulation/architecture/two_tower_contract.json",
+    "simulation/architecture/two_tower_geometry.json",
     "simulation/gpu/README.md",
     "simulation/gpu/*.cu",
     "simulation/gpu/*_gpu.json",

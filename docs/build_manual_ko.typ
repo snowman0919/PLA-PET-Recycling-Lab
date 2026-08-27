@@ -75,9 +75,9 @@ Zortrax M200, 24 V PSU, NEMA17/driver, fan, TFT를 분해하기 전에 `bom/dono
 
 = Frame과 전체 배치
 
-전체 keep-out은 2,295 × 520 × 720 mm다. 4040은 shredder tower, 2040/4040은 extruder load path, 2020/2040은 forming rail에 우선한다. Tower, dryer와 spooler는 독립적으로 작업대에 고정하고 tip/anchor 시험을 수행한다.
+전체 keep-out은 2,510 × 600 × 1,350 mm다. Tower A 600×600×1350 mm에는 입력·3단 파쇄·선별·8 L sealed batch를 수직 배치하고, 250 mm service gap 뒤 Tower B 900×600×1150 mm에는 dryer·extruder·control을 둔다. Die 이후 760 mm 직선 2040 rail에 cooling/gauge/puller를 놓고 spooler는 rail 끝 옆으로 offset한다. 각 tower의 4040 rack은 4점 anchor 후보를 가지며 substrate별 1 kN/점 pullout, 실측 mass/CG와 vibration 시험 전에는 고정안을 승인하지 않는다.
 
-#module_figure("../renders/assembly/full_assembly_skeleton_isometric.png", [11개 모듈 keep-out. Solid box는 제작 부품이 아니다.])
+#module_figure("../renders/assembly/full_assembly_skeleton_isometric.png", [2-tower 11개 모듈 keep-out과 profile·anchor·chute·dock·straight rail review geometry.])
 
 #gate[
   Frame 합격: 바닥 네 점 rocking 없음, profile 절단면/fastener 손상 없음, 각 metal plate가 profile/T-nut에 직접 하중 전달, service corridor와 screw 인출공간 ≥600 mm, PE bonding stud 확보.

@@ -21,6 +21,7 @@ EXPECTED = {
     "extruder_proof_transparent.png",
     "full_assembly_skeleton_cable_routing.png",
     "full_assembly_skeleton_exploded.png",
+    "full_assembly_skeleton_section.png",
     "full_assembly_skeleton_tool_access.png",
     "input_classifier_proof_section.png",
     "input_classifier_proof_transparent.png",

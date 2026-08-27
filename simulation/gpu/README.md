@@ -22,6 +22,6 @@ python3 simulation/gpu/run_two_tower_stability.py \
   /tmp/two_tower_stability --samples 4194304
 ```
 
-저장 결과는 RTX 3080 compute capability 8.6에서 4,194,304 sample, kernel 1.082 ms, CPU/GPU 최대차 `3.41e-13 N`이다. Unanchored overturn 확률은 0.9990, anchor pair tension p99는 509.3 N, maximum은 683.3 N이며 2 kN screening pair capacity 초과 sample은 없었다. 이 결과는 anchor 필요성을 지지하지만 실제 substrate의 point당 1 kN pullout을 증명하지 않는다.
+2-tower CAD와 단일 baseline 계약 통합 뒤 재실행한 저장 결과는 RTX 3080 compute capability 8.6에서 4,194,304 sample, kernel 0.929 ms, CPU/GPU 최대차 `3.41e-13 N`이다. Unanchored overturn 확률은 0.9990, anchor pair tension p99는 509.3 N, maximum은 683.3 N이며 2 kN screening pair capacity 초과 sample은 없었다. 이 결과는 anchor 필요성을 지지하지만 실제 substrate의 point당 1 kN pullout을 증명하지 않는다.
 
 Store path는 해당 실행환경의 Nix result이므로 다른 시스템에서는 `nix build --no-link --print-out-paths nixpkgs#cudaPackages.cuda_cudart`로 include/lib path를 다시 구한다.

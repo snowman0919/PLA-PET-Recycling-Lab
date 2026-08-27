@@ -1,5 +1,7 @@
 # 입력 분류기·제어함 시각 검토 — 2026-08-28
 
+> 역사적 module-proof snapshot이다. 전체 배치 판정은 `2026-08-28-two-tower-assembly.md`가 대체한다.
+
 검토 이미지:
 
 - `renders/modules/input_classifier_proof_isometric.png`

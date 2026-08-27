@@ -15,6 +15,13 @@ ROOT = Path(__file__).resolve().parents[2]
 G = 9.80665
 
 
+def assembly_parameters() -> dict:
+    parameters = json.loads(
+        (ROOT / "cad" / "parameters" / "baseline.json").read_text(encoding="utf-8")
+    )
+    return parameters["assembly"]
+
+
 TOWER_A_MODULES = (
     ("sealed_batch_bin_full", 4.0, 95.0),
     ("vibratory_sorter", 5.0, 294.0),
@@ -77,25 +84,26 @@ def tipping_screen(
 
 
 def build_report() -> dict:
+    p = assembly_parameters()
     tower_a_stability = tipping_screen(
         TOWER_A_MODULES,
-        base_depth_mm=600.0,
+        base_depth_mm=p["tower_a_depth_mm"],
         operating_acceleration_g=0.35,
         point_force_n=60.0,
         point_force_height_mm=942.5,
         dynamic_factor=1.5,
-        anchor_spacing_mm=520.0,
+        anchor_spacing_mm=p["tower_a_anchor_spacing_y_mm"],
     )
     tower_b_stability = tipping_screen(
         TOWER_B_MODULES,
-        base_depth_mm=600.0,
+        base_depth_mm=p["tower_b_depth_mm"],
         operating_acceleration_g=0.10,
         point_force_n=80.0,
         point_force_height_mm=230.0,
         dynamic_factor=1.5,
-        anchor_spacing_mm=520.0,
+        anchor_spacing_mm=p["tower_b_anchor_spacing_y_mm"],
     )
-    usable_bin_l = 6.0
+    usable_bin_l = p["batch_bin_usable_volume_l"]
     bulk_density_kg_m3 = 250.0
     flake_capacity_kg = usable_bin_l / 1000 * bulk_density_kg_m3
 
@@ -115,22 +123,36 @@ def build_report() -> dict:
         },
         "tower_a": {
             "role": "classification_shredding_sorting_batch_storage",
-            "rack_envelope_mm": {"width": 600.0, "depth": 600.0, "height": 1350.0},
-            "maximum_input_lip_height_from_floor_mm": 1320.0,
+            "origin_x_mm": p["tower_a_origin_x_mm"],
+            "rack_envelope_mm": {
+                "width": p["tower_a_width_mm"],
+                "depth": p["tower_a_depth_mm"],
+                "height": p["tower_a_height_mm"],
+            },
+            "maximum_input_lip_height_from_floor_mm": p["maximum_input_lip_height_mm"],
             "primary_profile": "4040",
             "secondary_shelf_profile": "2040",
             "module_order_bottom_to_top": [item[0] for item in TOWER_A_MODULES[:-1]],
             "stability_screen": tower_a_stability,
-            "anchor_pattern_mm": {"x": 520.0, "y": 520.0, "points": 4},
+            "anchor_pattern_mm": {
+                "x": p["tower_a_anchor_spacing_x_mm"],
+                "y": p["tower_a_anchor_spacing_y_mm"],
+                "points": 4,
+            },
         },
         "tower_b": {
             "role": "drying_extrusion_forming_spooling_controls",
-            "rack_envelope_mm": {"width": 900.0, "depth": 600.0, "height": 1150.0},
-            "straight_service_rail_extension_from_die_mm": 760.0,
+            "origin_x_mm": p["tower_b_origin_x_mm"],
+            "rack_envelope_mm": {
+                "width": p["tower_b_width_mm"],
+                "depth": p["tower_b_depth_mm"],
+                "height": p["tower_b_height_mm"],
+            },
+            "straight_service_rail_extension_from_die_mm": p["service_rail_extension_mm"],
             "overall_operating_envelope_with_rail_mm": {
-                "length": 1660.0,
-                "depth": 600.0,
-                "height": 1150.0,
+                "length": p["tower_b_width_mm"] + p["service_rail_extension_mm"],
+                "depth": p["tower_b_depth_mm"],
+                "height": p["tower_b_height_mm"],
             },
             "cooling_length_mm": 440.0,
             "die_to_gauge_center_mm": 470.0,
@@ -139,11 +161,15 @@ def build_report() -> dict:
             "primary_profile": "4040",
             "service_rail_profile": "2040",
             "stability_screen": tower_b_stability,
-            "anchor_pattern_mm": {"x": 820.0, "y": 520.0, "points": 4},
+            "anchor_pattern_mm": {
+                "x": p["tower_b_anchor_spacing_x_mm"],
+                "y": p["tower_b_anchor_spacing_y_mm"],
+                "points": 4,
+            },
         },
         "batch_interface": {
             "transfer": "manual_sealed_removable_bin",
-            "gross_volume_l": 8.0,
+            "gross_volume_l": p["batch_bin_gross_volume_l"],
             "usable_volume_l": usable_bin_l,
             "design_bulk_density_kg_m3": bulk_density_kg_m3,
             "nominal_flake_capacity_kg": flake_capacity_kg,

@@ -14,6 +14,7 @@
   },
   "tower_a": {
     "role": "classification_shredding_sorting_batch_storage",
+    "origin_x_mm": 0.0,
     "rack_envelope_mm": {
       "width": 600.0,
       "depth": 600.0,
@@ -51,6 +52,7 @@
   },
   "tower_b": {
     "role": "drying_extrusion_forming_spooling_controls",
+    "origin_x_mm": 850.0,
     "rack_envelope_mm": {
       "width": 900.0,
       "depth": 600.0,

@@ -2,7 +2,7 @@
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
   "generated_utc": "2026-08-27T20:15:00Z",
-  "artifact_count": 319,
+  "artifact_count": 321,
   "artifacts": [
     {
       "path": "bom/bom.md",
@@ -136,8 +136,8 @@
     },
     {
       "path": "cad/generation/fcstd/full_assembly_skeleton.FCStd",
-      "bytes": 24401,
-      "sha256": "d3e0ef94470f26859cba1d7b53e2d0ea09b527ffab530439c026270be81a1c97"
+      "bytes": 235387,
+      "sha256": "10183766097da538c305e7fd3d1786e0fab8224db10b77b4941f455e87b180a8"
     },
     {
       "path": "cad/generation/fcstd/gauge_calibration_fixture.FCStd",
@@ -296,13 +296,13 @@
     },
     {
       "path": "docs/build_manual_ko.pdf",
-      "bytes": 1750392,
-      "sha256": "737995b7cd1054d7f8ce32bfff097411819260a1d95316e0d8426119639e4aa4"
+      "bytes": 1800388,
+      "sha256": "c93a08d3724a55a6c2d2e1fa76b11668392ef6730580e1172c6858287d9b0a56"
     },
     {
       "path": "docs/design_report_ko.pdf",
-      "bytes": 907572,
-      "sha256": "500ff885282b854499347da163b10d13cc889c9bbf2dddd4c744ff6dce11f9d2"
+      "bytes": 926797,
+      "sha256": "5e507c415ebd28f528847eaa977a3da67e9d78f4c9a0f63cf5c268afee7f8ec1"
     },
     {
       "path": "docs/manual_coverage.csv",
@@ -486,8 +486,8 @@
     },
     {
       "path": "exports/step/full_assembly_skeleton.step",
-      "bytes": 121130,
-      "sha256": "5b756afb37a2db6c06594d43d0c6f1543080dc7bf3241e03e5709125c7feeaa8"
+      "bytes": 1530081,
+      "sha256": "e97d44a518f99d274651b11fbde637f941573f24e8fe6c0a3ce8895225c2cca9"
     },
     {
       "path": "exports/step/gauge_calibration_fixture.step",
@@ -741,8 +741,8 @@
     },
     {
       "path": "exports/stl/full_assembly_skeleton.stl",
-      "bytes": 12684,
-      "sha256": "517b70b33508c84137817e9a962045c2862b104255dc7e430d3a8ccd14eb0c5b"
+      "bytes": 1586184,
+      "sha256": "46b2359b44268c57cc28094035176e6861358b06d3086e53d23b70537f3b1f08"
     },
     {
       "path": "exports/stl/gauge_calibration_fixture.stl",
@@ -891,38 +891,38 @@
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_bottom.png",
-      "bytes": 11946,
-      "sha256": "ee9dc53b7a1cf52a89cb36b87f523d5c37391b74b5413c4af77b3e0dd85673ea"
+      "bytes": 16631,
+      "sha256": "36a5ccb685ea4a39c05772cb10bb534457c71ee5e921b50f2c636d3bac088ae4"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_front.png",
-      "bytes": 12734,
-      "sha256": "e1c790a9a38aa799dd910a1edb70a43558b8c9b1d7ecd481fedd5e98545bf4a8"
+      "bytes": 18458,
+      "sha256": "a1f657bf7e859c6c2aadcdd4c62a96758158d0c4d62675bfa2b30417417dd29e"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_isometric.png",
-      "bytes": 29871,
-      "sha256": "7b8a9a1cad19cd42ed8950fb001fd164e706f80786f6dcd7346765d51f3462d4"
+      "bytes": 51039,
+      "sha256": "b642ea59e7d399210c92caccb3983d6cc0e6e28754d43b66a25a06e9dcfbfade"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_left.png",
-      "bytes": 13853,
-      "sha256": "671a47245e7e3f69a54a656c7cc0923674ba7335e0ae563eed6aa3809d0ce5f2"
+      "bytes": 17807,
+      "sha256": "ec2248fd7537dcd08521f79157db745b48d59794d2c1d7c3d67b4e8dd83d3f4c"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_rear.png",
-      "bytes": 12709,
-      "sha256": "ba04a5f11395c45f2dbaad6233b0b1e52778aa538cc210757db77c49b229898a"
+      "bytes": 17857,
+      "sha256": "581c539b44c6dd90f52f51a4ba8bd9553ec4c425fe9f141963790b3bfa4175ec"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_right.png",
-      "bytes": 12948,
-      "sha256": "3af4b719cb48d9fbb846e7c2de7425d9185b5a64fff7f82d4a9dbd80327c105d"
+      "bytes": 16857,
+      "sha256": "bae18653132385e575dc2b64d46134f2c354f626a8244f7ce09541851152cf67"
     },
     {
       "path": "renders/assembly/full_assembly_skeleton_top.png",
-      "bytes": 11832,
-      "sha256": "7d1cbceb964419140662b438ccd1da567b3f3aea86aff354f68b8a340c14b076"
+      "bytes": 16187,
+      "sha256": "860d058532abebb93404df359c28d88ad83b0c600dcdfc1757705b2389b61416"
     },
     {
       "path": "renders/modules/classification_storage_proof_bottom.png",
@@ -1496,18 +1496,23 @@
     },
     {
       "path": "renders/review/full_assembly_skeleton_cable_routing.png",
-      "bytes": 48317,
-      "sha256": "fe60c75175876e5a5900c44858dc239b88c22788a81a71de276ccc7bee4085d9"
+      "bytes": 70672,
+      "sha256": "2a6b70a874cb585ef039b92aa2b0ed43752191cc9d0ec137c7ac85762bbca71a"
     },
     {
       "path": "renders/review/full_assembly_skeleton_exploded.png",
-      "bytes": 38351,
-      "sha256": "83a71debb084fa9d53152a065a692bbc52e97eeab6fa2cf2634b8d497d989a41"
+      "bytes": 57643,
+      "sha256": "784cc46dd7ed43f5aacccc5a8eca9512499d4e188ad5086f3b5aa70943893b8a"
+    },
+    {
+      "path": "renders/review/full_assembly_skeleton_section.png",
+      "bytes": 50550,
+      "sha256": "99f9c1fb32d7674d8921b31411d519957e002a39dc82d4feaf5a18373168e66f"
     },
     {
       "path": "renders/review/full_assembly_skeleton_tool_access.png",
-      "bytes": 49191,
-      "sha256": "9c0ad7a11f9742a8e59e4bcbeba584ba8bbe67e262319b8fb761505a768be7b5"
+      "bytes": 70694,
+      "sha256": "c15b5fa9f05fc90c354f3bbf053e31069946bc918bf7870d3ea41f77cd561f8f"
     },
     {
       "path": "renders/review/input_classifier_proof_section.png",
@@ -1571,13 +1576,18 @@
     },
     {
       "path": "simulation/architecture/two_tower_contract.json",
-      "bytes": 5252,
-      "sha256": "2318942743602a5b74d91a79574a715566e4e8e324a472a7426638d096dc436e"
+      "bytes": 5302,
+      "sha256": "69bab32803e8e7ca52872382e82c73e96754a59e7912152cb14bb7066c6b4099"
+    },
+    {
+      "path": "simulation/architecture/two_tower_geometry.json",
+      "bytes": 1217,
+      "sha256": "1d21f4f272ba7a6a9bfc8811706a4a996f84dd6edd0fa893a19a5a52ff8fc44d"
     },
     {
       "path": "simulation/gpu/README.md",
-      "bytes": 1807,
-      "sha256": "c813206610534fddc91704e9ae9f350fc83d188e1adcbd64016a8f8970bbde53"
+      "bytes": 1869,
+      "sha256": "70f3a55b854e5debf505b55e4d476b54e4e267e214924562d63df53d4f5f7df7"
     },
     {
       "path": "simulation/gpu/two_tower_stability.cu",
@@ -1587,7 +1597,7 @@
     {
       "path": "simulation/gpu/two_tower_stability_gpu.json",
       "bytes": 2027,
-      "sha256": "3f25dceb8c90ca4e77e2a4b3bb95b630865d05cd10f9876e6af0e1f99ccf83f4"
+      "sha256": "027da57aa3dc0533f529e2a62fa59d5ad4faa7b9eb447929e93844ce700f7ee9"
     },
     {
       "path": "simulation/structural/beam_crosscheck.json",

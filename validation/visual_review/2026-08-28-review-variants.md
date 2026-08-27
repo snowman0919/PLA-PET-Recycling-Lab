@@ -1,6 +1,6 @@
 # CAD review variant 시각검토 — 2026-08-28
 
-`renders/review`의 21개 PNG를 4열 montage와 개별 1600×1200 원본으로 검사했다. Section 6종, transparent/x-ray 4종, exploded 5종, tool-access 3종, cable-routing 2종, slicing-orientation 1종이 존재한다.
+`renders/review`의 22개 PNG를 개별 1600×1200 원본으로 검사했다. Section 7종, transparent/x-ray 4종, exploded 5종, tool-access 3종, cable-routing 2종, slicing-orientation 1종이 존재한다. 추가된 전체 assembly section은 `2026-08-28-two-tower-assembly.md`에서 별도로 판정했다.
 
 확인 사항:
 

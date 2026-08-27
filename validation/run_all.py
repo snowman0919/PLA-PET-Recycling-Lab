@@ -38,6 +38,7 @@ FREECAD_TESTS = (
     ("validation/test_extruder_geometry.py", "EXTRUDER_GEOMETRY_OK"),
     ("validation/test_input_classifier_geometry.py", "INPUT_CLASSIFIER_GEOMETRY_OK"),
     ("validation/test_control_enclosure_geometry.py", "CONTROL_ENCLOSURE_GEOMETRY_OK"),
+    ("validation/test_two_tower_geometry.py", "TWO_TOWER_GEOMETRY_VALIDATION_OK"),
     ("validation/test_cad_generation.py", "CAD_VALIDATION_OK"),
 )
 
@@ -66,9 +67,9 @@ def main() -> None:
         "OK",
         pi_env,
     )
-    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=319")
+    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=321")
     run([sys.executable, "validation/test_release_package.py"], "RELEASE_PACKAGE_OK")
-    print("ALL_AUTOMATED_VALIDATIONS_OK (30 gates)")
+    print("ALL_AUTOMATED_VALIDATIONS_OK (31 gates)")
 
 
 if __name__ == "__main__":
