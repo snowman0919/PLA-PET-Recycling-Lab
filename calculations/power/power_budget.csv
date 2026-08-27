@@ -8,7 +8,7 @@ Dryer blower agitator feeder,DRY_PREHEAT|EXTRUDE_SPOOL,24,2.0,4.0,48,96,Donor or
 Desiccant regeneration,DRY_PREHEAT,24,TBD,6.25,TBD,150,Buy or lab,NEEDS_SELECTION,Must not coincide with extrusion peak heating
 Extruder heaters,DRY_PREHEAT|EXTRUDE_SPOOL,24,3.5,12.5,84,300,Buy,PROVISIONAL,Three 80 W barrel zones plus 60 W die; peak arbitrated
 Extruder drive,EXTRUDE_SPOOL,24,5.25,10.0,126,240,Donor or buy,NEEDS_DYNO,20 Nm at 45 rpm target; heater power reduced during torque transient
-Puller and spooler,EXTRUDE_SPOOL,24,TBD,TBD,TBD,TBD,Donor,NEEDS_INVENTORY,Include encoder and traverse
+Puller and spooler,EXTRUDE_SPOOL,24,1.7,2.5,40,60,Donor or buy,PROVISIONAL,Normal 40 W reserve; if forming drives exceed 40 W cap extruder heater to 130 W
 Raspberry Pi buck,All,24,TBD,TBD,TBD,TBD,Buy or lab,NEEDS_SELECTION,5 V output and transient margin required
 Arduino and sensors,All,24,TBD,TBD,TBD,TBD,Lab,NEEDS_SELECTION,Logic rail architecture pending
 Fans,Variable,24,TBD,TBD,TBD,TBD,Donor,NEEDS_INVENTORY,Cooldown may remain enabled in safe state
