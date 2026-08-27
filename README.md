@@ -27,7 +27,7 @@ PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조,
 - 배선·pinout/protocol: `electronics/schematics`, `electronics/wiring`, `electronics/pinout`, `electronics/protocol`
 - BOM: `bom/bom.csv`, `bom/target_budget_design.csv`, `bom/engineering_recommended_design.csv`, `bom/cost_rollup.csv`
 - CNC/RFQ 사전검토: `exports/cnc_quote_packages` (제작 승인도 아님)
-- 구조 1D FEA 교차검증: `calculations/structural/beam_fea.md`, `simulation/structural/beam_crosscheck.json`
+- 구조 1D FEA·전단·비틀림 교차검증: `calculations/structural/beam_fea.md`, `simulation/structural/beam_crosscheck.json`
 - 검증 상태: `docs/validation_report_ko.md`, `validation/release_checklist.md`
 
 ## 재현·검증

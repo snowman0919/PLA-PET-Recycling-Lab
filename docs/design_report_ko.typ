@@ -141,7 +141,7 @@ Die–gauge 470 mm의 PLA 지연은 25.23 s다. 900 s model에서 mass-flow feed
 
 = Spooler
 
-Ø200×73 mm, 1.35 kg/4 g proof의 12 mm shaft는 bending stress 8.19 MPa, SF 30.5, deflection 0.0063 mm다. Core→full speed 4.45→1.78 rpm, 0.5 N tension에서 full-radius torque 0.05 N·m, clutch limit 0.25 N·m다.
+Ø200×73 mm, 1.35 kg/4 g proof의 12 mm shaft는 굽힘·횡전단·0.25 N·m 비틀림 조합 nominal von Mises 8.31 MPa, SF 30.1, deflection 0.0063 mm다. Core→full speed 4.45→1.78 rpm, 0.5 N tension에서 full-radius torque 0.05 N·m, clutch limit 0.25 N·m다.
 
 #figure(image("../renders/modules/spooler_proof_isometric.png", width: 82%), caption: [Dancer/traverse maximum spool proof])
 
@@ -175,7 +175,7 @@ Metal partition 기준 좌우 keep-out gap은 30 mm이고 전원/히터와 logic
 
 = 검증 상태와 잔여 위험
 
-Stage 1 shaft/cutter/plate, reducer output, extruder thrust plate, spooler shaft와 frame column은 20-element Euler–Bernoulli FEA와 닫힌형 해를 교차검증했다. 미확정 15 mm reducer overhang과 brace 없는 단일 frame column은 `REVIEW_REQUIRED`다. 이는 1D screening이며 3D contact/notch/joint·impact·fatigue 해석을 대체하지 않는다.
+Stage 1 shaft/cutter/plate, reducer output, extruder thrust plate, spooler shaft와 frame column은 20-element Euler–Bernoulli FEA와 닫힌형 해를 교차검증하고 support reaction 횡전단과 원형축 비틀림을 von Mises로 조합했다. Stage 1 20 mm shaft는 약 91 MPa/SF 3.35지만, 미확정 15 mm reducer overhang은 약 270 MPa/SF 1.13이고 brace 없는 단일 frame column은 처짐 초과이므로 `REVIEW_REQUIRED`다. 이는 nominal 1D screening이며 3D contact/notch/joint·impact·fatigue 해석을 대체하지 않는다.
 
 표준 112개 7-view에 더해 section 6, x-ray 4, exploded 5, tool-access 3, cable-routing 2, slicing-orientation 1개의 review image를 생성했다. Section cap·실제 tool reach·harness bend radius·machine G-code는 여전히 별도 gate다.
 

@@ -22,7 +22,7 @@ Revision: `0.1.0-preflight`
 10. Arduino Mega portable safety/UI core와 전체 `.ino` host integration compile, startup/purge/UI gate, Raspberry Pi Python 10-test suite
 11. 43개 시스템 요구사항의 one-to-one 증거·미검증 gate 추적
 12. 34행 CNC/RFQ precheck package의 BOM·STEP·DXF·drawing trace와 미승인 상태
-13. 7개 구조 load path의 analytic·20-element beam FEA 교차검증과 intentional review gate
+13. 7개 구조 load path의 analytic·20-element beam FEA, support reaction·횡전단·비틀림 조합응력과 intentional review gate
 14. Section/x-ray/exploded/tool/cable/slicing 21개 CAD review variant의 크기·구조·한계표기
 15. 조립 PDF 필수 40개 topic의 순번·지원파일·실제 PDF text coverage
 16. 312개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG

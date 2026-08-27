@@ -9,7 +9,7 @@ analysis.
 from __future__ import annotations
 
 import json
-from math import pi
+from math import pi, sqrt
 from pathlib import Path
 
 
@@ -93,47 +93,75 @@ def beam_fea(length: float, elastic_modulus: float, inertia: float, load: float,
     }
 
 
-def circle_inertia(diameter_m: float) -> tuple[float, float]:
-    return pi * diameter_m**4 / 64, diameter_m / 2
+def circle_section(diameter_m: float) -> dict[str, float]:
+    return {
+        "inertia_m4": pi * diameter_m**4 / 64,
+        "extreme_fiber_m": diameter_m / 2,
+        "area_m2": pi * diameter_m**2 / 4,
+        "transverse_shear_factor": 4 / 3,
+        "polar_inertia_m4": pi * diameter_m**4 / 32,
+        "torsion_radius_m": diameter_m / 2,
+    }
 
 
-def rectangle_inertia(width_m: float, depth_m: float) -> tuple[float, float]:
-    return width_m * depth_m**3 / 12, depth_m / 2
+def rectangle_section(width_m: float, depth_m: float) -> dict[str, float]:
+    return {
+        "inertia_m4": width_m * depth_m**3 / 12,
+        "extreme_fiber_m": depth_m / 2,
+        "area_m2": width_m * depth_m,
+        "transverse_shear_factor": 1.5,
+        "polar_inertia_m4": 0.0,
+        "torsion_radius_m": 0.0,
+    }
 
 
-def hollow_square_inertia(outer_m: float, wall_m: float) -> tuple[float, float]:
+def hollow_square_section(outer_m: float, wall_m: float) -> dict[str, float]:
     inner = outer_m - 2 * wall_m
-    return (outer_m**4 - inner**4) / 12, outer_m / 2
+    return {
+        "inertia_m4": (outer_m**4 - inner**4) / 12,
+        "extreme_fiber_m": outer_m / 2,
+        "area_m2": outer_m**2 - inner**2,
+        "transverse_shear_factor": 1.5,
+        "polar_inertia_m4": 0.0,
+        "torsion_radius_m": 0.0,
+    }
 
 
 def build_cases() -> list[dict[str, object]]:
     return [
         dict(name="stage1_cutter_shaft", support="simply_supported_center", length_m=0.081,
-             load_n=60.0 / 0.025, e_pa=200e9, section=circle_inertia(0.020),
+             load_n=60.0 / 0.025, torque_nm=60.0, e_pa=200e9,
+             section=circle_section(0.020),
              yield_mpa=305.0, deflection_limit_mm=0.2 / 3,
              basis="60 N m proof torque at 25 mm radius; 20 mm shaft; 81 mm bearing span"),
         dict(name="stage1_cutter_tooth_ligament", support="cantilever_tip", length_m=0.008,
-             load_n=60.0 / 0.025 / 2, e_pa=200e9, section=rectangle_inertia(0.006, 0.008),
+             load_n=60.0 / 0.025 / 2, torque_nm=0.0, e_pa=200e9,
+             section=rectangle_section(0.006, 0.008),
              yield_mpa=650.0, deflection_limit_mm=0.2 / 3,
              basis="two-way 60 N m jam sharing; 6 by 8 mm idealized tooth ligament"),
         dict(name="stage1_bearing_plate_strip", support="cantilever_tip", length_m=0.050,
-             load_n=(60.0 / 0.025) / 2, e_pa=200e9, section=rectangle_inertia(0.050, 0.014),
+             load_n=(60.0 / 0.025) / 2, torque_nm=0.0, e_pa=200e9,
+             section=rectangle_section(0.050, 0.014),
              yield_mpa=250.0, deflection_limit_mm=0.2 / 3,
              basis="one bearing reaction; 50 mm effective strip; 14 mm steel plate"),
         dict(name="reducer_output_overhang", support="cantilever_tip", length_m=0.030,
-             load_n=60.0 / 0.025, e_pa=200e9, section=circle_inertia(0.015),
+             load_n=60.0 / 0.025, torque_nm=60.0, e_pa=200e9,
+             section=circle_section(0.015),
              yield_mpa=305.0, deflection_limit_mm=0.050,
              basis="unverified 15 mm donor output; 30 mm overhang; full 60 N m radial equivalent"),
         dict(name="extruder_thrust_plate_strip", support="simply_supported_center", length_m=0.080,
-             load_n=5089.3801, e_pa=200e9, section=rectangle_inertia(0.060, 0.012),
+             load_n=5089.3801, torque_nm=0.0, e_pa=200e9,
+             section=rectangle_section(0.060, 0.012),
              yield_mpa=250.0, deflection_limit_mm=0.050,
              basis="20 MPa proof thrust; 80 by 60 by 12 mm effective steel strip"),
         dict(name="spooler_shaft", support="simply_supported_center", length_m=0.105,
-             load_n=1.35 * 4.0 * 9.80665, e_pa=200e9, section=circle_inertia(0.012),
+             load_n=1.35 * 4.0 * 9.80665, torque_nm=0.25, e_pa=200e9,
+             section=circle_section(0.012),
              yield_mpa=250.0, deflection_limit_mm=0.050,
              basis="1.35 kg full spool at 4 g; 12 mm shaft; 105 mm bearing span"),
         dict(name="tower_frame_column", support="cantilever_tip", length_m=0.720,
-             load_n=200.0, e_pa=69e9, section=hollow_square_inertia(0.040, 0.002),
+             load_n=200.0, torque_nm=0.0, e_pa=69e9,
+             section=hollow_square_section(0.040, 0.002),
              yield_mpa=160.0, deflection_limit_mm=720 / 500,
              basis="single idealized 4040 by 2 mm wall column under assumed 200 N lateral service load"),
     ]
@@ -142,12 +170,36 @@ def build_cases() -> list[dict[str, object]]:
 def main() -> None:
     results = []
     for case in build_cases():
-        inertia, extreme_fiber = case.pop("section")
+        section = case.pop("section")
+        inertia = section["inertia_m4"]
+        extreme_fiber = section["extreme_fiber_m"]
         result = beam_fea(
             case["length_m"], case["e_pa"], inertia, case["load_n"], case["support"]
         )
-        stress_mpa = result["fea_max_element_end_moment_nm"] * extreme_fiber / inertia / 1e6
-        safety_factor = case["yield_mpa"] / stress_mpa
+        bending_stress_mpa = (
+            result["fea_max_element_end_moment_nm"] * extreme_fiber / inertia / 1e6
+        )
+        maximum_shear_force_n = (
+            case["load_n"] / 2
+            if case["support"] == "simply_supported_center"
+            else case["load_n"]
+        )
+        transverse_shear_mpa = (
+            section["transverse_shear_factor"] * maximum_shear_force_n /
+            section["area_m2"] / 1e6
+        )
+        torsional_shear_mpa = 0.0
+        if case["torque_nm"]:
+            assert section["polar_inertia_m4"] > 0, "torsion needs a defined section model"
+            torsional_shear_mpa = (
+                case["torque_nm"] * section["torsion_radius_m"] /
+                section["polar_inertia_m4"] / 1e6
+            )
+        von_mises_mpa = sqrt(
+            bending_stress_mpa**2 +
+            3 * (transverse_shear_mpa**2 + torsional_shear_mpa**2)
+        )
+        safety_factor = case["yield_mpa"] / von_mises_mpa
         passes = (result["fea_max_nodal_deflection_mm"] <= case["deflection_limit_mm"] and
                   safety_factor >= 1.5)
         results.append({
@@ -155,9 +207,17 @@ def main() -> None:
             "elements": 20,
             "section_inertia_m4": inertia,
             "extreme_fiber_m": extreme_fiber,
+            "section_area_m2": section["area_m2"],
             **result,
-            "fea_nominal_bending_stress_mpa": stress_mpa,
-            "yield_safety_factor_without_notch_or_joint_factor": safety_factor,
+            "maximum_support_reaction_n": maximum_shear_force_n,
+            "nominal_bending_stress_mpa": bending_stress_mpa,
+            "nominal_transverse_shear_mpa": transverse_shear_mpa,
+            "nominal_torsional_shear_mpa": torsional_shear_mpa,
+            "nominal_von_mises_mpa": von_mises_mpa,
+            "yield_safety_factor_without_notch_contact_or_joint_factor": safety_factor,
+            "deflection_limit_utilization": (
+                result["fea_max_nodal_deflection_mm"] / case["deflection_limit_mm"]
+            ),
             "screening_status": "PASS_1D_SCREEN" if passes else "REVIEW_REQUIRED",
         })
     report = {
@@ -166,7 +226,7 @@ def main() -> None:
         "case_count": len(results),
         "cases": results,
         "limitations": [
-            "Linear small-deflection uniform-beam elements do not resolve cutter roots, keyways, bearing fits, holes, welds, contacts or extrusion pressure seals.",
+            "Linear small-deflection uniform-beam elements plus nominal section shear/torsion do not resolve cutter roots, keyways, bearing fits, holes, welds, contacts or extrusion pressure seals.",
             "Loads are static equivalents; cutter impact, reverse shock, fatigue, vibration and frame-joint slip are excluded.",
             "Material values are screening assumptions, not certificates or temperature-reduced allowables.",
             "Reducer geometry is unverified; its REVIEW_REQUIRED result is a donor-selection gate, not a final component prediction.",

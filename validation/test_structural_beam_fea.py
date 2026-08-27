@@ -26,9 +26,17 @@ def main() -> None:
         assert case["elements"] == 20
         assert case["deflection_relative_error"] < 1e-8
         assert case["moment_relative_error"] < 1e-8
+        assert case["maximum_support_reaction_n"] > 0
+        assert case["nominal_von_mises_mpa"] >= case["nominal_bending_stress_mpa"]
+        assert case["yield_safety_factor_without_notch_contact_or_joint_factor"] > 0
         assert case["screening_status"] in {"PASS_1D_SCREEN", "REVIEW_REQUIRED"}
     assert cases["stage1_cutter_shaft"]["fea_max_nodal_deflection_mm"] <= 0.2 / 3
     assert cases["spooler_shaft"]["fea_max_nodal_deflection_mm"] <= 0.05
+    assert 37.0 < cases["stage1_cutter_shaft"]["nominal_torsional_shear_mpa"] < 39.0
+    assert 3.2 < cases["stage1_cutter_shaft"][
+        "yield_safety_factor_without_notch_contact_or_joint_factor"
+    ] < 3.5
+    assert cases["reducer_output_overhang"]["nominal_von_mises_mpa"] > 260.0
     assert cases["reducer_output_overhang"]["screening_status"] == "REVIEW_REQUIRED"
     assert cases["tower_frame_column"]["screening_status"] == "REVIEW_REQUIRED"
     print("STRUCTURAL_BEAM_FEA_VALIDATION_OK")
