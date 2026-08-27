@@ -14,6 +14,7 @@
 - 조립 PDF에 필수 40개 topic과 81행 BOM·출력/CNC/배선/교정/정비 appendix 수록
 - Release artifact 312개와 자동검증 27-gate 체계로 확장
 - TFT-independent 9-page UI core, startup/purge interlock, Mega–Pi UI snapshot 계약 추가
+- 사용자 요청의 2-tower rack 재범위, 보유 IRLZ44N/camera 조달 처리, concrete render와 draft 문서 정책 기록
 
 ## 0.1.0-preflight — 2026-08-28
 

@@ -1,5 +1,7 @@
 # Release checklist — Revision 0.1.0-preflight+unreleased
 
+> 2026-08-28 사용자 요청으로 2-tower rack architecture 재범위가 열렸다. 기존 0.1.0-preflight CAD/PDF는 비교용 draft이며 fabrication baseline이 아니다. `docs/user_direction_2026-08-28.md`를 우선한다.
+
 ## Source와 재현성
 
 - [x] Nix flake와 lock 존재
@@ -14,6 +16,9 @@
 
 ## 해석
 
+- [ ] 2-tower footprint/height/shelf pitch/MVP stage·bin 수 architecture lock
+- [ ] Tower A 전도·anchor·shelf joint·8 Hz vibration 재검토
+- [ ] Tower B 수평 cooling/gauge/puller 길이와 service path 재검토
 - [x] Stage 1 1차 torque/shaft screening
 - [x] Stage 1/2/3 kinematic clearance·shaft screening
 - [x] Vibration, dryer/feeder, extruder, forming, spooler, power/control screening
@@ -43,4 +48,4 @@
 - [x] 조립 PDF 필수 40개 topic과 전체 81행 BOM 수록
 - [ ] user physical safety approval
 
-현재 release 상태: **DESIGN PACKAGE COMPLETE FOR FABRICATION REVIEW — PHYSICAL RELEASE NOT READY**
+현재 release 상태: **ARCHITECTURE RESCOPE IN PROGRESS — FABRICATION / PHYSICAL RELEASE NOT READY**

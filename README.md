@@ -2,7 +2,9 @@
 
 PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조, 압출, 직경제어하여 1.75 mm 필라멘트로 재생하는 모듈형 탁상 장치의 설계 저장소입니다.
 
-현재 상태는 **fabrication review용 설계 패키지 완료 / 물리 release 미승인**입니다. 계산, parametric CAD, firmware/Pi core, 배선 topology와 한국어 문서는 자동 검증되지만 실제 donor 실측과 단계별 물리 시험 전에는 완성 장비로 간주하지 않습니다.
+현재 상태는 **2-tower architecture 재범위 검토 중 / fabrication·물리 release 미승인**입니다. 기존 계산, parametric proof CAD, firmware/Pi core, 배선 topology와 한국어 문서는 비교용 baseline이며, 사용자 방향 변경과 donor 실측을 반영하기 전에는 완성 설계나 제작 승인 문서로 간주하지 않습니다.
+
+최신 사용자 방향과 숨기지 않은 blocker는 `docs/user_direction_2026-08-28.md`에 정리되어 있습니다.
 
 ## 핵심 목표
 
@@ -22,6 +24,7 @@ PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조,
 - 요구사항/가정/감사표: `requirements/system_requirements.md`, `requirements/assumptions.md`, `requirements/compliance_matrix.md`
 - 안전·운전·교정: `docs/safety.md`, `docs/operation.md`, `docs/calibration.md`
 - TFT UI 화면·adapter gate: `docs/ui_screens.md`
+- 2-tower 재범위·보유품·문서화 방향: `docs/user_direction_2026-08-28.md`
 - CAD source/output: `cad/freecad`, `cad/generation/fcstd`, `exports`, `renders`
 - CAD review variants: `renders/review` (section/x-ray/exploded/tool/cable/slicing)
 - 배선·pinout/protocol: `electronics/schematics`, `electronics/wiring`, `electronics/pinout`, `electronics/protocol`
