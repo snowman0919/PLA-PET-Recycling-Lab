@@ -49,6 +49,6 @@ Revision: `0.1.0-preflight`
 
 ## 재현 상태
 
-현재 작업본 통합검증은 PASS했다. 별도 clean clone에서 generator→render→PDF→22-gate 전체 재실행 결과는 release checklist의 `clean clone` 항목에 기록한다.
+현재 작업본과 별도 임시 clean clone에서 generator→render→PDF→22-gate 전체 재실행이 모두 PASS했다. 최종 clean clone에서는 STEP 변경 0건, STL/DXF/render/PDF/review JSON 변경 0건을 추가 확인했다.
 
 STEP header timestamp와 review JSON 경로는 deterministic 값/저장소 상대경로로 정규화한다. STL, DXF, render, PDF, 계산 JSON과 review JSON은 clean clone에서 byte-identical했으며, FCStd는 FreeCAD가 생성 시각·UUID·내부 object ID를 기록하므로 형상·object-set 검증은 재현되지만 container byte hash는 실행마다 달라질 수 있다. Manifest는 해당 실행에서 전달되는 실제 파일의 hash를 기록한다.

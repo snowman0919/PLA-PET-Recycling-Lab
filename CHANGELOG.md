@@ -14,6 +14,7 @@
 - 81-line source BOM, 공개 가격 증거, target-budget/engineering-recommended 설계안
 - A4 한국어 제작 매뉴얼과 설계·검증 보고서
 - 통합 자동검증 runner와 281-artifact SHA-256 manifest
+- 독립 clean clone의 CAD/render/PDF 전체 재생성과 22-gate PASS
 
 ### Safety status
 

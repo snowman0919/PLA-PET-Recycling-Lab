@@ -9,7 +9,7 @@
 - [x] 표준 7-view render 생성
 - [x] 11개 module의 proof CAD/keep-out 생성
 - [x] 현재 proof 범위의 DXF와 제작 주석 생성
-- [ ] clean clone에서 전체 재생성
+- [x] clean clone에서 전체 재생성 및 22-gate 재실행
 
 ## 해석
 
