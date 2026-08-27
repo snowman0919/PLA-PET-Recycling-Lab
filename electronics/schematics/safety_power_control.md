@@ -45,7 +45,7 @@ Safety relay와 독립 trip의 isolated auxiliary contact는 Mega `INPUT_PULLUP`
 | Lid/service NC chain이 shredder enable 차단 | D24/D25 | switch wire open에서 drive 불능 |
 | Zone thermal fuse/high-limit relay가 heater 차단 | D26 + zone temperatures | MOSFET welded-on에서도 branch/contact 차단 |
 | Mechanical/discrete pressure trip | D27 + A7 transducer | analog firmware fault와 독립 차단 |
-| Airflow proof | D28 + A6 diagnostic | extrusion arm 거부/latched stop |
+| Airflow proof | D28 + A6 diagnostic | dryer/extrusion arm 거부/latched stop |
 | Forming guard | D29 | puller/spooler enable 제거 |
 
 ## 접지·배선 분리

@@ -19,6 +19,8 @@ constexpr uint8_t kShredderPwm = 10;
 constexpr uint8_t kExtruderPwm = 11;
 constexpr uint8_t kPullerStepPwm = 12;
 constexpr uint8_t kSpoolerStepPwm = 13;
+constexpr uint8_t kShredderSpeedPulse = 14;
+constexpr uint8_t kHopperGateEnable = 15;
 constexpr uint8_t kStartPause = 16;
 constexpr uint8_t kBackAbort = 17;
 constexpr uint8_t kExtruderEncoderA = 18;
@@ -65,6 +67,7 @@ constexpr uint8_t kShredderCurrentAnalog = A8;
 constexpr uint8_t kExtruderCurrentAnalog = A9;
 constexpr uint8_t kFormingCurrentAnalog = A10;
 constexpr uint8_t kDancerAnalog = A11;
+constexpr uint8_t kShredderVibrationAnalog = A15;
 }  // namespace pins
 
 namespace {
@@ -74,9 +77,22 @@ const HeaterConfig kPlaHeaterConfig{0.08F, 0.005F, -20.0F, 330.0F, 230.0F,
                                      30.0F, 2.0F, 60000UL};
 const HeaterConfig kPetHeaterConfig{0.06F, 0.004F, -20.0F, 330.0F, 295.0F,
                                      30.0F, 2.0F, 60000UL};
-HeaterController extruder_heaters[4] = {
+HeaterController pet_extruder_heaters[4] = {
     HeaterController(kPetHeaterConfig), HeaterController(kPetHeaterConfig),
     HeaterController(kPetHeaterConfig), HeaterController(kPetHeaterConfig)};
+HeaterController pla_extruder_heaters[4] = {
+    HeaterController(kPlaHeaterConfig), HeaterController(kPlaHeaterConfig),
+    HeaterController(kPlaHeaterConfig), HeaterController(kPlaHeaterConfig)};
+const HeaterConfig kDryerPlaConfig{0.05F, 0.002F, -20.0F, 190.0F, 60.0F,
+                                   10.0F, 1.0F, 60000UL};
+const HeaterConfig kDryerPetConfig{0.04F, 0.0015F, -20.0F, 210.0F, 170.0F,
+                                   10.0F, 1.0F, 60000UL};
+HeaterController dryer_heaters[2] = {HeaterController(kDryerPlaConfig),
+                                     HeaterController(kDryerPetConfig)};
+const AdaptiveLoadConfig kPlaShredderLoad{8.0F, 12.0F, 20.0F, 0.70F,
+                                           2.0F, 0.65F, 1.0F};
+const AdaptiveLoadConfig kPetShredderLoad{6.0F, 10.0F, 18.0F, 0.72F,
+                                           2.0F, 0.65F, 1.0F};
 
 char receive_buffer[kMaximumFrameBytes];
 size_t receive_length = 0;
@@ -92,6 +108,27 @@ bool pending_start = false;
 bool pending_pause = false;
 Phase requested_phase = Phase::IDLE;
 bool pet_profile = false;
+float dryer_setpoint_c = 45.0F;
+bool heater_fault_latched = false;
+bool power_fault_latched = false;
+JamOutput jam_output{JamState::NORMAL, false, false, false, 0};
+AdaptiveLoadResult adaptive_load{false, false, false, 0.0F, 0.0F, 0.0F};
+SafetyOutputs last_safe{SafetyState::SAFE_OFF, Phase::IDLE, FAULT_NONE,
+                        false, false, false, false};
+bool prior_sort_context = false;
+uint32_t sort_started_ms = 0;
+
+uint32_t load_window_start_ms = 0;
+uint32_t load_previous_sample_ms = 0;
+uint32_t load_pulse_count = 0;
+uint16_t load_sample_count = 0;
+bool prior_speed_pulse = false;
+float load_current_square_sum = 0.0F;
+float load_current_peak_a = 0.0F;
+float load_derivative_peak_a_per_s = 0.0F;
+float load_vibration_peak_g = 0.0F;
+float load_previous_current_a = 0.0F;
+LoadFeatures latest_load_features{false, NAN, NAN, NAN, NAN, NAN};
 
 float temperature_c[6] = {NAN, NAN, NAN, NAN, NAN, NAN};
 float pressure_mpa = NAN;
@@ -110,6 +147,70 @@ float read_pressure_mpa() {
   if (!kPressureFrontendQualified) return NAN;
   const float adc = static_cast<float>(analogRead(pins::kPressureAnalog));
   return (adc - kPressureZeroAdcCount) * kPressureMpaPerAdcCount;
+}
+
+void reset_load_window(uint32_t now_ms) {
+  load_window_start_ms = now_ms;
+  load_previous_sample_ms = now_ms;
+  load_pulse_count = 0;
+  load_sample_count = 0;
+  load_current_square_sum = 0.0F;
+  load_current_peak_a = 0.0F;
+  load_derivative_peak_a_per_s = 0.0F;
+  load_vibration_peak_g = 0.0F;
+}
+
+void sample_shredder_load(uint32_t now_ms) {
+  const bool pulse = digitalRead(pins::kShredderSpeedPulse) == HIGH;
+  if (pulse && !prior_speed_pulse) ++load_pulse_count;
+  prior_speed_pulse = pulse;
+  const bool calibrated = kCurrentFrontendsQualified &&
+                          kShredderMotionFeedbackQualified &&
+                          kShredderAmpPerAdcCount > 0.0F &&
+                          kShredderVibrationGPerAdcCount > 0.0F &&
+                          kShredderEncoderPulsesPerRevolution > 0.0F &&
+                          kShredderCommandRpm > 0.0F;
+  if (!calibrated) {
+    latest_load_features = {false, NAN, NAN, NAN, NAN, NAN};
+    reset_load_window(now_ms);
+    return;
+  }
+
+  const float current_a = fabsf(
+      (static_cast<float>(analogRead(pins::kShredderCurrentAnalog)) -
+       kShredderCurrentZeroAdcCount) *
+      kShredderAmpPerAdcCount);
+  const float vibration_g = fabsf(
+      (static_cast<float>(analogRead(pins::kShredderVibrationAnalog)) -
+       kShredderVibrationZeroAdcCount) *
+      kShredderVibrationGPerAdcCount);
+  const float elapsed_s = (now_ms - load_previous_sample_ms) / 1000.0F;
+  if (load_sample_count && elapsed_s > 0.0F) {
+    const float derivative = (current_a - load_previous_current_a) / elapsed_s;
+    if (derivative > load_derivative_peak_a_per_s)
+      load_derivative_peak_a_per_s = derivative;
+  }
+  load_previous_current_a = current_a;
+  load_previous_sample_ms = now_ms;
+  load_current_square_sum += current_a * current_a;
+  if (current_a > load_current_peak_a) load_current_peak_a = current_a;
+  if (vibration_g > load_vibration_peak_g) load_vibration_peak_g = vibration_g;
+  ++load_sample_count;
+
+  const uint32_t window_ms = now_ms - load_window_start_ms;
+  if (window_ms >= 250 && load_sample_count > 0) {
+    const float rpm = load_pulse_count * 60000.0F /
+                      (window_ms * kShredderEncoderPulsesPerRevolution);
+    latest_load_features = {
+        true,
+        sqrtf(load_current_square_sum / load_sample_count),
+        load_current_peak_a,
+        load_derivative_peak_a_per_s,
+        rpm / kShredderCommandRpm,
+        load_vibration_peak_g,
+    };
+    reset_load_window(now_ms);
+  }
 }
 
 bool all_temperature_sensors_plausible() {
@@ -141,8 +242,18 @@ void handle_frame(const ProtocolFrame& frame) {
   if (!strcmp(frame.type, "HB")) {
     last_heartbeat_ms = millis();
   } else if (!strcmp(frame.type, "PROFILE")) {
-    if (!strcmp(frame.payload, "PLA")) pet_profile = false;
-    if (!strcmp(frame.payload, "PET")) pet_profile = true;
+    if (!strcmp(frame.payload, "PLA")) {
+      pet_profile = false;
+      dryer_setpoint_c = 45.0F;
+    }
+    if (!strcmp(frame.payload, "PET")) {
+      pet_profile = true;
+      dryer_setpoint_c = 140.0F;
+    }
+  } else if (!strcmp(frame.type, "DRY_STAGE")) {
+    if (!pet_profile && !strcmp(frame.payload, "PLA_45")) dryer_setpoint_c = 45.0F;
+    if (pet_profile && !strcmp(frame.payload, "PET_140")) dryer_setpoint_c = 140.0F;
+    if (pet_profile && !strcmp(frame.payload, "PET_160")) dryer_setpoint_c = 160.0F;
   } else if (!strcmp(frame.type, "RESET")) {
     pending_reset = true;
   } else if (!strcmp(frame.type, "RUN")) {
@@ -184,15 +295,32 @@ void set_all_dangerous_outputs_off() {
   analogWrite(pins::kSpoolerStepPwm, 0);
   analogWrite(pins::kSorterPwm, 0);
   analogWrite(pins::kFeederStepPwm, 0);
+  digitalWrite(pins::kHopperGateEnable, LOW);
+  digitalWrite(pins::kShredderDirection, LOW);
   const uint8_t enables[] = {pins::kShredderEnable, pins::kSorterEnable,
                              pins::kFeederEnable, pins::kExtruderEnable,
                              pins::kPullerEnable, pins::kSpoolerEnable};
   for (uint8_t pin : enables) digitalWrite(pin, LOW);
 }
 
-void apply_outputs(const SafetyOutputs& safe) {
+void reset_heater_if_finite(HeaterController& controller, uint32_t now_ms,
+                            float measured_c) {
+  if (isfinite(measured_c)) controller.reset(now_ms, measured_c);
+}
+
+void reset_all_heater_controllers(uint32_t now_ms) {
+  for (uint8_t i = 0; i < 4; ++i) {
+    reset_heater_if_finite(pla_extruder_heaters[i], now_ms, temperature_c[i]);
+    reset_heater_if_finite(pet_extruder_heaters[i], now_ms, temperature_c[i]);
+  }
+  for (uint8_t i = 0; i < 2; ++i)
+    reset_heater_if_finite(dryer_heaters[i], now_ms, temperature_c[4]);
+}
+
+void apply_outputs(const SafetyOutputs& safe, uint32_t now_ms) {
   if (!safe.contactor_request) {
     set_all_dangerous_outputs_off();
+    reset_all_heater_controllers(now_ms);
     digitalWrite(pins::kCoolingFanEnable, safe.cooldown_fan_request ? HIGH : LOW);
     return;
   }
@@ -200,32 +328,86 @@ void apply_outputs(const SafetyOutputs& safe) {
   digitalWrite(pins::kCoolingFanEnable, HIGH);
 
   const bool sort = safe.active_phase == Phase::SORT_SHRED;
+  const bool dry = safe.active_phase == Phase::DRY_PREHEAT;
   const bool extrude = safe.active_phase == Phase::EXTRUDE_SPOOL;
-  digitalWrite(pins::kShredderEnable, sort ? HIGH : LOW);
+  const bool shredder_drive = sort && adaptive_load.sensor_plausible &&
+                               jam_output.drive_enable;
+  const bool hopper_feed = sort && adaptive_load.sensor_plausible &&
+                           jam_output.feed_enable && adaptive_load.feed_scale > 0.0F;
+  const uint8_t shredder_pwm = static_cast<uint8_t>(
+      255.0F * (shredder_drive ? adaptive_load.drive_scale : 0.0F));
+  const uint8_t gate_fraction = static_cast<uint8_t>(99.0F * adaptive_load.feed_scale);
+  const bool gate_time_slot = static_cast<uint8_t>((now_ms / 10UL) % 100UL) <= gate_fraction;
+  digitalWrite(pins::kShredderEnable, shredder_drive ? HIGH : LOW);
   digitalWrite(pins::kSorterEnable, sort ? HIGH : LOW);
   digitalWrite(pins::kExtruderEnable, extrude ? HIGH : LOW);
   digitalWrite(pins::kFeederEnable, extrude ? HIGH : LOW);
   digitalWrite(pins::kPullerEnable, extrude ? HIGH : LOW);
   digitalWrite(pins::kSpoolerEnable, extrude ? HIGH : LOW);
+  digitalWrite(pins::kShredderDirection, jam_output.reverse ? HIGH : LOW);
+  digitalWrite(pins::kHopperGateEnable, hopper_feed && gate_time_slot ? HIGH : LOW);
+  analogWrite(pins::kShredderPwm, shredder_pwm);
 
-  if (!safe.heater_master_enable || !extrude) {
-    for (uint8_t pin : pins::kExtruderHeater) analogWrite(pin, 0);
+  for (uint8_t pin : pins::kExtruderHeater) analogWrite(pin, 0);
+  analogWrite(pins::kDryerPlaHeater, 0);
+  analogWrite(pins::kDryerPetHeater, 0);
+
+  if (!safe.heater_master_enable) return;
+
+  if (dry) {
+    const uint8_t heater_index = pet_profile ? 1 : 0;
+    for (uint8_t i = 0; i < 4; ++i) {
+      reset_heater_if_finite(pla_extruder_heaters[i], now_ms, temperature_c[i]);
+      reset_heater_if_finite(pet_extruder_heaters[i], now_ms, temperature_c[i]);
+    }
+    reset_heater_if_finite(dryer_heaters[1U - heater_index], now_ms,
+                           temperature_c[4]);
+    const HeaterResult result = dryer_heaters[heater_index].update(
+        now_ms, dryer_setpoint_c, temperature_c[4], true);
+    if (!result.sensor_plausible || result.runaway_fault ||
+        result.overtemperature_fault) {
+      heater_fault_latched = true;
+      return;
+    }
+    const float requested_w = result.duty * (pet_profile ? 240.0F : 60.0F);
+    const PowerGrant grant = arbitrate_power(
+        {Phase::DRY_PREHEAT, 80.0F, 0.0F,
+         pet_profile ? 0.0F : requested_w,
+         pet_profile ? requested_w : 0.0F},
+        kProvisionalDeratedPowerLimitW);
+    if (!grant.valid || (requested_w > 0.0F && grant.heater_scale <= 0.0F)) {
+      power_fault_latched = true;
+      return;
+    }
+    const uint8_t duty = static_cast<uint8_t>(255.0F * result.duty * grant.heater_scale);
+    analogWrite(pet_profile ? pins::kDryerPetHeater : pins::kDryerPlaHeater, duty);
     return;
   }
+
+  if (!extrude) {
+    reset_all_heater_controllers(now_ms);
+    return;
+  }
+  for (uint8_t i = 0; i < 2; ++i)
+    reset_heater_if_finite(dryer_heaters[i], now_ms, temperature_c[4]);
   const float pla_setpoint[4] = {180.0F, 190.0F, 200.0F, 190.0F};
   const float pet_setpoint[4] = {250.0F, 270.0F, 280.0F, 275.0F};
   const float* setpoint = pet_profile ? pet_setpoint : pla_setpoint;
+  HeaterController* controllers = pet_profile ? pet_extruder_heaters : pla_extruder_heaters;
+  HeaterController* inactive_controllers =
+      pet_profile ? pla_extruder_heaters : pet_extruder_heaters;
   float requested_duty[4] = {0, 0, 0, 0};
   bool heater_fault = false;
   for (uint8_t i = 0; i < 4; ++i) {
-    const HeaterResult result = extruder_heaters[i].update(
-        millis(), setpoint[i], temperature_c[i], true);
+    reset_heater_if_finite(inactive_controllers[i], now_ms, temperature_c[i]);
+    const HeaterResult result = controllers[i].update(
+        now_ms, setpoint[i], temperature_c[i], true);
     requested_duty[i] = result.duty;
     heater_fault |= !result.sensor_plausible || result.runaway_fault ||
                     result.overtemperature_fault;
   }
   if (heater_fault) {
-    for (uint8_t pin : pins::kExtruderHeater) analogWrite(pin, 0);
+    heater_fault_latched = true;
     return;
   }
   const float requested_w = requested_duty[0] * 80.0F + requested_duty[1] * 80.0F +
@@ -233,17 +415,24 @@ void apply_outputs(const SafetyOutputs& safe) {
   const PowerGrant grant = arbitrate_power(
       {Phase::EXTRUDE_SPOOL, 396.0F, requested_w, 0.0F, 0.0F},
       kProvisionalDeratedPowerLimitW);
+  if (!grant.valid || (requested_w > 0.0F && grant.heater_scale <= 0.0F)) {
+    power_fault_latched = true;
+    return;
+  }
   const float scale = grant.valid ? grant.heater_scale : 0.0F;
   for (uint8_t i = 0; i < 4; ++i)
     analogWrite(pins::kExtruderHeater[i], static_cast<uint8_t>(255.0F * requested_duty[i] * scale));
 }
 
 void send_telemetry(const SafetyOutputs& safe) {
-  char payload[96];
-  snprintf(payload, sizeof(payload), "state=%u,phase=%u,fault=%08lX,p=%.2f,t0=%.1f",
+  char payload[120];
+  snprintf(payload, sizeof(payload),
+           "state=%u,phase=%u,fault=%08lX,p=%.2f,t0=%.1f,load=%.2f,jam=%u,retry=%u",
            static_cast<unsigned>(safe.state), static_cast<unsigned>(safe.active_phase),
            static_cast<unsigned long>(safe.latched_faults), pressure_mpa,
-           temperature_c[0]);
+           temperature_c[0], adaptive_load.score,
+           static_cast<unsigned>(jam_output.state),
+           static_cast<unsigned>(jam_output.retry_count));
   char frame[kMaximumFrameBytes];
   const size_t length = encode_frame(frame, sizeof(frame), "TEL", ++tx_sequence, payload);
   if (length) Serial.write(reinterpret_cast<const uint8_t*>(frame), length);
@@ -256,6 +445,7 @@ void setup() {
       pins::kContactorRequest, pins::kShredderEnable, pins::kSorterEnable,
       pins::kFeederEnable, pins::kExtruderEnable, pins::kPullerEnable,
       pins::kSpoolerEnable, pins::kCoolingFanEnable, pins::kShredderDirection,
+      pins::kHopperGateEnable,
       pins::kExtruderDirection, pins::kFeederDirection, pins::kTraverseDirection,
       pins::kSpoolerDirection, pins::kPullerDirection, pins::kTraverseStep,
       pins::kSorterPwm, pins::kFeederStepPwm, pins::kBuzzer};
@@ -275,6 +465,9 @@ void setup() {
       pins::kAirflowAux, pins::kFormingGuardAux, pins::kStartPause,
       pins::kBackAbort, pins::kRotaryPush};
   for (uint8_t pin : safety_inputs) pinMode(pin, INPUT_PULLUP);
+  pinMode(pins::kShredderSpeedPulse, INPUT_PULLUP);
+  pinMode(pins::kShredderVibrationAnalog, INPUT);
+  reset_load_window(millis());
   Serial.begin(kPiBaud);
   last_heartbeat_ms = millis() - 10000UL;
   wdt_enable(WDTO_2S);
@@ -289,7 +482,39 @@ void loop() {
   }
   last_loop_ms = now;
 
-  const bool sensors_ok = all_temperature_sensors_plausible();
+  sample_shredder_load(now);
+  const bool load_frontends_ready =
+      kCurrentFrontendsQualified && kShredderMotionFeedbackQualified &&
+      kShredderAmpPerAdcCount > 0.0F &&
+      kShredderVibrationGPerAdcCount > 0.0F &&
+      kShredderEncoderPulsesPerRevolution > 0.0F &&
+      kShredderCommandRpm > 0.0F;
+  const bool sort_context = last_safe.state == SafetyState::RUNNING &&
+                            last_safe.active_phase == Phase::SORT_SHRED;
+  if (sort_context && !prior_sort_context) {
+    sort_started_ms = now;
+    shredder_jam.reset(now);
+  }
+  prior_sort_context = sort_context;
+  const bool sort_startup_grace = sort_context && now - sort_started_ms < 500UL;
+  if (sort_context && !sort_startup_grace) {
+    adaptive_load = evaluate_adaptive_load(
+        latest_load_features, pet_profile ? kPetShredderLoad : kPlaShredderLoad);
+    jam_output = shredder_jam.update(
+        now, adaptive_load.overload, adaptive_load.speed_drop);
+  } else if (sort_context) {
+    adaptive_load = {true, false, false, 0.0F, 1.0F, 1.0F};
+    jam_output = shredder_jam.update(now, false, false);
+  } else {
+    shredder_jam.reset(now);
+    jam_output = {JamState::NORMAL, false, false, false, 0};
+    adaptive_load = {load_frontends_ready, false, false, 0.0F, 0.0F, 0.0F};
+  }
+  const bool load_signal_ok = !sort_context || sort_startup_grace ||
+                              adaptive_load.sensor_plausible;
+  const bool sensors_ok = all_temperature_sensors_plausible() &&
+                          load_frontends_ready && load_signal_ok &&
+                          !heater_fault_latched;
   pressure_mpa = read_pressure_mpa();
   const bool local_reset_held = !digitalRead(pins::kBackAbort);
   const bool local_start_held = !digitalRead(pins::kStartPause);
@@ -307,14 +532,15 @@ void loop() {
       pending_reset && local_reset_held,
       pending_start && local_start_held,
       pending_pause || (local_start_held && !pending_start),
-      false,
-      false,
+      jam_output.state == JamState::FAULT,
+      power_fault_latched,
       malformed_burst >= 3,
       isfinite(pressure_mpa) ? pressure_mpa : 999.0F,
       requested_phase,
   };
   const SafetyOutputs safe = safety.tick(in);
-  apply_outputs(safe);
+  apply_outputs(safe, now);
+  last_safe = safe;
   if (in.reset_requested) pending_reset = false;
   if (in.start_requested) pending_start = false;
   pending_pause = false;

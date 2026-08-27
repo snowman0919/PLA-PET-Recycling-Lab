@@ -26,7 +26,7 @@ def parse_telemetry(payload: str) -> dict[str, int | float | str]:
             raise ProtocolError("telemetry key")
         if key == "fault":
             parsed[key] = int(value, 16)
-        elif key in {"state", "phase"}:
+        elif key in {"state", "phase", "jam", "retry"}:
             parsed[key] = int(value)
         else:
             try:
@@ -80,6 +80,11 @@ class MegaSupervisor:
         if material not in {"PLA", "PET"}:
             raise ValueError("profile must be PLA or PET")
         return self._send("PROFILE", material)
+
+    def select_dryer_stage(self, stage: str) -> bytes:
+        if stage not in {"PLA_45", "PET_140", "PET_160"}:
+            raise ValueError("unknown fixed dryer stage")
+        return self._send("DRY_STAGE", stage)
 
     def request_reset(self) -> bytes:
         return self._send("RESET")

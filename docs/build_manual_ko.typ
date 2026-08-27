@@ -184,7 +184,7 @@ H01–H18 harness schedule대로 AC disconnect→PSU→dual-channel E-stop relay
   caption: [Firmware가 우회할 수 없는 전력 차단 topology]
 )
 
-Mega pin은 `mega_pinout.csv`, FRP1은 `frp1.md`를 따른다. Sensor front-end가 미선정인 현재 firmware qualification flag 4개는 false라 self-test가 의도적으로 arm되지 않는다.
+Mega pin은 `mega_pinout.csv`, FRP1은 `frp1.md`를 따른다. Sensor front-end와 shredder motion feedback이 미선정인 현재 firmware qualification flag 5개는 false라 self-test가 의도적으로 arm되지 않는다.
 
 = 시운전과 인수
 

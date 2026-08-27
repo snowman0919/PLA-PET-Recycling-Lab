@@ -153,7 +153,7 @@ FRP1은 `FRP1|TYPE|SEQ|PAYLOAD|CRC16`이고 Pi heartbeat 250 ms, Mega timeout 75
   Host tests: CRC/sequence 변조, heartbeat, E-stop, contactor feedback, airflow, sensor/rise fault, 480 W arbiter, jam retry와 Pi gauge/classifier/history/dropout/quality pause가 통과했다.
 ]
 
-Sensor MPN·conversion이 미선정이라 firmware의 4개 commissioning lock은 false다. 이는 결함이 아니라 donor를 추측하지 않기 위한 intentional fail-safe다.
+Sensor MPN·conversion과 shredder motion feedback이 미선정이라 firmware의 5개 commissioning lock은 false다. 이는 결함이 아니라 donor를 추측하지 않기 위한 intentional fail-safe다.
 
 #figure(image("../renders/modules/control_enclosure_proof_isometric.png", width: 82%), caption: [300×220×180 mm grounded control-enclosure topology proof])
 

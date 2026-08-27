@@ -7,6 +7,7 @@ constexpr bool kTemperatureFrontendsQualified = false;
 constexpr bool kPressureFrontendQualified = false;
 constexpr bool kCurrentFrontendsQualified = false;
 constexpr bool kAirflowFrontendQualified = false;
+constexpr bool kShredderMotionFeedbackQualified = false;
 
 // 80% of the user's nominal 600 W statement. This is a software ceiling, not
 // a PSU or wire rating. Replace it with the lowest label/thermal/branch limit.
@@ -17,6 +18,16 @@ constexpr float kProvisionalDeratedPowerLimitW = 480.0F;
 // false, keeping the safety FSM disarmed.
 constexpr float kPressureMpaPerAdcCount = 0.0F;
 constexpr float kPressureZeroAdcCount = 0.0F;
+
+// These remain invalid until the current conditioner, tach target and
+// vibration front-end are selected and calibrated.  The sorter/shredder phase
+// cannot arm while either qualification flag is false.
+constexpr float kShredderAmpPerAdcCount = 0.0F;
+constexpr float kShredderCurrentZeroAdcCount = 0.0F;
+constexpr float kShredderVibrationGPerAdcCount = 0.0F;
+constexpr float kShredderVibrationZeroAdcCount = 0.0F;
+constexpr float kShredderEncoderPulsesPerRevolution = 0.0F;
+constexpr float kShredderCommandRpm = 0.0F;
 
 constexpr unsigned long kPiBaud = 115200UL;
 constexpr uint32_t kLoopPeriodMs = 10;

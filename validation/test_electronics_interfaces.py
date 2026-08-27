@@ -42,6 +42,9 @@ def main() -> None:
         "EXTRUDER_ENABLE",
         "PULLER_ENABLE",
         "SPOOLER_ENABLE",
+        "SHREDDER_SPEED_PULSE",
+        "SHREDDER_VIBRATION",
+        "HOPPER_GATE_ENABLE",
     }
     assert required <= by_signal.keys()
     assert not any(row["Status"] == "UNASSIGNED" for row in rows)
@@ -70,9 +73,21 @@ def main() -> None:
     assert any("protective-earth" in row["From"].lower() for row in harnesses)
 
     config = (ROOT / "firmware" / "arduino_mega" / "src" / "configuration.h").read_text()
-    assert config.count("Qualified = false") == 4, "commissioning locks unexpectedly opened"
+    assert config.count("Qualified = false") == 5, "commissioning locks unexpectedly opened"
     protocol = (ROOT / "electronics" / "protocol" / "frp1.md").read_text()
     assert "750 ms" in protocol and "CRC-16/CCITT-FALSE" in protocol
+    assert "DRY_STAGE" in protocol and "load" in protocol and "retry" in protocol
+
+    sketch = (ROOT / "firmware" / "arduino_mega" / "filament_recycler_mega.ino").read_text()
+    for integration_token in (
+        "evaluate_adaptive_load(",
+        "shredder_jam.update(",
+        "kHopperGateEnable",
+        "kDryerPlaHeater",
+        "kDryerPetHeater",
+        "Phase::DRY_PREHEAT",
+    ):
+        assert integration_token in sketch, f"missing sketch integration: {integration_token}"
 
     timing = json.loads((ROOT / "simulation" / "control" / "safety_timing.json").read_text())
     assert timing["heartbeat_safe_output_latency_max_ms"] <= 760

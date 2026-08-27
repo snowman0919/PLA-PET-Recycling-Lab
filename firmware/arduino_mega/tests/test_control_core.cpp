@@ -97,6 +97,42 @@ void test_contactor_and_airflow() {
   out = airflow_core.tick(in);
   assert(out.state == SafetyState::FAULT_LATCHED);
   assert(out.latched_faults & FAULT_AIRFLOW);
+
+  SafetyCore dryer_airflow_core;
+  in = nominal(0);
+  in.reset_requested = true;
+  dryer_airflow_core.tick(in);
+  in.reset_requested = false;
+  in.now_ms = 500;
+  dryer_airflow_core.tick(in);
+  in.airflow_ok = false;
+  in.start_requested = true;
+  in.requested_phase = Phase::DRY_PREHEAT;
+  out = dryer_airflow_core.tick(in);
+  assert(out.state == SafetyState::FAULT_LATCHED);
+  assert(out.latched_faults & FAULT_AIRFLOW);
+}
+
+void test_adaptive_load_fusion() {
+  const AdaptiveLoadConfig config{8.0F, 12.0F, 20.0F, 0.70F, 2.0F, 0.65F, 1.0F};
+  AdaptiveLoadResult result = evaluate_adaptive_load(
+      {true, 2.0F, 3.0F, 1.0F, 1.0F, 0.2F}, config);
+  assert(result.sensor_plausible && !result.overload && !result.speed_drop);
+  assert(result.feed_scale > 0.99F && result.drive_scale > 0.99F);
+
+  result = evaluate_adaptive_load(
+      {true, 7.0F, 10.0F, 12.0F, 0.62F, 1.3F}, config);
+  assert(result.sensor_plausible && result.speed_drop);
+  assert(result.feed_scale < 1.0F && result.feed_scale > 0.0F);
+  assert(result.drive_scale < 1.0F);
+
+  result = evaluate_adaptive_load(
+      {true, 10.0F, 15.0F, 25.0F, 0.30F, 2.5F}, config);
+  assert(result.overload && result.drive_scale == 0.0F);
+
+  result = evaluate_adaptive_load(
+      {false, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F}, config);
+  assert(!result.sensor_plausible && result.feed_scale == 0.0F);
 }
 
 void test_heater() {
@@ -160,6 +196,7 @@ int main() {
   test_heater();
   test_power_arbiter();
   test_bounded_jam_retry();
+  test_adaptive_load_fusion();
   puts("MEGA_CONTROL_CORE_OK");
   return 0;
 }

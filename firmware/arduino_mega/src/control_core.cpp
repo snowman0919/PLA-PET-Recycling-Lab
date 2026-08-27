@@ -70,7 +70,9 @@ SafetyOutputs SafetyCore::tick(const SafetyInputs& in) {
     if (!in.sensors_plausible) faults |= FAULT_SENSOR;
     if (in.heartbeat_age_ms > kHeartbeatTimeoutMs) faults |= FAULT_HEARTBEAT;
     if (in.melt_pressure_mpa >= kPressureTripMpa) faults |= FAULT_PRESSURE;
-    if (phase_ == Phase::EXTRUDE_SPOOL && !in.airflow_ok) faults |= FAULT_AIRFLOW;
+    if ((phase_ == Phase::EXTRUDE_SPOOL || phase_ == Phase::DRY_PREHEAT) &&
+        !in.airflow_ok)
+      faults |= FAULT_AIRFLOW;
     if (faults != FAULT_NONE) latch(faults, false);
   }
 
@@ -99,7 +101,8 @@ SafetyOutputs SafetyCore::tick(const SafetyInputs& in) {
   } else if (state_ == SafetyState::READY && in.start_requested &&
              in.requested_phase != Phase::IDLE) {
     phase_ = in.requested_phase;
-    if (phase_ == Phase::EXTRUDE_SPOOL && !in.airflow_ok) {
+    if ((phase_ == Phase::EXTRUDE_SPOOL || phase_ == Phase::DRY_PREHEAT) &&
+        !in.airflow_ok) {
       latch(FAULT_AIRFLOW, false);
     } else {
       state_ = SafetyState::RUNNING;
@@ -218,6 +221,50 @@ PowerGrant arbitrate_power(const PowerRequest& request, float derated_limit_w) {
   out.total_w = request.non_heater_w + out.extruder_heater_w +
                 out.dryer_pla_heater_w + out.dryer_pet_heater_w;
   return out;
+}
+
+AdaptiveLoadResult evaluate_adaptive_load(const LoadFeatures& features,
+                                          const AdaptiveLoadConfig& config) {
+  const bool config_valid = config.rms_limit_a > 0.0F && config.peak_limit_a > 0.0F &&
+                            config.derivative_limit_a_per_s > 0.0F &&
+                            config.minimum_speed_ratio > 0.0F &&
+                            config.minimum_speed_ratio < 1.0F &&
+                            config.vibration_limit_g > 0.0F &&
+                            config.feed_limit_score > 0.0F &&
+                            config.overload_score > config.feed_limit_score;
+  const bool feature_valid = features.valid && isfinite(features.rms_current_a) &&
+                             isfinite(features.peak_current_a) &&
+                             isfinite(features.positive_current_derivative_a_per_s) &&
+                             isfinite(features.speed_ratio) &&
+                             isfinite(features.vibration_peak_g) &&
+                             features.rms_current_a >= 0.0F &&
+                             features.peak_current_a >= features.rms_current_a &&
+                             features.positive_current_derivative_a_per_s >= 0.0F &&
+                             features.speed_ratio >= 0.0F && features.speed_ratio <= 1.5F &&
+                             features.vibration_peak_g >= 0.0F;
+  if (!config_valid || !feature_valid) return {false, false, false, 0.0F, 0.0F, 0.0F};
+
+  const float speed_deficit = clamp01(
+      (1.0F - features.speed_ratio) / (1.0F - config.minimum_speed_ratio));
+  const float score =
+      0.30F * features.rms_current_a / config.rms_limit_a +
+      0.20F * features.peak_current_a / config.peak_limit_a +
+      0.15F * features.positive_current_derivative_a_per_s /
+          config.derivative_limit_a_per_s +
+      0.25F * speed_deficit +
+      0.10F * features.vibration_peak_g / config.vibration_limit_g;
+  const bool speed_drop = features.speed_ratio < config.minimum_speed_ratio;
+  const bool overload = score >= config.overload_score ||
+                        features.peak_current_a >= 1.20F * config.peak_limit_a ||
+                        features.speed_ratio <= 0.35F;
+  float feed_scale = 1.0F;
+  if (score >= config.feed_limit_score) {
+    feed_scale = 1.0F - (score - config.feed_limit_score) /
+                            (config.overload_score - config.feed_limit_score);
+    feed_scale = clamp01(feed_scale);
+  }
+  const float drive_scale = overload ? 0.0F : (speed_drop ? 0.85F : 1.0F);
+  return {true, overload, speed_drop, score, feed_scale, drive_scale};
 }
 
 JamController::JamController() { reset(0); }

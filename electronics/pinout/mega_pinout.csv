@@ -1,6 +1,5 @@
 Signal,Direction,Voltage domain,Proposed pin,Safe state,Criticality,Status,Notes
 USB_SERIAL,Serial,USB 5 V,D0/D1,No command accepted,CRITICAL,PROPOSED_LOCKED,Preferred Pi link through Mega USB interface
-PI_UART_ALT,Serial,3.3/5 V translated,D14/TX3+D15/RX3,No command accepted,CRITICAL,PROPOSED_LOCKED,Bidirectional level translator required; never connect Mega TX directly to Pi RX
 SPOOL_ENCODER_A,Input,5 V logic,D2,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable; isolated/open-collector preferred
 SPOOL_ENCODER_B,Input,5 V logic,D3,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable; isolated/open-collector preferred
 EXT_HEATER_ZONE1,Output,5 V logic,D4,LOW/off,CRITICAL,PROPOSED_LOCKED,External driver pulldown plus branch and thermal fuse
@@ -13,6 +12,8 @@ SHREDDER_PWM,Output,5 V logic,D10,LOW/zero,HIGH,PROPOSED_LOCKED,Driver interface
 EXTRUDER_PWM,Output,5 V logic,D11,LOW/zero,HIGH,PROPOSED_LOCKED,Driver interface TBD after dyno
 PULLER_STEP_PWM,Output,5 V logic,D12,LOW/zero,HIGH,PROPOSED_LOCKED,Timer mapping must be rechecked with selected driver
 SPOOLER_STEP_PWM,Output,5 V logic,D13,LOW/zero,HIGH,PROPOSED_LOCKED,Timer mapping must be rechecked with selected driver
+SHREDDER_SPEED_PULSE,Input,5 V conditioned tach pulse,D14,No motion feedback,HIGH,NEEDS_FRONTEND,Polled multi-pulse target; PPR and missed-pulse timeout require dyno calibration
+HOPPER_GATE_ENABLE,Output,5 V logic,D15,LOW/closed,CRITICAL,PROPOSED_LOCKED,Time-proportioned feed limit; hard lid/service chain still dominates
 START_PAUSE,Input,Dry contact,D16,Open/not asserted,HIGH,PROPOSED_LOCKED,Physical acknowledgement required with Pi RUN
 BACK_ABORT,Input,Dry contact,D17,Open/not asserted,HIGH,PROPOSED_LOCKED,Held with Pi RESET for fault reset
 EXTRUDER_ENCODER_A,Input,5 V logic,D18,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable
@@ -66,3 +67,4 @@ SHREDDER_CURRENT,Input,Isolated analog front-end,A8,Invalid means feed limit,HIG
 EXTRUDER_CURRENT,Input,Isolated analog front-end,A9,Invalid means stop,CRITICAL,NEEDS_FRONTEND,Calibrate torque/current on dyno
 FORMING_CURRENT,Input,Isolated analog front-end,A10,Invalid means stop,HIGH,NEEDS_FRONTEND,Puller/spooler branch current
 DANCER_ANGLE,Input,0-5 V qualified sensor,A11,Invalid means stop,HIGH,NEEDS_FRONTEND,Five-point dead-weight calibration
+SHREDDER_VIBRATION,Input,0-5 V qualified conditioner,A15/D69,Invalid means feed limit,HIGH,NEEDS_FRONTEND,Peak g combined with current and tach signal

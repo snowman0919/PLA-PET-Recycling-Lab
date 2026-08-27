@@ -26,3 +26,5 @@ Production image adapter는 Raspberry Pi OS의 Picamera2/libcamera로 exposure, 
 Gauge release에는 1.50/1.75/2.00/2.50 mm traceable pin, 두 광로의 lens distortion/homography, field 위치별 반복측정과 `U95≤0.020 mm`가 필요하다. Core의 synthetic test 통과는 실제 optic을 승인하지 않는다. Camera frame이 3 s 이상 끊기면 Pi가 PAUSE를 요청하지만, 요청 전달 실패와 무관하게 Mega의 750 ms heartbeat timeout이 위험 출력을 차단한다.
 
 SQLite에는 평균·표준편차·최소·최대·ovality와 contaminated frame을 분리 저장한다. 생산 batch는 원료 source batch ID와 recycling generation을 가져야 하며 원시 telemetry/frame metadata를 삭제하지 않고 파생 통계와 함께 export한다.
+
+Dryer recipe는 Pi가 임의 온도를 보내지 않고 `PLA_45`, `PET_140`, `PET_160` 중 하나만 요청한다. Mega는 현재 material profile과 맞지 않는 stage를 무시하고 PLA/PET heater 출력을 같은 loop에서 동시에 0으로 만든 뒤 선택 branch 하나만 허용한다.

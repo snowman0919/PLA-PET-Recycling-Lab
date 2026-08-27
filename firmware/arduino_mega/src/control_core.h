@@ -157,6 +157,37 @@ struct JamOutput {
   uint8_t retry_count;
 };
 
+struct LoadFeatures {
+  bool valid;
+  float rms_current_a;
+  float peak_current_a;
+  float positive_current_derivative_a_per_s;
+  float speed_ratio;
+  float vibration_peak_g;
+};
+
+struct AdaptiveLoadConfig {
+  float rms_limit_a;
+  float peak_limit_a;
+  float derivative_limit_a_per_s;
+  float minimum_speed_ratio;
+  float vibration_limit_g;
+  float feed_limit_score;
+  float overload_score;
+};
+
+struct AdaptiveLoadResult {
+  bool sensor_plausible;
+  bool overload;
+  bool speed_drop;
+  float score;
+  float feed_scale;
+  float drive_scale;
+};
+
+AdaptiveLoadResult evaluate_adaptive_load(const LoadFeatures& features,
+                                          const AdaptiveLoadConfig& config);
+
 class JamController {
  public:
   JamController();

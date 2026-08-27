@@ -32,9 +32,15 @@ class ProtocolTests(unittest.TestCase):
         supervisor = MegaSupervisor(stream, clock=lambda: 1.25)
         supervisor.heartbeat()
         supervisor.select_profile("PLA")
+        supervisor.select_dryer_stage("PLA_45")
         supervisor.request_run("EXTRUDE_SPOOL")
         frames = stream.getvalue().splitlines(keepends=True)
-        self.assertEqual([decode_frame(frame).message_type for frame in frames], ["HB", "PROFILE", "RUN"])
+        self.assertEqual(
+            [decode_frame(frame).message_type for frame in frames],
+            ["HB", "PROFILE", "DRY_STAGE", "RUN"],
+        )
+        with self.assertRaises(ValueError):
+            supervisor.select_dryer_stage("PET_999")
 
     def test_camera_dropout_requests_pause_once(self) -> None:
         now = [0.0]
@@ -50,10 +56,14 @@ class ProtocolTests(unittest.TestCase):
         self.assertNotIn("PAUSE", [decode_frame(frame).message_type for frame in frames])
 
     def test_telemetry_parser(self) -> None:
-        parsed = parse_telemetry("state=3,phase=3,fault=00000020,p=2.50,t0=190.0")
+        parsed = parse_telemetry(
+            "state=3,phase=3,fault=00000020,p=2.50,t0=190.0,load=0.72,jam=1,retry=2"
+        )
         self.assertEqual(parsed["fault"], 0x20)
         self.assertEqual(parsed["state"], 3)
         self.assertAlmostEqual(parsed["p"], 2.5)
+        self.assertAlmostEqual(parsed["load"], 0.72)
+        self.assertEqual(parsed["retry"], 2)
 
 
 class DiameterTests(unittest.TestCase):

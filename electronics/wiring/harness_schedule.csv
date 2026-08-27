@@ -7,13 +7,13 @@ H05,5 V buck,Raspberry Pi 4,2,5 V logic power,"Vendor-rated connector/cable; und
 H06,Protected logic supply,Arduino Mega,2,7-12 V VIN or regulated 5 V,"Choose exactly one approved method; common logic ground at star point",NEEDS_SELECTION
 H07,Pi USB host,Mega USB device,1,USB serial+ground,"Preferred FRP1 link; strain relief; route away from motor cables",PROPOSED
 H08,Safety relay aux,Mega J-SAFE,8,Isolated dry contacts,"NC/open=fault; E-stop/lid/service/thermal/pressure/airflow diagnostics",PROPOSED
-H09,Mega J-OUT,Driver interface board,18,5 V logic,"Series resistance/pulldown/opto as selected; default off during reset",NEEDS_SELECTION
+H09,Mega J-OUT,Driver interface board,19,5 V logic,"Includes D15 hopper gate; series resistance/pulldown/opto as selected; default off during reset",NEEDS_SELECTION
 H10,Fused shredder branch,Shredder driver/motor,2+motor phases,24 V power,"Lid/service hard enable in addition to Mega; shield/earth per driver",NEEDS_DONOR
 H11,Fused extruder branch,Extruder driver/motor,2+motor phases,24 V power,"Pressure/thermal hard enable; motor cable segregated from sensors",NEEDS_DONOR
 H12,Fused forming branch,Puller/spooler/traverse drivers,2+motor phases,24 V power,"Guard loop; individual enable; strain-relieved moving loop",NEEDS_SELECTION
 H13,Zone heater fuses/thermal fuses,Four extruder heater drivers,8,24 V switched power,"One branch fuse and one-shot thermal fuse per zone; grounded shield",NEEDS_SELECTION
 H14,Dryer selector interlock,PLA/PET heater drivers,4,24 V switched power,"Mechanically/electrically mutually exclusive; independent trip/fuse",NEEDS_SELECTION
-H15,Sensor junction,Mega analog inputs,24,Low-level analog,"Twisted/shielded; shield bonded one end; separate from PWM/motor runs",NEEDS_SELECTION
-H16,Encoder junction,Mega D2/3/18/19/20/21,12,5 V logic,"Open-collector/isolated preferred; local decoupling; keyed connector",NEEDS_SELECTION
+H15,Sensor junction,Mega analog inputs,26,Low-level analog,"Includes A15 vibration; twisted/shielded; shield bonded one end; separate from PWM/motor runs",NEEDS_SELECTION
+H16,Encoder junction,Mega D2/3/14/18/19/20/21,13,5 V logic,"D14 is polled high-PPR shredder tach; open-collector/isolated preferred; keyed connector",NEEDS_SELECTION
 H17,Protective-earth stud,Hot shields/metal frame/PSU enclosure,Green-yellow,PE,"Dedicated studs/star washers; never use profile contact alone",NEEDS_SELECTION
 H18,Cooling fan branch,Three tunnel fans,2+3 returns,24 V power,"Individual service connectors; airflow proof D28; separately fused",NEEDS_DONOR

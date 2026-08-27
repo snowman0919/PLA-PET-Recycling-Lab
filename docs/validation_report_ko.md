@@ -12,14 +12,14 @@ Revision: `0.1.0-preflight`
 
 1. Source BOM 재생성 및 81행/56 CRITICAL/status/가격 증거 검사
 2. Dryer power·thermal·feed budget와 metal hot-path geometry
-3. Electronics pin collision, H01–H18, commissioning lock, heartbeat/jam/power timing
+3. Electronics pin collision, H01–H18, 5개 commissioning lock, heartbeat/jam/power timing
 4. Extruder diameter sweep·pressure/thrust/drive/heater screening과 geometry clearance
 5. Cooling/gauge/puller control model, forming geometry와 spooler shaft/dancer/traverse
 6. Vibratory sorter dynamic model과 3-stream geometry
 7. Stage 1/2/3 cutter/rotor/screen kinematic clearance
 8. Input double-gate/reach probe/7-port와 control-enclosure segregation
 9. 전체 FCStd object set, STEP validity, STL facet, DXF marker와 210 mm print gate
-10. Arduino Mega C++ host test와 Raspberry Pi Python 9-test suite
+10. Arduino Mega portable core와 전체 `.ino` host integration compile, Raspberry Pi Python 9-test suite
 11. 281개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG
 12. A4 한국어 PDF 20쪽/14쪽의 header/EOF/page object 구조
 
