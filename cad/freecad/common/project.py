@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import FreeCAD as App
@@ -12,6 +13,7 @@ import Part
 
 ROOT = Path(__file__).resolve().parents[3]
 PARAMETERS = ROOT / "cad" / "parameters" / "baseline.json"
+REPRODUCIBLE_STEP_TIMESTAMP = "2000-01-01T00:00:00"
 
 
 def load_parameters() -> dict:
@@ -45,6 +47,16 @@ def export_document(doc, stem: str, export_objects=None) -> dict[str, str]:
     doc.saveAs(str(fcstd_path))
     objects = export_objects or [o for o in doc.Objects if hasattr(o, "Shape") and not o.Shape.isNull()]
     Part.export(objects, str(step_path))
+    step_text = step_path.read_text(encoding="ascii")
+    step_text, substitutions = re.subn(
+        r"'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}'",
+        f"'{REPRODUCIBLE_STEP_TIMESTAMP}'",
+        step_text,
+        count=1,
+    )
+    if substitutions != 1:
+        raise RuntimeError(f"could not normalize STEP timestamp: {step_path}")
+    step_path.write_text(step_text, encoding="ascii", newline="\n")
     Mesh.export(objects, str(stl_path))
     return {
         "fcstd": str(fcstd_path.relative_to(ROOT)),
