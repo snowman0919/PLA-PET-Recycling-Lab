@@ -25,6 +25,7 @@ PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조,
 - 안전·운전·교정: `docs/safety.md`, `docs/operation.md`, `docs/calibration.md`
 - TFT UI 화면·adapter gate: `docs/ui_screens.md`
 - 2-tower 재범위·보유품·문서화 방향: `docs/user_direction_2026-08-28.md`
+- 2-tower 수치 계약: `requirements/architecture_contract.md` (Tower A 600×600×1350 mm, Tower B 900×600×1150 mm+760 mm rail)
 - CAD source/output: `cad/freecad`, `cad/generation/fcstd`, `exports`, `renders`
 - CAD review variants: `renders/review` (section/x-ray/exploded/tool/cable/slicing)
 - 배선·pinout/protocol: `electronics/schematics`, `electronics/wiring`, `electronics/pinout`, `electronics/protocol`
@@ -32,6 +33,7 @@ PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조,
 - CNC/RFQ 사전검토: `exports/cnc_quote_packages` (제작 승인도 아님)
 - 구조 1D FEA·전단·비틀림 교차검증: `calculations/structural/beam_fea.md`, `simulation/structural/beam_crosscheck.json`
 - 압출기/건조기 차열·인접 polymer 열 gate: `calculations/thermal/hot_zone_guard.md`, `simulation/thermal/hot_zone_guard.json`
+- RTX 3080 Tower A stability sweep: `simulation/gpu/two_tower_stability_gpu.json` (CUDA 4,194,304 sample, CPU 교차검산)
 - 검증 상태: `docs/validation_report_ko.md`, `validation/release_checklist.md`
 
 ## 재현·검증

@@ -2,7 +2,7 @@
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
   "generated_utc": "2026-08-27T20:15:00Z",
-  "artifact_count": 314,
+  "artifact_count": 319,
   "artifacts": [
     {
       "path": "bom/bom.md",
@@ -1555,14 +1555,39 @@
       "sha256": "cf655b5d7b5727490b253ac5fb74c6ea8da735801cf478b6054e9021cecad791"
     },
     {
+      "path": "requirements/architecture_contract.md",
+      "bytes": 2826,
+      "sha256": "c57fb173739c6965c49c8999125a5adc4faf89ac85b7a375468de6c443171bdc"
+    },
+    {
       "path": "requirements/compliance_matrix.csv",
-      "bytes": 10638,
-      "sha256": "b691a6178bf491bc5becba86b48076bb0188e62c85dfb55558227ff85b34abd6"
+      "bytes": 10890,
+      "sha256": "df19d0ba5d5058f5410b9d25375db4cc655b1bbe7e51c5404f55e505f8d1c2d3"
     },
     {
       "path": "requirements/compliance_matrix.md",
-      "bytes": 12937,
-      "sha256": "82427c871e192557ec6a832d84ef059cbba744b8c6fec284e75a8e49c01ed5b8"
+      "bytes": 13214,
+      "sha256": "8c8a86af005c64f21929d83988677b67d0bdc0212fe298590636b25a0364d9a2"
+    },
+    {
+      "path": "simulation/architecture/two_tower_contract.json",
+      "bytes": 5252,
+      "sha256": "2318942743602a5b74d91a79574a715566e4e8e324a472a7426638d096dc436e"
+    },
+    {
+      "path": "simulation/gpu/README.md",
+      "bytes": 1807,
+      "sha256": "c813206610534fddc91704e9ae9f350fc83d188e1adcbd64016a8f8970bbde53"
+    },
+    {
+      "path": "simulation/gpu/two_tower_stability.cu",
+      "bytes": 6966,
+      "sha256": "3ae11aee2338117e3f2e65bcaf7b072e5b01a51db5bc67c9a19d54a36193c226"
+    },
+    {
+      "path": "simulation/gpu/two_tower_stability_gpu.json",
+      "bytes": 2027,
+      "sha256": "3f25dceb8c90ca4e77e2a4b3bb95b630865d05cd10f9876e6af0e1f99ccf83f4"
     },
     {
       "path": "simulation/structural/beam_crosscheck.json",

@@ -1,6 +1,6 @@
 # 사용자 방향성 변경 요청 — 2026-08-28
 
-상태: **architecture re-scope input / parent Codex decision required**  
+상태: **quantified architecture contract issued / physical and donor validation open**
 적용 대상: 다음 아키텍처 revision, KiCad PCB, BOM 조달 분류, CAD·render 전략, GPU 가상검증, 문서 release 정책
 
 이 문서는 사용자가 2026-08-28에 제시한 방향을 현재 설계에 반영하기 위한 변경 입력이다. 기존 2.295 m 직선형 proof CAD와 0.1.0-preflight PDF를 fabrication baseline으로 승인하지 않는다. 계산·코드·기존 CAD는 비교용 증거로 보존하되, 아래 architecture review가 끝나기 전 신규 제작도·조립도·발주 package를 동결한다.
@@ -48,6 +48,8 @@
 4. Tower B cooling 직선 길이와 spooler 배치
 5. removable batch bin의 용량, 최대 질량, keyed docking과 contamination gate
 6. tower별 독립 E-stop/guard zone과 공통 control enclosure의 위치
+
+위 6개 항목의 현재 수치 결정은 `requirements/architecture_contract.md`에 잠갔다. Tower A는 600×600×1350 mm, Tower B는 900×600×1150 mm와 die 이후 760 mm 직선 rail이다. 수동 sealed 8 L gross/6 L usable batch bin, 공통 E-stop chain, tower별 monitored hazardous-energy branch와 공통 제어함 1개를 기준으로 한다. 원문 최종 합격기준 때문에 3단 파쇄와 6색+Reject는 release 구성에 남기며, 2-stage/material-only는 commissioning 비교 모드로만 허용한다.
 
 ### 사이드 프로젝트용 최소화 원칙
 
@@ -183,7 +185,7 @@ gh repo create snowman0919/PPR --private --source=. --remote=origin --push
 ## 여과 없는 현재 blocker·애매점
 
 1. **예산:** 기존 200,200 KRW safety relay 후보를 필수품처럼 계산한 비용표는 작업실 보유 안전장비 inventory 전에는 유효한 최소비용이 아니다. 다만 CNC·배송·세금·26개 미정 구매품도 남아 있어 200,000 KRW 목표가 닫혔다고 볼 수도 없다.
-2. **규모 축소가 아직 수치가 아님:** “조금 줄인다”만으로는 CAD를 바꿀 수 없다. tower footprint/높이, stage 수, bin 수, batch 용량과 cooling 길이를 숫자로 잠가야 한다.
+2. **수치는 잠겼지만 실물이 아님:** tower footprint/높이, stage/bin 범위, batch 용량과 cooling 길이는 계약에 잠겼다. 그러나 donor 질량·profile 길이·anchor substrate가 없어 상세 rack CAD와 joint/CG 물리 승인은 아직 열려 있다.
 3. **IRLZ44N은 완성 heater driver가 아님:** 보유 MOSFET만으로 isolation, default-off, 방열, fuse coordination과 welded-on failure를 해결하지 못한다.
 4. **Picamera2는 물리 BOM 명칭이 아님:** 실제 camera/lens/cable/lighting inventory가 없으면 두 optical system의 성능·비용을 확정할 수 없다.
 5. **현재 CAD는 fabrication-ready가 아님:** 여러 STEP/DXF는 proof/RFQ precheck이며 최종 datum, GD&T, fit, material/heat treatment, surface finish와 fastener detail이 부족하다.
@@ -198,7 +200,7 @@ gh repo create snowman0919/PPR --private --source=. --remote=origin --push
 
 ## 권장 다음 순서
 
-1. 사용자와 최소 end-to-end 요구, 2-tower 수치와 MVP 제외항목을 한 페이지 architecture contract로 잠근다.
+1. [완료] 최소 end-to-end 요구, 2-tower 수치와 commissioning-only 범위를 `requirements/architecture_contract.md`에 잠근다.
 2. IRLZ44N, camera/optics와 작업실 safety hardware를 사진·라벨·수량·정격으로 inventory한다.
 3. Parent Codex가 private remote를 즉시 생성·push하고 이후 변경을 작은 revision 단위로 남긴다.
 4. BOM의 `USER_STOCK/BUY/DNP` 분류와 비용 rollup을 재생성한다.

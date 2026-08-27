@@ -1,5 +1,16 @@
 # 환경 변경 이력
 
+## 2026-08-28 — CUDA compiler/runtime for RTX 3080 validation
+
+- Action: Nix에서 `cuda_nvcc 12.9.86`, `cuda_cudart 12.9.79`와 build dependencies를 단일 `--impure`/`NIXPKGS_ALLOW_UNFREE=1` 호출로 가져와 CUDA C++ kernel을 컴파일했다.
+- Reason: GPU 이름만 기록하지 않고 2‑tower stability uncertainty sweep이 실제 RTX 3080에서 실행됐음을 검증하기 위함.
+- Commands: `nix shell ... cuda_nvcc ... nvcc`, 임시 `/tmp/ppr-cuda-driver-libs` host-driver symlink, `run_two_tower_stability.py --samples 4194304`.
+- Paths affected: 재다운로드 가능한 `/nix/store` CUDA/compiler dependency와 `/tmp` executable/symlink만 생성. Repository에는 source와 결과 JSON만 저장.
+- Disk before: 약 118 GiB available.
+- Disk after: 약 117 GiB available.
+- Space consumed: filesystem 표시 기준 약 1 GiB; `cuda_nvcc` closure path 949.2 MiB, `cuda_cudart` 68.7 MiB. Garbage collection은 수행하지 않았다.
+- Risk/impact: CUDA EULA package를 영구 system 설정에 추가하지 않았다. Host NVIDIA driver 595.84/CUDA API 13.2와 Nix runtime 사이 library search는 임시 symlink로만 연결했다.
+
 ## 2026-08-28 — 사전 점검
 
 - Action: 읽기 전용 환경 및 저장공간 검사

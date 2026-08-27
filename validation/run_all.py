@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PYTHON_TESTS = (
     ("validation/test_dryer_feeder_budget.py", "DRYER_FEEDER_BUDGET_OK"),
     ("validation/test_hot_zone_guard.py", "HOT_ZONE_GUARD_VALIDATION_OK"),
+    ("validation/test_two_tower_contract.py", "TWO_TOWER_ARCHITECTURE_VALIDATION_OK"),
+    ("validation/test_two_tower_gpu_evidence.py", "TWO_TOWER_GPU_EVIDENCE_VALIDATION_OK"),
     ("validation/test_electronics_interfaces.py", "ELECTRONICS_INTERFACES_OK"),
     ("validation/test_extruder_design.py", "EXTRUDER_DESIGN_SWEEP_OK"),
     ("validation/test_forming_line.py", "FORMING_LINE_DESIGN_OK"),
@@ -64,9 +66,9 @@ def main() -> None:
         "OK",
         pi_env,
     )
-    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=314")
+    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=319")
     run([sys.executable, "validation/test_release_package.py"], "RELEASE_PACKAGE_OK")
-    print("ALL_AUTOMATED_VALIDATIONS_OK (28 gates)")
+    print("ALL_AUTOMATED_VALIDATIONS_OK (30 gates)")
 
 
 if __name__ == "__main__":
