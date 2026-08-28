@@ -58,6 +58,8 @@ def main():
         shaft=by[f"Shaft{cx}"]
         for y in (315,455): require(overlap(shaft,by[f"Bearing{cx}_{y}"])<0.01,"shaft intersects bearing ring")
     require(overlap(by["Barrel"],by["HotShield"])<0.01,"barrel touches grounded shield")
+    require(abs(by["Feeder"].CenterOfMass.x-354.0)<0.05,"feeder not aligned to B+12..30 barrel port")
+    require(overlap(by["Feeder"],by["Barrel"])>100.0,"feeder does not intersect barrel feed-port envelope")
     report={"revision":"solid-manifold-openmodelica-v0.4","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":15,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"phase_drive":"interchangeable motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}
     (ROOT/"simulation/cad_clearance.json").write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n")
     print("FREECAD_COLLISION_LOAD_PATH_OK")

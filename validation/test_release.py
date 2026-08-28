@@ -206,6 +206,10 @@ def test_artifacts_and_release_locks():
     require(state["gate1_result"] == "NOT_RUN" and state["physical_state"] == "PHYSICAL_NOT_RUN", "physical state")
     require(not state["full_cutter_order_release"] and not state["full_screw_barrel_order_release"], "full order unlocked")
     require(not state["main_promotion_allowed"] and not state["donor_drive_verified"], "main/donor incorrectly released")
+    readiness = json.loads((ROOT / "validation/results/gate1_readiness.json").read_text())
+    require(readiness["status"] == "PASS" and readiness["physical_result"] == "NOT_RUN", "Gate-1 readiness/state")
+    require(readiness["coverage"]["quasi_static_torque_specimens"] == 25 and sum(readiness["coverage"]["jam_trials"].values()) == 6, "Gate-1 evidence coverage")
+    require(not any(readiness["release_locks"].values()), "Gate-1 release lock opened")
     lock_sources = (
         "README.md", "requirements/architecture_contract.md", "docs/build_manual_ko.typ",
         "docs/design_report_ko.typ", "docs/digital_release_report_ko.typ",
@@ -230,6 +234,7 @@ def test_artifacts_and_release_locks():
         "docs/build_manual_ko.typ","docs/build_manual_ko.pdf","requirements/architecture_contract.md",
         "validation/completion_audit_v0.4.md","validation/results/clean_clone_validation.json",
         "validation/artifact_reproducibility.py","validation/results/artifact_reproducibility.json",
+        "validation/gate1_readiness.py","validation/results/gate1_readiness.json",
         "artifacts/build_manifest.py","artifacts/manifest_lib.py",
         "exports/print/slicing_previews/plate-01-PPR-C01-first-layer.svg",
     )

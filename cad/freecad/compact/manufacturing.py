@@ -317,13 +317,16 @@ def extruder_barrel():
     outer=Part.makeCylinder(17,280)
     bore=Part.makeCylinder(8.10,280)
     barrel=outer.cut(bore)
-    # 18 x 20 mm feed opening, 12..32 mm from rear datum A.
-    feed=Part.makeBox(18,34,20,App.Vector(-9,-17,12))
+    # Feed opening: 18 mm axial x 20 mm chord, B+12..30 from rear datum.
+    # The cylinder axis is local Z, so the box's Z length is the axial size.
+    feed=Part.makeBox(20,34,18,App.Vector(-10,-17,12))
     barrel=barrel.cut(feed)
-    # Four M5 front flange holes on PCD28, axial 10 mm deep.
+    # Four M4 die-interface holes on PCD26, axial 8 mm deep.  The previous
+    # M5/PCD28 pattern left only 0.5 mm nominal metal to the Ø34 outside
+    # surface and was not a defensible RFQ interface.
     for angle in (45,135,225,315):
         a=math.radians(angle)
-        hole=Part.makeCylinder(2.1,10,App.Vector(14*math.cos(a),14*math.sin(a),270))
+        hole=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
         barrel=barrel.cut(hole)
     return barrel
 
@@ -331,7 +334,7 @@ def extruder_barrel():
 def extruder_rfq_parts():
     return [
         dict(id="EX-SCR-01",name="16 mm x 16D single screw",shape=extruder_screw(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride",process="turn between centres, 4-axis flight mill, polish, nitride, finish grind",critical="total 316.00; active 256.00; OD 15.92 -0.02/0; RH pitch 16.00; land 1.60; Datum A axis from Ø12 h6 and Ø15 h6 journals; full part HOLD"),
-        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
+        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, die-interface thread, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; 4x M4-6H depth8 PCD26; outer/inner thread ligament >=2.0/2.9; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
         dict(id="EX-CPN-SCR",name="Three-pitch screw process coupon",shape=extruder_screw_process_coupon(),qty=1,material="same certified SCM440 heat as EX-SCR-01",process="same flight mill/polish/nitride route as EX-SCR-01",critical="L48.00; three pitches; OD/root/land/finish/case same as feed zone; coupon RFQ only"),
         dict(id="EX-CPN-BAR",name="Matched barrel process coupon",shape=extruder_barrel_process_coupon(),qty=1,material="same certified SCM440 heat as EX-BAR-01",process="same bore/hone/nitride route as EX-BAR-01",critical="L60.00; ID/OD/finish/case same as barrel; coupon RFQ only"),
     ]

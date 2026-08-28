@@ -2,8 +2,13 @@
 
 - revision: `solid-manifold-openmodelica-v0.4`
 - 현재 상태: `NOT_RUN`
-- raw CSV SHA-256:
-- calibration log SHA-256:
+- preflight CSV SHA-256:
+- force calibration CSV SHA-256:
+- drive calibration CSV SHA-256:
+- torque CSV SHA-256:
+- jam CSV SHA-256:
+- chip-size CSV SHA-256:
+- evidence manifest SHA-256:
 - photo/video evidence directory:
 - CUT-01/CUT-04 material certificate 또는 received inspection:
 - donor motor exact model/label/shaft/no-load current/30 min temperature:

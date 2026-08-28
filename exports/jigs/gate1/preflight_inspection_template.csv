@@ -1,0 +1,12 @@
+item_id,inspection,method,acceptance,measured,unit,evidence_path,operator,reviewer,pass_fail
+PF-01,base flatness,straightedge/feeler or indicator,<=0.30,,mm,,,,
+PF-02,plate perpendicularity,square + feeler,<=0.20/125,,mm/mm,,,,
+PF-03,both shaft TIR,dial indicator,<=0.10,,mm,,,,
+PF-04,phase error,index marks/encoder,<=1.0,,deg,,,,
+PF-05,minimum cutter-screen clearance,feeler gauge,>=1.90,,mm,,,,
+PF-06,hand rotation 20 turns contact count,manual locked-out rotation,=0,,count,,,,
+PF-07,PE bond worst point,four-wire/zero-compensated ohmmeter,<0.10,,ohm,,,,
+PF-08,S0 opens K0/K1 and motor bus,continuity + bus voltage,K1=0 and bus=0,,boolean/V,,,,
+PF-09,S1 opens K0/K1 and motor bus,continuity + bus voltage,K1=0 and bus=0,,boolean/V,,,,
+PF-10,power restore automatic restart,power-cycle observation,must not restart,,boolean,,,,
+PF-11,guard panel crack/line of sight,visual + reach probe,0 crack; no cutter reach,,count/boolean,,,,

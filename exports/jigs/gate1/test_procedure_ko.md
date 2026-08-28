@@ -37,4 +37,4 @@
 
 ## 기록과 release
 
-`gate1_results_template.csv`, `calibration_log_template.csv`, `specimen_schedule.csv`를 쓴다. Gate-1 PASS는 실제 서명된 raw CSV, calibration, 사진/영상 경로와 `gate1_release_record_ko.md`의 hash가 있어야 하며 simulation 값으로 대체할 수 없다.
+`preflight_inspection_template.csv`, `calibration_log_template.csv`, `drive_calibration_template.csv`, `gate1_results_template.csv`, `jam_recovery_results_template.csv`, `chip_size_results_template.csv`, `evidence_manifest_template.csv`를 각각 작성한다. 하나의 specimen 행에 서로 다른 시험을 합쳐 쓰지 않는다. Gate-1 PASS는 실제 서명된 raw CSV, calibration, 사진/영상 경로와 `gate1_release_record_ko.md`의 hash가 있어야 하며 simulation 값으로 대체할 수 없다.

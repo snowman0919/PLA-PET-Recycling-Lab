@@ -78,7 +78,7 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |S-04|donor motor 합격조건과 calibration 분리|donor acceptance/measurement form, firmware lock|PENDING_EXTERNAL|
 |S-05|14<18<22<34<48 N·m 보호계층|engineering summary, firmware, Modelica fuse scenario|PROVEN_DIGITAL|
 |S-06|motor-side relief 후 phase 유지|InputFuseOperation + phase model|PROVEN_DIGITAL|
-|S-07|Gate-1 최소수량 jig 제조 package|2×CUT-01, G1J-01–10/P01–P03, CAD/STEP/STL/DXF/BOM/PDF|PROVEN_DIGITAL|
+|S-07|Gate-1 최소수량 jig 제조·증거 package|2×CUT-01, G1J-01–10/P01–P03, CAD/STEP/STL/DXF/BOM/PDF와 분리된 25 torque/6 jam/2 chip template|PROVEN_DIGITAL|
 |S-08|PLA/PET torque·jam·chip-size 측정|procedure/raw templates만 존재|PENDING_PHYSICAL|
 |S-09|full cutter order 잠금|`full_cutter_order_release=false`|LOCKED_BY_USER|
 

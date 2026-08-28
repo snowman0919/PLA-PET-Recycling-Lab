@@ -64,6 +64,8 @@ $ T = 1.5 (Delta p pi D^3) / 16 $
 
 이고 6 MPa에서 약 7.24 N·m다. 선정 drive 목표 15 N·m continuous/22 N·m trip은 계산 여유가 있지만 friction, cold slug, screen blockage는 포함하지 않는다. Fill, conveying efficiency, backflow와 tip leakage를 포함한 nominal model은 PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h다. 14–28 rpm 안에서 nominal 200 g/h를 지지하지 않으며, 200 g/h는 32–36 rpm 또는 높은 fill을 물리 검증해야 하는 stretch target이다.
 
+Barrel front interface는 기존 M5/PCD28에서 M4-6H/PCD26으로 수정했다. Ø34 body와 Ø16.20 bore 사이에서 M4 major envelope 기준 outer/bore-side ligament를 각각 2.0/2.9 mm 이상 확보하고 OD 또는 bore breakthrough를 RFQ 불합격으로 규정했다. Assembly feeder centre도 rear Datum B에서 12–30 mm인 실제 feed-port 구간의 중심에 맞췄다.
+
 #figure(image("../renders/review/compact_section.png", width: 92%), caption: [Section — hopper/cutter와 horizontal hot zone, vertical forming])
 
 = 열·전력·제어

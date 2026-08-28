@@ -26,6 +26,7 @@ Donor는 18–30 V reversible geared brushed-DC, cutter 14 N·m continuous, 20�
 - Digital load envelope: cutter-equivalent relief 22 N·m, bearing 1.255 kN, chain 0.603 kN, table anchor tension 0.485 kN이다.
 - CalculiX screening: bearing plate 45.36 MPa/0.1840 mm, cutter shaft 48.63 MPa/0.0136 mm. Gate-1 load로 재검증해야 한다.
 - 16 mm screw nominal throughput: PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h. 200 g/h는 stretch target이며 현재 nominal claim이 아니다.
+- Barrel front interface는 4×M4-6H/PCD26으로 정정해 nominal outer/bore-side thread ligament 2.0/2.9 mm를 확보했으며 feed assembly는 rear Datum B+12…30 mm port에 정렬된다.
 - Conditional target cash 179,951 KRW; 20,000 KRW contingency 포함 199,951 KRW. 남은 계획 여유는 49 KRW뿐이고 donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
 - `CLEAN_CLONE_REPRODUCIBILITY`는 전체 재생성 뒤 manifest의 모든 decision-relevant artifact를 다시 해시한다. STEP exporter counter, FCStd history map, ZIP timestamp만 정규화하며 B-Rep, 문서와 3MF member content는 해시 범위에 남긴다.
 

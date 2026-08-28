@@ -97,7 +97,7 @@ def svg_barrel_drawing(path):
 <path class="d" d="M120 480 V525 M820 480 V525 M120 510 H820"/><text x="415" y="550">LENGTH 280.0 ±0.05</text>
 <text x="55" y="620">OD Ø34.00 ±0.05 · bore Ø16.20 +0.02/0 after final hone · radial clearance 0.14–0.16</text>
 <text x="55" y="655">feed port 18 axial ×20, near edge 12.0 from rear Datum B · break edge R0.5</text>
-<text x="55" y="690">4x M5×0.8-6H depth10, PCD28 at 45° · bore straightness ≤0.05/256 · faces B/C ⟂ datum D axis 0.03</text>
+<text x="55" y="690">4x M4×0.7-6H full depth8/tap drill11, PCD26 at 45° · outer/inner ligament ≥2.0/2.9 · faces B/C ⟂ D 0.03</text>
 <text x="55" y="725">bore Ra 0.4–0.8 µm; SCM440 QT 28–32 HRC → gas nitride 0.30–0.50 mm, ≥900 HV</text>
 <text x="55" y="760">Assembly: B aligns screw active start; screw tip is 24.0 behind C. Final hone after nitride; report ID at B+20/140/260.</text>
 <text x="55" y="795">No weld/plating on bore · feed-port centre plane is angular datum · full part HOLD</text>
@@ -306,19 +306,71 @@ def write_gate1_package():
         w.writerow(["date_time","instrument_id","serial","reference_mass_kg","reference_force_N","indicated_force_N","error_percent","ambient_C","operator","pass_fail","evidence_path"])
         for mass,force in ((0,0),(5,49.05),(10,98.10),(15,147.15)):
             w.writerow(["","","",mass,f"{force:.2f}","","","","","",""])
+    with (base/"preflight_inspection_template.csv").open("w",newline="") as f:
+        fields=["item_id","inspection","method","acceptance","measured","unit","evidence_path","operator","reviewer","pass_fail"]
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()
+        rows=(
+            ("PF-01","base flatness","straightedge/feeler or indicator","<=0.30","mm"),
+            ("PF-02","plate perpendicularity","square + feeler","<=0.20/125","mm/mm"),
+            ("PF-03","both shaft TIR","dial indicator","<=0.10","mm"),
+            ("PF-04","phase error","index marks/encoder","<=1.0","deg"),
+            ("PF-05","minimum cutter-screen clearance","feeler gauge",">=1.90","mm"),
+            ("PF-06","hand rotation 20 turns contact count","manual locked-out rotation","=0","count"),
+            ("PF-07","PE bond worst point","four-wire/zero-compensated ohmmeter","<0.10","ohm"),
+            ("PF-08","S0 opens K0/K1 and motor bus","continuity + bus voltage","K1=0 and bus=0","boolean/V"),
+            ("PF-09","S1 opens K0/K1 and motor bus","continuity + bus voltage","K1=0 and bus=0","boolean/V"),
+            ("PF-10","power restore automatic restart","power-cycle observation","must not restart","boolean"),
+            ("PF-11","guard panel crack/line of sight","visual + reach probe","0 crack; no cutter reach","count/boolean"),
+        )
+        for item_id,inspection,method,acceptance,unit in rows:
+            w.writerow({"item_id":item_id,"inspection":inspection,"method":method,"acceptance":acceptance,"unit":unit})
     with (base/"gate1_results_template.csv").open("w",newline="") as f:
-        fields=["date_time","operator","material","specimen_id","actual_thickness_or_fold_mm","trial","peak_N","radius_m","peak_Nm","no_load_current_A","peak_current_A","command_rpm","rpm_min","reverse_ms","retry","jam_cleared","mass_3_6_g","mass_6_20_g","mass_gt20_g","fines_lt3_g","recovered_total_g","input_mass_g","failure_mode","observation","photo_video_path","raw_log_path","pass_fail"]
+        fields=["date_time","operator","reviewer","material","specimen_id","actual_thickness_or_fold_mm","trial","peak_N","radius_m","calculated_peak_Nm","force_angle_deg","failure_mode","permanent_damage","observation","photo_video_path","raw_log_path","pass_fail"]
         w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()
         groups=(("PLA","PLA12",5),("PLA","PLA20",5),("PLA","PLA30",5),("PET","PET-B",5),("PET","PET-F",5))
         for material,prefix,count in groups:
             for trial in range(1,count+1):
                 w.writerow({"material":material,"specimen_id":f"{prefix}-{trial:02d}","trial":trial,"radius_m":"0.2500"})
+    with (base/"drive_calibration_template.csv").open("w",newline="") as f:
+        fields=["date_time","operator","reviewer","donor_id","calibration_type","point","input_teeth","output_teeth","motor_rpm","cutter_rpm","motor_current_A","no_load_current_A","force_N","arm_radius_m","cutter_torque_Nm","current_above_no_load_A","cutter_torque_per_amp_Nm_A","derived_efficiency","motor_case_C","relief_released","permanent_phase_damage","evidence_path","pass_fail"]
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()
+        w.writerow({"calibration_type":"NO_LOAD","point":1,"input_teeth":12,"arm_radius_m":"0.2500"})
+        for point,target in enumerate((4,8,12,16,18),1):
+            w.writerow({"calibration_type":"TORQUE_CURRENT","point":point,"input_teeth":12,"arm_radius_m":"0.2500","cutter_torque_Nm":target})
+        for point in range(1,4):
+            w.writerow({"calibration_type":"MECH_RELIEF","point":point,"input_teeth":12,"arm_radius_m":"0.2500","cutter_torque_Nm":22})
+    with (base/"jam_recovery_results_template.csv").open("w",newline="") as f:
+        fields=["date_time","operator","reviewer","material","trial","command_rpm","pre_jam_rpm","trip_cutter_torque_Nm","overload_duration_ms","rpm_drop_percent","rpm_drop_duration_ms","reverse_start_ms","reverse_duration_ms","retry_count","jam_cleared","latched_fault_after_third_failure","guard_lockout_required_for_reset","motor_case_C","permanent_damage","photo_video_path","raw_log_path","pass_fail"]
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()
+        for material,command_rpm in (("PLA",32),("PET",24)):
+            for trial in range(1,4):
+                w.writerow({"material":material,"trial":trial,"command_rpm":command_rpm,"trip_cutter_torque_Nm":18})
+    with (base/"chip_size_results_template.csv").open("w",newline="") as f:
+        fields=["date_time","operator","reviewer","material","batch_id","screen_hole_mm","screen_dwell_s","oversize_recirc_count","input_mass_g","mass_3_6_g","mass_6_20_g","mass_gt20_g","fines_lt3_g","recovered_total_g","fraction_3_6_percent","fraction_6_20_percent","fraction_gt20_percent","fines_percent","recovery_percent","longest_strip_mm","photo_path","scale_log_path","pass_fail"]
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()
+        for material in ("PLA","PET"):
+            w.writerow({"material":material,"batch_id":f"{material}-CHIP-01","screen_hole_mm":5,"screen_dwell_s":5,"oversize_recirc_count":1})
+    with (base/"evidence_manifest_template.csv").open("w",newline="") as f:
+        fields=["evidence_id","evidence_type","relative_path","sha256","captured_at","operator","reviewer","notes"]
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()
+        for evidence_id,evidence_type in (
+            ("EV-01","preflight_signed_csv"),("EV-02","force_calibration_signed_csv"),
+            ("EV-03","drive_calibration_signed_csv"),("EV-04","torque_results_signed_csv"),
+            ("EV-05","jam_results_signed_csv"),("EV-06","chip_size_signed_csv"),
+            ("EV-07","photo_video_directory_manifest"),("EV-08","material_received_inspection"),
+        ):
+            w.writerow({"evidence_id":evidence_id,"evidence_type":evidence_type})
     (base/"gate1_release_record_ko.md").write_text("""# Gate-1 release record — 물리시험 후 작성
 
 - revision: `solid-manifold-openmodelica-v0.4`
 - 현재 상태: `NOT_RUN`
-- raw CSV SHA-256:
-- calibration log SHA-256:
+- preflight CSV SHA-256:
+- force calibration CSV SHA-256:
+- drive calibration CSV SHA-256:
+- torque CSV SHA-256:
+- jam CSV SHA-256:
+- chip-size CSV SHA-256:
+- evidence manifest SHA-256:
 - photo/video evidence directory:
 - CUT-01/CUT-04 material certificate 또는 received inspection:
 - donor motor exact model/label/shaft/no-load current/30 min temperature:
@@ -394,7 +446,7 @@ def write_gate1_package():
 
 ## 기록과 release
 
-`gate1_results_template.csv`, `calibration_log_template.csv`, `specimen_schedule.csv`를 쓴다. Gate-1 PASS는 실제 서명된 raw CSV, calibration, 사진/영상 경로와 `gate1_release_record_ko.md`의 hash가 있어야 하며 simulation 값으로 대체할 수 없다.
+`preflight_inspection_template.csv`, `calibration_log_template.csv`, `drive_calibration_template.csv`, `gate1_results_template.csv`, `jam_recovery_results_template.csv`, `chip_size_results_template.csv`, `evidence_manifest_template.csv`를 각각 작성한다. 하나의 specimen 행에 서로 다른 시험을 합쳐 쓰지 않는다. Gate-1 PASS는 실제 서명된 raw CSV, calibration, 사진/영상 경로와 `gate1_release_record_ko.md`의 hash가 있어야 하며 simulation 값으로 대체할 수 없다.
 """,encoding="utf-8")
 
 
@@ -456,7 +508,7 @@ STEP은 3D 견적/간섭 기준, SVG와 본 문서는 치수·GD&T 기준이다.
 - SCM440 solid/seamless blank, QT 28–32 HRC. OD Ø34.00 ±0.05, length 280.00 ±0.05. Rear face=Datum B, front face=Datum C, final bore axis=Datum D. Assembly에서 B는 screw active start와 일치하고 screw tip은 C 뒤 24.0 ±0.2에 위치한다.
 - Bore after final hone Ø16.20 +0.02/0, Ra≤0.4–0.8 µm. Bore straightness ≤0.05/256 and concentricity to OD/register ≤0.05.
 - Feed opening은 축방향 18.00 ±0.10 x chord width 20.00 ±0.10, rear edge B+12.00 ±0.10. Port centre plane을 전면 bolt pattern의 0° 각도 기준으로 삼는다. Bore-intersection edge R0.5 ±0.2; screw flight 위 sharp edge 금지.
-- Front 4x M5 x0.8-6H, full thread depth 10 minimum, tap-drill depth 13 minimum, PCD28.00 ±0.05 at 45/135/225/315° ±0.2° from feed-port centre plane. B/C faces은 D에 직각도 0.03; OD concentricity to D ≤0.05.
+- Front die interface는 4x M4 x0.7-6H, full thread depth 8 minimum, tap-drill depth 11 minimum, PCD26.00 ±0.05 at 45/135/225/315° ±0.2° from feed-port centre plane이다. Ø3.3 tap drill 기준 nominal outer ligament 2.35 mm, bore-side ligament 3.25 mm이고 M4 major envelope 기준으로도 각각 2.0/2.9 mm 이상이다. 나사·counterbore가 OD 또는 bore로 breakthrough하면 FAIL이다. B/C faces은 D에 직각도 0.03; OD concentricity to D ≤0.05.
 - Rough turn/deep drill → 600–650 °C stress relieve(재료 공급사 표준 cycle, certificate 기록) → datum-face/OD finish → semi-finish ream/hone leaving 0.05–0.08 mm on diameter → feed port/thread machine → gas nitride 0.30–0.50 mm, ≥900 HV0.3 → final hone. Effective case after final hone is ≥0.25 mm.
 - Report bore at 20/140/260 mm and roundness ≤0.02 at each station. Front/rear face perpendicularity 0.03 to bore axis.
 
@@ -478,10 +530,11 @@ Coupon controlling dimensions: EX-CPN-SCR L48.00 ±0.05, three RH pitches 16.00 
 2. Screw 316/256 mm, pitch/land/root/OD와 Ø12 h6 keyseat, Ø15 h6 journal 가공 가능 여부.
 3. Flight OD TIR 0.05/256, concentricity 0.03, Ra 0.8 검사 가능 여부.
 4. Barrel Ø16.20 +0.02/0 final hone, three-station ID/roundness와 Ra report 가능 여부.
-5. Gas nitride case/surface hardness certificate와 barrel final-hone 후 effective case ≥0.25 mm 가능 여부.
-6. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
-7. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.
-8. 모든 deviation과 대체재를 발주 전 명시. 무응답 항목은 수락으로 간주하지 않는다.
+5. Front 4×M4-6H depth8/PCD26 가공 후 OD/bore breakthrough가 없고 major-envelope ligament outer 2.0 mm, bore-side 2.9 mm 이상인지 확인.
+6. Gas nitride case/surface hardness certificate와 barrel final-hone 후 effective case ≥0.25 mm 가능 여부.
+7. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
+8. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.
+9. 모든 deviation과 대체재를 발주 전 명시. 무응답 항목은 수락으로 간주하지 않는다.
 
 Full part order release는 `HOLD_PROCESS_COUPON_AND_GATE3`이며 본 checklist가 닫혀도 자동 승인되지 않는다.
 """,encoding="utf-8")

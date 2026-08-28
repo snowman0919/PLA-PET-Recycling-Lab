@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import math
 import sys
 from pathlib import Path
 
@@ -53,6 +54,22 @@ def main():
     require(not render_screw.isNull() and render_screw.isValid() and len(render_screw.Solids)==1,"RFQ render screw must remain one valid solid")
     require(abs(barrel.BoundBox.ZLength-280.0)<0.01,"barrel length")
     require(len(barrel.Solids)==1,"barrel must be one solid")
+    # Controlling RFQ port is 18 mm axial x 20 mm chord from B+12 to B+30.
+    # Probe the cut volume directly so STEP cannot silently swap the dimensions.
+    feed_probe=Part.makeBox(20,34,18,App.Vector(-10,-17,12))
+    require(barrel.common(feed_probe).Volume<0.01,"barrel feed port 18 axial x 20 chord missing")
+    for z in (11.0,30.5):
+        intact_probe=Part.makeBox(1,1,0.5,App.Vector(-0.5,-16.5,z))
+        require(barrel.common(intact_probe).Volume>0.1,"barrel feed port exceeds B+12..30")
+    # Ø34 body / Ø16.20 bore / M4 PCD26 leaves a machinable ligament on both
+    # sides.  This gate prevents reintroducing the former M5/PCD28 0.5 mm edge.
+    outer_ligament=17.0-(13.0+2.0)
+    inner_ligament=(13.0-2.0)-8.10
+    require(outer_ligament>=2.0 and inner_ligament>=2.9,"barrel front thread ligament")
+    for angle in (45,135,225,315):
+        a=math.radians(angle)
+        probe=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
+        require(barrel.common(probe).Volume<0.01,f"barrel M4 tap-drill missing at {angle}")
     for rel in (
         "exports/jigs/gate1/gate1_assembly.FCStd",
         "exports/jigs/gate1/gate1_assembly.step",
@@ -65,7 +82,12 @@ def main():
         "exports/jigs/gate1/wiring_24v_hardcut.svg",
         "exports/jigs/gate1/specimen_schedule.csv",
         "exports/jigs/gate1/calibration_log_template.csv",
+        "exports/jigs/gate1/preflight_inspection_template.csv",
+        "exports/jigs/gate1/drive_calibration_template.csv",
         "exports/jigs/gate1/gate1_results_template.csv",
+        "exports/jigs/gate1/jam_recovery_results_template.csv",
+        "exports/jigs/gate1/chip_size_results_template.csv",
+        "exports/jigs/gate1/evidence_manifest_template.csv",
         "exports/jigs/gate1/gate1_release_record_ko.md",
         "exports/cnc/extruder/EX-SCR-01_drawing.svg",
         "exports/cnc/extruder/EX-BAR-01_drawing.svg",
@@ -90,12 +112,14 @@ def main():
         require(token in hardcut,f"hard-cut schematic token missing: {token}")
     result_rows=list(csv.DictReader((ROOT/"exports/jigs/gate1/gate1_results_template.csv").open()))
     require(len(result_rows)==25,"Gate-1 result template must preallocate 25 specimen trials")
+    require(len(list(csv.DictReader((ROOT/"exports/jigs/gate1/jam_recovery_results_template.csv").open())))==6,"Gate-1 jam template must preallocate 3 trials/material")
+    require(len(list(csv.DictReader((ROOT/"exports/jigs/gate1/chip_size_results_template.csv").open())))==2,"Gate-1 chip template must preallocate PLA/PET batches")
     release=(ROOT/"exports/jigs/gate1/gate1_release_record_ko.md").read_text()
     require("현재 상태: `NOT_RUN`" in release,"Gate-1 template must not claim a physical result")
     print_rows=list(csv.DictReader((ROOT/"exports/jigs/gate1/print_manifest.csv").open()))
     require(sum(float(r["estimated_mass_g"]) for r in print_rows) <= 250.0,"Gate-1 jig print mass")
     rfq=(ROOT/"exports/cnc/extruder/manufacturing_audit_ko.md").read_text()
-    for token in ("SCM440 KS D3867/JIS G4105","Datum A","Datum B","Datum C","Datum D","0.28–0.32","HOLD"):
+    for token in ("SCM440 KS D3867/JIS G4105","Datum A","Datum B","Datum C","Datum D","4x M4 x0.7-6H","2.0/2.9","0.28–0.32","HOLD"):
         require(token in rfq,f"extruder RFQ controlling token missing: {token}")
     print("MANUFACTURING_GEOMETRY_RFQ_OK")
 

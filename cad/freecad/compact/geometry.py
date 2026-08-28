@@ -484,7 +484,9 @@ def assembly_objects(exploded=False):
         add(f"PPR-C03_FlakeCorner{index}",printed_at("PPR-C03",(x,y,410)),blue,"feed","PLA")
     feed = cylindrical_hopper(78, 145, 55, 16); feed.translate(App.Vector(350, 420, 555))
     add("SealedFeedHopper", feed, aluminum, "feed", "2 mm sheet metal")
-    add("Feeder", cyl(18, 105, 315, 345, 485, (0, 0, -1)), steel, "feed", "metal")
+    # Barrel rear datum B is at x=375 (drive side); the 18 mm axial feed port
+    # begins B+12 toward the die, so its assembly centre is x=354.
+    add("Feeder", cyl(18, 105, 354, 347, 485, (0, 0, -1)), steel, "feed", "metal")
 
     # Horizontal extruder and 90-degree metal down die.
     add("ThrustPlate", box(380, 300, 330, 12, 95, 105), steel, "extruder", "steel")

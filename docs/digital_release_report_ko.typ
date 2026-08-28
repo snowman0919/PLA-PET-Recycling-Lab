@@ -44,6 +44,8 @@ OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 18 scenario 및 6 s
 
 16 mm screw nominal model은 PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h다. 200 g/h는 stretch target이다. Firmware profile은 baseline JSON에서 생성되며 donor torque calibration이 verified가 아니면 shredder start를 거부한다. PLA/PET external pre-dry는 모두 `UNQUALIFIED_EXTERNAL_PROCESS`다.
 
+Barrel front die interface는 M4-6H/PCD26으로 RFQ를 정정해 Ø34 OD와 Ø16.20 bore에 대해 nominal thread-envelope ligament outer 2.0 mm, bore-side 2.9 mm를 확보했다. Feed assembly centre는 rear Datum B 기준 12–30 mm port와 일치한다.
+
 = Budget와 release lock
 
 - Conditional target: 179,951 KRW ≤180,000 KRW.

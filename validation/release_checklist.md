@@ -11,6 +11,7 @@
 - [x] OpenModelica MSL 4.0.0 check/simulation/sweep 및 acceptance PASS
 - [x] OpenModelica load envelope가 구조 screening/CalculiX 입력과 trace 가능
 - [x] Firmware config가 baseline에서 생성되고 unverified drive calibration을 거부
+- [x] Gate-1 evidence package가 preflight/drive/25 torque/6 jam/2 chip/evidence-hash 전용 CSV로 분리되고 release lock 유지
 - [x] README/requirements/baseline/BOM/PDF/manifest revision·수치 일치
 - [x] 전체 재생성 후 normalized artifact hash gate PASS (`CLEAN_CLONE_REPRODUCIBILITY`)
 - [x] stale architecture/current-source 검사 PASS

@@ -75,13 +75,13 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 #figure(image("../renders/review/shredder_fastener_tool_access.png", width: 92%), caption: [Bearing plate/shaft/tool access review])
 
-#danger[Gate-1 전 CUT-01은 정확히 2장 coupon만 허용한다. `exports/jigs/gate1`의 G1J-01–10/P01–P03, metal guard upright/screen rail, fastener schedule, S0/S1→K0→K1 hard-cut 배선과 raw-data template으로 donor label/shaft/current/RPM, PET body/folded seam과 PLA 1.2/2.0/3.0 mm의 torque/jam/chip size를 측정한 뒤 full stack을 판단한다.]
+#danger[Gate-1 전 CUT-01은 정확히 2장 coupon만 허용한다. `exports/jigs/gate1`의 G1J-01–10/P01–P03, metal guard upright/screen rail, fastener schedule, S0/S1→K0→K1 hard-cut 배선과 분리된 preflight/force/drive/torque/jam/chip/evidence CSV로 donor label/shaft/current/RPM, PET body/folded seam과 PLA 1.2/2.0/3.0 mm의 torque/jam/chip size를 측정한 뒤 full stack을 판단한다.]
 
 = Dry feed와 extruder
 
 원료는 외부 dryer에서 준비한 뒤 밀폐 용기로 옮겨 sealed hopper에 넣는다. 현재 PLA/PET dryer recipe는 `UNQUALIFIED_EXTERNAL_PROCESS`이므로 물리 moisture coupon과 사용자 확인 없이 건조 완료로 표시하지 않는다. Maintenance heater branch에 fuse, independent high-limit와 one-shot fuse를 직렬 설치한다.
 
-16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. 먼저 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm coupon의 Ø, radial clearance 0.14–0.16 mm, hardness/case depth/Ra를 검사한다. Full part는 coupon/DFM과 Gate-3 전 발주하지 않는다. 이후 thrust bearing -> metal plate -> profile 순서로 조립하고 hand rotation, TIR <=0.10 mm와 30 min heater-off load 전 heater를 연결하지 않는다. Screw service는 cooldown/0 V 뒤 cassette를 cabinet 밖 작업대에서 축방향 인출한다.
+16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. 먼저 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm coupon의 Ø, radial clearance 0.14–0.16 mm, hardness/case depth/Ra를 검사한다. Full part는 coupon/DFM과 Gate-3 전 발주하지 않는다. Barrel front die interface는 4×M4-6H depth 8/PCD26이며 OD/bore breakthrough 없이 nominal major-envelope ligament outer 2.0 mm, bore-side 2.9 mm 이상이어야 한다. 이후 thrust bearing -> metal plate -> profile 순서로 조립하고 hand rotation, TIR <=0.10 mm와 30 min heater-off load 전 heater를 연결하지 않는다. Screw service는 cooldown/0 V 뒤 cassette를 cabinet 밖 작업대에서 축방향 인출한다.
 
 #figure(image("../renders/review/compact_section.png", width: 92%), caption: [Hot path와 straight vertical forming section])
 

@@ -1,0 +1,42 @@
+{
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "gate": "GATE1_EVIDENCE_READINESS",
+  "readiness": "READY_FOR_PHYSICAL_GATE_1_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
+  "physical_result": "NOT_RUN",
+  "template_rows": {
+    "preflight_inspection_template.csv": 11,
+    "calibration_log_template.csv": 4,
+    "drive_calibration_template.csv": 9,
+    "gate1_results_template.csv": 25,
+    "jam_recovery_results_template.csv": 6,
+    "chip_size_results_template.csv": 2,
+    "evidence_manifest_template.csv": 8
+  },
+  "coverage": {
+    "quasi_static_torque_specimens": 25,
+    "jam_trials": {
+      "PLA": 3,
+      "PET": 3
+    },
+    "chip_batches": {
+      "PLA": 1,
+      "PET": 1
+    },
+    "drive_torque_current_points": 5,
+    "mechanical_relief_repeats": 3,
+    "preflight_checks": 11,
+    "evidence_hash_slots": 8
+  },
+  "release_locks": {
+    "full_cutter_order_release": false,
+    "full_screw_barrel_order_release": false,
+    "main_promotion_allowed": false
+  },
+  "remaining_external_inputs": [
+    "exact donor identity and received inspection",
+    "traceable instrument calibration",
+    "user approval before purchase/CNC",
+    "signed physical CSV and photo/video hashes"
+  ],
+  "status": "PASS"
+}

@@ -43,6 +43,7 @@ def main():
     ):
         command = f'FreeCADCmd -c \'import runpy; runpy.run_path("{script}", run_name="__main__")\''
         run(["bash", "-lc", command] if shutil.which("FreeCADCmd") else nix(command), marker)
+    run([sys.executable, "validation/gate1_readiness.py"], "GATE1_EVIDENCE_READINESS_OK")
     run([sys.executable, "validation/mesh_checks.py"], "MESH_WATERTIGHT_MANIFOLD_OK")
     run([sys.executable, "validation/slice_prints.py"] if shutil.which("prusa-slicer") else nix("python3 validation/slice_prints.py"), "SLICER_SUCCESS_OK")
     run([sys.executable, "bom/build_budget_views.py"], "CONDITIONAL_AND_VERIFIED_BUDGET_OK")

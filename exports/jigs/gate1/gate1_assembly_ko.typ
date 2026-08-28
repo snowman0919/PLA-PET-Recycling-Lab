@@ -36,4 +36,4 @@ CUT-01은 축당 1장, 합계 2장만 쓴다. CUT-04 5 mm screen coupon 1개, CU
 
 K1은 30 VDC/25 A 이상의 실제 DC breaking rating을 확인한다. K0/K1은 저가 relay 구성이지 인증 safety relay가 아니며, Gate-1 원격 시험·lockout·guard를 대체하지 않는다. Mega는 상태를 감시하지만 S0/S1을 bypass할 수 없다.
 
-상세 BOM은 `bom.csv`, 체결은 `fastener_schedule.csv`, 배선은 `wiring_bom.csv`, 시험·pass/fail은 `test_procedure_ko.md`가 controlling이다. Gate-1 signed raw CSV와 사진/영상이 없으면 PASS로 바꾸지 않는다.
+상세 BOM은 `bom.csv`, 체결은 `fastener_schedule.csv`, 배선은 `wiring_bom.csv`, 시험·pass/fail은 `test_procedure_ko.md`가 controlling이다. Preflight, force calibration, drive calibration, 25개 torque specimen, PLA/PET 각 3회 jam, PLA/PET chip-size aggregate와 증거 hash는 각각의 전용 CSV에 기록한다. 서로 다른 시험을 한 specimen 행에 합쳐 쓰지 않는다. Gate-1 signed raw CSV와 사진/영상이 없으면 PASS로 바꾸지 않는다.
