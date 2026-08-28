@@ -11,5 +11,8 @@
 7. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
 8. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.
 9. 모든 deviation과 대체재를 발주 전 명시. 무응답 항목은 수락으로 간주하지 않는다.
+10. EX-DIE-01 intersecting Ø8 channel borescope/deburr, face flatness와 seat ID report 가능 여부.
+11. EX-DIE-03 Ø3×10 land Ra≤0.4 및 OD 기준 concentricity 0.02 검사 가능 여부.
+12. EX-DIE-04 동일 lot relief coupon 3개와 shielded 265 °C, 3–6 MPa 개방압 시험은 full die와 분리 견적한다.
 
 Full part order release는 `HOLD_PROCESS_COUPON_AND_GATE3`이며 본 checklist가 닫혀도 자동 승인되지 않는다.

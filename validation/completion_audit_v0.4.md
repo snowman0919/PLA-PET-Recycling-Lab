@@ -17,11 +17,12 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |Interchangeable geared-DC drive|DRV-01/DRV-Axx/DRV-F01/#35/DRV-02/DRV-03 contract와 ratio calibration 표|PASS_DIGITAL / DONOR_UNVERIFIED|
 |Gate-1 jig 최소수량 package|FreeCAD/STEP/STL/DXF/BOM/체결표/배선/절차/원시기록 template|PASS_DIGITAL / PHYSICAL_NOT_RUN|
 |16×16 L/D screw/barrel RFQ|재료·공차·GD&T·Ra·열처리·route·coupon HOLD가 있는 drawing/PDF|PASS_DIGITAL / SUPPLIER_DFM_PENDING|
+|Connected open-die RFQ|EX-DIE-01…05 STEP/STL/DXF/FCStd, Ø8 교차유로, breaker/insert/gasket/relief drawing과 물리 coupon HOLD|PASS_DIGITAL / RELIEF_COUPON_NOT_RUN|
 |CAD mass/inertia to OpenModelica|revision/hash/unit/COM/inertia/shaft·bearing 좌표 bridge|PASS|
 |MSL system dynamics|Rotational/Translational/MultiBody, 18 scenario, 6 sweep|PASS_DIGITAL|
 |Analytic/CalculiX coupling|OpenModelica dynamic envelope를 입력으로 사용|PASS_DIGITAL|
 |안전·firmware lock|E-stop/lid/service hard cut, thermal/branch fuse, bounded retry, uncalibrated inhibit|PASS_DIGITAL / PHYSICAL_NOT_RUN|
-|Conditional budget|179,951 KRW target, 199,951 KRW reserve 포함, 절대 cap 여유 49 KRW|PASS_CONDITIONAL|
+|Conditional budget|179,434 KRW target, 199,434 KRW reserve 포함, 절대 cap 여유 566 KRW|PASS_CONDITIONAL|
 |Verified procurement budget|견적·영수증·donor 증거 부재|NOT_ESTABLISHED|
 
 ## 의도적으로 잠긴 항목
@@ -46,8 +47,8 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |G-01|PLA/PET 공용 single path 유지|`requirements/architecture_contract.md`, full assembly STEP/render|PROVEN_DIGITAL|
 |G-02|500×750×1000 hard / 480×720×950 target|`assembly_metadata.json`, `full_motion.json`: 470×700×930|PROVEN_DIGITAL|
 |G-03|각 출력품 210 mm 이하|12-row print manifest와 `print_interfaces.json`|PROVEN_DIGITAL|
-|G-04|출력 계획질량 1.5 kg target|support 포함 PrusaSlicer 994.61 g + 12% = 1,113.96 g|PROVEN_DIGITAL|
-|G-05|조건부 180k / 절대 200k|179,951 / 199,951 KRW rollup|PROVEN_DIGITAL|
+|G-04|출력 계획질량 1.5 kg target|support 포함 PrusaSlicer 968.97 g + 12% = 1,085.25 g|PROVEN_DIGITAL|
+|G-05|조건부 180k / 절대 200k|179,434 / 199,434 KRW rollup|PROVEN_DIGITAL|
 |G-06|검증 구매예산 별도 표시|`verified_budget.csv`: NOT_ESTABLISHED|PENDING_EXTERNAL|
 |G-07|v0.3 archive tag/branch와 기존 archive 보존|annotated tags, archive refs, `configuration_control.py`|PROVEN_DIGITAL|
 |G-08|v0.4 작업 branch와 원격 이력|`solid-manifold-openmodelica-v0.4`, clean-clone record|PROVEN_DIGITAL|
@@ -57,7 +58,7 @@ Revision: `solid-manifold-openmodelica-v0.4`
 
 |ID|요구사항|권위 있는 증거|판정|
 |---|---|---|---|
-|C-01|active part closed positive-volume B-Rep|135 object `solid_topology.json`|PROVEN_DIGITAL|
+|C-01|active part closed positive-volume B-Rep|144 object `solid_topology.json`|PROVEN_DIGITAL|
 |C-02|keep-out 격리 및 제조 export 제외|`cad/review_keepouts`, review count 4|PROVEN_DIGITAL|
 |C-03|metal primary load path|assembly classification, structure report, build manual|PROVEN_DIGITAL|
 |C-04|panel/guard 실제 두께·체결 interface|FreeCAD Python, section/exploded views, interface checks|PROVEN_DIGITAL|
@@ -96,6 +97,7 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |E-08|hot-zone shield/thermal screening|52 °C shield/42 °C polymer screening|PENDING_PHYSICAL|
 |E-09|50/100/150/200 g/h cooling screen|PLA/PET cooling table와 required air velocity|PROVEN_DIGITAL|
 |E-10|직경 loop transport delay와 spool independence|control simulation, FormingSpool scenarios|PROVEN_DIGITAL|
+|E-11|barrel–die 실제 연결과 hot/polymer 간섭 제거|EX-DIE-01…05 package, gasket 접촉, Ø8 유로, duct–shield 10 mm/duct–die 28 mm collision gate|PROVEN_DIGITAL / RELIEF_COUPON_PENDING|
 
 ### OpenModelica·구조·firmware
 
@@ -116,7 +118,7 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |---|---|---|---|
 |R-01|README/requirements/BOM/PDF/manifest revision 일치|stale/revision gate|PROVEN_DIGITAL|
 |R-02|한국어 build/design/digital release PDF|Typst source, A4 PDF, parent page review|PROVEN_DIGITAL|
-|R-03|opaque/exploded/section/tool/motion/support/cutter/jig render|18-image render package와 visual review|PROVEN_DIGITAL|
+|R-03|opaque/exploded/section/tool/motion/support/cutter/jig/die render|19-image render package와 visual review|PROVEN_DIGITAL|
 |R-04|working-tree 전체 gate|`ALL_DIGITAL_VALIDATIONS_OK`|PROVEN_DIGITAL|
 |R-05|remote clean-clone 전체 재생성과 산출물 동일성|`clean_clone_validation.json`, `artifact_reproducibility.json`; STEP/FCStd/3MF normalized hash gate|PROVEN_DIGITAL|
 |R-06|구매/CNC/energization 사용자 승인|실행하지 않음; 모든 order release false|LOCKED_BY_USER|

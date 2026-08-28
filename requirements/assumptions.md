@@ -11,5 +11,5 @@
 |PET pre-dry|온도·시간 미지정|`UNQUALIFIED_EXTERNAL_PROCESS`; dryer/moisture coupon 필요|
 |PLA pre-dry|온도·시간 미지정|`UNQUALIFIED_EXTERNAL_PROCESS`; dryer/moisture coupon 필요|
 |Gauge uncertainty|목표 U95 ≤0.03 mm|traceable pin/wire 교정 전 미달성|
-|Cash target|179,951 KRW + 20,000 KRW reserve = 199,951 KRW|donor/RFQ 전 conditional only; 절대 cap 여유 49 KRW|
+|Cash target|179,434 KRW + 20,000 KRW reserve = 199,434 KRW|donor/RFQ 전 conditional only; 절대 cap 여유 566 KRW|
 |Throughput|PLA 18 rpm 111.8, PET 20 rpm 108.4 g/h nominal model|Gate-4 전 실제 claim 금지; 200 g/h stretch|

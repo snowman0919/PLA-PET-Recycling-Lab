@@ -19,7 +19,16 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[2]
 GEOM = ROOT / "cad/freecad/compact"
 sys.path.insert(0, str(GEOM))
-from geometry import assembly_objects, hook_disc, print_parts  # noqa: E402
+from geometry import (  # noqa: E402
+    assembly_objects,
+    down_die_body,
+    down_die_breaker_plate,
+    down_die_copper_gasket,
+    down_die_insert,
+    down_die_relief_retainer,
+    hook_disc,
+    print_parts,
+)
 from manufacturing import (  # noqa: E402
     bolt_on_sprocket_hub,
     extruder_barrel,
@@ -61,7 +70,7 @@ def gui_render(items, output, title, view="iso", support=False, arrow=False, arr
     image.save(output)
 
 
-def mesh_render(items,output,title,view="iso"):
+def mesh_render(items,output,title,view="iso",support=False,arrow=False,arrow_target=(1060,430)):
     """Triangle z-sort for isolated high-detail parts; mesh edges stay hidden."""
     triangles=[]
     for item in items:
@@ -69,7 +78,10 @@ def mesh_render(items,output,title,view="iso"):
         for indices in faces:
             vertices=[App.Vector(*points[index]) for index in indices]
             projected=[project(point,view) for point in vertices]
-            triangles.append((sum(point[2] for point in projected)/3,[(point[0],point[1]) for point in projected],item["color"]))
+            color=item["color"]
+            if support and normal_z(*vertices) < -0.45:
+                color=(205,55,45)
+            triangles.append((sum(point[2] for point in projected)/3,[(point[0],point[1]) for point in projected],color))
     xs=[p[0] for _,triangle,_ in triangles for p in triangle]; ys=[p[1] for _,triangle,_ in triangles for p in triangle]
     margin=110; scale=min((W-2*margin)/(max(xs)-min(xs) or 1),(H-2*margin)/(max(ys)-min(ys) or 1))
     def screen(point): return (margin+(point[0]-min(xs))*scale,H-margin-(point[1]-min(ys))*scale)
@@ -79,6 +91,11 @@ def mesh_render(items,output,title,view="iso"):
     font=ImageFont.load_default(size=25)
     draw.rectangle((24,20,W-24,67),fill=(255,255,255),outline=(75,95,105),width=2)
     draw.text((42,31),title,fill=(25,45,55),font=font)
+    if arrow:
+        tx,ty=arrow_target
+        draw.line((1320,250,tx,ty),fill=(196,43,43),width=12)
+        draw.polygon([(tx,ty),(tx+45,ty-18),(tx+35,ty+28)],fill=(196,43,43))
+        draw.text((1130,205),"M6 through-bolt access",fill=(160,30,30),font=font)
     output.parent.mkdir(parents=True,exist_ok=True); image.save(output)
 
 
@@ -102,6 +119,17 @@ def render(items, output, title, view="iso", clip=None, support=False, arrow=Fal
     if Gui is not None and App.GuiUp:
         gui_render(items,output,title,view,support,arrow,arrow_target)
         return
+    # OCC wire discretization dereferences a null curve on one valid
+    # intersecting-bore seam in EX-DIE-01.  Use only its exact bounding solid
+    # in cabinet views; a separate exact tessellated die exploded view below
+    # preserves every hole/channel/retainer feature for visual inspection.
+    safe_items=[]
+    for item in items:
+        if item["name"] == "DownDieBody":
+            bb=item["shape"].BoundBox
+            item={**item,"shape":Part.makeBox(bb.XLength,bb.YLength,bb.ZLength,App.Vector(bb.XMin,bb.YMin,bb.ZMin))}
+        safe_items.append(item)
+    items=safe_items
     faces_2d = []
     for item in items:
         for face in item["shape"].Faces:
@@ -230,6 +258,18 @@ def render_extruder_rfq():
         {"name":"EX-SCR-01","shape":screw,"color":(225,116,55),"group":"rfq"},
         {"name":"EX-BAR-01","shape":barrel,"color":(88,101,112),"group":"rfq"},
     ],ROOT/"renders/cnc/extruder_screw_barrel.png","16 mm x 16D RFQ | screw SCM440 / barrel SCM440 / process coupons first","iso")
+    die_items=[]
+    for index,(name,shape,color) in enumerate((
+        ("EX-DIE-01",down_die_body(),(88,101,112)),
+        ("EX-DIE-02",down_die_breaker_plate(),(69,151,97)),
+        ("EX-DIE-03",down_die_insert(),(225,116,55)),
+        ("EX-DIE-04",down_die_relief_retainer(),(119,89,145)),
+        ("EX-DIE-05",down_die_copper_gasket(),(190,125,65)),
+    )):
+        shape=shape.copy(); bb=shape.BoundBox
+        shape.translate(App.Vector(index*58-bb.XMin,-bb.YMin,-bb.ZMin))
+        die_items.append({"name":name,"shape":shape,"color":color,"group":"rfq"})
+    mesh_render(die_items,ROOT/"renders/cnc/extruder_die_exploded.png","EX-DIE-01..05 | exact tessellation | connected dia8 turn / breaker / insert / relief / gasket","iso")
 
 
 def main():
@@ -237,7 +277,7 @@ def main():
     cutter = hook_disc()
     if "--manufacturing-only" in sys.argv:
         render_manufacturing()
-        print("COMPACT_MANUFACTURING_RENDER_OK images=5")
+        print("COMPACT_MANUFACTURING_RENDER_OK images=6")
         return
     if "--jig-only" in sys.argv:
         render(gate1_render_items(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | metal uprights / screen rails / full guard","iso")
@@ -289,7 +329,7 @@ def main():
     render(prints, ROOT/"renders/review/support_contact.png", "Support-contact review | downward facets in red", "iso", support=True)
     render([i for i in assembly if i["group"] in ("forming","spooler")], ROOT/"renders/review/forming_spool_motion.png", "Gauge/puller then solid guide, dancer, traverse and full spool", "iso")
     render_manufacturing()
-    print("COMPACT_RENDER_GENERATION_OK images=18")
+    print("COMPACT_RENDER_GENERATION_OK images=19")
 
 
 if __name__ == "__main__":

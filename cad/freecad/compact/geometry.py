@@ -46,6 +46,75 @@ def one_solid(shape):
     return refined.Solids[0] if len(refined.Solids) == 1 else refined
 
 
+def down_die_body():
+    """Machinable 90 degree open-die body, local barrel face at X=40.
+
+    The local outlet axis is X=20/Y=0.  The body is bolted to the barrel
+    front face through a replaceable copper gasket; no printed part carries
+    melt pressure or heater load.
+    """
+    body = Part.makeBox(40, 40, 48, App.Vector(0, -20, -24))
+    # Ø8 horizontal-to-vertical melt turn and Ø16.2 breaker-plate seat.
+    body = body.cut(Part.makeCylinder(4, 21, App.Vector(19, 0, 0), App.Vector(1, 0, 0)))
+    body = body.cut(Part.makeCylinder(4, 28, App.Vector(20, 0, -24)))
+    body = body.cut(Part.makeCylinder(8.10, 3, App.Vector(37, 0, 0), App.Vector(1, 0, 0)))
+    # Replaceable Ø11.9 x14 die insert seat.
+    body = body.cut(Part.makeCylinder(6.0, 14, App.Vector(20, 0, -24)))
+    # Four M4 barrel bolts on PCD26; heads are accessible from local X=0.
+    for angle in (45, 135, 225, 315):
+        a = math.radians(angle)
+        y, z = 13 * math.cos(a), 13 * math.sin(a)
+        body = body.cut(Part.makeCylinder(2.25, 40, App.Vector(0, y, z), App.Vector(1, 0, 0)))
+        body = body.cut(Part.makeCylinder(4.0, 5, App.Vector(0, y, z), App.Vector(1, 0, 0)))
+    # Two M4 retainer threads, one heater bore and one blind sensor bore.
+    for x in (8, 32):
+        body = body.cut(Part.makeCylinder(1.65, 10, App.Vector(x, 0, -24)))
+    body = body.cut(Part.makeCylinder(3.10, 40, App.Vector(20, -20, 18), App.Vector(0, 1, 0)))
+    body = body.cut(Part.makeCylinder(1.60, 12, App.Vector(8, -20, 15), App.Vector(0, 1, 0)))
+    return one_solid(body)
+
+
+def down_die_breaker_plate():
+    """Ø15.9 x2 304 breaker plate with seven Ø2 flow holes."""
+    plate = Part.makeCylinder(7.95, 2, App.Vector(37, 0, 0), App.Vector(1, 0, 0))
+    holes = [Part.makeCylinder(1, 2, App.Vector(37, 0, 0), App.Vector(1, 0, 0))]
+    for angle in range(0, 360, 60):
+        a = math.radians(angle)
+        holes.append(Part.makeCylinder(1, 2, App.Vector(37, 5 * math.cos(a), 5 * math.sin(a)), App.Vector(1, 0, 0)))
+    return one_solid(plate.cut(Part.makeCompound(holes)))
+
+
+def down_die_insert():
+    """Replaceable Ø11.9 x14 die insert: Ø3 x10 land plus 4 mm cone."""
+    insert = Part.makeCylinder(5.95, 14, App.Vector(20, 0, -24))
+    insert = insert.cut(Part.makeCylinder(1.5, 10, App.Vector(20, 0, -24)))
+    insert = insert.cut(Part.makeCone(1.5, 4.0, 4, App.Vector(20, 0, -14)))
+    return one_solid(insert)
+
+
+def down_die_relief_retainer():
+    """Coupon-calibrated 304 stainless sacrificial retainer, t=1.5."""
+    plate = Part.makeBox(32, 20, 1.5, App.Vector(4, -10, -25.5))
+    # Two 10 wide x2.5 long bending webs between bolt pads and insert pad.
+    for x in (12, 25.5):
+        plate = plate.cut(Part.makeBox(2.5, 5, 1.5, App.Vector(x, -10, -25.5)))
+        plate = plate.cut(Part.makeBox(2.5, 5, 1.5, App.Vector(x, 5, -25.5)))
+    for x in (8, 32):
+        plate = plate.cut(Part.makeCylinder(2.25, 1.5, App.Vector(x, 0, -25.5)))
+    plate = plate.cut(Part.makeCylinder(2.0, 1.5, App.Vector(20, 0, -25.5)))
+    return one_solid(plate)
+
+
+def down_die_copper_gasket():
+    """Annealed copper face gasket, t=0.5, matching barrel M4 PCD26."""
+    gasket = Part.makeCylinder(17, 0.5, App.Vector(40, 0, 0), App.Vector(1, 0, 0))
+    gasket = gasket.cut(Part.makeCylinder(8.1, 0.5, App.Vector(40, 0, 0), App.Vector(1, 0, 0)))
+    for angle in (45, 135, 225, 315):
+        a = math.radians(angle)
+        gasket = gasket.cut(Part.makeCylinder(2.25, 0.5, App.Vector(40, 13 * math.cos(a), 13 * math.sin(a),), App.Vector(1, 0, 0)))
+    return one_solid(gasket)
+
+
 def cylindrical_hopper(radius, straight_height, cone_height, outlet_radius, wall=2.0):
     straight = Part.makeCylinder(radius, straight_height).cut(
         Part.makeCylinder(radius-wall, straight_height, App.Vector(0, 0, wall))
@@ -292,12 +361,13 @@ def print_parts():
     for x in (8, 112):
         handle = handle.cut(Part.makeCylinder(2.75, 20, App.Vector(x, 12.5, 0)))
 
+    duct_height = 100
     duct = joined(
-        shell_box(80, 75, 135, 2, bottom=False),
+        shell_box(80, 75, duct_height, 2, bottom=False),
         Part.makeBox(80, 75, 4).cut(Part.makeBox(60, 55, 4, App.Vector(10, 10, 0))),
-        Part.makeBox(80, 75, 4, App.Vector(0, 0, 131)).cut(Part.makeBox(60, 55, 4, App.Vector(10, 10, 131))),
+        Part.makeBox(80, 75, 4, App.Vector(0, 0, duct_height - 4)).cut(Part.makeBox(60, 55, 4, App.Vector(10, 10, duct_height - 4))),
     )
-    for z in (0, 131):
+    for z in (0, duct_height - 4):
         for x, y in ((5, 5), (75, 5), (5, 70), (75, 70)):
             duct = duct.cut(Part.makeCylinder(2.25, 4, App.Vector(x, y, z)))
 
@@ -354,7 +424,7 @@ def print_parts():
         "PPR-C02": [("z", (x, y, 0), 2.25, 8) for x, y in ((8, 8), (182, 8), (8, 142), (182, 142))],
         "PPR-C03": [("x", (0, 12, 90), 1.7, 3), ("y", (12, 0, 60), 1.7, 3)],
         "PPR-C04": [("z", (x, 12.5, 0), 2.75, 20) for x in (8, 112)],
-        "PPR-C05": [("z", (x, y, z), 2.25, 4) for z in (0, 131) for x, y in ((5, 5), (75, 5), (5, 70), (75, 70))],
+        "PPR-C05": [("z", (x, y, z), 2.25, 4) for z in (0, 96) for x, y in ((5, 5), (75, 5), (5, 70), (75, 70))],
         "PPR-C06": [("z", (x, y, 3), 2.3, 5) for x, y in ((7, 7), (88, 7), (7, 63), (88, 63))],
         "PPR-C07": [("z", (x, y, 0), 2.25, 8) for x, y in ((8, 8), (142, 8), (8, 92), (142, 92))],
         "PPR-C08": [("z", (x, 30, 0), 2.75, 5) for x in (15, 45)],
@@ -368,7 +438,7 @@ def print_parts():
         "PPR-C02": ((-1, 75, 45), (1, 0, 0), 5),
         "PPR-C03": ((-1, 12, 30), (1, 0, 0), 5),
         "PPR-C04": ((-1, 12.5, 2), (1, 0, 0), 20),
-        "PPR-C05": ((-1, 37.5, 60), (1, 0, 0), 5),
+        "PPR-C05": ((-1, 37.5, 50), (1, 0, 0), 5),
         "PPR-C06": ((-1, 35, 15), (1, 0, 0), 5),
         "PPR-C07": ((-1, 50, 50), (1, 0, 0), 5),
         "PPR-C08": ((30, 30, -1), (0, 0, 1), 8),
@@ -488,23 +558,34 @@ def assembly_objects(exploded=False):
     # begins B+12 toward the die, so its assembly centre is x=354.
     add("Feeder", cyl(18, 105, 354, 347, 485, (0, 0, -1)), steel, "feed", "metal")
 
-    # Horizontal extruder and 90-degree metal down die.
+    # Horizontal extruder and fully connected 90-degree metal down-die.
     add("ThrustPlate", box(380, 300, 330, 12, 95, 105), steel, "extruder", "steel")
     add("Barrel", cyl(17, 280, 95, 347, 382, (1, 0, 0)), steel, "extruder", "steel")
-    shield = shell_box(300, 75, 85, 2, bottom=False); shield.translate(App.Vector(85, 310, 340))
+    shield = shell_box(349, 75, 85, 2, bottom=False); shield.translate(App.Vector(40, 310, 340))
     add("HotShield", shield, aluminum, "extruder", "grounded sheet")
     add("ExtruderDrive", box(390, 310, 340, 55, 75, 85), red, "extruder", "donor/verify")
-    add("DownDie", cyl(12, 55, 95, 347, 365, (0, 0, -1)), orange, "extruder", "stainless")
-    add("DieOrifice", cyl(1.5, 260, 95, 347, 310, (0, 0, -1)), (235, 205, 79), "forming", "filament")
+    die_shift = App.Vector(54.5, 347, 382)
+    for name, shape, material in (
+        ("DownDieBody", down_die_body(), "SCM440 QT + gas nitride"),
+        ("DownDieBreaker", down_die_breaker_plate(), "304 stainless"),
+        ("DownDieInsert", down_die_insert(), "17-4PH H900 stainless"),
+        ("DownDieRelief", down_die_relief_retainer(), "304 stainless t1.5 sacrificial"),
+        ("DownDieGasket", down_die_copper_gasket(), "annealed copper t0.5"),
+    ):
+        shape = shape.copy(); shape.translate(die_shift)
+        add(name, shape, orange, "extruder", material)
 
-    add("PPR-C05_CoolingDuctLower",printed_at("PPR-C05",(55,310,120)),blue,"forming","ABS")
-    add("PPR-C05_CoolingDuctUpper",printed_at("PPR-C05",(55,310,255)),blue,"forming","ABS")
-    add("PPR-C06_GaugeHalfLower",printed_at("PPR-C06",(50,305,95)),purple,"forming","ABS/optics")
-    gauge_upper=printed["PPR-C06"].copy(); gauge_upper.rotate(App.Vector(0,0,0),App.Vector(1,0,0),180); gauge_upper.translate(App.Vector(50,375,151))
-    add("PPR-C06_GaugeHalfUpper",gauge_upper,purple,"forming","ABS/optics")
-    add("PullerPlate", box(45, 300, 55, 100, 95, 40), steel, "forming", "metal")
-    for x in (75, 115): add(f"PullerRoll{x}", cyl(20, 25, x, 335, 75, (0, 1, 0)), green, "forming", "roller")
-    add("PPR-C07_PullerGuard",printed_at("PPR-C07",(45,300,45)),blue,"forming","ABS")
+    # One shared straight soft-strand path.  Direction changes only after the
+    # puller; the X and Y shadow modules are sequential and orthogonal.
+    add("PPR-C05_CoolingDuctLower",printed_at("PPR-C05",(34.5,309.5,130)),blue,"forming","ABS")
+    add("PPR-C05_CoolingDuctUpper",printed_at("PPR-C05",(34.5,309.5,230)),blue,"forming","ABS")
+    add("PPR-C06_GaugeX",printed_at("PPR-C06",(27.0,312.0,96)),purple,"forming","ABS/optics")
+    gauge_y=printed["PPR-C06"].copy(); gauge_y.rotate(App.Vector(0,0,0),App.Vector(0,0,1),90); gauge_y.translate(App.Vector(109.5,299.5,68))
+    add("PPR-C06_GaugeY",gauge_y,purple,"forming","ABS/optics")
+    add("PullerPlateFront", box(24.5, 310, 15, 100, 10, 40), steel, "forming", "metal")
+    add("PullerPlateRear", box(24.5, 380, 15, 100, 10, 40), steel, "forming", "metal")
+    for x in (54.5, 94.5): add(f"PullerRoll{x}", cyl(20, 60, x, 320, 35, (0, 1, 0)), green, "forming", "roller")
+    add("PPR-C07_PullerGuard",printed_at("PPR-C07",(0,300,0)),blue,"forming","ABS")
 
     # Solid guide, dancer/traverse and maximum spool motion.
     add("GuideRoller", cyl(18, 20, 175, 375, 90, (0, 1, 0)), green, "spooler", "bearing")

@@ -4,10 +4,10 @@
 
 - [x] `validation/run_all.py` 전체 통과
 - [x] nominal envelope 470×700×930 mm; hard/target limit 이내
-- [x] target cash 179,951 KRW ≤180,000; reserve 포함 199,951 KRW ≤200,000 (계획 여유 49 KRW)
+- [x] target cash 179,434 KRW ≤180,000; reserve 포함 199,434 KRW ≤200,000 (계획 여유 566 KRW)
 - [x] active CAD valid closed-solid topology; review keep-out 격리
 - [x] active STL watertight/manifold, zero-area/non-manifold 0
-- [x] PrusaSlicer 2.9.6 actual toolpath: support 포함 994.61 g, reserve 포함 1,113.96 g
+- [x] PrusaSlicer 2.9.6 actual toolpath: support 포함 968.97 g, reserve 포함 1,085.25 g
 - [x] OpenModelica MSL 4.0.0 check/simulation/sweep 및 acceptance PASS
 - [x] OpenModelica load envelope가 구조 screening/CalculiX 입력과 trace 가능
 - [x] Firmware config가 baseline에서 생성되고 unverified drive calibration을 거부

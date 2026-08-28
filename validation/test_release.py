@@ -143,6 +143,9 @@ def test_engineering_modelica_structural_firmware():
     require(profiles["PLA"]["rpm"] == 18 and profiles["PET"]["rpm"] == 20, "screw RPM mismatch")
     require(profiles["PLA"]["throughput_nominal_gph"] < 200 and profiles["PET"]["throughput_nominal_gph"] < 200, "200 g/h incorrectly claimed")
     require(engineering["torque_hierarchy"]["strict_order_pass"], "torque hierarchy")
+    die_relief=engineering["die_relief_screening"]
+    require(die_relief["screening_pass"] and 3.0 < die_relief["estimated_first_yield_pressure_mpa"] < 6.0,"die relief screening window")
+    require(die_relief["status"]=="DIGITAL_SCREENING_PHYSICAL_COUPON_NOT_RUN","die relief physical state")
     require(not engineering["drive_calibration"]["hardcoded_universal_current_limit"], "universal current limit reintroduced")
     require(engineering["pet_predry"] == "UNQUALIFIED_EXTERNAL_PROCESS", "PET predry incorrectly qualified")
     clearance=engineering["throughput"]["clearance_sensitivity"]

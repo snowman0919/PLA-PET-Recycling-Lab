@@ -1,7 +1,7 @@
 {
   "revision": "solid-manifold-openmodelica-v0.4",
   "contract": "active part contains exactly one closed positive-volume B-Rep solid",
-  "active_count": 135,
+  "active_count": 144,
   "review_keepout_count": 4,
   "failed": [],
   "parts": [
@@ -80,11 +80,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 97799.062,
+      "volume_mm3": 76659.062,
       "bbox_mm": [
         80.0,
         75.0,
-        135.0
+        100.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -646,6 +646,91 @@
         34.0,
         34.0,
         60.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-DIE-01",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 68503.519,
+      "bbox_mm": [
+        40.0,
+        40.0,
+        48.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-DIE-02",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 353.131,
+      "bbox_mm": [
+        2.0,
+        15.9,
+        15.9
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-DIE-03",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1384.819,
+      "bbox_mm": [
+        11.9,
+        11.9,
+        14.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-DIE-04",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 818.438,
+      "bbox_mm": [
+        32.0,
+        20.0,
+        1.5
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-DIE-05",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 319.092,
+      "bbox_mm": [
+        0.5,
+        34.0,
+        34.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1729,9 +1814,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 126140.0,
+      "volume_mm3": 142800.0,
       "bbox_mm": [
-        300.0,
+        349.0,
         75.0,
         85.0
       ],
@@ -1757,34 +1842,85 @@
       "errors": []
     },
     {
-      "id": "DownDie",
+      "id": "DownDieBody",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 24881.414,
+      "volume_mm3": 68503.519,
       "bbox_mm": [
-        24.0,
-        24.0,
-        55.0
+        40.0,
+        40.0,
+        48.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
       "errors": []
     },
     {
-      "id": "DieOrifice",
+      "id": "DownDieBreaker",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 1837.832,
+      "volume_mm3": 353.131,
       "bbox_mm": [
-        3.0,
-        3.0,
-        260.0
+        2.0,
+        15.9,
+        15.9
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DownDieInsert",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1384.819,
+      "bbox_mm": [
+        11.9,
+        11.9,
+        14.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DownDieRelief",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 818.438,
+      "bbox_mm": [
+        32.0,
+        20.0,
+        1.5
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DownDieGasket",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 319.092,
+      "bbox_mm": [
+        0.5,
+        34.0,
+        34.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1797,11 +1933,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 97799.062,
+      "volume_mm3": 76659.062,
       "bbox_mm": [
         80.0,
         75.0,
-        135.0
+        100.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1814,18 +1950,18 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 97799.062,
+      "volume_mm3": 76659.062,
       "bbox_mm": [
         80.0,
         75.0,
-        135.0
+        100.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
       "errors": []
     },
     {
-      "id": "PPR-C06_GaugeHalfLower",
+      "id": "PPR-C06_GaugeX",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
@@ -1842,7 +1978,7 @@
       "errors": []
     },
     {
-      "id": "PPR-C06_GaugeHalfUpper",
+      "id": "PPR-C06_GaugeY",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
@@ -1850,8 +1986,8 @@
       "shell_count": 1,
       "volume_mm3": 31889.881,
       "bbox_mm": [
-        95.0,
         70.0,
+        95.0,
         28.0
       ],
       "geometry_check_findings": -1,
@@ -1859,16 +1995,16 @@
       "errors": []
     },
     {
-      "id": "PullerPlate",
+      "id": "PullerPlateFront",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 380000.0,
+      "volume_mm3": 40000.0,
       "bbox_mm": [
         100.0,
-        95.0,
+        10.0,
         40.0
       ],
       "geometry_check_findings": -1,
@@ -1876,16 +2012,16 @@
       "errors": []
     },
     {
-      "id": "PullerRoll75",
+      "id": "PullerPlateRear",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 31415.927,
+      "volume_mm3": 40000.0,
       "bbox_mm": [
-        40.0,
-        25.0,
+        100.0,
+        10.0,
         40.0
       ],
       "geometry_check_findings": -1,
@@ -1893,16 +2029,33 @@
       "errors": []
     },
     {
-      "id": "PullerRoll115",
+      "id": "PullerRoll54.5",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 31415.927,
+      "volume_mm3": 75398.224,
       "bbox_mm": [
         40.0,
-        25.0,
+        60.0,
+        40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PullerRoll94.5",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 75398.224,
+      "bbox_mm": [
+        40.0,
+        60.0,
         40.0
       ],
       "geometry_check_findings": -1,

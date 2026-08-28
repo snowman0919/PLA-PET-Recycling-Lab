@@ -120,6 +120,27 @@ def svg_process_coupon_drawing(path):
 </svg>\n""",encoding="utf-8")
 
 
+def svg_die_drawing(path):
+    path.write_text("""<svg xmlns="http://www.w3.org/2000/svg" width="1189" height="841" viewBox="0 0 1189 841">
+<style>text{font-family:'Noto Sans CJK KR',sans-serif;font-size:17px}.t{font-size:27px;font-weight:bold}.d{stroke:#17465a;stroke-width:2;fill:none}.p{stroke:#111;stroke-width:3;fill:#d7e2e8}.b{fill:#fff;stroke:#111;stroke-width:2}.c{stroke:#c43d32;stroke-width:2;stroke-dasharray:8 5}</style>
+<text x="50" y="50" class="t">EX-DIE-01…05 — connected 90° open-die assembly RFQ drawing</text>
+<rect x="120" y="150" width="320" height="320" class="p"/><circle cx="280" cy="310" r="64" class="b"/><path class="c" d="M280 130V490M100 310H460"/>
+<circle cx="354" cy="236" r="18" class="b"/><circle cx="206" cy="236" r="18" class="b"/><circle cx="206" cy="384" r="18" class="b"/><circle cx="354" cy="384" r="18" class="b"/>
+<text x="120" y="505">BARREL FACE: 40 × 40; 4× Ø4.5 THRU + Ø8×5 head recess, PCD26 at 45°</text>
+<path class="p" d="M600 165H920V485H600Z"/><rect x="600" y="270" width="320" height="80" class="b"/><rect x="720" y="350" width="80" height="135" class="b"/>
+<path class="c" d="M560 310H950M760 140V520"/><text x="585" y="135">SECTION — barrel is to the right, outlet is downward</text>
+<text x="610" y="260">Ø8 horizontal channel</text><text x="805" y="405">Ø8 vertical</text>
+<text x="55" y="570">BODY SCM440 QT 28–32 HRC + gas nitride: 40×40×48; face flatness 0.03; channels Ø8 H9;</text>
+<text x="55" y="600">breaker seat Ø16.20 +0.05/0 ×3; insert seat Ø12.00 +0.03/0 ×14; heater Ø6.20 H9 thru;</text>
+<text x="55" y="630">sensor Ø3.20 +0.05/0 blind12; 2×M4-6H depth8 retainer holes at X8/32; all melt edges R0.3.</text>
+<text x="55" y="665">BREAKER 304: Ø15.90 -0.05/0 ×2; 7×Ø2.00 +0.05/0 (six PCD10). INSERT 17-4PH H900:</text>
+<text x="55" y="695">Ø11.90 -0.02/0 ×14; Ø3.00 +0.02/0 ×10 land, Ra≤0.4; 4 mm 60° included transition; TIR≤0.02.</text>
+<text x="55" y="730">RELIEF 304 t1.5: 32×20; two 10×2.5 webs; 2×Ø4.5 @24; Ø4 bypass. Hot coupon 3–6 MPa.</text>
+<text x="55" y="760">GASKET C110 annealed t0.50: OD34 / ID16.20 / 4×Ø4.5 PCD26. Use 4×M4×45 class10.9, 3.0 N·m.</text>
+<text x="55" y="795">Leak/relief hot test behind grounded shield only. Analytical relief estimate is screening, not release evidence. FULL PART HOLD.</text>
+</svg>\n""",encoding="utf-8")
+
+
 def write_drive_package():
     base=ROOT/"exports/drive_interface"; base.mkdir(parents=True,exist_ok=True)
     specs=[
@@ -456,10 +477,15 @@ def write_extruder_package():
     with (base/"rfq_manifest.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["part_id","name","qty","material","process","step","drawing","release"])
         for r in rows:
-            drawing=f"{r['id']}_drawing.svg" if r["id"] in ("EX-SCR-01","EX-BAR-01") else "EX-CPN_drawing.svg"
+            if r["id"] in ("EX-SCR-01", "EX-BAR-01"):
+                drawing=f"{r['id']}_drawing.svg"
+            elif r["id"].startswith("EX-DIE-"):
+                drawing="EX-DIE_drawing.svg"
+            else:
+                drawing="EX-CPN_drawing.svg"
             release="COUPON_RFQ_ALLOWED" if r["id"].startswith("EX-CPN-") else "HOLD_PROCESS_COUPON_AND_GATE3"
             w.writerow([r["id"],r["name"],r["qty"],r["material"],r["process"],f"parts/{r['id']}/{r['id']}.step",drawing,release])
-    svg_screw_drawing(base/"EX-SCR-01_drawing.svg"); svg_barrel_drawing(base/"EX-BAR-01_drawing.svg"); svg_process_coupon_drawing(base/"EX-CPN_drawing.svg")
+    svg_screw_drawing(base/"EX-SCR-01_drawing.svg"); svg_barrel_drawing(base/"EX-BAR-01_drawing.svg"); svg_process_coupon_drawing(base/"EX-CPN_drawing.svg"); svg_die_drawing(base/"EX-DIE_drawing.svg")
     with (base/"screw_profile.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["zone","z_start_mm","z_end_mm","length_D","root_diameter_mm","pitch_mm","land_mm"])
         w.writerows([("feed",0,128,8,10.88,16,1.60),("compression",128,192,4,"10.88_to_14.08",16,1.60),("meter",192,256,4,14.08,16,1.60)])
@@ -477,11 +503,17 @@ def write_extruder_package():
             ("EX-CPN-SCR/BAR","","effective_case_depth","each coupon","mm",0.30,0.50,"","",20,"",""),
             ("EX-CPN-SCR","","flight_OD_Ra","one trace","um",0,0.8,"","",20,"",""),
             ("EX-CPN-BAR","","bore_Ra","one trace","um",0.4,0.8,"","",20,"",""),
+            ("EX-DIE-01","","barrel_face_flatness","entire face","mm",0,0.03,"","",20,"",""),
+            ("EX-DIE-01","","melt_channel_ID","horizontal/vertical","X/Z",8.00,8.10,"","",20,"",""),
+            ("EX-DIE-01","","insert_seat_ID","14 deep","Z",12.00,12.03,"","",20,"",""),
+            ("EX-DIE-03","","orifice_ID","10 mm land","Z",3.00,3.02,"","",20,"",""),
+            ("EX-DIE-03","","orifice_concentricity","to OD","TIR",0,0.02,"","",20,"",""),
+            ("EX-DIE-04","","relief_open_pressure","three coupons","MPa",3.0,6.0,"","",20,"","physical coupon required"),
         ])
     with (base/"supplier_deviation_template.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n")
         w.writerow(["item","drawing_requirement","supplier_yes_no","proposed_deviation","price_effect_krw","lead_time_effect_days","customer_disposition"])
-        for item in ("material/certificate","QT hardness","nitriding/case certificate","pitch-land-root-OD","TIR/concentricity","barrel final hone","matched clearance","inspection reports","coupon price/lead time","full-part price/lead time"):
+        for item in ("material/certificate","QT hardness","nitriding/case certificate","pitch-land-root-OD","TIR/concentricity","barrel final hone","matched clearance","die intersecting-channel deburr","die insert land/concentricity","relief coupon price/lead time","inspection reports","coupon price/lead time","full-part price/lead time"):
             w.writerow([item,"see controlling drawing/audit","","","","","HOLD"])
     (base/"manufacturing_audit_ko.md").write_text("""# 16 mm x 16 L/D screw/barrel 제조성 audit — RFQ 기준
 
@@ -521,6 +553,14 @@ Specified drawing-limit diametral clearance is 0.28–0.32 mm and radial clearan
 SCM440 was selected over stainless for local availability, machinability and nitriding cost. PET-temperature metal compatibility is adequate for a research coupon, but corrosion/wear life is not certified. `EX-CPN-SCR` 3-pitch와 `EX-CPN-BAR` 60 mm process coupon만 먼저 견적·가공할 수 있다. Coupon의 치수·경도·case depth·Ra가 본 도면을 만족하고 공급사 DFM이 닫힌 뒤에도 Gate-3 cold proof 전 full screw/barrel 발주는 HOLD다. No physical result is claimed here.
 
 Coupon controlling dimensions: EX-CPN-SCR L48.00 ±0.05, three RH pitches 16.00 ±0.03, OD/root/land와 열처리는 EX-SCR-01 feed zone과 동일하며 journal은 없다. EX-CPN-BAR L60.00 ±0.05, OD Ø34.00 ±0.05, final ID Ø16.20 +0.02/0, bore Ra/case는 EX-BAR-01과 동일하다. 두 coupon의 ends는 axis에 0.03 이내 수직이다. Coupon은 matched pair로 표식하고 실측 diametral clearance 0.28–0.32 mm여야 한다.
+
+## EX-DIE connected open-die assembly
+
+`EX-DIE-01`은 barrel 전면에 4×M4×45 class 10.9 bolt와 `EX-DIE-05` annealed copper gasket로 체결되는 40×40×48 SCM440 body다. Ø8 수평 유로와 Ø8 수직 유로는 X20/Z0에서 실제로 교차하며, 공급사는 교차부를 borescope로 확인하고 burr·step을 R0.3 이하로 제거한다. Barrel-side에는 Ø15.90×2 `EX-DIE-02` seven-hole 304 breaker가 Ø16.20×3 seat에 갇힌다. Bottom에는 OD Ø11.90×14 `EX-DIE-03` 17-4PH H900 insert가 Ø12.00×14 seat에 들어가고 Ø3.00×10 land와 4 mm conical transition으로 open discharge한다. 직접 hot path에 polymer는 없다.
+
+Body sealing face flatness는 0.03, melt channel Ø8 H9, insert seat Ø12.00 +0.03/0, breaker seat Ø16.20 +0.05/0이다. Heater bore Ø6.20 H9 through와 sensor bore Ø3.20 +0.05/0 blind12는 유로와 bolt를 관통하지 않는다. Body는 6-face datum machining → intersecting drill/ream → stress relieve → final seat/face → gas nitride → sealing face lap 순서다. Channel/seat에는 weld repair와 plating을 금지한다.
+
+`EX-DIE-04`는 304 stainless t1.5의 교환식 sacrificial retainer다. 두 10 mm wide ×2.5 mm long web, 265 °C 보수 항복강도 150 MPa와 Ø11.9 insert에서 Ø3 orifice를 뺀 투영면적을 쓴 단순 탄성 항복 screening은 약 4.32 MPa이며 normal 3 MPa와 motor-trip equivalent 6 MPa 사이를 겨냥한다. 이는 release 값이 아니다. 동일 lot coupon 3개를 shielded heated hydraulic fixture에서 265 °C 조건으로 시험해 최초 영구변형/우회 개방이 3–6 MPa이고 fragment/ejection이 없을 때만 사용한다. Retainer는 insert를 포획한 채 우회 유로를 열어야 하며, grounded metal shield와 remote first-hot-test 없이는 가열하지 않는다. Full die assembly 역시 process coupon, relief coupon 및 Gate-3 전 `HOLD_PROCESS_COUPON_AND_GATE3`다.
 """,encoding="utf-8")
     (base/"supplier_rfq_checklist_ko.md").write_text("""# 공급사 RFQ 응답 checklist
 
@@ -535,6 +575,9 @@ Coupon controlling dimensions: EX-CPN-SCR L48.00 ±0.05, three RH pitches 16.00 
 7. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
 8. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.
 9. 모든 deviation과 대체재를 발주 전 명시. 무응답 항목은 수락으로 간주하지 않는다.
+10. EX-DIE-01 intersecting Ø8 channel borescope/deburr, face flatness와 seat ID report 가능 여부.
+11. EX-DIE-03 Ø3×10 land Ra≤0.4 및 OD 기준 concentricity 0.02 검사 가능 여부.
+12. EX-DIE-04 동일 lot relief coupon 3개와 shielded 265 °C, 3–6 MPa 개방압 시험은 full die와 분리 견적한다.
 
 Full part order release는 `HOLD_PROCESS_COUPON_AND_GATE3`이며 본 checklist가 닫혀도 자동 승인되지 않는다.
 """,encoding="utf-8")

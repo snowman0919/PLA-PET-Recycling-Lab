@@ -25,7 +25,7 @@ Release state: `DIGITAL_FABRICATION_BASELINE` / Physical state: `PHYSICAL_NOT_RU
 
 `bom/reuse_inventory.csv`의 UNVERIFIED 항목은 label, 수량, 상태, shaft, voltage/current와 telemetry를 기록한다. 사용할 수 없는 donor는 `cash_budget.csv` allowance 범위에서 대체하되 주문은 승인 후 진행한다.
 
-#danger[조건부 target은 179,951 KRW, contingency 포함 absolute plan은 199,951 KRW지만 donor motor와 RFQ는 UNVERIFIED다. 계획 여유는 49 KRW뿐이다. 정확 증거와 Gate-1 PASS 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
+#danger[조건부 target은 179,434 KRW, contingency 포함 absolute plan은 199,434 KRW지만 donor motor와 RFQ는 UNVERIFIED다. 계획 여유는 566 KRW뿐이다. 정확 증거와 Gate-1 PASS 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
 
 PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesive와 오염을 제거하고 PLA에는 metal insert가 없어야 한다. 미확인 plastic은 투입하지 않는다.
 
@@ -47,7 +47,7 @@ PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesi
   table.header([순서], [부품/수량], [체결품], [공구], [체결 torque], [방향·순서·critical clearance]),
   [1], [20×20 frame rail/column], [M5 T-nut·washer], [4 mm hex, square, tape], [4.0 N·m], [바닥→column→상부; 대각차 ≤1.0, table M8 anchor는 최종 수평 후 체결]),
   [2], [Control/PSU/PE], [M4×10 + tooth washer], [3 mm hex, DMM], [1.2 N·m], [PE를 먼저, 신호선을 나중; hot shield·motor cable과 분리, 0 V continuity 기록]),
-  [3], [Thrust plate/barrel], [M6×20 8.8 + flat washer], [5 mm hex, dial indicator], [9 N·m], [Thrust→barrel clamp 교차조임; screw hand TIR ≤0.10, shield air gap ≥10]),
+  [3], [Thrust/barrel/EX-DIE-01…05], [M6×20 8.8; die 4×M4×45 10.9 + C110 gasket; retainer 2×M4], [3/5 mm hex, dial indicator], [M4 die 3.0 / retainer 1.2 / M6 9 N·m], [Thrust→barrel→breaker→gasket→die body→insert→retainer; screw hand TIR ≤0.10, shield air gap ≥10]),
   [4], [Cooling/gauge/puller], [PPR-C05 M4×12, C06 M3×12, C07 M4 captive], [2.5/3 mm hex], [M3 0.5 / M4 1.2 N·m], [die→duct→X/Y gauge→puller 직선; soft filament 굴곡 금지]),
   [5], [Guide/dancer/spool], [PPR-C08 M5, C09 M6 clamp, C10 M4], [4/5/3 mm hex], [M4 1.2 / M5 2.5 / M6 4 N·m], [metal spindle가 축하중 부담; dancer -25…+25°, traverse 0…80 전 범위 확인]),
   [6], [CUT-03/05/6004/CUT-08], [M6 plate + M4 retainer], [press sleeve, 4/5 mm hex], [M4 1.2 / M6 9 N·m], [Bearing outer ring만 압입; shaft→bearing→plate→profile 금속 하중경로]),
@@ -83,13 +83,15 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. 먼저 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm coupon의 Ø, radial clearance 0.14–0.16 mm, hardness/case depth/Ra를 검사한다. Full part는 coupon/DFM과 Gate-3 전 발주하지 않는다. Barrel front die interface는 4×M4-6H depth 8/PCD26이며 OD/bore breakthrough 없이 nominal major-envelope ligament outer 2.0 mm, bore-side 2.9 mm 이상이어야 한다. 이후 thrust bearing -> metal plate -> profile 순서로 조립하고 hand rotation, TIR <=0.10 mm와 30 min heater-off load 전 heater를 연결하지 않는다. Screw service는 cooldown/0 V 뒤 cassette를 cabinet 밖 작업대에서 축방향 인출한다.
 
+EX-DIE-02 seven-hole breaker를 EX-DIE-01의 barrel-side Ø16.20×3 seat에 넣고 새 EX-DIE-05 C110 annealed gasket를 barrel과 body 사이에 둔다. 4×M4×45 class 10.9를 3.0 N·m로 대각 체결한다. EX-DIE-03 Ø11.90×14 insert를 아래에서 넣고 EX-DIE-04 304 t1.5 retainer를 2×M4, 1.2 N·m로 고정한다. Ø8 수평/수직 channel은 borescope로 burr/step이 없는지 확인한다. 265 °C 계산값 4.32 MPa는 합격 근거가 아니며 동일 lot 3개가 shielded 265 °C hydraulic fixture에서 3–6 MPa에 insert를 포획한 채 우회 개방해야 한다. 누설·relief first-hot-test는 grounded shield, 원격 E-stop과 물리 barrier 뒤에서만 수행한다.
+
 #figure(image("../renders/review/compact_section.png", width: 92%), caption: [Hot path와 straight vertical forming section])
 
 Metal down-die 이후 puller까지 filament를 꺾지 않는다. 25 mm insulation, 10 mm air gap와 grounded shield를 두고 direct hot path에 polymer를 쓰지 않는다.
 
 = Cooling, gauge, puller
 
-PPR-C05 ABS duct 2개와 fan을 service connector로 조립한다. Die 가까운 금속 shield가 먼저 복사를 차단한다. PPR-C06 gauge halves 안에 X/Y LED, slit, photodiode를 직교 배치한다.
+PPR-C05 ABS 100 mm duct 2개와 fan을 service connector로 조립한다. Upper duct와 hot shield 사이 10 mm, die body까지 28 mm 이상을 유지한다. Die 가까운 금속 shield가 먼저 복사를 차단한다. PPR-C06 두 module은 높이 방향으로 연속 배치하고 하나를 Z축 90° 회전해 X/Y LED, slit, photodiode를 직교시킨다.
 
 PPR-C07 guard 아래 metal puller plate와 roller를 조립한다. Manual strand insertion은 heater/roller 상태를 UI가 안내하고 guard를 닫은 뒤에만 RUN을 허용한다.
 
@@ -117,6 +119,6 @@ Gate 1 cutter coupon -> Gate 2 flake/feed -> Gate 3 cold mechanical -> Gate 4 ho
 
 = Print package
 
-각 `exports/print/PPR-Cxx` 폴더에는 FreeCAD Python, FCStd, STEP, STL, 3MF, print notes와 dimension sheet가 있다. `plate_layouts`의 3MF는 PrusaSlicer 2.9.6이 생성한 실제 plate이며 필요한 part의 support를 포함해 nominal 994.61 g/87.9 h, reserve 포함 1,113.96 g이다. `slicing_previews/*-first-layer.svg`에서 220×220 mm bed상의 실제 첫 extrusion layer를 확인한다. 대용량 raw G-code는 같은 source/profile로 재생성한다. 모든 part는 각 축 210 mm 이하를 자동 검사한다. `PPR-TC01` tolerance coupon을 먼저 출력해 hole/insert/slide 보정을 기록한다.
+각 `exports/print/PPR-Cxx` 폴더에는 FreeCAD Python, FCStd, STEP, STL, 3MF, print notes와 dimension sheet가 있다. `plate_layouts`의 3MF는 PrusaSlicer 2.9.6이 생성한 실제 plate이며 필요한 part의 support를 포함해 nominal 968.97 g/86.0 h, reserve 포함 1,085.25 g이다. `slicing_previews/*-first-layer.svg`에서 220×220 mm bed상의 실제 첫 extrusion layer를 확인한다. 대용량 raw G-code는 같은 source/profile로 재생성한다. 모든 part는 각 축 210 mm 이하를 자동 검사한다. `PPR-TC01` tolerance coupon을 먼저 출력해 hole/insert/slide 보정을 기록한다.
 
 #figure(image("../renders/review/support_contact.png", width: 92%), caption: [아래보기 facet support-contact review — red])

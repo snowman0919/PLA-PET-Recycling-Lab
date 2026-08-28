@@ -23,7 +23,7 @@
 
 PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, feeder, screw/barrel/die, cooling, X/Y gauge, puller, dancer/traverse spooler를 공유한다. Material profile은 setpoint만 변경하고 RUN 중 잠긴다.
 
-#figure(image("../renders/assembly/compact_full_assembly_front.png", width: 92%), caption: [전면 — 금속 down-die 이후 285 mm vertical forming path])
+#figure(image("../renders/assembly/compact_full_assembly_front.png", width: 92%), caption: [전면 — 금속 down-die 이후 323 mm straight vertical forming path])
 
 장치 envelope는 470 x 700 x 930 mm다. Sliding lid, guard, motor/reducer, cable duct, PSU/panel, full 1 kg spool과 dancer/traverse motion keep-out이 포함된다. Screw 인출은 정비 시 전면 panel과 clamp를 제거하는 절차이며 정상 운전 envelope에는 service clearance를 포함하지 않는다.
 
@@ -31,7 +31,7 @@ PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, fee
 
 #table(columns: (1.5fr, 1.2fr, 1fr, 1fr), inset: 4pt,
   [*후보*], [*Envelope mm*], [*계획비용*], [*판정*],
-  [Vertical down-die], [470 x 700 x 930], [179,951 KRW], [target PASS / donor·물리 Gate blocker],
+  [Vertical down-die], [470 x 700 x 930], [179,434 KRW], [target PASS / donor·물리 Gate blocker],
   [Internal U-fold], [480 x 710 x 940], [196,000 KRW], [soft bend 기각],
   [Side spool column], [495 x 720 x 950], [204,000 KRW], [비용/목표 기각],
 )
@@ -66,6 +66,8 @@ $ T = 1.5 (Delta p pi D^3) / 16 $
 
 Barrel front interface는 기존 M5/PCD28에서 M4-6H/PCD26으로 수정했다. Ø34 body와 Ø16.20 bore 사이에서 M4 major envelope 기준 outer/bore-side ligament를 각각 2.0/2.9 mm 이상 확보하고 OD 또는 bore breakthrough를 RFQ 불합격으로 규정했다. Assembly feeder centre도 rear Datum B에서 12–30 mm인 실제 feed-port 구간의 중심에 맞췄다.
 
+EX-DIE-01…05는 40×40×48 SCM440 body의 실제 교차 Ø8 유로, Ø15.9×2 seven-hole 304 breaker, Ø11.9×14 17-4PH H900 insert, C110 gasket와 304 t1.5 sacrificial retainer다. Body와 barrel은 4×M4×45로 접속되고 outlet centreline X=74.5 mm가 두 cooling duct, 직렬·직교 X/Y gauge와 puller nip에 정렬된다. Retainer의 두 10×2.5 mm web은 265 °C 보수 first-yield 식에서 4.32 MPa지만 고온 physical coupon 3개가 3–6 MPa 개방창을 확인하기 전 합격이 아니다. Upper ABS duct는 hot shield에서 10 mm, die body에서 28 mm 이상 떨어지고 기존 관통은 제거했다.
+
 #figure(image("../renders/review/compact_section.png", width: 92%), caption: [Section — hopper/cutter와 horizontal hot zone, vertical forming])
 
 = 열·전력·제어
@@ -74,7 +76,7 @@ Heater 300 W, shredder software peak 432 W, screw 85 W, motion/fan/logic 45 W의
 
 300 °C hot path, 25 mm insulation, 10 mm air gap와 grounded sheet shield의 1D screening은 shield 52 °C, adjacent polymer 42 °C다. Seam/slot/radiation view를 포함하지 않으므로 Gate 4 thermocouple 기준은 shield 55 °C, polymer 45 °C다.
 
-200 g/h line speed는 PLA/PET 약 1.12/1.00 m/min이고 die-gauge transport delay는 약 12.6/14.1 s다. Diameter simulation은 first-order/transport model뿐이며 calibration·melt dynamics를 증명하지 않는다.
+200 g/h line speed는 PLA/PET 약 1.12/1.00 m/min이고 첫 gauge까지 248 mm transport delay는 약 13.3/14.9 s다. Diameter simulation은 first-order/transport model뿐이며 calibration·melt dynamics를 증명하지 않는다.
 
 = Gauge와 spooler
 
@@ -86,11 +88,11 @@ Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spoo
 
 = 비용과 제조
 
-Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 실제 slicing을 반영한 조건부 target은 179,951 KRW다. 20,000 KRW contingency 포함 absolute plan은 199,951 KRW이며 계획 여유는 49 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
+Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 실제 slicing을 반영한 조건부 target은 179,434 KRW다. 20,000 KRW contingency 포함 absolute plan은 199,434 KRW이며 계획 여유는 566 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
 
 #figure(image("../renders/review/print_orientation.png", width: 92%), caption: [12개 출력 part family orientation overview])
 
-PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 994.61 g, 실패 reserve 12% 포함 procurement mass는 1,113.96 g, 총 시간은 87.9 h다. 12개 plate와 PPR-TC01의 첫 extrusion layer SVG를 `exports/print/slicing_previews`에 생성해 bed 배치와 perimeter/infill/support role을 사람이 검토할 수 있게 했다. CAD nominal mass와 slicer mass는 별도 기록한다. 고하중·hot path는 출력품을 사용하지 않는다.
+PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 968.97 g, 실패 reserve 12% 포함 procurement mass는 1,085.25 g, 총 시간은 86.0 h다. 12개 plate와 PPR-TC01의 첫 extrusion layer SVG를 `exports/print/slicing_previews`에 생성해 bed 배치와 perimeter/infill/support role을 사람이 검토할 수 있게 했다. CAD nominal mass와 slicer mass는 별도 기록한다. 고하중·hot path는 출력품을 사용하지 않는다.
 
 = 검증 경계
 

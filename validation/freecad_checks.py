@@ -35,11 +35,18 @@ def main():
     # This catches an accidental radial slot through a hook/tooth.
     keyway_root_probe=Part.makeBox(2,6,2,App.Vector(-1,0,14))
     require(overlap(hook_disc(),keyway_root_probe)>20.0,"CUT-01 internal keyway opens through cutter root")
+    require("DieOrifice" not in by,"process filament must not be a manufactured assembly solid")
     for a,b in (("PSU","HotShield"),("PSU","Barrel"),("PSU","ExtruderDrive"),("CableDuct","PSU"),
                 ("Spool","PPR-C05_CoolingDuctLower"),("Spool","PPR-C05_CoolingDuctUpper"),
-                ("Spool","PPR-C06_GaugeHalfLower"),("Spool","PPR-C06_GaugeHalfUpper"),
-                ("Spool","PullerPlate"),("Spool","ControlPanel")):
+                ("Spool","PPR-C06_GaugeX"),("Spool","PPR-C06_GaugeY"),
+                ("Spool","PullerPlateFront"),("Spool","PullerPlateRear"),("Spool","ControlPanel"),
+                ("PPR-C05_CoolingDuctUpper","HotShield"),("PPR-C05_CoolingDuctUpper","Barrel"),
+                ("PPR-C05_CoolingDuctUpper","DownDieBody"),("PPR-C05_CoolingDuctLower","PPR-C06_GaugeX"),
+                ("PPR-C06_GaugeX","PPR-C06_GaugeY"),("PPR-C06_GaugeY","PPR-C07_PullerGuard"),
+                ("PPR-C07_PullerGuard","PullerPlateFront"),("PPR-C07_PullerGuard","PullerPlateRear")):
         require(overlap(by[a],by[b])<0.01,f"collision {a}/{b}: {overlap(by[a],by[b])}")
+    require(by["PPR-C05_CoolingDuctUpper"].distToShape(by["HotShield"])[0]>=9.99,"ABS duct/hot-shield gap below 10 mm")
+    require(by["PPR-C05_CoolingDuctUpper"].distToShape(by["DownDieBody"])[0]>=20.0,"ABS duct/die-body gap below 20 mm")
     require(overlap(keepouts["KO_DancerSweep"],by["Spool"])<0.01,"dancer full-motion keep-out/spool collision")
     hooks_a=[by[f"Hook105_{i}"] for i in range(6)]
     hooks_b=[by[f"Hook153_{i}"] for i in range(6)]
@@ -58,9 +65,16 @@ def main():
         shaft=by[f"Shaft{cx}"]
         for y in (315,455): require(overlap(shaft,by[f"Bearing{cx}_{y}"])<0.01,"shaft intersects bearing ring")
     require(overlap(by["Barrel"],by["HotShield"])<0.01,"barrel touches grounded shield")
+    require(overlap(by["DownDieBody"],by["HotShield"])<0.01,"die body touches grounded shield")
+    require(overlap(by["Barrel"],by["DownDieGasket"])<0.01 and by["Barrel"].distToShape(by["DownDieGasket"])[0]<0.01,"barrel/gasket interface is disconnected")
+    require(overlap(by["DownDieGasket"],by["DownDieBody"])<0.01 and by["DownDieGasket"].distToShape(by["DownDieBody"])[0]<0.01,"gasket/die interface is disconnected")
+    for name in ("DownDieBreaker","DownDieInsert","DownDieRelief"):
+        require(overlap(by[name],by["DownDieBody"])<0.01,f"die removable part overlaps body: {name}")
+    require(abs(by["DownDieInsert"].CenterOfMass.x-74.5)<0.05,"die outlet is off shared forming centreline")
+    require(abs((by["PullerRoll54.5"].BoundBox.XMax+by["PullerRoll94.5"].BoundBox.XMin)/2-74.5)<0.05,"puller nip is off die centreline")
     require(abs(by["Feeder"].CenterOfMass.x-354.0)<0.05,"feeder not aligned to B+12..30 barrel port")
     require(overlap(by["Feeder"],by["Barrel"])>100.0,"feeder does not intersect barrel feed-port envelope")
-    report={"revision":"solid-manifold-openmodelica-v0.4","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":15,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"phase_drive":"interchangeable motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}
+    report={"revision":"solid-manifold-openmodelica-v0.4","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":27,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"forming_centerline_x_mm":74.5,"duct_to_hot_shield_gap_mm":round(by["PPR-C05_CoolingDuctUpper"].distToShape(by["HotShield"])[0],3),"die_connection":"barrel -> C110 gasket -> EX-DIE-01 -> EX-DIE-02/03/04 open discharge","phase_drive":"interchangeable motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}
     (ROOT/"simulation/cad_clearance.json").write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n")
     print("FREECAD_COLLISION_LOAD_PATH_OK")
 

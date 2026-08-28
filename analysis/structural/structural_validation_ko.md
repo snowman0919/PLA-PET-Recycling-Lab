@@ -15,7 +15,7 @@
 |DRV-03 motor adapter plate|6.273|75.0|11.96|PASS|
 |EX-THR-01 screw thrust plate|3.077|137.5|44.68|PASS|
 |SP-SHAFT-01 spool shaft|35.916|100.0|2.78|PASS|
-|FR-ANCHOR-01 M8 table anchor|14.780|320.0|21.65|PASS|
+|FR-ANCHOR-01 M8 table anchor|15.066|320.0|21.24|PASS|
 
 ## 해석 의미
 

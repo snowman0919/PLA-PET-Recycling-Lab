@@ -99,6 +99,29 @@ def drive_thresholds():
     return {"calibration":c,"thresholds":thresholds,"hardcoded_universal_current_limit":False}
 
 
+def die_relief_screening():
+    """First-yield beam screen for the replaceable relief retainer.
+
+    This deliberately does not model large-deflection opening, gasket
+    friction or melt rheology.  Three physical coupons remain mandatory.
+    """
+    r=P["extruder"]["relief_retainer"]
+    force_per_web_n=r["yield_mpa_screening"]*r["web_width_mm"]*r["thickness_mm"]**2/(6*r["web_length_mm"])
+    total_force_n=force_per_web_n*r["web_count"]
+    loaded_area_mm2=math.pi*(r["loaded_diameter_mm"]**2-r["unloaded_orifice_diameter_mm"]**2)/4
+    pressure_mpa=total_force_n/loaded_area_mm2
+    return {
+        "model":"two_rectangular_web_first_yield_screen",
+        "force_per_web_n":round(force_per_web_n,2),
+        "total_force_n":round(total_force_n,2),
+        "loaded_annular_area_mm2":round(loaded_area_mm2,2),
+        "estimated_first_yield_pressure_mpa":round(pressure_mpa,2),
+        "target_window_mpa":[P["extruder"]["normal_pressure_mpa"],P["extruder"]["trip_pressure_equivalent_mpa"]],
+        "screening_pass":P["extruder"]["normal_pressure_mpa"]<pressure_mpa<P["extruder"]["trip_pressure_equivalent_mpa"],
+        "status":"DIGITAL_SCREENING_PHYSICAL_COUPON_NOT_RUN",
+    }
+
+
 def diameter_control(delay_s):
     dt=.1; queue=[0.0]*max(1,int(delay_s/dt)); diameter=1.75; puller=1.; integral=0.; errors=[]
     for i in range(int(900/dt)):
@@ -110,10 +133,10 @@ def diameter_control(delay_s):
 
 def main():
     if P["revision"]!=REV: raise SystemExit("revision mismatch")
-    flow=throughput_model(); candidates=screw_candidates(); cooling=cooling_matrix(); hierarchy=torque_hierarchy(); drive=drive_thresholds()
+    flow=throughput_model(); candidates=screw_candidates(); cooling=cooling_matrix(); hierarchy=torque_hierarchy(); drive=drive_thresholds(); die_relief=die_relief_screening()
     power=P["power"]|{"calculated_concurrent_peak_w":sum(P["power"][k] for k in ("heater_peak_w","shredder_peak_w","extruder_peak_w","motion_fans_logic_peak_w")),"arbiter_margin_w":P["power"]["psu_rating_w"]-P["power"]["arbiter_peak_w"]}
     area=math.pi*(.00175**2)/4; speed=(.2/3600)/(1240*area); delay=(P["forming"]["die_to_gauge_mm"]/1000)/speed
-    summary={"revision":REV,"release_class":P["release_class"],"throughput":flow,"screw_candidates":candidates,"cooling":cooling,"torque_hierarchy":hierarchy,"drive_calibration":drive,"diameter_loop":diameter_control(delay),"power":power,"thermal":{"hot_path_design_c":300,"shield_screen_c":52,"polymer_keepout_c":42,"status":"DIGITAL_SCREENING_PHYSICAL_NOT_RUN"},"pet_predry":"UNQUALIFIED_EXTERNAL_PROCESS"}
+    summary={"revision":REV,"release_class":P["release_class"],"throughput":flow,"screw_candidates":candidates,"cooling":cooling,"torque_hierarchy":hierarchy,"drive_calibration":drive,"die_relief_screening":die_relief,"diameter_loop":diameter_control(delay),"power":power,"thermal":{"hot_path_design_c":300,"shield_screen_c":52,"polymer_keepout_c":42,"status":"DIGITAL_SCREENING_PHYSICAL_NOT_RUN"},"pet_predry":"UNQUALIFIED_EXTERNAL_PROCESS"}
     out=ROOT/"simulation"; out.mkdir(exist_ok=True); (out/"engineering_summary.json").write_text(json.dumps(summary,indent=2,ensure_ascii=False)+"\n")
     with (ROOT/"calculations/throughput_rpm_sensitivity.csv").open("w",newline="") as f:
         w=csv.DictWriter(f,fieldnames=flow["rows"][0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(flow["rows"])
@@ -142,6 +165,8 @@ Current threshold는 donor calibration 뒤 `I = I0 + T/(Kt × ratio × efficienc
 
 `cooling_matrix.csv`는 PLA/PET, 50/100/150/200 g/h, fan 40/70/100%, duct 2.0/3.5/5.0 m/s를 모두 계산한다. 200 g/h에서 요구 h가 실측되지 않았으므로 risk가 남는 조합은 virtual requirement이며 puller-entry thermocouple 없이는 합격이 아니다.
 
+EX-DIE-04의 두 10×2.5×1.5 mm 304 stainless bending web은 265 °C 보수 항복강도 150 MPa와 insert annular projected area를 쓴 first-yield screening에서 {die_relief['estimated_first_yield_pressure_mpa']} MPa다. 목표 3–6 MPa 안이지만 large deflection·마찰·열화가 빠져 있으므로 동일 lot 3개 고온 물리 coupon 전에는 relief 합격값이 아니다.
+
 PET predry는 `UNQUALIFIED_EXTERNAL_PROCESS`; 65 °C/7 h를 qualified recipe로 주장하지 않는다.
 """)
     (ROOT/"calculations/engineering_report.md").write_text(f"""# 공학 계산 통합 보고 — {REV}
@@ -152,6 +177,7 @@ PET predry는 `UNQUALIFIED_EXTERNAL_PROCESS`; 65 °C/7 h를 qualified recipe로 
 - 200 g/h: nominal 미입증 stretch target
 - torque hierarchy: 14 < 18 < 22 < 34 < 48 N·m, PASS
 - 24 V power arbiter: {power['arbiter_peak_w']} W < 600 W, PASS
+- EX-DIE-04 first-yield screen: {die_relief['estimated_first_yield_pressure_mpa']} MPa, physical relief coupon `NOT_RUN`
 - physical cutter/feed/melt/cooling/dimension tests: `PHYSICAL_NOT_RUN`
 
 OpenModelica dynamic peak는 `simulation/openmodelica/results/summary.json`에서 구조 load case로 전달하며, 해석은 실제 chip size·wear·melt quality를 증명하지 않는다.

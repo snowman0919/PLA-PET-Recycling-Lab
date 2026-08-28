@@ -70,6 +70,18 @@ def main():
         a=math.radians(angle)
         probe=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
         require(barrel.common(probe).Volume<0.01,f"barrel M4 tap-drill missing at {angle}")
+    rfq_by={p["id"]:p["shape"] for p in rfq_specs}
+    require({f"EX-DIE-{i:02d}" for i in range(1,6)} <= set(rfq_by),"connected die RFQ set incomplete")
+    body=rfq_by["EX-DIE-01"]
+    horizontal=Part.makeCylinder(3.9,21,App.Vector(19,0,0),App.Vector(1,0,0))
+    vertical=Part.makeCylinder(3.9,28,App.Vector(20,0,-24))
+    require(body.common(horizontal).Volume<0.01 and body.common(vertical).Volume<0.01,"90 degree die melt channels missing")
+    require(horizontal.common(vertical).Volume>1.0,"90 degree die channels do not intersect")
+    require(rfq_by["EX-DIE-02"].Solids and rfq_by["EX-DIE-03"].Solids and rfq_by["EX-DIE-04"].Solids,"die removable parts invalid")
+    retainer=rfq_by["EX-DIE-04"]
+    for x in (13.0,26.5):
+        web_probe=Part.makeBox(1,10,1.5,App.Vector(x,-5,-25.5))
+        require(retainer.common(web_probe).Volume>14.0,"sacrificial retainer 10 mm web missing")
     for rel in (
         "exports/jigs/gate1/gate1_assembly.FCStd",
         "exports/jigs/gate1/gate1_assembly.step",
@@ -92,6 +104,7 @@ def main():
         "exports/cnc/extruder/EX-SCR-01_drawing.svg",
         "exports/cnc/extruder/EX-BAR-01_drawing.svg",
         "exports/cnc/extruder/EX-CPN_drawing.svg",
+        "exports/cnc/extruder/EX-DIE_drawing.svg",
         "exports/cnc/extruder/inspection_report_template.csv",
         "exports/cnc/extruder/supplier_deviation_template.csv",
         "exports/cnc/extruder/manufacturing_audit_ko.md",
@@ -104,6 +117,10 @@ def main():
         for ext in ("FCStd","step","stl","dxf"):
             require((folder/f"{spec['id']}.{ext}").exists(),f"missing Gate-1 fabrication format {spec['id']}.{ext}")
         notes=(folder/"drawing_notes.md"); require(notes.exists() and "controlling requirements" in notes.read_text(),f"missing Gate-1 drawing note {spec['id']}")
+    for spec in rfq_specs:
+        folder=ROOT/"exports/cnc/extruder/parts"/spec["id"]
+        for ext in ("FCStd","step","stl","dxf"):
+            require((folder/f"{spec['id']}.{ext}").exists(),f"missing extruder fabrication format {spec['id']}.{ext}")
     jig_bom=list(csv.DictReader((ROOT/"exports/jigs/gate1/bom.csv").open()))
     require(any(r["item_id"]=="CUT-01" and r["qty"]=="2" for r in jig_bom),"Gate-1 coupon quantity")
     require({r["item_id"] for r in jig_bom if r["item_id"].startswith("G1J-")} >= {f"G1J-{i:02d}" for i in range(1,11)},"Gate-1 BOM part coverage")
@@ -119,7 +136,7 @@ def main():
     print_rows=list(csv.DictReader((ROOT/"exports/jigs/gate1/print_manifest.csv").open()))
     require(sum(float(r["estimated_mass_g"]) for r in print_rows) <= 250.0,"Gate-1 jig print mass")
     rfq=(ROOT/"exports/cnc/extruder/manufacturing_audit_ko.md").read_text()
-    for token in ("SCM440 KS D3867/JIS G4105","Datum A","Datum B","Datum C","Datum D","4x M4 x0.7-6H","2.0/2.9","0.28–0.32","HOLD"):
+    for token in ("SCM440 KS D3867/JIS G4105","Datum A","Datum B","Datum C","Datum D","4x M4 x0.7-6H","2.0/2.9","0.28–0.32","EX-DIE-01","Ø8 수평 유로","3–6 MPa","HOLD"):
         require(token in rfq,f"extruder RFQ controlling token missing: {token}")
     print("MANUFACTURING_GEOMETRY_RFQ_OK")
 

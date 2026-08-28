@@ -28,6 +28,6 @@ Gate 3 전에는 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm 공정 coupon만 허용�
 ## Gate 5 Diameter/spool
 
 - 부품: traceable pin/wire, gauge, puller, dancer/traverse, full 1 kg spool dummy.
-- 합격: installed 285 mm duct 끝 strand temperature가 PLA <=48 °C/PET <=65 °C, U95 <=0.05 mm initial, 30 min mean 1.75 ±0.05 mm와 ovality <=0.08 mm, puller slip <=1%, dancer/endstop collision 0, full traverse spill 0. 200 g/h에서 온도 Gate 실패 시 장치를 키우지 않고 처리량을 낮춰 최대 안정값을 보고한다. Improvement target은 U95/diameter ±0.03 mm다.
+- 합격: die-to-puller 323 mm straight span과 installed 2×100 mm duct 끝 strand temperature가 PLA <=48 °C/PET <=65 °C, U95 <=0.05 mm initial, 30 min mean 1.75 ±0.05 mm와 ovality <=0.08 mm, puller slip <=1%, dancer/endstop collision 0, full traverse spill 0. 200 g/h에서 온도 Gate 실패 시 장치를 키우지 않고 처리량을 낮춰 최대 안정값을 보고한다. Improvement target은 U95/diameter ±0.03 mm다.
 
 각 Gate 실행 전 사용자가 exact 부품과 절차를 승인해야 한다. 이 문서는 시험 결과가 아니다.
