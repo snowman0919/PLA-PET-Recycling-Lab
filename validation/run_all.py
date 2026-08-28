@@ -31,16 +31,18 @@ def main():
     run(["bash","-lc",gen] if shutil.which("FreeCADCmd") else nix_shell(gen),"COMPACT_CAD_GENERATION_OK")
     freecad_check='FreeCADCmd -c \'import runpy; runpy.run_path("validation/freecad_checks.py", run_name="__main__")\''
     run(["bash","-lc",freecad_check] if shutil.which("FreeCADCmd") else nix_shell(freecad_check),"FREECAD_COLLISION_LOAD_PATH_OK")
+    manufacturing_check='FreeCADCmd -c \'import runpy; runpy.run_path("validation/manufacturing_checks.py", run_name="__main__")\''
+    run(["bash","-lc",manufacturing_check] if shutil.which("FreeCADCmd") else nix_shell(manufacturing_check),"MANUFACTURING_GEOMETRY_RFQ_OK")
     render_probe=ROOT/"renders/assembly/compact_full_assembly_isometric.png"
     if "--regenerate-renders" in sys.argv or not render_probe.exists():
         run(["bash","-lc",render] if shutil.which("FreeCADCmd") else nix_shell(render),"COMPACT_RENDER_GENERATION_OK")
     else:
         print("PASS COMPACT_RENDER_PACKAGE_PRESENT (use --regenerate-renders to rebuild)")
-    typst='typst compile --root . docs/build_manual_ko.typ docs/build_manual_ko.pdf && typst compile --root . docs/design_report_ko.typ docs/design_report_ko.pdf && echo COMPACT_PDF_BUILD_OK'
+    typst='typst compile --root . docs/build_manual_ko.typ docs/build_manual_ko.pdf && typst compile --root . docs/design_report_ko.typ docs/design_report_ko.pdf && typst compile --root . exports/cnc/extruder/rfq_drawing_ko.typ exports/cnc/extruder/rfq_drawing_ko.pdf && typst compile --root . exports/jigs/gate1/gate1_assembly_ko.typ exports/jigs/gate1/gate1_assembly_ko.pdf && echo COMPACT_PDF_BUILD_OK'
     run(["bash","-lc",typst] if shutil.which("typst") else nix_shell(typst),"COMPACT_PDF_BUILD_OK")
     run([sys.executable,"artifacts/build_manifest.py"],"ARTIFACT_MANIFEST_OK")
     run([sys.executable,"validation/test_release.py"],"COMPACT_RELEASE_VALIDATION_OK")
-    print("ALL_AUTOMATED_VALIDATIONS_OK (8 orchestrated gates)")
+    print("ALL_AUTOMATED_VALIDATIONS_OK (9 package gates; physical release locks remain)")
 
 
 if __name__ == "__main__": main()

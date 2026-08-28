@@ -6,10 +6,10 @@
 
 ## actuator
 
-선정 후보는 `MY1016Z-24V-250W-75RPM` brushed geared-DC motor다. 24 V, 250 W, 75 rpm output, raw motor torque 0.98 N·m, integrated ratio 23.2:1, S2:60이다. KTR ROTEX19 98ShA bore17/20 coupling으로 right cutter shaft를 직접 구동하므로 cutter 무부하 최대속도는 75.0 rpm이다. integrated gear 효율 0.65를 적용한 보수적 cutter torque는 14.8 N·m다. 이 값은 catalog 조합계산이며 실제 gearhead 출력토크 보증이 아니다. Gate 1에서 current/torque를 교정한다.
+Actuator 기준은 특정 part number가 아니라 `INTERCHANGEABLE_DONOR_GEARMOTOR` functional interface다. 18–30 V reversible brushed gearmotor, cutter 환산 continuous 14 N·m, 3 s peak 24 N·m, 20–40 rpm을 Gate-1에서 입증해야 한다. DRV-01 plate와 #35 12T:18T/24T chain, DRV-02 four-bolt hub를 쓰므로 donor가 바뀌면 motor-side bracket/hub만 바뀐다. Catalog 이름만으로 torque를 인정하지 않는다.
 
-PLA/PET 명령은 32/24 rpm, 정상 요구 14 N·m, profile current trip은 16/18 A, 20 A branch fuse, 3회 bounded reverse 뒤 latched fault다. 한 phase gear의 6 x 6 x 4 mm annealed brass key가 nominal 24 N·m 기계 relief이고, 이 torque에서 cutter tip tangential force는 828 N이다. 두 cutter shaft의 반대회전/phase는 KHK `SS3-16H` M3 Z16 hardened gear pair가 유지한다. Catalog hardened surface durability 28.0 N·m보다 relief를 낮게 두고 coupon에서 실제 전단 torque를 확인한다.
+PLA/PET 명령은 32/24 rpm, 정상 요구 14 N·m, profile current trip은 16/18 A, 20 A branch fuse, 3회 bounded reverse 뒤 latched fault다. 한 phase gear의 6 x 6 x 4 mm annealed brass key가 nominal 24 N·m 기계 relief이고, 이 torque에서 cutter tip tangential force는 828 N이다. 두 shaft의 반대회전/phase는 generic M3 Z16, 20 degree, face 18 mm 이상 steel pair 또는 DRV-03 3-lamination/gear가 유지한다. Key 전단과 gear 손상 여부는 coupon에서 확인한다.
 
 ## 구매/치수 Gate
 
-Marketplace의 같은 모델명 제품 간 내부 감속과 shaft drawing이 일관되지 않다. Motor plate는 20/73.5 mm hole-spacing을 포괄하는 slot을 사용하지만, 입고 시 label, 17 x 44 mm shaft, no-load rpm, current, 회전방향을 확인하기 전 coupling과 full cutter를 발주하지 않는다.
+Project-lab wheelchair/conveyor gearmotor, scooter/e-bike gearmotor, 동급 donor 순으로 조사한다. 정확 model, label, 수량, 상태, shaft, no-load rpm/current, 30분 온도를 기록하기 전 현금 0원으로 확정하지 않는다. Gate-1 PASS 전 full cutter 수량을 발주하지 않는다.

@@ -23,7 +23,7 @@
 
 `bom/reuse_inventory.csv`의 UNVERIFIED 항목은 label, 수량, 상태, shaft, voltage/current와 telemetry를 기록한다. 사용할 수 없는 donor는 `cash_budget.csv` allowance 범위에서 대체하되 주문은 승인 후 진행한다.
 
-#danger[현재 exact shredder motor/driver/current sensor/phase gear 포함 cash rollup은 309,900 KRW로 상한을 109,900 KRW 초과한다. 예산 blocker를 해소하기 전 이 문서를 구매 목록으로 사용하지 않는다.]
+#danger[VE 조건부 cash scenario는 198,808 KRW지만 donor motor는 UNVERIFIED다. 정확 model·수량·상태와 Gate-1 증거 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
 
 PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesive와 오염을 제거하고 PLA에는 metal insert가 없어야 한다. 미확인 plastic은 투입하지 않는다.
 
@@ -47,19 +47,19 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 `CUT-01`은 76% cycloidal capture flank가 회전 중심 쪽 root에서 tip으로 진행하고, 24% 빠른 relief가 hook back을 만들도록 좌우 shaft에 같은 disc를 끼운다. 오른쪽 shaft만 180/7 degree phase offset한다. Ø20.2 bore의 6.2 mm blind internal keyway가 root section 안에서 끝나고 tooth 외곽까지 열리지 않았는지 검사한다. 각 disc 사이에는 `CUT-02` 7 mm spacer와 금속 shim을 사용한다. Disc가 plate 또는 반대 shaft disc와 접촉하면 motor를 연결하지 않는다.
 
-`MY1016Z-24V-250W-75RPM` motor를 `CUT-07` slot plate에 장착하고 KTR ROTEX19 98ShA bore17/20 coupling을 right cutter shaft에 맞춘다. 두 cutter shaft 후단에는 KHK `SS3-16H` M3 Z16 hardened gear를 설치하고 bore를 20 mm shaft에 맞춰 후가공한다. Gear center는 shaft center와 같은 48 mm다. 한 gear에는 6 x 6 x 4 mm annealed brass key와 대응 6 mm keyway를 사용하고 coupon에서 20–24 N·m 범위에 전단되는지 확인한다. Hand rotation 20회에서 tooth/coupling/disc 접촉이 없어야 guard를 닫을 수 있다.
+검증된 18–30 V donor geared-DC motor를 `CUT-07/DRV-01` universal plate의 standard metal angle에 장착한다. #35 12T motor sprocket과 18T 또는 24T cutter sprocket을 DRV-02 four-bolt hub로 분리하고 chain alignment를 0.5 mm 이내로 맞춘다. 두 cutter shaft에는 generic M3 Z16, 20 degree, face>=18 mm steel pair 또는 DRV-03 lamination 3장/gear를 설치한다. 한 gear의 6 x 6 x 4 mm brass key가 20–24 N·m에서 sacrificial relief로 작동하는지 coupon으로 정한다. Hand rotation 20회에서 tooth/chain/disc 접촉이 없어야 interlocked guard를 닫는다.
 
 #figure(image("../renders/modules/shredder_drive_guard_removed.png", width: 92%), caption: [Direct geared-DC motor/coupling/phase gear 조립 — 정상 운전은 guard 장착])
 
 #figure(image("../renders/review/shredder_fastener_tool_access.png", width: 92%), caption: [Bearing plate/shaft/tool access review])
 
-#danger[Gate 1 전 full cutter stack을 발주하지 않는다. Motor label, Ø17 x 44 mm shaft, 20/73.5 mm mount, 75 rpm, no-load current를 입고검사하고 coupon에서 PET seam과 PLA 1.2/2.0/3.0 mm를 측정한 뒤 shaft/hub를 확정한다.]
+#danger[Gate-1 전 CUT-01은 정확히 2장 coupon만 허용한다. `exports/jigs/gate1`의 지그·BOM·절차로 donor label/shaft/current/RPM, PET body/folded seam과 PLA 1.2/2.0/3.0 mm의 torque/jam/chip size를 측정한 뒤 full stack을 판단한다.]
 
 = Dry feed와 extruder
 
 원료는 외부 dryer에서 준비한 뒤 밀폐 용기로 옮겨 sealed hopper에 넣는다. Maintenance heater branch에 fuse, independent high-limit와 one-shot fuse를 직렬 설치한다.
 
-16 mm screw/barrel을 thrust bearing -> metal plate -> profile 순서로 조립한다. Hand rotation, TIR <=0.10 mm와 30 min heater-off load를 통과하기 전 heater를 연결하지 않는다. Breaker/screen과 open die는 guard를 해체하지 않고 인출 가능해야 한다. Screw service는 hot zone cooldown/0 V 뒤 front 방향으로 extruder cassette 전체를 profile clamp에서 빼낸 다음 cabinet 밖 작업대에서 screw를 축방향 인출한다. Frame column 사이로 screw만 억지로 빼지 않는다.
+16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. 먼저 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm coupon의 Ø, radial clearance 0.14–0.16 mm, hardness/case depth/Ra를 검사한다. Full part는 coupon/DFM과 Gate-3 전 발주하지 않는다. 이후 thrust bearing -> metal plate -> profile 순서로 조립하고 hand rotation, TIR <=0.10 mm와 30 min heater-off load 전 heater를 연결하지 않는다. Screw service는 cooldown/0 V 뒤 cassette를 cabinet 밖 작업대에서 축방향 인출한다.
 
 #figure(image("../renders/review/compact_section.png", width: 92%), caption: [Hot path와 straight vertical forming section])
 

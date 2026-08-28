@@ -2,10 +2,10 @@
 
 ## Gate 1 Cutter coupon
 
-- 부품: CUT-01 cycloidal-derived disc 1–2개, CUT-05 20 mm coupon shaft, CUT-03 plate, `MY1016Z-24V-250W-75RPM`, KTR ROTEX19 98ShA bore17/20, KHK SS3-16H gear pair와 6 x 6 x 4 mm brass shear key, torque arm/load cell, 50 A current sensor, driven-shaft Hall RPM, guard.
-- 입력: PET body/folded seam, PLA wall 1.2/2.0/3.0 mm 각 10개.
+- 부품: CUT-01 정확히 2개, CUT-04 5 mm screen coupon 1개, CUT-05 shaft 2개, CUT-03 plate 2개, 6004 4개, DRV-03 lamination 6개, G1J-01/02/P01/P02/P03, 3 mm polycarbonate guard, calibrated 0–200 N gauge/load-cell, 50 A current sensor와 Hall RPM. Motor 시험은 functional interface를 통과한 donor만 연결한다.
+- 입력: PET body/four-layer folded seam, PLA wall 1.2/2.0/3.0 mm 각 5개.
 - 측정: torque/current/RPM drop, capture/reverse, 조각 sieve mass.
-- 합격: 입고 label/Ø17 x 44 mm shaft/20·73.5 mm mount/75 rpm 일치, shaft slip/plate set/guard breach 0, 14 N·m에서 10 min 온도 안정, bounded reverse recovery >=9/10, brass key가 20–24 N·m에서 전단되고 gear/coupling/shaft 손상 0, 치수결정에 사용할 torque-current-RPM curve 확보.
+- 합격: PLA/PET body max<=14 N·m, PET folded seam max<=24 N·m, 영구변형/guard breach 0, bounded reverse 3회 뒤 latch, 3–6 mm>=55%, >20 mm PET strip<=10%, fines<=15%, recovery>=95%와 torque-current-RPM curve 확보. 상세 절차는 `exports/jigs/gate1/test_procedure_ko.md`가 controlling이다.
 
 ## Gate 2 Flake/feed coupon
 
@@ -17,6 +17,8 @@
 
 - 부품: screw/barrel/thrust plate/bearing/drive, heater 미장착 또는 분리.
 - 합격: hand rotation 전 길이 binding 0, radial rub 0, shaft alignment <=0.10 mm TIR, thrust path가 metal/profile에 닫힘, 30 min heater-off load에서 fastener 이동 0.
+
+Gate 3 전에는 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm 공정 coupon만 허용한다. Drawing limit radial clearance 0.14–0.16 mm, hardness/case depth/Ra/TIR report와 공급사 DFM이 닫히기 전 full screw/barrel 발주를 승인하지 않는다.
 
 ## Gate 4 Hot extrusion
 

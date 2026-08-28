@@ -43,7 +43,7 @@ def main():
     require(overlap(by["PhaseGear105"],by["PhaseGear153"])<0.01,"phase gears have solid overlap")
     require(abs(by["PhaseGear105"].BoundBox.XMin + by["PhaseGear105"].BoundBox.XLength/2 - 105) < 0.01,"left phase gear center")
     require(by["PhaseGear105"].distToShape(by["CutterPlateRear"])[0] >= 3.9,"phase gear rear-plate service gap")
-    require(overlap(by["MY1016ZMotor"],by["CutterPlateFront"])<0.01,"motor/front plate collision")
+    require(overlap(by["DonorMotorEnvelope"],by["CutterPlateFront"])<0.01,"donor motor/front plate collision")
     require(by["MotorMountPlate"].BoundBox.YMax <= 231.01,"motor plate orientation/position")
     require(overlap(by["BearingRetainerFront"],by["Bearing105_315"])<0.01,"front bearing retainer blocks rolling elements")
     require(overlap(by["BearingRetainerRear"],by["PhaseGear105"])<0.01,"rear bearing retainer/gear collision")
@@ -51,7 +51,7 @@ def main():
         shaft=by[f"Shaft{cx}"]
         for y in (315,455): require(overlap(shaft,by[f"Bearing{cx}_{y}"])<0.01,"shaft intersects bearing ring")
     require(overlap(by["Barrel"],by["HotShield"])<0.01,"barrel touches grounded shield")
-    report={"revision":"compact-single-path-v0.3","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":13,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"phase_drive":"MY1016Z direct + ROTEX19 + KHK SS3-16H pair","result":"PASS","scope":"nominal CAD only; tolerances and dynamics require physical gates"}
+    report={"revision":"compact-single-path-v0.3","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":13,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"phase_drive":"interchangeable #35 chain + DRV-02 hub + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}
     (ROOT/"simulation/cad_clearance.json").write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n")
     print("FREECAD_COLLISION_LOAD_PATH_OK")
 

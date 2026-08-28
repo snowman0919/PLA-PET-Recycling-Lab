@@ -1,11 +1,11 @@
 # 경제성 — compact-single-path-v0.3
 
-Exact shredder motor/driver/current sensor/hardened phase gear를 포함한 계획 신규 현금비용은 309,900 KRW다. 이는 200,000 KRW hard cap을 109,900 KRW 초과하므로 release blocker다. Donor replacement value는 현금 budget에 합산하지 않으며 `reuse_inventory.csv`의 확인 전 품목을 보유 확정으로 간주하지 않는다.
+Interchangeable drive와 process coupon 선행으로 줄인 조건부 신규 현금비용은 198,808 KRW다. 200,000 KRW hard cap 아래 1,192 KRW지만 shredder motor 0원은 실물 확인 전 `CONDITIONAL_DONOR_UNVERIFIED`다. Donor replacement value는 현금 budget에 합산하지 않으며 `reuse_inventory.csv`의 확인 전 품목을 보유 확정으로 간주하지 않는다.
 
 가정: 전력 0.55 kW 평균, 안정 생산 0.18 kg/h, 전력단가 180 KRW/kWh, purge 0.10 kg/재질전환, usable yield 75%, 상용 filament 22,000 KRW/kg, 세척 원료 0 KRW. 전력비는 약 550 KRW/kg이고 purge/yield를 포함한 순 절감액은 보수적으로 13,500 KRW/kg로 둔다.
 
-- 손익분기 생산량(현재 blocker 비용 기준): `309,900 / 13,500 = 23.0 kg`
-- 월 2 kg 사용: 약 11.5개월
-- 월 5 kg 사용: 약 4.6개월
+- 손익분기 생산량(조건부 VE 시나리오): `198,808 / 13,500 = 14.7 kg`
+- 월 2 kg 사용: 약 7.4개월
+- 월 5 kg 사용: 약 3.0개월
 
 노동, 실패 batch, external dryer 감가, replacement part와 실제 CNC 초과비용은 제외했다. 따라서 이는 구매 결정용 확정 ROI가 아니라 민감도 baseline이다.

@@ -1,0 +1,13 @@
+item,qty,source,cash_krw,status,reuse_after_test,notes
+CUT-01 coupon disc,2,exports/cnc/CUT-01,4000,COUPON_RFQ,yes,D2/SKD11 candidate; no remaining 10 discs
+CUT-03 side plate,2,exports/cnc/CUT-03,8000,RFQ_HOLD,yes,42 H7 seats match-machined
+CUT-05 shaft,2,exports/cnc/CUT-05,12000,RFQ_HOLD,yes,final machine shaft
+CUT-04 5 mm screen coupon,1,exports/cnc/CUT-04,0,BUDGET_LINE_CNC04,yes,5 mm holes; 3 mm 304; top clearance >=1.9 mm
+6004-2RS,4,project-lab/donor,0,VERIFY_INVENTORY,yes,designation/play/corrosion
+DRV-03 phase lamination,6,exports/drive_interface,6000,COUPON_RFQ,yes,3 laminations per gear
+G1J-01 base,1,donor metal plate,0,VERIFY_INVENTORY,jig,flatness <=0.3 mm
+G1J-02 torque arm,1,exports/jigs/gate1/parts,2000,RFQ_HOLD,jig,250.0 mm force radius
+0-200 N force gauge or 100 kg load cell/HX711,1,project-lab or buy allowance,7500,CALIBRATION_HOLD,jig,accuracy <=2% after calibration
+3 mm polycarbonate guard sheet,1,project-lab/donor,0,VERIFY_INVENTORY,jig,no acrylic in fragment plane
+printed chute/tray/corners,1,exports/jigs/gate1/parts,4500,PRINT_HOLD,jig,약 0.25 kg; cold low-load only
+M6/M8 fastener shim collars,1,hardware allowance,1500,BUY_HOLD,yes,metal shim controls cutter clearance

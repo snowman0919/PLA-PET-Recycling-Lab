@@ -6,15 +6,18 @@
 |---|---|---|
 | Engineering calculation | PASS | `simulation/engineering_summary.json` |
 | Mega profile lock/change wizard | PASS | host C++ test |
-| FreeCAD source/artifact generation | PASS | 12 print families, assembly FCStd/STEP |
+| FreeCAD source/artifact generation | PASS | final-machine, DRV, Gate-1, extruder RFQ FCStd/STEP/STL/DXF |
 | Envelope/collision/load path | PASS | 470 x 700 x 930 mm, `simulation/cad_clearance.json` |
-| Render package | PASS | assembly/module/review PNG 13개 재생성·parent visual review |
-| 한국어 PDF | PASS | A4 manual 7쪽, report 8쪽 |
-| Artifact manifest | PASS | 141개 SHA-256 entry |
-| Release consistency | FAIL | exact motor 반영 후 cash cap 초과 |
+| Manufacturing geometry/RFQ | PASS | Gate-1 415 x 248 x 203 mm, CUT-01 gap 0.50 mm, screw 316 mm |
+| Render package | PASS | assembly/module/review/Gate-1/RFQ PNG와 parent visual review |
+| 한국어 PDF | PASS | manual 7쪽, report 8쪽, RFQ 2쪽, Gate-1 assembly 2쪽 |
+| Artifact manifest | PASS | 214개 SHA-256 entry |
+| Current-source consistency | PASS | budget arithmetic와 physical release lock 포함 |
 
-Exact MY1016Z motor/driver/current sensor/hardened phase gear를 포함한 계획 신규 현금비용은 309,900 KRW로 hard cap을 109,900 KRW 초과한다. 따라서 budget gate는 FAIL이며 main 승격을 금지한다. Shredder 금속 unique family는 CUT-01..08의 8개이고 출력 CAD 질량은 생성 manifest 기준이다. Shredder state의 peak arbiter는 500 W이며 600 W PSU 대비 100 W margin이다. Shredder와 barrel heater/screw는 상호 배제한다.
+조건부 donor 기준 cash scenario는 198,808 KRW로 hard cap 아래 1,192 KRW다. Final-machine 출력 질량은 1100.5 g, Gate-1 시험 jig 출력은 별도 234.1 g/약 4,214 KRW이며 cash rollup에 포함했다. Donor motor는 exact model·수량·상태·label·shaft·current/RPM·30분 온도와 Gate-1 torque 증거가 없어 `UNVERIFIED`다. 따라서 0원은 계획 시나리오일 뿐 final budget acceptance가 아니다.
 
-이 결과는 simulation/CAD/software gate다. 실제 파쇄, 입도, melt flow, 200 g/h, 직경, thermal/pressure response와 safety certification 결과가 아니다. 물리 Gate 1–5는 사용자 승인과 donor measurement 뒤에 남아 있다.
+`validation/physical_gate_status.json`은 Gate-1, screw process coupon과 barrel process coupon을 모두 `NOT_RUN`으로 기록한다. Full cutter order, full screw/barrel order와 `main` 승격은 모두 false다. 자동 package gate가 통과한 사실은 이 물리 잠금을 해제하지 않는다.
 
-`python3 validation/run_all.py`는 engineering, Mega host test, CAD generation, FreeCAD collision/load path, render package, PDF와 manifest까지 PASS한 뒤 `cash cap exceeded`에서 exit 1로 종료했다. Budget 이외 release test 함수는 별도 실행에서 모두 PASS했다. 현재 Mega 산출물은 host-testable control core이며 exact TFT/pin driver와 실제 BTS7960/ACS758 calibration은 입고품 확정 전 production firmware로 간주하지 않는다.
+Shredder peak arbiter는 500 W이고 600 W PSU margin은 100 W다. Shredder와 barrel heater/screw는 상호 배제한다. E-stop, lid/service hard inhibit, 20 A branch fuse, thermal fuse와 hot/chain guard는 VE에서 제거하지 않았다.
+
+이 결과는 simulation/CAD/software/document gate다. 실제 파쇄 torque, jam, chip size, melt flow, 200 g/h, 직경, thermal/pressure response와 safety certification 결과가 아니다. 현재 Mega 산출물도 host-testable core이며 donor별 BTS7960/current/RPM calibration 전 production firmware가 아니다.

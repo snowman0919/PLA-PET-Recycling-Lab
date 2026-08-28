@@ -12,12 +12,13 @@ PATTERNS = (
     "cad/generation/fcstd/*.FCStd",
     "cad/generation/assembly_metadata.json",
     "exports/step/*.step",
-    "exports/cnc/**/*.FCStd", "exports/cnc/**/*.step", "exports/cnc/**/*.dxf", "exports/cnc/**/*.md", "exports/cnc/*.csv",
+    "exports/cnc/**/*.FCStd", "exports/cnc/**/*.step", "exports/cnc/**/*.dxf", "exports/cnc/**/*.md", "exports/cnc/**/*.pdf", "exports/cnc/*.csv",
+    "exports/drive_interface/**/*", "exports/jigs/**/*",
     "exports/print/**/*.FCStd", "exports/print/**/*.step", "exports/print/**/*.stl", "exports/print/**/*.3mf",
     "exports/print/**/*.md", "exports/print/*.csv",
-    "renders/**/*.png", "docs/*.pdf",
+    "renders/**/*.png", "docs/*.pdf", "docs/*.md",
     "bom/*.csv", "calculations/*.md", "calculations/economics/*.md",
-    "simulation/*.json", "requirements/*.md", "validation/release_checklist.md",
+    "simulation/*.json", "requirements/*.md", "validation/release_checklist.md", "validation/physical_gate_status.json",
 )
 
 

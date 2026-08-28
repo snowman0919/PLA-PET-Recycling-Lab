@@ -1,21 +1,26 @@
 {
   "revision": "compact-single-path-v0.3",
-  "artifact_count": 141,
+  "artifact_count": 214,
   "artifacts": [
     {
       "path": "bom/bom.csv",
-      "bytes": 2704,
-      "sha256": "ab8c18d2900f522add949feb49d6dde376c4c2c1555b91bbae5e492b899cc7c1"
+      "bytes": 2795,
+      "sha256": "c6f141668bf4ad13b46448bfca0c9920621d758d6a219959591ece6103984db6"
     },
     {
       "path": "bom/cash_budget.csv",
-      "bytes": 2429,
-      "sha256": "6d4c5dbc9acd8384d93874e0a98ac2ad5a88d7188bef8a3422d53f4354c195ac"
+      "bytes": 2716,
+      "sha256": "6c1e0896fd692a55abd680cfd3cd60a5b18517f2a7ba3bb3c96ab52fe8c4992c"
     },
     {
       "path": "bom/cnc_quote_package.csv",
-      "bytes": 1232,
-      "sha256": "01990a8b77aac707f2c551da3c5edef884ca6c1ea34ce0dfc8c622b67a5bf64e"
+      "bytes": 1259,
+      "sha256": "1a635a13dcfa67e3e40c95a25b7aa4515e12459eb033ec53f98d2fa526f8e424"
+    },
+    {
+      "path": "bom/donor_drive_acceptance.csv",
+      "bytes": 1147,
+      "sha256": "26b4c5fc1312a59734a403489ab019ce56896c5ae086c909f18c0c2583bf4a32"
     },
     {
       "path": "bom/printed_material_cost.csv",
@@ -24,28 +29,28 @@
     },
     {
       "path": "bom/purchase_candidates.csv",
-      "bytes": 1621,
-      "sha256": "fcefdad9ae1603bebe9c262a7e2bb0240cf938b37c818ff12a845209416c5fb9"
+      "bytes": 1614,
+      "sha256": "65a3f9661ffa815950e6af9927049462c2aa56389ff1defe2984fdcc7abc29c0"
     },
     {
       "path": "bom/reuse_inventory.csv",
-      "bytes": 891,
-      "sha256": "bcfa294f2191d9b289be922eb85ecc750c5a76661a90ff1a521b4926ecefe43c"
+      "bytes": 1257,
+      "sha256": "04d0699aef7c3d48468d954279167c66820321e973998ff74df1fd23b3ce8b56"
     },
     {
       "path": "cad/generation/assembly_metadata.json",
       "bytes": 379,
-      "sha256": "e448fb11f83cba06e24073108aa2c05d926fa4621d9ffcd248ab340f3bab4b45"
+      "sha256": "f33d6476b272e5a88d5711e27b25cbb898b6113e76067862240fb1af9220fda7"
     },
     {
       "path": "cad/generation/fcstd/compact_full_assembly.FCStd",
-      "bytes": 376493,
-      "sha256": "53e9e1c4bde72dd324dedb3774aa271eb86a1975c585b7e292f782438a12fb32"
+      "bytes": 381905,
+      "sha256": "23ad38cdd5eca0ee018b8e392b411562e1e3ef7f15f8176fbc73ac658812f5c4"
     },
     {
       "path": "calculations/economics/break_even.md",
-      "bytes": 1042,
-      "sha256": "d76c8452b11b706473f4ee6076b4ead744c04591fbfc7991c39732a812f89bb6"
+      "bytes": 1066,
+      "sha256": "5cd776c6ca8b881c50761aec6afa7baeaa134b7c1bcfd8afea37e20c7eaf6460"
     },
     {
       "path": "calculations/screw_sensitivity.md",
@@ -54,8 +59,8 @@
     },
     {
       "path": "calculations/shredder_drive_and_cutter.md",
-      "bytes": 1795,
-      "sha256": "c5d1e5b9a7ed53cf4d9e8a38d63a7adcad65b00ac24c3858ca512c5beae1249f"
+      "bytes": 1682,
+      "sha256": "40d7bda2ee3f6cdad9a884cb726c16800d1f267d11f2dadb83a0a185878a478a"
     },
     {
       "path": "calculations/thermal_power_forming.md",
@@ -63,14 +68,49 @@
       "sha256": "77ced612ffde4843bcb693dae9e93fd6258ff95e00c636669009a4a3c25b98a0"
     },
     {
+      "path": "docs/archive_index.md",
+      "bytes": 711,
+      "sha256": "ae34113e6b44139610f80df3999a48ff9648292895a0e2692f859bd47f47c9f3"
+    },
+    {
       "path": "docs/build_manual_ko.pdf",
-      "bytes": 396922,
-      "sha256": "65f0e80275211ca5151328e26f252368957b99eaf5a317bb57a0eadc62e0f200"
+      "bytes": 409759,
+      "sha256": "daa1980ed69514598ed213b641ae1c790128c9121621ac71e6e8bf57b7933376"
+    },
+    {
+      "path": "docs/calibration.md",
+      "bytes": 954,
+      "sha256": "45177c5d7d199aacb82b9c9f720c3ce6514923ca75d40d3345f48de35e20ccce"
     },
     {
       "path": "docs/design_report_ko.pdf",
-      "bytes": 476051,
-      "sha256": "dc2d5347fa29829d902426c46d74bb0ac45a46162c180347e8310ea64799508c"
+      "bytes": 486873,
+      "sha256": "889e513353eea5d2528083c9aa8cd19fb8f3adb8ce107c326d8231f91327db78"
+    },
+    {
+      "path": "docs/licensing.md",
+      "bytes": 868,
+      "sha256": "b9573561b9dea2d378aa2d4b7ff0cd0b918d5e1ec746fc6b8f763d907ff531db"
+    },
+    {
+      "path": "docs/operation.md",
+      "bytes": 1268,
+      "sha256": "296567fac3760614e2fdcea9df39bd14ae4a03ce34052a92d2de701ba8485031"
+    },
+    {
+      "path": "docs/safety.md",
+      "bytes": 1082,
+      "sha256": "ffd8d032a41330250583de65d0b66b9be381c5f453bf2cb516a73fecf2e38a5e"
+    },
+    {
+      "path": "docs/ui_screens.md",
+      "bytes": 1083,
+      "sha256": "35d8805305fa07f846fee7100fdc35b079f30b593c35daeb395390de7284e9ef"
+    },
+    {
+      "path": "docs/validation_report_ko.md",
+      "bytes": 2217,
+      "sha256": "848afca51ebca2b117c2ac6aeb6a9b62e33473adc83b898fb48a4fdf1142bc1e"
     },
     {
       "path": "exports/cnc/CUT-01/CUT-01.FCStd",
@@ -79,8 +119,8 @@
     },
     {
       "path": "exports/cnc/CUT-01/CUT-01.dxf",
-      "bytes": 199763,
-      "sha256": "44dddf84d7e5953eb38a95ce3c19ec034332c0fca2f39d7fb79fd9c57905b3db"
+      "bytes": 199764,
+      "sha256": "2429e551d94552ad24cad0e7cf88a0295c15e401c14e3a8dd72ae51535ed69d9"
     },
     {
       "path": "exports/cnc/CUT-01/CUT-01.step",
@@ -99,8 +139,8 @@
     },
     {
       "path": "exports/cnc/CUT-02/CUT-02.dxf",
-      "bytes": 6043,
-      "sha256": "5f1b327bf5fb90912552640ee14f0bacfbb7d433887c81ca04becee67fbfc55a"
+      "bytes": 6044,
+      "sha256": "0705a8ce6291a332f692c6870c5a2e46ea70d146efc9cfd1a26fa77750764d5e"
     },
     {
       "path": "exports/cnc/CUT-02/CUT-02.step",
@@ -119,8 +159,8 @@
     },
     {
       "path": "exports/cnc/CUT-03/CUT-03.dxf",
-      "bytes": 18591,
-      "sha256": "d808ea313213464e2ce3eec833c66f93910025a42cd56d17bb8fbd48f6a4c268"
+      "bytes": 18592,
+      "sha256": "6aa834d96c61438a3fa9988dbced0731e57b00adbb115de2f45d7e7853e12eb7"
     },
     {
       "path": "exports/cnc/CUT-03/CUT-03.step",
@@ -139,8 +179,8 @@
     },
     {
       "path": "exports/cnc/CUT-04/CUT-04.dxf",
-      "bytes": 151659,
-      "sha256": "10205c4c068535f7cd8beb06d104e2207f66c93e217ff9b7de52262f9e53b109"
+      "bytes": 151660,
+      "sha256": "b49d227143f1502c1e0459f89dba4475a5d6c272fdb4dd3bfa0b458e3166ac9b"
     },
     {
       "path": "exports/cnc/CUT-04/CUT-04.step",
@@ -159,8 +199,8 @@
     },
     {
       "path": "exports/cnc/CUT-05/CUT-05.dxf",
-      "bytes": 18195,
-      "sha256": "f650bcb37e9b394254f639d6be8bf736c9e370e003bd4f5b264765038feefe95"
+      "bytes": 18196,
+      "sha256": "89ea2ba2897a2a45fe679563ba27d45b0b565c7c5677a1d14aa398af870c4ce6"
     },
     {
       "path": "exports/cnc/CUT-05/CUT-05.step",
@@ -179,8 +219,8 @@
     },
     {
       "path": "exports/cnc/CUT-06/CUT-06.dxf",
-      "bytes": 6043,
-      "sha256": "faa411c2fa63a85393822fea1ed48eebe3276f545cbb5e588eb461c5ff0d0dc3"
+      "bytes": 6044,
+      "sha256": "90ff28c2917f25c4640c292ea1b925912373b8f7d61b1ab9ba6d4ee739bd223f"
     },
     {
       "path": "exports/cnc/CUT-06/CUT-06.step",
@@ -194,23 +234,23 @@
     },
     {
       "path": "exports/cnc/CUT-07/CUT-07.FCStd",
-      "bytes": 4585,
-      "sha256": "73103a77a02f83f23e6f1c6f3bcb51879ffce1cfcfa05db9fbbec717a5560d9a"
+      "bytes": 5979,
+      "sha256": "367315aa598961019b0a78782d3dc40ed7024888190a0d9c4a3327f7f93a0082"
     },
     {
       "path": "exports/cnc/CUT-07/CUT-07.dxf",
-      "bytes": 23835,
-      "sha256": "c2c87d07279dd0d4533f41cc07adb1494073acf278dc1280aa5532f32c2c279c"
+      "bytes": 31332,
+      "sha256": "0aa33d051f90529f2c24a1a2809e7c85625b902677bb0b19f7ef12b702fd09e7"
     },
     {
       "path": "exports/cnc/CUT-07/CUT-07.step",
-      "bytes": 26303,
-      "sha256": "218d0720873161019aaf028935d7102f000a763eb88bb30b9d21c40707da70fa"
+      "bytes": 37468,
+      "sha256": "51f061e121a0ceb10f776ed18db9938c74d00eddf79459ee05ea659fcba521e6"
     },
     {
       "path": "exports/cnc/CUT-07/drawing_notes.md",
-      "bytes": 750,
-      "sha256": "73a55b661f289b56f87d312167b97f0cb30cde2cab9918efb30a8755cb893ee9"
+      "bytes": 700,
+      "sha256": "5b891fdbdba3ef2d9ac7a56951c2f45395f8a7fd8ed31b33b74fa306d480ad7c"
     },
     {
       "path": "exports/cnc/CUT-08/CUT-08.FCStd",
@@ -219,8 +259,8 @@
     },
     {
       "path": "exports/cnc/CUT-08/CUT-08.dxf",
-      "bytes": 16415,
-      "sha256": "c214711108393ca4e523509704c5092f273ea7574a261eb7dcc2b550fa405c7a"
+      "bytes": 16416,
+      "sha256": "a1e89d4b36097573293d491fa9a8b8bfe8bc48110b424189958c96371de8a031"
     },
     {
       "path": "exports/cnc/CUT-08/CUT-08.step",
@@ -233,9 +273,304 @@
       "sha256": "48a820951b83ee026c6a0109f20398501b6c9571e048156a445083a4082e932e"
     },
     {
+      "path": "exports/cnc/extruder/manufacturing_audit_ko.md",
+      "bytes": 3304,
+      "sha256": "cfc7444fff9e8bae1d01dc9262bb21cb35d331f1f35a0cd8986774dc5c4ca850"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.FCStd",
+      "bytes": 4083,
+      "sha256": "0d1e1f7dcb6b3135d9548f91f0f5ce0f36217ce98cbb6de28fbd860c03f61a7d"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.dxf",
+      "bytes": 15796,
+      "sha256": "d83ff0e9d6786590a5ce9da8ee39f7f03439bd7885b24bd04daedb92ca5b46fe"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.step",
+      "bytes": 20581,
+      "sha256": "f3d97bf0344f9deaaceac460f5a5cc4faaab55c6dd1e0bb9400da56d852c2340"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.FCStd",
+      "bytes": 2469,
+      "sha256": "27b8a1857211bb3ad13176c2404acd1d7236bc5e8f0cb9305924e8fa57d49aa5"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.dxf",
+      "bytes": 6044,
+      "sha256": "19bd1197ae7a5ff36a3e27c492c7fa44bab17b83337718952c83c6cee4ab666f"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.step",
+      "bytes": 4956,
+      "sha256": "90bad8f3beec75089324acc30b93a97128b62591a4ca1ac701d7e692aa0b2d55"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.FCStd",
+      "bytes": 34833,
+      "sha256": "1603087a26c39e0a4db4d76666fb2970f5c7d06cccbc4947abda36ae419a6d0f"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.dxf",
+      "bytes": 231136,
+      "sha256": "c2e6421c826cf8a9e22281a80aaba4888280a67af2502bdc9c0d28653e1e8705"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.step",
+      "bytes": 371966,
+      "sha256": "da1f3a7182ac7293403838ff4df9169c39bbb18fee4202af9f91bacb4477f8fc"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.FCStd",
+      "bytes": 184925,
+      "sha256": "9c720e051cfc922259f9a1746adb7e44b140e496d43ec4b637df2e7b3d77ac98"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.dxf",
+      "bytes": 1255663,
+      "sha256": "b6cc226cff7b97623f92505547b63b1e29e93419326ed94502b5406cc6cbd030"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.step",
+      "bytes": 2097505,
+      "sha256": "89182b99e72aa3e23f4c42099482a5c4d968fad8da7380279d8ff95e8cd55ba2"
+    },
+    {
+      "path": "exports/cnc/extruder/rfq_drawing_ko.pdf",
+      "bytes": 64795,
+      "sha256": "d92f90be1d2df55f154b42d9fa1e6de58042a9510c9ed36c8fde792d724fb97a"
+    },
+    {
+      "path": "exports/cnc/extruder/supplier_rfq_checklist_ko.md",
+      "bytes": 981,
+      "sha256": "7400b6db8e1e687d6250ad8abf06c98fbdab9e1322b79456a2375b011d9f4b5b"
+    },
+    {
       "path": "exports/cnc/shredder_manifest.csv",
-      "bytes": 1060,
-      "sha256": "59936e699b61ea7beb217884f826b0a08544f37ab6039a8e0d309bfbe75345f3"
+      "bytes": 1056,
+      "sha256": "f522117ebd235d93765a4ffc9ce67785fd7dd1c2aeae6cf8705f06d4f97696d9"
+    },
+    {
+      "path": "exports/drive_interface/interface_contract_ko.md",
+      "bytes": 2207,
+      "sha256": "70107900f83c26aedc87811e38ad5f25d0f2f792b273184d7293aaacee3c8cde"
+    },
+    {
+      "path": "exports/drive_interface/manifest.csv",
+      "bytes": 422,
+      "sha256": "940a83b06512cdefa4b3204176e234961353673287b9e2d7acd3a4c593377582"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-01/DRV-01.FCStd",
+      "bytes": 5973,
+      "sha256": "1c3d6d8531d76fa1845e9040568305198a55caccca019a0432d55d002f93fb4f"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-01/DRV-01.dxf",
+      "bytes": 31332,
+      "sha256": "0aa33d051f90529f2c24a1a2809e7c85625b902677bb0b19f7ef12b702fd09e7"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-01/DRV-01.step",
+      "bytes": 37468,
+      "sha256": "e90b81e17ce5d3cc9bc2731e8ac5be90897ca1247e0d1413df98cac05592af40"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-01/DRV-01.stl",
+      "bytes": 107284,
+      "sha256": "1879be3c90365ef38c48b954c9382e1bd483f13235182e1dd4293f11d68ba42a"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-02/DRV-02.FCStd",
+      "bytes": 4601,
+      "sha256": "ce9acc19875e04dc32cedbdc0be8ba7558ac3caa840c6be86bc4a7af5d7c6738"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-02/DRV-02.dxf",
+      "bytes": 19396,
+      "sha256": "373b4235dcb2e3772c19505783f2a0c9ebc37e0521f50c45cba440087bdc9b37"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-02/DRV-02.step",
+      "bytes": 24556,
+      "sha256": "36445406f7f45c00329ae58785cfe558546807f761449c3b8fb91f00e7e77856"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-02/DRV-02.stl",
+      "bytes": 168684,
+      "sha256": "231e660f144fc44e3cd4e026d857edaf0e2cd349cf4dcc41e982f5c3b4027cc8"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-03/DRV-03.FCStd",
+      "bytes": 39365,
+      "sha256": "54cc59f7200280ea326f545287a1b2397e8d2c7be134b3f673196ac7d12783a9"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-03/DRV-03.dxf",
+      "bytes": 318561,
+      "sha256": "1720034d5354bcc378ea4e3f966020abffcc26b61b5fc77f2e2b445e21146b63"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-03/DRV-03.step",
+      "bytes": 486146,
+      "sha256": "e9bef4713afe7935e10dcca88f223cb34df21ba3e6e1f4aa68dd393e940b6df6"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-03/DRV-03.stl",
+      "bytes": 89284,
+      "sha256": "96f923738bd73f821e88d751d98161e3ced36c1ff63f7b3908725a818ae02357"
+    },
+    {
+      "path": "exports/jigs/gate1/assembly_ko.md",
+      "bytes": 1519,
+      "sha256": "fadd52c3b13c28e08326fc778f69d7923f3bed3ea9d5b45b9628d2b1e2a34421"
+    },
+    {
+      "path": "exports/jigs/gate1/bom.csv",
+      "bytes": 1208,
+      "sha256": "6ab612c706741eefc8973fee828923c9fced5e96580d853e37739886c8a777a6"
+    },
+    {
+      "path": "exports/jigs/gate1/gate1_assembly.FCStd",
+      "bytes": 606234,
+      "sha256": "a5c3a7c0df6eb5baddf62c57e300de681ad5cc72827e16124008ef2cc97b5770"
+    },
+    {
+      "path": "exports/jigs/gate1/gate1_assembly.step",
+      "bytes": 4281893,
+      "sha256": "f2339f6577f03d50da8bbad7af109fc84b92d46101de9f0da436f7c4600862c1"
+    },
+    {
+      "path": "exports/jigs/gate1/gate1_assembly.stl",
+      "bytes": 5974884,
+      "sha256": "cc3b738b7e785313bec6dfe091f98c57a22ca58d187cc2785169295648168d7c"
+    },
+    {
+      "path": "exports/jigs/gate1/gate1_assembly_ko.pdf",
+      "bytes": 209899,
+      "sha256": "fb4faf17346eac662ef90829df226cdf1a3a4a129546853c7bb5cf48c5def2f8"
+    },
+    {
+      "path": "exports/jigs/gate1/gate1_assembly_ko.typ",
+      "bytes": 1896,
+      "sha256": "5343c926d2f159e2759863170fa1ccae47ce05e4f26cfaa732b046c215b980be"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-01/G1J-01.FCStd",
+      "bytes": 5354,
+      "sha256": "eef88e1712c4743a6b00e0aac8f3d4034265ab48403fd69fce30ecb3dc2943a9"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-01/G1J-01.dxf",
+      "bytes": 27468,
+      "sha256": "83d4b8e6afec892f0729f0c720bae959b65362ebd47a73dfb54390b3d9591ab0"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-01/G1J-01.step",
+      "bytes": 32499,
+      "sha256": "dcc0791de076f0692f2c52acf1502c1c7a845194d2cfdb2686dda9db1314f533"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-01/G1J-01.stl",
+      "bytes": 106284,
+      "sha256": "62f10ee8d2b41ddf990694fbe0dc2bba4039cb3d479470baf77b7aee6825f5ec"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-02/G1J-02.FCStd",
+      "bytes": 2999,
+      "sha256": "4e59dced68d3cef969518452dacf8b8fbf6fb95c252e9f89a96152cd374d90cf"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-02/G1J-02.dxf",
+      "bytes": 9928,
+      "sha256": "7c797e038bfffbec6037b4bfab341295d8368bd0f8bf8132d2e8068c8df2aa53"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-02/G1J-02.step",
+      "bytes": 9765,
+      "sha256": "f45c450d1b1d8371926d28edec661a906276669abbf924d33b1a785253904753"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-02/G1J-02.stl",
+      "bytes": 51484,
+      "sha256": "e70324d4f35856273c63fd67ce856c3a0ec878b82065f8b561b989f43611270e"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.FCStd",
+      "bytes": 4203,
+      "sha256": "d8d3738248ce210657341e653e7500e4636733bfee2b41e06bbb885ae5330ce7"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.dxf",
+      "bytes": 16084,
+      "sha256": "58da5c082f39876b1fdb49d0b0b2a7b22815a87bdfb41d38ac9437303c141b19"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.step",
+      "bytes": 17498,
+      "sha256": "c6d340a54efb0bcb421ce0f2ca3cb1cc94264a48adc6e7077a93b78c1f6efab6"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.stl",
+      "bytes": 2084,
+      "sha256": "f20c406aa3e38c7fc24dc151b6d35f9aa4b55f8b14628518058406a6fdca4373"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P02/G1J-P02.FCStd",
+      "bytes": 3301,
+      "sha256": "a7356b1f50b8fa9f1dbfbf702a50656d29167fbcaec83880636b72f639fa6b5e"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P02/G1J-P02.dxf",
+      "bytes": 12172,
+      "sha256": "c8ed1d72bc96cd1c9441123f938d48bdc37bc735719c80afe022087569c101a5"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P02/G1J-P02.step",
+      "bytes": 12062,
+      "sha256": "b67a37328850c9fa9d4d5d1dba938cbc83684435f082eb405312b824eb9c6ea5"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P02/G1J-P02.stl",
+      "bytes": 1484,
+      "sha256": "8799c2fdf409f2d02cbd03a1201ff191b7471ed1bd95cd73f6cd21d116d96e8a"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.FCStd",
+      "bytes": 3735,
+      "sha256": "b7fbd11acffdb6151c4aab2b47659eb4f6da4c671466daa2fda7a4860ada2418"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.dxf",
+      "bytes": 16548,
+      "sha256": "3875d11476d6061a353e618521a280fc394dc08d09d4c4ecf2798651c4032638"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.step",
+      "bytes": 17771,
+      "sha256": "43b19c31ef1dc422715ccc2a15e40413afa21db3074c4742c9f3c0d059eb9b6f"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.stl",
+      "bytes": 2284,
+      "sha256": "73ee9228e701ad5d902d84a2673571d87013473460296321504a9076d38ac1a5"
+    },
+    {
+      "path": "exports/jigs/gate1/print_manifest.csv",
+      "bytes": 282,
+      "sha256": "b4feee2ddfa2ea2969440649a4c5c94e6e848df9d9d532402b7da698bd54324c"
+    },
+    {
+      "path": "exports/jigs/gate1/test_procedure_ko.md",
+      "bytes": 2809,
+      "sha256": "d90e0c14ca97f8ab558a1df1ffca0d172f2851f287f88be279eb8e2ed84512a6"
+    },
+    {
+      "path": "exports/jigs/gate1/total_material_report.md",
+      "bytes": 229,
+      "sha256": "43b6153668d8d79cdc1a3908f12cb23e6339b8eb7494a5af67f7466750b7dd8b"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.3mf",
@@ -609,8 +944,8 @@
     },
     {
       "path": "exports/step/compact_full_assembly.step",
-      "bytes": 3021409,
-      "sha256": "b06087f851520b9b0dce5ac63d50cf75417fa87a3f246999a1acb2aba1d0f325"
+      "bytes": 3055073,
+      "sha256": "515b22546fe82641ba4e223e9130eeb4380bd1e6877e9bc7f5ce8a7d1c30d69c"
     },
     {
       "path": "renders/assembly/compact_full_assembly_front.png",
@@ -619,13 +954,33 @@
     },
     {
       "path": "renders/assembly/compact_full_assembly_isometric.png",
-      "bytes": 56367,
-      "sha256": "74b342a73f799940a0ccbfbfbe86ec0564adfcc8ff6e1ee356b0e37d932c3009"
+      "bytes": 57160,
+      "sha256": "dc6ed32d5b646b581119d065d8ec92047a004a7c7b9c222d3d73f3c10b674519"
     },
     {
       "path": "renders/assembly/compact_full_assembly_top.png",
       "bytes": 29757,
       "sha256": "e89284079f85950c38d010450ec09aa0f4dbb92406deda478f4d70bc30f809e0"
+    },
+    {
+      "path": "renders/cnc/extruder_screw_barrel.png",
+      "bytes": 27536,
+      "sha256": "85808c7d647adc01a24286e7ea61883555cf5e6ac6ffff0e093e025e1dc7f7c4"
+    },
+    {
+      "path": "renders/jigs/gate1_assembly.png",
+      "bytes": 57326,
+      "sha256": "6b95756237534bcf91996322d1c4dbc21b125d150bcefdb591a52afc30d1fe1c"
+    },
+    {
+      "path": "renders/jigs/gate1_exploded.png",
+      "bytes": 63806,
+      "sha256": "1962be1b8897b60bd951d14a4f5c81cbdcfeb6da8e1935a70083f808d6c285ee"
+    },
+    {
+      "path": "renders/jigs/gate1_rotor_detail.png",
+      "bytes": 75548,
+      "sha256": "be24e9af5bb7fdde5753e2052f4d3e529c390c1f56be5502bbb595b2e3f45039"
     },
     {
       "path": "renders/modules/CUT-01_cycloidal_hook_profile.png",
@@ -638,14 +993,19 @@
       "sha256": "48b2577cf66799abb1d31337e89e19685e2c219bc665274b87737d9df110cd61"
     },
     {
+      "path": "renders/modules/interchangeable_drive_interface.png",
+      "bytes": 40048,
+      "sha256": "da44ac1f4e69089a1478b5ee52a134f74d75ce35733221337d3f88d1ece8b3bd"
+    },
+    {
       "path": "renders/modules/shared_shredder_module.png",
       "bytes": 52782,
       "sha256": "8b894f81d5169377373cb6505d6650df33a6dfb012a75772365353b6d7407203"
     },
     {
       "path": "renders/modules/shredder_drive_guard_removed.png",
-      "bytes": 80240,
-      "sha256": "a9d3cc2fd90e78986f68d9b367498fa5053dae6c7b472c3382f646bac4d65714"
+      "bytes": 91039,
+      "sha256": "178ad724e664d59a4ac46a08f52618e1b603462b7438aeff7ec975f49d8ba325"
     },
     {
       "path": "renders/review/compact_exploded.png",
@@ -679,33 +1039,38 @@
     },
     {
       "path": "requirements/architecture_contract.md",
-      "bytes": 2372,
-      "sha256": "7edd96e50ad92ab1facd64555933764ecbbd0052466bb21e945c238b62af0ee1"
+      "bytes": 2762,
+      "sha256": "fd7a1e4b727fb8c208ebba323d0edee1a44ca125eb11e9acaade9020cfafb3e6"
     },
     {
       "path": "requirements/assumptions.md",
-      "bytes": 970,
-      "sha256": "ba82d369443b4c889197394cbaf1e393517bc007180fc9c664f3d78aecba35b8"
+      "bytes": 1017,
+      "sha256": "4552d92ec083cf4031f52fb5a55eecc322bc64bb3704fe383f4ae9e1c2cd3c20"
     },
     {
       "path": "requirements/system_requirements.md",
-      "bytes": 3023,
-      "sha256": "5e6d466e67bcfe5290d989ea637c466aa59d52c1c2da3815950e14a98f4dfd75"
+      "bytes": 2994,
+      "sha256": "d9063cb733ace81d2af99916594c8330ff668b6a591c8a6b5ad7f8baa02829e3"
     },
     {
       "path": "simulation/cad_clearance.json",
-      "bytes": 361,
-      "sha256": "f4918702ebab5f269b0dd8e3244fe080275f4f0989c8d1567c9e6463b98745c9"
+      "bytes": 383,
+      "sha256": "a06df0c4749e7fd3258b1924d204fc5aacd906dd3e767513cef66553e167ee47"
     },
     {
       "path": "simulation/engineering_summary.json",
-      "bytes": 3608,
-      "sha256": "a3ddd587107d496240d9a4141eceeec31285a9926ade8982cec339d9896295ff"
+      "bytes": 3713,
+      "sha256": "337f762f42eeb087e7f486364e406eb6b80f86f0e80b8f9dbc7270749282c388"
+    },
+    {
+      "path": "validation/physical_gate_status.json",
+      "bytes": 553,
+      "sha256": "d72f5df7470840585d79a93c084182fc3ef7f7d50e43e342057472e1b5e4b47a"
     },
     {
       "path": "validation/release_checklist.md",
-      "bytes": 979,
-      "sha256": "450414a45eaa1acb6b2efc417c7fdf70eef00e33bb3effe23c0f1581a11dce6a"
+      "bytes": 1360,
+      "sha256": "7f7a5a082f585ee47828f7779589cbecf9b3a586db0e9449405976924862f24f"
     }
   ]
 }

@@ -165,10 +165,15 @@ def bearing_side_plate():
 
 
 def motor_mount_plate():
-    plate = Part.makeBox(125, 110, 6)
-    for x in (25, 98.5):
-        for y in (30, 50):
-            plate = plate.cut(Part.makeBox(9, 24, 6, App.Vector(x - 4.5, y - 12, 0)))
+    """DRV-01/CUT-07 universal donor plate; donor-specific angles bolt on."""
+    plate = Part.makeBox(180, 140, 6)
+    for x in (12,168):
+        for y in (12,128):
+            plate=plate.cut(Part.makeCylinder(3.3,6,App.Vector(x,y,0)))
+    for x in (45,90,135):
+        plate=plate.cut(Part.makeBox(9,70,6,App.Vector(x-4.5,35,0)))
+    for y in (28,112):
+        plate=plate.cut(Part.makeBox(55,9,6,App.Vector(62.5,y-4.5,0)))
     return plate
 
 
@@ -196,7 +201,7 @@ def shredder_metal_parts():
         dict(id="CUT-04", name="5 mm aperture screen", shape=screen_plate(), qty=2, material="3 mm 304 stainless", process="laser cut + deburr", critical="135 x 120 x 3; apertures diameter 5.0 on 9.0 pitch; all strand-side edges R0.3; verify minimum 1.9 mm rotating clearance with shims before powered test"),
         dict(id="CUT-05", name="20 mm keyed cutter shaft", shape=shaft, qty=2, material="S45C", process="turn + keyway", critical="diameter 20 h6 at two 6004 journals per shaft; overall 220.0 +/-0.10; TIR <=0.05; 6 mm keyways at y=0-30, 45-145 and 180-220 from motor end; keyway depth 3.5; use standard metal clamp collars for axial retention"),
         dict(id="CUT-06", name="Phase gear axial spacer", shape=Part.makeCylinder(15, 4).cut(Part.makeCylinder(10.1, 4)), qty=2, material="steel", process="simple turning", critical="OD 30.0; bore 20.2 +0.10/0; length 4.00 +/-0.03; faces parallel within 0.03"),
-        dict(id="CUT-07", name="MY1016Z slotted motor plate", shape=motor_mount, qty=1, material="6 mm steel", process="laser cut + deburr; separate standard angle brackets", critical="125 x 110 x 6; 9 x 24 slots cover measured 20/73.5 mm patterns; slot-center families x=25.0/98.5 and y=30/50; final bracket drilling is HOLD until received motor pilot, bolt pattern, shaft height and rotation envelope are measured"),
+        dict(id="CUT-07", name="DRV-01 universal donor motor plate", shape=motor_mount, qty=1, material="6 mm steel", process="laser cut + deburr; standard metal angles", critical="180 x 140 x 6; three 9 x 70 motor-angle slots and two 55 x 9 tension slots; donor-specific angle/hub drilling is HOLD until exact model, shaft height and rotation envelope are measured"),
         dict(id="CUT-08", name="Dual 6004 bearing retainer", shape=bearing_retainer, qty=2, material="2 mm steel", process="laser cut + deburr", critical="figure-eight OD lobes 60; two relief bores diameter 34; center distance 48.00 +/-0.05; six M4 clearance holes diameter 4.5 at drawing coordinates; CUT-03 matching holes are included and may be match-reamed after bearing-seat finish"),
     ]
 
@@ -285,25 +290,27 @@ def assembly_objects(exploded=False):
     # every 5 mm aperture and is the fabrication source of truth.
     add("Screen", box(60, 330, 555, 135, 120, 3), green, "shredder", "CUT-04 3 mm 304 stainless, 5 mm holes")
 
-    # One 24 V brushed geared-DC motor directly drives the right cutter shaft
-    # through a KTR ROTEX 19 coupling.  A purchased, hardened M3 Z16 pair
-    # fixes counter-rotation and phase at the 48 mm shaft centers.  Motor envelope is deliberately conservative
-    # until the incoming MY1016Z-24V-250W-75RPM unit passes dimensional receipt.
-    drive_gear = spur_phase_gear(module=3.0, teeth=16, thickness=30.0, bore=20.2)
+    # Interchangeable geared-DC interface: a generic #35 chain ratio drives the
+    # right shaft; a functional-spec M3 Z16 pair fixes counter-rotation/phase.
+    drive_gear = spur_phase_gear(module=3.0, teeth=16, thickness=18.0, bore=20.2)
     for cx in (105, 153):
         gear = drive_gear.copy()
         if cx == 153:
             gear.rotate(App.Vector(0, 0, 0), App.Vector(0, 1, 0), 180.0 / 16.0)
         gear.translate(App.Vector(cx, 471, 590))
-        add(f"PhaseGear{cx}", gear, purple, "shredder", "KHK SS3-16H, bore/key finish to 20 mm")
-    add("ROTEX19Coupling", cyl(20.5, 66, 153, 244, 590, (0, 1, 0)), steel, "shredder", "KTR ROTEX 19 98ShA, bore 17/20")
-    add("DriveGuard", box(70, 260, 525, 155, 48, 142), blue, "shredder", "1 mm grounded sheet + standoffs")
-    add("MY1016ZGearbox", box(108, 225, 545, 90, 45, 90), red, "shredder", "MY1016Z secondary gearbox")
-    add("MY1016ZMotor", cyl(50, 130, 153, 95, 590, (0, 1, 0)), red, "shredder", "MY1016Z-24V-250W-75RPM")
+        add(f"PhaseGear{cx}", gear, purple, "shredder", "generic M3 Z16 20deg face18 steel or DRV-03 laminate")
+    add("CutterSprocket24T", cyl(30, 12, 153, 258, 590, (0, 1, 0)), purple, "shredder", "#35 18T/24T interchangeable")
+    add("MotorSprocket12T", cyl(21, 12, 153, 258, 680, (0, 1, 0)), purple, "shredder", "#35 12T + donor-side hub")
+    add("ChainRunLeft",box(121,260,590,4,8,90),orange,"shredder","#35 chain simplified solid")
+    add("ChainRunRight",box(181,260,590,4,8,90),orange,"shredder","#35 chain simplified solid")
+    add("ChainKeepout", box(120, 255, 555, 66, 18, 160), orange, "shredder", "#35 chain motion keep-out")
+    add("DriveGuard", box(105, 240, 535, 145, 48, 190), blue, "shredder", "1 mm grounded sheet + interlocked service cover")
+    add("DonorGearboxEnvelope", box(118, 210, 630, 70, 48, 90), red, "shredder", "accepted donor gearbox envelope")
+    add("DonorMotorEnvelope", cyl(45, 110, 153, 100, 680, (0, 1, 0)), red, "shredder", "18-30 V donor brushed gearmotor envelope")
     motor_plate = motor_mount_plate()
     motor_plate.rotate(App.Vector(0, 0, 0), App.Vector(1, 0, 0), 90)
-    motor_plate.translate(App.Vector(90, 231, 545))
-    add("MotorMountPlate", motor_plate, steel, "shredder", "CUT-07 6 mm steel + standard metal angles")
+    motor_plate.translate(App.Vector(65, 231, 545))
+    add("MotorMountPlate", motor_plate, steel, "shredder", "CUT-07/DRV-01 6 mm steel + donor-specific standard metal angles")
     retainer = bearing_retainer_plate()
     front_retainer = retainer.copy(); front_retainer.rotate(App.Vector(0, 0, 0), App.Vector(1, 0, 0), 90); front_retainer.translate(App.Vector(55, 315, 535))
     rear_retainer = retainer.copy(); rear_retainer.rotate(App.Vector(0, 0, 0), App.Vector(1, 0, 0), 90); rear_retainer.translate(App.Vector(55, 469, 535))

@@ -31,7 +31,7 @@ PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, fee
 
 #table(columns: (1.5fr, 1.2fr, 1fr, 1fr), inset: 4pt,
   [*후보*], [*Envelope mm*], [*계획비용*], [*판정*],
-  [Vertical down-die], [470 x 700 x 930], [309,900 KRW], [기구 채택/예산 blocker],
+  [Vertical down-die], [470 x 700 x 930], [198,808 KRW], [조건부 donor/물리 Gate blocker],
   [Internal U-fold], [480 x 710 x 940], [196,000 KRW], [soft bend 기각],
   [Side spool column], [495 x 720 x 950], [204,000 KRW], [비용/목표 기각],
 )
@@ -46,7 +46,7 @@ Cutter의 각 pitch는 76% 긴 capture flank와 24% 짧은 nose/빠른 relief로
 
 #figure(image("../renders/modules/CUT-01_cycloidal_hook_profile.png", width: 64%), caption: [CUT-01 asymmetric cycloidal-derived profile])
 
-Actuator는 `MY1016Z-24V-250W-75RPM` geared brushed-DC motor다. KTR ROTEX19 98ShA bore17/20 coupling으로 right shaft를 직접 구동하고, KHK `SS3-16H` M3 Z16 hardened pair가 두 shaft를 반대 방향으로 동기화한다. Catalog raw torque 0.98 N·m, integrated ratio 23.2, gearbox efficiency 0.65를 적용한 보수적 cutter torque는 14.8 N·m다. ROTEX19 nominal/max는 17/34 N·m다. Gear hardened surface limit 28.0 N·m보다 낮은 20–24 N·m에서 6 x 6 x 4 mm brass phase-gear key가 전단되도록 coupon으로 조정한다. 이 값은 실측 보증이 아니며 Gate 1 calibration 전 14 N·m continuous를 달성했다고 주장하지 않는다.
+Actuator는 특정 MPN이 아니라 DRV-01 universal plate, #35 12T:18T/24T chain, DRV-02 hub와 generic M3 Z16 face>=18 mm phase pair의 functional interface다. Project-lab wheelchair/conveyor, scooter/e-bike geared motor, 동급 donor 순으로 검사한다. 합격값은 18–30 V reversible, cutter 환산 14 N·m continuous/24 N·m 3 s peak, 20–40 rpm이다. 6 x 6 x 4 mm brass key의 20–24 N·m relief와 guard/interlock/fuse를 유지한다. Gate-1 전 torque 달성이나 donor 0원을 주장하지 않는다.
 
 #figure(image("../renders/modules/shredder_drive_guard_removed.png", width: 90%), caption: [Guard 제거 render — direct motor, ROTEX19 coupling과 hardened phase gear pair])
 
@@ -84,7 +84,7 @@ Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spoo
 
 = 비용과 제조
 
-정확 shredder motor/driver/current sensor/hardened phase gear를 포함한 신규 현금 계획은 총 309,900 KRW로 hard cap을 109,900 KRW 초과한다. 현재 상태는 release blocker다. 고토크 donor motor/gear의 label·shaft·current를 확인하거나 CNC RFQ를 value-engineering해 총액이 200,000 KRW 이하가 되기 전 main 승격과 구매를 금지한다. Shredder 금속 package는 bearing retainer를 포함해 CUT-01부터 CUT-08까지 8개 unique family다. Full cutter와 screw를 동시에 주문하지 않고 Gate 1 coupon부터 진행한다.
+Specific motor/coupling/gear 구매 종속을 제거하고 repeated flat part, donor plate와 process coupon 선행을 적용한 조건부 cash scenario는 198,808 KRW, cap margin 1,192 KRW다. Motor 0원은 exact model·수량·상태·label·shaft·current/temperature/torque 증거 전 확정이 아니므로 final budget blocker는 남는다. CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
 
 #figure(image("../renders/review/print_orientation.png", width: 92%), caption: [12개 출력 part family orientation overview])
 

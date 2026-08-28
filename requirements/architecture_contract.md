@@ -8,7 +8,7 @@
 4. 선택 layout은 470 x 700 x 930 mm vertical forming cabinet이다.
 5. 90 degree 방향 전환은 metal die 내부에서 끝난다. Die 출구부터 puller까지 filament 중심선은 수직 직선이고, 첫 guide bend는 puller 아래의 solid strand에만 적용한다.
 6. Cutter는 Candidate A다. 단일 dual-shaft 반복 hook disc와 removable screen을 사용하고 oversize는 전원을 격리한 뒤 수동 재투입한다.
-7. Cutter actuator는 `MY1016Z-24V-250W-75RPM` geared brushed-DC motor 1개를 right shaft에 direct keyed coupling하고, hardened M3 Z16 counter-rotation gear pair를 쓴다. PLA/PET별 motor나 shaft를 복제하지 않는다.
+7. Cutter actuator는 DRV-01/#35 chain/DRV-02 interchangeable interface의 geared brushed-DC motor 1개로 right shaft를 구동하고 generic M3 Z16 face>=18 mm pair로 counter-rotation/phase를 유지한다. 특정 motor/coupling/gear part number에 종속하지 않으며 PLA/PET별 motor나 shaft를 복제하지 않는다.
 8. Raspberry Pi, 자동 재질/색상 분류와 network dashboard는 active scope가 아니다.
 
 ## Material profile로만 달라지는 값
@@ -26,3 +26,7 @@ Shredder speed/load/retry, pre-dry confirmation, maintenance temperature, feeder
 ## Claim 경계
 
 CAD와 계산은 조립성·간섭·nominal load screening만 보인다. 실제 flake 입도, melt flow, 200 g/h, 1.75 mm 품질, 안전 인증은 물리 gate 전 미검증이다.
+
+## 발주·승격 잠금
+
+Gate-1 signed raw CSV와 사진/영상 evidence가 PASS로 검토되기 전 CUT-01은 2장 coupon 외 발주하지 않고 `main`으로 승격하지 않는다. EX-CPN-SCR/EX-CPN-BAR 공정 coupon과 공급사 DFM 전 EX-SCR-01/EX-BAR-01 full 발주도 금지한다.

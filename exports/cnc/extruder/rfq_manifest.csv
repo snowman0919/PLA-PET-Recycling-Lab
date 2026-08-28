@@ -1,0 +1,5 @@
+part_id,name,qty,material,process,step,drawing,release
+EX-SCR-01,16 mm x 16D single screw,1,SCM440 QT + gas nitride,"turn, 4-axis flight mill, polish, nitride, finish grind",parts/EX-SCR-01/EX-SCR-01.step,EX-SCR-01_drawing.svg,HOLD_PROCESS_COUPON_AND_GATE3
+EX-BAR-01,ID16.20 x OD34 barrel,1,SCM440 QT + gas nitride bore,"deep drill/ream, hone, mill feed port, nitride, final hone",parts/EX-BAR-01/EX-BAR-01.step,EX-BAR-01_drawing.svg,HOLD_PROCESS_COUPON_AND_GATE3
+EX-CPN-SCR,Three-pitch screw process coupon,1,SCM440 QT + gas nitride,same flight mill/polish/nitride route as EX-SCR-01,parts/EX-CPN-SCR/EX-CPN-SCR.step,manufacturing_audit_ko.md,COUPON_RFQ_ALLOWED
+EX-CPN-BAR,Matched barrel process coupon,1,SCM440 QT + gas nitride bore,same bore/hone/nitride route as EX-BAR-01,parts/EX-CPN-BAR/EX-CPN-BAR.step,manufacturing_audit_ko.md,COUPON_RFQ_ALLOWED

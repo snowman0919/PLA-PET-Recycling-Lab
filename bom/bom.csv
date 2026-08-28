@@ -3,8 +3,8 @@ FR-01,compact profile frame,1,2020/2040 aluminum profile,project lab,REUSE_PENDI
 HP-01,refillable sliding-lid hopper,1,thin metal plus printed lid/chute,mixed,MIXED,DESIGNED,4.5 L usable
 SH-01,dual-shaft hook cutter assembly,1,steel,CNC,CASH,COUPON_HOLD,common PLA/PET path
 SH-02,removable 5 mm screen,1,stainless steel,CNC,CASH,COUPON_HOLD,metal shim clearance
-SH-03,shredder geared DC motor,1,MY1016Z-24V-250W-75RPM,buy,CASH,RECEIPT_HOLD,24 V 250 W 13.4-14.8 A S2:60 IP33; label shaft speed current verify
-SH-04,direct coupling and phase drive,1,KTR ROTEX19 98ShA bore17/20 plus 2x KHK SS3-16H modified bore20,mixed,MIXED,COUPON_HOLD,6x6x4 mm brass phase-gear key targets 24 N.m shear below 28 N.m hardened gear surface limit
+SH-03,interchangeable shredder geared DC drive,1,18-30 V donor brushed geared DC plus DRV-01 plate,project lab,REUSE_PENDING,DONOR_HOLD,cutter 14 N.m continuous/24 N.m 3 s peak and 20-40 rpm; exact model label state shaft current required
+SH-04,interchangeable chain and phase drive,1,#35 12T to 18/24T plus DRV-02 hub and M3 Z16 face18 phase pair,mixed,MIXED,COUPON_HOLD,motor-side hub only changes; 6x6x4 mm brass key targets 20-24 N.m sacrificial relief
 SH-05,bidirectional motor driver/current feedback,1,BTS7960-class plus 50 A Hall sensor,buy,CASH,RECEIPT_HOLD,18 A software trip 20 A branch fuse; bench-calibrate before cutter
 FB-01,removable flake bin,1,PLA print,print,CASH,DESIGNED,cold low-load only
 DR-EXT,external qualified pre-dryer,1,project lab/user equipment,external,EXCLUDED,UNVERIFIED,not inside machine envelope or cash budget

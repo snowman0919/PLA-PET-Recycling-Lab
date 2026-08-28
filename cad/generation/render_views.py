@@ -15,6 +15,14 @@ ROOT = Path(__file__).resolve().parents[2]
 GEOM = ROOT / "cad/freecad/compact"
 sys.path.insert(0, str(GEOM))
 from geometry import assembly_objects, hook_disc, print_parts  # noqa: E402
+from manufacturing import (  # noqa: E402
+    bolt_on_sprocket_hub,
+    extruder_barrel,
+    extruder_screw,
+    gate1_assembly,
+    generic_phase_gear_lamination,
+    universal_motor_plate,
+)
 
 W, H = 1600, 1200
 
@@ -96,14 +104,49 @@ def render_tool_access(assembly=None):
     render([i for i in assembly if i["group"]=="shredder"], ROOT/"renders/review/shredder_fastener_tool_access.png", "Shredder bearing plates / interleaved discs / M6 through-bolts", "right", arrow=True, arrow_target=(1210,680))
 
 
+def render_manufacturing():
+    render(gate1_assembly(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | two CUT-01 coupons / 250 mm torque arm / full guard","iso")
+    render(gate1_assembly(exploded=True),ROOT/"renders/jigs/gate1_exploded.png","Gate-1 exploded | metal load path and removable guard","iso")
+    rotor=[i for i in gate1_assembly() if i["name"].startswith(("CUT01","CUT04","CUT05"))]
+    render(rotor,ROOT/"renders/jigs/gate1_rotor_detail.png","Gate-1 | two cycloidal-derived hook coupons / 5 mm screen","front")
+    screw=extruder_screw(facet_step=4.0); barrel=extruder_barrel(); barrel.translate(App.Vector(55,0,0))
+    render([
+        {"name":"EX-SCR-01","shape":screw,"color":(225,116,55),"group":"rfq"},
+        {"name":"EX-BAR-01","shape":barrel,"color":(88,101,112),"group":"rfq"},
+    ],ROOT/"renders/cnc/extruder_screw_barrel.png","16 mm x 16D RFQ | screw SCM440 / barrel SCM440 / process coupons first","iso")
+    plate=universal_motor_plate(); hub=bolt_on_sprocket_hub(); hub.translate(App.Vector(225,40,0))
+    gear=generic_phase_gear_lamination(); gear.rotate(App.Vector(),App.Vector(1,0,0),90); gear.translate(App.Vector(300,80,0))
+    render([
+        {"name":"DRV-01","shape":plate,"color":(88,101,112),"group":"drive"},
+        {"name":"DRV-02","shape":hub,"color":(119,89,145),"group":"drive"},
+        {"name":"DRV-03","shape":gear,"color":(225,116,55),"group":"drive"},
+    ],ROOT/"renders/modules/interchangeable_drive_interface.png","DRV-01/02/03 | vendor-neutral motor / sprocket / phase interface","iso")
+
+
 def main():
     assembly = assembly_objects()
     cutter = hook_disc()
+    if "--manufacturing-only" in sys.argv:
+        render_manufacturing()
+        print("COMPACT_MANUFACTURING_RENDER_OK images=5")
+        return
+    if "--jig-only" in sys.argv:
+        render(gate1_assembly(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | two CUT-01 coupons / 250 mm torque arm / full guard","iso")
+        render(gate1_assembly(exploded=True),ROOT/"renders/jigs/gate1_exploded.png","Gate-1 exploded | metal load path and removable guard","iso")
+        rotor=[i for i in gate1_assembly() if i["name"].startswith(("CUT01","CUT04","CUT05"))]
+        render(rotor,ROOT/"renders/jigs/gate1_rotor_detail.png","Gate-1 | two cycloidal-derived hook coupons / 5 mm screen","front")
+        print("COMPACT_GATE1_RENDER_OK images=3")
+        return
+    if "--jig-rotor-only" in sys.argv:
+        rotor=[i for i in gate1_assembly() if i["name"].startswith(("CUT01","CUT04","CUT05"))]
+        render(rotor,ROOT/"renders/jigs/gate1_rotor_detail.png","Gate-1 | two cycloidal-derived hook coupons / 5 mm screen","front")
+        print("COMPACT_GATE1_ROTOR_RENDER_OK")
+        return
     if "--shredder-only" in sys.argv:
         render([{"name":"CUT-01","shape":cutter,"color":(225,116,55),"group":"part"}], ROOT/"renders/modules/CUT-01_cycloidal_hook_profile.png", "CUT-01 | 76% cycloidal capture / fast hook relief", "front")
-        visible_names = ("MY1016Z", "ROTEX19Coupling", "PhaseGear", "Shaft")
+        visible_names = ("Donor", "Sprocket", "ChainRun", "PhaseGear", "Shaft", "MotorMountPlate")
         drive = [i for i in assembly if i["name"].startswith(visible_names) or i["name"] in ("Hook105_0", "Hook153_0")]
-        render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "Guard removed | MY1016Z direct / M3 Z16 phase gears", "iso")
+        render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "Guard removed | interchangeable #35 chain / M3 Z16 phase gears", "iso")
         print("COMPACT_SHREDDER_RENDER_OK images=2")
         return
     if "--tool-only" in sys.argv:
@@ -116,9 +159,9 @@ def main():
     shredder=[i for i in assembly if i["group"] in ("input","shredder","feed")]
     render(shredder, ROOT/"renders/modules/shared_shredder_module.png", "Shared hopper / hook cutter / removable screen / bin", "iso")
     render([{"name":"CUT-01","shape":cutter,"color":(225,116,55),"group":"part"}], ROOT/"renders/modules/CUT-01_cycloidal_hook_profile.png", "CUT-01 | 76% cycloidal capture / fast hook relief", "front")
-    visible_names = ("MY1016Z", "ROTEX19Coupling", "PhaseGear", "Shaft")
+    visible_names = ("Donor", "Sprocket", "ChainRun", "PhaseGear", "Shaft", "MotorMountPlate")
     drive = [i for i in assembly if i["name"].startswith(visible_names) or i["name"] in ("Hook105_0", "Hook153_0")]
-    render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "MY1016Z direct / M3 Z16 hardened phase gears", "iso")
+    render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "Interchangeable #35 chain / M3 Z16 functional phase gears", "iso")
     anti=print_parts()[1]
     render([{"name":anti["id"],"shape":anti["shape"],"color":(63,137,178),"group":"part"}], ROOT/"renders/modules/PPR-C02_individual.png", "PPR-C02 anti-reach baffle | individual part", "iso")
     render(assembly_objects(exploded=True), ROOT/"renders/review/compact_exploded.png", "Exploded by service module", "iso")
@@ -128,7 +171,8 @@ def main():
     render(prints, ROOT/"renders/review/print_orientation.png", "Print orientation overview | every axis <= 210 mm", "top")
     render(prints, ROOT/"renders/review/support_contact.png", "Support-contact review | downward facets in red", "iso", support=True)
     render([i for i in assembly if i["group"] in ("forming","spooler")], ROOT/"renders/review/forming_spool_motion.png", "Gauge/puller then solid guide, dancer, traverse and full spool", "iso")
-    print("COMPACT_RENDER_GENERATION_OK images=13")
+    render_manufacturing()
+    print("COMPACT_RENDER_GENERATION_OK images=18")
 
 
 if __name__ == "__main__":

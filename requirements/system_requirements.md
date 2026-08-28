@@ -20,7 +20,7 @@
 - 재료: 사용자가 확인한 순수 PLA 또는 세척·label/cap/neck-ring 제거 PET만 사용한다.
 - Hopper: sliding lid, anti-reach baffle, nominal usable 1.0 kg, refill 허용.
 - Cutter: 한 개의 compact dual-shaft asymmetric cycloidal-derived hook cutter, removable 5 mm screen, oversize 수동 recirculation.
-- Shredder actuator 기준선: `MY1016Z-24V-250W-75RPM` brushed geared-DC direct drive, KTR ROTEX19 98ShA bore17/20 coupling, hardened M3 Z16 1:1 phase gear pair. PLA/PET cutter 명령은 32/24 rpm이고 16/18 A profile trip, 20 A branch fuse를 사용한다. 한 phase gear의 6 x 6 x 4 mm brass key가 24 N·m nominal sacrificial relief이며 coupon으로 실제 전단 torque를 확인한다.
+- Shredder actuator 기준선: 18–30 V reversible brushed geared-DC donor, DRV-01 universal plate, #35 12T:18T/24T chain, DRV-02 cutter hub와 generic M3 Z16 20° face>=18 mm phase pair. Cutter 환산 14 N·m continuous/24 N·m 3 s peak, 20–40 rpm을 Gate-1에서 요구한다. PLA/PET 명령은 32/24 rpm이고 16/18 A profile trip, 20 A branch fuse를 쓴다. 6 x 6 x 4 mm brass key의 20–24 N·m sacrificial relief는 유지한다.
 - Drying: 외부 qualified dryer 후 sealed hopper; 장치 내 45/60 °C maintenance heating만 제공.
 - Extruder: 16 mm, 16 L/D 공용 single screw, common breaker/screen과 open die.
 - Forming: 금속 90 degree down-die 후 굽힘 없는 vertical cooling/gauge/puller, 그 뒤에만 guide roller로 방향 전환.
@@ -30,4 +30,4 @@
 
 ## 물리적으로 미확정인 입력
 
-Donor extruder/puller/spooler motor와 fan, switch, PSU 상태는 사진·label·실측 전 확정하지 않는다. Shredder motor는 위 신규 구매 후보를 기준으로 CAD와 cash BOM에 포함하되, 같은 모델명 제품의 shaft/감속 사양 변동 때문에 입고검사 전 coupling hole과 full cutter 발주를 금지한다. `bom/reuse_inventory.csv`의 `UNVERIFIED` 품목은 0원 확정 재고로 계산하지 않는다.
+Donor shredder/extruder/puller/spooler motor와 fan, switch, PSU 상태는 사진·label·실측 전 확정하지 않는다. Shredder donor의 정확 model, 수량, 상태, shaft, no-load current/RPM과 30분 온도 기록 전 0원 확정과 full cutter 발주를 금지한다. `bom/reuse_inventory.csv`의 `UNVERIFIED` 품목은 budget release 근거가 아니다.

@@ -97,10 +97,6 @@ def main() -> None:
         "arbiter_margin_w": P["power"]["psu_rating_w"] - P["power"]["arbiter_peak_w"],
     }
     motor = P["shredder"]["motor"]
-    conservative_cutter_torque = (
-        motor["raw_motor_rated_torque_nm"] * motor["integrated_reduction_ratio"]
-        * motor["gear_efficiency_assumption"] * motor["secondary_ratio"]
-    )
     thermal = {
         "ambient_c": 25.0,
         "hot_path_c": P["extruder"]["hot_path_design_c"],
@@ -121,16 +117,16 @@ def main() -> None:
         "cutter": {
             "curve": P["shredder"]["cutter_curve"],
             "motor_model": motor["model"],
-            "motor_rated_current_a": motor["rated_current_a"],
-            "secondary_ratio": motor["secondary_ratio"],
-            "max_cutter_rpm": round(motor["output_no_load_rpm"] / motor["secondary_ratio"], 1),
+            "motor_acceptance_voltage_v": motor["rated_voltage_range_v"],
+            "secondary_ratio_options": motor["secondary_ratio_options"],
+            "max_cutter_rpm": motor["maximum_no_load_cutter_rpm"],
             "profile_command_rpm": {"PLA": P["shredder"]["pla_rpm"], "PET": P["shredder"]["pet_rpm"]},
             "profile_trip_current_a": {"PLA": P["shredder"]["pla_trip_a"], "PET": P["shredder"]["pet_trip_a"]},
-            "conservative_cutter_torque_nm": round(conservative_cutter_torque, 1),
+            "required_continuous_cutter_torque_nm": motor["required_cutter_continuous_torque_nm"],
+            "required_peak_cutter_torque_nm": motor["required_cutter_peak_torque_nm"],
             "design_torque_nm": P["shredder"]["trip_torque_nm"],
             "tangential_tip_force_n_at_trip": round(P["shredder"]["trip_torque_nm"] / (P["shredder"]["cutter_od_mm"] / 2000), 1),
-            "phase_gear_model": "KHK SS3-16H modified bore 20 mm",
-            "phase_gear_hardened_surface_limit_nm": 28.0,
+            "phase_gear_spec": "generic M3 Z16 20deg face>=18 mm steel or DRV-03 laminated pair",
             "brass_shear_key_mm": [6.0, 6.0, 4.0],
             "brass_key_shear_assumption_mpa": 100.0,
             "brass_key_nominal_shear_torque_nm": round(100.0 * 6.0 * 4.0 * 10.0 / 1000.0, 1),
@@ -166,13 +162,12 @@ def main() -> None:
         "각 1/7 pitch에서 capture flank 76%는 `s(u)=u-sin(2*pi*u)/(2*pi)` cycloid displacement로 root radius 18 mm에서 tip radius 29 mm까지 상승한다. "
         "나머지 24%는 짧은 overhung nose와 빠른 cubic relief다. 따라서 기존 4점 saw-tooth polygon이 아니며 FreeCAD source와 CUT-01 DXF가 같은 곡선을 생성한다.\n\n"
         "## actuator\n\n"
-        f"선정 후보는 `{motor['model']}` brushed geared-DC motor다. 24 V, 250 W, 75 rpm output, raw motor torque {motor['raw_motor_rated_torque_nm']} N·m, integrated ratio {motor['integrated_reduction_ratio']}:1, S2:60이다. "
-        f"KTR ROTEX19 98ShA bore17/20 coupling으로 right cutter shaft를 직접 구동하므로 cutter 무부하 최대속도는 {motor['output_no_load_rpm']/motor['secondary_ratio']:.1f} rpm이다. integrated gear 효율 {motor['gear_efficiency_assumption']:.2f}를 적용한 보수적 cutter torque는 {conservative_cutter_torque:.1f} N·m다. "
-        "이 값은 catalog 조합계산이며 실제 gearhead 출력토크 보증이 아니다. Gate 1에서 current/torque를 교정한다.\n\n"
+        f"Actuator 기준은 특정 part number가 아니라 `{motor['model']}` functional interface다. 18–30 V reversible brushed gearmotor, cutter 환산 continuous {motor['required_cutter_continuous_torque_nm']:.0f} N·m, 3 s peak {motor['required_cutter_peak_torque_nm']:.0f} N·m, 20–40 rpm을 Gate-1에서 입증해야 한다. "
+        "DRV-01 plate와 #35 12T:18T/24T chain, DRV-02 four-bolt hub를 쓰므로 donor가 바뀌면 motor-side bracket/hub만 바뀐다. Catalog 이름만으로 torque를 인정하지 않는다.\n\n"
         f"PLA/PET 명령은 {P['shredder']['pla_rpm']:.0f}/{P['shredder']['pet_rpm']:.0f} rpm, 정상 요구 {P['shredder']['continuous_torque_nm']:.0f} N·m, profile current trip은 {P['shredder']['pla_trip_a']:.0f}/{P['shredder']['pet_trip_a']:.0f} A, 20 A branch fuse, 3회 bounded reverse 뒤 latched fault다. "
-        f"한 phase gear의 6 x 6 x 4 mm annealed brass key가 nominal {P['shredder']['mechanical_relief_torque_nm']:.0f} N·m 기계 relief이고, 이 torque에서 cutter tip tangential force는 {P['shredder']['trip_torque_nm']/(P['shredder']['cutter_od_mm']/2000):.0f} N이다. 두 cutter shaft의 반대회전/phase는 KHK `SS3-16H` M3 Z16 hardened gear pair가 유지한다. Catalog hardened surface durability 28.0 N·m보다 relief를 낮게 두고 coupon에서 실제 전단 torque를 확인한다.\n\n"
+        f"한 phase gear의 6 x 6 x 4 mm annealed brass key가 nominal {P['shredder']['mechanical_relief_torque_nm']:.0f} N·m 기계 relief이고, 이 torque에서 cutter tip tangential force는 {P['shredder']['trip_torque_nm']/(P['shredder']['cutter_od_mm']/2000):.0f} N이다. 두 shaft의 반대회전/phase는 generic M3 Z16, 20 degree, face 18 mm 이상 steel pair 또는 DRV-03 3-lamination/gear가 유지한다. Key 전단과 gear 손상 여부는 coupon에서 확인한다.\n\n"
         "## 구매/치수 Gate\n\n"
-        "Marketplace의 같은 모델명 제품 간 내부 감속과 shaft drawing이 일관되지 않다. Motor plate는 20/73.5 mm hole-spacing을 포괄하는 slot을 사용하지만, 입고 시 label, 17 x 44 mm shaft, no-load rpm, current, 회전방향을 확인하기 전 coupling과 full cutter를 발주하지 않는다.\n"
+        "Project-lab wheelchair/conveyor gearmotor, scooter/e-bike gearmotor, 동급 donor 순으로 조사한다. 정확 model, label, 수량, 상태, shaft, no-load rpm/current, 30분 온도를 기록하기 전 현금 0원으로 확정하지 않는다. Gate-1 PASS 전 full cutter 수량을 발주하지 않는다.\n"
     )
     print("ENGINEERING_CALCULATIONS_OK")
 

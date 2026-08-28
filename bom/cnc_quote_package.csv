@@ -1,8 +1,8 @@
 family_id,description,process,material,quantity,source,planned_krw,release_gate
-CNC-01,CUT-01 cycloidal-derived 58x6 repeated hook disc,waterjet/laser plus deburr and finish grind,D2/SKD11 candidate,12,exports/cnc/CUT-01/CUT-01.step,20000,Gate 1 coupon first
-CNC-02,CUT-03/04/06/07/08 shredder flat pack: plates screen axial spacers motor mount bearing retainers,laser/waterjet/turning plus critical bore finish,steel/304 by drawing,9,exports/cnc/shredder_manifest.csv,17000,Gate 1 alignment and received motor dimensions
-CNC-03,CUT-02/05 spacer and 20 mm keyed shaft family,simple turning plus keyway,S45C,12,exports/cnc/shredder_manifest.csv,16000,Gate 1 phase and coupling measurement
-CNC-05,16 mm 16D screw,turning plus flight milling,nitridable steel candidate,1,cad/freecad/compact/generate.py,28000,Gate 3 DFM
-CNC-06,ID16.2 barrel and feed throat,turning boring welding,qualified steel,1,cad/freecad/compact/generate.py,24000,Gate 3 alignment
-CNC-07,open die breaker and sacrificial retainer,turning plus drilling,stainless/tool steel,1,cad/freecad/compact/generate.py,10000,Gate 4 guarded low feed
-CNC-08,thrust plate and barrel clamps,laser cut plus drilling,steel,3,cad/freecad/compact/generate.py,7000,Gate 3 thrust path
+CNC-01,CUT-01 cycloidal-derived 58x6 repeated hook disc,waterjet/laser plus deburr and finish grind,D2/SKD11 candidate,2,exports/cnc/CUT-01/CUT-01.step,14000,Gate-1 coupon 2장만 허용; 나머지 10장 HOLD
+CNC-02,CUT-03/04/06/07/08 및 DRV-01/03 flat pack,laser/waterjet plus critical bore finish,steel/304 by drawing,15,exports/drive_interface/manifest.csv,7000,Gate-1 coupon과 donor 치수 우선
+CNC-03,CUT-02/05 spacer shaft 및 DRV-02 hub,simple turning plus keyway,S45C,13,exports/drive_interface/parts/DRV-02/DRV-02.step,11000,Gate-1 shaft 정렬
+CNC-05,EX-CPN-SCR 3-pitch process coupon,turning flight milling polish nitride,SCM440 QT,1,exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.step,22000,Full EX-SCR-01 HOLD
+CNC-06,EX-CPN-BAR 60 mm bore process coupon,boring honing nitride final hone,SCM440 QT,1,exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.step,20000,Full EX-BAR-01 HOLD
+CNC-07,open die breaker and sacrificial retainer,turning plus drilling,stainless/tool steel,1,cad/freecad/compact/generate.py,8000,Gate 4 guarded low feed
+CNC-08,thrust plate and barrel clamps,laser cut plus drilling,steel,3,cad/freecad/compact/generate.py,4000,Gate 3 thrust path

@@ -96,7 +96,7 @@ def test_calculations_and_profiles():
     require(s["power"]["calculated_concurrent_peak_w"] > s["power"]["psu_rating_w"],"power arbiter no longer decision-relevant")
     require(s["power"]["arbiter_peak_w"] <= s["power"]["psu_rating_w"],"power arbiter exceeds PSU")
     require("shredder" in s["power"]["mutual_exclusion"],"hazardous power mutual exclusion missing")
-    require(s["cutter"]["motor_model"] == "MY1016Z-24V-250W-75RPM","shredder motor baseline mismatch")
+    require(s["cutter"]["motor_model"] == "INTERCHANGEABLE_DONOR_GEARMOTOR","shredder motor interface mismatch")
     require(s["cutter"]["profile_command_rpm"] == {"PLA":32.0,"PET":24.0},"shredder profile RPM mismatch")
     require(s["cutter"]["profile_trip_current_a"] == {"PLA":16.0,"PET":18.0},"shredder current profile mismatch")
     require(s["cutter"]["yield_safety_factor_at_145mpa_shear"] >= 2.0,"shaft torsion screen")
@@ -120,6 +120,26 @@ def test_artifacts_and_docs():
     require(manifest["revision"]==REV and manifest["artifact_count"]>=50,"manifest incomplete")
 
 
+def test_manufacturing_and_release_locks():
+    for rel in (
+        "exports/drive_interface/manifest.csv",
+        "exports/jigs/gate1/gate1_assembly.step",
+        "exports/jigs/gate1/test_procedure_ko.md",
+        "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.step",
+        "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.step",
+        "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.step",
+        "exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.step",
+        "exports/cnc/extruder/rfq_drawing_ko.pdf",
+        "exports/jigs/gate1/gate1_assembly_ko.pdf",
+    ):
+        require((ROOT/rel).exists() and (ROOT/rel).stat().st_size>100,f"manufacturing package missing {rel}")
+    state=json.loads((ROOT/"validation/physical_gate_status.json").read_text())
+    require(state["gate1_result"]=="NOT_RUN" and not state["full_cutter_order_release"],"full cutter must remain locked before Gate-1")
+    require(not state["full_screw_barrel_order_release"],"full screw/barrel must remain locked before process coupon/Gate-3")
+    require(not state["main_promotion_allowed"],"main promotion must remain locked without Gate-1 evidence")
+    require(not state["donor_drive_verified"],"unverified donor must not be claimed")
+
+
 def main():
     test_revision_and_stale(); print("PASS REVISION_STALE")
     test_envelope(); print("PASS FULL_ENVELOPE")
@@ -128,6 +148,7 @@ def main():
     test_shredder_fabrication_package(); print("PASS SHREDDER_FABRICATION_PACKAGE")
     test_calculations_and_profiles(); print("PASS ENGINEERING_PROFILES")
     test_artifacts_and_docs(); print("PASS ARTIFACTS_DOCS")
+    test_manufacturing_and_release_locks(); print("PASS PHYSICAL_RELEASE_LOCKS_ENFORCED")
     print("COMPACT_RELEASE_VALIDATION_OK")
 
 

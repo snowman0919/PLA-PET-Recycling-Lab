@@ -1,0 +1,5 @@
+priority,candidate_family,nominal_voltage_v,output_speed_before_chain_rpm,minimum_output_continuous_torque_nm,minimum_output_peak_torque_nm,chain_ratio,must_measure,status,reason
+1,project-lab wheelchair or conveyor brushed gearmotor,18-30,40-80,8.3,14.2,12T:24T,exact model label quantity state shaft current RPM backlash 30min temperature and Gate-1 torque,UNVERIFIED_PREFERRED,compact high-ratio donor likely to satisfy torque without proprietary coupling
+2,project-lab scooter or e-bike brushed geared motor,18-30,30-80,11.0,18.8,12T:18T or 12T:24T,exact model label quantity state shaft current RPM bracket envelope and Gate-1 torque,UNVERIFIED_SECONDARY,may need existing reduction and must stay inside 20A branch
+3,other 150W-class or larger brushed gearmotor donor,18-30,30-80,11.0,18.8,12T:18T or 12T:24T,same receipt evidence and 30min case <=80C,UNVERIFIED_FALLBACK,part number is not controlling functional result is
+reject,NEMA17 plus current-chopping driver,24,variable,not accepted,not accepted,none,phase current telemetry stall and missed-step data,REJECT_FULL_SHREDDER,available stepper is not assumed to meet 14Nm cutter torque
