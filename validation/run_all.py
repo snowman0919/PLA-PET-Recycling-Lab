@@ -70,6 +70,7 @@ def main():
         "echo DIGITAL_PDF_BUILD_OK",
     ])
     run(["bash", "-lc", typst] if shutil.which("typst") else nix(typst), "DIGITAL_PDF_BUILD_OK")
+    run([sys.executable, "validation/artifact_reproducibility.py"], "CLEAN_CLONE_REPRODUCIBILITY_OK")
     run([sys.executable, "artifacts/build_manifest.py"], "ARTIFACT_MANIFEST_OK")
     run([sys.executable, "validation/test_release.py"], "SOLID_MANIFOLD_OPENMODELICA_RELEASE_VALIDATION_OK")
     print("ALL_DIGITAL_VALIDATIONS_OK; PHYSICAL_NOT_RUN; MAIN_PROMOTION_LOCKED")

@@ -12,9 +12,10 @@
 - [x] OpenModelica load envelope가 구조 screening/CalculiX 입력과 trace 가능
 - [x] Firmware config가 baseline에서 생성되고 unverified drive calibration을 거부
 - [x] README/requirements/baseline/BOM/PDF/manifest revision·수치 일치
+- [x] 전체 재생성 후 normalized artifact hash gate PASS (`CLEAN_CLONE_REPRODUCIBILITY`)
 - [x] stale architecture/current-source 검사 PASS
 - [x] current render와 parent visual review 기록
-- [x] remote single-branch clean clone 전체 재현 PASS (`b00edd6`, `--regenerate-renders`)
+- [x] remote single-branch clean clone 전체 재생성 및 normalized hash 재현 PASS
 
 ## Physical gate — digital release와 분리
 

@@ -32,6 +32,8 @@ PLA/PET는 470 × 700 × 930 mm cabinet 안에서 공용 hopper, cycloidal-inspi
 - PrusaSlicer 2.9.6: support 포함 994.61 g, 87.9 h; 실패 reserve 포함 1,113.96 g.
 - Keep-out 4개는 `REVIEW_ONLY_NOT_MANUFACTURED` package에 격리.
 
+전체 재생성 뒤 `CLEAN_CLONE_REPRODUCIBILITY`가 manifest의 모든 산출물을 재검사한다. STEP timestamp/export sequence, FCStd의 비제조 topological history map, ZIP member timestamp만 정규화한다. FCStd Document와 B-Rep 및 3MF member content는 해시 범위에 유지한다. PrusaSlicer는 path ordering 재현성을 위해 1 thread로 고정한다.
+
 = 기계 simulation과 구조 연계
 
 OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 18 scenario 및 6 sensitivity sweep를 실행했다. Torque hierarchy는 14 < 18 < 22 < 34 < 48 N·m다. Dynamic envelope는 cutter 전달 22.0 N·m, bearing 1.255 kN, chain 0.603 kN, table anchor 0.485 kN이다.

@@ -9,11 +9,26 @@ import math
 import re
 import shutil
 import subprocess
+import zipfile
 from html import escape
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 PROFILE=ROOT/"exports/print/slicer_profiles/PPR_PrusaSlicer_2.9.6.ini"
+
+
+def normalize_3mf_zip(path):
+    """Rewrite a slicer 3MF with stable member order and ZIP metadata."""
+    temporary=path.with_suffix(path.suffix+".normalized")
+    with zipfile.ZipFile(path,"r") as source, zipfile.ZipFile(temporary,"w",compression=zipfile.ZIP_DEFLATED) as target:
+        target.comment=source.comment
+        for member in sorted(source.infolist(),key=lambda item:item.filename):
+            info=zipfile.ZipInfo(member.filename,(2000,1,1,0,0,0))
+            info.compress_type=zipfile.ZIP_DEFLATED
+            info.external_attr=member.external_attr
+            info.create_system=member.create_system
+            target.writestr(info,source.read(member.filename))
+    temporary.replace(path)
 
 
 def parse_time(value):
@@ -145,11 +160,12 @@ def main():
         plate=out_dir/f"plate-{index:02d}-{pid}.3mf"; gcode=preview_dir/f"plate-{index:02d}-{pid}.gcode"
         support_enabled=row["support"].strip().lower()!="no"
         support_args=["--support-material","--support-material-auto","--support-material-threshold","45"] if support_enabled else []
-        common=[slicer,"--load",str(PROFILE),"--duplicate",row["quantity"],"--center","110,110","--ensure-on-bed",*support_args,str(stl)]
+        common=[slicer,"--threads","1","--load",str(PROFILE),"--duplicate",row["quantity"],"--center","110,110","--ensure-on-bed",*support_args,str(stl)]
         for action,target in (("--export-3mf",plate),("--export-gcode",gcode)):
             completed=subprocess.run(common[:-1]+[action,"--output",str(target),common[-1]],cwd=ROOT,text=True,capture_output=True)
             if completed.returncode:
                 raise SystemExit(f"SLICER_FAIL {pid}: {completed.stdout}{completed.stderr}")
+            if action=="--export-3mf": normalize_3mf_zip(target)
         mass_g,time_s=gcode_metrics(gcode); support_cm3=support_volume_cm3(gcode)
         preview=preview_dir/f"plate-{index:02d}-{pid}-first-layer.svg"
         preview_segments,preview_z=first_layer_preview_svg(gcode,preview,f"{pid} x{row['quantity']} / PrusaSlicer 2.9.6")
@@ -160,10 +176,11 @@ def main():
 
     coupon_id="PPR-TC01"; coupon_dir=ROOT/"exports/print/coupons"/coupon_id
     coupon_stl=coupon_dir/f"{coupon_id}.stl"; coupon_plate=coupon_dir/f"{coupon_id}_plate.3mf"; coupon_gcode=preview_dir/f"coupon-{coupon_id}.gcode"
-    coupon_common=[slicer,"--load",str(PROFILE),"--center","110,110","--ensure-on-bed",str(coupon_stl)]
+    coupon_common=[slicer,"--threads","1","--load",str(PROFILE),"--center","110,110","--ensure-on-bed",str(coupon_stl)]
     for action,target in (("--export-3mf",coupon_plate),("--export-gcode",coupon_gcode)):
         completed=subprocess.run(coupon_common[:-1]+[action,"--output",str(target),coupon_common[-1]],cwd=ROOT,text=True,capture_output=True)
         if completed.returncode: raise SystemExit(f"SLICER_FAIL {coupon_id}: {completed.stdout}{completed.stderr}")
+        if action=="--export-3mf": normalize_3mf_zip(target)
     coupon_mass,coupon_time=gcode_metrics(coupon_gcode)
     coupon_preview=preview_dir/f"coupon-{coupon_id}-first-layer.svg"
     coupon_segments,coupon_z=first_layer_preview_svg(coupon_gcode,coupon_preview,f"{coupon_id} tolerance coupon / PrusaSlicer 2.9.6")

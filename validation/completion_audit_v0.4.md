@@ -118,7 +118,7 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |R-02|한국어 build/design/digital release PDF|Typst source, A4 PDF, parent page review|PROVEN_DIGITAL|
 |R-03|opaque/exploded/section/tool/motion/support/cutter/jig render|18-image render package와 visual review|PROVEN_DIGITAL|
 |R-04|working-tree 전체 gate|`ALL_DIGITAL_VALIDATIONS_OK`|PROVEN_DIGITAL|
-|R-05|remote clean-clone 전체 재생성|`clean_clone_validation.json` at b00edd6|PROVEN_DIGITAL|
+|R-05|remote clean-clone 전체 재생성과 산출물 동일성|`clean_clone_validation.json`, `artifact_reproducibility.json`; STEP/FCStd/3MF normalized hash gate|PROVEN_DIGITAL|
 |R-06|구매/CNC/energization 사용자 승인|실행하지 않음; 모든 order release false|LOCKED_BY_USER|
 
 ## 결론

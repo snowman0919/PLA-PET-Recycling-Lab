@@ -27,6 +27,7 @@ Donor는 18–30 V reversible geared brushed-DC, cutter 14 N·m continuous, 20�
 - CalculiX screening: bearing plate 45.36 MPa/0.1840 mm, cutter shaft 48.63 MPa/0.0136 mm. Gate-1 load로 재검증해야 한다.
 - 16 mm screw nominal throughput: PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h. 200 g/h는 stretch target이며 현재 nominal claim이 아니다.
 - Conditional target cash 179,951 KRW; 20,000 KRW contingency 포함 199,951 KRW. 남은 계획 여유는 49 KRW뿐이고 donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
+- `CLEAN_CLONE_REPRODUCIBILITY`는 전체 재생성 뒤 manifest의 모든 decision-relevant artifact를 다시 해시한다. STEP exporter counter, FCStd history map, ZIP timestamp만 정규화하며 B-Rep, 문서와 3MF member content는 해시 범위에 남긴다.
 
 ## 재현
 
@@ -43,6 +44,8 @@ python3 firmware/arduino_mega/generate_config.py
 make -C firmware/arduino_mega test
 python3 validation/run_all.py
 ```
+
+PrusaSlicer는 경로 순서 재현성을 위해 1 thread로 고정된다. `validation/artifact_reproducibility.py --bootstrap`은 기준선 작성자가 최초 manifest를 만들 때만 사용하며 일반 검증과 clean clone에서는 허용하지 않는다.
 
 구매·CNC 주문·heater energization은 사용자 승인 전 금지한다. Gate-1에서는 CUT-01 정확히 2장과 최소 jig만 허용하며, signed raw 결과가 PASS이기 전 full cutter stack과 full screw/barrel 발주 및 `main` fast-forward는 잠겨 있다.
 

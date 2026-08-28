@@ -42,6 +42,13 @@ def feature(doc, name, shape, label, part_id="", material=""):
 def normalize_step(path):
     text = path.read_text(encoding="ascii")
     text = re.sub(r"'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}'", "'2000-01-01T00:00:00'", text, count=1)
+    # OpenCASCADE appends a process-local export sequence to the translator
+    # product name.  It is not geometry, but otherwise changes every rebuild.
+    text = re.sub(
+        r"Open CASCADE STEP translator ([0-9.]+) [0-9]+",
+        r"Open CASCADE STEP translator \1 0",
+        text,
+    )
     path.write_text(text, encoding="ascii", newline="\n")
 
 

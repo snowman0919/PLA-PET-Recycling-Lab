@@ -217,6 +217,11 @@ def test_artifacts_and_release_locks():
         require("Gate-1" in text and ("main" in text or "MAIN" in text), f"Gate-1/main lock missing from {rel}")
     manifest = json.loads((ROOT / "artifacts/manifest.json").read_text())
     require(manifest["revision"] == REV and manifest["release_state"] == "DIGITAL_FABRICATION_BASELINE", "artifact manifest state")
+    reproducibility = json.loads((ROOT / "validation/results/artifact_reproducibility.json").read_text())
+    require(reproducibility["gate"] == "CLEAN_CLONE_REPRODUCIBILITY" and reproducibility["status"] == "PASS", "artifact reproducibility gate")
+    require(not reproducibility["mismatches"], "artifact reproducibility mismatch list")
+    require(reproducibility["checked_count"] == manifest["artifact_count"], "artifact reproducibility count")
+    require(all(item.get("hash_mode") and item.get("normalized_bytes", 0) > 0 and len(item.get("sha256", "")) == 64 for item in manifest["artifacts"]), "artifact normalized hash schema")
     manifested={item["path"] for item in manifest["artifacts"]}
     canonical=(
         "README.md","cad/README.md","cad/parameters/baseline.json","calculations/run_engineering.py",
@@ -224,6 +229,8 @@ def test_artifacts_and_release_locks():
         "firmware/arduino_mega/src/shredder_control.cpp","electronics/safety_power_topology.md",
         "docs/build_manual_ko.typ","docs/build_manual_ko.pdf","requirements/architecture_contract.md",
         "validation/completion_audit_v0.4.md","validation/results/clean_clone_validation.json",
+        "validation/artifact_reproducibility.py","validation/results/artifact_reproducibility.json",
+        "artifacts/build_manifest.py","artifacts/manifest_lib.py",
         "exports/print/slicing_previews/plate-01-PPR-C01-first-layer.svg",
     )
     require(all(rel in manifested for rel in canonical),"artifact manifest omits canonical source or evidence")

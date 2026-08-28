@@ -21,6 +21,7 @@
 |Structure|9 screening + 2 CalculiX PASS|`analysis/structural/results/structural_screening.json`|
 |Firmware|baseline hash sync, unverified calibration start reject|host tests/generated header|
 |Budget|179,951 target; 199,951 reserve 포함; 계획 여유 49|`bom/cash_budget.csv`|
+|Artifact 재현성|전체 manifest normalized hash PASS|`validation/results/artifact_reproducibility.json`|
 
 OpenModelica cutter load는 Gate-1 이전 surrogate다. CalculiX는 linear-elastic global screening이며 실제 impact/notch/fatigue/safety certification을 대체하지 않는다. 200 g/h는 stretch target이고 diameter accuracy도 physical calibration 전 claim하지 않는다.
 
