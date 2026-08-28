@@ -12,6 +12,7 @@ PATTERNS = (
     "cad/generation/fcstd/*.FCStd",
     "cad/generation/assembly_metadata.json",
     "exports/step/*.step",
+    "exports/cnc/**/*.FCStd", "exports/cnc/**/*.step", "exports/cnc/**/*.dxf", "exports/cnc/**/*.md", "exports/cnc/*.csv",
     "exports/print/**/*.FCStd", "exports/print/**/*.step", "exports/print/**/*.stl", "exports/print/**/*.3mf",
     "exports/print/**/*.md", "exports/print/*.csv",
     "renders/**/*.png", "docs/*.pdf",

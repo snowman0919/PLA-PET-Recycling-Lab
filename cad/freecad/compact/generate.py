@@ -6,22 +6,25 @@ import csv
 import json
 import re
 import sys
+import uuid
+import zipfile
 from pathlib import Path
 
 import FreeCAD as App
 import Mesh
 import Part
+import importDXF
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
-from geometry import assembly_objects, print_parts  # noqa: E402
+from geometry import assembly_objects, print_parts, shredder_metal_parts  # noqa: E402
 
 PARAMS = json.loads((ROOT / "cad/parameters/baseline.json").read_text())
 
 
 def dirs():
-    for p in (ROOT / "cad/generation/fcstd", ROOT / "exports/step", ROOT / "exports/print", ROOT / "exports/print/plate_layouts"):
+    for p in (ROOT / "cad/generation/fcstd", ROOT / "exports/step", ROOT / "exports/cnc", ROOT / "exports/print", ROOT / "exports/print/plate_layouts"):
         p.mkdir(parents=True, exist_ok=True)
 
 
@@ -41,16 +44,51 @@ def normalize_step(path):
     path.write_text(text, encoding="ascii", newline="\n")
 
 
+def normalize_dxf(path):
+    """Keep FreeCAD's DXF export stable and free of trailing blank spaces."""
+    lines = path.read_text(encoding="utf-8").splitlines()
+    path.write_text("\n".join(line.rstrip() for line in lines) + "\n", encoding="utf-8", newline="\n")
+
+
+def normalize_zip_container(path, normalize_fcstd=False):
+    """Remove run time, random UUID and transient FreeCAD object IDs."""
+    temporary = path.with_suffix(path.suffix + ".normalized")
+    with zipfile.ZipFile(path, "r") as source, zipfile.ZipFile(temporary, "w", compression=zipfile.ZIP_DEFLATED) as target:
+        target.comment = source.comment
+        stable_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, str(path.relative_to(ROOT))))
+        for member in source.infolist():
+            data = source.read(member.filename)
+            if normalize_fcstd and member.filename == "Document.xml":
+                text = data.decode("utf-8")
+                text = re.sub(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}", "2000-01-01T00:00:00+00:00", text)
+                text = re.sub(r'(<Uuid value=")[^"]+("/>)', rf"\g<1>{stable_uuid}\2", text)
+                transient_ids = list(dict.fromkeys(re.findall(r'id="(\d+)"', text)))
+                id_map = {old: str(1000 + index) for index, old in enumerate(transient_ids)}
+                text = re.sub(r'id="(\d+)"', lambda match: f'id="{id_map[match.group(1)]}"', text)
+                data = text.encode("utf-8")
+            elif normalize_fcstd and member.filename.endswith(".Shape.Map.txt"):
+                counter = iter(range(1, 10000))
+                text = data.decode("ascii")
+                text = re.sub(r";D[0-9A-Fa-f]+", lambda _match: f";D{next(counter):04x}", text)
+                data = text.encode("ascii")
+            info = zipfile.ZipInfo(member.filename, (2000, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = member.external_attr
+            info.create_system = member.create_system
+            target.writestr(info, data)
+    temporary.replace(path)
+
+
 def export_print_part(spec):
     part_dir = ROOT / "exports/print" / spec["id"]
     part_dir.mkdir(parents=True, exist_ok=True)
     doc = App.newDocument(spec["id"].replace("-", "_"))
     obj = feature(doc, "Body", spec["shape"], spec["name"], spec["id"], spec["material"])
     doc.recompute()
-    fcstd = part_dir / f"{spec['id']}.FCStd"; doc.saveAs(str(fcstd))
+    fcstd = part_dir / f"{spec['id']}.FCStd"; fcstd.unlink(missing_ok=True); doc.saveAs(str(fcstd)); normalize_zip_container(fcstd, normalize_fcstd=True)
     step = part_dir / f"{spec['id']}.step"; Part.export([obj], str(step)); normalize_step(step)
     stl = part_dir / f"{spec['id']}.stl"; Mesh.export([obj], str(stl))
-    three = part_dir / f"{spec['id']}.3mf"; Mesh.export([obj], str(three))
+    three = part_dir / f"{spec['id']}.3mf"; Mesh.export([obj], str(three)); normalize_zip_container(three)
     density = 1.04 if spec["material"] == "ABS" else 1.24
     mass_each = spec["shape"].Volume / 1000.0 * density
     bb = spec["shape"].BoundBox
@@ -84,7 +122,7 @@ def export_assembly():
     for i, item in enumerate(assembly_objects()):
         objects.append(feature(doc, f"Part{i:03d}", item["shape"], item["name"], material=item["material"]))
     doc.recompute()
-    fcstd = ROOT / "cad/generation/fcstd/compact_full_assembly.FCStd"; doc.saveAs(str(fcstd))
+    fcstd = ROOT / "cad/generation/fcstd/compact_full_assembly.FCStd"; fcstd.unlink(missing_ok=True); doc.saveAs(str(fcstd)); normalize_zip_container(fcstd, normalize_fcstd=True)
     step = ROOT / "exports/step/compact_full_assembly.step"; Part.export(objects, str(step)); normalize_step(step)
     compound = Part.makeCompound([o.Shape for o in objects])
     bb = compound.BoundBox
@@ -99,6 +137,41 @@ def export_assembly():
     (ROOT / "cad/generation/assembly_metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n")
     App.closeDocument(doc.Name)
     return meta
+
+
+def export_metal_parts():
+    rows = []
+    for spec in shredder_metal_parts():
+        part_dir = ROOT / "exports/cnc" / spec["id"]
+        part_dir.mkdir(parents=True, exist_ok=True)
+        doc = App.newDocument(spec["id"].replace("-", "_"))
+        obj = feature(doc, "Part", spec["shape"], spec["name"], spec["id"], spec["material"])
+        doc.recompute()
+        fcstd = part_dir / f"{spec['id']}.FCStd"
+        fcstd.unlink(missing_ok=True); doc.saveAs(str(fcstd)); normalize_zip_container(fcstd, normalize_fcstd=True)
+        step = part_dir / f"{spec['id']}.step"
+        Part.export([obj], str(step)); normalize_step(step)
+        dxf = part_dir / f"{spec['id']}.dxf"
+        importDXF.export([obj], str(dxf)); normalize_dxf(dxf)
+        bb = spec["shape"].BoundBox
+        notes = (
+            f"# {spec['id']} — {spec['name']}\n\n"
+            f"- 수량: {spec['qty']}\n- 재료: {spec['material']}\n- 공정: {spec['process']}\n"
+            f"- CAD bounding box: {bb.XLength:.2f} x {bb.YLength:.2f} x {bb.ZLength:.2f} mm\n"
+            "- 일반공차: ISO 2768-m, 별도 표기 없는 edge C0.3 deburr\n"
+            f"- 중요공차/검사: {spec['critical']}\n"
+            "- 좌표기준: STEP 원점과 축을 기준으로 하며 DXF는 2D profile 견적용이다. 회전체는 STEP과 본 notes를 함께 견적한다.\n"
+            "- 발주상태: HOLD — 사용자 승인과 Gate 1 coupon 합격 전 full quantity 발주 금지\n"
+        )
+        (part_dir / "drawing_notes.md").write_text(notes)
+        rows.append({**spec, "x_mm": bb.XLength, "y_mm": bb.YLength, "z_mm": bb.ZLength})
+        App.closeDocument(doc.Name)
+    with (ROOT / "exports/cnc/shredder_manifest.csv").open("w", newline="") as f:
+        w = csv.writer(f, lineterminator="\n")
+        w.writerow(["part_id", "name", "quantity", "material", "process", "x_mm", "y_mm", "z_mm", "files", "release_state"])
+        for r in rows:
+            w.writerow([r["id"], r["name"], r["qty"], r["material"], r["process"], f"{r['x_mm']:.2f}", f"{r['y_mm']:.2f}", f"{r['z_mm']:.2f}", "FCStd|STEP|DXF|notes", "HOLD_GATE_1"])
+    return rows
 
 
 def export_plates(rows):
@@ -122,12 +195,13 @@ def export_plates(rows):
                 x += bb.XLength + 5; row_h = max(row_h, bb.YLength)
         doc.recompute()
         out = ROOT / f"exports/print/plate_layouts/plate-{index:02d}.3mf"
-        Mesh.export(objs, str(out))
+        Mesh.export(objs, str(out)); normalize_zip_container(out)
         App.closeDocument(doc.Name)
 
 
 def main():
     dirs()
+    metal_rows = export_metal_parts()
     rows = [export_print_part(spec) for spec in print_parts()]
     export_plates(rows)
     manifest = ROOT / "exports/print/print_manifest.csv"
@@ -143,7 +217,7 @@ def main():
         w = csv.writer(f, lineterminator="\n"); w.writerow(["part_id", "quantity", "material", "estimated_mass_g", "cost_krw_per_kg", "estimated_cost_krw", "status"])
         for r in rows: w.writerow([r["id"], r["qty"], r["material"], f"{r['mass_each_g']*r['qty']:.2f}", 18000, round(r["mass_each_g"]*r["qty"]/1000*18000), "CAD_VOLUME_ESTIMATE"])
     meta = export_assembly()
-    print(f"COMPACT_CAD_GENERATION_OK parts={len(rows)} mass_g={total:.1f} envelope={meta['bounding_box_mm']}")
+    print(f"COMPACT_CAD_GENERATION_OK print_parts={len(rows)} metal_parts={len(metal_rows)} mass_g={total:.1f} envelope={meta['bounding_box_mm']}")
 
 
 if __name__ == "__main__":

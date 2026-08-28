@@ -5,6 +5,8 @@ SERVICE_GUARD_CLOSED,input,hardwired chain,false,forced-open test
 THERMAL_CHAIN_OK,input,hardwired chain,false,open-circuit simulation
 SHREDDER_ENABLE,output,Mega/permission chain,false,scope and contact test
 SHREDDER_LOAD,input,driver/encoder,false,calibrate against shaft torque coupon
+SHREDDER_CURRENT_50A,input,Hall current sensor,invalid,0/5/10/15/20 A calibrated load
+SHREDDER_SHAFT_RPM,input,driven-shaft Hall sensor,zero,6-pole ring tachometer comparison
 SCREW_ENABLE,output,Mega/permission chain,false,heater-off test
 HEATER_ENABLE,output,permission chain,false,stuck-MOSFET thermal chain test
 GAUGE_X,input,shadow gauge,invalid,traceable pin calibration

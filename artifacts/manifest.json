@@ -1,26 +1,31 @@
 {
   "revision": "compact-single-path-v0.3",
-  "artifact_count": 104,
+  "artifact_count": 141,
   "artifacts": [
     {
       "path": "bom/bom.csv",
-      "bytes": 2161,
-      "sha256": "d11833a153f00008b788906b6f18855665aa02ca6eb2a5f1470fdd55eaa8620f"
+      "bytes": 2704,
+      "sha256": "ab8c18d2900f522add949feb49d6dde376c4c2c1555b91bbae5e492b899cc7c1"
     },
     {
       "path": "bom/cash_budget.csv",
-      "bytes": 1802,
-      "sha256": "1852a6e3e654be4469e48d3c7cecef6ad1c8589ae1614cecc75a7b8e56768374"
+      "bytes": 2429,
+      "sha256": "6d4c5dbc9acd8384d93874e0a98ac2ad5a88d7188bef8a3422d53f4354c195ac"
     },
     {
       "path": "bom/cnc_quote_package.csv",
-      "bytes": 1185,
-      "sha256": "5fd047dced729a77361dc0236194412e3ffe5bdce81564fd37dbc2a84e782e64"
+      "bytes": 1232,
+      "sha256": "01990a8b77aac707f2c551da3c5edef884ca6c1ea34ce0dfc8c622b67a5bf64e"
     },
     {
       "path": "bom/printed_material_cost.csv",
       "bytes": 698,
       "sha256": "750386df5d99b395c5d82eb9726b0039e8091aa1168f75465067c08f3dcbf19f"
+    },
+    {
+      "path": "bom/purchase_candidates.csv",
+      "bytes": 1621,
+      "sha256": "fcefdad9ae1603bebe9c262a7e2bb0240cf938b37c818ff12a845209416c5fb9"
     },
     {
       "path": "bom/reuse_inventory.csv",
@@ -30,17 +35,17 @@
     {
       "path": "cad/generation/assembly_metadata.json",
       "bytes": 379,
-      "sha256": "acbac213811da57e8d7a46a3b4ca65880cb44a0f6191e9f9239fa48998f2d933"
+      "sha256": "e448fb11f83cba06e24073108aa2c05d926fa4621d9ffcd248ab340f3bab4b45"
     },
     {
       "path": "cad/generation/fcstd/compact_full_assembly.FCStd",
-      "bytes": 111753,
-      "sha256": "89f83bb56a391bf90908decee0d73266f5da57775126f22bce6f182789bc35b7"
+      "bytes": 376493,
+      "sha256": "53e9e1c4bde72dd324dedb3774aa271eb86a1975c585b7e292f782438a12fb32"
     },
     {
       "path": "calculations/economics/break_even.md",
-      "bytes": 856,
-      "sha256": "dd8346c2edc4562cb1869703cc5021a8c9f6701d18aac9637981f562ec042720"
+      "bytes": 1042,
+      "sha256": "d76c8452b11b706473f4ee6076b4ead744c04591fbfc7991c39732a812f89bb6"
     },
     {
       "path": "calculations/screw_sensitivity.md",
@@ -48,34 +53,204 @@
       "sha256": "4a98e54d9c7163269db5f572a1ce41b7c87321094efa843f745622a33a111f89"
     },
     {
+      "path": "calculations/shredder_drive_and_cutter.md",
+      "bytes": 1795,
+      "sha256": "c5d1e5b9a7ed53cf4d9e8a38d63a7adcad65b00ac24c3858ca512c5beae1249f"
+    },
+    {
       "path": "calculations/thermal_power_forming.md",
-      "bytes": 688,
-      "sha256": "c21db76402e033db2b07a690c5fc5382787b2f0468abcdbc6fd44cddd00cb58a"
+      "bytes": 977,
+      "sha256": "77ced612ffde4843bcb693dae9e93fd6258ff95e00c636669009a4a3c25b98a0"
     },
     {
       "path": "docs/build_manual_ko.pdf",
-      "bytes": 328071,
-      "sha256": "478b988b8a412d749a02eb4a6cc7a9081072ad8099ac9e7a0ed4c515f2e4607b"
+      "bytes": 396922,
+      "sha256": "65f0e80275211ca5151328e26f252368957b99eaf5a317bb57a0eadc62e0f200"
     },
     {
       "path": "docs/design_report_ko.pdf",
-      "bytes": 338541,
-      "sha256": "b2b790bfbd1a1f8255413499b955ddfdd1cb6522517bebd9f0ca3a68a6a5c925"
+      "bytes": 476051,
+      "sha256": "dc2d5347fa29829d902426c46d74bb0ac45a46162c180347e8310ea64799508c"
+    },
+    {
+      "path": "exports/cnc/CUT-01/CUT-01.FCStd",
+      "bytes": 38046,
+      "sha256": "9d1b3f7d2d77688a16e54784c89629602372e2d1815208f7a7a8489b6281d619"
+    },
+    {
+      "path": "exports/cnc/CUT-01/CUT-01.dxf",
+      "bytes": 199763,
+      "sha256": "44dddf84d7e5953eb38a95ce3c19ec034332c0fca2f39d7fb79fd9c57905b3db"
+    },
+    {
+      "path": "exports/cnc/CUT-01/CUT-01.step",
+      "bytes": 301412,
+      "sha256": "7d7f33af832e1d8bd2c8806d1bba743318c4d77f10661ab533774eabc942d03b"
+    },
+    {
+      "path": "exports/cnc/CUT-01/drawing_notes.md",
+      "bytes": 699,
+      "sha256": "b95ecf78b2594a2eb69109f029ed28ab3f7b5c8c2c824c7f80f47c06795e9737"
+    },
+    {
+      "path": "exports/cnc/CUT-02/CUT-02.FCStd",
+      "bytes": 2441,
+      "sha256": "2b0010a83792c989f5c32b25dd18e8f3cacdb698e30b9c33d9b1b551867f1c0d"
+    },
+    {
+      "path": "exports/cnc/CUT-02/CUT-02.dxf",
+      "bytes": 6043,
+      "sha256": "5f1b327bf5fb90912552640ee14f0bacfbb7d433887c81ca04becee67fbfc55a"
+    },
+    {
+      "path": "exports/cnc/CUT-02/CUT-02.step",
+      "bytes": 4955,
+      "sha256": "64f4b0efbbc420949b0af751836de8461e17e5edb4c166948e7b8101faf17e42"
+    },
+    {
+      "path": "exports/cnc/CUT-02/drawing_notes.md",
+      "bytes": 537,
+      "sha256": "fb46715d367bb1160501a2a0d41f79cee9357dea1ba218687d37b1eb072e08f5"
+    },
+    {
+      "path": "exports/cnc/CUT-03/CUT-03.FCStd",
+      "bytes": 4513,
+      "sha256": "aae91e666a1ee870b49d8acdf5c13250edee8128045637dff2fd86259349d97f"
+    },
+    {
+      "path": "exports/cnc/CUT-03/CUT-03.dxf",
+      "bytes": 18591,
+      "sha256": "d808ea313213464e2ce3eec833c66f93910025a42cd56d17bb8fbd48f6a4c268"
+    },
+    {
+      "path": "exports/cnc/CUT-03/CUT-03.step",
+      "bytes": 24310,
+      "sha256": "2e5a8625e1f94ca5d6cb8077f1bc585779507213cfbf6521b0b195e678b96aba"
+    },
+    {
+      "path": "exports/cnc/CUT-03/drawing_notes.md",
+      "bytes": 665,
+      "sha256": "ac80416cd044389a79d9484f86110c571d1d6915e0308d2209f088acf0976198"
+    },
+    {
+      "path": "exports/cnc/CUT-04/CUT-04.FCStd",
+      "bytes": 30961,
+      "sha256": "1a80c1319af18b127f1c4026e06cda0e469da33cc7963b222c73bed7cfef6a97"
+    },
+    {
+      "path": "exports/cnc/CUT-04/CUT-04.dxf",
+      "bytes": 151659,
+      "sha256": "10205c4c068535f7cd8beb06d104e2207f66c93e217ff9b7de52262f9e53b109"
+    },
+    {
+      "path": "exports/cnc/CUT-04/CUT-04.step",
+      "bytes": 262275,
+      "sha256": "fe5152e58badec9edfa4d87be06ae8c9fe8e608e8d5b7937de5053b1a56bae23"
+    },
+    {
+      "path": "exports/cnc/CUT-04/drawing_notes.md",
+      "bytes": 638,
+      "sha256": "7770f4c30112963b6d4394ee115eec9935a3b2f767e0ff54d8d819b0f52855f5"
+    },
+    {
+      "path": "exports/cnc/CUT-05/CUT-05.FCStd",
+      "bytes": 4122,
+      "sha256": "38a86baad0d7e469fc777c7a5131a64c66a5fa22388d0b586e89abc0b3f9a3fd"
+    },
+    {
+      "path": "exports/cnc/CUT-05/CUT-05.dxf",
+      "bytes": 18195,
+      "sha256": "f650bcb37e9b394254f639d6be8bf736c9e370e003bd4f5b264765038feefe95"
+    },
+    {
+      "path": "exports/cnc/CUT-05/CUT-05.step",
+      "bytes": 19721,
+      "sha256": "4295c56c5b82e94ac9f9a0336b248ea45740f92ff2a7b5fecafcd47cfa1024db"
+    },
+    {
+      "path": "exports/cnc/CUT-05/drawing_notes.md",
+      "bytes": 683,
+      "sha256": "d1b0d461e35015bf89df90b051541f48bf0e65bdb7d6ab79e31bf57367aa9b7e"
+    },
+    {
+      "path": "exports/cnc/CUT-06/CUT-06.FCStd",
+      "bytes": 2450,
+      "sha256": "5665dc02eea0e0850f3de4f43be2bb49642dc1fb62ed1cb2a6e9fc92f34449b8"
+    },
+    {
+      "path": "exports/cnc/CUT-06/CUT-06.dxf",
+      "bytes": 6043,
+      "sha256": "faa411c2fa63a85393822fea1ed48eebe3276f545cbb5e588eb461c5ff0d0dc3"
+    },
+    {
+      "path": "exports/cnc/CUT-06/CUT-06.step",
+      "bytes": 4955,
+      "sha256": "663db046c1c56653af549883106e794b41ebac8f32bad8f04f025a120c0f9c32"
+    },
+    {
+      "path": "exports/cnc/CUT-06/drawing_notes.md",
+      "bytes": 546,
+      "sha256": "7abbc0103ccdb12ae6a8d3edb54a1f169c6d1044b7d2c6ff735617183c4cc1b1"
+    },
+    {
+      "path": "exports/cnc/CUT-07/CUT-07.FCStd",
+      "bytes": 4585,
+      "sha256": "73103a77a02f83f23e6f1c6f3bcb51879ffce1cfcfa05db9fbbec717a5560d9a"
+    },
+    {
+      "path": "exports/cnc/CUT-07/CUT-07.dxf",
+      "bytes": 23835,
+      "sha256": "c2c87d07279dd0d4533f41cc07adb1494073acf278dc1280aa5532f32c2c279c"
+    },
+    {
+      "path": "exports/cnc/CUT-07/CUT-07.step",
+      "bytes": 26303,
+      "sha256": "218d0720873161019aaf028935d7102f000a763eb88bb30b9d21c40707da70fa"
+    },
+    {
+      "path": "exports/cnc/CUT-07/drawing_notes.md",
+      "bytes": 750,
+      "sha256": "73a55b661f289b56f87d312167b97f0cb30cde2cab9918efb30a8755cb893ee9"
+    },
+    {
+      "path": "exports/cnc/CUT-08/CUT-08.FCStd",
+      "bytes": 4074,
+      "sha256": "15291a9f0e5ce42265a6a44b8ec67eaf4de89706bee4778c30d2f67f85cb7ef3"
+    },
+    {
+      "path": "exports/cnc/CUT-08/CUT-08.dxf",
+      "bytes": 16415,
+      "sha256": "c214711108393ca4e523509704c5092f273ea7574a261eb7dcc2b550fa405c7a"
+    },
+    {
+      "path": "exports/cnc/CUT-08/CUT-08.step",
+      "bytes": 20832,
+      "sha256": "1ba03adce24c138eb275e6fe82ca7370d7205a7f015b42dd6350b81a1926c7d1"
+    },
+    {
+      "path": "exports/cnc/CUT-08/drawing_notes.md",
+      "bytes": 715,
+      "sha256": "48a820951b83ee026c6a0109f20398501b6c9571e048156a445083a4082e932e"
+    },
+    {
+      "path": "exports/cnc/shredder_manifest.csv",
+      "bytes": 1060,
+      "sha256": "59936e699b61ea7beb217884f826b0a08544f37ab6039a8e0d309bfbe75345f3"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.3mf",
       "bytes": 1341,
-      "sha256": "efe657bf6b57580d0c9b07313bd1f17a6958e78ea17075dfd8b3d96929087bf6"
+      "sha256": "94738c3f47ffa30d565eb6ec8c71d31f3b5e650f4861497c8974e4e9c9b5a76a"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.FCStd",
-      "bytes": 4276,
-      "sha256": "12831c7fc7072c7c9decb725c5d1852cbc09c2bdd86925826632429ab78dfea0"
+      "bytes": 4335,
+      "sha256": "add9a5138dd7d82f494c14de9dd6be1f9620ea3b85dd7ae7612b95619df5502f"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.step",
       "bytes": 20693,
-      "sha256": "4de28f9c5ac4db7b862ed012ffe76bc0117f2be02d12c93f4887d52c68509778"
+      "sha256": "117a0bb405354c496c2643ac2283d6f60efe7344233dd17a7cdf87862255d368"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.stl",
@@ -90,17 +265,17 @@
     {
       "path": "exports/print/PPR-C02/PPR-C02.3mf",
       "bytes": 1433,
-      "sha256": "9bf1a12cb01067588ee098982bbdd7822afbc4a587b693361065145634cf5763"
+      "sha256": "7bc6778fc987644332a4d86482b95a5e7165003f8268bccd8a31d7bdfa3cf03c"
     },
     {
       "path": "exports/print/PPR-C02/PPR-C02.FCStd",
-      "bytes": 4868,
-      "sha256": "cfdc654be2e4c330b111093b9be9074b25b633329a24417add85bbce47e53feb"
+      "bytes": 4972,
+      "sha256": "80e4df7c2f0e01e16baeda77f2e909096c6356d9d540a58282ed8b8484c5f12e"
     },
     {
       "path": "exports/print/PPR-C02/PPR-C02.step",
-      "bytes": 22891,
-      "sha256": "6193804c93b711ae7408b6d471bee8d7830249dcc0081ce552cde5ac72f04833"
+      "bytes": 22893,
+      "sha256": "217334de5b009fcc183f5aa4bd12b1281fc683d02ed28ebd845f0d80f2692f52"
     },
     {
       "path": "exports/print/PPR-C02/PPR-C02.stl",
@@ -115,17 +290,17 @@
     {
       "path": "exports/print/PPR-C03/PPR-C03.3mf",
       "bytes": 1372,
-      "sha256": "199fb7b77535364c82bbf56ae27d292e842ce33ab15a59bb204a3a187c47782c"
+      "sha256": "ea6c53b4d5782039e95d3c7799069f08949219086050b24835e3e8885f8ca27d"
     },
     {
       "path": "exports/print/PPR-C03/PPR-C03.FCStd",
-      "bytes": 4298,
-      "sha256": "009e0731999343ac35964762f8febf719838155ec7e4d5bf40792c3af8a5d27f"
+      "bytes": 4342,
+      "sha256": "13a63797e1f79638c18cddf274c88125986cf9708934c08149a785e9cdb25f30"
     },
     {
       "path": "exports/print/PPR-C03/PPR-C03.step",
-      "bytes": 22364,
-      "sha256": "1c88c9b541e76f03293703f136306c76b02f0d2264e75ccb07dde8f5f9c6403e"
+      "bytes": 22366,
+      "sha256": "898f7f0413c47f6cbf8a60855c1ba1777202cbfcb76b559df223f78892d960b8"
     },
     {
       "path": "exports/print/PPR-C03/PPR-C03.stl",
@@ -140,17 +315,17 @@
     {
       "path": "exports/print/PPR-C04/PPR-C04.3mf",
       "bytes": 1259,
-      "sha256": "df310d856bcc678dc9fcc0449a7f8222848cef16eb40fabc233c35bf0602e779"
+      "sha256": "20b1dc87a97970045f889be920afa06335859e53a6da2234f36a8f5d669f7600"
     },
     {
       "path": "exports/print/PPR-C04/PPR-C04.FCStd",
-      "bytes": 3109,
-      "sha256": "f5854e2f7c14e6bebbddb98d0bd8572cae278e0ce3d3476f3739e202dc230f35"
+      "bytes": 3142,
+      "sha256": "8db2509d3da2d3cc781b646ea081a1323dde671cd7150e902206fd7333f6ba50"
     },
     {
       "path": "exports/print/PPR-C04/PPR-C04.step",
-      "bytes": 11767,
-      "sha256": "312aa7b74b246689ef49764f4a94338bd19b405e89e5bdda819eb056f4c2de2c"
+      "bytes": 11769,
+      "sha256": "3eae26ec0793de05202a6fc429e64004662e5d8ddc445447777bd37ceeca3d1b"
     },
     {
       "path": "exports/print/PPR-C04/PPR-C04.stl",
@@ -165,17 +340,17 @@
     {
       "path": "exports/print/PPR-C05/PPR-C05.3mf",
       "bytes": 1251,
-      "sha256": "3ea6a8319bbd00cb1f0dea36d3a6efd2ae71f13cd997a5eb11e07c568a8d0ed7"
+      "sha256": "0f956529da91f1191d4dda50a0363aa8cc3987ae812880bbb853b2616d18fa92"
     },
     {
       "path": "exports/print/PPR-C05/PPR-C05.FCStd",
-      "bytes": 3126,
-      "sha256": "c5aad4ecb234efbb313a96cb79bdc7cdf3d1d208ff4158ee180cd97b0a1a3da6"
+      "bytes": 3164,
+      "sha256": "889657c85f1e8cca534001a1c09f62d0dc32ea8b5ad45f8380ab1a09602f3524"
     },
     {
       "path": "exports/print/PPR-C05/PPR-C05.step",
-      "bytes": 11753,
-      "sha256": "83a2c589e9aacd8c240467d6cfc1ecd160d5fe21808aeb5b626208294f5bf938"
+      "bytes": 11755,
+      "sha256": "f7cfdc46640658f0a617ecfb1300ac2d6eb1d22ce27b1f13891b43718c3d9ac5"
     },
     {
       "path": "exports/print/PPR-C05/PPR-C05.stl",
@@ -190,17 +365,17 @@
     {
       "path": "exports/print/PPR-C06/PPR-C06.3mf",
       "bytes": 1521,
-      "sha256": "5e4cd9df561d6131cd8730904dd0225f7db4efb082683239816445b9ed02887f"
+      "sha256": "657c19696b6f4606627517cfc0b59c49b1db199ec4e64d1c288496bafd1d459a"
     },
     {
       "path": "exports/print/PPR-C06/PPR-C06.FCStd",
-      "bytes": 4244,
-      "sha256": "e8066738f3a381bd8875c93421f2f4653395fe8ee388c776132e1bdf18969825"
+      "bytes": 4332,
+      "sha256": "0d0a65c55863c4a1f44c93e0be88b81d8a0707338109dd95e958f55c13374938"
     },
     {
       "path": "exports/print/PPR-C06/PPR-C06.step",
-      "bytes": 21804,
-      "sha256": "ce804d6598fe1f1ac80c384a9fbd6b2c21cfb87b520990eb5143f35db625e0f2"
+      "bytes": 21806,
+      "sha256": "e43e66d6bca3a837c4f286232d0adeb99e5655d47fb8a7cf1774574ae8bf7a4b"
     },
     {
       "path": "exports/print/PPR-C06/PPR-C06.stl",
@@ -215,17 +390,17 @@
     {
       "path": "exports/print/PPR-C07/PPR-C07.3mf",
       "bytes": 1515,
-      "sha256": "71fefd51f7f9ebf71caf1a615732a038dc372b2ada6ed24b2da3d74ed063e4db"
+      "sha256": "447ef4ad1dfdd681f8aa38867cb9e924850c68b64d2a2703d66c4fcf0c9d54bf"
     },
     {
       "path": "exports/print/PPR-C07/PPR-C07.FCStd",
-      "bytes": 4239,
-      "sha256": "eb46ce0315e136ca351a3e787f1cefaf7979b150ad40221400a599c44532e1ab"
+      "bytes": 4319,
+      "sha256": "fbeb477802e7801b0c9705c31fea65841d0222608793b02a67019ae682cdf3b7"
     },
     {
       "path": "exports/print/PPR-C07/PPR-C07.step",
-      "bytes": 21831,
-      "sha256": "e3ea20acf81ddfaf45f3b52d3090fbb27fadaabe850e5954319a3db73731595b"
+      "bytes": 21833,
+      "sha256": "43e7a8a681a1f7ecf7f6710c615129d180e70919ffa95ae465969cb6a8e54bba"
     },
     {
       "path": "exports/print/PPR-C07/PPR-C07.stl",
@@ -240,17 +415,17 @@
     {
       "path": "exports/print/PPR-C08/PPR-C08.3mf",
       "bytes": 5625,
-      "sha256": "8572a57a493730b0a8a9ce394892e5cf50b5f5488eeaacd370fcf70569ab3454"
+      "sha256": "2b4b3310730b026e680cab2b7ade36a95b2ca43295ab30a0ad760b0211d177aa"
     },
     {
       "path": "exports/print/PPR-C08/PPR-C08.FCStd",
-      "bytes": 3413,
-      "sha256": "5d1e0bc1ed41669ce22cc3b3606833ad24ad9be9294e916fe0e4207e25f20e04"
+      "bytes": 3455,
+      "sha256": "a7d4a304acdc11f513f70a5d8e2ee6f561f03edbf07ad26203f29cb1dd93fdde"
     },
     {
       "path": "exports/print/PPR-C08/PPR-C08.step",
-      "bytes": 15176,
-      "sha256": "fedd2bbbba1624ad90432a3664e4e578ffd762ac45840d90720ac828a328bf59"
+      "bytes": 15178,
+      "sha256": "9146dd6949b357ead774991d06d66bc4123b4f3e165e4cffa00fbb7c127734c5"
     },
     {
       "path": "exports/print/PPR-C08/PPR-C08.stl",
@@ -265,17 +440,17 @@
     {
       "path": "exports/print/PPR-C09/PPR-C09.3mf",
       "bytes": 28550,
-      "sha256": "71a6cbaae2f04bd312057b6408e180e93e78b07190f333d75b172bf7154c796a"
+      "sha256": "a967cf51ec0a1bc202df1465e341cf7ed2f2a5fbc2ba13307381be86076f6e31"
     },
     {
       "path": "exports/print/PPR-C09/PPR-C09.FCStd",
-      "bytes": 2737,
-      "sha256": "72df1e013872e3edbcdef41beb80d4b79107ccd9dd910df0666d1f333d994351"
+      "bytes": 2745,
+      "sha256": "0665de6ea98d04a8c7000bd67fd3002f283efdbdce78bbf60a6fb9a494f8725b"
     },
     {
       "path": "exports/print/PPR-C09/PPR-C09.step",
-      "bytes": 6753,
-      "sha256": "60d7b2c446ff0c50f8c14a3749f0d75484ed1da4bcaff150d6fd6a8e2c3fd2e4"
+      "bytes": 6755,
+      "sha256": "6359d37a20012960a68cf63f5ced2bfac35f063eec8efc29947834709c28ff4b"
     },
     {
       "path": "exports/print/PPR-C09/PPR-C09.stl",
@@ -290,17 +465,17 @@
     {
       "path": "exports/print/PPR-C10/PPR-C10.3mf",
       "bytes": 8268,
-      "sha256": "ff5f29421ac27b0ca7d1aed5630a51489db29a212ac4f7ae3c0715770a6161f0"
+      "sha256": "8a74d76b29ebec8de16fbf30ec325a94c020dbb27820e29531902af66516692b"
     },
     {
       "path": "exports/print/PPR-C10/PPR-C10.FCStd",
-      "bytes": 5425,
-      "sha256": "a9c705e76c9df72e2fe2a8708ff74436690b230c196c0e85393c82e34ab3d314"
+      "bytes": 5493,
+      "sha256": "212c9850edda456cf073b30118e08b48bcea71aa92cdb9d92bacde6f37bae207"
     },
     {
       "path": "exports/print/PPR-C10/PPR-C10.step",
       "bytes": 27818,
-      "sha256": "3ef52bbb2015d12025d609a002a48451b03c25c522f591a9f297c39cbba6b656"
+      "sha256": "b62c3dcddd221130de9c5dc4ceff2c6c9dae0b36300e420e27c3d4defae98751"
     },
     {
       "path": "exports/print/PPR-C10/PPR-C10.stl",
@@ -315,17 +490,17 @@
     {
       "path": "exports/print/PPR-C11/PPR-C11.3mf",
       "bytes": 1262,
-      "sha256": "00b380ccc6a3fc28d4602c09e1c33f65a4a34680429d0056c5cf571e9fecfccd"
+      "sha256": "c70b7db9776266705284bdba79b07294ae45d22c379cb24490a54078680f106b"
     },
     {
       "path": "exports/print/PPR-C11/PPR-C11.FCStd",
-      "bytes": 3129,
-      "sha256": "3e202e5e2ca68dca2b7cac8f5eac3ceb004621430e3f30be75fb246f6f812ebb"
+      "bytes": 3158,
+      "sha256": "6543354771b0a4a65e268099c6b5775729981b7978674719b2f9fa63512c5f17"
     },
     {
       "path": "exports/print/PPR-C11/PPR-C11.step",
       "bytes": 11811,
-      "sha256": "4c913495da88fd5ea409d12f3b786f07f99f8d90785c8d5b18144ee7ade47db4"
+      "sha256": "570c3be94eb9af3b510557624f5081ee934e5025c0f7d379ded24bf6a734afb7"
     },
     {
       "path": "exports/print/PPR-C11/PPR-C11.stl",
@@ -340,17 +515,17 @@
     {
       "path": "exports/print/PPR-C12/PPR-C12.3mf",
       "bytes": 1239,
-      "sha256": "b652849847ad4262b8ac779fa5b535f02c165670e0e5dfac6b68ab062d308e03"
+      "sha256": "d21739cc29a51b256fd56220f6c4e5a2ff1824cd118b73c94da2e385bb7c2030"
     },
     {
       "path": "exports/print/PPR-C12/PPR-C12.FCStd",
-      "bytes": 3094,
-      "sha256": "3686a26e980ae85bd2859ff22b38734da79ad55e02444e5e5a67197d89ebadc1"
+      "bytes": 3123,
+      "sha256": "188fe953dddf335d3b328a007cfa63316651c89f8b075cb13ebe38be640a3880"
     },
     {
       "path": "exports/print/PPR-C12/PPR-C12.step",
       "bytes": 11614,
-      "sha256": "f5aef0613fd5491e682d21c70e2fcbe1fe4dda5383f680354fdddbdf6e21d130"
+      "sha256": "ab9ff6a4cd95d5b5ed7ccfe1a7ad0cc9807711df727895fd602da93c7e4dde88"
     },
     {
       "path": "exports/print/PPR-C12/PPR-C12.stl",
@@ -365,62 +540,62 @@
     {
       "path": "exports/print/plate_layouts/plate-01.3mf",
       "bytes": 1341,
-      "sha256": "efe657bf6b57580d0c9b07313bd1f17a6958e78ea17075dfd8b3d96929087bf6"
+      "sha256": "94738c3f47ffa30d565eb6ec8c71d31f3b5e650f4861497c8974e4e9c9b5a76a"
     },
     {
       "path": "exports/print/plate_layouts/plate-02.3mf",
       "bytes": 1433,
-      "sha256": "9bf1a12cb01067588ee098982bbdd7822afbc4a587b693361065145634cf5763"
+      "sha256": "7bc6778fc987644332a4d86482b95a5e7165003f8268bccd8a31d7bdfa3cf03c"
     },
     {
       "path": "exports/print/plate_layouts/plate-03.3mf",
       "bytes": 1488,
-      "sha256": "f7a681bbd1a71272c617211f114e863b06eac073e6595def0e4b2ac7bc3e27b7"
+      "sha256": "12ff6509d0021949b8ed9c4ff578d19f379fdb72e6d7e302f615e69216f75711"
     },
     {
       "path": "exports/print/plate_layouts/plate-04.3mf",
       "bytes": 1259,
-      "sha256": "df310d856bcc678dc9fcc0449a7f8222848cef16eb40fabc233c35bf0602e779"
+      "sha256": "20b1dc87a97970045f889be920afa06335859e53a6da2234f36a8f5d669f7600"
     },
     {
       "path": "exports/print/plate_layouts/plate-05.3mf",
       "bytes": 1285,
-      "sha256": "3ad23696fb7742702b4cd781e74906c9b32d0d2f7ebea2611610da381a98f458"
+      "sha256": "76f6d8607b055b692a9cb38495405e952871ccf27bd69475db22f95dffb702d9"
     },
     {
       "path": "exports/print/plate_layouts/plate-06.3mf",
       "bytes": 1583,
-      "sha256": "b360256efc8a89aace2c45b1aaadd51b2346178e3ff26eb29073ce062458db40"
+      "sha256": "d6843af9595eba423accc4aa211cbcad475d40c075cd77b15360f126c9789751"
     },
     {
       "path": "exports/print/plate_layouts/plate-07.3mf",
       "bytes": 1515,
-      "sha256": "71fefd51f7f9ebf71caf1a615732a038dc372b2ada6ed24b2da3d74ed063e4db"
+      "sha256": "447ef4ad1dfdd681f8aa38867cb9e924850c68b64d2a2703d66c4fcf0c9d54bf"
     },
     {
       "path": "exports/print/plate_layouts/plate-08.3mf",
       "bytes": 9835,
-      "sha256": "406635e7d5c865f97ba12c4a18d90276f941bd444bf666a00a207f8f63b2d15e"
+      "sha256": "f6cc74129bf54480b98ae6824810d180bd55b8bed07624855f70679567a94c38"
     },
     {
       "path": "exports/print/plate_layouts/plate-09.3mf",
       "bytes": 56087,
-      "sha256": "ee4de42a4c8d9a6f6343e7f42e52ba4a362b5699af49886613b6ef63f86e7c4b"
+      "sha256": "eab9d5cccbe0d67b680a990c64ea5721472ead269787007288314091f3f5612d"
     },
     {
       "path": "exports/print/plate_layouts/plate-10.3mf",
       "bytes": 8268,
-      "sha256": "ff5f29421ac27b0ca7d1aed5630a51489db29a212ac4f7ae3c0715770a6161f0"
+      "sha256": "8a74d76b29ebec8de16fbf30ec325a94c020dbb27820e29531902af66516692b"
     },
     {
       "path": "exports/print/plate_layouts/plate-11.3mf",
       "bytes": 1262,
-      "sha256": "00b380ccc6a3fc28d4602c09e1c33f65a4a34680429d0056c5cf571e9fecfccd"
+      "sha256": "c70b7db9776266705284bdba79b07294ae45d22c379cb24490a54078680f106b"
     },
     {
       "path": "exports/print/plate_layouts/plate-12.3mf",
       "bytes": 1412,
-      "sha256": "38693c9b565b1a4d974f0dcf574b5f41b22c788cce55f855cf718118c7010b03"
+      "sha256": "ec64acdf1eddc2c8ee5d54f29fff4797b5a5d3cd7d7216bc701582ea0c5d5895"
     },
     {
       "path": "exports/print/print_manifest.csv",
@@ -434,23 +609,28 @@
     },
     {
       "path": "exports/step/compact_full_assembly.step",
-      "bytes": 854305,
-      "sha256": "ed660494dc38edea3c6d5d810fc7e6b87d2a61125e74afbc1306a69758abc85d"
+      "bytes": 3021409,
+      "sha256": "b06087f851520b9b0dce5ac63d50cf75417fa87a3f246999a1acb2aba1d0f325"
     },
     {
       "path": "renders/assembly/compact_full_assembly_front.png",
-      "bytes": 34118,
-      "sha256": "21e5f7015e6581f4d3807c4885f51c941b0c560b6dc1d2957dec3514b4e1befc"
+      "bytes": 34742,
+      "sha256": "3d37da45c298c06ef390766b62891055bdb267fa053ad46e8cd507d115a4e168"
     },
     {
       "path": "renders/assembly/compact_full_assembly_isometric.png",
-      "bytes": 55688,
-      "sha256": "a673f662c6290271fb728de33656aebe9ee4519ea1be45a94944902c62f48ab0"
+      "bytes": 56367,
+      "sha256": "74b342a73f799940a0ccbfbfbe86ec0564adfcc8ff6e1ee356b0e37d932c3009"
     },
     {
       "path": "renders/assembly/compact_full_assembly_top.png",
-      "bytes": 29882,
-      "sha256": "9c1f47ca988686448aaccf7fed2549376fea935e90b4fafb8ceaad19ad23b8dc"
+      "bytes": 29757,
+      "sha256": "e89284079f85950c38d010450ec09aa0f4dbb92406deda478f4d70bc30f809e0"
+    },
+    {
+      "path": "renders/modules/CUT-01_cycloidal_hook_profile.png",
+      "bytes": 61152,
+      "sha256": "ec0b743b34d504a82c0bed6f963584495b7d05a2da62cc5d10ce93b1ee564b47"
     },
     {
       "path": "renders/modules/PPR-C02_individual.png",
@@ -459,18 +639,23 @@
     },
     {
       "path": "renders/modules/shared_shredder_module.png",
-      "bytes": 51548,
-      "sha256": "bec76cefa80126d8ae9ada88c1c353662012d7a5683e518e2249c8f93eccf221"
+      "bytes": 52782,
+      "sha256": "8b894f81d5169377373cb6505d6650df33a6dfb012a75772365353b6d7407203"
+    },
+    {
+      "path": "renders/modules/shredder_drive_guard_removed.png",
+      "bytes": 80240,
+      "sha256": "a9d3cc2fd90e78986f68d9b367498fa5053dae6c7b472c3382f646bac4d65714"
     },
     {
       "path": "renders/review/compact_exploded.png",
-      "bytes": 56171,
-      "sha256": "68f44670183a9dd9f7f17886a039a398fb3effd53e2aa9d5de928e4d3c3005ad"
+      "bytes": 57385,
+      "sha256": "acbfd8347685da54002e3c3693f904ce8a79f3f954399fcafde0b394eb44c9fb"
     },
     {
       "path": "renders/review/compact_section.png",
-      "bytes": 22775,
-      "sha256": "feac1b98c2fafd2979db3e09bb8241da50fdd30540469215eb274634cc638956"
+      "bytes": 27555,
+      "sha256": "384aece3beea3f9d4066c7fb31f6cc1a89ab50f71affbaeb04c6905a05cdbba7"
     },
     {
       "path": "renders/review/forming_spool_motion.png",
@@ -484,8 +669,8 @@
     },
     {
       "path": "renders/review/shredder_fastener_tool_access.png",
-      "bytes": 36435,
-      "sha256": "4745933e0626bffac1cbb5dbe768a8cb799f1c0934c07c48d61c43a4801b699f"
+      "bytes": 34872,
+      "sha256": "5144c7791313b4450ae0f65ebb3571e69b9a4c7cae2f145f9d64d8d65c5c0206"
     },
     {
       "path": "renders/review/support_contact.png",
@@ -494,28 +679,28 @@
     },
     {
       "path": "requirements/architecture_contract.md",
-      "bytes": 2142,
-      "sha256": "f026a37cdfd28de9f64b0f9ee0923c134d352baadf679bcbcd7e398a548cd9e7"
+      "bytes": 2372,
+      "sha256": "7edd96e50ad92ab1facd64555933764ecbbd0052466bb21e945c238b62af0ee1"
     },
     {
       "path": "requirements/assumptions.md",
-      "bytes": 783,
-      "sha256": "601c9cad07064e376081f4f757edde7fae167d8c6d7348ab09b038f756259458"
+      "bytes": 970,
+      "sha256": "ba82d369443b4c889197394cbaf1e393517bc007180fc9c664f3d78aecba35b8"
     },
     {
       "path": "requirements/system_requirements.md",
-      "bytes": 2433,
-      "sha256": "80ae8ec91c6f52aa4311e5ee375fd0863f12c30c99453478787935250bd8bb17"
+      "bytes": 3023,
+      "sha256": "5e6d466e67bcfe5290d989ea637c466aa59d52c1c2da3815950e14a98f4dfd75"
     },
     {
       "path": "simulation/cad_clearance.json",
-      "bytes": 297,
-      "sha256": "9f53005cef0c87b2e2dcb265c3b7df87b884602d899a8e50d0ae3e601d1ee7cf"
+      "bytes": 361,
+      "sha256": "f4918702ebab5f269b0dd8e3244fe080275f4f0989c8d1567c9e6463b98745c9"
     },
     {
       "path": "simulation/engineering_summary.json",
-      "bytes": 2682,
-      "sha256": "510e58588f52aa5270527eddd4311761904843274dca791c688f7a659f89a79c"
+      "bytes": 3608,
+      "sha256": "a3ddd587107d496240d9a4141eceeec31285a9926ade8982cec339d9896295ff"
     },
     {
       "path": "validation/release_checklist.md",

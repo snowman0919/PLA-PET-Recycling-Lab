@@ -44,11 +44,40 @@
     "screen_opening_mm": 5.0,
     "screen_thickness_mm": 3.0,
     "bearing": "6004-2RS",
-    "continuous_torque_nm": 18.0,
-    "trip_torque_nm": 30.0,
+    "cutter_curve": "asymmetric_cycloidal_radial_rise_76pct_capture_24pct_fast_relief",
+    "continuous_torque_nm": 14.0,
+    "trip_torque_nm": 24.0,
+    "mechanical_relief_torque_nm": 24.0,
     "max_reverse_retries": 3,
     "pla_rpm": 32.0,
-    "pet_rpm": 24.0
+    "pet_rpm": 24.0,
+    "pla_trip_a": 16.0,
+    "pet_trip_a": 18.0,
+    "motor": {
+      "model": "MY1016Z-24V-250W-75RPM",
+      "type": "brushed_geared_DC",
+      "rated_voltage_v": 24.0,
+      "rated_power_w": 250.0,
+      "rated_current_a": 14.8,
+      "raw_motor_rated_torque_nm": 0.98,
+      "integrated_reduction_ratio": 23.2,
+      "output_no_load_rpm": 75.0,
+      "duty": "S2:60",
+      "protection": "IP33",
+      "output_shaft_mm": 17.0,
+      "output_shaft_length_mm": 44.0,
+      "mount_spacing_mm": [20.0, 73.5],
+      "secondary_ratio": 1.0,
+      "drive_topology": "direct_KTR_ROTEX19_98ShA_17x20_coupling_plus_KHK_SS3-16H_phase_pair_with_6x6x4_brass_shear_key",
+      "gear_efficiency_assumption": 0.65,
+      "calculated_conservative_cutter_torque_nm": 14.8,
+      "driver": "BTS7960-class 24 V bidirectional H-bridge, receipt-tested",
+      "current_sensor": "50 A Hall sensor or calibrated shunt",
+      "branch_fuse_a": 20.0,
+      "control_trip_a": 18.0,
+      "purchase_candidate_krw": 58400,
+      "receipt_verification_required": true
+    }
   },
   "extruder": {
     "candidate_diameters_mm": [12.0, 14.0, 16.0, 18.0],
@@ -104,10 +133,11 @@
     "psu_voltage_v": 24.0,
     "psu_rating_w": 600.0,
     "heater_peak_w": 300.0,
-    "shredder_peak_w": 120.0,
+    "shredder_peak_w": 432.0,
     "extruder_peak_w": 85.0,
     "motion_fans_logic_peak_w": 45.0,
-    "arbiter_peak_w": 550.0
+    "arbiter_peak_w": 500.0,
+    "mutual_exclusion": "shredder drive disabled whenever barrel heater or screw drive is enabled"
   },
   "profiles": {
     "PLA": {

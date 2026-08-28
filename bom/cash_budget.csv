@@ -12,6 +12,9 @@ NON_CNC,FUSE-ALLOW,branch fuse holder/link와 300 C thermal fuse allowance,6500,
 NON_CNC,GAUGE-ALLOW,2축 LED photodiode slit PCB-free wiring allowance,8000,BUY_HOLD,calibration 전 성능 미확정
 NON_CNC,THERM-ALLOW,25 mm insulation grounded sheet shield wire sleeve,9500,BUY_HOLD,PET 온도 등급 확인
 NON_CNC,HW-ALLOW,fastener insert connector shim bearing allowance,7000,BUY_HOLD,donor 실측 후 수량 확정
+NON_CNC,SH-MOTOR,MY1016Z-24V-250W-75RPM geared brushed DC motor,58400,BUY_HOLD,2026-08-28 국내 marketplace 후보; label/shaft/no-load current receipt gate
+NON_CNC,SH-DRIVE,BTS7960-class reversible driver and genuine ACS758LCB-050B current sensor,22000,BUY_HOLD,driver 4620 KRW plus sensor 16748 KRW candidate; heatsink/load test 필요
+NON_CNC,SH-PHASE,2x KHK SS3-16H hardened gear bore/key modification plus KTR ROTEX19 98ShA coupling,40000,QUOTE_REQUIRED,28 N.m gear surface rating and 17 N.m coupling nominal rating; landed quote 확인 필요
 PRINT,PRINT-ALLOW,PLA/ABS 출력 filament CAD volume allowance,19808,BUY_HOLD,1100.5 g at 18000 KRW/kg
 RESERVE,RFQ-RESERVE,소량 가공/배송 변동 reserve,4692,UNALLOCATED,cap 초과 시 기능 추가 없이 VE
-TOTAL,TOTAL,신규 현금비용 계획 합계,189500,WITHIN_CAP,실제 landed quote blocker
+TOTAL,TOTAL,신규 현금비용 계획 합계,309900,OVER_CAP_BLOCKED,109900 KRW 초과; donor 고토크 motor 확인 또는 RFQ VE 없이는 release/main 승격 금지

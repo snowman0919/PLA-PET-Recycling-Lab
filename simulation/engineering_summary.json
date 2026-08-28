@@ -60,14 +60,16 @@
       "transport_delay_s": 12.62,
       "vertical_residence_s": 15.3,
       "cooling_time_s_h50": 39.63,
-      "cooling_length_mm_h50": 738.5
+      "cooling_length_mm_h50": 738.5,
+      "required_h_w_m2k_for_installed_path": 129.6
     },
     "PET": {
       "line_speed_m_min_at_200gph": 1.004,
       "transport_delay_s": 14.04,
       "vertical_residence_s": 17.03,
       "cooling_time_s_h50": 25.96,
-      "cooling_length_mm_h50": 434.4
+      "cooling_length_mm_h50": 434.4,
+      "required_h_w_m2k_for_installed_path": 76.2
     }
   },
   "diameter_loop": {
@@ -81,12 +83,13 @@
     "psu_voltage_v": 24.0,
     "psu_rating_w": 600.0,
     "heater_peak_w": 300.0,
-    "shredder_peak_w": 120.0,
+    "shredder_peak_w": 432.0,
     "extruder_peak_w": 85.0,
     "motion_fans_logic_peak_w": 45.0,
-    "arbiter_peak_w": 550.0,
-    "calculated_concurrent_peak_w": 550.0,
-    "arbiter_margin_w": 50.0
+    "arbiter_peak_w": 500.0,
+    "mutual_exclusion": "shredder drive disabled whenever barrel heater or screw drive is enabled",
+    "calculated_concurrent_peak_w": 862.0,
+    "arbiter_margin_w": 100.0
   },
   "thermal": {
     "ambient_c": 25.0,
@@ -99,10 +102,34 @@
     "status": "physical_thermocouple_gate_required"
   },
   "cutter": {
-    "design_torque_nm": 30.0,
+    "curve": "asymmetric_cycloidal_radial_rise_76pct_capture_24pct_fast_relief",
+    "motor_model": "MY1016Z-24V-250W-75RPM",
+    "motor_rated_current_a": 14.8,
+    "secondary_ratio": 1.0,
+    "max_cutter_rpm": 75.0,
+    "profile_command_rpm": {
+      "PLA": 32.0,
+      "PET": 24.0
+    },
+    "profile_trip_current_a": {
+      "PLA": 16.0,
+      "PET": 18.0
+    },
+    "conservative_cutter_torque_nm": 14.8,
+    "design_torque_nm": 24.0,
+    "tangential_tip_force_n_at_trip": 827.6,
+    "phase_gear_model": "KHK SS3-16H modified bore 20 mm",
+    "phase_gear_hardened_surface_limit_nm": 28.0,
+    "brass_shear_key_mm": [
+      6.0,
+      6.0,
+      4.0
+    ],
+    "brass_key_shear_assumption_mpa": 100.0,
+    "brass_key_nominal_shear_torque_nm": 24.0,
     "shaft_diameter_mm": 20.0,
-    "torsional_shear_mpa": 19.1,
-    "yield_safety_factor_at_145mpa_shear": 7.59,
+    "torsional_shear_mpa": 15.3,
+    "yield_safety_factor_at_145mpa_shear": 9.49,
     "status": "coupon_and_impact_not_validated"
   }
 }

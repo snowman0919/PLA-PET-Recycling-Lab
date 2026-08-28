@@ -25,11 +25,11 @@ struct ProcessProfile {
 };
 
 constexpr ProcessProfile PLA_PROFILE{
-    MaterialProfile::PLA, 32, 4.8f, 650, 800, 3, 45, 300, 2.2f, 7.0f,
+    MaterialProfile::PLA, 32, 16.0f, 650, 800, 3, 45, 300, 2.2f, 7.0f,
     {180, 195, 205}, 200, 65, 18.6f, 0.40f, 0.025f, 80};
 
 constexpr ProcessProfile PET_PROFILE{
-    MaterialProfile::PET, 24, 5.4f, 850, 1100, 3, 60, 420, 1.8f, 6.0f,
+    MaterialProfile::PET, 24, 18.0f, 850, 1100, 3, 60, 420, 1.8f, 6.0f,
     {245, 260, 270}, 265, 85, 16.7f, 0.30f, 0.018f, 120};
 
 inline const ProcessProfile &profileFor(MaterialProfile material) {

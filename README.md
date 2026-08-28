@@ -9,7 +9,9 @@
 -> X/Y shadow gauge -> puller -> solid guide -> dancer/traverse/1 kg spool
 ```
 
-설계 envelope는 `470 x 700 x 930 mm`이고 hard limit `500 x 750 x 1000 mm` 안에 lid, guard, 1 kg spool, dancer/traverse 전 운동, motor, duct, panel과 cable bend keep-out을 포함한다. 신규 현금계획은 **189,500 KRW**이지만 CNC는 견적 전 planning value이며 발주 승인이 아니다. 출력물 계산 질량은 CAD 생성 후 `exports/print/total_material_report.md`에 기록한다.
+설계 envelope는 `470 x 700 x 930 mm`이고 hard limit `500 x 750 x 1000 mm` 안에 lid, guard, 1 kg spool, dancer/traverse 전 운동, motor, duct, panel과 cable bend keep-out을 포함한다. Cutter는 76% cycloidal capture flank/24% 빠른 hook relief를 쓴다. `MY1016Z-24V-250W-75RPM` geared brushed-DC motor가 KTR ROTEX19 98ShA bore17/20 coupling으로 오른쪽 shaft를 직접 구동하고, hardened M3 Z16 gear pair가 두 shaft의 반대회전/phase를 유지한다. 한 phase gear의 6 x 6 x 4 mm brass key가 24 N·m nominal sacrificial relief다. PLA/PET 명령은 32/24 rpm이다.
+
+정확 모터·driver·current sensor·hardened phase gear/coupling을 신규 구매하는 현재 cash rollup은 **309,900 KRW**로 hard cap을 109,900 KRW 초과한다. 따라서 이 revision은 자동검증에서 의도적으로 budget FAIL이며 main 승격·구매·full CNC 발주가 금지된다. 고토크 donor motor/gear의 label·shaft·current 확인 또는 실제 RFQ value engineering으로 200,000 KRW 이하가 입증되어야 release할 수 있다. 출력물 계산 질량은 `exports/print/total_material_report.md`에 기록한다.
 
 200 g/h는 stretch target이다. 16 mm, 16 L/D screw의 screening model은 이를 허용하지만 실제 안정 처리량은 cutter/feed/hot extrusion coupon 전 미검증이다. 현재 release claim은 계산 기반 `120–220 g/h commissioning window`뿐이며 물리 gate를 통과하지 않은 처리량·직경·안전 성능을 달성했다고 표시하지 않는다.
 

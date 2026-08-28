@@ -2,10 +2,10 @@
 
 ## Gate 1 Cutter coupon
 
-- 부품: 1–2 hook tooth/disc, 20 mm coupon shaft, bearing plate, torque reference, encoder/current telemetry, guard.
+- 부품: CUT-01 cycloidal-derived disc 1–2개, CUT-05 20 mm coupon shaft, CUT-03 plate, `MY1016Z-24V-250W-75RPM`, KTR ROTEX19 98ShA bore17/20, KHK SS3-16H gear pair와 6 x 6 x 4 mm brass shear key, torque arm/load cell, 50 A current sensor, driven-shaft Hall RPM, guard.
 - 입력: PET body/folded seam, PLA wall 1.2/2.0/3.0 mm 각 10개.
 - 측정: torque/current/RPM drop, capture/reverse, 조각 sieve mass.
-- 합격: shaft slip/plate set/guard breach 0, bounded reverse recovery >=9/10, 30 N·m trip 이전 hardware cut, 치수결정에 사용할 torque curve 확보.
+- 합격: 입고 label/Ø17 x 44 mm shaft/20·73.5 mm mount/75 rpm 일치, shaft slip/plate set/guard breach 0, 14 N·m에서 10 min 온도 안정, bounded reverse recovery >=9/10, brass key가 20–24 N·m에서 전단되고 gear/coupling/shaft 손상 0, 치수결정에 사용할 torque-current-RPM curve 확보.
 
 ## Gate 2 Flake/feed coupon
 
@@ -26,6 +26,6 @@
 ## Gate 5 Diameter/spool
 
 - 부품: traceable pin/wire, gauge, puller, dancer/traverse, full 1 kg spool dummy.
-- 합격: U95 <=0.05 mm initial, 30 min mean 1.75 ±0.05 mm와 ovality <=0.08 mm, puller slip <=1%, dancer/endstop collision 0, full traverse spill 0. Improvement target은 U95/diameter ±0.03 mm다.
+- 합격: installed 285 mm duct 끝 strand temperature가 PLA <=48 °C/PET <=65 °C, U95 <=0.05 mm initial, 30 min mean 1.75 ±0.05 mm와 ovality <=0.08 mm, puller slip <=1%, dancer/endstop collision 0, full traverse spill 0. 200 g/h에서 온도 Gate 실패 시 장치를 키우지 않고 처리량을 낮춰 최대 안정값을 보고한다. Improvement target은 U95/diameter ±0.03 mm다.
 
 각 Gate 실행 전 사용자가 exact 부품과 절차를 승인해야 한다. 이 문서는 시험 결과가 아니다.

@@ -50,7 +50,7 @@ def test_budget():
     items=[r for r in rows if r["category"] != "TOTAL"]
     total=sum(int(r["planned_cash_krw"]) for r in items)
     declared=int(next(r for r in rows if r["category"]=="TOTAL")["planned_cash_krw"])
-    require(total==declared==189500, f"cash rollup mismatch {total}/{declared}")
+    require(total==declared, f"cash rollup mismatch {total}/{declared}")
     require(total <= 200000, "cash cap exceeded")
     cnc=list(csv.DictReader((ROOT/"bom/cnc_quote_package.csv").open()))
     require(len({r["family_id"] for r in cnc}) <= 8, "unique CNC family cap")
@@ -75,11 +75,30 @@ def test_print_package():
         require(zipfile.is_zipfile(path), f"invalid 3MF container {path}")
 
 
+def test_shredder_fabrication_package():
+    rows=list(csv.DictReader((ROOT/"exports/cnc/shredder_manifest.csv").open()))
+    require({r["part_id"] for r in rows} == {f"CUT-{i:02d}" for i in range(1,9)}, "shredder metal package incomplete")
+    for row in rows:
+        folder=ROOT/"exports/cnc"/row["part_id"]
+        for ext in ("FCStd","step","dxf"):
+            path=folder/f"{row['part_id']}.{ext}"
+            require(path.exists() and path.stat().st_size>100, f"missing fabrication file {path}")
+        notes=folder/"drawing_notes.md"
+        require(notes.exists(), f"drawing notes missing {row['part_id']}")
+        note_text=notes.read_text()
+        require("중요공차/검사:" in note_text and "발주상태: HOLD" in note_text, f"fabrication gate/tolerance missing {row['part_id']}")
+
+
 def test_calculations_and_profiles():
     s=json.loads((ROOT/"simulation/engineering_summary.json").read_text())
     selected=[r for r in s["screw_sweep"] if r["selected"]]
     require(len(selected)==1 and selected[0]["diameter_mm"]==16.0 and selected[0]["active_length_mm"]==256.0,"screw selection")
-    require(s["power"]["calculated_concurrent_peak_w"] <= s["power"]["psu_rating_w"],"power budget")
+    require(s["power"]["calculated_concurrent_peak_w"] > s["power"]["psu_rating_w"],"power arbiter no longer decision-relevant")
+    require(s["power"]["arbiter_peak_w"] <= s["power"]["psu_rating_w"],"power arbiter exceeds PSU")
+    require("shredder" in s["power"]["mutual_exclusion"],"hazardous power mutual exclusion missing")
+    require(s["cutter"]["motor_model"] == "MY1016Z-24V-250W-75RPM","shredder motor baseline mismatch")
+    require(s["cutter"]["profile_command_rpm"] == {"PLA":32.0,"PET":24.0},"shredder profile RPM mismatch")
+    require(s["cutter"]["profile_trip_current_a"] == {"PLA":16.0,"PET":18.0},"shredder current profile mismatch")
     require(s["cutter"]["yield_safety_factor_at_145mpa_shear"] >= 2.0,"shaft torsion screen")
     header=(ROOT/"firmware/arduino_mega/src/material_profile.h").read_text()
     for field in ("shredder_rpm","shredder_trip_amp","predry_minutes","feeder_rpm","screw_rpm","zone_c","die_c","fan_percent","puller_feedforward_mm_s","diameter_kp","purge_grams"):
@@ -90,6 +109,7 @@ def test_artifacts_and_docs():
     required=[
         "renders/assembly/compact_full_assembly_isometric.png", "renders/review/compact_exploded.png", "renders/review/compact_section.png",
         "renders/review/shredder_fastener_tool_access.png", "renders/review/print_orientation.png", "renders/review/support_contact.png",
+        "renders/modules/CUT-01_cycloidal_hook_profile.png", "renders/modules/shredder_drive_guard_removed.png",
         "docs/build_manual_ko.pdf", "docs/design_report_ko.pdf", "cad/generation/fcstd/compact_full_assembly.FCStd", "exports/step/compact_full_assembly.step"
     ]
     for rel in required: require((ROOT/rel).exists() and (ROOT/rel).stat().st_size>1000, f"artifact missing {rel}")
@@ -105,6 +125,7 @@ def main():
     test_envelope(); print("PASS FULL_ENVELOPE")
     test_budget(); print("PASS CASH_CNC_BUDGET")
     test_print_package(); print("PASS PRINT_PACKAGE")
+    test_shredder_fabrication_package(); print("PASS SHREDDER_FABRICATION_PACKAGE")
     test_calculations_and_profiles(); print("PASS ENGINEERING_PROFILES")
     test_artifacts_and_docs(); print("PASS ARTIFACTS_DOCS")
     print("COMPACT_RELEASE_VALIDATION_OK")
