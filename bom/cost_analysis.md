@@ -14,7 +14,19 @@
 | GAU-CAM-001 | Camera Module 3 standard | 35,000 KRW |
 | GRN-BRG-001 | `6203-2RS-GLD` 2개 | 5,320 KRW |
 
-이는 배송·세금·관세, contactor, fuse coordination, 전체 sensor/heater, metal stock와 CNC를 포함하지 않은 **불완전 하한**이다. [Dold 후보](https://www.automationdirect.com/adc/shopping/catalog/safety/safety_relay_modules/2-channel_e-stop_-z-_safety_gate_relays/lg5925-48-61-24), [Camera Module 3](https://www.raspberrypi.com/products/camera-module-3/), [A22E-M-02](https://www.digikey.kr/en/products/detail/omron-automation-and-safety/A22E-M-02/549568), [DDR-30G-5](https://www.digikey.kr/en/products/detail/mean-well-usa-inc/DDR-30G-5/8681204), [6203-2RS-GLD](https://www.digikey.kr/en/products/detail/mechatronics-bearing-group/6203-2RS-GLD/9608381)
+이는 배송·세금·관세, fuse link coordination, 전체 sensor/heater, metal stock와 CNC를 포함하지 않은 **불완전 하한**이다. [Dold 후보](https://www.automationdirect.com/adc/shopping/catalog/safety/safety_relay_modules/2-channel_e-stop_-z-_safety_gate_relays/lg5925-48-61-24), [Camera Module 3](https://www.raspberrypi.com/products/camera-module-3/), [A22E-M-02](https://www.digikey.kr/en/products/detail/omron-automation-and-safety/A22E-M-02/549568), [DDR-30G-5](https://www.digikey.kr/en/products/detail/mean-well-usa-inc/DDR-30G-5/8681204), [6203-2RS-GLD](https://www.digikey.kr/en/products/detail/mechatronics-bearing-group/6203-2RS-GLD/9608381)
+
+실배치 병행을 위해 추가한 다섯 개 qualification/sizing 후보까지 합치면 현재 MPN이 있는 10개 BOM 행의 engineering candidate floor는 **5,240,261 KRW**다. 이 값도 전체 시스템 견적이 아니며 구매 승인이 아니다.
+
+| 추가 Part ID | 실제 배치 수량 | 후보 | 수량 반영 floor |
+|---|---:|---|---:|
+| SAF-CON-001 | 2 | ABB `AFS30-30-22-11` | 885,892 KRW |
+| SAF-FUS-HLD | 14 | Eaton `CHCC1DU` holder only | 1,863,960 KRW |
+| ELE-HTR-DRV | 6 | Sensata `84137860` DC SSR | 977,676 KRW |
+| ELE-HTR-HS | 2 | Sensata `HS103DR` | 445,704 KRW |
+| CTL-ENC-001 | 1 | nVent HOFFMAN `MAS0405021R5` | 640,864 KRW |
+
+`CHCC1DU`는 현재 DigiKey 재고 0 관측이므로 실제 조달 대안이 필요하다. 퓨즈 link와 main holder는 전류 실측 전까지 별도 placeholder다.
 
 따라서 두 설계안을 다음처럼 분리한다.
 
@@ -24,7 +36,7 @@
 
 Target 설계는 기능이나 안전장치를 삭제하지 않는다. 다음 하나라도 재고로 충당되지 않으면 `BLOCKED_WITHOUT_VALIDATED_STOCK`이고, 200,000 KRW 목표를 포기하거나 scope가 아니라 예산을 재승인해야 한다.
 
-- dual-channel monitored safety relay와 DC load에 맞는 contactor
+- dual-channel monitored safety relay와 Tower A/Tower B용 DC load 안전 contactor 2개
 - Camera/optic이 실제 `U95≤0.020 mm`를 만족하는 gauge
 - pressure transducer와 독립 rupture/trip assembly
 - 여섯 heater branch의 fuse, driver, sensor와 one-shot thermal fuse
@@ -34,11 +46,11 @@ Target 설계는 기능이나 안전장치를 삭제하지 않는다. 다음 하
 
 `engineering_recommended_design.csv`가 source다. 사용자 보유 Pi/Mega/PSU는 inspection 후 재사용할 수 있지만, 안전·압력·고온 부품은 정확한 MPN과 datasheet, landed price, lead time을 확정한다. 맞춤 cutter/screw/barrel은 quote-ready drawing package 이후 실제 CNC 견적을 받는다.
 
-현재 총액은 `TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES`다. 총액을 임의 allowance로 채우지 않는다. 공개 후보가는 비교용 floor이며 구매 추천이나 회로 적합성 승인이 아니다. Safety relay 후보는 2채널, 24 VAC/VDC, 3 NO safety output과 1 NC monitoring output을 제공하지만 실제 contactor feedback, required performance level과 load category는 최종 risk assessment에서 확인한다.
+현재 총액은 `TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES`다. 총액을 임의 allowance로 채우지 않는다. 공개 후보가는 비교용 floor이며 구매 추천이나 회로 적합성 승인이 아니다. Safety relay 후보는 2채널, 24 VAC/VDC, 3 NO safety output과 1 NC monitoring output을 제공하지만 K2A/K2B series EDM feedback, required performance level과 load category는 최종 risk assessment에서 확인한다. AFS30 후보는 ABB가 요구하는 DC 차단 pole 직렬구성을 반영하고 실측 branch current로 재정격해야 한다.
 
 ## 구매처 증거와 marketplace 경계
 
-`procurement_routes.csv`는 BUY 29행 모두에 primary/alternate channel과 필수 검증 항목을 지정한다. `cost_evidence.csv`는 19개 후보·거절 기록을 담으며, 실제 가격 페이지가 확보된 Part ID는 13개다. 사람이 읽는 링크 표는 `procurement_candidates.md`다.
+`procurement_routes.csv`는 BUY 32행 모두에 primary/alternate channel과 필수 검증 항목을 지정한다. `cost_evidence.csv`는 24개 후보·거절 기록을 담으며, 실제 가격 페이지가 확보된 BUY Part ID는 17개다. 사람이 읽는 링크 표는 `procurement_candidates.md`다.
 
 - DigiKey: traceable MPN·datasheet·재고가 있는 전자/안전/전원 후보에 우선 사용한다. 60,000 KRW 미만 주문의 20,000 KRW 배송과 CPT 세금은 개별 단가에서 분리한다.
 - 디바이스마트: 국내 VAT 포함가·준비기간을 기록한다. 확인된 24 V fan과 PT100은 alternate/partial이며, AC-output `CKRD2420` SSR은 24 VDC heater용에서 명시적으로 거절했다.

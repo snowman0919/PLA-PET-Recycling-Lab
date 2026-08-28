@@ -70,6 +70,17 @@ def main() -> None:
         row["Part ID"]: int(row["Planning floor KRW"])
         for row in primary_evidence
     }
+    engineering_evidence = [
+        row for row in evidence
+        if row["Selection"] in {"PRIMARY_CANDIDATE", "QUALIFICATION_CANDIDATE", "SIZING_CANDIDATE"}
+    ]
+    assert len({row["Part ID"] for row in engineering_evidence}) == len(engineering_evidence), (
+        "more than one active engineering cost candidate for a BOM row"
+    )
+    engineering_floor = {
+        row["Part ID"]: int(row["Planning floor KRW"])
+        for row in engineering_evidence
+    }
     target: list[dict[str, str]] = []
     recommended: list[dict[str, str]] = []
     for row in source:
@@ -102,10 +113,10 @@ def main() -> None:
             }
         )
 
-        if part_id in public_floor:
+        if part_id in engineering_floor:
             recommended_strategy = f"BUY_CANDIDATE_{row['Vendor']}_{row['Part number']}"
-            recommended_cost = public_floor[part_id]
-            recommended_status = "PUBLIC_REFERENCE_NOT_LANDED_QUOTE"
+            recommended_cost = engineering_floor[part_id]
+            recommended_status = "PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN"
         elif available_reuse:
             recommended_strategy = "REUSE_AFTER_INSPECTION"
             recommended_cost = 0
@@ -153,6 +164,15 @@ def main() -> None:
             "Notes": f"{len(public_floor)} public primary candidates only; shipping tax customs and {source_counts['BUY'] - len(public_floor)} purchase lines remain TBD.",
         },
         {
+            "Rollup": "ENGINEERING_CANDIDATE_SET",
+            "Included source types": "BUY candidate rows only",
+            "BOM line count": len(engineering_floor),
+            "Known planning floor KRW": sum(engineering_floor.values()),
+            "TBD line count": 0,
+            "Total status": "INCOMPLETE_QUALIFICATION_AND_LANDED_COST_OPEN",
+            "Notes": "Includes primary, qualification and sizing candidates; it is neither a complete system total nor purchase approval.",
+        },
+        {
             "Rollup": "CNC_FABRICATION",
             "Included source types": "CNC+FABRICATE",
             "BOM line count": source_counts["CNC"] + source_counts["FABRICATE"],
@@ -195,7 +215,7 @@ def main() -> None:
             "Known planning floor KRW": public_floor_total,
             "TBD line count": required_tbd_lines,
             "Total status": "INCOMPLETE_NOT_BUDGET_COMPLIANT",
-            "Notes": f"All 82 baseline rows are required; {len(public_floor)} public floors and 2 conditional on-hand zero-cash rows are the only priced assumptions.",
+            "Notes": f"All {len(source)} baseline rows are required; {len(public_floor)} primary public floors and 2 conditional on-hand zero-cash rows are the target-budget assumptions.",
         },
         {
             "Rollup": "OPTIONAL_ADDONS",
@@ -218,6 +238,8 @@ def main() -> None:
         "public_candidate_floor_krw": public_floor_total,
         "public_candidate_floor_over_cap_krw": public_floor_total - 200000,
         "public_candidate_floor_includes": sorted(public_floor),
+        "engineering_candidate_floor_krw": sum(engineering_floor.values()),
+        "engineering_candidate_floor_includes": sorted(engineering_floor),
         "cost_rollup_file": "bom/cost_rollup.csv",
         "required_baseline_line_count": len(source),
         "optional_addon_line_count": 0,
@@ -226,7 +248,7 @@ def main() -> None:
         "engineering_recommended_total_status": "TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES",
         "pricing_assumptions": [
             "Planning conversion uses 1 USD = 1400 KRW and is not a live FX quote.",
-            "Public prices exclude unresolved shipping, tax, customs, incomplete assemblies, contactor and all unpriced rows.",
+            "Public prices exclude unresolved shipping, tax, customs, incomplete assemblies and all unpriced rows; qualification candidates are not purchase approvals.",
             "Conditional zero current cash applies only to the user-stated on-hand Pi and Mega; PSU fitness and replacement remain TBD.",
         ],
     }
@@ -256,7 +278,7 @@ def main() -> None:
             "- `target_budget_design.csv`: 검증된 project-lab/donor stock을 우선하며, critical stock이 없으면 BLOCKED다.",
             "- `engineering_recommended_design.csv`: 안전·압력·열 부품을 생략하지 않고 MPN 선정과 CNC quote를 요구한다.",
             "- `cost_evidence.csv`: 조회일·URL·계획 환율을 보존한다.",
-            "- `procurement_routes.csv`: 29개 BUY 행의 권장 공급처·대체 공급처·AliExpress 허용 경계를 기록한다.",
+            f"- `procurement_routes.csv`: {source_counts['BUY']}개 BUY 행의 권장 공급처·대체 공급처·AliExpress 허용 경계를 기록한다.",
             "- `cost_rollup.csv`: 신규 구매·CNC·print filament·project-lab replacement·donor replacement와 required/optional을 분리한다.",
             "",
             "주문·가공은 사용자 승인 전 진행하지 않는다.",

@@ -159,7 +159,7 @@ FRP1은 `FRP1|TYPE|SEQ|PAYLOAD|CRC16`이고 Pi heartbeat 250 ms, Mega timeout 75
 
 Sensor MPN·conversion과 shredder motion feedback이 미선정이라 firmware의 5개 commissioning lock은 false다. 이는 결함이 아니라 donor를 추측하지 않기 위한 intentional fail-safe다.
 
-Metal partition 기준 좌우 장치 keep-out gap은 50 mm다. K1 DOLD LG5925.48/920/61, PS1 MEAN WELL DDR-30G-5와 door S0 OMRON A22E-M-02는 공식 치수 기반 candidate envelope이고 구매 승인이 아니다. PCB1은 190×130 mm 외곽, M3 홀 4개와 12 mm standoff를 예약하지만 fabrication HOLD다. K2/F1/QH1–QH6/X1–XN은 exact MPN 전 주문·천공에 사용할 수 없는 placeholder다.
+Metal partition 기준 좌우 장치 keep-out gap은 50 mm다. K1 DOLD LG5925.48/920/61, PS1 MEAN WELL DDR-30G-5와 door S0 OMRON A22E-M-02는 planning-selected candidate다. ENC1 nVent MAS0405021R5, K2A/K2B ABB AFS30, FBR01–14 Eaton CHCC1DU, QH1–6 Crydom 84137860과 HS1/HS2 HS103DR은 exact-MPN qualification candidate이며 구매 승인이 아니다. PCB1은 190×130 mm 외곽, M3 홀 4개와 12 mm standoff를 예약하지만 fabrication HOLD다. `FMAIN_FLINKS`와 X1–XN은 exact MPN 전 주문·천공에 사용할 수 없는 placeholder다.
 
 #figure(image("../renders/review/control_enclosure_proof_cable_routing.png", width: 96%), caption: [BOM 상태와 24 V high-current/heater, hardwired safety, 5 V logic/sensor, PE route 분리 정면도])
 
@@ -167,9 +167,9 @@ Metal partition 기준 좌우 장치 keep-out gap은 50 mm다. K1 DOLD LG5925.48
 
 = BOM과 예산
 
-시스템 BOM은 82 line, CRITICAL 56 line이다. 공개 primary 후보 5개(camera, safety relay, E-stop, 24→5 V DC-DC, 6203 bearing pair)의 planning floor만 426,165 KRW이며 cap을 226,165 KRW 넘는다. 배송·세금·contactor·pressure·heater·CNC와 75개 미가격 required line은 빠져 있다.
+시스템 BOM은 85 line, CRITICAL 59 line이다. 공개 primary 후보 5개(camera, safety relay, E-stop, 24→5 V DC-DC, 6203 bearing pair)의 target-budget planning floor만 426,165 KRW이며 cap을 226,165 KRW 넘는다. 접촉기 2개, branch holder 14개, DC SSR 6개, 방열판 2개와 exact enclosure qualification 후보를 더한 10개 MPN 행의 부분 engineering candidate floor는 5,240,261 KRW다. 배송·세금·pressure·나머지 heater/sensor·fuse link·CNC와 78개 target-budget 미가격 required line은 빠져 있다.
 
-`cost_rollup.csv`는 신규구매 29 line(미가격 24), CNC/fabrication 33, print filament 6, project-lab replacement 3, donor replacement 11을 분리한다. Baseline 82 line은 모두 required이고 optional로 숨긴 항목은 0이다.
+`cost_rollup.csv`는 신규구매 32 line(target-budget 미가격 27), CNC/fabrication 33, print filament 6, project-lab replacement 3, donor replacement 11을 분리한다. Baseline 85 line은 모두 required이고 optional로 숨긴 항목은 0이다.
 
 `exports/cnc_quote_packages`의 34행은 STEP/DXF/도면 메모를 묶은 DFM/RFQ precheck다. Mixed-source thrust plate를 보조 포함했으며 최종 GD&T·재료·열처리 승인 전에는 fabrication release가 아니다.
 

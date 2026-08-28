@@ -49,6 +49,6 @@ QT_QPA_PLATFORM=offscreen nix develop --command bash -lc \
 nix develop --command python3 validation/run_all.py
 ```
 
-전체 artifact의 크기와 SHA-256는 `artifacts/manifest.json`에 기록됩니다. 200,000 KRW 목표는 primary 후보가 적합한 project-lab 재고/재사용품으로 확인될 때만 조건부입니다. 현재 공개 primary 후보 5개의 planning floor만 426,165 KRW이며 배송·세금·관세와 75개 미가격 required line은 포함하지 않습니다.
+전체 artifact의 크기와 SHA-256는 `artifacts/manifest.json`에 기록됩니다. 200,000 KRW 목표는 primary 후보가 적합한 project-lab 재고/재사용품으로 확인될 때만 조건부입니다. 현재 공개 primary 후보 5개의 target-budget planning floor만 426,165 KRW이며 배송·세금·관세와 78개 미가격 required line은 포함하지 않습니다. exact-MPN 제어함 qualification 후보를 포함한 10개 BOM 행의 부분 engineering candidate floor는 5,240,261 KRW지만 전체 시스템 견적이나 구매 승인이 아닙니다.
 
 설계 파일만 보고 cutter, heater 또는 고전류 회로를 바로 제작·가동하지 마십시오. 물리적 안전장치와 합격 시험은 `validation/release_checklist.md`에 따라 별도로 확인해야 합니다.

@@ -38,7 +38,7 @@ Forming-line generator는 3분할 440 mm 횡류 공랭 덕트, 두 직교 광로
 
 Spooler generator는 Ø200×73 mm 최대 1 kg급 spool reference, 12 mm steel shaft/6001 bearing 지지, 교체형 taper adapter, 120 mm dancer, 70 mm traverse와 보호 cage를 만든다. Printed adapter는 유일한 torque·축방향 하중경로가 아니며 drive와 slip clutch는 공급품 keep-out이다.
 
-Control-enclosure generator는 500×400×200 mm grounded enclosure 안에 BOM 부품을 개별 객체로 배치한다. 녹색은 공식 치수의 selected-candidate envelope, 파란색은 190×130 mm PCB 예약영역과 실측 대기 user inventory, 주황색은 주문 불가 TBD placeholder다. 24 V 고전류/히터, hardwired safety chain, 5 V logic/sensor, PE 경로는 별도 색·객체·harness ID로 분리하고 30 mm terminal service keep-out을 둔다. 실제 MPN 확정, 열·SCCR·연면거리·침투보호·배선 굽힘 반경·PE 연속성은 별도 승인 게이트다.
+Control-enclosure generator는 nVent HOFFMAN `MAS0405021R5` 후보의 500×400×210 mm 외형과 450×370 mm mounting plate 안에 BOM 부품을 개별 객체로 배치한다. 녹색은 planning-selected envelope, 노란색은 정확한 MPN·외형을 갖지만 적용 검증 전인 qualification candidate, 파란색은 190×130 mm PCB 예약영역과 실측 대기 user inventory, 주황색은 주문 불가 TBD placeholder다. 24 V 고전류/히터, hardwired safety chain, 5 V logic/sensor, PE 경로는 별도 색·객체·harness ID로 분리하고 30 mm terminal service keep-out을 둔다. 퓨즈 link·주퓨즈·단자·전선 굵기, 열·SCCR·연면거리·침투보호·배선 굽힘 반경·PE 연속성은 별도 승인 게이트다.
 
 표준 review view는 FreeCAD 환경의 VTK로 STL triangle을 읽고 Pillow software projection으로 생성한다. OpenGL/EGL이 필요하지 않는다.
 

@@ -1,5 +1,12 @@
 # 환경 변경 이력
 
+## 2026-08-28 — 두 zone 제어함 후보와 fast subagent 검토
+
+- `dgx-moa-fast`에는 접촉기·퓨즈·heater-driver 배치 감사 체크리스트만 요청했다. API key와 endpoint 값은 출력하거나 저장하지 않았다.
+- 채택: exact-MPN/qualification/placeholder/PCB/wire-route 상태를 분리하고 실제 수량을 panel envelope에 배치해야 한다는 검토 항목.
+- 폐기: fast 응답의 branch별 접촉기 7개 제안은 `requirements/architecture_contract.md`의 Tower A/Tower B 별도 monitored contactor 2개 계약과 충돌해 반영하지 않았다. 정격이 확정됐다는 주장도 실측전류와 PSU label이 없어 폐기했다.
+- Parent 결정: K2A/K2B 2개 zone topology, branch holder 14자리, DC SSR 6개와 3채널 방열판 2개를 exact-MPN yellow candidate로 배치했다. fuse link·main holder·단자·wire gauge는 orange placeholder로 유지했다.
+
 ## 2026-08-28 — 조달 조사용 local subagent 및 Playwright 재확인
 
 - Action: `.env` 값을 출력하지 않고 HTTPS endpoint를 메모리에서 정규화해 `/v1/models`, fast Responses 의미 시험과 harmless function-call probe를 재실행했다. `dgx-moa-fast`와 `dgx-moa`를 확인했다.

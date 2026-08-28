@@ -345,9 +345,20 @@
   },
   "control_enclosure": {
     "width_mm": 500.0,
-    "depth_mm": 200.0,
+    "depth_mm": 210.0,
     "height_mm": 400.0,
     "sheet_thickness_mm": 1.5,
+    "enclosure_candidate": {
+      "ref": "ENC1",
+      "part_id": "CTL-ENC-001",
+      "manufacturer": "nVent HOFFMAN",
+      "mpn": "MAS0405021R5",
+      "external_size_mm": [500.0, 210.0, 400.0],
+      "mounting_plate_size_mm": [450.0, 3.0, 370.0],
+      "usable_depth_mm": 192.0,
+      "qualification": "IP66 / Type 4 12 13 / IK10 catalog candidate; final SCCR, gland, thermal-rise and panel-shop approval remain open",
+      "source": "nVent HOFFMAN MAS catalog and DigiKey 1441-MAS0405021R5-ND, observed 2026-08-28"
+    },
     "logic_partition_x_mm": 240.0,
     "door_split_width_mm": 250.0,
     "high_current_din_rail_length_mm": 195.0,
@@ -361,7 +372,7 @@
           "ref": "K1",
           "part_id": "SAF-REL-001",
           "mpn": "LG5925.48/920/61 DC 24 V",
-          "origin_mm": [25.0, 71.0, 285.0],
+          "origin_mm": [25.0, 81.0, 300.0],
           "size_mm": [22.5, 121.0, 90.0],
           "source": "DOLD LG5925_920_DB.pdf, 2024-11-06, width x height x depth 22.5 x 90 x 121 mm"
         },
@@ -369,7 +380,7 @@
           "ref": "PS1",
           "part_id": "ELE-BUCK-001",
           "mpn": "DDR-30G-5",
-          "origin_mm": [265.0, 137.5, 285.0],
+          "origin_mm": [265.0, 147.5, 285.0],
           "size_mm": [35.0, 54.5, 90.0],
           "source": "MEAN WELL DDR-30-SPEC 2026-03-31, W x H x D 35 x 90 x 54.5 mm"
         }
@@ -396,44 +407,112 @@
         {
           "ref": "SBC1",
           "part_id": "SYS-CTRL-001",
-          "origin_mm": [265.0, 174.0, 190.0],
+          "origin_mm": [265.0, 184.0, 190.0],
           "size_mm": [85.0, 18.0, 56.0],
           "source": "nominal Raspberry Pi 4 board envelope; verify owned unit and connector overhang"
         },
         {
           "ref": "MCU1",
           "part_id": "SYS-CTRL-002",
-          "origin_mm": [365.0, 174.0, 190.0],
+          "origin_mm": [365.0, 184.0, 190.0],
           "size_mm": [102.0, 18.0, 54.0],
           "source": "nominal Arduino Mega 2560 board envelope; verify owned unit and connector overhang"
         }
       ],
+      "qualification_candidates": [
+        {
+          "ref": "K2A",
+          "part_id": "SAF-CON-001",
+          "mpn": "AFS30-30-22-11",
+          "origin_mm": [55.0, 82.5, 300.0],
+          "size_mm": [45.0, 119.5, 86.0],
+          "source": "ABB AFS safety contactor catalog, W x D x H 45 x 119.5 x 86 mm",
+          "qualification": "Tower A hazardous-motion zone candidate; confirm DC-1 series-pole wiring, measured branch current and safety EDM architecture"
+        },
+        {
+          "ref": "K2B",
+          "part_id": "SAF-CON-001",
+          "mpn": "AFS30-30-22-11",
+          "origin_mm": [105.0, 82.5, 300.0],
+          "size_mm": [45.0, 119.5, 86.0],
+          "source": "ABB AFS safety contactor catalog, W x D x H 45 x 119.5 x 86 mm",
+          "qualification": "Tower B drive-and-heater zone candidate; confirm DC-1 series-pole wiring, measured branch current and safety EDM architecture"
+        },
+        {
+          "ref": "FBR01_FBR07",
+          "part_id": "SAF-FUS-HLD",
+          "mpn": "CHCC1DU",
+          "origin_mm": [10.0, 128.12, 200.0],
+          "size_mm": [122.5, 73.88, 83.19],
+          "item_size_mm": [17.5, 73.88, 83.19],
+          "instance_origins_mm": [[10.0, 128.12, 200.0], [27.5, 128.12, 200.0], [45.0, 128.12, 200.0], [62.5, 128.12, 200.0], [80.0, 128.12, 200.0], [97.5, 128.12, 200.0], [115.0, 128.12, 200.0]],
+          "source": "Eaton CHCC1DU datasheet, individual W x D x H 17.5 x 73.88 x 83.19 mm",
+          "qualification": "seven branch-holder positions only; actual fuse links, conductor sizes and coordination remain TBD"
+        },
+        {
+          "ref": "FBR08_FBR14",
+          "part_id": "SAF-FUS-HLD",
+          "mpn": "CHCC1DU",
+          "origin_mm": [10.0, 128.12, 108.0],
+          "size_mm": [122.5, 73.88, 83.19],
+          "item_size_mm": [17.5, 73.88, 83.19],
+          "instance_origins_mm": [[10.0, 128.12, 108.0], [27.5, 128.12, 108.0], [45.0, 128.12, 108.0], [62.5, 128.12, 108.0], [80.0, 128.12, 108.0], [97.5, 128.12, 108.0], [115.0, 128.12, 108.0]],
+          "source": "Eaton CHCC1DU datasheet, individual W x D x H 17.5 x 73.88 x 83.19 mm",
+          "qualification": "seven branch-holder positions only; actual fuse links, conductor sizes and coordination remain TBD"
+        },
+        {
+          "ref": "HS1",
+          "part_id": "ELE-HTR-HS",
+          "mpn": "HS103DR",
+          "origin_mm": [138.8, 141.8, 20.0],
+          "size_mm": [76.2, 60.2, 132.1],
+          "source": "Sensata Crydom HS103DR datasheet, W x D x H 76.2 x 60.2 x 132.1 mm on backplate",
+          "qualification": "three-SSR heat-sink candidate; installed thermal resistance and enclosure ambient test remain open"
+        },
+        {
+          "ref": "HS2",
+          "part_id": "ELE-HTR-HS",
+          "mpn": "HS103DR",
+          "origin_mm": [138.8, 141.8, 160.0],
+          "size_mm": [76.2, 60.2, 132.1],
+          "source": "Sensata Crydom HS103DR datasheet, W x D x H 76.2 x 60.2 x 132.1 mm on backplate",
+          "qualification": "three-SSR heat-sink candidate; installed thermal resistance and enclosure ambient test remain open"
+        },
+        {
+          "ref": "QH1_QH3",
+          "part_id": "ELE-HTR-DRV",
+          "mpn": "84137860",
+          "origin_mm": [146.8, 106.75, 19.375],
+          "size_mm": [60.2, 35.05, 133.35],
+          "item_size_mm": [60.2, 35.05, 44.45],
+          "instance_origins_mm": [[146.8, 106.75, 19.375], [146.8, 106.75, 63.825], [146.8, 106.75, 108.275]],
+          "source": "Sensata Crydom 84137860 GN-series IP20 envelope, individual 44.45 x 35.05 x 60.2 mm rotated in the panel plane",
+          "qualification": "three isolated DC SSR candidates mounted to HS1; welded-on and 40 C thermal tests remain open"
+        },
+        {
+          "ref": "QH4_QH6",
+          "part_id": "ELE-HTR-DRV",
+          "mpn": "84137860",
+          "origin_mm": [146.8, 106.75, 159.375],
+          "size_mm": [60.2, 35.05, 133.35],
+          "item_size_mm": [60.2, 35.05, 44.45],
+          "instance_origins_mm": [[146.8, 106.75, 159.375], [146.8, 106.75, 203.825], [146.8, 106.75, 248.275]],
+          "source": "Sensata Crydom 84137860 GN-series IP20 envelope, individual 44.45 x 35.05 x 60.2 mm rotated in the panel plane",
+          "qualification": "three isolated DC SSR candidates mounted to HS2; welded-on and 40 C thermal tests remain open"
+        }
+      ],
       "placeholders": [
         {
-          "ref": "K2",
-          "part_id": "SAF-CON-001",
-          "origin_mm": [65.0, 92.0, 270.0],
-          "size_mm": [60.0, 100.0, 105.0],
-          "qualification": "select a monitored 24 VDC load contactor, then replace this conservative envelope"
-        },
-        {
-          "ref": "F1",
+          "ref": "FMAIN_FLINKS",
           "part_id": "SAF-FUS-001",
-          "origin_mm": [25.0, 112.0, 170.0],
-          "size_mm": [190.0, 80.0, 65.0],
-          "qualification": "select finger-safe main and branch fuse distribution and terminal accessories"
-        },
-        {
-          "ref": "QH1_QH6",
-          "part_id": "ELE-HTR-DRV",
-          "origin_mm": [25.0, 112.0, 55.0],
-          "size_mm": [190.0, 80.0, 75.0],
-          "qualification": "six separately fused 24 VDC heater drivers; thermal and terminal spacing validation open"
+          "origin_mm": [155.0, 132.0, 315.0],
+          "size_mm": [60.0, 70.0, 70.0],
+          "qualification": "main holder and all actual fuse links remain unselected until source and measured branch currents are available"
         },
         {
           "ref": "X1_XN",
           "part_id": "MISC-WIR-001",
-          "origin_mm": [265.0, 142.0, 260.0],
+          "origin_mm": [265.0, 152.0, 260.0],
           "size_mm": [205.0, 50.0, 20.0],
           "qualification": "select keyed terminals after conductor gauge and branch current measurements"
         }
@@ -464,7 +543,7 @@
           "ref": "WR-PE",
           "harnesses": "H17",
           "class": "PROTECTIVE_EARTH",
-          "origin_mm": [20.0, 181.0, 10.0],
+          "origin_mm": [20.0, 191.0, 10.0],
           "size_mm": [455.0, 8.0, 10.0]
         }
       ]

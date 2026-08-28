@@ -55,8 +55,8 @@ def run(command: list[str], marker: str, env: dict[str, str] | None = None) -> N
 
 
 def main() -> None:
-    run([sys.executable, "bom/build_procurement_routes.py"], "PROCUREMENT_ROUTES_OK buy_rows=29")
-    run([sys.executable, "bom/build_design_boms.py"], '"bom_row_count": 82')
+    run([sys.executable, "bom/build_procurement_routes.py"], "PROCUREMENT_ROUTES_OK buy_rows=32")
+    run([sys.executable, "bom/build_design_boms.py"], '"bom_row_count": 85')
     for script, marker in PYTHON_TESTS:
         run([sys.executable, script], marker)
     for script, marker in FREECAD_TESTS:

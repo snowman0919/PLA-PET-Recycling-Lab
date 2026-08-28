@@ -170,19 +170,19 @@ Dancer 120 mm ±30°, target 0.5 N, clutch 0.25 N·m, traverse 70 mm/1.8 mm pitc
   Mains/24 V high-current wiring은 selected MPN, fuse coordination, wire/connector rating과 자격 있는 감독 없이는 수행하지 않는다. 아래는 topology이며 현장 배선 승인도가 아니다.
 ]
 
-H01–H18 harness schedule대로 AC disconnect→PSU→dual-channel E-stop relay→contactor→fused switched bus를 배선한다. Pi/Mega는 protected always-on branch다. Heater driver/Mega가 stuck-high여도 safety relay, contactor와 thermal fuse가 독립 차단해야 한다.
+H01–H18 harness schedule대로 AC disconnect→PSU→dual-channel E-stop relay→K2A/K2B→Tower A/Tower B fused switched bus를 분리 배선한다. 두 mirror NC는 series EDM/reset feedback에 넣는다. Pi/Mega는 protected always-on branch다. Heater driver/Mega가 stuck-high여도 safety relay, K2B와 thermal fuse가 독립 차단해야 한다.
 
-#module_figure("../renders/review/control_enclosure_proof_cable_routing.png", [녹색 candidate, 파란 PCB/보유품, 주황 placeholder와 분리 wiring route 정면도])
+#module_figure("../renders/review/control_enclosure_proof_cable_routing.png", [녹색 selected, 노란 exact-MPN qualification candidate, 파란 PCB/보유품, 주황 placeholder와 분리 wiring route 정면도])
 
-`electronics/architecture/control_enclosure_layout.csv`의 reference/BOM Part ID/state를 panel label과 일치시킨다. K1/PS1/S0만 candidate 치수이고, PCB1은 fabrication HOLD, K2/F1/QH1–QH6/X1–XN은 exact MPN 전 주문·천공 금지다. H01/H03/H10–H14/H18, H02/H08, H04–H07/H09/H15/H16, H17은 각각 high-current/heater, hardwired safety, logic/sensor, PE 경로를 사용하며 최소 30 mm terminal/service keep-out을 침범하지 않아야 한다.
+`electronics/architecture/control_enclosure_layout.csv`의 reference/BOM Part ID/state를 panel label과 일치시킨다. ENC1, K2A/K2B, FBR01–FBR14, QH1–QH6, HS1/HS2는 exact MPN 외형의 qualification candidate이고, K1/PS1/S0는 planning-selected candidate다. PCB1은 fabrication HOLD, `FMAIN_FLINKS`와 X1–XN은 exact MPN 전 주문·천공 금지 placeholder다. H01/H03/H10–H14/H18, H02/H08, H04–H07/H09/H15/H16, H17은 각각 high-current/heater, hardwired safety, logic/sensor, PE 경로를 사용하며 최소 30 mm terminal/service keep-out을 침범하지 않아야 한다.
 
 #figure(
   block(width: 92%, fill: rgb("f5f8f9"), stroke: 1pt + rgb("8ba2aa"), inset: 10pt)[
     *AC/PE* → main disconnect/fuse → 24 V PSU\
     ├ always-on fuse → 5 V buck/Pi + protected Mega\
-    └ dual-channel E-stop relay → monitored contactor → branch fuses\
-    #h(12pt)├ shredder/sorter/extruder/forming drives\
-    #h(12pt)└ six heater fuse → thermal fuse → default-off driver
+    └ dual-channel E-stop relay → K2A/K2B monitored contactors\
+    #h(12pt)├ Tower A fuse bus → shredder/sorter drives\
+    #h(12pt)└ Tower B fuse bus → extruder/forming + six heater fuse → thermal fuse → default-off driver
   ],
   caption: [Firmware가 우회할 수 없는 전력 차단 topology]
 )
@@ -246,7 +246,7 @@ Mega pin은 `mega_pinout.csv`, FRP1은 `frp1.md`를 따른다. Sensor front-end�
 
 == 항목 5 — 전체 BOM
 
-Master는 `bom/bom.csv` 81행/19열이며 아래 표는 조달·조립 식별에 필요한 열을 PDF에 전부 싣는다. 가격은 `cost_rollup.csv`, 상세 substitute·evidence·notes는 master CSV를 사용한다. `TBD`를 0원이나 주문 승인으로 해석하지 않는다.
+Master는 `bom/bom.csv` 85행/19열이며 아래 표는 조달·조립 식별에 필요한 열을 PDF에 전부 싣는다. 가격은 `cost_rollup.csv`, 상세 substitute·evidence·notes는 master CSV를 사용한다. `TBD`를 0원이나 주문 승인으로 해석하지 않는다.
 
 #let bom_rows = csv("../bom/bom.csv", row-type: dictionary)
 #block[

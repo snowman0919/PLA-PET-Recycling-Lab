@@ -36,20 +36,24 @@ ROUTES = {
     "SAF-EST-001": ("DigiKey or authorized safety distributor", "Korean industrial automation supplier", "FORBIDDEN", "2NC positive-opening channels; latching reset; 24 VDC rating; enclosure/IP; safety validation"),
     "SAF-REL-001": ("Authorized safety distributor", "DigiKey; AutomationDirect", "FORBIDDEN", "dual-channel input; monitored reset; EDM; required PL/category; output utilization"),
     "SAF-CON-001": ("Authorized contactor distributor", "Korean industrial automation supplier", "FORBIDDEN", "24 VDC coil; positively guided/mirror auxiliary; DC utilization; branch current; suppression"),
+    "SAF-FUS-HLD": ("DigiKey or authorized circuit-protection distributor", "Korean industrial panel supplier", "FORBIDDEN", "Class CC; 600 VDC holder rating; finger-safe; terminal conductor range; stock; exact fuse link coordination"),
     "SAF-FUS-001": ("Authorized circuit-protection distributor", "DigiKey; DeviceMart", "FORBIDDEN", "DC voltage; branch current; interrupt rating; fuse coordination; touch-safe holder"),
     "SAF-THM-001": ("DigiKey or authorized thermal-protection distributor", "DeviceMart industrial catalog", "FORBIDDEN", "one-shot; zone-specific Tf/Th; current and DC interruption; mounting derating; approvals"),
     "SAF-INT-001": ("Authorized machine-safety distributor", "DigiKey", "FORBIDDEN", "positive opening; actuator included; contact arrangement; defeat resistance; system PL validation"),
     "ELE-HTR-DRV": ("Authorized power-semiconductor/SSR distributor", "DigiKey; DeviceMart", "FORBIDDEN", "24 VDC load output; worst-case SOA/Rds(on); isolation; default OFF; heat sink; welded-on test"),
+    "ELE-HTR-HS": ("DigiKey or authorized Sensata distributor", "Korean industrial thermal supplier", "FORBIDDEN", "three-SSR mounting; thermal resistance; interface material; orientation; enclosure ambient rise"),
     "ELE-SEN-IF": ("PCB assembly plus authorized components", "DigiKey component order", "FORBIDDEN", "native PCB BOM MPN completion; keyed connectors; lifecycle; calibration; no safety credit"),
     "ELE-PCB-IF": ("JLCPCB/PCBWay prototype quotation", "Local PCB fabricator", "FORBIDDEN", "current fabrication HOLD closure; stackup; finish; electrical test; impedance not claimed"),
     "ELE-BUCK-001": ("DigiKey or authorized power distributor", "DeviceMart industrial catalog", "FORBIDDEN", "9-36 V input; regulated 5 V >=5 A; transient; thermal; fuse; no USB backfeed"),
     "MISC-WIR-001": ("DeviceMart and authorized connector distributor", "DigiKey; local panel shop", "FORBIDDEN", "wire gauge; temperature; keyed mating pairs; ferrules; PE lugs; cable-chain rating"),
+    "CTL-ENC-001": ("DigiKey or authorized nVent HOFFMAN distributor", "Korean certified enclosure supplier", "FORBIDDEN", "500x400x210 mm; mounting plate; IP/Type/IK; PE provisions; SCCR; gland and thermal-rise review"),
 }
 
 
 def main() -> None:
     with (ROOT / "bom" / "bom.csv").open(newline="", encoding="utf-8") as handle:
-        buy_rows = [row for row in csv.DictReader(handle) if row["Source type"] == "BUY"]
+        all_rows = list(csv.DictReader(handle))
+    buy_rows = [row for row in all_rows if row["Source type"] == "BUY"]
     buy_ids = {row["Part ID"] for row in buy_rows}
     if buy_ids != set(ROUTES):
         raise SystemExit(f"route coverage mismatch missing={sorted(buy_ids-set(ROUTES))} extra={sorted(set(ROUTES)-buy_ids)}")
@@ -83,7 +87,7 @@ def main() -> None:
         "",
         "조회일: 2026-08-28. 상태: **비교 후보 / 주문 미승인**.",
         "",
-        f"82행 시스템 BOM 중 BUY 29행을 모두 `procurement_routes.csv`에 연결했고, 그중 {len(evidence_ids & buy_ids)}개 Part ID에 실제 공개 페이지 또는 Playwright 검색 증거를 기록했다. `PRIMARY_CANDIDATE`는 가격 계산용 기준일 뿐 구매·안전 적합성 승인이 아니다.",
+        f"{len(all_rows)}행 시스템 BOM 중 BUY {len(buy_rows)}행을 모두 `procurement_routes.csv`에 연결했고, 그중 {len(evidence_ids & buy_ids)}개 Part ID에 실제 공개 페이지 또는 Playwright 검색 증거를 기록했다. `PRIMARY_CANDIDATE`와 qualification/sizing 후보는 가격·배치 계산용 기준일 뿐 구매·안전 적합성 승인이 아니다.",
         "",
         "| Part ID | 공급처 | 후보/MPN | 관측가 | 재고 | 선택 상태 | 링크 |",
         "|---|---|---|---:|---:|---|---|",

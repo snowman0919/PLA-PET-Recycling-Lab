@@ -25,6 +25,7 @@ from geometry import (  # noqa: E402
     make_pcb_reserved_keepout,
     make_pcb_standoffs,
     make_placeholder,
+    make_qualification_candidate,
     make_selected_candidate,
     make_service_keepouts,
     make_shell,
@@ -39,6 +40,7 @@ from geometry import (  # noqa: E402
 CATEGORY_STYLE = {
     "STRUCTURE": ((0.72, 0.72, 0.76), 0),
     "SELECTED_CANDIDATE_ENVELOPE": ((0.20, 0.72, 0.30), 15),
+    "QUALIFICATION_CANDIDATE_ENVELOPE": ((0.95, 0.82, 0.12), 20),
     "PCB_RESERVED": ((0.12, 0.45, 0.85), 20),
     "PCB_SERVICE_KEEP_OUT": ((0.35, 0.65, 1.00), 75),
     "USER_INVENTORY_ENVELOPE": ((0.30, 0.70, 0.90), 35),
@@ -121,12 +123,27 @@ def write_layout_csv(path: Path, params: dict) -> None:
             "harnesses": spec.get("harnesses", ""),
         })
 
+    enclosure = params["enclosure_candidate"]
+    row(
+        {
+            **enclosure,
+            "part_id": enclosure["part_id"],
+            "origin_mm": [0.0, 0.0, 0.0],
+            "size_mm": enclosure["external_size_mm"],
+            "mpn": enclosure["mpn"],
+        },
+        "QUALIFICATION_CANDIDATE_ENVELOPE",
+        "ENCLOSURE_STRUCTURE",
+        "qualification",
+    )
     for spec in params["layout"]["selected_candidates"]:
         row(spec, "SELECTED_CANDIDATE_ENVELOPE", "HIGH_CURRENT_SAFETY" if spec["part_id"] == "SAF-REL-001" else "LOGIC_LOW_VOLTAGE")
     row(params["layout"]["door_selected_candidate"], "SELECTED_CANDIDATE_ENVELOPE", "DOOR_HARDWIRED_SAFETY")
     row(params["layout"]["pcb_reserved"], "PCB_RESERVED_FABRICATION_HOLD", "LOGIC_LOW_VOLTAGE")
     for spec in params["layout"]["user_inventory"]:
         row(spec, "USER_INVENTORY_VERIFY_MEASUREMENT", "LOGIC_LOW_VOLTAGE")
+    for spec in params["layout"]["qualification_candidates"]:
+        row(spec, "QUALIFICATION_CANDIDATE_ENVELOPE", "HIGH_CURRENT_SAFETY", "qualification")
     for spec in params["layout"]["placeholders"]:
         row(spec, "PLACEHOLDER_TBD_NOT_ORDERABLE", "HIGH_CURRENT_SAFETY" if spec["origin_mm"][0] < params["logic_partition_x_mm"] else "LOGIC_LOW_VOLTAGE", "qualification")
     for spec in params["layout"]["wire_routes"]:
@@ -154,9 +171,9 @@ def build():
 
     doc = App.newDocument("ControlEnclosureLayout")
     objects = [
-        styled_feature(doc, "GroundedShell", "CTL-SHELL-001", make_shell(params), "CTL-ASM-001", "Grounded sheet-metal enclosure", "STRUCTURE"),
+        styled_feature(doc, "GroundedShell", "ENC1 | CTL-ENC-001 | QUALIFICATION CANDIDATE", make_shell(params), "CTL-ENC-001", "nVent HOFFMAN MAS0405021R5", "QUALIFICATION_CANDIDATE_ENVELOPE", "ENC1", params["enclosure_candidate"]["source"]),
         styled_feature(doc, "BackplatePartitionDIN", "CTL-BACK-001", make_backplate_and_partition(params), "CTL-ASM-001", "Grounded backplate, metal partition and DIN rails", "STRUCTURE"),
-        styled_feature(doc, "ServiceDoor", "CTL-DOOR-001", make_split_door(params), "CTL-ASM-001", "Grounded service door with selected/TBD cutouts", "STRUCTURE"),
+        styled_feature(doc, "ServiceDoor", "ENC1 DOOR | CTL-ENC-001 | QUALIFICATION CANDIDATE", make_split_door(params), "CTL-ENC-001", "nVent HOFFMAN MAS0405021R5 service door", "QUALIFICATION_CANDIDATE_ENVELOPE", "ENC1", params["enclosure_candidate"]["source"]),
     ]
 
     for spec in params["layout"]["selected_candidates"]:
@@ -181,6 +198,11 @@ def build():
         objects.append(styled_feature(
             doc, spec["ref"], f'{spec["ref"]} | {spec["part_id"]} | INVENTORY VERIFY', make_user_inventory(spec),
             spec["part_id"], "User-owned assembly", "USER_INVENTORY_ENVELOPE", spec["ref"], spec["source"],
+        ))
+    for spec in params["layout"]["qualification_candidates"]:
+        objects.append(styled_feature(
+            doc, spec["ref"], f'{spec["ref"]} | {spec["part_id"]} | QUALIFICATION CANDIDATE', make_qualification_candidate(spec),
+            spec["part_id"], spec["mpn"], "QUALIFICATION_CANDIDATE_ENVELOPE", spec["ref"], f'{spec["source"]}; {spec["qualification"]}',
         ))
     for spec in params["layout"]["placeholders"]:
         objects.append(styled_feature(
@@ -213,6 +235,7 @@ def build():
         "terminal_service_keepout_mm": params["terminal_service_keepout_mm"],
         "placement_state_counts": {
             "selected_candidate_envelopes": len(params["layout"]["selected_candidates"]) + 1,
+            "qualification_candidate_envelopes": len(params["layout"]["qualification_candidates"]) + 2,
             "pcb_reserved": 1,
             "user_inventory_verify": len(params["layout"]["user_inventory"]),
             "placeholder_tbd": len(params["layout"]["placeholders"]) + 1,
@@ -226,7 +249,7 @@ def build():
             "layout_csv": str(layout_csv.relative_to(ROOT)),
         },
         "limitations": [
-            "Green selected envelopes are not purchase approvals; exact suffix, terminals and application suitability still require review.",
+            "Green selected envelopes are planning selections, while yellow exact-MPN envelopes still require application qualification; neither state is purchase approval.",
             "Blue PCB placement reserves the generated 190 x 130 mm board and four M3 holes, but its fabrication status remains HOLD.",
             "Orange placeholder solids cannot be used for ordering or drilling until exact candidates replace them.",
             "Red/yellow/blue/green wiring solids are route reservations, not conductor sizing or completed harness drawings.",

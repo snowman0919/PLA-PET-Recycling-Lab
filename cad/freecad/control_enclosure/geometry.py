@@ -1,9 +1,9 @@
 """Parametric control-enclosure geometry with explicit BOM placement states.
 
 The coordinate convention is X=width, Y=door-to-backplate depth and Z=height.
-Selected candidates use supplier dimensions, PCB geometry is a reserved mounting
-interface, user inventory remains measurement-dependent, and unselected devices
-are deliberately conservative placeholders.
+Selected and qualification candidates use supplier dimensions, PCB geometry is a
+reserved mounting interface, user inventory remains measurement-dependent, and
+unselected devices are deliberately conservative placeholders.
 """
 
 from __future__ import annotations
@@ -18,6 +18,16 @@ def compound(shapes):
 
 def box_from_spec(spec: dict):
     return Part.makeBox(*spec["size_mm"], App.Vector(*spec["origin_mm"]))
+
+
+def physical_shape_from_spec(spec: dict):
+    """Build one exact envelope or a repeated bank from individual item envelopes."""
+    if "instance_origins_mm" not in spec:
+        return box_from_spec(spec)
+    return compound(
+        Part.makeBox(*spec["item_size_mm"], App.Vector(*origin))
+        for origin in spec["instance_origins_mm"]
+    )
 
 
 def make_shell(params: dict):
@@ -35,7 +45,8 @@ def make_shell(params: dict):
 
 def make_backplate_and_partition(params: dict):
     w, d, h = params["width_mm"], params["depth_mm"], params["height_mm"]
-    backplate = Part.makeBox(w - 20.0, 3.0, h - 20.0, App.Vector(10.0, d - 8.0, 10.0))
+    plate_w, plate_t, plate_h = params["enclosure_candidate"]["mounting_plate_size_mm"]
+    backplate = Part.makeBox(plate_w, plate_t, plate_h, App.Vector((w - plate_w) / 2.0, d - 8.0, (h - plate_h) / 2.0))
     partition = Part.makeBox(3.0, d - 20.0, h - 20.0, App.Vector(params["logic_partition_x_mm"], 10.0, 10.0))
     high_din = Part.makeBox(
         params["high_current_din_rail_length_mm"], 8.0, 35.0,
@@ -56,6 +67,10 @@ def placeholder_specs(params: dict):
     return params["layout"]["placeholders"]
 
 
+def qualification_candidate_specs(params: dict):
+    return params["layout"]["qualification_candidates"]
+
+
 def user_inventory_specs(params: dict):
     return params["layout"]["user_inventory"]
 
@@ -70,6 +85,10 @@ def make_selected_candidate(spec: dict):
 
 def make_placeholder(spec: dict):
     return box_from_spec(spec)
+
+
+def make_qualification_candidate(spec: dict):
+    return physical_shape_from_spec(spec)
 
 
 def make_user_inventory(spec: dict):
@@ -120,7 +139,12 @@ def make_terminal_service_keepout(spec: dict, clearance_mm: float):
 
 def make_service_keepouts(params: dict):
     clearance = params["terminal_service_keepout_mm"]
-    specs = [*selected_candidate_specs(params), *placeholder_specs(params), *user_inventory_specs(params)]
+    specs = [
+        *selected_candidate_specs(params),
+        *qualification_candidate_specs(params),
+        *placeholder_specs(params),
+        *user_inventory_specs(params),
+    ]
     specs.append(params["layout"]["pcb_reserved"])
     return compound(make_terminal_service_keepout(spec, clearance) for spec in specs)
 
@@ -128,9 +152,10 @@ def make_service_keepouts(params: dict):
 def make_high_current_devices(params: dict):
     specs = [
         *[s for s in selected_candidate_specs(params) if s["part_id"] == "SAF-REL-001"],
-        *[s for s in placeholder_specs(params) if s["part_id"] in {"SAF-CON-001", "SAF-FUS-001", "ELE-HTR-DRV"}],
+        *qualification_candidate_specs(params),
+        *[s for s in placeholder_specs(params) if s["part_id"] == "SAF-FUS-001"],
     ]
-    return compound(box_from_spec(spec) for spec in specs)
+    return compound(physical_shape_from_spec(spec) for spec in specs)
 
 
 def make_logic_devices(params: dict):

@@ -1,15 +1,15 @@
 {
   "revision": "0.1.0-preflight",
   "generated_date": "2026-08-28",
-  "bom_row_count": 82,
-  "critical_row_count": 56,
+  "bom_row_count": 85,
+  "critical_row_count": 59,
   "status_counts": {
     "AVAILABLE": 2,
     "FABRICATION_HOLD": 1,
     "NEEDS_DYNO": 1,
     "NEEDS_INSPECTION": 6,
     "NEEDS_INVENTORY": 3,
-    "NEEDS_SELECTION": 27,
+    "NEEDS_SELECTION": 30,
     "PROOF_DESIGNED": 1,
     "PROVISIONAL": 41
   },
@@ -23,15 +23,28 @@
     "SAF-EST-001",
     "SAF-REL-001"
   ],
+  "engineering_candidate_floor_krw": 5240261,
+  "engineering_candidate_floor_includes": [
+    "CTL-ENC-001",
+    "ELE-BUCK-001",
+    "ELE-HTR-DRV",
+    "ELE-HTR-HS",
+    "GAU-CAM-001",
+    "GRN-BRG-001",
+    "SAF-CON-001",
+    "SAF-EST-001",
+    "SAF-FUS-HLD",
+    "SAF-REL-001"
+  ],
   "cost_rollup_file": "bom/cost_rollup.csv",
-  "required_baseline_line_count": 82,
+  "required_baseline_line_count": 85,
   "optional_addon_line_count": 0,
-  "required_baseline_tbd_line_count": 75,
+  "required_baseline_tbd_line_count": 78,
   "target_budget_status": "CONDITIONAL_ONLY_IF_PRIMARY_CANDIDATES_ARE_VALIDATED_STOCK_OR_REUSE",
   "engineering_recommended_total_status": "TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES",
   "pricing_assumptions": [
     "Planning conversion uses 1 USD = 1400 KRW and is not a live FX quote.",
-    "Public prices exclude unresolved shipping, tax, customs, incomplete assemblies, contactor and all unpriced rows.",
+    "Public prices exclude unresolved shipping, tax, customs, incomplete assemblies and all unpriced rows; qualification candidates are not purchase approvals.",
     "Conditional zero current cash applies only to the user-stated on-hand Pi and Mega; PSU fitness and replacement remain TBD."
   ]
 }

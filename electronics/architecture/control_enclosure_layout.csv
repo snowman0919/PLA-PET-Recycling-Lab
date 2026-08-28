@@ -1,15 +1,22 @@
 reference,bom_part_id,placement_state,zone,origin_mm,size_mm,mpn_or_class,dimension_or_qualification_evidence,harnesses
-K1,SAF-REL-001,SELECTED_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,25.0;71.0;285.0,22.5;121.0;90.0,LG5925.48/920/61 DC 24 V,"DOLD LG5925_920_DB.pdf, 2024-11-06, width x height x depth 22.5 x 90 x 121 mm",
-PS1,ELE-BUCK-001,SELECTED_CANDIDATE_ENVELOPE,LOGIC_LOW_VOLTAGE,265.0;137.5;285.0,35.0;54.5;90.0,DDR-30G-5,"MEAN WELL DDR-30-SPEC 2026-03-31, W x H x D 35 x 90 x 54.5 mm",
+ENC1,CTL-ENC-001,QUALIFICATION_CANDIDATE_ENVELOPE,ENCLOSURE_STRUCTURE,0.0;0.0;0.0,500.0;210.0;400.0,MAS0405021R5,"IP66 / Type 4 12 13 / IK10 catalog candidate; final SCCR, gland, thermal-rise and panel-shop approval remain open",
+K1,SAF-REL-001,SELECTED_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,25.0;81.0;300.0,22.5;121.0;90.0,LG5925.48/920/61 DC 24 V,"DOLD LG5925_920_DB.pdf, 2024-11-06, width x height x depth 22.5 x 90 x 121 mm",
+PS1,ELE-BUCK-001,SELECTED_CANDIDATE_ENVELOPE,LOGIC_LOW_VOLTAGE,265.0;147.5;285.0,35.0;54.5;90.0,DDR-30G-5,"MEAN WELL DDR-30-SPEC 2026-03-31, W x H x D 35 x 90 x 54.5 mm",
 S0,SAF-EST-001,SELECTED_CANDIDATE_ENVELOPE,DOOR_HARDWIRED_SAFETY,150.0;-25.0;310.0,40.0;105.0;40.0,A22E-M-02,"OMRON A22E dimensions/lineup, 40 mm head and 22 mm class panel cutout; 80 mm rear keep-out is conservative",
 PCB1,ELE-PCB-IF,PCB_RESERVED_FABRICATION_HOLD,LOGIC_LOW_VOLTAGE,285.0;160.0;25.0,190.0;32.0;130.0,TBD,electronics/pcb/interface_board/generate.py; fabrication hold,
-SBC1,SYS-CTRL-001,USER_INVENTORY_VERIFY_MEASUREMENT,LOGIC_LOW_VOLTAGE,265.0;174.0;190.0,85.0;18.0;56.0,TBD,nominal Raspberry Pi 4 board envelope; verify owned unit and connector overhang,
-MCU1,SYS-CTRL-002,USER_INVENTORY_VERIFY_MEASUREMENT,LOGIC_LOW_VOLTAGE,365.0;174.0;190.0,102.0;18.0;54.0,TBD,nominal Arduino Mega 2560 board envelope; verify owned unit and connector overhang,
-K2,SAF-CON-001,PLACEHOLDER_TBD_NOT_ORDERABLE,HIGH_CURRENT_SAFETY,65.0;92.0;270.0,60.0;100.0;105.0,TBD,"select a monitored 24 VDC load contactor, then replace this conservative envelope",
-F1,SAF-FUS-001,PLACEHOLDER_TBD_NOT_ORDERABLE,HIGH_CURRENT_SAFETY,25.0;112.0;170.0,190.0;80.0;65.0,TBD,select finger-safe main and branch fuse distribution and terminal accessories,
-QH1_QH6,ELE-HTR-DRV,PLACEHOLDER_TBD_NOT_ORDERABLE,HIGH_CURRENT_SAFETY,25.0;112.0;55.0,190.0;80.0;75.0,TBD,six separately fused 24 VDC heater drivers; thermal and terminal spacing validation open,
-X1_XN,MISC-WIR-001,PLACEHOLDER_TBD_NOT_ORDERABLE,LOGIC_LOW_VOLTAGE,265.0;142.0;260.0,205.0;50.0;20.0,TBD,select keyed terminals after conductor gauge and branch current measurements,
+SBC1,SYS-CTRL-001,USER_INVENTORY_VERIFY_MEASUREMENT,LOGIC_LOW_VOLTAGE,265.0;184.0;190.0,85.0;18.0;56.0,TBD,nominal Raspberry Pi 4 board envelope; verify owned unit and connector overhang,
+MCU1,SYS-CTRL-002,USER_INVENTORY_VERIFY_MEASUREMENT,LOGIC_LOW_VOLTAGE,365.0;184.0;190.0,102.0;18.0;54.0,TBD,nominal Arduino Mega 2560 board envelope; verify owned unit and connector overhang,
+K2A,SAF-CON-001,QUALIFICATION_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,55.0;82.5;300.0,45.0;119.5;86.0,AFS30-30-22-11,"Tower A hazardous-motion zone candidate; confirm DC-1 series-pole wiring, measured branch current and safety EDM architecture",
+K2B,SAF-CON-001,QUALIFICATION_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,105.0;82.5;300.0,45.0;119.5;86.0,AFS30-30-22-11,"Tower B drive-and-heater zone candidate; confirm DC-1 series-pole wiring, measured branch current and safety EDM architecture",
+FBR01_FBR07,SAF-FUS-HLD,QUALIFICATION_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,10.0;128.12;200.0,122.5;73.88;83.19,CHCC1DU,"seven branch-holder positions only; actual fuse links, conductor sizes and coordination remain TBD",
+FBR08_FBR14,SAF-FUS-HLD,QUALIFICATION_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,10.0;128.12;108.0,122.5;73.88;83.19,CHCC1DU,"seven branch-holder positions only; actual fuse links, conductor sizes and coordination remain TBD",
+HS1,ELE-HTR-HS,QUALIFICATION_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,138.8;141.8;20.0,76.2;60.2;132.1,HS103DR,three-SSR heat-sink candidate; installed thermal resistance and enclosure ambient test remain open,
+HS2,ELE-HTR-HS,QUALIFICATION_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,138.8;141.8;160.0,76.2;60.2;132.1,HS103DR,three-SSR heat-sink candidate; installed thermal resistance and enclosure ambient test remain open,
+QH1_QH3,ELE-HTR-DRV,QUALIFICATION_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,146.8;106.75;19.375,60.2;35.05;133.35,84137860,three isolated DC SSR candidates mounted to HS1; welded-on and 40 C thermal tests remain open,
+QH4_QH6,ELE-HTR-DRV,QUALIFICATION_CANDIDATE_ENVELOPE,HIGH_CURRENT_SAFETY,146.8;106.75;159.375,60.2;35.05;133.35,84137860,three isolated DC SSR candidates mounted to HS2; welded-on and 40 C thermal tests remain open,
+FMAIN_FLINKS,SAF-FUS-001,PLACEHOLDER_TBD_NOT_ORDERABLE,HIGH_CURRENT_SAFETY,155.0;132.0;315.0,60.0;70.0;70.0,TBD,main holder and all actual fuse links remain unselected until source and measured branch currents are available,
+X1_XN,MISC-WIR-001,PLACEHOLDER_TBD_NOT_ORDERABLE,LOGIC_LOW_VOLTAGE,265.0;152.0;260.0,205.0;50.0;20.0,TBD,select keyed terminals after conductor gauge and branch current measurements,
 WR-HIGH,MISC-WIR-001,WIRE_ROUTE_RESERVED,24V_HIGH_CURRENT_HEATER,220.0;40.0;25.0,15.0;125.0;350.0,24V_HIGH_CURRENT_HEATER,"reserved route/duct envelope; conductor gauge, connector and bend radius remain open","H01,H03,H10,H11,H12,H13,H14,H18"
 WR-SAFE,MISC-WIR-001,WIRE_ROUTE_RESERVED,HARDWIRED_SAFETY_CHAIN,15.0;35.0;245.0,180.0;16.0;20.0,HARDWIRED_SAFETY_CHAIN,"reserved route/duct envelope; conductor gauge, connector and bend radius remain open","H02,H08"
 WR-LOGIC,MISC-WIR-001,WIRE_ROUTE_RESERVED,5V_LOGIC_SENSOR,475.0;40.0;25.0,15.0;125.0;350.0,5V_LOGIC_SENSOR,"reserved route/duct envelope; conductor gauge, connector and bend radius remain open","H04,H05,H06,H07,H09,H15,H16"
-WR-PE,MISC-WIR-001,WIRE_ROUTE_RESERVED,PROTECTIVE_EARTH,20.0;181.0;10.0,455.0;8.0;10.0,PROTECTIVE_EARTH,"reserved route/duct envelope; conductor gauge, connector and bend radius remain open",H17
+WR-PE,MISC-WIR-001,WIRE_ROUTE_RESERVED,PROTECTIVE_EARTH,20.0;191.0;10.0,455.0;8.0;10.0,PROTECTIVE_EARTH,"reserved route/duct envelope; conductor gauge, connector and bend radius remain open",H17

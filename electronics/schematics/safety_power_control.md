@@ -18,22 +18,24 @@ AC inlet
             └─ dual-channel latching E-stop safety relay
                  ├─ monitored manual reset
                  ├─ lid/service NC drive-enable chain
-                 ├─ contactor/high-current cutoff coil
-                 └─ switched 24 V bus
-                      ├─ branch fuse ─ shredder driver
-                      ├─ branch fuse ─ sorter driver
-                      ├─ branch fuse ─ extruder driver
-                      ├─ branch fuse ─ puller/spooler/traverse
-                      ├─ zone fuse ─ thermal fuse ─ Z1 driver/heater
-                      ├─ zone fuse ─ thermal fuse ─ Z2 driver/heater
-                      ├─ zone fuse ─ thermal fuse ─ Z3 driver/heater
-                      ├─ zone fuse ─ thermal fuse ─ die driver/heater
-                      └─ hardware exclusive selector
-                           ├─ PLA trip/fuse ─ PLA dryer heater
-                           └─ PET trip/fuse ─ PET dryer heater
+                 ├─ K2A Tower A safety-contactor coil
+                 │    └─ Tower A switched bus
+                 │         ├─ FBR-A1 ─ shredder driver
+                 │         └─ FBR-A2 ─ sorter/feeder hazardous motion
+                 └─ K2B Tower B safety-contactor coil
+                      └─ Tower B switched bus
+                           ├─ FBR-B1 ─ extruder driver
+                           ├─ FBR-B2 ─ puller/spooler/traverse
+                           ├─ FBR-B3..B6 ─ zone fuse ─ thermal fuse ─ Z1/Z2/Z3/die driver/heater
+                           ├─ FBR-B7 ─ dryer blower/agitator/feeder
+                           ├─ FBR-B8 ─ desiccant regeneration branch
+                           ├─ FBR-B9 ─ cooling fans
+                           └─ hardware exclusive selector
+                                ├─ FBR-B10 ─ PLA trip/fuse ─ PLA dryer heater
+                                └─ FBR-B11 ─ PET trip/fuse ─ PET dryer heater
 ```
 
-Mega `CONTACTOR_REQUEST`는 safety relay의 허가 입력 중 하나일 뿐 E-stop contact를 우회하지 않는다. 모든 driver enable에는 hardware pulldown을 두어 Mega reset, cable open과 unpowered MCU에서 off가 된다. Heater MOSFET/SSR가 welded-on이어도 independent high-limit/thermal fuse와 contactor가 에너지를 제거해야 한다.
+K2A/K2B의 mirror NC 보조접점은 safety relay의 EDM/reset feedback loop에 직렬 연결한다. 어느 한 접촉기라도 용착·미복귀하면 수동 reset을 금지한다. Mega `CONTACTOR_REQUEST`는 safety relay의 허가 입력 중 하나일 뿐 E-stop contact를 우회하지 않는다. 모든 driver enable에는 hardware pulldown을 두어 Mega reset, cable open과 unpowered MCU에서 off가 된다. Heater MOSFET/SSR가 welded-on이어도 independent high-limit/thermal fuse와 K2B가 에너지를 제거해야 한다. 후보 AFS30의 24 VDC 부하 차단에는 ABB가 지정한 DC-1 series-pole 구성을 사용해야 하며, 정확한 pole 수와 branch 정격은 실측 전 `TBD`다.
 
 ## 안전 입력 논리
 
@@ -41,7 +43,7 @@ Safety relay와 독립 trip의 isolated auxiliary contact는 Mega `INPUT_PULLUP`
 
 | 하드웨어 기능 | firmware 진단 | 단일 고장 시 기대 상태 |
 |---|---|---|
-| E-stop safety relay가 switched bus/contactor 차단 | D22 aux + D23 mirror feedback | MCU stuck-high여도 heater/위험 motor 무전원 |
+| E-stop safety relay가 K2A/K2B 두 zone bus 차단 | D22 aux + D23 series mirror feedback | MCU stuck-high여도 양 tower의 heater/위험 motor 무전원; 한 접촉기 용착 시 reset 금지 |
 | Lid/service NC chain이 shredder enable 차단 | D24/D25 | switch wire open에서 drive 불능 |
 | Zone thermal fuse/high-limit relay가 heater 차단 | D26 + zone temperatures | MOSFET welded-on에서도 branch/contact 차단 |
 | Mechanical/discrete pressure trip | D27 + A7 transducer | analog firmware fault와 독립 차단 |

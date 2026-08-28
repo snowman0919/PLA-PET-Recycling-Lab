@@ -380,9 +380,15 @@ def validate_control_enclosure_assembly() -> None:
         "PCB1ComponentServiceKeepout",
         "SBC1",
         "MCU1",
-        "K2",
-        "F1",
-        "QH1_QH6",
+        "K2A",
+        "K2B",
+        "FBR01_FBR07",
+        "FBR08_FBR14",
+        "HS1",
+        "HS2",
+        "QH1_QH3",
+        "QH4_QH6",
+        "FMAIN_FLINKS",
         "X1_XN",
         "WR_HIGH",
         "WR_SAFE",
@@ -396,7 +402,8 @@ def validate_control_enclosure_assembly() -> None:
     require(expected == {o.Name for o in doc.Objects}, "control-enclosure proof object set differs")
     categories = [getattr(obj, "Category", "") for obj in doc.Objects]
     require(categories.count("SELECTED_CANDIDATE_ENVELOPE") == 3, "selected-candidate object count differs")
-    require(categories.count("PLACEHOLDER_TBD") == 5, "TBD placeholder object count differs")
+    require(categories.count("QUALIFICATION_CANDIDATE_ENVELOPE") == 10, "qualification-candidate object count differs")
+    require(categories.count("PLACEHOLDER_TBD") == 3, "TBD placeholder object count differs")
     require(len([value for value in categories if value.startswith("WIRE_ROUTE_")]) == 4, "wiring-route class count differs")
     for obj in doc.Objects:
         require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null control-enclosure shape: {obj.Name}")

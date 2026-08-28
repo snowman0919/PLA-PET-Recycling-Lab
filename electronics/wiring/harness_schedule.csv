@@ -1,7 +1,7 @@
 Harness,From,To,Conductors,Signal/power,Protection/connector rule,Status
 H01,24 V PSU output,Main disconnect/fuse,2,24 V high current,"Shortest practical run; finger-safe cover; actual gauge/fuse after PSU label",NEEDS_LABEL
-H02,Main disconnect,E-stop safety relay/contactor,4,24 V dual-channel control+bus,"Dual-channel latching E-stop; monitored reset; no MCU bypass",NEEDS_SELECTION
-H03,Safety contactor,Fused branch distribution,2,Switched 24 V high current,"Touch-safe busbar; branch labels; protective cover",NEEDS_SELECTION
+H02,Main disconnect,E-stop safety relay and K2A/K2B,6,24 V dual-channel control plus two contactor coils and series EDM,"Dual-channel latching E-stop; both mirror NC contacts in reset feedback; no MCU bypass",NEEDS_SELECTION
+H03,K2A/K2B safety contactors,Tower A and Tower B fused branch distributions,4,Two switched 24 V high-current zone buses,"Keep zone buses separate; touch-safe covers and branch labels; pole series wiring per selected DC utilization data",NEEDS_SELECTION
 H04,Always-on fused branch,24-to-5 V buck,2,24 V low current,"Independent fuse; buck sized for Pi transients; do not back-feed USB",NEEDS_SELECTION
 H05,5 V buck,Raspberry Pi 4,2,5 V logic power,"Vendor-rated connector/cable; undervoltage logging",NEEDS_SELECTION
 H06,Protected logic supply,Arduino Mega,2,7-12 V VIN or regulated 5 V,"Choose exactly one approved method; common logic ground at star point",NEEDS_SELECTION

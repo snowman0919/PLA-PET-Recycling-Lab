@@ -10,7 +10,7 @@ Revision: `0.1.0-preflight`
 
 `nix develop --command python3 validation/run_all.py`가 다음 33개 gate를 순서대로 실행한다. 최신 PCB 추가분은 별도 gate에서도 선검증했다.
 
-1. Source BOM 재생성 및 82행/56 CRITICAL/status/가격 증거 검사
+1. Source BOM 재생성 및 85행/59 CRITICAL/status/가격 증거 검사
 2. Dryer power·thermal·feed budget, 압출기/건조기 shield·인접 polymer 정상/고장 열 gate와 metal hot-path geometry
 3. Electronics pin collision, H01–H18, 5개 commissioning lock, heartbeat/jam/power timing
 4. Extruder diameter sweep·pressure/thrust/drive/heater screening과 geometry clearance
@@ -33,7 +33,7 @@ Revision: `0.1.0-preflight`
 21. KiCad monitor/interface board의 native source, ERC 0, DRC 0/미연결 0, 분리 zone, 3 fiducial, 12 test point, fabrication 산출물과 SPICE 9/9 pass 계약
 22. Stage 1 실제 cutter STEP의 Gmsh coarse/fine C3D4 mesh와 CalculiX 2.23 선형 정적 변위·응력·반력·mesh convergence 계약
 
-최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (33 gates)`로 통과했다. Manifest는 `artifacts/manifest.json`이며 KiCad source/제조/분석, 데이터시트 provenance, Stage 1 CAD 기반 3D 선형 정적 FEA, 다중 공급처 조달 증거와 control-enclosure BOM 배치표를 포함한 359개 항목의 bytes와 SHA-256를 기록한다. PCB 단독 marker `KICAD_INTERFACE_BOARD_OK`도 통과했다.
+최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (33 gates)`로 통과했다. Manifest는 `artifacts/manifest.json`이며 KiCad source/제조/분석, 데이터시트 provenance, Stage 1 CAD 기반 3D 선형 정적 FEA, 다중 공급처 조달 증거와 85행 BOM에 연결된 control-enclosure exact-MPN/PCB/placeholder/wire-route 배치표를 포함한 359개 항목의 bytes와 SHA-256를 기록한다. PCB 단독 marker `KICAD_INTERFACE_BOARD_OK`도 통과했다.
 
 ## 통과가 의미하는 것
 
@@ -59,7 +59,7 @@ Revision: `0.1.0-preflight`
 
 ## 재현 상태
 
-이전 revision의 generator→표준/review render→Nix Typst PDF→30-gate 재생성은 PASS했다. KiCad 추가 revision은 커밋 `3195b8e`의 별도 clean clone에서 32개 gate와 manifest 353개가 모두 PASS했다. 이후 Stage 1 실제 CAD 3D 선형 정적 FEA gate를 더한 revision은 별도 clean clone에서 33개 gate와 manifest 355개가 모두 PASS했다. 조달 경로와 500×400×200 mm BOM 추적형 control-enclosure 배치를 포함한 커밋 `9ab335d`도 별도 clean clone에서 33개 gate와 manifest 359개가 모두 PASS했다. 저장된 CUDA evidence는 GPU가 없는 clone에서도 device/sample/threshold/CPU cross-check와 contract/source hash를 검증한다.
+이전 revision의 generator→표준/review render→Nix Typst PDF→30-gate 재생성은 PASS했다. KiCad 추가 revision은 커밋 `3195b8e`의 별도 clean clone에서 32개 gate와 manifest 353개가 모두 PASS했다. 이후 Stage 1 실제 CAD 3D 선형 정적 FEA gate를 더한 revision은 별도 clean clone에서 33개 gate와 manifest 355개가 모두 PASS했다. 조달 경로와 500×400×200 mm BOM 추적형 control-enclosure 배치를 포함한 커밋 `9ab335d`도 별도 clean clone에서 33개 gate와 manifest 359개가 모두 PASS했다. 이번 500×400×210 mm exact-enclosure 후보, K2A/K2B, fuse-holder 14개, DC SSR 6개와 방열판 2개 통합 작업트리에서도 Nix 전체 33개 gate와 manifest 359개가 PASS했다. 저장된 CUDA evidence는 GPU가 없는 clone에서도 device/sample/threshold/CPU cross-check와 contract/source hash를 검증한다.
 
 STEP header timestamp와 review JSON 경로는 deterministic 값/저장소 상대경로로 정규화한다. STL, DXF, 표준/review render, Nix Typst 0.15.1 PDF, 계산 JSON과 review JSON은 clean clone에서 byte-identical했다. FCStd 51개는 FreeCAD가 생성 시각·UUID·내부 object ID를 기록하므로 형상·object-set 검증은 재현되지만 container byte hash는 실행마다 달라질 수 있다. Manifest는 해당 실행에서 전달되는 실제 파일의 hash를 기록한다.
 

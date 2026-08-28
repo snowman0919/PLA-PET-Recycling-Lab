@@ -232,6 +232,18 @@ def render_control_enclosure_bom_layout(target: Path) -> None:
         return ox + x * scale, oy - z * scale
 
     def rectangle(spec, fill, outline, label):
+        if "instance_origins_mm" in spec:
+            item_sx, _, item_sz = spec["item_size_mm"]
+            group_left = group_top = None
+            for origin in spec["instance_origins_mm"]:
+                ix, _, iz = origin
+                ix1, iy1 = xy(ix, iz + item_sz)
+                ix2, iy2 = xy(ix + item_sx, iz)
+                draw.rounded_rectangle((ix1, iy1, ix2, iy2), radius=3, fill=fill, outline=outline, width=2)
+                group_left = ix1 if group_left is None else min(group_left, ix1)
+                group_top = iy1 if group_top is None else min(group_top, iy1)
+            draw.text((group_left + 3, group_top + 3), label, fill=(20, 25, 30, 255), font=small)
+            return
         x, _, z = spec["origin_mm"]
         sx, _, sz = spec["size_mm"]
         x1, y1 = xy(x, z + sz)
@@ -256,6 +268,8 @@ def render_control_enclosure_bom_layout(target: Path) -> None:
         }
         fill, outline = route_colours[spec["class"]]
         rectangle(spec, fill, outline, spec["ref"])
+    for spec in p["layout"]["qualification_candidates"]:
+        rectangle(spec, (246, 210, 44, 205), (170, 132, 0, 255), spec["ref"])
     for spec in p["layout"]["placeholders"]:
         rectangle(spec, (245, 144, 38, 185), (195, 90, 10, 255), f'{spec["ref"]}  TBD')
     for spec in p["layout"]["user_inventory"]:
@@ -266,10 +280,11 @@ def render_control_enclosure_bom_layout(target: Path) -> None:
     rectangle(p["layout"]["door_selected_candidate"], (45, 190, 80, 155), (12, 120, 42, 255), "S0  SELECTED (DOOR)")
 
     draw.text((90, 30), "CONTROL ENCLOSURE — BOM / PCB / PLACEHOLDER / WIRING LAYOUT", fill=(25, 40, 55, 255), font=title_font)
-    draw.text((90, 72), "500 W × 400 H × 200 D mm · front projection · virtual fit only", fill=(70, 75, 80, 255), font=font)
+    draw.text((90, 72), "500 W × 400 H × 210 D mm · front projection · virtual fit only", fill=(70, 75, 80, 255), font=font)
     legend_x = 1310
     legend = (
         ((45, 190, 80, 220), "SELECTED CANDIDATE"),
+        ((246, 210, 44, 220), "EXACT MPN / QUALIFY"),
         ((40, 115, 230, 200), "PCB RESERVED"),
         ((70, 185, 220, 200), "USER INVENTORY / VERIFY"),
         ((245, 144, 38, 210), "PLACEHOLDER TBD"),
@@ -283,12 +298,12 @@ def render_control_enclosure_bom_layout(target: Path) -> None:
         draw.rectangle((legend_x, ly, legend_x + 34, ly + 34), fill=colour, outline=(50, 50, 50, 255), width=2)
         draw.text((legend_x + 46, ly + 6), text, fill=(35, 40, 45, 255), font=small)
     draw.multiline_text(
-        (1310, 740),
-        "K1  DOLD LG5925.48/920/61\nPS1  MEAN WELL DDR-30G-5\nS0  OMRON A22E-M-02",
+        (1310, 820),
+        "K2A/K2B  ABB AFS30\nFBR01…14  Eaton CHCC1DU\nQH1…6  Crydom 84137860\nHS1/HS2  Crydom HS103DR",
         fill=(20, 80, 35, 255), font=small, spacing=6,
     )
     draw.multiline_text(
-        (1310, 850),
+        (1310, 930),
         "30 mm terminal/service\nkeep-out reserved\n\nThermal rise · SCCR ·\ncreepage · bend radius ·\nPE continuity OPEN",
         fill=(125, 25, 25, 255), font=font, spacing=8,
     )

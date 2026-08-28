@@ -2,7 +2,7 @@
 
 조회일: 2026-08-28. 상태: **비교 후보 / 주문 미승인**.
 
-82행 시스템 BOM 중 BUY 29행을 모두 `procurement_routes.csv`에 연결했고, 그중 13개 Part ID에 실제 공개 페이지 또는 Playwright 검색 증거를 기록했다. `PRIMARY_CANDIDATE`는 가격 계산용 기준일 뿐 구매·안전 적합성 승인이 아니다.
+85행 시스템 BOM 중 BUY 32행을 모두 `procurement_routes.csv`에 연결했고, 그중 17개 Part ID에 실제 공개 페이지 또는 Playwright 검색 증거를 기록했다. `PRIMARY_CANDIDATE`와 qualification/sizing 후보는 가격·배치 계산용 기준일 뿐 구매·안전 적합성 승인이 아니다.
 
 | Part ID | 공급처 | 후보/MPN | 관측가 | 재고 | 선택 상태 | 링크 |
 |---|---|---|---:|---:|---|---|
@@ -25,6 +25,11 @@
 | GRN-BRG-001 | AliExpress | Two-piece 6203-2RS bearing search result / `6203-2RS` | 6720 KRW | UNKNOWN | SAMPLE_ONLY | [제품/검색 결과](https://ko.aliexpress.com/item/1005006330857857.html) |
 | SRT-ISO-001 | AliExpress | M5 rubber bobbin isolator search result / `M5 rubber mount` | 1405 KRW | UNKNOWN | SAMPLE_ONLY | [제품/검색 결과](https://ko.aliexpress.com/item/1005002994598621.html) |
 | COOL-AIR-001 | AliExpress | Delta PFB0824EHE claimed original fan search result / `PFB0824EHE` | 25600 KRW | UNKNOWN | SAMPLE_ONLY | [제품/검색 결과](https://ko.aliexpress.com/item/1005012625321003.html) |
+| SAF-CON-001 | Mouser | AFS safety contactor with fixed mirror auxiliaries / `AFS30-30-22-11` | 316.39 USD | 1 | QUALIFICATION_CANDIDATE | [제품/검색 결과](https://www.mouser.com/en/ProductDetail/ABB/AFS30-30-22-11?qs=iLKYxzqNS76HP0X0B0esXA%3D%3D) |
+| SAF-FUS-HLD | DigiKey | Class CC finger-safe one-pole DIN fuse holder / `CHCC1DU` | 95.10 USD | 0 | SIZING_CANDIDATE | [제품/검색 결과](https://www.digikey.com/en/products/detail/eaton-bussmann-electrical-division/CHCC1DU/2767773) |
+| ELE-HTR-DRV | DigiKey | IP20 isolated GN-series DC MOSFET SSR / `84137860` | 116.39 USD | 20 | QUALIFICATION_CANDIDATE | [제품/검색 결과](https://www.digikey.com/en/products/detail/sensata-crydom/84137860/1816877) |
+| ELE-HTR-HS | DigiKey | Three-single-SSR DIN or panel heat sink / `HS103DR` | 159.18 USD | 102 | QUALIFICATION_CANDIDATE | [제품/검색 결과](https://www.digikey.com/en/products/detail/sensata-crydom/HS103DR/2120202) |
+| CTL-ENC-001 | DigiKey | 500 by 400 by 210 mm mild-steel enclosure with mounting plate / `MAS0405021R5` | 457.76 USD | 8 | QUALIFICATION_CANDIDATE | [제품/검색 결과](https://www.digikey.com/en/products/detail/hoffman-enclosures-inc/MAS0405021R5/18633327) |
 
 ## 해석 규칙
 
