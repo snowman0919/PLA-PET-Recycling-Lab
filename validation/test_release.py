@@ -70,6 +70,12 @@ def test_budget():
     declared_absolute = int(next(row for row in rows if row["item_id"] == "ABSOLUTE_TOTAL_WITH_RESERVE")["planned_cash_krw"])
     require(target == declared_target and target <= 180000, f"target budget {target}")
     require(target + reserve == declared_absolute and declared_absolute <= 200000, f"absolute budget {declared_absolute}")
+    physical_state = json.loads((ROOT / "validation/physical_gate_status.json").read_text())
+    require(
+        physical_state["budget_target_krw"] == declared_target
+        and physical_state["budget_absolute_with_reserve_krw"] == declared_absolute,
+        "physical gate status budget stale",
+    )
     print_allow=int(next(row for row in rows if row["item_id"]=="PRINT-ALLOW")["planned_cash_krw"])
     print_cost=list(csv.DictReader((ROOT/"bom/printed_material_cost.csv").open()))
     require(print_allow==int(next(row for row in print_cost if row["part_id"]=="TOTAL_PLANNING")["estimated_cost_krw"]),"print budget stale from slicer")
