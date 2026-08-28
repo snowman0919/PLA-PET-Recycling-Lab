@@ -1,0 +1,32 @@
+within PLA_PET_Recycler.Systems;
+model FormingSpoolSystem
+  parameter Real fillStart=0;
+  parameter Real gaugeDropStart=1e9;
+  parameter Real throughputGPH=112;
+  Components.Puller puller;
+  Components.FilamentSpan span;
+  Components.Dancer dancer;
+  Components.VariableRadiusSpool spool(fillStart=fillStart);
+  Real lineSpeed;
+  Real lineTension;
+  Real dancerAngle;
+  Real spoolRadius;
+  Real spoolInertia;
+  Boolean gaugeValid;
+  Boolean controlledPause;
+equation
+  lineSpeed=(throughputGPH/1000/3600)/(1240*Modelica.Constants.pi*(0.00175/2)^2);
+  gaugeValid=not (time>=gaugeDropStart and time<gaugeDropStart+1.0);
+  controlledPause=not gaugeValid;
+  puller.speedCommand=lineSpeed;
+  puller.enable=gaugeValid;
+  span.pullerSpeed=puller.speed;
+  span.spoolSurfaceSpeed=spool.surfaceSpeed;
+  spool.lineSpeed=puller.speed;
+  spool.dancerAngle=dancer.angle;
+  dancer.lineTension=span.tension;
+  lineTension=span.tension;
+  dancerAngle=dancer.angle;
+  spoolRadius=spool.radius;
+  spoolInertia=spool.inertia;
+end FormingSpoolSystem;

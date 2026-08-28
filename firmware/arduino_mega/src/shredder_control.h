@@ -18,10 +18,12 @@ struct ShredderOutput {
   ShredderCommand command;
   uint8_t target_rpm;
   uint8_t retry_count;
+  float estimated_cutter_torque_nm;
 };
 
 class ShredderController {
  public:
+  bool configureDrive(const DriveCalibration& calibration);
   bool start(const ProcessProfile& profile, const ShredderInputs& inputs);
   ShredderOutput update(const ShredderInputs& inputs);
   void stop();
@@ -29,7 +31,10 @@ class ShredderController {
 
  private:
   void latchFault();
+  float estimateCutterTorque(float current_amp) const;
   const ProcessProfile* profile_{nullptr};
+  DriveCalibration calibration_{};
+  bool calibration_configured_{false};
   ShredderCommand command_{ShredderCommand::STOP};
   uint8_t retries_{0};
   uint32_t overload_since_ms_{0};

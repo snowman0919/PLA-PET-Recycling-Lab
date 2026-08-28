@@ -27,5 +27,11 @@ int main() {
   SafetyInputs unsafe{true, false, true, true, true};
   assert(!c.start(unsafe));
   assert(PLA_PROFILE.zone_c[2] < PET_PROFILE.zone_c[2]);
+  assert(PLA_PROFILE.screw_rpm == 18.0f);
+  assert(PET_PROFILE.screw_rpm == 20.0f);
+  assert(!PLA_PROFILE.external_predry_qualified);
+  assert(!PET_PROFILE.external_predry_qualified);
+  assert(INPUT_MECHANICAL_FUSE_NM < PHASE_DRIVETRAIN_ALLOWABLE_NM);
+  assert(PHASE_DRIVETRAIN_ALLOWABLE_NM < SHAFT_CUTTER_ALLOWABLE_NM);
   std::cout << "MATERIAL_PROFILE_STATE_MACHINE_OK\n";
 }

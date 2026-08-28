@@ -6,4 +6,6 @@ Home UI 항목은 PLA, PET, Maintenance, Calibration이다. 운전 화면은 mat
 
 E-stop, lid/service interlock, branch fuse와 thermal fuse는 이 firmware와 독립된 hardware cut chain이다.
 
-`shredder_control`은 DRV-01/#35 chain interchangeable geared-DC interface를 대상으로 PLA/PET 32/24 rpm, 16/18 A 지속 과부하, 명령속도 대비 35% 이상 RPM drop, profile별 reverse duration과 최대 3회 retry를 처리한다. Donor별 current-to-torque와 encoder pulse/rev는 Gate-1에서 calibration한다. 세 번째 reverse 종료 뒤 fault를 latch하며, heater 또는 screw enable과 shredder enable은 상호 배제한다. 이 host core는 BTS7960 board의 실제 PWM pin driver나 current calibration을 대신하지 않는다.
+`shredder_control`은 DRV-01/#35 chain interchangeable geared-DC interface를 대상으로 PLA/PET 32/24 rpm을 사용한다. 전류의 고정 A값을 토크로 간주하지 않고, donor별 no-load current, motor torque/A, 감속비, 효율을 Gate-1에서 calibration한 뒤에만 시작한다. Profile의 18 N·m jam 한계, 명령속도 대비 35% 이상 RPM drop, profile별 reverse duration과 최대 3회 retry를 처리한다. 세 번째 reverse 종료 뒤 fault를 latch하며, heater 또는 screw enable과 shredder enable은 상호 배제한다. `REFERENCE_DRIVE_CALIBRATION`은 디지털 sensitivity용이며 `verified=false`라서 실제 운전에 사용할 수 없다.
+
+`src/generated_profiles.h`는 `cad/parameters/baseline.json`에서 `generate_config.py`로 생성한다. Screw setpoint는 PLA 18 rpm/PET 20 rpm이며, 외부 pre-dry는 현재 둘 다 `UNQUALIFIED_EXTERNAL_PROCESS`라 firmware에서 확인 완료로 가정하지 않는다.

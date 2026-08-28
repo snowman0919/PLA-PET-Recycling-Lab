@@ -5,12 +5,15 @@
 
 int main() {
   ShredderController c;
+  DriveCalibration calibration = REFERENCE_DRIVE_CALIBRATION;
+  calibration.verified = true;  // Host test fixture; production requires Gate-1 record.
+  assert(c.configureDrive(calibration));
   ShredderInputs in{0, 2.0f, 32.0f, true, false};
   assert(c.start(PLA_PROFILE, in));
   auto out = c.update(in);
   assert(out.command == ShredderCommand::FORWARD && out.target_rpm == 32);
 
-  in.current_amp = 16.2f;
+  in.current_amp = 12.0f;
   in.now_ms = 100;
   c.update(in);
   in.now_ms = 751;
@@ -24,7 +27,7 @@ int main() {
 
   // Two more sustained jams latch after the third bounded reverse.
   for (int retry = 2; retry <= 3; ++retry) {
-    in.current_amp = 17.0f;
+    in.current_amp = 12.0f;
     in.now_ms += 10;
     c.update(in);
     in.now_ms += 651;
@@ -46,5 +49,5 @@ int main() {
   in.permission_chain_ok = false;
   assert(c.update(in).command == ShredderCommand::FAULT_LATCHED);
 
-  std::cout << "SHREDDER_CURRENT_RPM_RETRY_OK\n";
+  std::cout << "SHREDDER_CALIBRATED_TORQUE_RPM_RETRY_OK\n";
 }

@@ -1,13 +1,23 @@
-item,qty,source,cash_krw,status,reuse_after_test,notes
-CUT-01 coupon disc,2,exports/cnc/CUT-01,4000,COUPON_RFQ,yes,D2/SKD11 candidate; no remaining 10 discs
-CUT-03 side plate,2,exports/cnc/CUT-03,8000,RFQ_HOLD,yes,42 H7 seats match-machined
-CUT-05 shaft,2,exports/cnc/CUT-05,12000,RFQ_HOLD,yes,final machine shaft
-CUT-04 5 mm screen coupon,1,exports/cnc/CUT-04,0,BUDGET_LINE_CNC04,yes,5 mm holes; 3 mm 304; top clearance >=1.9 mm
-6004-2RS,4,project-lab/donor,0,VERIFY_INVENTORY,yes,designation/play/corrosion
-DRV-03 phase lamination,6,exports/drive_interface,6000,COUPON_RFQ,yes,3 laminations per gear
-G1J-01 base,1,donor metal plate,0,VERIFY_INVENTORY,jig,flatness <=0.3 mm
-G1J-02 torque arm,1,exports/jigs/gate1/parts,2000,RFQ_HOLD,jig,250.0 mm force radius
-0-200 N force gauge or 100 kg load cell/HX711,1,project-lab or buy allowance,7500,CALIBRATION_HOLD,jig,accuracy <=2% after calibration
-3 mm polycarbonate guard sheet,1,project-lab/donor,0,VERIFY_INVENTORY,jig,no acrylic in fragment plane
-printed chute/tray/corners,1,exports/jigs/gate1/parts,4500,PRINT_HOLD,jig,약 0.25 kg; cold low-load only
-M6/M8 fastener shim collars,1,hardware allowance,1500,BUY_HOLD,yes,metal shim controls cutter clearance
+item_id,item,qty,source,planning_cash_krw,budget_bucket,status,reuse_after_test,notes
+CUT-01,CUT-01 coupon disc,2,exports/cnc/CUT-01,4000,CNC-01,COUPON_RFQ_ALLOWED,yes,D2/SKD11 candidate; remaining full stack is HOLD
+CUT-03,CUT-03 side plate,2,exports/cnc/CUT-03,7000,CNC-02,RFQ_HOLD,yes,42 H7 bearing seats match-machined
+CUT-05,CUT-05 shaft,2,exports/cnc/CUT-05,11000,CNC-03,RFQ_HOLD,yes,final-machine shaft; received inspection required
+CUT-04,CUT-04 5 mm screen coupon,1,exports/cnc/CUT-04,5000,CNC-04,COUPON_RFQ_ALLOWED,yes,3 mm 304; actual clearance >=1.9 mm
+BRG-6004,6004-2RS bearing,4,project-lab/donor or HW-ALLOW,0,HW-ALLOW,VERIFY_INVENTORY,yes,designation/play/corrosion; buy cost must remain inside bucket
+DRV-03,M3 Z16 phase gear lamination,6,exports/drive_interface,6000,SH-INTERFACE,COUPON_RFQ_ALLOWED,yes,3 laminations/gear; 2xM4 + 1x3H7 dowel PCD30
+G1J-01,Reusable base plate,1,donor plate; drawing supplied,0,HW-ALLOW,VERIFY_INVENTORY,jig,"320x240x8, flatness <=0.30; no zero-cash claim until verified"
+G1J-02,250 mm torque arm,1,exports/jigs/gate1/parts,0,CNC-02,RFQ_HOLD,jig,nest with CNC-02 flat pack; no separate budget addition
+G1J-03,Front/rear polycarbonate panels,2,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,"3 mm PC, never acrylic; bucket includes all G1J-03..06 sheet"
+G1J-04,Left polycarbonate panel,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,3 mm PC
+G1J-05,Right slotted polycarbonate panel,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,open edge slot and baffle required
+G1J-06,Torque-slot offset baffle,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,blocks fragment line of sight
+G1J-07,20x20x2 metal guard upright L180,4,standard angle stock,0,HW-ALLOW,BUY_HOLD,jig,primary fragment-retention load path
+G1J-08,20x20x2 steel screen rail L150,2,standard angle stock,0,HW-ALLOW,BUY_HOLD,jig,shimmed/removable
+G1J-09,Interlock metal bracket,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,switch model-specific overtravel set at assembly
+G1J-10,40x40x4 CUT-03 foot L50,4,standard angle stock,0,HW-ALLOW,BUY_HOLD,jig,metal plate-to-base load path
+MET-01,0-200 N force gauge or 100 kg load cell/HX711,1,project-lab or buy allowance,7500,GATE1-METROLOGY,CALIBRATION_HOLD,jig,accuracy <=2%; M8 clevis and independent safety tether
+G1J-P01..03,Printed chute/tray/edge trim,1,exports/jigs/gate1/parts,4500,GATE1-PRINT,PRINT_HOLD,jig,234 g estimate; cold low-load only
+SAFE-K0/K1,Manual-reset control relay and 24 V motor power relay,1,project-lab or SAFE-ALLOW,0,SAFE-ALLOW,VERIFY_RATING,yes,K1 DC breaking rating >=30 V/25 A; K0 has seal-in auxiliary contact
+SAFE-S0/S1,Latching E-stop NC + positive-opening guard switch NC,1,project-lab or SAFE-ALLOW,0,SAFE-ALLOW,VERIFY_RATING,yes,series hard inhibit; Mega cannot bypass
+SAFE-F1/F2,20 A motor branch fuse + 2 A control fuse,1,project-lab or fuse allowance,0,FUSE-ALLOW,VERIFY_RATING,yes,close to 24 V source
+HW-SET,"Fastener, shim, collar and clevis set",1,fastener_schedule.csv,0,HW-ALLOW,BUY_HOLD,yes,all quantities and torques in schedule; bucket cap retained

@@ -1,5 +1,5 @@
 {
-  "revision": "compact-single-path-v0.3",
+  "revision": "solid-manifold-openmodelica-v0.4",
   "bounding_box_mm": [
     470.0,
     700.0,
@@ -15,13 +15,17 @@
     700.0,
     930.0
   ],
-  "object_count": 79,
+  "object_count": 76,
   "includes": [
     "closed lid",
     "guards",
-    "motor/reducer keepouts",
+    "parametric reference drive",
     "cable duct",
     "1 kg spool",
-    "dancer/traverse motion"
+    "dancer arm",
+    "traverse rail"
+  ],
+  "excludes": [
+    "motion and service keep-outs; see cad/review_keepouts"
   ]
 }

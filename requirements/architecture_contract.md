@@ -1,32 +1,28 @@
-# 아키텍처 계약 — compact-single-path-v0.3
+# 아키텍처 계약 — solid-manifold-openmodelica-v0.4
 
 ## 잠긴 결정
 
 1. Material은 `PLA` 또는 `PET`이며 RUN 진입 때 잠긴다.
-2. 두 재질은 동일 hopper, cutter, screen, bin, sealed feed hopper, feeder, screw, barrel, breaker, die, cooling, gauge, puller, dancer, traverse와 spool을 통과한다.
-3. 외부 pre-dry를 채택한다. 장치 내 hopper heater는 재흡수 방지용이며 원료 건조 완료를 대신하지 않는다.
-4. 선택 layout은 470 x 700 x 930 mm vertical forming cabinet이다.
-5. 90 degree 방향 전환은 metal die 내부에서 끝난다. Die 출구부터 puller까지 filament 중심선은 수직 직선이고, 첫 guide bend는 puller 아래의 solid strand에만 적용한다.
-6. Cutter는 Candidate A다. 단일 dual-shaft 반복 hook disc와 removable screen을 사용하고 oversize는 전원을 격리한 뒤 수동 재투입한다.
-7. Cutter actuator는 DRV-01/#35 chain/DRV-02 interchangeable interface의 geared brushed-DC motor 1개로 right shaft를 구동하고 generic M3 Z16 face>=18 mm pair로 counter-rotation/phase를 유지한다. 특정 motor/coupling/gear part number에 종속하지 않으며 PLA/PET별 motor나 shaft를 복제하지 않는다.
-8. Raspberry Pi, 자동 재질/색상 분류와 network dashboard는 active scope가 아니다.
-
-## Material profile로만 달라지는 값
-
-Shredder speed/load/retry, pre-dry confirmation, maintenance temperature, feeder speed, screw RPM, barrel/die temperature, cooling fan, puller feed-forward, diameter PI gain, purge recipe가 달라질 수 있다. 기계 path와 guard topology는 달라지지 않는다.
+2. 동일 hopper, cutter, screen, bin, sealed feed hopper, feeder, screw/barrel/die, cooling, gauge, puller, dancer/traverse/spool을 공유한다.
+3. 외부 pre-dry를 채택하며 machine hopper heater는 재흡수 방지용이다.
+4. 470×700×930 mm vertical forming cabinet을 유지하며 새 tower/rail/path를 만들지 않는다.
+5. Die 출구부터 puller까지 soft filament는 직선이고 첫 bend는 puller 뒤 solid strand에만 적용한다.
+6. Candidate A single compact dual-shaft repeated hook cutter + removable screen을 유지한다.
+7. Shredder drive는 DRV-01/#35 chain/DRV-02/generic M3 Z16 interface다. 특정 MY1016Z/coupling/phase gear에 종속하지 않는다.
+8. Active manufacturing assembly와 review keep-out를 별도 package로 유지한다. Keep-out volume은 부품이나 mass로 집계하지 않는다.
+9. Raspberry Pi, 자동 재질/색상 분류, network dashboard는 active scope가 아니다.
 
 ## 안전 불변조건
 
-- E-stop과 lid/service switch는 Mega 명령과 독립적으로 shredder, feeder, screw, heater branch enable을 끊는다.
-- 각 heater branch에는 정격을 확인한 fuse와 one-shot thermal fuse가 있다.
-- Cutter와 screw의 힘 경로는 metal shaft -> bearing/thrust plate -> metal plate -> profile -> table이다.
-- Jam retry는 최대 3회 뒤 latched fault다. Clear는 물리 lockout와 원인 제거 뒤에만 가능하다.
-- Melt pressure sensor가 없어도 open die, removable screen, calibrated motor torque trip, sacrificial threaded die retainer/guarded catch가 중복 방호를 제공해야 한다.
+- E-stop과 lid/service switch는 Mega와 독립적으로 motor/heater branch enable을 차단한다.
+- Heater branch fuse, one-shot thermal fuse, grounded metal shield를 삭제하지 않는다.
+- Cutter/screw 힘 경로는 metal shaft → bearing/thrust plate → metal plate → profile → four-point M8 table anchor다.
+- 최대 3회 bounded reverse 후 latched fault. Lockout와 원인 제거 확인 없이 clear 금지.
+- Calibrated electrical trip 18 N·m equivalent와 upstream mechanical fuse 22 N·m가 34 N·m phase 및 48 N·m shaft/cutter보다 먼저 작동한다.
+- Melt pressure sensor가 없어도 open die, replaceable screen, torque trip, sacrificial relief, guard, remote first-hot-test를 유지한다.
 
-## Claim 경계
+## Claim·발주 경계
 
-CAD와 계산은 조립성·간섭·nominal load screening만 보인다. 실제 flake 입도, melt flow, 200 g/h, 1.75 mm 품질, 안전 인증은 물리 gate 전 미검증이다.
+Release state `DIGITAL_FABRICATION_BASELINE`은 closed-solid CAD, actual slicing, Modelica/CalculiX screening과 문서 일치를 뜻한다. 물리 상태는 `PHYSICAL_VALIDATION_PENDING`/`PHYSICAL_NOT_RUN`이다.
 
-## 발주·승격 잠금
-
-Gate-1 signed raw CSV와 사진/영상 evidence가 PASS로 검토되기 전 CUT-01은 2장 coupon 외 발주하지 않고 `main`으로 승격하지 않는다. EX-CPN-SCR/EX-CPN-BAR 공정 coupon과 공급사 DFM 전 EX-SCR-01/EX-BAR-01 full 발주도 금지한다.
+Gate-1 signed raw CSV와 photo/video hash가 PASS 전 CUT-01은 2장 coupon 외 발주하지 않는다. EX-CPN-SCR/EX-CPN-BAR와 supplier DFM 전 full EX-SCR-01/EX-BAR-01을 발주하지 않는다. 사용자의 명시적 조건에 따라 Gate-1 결과 없이 `main`으로 승격하지 않는다.

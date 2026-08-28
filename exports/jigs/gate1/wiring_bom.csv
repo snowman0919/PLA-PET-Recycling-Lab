@@ -1,0 +1,14 @@
+ref,qty,functional_specification,source_priority,budget_bucket,received_inspection,release
+F1,1,"20 A DC branch fuse + holder, >=32 VDC interrupt rating",project-lab then low-cost buy,FUSE-ALLOW,continuity and holder heating at coupon current,HOLD
+F2,1,"2 A DC control fuse + holder, >=32 VDC",project-lab then low-cost buy,FUSE-ALLOW,continuity and polarity,HOLD
+S0,1,"latching mushroom E-stop, 1 NC positive-opening contact, >=24 VDC/1 A control",project-lab then low-cost buy,SAFE-ALLOW,terminal identity and forced-opening continuity,HOLD
+S1,1,"guard switch, positive-opening NC, metal actuator preferred",project-lab then low-cost buy,SAFE-ALLOW,travel/overtravel and forced-opening continuity,HOLD
+S2,1,"momentary START pushbutton, 1 NO, >=24 VDC/1 A",project-lab then low-cost buy,SAFE-ALLOW,contact continuity,HOLD
+K0,1,"24 VDC manual-reset control relay, >=2 NO auxiliary contacts, coil suppression",project-lab then low-cost buy,SAFE-ALLOW,"coil voltage, seal-in drop on S0/S1",HOLD
+K1,1,"24 VDC motor-power relay/contactor, NO main contact >=30 VDC/25 A plus aux",project-lab then low-cost buy,SAFE-ALLOW,DC breaking rating; contact drop/temp under coupon load,HOLD
+DRV,1,"reversible 24 V motor driver, >=30 A peak with heatsink",existing BTS7960-class candidate,SH-DRIVE,load test and heatsink temperature,HOLD
+CS1,1,galvanically isolated 50 A current sensor,existing ACS758-class candidate,SH-DRIVE,zero/span calibration; never sole safety cut,HOLD
+TB1,1,touch-safe terminal block >=32 VDC/30 A,project-lab then low-cost buy,HW-ALLOW,rating and screw retention,HOLD
+WIRE-P,1,"red/black >=2.5 mm2 copper motor harness, 105 C",project-lab then low-cost buy,HW-ALLOW,crimp pull test and voltage drop,HOLD
+WIRE-C,1,"0.5-0.75 mm2 control wire, ferrules, labels",project-lab then low-cost buy,HW-ALLOW,point-to-point continuity,HOLD
+PE,1,green/yellow >=2.5 mm2 chassis/guard bond with star washers,project-lab then low-cost buy,HW-ALLOW,<0.1 ohm bond at accessible metal,HOLD

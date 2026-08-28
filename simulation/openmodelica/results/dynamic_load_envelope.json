@@ -1,0 +1,29 @@
+{
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "source": "OpenModelica DASSL scenario maximum; PHYSICAL_NOT_RUN",
+  "governing_scenarios": {
+    "peak_cutter_torque_nm": "InputFuseOperation",
+    "peak_phase_torque_nm": "InputFuseOperation",
+    "peak_bearing_load_n": "OneShaftJam",
+    "peak_chain_force_n": "InputFuseOperation",
+    "peak_frame_reaction_n": "OneShaftJam"
+  },
+  "loads": {
+    "peak_cutter_torque_nm": 22.0,
+    "peak_phase_torque_nm": 23.54,
+    "peak_bearing_load_n": 1425.960236313944,
+    "peak_chain_force_n": 602.9556386019965,
+    "peak_frame_reaction_n": 1564.550371657191
+  },
+  "full_system": {
+    "peak_base_reaction_n": 1290.014414780859,
+    "peak_tipping_moment_nm": 340.197813204321,
+    "peak_anchor_tension_n": 399.2911645927027,
+    "anchor_tension_limit_n": 1200.0
+  },
+  "design_caps": {
+    "input_fuse_torque_nm": 22.0,
+    "phase_allowable_torque_nm": 34.0,
+    "shaft_allowable_torque_nm": 48.0
+  }
+}

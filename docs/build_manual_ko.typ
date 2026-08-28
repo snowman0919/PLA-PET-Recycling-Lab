@@ -1,4 +1,4 @@
-#set document(title: "Compact Single-Path PLA/PET Recycler v0.3 제작 매뉴얼")
+#set document(title: "Solid Manifold OpenModelica PLA/PET Recycler v0.4 제작 매뉴얼")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -13,17 +13,19 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision compact-single-path-v0.3 · 2026-08-28]
+  #text(size: 11pt)[Revision solid-manifold-openmodelica-v0.4 · 2026-08-29]
 ]
 
 #danger[*물리 운전 승인 문서가 아니다.* Cutter, screw, heater, mains/high-current는 사용자 승인, exact component 확인, guard와 물리 Gate 전 energize하지 않는다.]
+
+Release state: `DIGITAL_FABRICATION_BASELINE` / Physical state: `PHYSICAL_NOT_RUN`.
 
 #pagebreak()
 = 작업 전 확인
 
 `bom/reuse_inventory.csv`의 UNVERIFIED 항목은 label, 수량, 상태, shaft, voltage/current와 telemetry를 기록한다. 사용할 수 없는 donor는 `cash_budget.csv` allowance 범위에서 대체하되 주문은 승인 후 진행한다.
 
-#danger[VE 조건부 cash scenario는 198,808 KRW지만 donor motor는 UNVERIFIED다. 정확 model·수량·상태와 Gate-1 증거 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
+#danger[조건부 target은 178,420 KRW, contingency 포함 absolute plan은 198,420 KRW지만 donor motor와 RFQ는 UNVERIFIED다. 정확 증거와 Gate-1 PASS 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
 
 PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesive와 오염을 제거하고 PLA에는 metal insert가 없어야 한다. 미확인 plastic은 투입하지 않는다.
 
@@ -47,17 +49,17 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 `CUT-01`은 76% cycloidal capture flank가 회전 중심 쪽 root에서 tip으로 진행하고, 24% 빠른 relief가 hook back을 만들도록 좌우 shaft에 같은 disc를 끼운다. 오른쪽 shaft만 180/7 degree phase offset한다. Ø20.2 bore의 6.2 mm blind internal keyway가 root section 안에서 끝나고 tooth 외곽까지 열리지 않았는지 검사한다. 각 disc 사이에는 `CUT-02` 7 mm spacer와 금속 shim을 사용한다. Disc가 plate 또는 반대 shaft disc와 접촉하면 motor를 연결하지 않는다.
 
-검증된 18–30 V donor geared-DC motor를 `CUT-07/DRV-01` universal plate의 standard metal angle에 장착한다. #35 12T motor sprocket과 18T 또는 24T cutter sprocket을 DRV-02 four-bolt hub로 분리하고 chain alignment를 0.5 mm 이내로 맞춘다. 두 cutter shaft에는 generic M3 Z16, 20 degree, face>=18 mm steel pair 또는 DRV-03 lamination 3장/gear를 설치한다. 한 gear의 6 x 6 x 4 mm brass key가 20–24 N·m에서 sacrificial relief로 작동하는지 coupon으로 정한다. Hand rotation 20회에서 tooth/chain/disc 접촉이 없어야 interlocked guard를 닫는다.
+검증된 18–30 V donor geared-DC motor를 `CUT-07/DRV-01` universal plate의 standard metal angle에 장착한다. #35 12T motor sprocket과 18T 또는 24T cutter sprocket을 DRV-02 four-bolt hub로 분리하고 chain alignment를 0.5 mm 이내로 맞춘다. 두 cutter shaft에는 generic M3 Z16, 20 degree, face>=18 mm steel pair 또는 DRV-03 lamination 3장/gear를 설치한다. DRV-02 input hub의 replaceable key/shear element를 22 N·m에서 calibration해 34 N·m phase pair와 48 N·m shaft/cutter보다 upstream에서 먼저 분리되게 한다. Hand rotation 20회에서 tooth/chain/disc 접촉이 없어야 interlocked guard를 닫는다.
 
-#figure(image("../renders/modules/shredder_drive_guard_removed.png", width: 92%), caption: [Direct geared-DC motor/coupling/phase gear 조립 — 정상 운전은 guard 장착])
+#figure(image("../renders/modules/shredder_drive_guard_removed.png", width: 92%), caption: [Interchangeable donor geared-DC / #35 chain / cycloidal-derived cutter 조립 — 정상 운전은 guard 장착])
 
 #figure(image("../renders/review/shredder_fastener_tool_access.png", width: 92%), caption: [Bearing plate/shaft/tool access review])
 
-#danger[Gate-1 전 CUT-01은 정확히 2장 coupon만 허용한다. `exports/jigs/gate1`의 지그·BOM·절차로 donor label/shaft/current/RPM, PET body/folded seam과 PLA 1.2/2.0/3.0 mm의 torque/jam/chip size를 측정한 뒤 full stack을 판단한다.]
+#danger[Gate-1 전 CUT-01은 정확히 2장 coupon만 허용한다. `exports/jigs/gate1`의 G1J-01–10/P01–P03, metal guard upright/screen rail, fastener schedule, S0/S1→K0→K1 hard-cut 배선과 raw-data template으로 donor label/shaft/current/RPM, PET body/folded seam과 PLA 1.2/2.0/3.0 mm의 torque/jam/chip size를 측정한 뒤 full stack을 판단한다.]
 
 = Dry feed와 extruder
 
-원료는 외부 dryer에서 준비한 뒤 밀폐 용기로 옮겨 sealed hopper에 넣는다. Maintenance heater branch에 fuse, independent high-limit와 one-shot fuse를 직렬 설치한다.
+원료는 외부 dryer에서 준비한 뒤 밀폐 용기로 옮겨 sealed hopper에 넣는다. 현재 PLA/PET dryer recipe는 `UNQUALIFIED_EXTERNAL_PROCESS`이므로 물리 moisture coupon과 사용자 확인 없이 건조 완료로 표시하지 않는다. Maintenance heater branch에 fuse, independent high-limit와 one-shot fuse를 직렬 설치한다.
 
 16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. 먼저 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm coupon의 Ø, radial clearance 0.14–0.16 mm, hardness/case depth/Ra를 검사한다. Full part는 coupon/DFM과 Gate-3 전 발주하지 않는다. 이후 thrust bearing -> metal plate -> profile 순서로 조립하고 hand rotation, TIR <=0.10 mm와 30 min heater-off load 전 heater를 연결하지 않는다. Screw service는 cooldown/0 V 뒤 cassette를 cabinet 밖 작업대에서 축방향 인출한다.
 
@@ -95,6 +97,6 @@ Gate 1 cutter coupon -> Gate 2 flake/feed -> Gate 3 cold mechanical -> Gate 4 ho
 
 = Print package
 
-각 `exports/print/PPR-Cxx` 폴더에는 FCStd, STEP, STL, 3MF와 print notes가 있다. Plate는 `plate_layouts`, 전체 질량은 `total_material_report.md`를 참조한다. 모든 part는 각 축 210 mm 이하를 자동 검사한다.
+각 `exports/print/PPR-Cxx` 폴더에는 FCStd, STEP, STL, 3MF와 print notes가 있다. `plate_layouts`의 3MF는 PrusaSlicer 2.9.6이 생성한 실제 plate이며 nominal 913.67 g/76.6 h, reserve 포함 1,023.31 g이다. 모든 part는 각 축 210 mm 이하를 자동 검사한다.
 
 #figure(image("../renders/review/support_contact.png", width: 92%), caption: [아래보기 facet support-contact review — red])

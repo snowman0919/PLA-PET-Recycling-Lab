@@ -1,0 +1,15 @@
+joint_id,mating_parts,fastener,qty,washer_nut,nominal_torque_Nm,locking,access_tool,inspection
+FST-01,G1J-01 to test table,M8 x25 class 8.8 hex,4,M8 flat washer + fixture T-nut,18,mechanical prevailing nut/T-slot,13 mm socket,base flatness <=0.30 mm after torque
+FST-02,G1J-10 to G1J-01,M6 x20 class 8.8 hex,8,M6 washer + nyloc,9,nyloc,10 mm socket,no foot rocking; witness mark
+FST-03,CUT-03 to four G1J-10,M6 x20 class 8.8 hex,8,M6 washer + nyloc,9,nyloc,10 mm socket,plate perpendicularity <=0.20/125
+FST-04,G1J-08 screen rails to CUT-03/feet,M5 x16 class 8.8 hex,4,M5 washer + nyloc,5,nyloc,8 mm socket,screen minimum cutter clearance >=1.9 mm
+FST-05,CUT-04 to G1J-08 rails,M5 x12 thumb screw,4,M5 large washer + captive nut,3,captive nut,hand/8 mm,screen cannot lift; tool removal only after lockout
+FST-06,DRV-03 three-lamination stack per gear,M4 x22 class 10.9 SHCS,4,M4 washer + all-metal locknut,3,all-metal locknut,3 mm hex + 7 mm spanner,2 bolts/gear; dowel seated; stack face 18 mm
+FST-07,DRV-03 registration per gear,3 x18 hardened dowel h6,2,press/slip fit per drawing,N/A,3 H7 lamination holes,arbor press,one dowel/gear; no tooth-based registration
+FST-08,G1J-07 upright to G1J-01,M4 x16 class 8.8 hex,8,M4 washer + nyloc,3,nyloc,7 mm socket,upright verticality <=0.5/180
+FST-09,G1J-03/04/05 PC panel to G1J-07,M4 x16 pan-head,24,M4 nylon washer + nyloc,1.2,nyloc; no threadlocker on PC,PH2 + 7 mm,"panel retained, no crazing; 0.5 mm compliant washer compression"
+FST-10,G1J-06 baffle to G1J-05/upright,M4 x20 pan-head + 10 mm spacer,4,nylon washer + nyloc,1.2,nyloc,PH2 + 7 mm,>=10 mm offset and no line-of-sight to cutter
+FST-11,G1J-09 switch bracket to upright,M4 x16 class 8.8,2,washer + nyloc,3,nyloc,3 mm hex,positive opening and specified overtravel
+FST-12,received guard switch to G1J-09,M4 x20 pan-head,2,washer + nyloc,1.2,nyloc,PH2 + 7 mm,terminal/actuator not preloaded beyond rating
+FST-13,G1J-P01 feed chute to guard,M4 x16 pan-head,4,large washer + nyloc,1.2,nyloc,PH2 + 7 mm,anti-reach baffle intact; push-stick-only path
+FST-14,G1J-02 force gauge clevis,M8 shoulder bolt or clevis pin,1,two retainers + independent tether,hand snug,double retention,pliers/13 mm,line of pull <=2 degree; tether slack under normal load

@@ -1,0 +1,77 @@
+object,group,material,classification,shape_type,solid_count,volume_mm3
+FrameColumn0_0,frame,Al profile,manufactured_or_stock,Solid,1,372000.000
+FrameColumn0_680,frame,Al profile,manufactured_or_stock,Solid,1,372000.000
+FrameColumn450_0,frame,Al profile,manufactured_or_stock,Solid,1,372000.000
+FrameColumn450_680,frame,Al profile,manufactured_or_stock,Solid,1,372000.000
+FrameX0_0,frame,Al profile,manufactured_or_stock,Solid,1,188000.000
+FrameX0_680,frame,Al profile,manufactured_or_stock,Solid,1,188000.000
+FrameY0_0,frame,Al profile,manufactured_or_stock,Solid,1,280000.000
+FrameY0_450,frame,Al profile,manufactured_or_stock,Solid,1,280000.000
+FrameX910_0,frame,Al profile,manufactured_or_stock,Solid,1,188000.000
+FrameX910_680,frame,Al profile,manufactured_or_stock,Solid,1,188000.000
+FrameY910_0,frame,Al profile,manufactured_or_stock,Solid,1,280000.000
+FrameY910_450,frame,Al profile,manufactured_or_stock,Solid,1,280000.000
+MidRail320,frame,Al profile,manufactured_or_stock,Solid,1,188000.000
+MidRail500,frame,Al profile,manufactured_or_stock,Solid,1,188000.000
+MetalHopper,input,2 mm sheet metal,manufactured_or_stock,Compound,1,350155.867
+SlidingLid,input,PLA,manufactured_or_stock,Solid,1,304200.000
+AntiReach,input,PLA,manufactured_or_stock,Solid,1,1995000.000
+CutterPlateFront,shredder,CUT-03 steel,manufactured_or_stock,Compound,1,188962.100
+CutterPlateRear,shredder,CUT-03 steel,manufactured_or_stock,Compound,1,188962.100
+Shaft105,shredder,"S45C, three 6 mm keyway zones",manufactured_or_stock,Compound,1,65700.173
+Hook105_0,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook105_1,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook105_2,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook105_3,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook105_4,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook105_5,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Bearing105_315,shredder,6004,manufactured_or_stock,Compound,1,12779.622
+Bearing105_455,shredder,6004,manufactured_or_stock,Compound,1,12779.622
+Shaft153,shredder,"S45C, three 6 mm keyway zones",manufactured_or_stock,Compound,1,65700.173
+Hook153_0,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook153_1,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook153_2,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook153_3,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook153_4,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Hook153_5,shredder,tool steel,manufactured_or_stock,Compound,1,8684.368
+Bearing153_315,shredder,6004,manufactured_or_stock,Compound,1,12779.622
+Bearing153_455,shredder,6004,manufactured_or_stock,Compound,1,12779.622
+M6Fastener70_550,shredder,M6 steel,manufactured_or_stock,Solid,1,4636.991
+M6Fastener70_645,shredder,M6 steel,manufactured_or_stock,Solid,1,4636.991
+M6Fastener190_550,shredder,M6 steel,manufactured_or_stock,Solid,1,4636.991
+M6Fastener190_645,shredder,M6 steel,manufactured_or_stock,Solid,1,4636.991
+Screen,shredder,"CUT-04 3 mm 304 stainless, 5 mm holes",manufactured_or_stock,Solid,1,48600.000
+PhaseGear105,shredder,generic M3 Z16 20deg face18 steel or DRV-03 laminate,manufactured_or_stock,Compound,1,25732.059
+PhaseGear153,shredder,generic M3 Z16 20deg face18 steel or DRV-03 laminate,manufactured_or_stock,Compound,1,25732.059
+CutterSprocket24T,shredder,#35 18T/24T interchangeable,manufactured_or_stock,Solid,1,33929.201
+MotorSprocket12T,shredder,#35 12T + donor-side hub,manufactured_or_stock,Solid,1,16625.308
+ChainTightSide,shredder,#35 chain conservative solid LOD,purchased_reference_lod,Solid,1,2880.000
+ChainSlackSide,shredder,#35 chain conservative solid LOD,purchased_reference_lod,Solid,1,2880.000
+DriveGuard,shredder,1 mm grounded sheet + interlocked service cover,manufactured_or_stock,Solid,1,1322400.000
+ReferenceGearbox,shredder,DRV-REF parametric reference gearbox; replace adapter after measurement,interface_reference,Solid,1,302400.000
+ReferenceMotor,shredder,DRV-REF parametric motor; not a verified donor,interface_reference,Solid,1,699789.764
+MotorMountPlate,shredder,CUT-07/DRV-01 6 mm steel + donor-specific standard metal angles,manufactured_or_stock,Compound,1,133098.913
+BearingRetainerFront,shredder,CUT-08 2 mm steel,manufactured_or_stock,Compound,1,6898.597
+BearingRetainerRear,shredder,CUT-08 2 mm steel,manufactured_or_stock,Compound,1,6898.597
+FlakeBin,feed,thin PP sheet + printed corners,manufactured_or_stock,Compound,1,225662.000
+SealedFeedHopper,feed,2 mm sheet metal,manufactured_or_stock,Compound,1,243613.853
+Feeder,feed,metal,manufactured_or_stock,Solid,1,106876.982
+ThrustPlate,extruder,steel,manufactured_or_stock,Solid,1,119700.000
+Barrel,extruder,steel,manufactured_or_stock,Solid,1,254217.678
+HotShield,extruder,grounded sheet,manufactured_or_stock,Compound,1,126140.000
+ExtruderDrive,extruder,donor/verify,manufactured_or_stock,Solid,1,350625.000
+DownDie,extruder,stainless,manufactured_or_stock,Solid,1,24881.414
+DieOrifice,forming,filament,manufactured_or_stock,Solid,1,1837.832
+CoolingDuct,forming,ABS,manufactured_or_stock,Compound,1,114760.000
+Gauge,forming,ABS/optics,manufactured_or_stock,Compound,1,23940.000
+PullerPlate,forming,metal,manufactured_or_stock,Solid,1,380000.000
+PullerRoll75,forming,roller,manufactured_or_stock,Solid,1,31415.927
+PullerRoll115,forming,roller,manufactured_or_stock,Solid,1,31415.927
+GuideRoller,spooler,bearing,manufactured_or_stock,Solid,1,20357.520
+DancerArm,spooler,metal,manufactured_or_stock,Solid,1,18900.000
+Spool,spooler,1 kg spool,manufactured_or_stock,Solid,1,2293362.637
+SpoolCore,spooler,spindle,manufactured_or_stock,Solid,1,155031.314
+TraverseRail,spooler,donor rod,manufactured_or_stock,Solid,1,23040.000
+ControlPanel,control,metal/bezel,manufactured_or_stock,Solid,1,1263500.000
+PSU,control,24 V 600 W,manufactured_or_stock,Solid,1,2592000.000
+CableDuct,control,fixed vertical duct,manufactured_or_stock,Solid,1,243000.000

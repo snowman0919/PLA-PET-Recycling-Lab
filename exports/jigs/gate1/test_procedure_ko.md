@@ -5,26 +5,26 @@
 - CUT-01 coupon 2개와 CUT-04 5 mm screen coupon 1개만 사용한다. Full 12-disc stack과 screw/barrel 발주는 금지한다.
 - PLA wall 1.2/2.0/3.0 mm: 25 x 80 mm, 각 5개.
 - PET body single layer와 four-layer folded seam: 25 x 80 mm, 각 5개. Cap/neck/label/adhesive 제거.
-- 0–200 N force gauge 또는 calibrated load cell, arm radius 250.0 mm, driven-shaft Hall RPM, 50 A current sensor, 3/6/20 mm sieve, 0.1 g scale, video.
+- 0–200 N calibrated handheld force gauge(또는 load cell), M8 clevis + 독립 safety tether, arm radius 250.0 mm, driven-shaft Hall RPM, 50 A current sensor, 3/6/20 mm sieve, 0.1 g scale, video.
 - Force gauge는 0/49.05/98.10/147.15 N에서 오차 <=2%, arm radius 오차 <=0.5 mm여야 한다.
 
 ## A. Lockout와 dry mechanical
 
 1. Main disconnect OFF/0 V, shaft block, guard open 상태에서 fastener torque와 shim을 기록한다.
 2. Hand rotation 20회: cutter/plate/gear/screen 접촉 0, shaft TIR <=0.10 mm, phase error <=1.0°.
-3. Polycarbonate guard, lid/service switch와 E-stop이 motor energy를 실제 제거하는지 각각 continuity test한다.
+3. Polycarbonate guard, S0 E-stop과 S1 positive-opening switch가 K0/K1을 drop하여 motor bus energy를 실제 제거하는지 각각 continuity/voltage test한다. 전원 복귀 후 S2 START 없이 K1이 자동 재투입되면 FAIL이다.
 
 ## B. Quasi-static 절단토크
 
 1. Coupon을 push stick으로 capture point에 놓고 guard를 닫는다.
-2. Torque arm을 3–5 rpm 상당으로 당겨 peak force `F_peak`를 기록한다. `T_peak=F_peak x r`, `r=0.2500 m`다.
+2. Force gauge를 arm 운동평면에서 각도 편차 2° 이하로 유지하고 3–5 rpm 상당으로 당겨 peak force `F_peak`를 기록한다. `T_peak=F_peak x r`, `r=0.2500 m`다.
 3. 각 specimen 5회 후 median, maximum, failure mode(capture/buckle/shear/slip)를 기록한다.
 4. PLA 세 두께와 PET body의 max <=14 N·m, folded seam max <=24 N·m이어야 한다. 24 N·m 전에 shaft/gear/plate 영구변형, tooth crack 또는 key damage가 있으면 FAIL이다.
 
 ## C. Motor/current와 jam recovery
 
-1. 합격한 donor motor만 연결하고 PLA 32 rpm/PET 24 rpm에서 no-load current/RPM을 기록한다.
-2. Controlled folded seam jam을 각 재질 3회 만든다. PLA 16 A/650 ms, PET 18 A/850 ms 또는 command 대비 RPM 35% drop/500 ms에서 reverse가 시작돼야 한다.
+1. 합격한 donor motor만 연결하고 PLA 32 rpm/PET 24 rpm에서 no-load current/RPM, arm/load-cell torque 대비 current-to-torque slope, ratio와 효율을 기록한다. `verified` calibration record 없이는 powered cutter를 시작하지 않는다.
+2. Controlled jam을 각 재질 3회 만든다. Calibrated cutter torque 18 N·m에서 PLA 650 ms/PET 850 ms 또는 command 대비 RPM 35% drop/500 ms에서 reverse가 시작돼야 한다. 고정 A값은 donor 공통 torque 기준으로 사용하지 않는다.
 3. Reverse는 PLA 800 ms/PET 1100 ms, 최대 3회다. 세 번째 실패 뒤 enable=0과 latched fault가 유지돼야 한다.
 4. Guard를 열고 lockout/jam 제거 확인 없이는 reset되면 FAIL이다.
 
@@ -36,4 +36,4 @@
 
 ## 기록과 release
 
-CSV 필수 열은 material, specimen, thickness/fold, trial, peak_N, radius_m, peak_Nm, current_A, rpm_min, reverse_ms, retry, chip_bin_g, observation이다. Gate-1 PASS는 실제 서명된 raw CSV와 사진/영상 경로가 있어야 하며 simulation 값으로 대체할 수 없다.
+`gate1_results_template.csv`, `calibration_log_template.csv`, `specimen_schedule.csv`를 쓴다. Gate-1 PASS는 실제 서명된 raw CSV, calibration, 사진/영상 경로와 `gate1_release_record_ko.md`의 hash가 있어야 하며 simulation 값으로 대체할 수 없다.

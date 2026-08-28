@@ -1,0 +1,140 @@
+{
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "release_state": "DIGITAL_FABRICATION_BASELINE",
+  "physical_state": "PHYSICAL_NOT_RUN",
+  "input": "analysis/load_cases/openmodelica_dynamic_envelope.json",
+  "input_source": "OpenModelica DASSL scenario maximum; PHYSICAL_NOT_RUN",
+  "load_values": {
+    "peak_cutter_torque_nm": 22.0,
+    "peak_phase_torque_nm": 23.54,
+    "peak_bearing_load_n": 1425.960236313944,
+    "peak_chain_force_n": 602.9556386019965,
+    "peak_frame_reaction_n": 1564.550371657191
+  },
+  "calculix": {
+    "bearing_plate": {
+      "status": "PASS",
+      "returncode": 0,
+      "frd_bytes": 98943,
+      "converged": true,
+      "max_displacement_mm": 0.20905111583115266,
+      "max_von_mises_mpa": 51.53832437002584
+    },
+    "cutter_shaft": {
+      "status": "PASS",
+      "returncode": 0,
+      "frd_bytes": 5606,
+      "converged": true,
+      "max_displacement_mm": 0.014650878318193077,
+      "max_von_mises_mpa": 52.49616625938548
+    }
+  },
+  "checks": [
+    {
+      "component": "CUT-01 cutter tooth/root",
+      "method": "closed-form screening",
+      "source_load": "22 N\u00b7m input fuse cap",
+      "equivalent_stress_mpa": 57.95,
+      "allowable_mpa": 350,
+      "safety_factor": 6.04,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "6 mm tool-steel coupon geometry; impact/notch factor is not physically calibrated"
+    },
+    {
+      "component": "SH-SHAFT-01 20 mm cutter shaft",
+      "method": "closed-form screening",
+      "source_load": "bearing envelope + fuse cap",
+      "equivalent_stress_mpa": 59.626,
+      "allowable_mpa": 177.5,
+      "safety_factor": 2.98,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "S45C normalized; allowable=0.5\u00d7355 MPa yield"
+    },
+    {
+      "component": "SH-PLATE-01 bearing plate",
+      "method": "closed-form screening",
+      "source_load": "peak bearing load",
+      "equivalent_stress_mpa": 3.803,
+      "allowable_mpa": 137.5,
+      "safety_factor": 36.16,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "12 mm S275 ligament simplified as 75 mm strip"
+    },
+    {
+      "component": "PH-KEY-01 phase gear key",
+      "method": "closed-form screening",
+      "source_load": "34 N\u00b7m phase allowable",
+      "equivalent_stress_mpa": 31.481,
+      "allowable_mpa": 120,
+      "safety_factor": 3.81,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "6\u00d76\u00d718 mm key shear; hub bearing pressure separately inspect at RFQ"
+    },
+    {
+      "component": "CH-SPROCKET-01 overhang",
+      "method": "closed-form screening",
+      "source_load": "chain envelope + fuse cap",
+      "equivalent_stress_mpa": 33.45,
+      "allowable_mpa": 177.5,
+      "safety_factor": 5.31,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "20 mm shaft, 30 mm overhang"
+    },
+    {
+      "component": "DRV-03 motor adapter plate",
+      "method": "closed-form screening",
+      "source_load": "peak frame reaction",
+      "equivalent_stress_mpa": 7.04,
+      "allowable_mpa": 75,
+      "safety_factor": 10.65,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "6 mm 6061-T6/S275 equivalent bending strip; slot edge inspection required"
+    },
+    {
+      "component": "EX-THR-01 screw thrust plate",
+      "method": "closed-form screening",
+      "source_load": "6 MPa conservative blocked-die thrust",
+      "equivalent_stress_mpa": 3.077,
+      "allowable_mpa": 137.5,
+      "safety_factor": 44.68,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "calculated axial thrust 1206 N; open die and sacrificial relief remain mandatory"
+    },
+    {
+      "component": "SP-SHAFT-01 spool shaft",
+      "method": "closed-form screening",
+      "source_load": "1.35 kg spool + 8 N line tension",
+      "equivalent_stress_mpa": 35.916,
+      "allowable_mpa": 100,
+      "safety_factor": 2.78,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "8 mm steel shaft, 85 mm cantilever"
+    },
+    {
+      "component": "FR-ANCHOR-01 M8 table anchor",
+      "method": "closed-form screening",
+      "source_load": "FullMechanicalNominal anchor tension",
+      "equivalent_stress_mpa": 12.16,
+      "allowable_mpa": 320,
+      "safety_factor": 26.32,
+      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "status": "PASS",
+      "note": "minor-diameter tensile area; four anchors required, one-anchor conservative screening"
+    }
+  ],
+  "status": "PASS",
+  "failures": [],
+  "limitations": [
+    "OpenModelica cutter load is a pre-Gate-1 surrogate, not measured cutting torque.",
+    "Closed-form checks are screening models; stress concentration, fatigue, impact, weld and fastener preload require drawing review and physical gates.",
+    "CalculiX decks are linear-elastic decision checks for global shaft/plate response and do not certify the machine."
+  ]
+}

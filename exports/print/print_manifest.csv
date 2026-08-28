@@ -1,13 +1,13 @@
-part_id,name,quantity,material,x_mm,y_mm,z_mm,mass_each_g,mass_total_g,orientation,layer_height,walls,infill,support,fastener,tolerance,mating_part,assembly_order
-PPR-C01,Sliding hopper lid,1,PLA,195.00,195.00,6.00,102.04,102.04,flat,0.24 mm,4,20%,no,M4 captured nut,0.35 mm slide,metal hopper rails,3
-PPR-C02,Anti-reach baffle chute,1,PLA,190.00,150.00,90.00,240.95,240.95,outlet down,0.24 mm,5,25%,baffle edges only,M4x12 + captured nut,0.40 mm flake path,hopper and metal cutter chamber,4
-PPR-C03,Flake bin sheet corner,4,PLA,25.00,25.00,120.00,22.78,91.13,end down,0.28 mm,4,25%,no,M3x8 captured nut,0.30 mm sheet slot,1 mm sheet bin and screen rails,7
-PPR-C04,Screen drawer handle,1,PLA,120.00,25.00,20.00,47.12,47.12,back flat,0.24 mm,5,35%,no,M5x16 + washer,0.25 mm,metal screen,6
-PPR-C05,Cooling duct segment,2,ABS,80.00,75.00,135.00,84.80,169.60,end face down,0.24 mm,4,15%,no,M4x12,0.30 mm tongue,80 mm fan and next duct,13
-PPR-C06,Gauge enclosure half,2,ABS,95.00,70.00,28.00,30.91,61.83,outer face down,0.20 mm,4,25%,slot bridge only,M3x12 + heat-set insert,0.20 mm optical slit,LED/photodiode cross frame,14
-PPR-C07,Puller pinch guard,1,ABS,150.00,100.00,65.00,82.36,82.36,outer face down,0.24 mm,5,20%,window bridge only,M4 captive screw,0.40 mm guard gap,metal puller plate,15
-PPR-C08,Solid-strand guide bracket,2,PLA,60.00,45.00,70.00,40.58,81.15,L side,0.20 mm,5,40%,yes under bore,M5x16,0.25 mm bearing fit,625 bearing and profile,16
-PPR-C09,Spool cone adapter,2,PLA,70.00,69.98,35.00,30.57,61.13,large face down,0.20 mm,5,35%,no,M6 metal clamp,0.30 mm spool core,12 mm metal spindle,18
-PPR-C10,Traverse carriage,1,PLA,90.00,55.00,24.00,58.32,58.32,flat,0.20 mm,5,40%,rod bores only,M4 belt clamp,0.20 mm after ream,donor rods and GT2 belt,19
-PPR-C11,Control panel bezel,1,PLA,180.00,120.00,5.00,60.20,60.20,front face down,0.20 mm,4,20%,no,M3x10 + heat-set insert,0.25 mm TFT,metal control panel,21
-PPR-C12,Cable duct clip,8,PLA,24.00,18.00,18.00,5.58,44.64,side down,0.20 mm,4,50%,no,M4x10,0.30 mm snap,20 mm profile,22
+part_id,name,quantity,material,x_mm,y_mm,z_mm,cad_net_mass_each_g,cad_net_mass_total_g,slicer_mass_total_g,slicer_time_s,orientation,nozzle_mm,layer_height,walls,top_bottom_layers,infill,support,brim,minimum_wall_mm,fastener,tolerance,mating_part,assembly_order,slicer_status
+PPR-C01,Sliding hopper lid,1,PLA,195.00,195.00,6.00,102.04,102.04,98.13,39797,flat,0.4,0.24 mm,4,4,20%,no,none,1.6,M4 captured nut,0.35 mm slide,metal hopper rails,3,PASS
+PPR-C02,Anti-reach baffle chute,1,PLA,190.00,150.00,90.00,243.17,243.17,236.40,68626,outlet down,0.4,0.24 mm,5,5,25%,baffle edges only,none,2.0,M4x12 + captured nut,0.40 mm flake path,hopper and metal cutter chamber,4,PASS
+PPR-C03,Flake bin sheet corner,4,PLA,25.00,25.00,120.00,22.78,91.13,89.13,24153,end down,0.4,0.28 mm,4,4,25%,no,5 mm,1.6,M3x8 captured nut,0.30 mm sheet slot,1 mm sheet bin and screen rails,7,PASS
+PPR-C04,Screen drawer handle,1,PLA,120.00,25.00,20.00,47.12,47.12,28.94,8682,back flat,0.4,0.24 mm,5,5,35%,no,none,2.0,M5x16 + washer,0.25 mm,metal screen,6,PASS
+PPR-C05,Cooling duct segment,2,ABS,80.00,75.00,135.00,84.80,169.60,98.84,24824,end face down,0.4,0.24 mm,4,4,15%,no,5 mm,1.6,M4x12,0.30 mm tongue,80 mm fan and next duct,13,PASS
+PPR-C06,Gauge enclosure half,2,ABS,95.00,70.00,28.00,30.91,61.83,35.94,11914,outer face down,0.4,0.20 mm,4,4,25%,slot bridge only,none,1.6,M3x12 + heat-set insert,0.20 mm optical slit,LED/photodiode cross frame,14,PASS
+PPR-C07,Puller pinch guard,1,ABS,150.00,100.00,65.00,82.36,82.36,95.59,30315,outer face down,0.4,0.24 mm,5,5,20%,window bridge only,none,2.0,M4 captive screw,0.40 mm guard gap,metal puller plate,15,PASS
+PPR-C08,Solid-strand guide bracket,2,PLA,60.00,45.00,70.00,40.58,81.15,61.00,16240,L side,0.4,0.20 mm,5,5,40%,yes under bore,5 mm,2.0,M5x16,0.25 mm bearing fit,625 bearing and profile,16,PASS
+PPR-C09,Spool cone adapter,2,PLA,70.00,69.98,35.00,30.57,61.13,30.64,7486,large face down,0.4,0.20 mm,5,5,35%,no,none,2.0,M6 metal clamp,0.30 mm spool core,12 mm metal spindle,18,PASS
+PPR-C10,Traverse carriage,1,PLA,90.00,55.00,24.00,87.12,87.12,57.62,15173,flat,0.4,0.20 mm,5,5,40%,rod bores only,none,2.0,M4 belt clamp,0.20 mm after ream,donor rods and GT2 belt,19,PASS
+PPR-C11,Control panel bezel,1,PLA,180.00,120.00,5.00,60.20,60.20,42.02,13386,front face down,0.4,0.20 mm,4,4,20%,no,none,1.6,M3x10 + heat-set insert,0.25 mm TFT,metal control panel,21,PASS
+PPR-C12,Cable duct clip,8,PLA,24.00,18.00,18.00,5.58,44.64,39.42,15114,side down,0.4,0.20 mm,4,4,50%,no,none,1.6,M4x10,0.30 mm snap,20 mm profile,22,PASS

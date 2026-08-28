@@ -1,0 +1,12 @@
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Complex 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/ModelicaServices 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Modelica 4.0.0/package.mo");
+loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");
+cd("simulation/openmodelica/results/raw");
+simulate(PLA_PET_Recycler.Scenarios.PLANominal,startTime=0,stopTime=5,numberOfIntervals=500,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="SweepEfficiencyLow",simflags="-override drive.efficiency=0.55");
+simulate(PLA_PET_Recycler.Scenarios.PLANominal,startTime=0,stopTime=5,numberOfIntervals=500,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="SweepTorqueConstantLow",simflags="-override drive.torquePerAmp=1.0");
+simulate(PLA_PET_Recycler.Scenarios.PETNominal,startTime=0,stopTime=5,numberOfIntervals=500,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="SweepFrictionHigh",simflags="-override rightRotor.viscousFriction=0.08,leftRotor.viscousFriction=0.08");
+simulate(PLA_PET_Recycler.Scenarios.MultiToothEngagement,startTime=0,stopTime=5,numberOfIntervals=500,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="SweepLoadHigh",simflags="-override forcedLoad=3");
+simulate(PLA_PET_Recycler.Scenarios.ChainBacklashImpact,startTime=0,stopTime=5,numberOfIntervals=500,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="SweepInertiaLow",simflags="-override rightRotor.J=0.00018,leftRotor.J=0.00018");
+simulate(PLA_PET_Recycler.Scenarios.ChainBacklashImpact,startTime=0,stopTime=5,numberOfIntervals=500,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="SweepBacklashHigh",simflags="-override phaseBacklashRad=0.012");
+getErrorString();

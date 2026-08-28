@@ -1,83 +1,510 @@
 {
-  "revision": "compact-single-path-v0.3",
-  "screw_sweep": [
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "release_class": "DIGITAL_FABRICATION_BASELINE",
+  "throughput": {
+    "model": "solid_conveying_displacement_x_bulk_density_x_fill_x_efficiency_x_melt_backflow_factor",
+    "displacement_m3_rev": 2.058874161456607e-06,
+    "radial_clearance_mm_range": [
+      0.14,
+      0.16
+    ],
+    "pressure_backflow_and_tip_leakage_in_melt_factor": true,
+    "rows": [
+      {
+        "material": "PLA",
+        "rpm": 10,
+        "throughput_low_gph": 27.3,
+        "throughput_nominal_gph": 62.1,
+        "throughput_high_gph": 96.0,
+        "residence_low_s": 134.4,
+        "residence_high_s": 229.7
+      },
+      {
+        "material": "PLA",
+        "rpm": 14,
+        "throughput_low_gph": 38.2,
+        "throughput_nominal_gph": 86.9,
+        "throughput_high_gph": 134.4,
+        "residence_low_s": 96.0,
+        "residence_high_s": 164.0
+      },
+      {
+        "material": "PLA",
+        "rpm": 18,
+        "throughput_low_gph": 49.1,
+        "throughput_nominal_gph": 111.8,
+        "throughput_high_gph": 172.8,
+        "residence_low_s": 74.7,
+        "residence_high_s": 127.6
+      },
+      {
+        "material": "PLA",
+        "rpm": 20,
+        "throughput_low_gph": 54.5,
+        "throughput_nominal_gph": 124.2,
+        "throughput_high_gph": 192.0,
+        "residence_low_s": 67.2,
+        "residence_high_s": 114.8
+      },
+      {
+        "material": "PLA",
+        "rpm": 24,
+        "throughput_low_gph": 65.4,
+        "throughput_nominal_gph": 149.0,
+        "throughput_high_gph": 230.4,
+        "residence_low_s": 56.0,
+        "residence_high_s": 95.7
+      },
+      {
+        "material": "PLA",
+        "rpm": 28,
+        "throughput_low_gph": 76.3,
+        "throughput_nominal_gph": 173.9,
+        "throughput_high_gph": 268.8,
+        "residence_low_s": 48.0,
+        "residence_high_s": 82.0
+      },
+      {
+        "material": "PLA",
+        "rpm": 32,
+        "throughput_low_gph": 87.2,
+        "throughput_nominal_gph": 198.7,
+        "throughput_high_gph": 307.3,
+        "residence_low_s": 42.0,
+        "residence_high_s": 71.8
+      },
+      {
+        "material": "PLA",
+        "rpm": 36,
+        "throughput_low_gph": 98.2,
+        "throughput_nominal_gph": 223.5,
+        "throughput_high_gph": 345.7,
+        "residence_low_s": 37.3,
+        "residence_high_s": 63.8
+      },
+      {
+        "material": "PET",
+        "rpm": 10,
+        "throughput_low_gph": 19.4,
+        "throughput_nominal_gph": 54.2,
+        "throughput_high_gph": 85.8,
+        "residence_low_s": 141.0,
+        "residence_high_s": 256.4
+      },
+      {
+        "material": "PET",
+        "rpm": 14,
+        "throughput_low_gph": 27.2,
+        "throughput_nominal_gph": 75.9,
+        "throughput_high_gph": 120.1,
+        "residence_low_s": 100.7,
+        "residence_high_s": 183.2
+      },
+      {
+        "material": "PET",
+        "rpm": 18,
+        "throughput_low_gph": 35.0,
+        "throughput_nominal_gph": 97.5,
+        "throughput_high_gph": 154.4,
+        "residence_low_s": 78.3,
+        "residence_high_s": 142.5
+      },
+      {
+        "material": "PET",
+        "rpm": 20,
+        "throughput_low_gph": 38.9,
+        "throughput_nominal_gph": 108.4,
+        "throughput_high_gph": 171.6,
+        "residence_low_s": 70.5,
+        "residence_high_s": 128.2
+      },
+      {
+        "material": "PET",
+        "rpm": 24,
+        "throughput_low_gph": 46.6,
+        "throughput_nominal_gph": 130.0,
+        "throughput_high_gph": 205.9,
+        "residence_low_s": 58.8,
+        "residence_high_s": 106.8
+      },
+      {
+        "material": "PET",
+        "rpm": 28,
+        "throughput_low_gph": 54.4,
+        "throughput_nominal_gph": 151.7,
+        "throughput_high_gph": 240.2,
+        "residence_low_s": 50.4,
+        "residence_high_s": 91.6
+      },
+      {
+        "material": "PET",
+        "rpm": 32,
+        "throughput_low_gph": 62.2,
+        "throughput_nominal_gph": 173.4,
+        "throughput_high_gph": 274.5,
+        "residence_low_s": 44.1,
+        "residence_high_s": 80.1
+      },
+      {
+        "material": "PET",
+        "rpm": 36,
+        "throughput_low_gph": 69.9,
+        "throughput_nominal_gph": 195.1,
+        "throughput_high_gph": 308.8,
+        "residence_low_s": 39.2,
+        "residence_high_s": 71.2
+      }
+    ],
+    "profile_points": {
+      "PLA": {
+        "material": "PLA",
+        "rpm": 18,
+        "throughput_low_gph": 49.1,
+        "throughput_nominal_gph": 111.8,
+        "throughput_high_gph": 172.8,
+        "residence_low_s": 74.7,
+        "residence_high_s": 127.6
+      },
+      "PET": {
+        "material": "PET",
+        "rpm": 20,
+        "throughput_low_gph": 38.9,
+        "throughput_nominal_gph": 108.4,
+        "throughput_high_gph": 171.6,
+        "residence_low_s": 70.5,
+        "residence_high_s": 128.2
+      }
+    },
+    "physical_status": "PHYSICAL_NOT_RUN"
+  },
+  "screw_candidates": [
     {
       "diameter_mm": 12.0,
-      "ld": 18.0,
+      "ld": 18,
       "active_length_mm": 216.0,
-      "screening_rpm": 8.0,
-      "bulk_feed_range_gph": [
-        5.6,
-        23.0
-      ],
       "torque_3mpa_sf1_5_nm": 1.53,
       "torque_6mpa_sf1_5_nm": 3.05,
       "selected": false
     },
     {
       "diameter_mm": 14.0,
-      "ld": 18.0,
+      "ld": 18,
       "active_length_mm": 252.0,
-      "screening_rpm": 8.0,
-      "bulk_feed_range_gph": [
-        8.9,
-        36.5
-      ],
       "torque_3mpa_sf1_5_nm": 2.42,
       "torque_6mpa_sf1_5_nm": 4.85,
       "selected": false
     },
     {
       "diameter_mm": 16.0,
-      "ld": 16.0,
+      "ld": 16,
       "active_length_mm": 256.0,
-      "screening_rpm": 6.0,
-      "bulk_feed_range_gph": [
-        10.0,
-        40.9
-      ],
       "torque_3mpa_sf1_5_nm": 3.62,
       "torque_6mpa_sf1_5_nm": 7.24,
       "selected": true
     },
     {
       "diameter_mm": 18.0,
-      "ld": 16.0,
+      "ld": 16,
       "active_length_mm": 288.0,
-      "screening_rpm": 6.0,
-      "bulk_feed_range_gph": [
-        14.2,
-        58.2
-      ],
       "torque_3mpa_sf1_5_nm": 5.15,
       "torque_6mpa_sf1_5_nm": 10.31,
       "selected": false
     }
   ],
-  "forming": {
-    "PLA": {
-      "line_speed_m_min_at_200gph": 1.118,
-      "transport_delay_s": 12.62,
-      "vertical_residence_s": 15.3,
-      "cooling_time_s_h50": 39.63,
-      "cooling_length_mm_h50": 738.5,
-      "required_h_w_m2k_for_installed_path": 129.6
+  "cooling": [
+    {
+      "material": "PLA",
+      "throughput_gph": 50,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 44.5,
+      "required_h_w_m2k": 32.4,
+      "risk": "PASS_VIRTUAL"
     },
-    "PET": {
-      "line_speed_m_min_at_200gph": 1.004,
-      "transport_delay_s": 14.04,
-      "vertical_residence_s": 17.03,
-      "cooling_time_s_h50": 25.96,
-      "cooling_length_mm_h50": 434.4,
-      "required_h_w_m2k_for_installed_path": 76.2
+    {
+      "material": "PLA",
+      "throughput_gph": 50,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 32.6,
+      "required_h_w_m2k": 32.4,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 50,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 28.0,
+      "required_h_w_m2k": 32.4,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 100,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 83.4,
+      "required_h_w_m2k": 64.8,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 100,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 61.5,
+      "required_h_w_m2k": 64.8,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 100,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 47.8,
+      "required_h_w_m2k": 64.8,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 150,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 109.2,
+      "required_h_w_m2k": 97.1,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 150,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 86.6,
+      "required_h_w_m2k": 97.1,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 150,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 70.0,
+      "required_h_w_m2k": 97.1,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 200,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 126.1,
+      "required_h_w_m2k": 129.5,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 200,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 104.9,
+      "required_h_w_m2k": 129.5,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 200,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 88.2,
+      "required_h_w_m2k": 129.5,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 50,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 33.9,
+      "required_h_w_m2k": 19.1,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 50,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 27.2,
+      "required_h_w_m2k": 19.1,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 50,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 25.5,
+      "required_h_w_m2k": 19.1,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 100,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 71.3,
+      "required_h_w_m2k": 38.1,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 100,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 47.9,
+      "required_h_w_m2k": 38.1,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 100,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 36.3,
+      "required_h_w_m2k": 38.1,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 150,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 105.1,
+      "required_h_w_m2k": 57.2,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 150,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 75.1,
+      "required_h_w_m2k": 57.2,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 150,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 56.3,
+      "required_h_w_m2k": 57.2,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 200,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 130.4,
+      "required_h_w_m2k": 76.2,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 200,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 99.1,
+      "required_h_w_m2k": 76.2,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 200,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 77.1,
+      "required_h_w_m2k": 76.2,
+      "risk": "SAG_OVALITY_RISK"
     }
+  ],
+  "torque_hierarchy": {
+    "values": {
+      "normal_continuous_nm": 14.0,
+      "electrical_trip_nm": 18.0,
+      "motor_side_relief_nm": 22.0,
+      "phase_drivetrain_allowable_nm": 34.0,
+      "shaft_cutter_allowable_nm": 48.0
+    },
+    "strict_order_pass": true,
+    "relief_location": "motor side, upstream of chain and phase gears",
+    "phase_tangential_force_n": 916.7,
+    "phase_separating_force_n": 333.6,
+    "chain_tight_side_increment_n": 603.0,
+    "tip_force_n": 758.6,
+    "status": "DIGITAL_SCREENING_PHYSICAL_NOT_RUN"
+  },
+  "drive_calibration": {
+    "calibration": {
+      "purpose": "digital sensitivity reference only; not a donor acceptance record",
+      "no_load_current_a": 1.8,
+      "torque_per_amp_nm": 1.35,
+      "motor_to_cutter_ratio": 2.0,
+      "drivetrain_efficiency": 0.72,
+      "max_continuous_current_a": 12.0,
+      "max_peak_current_a": 18.0,
+      "no_load_rpm": 64.0,
+      "thermal_limit_c": 80.0
+    },
+    "thresholds": {
+      "PLA": {
+        "continuous_torque_nm": 11.0,
+        "jam_torque_nm": 18.0,
+        "reference_continuous_current_a": 7.46,
+        "reference_jam_current_a": 11.06,
+        "release_status": "REFERENCE_ONLY_RECALCULATE_AFTER_DONOR_CALIBRATION"
+      },
+      "PET": {
+        "continuous_torque_nm": 13.0,
+        "jam_torque_nm": 18.0,
+        "reference_continuous_current_a": 8.49,
+        "reference_jam_current_a": 11.06,
+        "release_status": "REFERENCE_ONLY_RECALCULATE_AFTER_DONOR_CALIBRATION"
+      }
+    },
+    "hardcoded_universal_current_limit": false
   },
   "diameter_loop": {
     "model": "first_order_plus_transport_delay",
-    "duration_s": 900,
+    "delay_s": 12.616184492872655,
     "rms_error_mm": 0.0107,
     "max_abs_error_mm": 0.0228,
-    "claim": "simulation_only"
+    "status": "VIRTUAL_ONLY"
   },
   "power": {
     "psu_voltage_v": 24.0,
@@ -92,50 +519,10 @@
     "arbiter_margin_w": 100.0
   },
   "thermal": {
-    "ambient_c": 25.0,
-    "hot_path_c": 300.0,
-    "insulation_mm": 25.0,
-    "metal_shield_air_gap_mm": 10.0,
-    "screening_shield_c": 52.0,
-    "polymer_keepout_c": 42.0,
-    "assumptions": "1D resistance, k=0.04 W/mK, emissivity reduction by grounded shield; seams/slots unmodelled",
-    "status": "physical_thermocouple_gate_required"
+    "hot_path_design_c": 300,
+    "shield_screen_c": 52,
+    "polymer_keepout_c": 42,
+    "status": "DIGITAL_SCREENING_PHYSICAL_NOT_RUN"
   },
-  "cutter": {
-    "curve": "asymmetric_cycloidal_radial_rise_76pct_capture_24pct_fast_relief",
-    "motor_model": "INTERCHANGEABLE_DONOR_GEARMOTOR",
-    "motor_acceptance_voltage_v": [
-      18.0,
-      30.0
-    ],
-    "secondary_ratio_options": [
-      1.5,
-      2.0
-    ],
-    "max_cutter_rpm": 80.0,
-    "profile_command_rpm": {
-      "PLA": 32.0,
-      "PET": 24.0
-    },
-    "profile_trip_current_a": {
-      "PLA": 16.0,
-      "PET": 18.0
-    },
-    "required_continuous_cutter_torque_nm": 14.0,
-    "required_peak_cutter_torque_nm": 24.0,
-    "design_torque_nm": 24.0,
-    "tangential_tip_force_n_at_trip": 827.6,
-    "phase_gear_spec": "generic M3 Z16 20deg face>=18 mm steel or DRV-03 laminated pair",
-    "brass_shear_key_mm": [
-      6.0,
-      6.0,
-      4.0
-    ],
-    "brass_key_shear_assumption_mpa": 100.0,
-    "brass_key_nominal_shear_torque_nm": 24.0,
-    "shaft_diameter_mm": 20.0,
-    "torsional_shear_mpa": 15.3,
-    "yield_safety_factor_at_145mpa_shear": 9.49,
-    "status": "coupon_and_impact_not_validated"
-  }
+  "pet_predry": "UNQUALIFIED_EXTERNAL_PROCESS"
 }

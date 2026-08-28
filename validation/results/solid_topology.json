@@ -1,0 +1,2005 @@
+{
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "contract": "active part contains exactly one closed positive-volume B-Rep solid",
+  "active_count": 113,
+  "review_keepout_count": 4,
+  "failed": [],
+  "parts": [
+    {
+      "id": "PPR-C01",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 82290.0,
+      "bbox_mm": [
+        195.0,
+        195.0,
+        6.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C02",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 196104.0,
+      "bbox_mm": [
+        190.0,
+        150.0,
+        90.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C03",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 18372.0,
+      "bbox_mm": [
+        25.0,
+        25.0,
+        120.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C04",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 38000.0,
+      "bbox_mm": [
+        120.0,
+        25.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C05",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 81540.0,
+      "bbox_mm": [
+        80.0,
+        75.0,
+        135.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C06",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 29724.0,
+      "bbox_mm": [
+        95.0,
+        70.0,
+        28.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C07",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 79192.0,
+      "bbox_mm": [
+        150.0,
+        100.0,
+        65.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C08",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 32722.912,
+      "bbox_mm": [
+        60.0,
+        45.0,
+        70.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C09",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 24649.711,
+      "bbox_mm": [
+        70.0,
+        70.0,
+        35.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C10",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 70260.05,
+      "bbox_mm": [
+        90.0,
+        55.0,
+        24.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C11",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 48550.0,
+      "bbox_mm": [
+        180.0,
+        120.0,
+        5.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C12",
+      "category": "PRINT",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4500.0,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CUT-01",
+      "category": "MACHINED",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8715.737,
+      "bbox_mm": [
+        57.62,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CUT-02",
+      "category": "MACHINED",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2066.948,
+      "bbox_mm": [
+        28.0,
+        28.0,
+        7.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CUT-03",
+      "category": "MACHINED",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188962.1,
+      "bbox_mm": [
+        150.0,
+        125.0,
+        12.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CUT-04",
+      "category": "MACHINED",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 38703.983,
+      "bbox_mm": [
+        135.0,
+        120.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CUT-05",
+      "category": "MACHINED",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 65700.173,
+      "bbox_mm": [
+        20.0,
+        220.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CUT-06",
+      "category": "MACHINED",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1545.538,
+      "bbox_mm": [
+        30.0,
+        30.0,
+        4.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CUT-07",
+      "category": "MACHINED",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 133098.913,
+      "bbox_mm": [
+        180.0,
+        140.0,
+        6.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CUT-08",
+      "category": "MACHINED",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 6898.597,
+      "bbox_mm": [
+        108.0,
+        60.0,
+        2.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-01",
+      "category": "JIG_METAL",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 608332.248,
+      "bbox_mm": [
+        320.0,
+        240.0,
+        8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-02",
+      "category": "JIG_METAL",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 42695.453,
+      "bbox_mm": [
+        300.0,
+        25.0,
+        6.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-03",
+      "category": "JIG_SHEET",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 123913.722,
+      "bbox_mm": [
+        230.0,
+        180.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-04",
+      "category": "JIG_SHEET",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 96913.722,
+      "bbox_mm": [
+        180.0,
+        180.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-05",
+      "category": "JIG_SHEET",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 95173.722,
+      "bbox_mm": [
+        180.0,
+        180.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-06",
+      "category": "JIG_SHEET",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4759.148,
+      "bbox_mm": [
+        30.0,
+        55.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-07",
+      "category": "JIG_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 13489.148,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        180.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-08",
+      "category": "JIG_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 11304.967,
+      "bbox_mm": [
+        20.0,
+        150.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-09",
+      "category": "JIG_METAL",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 5456.383,
+      "bbox_mm": [
+        50.0,
+        30.0,
+        30.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-10",
+      "category": "JIG_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 14652.609,
+      "bbox_mm": [
+        50.0,
+        40.0,
+        40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-P01",
+      "category": "JIG_PRINT",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 63928.512,
+      "bbox_mm": [
+        120.0,
+        90.0,
+        95.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-P02",
+      "category": "JIG_PRINT",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 67617.792,
+      "bbox_mm": [
+        180.0,
+        160.0,
+        42.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-P03",
+      "category": "JIG_PRINT",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 14480.0,
+      "bbox_mm": [
+        10.0,
+        10.0,
+        180.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-SCR-01",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 39596.777,
+      "bbox_mm": [
+        15.871,
+        15.871,
+        316.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-BAR-01",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188430.929,
+      "bbox_mm": [
+        34.0,
+        34.0,
+        280.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-CPN-SCR",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4931.459,
+      "bbox_mm": [
+        15.871,
+        15.871,
+        48.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "EX-CPN-BAR",
+      "category": "EXTRUDER_RFQ",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 42108.023,
+      "bbox_mm": [
+        34.0,
+        34.0,
+        60.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameColumn0_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 372000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        930.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameColumn0_680",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 372000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        930.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameColumn450_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 372000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        930.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameColumn450_680",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 372000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        930.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameX0_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188000.0,
+      "bbox_mm": [
+        470.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameX0_680",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188000.0,
+      "bbox_mm": [
+        470.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameY0_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 280000.0,
+      "bbox_mm": [
+        20.0,
+        700.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameY0_450",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 280000.0,
+      "bbox_mm": [
+        20.0,
+        700.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameX910_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188000.0,
+      "bbox_mm": [
+        470.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameX910_680",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188000.0,
+      "bbox_mm": [
+        470.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameY910_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 280000.0,
+      "bbox_mm": [
+        20.0,
+        700.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameY910_450",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 280000.0,
+      "bbox_mm": [
+        20.0,
+        700.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "MidRail320",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188000.0,
+      "bbox_mm": [
+        470.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "MidRail500",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188000.0,
+      "bbox_mm": [
+        470.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "MetalHopper",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 2,
+      "volume_mm3": 350155.867,
+      "bbox_mm": [
+        200.0,
+        200.0,
+        210.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SlidingLid",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 304200.0,
+      "bbox_mm": [
+        195.0,
+        195.0,
+        8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "AntiReach",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1995000.0,
+      "bbox_mm": [
+        190.0,
+        150.0,
+        70.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CutterPlateFront",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188962.1,
+      "bbox_mm": [
+        150.0,
+        12.0,
+        125.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CutterPlateRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 188962.1,
+      "bbox_mm": [
+        150.0,
+        12.0,
+        125.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Shaft105",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 65700.173,
+      "bbox_mm": [
+        20.0,
+        220.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook105_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook105_1",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook105_2",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook105_3",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook105_4",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook105_5",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Bearing105_315",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 12779.622,
+      "bbox_mm": [
+        42.0,
+        12.0,
+        42.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Bearing105_455",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 12779.622,
+      "bbox_mm": [
+        42.0,
+        12.0,
+        42.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Shaft153",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 65700.173,
+      "bbox_mm": [
+        20.0,
+        220.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook153_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook153_1",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook153_2",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook153_3",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook153_4",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Hook153_5",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8684.368,
+      "bbox_mm": [
+        57.56,
+        6.0,
+        56.692
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Bearing153_315",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 12779.622,
+      "bbox_mm": [
+        42.0,
+        12.0,
+        42.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Bearing153_455",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 12779.622,
+      "bbox_mm": [
+        42.0,
+        12.0,
+        42.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "M6Fastener70_550",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4636.991,
+      "bbox_mm": [
+        6.0,
+        164.0,
+        6.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "M6Fastener70_645",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4636.991,
+      "bbox_mm": [
+        6.0,
+        164.0,
+        6.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "M6Fastener190_550",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4636.991,
+      "bbox_mm": [
+        6.0,
+        164.0,
+        6.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "M6Fastener190_645",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4636.991,
+      "bbox_mm": [
+        6.0,
+        164.0,
+        6.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Screen",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 48600.0,
+      "bbox_mm": [
+        135.0,
+        120.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PhaseGear105",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 25732.059,
+      "bbox_mm": [
+        53.996,
+        18.0,
+        53.996
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PhaseGear153",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 25732.059,
+      "bbox_mm": [
+        53.316,
+        18.0,
+        53.316
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CutterSprocket24T",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 33929.201,
+      "bbox_mm": [
+        60.0,
+        12.0,
+        60.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "MotorSprocket12T",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 16625.308,
+      "bbox_mm": [
+        42.0,
+        12.0,
+        42.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ChainTightSide",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_LOD",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2880.0,
+      "bbox_mm": [
+        4.0,
+        8.0,
+        90.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ChainSlackSide",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_LOD",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2880.0,
+      "bbox_mm": [
+        4.0,
+        8.0,
+        90.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DriveGuard",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1322400.0,
+      "bbox_mm": [
+        145.0,
+        48.0,
+        190.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ReferenceGearbox",
+      "category": "ASSEMBLY_INTERFACE_REFERENCE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 302400.0,
+      "bbox_mm": [
+        70.0,
+        48.0,
+        90.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ReferenceMotor",
+      "category": "ASSEMBLY_INTERFACE_REFERENCE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 699789.764,
+      "bbox_mm": [
+        90.0,
+        110.0,
+        90.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "MotorMountPlate",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 133098.913,
+      "bbox_mm": [
+        180.0,
+        6.0,
+        140.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "BearingRetainerFront",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 6898.597,
+      "bbox_mm": [
+        108.0,
+        2.0,
+        60.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "BearingRetainerRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 6898.597,
+      "bbox_mm": [
+        108.0,
+        2.0,
+        60.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FlakeBin",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 225662.0,
+      "bbox_mm": [
+        185.0,
+        175.0,
+        115.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SealedFeedHopper",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 2,
+      "volume_mm3": 243613.853,
+      "bbox_mm": [
+        156.0,
+        156.0,
+        200.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Feeder",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 106876.982,
+      "bbox_mm": [
+        36.0,
+        36.0,
+        105.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ThrustPlate",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 119700.0,
+      "bbox_mm": [
+        12.0,
+        95.0,
+        105.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Barrel",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 254217.678,
+      "bbox_mm": [
+        280.0,
+        34.0,
+        34.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HotShield",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 126140.0,
+      "bbox_mm": [
+        300.0,
+        75.0,
+        85.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ExtruderDrive",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 350625.0,
+      "bbox_mm": [
+        55.0,
+        75.0,
+        85.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DownDie",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 24881.414,
+      "bbox_mm": [
+        24.0,
+        24.0,
+        55.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DieOrifice",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1837.832,
+      "bbox_mm": [
+        3.0,
+        3.0,
+        260.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CoolingDuct",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 114760.0,
+      "bbox_mm": [
+        80.0,
+        75.0,
+        190.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Gauge",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 23940.0,
+      "bbox_mm": [
+        90.0,
+        85.0,
+        35.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PullerPlate",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 380000.0,
+      "bbox_mm": [
+        100.0,
+        95.0,
+        40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PullerRoll75",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 31415.927,
+      "bbox_mm": [
+        40.0,
+        25.0,
+        40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PullerRoll115",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 31415.927,
+      "bbox_mm": [
+        40.0,
+        25.0,
+        40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "GuideRoller",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 20357.52,
+      "bbox_mm": [
+        36.0,
+        20.0,
+        36.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DancerArm",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 18900.0,
+      "bbox_mm": [
+        15.0,
+        105.0,
+        12.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Spool",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2293362.637,
+      "bbox_mm": [
+        200.0,
+        73.0,
+        200.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolCore",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 155031.314,
+      "bbox_mm": [
+        52.0,
+        73.0,
+        52.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TraverseRail",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 23040.0,
+      "bbox_mm": [
+        160.0,
+        12.0,
+        12.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ControlPanel",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1263500.0,
+      "bbox_mm": [
+        190.0,
+        35.0,
+        190.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PSU",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2592000.0,
+      "bbox_mm": [
+        160.0,
+        180.0,
+        90.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "CableDuct",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 243000.0,
+      "bbox_mm": [
+        18.0,
+        18.0,
+        750.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    }
+  ],
+  "review_keepouts": [
+    {
+      "id": "KO_ChainMotion",
+      "category": "REVIEW_ONLY",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 190080.0,
+      "bbox_mm": [
+        66.0,
+        18.0,
+        160.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": [],
+      "excluded_from_manufacturing": true
+    },
+    {
+      "id": "KO_DancerSweep",
+      "category": "REVIEW_ONLY",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 106185.832,
+      "bbox_mm": [
+        130.0,
+        8.0,
+        130.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": [],
+      "excluded_from_manufacturing": true
+    },
+    {
+      "id": "KO_TraverseMotion",
+      "category": "REVIEW_ONLY",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 112000.0,
+      "bbox_mm": [
+        80.0,
+        40.0,
+        35.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": [],
+      "excluded_from_manufacturing": true
+    },
+    {
+      "id": "KO_ScrewService",
+      "category": "REVIEW_ONLY",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3092250.0,
+      "bbox_mm": [
+        310.0,
+        95.0,
+        105.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": [],
+      "excluded_from_manufacturing": true
+    }
+  ],
+  "status": "PASS"
+}

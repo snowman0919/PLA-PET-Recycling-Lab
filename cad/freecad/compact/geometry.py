@@ -1,4 +1,8 @@
-"""Actual compact v0.3 FreeCAD geometry and print-part definitions."""
+"""Closed-solid source geometry for the compact v0.4 machine.
+
+Review keep-outs are emitted by :func:`review_keepout_objects` and are never
+part of the fabrication assembly or printable exports.
+"""
 
 from __future__ import annotations
 
@@ -24,7 +28,22 @@ def shell_box(dx, dy, dz, wall=3.0, bottom=True):
     outer = Part.makeBox(dx, dy, dz)
     inner_z = wall if bottom else 0
     inner = Part.makeBox(dx - 2 * wall, dy - 2 * wall, dz, App.Vector(wall, wall, inner_z))
-    return outer.cut(inner)
+    return outer.cut(inner).removeSplitter()
+
+
+def joined(*shapes):
+    """Boolean-union overlapping bodies and remove internal splitters."""
+    result = shapes[0]
+    for shape in shapes[1:]:
+        result = result.fuse(shape)
+    result = result.removeSplitter()
+    return result.Solids[0] if len(result.Solids) == 1 else result
+
+
+def one_solid(shape):
+    """Normalize a one-solid boolean compound to an explicit TopoDS_Solid."""
+    refined = shape.removeSplitter()
+    return refined.Solids[0] if len(refined.Solids) == 1 else refined
 
 
 def cylindrical_hopper(radius, straight_height, cone_height, outlet_radius, wall=2.0):
@@ -207,8 +226,10 @@ def shredder_metal_parts():
 
 
 def print_parts():
-    lid = Part.makeBox(195, 195, 2).fuse(Part.makeBox(195, 4, 6)).fuse(Part.makeBox(195, 4, 6, App.Vector(0, 191, 0)))
-    chute = shell_box(190, 150, 90, 2).fuse(Part.makeBox(170, 2, 28, App.Vector(10, 45, 28))).fuse(Part.makeBox(170, 2, 28, App.Vector(10, 102, 28)))
+    lid = joined(Part.makeBox(195, 195, 2), Part.makeBox(195, 4, 6), Part.makeBox(195, 4, 6, App.Vector(0, 191, 0)))
+    # Baffles overlap both side walls by 2 mm; they are load-free but must be
+    # topologically joined instead of floating inside the chute.
+    chute = joined(shell_box(190, 150, 90, 2), Part.makeBox(190, 2, 28, App.Vector(0, 45, 28)), Part.makeBox(190, 2, 28, App.Vector(0, 102, 28)))
     # Four small corner extrusions capture 1 mm PP/ABS sheet panels; the large
     # bin faces are deliberately not printed.
     flake_bin = Part.makeBox(25, 3, 120).fuse(Part.makeBox(3, 25, 120)).fuse(Part.makeBox(25, 25, 3))
@@ -218,10 +239,17 @@ def print_parts():
     guard = shell_box(150, 100, 65, 2).cut(Part.makeBox(100, 100, 32, App.Vector(25, 0, 16)))
     bracket = Part.makeBox(60, 5, 70).fuse(Part.makeBox(60, 45, 5)).cut(cyl(4.2, 5, 30, 0, 50, (0, 1, 0)))
     adapter = Part.makeCone(18, 35, 35).cut(Part.makeCone(14, 31, 33, App.Vector(0, 0, 2))).cut(cyl(6.1, 35, 0, 0, 0))
-    carriage = Part.makeBox(90, 55, 8).fuse(Part.makeBox(90, 6, 16, App.Vector(0, 0, 8))).fuse(Part.makeBox(90, 6, 16, App.Vector(0, 49, 8))).cut(cyl(4.2, 90, 0, 15, 4, (1, 0, 0))).cut(cyl(4.2, 90, 0, 40, 4, (1, 0, 0)))
+    carriage = joined(
+        Part.makeBox(90, 55, 8),
+        Part.makeBox(90, 6, 18, App.Vector(0, 0, 6)),
+        Part.makeBox(90, 6, 18, App.Vector(0, 49, 6)),
+        cyl(7.0, 90, 0, 15, 12, (1, 0, 0)),
+        cyl(7.0, 90, 0, 40, 12, (1, 0, 0)),
+    )
+    carriage = one_solid(carriage.cut(cyl(4.2, 90, 0, 15, 12, (1, 0, 0))).cut(cyl(4.2, 90, 0, 40, 12, (1, 0, 0))))
     bezel = Part.makeBox(180, 120, 5).cut(Part.makeBox(145, 82, 5, App.Vector(17.5, 19, 0)))
     clip = Part.makeBox(24, 18, 18).cut(Part.makeBox(14, 18, 13, App.Vector(5, 0, 5))).cut(Part.makeBox(6, 18, 8, App.Vector(9, 0, 10)))
-    return [
+    specs = [
         dict(id="PPR-C01", name="Sliding hopper lid", shape=lid, qty=1, material="PLA", orientation="flat", layer="0.24 mm", walls=4, infill="20%", support="no", fastener="M4 captured nut", tolerance="0.35 mm slide", mating="metal hopper rails", order=3),
         dict(id="PPR-C02", name="Anti-reach baffle chute", shape=chute, qty=1, material="PLA", orientation="outlet down", layer="0.24 mm", walls=5, infill="25%", support="baffle edges only", fastener="M4x12 + captured nut", tolerance="0.40 mm flake path", mating="hopper and metal cutter chamber", order=4),
         dict(id="PPR-C03", name="Flake bin sheet corner", shape=flake_bin, qty=4, material="PLA", orientation="end down", layer="0.28 mm", walls=4, infill="25%", support="no", fastener="M3x8 captured nut", tolerance="0.30 mm sheet slot", mating="1 mm sheet bin and screen rails", order=7),
@@ -235,16 +263,24 @@ def print_parts():
         dict(id="PPR-C11", name="Control panel bezel", shape=bezel, qty=1, material="PLA", orientation="front face down", layer="0.20 mm", walls=4, infill="20%", support="no", fastener="M3x10 + heat-set insert", tolerance="0.25 mm TFT", mating="metal control panel", order=21),
         dict(id="PPR-C12", name="Cable duct clip", shape=clip, qty=8, material="PLA", orientation="side down", layer="0.20 mm", walls=4, infill="50%", support="no", fastener="M4x10", tolerance="0.30 mm snap", mating="20 mm profile", order=22),
     ]
+    for spec in specs:
+        spec["shape"] = one_solid(spec["shape"])
+        spec["expected_solids"] = 1
+        spec["nozzle_mm"] = 0.4
+        spec["top_bottom_layers"] = 5 if spec["walls"] >= 5 else 4
+        spec["brim"] = "5 mm" if spec["orientation"] in ("end down", "end face down", "L side") else "none"
+        spec["minimum_wall_mm"] = 1.6 if spec["walls"] == 4 else 2.0
+    return specs
 
 
 def assembly_objects(exploded=False):
     objects = []
-    def add(name, shape, color, group, material="mixed"):
+    def add(name, shape, color, group, material="mixed", classification="manufactured_or_stock"):
         if exploded:
             offsets = {"input": (-35, 0, 35), "shredder": (-20, 0, 10), "feed": (25, 0, 25), "extruder": (0, -40, 0), "forming": (-25, -20, -25), "spooler": (35, 35, -10), "control": (30, -35, 10), "frame": (0, 0, 0)}
             dx, dy, dz = offsets.get(group, (0, 0, 0))
             shape = shape.copy(); shape.translate(App.Vector(dx, dy, dz))
-        objects.append(dict(name=name, shape=shape, color=color, group=group, material=material))
+        objects.append(dict(name=name, shape=shape, color=color, group=group, material=material, classification=classification))
 
     steel = (88, 101, 112); aluminum = (165, 177, 184); orange = (225, 116, 55)
     blue = (47, 122, 163); green = (69, 151, 97); purple = (119, 89, 145); red = (185, 54, 54)
@@ -301,12 +337,11 @@ def assembly_objects(exploded=False):
         add(f"PhaseGear{cx}", gear, purple, "shredder", "generic M3 Z16 20deg face18 steel or DRV-03 laminate")
     add("CutterSprocket24T", cyl(30, 12, 153, 258, 590, (0, 1, 0)), purple, "shredder", "#35 18T/24T interchangeable")
     add("MotorSprocket12T", cyl(21, 12, 153, 258, 680, (0, 1, 0)), purple, "shredder", "#35 12T + donor-side hub")
-    add("ChainRunLeft",box(121,260,590,4,8,90),orange,"shredder","#35 chain simplified solid")
-    add("ChainRunRight",box(181,260,590,4,8,90),orange,"shredder","#35 chain simplified solid")
-    add("ChainKeepout", box(120, 255, 555, 66, 18, 160), orange, "shredder", "#35 chain motion keep-out")
+    add("ChainTightSide",box(121,260,590,4,8,90),orange,"shredder","#35 chain conservative solid LOD", "purchased_reference_lod")
+    add("ChainSlackSide",box(181,260,590,4,8,90),orange,"shredder","#35 chain conservative solid LOD", "purchased_reference_lod")
     add("DriveGuard", box(105, 240, 535, 145, 48, 190), blue, "shredder", "1 mm grounded sheet + interlocked service cover")
-    add("DonorGearboxEnvelope", box(118, 210, 630, 70, 48, 90), red, "shredder", "accepted donor gearbox envelope")
-    add("DonorMotorEnvelope", cyl(45, 110, 153, 100, 680, (0, 1, 0)), red, "shredder", "18-30 V donor brushed gearmotor envelope")
+    add("ReferenceGearbox", box(118, 210, 630, 70, 48, 90), red, "shredder", "DRV-REF parametric reference gearbox; replace adapter after measurement", "interface_reference")
+    add("ReferenceMotor", cyl(45, 110, 153, 100, 680, (0, 1, 0)), red, "shredder", "DRV-REF parametric motor; not a verified donor", "interface_reference")
     motor_plate = motor_mount_plate()
     motor_plate.rotate(App.Vector(0, 0, 0), App.Vector(1, 0, 0), 90)
     motor_plate.translate(App.Vector(65, 231, 545))
@@ -341,13 +376,21 @@ def assembly_objects(exploded=False):
     # Solid guide, dancer/traverse and maximum spool motion.
     add("GuideRoller", cyl(18, 20, 175, 375, 90, (0, 1, 0)), green, "spooler", "bearing")
     add("DancerArm", box(180, 445, 110, 15, 105, 12), aluminum, "spooler", "metal")
-    add("DancerSweep", cyl(65, 8, 188, 452, 115, (0, 1, 0)), (176, 220, 235), "spooler", "motion keepout")
     add("Spool", cyl(100, 73, 335, 500, 175, (0, 1, 0)), (223, 187, 104), "spooler", "1 kg spool")
     add("SpoolCore", cyl(26, 73, 335, 500, 175, (0, 1, 0)), steel, "spooler", "spindle")
     add("TraverseRail", box(245, 445, 280, 160, 12, 12), aluminum, "spooler", "donor rod")
-    add("TraverseMotion", box(270, 438, 265, 80, 40, 35), purple, "spooler", "motion keepout")
 
     add("ControlPanel", box(255, 35, 330, 190, 35, 190), blue, "control", "metal/bezel")
     add("PSU", box(275, 80, 200, 160, 180, 90), red, "control", "24 V 600 W")
     add("CableDuct", box(425, 650, 80, 18, 18, 750), purple, "control", "fixed vertical duct")
     return objects
+
+
+def review_keepout_objects():
+    """Non-manufacturing motion/service volumes, quarantined from exports."""
+    return [
+        dict(name="KO_ChainMotion", shape=box(120, 255, 555, 66, 18, 160), purpose="chain sweep and guard clearance"),
+        dict(name="KO_DancerSweep", shape=cyl(65, 8, 188, 452, 115, (0, 1, 0)), purpose="full dancer angular sweep"),
+        dict(name="KO_TraverseMotion", shape=box(270, 438, 265, 80, 40, 35), purpose="full traverse stroke"),
+        dict(name="KO_ScrewService", shape=box(70, 300, 330, 310, 95, 105), purpose="removable screw withdrawal path"),
+    ]

@@ -1,21 +1,23 @@
 category,item_id,description,planned_cash_krw,status,evidence_or_blocker
-CNC,CNC-01,반복 hook cutter disc coupon 및 이후 full stack 계획액,14000,QUOTE_REQUIRED,Gate-1에서는 CUT-01 2장만 RFQ 허용
-CNC,CNC-02,공통 mirrored bearing/end plate laser cut,7000,QUOTE_REQUIRED,동일 flat pattern과 donor plate 우선
-CNC,CNC-03,20 mm keyed shaft pair 단순 선삭,11000,QUOTE_REQUIRED,DRV-02 표준 keyed interface 사용
-CNC,CNC-04,removable 5 mm screen laser cut,5000,QUOTE_REQUIRED,Gate 2 aperture 선택 전 coupon
-CNC,CNC-05,16 mm x 16 L/D screw process coupon 및 full part 계획액,22000,QUOTE_REQUIRED,EX-CPN-SCR만 선행 허용; full screw HOLD
-CNC,CNC-06,ID16.2 barrel process coupon 및 full part 계획액,20000,QUOTE_REQUIRED,EX-CPN-BAR만 선행 허용; full barrel HOLD
-CNC,CNC-07,open die와 breaker/screen retainer,8000,QUOTE_REQUIRED,sacrificial retainer DFM 필요
-CNC,CNC-08,extruder thrust plate와 clamp flat parts,4000,QUOTE_REQUIRED,donor metal flat part 우선
-NON_CNC,SAFE-ALLOW,E-stop 1 lid switch 2 service switch 1 low-cost hardware allowance,12000,BUY_HOLD,재고 확인 시 미사용
+CNC,CNC-01,반복 hook cutter coupon 및 이후 full stack target allowance,14000,QUOTE_REQUIRED,Gate-1에서는 CUT-01 2장만 RFQ 허용; full stack는 결과 전 HOLD
+CNC,CNC-02,공통 bearing/end plate donor-sheet laser target allowance,5000,QUOTE_REQUIRED,동일 flat pattern과 project-lab donor plate 우선
+CNC,CNC-03,20 mm keyed shaft pair 단순 선삭 target allowance,9000,QUOTE_REQUIRED,표준 S45C shaft와 DRV-02 keyed interface 사용
+CNC,CNC-04,removable 5 mm screen laser target allowance,4000,QUOTE_REQUIRED,Gate-2 aperture 확정 전 coupon만
+CNC,CNC-05,16 mm x 16 L/D screw process coupon 및 full part target allowance,18000,QUOTE_REQUIRED,EX-CPN-SCR만 선행 허용; full screw HOLD
+CNC,CNC-06,ID16.2 barrel process coupon 및 full part target allowance,17000,QUOTE_REQUIRED,EX-CPN-BAR만 선행 허용; full barrel HOLD
+CNC,CNC-07,open die와 breaker/screen retainer target allowance,6000,QUOTE_REQUIRED,표준 봉재 단순 선삭과 sacrificial retainer
+CNC,CNC-08,extruder thrust plate와 clamp donor-flat target allowance,3000,QUOTE_REQUIRED,project-lab metal flat part 우선
+NON_CNC,SAFE-ALLOW,E-stop 1 lid switch 2 service switch 1 low-cost hardware allowance,12000,BUY_HOLD,재고 확인 시 미사용; 안전 기능 삭제 금지
 NON_CNC,FUSE-ALLOW,branch fuse holder/link와 300 C thermal fuse allowance,6500,BUY_HOLD,exact rating 확인 필요
 NON_CNC,GAUGE-ALLOW,2축 LED photodiode slit PCB-free wiring allowance,7000,BUY_HOLD,calibration 전 성능 미확정
 NON_CNC,THERM-ALLOW,25 mm insulation grounded sheet shield wire sleeve,9500,BUY_HOLD,PET 온도 등급 확인
 NON_CNC,HW-ALLOW,fastener insert connector shim bearing allowance,7000,BUY_HOLD,donor 실측 후 수량 확정
-NON_CNC,SH-MOTOR-DONOR,18-30 V interchangeable geared brushed-DC donor motor,0,CONDITIONAL_DONOR_UNVERIFIED,모델·수량·상태·label·축·무부하전류 확인 전 현금 0원 확정 금지
-NON_CNC,SH-DRIVE,BTS7960-class reversible driver and genuine ACS758LCB-050B current sensor,22000,BUY_HOLD,driver 4620 KRW plus sensor 16748 KRW candidate; heatsink/load test 필요
-NON_CNC,SH-INTERFACE,#35 chain sprocket DRV-02 hub 및 DRV-03 laminated phase gear allowance,12000,QUOTE_REQUIRED,특정 coupling/gear MPN 비종속; guard와 20-24 N.m brass relief 유지
-PRINT,PRINT-ALLOW,PLA/ABS 출력 filament CAD volume allowance,19808,BUY_HOLD,1100.5 g at 18000 KRW/kg
+NON_CNC,SH-MOTOR-DONOR,18-30 V interchangeable geared brushed-DC donor motor,0,CONDITIONAL_DONOR_UNVERIFIED,모델 수량 상태 label 축 무부하전류 확인 전 현금 0원 확정 금지
+NON_CNC,SH-DRIVE,BTS7960-class reversible driver and 50 A current feedback allowance,22000,BUY_HOLD,재고 우선; receipt test와 donor별 torque calibration 필요
+NON_CNC,SH-INTERFACE,#35 chain 표준 sprocket DRV-02 hub 및 적층 phase gear allowance,8000,QUOTE_REQUIRED,특정 coupling/gear MPN 비종속; 22 N.m upstream fuse 유지
+PRINT,PRINT-ALLOW,PrusaSlicer 2.9.6 nominal 913.67 g plus 12 percent reserve,18420,BUY_HOLD,planning mass 1023.31 g at 18000 KRW/kg
 TEST,GATE1-METROLOGY,0-200 N force gauge/load-cell calibration allowance,7500,BUY_HOLD,project-lab 계측기 확인 시 미사용
-TEST,GATE1-PRINT,Gate-1 chute tray guard-corner 약 0.25 kg 출력 allowance,4500,BUY_HOLD,시험 jig 출력은 final-machine 1.10 kg과 별도 집계
-TOTAL,TOTAL,조건부 donor 기준 신규 현금비용 계획 합계,198808,CONDITIONAL_UNDER_CAP,산술상 1192 KRW 여유; donor 확인과 실제 RFQ 전 budget release는 BLOCKED
+TEST,GATE1-PRINT,Gate-1 chute tray guard-corner 약 0.25 kg 출력 allowance,4500,BUY_HOLD,시험 jig 출력은 final-machine package와 별도 집계
+TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,178420,CONDITIONAL_TARGET_PASS,solid-manifold-openmodelica-v0.4; 견적 또는 donor 확인 전 구매 release는 BLOCKED; target 180000 KRW 이하
+CONTINGENCY,ABSOLUTE_CAP_RESERVE,견적변동 예비비,20000,RESERVED,기능 추가에 사용 금지; 안전 또는 필수 제조 견적 차이만
+TOTAL,ABSOLUTE_TOTAL_WITH_RESERVE,예비비 포함 절대 계획 상한,198420,CONDITIONAL_CAP_PASS,200000 KRW 절대상한까지 1580 KRW 여유

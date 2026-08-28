@@ -1,11 +1,12 @@
-# 경제성 — compact-single-path-v0.3
+# 경제성 — solid-manifold-openmodelica-v0.4
 
-Interchangeable drive와 process coupon 선행으로 줄인 조건부 신규 현금비용은 198,808 KRW다. 200,000 KRW hard cap 아래 1,192 KRW지만 shredder motor 0원은 실물 확인 전 `CONDITIONAL_DONOR_UNVERIFIED`다. Donor replacement value는 현금 budget에 합산하지 않으며 `reuse_inventory.csv`의 확인 전 품목을 보유 확정으로 간주하지 않는다.
+조건부 target 신규 현금비용은 178,420 KRW, 20,000 KRW contingency 포함 absolute plan은 198,420 KRW다. Donor/RFQ 전에는 모두 planning sensitivity이며 구매 근거가 아니다.
 
-가정: 전력 0.55 kW 평균, 안정 생산 0.18 kg/h, 전력단가 180 KRW/kWh, purge 0.10 kg/재질전환, usable yield 75%, 상용 filament 22,000 KRW/kg, 세척 원료 0 KRW. 전력비는 약 550 KRW/kg이고 purge/yield를 포함한 순 절감액은 보수적으로 13,500 KRW/kg로 둔다.
+가정: 평균 전력 0.50 kW, nominal 생산 0.11 kg/h, 전력단가 180 KRW/kWh, purge 0.10 kg/재질전환, usable yield 75%, 상용 filament 22,000 KRW/kg, 세척 원료 0 KRW. 전력비는 약 818 KRW/kg이다. Purge, yield와 실패 allowance를 포함한 순 절감액은 보수적으로 12,800 KRW/kg로 둔다.
 
-- 손익분기 생산량(조건부 VE 시나리오): `198,808 / 13,500 = 14.7 kg`
-- 월 2 kg 사용: 약 7.4개월
-- 월 5 kg 사용: 약 3.0개월
+- Target 손익분기 생산량: `178,420 / 12,800 = 13.9 kg`
+- Absolute-plan 손익분기 생산량: `198,420 / 12,800 = 15.5 kg`
+- 월 2 kg 사용: target 기준 약 7.0개월, absolute 기준 약 7.8개월
+- 월 5 kg 사용: target 기준 약 2.8개월, absolute 기준 약 3.1개월
 
-노동, 실패 batch, external dryer 감가, replacement part와 실제 CNC 초과비용은 제외했다. 따라서 이는 구매 결정용 확정 ROI가 아니라 민감도 baseline이다.
+노동, 외부 dryer 감가, donor replacement, physical gate 실패와 실제 quote 초과는 제외했다. 200 g/h가 아니라 current nominal 108–112 g/h를 사용한 sensitivity이며 확정 ROI가 아니다.

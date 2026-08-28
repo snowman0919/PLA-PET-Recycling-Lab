@@ -1,23 +1,29 @@
-# 자동검증 보고 — compact-single-path-v0.3
+# 자동검증 보고 — solid-manifold-openmodelica-v0.4
 
-실행일 2026-08-28, 명령 `python3 validation/run_all.py`.
+## Release 경계
 
-| Gate | 결과 | 증거 |
-|---|---|---|
-| Engineering calculation | PASS | `simulation/engineering_summary.json` |
-| Mega profile lock/change wizard | PASS | host C++ test |
-| FreeCAD source/artifact generation | PASS | final-machine, DRV, Gate-1, extruder RFQ FCStd/STEP/STL/DXF |
-| Envelope/collision/load path | PASS | 470 x 700 x 930 mm, `simulation/cad_clearance.json` |
-| Manufacturing geometry/RFQ | PASS | Gate-1 415 x 248 x 203 mm, CUT-01 gap 0.50 mm, screw 316 mm |
-| Render package | PASS | assembly/module/review/Gate-1/RFQ PNG와 parent visual review |
-| 한국어 PDF | PASS | manual 7쪽, report 8쪽, RFQ 2쪽, Gate-1 assembly 2쪽 |
-| Artifact manifest | PASS | 214개 SHA-256 entry |
-| Current-source consistency | PASS | budget arithmetic와 physical release lock 포함 |
+- release: `DIGITAL_FABRICATION_BASELINE`
+- physical: `PHYSICAL_NOT_RUN` / `PHYSICAL_VALIDATION_PENDING`
+- 구매·CNC: `BLOCKED_PENDING_USER_APPROVAL_AND_PHYSICAL_GATES`
+- main 승격: Gate-1 결과가 없어 `LOCKED`
 
-조건부 donor 기준 cash scenario는 198,808 KRW로 hard cap 아래 1,192 KRW다. Final-machine 출력 질량은 1100.5 g, Gate-1 시험 jig 출력은 별도 234.1 g/약 4,214 KRW이며 cash rollup에 포함했다. Donor motor는 exact model·수량·상태·label·shaft·current/RPM·30분 온도와 Gate-1 torque 증거가 없어 `UNVERIFIED`다. 따라서 0원은 계획 시나리오일 뿐 final budget acceptance가 아니다.
+## Digital evidence
 
-`validation/physical_gate_status.json`은 Gate-1, screw process coupon과 barrel process coupon을 모두 `NOT_RUN`으로 기록한다. Full cutter order, full screw/barrel order와 `main` 승격은 모두 false다. 자동 package gate가 통과한 사실은 이 물리 잠금을 해제하지 않는다.
+|항목|결과|증거|
+|---|---:|---|
+|Envelope|470×700×930 mm PASS|`cad/generation/assembly_metadata.json`|
+|B-Rep topology|active 113, failure 0|`validation/results/solid_topology.json`|
+|Print mesh|12 watertight manifold, failure 0|`validation/results/mesh_manifold.json`|
+|Slicing|913.67 g, 76.6 h; reserve 포함 1,023.31 g|`validation/results/slicer_results.json`|
+|Throughput|PLA 18 rpm 111.8, PET 20 rpm 108.4 g/h nominal|`simulation/engineering_summary.json`|
+|OpenModelica|18 scenario + 6 sensitivity sweep PASS|`simulation/openmodelica/results/summary.json`|
+|Dynamic load|22 N·m fuse, 1.426 kN bearing, 0.603 kN chain|`dynamic_load_envelope.json`|
+|Structure|9 screening + 2 CalculiX PASS|`analysis/structural/results/structural_screening.json`|
+|Firmware|baseline hash sync, unverified calibration start reject|host tests/generated header|
+|Budget|178,420 target; 198,420 reserve 포함|`bom/cash_budget.csv`|
 
-Shredder peak arbiter는 500 W이고 600 W PSU margin은 100 W다. Shredder와 barrel heater/screw는 상호 배제한다. E-stop, lid/service hard inhibit, 20 A branch fuse, thermal fuse와 hot/chain guard는 VE에서 제거하지 않았다.
+OpenModelica cutter load는 Gate-1 이전 surrogate다. CalculiX는 linear-elastic global screening이며 실제 impact/notch/fatigue/safety certification을 대체하지 않는다. 200 g/h는 stretch target이고 diameter accuracy도 physical calibration 전 claim하지 않는다.
 
-이 결과는 simulation/CAD/software/document gate다. 실제 파쇄 torque, jam, chip size, melt flow, 200 g/h, 직경, thermal/pressure response와 safety certification 결과가 아니다. 현재 Mega 산출물도 host-testable core이며 donor별 BTS7960/current/RPM calibration 전 production firmware가 아니다.
+## Physical lock
+
+`validation/physical_gate_status.json`은 Gate-1, screw coupon, barrel coupon을 모두 `NOT_RUN`으로 유지한다. CUT-01 2장 coupon 외 full cutter stack, full EX-SCR-01/EX-BAR-01과 main fast-forward는 허용되지 않는다.

@@ -104,9 +104,47 @@ def render_tool_access(assembly=None):
     render([i for i in assembly if i["group"]=="shredder"], ROOT/"renders/review/shredder_fastener_tool_access.png", "Shredder bearing plates / interleaved discs / M6 through-bolts", "right", arrow=True, arrow_target=(1210,680))
 
 
+def gate1_render_items(exploded=False):
+    """Review LOD: preserve the exact screen envelope without tessellating holes."""
+    items=gate1_assembly(exploded=exploded)
+    for item in items:
+        if item["name"]=="CUT04ScreenCoupon":
+            bb=item["shape"].BoundBox
+            item["shape"]=Part.makeBox(bb.XLength,bb.YLength,bb.ZLength,App.Vector(bb.XMin,bb.YMin,bb.ZMin))
+            item["material"]="CUT-04 envelope; fabrication DXF contains 5 mm holes"
+    return items
+
+
+def render_drive_interface():
+    plate=universal_motor_plate()
+    motor=Part.makeCylinder(43,92,App.Vector(58,70,6),App.Vector(0,0,1))
+    motor_shaft=Part.makeCylinder(8,22,App.Vector(58,70,98),App.Vector(0,0,1))
+    input_sprocket=Part.makeCylinder(30,8,App.Vector(58,70,112),App.Vector(0,0,1))
+    output_sprocket=Part.makeCylinder(45,8,App.Vector(245,70,112),App.Vector(0,0,1))
+    chain_upper=Part.makeBox(187,8,8,App.Vector(58,108,112))
+    chain_lower=Part.makeBox(187,8,8,App.Vector(58,24,112))
+    hub=bolt_on_sprocket_hub(); hub.translate(App.Vector(245,70,92))
+    fuse_pin=Part.makeCylinder(3,28,App.Vector(245,70,88),App.Vector(0,0,1))
+    gear1=generic_phase_gear_lamination(); gear1.rotate(App.Vector(),App.Vector(1,0,0),90); gear1.translate(App.Vector(245,70,142))
+    gear2=generic_phase_gear_lamination(); gear2.rotate(App.Vector(),App.Vector(1,0,0),90); gear2.translate(App.Vector(299,70,142))
+    render([
+        {"name":"DRV-01","shape":plate,"color":(88,101,112),"group":"drive"},
+        {"name":"DonorReferenceLOD","shape":motor,"color":(190,55,55),"group":"drive"},
+        {"name":"MotorShaft","shape":motor_shaft,"color":(70,80,88),"group":"drive"},
+        {"name":"InputSprocket","shape":input_sprocket,"color":(225,116,55),"group":"drive"},
+        {"name":"OutputSprocket","shape":output_sprocket,"color":(119,89,145),"group":"drive"},
+        {"name":"ChainUpper","shape":chain_upper,"color":(68,130,95),"group":"drive"},
+        {"name":"ChainLower","shape":chain_lower,"color":(68,130,95),"group":"drive"},
+        {"name":"DRV-02","shape":hub,"color":(119,89,145),"group":"drive"},
+        {"name":"Fuse22Nm","shape":fuse_pin,"color":(245,190,45),"group":"drive"},
+        {"name":"DRV-03A","shape":gear1,"color":(225,116,55),"group":"drive"},
+        {"name":"DRV-03B","shape":gear2,"color":(225,116,55),"group":"drive"},
+    ],ROOT/"renders/modules/interchangeable_drive_interface.png","DRV interface schematic LOD | #35 chain / 22 N m input fuse / M3 Z16 pair","iso")
+
+
 def render_manufacturing():
-    render(gate1_assembly(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | two CUT-01 coupons / 250 mm torque arm / full guard","iso")
-    render(gate1_assembly(exploded=True),ROOT/"renders/jigs/gate1_exploded.png","Gate-1 exploded | metal load path and removable guard","iso")
+    render(gate1_render_items(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | metal uprights / screen rails / full guard","iso")
+    render(gate1_render_items(exploded=True),ROOT/"renders/jigs/gate1_exploded.png","Gate-1 exploded | metal load path and removable guard","iso")
     rotor=[i for i in gate1_assembly() if i["name"].startswith(("CUT01","CUT04","CUT05"))]
     render(rotor,ROOT/"renders/jigs/gate1_rotor_detail.png","Gate-1 | two cycloidal-derived hook coupons / 5 mm screen","front")
     screw=extruder_screw(facet_step=4.0); barrel=extruder_barrel(); barrel.translate(App.Vector(55,0,0))
@@ -114,13 +152,7 @@ def render_manufacturing():
         {"name":"EX-SCR-01","shape":screw,"color":(225,116,55),"group":"rfq"},
         {"name":"EX-BAR-01","shape":barrel,"color":(88,101,112),"group":"rfq"},
     ],ROOT/"renders/cnc/extruder_screw_barrel.png","16 mm x 16D RFQ | screw SCM440 / barrel SCM440 / process coupons first","iso")
-    plate=universal_motor_plate(); hub=bolt_on_sprocket_hub(); hub.translate(App.Vector(225,40,0))
-    gear=generic_phase_gear_lamination(); gear.rotate(App.Vector(),App.Vector(1,0,0),90); gear.translate(App.Vector(300,80,0))
-    render([
-        {"name":"DRV-01","shape":plate,"color":(88,101,112),"group":"drive"},
-        {"name":"DRV-02","shape":hub,"color":(119,89,145),"group":"drive"},
-        {"name":"DRV-03","shape":gear,"color":(225,116,55),"group":"drive"},
-    ],ROOT/"renders/modules/interchangeable_drive_interface.png","DRV-01/02/03 | vendor-neutral motor / sprocket / phase interface","iso")
+    render_drive_interface()
 
 
 def main():
@@ -131,8 +163,8 @@ def main():
         print("COMPACT_MANUFACTURING_RENDER_OK images=5")
         return
     if "--jig-only" in sys.argv:
-        render(gate1_assembly(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | two CUT-01 coupons / 250 mm torque arm / full guard","iso")
-        render(gate1_assembly(exploded=True),ROOT/"renders/jigs/gate1_exploded.png","Gate-1 exploded | metal load path and removable guard","iso")
+        render(gate1_render_items(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | metal uprights / screen rails / full guard","iso")
+        render(gate1_render_items(exploded=True),ROOT/"renders/jigs/gate1_exploded.png","Gate-1 exploded | metal load path and removable guard","iso")
         rotor=[i for i in gate1_assembly() if i["name"].startswith(("CUT01","CUT04","CUT05"))]
         render(rotor,ROOT/"renders/jigs/gate1_rotor_detail.png","Gate-1 | two cycloidal-derived hook coupons / 5 mm screen","front")
         print("COMPACT_GATE1_RENDER_OK images=3")
@@ -149,11 +181,15 @@ def main():
         render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "Guard removed | interchangeable #35 chain / M3 Z16 phase gears", "iso")
         print("COMPACT_SHREDDER_RENDER_OK images=2")
         return
+    if "--drive-interface-only" in sys.argv:
+        render_drive_interface()
+        print("COMPACT_DRIVE_INTERFACE_RENDER_OK")
+        return
     if "--tool-only" in sys.argv:
         render_tool_access(assembly)
         print("COMPACT_TOOL_ACCESS_RENDER_OK images=1")
         return
-    render(assembly, ROOT/"renders/assembly/compact_full_assembly_isometric.png", "compact-single-path-v0.3 | 470 x 700 x 930 mm", "iso")
+    render(assembly, ROOT/"renders/assembly/compact_full_assembly_isometric.png", "solid-manifold-openmodelica-v0.4 | 470 x 700 x 930 mm", "iso")
     render(assembly, ROOT/"renders/assembly/compact_full_assembly_front.png", "Front | vertical forming path and full spool", "front")
     render(assembly, ROOT/"renders/assembly/compact_full_assembly_top.png", "Top | all normal-operation components inside frame", "top")
     shredder=[i for i in assembly if i["group"] in ("input","shredder","feed")]

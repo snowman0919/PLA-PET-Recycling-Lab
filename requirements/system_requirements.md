@@ -1,33 +1,32 @@
-# 시스템 요구사항 — compact-single-path-v0.3
+# 시스템 요구사항 — solid-manifold-openmodelica-v0.4
 
 ## Hard constraint
 
-| ID | 요구 | 검증 |
+|ID|요구|검증|
 |---|---|---|
-| SYS-ENV-01 | 정상 운전 전체가 500 x 750 x 1000 mm 이하 | FreeCAD assembly bounding box 자동검사 |
-| SYS-ENV-02 | 설계 목표 480 x 720 x 950 mm 이하 | baseline 및 자동검사 |
-| SYS-COST-01 | 신규 현금비용 200,000 KRW 이하 | `bom/cash_budget.csv` rollup |
-| SYS-PRINT-01 | 각 출력품 각 축 210 mm 이하 | FCStd shape bounding box 검사 |
-| SYS-PRINT-02 | 출력품 총 질량 목표 1.5 kg, 2.0 kg review threshold | CAD volume 기반 manifest |
-| SYS-PATH-01 | PLA/PET가 hopper부터 spooler까지 동일 기계 경로 사용 | architecture contract/CAD/UI review |
-| SYS-BATCH-01 | batch 도중 material profile 변경 금지 | firmware host test |
-| SYS-CHANGE-01 | 전환 시 feed stop, purge, hopper/screen 청소, 확인 강제 | firmware host test/manual |
-| SYS-SAFE-01 | E-stop, lid/service interlock, thermal fuse, branch fuse가 독립 hardware cut path 보유 | wiring review와 물리 Gate 4 |
-| SYS-RATE-01 | 200 g/h 이상을 stretch target으로 유지 | 계산과 30분 실측을 분리 보고 |
+|SYS-ENV-01|정상운전 전체 ≤500×750×1000 mm, 목표 ≤480×720×950 mm|FreeCAD assembly bounding box|
+|SYS-COST-01|conditional target ≤180,000 KRW, contingency 포함 absolute ≤200,000 KRW|`bom/cash_budget.csv` rollup|
+|SYS-PRINT-01|각 출력품 각 축 ≤210 mm|FCStd/STL 검사|
+|SYS-PRINT-02|출력 toolpath 질량 목표 ≤1.5 kg, review ≤2.0 kg|PrusaSlicer 2.9.6 결과|
+|SYS-SOLID-01|active manufacturing CAD는 valid closed solid; keep-out은 review 전용 격리|B-Rep topology audit|
+|SYS-MESH-01|모든 active STL은 watertight 2-manifold, zero-area triangle 0, 1 component|mesh parser|
+|SYS-PATH-01|PLA/PET가 hopper부터 spooler까지 동일 기계 경로 사용|architecture/CAD/UI review|
+|SYS-BATCH-01|RUN 중 material profile 변경 금지; purge/clean 확인 강제|firmware host test|
+|SYS-SAFE-01|E-stop, lid/service interlock, thermal fuse, branch fuse는 software 독립 hard cut|wiring review + physical gate|
+|SYS-TORQUE-01|14 continuous <18 electrical <22 mechanical fuse <34 phase <48 shaft/cutter|baseline/Modelica/firmware sync|
+|SYS-RATE-01|200 g/h는 stretch target; nominal 계산 및 물리 결과를 분리|RPM sensitivity + Gate-4|
+|SYS-RELEASE-01|digital release와 physical proof를 분리; physical 전 `PHYSICAL_NOT_RUN`|manifest/release validator|
 
 ## 기능 baseline
 
-- 재료: 사용자가 확인한 순수 PLA 또는 세척·label/cap/neck-ring 제거 PET만 사용한다.
-- Hopper: sliding lid, anti-reach baffle, nominal usable 1.0 kg, refill 허용.
-- Cutter: 한 개의 compact dual-shaft asymmetric cycloidal-derived hook cutter, removable 5 mm screen, oversize 수동 recirculation.
-- Shredder actuator 기준선: 18–30 V reversible brushed geared-DC donor, DRV-01 universal plate, #35 12T:18T/24T chain, DRV-02 cutter hub와 generic M3 Z16 20° face>=18 mm phase pair. Cutter 환산 14 N·m continuous/24 N·m 3 s peak, 20–40 rpm을 Gate-1에서 요구한다. PLA/PET 명령은 32/24 rpm이고 16/18 A profile trip, 20 A branch fuse를 쓴다. 6 x 6 x 4 mm brass key의 20–24 N·m sacrificial relief는 유지한다.
-- Drying: 외부 qualified dryer 후 sealed hopper; 장치 내 45/60 °C maintenance heating만 제공.
-- Extruder: 16 mm, 16 L/D 공용 single screw, common breaker/screen과 open die.
-- Forming: 금속 90 degree down-die 후 굽힘 없는 vertical cooling/gauge/puller, 그 뒤에만 guide roller로 방향 전환.
-- Gauge: 2축 LED/photodiode shadow gauge. 출력은 `d_x`, `d_y`, `d_mean`, ovality, calibration uncertainty.
-- Spooler: puller가 직경을 결정하고 spooler는 dancer를 추종한다. 일반 1 kg spool을 cabinet 안에 둔다.
-- Controller: Arduino Mega 2560. 첫 화면은 PLA/PET/Maintenance/Calibration이다.
+- 공용 dual-shaft asymmetric cycloidal-inspired hook cutter, removable 5 mm screen, lockout 후 수동 oversize recirculation.
+- Interchangeable shredder drive: 18–30 V donor geared brushed-DC, DRV-01, #35 chain 12T:18/24T, DRV-02, M3 Z16 phase pair. 특정 motor/coupling/gear MPN 금지.
+- Donor current는 직접 torque가 아니다. No-load current, torque/A, ratio, efficiency, speed/temperature를 calibration하고 firmware가 verified record 없이는 start를 거부한다.
+- External pre-dry + sealed maintenance hopper. PLA/PET pre-dry 조건은 현재 모두 `UNQUALIFIED_EXTERNAL_PROCESS`; 임의 온도·시간을 qualified recipe로 표시하지 않는다.
+- 공용 16 mm×16 L/D single screw, common barrel/breaker/open die. Profile screw RPM은 PLA 18, PET 20이다.
+- 2축 LED/photodiode shadow gauge, puller diameter control, dancer-follow spooler, cabinet 내부 1 kg spool.
+- Arduino Mega 2560 realtime controller. 첫 화면 PLA/PET/Maintenance/Calibration, selected material lock.
 
-## 물리적으로 미확정인 입력
+## 물리 미확정 입력
 
-Donor shredder/extruder/puller/spooler motor와 fan, switch, PSU 상태는 사진·label·실측 전 확정하지 않는다. Shredder donor의 정확 model, 수량, 상태, shaft, no-load current/RPM과 30분 온도 기록 전 0원 확정과 full cutter 발주를 금지한다. `bom/reuse_inventory.csv`의 `UNVERIFIED` 품목은 budget release 근거가 아니다.
+Donor motor/fan/switch/PSU/dryer는 사진·label·실측 전 확정하지 않는다. Shredder donor의 exact model, 수량, 상태, shaft, no-load current/RPM, 30분 온도와 Gate-1 torque record 전 0원 claim과 full cutter release를 금지한다. Digital simulation은 실제 cutting, flake size, melt flow, filament quality 또는 safety certification을 입증하지 않는다.

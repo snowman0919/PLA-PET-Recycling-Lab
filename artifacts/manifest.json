@@ -1,21 +1,59 @@
 {
-  "revision": "compact-single-path-v0.3",
-  "artifact_count": 214,
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "release_state": "DIGITAL_FABRICATION_BASELINE",
+  "physical_state": "PHYSICAL_NOT_RUN",
+  "regeneration_commands": [
+    "FreeCADCmd cad/generation/generate_all.py via validation/run_all.py",
+    "PrusaSlicer 2.9.6 via validation/slice_prints.py",
+    "OpenModelica 1.27.0 / MSL 4.0.0 via simulation/openmodelica/scripts/run_all.mos",
+    "CalculiX 2.23 via analysis/structural/run_load_checks.py"
+  ],
+  "artifact_count": 344,
   "artifacts": [
     {
+      "path": "analysis/load_cases/openmodelica_dynamic_envelope.json",
+      "bytes": 953,
+      "sha256": "bfe87efc20a3619aaea6da13ebf42defcfe1e559a3fcaea44b52c420fbdcce05"
+    },
+    {
+      "path": "analysis/structural/generated/bearing_plate.inp",
+      "bytes": 21854,
+      "sha256": "e3187d7b73fc1b7d10545ddd81c4c0104b1e2edc3feadb76a6d9c3735729f69b"
+    },
+    {
+      "path": "analysis/structural/generated/cutter_shaft.inp",
+      "bytes": 452,
+      "sha256": "52fe6adc5d887c4d58516c5fb06e150b197107baaca1f8a73c368529fd3c516c"
+    },
+    {
+      "path": "analysis/structural/results/structural_screening.json",
+      "bytes": 5287,
+      "sha256": "d92884bb3434c171df50b0f397065ae950cd53c3f284755f75a8630e9560f249"
+    },
+    {
+      "path": "analysis/structural/run_load_checks.py",
+      "bytes": 11530,
+      "sha256": "7dbf159dbcdcaf41c6c2ac424d1bda61b5125548468c285fc8403d576c237e53"
+    },
+    {
+      "path": "analysis/structural/structural_validation_ko.md",
+      "bytes": 1325,
+      "sha256": "41000183d38d541000fb7585b711ad6aed8f977d4850716c1b658dedcaada1c4"
+    },
+    {
       "path": "bom/bom.csv",
-      "bytes": 2795,
-      "sha256": "c6f141668bf4ad13b46448bfca0c9920621d758d6a219959591ece6103984db6"
+      "bytes": 2842,
+      "sha256": "f0e8ac6896530de9a16184efead82d402a7e000e180229d48fc4a05c70de6408"
     },
     {
       "path": "bom/cash_budget.csv",
-      "bytes": 2716,
-      "sha256": "6c1e0896fd692a55abd680cfd3cd60a5b18517f2a7ba3bb3c96ab52fe8c4992c"
+      "bytes": 3256,
+      "sha256": "5b569ea6d72f715894e78233a9a812f8c5e1d725c172c37f9bb4baffe055d2c7"
     },
     {
       "path": "bom/cnc_quote_package.csv",
-      "bytes": 1259,
-      "sha256": "1a635a13dcfa67e3e40c95a25b7aa4515e12459eb033ec53f98d2fa526f8e424"
+      "bytes": 1307,
+      "sha256": "f031b01bb59362a6a2dd2f283e15ddc70109bef0ffedf339b4c44057d5989d83"
     },
     {
       "path": "bom/donor_drive_acceptance.csv",
@@ -24,8 +62,8 @@
     },
     {
       "path": "bom/printed_material_cost.csv",
-      "bytes": 698,
-      "sha256": "750386df5d99b395c5d82eb9726b0039e8091aa1168f75465067c08f3dcbf19f"
+      "bytes": 915,
+      "sha256": "01448852edd4556f30ae0302cc625e9b3b4d85df183f35da66c1fb595930371d"
     },
     {
       "path": "bom/purchase_candidates.csv",
@@ -39,43 +77,48 @@
     },
     {
       "path": "cad/generation/assembly_metadata.json",
-      "bytes": 379,
-      "sha256": "f33d6476b272e5a88d5711e27b25cbb898b6113e76067862240fb1af9220fda7"
+      "bytes": 481,
+      "sha256": "602502e0faa90b1450aba53bfe60b4fbe9c6c73a510939ee50d97636a18aa85c"
     },
     {
       "path": "cad/generation/fcstd/compact_full_assembly.FCStd",
-      "bytes": 381905,
-      "sha256": "23ad38cdd5eca0ee018b8e392b411562e1e3ef7f15f8176fbc73ac658812f5c4"
+      "bytes": 379314,
+      "sha256": "855bcd86b857ad3c55204e4551aa79108b53c2cf1f76d3017e82117f0425d675"
     },
     {
       "path": "calculations/economics/break_even.md",
-      "bytes": 1066,
-      "sha256": "5cd776c6ca8b881c50761aec6afa7baeaa134b7c1bcfd8afea37e20c7eaf6460"
+      "bytes": 1074,
+      "sha256": "9f4c1fc76d5931a2c7f07e870a3f2adbfb4957b779a1653121635bb0d515bef1"
+    },
+    {
+      "path": "calculations/engineering_report.md",
+      "bytes": 646,
+      "sha256": "4fbb68001c52be156f03ef6af8a40b136bb44ef906f920ef1492f142bf521b4e"
     },
     {
       "path": "calculations/screw_sensitivity.md",
-      "bytes": 689,
-      "sha256": "4a98e54d9c7163269db5f572a1ce41b7c87321094efa843f745622a33a111f89"
+      "bytes": 1268,
+      "sha256": "6a84d6039f66a63525f7d1b629e574a6be4c6f13f3dc8ac40c3f39fd975ce2e6"
     },
     {
       "path": "calculations/shredder_drive_and_cutter.md",
-      "bytes": 1682,
-      "sha256": "40d7bda2ee3f6cdad9a884cb726c16800d1f267d11f2dadb83a0a185878a478a"
+      "bytes": 954,
+      "sha256": "d11a5d439fa42931f197a9a33ae44a90221261753d5d0be5f1f3a8a1c09906ed"
     },
     {
       "path": "calculations/thermal_power_forming.md",
-      "bytes": 977,
-      "sha256": "77ced612ffde4843bcb693dae9e93fd6258ff95e00c636669009a4a3c25b98a0"
+      "bytes": 602,
+      "sha256": "746c63fe5183f3f40daf68e2c1d5c690576ca2cdf034fef563dda7fd5ecc6390"
     },
     {
       "path": "docs/archive_index.md",
-      "bytes": 711,
-      "sha256": "ae34113e6b44139610f80df3999a48ff9648292895a0e2692f859bd47f47c9f3"
+      "bytes": 1230,
+      "sha256": "063a02acabe6c04350e97da841d7f1edb2c5c00281628aabdae8c8105958e87b"
     },
     {
       "path": "docs/build_manual_ko.pdf",
-      "bytes": 409759,
-      "sha256": "daa1980ed69514598ed213b641ae1c790128c9121621ac71e6e8bf57b7933376"
+      "bytes": 411756,
+      "sha256": "3ac862ef6fd8317debbca27f8c4b5128c528a08a28deb8d9720aac122a2d1302"
     },
     {
       "path": "docs/calibration.md",
@@ -84,8 +127,13 @@
     },
     {
       "path": "docs/design_report_ko.pdf",
-      "bytes": 486873,
-      "sha256": "889e513353eea5d2528083c9aa8cd19fb8f3adb8ce107c326d8231f91327db78"
+      "bytes": 489411,
+      "sha256": "ed242fd73f7e5da8f9165294a0a02fd962e9995573b32b633d8a44247451e81b"
+    },
+    {
+      "path": "docs/digital_release_report_ko.pdf",
+      "bytes": 106870,
+      "sha256": "a3f240d5c1cbf9a0eed960faaf98ffaf769c87e07b3ac5f64a5e80f004944b2e"
     },
     {
       "path": "docs/licensing.md",
@@ -109,8 +157,8 @@
     },
     {
       "path": "docs/validation_report_ko.md",
-      "bytes": 2217,
-      "sha256": "848afca51ebca2b117c2ac6aeb6a9b62e33473adc83b898fb48a4fdf1142bc1e"
+      "bytes": 1782,
+      "sha256": "6407e433f5d53f4a82a6e9fb4fbbc01df1ab960100313062916554b72bdd4ea1"
     },
     {
       "path": "exports/cnc/CUT-01/CUT-01.FCStd",
@@ -274,13 +322,13 @@
     },
     {
       "path": "exports/cnc/extruder/manufacturing_audit_ko.md",
-      "bytes": 3304,
-      "sha256": "cfc7444fff9e8bae1d01dc9262bb21cb35d331f1f35a0cd8986774dc5c4ca850"
+      "bytes": 4812,
+      "sha256": "870991b1ae8f52744832155ec94ecd28ff8d6d947eb0de211497fed12fa47dfb"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.FCStd",
-      "bytes": 4083,
-      "sha256": "0d1e1f7dcb6b3135d9548f91f0f5ce0f36217ce98cbb6de28fbd860c03f61a7d"
+      "bytes": 4109,
+      "sha256": "1a5d39da6c69d2f338760dec41583ad870ace98fd7a3647f7ca4f8c8f75fa36c"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.dxf",
@@ -290,12 +338,17 @@
     {
       "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.step",
       "bytes": 20581,
-      "sha256": "f3d97bf0344f9deaaceac460f5a5cc4faaab55c6dd1e0bb9400da56d852c2340"
+      "sha256": "ce90b95084d51b237464c89aed04919022846275400dae8230ad526e5d59856d"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-BAR-01/drawing_notes.md",
+      "bytes": 769,
+      "sha256": "a65df12dfdc77671e0e9d7137b9e1a73244aa19c0b31d0392c3d4970599db105"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.FCStd",
-      "bytes": 2469,
-      "sha256": "27b8a1857211bb3ad13176c2404acd1d7236bc5e8f0cb9305924e8fa57d49aa5"
+      "bytes": 2473,
+      "sha256": "bc4da89524ba04a6704abdf81c041b5b8b7ebefcd7083607d25b8e2c8f6a7dde"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.dxf",
@@ -305,42 +358,57 @@
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.step",
       "bytes": 4956,
-      "sha256": "90bad8f3beec75089324acc30b93a97128b62591a4ca1ac701d7e692aa0b2d55"
+      "sha256": "27655528993dffdf64c20bfeca6cb71af1d5b295390d2ecf4399a3c44b1715e8"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-CPN-BAR/drawing_notes.md",
+      "bytes": 680,
+      "sha256": "9add01f5942f25db610d96d3b0d3808984dc34c8153e4cf97659a56514e0724d"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.FCStd",
-      "bytes": 34833,
-      "sha256": "1603087a26c39e0a4db4d76666fb2970f5c7d06cccbc4947abda36ae419a6d0f"
+      "bytes": 85223,
+      "sha256": "310e1d9086080b23dae810cc70fa7330b9a10756d6ec42b41063368d503c2d10"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.dxf",
-      "bytes": 231136,
-      "sha256": "c2e6421c826cf8a9e22281a80aaba4888280a67af2502bdc9c0d28653e1e8705"
+      "bytes": 191590,
+      "sha256": "10cf7ac9ad04cdc8159753ad9746aa91183548c2387e9f989262dcc6fb758618"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.step",
-      "bytes": 371966,
-      "sha256": "da1f3a7182ac7293403838ff4df9169c39bbb18fee4202af9f91bacb4477f8fc"
+      "bytes": 332266,
+      "sha256": "963613773d1ddaa053e8047e1a3dae5dc539844c9393883511d8dbc4336ea0eb"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-CPN-SCR/drawing_notes.md",
+      "bytes": 717,
+      "sha256": "6aef296ab8423f340a364be66be07936bd51ec2bd87f2dde21fdd7b1ce4923ca"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.FCStd",
-      "bytes": 184925,
-      "sha256": "9c720e051cfc922259f9a1746adb7e44b140e496d43ec4b637df2e7b3d77ac98"
+      "bytes": 902621,
+      "sha256": "10f05cce65d7ac3fd48693144f03c8aea3e184ceb0da7eb108bf4e6242386622"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.dxf",
-      "bytes": 1255663,
-      "sha256": "b6cc226cff7b97623f92505547b63b1e29e93419326ed94502b5406cc6cbd030"
+      "bytes": 1222715,
+      "sha256": "43dc76111505d4ca6ead012e0112c1b2d9777af01d3ece92ffe4d6d648be5811"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.step",
-      "bytes": 2097505,
-      "sha256": "89182b99e72aa3e23f4c42099482a5c4d968fad8da7380279d8ff95e8cd55ba2"
+      "bytes": 2200480,
+      "sha256": "510eb93e47e6e35976b295e2780440055d91aa707caa7d6383b942b0dbcfd7cf"
+    },
+    {
+      "path": "exports/cnc/extruder/parts/EX-SCR-01/drawing_notes.md",
+      "bytes": 799,
+      "sha256": "beb49e4b1589e950bdc3bba2a88e4ad185566623c92ebcfb59f6f02f97a897f2"
     },
     {
       "path": "exports/cnc/extruder/rfq_drawing_ko.pdf",
-      "bytes": 64795,
-      "sha256": "d92f90be1d2df55f154b42d9fa1e6de58042a9510c9ed36c8fde792d724fb97a"
+      "bytes": 66975,
+      "sha256": "591292937c6fe27951977b779e0916bddd97a07b176abce7222791c1a4ffc3db"
     },
     {
       "path": "exports/cnc/extruder/supplier_rfq_checklist_ko.md",
@@ -354,18 +422,18 @@
     },
     {
       "path": "exports/drive_interface/interface_contract_ko.md",
-      "bytes": 2207,
-      "sha256": "70107900f83c26aedc87811e38ad5f25d0f2f792b273184d7293aaacee3c8cde"
+      "bytes": 2597,
+      "sha256": "44aa35bc6b3473ea9383d60724937a779a1da62b698d7fb556448d296e55207f"
     },
     {
       "path": "exports/drive_interface/manifest.csv",
-      "bytes": 422,
-      "sha256": "940a83b06512cdefa4b3204176e234961353673287b9e2d7acd3a4c593377582"
+      "bytes": 434,
+      "sha256": "e316557e6ddd58914d3c3e227b229e1bf97c3edd4417796757503ea35181e8c6"
     },
     {
       "path": "exports/drive_interface/parts/DRV-01/DRV-01.FCStd",
-      "bytes": 5973,
-      "sha256": "1c3d6d8531d76fa1845e9040568305198a55caccca019a0432d55d002f93fb4f"
+      "bytes": 5978,
+      "sha256": "055c95adedc42190ab3345cb46c3fd5057129a724dc52d763e20a99e1564aad8"
     },
     {
       "path": "exports/drive_interface/parts/DRV-01/DRV-01.dxf",
@@ -374,13 +442,18 @@
     },
     {
       "path": "exports/drive_interface/parts/DRV-01/DRV-01.step",
-      "bytes": 37468,
-      "sha256": "e90b81e17ce5d3cc9bc2731e8ac5be90897ca1247e0d1413df98cac05592af40"
+      "bytes": 37470,
+      "sha256": "921bb4442bd3088a0d08ed87aef3605158a7b143ec917201fe9765da13198e8b"
     },
     {
       "path": "exports/drive_interface/parts/DRV-01/DRV-01.stl",
       "bytes": 107284,
       "sha256": "1879be3c90365ef38c48b954c9382e1bd483f13235182e1dd4293f11d68ba42a"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-01/drawing_notes.md",
+      "bytes": 700,
+      "sha256": "cec5b1a8e85fdc0e64c48d319b455f9b185dca27f00b775512d8428a940a92d9"
     },
     {
       "path": "exports/drive_interface/parts/DRV-02/DRV-02.FCStd",
@@ -394,8 +467,8 @@
     },
     {
       "path": "exports/drive_interface/parts/DRV-02/DRV-02.step",
-      "bytes": 24556,
-      "sha256": "36445406f7f45c00329ae58785cfe558546807f761449c3b8fb91f00e7e77856"
+      "bytes": 24558,
+      "sha256": "19a7fe3df8e4179c617f7a54816eecf7a85fd80f647ba2002adb23b525f0bf70"
     },
     {
       "path": "exports/drive_interface/parts/DRV-02/DRV-02.stl",
@@ -403,64 +476,99 @@
       "sha256": "231e660f144fc44e3cd4e026d857edaf0e2cd349cf4dcc41e982f5c3b4027cc8"
     },
     {
+      "path": "exports/drive_interface/parts/DRV-02/drawing_notes.md",
+      "bytes": 679,
+      "sha256": "6a4c6ec65a927f0f682a8844473c90f875306056736423e075e2d5b705447837"
+    },
+    {
       "path": "exports/drive_interface/parts/DRV-03/DRV-03.FCStd",
-      "bytes": 39365,
-      "sha256": "54cc59f7200280ea326f545287a1b2397e8d2c7be134b3f673196ac7d12783a9"
+      "bytes": 40025,
+      "sha256": "bbac77c3b0cd3450730941d1dc6f52edcaf1a1baeaa0d4758328a1f7286ef8fb"
     },
     {
       "path": "exports/drive_interface/parts/DRV-03/DRV-03.dxf",
-      "bytes": 318561,
-      "sha256": "1720034d5354bcc378ea4e3f966020abffcc26b61b5fc77f2e2b445e21146b63"
+      "bytes": 321135,
+      "sha256": "a864a59eea410a2a27bfab3523c79d9e5bb70722daa8fc6872d1ae358f3013ff"
     },
     {
       "path": "exports/drive_interface/parts/DRV-03/DRV-03.step",
-      "bytes": 486146,
-      "sha256": "e9bef4713afe7935e10dcca88f223cb34df21ba3e6e1f4aa68dd393e940b6df6"
+      "bytes": 491129,
+      "sha256": "f45c689fdd1b42674bb591d1409ea494412f1fe1726f2e78de486e904deb94d1"
     },
     {
       "path": "exports/drive_interface/parts/DRV-03/DRV-03.stl",
-      "bytes": 89284,
-      "sha256": "96f923738bd73f821e88d751d98161e3ced36c1ff63f7b3908725a818ae02357"
+      "bytes": 165484,
+      "sha256": "bbb7b17932cd81ef4483bcd604e1b60d412ee51cca9037ab3821e20c722d81f2"
+    },
+    {
+      "path": "exports/drive_interface/parts/DRV-03/drawing_notes.md",
+      "bytes": 738,
+      "sha256": "3b61ea1bddd481563ee2846b351045082e6de90bc652ee82987a6bfa498704ff"
     },
     {
       "path": "exports/jigs/gate1/assembly_ko.md",
-      "bytes": 1519,
-      "sha256": "fadd52c3b13c28e08326fc778f69d7923f3bed3ea9d5b45b9628d2b1e2a34421"
+      "bytes": 2099,
+      "sha256": "3246fca338307f6322e9c8b25b8bba701edbf5c8f0e6cd41c2cee15030d9f461"
     },
     {
       "path": "exports/jigs/gate1/bom.csv",
-      "bytes": 1208,
-      "sha256": "6ab612c706741eefc8973fee828923c9fced5e96580d853e37739886c8a777a6"
+      "bytes": 3076,
+      "sha256": "a54414bfa42df512ce73a5fc27f6e545a65dc2b857535ed61dac99ccf63d6779"
+    },
+    {
+      "path": "exports/jigs/gate1/calibration_log_template.csv",
+      "bytes": 212,
+      "sha256": "eb798cdb3bfcf6dd8d524b53dff303cc7a7b27cdd25197ae2574908816d1f2e1"
+    },
+    {
+      "path": "exports/jigs/gate1/fastener_schedule.csv",
+      "bytes": 2252,
+      "sha256": "20e438822d39dc101971a6cb26aa1b63087838882918652791f4a0994f7f48c0"
     },
     {
       "path": "exports/jigs/gate1/gate1_assembly.FCStd",
-      "bytes": 606234,
-      "sha256": "a5c3a7c0df6eb5baddf62c57e300de681ad5cc72827e16124008ef2cc97b5770"
+      "bytes": 643463,
+      "sha256": "7572d1ed49a87c87a4b9df587f3823269a40d2a9246666305cd40d92ca084c64"
     },
     {
       "path": "exports/jigs/gate1/gate1_assembly.step",
-      "bytes": 4281893,
-      "sha256": "f2339f6577f03d50da8bbad7af109fc84b92d46101de9f0da436f7c4600862c1"
+      "bytes": 4609214,
+      "sha256": "6b83ccc163ff170daf31b7b8de8adffd1279d1dafe532e2ee36922126d74ff57"
     },
     {
       "path": "exports/jigs/gate1/gate1_assembly.stl",
-      "bytes": 5974884,
-      "sha256": "cc3b738b7e785313bec6dfe091f98c57a22ca58d187cc2785169295648168d7c"
+      "bytes": 8330084,
+      "sha256": "6b01050c1ea348a3cf986250afb3fac051fd64f2aceec3075d372e16e6c6c070"
     },
     {
       "path": "exports/jigs/gate1/gate1_assembly_ko.pdf",
-      "bytes": 209899,
-      "sha256": "fb4faf17346eac662ef90829df226cdf1a3a4a129546853c7bb5cf48c5def2f8"
+      "bytes": 249982,
+      "sha256": "f7330070b23deb25eb71f8e46874d0bd34cca886a010658d2998d38f414d0f8b"
     },
     {
       "path": "exports/jigs/gate1/gate1_assembly_ko.typ",
-      "bytes": 1896,
-      "sha256": "5343c926d2f159e2759863170fa1ccae47ce05e4f26cfaa732b046c215b980be"
+      "bytes": 2775,
+      "sha256": "65cb75b0fdef824d8d529846a082ec8137038360a467b81dc2ffaf79bbe2442e"
+    },
+    {
+      "path": "exports/jigs/gate1/gate1_release_record_ko.md",
+      "bytes": 845,
+      "sha256": "36d3879d99e358e5da013edf8e819b69dbb3edb7ad749566643a36c46538ad64"
+    },
+    {
+      "path": "exports/jigs/gate1/gate1_results_template.csv",
+      "bytes": 1448,
+      "sha256": "6fd634366b2150e5755969b1374a06337b0367f2c81a7f7a594b1126f4d24383"
+    },
+    {
+      "path": "exports/jigs/gate1/jig_manifest.csv",
+      "bytes": 2378,
+      "sha256": "79139734ae223b4770f7c40e75da8ac07147558ed937a396d10f12c0321ca269"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-01/G1J-01.FCStd",
-      "bytes": 5354,
-      "sha256": "eef88e1712c4743a6b00e0aac8f3d4034265ab48403fd69fce30ecb3dc2943a9"
+      "bytes": 5352,
+      "sha256": "ff0eeaeee2ae8ea5470b7f9ea32ab7f9cb56d5b498ae0a4987dd021236316bab"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-01/G1J-01.dxf",
@@ -469,13 +577,18 @@
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-01/G1J-01.step",
-      "bytes": 32499,
-      "sha256": "dcc0791de076f0692f2c52acf1502c1c7a845194d2cfdb2686dda9db1314f533"
+      "bytes": 32501,
+      "sha256": "54ca1f938f98d7a4344f04faadffbe5b2c7091d498fcb26b0bedaa3ff6e3e92b"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-01/G1J-01.stl",
       "bytes": 106284,
       "sha256": "62f10ee8d2b41ddf990694fbe0dc2bba4039cb3d479470baf77b7aee6825f5ec"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-01/drawing_notes.md",
+      "bytes": 663,
+      "sha256": "75642dc164890da5c979cfd38477e99971b966701b97b2da2234a3909ca7f0aa"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-02/G1J-02.FCStd",
@@ -489,8 +602,8 @@
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-02/G1J-02.step",
-      "bytes": 9765,
-      "sha256": "f45c450d1b1d8371926d28edec661a906276669abbf924d33b1a785253904753"
+      "bytes": 9767,
+      "sha256": "077c15aabf0fadcd6cc8a354925a336bf7621e4ae270f561e928b8ba0c8d1a0c"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-02/G1J-02.stl",
@@ -498,24 +611,234 @@
       "sha256": "e70324d4f35856273c63fd67ce856c3a0ec878b82065f8b561b989f43611270e"
     },
     {
+      "path": "exports/jigs/gate1/parts/G1J-02/drawing_notes.md",
+      "bytes": 663,
+      "sha256": "1025b1e8258efa65db67804a835431fa7b5f8fc684ad5d0f53485f2f557a96df"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-03/G1J-03.FCStd",
+      "bytes": 3547,
+      "sha256": "0adbb4fbd101fe305fd03fe9df089b99e2d9aa8e0fed773b27166f61a9783567"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-03/G1J-03.dxf",
+      "bytes": 13388,
+      "sha256": "b4ffa76d3b34ae60833c64d636b8284474fbb519de6264bdb0e797f14467213f"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-03/G1J-03.step",
+      "bytes": 15602,
+      "sha256": "6d86719a270f53ccaedab524324fb08c59a0305b339df5d9ac8fa9a30b727846"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-03/G1J-03.stl",
+      "bytes": 153084,
+      "sha256": "a40e9aa2e0d8ce2033db18620790f0a94f79e586324435b20f22484534a5c1bb"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-03/drawing_notes.md",
+      "bytes": 680,
+      "sha256": "ac9416417b10613828b838b128c87b6096842da3e3aabb676baf6eb15a3838bd"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-04/G1J-04.FCStd",
+      "bytes": 3521,
+      "sha256": "763a635db212a552bcea2869713923cf9de0549bfb2a5091f6b8714f0096bcbd"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-04/G1J-04.dxf",
+      "bytes": 13388,
+      "sha256": "30cceb0e2b5e95234fb758fe34dd2b6828f07071b1fc864564f38f416bf70cab"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-04/G1J-04.step",
+      "bytes": 15602,
+      "sha256": "35a903a0e5ef216c9bb608bece42b074539888b886d22845baabe1efe9c0af6a"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-04/G1J-04.stl",
+      "bytes": 153084,
+      "sha256": "cb78b822e3f2543a00f6702fcd42653989005386f0acdb20e792d991db08d852"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-04/drawing_notes.md",
+      "bytes": 631,
+      "sha256": "acf0f3bbfc177cea10502103e05a0700530509faf386e5211bbbcf58e54d5fcc"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-05/G1J-05.FCStd",
+      "bytes": 4065,
+      "sha256": "81b4b0d28fec2a6849f92acaff2c2063c92d3e8445820200e631618a3d60ba59"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-05/G1J-05.dxf",
+      "bytes": 17252,
+      "sha256": "1408d78f71d5b58ff2cad67dbb1c51ac5c2231fb95c649ba8fa3f4b06fa47400"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-05/G1J-05.step",
+      "bytes": 20364,
+      "sha256": "374a257c7324392a1363077a82cb5e68bdd7cc11b011c7bd3577295ce03b0c33"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-05/G1J-05.stl",
+      "bytes": 153884,
+      "sha256": "4a75e0a18e144aff6fa191de1417627459494a57ea2829f15519613890501658"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-05/drawing_notes.md",
+      "bytes": 662,
+      "sha256": "4bf9267531f7fb183b054449b79636c32e632a8b11b67fd28191918c10b32815"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-06/G1J-06.FCStd",
+      "bytes": 3277,
+      "sha256": "f186d85e01e14de81d9be7d79b730f40a1a3326d2aaaafa67e06c19a7455d48d"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-06/G1J-06.dxf",
+      "bytes": 11596,
+      "sha256": "7848e5d3e18f9b6455ad7ae861d9ae3ccb5894b726892d10c6b76aed075464e0"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-06/G1J-06.step",
+      "bytes": 12649,
+      "sha256": "79e55fa83085cc4f661e346868f359b2531a59c79b310cc8a9f646b71ee455ae"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-06/G1J-06.stl",
+      "bytes": 102284,
+      "sha256": "10473c5dafdb99c5875e075594a47446204f19a1e5091de566d2ed7fe72d2c19"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-06/drawing_notes.md",
+      "bytes": 637,
+      "sha256": "d71cd3a1d4aae6113e7112cd13520c829e3546baa413b9136f5586f176549314"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-07/G1J-07.FCStd",
+      "bytes": 4231,
+      "sha256": "372c5a752c092aeb1da2f1347d18c59b5d0b75c808f2d621939ded44b84f7062"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-07/G1J-07.dxf",
+      "bytes": 18484,
+      "sha256": "48634904e7c7930dc85a7989b70eec50664844e31dafddc274c1c274fa1ec2c8"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-07/G1J-07.step",
+      "bytes": 22473,
+      "sha256": "23f92b6158b4552996f5ed5b3ec1240ef4e88e98ac7b184bc229cc11428e2d82"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-07/G1J-07.stl",
+      "bytes": 153884,
+      "sha256": "2a8c0ce615e96c6c607ffabcefb7589242029057b9843addaebbef161aa94eaa"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-07/drawing_notes.md",
+      "bytes": 643,
+      "sha256": "d65728616494f24fee80f797c532418c3c2cb600994d9bdf59ed2fb893d82dd3"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-08/G1J-08.FCStd",
+      "bytes": 3580,
+      "sha256": "239b4c4a05cc32c10de98a56a9fb4a4f366ff891292894c0f91225df7eee707c"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-08/G1J-08.dxf",
+      "bytes": 15068,
+      "sha256": "0cf23b7fd6935d21c644b927c9d22aa6cb42b8de82663b46e0ba06c509ddff0a"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-08/G1J-08.step",
+      "bytes": 16662,
+      "sha256": "d02a587938ec926fbea592b4e0a84c46f4f75dddaee9004f85e352029443f8b6"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-08/G1J-08.stl",
+      "bytes": 52284,
+      "sha256": "5ef46ee6ba898cb25b6886a009dd515747110ae22ac9599e269139e19305874a"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-08/drawing_notes.md",
+      "bytes": 636,
+      "sha256": "8b71ade4d2b115f74954aa8934fb19467ee7458c8b700433ed9d46966ed6ae1f"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-09/G1J-09.FCStd",
+      "bytes": 4695,
+      "sha256": "04d11ee01a65dbc57ec96a2792749df924341933f0539a3bffb73d5af702fcdb"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-09/G1J-09.dxf",
+      "bytes": 22708,
+      "sha256": "75f7af8e371783ca7508314658e552741d4c8d95e270bffcf3173b4c8e6fc408"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-09/G1J-09.step",
+      "bytes": 26447,
+      "sha256": "7f89d83417402e88016db5b27068640dde52e1641bc4a63b7c606ba1d5b577bb"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-09/G1J-09.stl",
+      "bytes": 54284,
+      "sha256": "a3797da527e71bc9c7eb5ec10ced6ac26246a93638a1742496e7b7c09b44d1b4"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-09/drawing_notes.md",
+      "bytes": 652,
+      "sha256": "23b329c29f3cf9bd1f1b59374fbdf659bf66d3c8aae724577bfc0ce4710d7aea"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-10/G1J-10.FCStd",
+      "bytes": 3933,
+      "sha256": "cd66fc52664e615367f25f42aaec56cfd9a0c4bffd545339caa4e62525e64653"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-10/G1J-10.dxf",
+      "bytes": 16708,
+      "sha256": "1084bfb13e945e821b9093fd6fa97468d3b1798c4c35c38770703fe9622b0460"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-10/G1J-10.step",
+      "bytes": 19511,
+      "sha256": "4f33d21d78687c6c9f67602ffb341955d0c5173f0b4c36cbc8adba59657ff4f3"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-10/G1J-10.stl",
+      "bytes": 103084,
+      "sha256": "14b2a3c0b2975026b20783006d42e55dcfc970650d2e06ad7a996af51bb467f4"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-10/drawing_notes.md",
+      "bytes": 643,
+      "sha256": "760168673c601d677bf34cf6d31e08add89e3817d437526463fb2e85a13e03e5"
+    },
+    {
       "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.FCStd",
-      "bytes": 4203,
-      "sha256": "d8d3738248ce210657341e653e7500e4636733bfee2b41e06bbb885ae5330ce7"
+      "bytes": 4511,
+      "sha256": "4407980905f4a10269909965c6ebe2dfbdc57e74aeb17b48ce40a4c41d02968d"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.dxf",
-      "bytes": 16084,
-      "sha256": "58da5c082f39876b1fdb49d0b0b2a7b22815a87bdfb41d38ac9437303c141b19"
+      "bytes": 16060,
+      "sha256": "5a513e49f4826eb1d744fa83ef64a2690b3090742c1a59f6d3de92b28de57699"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.step",
-      "bytes": 17498,
-      "sha256": "c6d340a54efb0bcb421ce0f2ca3cb1cc94264a48adc6e7077a93b78c1f6efab6"
+      "bytes": 17007,
+      "sha256": "7640ce1322529bb4642457c5358f6f0952ae2383478915d39838452b15e57a69"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.stl",
-      "bytes": 2084,
-      "sha256": "f20c406aa3e38c7fc24dc151b6d35f9aa4b55f8b14628518058406a6fdca4373"
+      "bytes": 2484,
+      "sha256": "34b700989f589ff7df68373421ffc0e7706ef73d06f4c99844c8c20949004147"
+    },
+    {
+      "path": "exports/jigs/gate1/parts/G1J-P01/drawing_notes.md",
+      "bytes": 594,
+      "sha256": "95fdf97611d64db91457c494db47d2394027062839d68967667184bac2529de7"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P02/G1J-P02.FCStd",
@@ -529,8 +852,8 @@
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P02/G1J-P02.step",
-      "bytes": 12062,
-      "sha256": "b67a37328850c9fa9d4d5d1dba938cbc83684435f082eb405312b824eb9c6ea5"
+      "bytes": 12064,
+      "sha256": "a173570e0219cfd1f4361c5a1d01b53affef5a4605f41203676f96570af1c963"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P02/G1J-P02.stl",
@@ -538,9 +861,14 @@
       "sha256": "8799c2fdf409f2d02cbd03a1201ff191b7471ed1bd95cd73f6cd21d116d96e8a"
     },
     {
+      "path": "exports/jigs/gate1/parts/G1J-P02/drawing_notes.md",
+      "bytes": 594,
+      "sha256": "3f1102549bd368043a2947d96b1b45b3f2d6174097c070fc02e59562fbe89b3f"
+    },
+    {
       "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.FCStd",
-      "bytes": 3735,
-      "sha256": "b7fbd11acffdb6151c4aab2b47659eb4f6da4c671466daa2fda7a4860ada2418"
+      "bytes": 3724,
+      "sha256": "4d4949bd45bdfa7c6afe12d743ddf8a7498a974646846321add5341f6ab61af8"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.dxf",
@@ -549,8 +877,8 @@
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.step",
-      "bytes": 17771,
-      "sha256": "43b19c31ef1dc422715ccc2a15e40413afa21db3074c4742c9f3c0d059eb9b6f"
+      "bytes": 17773,
+      "sha256": "68e160b6055e0f7edc5b69fc3b1aaacb26ff49866d3ee2af9b0bf5bf055cd0e3"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.stl",
@@ -558,94 +886,114 @@
       "sha256": "73ee9228e701ad5d902d84a2673571d87013473460296321504a9076d38ac1a5"
     },
     {
+      "path": "exports/jigs/gate1/parts/G1J-P03/drawing_notes.md",
+      "bytes": 574,
+      "sha256": "152c6f343966f8deeb2137a523155557675eb62758870d9fd50528475e004b50"
+    },
+    {
       "path": "exports/jigs/gate1/print_manifest.csv",
       "bytes": 282,
-      "sha256": "b4feee2ddfa2ea2969440649a4c5c94e6e848df9d9d532402b7da698bd54324c"
+      "sha256": "828fbed9308a5cc2d2fa0fd329d1e047f6243c91ce2624384ac50f5a7b1cf42a"
+    },
+    {
+      "path": "exports/jigs/gate1/specimen_schedule.csv",
+      "bytes": 533,
+      "sha256": "10c79d459d08eee4a0816dbb30689c40aa56dad268b35bd169aabc2e9b169892"
     },
     {
       "path": "exports/jigs/gate1/test_procedure_ko.md",
-      "bytes": 2809,
-      "sha256": "d90e0c14ca97f8ab558a1df1ffca0d172f2851f287f88be279eb8e2ed84512a6"
+      "bytes": 3266,
+      "sha256": "17dcd7a04799622c771bbd2c079ee616f5009977167ef52dfdc7038304693f5f"
     },
     {
       "path": "exports/jigs/gate1/total_material_report.md",
       "bytes": 229,
-      "sha256": "43b6153668d8d79cdc1a3908f12cb23e6339b8eb7494a5af67f7466750b7dd8b"
+      "sha256": "73bea91589e1df49c26bb39c47d24e3a9ac99dbc07daf89a6ee7ce3ad03eb151"
+    },
+    {
+      "path": "exports/jigs/gate1/wiring_24v_hardcut.svg",
+      "bytes": 3349,
+      "sha256": "0c7e44cb977eef1e41609c4d51e1a5bf2b6f9d596772c5c385a519086a9ea28c"
+    },
+    {
+      "path": "exports/jigs/gate1/wiring_bom.csv",
+      "bytes": 1983,
+      "sha256": "e5b4c642087d0e9e5ff6f47118bd2eb7947897f898f1390bd3144dff45c4149c"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.3mf",
-      "bytes": 1341,
-      "sha256": "94738c3f47ffa30d565eb6ec8c71d31f3b5e650f4861497c8974e4e9c9b5a76a"
+      "bytes": 1239,
+      "sha256": "7fca5853bc653d96a264f73e814120fe9959b4f731962a9e2efb4a9ff651cc30"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.FCStd",
-      "bytes": 4335,
-      "sha256": "add9a5138dd7d82f494c14de9dd6be1f9620ea3b85dd7ae7612b95619df5502f"
+      "bytes": 3751,
+      "sha256": "5ed608aaf4c9987174270ddd175728550f56cb24a63e1ef88d7c6b288a066837"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.step",
-      "bytes": 20693,
-      "sha256": "117a0bb405354c496c2643ac2283d6f60efe7344233dd17a7cdf87862255d368"
+      "bytes": 11677,
+      "sha256": "553e676e087d957f287790e814cbadf1bd3b0bd9bd83a042f25e9b6abc12fb63"
     },
     {
       "path": "exports/print/PPR-C01/PPR-C01.stl",
-      "bytes": 2284,
-      "sha256": "e52b7fcee5351c106f8165720f7c69b6b39205149950e8bd7b6ddfcff4580ddf"
+      "bytes": 1484,
+      "sha256": "25defeaca86dcd6900cf2912cf04a3911bf4e15c429d4d49ce36337318ce7786"
     },
     {
       "path": "exports/print/PPR-C01/print_notes.md",
-      "bytes": 525,
-      "sha256": "3162be2f9459248fda505bdafff79672fc0d3973f3bfe0e507976d63cc80f03f"
+      "bytes": 637,
+      "sha256": "40890816a2113da2362fc1ef931b582c80e9155b4974e7c6a2f31455d104b111"
     },
     {
       "path": "exports/print/PPR-C02/PPR-C02.3mf",
-      "bytes": 1433,
-      "sha256": "7bc6778fc987644332a4d86482b95a5e7165003f8268bccd8a31d7bdfa3cf03c"
+      "bytes": 1513,
+      "sha256": "1253160866ed45b2a53c61af3f72a6b26e1708f695f42e4f1a3fb1d1752fa7ac"
     },
     {
       "path": "exports/print/PPR-C02/PPR-C02.FCStd",
-      "bytes": 4972,
-      "sha256": "80e4df7c2f0e01e16baeda77f2e909096c6356d9d540a58282ed8b8484c5f12e"
+      "bytes": 5224,
+      "sha256": "5fe8d13ed27e128fd4edf2dc00a08e6c7c6aee5d3bd08a3b59164a0ac9788005"
     },
     {
       "path": "exports/print/PPR-C02/PPR-C02.step",
-      "bytes": 22893,
-      "sha256": "217334de5b009fcc183f5aa4bd12b1281fc683d02ed28ebd845f0d80f2692f52"
+      "bytes": 21860,
+      "sha256": "d42957a319e4bc2d23ef1aabcb39077f897859bce43a6073a4f066174fbf3cbe"
     },
     {
       "path": "exports/print/PPR-C02/PPR-C02.stl",
-      "bytes": 2684,
-      "sha256": "ab3839ee2be1fac12b3421a49ca6690be0e33b1923d2ed668c0b095275736b05"
+      "bytes": 3484,
+      "sha256": "1dc6255290aafadab00ac627025fe6ccb7be24d0ab6683301208eb3ad2365b5a"
     },
     {
       "path": "exports/print/PPR-C02/print_notes.md",
-      "bytes": 577,
-      "sha256": "4b69000dccdf445caa687f776298344b94dd36948ca6267fae88aa0f457a2c5a"
+      "bytes": 704,
+      "sha256": "a02de8a828a6b5ee4eea7ea613e867bd07b52b4b8bcf34cb33208ce98e62e7a9"
     },
     {
       "path": "exports/print/PPR-C03/PPR-C03.3mf",
-      "bytes": 1372,
-      "sha256": "ea6c53b4d5782039e95d3c7799069f08949219086050b24835e3e8885f8ca27d"
+      "bytes": 1205,
+      "sha256": "90e449434059fda7d41543e2b64d83d9933c6727bd832cadb02dd7620ca4665c"
     },
     {
       "path": "exports/print/PPR-C03/PPR-C03.FCStd",
-      "bytes": 4342,
-      "sha256": "13a63797e1f79638c18cddf274c88125986cf9708934c08149a785e9cdb25f30"
+      "bytes": 3613,
+      "sha256": "af1a88e014ce33990a824c675c8af1a181c2ba14b3e614e1a94c78609145360c"
     },
     {
       "path": "exports/print/PPR-C03/PPR-C03.step",
-      "bytes": 22366,
-      "sha256": "898f7f0413c47f6cbf8a60855c1ba1777202cbfcb76b559df223f78892d960b8"
+      "bytes": 10503,
+      "sha256": "e49d94975278bb7559d1fdaae5fd912536d45411cf1528da0d7069e62ad18b5d"
     },
     {
       "path": "exports/print/PPR-C03/PPR-C03.stl",
-      "bytes": 2484,
-      "sha256": "79e08470eae19290f9d03b934938aa2baf2d5ea86d253d1c6632cc906b07f2f0"
+      "bytes": 1284,
+      "sha256": "e9aa17469d16be341cf82ffc50a1c18c92dd2f5b2152084b7fe1cccc36bb151a"
     },
     {
       "path": "exports/print/PPR-C03/print_notes.md",
-      "bytes": 551,
-      "sha256": "c5ea1fee3665f5143ccd0c8a8151475c24ae04f81546e4c8e13cb26c048c3cd6"
+      "bytes": 663,
+      "sha256": "b19d990ff649950a40d22fdc010bc4a3407f0d99ee3f7eb40a5be2d87eba2fe2"
     },
     {
       "path": "exports/print/PPR-C04/PPR-C04.3mf",
@@ -654,8 +1002,8 @@
     },
     {
       "path": "exports/print/PPR-C04/PPR-C04.FCStd",
-      "bytes": 3142,
-      "sha256": "8db2509d3da2d3cc781b646ea081a1323dde671cd7150e902206fd7333f6ba50"
+      "bytes": 3134,
+      "sha256": "5c1d840cc08b26ef9012550612fbfac31878ed35e04b475a5cfeabbb68b89f26"
     },
     {
       "path": "exports/print/PPR-C04/PPR-C04.step",
@@ -669,8 +1017,8 @@
     },
     {
       "path": "exports/print/PPR-C04/print_notes.md",
-      "bytes": 517,
-      "sha256": "40046859914e2574cf1290992190015afb03c3e4be17c729d5d776b73db859b8"
+      "bytes": 629,
+      "sha256": "7042c0b8373e55ec291ac0caac125e553ac2ec9c5282c694ab4ffb01d7196d17"
     },
     {
       "path": "exports/print/PPR-C05/PPR-C05.3mf",
@@ -679,8 +1027,8 @@
     },
     {
       "path": "exports/print/PPR-C05/PPR-C05.FCStd",
-      "bytes": 3164,
-      "sha256": "889657c85f1e8cca534001a1c09f62d0dc32ea8b5ad45f8380ab1a09602f3524"
+      "bytes": 3156,
+      "sha256": "8be484ab0c78bdf979044b4ea10512e452f13c5d52a0cdebe5efaa5dbe69d248"
     },
     {
       "path": "exports/print/PPR-C05/PPR-C05.step",
@@ -694,8 +1042,8 @@
     },
     {
       "path": "exports/print/PPR-C05/print_notes.md",
-      "bytes": 533,
-      "sha256": "a13b521c7339c2a105bedd62cb304092e2c708280cc589b0865c1d2af5c53919"
+      "bytes": 645,
+      "sha256": "2a4a520430de41d861034a83b06719c17c6a6bde46fe52eb285c3bc45cc5a2ca"
     },
     {
       "path": "exports/print/PPR-C06/PPR-C06.3mf",
@@ -704,8 +1052,8 @@
     },
     {
       "path": "exports/print/PPR-C06/PPR-C06.FCStd",
-      "bytes": 4332,
-      "sha256": "0d0a65c55863c4a1f44c93e0be88b81d8a0707338109dd95e958f55c13374938"
+      "bytes": 4318,
+      "sha256": "4ecbdf9b2f9a5dd61346f94ceed43d6555719da85fc6c96bcb5061f1a46fe992"
     },
     {
       "path": "exports/print/PPR-C06/PPR-C06.step",
@@ -719,8 +1067,8 @@
     },
     {
       "path": "exports/print/PPR-C06/print_notes.md",
-      "bytes": 573,
-      "sha256": "9b45ec5607a06cc5832c425976e002b2653e1917dce2e23d20c06060f530f2bf"
+      "bytes": 699,
+      "sha256": "7be8691c687270017d784232597f8579afd766b84b0da069c8f40364be7ae939"
     },
     {
       "path": "exports/print/PPR-C07/PPR-C07.3mf",
@@ -729,8 +1077,8 @@
     },
     {
       "path": "exports/print/PPR-C07/PPR-C07.FCStd",
-      "bytes": 4319,
-      "sha256": "fbeb477802e7801b0c9705c31fea65841d0222608793b02a67019ae682cdf3b7"
+      "bytes": 4306,
+      "sha256": "c460d1f182f5b3e023e782bee5ed7e21d0fd0150dce6c16a50a0ea6d8687a7be"
     },
     {
       "path": "exports/print/PPR-C07/PPR-C07.step",
@@ -744,33 +1092,33 @@
     },
     {
       "path": "exports/print/PPR-C07/print_notes.md",
-      "bytes": 557,
-      "sha256": "07a9d54379c2cce2ee970ac4f77bf752840fa821c9dd928c6e7e0a19e11c4368"
+      "bytes": 685,
+      "sha256": "209c207c368e68905015cdd863dec27f1a2f0c2f887ea58cd5652528d698dc7f"
     },
     {
       "path": "exports/print/PPR-C08/PPR-C08.3mf",
-      "bytes": 5625,
-      "sha256": "2b4b3310730b026e680cab2b7ade36a95b2ca43295ab30a0ad760b0211d177aa"
+      "bytes": 5626,
+      "sha256": "ec1873afc60f5d08863db427624cbfc5b89505339ff1c9bd3a28f87a10dea670"
     },
     {
       "path": "exports/print/PPR-C08/PPR-C08.FCStd",
-      "bytes": 3455,
-      "sha256": "a7d4a304acdc11f513f70a5d8e2ee6f561f03edbf07ad26203f29cb1dd93fdde"
+      "bytes": 3181,
+      "sha256": "fedf72fe840683cbe84918655a000dfd307d3f6c5e0b01439ca3c14b84521ab7"
     },
     {
       "path": "exports/print/PPR-C08/PPR-C08.step",
-      "bytes": 15178,
-      "sha256": "9146dd6949b357ead774991d06d66bc4123b4f3e165e4cffa00fbb7c127734c5"
+      "bytes": 10735,
+      "sha256": "08998d3c8a4a0f28f61619f54f73b88891387dff90058d0c4d5c75329fb72b44"
     },
     {
       "path": "exports/print/PPR-C08/PPR-C08.stl",
-      "bytes": 26884,
-      "sha256": "a15d959d8822c6df585c0c6439d2161d26f4177d5ba0ff620502c53fe6340100"
+      "bytes": 26484,
+      "sha256": "d58025707c53ceb33501927a3140bbf90a5b59b5379d76c8f507fd4f5a7a55fa"
     },
     {
       "path": "exports/print/PPR-C08/print_notes.md",
-      "bytes": 546,
-      "sha256": "382907c7fca2549e93f6a14a7a8f724c6a7a3ae3c6ebfb726419168e895de098"
+      "bytes": 670,
+      "sha256": "8a069168b33140e7749508a17c38b89c4043ec9a4f1cca7861b355d318a00eeb"
     },
     {
       "path": "exports/print/PPR-C09/PPR-C09.3mf",
@@ -779,8 +1127,8 @@
     },
     {
       "path": "exports/print/PPR-C09/PPR-C09.FCStd",
-      "bytes": 2745,
-      "sha256": "0665de6ea98d04a8c7000bd67fd3002f283efdbdce78bbf60a6fb9a494f8725b"
+      "bytes": 2736,
+      "sha256": "204096fe15cef3019b409cad143bbe6382e3aac523f6be5399ed885e4e35d471"
     },
     {
       "path": "exports/print/PPR-C09/PPR-C09.step",
@@ -794,33 +1142,33 @@
     },
     {
       "path": "exports/print/PPR-C09/print_notes.md",
-      "bytes": 539,
-      "sha256": "5de797c1555157cd3a938346c06284c0666504ca10780471fadc18110bcc9fee"
+      "bytes": 651,
+      "sha256": "009882d3181d779d9cc41419cc22ba71586e8768ca4315e5789b48d5346ec908"
     },
     {
       "path": "exports/print/PPR-C10/PPR-C10.3mf",
-      "bytes": 8268,
-      "sha256": "8a74d76b29ebec8de16fbf30ec325a94c020dbb27820e29531902af66516692b"
+      "bytes": 16791,
+      "sha256": "2c9706b9efae7cf5fc9b10dabd3bb08c87f0105b4cc03887abe85fea0f4691c6"
     },
     {
       "path": "exports/print/PPR-C10/PPR-C10.FCStd",
-      "bytes": 5493,
-      "sha256": "212c9850edda456cf073b30118e08b48bcea71aa92cdb9d92bacde6f37bae207"
+      "bytes": 5355,
+      "sha256": "d6a112eaf92e816a2182a29d496170543db48afbfe8580262e870ba6523170fe"
     },
     {
       "path": "exports/print/PPR-C10/PPR-C10.step",
-      "bytes": 27818,
-      "sha256": "b62c3dcddd221130de9c5dc4ceff2c6c9dae0b36300e420e27c3d4defae98751"
+      "bytes": 21253,
+      "sha256": "6c1cdcad4db3af2acb2cd737061462cdb0f8261820bc03abfc46f2781e9c51b7"
     },
     {
       "path": "exports/print/PPR-C10/PPR-C10.stl",
-      "bytes": 43084,
-      "sha256": "b08f9acddb2b94e0844354f6deef54c9cfcd602b7a7bc83f0d93b6bfb296c045"
+      "bytes": 87884,
+      "sha256": "a404695b52eb7b6b48dfcd1b6402a7615f18584f213b211837f3eabc00cacd51"
     },
     {
       "path": "exports/print/PPR-C10/print_notes.md",
-      "bytes": 542,
-      "sha256": "93d3ef691aac30ee53c9be837294ea43a3de26cbf1198e98f647d8b4c65bfd14"
+      "bytes": 666,
+      "sha256": "7b7df0e8bbbf83681d8ab7f7b4140eb2fad299c62df1372c86e9482fa2ecc10c"
     },
     {
       "path": "exports/print/PPR-C11/PPR-C11.3mf",
@@ -829,8 +1177,8 @@
     },
     {
       "path": "exports/print/PPR-C11/PPR-C11.FCStd",
-      "bytes": 3158,
-      "sha256": "6543354771b0a4a65e268099c6b5775729981b7978674719b2f9fa63512c5f17"
+      "bytes": 3150,
+      "sha256": "3a86c4a3dfe402036e236d16dad8bf5c27c4fc1f6b5446cefdb176c7ab4164b6"
     },
     {
       "path": "exports/print/PPR-C11/PPR-C11.step",
@@ -844,8 +1192,8 @@
     },
     {
       "path": "exports/print/PPR-C11/print_notes.md",
-      "bytes": 543,
-      "sha256": "b9e055a393008097eb5412559731a5c3aa39f67cb61d4f66af77b6a6151a3c9b"
+      "bytes": 655,
+      "sha256": "db579e38ad42b0fe03daf8de0d789ef2ccb47fe70bf7baf8c67be1f37dc8e714"
     },
     {
       "path": "exports/print/PPR-C12/PPR-C12.3mf",
@@ -854,8 +1202,8 @@
     },
     {
       "path": "exports/print/PPR-C12/PPR-C12.FCStd",
-      "bytes": 3123,
-      "sha256": "188fe953dddf335d3b328a007cfa63316651c89f8b075cb13ebe38be640a3880"
+      "bytes": 3116,
+      "sha256": "39083593b275fb753ec9cb82ed48a0e427c20600ca09e5d9672d512089f37310"
     },
     {
       "path": "exports/print/PPR-C12/PPR-C12.step",
@@ -869,93 +1217,103 @@
     },
     {
       "path": "exports/print/PPR-C12/print_notes.md",
-      "bytes": 508,
-      "sha256": "c8d7d6a43e9325d41f89f48daacfff82a051950b7df737e7892d670a009a38a2"
+      "bytes": 620,
+      "sha256": "c5f89cafc5397edae6acd9267fff02f22af1a18de819891a9a3d50e41ea036c7"
     },
     {
-      "path": "exports/print/plate_layouts/plate-01.3mf",
-      "bytes": 1341,
-      "sha256": "94738c3f47ffa30d565eb6ec8c71d31f3b5e650f4861497c8974e4e9c9b5a76a"
+      "path": "exports/print/plate_layouts/plate-01-PPR-C01.3mf",
+      "bytes": 2243,
+      "sha256": "0fa2916e394e26296739e75b5a5ee43ff0c1e18ff5ef4f0c8818f16c0f2eb018"
     },
     {
-      "path": "exports/print/plate_layouts/plate-02.3mf",
-      "bytes": 1433,
-      "sha256": "7bc6778fc987644332a4d86482b95a5e7165003f8268bccd8a31d7bdfa3cf03c"
+      "path": "exports/print/plate_layouts/plate-02-PPR-C02.3mf",
+      "bytes": 2515,
+      "sha256": "7d95c42939deda5e3e8814f0e877ce046168d2198f7b30bd7d38c850f90c0f33"
     },
     {
-      "path": "exports/print/plate_layouts/plate-03.3mf",
-      "bytes": 1488,
-      "sha256": "12ff6509d0021949b8ed9c4ff578d19f379fdb72e6d7e302f615e69216f75711"
+      "path": "exports/print/plate_layouts/plate-03-PPR-C03.3mf",
+      "bytes": 2271,
+      "sha256": "0e86aebfefddf50e409c685ef99ff16b6aca99222218fc5f60219167f57380b8"
     },
     {
-      "path": "exports/print/plate_layouts/plate-04.3mf",
-      "bytes": 1259,
-      "sha256": "20b1dc87a97970045f889be920afa06335859e53a6da2234f36a8f5d669f7600"
+      "path": "exports/print/plate_layouts/plate-04-PPR-C04.3mf",
+      "bytes": 2269,
+      "sha256": "ead37b22ff6db8f470e15bea7d410dbd9f0ea754b85291906103595cc5f86804"
     },
     {
-      "path": "exports/print/plate_layouts/plate-05.3mf",
-      "bytes": 1285,
-      "sha256": "76f6d8607b055b692a9cb38495405e952871ccf27bd69475db22f95dffb702d9"
+      "path": "exports/print/plate_layouts/plate-05-PPR-C05.3mf",
+      "bytes": 2299,
+      "sha256": "c6bd2def413741d86847d695af5e5616e2a0a07b04b6771a3bd8fe793945d759"
     },
     {
-      "path": "exports/print/plate_layouts/plate-06.3mf",
-      "bytes": 1583,
-      "sha256": "d6843af9595eba423accc4aa211cbcad475d40c075cd77b15360f126c9789751"
+      "path": "exports/print/plate_layouts/plate-06-PPR-C06.3mf",
+      "bytes": 2565,
+      "sha256": "78cb42357aae5eea9f55dc60c511c952c719c349153e024b3c7c99de7ccd198d"
     },
     {
-      "path": "exports/print/plate_layouts/plate-07.3mf",
-      "bytes": 1515,
-      "sha256": "447ef4ad1dfdd681f8aa38867cb9e924850c68b64d2a2703d66c4fcf0c9d54bf"
+      "path": "exports/print/plate_layouts/plate-07-PPR-C07.3mf",
+      "bytes": 2513,
+      "sha256": "3fd7c28d55f80b04ecd704fb50e13eba6667912942750c61848de7f3c37aafd6"
     },
     {
-      "path": "exports/print/plate_layouts/plate-08.3mf",
-      "bytes": 9835,
-      "sha256": "f6cc74129bf54480b98ae6824810d180bd55b8bed07624855f70679567a94c38"
+      "path": "exports/print/plate_layouts/plate-08-PPR-C08.3mf",
+      "bytes": 6855,
+      "sha256": "f219cd676c1d71186e3dc78f9a760f62240870bd0d6069eecae8a87bede6364d"
     },
     {
-      "path": "exports/print/plate_layouts/plate-09.3mf",
-      "bytes": 56087,
-      "sha256": "eab9d5cccbe0d67b680a990c64ea5721472ead269787007288314091f3f5612d"
+      "path": "exports/print/plate_layouts/plate-09-PPR-C09.3mf",
+      "bytes": 30837,
+      "sha256": "262d9df81aae172bcc7cafdbd9cf26aed419429540551e689984f64723e599c8"
     },
     {
-      "path": "exports/print/plate_layouts/plate-10.3mf",
-      "bytes": 8268,
-      "sha256": "8a74d76b29ebec8de16fbf30ec325a94c020dbb27820e29531902af66516692b"
+      "path": "exports/print/plate_layouts/plate-10-PPR-C10.3mf",
+      "bytes": 18292,
+      "sha256": "141bb249b3926304ea3940d9dc50fcb6c7bae3c1c41c56a9cd858bae379095bd"
     },
     {
-      "path": "exports/print/plate_layouts/plate-11.3mf",
-      "bytes": 1262,
-      "sha256": "c70b7db9776266705284bdba79b07294ae45d22c379cb24490a54078680f106b"
+      "path": "exports/print/plate_layouts/plate-11-PPR-C11.3mf",
+      "bytes": 2267,
+      "sha256": "8b676998412540b433788c5720b0ce358e5b4a96c17fe94110fcae54280682f1"
     },
     {
-      "path": "exports/print/plate_layouts/plate-12.3mf",
-      "bytes": 1412,
-      "sha256": "ec64acdf1eddc2c8ee5d54f29fff4797b5a5d3cd7d7216bc701582ea0c5d5895"
+      "path": "exports/print/plate_layouts/plate-12-PPR-C12.3mf",
+      "bytes": 2340,
+      "sha256": "32ed0ea70f7ce9555c0eda592f7ef594f85f9bcf364ae2c7413ed36fd4742de9"
     },
     {
       "path": "exports/print/print_manifest.csv",
-      "bytes": 2040,
-      "sha256": "7dcc2d416984754659975325c4be9667143ba4c3c29d0ca604a5d28712c2310d"
+      "bytes": 2536,
+      "sha256": "b38f90611d8639f36c1db9ad8932b4fdf42923588f6d8652626800e33c2df7c9"
+    },
+    {
+      "path": "exports/print/slicer_profiles/PPR_PrusaSlicer_2.9.6.ini",
+      "bytes": 735,
+      "sha256": "4f2031c0aa4a41d64827b244eb81f2d200289a1fca68101718b7f2f1c0e003ee"
+    },
+    {
+      "path": "exports/print/slicer_profiles/README.md",
+      "bytes": 498,
+      "sha256": "318deb0e645d330351102287846566ae8e7c4b05ae508caf3363ff0ffc7681c6"
     },
     {
       "path": "exports/print/total_material_report.md",
-      "bytes": 391,
-      "sha256": "76eb81e301f33d39eb7a75a53a4d4c7149fd97ceca902bb501ceeb6e647092c6"
+      "bytes": 381,
+      "sha256": "7a184cabc0e6164a7c8c173f8891899f56890733521424924e9c94db55d90ca4"
     },
     {
       "path": "exports/step/compact_full_assembly.step",
-      "bytes": 3055073,
-      "sha256": "515b22546fe82641ba4e223e9130eeb4380bd1e6877e9bc7f5ce8a7d1c30d69c"
+      "bytes": 3040535,
+      "sha256": "20857862ed132ea09a658acf18f3a08f57c32bc9a4802e43a13fbc02a0168bb9"
     },
     {
       "path": "renders/assembly/compact_full_assembly_front.png",
-      "bytes": 34742,
-      "sha256": "3d37da45c298c06ef390766b62891055bdb267fa053ad46e8cd507d115a4e168"
+      "bytes": 31925,
+      "sha256": "1986a692372941de9522934619623ae2b266f9f6908886f721402127d3ec7e03"
     },
     {
       "path": "renders/assembly/compact_full_assembly_isometric.png",
-      "bytes": 57160,
-      "sha256": "dc6ed32d5b646b581119d065d8ec92047a004a7c7b9c222d3d73f3c10b674519"
+      "bytes": 56958,
+      "sha256": "6374edcc4d9e55e2d23744ff31511e7e07b32887d9576f96bf7b1d9ac3ed438e"
     },
     {
       "path": "renders/assembly/compact_full_assembly_top.png",
@@ -969,13 +1327,13 @@
     },
     {
       "path": "renders/jigs/gate1_assembly.png",
-      "bytes": 57326,
-      "sha256": "6b95756237534bcf91996322d1c4dbc21b125d150bcefdb591a52afc30d1fe1c"
+      "bytes": 70536,
+      "sha256": "7b8e6ea6aae8f9047481ec7b92a15ac184b1c6d276ae7625b1489493173fec08"
     },
     {
       "path": "renders/jigs/gate1_exploded.png",
-      "bytes": 63806,
-      "sha256": "1962be1b8897b60bd951d14a4f5c81cbdcfeb6da8e1935a70083f808d6c285ee"
+      "bytes": 76658,
+      "sha256": "dfd68d0ffa68fbb4155423cfecf7c05cf9fcb09f31ded7cdc6dab31891f70add"
     },
     {
       "path": "renders/jigs/gate1_rotor_detail.png",
@@ -994,8 +1352,8 @@
     },
     {
       "path": "renders/modules/interchangeable_drive_interface.png",
-      "bytes": 40048,
-      "sha256": "da44ac1f4e69089a1478b5ee52a134f74d75ce35733221337d3f88d1ece8b3bd"
+      "bytes": 56976,
+      "sha256": "b0f7d720571450f650778202c6512ec6cfdf8be455d10931bd4bef059980ef9a"
     },
     {
       "path": "renders/modules/shared_shredder_module.png",
@@ -1039,38 +1397,338 @@
     },
     {
       "path": "requirements/architecture_contract.md",
-      "bytes": 2762,
-      "sha256": "fd7a1e4b727fb8c208ebba323d0edee1a44ca125eb11e9acaade9020cfafb3e6"
+      "bytes": 2368,
+      "sha256": "b89ea5caecec095963d1b3e624bb0e3d09474a80013ea17c1cf7db20146c0426"
     },
     {
       "path": "requirements/assumptions.md",
-      "bytes": 1017,
-      "sha256": "4552d92ec083cf4031f52fb5a55eecc322bc64bb3704fe383f4ae9e1c2cd3c20"
+      "bytes": 1184,
+      "sha256": "3c75ed5ec71dadfd77896242f18f96b47939e8ee5ded6c53efa5b2cfc4326d5f"
+    },
+    {
+      "path": "requirements/responsibility_matrix.md",
+      "bytes": 1447,
+      "sha256": "a5fbd0cb7b69444d5d3e5c8527503799bb63eef03893f710473da222c43e1970"
     },
     {
       "path": "requirements/system_requirements.md",
-      "bytes": 2994,
-      "sha256": "d9063cb733ace81d2af99916594c8330ff668b6a591c8a6b5ad7f8baa02829e3"
+      "bytes": 2866,
+      "sha256": "00c8799c0ae405a9618023ff2451d438f41c52ecadc904ab1a479d9a4bc305e6"
     },
     {
       "path": "simulation/cad_clearance.json",
-      "bytes": 383,
-      "sha256": "a06df0c4749e7fd3258b1924d204fc5aacd906dd3e767513cef66553e167ee47"
+      "bytes": 398,
+      "sha256": "603fc85078a870cf843a2e9b8c2438737bcafcb904f21c2b1dde25cebfbb408b"
     },
     {
       "path": "simulation/engineering_summary.json",
-      "bytes": 3713,
-      "sha256": "337f762f42eeb087e7f486364e406eb6b80f86f0e80b8f9dbc7270749282c388"
+      "bytes": 14074,
+      "sha256": "fc15806a8af812b063eb259d7955f9fd5f3a64894af3206021f622475c809cce"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/CalibratedDCDrive.mo",
+      "bytes": 559,
+      "sha256": "6eab390e0b75bc8e42c197170c4011a2927b9283c3d579c5f3aa06f13bbe4d74"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/ChainReduction.mo",
+      "bytes": 496,
+      "sha256": "ba0e967a51033e4a005f17399c4340760362ee0b314e663690811f497177df49"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/CutterLoadSurrogate.mo",
+      "bytes": 657,
+      "sha256": "ceda6a53f79b375a70c0cc425dfff8231148f0785422a17b7f99c84604ff1a0f"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/CutterRotor.mo",
+      "bytes": 394,
+      "sha256": "d880666acdbc4bba9eae4d70338fb000c0fb9e2ae212c288ff35dc5fc6bcf2e4"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/Dancer.mo",
+      "bytes": 322,
+      "sha256": "0e323a9ec9de30186e696e95fb0ef1f538f125edee034b37c7582ca3a19ada20"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/ExtrusionLoadSurrogate.mo",
+      "bytes": 339,
+      "sha256": "66e1b344909c7050bed7cf86c4bf7fd1809fb0b1f0ebdba56e35b3d5d737f519"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/FilamentSpan.mo",
+      "bytes": 410,
+      "sha256": "ff260708d5d1ad2a248b0ed12b75021abe4dc5a968807208e48742adcd92866e"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/FrameMount.mo",
+      "bytes": 434,
+      "sha256": "e385db98c1ab757c5cbe3a2dd2312c8bd46f8d04b403f090754977eb0aca1fcd"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/InputTorqueFuse.mo",
+      "bytes": 365,
+      "sha256": "25dca8f686f71f6f3c1949f89d945bbba3036c10bf7f66ff9b090bf01ca0cfa9"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/PhaseGearPair.mo",
+      "bytes": 631,
+      "sha256": "7115b2cdce676687d3a70a382c34563fa58fdae93749c64c5af320d1f14bfe3f"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/Puller.mo",
+      "bytes": 226,
+      "sha256": "e40828289a030e62d804ff013a2746a3fe477ac8fd8286a84f59cbb18afb6709"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/SafetyController.mo",
+      "bytes": 584,
+      "sha256": "c6278cc4cedf53b44a70d47d8c965bec011ae40b7d81c3dff9cd0b1818c9a695"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/ScrewDrive.mo",
+      "bytes": 415,
+      "sha256": "2dfee2a052c0bf85f92c1159a053540eb935ca94403f565a8057f45a69deed27"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/VariableRadiusSpool.mo",
+      "bytes": 666,
+      "sha256": "90ea2295baf742c8d158cb359d327e62f7746e949fd7fac75ee882b06ecb9a7e"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Components/package.mo",
+      "bytes": 60,
+      "sha256": "9bcda97814a0b0d361e260f2c06057ab7fd9a05145b08eb1cf8520e023733967"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Generated.mo",
+      "bytes": 927,
+      "sha256": "43c9624236a2b1cb0e02914ab456523eb57d4a45b6300cb9c0f3f0e946d3779c"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Parameters.mo",
+      "bytes": 811,
+      "sha256": "110c51739872a76aae6c85d44a69cc51da42302a33483742d71e4ef8ce778bc6"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ChainBacklashImpact.mo",
+      "bytes": 130,
+      "sha256": "2c93e04acd16d365f299f4639784cc4d5d5dae93feb4f3ef68ba8496e4baff06"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/EmergencyStop.mo",
+      "bytes": 129,
+      "sha256": "635c5ab8c231f911bb8ed562a61af250914f4ec9e9df986db3cf43139b466745"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/EmptySpool.mo",
+      "bytes": 117,
+      "sha256": "7c0d906feaf20f7a3e13b701db1368187407e4d49e810162471c18742008cb1d"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/FullMechanicalNominal.mo",
+      "bytes": 128,
+      "sha256": "73eead7a0ff60afed27898916d193d1518356e8ac5049a45af919a2d27c468de"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/FullSpool.mo",
+      "bytes": 115,
+      "sha256": "511e5a9684f8f70c4d28c73821cae97f5e69ca7f22bb71626d23e7361b4c5462"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/GaugeDropout.mo",
+      "bytes": 140,
+      "sha256": "5441947bf92315598f7762a0185b7947f4a8d7055d1e8a8c2d537e0bf916f083"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/HalfSpool.mo",
+      "bytes": 117,
+      "sha256": "8508d8f805fcaea15984780c7654e169ae272f27a1ab6445beab4e6f40aeafe5"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/InputFuseOperation.mo",
+      "bytes": 145,
+      "sha256": "15d4514ac8c7cf1f9e07552c2a1e0f05e9df0daa1b0e5b0997d5fe34018f6856"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/JamReverseRetry.mo",
+      "bytes": 151,
+      "sha256": "65bec621f5addaef3a1d0fe010f4ce27cc7d33c5385ef9cc64b0cab75233606a"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/MotorStall.mo",
+      "bytes": 139,
+      "sha256": "60960568e98b47e35d455a2e3fe186e3e4c9259e661439dcd3b401ebd7ed7211"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/MultiToothEngagement.mo",
+      "bytes": 132,
+      "sha256": "197fbbbc0727e8635ac9b0e74d5363a37f84440a8b25794da15843a925773cbb"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/NoLoadStartStop.mo",
+      "bytes": 133,
+      "sha256": "f109a73ce35686e4c4cd1616a3b6899f2bc3ae9afa1b802c550493c502a13b58"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/OneShaftJam.mo",
+      "bytes": 154,
+      "sha256": "93ed29521ba41b6b9104a524a87f38dcb513ef8566184e19e1319da7c39b46fa"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PETNominal.mo",
+      "bytes": 112,
+      "sha256": "52cf97387110dd1b43c0e8615bdfd23a51f7e18f1d130c78ef4f3cd040eddfe8"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PLANominal.mo",
+      "bytes": 112,
+      "sha256": "a236db0e4173501afb8ea7f02f644317bc2809705783ae7a0d24161b5a13a422"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ScrewJam.mo",
+      "bytes": 152,
+      "sha256": "034059e3ed07ab6777fd865ea7144f96932b7071ccbe0248c1951cf4e5f1f947"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ScrewPressureRamp.mo",
+      "bytes": 159,
+      "sha256": "31d901cbdd2a311629c5c69baf46ad36a1930090a63b2c866225ab3714c425b8"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/SingleToothImpact.mo",
+      "bytes": 126,
+      "sha256": "2e906230d4adc4d95ebf896e3de691fbb856888cf250a4e88ba708fbf63a6895"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/package.mo",
+      "bytes": 58,
+      "sha256": "4b903addcd9205d0fe304d6bab109ef66a5fb48e0cfba9001680ad7a6f99898f"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/ExtruderSystem.mo",
+      "bytes": 952,
+      "sha256": "8dfb08907847af50093566c41de6c46556f17b163c6f94f30e0dda9f88493292"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/FormingSpoolSystem.mo",
+      "bytes": 1030,
+      "sha256": "4c061d0c60e888f4b31f1238787f4c4bd210494ef03f82a6afd48194888875ba"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/FullMechanicalSystem.mo",
+      "bytes": 478,
+      "sha256": "cf18094ef281a3101dfe0d54f1d7e0a17b775e46da172488eff60996f14ef522"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/ShredderSystem.mo",
+      "bytes": 2439,
+      "sha256": "2bebd180f4976a1ff1c946cfc1ba529a461df5124d24b91fa627ca0a9be403be"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/package.mo",
+      "bytes": 54,
+      "sha256": "ee7ee378923ca1cf563d8a9c73370adeb6c23db94102e4a80cf4438d86ddcf53"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/package.mo",
+      "bytes": 137,
+      "sha256": "6f491f286cb3b22d0ddec6d9797105240e15159e38c08b7fb589f4f0c02601c2"
+    },
+    {
+      "path": "simulation/openmodelica/acceptance_criteria.json",
+      "bytes": 825,
+      "sha256": "3990579461ac33db32d9328dc9115ee4a53d1ba415431b8c742f9846cd26c6ff"
+    },
+    {
+      "path": "simulation/openmodelica/generated/CADParameters.mo",
+      "bytes": 904,
+      "sha256": "d32f975bec2278627ff5aed030de6cf86002cd8a7ed00538264c3fdccdd99b53"
+    },
+    {
+      "path": "simulation/openmodelica/generated/cad_mass_properties.json",
+      "bytes": 3459,
+      "sha256": "bdac0bea2f0c880f06ad9d1b0558c9844ac800f9cf683991a830689662f1386d"
+    },
+    {
+      "path": "simulation/openmodelica/generated/package.mo",
+      "bytes": 58,
+      "sha256": "50b528edc2cd76f259159f6c4f1440d8d593482614e2957f8ffaeb6ed901ab72"
+    },
+    {
+      "path": "simulation/openmodelica/reports/mechanical_validation_ko.md",
+      "bytes": 1692,
+      "sha256": "7b7813a84f48e99f07f2c32be5c69b9af49995a5f4d63b4b16a6ab7dca5971fc"
+    },
+    {
+      "path": "simulation/openmodelica/results/dynamic_load_envelope.json",
+      "bytes": 953,
+      "sha256": "bfe87efc20a3619aaea6da13ebf42defcfe1e559a3fcaea44b52c420fbdcce05"
+    },
+    {
+      "path": "simulation/openmodelica/results/plots/GaugeDropout.svg",
+      "bytes": 9366,
+      "sha256": "5f312a30ed740f872381608ce67b0b0182e86f36296f5f74d8df16b2a329a8fb"
+    },
+    {
+      "path": "simulation/openmodelica/results/plots/InputFuseOperation.svg",
+      "bytes": 24659,
+      "sha256": "b9a1c82ea3dc0615f64314f524b6fd837213f224ee1cb01bbe2700baf65130c6"
+    },
+    {
+      "path": "simulation/openmodelica/results/plots/JamReverseRetry.svg",
+      "bytes": 24851,
+      "sha256": "560d4473fa9d41b2afd488b16c351f286d39888670ee6beea8d4f43473a6e024"
+    },
+    {
+      "path": "simulation/openmodelica/results/plots/ScrewJam.svg",
+      "bytes": 19387,
+      "sha256": "1d7b753993df15cd8b80c2c08ba5a29227c3d6ec9d8b2e8d722f95e6843e4b63"
+    },
+    {
+      "path": "simulation/openmodelica/results/summary.json",
+      "bytes": 10813,
+      "sha256": "5228a059404c391cc64cedd19520966d3f5a82a4907808288c1aa856207e9171"
+    },
+    {
+      "path": "simulation/openmodelica/scripts/checkModel.mos",
+      "bytes": 761,
+      "sha256": "4f6bcd6c92786002385bdfc623902cd0d3fcaa053100565087852152d1d3bf00"
+    },
+    {
+      "path": "simulation/openmodelica/scripts/run_all.mos",
+      "bytes": 3638,
+      "sha256": "59c182b74fadb32661dd79876f893c385c115fe7e55d8f4b543a8d283bc63d63"
+    },
+    {
+      "path": "simulation/openmodelica/scripts/run_parameter_sweeps.mos",
+      "bytes": 1831,
+      "sha256": "b7541bf827f1a7069133add96a5993e2b1fbd1724da4d88470c075a9bc0566fa"
     },
     {
       "path": "validation/physical_gate_status.json",
-      "bytes": 553,
-      "sha256": "d72f5df7470840585d79a93c084182fc3ef7f7d50e43e342057472e1b5e4b47a"
+      "bytes": 743,
+      "sha256": "03fb6122192ab80d02554a99f627127fb21c21558440002fddfee326678e4dd8"
     },
     {
       "path": "validation/release_checklist.md",
-      "bytes": 1360,
-      "sha256": "7f7a5a082f585ee47828f7779589cbecf9b3a586db0e9449405976924862f24f"
+      "bytes": 1627,
+      "sha256": "a7b081144f03abd89ac264cffe6039e10ddba758e4045b1f66a6744853ff4723"
+    },
+    {
+      "path": "validation/results/mesh_manifold.json",
+      "bytes": 2576,
+      "sha256": "17293057fe7d82e55b820a64079624e7efd02ad7711d7975187ddc267b232d66"
+    },
+    {
+      "path": "validation/results/slicer_results.json",
+      "bytes": 3550,
+      "sha256": "1a30ec7b2601a0a27340dd6177c85f739c4d8f9636bfbc85c6b7e26c225d8075"
+    },
+    {
+      "path": "validation/results/solid_topology.json",
+      "bytes": 44216,
+      "sha256": "2c5b4c074a88be89fc5d6aa13021f0dfff6c0969c4d8dda04e7416d86e3db455"
     }
   ]
 }

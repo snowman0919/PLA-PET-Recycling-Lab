@@ -1,4 +1,4 @@
-# Interchangeable shredder drive interface — compact-single-path-v0.3
+# Interchangeable shredder drive interface — solid-manifold-openmodelica-v0.4
 
 공정 경로와 dual-shaft cutter는 변경하지 않는다. 특정 MY1016Z, KTR coupling, KHK gear의 part number는 요구조건이 아니다.
 
@@ -16,8 +16,8 @@
 
 ## 기계 interface
 
-`DRV-01` plate에는 motor-specific standard angle/saddle만 추가한다. Motor torque는 #35 chain의 교환 가능한 12T input과 18T/24T output sprocket을 거쳐 right CUT-05 shaft로 전달한다. `DRV-02`는 Ø20 key shaft와 PCD36 four-bolt sprocket blank를 분리하므로 shaft diameter가 다른 donor에는 motor-side hub만 교체한다. 두 cutter shaft의 counter-rotation/phase는 특정 공급사 대신 M3 Z16, 20°, face>=18 mm steel gear functional specification으로 조달하거나 `DRV-03` 3-lamination/gear를 사용한다.
+`DRV-01` plate에는 motor-specific standard angle/saddle만 추가한다. Motor torque는 #35 chain의 교환 가능한 12T input과 18T/24T output sprocket을 거쳐 right CUT-05 shaft로 전달한다. `DRV-02`는 Ø20 key shaft와 PCD36 four-bolt sprocket blank를 분리하므로 shaft diameter가 다른 donor에는 motor-side hub만 교체한다. 두 cutter shaft의 counter-rotation/phase는 특정 공급사 대신 M3 Z16, 20°, face>=18 mm steel gear functional specification으로 조달하거나 `DRV-03` 3-lamination/gear를 사용한다. DRV-03 각 lamination은 PCD30의 2x M4 clamp hole과 1x Ø3 H7 dowel hole로 위상을 재현하며, 치면 맞물림만으로 정렬하지 않는다.
 
 Chain efficiency 0.85 screening에서 12T:18T는 motor output continuous/3 s peak가 최소 11.0/18.8 N·m, 12T:24T는 최소 8.3/14.2 N·m여야 한다. 각각 motor speed 30–60/40–80 rpm이 cutter 20–40 rpm을 만든다. 24 V label power는 150 W 이상을 screening 시작점으로 쓰되 합격은 label watt가 아니라 Gate-1 torque/current/RPM/temperature 결과로 정한다. 후보별 기록표는 `bom/donor_drive_acceptance.csv`다.
 
-Chain guard, 20 A fuse, E-stop/lid/service hard inhibit, current+RPM jam detection과 20–24 N·m sacrificial brass key는 유지한다. Donor 확인과 Gate-1 전 full quantity 발주 금지다.
+Chain guard, 20 A fuse, E-stop/lid/service hard inhibit와 calibrated torque+RPM jam detection을 유지한다. DRV-02 motor-input sprocket hub의 replaceable key/shear element는 22 N·m에서 먼저 분리되어 chain/phase pair로 더 큰 motor torque가 전달되지 않아야 한다. 실제 재료와 groove는 Gate-1 quasi-static calibration으로 확정한다. Donor 확인과 Gate-1 전 full quantity 발주 금지다.

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1189" height="841" viewBox="0 0 1189 841">
+<style>text{font-family:'Noto Sans CJK KR',sans-serif;font-size:18px}.t{font-size:27px;font-weight:bold}.w{stroke:#17465a;stroke-width:4;fill:none}.c{fill:#eef4f6;stroke:#111;stroke-width:2}.n{font-size:15px}.danger{fill:#a12c2c}</style>
+<text x="45" y="48" class="t">Gate-1 24 V hardwired motor-energy cut — solid-manifold-openmodelica-v0.4</text>
+<text x="45" y="83" class="danger">Mega output alone cannot energize K1. S0/S1 opening drops K0 and requires manual START reset.</text>
+<rect x="55" y="145" width="120" height="70" class="c"/><text x="76" y="185">24 V PSU</text>
+<path d="M175 170H235" class="w"/><rect x="235" y="145" width="95" height="50" class="c"/><text x="260" y="178">F1 20 A</text>
+<path d="M330 170H390" class="w"/><rect x="390" y="135" width="130" height="70" class="c"/><text x="420" y="175">K1 NO</text><text x="410" y="195" class="n">DC >=30 V/25 A</text>
+<path d="M520 170H580" class="w"/><rect x="580" y="135" width="145" height="70" class="c"/><text x="604" y="166">BTS7960</text><text x="596" y="193" class="n">reversing driver</text>
+<path d="M725 170H785" class="w"/><rect x="785" y="135" width="145" height="70" class="c"/><text x="812" y="165">M1 donor</text><text x="801" y="193" class="n">24 V geared DC</text>
+<path d="M55 360H125" class="w"/><rect x="125" y="335" width="95" height="50" class="c"/><text x="151" y="368">F2 2 A</text>
+<path d="M220 360H275" class="w"/><rect x="275" y="330" width="125" height="60" class="c"/><text x="295" y="356">S0 E-STOP</text><text x="307" y="380" class="n">NC, latching</text>
+<path d="M400 360H455" class="w"/><rect x="455" y="330" width="145" height="60" class="c"/><text x="475" y="356">S1 GUARD</text><text x="468" y="380" class="n">positive-opening NC</text>
+<path d="M600 360H655" class="w"/><rect x="655" y="330" width="125" height="60" class="c"/><text x="680" y="356">S2 START</text><text x="700" y="380" class="n">NO</text>
+<path d="M780 360H835" class="w"/><rect x="835" y="320" width="115" height="80" class="c"/><text x="865" y="352">K0 coil</text><text x="844" y="378" class="n">manual-reset relay</text>
+<path d="M950 360H1040V455H835" class="w"/><rect x="835" y="425" width="115" height="60" class="c"/><text x="860" y="452">K0 AUX</text><text x="869" y="475" class="n">seal-in NO</text>
+<path d="M892 400V530H745" class="w"/><rect x="605" y="505" width="140" height="55" class="c"/><text x="627" y="538">K1 coil 24 V</text>
+<path d="M55 360V215" class="w"/><text x="47" y="315" class="n">+24 V control</text>
+<text x="55" y="635">Required point-to-point checks: S0 open -> K1=0; S1 open -> K1=0; power restore -> K1 remains 0 until S2;</text>
+<text x="55" y="668">welded K1 main contact is detected only by motor-bus voltage/RPM check and requires lockout. K1 is not a safety relay.</text>
+<text x="55" y="701">Mega monitors K0 auxiliary, K1 auxiliary/motor-bus voltage, current and RPM. It may request stop by opening an optional series output,</text>
+<text x="55" y="734">but no Mega state may bridge S0 or S1. PE bonds PSU/chassis/metal guard; 0 V is not PE.</text>
+<text x="55" y="795" class="n">Controlling connection list: wiring_bom.csv + fastener_schedule.csv + test_procedure_ko.md. Verify received-device terminal markings before wiring.</text>
+</svg>

@@ -1,15 +1,19 @@
 {
-  "revision": "compact-single-path-v0.3",
-  "budget_scenario_krw": 198808,
-  "budget_scenario_under_cap": true,
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "release_state": "DIGITAL_FABRICATION_BASELINE",
+  "physical_state": "PHYSICAL_NOT_RUN",
+  "budget_target_krw": 178420,
+  "budget_absolute_with_reserve_krw": 198420,
+  "budget_target_under_180k": true,
+  "budget_absolute_under_200k": true,
   "donor_drive_verified": false,
   "gate1_result": "NOT_RUN",
   "gate1_raw_csv": null,
-  "gate1_photo_or_video": null,
+  "gate1_photo_or_video_hash": null,
   "screw_process_coupon_result": "NOT_RUN",
   "barrel_process_coupon_result": "NOT_RUN",
   "full_cutter_order_release": false,
   "full_screw_barrel_order_release": false,
   "main_promotion_allowed": false,
-  "reason": "Donor 실물 확인, Gate-1 signed raw evidence 및 screw/barrel process coupon 결과가 없다."
+  "reason": "Gate-1 signed physical evidence가 없으며 donor 및 screw/barrel process coupon도 미검증이다."
 }

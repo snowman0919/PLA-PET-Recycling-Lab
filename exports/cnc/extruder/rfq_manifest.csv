@@ -1,5 +1,5 @@
 part_id,name,qty,material,process,step,drawing,release
-EX-SCR-01,16 mm x 16D single screw,1,SCM440 QT + gas nitride,"turn, 4-axis flight mill, polish, nitride, finish grind",parts/EX-SCR-01/EX-SCR-01.step,EX-SCR-01_drawing.svg,HOLD_PROCESS_COUPON_AND_GATE3
-EX-BAR-01,ID16.20 x OD34 barrel,1,SCM440 QT + gas nitride bore,"deep drill/ream, hone, mill feed port, nitride, final hone",parts/EX-BAR-01/EX-BAR-01.step,EX-BAR-01_drawing.svg,HOLD_PROCESS_COUPON_AND_GATE3
-EX-CPN-SCR,Three-pitch screw process coupon,1,SCM440 QT + gas nitride,same flight mill/polish/nitride route as EX-SCR-01,parts/EX-CPN-SCR/EX-CPN-SCR.step,manufacturing_audit_ko.md,COUPON_RFQ_ALLOWED
-EX-CPN-BAR,Matched barrel process coupon,1,SCM440 QT + gas nitride bore,same bore/hone/nitride route as EX-BAR-01,parts/EX-CPN-BAR/EX-CPN-BAR.step,manufacturing_audit_ko.md,COUPON_RFQ_ALLOWED
+EX-SCR-01,16 mm x 16D single screw,1,SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride,"turn between centres, 4-axis flight mill, polish, nitride, finish grind",parts/EX-SCR-01/EX-SCR-01.step,EX-SCR-01_drawing.svg,HOLD_PROCESS_COUPON_AND_GATE3
+EX-BAR-01,ID16.20 x OD34 barrel,1,SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore,"deep drill, stress relieve, ream/hone, port, nitride, final hone",parts/EX-BAR-01/EX-BAR-01.step,EX-BAR-01_drawing.svg,HOLD_PROCESS_COUPON_AND_GATE3
+EX-CPN-SCR,Three-pitch screw process coupon,1,same certified SCM440 heat as EX-SCR-01,same flight mill/polish/nitride route as EX-SCR-01,parts/EX-CPN-SCR/EX-CPN-SCR.step,EX-CPN_drawing.svg,COUPON_RFQ_ALLOWED
+EX-CPN-BAR,Matched barrel process coupon,1,same certified SCM440 heat as EX-BAR-01,same bore/hone/nitride route as EX-BAR-01,parts/EX-CPN-BAR/EX-CPN-BAR.step,EX-CPN_drawing.svg,COUPON_RFQ_ALLOWED

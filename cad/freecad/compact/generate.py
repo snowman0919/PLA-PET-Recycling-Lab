@@ -1,4 +1,4 @@
-"""Generate FCStd/STEP/STL/3MF and print package for compact v0.3."""
+"""Generate closed-solid FCStd/STEP/STL/3MF for compact v0.4."""
 
 from __future__ import annotations
 
@@ -18,13 +18,13 @@ import importDXF
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
-from geometry import assembly_objects, print_parts, shredder_metal_parts  # noqa: E402
+from geometry import assembly_objects, print_parts, review_keepout_objects, shredder_metal_parts  # noqa: E402
 
 PARAMS = json.loads((ROOT / "cad/parameters/baseline.json").read_text())
 
 
 def dirs():
-    for p in (ROOT / "cad/generation/fcstd", ROOT / "exports/step", ROOT / "exports/cnc", ROOT / "exports/print", ROOT / "exports/print/plate_layouts"):
+    for p in (ROOT / "cad/generation/fcstd", ROOT / "cad/review_keepouts", ROOT / "exports/step", ROOT / "exports/cnc", ROOT / "exports/print", ROOT / "exports/print/plate_layouts", ROOT / "exports/print/slicer_profiles", ROOT / "exports/print/slicing_previews"):
         p.mkdir(parents=True, exist_ok=True)
 
 
@@ -96,11 +96,16 @@ def export_print_part(spec):
 
 - quantity: {spec['qty']}
 - material: {spec['material']}
+- nozzle diameter: {spec['nozzle_mm']:.1f} mm
 - orientation: {spec['orientation']}
 - layer height: {spec['layer']}
 - wall count: {spec['walls']}
+- top/bottom layers: {spec['top_bottom_layers']}
 - infill: {spec['infill']}
 - support: {spec['support']}
+- support-contact region: {spec['support']}
+- brim: {spec['brim']}
+- designed minimum wall: {spec['minimum_wall_mm']:.1f} mm
 - estimated mass: {mass_each:.1f} g/ea, {mass_each * spec['qty']:.1f} g total
 - estimated print time: {(mass_each * spec['qty'] / 12):.1f} h at 12 g/h planning rate
 - fastener: {spec['fastener']}
@@ -109,7 +114,7 @@ def export_print_part(spec):
 - assembly order: {spec['order']}
 - bounding box: {bb.XLength:.1f} x {bb.YLength:.1f} x {bb.ZLength:.1f} mm
 
-Mass와 시간은 CAD volume/nominal rate 기반이며 slicer 결과가 아니다. 실제 printer profile로 재검증한다.
+Slicer 질량·시간은 `print_manifest.csv`와 `total_material_report.md`의 PrusaSlicer 결과가 지배한다.
 """
     (part_dir / "print_notes.md").write_text(notes)
     App.closeDocument(doc.Name)
@@ -119,8 +124,11 @@ Mass와 시간은 CAD volume/nominal rate 기반이며 slicer 결과가 아니�
 def export_assembly():
     doc = App.newDocument("CompactFullAssembly")
     objects = []
-    for i, item in enumerate(assembly_objects()):
-        objects.append(feature(doc, f"Part{i:03d}", item["shape"], item["name"], material=item["material"]))
+    assembly_items=assembly_objects()
+    for i, item in enumerate(assembly_items):
+        obj=feature(doc, f"Part{i:03d}", item["shape"], item["name"], material=item["material"])
+        obj.addProperty("App::PropertyString", "Classification", "BOM"); obj.Classification=item["classification"]
+        objects.append(obj)
     doc.recompute()
     fcstd = ROOT / "cad/generation/fcstd/compact_full_assembly.FCStd"; fcstd.unlink(missing_ok=True); doc.saveAs(str(fcstd)); normalize_zip_container(fcstd, normalize_fcstd=True)
     step = ROOT / "exports/step/compact_full_assembly.step"; Part.export(objects, str(step)); normalize_step(step)
@@ -132,11 +140,31 @@ def export_assembly():
         "minimum_mm": [round(bb.XMin, 2), round(bb.YMin, 2), round(bb.ZMin, 2)],
         "maximum_mm": [round(bb.XMax, 2), round(bb.YMax, 2), round(bb.ZMax, 2)],
         "object_count": len(objects),
-        "includes": ["closed lid", "guards", "motor/reducer keepouts", "cable duct", "1 kg spool", "dancer/traverse motion"],
+        "includes": ["closed lid", "guards", "parametric reference drive", "cable duct", "1 kg spool", "dancer arm", "traverse rail"],
+        "excludes": ["motion and service keep-outs; see cad/review_keepouts"],
     }
     (ROOT / "cad/generation/assembly_metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n")
+    with (ROOT/"cad/generation/assembly_classification.csv").open("w",newline="") as f:
+        w=csv.writer(f,lineterminator="\n"); w.writerow(["object","group","material","classification","shape_type","solid_count","volume_mm3"])
+        for item in assembly_items:
+            w.writerow([item["name"],item["group"],item["material"],item["classification"],item["shape"].ShapeType,len(item["shape"].Solids),f"{item['shape'].Volume:.3f}"])
     App.closeDocument(doc.Name)
     return meta
+
+
+def export_review_keepouts():
+    """Write spatial-review volumes outside every manufacturing export."""
+    doc=App.newDocument("ReviewKeepouts")
+    objects=[]
+    for index,item in enumerate(review_keepout_objects()):
+        obj=feature(doc,f"Keepout{index:02d}",item["shape"],item["name"],material="REVIEW_ONLY")
+        obj.addProperty("App::PropertyString","Purpose","Review"); obj.Purpose=item["purpose"]
+        objects.append(obj)
+    doc.recompute()
+    fcstd=ROOT/"cad/review_keepouts/review_keepouts.FCStd"; fcstd.unlink(missing_ok=True); doc.saveAs(str(fcstd)); normalize_zip_container(fcstd,True)
+    manifest={"revision":PARAMS["revision"],"classification":"REVIEW_ONLY_NOT_MANUFACTURED","objects":[{"name":i["name"],"purpose":i["purpose"]} for i in review_keepout_objects()]}
+    (ROOT/"cad/review_keepouts/manifest.json").write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+"\n")
+    App.closeDocument(doc.Name)
 
 
 def export_metal_parts():
@@ -175,28 +203,10 @@ def export_metal_parts():
 
 
 def export_plates(rows):
-    # One family per plate keeps quantities traceable and every arrangement
-    # inside the 210 mm square without relying on a particular slicer.
-    groups = [[row["id"]] for row in rows]
-    by_id = {r["id"]: r for r in rows}
+    # Plate 3MF is a slicer-owned artifact. Remove stale FreeCAD mesh plates;
+    # validation/slice_prints.py recreates every plate with the pinned profile.
     for old in (ROOT / "exports/print/plate_layouts").glob("plate-*.3mf"):
         old.unlink()
-    for index, ids in enumerate(groups, 1):
-        doc = App.newDocument(f"Plate{index:02d}")
-        x = y = row_h = 0.0; objs = []
-        for pid in ids:
-            spec = by_id[pid]
-            for q in range(spec["qty"]):
-                shape = spec["shape"].copy(); bb = shape.BoundBox
-                if x + bb.XLength > 205:
-                    x = 0; y += row_h + 5; row_h = 0
-                shape.translate(App.Vector(x - bb.XMin, y - bb.YMin, -bb.ZMin))
-                objs.append(feature(doc, f"{pid.replace('-', '_')}_{q}", shape, pid))
-                x += bb.XLength + 5; row_h = max(row_h, bb.YLength)
-        doc.recompute()
-        out = ROOT / f"exports/print/plate_layouts/plate-{index:02d}.3mf"
-        Mesh.export(objs, str(out)); normalize_zip_container(out)
-        App.closeDocument(doc.Name)
 
 
 def main():
@@ -207,9 +217,9 @@ def main():
     manifest = ROOT / "exports/print/print_manifest.csv"
     with manifest.open("w", newline="") as f:
         writer = csv.writer(f, lineterminator="\n")
-        writer.writerow(["part_id", "name", "quantity", "material", "x_mm", "y_mm", "z_mm", "mass_each_g", "mass_total_g", "orientation", "layer_height", "walls", "infill", "support", "fastener", "tolerance", "mating_part", "assembly_order"])
+        writer.writerow(["part_id", "name", "quantity", "material", "x_mm", "y_mm", "z_mm", "cad_net_mass_each_g", "cad_net_mass_total_g", "slicer_mass_total_g", "slicer_time_s", "orientation", "nozzle_mm", "layer_height", "walls", "top_bottom_layers", "infill", "support", "brim", "minimum_wall_mm", "fastener", "tolerance", "mating_part", "assembly_order", "slicer_status"])
         for r in rows:
-            writer.writerow([r["id"], r["name"], r["qty"], r["material"], f"{r['x_mm']:.2f}", f"{r['y_mm']:.2f}", f"{r['z_mm']:.2f}", f"{r['mass_each_g']:.2f}", f"{r['mass_each_g']*r['qty']:.2f}", r["orientation"], r["layer"], r["walls"], r["infill"], r["support"], r["fastener"], r["tolerance"], r["mating"], r["order"]])
+            writer.writerow([r["id"], r["name"], r["qty"], r["material"], f"{r['x_mm']:.2f}", f"{r['y_mm']:.2f}", f"{r['z_mm']:.2f}", f"{r['mass_each_g']:.2f}", f"{r['mass_each_g']*r['qty']:.2f}", "PENDING_SLICER", "PENDING_SLICER", r["orientation"], r["nozzle_mm"], r["layer"], r["walls"], r["top_bottom_layers"], r["infill"], r["support"], r["brim"], r["minimum_wall_mm"], r["fastener"], r["tolerance"], r["mating"], r["order"], "PENDING"])
     total = sum(r["mass_each_g"] * r["qty"] for r in rows)
     report = f"# 출력물 총 재료 보고\n\n- revision: `{PARAMS['revision']}`\n- CAD solid-volume 기반 총 질량: **{total:.1f} g**\n- 목표 1,500 g 대비 margin: **{1500-total:.1f} g**\n- hard review threshold 2,000 g: **PASS**\n- 예상 재료비(18,000 KRW/kg): **{total/1000*18000:,.0f} KRW**\n\nCoupon은 이 합계에서 제외한다. Slicer infill/line width와 purge는 별도이므로 실제 plate slicing 후 갱신한다.\n"
     (ROOT / "exports/print/total_material_report.md").write_text(report)
@@ -217,6 +227,7 @@ def main():
         w = csv.writer(f, lineterminator="\n"); w.writerow(["part_id", "quantity", "material", "estimated_mass_g", "cost_krw_per_kg", "estimated_cost_krw", "status"])
         for r in rows: w.writerow([r["id"], r["qty"], r["material"], f"{r['mass_each_g']*r['qty']:.2f}", 18000, round(r["mass_each_g"]*r["qty"]/1000*18000), "CAD_VOLUME_ESTIMATE"])
     meta = export_assembly()
+    export_review_keepouts()
     print(f"COMPACT_CAD_GENERATION_OK print_parts={len(rows)} metal_parts={len(metal_rows)} mass_g={total:.1f} envelope={meta['bounding_box_mm']}")
 
 

@@ -1,0 +1,12 @@
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Complex 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/ModelicaServices 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Modelica 4.0.0/package.mo");
+loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");
+checkModel(PLA_PET_Recycler.Systems.ShredderSystem);
+checkModel(PLA_PET_Recycler.Systems.ExtruderSystem);
+checkModel(PLA_PET_Recycler.Systems.FormingSpoolSystem);
+checkModel(PLA_PET_Recycler.Systems.FullMechanicalSystem);
+checkModel(PLA_PET_Recycler.Scenarios.JamReverseRetry);
+checkModel(PLA_PET_Recycler.Scenarios.ScrewJam);
+checkModel(PLA_PET_Recycler.Scenarios.GaugeDropout);
+getErrorString();

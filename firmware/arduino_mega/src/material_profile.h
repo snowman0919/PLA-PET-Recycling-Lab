@@ -7,11 +7,14 @@ enum class MaterialProfile : uint8_t { NONE, PLA, PET };
 struct ProcessProfile {
   MaterialProfile material;
   uint8_t shredder_rpm;
-  float shredder_trip_amp;
+  float shredder_continuous_torque_nm;
+  float shredder_jam_trip_torque_nm;
   uint16_t overload_ms;
   uint16_t reverse_ms;
   uint8_t retry_count;
   uint8_t maintenance_c;
+  bool external_predry_qualified;
+  uint8_t predry_c;
   uint16_t predry_minutes;
   float feeder_rpm;
   float screw_rpm;
@@ -24,13 +27,19 @@ struct ProcessProfile {
   uint16_t purge_grams;
 };
 
-constexpr ProcessProfile PLA_PROFILE{
-    MaterialProfile::PLA, 32, 16.0f, 650, 800, 3, 45, 300, 2.2f, 7.0f,
-    {180, 195, 205}, 200, 65, 18.6f, 0.40f, 0.025f, 80};
+struct DriveCalibration {
+  float no_load_current_a;
+  float motor_torque_per_amp_nm;
+  float motor_to_cutter_ratio;
+  float drivetrain_efficiency;
+  float max_continuous_current_a;
+  float max_peak_current_a;
+  float no_load_cutter_rpm;
+  float thermal_limit_c;
+  bool verified;
+};
 
-constexpr ProcessProfile PET_PROFILE{
-    MaterialProfile::PET, 24, 18.0f, 850, 1100, 3, 60, 420, 1.8f, 6.0f,
-    {245, 260, 270}, 265, 85, 16.7f, 0.30f, 0.018f, 120};
+#include "generated_profiles.h"
 
 inline const ProcessProfile &profileFor(MaterialProfile material) {
   return material == MaterialProfile::PET ? PET_PROFILE : PLA_PROFILE;
