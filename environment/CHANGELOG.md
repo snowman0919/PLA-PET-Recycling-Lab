@@ -1,5 +1,14 @@
 # 환경 변경 이력
 
+## 2026-08-28 — 조달 gap fast 감사·Playwright 추가 조사·GitHub 생성 시도
+
+- `dgx-moa-fast`에 43개 requirement disposition과 BUY evidence 현황만 제공해 사용자 실측 없이 개선할 gap을 감사했다. API key와 endpoint 값은 출력·저장하지 않았다.
+- 채택: BUY 32행 중 가격/후보 증거가 없는 15행을 우선 줄이고, 자동 gate와 물리 gate를 혼동하지 말라는 지적.
+- 폐기: safety-critical DC SSR을 AliExpress에서 사라는 제안과 금속 제어함을 marketplace plastics enclosure로 대체하라는 제안은 승인 유통망 정책·기존 exact MPN·열/접지 요구와 충돌했다.
+- Playwright Chromium 1.62.1로 AliExpress 검색 페이지를 직접 읽어 3/6 mm aperture laboratory-sieve listing과 38×25 mm first-surface mirror listing을 `SAMPLE_ONLY`로 기록했다. 로그인·장바구니·주문은 수행하지 않았다.
+- 검색 결과 중 woven mesh를 perforated cassette로 오인할 수 있는 항목과 jewelry/solid-sheet 결과는 폐기했다. Screen 결과는 aperture coupon일 뿐 final cassette 강도·공차·open area를 증명하지 않는다.
+- `gh repo create snowman0919/PPR --private --source=. --remote=origin --push`는 token의 `createRepository` 권한 부족으로 실패했다. 저장소와 remote는 생성되지 않았고 secret 값은 출력하지 않았다.
+
 ## 2026-08-28 — 두 zone 제어함 후보와 fast subagent 검토
 
 - `dgx-moa-fast`에는 접촉기·퓨즈·heater-driver 배치 감사 체크리스트만 요청했다. API key와 endpoint 값은 출력하거나 저장하지 않았다.

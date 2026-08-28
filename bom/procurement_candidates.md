@@ -2,7 +2,7 @@
 
 조회일: 2026-08-28. 상태: **비교 후보 / 주문 미승인**.
 
-85행 시스템 BOM 중 BUY 32행을 모두 `procurement_routes.csv`에 연결했고, 그중 17개 Part ID에 실제 공개 페이지 또는 Playwright 검색 증거를 기록했다. `PRIMARY_CANDIDATE`와 qualification/sizing 후보는 가격·배치 계산용 기준일 뿐 구매·안전 적합성 승인이 아니다.
+85행 시스템 BOM 중 BUY 32행을 모두 `procurement_routes.csv`에 연결했고, 그중 21개 Part ID에 실제 공개 페이지 또는 Playwright 검색 증거를 기록했다. `PRIMARY_CANDIDATE`와 qualification/sizing 후보는 가격·배치 계산용 기준일 뿐 구매·안전 적합성 승인이 아니다.
 
 | Part ID | 공급처 | 후보/MPN | 관측가 | 재고 | 선택 상태 | 링크 |
 |---|---|---|---:|---:|---|---|
@@ -30,12 +30,16 @@
 | ELE-HTR-DRV | DigiKey | IP20 isolated GN-series DC MOSFET SSR / `84137860` | 116.39 USD | 20 | QUALIFICATION_CANDIDATE | [제품/검색 결과](https://www.digikey.com/en/products/detail/sensata-crydom/84137860/1816877) |
 | ELE-HTR-HS | DigiKey | Three-single-SSR DIN or panel heat sink / `HS103DR` | 159.18 USD | 102 | QUALIFICATION_CANDIDATE | [제품/검색 결과](https://www.digikey.com/en/products/detail/sensata-crydom/HS103DR/2120202) |
 | CTL-ENC-001 | DigiKey | 500 by 400 by 210 mm mild-steel enclosure with mounting plate / `MAS0405021R5` | 457.76 USD | 8 | QUALIFICATION_CANDIDATE | [제품/검색 결과](https://www.digikey.com/en/products/detail/hoffman-enclosures-inc/MAS0405021R5/18633327) |
+| SRT-SCR-TOP | AliExpress | 304 stainless laboratory sieve listing with 6 mm round-hole variant | 13050 KRW | UNKNOWN | SAMPLE_ONLY | [제품/검색 결과](https://ko.aliexpress.com/item/1005006152709210.html) |
+| SRT-SCR-BOT | AliExpress | 304 stainless laboratory sieve listing with 3 mm round-hole variant | 13050 KRW | UNKNOWN | SAMPLE_ONLY | [제품/검색 결과](https://ko.aliexpress.com/item/1005006152709210.html) |
+| GAU-OPT-001 | AliExpress | 38 by 25 mm first-surface optical mirror twenty-piece listing | 27100 KRW | UNKNOWN | SAMPLE_ONLY | [제품/검색 결과](https://ko.aliexpress.com/item/1005007415160347.html) |
+| EXT-THR-001 | DeviceMart | 15 by 28 by 9 mm thrust ball bearing / `51102` | 18282 KRW | 0 | PARTIAL_ASSEMBLY | [제품/검색 결과](https://www.devicemart.co.kr/goods/view?no=13719930) |
 
 ## 해석 규칙
 
 - DigiKey KRW 단가는 제품 페이지의 1개 가격이다. 60,000 KRW 미만 주문의 20,000 KRW 배송비와 수령 시 관세·세금 가능성은 개별 행 가격에 포함하지 않았다.
 - 디바이스마트 값은 VAT 포함 표시가를 사용했다. 66,000 KRW 미만 기본 배송 2,700 KRW 및 해외구매/반품 제한은 checkout 전 다시 확인한다.
-- AliExpress 4개 검색 결과(5개 BOM evidence 행)는 Playwright Chromium으로 직접 읽었다. 배송·세금·seller·variant·정품 여부가 확정되지 않아 모두 `SAMPLE_ONLY`이고 planning primary로 선택하지 않았다.
+- AliExpress 6개 검색 결과(8개 BOM evidence 행)는 Playwright Chromium으로 직접 읽었다. 배송·세금·seller·variant·정품 여부가 확정되지 않아 모두 `SAMPLE_ONLY`이고 planning primary로 선택하지 않았다.
 - E-stop, safety relay, guard switch, thermal fuse, heater driver, pressure relief/센서는 AliExpress 구매 금지다. 승인 유통망의 datasheet와 추적 가능한 MPN이 필요하다.
 - `PARTIAL_ASSEMBLY`는 BOM 행의 일부만 가격이 잡힌 경우다. 예를 들어 D4NS switch body 가격에는 actuator와 cable이 없다.
 - `REJECTED`인 CKRD2420은 24~280 VAC 출력 SSR이므로 24 VDC heater driver로 쓰지 않는다.

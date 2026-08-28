@@ -50,7 +50,7 @@ Target 설계는 기능이나 안전장치를 삭제하지 않는다. 다음 하
 
 ## 구매처 증거와 marketplace 경계
 
-`procurement_routes.csv`는 BUY 32행 모두에 primary/alternate channel과 필수 검증 항목을 지정한다. `cost_evidence.csv`는 24개 후보·거절 기록을 담으며, 실제 가격 페이지가 확보된 BUY Part ID는 17개다. 사람이 읽는 링크 표는 `procurement_candidates.md`다.
+`procurement_routes.csv`는 BUY 32행 모두에 primary/alternate channel과 필수 검증 항목을 지정한다. `cost_evidence.csv`는 28개 후보·거절 기록을 담으며, 실제 가격 페이지가 확보된 BUY Part ID는 21개다. 사람이 읽는 링크 표는 `procurement_candidates.md`다.
 
 - DigiKey: traceable MPN·datasheet·재고가 있는 전자/안전/전원 후보에 우선 사용한다. 60,000 KRW 미만 주문의 20,000 KRW 배송과 CPT 세금은 개별 단가에서 분리한다.
 - 디바이스마트: 국내 VAT 포함가·준비기간을 기록한다. 확인된 24 V fan과 PT100은 alternate/partial이며, AC-output `CKRD2420` SSR은 24 VDC heater용에서 명시적으로 거절했다.

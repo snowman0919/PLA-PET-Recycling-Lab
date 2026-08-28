@@ -36,7 +36,7 @@ def main() -> None:
         "BUY", "CNC", "FABRICATE", "PRINT", "PROJECT_LAB", "REUSE"
     }
 
-    assert len(evidence) == 24
+    assert len(evidence) == 28
     assert len({row["Evidence ID"] for row in evidence}) == len(evidence)
     primary = {row["Part ID"]: row for row in evidence if row["Selection"] == "PRIMARY_CANDIDATE"}
     assert {part_id: row["Planning floor KRW"] for part_id, row in primary.items()} == {
@@ -50,6 +50,12 @@ def main() -> None:
     assert all(row["Source URL"].startswith("https://") for row in evidence)
     assert all(row["Selection"] != "PRIMARY_CANDIDATE" for row in evidence if row["Distributor"] == "AliExpress")
     assert all(row["Marketplace safety class"] == "MARKETPLACE_SAMPLE_ONLY" for row in evidence if row["Distributor"] == "AliExpress")
+    assert all(row["Acquisition method"] == "PLAYWRIGHT_SEARCH" for row in evidence if row["Distributor"] == "AliExpress")
+    evidence_by_id = {row["Evidence ID"]: row for row in evidence}
+    for evidence_id in {"PRICE-SIEVE6-AE-20260828", "PRICE-SIEVE3-AE-20260828", "PRICE-MIRROR-AE-20260828"}:
+        assert evidence_by_id[evidence_id]["Selection"] == "SAMPLE_ONLY"
+    assert evidence_by_id["PRICE-51102-DM-20260828"]["Selection"] == "PARTIAL_ASSEMBLY"
+    assert evidence_by_id["PRICE-51102-DM-20260828"]["Stock observed"] == "0"
     rejected = {row["Evidence ID"]: row for row in evidence if row["Selection"] == "REJECTED"}
     assert rejected["REJECT-SSR-AC-DM-20260828"]["Status"] == "REJECTED_WRONG_OUTPUT_TYPE"
     assert summary["public_candidate_floor_krw"] == 426165

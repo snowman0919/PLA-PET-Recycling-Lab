@@ -144,7 +144,7 @@ GPU 가속이 실제 이득을 주는 DEM/rigid-body, transient thermal/flow와 
 - remote: `origin`
 - 초기 push 전 확인: `.env`/token/cache/order temp 부재, licensing 범위, clean worktree, 전체 validation PASS
 
-Parent Codex는 secret scan과 licensing 확인 후 아래와 동등한 명령으로 private 저장소를 생성하고 main을 push한다.
+Parent Codex는 secret scan과 licensing 확인 후 아래와 동등한 명령으로 private 저장소를 생성하고 main을 push한다. 2026-08-28 tracked 611개 파일 secret-pattern scan 0건, `.env` untracked/ignored, MIT와 CERN-OHL-P-2.0 파일 확인 후 실행했으나 현재 GitHub token이 `createRepository` 권한을 제공하지 않아 GraphQL 요청이 거절됐다. 따라서 remote는 아직 없으며 인증 scope 갱신 후 재시도해야 한다.
 
 ```bash
 gh repo create snowman0919/PPR --private --source=. --remote=origin --push

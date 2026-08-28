@@ -63,6 +63,8 @@ def main() -> None:
         for row in csv.DictReader(handle):
             evidence_ids.add(row["Part ID"])
             evidence_rows.append(row)
+    ali_rows = [row for row in evidence_rows if row["Distributor"] == "AliExpress"]
+    ali_urls = {row["Source URL"] for row in ali_rows}
     output = ROOT / "bom" / "procurement_routes.csv"
     with output.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=FIELDS, lineterminator="\n")
@@ -106,7 +108,7 @@ def main() -> None:
         "",
         "- DigiKey KRW 단가는 제품 페이지의 1개 가격이다. 60,000 KRW 미만 주문의 20,000 KRW 배송비와 수령 시 관세·세금 가능성은 개별 행 가격에 포함하지 않았다.",
         "- 디바이스마트 값은 VAT 포함 표시가를 사용했다. 66,000 KRW 미만 기본 배송 2,700 KRW 및 해외구매/반품 제한은 checkout 전 다시 확인한다.",
-        "- AliExpress 4개 검색 결과(5개 BOM evidence 행)는 Playwright Chromium으로 직접 읽었다. 배송·세금·seller·variant·정품 여부가 확정되지 않아 모두 `SAMPLE_ONLY`이고 planning primary로 선택하지 않았다.",
+        f"- AliExpress {len(ali_urls)}개 검색 결과({len(ali_rows)}개 BOM evidence 행)는 Playwright Chromium으로 직접 읽었다. 배송·세금·seller·variant·정품 여부가 확정되지 않아 모두 `SAMPLE_ONLY`이고 planning primary로 선택하지 않았다.",
         "- E-stop, safety relay, guard switch, thermal fuse, heater driver, pressure relief/센서는 AliExpress 구매 금지다. 승인 유통망의 datasheet와 추적 가능한 MPN이 필요하다.",
         "- `PARTIAL_ASSEMBLY`는 BOM 행의 일부만 가격이 잡힌 경우다. 예를 들어 D4NS switch body 가격에는 actuator와 cable이 없다.",
         "- `REJECTED`인 CKRD2420은 24~280 VAC 출력 SSR이므로 24 VDC heater driver로 쓰지 않는다.",
