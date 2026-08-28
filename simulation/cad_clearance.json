@@ -5,13 +5,14 @@
     700.0,
     930.0
   ],
-  "critical_collision_pairs": 27,
+  "critical_collision_pairs": 35,
   "cutter_pair_checks": 36,
   "screen_min_clearance_mm": 2.48,
   "forming_centerline_x_mm": 74.5,
   "duct_to_hot_shield_gap_mm": 10.0,
+  "screw_barrel_radial_clearance_mm": 0.14,
   "die_connection": "barrel -> C110 gasket -> EX-DIE-01 -> EX-DIE-02/03/04 open discharge",
-  "phase_drive": "interchangeable motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair",
+  "phase_drive": "interchangeable donor envelope + DRV-Axx + motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair",
   "result": "PASS",
   "scope": "nominal CAD only; donor dimensions and dynamics require Gate-1"
 }

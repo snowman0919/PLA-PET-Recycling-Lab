@@ -14,6 +14,7 @@ import Part
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"cad/freecad/compact"))
 from manufacturing import extruder_rfq_parts, extruder_screw, gate1_assembly, gate1_parts, generic_phase_gear_lamination  # noqa: E402
+from geometry import machine_fabrication_parts  # noqa: E402
 
 
 def require(value,message):
@@ -23,8 +24,9 @@ def require(value,message):
 def main():
     jig_specs=gate1_parts()
     rfq_specs=extruder_rfq_parts()
+    machine_specs=machine_fabrication_parts()
     require({p["id"] for p in jig_specs}=={f"G1J-{i:02d}" for i in range(1,11)}|{f"G1J-P{i:02d}" for i in range(1,4)},"Gate-1 part family set incomplete")
-    for spec in jig_specs+rfq_specs:
+    for spec in jig_specs+rfq_specs+machine_specs:
         shape=spec["shape"]
         require(shape.isValid() and not shape.isNull(),f"invalid shape {spec['id']}")
     jig=Part.makeCompound([item["shape"] for item in gate1_assembly()])
@@ -55,11 +57,12 @@ def main():
     require(abs(barrel.BoundBox.ZLength-280.0)<0.01,"barrel length")
     require(len(barrel.Solids)==1,"barrel must be one solid")
     # Controlling RFQ port is 18 mm axial x 20 mm chord from B+12 to B+30.
-    # Probe the cut volume directly so STEP cannot silently swap the dimensions.
-    feed_probe=Part.makeBox(20,34,18,App.Vector(-10,-17,12))
+    # Probe the radial +X cut volume directly so STEP cannot silently turn the
+    # port into a structurally invalid transverse slot through both walls.
+    feed_probe=Part.makeBox(9.5,20,18,App.Vector(8,-10,12))
     require(barrel.common(feed_probe).Volume<0.01,"barrel feed port 18 axial x 20 chord missing")
     for z in (11.0,30.5):
-        intact_probe=Part.makeBox(1,1,0.5,App.Vector(-0.5,-16.5,z))
+        intact_probe=Part.makeBox(0.5,1,0.5,App.Vector(16,0,z))
         require(barrel.common(intact_probe).Volume>0.1,"barrel feed port exceeds B+12..30")
     # Ø34 body / Ø16.20 bore / M4 PCD26 leaves a machinable ligament on both
     # sides.  This gate prevents reintroducing the former M5/PCD28 0.5 mm edge.
@@ -121,6 +124,19 @@ def main():
         folder=ROOT/"exports/cnc/extruder/parts"/spec["id"]
         for ext in ("FCStd","step","stl","dxf"):
             require((folder/f"{spec['id']}.{ext}").exists(),f"missing extruder fabrication format {spec['id']}.{ext}")
+    required_machine_ids={"IN-HOP-01","FD-BIN-01","FD-HOP-01","FD-TRN-01","FD-MET-01","FD-MET-02","FD-MET-03","EX-THR-01","EX-SH-01","DRV-GD-01","FM-PL-01","FM-RL-01","FM-AX-01","FM-GR-01","FM-GA-01","SP-DA-01","SP-AX-01","SP-RL-01","SP-SH-01","SP-BP-01","SP-MM-01","SP-TR-01","SP-DS-01","CT-ENC-01"}
+    require({spec["id"] for spec in machine_specs}==required_machine_ids,"machine fabrication family set incomplete")
+    for spec in machine_specs:
+        folder=ROOT/"exports/fabrication/parts"/spec["id"]
+        for ext in ("FCStd","step","stl","dxf"):
+            require((folder/f"{spec['id']}.{ext}").exists(),f"missing machine fabrication format {spec['id']}.{ext}")
+        require((folder/"drawing_notes.md").exists(),f"missing machine fabrication notes {spec['id']}")
+    cut_rows=list(csv.DictReader((ROOT/"exports/fabrication/frame_cut_list.csv").open()))
+    require({(r["part_id"],r["cut_length_mm"],r["quantity"]) for r in cut_rows}=={
+        ("FR-01","890.0","4"),("FR-02","430.0","11"),("FR-03","660.0","8"),
+        ("FR-04","300.0","2"),("FR-05","318.0","1"),("FR-06","280.0","2"),
+        ("FR-07","50.0","1")
+    },"frame cut list does not match butt-jointed CAD")
     jig_bom=list(csv.DictReader((ROOT/"exports/jigs/gate1/bom.csv").open()))
     require(any(r["item_id"]=="CUT-01" and r["qty"]=="2" for r in jig_bom),"Gate-1 coupon quantity")
     require({r["item_id"] for r in jig_bom if r["item_id"].startswith("G1J-")} >= {f"G1J-{i:02d}" for i in range(1,11)},"Gate-1 BOM part coverage")

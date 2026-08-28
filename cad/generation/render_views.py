@@ -293,7 +293,7 @@ def main():
         return
     if "--shredder-only" in sys.argv:
         mesh_render([{"name":"CUT-01","shape":cutter,"color":(225,116,55),"group":"part"}], ROOT/"renders/modules/CUT-01_cycloidal_hook_profile.png", "CUT-01 | 76% cycloidal capture / fast hook relief", "front")
-        visible_names = ("ReferenceMotorVariant", "CutterSprocket", "MotorSprocket", "ChainTightSide", "ChainSlackSide", "PhaseGear", "Shaft", "MotorMountPlate")
+        visible_names = ("DriveMotorDonorEnvelope", "DriveMotorOutputInterface", "CutterSprocket", "MotorSprocket", "ChainTightSide", "ChainSlackSide", "PhaseGear", "Shaft", "MotorMountPlate")
         drive = [i for i in assembly if i["name"].startswith(visible_names) or i["name"] in ("Hook105_0", "Hook153_0")]
         mesh_render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "Guard removed | interchangeable #35 chain / M3 Z16 phase gears", "iso")
         print("COMPACT_SHREDDER_RENDER_OK images=2")
@@ -316,7 +316,7 @@ def main():
     shredder=[i for i in assembly if i["group"] in ("input","shredder","feed")]
     render(shredder, ROOT/"renders/modules/shared_shredder_module.png", "Shared hopper / hook cutter / removable screen / bin", "iso")
     mesh_render([{"name":"CUT-01","shape":cutter,"color":(225,116,55),"group":"part"}], ROOT/"renders/modules/CUT-01_cycloidal_hook_profile.png", "CUT-01 | 76% cycloidal capture / fast hook relief", "front")
-    visible_names = ("ReferenceMotorVariant", "CutterSprocket", "MotorSprocket", "ChainTightSide", "ChainSlackSide", "PhaseGear", "Shaft", "MotorMountPlate")
+    visible_names = ("DriveMotorDonorEnvelope", "DriveMotorOutputInterface", "CutterSprocket", "MotorSprocket", "ChainTightSide", "ChainSlackSide", "PhaseGear", "Shaft", "MotorMountPlate")
     drive = [i for i in assembly if i["name"].startswith(visible_names) or i["name"] in ("Hook105_0", "Hook153_0")]
     mesh_render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "Interchangeable #35 chain / M3 Z16 functional phase gears", "iso")
     anti=print_parts()[1]
@@ -334,5 +334,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    if App.GuiUp:
-        App.quit()

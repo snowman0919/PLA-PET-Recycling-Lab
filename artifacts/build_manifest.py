@@ -19,7 +19,7 @@ def main():
         "release_state": "DIGITAL_FABRICATION_BASELINE",
         "physical_state": "PHYSICAL_NOT_RUN",
         "regeneration_commands": [
-            "FreeCADCmd cad/generation/generate_all.py via validation/run_all.py",
+            "FreeCADCmd console-stream runpy cad/generation/generate_all.py via validation/run_all.py",
             "PrusaSlicer 2.9.6 via validation/slice_prints.py",
             "OpenModelica 1.27.0 / MSL 4.0.0 via simulation/openmodelica/scripts/run_all.mos",
             "CalculiX 2.23 via analysis/structural/run_load_checks.py",

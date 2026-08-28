@@ -324,7 +324,10 @@ def extruder_barrel():
     barrel=outer.cut(bore)
     # Feed opening: 18 mm axial x 20 mm chord, B+12..30 from rear datum.
     # The cylinder axis is local Z, so the box's Z length is the axial size.
-    feed=Part.makeBox(20,34,18,App.Vector(-10,-17,12))
+    # Open only the +X radial side down to the bore.  After the assembly's
+    # -90° Y rotation this is the upward feed opening, not a transverse slot
+    # through both barrel walls.
+    feed=Part.makeBox(9.5,20,18,App.Vector(8.0,-10,12))
     barrel=barrel.cut(feed)
     # Four M4 die-interface holes on PCD26, axial 8 mm deep.  The previous
     # M5/PCD28 pattern left only 0.5 mm nominal metal to the Ø34 outside

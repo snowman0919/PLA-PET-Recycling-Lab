@@ -27,7 +27,7 @@ def main():
     printed={item["id"]:item["shape"] for item in print_parts()}
     keepouts={item["name"]:item["shape"] for item in review_keepout_objects()}
     dancer_positions=[]; dancer_min_clearance=1e9
-    dancer_obstacles=[by[name] for name in ("Spool","TraverseRail","PPR-C10_TraverseCarriage","CableDuct","ControlPanel")]
+    dancer_obstacles=[by[name] for name in ("Spool","TraverseRodA","TraverseRodB","PPR-C10_TraverseCarriage","CableDuct","ControlPanel")]
     for angle in range(-25,26):
         shape=dancer_arm_shape(angle); dancer_positions.append(shape)
         for obstacle in dancer_obstacles:

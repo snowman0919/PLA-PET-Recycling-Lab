@@ -14,7 +14,7 @@
 - support removal: none
 - brim: 5 mm
 - designed minimum wall: 1.6 mm
-- estimated mass: 22.7 g/ea, 90.9 g total
+- estimated mass: 22.7 g/ea, 90.6 g total
 - estimated print time: 7.6 h at 12 g/h planning rate
 - fastener: 2x M3x8 + washer + nyloc
 - insert or captured nut: none
@@ -24,14 +24,14 @@
 - tolerance: 0.30 mm sheet slot
 - mating part: 1 mm sheet bin and screen rails
 - assembly order: 7
-- bounding box: 25.0 x 25.0 x 120.0 mm
+- bounding box: 25.0 x 25.0 x 100.0 mm
 - FreeCAD Python source: `PPR-C03.py` -> `cad/freecad/compact/geometry.py`
 - dimension sheet: `dimension_sheet.svg`
 
 Slicer 질량·시간은 `print_manifest.csv`와 `total_material_report.md`의 PrusaSlicer 결과가 지배한다.
 
 <!-- SLICER_EVIDENCE_BEGIN -->
-- PrusaSlicer package mass: **88.85 g** for released quantity
-- PrusaSlicer package time: **6.80 h**
+- PrusaSlicer package mass: **89.04 g** for released quantity
+- PrusaSlicer package time: **10.02 h**
 - support extrusion volume: **0.000 cm³** (G-code role integration; included in package mass)
 <!-- SLICER_EVIDENCE_END -->

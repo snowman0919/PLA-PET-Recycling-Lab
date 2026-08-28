@@ -16,6 +16,7 @@
 - `renders/cnc/extruder_screw_barrel.png`
 - `renders/cnc/extruder_die_exploded.png`
 - `renders/review/compact_section.png`
+- `renders/review/forming_spool_motion.png`
 - `exports/print/slicing_previews/plate-08-PPR-C08-first-layer.svg`
 - `exports/print/slicing_previews/plate-10-PPR-C10-first-layer.svg`
 - `exports/print/slicing_previews/coupon-PPR-TC01-first-layer.svg`
@@ -36,6 +37,8 @@
 8. 재감사에서 기존 `DownDie` cylinder가 barrel과 접선만 이루고 내부 melt turn이 없으며 upper PPR-C05가 barrel/hot shield를 각각 2,446/10,128 mm³ 관통하는 결함을 확인했다. EX-DIE-01…05 실제 Ø8 교차유로와 gasket 접속으로 교체하고 forming 중심선을 X=74.5 mm로 정렬했다. 새 section/front render와 exact die tessellation을 직접 열어 body/breaker/insert/retainer/gasket의 존재, 두 100 mm duct, 직렬 X/Y gauge와 puller 순서를 확인했다. 자동검사는 upper duct–shield 10.0 mm, upper duct–die 약 29.0 mm, 해당 관통 0을 보고한다.
 9. EX-DIE-01의 유효 intersecting-bore seam은 OCC wire discretizer를 crash시켰다. Cabinet view에서만 body의 exact bounding solid를 render LOD로 쓰고, 모든 hole/channel을 유지한 별도 exact tessellation exploded view를 추가했다. 제조 판단은 STEP/FCStd/topology 검사와 EX-DIE SVG/PDF가 지배하며 render LOD는 주문 형상이 아니다.
 10. 최초 EX-DIE-04는 5052-H32 t2와 5×5 mm web을 사용하고 insert 전체 투영면적을 반영하지 않아 PET 온도 relief 근거로 부적합했다. 이를 304 stainless t1.5, 두 10×2.5 mm web으로 교체했다. 265 °C 보수 항복강도 150 MPa와 insert–orifice 환형 투영면적을 사용한 digital screening은 4.32 MPa다. 새 exploded render에서 retainer가 독립 교환부품임을 확인했지만, 동일 lot 고온 coupon 3개의 최초 영구변형·우회 개방·비산 없음 시험 전에는 PASS나 release 값으로 사용하지 않는다.
+11. 07:38–07:39 재생성본에서 puller guard, 두 금속 plate/roller, Ø8 spindle, guide/dancer/traverse, spool bearing plate와 motor mount가 보이는지 다시 확인했다. Guard를 높여 crossrail을 피하던 첫 수정은 gauge/roller와 실제로 겹쳤으므로 폐기하고, guard는 z=0에 유지한 채 인접 crossrail을 y=275/405 mm로 옮겨 각각 5 mm gap을 만들었다. 전체 138 object, 9,453 pair B-Rep 감사에서 정책 밖 체적간섭은 0건이다. 특정 허용은 socket weld 2쌍, chain-sprocket 보수 LOD 2쌍, generic spool/core/cone 기준 LOD 7쌍뿐이며 frame-frame 자동 예외는 제거했다.
+12. 최신 isometric/front render에서 frame 내부 경로와 support가 보이지만, yellow spool/core는 구매품 실측 전 보수적인 solid reference라 cone 삽입부가 시각적으로 겹친다. 이를 실제 끼워맞춤 완료로 판정하지 않으며 PPR-C09 삽입 깊이, 6001 bearing fit, spindle runout은 Gate-5에서 받은 spool bore에 맞춰 고정한다.
 
 ## 남은 물리·시각 blocker
 

@@ -22,7 +22,7 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |MSL system dynamics|Rotational/Translational/MultiBody, 18 scenario, 6 sweep|PASS_DIGITAL|
 |Analytic/CalculiX coupling|OpenModelica dynamic envelope를 입력으로 사용|PASS_DIGITAL|
 |안전·firmware lock|E-stop/lid/service hard cut, thermal/branch fuse, bounded retry, uncalibrated inhibit|PASS_DIGITAL / PHYSICAL_NOT_RUN|
-|Conditional budget|179,434 KRW target, 199,434 KRW reserve 포함, 절대 cap 여유 566 KRW|PASS_CONDITIONAL|
+|Conditional budget|178,137 KRW target, 198,137 KRW reserve 포함, 절대 cap 여유 1,863 KRW|PASS_CONDITIONAL|
 |Verified procurement budget|견적·영수증·donor 증거 부재|NOT_ESTABLISHED|
 
 ## 의도적으로 잠긴 항목
@@ -47,8 +47,8 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |G-01|PLA/PET 공용 single path 유지|`requirements/architecture_contract.md`, full assembly STEP/render|PROVEN_DIGITAL|
 |G-02|500×750×1000 hard / 480×720×950 target|`assembly_metadata.json`, `full_motion.json`: 470×700×930|PROVEN_DIGITAL|
 |G-03|각 출력품 210 mm 이하|12-row print manifest와 `print_interfaces.json`|PROVEN_DIGITAL|
-|G-04|출력 계획질량 1.5 kg target|support 포함 PrusaSlicer 968.97 g + 12% = 1,085.25 g|PROVEN_DIGITAL|
-|G-05|조건부 180k / 절대 200k|179,434 / 199,434 KRW rollup|PROVEN_DIGITAL|
+|G-04|출력 계획질량 1.5 kg target|support 포함 PrusaSlicer 904.60 g + 12% = 1,013.15 g|PROVEN_DIGITAL|
+|G-05|조건부 180k / 절대 200k|178,137 / 198,137 KRW rollup|PROVEN_DIGITAL|
 |G-06|검증 구매예산 별도 표시|`verified_budget.csv`: NOT_ESTABLISHED|PENDING_EXTERNAL|
 |G-07|v0.3 archive tag/branch와 기존 archive 보존|annotated tags, archive refs, `configuration_control.py`|PROVEN_DIGITAL|
 |G-08|v0.4 작업 branch와 원격 이력|`solid-manifold-openmodelica-v0.4`, clean-clone record|PROVEN_DIGITAL|
@@ -58,7 +58,7 @@ Revision: `solid-manifold-openmodelica-v0.4`
 
 |ID|요구사항|권위 있는 증거|판정|
 |---|---|---|---|
-|C-01|active part closed positive-volume B-Rep|144 object `solid_topology.json`|PROVEN_DIGITAL|
+|C-01|active part closed positive-volume B-Rep|181 object `solid_topology.json`|PROVEN_DIGITAL|
 |C-02|keep-out 격리 및 제조 export 제외|`cad/review_keepouts`, review count 4|PROVEN_DIGITAL|
 |C-03|metal primary load path|assembly classification, structure report, build manual|PROVEN_DIGITAL|
 |C-04|panel/guard 실제 두께·체결 interface|FreeCAD Python, section/exploded views, interface checks|PROVEN_DIGITAL|

@@ -77,6 +77,7 @@
       "required_cutter_speed_range_rpm": [20.0, 40.0],
       "maximum_no_load_cutter_rpm": 80.0,
       "acceptable_output_shaft_mm": [10.0, 20.0],
+      "maximum_donor_body_envelope_mm": [90.0, 180.0, 110.0],
       "minimum_duty": "S2:60_or_30min_coupon_case_le_80C",
       "secondary_ratio_options": [1.5, 2.0, 2.5],
       "drive_topology": "DRV-01_universal_plate_plus_DRV-Axx_donor_adapter_plus_DRV-F01_motor_side_fuse_plus_number35_chain_12T_to_18T_24T_or_30T_plus_DRV-02_cutter_hub_plus_generic_M3_Z16_face18_phase_pair",
@@ -90,7 +91,7 @@
         "published_envelope_mm": [270.0, 81.0, 138.0],
         "chain_ratio": 2.5,
         "cutter_rpm": 40.0,
-        "status": "REFERENCE_PURCHASABLE_VARIANT_NOT_SELECTED_NOT_IN_BUDGET"
+        "status": "EXTERNAL_TRADE_STUDY_REFERENCE_DOES_NOT_FIT_ASSEMBLY_POSITION_NOT_SELECTED_NOT_IN_BUDGET"
       },
       "driver": "BTS7960-class 24 V bidirectional H-bridge, receipt-tested",
       "current_sensor": "50 A Hall sensor or calibrated shunt",

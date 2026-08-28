@@ -1,0 +1,8 @@
+interface,part_a,part_b,hardware,fit_or_clearance,inspection,status
+feeder_to_barrel,FD-MET-01,EX-BAR-01,metal saddle/clamp + high-temp gasket,face contact; no bore intrusion,dry-fit light/feeler check,GATE2_AND_GATE3
+transfer_upper_socket,FD-TRN-01,FD-HOP-01,TIG tack/weld or removable clamp,>=8 mm socket engagement,leak and cleanability check,HOLD_USER_APPROVAL
+transfer_lower_socket,FD-TRN-01,FD-MET-01,TIG tack/weld or removable clamp,>=8 mm socket engagement,leak and cleanability check,HOLD_USER_APPROVAL
+screw_to_barrel,EX-SCR-01,EX-BAR-01,matched supplier pair,0.14-0.16 mm radial at 20+/-2 C,three-station report,HOLD_PROCESS_COUPON_AND_GATE3
+puller_axes,FM-AX-01,FM-PL-01/FM-RL-01,metal collars,0.10 mm radial in Ø8.2 bores,free rotation/TIR/slip,GATE5
+guide_axis,FM-GA-01,FM-GR-01/PPR-C08,metal collars,0.10 mm radial,free rotation,GATE5
+spool_axis,SP-SH-01,PPR-C09/6001 bearings,metal collars,bearing fit per received lot,full-spool runout,GATE5

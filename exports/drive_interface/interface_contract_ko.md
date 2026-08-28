@@ -22,6 +22,6 @@ Chain efficiency 0.85 screening에서 12T:18T, 12T:24T, 12T:30T의 motor output 
 
 14/18/22/34/48 N·m hierarchy는 모두 **cutter-shaft equivalent torque**다. 따라서 `DRV-F01`의 실제 motor-side mechanical setting은 efficiency 0.85에서 12:18=17.25, 12:24=12.94, 12:30=10.35 N·m다. DRV-F01이 작동해도 DRV-02, chain, phase pair의 위상 경로는 유지되어야 한다. Chain guard, 20 A fuse, E-stop/lid/service hard inhibit와 calibrated torque+RPM jam detection을 유지한다. Shear 재료·직경·groove는 Gate-1 quasi-static calibration으로 확정한다. Donor 확인과 Gate-1 전 full quantity 발주 금지다.
 
-## 치수 근거가 있는 reference variant
+## 치수 근거가 있는 외부 trade-study reference
 
-Parvalux `781096-735901` BRx70-60 24 V + GB12 30:1 PMDC gearmotor를 구매 의존성이 없는 envelope reference로만 둔다. 공식 공개값은 100 rpm, 9.8 N·m S1, 17.2 N·m intermittent, 270 x 81 x 138 mm다. 12T:30T에서 cutter 40 rpm이며 계산상 capability는 충분하지만 가격이 예산을 크게 넘으므로 선정품/BOM/0원 donor가 아니다. Assembly의 red box는 이 공식 overall envelope이며 proprietary body 형상을 가장하지 않는다. Source URL과 확인일은 `reference_variant.json`에 고정한다.
+Parvalux `781096-735901` BRx70-60 24 V + GB12 30:1 PMDC gearmotor는 torque/speed 비교용 외부 reference일 뿐 선정품, BOM 또는 assembly solid가 아니다. 공개 overall length 270 mm는 현재 drive 위치에 무간섭으로 들어가지 않으므로 조립 후보에서 제외한다. Active assembly의 red body는 특정 제품이 아니라 DRV-01이 수용하는 donor 최대 body 90 x 180 x 110 mm이며, 실제 donor가 이 envelope와 shaft keep-in을 만족해야만 DRV-Axx를 release한다. Source URL과 확인일은 `reference_variant.json`에 고정한다.

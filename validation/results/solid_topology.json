@@ -1,7 +1,7 @@
 {
   "revision": "solid-manifold-openmodelica-v0.4",
   "contract": "active part contains exactly one closed positive-volume B-Rep solid",
-  "active_count": 144,
+  "active_count": 181,
   "review_keepout_count": 4,
   "failed": [],
   "parts": [
@@ -29,10 +29,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 235415.308,
+      "volume_mm3": 199557.612,
       "bbox_mm": [
         190.0,
-        150.0,
+        120.0,
         90.0
       ],
       "geometry_check_findings": -1,
@@ -46,11 +46,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 18317.525,
+      "volume_mm3": 18273.283,
       "bbox_mm": [
         25.0,
         25.0,
-        120.0
+        100.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -63,9 +63,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 37049.668,
+      "volume_mm3": 32049.668,
       "bbox_mm": [
-        120.0,
+        100.0,
         25.0,
         20.0
       ],
@@ -114,9 +114,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 82143.308,
+      "volume_mm3": 66623.308,
       "bbox_mm": [
-        150.0,
+        110.0,
         100.0,
         65.0
       ],
@@ -199,11 +199,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -335,7 +335,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 133098.913,
+      "volume_mm3": 131226.913,
       "bbox_mm": [
         180.0,
         140.0,
@@ -607,7 +607,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 188345.937,
+      "volume_mm3": 193264.827,
       "bbox_mm": [
         34.0,
         34.0,
@@ -743,11 +743,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 372000.0,
+      "volume_mm3": 356000.0,
       "bbox_mm": [
         20.0,
         20.0,
-        930.0
+        890.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -760,11 +760,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 372000.0,
+      "volume_mm3": 356000.0,
       "bbox_mm": [
         20.0,
         20.0,
-        930.0
+        890.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -777,11 +777,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 372000.0,
+      "volume_mm3": 356000.0,
       "bbox_mm": [
         20.0,
         20.0,
-        930.0
+        890.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -794,11 +794,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 372000.0,
+      "volume_mm3": 356000.0,
       "bbox_mm": [
         20.0,
         20.0,
-        930.0
+        890.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -811,9 +811,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 188000.0,
+      "volume_mm3": 172000.0,
       "bbox_mm": [
-        470.0,
+        430.0,
         20.0,
         20.0
       ],
@@ -828,9 +828,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 188000.0,
+      "volume_mm3": 172000.0,
       "bbox_mm": [
-        470.0,
+        430.0,
         20.0,
         20.0
       ],
@@ -845,10 +845,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 280000.0,
+      "volume_mm3": 264000.0,
       "bbox_mm": [
         20.0,
-        700.0,
+        660.0,
         20.0
       ],
       "geometry_check_findings": -1,
@@ -862,10 +862,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 280000.0,
+      "volume_mm3": 264000.0,
       "bbox_mm": [
         20.0,
-        700.0,
+        660.0,
         20.0
       ],
       "geometry_check_findings": -1,
@@ -879,9 +879,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 188000.0,
+      "volume_mm3": 172000.0,
       "bbox_mm": [
-        470.0,
+        430.0,
         20.0,
         20.0
       ],
@@ -896,9 +896,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 188000.0,
+      "volume_mm3": 172000.0,
       "bbox_mm": [
-        470.0,
+        430.0,
         20.0,
         20.0
       ],
@@ -913,10 +913,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 280000.0,
+      "volume_mm3": 264000.0,
       "bbox_mm": [
         20.0,
-        700.0,
+        660.0,
         20.0
       ],
       "geometry_check_findings": -1,
@@ -930,10 +930,44 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 280000.0,
+      "volume_mm3": 264000.0,
       "bbox_mm": [
         20.0,
-        700.0,
+        660.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameTierY320_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 264000.0,
+      "bbox_mm": [
+        20.0,
+        660.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameTierY320_450",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 264000.0,
+      "bbox_mm": [
+        20.0,
+        660.0,
         20.0
       ],
       "geometry_check_findings": -1,
@@ -947,10 +981,44 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 188000.0,
+      "volume_mm3": 172000.0,
       "bbox_mm": [
-        470.0,
+        430.0,
         20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameTierY500_0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 264000.0,
+      "bbox_mm": [
+        20.0,
+        660.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameTierY500_450",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 264000.0,
+      "bbox_mm": [
+        20.0,
+        660.0,
         20.0
       ],
       "geometry_check_findings": -1,
@@ -964,11 +1032,181 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 188000.0,
+      "volume_mm3": 172000.0,
       "bbox_mm": [
-        470.0,
+        430.0,
         20.0,
         20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameBottomCross275",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 172000.0,
+      "bbox_mm": [
+        430.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameBottomCross405",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 172000.0,
+      "bbox_mm": [
+        430.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameBottomCross440",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 172000.0,
+      "bbox_mm": [
+        430.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameBottomCross460",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 172000.0,
+      "bbox_mm": [
+        430.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameBottomCross608",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 172000.0,
+      "bbox_mm": [
+        430.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameSpoolColumnFront",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 120000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        300.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameSpoolColumnRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 120000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        300.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameSpoolTopRail",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 127200.0,
+      "bbox_mm": [
+        20.0,
+        318.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameTraversePostLeft",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 112000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        280.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FrameTraversePostRight",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 112000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        280.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1015,10 +1253,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 235415.308,
+      "volume_mm3": 199557.612,
       "bbox_mm": [
         190.0,
-        150.0,
+        120.0,
         90.0
       ],
       "geometry_check_findings": -1,
@@ -1457,9 +1695,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 37049.668,
+      "volume_mm3": 32049.668,
       "bbox_mm": [
-        120.0,
+        100.0,
         25.0,
         20.0
       ],
@@ -1576,9 +1814,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 1322400.0,
+      "volume_mm3": 63470.142,
       "bbox_mm": [
-        145.0,
+        165.0,
         48.0,
         190.0
       ],
@@ -1587,17 +1825,34 @@
       "errors": []
     },
     {
-      "id": "ReferenceMotorVariant",
-      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "id": "DriveMotorDonorEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 3018060.0,
+      "volume_mm3": 1782000.0,
       "bbox_mm": [
-        81.0,
-        270.0,
-        138.0
+        90.0,
+        180.0,
+        110.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DriveMotorOutputInterface",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 5079.955,
+      "bbox_mm": [
+        14.0,
+        33.0,
+        14.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1610,7 +1865,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 133098.913,
+      "volume_mm3": 131226.913,
       "bbox_mm": [
         180.0,
         6.0,
@@ -1657,11 +1912,11 @@
     {
       "id": "FlakeBin",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Compound",
+      "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 225662.0,
+      "volume_mm3": 113640.6,
       "bbox_mm": [
         185.0,
         175.0,
@@ -1678,11 +1933,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 18317.525,
+      "volume_mm3": 18273.283,
       "bbox_mm": [
         25.0,
         25.0,
-        120.0
+        100.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1695,11 +1950,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 18317.525,
+      "volume_mm3": 18273.283,
       "bbox_mm": [
         25.0,
         25.0,
-        120.0
+        100.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1712,11 +1967,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 18317.525,
+      "volume_mm3": 18273.283,
       "bbox_mm": [
         25.0,
         25.0,
-        120.0
+        100.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1729,11 +1984,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 18317.525,
+      "volume_mm3": 18273.283,
       "bbox_mm": [
         25.0,
         25.0,
-        120.0
+        100.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1757,17 +2012,68 @@
       "errors": []
     },
     {
-      "id": "Feeder",
+      "id": "FeedTransferChute",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 106876.982,
+      "volume_mm3": 19878.016,
       "bbox_mm": [
-        36.0,
-        36.0,
+        35.977,
+        96.094,
+        98.185
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FeederHousing",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 26799.356,
+      "bbox_mm": [
+        48.0,
+        48.0,
         105.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FeederRotor",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3691.497,
+      "bbox_mm": [
+        31.6,
+        31.6,
+        8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FeederShaft",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2159.845,
+      "bbox_mm": [
+        5.0,
+        5.0,
+        110.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1780,11 +2086,28 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 119700.0,
+      "volume_mm3": 112849.789,
       "bbox_mm": [
         12.0,
         95.0,
         105.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Screw",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 39596.777,
+      "bbox_mm": [
+        316.0,
+        15.871,
+        15.871
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1797,7 +2120,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 254217.678,
+      "volume_mm3": 193264.827,
       "bbox_mm": [
         280.0,
         34.0,
@@ -1810,13 +2133,13 @@
     {
       "id": "HotShield",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Compound",
+      "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 142800.0,
+      "volume_mm3": 157690.185,
       "bbox_mm": [
-        349.0,
+        335.0,
         75.0,
         85.0
       ],
@@ -1826,12 +2149,12 @@
     },
     {
       "id": "ExtruderDrive",
-      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 350625.0,
+      "volume_mm3": 294641.819,
       "bbox_mm": [
         55.0,
         75.0,
@@ -2001,7 +2324,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 40000.0,
+      "volume_mm3": 38307.624,
       "bbox_mm": [
         100.0,
         10.0,
@@ -2018,7 +2341,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 40000.0,
+      "volume_mm3": 38307.624,
       "bbox_mm": [
         100.0,
         10.0,
@@ -2035,11 +2358,28 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 75398.224,
+      "volume_mm3": 72229.613,
       "bbox_mm": [
         40.0,
         60.0,
         40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PullerSpindle54.5",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4021.239,
+      "bbox_mm": [
+        8.0,
+        80.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2052,11 +2392,28 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 75398.224,
+      "volume_mm3": 72229.613,
       "bbox_mm": [
         40.0,
         60.0,
         40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PullerSpindle94.5",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4021.239,
+      "bbox_mm": [
+        8.0,
+        80.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2069,9 +2426,9 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 82143.308,
+      "volume_mm3": 66623.308,
       "bbox_mm": [
-        150.0,
+        110.0,
         100.0,
         65.0
       ],
@@ -2086,11 +2443,28 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 20357.52,
+      "volume_mm3": 19301.317,
       "bbox_mm": [
         36.0,
         20.0,
         36.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "GuideRollerAxle",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1507.964,
+      "bbox_mm": [
+        8.0,
+        30.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2148,8 +2522,93 @@
       "errors": []
     },
     {
-      "id": "Spool",
+      "id": "DancerSupportPlate",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 22237.386,
+      "bbox_mm": [
+        36.0,
+        8.0,
+        80.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DancerSupportPost",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 20000.0,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DancerPivotAxle",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 804.248,
+      "bbox_mm": [
+        8.0,
+        16.0,
+        8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DancerEndRoller",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 5226.982,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DancerEndAxle",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1809.557,
+      "bbox_mm": [
+        8.0,
+        36.0,
+        8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "Spool",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
@@ -2166,7 +2625,7 @@
     },
     {
       "id": "SpoolCore",
-      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_LOD",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
@@ -2176,6 +2635,91 @@
         52.0,
         73.0,
         52.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolSpindle",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 16172.919,
+      "bbox_mm": [
+        12.0,
+        143.0,
+        12.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolBearingPlateFront",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 27664.351,
+      "bbox_mm": [
+        105.0,
+        5.0,
+        60.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolBearingPlateRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 27664.351,
+      "bbox_mm": [
+        105.0,
+        5.0,
+        60.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolBearingFront",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3990.828,
+      "bbox_mm": [
+        28.0,
+        8.0,
+        28.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolBearingRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3990.828,
+      "bbox_mm": [
+        28.0,
+        8.0,
+        28.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2216,17 +2760,68 @@
       "errors": []
     },
     {
-      "id": "TraverseRail",
+      "id": "TraverseRodA",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 23040.0,
+      "volume_mm3": 8042.477,
       "bbox_mm": [
         160.0,
-        12.0,
-        12.0
+        8.0,
+        8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TraverseRodB",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 8042.477,
+      "bbox_mm": [
+        160.0,
+        8.0,
+        8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TraverseEndPlateLeft",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 9234.315,
+      "bbox_mm": [
+        5.0,
+        50.0,
+        40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TraverseEndPlateRight",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 9234.315,
+      "bbox_mm": [
+        5.0,
+        50.0,
+        40.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2250,13 +2845,47 @@
       "errors": []
     },
     {
+      "id": "SpoolMotorMount",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 28130.861,
+      "bbox_mm": [
+        101.0,
+        6.0,
+        52.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolMotorEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 84672.0,
+      "bbox_mm": [
+        42.0,
+        48.0,
+        42.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "ControlPanel",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 1263500.0,
+      "volume_mm3": 121832.0,
       "bbox_mm": [
         190.0,
         35.0,
@@ -2285,7 +2914,7 @@
     },
     {
       "id": "PSU",
-      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
@@ -2302,7 +2931,7 @@
     },
     {
       "id": "CableDuct",
-      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
@@ -2324,11 +2953,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2341,11 +2970,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2358,11 +2987,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2375,11 +3004,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2392,11 +3021,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2409,11 +3038,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2426,11 +3055,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2443,11 +3072,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4420.478,
+      "volume_mm3": 5009.085,
       "bbox_mm": [
-        24.0,
-        18.0,
-        18.0
+        38.0,
+        26.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",

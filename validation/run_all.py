@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import shutil
+import shlex
 import subprocess
 import sys
 from pathlib import Path
@@ -24,25 +25,34 @@ def nix(command):
     return ["nix", "develop", "--command", "bash", "-lc", command]
 
 
+def freecad(script):
+    """Feed Python to FreeCAD's console; `-c <code>` does not execute code."""
+    code = (
+        'import runpy,sys,os; '
+        f'_result=runpy.run_path("{script}", run_name="__main__"); '
+        'sys.stdout.flush(); os._exit(0)'
+    )
+    command = f"printf '%s\\n' {shlex.quote(code)} | FreeCADCmd -c"
+    return ["bash", "-lc", command] if shutil.which("FreeCADCmd") else nix(command)
+
+
 def main():
     run([sys.executable, "validation/configuration_control.py"], "CONFIGURATION_CONTROL_OK")
-    run([sys.executable, "bom/build_budget_views.py"], "CONDITIONAL_AND_VERIFIED_BUDGET_OK")
     run([sys.executable, "calculations/run_engineering.py"], "ENGINEERING_CALCULATIONS_OK")
     run([sys.executable, "firmware/arduino_mega/generate_config.py"], "FIRMWARE_CONFIG_SYNC_OK")
     run(["make", "-C", "firmware/arduino_mega", "test"], "SHREDDER_CALIBRATED_TORQUE_RPM_RETRY_OK")
 
-    generation = 'FreeCADCmd -c \'import runpy; runpy.run_path("cad/generation/generate_all.py", run_name="__main__")\''
-    run(["bash", "-lc", generation] if shutil.which("FreeCADCmd") else nix(generation), "CAD_TO_MODELICA_PARAMETER_SYNC_OK")
+    run(freecad("cad/generation/generate_all.py"), "CAD_TO_MODELICA_PARAMETER_SYNC_OK")
     for script, marker in (
         ("validation/solid_topology.py", "SOLID_BREP_TOPOLOGY_OK"),
         ("validation/freecad_checks.py", "FREECAD_COLLISION_LOAD_PATH_OK"),
+        ("validation/assembly_collision_audit.py", "ASSEMBLY_PAIRWISE_COLLISION_POLICY_OK"),
         ("validation/manufacturing_checks.py", "MANUFACTURING_GEOMETRY_RFQ_OK"),
         ("validation/print_interface_checks.py", "MINIMUM_WALL_FASTENER_INSERT_OK"),
         ("validation/motion_checks.py", "FULL_MOTION_ENVELOPE_OK"),
         ("validation/cutter_phase_sweep.py", "CUTTER_PHASE_SWEEP_OK"),
     ):
-        command = f'FreeCADCmd -c \'import runpy; runpy.run_path("{script}", run_name="__main__")\''
-        run(["bash", "-lc", command] if shutil.which("FreeCADCmd") else nix(command), marker)
+        run(freecad(script), marker)
     run([sys.executable, "validation/gate1_readiness.py"], "GATE1_EVIDENCE_READINESS_OK")
     run([sys.executable, "validation/mesh_checks.py"], "MESH_WATERTIGHT_MANIFOLD_OK")
     run([sys.executable, "validation/slice_prints.py"] if shutil.which("prusa-slicer") else nix("python3 validation/slice_prints.py"), "SLICER_SUCCESS_OK")
@@ -57,8 +67,7 @@ def main():
     run(nix("python3 analysis/structural/run_load_checks.py"), "STRUCTURAL_SCREENING_OK")
 
     if "--regenerate-renders" in sys.argv or not (ROOT / "renders/assembly/compact_full_assembly_isometric.png").exists():
-        render = 'FreeCADCmd -c \'import runpy; runpy.run_path("cad/generation/render_views.py", run_name="__main__")\''
-        run(["bash", "-lc", render] if shutil.which("FreeCADCmd") else nix(render), "COMPACT_RENDER_GENERATION_OK")
+        run(freecad("cad/generation/render_views.py"), "COMPACT_RENDER_GENERATION_OK")
     else:
         print("PASS COMPACT_RENDER_PACKAGE_PRESENT")
 

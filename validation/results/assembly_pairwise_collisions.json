@@ -1,0 +1,108 @@
+{
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "pair_count": 9453,
+  "tolerance_mm3": 0.05,
+  "overlaps": [
+    {
+      "left": "CutterSprocket24T",
+      "right": "ChainTightSide",
+      "overlap_mm3": 115.672,
+      "left_class": "manufactured_or_stock",
+      "right_class": "purchased_reference_lod",
+      "allowed": true,
+      "reason": "보수적 chain LOD와 sprocket 맞물림 체적"
+    },
+    {
+      "left": "CutterSprocket24T",
+      "right": "ChainSlackSide",
+      "overlap_mm3": 115.672,
+      "left_class": "manufactured_or_stock",
+      "right_class": "purchased_reference_lod",
+      "allowed": true,
+      "reason": "보수적 chain LOD와 sprocket 맞물림 체적"
+    },
+    {
+      "left": "SealedFeedHopper",
+      "right": "FeedTransferChute",
+      "overlap_mm3": 276.076,
+      "left_class": "manufactured_or_stock",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "밀폐 hopper 용접/socket 삽입부"
+    },
+    {
+      "left": "FeedTransferChute",
+      "right": "FeederHousing",
+      "overlap_mm3": 306.535,
+      "left_class": "manufactured_or_stock",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "feeder 용접/socket 삽입부"
+    },
+    {
+      "left": "Spool",
+      "right": "SpoolCore",
+      "overlap_mm3": 155031.314,
+      "left_class": "purchased_reference_envelope",
+      "right_class": "purchased_reference_lod",
+      "allowed": true,
+      "reason": "구매 spool envelope 안의 reference core"
+    },
+    {
+      "left": "Spool",
+      "right": "SpoolSpindle",
+      "overlap_mm3": 8256.105,
+      "left_class": "purchased_reference_envelope",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "구매 spool envelope 안의 실제 spindle"
+    },
+    {
+      "left": "Spool",
+      "right": "PPR-C09_SpoolAdapterFront",
+      "overlap_mm3": 24324.594,
+      "left_class": "purchased_reference_envelope",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "구매 spool 기준 envelope와 조절식 cone 삽입 깊이의 보수적 중첩"
+    },
+    {
+      "left": "Spool",
+      "right": "PPR-C09_SpoolAdapterRear",
+      "overlap_mm3": 24324.594,
+      "left_class": "purchased_reference_envelope",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "구매 spool 기준 envelope와 조절식 cone 삽입 깊이의 보수적 중첩"
+    },
+    {
+      "left": "SpoolCore",
+      "right": "SpoolSpindle",
+      "overlap_mm3": 8256.105,
+      "left_class": "purchased_reference_lod",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "reference core bore를 solid LOD로 표시한 의도된 중첩"
+    },
+    {
+      "left": "SpoolCore",
+      "right": "PPR-C09_SpoolAdapterFront",
+      "overlap_mm3": 13349.348,
+      "left_class": "purchased_reference_lod",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부"
+    },
+    {
+      "left": "SpoolCore",
+      "right": "PPR-C09_SpoolAdapterRear",
+      "overlap_mm3": 13349.347,
+      "left_class": "purchased_reference_lod",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부"
+    }
+  ],
+  "unexpected_count": 0,
+  "status": "PASS"
+}

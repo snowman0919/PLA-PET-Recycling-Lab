@@ -211,6 +211,20 @@ def test_artifacts_and_release_locks():
     for rel in ("docs/build_manual_ko.pdf", "docs/design_report_ko.pdf", "docs/digital_release_report_ko.pdf"):
         text = subprocess.run(["pdftotext", str(ROOT / rel), "-"], text=True, capture_output=True, check=True).stdout
         require(REV in text and "PHYSICAL" in text, f"PDF current-state mismatch {rel}")
+    build_text = subprocess.run(
+        ["pdftotext", "-layout", str(ROOT / "docs/build_manual_ko.pdf"), "-"],
+        text=True,
+        capture_output=True,
+        check=True,
+    ).stdout
+    require(
+        all(token in build_text for token in ("Control/PSU/PE", "DRV-01/Axx/", "Guard/interlocks/")),
+        "build manual assembly schedule incomplete",
+    )
+    require(
+        not any(token in build_text for token in ("[2], [Control/PSU/PE]", "[Thrust→barrel→", "[10], [Guard/interlocks")),
+        "build manual contains leaked Typst table source",
+    )
     state = json.loads((ROOT / "validation/physical_gate_status.json").read_text())
     require(state["gate1_result"] == "NOT_RUN" and state["physical_state"] == "PHYSICAL_NOT_RUN", "physical state")
     require(not state["full_cutter_order_release"] and not state["full_screw_barrel_order_release"], "full order unlocked")

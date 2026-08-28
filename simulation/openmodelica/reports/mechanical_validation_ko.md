@@ -11,7 +11,7 @@
 - phase gear 토크: 11.08 N·m
 - bearing 합성하중: 1255 N
 - chain 장력: 603 N
-- table anchor 최대 인장: 495 N / 1200 N
+- table anchor 최대 인장: 485 N / 1200 N
 
 ## 시나리오 판정
 

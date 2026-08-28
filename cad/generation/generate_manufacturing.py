@@ -25,6 +25,7 @@ from manufacturing import (  # noqa: E402
     generic_phase_gear_lamination,
     universal_motor_plate,
 )
+from geometry import machine_fabrication_parts  # noqa: E402
 
 
 def export_shape_set(specs, base):
@@ -68,6 +69,51 @@ def export_assembly(items, base, stem):
     compound=Part.makeCompound([o.Shape for o in objects]); bb=compound.BoundBox
     App.closeDocument(doc.Name)
     return [round(bb.XLength,2),round(bb.YLength,2),round(bb.ZLength,2)]
+
+
+def write_machine_fabrication_package():
+    """Export every non-shredder stock/fabricated machine family."""
+    base = ROOT / "exports/fabrication"
+    (base / "parts").mkdir(parents=True, exist_ok=True)
+    rows = export_shape_set(machine_fabrication_parts(), base / "parts")
+    with (base / "machine_manifest.csv").open("w", newline="") as f:
+        w = csv.writer(f, lineterminator="\n")
+        w.writerow(["part_id", "name", "quantity", "material", "process", "x_mm", "y_mm", "z_mm", "files", "release_state"])
+        for row in rows:
+            w.writerow([row["id"], row["name"], row["qty"], row["material"], row["process"], f"{row['x']:.2f}", f"{row['y']:.2f}", f"{row['z']:.2f}", "FCStd|STEP|STL|DXF|drawing_notes", "HOLD_USER_APPROVAL_AND_APPLICABLE_PHYSICAL_GATE"])
+    with (base / "frame_cut_list.csv").open("w", newline="") as f:
+        w = csv.writer(f, lineterminator="\n")
+        w.writerow(["part_id", "stock", "cut_length_mm", "quantity", "end_condition", "length_tolerance_mm", "source", "release_state"])
+        w.writerows([
+            ("FR-01", "20x20 aluminum profile", "890.0", 4, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-02", "20x20 aluminum profile", "430.0", 11, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-03", "20x20 aluminum profile", "660.0", 8, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-04", "20x20 aluminum profile", "300.0", 2, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-05", "20x20 aluminum profile", "318.0", 1, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-06", "20x20 aluminum profile", "280.0", 2, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-07", "20x20 aluminum profile", "50.0", 1, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+        ])
+    with (base / "assembly_interface_schedule.csv").open("w", newline="") as f:
+        w = csv.writer(f, lineterminator="\n")
+        w.writerow(["interface", "part_a", "part_b", "hardware", "fit_or_clearance", "inspection", "status"])
+        w.writerows([
+            ("feeder_to_barrel", "FD-MET-01", "EX-BAR-01", "metal saddle/clamp + high-temp gasket", "face contact; no bore intrusion", "dry-fit light/feeler check", "GATE2_AND_GATE3"),
+            ("transfer_upper_socket", "FD-TRN-01", "FD-HOP-01", "TIG tack/weld or removable clamp", ">=8 mm socket engagement", "leak and cleanability check", "HOLD_USER_APPROVAL"),
+            ("transfer_lower_socket", "FD-TRN-01", "FD-MET-01", "TIG tack/weld or removable clamp", ">=8 mm socket engagement", "leak and cleanability check", "HOLD_USER_APPROVAL"),
+            ("screw_to_barrel", "EX-SCR-01", "EX-BAR-01", "matched supplier pair", "0.14-0.16 mm radial at 20+/-2 C", "three-station report", "HOLD_PROCESS_COUPON_AND_GATE3"),
+            ("puller_axes", "FM-AX-01", "FM-PL-01/FM-RL-01", "metal collars", "0.10 mm radial in Ø8.2 bores", "free rotation/TIR/slip", "GATE5"),
+            ("guide_axis", "FM-GA-01", "FM-GR-01/PPR-C08", "metal collars", "0.10 mm radial", "free rotation", "GATE5"),
+            ("spool_axis", "SP-SH-01", "PPR-C09/6001 bearings", "metal collars", "bearing fit per received lot", "full-spool runout", "GATE5"),
+        ])
+    (base / "README_ko.md").write_text(
+        "# Machine fabrication package — solid-manifold-openmodelica-v0.4\n\n"
+        "이 디렉터리는 shredder CUT, drive DRV, Gate-1 jig, extruder RFQ와 중복되지 않는 본체 제작품을 담는다. "
+        "각 part 폴더의 note가 공차를 지배하고 STEP은 3D 형상, DXF/STL은 견적 reference다. "
+        "Frame은 겹치는 profile solid가 아니라 `frame_cut_list.csv`의 butt-joint cut length로 조립한다. "
+        "모든 주문은 사용자 승인 전 HOLD이며, donor 치수와 Gate-1/2/3/5 상태는 대체할 수 없다.\n",
+        encoding="utf-8",
+    )
+    return rows
 
 
 def svg_screw_drawing(path):
@@ -176,9 +222,9 @@ Chain efficiency 0.85 screening에서 12T:18T, 12T:24T, 12T:30T의 motor output 
 
 14/18/22/34/48 N·m hierarchy는 모두 **cutter-shaft equivalent torque**다. 따라서 `DRV-F01`의 실제 motor-side mechanical setting은 efficiency 0.85에서 12:18=17.25, 12:24=12.94, 12:30=10.35 N·m다. DRV-F01이 작동해도 DRV-02, chain, phase pair의 위상 경로는 유지되어야 한다. Chain guard, 20 A fuse, E-stop/lid/service hard inhibit와 calibrated torque+RPM jam detection을 유지한다. Shear 재료·직경·groove는 Gate-1 quasi-static calibration으로 확정한다. Donor 확인과 Gate-1 전 full quantity 발주 금지다.
 
-## 치수 근거가 있는 reference variant
+## 치수 근거가 있는 외부 trade-study reference
 
-Parvalux `781096-735901` BRx70-60 24 V + GB12 30:1 PMDC gearmotor를 구매 의존성이 없는 envelope reference로만 둔다. 공식 공개값은 100 rpm, 9.8 N·m S1, 17.2 N·m intermittent, 270 x 81 x 138 mm다. 12T:30T에서 cutter 40 rpm이며 계산상 capability는 충분하지만 가격이 예산을 크게 넘으므로 선정품/BOM/0원 donor가 아니다. Assembly의 red box는 이 공식 overall envelope이며 proprietary body 형상을 가장하지 않는다. Source URL과 확인일은 `reference_variant.json`에 고정한다.
+Parvalux `781096-735901` BRx70-60 24 V + GB12 30:1 PMDC gearmotor는 torque/speed 비교용 외부 reference일 뿐 선정품, BOM 또는 assembly solid가 아니다. 공개 overall length 270 mm는 현재 drive 위치에 무간섭으로 들어가지 않으므로 조립 후보에서 제외한다. Active assembly의 red body는 특정 제품이 아니라 DRV-01이 수용하는 donor 최대 body 90 x 180 x 110 mm이며, 실제 donor가 이 envelope와 shaft keep-in을 만족해야만 DRV-Axx를 release한다. Source URL과 확인일은 `reference_variant.json`에 고정한다.
 """,encoding="utf-8")
     reference={
         "revision":"solid-manifold-openmodelica-v0.4","manufacturer":"Parvalux","part_number":"781096-735901",
@@ -186,7 +232,7 @@ Parvalux `781096-735901` BRx70-60 24 V + GB12 30:1 PMDC gearmotor를 구매 의�
         "published":{"voltage_v":24,"power_w":157,"output_speed_rpm":100,"continuous_torque_nm":9.8,"intermittent_torque_nm":17.2,"overall_envelope_mm":[270,81,138],"gear_ratio":30},
         "machine_interface":{"chain_ratio":"12T:30T","screening_efficiency":0.85,"cutter_speed_rpm":40,"cutter_equivalent_continuous_capability_nm":20.83,"cutter_equivalent_intermittent_capability_nm":36.55,"motor_side_relief_setting_nm":10.35},
         "source_url":"https://www.parvalux.com/product/brx70-60-24v-3000rpm-gb12-301-bronze/",
-        "source_checked_date":"2026-08-29","selection_state":"REFERENCE_ONLY_NOT_SELECTED_NOT_IN_BUDGET","purchase_allowed":False,
+        "source_checked_date":"2026-08-29","selection_state":"EXTERNAL_TRADE_STUDY_REFERENCE_DOES_NOT_FIT_ASSEMBLY_POSITION_NOT_SELECTED_NOT_IN_BUDGET","purchase_allowed":False,
     }
     (base/"reference_variant.json").write_text(json.dumps(reference,indent=2,ensure_ascii=False)+"\n")
     with (base/"ratio_and_fuse_settings.csv").open("w",newline="") as f:
@@ -521,7 +567,7 @@ def write_extruder_package():
 
 STEP은 3D 견적/간섭 기준, SVG와 본 문서는 치수·GD&T 기준이다. STL/DXF는 CAM reference이며 공차를 대체하지 않는다. 공급사는 임의로 clearance나 heat treatment를 변경하지 않는다.
 
-- 모든 치수는 mm, 표면조도는 Ra µm, 별도 표기 없은 선형치수 공차는 ±0.10 mm, 각도는 ±0.5°다.
+- 모든 치수는 mm, 표면조도는 Ra µm, 별도 표기 없는 선형치수 공차는 ±0.10 mm, 각도는 ±0.5°다.
 - 재료는 SCM440 KS D3867/JIS G4105 또는 동등 chemical/mechanical certificate를 제출한다. Supplier stock allowance는 임의이지만 추천 rough blank는 screw Ø22 x330, barrel solid/seamless Ø42 x295다.
 - 임의 대체재·공정·공차 이탈은 deviation list에 써서 회신하며 무응답은 수락으로 간주하지 않는다.
 
@@ -584,8 +630,9 @@ Full part order release는 `HOLD_PROCESS_COUPON_AND_GATE3`이며 본 checklist�
 
 
 def main():
+    machine_rows = write_machine_fabrication_package()
     write_drive_package(); write_gate1_package(); write_extruder_package()
-    print(f"MANUFACTURING_PACKAGE_OK drive=3 jig_parts={len(gate1_parts())} extruder_parts={len(extruder_rfq_parts())}")
+    print(f"MANUFACTURING_PACKAGE_OK machine_parts={len(machine_rows)} drive=3 jig_parts={len(gate1_parts())} extruder_parts={len(extruder_rfq_parts())}")
 
 
 if __name__=="__main__":main()

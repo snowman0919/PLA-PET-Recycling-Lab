@@ -19,22 +19,22 @@ Donor는 18–30 V reversible geared brushed-DC, cutter 14 N·m continuous, 20�
 
 ## 현재 디지털 결과
 
-- CAD active object 144개: 유효 B-Rep/solid topology PASS. Print part 12종은 각 1 solid다.
+- CAD active object 181개: 유효 B-Rep/solid topology PASS. Print part 12종은 각 1 solid다.
 - STL 12종: watertight/manifold, zero-area/non-manifold edge 0, component 1.
-- PrusaSlicer 2.9.6: support 설정을 포함한 nominal 968.97 g, 12% reserve 포함 1,085.25 g, 86.0 h.
+- PrusaSlicer 2.9.6: support 설정을 포함한 nominal 904.60 g, 12% reserve 포함 1,013.15 g, 81.7 h.
 - OpenModelica 1.27.0 / Modelica Standard Library 4.0.0: 18 scenario + 6 sensitivity sweep PASS.
-- Digital load envelope: cutter-equivalent relief 22 N·m, bearing 1.255 kN, chain 0.603 kN, table anchor tension 0.495 kN이다.
+- Digital load envelope: cutter-equivalent relief 22 N·m, bearing 1.255 kN, chain 0.603 kN, table anchor tension 0.485 kN이다.
 - CalculiX screening: bearing plate 45.36 MPa/0.1840 mm, cutter shaft 48.63 MPa/0.0136 mm. Gate-1 load로 재검증해야 한다.
 - 16 mm screw nominal throughput: PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h. 200 g/h는 stretch target이며 현재 nominal claim이 아니다.
 - Barrel front interface는 4×M4-6H/PCD26으로 정정해 nominal outer/bore-side thread ligament 2.0/2.9 mm를 확보했으며 feed assembly는 rear Datum B+12…30 mm port에 정렬된다.
 - EX-DIE-01…05는 barrel과 동 gasket로 직접 접속되는 Ø8 교차 유로, seven-hole breaker, Ø3×10 land insert와 304 t1.5 sacrificial retainer다. 265 °C 보수 screening 4.32 MPa는 계산값이며 동일 lot 고온 물리 coupon 3개 전에는 release되지 않는다.
-- Conditional target cash 179,434 KRW; 20,000 KRW contingency 포함 199,434 KRW. 남은 계획 여유는 566 KRW뿐이고 donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
+- Conditional target cash 178,137 KRW; 20,000 KRW contingency 포함 198,137 KRW. 남은 계획 여유는 1,863 KRW뿐이고 donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
 - `CLEAN_CLONE_REPRODUCIBILITY`는 전체 재생성 뒤 manifest의 모든 decision-relevant artifact를 다시 해시한다. STEP exporter counter, FCStd history map, ZIP timestamp만 정규화하며 B-Rep, 문서와 3MF member content는 해시 범위에 남긴다.
 
 ## 재현
 
 ```bash
-nix develop --command bash -lc 'FreeCADCmd -c "import runpy; runpy.run_path(\"cad/generation/generate_all.py\", run_name=\"__main__\")"'
+nix develop --command bash -lc 'printf "%s\\n" '\''import runpy,sys,os; _result=runpy.run_path("cad/generation/generate_all.py", run_name="__main__"); sys.stdout.flush(); os._exit(0)'\'' | FreeCADCmd -c'
 python3 validation/solid_topology.py
 python3 validation/mesh_checks.py
 python3 validation/slice_prints.py
