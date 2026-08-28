@@ -11,11 +11,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 GENERATORS = [
     ROOT / "cad" / "freecad" / "tolerance_coupon" / "generate.py",
-    ROOT / "cad" / "freecad" / "input_classifier" / "generate.py",
     ROOT / "cad" / "freecad" / "shredder_stage1" / "generate.py",
-    ROOT / "cad" / "freecad" / "shredder_stage2" / "generate.py",
     ROOT / "cad" / "freecad" / "granulator_stage3" / "generate.py",
-    ROOT / "cad" / "freecad" / "vibratory_sorter" / "generate.py",
     ROOT / "cad" / "freecad" / "dryer_feeder" / "generate.py",
     ROOT / "cad" / "freecad" / "extruder" / "generate.py",
     ROOT / "cad" / "freecad" / "forming_line" / "generate.py",

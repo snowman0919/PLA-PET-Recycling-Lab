@@ -32,7 +32,7 @@ const char* state_name(SafetyState state) {
 const char* phase_name(Phase phase) {
   switch (phase) {
     case Phase::IDLE: return "IDLE";
-    case Phase::SORT_SHRED: return "SORT/SHRED";
+    case Phase::SHRED: return "2-STAGE SHRED";
     case Phase::DRY_PREHEAT: return "DRY/PREHEAT";
     case Phase::EXTRUDE_SPOOL: return "EXTRUDE/SPOOL";
     case Phase::COOLDOWN_CLEAN: return "COOLDOWN/CLEAN";
@@ -172,7 +172,7 @@ const char* ui_fault_name(uint32_t faults) {
   if (faults & FAULT_SERVICE) return "Service guard open";
   if (faults & FAULT_SENSOR) return "Sensor invalid";
   if (faults & FAULT_AIRFLOW) return "Airflow missing";
-  if (faults & FAULT_HEARTBEAT) return "Pi link timeout";
+  if (faults & FAULT_HEARTBEAT) return "Service link timeout";
   if (faults & FAULT_JAM) return "Jam retries exhausted";
   if (faults & FAULT_POWER_BUDGET) return "Power budget fault";
   if (faults & FAULT_PROTOCOL) return "Protocol fault";
@@ -248,10 +248,10 @@ UiAction UiCore::handle(UiEvent event, const UiTelemetry& telemetry) {
       rotate_page(step > 0);
     } else if (page_ == UiPage::MATERIAL) {
       edit_value_ += step;
-      if (edit_value_ < static_cast<int16_t>(UiMaterial::AUTO))
+      if (edit_value_ < static_cast<int16_t>(UiMaterial::PLA))
         edit_value_ = static_cast<int16_t>(UiMaterial::PET);
       if (edit_value_ > static_cast<int16_t>(UiMaterial::PET))
-        edit_value_ = static_cast<int16_t>(UiMaterial::AUTO);
+        edit_value_ = static_cast<int16_t>(UiMaterial::PLA);
     } else if (page_ == UiPage::COLOR) {
       edit_value_ += step;
       if (edit_value_ < 0) edit_value_ = 7;
@@ -271,7 +271,7 @@ UiAction UiCore::handle(UiEvent event, const UiTelemetry& telemetry) {
       edit_value_ = telemetry.selected_material == UiMaterial::PLA ||
                             telemetry.selected_material == UiMaterial::PET
                         ? static_cast<int16_t>(telemetry.selected_material)
-                        : static_cast<int16_t>(UiMaterial::AUTO);
+                        : static_cast<int16_t>(UiMaterial::PLA);
       return {UiActionType::NONE, 0};
     }
     editing_ = false;
@@ -325,27 +325,23 @@ UiFrame UiCore::compose(const UiTelemetry& telemetry) const {
       snprintf(line, sizeof(line), "%s | %s", state_name(telemetry.state),
                phase_name(telemetry.phase));
       set_line(&frame, 0, line);
-      snprintf(line, sizeof(line), "Detect %s %u%%",
-               ui_material_name(telemetry.detected_material),
-               static_cast<unsigned>(telemetry.classifier_confidence_pct));
+      snprintf(line, sizeof(line), "Manual material %s",
+               ui_material_name(telemetry.selected_material));
       set_line(&frame, 1, line);
-      snprintf(line, sizeof(line), "Select %s | color %u",
-               ui_material_name(telemetry.selected_material),
+      snprintf(line, sizeof(line), "Color batch %u",
                static_cast<unsigned>(telemetry.color_bin));
       set_line(&frame, 2, line);
       snprintf(line, sizeof(line), "Batch %u | hopper %u%%",
                static_cast<unsigned>(telemetry.batch_number),
                static_cast<unsigned>(telemetry.hopper_fill_pct));
       set_line(&frame, 3, line);
-      if (!telemetry.classifier_valid) set_line(&frame, 5, "Classifier NOT qualified");
+      set_line(&frame, 5, "Manual inspection required");
       if (telemetry.purge_required) set_line(&frame, 6, "PURGE REQUIRED before run");
       set_line(&frame, 7, "START requires hard button");
       break;
     case UiPage::MATERIAL:
       snprintf(frame.title, sizeof(frame.title), "MATERIAL OVERRIDE");
-      snprintf(line, sizeof(line), "Auto result %s %u%%",
-               ui_material_name(telemetry.detected_material),
-               static_cast<unsigned>(telemetry.classifier_confidence_pct));
+      snprintf(line, sizeof(line), "Manual PLA/PET selection");
       set_line(&frame, 0, line);
       snprintf(line, sizeof(line), "%s %s", editing_ ? "Choose" : "Selected",
                ui_material_name(editing_ ? static_cast<UiMaterial>(edit_value_)
@@ -360,9 +356,7 @@ UiFrame UiCore::compose(const UiTelemetry& telemetry) const {
       snprintf(line, sizeof(line), "Color bin %d (7=Reject)",
                editing_ ? static_cast<int>(edit_value_) : telemetry.color_bin);
       set_line(&frame, 0, line);
-      snprintf(line, sizeof(line), "Full-bin mask 0x%02X",
-               static_cast<unsigned>(telemetry.full_bin_mask));
-      set_line(&frame, 1, line);
+      set_line(&frame, 1, "Manual batch label required");
       set_line(&frame, 6, editing_ ? "PUSH commit / BACK cancel"
                                   : "PUSH edit color mapping");
       break;

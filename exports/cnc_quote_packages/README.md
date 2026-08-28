@@ -6,9 +6,9 @@
 
 | 패키지 | 행 수 | 범위 |
 |---|---:|---|
-| `shredder_package.csv` | 18 | Stage 1/2/3 shaft cutter rotor plate screen |
+| `shredder_package.csv` | 12 | Stage 1 twin-shaft와 Stage 2 screened granulator |
 | `extruder_package.csv` | 5 | screw barrel breaker die와 mixed-source thrust plate |
-| `sheet_metal_package.csv` | 11 | sorter dryer input gate bin diverter control enclosure |
+| `sheet_metal_package.csv` | 5 | compact dryer와 control enclosure |
 
 ## 업체에 요청할 회신
 
@@ -24,4 +24,4 @@
 3. 부품별 datum·fit·GD&T·표면거칠기·열처리·검사표가 있는 최종 도면을 승인한다.
 4. 사용자에게 실제 견적과 예산 차이를 제시하고 명시적 발주 승인을 받는다.
 
-`EXT-THR-001`은 BOM primary source가 BUY인 bearing assembly에 plate machining이 섞인 행이라 extruder package에 보조로 포함했다. 따라서 package 34행과 BOM의 primary CNC/FABRICATE 33행은 모순이 아니다. 비용 rollup은 primary source 기준이며 mixed-source 비용은 여전히 TBD다.
+`EXT-THR-001`은 BOM primary source가 BUY인 bearing assembly에 plate machining이 섞인 행이라 extruder package에 보조로 포함했다. 따라서 package 22행과 BOM의 primary CNC/FABRICATE 21행은 모순이 아니다. 비용 rollup은 primary source 기준이며 mixed-source 비용은 여전히 TBD다.

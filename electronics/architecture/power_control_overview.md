@@ -1,27 +1,17 @@
-# 전력·제어 개요
+# 학부 MVP 전력·제어 개요
 
 ```text
-AC input
-  -> main disconnect / fuse
-  -> 24 V donor PSU
-       -> dual-channel E-stop safety relay
-            -> K2A monitored Tower A switched bus
-                 -> fused shredder branch
-                 -> fused sorter/feeder hazardous-motion branch
-            -> K2B monitored Tower B switched bus
-                 -> fused extruder motor branch
-                 -> fused puller/spooler branch
-                 -> fused heater branches + independent thermal fuses
-                 -> fused dryer auxiliaries / cooling branches
-       -> protected always-on 24 V branch
-            -> 5 V buck -> Raspberry Pi 4
-            -> Arduino Mega logic / interlock monitoring
+AC input → main disconnect/fuse → 24 V donor PSU
+  ├─ protected logic branch → Arduino Mega + monitor PCB
+  └─ latching E-stop NC contact → KACT common contactor coil
+       └─ switched actuator bus
+            ├─ Stage 1 / Stage 2 granulator motor branches
+            ├─ dryer, extruder, puller/spooler branches
+            └─ four heater branches → fuse → thermal fuse → default-OFF driver
 ```
 
-K2A/K2B는 공통 E-stop chain을 공유하지만 독립 zone branch를 차단하고 두 mirror NC 접점을 직렬 EDM loop로 감시한다. 실제 fuse link, contactor pole 직렬구성, MOSFET/SSR, wire gauge와 connector 정격은 branch current와 donor PSU terminal 확인 후 확정한다. `24 V 600 W = 25 A`는 nominal 산술값일 뿐 label/derating/온도 조건 확인 전 설계 정격으로 확정하지 않는다.
+KACT 한 개가 두 tower의 위험 액추에이터 전력을 함께 차단한다. E-stop NC 접점은 Arduino를 거치지 않고 coil과 직렬 연결하며, Arduino는 auxiliary contact만 읽는다. 안전 릴레이, tower별 이중 contactor, Raspberry Pi와 자동 분류 전원은 MVP에서 제거했다.
 
-Mega는 안전 FSM과 power arbiter를 실행한다. Pi command에는 sequence number와 heartbeat를 요구하고, Mega는 local interlock이 불일치하면 command를 거부한다.
+10개 branch fuse 위치, PCB `190×130 mm`, Arduino Mega 실물 envelope, 고전류·안전·logic·PE wire duct, 아직 선정하지 않은 main fuse/terminal은 `electronics/architecture/control_enclosure_layout.csv`에 서로 다른 placement state로 기록한다. 실제 fuse link, contactor pole, wire gauge와 connector 정격은 PSU label과 branch current 측정 후 확정한다.
 
-현재 firmware의 provisional software ceiling은 사용자 진술 600 W의 80%인 480 W다. `EXTRUDE_SPOOL` worst-case non-heater reserve 396 W에서는 heater를 84 W까지 비례 제한한다. 이 값은 설계 동작의 보수적 시작점이며 PSU label, 배선·단자 온도상승과 branch peak 측정 후 더 낮은 값으로 바뀔 수 있다. Dryer PLA/PET branch는 software뿐 아니라 hardware selector로 상호배제하고, dryer heater와 extruder full preheat를 동시에 허용하지 않는다.
-
-상세 net과 harness는 `electronics/schematics/safety_power_control.md`, `electronics/wiring/harness_schedule.csv`, pin assignment는 `electronics/pinout/mega_pinout.csv`를 따른다.
+`24 V 600 W = 25 A`는 명목 산술값이며 label·derating·온도 조건 확인 전 설계 정격으로 사용하지 않는다. Dryer와 extruder full heat-up은 동시에 허용하지 않는다.

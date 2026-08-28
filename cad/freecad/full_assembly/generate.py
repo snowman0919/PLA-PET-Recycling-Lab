@@ -131,44 +131,41 @@ def build():
     add_rack(
         doc, objects, "TowerA", p["tower_a_origin_x_mm"], p["tower_a_width_mm"],
         p["tower_a_depth_mm"], p["tower_a_height_mm"],
-        (210, 420, 630, 840, 1050), p,
+        (190, 400, 650), p,
     )
     add_rack(
         doc, objects, "TowerB", p["tower_b_origin_x_mm"], p["tower_b_width_mm"],
         p["tower_b_depth_mm"], p["tower_b_height_mm"],
-        (330, 470, 1090), p,
+        (340, 460, 900), p,
     )
 
     modules = [
-        ("ClassificationStorage", "MOD-BIN-DIVERTER", "TowerA", (140, 140, 40), (320, 320, 165), "Sealed removable 8 L gross batch bin envelope"),
-        ("VibratorySorter", "MOD-SORTER", "TowerA", (160, 200, 245), (280, 200, 95), "Proof module envelope"),
-        ("GranulatorStage3", "MOD-SHRED-3", "TowerA", (195, 235, 455), (210, 130, 95), "Proof module envelope"),
-        ("ShredderStage2", "MOD-SHRED-2", "TowerA", (185, 230, 665), (230, 140, 95), "Proof module envelope"),
-        ("ShredderStage1", "MOD-SHRED-1", "TowerA", (170, 220, 875), (260, 160, 105), "Proof module envelope"),
-        ("InputClassifier", "MOD-INPUT", "TowerA", (140, 190, 1070), (320, 220, 220), "Proof module envelope"),
-        ("Extruder", "MOD-EXTRUDER", "TowerB", (850, 300, 80), (850, 220, 240), "Guarded hot-line proof envelope"),
-        ("DryerFeeder", "MOD-DRYER", "TowerB", (900, 20, 500), (320, 270, 580), "Insulated dryer proof envelope"),
-        ("ControlEnclosure", "MOD-CONTROL", "TowerB", (1240, 20, 80), (500, 200, 400), "BOM-traceable grounded control enclosure envelope"),
-        ("CoolingGaugePuller", "MOD-COOL-GAUGE-PULLER", "TowerB", (1750, 320, 100), (760, 160, 180), "Straight forming-line proof envelope"),
-        ("Spooler", "MOD-SPOOLER", "TowerB", (2110, 20, 40), (355, 240, 320), "Offset spooler proof envelope"),
+        ("BatchBin", "MOD-BATCH-BIN", "TowerA", (100, 130, 40), (300, 240, 135), "Sealed removable 3 L gross batch bin envelope"),
+        ("GranulatorStage2", "MOD-SHRED-2-SCREEN", "TowerA", (145, 185, 250), (210, 130, 95), "Former Stage 3 proof reused as the MVP second stage"),
+        ("ShredderStage1", "MOD-SHRED-1", "TowerA", (120, 170, 500), (260, 160, 105), "Primary twin-shaft proof module envelope"),
+        ("ManualFeedHopper", "MOD-MANUAL-HOPPER", "TowerA", (120, 140, 700), (260, 220, 320), "Fixed anti-reach manual hopper; no classifier"),
+        ("Extruder", "MOD-EXTRUDER", "TowerB", (700, 270, 60), (850, 220, 240), "Guarded hot-line proof envelope"),
+        ("DryerFeeder", "MOD-DRYER", "TowerB", (720, 20, 500), (320, 270, 400), "Compact 0.5 kg insulated dryer keep-out"),
+        ("ControlEnclosure", "MOD-CONTROL", "TowerB", (1050, 20, 500), (500, 200, 400), "BOM-traceable grounded control enclosure envelope"),
+        ("CoolingGaugePuller", "MOD-COOL-GAUGE-PULLER", "TowerB", (1550, 310, 80), (700, 160, 180), "Straight forming-line proof envelope"),
+        ("Spooler", "MOD-SPOOLER", "TowerB", (1895, 20, 40), (355, 240, 320), "Offset spooler proof envelope"),
     ]
     placements = {}
     for name, part_id, tower, xyz, size, material in modules:
-        if name == "ClassificationStorage":
-            # 250 x 200 x 160 mm = 8.0 L gross cavity.  A 120 mm fill-height
-            # reference gives the contracted 6.0 L usable volume.
-            outer = Part.makeBox(320, 320, 165, App.Vector(*xyz))
-            cavity_origin = (xyz[0] + 35, xyz[1] + 60, xyz[2] + 5)
-            gross_cavity = Part.makeBox(250, 200, 160, App.Vector(*cavity_origin))
+        if name == "BatchBin":
+            # 250 x 160 x 75 mm = 3.0 L gross; 50 mm is the 2.0 L usable fill.
+            outer = Part.makeBox(300, 240, 135, App.Vector(*xyz))
+            cavity_origin = (xyz[0] + 25, xyz[1] + 40, xyz[2] + 5)
+            gross_cavity = Part.makeBox(250, 160, 75, App.Vector(*cavity_origin))
             obj = feature(doc, objects, name, part_id, part_id, outer.cut(gross_cavity), material,
                           "MODULE_ENVELOPE", tower)
             obj.addProperty("App::PropertyVolume", "GrossCavity", "BatchInterface")
-            obj.GrossCavity = 8_000_000
+            obj.GrossCavity = 3_000_000
             obj.addProperty("App::PropertyVolume", "UsableVolume", "BatchInterface")
-            obj.UsableVolume = 6_000_000
+            obj.UsableVolume = 2_000_000
             for ref_name, ref_shape in (
                 ("BatchBinGrossCavityReference", gross_cavity),
-                ("BatchBinUsableVolumeReference", Part.makeBox(250, 200, 120, App.Vector(*cavity_origin))),
+                ("BatchBinUsableVolumeReference", Part.makeBox(250, 160, 50, App.Vector(*cavity_origin))),
             ):
                 ref = add_feature(doc, ref_name, f"REFERENCE-{ref_name}", ref_shape, "REFERENCE-NOT-FABRICATED", "Reference volume")
                 ref.addProperty("App::PropertyString", "Category", "Architecture")
@@ -182,11 +179,9 @@ def build():
     # Gravity-flow connections are removable metal boots with visible gaps from
     # the cutter guards.  They are review solids, not flow-qualified chutes.
     chute_specs = (
-        ("A_Chute_Input_Stage1", (250, 265, 980), (100, 70, 90)),
-        ("A_Chute_Stage1_Stage2", (255, 265, 760), (90, 70, 115)),
-        ("A_Chute_Stage2_Stage3", (260, 265, 550), (80, 70, 115)),
-        ("A_Chute_Stage3_Sorter", (260, 265, 340), (80, 70, 115)),
-        ("A_Chute_Sorter_Bin", (160, 260, 200), (280, 80, 45)),
+        ("A_Chute_Hopper_Stage1", (200, 215, 605), (100, 70, 95)),
+        ("A_Chute_Stage1_Stage2", (205, 215, 345), (90, 70, 155)),
+        ("A_Chute_Stage2_Bin", (215, 215, 175), (70, 70, 75)),
     )
     for name, xyz, size in chute_specs:
         box(doc, objects, name, name.replace("_", "-"), name.replace("_", "-"), xyz, size,
@@ -194,11 +189,11 @@ def build():
 
     # Tower B batch receiver: asymmetric key, twin clamp bosses and sealed
     # metal throat are explicit so docking cannot be inferred from prose only.
-    receiver = Part.makeBox(260, 220, 12, App.Vector(930, 40, 1080))
-    throat = Part.makeBox(120, 100, 60, App.Vector(1000, 100, 1092))
-    key = Part.makeBox(28, 65, 24, App.Vector(930, 40, 1092))
-    clamps = Part.makeCylinder(10, 35, App.Vector(980, 40, 1092), App.Vector(0, 0, 1)).fuse(
-        Part.makeCylinder(10, 35, App.Vector(1140, 40, 1092), App.Vector(0, 0, 1))
+    receiver = Part.makeBox(240, 200, 12, App.Vector(755, 35, 900))
+    throat = Part.makeBox(100, 80, 48, App.Vector(825, 95, 912))
+    key = Part.makeBox(24, 55, 20, App.Vector(755, 35, 912))
+    clamps = Part.makeCylinder(8, 28, App.Vector(800, 35, 912), App.Vector(0, 0, 1)).fuse(
+        Part.makeCylinder(8, 28, App.Vector(945, 35, 912), App.Vector(0, 0, 1))
     )
     feature(doc, objects, "BatchDockReceiver", "IF-BATCH-DOCK", "IF-BATCH-DOCK",
             receiver.fuse(throat).fuse(key).fuse(clamps), "Grounded stainless batch dock",
@@ -208,24 +203,38 @@ def build():
     # exactly 760 mm later.  Cross ties keep the two rails in one review plane.
     rail_start = p["tower_b_origin_x_mm"] + p["tower_b_width_mm"]
     rail_length = p["service_rail_extension_mm"]
-    for y in (300, 500):
+    for y in (290, 470):
         profile(doc, objects, f"TowerB_ServiceRail_{y}", (rail_start, y, 60), rail_length, "x", 20, "TowerB", "SERVICE_RAIL")
     for index, x in enumerate((rail_start, rail_start + rail_length / 2, rail_start + rail_length - 20), 1):
-        profile(doc, objects, f"TowerB_RailCrossTie_{index}", (x, 300, 60), 220, "y", 20, "TowerB", "SERVICE_RAIL")
+        profile(doc, objects, f"TowerB_RailCrossTie_{index}", (x, 290, 60), 200, "y", 20, "TowerB", "SERVICE_RAIL")
 
     # Physical energy boundaries used by the wiring/cable review.  These are
     # enclosure/contact-zone envelopes; ratings still come from the BOM gate.
-    box(doc, objects, "TowerA_MotionContactorZone", "SAFE-A-MOTION", "SAFE-A-MOTION",
-        (30, 470, 120), (120, 80, 150), "Grounded steel enclosure envelope", "SAFETY_ZONE", "TowerA")
-    box(doc, objects, "TowerB_HeaterDriveZone", "SAFE-B-HEATER-DRIVE", "SAFE-B-HEATER-DRIVE",
-        (1240, 20, 80), (240, 200, 400), "Left-side high-current/safety zone within control enclosure", "SAFETY_ZONE", "TowerB")
+    box(doc, objects, "CommonActuatorContactorPlaceholder", "PLACEHOLDER-KACT", "PLACEHOLDER-KACT",
+        (1080, 40, 540), (120, 140, 130), "Unselected DC-rated contactor keep-out", "PLACEHOLDER", "TowerB")
+    box(doc, objects, "MonitorInterfacePCBReserved", "PCB-RESERVED", "ELE-PCB-IF",
+        (1260, 45, 560), (190, 32, 130), "PCB fabrication-hold reserved volume", "PCB_RESERVED", "TowerB")
+    box(doc, objects, "ArduinoMegaPurchasedPlacement", "PURCHASED-MCU1", "SYS-CTRL-002",
+        (1280, 45, 760), (102, 18, 54), "Arduino Mega nominal purchased-part placement", "PURCHASED_PART", "TowerB")
+    box(doc, objects, "TowerA_DrivePlaceholder_Stage1", "PLACEHOLDER-DRV1", "SHR-DRV-001",
+        (70, 380, 470), (140, 80, 120), "Drive rating and shaft interface unselected", "PLACEHOLDER", "TowerA")
+    box(doc, objects, "TowerA_DrivePlaceholder_Stage2", "PLACEHOLDER-DRV2", "GRN-DRV-001",
+        (250, 380, 220), (140, 80, 120), "Drive rating and shaft interface unselected", "PLACEHOLDER", "TowerA")
+    box(doc, objects, "WireRouteTowerA", "WIRE-ROUTE-A", "WIRE-ROUTE-A",
+        (450, 40, 70), (20, 80, 950), "Wire duct keep-out; power and sensor partitions required", "WIRE_ROUTE", "TowerA")
+    box(doc, objects, "WireRouteInterTower", "WIRE-ROUTE-INTER", "WIRE-ROUTE-INTER",
+        (500, 440, 80), (200, 25, 40), "Keyed inter-tower harness keep-out", "WIRE_ROUTE", "System")
+    box(doc, objects, "WireRouteHighCurrent", "WIRE-ROUTE-HIGH", "WIRE-ROUTE-HIGH",
+        (1030, 40, 520), (20, 140, 360), "24 V motor/heater wire duct keep-out", "WIRE_ROUTE", "TowerB")
+    box(doc, objects, "WireRouteLogic", "WIRE-ROUTE-LOGIC", "WIRE-ROUTE-LOGIC",
+        (1500, 40, 520), (20, 140, 360), "5 V sensor wire duct keep-out", "WIRE_ROUTE", "TowerB")
 
     outputs = export_document(doc, "full_assembly_skeleton", objects)
     compound = Part.makeCompound([obj.Shape for obj in objects])
     bb = compound.BoundBox
     report = {
         "revision": parameters["revision"],
-        "architecture": "TWO_TOWER_CONTRACT",
+        "architecture": "UNDERGRADUATE_TWO_TOWER_TWO_STAGE_MVP",
         "overall_mm": {"x": round(bb.XLength, 1), "y": round(bb.YLength, 1), "z": round(bb.ZLength, 1)},
         "contract_envelope_mm": {
             "x": p["overall_length_mm"], "y": p["overall_depth_mm"], "z": p["overall_height_mm"],

@@ -22,12 +22,6 @@ PART_TO_STEP = {
     "SHR-PLATE-001": "exports/step/stage1_bearing_plate.step",
     "SHR-SPACER-001": "exports/step/stage1_cutter_stack.step",
     "SHR-RET-001": "exports/step/stage1_cutter_stack.step",
-    "SHR2-SHAFT-001": "exports/step/stage2_shredder_proof.step",
-    "SHR2-ROTOR-001": "exports/step/stage2_rotor.step",
-    "SHR2-KNIFE-001": "exports/step/stage2_bed_knife.step",
-    "SHR2-CARRIER-001": "exports/step/stage2_shredder_proof.step",
-    "SHR2-PLATE-001": "exports/step/stage2_bearing_plate.step",
-    "SHR2-RET-001": "exports/step/stage2_shredder_proof.step",
     "GRN-SHAFT-001": "exports/step/stage3_granulator_proof.step",
     "GRN-ROTOR-001": "exports/step/stage3_rotor.step",
     "GRN-STATOR-001": "exports/step/stage3_stator.step",
@@ -35,50 +29,37 @@ PART_TO_STEP = {
     "GRN-SCREEN-SET": "exports/step/stage3_screen_5mm.step",
     "GRN-PLATE-001": "exports/step/stage3_bearing_plate.step",
     "GRN-RET-001": "exports/step/stage3_granulator_proof.step",
-    "SRT-TRAY-001": "exports/step/vibratory_sorter_proof.step",
-    "SRT-MNT-001": "exports/step/vibratory_sorter_proof.step",
     "DRY-BASE-001": "exports/step/dryer_feeder_proof.step",
     "DRY-VSL-001": "exports/step/dryer_metal_hopper.step",
     "DRY-LID-001": "exports/step/dryer_feeder_proof.step",
-    "DRY-AGT-001": "exports/step/dryer_feeder_proof.step",
-    "DRY-GATE-001": "exports/step/dryer_feeder_proof.step",
     "DRY-FDR-001": "exports/step/dryer_metering_auger.step",
     "EXT-SCR-001": "exports/step/extruder_screw.step",
     "EXT-BRL-001": "exports/step/extruder_barrel.step",
     "EXT-BRK-001": "exports/step/extruder_breaker_plate.step",
     "EXT-DIE-001": "exports/step/extruder_die.step",
     "EXT-THR-001": "exports/step/extruder_thrust_plate.step",
-    "INP-GATE-001": "exports/step/classifier_gate_pair.step",
-    "BIN-DIV-001": "exports/step/classification_storage_proof.step",
     "CTL-ASM-001": "exports/step/control_enclosure_proof.step",
 }
 
 PART_TO_DXF = {
     "SHR-PLATE-001": "exports/dxf/stage1_bearing_plate.dxf",
-    "SHR2-PLATE-001": "exports/dxf/stage2_bearing_plate.dxf",
     "GRN-PLATE-001": "exports/dxf/stage3_bearing_plate.dxf",
-    "SRT-TRAY-001": "exports/dxf/sorter_base_plate.dxf",
     "DRY-BASE-001": "exports/dxf/dryer_base_plate.dxf",
     "EXT-THR-001": "exports/dxf/extruder_thrust_plate.dxf",
-    "INP-GATE-001": "exports/dxf/classifier_gate_half.dxf",
     "CTL-ASM-001": "exports/dxf/control_door_half.dxf",
 }
 
 MODULE_DRAWING = {
     "Stage 1": "exports/drawings/stage1_cutter_notes.md",
-    "Stage 2": "exports/drawings/stage2_rotor_bed_knife_notes.md",
-    "Stage 3": "exports/drawings/stage3_granulator_notes.md",
-    "Vibratory sorter": "exports/drawings/vibratory_sorter_notes.md",
+    "Stage 2 granulator": "exports/drawings/stage3_granulator_notes.md",
     "Dryer": "exports/drawings/dryer_feeder_notes.md",
     "Extruder": "exports/drawings/extruder_notes.md",
-    "Input classification": "exports/drawings/input_classifier_notes.md",
-    "Classification storage": "exports/drawings/input_classifier_notes.md",
     "Control enclosure": "exports/drawings/control_enclosure_notes.md",
 }
 
 
 def package_for(module: str) -> str:
-    if module in {"Stage 1", "Stage 2", "Stage 3"}:
+    if module in {"Stage 1", "Stage 2 granulator"}:
         return "shredder_package.csv"
     if module == "Extruder":
         return "extruder_package.csv"
@@ -159,9 +140,9 @@ def main() -> None:
         "",
         "| 패키지 | 행 수 | 범위 |",
         "|---|---:|---|",
-        f"| `shredder_package.csv` | {counts['shredder_package.csv']} | Stage 1/2/3 shaft cutter rotor plate screen |",
+        f"| `shredder_package.csv` | {counts['shredder_package.csv']} | Stage 1 twin-shaft와 Stage 2 screened granulator |",
         f"| `extruder_package.csv` | {counts['extruder_package.csv']} | screw barrel breaker die와 mixed-source thrust plate |",
-        f"| `sheet_metal_package.csv` | {counts['sheet_metal_package.csv']} | sorter dryer input gate bin diverter control enclosure |",
+        f"| `sheet_metal_package.csv` | {counts['sheet_metal_package.csv']} | compact dryer와 control enclosure |",
         "",
         "## 업체에 요청할 회신",
         "",
@@ -177,7 +158,7 @@ def main() -> None:
         "3. 부품별 datum·fit·GD&T·표면거칠기·열처리·검사표가 있는 최종 도면을 승인한다.",
         "4. 사용자에게 실제 견적과 예산 차이를 제시하고 명시적 발주 승인을 받는다.",
         "",
-        "`EXT-THR-001`은 BOM primary source가 BUY인 bearing assembly에 plate machining이 섞인 행이라 extruder package에 보조로 포함했다. 따라서 package 34행과 BOM의 primary CNC/FABRICATE 33행은 모순이 아니다. 비용 rollup은 primary source 기준이며 mixed-source 비용은 여전히 TBD다.",
+        "`EXT-THR-001`은 BOM primary source가 BUY인 bearing assembly에 plate machining이 섞인 행이라 extruder package에 보조로 포함했다. 따라서 package 22행과 BOM의 primary CNC/FABRICATE 21행은 모순이 아니다. 비용 rollup은 primary source 기준이며 mixed-source 비용은 여전히 TBD다.",
     ]
     (OUT / "README.md").write_text("\n".join(readme) + "\n", encoding="utf-8")
     print(f"CNC_RFQ_PACKAGES_OK rows={len(selected)}")

@@ -52,7 +52,7 @@ def main() -> None:
         "filament_tunnel_intersection_mm3": filament.common(tunnel).Volume,
         "filament_gauge_enclosure_intersection_mm3": filament.common(enclosure).Volume,
         "direct_ray_filament_intersection_mm3": ray_intersections[0],
-        "orthogonal_ray_filament_intersection_mm3": ray_intersections[2],
+        "orthogonal_ray_filament_intersection_mm3": ray_intersections[1],
         "nip_gap_mm": roller_solids[0].distToShape(roller_solids[1])[0],
         "filament_nip_intersection_mm3": filament.common(rollers).Volume,
         "filament_puller_guard_intersection_mm3": filament.common(puller_support).Volume,

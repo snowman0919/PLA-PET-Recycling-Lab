@@ -6,27 +6,29 @@
 
 | Hazard | 예방 | 감지 | 독립 차단 | 복구 |
 |---|---|---|---|---|
-| cutter 접근 | 긴 굴곡/이중 gate, guard | lid/service switch | drive enable chain 개방 | lockout 후 수동 제거 |
+| cutter 접근 | 긴 고정 anti-reach hopper, 공구식 service cover | Arduino 상태 점검 | E-stop 공통 접촉기 개방 | lockout 후 수동 제거 |
 | cutter jam/파편 | 금속 chamber, bounded feed | current/speed/vibration | stop → bounded reverse → latched fault | 전원 격리·보안경·도구 사용 |
 | hot surface/melt | metal shield, insulation | zone sensor + guard sensor 후보 | thermal fuse + heater cutoff | 충분한 cooldown 확인 |
 | thermal runaway | sensor 고정, derated heater | rate/plausibility/watchdog | thermal fuse와 E-stop cutoff | 원인 교체 전 reset 금지 |
 | 과전류/단락 | wire gauge와 enclosure | branch current | branch/main fuse | fault 제거 후 fuse 교체 |
-| Pi/Mega 통신 상실 | heartbeat | bounded timeout | Mega safe state | self-test 재실행 |
+| Mega 이상 | watchdog, default-OFF 출력 | watchdog timeout | 공통 접촉기는 E-stop NC 접점으로 독립 차단 | self-test 재실행 |
 | spool/traverse 끼임 | low-force dancer, guard | current/limit switch | motor disable | 수동 해제 |
 | 분진/증기 | 금지 재질, fines bin, 환기 | filter inspection | process pause | 청소·환기 |
 
 ## 안전 상태
 
-`SAFE_OFF`에서 heater command는 0, cutter/extruder/puller/spooler enable은 해제되고 gate는 중력 또는 spring-safe 위치로 간다. fan은 전원이 안전한 경우 cooldown 목적의 제한 운전을 허용할 수 있으나 E-stop 회로의 실제 접점 구성 후 확정한다.
+`SAFE_OFF`에서 heater command는 0, cutter/extruder/puller/spooler enable은 해제된다. 래칭 mushroom E-stop의 NC 접점은 Arduino를 거치지 않고 공통 24 V 액추에이터 접촉기 coil을 직접 끊는다. Arduino는 별도 보조접점을 읽어 화면과 serial log에 상태만 기록한다. fan은 전원이 안전한 경우 cooldown 목적의 제한 운전을 허용할 수 있으나 실제 접점 구성 후 확정한다.
+
+이 MVP는 안전 PLC, 이중 contactor, 자동 분류 safety chain을 사용하지 않는다. 따라서 인증 장비가 아니며, 선정된 E-stop 접점과 contactor의 DC 정격·차단전류·용착 시험이 끝나기 전에는 `E-STOP VALIDATED`로 표시하지 않는다. 소프트웨어만으로 모터와 heater를 끄는 구성은 비상정지로 인정하지 않는다.
 
 ## startup self-test
 
-1. E-stop reset 및 contactor feedback 일치
-2. 모든 lid/service interlock 닫힘
+1. E-stop reset 및 contactor 보조접점 feedback 일치
+2. 고정 hopper와 공구식 service cover 체결 확인
 3. 온도센서 open/short와 상식 범위 검사
 4. motor current sensor zero 검사
 5. encoder/limit stuck 검사
-6. Pi heartbeat는 자동 모드에서만 필수
+6. 선택한 PLA/PET batch recipe와 수동 label 일치
 7. branch enable을 하나씩 짧게 검사하되 cutter는 재료 없이 guard가 닫힌 상태에서만 jog
 
 ## lockout
@@ -40,10 +42,10 @@
 
 ## Release 전 필수 물리 시험
 
-- E-stop single-fault test
-- lid/service switch open 및 wire-open test
+- E-stop 접점 개방·wire-open·contactor welded-contact 모사 시험
+- anti-reach hopper와 공구식 service cover 접근 시험
 - 각 heater sensor open/short, stuck-on MOSFET 모사, thermal fuse 검증
 - 각 branch short 대신 안전한 electronic load로 fuse/limit coordination 확인
 - jam retry 횟수·시간·latched fault 확인
-- Pi cable removal, serial corruption, watchdog reset 확인
+- sensor 단선·단락과 Mega watchdog reset 확인
 - anti-reach probe와 파편 containment 검사

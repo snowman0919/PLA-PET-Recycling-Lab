@@ -249,10 +249,10 @@ def build():
             "layout_csv": str(layout_csv.relative_to(ROOT)),
         },
         "limitations": [
-            "Green selected envelopes are planning selections, while yellow exact-MPN envelopes still require application qualification; neither state is purchase approval.",
+            "The green E-stop envelope is the selected physical interface; yellow exact-MPN envelopes still require application qualification and neither state is purchase approval.",
             "Blue PCB placement reserves the generated 190 x 130 mm board and four M3 holes, but its fabrication status remains HOLD.",
             "Orange placeholder solids cannot be used for ordering or drilling until exact candidates replace them.",
-            "Red/yellow/blue/green wiring solids are route reservations, not conductor sizing or completed harness drawings.",
+            "Red/yellow/blue/green wiring solids are route reservations, not conductor sizing or completed harness drawings. PCB, purchased Arduino and orange placeholders are distinct non-overlapping states.",
             "Thermal rise, SCCR, creepage, bend radius, PE continuity, ingress and door rear-depth checks remain physical/engineering gates.",
         ],
     }

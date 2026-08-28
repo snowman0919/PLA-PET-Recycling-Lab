@@ -5,7 +5,7 @@
 
 ## 범위와 안전 경계
 
-이 190×130 mm, 2층 보드는 8개 24 V dry-contact 보조접점을 Mega가 읽을 수 있게 절연하고, Mega의 8개 명령을 외부 정격 드라이버로 전달한다. E-stop과 guard chain은 외부 dual-channel safety relay와 contactor가 직접 에너지를 차단한다. 본 보드나 펌웨어 진단은 그 경로를 우회할 수 없으며 기능 안전 credit을 주장하지 않는다.
+이 190×130 mm, 2층 보드는 24 V dry-contact 진단 신호를 Mega가 읽도록 절연하고 Mega 명령을 외부 정격 드라이버로 전달하는 선택형 감시/interface PCB다. Latching E-stop의 NC 접점은 이 보드가 아니라 KACT coil과 직접 직렬 연결된다. 본 보드나 firmware는 그 경로를 우회할 수 없으며 기능 안전 credit을 주장하지 않는다.
 
 ## 전원 트리
 
@@ -74,7 +74,7 @@ FIELD_0V  ||  6.35 mm copper barrier  ||  GND
 
 1. J1–J4 keyed/latching connector와 mating housing/contact/wire gauge MPN 확정.
 2. 모든 resistor/capacitor power·voltage·temperature 등급과 MPN 확정, LTV 공식 PDF 로컬 검증.
-3. 외부 +5 V/24 V source, fuse, safety relay, contactor, heater/motor driver 회로·정격 확정.
+3. 외부 +5 V/24 V source, fuse, KACT contactor, heater/motor driver 회로·정격 확정.
 4. enclosure에서 6.35 mm barrier, 오염도/고도/creepage 요구와 harness 분리를 안전 담당자가 승인.
 5. 18–30 V 입력 sweep, 접점 open/short/reverse, 온도, noise/EFT/ESD pre-compliance, power-cycle default-OFF를 실제 하드웨어로 통과.
 

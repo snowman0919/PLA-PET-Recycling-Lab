@@ -23,22 +23,20 @@ def assembly_parameters() -> dict:
 
 
 TOWER_A_MODULES = (
-    ("sealed_batch_bin_full", 4.0, 95.0),
-    ("vibratory_sorter", 5.0, 294.0),
-    ("stage3_granulator", 7.0, 507.5),
-    ("stage2_shredder", 8.0, 717.5),
-    ("stage1_shredder", 12.0, 942.5),
-    ("input_classifier", 3.5, 1210.0),
-    ("frame_shelves_guards", 18.0, 675.0),
+    ("sealed_batch_bin_full", 1.5, 107.5),
+    ("stage2_screen_granulator", 7.0, 297.5),
+    ("stage1_twin_shaft", 12.0, 552.5),
+    ("manual_anti_reach_hopper", 2.0, 860.0),
+    ("frame_shelves_guards", 12.0, 550.0),
 )
 
 TOWER_B_MODULES = (
     ("extruder_hot_zone", 25.0, 230.0),
-    ("spooler_full", 6.35, 300.0),
-    ("forming_service_rail", 6.0, 520.0),
-    ("control_enclosure", 8.0, 650.0),
-    ("dryer_feeder_full", 12.0, 820.0),
-    ("frame_shelves_guards", 18.0, 575.0),
+    ("spooler_full", 6.35, 220.0),
+    ("forming_service_rail", 5.0, 500.0),
+    ("control_enclosure", 8.0, 700.0),
+    ("dryer_feeder_half_kg", 8.0, 700.0),
+    ("frame_shelves_guards", 15.0, 500.0),
 )
 
 
@@ -88,9 +86,9 @@ def build_report() -> dict:
     tower_a_stability = tipping_screen(
         TOWER_A_MODULES,
         base_depth_mm=p["tower_a_depth_mm"],
-        operating_acceleration_g=0.35,
+        operating_acceleration_g=0.25,
         point_force_n=60.0,
-        point_force_height_mm=942.5,
+        point_force_height_mm=552.5,
         dynamic_factor=1.5,
         anchor_spacing_mm=p["tower_a_anchor_spacing_y_mm"],
     )
@@ -111,18 +109,18 @@ def build_report() -> dict:
         "status": "ARCHITECTURE_CONTRACT_VIRTUAL_EVIDENCE_PHYSICAL_REVIEW_OPEN",
         "requirement_resolution": {
             "release_configuration": {
-                "shredding": "THREE_STAGE_REQUIRED",
-                "classification": "PLA_PET_UNKNOWN_PLUS_FIXED_SIX_COLOR_AND_REJECT",
-                "reason": "The original user goal explicitly makes three-stage shredding and fixed color routing final acceptance requirements.",
+                "shredding": "TWO_STAGE_STAGE1_PLUS_SCREEN_GRANULATOR",
+                "classification": "MANUAL_SINGLE_MATERIAL_SINGLE_COLOR_BATCH",
+                "reason": "The user fixed an undergraduate-scale two-stage, medium-small two-tower MVP.",
             },
             "commissioning_comparison_only": {
-                "shredding": "STAGE_3_BYPASS_ALLOWED_FOR_COUPON_COMPARISON",
-                "classification": "MATERIAL_PLUS_REJECT_ROUTING_ALLOWED_DURING_DATASET_BRINGUP",
-                "restriction": "Comparison modes may not remove release hardware or close final functional requirements.",
+                "shredding": "FORMER_STAGE2_AND_SORTER_REMOVED",
+                "classification": "AUTOMATIC_CAMERA_AND_COLOR_ROUTING_REMOVED",
+                "restriction": "Removed modules are historical evidence only and are not part of the MVP BOM or assembly.",
             },
         },
         "tower_a": {
-            "role": "classification_shredding_sorting_batch_storage",
+            "role": "manual_feed_two_stage_shredding_batch_storage",
             "origin_x_mm": p["tower_a_origin_x_mm"],
             "rack_envelope_mm": {
                 "width": p["tower_a_width_mm"],
@@ -173,15 +171,15 @@ def build_report() -> dict:
             "usable_volume_l": usable_bin_l,
             "design_bulk_density_kg_m3": bulk_density_kg_m3,
             "nominal_flake_capacity_kg": flake_capacity_kg,
-            "maximum_handled_mass_kg": 2.0,
+            "maximum_handled_mass_kg": 0.7,
             "docking": "asymmetric_key_plus_two_captive_M5_clamps_and_sealed_metal_throat",
-            "identity": "machine_read_batch_id_plus_material_color_lot_label",
+            "identity": "manual_batch_id_material_color_label",
             "contamination_gate": "closed_gate_before_undock_and_visible_cleanliness_check_before_redock",
         },
         "safety_zones": {
             "common": "one_latching_estop_chain_removes hazardous energy in both towers",
-            "tower_a": "separate monitored contactor for shredder and sorter hazardous motion",
-            "tower_b": "separate monitored contactor for drive and fused heater branches",
+            "tower_a": "common 24 V actuator contactor removes both shredder drives",
+            "tower_b": "the same contactor removes extruder drive and fused heater branches",
             "control_enclosure": "one common grounded enclosure on Tower B lower rear",
             "maintenance": "one tower may remain logic-powered only; hazardous energy cannot follow a batch-bin or data connection",
             "external_credit": "workshop safety hardware may be credited only after model rating channel and fault-test inventory",
@@ -190,7 +188,7 @@ def build_report() -> dict:
             "Confirm floor/workbench anchor substrate and achieve at least 1 kN pullout per point with the selected fastener system.",
             "Measure final module masses and center of gravity; rerun the model before powered motion.",
             "Verify maximum input lip height against the actual operator and refill container.",
-            "Run sorter and shredder vibration/coast-down tests while logging both tower and optical-rail acceleration.",
+            "Run both shredder stages and coast-down tests while logging Tower A and optical-rail acceleration.",
             "Prove every chute boot and batch-bin docking path can be removed and cleaned without opening a cutter guard.",
         ],
         "model_limits": [
@@ -211,47 +209,47 @@ def markdown(report: dict) -> str:
 
 상태: **ARCHITECTURE CONTRACT / VIRTUAL EVIDENCE / PHYSICAL REVIEW OPEN**
 
-이 문서는 기존 2,295×520×720 mm 직선 proof를 다음 revision의 제작 승인본으로 사용하지 않고, 두 rack의 치수·기능·안전 경계를 고정한다. 원문 최종 합격기준과 최신 최소화 방향이 충돌하는 부분은 최종 기능을 삭제하지 않는 쪽으로 해결했다.
+이 문서는 학부생 1인이 제작 가능한 범위로 축소한 두 rack의 치수·기능·안전 경계를 고정한다. 자동 분류와 중간 파쇄기는 MVP 범위에서 제외한다.
 
 ## 범위 결정
 
-- Release 구성은 **3단 파쇄**, PLA/PET/UNKNOWN, 고정 6색+Reject를 유지한다.
-- Stage 3 bypass와 material+Reject routing은 coupon/dataset commissioning 비교 모드일 뿐이다. Hardware/BOM을 삭제하거나 최종 요구사항을 닫는 근거로 쓰지 않는다.
+- Release 구성은 **1차 twin-shaft + 2차 5 mm screen granulator**의 2단 파쇄다.
+- 재질·색상은 사용자가 batch 전에 수동 확인한다. 카메라 분류기, 색상 diverter, 진동 선별기, Raspberry Pi는 MVP에 포함하지 않는다.
 - Tower 간 이송은 자동 docking 대신 밀폐 수동 batch bin을 사용한다.
 
 ## 고정 envelope
 
 | 항목 | Tower A | Tower B |
 |---|---:|---:|
-| 역할 | 분류·3단 파쇄·선별·batch | 건조·압출·성형·권취·제어 |
-| Rack | 600×600×1350 mm | 900×600×1150 mm |
-| 추가 rail | 없음 | die 이후 760 mm |
-| 운전 envelope | 600×600×1350 mm | 1660×600×1150 mm |
+| 역할 | 수동 투입·2단 파쇄·batch | 건조·압출·성형·권취·제어 |
+| Rack | 500×500×1100 mm | 850×500×1000 mm |
+| 추가 rail | 없음 | die 이후 700 mm |
+| 운전 envelope | 500×500×1100 mm | 1550×500×1000 mm |
 | 추정 운전 질량 | {ai['estimated_operating_mass_kg']:.2f} kg | {bi['estimated_operating_mass_kg']:.2f} kg |
 | 추정 수직 CG | {ai['estimated_vertical_cg_mm']:.1f} mm | {bi['estimated_vertical_cg_mm']:.1f} mm |
 | 무고정 tip 가속도 | {ai['unanchored_tip_acceleration_g']:.3f} g | {bi['unanchored_tip_acceleration_g']:.3f} g |
 | 계산 anchor pair tension | {ai['required_anchor_pair_tension_n']:.1f} N | {bi['required_anchor_pair_tension_n']:.1f} N |
 
-Tower A는 0.35 g sorter 전달목표와 60 N cutter 반력을 1.5배 한 rigid-body screen에서 중력 복원모멘트를 넘으므로 **4점 anchor가 필수**다. 각 점 1 kN pullout 후보는 실제 substrate, edge distance와 fastener 시험으로 확정한다. Tower B도 공통 설치정책상 4점 고정한다.
+Tower A는 0.25 g 파쇄 진동과 60 N cutter 반력을 1.5배 한 rigid-body screen으로 검토한다. 계산상 anchor가 필요하며 각 점 1 kN 후보는 실제 substrate, edge distance와 fastener 시험으로 확정한다. Tower B도 공통 설치정책상 4점 고정한다.
 
 ## Batch·공정 interface
 
-- Bin: gross {batch['gross_volume_l']:.1f} L, usable {batch['usable_volume_l']:.1f} L, 250 kg/m³에서 {batch['nominal_flake_capacity_kg']:.1f} kg, 취급상한 2.0 kg.
+- Bin: gross {batch['gross_volume_l']:.1f} L, usable {batch['usable_volume_l']:.1f} L, 250 kg/m³에서 {batch['nominal_flake_capacity_kg']:.1f} kg, 취급상한 0.7 kg.
 - 비대칭 key + captive M5 clamp 2개 + sealed metal throat를 사용한다.
 - Gate를 닫기 전 undock 금지, redock 전 가시 청결검사, batch ID/material/color/lot 추적을 요구한다.
-- Tower B는 cooling 440 mm, die→gauge 470 mm, puller 시작 600 mm를 유지한다. Hot strand를 꺾어 footprint를 줄이지 않는다.
+- Tower B는 cooling 440 mm, die→gauge 470 mm, puller 시작 600 mm를 유지하되 rail 끝을 700 mm로 제한한다. Hot strand를 꺾어 footprint를 줄이지 않는다.
 
 ## 안전 경계
 
 - 공통 latching E-stop chain은 두 tower의 위험에너지를 모두 제거한다.
-- Tower A motion과 Tower B drive/heater는 별도 monitored contactor/branch로 분리한다.
+- NC 래칭 E-stop 버튼은 공통 24 V 액추에이터 접촉기 1개의 coil을 직접 끊는다. Arduino는 보조접점을 감시할 뿐 차단을 단독 수행하지 않는다.
 - 공통 접지 제어함 1개를 Tower B 하부 뒤쪽에 둔다.
 - Batch/data connector로 다른 tower의 위험에너지가 따라 켜지지 않는다.
 - 작업실 보유 안전장비는 model/rating/channel/fault test가 inventory된 뒤에만 credit한다.
 
 ## 미완료 gate
 
-질량·CG 실측, anchor pullout, operator reach, profile joint/선반, modal/진동, chute cleaning, guard/service path는 물리 검증 전 열려 있다. 상세 수치와 가정은 `simulation/architecture/two_tower_contract.json`에 있다.
+질량·CG 실측, anchor pullout, operator reach, profile joint/선반, 진동, chute cleaning, guard/service path와 접촉기 DC 정격은 물리 검증 전 열려 있다. 상세 수치와 가정은 `simulation/architecture/two_tower_contract.json`에 있다.
 """
 
 

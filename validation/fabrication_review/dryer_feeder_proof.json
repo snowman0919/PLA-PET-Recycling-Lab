@@ -1,16 +1,16 @@
 {
-  "revision": "0.1.0-preflight",
+  "revision": "0.2.0-undergraduate-mvp",
   "hopper": {
-    "x_mm": 144.0,
-    "y_mm": 143.955,
-    "z_mm": 434.0,
+    "x_mm": 114.0,
+    "y_mm": 113.965,
+    "z_mm": 294.0,
     "fits_210_cube": false
   },
   "heat_shield": {
-    "x_mm": 238.0,
-    "y_mm": 237.985,
-    "z_mm": 344.0,
-    "fits_210_cube": false
+    "x_mm": 208.0,
+    "y_mm": 207.983,
+    "z_mm": 204.0,
+    "fits_210_cube": true
   },
   "auger": {
     "x_mm": 168.0,
@@ -71,8 +71,8 @@
   "limitations": [
     "Auger flights are axial pitch envelopes, not a fabrication-ready continuous helix.",
     "Insulation and dry-air equipment are keep-out solids; seals, ducts and cartridge internals are not detailed.",
-    "Double gates are open-bore proof plates; actuators, overlap timing and gas leakage are not validated.",
+    "The undergraduate MVP omits the agitator and double gate; feed isolation uses a stopped auger plus a manual slide plate during bin transfer.",
     "The three-point support frame is a load-path envelope; joints, fasteners and load-cell side-load protection are not detailed.",
-    "PET operation remains prohibited until agglomeration, dew point and outlet moisture tests pass."
+    "PET operation remains prohibited until agglomeration, dew point and outlet moisture tests pass; add agitation only if the 0.5 kg coupon proves it necessary."
   ]
 }

@@ -13,9 +13,8 @@ using namespace recycler;
 namespace pins {
 constexpr uint8_t kSpoolEncoderA = 2;
 constexpr uint8_t kSpoolEncoderB = 3;
-constexpr uint8_t kExtruderHeater[4] = {4, 5, 6, 7};
-constexpr uint8_t kDryerPlaHeater = 8;
-constexpr uint8_t kDryerPetHeater = 9;
+constexpr uint8_t kExtruderHeater[3] = {4, 5, 6};
+constexpr uint8_t kDryerHeater = 8;
 constexpr uint8_t kShredderPwm = 10;
 constexpr uint8_t kExtruderPwm = 11;
 constexpr uint8_t kPullerStepPwm = 12;
@@ -38,7 +37,7 @@ constexpr uint8_t kAirflowAux = 28;
 constexpr uint8_t kFormingGuardAux = 29;
 constexpr uint8_t kContactorRequest = 30;
 constexpr uint8_t kShredderEnable = 31;
-constexpr uint8_t kSorterEnable = 32;
+constexpr uint8_t kStage2Enable = 32;
 constexpr uint8_t kFeederEnable = 33;
 constexpr uint8_t kExtruderEnable = 34;
 constexpr uint8_t kPullerEnable = 35;
@@ -51,7 +50,7 @@ constexpr uint8_t kTraverseDirection = 41;
 constexpr uint8_t kSpoolerDirection = 42;
 constexpr uint8_t kPullerDirection = 43;
 constexpr uint8_t kTraverseStep = 44;
-constexpr uint8_t kSorterPwm = 45;
+constexpr uint8_t kStage2Pwm = 45;
 constexpr uint8_t kFeederStepPwm = 46;
 constexpr uint8_t kTftDc = 47;
 constexpr uint8_t kTftCs = 48;
@@ -80,12 +79,12 @@ const HeaterConfig kPlaHeaterConfig{0.08F, 0.005F, -20.0F, 330.0F, 230.0F,
                                      30.0F, 2.0F, 60000UL};
 const HeaterConfig kPetHeaterConfig{0.06F, 0.004F, -20.0F, 330.0F, 295.0F,
                                      30.0F, 2.0F, 60000UL};
-HeaterController pet_extruder_heaters[4] = {
+HeaterController pet_extruder_heaters[3] = {
     HeaterController(kPetHeaterConfig), HeaterController(kPetHeaterConfig),
-    HeaterController(kPetHeaterConfig), HeaterController(kPetHeaterConfig)};
-HeaterController pla_extruder_heaters[4] = {
+    HeaterController(kPetHeaterConfig)};
+HeaterController pla_extruder_heaters[3] = {
     HeaterController(kPlaHeaterConfig), HeaterController(kPlaHeaterConfig),
-    HeaterController(kPlaHeaterConfig), HeaterController(kPlaHeaterConfig)};
+    HeaterController(kPlaHeaterConfig)};
 const HeaterConfig kDryerPlaConfig{0.05F, 0.002F, -20.0F, 190.0F, 60.0F,
                                    10.0F, 1.0F, 60000UL};
 const HeaterConfig kDryerPetConfig{0.04F, 0.0015F, -20.0F, 210.0F, 170.0F,
@@ -232,7 +231,7 @@ bool all_temperature_sensors_plausible() {
 }
 
 Phase parse_phase(const char* payload) {
-  if (!strcmp(payload, "SORT_SHRED")) return Phase::SORT_SHRED;
+  if (!strcmp(payload, "SHRED")) return Phase::SHRED;
   if (!strcmp(payload, "DRY_PREHEAT")) return Phase::DRY_PREHEAT;
   if (!strcmp(payload, "EXTRUDE_SPOOL")) return Phase::EXTRUDE_SPOOL;
   if (!strcmp(payload, "COOLDOWN_CLEAN")) return Phase::COOLDOWN_CLEAN;
@@ -277,29 +276,21 @@ void handle_frame(const ProtocolFrame& frame) {
                          last_safe.state == SafetyState::PAUSED;
     pending_purge_ack = stopped;
     pending_purge_ack_ms = millis();
-  } else if (!strcmp(frame.type, "UI_CLASS")) {
-    unsigned detected = 0;
-    unsigned confidence = 0;
+  } else if (!strcmp(frame.type, "UI_BATCH")) {
     unsigned selected = 0;
     unsigned color = 7;
     unsigned batch = 0;
     unsigned purge = 0;
-    unsigned qualified = 0;
     if (sscanf(frame.payload,
-               "det=%u,conf=%u,selected=%u,color=%u,batch=%u,purge=%u,classok=%u",
-               &detected, &confidence, &selected, &color, &batch, &purge,
-               &qualified) == 7 &&
-        detected <= static_cast<unsigned>(UiMaterial::REJECT) &&
-        selected <= static_cast<unsigned>(UiMaterial::REJECT) &&
-        confidence <= 100 && color <= 7 && batch <= 999 && purge <= 1 &&
-        qualified <= 1) {
-      ui_telemetry.detected_material = static_cast<UiMaterial>(detected);
-      ui_telemetry.classifier_confidence_pct = static_cast<uint8_t>(confidence);
+               "selected=%u,color=%u,batch=%u,purge=%u",
+               &selected, &color, &batch, &purge) == 4 &&
+        (selected == static_cast<unsigned>(UiMaterial::PLA) ||
+         selected == static_cast<unsigned>(UiMaterial::PET)) &&
+        color <= 7 && batch <= 999 && purge <= 1) {
       ui_telemetry.selected_material = static_cast<UiMaterial>(selected);
       ui_telemetry.color_bin = static_cast<uint8_t>(color);
       ui_telemetry.batch_number = static_cast<uint16_t>(batch);
       if (purge == 1) ui_telemetry.purge_required = true;
-      ui_telemetry.classifier_valid = qualified == 1;
     }
   } else if (!strcmp(frame.type, "UI_PROD")) {
     unsigned long dx_um = 0;
@@ -325,7 +316,7 @@ void handle_frame(const ProtocolFrame& frame) {
     if (sscanf(frame.payload, "hopper=%u,full=%x", &hopper, &full_mask) == 2 &&
         hopper <= 100 && full_mask <= 0xFF) {
       ui_telemetry.hopper_fill_pct = static_cast<uint8_t>(hopper);
-      ui_telemetry.full_bin_mask = static_cast<uint8_t>(full_mask);
+      (void)full_mask;
     }
   }
 }
@@ -353,17 +344,16 @@ void poll_serial() {
 void set_all_dangerous_outputs_off() {
   digitalWrite(pins::kContactorRequest, LOW);
   for (uint8_t pin : pins::kExtruderHeater) analogWrite(pin, 0);
-  analogWrite(pins::kDryerPlaHeater, 0);
-  analogWrite(pins::kDryerPetHeater, 0);
+  analogWrite(pins::kDryerHeater, 0);
   analogWrite(pins::kShredderPwm, 0);
   analogWrite(pins::kExtruderPwm, 0);
   analogWrite(pins::kPullerStepPwm, 0);
   analogWrite(pins::kSpoolerStepPwm, 0);
-  analogWrite(pins::kSorterPwm, 0);
+  analogWrite(pins::kStage2Pwm, 0);
   analogWrite(pins::kFeederStepPwm, 0);
   digitalWrite(pins::kHopperGateEnable, LOW);
   digitalWrite(pins::kShredderDirection, LOW);
-  const uint8_t enables[] = {pins::kShredderEnable, pins::kSorterEnable,
+  const uint8_t enables[] = {pins::kShredderEnable, pins::kStage2Enable,
                              pins::kFeederEnable, pins::kExtruderEnable,
                              pins::kPullerEnable, pins::kSpoolerEnable};
   for (uint8_t pin : enables) digitalWrite(pin, LOW);
@@ -375,7 +365,7 @@ void reset_heater_if_finite(HeaterController& controller, uint32_t now_ms,
 }
 
 void reset_all_heater_controllers(uint32_t now_ms) {
-  for (uint8_t i = 0; i < 4; ++i) {
+  for (uint8_t i = 0; i < 3; ++i) {
     reset_heater_if_finite(pla_extruder_heaters[i], now_ms, temperature_c[i]);
     reset_heater_if_finite(pet_extruder_heaters[i], now_ms, temperature_c[i]);
   }
@@ -393,7 +383,7 @@ void apply_outputs(const SafetyOutputs& safe, uint32_t now_ms) {
   digitalWrite(pins::kContactorRequest, HIGH);
   digitalWrite(pins::kCoolingFanEnable, HIGH);
 
-  const bool sort = safe.active_phase == Phase::SORT_SHRED;
+  const bool sort = safe.active_phase == Phase::SHRED;
   const bool dry = safe.active_phase == Phase::DRY_PREHEAT;
   const bool extrude = safe.active_phase == Phase::EXTRUDE_SPOOL;
   const bool shredder_drive = sort && adaptive_load.sensor_plausible &&
@@ -405,7 +395,7 @@ void apply_outputs(const SafetyOutputs& safe, uint32_t now_ms) {
   const uint8_t gate_fraction = static_cast<uint8_t>(99.0F * adaptive_load.feed_scale);
   const bool gate_time_slot = static_cast<uint8_t>((now_ms / 10UL) % 100UL) <= gate_fraction;
   digitalWrite(pins::kShredderEnable, shredder_drive ? HIGH : LOW);
-  digitalWrite(pins::kSorterEnable, sort ? HIGH : LOW);
+  digitalWrite(pins::kStage2Enable, sort ? HIGH : LOW);
   digitalWrite(pins::kExtruderEnable, extrude ? HIGH : LOW);
   digitalWrite(pins::kFeederEnable, extrude ? HIGH : LOW);
   digitalWrite(pins::kPullerEnable, extrude ? HIGH : LOW);
@@ -415,14 +405,13 @@ void apply_outputs(const SafetyOutputs& safe, uint32_t now_ms) {
   analogWrite(pins::kShredderPwm, shredder_pwm);
 
   for (uint8_t pin : pins::kExtruderHeater) analogWrite(pin, 0);
-  analogWrite(pins::kDryerPlaHeater, 0);
-  analogWrite(pins::kDryerPetHeater, 0);
+  analogWrite(pins::kDryerHeater, 0);
 
   if (!safe.heater_master_enable) return;
 
   if (dry) {
     const uint8_t heater_index = pet_profile ? 1 : 0;
-    for (uint8_t i = 0; i < 4; ++i) {
+    for (uint8_t i = 0; i < 3; ++i) {
       reset_heater_if_finite(pla_extruder_heaters[i], now_ms, temperature_c[i]);
       reset_heater_if_finite(pet_extruder_heaters[i], now_ms, temperature_c[i]);
     }
@@ -446,7 +435,7 @@ void apply_outputs(const SafetyOutputs& safe, uint32_t now_ms) {
       return;
     }
     const uint8_t duty = static_cast<uint8_t>(255.0F * result.duty * grant.heater_scale);
-    analogWrite(pet_profile ? pins::kDryerPetHeater : pins::kDryerPlaHeater, duty);
+    analogWrite(pins::kDryerHeater, duty);
     return;
   }
 
@@ -456,15 +445,15 @@ void apply_outputs(const SafetyOutputs& safe, uint32_t now_ms) {
   }
   for (uint8_t i = 0; i < 2; ++i)
     reset_heater_if_finite(dryer_heaters[i], now_ms, temperature_c[4]);
-  const float pla_setpoint[4] = {180.0F, 190.0F, 200.0F, 190.0F};
-  const float pet_setpoint[4] = {250.0F, 270.0F, 280.0F, 275.0F};
+  const float pla_setpoint[3] = {180.0F, 195.0F, 190.0F};
+  const float pet_setpoint[3] = {250.0F, 270.0F, 275.0F};
   const float* setpoint = pet_profile ? pet_setpoint : pla_setpoint;
   HeaterController* controllers = pet_profile ? pet_extruder_heaters : pla_extruder_heaters;
   HeaterController* inactive_controllers =
       pet_profile ? pla_extruder_heaters : pet_extruder_heaters;
-  float requested_duty[4] = {0, 0, 0, 0};
+  float requested_duty[3] = {0, 0, 0};
   bool heater_fault = false;
-  for (uint8_t i = 0; i < 4; ++i) {
+  for (uint8_t i = 0; i < 3; ++i) {
     reset_heater_if_finite(inactive_controllers[i], now_ms, temperature_c[i]);
     const HeaterResult result = controllers[i].update(
         now_ms, setpoint[i], temperature_c[i], true);
@@ -476,8 +465,8 @@ void apply_outputs(const SafetyOutputs& safe, uint32_t now_ms) {
     heater_fault_latched = true;
     return;
   }
-  const float requested_w = requested_duty[0] * 80.0F + requested_duty[1] * 80.0F +
-                            requested_duty[2] * 80.0F + requested_duty[3] * 60.0F;
+  const float requested_w = requested_duty[0] * 100.0F + requested_duty[1] * 100.0F +
+                            requested_duty[2] * 60.0F;
   const PowerGrant grant = arbitrate_power(
       {Phase::EXTRUDE_SPOOL, 396.0F, requested_w, 0.0F, 0.0F},
       kProvisionalDeratedPowerLimitW);
@@ -486,7 +475,7 @@ void apply_outputs(const SafetyOutputs& safe, uint32_t now_ms) {
     return;
   }
   const float scale = grant.valid ? grant.heater_scale : 0.0F;
-  for (uint8_t i = 0; i < 4; ++i)
+  for (uint8_t i = 0; i < 3; ++i)
     analogWrite(pins::kExtruderHeater[i], static_cast<uint8_t>(255.0F * requested_duty[i] * scale));
 }
 
@@ -575,13 +564,13 @@ void service_ui(uint32_t now_ms, bool render) {
 void setup() {
   set_all_dangerous_outputs_off();
   const uint8_t outputs[] = {
-      pins::kContactorRequest, pins::kShredderEnable, pins::kSorterEnable,
+      pins::kContactorRequest, pins::kShredderEnable, pins::kStage2Enable,
       pins::kFeederEnable, pins::kExtruderEnable, pins::kPullerEnable,
       pins::kSpoolerEnable, pins::kCoolingFanEnable, pins::kShredderDirection,
       pins::kHopperGateEnable,
       pins::kExtruderDirection, pins::kFeederDirection, pins::kTraverseDirection,
       pins::kSpoolerDirection, pins::kPullerDirection, pins::kTraverseStep,
-      pins::kSorterPwm, pins::kFeederStepPwm, pins::kTftDc, pins::kTftCs,
+      pins::kStage2Pwm, pins::kFeederStepPwm, pins::kTftDc, pins::kTftCs,
       pins::kTftReset, pins::kBuzzer};
   for (uint8_t pin : outputs) {
     pinMode(pin, OUTPUT);
@@ -591,8 +580,7 @@ void setup() {
     pinMode(pin, OUTPUT);
     analogWrite(pin, 0);
   }
-  pinMode(pins::kDryerPlaHeater, OUTPUT);
-  pinMode(pins::kDryerPetHeater, OUTPUT);
+  pinMode(pins::kDryerHeater, OUTPUT);
   digitalWrite(pins::kTftCs, HIGH);
   digitalWrite(pins::kTftReset, LOW);
   const uint8_t safety_inputs[] = {
@@ -605,8 +593,7 @@ void setup() {
   pinMode(pins::kRotaryA, INPUT_PULLUP);
   pinMode(pins::kRotaryB, INPUT_PULLUP);
   pinMode(pins::kShredderVibrationAnalog, INPUT);
-  ui_telemetry.detected_material = UiMaterial::UNKNOWN;
-  ui_telemetry.selected_material = UiMaterial::AUTO;
+  ui_telemetry.selected_material = UiMaterial::UNKNOWN;
   ui_telemetry.color_bin = 7;
   ui_telemetry.purge_required = true;
   ui_telemetry.diameter_x_mm = NAN;
@@ -616,7 +603,7 @@ void setup() {
   for (float& value : ui_telemetry.temperatures_c) value = NAN;
   for (float& value : ui_telemetry.motor_current_a) value = NAN;
   reset_load_window(millis());
-  Serial.begin(kPiBaud);
+  Serial.begin(kServiceSerialBaud);
   last_heartbeat_ms = millis() - 10000UL;
   wdt_enable(WDTO_2S);
 }
@@ -638,7 +625,7 @@ void loop() {
       kShredderEncoderPulsesPerRevolution > 0.0F &&
       kShredderCommandRpm > 0.0F;
   const bool sort_context = last_safe.state == SafetyState::RUNNING &&
-                            last_safe.active_phase == Phase::SORT_SHRED;
+                            last_safe.active_phase == Phase::SHRED;
   if (sort_context && !prior_sort_context) {
     sort_started_ms = now;
     shredder_jam.reset(now);

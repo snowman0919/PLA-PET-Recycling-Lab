@@ -1,5 +1,4 @@
 Part ID,Module,Description,Quantity,Baseline status,Source strategy,Planning floor KRW,Cost status,Validation/approval gate
-SYS-CTRL-001,Control,Raspberry Pi 4,1,AVAILABLE,REUSE_AFTER_INSPECTION,0,ZERO_CASH_ASSUMPTION,User statement
 SYS-CTRL-002,Control,Arduino Mega 2560,1,AVAILABLE,REUSE_AFTER_INSPECTION,0,ZERO_CASH_ASSUMPTION,User statement
 SYS-PWR-001,Power,24 V nominal 600 W PSU,1,NEEDS_INSPECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,DON-PSU-01
 SHR-SHAFT-001,Stage 1,20 mm keyed cutter shaft,2,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-004 and detailed FEA pending
@@ -10,42 +9,22 @@ SHR-SPACER-001,Stage 1,38x6.4 mm shaft spacers,10,PROVISIONAL,FABRICATION_QUOTE_
 SHR-RET-001,Stage 1,Combined bearing retainer plates,3,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-004 and CAD review
 SHR-DRV-001,Stage 1,Low-speed high-torque drive,1,NEEDS_INSPECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Motor label and bench test
 SHR-GRD-001,Stage 1,Hopper chamber and anti-reach guard set,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Reach-probe test pending
-SHR2-SHAFT-001,Stage 2,20 mm keyed rotor shaft,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Stage 2 shaft screening and CAD sweep
-SHR2-ROTOR-001,Stage 2,50 mm OD three-row eight-segment rotor proof,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-005 and kinematic sweep
-SHR2-KNIFE-001,Stage 2,Fixed bed knife 8x20x64 mm proof,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Size and torque coupon pending
-SHR2-CARRIER-001,Stage 2,Metal bed knife carrier,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Carrier FEA pending
-SHR2-PLATE-001,Stage 2,110x100x14 bearing side plates,2,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD solid review passed
-SHR2-BRG-001,Stage 2,6004-2RS candidate bearings 20x42x12,2,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Stage 2 CAD proof
-SHR2-RET-001,Stage 2,Bearing retainer rings,2,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD contact check
-SHR2-SHM-001,Stage 2,Ground bed knife shim assortment,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Tolerance stack test pending
-SHR2-DRV-001,Stage 2,60 to 120 rpm high-torque drive,1,NEEDS_INSPECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Donor dyno and ADR-005
-GRN-SHAFT-001,Stage 3,17 mm keyed granulator shaft,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Stage 3 35 N m shaft screen
-GRN-ROTOR-001,Stage 3,40 mm OD four-row segmented rotor proof,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-006 and rotor sweep
-GRN-STATOR-001,Stage 3,Fixed stator knife 6x16x48 mm proof,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Stage 3 screen coupon pending
-GRN-CARRIER-001,Stage 3,Metal stator carrier,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Carrier FEA pending
-GRN-SCREEN-SET,Stage 3,Flat 4 5 6 mm perforated screen coupon set,3,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Screen family CAD and coupon plan
-GRN-PLATE-001,Stage 3,100x90x14 bearing side plates,2,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD solid review
-GRN-BRG-001,Stage 3,6203-2RS candidate bearings 17x40x12,2,NEEDS_SELECTION,BUY_CANDIDATE_Mechatronics Bearing Group_6203-2RS-GLD,5320,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-GRN-BRG-DK-20260828 and Stage 3 CAD proof
-GRN-RET-001,Stage 3,Bearing retainer rings,2,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD contact check
-GRN-DRV-001,Stage 3,120 to 240 rpm high-torque drive,1,NEEDS_INSPECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Donor dyno and ADR-006
-SRT-TRAY-001,Vibratory sorter,Two-deck metal tray frame,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-007 CAD proof
-SRT-SCR-TOP,Vibratory sorter,Removable 6.0 mm top screen cassette,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Three-stream coupon pending
-SRT-SCR-BOT,Vibratory sorter,Removable 3.0 mm fines screen cassette,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Three-stream coupon pending
-SRT-ISO-001,Vibratory sorter,8 Hz candidate rubber isolators,4,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,5 to 40 Hz sweep pending
-SRT-CLP-001,Vibratory sorter,M5 screw service clamps,4,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Clamp pull test pending
-SRT-MNT-001,Vibratory sorter,Metal motor and eccentric support bracket,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD load path only
-SRT-BIN-FINE,Vibratory sorter,Sealed removable fines bin and flexible boot,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Dust leak test pending
-SRT-VIB-001,Vibratory sorter,Donor DC or BLDC motor and guarded 40 g 12 mm eccentric,1,NEEDS_INSPECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-007 30 Hz calculation
+GRN-SHAFT-001,Stage 2 granulator,17 mm keyed granulator shaft,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Granulator 35 N m shaft screen
+GRN-ROTOR-001,Stage 2 granulator,40 mm OD four-row segmented rotor proof,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-006 and rotor sweep
+GRN-STATOR-001,Stage 2 granulator,Fixed stator knife 6x16x48 mm proof,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Stage 2 screen coupon pending
+GRN-CARRIER-001,Stage 2 granulator,Metal stator carrier,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Carrier FEA pending
+GRN-SCREEN-SET,Stage 2 granulator,Flat 4 5 6 mm perforated screen coupon set,3,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Screen family CAD and coupon plan
+GRN-PLATE-001,Stage 2 granulator,100x90x14 bearing side plates,2,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD solid review
+GRN-BRG-001,Stage 2 granulator,6203-2RS candidate bearings 17x40x12,2,NEEDS_SELECTION,BUY_CANDIDATE_Mechatronics Bearing Group_6203-2RS-GLD,5320,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-GRN-BRG-DK-20260828 and granulator CAD proof
+GRN-RET-001,Stage 2 granulator,Bearing retainer rings,2,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD contact check
+GRN-DRV-001,Stage 2 granulator,120 to 240 rpm high-torque drive,1,NEEDS_INSPECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Donor dyno and ADR-006
 DRY-BASE-001,Dryer,Three-point metal support frame and load-cell mounting base,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD load-path envelope
-DRY-VSL-001,Dryer,140 mm ID 320 mm active metal hopper and cone,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-008 thermal sizing
+DRY-VSL-001,Dryer,110 mm ID 180 mm active compact metal hopper and cone,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,0.5 kg MVP capacity target
 DRY-LID-001,Dryer,Metal hopper lid with agitator shaft opening,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD envelope
 DRY-INS-001,Dryer,40 mm high-temperature insulation and ventilated metal shield,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Thermal model only
-DRY-PLA-HTR,Dryer,24 V 60 W PLA heater branch with 60 C trip and 72 C fuse,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,45 C 6 h profile
-DRY-PET-HTR,Dryer,24 V 240 W PET heater branch with 170 C trip and 184 C fuse,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,140 C 2 h plus 160 C 4 h profile
+DRY-PET-HTR,Dryer,One 24 V up-to-240 W heater branch for PLA and PET recipes with independent 184 C fuse,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,45 C PLA and 160 C PET profile tests
 DRY-AIR-001,Dryer,Closed-loop blower and dual desiccant cartridge set,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,3 m3 per h proof airflow
 DRY-SEN-001,Dryer,Three high-temperature sensors plus humidity and external dew-point port,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Accuracy and placement test pending
-DRY-AGT-001,Dryer,20 rpm metal agitator and sealed drive,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,PET agglomeration coupon pending
-DRY-GATE-001,Dryer,Double metal isolation gate and airlock interface,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Open-bore CAD proof
 DRY-FDR-001,Dryer,30 mm auger airlock drive and load-cell set,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,3.54 rpm at 200 g per h estimate
 EXT-SCR-001,Extruder,18 mm 24 L/D 2.5 ratio single screw,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-009 diameter sweep
 EXT-BRL-001,Extruder,ID18.2 OD38 438 mm housing for 432 mm flight and cooled metal feed throat,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,20 MPa thick-wall proof model
@@ -53,34 +32,28 @@ EXT-BRK-001,Extruder,Seven-hole breaker plate and replaceable 40 to 125 mesh scr
 EXT-DIE-001,Extruder,3.0 mm bore 12 mm land heated filament die and purge catch,1,PROVISIONAL,FABRICATION_QUOTE_REQUIRED,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Power-law capillary model
 EXT-THR-001,Extruder,51102 thrust bearing radial bearings and 12 mm metal support plate,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,5.09 kN proof thrust with static SF3.30
 EXT-DRV-001,Extruder,24 V reducer drive 20 Nm continuous at 45 rpm,1,NEEDS_DYNO,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-009 126 W nominal input target
-EXT-HTR-001,Extruder,Three 80 W barrel heaters and 60 W die heater,4,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,300 W peak and 84 W PET steady estimate
-EXT-SEN-001,Extruder,Four hot-zone sensors melt pressure sensor and cool-bearing sensor,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,3 MPa clean 8 MPa trip pressure map
+EXT-HTR-001,Extruder,Two 100 W barrel heaters and one 60 W die heater,3,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,260 W peak; two barrel zones plus die
+EXT-SEN-001,Extruder,Three hot-zone sensors melt pressure sensor and cool-bearing sensor,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,3 MPa clean 8 MPa trip pressure map
 EXT-REL-001,Extruder,Qualified guarded melt-pressure rupture element below 20 MPa proof,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-009 overpressure hierarchy
 COOL-AIR-001,Cooling,440 mm three-zone cross-flow tunnel and 80 mm fans,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-010 radial cooling model
-GAU-CAM-001,Diameter gauge,Raspberry Pi Camera Module 3 standard candidate,1,NEEDS_SELECTION,BUY_CANDIDATE_Raspberry Pi_Camera Module 3 Standard,35000,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-CAM3-20260828 and ADR-010
-GAU-OPT-001,Diameter gauge,Close-up optic dual backlight front-surface mirror and light enclosure,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-010 252 macro-target pixels across filament
+GAU-SEN-001,Diameter gauge,Dual-axis LED photodiode shadow sensor heads for Arduino,2,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Resolution linearity and thermal-drift coupon pending
+GAU-OPT-001,Diameter gauge,Two LED backlights apertures and opaque sensor enclosure,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Two-axis shadow crossing CAD proof
 PUL-ASM-001,Puller,Synchronized 40x16 mm nip rollers drive encoder odometer and adjustment set,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-010 delayed-control simulation
 SPL-ASM-001,Spooler,12 mm shaft 6001 bearings dancer traverse guard and spool adapters,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,ADR-010 4 g shaft screen and 200x73 mm envelope
-SAF-EST-001,Safety,Dual-channel latching E-stop actuator and contact blocks,1,NEEDS_SELECTION,BUY_CANDIDATE_Omron Automation and Safety_A22E-M-02,143001,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-ESTOP-DK-20260828 and fault test pending
-SAF-REL-001,Safety,Dual-channel 24 V E-stop and safety-gate relay with monitored reset,1,NEEDS_SELECTION,BUY_CANDIDATE_Dold_LG5925-48-61-24,200200,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-SAF-DOLD-20260828
-SAF-CON-001,Safety,Two monitored 24 VDC safety contactors for independent Tower A motion and Tower B drive/heater zones,2,NEEDS_SELECTION,BUY_CANDIDATE_ABB_AFS30-30-22-11,885892,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-CON-AFS30-MOU-20260828 and two-zone architecture contract
-SAF-FUS-HLD,Safety,Fourteen finger-safe Class CC DIN branch fuse holders without fuse links,14,NEEDS_SELECTION,BUY_CANDIDATE_Eaton Bussmann_CHCC1DU,1863960,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-FH-CHCC1DU-DK-20260828 and panel fit only
-SAF-FUS-001,Safety,Main fuse holder plus fourteen branch fuse links with ratings pending measured currents,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Power-source and branch-current measurements pending
-SAF-THM-001,Safety,Independent one-shot thermal fuses for four extruder and two dryer branches,6,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Zone temperature and mounting pending
-SAF-INT-001,Safety,Positive-opening lid service and forming guard switch set,3,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Wire-open and cover-open test pending
-ELE-HTR-DRV,Electronics,Six default-off isolated DC heater SSR channels,6,NEEDS_SELECTION,BUY_CANDIDATE_Sensata Crydom_84137860,977676,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-SSR-84137860-DK-20260828 and exact panel envelope
-ELE-HTR-HS,Electronics,Two three-SSR DIN or panel heat sinks for six heater drivers,2,NEEDS_SELECTION,BUY_CANDIDATE_Sensata Crydom_HS103DR,445704,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-HS-HS103DR-DK-20260828 and exact panel envelope
-ELE-SEN-IF,Electronics,Eight-channel 24 V dry-contact diagnostic isolation and eight-channel default-OFF logic interface assembly,1,PROOF_DESIGNED,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,KiCad ERC and DRC zero; review HOLD
+SAF-EST-001,Safety,One latching mushroom E-stop with NC cutoff contact and auxiliary monitor contact,1,NEEDS_SELECTION,BUY_CANDIDATE_Omron Automation and Safety_A22E-M-02,143001,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-ESTOP-DK-20260828 and fault test pending
+SAF-CON-001,Safety,One common 24 VDC actuator contactor for both towers,1,NEEDS_SELECTION,BUY_CANDIDATE_ABB_AFS30-30-22-11,442946,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-CON-AFS30-MOU-20260828 and MVP architecture contract
+SAF-FUS-HLD,Safety,Ten touch-safe DIN branch fuse holders without fuse links,10,NEEDS_SELECTION,BUY_CANDIDATE_Eaton Bussmann_CHCC1DU,1331400,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-FH-CHCC1DU-DK-20260828 and panel fit only
+SAF-FUS-001,Safety,Main fuse holder plus ten branch fuse links with ratings pending measured currents,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Power-source and branch-current measurements pending
+SAF-THM-001,Safety,Independent one-shot thermal fuses for three extruder and one dryer heater branches,4,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Zone temperature and mounting pending
+ELE-HTR-DRV,Electronics,Four default-off isolated DC heater SSR channels,4,NEEDS_SELECTION,BUY_CANDIDATE_Sensata Crydom_84137860,651784,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-SSR-84137860-DK-20260828 and exact panel envelope
+ELE-HTR-HS,Electronics,Two two-SSR DIN or panel heat-sink zones for four heater drivers,2,NEEDS_SELECTION,BUY_CANDIDATE_Sensata Crydom_HS103DR,445704,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-HS-HS103DR-DK-20260828 and exact panel envelope
+ELE-SEN-IF,Electronics,Six-channel 24 V diagnostic isolation and six-channel default-OFF logic interface assembly,1,PROOF_DESIGNED,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,KiCad ERC and DRC zero; review HOLD
 ELE-PCB-IF,Electronics,PPR isolated monitor interface bare PCB 190 x 130 mm two layer,1,FABRICATION_HOLD,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Gerber drill and render generated; EMC risk 52/100
-ELE-BUCK-001,Electronics,Qualified 24 V to 5 V Raspberry Pi buck converter and fuse,1,NEEDS_SELECTION,BUY_CANDIDATE_MEAN WELL_DDR-30G-5,42644,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-BUCK-DK-20260828 and undervoltage test pending
 UI-TFT-001,User interface,SPI TFT display compatible with qualified logic level,1,NEEDS_INSPECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Pinout D47 to D52
 UI-CTL-001,User interface,Rotary encoder push START PAUSE BACK ABORT and buzzer set,1,NEEDS_INVENTORY,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Physical acknowledgement logic implemented
 FRM-001,Frame,2020 2040 4040 aluminum profiles and T-nuts,TBD,NEEDS_INVENTORY,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Profile length inventory pending
 MISC-HDW-001,Assembly,M4 M5 M8 fasteners T-nuts metal inserts keys shims and retaining hardware,1,NEEDS_INVENTORY,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Module drawings and harness schedule
 MISC-WIR-001,Assembly,Keyed connectors cable duct ferrules wire labels PE lugs and moving cable protection,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,H01 to H18 harness schedule
 MISC-PRT-001,Assembly,Cold-side printed guards ducts bins fixtures and adapters,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,CAD print-bed checks passed
-INP-GATE-001,Input classification,Guarded double-gate singulator with metal hinge and positive-opening interlock set,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Gate geometry and reach-probe test passed
-INP-CAM-001,Input classification,Classifier camera backlight matte target and light shield set,1,NEEDS_SELECTION,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Optical keep-out CAD only
-BIN-DIV-001,Classification storage,Guarded seven-port rotating chute hoses and six-color-plus-Reject bins,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,Seven-port geometry test passed
 CTL-ENC-001,Control enclosure,Grounded 500 by 400 by 210 mm industrial enclosure with 450 by 370 mm mounting plate,1,NEEDS_SELECTION,BUY_CANDIDATE_nVent HOFFMAN_MAS0405021R5,640864,PUBLIC_REFERENCE_QUALIFICATION_AND_LANDED_COST_OPEN,PRICE-ENC-MAS0405021R5-DK-20260828 and exact FreeCAD envelope
 CTL-ASM-001,Control enclosure,Internal mounting plate partition DIN rails four-class wire ducts glands door bond PE studs and panel fabrication set,1,PROVISIONAL,SELECT_MPN_THEN_QUOTE,TBD,NO_ORDER_WITHOUT_USER_APPROVAL,control_enclosure_layout.csv and FreeCAD fit gates

@@ -14,12 +14,10 @@ sys.path.insert(0, str(COMMON))
 sys.path.insert(0, str(HERE))
 from project import ROOT, add_feature, bounding_box_report, ensure_dir, export_document, load_parameters  # noqa: E402
 from geometry import (  # noqa: E402
-    make_agitator,
     make_auger,
     make_auger_housing,
     make_base_and_load_cells,
     make_drive_and_air_system,
-    make_gates,
     make_heat_shield,
     make_hopper,
     make_insulation,
@@ -65,8 +63,6 @@ def build():
         add_feature(doc, "Insulation", "DRY-INS-001", make_insulation(params), "DRY-INS-001", "High-temperature insulation"),
         add_feature(doc, "VentilatedShield", "DRY-SHD-001", make_heat_shield(params), "DRY-INS-001", "Sheet metal"),
         add_feature(doc, "Lid", "DRY-LID-001", make_lid(params), "DRY-LID-001", "Stainless steel"),
-        add_feature(doc, "Agitator", "DRY-AGT-001", make_agitator(params), "DRY-AGT-001", "Stainless steel"),
-        add_feature(doc, "DoubleGate", "DRY-GATE-001", make_gates(params), "DRY-GATE-001", "Stainless steel"),
         add_feature(doc, "MeteringAuger", "DRY-FDR-AUG", make_auger(params), "DRY-FDR-001", "Stainless steel proof"),
         add_feature(doc, "AugerHousing", "DRY-FDR-HSG", make_auger_housing(params), "DRY-FDR-001", "Metal"),
         add_feature(doc, "DrivesAndDryAir", "DRY-AIR-001", make_drive_and_air_system(params), "DRY-AIR-001", "Donor/buy envelopes"),
@@ -85,9 +81,9 @@ def build():
         "limitations": [
             "Auger flights are axial pitch envelopes, not a fabrication-ready continuous helix.",
             "Insulation and dry-air equipment are keep-out solids; seals, ducts and cartridge internals are not detailed.",
-            "Double gates are open-bore proof plates; actuators, overlap timing and gas leakage are not validated.",
+            "The undergraduate MVP omits the agitator and double gate; feed isolation uses a stopped auger plus a manual slide plate during bin transfer.",
             "The three-point support frame is a load-path envelope; joints, fasteners and load-cell side-load protection are not detailed.",
-            "PET operation remains prohibited until agglomeration, dew point and outlet moisture tests pass.",
+            "PET operation remains prohibited until agglomeration, dew point and outlet moisture tests pass; add agitation only if the 0.5 kg coupon proves it necessary.",
         ],
     }
     path = ROOT / "validation" / "fabrication_review" / "dryer_feeder_proof.json"

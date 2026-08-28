@@ -1,5 +1,5 @@
 {
-  "revision": "0.1.0-preflight",
+  "revision": "0.2.0-undergraduate-mvp",
   "design_state": "BOM_TRACEABLE_LAYOUT_PHYSICAL_APPROVAL_OPEN",
   "enclosure_mm": {
     "width": 500.0,
@@ -22,10 +22,10 @@
   "minimum_partition_gap_mm": 20.0,
   "terminal_service_keepout_mm": 30.0,
   "placement_state_counts": {
-    "selected_candidate_envelopes": 3,
-    "qualification_candidate_envelopes": 10,
+    "selected_candidate_envelopes": 1,
+    "qualification_candidate_envelopes": 9,
     "pcb_reserved": 1,
-    "user_inventory_verify": 2,
+    "user_inventory_verify": 1,
     "placeholder_tbd": 3,
     "wire_route_classes": 4
   },
@@ -57,10 +57,10 @@
     "layout_csv": "electronics/architecture/control_enclosure_layout.csv"
   },
   "limitations": [
-    "Green selected envelopes are planning selections, while yellow exact-MPN envelopes still require application qualification; neither state is purchase approval.",
+    "The green E-stop envelope is the selected physical interface; yellow exact-MPN envelopes still require application qualification and neither state is purchase approval.",
     "Blue PCB placement reserves the generated 190 x 130 mm board and four M3 holes, but its fabrication status remains HOLD.",
     "Orange placeholder solids cannot be used for ordering or drilling until exact candidates replace them.",
-    "Red/yellow/blue/green wiring solids are route reservations, not conductor sizing or completed harness drawings.",
+    "Red/yellow/blue/green wiring solids are route reservations, not conductor sizing or completed harness drawings. PCB, purchased Arduino and orange placeholders are distinct non-overlapping states.",
     "Thermal rise, SCCR, creepage, bend radius, PE continuity, ingress and door rear-depth checks remain physical/engineering gates."
   ]
 }

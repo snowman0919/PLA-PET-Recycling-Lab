@@ -37,7 +37,7 @@ def main() -> None:
         "EXT_HEATER_ZONE1",
         "EXT_HEATER_ZONE2",
         "EXT_HEATER_ZONE3",
-        "EXT_HEATER_DIE",
+        "DRYER_HEATER",
         "SHREDDER_ENABLE",
         "EXTRUDER_ENABLE",
         "PULLER_ENABLE",
@@ -60,7 +60,7 @@ def main() -> None:
             occupied[normalized] = row["Signal"]
     for signal in ("E_STOP_AUX", "LID_INTERLOCK_AUX", "SERVICE_INTERLOCK_AUX", "THERMAL_CHAIN_AUX"):
         assert "open=fault" in by_signal[signal]["Safe state"]
-    for signal in ("EXT_HEATER_ZONE1", "EXT_HEATER_ZONE2", "EXT_HEATER_ZONE3", "EXT_HEATER_DIE"):
+    for signal in ("EXT_HEATER_ZONE1", "EXT_HEATER_ZONE2", "EXT_HEATER_ZONE3", "DRYER_HEATER"):
         assert "LOW/off" in by_signal[signal]["Safe state"]
         assert "fuse" in by_signal[signal]["Notes"].lower()
 
@@ -75,7 +75,7 @@ def main() -> None:
     config = (ROOT / "firmware" / "arduino_mega" / "src" / "configuration.h").read_text()
     assert config.count("Qualified = false") == 5, "commissioning locks unexpectedly opened"
     protocol = (ROOT / "electronics" / "protocol" / "frp1.md").read_text()
-    assert "750 ms" in protocol and "CRC-16/CCITT-FALSE" in protocol
+    assert "선택형 서비스" in protocol and "CRC-16/CCITT-FALSE" in protocol
     assert "DRY_STAGE" in protocol and "load" in protocol and "retry" in protocol
 
     sketch = (ROOT / "firmware" / "arduino_mega" / "filament_recycler_mega.ino").read_text()
@@ -83,14 +83,12 @@ def main() -> None:
         "evaluate_adaptive_load(",
         "shredder_jam.update(",
         "kHopperGateEnable",
-        "kDryerPlaHeater",
-        "kDryerPetHeater",
+        "kDryerHeater",
         "Phase::DRY_PREHEAT",
     ):
         assert integration_token in sketch, f"missing sketch integration: {integration_token}"
 
     timing = json.loads((ROOT / "simulation" / "control" / "safety_timing.json").read_text())
-    assert timing["heartbeat_safe_output_latency_max_ms"] <= 760
     assert timing["jam"]["maximum_retries"] == 3
     assert timing["jam"]["persistent_jam_to_latched_fault_max_ms"] < 7500
     assert timing["power_cases"]["extrude_worst_case"]["granted_heater_w"] == 84.0

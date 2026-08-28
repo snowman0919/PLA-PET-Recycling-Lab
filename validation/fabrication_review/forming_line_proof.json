@@ -1,7 +1,7 @@
 {
-  "revision": "0.1.0-preflight",
+  "revision": "0.2.0-undergraduate-mvp",
   "overall": {
-    "x_mm": 760.0,
+    "x_mm": 700.0,
     "y_mm": 160.0,
     "z_mm": 185.0,
     "fits_210_cube": false
@@ -19,13 +19,13 @@
     "fits_210_cube": true
   },
   "puller": {
-    "x_mm": 150.0,
+    "x_mm": 100.0,
     "y_mm": 160.0,
     "z_mm": 150.0,
     "fits_210_cube": true
   },
   "layout": {
-    "module_length_mm": 760.0,
+    "module_length_mm": 700.0,
     "cooling_length_mm": 440.0,
     "die_to_gauge_mm": 470.0,
     "puller_start_mm": 600.0
@@ -66,8 +66,8 @@
     "fan_plate_dxf": "exports/dxf/cooling_fan_plate.dxf"
   },
   "limitations": [
-    "Fan blocks and optical parts are supplier keep-outs; mounting holes, cable bends, focus threads and airflow plenums require selection.",
-    "Reference rays prove two orthogonal line crossings, not focus, distortion, mirror flatness or uncertainty.",
+    "Fan blocks and shadow-sensor parts are supplier keep-outs; mounting holes, cable bends, apertures and airflow plenums require selection.",
+    "Reference rays prove two orthogonal line crossings, not edge linearity, ambient-light rejection or uncertainty.",
     "The first hot strand-facing duct must be metal or temperature-qualified; PLA is prohibited near an unverified hot strand.",
     "Roller tyre compression, shaft bearings, synchronized gears, spring adjustment and guard interlock require detailed drawings and coupons."
   ]

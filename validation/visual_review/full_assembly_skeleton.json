@@ -1,66 +1,53 @@
 {
-  "revision": "0.1.0-preflight",
-  "architecture": "TWO_TOWER_CONTRACT",
+  "revision": "0.2.0-undergraduate-mvp",
+  "architecture": "UNDERGRADUATE_TWO_TOWER_TWO_STAGE_MVP",
   "overall_mm": {
-    "x": 2510.0,
-    "y": 600.0,
-    "z": 1350.0
+    "x": 2250.0,
+    "y": 500.0,
+    "z": 1100.0
   },
   "contract_envelope_mm": {
-    "x": 2510.0,
-    "y": 600.0,
-    "z": 1350.0
+    "x": 2250.0,
+    "y": 500.0,
+    "z": 1100.0
   },
-  "tower_separation_mm": 250.0,
+  "tower_separation_mm": 200.0,
   "service_rail": {
-    "start_x_mm": 1750.0,
-    "length_mm": 760.0,
+    "start_x_mm": 1550.0,
+    "length_mm": 700.0,
     "straight": true
   },
   "anchor_patterns_mm": {
     "tower_a": [
-      520.0,
-      520.0
+      420.0,
+      420.0
     ],
     "tower_b": [
-      820.0,
-      520.0
+      770.0,
+      420.0
     ]
   },
-  "module_count": 11,
+  "module_count": 9,
   "module_placements": {
-    "ClassificationStorage": {
+    "BatchBin": {
       "tower": "TowerA",
       "origin_mm": [
-        140,
-        140,
+        100,
+        130,
         40
       ],
       "size_mm": [
-        320,
-        320,
-        165
+        300,
+        240,
+        135
       ]
     },
-    "VibratorySorter": {
+    "GranulatorStage2": {
       "tower": "TowerA",
       "origin_mm": [
-        160,
-        200,
-        245
-      ],
-      "size_mm": [
-        280,
-        200,
-        95
-      ]
-    },
-    "GranulatorStage3": {
-      "tower": "TowerA",
-      "origin_mm": [
-        195,
-        235,
-        455
+        145,
+        185,
+        250
       ],
       "size_mm": [
         210,
@@ -68,25 +55,12 @@
         95
       ]
     },
-    "ShredderStage2": {
-      "tower": "TowerA",
-      "origin_mm": [
-        185,
-        230,
-        665
-      ],
-      "size_mm": [
-        230,
-        140,
-        95
-      ]
-    },
     "ShredderStage1": {
       "tower": "TowerA",
       "origin_mm": [
+        120,
         170,
-        220,
-        875
+        500
       ],
       "size_mm": [
         260,
@@ -94,25 +68,25 @@
         105
       ]
     },
-    "InputClassifier": {
+    "ManualFeedHopper": {
       "tower": "TowerA",
       "origin_mm": [
+        120,
         140,
-        190,
-        1070
+        700
       ],
       "size_mm": [
-        320,
+        260,
         220,
-        220
+        320
       ]
     },
     "Extruder": {
       "tower": "TowerB",
       "origin_mm": [
-        850,
-        300,
-        80
+        700,
+        270,
+        60
       ],
       "size_mm": [
         850,
@@ -123,22 +97,22 @@
     "DryerFeeder": {
       "tower": "TowerB",
       "origin_mm": [
-        900,
+        720,
         20,
         500
       ],
       "size_mm": [
         320,
         270,
-        580
+        400
       ]
     },
     "ControlEnclosure": {
       "tower": "TowerB",
       "origin_mm": [
-        1240,
+        1050,
         20,
-        80
+        500
       ],
       "size_mm": [
         500,
@@ -149,12 +123,12 @@
     "CoolingGaugePuller": {
       "tower": "TowerB",
       "origin_mm": [
-        1750,
-        320,
-        100
+        1550,
+        310,
+        80
       ],
       "size_mm": [
-        760,
+        700,
         160,
         180
       ]
@@ -162,7 +136,7 @@
     "Spooler": {
       "tower": "TowerB",
       "origin_mm": [
-        2110,
+        1895,
         20,
         40
       ],
@@ -173,7 +147,7 @@
       ]
     }
   },
-  "review_object_count": 72,
+  "review_object_count": 71,
   "notes": [
     "The former 2295 x 520 x 720 mm linear workbench skeleton is obsolete.",
     "Module solids are conservative keep-out envelopes; frame, anchor, chute, dock and rail objects are explicit architecture-review geometry.",

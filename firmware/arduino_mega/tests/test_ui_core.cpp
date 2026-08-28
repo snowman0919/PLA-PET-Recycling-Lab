@@ -11,9 +11,7 @@ UiTelemetry nominal_ui() {
   UiTelemetry telemetry{};
   telemetry.state = SafetyState::SAFE_OFF;
   telemetry.phase = Phase::IDLE;
-  telemetry.detected_material = UiMaterial::PLA;
-  telemetry.classifier_confidence_pct = 92;
-  telemetry.selected_material = UiMaterial::AUTO;
+  telemetry.selected_material = UiMaterial::PET;
   telemetry.color_bin = 2;
   telemetry.batch_number = 17;
   for (float& temperature : telemetry.temperatures_c) temperature = 25.0F;
@@ -21,13 +19,11 @@ UiTelemetry nominal_ui() {
   telemetry.motor_current_a[1] = 1.50F;
   telemetry.motor_current_a[2] = 0.75F;
   telemetry.hopper_fill_pct = 65;
-  telemetry.full_bin_mask = 0x04;
   telemetry.diameter_x_mm = 1.74F;
   telemetry.diameter_y_mm = 1.76F;
   telemetry.produced_length_m = 125.5F;
   telemetry.produced_weight_g = 372.0F;
   telemetry.eta_minutes = 18;
-  telemetry.classifier_valid = true;
   telemetry.diameter_gauge_qualified = true;
   return telemetry;
 }
@@ -97,9 +93,9 @@ void test_startup_and_purge_gate_extrusion() {
   UiCore ui;
   UiTelemetry telemetry = nominal_ui();
   telemetry.purge_required = true;
-  assert(!ui.run_permitted(Phase::SORT_SHRED, telemetry));
+  assert(!ui.run_permitted(Phase::SHRED, telemetry));
   ui.handle(UiEvent::PUSH, telemetry);
-  assert(ui.run_permitted(Phase::SORT_SHRED, telemetry));
+  assert(ui.run_permitted(Phase::SHRED, telemetry));
   assert(!ui.run_permitted(Phase::EXTRUDE_SPOOL, telemetry));
   telemetry.purge_required = false;
   assert(ui.run_permitted(Phase::EXTRUDE_SPOOL, telemetry));

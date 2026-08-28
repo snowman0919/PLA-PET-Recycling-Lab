@@ -17,7 +17,7 @@ enum class SafetyState : uint8_t {
 
 enum class Phase : uint8_t {
   IDLE,
-  SORT_SHRED,
+  SHRED,
   DRY_PREHEAT,
   EXTRUDE_SPOOL,
   COOLDOWN_CLEAN,

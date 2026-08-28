@@ -74,8 +74,7 @@ def main():
     bom_ids = {row["Part ID"] for row in csv.DictReader((ROOT / "bom" / "bom.csv").open(newline="", encoding="utf-8"))}
     traced_ids = {row["bom_part_id"] for row in layout_rows}
     expected_traced = {
-        "SAF-REL-001", "ELE-BUCK-001", "SAF-EST-001", "ELE-PCB-IF",
-        "SYS-CTRL-001", "SYS-CTRL-002", "SAF-CON-001", "SAF-FUS-001",
+        "SAF-EST-001", "ELE-PCB-IF", "SYS-CTRL-002", "SAF-CON-001", "SAF-FUS-001",
         "SAF-FUS-HLD", "ELE-HTR-DRV", "ELE-HTR-HS", "CTL-ENC-001", "MISC-WIR-001",
     }
     states = {row["placement_state"] for row in layout_rows}
@@ -116,9 +115,9 @@ def main():
     assert checks["high_logic_intersection_mm3"] < TOL, checks
     assert checks["candidate_placeholder_intersection_mm3"] < TOL, checks
     assert checks["qualification_pair_intersection_mm3"] < TOL, checks
-    assert checks["tower_zone_contactor_count"] == 2, checks
-    assert checks["branch_fuse_holder_count"] == 14, checks
-    assert checks["heater_ssr_count"] == 6, checks
+    assert checks["tower_zone_contactor_count"] == 1, checks
+    assert checks["branch_fuse_holder_count"] == 10, checks
+    assert checks["heater_ssr_count"] == 4, checks
     assert checks["heater_heat_sink_count"] == 2, checks
     assert checks["device_wire_route_intersection_mm3"] < TOL, checks
     assert checks["door_width_mm"] == 500.0 and checks["door_height_mm"] == 400.0, checks
@@ -130,7 +129,7 @@ def main():
     assert checks["pcb_standoff_count"] == 4, checks
     assert checks["pcb_keepout_depth_mm"] == 32.0, checks
     assert checks["service_keepout_valid"], checks
-    assert checks["layout_row_count"] == 21, checks
+    assert checks["layout_row_count"] == 17, checks
     assert checks["wire_route_class_count"] == 4, checks
     assert len({row["zone"] for row in route_rows}) == 4, route_rows
     assert checks["all_layout_bom_ids_exist"], traced_ids - bom_ids

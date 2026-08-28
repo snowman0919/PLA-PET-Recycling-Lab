@@ -100,18 +100,13 @@ def cooling() -> dict:
 
 def optics() -> dict:
     gauge = F["gauge"]
-    native_field = 2 * gauge["native_working_distance_mm"] * tan(radians(gauge["native_horizontal_fov_deg"] / 2))
-    native_pixels_per_mm = gauge["sensor_resolution_px"][0] / native_field
-    macro_pixels_per_mm = gauge["sensor_resolution_px"][0] / gauge["qualified_macro_field_width_target_mm"]
+    counts_per_mm = gauge["adc_counts_per_axis"] / gauge["qualified_field_width_mm"]
     return {
-        "native_field_width_mm_at_100mm": native_field,
-        "native_pixels_per_mm": native_pixels_per_mm,
-        "native_pixels_across_1_75mm": native_pixels_per_mm * F["target_diameter_mm"],
-        "native_object_mm_per_pixel": 1 / native_pixels_per_mm,
-        "macro_target_pixels_per_mm": macro_pixels_per_mm,
-        "macro_target_pixels_across_1_75mm": macro_pixels_per_mm * F["target_diameter_mm"],
-        "macro_target_object_mm_per_pixel": 1 / macro_pixels_per_mm,
-        "qualification_gate": "Report U95 <= 0.020 mm for initial +/-0.05 mm release; upgrade to M12/HQ optics if the Camera 3 close-up candidate fails.",
+        "sensor_type": gauge["sensor_candidate"],
+        "adc_counts_per_mm": counts_per_mm,
+        "adc_counts_across_1_75mm": counts_per_mm * F["target_diameter_mm"],
+        "ideal_mm_per_count": 1 / counts_per_mm,
+        "qualification_gate": "Report U95 <= 0.020 mm after two-axis linearity, edge threshold, ambient-light and thermal-drift calibration; ADC count size alone is not accuracy.",
     }
 
 

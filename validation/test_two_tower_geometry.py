@@ -72,17 +72,16 @@ def main() -> None:
         anchor_evidence[tower_name] = {"centers_mm": [[round(x, 3), round(y, 3)] for x, y in centers]}
 
     modules = [obj for obj in doc.Objects if category(obj) == "MODULE_ENVELOPE"]
-    require(len(modules) == 11, f"expected 11 module envelopes, found {len(modules)}")
+    require(len(modules) == 9, f"expected 9 module envelopes, found {len(modules)}")
     order = [
-        "ClassificationStorage", "VibratorySorter", "GranulatorStage3",
-        "ShredderStage2", "ShredderStage1", "InputClassifier",
+        "BatchBin", "GranulatorStage2", "ShredderStage1", "ManualFeedHopper",
     ]
     z_centers = [doc.getObject(name).Shape.BoundBox.Center.z for name in order]
     require(z_centers == sorted(z_centers), "Tower A module order is not bottom-to-top")
-    require(doc.getObject("InputClassifier").Shape.BoundBox.ZMax <= p["maximum_input_lip_height_mm"],
+    require(doc.getObject("ManualFeedHopper").Shape.BoundBox.ZMax <= p["maximum_input_lip_height_mm"],
             "input lip exceeds architecture contract")
 
-    bin_obj = doc.getObject("ClassificationStorage")
+    bin_obj = doc.getObject("BatchBin")
     gross = doc.getObject("BatchBinGrossCavityReference")
     usable = doc.getObject("BatchBinUsableVolumeReference")
     close(gross.Shape.Volume / 1_000_000, p["batch_bin_gross_volume_l"], "batch gross L")
@@ -92,11 +91,9 @@ def main() -> None:
     require(bin_obj.Shape.common(gross.Shape).Volume < TOL, "gross cavity is not removed from the batch bin")
 
     chute_pairs = (
-        ("A_Chute_Input_Stage1", "InputClassifier", "ShredderStage1"),
-        ("A_Chute_Stage1_Stage2", "ShredderStage1", "ShredderStage2"),
-        ("A_Chute_Stage2_Stage3", "ShredderStage2", "GranulatorStage3"),
-        ("A_Chute_Stage3_Sorter", "GranulatorStage3", "VibratorySorter"),
-        ("A_Chute_Sorter_Bin", "VibratorySorter", "ClassificationStorage"),
+        ("A_Chute_Hopper_Stage1", "ManualFeedHopper", "ShredderStage1"),
+        ("A_Chute_Stage1_Stage2", "ShredderStage1", "GranulatorStage2"),
+        ("A_Chute_Stage2_Bin", "GranulatorStage2", "BatchBin"),
     )
     for chute_name, upstream, downstream in chute_pairs:
         chute = doc.getObject(chute_name)
@@ -124,16 +121,26 @@ def main() -> None:
     close(forming.XMin, rail_start, "forming line start")
     close(forming.XLength, p["service_rail_extension_mm"], "forming line length")
 
-    energy_zones = {obj.Name: tower(obj) for obj in doc.Objects if category(obj) == "SAFETY_ZONE"}
-    require(energy_zones == {
-        "TowerA_MotionContactorZone": "TowerA",
-        "TowerB_HeaterDriveZone": "TowerB",
-    }, f"energy zone split differs: {energy_zones}")
+    placeholders = {obj.Name: tower(obj) for obj in doc.Objects if category(obj) == "PLACEHOLDER"}
+    require(set(placeholders) == {
+        "CommonActuatorContactorPlaceholder",
+        "TowerA_DrivePlaceholder_Stage1",
+        "TowerA_DrivePlaceholder_Stage2",
+    }, f"placeholder set differs: {placeholders}")
+    pcb = [obj for obj in doc.Objects if category(obj) == "PCB_RESERVED"]
+    purchased = [obj for obj in doc.Objects if category(obj) == "PURCHASED_PART"]
+    routes = [obj for obj in doc.Objects if category(obj) == "WIRE_ROUTE"]
+    require([obj.Name for obj in pcb] == ["MonitorInterfacePCBReserved"], "PCB reserve missing")
+    require([obj.Name for obj in purchased] == ["ArduinoMegaPurchasedPlacement"], "purchased MCU placement missing")
+    require(len(routes) == 4, f"expected four explicit wire routes, found {len(routes)}")
+    require(pcb[0].Shape.common(purchased[0].Shape).Volume < TOL, "PCB and purchased MCU overlap")
+    for route in routes:
+        require(route.Shape.common(pcb[0].Shape).Volume < TOL, f"{route.Name} crosses PCB reserve")
 
     contract_a = contract["tower_a"]["rack_envelope_mm"]
     contract_b = contract["tower_b"]["rack_envelope_mm"]
-    require(contract_a == {"width": 600.0, "depth": 600.0, "height": 1350.0}, "Tower A contract drift")
-    require(contract_b == {"width": 900.0, "depth": 600.0, "height": 1150.0}, "Tower B contract drift")
+    require(contract_a == {"width": 500.0, "depth": 500.0, "height": 1100.0}, "Tower A contract drift")
+    require(contract_b == {"width": 850.0, "depth": 500.0, "height": 1000.0}, "Tower B contract drift")
 
     evidence = {
         "status": "VIRTUAL_GEOMETRY_PASS_PHYSICAL_GATES_OPEN",

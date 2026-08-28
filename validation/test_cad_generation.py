@@ -37,7 +37,7 @@ def validate_assembly() -> None:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["assembly"]
     doc = App.openDocument(str(ROOT / "cad" / "generation" / "fcstd" / "full_assembly_skeleton.FCStd"))
     modules = [o for o in doc.Objects if o.Name.startswith("MOD") or o.Label.startswith("MOD-")]
-    require(len(modules) == 11, f"expected 11 module envelopes, found {len(modules)}")
+    require(len(modules) == 9, f"expected 9 module envelopes, found {len(modules)}")
     shapes = [o.Shape for o in doc.Objects if hasattr(o, "Shape") and not o.Shape.isNull()]
     bb = Part.makeCompound(shapes).BoundBox
     require(
@@ -50,14 +50,14 @@ def validate_assembly() -> None:
     extruder = doc.getObject("Extruder").Shape.BoundBox
     forming = doc.getObject("CoolingGaugePuller").Shape.BoundBox
     spooler = doc.getObject("Spooler").Shape.BoundBox
-    classifier = doc.getObject("InputClassifier").Shape.BoundBox
-    storage = doc.getObject("ClassificationStorage").Shape.BoundBox
+    hopper = doc.getObject("ManualFeedHopper").Shape.BoundBox
+    granulator = doc.getObject("GranulatorStage2").Shape.BoundBox
     control = doc.getObject("ControlEnclosure").Shape.BoundBox
-    require(classifier.XLength >= 320.0 and classifier.ZLength >= 220.0, "input-classifier proof envelope regressed")
-    require(storage.XLength >= 320.0 and storage.YLength >= 320.0, "classification-storage proof envelope regressed")
-    require(dryer.XLength >= 320.0 and dryer.ZLength >= 580.0, "dryer proof envelope regressed")
+    require(hopper.XLength >= 260.0 and hopper.ZLength >= 320.0, "manual anti-reach hopper envelope regressed")
+    require(granulator.XLength >= 210.0 and granulator.ZLength >= 95.0, "second-stage granulator envelope regressed")
+    require(dryer.XLength >= 320.0 and dryer.ZLength >= 400.0, "dryer proof envelope regressed")
     require(extruder.XLength >= 850.0 and extruder.YLength >= 220.0, "extruder proof envelope regressed")
-    require(forming.XLength >= 760.0 and forming.YLength >= 160.0, "forming-line proof envelope regressed")
+    require(forming.XLength >= 700.0 and forming.YLength >= 160.0, "forming-line proof envelope regressed")
     require(spooler.XLength >= 355.0 and spooler.ZLength >= 320.0, "spooler proof envelope regressed")
     require(
         control.XLength >= 500.0 and control.YLength >= 200.0 and control.ZLength >= 400.0,
@@ -69,19 +69,11 @@ def validate_assembly() -> None:
 def validate_exports() -> None:
     stems = (
         "tolerance_coupon",
-        "classifier_gate_pair",
-        "color_diverter_rotor",
-        "input_classifier_proof",
-        "classification_storage_proof",
         "full_assembly_skeleton",
         "stage1_cutter_disc",
         "stage1_bearing_plate",
         "stage1_cutter_stack",
         "stage1_shredder_proof",
-        "stage2_rotor",
-        "stage2_bed_knife",
-        "stage2_bearing_plate",
-        "stage2_shredder_proof",
         "stage3_rotor",
         "stage3_stator",
         "stage3_bearing_plate",
@@ -89,11 +81,6 @@ def validate_exports() -> None:
         "stage3_screen_5mm",
         "stage3_screen_6mm",
         "stage3_granulator_proof",
-        "sorter_base_plate",
-        "sorter_top_screen_6mm",
-        "sorter_bottom_screen_3mm",
-        "sorter_service_clamp",
-        "vibratory_sorter_proof",
         "dryer_metal_hopper",
         "dryer_heat_shield",
         "dryer_metering_auger",
@@ -128,12 +115,8 @@ def validate_exports() -> None:
         require(mesh.CountFacets > 0, f"{stem} STL has no facets")
     dxf = (ROOT / "exports" / "dxf" / "stage1_bearing_plate.dxf").read_text(encoding="ascii")
     require("CBORE_DEPTH_11_8" in dxf and dxf.rstrip().endswith("EOF"), "Stage 1 plate DXF is incomplete")
-    dxf2 = (ROOT / "exports" / "dxf" / "stage2_bearing_plate.dxf").read_text(encoding="ascii")
-    require("CBORE_DEPTH_11_8" in dxf2 and dxf2.rstrip().endswith("EOF"), "Stage 2 plate DXF is incomplete")
     dxf3 = (ROOT / "exports" / "dxf" / "stage3_bearing_plate.dxf").read_text(encoding="ascii")
-    require("CBORE_DEPTH_11_8" in dxf3 and dxf3.rstrip().endswith("EOF"), "Stage 3 plate DXF is incomplete")
-    sorter_dxf = (ROOT / "exports" / "dxf" / "sorter_base_plate.dxf").read_text(encoding="ascii")
-    require("ISOLATOR_M6" in sorter_dxf and sorter_dxf.rstrip().endswith("EOF"), "sorter base DXF is incomplete")
+    require("CBORE_DEPTH_11_8" in dxf3 and dxf3.rstrip().endswith("EOF"), "MVP second-stage granulator plate DXF is incomplete")
     dryer_dxf = (ROOT / "exports" / "dxf" / "dryer_base_plate.dxf").read_text(encoding="ascii")
     require("OUTLINE_T6" in dryer_dxf and dryer_dxf.rstrip().endswith("EOF"), "dryer base DXF is incomplete")
     extruder_dxf = (ROOT / "exports" / "dxf" / "extruder_thrust_plate.dxf").read_text(encoding="ascii")
@@ -142,8 +125,6 @@ def validate_exports() -> None:
     require("FAN_AIR_D68_8" in cooling_dxf and "FAN_M4" in cooling_dxf and cooling_dxf.rstrip().endswith("EOF"), "cooling fan plate DXF is incomplete")
     spooler_dxf = (ROOT / "exports" / "dxf" / "spooler_bearing_plate.dxf").read_text(encoding="ascii")
     require("BEARING_6001_D28" in spooler_dxf and spooler_dxf.rstrip().endswith("EOF"), "spooler bearing plate DXF is incomplete")
-    classifier_dxf = (ROOT / "exports" / "dxf" / "classifier_gate_half.dxf").read_text(encoding="ascii")
-    require("HINGE_M4" in classifier_dxf and classifier_dxf.rstrip().endswith("EOF"), "classifier gate DXF is incomplete")
     control_dxf = (ROOT / "exports" / "dxf" / "control_door_half.dxf").read_text(encoding="ascii")
     require(
         "SELECTED_S0_A22E_M_02" in control_dxf
@@ -248,8 +229,6 @@ def validate_dryer_assembly() -> None:
         "Insulation",
         "VentilatedShield",
         "Lid",
-        "Agitator",
-        "DoubleGate",
         "MeteringAuger",
         "AugerHousing",
         "DrivesAndDryAir",
@@ -260,7 +239,7 @@ def validate_dryer_assembly() -> None:
         require(obj.Shape.isValid(), f"invalid dryer shape: {obj.Name}")
     auger = doc.getObject("MeteringAuger").Shape.BoundBox
     require(max(auger.XLength, auger.YLength, auger.ZLength) <= 210.0, "auger proof exceeds print bed envelope")
-    require(doc.getObject("MetalHopper").Shape.BoundBox.ZLength > 400.0, "dryer hopper active height missing")
+    require(doc.getObject("MetalHopper").Shape.BoundBox.ZLength > 280.0, "compact dryer hopper active height missing")
     support_gap = doc.getObject("BaseAndLoadCells").Shape.distToShape(doc.getObject("AugerHousing").Shape)[0]
     require(support_gap < 1e-7, f"dryer support frame does not reach auger housing: {support_gap:.3f} mm")
     App.closeDocument(doc.Name)
@@ -316,7 +295,7 @@ def validate_forming_assembly() -> None:
         require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null forming-line shape: {obj.Name}")
         require(obj.Shape.isValid(), f"invalid forming-line shape: {obj.Name}")
     require(doc.getObject("CoolingTunnel").Shape.BoundBox.XLength >= 440.0, "cooling tunnel length missing")
-    require(doc.getObject("Frame").Shape.BoundBox.XLength >= 760.0, "forming line rail length missing")
+    require(doc.getObject("Frame").Shape.BoundBox.XLength >= 700.0, "forming line rail length missing")
     for stem in ("cooling_tunnel_segment", "diameter_gauge_enclosure", "puller_roller_pair", "gauge_calibration_fixture"):
         shape = Part.read(str(ROOT / "exports" / "step" / f"{stem}.step"))
         require(max(shape.BoundBox.XLength, shape.BoundBox.YLength, shape.BoundBox.ZLength) <= 210.0, f"{stem} exceeds print-bed envelope")
@@ -372,22 +351,18 @@ def validate_control_enclosure_assembly() -> None:
         "GroundedShell",
         "BackplatePartitionDIN",
         "ServiceDoor",
-        "K1",
-        "PS1",
         "S0",
         "PCB1BoardReserved",
         "PCB1StandoffsReserved",
         "PCB1ComponentServiceKeepout",
-        "SBC1",
         "MCU1",
-        "K2A",
-        "K2B",
-        "FBR01_FBR07",
-        "FBR08_FBR14",
+        "KACT",
+        "FBR01_FBR05",
+        "FBR06_FBR10",
         "HS1",
         "HS2",
-        "QH1_QH3",
-        "QH4_QH6",
+        "QH1_QH2",
+        "QH3_QH4",
         "FMAIN_FLINKS",
         "X1_XN",
         "WR_HIGH",
@@ -401,8 +376,8 @@ def validate_control_enclosure_assembly() -> None:
     }
     require(expected == {o.Name for o in doc.Objects}, "control-enclosure proof object set differs")
     categories = [getattr(obj, "Category", "") for obj in doc.Objects]
-    require(categories.count("SELECTED_CANDIDATE_ENVELOPE") == 3, "selected-candidate object count differs")
-    require(categories.count("QUALIFICATION_CANDIDATE_ENVELOPE") == 10, "qualification-candidate object count differs")
+    require(categories.count("SELECTED_CANDIDATE_ENVELOPE") == 1, "selected-candidate object count differs")
+    require(categories.count("QUALIFICATION_CANDIDATE_ENVELOPE") == 9, "qualification-candidate object count differs")
     require(categories.count("PLACEHOLDER_TBD") == 3, "TBD placeholder object count differs")
     require(len([value for value in categories if value.startswith("WIRE_ROUTE_")]) == 4, "wiring-route class count differs")
     for obj in doc.Objects:
@@ -428,14 +403,11 @@ def main() -> None:
     validate_assembly()
     validate_exports()
     validate_stage1_assembly()
-    validate_stage2_assembly()
     validate_stage3_assembly()
-    validate_sorter_assembly()
     validate_dryer_assembly()
     validate_extruder_assembly()
     validate_forming_assembly()
     validate_spooler_assembly()
-    validate_classifier_assembly()
     validate_control_enclosure_assembly()
     validate_stage1_envelope()
     print("CAD_VALIDATION_OK")

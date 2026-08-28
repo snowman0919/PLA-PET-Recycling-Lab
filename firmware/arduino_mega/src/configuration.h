@@ -20,7 +20,7 @@ constexpr float kPressureMpaPerAdcCount = 0.0F;
 constexpr float kPressureZeroAdcCount = 0.0F;
 
 // These remain invalid until the current conditioner, tach target and
-// vibration front-end are selected and calibrated.  The sorter/shredder phase
+// vibration front-end are selected and calibrated.  The two-stage shred phase
 // cannot arm while either qualification flag is false.
 constexpr float kShredderAmpPerAdcCount = 0.0F;
 constexpr float kShredderCurrentZeroAdcCount = 0.0F;
@@ -29,6 +29,6 @@ constexpr float kShredderVibrationZeroAdcCount = 0.0F;
 constexpr float kShredderEncoderPulsesPerRevolution = 0.0F;
 constexpr float kShredderCommandRpm = 0.0F;
 
-constexpr unsigned long kPiBaud = 115200UL;
+constexpr unsigned long kServiceSerialBaud = 115200UL;
 constexpr uint32_t kLoopPeriodMs = 10;
 constexpr uint32_t kTelemetryPeriodMs = 200;

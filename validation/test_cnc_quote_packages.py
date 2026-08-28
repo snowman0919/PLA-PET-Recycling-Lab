@@ -23,15 +23,15 @@ def main() -> None:
     }
     package_rows = []
     for filename, expected_count in (
-        ("shredder_package.csv", 18),
+        ("shredder_package.csv", 12),
         ("extruder_package.csv", 5),
-        ("sheet_metal_package.csv", 11),
+        ("sheet_metal_package.csv", 5),
     ):
         rows = read(PACKAGE_DIR / filename)
         assert len(rows) == expected_count
         package_rows.extend(rows)
     ids = [row["Part ID"] for row in package_rows]
-    assert len(ids) == len(set(ids)) == 34
+    assert len(ids) == len(set(ids)) == 22
     assert expected_primary <= set(ids)
     assert set(ids) - expected_primary == {"EXT-THR-001"}
     for row in package_rows:

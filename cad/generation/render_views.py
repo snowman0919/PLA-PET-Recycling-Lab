@@ -112,24 +112,22 @@ def assembly_colour(triangle):
     """
     x, y, z = triangle_centroid(triangle)
     aluminium = (0.62, 0.66, 0.68)
-    if x < 620:
-        if x < 90 or x > 510 or y < 90 or y > 510:
+    if x < 500:
+        if x < 45 or x > 455 or y < 45 or y > 455:
             return aluminium
-        if z < 225:
+        if z < 245:
             return (0.28, 0.56, 0.38)  # sealed batch storage
-        if z < 410:
-            return (0.25, 0.52, 0.70)  # sorter
-        if z < 1040:
-            return (0.72, 0.34, 0.20)  # three-stage size reduction
-        return (0.30, 0.57, 0.76)      # optical input classifier
-    if x < 850:
+        if z < 640:
+            return (0.50, 0.30, 0.24)  # stage-2 screened granulator
+        return (0.72, 0.34, 0.20)      # stage-1 low-speed shredder / feed
+    if x < 700:
         return (0.88, 0.88, 0.88)      # deliberate separation corridor
-    if x <= 1750:
-        if x < 1240 and z > 450:
+    if x <= 1550:
+        if x < 1050 and z > 430:
             return (0.79, 0.56, 0.20)  # dryer / batch dock
-        if y > 275 and z < 350:
+        if y > 250 and z < 380:
             return (0.72, 0.25, 0.16)  # guarded extruder hot line
-        if x > 1320 and y < 270 and z < 430:
+        if x > 1180 and y < 250 and z < 500:
             return (0.35, 0.40, 0.46)  # grounded controls / energy zone
         return aluminium
     if y < 290:
@@ -299,7 +297,7 @@ def render_control_enclosure_bom_layout(target: Path) -> None:
         draw.text((legend_x + 46, ly + 6), text, fill=(35, 40, 45, 255), font=small)
     draw.multiline_text(
         (1310, 820),
-        "K2A/K2B  ABB AFS30\nFBR01…14  Eaton CHCC1DU\nQH1…6  Crydom 84137860\nHS1/HS2  Crydom HS103DR",
+        "KACT  contactor placeholder\nF01…F10 branch fuse holders\nQH1…QH4 heater SSRs\nHS1/HS2 shared heat sinks",
         fill=(20, 80, 35, 255), font=small, spacing=6,
     )
     draw.multiline_text(
@@ -326,8 +324,8 @@ def render_review_variants():
     output.mkdir(parents=True, exist_ok=True)
     iso = ((1, -1, 0.8), (0, 0, 1))
     sections = (
-        "input_classifier_proof", "stage1_shredder_proof", "stage2_shredder_proof",
-        "stage3_granulator_proof", "dryer_feeder_proof", "extruder_proof",
+        "stage1_shredder_proof", "stage3_granulator_proof",
+        "dryer_feeder_proof", "extruder_proof",
         "full_assembly_skeleton",
     )
     for stem in sections:
@@ -337,7 +335,7 @@ def render_review_variants():
                     colour_for=assembly_colour if stem == "full_assembly_skeleton" else None,
                     annotation=label_annotation("SECTION / CUTAWAY", "centroid-clipped review scene; no section cap"))
     transparent = (
-        "input_classifier_proof", "dryer_feeder_proof", "extruder_proof",
+        "dryer_feeder_proof", "extruder_proof",
         "control_enclosure_proof",
     )
     for stem in transparent:
@@ -398,13 +396,9 @@ def render(stem: str, category: str, colour: tuple[float, float, float]) -> None
 
 def main() -> None:
     render("tolerance_coupon", "modules", (0.95, 0.70, 0.15))
-    render("input_classifier_proof", "modules", (0.28, 0.56, 0.72))
-    render("classification_storage_proof", "modules", (0.36, 0.58, 0.42))
     render("stage1_cutter_stack", "modules", (0.72, 0.34, 0.18))
     render("stage1_shredder_proof", "modules", (0.78, 0.35, 0.22))
-    render("stage2_shredder_proof", "modules", (0.64, 0.32, 0.24))
     render("stage3_granulator_proof", "modules", (0.50, 0.30, 0.24))
-    render("vibratory_sorter_proof", "modules", (0.32, 0.52, 0.68))
     render("dryer_feeder_proof", "modules", (0.72, 0.48, 0.18))
     render("extruder_screw", "modules", (0.58, 0.58, 0.62))
     render("extruder_proof", "modules", (0.68, 0.28, 0.18))

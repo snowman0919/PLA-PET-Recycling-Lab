@@ -1,36 +1,34 @@
 Signal,Direction,Voltage domain,Proposed pin,Safe state,Criticality,Status,Notes
-USB_SERIAL,Serial,USB 5 V,D0/D1,No command accepted,CRITICAL,PROPOSED_LOCKED,Preferred Pi link through Mega USB interface
+USB_SERIAL,Serial,USB 5 V,D0/D1,No command accepted,LOW,PROPOSED_LOCKED,Optional service laptop logging and firmware upload only
 SPOOL_ENCODER_A,Input,5 V logic,D2,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable; isolated/open-collector preferred
 SPOOL_ENCODER_B,Input,5 V logic,D3,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable; isolated/open-collector preferred
 EXT_HEATER_ZONE1,Output,5 V logic,D4,LOW/off,CRITICAL,PROPOSED_LOCKED,External driver pulldown plus branch and thermal fuse
 EXT_HEATER_ZONE2,Output,5 V logic,D5,LOW/off,CRITICAL,PROPOSED_LOCKED,External driver pulldown plus branch and thermal fuse
-EXT_HEATER_ZONE3,Output,5 V logic,D6,LOW/off,CRITICAL,PROPOSED_LOCKED,External driver pulldown plus branch and thermal fuse
-EXT_HEATER_DIE,Output,5 V logic,D7,LOW/off,CRITICAL,PROPOSED_LOCKED,External driver pulldown plus branch and thermal fuse
-DRYER_PLA_HEATER,Output,5 V logic,D8,LOW/off,CRITICAL,PROPOSED_LOCKED,Hardware mutually exclusive with PET branch; 60 C trip and 72 C fuse candidate
-DRYER_PET_HEATER,Output,5 V logic,D9,LOW/off,CRITICAL,PROPOSED_LOCKED,Hardware mutually exclusive with PLA branch; 170 C trip and 184 C fuse candidate
+EXT_HEATER_ZONE3,Output,5 V logic,D6,LOW/off,CRITICAL,PROPOSED_LOCKED,Die-end channel; external driver pulldown plus branch and thermal fuse
+DRYER_HEATER,Output,5 V logic,D8,LOW/off,CRITICAL,PROPOSED_LOCKED,One heater shared by PLA/PET recipes; independent high limit and thermal fuse
 SHREDDER_PWM,Output,5 V logic,D10,LOW/zero,HIGH,PROPOSED_LOCKED,Driver interface TBD after donor inventory
 EXTRUDER_PWM,Output,5 V logic,D11,LOW/zero,HIGH,PROPOSED_LOCKED,Driver interface TBD after dyno
 PULLER_STEP_PWM,Output,5 V logic,D12,LOW/zero,HIGH,PROPOSED_LOCKED,Timer mapping must be rechecked with selected driver
 SPOOLER_STEP_PWM,Output,5 V logic,D13,LOW/zero,HIGH,PROPOSED_LOCKED,Timer mapping must be rechecked with selected driver
 SHREDDER_SPEED_PULSE,Input,5 V conditioned tach pulse,D14,No motion feedback,HIGH,NEEDS_FRONTEND,Polled multi-pulse target; PPR and missed-pulse timeout require dyno calibration
 HOPPER_GATE_ENABLE,Output,5 V logic,D15,LOW/closed,CRITICAL,PROPOSED_LOCKED,Time-proportioned feed limit; hard lid/service chain still dominates
-START_PAUSE,Input,Dry contact,D16,Open/not asserted,HIGH,PROPOSED_LOCKED,Physical acknowledgement required with Pi RUN
-BACK_ABORT,Input,Dry contact,D17,Open/not asserted,HIGH,PROPOSED_LOCKED,Held with Pi RESET for fault reset
+START_PAUSE,Input,Dry contact,D16,Open/not asserted,HIGH,PROPOSED_LOCKED,Local physical start/pause acknowledgement
+BACK_ABORT,Input,Dry contact,D17,Open/not asserted,HIGH,PROPOSED_LOCKED,Local back/abort and manual fault reset acknowledgement
 EXTRUDER_ENCODER_A,Input,5 V logic,D18,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable
 EXTRUDER_ENCODER_B,Input,5 V logic,D19,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable
 PULLER_ENCODER_A,Input,5 V logic,D20,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable; consumes I2C SDA pin
 PULLER_ENCODER_B,Input,5 V logic,D21,Stopped,HIGH,PROPOSED_LOCKED,Interrupt-capable; consumes I2C SCL pin
-E_STOP_AUX,Input,Safety relay isolated aux,D22,HIGH/open=fault,CRITICAL,PROPOSED_LOCKED,Monitoring only; dual-channel safety relay cuts energy independently
+E_STOP_AUX,Input,E-stop auxiliary dry contact,D22,HIGH/open=fault,CRITICAL,PROPOSED_LOCKED,Monitoring only; latching NC E-stop directly opens KACT coil
 CONTACTOR_FEEDBACK,Input,Isolated aux,D23,HIGH/open,CRITICAL,PROPOSED_LOCKED,NO mirror contact; welded-on and close timeout checked
-LID_INTERLOCK_AUX,Input,Safety relay isolated aux,D24,HIGH/open=fault,CRITICAL,PROPOSED_LOCKED,Direct motor-enable chain remains outside firmware
-SERVICE_INTERLOCK_AUX,Input,Safety relay isolated aux,D25,HIGH/open=fault,CRITICAL,PROPOSED_LOCKED,Series NC guard loop plus individual diagnostics where available
+LID_INTERLOCK_AUX,Input,Optional cover sensor,D24,HIGH/open=fault,HIGH,NEEDS_SELECTION,Diagnostic sensor only; MVP guard is fixed anti-reach/tool-opened cover
+SERVICE_INTERLOCK_AUX,Input,Optional service sensor,D25,HIGH/open=fault,HIGH,NEEDS_SELECTION,Diagnostic sensor only; lockout remains mandatory
 THERMAL_CHAIN_AUX,Input,Isolated NC chain,D26,HIGH/open=fault,CRITICAL,PROPOSED_LOCKED,Independent high-limit relay/thermal fuse feedback
 PRESSURE_TRIP_AUX,Input,Isolated NC switch/relay,D27,HIGH/open=fault,CRITICAL,NEEDS_SELECTION,Discrete pressure trip separate from analog transducer
 AIRFLOW_AUX,Input,Isolated NC switch,D28,HIGH/open=fault,CRITICAL,NEEDS_SELECTION,Extrusion cannot arm without qualified airflow proof
 FORMING_GUARD_AUX,Input,Isolated NC switch,D29,HIGH/open=fault,HIGH,NEEDS_SELECTION,Puller/spooler guard loop
-CONTACTOR_REQUEST,Output,5 V logic to safety interface,D30,LOW/off,CRITICAL,PROPOSED_LOCKED,Cannot bypass E-stop safety relay; driver pulldown required
+CONTACTOR_REQUEST,Output,5 V logic to KACT coil driver,D30,LOW/off,CRITICAL,PROPOSED_LOCKED,Series with physical E-stop; firmware cannot bypass open NC contact
 SHREDDER_ENABLE,Output,5 V logic,D31,LOW/off,CRITICAL,PROPOSED_LOCKED,Also gated by lid/service hardware chain
-SORTER_ENABLE,Output,5 V logic,D32,LOW/off,HIGH,PROPOSED_LOCKED,External driver enable
+STAGE2_ENABLE,Output,5 V logic,D32,LOW/off,HIGH,PROPOSED_LOCKED,Screen granulator driver enable
 FEEDER_ENABLE,Output,5 V logic,D33,LOW/off,HIGH,PROPOSED_LOCKED,External driver enable
 EXTRUDER_ENABLE,Output,5 V logic,D34,LOW/off,CRITICAL,PROPOSED_LOCKED,Pressure/thermal chain gated
 PULLER_ENABLE,Output,5 V logic,D35,LOW/off,HIGH,PROPOSED_LOCKED,Diameter loop actuator
@@ -43,7 +41,7 @@ TRAVERSE_DIRECTION,Output,5 V logic,D41,LOW/home,HIGH,PROPOSED_LOCKED,Home/end s
 SPOOLER_DIRECTION,Output,5 V logic,D42,LOW/wind,HIGH,PROPOSED_LOCKED,Service direction change only at zero tension
 PULLER_DIRECTION,Output,5 V logic,D43,LOW/forward,HIGH,PROPOSED_LOCKED,Normal process direction fixed
 TRAVERSE_STEP,Output,5 V logic,D44,LOW/zero,HIGH,PROPOSED_LOCKED,Hardware PWM capable
-SORTER_PWM,Output,5 V logic,D45,LOW/zero,HIGH,PROPOSED_LOCKED,Hardware PWM capable
+STAGE2_PWM,Output,5 V logic,D45,LOW/zero,HIGH,PROPOSED_LOCKED,Screen granulator speed request; hardware PWM capable
 FEEDER_STEP_PWM,Output,5 V logic,D46,LOW/zero,HIGH,PROPOSED_LOCKED,Hardware PWM capable
 TFT_DC,Output,3.3/5 V per module,D47,LOW,HIGH,NEEDS_SELECTION,Use level shifting if TFT is not 5 V tolerant
 TFT_CS,Output,3.3/5 V per module,D48,HIGH/deselected,HIGH,NEEDS_SELECTION,External pull-up recommended

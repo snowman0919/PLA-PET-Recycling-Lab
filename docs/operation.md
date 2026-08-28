@@ -1,55 +1,38 @@
-# 운전 절차 — 물리 승인 전 사용 금지
+# 운전 개념 — 물리 승인 전 사용 금지
 
-이 문서는 설계된 sequence와 UI 요구사항이다. Release checklist의 물리 항목과 사용자 안전 승인이 완료되기 전 cutter, heater, high-current bus를 energize하는 실제 운전지침이 아니다.
+이 문서는 Undergraduate MVP의 설계 sequence다. 실제 cutter·heater·고전류 bus 운전 절차는 donor 정격 확인과 물리 release 시험 뒤 확정한다.
 
-## 허용·금지 입력
+## 허용 입력
 
-허용: 단일재질 순수 PLA 출력 폐기물 또는 cap·neck ring·label·adhesive를 제거하고 세척한 PET bottle/body. 한 batch와 extrusion session에는 한 재질만 사용한다.
-
-금지: PVC, PETG를 PET로 간주한 재료, TPU, ABS/나일론/PC, 미확인 플라스틱, 탄소/유리섬유 복합재, 도장·코팅품, 금속 screw/insert/magnet/bearing, 음식·음료·세정제 잔류물. 낮은 classifier confidence는 Reject가 기본이며 사용자 override도 물리 확인과 event log를 요구한다.
+- 한 batch에는 수동 확인한 순수 PLA 또는 세척·건조한 PET 한 재질만 사용한다.
+- 색상도 한 색 또는 사용자가 의도한 혼합색 한 batch로 관리한다.
+- 입력은 금속·라벨·접착제·음식물을 제거하고 120×120 mm 이하로 사전 절단한다.
+- PVC, PETG, TPU, ABS, 나일론, PC, 미확인·복합·도장 재질은 투입하지 않는다.
 
 ## Startup
 
-1. 환기, 조명, 소화/비상 접근, 주변 비인가자 부재와 장치 고정을 확인한다.
-2. Lockout 상태에서 guard, lid, service cover, shield, spool cage, purge catch, fines bin과 filter를 검사한다.
-3. PE, fuse indicator, thermal fuse/high-limit, pressure relief discharge와 connector label을 확인한다.
-4. 원료 batch ID, source object/batch, recycling generation, material/color truth와 금지물 검사 결과를 등록한다.
-5. PSU label/branch current가 승인된 configuration과 일치하는지 확인한다.
-6. TFT startup 화면의 환기, 허용·금지 원료, label/metal/food 제거, guard/bin 설치 경고를 읽고 rotary PUSH로 확인한다. 이 확인 전 Mega는 `RESET/RUN` 요청을 폐기한다.
-7. E-stop을 release하고 monitored manual reset을 수행한다. Pi heartbeat와 local BACK/ABORT를 함께 사용해 Mega SELF_TEST를 시작한다.
-8. SELF_TEST가 E-stop/contact mirror, lid/service/thermal chain, sensor open/short, pressure/airflow, encoder/limit 상태를 모두 통과해야 READY가 된다.
+1. 주전원을 lockout한 상태에서 두 타워 고정, anti-reach hopper, 공구식 service cover, hot shield, PE와 branch fuse를 검사한다.
+2. PLA/PET recipe, 색상, batch ID를 Arduino UI에서 직접 선택한다. batch 중 recipe 변경은 허용하지 않는다.
+3. 환기와 금지재질 경고를 확인한 뒤 물리 START 버튼으로 시작한다.
+4. latching E-stop을 해제하고 공통 actuator contactor가 떨어져 있음을 보조접점으로 확인한 후 수동 reset한다.
+5. 센서·thermal chain·airflow·압력·contactor feedback이 정상일 때만 READY가 된다.
 
-## 분류·파쇄·선별
+## 2단 파쇄
 
-1. UI에서 `SORT_SHRED`, 자동 material/color classification과 target bin을 선택한다.
-2. 첫 물체는 빈 chamber에서 처리하고 camera frame, confidence, current RMS/peak, speed drop와 vibration trace를 확인한다.
-3. START physical acknowledgement 후 feed gate를 연다. 손·도구로 원료를 밀지 않는다.
-4. Load 증가 시 firmware가 FEED_LIMIT→STOP→REVERSE→RETRY를 수행하며 3회 뒤 fault가 latch된다.
-5. Oversize는 이전 stage로, 3–6 mm acceptable은 선택 bin으로, <3 mm fines는 밀폐 waste bin으로 보낸다.
-6. Jam/fault는 E-stop과 lockout 후 원인을 제거하고 fastener/tool count와 guard 복구 전 reset하지 않는다.
+1. 1차 twin-shaft가 사전 절단물을 저속 파쇄한다.
+2. 고정 chute가 2차 screen granulator로 이송하며 5 mm screen 통과분을 3 L batch bin에 받는다.
+3. oversize는 전원 lockout 후 회수해 2차에 다시 투입한다. 별도 자동 sorter는 없다.
+4. 과부하는 FEED_LIMIT→STOP→제한 reverse→RETRY 순으로 최대 3회 처리하고 이후 latched FAULT로 전환한다.
+5. 막힘 제거는 E-stop, main disconnect, 0 V 확인, 공구식 cover 분리 뒤 수행한다.
 
-## 건조·batch 선택
+## 건조·압출·권취
 
-PLA baseline은 45 °C 6 h, PET baseline은 140 °C 2 h+160 °C 4 h 계산 profile이다. 실제 resin supplier 자료와 물리 coupon이 우선한다. PET는 outlet moisture ≤50 ppm, 외부 dew point ≤−40 °C를 증명하지 못하면 extrusion하지 않는다.
+1. 최대 0.5 kg batch를 dryer에 넣고 선택 재질 recipe로 건조한다. 실제 온도·시간은 resin 공급자 자료와 coupon 결과로 확정한다.
+2. 100~150 g/h 범위로 정량 공급하고 3개 heater channel의 압출기/다이 구간을 예열한다.
+3. 충분한 purge 뒤 strand를 700 mm 직선 rail의 냉각·X/Y shadow gauge·puller·spooler로 통과시킨다.
+4. gauge 교정 전에는 closed-loop 제품 합격 판정을 사용하지 않는다. 초기 목표는 1.75±0.05 mm, ovality ≤0.05 mm다.
+5. 정상 정지는 feed off→purge→heater off→저속 배출→cooldown→압력 0·안전온도 확인 순서다.
 
-PLA/PET heater branch는 hardware selector로 상호배제한다. Profile 변경은 Mega의 purge latch를 set하며 `EXTRUDE_SPOOL`을 차단한다. 승인된 purge와 waste 격리를 기록한 뒤 Pi `PURGE_ACK`와 정지 상태의 local BACK/ABORT를 동시에 확인해야 latch가 풀린다. Hopper batch가 선택한 material/color와 다르거나 이전 material purge 기록이 없으면 feeder가 열리지 않아야 한다.
+## 비상정지
 
-## 압출·첫 strand
-
-1. Material profile과 purge requirement를 확인하고 metal catch, screen pack와 die guard를 장착한다.
-2. `DRY_PREHEAT`에서 heater를 올린 뒤 zone ±3 °C, pressure 0, feed-throat cooling/airflow와 bearing temperature를 확인한다.
-3. `EXTRUDE_SPOOL`로 전환하고 low feed/20 rpm에서 purge한다. Pressure 3 MPa target, 5 MPa warning, 6.5 MPa automatic reduction, 8 MPa latched stop을 적용한다.
-4. 충분한 purge mass와 색/기포/black-speck 검사를 통과한 strand만 cooling tunnel로 보낸다.
-5. 사용자가 guard-open/drive-disabled 상태에서 strand를 puller, dancer, traverse와 spool start hole에 수동 threading한다. Guard를 닫고 interlock을 재확인한다.
-
-## 직경 폐루프·권취
-
-Gauge U95가 qualified되지 않으면 product acceptance/closed-loop를 켜지 않는다. 초기 acceptance는 1.75±0.05 mm, ovality ≤0.05 mm다. 5회 연속 직경/ovality 불량 또는 3회 오염 frame에서 Pi가 PAUSE하고, Pi/USB 상실은 Mega가 760 ms 이내 safe output으로 전환한다.
-
-Puller가 diameter를 제어하고 spooler는 dancer 0.5 N을 따라간다. Core/full spool speed는 약 4.45→1.78 rpm이고 torque limit는 0.25 N·m다. Traverse는 70 mm 안에서만 움직이며 flange spill, dancer limit, slip >5%에서 중지한다.
-
-## 정상 정지·비상 정지
-
-정상 정지는 feed 차단→approved purge→heater off→저속 screw/puller 정지→cooldown fan→압력 0/안전온도 확인→batch 종료 통계 export 순서다. 생산 log에는 평균·표준편차·min/max·ovality·불량구간·길이/질량·fault가 남아야 한다.
-
-사람 접근, guard 파손, 불꽃/연기, 비정상 냄새, pressure relief, 전기음 또는 통제되지 않은 움직임에는 UI PAUSE가 아니라 물리 E-stop을 누르고 main disconnect를 차단한다. 원인 조사와 자격 검사 전 재가동하지 않는다.
+사람 접근, guard 파손, 불꽃·연기, 비정상 냄새, 압력 이상 또는 통제되지 않은 움직임에는 물리 E-stop을 누른다. NC 접점이 KACT coil을 직접 열어 위험 actuator bus를 끊으며 Arduino 신호는 이 경로를 우회할 수 없다. 원인 조사와 수동 reset 전 재가동하지 않는다.

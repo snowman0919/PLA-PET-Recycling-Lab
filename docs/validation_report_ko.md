@@ -1,66 +1,48 @@
 # 자동 검증 보고서
 
-Revision: `0.1.0-preflight`
+- Revision: `0.2.0-undergraduate-mvp`
+- 실행일: 2026-08-28 (Asia/Seoul)
+- 판정: **자동 설계 검증 PASS / 제작·물리 release 미승인**
 
-실행일: 2026-08-28 (Asia/Seoul)
+## 현행 검증 결과
 
-판정: **자동 설계 검증 PASS / 물리 release 미승인**
+`nix develop -c python3 -u validation/run_all.py`에서 최종 marker `ALL_AUTOMATED_VALIDATIONS_OK (27 gates)`를 확인했다.
 
-## 실행 범위
+주요 통과 항목은 다음과 같다.
 
-`nix develop --command python3 validation/run_all.py`가 다음 33개 gate를 순서대로 실행한다. 최신 PCB 추가분은 별도 gate에서도 선검증했다.
+- 시스템 BOM 58행, `BUY` 23행, 요구사항 43개의 one-to-one 추적
+- 2단 파쇄만 활성: Stage 1 twin-shaft와 기능상 Stage 2인 5 mm screen granulator
+- Tower A 500×500×1100 mm, Tower B 850×500×1000 mm, 200 mm gap, 700 mm rail, 전체 2250×500×1100 mm
+- 3 L gross/2 L usable batch bin, 약 0.5 kg compact dryer, 100~150 g/h forming 계산
+- full-assembly와 control enclosure의 `PURCHASED_PART`, `PCB_RESERVED`, `WIRE_ROUTE`, `PLACEHOLDER` 분리 및 비중첩
+- 제어함: Arduino 1대, KACT 1개 placeholder, fuse holder 10개, SSR 4개, heat sink 2개, 190×130 mm PCB 예약영역
+- dryer·extruder·forming·spooler·Stage 1·screen granulator FreeCAD geometry와 STEP/STL 산출물
+- Arduino Mega core/sketch host compile, E-stop/contactor 감시, 3+1 heater output, bounded jam retry
+- CNC/RFQ precheck 22행; 주문·제작 승인 상태가 아님을 검사
+- artifact manifest의 파일 크기와 SHA-256 일치
 
-1. Source BOM 재생성 및 85행/59 CRITICAL/status/가격 증거 검사
-2. Dryer power·thermal·feed budget, 압출기/건조기 shield·인접 polymer 정상/고장 열 gate와 metal hot-path geometry
-3. Electronics pin collision, H01–H18, 5개 commissioning lock, heartbeat/jam/power timing
-4. Extruder diameter sweep·pressure/thrust/drive/heater screening과 geometry clearance
-5. Cooling/gauge/puller control model, forming geometry와 spooler shaft/dancer/traverse
-6. Vibratory sorter dynamic model과 3-stream geometry
-7. Stage 1/2/3 cutter/rotor/screen kinematic clearance
-8. Input double-gate/reach probe/7-port와 control-enclosure segregation
-9. 전체 FCStd object set, STEP validity, STL facet, DXF marker와 210 mm print gate
-10. Arduino Mega portable safety/UI core와 전체 `.ino` host integration compile, startup/purge/UI gate, Raspberry Pi Python 10-test suite
-11. 43개 시스템 요구사항의 one-to-one 증거·미검증 gate 추적
-12. 34행 CNC/RFQ precheck package의 BOM·STEP·DXF·drawing trace와 미승인 상태
-13. 7개 구조 load path의 analytic·20-element beam FEA, support reaction·횡전단·비틀림 조합응력과 intentional review gate
-14. Section/x-ray/exploded/tool/cable/slicing 22개 CAD review variant의 크기·구조·한계표기
-15. 조립 PDF 필수 40개 topic의 순번·지원파일·실제 PDF text coverage
-16. 359개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG
-17. A4 한국어 PDF의 header/EOF/page object 구조
-18. 원문 release 기능을 보존한 2-tower 치수·batch·safety·anchor 수치 계약
-19. RTX 3080 CUDA 4,194,304-sample stability sweep, 8,192-sample CPU 교차검산과 source/contract hash
-20. 2-tower FCStd의 2510×600×1350 mm envelope, 250 mm separation, 8/6 L batch cavity, 8개 anchor, gravity chute, batch dock와 760 mm straight rail 형상 계약
-21. KiCad monitor/interface board의 native source, ERC 0, DRC 0/미연결 0, 분리 zone, 3 fiducial, 12 test point, fabrication 산출물과 SPICE 9/9 pass 계약
-22. Stage 1 실제 cutter STEP의 Gmsh coarse/fine C3D4 mesh와 CalculiX 2.23 선형 정적 변위·응력·반력·mesh convergence 계약
+카메라 classifier, 자동 색상 routing, vibratory sorter, 구형 중간 파쇄기, Raspberry Pi, 이전 GPU stability evidence와 구형 PDF coverage는 현행 27개 gate에서 제외했다. 저장소에 남은 관련 파일은 비교 이력이며 MVP 제작 기준이 아니다. `stage3_*`/`GRN-*` 파일명은 과거 추적성을 유지하지만 현행 공정에서는 **Stage 2 granulator**를 뜻한다.
 
-최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (33 gates)`로 통과했다. Manifest는 `artifacts/manifest.json`이며 KiCad source/제조/분석, 데이터시트 provenance, Stage 1 CAD 기반 3D 선형 정적 FEA, 다중 공급처 조달 증거와 85행 BOM에 연결된 control-enclosure exact-MPN/PCB/placeholder/wire-route 배치표를 포함한 359개 항목의 bytes와 SHA-256를 기록한다. PCB 단독 marker `KICAD_INTERFACE_BOARD_OK`도 통과했다.
+## PASS가 의미하지 않는 것
 
-## 통과가 의미하는 것
+다음 물리 gate는 OPEN이다.
 
-- 저장된 계산과 parameter가 문서의 핵심 설계값과 일치한다.
-- Proof CAD가 null/invalid shape 없이 export되고 지정된 module/object/DXF 구조를 갖는다.
-- Fail-safe software 경로, protocol, logging과 정적 배선 interface가 host 환경에서 일관된다.
-- BOM이 미확정 비용을 0원으로 숨기지 않고 target/recommended 전략을 분리한다.
-- PDF와 raster review 산출물이 열리고 요구된 한국어 문서가 존재한다.
+- cutter 재료·열처리·실하중 torque·파편 containment와 donor motor/driver dyno
+- screen 통과율·fines·oversize 질량수지
+- dryer 수분 제거, PET 열열화, extruder pressure/relief와 100 g/h 이상 30분 질량수지
+- KACT의 실제 DC utilization/차단정격, fuse coordination, 배선 굵기, PE 연속성, 열상승
+- E-stop을 누른 상태와 controller fault 상태의 위험전력 제거 시험
+- X/Y shadow gauge 교정 불확도와 30분 1.75±0.05 mm 안정성
+- landed price, CNC 실견적과 200,000 KRW 신규구매 목표 달성
 
-## 통과가 의미하지 않는 것
+따라서 현재 패키지는 구조·배치·BOM 검토와 견적 준비에는 사용할 수 있지만 cutter/heater/high-current energization 또는 생산 승인 근거로 사용할 수 없다.
 
-다음은 물리 시험과 책임자 승인이 없으므로 모두 OPEN이다.
+## 재현 명령
 
-- Cutter 재료·열처리·비선형 contact/impact/fatigue FEA·충격 containment와 donor motor dyno
-- Screw/barrel/die CNC 공차·재료·열처리, pressure transducer/relief/proof
-- Safety relay/contactor/fuse coordination, PE/SCCR/연면거리·열상승과 mains panel 승인
-- Camera optic `U95≤0.020 mm`, classifier confusion matrix, gate 1000-cycle
-- PET dew point/moisture/degradation, PLA/PET 30분 ≥200 g/h와 diameter/ovality
-- 1 kg spool winding/endurance, 전체 frame anchor/tip/vibration
-- Landed vendor price, CNC quote와 200,000 KRW budget 달성
-
-따라서 현재 패키지는 fabrication review와 coupon 제작 준비에는 사용할 수 있으나 cutter/heater/high-current energization 또는 production release 근거로 사용할 수 없다.
-
-## 재현 상태
-
-이전 revision의 generator→표준/review render→Nix Typst PDF→30-gate 재생성은 PASS했다. KiCad 추가 revision은 커밋 `3195b8e`의 별도 clean clone에서 32개 gate와 manifest 353개가 모두 PASS했다. 이후 Stage 1 실제 CAD 3D 선형 정적 FEA gate를 더한 revision은 별도 clean clone에서 33개 gate와 manifest 355개가 모두 PASS했다. 조달 경로와 500×400×200 mm BOM 추적형 control-enclosure 배치를 포함한 커밋 `9ab335d`도 별도 clean clone에서 33개 gate와 manifest 359개가 모두 PASS했다. 이번 500×400×210 mm exact-enclosure 후보, K2A/K2B, fuse-holder 14개, DC SSR 6개와 방열판 2개 통합 작업트리에서도 Nix 전체 33개 gate와 manifest 359개가 PASS했다. 저장된 CUDA evidence는 GPU가 없는 clone에서도 device/sample/threshold/CPU cross-check와 contract/source hash를 검증한다.
-
-STEP header timestamp와 review JSON 경로는 deterministic 값/저장소 상대경로로 정규화한다. STL, DXF, 표준/review render, Nix Typst 0.15.1 PDF, 계산 JSON과 review JSON은 clean clone에서 byte-identical했다. FCStd 51개는 FreeCAD가 생성 시각·UUID·내부 object ID를 기록하므로 형상·object-set 검증은 재현되지만 container byte hash는 실행마다 달라질 수 있다. Manifest는 해당 실행에서 전달되는 실제 파일의 hash를 기록한다.
-
-KiCad interface generator는 pcbnew가 새로 부여하는 object UUID와 footprint-local Fab text 순서를 정규화한다. 연속 두 번 생성한 `.kicad_sch/.kicad_pcb/.kicad_pro/.kicad_dru` 해시가 동일했고, 그 직후 ERC 0, DRC 0/미연결 0을 다시 확인했다.
+```bash
+nix develop -c FreeCADCmd -c \
+  "import runpy; runpy.run_path('cad/generation/generate_all.py', run_name='__main__')"
+QT_QPA_PLATFORM=offscreen nix develop -c FreeCADCmd -c \
+  "import runpy; runpy.run_path('cad/generation/render_views.py', run_name='__main__')"
+nix develop -c python3 -u validation/run_all.py
+```

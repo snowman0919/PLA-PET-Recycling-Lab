@@ -206,7 +206,7 @@ def main() -> None:
             "Known planning floor KRW": 0,
             "TBD line count": source_counts["REUSE"],
             "Total status": "TBD_AFTER_INSPECTION_AND_DYNO",
-            "Notes": "Current cash may be zero for two stated on-hand controllers; all replacement values remain TBD.",
+            "Notes": "Current cash may be zero for user-stated donor parts after inspection; all replacement values remain TBD.",
         },
         {
             "Rollup": "REQUIRED_BASELINE",
@@ -215,7 +215,7 @@ def main() -> None:
             "Known planning floor KRW": public_floor_total,
             "TBD line count": required_tbd_lines,
             "Total status": "INCOMPLETE_NOT_BUDGET_COMPLIANT",
-            "Notes": f"All {len(source)} baseline rows are required; {len(public_floor)} primary public floors and 2 conditional on-hand zero-cash rows are the target-budget assumptions.",
+            "Notes": f"All {len(source)} baseline rows are required; {len(public_floor)} primary public floors and {len(known_zero_cash_ids)} conditional on-hand zero-cash rows are the target-budget assumptions.",
         },
         {
             "Rollup": "OPTIONAL_ADDONS",
@@ -229,7 +229,7 @@ def main() -> None:
     ]
     write_cost_rollup(ROOT / "bom" / "cost_rollup.csv", rollup)
     summary = {
-        "revision": "0.1.0-preflight",
+        "revision": "0.2.0-undergraduate-mvp",
         "generated_date": "2026-08-28",
         "bom_row_count": len(source),
         "critical_row_count": sum(row["Criticality"] == "CRITICAL" for row in source),
@@ -249,7 +249,7 @@ def main() -> None:
         "pricing_assumptions": [
             "Planning conversion uses 1 USD = 1400 KRW and is not a live FX quote.",
             "Public prices exclude unresolved shipping, tax, customs, incomplete assemblies and all unpriced rows; qualification candidates are not purchase approvals.",
-            "Conditional zero current cash applies only to the user-stated on-hand Pi and Mega; PSU fitness and replacement remain TBD.",
+            "Conditional zero current cash applies only to the user-stated on-hand Arduino Mega; PSU fitness and replacement remain TBD.",
         ],
     }
     (ROOT / "bom" / "cost_summary.json").write_text(

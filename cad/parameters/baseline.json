@@ -1,5 +1,5 @@
 {
-  "revision": "0.1.0-preflight",
+  "revision": "0.2.0-undergraduate-mvp",
   "print_bed_limit_mm": 210.0,
   "fits": {
     "locating_clearance_mm": 0.10,
@@ -216,15 +216,15 @@
     "base_thickness_mm": 6.0,
     "load_cell_positions_mm": [[55.0, 45.0], [235.0, 45.0], [145.0, 215.0]],
     "support_frame_top_z_mm": 38.0,
-    "hopper_inner_diameter_mm": 140.0,
-    "hopper_active_height_mm": 320.0,
+    "hopper_inner_diameter_mm": 110.0,
+    "hopper_active_height_mm": 180.0,
     "hopper_wall_mm": 2.0,
     "hopper_cone_height_mm": 90.0,
     "hopper_outlet_diameter_mm": 36.0,
-    "hopper_metal_mass_kg": 2.5,
+    "hopper_metal_mass_kg": 1.5,
     "flake_bulk_density_kg_m3": 250.0,
-    "design_inventory_kg": 1.2,
-    "stable_mass_flow_gph": 200.0,
+    "design_inventory_kg": 0.5,
+    "stable_mass_flow_gph": 100.0,
     "insulation_thickness_mm": 40.0,
     "shield_air_gap_mm": 6.0,
     "shield_thickness_mm": 1.0,
@@ -259,8 +259,8 @@
     "auger_housing_inner_diameter_mm": 34.0,
     "auger_housing_wall_mm": 3.0,
     "auger_fill_fraction": 0.25,
-    "auger_speed_range_rpm": [2.0, 6.0],
-    "agitator_speed_rpm": 20.0
+    "auger_speed_range_rpm": [1.5, 4.0],
+    "agitator_speed_rpm": 0.0
   },
   "extruder": {
     "candidate_screw_diameters_mm": [12.0, 14.0, 16.0, 18.0],
@@ -302,10 +302,10 @@
     "shield_air_gap_mm": 8.0,
     "shield_thickness_mm": 1.0,
     "thermal_bridge_factor": 2.5,
-    "heater_zone_power_w": [80.0, 80.0, 80.0, 60.0],
-    "heater_peak_power_w": 300.0,
-    "pla_profile_c": [180.0, 190.0, 200.0, 190.0],
-    "pet_profile_c": [250.0, 270.0, 280.0, 275.0],
+    "heater_zone_power_w": [100.0, 100.0, 60.0],
+    "heater_peak_power_w": 260.0,
+    "pla_profile_c": [185.0, 200.0, 190.0],
+    "pet_profile_c": [255.0, 280.0, 275.0],
     "pla_independent_high_limit_c": 230.0,
     "pet_independent_high_limit_c": 295.0,
     "thermal_fuse_candidate_c": 300.0,
@@ -367,24 +367,7 @@
     "terminal_service_keepout_mm": 30.0,
     "pcb_standoff_mm": 12.0,
     "layout": {
-      "selected_candidates": [
-        {
-          "ref": "K1",
-          "part_id": "SAF-REL-001",
-          "mpn": "LG5925.48/920/61 DC 24 V",
-          "origin_mm": [25.0, 81.0, 300.0],
-          "size_mm": [22.5, 121.0, 90.0],
-          "source": "DOLD LG5925_920_DB.pdf, 2024-11-06, width x height x depth 22.5 x 90 x 121 mm"
-        },
-        {
-          "ref": "PS1",
-          "part_id": "ELE-BUCK-001",
-          "mpn": "DDR-30G-5",
-          "origin_mm": [265.0, 147.5, 285.0],
-          "size_mm": [35.0, 54.5, 90.0],
-          "source": "MEAN WELL DDR-30-SPEC 2026-03-31, W x H x D 35 x 90 x 54.5 mm"
-        }
-      ],
+      "selected_candidates": [],
       "door_selected_candidate": {
         "ref": "S0",
         "part_id": "SAF-EST-001",
@@ -405,13 +388,6 @@
       },
       "user_inventory": [
         {
-          "ref": "SBC1",
-          "part_id": "SYS-CTRL-001",
-          "origin_mm": [265.0, 184.0, 190.0],
-          "size_mm": [85.0, 18.0, 56.0],
-          "source": "nominal Raspberry Pi 4 board envelope; verify owned unit and connector overhang"
-        },
-        {
           "ref": "MCU1",
           "part_id": "SYS-CTRL-002",
           "origin_mm": [365.0, 184.0, 190.0],
@@ -421,44 +397,35 @@
       ],
       "qualification_candidates": [
         {
-          "ref": "K2A",
+          "ref": "KACT",
           "part_id": "SAF-CON-001",
           "mpn": "AFS30-30-22-11",
           "origin_mm": [55.0, 82.5, 300.0],
           "size_mm": [45.0, 119.5, 86.0],
           "source": "ABB AFS safety contactor catalog, W x D x H 45 x 119.5 x 86 mm",
-          "qualification": "Tower A hazardous-motion zone candidate; confirm DC-1 series-pole wiring, measured branch current and safety EDM architecture"
+          "qualification": "One common actuator contactor candidate; confirm DC utilization, measured total branch current, auxiliary feedback and welded-contact response"
         },
         {
-          "ref": "K2B",
-          "part_id": "SAF-CON-001",
-          "mpn": "AFS30-30-22-11",
-          "origin_mm": [105.0, 82.5, 300.0],
-          "size_mm": [45.0, 119.5, 86.0],
-          "source": "ABB AFS safety contactor catalog, W x D x H 45 x 119.5 x 86 mm",
-          "qualification": "Tower B drive-and-heater zone candidate; confirm DC-1 series-pole wiring, measured branch current and safety EDM architecture"
-        },
-        {
-          "ref": "FBR01_FBR07",
+          "ref": "FBR01_FBR05",
           "part_id": "SAF-FUS-HLD",
           "mpn": "CHCC1DU",
           "origin_mm": [10.0, 128.12, 200.0],
-          "size_mm": [122.5, 73.88, 83.19],
+          "size_mm": [87.5, 73.88, 83.19],
           "item_size_mm": [17.5, 73.88, 83.19],
-          "instance_origins_mm": [[10.0, 128.12, 200.0], [27.5, 128.12, 200.0], [45.0, 128.12, 200.0], [62.5, 128.12, 200.0], [80.0, 128.12, 200.0], [97.5, 128.12, 200.0], [115.0, 128.12, 200.0]],
+          "instance_origins_mm": [[10.0, 128.12, 200.0], [27.5, 128.12, 200.0], [45.0, 128.12, 200.0], [62.5, 128.12, 200.0], [80.0, 128.12, 200.0]],
           "source": "Eaton CHCC1DU datasheet, individual W x D x H 17.5 x 73.88 x 83.19 mm",
-          "qualification": "seven branch-holder positions only; actual fuse links, conductor sizes and coordination remain TBD"
+          "qualification": "five branch-holder positions only; actual fuse links, conductor sizes and coordination remain TBD"
         },
         {
-          "ref": "FBR08_FBR14",
+          "ref": "FBR06_FBR10",
           "part_id": "SAF-FUS-HLD",
           "mpn": "CHCC1DU",
           "origin_mm": [10.0, 128.12, 108.0],
-          "size_mm": [122.5, 73.88, 83.19],
+          "size_mm": [87.5, 73.88, 83.19],
           "item_size_mm": [17.5, 73.88, 83.19],
-          "instance_origins_mm": [[10.0, 128.12, 108.0], [27.5, 128.12, 108.0], [45.0, 128.12, 108.0], [62.5, 128.12, 108.0], [80.0, 128.12, 108.0], [97.5, 128.12, 108.0], [115.0, 128.12, 108.0]],
+          "instance_origins_mm": [[10.0, 128.12, 108.0], [27.5, 128.12, 108.0], [45.0, 128.12, 108.0], [62.5, 128.12, 108.0], [80.0, 128.12, 108.0]],
           "source": "Eaton CHCC1DU datasheet, individual W x D x H 17.5 x 73.88 x 83.19 mm",
-          "qualification": "seven branch-holder positions only; actual fuse links, conductor sizes and coordination remain TBD"
+          "qualification": "five branch-holder positions only; actual fuse links, conductor sizes and coordination remain TBD"
         },
         {
           "ref": "HS1",
@@ -467,7 +434,7 @@
           "origin_mm": [138.8, 141.8, 20.0],
           "size_mm": [76.2, 60.2, 132.1],
           "source": "Sensata Crydom HS103DR datasheet, W x D x H 76.2 x 60.2 x 132.1 mm on backplate",
-          "qualification": "three-SSR heat-sink candidate; installed thermal resistance and enclosure ambient test remain open"
+          "qualification": "two-SSR heat-sink zone candidate; installed thermal resistance and enclosure ambient test remain open"
         },
         {
           "ref": "HS2",
@@ -476,29 +443,29 @@
           "origin_mm": [138.8, 141.8, 160.0],
           "size_mm": [76.2, 60.2, 132.1],
           "source": "Sensata Crydom HS103DR datasheet, W x D x H 76.2 x 60.2 x 132.1 mm on backplate",
-          "qualification": "three-SSR heat-sink candidate; installed thermal resistance and enclosure ambient test remain open"
+          "qualification": "two-SSR heat-sink zone candidate; installed thermal resistance and enclosure ambient test remain open"
         },
         {
-          "ref": "QH1_QH3",
+          "ref": "QH1_QH2",
           "part_id": "ELE-HTR-DRV",
           "mpn": "84137860",
           "origin_mm": [146.8, 106.75, 19.375],
-          "size_mm": [60.2, 35.05, 133.35],
+          "size_mm": [60.2, 35.05, 88.9],
           "item_size_mm": [60.2, 35.05, 44.45],
-          "instance_origins_mm": [[146.8, 106.75, 19.375], [146.8, 106.75, 63.825], [146.8, 106.75, 108.275]],
+          "instance_origins_mm": [[146.8, 106.75, 19.375], [146.8, 106.75, 63.825]],
           "source": "Sensata Crydom 84137860 GN-series IP20 envelope, individual 44.45 x 35.05 x 60.2 mm rotated in the panel plane",
-          "qualification": "three isolated DC SSR candidates mounted to HS1; welded-on and 40 C thermal tests remain open"
+          "qualification": "two isolated DC SSR candidates mounted to HS1; welded-on and 40 C thermal tests remain open"
         },
         {
-          "ref": "QH4_QH6",
+          "ref": "QH3_QH4",
           "part_id": "ELE-HTR-DRV",
           "mpn": "84137860",
           "origin_mm": [146.8, 106.75, 159.375],
-          "size_mm": [60.2, 35.05, 133.35],
+          "size_mm": [60.2, 35.05, 88.9],
           "item_size_mm": [60.2, 35.05, 44.45],
-          "instance_origins_mm": [[146.8, 106.75, 159.375], [146.8, 106.75, 203.825], [146.8, 106.75, 248.275]],
+          "instance_origins_mm": [[146.8, 106.75, 159.375], [146.8, 106.75, 203.825]],
           "source": "Sensata Crydom 84137860 GN-series IP20 envelope, individual 44.45 x 35.05 x 60.2 mm rotated in the panel plane",
-          "qualification": "three isolated DC SSR candidates mounted to HS2; welded-on and 40 C thermal tests remain open"
+          "qualification": "two isolated DC SSR candidates mounted to HS2; welded-on and 40 C thermal tests remain open"
         }
       ],
       "placeholders": [
@@ -551,36 +518,36 @@
   },
   "assembly": {
     "tower_a_origin_x_mm": 0.0,
-    "tower_a_width_mm": 600.0,
-    "tower_a_depth_mm": 600.0,
-    "tower_a_height_mm": 1350.0,
-    "tower_b_origin_x_mm": 850.0,
-    "tower_b_width_mm": 900.0,
-    "tower_b_depth_mm": 600.0,
-    "tower_b_height_mm": 1150.0,
-    "tower_separation_mm": 250.0,
-    "service_rail_extension_mm": 760.0,
-    "overall_length_mm": 2510.0,
-    "overall_depth_mm": 600.0,
-    "overall_height_mm": 1350.0,
+    "tower_a_width_mm": 500.0,
+    "tower_a_depth_mm": 500.0,
+    "tower_a_height_mm": 1100.0,
+    "tower_b_origin_x_mm": 700.0,
+    "tower_b_width_mm": 850.0,
+    "tower_b_depth_mm": 500.0,
+    "tower_b_height_mm": 1000.0,
+    "tower_separation_mm": 200.0,
+    "service_rail_extension_mm": 700.0,
+    "overall_length_mm": 2250.0,
+    "overall_depth_mm": 500.0,
+    "overall_height_mm": 1100.0,
     "profile_heavy_mm": 40.0,
     "profile_light_mm": 20.0,
-    "tower_a_anchor_spacing_x_mm": 520.0,
-    "tower_a_anchor_spacing_y_mm": 520.0,
-    "tower_b_anchor_spacing_x_mm": 820.0,
-    "tower_b_anchor_spacing_y_mm": 520.0,
+    "tower_a_anchor_spacing_x_mm": 420.0,
+    "tower_a_anchor_spacing_y_mm": 420.0,
+    "tower_b_anchor_spacing_x_mm": 770.0,
+    "tower_b_anchor_spacing_y_mm": 420.0,
     "anchor_hole_diameter_mm": 12.0,
-    "batch_bin_gross_volume_l": 8.0,
-    "batch_bin_usable_volume_l": 6.0,
-    "maximum_input_lip_height_mm": 1320.0
+    "batch_bin_gross_volume_l": 3.0,
+    "batch_bin_usable_volume_l": 2.0,
+    "maximum_input_lip_height_mm": 1050.0
   },
   "filament_forming": {
     "target_diameter_mm": 1.75,
     "initial_tolerance_mm": 0.05,
     "improvement_tolerance_mm": 0.03,
     "maximum_ovality_mm": 0.05,
-    "nominal_mass_flow_gph": 200.0,
-    "high_mass_flow_gph": 250.0,
+    "nominal_mass_flow_gph": 100.0,
+    "high_mass_flow_gph": 150.0,
     "ambient_temperature_c": 25.0,
     "cooling_tunnel_length_mm": 440.0,
     "die_to_gauge_distance_mm": 470.0,
@@ -605,12 +572,10 @@
       }
     },
     "gauge": {
-      "camera_candidate": "Raspberry Pi Camera Module 3 standard plus close-up optic",
-      "sensor_resolution_px": [4608, 2592],
-      "native_horizontal_fov_deg": 66.0,
-      "native_working_distance_mm": 100.0,
-      "qualified_macro_field_width_target_mm": 32.0,
-      "full_resolution_rate_hz": 10.0,
+      "sensor_candidate": "two Arduino-compatible LED/photodiode shadow heads",
+      "adc_counts_per_axis": 4096,
+      "qualified_field_width_mm": 10.0,
+      "sample_rate_hz": 20.0,
       "calibration_pin_diameters_mm": [1.5, 1.75, 2.0, 2.5],
       "enclosure_length_mm": 110.0,
       "enclosure_width_mm": 160.0,
@@ -644,7 +609,7 @@
     "dancer_angle_range_deg": [-30.0, 30.0],
     "dancer_target_tension_n": 0.5,
     "spool_torque_limit_nm": 0.25,
-    "spool_speed_range_rpm": [1.0, 6.0],
+    "spool_speed_range_rpm": [0.5, 4.0],
     "traverse_travel_mm": 70.0,
     "traverse_layer_pitch_mm": 1.8,
     "traverse_leadscrew_lead_mm": 8.0,

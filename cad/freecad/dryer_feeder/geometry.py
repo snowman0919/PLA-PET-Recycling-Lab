@@ -120,12 +120,11 @@ def make_auger_housing(params: dict):
 def make_drive_and_air_system(params: dict):
     length = params["auger_length_mm"]
     motor = Part.makeBox(42, 42, 42, App.Vector(CX - length / 2 - 50, CY - 21, 37))
-    agitator_motor = Part.makeBox(42, 42, 42, App.Vector(CX - 21, CY - 21, 530))
-    blower = Part.makeBox(64, 52, 52, App.Vector(248, 18, 214))
-    desiccant1 = Part.makeCylinder(24, 120, App.Vector(272, 104, 180))
-    desiccant2 = Part.makeCylinder(24, 120, App.Vector(272, 170, 180))
-    heater = Part.makeBox(58, 44, 44, App.Vector(245, 82, 322))
-    return Part.makeCompound([motor, agitator_motor, blower, desiccant1, desiccant2, heater])
+    blower = Part.makeBox(64, 52, 52, App.Vector(248, 18, 174))
+    desiccant1 = Part.makeCylinder(24, 100, App.Vector(272, 104, 150))
+    desiccant2 = Part.makeCylinder(24, 100, App.Vector(272, 170, 150))
+    heater = Part.makeBox(58, 44, 44, App.Vector(245, 82, 272))
+    return Part.makeCompound([motor, blower, desiccant1, desiccant2, heater])
 
 
 def make_base_and_load_cells(params: dict):

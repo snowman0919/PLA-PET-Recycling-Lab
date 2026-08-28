@@ -5,7 +5,6 @@
 namespace recycler {
 
 namespace {
-constexpr uint32_t kHeartbeatTimeoutMs = 750;
 constexpr uint32_t kSelfTestStableMs = 500;
 constexpr uint32_t kContactorCloseTimeoutMs = 250;
 constexpr float kPressureTripMpa = 8.0F;
@@ -34,7 +33,7 @@ void SafetyCore::latch(uint32_t faults, bool estop) {
 bool SafetyCore::reset_prerequisites(const SafetyInputs& in) const {
   return in.estop_loop_closed && in.lid_loop_closed && in.service_loop_closed &&
          in.thermal_chain_closed && in.sensors_plausible && !in.contactor_feedback_on &&
-         in.heartbeat_age_ms <= kHeartbeatTimeoutMs && in.melt_pressure_mpa < kPressureTripMpa;
+         in.melt_pressure_mpa < kPressureTripMpa;
 }
 
 SafetyOutputs SafetyCore::outputs_for(const SafetyInputs& in) const {
@@ -68,7 +67,6 @@ SafetyOutputs SafetyCore::tick(const SafetyInputs& in) {
     if (!in.service_loop_closed) faults |= FAULT_SERVICE;
     if (!in.thermal_chain_closed) faults |= FAULT_THERMAL_CHAIN;
     if (!in.sensors_plausible) faults |= FAULT_SENSOR;
-    if (in.heartbeat_age_ms > kHeartbeatTimeoutMs) faults |= FAULT_HEARTBEAT;
     if (in.melt_pressure_mpa >= kPressureTripMpa) faults |= FAULT_PRESSURE;
     if ((phase_ == Phase::EXTRUDE_SPOOL || phase_ == Phase::DRY_PREHEAT) &&
         !in.airflow_ok)
@@ -199,7 +197,7 @@ PowerGrant arbitrate_power(const PowerRequest& request, float derated_limit_w) {
   float pla = request.dryer_pla_heater_w > 0.0F ? request.dryer_pla_heater_w : 0.0F;
   float pet = request.dryer_pet_heater_w > 0.0F ? request.dryer_pet_heater_w : 0.0F;
   if (pla > 0.0F && pet > 0.0F) out.valid = false;
-  if (request.phase == Phase::SORT_SHRED || request.phase == Phase::COOLDOWN_CLEAN ||
+  if (request.phase == Phase::SHRED || request.phase == Phase::COOLDOWN_CLEAN ||
       request.phase == Phase::IDLE) {
     ext = pla = pet = 0.0F;
   } else if (request.phase == Phase::EXTRUDE_SPOOL) {

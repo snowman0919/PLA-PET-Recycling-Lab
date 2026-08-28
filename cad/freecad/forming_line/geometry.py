@@ -14,7 +14,7 @@ TUNNEL_WIDTH = 140.0
 TUNNEL_HEIGHT = 120.0
 GAUGE_X = 470.0
 PULLER_X = 600.0
-MODULE_LENGTH = 760.0
+MODULE_LENGTH = 700.0
 
 
 def _axis_x_cylinder(radius: float, length: float, x: float, y: float = PATH_Y, z: float = PATH_Z):
@@ -68,7 +68,7 @@ def make_cooling_fans(params: dict):
 
 def make_forming_frame(params: dict):
     rails = [Part.makeBox(MODULE_LENGTH, 20.0, 20.0, App.Vector(0, y, 0)) for y in (10.0, 130.0)]
-    crossbars = [Part.makeBox(20.0, 140.0, 20.0, App.Vector(x, 10.0, 0)) for x in (0.0, 140.0, 290.0, 430.0, 470.0, 580.0, 600.0, 740.0)]
+    crossbars = [Part.makeBox(20.0, 140.0, 20.0, App.Vector(x, 10.0, 0)) for x in (0.0, 140.0, 290.0, 430.0, 470.0, 580.0, 600.0, 680.0)]
     supports = [Part.makeBox(12.0, 20.0, 20.0, App.Vector(x, y, 20.0)) for x in (10.0, 420.0) for y in (20.0, 120.0)]
     return Part.makeCompound([*rails, *crossbars, *supports])
 
@@ -91,24 +91,21 @@ def make_gauge_enclosure(params: dict):
 
 
 def make_gauge_optics(params: dict):
-    camera = Part.makeBox(25.0, 11.5, 24.0, App.Vector(GAUGE_X + 42.5, 10.0, 116.0))
-    lens = _axis_y_cylinder(4.0, 14.0, GAUGE_X + 55.0, 21.5, 128.0)
+    sensor_y = Part.makeBox(32.0, 10.0, 32.0, App.Vector(GAUGE_X + 14.0, 10.0, 84.0))
+    sensor_z = Part.makeBox(32.0, 32.0, 10.0, App.Vector(GAUGE_X + 58.0, 64.0, 40.0))
     direct_backlight = Part.makeBox(36.0, 5.0, 36.0, App.Vector(GAUGE_X + 12.0, 145.0, 82.0))
-    lower_backlight = Part.makeBox(36.0, 36.0, 5.0, App.Vector(GAUGE_X + 57.0, 62.0, 40.0))
-    mirror = Part.makeBox(34.0, 2.0, 42.0, App.Vector(GAUGE_X + 58.0, 79.0, 111.0))
-    mirror.rotate(App.Vector(GAUGE_X + 58.0, 80.0, 132.0), App.Vector(1, 0, 0), 45.0)
+    lower_backlight = Part.makeBox(36.0, 36.0, 5.0, App.Vector(GAUGE_X + 57.0, 62.0, 145.0))
     windows = [
         Part.makeBox(40.0, 1.0, 48.0, App.Vector(GAUGE_X + 10.0, 139.0, 76.0)),
         Part.makeBox(40.0, 44.0, 1.0, App.Vector(GAUGE_X + 55.0, 58.0, 59.0)),
     ]
-    return Part.makeCompound([camera, lens, direct_backlight, lower_backlight, mirror, *windows])
+    return Part.makeCompound([sensor_y, sensor_z, direct_backlight, lower_backlight, *windows])
 
 
 def make_optical_ray_keepouts(params: dict):
     direct = Part.makeCylinder(0.8, 126.0, App.Vector(GAUGE_X + 30.0, 18.0, PATH_Z), App.Vector(0, 1, 0))
-    mirror_horizontal = Part.makeCylinder(0.8, 62.0, App.Vector(GAUGE_X + 75.0, 18.0, 132.0), App.Vector(0, 1, 0))
-    mirror_vertical = Part.makeCylinder(0.8, 72.0, App.Vector(GAUGE_X + 75.0, PATH_Y, 60.0), App.Vector(0, 0, 1))
-    return Part.makeCompound([direct, mirror_horizontal, mirror_vertical])
+    vertical = Part.makeCylinder(0.8, 84.0, App.Vector(GAUGE_X + 75.0, PATH_Y, 58.0), App.Vector(0, 0, 1))
+    return Part.makeCompound([direct, vertical])
 
 
 def make_gauge_optical_proof(params: dict):
@@ -141,19 +138,19 @@ def make_odometer(params: dict):
     puller = params["puller"]
     radius = puller["odometer_outer_diameter_mm"] / 2
     center_z = PATH_Z - radius - params["target_diameter_mm"] / 2
-    wheel = _axis_y_cylinder(radius, 8.0, PULLER_X + 112.0, PATH_Y - 4.0, center_z)
-    encoder = _axis_y_cylinder(10.0, 6.0, PULLER_X + 112.0, PATH_Y + 7.0, center_z)
-    arm = Part.makeBox(10.0, 12.0, 52.0, App.Vector(PULLER_X + 107.0, PATH_Y - 6.0, center_z - 26.0))
+    wheel = _axis_y_cylinder(radius, 8.0, PULLER_X + 80.0, PATH_Y - 4.0, center_z)
+    encoder = _axis_y_cylinder(10.0, 6.0, PULLER_X + 80.0, PATH_Y + 7.0, center_z)
+    arm = Part.makeBox(10.0, 12.0, 52.0, App.Vector(PULLER_X + 75.0, PATH_Y - 6.0, center_z - 26.0))
     return Part.makeCompound([wheel, encoder, arm])
 
 
 def make_puller_guard_and_support(params: dict):
-    base = Part.makeBox(150.0, 160.0, 10.0, App.Vector(PULLER_X - 5.0, 0.0, 20.0))
+    base = Part.makeBox(100.0, 160.0, 10.0, App.Vector(PULLER_X - 5.0, 0.0, 20.0))
     supports = [Part.makeBox(18.0, 20.0, 110.0, App.Vector(x, y, 30.0)) for x in (PULLER_X + 34.0, PULLER_X + 72.0) for y in (50.0, 90.0)]
-    outer = Part.makeBox(150.0, 150.0, 125.0, App.Vector(PULLER_X - 5.0, 5.0, 45.0))
-    inner = Part.makeBox(140.0, 140.0, 115.0, App.Vector(PULLER_X, 10.0, 50.0))
-    path = _axis_x_cylinder(8.0, 152.0, PULLER_X - 6.0)
-    service = Part.makeBox(115.0, 80.0, 20.0, App.Vector(PULLER_X + 15.0, 40.0, 151.0))
+    outer = Part.makeBox(100.0, 150.0, 125.0, App.Vector(PULLER_X - 5.0, 5.0, 45.0))
+    inner = Part.makeBox(90.0, 140.0, 115.0, App.Vector(PULLER_X, 10.0, 50.0))
+    path = _axis_x_cylinder(8.0, 102.0, PULLER_X - 6.0)
+    service = Part.makeBox(70.0, 80.0, 20.0, App.Vector(PULLER_X + 15.0, 40.0, 151.0))
     guard = outer.cut(inner).cut(path).cut(service).removeSplitter()
     motor = Part.makeBox(42.0, 42.0, 48.0, App.Vector(PULLER_X + 12.0, 108.0, 56.0))
     return Part.makeCompound([base, *supports, guard, motor])

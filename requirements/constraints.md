@@ -8,7 +8,7 @@
 - 신규 구매 목표: 200,000 KRW 이하
 - CNC 비용 목표: 100,000 KRW 이하
 - 공급 전원: donor 24 V 600 W PSU 한 대, label 확인 전 정격 확정 금지
-- 제어 자원: Raspberry Pi 4, Arduino Mega 2560 우선 재사용
+- 제어 자원: Arduino Mega 2560 한 대 우선 재사용; Raspberry Pi는 MVP 범위 밖
 - 출력 volume: 220 mm급 printer에서 margin을 두고 부품 각 축 210 mm 이하
 - source of truth: FreeCAD Python과 parameter files
 - cutter/screw/shaft/bearing plate/hot-zone 핵심부는 금속

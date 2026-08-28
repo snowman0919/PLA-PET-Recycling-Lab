@@ -2,11 +2,11 @@
   "status": "VIRTUAL_GEOMETRY_PASS_PHYSICAL_GATES_OPEN",
   "source": "cad/generation/fcstd/full_assembly_skeleton.FCStd",
   "overall_mm": [
-    2510.0,
-    600.0,
-    1350.0
+    2250.0,
+    500.0,
+    1100.0
   ],
-  "tower_separation_mm": 250.0,
+  "tower_separation_mm": 200.0,
   "anchor_patterns": {
     "TowerA": {
       "centers_mm": [
@@ -15,50 +15,50 @@
           40.0
         ],
         [
-          560.0,
+          460.0,
           40.0
         ],
         [
           40.0,
-          560.0
+          460.0
         ],
         [
-          560.0,
-          560.0
+          460.0,
+          460.0
         ]
       ]
     },
     "TowerB": {
       "centers_mm": [
         [
-          890.0,
+          740.0,
           40.0
         ],
         [
-          1710.0,
+          1510.0,
           40.0
         ],
         [
-          890.0,
-          560.0
+          740.0,
+          460.0
         ],
         [
-          1710.0,
-          560.0
+          1510.0,
+          460.0
         ]
       ]
     }
   },
   "batch_volume_l": {
-    "gross": 7.999999999999999,
-    "usable": 6.0
+    "gross": 3.0,
+    "usable": 2.0
   },
   "service_rail_mm": {
-    "start_x": 1750.0,
-    "end_x": 2510.0,
-    "length": 760.0
+    "start_x": 1550.0,
+    "end_x": 2250.0,
+    "length": 700.0
   },
-  "module_count": 11,
+  "module_count": 9,
   "physical_gates_open": [
     "anchor substrate and pullout test",
     "measured mass and centre of gravity",

@@ -1,43 +1,31 @@
-# filament-recycler
+# PLA/PET Recycling Lab — 학부생용 MVP
 
-PLA 폐출력물과 세척·건조된 PET 용기를 분류, 3단 파쇄, 건조, 압출, 직경제어하여 1.75 mm 필라멘트로 재생하는 모듈형 탁상 장치의 설계 저장소입니다.
+세척·수동 선별한 PLA/PET를 **2단 파쇄 → 0.5 kg 건조·정량공급 → 단일 스크루 압출 → 2축 직경측정 → 권취**하는 중소형 2타워 설계 저장소입니다.
 
-현재 상태는 **2-tower architecture 재범위 검토 중 / fabrication·물리 release 미승인**입니다. 기존 계산, parametric proof CAD, firmware/Pi core, 배선 topology와 한국어 문서는 비교용 baseline이며, 사용자 방향 변경과 donor 실측을 반영하기 전에는 완성 설계나 제작 승인 문서로 간주하지 않습니다.
+현재 기준은 `Undergraduate MVP v0.2`이며 제작·고전류 통전·물리 안전시험은 아직 승인되지 않았습니다. 자동 재질/색상 분류기, Raspberry Pi, 진동 선별기와 세 번째 파쇄기는 MVP 범위에서 제외했습니다.
 
-최신 사용자 방향과 숨기지 않은 blocker는 `docs/user_direction_2026-08-28.md`에 정리되어 있습니다.
+## 확정 구조
 
-## 핵심 목표
+- Tower A — 500×500×1100 mm: 수동 투입, 1차 twin-shaft, 2차 5 mm screen granulator, 3 L batch bin
+- Tower B — 850×500×1000 mm: 0.5 kg dryer/feeder, extruder, 제어함
+- 직선 forming rail — 700 mm: 냉각, LED/photodiode X/Y shadow gauge, puller, spooler
+- 타워 간격 — 200 mm; 전체 envelope — 2250×500×1100 mm
+- 안정 처리량 목표 — 100~150 g/h
+- 제어 — Arduino Mega 1대; 외부 컴퓨터 없이 운전
+- 비상정지 — 사용자가 누르는 latching NC mushroom E-stop이 공통 24 V actuator contactor coil을 직접 차단하고 Arduino는 보조접점만 감시
 
-- 명목 처리량 및 안정 연속 처리량을 구분해 보고하며 안정 처리량 200 g/h 이상을 목표로 함
-- PLA / PET / UNKNOWN-REJECT 재질 판별과 고정 색상 범주 분류
-- 3단 파쇄와 진동식 이송·입도 선별
-- 재질별 건조, single-screw 압출, X/Y 비접촉 직경 측정
-- puller 폐루프 제어와 표준 1 kg급 spool 권취
-- Arduino Mega 안전·실시간 제어와 Raspberry Pi 4 영상처리·로그
-- 24 V 600 W 전력 한도, 신규 구매 200,000 KRW 및 CNC 100,000 KRW 목표
+설계·배치·BOM의 현행 요약은 [docs/mvp_design_ko.md](docs/mvp_design_ko.md), 수치 계약은 [requirements/architecture_contract.md](requirements/architecture_contract.md), 부품표는 [bom/bom.csv](bom/bom.csv)를 봅니다.
 
-## 주요 결과물
+## 배치 표기
 
-- 제작·조립 매뉴얼: `docs/build_manual_ko.pdf`
-- 조립 매뉴얼 40-topic 추적표: `docs/manual_coverage.csv`
-- 설계·검증 보고서: `docs/design_report_ko.pdf`
-- 요구사항/가정/감사표: `requirements/system_requirements.md`, `requirements/assumptions.md`, `requirements/compliance_matrix.md`
-- 안전·운전·교정: `docs/safety.md`, `docs/operation.md`, `docs/calibration.md`
-- TFT UI 화면·adapter gate: `docs/ui_screens.md`
-- 2-tower 재범위·보유품·문서화 방향: `docs/user_direction_2026-08-28.md`
-- 2-tower 수치 계약: `requirements/architecture_contract.md` (Tower A 600×600×1350 mm, Tower B 900×600×1150 mm+760 mm rail)
-- CAD source/output: `cad/freecad`, `cad/generation/fcstd`, `exports`, `renders`
-- CAD review variants: `renders/review` (section/x-ray/exploded/tool/cable/slicing)
-- 배선·pinout/protocol: `electronics/schematics`, `electronics/wiring`, `electronics/pinout`, `electronics/protocol`
-- KiCad 감시/로직 PCB proof: `electronics/pcb/interface_board` (ERC/DRC 0, 제작 HOLD)
-- BOM: `bom/bom.csv`, `bom/target_budget_design.csv`, `bom/engineering_recommended_design.csv`, `bom/cost_rollup.csv`
-- CNC/RFQ 사전검토: `exports/cnc_quote_packages` (제작 승인도 아님)
-- 구조 1D FEA·전단·비틀림 교차검증: `calculations/structural/beam_fea.md`, `simulation/structural/beam_crosscheck.json`
-- 압출기/건조기 차열·인접 polymer 열 gate: `calculations/thermal/hot_zone_guard.md`, `simulation/thermal/hot_zone_guard.json`
-- RTX 3080 Tower A stability sweep: `simulation/gpu/two_tower_stability_gpu.json` (CUDA 4,194,304 sample, CPU 교차검산)
-- 검증 상태: `docs/validation_report_ko.md`, `validation/release_checklist.md`
+- `PURCHASED_PART`: 실제 후보/보유품을 치수로 배치
+- `PCB_RESERVED`: 190×130 mm 감시·인터페이스 PCB 예약영역
+- `WIRE_ROUTE`: 전력·히터·모터·센서 덕트 경로
+- `PLACEHOLDER`: 접촉기·드라이브처럼 MPN/치수 확정 전 교체 가능한 보수 envelope
 
-## 재현·검증
+이 네 범주는 full-assembly CAD와 제어함 CSV에서 서로 겹치지 않도록 검증합니다. placeholder는 구매 확정이나 제작 승인 부품이 아닙니다.
+
+## 재생성·검증
 
 ```bash
 nix develop --command bash -lc \
@@ -49,6 +37,4 @@ QT_QPA_PLATFORM=offscreen nix develop --command bash -lc \
 nix develop --command python3 validation/run_all.py
 ```
 
-전체 artifact의 크기와 SHA-256는 `artifacts/manifest.json`에 기록됩니다. 200,000 KRW 목표는 primary 후보가 적합한 project-lab 재고/재사용품으로 확인될 때만 조건부입니다. 현재 공개 primary 후보 5개의 target-budget planning floor만 426,165 KRW이며 배송·세금·관세와 78개 미가격 required line은 포함하지 않습니다. exact-MPN 제어함 qualification 후보를 포함한 10개 BOM 행의 부분 engineering candidate floor는 5,240,261 KRW지만 전체 시스템 견적이나 구매 승인이 아닙니다.
-
-설계 파일만 보고 cutter, heater 또는 고전류 회로를 바로 제작·가동하지 마십시오. 물리적 안전장치와 합격 시험은 `validation/release_checklist.md`에 따라 별도로 확인해야 합니다.
+구형 3단/Pi 기반 PDF·CAD 파일은 비교 이력일 수 있으며 현행 제작 기준이 아닙니다. cutter, heater, 압력부, 고전류 회로는 [validation/release_checklist.md](validation/release_checklist.md)의 물리 gate를 통과하기 전 제작·가동하지 마십시오.

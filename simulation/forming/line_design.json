@@ -2,8 +2,8 @@
   "status": "CALCULATED_NOT_PHYSICALLY_VALIDATED",
   "cooling": {
     "pla_nominal": {
-      "mass_flow_gph": 200.0,
-      "line_speed_m_min": 1.1176120647225478,
+      "mass_flow_gph": 100.0,
+      "line_speed_m_min": 0.5588060323612739,
       "air_speed_m_s": 2.5,
       "reynolds": 280.0,
       "nusselt": 8.499172972913996,
@@ -11,13 +11,13 @@
       "time_s": 19.596000000000966,
       "center_temperature_c": 49.99763928339116,
       "surface_temperature_c": 42.190064305964434,
-      "required_cooling_length_mm": 365.0121003384021,
-      "tunnel_margin_mm": 74.98789966159791,
+      "required_cooling_length_mm": 182.50605016920105,
+      "tunnel_margin_mm": 257.49394983079895,
       "passes_tunnel": true
     },
     "pla_high": {
-      "mass_flow_gph": 250.0,
-      "line_speed_m_min": 1.3970150809031847,
+      "mass_flow_gph": 150.0,
+      "line_speed_m_min": 0.8382090485419108,
       "air_speed_m_s": 4.0,
       "reynolds": 448.00000000000006,
       "nusselt": 10.708326447869746,
@@ -25,13 +25,13 @@
       "time_s": 16.55599999999725,
       "center_temperature_c": 49.998084097944364,
       "surface_temperature_c": 40.777508410325105,
-      "required_cooling_length_mm": 385.4830279904881,
-      "tunnel_margin_mm": 54.5169720095119,
+      "required_cooling_length_mm": 231.28981679429288,
+      "tunnel_margin_mm": 208.71018320570712,
       "passes_tunnel": true
     },
     "pet_nominal": {
-      "mass_flow_gph": 200.0,
-      "line_speed_m_min": 0.9970064462273089,
+      "mass_flow_gph": 100.0,
+      "line_speed_m_min": 0.49850322311365447,
       "air_speed_m_s": 2.5,
       "reynolds": 280.0,
       "nusselt": 8.499172972913996,
@@ -39,13 +39,13 @@
       "time_s": 12.73699999999838,
       "center_temperature_c": 69.99460637798364,
       "surface_temperature_c": 57.38991818089975,
-      "required_cooling_length_mm": 211.647851759927,
-      "tunnel_margin_mm": 228.352148240073,
+      "required_cooling_length_mm": 105.8239258799635,
+      "tunnel_margin_mm": 334.1760741200365,
       "passes_tunnel": true
     },
     "pet_high": {
-      "mass_flow_gph": 250.0,
-      "line_speed_m_min": 1.2462580577841358,
+      "mass_flow_gph": 150.0,
+      "line_speed_m_min": 0.7477548346704815,
       "air_speed_m_s": 4.0,
       "reynolds": 448.00000000000006,
       "nusselt": 10.708326447869746,
@@ -53,20 +53,17 @@
       "time_s": 10.706999999999505,
       "center_temperature_c": 69.99311631490109,
       "surface_temperature_c": 55.00050944853927,
-      "required_cooling_length_mm": 222.39475041156877,
-      "tunnel_margin_mm": 217.60524958843123,
+      "required_cooling_length_mm": 133.43685024694128,
+      "tunnel_margin_mm": 306.5631497530587,
       "passes_tunnel": true
     }
   },
   "optical_gauge": {
-    "native_field_width_mm_at_100mm": 129.88151863950213,
-    "native_pixels_per_mm": 35.47848876628799,
-    "native_pixels_across_1_75mm": 62.08735534100398,
-    "native_object_mm_per_pixel": 0.028186093454753064,
-    "macro_target_pixels_per_mm": 144.0,
-    "macro_target_pixels_across_1_75mm": 252.0,
-    "macro_target_object_mm_per_pixel": 0.006944444444444444,
-    "qualification_gate": "Report U95 <= 0.020 mm for initial +/-0.05 mm release; upgrade to M12/HQ optics if the Camera 3 close-up candidate fails."
+    "sensor_type": "two Arduino-compatible LED/photodiode shadow heads",
+    "adc_counts_per_mm": 409.6,
+    "adc_counts_across_1_75mm": 716.8000000000001,
+    "ideal_mm_per_count": 0.00244140625,
+    "qualification_gate": "Report U95 <= 0.020 mm after two-axis linearity, edge threshold, ambient-light and thermal-drift calibration; ADC count size alone is not accuracy."
   },
   "diameter_control": {
     "scenario": {
@@ -90,36 +87,36 @@
       "production_sensor_dropout_policy": "Hold the last bounded puller command for at most 3 s; then pause feed/extrusion and keep the winder tension-safe."
     },
     "aggressive_pid": {
-      "delay_s": 25.23236898574531,
-      "rms_error_after_120s_mm": 0.2598757590880763,
-      "maximum_absolute_error_mm": 0.8353009452041817,
-      "time_outside_initial_tolerance_s": 623.7,
+      "delay_s": 50.46473797149062,
+      "rms_error_after_120s_mm": 0.1487212912834015,
+      "maximum_absolute_error_mm": 0.43202868700526964,
+      "time_outside_initial_tolerance_s": 554.4,
       "command_min_m_min": 0.5,
-      "command_max_m_min": 1.6
+      "command_max_m_min": 1.0548989163682183
     },
     "filtered_pi": {
-      "delay_s": 25.23236898574531,
-      "rms_error_after_120s_mm": 0.03632689195135927,
-      "maximum_absolute_error_mm": 0.06140173509809843,
-      "time_outside_initial_tolerance_s": 83.5,
-      "command_min_m_min": 1.0765797903620882,
-      "command_max_m_min": 1.1735413069667984
+      "delay_s": 50.46473797149062,
+      "rms_error_after_120s_mm": 0.03891747029882211,
+      "maximum_absolute_error_mm": 0.067916648301239,
+      "time_outside_initial_tolerance_s": 123.80000000000001,
+      "command_min_m_min": 0.5376650389144437,
+      "command_max_m_min": 0.5888289946810562
     },
     "bounded_smith_pi": {
-      "delay_s": 25.23236898574531,
-      "rms_error_after_120s_mm": 0.03386697390073789,
-      "maximum_absolute_error_mm": 0.05859470635824171,
-      "time_outside_initial_tolerance_s": 70.60000000000001,
-      "command_min_m_min": 1.0676851869823023,
-      "command_max_m_min": 1.1820539800323426
+      "delay_s": 50.46473797149062,
+      "rms_error_after_120s_mm": 0.038567221167328164,
+      "maximum_absolute_error_mm": 0.06723009481258524,
+      "time_outside_initial_tolerance_s": 146.5,
+      "command_min_m_min": 0.5358308533894551,
+      "command_max_m_min": 0.5912193612725771
     },
     "feedforward_smith_pi": {
-      "delay_s": 25.23236898574531,
-      "rms_error_after_120s_mm": 0.009295489296436255,
-      "maximum_absolute_error_mm": 0.01458389227991086,
+      "delay_s": 50.46473797149062,
+      "rms_error_after_120s_mm": 0.010827701822160411,
+      "maximum_absolute_error_mm": 0.016912943857054774,
       "time_outside_initial_tolerance_s": 0.0,
-      "command_min_m_min": 1.0469008851527206,
-      "command_max_m_min": 1.2106791167407898
+      "command_min_m_min": 0.5239144388539898,
+      "command_max_m_min": 0.6055356738655766
     }
   },
   "spooler": {
@@ -128,16 +125,16 @@
     "shaft_safety_factor_at_250mpa_yield": 30.50983774702728,
     "shaft_center_deflection_mm": 0.006273591213006356,
     "pla_spool_rpm_core_to_full": [
-      4.446837113993318,
-      1.7787348455973273
+      2.223418556996659,
+      0.8893674227986637
     ],
     "torque_at_full_radius_for_target_tension_nm": 0.05,
     "torque_limit_equivalent_full_spool_tension_n": 2.5,
     "dancer_total_line_buffer_mm": 239.99999999999997,
-    "dancer_total_buffer_time_s_at_nominal_pla": 12.884613950167818,
+    "dancer_total_buffer_time_s_at_nominal_pla": 25.769227900335636,
     "traverse_speed_mm_min_core_to_full": [
-      8.004306805187973,
-      3.201722722075189
+      4.002153402593986,
+      1.6008613610375946
     ]
   },
   "limitations": [

@@ -43,7 +43,12 @@ def thermal_profile(params: dict, setpoint_c: float, heater_power_w: float) -> d
 
 def build_report() -> dict:
     p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["dryer_feeder"]
-    volume = pi * (p["hopper_inner_diameter_mm"] / 2000) ** 2 * (p["hopper_active_height_mm"] / 1000)
+    radius = p["hopper_inner_diameter_mm"] / 2000
+    outlet_radius = p["hopper_outlet_diameter_mm"] / 2000
+    cylinder_volume = pi * radius**2 * (p["hopper_active_height_mm"] / 1000)
+    cone_height = p["hopper_cone_height_mm"] / 1000
+    cone_volume = pi * cone_height * (radius**2 + radius * outlet_radius + outlet_radius**2) / 3
+    volume = cylinder_volume + cone_volume
     bulk_capacity = volume * p["flake_bulk_density_kg_m3"]
     residence = p["design_inventory_kg"] / (p["stable_mass_flow_gph"] / 1000)
     auger_area = pi / 4 * (p["auger_outer_diameter_mm"] ** 2 - p["auger_shaft_diameter_mm"] ** 2)
@@ -54,13 +59,13 @@ def build_report() -> dict:
         "hopper_geometric_volume_l": volume * 1000,
         "hopper_bulk_capacity_kg": bulk_capacity,
         "design_inventory_kg": p["design_inventory_kg"],
-        "residence_at_200_gph_h": residence,
+        "residence_at_target_gph_h": residence,
         "pla": thermal_profile(p, p["pla_profile"]["setpoint_c"], p["pla_profile"]["heater_power_w"]),
         "pet": thermal_profile(p, p["pet_profile"]["dry_setpoint_c"], p["pet_profile"]["heater_power_w"]),
         "auger": {
             "theoretical_displacement_cm3_rev": displacement_cm3_rev,
             "assumed_grams_per_rev": grams_per_rev,
-            "rpm_for_200_gph": feed_rpm,
+            "rpm_for_target_gph": feed_rpm,
             "configured_range_rpm": p["auger_speed_range_rpm"],
         },
         "pet_profile_gate": {
