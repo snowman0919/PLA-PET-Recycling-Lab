@@ -25,6 +25,7 @@ PYTHON_TESTS = (
     ("validation/test_requirements_traceability.py", "REQUIREMENTS_TRACEABILITY_OK"),
     ("validation/test_cnc_quote_packages.py", "CNC_QUOTE_PACKAGES_OK"),
     ("validation/test_structural_beam_fea.py", "STRUCTURAL_BEAM_FEA_VALIDATION_OK"),
+    ("validation/test_stage1_cutter_3d_fea.py", "STAGE1_CUTTER_3D_FEA_VALIDATION_OK"),
     ("validation/test_review_variants.py", "CAD_REVIEW_VARIANTS_OK"),
     ("validation/test_manual_coverage.py", "MANUAL_40_TOPIC_COVERAGE_OK"),
 )
@@ -68,9 +69,9 @@ def main() -> None:
         "OK",
         pi_env,
     )
-    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=353")
+    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=355")
     run([sys.executable, "validation/test_release_package.py"], "RELEASE_PACKAGE_OK")
-    print("ALL_AUTOMATED_VALIDATIONS_OK (32 gates)")
+    print("ALL_AUTOMATED_VALIDATIONS_OK (33 gates)")
 
 
 if __name__ == "__main__":

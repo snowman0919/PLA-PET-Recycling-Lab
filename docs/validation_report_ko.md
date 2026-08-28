@@ -8,7 +8,7 @@ Revision: `0.1.0-preflight`
 
 ## 실행 범위
 
-`nix develop --command python3 validation/run_all.py`가 다음 32개 gate를 순서대로 실행한다. 최신 PCB 추가분은 별도 gate에서도 선검증했다.
+`nix develop --command python3 validation/run_all.py`가 다음 33개 gate를 순서대로 실행한다. 최신 PCB 추가분은 별도 gate에서도 선검증했다.
 
 1. Source BOM 재생성 및 82행/56 CRITICAL/status/가격 증거 검사
 2. Dryer power·thermal·feed budget, 압출기/건조기 shield·인접 polymer 정상/고장 열 gate와 metal hot-path geometry
@@ -25,14 +25,15 @@ Revision: `0.1.0-preflight`
 13. 7개 구조 load path의 analytic·20-element beam FEA, support reaction·횡전단·비틀림 조합응력과 intentional review gate
 14. Section/x-ray/exploded/tool/cable/slicing 22개 CAD review variant의 크기·구조·한계표기
 15. 조립 PDF 필수 40개 topic의 순번·지원파일·실제 PDF text coverage
-16. 353개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG
+16. 355개 release artifact의 size/SHA-256 manifest와 112개 7-view PNG
 17. A4 한국어 PDF의 header/EOF/page object 구조
 18. 원문 release 기능을 보존한 2-tower 치수·batch·safety·anchor 수치 계약
 19. RTX 3080 CUDA 4,194,304-sample stability sweep, 8,192-sample CPU 교차검산과 source/contract hash
 20. 2-tower FCStd의 2510×600×1350 mm envelope, 250 mm separation, 8/6 L batch cavity, 8개 anchor, gravity chute, batch dock와 760 mm straight rail 형상 계약
 21. KiCad monitor/interface board의 native source, ERC 0, DRC 0/미연결 0, 분리 zone, 3 fiducial, 12 test point, fabrication 산출물과 SPICE 9/9 pass 계약
+22. Stage 1 실제 cutter STEP의 Gmsh coarse/fine C3D4 mesh와 CalculiX 2.23 선형 정적 변위·응력·반력·mesh convergence 계약
 
-최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (32 gates)`로 통과했다. Manifest는 `artifacts/manifest.json`이며 KiCad source/제조/분석과 데이터시트 provenance를 포함한 353개 항목의 bytes와 SHA-256를 기록한다. PCB 단독 marker `KICAD_INTERFACE_BOARD_OK`도 통과했다.
+최종 marker는 `ALL_AUTOMATED_VALIDATIONS_OK (33 gates)`로 통과했다. Manifest는 `artifacts/manifest.json`이며 KiCad source/제조/분석, 데이터시트 provenance, Stage 1 CAD 기반 3D 선형 정적 FEA를 포함한 355개 항목의 bytes와 SHA-256를 기록한다. PCB 단독 marker `KICAD_INTERFACE_BOARD_OK`도 통과했다.
 
 ## 통과가 의미하는 것
 
@@ -46,7 +47,7 @@ Revision: `0.1.0-preflight`
 
 다음은 물리 시험과 책임자 승인이 없으므로 모두 OPEN이다.
 
-- Cutter 재료·열처리·FEA·충격 containment와 donor motor dyno
+- Cutter 재료·열처리·비선형 contact/impact/fatigue FEA·충격 containment와 donor motor dyno
 - Screw/barrel/die CNC 공차·재료·열처리, pressure transducer/relief/proof
 - Safety relay/contactor/fuse coordination, PE/SCCR/연면거리·열상승과 mains panel 승인
 - Camera optic `U95≤0.020 mm`, classifier confusion matrix, gate 1000-cycle
@@ -58,7 +59,7 @@ Revision: `0.1.0-preflight`
 
 ## 재현 상태
 
-이전 revision의 generator→표준/review render→Nix Typst PDF→30-gate 재생성은 PASS했다. 현재 KiCad 추가 revision은 커밋 `3195b8e`의 별도 clean clone에서 32개 gate와 manifest 353개가 모두 PASS했으며, 저장된 CUDA evidence는 GPU가 없는 clone에서도 device/sample/threshold/CPU cross-check와 contract/source hash를 검증했다.
+이전 revision의 generator→표준/review render→Nix Typst PDF→30-gate 재생성은 PASS했다. KiCad 추가 revision은 커밋 `3195b8e`의 별도 clean clone에서 32개 gate와 manifest 353개가 모두 PASS했다. 이후 Stage 1 실제 CAD 3D 선형 정적 FEA gate를 더한 현재 revision도 별도 clean clone에서 33개 gate와 manifest 355개가 모두 PASS했으며, 저장된 CUDA evidence는 GPU가 없는 clone에서도 device/sample/threshold/CPU cross-check와 contract/source hash를 검증한다.
 
 STEP header timestamp와 review JSON 경로는 deterministic 값/저장소 상대경로로 정규화한다. STL, DXF, 표준/review render, Nix Typst 0.15.1 PDF, 계산 JSON과 review JSON은 clean clone에서 byte-identical했다. FCStd 51개는 FreeCAD가 생성 시각·UUID·내부 object ID를 기록하므로 형상·object-set 검증은 재현되지만 container byte hash는 실행마다 달라질 수 있다. Manifest는 해당 실행에서 전달되는 실제 파일의 hash를 기록한다.
 

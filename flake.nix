@@ -15,6 +15,8 @@
           default = pkgs.mkShell {
             packages = with pkgs; [
               freecad
+              gmsh
+              calculix-ccx
               typst
               python3
               git-lfs

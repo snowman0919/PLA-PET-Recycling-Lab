@@ -29,6 +29,8 @@ PATTERNS = (
     "exports/cnc_quote_packages/*_package.csv",
     "calculations/structural/beam_fea.md",
     "simulation/structural/beam_crosscheck.json",
+    "calculations/shredder/stage1_cutter_3d_fea.md",
+    "simulation/structural/stage1_cutter_3d_fea.json",
     "calculations/thermal/hot_zone_guard.md",
     "simulation/thermal/hot_zone_guard.json",
     "simulation/architecture/two_tower_contract.json",

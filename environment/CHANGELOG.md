@@ -1,5 +1,17 @@
 # 환경 변경 이력
 
+## 2026-08-28 — Gmsh/CalculiX 재현 환경
+
+- Action: Nix 개발환경에 Gmsh 4.15.2와 CalculiX 2.23을 추가하고 실제 Stage 1 cutter STEP의 coarse/fine C3D4 해석을 실행했다.
+- Reason: 이상화 beam/tooth 손계산에서 빠진 실제 치근·키홈 형상을 3D 선형 정적으로 스크리닝하기 위함.
+- Commands: `nix develop --command python3 simulation/structural/stage1_cutter_3d_fea.py`.
+- Paths affected: 재다운로드 가능한 `/nix/store` gmsh/CalculiX closure와 실행 중 자동 삭제되는 `/tmp/ppr-stage1-fea-*`; repository에는 source, JSON과 문서만 저장.
+- Disk before: 122,751,750,144 bytes available.
+- Disk after: 122,576,220,160 bytes available(다른 동시 작업 및 Nix store 공유 효과를 포함한 filesystem 관측값).
+- Package fetch indication: 3.7 MiB download, 10.8 MiB unpacked(ccx/arpack/spooles); Gmsh closure는 현재 Nix store에 이미 존재했다.
+- Space reclaimed: 0; garbage collection 또는 사용자 cache 삭제 없음.
+- Risk/impact: system profile은 변경하지 않았다. 본 결과는 contact/impact/fatigue/physical validation이 아니다.
+
 ## 2026-08-28 — KiCad PCB authoring 및 SPICE 임시 환경
 
 - Action: `/tmp/ppr-kiutils-venv`에 `kiutils==1.4.8`을 설치해 deterministic KiCad source를 생성하고, Nix 임시 shell에서 ngspice 45를 받아 9개 subcircuit를 실행했다.

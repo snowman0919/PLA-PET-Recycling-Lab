@@ -1,0 +1,126 @@
+{
+  "schema": "ppr.stage1_cutter_3d_linear_static.v1",
+  "status": "CAD_BASED_LINEAR_STATIC_SCREEN_ONLY_NOT_CONTACT_IMPACT_FATIGUE_OR_PHYSICAL_VALIDATION",
+  "input": {
+    "step_path": "exports/step/stage1_cutter_disc.step",
+    "step_sha256": "53d8a2b1e4548c4a026a1ef574febd5277f9517cc9f49259913d7596d83142da",
+    "proof_torque_nm": 60.0,
+    "load_sharing": "two simultaneously engaged teeth; one modeled tooth receives half total force",
+    "material": {
+      "name": "provisional heat-treated steel candidate",
+      "elastic_modulus_mpa": 210000.0,
+      "poisson_ratio": 0.3,
+      "yield_strength_mpa": 650.0,
+      "qualification": "TBD by supplier certificate and heat-treatment coupon"
+    },
+    "boundary": "all translational DOF fixed on exterior CAD bore/keyway cylindrical surface nodes; end faces excluded",
+    "load": "finite +X tooth-tip node patch, tangential -Y force"
+  },
+  "solver": {
+    "gmsh": "4.15.2-git",
+    "calculix": "This is Version 2.23",
+    "element": "C3D4 linear tetrahedron"
+  },
+  "meshes": [
+    {
+      "label": "coarse",
+      "maximum_element_size_mm": 2.0,
+      "node_count": 2547,
+      "tetrahedron_count": 8940,
+      "fixed_node_count": 104,
+      "loaded_node_count": 25,
+      "effective_load_radius_mm": 29.267151175718304,
+      "represented_single_tooth_torque_nm": 30.0,
+      "total_applied_force_n": 1025.039978092904,
+      "force_per_node_n": 41.00159912371616,
+      "maximum_displacement_mm": 0.014080686732189991,
+      "maximum_integration_point_von_mises_mpa": 106.2035059877421,
+      "reaction_x_n": 6.66000000535405e-05,
+      "reaction_y_n": 1025.0398846700002,
+      "reaction_z_n": -2.293000000719303e-05
+    },
+    {
+      "label": "fine",
+      "maximum_element_size_mm": 1.5,
+      "node_count": 4647,
+      "tetrahedron_count": 17577,
+      "fixed_node_count": 186,
+      "loaded_node_count": 43,
+      "effective_load_radius_mm": 29.194799509908602,
+      "represented_single_tooth_torque_nm": 30.0,
+      "total_applied_force_n": 1027.5802712677687,
+      "force_per_node_n": 23.89721561087834,
+      "maximum_displacement_mm": 0.014785203512535325,
+      "maximum_integration_point_von_mises_mpa": 114.62794443129552,
+      "reaction_x_n": -6.020000006579096e-05,
+      "reaction_y_n": 1027.5802275999997,
+      "reaction_z_n": 3.9730000356286155e-07
+    }
+  ],
+  "derived": {
+    "fine_mesh_provisional_yield_safety_factor": 5.670519551099428,
+    "coarse_fine_displacement_relative_delta": 0.04765012397347282,
+    "fine_mesh_force_balance_relative_error": 4.2495725344950006e-08
+  },
+  "linear_load_cases": [
+    {
+      "name": "PET nominal tear",
+      "system_torque_nm": 6.3,
+      "represented_single_tooth_torque_nm": 3.15,
+      "maximum_displacement_mm": 0.001552446368816209,
+      "maximum_integration_point_von_mises_mpa": 12.03593416528603,
+      "provisional_yield_safety_factor": 54.004948105708834,
+      "method": "linear scaling of the converged 60 N.m system proof case"
+    },
+    {
+      "name": "PLA printed shell nominal",
+      "system_torque_nm": 27.0,
+      "represented_single_tooth_torque_nm": 13.5,
+      "maximum_displacement_mm": 0.006653341580640897,
+      "maximum_integration_point_von_mises_mpa": 51.58257499408298,
+      "provisional_yield_safety_factor": 12.60115455799873,
+      "method": "linear scaling of the converged 60 N.m system proof case"
+    },
+    {
+      "name": "PET folded/local double engagement",
+      "system_torque_nm": 36.8,
+      "represented_single_tooth_torque_nm": 18.4,
+      "maximum_displacement_mm": 0.009068258154354998,
+      "maximum_integration_point_von_mises_mpa": 70.30513925119457,
+      "provisional_yield_safety_factor": 9.245412311575155,
+      "method": "linear scaling of the converged 60 N.m system proof case"
+    },
+    {
+      "name": "PLA thick shell overload",
+      "system_torque_nm": 54.0,
+      "represented_single_tooth_torque_nm": 27.0,
+      "maximum_displacement_mm": 0.013306683161281793,
+      "maximum_integration_point_von_mises_mpa": 103.16514998816596,
+      "provisional_yield_safety_factor": 6.300577278999365,
+      "method": "linear scaling of the converged 60 N.m system proof case"
+    },
+    {
+      "name": "structural proof",
+      "system_torque_nm": 60.0,
+      "represented_single_tooth_torque_nm": 30.0,
+      "maximum_displacement_mm": 0.014785203512535325,
+      "maximum_integration_point_von_mises_mpa": 114.62794443129552,
+      "provisional_yield_safety_factor": 5.670519551099428,
+      "method": "linear scaling of the converged 60 N.m system proof case"
+    }
+  ],
+  "acceptance_checks": {
+    "maximum_displacement_le_0_0667_mm": true,
+    "provisional_linear_static_yield_sf_ge_1_5": true,
+    "coarse_fine_displacement_delta_le_5_percent": true,
+    "force_balance_error_le_1_percent": true
+  },
+  "limitations": [
+    "fixed bore is not shaft/keyway contact and omits fit, slip, and bearing compliance",
+    "distributed nodal load is not nonlinear cutter/material contact",
+    "linear elasticity omits impact, plasticity, fracture, fatigue, wear, and residual stress",
+    "maximum stress can remain mesh/load-patch sensitive; physical cutter coupon remains mandatory",
+    "provisional material properties require supplier certificate and heat-treatment verification"
+  ],
+  "overall_screen_pass": true
+}

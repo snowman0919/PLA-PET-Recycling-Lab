@@ -2,7 +2,7 @@
   "project": "filament-recycler",
   "revision": "0.1.0-preflight",
   "generated_utc": "2026-08-27T20:15:00Z",
-  "artifact_count": 353,
+  "artifact_count": 355,
   "artifacts": [
     {
       "path": "bom/bom.md",
@@ -283,6 +283,11 @@
       "path": "cad/generation/fcstd/vibratory_sorter_proof.FCStd",
       "bytes": 97161,
       "sha256": "364e59227f0f29f2e19f688065ee6c10ce5fb700cd4738e449e485b6d612145c"
+    },
+    {
+      "path": "calculations/shredder/stage1_cutter_3d_fea.md",
+      "bytes": 3991,
+      "sha256": "65eb426a9785fbe84bd77c5d0bc8b38fa6cecfbdb00a59f064be8e289b2cf2bc"
     },
     {
       "path": "calculations/structural/beam_fea.md",
@@ -1763,6 +1768,11 @@
       "path": "simulation/structural/beam_crosscheck.json",
       "bytes": 9734,
       "sha256": "07c8fdc8f85af858a00972ef1f881a3ababbd692a085fa65477d8c356916560c"
+    },
+    {
+      "path": "simulation/structural/stage1_cutter_3d_fea.json",
+      "bytes": 5319,
+      "sha256": "647298c1ce3447c6051cf03835f8d8730614ba034ef5dbf1e0ff12c68e705304"
     },
     {
       "path": "simulation/thermal/hot_zone_guard.json",

@@ -12,17 +12,18 @@
 - [x] section/x-ray/exploded/tool/cable/slicing review variant 생성
 - [x] 11개 module의 proof CAD/keep-out 생성
 - [x] 현재 proof 범위의 DXF와 제작 주석 생성
-- [x] 현재 31-gate clean clone 전체 재실행
+- [x] 현재 33-gate clean clone 전체 재실행
 
 ## 해석
 
-- [ ] 2-tower footprint/height/shelf pitch/MVP stage·bin 수 architecture lock
-- [ ] Tower A 전도·anchor·shelf joint·8 Hz vibration 재검토
-- [ ] Tower B 수평 cooling/gauge/puller 길이와 service path 재검토
+- [x] 2-tower footprint/height/shelf pitch/MVP stage·bin 수 architecture contract lock
+- [x] Tower A 전도·anchor·shelf joint·8 Hz vibration 가상 재검토
+- [x] Tower B 수평 cooling/gauge/puller 길이와 service path CAD/contract 재검토
 - [x] Stage 1 1차 torque/shaft screening
 - [x] Stage 1/2/3 kinematic clearance·shaft screening
 - [x] Vibration, dryer/feeder, extruder, forming, spooler, power/control screening
 - [x] 7개 load path의 analytic·1D beam FEA 교차검증
+- [x] Stage 1 실제 CAD 치근/키홈 3D 선형 정적 FEA와 2단계 mesh convergence
 - [ ] Stage 1 detailed cutter/contact FEA와 모든 최종 load case
 - [ ] Optical U95와 실제 material/control plant cross-check
 
