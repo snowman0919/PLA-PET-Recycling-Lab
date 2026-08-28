@@ -13,6 +13,8 @@ model ShredderSystem
   Components.CutterLoadSurrogate load(mode=loadMode,jamStart=jamStart,forcedLoad=forcedLoad);
   Components.CutterRotor rightRotor;
   Components.CutterRotor leftRotor;
+  Components.ChainReduction chain(ratio=2.0,efficiency=0.90);
+  Components.PhaseGearPair phase(stiffness=2200,damping=1.5,backlash=phaseBacklashRad);
   Components.SafetyController controller(jamStart=if retryLogic then jamStart else 1e9);
   Real speedCommand;
   Real requestedTorque;
@@ -24,6 +26,8 @@ model ShredderSystem
   Real chainForce;
   Real bearingLoad;
   Real frameReaction;
+  Real rightToothAngle;
+  Real leftToothAngle;
   Boolean electricalTrip;
   Boolean fuseOperating;
   Boolean faultLatched;
@@ -41,17 +45,22 @@ equation
   drive.torqueRequest=transmittedTorque;
   drive.enable=time<stopTime and not faultLatched;
   cutterTorque=drive.torque;
-  rightRotor.driveTorque=cutterTorque;
+  chain.motorTorque=cutterTorque/(chain.ratio*chain.efficiency);
+  chain.motorAngle=rightRotor.angle*chain.ratio;
+  chain.cutterAngle=rightRotor.angle;
+  rightRotor.driveTorque=cutterTorque-phaseTorque;
   rightRotor.loadTorque=load.torque/2*tanh(20*rightRotor.speed);
-  leftRotor.driveTorque=-cutterTorque;
+  leftRotor.driveTorque=-phaseTorque;
   leftRotor.loadTorque=load.torque/2*tanh(20*leftRotor.speed);
-  phaseError=rightRotor.angle+leftRotor.angle
-    +phaseComplianceRadPerNm*cutterTorque
-    +(if abs(cutterTorque)>0.01 then sign(cutterTorque)*phaseBacklashRad/2 else 0);
-  phaseTorque=2200*phaseError;
-  phaseSeparatingForce=abs(phaseTorque)/Generated.CADParameters.phaseGearRadius*tan(Modelica.Constants.pi/9);
-  chainForce=abs(cutterTorque)/Generated.CADParameters.cutterSprocketRadius;
+  phase.rightAngle=rightRotor.angle;
+  phase.leftAngle=leftRotor.angle;
+  phaseError=phase.phaseError;
+  phaseTorque=phase.meshTorque;
+  phaseSeparatingForce=phase.separatingForce;
+  chainForce=chain.tightSideForce;
   bearingLoad=load.torque/(2*0.029)+chainForce+phaseSeparatingForce;
   frameReaction=bearingLoad+abs(cutterTorque)/0.12;
+  rightToothAngle=mod(rightRotor.angle,2*Modelica.Constants.pi/7);
+  leftToothAngle=mod(-leftRotor.angle,2*Modelica.Constants.pi/7);
   electricalTrip=abs(load.torque)>=Parameters.electricalTripTorque;
 end ShredderSystem;

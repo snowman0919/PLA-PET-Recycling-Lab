@@ -173,7 +173,7 @@ def main() -> None:
     anchor_stress = envelope["full_system"]["peak_anchor_tension_n"] / (math.pi * 6.466e-3**2 / 4) / 1e6
 
     checks = [
-        check("CUT-01 cutter tooth/root", cutter_root_stress, 350, "22 N·m input fuse cap", "6 mm tool-steel coupon geometry; impact/notch factor is not physically calibrated"),
+        check("CUT-01 cutter tooth/root", cutter_root_stress, 350, "22 N·m cutter-equivalent DRV-F01 relief cap", "6 mm tool-steel coupon geometry; impact/notch factor is not physically calibrated"),
         check("SH-SHAFT-01 20 mm cutter shaft", vm_bending_torsion(shaft_moment, cutter_torque, 20), 177.5, "bearing envelope + fuse cap", "S45C normalized; allowable=0.5×355 MPa yield"),
         check("SH-PLATE-01 bearing plate", plate_bending, 137.5, "peak bearing load", "12 mm S275 ligament simplified as 75 mm strip"),
         check("PH-KEY-01 phase gear key", key_shear, 120, "34 N·m phase allowable", "6×6×18 mm key shear; hub bearing pressure separately inspect at RFQ"),

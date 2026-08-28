@@ -26,7 +26,7 @@ def test_revision_and_stale():
     require(params["physical_validation"] == "PHYSICAL_VALIDATION_PENDING", "physical state mismatch")
     current = (
         "README.md", "requirements/system_requirements.md", "requirements/architecture_contract.md",
-        "requirements/responsibility_matrix.md", "bom/bom.csv", "bom/cash_budget.csv",
+        "requirements/responsibility_matrix.md", "bom/bom.csv", "bom/cash_budget.csv", "bom/verified_budget.csv",
         "docs/build_manual_ko.typ", "docs/design_report_ko.typ", "docs/digital_release_report_ko.typ",
         "validation/release_checklist.md", "artifacts/manifest.json",
     )
@@ -54,6 +54,7 @@ def test_envelope_and_topology():
     require(topology["review_keepout_count"] == 4, "review keep-out quarantine")
     mesh = json.loads((ROOT / "validation/results/mesh_manifold.json").read_text())
     require(mesh["status"] == "PASS" and len(mesh["meshes"]) == 12, "mesh manifold gate")
+    require(mesh["tolerance_coupon"]["status"] == "PASS", "tolerance coupon mesh gate")
     for part in mesh["meshes"]:
         require(part["zero_area_triangles"] == 0 and part["nonmanifold_edges"] == 0 and part["connected_components"] == 1, f"bad mesh {part['file']}")
 
@@ -64,30 +65,43 @@ def test_budget():
     reserve = sum(int(row["planned_cash_krw"]) for row in rows if row["category"] == "CONTINGENCY")
     declared_target = int(next(row for row in rows if row["item_id"] == "TARGET_TOTAL")["planned_cash_krw"])
     declared_absolute = int(next(row for row in rows if row["item_id"] == "ABSOLUTE_TOTAL_WITH_RESERVE")["planned_cash_krw"])
-    require(target == declared_target == 178420 and target <= 180000, f"target budget {target}")
-    require(target + reserve == declared_absolute == 198420 and declared_absolute <= 200000, f"absolute budget {declared_absolute}")
+    require(target == declared_target == 179954 and target <= 180000, f"target budget {target}")
+    require(target + reserve == declared_absolute == 199954 and declared_absolute <= 200000, f"absolute budget {declared_absolute}")
     cnc = list(csv.DictReader((ROOT / "bom/cnc_quote_package.csv").open()))
     require(len({row["family_id"] for row in cnc}) <= 8, "unique CNC family cap")
     reuse = list(csv.DictReader((ROOT / "bom/reuse_inventory.csv").open()))
     require(all(row["claimed_zero_cash"] == "false" for row in reuse), "unverified reuse claimed zero cash")
     require((ROOT / "bom/value_engineering_v0.4.md").exists(), "v0.4 VE record missing")
+    verified = list(csv.DictReader((ROOT / "bom/verified_budget.csv").open()))
+    verified_state = {row["field_or_item"]: row for row in verified if row["budget_state"] == "VERIFIED_PROCUREMENT_BUDGET"}
+    require(verified_state["verified_quoted_or_receipted_subtotal"]["status"] == "NOT_ESTABLISHED", "unverified procurement budget incorrectly passed")
+    require(verified_state["remaining_margin"]["amount_krw"] == "", "fabricated verified margin")
 
 
 def test_print_package():
     manifest = list(csv.DictReader((ROOT / "exports/print/print_manifest.csv").open()))
     slicing = json.loads((ROOT / "validation/results/slicer_results.json").read_text())
     require(len(manifest) == 12 and slicing["status"] == "PASS", "print/slicer family gate")
-    require(abs(slicing["total_mass_g"] - 913.67) < 0.1, "slicer mass changed")
+    require(abs(slicing["total_mass_g"] - sum(float(row["slicer_mass_total_g"]) for row in manifest)) < 0.02, "manifest/slicer mass mismatch")
     require(slicing["planning_mass_g"] <= 1500, "print planning target")
+    require(all("support_volume_cm3" in item and item["support_volume_cm3"] >= 0 for item in slicing["parts"]), "support volume not recorded")
     for row in manifest:
         require(max(float(row[key]) for key in ("x_mm", "y_mm", "z_mm")) <= 210, f"print oversize {row['part_id']}")
         require(row["slicer_status"] == "PASS", f"unsliced {row['part_id']}")
         folder = ROOT / "exports/print" / row["part_id"]
+        for key in ("revision", "support_contact", "support_removal", "fastener", "insert_or_nut", "tightening_torque", "edge_distance", "interfaces", "freecad_source", "dimension_sheet"):
+            require(row[key].strip(), f"print metadata missing {row['part_id']}:{key}")
         for ext in ("FCStd", "step", "stl", "3mf"):
             require((folder / f"{row['part_id']}.{ext}").stat().st_size > 100, f"missing {row['part_id']}.{ext}")
+        require((folder / row["freecad_source"]).stat().st_size > 100, f"missing source {row['part_id']}")
+        require((folder / row["dimension_sheet"]).stat().st_size > 100, f"missing dimension sheet {row['part_id']}")
     plates = sorted((ROOT / "exports/print/plate_layouts").glob("plate-*.3mf"))
     require(len(plates) == 12 and all(zipfile.is_zipfile(path) for path in plates), "actual slicer plates")
     require(all("PPR-C" in path.name for path in plates), "stale non-slicer plate present")
+    coupon = ROOT / "exports/print/coupons/PPR-TC01"
+    for ext in ("FCStd", "step", "stl", "3mf", "py"):
+        require((coupon / f"PPR-TC01.{ext}").stat().st_size > 100, f"tolerance coupon missing {ext}")
+    require(slicing["tolerance_coupon"]["status"] == "PASS" and not slicing["tolerance_coupon"]["included_in_machine_mass"], "coupon slicing/accounting")
 
 
 def test_engineering_modelica_structural_firmware():
@@ -103,6 +117,9 @@ def test_engineering_modelica_structural_firmware():
     modelica = json.loads((ROOT / "simulation/openmodelica/results/summary.json").read_text())
     require(modelica["status"] == "PASS" and len(modelica["scenarios"]) == 18, "OpenModelica scenarios")
     require(len(modelica["sensitivity_sweeps"]) == 6 and all(row["status"] == "PASS" for row in modelica["sensitivity_sweeps"]), "OpenModelica sensitivity sweeps")
+    modelica_sources = "\n".join(path.read_text() for path in (ROOT / "simulation/openmodelica/PLA_PET_Recycler").rglob("*.mo"))
+    for library in ("Modelica.Mechanics.Rotational", "Modelica.Mechanics.Translational", "Modelica.Mechanics.MultiBody"):
+        require(library in modelica_sources, f"MSL mechanics library missing {library}")
     envelope = json.loads((ROOT / "simulation/openmodelica/results/dynamic_load_envelope.json").read_text())
     analysis_copy = json.loads((ROOT / "analysis/load_cases/openmodelica_dynamic_envelope.json").read_text())
     require(envelope == analysis_copy and envelope["loads"]["peak_cutter_torque_nm"] <= 22, "load-envelope trace")
@@ -139,6 +156,11 @@ def test_artifacts_and_release_locks():
     require(not state["main_promotion_allowed"] and not state["donor_drive_verified"], "main/donor incorrectly released")
     manifest = json.loads((ROOT / "artifacts/manifest.json").read_text())
     require(manifest["revision"] == REV and manifest["release_state"] == "DIGITAL_FABRICATION_BASELINE", "artifact manifest state")
+    for result in ("print_interfaces.json", "full_motion.json", "cutter_phase_sweep.json"):
+        data=json.loads((ROOT / "validation/results" / result).read_text())
+        require(data["status"] == "PASS", f"independent gate failed {result}")
+    phase=json.loads((ROOT / "validation/results/cutter_phase_sweep.json").read_text())
+    require(phase["configurations_checked"] == 1080 and phase["minimum_solid_clearance_mm"] >= 0.5, "phase sweep coverage")
 
 
 def main():

@@ -1,0 +1,30 @@
+{
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "dancer": {
+    "range_deg": [
+      -25,
+      25
+    ],
+    "samples": 51,
+    "minimum_checked_clearance_mm": 44.0
+  },
+  "traverse": {
+    "stroke_mm": 80,
+    "samples": 41,
+    "minimum_checked_clearance_mm": 25.0
+  },
+  "operating_motion_bounding_box_mm": [
+    470.0,
+    700.0,
+    930.0
+  ],
+  "service_path_checked_against": [
+    "PSU",
+    "ControlPanel",
+    "SealedFeedHopper",
+    "CutterPlateFront",
+    "Spool"
+  ],
+  "status": "PASS",
+  "scope": "nominal rigid CAD positions; donor cable flexibility and physical deflection remain PHYSICAL_NOT_RUN"
+}

@@ -228,7 +228,7 @@ def main() -> None:
         "",
         "## 해석 경계",
         "",
-        "Cutter load는 Gate-1 실측 전 surrogate이다. 전달토크 22 N·m upstream mechanical fuse, 34 N·m phase drivetrain, 48 N·m shaft/cutter의 순서를 디지털 모델에서만 검증했다. M8 table anchor 체결은 운전 전 필수이며, 실제 토크·충격·입도·jam은 Gate-1에서 검증한다.",
+        "Cutter load는 Gate-1 실측 전 surrogate이다. 14/18/22/34/48 N·m는 모두 cutter-shaft equivalent다. 물리 DRV-F01은 motor-side에 두며 22 N·m cutter-equivalent가 되도록 선택 ratio와 효율로 환산한다. Cutter-side DRV-02는 sacrificial element가 아니다. 이 보호 순서는 디지털 모델에서만 검증했다. M8 table anchor 체결은 운전 전 필수이며, 실제 토크·충격·입도·jam은 Gate-1에서 검증한다.",
         "",
     ]
     (SIM / "reports" / "mechanical_validation_ko.md").write_text("\n".join(report))

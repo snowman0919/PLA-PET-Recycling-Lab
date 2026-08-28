@@ -35,7 +35,10 @@ def main():
     # This catches an accidental radial slot through a hook/tooth.
     keyway_root_probe=Part.makeBox(2,6,2,App.Vector(-1,0,14))
     require(overlap(hook_disc(),keyway_root_probe)>20.0,"CUT-01 internal keyway opens through cutter root")
-    for a,b in (("PSU","HotShield"),("PSU","Barrel"),("PSU","ExtruderDrive"),("CableDuct","PSU"),("Spool","CoolingDuct"),("Spool","Gauge"),("Spool","PullerPlate"),("Spool","ControlPanel")):
+    for a,b in (("PSU","HotShield"),("PSU","Barrel"),("PSU","ExtruderDrive"),("CableDuct","PSU"),
+                ("Spool","PPR-C05_CoolingDuctLower"),("Spool","PPR-C05_CoolingDuctUpper"),
+                ("Spool","PPR-C06_GaugeHalfLower"),("Spool","PPR-C06_GaugeHalfUpper"),
+                ("Spool","PullerPlate"),("Spool","ControlPanel")):
         require(overlap(by[a],by[b])<0.01,f"collision {a}/{b}: {overlap(by[a],by[b])}")
     require(overlap(keepouts["KO_DancerSweep"],by["Spool"])<0.01,"dancer full-motion keep-out/spool collision")
     hooks_a=[by[f"Hook105_{i}"] for i in range(6)]
@@ -45,10 +48,9 @@ def main():
     require(overlap(by["PhaseGear105"],by["PhaseGear153"])<0.01,"phase gears have solid overlap")
     require(abs(by["PhaseGear105"].BoundBox.XMin + by["PhaseGear105"].BoundBox.XLength/2 - 105) < 0.01,"left phase gear center")
     require(by["PhaseGear105"].distToShape(by["CutterPlateRear"])[0] >= 3.9,"phase gear rear-plate service gap")
-    # ReferenceMotor is an interface-envelope solid, not a claim that a donor
-    # motor has already been measured.  The collision check is nevertheless
-    # useful for the nominal DRV interface package.
-    require(overlap(by["ReferenceMotor"],by["CutterPlateFront"])<0.01,"reference motor/front plate collision")
+    # ReferenceMotorVariant is the published 270 x 81 x 138 mm envelope for
+    # Parvalux 781096-735901, not a selected or zero-cash donor claim.
+    require(overlap(by["ReferenceMotorVariant"],by["CutterPlateFront"])<0.01,"reference motor/front plate collision")
     require(by["MotorMountPlate"].BoundBox.YMax <= 231.01,"motor plate orientation/position")
     require(overlap(by["BearingRetainerFront"],by["Bearing105_315"])<0.01,"front bearing retainer blocks rolling elements")
     require(overlap(by["BearingRetainerRear"],by["PhaseGear105"])<0.01,"rear bearing retainer/gear collision")
@@ -56,7 +58,7 @@ def main():
         shaft=by[f"Shaft{cx}"]
         for y in (315,455): require(overlap(shaft,by[f"Bearing{cx}_{y}"])<0.01,"shaft intersects bearing ring")
     require(overlap(by["Barrel"],by["HotShield"])<0.01,"barrel touches grounded shield")
-    report={"revision":"solid-manifold-openmodelica-v0.4","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":13,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"phase_drive":"interchangeable #35 chain + DRV-02 input fuse + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}
+    report={"revision":"solid-manifold-openmodelica-v0.4","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":15,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"phase_drive":"interchangeable motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}
     (ROOT/"simulation/cad_clearance.json").write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n")
     print("FREECAD_COLLISION_LOAD_PATH_OK")
 

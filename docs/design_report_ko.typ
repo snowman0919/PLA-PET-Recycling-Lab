@@ -31,7 +31,7 @@ PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, fee
 
 #table(columns: (1.5fr, 1.2fr, 1fr, 1fr), inset: 4pt,
   [*후보*], [*Envelope mm*], [*계획비용*], [*판정*],
-  [Vertical down-die], [470 x 700 x 930], [178,420 KRW], [target PASS / donor·물리 Gate blocker],
+  [Vertical down-die], [470 x 700 x 930], [179,954 KRW], [target PASS / donor·물리 Gate blocker],
   [Internal U-fold], [480 x 710 x 940], [196,000 KRW], [soft bend 기각],
   [Side spool column], [495 x 720 x 950], [204,000 KRW], [비용/목표 기각],
 )
@@ -46,13 +46,13 @@ Cutter의 각 pitch는 76% 긴 capture flank와 24% 짧은 nose/빠른 relief로
 
 #figure(image("../renders/modules/CUT-01_cycloidal_hook_profile.png", width: 64%), caption: [CUT-01 asymmetric cycloidal-derived profile])
 
-Actuator는 특정 MPN이 아니라 DRV-01 universal plate, #35 12T:18T/24T chain, DRV-02 hub와 generic M3 Z16 face>=18 mm phase pair의 functional interface다. Project-lab wheelchair/conveyor, scooter/e-bike geared motor, 동급 donor 순으로 검사한다. 합격값은 18–30 V reversible, cutter 환산 14 N·m continuous, 20–40 rpm이다. 보호 순서는 14 N·m continuous, 18 N·m calibrated electrical trip, DRV-02 input hub의 22 N·m replaceable mechanical fuse, 34 N·m phase drivetrain, 48 N·m shaft/cutter다. Gate-1 전 torque 달성이나 donor 0원을 주장하지 않는다.
+Actuator는 특정 MPN이 아니라 DRV-01 universal plate, donor별 DRV-Axx, motor-side DRV-F01, #35 12T:18T/24T/30T chain, cutter-side DRV-02 hub와 generic M3 Z16 face>=18 mm phase pair의 functional interface다. Project-lab wheelchair/conveyor, scooter/e-bike geared motor, 동급 donor 순으로 검사한다. 합격값은 18–30 V reversible, cutter 환산 14 N·m continuous, 20–40 rpm이다. 14/18/22/34/48 N·m 보호 계층은 모두 cutter-shaft equivalent이며, DRV-F01 실제 설정은 12:18/24/30 ratio에서 각각 17.25/12.94/10.35 N·m다. DRV-02는 sacrificial element가 아니다. Gate-1 전 torque 달성이나 donor 0원을 주장하지 않는다.
 
-#figure(image("../renders/modules/shredder_drive_guard_removed.png", width: 90%), caption: [Guard 제거 render — interchangeable donor geared-DC, #35 chain과 cycloidal-derived hook cutter/phase gear pair])
+#figure(image("../renders/modules/interchangeable_drive_interface.png", width: 90%), caption: [DRV interface schematic LOD — donor geared-DC, motor-side DRV-F01, #35 chain, cutter-side DRV-02와 M3 Z16 phase pair. 주문 형상 아님])
 
 #figure(image("../renders/modules/shared_shredder_module.png", width: 90%), caption: [공용 input/cutter/screen/bin — metal shaft/bearing plate load path])
 
-OpenModelica scenario에서 upstream fuse가 22 N·m로 전달토크를 제한했고 bearing 1.43 kN, chain 0.603 kN의 동적 envelope를 만들었다. 이 JSON을 구조 screening과 CalculiX가 직접 읽는다. Impact, keyway notch, bearing plate bending과 실제 PET seam capture는 Gate 1 대상이다. 3–6 mm fraction은 물리시험 전 claim하지 않으며 Gate 2 실패 전 별도 stage를 추가하지 않는다.
+OpenModelica scenario에서 cutter-equivalent relief가 22 N·m로 전달토크를 제한했고 bearing과 chain의 동적 envelope를 만들었다. 이 JSON을 구조 screening과 CalculiX가 직접 읽는다. MSL Rotational/Translational/MultiBody 요소가 cutter/screw/puller, filament span, dancer/frame mass-property 경로에 사용된다. Impact, keyway notch, bearing plate bending과 실제 PET seam capture는 Gate 1 대상이다. 3–6 mm fraction은 물리시험 전 claim하지 않으며 Gate 2 실패 전 별도 stage를 추가하지 않는다.
 
 = Dryer와 extrusion
 
@@ -84,11 +84,11 @@ Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spoo
 
 = 비용과 제조
 
-Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 실제 slicing을 반영한 조건부 target은 178,420 KRW다. 20,000 KRW contingency 포함 absolute plan은 198,420 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
+Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 실제 slicing을 반영한 조건부 target은 179,954 KRW다. 20,000 KRW contingency 포함 absolute plan은 199,954 KRW이며 계획 여유는 46 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
 
 #figure(image("../renders/review/print_orientation.png", width: 92%), caption: [12개 출력 part family orientation overview])
 
-PrusaSlicer 2.9.6 toolpath 질량은 913.67 g, 실패 reserve 12% 포함 procurement mass는 1,023.31 g, 총 시간은 76.6 h다. CAD nominal mass와 slicer mass는 별도 기록한다. 고하중·hot path는 출력품을 사용하지 않는다.
+PrusaSlicer 2.9.6 toolpath 질량은 989.76 g, 실패 reserve 12% 포함 procurement mass는 1,108.53 g, 총 시간은 87.5 h다. CAD nominal mass와 slicer mass는 별도 기록한다. 고하중·hot path는 출력품을 사용하지 않는다.
 
 = 검증 경계
 

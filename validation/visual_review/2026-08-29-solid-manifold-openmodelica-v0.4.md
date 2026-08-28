@@ -20,8 +20,9 @@
 1. CUT-01은 원형 saw tooth가 아니다. 각 7개 hook는 긴 capture flank와 짧고 급한 relief를 가지며, 단독 profile과 Gate-1 두-disc engagement render에서 비대칭 형상이 확인된다.
 2. Gate-1은 축당 CUT-01 한 장, 250 mm torque arm, 5 mm screen, metal upright/plate/table load path와 full polycarbonate guard를 보여 준다. Torque arm이 guard 밖 계측점으로 나오며 rotor detail에서 두 coupon과 screen 간 위치가 구분된다.
 3. Full assembly는 하나의 470×700×930 mm frame 안에 hopper/shredder/extruder/forming/spool path를 유지한다. 두 번째 tower나 외부 forming rail은 없다.
-4. Screw/barrel render는 full RFQ geometry를 보여 주지만 bore/clearance/finish는 raster에서 판정할 수 없다. Controlling SVG/PDF/inspection template과 topology audit를 사용해야 한다.
-5. 기존 interchangeable-drive 개별 render는 DRV-01/02/03만 띄워 motor/chain 관계가 불명확했다. v0.4에서 donor reference LOD, input/output sprocket, #35 chain run, 22 N·m input fuse와 M3 Z16 pair를 한 schematic LOD에 표시하도록 수정했다. 이 LOD는 주문 형상이 아니며 actual donor 치수 전 adapter bracket은 HOLD다.
+4. 최초 screw/barrel 검토 render는 4 mm 시각화 loft가 null shape로 붕괴해 barrel만 표시되는 결함이 있었다. 이를 valid single-solid인 2 mm 시각화 형상으로 교체하고 screw와 barrel을 평행 분해 배치해 flight, journal, barrel 외형이 함께 보이도록 수정했다. Bore/clearance/finish/GD&T는 raster에서 판정할 수 없으므로 controlling SVG/PDF/inspection template과 1 mm source STEP/topology audit를 사용한다.
+5. Guard-removed 조립 render에서는 exact reference motor LOD가 chain 일부를 가려 인터페이스 판독성이 충분하지 않았다. 따라서 active PDF에는 motor-side DRV-F01, input/output sprocket, #35 chain run, cutter-side DRV-02와 M3 Z16 pair를 분리해 보이는 `interchangeable_drive_interface.png`를 사용한다. 이 schematic LOD는 주문 형상이 아니며 actual donor 실측 전 DRV-Axx adapter는 HOLD다.
+6. 모든 갱신 render는 opaque B-Rep face 또는 hidden-edge tessellation으로 생성됐다. 이전의 투명 삼각 surface 인상은 제거됐고, cutter/gate jig/print part는 positive-volume source와 독립 topology/mesh gate로 교차 확인한다.
 
 ## 남은 물리·시각 blocker
 

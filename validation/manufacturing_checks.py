@@ -12,7 +12,7 @@ import Part
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"cad/freecad/compact"))
-from manufacturing import extruder_rfq_parts, gate1_assembly, gate1_parts, generic_phase_gear_lamination  # noqa: E402
+from manufacturing import extruder_rfq_parts, extruder_screw, gate1_assembly, gate1_parts, generic_phase_gear_lamination  # noqa: E402
 
 
 def require(value,message):
@@ -21,8 +21,9 @@ def require(value,message):
 
 def main():
     jig_specs=gate1_parts()
+    rfq_specs=extruder_rfq_parts()
     require({p["id"] for p in jig_specs}=={f"G1J-{i:02d}" for i in range(1,11)}|{f"G1J-P{i:02d}" for i in range(1,4)},"Gate-1 part family set incomplete")
-    for spec in jig_specs+extruder_rfq_parts():
+    for spec in jig_specs+rfq_specs:
         shape=spec["shape"]
         require(shape.isValid() and not shape.isNull(),f"invalid shape {spec['id']}")
     jig=Part.makeCompound([item["shape"] for item in gate1_assembly()])
@@ -44,10 +45,12 @@ def main():
         a=math.radians(angle)
         probe=Part.makeCylinder(diameter/2,6,App.Vector(15*math.cos(a),0,15*math.sin(a)),App.Vector(0,1,0))
         require(gear.common(probe).Volume < 0.01,f"DRV-03 PCD30 hole missing at {angle}")
-    screw=next(p["shape"] for p in extruder_rfq_parts() if p["id"]=="EX-SCR-01")
-    barrel=next(p["shape"] for p in extruder_rfq_parts() if p["id"]=="EX-BAR-01")
+    screw=next(p["shape"] for p in rfq_specs if p["id"]=="EX-SCR-01")
+    barrel=next(p["shape"] for p in rfq_specs if p["id"]=="EX-BAR-01")
     require(abs(screw.BoundBox.ZLength-316.0)<0.02,"screw total length")
     require(max((v.Point.x**2+v.Point.y**2)**0.5 for v in screw.Vertexes) <= 7.961,"screw OD exceeds 15.92")
+    render_screw=extruder_screw(facet_step=2.0)
+    require(not render_screw.isNull() and render_screw.isValid() and len(render_screw.Solids)==1,"RFQ render screw must remain one valid solid")
     require(abs(barrel.BoundBox.ZLength-280.0)<0.01,"barrel length")
     require(len(barrel.Solids)==1,"barrel must be one solid")
     for rel in (

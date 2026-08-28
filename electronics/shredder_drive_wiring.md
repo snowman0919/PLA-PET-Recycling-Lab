@@ -2,7 +2,7 @@
 
 ## 기준 actuator
 
-- Motor: interchangeable 18–30 V reversible brushed geared-DC donor. #35 12T:18T/24T를 선택해 cutter 20–40 rpm, cutter 환산 continuous 14 N·m을 만족해야 한다. Peak capability가 있어도 DRV-02 upstream mechanical fuse는 22 N·m에서 분리한다.
+- Motor: interchangeable 18–30 V reversible brushed geared-DC donor. #35 12T:18T/24T/30T를 선택해 cutter 20–40 rpm, cutter 환산 continuous 14 N·m을 만족해야 한다. `DRV-F01`은 motor side에 있고 `DRV-02`는 cutter-side output hub다.
 - Project-lab/donor 우선순위: wheelchair/conveyor geared motor → scooter/e-bike geared motor → 동급 24 V geared motor. Exact model, label, 수량, 상태, 축경, 무부하 전류·RPM, 30 min 온도를 확인하기 전에는 현금 0원으로 확정하지 않는다.
 - Driver: BTS7960-class bidirectional H-bridge candidate, **module 입고 후 20 A/60 s thermal load test 필수**
 - Current feedback: isolated 50 A Hall sensor 우선, 대안은 calibrated low-side shunt + differential amplifier
@@ -49,8 +49,8 @@ Shredder branch의 power-budget sensitivity peak는 24 V x 18 A = 432 W다. 이 
 1. Label에서 exact model, rated voltage/power/current/speed, duty와 시리얼을 촬영한다.
 2. Shaft diameter/length, key or D-flat, mount pattern, rotation, motor/gearbox envelope를 측정하고 `bom/donor_drive_acceptance.csv`에 기록한다.
 3. Guard 안 무부하로 12/18/24 V speed와 current, 방향을 기록한다.
-4. Torque arm + load cell로 5/10/15/18/22 N·m에서 current와 RPM을 기록하고 no-load subtraction/ratio/efficiency를 포함한 calibration record를 만든다.
-5. DRV-02 motor-input hub의 replaceable key/shear element가 22 N·m에서 분리되고 34 N·m phase drivetrain/48 N·m shaft보다 먼저 보호하는지 quasi-static으로 확인한다.
+4. Torque arm + load cell로 cutter-equivalent 5/10/15/18/22 N·m에서 current와 RPM을 기록하고 no-load subtraction/ratio/efficiency를 포함한 calibration record를 만든다.
+5. 14/18/22/34/48 N·m는 cutter-shaft reference다. DRV-F01 motor-side shear setting을 12:18/24/30에서 각각 17.25/12.94/10.35 N·m로 quasi-static calibration하고, 22 N·m cutter-equivalent에서 분리되며 DRV-02/phase path는 그대로 동기화되는지 확인한다.
 6. H-bridge heatsink 온도가 20 A/60 s에서 80 °C 미만인지 확인한다.
 7. 20 A branch fuse, E-stop, lid/service contact를 각각 열어 motor energy가 제거되는지 확인한다. Gate-1은 `exports/jigs/gate1/wiring_24v_hardcut.svg`의 S0/S1→K0→K1 manual-reset 회로를 추가로 따른다.
 

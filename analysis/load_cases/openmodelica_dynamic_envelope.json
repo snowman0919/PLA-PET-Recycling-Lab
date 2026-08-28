@@ -4,21 +4,21 @@
   "governing_scenarios": {
     "peak_cutter_torque_nm": "InputFuseOperation",
     "peak_phase_torque_nm": "InputFuseOperation",
-    "peak_bearing_load_n": "OneShaftJam",
+    "peak_bearing_load_n": "JamReverseRetry",
     "peak_chain_force_n": "InputFuseOperation",
-    "peak_frame_reaction_n": "OneShaftJam"
+    "peak_frame_reaction_n": "JamReverseRetry"
   },
   "loads": {
     "peak_cutter_torque_nm": 22.0,
-    "peak_phase_torque_nm": 23.54,
-    "peak_bearing_load_n": 1425.960236313944,
+    "peak_phase_torque_nm": 11.08276331030844,
+    "peak_bearing_load_n": 1255.086741750262,
     "peak_chain_force_n": 602.9556386019965,
-    "peak_frame_reaction_n": 1564.550371657191
+    "peak_frame_reaction_n": 1394.093622842456
   },
   "full_system": {
-    "peak_base_reaction_n": 1290.014414780859,
-    "peak_tipping_moment_nm": 340.197813204321,
-    "peak_anchor_tension_n": 399.2911645927027,
+    "peak_base_reaction_n": 1365.320623187984,
+    "peak_tipping_moment_nm": 380.4952444976162,
+    "peak_anchor_tension_n": 485.3382732103669,
     "anchor_tension_limit_n": 1200.0
   },
   "design_caps": {

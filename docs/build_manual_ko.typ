@@ -25,7 +25,7 @@ Release state: `DIGITAL_FABRICATION_BASELINE` / Physical state: `PHYSICAL_NOT_RU
 
 `bom/reuse_inventory.csv`의 UNVERIFIED 항목은 label, 수량, 상태, shaft, voltage/current와 telemetry를 기록한다. 사용할 수 없는 donor는 `cash_budget.csv` allowance 범위에서 대체하되 주문은 승인 후 진행한다.
 
-#danger[조건부 target은 178,420 KRW, contingency 포함 absolute plan은 198,420 KRW지만 donor motor와 RFQ는 UNVERIFIED다. 정확 증거와 Gate-1 PASS 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
+#danger[조건부 target은 179,954 KRW, contingency 포함 absolute plan은 199,954 KRW지만 donor motor와 RFQ는 UNVERIFIED다. 계획 여유는 46 KRW뿐이다. 정확 증거와 Gate-1 PASS 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
 
 PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesive와 오염을 제거하고 PLA에는 metal insert가 없어야 한다. 미확인 plastic은 투입하지 않는다.
 
@@ -39,6 +39,26 @@ PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesi
 
 조립 순서: frame -> control/PSU와 PE -> extruder thrust/barrel -> vertical forming -> spooler -> sealed hopper/feeder -> shredder plates/shaft -> screen/bin -> anti-reach/hopper/lid -> guard/cable duct다. Printed housing에 cutter/extruder load를 전달하지 않는다.
 
+== 조립·체결 schedule
+
+#table(
+  columns: (7%, 17%, 17%, 13%, 12%, 34%),
+  inset: 2.5pt,
+  table.header([순서], [부품/수량], [체결품], [공구], [체결 torque], [방향·순서·critical clearance]),
+  [1], [20×20 frame rail/column], [M5 T-nut·washer], [4 mm hex, square, tape], [4.0 N·m], [바닥→column→상부; 대각차 ≤1.0, table M8 anchor는 최종 수평 후 체결]),
+  [2], [Control/PSU/PE], [M4×10 + tooth washer], [3 mm hex, DMM], [1.2 N·m], [PE를 먼저, 신호선을 나중; hot shield·motor cable과 분리, 0 V continuity 기록]),
+  [3], [Thrust plate/barrel], [M6×20 8.8 + flat washer], [5 mm hex, dial indicator], [9 N·m], [Thrust→barrel clamp 교차조임; screw hand TIR ≤0.10, shield air gap ≥10]),
+  [4], [Cooling/gauge/puller], [PPR-C05 M4×12, C06 M3×12, C07 M4 captive], [2.5/3 mm hex], [M3 0.5 / M4 1.2 N·m], [die→duct→X/Y gauge→puller 직선; soft filament 굴곡 금지]),
+  [5], [Guide/dancer/spool], [PPR-C08 M5, C09 M6 clamp, C10 M4], [4/5/3 mm hex], [M4 1.2 / M5 2.5 / M6 4 N·m], [metal spindle가 축하중 부담; dancer -25…+25°, traverse 0…80 전 범위 확인]),
+  [6], [CUT-03/05/6004/CUT-08], [M6 plate + M4 retainer], [press sleeve, 4/5 mm hex], [M4 1.2 / M6 9 N·m], [Bearing outer ring만 압입; shaft→bearing→plate→profile 금속 하중경로]),
+  [7], [CUT-01/02 stack], [6 mm key + ground shim], [feeler gauge, torque wrench], [shaft nut 업체도면값], [축별 disc 순서를 기록; axial gap 0.25–0.50, screen 최소 1.9]),
+  [8], [DRV-01/Axx/F01/02/03], [M6 mount, M4 gear laminate+dowel], [straightedge, dial, 3/5 mm hex], [M4 1.2 / M6 9 N·m], [Motor→F01→12T chain→18/24/30T→DRV-02→phase pair; chain alignment ≤0.5]),
+  [9], [Hopper/bin/screen], [PPR-C01/02 M4, C03 M3, C04 M5], [2.5/3/4 mm hex], [M3 0.5 / M4 1.2 / M5 2.5], [Screen이 service 방향으로 완전히 빠져야 함; baffle 직선 손 접근 차단]),
+  [10], [Guard/interlocks/cable], [M4 captive + tooth washer], [3 mm hex, DMM], [1.2 N·m], [Guard를 마지막 체결; S0/S1 개방 시 K1=0, power restore 무자동재기동]),
+)
+
+각 체결부는 torque 기록 후 witness mark한다. Nyloc은 손으로 thread 2산 이상 돌린 뒤 조이고, heat-set insert는 `PPR-TC01` 합격 온도/보정값으로만 삽입한다. Hole을 억지로 키워 조립하지 말고 해당 part source parameter를 수정해 재생성한다.
+
 = Hopper와 cutter
 
 PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조립한다. Lid를 열어도 높이는 930 mm를 넘지 않는다. Reach probe가 cutter에 닿으면 사용하지 않는다.
@@ -49,9 +69,9 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 `CUT-01`은 76% cycloidal capture flank가 회전 중심 쪽 root에서 tip으로 진행하고, 24% 빠른 relief가 hook back을 만들도록 좌우 shaft에 같은 disc를 끼운다. 오른쪽 shaft만 180/7 degree phase offset한다. Ø20.2 bore의 6.2 mm blind internal keyway가 root section 안에서 끝나고 tooth 외곽까지 열리지 않았는지 검사한다. 각 disc 사이에는 `CUT-02` 7 mm spacer와 금속 shim을 사용한다. Disc가 plate 또는 반대 shaft disc와 접촉하면 motor를 연결하지 않는다.
 
-검증된 18–30 V donor geared-DC motor를 `CUT-07/DRV-01` universal plate의 standard metal angle에 장착한다. #35 12T motor sprocket과 18T 또는 24T cutter sprocket을 DRV-02 four-bolt hub로 분리하고 chain alignment를 0.5 mm 이내로 맞춘다. 두 cutter shaft에는 generic M3 Z16, 20 degree, face>=18 mm steel pair 또는 DRV-03 lamination 3장/gear를 설치한다. DRV-02 input hub의 replaceable key/shear element를 22 N·m에서 calibration해 34 N·m phase pair와 48 N·m shaft/cutter보다 upstream에서 먼저 분리되게 한다. Hand rotation 20회에서 tooth/chain/disc 접촉이 없어야 interlocked guard를 닫는다.
+검증된 18–30 V donor geared-DC motor를 `CUT-07/DRV-01` universal plate의 standard metal angle과 donor별 `DRV-Axx`에 장착한다. #35 12T motor sprocket과 18T/24T/30T cutter sprocket을 cutter-side `DRV-02` four-bolt hub로 분리하고 chain alignment를 0.5 mm 이내로 맞춘다. 두 cutter shaft에는 generic M3 Z16, 20 degree, face>=18 mm steel pair 또는 DRV-03 lamination 3장/gear를 설치한다. Motor-side `DRV-F01` replaceable shear element는 22 N·m cutter-equivalent가 되도록 12:18/24/30 ratio에서 각각 17.25/12.94/10.35 N·m로 calibration한다. DRV-02는 sacrificial element가 아니며 34 N·m phase pair와 48 N·m shaft/cutter보다 DRV-F01이 먼저 분리되어야 한다. Hand rotation 20회에서 tooth/chain/disc 접촉이 없어야 interlocked guard를 닫는다.
 
-#figure(image("../renders/modules/shredder_drive_guard_removed.png", width: 92%), caption: [Interchangeable donor geared-DC / #35 chain / cycloidal-derived cutter 조립 — 정상 운전은 guard 장착])
+#figure(image("../renders/modules/interchangeable_drive_interface.png", width: 92%), caption: [Interchangeable drive interface schematic LOD — donor 실측 전 adapter는 HOLD, 정상 운전은 guard 장착])
 
 #figure(image("../renders/review/shredder_fastener_tool_access.png", width: 92%), caption: [Bearing plate/shaft/tool access review])
 
@@ -97,6 +117,6 @@ Gate 1 cutter coupon -> Gate 2 flake/feed -> Gate 3 cold mechanical -> Gate 4 ho
 
 = Print package
 
-각 `exports/print/PPR-Cxx` 폴더에는 FCStd, STEP, STL, 3MF와 print notes가 있다. `plate_layouts`의 3MF는 PrusaSlicer 2.9.6이 생성한 실제 plate이며 nominal 913.67 g/76.6 h, reserve 포함 1,023.31 g이다. 모든 part는 각 축 210 mm 이하를 자동 검사한다.
+각 `exports/print/PPR-Cxx` 폴더에는 FreeCAD Python, FCStd, STEP, STL, 3MF, print notes와 dimension sheet가 있다. `plate_layouts`의 3MF는 PrusaSlicer 2.9.6이 생성한 실제 plate이며 nominal 989.76 g/87.5 h, reserve 포함 1,108.53 g이다. 모든 part는 각 축 210 mm 이하를 자동 검사한다. `PPR-TC01` tolerance coupon을 먼저 출력해 hole/insert/slide 보정을 기록한다.
 
 #figure(image("../renders/review/support_contact.png", width: 92%), caption: [아래보기 facet support-contact review — red])

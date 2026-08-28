@@ -1,7 +1,7 @@
 within PLA_PET_Recycler.Generated;
 package CADParameters
   constant String revision = "solid-manifold-openmodelica-v0.4";
-  constant String baselineSHA256 = "f9db44a7393df07e8d524dda16de979aa23652ec31786cd1e87788d377a37b8f";
+  constant String baselineSHA256 = "7da91da936ddacfd0ffb8474aa702c12133b6d88bfba7b6d6a42519aa13d090d";
   constant Real cutterDiscMass = 0.0684185363429 "kg";
   constant Real cutterRotorMass = 1.12825424517 "kg";
   constant Real cutterRotorJ = 0.000253394623572 "kg.m2";
@@ -10,8 +10,14 @@ package CADParameters
   constant Real cutterSprocketRadius = 0.0364869297035 "m";
   constant Real motorSprocketRadius = 0.0184008869908 "m";
   constant Real phaseGearRadius = 0.024 "m";
+  constant Real shaftCenters[2,3] = [0.105,0,0.590;0.153,0,0.590] "m";
+  constant Real bearingCenters[4,3] = [0.105,0.315,0.590;0.105,0.455,0.590;0.153,0.315,0.590;0.153,0.455,0.590] "m";
   constant Real spoolEmptyJ = 0.0018683 "kg.m2";
   constant Real spoolFullJ = 0.0072063 "kg.m2";
-  constant Real assemblyMass = 72.7473654839 "kg";
-  constant Real assemblyCOM[3] = {0.260732960534,0.306991721372,0.416971775961};
+  constant Real assemblyMass = 73.4617253725 "kg";
+  constant Real assemblyCOM[3] = {0.260939017914,0.299632004382,0.415884915225};
+  constant Real assemblyInertia[3,3] = [6.81095858255,0.133776052471,0.659098257226;0.133776052471,5.37380260827,0.403852510941;0.659098257226,0.403852510941,3.96992267338];
+  constant Real frameMass = 10.0872 "kg";
+  constant Real frameCOM[3] = {0.235,0.344967880086,0.460471092077};
+  constant Real frameInertia[3,3] = [2.17137681096,-3.58868538878e-17,-1.38777878078e-16;-3.58868538878e-17,1.75901014137,-0.00205431263383;-1.38777878078e-16,-0.00205431263383,1.23792694959];
 end CADParameters;

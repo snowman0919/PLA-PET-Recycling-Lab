@@ -1,0 +1,32 @@
+budget_state,field_or_item,amount_krw,status,evidence_or_blocker
+METADATA,revision,,solid-manifold-openmodelica-v0.4,generated from bom/cash_budget.csv
+CONDITIONAL_PLANNING_BUDGET,conditional_subtotal,179954,PASS_TARGET_LE_180000,target allowances; not quotes or receipts
+CONDITIONAL_PLANNING_BUDGET,print_material_including_support_and_12pct_reserve,19954,PRUSASLICER_ESTIMATE,"actual toolpath estimate, not purchase receipt"
+CONDITIONAL_PLANNING_BUDGET,shipping_tax,0,INCLUDED_ONLY_IN_CONTINGENCY,no supplier quote
+CONDITIONAL_PLANNING_BUDGET,contingency,20000,RESERVED,shipping machining variance failed prints fasteners consumables
+CONDITIONAL_PLANNING_BUDGET,absolute_total,199954,PASS_CAP_LE_200000,conditional subtotal plus contingency
+CONDITIONAL_PLANNING_BUDGET,remaining_margin,46,CONDITIONAL_ONLY,not verified purchasing headroom
+VERIFIED_PROCUREMENT_BUDGET,verified_quoted_or_receipted_subtotal,0,NOT_ESTABLISHED,"zero means no item is yet evidence-qualified, not a zero-cost machine"
+VERIFIED_PROCUREMENT_BUDGET,shipping_tax,,UNKNOWN,supplier destinations and quotes absent
+VERIFIED_PROCUREMENT_BUDGET,print_material_including_support,,UNKNOWN,filament lot/receipt absent
+VERIFIED_PROCUREMENT_BUDGET,contingency,20000,RESERVED_NOT_SPENT,cannot be used to hide blocked base cost
+VERIFIED_PROCUREMENT_BUDGET,remaining_margin,,UNKNOWN,cannot calculate until every blocked item has quote/receipt or verified donor evidence
+BLOCKED_ITEM,CNC-01,14000,QUOTE_REQUIRED,Gate-1에서는 CUT-01 2장만 RFQ 허용; full stack는 결과 전 HOLD
+BLOCKED_ITEM,CNC-02,5000,QUOTE_REQUIRED,동일 flat pattern과 project-lab donor plate 우선
+BLOCKED_ITEM,CNC-03,9000,QUOTE_REQUIRED,표준 S45C shaft와 DRV-02 keyed interface 사용
+BLOCKED_ITEM,CNC-04,4000,QUOTE_REQUIRED,Gate-2 aperture 확정 전 coupon만
+BLOCKED_ITEM,CNC-05,18000,QUOTE_REQUIRED,EX-CPN-SCR만 선행 허용; full screw HOLD
+BLOCKED_ITEM,CNC-06,17000,QUOTE_REQUIRED,EX-CPN-BAR만 선행 허용; full barrel HOLD
+BLOCKED_ITEM,CNC-07,6000,QUOTE_REQUIRED,표준 봉재 단순 선삭과 sacrificial retainer
+BLOCKED_ITEM,CNC-08,3000,QUOTE_REQUIRED,project-lab metal flat part 우선
+BLOCKED_ITEM,SAFE-ALLOW,12000,BUY_HOLD,재고 확인 시 미사용; 안전 기능 삭제 금지
+BLOCKED_ITEM,FUSE-ALLOW,6500,BUY_HOLD,exact rating 확인 필요
+BLOCKED_ITEM,GAUGE-ALLOW,7000,BUY_HOLD,calibration 전 성능 미확정
+BLOCKED_ITEM,THERM-ALLOW,9500,BUY_HOLD,PET 온도 등급 확인
+BLOCKED_ITEM,HW-ALLOW,7000,BUY_HOLD,donor 실측 후 수량 확정
+BLOCKED_ITEM,SH-MOTOR-DONOR,0,CONDITIONAL_DONOR_UNVERIFIED,모델 수량 상태 label 축 무부하전류 확인 전 현금 0원 확정 금지
+BLOCKED_ITEM,SH-DRIVE,22000,BUY_HOLD,재고 우선; receipt test와 donor별 torque calibration 필요
+BLOCKED_ITEM,SH-INTERFACE,8000,QUOTE_REQUIRED,특정 coupling/gear MPN 비종속; cutter-equivalent 22 N.m relief 유지
+BLOCKED_ITEM,PRINT-ALLOW,19954,BUY_HOLD,planning mass 1108.53 g at 18000 KRW/kg
+BLOCKED_ITEM,GATE1-METROLOGY,7500,BUY_HOLD,project-lab 계측기 확인 시 미사용
+BLOCKED_ITEM,GATE1-PRINT,4500,BUY_HOLD,시험 jig 출력은 final-machine package와 별도 집계

@@ -1,0 +1,27 @@
+{
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "geometry": "exact released CUT-01 cycloidal-derived B-Rep",
+  "base_angle_range_deg": [
+    0,
+    359
+  ],
+  "base_angle_step_deg": 1,
+  "phase_error_samples_deg": [
+    -1.0,
+    0.0,
+    1.0
+  ],
+  "configurations_checked": 1080,
+  "exact_boolean_common_samples": 36,
+  "repeated_stack_interfaces": 11,
+  "maximum_overlap_mm3": 0.0,
+  "minimum_solid_clearance_mm": 0.5,
+  "nominal_axial_gap_mm": 0.5,
+  "worst_case_shim_gap_requirement_mm": 0.25,
+  "geometric_collision_free_phase_range_rad": 3.141592653589793,
+  "adopted_dynamic_phase_error_limit_rad": 0.017453292519943295,
+  "derivation": "all 1080 rotated exact solids retain a constant positive axial B-Rep interval separation; periodic exact common() checks are zero. The 1 degree limit is the stricter capture/gear-backlash limit",
+  "synchronization_requirement": "phase gears remain required for counter-rotation and capture timing even though axial disc separation prevents direct cutter collision",
+  "status": "PASS",
+  "physical_state": "PHYSICAL_NOT_RUN"
+}

@@ -41,6 +41,18 @@ def density_for(material):
     return DENSITY_KG_MM3["mixed"]
 
 
+def aggregate(items):
+    total=sum(item["mass_kg"] for item in items)
+    com=[sum(item["mass_kg"]*item["center_of_mass_m"][axis] for item in items)/total for axis in range(3)]
+    inertia=[[0.0]*3 for _ in range(3)]
+    for item in items:
+        d=[item["center_of_mass_m"][i]-com[i] for i in range(3)]; d2=sum(x*x for x in d); mass=item["mass_kg"]
+        for i in range(3):
+            for j in range(3):
+                inertia[i][j]+=item["inertia_com_kg_m2"][i][j]+mass*((d2 if i==j else 0)-d[i]*d[j])
+    return {"mass_kg":total,"center_of_mass_m":com,"inertia_com_kg_m2":inertia,"object_count":len(items)}
+
+
 def main():
     params=json.loads((ROOT/"cad/parameters/baseline.json").read_text())
     cutter=hook_disc(); shaft=cutter_shaft(); gear=spur_phase_gear(module=3,teeth=16,thickness=18,bore=20.2); screw=extruder_screw(2.0)
@@ -49,9 +61,12 @@ def main():
     rotor_iyy=6*cutter_p["inertia_com_kg_m2"][1][1]+shaft_p["inertia_com_kg_m2"][1][1]+gear_p["inertia_com_kg_m2"][1][1]
     items=[]
     for item in assembly_objects():
-        p=props(item["shape"],density_for(item["material"])); p.update({"name":item["name"],"classification":item["classification"]}); items.append(p)
-    total_mass=sum(i["mass_kg"] for i in items)
-    com=[sum(i["mass_kg"]*i["center_of_mass_m"][axis] for i in items)/total_mass for axis in range(3)]
+        density=density_for(item["material"])
+        if item.get("mass_override_kg") is not None:
+            density=item["mass_override_kg"]/item["shape"].Volume
+        p=props(item["shape"],density); p.update({"name":item["name"],"group":item["group"],"classification":item["classification"],"mass_source":"published_or_measured_override" if item.get("mass_override_kg") is not None else "solid_volume_x_material_density","evidence":item.get("evidence","")}); items.append(p)
+    assembly=aggregate(items); frame=aggregate([item for item in items if item["group"]=="frame"])
+    total_mass=assembly["mass_kg"]; com=assembly["center_of_mass_m"]
     baseline_hash=hashlib.sha256((ROOT/"cad/parameters/baseline.json").read_bytes()).hexdigest()
     p35=9.525/1000
     result={
@@ -64,7 +79,7 @@ def main():
         "motor_sprocket_pitch_radius_m":p35/(2*math.sin(math.pi/12)),
         "phase_gear_pitch_radius_m":0.003*16/2,
         "spool":{"empty_mass_kg":0.35,"full_mass_kg":1.35,"core_radius_m":0.026,"full_radius_m":0.100,"empty_inertia_kg_m2":0.5*0.35*(0.026**2+0.100**2),"full_inertia_kg_m2":0.5*1.35*(0.026**2+0.100**2)},
-        "assembly":{"mass_kg":total_mass,"center_of_mass_m":com,"object_count":len(items)},
+        "assembly":assembly,"frame_base":frame,
         "source_status":"CAD_SOLID_MASS_PROPERTIES",
     }
     out=ROOT/"simulation/openmodelica/generated"; out.mkdir(parents=True,exist_ok=True)
@@ -80,10 +95,16 @@ def main():
   constant Real cutterSprocketRadius = {result['cutter_sprocket_pitch_radius_m']:.12g} "m";
   constant Real motorSprocketRadius = {result['motor_sprocket_pitch_radius_m']:.12g} "m";
   constant Real phaseGearRadius = {result['phase_gear_pitch_radius_m']:.12g} "m";
+  constant Real shaftCenters[2,3] = [0.105,0,0.590;0.153,0,0.590] "m";
+  constant Real bearingCenters[4,3] = [0.105,0.315,0.590;0.105,0.455,0.590;0.153,0.315,0.590;0.153,0.455,0.590] "m";
   constant Real spoolEmptyJ = {result['spool']['empty_inertia_kg_m2']:.12g} "kg.m2";
   constant Real spoolFullJ = {result['spool']['full_inertia_kg_m2']:.12g} "kg.m2";
   constant Real assemblyMass = {total_mass:.12g} "kg";
   constant Real assemblyCOM[3] = {{{com[0]:.12g},{com[1]:.12g},{com[2]:.12g}}};
+  constant Real assemblyInertia[3,3] = [{';'.join(','.join(f'{value:.12g}' for value in row) for row in assembly['inertia_com_kg_m2'])}];
+  constant Real frameMass = {frame['mass_kg']:.12g} "kg";
+  constant Real frameCOM[3] = {{{frame['center_of_mass_m'][0]:.12g},{frame['center_of_mass_m'][1]:.12g},{frame['center_of_mass_m'][2]:.12g}}};
+  constant Real frameInertia[3,3] = [{';'.join(','.join(f'{value:.12g}' for value in row) for row in frame['inertia_com_kg_m2'])}];
 end CADParameters;
 '''
     (out/"CADParameters.mo").write_text("within PLA_PET_Recycler.Generated;\n"+constants)

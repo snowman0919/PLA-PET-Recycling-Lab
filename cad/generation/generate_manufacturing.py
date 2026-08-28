@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import sys
 from pathlib import Path
 
@@ -148,12 +149,31 @@ def write_drive_package():
 
 ## 기계 interface
 
-`DRV-01` plate에는 motor-specific standard angle/saddle만 추가한다. Motor torque는 #35 chain의 교환 가능한 12T input과 18T/24T output sprocket을 거쳐 right CUT-05 shaft로 전달한다. `DRV-02`는 Ø20 key shaft와 PCD36 four-bolt sprocket blank를 분리하므로 shaft diameter가 다른 donor에는 motor-side hub만 교체한다. 두 cutter shaft의 counter-rotation/phase는 특정 공급사 대신 M3 Z16, 20°, face>=18 mm steel gear functional specification으로 조달하거나 `DRV-03` 3-lamination/gear를 사용한다. DRV-03 각 lamination은 PCD30의 2x M4 clamp hole과 1x Ø3 H7 dowel hole로 위상을 재현하며, 치면 맞물림만으로 정렬하지 않는다.
+`DRV-01` plate에는 motor-specific standard angle/saddle과 `DRV-Axx` donor adapter만 추가한다. Motor torque는 `DRV-F01` replaceable motor-side shear element와 #35 chain의 12T input, 교환 가능한 18T/24T/30T output sprocket을 거쳐 right CUT-05 shaft로 전달한다. `DRV-02`는 cutter-side Ø20 shaft와 PCD36 sprocket blank를 분리하는 output hub이며 sacrificial element가 아니다. Shaft가 다른 donor에는 `DRV-Axx`만 바꾼다. 두 cutter shaft의 counter-rotation/phase는 특정 공급사 대신 M3 Z16, 20°, face>=18 mm steel gear functional specification으로 조달하거나 `DRV-03` 3-lamination/gear를 사용한다. DRV-03 각 lamination은 PCD30의 2x M4 clamp hole과 1x Ø3 H7 dowel hole로 위상을 재현하며, 치면 맞물림만으로 정렬하지 않는다.
 
-Chain efficiency 0.85 screening에서 12T:18T는 motor output continuous/3 s peak가 최소 11.0/18.8 N·m, 12T:24T는 최소 8.3/14.2 N·m여야 한다. 각각 motor speed 30–60/40–80 rpm이 cutter 20–40 rpm을 만든다. 24 V label power는 150 W 이상을 screening 시작점으로 쓰되 합격은 label watt가 아니라 Gate-1 torque/current/RPM/temperature 결과로 정한다. 후보별 기록표는 `bom/donor_drive_acceptance.csv`다.
+Chain efficiency 0.85 screening에서 12T:18T, 12T:24T, 12T:30T의 motor output continuous/3 s capability는 각각 최소 11.0/18.8, 8.3/14.2, 6.6/11.3 N·m여야 한다. Motor speed 30–60/40–80/50–100 rpm이 cutter 20–40 rpm을 만든다. 24 V label power는 150 W 이상을 screening 시작점으로 쓰되 합격은 label watt가 아니라 Gate-1 torque/current/RPM/temperature 결과로 정한다. 후보별 기록표는 `bom/donor_drive_acceptance.csv`와 `donor_measurement_form.csv`다.
 
-Chain guard, 20 A fuse, E-stop/lid/service hard inhibit와 calibrated torque+RPM jam detection을 유지한다. DRV-02 motor-input sprocket hub의 replaceable key/shear element는 22 N·m에서 먼저 분리되어 chain/phase pair로 더 큰 motor torque가 전달되지 않아야 한다. 실제 재료와 groove는 Gate-1 quasi-static calibration으로 확정한다. Donor 확인과 Gate-1 전 full quantity 발주 금지다.
+14/18/22/34/48 N·m hierarchy는 모두 **cutter-shaft equivalent torque**다. 따라서 `DRV-F01`의 실제 motor-side mechanical setting은 efficiency 0.85에서 12:18=17.25, 12:24=12.94, 12:30=10.35 N·m다. DRV-F01이 작동해도 DRV-02, chain, phase pair의 위상 경로는 유지되어야 한다. Chain guard, 20 A fuse, E-stop/lid/service hard inhibit와 calibrated torque+RPM jam detection을 유지한다. Shear 재료·직경·groove는 Gate-1 quasi-static calibration으로 확정한다. Donor 확인과 Gate-1 전 full quantity 발주 금지다.
+
+## 치수 근거가 있는 reference variant
+
+Parvalux `781096-735901` BRx70-60 24 V + GB12 30:1 PMDC gearmotor를 구매 의존성이 없는 envelope reference로만 둔다. 공식 공개값은 100 rpm, 9.8 N·m S1, 17.2 N·m intermittent, 270 x 81 x 138 mm다. 12T:30T에서 cutter 40 rpm이며 계산상 capability는 충분하지만 가격이 예산을 크게 넘으므로 선정품/BOM/0원 donor가 아니다. Assembly의 red box는 이 공식 overall envelope이며 proprietary body 형상을 가장하지 않는다. Source URL과 확인일은 `reference_variant.json`에 고정한다.
 """,encoding="utf-8")
+    reference={
+        "revision":"solid-manifold-openmodelica-v0.4","manufacturer":"Parvalux","part_number":"781096-735901",
+        "model":"BRx70-60 24V 3000RPM - GB12 30:1 Bronze","motor_type":"PMDC right-angle geared motor",
+        "published":{"voltage_v":24,"power_w":157,"output_speed_rpm":100,"continuous_torque_nm":9.8,"intermittent_torque_nm":17.2,"overall_envelope_mm":[270,81,138],"gear_ratio":30},
+        "machine_interface":{"chain_ratio":"12T:30T","screening_efficiency":0.85,"cutter_speed_rpm":40,"cutter_equivalent_continuous_capability_nm":20.83,"cutter_equivalent_intermittent_capability_nm":36.55,"motor_side_relief_setting_nm":10.35},
+        "source_url":"https://www.parvalux.com/product/brx70-60-24v-3000rpm-gb12-301-bronze/",
+        "source_checked_date":"2026-08-29","selection_state":"REFERENCE_ONLY_NOT_SELECTED_NOT_IN_BUDGET","purchase_allowed":False,
+    }
+    (base/"reference_variant.json").write_text(json.dumps(reference,indent=2,ensure_ascii=False)+"\n")
+    with (base/"ratio_and_fuse_settings.csv").open("w",newline="") as f:
+        w=csv.writer(f,lineterminator="\n"); w.writerow(["input_teeth","output_teeth","ratio","efficiency","motor_rpm_for_cutter_20_40","minimum_motor_continuous_nm_for_14_cutter_nm","minimum_motor_peak_nm_for_24_cutter_nm","motor_side_electrical_trip_nm_for_18_cutter_nm","motor_side_mechanical_relief_nm_for_22_cutter_nm","status"])
+        for output,ratio in ((18,1.5),(24,2.0),(30,2.5)):
+            gain=ratio*0.85; w.writerow([12,output,ratio,0.85,f"{20*ratio:.0f}-{40*ratio:.0f}",f"{14/gain:.2f}",f"{24/gain:.2f}",f"{18/gain:.2f}",f"{22/gain:.2f}","GATE1_CALIBRATION_REQUIRED"])
+    with (base/"donor_measurement_form.csv").open("w",newline="") as f:
+        w=csv.writer(f,lineterminator="\n"); w.writerow(["candidate_id","manufacturer","model","serial","quantity","condition","label_voltage_v","label_power_w","output_no_load_rpm","shaft_diameter_mm","shaft_form","shaft_length_mm","mount_pattern_mm","shaft_height_mm","overall_l_w_h_mm","no_load_current_a","continuous_current_a","stall_or_peak_current_a","backlash_deg","case_temp_after_30min_c","selected_chain_ratio","motor_side_relief_setting_nm","gate1_result","photo_hash","operator","status"]); w.writerow(["DONOR-","","","",1,"","","","","","key/D-flat/clamp","","","","","","","","","","","","NOT_RUN","","","UNVERIFIED"])
 
 
 def svg_gate1_hardcut(path):
@@ -360,10 +380,11 @@ def write_gate1_package():
 
 ## C. Motor/current와 jam recovery
 
-1. 합격한 donor motor만 연결하고 PLA 32 rpm/PET 24 rpm에서 no-load current/RPM, arm/load-cell torque 대비 current-to-torque slope, ratio와 효율을 기록한다. `verified` calibration record 없이는 powered cutter를 시작하지 않는다.
-2. Controlled jam을 각 재질 3회 만든다. Calibrated cutter torque 18 N·m에서 PLA 650 ms/PET 850 ms 또는 command 대비 RPM 35% drop/500 ms에서 reverse가 시작돼야 한다. 고정 A값은 donor 공통 torque 기준으로 사용하지 않는다.
-3. Reverse는 PLA 800 ms/PET 1100 ms, 최대 3회다. 세 번째 실패 뒤 enable=0과 latched fault가 유지돼야 한다.
-4. Guard를 열고 lockout/jam 제거 확인 없이는 reset되면 FAIL이다.
+1. 합격한 donor motor만 연결하고 PLA 32 rpm/PET 24 rpm에서 no-load current/RPM, arm/load-cell torque 대비 current-to-torque slope, 실제 sprocket ratio와 효율을 기록한다. `verified` calibration record 없이는 powered cutter를 시작하지 않는다.
+2. 14/18/22/34/48 N·m는 모두 cutter-shaft reference다. Motor-side `DRV-F01`을 구동모터 분리 상태에서 quasi-static calibration한다. 효율 0.85 기준 시작 setting은 12:18 = 17.25 N·m, 12:24 = 12.94 N·m, 12:30 = 10.35 N·m이며, 실제 ratio/효율/측정 불확도를 기록해 22 N·m cutter-equivalent에서 분리되도록 보정한다. DRV-02·chain·phase pair는 분리 또는 영구변형되면 FAIL이다.
+3. Controlled jam을 각 재질 3회 만든다. Calibrated cutter torque 18 N·m에서 PLA 650 ms/PET 850 ms 또는 command 대비 RPM 35% drop/500 ms에서 reverse가 시작돼야 한다. 고정 A값은 donor 공통 torque 기준으로 사용하지 않는다.
+4. Reverse는 PLA 800 ms/PET 1100 ms, 최대 3회다. 세 번째 실패 뒤 enable=0과 latched fault가 유지돼야 한다.
+5. Guard를 열고 lockout/jam 제거 확인 없이는 reset되면 FAIL이다.
 
 ## D. Chip-size
 

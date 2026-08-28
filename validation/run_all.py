@@ -25,6 +25,8 @@ def nix(command):
 
 
 def main():
+    run([sys.executable, "validation/configuration_control.py"], "CONFIGURATION_CONTROL_OK")
+    run([sys.executable, "bom/build_budget_views.py"], "CONDITIONAL_AND_VERIFIED_BUDGET_OK")
     run([sys.executable, "calculations/run_engineering.py"], "ENGINEERING_CALCULATIONS_OK")
     run([sys.executable, "firmware/arduino_mega/generate_config.py"], "FIRMWARE_CONFIG_SYNC_OK")
     run(["make", "-C", "firmware/arduino_mega", "test"], "SHREDDER_CALIBRATED_TORQUE_RPM_RETRY_OK")
@@ -35,11 +37,15 @@ def main():
         ("validation/solid_topology.py", "SOLID_BREP_TOPOLOGY_OK"),
         ("validation/freecad_checks.py", "FREECAD_COLLISION_LOAD_PATH_OK"),
         ("validation/manufacturing_checks.py", "MANUFACTURING_GEOMETRY_RFQ_OK"),
+        ("validation/print_interface_checks.py", "MINIMUM_WALL_FASTENER_INSERT_OK"),
+        ("validation/motion_checks.py", "FULL_MOTION_ENVELOPE_OK"),
+        ("validation/cutter_phase_sweep.py", "CUTTER_PHASE_SWEEP_OK"),
     ):
         command = f'FreeCADCmd -c \'import runpy; runpy.run_path("{script}", run_name="__main__")\''
         run(["bash", "-lc", command] if shutil.which("FreeCADCmd") else nix(command), marker)
     run([sys.executable, "validation/mesh_checks.py"], "MESH_WATERTIGHT_MANIFOLD_OK")
     run([sys.executable, "validation/slice_prints.py"] if shutil.which("prusa-slicer") else nix("python3 validation/slice_prints.py"), "SLICER_SUCCESS_OK")
+    run([sys.executable, "validation/modelica_library_check.py"], "MODELICA_MSL_CAD_BRIDGE_OK")
 
     run(nix("omc simulation/openmodelica/scripts/checkModel.mos"), "Check of PLA_PET_Recycler.Systems.FullMechanicalSystem completed successfully")
     run(nix("omc simulation/openmodelica/scripts/run_all.mos"), "FullMechanicalNominal_res.csv")

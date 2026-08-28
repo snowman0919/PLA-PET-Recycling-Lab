@@ -1,7 +1,7 @@
 {
   "revision": "solid-manifold-openmodelica-v0.4",
   "contract": "active part contains exactly one closed positive-volume B-Rep solid",
-  "active_count": 113,
+  "active_count": 135,
   "review_keepout_count": 4,
   "failed": [],
   "parts": [
@@ -12,11 +12,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 82290.0,
+      "volume_mm3": 83130.533,
       "bbox_mm": [
         195.0,
         195.0,
-        6.0
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -29,7 +29,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 196104.0,
+      "volume_mm3": 235415.308,
       "bbox_mm": [
         190.0,
         150.0,
@@ -46,7 +46,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 18372.0,
+      "volume_mm3": 18317.525,
       "bbox_mm": [
         25.0,
         25.0,
@@ -63,7 +63,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 38000.0,
+      "volume_mm3": 37049.668,
       "bbox_mm": [
         120.0,
         25.0,
@@ -80,7 +80,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 81540.0,
+      "volume_mm3": 97799.062,
       "bbox_mm": [
         80.0,
         75.0,
@@ -97,7 +97,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 29724.0,
+      "volume_mm3": 31889.881,
       "bbox_mm": [
         95.0,
         70.0,
@@ -114,7 +114,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 79192.0,
+      "volume_mm3": 82143.308,
       "bbox_mm": [
         150.0,
         100.0,
@@ -131,7 +131,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 32722.912,
+      "volume_mm3": 32485.329,
       "bbox_mm": [
         60.0,
         45.0,
@@ -148,7 +148,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 24649.711,
+      "volume_mm3": 24324.594,
       "bbox_mm": [
         70.0,
         70.0,
@@ -165,7 +165,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 70260.05,
+      "volume_mm3": 71902.833,
       "bbox_mm": [
         90.0,
         55.0,
@@ -182,11 +182,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 48550.0,
+      "volume_mm3": 49630.08,
       "bbox_mm": [
         180.0,
         120.0,
-        5.0
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -199,10 +199,27 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4500.0,
+      "volume_mm3": 4420.478,
       "bbox_mm": [
         24.0,
         18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-TC01",
+      "category": "TEST_COUPON",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 61595.286,
+      "bbox_mm": [
+        120.0,
+        80.0,
         18.0
       ],
       "geometry_check_findings": -1,
@@ -890,13 +907,13 @@
       "errors": []
     },
     {
-      "id": "SlidingLid",
+      "id": "PPR-C01_SlidingLid",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 304200.0,
+      "volume_mm3": 83130.533,
       "bbox_mm": [
         195.0,
         195.0,
@@ -907,17 +924,17 @@
       "errors": []
     },
     {
-      "id": "AntiReach",
+      "id": "PPR-C02_AntiReach",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 1995000.0,
+      "volume_mm3": 235415.308,
       "bbox_mm": [
         190.0,
         150.0,
-        70.0
+        90.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1349,6 +1366,23 @@
       "errors": []
     },
     {
+      "id": "PPR-C04_ScreenHandle",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 37049.668,
+      "bbox_mm": [
+        120.0,
+        25.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "PhaseGear105",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Compound",
@@ -1468,34 +1502,17 @@
       "errors": []
     },
     {
-      "id": "ReferenceGearbox",
-      "category": "ASSEMBLY_INTERFACE_REFERENCE",
+      "id": "ReferenceMotorVariant",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 302400.0,
+      "volume_mm3": 3018060.0,
       "bbox_mm": [
-        70.0,
-        48.0,
-        90.0
-      ],
-      "geometry_check_findings": -1,
-      "status": "PASS",
-      "errors": []
-    },
-    {
-      "id": "ReferenceMotor",
-      "category": "ASSEMBLY_INTERFACE_REFERENCE",
-      "container_type": "Solid",
-      "expected_solids": 1,
-      "solid_count": 1,
-      "shell_count": 1,
-      "volume_mm3": 699789.764,
-      "bbox_mm": [
-        90.0,
-        110.0,
-        90.0
+        81.0,
+        270.0,
+        138.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1564,6 +1581,74 @@
         185.0,
         175.0,
         115.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C03_FlakeCorner0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 18317.525,
+      "bbox_mm": [
+        25.0,
+        25.0,
+        120.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C03_FlakeCorner1",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 18317.525,
+      "bbox_mm": [
+        25.0,
+        25.0,
+        120.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C03_FlakeCorner2",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 18317.525,
+      "bbox_mm": [
+        25.0,
+        25.0,
+        120.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C03_FlakeCorner3",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 18317.525,
+      "bbox_mm": [
+        25.0,
+        25.0,
+        120.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1706,34 +1791,68 @@
       "errors": []
     },
     {
-      "id": "CoolingDuct",
+      "id": "PPR-C05_CoolingDuctLower",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Compound",
+      "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 114760.0,
+      "volume_mm3": 97799.062,
       "bbox_mm": [
         80.0,
         75.0,
-        190.0
+        135.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
       "errors": []
     },
     {
-      "id": "Gauge",
+      "id": "PPR-C05_CoolingDuctUpper",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Compound",
+      "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 23940.0,
+      "volume_mm3": 97799.062,
       "bbox_mm": [
-        90.0,
-        85.0,
-        35.0
+        80.0,
+        75.0,
+        135.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C06_GaugeHalfLower",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 31889.881,
+      "bbox_mm": [
+        95.0,
+        70.0,
+        28.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C06_GaugeHalfUpper",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 31889.881,
+      "bbox_mm": [
+        95.0,
+        70.0,
+        28.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1791,6 +1910,23 @@
       "errors": []
     },
     {
+      "id": "PPR-C07_PullerGuard",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 82143.308,
+      "bbox_mm": [
+        150.0,
+        100.0,
+        65.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "GuideRoller",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
@@ -1808,17 +1944,51 @@
       "errors": []
     },
     {
+      "id": "PPR-C08_GuideBracketFront",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 32485.329,
+      "bbox_mm": [
+        60.0,
+        45.0,
+        70.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C08_GuideBracketRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 32485.329,
+      "bbox_mm": [
+        60.0,
+        45.0,
+        70.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "DancerArm",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 18900.0,
+      "volume_mm3": 12886.609,
       "bbox_mm": [
-        15.0,
-        105.0,
-        12.0
+        122.0,
+        8.0,
+        24.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1859,6 +2029,40 @@
       "errors": []
     },
     {
+      "id": "PPR-C09_SpoolAdapterFront",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 24324.594,
+      "bbox_mm": [
+        70.0,
+        35.0,
+        70.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C09_SpoolAdapterRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 24324.594,
+      "bbox_mm": [
+        70.0,
+        35.0,
+        70.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "TraverseRail",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
@@ -1876,6 +2080,23 @@
       "errors": []
     },
     {
+      "id": "PPR-C10_TraverseCarriage",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 71902.833,
+      "bbox_mm": [
+        90.0,
+        55.0,
+        24.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "ControlPanel",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
@@ -1887,6 +2108,23 @@
         190.0,
         35.0,
         190.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C11_ControlBezel",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 49630.08,
+      "bbox_mm": [
+        180.0,
+        8.0,
+        120.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1925,6 +2163,142 @@
       "geometry_check_findings": -1,
       "status": "PASS",
       "errors": []
+    },
+    {
+      "id": "PPR-C12_CableClip0",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4420.478,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C12_CableClip1",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4420.478,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C12_CableClip2",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4420.478,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C12_CableClip3",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4420.478,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C12_CableClip4",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4420.478,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C12_CableClip5",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4420.478,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C12_CableClip6",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4420.478,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "PPR-C12_CableClip7",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 4420.478,
+      "bbox_mm": [
+        24.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
     }
   ],
   "review_keepouts": [
@@ -1953,11 +2327,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 106185.832,
+      "volume_mm3": 498570.754,
       "bbox_mm": [
-        130.0,
-        8.0,
-        130.0
+        230.0,
+        12.0,
+        230.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1971,11 +2345,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 112000.0,
+      "volume_mm3": 224400.0,
       "bbox_mm": [
-        80.0,
-        40.0,
-        35.0
+        170.0,
+        55.0,
+        24.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",

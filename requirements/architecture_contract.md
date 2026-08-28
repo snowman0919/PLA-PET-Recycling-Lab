@@ -8,7 +8,7 @@
 4. 470×700×930 mm vertical forming cabinet을 유지하며 새 tower/rail/path를 만들지 않는다.
 5. Die 출구부터 puller까지 soft filament는 직선이고 첫 bend는 puller 뒤 solid strand에만 적용한다.
 6. Candidate A single compact dual-shaft repeated hook cutter + removable screen을 유지한다.
-7. Shredder drive는 DRV-01/#35 chain/DRV-02/generic M3 Z16 interface다. 특정 MY1016Z/coupling/phase gear에 종속하지 않는다.
+7. Shredder drive는 DRV-01/DRV-Axx/DRV-F01/#35 chain/cutter-side DRV-02/generic M3 Z16 interface다. 특정 MY1016Z/coupling/phase gear에 종속하지 않는다.
 8. Active manufacturing assembly와 review keep-out를 별도 package로 유지한다. Keep-out volume은 부품이나 mass로 집계하지 않는다.
 9. Raspberry Pi, 자동 재질/색상 분류, network dashboard는 active scope가 아니다.
 
@@ -18,7 +18,7 @@
 - Heater branch fuse, one-shot thermal fuse, grounded metal shield를 삭제하지 않는다.
 - Cutter/screw 힘 경로는 metal shaft → bearing/thrust plate → metal plate → profile → four-point M8 table anchor다.
 - 최대 3회 bounded reverse 후 latched fault. Lockout와 원인 제거 확인 없이 clear 금지.
-- Calibrated electrical trip 18 N·m equivalent와 upstream mechanical fuse 22 N·m가 34 N·m phase 및 48 N·m shaft/cutter보다 먼저 작동한다.
+- Calibrated electrical trip 18 N·m equivalent와 upstream mechanical relief 22 N·m equivalent가 34 N·m phase 및 48 N·m shaft/cutter보다 먼저 작동한다. 모든 hierarchy 값은 cutter-shaft reference이며 motor-side DRV-F01 설정값은 ratio로 환산한다.
 - Melt pressure sensor가 없어도 open die, replaceable screen, torque trip, sacrificial relief, guard, remote first-hot-test를 유지한다.
 
 ## Claim·발주 경계

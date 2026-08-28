@@ -12,7 +12,7 @@ ROOT=Path(__file__).resolve().parents[1]
 COMPACT=ROOT/"cad/freecad/compact"
 sys.path.insert(0,str(COMPACT))
 
-from geometry import assembly_objects, print_parts, review_keepout_objects, shredder_metal_parts  # noqa: E402
+from geometry import assembly_objects, print_parts, review_keepout_objects, shredder_metal_parts, tolerance_coupon  # noqa: E402
 from manufacturing import extruder_rfq_parts, gate1_parts  # noqa: E402
 
 REV="solid-manifold-openmodelica-v0.4"
@@ -49,6 +49,7 @@ def main():
     if params["revision"] != REV: raise SystemExit("revision mismatch")
     rows=[]
     for spec in print_parts(): rows.append(audit(spec["id"],spec["shape"],"PRINT",spec.get("expected_solids",1)))
+    rows.append(audit("PPR-TC01",tolerance_coupon(),"TEST_COUPON",1))
     for spec in shredder_metal_parts(): rows.append(audit(spec["id"],spec["shape"],"MACHINED",1))
     for spec in gate1_parts(): rows.append(audit(spec["id"],spec["shape"],"JIG_"+spec["class_"].upper(),1))
     for spec in extruder_rfq_parts(): rows.append(audit(spec["id"],spec["shape"],"EXTRUDER_RFQ",1))

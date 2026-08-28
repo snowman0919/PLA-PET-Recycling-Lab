@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import html
 import json
 import re
 import sys
@@ -18,7 +19,7 @@ import importDXF
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
-from geometry import assembly_objects, print_parts, review_keepout_objects, shredder_metal_parts  # noqa: E402
+from geometry import assembly_objects, print_parts, review_keepout_objects, shredder_metal_parts, tolerance_coupon  # noqa: E402
 
 PARAMS = json.loads((ROOT / "cad/parameters/baseline.json").read_text())
 
@@ -79,6 +80,74 @@ def normalize_zip_container(path, normalize_fcstd=False):
     temporary.replace(path)
 
 
+def _projection_polylines(shape, axes, box, margin=16):
+    """Return deterministic SVG polylines for one orthographic projection."""
+    x0, y0, width, height = box
+    points = []
+    edge_rows = []
+    for edge in shape.Edges:
+        row = edge.discretize(Deflection=0.7)
+        projected = [(getattr(p, axes[0]), getattr(p, axes[1])) for p in row]
+        if len(projected) >= 2:
+            edge_rows.append(projected); points.extend(projected)
+    if not points:
+        return ""
+    min_a=min(p[0] for p in points); max_a=max(p[0] for p in points)
+    min_b=min(p[1] for p in points); max_b=max(p[1] for p in points)
+    scale=min((width-2*margin)/max(1e-6,max_a-min_a),(height-2*margin)/max(1e-6,max_b-min_b))
+    def map_point(p):
+        return (x0+margin+(p[0]-min_a)*scale, y0+height-margin-(p[1]-min_b)*scale)
+    lines=[]
+    for row in edge_rows:
+        coords=" ".join(f"{x:.2f},{y:.2f}" for x,y in map(map_point,row))
+        lines.append(f'<polyline points="{coords}" fill="none" stroke="#263238" stroke-width="0.8"/>')
+    return "\n".join(lines)
+
+
+def write_dimension_sheet(spec, path):
+    """Create an inspectable A4-landscape orthographic dimension sheet."""
+    bb=spec["shape"].BoundBox
+    values=[
+        f"Revision: {PARAMS['revision']}",
+        f"Part: {spec['id']} — {spec['name']}  Qty {spec['qty']}  Material {spec['material']}",
+        f"Overall: X {bb.XLength:.2f}  Y {bb.YLength:.2f}  Z {bb.ZLength:.2f} mm; unless noted printed tolerance ±0.30 mm",
+        f"Interface: {spec['interfaces']}",
+        f"Fastener: {spec['fastener']}; insert/nut: {spec['insert']}; tightening: {spec['tightening']}",
+        f"Edge distance: {spec['edge_distance']}; mating: {spec['mating']}",
+        f"Print: {spec['orientation']}; {spec['layer']}; {spec['walls']} perimeters; support: {spec['support']}",
+        "Dimensions govern over SVG scale. Ream/fit only after printing the PPR-TC01 tolerance coupon.",
+    ]
+    views=(
+        _projection_polylines(spec["shape"],("x","y"),(30,110,335,250)),
+        _projection_polylines(spec["shape"],("x","z"),(395,110,335,250)),
+        _projection_polylines(spec["shape"],("y","z"),(760,110,335,250)),
+    )
+    escaped=[html.escape(v) for v in values]
+    text_rows="\n".join(f'<text x="34" y="{430+i*36}" font-size="18">{value}</text>' for i,value in enumerate(escaped))
+    svg=f'''<svg xmlns="http://www.w3.org/2000/svg" width="1123" height="794" viewBox="0 0 1123 794">
+<rect width="1123" height="794" fill="white"/><rect x="12" y="12" width="1099" height="770" fill="none" stroke="#263238" stroke-width="2"/>
+<text x="30" y="52" font-size="26" font-family="sans-serif" font-weight="bold">{html.escape(spec['id'])} PRINT DIMENSION SHEET</text>
+<text x="30" y="82" font-size="16" font-family="sans-serif">FreeCAD Python source of truth · units mm · DIGITAL_FABRICATION_BASELINE</text>
+<g font-family="sans-serif"><text x="40" y="132" font-size="16">TOP X-Y</text>{views[0]}<text x="405" y="132" font-size="16">FRONT X-Z</text>{views[1]}<text x="770" y="132" font-size="16">SIDE Y-Z</text>{views[2]}{text_rows}</g>
+</svg>\n'''
+    path.write_text(svg)
+
+
+def write_part_source(spec, path):
+    path.write_text(f'''#!/usr/bin/env python3
+"""Regenerate {spec['id']} from the shared v0.4 FreeCAD source."""
+from pathlib import Path
+import sys
+ROOT=Path(__file__).resolve().parents[3]
+sys.path.insert(0,str(ROOT/"cad/freecad/compact"))
+from geometry import print_parts
+from generate import export_print_part
+spec=next(item for item in print_parts() if item["id"]=="{spec['id']}")
+export_print_part(spec)
+print("{spec['id']}_REGENERATED")
+''')
+
+
 def export_print_part(spec):
     part_dir = ROOT / "exports/print" / spec["id"]
     part_dir.mkdir(parents=True, exist_ok=True)
@@ -89,11 +158,14 @@ def export_print_part(spec):
     step = part_dir / f"{spec['id']}.step"; Part.export([obj], str(step)); normalize_step(step)
     stl = part_dir / f"{spec['id']}.stl"; Mesh.export([obj], str(stl))
     three = part_dir / f"{spec['id']}.3mf"; Mesh.export([obj], str(three)); normalize_zip_container(three)
+    write_part_source(spec, part_dir / f"{spec['id']}.py")
+    write_dimension_sheet(spec, part_dir / "dimension_sheet.svg")
     density = 1.04 if spec["material"] == "ABS" else 1.24
     mass_each = spec["shape"].Volume / 1000.0 * density
     bb = spec["shape"].BoundBox
     notes = f"""# {spec['id']} — {spec['name']}
 
+- revision: `{PARAMS['revision']}`
 - quantity: {spec['qty']}
 - material: {spec['material']}
 - nozzle diameter: {spec['nozzle_mm']:.1f} mm
@@ -103,22 +175,66 @@ def export_print_part(spec):
 - top/bottom layers: {spec['top_bottom_layers']}
 - infill: {spec['infill']}
 - support: {spec['support']}
-- support-contact region: {spec['support']}
+- support-contact region: {spec['support_contact']}
+- support removal: {spec['support_removal']}
 - brim: {spec['brim']}
 - designed minimum wall: {spec['minimum_wall_mm']:.1f} mm
 - estimated mass: {mass_each:.1f} g/ea, {mass_each * spec['qty']:.1f} g total
 - estimated print time: {(mass_each * spec['qty'] / 12):.1f} h at 12 g/h planning rate
 - fastener: {spec['fastener']}
+- insert or captured nut: {spec['insert']}
+- tightening torque: {spec['tightening']}
+- fastener edge distance: {spec['edge_distance']}
+- physical interfaces: {spec['interfaces']}
 - tolerance: {spec['tolerance']}
 - mating part: {spec['mating']}
 - assembly order: {spec['order']}
 - bounding box: {bb.XLength:.1f} x {bb.YLength:.1f} x {bb.ZLength:.1f} mm
+- FreeCAD Python source: `{spec['id']}.py` -> `cad/freecad/compact/geometry.py`
+- dimension sheet: `dimension_sheet.svg`
 
 Slicer 질량·시간은 `print_manifest.csv`와 `total_material_report.md`의 PrusaSlicer 결과가 지배한다.
 """
     (part_dir / "print_notes.md").write_text(notes)
     App.closeDocument(doc.Name)
     return {**spec, "mass_each_g": mass_each, "x_mm": bb.XLength, "y_mm": bb.YLength, "z_mm": bb.ZLength}
+
+
+def export_tolerance_coupon():
+    part_id="PPR-TC01"; shape=tolerance_coupon(); part_dir=ROOT/"exports/print/coupons"/part_id
+    part_dir.mkdir(parents=True,exist_ok=True)
+    doc=App.newDocument(part_id.replace("-","_")); obj=feature(doc,"Body",shape,"Fastener and fit tolerance coupon",part_id,"PLA")
+    doc.recompute()
+    fcstd=part_dir/f"{part_id}.FCStd"; fcstd.unlink(missing_ok=True); doc.saveAs(str(fcstd)); normalize_zip_container(fcstd,True)
+    step=part_dir/f"{part_id}.step"; Part.export([obj],str(step)); normalize_step(step)
+    stl=part_dir/f"{part_id}.stl"; Mesh.export([obj],str(stl))
+    three=part_dir/f"{part_id}.3mf"; Mesh.export([obj],str(three)); normalize_zip_container(three)
+    source=part_dir/f"{part_id}.py"
+    source.write_text('''#!/usr/bin/env python3
+from pathlib import Path
+import sys
+ROOT=Path(__file__).resolve().parents[4]
+sys.path.insert(0,str(ROOT/"cad/freecad/compact"))
+from generate import export_tolerance_coupon
+export_tolerance_coupon()
+print("PPR-TC01_REGENERATED")
+''')
+    notes=f'''# {part_id} — fastener/insert/fit tolerance coupon
+
+- revision: `{PARAMS['revision']}`
+- status: `REQUIRED_BEFORE_PRODUCTION_PRINTS`; coupon mass is excluded from machine print total
+- material/profile: same spool, nozzle and slicer profile as the target PLA parts
+- orientation: flat; 0.4 mm nozzle; 0.20 mm layer; 4 perimeters; no support
+- through-hole ladders: M3 Ø3.2/3.4/3.6, M4 insert Ø4.2/4.4/4.6, M5 Ø5.3/5.5/5.7
+- square-nut pockets: M3 5.6/5.8/6.0 and M4 7.0/7.2/7.4 mm
+- male gauges: Ø7.8/8.0/8.2 and Ø11.8/12.0/12.2 mm
+- acceptance: select the smallest hole/pocket that accepts the actual hardware without splitting; select the male gauge producing the documented slide/ream allowance. Record selection in `tolerance_coupon_results.csv`.
+- limitation: slicer success does not qualify fit; the coupon must be physically printed and measured for each printer/material batch.
+'''
+    (part_dir/"print_notes.md").write_text(notes)
+    with (part_dir/"tolerance_coupon_results.csv").open("w",newline="") as f:
+        w=csv.writer(f,lineterminator="\n"); w.writerow(["date","printer","material_lot","nozzle_mm","feature_family","nominal_mm","measured_mm","fit_result","selected_compensation_mm","operator","evidence"])
+    App.closeDocument(doc.Name)
 
 
 def export_assembly():
@@ -140,14 +256,15 @@ def export_assembly():
         "minimum_mm": [round(bb.XMin, 2), round(bb.YMin, 2), round(bb.ZMin, 2)],
         "maximum_mm": [round(bb.XMax, 2), round(bb.YMax, 2), round(bb.ZMax, 2)],
         "object_count": len(objects),
+        "reference_component_policy": "purchased/donor envelope objects retain classification and evidence; keep-outs remain in cad/review_keepouts",
         "includes": ["closed lid", "guards", "parametric reference drive", "cable duct", "1 kg spool", "dancer arm", "traverse rail"],
         "excludes": ["motion and service keep-outs; see cad/review_keepouts"],
     }
     (ROOT / "cad/generation/assembly_metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n")
     with (ROOT/"cad/generation/assembly_classification.csv").open("w",newline="") as f:
-        w=csv.writer(f,lineterminator="\n"); w.writerow(["object","group","material","classification","shape_type","solid_count","volume_mm3"])
+        w=csv.writer(f,lineterminator="\n"); w.writerow(["object","group","material","classification","shape_type","solid_count","volume_mm3","mass_override_kg","evidence"])
         for item in assembly_items:
-            w.writerow([item["name"],item["group"],item["material"],item["classification"],item["shape"].ShapeType,len(item["shape"].Solids),f"{item['shape'].Volume:.3f}"])
+            w.writerow([item["name"],item["group"],item["material"],item["classification"],item["shape"].ShapeType,len(item["shape"].Solids),f"{item['shape'].Volume:.3f}",item.get("mass_override_kg") or "",item.get("evidence","")])
     App.closeDocument(doc.Name)
     return meta
 
@@ -213,13 +330,14 @@ def main():
     dirs()
     metal_rows = export_metal_parts()
     rows = [export_print_part(spec) for spec in print_parts()]
+    export_tolerance_coupon()
     export_plates(rows)
     manifest = ROOT / "exports/print/print_manifest.csv"
     with manifest.open("w", newline="") as f:
         writer = csv.writer(f, lineterminator="\n")
-        writer.writerow(["part_id", "name", "quantity", "material", "x_mm", "y_mm", "z_mm", "cad_net_mass_each_g", "cad_net_mass_total_g", "slicer_mass_total_g", "slicer_time_s", "orientation", "nozzle_mm", "layer_height", "walls", "top_bottom_layers", "infill", "support", "brim", "minimum_wall_mm", "fastener", "tolerance", "mating_part", "assembly_order", "slicer_status"])
+        writer.writerow(["revision", "part_id", "name", "quantity", "material", "x_mm", "y_mm", "z_mm", "cad_net_mass_each_g", "cad_net_mass_total_g", "slicer_mass_total_g", "slicer_time_s", "orientation", "nozzle_mm", "layer_height", "walls", "top_bottom_layers", "infill", "support", "support_contact", "support_removal", "brim", "minimum_wall_mm", "fastener", "insert_or_nut", "tightening_torque", "edge_distance", "interfaces", "tolerance", "mating_part", "assembly_order", "freecad_source", "dimension_sheet", "slicer_status"])
         for r in rows:
-            writer.writerow([r["id"], r["name"], r["qty"], r["material"], f"{r['x_mm']:.2f}", f"{r['y_mm']:.2f}", f"{r['z_mm']:.2f}", f"{r['mass_each_g']:.2f}", f"{r['mass_each_g']*r['qty']:.2f}", "PENDING_SLICER", "PENDING_SLICER", r["orientation"], r["nozzle_mm"], r["layer"], r["walls"], r["top_bottom_layers"], r["infill"], r["support"], r["brim"], r["minimum_wall_mm"], r["fastener"], r["tolerance"], r["mating"], r["order"], "PENDING"])
+            writer.writerow([PARAMS["revision"], r["id"], r["name"], r["qty"], r["material"], f"{r['x_mm']:.2f}", f"{r['y_mm']:.2f}", f"{r['z_mm']:.2f}", f"{r['mass_each_g']:.2f}", f"{r['mass_each_g']*r['qty']:.2f}", "PENDING_SLICER", "PENDING_SLICER", r["orientation"], r["nozzle_mm"], r["layer"], r["walls"], r["top_bottom_layers"], r["infill"], r["support"], r["support_contact"], r["support_removal"], r["brim"], r["minimum_wall_mm"], r["fastener"], r["insert"], r["tightening"], r["edge_distance"], r["interfaces"], r["tolerance"], r["mating"], r["order"], f"{r['id']}.py", "dimension_sheet.svg", "PENDING"])
     total = sum(r["mass_each_g"] * r["qty"] for r in rows)
     report = f"# 출력물 총 재료 보고\n\n- revision: `{PARAMS['revision']}`\n- CAD solid-volume 기반 총 질량: **{total:.1f} g**\n- 목표 1,500 g 대비 margin: **{1500-total:.1f} g**\n- hard review threshold 2,000 g: **PASS**\n- 예상 재료비(18,000 KRW/kg): **{total/1000*18000:,.0f} KRW**\n\nCoupon은 이 합계에서 제외한다. Slicer infill/line width와 purge는 별도이므로 실제 plate slicing 후 갱신한다.\n"
     (ROOT / "exports/print/total_material_report.md").write_text(report)

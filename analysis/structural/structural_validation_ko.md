@@ -8,14 +8,14 @@
 |부품|등가응력 MPa|허용 MPa|안전율|판정|
 |---|---:|---:|---:|---:|
 |CUT-01 cutter tooth/root|57.950|350.0|6.04|PASS|
-|SH-SHAFT-01 20 mm cutter shaft|59.626|177.5|2.98|PASS|
-|SH-PLATE-01 bearing plate|3.803|137.5|36.16|PASS|
+|SH-SHAFT-01 20 mm cutter shaft|53.729|177.5|3.30|PASS|
+|SH-PLATE-01 bearing plate|3.347|137.5|41.08|PASS|
 |PH-KEY-01 phase gear key|31.481|120.0|3.81|PASS|
 |CH-SPROCKET-01 overhang|33.450|177.5|5.31|PASS|
-|DRV-03 motor adapter plate|7.040|75.0|10.65|PASS|
+|DRV-03 motor adapter plate|6.273|75.0|11.96|PASS|
 |EX-THR-01 screw thrust plate|3.077|137.5|44.68|PASS|
 |SP-SHAFT-01 spool shaft|35.916|100.0|2.78|PASS|
-|FR-ANCHOR-01 M8 table anchor|12.160|320.0|26.32|PASS|
+|FR-ANCHOR-01 M8 table anchor|14.780|320.0|21.65|PASS|
 
 ## 해석 의미
 

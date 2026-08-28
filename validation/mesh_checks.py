@@ -58,11 +58,12 @@ def audit(path):
 
 def main():
     rows=[audit(p) for p in sorted((ROOT/"exports/print").glob("PPR-C*/PPR-C*.stl"))]
-    result={"revision":"solid-manifold-openmodelica-v0.4","mesh_count":len(rows),"meshes":rows,"status":"PASS" if len(rows)==12 and all(r["status"]=="PASS" for r in rows) else "FAIL"}
+    coupon=audit(ROOT/"exports/print/coupons/PPR-TC01/PPR-TC01.stl")
+    result={"revision":"solid-manifold-openmodelica-v0.4","mesh_count":len(rows),"meshes":rows,"tolerance_coupon":coupon,"status":"PASS" if len(rows)==12 and all(r["status"]=="PASS" for r in rows) and coupon["status"]=="PASS" else "FAIL"}
     out=ROOT/"validation/results"; out.mkdir(parents=True,exist_ok=True)
     (out/"mesh_manifold.json").write_text(json.dumps(result,indent=2)+"\n")
     if result["status"]!="PASS": raise SystemExit("MESH_WATERTIGHT_MANIFOLD_FAIL")
-    print("MESH_WATERTIGHT_MANIFOLD_OK meshes=12")
+    print("MESH_WATERTIGHT_MANIFOLD_OK meshes=12 coupon=1")
 
 
 if __name__=="__main__": main()

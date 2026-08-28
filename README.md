@@ -13,20 +13,20 @@ Active revision은 `solid-manifold-openmodelica-v0.4`이며 release state는 `DI
 
 ## Drive와 torque hierarchy
 
-Cutter profile은 76% cycloidal radial-rise capture flank와 24% fast hook relief다. Shredder는 특정 MY1016Z, coupling 또는 phase gear MPN에 종속하지 않는다. `DRV-01 universal plate + #35 chain + DRV-02 keyed hub + generic/laminated M3 Z16 phase pair` interface를 사용한다.
+Cutter profile은 76% cycloidal radial-rise capture flank와 24% fast hook relief다. Shredder는 특정 MY1016Z, coupling 또는 phase gear MPN에 종속하지 않는다. `DRV-01 universal plate + DRV-Axx donor adapter + motor-side DRV-F01 + #35 chain + cutter-side DRV-02 + generic/laminated M3 Z16 phase pair` interface를 사용한다.
 
-Donor는 18–30 V reversible geared brushed-DC, cutter 14 N·m continuous, 20–40 rpm 조건을 Gate-1에서 입증해야 한다. Firmware는 고정 current threshold를 torque로 오인하지 않으며 donor calibration이 `verified=true`가 아니면 시작하지 않는다. 보호 순서는 `14 N·m continuous < 18 N·m electrical trip < 22 N·m upstream mechanical fuse < 34 N·m phase drivetrain < 48 N·m shaft/cutter`다.
+Donor는 18–30 V reversible geared brushed-DC, cutter 14 N·m continuous, 20–40 rpm 조건을 Gate-1에서 입증해야 한다. Firmware는 고정 current threshold를 torque로 오인하지 않으며 donor calibration이 `verified=true`가 아니면 시작하지 않는다. 보호 순서 `14 < 18 < 22 < 34 < 48 N·m`는 cutter-shaft equivalent이며, DRV-F01의 물리 setting은 chain ratio에 따라 17.25/12.94/10.35 N·m다.
 
 ## 현재 디지털 결과
 
 - CAD active object 113개: 유효 B-Rep/solid topology PASS. Print part 12종은 각 1 solid다.
 - STL 12종: watertight/manifold, zero-area/non-manifold edge 0, component 1.
-- PrusaSlicer 2.9.6: nominal 913.67 g, 12% reserve 포함 1,023.31 g, 76.6 h.
+- PrusaSlicer 2.9.6: nominal 989.76 g, 12% reserve 포함 1,108.53 g, 87.5 h.
 - OpenModelica 1.27.0 / Modelica Standard Library 4.0.0: 18 scenario + 6 sensitivity sweep PASS.
-- Digital load envelope: input fuse 22 N·m, bearing 1.43 kN, chain 0.603 kN, table anchor tension 0.399 kN.
+- Digital load envelope: cutter-equivalent relief 22 N·m, bearing 1.43 kN, chain 0.603 kN, table anchor tension은 OpenModelica 결과 파일을 따른다.
 - CalculiX screening: bearing plate 51.54 MPa/0.209 mm, cutter shaft 52.50 MPa/0.0147 mm. Gate-1 load로 재검증해야 한다.
 - 16 mm screw nominal throughput: PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h. 200 g/h는 stretch target이며 현재 nominal claim이 아니다.
-- Conditional target cash 178,420 KRW; 20,000 KRW contingency 포함 198,420 KRW. Donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
+- Conditional target cash 179,954 KRW; 20,000 KRW contingency 포함 199,954 KRW. 남은 계획 여유는 46 KRW뿐이고 donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
 
 ## 재현
 

@@ -1,0 +1,607 @@
+{
+  "revision": "solid-manifold-openmodelica-v0.4",
+  "method": "design-specific B-Rep line sampling plus exact bore-void/annular-material probes",
+  "limitations": "sampling proves the declared critical walls and fastener interfaces, not every local mesh thickness; source dimensions remain controlling",
+  "parts": [
+    {
+      "part_id": "PPR-C01",
+      "required_wall_mm": 1.6,
+      "sampled_wall_mm": 1.975,
+      "perimeters": 4,
+      "nozzle_mm": 0.4,
+      "fastener": "1x M4x10 latch flag screw",
+      "insert_or_nut": "1x M4 heat-set insert OD4.6 x L5",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            180,
+            12,
+            3
+          ],
+          "diameter_mm": 4.6,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 12.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 131.306
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C02",
+      "required_wall_mm": 2.0,
+      "sampled_wall_mm": 1.975,
+      "perimeters": 5,
+      "nozzle_mm": 0.4,
+      "fastener": "4x M4x12 + washer",
+      "insert_or_nut": "4x M4 nyloc nuts on metal side",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            8,
+            8,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 8,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 210.064
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            182,
+            8,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 8,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 210.064
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            8,
+            142,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 8,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 210.064
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            182,
+            142,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 8,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 210.064
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C03",
+      "required_wall_mm": 1.6,
+      "sampled_wall_mm": 2.975,
+      "perimeters": 4,
+      "nozzle_mm": 0.4,
+      "fastener": "2x M3x8 + washer + nyloc",
+      "insert_or_nut": "none",
+      "interfaces": [
+        {
+          "axis": "x",
+          "start_mm": [
+            0,
+            12,
+            90
+          ],
+          "diameter_mm": 3.4,
+          "length_mm": 3,
+          "bbox_edge_distance_mm": 12.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 62.345
+        },
+        {
+          "axis": "y",
+          "start_mm": [
+            12,
+            0,
+            60
+          ],
+          "diameter_mm": 3.4,
+          "length_mm": 3,
+          "bbox_edge_distance_mm": 12.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 62.345
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C04",
+      "required_wall_mm": 2.0,
+      "sampled_wall_mm": 5.225,
+      "perimeters": 5,
+      "nozzle_mm": 0.4,
+      "fastener": "2x M5x16 + large washer + nyloc",
+      "insert_or_nut": "none",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            8,
+            12.5,
+            0
+          ],
+          "diameter_mm": 5.5,
+          "length_mm": 20,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 617.215
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            112,
+            12.5,
+            0
+          ],
+          "diameter_mm": 5.5,
+          "length_mm": 20,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 617.215
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C05",
+      "required_wall_mm": 1.6,
+      "sampled_wall_mm": 1.975,
+      "perimeters": 4,
+      "nozzle_mm": 0.4,
+      "fastener": "8x M4x12 + washer + nyloc",
+      "insert_or_nut": "none",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            5,
+            5,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 4,
+          "bbox_edge_distance_mm": 5.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 102.339
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            75,
+            5,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 4,
+          "bbox_edge_distance_mm": 5.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 102.339
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            5,
+            70,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 4,
+          "bbox_edge_distance_mm": 5.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 102.339
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            75,
+            70,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 4,
+          "bbox_edge_distance_mm": 5.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 102.339
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            5,
+            5,
+            131
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 4,
+          "bbox_edge_distance_mm": 5.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 102.339
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            75,
+            5,
+            131
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 4,
+          "bbox_edge_distance_mm": 5.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 102.339
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            5,
+            70,
+            131
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 4,
+          "bbox_edge_distance_mm": 5.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 102.339
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            75,
+            70,
+            131
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 4,
+          "bbox_edge_distance_mm": 5.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 102.339
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C06",
+      "required_wall_mm": 1.6,
+      "sampled_wall_mm": 1.975,
+      "perimeters": 4,
+      "nozzle_mm": 0.4,
+      "fastener": "4x M3x12",
+      "insert_or_nut": "4x M3 heat-set insert OD4.6 x L5",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            7,
+            7,
+            3
+          ],
+          "diameter_mm": 4.6,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 7.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 131.306
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            88,
+            7,
+            3
+          ],
+          "diameter_mm": 4.6,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 7.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 131.306
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            7,
+            63,
+            3
+          ],
+          "diameter_mm": 4.6,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 7.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 131.306
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            88,
+            63,
+            3
+          ],
+          "diameter_mm": 4.6,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 7.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 131.306
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C07",
+      "required_wall_mm": 2.0,
+      "sampled_wall_mm": 1.975,
+      "perimeters": 5,
+      "nozzle_mm": 0.4,
+      "fastener": "4x M4 captive screws",
+      "insert_or_nut": "4x M4 rivnuts in metal puller plate",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            8,
+            8,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 8,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 210.064
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            142,
+            8,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 8,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 210.064
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            8,
+            92,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 8,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 210.064
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            142,
+            92,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 8,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 210.064
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C08",
+      "required_wall_mm": 2.0,
+      "sampled_wall_mm": 4.975,
+      "perimeters": 5,
+      "nozzle_mm": 0.4,
+      "fastener": "2x M5x16 + washer + T-nut",
+      "insert_or_nut": "none",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            15,
+            30,
+            0
+          ],
+          "diameter_mm": 5.5,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 15.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 149.628
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            45,
+            30,
+            0
+          ],
+          "diameter_mm": 5.5,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 15.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 149.628
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C09",
+      "required_wall_mm": 2.0,
+      "sampled_wall_mm": 4.5,
+      "perimeters": 5,
+      "nozzle_mm": 0.4,
+      "fastener": "1x M6x30 through clamp + washer + nyloc",
+      "insert_or_nut": "none; metal shaft collar carries axial load",
+      "interfaces": [
+        {
+          "axis": "x",
+          "start_mm": [
+            -30,
+            0,
+            10
+          ],
+          "diameter_mm": 6.6,
+          "length_mm": 60,
+          "bbox_edge_distance_mm": 10.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 343.343
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C10",
+      "required_wall_mm": 2.0,
+      "sampled_wall_mm": 7.975,
+      "perimeters": 5,
+      "nozzle_mm": 0.4,
+      "fastener": "2x M4x16 belt-clamp screws",
+      "insert_or_nut": "2x M4 heat-set insert OD5.6 x L6 or through nyloc",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            38,
+            27.5,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 14,
+          "bbox_edge_distance_mm": 27.5,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 371.652
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            52,
+            27.5,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 14,
+          "bbox_edge_distance_mm": 27.5,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 371.652
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C11",
+      "required_wall_mm": 1.6,
+      "sampled_wall_mm": 4.975,
+      "perimeters": 4,
+      "nozzle_mm": 0.4,
+      "fastener": "4x M3x10",
+      "insert_or_nut": "4x M3 heat-set insert OD4.2 x L5",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            8,
+            8,
+            3
+          ],
+          "diameter_mm": 4.2,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 123.163
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            172,
+            8,
+            3
+          ],
+          "diameter_mm": 4.2,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 123.163
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            8,
+            112,
+            3
+          ],
+          "diameter_mm": 4.2,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 123.163
+        },
+        {
+          "axis": "z",
+          "start_mm": [
+            172,
+            112,
+            3
+          ],
+          "diameter_mm": 4.2,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 8.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 123.163
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "part_id": "PPR-C12",
+      "required_wall_mm": 1.6,
+      "sampled_wall_mm": 4.975,
+      "perimeters": 4,
+      "nozzle_mm": 0.4,
+      "fastener": "1x M4x10 + profile T-nut",
+      "insert_or_nut": "none",
+      "interfaces": [
+        {
+          "axis": "z",
+          "start_mm": [
+            12,
+            9,
+            0
+          ],
+          "diameter_mm": 4.5,
+          "length_mm": 5,
+          "bbox_edge_distance_mm": 9.0,
+          "void_overlap_mm3": 0.0,
+          "surrounding_probe_mm3": 129.27
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS"
+}

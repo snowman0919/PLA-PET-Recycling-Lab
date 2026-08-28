@@ -29,7 +29,7 @@ PLA/PET는 470 × 700 × 930 mm cabinet 안에서 공용 hopper, cycloidal-inspi
 
 - Active CAD 113 objects: valid B-Rep/solid topology PASS.
 - Print part 12종: 각 1 solid, STL watertight 2-manifold, zero-area/non-manifold 0.
-- PrusaSlicer 2.9.6: 913.67 g, 76.6 h; 실패 reserve 포함 1,023.31 g.
+- PrusaSlicer 2.9.6: 989.76 g, 87.5 h; 실패 reserve 포함 1,108.53 g.
 - Keep-out 4개는 `REVIEW_ONLY_NOT_MANUFACTURED` package에 격리.
 
 = 기계 simulation과 구조 연계
@@ -44,9 +44,9 @@ OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 18 scenario 및 6 s
 
 = Budget와 release lock
 
-- Conditional target: 178,420 KRW ≤180,000 KRW.
+- Conditional target: 179,954 KRW ≤180,000 KRW.
 - Quote contingency: 20,000 KRW.
-- Absolute plan: 198,420 KRW ≤200,000 KRW.
+- Absolute plan: 199,954 KRW ≤200,000 KRW; 계획 여유 46 KRW.
 - Donor 0원과 모든 RFQ는 미확정이며 구매 release는 BLOCKED.
 - CUT-01 2장 Gate-1 coupon 외 full stack는 HOLD.
 - EX-CPN-SCR/EX-CPN-BAR 외 full screw/barrel은 HOLD.

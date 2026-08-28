@@ -461,8 +461,14 @@
       "phase_drivetrain_allowable_nm": 34.0,
       "shaft_cutter_allowable_nm": 48.0
     },
+    "torque_reference_plane": "cutter-shaft equivalent",
     "strict_order_pass": true,
-    "relief_location": "motor side, upstream of chain and phase gears",
+    "relief_location": "physical DRV-F01 at motor side, upstream of chain and phase gears",
+    "motor_side_relief_settings_nm": {
+      "12T_to_18T": 17.25,
+      "12T_to_24T": 12.94,
+      "12T_to_30T": 10.35
+    },
     "phase_tangential_force_n": 916.7,
     "phase_separating_force_n": 333.6,
     "chain_tight_side_increment_n": 603.0,

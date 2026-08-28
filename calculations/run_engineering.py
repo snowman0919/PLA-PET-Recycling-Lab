@@ -72,7 +72,7 @@ def torque_hierarchy():
     values={"normal_continuous_nm":s["continuous_torque_nm"],"electrical_trip_nm":s["electrical_trip_torque_nm"],"motor_side_relief_nm":s["mechanical_relief_torque_nm"],"phase_drivetrain_allowable_nm":s["phase_drivetrain_allowable_torque_nm"],"shaft_cutter_allowable_nm":s["shaft_cutter_allowable_torque_nm"]}
     ordered=list(values.values()); passed=all(a<b for a,b in zip(ordered,ordered[1:]))
     r_phase=0.024; r_sprocket=9.525e-3/(2*math.sin(math.pi/24)); peak=values["motor_side_relief_nm"]
-    return {"values":values,"strict_order_pass":passed,"relief_location":"motor side, upstream of chain and phase gears","phase_tangential_force_n":round(peak/r_phase,1),"phase_separating_force_n":round(peak/r_phase*math.tan(math.radians(20)),1),"chain_tight_side_increment_n":round(peak/r_sprocket,1),"tip_force_n":round(peak/(s["cutter_od_mm"]/2000),1),"status":"DIGITAL_SCREENING_PHYSICAL_NOT_RUN"}
+    return {"values":values,"torque_reference_plane":"cutter-shaft equivalent","strict_order_pass":passed,"relief_location":"physical DRV-F01 at motor side, upstream of chain and phase gears","motor_side_relief_settings_nm":s["motor_side_relief_settings_nm_at_efficiency_0_85"],"phase_tangential_force_n":round(peak/r_phase,1),"phase_separating_force_n":round(peak/r_phase*math.tan(math.radians(20)),1),"chain_tight_side_increment_n":round(peak/r_sprocket,1),"tip_force_n":round(peak/(s["cutter_od_mm"]/2000),1),"status":"DIGITAL_SCREENING_PHYSICAL_NOT_RUN"}
 
 
 def drive_thresholds():
@@ -110,9 +110,9 @@ def main():
     (ROOT/"calculations/screw_sensitivity.md").write_text("\n".join(lines)+"\n")
     (ROOT/"calculations/shredder_drive_and_cutter.md").write_text(f"""# Cycloidal-derived cutter와 interchangeable drive
 
-CUT-01은 7 hook, pitch의 76% cycloidal capture rise와 24% fast relief를 쓰는 비대칭 profile이다. Actuator는 특정 MY1016Z/coupling에 종속되지 않고 DRV-01 slotted plate, DRV-02 replaceable hub, #35 chain, motor-side 22 N·m slip/fuse를 사용한다.
+CUT-01은 7 hook, pitch의 76% cycloidal capture rise와 24% fast relief를 쓰는 비대칭 profile이다. Actuator는 특정 MY1016Z/coupling에 종속되지 않고 DRV-01 slotted plate, donor-specific DRV-Axx, motor-side DRV-F01, #35 chain과 cutter-side DRV-02 hub를 사용한다.
 
-토크 계층은 `14 < 18 < 22 < 34 < 48 N·m`(normal < electrical trip < upstream relief < phase gear/key allowable < shaft/cutter allowable)이며 digital check는 `{hierarchy['strict_order_pass']}`다. 22 N·m relief에서 cutter tip {hierarchy['tip_force_n']} N, phase tangential/separating {hierarchy['phase_tangential_force_n']}/{hierarchy['phase_separating_force_n']} N, chain tight-side increment {hierarchy['chain_tight_side_increment_n']} N이다. Phase key는 sacrificial element가 아니다.
+토크 계층 `14 < 18 < 22 < 34 < 48 N·m`는 모두 cutter-shaft equivalent다. DRV-F01의 실제 motor-side setting은 12:18/24/30에서 각각 17.25/12.94/10.35 N·m이며 digital check는 `{hierarchy['strict_order_pass']}`다. Cutter-equivalent 22 N·m에서 cutter tip {hierarchy['tip_force_n']} N, phase tangential/separating {hierarchy['phase_tangential_force_n']}/{hierarchy['phase_separating_force_n']} N, chain tight-side increment {hierarchy['chain_tight_side_increment_n']} N이다. DRV-02와 phase key는 sacrificial element가 아니다.
 
 Current threshold는 donor calibration 뒤 `I = I0 + T/(Kt × ratio × efficiency)`로 계산한다. 현재 reference sensitivity는 실제 donor 합격값이 아니며 universal 16/18 A limit를 release하지 않는다. Gate-1 및 donor calibration은 `PHYSICAL_NOT_RUN`이다.
 """)
