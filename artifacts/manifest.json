@@ -8,7 +8,7 @@
     "OpenModelica 1.27.0 / MSL 4.0.0 via simulation/openmodelica/scripts/run_all.mos",
     "CalculiX 2.23 via analysis/structural/run_load_checks.py"
   ],
-  "artifact_count": 344,
+  "artifact_count": 345,
   "artifacts": [
     {
       "path": "analysis/load_cases/openmodelica_dynamic_envelope.json",
@@ -1712,8 +1712,13 @@
     },
     {
       "path": "validation/release_checklist.md",
-      "bytes": 1627,
-      "sha256": "a7b081144f03abd89ac264cffe6039e10ddba758e4045b1f66a6744853ff4723"
+      "bytes": 1639,
+      "sha256": "15580a5b52f5b423289d5a783bdb8fabf8907e7462e487ddbac6cb3700f9242b"
+    },
+    {
+      "path": "validation/results/clean_clone_validation.json",
+      "bytes": 431,
+      "sha256": "263fcaf70aa438ad41858c4c3b6bb4ce1d2b66f00e2abae63e38521f06a39a81"
     },
     {
       "path": "validation/results/mesh_manifold.json",

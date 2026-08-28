@@ -2,7 +2,7 @@
 
 ## Digital fabrication baseline gate
 
-- [ ] `validation/run_all.py` 전체 통과
+- [x] `validation/run_all.py` 전체 통과
 - [x] nominal envelope 470×700×930 mm; hard/target limit 이내
 - [x] target cash 178,420 KRW ≤180,000; reserve 포함 198,420 KRW ≤200,000
 - [x] active CAD valid closed-solid topology; review keep-out 격리
@@ -11,10 +11,10 @@
 - [x] OpenModelica MSL 4.0.0 check/simulation/sweep 및 acceptance PASS
 - [x] OpenModelica load envelope가 구조 screening/CalculiX 입력과 trace 가능
 - [x] Firmware config가 baseline에서 생성되고 unverified drive calibration을 거부
-- [ ] README/requirements/baseline/BOM/PDF/manifest revision·수치 일치
-- [ ] stale architecture/current-source 검사 PASS
-- [ ] current render와 parent visual review 기록
-- [ ] clean clone 재현 PASS
+- [x] README/requirements/baseline/BOM/PDF/manifest revision·수치 일치
+- [x] stale architecture/current-source 검사 PASS
+- [x] current render와 parent visual review 기록
+- [x] clean clone 재현 PASS (`edb1790`)
 
 ## Physical gate — digital release와 분리
 
