@@ -28,9 +28,14 @@ def main() -> None:
     expected = params["archive_sha"]
     assert params["revision"] == REV
     tag_commit = git("rev-parse", "compact-v0.3-surface-proof^{}")
+    # A --single-branch clean clone intentionally omits unrelated remote branch
+    # refs while still fetching annotated release tags.  Prefer the archive
+    # branch when present, then use the immutable tag's peeled commit as the
+    # local reproducibility witness.
     branch_commit = resolve_any(
         "refs/heads/archive/compact-v0.3-surface-proof",
         "refs/remotes/origin/archive/compact-v0.3-surface-proof",
+        "compact-v0.3-surface-proof^{}",
     )
     assert tag_commit == branch_commit == expected, (tag_commit, branch_commit, expected)
     assert git("cat-file", "-t", "compact-v0.3-surface-proof") == "tag", "tag must remain annotated"
@@ -40,6 +45,7 @@ def main() -> None:
     old_branch = resolve_any(
         "refs/heads/archive/research-v0.2-two-tower",
         "refs/remotes/origin/archive/research-v0.2-two-tower",
+        "research-v0.2-two-tower^{}",
     )
     assert old_tag == old_branch == old_expected, (old_tag, old_branch)
 
