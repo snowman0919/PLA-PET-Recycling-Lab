@@ -1,9 +1,10 @@
 {
   "revision": "solid-manifold-openmodelica-v0.4",
-  "source_commit": "edb1790423caccead8778e75bdd4c0d219b9902b",
+  "source_commit": "b00edd600d91dcd445445b5062c4fda1d245a803",
   "date": "2026-08-29",
-  "command": "python3 validation/run_all.py",
+  "remote_ref": "origin/solid-manifold-openmodelica-v0.4",
+  "command": "python3 validation/run_all.py --regenerate-renders",
   "result": "PASS",
   "terminal_state": "ALL_DIGITAL_VALIDATIONS_OK; PHYSICAL_NOT_RUN; MAIN_PROMOTION_LOCKED",
-  "scope": "fresh local clone of the recorded commit; generated caches and raw solver/toolpath outputs were absent before execution"
+  "scope": "fresh remote single-branch clone of the recorded commit; generated caches and raw solver/toolpath outputs were absent before execution"
 }

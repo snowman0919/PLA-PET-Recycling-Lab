@@ -14,7 +14,7 @@
 - [x] README/requirements/baseline/BOM/PDF/manifest revision·수치 일치
 - [x] stale architecture/current-source 검사 PASS
 - [x] current render와 parent visual review 기록
-- [x] clean clone 재현 PASS (`edb1790`)
+- [x] remote single-branch clean clone 전체 재현 PASS (`b00edd6`, `--regenerate-renders`)
 
 ## Physical gate — digital release와 분리
 
