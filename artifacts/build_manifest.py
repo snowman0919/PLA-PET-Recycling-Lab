@@ -9,7 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PATTERNS = (
+    "README.md", "CHANGELOG.md", "AGENTS.md",
     "cad/parameters/*.json", "cad/freecad/**/*.py", "cad/generation/*.py", "cad/generation/*.csv", "cad/generation/*.json",
+    "cad/README.md", "cad/manufacturing_object_audit.csv",
     "cad/generation/fcstd/*.FCStd",
     "cad/generation/assembly_metadata.json",
     "exports/step/*.step",
@@ -18,12 +20,14 @@ PATTERNS = (
     "exports/print/**/*.FCStd", "exports/print/**/*.step", "exports/print/**/*.stl", "exports/print/**/*.3mf",
     "exports/print/**/*.md", "exports/print/**/*.py", "exports/print/**/*.svg", "exports/print/**/*.csv", "exports/print/*.csv",
     "exports/print/slicer_profiles/*",
-    "renders/**/*.png", "docs/*.pdf", "docs/*.md",
-    "bom/*.csv", "calculations/*.md", "calculations/economics/*.md",
+    "renders/**/*.png", "docs/*.pdf", "docs/*.typ", "docs/*.md",
+    "bom/*.csv", "bom/*.md", "bom/*.py", "calculations/*.md", "calculations/*.csv", "calculations/*.py", "calculations/economics/*.md",
+    "decisions/*.md", "electronics/*.md", "electronics/*.csv",
+    "firmware/arduino_mega/Makefile", "firmware/arduino_mega/*.md", "firmware/arduino_mega/*.py", "firmware/arduino_mega/src/*", "firmware/arduino_mega/tests/*",
     "simulation/*.json", "simulation/openmodelica/**/*.mo", "simulation/openmodelica/**/*.mos",
     "simulation/openmodelica/**/*.json", "simulation/openmodelica/**/*.md", "simulation/openmodelica/results/plots/*.svg",
     "analysis/**/*.py", "analysis/**/*.json", "analysis/**/*.md", "analysis/structural/generated/*.inp",
-    "requirements/*.md", "validation/*.py", "validation/release_checklist.md", "validation/completion_audit_v0.4.md", "validation/physical_gate_status.json", "validation/results/*.json",
+    "requirements/*.md", "validation/*.py", "validation/*.md", "validation/test_plans/*.md", "validation/visual_review/*.md", "validation/physical_gate_status.json", "validation/results/*.json",
 )
 
 
@@ -31,7 +35,7 @@ def main():
     paths = sorted({
         p for pattern in PATTERNS for p in ROOT.glob(pattern)
         if p.is_file() and "simulation/openmodelica/results/raw" not in p.as_posix()
-        and "exports/print/slicing_previews" not in p.as_posix()
+        and not ("exports/print/slicing_previews" in p.as_posix() and p.suffix == ".gcode")
     })
     artifacts = []
     for path in paths:

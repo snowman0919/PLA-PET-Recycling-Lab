@@ -22,3 +22,18 @@
 |PET|36|69.9|195.1|308.8|39.2–71.2|
 
 PLA profile 18 rpm nominal 111.8 g/h, PET profile 20 rpm nominal 108.4 g/h다. 200 g/h는 선택 범위 14–28 rpm의 nominal prediction으로 지지되지 않으며 optimistic fill corner 또는 32–36 rpm 검증이 필요한 stretch target이다.
+
+## Flight-tip radial-clearance sensitivity
+
+Pressure-driven flight-tip leakage를 `q_tip ∝ c^3`로 screening했다. 0.15 mm에서 nominal melt loss를 fixed pressure backflow와 tip leakage에 50:50으로 나눈 가정이며 실측 rheology/pressure/melt-flow를 대신하지 않는다.
+
+|재질|profile RPM|radial clearance mm|relative tip leakage|melt delivery factor|throughput g/h|0.15 mm 대비|
+|---|---:|---:|---:|---:|---:|---:|
+|PLA|18|0.14|0.8130|0.8912|113.2|+1.27%|
+|PLA|18|0.15|1.0000|0.8800|111.8|+0.00%|
+|PLA|18|0.16|1.2136|0.8672|110.2|-1.46%|
+|PET|20|0.14|0.8130|0.8731|110.0|+1.52%|
+|PET|20|0.15|1.0000|0.8600|108.4|+0.00%|
+|PET|20|0.16|1.2136|0.8450|106.5|-1.74%|
+
+도면 허용범위 0.14–0.16 mm 안에서도 방향성은 분명하지만, 이 수치는 실제 polymer viscosity·die pressure·flight wear를 보정하지 않은 `VIRTUAL_SCREENING_PHYSICAL_NOT_RUN`이다.

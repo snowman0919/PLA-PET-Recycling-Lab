@@ -31,7 +31,7 @@ PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, fee
 
 #table(columns: (1.5fr, 1.2fr, 1fr, 1fr), inset: 4pt,
   [*후보*], [*Envelope mm*], [*계획비용*], [*판정*],
-  [Vertical down-die], [470 x 700 x 930], [179,954 KRW], [target PASS / donor·물리 Gate blocker],
+  [Vertical down-die], [470 x 700 x 930], [179,951 KRW], [target PASS / donor·물리 Gate blocker],
   [Internal U-fold], [480 x 710 x 940], [196,000 KRW], [soft bend 기각],
   [Side spool column], [495 x 720 x 950], [204,000 KRW], [비용/목표 기각],
 )
@@ -84,11 +84,11 @@ Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spoo
 
 = 비용과 제조
 
-Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 실제 slicing을 반영한 조건부 target은 179,954 KRW다. 20,000 KRW contingency 포함 absolute plan은 199,954 KRW이며 계획 여유는 46 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
+Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 실제 slicing을 반영한 조건부 target은 179,951 KRW다. 20,000 KRW contingency 포함 absolute plan은 199,951 KRW이며 계획 여유는 49 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
 
 #figure(image("../renders/review/print_orientation.png", width: 92%), caption: [12개 출력 part family orientation overview])
 
-PrusaSlicer 2.9.6 toolpath 질량은 989.76 g, 실패 reserve 12% 포함 procurement mass는 1,108.53 g, 총 시간은 87.5 h다. CAD nominal mass와 slicer mass는 별도 기록한다. 고하중·hot path는 출력품을 사용하지 않는다.
+PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 994.61 g, 실패 reserve 12% 포함 procurement mass는 1,113.96 g, 총 시간은 87.9 h다. 12개 plate와 PPR-TC01의 첫 extrusion layer SVG를 `exports/print/slicing_previews`에 생성해 bed 배치와 perimeter/infill/support role을 사람이 검토할 수 있게 했다. CAD nominal mass와 slicer mass는 별도 기록한다. 고하중·hot path는 출력품을 사용하지 않는다.
 
 = 검증 경계
 

@@ -19,14 +19,14 @@ Donor는 18–30 V reversible geared brushed-DC, cutter 14 N·m continuous, 20�
 
 ## 현재 디지털 결과
 
-- CAD active object 113개: 유효 B-Rep/solid topology PASS. Print part 12종은 각 1 solid다.
+- CAD active object 135개: 유효 B-Rep/solid topology PASS. Print part 12종은 각 1 solid다.
 - STL 12종: watertight/manifold, zero-area/non-manifold edge 0, component 1.
-- PrusaSlicer 2.9.6: nominal 989.76 g, 12% reserve 포함 1,108.53 g, 87.5 h.
+- PrusaSlicer 2.9.6: support 설정을 포함한 nominal 994.61 g, 12% reserve 포함 1,113.96 g, 87.9 h.
 - OpenModelica 1.27.0 / Modelica Standard Library 4.0.0: 18 scenario + 6 sensitivity sweep PASS.
-- Digital load envelope: cutter-equivalent relief 22 N·m, bearing 1.43 kN, chain 0.603 kN, table anchor tension은 OpenModelica 결과 파일을 따른다.
-- CalculiX screening: bearing plate 51.54 MPa/0.209 mm, cutter shaft 52.50 MPa/0.0147 mm. Gate-1 load로 재검증해야 한다.
+- Digital load envelope: cutter-equivalent relief 22 N·m, bearing 1.255 kN, chain 0.603 kN, table anchor tension 0.485 kN이다.
+- CalculiX screening: bearing plate 45.36 MPa/0.1840 mm, cutter shaft 48.63 MPa/0.0136 mm. Gate-1 load로 재검증해야 한다.
 - 16 mm screw nominal throughput: PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h. 200 g/h는 stretch target이며 현재 nominal claim이 아니다.
-- Conditional target cash 179,954 KRW; 20,000 KRW contingency 포함 199,954 KRW. 남은 계획 여유는 46 KRW뿐이고 donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
+- Conditional target cash 179,951 KRW; 20,000 KRW contingency 포함 199,951 KRW. 남은 계획 여유는 49 KRW뿐이고 donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
 
 ## 재현
 

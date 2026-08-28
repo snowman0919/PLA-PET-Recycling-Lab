@@ -27,16 +27,16 @@ PLA/PET는 470 × 700 × 930 mm cabinet 안에서 공용 hopper, cycloidal-inspi
 
 = CAD와 slicing evidence
 
-- Active CAD 113 objects: valid B-Rep/solid topology PASS.
+- Active CAD 135 objects: valid B-Rep/solid topology PASS.
 - Print part 12종: 각 1 solid, STL watertight 2-manifold, zero-area/non-manifold 0.
-- PrusaSlicer 2.9.6: 989.76 g, 87.5 h; 실패 reserve 포함 1,108.53 g.
+- PrusaSlicer 2.9.6: support 포함 994.61 g, 87.9 h; 실패 reserve 포함 1,113.96 g.
 - Keep-out 4개는 `REVIEW_ONLY_NOT_MANUFACTURED` package에 격리.
 
 = 기계 simulation과 구조 연계
 
-OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 18 scenario 및 6 sensitivity sweep를 실행했다. Torque hierarchy는 14 < 18 < 22 < 34 < 48 N·m다. Dynamic envelope는 cutter 전달 22.0 N·m, bearing 1.426 kN, chain 0.603 kN, table anchor 0.399 kN이다.
+OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 18 scenario 및 6 sensitivity sweep를 실행했다. Torque hierarchy는 14 < 18 < 22 < 34 < 48 N·m다. Dynamic envelope는 cutter 전달 22.0 N·m, bearing 1.255 kN, chain 0.603 kN, table anchor 0.485 kN이다.
 
-동일 JSON을 9개 closed-form 구조 screening과 CalculiX bearing plate/cutter shaft deck가 읽는다. CalculiX 결과는 plate 51.54 MPa/0.209 mm, shaft 52.50 MPa/0.0147 mm다. Gate-1 실측 pulse를 얻으면 재실행한다.
+동일 JSON을 9개 closed-form 구조 screening과 CalculiX bearing plate/cutter shaft deck가 읽는다. CalculiX 결과는 plate 45.36 MPa/0.1840 mm, shaft 48.63 MPa/0.0136 mm다. Gate-1 실측 pulse를 얻으면 재실행한다.
 
 = Throughput와 firmware
 
@@ -44,9 +44,9 @@ OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 18 scenario 및 6 s
 
 = Budget와 release lock
 
-- Conditional target: 179,954 KRW ≤180,000 KRW.
+- Conditional target: 179,951 KRW ≤180,000 KRW.
 - Quote contingency: 20,000 KRW.
-- Absolute plan: 199,954 KRW ≤200,000 KRW; 계획 여유 46 KRW.
+- Absolute plan: 199,951 KRW ≤200,000 KRW; 계획 여유 49 KRW.
 - Donor 0원과 모든 RFQ는 미확정이며 구매 release는 BLOCKED.
 - CUT-01 2장 Gate-1 coupon 외 full stack는 HOLD.
 - EX-CPN-SCR/EX-CPN-BAR 외 full screw/barrel은 HOLD.

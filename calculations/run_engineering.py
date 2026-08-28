@@ -40,7 +40,22 @@ def throughput_model():
     for material in ("PLA","PET"):
         rpm=P["profiles"][material]["screw_rpm"]
         profiles[material]=next(r for r in rows if r["material"]==material and r["rpm"]==rpm)
-    return {"model":"solid_conveying_displacement_x_bulk_density_x_fill_x_efficiency_x_melt_backflow_factor","displacement_m3_rev":displacement,"radial_clearance_mm_range":[0.14,0.16],"pressure_backflow_and_tip_leakage_in_melt_factor":True,"rows":rows,"profile_points":profiles,"physical_status":"PHYSICAL_NOT_RUN"}
+    clearance_rows=[]
+    # Pre-test screening: pressure-driven flow through a narrow flight-tip gap
+    # scales approximately with clearance cubed.  Split the nominal melt loss
+    # equally into fixed pressure backflow and clearance-sensitive tip leakage;
+    # Gate-4 melt-flow data must replace this anchor before release.
+    loss_anchor={"PLA":{"fixed_backflow":0.06,"tip_at_0_15":0.06},"PET":{"fixed_backflow":0.07,"tip_at_0_15":0.07}}
+    for material in ("PLA","PET"):
+        nominal_factor=materials[material]["melt_factor"][1]
+        nominal_gph=profiles[material]["throughput_nominal_gph"]
+        for clearance in (0.14,0.15,0.16):
+            relative=(clearance/0.15)**3
+            loss=loss_anchor[material]["fixed_backflow"]+loss_anchor[material]["tip_at_0_15"]*relative
+            factor=max(0.5,1-loss)
+            adjusted=nominal_gph*factor/nominal_factor
+            clearance_rows.append({"material":material,"profile_rpm":profiles[material]["rpm"],"radial_clearance_mm":clearance,"tip_leakage_relative_to_0_15":round(relative,4),"melt_delivery_factor":round(factor,4),"predicted_throughput_gph":round(adjusted,1),"change_from_0_15_percent":round((factor/nominal_factor-1)*100,2),"status":"VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"})
+    return {"model":"solid_conveying_displacement_x_bulk_density_x_fill_x_efficiency_x_melt_backflow_factor","displacement_m3_rev":displacement,"radial_clearance_mm_range":[0.14,0.16],"pressure_backflow_and_tip_leakage_in_melt_factor":True,"tip_leakage_model":"relative leakage=(radial_clearance/0.15 mm)^3; nominal loss split 50/50 fixed backflow/tip leakage","rows":rows,"clearance_sensitivity":clearance_rows,"profile_points":profiles,"physical_status":"PHYSICAL_NOT_RUN"}
 
 
 def screw_candidates():
@@ -104,9 +119,14 @@ def main():
         w=csv.DictWriter(f,fieldnames=flow["rows"][0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(flow["rows"])
     with (ROOT/"calculations/cooling_matrix.csv").open("w",newline="") as f:
         w=csv.DictWriter(f,fieldnames=cooling[0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(cooling)
+    with (ROOT/"calculations/flight_tip_clearance_sensitivity.csv").open("w",newline="") as f:
+        w=csv.DictWriter(f,fieldnames=flow["clearance_sensitivity"][0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(flow["clearance_sensitivity"])
     lines=["# 16 mm × 16 L/D screw — RPM/처리량 sensitivity","","`m_dot = channel displacement × bulk density × fill × conveying efficiency × (1-backflow-leakage) × RPM`이며 radial clearance 0.14–0.16 mm, pressure backflow와 flight-tip leakage를 melt factor에 포함했다. 실제 feed/melt 시험은 `PHYSICAL_NOT_RUN`이다.","","|재질|RPM|low|nominal|high|residence s|","|---|---:|---:|---:|---:|---:|"]
     for r in flow["rows"]: lines.append(f"|{r['material']}|{r['rpm']}|{r['throughput_low_gph']}|{r['throughput_nominal_gph']}|{r['throughput_high_gph']}|{r['residence_low_s']}–{r['residence_high_s']}|")
-    lines += ["",f"PLA profile 18 rpm nominal {flow['profile_points']['PLA']['throughput_nominal_gph']} g/h, PET profile 20 rpm nominal {flow['profile_points']['PET']['throughput_nominal_gph']} g/h다. 200 g/h는 선택 범위 14–28 rpm의 nominal prediction으로 지지되지 않으며 optimistic fill corner 또는 32–36 rpm 검증이 필요한 stretch target이다."]
+    lines += ["",f"PLA profile 18 rpm nominal {flow['profile_points']['PLA']['throughput_nominal_gph']} g/h, PET profile 20 rpm nominal {flow['profile_points']['PET']['throughput_nominal_gph']} g/h다. 200 g/h는 선택 범위 14–28 rpm의 nominal prediction으로 지지되지 않으며 optimistic fill corner 또는 32–36 rpm 검증이 필요한 stretch target이다.","","## Flight-tip radial-clearance sensitivity","","Pressure-driven flight-tip leakage를 `q_tip ∝ c^3`로 screening했다. 0.15 mm에서 nominal melt loss를 fixed pressure backflow와 tip leakage에 50:50으로 나눈 가정이며 실측 rheology/pressure/melt-flow를 대신하지 않는다.","","|재질|profile RPM|radial clearance mm|relative tip leakage|melt delivery factor|throughput g/h|0.15 mm 대비|","|---|---:|---:|---:|---:|---:|---:|"]
+    for r in flow["clearance_sensitivity"]:
+        lines.append(f"|{r['material']}|{r['profile_rpm']}|{r['radial_clearance_mm']:.2f}|{r['tip_leakage_relative_to_0_15']:.4f}|{r['melt_delivery_factor']:.4f}|{r['predicted_throughput_gph']:.1f}|{r['change_from_0_15_percent']:+.2f}%|")
+    lines += ["","도면 허용범위 0.14–0.16 mm 안에서도 방향성은 분명하지만, 이 수치는 실제 polymer viscosity·die pressure·flight wear를 보정하지 않은 `VIRTUAL_SCREENING_PHYSICAL_NOT_RUN`이다."]
     (ROOT/"calculations/screw_sensitivity.md").write_text("\n".join(lines)+"\n")
     (ROOT/"calculations/shredder_drive_and_cutter.md").write_text(f"""# Cycloidal-derived cutter와 interchangeable drive
 

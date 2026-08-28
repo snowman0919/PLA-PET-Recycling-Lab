@@ -224,7 +224,7 @@ def write_gate1_package():
         w.writerows(print_rows)
     total_print=sum(float(r[-1]) for r in print_rows)
     (base/"total_material_report.md").write_text(
-        f"# Gate-1 jig 출력물 집계\n\n총 예상 PLA 질량은 `{total_print:.1f} g`이며 final machine의 1100.5 g과 분리한 시험 jig 집계다. "
+        f"# Gate-1 jig 출력물 집계\n\n총 예상 PLA 질량은 `{total_print:.1f} g`이며 final-machine 출력 package와 분리한 시험 jig 집계다. "
         f"18,000 KRW/kg 기준 재료비는 약 `{total_print*18:.0f} KRW`다. 모든 부품은 각 축 210 mm 이하다.\n",encoding="utf-8")
     with (base/"bom.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["item_id","item","qty","source","planning_cash_krw","budget_bucket","status","reuse_after_test","notes"])
@@ -332,7 +332,7 @@ def write_gate1_package():
 - 시험자/날짜/서명:
 - 검토자/날짜/서명:
 
-`PASS`는 `test_procedure_ko.md`의 모든 기준, traceable calibration과 원시 증거가 동시에 충족될 때만 parent Codex가 별도 commit에서 기록한다. 이 template의 존재는 release가 아니다.
+`PASS`는 `test_procedure_ko.md`의 모든 기준, traceable calibration과 원시 증거가 동시에 충족될 때만 parent Codex가 별도 commit에서 기록한다. 이 template의 존재는 release가 아니다. `PASS`가 아닌 상태에서는 full cutter stack, full screw/barrel 발주와 `main` 승격을 계속 금지한다.
 """,encoding="utf-8")
     (base/"assembly_ko.md").write_text(f"""# Gate-1 cutter coupon jig 조립도
 

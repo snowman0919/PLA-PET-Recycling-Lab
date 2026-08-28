@@ -9,6 +9,7 @@ import math
 import re
 import shutil
 import subprocess
+from html import escape
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -52,6 +53,74 @@ def support_volume_cm3(path):
     return support_length_mm*math.pi*(1.75/2)**2/1000
 
 
+def first_layer_preview_svg(gcode_path, output_path, title):
+    """Render the first extrusion layer as a lightweight, reviewable bed SVG."""
+    absolute_xy=True; absolute_e=True
+    x=y=0.0; current_e=0.0; role="unclassified"; layer_count=0; layer_z=None
+    segments=[]
+    colors={
+        "skirt/brim":"#78909c", "perimeter":"#2563a6", "external perimeter":"#123f73",
+        "solid infill":"#e58b2a", "infill":"#e58b2a", "support material":"#c8443a",
+        "support material interface":"#8f2f29",
+    }
+    for raw in gcode_path.read_text(errors="replace").splitlines():
+        line=raw.strip()
+        if line == ";LAYER_CHANGE":
+            layer_count+=1
+            if layer_count>1: break
+            continue
+        if layer_count!=1: continue
+        if line.startswith(";Z:"):
+            try: layer_z=float(line.split(":",1)[1])
+            except ValueError: pass
+            continue
+        if line.startswith(";TYPE:"):
+            role=line.split(":",1)[1].strip().lower()
+            continue
+        if line.startswith("G90"): absolute_xy=True; continue
+        if line.startswith("G91"): absolute_xy=False; continue
+        if line.startswith("M82"): absolute_e=True; continue
+        if line.startswith("M83"): absolute_e=False; continue
+        if line.startswith("G92"):
+            match=re.search(r"(?:^|\s)E(-?[0-9.]+)",line)
+            if match: current_e=float(match.group(1))
+            continue
+        if not line.startswith(("G0 ","G1 ")): continue
+        values={key:float(value) for key,value in re.findall(r"(?:^|\s)([XYE])(-?[0-9.]+)",line)}
+        nx=(values.get("X",x) if absolute_xy else x+values.get("X",0.0))
+        ny=(values.get("Y",y) if absolute_xy else y+values.get("Y",0.0))
+        delta_e=0.0
+        if "E" in values:
+            delta_e=values["E"]-current_e if absolute_e else values["E"]
+            if absolute_e: current_e=values["E"]
+        if delta_e>0 and (abs(nx-x)>1e-6 or abs(ny-y)>1e-6):
+            segments.append((x,y,nx,ny,colors.get(role,"#58636b"),role))
+        x,y=nx,ny
+    if len(segments)<3: raise SystemExit(f"SLICER_PREVIEW_EMPTY {gcode_path.name}")
+    output_path.parent.mkdir(parents=True,exist_ok=True)
+    lines=[
+        '<svg xmlns="http://www.w3.org/2000/svg" width="720" height="765" viewBox="0 0 240 255">',
+        '<rect width="240" height="255" fill="#f6f8f9"/>',
+        f'<text x="10" y="9" font-family="sans-serif" font-size="4.2" fill="#19313d">{escape(title)}</text>',
+        f'<text x="10" y="15" font-family="sans-serif" font-size="3.2" fill="#526873">first extrusion layer Z={layer_z if layer_z is not None else "unknown"} mm · {len(segments)} segments</text>',
+        '<rect x="10" y="20" width="220" height="220" rx="1" fill="#ffffff" stroke="#364b55" stroke-width="0.6"/>',
+        '<g stroke-linecap="round" fill="none">',
+    ]
+    for x0,y0,x1,y1,color,_ in segments:
+        lines.append(f'<line x1="{10+x0:.3f}" y1="{240-y0:.3f}" x2="{10+x1:.3f}" y2="{240-y1:.3f}" stroke="{color}" stroke-width="0.38"/>')
+    lines.extend([
+        '</g>',
+        '<g font-family="sans-serif" font-size="3.1" fill="#334851">',
+        '<rect x="10" y="244" width="4" height="2" fill="#123f73"/><text x="15" y="246">perimeter</text>',
+        '<rect x="42" y="244" width="4" height="2" fill="#e58b2a"/><text x="47" y="246">solid/infill</text>',
+        '<rect x="78" y="244" width="4" height="2" fill="#c8443a"/><text x="83" y="246">support</text>',
+        '<rect x="108" y="244" width="4" height="2" fill="#78909c"/><text x="113" y="246">skirt/brim</text>',
+        '</g></svg>',
+    ])
+    output_path.write_text("\n".join(lines)+"\n",encoding="utf-8")
+    return len(segments),layer_z
+
+
 def update_print_note(pid,mass_g,time_s,support_cm3):
     path=ROOT/f"exports/print/{pid}/print_notes.md"; text=path.read_text()
     begin="<!-- SLICER_EVIDENCE_BEGIN -->"; end="<!-- SLICER_EVIDENCE_END -->"
@@ -74,15 +143,19 @@ def main():
     for index,row in enumerate(rows,1):
         pid=row["part_id"]; stl=ROOT/f"exports/print/{pid}/{pid}.stl"
         plate=out_dir/f"plate-{index:02d}-{pid}.3mf"; gcode=preview_dir/f"plate-{index:02d}-{pid}.gcode"
-        common=[slicer,"--load",str(PROFILE),"--duplicate",row["quantity"],"--center","110,110","--ensure-on-bed",str(stl)]
+        support_enabled=row["support"].strip().lower()!="no"
+        support_args=["--support-material","--support-material-auto","--support-material-threshold","45"] if support_enabled else []
+        common=[slicer,"--load",str(PROFILE),"--duplicate",row["quantity"],"--center","110,110","--ensure-on-bed",*support_args,str(stl)]
         for action,target in (("--export-3mf",plate),("--export-gcode",gcode)):
             completed=subprocess.run(common[:-1]+[action,"--output",str(target),common[-1]],cwd=ROOT,text=True,capture_output=True)
             if completed.returncode:
                 raise SystemExit(f"SLICER_FAIL {pid}: {completed.stdout}{completed.stderr}")
         mass_g,time_s=gcode_metrics(gcode); support_cm3=support_volume_cm3(gcode)
+        preview=preview_dir/f"plate-{index:02d}-{pid}-first-layer.svg"
+        preview_segments,preview_z=first_layer_preview_svg(gcode,preview,f"{pid} x{row['quantity']} / PrusaSlicer 2.9.6")
         row["slicer_mass_total_g"]=f"{mass_g:.2f}"; row["slicer_time_s"]=str(time_s)
         row["slicer_status"]="PASS"
-        results.append({"part_id":pid,"quantity":int(row["quantity"]),"mass_g":mass_g,"time_s":time_s,"support_volume_cm3":round(support_cm3,4),"plate":str(plate.relative_to(ROOT)),"gcode":str(gcode.relative_to(ROOT)),"status":"PASS"})
+        results.append({"part_id":pid,"quantity":int(row["quantity"]),"mass_g":mass_g,"time_s":time_s,"support_generation_enabled":support_enabled,"support_volume_cm3":round(support_cm3,4),"plate":str(plate.relative_to(ROOT)),"gcode":str(gcode.relative_to(ROOT)),"preview":str(preview.relative_to(ROOT)),"preview_first_layer_z_mm":preview_z,"preview_segment_count":preview_segments,"status":"PASS"})
         update_print_note(pid,mass_g,time_s,support_cm3)
 
     coupon_id="PPR-TC01"; coupon_dir=ROOT/"exports/print/coupons"/coupon_id
@@ -92,7 +165,9 @@ def main():
         completed=subprocess.run(coupon_common[:-1]+[action,"--output",str(target),coupon_common[-1]],cwd=ROOT,text=True,capture_output=True)
         if completed.returncode: raise SystemExit(f"SLICER_FAIL {coupon_id}: {completed.stdout}{completed.stderr}")
     coupon_mass,coupon_time=gcode_metrics(coupon_gcode)
-    coupon_result={"part_id":coupon_id,"mass_g":coupon_mass,"time_s":coupon_time,"plate":str(coupon_plate.relative_to(ROOT)),"gcode":str(coupon_gcode.relative_to(ROOT)),"status":"PASS","included_in_machine_mass":False}
+    coupon_preview=preview_dir/f"coupon-{coupon_id}-first-layer.svg"
+    coupon_segments,coupon_z=first_layer_preview_svg(coupon_gcode,coupon_preview,f"{coupon_id} tolerance coupon / PrusaSlicer 2.9.6")
+    coupon_result={"part_id":coupon_id,"mass_g":coupon_mass,"time_s":coupon_time,"plate":str(coupon_plate.relative_to(ROOT)),"gcode":str(coupon_gcode.relative_to(ROOT)),"preview":str(coupon_preview.relative_to(ROOT)),"preview_first_layer_z_mm":coupon_z,"preview_segment_count":coupon_segments,"status":"PASS","included_in_machine_mass":False}
     with manifest.open("w",newline="") as f:
         w=csv.DictWriter(f,fieldnames=rows[0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(rows)
     total_mass=sum(r["mass_g"] for r in results); total_time=sum(r["time_s"] for r in results); total_support=sum(r["support_volume_cm3"] for r in results)

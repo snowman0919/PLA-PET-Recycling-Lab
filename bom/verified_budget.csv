@@ -1,11 +1,11 @@
 budget_state,field_or_item,amount_krw,status,evidence_or_blocker
 METADATA,revision,,solid-manifold-openmodelica-v0.4,generated from bom/cash_budget.csv
-CONDITIONAL_PLANNING_BUDGET,conditional_subtotal,179954,PASS_TARGET_LE_180000,target allowances; not quotes or receipts
-CONDITIONAL_PLANNING_BUDGET,print_material_including_support_and_12pct_reserve,19954,PRUSASLICER_ESTIMATE,"actual toolpath estimate, not purchase receipt"
+CONDITIONAL_PLANNING_BUDGET,conditional_subtotal,179951,PASS_TARGET_LE_180000,target allowances; not quotes or receipts
+CONDITIONAL_PLANNING_BUDGET,print_material_including_support_and_12pct_reserve,20051,PRUSASLICER_ESTIMATE,"actual toolpath estimate, not purchase receipt"
 CONDITIONAL_PLANNING_BUDGET,shipping_tax,0,INCLUDED_ONLY_IN_CONTINGENCY,no supplier quote
 CONDITIONAL_PLANNING_BUDGET,contingency,20000,RESERVED,shipping machining variance failed prints fasteners consumables
-CONDITIONAL_PLANNING_BUDGET,absolute_total,199954,PASS_CAP_LE_200000,conditional subtotal plus contingency
-CONDITIONAL_PLANNING_BUDGET,remaining_margin,46,CONDITIONAL_ONLY,not verified purchasing headroom
+CONDITIONAL_PLANNING_BUDGET,absolute_total,199951,PASS_CAP_LE_200000,conditional subtotal plus contingency
+CONDITIONAL_PLANNING_BUDGET,remaining_margin,49,CONDITIONAL_ONLY,not verified purchasing headroom
 VERIFIED_PROCUREMENT_BUDGET,verified_quoted_or_receipted_subtotal,0,NOT_ESTABLISHED,"zero means no item is yet evidence-qualified, not a zero-cost machine"
 VERIFIED_PROCUREMENT_BUDGET,shipping_tax,,UNKNOWN,supplier destinations and quotes absent
 VERIFIED_PROCUREMENT_BUDGET,print_material_including_support,,UNKNOWN,filament lot/receipt absent
@@ -27,6 +27,6 @@ BLOCKED_ITEM,HW-ALLOW,7000,BUY_HOLD,donor 실측 후 수량 확정
 BLOCKED_ITEM,SH-MOTOR-DONOR,0,CONDITIONAL_DONOR_UNVERIFIED,모델 수량 상태 label 축 무부하전류 확인 전 현금 0원 확정 금지
 BLOCKED_ITEM,SH-DRIVE,22000,BUY_HOLD,재고 우선; receipt test와 donor별 torque calibration 필요
 BLOCKED_ITEM,SH-INTERFACE,8000,QUOTE_REQUIRED,특정 coupling/gear MPN 비종속; cutter-equivalent 22 N.m relief 유지
-BLOCKED_ITEM,PRINT-ALLOW,19954,BUY_HOLD,planning mass 1108.53 g at 18000 KRW/kg
+BLOCKED_ITEM,PRINT-ALLOW,20051,BUY_HOLD,planning mass 1113.96 g at 18000 KRW/kg
 BLOCKED_ITEM,GATE1-METROLOGY,7500,BUY_HOLD,project-lab 계측기 확인 시 미사용
-BLOCKED_ITEM,GATE1-PRINT,4500,BUY_HOLD,시험 jig 출력은 final-machine package와 별도 집계
+BLOCKED_ITEM,GATE1-PRINT,4400,BUY_HOLD,실제 estimate 4228 KRW에 172 KRW 여유; final-machine package와 별도 집계

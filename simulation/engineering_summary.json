@@ -9,6 +9,7 @@
       0.16
     ],
     "pressure_backflow_and_tip_leakage_in_melt_factor": true,
+    "tip_leakage_model": "relative leakage=(radial_clearance/0.15 mm)^3; nominal loss split 50/50 fixed backflow/tip leakage",
     "rows": [
       {
         "material": "PLA",
@@ -153,6 +154,68 @@
         "throughput_high_gph": 308.8,
         "residence_low_s": 39.2,
         "residence_high_s": 71.2
+      }
+    ],
+    "clearance_sensitivity": [
+      {
+        "material": "PLA",
+        "profile_rpm": 18,
+        "radial_clearance_mm": 0.14,
+        "tip_leakage_relative_to_0_15": 0.813,
+        "melt_delivery_factor": 0.8912,
+        "predicted_throughput_gph": 113.2,
+        "change_from_0_15_percent": 1.27,
+        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+      },
+      {
+        "material": "PLA",
+        "profile_rpm": 18,
+        "radial_clearance_mm": 0.15,
+        "tip_leakage_relative_to_0_15": 1.0,
+        "melt_delivery_factor": 0.88,
+        "predicted_throughput_gph": 111.8,
+        "change_from_0_15_percent": 0.0,
+        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+      },
+      {
+        "material": "PLA",
+        "profile_rpm": 18,
+        "radial_clearance_mm": 0.16,
+        "tip_leakage_relative_to_0_15": 1.2136,
+        "melt_delivery_factor": 0.8672,
+        "predicted_throughput_gph": 110.2,
+        "change_from_0_15_percent": -1.46,
+        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+      },
+      {
+        "material": "PET",
+        "profile_rpm": 20,
+        "radial_clearance_mm": 0.14,
+        "tip_leakage_relative_to_0_15": 0.813,
+        "melt_delivery_factor": 0.8731,
+        "predicted_throughput_gph": 110.0,
+        "change_from_0_15_percent": 1.52,
+        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+      },
+      {
+        "material": "PET",
+        "profile_rpm": 20,
+        "radial_clearance_mm": 0.15,
+        "tip_leakage_relative_to_0_15": 1.0,
+        "melt_delivery_factor": 0.86,
+        "predicted_throughput_gph": 108.4,
+        "change_from_0_15_percent": 0.0,
+        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+      },
+      {
+        "material": "PET",
+        "profile_rpm": 20,
+        "radial_clearance_mm": 0.16,
+        "tip_leakage_relative_to_0_15": 1.2136,
+        "melt_delivery_factor": 0.845,
+        "predicted_throughput_gph": 106.5,
+        "change_from_0_15_percent": -1.74,
+        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
       }
     ],
     "profile_points": {

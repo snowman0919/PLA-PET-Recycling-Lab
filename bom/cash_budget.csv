@@ -15,9 +15,9 @@ NON_CNC,HW-ALLOW,fastener insert connector shim bearing allowance,7000,BUY_HOLD,
 NON_CNC,SH-MOTOR-DONOR,18-30 V interchangeable geared brushed-DC donor motor,0,CONDITIONAL_DONOR_UNVERIFIED,모델 수량 상태 label 축 무부하전류 확인 전 현금 0원 확정 금지
 NON_CNC,SH-DRIVE,BTS7960-class reversible driver and 50 A current feedback allowance,22000,BUY_HOLD,재고 우선; receipt test와 donor별 torque calibration 필요
 NON_CNC,SH-INTERFACE,#35 chain 표준 sprocket DRV-02 hub 및 적층 phase gear allowance,8000,QUOTE_REQUIRED,특정 coupling/gear MPN 비종속; cutter-equivalent 22 N.m relief 유지
-PRINT,PRINT-ALLOW,PrusaSlicer 2.9.6 nominal 989.76 g plus 12 percent reserve,19954,BUY_HOLD,planning mass 1108.53 g at 18000 KRW/kg
+PRINT,PRINT-ALLOW,PrusaSlicer 2.9.6 nominal 994.61 g plus 12 percent reserve,20051,BUY_HOLD,planning mass 1113.96 g at 18000 KRW/kg
 TEST,GATE1-METROLOGY,0-200 N force gauge/load-cell calibration allowance,7500,BUY_HOLD,project-lab 계측기 확인 시 미사용
-TEST,GATE1-PRINT,Gate-1 chute tray guard-corner 약 0.25 kg 출력 allowance,4500,BUY_HOLD,시험 jig 출력은 final-machine package와 별도 집계
-TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,179954,CONDITIONAL_TARGET_PASS,solid-manifold-openmodelica-v0.4; 견적 또는 donor 확인 전 구매 release는 BLOCKED; target 180000 KRW 이하
+TEST,GATE1-PRINT,Gate-1 chute tray guard-corner 234.9 g 출력 allowance,4400,BUY_HOLD,실제 estimate 4228 KRW에 172 KRW 여유; final-machine package와 별도 집계
+TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,179951,CONDITIONAL_TARGET_PASS,solid-manifold-openmodelica-v0.4; 견적 또는 donor 확인 전 구매 release는 BLOCKED; target 180000 KRW 이하
 CONTINGENCY,ABSOLUTE_CAP_RESERVE,견적변동 예비비,20000,RESERVED,기능 추가에 사용 금지; 안전 또는 필수 제조 견적 차이만
-TOTAL,ABSOLUTE_TOTAL_WITH_RESERVE,예비비 포함 절대 계획 상한,199954,CONDITIONAL_CAP_PASS,200000 KRW 절대상한까지 46 KRW 여유
+TOTAL,ABSOLUTE_TOTAL_WITH_RESERVE,예비비 포함 절대 계획 상한,199951,CONDITIONAL_CAP_PASS,200000 KRW 절대상한까지 49 KRW 여유

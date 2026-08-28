@@ -17,4 +17,4 @@
 - 시험자/날짜/서명:
 - 검토자/날짜/서명:
 
-`PASS`는 `test_procedure_ko.md`의 모든 기준, traceable calibration과 원시 증거가 동시에 충족될 때만 parent Codex가 별도 commit에서 기록한다. 이 template의 존재는 release가 아니다.
+`PASS`는 `test_procedure_ko.md`의 모든 기준, traceable calibration과 원시 증거가 동시에 충족될 때만 parent Codex가 별도 commit에서 기록한다. 이 template의 존재는 release가 아니다. `PASS`가 아닌 상태에서는 full cutter stack, full screw/barrel 발주와 `main` 승격을 계속 금지한다.

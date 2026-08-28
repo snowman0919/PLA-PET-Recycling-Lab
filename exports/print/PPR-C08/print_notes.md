@@ -31,7 +31,7 @@
 Slicer 질량·시간은 `print_manifest.csv`와 `total_material_report.md`의 PrusaSlicer 결과가 지배한다.
 
 <!-- SLICER_EVIDENCE_BEGIN -->
-- PrusaSlicer package mass: **61.08 g** for released quantity
-- PrusaSlicer package time: **4.60 h**
-- support extrusion volume: **0.000 cm³** (G-code role integration; included in package mass)
+- PrusaSlicer package mass: **61.42 g** for released quantity
+- PrusaSlicer package time: **4.64 h**
+- support extrusion volume: **0.618 cm³** (G-code role integration; included in package mass)
 <!-- SLICER_EVIDENCE_END -->

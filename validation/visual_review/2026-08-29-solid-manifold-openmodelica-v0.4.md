@@ -14,6 +14,13 @@
 - `renders/jigs/gate1_exploded.png`
 - `renders/jigs/gate1_rotor_detail.png`
 - `renders/cnc/extruder_screw_barrel.png`
+- `exports/print/slicing_previews/plate-08-PPR-C08-first-layer.svg`
+- `exports/print/slicing_previews/plate-10-PPR-C10-first-layer.svg`
+- `exports/print/slicing_previews/coupon-PPR-TC01-first-layer.svg`
+- `docs/build_manual_ko.pdf` 7쪽 contact sheet
+- `docs/design_report_ko.pdf` 8쪽 contact sheet
+- `exports/cnc/extruder/rfq_drawing_ko.pdf` 2쪽 contact sheet
+- `exports/jigs/gate1/gate1_assembly_ko.pdf` 3쪽 contact sheet
 
 ## 판정
 
@@ -23,6 +30,7 @@
 4. 최초 screw/barrel 검토 render는 4 mm 시각화 loft가 null shape로 붕괴해 barrel만 표시되는 결함이 있었다. 이를 valid single-solid인 2 mm 시각화 형상으로 교체하고 screw와 barrel을 평행 분해 배치해 flight, journal, barrel 외형이 함께 보이도록 수정했다. Bore/clearance/finish/GD&T는 raster에서 판정할 수 없으므로 controlling SVG/PDF/inspection template과 1 mm source STEP/topology audit를 사용한다.
 5. Guard-removed 조립 render에서는 exact reference motor LOD가 chain 일부를 가려 인터페이스 판독성이 충분하지 않았다. 따라서 active PDF에는 motor-side DRV-F01, input/output sprocket, #35 chain run, cutter-side DRV-02와 M3 Z16 pair를 분리해 보이는 `interchangeable_drive_interface.png`를 사용한다. 이 schematic LOD는 주문 형상이 아니며 actual donor 실측 전 DRV-Axx adapter는 HOLD다.
 6. 모든 갱신 render는 opaque B-Rep face 또는 hidden-edge tessellation으로 생성됐다. 이전의 투명 삼각 surface 인상은 제거됐고, cutter/gate jig/print part는 positive-volume source와 독립 topology/mesh gate로 교차 확인한다.
+7. PPR-C08/C10과 PPR-TC01 first-layer preview에서 perimeter, infill, bore와 support contact가 220×220 mm bed 안에 분리되어 보인다. PDF contact sheet에서는 페이지 잘림, 빈 페이지, figure 겹침 또는 RFQ 표의 경계 이탈이 보이지 않았다.
 
 ## 남은 물리·시각 blocker
 
