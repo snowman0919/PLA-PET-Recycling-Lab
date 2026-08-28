@@ -1,10 +1,28 @@
 {
   "revision": "solid-manifold-openmodelica-v0.4",
-  "source_commit": "38354a861e64c461c3820fc282b61f17f546513e",
+  "source_commit": "3409fbb65c305cef477e63e5847dfdf1af8ee117",
   "date": "2026-08-29",
   "remote_ref": "origin/solid-manifold-openmodelica-v0.4",
-  "command": "python3 validation/run_all.py",
+  "command": "python3 validation/run_all.py --regenerate-renders",
   "result": "PASS",
   "terminal_state": "ALL_DIGITAL_VALIDATIONS_OK; PHYSICAL_NOT_RUN; MAIN_PROMOTION_LOCKED",
-  "scope": "fresh remote single-branch clone of the recorded commit; generated caches and raw solver/toolpath outputs were absent before execution"
+  "scope": "fresh remote single-branch clone of the recorded commit; generated caches and raw solver/toolpath outputs were absent before execution",
+  "artifact_reproducibility": {
+    "gate": "CLEAN_CLONE_REPRODUCIBILITY",
+    "checked_count": 459,
+    "normalized_mismatch_count": 0,
+    "status": "PASS"
+  },
+  "post_regeneration_tracked_raw_drift": {
+    "count": 5,
+    "paths": [
+      "cad/generation/fcstd/compact_full_assembly.FCStd",
+      "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.FCStd",
+      "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.FCStd",
+      "exports/print/PPR-C05/PPR-C05.FCStd",
+      "exports/print/PPR-C10/PPR-C10.FCStd"
+    ],
+    "classification": "NON_MANUFACTURING_FREECAD_SHAPE_MAP_ONLY",
+    "document_and_brep_hashes": "MATCH"
+  }
 }
