@@ -1,6 +1,6 @@
 {
   "revision": "solid-manifold-openmodelica-v0.4",
-  "source_commit": "00bd8a996ce870dc485ee07d658aa0c8bfbfc19d",
+  "source_commit": "3b83b6e5b5ceb7b56c2c4976ea6bf838e1e1d3af",
   "date": "2026-08-29",
   "remote_ref": "origin/solid-manifold-openmodelica-v0.4",
   "command": "python3 validation/run_all.py",
@@ -9,14 +9,18 @@
   "scope": "fresh remote single-branch clone of the recorded commit; generated caches and raw solver/toolpath outputs were absent before execution",
   "artifact_reproducibility": {
     "gate": "CLEAN_CLONE_REPRODUCIBILITY",
-    "checked_count": 466,
+    "checked_count": 487,
     "normalized_mismatch_count": 0,
     "status": "PASS"
   },
   "post_regeneration_tracked_raw_drift": {
-    "count": 0,
-    "paths": [],
-    "classification": "NONE",
+    "count": 3,
+    "paths": [
+      "cad/generation/fcstd/compact_full_assembly.FCStd",
+      "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.FCStd",
+      "exports/print/PPR-C05/PPR-C05.FCStd"
+    ],
+    "classification": "FCSTD_ZIP_TIMESTAMP_OR_HISTORY_MAP_ONLY",
     "document_and_brep_hashes": "MATCH"
   }
 }
