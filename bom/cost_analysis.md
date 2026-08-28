@@ -4,7 +4,17 @@
 
 ## 결론
 
-신규 구매 200,000 KRW 목표는 현재 증거로 달성됐다고 볼 수 없다. 2채널 24 V E-stop/gate safety relay 후보 Dold `LG5925-48-61-24`의 공개가는 USD 143이고, Raspberry Pi Camera Module 3 standard는 USD 25부터다. 계획 비교용 환율 `1 USD=1,400 KRW`를 적용하면 각각 200,200 KRW와 35,000 KRW, 합계 235,200 KRW다. 이는 배송·세금·관세, E-stop actuator/contact block, contactor, fuse, sensor, heater, bearing, metal stock와 CNC를 모두 제외하고도 목표를 35,200 KRW 넘는다. [Dold safety relay 공개가](https://www.automationdirect.com/adc/shopping/catalog/safety/safety_relay_modules/2-channel_e-stop_-z-_safety_gate_relays/lg5925-48-61-24), [Camera Module 3 공식 제품 페이지](https://www.raspberrypi.com/products/camera-module-3/)
+신규 구매 200,000 KRW 목표는 현재 증거로 달성됐다고 볼 수 없다. 현재 `PRIMARY_CANDIDATE` 다섯 행의 수량 반영 planning floor만 426,165 KRW이며 cap을 226,165 KRW 초과한다.
+
+| Part ID | 후보 | 수량 반영 floor |
+|---|---|---:|
+| SAF-REL-001 | Dold `LG5925-48-61-24` | 200,200 KRW |
+| SAF-EST-001 | Omron `A22E-M-02` 2NC | 143,001 KRW |
+| ELE-BUCK-001 | MEAN WELL `DDR-30G-5` 5 V/6 A | 42,644 KRW |
+| GAU-CAM-001 | Camera Module 3 standard | 35,000 KRW |
+| GRN-BRG-001 | `6203-2RS-GLD` 2개 | 5,320 KRW |
+
+이는 배송·세금·관세, contactor, fuse coordination, 전체 sensor/heater, metal stock와 CNC를 포함하지 않은 **불완전 하한**이다. [Dold 후보](https://www.automationdirect.com/adc/shopping/catalog/safety/safety_relay_modules/2-channel_e-stop_-z-_safety_gate_relays/lg5925-48-61-24), [Camera Module 3](https://www.raspberrypi.com/products/camera-module-3/), [A22E-M-02](https://www.digikey.kr/en/products/detail/omron-automation-and-safety/A22E-M-02/549568), [DDR-30G-5](https://www.digikey.kr/en/products/detail/mean-well-usa-inc/DDR-30G-5/8681204), [6203-2RS-GLD](https://www.digikey.kr/en/products/detail/mechatronics-bearing-group/6203-2RS-GLD/9608381)
 
 따라서 두 설계안을 다음처럼 분리한다.
 
@@ -26,6 +36,15 @@ Target 설계는 기능이나 안전장치를 삭제하지 않는다. 다음 하
 
 현재 총액은 `TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES`다. 총액을 임의 allowance로 채우지 않는다. 공개 후보가는 비교용 floor이며 구매 추천이나 회로 적합성 승인이 아니다. Safety relay 후보는 2채널, 24 VAC/VDC, 3 NO safety output과 1 NC monitoring output을 제공하지만 실제 contactor feedback, required performance level과 load category는 최종 risk assessment에서 확인한다.
 
+## 구매처 증거와 marketplace 경계
+
+`procurement_routes.csv`는 BUY 29행 모두에 primary/alternate channel과 필수 검증 항목을 지정한다. `cost_evidence.csv`는 19개 후보·거절 기록을 담으며, 실제 가격 페이지가 확보된 Part ID는 13개다. 사람이 읽는 링크 표는 `procurement_candidates.md`다.
+
+- DigiKey: traceable MPN·datasheet·재고가 있는 전자/안전/전원 후보에 우선 사용한다. 60,000 KRW 미만 주문의 20,000 KRW 배송과 CPT 세금은 개별 단가에서 분리한다.
+- 디바이스마트: 국내 VAT 포함가·준비기간을 기록한다. 확인된 24 V fan과 PT100은 alternate/partial이며, AC-output `CKRD2420` SSR은 24 VDC heater용에서 명시적으로 거절했다.
+- AliExpress: Playwright Chromium으로 6004/6203 bearing, M5 isolator, 24 V fan 검색 결과를 수집했다. seller·variant·배송·세금·정품성이 확정되지 않아 전부 `SAMPLE_ONLY`다.
+- E-stop, safety relay/contactor/interlock, thermal fuse, heater driver, melt-pressure/rupture 부품은 AliExpress 금지다.
+
 ## 비용 위험 순위
 
 1. 18 mm screw/barrel/die의 deep-bore·honing·heat-treatment 가공
@@ -35,4 +54,4 @@ Target 설계는 기능이나 안전장치를 삭제하지 않는다. 다음 하
 5. 충분한 torque의 24 V geared drive와 reduction
 6. optical U95를 만족하는 close-up optic/mirror/backlight
 
-`cost_evidence.csv`에는 조회일과 URL을, `cost_summary.json`에는 line count와 budget floor를 저장한다. `cost_rollup.csv`는 신규 구매·CNC/fabrication·print filament·project-lab replacement·donor replacement와 required/optional을 분리한다. 가격·재고는 주문 직전 다시 확인하고, 사용자 승인 없이 주문 또는 CNC 발주를 진행하지 않는다.
+`cost_evidence.csv`에는 조회일·URL·MOQ/pack·재고·배송/세금 상태·수집 방법을, `cost_summary.json`에는 line count와 선택된 budget floor를 저장한다. `cost_rollup.csv`는 신규 구매·CNC/fabrication·print filament·project-lab replacement·donor replacement와 required/optional을 분리한다. 가격·재고는 주문 직전 다시 확인하고, 사용자 승인 없이 주문 또는 CNC 발주를 진행하지 않는다.

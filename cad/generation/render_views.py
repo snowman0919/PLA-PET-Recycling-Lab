@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 from math import sqrt
 from pathlib import Path
 
@@ -216,6 +217,85 @@ def cable_annotation(draw, _image):
     label_annotation("CABLE ROUTING REVIEW", "schematic paths; verify harness lengths and bend radii")(draw, _image)
 
 
+def render_control_enclosure_bom_layout(target: Path) -> None:
+    """Render the data-driven front layout with purchasing states and routes."""
+    p = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())["control_enclosure"]
+    image = Image.new("RGB", (WIDTH, HEIGHT), (245, 247, 249))
+    draw = ImageDraw.Draw(image, "RGBA")
+    title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 34)
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 18)
+    small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 16)
+    scale = min(1180 / p["width_mm"], 880 / p["height_mm"])
+    ox, oy = 90, 1060
+
+    def xy(x, z):
+        return ox + x * scale, oy - z * scale
+
+    def rectangle(spec, fill, outline, label):
+        x, _, z = spec["origin_mm"]
+        sx, _, sz = spec["size_mm"]
+        x1, y1 = xy(x, z + sz)
+        x2, y2 = xy(x + sx, z)
+        draw.rounded_rectangle((x1, y1, x2, y2), radius=5, fill=fill, outline=outline, width=3)
+        draw.text((x1 + 5, y1 + 4), label, fill=(20, 25, 30, 255), font=small)
+
+    x1, y1 = xy(0, p["height_mm"])
+    x2, y2 = xy(p["width_mm"], 0)
+    draw.rectangle((x1, y1, x2, y2), fill=(230, 234, 238, 255), outline=(55, 62, 70, 255), width=6)
+    partition_x = xy(p["logic_partition_x_mm"], 0)[0]
+    draw.line((partition_x, y1 + 12, partition_x, y2 - 12), fill=(70, 70, 75, 255), width=8)
+    draw.text((x1 + 16, y1 + 14), "HIGH CURRENT / SAFETY", fill=(120, 30, 25, 255), font=font)
+    draw.text((partition_x + 18, y1 + 14), "LOGIC / SENSOR", fill=(25, 65, 140, 255), font=font)
+
+    for spec in p["layout"]["wire_routes"]:
+        route_colours = {
+            "24V_HIGH_CURRENT_HEATER": ((205, 45, 40, 120), (170, 20, 18, 255)),
+            "HARDWIRED_SAFETY_CHAIN": ((255, 194, 20, 150), (190, 125, 0, 255)),
+            "5V_LOGIC_SENSOR": ((45, 105, 225, 120), (20, 65, 180, 255)),
+            "PROTECTIVE_EARTH": ((40, 180, 75, 140), (10, 120, 40, 255)),
+        }
+        fill, outline = route_colours[spec["class"]]
+        rectangle(spec, fill, outline, spec["ref"])
+    for spec in p["layout"]["placeholders"]:
+        rectangle(spec, (245, 144, 38, 185), (195, 90, 10, 255), f'{spec["ref"]}  TBD')
+    for spec in p["layout"]["user_inventory"]:
+        rectangle(spec, (70, 185, 220, 180), (20, 110, 150, 255), f'{spec["ref"]}  VERIFY')
+    rectangle(p["layout"]["pcb_reserved"], (40, 115, 230, 175), (15, 70, 175, 255), "PCB1  190×130 RESERVED")
+    for spec in p["layout"]["selected_candidates"]:
+        rectangle(spec, (45, 190, 80, 205), (12, 120, 42, 255), f'{spec["ref"]}  SELECTED')
+    rectangle(p["layout"]["door_selected_candidate"], (45, 190, 80, 155), (12, 120, 42, 255), "S0  SELECTED (DOOR)")
+
+    draw.text((90, 30), "CONTROL ENCLOSURE — BOM / PCB / PLACEHOLDER / WIRING LAYOUT", fill=(25, 40, 55, 255), font=title_font)
+    draw.text((90, 72), "500 W × 400 H × 200 D mm · front projection · virtual fit only", fill=(70, 75, 80, 255), font=font)
+    legend_x = 1310
+    legend = (
+        ((45, 190, 80, 220), "SELECTED CANDIDATE"),
+        ((40, 115, 230, 200), "PCB RESERVED"),
+        ((70, 185, 220, 200), "USER INVENTORY / VERIFY"),
+        ((245, 144, 38, 210), "PLACEHOLDER TBD"),
+        ((205, 45, 40, 210), "24 V HIGH / HEATER"),
+        ((255, 194, 20, 230), "HARDWIRED SAFETY"),
+        ((45, 105, 225, 210), "5 V / LOGIC / SENSOR"),
+        ((40, 180, 75, 220), "PE / DOOR BOND"),
+    )
+    for index, (colour, text) in enumerate(legend):
+        ly = 180 + index * 70
+        draw.rectangle((legend_x, ly, legend_x + 34, ly + 34), fill=colour, outline=(50, 50, 50, 255), width=2)
+        draw.text((legend_x + 46, ly + 6), text, fill=(35, 40, 45, 255), font=small)
+    draw.multiline_text(
+        (1310, 740),
+        "K1  DOLD LG5925.48/920/61\nPS1  MEAN WELL DDR-30G-5\nS0  OMRON A22E-M-02",
+        fill=(20, 80, 35, 255), font=small, spacing=6,
+    )
+    draw.multiline_text(
+        (1310, 850),
+        "30 mm terminal/service\nkeep-out reserved\n\nThermal rise · SCCR ·\ncreepage · bend radius ·\nPE continuity OPEN",
+        fill=(125, 25, 25, 255), font=font, spacing=8,
+    )
+    target.parent.mkdir(parents=True, exist_ok=True)
+    image.save(target, optimize=True)
+
+
 def tool_annotation(draw, _image):
     font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
     for x, y, radius in ((380, 630, 115), (790, 520, 100), (1180, 690, 130)):
@@ -265,11 +345,10 @@ def render_review_variants():
         render_view(triangles, output / f"{stem}_tool_access.png", (0.42, 0.59, 0.68), *iso,
                     colour_for=assembly_colour if stem == "full_assembly_skeleton" else None,
                     annotation=tool_annotation)
-    for stem in ("full_assembly_skeleton", "control_enclosure_proof"):
-        triangles = triangles_from_stl(ROOT / "exports" / "stl" / f"{stem}.stl")
-        render_view(triangles, output / f"{stem}_cable_routing.png", (0.52, 0.58, 0.62), *iso,
-                    colour_for=assembly_colour if stem == "full_assembly_skeleton" else None,
-                    annotation=cable_annotation)
+    triangles = triangles_from_stl(ROOT / "exports" / "stl" / "full_assembly_skeleton.stl")
+    render_view(triangles, output / "full_assembly_skeleton_cable_routing.png", (0.52, 0.58, 0.62), *iso,
+                colour_for=assembly_colour, annotation=cable_annotation)
+    render_control_enclosure_bom_layout(output / "control_enclosure_proof_cable_routing.png")
     triangles = triangles_from_stl(ROOT / "exports" / "stl" / "tolerance_coupon.stl")
     z_values = [triangle_centroid(triangle)[2] for triangle in triangles]
     low, high = min(z_values), max(z_values)

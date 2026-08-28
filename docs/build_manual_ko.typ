@@ -172,7 +172,9 @@ Dancer 120 mm ±30°, target 0.5 N, clutch 0.25 N·m, traverse 70 mm/1.8 mm pitc
 
 H01–H18 harness schedule대로 AC disconnect→PSU→dual-channel E-stop relay→contactor→fused switched bus를 배선한다. Pi/Mega는 protected always-on branch다. Heater driver/Mega가 stuck-high여도 safety relay, contactor와 thermal fuse가 독립 차단해야 한다.
 
-#module_figure("../renders/modules/control_enclosure_proof_isometric.png", [Grounded shell, metal partition, split door와 조작부의 공간 proof])
+#module_figure("../renders/review/control_enclosure_proof_cable_routing.png", [녹색 candidate, 파란 PCB/보유품, 주황 placeholder와 분리 wiring route 정면도])
+
+`electronics/architecture/control_enclosure_layout.csv`의 reference/BOM Part ID/state를 panel label과 일치시킨다. K1/PS1/S0만 candidate 치수이고, PCB1은 fabrication HOLD, K2/F1/QH1–QH6/X1–XN은 exact MPN 전 주문·천공 금지다. H01/H03/H10–H14/H18, H02/H08, H04–H07/H09/H15/H16, H17은 각각 high-current/heater, hardwired safety, logic/sensor, PE 경로를 사용하며 최소 30 mm terminal/service keep-out을 침범하지 않아야 한다.
 
 #figure(
   block(width: 92%, fill: rgb("f5f8f9"), stroke: 1pt + rgb("8ba2aa"), inset: 10pt)[

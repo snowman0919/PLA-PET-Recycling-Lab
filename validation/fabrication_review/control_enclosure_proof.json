@@ -1,19 +1,39 @@
 {
   "revision": "0.1.0-preflight",
+  "design_state": "BOM_TRACEABLE_LAYOUT_PHYSICAL_APPROVAL_OPEN",
+  "enclosure_mm": {
+    "width": 500.0,
+    "depth": 200.0,
+    "height": 400.0
+  },
   "shell": {
-    "x_mm": 300.0,
-    "y_mm": 220.0,
-    "z_mm": 180.0,
+    "x_mm": 500.0,
+    "y_mm": 200.0,
+    "z_mm": 400.0,
     "fits_210_cube": false
   },
-  "split_door": {
-    "x_mm": 300.0,
+  "service_door": {
+    "x_mm": 500.0,
     "y_mm": 1.5,
-    "z_mm": 180.0,
+    "z_mm": 400.0,
     "fits_210_cube": false
   },
-  "logic_partition_x_mm": 145.0,
-  "minimum_partition_gap_mm": 15.0,
+  "logic_partition_x_mm": 240.0,
+  "minimum_partition_gap_mm": 20.0,
+  "terminal_service_keepout_mm": 30.0,
+  "placement_state_counts": {
+    "selected_candidate_envelopes": 3,
+    "pcb_reserved": 1,
+    "user_inventory_verify": 2,
+    "placeholder_tbd": 5,
+    "wire_route_classes": 4
+  },
+  "wire_route_classes": [
+    "24V_HIGH_CURRENT_HEATER",
+    "HARDWIRED_SAFETY_CHAIN",
+    "5V_LOGIC_SENSOR",
+    "PROTECTIVE_EARTH"
+  ],
   "outputs": {
     "assembly": {
       "fcstd": "cad/generation/fcstd/control_enclosure_proof.FCStd",
@@ -32,12 +52,14 @@
         "stl": "exports/stl/control_backplate_partition.stl"
       }
     },
-    "door_half_dxf": "exports/dxf/control_door_half.dxf"
+    "service_door_dxf": "exports/dxf/control_door_half.dxf",
+    "layout_csv": "electronics/architecture/control_enclosure_layout.csv"
   },
   "limitations": [
-    "All electrical devices are keep-outs; exact MPN dimensions, heat dissipation, creepage, SCCR and terminal bend radii require selection.",
-    "The enclosure is a grounded sheet-metal topology proof, not a certified panel or mains wiring drawing.",
-    "Door halves prove the 210 mm fabrication/print envelope; hinges, gasket, captive fasteners and impact rating require sourced hardware.",
-    "The E-stop actuator must mount to a rigid panel and a dual-channel safety relay; the UI cannot substitute for it."
+    "Green selected envelopes are not purchase approvals; exact suffix, terminals and application suitability still require review.",
+    "Blue PCB placement reserves the generated 190 x 130 mm board and four M3 holes, but its fabrication status remains HOLD.",
+    "Orange placeholder solids cannot be used for ordering or drilling until exact candidates replace them.",
+    "Red/yellow/blue/green wiring solids are route reservations, not conductor sizing or completed harness drawings.",
+    "Thermal rise, SCCR, creepage, bend radius, PE continuity, ingress and door rear-depth checks remain physical/engineering gates."
   ]
 }

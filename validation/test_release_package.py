@@ -20,7 +20,7 @@ def check_pdf(relative: str, expected_pages: int) -> None:
 
 
 def main() -> None:
-    check_pdf("docs/build_manual_ko.pdf", 28)
+    check_pdf("docs/build_manual_ko.pdf", 29)
     check_pdf("docs/design_report_ko.pdf", 14)
 
     stems = (
@@ -52,7 +52,7 @@ def main() -> None:
 
     manifest = json.loads((ROOT / "artifacts" / "manifest.json").read_text())
     artifacts = manifest["artifacts"]
-    assert manifest["artifact_count"] == len(artifacts) == 355
+    assert manifest["artifact_count"] == len(artifacts) == 359
     assert len({entry["path"] for entry in artifacts}) == len(artifacts)
     for entry in artifacts:
         path = ROOT / entry["path"]

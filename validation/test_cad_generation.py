@@ -59,7 +59,10 @@ def validate_assembly() -> None:
     require(extruder.XLength >= 850.0 and extruder.YLength >= 220.0, "extruder proof envelope regressed")
     require(forming.XLength >= 760.0 and forming.YLength >= 160.0, "forming-line proof envelope regressed")
     require(spooler.XLength >= 355.0 and spooler.ZLength >= 320.0, "spooler proof envelope regressed")
-    require(control.XLength >= 300.0 and control.YLength >= 220.0, "control-enclosure proof envelope regressed")
+    require(
+        control.XLength >= 500.0 and control.YLength >= 200.0 and control.ZLength >= 400.0,
+        "control-enclosure BOM layout envelope regressed",
+    )
     App.closeDocument(doc.Name)
 
 
@@ -142,7 +145,12 @@ def validate_exports() -> None:
     classifier_dxf = (ROOT / "exports" / "dxf" / "classifier_gate_half.dxf").read_text(encoding="ascii")
     require("HINGE_M4" in classifier_dxf and classifier_dxf.rstrip().endswith("EOF"), "classifier gate DXF is incomplete")
     control_dxf = (ROOT / "exports" / "dxf" / "control_door_half.dxf").read_text(encoding="ascii")
-    require("DOOR_M4" in control_dxf and control_dxf.rstrip().endswith("EOF"), "control door DXF is incomplete")
+    require(
+        "SELECTED_S0_A22E_M_02" in control_dxf
+        and "PLACEHOLDER_TFT_CUTOUT" in control_dxf
+        and control_dxf.rstrip().endswith("EOF"),
+        "control door selected/placeholder cutouts are incomplete",
+    )
 
 
 def validate_stage1_assembly() -> None:
@@ -363,16 +371,37 @@ def validate_control_enclosure_assembly() -> None:
     expected = {
         "GroundedShell",
         "BackplatePartitionDIN",
-        "HighCurrentDevices",
-        "LogicDevices",
-        "SplitDoor",
-        "FaceControls",
-        "CableManagementPE",
+        "ServiceDoor",
+        "K1",
+        "PS1",
+        "S0",
+        "PCB1BoardReserved",
+        "PCB1StandoffsReserved",
+        "PCB1ComponentServiceKeepout",
+        "SBC1",
+        "MCU1",
+        "K2",
+        "F1",
+        "QH1_QH6",
+        "X1_XN",
+        "WR_HIGH",
+        "WR_SAFE",
+        "WR_LOGIC",
+        "WR_PE",
+        "GlandsAndPEStuds",
+        "TerminalServiceKeepouts",
+        "ThermalValidationZone",
+        "UIPlaceholders",
     }
     require(expected == {o.Name for o in doc.Objects}, "control-enclosure proof object set differs")
+    categories = [getattr(obj, "Category", "") for obj in doc.Objects]
+    require(categories.count("SELECTED_CANDIDATE_ENVELOPE") == 3, "selected-candidate object count differs")
+    require(categories.count("PLACEHOLDER_TBD") == 5, "TBD placeholder object count differs")
+    require(len([value for value in categories if value.startswith("WIRE_ROUTE_")]) == 4, "wiring-route class count differs")
     for obj in doc.Objects:
         require(hasattr(obj, "Shape") and not obj.Shape.isNull(), f"null control-enclosure shape: {obj.Name}")
         require(obj.Shape.isValid(), f"invalid control-enclosure shape: {obj.Name}")
+        require(bool(getattr(obj, "Category", "")), f"missing layout category: {obj.Name}")
     App.closeDocument(doc.Name)
 
 

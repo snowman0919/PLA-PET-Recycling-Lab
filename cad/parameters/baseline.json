@@ -344,14 +344,131 @@
     "diverter_port_width_mm": 36.0
   },
   "control_enclosure": {
-    "width_mm": 300.0,
-    "depth_mm": 220.0,
-    "height_mm": 180.0,
+    "width_mm": 500.0,
+    "depth_mm": 200.0,
+    "height_mm": 400.0,
     "sheet_thickness_mm": 1.5,
-    "logic_partition_x_mm": 145.0,
-    "door_split_width_mm": 150.0,
-    "din_rail_length_mm": 125.0,
-    "minimum_partition_gap_mm": 15.0
+    "logic_partition_x_mm": 240.0,
+    "door_split_width_mm": 250.0,
+    "high_current_din_rail_length_mm": 195.0,
+    "logic_din_rail_length_mm": 215.0,
+    "minimum_partition_gap_mm": 20.0,
+    "terminal_service_keepout_mm": 30.0,
+    "pcb_standoff_mm": 12.0,
+    "layout": {
+      "selected_candidates": [
+        {
+          "ref": "K1",
+          "part_id": "SAF-REL-001",
+          "mpn": "LG5925.48/920/61 DC 24 V",
+          "origin_mm": [25.0, 71.0, 285.0],
+          "size_mm": [22.5, 121.0, 90.0],
+          "source": "DOLD LG5925_920_DB.pdf, 2024-11-06, width x height x depth 22.5 x 90 x 121 mm"
+        },
+        {
+          "ref": "PS1",
+          "part_id": "ELE-BUCK-001",
+          "mpn": "DDR-30G-5",
+          "origin_mm": [265.0, 137.5, 285.0],
+          "size_mm": [35.0, 54.5, 90.0],
+          "source": "MEAN WELL DDR-30-SPEC 2026-03-31, W x H x D 35 x 90 x 54.5 mm"
+        }
+      ],
+      "door_selected_candidate": {
+        "ref": "S0",
+        "part_id": "SAF-EST-001",
+        "mpn": "A22E-M-02",
+        "origin_mm": [150.0, -25.0, 310.0],
+        "size_mm": [40.0, 105.0, 40.0],
+        "panel_cutout_diameter_mm": 22.3,
+        "source": "OMRON A22E dimensions/lineup, 40 mm head and 22 mm class panel cutout; 80 mm rear keep-out is conservative"
+      },
+      "pcb_reserved": {
+        "ref": "PCB1",
+        "part_id": "ELE-PCB-IF",
+        "origin_mm": [285.0, 160.0, 25.0],
+        "size_mm": [190.0, 32.0, 130.0],
+        "board_size_mm": [190.0, 130.0, 1.6],
+        "mounting_holes_local_mm": [[5.0, 5.0], [185.0, 5.0], [5.0, 125.0], [185.0, 125.0]],
+        "source": "electronics/pcb/interface_board/generate.py; fabrication hold"
+      },
+      "user_inventory": [
+        {
+          "ref": "SBC1",
+          "part_id": "SYS-CTRL-001",
+          "origin_mm": [265.0, 174.0, 190.0],
+          "size_mm": [85.0, 18.0, 56.0],
+          "source": "nominal Raspberry Pi 4 board envelope; verify owned unit and connector overhang"
+        },
+        {
+          "ref": "MCU1",
+          "part_id": "SYS-CTRL-002",
+          "origin_mm": [365.0, 174.0, 190.0],
+          "size_mm": [102.0, 18.0, 54.0],
+          "source": "nominal Arduino Mega 2560 board envelope; verify owned unit and connector overhang"
+        }
+      ],
+      "placeholders": [
+        {
+          "ref": "K2",
+          "part_id": "SAF-CON-001",
+          "origin_mm": [65.0, 92.0, 270.0],
+          "size_mm": [60.0, 100.0, 105.0],
+          "qualification": "select a monitored 24 VDC load contactor, then replace this conservative envelope"
+        },
+        {
+          "ref": "F1",
+          "part_id": "SAF-FUS-001",
+          "origin_mm": [25.0, 112.0, 170.0],
+          "size_mm": [190.0, 80.0, 65.0],
+          "qualification": "select finger-safe main and branch fuse distribution and terminal accessories"
+        },
+        {
+          "ref": "QH1_QH6",
+          "part_id": "ELE-HTR-DRV",
+          "origin_mm": [25.0, 112.0, 55.0],
+          "size_mm": [190.0, 80.0, 75.0],
+          "qualification": "six separately fused 24 VDC heater drivers; thermal and terminal spacing validation open"
+        },
+        {
+          "ref": "X1_XN",
+          "part_id": "MISC-WIR-001",
+          "origin_mm": [265.0, 142.0, 260.0],
+          "size_mm": [205.0, 50.0, 20.0],
+          "qualification": "select keyed terminals after conductor gauge and branch current measurements"
+        }
+      ],
+      "wire_routes": [
+        {
+          "ref": "WR-HIGH",
+          "harnesses": "H01,H03,H10,H11,H12,H13,H14,H18",
+          "class": "24V_HIGH_CURRENT_HEATER",
+          "origin_mm": [220.0, 40.0, 25.0],
+          "size_mm": [15.0, 125.0, 350.0]
+        },
+        {
+          "ref": "WR-SAFE",
+          "harnesses": "H02,H08",
+          "class": "HARDWIRED_SAFETY_CHAIN",
+          "origin_mm": [15.0, 35.0, 245.0],
+          "size_mm": [180.0, 16.0, 20.0]
+        },
+        {
+          "ref": "WR-LOGIC",
+          "harnesses": "H04,H05,H06,H07,H09,H15,H16",
+          "class": "5V_LOGIC_SENSOR",
+          "origin_mm": [475.0, 40.0, 25.0],
+          "size_mm": [15.0, 125.0, 350.0]
+        },
+        {
+          "ref": "WR-PE",
+          "harnesses": "H17",
+          "class": "PROTECTIVE_EARTH",
+          "origin_mm": [20.0, 181.0, 10.0],
+          "size_mm": [455.0, 8.0, 10.0]
+        }
+      ]
+    }
   },
   "assembly": {
     "tower_a_origin_x_mm": 0.0,

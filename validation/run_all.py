@@ -55,6 +55,7 @@ def run(command: list[str], marker: str, env: dict[str, str] | None = None) -> N
 
 
 def main() -> None:
+    run([sys.executable, "bom/build_procurement_routes.py"], "PROCUREMENT_ROUTES_OK buy_rows=29")
     run([sys.executable, "bom/build_design_boms.py"], '"bom_row_count": 82')
     for script, marker in PYTHON_TESTS:
         run([sys.executable, script], marker)
@@ -69,7 +70,7 @@ def main() -> None:
         "OK",
         pi_env,
     )
-    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=355")
+    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=359")
     run([sys.executable, "validation/test_release_package.py"], "RELEASE_PACKAGE_OK")
     print("ALL_AUTOMATED_VALIDATIONS_OK (33 gates)")
 

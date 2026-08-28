@@ -159,15 +159,17 @@ FRP1은 `FRP1|TYPE|SEQ|PAYLOAD|CRC16`이고 Pi heartbeat 250 ms, Mega timeout 75
 
 Sensor MPN·conversion과 shredder motion feedback이 미선정이라 firmware의 5개 commissioning lock은 false다. 이는 결함이 아니라 donor를 추측하지 않기 위한 intentional fail-safe다.
 
-#figure(image("../renders/modules/control_enclosure_proof_isometric.png", width: 82%), caption: [300×220×180 mm grounded control-enclosure topology proof])
+Metal partition 기준 좌우 장치 keep-out gap은 50 mm다. K1 DOLD LG5925.48/920/61, PS1 MEAN WELL DDR-30G-5와 door S0 OMRON A22E-M-02는 공식 치수 기반 candidate envelope이고 구매 승인이 아니다. PCB1은 190×130 mm 외곽, M3 홀 4개와 12 mm standoff를 예약하지만 fabrication HOLD다. K2/F1/QH1–QH6/X1–XN은 exact MPN 전 주문·천공에 사용할 수 없는 placeholder다.
 
-Metal partition 기준 좌우 keep-out gap은 30 mm이고 전원/히터와 logic/sensor에 별도 duct·gland를 둔다. 실제 MPN 기준의 PE, SCCR, 열상승, 연면거리, terminal access와 wire bend radius는 물리 패널 승인 항목이다.
+#figure(image("../renders/review/control_enclosure_proof_cable_routing.png", width: 96%), caption: [BOM 상태와 24 V high-current/heater, hardwired safety, 5 V logic/sensor, PE route 분리 정면도])
+
+각 장치 전면에는 최소 30 mm terminal/service keep-out을 예약했다. 실제 MPN 기준의 PE, SCCR, 열상승, 연면거리, 침투보호, terminal access와 wire bend radius는 물리 패널 승인 항목이다.
 
 = BOM과 예산
 
-시스템 BOM은 81 line, CRITICAL 56 line이다. 공개 후보 Camera USD25와 2-channel safety relay USD143만 planning FX 1,400 KRW/USD로 235,200 KRW이며 cap을 35,200 KRW 넘는다. 배송·세금·contactor·pressure·heater·CNC는 빠져 있다.
+시스템 BOM은 82 line, CRITICAL 56 line이다. 공개 primary 후보 5개(camera, safety relay, E-stop, 24→5 V DC-DC, 6203 bearing pair)의 planning floor만 426,165 KRW이며 cap을 226,165 KRW 넘는다. 배송·세금·contactor·pressure·heater·CNC와 75개 미가격 required line은 빠져 있다.
 
-`cost_rollup.csv`는 신규구매 28 line(미가격 26), CNC/fabrication 33, print filament 6, project-lab replacement 3, donor replacement 11을 분리한다. Baseline 81 line은 모두 required이고 optional로 숨긴 항목은 0이다.
+`cost_rollup.csv`는 신규구매 29 line(미가격 24), CNC/fabrication 33, print filament 6, project-lab replacement 3, donor replacement 11을 분리한다. Baseline 82 line은 모두 required이고 optional로 숨긴 항목은 0이다.
 
 `exports/cnc_quote_packages`의 34행은 STEP/DXF/도면 메모를 묶은 DFM/RFQ precheck다. Mixed-source thrust plate를 보조 포함했으며 최종 GD&T·재료·열처리 승인 전에는 fabrication release가 아니다.
 

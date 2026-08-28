@@ -21,6 +21,7 @@ def main() -> None:
     target = rows(ROOT / "bom" / "target_budget_design.csv")
     recommended = rows(ROOT / "bom" / "engineering_recommended_design.csv")
     evidence = rows(ROOT / "bom" / "cost_evidence.csv")
+    routes = rows(ROOT / "bom" / "procurement_routes.csv")
     rollup = rows(ROOT / "bom" / "cost_rollup.csv")
     summary = json.loads((ROOT / "bom" / "cost_summary.json").read_text())
 
@@ -35,13 +36,24 @@ def main() -> None:
         "BUY", "CNC", "FABRICATE", "PRINT", "PROJECT_LAB", "REUSE"
     }
 
-    evidence_by_part = {row["Part ID"]: row for row in evidence}
-    assert evidence_by_part["GAU-CAM-001"]["Planning floor KRW"] == "35000"
-    assert evidence_by_part["SAF-REL-001"]["Planning floor KRW"] == "200200"
+    assert len(evidence) == 19
+    assert len({row["Evidence ID"] for row in evidence}) == len(evidence)
+    primary = {row["Part ID"]: row for row in evidence if row["Selection"] == "PRIMARY_CANDIDATE"}
+    assert {part_id: row["Planning floor KRW"] for part_id, row in primary.items()} == {
+        "ELE-BUCK-001": "42644",
+        "GAU-CAM-001": "35000",
+        "GRN-BRG-001": "5320",
+        "SAF-EST-001": "143001",
+        "SAF-REL-001": "200200",
+    }
     assert all(row["Observed date"] == "2026-08-28" for row in evidence)
     assert all(row["Source URL"].startswith("https://") for row in evidence)
-    assert summary["public_candidate_floor_krw"] == 235200
-    assert summary["public_candidate_floor_over_cap_krw"] == 35200
+    assert all(row["Selection"] != "PRIMARY_CANDIDATE" for row in evidence if row["Distributor"] == "AliExpress")
+    assert all(row["Marketplace safety class"] == "MARKETPLACE_SAMPLE_ONLY" for row in evidence if row["Distributor"] == "AliExpress")
+    rejected = {row["Evidence ID"]: row for row in evidence if row["Selection"] == "REJECTED"}
+    assert rejected["REJECT-SSR-AC-DM-20260828"]["Status"] == "REJECTED_WRONG_OUTPUT_TYPE"
+    assert summary["public_candidate_floor_krw"] == 426165
+    assert summary["public_candidate_floor_over_cap_krw"] == 226165
     assert summary["target_budget_status"].startswith("CONDITIONAL_ONLY")
     assert "TBD" in summary["engineering_recommended_total_status"]
     rollup_by_name = {row["Rollup"]: row for row in rollup}
@@ -50,12 +62,25 @@ def main() -> None:
         "PROJECT_LAB_REPLACEMENT", "DONOR_REPLACEMENT",
         "REQUIRED_BASELINE", "OPTIONAL_ADDONS",
     }
-    assert rollup_by_name["NEW_PURCHASE"]["Known planning floor KRW"] == "235200"
-    assert rollup_by_name["NEW_PURCHASE"]["TBD line count"] == "27"
+    assert rollup_by_name["NEW_PURCHASE"]["Known planning floor KRW"] == "426165"
+    assert rollup_by_name["NEW_PURCHASE"]["TBD line count"] == "24"
     assert rollup_by_name["CNC_FABRICATION"]["TBD line count"] == "33"
     assert rollup_by_name["REQUIRED_BASELINE"]["BOM line count"] == "82"
-    assert rollup_by_name["REQUIRED_BASELINE"]["TBD line count"] == "78"
+    assert rollup_by_name["REQUIRED_BASELINE"]["TBD line count"] == "75"
     assert rollup_by_name["OPTIONAL_ADDONS"]["BOM line count"] == "0"
+
+    buy_ids = {row["Part ID"] for row in source if row["Source type"] == "BUY"}
+    assert len(routes) == 29
+    assert {row["Part ID"] for row in routes} == buy_ids
+    route_by_id = {row["Part ID"]: row for row in routes}
+    for part_id in {
+        "DRY-PLA-HTR", "DRY-PET-HTR", "EXT-REL-001", "SAF-EST-001",
+        "SAF-REL-001", "SAF-CON-001", "SAF-FUS-001", "SAF-THM-001",
+        "SAF-INT-001", "ELE-HTR-DRV", "ELE-BUCK-001",
+    }:
+        assert route_by_id[part_id]["AliExpress policy"] == "FORBIDDEN"
+    assert route_by_id["GRN-BRG-001"]["AliExpress policy"] == "SAMPLE_ONLY"
+    assert route_by_id["SRT-ISO-001"]["Evidence state"] == "CANDIDATE_EVIDENCE_RECORDED"
 
     critical_ids = {row["Part ID"] for row in source if row["Criticality"] == "CRITICAL"}
     target_by_id = {row["Part ID"]: row for row in target}

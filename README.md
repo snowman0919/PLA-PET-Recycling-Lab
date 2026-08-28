@@ -49,6 +49,6 @@ QT_QPA_PLATFORM=offscreen nix develop --command bash -lc \
 nix develop --command python3 validation/run_all.py
 ```
 
-전체 artifact의 크기와 SHA-256는 `artifacts/manifest.json`에 기록됩니다. 200,000 KRW 목표는 safety relay와 camera를 포함한 적합한 project-lab 재고가 확인될 때만 조건부이며, 현재 공개 후보 두 품목만 235,200 KRW입니다.
+전체 artifact의 크기와 SHA-256는 `artifacts/manifest.json`에 기록됩니다. 200,000 KRW 목표는 primary 후보가 적합한 project-lab 재고/재사용품으로 확인될 때만 조건부입니다. 현재 공개 primary 후보 5개의 planning floor만 426,165 KRW이며 배송·세금·관세와 75개 미가격 required line은 포함하지 않습니다.
 
 설계 파일만 보고 cutter, heater 또는 고전류 회로를 바로 제작·가동하지 마십시오. 물리적 안전장치와 합격 시험은 `validation/release_checklist.md`에 따라 별도로 확인해야 합니다.

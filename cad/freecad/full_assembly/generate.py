@@ -148,7 +148,7 @@ def build():
         ("InputClassifier", "MOD-INPUT", "TowerA", (140, 190, 1070), (320, 220, 220), "Proof module envelope"),
         ("Extruder", "MOD-EXTRUDER", "TowerB", (850, 300, 80), (850, 220, 240), "Guarded hot-line proof envelope"),
         ("DryerFeeder", "MOD-DRYER", "TowerB", (900, 20, 500), (320, 270, 580), "Insulated dryer proof envelope"),
-        ("ControlEnclosure", "MOD-CONTROL", "TowerB", (1360, 20, 80), (300, 220, 180), "Grounded control enclosure proof envelope"),
+        ("ControlEnclosure", "MOD-CONTROL", "TowerB", (1240, 20, 80), (500, 200, 400), "BOM-traceable grounded control enclosure envelope"),
         ("CoolingGaugePuller", "MOD-COOL-GAUGE-PULLER", "TowerB", (1750, 320, 100), (760, 160, 180), "Straight forming-line proof envelope"),
         ("Spooler", "MOD-SPOOLER", "TowerB", (2110, 20, 40), (355, 240, 320), "Offset spooler proof envelope"),
     ]
@@ -218,7 +218,7 @@ def build():
     box(doc, objects, "TowerA_MotionContactorZone", "SAFE-A-MOTION", "SAFE-A-MOTION",
         (30, 470, 120), (120, 80, 150), "Grounded steel enclosure envelope", "SAFETY_ZONE", "TowerA")
     box(doc, objects, "TowerB_HeaterDriveZone", "SAFE-B-HEATER-DRIVE", "SAFE-B-HEATER-DRIVE",
-        (1360, 20, 280), (300, 220, 120), "Grounded steel enclosure envelope", "SAFETY_ZONE", "TowerB")
+        (1240, 20, 80), (240, 200, 400), "Left-side high-current/safety zone within control enclosure", "SAFETY_ZONE", "TowerB")
 
     outputs = export_document(doc, "full_assembly_skeleton", objects)
     compound = Part.makeCompound([obj.Shape for obj in objects])

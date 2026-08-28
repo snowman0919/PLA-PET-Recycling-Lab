@@ -1,5 +1,27 @@
 # 환경 변경 이력
 
+## 2026-08-28 — 조달 조사용 local subagent 및 Playwright 재확인
+
+- Action: `.env` 값을 출력하지 않고 HTTPS endpoint를 메모리에서 정규화해 `/v1/models`, fast Responses 의미 시험과 harmless function-call probe를 재실행했다. `dgx-moa-fast`와 `dgx-moa`를 확인했다.
+- Result: User-Agent가 없는 첫 `/models` 요청은 HTTP 403이었고 브라우저 식별자를 추가한 재시도는 모두 통과했다. fast 모델의 조달 schema/routing 응답을 받았으나, 내·외경 표기와 안전표준 오류는 parent 검토에서 폐기했다. 빈 응답은 채택하지 않았다.
+
+## 2026-08-28 — control-enclosure fast subagent 배치 감사
+
+- `dgx-moa-fast`에 500×400×200 mm 제어함 개념의 간격·정비성 체크리스트만 요청했고 응답을 수신했다. API key와 endpoint는 출력·저장하지 않았다.
+- 채택: 121 mm DOLD relay의 깊이 여유, door rear keep-out, TBD contactor/fuse 공간, 열상승, PE/door bond, reference-to-BOM 추적 필요성을 parent CAD gate에 반영했다.
+- 폐기/수정: heater driver를 190×130 mm interface PCB 위에 놓는다는 오독, PCB 높이와 relay 높이를 비교한 무관 항목, Pi/Mega nominal 치수 오류는 반영하지 않았다.
+- 최종 배치는 parent가 DOLD/MEAN WELL/OMRON 공식 치수, FreeCAD solid 간섭, 30 mm service keep-out 및 4개 wiring route class로 재검증했다. 이는 panel-build나 safety approval가 아니다.
+
+## 2026-08-28 — control-enclosure 검토 렌더 런타임
+
+- Action: 기존 software projection renderer와 새 BOM 상태 배치도를 재생성하기 위해 임시 `python3.withPackages (vtk, pillow)` Nix 환경을 사용했다.
+- Result: Nix 안내 기준 최대 533.4 MiB download / 3.0 GiB unpacked closure가 재다운로드 가능한 `/nix/store`에 추가됐다. system profile과 repository dependency 선언은 변경하지 않았다.
+- Output: standard/review PNG를 갱신했고 `control_enclosure_proof_cable_routing.png`는 후보·PCB·보유품·placeholder·4개 wiring route class를 구분하는 정면도다.
+- Playwright: 이미 설치된 Playwright 1.62.1과 Chromium cache를 사용해 AliExpress의 6004/6203 bearing, M5 isolator, 24 V 80 mm fan 검색 결과를 읽었다. 새 브라우저나 npm package를 설치하지 않았다.
+- Paths affected: 실행 중 browser process와 기존 `/home/monad/.cache/ms-playwright`; repository에는 가격/URL/한계가 정규화된 CSV·Markdown만 저장한다.
+- Space consumed/reclaimed: 0으로 취급(추가 설치·cache 삭제 없음).
+- Risk/impact: 로그인·장바구니·주문을 수행하지 않았다. AliExpress 결과는 seller/variant/shipping/tax/authenticity 미검증 `SAMPLE_ONLY`다.
+
 ## 2026-08-28 — Gmsh/CalculiX 재현 환경
 
 - Action: Nix 개발환경에 Gmsh 4.15.2와 CalculiX 2.23을 추가하고 실제 Stage 1 cutter STEP의 coarse/fine C3D4 해석을 실행했다.

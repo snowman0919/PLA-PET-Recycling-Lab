@@ -14,21 +14,24 @@
     "PROVISIONAL": 41
   },
   "target_budget_cap_krw": 200000,
-  "public_candidate_floor_krw": 235200,
-  "public_candidate_floor_over_cap_krw": 35200,
+  "public_candidate_floor_krw": 426165,
+  "public_candidate_floor_over_cap_krw": 226165,
   "public_candidate_floor_includes": [
+    "ELE-BUCK-001",
     "GAU-CAM-001",
+    "GRN-BRG-001",
+    "SAF-EST-001",
     "SAF-REL-001"
   ],
   "cost_rollup_file": "bom/cost_rollup.csv",
   "required_baseline_line_count": 82,
   "optional_addon_line_count": 0,
-  "required_baseline_tbd_line_count": 78,
-  "target_budget_status": "CONDITIONAL_ONLY_IF_SAFETY_RELAY_AND_CAMERA_ARE_VALIDATED_STOCK",
+  "required_baseline_tbd_line_count": 75,
+  "target_budget_status": "CONDITIONAL_ONLY_IF_PRIMARY_CANDIDATES_ARE_VALIDATED_STOCK_OR_REUSE",
   "engineering_recommended_total_status": "TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES",
   "pricing_assumptions": [
     "Planning conversion uses 1 USD = 1400 KRW and is not a live FX quote.",
-    "Public prices exclude shipping, tax, customs, E-stop actuator, contactor and all unpriced rows.",
+    "Public prices exclude unresolved shipping, tax, customs, incomplete assemblies, contactor and all unpriced rows.",
     "Conditional zero current cash applies only to the user-stated on-hand Pi and Mega; PSU fitness and replacement remain TBD."
   ]
 }

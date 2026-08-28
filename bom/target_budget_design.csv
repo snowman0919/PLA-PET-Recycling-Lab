@@ -25,7 +25,7 @@ GRN-STATOR-001,Stage 3,Fixed stator knife 6x16x48 mm proof,1,PROVISIONAL,PROJECT
 GRN-CARRIER-001,Stage 3,Metal stator carrier,1,PROVISIONAL,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Carrier FEA pending
 GRN-SCREEN-SET,Stage 3,Flat 4 5 6 mm perforated screen coupon set,3,PROVISIONAL,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Screen family CAD and coupon plan
 GRN-PLATE-001,Stage 3,100x90x14 bearing side plates,2,PROVISIONAL,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,CAD solid review
-GRN-BRG-001,Stage 3,6203-2RS candidate bearings 17x40x12,2,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Stage 3 CAD proof
+GRN-BRG-001,Stage 3,6203-2RS candidate bearings 17x40x12,2,NEEDS_SELECTION,PROJECT_LAB_STOCK_REQUIRED,5320,PUBLIC_NEW_PRICE_BREAKS_CAP_FLOOR,PRICE-GRN-BRG-DK-20260828 and Stage 3 CAD proof
 GRN-RET-001,Stage 3,Bearing retainer rings,2,PROVISIONAL,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,CAD contact check
 GRN-DRV-001,Stage 3,120 to 240 rpm high-torque drive,1,NEEDS_INSPECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Donor dyno and ADR-006
 SRT-TRAY-001,Vibratory sorter,Two-deck metal tray frame,1,PROVISIONAL,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,ADR-007 CAD proof
@@ -57,12 +57,12 @@ EXT-HTR-001,Extruder,Three 80 W barrel heaters and 60 W die heater,4,NEEDS_SELEC
 EXT-SEN-001,Extruder,Four hot-zone sensors melt pressure sensor and cool-bearing sensor,1,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,3 MPa clean 8 MPa trip pressure map
 EXT-REL-001,Extruder,Qualified guarded melt-pressure rupture element below 20 MPa proof,1,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,ADR-009 overpressure hierarchy
 COOL-AIR-001,Cooling,440 mm three-zone cross-flow tunnel and 80 mm fans,1,PROVISIONAL,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,ADR-010 radial cooling model
-GAU-CAM-001,Diameter gauge,Raspberry Pi Camera Module 3 standard candidate,1,NEEDS_SELECTION,PROJECT_LAB_STOCK_REQUIRED,35000,PUBLIC_NEW_PRICE_BREAKS_CAP_FLOOR,ADR-010 62 native pixels across filament
+GAU-CAM-001,Diameter gauge,Raspberry Pi Camera Module 3 standard candidate,1,NEEDS_SELECTION,PROJECT_LAB_STOCK_REQUIRED,35000,PUBLIC_NEW_PRICE_BREAKS_CAP_FLOOR,PRICE-CAM3-20260828 and ADR-010
 GAU-OPT-001,Diameter gauge,Close-up optic dual backlight front-surface mirror and light enclosure,1,NEEDS_SELECTION,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,ADR-010 252 macro-target pixels across filament
 PUL-ASM-001,Puller,Synchronized 40x16 mm nip rollers drive encoder odometer and adjustment set,1,PROVISIONAL,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,ADR-010 delayed-control simulation
 SPL-ASM-001,Spooler,12 mm shaft 6001 bearings dancer traverse guard and spool adapters,1,PROVISIONAL,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,ADR-010 4 g shaft screen and 200x73 mm envelope
-SAF-EST-001,Safety,Dual-channel latching E-stop actuator and contact blocks,1,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Fault test pending
-SAF-REL-001,Safety,Dual-channel 24 V E-stop and safety-gate relay with monitored reset,1,NEEDS_SELECTION,PROJECT_LAB_STOCK_REQUIRED,200200,PUBLIC_NEW_PRICE_BREAKS_CAP_FLOOR,Public candidate USD 143 on 2026-08-28
+SAF-EST-001,Safety,Dual-channel latching E-stop actuator and contact blocks,1,NEEDS_SELECTION,PROJECT_LAB_STOCK_REQUIRED,143001,PUBLIC_NEW_PRICE_BREAKS_CAP_FLOOR,PRICE-ESTOP-DK-20260828 and fault test pending
+SAF-REL-001,Safety,Dual-channel 24 V E-stop and safety-gate relay with monitored reset,1,NEEDS_SELECTION,PROJECT_LAB_STOCK_REQUIRED,200200,PUBLIC_NEW_PRICE_BREAKS_CAP_FLOOR,PRICE-SAF-DOLD-20260828
 SAF-CON-001,Safety,Positively guided or monitored 24 VDC high-current cutoff contactor,1,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Must interrupt selected branch load
 SAF-FUS-001,Safety,Main and branch fuse distribution set,1,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Power budget pending
 SAF-THM-001,Safety,Independent one-shot thermal fuses for four extruder and two dryer branches,6,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Zone temperature and mounting pending
@@ -70,7 +70,7 @@ SAF-INT-001,Safety,Positive-opening lid service and forming guard switch set,3,N
 ELE-HTR-DRV,Electronics,Six default-off heater MOSFET or SSR driver channels with isolation,6,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Welded-on fault injection pending
 ELE-SEN-IF,Electronics,Eight-channel 24 V dry-contact diagnostic isolation and eight-channel default-OFF logic interface assembly,1,PROOF_DESIGNED,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,KiCad ERC and DRC zero; review HOLD
 ELE-PCB-IF,Electronics,PPR isolated monitor interface bare PCB 190 x 130 mm two layer,1,FABRICATION_HOLD,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Gerber drill and render generated; EMC risk 52/100
-ELE-BUCK-001,Electronics,Qualified 24 V to 5 V Raspberry Pi buck converter and fuse,1,NEEDS_SELECTION,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Undervoltage and thermal test pending
+ELE-BUCK-001,Electronics,Qualified 24 V to 5 V Raspberry Pi buck converter and fuse,1,NEEDS_SELECTION,PROJECT_LAB_STOCK_REQUIRED,42644,PUBLIC_NEW_PRICE_BREAKS_CAP_FLOOR,PRICE-BUCK-DK-20260828 and undervoltage test pending
 UI-TFT-001,User interface,SPI TFT display compatible with qualified logic level,1,NEEDS_INSPECTION,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Pinout D47 to D52
 UI-CTL-001,User interface,Rotary encoder push START PAUSE BACK ABORT and buzzer set,1,NEEDS_INVENTORY,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Physical acknowledgement logic implemented
 FRM-001,Frame,2020 2040 4040 aluminum profiles and T-nuts,TBD,NEEDS_INVENTORY,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Profile length inventory pending
@@ -80,4 +80,4 @@ MISC-PRT-001,Assembly,Cold-side printed guards ducts bins fixtures and adapters,
 INP-GATE-001,Input classification,Guarded double-gate singulator with metal hinge and positive-opening interlock set,1,PROVISIONAL,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Gate geometry and reach-probe test passed
 INP-CAM-001,Input classification,Classifier camera backlight matte target and light shield set,1,NEEDS_SELECTION,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Optical keep-out CAD only
 BIN-DIV-001,Classification storage,Guarded seven-port rotating chute hoses and six-color-plus-Reject bins,1,PROVISIONAL,PROJECT_LAB_FIRST_BUY_SHORTAGE_ONLY,TBD,TBD_AFTER_INVENTORY,Seven-port geometry test passed
-CTL-ASM-001,Control enclosure,Grounded 300 by 220 by 180 mm sheet enclosure backplate partition DIN rails ducts glands and PE bonding set,1,PROVISIONAL,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,Spatial segregation CAD passed
+CTL-ASM-001,Control enclosure,Grounded 500 by 400 by 200 mm enclosure with backplate metal partition DIN rails four-class wiring routes glands door bond and PE set,1,PROVISIONAL,PROJECT_LAB_OR_DONOR_ONLY,TBD,BLOCKED_WITHOUT_VALIDATED_STOCK,control_enclosure_layout.csv and FreeCAD fit gates passed

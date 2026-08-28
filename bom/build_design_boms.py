@@ -54,6 +54,7 @@ def write_cost_rollup(path: Path, rows: list[dict[str, str]]) -> None:
 
 def main() -> None:
     source = read_csv(BOM)
+    evidence = read_csv(ROOT / "bom" / "cost_evidence.csv")
     assert source, "empty BOM"
     ids = [row["Part ID"] for row in source]
     assert len(ids) == len(set(ids)), "duplicate Part ID"
@@ -61,7 +62,14 @@ def main() -> None:
     assert all(row["Status"] for row in source), "missing status"
     assert all(row["Criticality"] for row in source), "missing criticality"
 
-    public_floor = {"GAU-CAM-001": 35000, "SAF-REL-001": 200200}
+    primary_evidence = [row for row in evidence if row["Selection"] == "PRIMARY_CANDIDATE"]
+    assert len({row["Part ID"] for row in primary_evidence}) == len(primary_evidence), (
+        "more than one primary cost candidate for a BOM row"
+    )
+    public_floor = {
+        row["Part ID"]: int(row["Planning floor KRW"])
+        for row in primary_evidence
+    }
     target: list[dict[str, str]] = []
     recommended: list[dict[str, str]] = []
     for row in source:
@@ -142,7 +150,7 @@ def main() -> None:
             "Known planning floor KRW": public_floor_total,
             "TBD line count": source_counts["BUY"] - len(public_floor),
             "Total status": "INCOMPLETE_LANDED_TOTAL",
-            "Notes": f"Two public candidates only; shipping tax customs and {source_counts['BUY'] - len(public_floor)} purchase lines remain TBD.",
+            "Notes": f"{len(public_floor)} public primary candidates only; shipping tax customs and {source_counts['BUY'] - len(public_floor)} purchase lines remain TBD.",
         },
         {
             "Rollup": "CNC_FABRICATION",
@@ -187,7 +195,7 @@ def main() -> None:
             "Known planning floor KRW": public_floor_total,
             "TBD line count": required_tbd_lines,
             "Total status": "INCOMPLETE_NOT_BUDGET_COMPLIANT",
-            "Notes": "All 82 baseline rows are required; 2 public floors and 2 conditional on-hand zero-cash rows are the only priced assumptions.",
+            "Notes": f"All 82 baseline rows are required; {len(public_floor)} public floors and 2 conditional on-hand zero-cash rows are the only priced assumptions.",
         },
         {
             "Rollup": "OPTIONAL_ADDONS",
@@ -214,11 +222,11 @@ def main() -> None:
         "required_baseline_line_count": len(source),
         "optional_addon_line_count": 0,
         "required_baseline_tbd_line_count": required_tbd_lines,
-        "target_budget_status": "CONDITIONAL_ONLY_IF_SAFETY_RELAY_AND_CAMERA_ARE_VALIDATED_STOCK",
+        "target_budget_status": "CONDITIONAL_ONLY_IF_PRIMARY_CANDIDATES_ARE_VALIDATED_STOCK_OR_REUSE",
         "engineering_recommended_total_status": "TBD_PENDING_DONOR_INVENTORY_MPN_SELECTION_AND_CNC_QUOTES",
         "pricing_assumptions": [
             "Planning conversion uses 1 USD = 1400 KRW and is not a live FX quote.",
-            "Public prices exclude shipping, tax, customs, E-stop actuator, contactor and all unpriced rows.",
+            "Public prices exclude unresolved shipping, tax, customs, incomplete assemblies, contactor and all unpriced rows.",
             "Conditional zero current cash applies only to the user-stated on-hand Pi and Mega; PSU fitness and replacement remain TBD.",
         ],
     }
@@ -243,11 +251,12 @@ def main() -> None:
             "",
             "## 비용 상태",
             "",
-            f"공개 후보 두 품목의 planning floor는 {public_floor_total:,} KRW로 200,000 KRW cap을 {public_floor_total - 200000:,} KRW 초과한다. 나머지 부품·가공·배송·세금은 포함하지 않았다.",
+            f"공개 primary 후보 {len(public_floor)}개 품목의 planning floor는 {public_floor_total:,} KRW로 200,000 KRW cap을 {public_floor_total - 200000:,} KRW 초과한다. 나머지 부품·가공·미확정 배송·세금은 포함하지 않았다.",
             "",
             "- `target_budget_design.csv`: 검증된 project-lab/donor stock을 우선하며, critical stock이 없으면 BLOCKED다.",
             "- `engineering_recommended_design.csv`: 안전·압력·열 부품을 생략하지 않고 MPN 선정과 CNC quote를 요구한다.",
             "- `cost_evidence.csv`: 조회일·URL·계획 환율을 보존한다.",
+            "- `procurement_routes.csv`: 29개 BUY 행의 권장 공급처·대체 공급처·AliExpress 허용 경계를 기록한다.",
             "- `cost_rollup.csv`: 신규 구매·CNC·print filament·project-lab replacement·donor replacement와 required/optional을 분리한다.",
             "",
             "주문·가공은 사용자 승인 전 진행하지 않는다.",
