@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate revision, size, and SHA-256 metadata for release artifacts."""
+"""Build revision-locked SHA-256 manifest for compact release artifacts."""
 
 from __future__ import annotations
 
@@ -7,85 +7,29 @@ import hashlib
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 PATTERNS = (
     "cad/generation/fcstd/*.FCStd",
+    "cad/generation/assembly_metadata.json",
     "exports/step/*.step",
-    "exports/stl/*.stl",
-    "exports/dxf/*.dxf",
-    "renders/assembly/*.png",
-    "renders/modules/*.png",
-    "docs/*.pdf",
-    "bom/bom.md",
-    "bom/target_budget_design.csv",
-    "bom/engineering_recommended_design.csv",
-    "bom/cost_summary.json",
-    "bom/cost_rollup.csv",
-    "bom/cost_evidence.csv",
-    "bom/procurement_routes.csv",
-    "bom/procurement_candidates.md",
-    "electronics/architecture/control_enclosure_layout.csv",
-    "requirements/compliance_matrix.csv",
-    "requirements/compliance_matrix.md",
-    "requirements/architecture_contract.md",
-    "exports/cnc_quote_packages/README.md",
-    "exports/cnc_quote_packages/*_package.csv",
-    "calculations/structural/beam_fea.md",
-    "simulation/structural/beam_crosscheck.json",
-    "calculations/shredder/stage1_cutter_3d_fea.md",
-    "simulation/structural/stage1_cutter_3d_fea.json",
-    "calculations/thermal/hot_zone_guard.md",
-    "simulation/thermal/hot_zone_guard.json",
-    "simulation/architecture/two_tower_contract.json",
-    "simulation/architecture/two_tower_geometry.json",
-    "simulation/gpu/README.md",
-    "simulation/gpu/*.cu",
-    "simulation/gpu/*_gpu.json",
-    "renders/review/*.png",
-    "docs/manual_coverage.csv",
-    "electronics/pcb/interface_board/*_evidence.json",
-    "electronics/pcb/interface_board/*.kicad_pro",
-    "electronics/pcb/interface_board/*.kicad_sch",
-    "electronics/pcb/interface_board/*.kicad_pcb",
-    "electronics/pcb/interface_board/*.kicad_dru",
-    "electronics/pcb/interface_board/*_bom.csv",
-    "electronics/pcb/interface_board/*.rpt",
-    "electronics/pcb/interface_board/analysis/cross.json",
-    "electronics/pcb/interface_board/analysis/emc.json",
-    "electronics/pcb/interface_board/analysis/gerbers.json",
-    "electronics/pcb/interface_board/analysis/pcb.json",
-    "electronics/pcb/interface_board/analysis/schematic.json",
-    "electronics/pcb/interface_board/analysis/spice.json",
-    "electronics/pcb/interface_board/analysis/thermal.json",
-    "electronics/pcb/interface_board/fabrication/*",
-    "electronics/pcb/interface_board/review/*",
+    "exports/print/**/*.FCStd", "exports/print/**/*.step", "exports/print/**/*.stl", "exports/print/**/*.3mf",
+    "exports/print/**/*.md", "exports/print/*.csv",
+    "renders/**/*.png", "docs/*.pdf",
+    "bom/*.csv", "calculations/*.md", "calculations/economics/*.md",
+    "simulation/*.json", "requirements/*.md", "validation/release_checklist.md",
 )
 
 
-def main() -> None:
-    parameters = json.loads((ROOT / "cad" / "parameters" / "baseline.json").read_text())
-    paths = sorted({path for pattern in PATTERNS for path in ROOT.glob(pattern)})
+def main():
+    paths = sorted({p for pattern in PATTERNS for p in ROOT.glob(pattern) if p.is_file()})
     artifacts = []
     for path in paths:
         data = path.read_bytes()
-        artifacts.append(
-            {
-                "path": str(path.relative_to(ROOT)),
-                "bytes": len(data),
-                "sha256": hashlib.sha256(data).hexdigest(),
-            }
-        )
-    manifest = {
-        "project": "filament-recycler",
-        "revision": parameters["revision"],
-        "generated_utc": "2026-08-27T20:15:00Z",
-        "artifact_count": len(artifacts),
-        "artifacts": artifacts,
-    }
-    (ROOT / "artifacts" / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    print(f"manifest artifacts={len(artifacts)}")
+        artifacts.append({"path": str(path.relative_to(ROOT)), "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()})
+    result = {"revision": "compact-single-path-v0.3", "artifact_count": len(artifacts), "artifacts": artifacts}
+    out = ROOT / "artifacts/manifest.json"; out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
+    print(f"ARTIFACT_MANIFEST_OK count={len(artifacts)}")
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()

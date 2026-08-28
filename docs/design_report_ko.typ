@@ -1,212 +1,89 @@
-#set document(title: "모듈형 폐플라스틱 필라멘트 재생기 — 설계·검증 보고서", author: "filament-recycler project")
-#set page(paper: "a4", margin: (x: 17mm, y: 16mm), numbering: "1 / 1")
+#set document(title: "Compact Single-Path PLA/PET Recycler v0.3 설계 보고서")
+#set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
-#set par(justify: true, leading: 0.72em)
-#show heading.where(level: 1): it => { pagebreak(weak: true); set text(fill: rgb("174e68")); it; set text(fill: black) }
-#let status(body) = block(width: 100%, fill: rgb("fff5df"), stroke: 1pt + rgb("cf8b22"), inset: 9pt, radius: 4pt, body)
-#let good(body) = block(width: 100%, fill: rgb("eaf5f1"), stroke: 1pt + rgb("2f8069"), inset: 8pt, radius: 4pt, body)
-#let metric(name, value, note) = [*#name:* #value #text(fill: gray, size: 8pt)[#note]]
+#let warn(body) = block(width: 100%, fill: rgb("fff0e6"), stroke: 1pt + rgb("c64e31"), inset: 8pt, body)
+#let ok(body) = block(width: 100%, fill: rgb("eaf5ef"), stroke: 1pt + rgb("3b7d5a"), inset: 8pt, body)
 
 #align(center)[
   #v(20mm)
-  #text(size: 24pt, weight: "bold", fill: rgb("174e68"))[폐 PLA/PET → 1.75 mm 필라멘트]
+  #text(size: 24pt, weight: "bold", fill: rgb("235a70"))[Compact Single-Path PLA/PET Recycler]
   #v(4mm)
-  #text(size: 17pt, weight: "bold")[시스템 설계·계산·검증 보고서]
-  #v(10mm)
-  #image("../renders/assembly/full_assembly_skeleton_isometric.png", width: 94%)
+  #text(size: 16pt)[설계 보고서]
   #v(8mm)
-  Revision 0.1.0-preflight · 2026-08-28
+  #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
+  #v(5mm)
+  #text(size: 11pt)[Revision compact-single-path-v0.3 · 2026-08-28]
 ]
 
-#status[
-  *현재 판정: DESIGN PACKAGE GENERATED / PHYSICAL VALIDATION OPEN.* Parametric CAD, 계산, firmware/Pi core와 문서는 재현·자동시험됐지만 실제 기계의 안전·처리량·품질은 승인되지 않았다.
-]
+#warn[*계산·CAD release다.* 실제 cutter 성능, melt flow, 200 g/h, 직경 품질과 안전 인증은 물리 Gate 전 미검증이다. 구매·CNC·energization은 사용자 승인 전 금지한다.]
 
 #pagebreak()
-#outline(title: [목차], depth: 2)
+= 임무와 아키텍처
 
-= 요구사항과 아키텍처
+PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, feeder, screw/barrel/die, cooling, X/Y gauge, puller, dancer/traverse spooler를 공유한다. Material profile은 setpoint만 변경하고 RUN 중 잠긴다.
 
-목표는 순수 PLA 출력물과 전처리된 PET bottle/body를 material/color 분류, 3단 파쇄, 3-stream 선별, dual-profile 건조, 18 mm single-screw 압출, 공랭, dual-view gauge, puller 폐루프와 1 kg spooler로 처리하는 것이다.
+#figure(image("../renders/assembly/compact_full_assembly_front.png", width: 92%), caption: [전면 — 금속 down-die 이후 285 mm vertical forming path])
 
-#table(
-  columns: (1.2fr, 1fr, 2.2fr), inset: 5pt, stroke: 0.5pt + rgb("c8d5d9"),
-  [*성능*], [*설계값*], [*현재 증거*],
-  [안정 처리량], [≥200 g/h], [계산 목표; 물리 30 min 미실시],
-  [직경], [1.75±0.05 mm], [Gauge/calibration software; optic U95 미실시],
-  [개선/ovality], [±0.03 / ≤0.05 mm], [제어 simulation; production 미실시],
-  [전원], [24 V 600 W 진술], [480 W provisional software cap; label 미확인],
-  [크기], [전체 2510×600×1350 mm], [A 600×600×1350, B 900×600×1150 + rail 760 mm],
+장치 envelope는 470 x 700 x 930 mm다. Sliding lid, guard, motor/reducer, cable duct, PSU/panel, full 1 kg spool과 dancer/traverse motion keep-out이 포함된다. Screw 인출은 정비 시 전면 panel과 clamp를 제거하는 절차이며 정상 운전 envelope에는 service clearance를 포함하지 않는다.
+
+= Layout trade
+
+#table(columns: (1.5fr, 1.2fr, 1fr, 1fr), inset: 4pt,
+  [*후보*], [*Envelope mm*], [*계획비용*], [*판정*],
+  [Vertical down-die], [470 x 700 x 930], [189,500 KRW], [채택],
+  [Internal U-fold], [480 x 710 x 940], [196,000 KRW], [soft bend 기각],
+  [Side spool column], [495 x 720 x 950], [204,000 KRW], [비용/목표 기각],
 )
 
-Tower A는 분류·3단 파쇄·선별·8 L sealed batch를 수직 배치하고, Tower B는 건조·압출·성형·권취·제어를 250 mm 떨어진 rack과 직선 760 mm rail에 배치한다. 각 tower는 4점 anchor 후보를 가지며 Tower A 계산 anchor-pair tension은 222.3 N이다. 질량·CG·anchor pullout·진동은 물리 검증 전 OPEN이다. Mega가 위험 actuator 최종 권한을 가지고 Pi는 vision, recipe와 log를 담당한다. E-stop, guard chain, thermal fuse, pressure trip과 contactor는 firmware 밖에서 동작한다.
+#figure(image("../renders/assembly/compact_full_assembly_top.png", width: 92%), caption: [정상 운전 부품이 frame footprint 안에 있음])
 
-43개 시스템 요구사항은 `requirements/compliance_matrix.md`에서 one-to-one 추적한다. 현재 집계는 automated pass 3, design evidence 30, physical open 4, external-blocked 6이며 해석·host test를 물리 T/D 합격으로 바꾸지 않았다.
+= Cutter와 입도
 
-= 입력 분류와 저장
+Candidate A는 repeated 58 x 6 mm seven-hook disc 12개, 20 mm keyed shaft 2개, 6004 bearing 4개, removable 5 mm screen과 수동 oversize recirculation을 사용한다. Candidate B는 두 번째 rotor/motor/bearing/guard를 요구해 CNC family 7개, 모터 2개, bearing 6개와 340 x 250 x 260 mm를 요구한다. Candidate A의 unique cutter CNC family 4개와 220 x 210 x 190 mm를 채택했다.
 
-입력 proof는 320×220×220 mm 외피에 최대 Ø66×210 mm bottle, 110 mm 간격의 상·하 gate, 차광 camera/backlight 광로와 reject path를 둔다. 7-port head는 고정된 6개 색상과 Reject를 배치한다. 자동 geometry test에서 닫힌 gate와 reach probe의 공통체적은 1600 mm³, 열린 gate와 probe는 0 mm³이며 port count는 7이다.
+#figure(image("../renders/modules/shared_shredder_module.png", width: 90%), caption: [공용 input/cutter/screen/bin — metal shaft/bearing plate load path])
 
-#figure(
-  grid(
-    columns: (1fr, 1fr), gutter: 6pt,
-    image("../renders/modules/input_classifier_proof_isometric.png", width: 100%),
-    image("../renders/modules/classification_storage_proof_isometric.png", width: 100%),
-  ),
-  caption: [입력 classifier와 6색+Reject 저장 분배 proof]
-)
+30 N·m에서 20 mm solid shaft torsional shear screening은 simulation JSON에 기록한다. Impact, keyway notch, bearing plate bending과 실제 PET seam capture는 Gate 1 대상이다. 3–6 mm fraction은 55–85% 가정뿐이며 Gate 2 실패 전 별도 stage를 추가하지 않는다.
 
-이 결과는 simultaneous-open 방지 cam, positive-opening switch, fragment containment나 인식 정확도를 승인하지 않는다. 미확인 입력은 Reject이고, 정확도는 source-object-grouped dataset과 실제 조명 조건으로 측정한다.
+= Dryer와 extrusion
 
-= 파쇄 계산과 CAD
+Integrated dryer 대신 외부 pre-dry + sealed 4.5 L maintenance hopper를 채택했다. 장치 heater는 PLA 45 °C/PET 60 °C 유지용이며 건조 완료를 대신하지 않는다.
 
-== Stage 1
+12/14/16/18 mm screw를 12–20 L/D 범위에서 비교해 16 mm x 16 L/D, active 256 mm를 선택했다. Pressure-only torque 식은
 
-#metric([Geometry], [Ø60×6 mm, 8-hook disc 10개, shaft center 50 mm], [phase sweep와 axial stack])
-#metric([Drive gate], [40 N·m target / 60 N·m jam trip], [donor dyno 전 미승인])
-#metric([Support], [20 mm keyed shafts, 6004 bearing 6개], [외부 timing support 포함])
+$ T = 1.5 (Delta p pi D^3) / 16 $
 
-#figure(image("../renders/modules/stage1_shredder_proof_isometric.png", width: 88%), caption: [Stage 1 rigid/kinematic proof])
+이고 6 MPa에서 약 7.24 N·m다. 선정 drive 목표 15 N·m continuous/22 N·m trip은 계산 여유가 있지만 friction, cold slug, screen blockage는 포함하지 않는다. Screening commissioning window는 120–220 g/h이며 200 g/h는 stretch target이다.
 
-Stage 1은 PET bottle buckle/capture와 PLA infill fracture를 대상으로 하며 solid PLA 무제한 처리를 주장하지 않는다. Cutter material, heat treatment, actual bite force와 containment coupon이 남아 있다.
+#figure(image("../renders/review/compact_section.png", width: 92%), caption: [Section — hopper/cutter와 horizontal hot zone, vertical forming])
 
-== Stage 2·3
+= 열·전력·제어
 
-#table(
-  columns: (1.2fr, 1.1fr, 1.1fr, 1.8fr), inset: 4pt, stroke: 0.5pt + rgb("c8d5d9"),
-  [*항목*], [*Stage 2*], [*Stage 3*], [*Gate*],
-  [입출력], [15–30→6–12 mm], [6–12→3–6 mm], [실제 sieve distribution],
-  [Rotor], [Ø50 single], [Ø40 staggered], [Replaceable pocket/balance],
-  [Clearance], [0.20 mm], [0.15 mm], [Metal shim],
-  [Screen], [선택적 grate], [4/5/6 mm], [Curved containment coupon],
-)
+Heater 300 W, shredder 120 W, screw 85 W, motion/fan/logic 45 W의 단순 합은 550 W다. 600 W PSU에서 50 W margin만 있으므로 heater full-duty와 shredder acceleration을 power arbiter가 겹치지 않게 한다.
 
-#figure(
-  grid(
-    columns: (1fr, 1fr), gutter: 6pt,
-    image("../renders/modules/stage2_shredder_proof_isometric.png", width: 100%),
-    image("../renders/modules/stage3_granulator_proof_isometric.png", width: 100%),
-  ),
-  caption: [Stage 2/3 proof assemblies]
-)
+300 °C hot path, 25 mm insulation, 10 mm air gap와 grounded sheet shield의 1D screening은 shield 52 °C, adjacent polymer 42 °C다. Seam/slot/radiation view를 포함하지 않으므로 Gate 4 thermocouple 기준은 shield 55 °C, polymer 45 °C다.
 
-= 진동 선별기
+200 g/h line speed는 PLA/PET 약 1.12/1.00 m/min이고 die-gauge transport delay는 약 12.6/14.1 s다. Diameter simulation은 first-order/transport model뿐이며 calibration·melt dynamics를 증명하지 않는다.
 
-Tray 3.5 kg, eccentric 40 g×12 mm, 30 Hz에서 force 17.1 N, free acceleration 0.499 g 계산점이다. Isolator 4개 각 약 947 N/m 후보에서 amplitude 1.38 mm, frame 전달 목표 0.35 g다. 5–40 Hz sweep와 fatigue coupon이 선정값을 확정한다.
+= Gauge와 spooler
 
-#figure(image("../renders/modules/vibratory_sorter_proof_isometric.png", width: 88%), caption: [8° two-deck, oversize/acceptable/fines proof])
+두 직교 LED/photodiode shadow channel을 채택한다. `d_mean=(d_x+d_y)/2`, ovality는 두 축 차이의 절댓값이다. U95 <=0.05 mm initial, <=0.03 mm improvement를 traceable pin/wire로 검증한다.
 
-= 건조·정량공급
+#figure(image("../renders/review/forming_spool_motion.png", width: 92%), caption: [Puller 이후 solid guide, dancer sweep, traverse와 full spool])
 
-Metal hopper ID140×320 mm, 40 mm insulation과 closed dry-air path를 선택했다. PLA 45 °C 6 h는 60 W branch, PET 140 °C 2 h+160 °C 4 h는 240 W branch이며 hardware 상호배제한다. 200 g/h auger 계산속도는 3.54 rpm이다.
+Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spool Ø200 x 73 mm와 dancer/traverse full motion이 assembly bounding box에 포함된다.
 
-#table(
-  columns: (1fr, 1fr, 1fr, 1.5fr), inset: 4pt, stroke: 0.5pt + rgb("c8d5d9"),
-  [*Profile*], [*Heat-up*], [*Steady*], [*미검증 Gate*],
-  [PLA], [60 W], [약 12 W], [실제 resin dryness],
-  [PET], [240 W], [약 46 W], [−40 °C dew point / ≤50 ppm],
-)
+= 비용과 제조
 
-#figure(image("../renders/modules/dryer_feeder_proof_isometric.png", width: 82%), caption: [Dual-profile dryer/feeder proof])
+신규 현금 계획은 CNC 122,000 KRW, non-CNC 43,000 KRW, print 19,808 KRW, reserve 4,692 KRW로 총 189,500 KRW다. 실제 RFQ, 배송과 donor 상태가 blocker다. CNC unique family는 8개다. Full cutter와 screw를 동시에 주문하지 않고 Gate 1 coupon부터 진행한다.
 
-= Extruder 선정
+#figure(image("../renders/review/print_orientation.png", width: 92%), caption: [12개 출력 part family orientation overview])
 
-12–18 mm 설계공간에서 18 mm×24 L/D를 선택했다. 432 mm flight, pitch 18 mm, feed/transition/metering 각 144 mm, channel 2.8125→1.125 mm, compression 2.5:1이다. CAD는 회전당 36 facet, 24회전의 닫힌 B-rep proof다.
+출력 질량과 개별 bounding box는 CAD solid volume에서 자동 계산된다. 고하중·hot path는 출력품을 사용하지 않는다.
 
-#table(
-  columns: (1.6fr, 1fr, 2fr), inset: 4pt, stroke: 0.5pt + rgb("c8d5d9"),
-  [*항목*], [*값*], [*의미*],
-  [Screw/barrel], [Ø18.0 / bore 18.2], [Nominal radial clearance 0.100 mm],
-  [Length], [24 L/D / barrel 438 mm], [200 g/h compact candidate],
-  [Die], [Ø3×12 mm], [Draw-down/puller required],
-  [Pressure], [3 target / 8 trip MPa], [20 MPa structural proof feature],
-  [Thrust], [2.036 kN at 8 MPa], [51102 candidate; proof SF 3.30],
-  [Drive], [20 N·m continuous at 45 rpm], [126 W nominal target; dyno required],
-)
+= 검증 경계
 
-#figure(image("../renders/modules/extruder_proof_isometric.png", width: 88%), caption: [Pressure-limited extruder with metal load path])
+#ok[자동검증은 revision, envelope, 비용, print limit, profile lock, 계산 산출물, package 존재와 stale source를 검사한다.]
 
-Heater profile은 PLA 180/190/200/190 °C, PET 250/270/280/275 °C다. 각 branch는 별도 sensor/fuse이며 PLA/PET independent limit 후보는 230/295 °C다.
-
-압출기 insulation은 기존 40 mm에서 실두께 50 mm로 변경했다. 정상 PET 280 °C lumped thermal network에서 shield는 약 48.8 °C, 인접 polymer는 약 27.2 °C다. 310 °C·열교 1.5배·환기 저하 fault envelope에서 grounded metal baffle로 유효 복사 view factor를 0.60 이하로 제한하면 polymer 약 40.5 °C지만 shield는 약 70.7 °C이므로 cooldown 상태다. 직접 시야는 polymer 약 48.6 °C로 실패하므로 hot zone의 PLA/ABS 부품은 금지한다. 이 민감도 모델은 seam/clamp/slot/penetration 열전대 시험을 대체하지 않는다.
-
-= Cooling·dual-view gauge·puller
-
-Ø1.75 mm, 200 g/h 선속은 PLA 1.118 m/min, PET 0.997 m/min이다. 440 mm cross-flow tunnel은 2.5 m/s 명목에서 PLA 필요길이 365.0 mm, PET 211.6 mm이며 250 g/h/4 m/s PLA worst margin은 54.5 mm다.
-
-#figure(image("../renders/modules/forming_line_proof_isometric.png", width: 88%), caption: [440 mm cooling + 470 mm gauge + puller])
-
-Camera Module 3 native는 약 62 px/1.75 mm이고 32 mm macro field 목표는 약 252 px다. 두 view는 radial distortion/homography를 독립 교정하며 `U95≤0.020 mm`를 release gate로 둔다.
-
-Die–gauge 470 mm의 PLA 지연은 25.23 s다. 900 s model에서 mass-flow feed-forward+bounded Smith PI는 RMS 0.0093 mm, max 0.0146 mm, ±0.05 밖 0 s였지만 실제 melt/tyre/camera dynamics는 미포함이다.
-
-= Spooler
-
-Ø200×73 mm, 1.35 kg/4 g proof의 12 mm shaft는 굽힘·횡전단·0.25 N·m 비틀림 조합 nominal von Mises 8.31 MPa, SF 30.1, deflection 0.0063 mm다. Core→full speed 4.45→1.78 rpm, 0.5 N tension에서 full-radius torque 0.05 N·m, clutch limit 0.25 N·m다.
-
-#figure(image("../renders/modules/spooler_proof_isometric.png", width: 82%), caption: [Dancer/traverse maximum spool proof])
-
-Dancer 120 mm ±30°는 240 mm/12.9 s buffer, traverse는 70 mm, 1.8 mm/rev, 8.00→3.20 mm/min이다.
-
-= 전력·전자·control
-
-FRP1은 `FRP1|TYPE|SEQ|PAYLOAD|CRC16`이고 Pi heartbeat 250 ms, Mega timeout 750 ms다. Loop를 포함한 safe-output worst software latency는 760 ms, AVR watchdog은 nominal 2 s다. Persistent jam은 3 reverse retry 후 7.372 s 이내 latch된다.
-
-#good[
-  Host tests: CRC/sequence 변조, heartbeat, E-stop, contactor feedback, airflow, sensor/rise fault, 480 W arbiter, jam retry와 Pi gauge/classifier/history/dropout/quality pause가 통과했다.
-]
-
-Sensor MPN·conversion과 shredder motion feedback이 미선정이라 firmware의 5개 commissioning lock은 false다. 이는 결함이 아니라 donor를 추측하지 않기 위한 intentional fail-safe다.
-
-Metal partition 기준 좌우 장치 keep-out gap은 50 mm다. K1 DOLD LG5925.48/920/61, PS1 MEAN WELL DDR-30G-5와 door S0 OMRON A22E-M-02는 planning-selected candidate다. ENC1 nVent MAS0405021R5, K2A/K2B ABB AFS30, FBR01–14 Eaton CHCC1DU, QH1–6 Crydom 84137860과 HS1/HS2 HS103DR은 exact-MPN qualification candidate이며 구매 승인이 아니다. PCB1은 190×130 mm 외곽, M3 홀 4개와 12 mm standoff를 예약하지만 fabrication HOLD다. `FMAIN_FLINKS`와 X1–XN은 exact MPN 전 주문·천공에 사용할 수 없는 placeholder다.
-
-#figure(image("../renders/review/control_enclosure_proof_cable_routing.png", width: 96%), caption: [BOM 상태와 24 V high-current/heater, hardwired safety, 5 V logic/sensor, PE route 분리 정면도])
-
-각 장치 전면에는 최소 30 mm terminal/service keep-out을 예약했다. 실제 MPN 기준의 PE, SCCR, 열상승, 연면거리, 침투보호, terminal access와 wire bend radius는 물리 패널 승인 항목이다.
-
-= BOM과 예산
-
-시스템 BOM은 85 line, CRITICAL 59 line이다. 공개 primary 후보 5개(camera, safety relay, E-stop, 24→5 V DC-DC, 6203 bearing pair)의 target-budget planning floor만 426,165 KRW이며 cap을 226,165 KRW 넘는다. 접촉기 2개, branch holder 14개, DC SSR 6개, 방열판 2개와 exact enclosure qualification 후보를 더한 10개 MPN 행의 부분 engineering candidate floor는 5,240,261 KRW다. 배송·세금·pressure·나머지 heater/sensor·fuse link·CNC와 78개 target-budget 미가격 required line은 빠져 있다.
-
-`cost_rollup.csv`는 신규구매 32 line(target-budget 미가격 27), CNC/fabrication 33, print filament 6, project-lab replacement 3, donor replacement 11을 분리한다. Baseline 85 line은 모두 required이고 optional로 숨긴 항목은 0이다.
-
-`exports/cnc_quote_packages`의 34행은 STEP/DXF/도면 메모를 묶은 DFM/RFQ precheck다. Mixed-source thrust plate를 보조 포함했으며 최종 GD&T·재료·열처리 승인 전에는 fabrication release가 아니다.
-
-#status[
-  Target Budget는 safety relay와 camera를 포함한 검증된 project-lab stock이 있을 때만 조건부다. Engineering Recommended 총액은 donor inventory, MPN과 CNC quote 전 `TBD`이며 임의 가격으로 채우지 않았다.
-]
-
-= 검증 상태와 잔여 위험
-
-Stage 1 shaft/cutter/plate, reducer output, extruder thrust plate, spooler shaft와 frame column은 20-element Euler–Bernoulli FEA와 닫힌형 해를 교차검증하고 support reaction 횡전단과 원형축 비틀림을 von Mises로 조합했다. Stage 1 20 mm shaft는 약 91 MPa/SF 3.35지만, 미확정 15 mm reducer overhang은 약 270 MPa/SF 1.13이고 brace 없는 단일 frame column은 처짐 초과이므로 `REVIEW_REQUIRED`다. 이는 nominal 1D screening이며 3D contact/notch/joint·impact·fatigue 해석을 대체하지 않는다.
-
-표준 112개 7-view에 더해 section 7, x-ray 4, exploded 5, tool-access 3, cable-routing 2, slicing-orientation 1개의 review image를 생성했다. 전체 assembly section은 두 tower, gravity chute, batch dock와 straight rail을 색으로 구분한다. Section cap·실제 tool reach·harness bend radius·machine G-code는 여전히 별도 gate다.
-
-#table(
-  columns: (1.4fr, 1fr, 2.2fr), inset: 4pt, stroke: 0.5pt + rgb("c8d5d9"),
-  [*영역*], [*상태*], [*남은 Gate*],
-  [FreeCAD/exports], [자동 PASS], [Clean clone 재생성·physical fabrication review],
-  [Kinematics/thermal/control], [계산 PASS], [Material/sensor rig cross-check],
-  [Firmware/Pi], [Host PASS], [Board compile·front-end·fault rig],
-  [Safety], [Architecture only], [E-stop/interlock/fuse/pressure physical test],
-  [Throughput/diameter], [계산 only], [PLA/PET 30 min ≥200 g/h],
-  [Cost], [Floor only], [Landed quote/CNC approval],
-)
-
-가장 큰 잔여 위험은 pressure-rated screw/barrel/relief 제작, cutter impact/containment, PET dryness/degradation, electrical safety relay/contactor coordination, gauge U95와 full production stability다.
-
-= 재현 명령
-
-```text
-nix develop --command bash -lc "FreeCADCmd -c ...generate_all.py"
-nix develop --command bash -lc "FreeCADCmd -c ...render_views.py"
-make -C firmware/arduino_mega test
-PYTHONPATH=software/raspberry_pi python3 -m unittest discover ...
-python3 validation/run_all.py
-```
-
-Artifact SHA-256는 `artifacts/manifest.json`, 상세 test 상태는 `docs/validation_report_ko.md`에 있다. 설계 변경은 관련 generator, 계산, test, render, manual과 manifest를 함께 갱신한다.
-
-#v(6mm)
-#align(center)[#text(size: 8pt, fill: gray)[끝 — 물리 Release는 서명된 checklist 없이는 선언하지 않는다.]]
+물리 Gate는 cutter coupon, flake/feed, cold extruder, hot PLA/PET, diameter/full spool 순서다. Physical 결과를 simulation 결과와 혼용하지 않는다.

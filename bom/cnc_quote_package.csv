@@ -1,0 +1,9 @@
+family_id,description,process,material,quantity,source,planned_krw,release_gate
+CNC-01,58x6 반복 hook cutter disc와 표준 spacer,laser/waterjet plus deburr,tool steel candidate,24,cad/freecad/compact/generate.py,20000,Gate 1 coupon
+CNC-02,공통 bearing/end plate,laser cut plus bearing seat finish,steel or aluminum by load review,4,cad/freecad/compact/generate.py,12000,Gate 1 shaft alignment
+CNC-03,20 mm keyed shaft family,simple turning plus keyway,steel,2,cad/freecad/compact/generate.py,16000,donor coupling measurement
+CNC-04,removable 5 mm screen,laser cut,stainless steel,2,cad/freecad/compact/generate.py,5000,Gate 2 fraction
+CNC-05,16 mm 16D screw,turning plus flight milling,nitridable steel candidate,1,cad/freecad/compact/generate.py,28000,Gate 3 DFM
+CNC-06,ID16.2 barrel and feed throat,turning boring welding,qualified steel,1,cad/freecad/compact/generate.py,24000,Gate 3 alignment
+CNC-07,open die breaker and sacrificial retainer,turning plus drilling,stainless/tool steel,1,cad/freecad/compact/generate.py,10000,Gate 4 guarded low feed
+CNC-08,thrust plate and barrel clamps,laser cut plus drilling,steel,3,cad/freecad/compact/generate.py,7000,Gate 3 thrust path

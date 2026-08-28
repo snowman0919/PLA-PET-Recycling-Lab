@@ -1,65 +1,46 @@
 #!/usr/bin/env python3
-"""Run every automated design-package check with explicit PASS markers."""
+"""Generate and validate the complete compact v0.3 release package."""
 
 from __future__ import annotations
 
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-
-PYTHON_TESTS = (
-    ("validation/test_dryer_feeder_budget.py", "DRYER_FEEDER_BUDGET_OK"),
-    ("validation/test_hot_zone_guard.py", "HOT_ZONE_GUARD_VALIDATION_OK"),
-    ("validation/test_two_tower_contract.py", "TWO_TOWER_ARCHITECTURE_VALIDATION_OK"),
-    ("validation/test_electronics_interfaces.py", "ELECTRONICS_INTERFACES_OK"),
-    ("validation/test_kicad_interface_board.py", "KICAD_INTERFACE_BOARD_OK"),
-    ("validation/test_extruder_design.py", "EXTRUDER_DESIGN_SWEEP_OK"),
-    ("validation/test_forming_line.py", "FORMING_LINE_DESIGN_OK"),
-    ("validation/test_bom.py", "BOM_VALIDATION_OK"),
-    ("validation/test_requirements_traceability.py", "REQUIREMENTS_TRACEABILITY_OK"),
-    ("validation/test_cnc_quote_packages.py", "CNC_QUOTE_PACKAGES_OK"),
-    ("validation/test_structural_beam_fea.py", "STRUCTURAL_BEAM_FEA_VALIDATION_OK"),
-    ("validation/test_stage1_cutter_3d_fea.py", "STAGE1_CUTTER_3D_FEA_VALIDATION_OK"),
-    ("validation/test_review_variants.py", "CAD_REVIEW_VARIANTS_OK"),
-)
-FREECAD_TESTS = (
-    ("validation/test_dryer_geometry.py", "DRYER_GEOMETRY_OK"),
-    ("validation/test_forming_geometry.py", "FORMING_GEOMETRY_OK"),
-    ("validation/test_spooler_geometry.py", "SPOOLER_GEOMETRY_OK"),
-    ("validation/test_stage1_kinematics.py", "STAGE1_KINEMATIC_VALIDATION_OK"),
-    ("validation/test_stage3_kinematics.py", "STAGE3_KINEMATIC_VALIDATION_OK"),
-    ("validation/test_extruder_geometry.py", "EXTRUDER_GEOMETRY_OK"),
-    ("validation/test_control_enclosure_geometry.py", "CONTROL_ENCLOSURE_GEOMETRY_OK"),
-    ("validation/test_two_tower_geometry.py", "TWO_TOWER_GEOMETRY_VALIDATION_OK"),
-    ("validation/test_cad_generation.py", "CAD_VALIDATION_OK"),
-)
+ROOT=Path(__file__).resolve().parents[1]
 
 
-def run(command: list[str], marker: str, env: dict[str, str] | None = None) -> None:
-    result = subprocess.run(command, cwd=ROOT, env=env, text=True, capture_output=True)
-    output = result.stdout + result.stderr
-    if result.returncode or marker not in output or "Traceback (most recent call last)" in output:
-        print(output, file=sys.stderr)
-        raise SystemExit(f"FAIL {marker}: {' '.join(command)}")
+def run(cmd, marker):
+    result=subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True)
+    output=result.stdout+result.stderr
+    if result.returncode or marker not in output:
+        print(output,file=sys.stderr); raise SystemExit(f"FAIL {marker}: {' '.join(cmd)}")
     print(f"PASS {marker}")
 
 
-def main() -> None:
-    run([sys.executable, "bom/build_procurement_routes.py"], "PROCUREMENT_ROUTES_OK buy_rows=23")
-    run([sys.executable, "bom/build_design_boms.py"], '"bom_row_count": 58')
-    for script, marker in PYTHON_TESTS:
-        run([sys.executable, script], marker)
-    for script, marker in FREECAD_TESTS:
-        code = f"import runpy; runpy.run_path({script!r}, run_name='__main__')"
-        run(["FreeCADCmd", "-c", code], marker)
-    run(["make", "-C", "firmware/arduino_mega", "test"], "MEGA_UI_CORE_OK")
-    run([sys.executable, "artifacts/build_manifest.py"], "manifest artifacts=")
-    run([sys.executable, "validation/test_release_package.py"], "RELEASE_PACKAGE_OK")
-    print("ALL_AUTOMATED_VALIDATIONS_OK (27 gates)")
+def nix_shell(command):
+    return ["nix","develop","--command","bash","-lc",command]
 
 
-if __name__ == "__main__":
-    main()
+def main():
+    run([sys.executable,"calculations/run_engineering.py"],"ENGINEERING_CALCULATIONS_OK")
+    run(["make","-C","firmware/arduino_mega","test"],"MATERIAL_PROFILE_STATE_MACHINE_OK")
+    gen='FreeCADCmd -c \'import runpy; runpy.run_path("cad/generation/generate_all.py", run_name="__main__")\''
+    render='FreeCADCmd -c \'import runpy; runpy.run_path("cad/generation/render_views.py", run_name="__main__")\''
+    run(["bash","-lc",gen] if shutil.which("FreeCADCmd") else nix_shell(gen),"COMPACT_CAD_GENERATION_OK")
+    freecad_check='FreeCADCmd -c \'import runpy; runpy.run_path("validation/freecad_checks.py", run_name="__main__")\''
+    run(["bash","-lc",freecad_check] if shutil.which("FreeCADCmd") else nix_shell(freecad_check),"FREECAD_COLLISION_LOAD_PATH_OK")
+    render_probe=ROOT/"renders/assembly/compact_full_assembly_isometric.png"
+    if "--regenerate-renders" in sys.argv or not render_probe.exists():
+        run(["bash","-lc",render] if shutil.which("FreeCADCmd") else nix_shell(render),"COMPACT_RENDER_GENERATION_OK")
+    else:
+        print("PASS COMPACT_RENDER_PACKAGE_PRESENT (use --regenerate-renders to rebuild)")
+    typst='typst compile --root . docs/build_manual_ko.typ docs/build_manual_ko.pdf && typst compile --root . docs/design_report_ko.typ docs/design_report_ko.pdf && echo COMPACT_PDF_BUILD_OK'
+    run(["bash","-lc",typst] if shutil.which("typst") else nix_shell(typst),"COMPACT_PDF_BUILD_OK")
+    run([sys.executable,"artifacts/build_manifest.py"],"ARTIFACT_MANIFEST_OK")
+    run([sys.executable,"validation/test_release.py"],"COMPACT_RELEASE_VALIDATION_OK")
+    print("ALL_AUTOMATED_VALIDATIONS_OK (8 orchestrated gates)")
+
+
+if __name__ == "__main__": main()

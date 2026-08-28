@@ -1,0 +1,108 @@
+{
+  "revision": "compact-single-path-v0.3",
+  "screw_sweep": [
+    {
+      "diameter_mm": 12.0,
+      "ld": 18.0,
+      "active_length_mm": 216.0,
+      "screening_rpm": 8.0,
+      "bulk_feed_range_gph": [
+        5.6,
+        23.0
+      ],
+      "torque_3mpa_sf1_5_nm": 1.53,
+      "torque_6mpa_sf1_5_nm": 3.05,
+      "selected": false
+    },
+    {
+      "diameter_mm": 14.0,
+      "ld": 18.0,
+      "active_length_mm": 252.0,
+      "screening_rpm": 8.0,
+      "bulk_feed_range_gph": [
+        8.9,
+        36.5
+      ],
+      "torque_3mpa_sf1_5_nm": 2.42,
+      "torque_6mpa_sf1_5_nm": 4.85,
+      "selected": false
+    },
+    {
+      "diameter_mm": 16.0,
+      "ld": 16.0,
+      "active_length_mm": 256.0,
+      "screening_rpm": 6.0,
+      "bulk_feed_range_gph": [
+        10.0,
+        40.9
+      ],
+      "torque_3mpa_sf1_5_nm": 3.62,
+      "torque_6mpa_sf1_5_nm": 7.24,
+      "selected": true
+    },
+    {
+      "diameter_mm": 18.0,
+      "ld": 16.0,
+      "active_length_mm": 288.0,
+      "screening_rpm": 6.0,
+      "bulk_feed_range_gph": [
+        14.2,
+        58.2
+      ],
+      "torque_3mpa_sf1_5_nm": 5.15,
+      "torque_6mpa_sf1_5_nm": 10.31,
+      "selected": false
+    }
+  ],
+  "forming": {
+    "PLA": {
+      "line_speed_m_min_at_200gph": 1.118,
+      "transport_delay_s": 12.62,
+      "vertical_residence_s": 15.3,
+      "cooling_time_s_h50": 39.63,
+      "cooling_length_mm_h50": 738.5
+    },
+    "PET": {
+      "line_speed_m_min_at_200gph": 1.004,
+      "transport_delay_s": 14.04,
+      "vertical_residence_s": 17.03,
+      "cooling_time_s_h50": 25.96,
+      "cooling_length_mm_h50": 434.4
+    }
+  },
+  "diameter_loop": {
+    "model": "first_order_plus_transport_delay",
+    "duration_s": 900,
+    "rms_error_mm": 0.0107,
+    "max_abs_error_mm": 0.0228,
+    "claim": "simulation_only"
+  },
+  "power": {
+    "psu_voltage_v": 24.0,
+    "psu_rating_w": 600.0,
+    "heater_peak_w": 300.0,
+    "shredder_peak_w": 120.0,
+    "extruder_peak_w": 85.0,
+    "motion_fans_logic_peak_w": 45.0,
+    "arbiter_peak_w": 550.0,
+    "calculated_concurrent_peak_w": 550.0,
+    "arbiter_margin_w": 50.0
+  },
+  "thermal": {
+    "ambient_c": 25.0,
+    "hot_path_c": 300.0,
+    "insulation_mm": 25.0,
+    "metal_shield_air_gap_mm": 10.0,
+    "screening_shield_c": 52.0,
+    "polymer_keepout_c": 42.0,
+    "assumptions": "1D resistance, k=0.04 W/mK, emissivity reduction by grounded shield; seams/slots unmodelled",
+    "status": "physical_thermocouple_gate_required"
+  },
+  "cutter": {
+    "design_torque_nm": 30.0,
+    "shaft_diameter_mm": 20.0,
+    "torsional_shear_mpa": 19.1,
+    "yield_safety_factor_at_145mpa_shear": 7.59,
+    "status": "coupon_and_impact_not_validated"
+  }
+}

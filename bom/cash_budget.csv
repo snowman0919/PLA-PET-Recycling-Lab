@@ -1,0 +1,17 @@
+category,item_id,description,planned_cash_krw,status,evidence_or_blocker
+CNC,CNC-01,반복 hook cutter disc와 spacer coupon/full stack allowance,20000,QUOTE_REQUIRED,Gate 1 전 coupon만 발주
+CNC,CNC-02,공통 mirrored bearing/end plate laser cut,12000,QUOTE_REQUIRED,재료와 bearing seat 후가공 견적 필요
+CNC,CNC-03,20 mm keyed shaft pair 단순 선삭,16000,QUOTE_REQUIRED,motor coupling 실측 필요
+CNC,CNC-04,removable 5 mm screen laser cut,5000,QUOTE_REQUIRED,Gate 2 aperture 선택 전 coupon
+CNC,CNC-05,16 mm x 16 L/D screw 선삭/flight 가공,28000,QUOTE_REQUIRED,Gate 3 이전 full heat treatment 보류
+CNC,CNC-06,ID16.2 barrel/hopper throat,24000,QUOTE_REQUIRED,재료/보어/열처리 RFQ
+CNC,CNC-07,open die와 breaker/screen retainer,10000,QUOTE_REQUIRED,sacrificial retainer DFM 필요
+CNC,CNC-08,extruder thrust plate와 clamp flat parts,7000,QUOTE_REQUIRED,bearing 실측 필요
+NON_CNC,SAFE-ALLOW,E-stop 1 lid switch 2 service switch 1 low-cost hardware allowance,12000,BUY_HOLD,재고 확인 시 미사용
+NON_CNC,FUSE-ALLOW,branch fuse holder/link와 300 C thermal fuse allowance,6500,BUY_HOLD,exact rating 확인 필요
+NON_CNC,GAUGE-ALLOW,2축 LED photodiode slit PCB-free wiring allowance,8000,BUY_HOLD,calibration 전 성능 미확정
+NON_CNC,THERM-ALLOW,25 mm insulation grounded sheet shield wire sleeve,9500,BUY_HOLD,PET 온도 등급 확인
+NON_CNC,HW-ALLOW,fastener insert connector shim bearing allowance,7000,BUY_HOLD,donor 실측 후 수량 확정
+PRINT,PRINT-ALLOW,PLA/ABS 출력 filament CAD volume allowance,19808,BUY_HOLD,1100.5 g at 18000 KRW/kg
+RESERVE,RFQ-RESERVE,소량 가공/배송 변동 reserve,4692,UNALLOCATED,cap 초과 시 기능 추가 없이 VE
+TOTAL,TOTAL,신규 현금비용 계획 합계,189500,WITHIN_CAP,실제 landed quote blocker

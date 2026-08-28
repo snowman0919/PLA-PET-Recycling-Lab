@@ -1,0 +1,12 @@
+signal,direction,owner,safe_state,verification
+E_STOP_OK,input,hardwired chain,false,continuity and forced-open test
+LID_CLOSED,input,hardwired chain,false,positive-opening switch test
+SERVICE_GUARD_CLOSED,input,hardwired chain,false,forced-open test
+THERMAL_CHAIN_OK,input,hardwired chain,false,open-circuit simulation
+SHREDDER_ENABLE,output,Mega/permission chain,false,scope and contact test
+SHREDDER_LOAD,input,driver/encoder,false,calibrate against shaft torque coupon
+SCREW_ENABLE,output,Mega/permission chain,false,heater-off test
+HEATER_ENABLE,output,permission chain,false,stuck-MOSFET thermal chain test
+GAUGE_X,input,shadow gauge,invalid,traceable pin calibration
+GAUGE_Y,input,shadow gauge,invalid,traceable pin calibration
+DANCER,input,endstop/analog,stop spooler,full sweep collision test
