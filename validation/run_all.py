@@ -125,7 +125,7 @@ def main():
         print("PASS COMPACT_RENDER_PACKAGE_PRESENT_FROZEN_GEOMETRY", flush=True)
 
     font_path = os.environ.get("PPR_FONT_PATH")
-    typst_font_arg = f" --font-path {shlex.quote(font_path)}" if font_path else ""
+    typst_font_arg = f" --font-path {shlex.quote(font_path)} --ignore-system-fonts" if font_path else ""
     typst = " && ".join([
         f"typst compile{typst_font_arg} --root . docs/build_manual_ko.typ docs/build_manual_ko.pdf",
         f"typst compile{typst_font_arg} --root . docs/design_report_ko.typ docs/design_report_ko.pdf",
