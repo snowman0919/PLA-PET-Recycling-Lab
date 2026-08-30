@@ -1,7 +1,7 @@
 {
-  "revision": "virtual-physics-closure-v0.5.1",
+  "revision": "implementation-crosssolver-v0.6",
   "status": "PASS",
-  "contract_sha256": "98c5186e0b0a8083768ba63d240d5287e7e2a07723ddd23874e411bdf5bc65c4",
+  "contract_sha256": "8388899c457707c898a1e676ef0de09b5c713176843b941a87e93e37fa590186",
   "power_phases": [
     {
       "state": "SHREDDING",
@@ -48,5 +48,7 @@
     "restart_inhibited": "FAIL_DETECTED",
     "guard_chain_safe": "FAIL_DETECTED"
   },
-  "hard_assertion": "not (shredder_enabled and (screw_enabled or process_heater_enabled))"
+  "hard_assertion": "not (shredder_enabled and (screw_enabled or process_heater_enabled))",
+  "material_session": "ORDERED_CHANGE_AND_EXPLICIT_CONFIRMATION_PASS",
+  "hardware_abstractions": "MEGA_IO_AND_HEATER_GAUGE_CONTRACT_PASS"
 }

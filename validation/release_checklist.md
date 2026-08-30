@@ -16,7 +16,10 @@
 - [x] closed screw pressure-flow-torque-current model 및 hot operating jam
 - [x] coupled cooling/forming/diameter control 및 explicit spool length-balance jam
 - [x] OpenModelica mandatory scenario 74개 PASS
-- [x] shaft/bearing plate/thrust/local 2040 frame/thermocouple-bore 구조 screening PASS
+- [x] Arduino Mega compile 및 heater/gauge/UI/material-session/shredder host test PASS
+- [x] shaft/bearing plate 3단계 CalculiX mesh convergence, thrust/local 2040 frame/thermocouple-bore screening PASS
+- [x] FreeCAD controlling STEP 9개 + LC01–LC10 + Fusion study/worker/result-validator package 생성
+- [ ] 실제 Autodesk Fusion solve와 solver correlation — `PENDING_EXTERNAL_EXECUTION`
 - [x] ungrounded K-type + MAX6675 common-reference architecture와 Ø6.05 H7 cartridge fit 정합
 
 최종 clean-clone SHA, artifact count와 reproducibility 결과는 branch 최종 commit에서 재생성한 뒤 이 checklist와 manifest에 기록한다.

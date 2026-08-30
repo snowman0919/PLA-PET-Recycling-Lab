@@ -1,6 +1,6 @@
 # G1J-02 — 250 mm torque arm
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `6 mm S45C/structural steel`
 - process: `laser cut + deburr`

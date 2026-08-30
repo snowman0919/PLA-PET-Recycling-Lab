@@ -1,6 +1,6 @@
 # FM-RL-01 — Puller roller
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `2`
 - material: `aluminum hub + replaceable silicone sleeve`
 - process: `turn + bore`

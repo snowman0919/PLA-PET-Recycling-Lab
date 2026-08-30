@@ -1,6 +1,6 @@
 # TH-TC-01 — Ungrounded K-type barrel/die/hopper probe
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `5`
 - material: `Ø3 mineral-insulated 304 sheath, ungrounded junction`
 - process: `purchased + insulation/ice/boiling-point check`

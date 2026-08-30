@@ -1,6 +1,6 @@
 # PPR-C03 — Flake bin sheet corner
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: 4
 - material: PLA
 - nozzle diameter: 0.4 mm

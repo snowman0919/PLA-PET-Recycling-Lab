@@ -16,7 +16,7 @@ sys.path.insert(0,str(COMPACT))
 from geometry import assembly_objects, cutter_shaft, hook_disc, spur_phase_gear  # noqa: E402
 from manufacturing import extruder_screw  # noqa: E402
 
-REV="virtual-physics-closure-v0.5.1"
+REV="implementation-crosssolver-v0.6"
 DENSITY_KG_MM3={"steel":7.85e-6,"aluminum":2.70e-6,"polymer":1.20e-6,"mixed":4.0e-6}
 
 

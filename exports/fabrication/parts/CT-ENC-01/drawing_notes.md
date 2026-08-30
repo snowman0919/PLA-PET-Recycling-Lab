@@ -1,6 +1,6 @@
 # CT-ENC-01 — Control-panel sheet enclosure
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `2 mm 5052 aluminum`
 - process: `laser + brake + PE stud`

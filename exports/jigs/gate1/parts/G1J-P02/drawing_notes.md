@@ -1,6 +1,6 @@
 # G1J-P02 — Removable chip collection tray
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `PLA`
 - process: `FDM`

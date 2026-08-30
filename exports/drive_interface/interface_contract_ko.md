@@ -1,4 +1,4 @@
-# 교환식 분쇄기 구동 인터페이스 — virtual-physics-closure-v0.5.1
+# 교환식 분쇄기 구동 인터페이스 — implementation-crosssolver-v0.6
 
 공정 경로와 dual-shaft cutter는 변경하지 않는다. 특정 MY1016Z, KTR coupling, KHK gear의 part number는 요구조건이 아니다.
 

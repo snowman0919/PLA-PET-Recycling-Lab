@@ -1,6 +1,6 @@
 # TH-FUSE-01 — Independent one-shot thermal fuse envelope
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `3`
 - material: `300 C-class barrel/die plus hopper-specific lower setpoint`
 - process: `purchased + lot continuity/traceability`

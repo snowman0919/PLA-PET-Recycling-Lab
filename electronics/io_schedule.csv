@@ -3,12 +3,23 @@ E_STOP_OK,input,hardwired chain,false,continuity and forced-open test
 LID_CLOSED,input,hardwired chain,false,positive-opening switch test
 SERVICE_GUARD_CLOSED,input,hardwired chain,false,forced-open test
 THERMAL_CHAIN_OK,input,hardwired chain,false,open-circuit simulation
+HEATER_PERMISSION_FEEDBACK,input,hardwired chain,false,command/feedback mismatch test
+PHYSICAL_LOCKOUT_KEY,input,maintainer key,false,continuity plus deliberate clear-fault test
 SHREDDER_ENABLE,output,Mega/permission chain,false,scope and contact test
+SHREDDER_PWM_DIR_REVERSE,output,Mega/H-bridge,zero,bounded forward/reverse scope test
 SHREDDER_LOAD,input,driver/encoder,false,calibrate against shaft torque coupon
 SHREDDER_CURRENT_50A,input,Hall current sensor,invalid,0/5/10/15/20 A calibrated load
 SHREDDER_SHAFT_RPM,input,driven-shaft Hall sensor,zero,6-pole ring tachometer comparison
 SCREW_ENABLE,output,Mega/permission chain,false,heater-off test
-HEATER_ENABLE,output,permission chain,false,stuck-MOSFET thermal chain test
+SCREW_PWM_DIR,output,Mega/DC driver,zero,driver fault and direction test
+HEATER_Z1_Z2_Z3_DIE,output,Mega/MOSF permission chain,false,stuck-MOSFET thermal chain test per channel
+HOPPER_PTC,output,maintenance-only branch,false,production-phase inhibition test
+T1_T2_T3_TDIE_THOPPER,input,MAX6675 SPI,invalid,open/range/ice-boiling/ungrounded-isolation test
 GAUGE_X,input,shadow gauge,invalid,traceable pin calibration
 GAUGE_Y,input,shadow gauge,invalid,traceable pin calibration
 DANCER,input,endstop/analog,stop spooler,full sweep collision test
+PULLER_PWM_DIR_TACH,input/output,Mega/DC driver,zero,1 m length and tach calibration
+SPOOLER_PWM_DIR,input/output,Mega/DC driver,zero,dancer safe-pause test
+TRAVERSE_STEP_DIR_ENABLE,output,Mega/stepper driver,disabled,80 mm end-to-end and permission-loss test
+COOLING_PWM,output,Mega/fan branch,off,cooling-loss controlled-pause test
+DRIVER_FAULTS,input,all motor drivers,fault,open/active-low simulation per channel

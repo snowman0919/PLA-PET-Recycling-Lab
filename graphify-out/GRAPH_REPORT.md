@@ -1,16 +1,16 @@
 # Graph Report - PPR  (2026-08-30)
 
 ## Corpus Check
-- 273 files · ~318,089 words
+- 276 files · ~359,284 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1184 nodes · 1713 edges · 204 communities (91 shown, 113 thin omitted)
+- 1199 nodes · 1727 edges · 208 communities (94 shown, 114 thin omitted)
 - Extraction: 83% EXTRACTED · 17% INFERRED · 0% AMBIGUOUS · INFERRED: 292 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b4ce4d73`
+- Built from commit: `0d30bb91`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -56,6 +56,10 @@
 - AGENTS.md
 - fusion_execution.md
 - fusion_worker/README.md
+- update
+- Arduino Mega 2560 controller wiring contract
+- v0.6 구현·교차 solver 완료 감사
+- 2026-08-30-implementation-crosssolver-v0.6.md
 - geometry.py
 - generate.py
 - manufacturing.py
@@ -240,7 +244,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (204 total, 113 thin omitted)
+## Communities (208 total, 114 thin omitted)
 
 ### Community 0 - "StatePermissions"
 Cohesion: 0.17
@@ -338,25 +342,37 @@ Nodes (3): step_file, pattern, type
 Cohesion: 0.67
 Nodes (3): step_sha256, pattern, type
 
+### Community 44 - "update"
+Cohesion: 0.13
+Nodes (13): MachineState, MaterialSession, UiController, update, UiEvent, back_pressed, confirm_pressed, encoder_delta (+5 more)
+
+### Community 45 - "Arduino Mega 2560 controller wiring contract"
+Cohesion: 0.40
+Nodes (4): Arduino Mega 2560 controller wiring contract, Inputs and commissioning, Outputs, Safety chain
+
+### Community 46 - "v0.6 구현·교차 solver 완료 감사"
+Cohesion: 0.50
+Nodes (3): v0.6 구현·교차 solver 완료 감사, 미완료 외부·물리 증거, 완료된 디지털 증거
+
 ### Community 48 - "geometry.py"
 Cohesion: 0.05
-Nodes (90): compound(), export_geometry(), load_cases(), main(), Path, sha256(), source_tree_hash(), write_csv() (+82 more)
+Nodes (94): compound(), export_geometry(), load_cases(), main(), Path, sha256(), source_tree_hash(), write_csv() (+86 more)
 
 ### Community 59 - "generate.py"
 Cohesion: 0.07
 Nodes (39): main(), dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon() (+31 more)
 
 ### Community 77 - "manufacturing.py"
-Cohesion: 0.05
-Nodes (71): bearing_retainer_plate(), bearing_side_plate(), chain_sprocket_shape(), cutter_shaft(), gmp60_60127_reference_shape(), hook_disc(), motor_adapter_42gp775_shape(), motor_adapter_gmp60_shape() (+63 more)
+Cohesion: 0.06
+Nodes (67): bearing_retainer_plate(), bearing_side_plate(), cutter_shaft(), gmp60_60127_reference_shape(), hook_disc(), motor_adapter_42gp775_shape(), motor_adapter_gmp60_shape(), motor_mount_plate() (+59 more)
 
 ### Community 222 - "render_views.py"
 Cohesion: 0.16
 Nodes (23): _cycloidal_ease(), cycloidal_hook_profile_points(), Unit cycloid displacement, with zero slope at both ends., Return the controlling asymmetric 7-hook profile points., gate1_render_items(), gui_render(), main(), mesh_render() (+15 more)
 
 ### Community 223 - "ProcessController"
-Cohesion: 0.06
-Nodes (43): MachineState, MaterialProfile, MaterialSession, guardsOk(), MachineState, MaterialProfile, MaterialSession, ProcessController (+35 more)
+Cohesion: 0.11
+Nodes (30): MachineState, MaterialProfile, MaterialSession, guardsOk(), MachineState, MaterialProfile, MaterialSession, ProcessController (+22 more)
 
 ### Community 234 - "ProcessProfile"
 Cohesion: 0.09
@@ -407,8 +423,8 @@ Cohesion: 0.19
 Nodes (13): Claim발주 경계, 아키텍처 계약  coupled-digital-validation-v05, 아키텍처 계약 — coupled-digital-validation-v0.5, 잠긴 결정, 가정과 확인 대기 항목  coupled-digital-validation-v05, 가정과 확인 대기 항목 — coupled-digital-validation-v0.5, 책임·검증 matrix — coupled-digital-validation-v0.5, 책임검증 matrix  coupled-digital-validation-v05 (+5 more)
 
 ### Community 324 - "artifacts/manifest.json"
-Cohesion: 0.12
-Nodes (16): artifact_count, artifacts, empirical_state, empirical_validation, fabrication_validation, geometry_validation, regeneration_commands, release_state (+8 more)
+Cohesion: 0.10
+Nodes (19): artifact_count, artifacts, cross_solver_state, empirical_state, empirical_validation, fabrication_validation, geometry_validation, regeneration_commands (+11 more)
 
 ### Community 373 - "run_load_checks.py"
 Cohesion: 0.24
@@ -463,8 +479,8 @@ Cohesion: 0.29
 Nodes (7): 저비용 물리 Gate, 저비용 물리 Gate, Gate 1 Cutter coupon, Gate 2 Flakefeed coupon, Gate 3 Extruder coldmechanical proof, Gate 4 Hot extrusion, Gate 5 Diameterspool
 
 ### Community 493 - "test_release.py"
-Cohesion: 0.67
-Nodes (6): main(), require(), test_artifacts_and_locks(), test_geometry_budget_and_prints(), test_manufacturing_and_physics(), test_revision_and_stale()
+Cohesion: 0.61
+Nodes (7): main(), require(), test_artifacts_and_locks(), test_geometry_budget_and_prints(), test_implementation_and_cross_solver(), test_manufacturing_and_physics(), test_revision_and_stale()
 
 ### Community 494 - "generate_interface_catalog.py"
 Cohesion: 0.53
@@ -579,19 +595,17 @@ Cohesion: 1.00
 Nodes (3): Compact Full Assembly Front, Compact Full Assembly Isometric, Compact Full Assembly Top
 
 ## Knowledge Gaps
-- **548 isolated node(s):** `revision`, `release_state`, `geometry_validation`, `fabrication_validation`, `virtual_physics_validation` (+543 more)
+- **557 isolated node(s):** `revision`, `release_state`, `geometry_validation`, `fabrication_validation`, `virtual_physics_validation` (+552 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **113 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **114 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `f()` connect `generate.py` to `geometry.py`, `manufacturing.py`, `slice_prints.py`, `main`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Why does `assembly_objects()` connect `geometry.py` to `main`, `generate.py`, `manufacturing.py`, `render_views.py`?**
-  _High betweenness centrality (0.011) - this node is a cross-community bridge._
-- **Why does `ProcessProfile` connect `ProcessProfile` to `ShredderOutput`, `ShredderController`, `shredder_control.cpp`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **Are the 10 inferred relationships involving `assembly_objects()` (e.g. with `main()` and `main()`) actually correct?**
   _`assembly_objects()` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 6 inferred relationships involving `gate1_assembly()` (e.g. with `write_gate1_package()` and `gate1_render_items()`) actually correct?**
@@ -599,4 +613,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 2 inferred relationships involving `machine_fabrication_parts()` (e.g. with `write_machine_fabrication_package()` and `main()`) actually correct?**
   _`machine_fabrication_parts()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `revision`, `release_state`, `geometry_validation` to the rest of the system?**
-  _548 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _557 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `ActuatorCommands` be split into smaller, more focused modules?**
+  _Cohesion score 0.04902867715078631 - nodes in this community are weakly interconnected._

@@ -1,6 +1,6 @@
 # SP-RL-01 — Dancer end roller
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `POM-C`
 - process: `turn + bore`

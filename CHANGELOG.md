@@ -1,5 +1,16 @@
 # 변경 이력
 
+## implementation-crosssolver-v0.6 — 2026-08-30
+
+- Arduino Mega 2560에 실제 MAX6675 T1–T5, H-bridge/DC/stepper/fan/heater I/O, EEPROM CRC calibration, heater protection, X/Y gauge PI와 controlled-pause, text UI backend를 구현하고 compile/host test를 통과했다.
+- Process phase와 직교하는 material-session FSM을 추가해 IDLE/feed=0/screw=0에서만 전환을 시작하고 purge→screen→hopper→temperature→explicit final confirmation 순서를 강제했다.
+- OpenModelica를 74개 scenario로 확대했다. 좌/우 shaft load 방향, phase reversal, multi-hook, strict rated load, gauge noise/bias/dropout, puller slip/saturation, feeder/cooling/spool permission loss, PLA/PET relief와 component-summed dynamic power를 포함한다.
+- 양축 retry jam은 합계 19 N·m로 18 N·m electrical trip과 22 N·m mechanical fuse 사이를 시험하고, mechanical-fuse/multi-hook overload는 별도 보호 시나리오로 분리했다. 74/74 PASS다.
+- 새 peak envelope(cutter 21.994 N·m, phase 20.000 N·m, bearing 1.857 kN, chain 0.603 kN)로 구조를 재평가했다. CalculiX bearing plate/shaft 3단계 mesh 수렴은 1.1644%/0.3119%, closed-form 최소 SF는 thermocouple ligament 2.16이다.
+- EX-BAR-01 thermocouple bore를 Ø3.20 blind6→blind5.5로 줄여 nominal ligament를 2.9→3.4 mm, trip SF를 2.00→2.15로 높였다. FreeCAD/RFQ/probe 길이/검증을 함께 갱신했다.
+- FreeCAD controlling source에서 Fusion STEP 9개, LC01–LC10, 7개 study, Windows worker와 hash-bound result validator를 만들었다. 실제 Autodesk Fusion 결과는 `PENDING_EXTERNAL_EXECUTION`이다.
+- Project-lab 실재고와 RFQ는 증거 양식만 준비했으며, 실제 사진·라벨·실측·업체 회신이 없어 `NOT_VERIFIED`/`NOT_RECEIVED`로 유지한다. 구매·발주는 수행하지 않았다.
+
 ## virtual-physics-closure-v0.5.1 — 2026-08-30
 
 - v0.4가 표기한 `DIGITAL_FABRICATION_BASELINE`은 근거 검토 결과 `DIGITAL_GEOMETRY_AND_SURROGATE_BASELINE`으로 재분류했고, v0.5는 모든 디지털 gate를 실제 통과한 뒤 승급했다.

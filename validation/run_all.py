@@ -71,6 +71,7 @@ def main():
     run([sys.executable, "simulation/openmodelica/postprocess/summarize_results.py"], "OPENMODELICA_ACCEPTANCE_OK")
     run([sys.executable, "simulation/openmodelica/postprocess/generate_plots.py"], "OPENMODELICA_PLOTS_OK")
     run(nix("python3 analysis/structural/run_load_checks.py"), "STRUCTURAL_SCREENING_OK")
+    run(freecad("cad/freecad/compact/generate_fusion_validation.py"), "FUSION_NEUTRAL_PACKAGE_OK")
 
     if "--regenerate-renders" in sys.argv or not (ROOT / "renders/assembly/compact_full_assembly_isometric.png").exists():
         run(freecad("cad/generation/render_views.py"), "COMPACT_RENDER_GENERATION_OK")
@@ -86,10 +87,10 @@ def main():
         "echo DIGITAL_PDF_BUILD_OK",
     ])
     run(["bash", "-lc", typst] if shutil.which("typst") else nix(typst), "DIGITAL_PDF_BUILD_OK")
-    run([sys.executable, "validation/artifact_reproducibility.py"], "CLEAN_CLONE_REPRODUCIBILITY_OK")
     run([sys.executable, "artifacts/build_manifest.py"], "ARTIFACT_MANIFEST_OK")
-    run([sys.executable, "validation/test_release.py"], "COUPLED_DIGITAL_VALIDATION_RELEASE_OK")
-    print("ALL_MANDATORY_DIGITAL_VIRTUAL_VALIDATIONS_OK; EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN; DESIGN_RELEASE_GATE_PASS")
+    run([sys.executable, "validation/artifact_reproducibility.py"], "CLEAN_CLONE_REPRODUCIBILITY_OK")
+    run([sys.executable, "validation/test_release.py"], "IMPLEMENTATION_CROSSSOLVER_V06_RELEASE_OK")
+    print("ALL_IMPLEMENTATION_VIRTUAL_VALIDATIONS_OK; CROSS_SOLVER_VALIDATION_PENDING; EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN")
 
 
 if __name__ == "__main__":

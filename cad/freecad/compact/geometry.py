@@ -956,7 +956,7 @@ def assembly_objects(exploded=False):
     for zone,(z0,sensor_z) in enumerate(((45.0,95.0),(115.0,170.0),(190.0,245.0)),start=1):
         band=mica_band_heater_shape(); band.translate(App.Vector(0,0,z0)); band.rotate(App.Vector(),App.Vector(0,1,0),-90); band.translate(App.Vector(375,347,382))
         add(f"BarrelBandHeaterZ{zone}",band,orange,"extruder",f"24 V 100 W custom mica band ID34.00 W45 zone {zone}","purchased_reference_envelope")
-        probe=k_type_probe_shape(); probe.rotate(App.Vector(),App.Vector(1,0,0),90); probe.translate(App.Vector(375-sensor_z,364,382))
+        probe=k_type_probe_shape(insertion_length=5.5); probe.rotate(App.Vector(),App.Vector(1,0,0),90); probe.translate(App.Vector(375-sensor_z,364,382))
         add(f"TemperatureProbeT{zone}",probe,purple,"extruder",f"T{zone} ungrounded K-type Ø3 probe in EX-BAR-01 blind bore B+{sensor_z:.0f}; MAX6675 T- common reference")
     add("BarrelThermalFuse",box(263,343,401.5,22,8,12),red,"extruder","independent 300 C one-shot fuse on metal clamp in inter-zone gap")
     shield = hot_shield_shape(); shield.translate(App.Vector(40, 310, 340))

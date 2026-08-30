@@ -1,6 +1,6 @@
-# Virtual Physics Closure PLA/PET Recycler v0.5.1
+# Implementation + Cross-solver PLA/PET Recycler v0.6
 
-Active revision은 `implementation-crosssolver-v0.6`이다. 독립 상태는 `geometry_validation=PASS`, `fabrication_validation=PASS`, `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`, `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. 이는 프로젝트가 선택한 OpenModelica+해석역학+CalculiX+CAD 검증법에 따른 제작 기준선이며 안전·생산 인증이나 실제 filament 측정 합격을 뜻하지 않는다.
+Active revision은 `implementation-crosssolver-v0.6`이다. 상태는 `IMPLEMENTATION_BASELINE`, `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`, `cross_solver_state=CROSS_SOLVER_VALIDATION_PENDING`, `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. Arduino Mega 구현과 외부 Fusion 전달 패키지를 포함하지만, 실제 Fusion solve·안전 인증·물리 filament 측정 합격을 뜻하지 않는다.
 
 ```text
 수동 검사/세척/재질 확인 → 공용 hopper → 공용 dual-shaft cycloidal-inspired hook cutter
@@ -21,16 +21,20 @@ Project-lab 우선 후보는 24 V wheelchair/conveyor geared brushed-DC, 그다�
 
 - 설계 외형: `470 × 700 × 930 mm`; hard `500 × 750 × 1000 mm`, target `480 × 720 × 950 mm` 이내.
 - 출력품: 12종, 계획 질량 `904.20 g` (실패 12% reserve 포함 `1,012.70 g`) 이하 기준선; 개별 축 210 mm 이하. 실제 slicer 결과는 재검증 산출물을 따른다.
-- OpenModelica 1.27.0 / MSL 4.0.0: process-phase arbiter, DC motor/gearbox/chain/fuse/cutter, reduced-order screw pressure-flow feedback, cooling/forming, explicit line-length spool jam을 연결한 74 scenario PASS.
-- Coupled peak envelope: cutter 21.994 N·m, phase 16.220 N·m, bearing 1.293 kN, chain 0.603 kN. 모두 측정값이 아닌 reduced-order virtual load이며 optional empirical correlation은 미수행이다.
-- Process heater: barrel 3×100 W + die 60 W = 360 W, T1–T5와 independent thermal cutoff. Extrusion active peak 490 W < 24 V 600 W; shredder와 heater/screw는 상호배제한다.
+- Arduino Mega 2560: T1–T5 MAX6675, motor/stepper/fan/heater I/O, EEPROM calibration CRC, ordered material-change session, bounded heater PID/time-proportion, X/Y gauge PI/safe-pause, Serial text UI backend가 실제 compile 및 host test를 통과했다. 실물 board와 calibration은 미수행이다.
+- OpenModelica 1.27.0 / MSL 4.0.0: 좌/우 shaft jam, phase reversal, multi-hook, gauge noise/bias/dropout, puller slip/saturation, feeder/cooling/spool permission loss, relief PLA/PET와 동적 phase power를 포함한 74 scenario PASS.
+- Coupled peak envelope: cutter 21.994 N·m, phase 20.000 N·m, bearing 1.857 kN, chain 0.603 kN. 모두 측정값이 아닌 reduced-order virtual load다.
+- Process heater: barrel 3×100 W + die 60 W = 360 W, T1–T5와 independent thermal cutoff. 동적 component 합산 peak는 각 phase에서 500 W 이하, PSU reserve 100 W 이상이며 shredder와 heater/screw는 상호배제한다.
+- CalculiX: bearing plate medium→fine 전역 변위 차이 1.1644%, cutter shaft 0.3119%로 5% mesh convergence 기준 PASS.
+- Fusion neutral package: FreeCAD source에서 생성한 STEP 9개와 LC01–LC10, study 7종, Windows worker, hash-bound result validator가 준비됐다. 실제 Fusion 결과는 `PENDING_EXTERNAL_EXECUTION`이다.
 - 16 mm screw default virtual point: PLA 16 rpm 99.4 g/h, PET 18 rpm 97.5 g/h, fan 100%. 200 g/h는 `DIGITAL_STRETCH_TARGET`이며 실제 달성 claim이 아니다.
 - Frame은 2020 general frame + local 2040 shredder rails를 사용한다. Profile은 총 14.668 m이고 virtual bearing-center relative displacement는 0.351 mm다.
 - 조건부 cash target `173,729 KRW`; 20,000 KRW reserve 포함 `193,729 KRW`; cap 여유 `6,271 KRW`. Supplier quote와 donor evidence가 없어 `VERIFIED_PROCUREMENT_BUDGET=NOT_ESTABLISHED`다.
 
 ## 서로 독립인 세 가지 gate
 
-- `DESIGN_RELEASE_GATE=PASS`: 디지털/가상 물리 검증에만 의존하며 optional empirical Gate-1…5 미수행으로 차단하지 않는다.
+- `IMPLEMENTATION_RELEASE_GATE=PASS`: 코드 compile/host test, 74개 가상 시나리오, CalculiX와 중립 package 완전성을 검증했다.
+- `CROSS_SOLVER_GATE=PENDING_EXTERNAL_EXECUTION`: 실제 Autodesk Fusion 결과가 없으므로 PASS가 아니다.
 - `PROCUREMENT_APPROVAL_GATE=USER_APPROVAL_REQUIRED`: CNC, cutter, screw/barrel, motor, heater, 안전부품 구매/가공은 승인 전 금지한다.
 - `COMMISSIONING_GATE=USER_APPROVAL_REQUIRED`: heater 통전과 최초 powered commissioning은 물리 lockout 및 사용자 확인 전 금지한다.
 
@@ -45,5 +49,7 @@ Main promotion은 mandatory digital/virtual gate PASS만으로 허용한다. 단
 ```bash
 python3 validation/run_all.py --regenerate-renders
 ```
+
+Fusion 중립 패키지는 `exports/fusion_validation`, worker 계약은 `fusion_worker`, 상관 matrix는 `analysis/cross_solver`에 있다.
 
 세부 생성 명령, 계산과 물리 한계는 `validation/release_checklist.md`, `bom/value_engineering_v0.5.md`, `exports/jigs/gate1`, `exports/cnc/extruder`에 기록한다. 이전 정확 snapshot은 `docs/archive_index.md`의 tag/branch/SHA로 보존한다.

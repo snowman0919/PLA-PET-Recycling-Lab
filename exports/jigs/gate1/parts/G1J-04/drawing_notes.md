@@ -1,6 +1,6 @@
 # G1J-04 — Left guard panel
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `3 mm polycarbonate`
 - process: `CNC router/drill`

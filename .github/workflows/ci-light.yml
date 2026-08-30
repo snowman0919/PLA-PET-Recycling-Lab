@@ -20,7 +20,8 @@ jobs:
           python3 firmware/arduino_mega/generate_config.py
           python3 validation/controller_contract.py
           make -C firmware/arduino_mega test
+          python3 -m compileall -q fusion_worker
       - name: Budget and static syntax
         run: |
           python3 bom/build_budget_views.py
-          python3 -m compileall -q artifacts bom calculations control firmware simulation validation
+          python3 -m compileall -q artifacts analysis bom calculations control firmware fusion_worker simulation validation

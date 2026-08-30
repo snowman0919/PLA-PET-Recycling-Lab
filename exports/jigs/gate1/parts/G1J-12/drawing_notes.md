@@ -1,6 +1,6 @@
 # G1J-12 — Top guard panel with chute opening
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `3 mm polycarbonate`
 - process: `CNC router/drill`

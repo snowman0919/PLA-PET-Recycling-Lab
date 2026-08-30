@@ -1,6 +1,6 @@
 # G1J-07 — Metal guard upright
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `4`
 - material: `20 x20 x2 aluminum/steel angle`
 - process: `saw cut + drill`

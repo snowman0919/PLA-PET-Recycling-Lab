@@ -1,4 +1,4 @@
-#set document(title: "Coupled Digital Validation PLA/PET Recycler v0.5 설계 보고서")
+#set document(title: "Implementation Cross-solver PLA/PET Recycler v0.6 설계 보고서")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -99,6 +99,8 @@ PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 904.
 
 = 검증 경계
 
-#ok[Digital baseline은 closed B-Rep, manifold mesh, actual slicing, OpenModelica mandatory 74 scenario, CalculiX/analytical structure, controller-contract/firmware sync를 검사한다. 상태는 IMPLEMENTATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
+#ok[Implementation baseline은 closed B-Rep, manifold mesh, actual slicing, Arduino Mega compile/host test, OpenModelica mandatory 74 scenario, CalculiX 3단계 mesh/analytical structure, controller-contract/firmware sync와 Fusion 중립 package hash binding을 검사한다. 상태는 IMPLEMENTATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / CROSS_SOLVER_VALIDATION_PENDING / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
+
+Fusion용 STEP 9개와 LC01–LC10, static/modal/thermal/thermal-stress/nonlinear/event/buckling study 계약은 준비됐으나 Autodesk Fusion 실행 결과는 없다. 따라서 solver correlation은 PENDING이며 OpenModelica/CalculiX PASS를 Fusion PASS로 표시하지 않는다.
 
 Gate-1…5는 optional empirical commissioning/model-correlation 절차다. 수행 결과와 simulation 결과를 혼용하지 않는다.

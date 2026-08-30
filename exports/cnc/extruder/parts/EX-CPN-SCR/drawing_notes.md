@@ -1,6 +1,6 @@
 # EX-CPN-SCR — Three-pitch screw process coupon
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `same certified SCM440 heat as EX-SCR-01`
 - process: `same flight mill/polish/nitride route as EX-SCR-01`

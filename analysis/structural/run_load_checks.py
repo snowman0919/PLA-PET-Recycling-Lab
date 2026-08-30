@@ -59,7 +59,7 @@ def plate_deck(load_n: float, scale: int = 2) -> str:
     fixed_lines = [",".join(map(str, fixed[i:i + 16])) for i in range(0, len(fixed), 16)]
     loaded_lines = [",".join(map(str, loaded[i:i + 16])) for i in range(0, len(loaded), 16)]
     return "\n".join([
-        "*HEADING", "PPR v0.4 bearing plate screening; SI units m N Pa",
+        "*HEADING", "PPR v0.6 bearing plate screening; SI units m N Pa",
         "*NODE", *nodes,
         "*ELEMENT,TYPE=C3D8,ELSET=EALL", *elements,
         "*NSET,NSET=FIXED", *fixed_lines,
@@ -80,7 +80,7 @@ def shaft_deck(radial_load_n: float, torque_nm: float, elements_count: int = 3) 
     nodes = [f"{i+1},{i*0.03/elements_count:.6f},0,0" for i in range(elements_count + 1)]
     elements = [f"{i+1},{i+1},{i+2}" for i in range(elements_count)]
     return "\n".join([
-        "*HEADING", "PPR v0.4 cutter shaft screening; SI units m N Pa",
+        "*HEADING", "PPR v0.6 cutter shaft screening; SI units m N Pa",
         "*NODE", *nodes,
         "*ELEMENT,TYPE=B31,ELSET=EALL", *elements,
         "*NSET,NSET=FIXED", "1",
@@ -203,7 +203,7 @@ def main() -> None:
     spool_shaft = 32 * spool_load * 0.085 / (math.pi * 0.008**3) / 1e6
     anchor_tension = envelope.get("full_system", {}).get("peak_anchor_tension_n", radial * 0.8)
     anchor_stress = anchor_tension / (math.pi * 6.466e-3**2 / 4) / 1e6
-    bore = next(row for row in engineering["thermocouple_bore"]["candidates"] if row["blind_bore_depth_mm"] == 6.0)
+    bore = next(row for row in engineering["thermocouple_bore"]["candidates"] if row["blind_bore_depth_mm"] == engineering["thermocouple_bore"]["selected_depth_mm"])
     frame = next(row for row in engineering["frame_sensitivity"]["options"] if row["option"] == "B_LOCAL_2040")
 
     checks = [
@@ -216,7 +216,7 @@ def main() -> None:
         check("EX-THR-01 screw thrust plate", screw_plate, 137.5, "6 MPa conservative blocked-die thrust", f"calculated axial thrust {screw_thrust:.0f} N; open die and sacrificial relief remain mandatory"),
         check("SP-SHAFT-01 spool shaft", spool_shaft, 100, "1.35 kg spool + 8 N line tension", "8 mm steel shaft, 85 mm cantilever"),
         check("FR-ANCHOR-01 M8 table anchor", anchor_stress, 320, "frame reaction envelope", "minor-diameter tensile area; four anchors required, one-anchor conservative screening"),
-        check("EX-BAR-01 thermocouple blind-bore ligament", bore["trip_combined_stress_mpa"], 180, "6 MPa pressure-trip + 270 C / 10 C local-gradient screen", "Ø3.2 blind6 leaves 2.9 mm nominal ligament; thick-cylinder/net-section/notch/thermal closed-form screen"),
+        check("EX-BAR-01 thermocouple blind-bore ligament", bore["trip_combined_stress_mpa"], 180, "6 MPa pressure-trip + 270 C / 10 C local-gradient screen", "Ø3.2 blind5.5 leaves 3.4 mm nominal ligament; thick-cylinder/net-section/notch/thermal closed-form screen"),
     ]
 
     GEN.mkdir(parents=True, exist_ok=True)

@@ -1,6 +1,6 @@
 # 출력물 총 재료 보고 — 실제 slicing
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - slicer: `PrusaSlicer 2.9.6`, profile `PPR_PrusaSlicer_2.9.6.ini`
 - slicer filament: **904.2 g**
 - slicer minus solid-CAD nominal: **-213.5 g**

@@ -1,6 +1,6 @@
 # TH-PTC-02 — Hopper PTC grounded keeper
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `304 stainless t2`
 - process: `laser + deburr`

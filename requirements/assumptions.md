@@ -14,3 +14,5 @@
 |Cash target|173,729 KRW + 20,000 KRW reserve = 193,729 KRW|donor/RFQ 전 conditional only; 절대 cap 여유 6,271 KRW|
 |Heater|barrel 3×100 W + die 60 W, T1–T5, extrusion peak 490 W|supplier/stock 확인과 physical thermal test 전 surrogate|
 |Throughput|PLA 16 rpm 99.4, PET 18 rpm 97.5 g/h virtual default|실제 측정 claim 금지; 200 g/h `DIGITAL_STRETCH_TARGET`|
+|Fusion solver|STEP 9개, LC01–LC10과 7개 study 계약|실제 Autodesk Fusion 결과 미제공; `PENDING_EXTERNAL_EXECUTION`|
+|Project-lab 재고/RFQ|검사용 빈 evidence/register|사진·라벨·실측·업체 회신 전 `NOT_VERIFIED`/`NOT_RECEIVED`|

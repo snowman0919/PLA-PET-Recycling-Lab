@@ -1,6 +1,6 @@
 # G1J-10 — CUT-03 plate foot angle
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `4`
 - material: `40 x40 x4 steel/aluminum angle`
 - process: `saw cut + drill`

@@ -1,6 +1,6 @@
 # SP-DA-01 — Dancer arm
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `8 mm 6061-T6`
 - process: `waterjet + ream`

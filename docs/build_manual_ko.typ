@@ -1,4 +1,4 @@
-#set document(title: "Coupled Digital Validation PLA/PET Recycler v0.5 제작 매뉴얼")
+#set document(title: "Implementation Cross-solver PLA/PET Recycler v0.6 제작 매뉴얼")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -18,7 +18,7 @@
 
 #danger[*물리 운전 승인 문서가 아니다.* Cutter, screw, heater, mains/high-current는 사용자 승인, exact component 확인, guard와 commissioning gate 전 energize하지 않는다.]
 
-Release: `IMPLEMENTATION_BASELINE` / `VIRTUAL_PHYSICS_VALIDATED` / `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`.
+Release: `IMPLEMENTATION_BASELINE` / `VIRTUAL_PHYSICS_VALIDATED` / `CROSS_SOLVER_VALIDATION_PENDING` / `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`.
 
 #pagebreak()
 = 작업 전 확인
@@ -81,7 +81,7 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 원료는 외부 dryer에서 준비한 뒤 밀폐 용기로 옮겨 sealed hopper에 넣는다. 현재 PLA/PET dryer recipe는 `UNQUALIFIED_EXTERNAL_PROCESS`이므로 물리 moisture coupon과 사용자 확인 없이 건조 완료로 표시하지 않는다. Maintenance heater branch에 fuse, independent high-limit와 one-shot fuse를 직렬 설치한다.
 
-16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. Barrel T1–T3은 Ø3.20 blind6이고 nominal melt-bore ligament는 2.9 mm다. Ø3 ungrounded mineral-insulated K probe를 MAX6675 T- common electronics reference에 연결하며 sheath-to-junction insulation을 수령 검사한다. Die cartridge는 Ø6.00 -0.02/-0.06, bore는 Ø6.05 H7 reamed이고 허용 직경 간극은 0.070–0.122 mm다. Thrust bearing -> metal plate -> profile 순서로 조립하고 cooldown/0 V 뒤 screw를 축방향 인출한다.
+16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. Barrel T1–T3은 Ø3.20 blind5.5이고 nominal melt-bore ligament는 3.4 mm다. Ø3 ungrounded mineral-insulated K probe의 접촉 길이를 5.5 mm로 제한해 MAX6675 T- common electronics reference에 연결하며 sheath-to-junction insulation을 수령 검사한다. Die cartridge는 Ø6.00 -0.02/-0.06, bore는 Ø6.05 H7 reamed이고 허용 직경 간극은 0.070–0.122 mm다. Thrust bearing -> metal plate -> profile 순서로 조립하고 cooldown/0 V 뒤 screw를 축방향 인출한다.
 
 EX-DIE-02 seven-hole breaker를 EX-DIE-01의 barrel-side Ø16.20×3 seat에 넣고 새 EX-DIE-05 C110 annealed gasket를 barrel과 body 사이에 둔다. 4×M4×45 class 10.9를 3.0 N·m로 대각 체결한다. EX-DIE-03 Ø11.90×14 insert를 아래에서 넣고 EX-DIE-04 304 t1.5 retainer를 2×M4, 1.2 N·m로 고정한다. Ø8 수평/수직 channel은 borescope로 burr/step이 없는지 확인한다. 265 °C 계산값 4.32 MPa는 합격 근거가 아니며 동일 lot 3개가 shielded 265 °C hydraulic fixture에서 3–6 MPa에 insert를 포획한 채 우회 개방해야 한다. 누설·relief first-hot-test는 grounded shield, 원격 E-stop과 물리 barrier 뒤에서만 수행한다.
 
@@ -108,6 +108,8 @@ Empty/full dummy spool로 dancer 50° sweep, traverse 80 mm와 cable clearance�
 = Control과 UI
 
 첫 화면 PLA/PET/Maintenance/Calibration을 확인한다. START 후 material 변경이 거부되는지 host test와 실제 panel에서 확인한다. 전환 wizard는 purge 최소량, screen clean, hopper clean, temperature transition, final confirmation을 모두 요구한다.
+
+Mega pin과 wiring은 `electronics/controller_wiring_v0.6.md`/`board_config.h`를 따른다. EEPROM CRC calibration이 없으면 shredder 구동과 gauge release를 금지한다. Gauge fault는 feed 즉시 정지, puller/spooler 정지, screw 10 s 이하 rundown, heater 60 s 이하 reduced hold 후 cooldown을 요구한다. Fault clear에는 physical lockout key가 필요하다.
 
 표시 항목은 material/state, screw speed, shredder load, heater temperature, feeder, X/Y/mean/ovality/U95, spool progress와 fault다.
 

@@ -20,9 +20,11 @@
 - 최대 3회 bounded reverse 후 latched fault. Lockout와 원인 제거 확인 없이 clear 금지.
 - Calibrated electrical trip 18 N·m equivalent와 upstream mechanical relief 22 N·m equivalent가 34 N·m phase 및 48 N·m shaft/cutter보다 먼저 작동한다. 모든 hierarchy 값은 cutter-shaft reference이며 motor-side DRV-F01 설정값은 ratio로 환산한다.
 - Melt pressure sensor가 없어도 open die, replaceable screen, torque trip, sacrificial relief, guard, remote first-hot-test를 유지한다.
+- Material change는 process phase와 직교하는 session state다. IDLE/feed stop/screw stop에서만 시작하며 다섯 ordered acknowledgement와 explicit final confirmation 전 production state로 돌아가지 않는다.
+- Gauge/feeder/cooling/spool permission loss는 controlled pause를 시작한다. Feed 즉시 stop, puller/spooler stop, screw 최대 10 s rundown, heater 최대 60 s reduced hold 뒤 cooldown한다.
 
 ## Claim·발주 경계
 
-Release state `IMPLEMENTATION_BASELINE`은 closed-solid CAD, actual slicing, 74개 mandatory coupled Modelica scenario와 CalculiX/analytical screening, interface catalog, controller contract와 재생성 hash가 일치한 상태다. 독립 상태는 `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`, `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. `VERIFIED_PROCUREMENT_BUDGET`는 supplier 견적과 donor 실물 증거 전 `NOT_ESTABLISHED`로 유지한다.
+Release state `IMPLEMENTATION_BASELINE`은 closed-solid CAD, actual slicing, Arduino Mega compile/host test, 74개 mandatory coupled Modelica scenario와 3단계 CalculiX/analytical screening, interface catalog, controller contract, Fusion neutral package hash가 일치한 상태다. 독립 상태는 `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`, `cross_solver_state=CROSS_SOLVER_VALIDATION_PENDING`, `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. 실제 Fusion solve 전 cross-solver PASS를 주장하지 않는다. `VERIFIED_PROCUREMENT_BUDGET`는 supplier 견적과 donor 실물 증거 전 `NOT_ESTABLISHED`로 유지한다.
 
 Gate-1…5는 `OPTIONAL_EMPIRICAL_VALIDATION`이다. 미수행은 `main`을 차단하지 않는다. 다만 CUT-01 full stack, EX-SCR-01/EX-BAR-01, motor/heater/safety hardware의 구매·가공과 최초 통전은 별도 `PROCUREMENT_APPROVAL_GATE`/`COMMISSIONING_GATE`에서 사용자 승인을 요구한다.

@@ -1,6 +1,6 @@
 # TH-DIE-01 — Die cartridge heater
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `stainless-sheathed cartridge`
 - process: `purchased reference + receipt test`

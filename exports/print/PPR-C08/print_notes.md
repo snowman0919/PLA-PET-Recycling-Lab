@@ -1,6 +1,6 @@
 # PPR-C08 — Solid-strand guide axle bracket
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: 2
 - material: PLA
 - nozzle diameter: 0.4 mm

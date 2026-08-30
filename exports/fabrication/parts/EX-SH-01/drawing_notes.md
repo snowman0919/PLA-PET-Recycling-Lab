@@ -1,6 +1,6 @@
 # EX-SH-01 — Three-panel hot-zone shield
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - quantity: `1`
 - material: `2 mm 5052 aluminum`
 - process: `laser + two 90deg bends; bond PE`

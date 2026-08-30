@@ -154,7 +154,7 @@ def thermocouple_bore_screening():
     """Local membrane/notch/thermal-gradient screen at the blind-bore tip.
 
     This is deliberately conservative and decision-relevant: it compares the
-    former 7 mm bore to the selected 6 mm bore, using the same material/load
+    former 7/6 mm bores to the selected 5.5 mm bore, using the same material/load
     assumptions, rather than presenting an uncalibrated contour plot.
     """
     ro=P["extruder"]["barrel_od_mm"]/2
@@ -169,7 +169,7 @@ def thermocouple_bore_screening():
     thermal=young_mpa*alpha*local_gradient_c/(1-poisson)
     allowable=180.0
     rows=[]
-    for depth in (7.0,6.0):
+    for depth in (7.0, 6.0, 5.5):
         ligament=wall-depth
         def combined(pressure):
             hoop=pressure*(ro**2+ri**2)/(ro**2-ri**2)
@@ -186,8 +186,8 @@ def thermocouple_bore_screening():
         "method":"thick-cylinder inner hoop × wall/net-ligament × Kt1.5 + fully restrained 10 C local thermal gradient",
         "boundary_conditions":{"pet_bulk_c":270,"normal_pressure_mpa":pressure_normal,"trip_pressure_mpa":pressure_trip,"local_gradient_c":local_gradient_c},
         "material_assumptions":{"young_mpa":young_mpa,"alpha_per_k":alpha,"poisson":poisson,"screening_allowable_mpa":allowable},
-        "candidates":rows,"selected_depth_mm":6.0,"selected_status":rows[1]["status"],
-        "decision":"SELECT_BLIND6_LIGAMENT2.9; blind7 fails SF>=2 screen",
+        "candidates": rows, "selected_depth_mm": 5.5, "selected_status": rows[2]["status"],
+        "decision": "SELECT_BLIND5.5_LIGAMENT3.4; improves tolerance margin over marginal blind6 SF2.0",
         "physical_status":"EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
     }
 
@@ -284,7 +284,7 @@ PET predry는 `UNQUALIFIED_EXTERNAL_PROCESS`; 65 °C/7 h를 qualified recipe로 
 - 200 g/h: nominal 미입증 stretch target
 - torque hierarchy: 14 < 18 < 22 < 34 < 48 N·m, PASS
 - 24 V phase power: maximum {max(r['peak_w'] for r in power['states'])} W ≤500 W, reserve {min(r['remaining_w_to_psu'] for r in power['states'])} W ≥100 W, PASS
-- thermocouple bore: blind6 / ligament {bore['candidates'][1]['nominal_ligament_mm']} mm / trip SF {bore['candidates'][1]['trip_safety_factor']}, PASS
+- thermocouple bore: blind5.5 / ligament {bore['candidates'][2]['nominal_ligament_mm']} mm / trip SF {bore['candidates'][2]['trip_safety_factor']}, PASS
 - die heater fit: Ø6.05 H7, clearance {heater_fit['diametral_clearance_mm'][0]:.3f}–{heater_fit['diametral_clearance_mm'][1]:.3f} mm
 - frame: local 2040 Option B, relative displacement {frame['options'][1]['bearing_center_relative_displacement_mm']} mm, total profile {frame['new_profile_total_m']} m
 - EX-DIE-04 first-yield screen: {die_relief['estimated_first_yield_pressure_mpa']} MPa; empirical coupon is optional evidence but procurement/commissioning remains approval-gated

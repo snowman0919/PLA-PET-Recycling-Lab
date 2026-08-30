@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FreeCAD entry point for virtual-physics-closure-v0.5.1 artifacts."""
+"""FreeCAD entry point for implementation-crosssolver-v0.6 artifacts."""
 
 import runpy
 from pathlib import Path
