@@ -17,7 +17,7 @@
 - [x] 전체 재생성 후 normalized artifact hash gate PASS (`CLEAN_CLONE_REPRODUCIBILITY`, 566 artifacts)
 - [x] stale architecture/current-source 검사 PASS (legacy 시간기반 모델 0)
 - [x] current drive/thermal/assembly render 생성과 parent multimodal visual review 기록 (`validation/visual_review/2026-08-30-coupled-digital-validation-v0.5.md`)
-- [ ] remote branch push 후 clean clone 전체 재생성 및 normalized hash 재현 PASS
+- [x] remote branch push 후 clean clone 전체 재생성 및 normalized hash 재현 PASS (commit `f828750`, 2026-08-30, `validation/results/clean_clone_validation.json`)
 
 ## Procurement / physical-phase 항목 (digital gate와 분리)
 
