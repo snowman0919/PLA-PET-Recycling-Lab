@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "exports/fabrication/interface_catalog.csv"
-REVISION = "coupled-digital-validation-v0.5"
+REVISION = "virtual-physics-closure-v0.5.1"
 
 
 def require(condition, message):
@@ -38,7 +38,8 @@ def main():
     require("Ø16 H7" in by_id["IF-011"]["nominal_dimension_b"], "625 OD seat must be Ø16 H7")
     require("Ø5.2" in by_id["IF-012"]["nominal_dimension_b"], "PPR-C08 must locate the Ø5 axle")
     require("Ø34.0 custom" in by_id["IF-023"]["nominal_dimension_b"], "band heater ID mismatch")
-    require("Ø6.20 H9" in by_id["IF-024"]["nominal_dimension_a"], "die heater bore mismatch")
+    require("Ø6.05 H7" in by_id["IF-024"]["nominal_dimension_a"], "die heater bore mismatch")
+    require("0.070–0.122" in by_id["IF-024"]["clearance_interference"], "die heater clearance mismatch")
     print(f"FABRICATION_INTERFACE_CATALOG_VALIDATED_OK rows={len(rows)}")
 
 

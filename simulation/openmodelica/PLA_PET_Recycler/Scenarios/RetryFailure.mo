@@ -1,6 +1,6 @@
 within PLA_PET_Recycler.Scenarios;
 model RetryFailure
-  extends Systems.CoupledShredderSystem(rightMaterial=4,leftMaterial=4,overloadDwell=0.01,currentThreshold=4.0);
+  extends Systems.CoupledShredderSystem(rightMaterial=4,leftMaterial=4,jamLoadTorque=13.5);
   parameter String protectedRequirement="SYS-JAM-01";
   parameter String estimatedParameters="persistent two-shaft jam";
   parameter String acceptance="persistent overload becomes latched fault and motor enable is removed";

@@ -1,6 +1,6 @@
 # SP-SH-01 — Spool spindle
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `Ø12 h6 S45C`
 - process: `cut/turn faces + collar flats`

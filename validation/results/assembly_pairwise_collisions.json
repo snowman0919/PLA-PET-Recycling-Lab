@@ -1,6 +1,6 @@
 {
-  "revision": "coupled-digital-validation-v0.5",
-  "pair_count": 13041,
+  "revision": "virtual-physics-closure-v0.5.1",
+  "pair_count": 13203,
   "tolerance_mm3": 0.05,
   "overlaps": [
     {
@@ -38,6 +38,15 @@
       "right_class": "manufactured_or_stock",
       "allowed": true,
       "reason": "feeder 용접/socket 삽입부"
+    },
+    {
+      "left": "HeaterCableDuctBridgeX",
+      "right": "HeaterCableDuctBridgeY",
+      "overlap_mm3": 356.0,
+      "left_class": "manufactured_or_stock",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "18x18 고정 금속 duct의 의도된 L자 결합부"
     },
     {
       "left": "Spool",

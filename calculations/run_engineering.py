@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""v0.5 coherent flow, torque, power, cooling and control calculations."""
+"""v0.5.1 virtual-physics engineering closure calculations."""
 
 from __future__ import annotations
 
@@ -10,7 +10,8 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 P=json.loads((ROOT/"cad/parameters/baseline.json").read_text())
-REV="coupled-digital-validation-v0.5"
+CONTRACT=json.loads((ROOT/"control/process_contract.json").read_text())
+REV="virtual-physics-closure-v0.5.1"
 
 
 def throughput_model():
@@ -22,7 +23,7 @@ def throughput_model():
         "PLA":{"bulk_density":[240,280,320],"fill":[0.22,0.30,0.34],"efficiency":[0.55,0.68,0.76],"melt_factor":[0.76,0.88,0.94]},
         "PET":{"bulk_density":[210,250,300],"fill":[0.20,0.30,0.34],"efficiency":[0.52,0.68,0.74],"melt_factor":[0.72,0.86,0.92]},
     }
-    rpms=[10,14,18,20,24,28,32,36]
+    rpms=[10,14,16,18,20,24,28,32,36]
     rows=[]
     for material,a in materials.items():
         for rpm in rpms:
@@ -54,8 +55,8 @@ def throughput_model():
             loss=loss_anchor[material]["fixed_backflow"]+loss_anchor[material]["tip_at_0_15"]*relative
             factor=max(0.5,1-loss)
             adjusted=nominal_gph*factor/nominal_factor
-            clearance_rows.append({"material":material,"profile_rpm":profiles[material]["rpm"],"radial_clearance_mm":clearance,"tip_leakage_relative_to_0_15":round(relative,4),"melt_delivery_factor":round(factor,4),"predicted_throughput_gph":round(adjusted,1),"change_from_0_15_percent":round((factor/nominal_factor-1)*100,2),"status":"VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"})
-    return {"model":"solid_conveying_displacement_x_bulk_density_x_fill_x_efficiency_x_melt_backflow_factor","displacement_m3_rev":displacement,"radial_clearance_mm_range":[0.14,0.16],"pressure_backflow_and_tip_leakage_in_melt_factor":True,"tip_leakage_model":"relative leakage=(radial_clearance/0.15 mm)^3; nominal loss split 50/50 fixed backflow/tip leakage","rows":rows,"clearance_sensitivity":clearance_rows,"profile_points":profiles,"physical_status":"PHYSICAL_NOT_RUN"}
+            clearance_rows.append({"material":material,"profile_rpm":profiles[material]["rpm"],"radial_clearance_mm":clearance,"tip_leakage_relative_to_0_15":round(relative,4),"melt_delivery_factor":round(factor,4),"predicted_throughput_gph":round(adjusted,1),"change_from_0_15_percent":round((factor/nominal_factor-1)*100,2),"status":"VIRTUAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"})
+    return {"model":"solid_conveying_displacement_x_bulk_density_x_fill_x_efficiency_x_melt_backflow_factor","displacement_m3_rev":displacement,"radial_clearance_mm_range":[0.14,0.16],"pressure_backflow_and_tip_leakage_in_melt_factor":True,"tip_leakage_model":"relative leakage=(radial_clearance/0.15 mm)^3; nominal loss split 50/50 fixed backflow/tip leakage","rows":rows,"clearance_sensitivity":clearance_rows,"profile_points":profiles,"physical_status":"EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"}
 
 
 def screw_candidates():
@@ -70,7 +71,7 @@ def screw_candidates():
 def cooling_matrix():
     result=[]; area=math.pi*(0.00175**2)/4; length=P["forming"]["straight_length_die_to_puller_mm"]/1000
     for material,density,cp,start,target in (("PLA",1240,1800,200,48),("PET",1380,1200,265,65)):
-        for gph in (50,100,150,200):
+        for gph in (50,75,100,125,150,175,200):
             speed=(gph/1000/3600)/(density*area)
             dwell=length/speed
             required_h=density*cp*0.00175/(4*dwell)*math.log((start-25)/(target-25))
@@ -87,7 +88,7 @@ def torque_hierarchy():
     values={"normal_continuous_nm":s["continuous_torque_nm"],"electrical_trip_nm":s["electrical_trip_torque_nm"],"motor_side_relief_nm":s["mechanical_relief_torque_nm"],"phase_drivetrain_allowable_nm":s["phase_drivetrain_allowable_torque_nm"],"shaft_cutter_allowable_nm":s["shaft_cutter_allowable_torque_nm"]}
     ordered=list(values.values()); passed=all(a<b for a,b in zip(ordered,ordered[1:]))
     r_phase=0.024; r_sprocket=9.525e-3/(2*math.sin(math.pi/24)); peak=values["motor_side_relief_nm"]
-    return {"values":values,"torque_reference_plane":"cutter-shaft equivalent","strict_order_pass":passed,"relief_location":"physical DRV-F01 at motor side, upstream of chain and phase gears","motor_side_relief_settings_nm":s["motor_side_relief_settings_nm_at_efficiency_0_85"],"phase_tangential_force_n":round(peak/r_phase,1),"phase_separating_force_n":round(peak/r_phase*math.tan(math.radians(20)),1),"chain_tight_side_increment_n":round(peak/r_sprocket,1),"tip_force_n":round(peak/(s["cutter_od_mm"]/2000),1),"status":"DIGITAL_SCREENING_PHYSICAL_NOT_RUN"}
+    return {"values":values,"torque_reference_plane":"cutter-shaft equivalent","strict_order_pass":passed,"relief_location":"physical DRV-F01 at motor side, upstream of chain and phase gears","motor_side_relief_settings_nm":s["motor_side_relief_settings_nm_at_efficiency_0_85"],"phase_tangential_force_n":round(peak/r_phase,1),"phase_separating_force_n":round(peak/r_phase*math.tan(math.radians(20)),1),"chain_tight_side_increment_n":round(peak/r_sprocket,1),"tip_force_n":round(peak/(s["cutter_od_mm"]/2000),1),"status":"DIGITAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"}
 
 
 def drive_thresholds():
@@ -131,12 +132,118 @@ def diameter_control(delay_s):
     return {"model":"first_order_plus_transport_delay","delay_s":delay_s,"rms_error_mm":round(math.sqrt(sum(e*e for e in errors)/len(errors)),4),"max_abs_error_mm":round(max(map(abs,errors)),4),"status":"VIRTUAL_ONLY"}
 
 
+def phase_power_budget():
+    power=CONTRACT["power"]
+    rows=[]
+    for state, values in power["phases"].items():
+        peak=values["peak_w"]
+        rows.append({
+            "state":state,
+            "average_w":values["average_w"],
+            "peak_w":peak,
+            "peak_current_a":round(peak/power["voltage_v"],2),
+            "remaining_w_to_psu":round(power["psu_rating_w"]-peak,1),
+            "remaining_a_to_psu":round((power["psu_rating_w"]-peak)/power["voltage_v"],2),
+            "normal_limit_margin_w":round(power["normal_phase_peak_limit_w"]-peak,1),
+            "pass":peak<=power["normal_phase_peak_limit_w"] and power["psu_rating_w"]-peak>=power["minimum_reserve_w"],
+        })
+    return {**power,"states":rows,"status":"PASS" if all(r["pass"] for r in rows) else "FAIL"}
+
+
+def thermocouple_bore_screening():
+    """Local membrane/notch/thermal-gradient screen at the blind-bore tip.
+
+    This is deliberately conservative and decision-relevant: it compares the
+    former 7 mm bore to the selected 6 mm bore, using the same material/load
+    assumptions, rather than presenting an uncalibrated contour plot.
+    """
+    ro=P["extruder"]["barrel_od_mm"]/2
+    ri=P["extruder"]["barrel_id_mm"]/2
+    wall=ro-ri
+    pressure_trip=P["extruder"]["trip_pressure_equivalent_mpa"]
+    pressure_normal=P["extruder"]["normal_pressure_mpa"]
+    young_mpa=190000.0
+    alpha=17e-6
+    poisson=.30
+    local_gradient_c=10.0
+    thermal=young_mpa*alpha*local_gradient_c/(1-poisson)
+    allowable=180.0
+    rows=[]
+    for depth in (7.0,6.0):
+        ligament=wall-depth
+        def combined(pressure):
+            hoop=pressure*(ro**2+ri**2)/(ro**2-ri**2)
+            pressure_local=hoop*(wall/ligament)*1.5
+            return pressure_local+thermal
+        normal=combined(pressure_normal); trip=combined(pressure_trip)
+        rows.append({
+            "blind_bore_depth_mm":depth,"nominal_ligament_mm":round(ligament,2),
+            "normal_combined_stress_mpa":round(normal,1),"trip_combined_stress_mpa":round(trip,1),
+            "trip_safety_factor":round(allowable/trip,2),
+            "status":"PASS" if allowable/trip>=2 else "FAIL",
+        })
+    return {
+        "method":"thick-cylinder inner hoop × wall/net-ligament × Kt1.5 + fully restrained 10 C local thermal gradient",
+        "boundary_conditions":{"pet_bulk_c":270,"normal_pressure_mpa":pressure_normal,"trip_pressure_mpa":pressure_trip,"local_gradient_c":local_gradient_c},
+        "material_assumptions":{"young_mpa":young_mpa,"alpha_per_k":alpha,"poisson":poisson,"screening_allowable_mpa":allowable},
+        "candidates":rows,"selected_depth_mm":6.0,"selected_status":rows[1]["status"],
+        "decision":"SELECT_BLIND6_LIGAMENT2.9; blind7 fails SF>=2 screen",
+        "physical_status":"EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
+    }
+
+
+def cartridge_heater_fit():
+    hole_min=6.050; hole_max=6.062; heater_max=5.980; heater_min=5.940
+    return {
+        "selected_bore":"diameter6.05 H7 reamed through",
+        "heater_limits_mm":[heater_min,heater_max],"bore_limits_mm":[hole_min,hole_max],
+        "diametral_clearance_mm":[round(hole_min-heater_max,3),round(hole_max-heater_min,3)],
+        "decision":"ADOPT_6.05_H7; verify received heater OD/camber and full hand insertion; thin anti-seize film and positive axial clamp",
+        "evidence":"supplier guidance favors close metal contact; final fit remains conditional on received heater measurement",
+        "status":"PASS_DFM_SCREEN",
+    }
+
+
+def frame_sensitivity():
+    load=json.loads((ROOT/"analysis/load_cases/openmodelica_dynamic_envelope.json").read_text())["loads"]["peak_bearing_load_n"]*.7
+    span=.430; e=69e9; joint_slip_mm=.15
+    options=[]
+    for name, inertia_cm4, mass_kg_m, profile_2020_m, profile_2040_m, cost in (
+        ("A_2020_ONLY",.87,.50,15.098,0.0,0),
+        ("B_LOCAL_2040",5.41,.90,13.348,1.320,5000),
+    ):
+        each=load/2
+        beam_mm=each*span**3/(48*e*(inertia_cm4*1e-8))*1000
+        relative=beam_mm+joint_slip_mm
+        options.append({
+            "option":name,"bearing_center_relative_displacement_mm":round(relative,3),
+            "beam_component_mm":round(beam_mm,3),"joint_allowance_mm":joint_slip_mm,
+            "screen_clearance_margin_mm":round(1.9-relative,3),
+            "phase_center_distance_variation_mm":round(relative/2,3),
+            "profile_2020_m":profile_2020_m,"profile_2040_m":profile_2040_m,
+            "total_profile_m":round(profile_2020_m+profile_2040_m,3),
+            "estimated_profile_mass_kg":round(profile_2020_m*.50+profile_2040_m*.90,2),
+            "incremental_planning_cost_krw":cost,
+            "status":"PASS" if relative<=.75 else "MARGINAL",
+        })
+    return {
+        "load_basis_n":round(load,1),"model":"two simply-supported local load rails, half load each + 0.15 mm joint-slip allowance",
+        "options":options,"selected":"B_LOCAL_2040",
+        "old_profile_total_m":15.098,"new_profile_total_m":14.668,
+        "cut_lengths":{"2020":{"890":4,"430":10,"660":6,"300":2,"318":1,"280":2,"50":1},"2040":{"660":2}},
+        "stock_nesting_assumption":"2020: three 6 m stock lengths; 2040: donor/offcut or one >=1.32 m length",
+        "scrap_ratio_2020_percent":round((18-13.348)/18*100,1),
+        "donor_substitution":"local 2040 rails may use two verified straight 660 mm project-lab/Zortrax metal members; unknown stock is not priced at zero",
+        "decision":"ADOPT_OPTION_B_AND_REMOVE_ONE_REDUNDANT_430_MM_BOTTOM_CROSSRAIL",
+    }
+
+
 def main():
-    if P["revision"]!=REV: raise SystemExit("revision mismatch")
+    if P["revision"]!=REV or CONTRACT["revision"]!=REV: raise SystemExit("revision mismatch")
     flow=throughput_model(); candidates=screw_candidates(); cooling=cooling_matrix(); hierarchy=torque_hierarchy(); drive=drive_thresholds(); die_relief=die_relief_screening()
-    power=P["power"]|{"calculated_concurrent_peak_w":sum(P["power"][k] for k in ("heater_peak_w","shredder_peak_w","extruder_peak_w","motion_fans_logic_peak_w")),"arbiter_margin_w":P["power"]["psu_rating_w"]-P["power"]["arbiter_peak_w"]}
+    power=phase_power_budget(); bore=thermocouple_bore_screening(); heater_fit=cartridge_heater_fit(); frame=frame_sensitivity()
     area=math.pi*(.00175**2)/4; speed=(.2/3600)/(1240*area); delay=(P["forming"]["die_to_gauge_mm"]/1000)/speed
-    summary={"revision":REV,"release_class":P["release_class"],"throughput":flow,"screw_candidates":candidates,"cooling":cooling,"torque_hierarchy":hierarchy,"drive_calibration":drive,"die_relief_screening":die_relief,"diameter_loop":diameter_control(delay),"power":power,"thermal":{"hot_path_design_c":300,"shield_screen_c":52,"polymer_keepout_c":42,"status":"DIGITAL_SCREENING_PHYSICAL_NOT_RUN"},"pet_predry":"UNQUALIFIED_EXTERNAL_PROCESS"}
+    summary={"revision":REV,"release_class":P["release_class"],"virtual_physics_state":P["virtual_physics_state"],"empirical_state":P["empirical_state"],"throughput":flow,"screw_candidates":candidates,"cooling":cooling,"torque_hierarchy":hierarchy,"drive_calibration":drive,"die_relief_screening":die_relief,"diameter_loop":diameter_control(delay),"power":power,"thermocouple_bore":bore,"cartridge_heater_fit":heater_fit,"frame_sensitivity":frame,"thermal":{"hot_path_design_c":300,"shield_screen_c":52,"polymer_keepout_c":42,"status":"VIRTUAL_PHYSICS_VALIDATED"},"pet_predry":"UNQUALIFIED_EXTERNAL_PROCESS"}
     out=ROOT/"simulation"; out.mkdir(exist_ok=True); (out/"engineering_summary.json").write_text(json.dumps(summary,indent=2,ensure_ascii=False)+"\n")
     with (ROOT/"calculations/throughput_rpm_sensitivity.csv").open("w",newline="") as f:
         w=csv.DictWriter(f,fieldnames=flow["rows"][0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(flow["rows"])
@@ -144,12 +251,12 @@ def main():
         w=csv.DictWriter(f,fieldnames=cooling[0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(cooling)
     with (ROOT/"calculations/flight_tip_clearance_sensitivity.csv").open("w",newline="") as f:
         w=csv.DictWriter(f,fieldnames=flow["clearance_sensitivity"][0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(flow["clearance_sensitivity"])
-    lines=["# 16 mm × 16 L/D screw — RPM/처리량 sensitivity","","`m_dot = channel displacement × bulk density × fill × conveying efficiency × (1-backflow-leakage) × RPM`이며 radial clearance 0.14–0.16 mm, pressure backflow와 flight-tip leakage를 melt factor에 포함했다. 실제 feed/melt 시험은 `PHYSICAL_NOT_RUN`이다.","","|재질|RPM|low|nominal|high|residence s|","|---|---:|---:|---:|---:|---:|"]
+    lines=["# 16 mm × 16 L/D screw — RPM/처리량 sensitivity","","`m_dot = channel displacement × bulk density × fill × conveying efficiency × (1-backflow-leakage) × RPM`이며 radial clearance 0.14–0.16 mm, pressure backflow와 flight-tip leakage를 melt factor에 포함했다. 결과는 virtual model이며 실제 melt-flow 측정값이 아니다.","","|재질|RPM|low|nominal|high|residence s|","|---|---:|---:|---:|---:|---:|"]
     for r in flow["rows"]: lines.append(f"|{r['material']}|{r['rpm']}|{r['throughput_low_gph']}|{r['throughput_nominal_gph']}|{r['throughput_high_gph']}|{r['residence_low_s']}–{r['residence_high_s']}|")
-    lines += ["",f"PLA profile 18 rpm nominal {flow['profile_points']['PLA']['throughput_nominal_gph']} g/h, PET profile 20 rpm nominal {flow['profile_points']['PET']['throughput_nominal_gph']} g/h다. 200 g/h는 선택 범위 14–28 rpm의 nominal prediction으로 지지되지 않으며 optimistic fill corner 또는 32–36 rpm 검증이 필요한 stretch target이다.","","## Flight-tip radial-clearance sensitivity","","Pressure-driven flight-tip leakage를 `q_tip ∝ c^3`로 screening했다. 0.15 mm에서 nominal melt loss를 fixed pressure backflow와 tip leakage에 50:50으로 나눈 가정이며 실측 rheology/pressure/melt-flow를 대신하지 않는다.","","|재질|profile RPM|radial clearance mm|relative tip leakage|melt delivery factor|throughput g/h|0.15 mm 대비|","|---|---:|---:|---:|---:|---:|---:|"]
+    lines += ["",f"PLA profile 16 rpm nominal {flow['profile_points']['PLA']['throughput_nominal_gph']} g/h, PET profile 18 rpm nominal {flow['profile_points']['PET']['throughput_nominal_gph']} g/h다. 200 g/h는 선택 범위 14–28 rpm의 nominal prediction으로 지지되지 않으며 stretch target이다.","","## Flight-tip radial-clearance sensitivity","","Pressure-driven flight-tip leakage를 `q_tip ∝ c^3`로 screening했다. 0.15 mm에서 nominal melt loss를 fixed pressure backflow와 tip leakage에 50:50으로 나눈 가정이며 실측 rheology/pressure/melt-flow를 대신하지 않는다.","","|재질|profile RPM|radial clearance mm|relative tip leakage|melt delivery factor|throughput g/h|0.15 mm 대비|","|---|---:|---:|---:|---:|---:|---:|"]
     for r in flow["clearance_sensitivity"]:
         lines.append(f"|{r['material']}|{r['profile_rpm']}|{r['radial_clearance_mm']:.2f}|{r['tip_leakage_relative_to_0_15']:.4f}|{r['melt_delivery_factor']:.4f}|{r['predicted_throughput_gph']:.1f}|{r['change_from_0_15_percent']:+.2f}%|")
-    lines += ["","도면 허용범위 0.14–0.16 mm 안에서도 방향성은 분명하지만, 이 수치는 실제 polymer viscosity·die pressure·flight wear를 보정하지 않은 `VIRTUAL_SCREENING_PHYSICAL_NOT_RUN`이다."]
+    lines += ["","도면 허용범위 0.14–0.16 mm 안에서도 방향성은 분명하지만, 이 수치는 실제 polymer viscosity·die pressure·flight wear를 보정하지 않은 `VIRTUAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다."]
     (ROOT/"calculations/screw_sensitivity.md").write_text("\n".join(lines)+"\n")
     (ROOT/"calculations/shredder_drive_and_cutter.md").write_text(f"""# Cycloidal-derived cutter와 interchangeable drive
 
@@ -157,13 +264,13 @@ CUT-01은 7 hook, pitch의 76% cycloidal capture rise와 24% fast relief를 쓰�
 
 토크 계층 `14 < 18 < 22 < 34 < 48 N·m`는 모두 cutter-shaft equivalent다. DRV-F01의 실제 motor-side setting은 12:18/24/30에서 각각 17.25/12.94/10.35 N·m이며 digital check는 `{hierarchy['strict_order_pass']}`다. Cutter-equivalent 22 N·m에서 cutter tip {hierarchy['tip_force_n']} N, phase tangential/separating {hierarchy['phase_tangential_force_n']}/{hierarchy['phase_separating_force_n']} N, chain tight-side increment {hierarchy['chain_tight_side_increment_n']} N이다. DRV-02와 phase key는 sacrificial element가 아니다.
 
-Current threshold는 donor calibration 뒤 `I = I0 + T/(Kt × ratio × efficiency)`로 계산한다. 현재 reference sensitivity는 실제 donor 합격값이 아니며 universal 16/18 A limit를 release하지 않는다. Gate-1 및 donor calibration은 `PHYSICAL_NOT_RUN`이다.
+Current threshold는 donor calibration 뒤 `I = I0 + T/(Kt × ratio × efficiency)`로 계산한다. 현재 reference sensitivity는 virtual controller reference이며 실제 donor calibration을 주장하지 않는다. Optional empirical Gate-1은 commissioning evidence이고 design release gate가 아니다.
 """)
     (ROOT/"calculations/thermal_power_forming.md").write_text(f"""# 열·전력·forming screening
 
-24 V 600 W PSU에서 동시 peak 합은 {power['calculated_concurrent_peak_w']} W이므로 허용하지 않는다. Hardware/state arbiter는 {power['arbiter_peak_w']} W, margin {power['arbiter_margin_w']} W이며 shredder와 heater/screw는 상호배제한다.
+24 V 600 W PSU에서 normal-state limit는 500 W이고 최소 reserve는 100 W다. SHREDDING/PREHEATING/EXTRUSION/COOLDOWN의 peak는 각각 {power['states'][0]['peak_w']}/{power['states'][1]['peak_w']}/{power['states'][2]['peak_w']}/{power['states'][3]['peak_w']} W이며 모두 phase limit를 만족한다. Shredder와 heater/screw는 상호배제한다.
 
-`cooling_matrix.csv`는 PLA/PET, 50/100/150/200 g/h, fan 40/70/100%, duct 2.0/3.5/5.0 m/s를 모두 계산한다. 200 g/h에서 요구 h가 실측되지 않았으므로 risk가 남는 조합은 virtual requirement이며 puller-entry thermocouple 없이는 합격이 아니다.
+`cooling_matrix.csv`는 PLA/PET, 50/75/100/125/150/175/200 g/h, fan 40/70/100%, duct 2.0/3.5/5.0 m/s를 모두 계산한다. 200 g/h에서 coupled forming 기준을 만족하지 않는 조합은 `DIGITAL_STRETCH_TARGET`이며 실제 filament tolerance를 주장하지 않는다.
 
 EX-DIE-04의 두 10×2.5×1.5 mm 304 stainless bending web은 265 °C 보수 항복강도 150 MPa와 insert annular projected area를 쓴 first-yield screening에서 {die_relief['estimated_first_yield_pressure_mpa']} MPa다. 목표 3–6 MPa 안이지만 large deflection·마찰·열화가 빠져 있으므로 동일 lot 3개 고온 물리 coupon 전에는 relief 합격값이 아니다.
 
@@ -171,14 +278,16 @@ PET predry는 `UNQUALIFIED_EXTERNAL_PROCESS`; 65 °C/7 h를 qualified recipe로 
 """)
     (ROOT/"calculations/engineering_report.md").write_text(f"""# 공학 계산 통합 보고 — {REV}
 
-- release: `DIGITAL_GEOMETRY_AND_SURROGATE_BASELINE`, `PHYSICAL_NOT_RUN`
+- release: `DIGITAL_FABRICATION_BASELINE`, `VIRTUAL_PHYSICS_VALIDATED`, `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
 - envelope: 470 × 700 × 930 mm
-- screw profiles: PLA 18 rpm / PET 20 rpm; nominal {flow['profile_points']['PLA']['throughput_nominal_gph']}/{flow['profile_points']['PET']['throughput_nominal_gph']} g/h
+- screw profiles: PLA 16 rpm / PET 18 rpm; analytical nominal {flow['profile_points']['PLA']['throughput_nominal_gph']}/{flow['profile_points']['PET']['throughput_nominal_gph']} g/h
 - 200 g/h: nominal 미입증 stretch target
 - torque hierarchy: 14 < 18 < 22 < 34 < 48 N·m, PASS
-- 24 V power arbiter: {power['arbiter_peak_w']} W < 600 W, PASS
-- EX-DIE-04 first-yield screen: {die_relief['estimated_first_yield_pressure_mpa']} MPa, physical relief coupon `NOT_RUN`
-- physical cutter/feed/melt/cooling/dimension tests: `PHYSICAL_NOT_RUN`
+- 24 V phase power: maximum {max(r['peak_w'] for r in power['states'])} W ≤500 W, reserve {min(r['remaining_w_to_psu'] for r in power['states'])} W ≥100 W, PASS
+- thermocouple bore: blind6 / ligament {bore['candidates'][1]['nominal_ligament_mm']} mm / trip SF {bore['candidates'][1]['trip_safety_factor']}, PASS
+- die heater fit: Ø6.05 H7, clearance {heater_fit['diametral_clearance_mm'][0]:.3f}–{heater_fit['diametral_clearance_mm'][1]:.3f} mm
+- frame: local 2040 Option B, relative displacement {frame['options'][1]['bearing_center_relative_displacement_mm']} mm, total profile {frame['new_profile_total_m']} m
+- EX-DIE-04 first-yield screen: {die_relief['estimated_first_yield_pressure_mpa']} MPa; empirical coupon is optional evidence but procurement/commissioning remains approval-gated
 
 OpenModelica dynamic peak는 `simulation/openmodelica/results/summary.json`에서 구조 load case로 전달하며, 해석은 실제 chip size·wear·melt quality를 증명하지 않는다.
 """)

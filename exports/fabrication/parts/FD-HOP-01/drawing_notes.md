@@ -1,6 +1,6 @@
 # FD-HOP-01 — Sealed feed hopper
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `2 mm 304 stainless`
 - process: `roll cone/cylinder + TIG weld + gasketed lid`

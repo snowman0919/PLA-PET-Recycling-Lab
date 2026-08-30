@@ -1,6 +1,6 @@
 # G1J-03 — Front/rear guard panel
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `2`
 - material: `3 mm polycarbonate`
 - process: `CNC router/drill; laser only with supplier approval`

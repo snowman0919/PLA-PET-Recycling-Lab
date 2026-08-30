@@ -1,6 +1,6 @@
 # FM-GA-01 — Guide roller fixed axle
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `Ø5 h6 stainless shaft`
 - process: `cut/face + E-clip grooves or collars`

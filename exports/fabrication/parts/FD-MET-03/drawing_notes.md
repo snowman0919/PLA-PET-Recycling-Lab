@@ -1,6 +1,6 @@
 # FD-MET-03 — Metering feeder shaft
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `304 shaft`
 - process: `cut/face Ø5 stock`

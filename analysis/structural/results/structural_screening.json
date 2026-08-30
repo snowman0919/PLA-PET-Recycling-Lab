@@ -1,14 +1,15 @@
 {
-  "revision": "coupled-digital-validation-v0.5",
+  "revision": "virtual-physics-closure-v0.5.1",
   "release_state": "DIGITAL_FABRICATION_BASELINE",
-  "physical_state": "PHYSICAL_VALIDATION_PENDING",
+  "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+  "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
   "input": "analysis/load_cases/openmodelica_dynamic_envelope.json",
-  "input_source": "OpenModelica DASSL coupled surrogate; PHYSICAL_VALIDATION_PENDING",
+  "input_source": "OpenModelica DASSL virtual-physics model; empirical validation optional not run",
   "load_values": {
-    "peak_cutter_torque_nm": 21.99375000439881,
-    "peak_phase_torque_nm": 16.21668665673847,
-    "peak_bearing_load_n": 1797.48967044812,
-    "peak_chain_force_n": 602.7336257714117
+    "peak_cutter_torque_nm": 21.99375000439907,
+    "peak_phase_torque_nm": 16.22025213688948,
+    "peak_bearing_load_n": 1292.83945661846,
+    "peak_chain_force_n": 602.7336257714188
   },
   "calculix": {
     "bearing_plate": {
@@ -16,16 +17,16 @@
       "returncode": 0,
       "frd_bytes": 98943,
       "converged": true,
-      "max_displacement_mm": 0.2635190679740083,
-      "max_von_mises_mpa": 64.96650771359039
+      "max_displacement_mm": 0.18953501319028102,
+      "max_von_mises_mpa": 46.72700156140987
     },
     "cutter_shaft": {
       "status": "PASS",
       "returncode": 0,
       "frd_bytes": 5606,
       "converged": true,
-      "max_displacement_mm": 0.017056960618269598,
-      "max_von_mises_mpa": 61.29424065309243
+      "max_displacement_mm": 0.013797002215423465,
+      "max_von_mises_mpa": 49.46733082283368
     }
   },
   "checks": [
@@ -36,7 +37,7 @@
       "equivalent_stress_mpa": 57.95,
       "allowable_mpa": 350,
       "safety_factor": 6.04,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "6 mm tool-steel coupon geometry; impact/notch factor is not physically calibrated"
     },
@@ -44,10 +45,10 @@
       "component": "SH-SHAFT-01 20 mm cutter shaft",
       "method": "closed-form screening",
       "source_load": "bearing envelope + fuse cap",
-      "equivalent_stress_mpa": 72.816,
+      "equivalent_stress_mpa": 55.016,
       "allowable_mpa": 177.5,
-      "safety_factor": 2.44,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "safety_factor": 3.23,
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "S45C normalized; allowable=0.5\u00d7355 MPa yield"
     },
@@ -55,10 +56,10 @@
       "component": "SH-PLATE-01 bearing plate",
       "method": "closed-form screening",
       "source_load": "peak bearing load",
-      "equivalent_stress_mpa": 4.793,
+      "equivalent_stress_mpa": 3.448,
       "allowable_mpa": 137.5,
-      "safety_factor": 28.69,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "safety_factor": 39.88,
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "12 mm S275 ligament simplified as 75 mm strip"
     },
@@ -69,7 +70,7 @@
       "equivalent_stress_mpa": 31.481,
       "allowable_mpa": 120,
       "safety_factor": 3.81,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "6\u00d76\u00d718 mm key shear; hub bearing pressure separately inspect at RFQ"
     },
@@ -80,7 +81,7 @@
       "equivalent_stress_mpa": 33.444,
       "allowable_mpa": 177.5,
       "safety_factor": 5.31,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "20 mm shaft, 30 mm overhang"
     },
@@ -88,10 +89,10 @@
       "component": "DRV-03 motor adapter plate",
       "method": "closed-form screening",
       "source_load": "peak frame reaction",
-      "equivalent_stress_mpa": 5.662,
+      "equivalent_stress_mpa": 4.072,
       "allowable_mpa": 75,
-      "safety_factor": 13.25,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "safety_factor": 18.42,
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "6 mm 6061-T6/S275 equivalent bending strip; slot edge inspection required"
     },
@@ -102,7 +103,7 @@
       "equivalent_stress_mpa": 3.077,
       "allowable_mpa": 137.5,
       "safety_factor": 44.68,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "calculated axial thrust 1206 N; open die and sacrificial relief remain mandatory"
     },
@@ -113,7 +114,7 @@
       "equivalent_stress_mpa": 35.916,
       "allowable_mpa": 100,
       "safety_factor": 2.78,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "8 mm steel shaft, 85 mm cantilever"
     },
@@ -121,18 +122,98 @@
       "component": "FR-ANCHOR-01 M8 table anchor",
       "method": "closed-form screening",
       "source_load": "frame reaction envelope",
-      "equivalent_stress_mpa": 43.792,
+      "equivalent_stress_mpa": 31.497,
       "allowable_mpa": 320,
-      "safety_factor": 7.31,
-      "criterion": "SF >= 2.0 before coupon; physical validation pending",
+      "safety_factor": 10.16,
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "minor-diameter tensile area; four anchors required, one-anchor conservative screening"
+    },
+    {
+      "component": "EX-BAR-01 thermocouple blind-bore ligament",
+      "method": "closed-form screening",
+      "source_load": "6 MPa pressure-trip + 270 C / 10 C local-gradient screen",
+      "equivalent_stress_mpa": 90.0,
+      "allowable_mpa": 180,
+      "safety_factor": 2.0,
+      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
+      "status": "PASS",
+      "note": "\u00d83.2 blind6 leaves 2.9 mm nominal ligament; thick-cylinder/net-section/notch/thermal closed-form screen"
     }
   ],
+  "frame_sensitivity": {
+    "load_basis_n": 905.0,
+    "model": "two simply-supported local load rails, half load each + 0.15 mm joint-slip allowance",
+    "options": [
+      {
+        "option": "A_2020_ONLY",
+        "bearing_center_relative_displacement_mm": 1.399,
+        "beam_component_mm": 1.249,
+        "joint_allowance_mm": 0.15,
+        "screen_clearance_margin_mm": 0.501,
+        "phase_center_distance_variation_mm": 0.699,
+        "profile_2020_m": 15.098,
+        "profile_2040_m": 0.0,
+        "total_profile_m": 15.098,
+        "estimated_profile_mass_kg": 7.55,
+        "incremental_planning_cost_krw": 0,
+        "status": "MARGINAL"
+      },
+      {
+        "option": "B_LOCAL_2040",
+        "bearing_center_relative_displacement_mm": 0.351,
+        "beam_component_mm": 0.201,
+        "joint_allowance_mm": 0.15,
+        "screen_clearance_margin_mm": 1.549,
+        "phase_center_distance_variation_mm": 0.175,
+        "profile_2020_m": 13.348,
+        "profile_2040_m": 1.32,
+        "total_profile_m": 14.668,
+        "estimated_profile_mass_kg": 7.86,
+        "incremental_planning_cost_krw": 5000,
+        "status": "PASS"
+      }
+    ],
+    "selected": "B_LOCAL_2040",
+    "old_profile_total_m": 15.098,
+    "new_profile_total_m": 14.668,
+    "cut_lengths": {
+      "2020": {
+        "890": 4,
+        "430": 10,
+        "660": 6,
+        "300": 2,
+        "318": 1,
+        "280": 2,
+        "50": 1
+      },
+      "2040": {
+        "660": 2
+      }
+    },
+    "stock_nesting_assumption": "2020: three 6 m stock lengths; 2040: donor/offcut or one >=1.32 m length",
+    "scrap_ratio_2020_percent": 25.8,
+    "donor_substitution": "local 2040 rails may use two verified straight 660 mm project-lab/Zortrax metal members; unknown stock is not priced at zero",
+    "decision": "ADOPT_OPTION_B_AND_REMOVE_ONE_REDUNDANT_430_MM_BOTTOM_CROSSRAIL"
+  },
+  "selected_frame": {
+    "option": "B_LOCAL_2040",
+    "bearing_center_relative_displacement_mm": 0.351,
+    "beam_component_mm": 0.201,
+    "joint_allowance_mm": 0.15,
+    "screen_clearance_margin_mm": 1.549,
+    "phase_center_distance_variation_mm": 0.175,
+    "profile_2020_m": 13.348,
+    "profile_2040_m": 1.32,
+    "total_profile_m": 14.668,
+    "estimated_profile_mass_kg": 7.86,
+    "incremental_planning_cost_krw": 5000,
+    "status": "PASS"
+  },
   "status": "PASS",
   "failures": [],
   "limitations": [
-    "OpenModelica cutter load is a pre-Gate-1 surrogate, not measured cutting torque.",
+    "OpenModelica cutter load is a reduced-order virtual load, not measured cutting torque; empirical correlation is optional and not run.",
     "Closed-form checks are screening models; stress concentration, fatigue, impact, weld and fastener preload require drawing review and physical gates.",
     "CalculiX decks are linear-elastic decision checks for global shaft/plate response and do not certify the machine."
   ]

@@ -1,6 +1,6 @@
 # DRV-A42 — 42GP-775 reference adapter plate
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `6 mm SS400 steel`
 - process: `laser + drill/ream`

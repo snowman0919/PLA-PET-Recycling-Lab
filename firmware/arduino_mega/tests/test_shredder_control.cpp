@@ -13,28 +13,37 @@ int main() {
   auto out = c.update(in);
   assert(out.command == ShredderCommand::FORWARD && out.target_rpm == 32);
 
+  // High-current, low-RPM startup is expected during the canonical grace time.
   in.current_amp = 12.0f;
-  in.now_ms = 100;
-  c.update(in);
-  in.now_ms = 751;
+  in.cutter_rpm = 0.0f;
+  in.now_ms = JAM_STARTUP_GRACE_MS - 1;
+  out = c.update(in);
+  assert(out.command == ShredderCommand::FORWARD && out.retry_count == 0);
+  in.now_ms = JAM_STARTUP_GRACE_MS;
+  out = c.update(in);
+  assert(out.command == ShredderCommand::OVERLOAD_DWELL);
+  in.now_ms += PLA_PROFILE.overload_ms;
+  out = c.update(in);
+  assert(out.command == ShredderCommand::RETRY_STOP && out.retry_count == 0);
+  in.now_ms += JAM_STOP_MS;
   out = c.update(in);
   assert(out.command == ShredderCommand::REVERSE && out.retry_count == 1);
-  in.current_amp = 2.0f;
-  in.cutter_rpm = 32.0f;
-  in.now_ms = 1552;
+  in.now_ms += PLA_PROFILE.reverse_ms;
   out = c.update(in);
   assert(out.command == ShredderCommand::FORWARD);
 
-  // Two more sustained jams latch after the third bounded reverse.
+  // Two more production-threshold jams latch after the third bounded reverse.
   for (int retry = 2; retry <= 3; ++retry) {
-    in.current_amp = 12.0f;
-    in.now_ms += 10;
-    c.update(in);
-    in.now_ms += 651;
+    in.now_ms += JAM_STARTUP_GRACE_MS;
     out = c.update(in);
-    assert(out.command == ShredderCommand::REVERSE);
-    in.current_amp = 2.0f;
-    in.now_ms += 801;
+    assert(out.command == ShredderCommand::OVERLOAD_DWELL);
+    in.now_ms += PLA_PROFILE.overload_ms;
+    out = c.update(in);
+    assert(out.command == ShredderCommand::RETRY_STOP);
+    in.now_ms += JAM_STOP_MS;
+    out = c.update(in);
+    assert(out.command == ShredderCommand::REVERSE && out.retry_count == retry);
+    in.now_ms += PLA_PROFILE.reverse_ms;
     out = c.update(in);
   }
   assert(out.command == ShredderCommand::FAULT_LATCHED);
@@ -45,7 +54,13 @@ int main() {
   in.heater_or_screw_enabled = true;
   assert(!c.start(PET_PROFILE, in));
   in.heater_or_screw_enabled = false;
+  in.permission_chain_ok = true;
+  in.current_amp = 2.0f;
+  in.cutter_rpm = 0.0f;
   assert(c.start(PET_PROFILE, in));
+  in.now_ms += JAM_STARTUP_GRACE_MS + PET_PROFILE.overload_ms + 1;
+  out = c.update(in);
+  assert(out.command == ShredderCommand::FORWARD);  // Brownout-like RPM deficit without torque overload.
   in.permission_chain_ok = false;
   assert(c.update(in).command == ShredderCommand::FAULT_LATCHED);
 

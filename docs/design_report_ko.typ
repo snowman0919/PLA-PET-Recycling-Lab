@@ -13,7 +13,7 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision coupled-digital-validation-v0.5 · 2026-08-29]
+  #text(size: 11pt)[Revision virtual-physics-closure-v0.5.1 · 2026-08-30]
 ]
 
 #warn[*계산·CAD release다.* 실제 cutter 성능, melt flow, 200 g/h, 직경 품질과 안전 인증은 물리 Gate 전 미검증이다. 구매·CNC·energization은 사용자 승인 전 금지한다.]
@@ -31,7 +31,7 @@ PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, fee
 
 #table(columns: (1.5fr, 1.2fr, 1fr, 1fr), inset: 4pt,
   [*후보*], [*Envelope mm*], [*계획비용*], [*판정*],
-  [Vertical down-die], [470 x 700 x 930], [170,629 KRW], [target PASS / donor·물리 Gate blocker],
+  [Vertical down-die], [470 x 700 x 930], [173,729 KRW], [target PASS / donor·물리 Gate blocker],
   [Internal U-fold], [480 x 710 x 940], [196,000 KRW], [soft bend 기각],
   [Side spool column], [495 x 720 x 950], [204,000 KRW], [비용/목표 기각],
 )
@@ -62,7 +62,7 @@ Integrated dryer 대신 외부 pre-dry + sealed 4.5 L maintenance hopper를 채�
 
 $ T = 1.5 (Delta p pi D^3) / 16 $
 
-이고 6 MPa에서 약 7.24 N·m다. 선정 drive 목표 15 N·m continuous/22 N·m trip은 계산 여유가 있지만 friction, cold slug, screen blockage는 포함하지 않는다. Fill, conveying efficiency, backflow와 tip leakage를 포함한 nominal model은 PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h다. 14–28 rpm 안에서 nominal 200 g/h를 지지하지 않으며, 200 g/h는 32–36 rpm 또는 높은 fill을 물리 검증해야 하는 stretch target이다.
+이고 6 MPa에서 약 7.24 N·m다. Reduced-order Modelica는 actual screw inertia, pressure-flow resistance, torque/current/speed feedback과 hot blockage trip을 닫는다. Default coupled point는 PLA 16 rpm/99.4 g/h, PET 18 rpm/97.5 g/h, fan 100%다. 200 g/h는 cooling/forming 기준을 통과하지 않는 `DIGITAL_STRETCH_TARGET`이다.
 
 Barrel front interface는 기존 M5/PCD28에서 M4-6H/PCD26으로 수정했다. Ø34 body와 Ø16.20 bore 사이에서 M4 major envelope 기준 outer/bore-side ligament를 각각 2.0/2.9 mm 이상 확보하고 OD 또는 bore breakthrough를 RFQ 불합격으로 규정했다. Assembly feeder centre도 rear Datum B에서 12–30 mm인 실제 feed-port 구간의 중심에 맞췄다.
 
@@ -91,7 +91,7 @@ Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spoo
 
 = 비용과 제조
 
-Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 360 W heater계와 실제 slicing을 반영한 조건부 target은 170,629 KRW다. 20,000 KRW contingency 포함 absolute plan은 190,629 KRW이며 계획 여유는 9,371 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
+Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 360 W heater계와 실제 slicing을 반영한 조건부 target은 173,729 KRW다. 20,000 KRW contingency 포함 absolute plan은 193,729 KRW이며 계획 여유는 6,271 KRW다. Motor 0원은 exact evidence 전 확정이 아니고 구매·가공은 별도 사용자 승인 대상이다. Optional Gate-1 미수행은 `main` 승격을 막지 않는다.
 
 #figure(image("../renders/review/print_orientation.png", width: 92%), caption: [12개 출력 part family orientation overview])
 
@@ -99,6 +99,6 @@ PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 904.
 
 = 검증 경계
 
-#ok[Digital baseline은 closed B-Rep, manifold mesh, actual slicing, OpenModelica coupled 32 scenario, CalculiX와 firmware sync를 검사한다. Release state는 DIGITAL_FABRICATION_BASELINE이고 물리 상태는 PHYSICAL_VALIDATION_PENDING이다.]
+#ok[Digital baseline은 closed B-Rep, manifold mesh, actual slicing, OpenModelica mandatory 55 scenario, CalculiX/analytical structure, controller-contract/firmware sync를 검사한다. 상태는 DIGITAL_FABRICATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
 
-물리 Gate는 cutter coupon, flake/feed, cold extruder, hot PLA/PET, diameter/full spool 순서다. Physical 결과를 simulation 결과와 혼용하지 않는다.
+Gate-1…5는 optional empirical commissioning/model-correlation 절차다. 수행 결과와 simulation 결과를 혼용하지 않는다.

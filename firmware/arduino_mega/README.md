@@ -8,4 +8,12 @@ E-stop, lid/service interlock, branch fuse와 thermal fuse는 이 firmware와 �
 
 `shredder_control`은 DRV-01/#35 chain interchangeable geared-DC interface를 대상으로 PLA/PET 32/24 rpm을 사용한다. 전류의 고정 A값을 토크로 간주하지 않고, donor별 no-load current, motor torque/A, 감속비, 효율을 Gate-1에서 calibration한 뒤에만 시작한다. Profile의 18 N·m jam 한계, 명령속도 대비 35% 이상 RPM drop, profile별 reverse duration과 최대 3회 retry를 처리한다. 세 번째 reverse 종료 뒤 fault를 latch하며, heater 또는 screw enable과 shredder enable은 상호 배제한다. `REFERENCE_DRIVE_CALIBRATION`은 디지털 sensitivity용이며 `verified=false`라서 실제 운전에 사용할 수 없다.
 
-`src/generated_profiles.h`는 `cad/parameters/baseline.json`에서 `generate_config.py`로 생성한다. Screw setpoint는 PLA 18 rpm/PET 20 rpm이며, 외부 pre-dry는 현재 둘 다 `UNQUALIFIED_EXTERNAL_PROCESS`라 firmware에서 확인 완료로 가정하지 않는다.
+`src/generated_profiles.h`와 Modelica `GeneratedControl.mo`는 `cad/parameters/baseline.json` 및 `control/process_contract.json`에서 함께 생성한다. Screw setpoint는 PLA 16 rpm/PET 18 rpm, shredder는 PLA 32 rpm/PET 24 rpm이며, 외부 pre-dry는 현재 둘 다 `UNQUALIFIED_EXTERNAL_PROCESS`다.
+
+실제 Mega target은 repository root sketch `arduino_mega.ino`다. `src/board_config.h`가 pin mapping을, compile-time display abstraction이 reference serial/text backend를 제공한다.
+
+```bash
+python3 generate_config.py
+make test
+make arduino   # arduino-cli + arduino:avr core 필요
+```

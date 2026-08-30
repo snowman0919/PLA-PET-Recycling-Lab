@@ -1,6 +1,6 @@
 # G1J-10 — CUT-03 plate foot angle
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `4`
 - material: `40 x40 x4 steel/aluminum angle`
 - process: `saw cut + drill`

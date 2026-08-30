@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "simulation/openmodelica/PLA_PET_Recycler"
-REV = "coupled-digital-validation-v0.5"
+REV = "virtual-physics-closure-v0.5.1"
 
 
 def main() -> None:

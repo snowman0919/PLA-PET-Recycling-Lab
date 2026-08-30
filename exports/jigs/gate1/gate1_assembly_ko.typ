@@ -4,7 +4,7 @@
 
 = Gate-1 CUT-01 최소수량 coupon 지그 조립도
 
-Revision: `coupled-digital-validation-v0.5` / 수동·구동 두 상태는 생성된 `assembly_ko.md` 외형값을 따른다.
+Revision: `virtual-physics-closure-v0.5.1` / 수동·구동 두 상태는 생성된 `assembly_ko.md` 외형값을 따른다.
 
 #image("../../../renders/jigs/gate1_assembly.png", width: 88%)
 

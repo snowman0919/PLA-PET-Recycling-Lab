@@ -1,6 +1,6 @@
 # PPR-C03 — Flake bin sheet corner
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: 4
 - material: PLA
 - nozzle diameter: 0.4 mm

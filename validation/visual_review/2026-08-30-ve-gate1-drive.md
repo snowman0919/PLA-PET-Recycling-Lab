@@ -1,4 +1,6 @@
-# Parent Codex visual review — VE drive와 Gate-1 jig
+# Parent Codex visual review — VE drive와 Gate-1 jig (HISTORICAL ARCHIVE)
+
+> 이 문서는 `coupled-digital-validation-v0.5` 시점의 이력이며 현재 release 판정에 사용하지 않는다.
 
 검토일: 2026-08-30  
 Revision: `coupled-digital-validation-v0.5`  

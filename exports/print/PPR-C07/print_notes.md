@@ -1,6 +1,6 @@
 # PPR-C07 — Puller pinch guard
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: 1
 - material: ABS
 - nozzle diameter: 0.4 mm

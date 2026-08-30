@@ -1,6 +1,6 @@
 # EX-THR-01 — Extruder thrust plate
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `12 mm S45C or SS400`
 - process: `laser rough + bore/seat finish`

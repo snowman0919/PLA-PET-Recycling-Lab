@@ -1,6 +1,6 @@
 # TH-BH-01 — Custom barrel mica band heater
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `3`
 - material: `mica/NiCr/stainless sheath`
 - process: `custom heater RFQ`

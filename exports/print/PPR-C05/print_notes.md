@@ -1,6 +1,6 @@
 # PPR-C05 — Cooling duct segment
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: 2
 - material: ABS
 - nozzle diameter: 0.4 mm

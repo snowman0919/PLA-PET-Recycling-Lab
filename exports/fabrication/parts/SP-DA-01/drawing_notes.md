@@ -1,6 +1,6 @@
 # SP-DA-01 — Dancer arm
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `8 mm 6061-T6`
 - process: `waterjet + ream`

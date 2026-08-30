@@ -1,50 +1,56 @@
 #include "process_state.h"
 
+namespace {
+bool guardsOk(const SafetyInputs &i) {
+  return i.estop_ok && i.lid_closed && i.service_guard_closed && i.thermal_chain_ok;
+}
+}
+
 bool ProcessController::selectMaterial(MaterialProfile next) {
-  if (locked_ || state_ == ProcessState::RUNNING || next == MaterialProfile::NONE) return false;
-  material_ = next; state_ = ProcessState::READY; return true;
+  if (state_ != MachineState::IDLE || next == MaterialProfile::NONE) return false;
+  material_ = next;
+  return true;
 }
 
-bool ProcessController::start(const SafetyInputs &i) {
-  if (state_ != ProcessState::READY && state_ != ProcessState::PAUSED) return false;
-  if (material_ == MaterialProfile::NONE || !i.estop_ok || !i.lid_closed ||
-      !i.service_guard_closed || !i.thermal_chain_ok || !i.predry_confirmed) return false;
-  locked_ = true; state_ = ProcessState::RUNNING; return true;
+bool ProcessController::transitionAllowed(MachineState next) const {
+  switch (state_) {
+    case MachineState::IDLE: return next == MachineState::SHREDDING || next == MachineState::PREHEATING || next == MachineState::FAULT || next == MachineState::ESTOP;
+    case MachineState::SHREDDING: return next == MachineState::IDLE || next == MachineState::PREHEATING || next == MachineState::FAULT || next == MachineState::ESTOP;
+    case MachineState::PREHEATING: return next == MachineState::EXTRUSION || next == MachineState::COOLDOWN || next == MachineState::FAULT || next == MachineState::ESTOP;
+    case MachineState::EXTRUSION: return next == MachineState::COOLDOWN || next == MachineState::FAULT || next == MachineState::ESTOP;
+    case MachineState::COOLDOWN: return next == MachineState::IDLE || next == MachineState::FAULT || next == MachineState::ESTOP;
+    case MachineState::FAULT: return next == MachineState::IDLE || next == MachineState::ESTOP;
+    case MachineState::ESTOP: return next == MachineState::IDLE;
+  }
+  return false;
 }
 
-void ProcessController::pause() {
-  if (state_ == ProcessState::RUNNING) state_ = ProcessState::PAUSED;
+bool ProcessController::requestState(MachineState next, const SafetyInputs &i) {
+  if (!i.estop_ok) {
+    state_ = MachineState::ESTOP;
+    return next == MachineState::ESTOP;
+  }
+  if (!transitionAllowed(next) || material_ == MaterialProfile::NONE) return false;
+  if ((next == MachineState::SHREDDING || next == MachineState::PREHEATING || next == MachineState::EXTRUSION) && !guardsOk(i)) return false;
+  if (next == MachineState::EXTRUSION && (!i.temperatures_ready || !i.gauge_valid)) return false;
+  if ((state_ == MachineState::FAULT || state_ == MachineState::ESTOP) && next == MachineState::IDLE && !i.restart_permission) return false;
+  state_ = next;
+  return arbitrationSafe();
 }
 
-void ProcessController::requestMaterialChange(MaterialProfile next) {
-  if (next == MaterialProfile::NONE || next == material_) return;
-  pending_ = next; locked_ = true; state_ = ProcessState::PURGE_REQUIRED;
+void ProcessController::reportFault() { state_ = MachineState::FAULT; }
+
+bool ProcessController::clearFault(const SafetyInputs &i, bool lockout) {
+  if ((state_ != MachineState::FAULT && state_ != MachineState::ESTOP) || !lockout || !guardsOk(i) || !i.restart_permission) return false;
+  state_ = MachineState::IDLE;
+  return true;
 }
 
-bool ProcessController::confirmPurge(uint16_t grams) {
-  if (state_ != ProcessState::PURGE_REQUIRED || grams < profileFor(material_).purge_grams) return false;
-  state_ = ProcessState::SCREEN_CLEAN_REQUIRED; return true;
+const StatePermissions &ProcessController::permissions() const {
+  return STATE_PERMISSIONS[static_cast<uint8_t>(state_)];
 }
 
-bool ProcessController::confirmScreenClean() {
-  if (state_ != ProcessState::SCREEN_CLEAN_REQUIRED) return false;
-  state_ = ProcessState::HOPPER_CLEAN_REQUIRED; return true;
-}
-
-bool ProcessController::confirmHopperClean() {
-  if (state_ != ProcessState::HOPPER_CLEAN_REQUIRED) return false;
-  state_ = ProcessState::CHANGE_CONFIRM_REQUIRED; return true;
-}
-
-bool ProcessController::confirmMaterialChange() {
-  if (state_ != ProcessState::CHANGE_CONFIRM_REQUIRED || pending_ == MaterialProfile::NONE) return false;
-  material_ = pending_; pending_ = MaterialProfile::NONE; locked_ = false; state_ = ProcessState::READY; return true;
-}
-
-void ProcessController::reportJam() {
-  if (++jam_retries_ >= profileFor(material_).retry_count) state_ = ProcessState::FAULT_LATCHED;
-}
-
-void ProcessController::clearFault(bool lockout) {
-  if (state_ == ProcessState::FAULT_LATCHED && lockout) { jam_retries_ = 0; locked_ = false; state_ = ProcessState::READY; }
+bool ProcessController::arbitrationSafe() const {
+  const auto &p = permissions();
+  return !(p.shredder && (p.screw || p.process_heaters));
 }

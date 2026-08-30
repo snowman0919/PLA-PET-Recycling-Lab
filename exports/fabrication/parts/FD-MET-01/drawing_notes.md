@@ -1,6 +1,6 @@
 # FD-MET-01 — Metering feeder housing
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `304 stainless`
 - process: `turn tube/flanges + drill`

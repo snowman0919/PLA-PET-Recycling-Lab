@@ -1,0 +1,52 @@
+{
+  "revision": "virtual-physics-closure-v0.5.1",
+  "status": "PASS",
+  "contract_sha256": "98c5186e0b0a8083768ba63d240d5287e7e2a07723ddd23874e411bdf5bc65c4",
+  "power_phases": [
+    {
+      "state": "SHREDDING",
+      "average_w": 310.0,
+      "peak_w": 477.0,
+      "peak_current_a": 19.875,
+      "remaining_w_margin": 123.0,
+      "remaining_a_margin": 5.125
+    },
+    {
+      "state": "PREHEATING",
+      "average_w": 300.0,
+      "peak_w": 405.0,
+      "peak_current_a": 16.875,
+      "remaining_w_margin": 195.0,
+      "remaining_a_margin": 8.125
+    },
+    {
+      "state": "EXTRUSION",
+      "average_w": 340.0,
+      "peak_w": 490.0,
+      "peak_current_a": 20.417,
+      "remaining_w_margin": 110.0,
+      "remaining_a_margin": 4.583
+    },
+    {
+      "state": "COOLDOWN",
+      "average_w": 36.0,
+      "peak_w": 61.0,
+      "peak_current_a": 2.542,
+      "remaining_w_margin": 539.0,
+      "remaining_a_margin": 22.458
+    }
+  ],
+  "mutation_regressions": {
+    "shredder_drive_safe": "FAIL_DETECTED",
+    "screw_drive_safe": "FAIL_DETECTED",
+    "heater_safe": "FAIL_DETECTED",
+    "feeder_safe": "FAIL_DETECTED",
+    "puller_safe": "FAIL_DETECTED",
+    "spooler_safe": "FAIL_DETECTED",
+    "power_budget_safe": "FAIL_DETECTED",
+    "mechanical_fuse_state_safe": "FAIL_DETECTED",
+    "restart_inhibited": "FAIL_DETECTED",
+    "guard_chain_safe": "FAIL_DETECTED"
+  },
+  "hard_assertion": "not (shredder_enabled and (screw_enabled or process_heater_enabled))"
+}

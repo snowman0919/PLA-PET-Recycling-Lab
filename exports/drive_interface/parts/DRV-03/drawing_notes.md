@@ -1,6 +1,6 @@
 # DRV-03 — M3 Z16 keyed phase gear lamination
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `6`
 - material: `6 mm S45C`
 - process: `waterjet/wire-EDM profile + stack dowel/finish`

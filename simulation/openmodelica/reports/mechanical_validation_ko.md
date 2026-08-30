@@ -1,40 +1,66 @@
-# OpenModelica coupled digital validation v0.5
+# OpenModelica virtual physics validation v0.5.1
 
 - 판정: **PASS**
-- 시나리오: 32개
-- 상태: `PHYSICAL_VALIDATION_PENDING`; cutter torque/chip size/melt/filament 품질의 실증이 아니다.
+- 시나리오: 55개
+- release: `DIGITAL_FABRICATION_BASELINE`
+- virtual physics: `VIRTUAL_PHYSICS_VALIDATED`
+- empirical: `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
+- 본 결과는 실제 제작품 성능·안전·직경 측정 인증이 아니다.
 
-|시나리오|판정|
-|---|---:|
-|MotorNoLoadStart|PASS|
-|MotorRatedLoad|PASS|
-|PLANominal|PASS|
-|PETNominal|PASS|
-|SingleHookImpact|PASS|
-|MultiHookEngagement|PASS|
-|OneShaftJam|PASS|
-|FullJam|PASS|
-|ReverseClear|PASS|
-|RetryFailure|PASS|
-|MechanicalFuseTrip|PASS|
-|ChainBacklashReverse|PASS|
-|EmergencyStop|PASS|
-|ExtruderWarmupPLA|PASS|
-|ExtruderWarmupPET|PASS|
-|ExtruderNominalPLA|PASS|
-|ExtruderNominalPET|PASS|
-|ExtruderHighFlow|PASS|
-|ScrewJam|PASS|
-|HeaterOpen|PASS|
-|SensorOpen|PASS|
-|MOSFETStuckOn|PASS|
-|EmptySpool|PASS|
-|HalfSpool|PASS|
-|FullSpool|PASS|
-|SpoolJam|PASS|
-|DancerLimit|PASS|
-|GaugeDropout|PASS|
-|FullSystemPLA|PASS|
-|FullSystemPET|PASS|
-|FullSystemGaugeFailure|PASS|
-|FullSystemJam|PASS|
+|시나리오|판정|분류|
+|---|---:|---|
+|MotorNoLoadStart|PASS|RELEASE_ACCEPTANCE|
+|ColdStartNoLoad|PASS|RELEASE_ACCEPTANCE|
+|ColdStartPLA|PASS|RELEASE_ACCEPTANCE|
+|ColdStartPET|PASS|RELEASE_ACCEPTANCE|
+|SlowAcceleration|PASS|RELEASE_ACCEPTANCE|
+|HighInertiaStart|PASS|RELEASE_ACCEPTANCE|
+|BrownoutLikeVoltageDrop|PASS|RELEASE_ACCEPTANCE|
+|MotorRatedLoad|PASS|RELEASE_ACCEPTANCE|
+|MotorLoadStep|PASS|RELEASE_ACCEPTANCE|
+|PLANominal|PASS|RELEASE_ACCEPTANCE|
+|PETNominal|PASS|RELEASE_ACCEPTANCE|
+|SingleHookImpact|PASS|RELEASE_ACCEPTANCE|
+|MultiHookEngagement|PASS|RELEASE_ACCEPTANCE|
+|OneShaftJam|PASS|RELEASE_ACCEPTANCE|
+|FullJam|PASS|RELEASE_ACCEPTANCE|
+|ReverseClear|PASS|RELEASE_ACCEPTANCE|
+|RetryFailure|PASS|RELEASE_ACCEPTANCE|
+|MechanicalFuseTrip|PASS|RELEASE_ACCEPTANCE|
+|ChainBacklashReverse|PASS|SENSITIVITY_ONLY|
+|EmergencyStop|PASS|RELEASE_ACCEPTANCE|
+|ExtruderWarmupPLA|PASS|RELEASE_ACCEPTANCE|
+|ExtruderWarmupPET|PASS|RELEASE_ACCEPTANCE|
+|ExtruderNominalPLA|PASS|RELEASE_ACCEPTANCE|
+|ExtruderNominalPET|PASS|RELEASE_ACCEPTANCE|
+|ExtruderHighFlow|PASS|DIGITAL_STRETCH_TARGET|
+|HeaterOpen|PASS|RELEASE_ACCEPTANCE|
+|SensorOpen|PASS|RELEASE_ACCEPTANCE|
+|MOSFETStuckOn|PASS|RELEASE_ACCEPTANCE|
+|HotExtrusionJamPLA|PASS|RELEASE_ACCEPTANCE|
+|HotExtrusionJamPET|PASS|RELEASE_ACCEPTANCE|
+|ThermalFuseLongDuration|PASS|RELEASE_ACCEPTANCE|
+|EmptySpool|PASS|RELEASE_ACCEPTANCE|
+|HalfSpool|PASS|RELEASE_ACCEPTANCE|
+|FullSpool|PASS|RELEASE_ACCEPTANCE|
+|SpoolJam|PASS|RELEASE_ACCEPTANCE|
+|DancerLimit|PASS|RELEASE_ACCEPTANCE|
+|GaugeDropout|PASS|RELEASE_ACCEPTANCE|
+|RealSpoolJam|PASS|RELEASE_ACCEPTANCE|
+|SpoolJamPropagation|PASS|RELEASE_ACCEPTANCE|
+|FullSystemPLA|PASS|RELEASE_ACCEPTANCE|
+|FullSystemPET|PASS|RELEASE_ACCEPTANCE|
+|FullSystemGaugeFailure|PASS|RELEASE_ACCEPTANCE|
+|FullSystemJam|PASS|RELEASE_ACCEPTANCE|
+|ProcessShredToPreheatTransition|PASS|RELEASE_ACCEPTANCE|
+|ProcessPreheatToExtrusionTransition|PASS|RELEASE_ACCEPTANCE|
+|IllegalShredHeaterOverlap|PASS|RELEASE_ACCEPTANCE|
+|PSUPeakShredding|PASS|RELEASE_ACCEPTANCE|
+|PSUPeakPreheat|PASS|RELEASE_ACCEPTANCE|
+|PSUPeakExtrusion|PASS|RELEASE_ACCEPTANCE|
+|PLAFormingNominal|PASS|RELEASE_ACCEPTANCE|
+|PETFormingNominal|PASS|RELEASE_ACCEPTANCE|
+|PLAFormingHighFlow|PASS|DIGITAL_STRETCH_TARGET|
+|PETFormingHighFlow|PASS|DIGITAL_STRETCH_TARGET|
+|DiameterFlowStep|PASS|RELEASE_ACCEPTANCE|
+|DiameterPullerDisturbance|PASS|RELEASE_ACCEPTANCE|

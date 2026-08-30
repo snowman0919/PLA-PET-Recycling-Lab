@@ -26,6 +26,7 @@ ALLOWED_INTERFACES = {
     frozenset(("Spool", "PPR-C09_SpoolAdapterRear")): "구매 spool 기준 envelope와 조절식 cone 삽입 깊이의 보수적 중첩",
     frozenset(("SpoolCore", "PPR-C09_SpoolAdapterFront")): "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부",
     frozenset(("SpoolCore", "PPR-C09_SpoolAdapterRear")): "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부",
+    frozenset(("HeaterCableDuctBridgeX", "HeaterCableDuctBridgeY")): "18x18 고정 금속 duct의 의도된 L자 결합부",
 }
 
 
@@ -66,7 +67,7 @@ def main():
     output = ROOT / "validation/results/assembly_pairwise_collisions.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps({
-        "revision": "coupled-digital-validation-v0.5",
+        "revision": "virtual-physics-closure-v0.5.1",
         "pair_count": len(objects) * (len(objects) - 1) // 2,
         "tolerance_mm3": TOLERANCE_MM3,
         "overlaps": hits,

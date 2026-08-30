@@ -1,6 +1,6 @@
 # FM-PL-01 — Puller side plate
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `2`
 - material: `10 mm 6061-T6`
 - process: `waterjet + ream`

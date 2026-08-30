@@ -1,6 +1,6 @@
 # G1J-P03 — Guard edge trim
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `4`
 - material: `PLA`
 - process: `FDM`

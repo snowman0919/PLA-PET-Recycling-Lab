@@ -1,5 +1,5 @@
 {
-  "revision": "coupled-digital-validation-v0.5",
+  "revision": "virtual-physics-closure-v0.5.1",
   "geometry": "exact released CUT-01 cycloidal-derived B-Rep",
   "base_angle_range_deg": [
     0,
@@ -23,5 +23,5 @@
   "derivation": "all 1080 rotated exact solids retain a constant positive axial B-Rep interval separation; periodic exact common() checks are zero. The 1 degree limit is the stricter capture/gear-backlash limit",
   "synchronization_requirement": "phase gears remain required for counter-rotation and capture timing even though axial disc separation prevents direct cutter collision",
   "status": "PASS",
-  "physical_state": "PHYSICAL_VALIDATION_PENDING"
+  "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
 }

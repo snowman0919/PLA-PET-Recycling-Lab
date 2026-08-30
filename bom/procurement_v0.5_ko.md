@@ -1,10 +1,10 @@
-# v0.5 구매처·제품 확정 (구매 실행 전 단계)
+# v0.5.1 구매처·제품 후보 고정 (구매 실행 전 단계)
 
-Revision: `coupled-digital-validation-v0.5` / 작성일: 2026-08-30
+Revision: `virtual-physics-closure-v0.5.1` / 작성일: 2026-08-30
 
 ## 확정 원칙
 
-- 이 문서는 **구매처(vendor)와 제품(product)을 확정**한 것이며, **구매 실행, 발주, 결제는 포함하지 않는다**.
+- 이 문서는 비교·견적용 **vendor/product 후보를 고정**한 것이며, **구매 실행, 발주, 결제는 포함하지 않는다**. `견적 필요`, donor 미확인, probe MPN 미확정 항목은 선정 완료가 아니다.
 - 구매 승인 대상(USER_APPROVAL_REQUIRED): heater, motor, bearing/sprocket, driver, thermal safety item, CNC 가공.
 - 모든 가격은 2026-08-30 공개 페이지 기준이며 배송비·환율 변동과 최종 견적 전까지 `CONDITIONAL_PLANNING_BUDGET`이다. 영수증이 생기기 전까지 `VERIFIED_PROCUREMENT_BUDGET=NOT_ESTABLISHED`를 유지한다.
 
@@ -42,7 +42,7 @@ Revision: `coupled-digital-validation-v0.5` / 작성일: 2026-08-30
 |SH-INTERFACE|6,000|9,000-15,000|+3,000~+9,000|
 |SH-DRIVE|8,000|4,620-8,000|-3,380~0|
 
-예상 합계 델타: **+20,000 ~ +77,000 KRW** → 조건부 총액이 190,629 KRW(예비비 포함)를 초과해 **200,000 KRW 절대 상한을 침범할 가능성이 높다**.
+예상 합계 델타: **+20,000 ~ +77,000 KRW** → 조건부 총액이 193,729 KRW(예비비 포함)를 초과해 **200,000 KRW 절대 상한을 침범할 가능성이 높다**.
 
 ## 상한 준수 옵션 (사용자 결정 필요 — 안전 삭제·와트 축소·donor 0원 조작 없이)
 
@@ -56,4 +56,4 @@ Revision: `coupled-digital-validation-v0.5` / 작성일: 2026-08-30
 - `bom/bom.csv`: EX-03/EX-04/EX-05/FH-02/SF-03/SH-05 notes에 확정 구매처·제품 반영 완료.
 - `bom/purchase_candidates.csv`: 6개 신규 row(HT/TEMP/ELEC) + SH-DRIVER/SH-CHAIN/SH-MOTOR-REFERENCE 상태 갱신.
 - 기하·사양 변경 없음: 확정 제품은 기존 RFQ 계약(export/thermal/heater_rfq_ko.md)의 치수·저항·절감 수령검사 기준과 동일하므로 CAD/BOM 수치 변경 불요.
-- 구매 승인 시에도 Gate-1 signed 증거 없이 full cutter stack/screw/barrel 발주 잠금과 `main` 승격 잠금은 유지된다.
+- 구매 승인 시에도 full cutter stack/screw/barrel 발주 범위와 commissioning은 별도 확인한다. Optional Gate-1 signed 증거 유무는 `main` 승격 조건이 아니다.

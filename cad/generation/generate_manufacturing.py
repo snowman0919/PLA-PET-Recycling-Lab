@@ -53,7 +53,7 @@ def export_shape_set(specs, base):
         dxf=folder/f"{spec['id']}.dxf"; importDXF.export([obj],str(dxf)); normalize_dxf(dxf)
         (folder/"drawing_notes.md").write_text(
             f"# {spec['id']} — {spec['name']}\n\n"
-            f"- revision: `coupled-digital-validation-v0.5`\n"
+            f"- revision: `virtual-physics-closure-v0.5.1`\n"
             f"- quantity: `{spec['qty']}`\n"
             f"- material: `{spec['material']}`\n"
             f"- process: `{spec['process']}`\n"
@@ -92,18 +92,19 @@ def write_machine_fabrication_package():
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["part_id", "name", "quantity", "material", "process", "x_mm", "y_mm", "z_mm", "files", "release_state"])
         for row in rows:
-            w.writerow([row["id"], row["name"], row["qty"], row["material"], row["process"], f"{row['x']:.2f}", f"{row['y']:.2f}", f"{row['z']:.2f}", "FCStd|STEP|STL|DXF|drawing_notes", "HOLD_USER_APPROVAL_AND_APPLICABLE_PHYSICAL_GATE"])
+            w.writerow([row["id"], row["name"], row["qty"], row["material"], row["process"], f"{row['x']:.2f}", f"{row['y']:.2f}", f"{row['z']:.2f}", "FCStd|STEP|STL|DXF|drawing_notes", "DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED"])
     with (base / "frame_cut_list.csv").open("w", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["part_id", "stock", "cut_length_mm", "quantity", "end_condition", "length_tolerance_mm", "source", "release_state"])
         w.writerows([
             ("FR-01", "20x20 aluminum profile", "890.0", 4, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
-            ("FR-02", "20x20 aluminum profile", "430.0", 11, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
-            ("FR-03", "20x20 aluminum profile", "660.0", 8, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-02", "20x20 aluminum profile", "430.0", 10, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-03", "20x20 aluminum profile", "660.0", 6, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
             ("FR-04", "20x20 aluminum profile", "300.0", 2, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
             ("FR-05", "20x20 aluminum profile", "318.0", 1, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
             ("FR-06", "20x20 aluminum profile", "280.0", 2, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
             ("FR-07", "20x20 aluminum profile", "50.0", 1, "square/square; deburr", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
+            ("FR-08", "20x40 aluminum profile", "660.0", 2, "square/square; deburr; 40 mm axis vertical", "+/-0.5", "project-lab inventory first", "VERIFY_INVENTORY_OR_QUOTE"),
         ])
     with (base / "assembly_interface_schedule.csv").open("w", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
@@ -118,7 +119,7 @@ def write_machine_fabrication_package():
             ("spool_axis", "SP-SH-01", "PPR-C09/6001 bearings", "metal collars", "bearing fit per received lot", "full-spool runout", "GATE5"),
         ])
     (base / "README_ko.md").write_text(
-        "# Machine fabrication package — coupled-digital-validation-v0.5\n\n"
+        "# Machine fabrication package — virtual-physics-closure-v0.5.1\n\n"
         "이 디렉터리는 shredder CUT, drive DRV, Gate-1 jig, extruder RFQ와 중복되지 않는 본체 제작품을 담는다. "
         "각 part 폴더의 note가 공차를 지배하고 STEP은 3D 형상, DXF/STL은 견적 reference다. "
         "Frame은 겹치는 profile solid가 아니라 `frame_cut_list.csv`의 butt-joint cut length로 조립한다. "
@@ -154,7 +155,7 @@ def svg_barrel_drawing(path):
 <rect x="150" y="260" width="50" height="85" class="b"/><path class="c" d="M90 375 H850"/>
 <path class="d" d="M120 480 V525 M820 480 V525 M120 510 H820"/><text x="415" y="550">LENGTH 280.0 ±0.05</text>
 <text x="55" y="620">OD Ø34.00 ±0.05 · bore Ø16.20 +0.02/0 after final hone · radial clearance 0.14–0.16</text>
-<text x="55" y="655">feed port 18 axial ×20, near edge B+12 · 3× sensor Ø3.20 +0.05/0 blind7 at B+95/170/245</text>
+<text x="55" y="655">feed port 18 axial ×20, near edge B+12 · 3× sensor Ø3.20 +0.05/0 blind6 at B+95/170/245</text>
 <text x="55" y="690">4x M4×0.7-6H full depth8/tap drill11, PCD26 at 45° · outer/inner ligament ≥2.0/2.9 · faces B/C ⟂ D 0.03</text>
 <text x="55" y="725">bore Ra 0.4–0.8 µm; SCM440 QT 28–32 HRC → gas nitride 0.30–0.50 mm, ≥900 HV</text>
 <text x="55" y="760">Assembly: B aligns screw active start; screw tip is 24.0 behind C. Final hone after nitride; report ID at B+20/140/260.</text>
@@ -189,7 +190,7 @@ def svg_die_drawing(path):
 <path class="c" d="M560 310H950M760 140V520"/><text x="585" y="135">SECTION — barrel is to the right, outlet is downward</text>
 <text x="610" y="260">Ø8 horizontal channel</text><text x="805" y="405">Ø8 vertical</text>
 <text x="55" y="570">BODY SCM440 QT 28–32 HRC + gas nitride: 40×40×48; face flatness 0.03; channels Ø8 H9;</text>
-<text x="55" y="600">breaker seat Ø16.20 +0.05/0 ×3; insert seat Ø12.00 +0.03/0 ×14; heater Ø6.20 H9 thru;</text>
+<text x="55" y="600">breaker seat Ø16.20 +0.05/0 ×3; insert seat Ø12.00 +0.03/0 ×14; heater Ø6.05 H7 reamed thru;</text>
 <text x="55" y="630">sensor Ø3.20 +0.05/0 blind12; 2×M4-6H depth8 retainer holes at X8/32; all melt edges R0.3.</text>
 <text x="55" y="665">BREAKER 304: Ø15.90 -0.05/0 ×2; 7×Ø2.00 +0.05/0 (six PCD10). INSERT 17-4PH H900:</text>
 <text x="55" y="695">Ø11.90 -0.02/0 ×14; Ø3.00 +0.02/0 ×10 land, Ra≤0.4; 4 mm 60° included transition; TIR≤0.02.</text>
@@ -209,7 +210,7 @@ def write_drive_package():
         dict(id="DRV-A60",name="GMP60-60127 selected adapter plate",shape=motor_adapter_gmp60_shape(),qty=1,material="6 mm SS400 steel",process="laser + drill/ream",critical="80 x80 x6; centre Ø32.2; 4xØ5.5 PCD45; two 6.6x18 universal slots; match official motor drawing before order"),
         dict(id="DRV-F01A",name="Motor-side fuse inner hub",shape=motor_side_fuse_inner_hub(),qty=1,material="S45C",process="turn + keyway + radial drill",critical="Ø12.2 bore matched to received GMP60 Ø12 keyed shaft; OD20 x16; radial Ø3.2; no set-screw-only torque path"),
         dict(id="DRV-F01B",name="Motor-side fuse sprocket carrier",shape=motor_side_fuse_outer_hub(),qty=1,material="S45C",process="turn + PCD drill + radial drill",critical="OD36/ID20.4 x10; radial Ø3.2; 4xØ4.5 PCD28 to 12T sprocket; rotates free after pin fracture"),
-        dict(id="DRV-F01P",name="Replaceable waisted shear pin coupon",shape=motor_side_fuse_pin(),qty=6,material="C360/CuZn39Pb3 brass",process="turn waist after coupon calibration",critical="Ø3 x36 blank; starting waist Ø1.8 x4; target 10.35 N.m motor-side; one-shot BROKEN state; Gate-1 torque calibration controls final waist"),
+        dict(id="DRV-F01P",name="Replaceable waisted shear pin coupon",shape=motor_side_fuse_pin(),qty=6,material="C360/CuZn39Pb3 brass",process="turn waist to released digital baseline; optional coupon correlation may refine later",critical="Ø3 x36 blank; starting waist Ø1.8 x4; target 10.35 N.m motor-side; one-shot BROKEN state; optional empirical calibration is not a design-release gate"),
     ]
     rows=export_shape_set(specs,base/"parts")
     with (base/"manifest.csv").open("w",newline="") as f:
@@ -225,7 +226,7 @@ def write_drive_package():
             "DRV-F01P":"GATE1_COUPON_QTY_6_ALLOWED_AFTER_USER_APPROVAL",
         }
         for r in rows:w.writerow([r["id"],r["name"],r["qty"],r["material"],r["process"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}",release[r["id"]]])
-    (base/"interface_contract_ko.md").write_text("""# 교환식 분쇄기 구동 인터페이스 — coupled-digital-validation-v0.5
+    (base/"interface_contract_ko.md").write_text("""# 교환식 분쇄기 구동 인터페이스 — virtual-physics-closure-v0.5.1
 
 공정 경로와 dual-shaft cutter는 변경하지 않는다. 특정 MY1016Z, KTR coupling, KHK gear의 part number는 요구조건이 아니다.
 
@@ -258,14 +259,14 @@ Chain efficiency 0.85 screening에서 12T:18T, 12T:24T, 12T:30T의 motor output 
 Active assembly의 red body는 GMP60-60127 공개 치수인 motor Ø60.5×127, gearbox Ø60×59, front pilot Ø32×4.85, shaft Ø12×25.8을 모델링한다. `DRV-A60`은 Ø32.2 pilot와 4×M5 PCD45를 제공한다. 다른 donor에는 이 모터 솔리드를 억지로 재사용하지 않고 `DRV-Axx`와 수령검사표만 바꾼다. Source URL과 확인일은 `reference_variant.json`에 고정한다. Donor 실측과 Gate-1 전에는 motor, full cutter stack, screw/barrel 발주를 승인하지 않는다.
 """,encoding="utf-8")
     reference={
-        "revision":"coupled-digital-validation-v0.5","manufacturer":"TT Motor","part_number":"GMP60-60127-2460",
+        "revision":"virtual-physics-closure-v0.5.1","manufacturer":"TT Motor","part_number":"GMP60-60127-2460",
         "model":"GMP60-60127 24 V ratio 47","motor_type":"brushed PMDC planetary gearmotor",
         "published":{"voltage_v":24,"motor_power_w":138,"output_no_load_rpm":95,"output_rated_rpm":70,"continuous_torque_kg_cm":100,"continuous_torque_nm":9.80665,"no_load_current_a":0.75,"rated_current_a":8.2,"stall_current_a":31,"overall_axial_length_including_shaft_mm":211.8,"motor_diameter_mm":60.5,"motor_length_mm":127,"gearbox_diameter_mm":60,"gearbox_length_mm":59,"front_boss_diameter_mm":32,"front_boss_length_mm":4.85,"shaft_diameter_mm":12,"shaft_length_mm":25.8,"shaft_flat_length_mm":13,"shaft_flat_across_mm":10.9,"mounting":"4xM5 PCD45","gearbox_face_step_mm":2,"gear_ratio":47},
         "machine_interface":{"chain_ratio":"12T:30T","screening_efficiency":0.85,"cutter_rated_speed_rpm":28,"cutter_equivalent_continuous_capability_nm":20.84,"motor_side_relief_setting_nm":10.35,"adapter":"DRV-A60"},
         "rejected_requested_reference":{"part_number":"GMP42-775PM ratio 51","rated_speed_rpm":90,"rated_torque_kg_cm":26,"rated_torque_nm":2.5497,"cutter_equivalent_torque_12T_30T_efficiency_0_85_nm":5.42,"status":"REJECTED_CONTINUOUS_TORQUE","adapter_retained":"DRV-A42"},
         "source_url":"https://www.ttmotor.com/uploads/GMP60-609760127.pdf",
         "rejected_reference_source_url":"https://www.ttmotor.com/uploads/GMP42-775PM.pdf",
-        "source_checked_date":"2026-08-29","selection_state":"DIGITAL_REFERENCE_ONLY_PHYSICAL_RECEIPT_AND_GATE1_REQUIRED","purchase_allowed":False,
+        "source_checked_date":"2026-08-29","selection_state":"DIGITAL_REFERENCE_ONLY_PHYSICAL_RECEIPT_REQUIRED_FOR_PROCUREMENT","purchase_allowed":False,
     }
     (base/"reference_variant.json").write_text(json.dumps(reference,indent=2,ensure_ascii=False)+"\n")
     with (base/"ratio_and_fuse_settings.csv").open("w",newline="") as f:
@@ -280,7 +281,7 @@ def svg_gate1_hardcut(path):
     """Human-readable hardwired motor-energy cut schematic for Gate-1."""
     path.write_text("""<svg xmlns="http://www.w3.org/2000/svg" width="1189" height="841" viewBox="0 0 1189 841">
 <style>text{font-family:'Noto Sans CJK KR',sans-serif;font-size:18px}.t{font-size:27px;font-weight:bold}.w{stroke:#17465a;stroke-width:4;fill:none}.c{fill:#eef4f6;stroke:#111;stroke-width:2}.n{font-size:15px}.danger{fill:#a12c2c}</style>
-<text x="45" y="48" class="t">Gate-1 24 V hardwired motor-energy cut — coupled-digital-validation-v0.5</text>
+<text x="45" y="48" class="t">Optional Gate-1 24 V hardwired motor-energy cut — virtual-physics-closure-v0.5.1</text>
 <text x="45" y="83" class="danger">Mega output alone cannot energize K1. S0/S1 opening drops K0 and requires manual START reset.</text>
 <rect x="55" y="145" width="120" height="70" class="c"/><text x="76" y="185">24 V PSU</text>
 <path d="M175 170H235" class="w"/><rect x="235" y="145" width="95" height="50" class="c"/><text x="260" y="178">F1 20 A</text>
@@ -478,7 +479,7 @@ def write_gate1_package():
             w.writerow({"evidence_id":evidence_id,"evidence_type":evidence_type})
     (base/"gate1_release_record_ko.md").write_text("""# Gate-1 release record — 물리시험 후 작성
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - 현재 상태: `NOT_RUN`
 - preflight CSV SHA-256:
 - force calibration CSV SHA-256:
@@ -500,11 +501,11 @@ def write_gate1_package():
 - 시험자/날짜/서명:
 - 검토자/날짜/서명:
 
-`PASS`는 `test_procedure_ko.md`의 모든 기준, traceable calibration과 원시 증거가 동시에 충족될 때만 parent Codex가 별도 commit에서 기록한다. 이 template의 존재는 release가 아니다. `PASS`가 아닌 상태에서는 full cutter stack, full screw/barrel 발주와 `main` 승격을 계속 금지한다.
+`PASS`는 `test_procedure_ko.md`의 모든 기준, traceable calibration과 원시 증거가 동시에 충족될 때만 별도 empirical record에 기록한다. 이 template의 존재는 시험 결과가 아니다. 미수행은 `main`을 차단하지 않지만 full cutter/screw-barrel 발주는 별도 사용자 승인 전 금지한다.
 """,encoding="utf-8")
     (base/"assembly_ko.md").write_text(f"""# Gate-1 cutter coupon jig 조립도
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - nominal assembly envelope: `{envelope[0]} x {envelope[1]} x {envelope[2]} mm`
 - powered configuration envelope: `{powered_envelope[0]} x {powered_envelope[1]} x {powered_envelope[2]} mm`
 - 목적: CUT-01 두 장만 사용해 PLA/PET peak torque, jam recovery와 chip-size fraction을 측정한다.
@@ -637,7 +638,7 @@ STEP은 3D 견적/간섭 기준, SVG와 본 문서는 치수·GD&T 기준이다.
 - SCM440 solid/seamless blank, QT 28–32 HRC. OD Ø34.00 ±0.05, length 280.00 ±0.05. Rear face=Datum B, front face=Datum C, final bore axis=Datum D. Assembly에서 B는 screw active start와 일치하고 screw tip은 C 뒤 24.0 ±0.2에 위치한다.
 - Bore after final hone Ø16.20 +0.02/0, Ra≤0.4–0.8 µm. Bore straightness ≤0.05/256 and concentricity to OD/register ≤0.05.
 - Feed opening은 축방향 18.00 ±0.10 x chord width 20.00 ±0.10, rear edge B+12.00 ±0.10. Port centre plane을 전면 bolt pattern의 0° 각도 기준으로 삼는다. Bore-intersection edge R0.5 ±0.2; screw flight 위 sharp edge 금지.
-- T1/T2/T3 radial blind sensor bores는 B+95.00/170.00/245.00 ±0.10, Ø3.20 +0.05/0, depth7.00 ±0.10이다. Bore axis는 Datum D와 0.10/7 이내 직각이며 melt bore로 breakthrough하지 않는다. 명목 최소 ligament 1.90 mm를 보존하고 plug gauge/depth gauge 결과를 제출한다.
+- T1/T2/T3 radial blind sensor bores는 B+95.00/170.00/245.00 ±0.10, Ø3.20 +0.05/0, depth6.00 ±0.10이다. Bore axis는 Datum D와 0.10/6 이내 직각이며 melt bore로 breakthrough하지 않는다. 명목 최소 ligament 2.85 mm를 보존하고 plug gauge/depth gauge 결과를 제출한다.
 - Front die interface는 4x M4 x0.7-6H, full thread depth 8 minimum, tap-drill depth 11 minimum, PCD26.00 ±0.05 at 45/135/225/315° ±0.2° from feed-port centre plane이다. Ø3.3 tap drill 기준 nominal outer ligament 2.35 mm, bore-side ligament 3.25 mm이고 M4 major envelope 기준으로도 각각 2.0/2.9 mm 이상이다. 나사·counterbore가 OD 또는 bore로 breakthrough하면 FAIL이다. B/C faces은 D에 직각도 0.03; OD concentricity to D ≤0.05.
 - Rough turn/deep drill → 600–650 °C stress relieve(재료 공급사 표준 cycle, certificate 기록) → datum-face/OD finish → semi-finish ream/hone leaving 0.05–0.08 mm on diameter → feed port/thread machine → gas nitride 0.30–0.50 mm, ≥900 HV0.3 → final hone. Effective case after final hone is ≥0.25 mm.
 - Report bore at 20/140/260 mm and roundness ≤0.02 at each station. Front/rear face perpendicularity 0.03 to bore axis.
@@ -656,7 +657,7 @@ Coupon controlling dimensions: EX-CPN-SCR L48.00 ±0.05, three RH pitches 16.00 
 
 `EX-DIE-01`은 barrel 전면에 4×M4×45 class 10.9 bolt와 `EX-DIE-05` annealed copper gasket로 체결되는 40×40×48 SCM440 body다. Ø8 수평 유로와 Ø8 수직 유로는 X20/Z0에서 실제로 교차하며, 공급사는 교차부를 borescope로 확인하고 burr·step을 R0.3 이하로 제거한다. Barrel-side에는 Ø15.90×2 `EX-DIE-02` seven-hole 304 breaker가 Ø16.20×3 seat에 갇힌다. Bottom에는 OD Ø11.90×14 `EX-DIE-03` 17-4PH H900 insert가 Ø12.00×14 seat에 들어가고 Ø3.00×10 land와 4 mm conical transition으로 open discharge한다. 직접 hot path에 polymer는 없다.
 
-Body sealing face flatness는 0.03, melt channel Ø8 H9, insert seat Ø12.00 +0.03/0, breaker seat Ø16.20 +0.05/0이다. Heater bore Ø6.20 H9 through와 sensor bore Ø3.20 +0.05/0 blind12는 유로와 bolt를 관통하지 않는다. Body는 6-face datum machining → intersecting drill/ream → stress relieve → final seat/face → gas nitride → sealing face lap 순서다. Channel/seat에는 weld repair와 plating을 금지한다.
+Body sealing face flatness는 0.03, melt channel Ø8 H9, insert seat Ø12.00 +0.03/0, breaker seat Ø16.20 +0.05/0이다. Heater bore Ø6.05 H7 reamed through와 sensor bore Ø3.20 +0.05/0 blind12는 유로와 bolt를 관통하지 않는다. Body는 6-face datum machining → intersecting drill/ream → stress relieve → final seat/face → gas nitride → sealing face lap 순서다. Channel/seat에는 weld repair와 plating을 금지한다.
 
 `EX-DIE-04`는 304 stainless t1.5의 교환식 sacrificial retainer다. 두 10 mm wide ×2.5 mm long web, 265 °C 보수 항복강도 150 MPa와 Ø11.9 insert에서 Ø3 orifice를 뺀 투영면적을 쓴 단순 탄성 항복 screening은 약 4.32 MPa이며 normal 3 MPa와 motor-trip equivalent 6 MPa 사이를 겨냥한다. 이는 release 값이 아니다. 동일 lot coupon 3개를 shielded heated hydraulic fixture에서 265 °C 조건으로 시험해 최초 영구변형/우회 개방이 3–6 MPa이고 fragment/ejection이 없을 때만 사용한다. Retainer는 insert를 포획한 채 우회 유로를 열어야 하며, grounded metal shield와 remote first-hot-test 없이는 가열하지 않는다. Full die assembly 역시 process coupon, relief coupon 및 Gate-3 전 `HOLD_PROCESS_COUPON_AND_GATE3`다.
 """,encoding="utf-8")
@@ -669,7 +670,7 @@ Body sealing face flatness는 0.03, melt channel Ø8 H9, insert seat Ø12.00 +0.
 3. Flight OD TIR 0.05/256, concentricity 0.03, Ra 0.8 검사 가능 여부.
 4. Barrel Ø16.20 +0.02/0 final hone, three-station ID/roundness와 Ra report 가능 여부.
 5. Front 4×M4-6H depth8/PCD26 가공 후 OD/bore breakthrough가 없고 major-envelope ligament outer 2.0 mm, bore-side 2.9 mm 이상인지 확인.
-6. B+95/170/245의 3× Ø3.20 blind7 thermocouple bore, depth와 melt-bore breakthrough 없음 및 nominal ligament 1.90 mm 확인.
+6. B+95/170/245의 3× Ø3.20 blind6 thermocouple bore, depth와 melt-bore breakthrough 없음 및 nominal ligament 2.85 mm 확인.
 7. Gas nitride case/surface hardness certificate와 barrel final-hone 후 effective case ≥0.25 mm 가능 여부.
 8. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
 9. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.
@@ -689,24 +690,24 @@ def write_thermal_package():
     fuse=Part.makeBox(20,6,8)
     specs=[
         dict(id="TH-BH-01",name="Custom barrel mica band heater",shape=mica_band_heater_shape(),qty=3,material="mica/NiCr/stainless sheath",process="custom heater RFQ",critical="24 VDC 100 W each; as-clamped ID34.00 +0.10/0; width45 ±0.5; radial build2 nominal; cold resistance 5.76 Ω ±10%; 300 mm fiberglass leads; grounded sheath; PET service 300 C design; no stock Ø35 substitution"),
-        dict(id="TH-DIE-01",name="Die cartridge heater",shape=die_cartridge_heater_shape(),qty=1,material="stainless-sheathed cartridge",process="purchased reference + receipt test",critical="24 VDC 60 W; Ø6.00 -0.02/-0.06 x38 ±0.5; cold resistance 9.60 Ω ±10%; fit EX-DIE-01 Ø6.20 H9 through; 300 mm fiberglass leads"),
+        dict(id="TH-DIE-01",name="Die cartridge heater",shape=die_cartridge_heater_shape(),qty=1,material="stainless-sheathed cartridge",process="purchased reference + receipt test",critical="24 VDC 60 W; Ø6.00 -0.02/-0.06 x38 ±0.5; cold resistance 9.60 Ω ±10%; fit EX-DIE-01 Ø6.05 H7 reamed through; measured diametral clearance 0.070–0.122; 300 mm fiberglass leads"),
         dict(id="TH-PTC-EL",name="Hopper maintenance PTC element",shape=ptc,qty=4,material="24 V ceramic PTC",process="purchased candidate + single-element calorimetry",critical="35 x21 x5 class; 80-110 C self-regulating class; actual cold/hot W unknown until receipt test; four is provisional; never primary PET dryer"),
         dict(id="TH-PTC-01",name="Hopper PTC aluminum spreader",shape=hopper_ptc_spreader_shape(),qty=1,material="6061-T6 t3",process="laser/waterjet + deburr",critical="120 x55 x3; 4x Ø4.5; flatness0.20; electrically bonded to hopper; PTC-to-metal insulation system supplier-rated"),
         dict(id="TH-PTC-02",name="Hopper PTC grounded keeper",shape=hopper_ptc_clamp_shape(),qty=1,material="304 stainless t2",process="laser + deburr",critical="120 x55 x2; 4x Ø4.5; spring/compliant electrically-insulating pads prevent ceramic point load; PE bond"),
-        dict(id="TH-TC-01",name="Grounded K-type barrel/die/hopper probe",shape=k_type_probe_shape(),qty=5,material="Ø3 mineral-insulated 304 sheath",process="purchased + ice/boiling-point check",critical="Ø3.00 -0.05/0; insertion6 nominal, die10 and hopper4 by stop collar; 300 C minimum continuous; isolated amplifier channel per probe"),
+        dict(id="TH-TC-01",name="Ungrounded K-type barrel/die/hopper probe",shape=k_type_probe_shape(),qty=5,material="Ø3 mineral-insulated 304 sheath, ungrounded junction",process="purchased + insulation/ice/boiling-point check",critical="Ø3.00 -0.05/0; insertion6 nominal, die10 and hopper4 by stop collar; 300 C minimum continuous; MAX6675 T- common electronics reference; sheath-to-junction insulation verified"),
         dict(id="TH-FUSE-01",name="Independent one-shot thermal fuse envelope",shape=fuse,qty=3,material="300 C-class barrel/die plus hopper-specific lower setpoint",process="purchased + lot continuity/traceability",critical="one-shot, series hard cut independent of Mega/MOSFET; exact body/lead crimp from selected datasheet; never solder within hot zone"),
     ]
     rows=export_shape_set(specs,base/"parts")
     with (base/"manifest.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["part_id","name","quantity","material","x_mm","y_mm","z_mm","release_state"])
         for r in rows:w.writerow([r["id"],r["name"],r["qty"],r["material"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}","USER_APPROVAL_AND_RECEIPT_TEST_HOLD"])
-    (base/"heater_rfq_ko.md").write_text("""# v0.5 가열계 RFQ 및 수령검사 계약
+    (base/"heater_rfq_ko.md").write_text("""# v0.5.1 가열계 RFQ 및 수령검사 계약
 
 ## 고정 아키텍처
 
 Barrel은 `TH-BH-01` 24 V/100 W/ID34/W45 mica band 3개, die는 `TH-DIE-01` 24 V/60 W/Ø6×38 cartridge 1개를 쓴다. 공정가열 정격합계는 360 W(15.0 A)다. Ø35 stock band를 Ø34 barrel에 느슨하게 쓰거나 PTC를 barrel 주가열에 쓰는 대체는 금지한다.
 
-Zone 중심은 barrel datum B에서 67.5/137.5/212.5 mm이며 band 범위는 B+45–90, 115–160, 190–235 mm다. T1/T2/T3 blind bore는 B+95/170/245 mm, Ø3.20 +0.05/0, 깊이7.0 ±0.1이며 melt bore까지 명목 ligament 1.9 mm다. T4는 die Ø3.20 blind12, T5는 hopper metal wall을 측정한다. Probe가 heater sheath만 읽도록 band 아래에 끼우지 않는다.
+Zone 중심은 barrel datum B에서 67.5/137.5/212.5 mm이며 band 범위는 B+45–90, 115–160, 190–235 mm다. T1/T2/T3 blind bore는 B+95/170/245 mm, Ø3.20 +0.05/0, 깊이6.0 ±0.1이며 melt bore까지 명목 ligament 2.9 mm다. T4는 die Ø3.20 blind12, T5는 hopper metal wall을 측정한다. Probe junction은 ungrounded여야 하며 sheath-to-junction insulation을 수령 검사한다.
 
 각 100 W band cold resistance는 5.76 Ω ±10%, 60 W cartridge는 9.60 Ω ±10%를 수령 시 20 ±2 °C에서 기록한다. Sheath-to-lead 절연, PE bond, lead strain relief, 실제 외형과 clamp closure를 검사한다. 24 V 저전압이라도 각 channel branch fuse와 40–60 V VDS/10 A continuous thermal-capable MOSFET를 사용한다. Mega는 저주파 time-proportioning을 수행하지만 independent thermal fuse를 우회할 수 없다.
 

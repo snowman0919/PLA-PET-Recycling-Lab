@@ -1,6 +1,6 @@
 # CT-ENC-01 — Control-panel sheet enclosure
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `2 mm 5052 aluminum`
 - process: `laser + brake + PE stud`

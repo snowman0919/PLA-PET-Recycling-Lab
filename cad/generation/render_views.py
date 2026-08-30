@@ -29,6 +29,7 @@ from geometry import (  # noqa: E402
     down_die_relief_retainer,
     hook_disc,
     print_parts,
+    review_keepout_objects,
 )
 from manufacturing import (  # noqa: E402
     bolt_on_sprocket_hub,
@@ -199,6 +200,23 @@ def render_tool_access(assembly=None):
     render([i for i in assembly if i["group"]=="shredder"], ROOT/"renders/review/shredder_fastener_tool_access.png", "Shredder bearing plates / interleaved discs / M6 through-bolts", "right", arrow=True, arrow_target=(1210,680))
 
 
+def render_release_review_views(assembly):
+    """Views required for the parent visual release audit."""
+    render(assembly, ROOT/"renders/assembly/compact_full_assembly_side.png", "Right side | hot zone, forming path, and enclosed services", "right")
+    render(assembly, ROOT/"renders/review/closed_operating_state.png", "Closed operating state | guards, shield, panel, and ducts installed", "iso")
+    heater_review = [i for i in assembly if i["group"] == "extruder" and i["name"] != "HotShield"]
+    render(heater_review, ROOT/"renders/review/heater_and_hot_zone.png", "Heater inspection | shield removed; 3 bands, die cartridge, 4 probes, fuses, duct", "iso")
+    render([i for i in assembly if i["group"] == "forming"], ROOT/"renders/review/cooling_and_forming.png", "Cooling/forming | straight soft-strand path through X/Y gauge and puller", "iso")
+    render([i for i in assembly if i["group"] == "spooler"], ROOT/"renders/review/spool_and_dancer.png", "Spool/dancer | solid guide, dancer, traverse, spindle, full spool", "iso")
+    cable_names = ("HeaterLead", "HeaterCableDuct", "CableDuct", "PPR-C12_CableClip", "ControlPanel", "PSU")
+    render([i for i in assembly if i["name"].startswith(cable_names)], ROOT/"renders/review/cable_routing.png", "Cable routing | fixed hot-zone duct to segregated vertical service duct", "iso")
+    service_items = [i for i in assembly_objects(exploded=True) if i["group"] in ("extruder", "control", "frame")]
+    for item in review_keepout_objects():
+        if item["name"] == "KO_ScrewService":
+            service_items.append({**item, "color": (220, 80, 70), "group": "review"})
+    render(service_items, ROOT/"renders/review/service_access.png", "Service access | exploded hot zone/control with screw-withdrawal keep-out", "iso")
+
+
 def gate1_render_items(exploded=False, mode="manual"):
     """Review LOD: preserve the exact screen envelope without tessellating holes."""
     items=gate1_assembly(exploded=exploded, mode=mode)
@@ -341,9 +359,10 @@ def main():
         render_tool_access(assembly)
         print("COMPACT_TOOL_ACCESS_RENDER_OK images=1")
         return
-    render(assembly, ROOT/"renders/assembly/compact_full_assembly_isometric.png", "coupled-digital-validation-v0.5 | 470 x 700 x 930 mm", "iso")
+    render(assembly, ROOT/"renders/assembly/compact_full_assembly_isometric.png", "virtual-physics-closure-v0.5.1 | 470 x 700 x 930 mm", "iso")
     render(assembly, ROOT/"renders/assembly/compact_full_assembly_front.png", "Front | vertical forming path and full spool", "front")
     render(assembly, ROOT/"renders/assembly/compact_full_assembly_top.png", "Top | all normal-operation components inside frame", "top")
+    render_release_review_views(assembly)
     shredder=[i for i in assembly if i["group"] in ("input","shredder","feed")]
     render(shredder, ROOT/"renders/modules/shared_shredder_module.png", "Shared hopper / hook cutter / removable screen / bin", "iso")
     render_cycloidal_hook_construction()
@@ -360,7 +379,7 @@ def main():
     render(prints, ROOT/"renders/review/support_contact.png", "Support-contact review | downward facets in red", "iso", support=True)
     render([i for i in assembly if i["group"] in ("forming","spooler")], ROOT/"renders/review/forming_spool_motion.png", "Gauge/puller then solid guide, dancer, traverse and full spool", "iso")
     render_manufacturing()
-    print("COMPACT_RENDER_GENERATION_OK images=19")
+    print("COMPACT_RENDER_GENERATION_OK images=29")
 
 
 if __name__ == "__main__":

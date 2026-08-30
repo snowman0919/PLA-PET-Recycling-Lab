@@ -1,6 +1,6 @@
 # FM-GR-01 — Solid-strand guide roller
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `POM-C or 6061`
 - process: `turn + bearing-seat bore`

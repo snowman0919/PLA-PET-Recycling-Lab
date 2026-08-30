@@ -1,17 +1,18 @@
 budget_state,field_or_item,amount_krw,status,evidence_or_blocker
-METADATA,revision,,coupled-digital-validation-v0.5,generated from bom/cash_budget.csv
-CONDITIONAL_PLANNING_BUDGET,conditional_subtotal,170629,PASS_TARGET_LE_180000,target allowances; not quotes or receipts
+METADATA,revision,,virtual-physics-closure-v0.5.1,generated from bom/cash_budget.csv
+CONDITIONAL_PLANNING_BUDGET,conditional_subtotal,173729,PASS_TARGET_LE_180000,target allowances; not quotes or receipts
 CONDITIONAL_PLANNING_BUDGET,print_material_including_support_and_12pct_reserve,18229,PRUSASLICER_ESTIMATE,"actual toolpath estimate, not purchase receipt"
 CONDITIONAL_PLANNING_BUDGET,shipping_tax,0,INCLUDED_ONLY_IN_CONTINGENCY,no supplier quote
 CONDITIONAL_PLANNING_BUDGET,contingency,20000,RESERVED,shipping machining variance failed prints fasteners consumables
-CONDITIONAL_PLANNING_BUDGET,absolute_total,190629,PASS_CAP_LE_200000,conditional subtotal plus contingency
-CONDITIONAL_PLANNING_BUDGET,remaining_margin,9371,CONDITIONAL_ONLY,not verified purchasing headroom
+CONDITIONAL_PLANNING_BUDGET,absolute_total,193729,PASS_CAP_LE_200000,conditional subtotal plus contingency
+CONDITIONAL_PLANNING_BUDGET,remaining_margin,6271,CONDITIONAL_ONLY,not verified purchasing headroom
+OPTIONAL_EMPIRICAL_VALIDATION,gate1_optional_cost,11900,EXCLUDED_FROM_DESIGN_RELEASE_MACHINE_TOTAL,requires separate user approval if performed
 VERIFIED_PROCUREMENT_BUDGET,verified_quoted_or_receipted_subtotal,0,NOT_ESTABLISHED,"zero means no item is yet evidence-qualified, not a zero-cost machine"
 VERIFIED_PROCUREMENT_BUDGET,shipping_tax,,UNKNOWN,supplier destinations and quotes absent
 VERIFIED_PROCUREMENT_BUDGET,print_material_including_support,,UNKNOWN,filament lot/receipt absent
 VERIFIED_PROCUREMENT_BUDGET,contingency,20000,RESERVED_NOT_SPENT,cannot be used to hide blocked base cost
 VERIFIED_PROCUREMENT_BUDGET,remaining_margin,,UNKNOWN,cannot calculate until every blocked item has quote/receipt or verified donor evidence
-BLOCKED_ITEM,CNC-01,10000,QUOTE_REQUIRED,동일 CUT-01 flat profile nesting; Gate-1에서는 2장만 RFQ 허용하고 full stack는 결과 전 HOLD
+BLOCKED_ITEM,CNC-01,10000,QUOTE_REQUIRED,동일 CUT-01 flat profile nesting; coupon package는 2장 범위; full stack은 별도 사용자 제작 승인 전 HOLD이며 optional Gate-1은 design-release 필수가 아님
 BLOCKED_ITEM,CNC-02,3000,QUOTE_REQUIRED,동일 flat pattern nesting과 project-lab donor plate 우선; bearing seat만 finish
 BLOCKED_ITEM,CNC-03,7000,QUOTE_REQUIRED,표준 S45C h6 shaft stock과 DRV-02 keyed interface 사용
 BLOCKED_ITEM,CNC-04,4000,QUOTE_REQUIRED,Gate-2 aperture 확정 전 coupon만
@@ -30,9 +31,9 @@ BLOCKED_ITEM,SH-INTERFACE,6000,QUOTE_REQUIRED,12T/30T 표준 blank와 동일 lam
 BLOCKED_ITEM,HEAT-BAND,15000,QUOTE_REQUIRED,국내와 중국 custom RFQ 비교; stock Ø35 대체 금지; 견적 초과는 blocker
 BLOCKED_ITEM,HEAT-DIE,4000,BUY_HOLD,저항 절연 외형 수령검사와 사용자 승인 전 energization 금지
 BLOCKED_ITEM,HEAT-PTC,3000,BUY_HOLD,1개 전력/평형온도 실측 후 4-8개 확정; PET dryer 대체 아님
-BLOCKED_ITEM,TEMP-SENSE,7500,BUY_HOLD,5 channel 전부 ice/boiling point check; barrel/die/hopper metal temperature 측정
+BLOCKED_ITEM,TEMP-SENSE,22500,QUOTE_REQUIRED,devicemart module x5 vendor-pinned 약 22500 KRW; ungrounded probe 가격/재고는 별도 quote 필요; 5 channel sheath-to-junction insulation 및 ice/boiling point check
 BLOCKED_ITEM,HEAT-MOSFET,5000,BUY_HOLD,각 channel 10 A thermal capability bench test; thermal fuse와 branch fuse 삭제 금지
 BLOCKED_ITEM,PRINT-ALLOW,18229,BUY_HOLD,planning mass 1012.70 g at 18000 KRW/kg
-BLOCKED_ITEM,GATE1-METROLOGY,7500,BUY_HOLD,project-lab 계측기 확인 시 미사용
-BLOCKED_ITEM,GATE1-PRINT,4400,BUY_HOLD,실제 estimate 4228 KRW에 172 KRW 여유; final-machine package와 별도 집계
-BLOCKED_ITEM,MACHINE-FAB-DONOR,0,CONDITIONAL_DONOR_UNVERIFIED,24 fabrication family와 frame 15.098 m의 재고 수량 재질 상태 실측 전 0원 확정 금지; 부족분은 예산 재검토 blocker
+BLOCKED_ITEM,GATE1-METROLOGY,7500,BUY_HOLD,optional empirical validation 비용; design-release machine subtotal에서 제외; project-lab 계측기 확인 시 미사용
+BLOCKED_ITEM,GATE1-PRINT,4400,BUY_HOLD,optional empirical validation 비용; design-release machine subtotal에서 제외; final-machine package와 별도 집계
+BLOCKED_ITEM,MACHINE-FAB-DONOR,0,CONDITIONAL_DONOR_UNVERIFIED,frame 2020 13.348 m와 local 2040 1.320 m 포함 총 14.668 m의 재고 수량 재질 직진도 실측 전 0원 확정 금지; 부족분은 예산 재검토 blocker

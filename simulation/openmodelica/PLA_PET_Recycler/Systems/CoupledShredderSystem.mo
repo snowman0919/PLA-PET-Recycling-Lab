@@ -5,11 +5,18 @@ model CoupledShredderSystem
   parameter Integer leftMaterial=material;
   parameter Real targetRPM=32;
   parameter Boolean enabled=true;
+  parameter Boolean useExternalEnable=false;
+  input Boolean externalEnable=false;
+  Boolean enableCommand;
   parameter Real stopTime=1e9;
   parameter Real jamReleaseTime=1e9;
   parameter Real engagement=1.0;
-  parameter Real overloadDwell=0.65;
-  parameter Real currentThreshold=8.2;
+  parameter Real engagementAfter=engagement;
+  parameter Real engagementStepTime=1e9;
+  parameter Real jamLoadTorque=20.0;
+  parameter Real overloadDwell=if material==2 then 0.85 else 0.65;
+  parameter Real reverseDuration=if material==2 then 1.10 else 0.80;
+  parameter Integer maximumRetries=GeneratedControl.maximumRetries;
   Components.DCMotorElectrical motor;
   Components.LossyGearbox gearbox(ratio=47,efficiency=0.71);
   Components.ShearFuse inputFuse(tripTorque=10.35);
@@ -17,8 +24,8 @@ model CoupledShredderSystem
   Modelica.Mechanics.Rotational.Components.Inertia rightRotor(J=Generated.CADParameters.cutterRotorJ,phi(start=0,fixed=true),w(start=0,fixed=true));
   Modelica.Mechanics.Rotational.Components.Inertia leftRotor(J=Generated.CADParameters.cutterRotorJ,phi(start=0,fixed=true),w(start=0,fixed=true));
   Components.PhaseGearMesh phase;
-  Components.HookMaterialLoad rightLoad(material=rightMaterial,engagement=engagement,releaseTime=jamReleaseTime);
-  Components.HookMaterialLoad leftLoad(material=leftMaterial,engagement=engagement,releaseTime=jamReleaseTime,phaseOffset=Modelica.Constants.pi/7);
+  Components.HookMaterialLoad rightLoad(material=rightMaterial,engagement=engagement,engagementAfter=engagementAfter,engagementStepTime=engagementStepTime,jamTorque=jamLoadTorque,releaseTime=jamReleaseTime);
+  Components.HookMaterialLoad leftLoad(material=leftMaterial,engagement=engagement,engagementAfter=engagementAfter,engagementStepTime=engagementStepTime,jamTorque=jamLoadTorque,releaseTime=jamReleaseTime,phaseOffset=Modelica.Constants.pi/7);
   Real cutterRPM;
   Real targetOmega;
   Real speedError;
@@ -27,15 +34,23 @@ model CoupledShredderSystem
   Real dutyState(start=0,fixed=true);
   Real dutyCommand;
   Real overloadTimer(start=0,fixed=true);
-  Real faultTimer(start=0,fixed=true);
-  discrete Boolean jamLatched(start=false,fixed=true);
+  discrete Integer retryState(start=1,fixed=true) "1 FORWARD, 2 STOP, 3 REVERSE, 4 FAULT_LATCHED";
+  discrete Integer retryCount(start=0,fixed=true);
+  discrete Real stateStart(start=0,fixed=true);
+  discrete Real forwardStart(start=0,fixed=true);
   Boolean overloadCondition;
+  Boolean torqueOverload;
+  Boolean currentSensorSaturated;
+  Boolean rpmDeficit;
+  Boolean startupGraceElapsed;
   Boolean jamDetected;
   Boolean normalStop;
   Boolean jamFault;
   Real estimatedCutterTorque;
+  Real calibratedCutterTorque;
   Real bearingLoad;
 equation
+  enableCommand=if useExternalEnable then externalEnable else enabled;
   connect(motor.shaft,gearbox.motorSide);
   connect(gearbox.outputSide,inputFuse.driveSide);
   connect(inputFuse.loadSide,chain.motorSprocket);
@@ -48,22 +63,46 @@ equation
   targetOmega=targetRPM*2*Modelica.Constants.pi/60;
   speedError=targetOmega-rightRotor.w;
   voltageFeedForward=motor.backEmfConstant*targetOmega*gearbox.ratio*chain.ratio/motor.supplyVoltage;
-  overloadCondition=abs(motor.current)>=currentThreshold and abs(rightRotor.w)<0.65*targetOmega and time<jamReleaseTime;
+  calibratedCutterTorque=max(0,abs(motor.current)-GeneratedControl.driveNoLoadCurrent)*GeneratedControl.driveTorquePerAmp*GeneratedControl.driveMotorToCutterRatio*GeneratedControl.driveEfficiency;
+  torqueOverload=calibratedCutterTorque>=GeneratedControl.jamTripTorque;
+  currentSensorSaturated=abs(motor.current)>=GeneratedControl.jamCurrentSensorSaturation;
+  rpmDeficit=abs(cutterRPM)<GeneratedControl.jamRPMDeficitRatio*targetRPM;
+  startupGraceElapsed=time-pre(forwardStart)>=GeneratedControl.jamStartupGrace;
+  overloadCondition=startupGraceElapsed and (torqueOverload or (currentSensorSaturated and rpmDeficit)) and time<jamReleaseTime;
   der(overloadTimer)=if overloadCondition then 1 else -overloadTimer/0.05;
-  when overloadTimer>=overloadDwell then
-    jamLatched=true;
-  elsewhen time>=jamReleaseTime+0.20 then
-    jamLatched=false;
+  when overloadTimer>=overloadDwell and pre(retryState)==1 then
+    retryState=2;
+    retryCount=pre(retryCount);
+    stateStart=time;
+    forwardStart=pre(forwardStart);
+    reinit(overloadTimer,0);
+  elsewhen pre(retryState)==2 and time-pre(stateStart)>=0.25 then
+    retryState=3;
+    retryCount=pre(retryCount)+1;
+    stateStart=time;
+    forwardStart=pre(forwardStart);
+    reinit(overloadTimer,0);
+  elsewhen pre(retryState)==3 and time-pre(stateStart)>=reverseDuration then
+    retryState=if pre(retryCount)>=maximumRetries then 4 else 1;
+    retryCount=pre(retryCount);
+    forwardStart=time;
+    stateStart=time;
+    reinit(overloadTimer,0);
+  elsewhen pre(retryState)==1 and pre(retryCount)>0 and not overloadCondition and time-pre(forwardStart)>=GeneratedControl.jamStartupGrace+2 then
+    retryState=pre(retryState);
+    retryCount=0;
+    stateStart=pre(stateStart);
+    forwardStart=pre(forwardStart);
+    reinit(overloadTimer,0);
   end when;
-  jamDetected=jamLatched;
-  der(faultTimer)=if jamDetected or overloadCondition then 1 else -faultTimer/2.0;
-  jamFault=faultTimer>=1.20 or inputFuse.broken;
-  normalStop=(not enabled or time>=stopTime) and not jamFault;
-  rawDuty=if not enabled or time>=stopTime or jamFault then 0 else if jamDetected then -0.12 else max(0,min(0.90,voltageFeedForward+0.02*speedError-0.035*(abs(motor.current)-5.0)));
-  der(dutyState)=(rawDuty-dutyState)/(if jamDetected then 0.05 else 0.50);
-  dutyCommand=if not enabled or time>=stopTime or jamFault then 0 else dutyState;
+  jamDetected=retryState==2 or retryState==3 or retryState==4;
+  jamFault=retryState==4 or inputFuse.broken;
+  normalStop=(not enableCommand or time>=stopTime) and not jamFault;
+  rawDuty=if not enableCommand or time>=stopTime or jamFault or retryState==2 then 0 else if retryState==3 then -0.12 else max(0,min(GeneratedControl.shredderDutyLimit,voltageFeedForward+GeneratedControl.shredderDutyBiasByMaterial[if material==2 then 2 else 1]+GeneratedControl.shredderSpeedKpByMaterial[if material==2 then 2 else 1]*speedError));
+  der(dutyState)=(rawDuty-dutyState)/(if retryState==2 or retryState==3 then 0.05 else GeneratedControl.shredderCommandFilter);
+  dutyCommand=if not enableCommand or time>=stopTime or jamFault then 0 else dutyState;
   motor.duty=dutyCommand;
-  motor.enable=enabled and time<stopTime and not jamFault;
+  motor.enable=enableCommand and time<stopTime and not jamFault;
   estimatedCutterTorque=abs(chain.transmittedTorque);
   bearingLoad=abs(chain.tightSideForce)+phase.separatingForce+(rightLoad.loadTorque+leftLoad.loadTorque)/(2*0.029);
 end CoupledShredderSystem;

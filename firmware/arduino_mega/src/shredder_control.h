@@ -4,7 +4,7 @@
 
 #include "material_profile.h"
 
-enum class ShredderCommand : uint8_t { STOP, FORWARD, REVERSE, FAULT_LATCHED };
+enum class ShredderCommand : uint8_t { STOP, FORWARD, OVERLOAD_DWELL, RETRY_STOP, REVERSE, FAULT_LATCHED };
 
 struct ShredderInputs {
   uint32_t now_ms;
@@ -38,6 +38,8 @@ class ShredderController {
   ShredderCommand command_{ShredderCommand::STOP};
   uint8_t retries_{0};
   uint32_t overload_since_ms_{0};
+  uint32_t forward_started_ms_{0};
+  uint32_t stop_until_ms_{0};
   uint32_t reverse_until_ms_{0};
   bool overload_active_{false};
 };

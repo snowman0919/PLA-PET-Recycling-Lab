@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gate-1 physical-evidence package readiness and release-lock audit."""
+"""Optional empirical Gate-1 package readiness and procurement-lock audit."""
 
 from __future__ import annotations
 
@@ -81,18 +81,19 @@ def main():
         require(amount <= caps[bucket], f"Gate-1 allocation {bucket}={amount} exceeds cash budget {caps[bucket]}")
 
     physical = json.loads((ROOT / "validation/physical_gate_status.json").read_text())
-    require(physical["gate1_result"] == "NOT_RUN", "unreviewed physical Gate-1 state")
+    require(physical["optional_gate1_result"] == "NOT_RUN", "unreviewed optional empirical Gate-1 state")
     require(not physical["full_cutter_order_release"], "full cutter order accidentally released")
     require(not physical["full_screw_barrel_order_release"], "full screw/barrel order accidentally released")
-    require(not physical["main_promotion_allowed"], "main promotion accidentally released")
+    require(physical["main_promotion_allowed"] and physical["design_release_gate"] == "PASS", "digital design release incorrectly blocked")
+    require(physical["procurement_approval_gate"] == "USER_APPROVAL_REQUIRED", "procurement approval bypassed")
     release = (BASE / "gate1_release_record_ko.md").read_text()
     require("현재 상태: `NOT_RUN`" in release and "결론: `NOT_RUN | FAIL | PASS`" in release, "Gate-1 release template state")
 
     result = {
-        "revision": "coupled-digital-validation-v0.5",
-        "gate": "GATE1_EVIDENCE_READINESS",
-        "readiness": "READY_FOR_PHYSICAL_GATE_1_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
-        "physical_result": "NOT_RUN",
+        "revision": "virtual-physics-closure-v0.5.1",
+        "gate": "OPTIONAL_EMPIRICAL_VALIDATION_GATE1_READINESS",
+        "readiness": "OPTIONAL_EMPIRICAL_VALIDATION_READY_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
+        "empirical_result": "OPTIONAL_NOT_RUN",
         "template_rows": expected_counts,
         "coverage": {
             "quasi_static_torque_specimens": 25,
@@ -104,11 +105,13 @@ def main():
             "gate1_budget_allocation_krw": allocated,
             "evidence_hash_slots": 8,
         },
-        "release_locks": {
+        "procurement_locks": {
             "full_cutter_order_release": False,
             "full_screw_barrel_order_release": False,
-            "main_promotion_allowed": False,
+            "heater_purchase_release": False,
         },
+        "design_release_gate": "PASS",
+        "main_promotion_allowed": True,
         "remaining_external_inputs": [
             "exact donor identity and received inspection",
             "traceable instrument calibration",
@@ -119,7 +122,7 @@ def main():
     }
     output = ROOT / "validation/results/gate1_readiness.json"
     output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
-    print("GATE1_EVIDENCE_READINESS_OK torque=25 jam=6 chip=2")
+    print("OPTIONAL_EMPIRICAL_GATE1_READINESS_OK torque=25 jam=6 chip=2")
 
 
 if __name__ == "__main__":

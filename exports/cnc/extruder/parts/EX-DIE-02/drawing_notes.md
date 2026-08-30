@@ -1,6 +1,6 @@
 # EX-DIE-02 — Seven-hole breaker plate
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `304 stainless`
 - process: `wire EDM or laser + double-side lap`

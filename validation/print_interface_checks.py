@@ -70,7 +70,7 @@ def main():
             require(edge>=radius+1.5,f"{spec['id']} bore edge ligament {edge-radius:.2f} mm")
             bore_rows.append({"axis":axis,"start_mm":start,"diameter_mm":2*radius,"length_mm":length,"bbox_edge_distance_mm":round(edge,3),"void_overlap_mm3":round(void,8),"surrounding_probe_mm3":round(surround,3)})
         rows.append({"part_id":spec["id"],"required_wall_mm":spec["minimum_wall_mm"],"sampled_wall_mm":round(measured,3),"perimeters":spec["walls"],"nozzle_mm":spec["nozzle_mm"],"fastener":spec["fastener"],"insert_or_nut":spec["insert"],"interfaces":bore_rows,"status":"PASS"})
-    result={"revision":"coupled-digital-validation-v0.5","method":"design-specific B-Rep line sampling plus exact bore-void/annular-material probes","limitations":"sampling proves the declared critical walls and fastener interfaces, not every local mesh thickness; source dimensions remain controlling","parts":rows,"status":"PASS"}
+    result={"revision":"virtual-physics-closure-v0.5.1","method":"design-specific B-Rep line sampling plus exact bore-void/annular-material probes","limitations":"sampling proves the declared critical walls and fastener interfaces, not every local mesh thickness; source dimensions remain controlling","parts":rows,"status":"PASS"}
     out=ROOT/"validation/results"; out.mkdir(parents=True,exist_ok=True)
     (out/"print_interfaces.json").write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n")
     print(f"MINIMUM_WALL_FASTENER_INSERT_OK parts={len(rows)}")

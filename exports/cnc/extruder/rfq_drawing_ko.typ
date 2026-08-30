@@ -5,7 +5,7 @@
 
 = 16 mm × 16 L/D screw/barrel RFQ drawing
 
-Revision: `coupled-digital-validation-v0.5` / 단위: mm / 온도: 20 ±2 °C / 일반 모서리 C0.2–0.5, burr 없음
+Revision: `virtual-physics-closure-v0.5.1` / 단위: mm / 온도: 20 ±2 °C / 일반 모서리 C0.2–0.5, burr 없음
 
 #hold
 
@@ -54,7 +54,7 @@ Matched drawing-limit diametral clearance는 0.28–0.32, radial clearance는 0.
 
 #table(columns: (28%, 72%), inset: 4pt,
   [EX-DIE-01 body], [SCM440 QT 28–32 HRC + gas nitride; 40×40×48; Ø8 H9 intersecting melt turn; breaker seat Ø16.20 +0.05/0 ×3; insert seat Ø12.00 +0.03/0 ×14; sealing face flatness 0.03],
-  [Mount/heating], [4×Ø4.5 through + Ø8×5 head recess PCD26; heater Ø6.20 H9 through; sensor Ø3.20 +0.05/0 blind12; 2×M4-6H retainer threads depth8],
+  [Mount/heating], [4×Ø4.5 through + Ø8×5 head recess PCD26; heater Ø6.05 H7 reamed through; sensor Ø3.20 +0.05/0 blind12; 2×M4-6H retainer threads depth8],
   [EX-DIE-02 breaker], [304, Ø15.90 -0.05/0 ×2; 7×Ø2.00 +0.05/0, six PCD10; flatness 0.03],
   [EX-DIE-03 insert], [17-4PH H900, OD Ø11.90 -0.02/0 ×14; outlet Ø3.00 +0.02/0 ×10 land Ra≤0.4; concentricity 0.02 to OD],
   [EX-DIE-04 relief], [304 stainless t1.5, 32×20, two 10×2.5 webs, 2×Ø4.5 at 24, Ø4 bypass; three same-lot coupons must physically open 3–6 MPa at 265 °C without insert ejection],

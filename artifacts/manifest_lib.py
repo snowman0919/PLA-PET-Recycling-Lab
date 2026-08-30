@@ -17,7 +17,9 @@ from pathlib import Path
 
 PATTERNS = (
     "README.md", "CHANGELOG.md", "AGENTS.md",
+    ".github/workflows/ci-light.yml", ".github/workflows/ci-full.yml",
     "artifacts/*.py",
+    "control/**/*",
     "cad/parameters/*.json", "cad/freecad/**/*.py", "cad/generation/*.py", "cad/generation/*.csv", "cad/generation/*.json",
     "cad/README.md", "cad/manufacturing_object_audit.csv",
     "cad/generation/fcstd/*.FCStd",
@@ -31,7 +33,7 @@ PATTERNS = (
     "renders/**/*.png", "docs/*.pdf", "docs/*.typ", "docs/*.md",
     "bom/*.csv", "bom/*.md", "bom/*.py", "calculations/*.md", "calculations/*.csv", "calculations/*.py", "calculations/economics/*.md",
     "decisions/*.md", "electronics/*.md", "electronics/*.csv",
-    "firmware/arduino_mega/Makefile", "firmware/arduino_mega/*.md", "firmware/arduino_mega/*.py", "firmware/arduino_mega/src/*", "firmware/arduino_mega/tests/*",
+    "firmware/arduino_mega/Makefile", "firmware/arduino_mega/*.md", "firmware/arduino_mega/*.py", "firmware/arduino_mega/*.ino", "firmware/arduino_mega/src/*", "firmware/arduino_mega/tests/*",
     "simulation/*.json", "simulation/openmodelica/**/*.mo", "simulation/openmodelica/**/*.mos",
     "simulation/openmodelica/**/*.json", "simulation/openmodelica/**/*.md", "simulation/openmodelica/results/plots/*.svg",
     "analysis/**/*.py", "analysis/**/*.json", "analysis/**/*.md", "analysis/structural/generated/*.inp",

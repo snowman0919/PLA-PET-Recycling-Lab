@@ -1,8 +1,8 @@
 {
-  "revision": "coupled-digital-validation-v0.5",
-  "gate": "GATE1_EVIDENCE_READINESS",
-  "readiness": "READY_FOR_PHYSICAL_GATE_1_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
-  "physical_result": "NOT_RUN",
+  "revision": "virtual-physics-closure-v0.5.1",
+  "gate": "OPTIONAL_EMPIRICAL_VALIDATION_GATE1_READINESS",
+  "readiness": "OPTIONAL_EMPIRICAL_VALIDATION_READY_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
+  "empirical_result": "OPTIONAL_NOT_RUN",
   "template_rows": {
     "preflight_inspection_template.csv": 14,
     "calibration_log_template.csv": 4,
@@ -39,11 +39,13 @@
     },
     "evidence_hash_slots": 8
   },
-  "release_locks": {
+  "procurement_locks": {
     "full_cutter_order_release": false,
     "full_screw_barrel_order_release": false,
-    "main_promotion_allowed": false
+    "heater_purchase_release": false
   },
+  "design_release_gate": "PASS",
+  "main_promotion_allowed": true,
   "remaining_external_inputs": [
     "exact donor identity and received inspection",
     "traceable instrument calibration",

@@ -1,6 +1,6 @@
 # G1J-P01 — Anti-reach coupon feed chute
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `PLA`
 - process: `FDM`

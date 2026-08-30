@@ -1,4 +1,4 @@
-# 경제성 — coupled-digital-validation-v0.5
+# 경제성 — virtual-physics-closure-v0.5.1
 
 조건부 target 신규 현금비용은 170,629 KRW, 20,000 KRW contingency 포함 absolute plan은 190,629 KRW다. 절대 cap 여유는 9,371 KRW다. Donor/RFQ 전에는 모두 planning sensitivity이며 구매 근거가 아니다.
 

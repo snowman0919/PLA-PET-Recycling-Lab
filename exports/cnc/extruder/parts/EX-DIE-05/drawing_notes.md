@@ -1,6 +1,6 @@
 # EX-DIE-05 — Annealed copper face gasket
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `2`
 - material: `C110 annealed copper t0.5`
 - process: `waterjet/punch; anneal after cutting; bag clean`

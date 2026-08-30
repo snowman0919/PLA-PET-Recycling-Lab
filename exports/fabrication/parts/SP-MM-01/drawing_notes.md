@@ -1,6 +1,6 @@
 # SP-MM-01 — Universal NEMA17-class spool motor plate
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `6 mm 6061-T6`
 - process: `laser/waterjet + drill`

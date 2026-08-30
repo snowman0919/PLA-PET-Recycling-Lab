@@ -1,6 +1,6 @@
 # 변경 이력
 
-## coupled-digital-validation-v0.5 — 2026-08-30
+## virtual-physics-closure-v0.5.1 — 2026-08-30
 
 - v0.4가 표기한 `DIGITAL_FABRICATION_BASELINE`은 근거 검토 결과 `DIGITAL_GEOMETRY_AND_SURROGATE_BASELINE`으로 재분류했고, v0.5는 모든 디지털 gate를 실제 통과한 뒤 승급했다.
 - 시간기반 jam/trap legacy surrogate(ShredderSystem, ExtruderSystem, FormingSpoolSystem, FullMechanicalSystem, SafetyController, CutterRotor, ChainReduction, PhaseGearPair, InputTorqueFuse, CutterLoadSurrogate, ScrewDrive, ExtrusionLoadSurrogate, Puller, FilamentSpan, Dancer, FrameMount, VariableRadiusSpool, CalibratedDCDrive)를 제거하고, DC 전기모델 + 감속기 + motor-side one-shot shear fuse + 탄성/backlash #35 chain + phase mesh + hook load가 모두 rotational flange로 연결된 결합모델만 남겼다.

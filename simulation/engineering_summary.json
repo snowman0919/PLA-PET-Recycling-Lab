@@ -1,6 +1,8 @@
 {
-  "revision": "coupled-digital-validation-v0.5",
+  "revision": "virtual-physics-closure-v0.5.1",
   "release_class": "DIGITAL_FABRICATION_BASELINE",
+  "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+  "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
   "throughput": {
     "model": "solid_conveying_displacement_x_bulk_density_x_fill_x_efficiency_x_melt_backflow_factor",
     "displacement_m3_rev": 2.058874161456607e-06,
@@ -28,6 +30,15 @@
         "throughput_high_gph": 134.4,
         "residence_low_s": 96.0,
         "residence_high_s": 164.0
+      },
+      {
+        "material": "PLA",
+        "rpm": 16,
+        "throughput_low_gph": 43.6,
+        "throughput_nominal_gph": 99.4,
+        "throughput_high_gph": 153.6,
+        "residence_low_s": 84.0,
+        "residence_high_s": 143.5
       },
       {
         "material": "PLA",
@@ -103,6 +114,15 @@
       },
       {
         "material": "PET",
+        "rpm": 16,
+        "throughput_low_gph": 31.1,
+        "throughput_nominal_gph": 86.7,
+        "throughput_high_gph": 137.3,
+        "residence_low_s": 88.1,
+        "residence_high_s": 160.3
+      },
+      {
+        "material": "PET",
         "rpm": 18,
         "throughput_low_gph": 35.0,
         "throughput_nominal_gph": 97.5,
@@ -159,86 +179,86 @@
     "clearance_sensitivity": [
       {
         "material": "PLA",
-        "profile_rpm": 18,
+        "profile_rpm": 16,
         "radial_clearance_mm": 0.14,
         "tip_leakage_relative_to_0_15": 0.813,
         "melt_delivery_factor": 0.8912,
-        "predicted_throughput_gph": 113.2,
+        "predicted_throughput_gph": 100.7,
         "change_from_0_15_percent": 1.27,
-        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+        "status": "VIRTUAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
       },
       {
         "material": "PLA",
-        "profile_rpm": 18,
+        "profile_rpm": 16,
         "radial_clearance_mm": 0.15,
         "tip_leakage_relative_to_0_15": 1.0,
         "melt_delivery_factor": 0.88,
-        "predicted_throughput_gph": 111.8,
+        "predicted_throughput_gph": 99.4,
         "change_from_0_15_percent": 0.0,
-        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+        "status": "VIRTUAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
       },
       {
         "material": "PLA",
-        "profile_rpm": 18,
+        "profile_rpm": 16,
         "radial_clearance_mm": 0.16,
         "tip_leakage_relative_to_0_15": 1.2136,
         "melt_delivery_factor": 0.8672,
-        "predicted_throughput_gph": 110.2,
+        "predicted_throughput_gph": 98.0,
         "change_from_0_15_percent": -1.46,
-        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+        "status": "VIRTUAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
       },
       {
         "material": "PET",
-        "profile_rpm": 20,
+        "profile_rpm": 18,
         "radial_clearance_mm": 0.14,
         "tip_leakage_relative_to_0_15": 0.813,
         "melt_delivery_factor": 0.8731,
-        "predicted_throughput_gph": 110.0,
+        "predicted_throughput_gph": 99.0,
         "change_from_0_15_percent": 1.52,
-        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+        "status": "VIRTUAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
       },
       {
         "material": "PET",
-        "profile_rpm": 20,
+        "profile_rpm": 18,
         "radial_clearance_mm": 0.15,
         "tip_leakage_relative_to_0_15": 1.0,
         "melt_delivery_factor": 0.86,
-        "predicted_throughput_gph": 108.4,
+        "predicted_throughput_gph": 97.5,
         "change_from_0_15_percent": 0.0,
-        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+        "status": "VIRTUAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
       },
       {
         "material": "PET",
-        "profile_rpm": 20,
+        "profile_rpm": 18,
         "radial_clearance_mm": 0.16,
         "tip_leakage_relative_to_0_15": 1.2136,
         "melt_delivery_factor": 0.845,
-        "predicted_throughput_gph": 106.5,
+        "predicted_throughput_gph": 95.8,
         "change_from_0_15_percent": -1.74,
-        "status": "VIRTUAL_SCREENING_PHYSICAL_NOT_RUN"
+        "status": "VIRTUAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
       }
     ],
     "profile_points": {
       "PLA": {
         "material": "PLA",
-        "rpm": 18,
-        "throughput_low_gph": 49.1,
-        "throughput_nominal_gph": 111.8,
-        "throughput_high_gph": 172.8,
-        "residence_low_s": 74.7,
-        "residence_high_s": 127.6
+        "rpm": 16,
+        "throughput_low_gph": 43.6,
+        "throughput_nominal_gph": 99.4,
+        "throughput_high_gph": 153.6,
+        "residence_low_s": 84.0,
+        "residence_high_s": 143.5
       },
       "PET": {
         "material": "PET",
-        "rpm": 20,
-        "throughput_low_gph": 38.9,
-        "throughput_nominal_gph": 108.4,
-        "throughput_high_gph": 171.6,
-        "residence_low_s": 70.5,
-        "residence_high_s": 128.2
+        "rpm": 18,
+        "throughput_low_gph": 35.0,
+        "throughput_nominal_gph": 97.5,
+        "throughput_high_gph": 154.4,
+        "residence_low_s": 78.3,
+        "residence_high_s": 142.5
       }
     },
-    "physical_status": "PHYSICAL_NOT_RUN"
+    "physical_status": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
   },
   "screw_candidates": [
     {
@@ -307,6 +327,36 @@
     },
     {
       "material": "PLA",
+      "throughput_gph": 75,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 58.4,
+      "required_h_w_m2k": 42.9,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 75,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 41.4,
+      "required_h_w_m2k": 42.9,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 75,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 33.1,
+      "required_h_w_m2k": 42.9,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PLA",
       "throughput_gph": 100,
       "fan_duty_percent": 40,
       "duct_velocity_m_s": 2.0,
@@ -337,6 +387,36 @@
     },
     {
       "material": "PLA",
+      "throughput_gph": 125,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 89.7,
+      "required_h_w_m2k": 71.4,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 125,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 67.3,
+      "required_h_w_m2k": 71.4,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 125,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 52.6,
+      "required_h_w_m2k": 71.4,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
       "throughput_gph": 150,
       "fan_duty_percent": 40,
       "duct_velocity_m_s": 2.0,
@@ -363,6 +443,36 @@
       "h_w_m2k": 65,
       "puller_entry_center_c": 62.6,
       "required_h_w_m2k": 85.7,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 175,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 111.0,
+      "required_h_w_m2k": 100.0,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 175,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 88.4,
+      "required_h_w_m2k": 100.0,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PLA",
+      "throughput_gph": 175,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 71.8,
+      "required_h_w_m2k": 100.0,
       "risk": "SAG_OVALITY_RISK"
     },
     {
@@ -427,6 +537,36 @@
     },
     {
       "material": "PET",
+      "throughput_gph": 75,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 45.0,
+      "required_h_w_m2k": 25.2,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 75,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 31.9,
+      "required_h_w_m2k": 25.2,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 75,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 27.4,
+      "required_h_w_m2k": 25.2,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
       "throughput_gph": 100,
       "fan_duty_percent": 40,
       "duct_velocity_m_s": 2.0,
@@ -457,6 +597,36 @@
     },
     {
       "material": "PET",
+      "throughput_gph": 125,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 79.0,
+      "required_h_w_m2k": 42.0,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 125,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 53.5,
+      "required_h_w_m2k": 42.0,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 125,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 40.0,
+      "required_h_w_m2k": 42.0,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
       "throughput_gph": 150,
       "fan_duty_percent": 40,
       "duct_velocity_m_s": 2.0,
@@ -483,6 +653,36 @@
       "h_w_m2k": 65,
       "puller_entry_center_c": 48.9,
       "required_h_w_m2k": 50.4,
+      "risk": "PASS_VIRTUAL"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 175,
+      "fan_duty_percent": 40,
+      "duct_velocity_m_s": 2.0,
+      "h_w_m2k": 35,
+      "puller_entry_center_c": 107.7,
+      "required_h_w_m2k": 58.9,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 175,
+      "fan_duty_percent": 70,
+      "duct_velocity_m_s": 3.5,
+      "h_w_m2k": 50,
+      "puller_entry_center_c": 77.4,
+      "required_h_w_m2k": 58.9,
+      "risk": "SAG_OVALITY_RISK"
+    },
+    {
+      "material": "PET",
+      "throughput_gph": 175,
+      "fan_duty_percent": 100,
+      "duct_velocity_m_s": 5.0,
+      "h_w_m2k": 65,
+      "puller_entry_center_c": 58.2,
+      "required_h_w_m2k": 58.9,
       "risk": "PASS_VIRTUAL"
     },
     {
@@ -536,7 +736,7 @@
     "phase_separating_force_n": 333.6,
     "chain_tight_side_increment_n": 603.0,
     "tip_force_n": 758.6,
-    "status": "DIGITAL_SCREENING_PHYSICAL_NOT_RUN"
+    "status": "DIGITAL_SCREENING_EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
   },
   "drive_calibration": {
     "calibration": {
@@ -589,24 +789,187 @@
     "status": "VIRTUAL_ONLY"
   },
   "power": {
-    "psu_voltage_v": 24.0,
+    "voltage_v": 24.0,
     "psu_rating_w": 600.0,
-    "heater_peak_w": 360.0,
-    "shredder_peak_w": 432.0,
-    "extruder_peak_w": 85.0,
-    "motion_fans_logic_peak_w": 45.0,
-    "arbiter_peak_w": 490.0,
-    "continuous_target_max_w": 500.0,
-    "minimum_psu_reserve_w": 100.0,
-    "mutual_exclusion": "SHREDDER_ACTIVE hard-disables barrel/die heater and screw drive; EXTRUSION_ACTIVE hard-disables shredder; full process heat disables hopper PTC",
-    "calculated_concurrent_peak_w": 922.0,
-    "arbiter_margin_w": 110.0
+    "normal_phase_peak_limit_w": 500.0,
+    "minimum_reserve_w": 100.0,
+    "phases": {
+      "SHREDDING": {
+        "average_w": 310.0,
+        "peak_w": 477.0
+      },
+      "PREHEATING": {
+        "average_w": 300.0,
+        "peak_w": 405.0
+      },
+      "EXTRUSION": {
+        "average_w": 340.0,
+        "peak_w": 490.0
+      },
+      "COOLDOWN": {
+        "average_w": 36.0,
+        "peak_w": 61.0
+      }
+    },
+    "states": [
+      {
+        "state": "SHREDDING",
+        "average_w": 310.0,
+        "peak_w": 477.0,
+        "peak_current_a": 19.88,
+        "remaining_w_to_psu": 123.0,
+        "remaining_a_to_psu": 5.12,
+        "normal_limit_margin_w": 23.0,
+        "pass": true
+      },
+      {
+        "state": "PREHEATING",
+        "average_w": 300.0,
+        "peak_w": 405.0,
+        "peak_current_a": 16.88,
+        "remaining_w_to_psu": 195.0,
+        "remaining_a_to_psu": 8.12,
+        "normal_limit_margin_w": 95.0,
+        "pass": true
+      },
+      {
+        "state": "EXTRUSION",
+        "average_w": 340.0,
+        "peak_w": 490.0,
+        "peak_current_a": 20.42,
+        "remaining_w_to_psu": 110.0,
+        "remaining_a_to_psu": 4.58,
+        "normal_limit_margin_w": 10.0,
+        "pass": true
+      },
+      {
+        "state": "COOLDOWN",
+        "average_w": 36.0,
+        "peak_w": 61.0,
+        "peak_current_a": 2.54,
+        "remaining_w_to_psu": 539.0,
+        "remaining_a_to_psu": 22.46,
+        "normal_limit_margin_w": 439.0,
+        "pass": true
+      }
+    ],
+    "status": "PASS"
+  },
+  "thermocouple_bore": {
+    "method": "thick-cylinder inner hoop × wall/net-ligament × Kt1.5 + fully restrained 10 C local thermal gradient",
+    "boundary_conditions": {
+      "pet_bulk_c": 270,
+      "normal_pressure_mpa": 3.0,
+      "trip_pressure_mpa": 6.0,
+      "local_gradient_c": 10.0
+    },
+    "material_assumptions": {
+      "young_mpa": 190000.0,
+      "alpha_per_k": 1.7e-05,
+      "poisson": 0.3,
+      "screening_allowable_mpa": 180.0
+    },
+    "candidates": [
+      {
+        "blind_bore_depth_mm": 7.0,
+        "nominal_ligament_mm": 1.9,
+        "normal_combined_stress_mpa": 79.6,
+        "trip_combined_stress_mpa": 113.1,
+        "trip_safety_factor": 1.59,
+        "status": "FAIL"
+      },
+      {
+        "blind_bore_depth_mm": 6.0,
+        "nominal_ligament_mm": 2.9,
+        "normal_combined_stress_mpa": 68.1,
+        "trip_combined_stress_mpa": 90.0,
+        "trip_safety_factor": 2.0,
+        "status": "PASS"
+      }
+    ],
+    "selected_depth_mm": 6.0,
+    "selected_status": "PASS",
+    "decision": "SELECT_BLIND6_LIGAMENT2.9; blind7 fails SF>=2 screen",
+    "physical_status": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
+  },
+  "cartridge_heater_fit": {
+    "selected_bore": "diameter6.05 H7 reamed through",
+    "heater_limits_mm": [
+      5.94,
+      5.98
+    ],
+    "bore_limits_mm": [
+      6.05,
+      6.062
+    ],
+    "diametral_clearance_mm": [
+      0.07,
+      0.122
+    ],
+    "decision": "ADOPT_6.05_H7; verify received heater OD/camber and full hand insertion; thin anti-seize film and positive axial clamp",
+    "evidence": "supplier guidance favors close metal contact; final fit remains conditional on received heater measurement",
+    "status": "PASS_DFM_SCREEN"
+  },
+  "frame_sensitivity": {
+    "load_basis_n": 905.0,
+    "model": "two simply-supported local load rails, half load each + 0.15 mm joint-slip allowance",
+    "options": [
+      {
+        "option": "A_2020_ONLY",
+        "bearing_center_relative_displacement_mm": 1.399,
+        "beam_component_mm": 1.249,
+        "joint_allowance_mm": 0.15,
+        "screen_clearance_margin_mm": 0.501,
+        "phase_center_distance_variation_mm": 0.699,
+        "profile_2020_m": 15.098,
+        "profile_2040_m": 0.0,
+        "total_profile_m": 15.098,
+        "estimated_profile_mass_kg": 7.55,
+        "incremental_planning_cost_krw": 0,
+        "status": "MARGINAL"
+      },
+      {
+        "option": "B_LOCAL_2040",
+        "bearing_center_relative_displacement_mm": 0.351,
+        "beam_component_mm": 0.201,
+        "joint_allowance_mm": 0.15,
+        "screen_clearance_margin_mm": 1.549,
+        "phase_center_distance_variation_mm": 0.175,
+        "profile_2020_m": 13.348,
+        "profile_2040_m": 1.32,
+        "total_profile_m": 14.668,
+        "estimated_profile_mass_kg": 7.86,
+        "incremental_planning_cost_krw": 5000,
+        "status": "PASS"
+      }
+    ],
+    "selected": "B_LOCAL_2040",
+    "old_profile_total_m": 15.098,
+    "new_profile_total_m": 14.668,
+    "cut_lengths": {
+      "2020": {
+        "890": 4,
+        "430": 10,
+        "660": 6,
+        "300": 2,
+        "318": 1,
+        "280": 2,
+        "50": 1
+      },
+      "2040": {
+        "660": 2
+      }
+    },
+    "stock_nesting_assumption": "2020: three 6 m stock lengths; 2040: donor/offcut or one >=1.32 m length",
+    "scrap_ratio_2020_percent": 25.8,
+    "donor_substitution": "local 2040 rails may use two verified straight 660 mm project-lab/Zortrax metal members; unknown stock is not priced at zero",
+    "decision": "ADOPT_OPTION_B_AND_REMOVE_ONE_REDUNDANT_430_MM_BOTTOM_CROSSRAIL"
   },
   "thermal": {
     "hot_path_design_c": 300,
     "shield_screen_c": 52,
     "polymer_keepout_c": 42,
-    "status": "DIGITAL_SCREENING_PHYSICAL_NOT_RUN"
+    "status": "VIRTUAL_PHYSICS_VALIDATED"
   },
   "pet_predry": "UNQUALIFIED_EXTERNAL_PROCESS"
 }

@@ -1,6 +1,6 @@
 # FD-BIN-01 — Removable flake bin
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `1 mm PP or 304 sheet`
 - process: `laser/knife cut panels + thermal weld or fold/rivet`

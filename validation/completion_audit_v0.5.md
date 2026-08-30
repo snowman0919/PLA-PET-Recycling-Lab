@@ -1,4 +1,6 @@
-# v0.5 요구사항 완료 감사
+# v0.5 요구사항 완료 감사 — HISTORICAL ARCHIVE
+
+> 이 문서는 `coupled-digital-validation-v0.5` 아카이브 시점의 이력이다. 현재 release 판정에 사용하지 않으며, v0.5.1 현황은 `completion_audit_v0.5.1.md`를 따른다.
 
 Revision: `coupled-digital-validation-v0.5`
 Release: `DIGITAL_FABRICATION_BASELINE` / Physical: `PHYSICAL_VALIDATION_PENDING`

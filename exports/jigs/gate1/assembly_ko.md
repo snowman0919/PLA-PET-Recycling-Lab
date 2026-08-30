@@ -1,6 +1,6 @@
 # Gate-1 cutter coupon jig 조립도
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - nominal assembly envelope: `415.0 x 280.0 x 238.0 mm`
 - powered configuration envelope: `399.0 x 280.0 x 238.0 mm`
 - 목적: CUT-01 두 장만 사용해 PLA/PET peak torque, jam recovery와 chip-size fraction을 측정한다.

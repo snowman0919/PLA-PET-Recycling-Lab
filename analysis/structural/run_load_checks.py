@@ -143,7 +143,7 @@ def check(name: str, stress_mpa: float, allowable_mpa: float, source: str, note:
         "equivalent_stress_mpa": round(stress_mpa, 3),
         "allowable_mpa": allowable_mpa,
         "safety_factor": round(sf, 2),
-        "criterion": "SF >= 2.0 before coupon; physical validation pending",
+        "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
         "status": "PASS" if sf >= 2 else "FAIL",
         "note": note,
     }
@@ -151,6 +151,7 @@ def check(name: str, stress_mpa: float, allowable_mpa: float, source: str, note:
 
 def main() -> None:
     envelope = json.loads(ENVELOPE_PATH.read_text())
+    engineering = json.loads((ROOT / "simulation" / "engineering_summary.json").read_text())
     loads = envelope["loads"]
     caps = envelope["design_caps"]
     radial = loads["peak_bearing_load_n"]
@@ -181,6 +182,8 @@ def main() -> None:
     spool_shaft = 32 * spool_load * 0.085 / (math.pi * 0.008**3) / 1e6
     anchor_tension = envelope.get("full_system", {}).get("peak_anchor_tension_n", radial * 0.8)
     anchor_stress = anchor_tension / (math.pi * 6.466e-3**2 / 4) / 1e6
+    bore = next(row for row in engineering["thermocouple_bore"]["candidates"] if row["blind_bore_depth_mm"] == 6.0)
+    frame = next(row for row in engineering["frame_sensitivity"]["options"] if row["option"] == "B_LOCAL_2040")
 
     checks = [
     check("CUT-01 cutter tooth/root", cutter_root_stress, 350, f"{cutter_torque:.1f} N·m cutter-equivalent DRV-F01 relief cap", "6 mm tool-steel coupon geometry; impact/notch factor is not physically calibrated"),
@@ -192,6 +195,7 @@ def main() -> None:
         check("EX-THR-01 screw thrust plate", screw_plate, 137.5, "6 MPa conservative blocked-die thrust", f"calculated axial thrust {screw_thrust:.0f} N; open die and sacrificial relief remain mandatory"),
         check("SP-SHAFT-01 spool shaft", spool_shaft, 100, "1.35 kg spool + 8 N line tension", "8 mm steel shaft, 85 mm cantilever"),
         check("FR-ANCHOR-01 M8 table anchor", anchor_stress, 320, "frame reaction envelope", "minor-diameter tensile area; four anchors required, one-anchor conservative screening"),
+        check("EX-BAR-01 thermocouple blind-bore ligament", bore["trip_combined_stress_mpa"], 180, "6 MPa pressure-trip + 270 C / 10 C local-gradient screen", "Ø3.2 blind6 leaves 2.9 mm nominal ligament; thick-cylinder/net-section/notch/thermal closed-form screen"),
     ]
 
     GEN.mkdir(parents=True, exist_ok=True)
@@ -206,16 +210,19 @@ def main() -> None:
     result = {
         "revision": envelope["revision"],
         "release_state": json.loads((ROOT / "cad/parameters/baseline.json").read_text())["release_class"],
-        "physical_state": "PHYSICAL_VALIDATION_PENDING",
+        "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+        "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
         "input": str(ENVELOPE_PATH.relative_to(ROOT)),
         "input_source": envelope["source"],
         "load_values": loads,
         "calculix": fea,
         "checks": checks,
+        "frame_sensitivity": engineering["frame_sensitivity"],
+        "selected_frame": frame,
         "status": "PASS" if not failed else "FAIL",
         "failures": failed,
         "limitations": [
-            "OpenModelica cutter load is a pre-Gate-1 surrogate, not measured cutting torque.",
+            "OpenModelica cutter load is a reduced-order virtual load, not measured cutting torque; empirical correlation is optional and not run.",
             "Closed-form checks are screening models; stress concentration, fatigue, impact, weld and fastener preload require drawing review and physical gates.",
             "CalculiX decks are linear-elastic decision checks for global shaft/plate response and do not certify the machine.",
         ],
@@ -226,7 +233,8 @@ def main() -> None:
         "",
         f"- revision: `{envelope['revision']}`",
         f"- 판정: **{result['status']}**",
-        "- 물리 상태: `PHYSICAL_VALIDATION_PENDING`",
+        "- 가상 물리 상태: `VIRTUAL_PHYSICS_VALIDATED`",
+        "- 경험적 검증 상태: `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`",
         f"- 하중 원본: `{result['input']}`",
         "",
         "|부품|등가응력 MPa|허용 MPa|안전율|판정|",
@@ -237,7 +245,9 @@ def main() -> None:
         "",
         "## 해석 의미",
         "",
-        "각 계산의 source_load는 동일 OpenModelica envelope 또는 그보다 낮은 것이 아니라 명시된 mechanical cap이다. 따라서 upstream 22 N·m torque fuse가 34 N·m phase drivetrain과 48 N·m shaft/cutter보다 먼저 작동해야 한다. Gate-1에서 토크 pulse와 jam 하중을 얻으면 이 파일을 다시 생성해야 한다.",
+        "각 계산의 source_load는 동일 OpenModelica envelope 또는 명시된 mechanical cap이다. 따라서 upstream 22 N·m torque fuse가 34 N·m phase drivetrain과 48 N·m shaft/cutter보다 먼저 작동해야 한다. Optional empirical Gate-1 데이터를 얻으면 model-correlation 자료로 갱신할 수 있지만 design release의 필수조건은 아니다.",
+        "",
+        f"프레임은 local 2040 Option B를 채택했다. Bearing-center relative displacement는 {frame['bearing_center_relative_displacement_mm']:.3f} mm, screen-clearance margin은 {frame['screen_clearance_margin_mm']:.3f} mm, phase center-distance variation은 {frame['phase_center_distance_variation_mm']:.3f} mm다. Profile은 15.098 m에서 14.668 m로 감소한다.",
         "",
         "CalculiX deck는 `generated/bearing_plate.inp`, `generated/cutter_shaft.inp`이며 선형 탄성 global screening이다. 상세 notch/contact 검토 및 물리 coupon을 대체하지 않는다.",
         "",

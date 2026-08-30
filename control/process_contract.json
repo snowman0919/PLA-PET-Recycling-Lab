@@ -1,0 +1,83 @@
+{
+  "revision": "virtual-physics-closure-v0.5.1",
+  "release": {
+    "release_state": "DIGITAL_FABRICATION_BASELINE",
+    "geometry_validation": "PASS",
+    "fabrication_validation": "PASS",
+    "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+    "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
+  },
+  "states": {
+    "IDLE": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": false},
+    "SHREDDING": {"shredder": true, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": false},
+    "PREHEATING": {"shredder": false, "screw": false, "process_heaters": true, "feeder": false, "puller": false, "spooler": false, "cooling": true},
+    "EXTRUSION": {"shredder": false, "screw": true, "process_heaters": true, "feeder": true, "puller": true, "spooler": true, "cooling": true},
+    "COOLDOWN": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": true},
+    "FAULT": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": true},
+    "ESTOP": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": false}
+  },
+  "transitions": {
+    "IDLE": ["SHREDDING", "PREHEATING", "FAULT", "ESTOP"],
+    "SHREDDING": ["IDLE", "PREHEATING", "FAULT", "ESTOP"],
+    "PREHEATING": ["EXTRUSION", "COOLDOWN", "FAULT", "ESTOP"],
+    "EXTRUSION": ["COOLDOWN", "FAULT", "ESTOP"],
+    "COOLDOWN": ["IDLE", "FAULT", "ESTOP"],
+    "FAULT": ["IDLE", "ESTOP"],
+    "ESTOP": ["IDLE"]
+  },
+  "materials": {
+    "PLA": {"shredder_rpm": 32, "screw_rpm": 16, "fan_percent": 100, "virtual_throughput_gph": 99.4, "overload_dwell_ms": 650, "reverse_ms": 800, "shredder_duty_bias": 0.10, "shredder_speed_kp": 0.08},
+    "PET": {"shredder_rpm": 24, "screw_rpm": 18, "fan_percent": 100, "virtual_throughput_gph": 97.5, "overload_dwell_ms": 850, "reverse_ms": 1100, "shredder_duty_bias": 0.115, "shredder_speed_kp": 0.06}
+  },
+  "jam": {
+    "equation": "startup_grace_elapsed AND (torque_overload OR (current_sensor_saturated AND rpm_deficit))",
+    "startup_grace_ms": 3000,
+    "rpm_deficit_ratio": 0.65,
+    "reference_jam_current_a": 6.4,
+    "current_sensor_saturation_a": 6.4,
+    "jam_trip_torque_nm": 18.0,
+    "maximum_retries": 3,
+    "stop_ms": 250,
+    "restart_requires_manual_reset": true
+  },
+  "shredder_speed_control": {
+    "duty_limit": 0.90,
+    "command_filter_s": 0.50
+  },
+  "power": {
+    "voltage_v": 24.0,
+    "psu_rating_w": 600.0,
+    "normal_phase_peak_limit_w": 500.0,
+    "minimum_reserve_w": 100.0,
+    "phases": {
+      "SHREDDING": {"average_w": 310.0, "peak_w": 477.0},
+      "PREHEATING": {"average_w": 300.0, "peak_w": 405.0},
+      "EXTRUSION": {"average_w": 340.0, "peak_w": 490.0},
+      "COOLDOWN": {"average_w": 36.0, "peak_w": 61.0}
+    }
+  },
+  "safety_invariants": [
+    "shredder_drive_safe",
+    "screw_drive_safe",
+    "heater_safe",
+    "feeder_safe",
+    "puller_safe",
+    "spooler_safe",
+    "power_budget_safe",
+    "mechanical_fuse_state_safe",
+    "restart_inhibited",
+    "guard_chain_safe"
+  ],
+  "quality": {
+    "target_diameter_mm": 1.75,
+    "initial_tolerance_mm": 0.05,
+    "improvement_tolerance_mm": 0.03,
+    "acceptance_label": "VIRTUAL_DIAMETER_CONTROL_PASS"
+  },
+  "gates": {
+    "main_depends_on": ["DESIGN_RELEASE_GATE"],
+    "procurement": "USER_APPROVAL_REQUIRED",
+    "commissioning": "USER_APPROVAL_REQUIRED",
+    "empirical_procedures": "OPTIONAL_EMPIRICAL_VALIDATION"
+  }
+}

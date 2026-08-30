@@ -305,7 +305,7 @@ def down_die_body():
     # Two M4 retainer threads, one heater bore and one blind sensor bore.
     for x in (8, 32):
         body = body.cut(Part.makeCylinder(1.65, 10, App.Vector(x, 0, -24)))
-    body = body.cut(Part.makeCylinder(3.10, 40, App.Vector(20, -20, 18), App.Vector(0, 1, 0)))
+    body = body.cut(Part.makeCylinder(3.025, 40, App.Vector(20, -20, 18), App.Vector(0, 1, 0)))
     body = body.cut(Part.makeCylinder(1.60, 12, App.Vector(8, -20, 15), App.Vector(0, 1, 0)))
     return one_solid(body)
 
@@ -821,11 +821,14 @@ def assembly_objects(exploded=False):
         for x in (0, 450): add(f"FrameY{z}_{x}", box(x, 20, z, 20, 660, 20), aluminum, "frame", "20x20 profile L660")
     for z in (320, 500):
         for x in (0, 450):
-            add(f"FrameTierY{z}_{x}", box(x, 20, z, 20, 660, 20), aluminum, "frame", "20x20 profile L660")
+            if z == 500:
+                add(f"FrameTierY{z}_{x}", box(x, 20, z, 20, 660, 40), aluminum, "frame", "20x40 profile L660; 40 mm vertical")
+            else:
+                add(f"FrameTierY{z}_{x}", box(x, 20, z, 20, 660, 20), aluminum, "frame", "20x20 profile L660")
         add(f"MidRail{z}", box(20, 270, z, 430, 20, 20), aluminum, "frame", "20x20 profile L430")
     # The puller guard occupies y=300..400 at the base.  The adjacent rails
     # stop 5 mm short of the guard instead of passing through its shell.
-    for y in (275, 405, 440, 460, 608):
+    for y in (275, 405, 440, 608):
         add(f"FrameBottomCross{y}", box(20, y, 0, 430, 20, 20), aluminum, "frame", "20x20 profile L430")
     add("FrameSpoolColumnFront", box(410,480,20,20,20,300), aluminum, "frame", "20x20 profile L300")
     add("FrameSpoolColumnRear", box(410,588,20,20,20,300), aluminum, "frame", "20x20 profile L300")
@@ -927,7 +930,7 @@ def assembly_objects(exploded=False):
     ptc_clamp=hopper_ptc_clamp_shape(); ptc_clamp.translate(App.Vector(290,331,690))
     add("HopperPTCClamp",ptc_clamp,steel,"feed","TH-PTC-02 2 mm grounded metal keeper")
     hopper_probe=k_type_probe_shape(insertion_length=4.0); hopper_probe.rotate(App.Vector(),App.Vector(1,0,0),-90); hopper_probe.translate(App.Vector(350,341,748))
-    add("TemperatureProbeT5",hopper_probe,purple,"feed","T5 K-type grounded probe in metal hopper wall")
+    add("TemperatureProbeT5",hopper_probe,purple,"feed","T5 ungrounded K-type probe; MAX6675 T- common reference at receiver only")
     add("HopperThermalFuse",box(410,331,705,20,6,8),red,"feed","independent one-shot thermal fuse clamped at spreader edge")
     transfer = hollow_tube_between((354, 347, 504), (350, 420, 580), 16, 2)
     add("FeedTransferChute", transfer, aluminum, "feed", "2 mm sealed 304 transfer tube")
@@ -954,7 +957,7 @@ def assembly_objects(exploded=False):
         band=mica_band_heater_shape(); band.translate(App.Vector(0,0,z0)); band.rotate(App.Vector(),App.Vector(0,1,0),-90); band.translate(App.Vector(375,347,382))
         add(f"BarrelBandHeaterZ{zone}",band,orange,"extruder",f"24 V 100 W custom mica band ID34.00 W45 zone {zone}","purchased_reference_envelope")
         probe=k_type_probe_shape(); probe.rotate(App.Vector(),App.Vector(1,0,0),90); probe.translate(App.Vector(375-sensor_z,364,382))
-        add(f"TemperatureProbeT{zone}",probe,purple,"extruder",f"T{zone} K-type Ø3 probe in EX-BAR-01 blind bore B+{sensor_z:.0f}")
+        add(f"TemperatureProbeT{zone}",probe,purple,"extruder",f"T{zone} ungrounded K-type Ø3 probe in EX-BAR-01 blind bore B+{sensor_z:.0f}; MAX6675 T- common reference")
     add("BarrelThermalFuse",box(263,343,401.5,22,8,12),red,"extruder","independent 300 C one-shot fuse on metal clamp in inter-zone gap")
     shield = hot_shield_shape(); shield.translate(App.Vector(40, 310, 340))
     for x,z,radius in ((315,382,3.0),(240,382,3.0),(165,382,3.0),(280,382,2.0),(205,382,2.0),(130,382,2.0),(62.5,397,2.0)):
@@ -975,9 +978,9 @@ def assembly_objects(exploded=False):
         shape = shape.copy(); shape.translate(die_shift)
         add(name, shape, orange, "extruder", material)
     die_heater=die_cartridge_heater_shape(); die_heater.translate(App.Vector(74.5,347,400))
-    add("DieCartridgeHeater",die_heater,red,"extruder","24 V 60 W Ø6 x38 cartridge in Ø6.20 H9 through bore","purchased_reference_envelope")
+    add("DieCartridgeHeater",die_heater,red,"extruder","24 V 60 W Ø6 x38 cartridge in Ø6.05 H7 reamed through bore","purchased_reference_envelope")
     die_probe=k_type_probe_shape(insertion_length=10.0); die_probe.rotate(App.Vector(),App.Vector(1,0,0),-90); die_probe.translate(App.Vector(62.5,328,397))
-    add("TemperatureProbeT4",die_probe,purple,"extruder","T4 K-type Ø3 probe in EX-DIE-01 Ø3.20 blind12 bore")
+    add("TemperatureProbeT4",die_probe,purple,"extruder","T4 ungrounded K-type Ø3 probe in EX-DIE-01 Ø3.20 blind12 bore; MAX6675 T- common reference")
     add("DieThermalFuse",box(72,345,407,18,7,10),red,"extruder","independent die thermal fuse on metal clamp above die body")
     # High-temperature leads enter a fixed metal duct; flexible sections stay
     # outside the band clamp screws and the screw-withdrawal axis.
@@ -985,6 +988,10 @@ def assembly_objects(exploded=False):
         add(f"HeaterLeadZ{index}",cyl(2,55,x,368,382,(0,1,0)),purple,"extruder","fiberglass/silicone high-temperature paired lead")
     cable_duct=open_front_sheet_shell(250,18,18,1); cable_duct.translate(App.Vector(120,418,374))
     add("HeaterCableDuct",cable_duct,aluminum,"extruder","grounded 18x18 metal duct; heater/sensor separation partition")
+    cable_bridge_x=open_front_sheet_shell(64,18,18,1); cable_bridge_x.translate(App.Vector(370,418,374))
+    add("HeaterCableDuctBridgeX",cable_bridge_x,aluminum,"extruder","grounded 18x18 metal duct; fixed X bridge")
+    cable_bridge_y=open_front_sheet_shell(232,18,18,1); cable_bridge_y.rotate(App.Vector(),App.Vector(0,0,1),90); cable_bridge_y.translate(App.Vector(443,418,374))
+    add("HeaterCableDuctBridgeY",cable_bridge_y,aluminum,"extruder","grounded 18x18 metal duct; fixed Y bridge to vertical service duct")
 
     # One shared straight soft-strand path.  Direction changes only after the
     # puller; the X and Y shadow modules are sequential and orthogonal.

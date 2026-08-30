@@ -23,6 +23,7 @@ bool ShredderController::start(const ProcessProfile& profile,
   command_ = ShredderCommand::FORWARD;
   retries_ = 0;
   overload_active_ = false;
+  forward_started_ms_ = inputs.now_ms;
   return true;
 }
 
@@ -34,6 +35,14 @@ ShredderOutput ShredderController::update(const ShredderInputs& inputs) {
     latchFault();
     return {command_, 0, retries_, estimateCutterTorque(inputs.current_amp)};
   }
+  if (command_ == ShredderCommand::RETRY_STOP) {
+    if (inputs.now_ms >= stop_until_ms_) {
+      ++retries_;
+      command_ = ShredderCommand::REVERSE;
+      reverse_until_ms_ = inputs.now_ms + profile_->reverse_ms;
+    }
+    return {command_, 0, retries_, estimateCutterTorque(inputs.current_amp)};
+  }
   if (command_ == ShredderCommand::REVERSE) {
     if (inputs.now_ms >= reverse_until_ms_) {
       if (retries_ >= profile_->retry_count) {
@@ -41,6 +50,7 @@ ShredderOutput ShredderController::update(const ShredderInputs& inputs) {
       } else {
         command_ = ShredderCommand::FORWARD;
         overload_active_ = false;
+        forward_started_ms_ = inputs.now_ms;
       }
     }
     const uint8_t target = command_ == ShredderCommand::REVERSE
@@ -51,25 +61,25 @@ ShredderOutput ShredderController::update(const ShredderInputs& inputs) {
 
   const float estimated_torque = estimateCutterTorque(inputs.current_amp);
   const bool torque_over = estimated_torque >= profile_->shredder_jam_trip_torque_nm;
-  const bool sensor_range_over = inputs.current_amp >= calibration_.max_peak_current_a;
-  const bool speed_drop = inputs.cutter_rpm < 0.65f * profile_->shredder_rpm;
-  const bool overload = torque_over || sensor_range_over || speed_drop;
+  const bool sensor_range_over = inputs.current_amp >= JAM_CURRENT_SENSOR_SATURATION_A;
+  const bool speed_drop = inputs.cutter_rpm < JAM_RPM_DEFICIT_RATIO * profile_->shredder_rpm;
+  const bool startup_grace_elapsed = inputs.now_ms - forward_started_ms_ >= JAM_STARTUP_GRACE_MS;
+  const bool overload = startup_grace_elapsed && (torque_over || (sensor_range_over && speed_drop));
   if (!overload) {
     overload_active_ = false;
+    if (command_ == ShredderCommand::OVERLOAD_DWELL) command_ = ShredderCommand::FORWARD;
     return {command_, profile_->shredder_rpm, retries_, estimated_torque};
   }
   if (!overload_active_) {
     overload_active_ = true;
     overload_since_ms_ = inputs.now_ms;
+    command_ = ShredderCommand::OVERLOAD_DWELL;
   } else if (inputs.now_ms - overload_since_ms_ >= profile_->overload_ms) {
-    ++retries_;
-    command_ = ShredderCommand::REVERSE;
-    reverse_until_ms_ = inputs.now_ms + profile_->reverse_ms;
+    command_ = ShredderCommand::RETRY_STOP;
+    stop_until_ms_ = inputs.now_ms + JAM_STOP_MS;
     overload_active_ = false;
   }
-  const uint8_t target = command_ == ShredderCommand::REVERSE
-                             ? static_cast<uint8_t>(profile_->shredder_rpm / 2)
-                             : profile_->shredder_rpm;
+  const uint8_t target = command_ == ShredderCommand::RETRY_STOP ? 0 : profile_->shredder_rpm;
   return {command_, target, retries_, estimated_torque};
 }
 

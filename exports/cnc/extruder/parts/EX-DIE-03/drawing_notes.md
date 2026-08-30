@@ -1,6 +1,6 @@
 # EX-DIE-03 — Replaceable Ø3 die insert
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `17-4PH H900 stainless`
 - process: `turn, drill/ream land, 60 degree included entrance blend, H900, finish lap`

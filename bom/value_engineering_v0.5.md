@@ -1,23 +1,23 @@
-# 현금비용 value engineering — coupled-digital-validation-v0.5
+# 현금비용 value engineering — virtual-physics-closure-v0.5.1
 
 ## 결론
 
-Compact single-path architecture와 E-stop, guard interlock, branch fuse, 독립 thermal fuse를 유지하면서 360 W 공정가열계와 T1–T5를 포함한 조건부 계획액을 **170,629 KRW**, 20,000 KRW 견적변동 예비비 포함 절대 계획액을 **190,629 KRW**로 낮췄다. 조건부 여유는 **9,371 KRW**다.
+Compact single-path architecture와 E-stop, guard interlock, branch fuse, 독립 thermal fuse를 유지하면서 360 W 공정가열계와 T1–T5를 포함한 조건부 계획액을 **173,729 KRW**, 20,000 KRW 견적변동 예비비 포함 절대 계획액을 **193,729 KRW**로 낮췄다. 조건부 여유는 **6,271 KRW**다.
 
 이 값은 견적·영수증이 아니다. `VERIFIED_PROCUREMENT_BUDGET`은 아직 `NOT_ESTABLISHED`이며, 미확인 donor motor와 project-lab stock은 0원으로 확정하지 않았다. 실물의 모델·수량·상태와 공급사 견적이 없으므로 구매 release는 계속 `BLOCKED`다. 특히 donor가 합격하지 않거나 heater/CNC 견적이 allowance를 넘으면 budget gate는 재실행해야 하며, 안전부품이나 heater wattage를 삭제해서 차이를 흡수하지 않는다.
 
-## v0.4 대비 VE
+## v0.5.1 bottom-up allowance reconciliation
 
-|항목|기존 allowance|v0.5 allowance|근거와 잠금|
-|---|---:|---:|---|
-|CUT-01/CUT-03/CUT-05 flat·shaft|28,000|20,000|동일 CUT-01 nesting, donor plate, 표준 S45C h6 stock; Gate-1은 cutter 2장만|
-|Screw/barrel/die/thrust CNC|44,000|33,000|process coupon과 full-part 견적 분리, 동일 SCM440 lot; 초과 견적은 blocker|
-|Shredder driver/current|22,000|8,000|보유 BTS7960-class와 project-lab Hall 또는 50 A/75 mV shunt 우선, 20 A bench-test; torque safety를 current 하나에 의존하지 않음. 16,748 KRW genuine ACS758은 driver와 합쳐 21,368 KRW이므로 baseline에서 제외|
-|Chain/phase interface|8,000|6,000|표준 #35 12T/30T blank, DRV-02, 동일 DRV-03 lamination nesting|
-|Gauge/thermal stock/hardware|23,500|16,500|PCB-free optics, donor grounded sheet, M4/M5 표준화|
-|신규 360 W heater/T1–T5/MOSF|0|34,500|3× custom band, die cartridge, 4× PTC 시작품, 5 probe, 5 MOSF channel을 명시적으로 추가|
+|버킷|금액 KRW|포함 범위와 잠금|
+|---|---:|---|
+|CNC/process coupon/RFQ|57,000|CUT/barrel/screw/die/thrust target allowance; 전 항목 quote 미확정|
+|Safety/gauge/thermal stock/hardware|35,000|E-stop/interlock, branch+thermal fuse, gauge, shield, 표준 hardware; 안전 삭제 금지|
+|Shredder drive/interface|14,000|donor 우선 driver/current feedback + #35/DRV interface; donor 0원 미확정|
+|360 W heater/T1–T5/MOSF|49,500|3× band, die cartridge, PTC, ungrounded probe+MAX6675 5ch, MOSF 5ch|
+|Print package|18,229|PrusaSlicer 904.20 g + 12% reserve = 1,012.70 g|
+|합계|173,729|`CONDITIONAL_PLANNING_BUDGET`; quote/receipt가 아님|
 
-가열계를 누락한 v0.4 합계와 단순 비교하면 순감액은 7,500 KRW지만, v0.5에는 이전에 현금행으로 잡히지 않았던 heater·sensor·switching hardware 34,500 KRW가 새로 포함됐다.
+Optional empirical Gate-1 metrology 7,500 KRW와 jig print 4,400 KRW(합계 11,900 KRW)는 design-release machine 합계에서 분리했다. 이는 시험을 생략해 부품 비용을 숨긴 것이 아니라, 선택적 실험 비용과 제작 기준선 비용을 독립 표시한 것이다.
 
 ## Drive interchangeability
 
@@ -29,13 +29,13 @@ Compact single-path architecture와 E-stop, guard interlock, branch fuse, 독립
 
 ## Gate-1 target allocation reconciliation
 
-`exports/jigs/gate1/bom.csv`의 현금계획은 `cash_budget.csv` bucket 안에서만 배분한다: CUT-01 coupon 2장 4,000, CUT-03/CUT-08 3,000, CUT-05 pair 7,000, CUT-04 screen 1장 4,000, keyed DRV-03 3,000, DRV-F01/02/#35 3,000, metrology 7,500, jig print 4,400 KRW다. 이는 공급사 견적이 아니라 **design-to-cost ceiling**이다. `bom/cnc_quote_package.csv`도 같은 금액과 release 수량을 사용하며, 초과 견적은 임의 축소나 안전 삭제가 아니라 budget blocker로 기록한다.
+`exports/jigs/gate1/bom.csv`의 제작 항목은 `cash_budget.csv` CNC/drive bucket 안에서만 배분한다: CUT-01 coupon 2장 4,000, CUT-03/CUT-08 3,000, CUT-05 pair 7,000, CUT-04 screen 1장 4,000, keyed DRV-03 3,000, DRV-F01/02/#35 3,000 KRW다. Metrology 7,500 KRW와 jig print 4,400 KRW는 `OPTIONAL_EMPIRICAL` 별도 버킷이다. 모두 공급사 견적이 아닌 **design-to-cost ceiling**이다.
 
-Gate-1 조립에 반드시 필요한 CUT-03 2장, CUT-05 2축, CUT-08 2장, CUT-04 1장, DRV-03 6장은 사용자 승인 후 coupon-jig 수량만 RFQ할 수 있다. 반면 CUT-01은 최대 2장만 허용하고 나머지 10장, 두 번째 screen과 full screw/barrel은 실제 물리 Gate 결과 전 계속 HOLD다.
+Gate-1 coupon-jig 수량은 사용자 승인 후에만 RFQ할 수 있다. Full cutter stack, 두 번째 screen, full screw/barrel도 동일하게 `PROCUREMENT_APPROVAL_GATE=USER_APPROVAL_REQUIRED`이며, optional Gate-1 미수행 자체는 design/fabrication readiness 차단 근거가 아니다.
 
 ## Release lock
 
-- CUT-01 전체 12장: Gate-1 실제 PLA/PET torque, jam, chip-size PASS 전 발주 금지.
+- CUT-01 전체 12장: 사용자의 명시적 full-fabrication 승인 전 발주 금지. Optional Gate-1 결과는 의사결정 자료이지 main/design release 필수조건이 아님.
 - EX-SCR-01/EX-BAR-01 full part: process coupon, 공급사 DFM과 Gate-3 전 발주 금지.
 - Heater, motor, bearing, sprocket, driver, thermal safety품: `USER_APPROVAL_REQUIRED`.
-- Gate-1 raw evidence가 없으므로 budget 문서가 일치해도 `main` 승격 금지.
+- Gate-1 raw evidence는 optional empirical 자료이며 `main` 승격 조건이 아니다. Budget cap과 구매 승인은 독립 gate다.

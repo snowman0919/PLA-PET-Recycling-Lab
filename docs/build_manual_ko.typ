@@ -13,19 +13,19 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision coupled-digital-validation-v0.5 · 2026-08-29]
+  #text(size: 11pt)[Revision virtual-physics-closure-v0.5.1 · 2026-08-30]
 ]
 
-#danger[*물리 운전 승인 문서가 아니다.* Cutter, screw, heater, mains/high-current는 사용자 승인, exact component 확인, guard와 물리 Gate 전 energize하지 않는다.]
+#danger[*물리 운전 승인 문서가 아니다.* Cutter, screw, heater, mains/high-current는 사용자 승인, exact component 확인, guard와 commissioning gate 전 energize하지 않는다.]
 
-Release state: `DIGITAL_FABRICATION_BASELINE` / Physical state: `PHYSICAL_VALIDATION_PENDING` (`PHYSICAL_NOT_RUN`).
+Release: `DIGITAL_FABRICATION_BASELINE` / `VIRTUAL_PHYSICS_VALIDATED` / `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`.
 
 #pagebreak()
 = 작업 전 확인
 
 `bom/reuse_inventory.csv`의 UNVERIFIED 항목은 label, 수량, 상태, shaft, voltage/current와 telemetry를 기록한다. 사용할 수 없는 donor는 `cash_budget.csv` allowance 범위에서 대체하되 주문은 승인 후 진행한다.
 
-#danger[조건부 target은 170,629 KRW, contingency 포함 absolute plan은 190,629 KRW지만 donor motor와 RFQ는 UNVERIFIED다. 계획 여유는 9,371 KRW다. 정확 증거와 Gate-1 PASS 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
+#danger[조건부 target은 173,729 KRW, contingency 포함 absolute plan은 193,729 KRW지만 donor motor와 RFQ는 UNVERIFIED다. Optional Gate-1 미수행은 main을 차단하지 않지만, donor 0원 확정·full cutter/screw/barrel 발주·통전에는 이 문서를 승인서로 사용할 수 없다.]
 
 PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesive와 오염을 제거하고 PLA에는 metal insert가 없어야 한다. 미확인 plastic은 투입하지 않는다.
 
@@ -33,7 +33,7 @@ PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesi
 
 = Frame과 module 배치
 
-470 x 700 x 930 mm profile frame을 평면 table에 고정한다. `exports/fabrication/frame_cut_list.csv`의 20×20 profile은 890×4, 430×11, 660×8, 300×2, 318×1, 280×2, 50×1, 합계 15.098 m다. 네 column과 top/bottom rail을 사각/대각 측정하고 metal module plate를 profile에 직접 체결한다. 275/405 mm puller crossrail은 PPR-C07 guard에서 각각 5 mm 떨어지며 shell을 관통하지 않는다.
+470 x 700 x 930 mm profile frame을 평면 table에 고정한다. 2020은 890×4, 430×10, 660×6, 300×2, 318×1, 280×2, 50×1이고 shredder tier에는 2040 660×2를 40 mm 축이 수직이 되게 쓴다. 총 profile은 14.668 m다. Virtual relative bearing displacement는 0.351 mm다.
 
 #figure(image("../renders/assembly/compact_full_assembly_front.png", width: 92%), caption: [전면 조립 기준])
 
@@ -81,7 +81,7 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 원료는 외부 dryer에서 준비한 뒤 밀폐 용기로 옮겨 sealed hopper에 넣는다. 현재 PLA/PET dryer recipe는 `UNQUALIFIED_EXTERNAL_PROCESS`이므로 물리 moisture coupon과 사용자 확인 없이 건조 완료로 표시하지 않는다. Maintenance heater branch에 fuse, independent high-limit와 one-shot fuse를 직렬 설치한다.
 
-16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. 먼저 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm coupon의 Ø, radial clearance 0.14–0.16 mm, hardness/case depth/Ra를 검사한다. Full part는 coupon/DFM과 Gate-3 전 발주하지 않는다. Barrel front die interface는 4×M4-6H depth 8/PCD26이며 OD/bore breakthrough 없이 nominal major-envelope ligament outer 2.0 mm, bore-side 2.9 mm 이상이어야 한다. 이후 thrust bearing -> metal plate -> profile 순서로 조립하고 hand rotation, TIR <=0.10 mm와 30 min heater-off load 전 heater를 연결하지 않는다. Screw service는 cooldown/0 V 뒤 cassette를 cabinet 밖 작업대에서 축방향 인출한다.
+16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. Barrel T1–T3은 Ø3.20 blind6이고 nominal melt-bore ligament는 2.9 mm다. Ø3 ungrounded mineral-insulated K probe를 MAX6675 T- common electronics reference에 연결하며 sheath-to-junction insulation을 수령 검사한다. Die cartridge는 Ø6.00 -0.02/-0.06, bore는 Ø6.05 H7 reamed이고 허용 직경 간극은 0.070–0.122 mm다. Thrust bearing -> metal plate -> profile 순서로 조립하고 cooldown/0 V 뒤 screw를 축방향 인출한다.
 
 EX-DIE-02 seven-hole breaker를 EX-DIE-01의 barrel-side Ø16.20×3 seat에 넣고 새 EX-DIE-05 C110 annealed gasket를 barrel과 body 사이에 둔다. 4×M4×45 class 10.9를 3.0 N·m로 대각 체결한다. EX-DIE-03 Ø11.90×14 insert를 아래에서 넣고 EX-DIE-04 304 t1.5 retainer를 2×M4, 1.2 N·m로 고정한다. Ø8 수평/수직 channel은 borescope로 burr/step이 없는지 확인한다. 265 °C 계산값 4.32 MPa는 합격 근거가 아니며 동일 lot 3개가 shielded 265 °C hydraulic fixture에서 3–6 MPa에 insert를 포획한 채 우회 개방해야 한다. 누설·relief first-hot-test는 grounded shield, 원격 E-stop과 물리 barrier 뒤에서만 수행한다.
 
@@ -111,9 +111,9 @@ Empty/full dummy spool로 dancer 50° sweep, traverse 80 mm와 cable clearance�
 
 표시 항목은 material/state, screw speed, shredder load, heater temperature, feeder, X/Y/mean/ovality/U95, spool progress와 fault다.
 
-= 물리 Gate와 합격 기록
+= 선택적 경험 검증과 합격 기록
 
-Gate 1 cutter coupon -> Gate 2 flake/feed -> Gate 3 cold mechanical -> Gate 4 hot PLA then dry PET -> Gate 5 diameter/full spool 순서다. 정확한 부품, 절차, 측정과 pass/fail은 `validation/test_plans/physical_gates.md`에 있다.
+Gate 1 cutter coupon부터 Gate 5 diameter/full spool까지는 `OPTIONAL_EMPIRICAL_VALIDATION`이다. 정확한 부품, 절차, 측정과 pass/fail은 `validation/test_plans/physical_gates.md`에 있으며 미수행은 design release나 main을 차단하지 않는다. 실행은 별도 사용자 승인 대상이다.
 
 #danger[계산 PASS나 CAD 간섭 PASS를 실제 파쇄, melt flow, filament 품질 또는 안전 인증으로 옮겨 적지 않는다.]
 

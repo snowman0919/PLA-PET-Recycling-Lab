@@ -1,6 +1,6 @@
 # DRV-F01B — Motor-side fuse sprocket carrier
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `S45C`
 - process: `turn + PCD drill + radial drill`

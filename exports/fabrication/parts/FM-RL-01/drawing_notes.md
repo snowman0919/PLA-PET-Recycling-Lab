@@ -1,6 +1,6 @@
 # FM-RL-01 — Puller roller
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `2`
 - material: `aluminum hub + replaceable silicone sleeve`
 - process: `turn + bore`

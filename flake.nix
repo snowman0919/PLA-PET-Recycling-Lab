@@ -24,6 +24,7 @@
               typst
               python3
               git-lfs
+              arduino-cli
             ]) ++ pkgs.lib.optionals (openmodelica-omc != null) [ openmodelica-omc ];
             shellHook = ''
               export FILAMENT_RECYCLER_ROOT="$PWD"

@@ -1,6 +1,6 @@
 # TH-PTC-02 — Hopper PTC grounded keeper
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `304 stainless t2`
 - process: `laser + deburr`

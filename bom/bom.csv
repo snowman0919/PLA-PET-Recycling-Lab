@@ -1,5 +1,5 @@
 part_id,description,quantity,material_or_model,source,cash_class,status,notes
-FR-01,compact profile frame cut set,1,20x20 aluminum profile 890x4 430x11 660x8 300x2 318x1 280x2 50x1,project lab,REUSE_PENDING,UNVERIFIED,revision coupled-digital-validation-v0.5; 15.098 m total; exports/fabrication/frame_cut_list.csv; butt joints with no profile volume overlap
+FR-01,compact profile frame cut set,1,20x20 aluminum profile 890x4 430x10 660x6 300x2 318x1 280x2 50x1 plus local 20x40 660x2,project lab,REUSE_PENDING,UNVERIFIED,revision virtual-physics-closure-v0.5.1; 14.668 m total; local 2040 shredder rails; exports/fabrication/frame_cut_list.csv
 HP-01,refillable sliding-lid hopper,1,IN-HOP-01 plus PPR-C01/C02,mixed,MIXED,DESIGNED,4.5 L usable; fabrication STEP/DXF/note under exports/fabrication
 SH-01,dual-shaft hook cutter assembly,1,steel,CNC,CASH,COUPON_HOLD,common PLA/PET path
 SH-02,removable 5 mm screen,1,stainless steel,CNC,CASH,COUPON_HOLD,metal shim clearance
@@ -12,14 +12,14 @@ FH-01,sealed maintenance feed hopper and feeder,1,FD-HOP-01/TRN-01/MET-01..03,mi
 EX-01,16 mm x 16D screw barrel and EX-DIE-01 to 05 connected open-die,1,SCM440/304/17-4PH/C110,CNC,CASH,RFQ_HOLD,common PLA/PET hot path; physical process/hot-relief coupons before full order
 EX-02,thrust bearing plate clamps,1,EX-THR-01 metal,CNC,CASH,RFQ_HOLD,screw to profile load path; Ø17.2 passage Ø30.2 seat
 EX-03,barrel process heater zones,3,TH-BH-01 custom 24 V 100 W ID34 W45 mica band,custom RFQ,CASH,USER_APPROVAL_HOLD,300 W total; stock Ø35 substitution prohibited; branch fuse and independent thermal fuse mandatory; vendor candidates pinned in bom/procurement_v0.5_ko.md (한국전자전열 heater1.co.kr, 한일전열 han-il.com, AliExpress custom fallback)
-EX-04,die heater,1,TH-DIE-01 24 V 60 W Ø6x38 cartridge,stock/buy,CASH,USER_APPROVAL_HOLD,Ø6.20 H9 actual bore; total process heat 360 W; vendor pinned: AliExpress item 1005007292681977 (24 V 60 W Ø6 class); receipt test cold resistance 9.60 Ω ±10 percent at 20 C
-EX-05,thermal sensors and switching,1,T1-T5 K-type plus 5 low-side MOSFET channels,mixed,MIXED,USER_APPROVAL_HOLD,each channel branch fuse; barrel/die/hopper metal sensing; software is not sole cutoff; vendor pinned: MAX6675 K-type module x5 (devicemart SZH-CH031) and D4184-class opto MOSFET module x5 (40 V VDS floor, bench test required)
+EX-04,die heater,1,TH-DIE-01 24 V 60 W Ø6x38 cartridge,stock/buy,CASH,USER_APPROVAL_REQUIRED,Ø6.05 H7 reamed bore; 0.070-0.122 mm diametral clearance; total process heat 360 W; candidate listing is not purchase approval; receipt test OD/camber/cold resistance 9.60 Ω ±10 percent at 20 C
+EX-05,thermal sensors and switching,1,T1-T5 ungrounded mineral-insulated K-type plus MAX6675-class common-reference interfaces and 5 low-side MOSFET channels,mixed,MIXED,USER_APPROVAL_REQUIRED,each channel branch fuse; sheath-to-junction insulation receipt test; MAX6675 T- common electronics reference; software is not sole cutoff; vendor-pinned modules are purchase candidates only
 FH-02,hopper maintenance PTC assembly,1,4x 35x21x5 class PTC plus TH-PTC-01/02 metal spreader clamp,mixed,MIXED,RECEIPT_TEST_HOLD,external predry not replaced; one-element power/equilibrium test sets final 4-8 quantity; vendor pinned: AliExpress 24 V insulated aluminum-shell PTC 35x21x5 class
 CO-01,vertical compact air cooling,1,ABS duct and donor fans,mixed,MIXED,DESIGNED,two serviceable duct segments
 DG-01,dual-axis shadow gauge,1,LED photodiode slit,stock/buy,MIXED,CALIBRATION_HOLD,no accuracy claim
 PL-01,puller pair,1,FM-PL-01/RL-01/AX-01 plus donor motor,mixed,MIXED,UNVERIFIED,determines diameter; matched plates/rollers and metal spindles
 SP-01,dancer traverse spooler,1,FM-GR/GA SP-DA/AX/RL/SH plus donor motion and PPR-C08..10,mixed,MIXED,DESIGNED,1 kg spool inside envelope; donor support/motor dimensions remain verification hold
-CT-01,Arduino Mega user interface,1,CT-ENC-01 sheet enclosure plus Mega TFT encoder buttons,project lab,REUSE_PENDING,UNVERIFIED,profile lock and cleaning wizard
+CT-01,Arduino Mega user interface,1,CT-ENC-01 sheet enclosure plus Mega TFT encoder buttons and fixed 18x18 grounded cable ducts,project lab,REUSE_PENDING,UNVERIFIED,profile lock and cleaning wizard; heater and sensor conductors require partitioned routing; duct stock receipt measurement pending
 SF-01,latching E-stop and hardwired cut,1,qualified switch plus relay topology,stock/buy,MIXED,PHYSICAL_GATE,software independent
 SF-02,lid and service interlocks,3,positive opening switch candidate,stock/buy,MIXED,PHYSICAL_GATE,hardware branch inhibit
 SF-03,thermal and branch fuses,1 lot,temperature/current rated,stock/buy,MIXED,PHYSICAL_GATE,not optional; vendor path: domestic parts malls SF139E-class thermal fuse plus branch fuse holder; exact rating per heater RFQ receipt contract

@@ -1,6 +1,6 @@
 # G1J-11 — DRV-01 motor-plate foot angle
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `2`
 - material: `40 x40 x4 steel/aluminum angle`
 - process: `saw cut + drill`

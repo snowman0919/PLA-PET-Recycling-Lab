@@ -25,4 +25,13 @@ archive의 문서, CAD, PDF와 artifact는 역사적 연구 기록이며 active 
 - archive branch: `archive/solid-manifold-openmodelica-v0.4`
 - 동결일: 2026-08-29
 
-이 snapshot은 v0.5의 결합 DC motor·cutter·thermal-flow·spool physics와 최종 heater/reference-drive architecture를 적용하기 전 v0.4 제작 기준선을 보존한다. Active revision은 `coupled-digital-validation-v0.5`이며 이 archive branch와 annotated tag는 수정하지 않는다.
+이 snapshot은 v0.5의 결합 DC motor·cutter·thermal-flow·spool physics와 최종 heater/reference-drive architecture를 적용하기 전 v0.4 제작 기준선을 보존한다. 이 archive branch와 annotated tag는 수정하지 않는다.
+
+## Coupled digital validation v0.5 동결
+
+- archive commit SHA: `9943b0b6c8148db0fa328c6388e00eca2d90619e`
+- annotated tag: `coupled-digital-validation-v0.5`
+- archive branch: `archive/coupled-digital-validation-v0.5`
+- 동결일: 2026-08-30
+
+이 snapshot은 explicit process arbitration, canonical controller contract, real spool-jam length balance, coupled forming, hot extrusion jam과 local 2040 frame reinforcement를 적용하기 전 v0.5 기준선이다. Active revision은 `virtual-physics-closure-v0.5.1`이며 archive branch/tag는 수정하지 않는다.

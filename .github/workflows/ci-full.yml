@@ -1,0 +1,33 @@
+name: CI-FULL
+
+on:
+  workflow_dispatch:
+
+jobs:
+  full-virtual-physics-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
+      - uses: arduino/setup-arduino-cli@v2
+      - name: Install Arduino Mega core
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr@1.8.8
+      - name: Full deterministic regeneration and validation
+        run: nix develop --command bash -lc 'python3 validation/run_all.py --regenerate-renders'
+      - name: Upload validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: virtual-physics-validation-evidence
+          path: |
+            validation/results/
+            simulation/openmodelica/results/
+            analysis/structural/results/
+            artifacts/manifest.json
+          retention-days: 30

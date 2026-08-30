@@ -1,6 +1,6 @@
 # G1J-04 — Left guard panel
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `3 mm polycarbonate`
 - process: `CNC router/drill`

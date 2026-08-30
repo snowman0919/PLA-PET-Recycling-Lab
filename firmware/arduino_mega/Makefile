@@ -1,10 +1,13 @@
 CXX ?= g++
 CXXFLAGS := -std=c++17 -Wall -Wextra -Werror -Isrc
 
-.PHONY: test clean
+.PHONY: test arduino clean
 test: build/test_profiles build/test_shredder_control
 	./build/test_profiles
 	./build/test_shredder_control
+
+arduino:
+	arduino-cli compile --fqbn arduino:avr:mega .
 
 build/test_profiles: src/process_state.cpp tests/test_profiles.cpp src/process_state.h src/material_profile.h src/generated_profiles.h
 	mkdir -p build

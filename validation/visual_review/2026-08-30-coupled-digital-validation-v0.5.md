@@ -1,4 +1,6 @@
-# Parent multimodal visual review — coupled-digital-validation-v0.5
+# Parent multimodal visual review — coupled-digital-validation-v0.5 (HISTORICAL ARCHIVE)
+
+> 이 문서는 v0.5 아카이브 렌더의 이력이며 현재 release 판정에 사용하지 않는다. 현재 검토는 `2026-08-30-virtual-physics-closure-v0.5.1.md`를 따른다.
 
 - 날짜: 2026-08-30
 - 검토자: parent agent (멀티모달, 실제 PNG 픽셀 직접 확인)

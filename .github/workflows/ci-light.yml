@@ -1,0 +1,26 @@
+name: CI-LIGHT
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  deterministic-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install host build tools
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+      - name: Configuration and controller contracts
+        run: |
+          python3 validation/configuration_control.py
+          python3 calculations/run_engineering.py
+          python3 firmware/arduino_mega/generate_config.py
+          python3 validation/controller_contract.py
+          make -C firmware/arduino_mega test
+      - name: Budget and static syntax
+        run: |
+          python3 bom/build_budget_views.py
+          python3 -m compileall -q artifacts bom calculations control firmware simulation validation

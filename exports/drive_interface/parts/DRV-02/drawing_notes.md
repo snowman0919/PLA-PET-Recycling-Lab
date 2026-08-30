@@ -1,6 +1,6 @@
 # DRV-02 — Bolt-on cutter sprocket hub
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `S45C`
 - process: `turn + keyway + PCD drilling`

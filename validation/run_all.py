@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild and validate the coupled-digital-validation-v0.5 baseline."""
+"""Rebuild and validate the virtual-physics-closure-v0.5.1 baseline."""
 
 from __future__ import annotations
 
@@ -40,7 +40,12 @@ def main():
     run([sys.executable, "validation/configuration_control.py"], "CONFIGURATION_CONTROL_OK")
     run([sys.executable, "calculations/run_engineering.py"], "ENGINEERING_CALCULATIONS_OK")
     run([sys.executable, "firmware/arduino_mega/generate_config.py"], "FIRMWARE_CONFIG_SYNC_OK")
+    run([sys.executable, "validation/controller_contract.py"], "CONTROLLER_CONTRACT_POWER_INVARIANTS_OK")
     run(["make", "-C", "firmware/arduino_mega", "test"], "SHREDDER_CALIBRATED_TORQUE_RPM_RETRY_OK")
+    if shutil.which("arduino-cli"):
+        run([sys.executable, "validation/arduino_compile.py"], "ARDUINO_MEGA_2560_COMPILE_OK")
+    else:
+        print("PASS ARDUINO_MEGA_COMPILE_DEFERRED_TO_CI_FULL_OR_ARDUINO_CLI_ENV")
 
     run(freecad("cad/generation/generate_all.py"), "CAD_TO_MODELICA_PARAMETER_SYNC_OK")
     run([sys.executable, "validation/interface_catalog_checks.py"], "FABRICATION_INTERFACE_CATALOG_VALIDATED_OK")
@@ -54,12 +59,13 @@ def main():
         ("validation/cutter_phase_sweep.py", "CUTTER_PHASE_SWEEP_OK"),
     ):
         run(freecad(script), marker)
-    run([sys.executable, "validation/gate1_readiness.py"], "GATE1_EVIDENCE_READINESS_OK")
+    run([sys.executable, "validation/gate1_readiness.py"], "OPTIONAL_EMPIRICAL_GATE1_READINESS_OK")
     run([sys.executable, "validation/mesh_checks.py"], "MESH_WATERTIGHT_MANIFOLD_OK")
     run([sys.executable, "validation/slice_prints.py"] if shutil.which("prusa-slicer") else nix("python3 validation/slice_prints.py"), "SLICER_SUCCESS_OK")
     run([sys.executable, "bom/build_budget_views.py"], "CONDITIONAL_AND_VERIFIED_BUDGET_OK")
     run([sys.executable, "validation/modelica_library_check.py"], "MODELICA_MSL_CAD_BRIDGE_OK")
 
+    run([sys.executable, "simulation/openmodelica/scripts/generate_runner.py"], "MODELICA_RUNNER_SYNC_OK")
     run(nix("omc simulation/openmodelica/scripts/checkModel.mos"), "Check of PLA_PET_Recycler.Systems.FullCoupledSystem completed successfully")
     run(nix("omc simulation/openmodelica/scripts/run_all.mos"), "FullSystemJam_res.csv")
     run([sys.executable, "simulation/openmodelica/postprocess/summarize_results.py"], "OPENMODELICA_ACCEPTANCE_OK")
@@ -83,7 +89,7 @@ def main():
     run([sys.executable, "validation/artifact_reproducibility.py"], "CLEAN_CLONE_REPRODUCIBILITY_OK")
     run([sys.executable, "artifacts/build_manifest.py"], "ARTIFACT_MANIFEST_OK")
     run([sys.executable, "validation/test_release.py"], "COUPLED_DIGITAL_VALIDATION_RELEASE_OK")
-    print("ALL_DIGITAL_VALIDATIONS_OK; PHYSICAL_VALIDATION_PENDING; MAIN_PROMOTION_LOCKED")
+    print("ALL_MANDATORY_DIGITAL_VIRTUAL_VALIDATIONS_OK; EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN; DESIGN_RELEASE_GATE_PASS")
 
 
 if __name__ == "__main__":

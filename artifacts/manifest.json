@@ -1,7 +1,12 @@
 {
-  "revision": "coupled-digital-validation-v0.5",
+  "revision": "virtual-physics-closure-v0.5.1",
   "release_state": "DIGITAL_FABRICATION_BASELINE",
-  "physical_state": "PHYSICAL_VALIDATION_PENDING",
+  "geometry_validation": "PASS",
+  "fabrication_validation": "PASS",
+  "virtual_physics_validation": "PASS",
+  "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+  "empirical_validation": "OPTIONAL_NOT_RUN",
+  "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
   "regeneration_commands": [
     "FreeCADCmd console-stream runpy cad/generation/generate_all.py via validation/run_all.py",
     "PrusaSlicer 2.9.6 via validation/slice_prints.py",
@@ -9,8 +14,20 @@
     "CalculiX 2.23 via analysis/structural/run_load_checks.py",
     "Normalized artifact equality via validation/artifact_reproducibility.py"
   ],
-  "artifact_count": 550,
+  "artifact_count": 593,
   "artifacts": [
+    {
+      "path": ".github/workflows/ci-full.yml",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 1051,
+      "sha256": "3c0623070be063382c20d478781cf681bd943d830b5739a618654f5468b9b033"
+    },
+    {
+      "path": ".github/workflows/ci-light.yml",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 831,
+      "sha256": "8dca1c2a113124bc056f088185fa660dc65bc81ba9558c5f5cacb7ce45e89e0e"
+    },
     {
       "path": "AGENTS.md",
       "hash_mode": "RAW_SHA256_V1",
@@ -20,80 +37,80 @@
     {
       "path": "CHANGELOG.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3543,
-      "sha256": "92b78bd53b528c0a0de470790e08927f39b6479001113e4f84cc27cbe7033ae7"
+      "normalized_bytes": 3542,
+      "sha256": "4e03fc22c27042a783181a5d77de33786bc6b5b04acd19a9a10aaea633a13802"
     },
     {
       "path": "README.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4372,
-      "sha256": "54277c69792f4f68ae9a051e588b163edb482dde06203d17f5edb237c70a7b44"
+      "normalized_bytes": 5115,
+      "sha256": "c05c56a575cb4aed5072fb98e00507e08e08014eda1ff0265ff38f5913b549a7"
     },
     {
       "path": "analysis/load_cases/openmodelica_dynamic_envelope.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 525,
-      "sha256": "e162ebece1c807566be44d1e5316c128b3771124945ffa8c1b2e8dda8b6233bb"
+      "normalized_bytes": 538,
+      "sha256": "09710e7a4248b7b5cc87e0a835f7dbb85345db5b617b680ea74c2e425b34f4a2"
     },
     {
       "path": "analysis/structural/generated/bearing_plate.inp",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 21854,
-      "sha256": "f0efba92a065d7d15f25c12916417e769941c8fe5ff0c7b74a4d335efcd4a1e5"
+      "sha256": "e45a8f280854d2743ffae4f4580d60900399acf497023e4d1868aa68ad3077d0"
     },
     {
       "path": "analysis/structural/generated/cutter_shaft.inp",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 452,
-      "sha256": "b376511430837fc6f6e1546e495f35f8af291d7a6f7d8b14a3945e36d6154c51"
+      "sha256": "a6ef1814991bd8405995ddcc6ed9d4bdb24c7af8ec63381545cbf85b72167e25"
     },
     {
       "path": "analysis/structural/results/structural_screening.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 5297,
-      "sha256": "fd58328b94a34028d091372c4079cd9c4aa034a776f23b3fa1879bca3bf486b2"
+      "normalized_bytes": 8469,
+      "sha256": "8fbe1ef3ba2e2f31ddc022b723722115fdc41185ace861591e06be58ccef295e"
     },
     {
       "path": "analysis/structural/run_load_checks.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 12206,
-      "sha256": "b089796e1abee805a33ac46384a5ec37f2a64ba4d723e4d7d78f5b856fbe787a"
+      "normalized_bytes": 13526,
+      "sha256": "8f608672bae7697fe3f425c10c8547284782730e5cc00d4d631d94fd367c6265"
     },
     {
       "path": "analysis/structural/structural_validation_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3821,
-      "sha256": "3fbc651c462720eff952aa1dbddd2c85651ec960813e761937652ebf15e4eb27"
+      "normalized_bytes": 1729,
+      "sha256": "4c2c7df34063ef36feeab4df95d3fe1254b708682cc657c58e401ac013c6d059"
     },
     {
       "path": "artifacts/build_manifest.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1426,
-      "sha256": "d405e287a3932a957cc81661437caf6d425c5b49112a6bb6fa9daebe786d3d28"
+      "normalized_bytes": 1677,
+      "sha256": "22009f807d98c1613601d2951096bfa861c97e38dcf3b66bbee4cbd6936b1eac"
     },
     {
       "path": "artifacts/manifest_lib.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4528,
-      "sha256": "145dfa2d7e25ef3b882cc16083a3021cf40ca8b590030eec5bb4805171b75817"
+      "normalized_bytes": 4650,
+      "sha256": "80c133853a91da1359cb4a4a55d7b8158044f8f3b99031dfacf9333cf4e042f0"
     },
     {
       "path": "bom/bom.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4849,
-      "sha256": "343454ee3d4dbd5fc5530a3232618f50025001591fd71f79c11bed5ac8ef3921"
+      "normalized_bytes": 5055,
+      "sha256": "e52166d91ea717f4bc4f6974117b4c6635a61cf55afce8f9ee610e8614e78533"
     },
     {
       "path": "bom/build_budget_views.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 5692,
-      "sha256": "7517f52db06191a7f1f586898e214253f5a81de3554a5a22eac3f99fd10c9ab6"
+      "normalized_bytes": 6039,
+      "sha256": "5579e0e839ba905691c041b44c5b096f22807544741881a7fc2efba03c788048"
     },
     {
       "path": "bom/cash_budget.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4766,
-      "sha256": "d91c5a911cdaa0a7239e60cc1da3a8811ecd5c5d02bccc31a04c2ecdf27158cb"
+      "normalized_bytes": 5126,
+      "sha256": "db13539bed5c9ac348cec6900d2fb5f5338eebceefe4a265e1542c8589fde53b"
     },
     {
       "path": "bom/cnc_quote_package.csv",
@@ -122,14 +139,14 @@
     {
       "path": "bom/procurement_v0.5_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 5022,
-      "sha256": "a83204df22e7dc94d1fe3cee750987fa28f7b22ee0762df3a852f4bf364819dc"
+      "normalized_bytes": 5172,
+      "sha256": "4bcd93318e13c770367021e6875d709965fdc7e17861d53f41016bca9c190d1b"
     },
     {
       "path": "bom/purchase_candidates.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 6222,
-      "sha256": "1592a907694b47369f736f6afc29c2b27268e9d782a6e040e38def686b27cca8"
+      "normalized_bytes": 6221,
+      "sha256": "8eea27c5563c828ae2e37558f69231d7995822aed47e8895dc58cae469c85a40"
     },
     {
       "path": "bom/reuse_inventory.csv",
@@ -140,20 +157,20 @@
     {
       "path": "bom/value_engineering_v0.4.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2820,
-      "sha256": "a063d0a33f2085f6dbd2666acc9ff7ae2fb488abc7695e1746944269688c3d8a"
+      "normalized_bytes": 2851,
+      "sha256": "2c519eba4ba78a539a3d7866ffe0e447cb1c45cc3b6e7a690520c1e67768235f"
     },
     {
       "path": "bom/value_engineering_v0.5.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4580,
-      "sha256": "26962a473be60bfec495ea69746e02cde59914daad95424178b4d4bfd6d01c0d"
+      "normalized_bytes": 4395,
+      "sha256": "3005870e90e68df6858ca21cd5f30d39e59ae1a44c656d82177eaeb96f790fa2"
     },
     {
       "path": "bom/verified_budget.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4320,
-      "sha256": "503bc0253ce1fa37e06ce653a50fb81010a2c6489003bb60f8e37c2a8d86a1f1"
+      "normalized_bytes": 4778,
+      "sha256": "43dcce80fb4c91a6f4e38499ac2525e34c5f5e59a6cdd9189d1140cffdd66811"
     },
     {
       "path": "cad/README.md",
@@ -170,128 +187,134 @@
     {
       "path": "cad/freecad/compact/geometry.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 73151,
-      "sha256": "f802f4318694ab1a56a7e7913b5b8a72aa23c51a08e8df545c0f500d6f67158d"
+      "normalized_bytes": 73955,
+      "sha256": "f09bdd534bb6b49b02e8544b166303f8d70473f1d3c1d22cfd88734eaf6be25d"
     },
     {
       "path": "cad/freecad/compact/manufacturing.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 28378,
-      "sha256": "531eadb0b6316fdff777a62d98dd90e54e3709fb7601dfe4a5d6f307a1775fb3"
+      "normalized_bytes": 28403,
+      "sha256": "535e12b5c3b5a34ee0e80a53b8e9be8e90c5520dd28d04986491e117b79d1c7a"
     },
     {
       "path": "cad/generation/assembly_classification.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 15180,
-      "sha256": "c1e15c984dee648afa67dd04fbabe0a6e924e19086bb765a69fcec0dcd924d4d"
+      "normalized_bytes": 15574,
+      "sha256": "9ec1fcaa8cb7d926240493d0631b13475cb0b8ee024c638dfaf11ab21e3d9839"
     },
     {
       "path": "cad/generation/assembly_metadata.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 625,
-      "sha256": "355a113b1312d44a51e6c2fbf620d13d34009029497f4ca83e4ebc4bac20ec0c"
+      "normalized_bytes": 624,
+      "sha256": "decfeaa4a77a281db033d8f1a88ea14a6356a7671352416c289c65477038000e"
     },
     {
       "path": "cad/generation/export_modelica_properties.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 7028,
-      "sha256": "fc164335398f8e7b4667d8b68f545e171ae95fccd5dd2c755f57413150730509"
+      "normalized_bytes": 7027,
+      "sha256": "257311fdb40c42effca562fecd2cc9e76bb1aa1ec2a6d82204285202fb739668"
     },
     {
       "path": "cad/generation/fcstd/compact_full_assembly.FCStd",
       "hash_mode": "FCSTD_DOCUMENT_BREP_V1",
-      "normalized_bytes": 10067307,
-      "sha256": "d0f0cbcef3f8103339d189f2b352871906dfa808d73d3f59a82ccdc220db32c1"
+      "normalized_bytes": 10096466,
+      "sha256": "3fcba08dc5b0561f263326ba6e84cb0fd1f237d2ec96a5ae10d6bb0cf17712ea"
     },
     {
       "path": "cad/generation/generate_all.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 546,
-      "sha256": "5e023108a1fed877f6dc59b408251f411f06f578425534caa9f1145b7aa992ad"
+      "normalized_bytes": 545,
+      "sha256": "a49154956bf3f2180d0b517d1efaf22f503c3f6940c8e0734706d381afe53c60"
     },
     {
       "path": "cad/generation/generate_interface_catalog.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 12445,
-      "sha256": "428277595ef8dd6b69ae5a96f84db9d49c969352c0c9fca299048d705d2a8992"
+      "normalized_bytes": 12602,
+      "sha256": "5d40e10b16b93cf9e2e46374128159283a8d370f2e5bda07c261aeef63216398"
     },
     {
       "path": "cad/generation/generate_manufacturing.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 78800,
-      "sha256": "0faec5d088c6a819d35513dc1af68007ad5e22590b9bdc6917a5bcbb700c63e4"
+      "normalized_bytes": 79221,
+      "sha256": "4723eac1f86968cc60686be766fa3209278151f317754530106f31516f718404"
     },
     {
       "path": "cad/generation/render_views.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 20663,
-      "sha256": "48a37628f683ededd17f7d8a8d2313738f5165147cf889d7795ed8b2703dfe5b"
+      "normalized_bytes": 22516,
+      "sha256": "1028e22993fbf38800ec1f9868ef6f91706d9bd6a2f61269f3190e4fb0b88699"
     },
     {
       "path": "cad/manufacturing_object_audit.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 17485,
-      "sha256": "34c315362914a6c0d55607159fb7b7325281ad55885ab4876d858ea146fdd7a3"
+      "normalized_bytes": 17579,
+      "sha256": "b4ab800da8d4cd39a86435ab6b23a943614433773b08f4fcd968b30f960718da"
     },
     {
       "path": "cad/parameters/baseline.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 9632,
-      "sha256": "7a602451aee906b2118e28861738dfaa0bfa16c44baf52183100004cb80a1013"
+      "normalized_bytes": 10103,
+      "sha256": "28532bb5439a1749c34e643f173d18d13bacd882b99b4bd557e0357ba92956b0"
     },
     {
       "path": "calculations/cooling_matrix.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1155,
-      "sha256": "6edae2e9ea2c3b90c021f07a94fd9460925b65ff8eeb83dff8daf1c1290c94be"
+      "normalized_bytes": 1938,
+      "sha256": "0b1e830ce0be30ffe6c260f162a2c5ceb91dfbf37ea42031c078033e710fddbe"
     },
     {
       "path": "calculations/economics/break_even.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1108,
-      "sha256": "2503b4959aaa1a0bfc9347f2bb10bc5dc805a005a66034e4d9b40f3ea6a055fa"
+      "normalized_bytes": 1107,
+      "sha256": "138adbeba27d9331000bf9275cef5caa2086b144a7c2d04d7bfac0610fd2ac01"
     },
     {
       "path": "calculations/engineering_report.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 720,
-      "sha256": "d7b3b618034c63222c611d49f0f2c467644a2bb9e10371cdb25372219ff3c7ae"
+      "normalized_bytes": 993,
+      "sha256": "fb5a978e221a0d82d90e9ca6f9266d645e29696e1987c8cad1211102eb1c8d2d"
     },
     {
       "path": "calculations/flight_tip_clearance_sensitivity.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 567,
-      "sha256": "86e2262d9c205f909b40b07c0381218e7f953ab9f8a11761133e119295a725f2"
+      "normalized_bytes": 688,
+      "sha256": "efad8c943180f83a0c5a14d79ce27c071c867650775b0422be1d2f4c05302415"
     },
     {
       "path": "calculations/run_engineering.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 16238,
-      "sha256": "e91e48421e85cc35f254eee0d7b14c77e593c5c37d8e3ddcbc6a62d3f3137e76"
+      "normalized_bytes": 22666,
+      "sha256": "f9749e55f3704d20400064ad9fa00fda5fe7335bb6828acb7a58b01b6eeb0a3f"
     },
     {
       "path": "calculations/screw_sensitivity.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2166,
-      "sha256": "d4a08015b7a86087409667c65f50e2a2d6b86f38206e1ed0c0b8454268ba6ef0"
+      "normalized_bytes": 2212,
+      "sha256": "eb7f4af0a0c8371536eaec36218cbecbf3c5888b2d80174af3b5ad0ac0e47f61"
     },
     {
       "path": "calculations/shredder_drive_and_cutter.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1018,
-      "sha256": "29aaf19ec8c856fe382e008c17ccb103182e65b253566a506065f30fec167cc1"
+      "normalized_bytes": 1051,
+      "sha256": "64d053be6a8ca7ef01586e2418dbca5650b94775a5d58ee90e1f6146f4fc0304"
     },
     {
       "path": "calculations/thermal_power_forming.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 946,
-      "sha256": "3690e6783c21f891b352a52a0289c572e415474190c80790d0d31d919746e590"
+      "normalized_bytes": 1019,
+      "sha256": "121b5be1e66ea223d83cb0eb3a452a480b969aaa9f5811d4763c6f9f755852d4"
     },
     {
       "path": "calculations/throughput_rpm_sensitivity.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 657,
-      "sha256": "b40d5db10335c655b9cc900e6c39d4d69eb051d55019c8e51739e79d0cdceb0e"
+      "normalized_bytes": 725,
+      "sha256": "7811cb12e5a27b7f5eaa6f4f30d9090398d2b7ef0ad3b3d13ff7145773ea8916"
+    },
+    {
+      "path": "control/process_contract.json",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 3665,
+      "sha256": "98c5186e0b0a8083768ba63d240d5287e7e2a07723ddd23874e411bdf5bc65c4"
     },
     {
       "path": "decisions/ADR-001-compact-layout.md",
@@ -314,20 +337,20 @@
     {
       "path": "docs/archive_index.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1782,
-      "sha256": "db3570b295a6c9891fbe7293ee8f126faf308b4a6bef90f64d96c7d66b5bc850"
+      "normalized_bytes": 2291,
+      "sha256": "2ed42f90d0a69c6f7b4ab9968c005db0d17d9246e643152984f0abd8fdc25c4d"
     },
     {
       "path": "docs/build_manual_ko.pdf",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 361910,
-      "sha256": "f764bfb42466000545973dc070408b2f1c88e493be1754689b73474334d026b2"
+      "normalized_bytes": 362400,
+      "sha256": "6d6edcbf685f606c47a3d9a9ee5fd0dc05ccd69b333624358e167d8020d19e74"
     },
     {
       "path": "docs/build_manual_ko.typ",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 13691,
-      "sha256": "31906fdfe57fa366da12b6d460116ef757d11288f31336db9126417d4623ea47"
+      "normalized_bytes": 13473,
+      "sha256": "1bbe15d4fe07ccb24c4853cd2abb7c2d76bae18a638200b6cffff86a46ff0e6d"
     },
     {
       "path": "docs/calibration.md",
@@ -338,26 +361,26 @@
     {
       "path": "docs/design_report_ko.pdf",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 429707,
-      "sha256": "def26352a4e1104d3b222c64260168b2c6819ec265f076dc3f0500d31e2518ab"
+      "normalized_bytes": 429186,
+      "sha256": "8f8416e674cc6cc9b475aa9e9c6c5fd686e38d5ee8dd1f18a3d9b13b9c7b4d53"
     },
     {
       "path": "docs/design_report_ko.typ",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 10428,
-      "sha256": "507cf7e8a94411e9851127a206e9d3924d6ca82d57e17510a3df522f9a80801b"
+      "normalized_bytes": 10257,
+      "sha256": "c4b66a0189aee558a575bbf4656371e081d7557b657a4b8af9f2ca6f034baba7"
     },
     {
       "path": "docs/digital_release_report_ko.pdf",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 108108,
-      "sha256": "9cde7b118cade02875c6e874201b648a58a0e49f4eee28434c0f2057253b091a"
+      "normalized_bytes": 112068,
+      "sha256": "41b121959a5a02fbd1a7c7b5600c4d6dc09722ff109821ed21926e197b538dc5"
     },
     {
       "path": "docs/digital_release_report_ko.typ",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4351,
-      "sha256": "9beeb2024e04af1c5b9f9250257cbc351fdc39bf0d30551020afaf4eb5fad865"
+      "normalized_bytes": 4632,
+      "sha256": "95b4116e483e5de01321819d701556c8ffba200afcc671d5109fd319c5ffdc6d"
     },
     {
       "path": "docs/licensing.md",
@@ -386,8 +409,8 @@
     {
       "path": "docs/validation_report_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1485,
-      "sha256": "3e8b0f8d22ffd9269d0f5eee9115f73207361cc83f3b613a24ec948b7978513f"
+      "normalized_bytes": 1785,
+      "sha256": "4c0facfa27e8aee987b4b0e4d77eab384ddeb2c661932b99883e4171cb13f7b5"
     },
     {
       "path": "electronics/io_schedule.csv",
@@ -602,32 +625,32 @@
     {
       "path": "exports/cnc/extruder/manufacturing_audit_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 7269,
-      "sha256": "64e4b46016594d023c8f3eddff27fb707dd1fce463e7fecb9ccee0bfb4d70beb"
+      "normalized_bytes": 7276,
+      "sha256": "2de7dbe2ab56b54518314476ac31676f745feaae030e363c4efd6615663e7574"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.FCStd",
       "hash_mode": "FCSTD_DOCUMENT_BREP_V1",
       "normalized_bytes": 72839,
-      "sha256": "3f4237228a1778105ded9888120d8e461364e409687e6b46e9c4d563cf8b41ec"
+      "sha256": "7300762f5a8b60d51a65574e0fdba998850ed8086ef8b35eb51783d5e28ff8dd"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.dxf",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 31926,
-      "sha256": "116daf10f58352af1bacf0a294617abb26a04a1ead6a7e0fb454f9becfd27656"
+      "sha256": "988782bf07c3c8749fc3e0c1b6226e46a5ae13fda9f16962017f7606595e2e79"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-BAR-01/EX-BAR-01.step",
       "hash_mode": "STEP_TEXT_NORMALIZED_V1",
       "normalized_bytes": 53893,
-      "sha256": "db5997823468fa10a683f4934634a864b8b46d40699ab71df1baee7c564d0d0c"
+      "sha256": "9eeeac2d43f56557994144d54b6fa49255a99fc9e69514cb22780ea708a26e00"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-BAR-01/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 952,
-      "sha256": "ae5346b10a78bc2bbc242a3bc59717e1f1fa4d0c13ae2976b2343ef11474dfbe"
+      "normalized_bytes": 951,
+      "sha256": "d85c3a6267c37b90218a17b81425d7ddf7d24d12a0e2d1529b3a06a7e0f68e9f"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.FCStd",
@@ -650,8 +673,8 @@
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-BAR/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 679,
-      "sha256": "a965b6121acb06a57a326154fb287146d3483b106b84cd4f709a735ac149f342"
+      "normalized_bytes": 678,
+      "sha256": "e979a510c8541bd6b6d96dae6677973ddcf5d076a179f0e7f5ee99cffa984bf8"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.FCStd",
@@ -674,32 +697,32 @@
     {
       "path": "exports/cnc/extruder/parts/EX-CPN-SCR/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 716,
-      "sha256": "ed5b7637bf411e6c048beb8bfa4e26d9526ccad2a66990dfceb18fe3c8f711a2"
+      "normalized_bytes": 715,
+      "sha256": "5395e388c87d802bfd924a86ced641c6328cce0d86eaeb374ec278afc466cb77"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-01/EX-DIE-01.FCStd",
       "hash_mode": "FCSTD_DOCUMENT_BREP_V1",
       "normalized_bytes": 73967,
-      "sha256": "3105199ed9aca21dba4617bbdf104c1c05ef453d8c145e38074422251e01d519"
+      "sha256": "0bf3f4be16e75211cc96a72ad9015e178c2ec3d3ec7c15ad9a8466ad4d90167e"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-01/EX-DIE-01.dxf",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 26612,
-      "sha256": "f419e1cfa40d7b97cfcdf4ce39df27362e9c4581deb83d1868739f1e036d985b"
+      "sha256": "537e8bbf536dcab6d8a896a2a97b6fc170819b6aa7996d0ac1c60c5ea20f3412"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-01/EX-DIE-01.step",
       "hash_mode": "STEP_TEXT_NORMALIZED_V1",
-      "normalized_bytes": 39476,
-      "sha256": "bec61c637572501687b51603071b78fbab24d215ab325c1173368cf061e765f4"
+      "normalized_bytes": 39488,
+      "sha256": "56b9f42ab694ba6bad2f8fd3e91fc57139dc6fe6a25e2f435073bd579e074370"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-01/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 954,
-      "sha256": "c45374a15b76633047c67ae3b29468038556fde7fb7c651cc54539f6611eabb1"
+      "normalized_bytes": 960,
+      "sha256": "3a8be07d81acdb8ebed576b2b732f5fca98ad65e5d29b14ead9251f5d74c2d89"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-02/EX-DIE-02.FCStd",
@@ -722,8 +745,8 @@
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-02/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 706,
-      "sha256": "5590d83e110c8dba42fc863e188bba9ffbc6bf8a03421daa70bca26e7c600ed7"
+      "normalized_bytes": 705,
+      "sha256": "8822f557a93f38fff60d951d8bb211db7a5750351034e2a02f0e78d47f190e3b"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-03/EX-DIE-03.FCStd",
@@ -746,8 +769,8 @@
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-03/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 792,
-      "sha256": "0181cb02d1615c3177111ab594add66c7a59df62379007ad4e3c100586f94457"
+      "normalized_bytes": 791,
+      "sha256": "0456d53073de11dae3f5f643266a1dd4fe93e1437ad65f816899864015e9de0a"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-04/EX-DIE-04.FCStd",
@@ -770,8 +793,8 @@
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-04/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 802,
-      "sha256": "026d2953a26a472651d9b59c8659743a2b0da27ffc31dc55b3bddcaba1433198"
+      "normalized_bytes": 801,
+      "sha256": "0b48d21d4be413265efded8f7994ece41b98a6acd479319bdacea1760f2ab326"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-05/EX-DIE-05.FCStd",
@@ -794,8 +817,8 @@
     {
       "path": "exports/cnc/extruder/parts/EX-DIE-05/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 708,
-      "sha256": "8c050ed84b25b7e43680076de0313070e6761c5c0b7ef00d461b8b87e8f23ca1"
+      "normalized_bytes": 707,
+      "sha256": "63f083e514419e57156e0dc3e92b347e80d31681b7d731bbbef7187d4ea67ec4"
     },
     {
       "path": "exports/cnc/extruder/parts/EX-SCR-01/EX-SCR-01.FCStd",
@@ -818,20 +841,20 @@
     {
       "path": "exports/cnc/extruder/parts/EX-SCR-01/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 798,
-      "sha256": "84892902ec246d651c48399de7a647de8e7ab40082490975e34b99f13db515b1"
+      "normalized_bytes": 797,
+      "sha256": "567a58686d421df79466f03455529a92b3e17978f1672c8f64e9f491f93308d8"
     },
     {
       "path": "exports/cnc/extruder/rfq_drawing_ko.pdf",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 86515,
-      "sha256": "31ea6a2e57644bac9aadcd0c03ba5cacaecd4051bb50227aab68dba30bcd8a25"
+      "normalized_bytes": 86878,
+      "sha256": "3b60d3f256d34d455034aa1ffcf92987302f6d718bcb9a53f0a28fd779de3606"
     },
     {
       "path": "exports/cnc/extruder/supplier_rfq_checklist_ko.md",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 1586,
-      "sha256": "3e070e4ca48f62f6dd2dacd4e40202cd67a86c5b63f561712d1fe9d44923a2d6"
+      "sha256": "3b78600f1fe757bbbd0f21c20bf81609f76369d4c6daeb4b6e026216d7776e38"
     },
     {
       "path": "exports/cnc/shredder_manifest.csv",
@@ -848,14 +871,14 @@
     {
       "path": "exports/drive_interface/interface_contract_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4623,
-      "sha256": "43c9adffe620b586ef313f6bd85d42383f03bf52fb9eb7fc7e7689f1fce708c1"
+      "normalized_bytes": 4622,
+      "sha256": "501bb3b3f3698d94d9214bfd6e20a04bdeb7033e6eaba343835fb21379e832b1"
     },
     {
       "path": "exports/drive_interface/manifest.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1287,
-      "sha256": "98dac2894552d11520d06b8b073ebe902ef9576d8590a03eff2a99b93ad2965f"
+      "normalized_bytes": 1337,
+      "sha256": "ce80a20a4b3db1b8c5dcdb026a289a78be583ec7d2032ba822f7bf54ddfa2765"
     },
     {
       "path": "exports/drive_interface/parts/DRV-01/DRV-01.FCStd",
@@ -884,8 +907,8 @@
     {
       "path": "exports/drive_interface/parts/DRV-01/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 699,
-      "sha256": "6d04686a679cd878c9d864c08af874d49deef26250225322f7968e216649807a"
+      "normalized_bytes": 698,
+      "sha256": "06b569238176d416b1f586faf3811e90b1dbd80a0c071f65f58fcf545e3d3eb2"
     },
     {
       "path": "exports/drive_interface/parts/DRV-02/DRV-02.FCStd",
@@ -914,8 +937,8 @@
     {
       "path": "exports/drive_interface/parts/DRV-02/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 678,
-      "sha256": "4ef7749f6af482781c05dc783025dd0fb406d162cfb310954b448b5da427dc8d"
+      "normalized_bytes": 677,
+      "sha256": "fc03c78d38bc761fa4a0c05e5bee3bcd1999c9d9e0718b0983b6e5f0faa13cb0"
     },
     {
       "path": "exports/drive_interface/parts/DRV-03/DRV-03.FCStd",
@@ -944,8 +967,8 @@
     {
       "path": "exports/drive_interface/parts/DRV-03/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 812,
-      "sha256": "d5fd634b63acb89d7f1ec1a5ae9db4eb0cf368540af1af12f2da3885ff92130a"
+      "normalized_bytes": 811,
+      "sha256": "18367362668e1bbf570d000fc358add0208cec7440d734c3131b9940bb2333db"
     },
     {
       "path": "exports/drive_interface/parts/DRV-A42/DRV-A42.FCStd",
@@ -974,8 +997,8 @@
     {
       "path": "exports/drive_interface/parts/DRV-A42/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 715,
-      "sha256": "f160861a06fc35b8aec2fec3d2d2abb5c6cdb72009e564cb43e0fe88cbec9c3d"
+      "normalized_bytes": 714,
+      "sha256": "1174d0eb0853437fc8ddcb736822e26c492d176fd4236fa43bf3a0b5be67e5ff"
     },
     {
       "path": "exports/drive_interface/parts/DRV-A60/DRV-A60.FCStd",
@@ -1004,8 +1027,8 @@
     {
       "path": "exports/drive_interface/parts/DRV-A60/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 688,
-      "sha256": "7c2c8f255136cebbf0ac26494152cf20c6c0e7cddcb45a03bef772ba226555c2"
+      "normalized_bytes": 687,
+      "sha256": "95fa9b911d3d8c1200f2c79289f46f3047dc96c754e64339805b75da8cd657a6"
     },
     {
       "path": "exports/drive_interface/parts/DRV-F01A/DRV-F01A.FCStd",
@@ -1034,8 +1057,8 @@
     {
       "path": "exports/drive_interface/parts/DRV-F01A/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 677,
-      "sha256": "7e227acacb0f93c58ffbded5cb0a40a1806e88599ed8f7bc3f528ff182aab20c"
+      "normalized_bytes": 676,
+      "sha256": "53c2e16187cac7712954ee3ac1e8b74bdac59e33e346b2fb5c6aecf3c0c062b2"
     },
     {
       "path": "exports/drive_interface/parts/DRV-F01B/DRV-F01B.FCStd",
@@ -1064,8 +1087,8 @@
     {
       "path": "exports/drive_interface/parts/DRV-F01B/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 671,
-      "sha256": "56bd6fc8ad3e4ac7f226b2a047136c7c7643da5440c92f529ed7e0590e94c260"
+      "normalized_bytes": 670,
+      "sha256": "61c72e78a6a5e977864058678d9f7bc27ce3c6f4d33078a4ceaa94bb94e40391"
     },
     {
       "path": "exports/drive_interface/parts/DRV-F01P/DRV-F01P.FCStd",
@@ -1094,8 +1117,8 @@
     {
       "path": "exports/drive_interface/parts/DRV-F01P/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 740,
-      "sha256": "629c1cd51506fe0e13cdb706c0327f3be7e7502947b48b1343fa90d604d15f19"
+      "normalized_bytes": 802,
+      "sha256": "cf8a9f56048d9ebee2480f34aa402cbfca16334ecef6d2e2b922a23463886180"
     },
     {
       "path": "exports/drive_interface/ratio_and_fuse_settings.csv",
@@ -1106,14 +1129,14 @@
     {
       "path": "exports/drive_interface/reference_variant.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1820,
-      "sha256": "4c8135021a0f76631af421baf37df69c8f91d585c01fc4ea4754ce8df51a3afa"
+      "normalized_bytes": 1825,
+      "sha256": "a268a00088f3e2f0ee1ea6fbf174871005ce04c803dcf62aebbfdee9fefaf106"
     },
     {
       "path": "exports/jigs/gate1/assembly_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2820,
-      "sha256": "71f71f93c347d9703119d7bf6012407f6adf4749d0356e098fe2676090629a8e"
+      "normalized_bytes": 2819,
+      "sha256": "3c81948320cac40812c2ab997cd65fdf7dfdef17689f6a2d35f4de6886613c36"
     },
     {
       "path": "exports/jigs/gate1/bom.csv",
@@ -1172,14 +1195,14 @@
     {
       "path": "exports/jigs/gate1/gate1_assembly_ko.pdf",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 232036,
-      "sha256": "54f89714a7f2e8eb81e0f05b769ba69cd42acbba1de90c040722b38aae120205"
+      "normalized_bytes": 232304,
+      "sha256": "9a5bd77e97d9c3f579176e4e2ea360a4ca31499495b77d3b4900b5d2172d6a5c"
     },
     {
       "path": "exports/jigs/gate1/gate1_assembly_ko.typ",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4059,
-      "sha256": "082583aaefb9228921b22581749fc9f6d27e4584383569c7b5e6d8dbc4ef5fef"
+      "normalized_bytes": 4058,
+      "sha256": "b598c65a5de54ce0b8e1d58fb100347991e3c0c08c0df74cba28ab07f240ffe9"
     },
     {
       "path": "exports/jigs/gate1/gate1_powered_assembly.FCStd",
@@ -1202,8 +1225,8 @@
     {
       "path": "exports/jigs/gate1/gate1_release_record_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1102,
-      "sha256": "e952c288ad9e3e631003d2c23d702062c4a899df9bcd2defa5c7247218ed8b88"
+      "normalized_bytes": 1103,
+      "sha256": "a7cb63645797b60bf80526281f3d7f4e6ec337b29b2842f272575578df7d57eb"
     },
     {
       "path": "exports/jigs/gate1/gate1_results_template.csv",
@@ -1250,8 +1273,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-01/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 662,
-      "sha256": "55ae720bbb7951fc04c2a797ccbdfe3d5c771ceb0cd7302f3f6f42f09d00f41e"
+      "normalized_bytes": 661,
+      "sha256": "00c01d17a31033f724e6b40416193027dfe9bb4b913c66f64b07164b0a3a5d9a"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-02/G1J-02.FCStd",
@@ -1280,8 +1303,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-02/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 662,
-      "sha256": "ac46bff6bba8a75e09d5a0c3a35985ea6aa58e4e7ca7063dce86d5b4a9846608"
+      "normalized_bytes": 661,
+      "sha256": "3d7fd28c7b8ec19b31ba90ae97b9408ffe35b954c6bdba0c7d6f3b55992b02f6"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-03/G1J-03.FCStd",
@@ -1310,8 +1333,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-03/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 672,
-      "sha256": "737002dc8227db4821faa2eff5910efef954b9e5ef2bf9ab1e048e7ef1c66a52"
+      "normalized_bytes": 671,
+      "sha256": "023886db327bad6b87e4737d7ce8200f73d148201b7c8812b1956d77d2f44ae4"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-04/G1J-04.FCStd",
@@ -1340,8 +1363,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-04/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 631,
-      "sha256": "ec5f1df18521638f42f24def3775d86d7eeba5f268bf57e789ea7601cb7e6675"
+      "normalized_bytes": 630,
+      "sha256": "74709561204876b295ad04d9df9a03cd8dabd0d9c83600bcfdc29be97c328aba"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-05/G1J-05.FCStd",
@@ -1370,8 +1393,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-05/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 669,
-      "sha256": "b9872d4daa260c68a91ec29e7e52bdf0c90aa467c221003aa91cb7f40e4e0be7"
+      "normalized_bytes": 668,
+      "sha256": "0ffedcecd80656d7540187f546c112b3a91d5717860bb7e274c9505be9e405e9"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-06/G1J-06.FCStd",
@@ -1400,8 +1423,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-06/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 636,
-      "sha256": "9a29e4d80abc6415a885f1aece4c9671d896f690b3f0635cfb423e8cbb3695a6"
+      "normalized_bytes": 635,
+      "sha256": "b95855a7f0b3882027739cbe70668226d8a1210fc3f4aa10f5f97f9c4b878a94"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-07/G1J-07.FCStd",
@@ -1430,8 +1453,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-07/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 642,
-      "sha256": "1fc32c13c907786a8de166993ea6c707788751e652dc18c7d5fb81139feb6a53"
+      "normalized_bytes": 641,
+      "sha256": "74f1de945c67c3295b0db09f9e9e071986eb17c531fc0e21515544fb1d1a1d05"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-08/G1J-08.FCStd",
@@ -1460,8 +1483,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-08/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 635,
-      "sha256": "c9af73d4bbeb286b76cb321fd5bbd4b229bfc448b7d2169ba1b1836dd14f6c67"
+      "normalized_bytes": 634,
+      "sha256": "7fe8dc472af9914e2b43c3cc29bfe2102adff844d11450191548d865bf497735"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-09/G1J-09.FCStd",
@@ -1490,8 +1513,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-09/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 651,
-      "sha256": "01d6a60f9024f56924d78057f4ade9c5e00095e56e425bd63461cfc7dc06b0a1"
+      "normalized_bytes": 650,
+      "sha256": "0abc5ea431654a5375fec78b52537158081e48e90e385e492b7bce03282bc730"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-10/G1J-10.FCStd",
@@ -1520,8 +1543,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-10/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 642,
-      "sha256": "d3e57b2062273770ca198d537708d4929762071df208caa05a3f73dd29900359"
+      "normalized_bytes": 641,
+      "sha256": "a6d853ab8757bf822e869c218362adfddccc9d39870feee2d512c09ed1071a1e"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-11/G1J-11.FCStd",
@@ -1550,8 +1573,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-11/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 650,
-      "sha256": "8700e6461428ea1dc75046856698ead99fbd72bcf383459792d16d6e3533317e"
+      "normalized_bytes": 649,
+      "sha256": "fb5b06b8374451587c63c7c6b50aad559e1ef1e0c20cde0d7af684304de7e621"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-12/G1J-12.FCStd",
@@ -1580,8 +1603,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-12/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 658,
-      "sha256": "05f8c3b0e81c7d826cbbe4e2d595fb68bb11a517b5ee59af0344eaa3bd8c450b"
+      "normalized_bytes": 657,
+      "sha256": "db10fbb9b437fc17e0a4c9b11ac1a853300cb5880d0655117f6d650656448350"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P01/G1J-P01.FCStd",
@@ -1610,8 +1633,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-P01/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 593,
-      "sha256": "aa9686b98f884a97c5b86f2047a1297f9e123b825555a2e2d396fe82d449a035"
+      "normalized_bytes": 592,
+      "sha256": "f524d51fea9e6326226133146e275c0b17f1ad45ac323da6871c600f8211a9de"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P02/G1J-P02.FCStd",
@@ -1640,8 +1663,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-P02/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 593,
-      "sha256": "aa1770b20d461053dea37316a61bea6869fa23670502c17ee7588371b28f5c13"
+      "normalized_bytes": 592,
+      "sha256": "fbabc6f9a4eaa745f2ddf0875a2aa65b3de8c3ec61283358898f9b2558b6528d"
     },
     {
       "path": "exports/jigs/gate1/parts/G1J-P03/G1J-P03.FCStd",
@@ -1670,8 +1693,8 @@
     {
       "path": "exports/jigs/gate1/parts/G1J-P03/drawing_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 573,
-      "sha256": "a131485acf49515003d5ccf6603b13d36009e747202dc7a0afa7d009782b8d68"
+      "normalized_bytes": 572,
+      "sha256": "8401d29692dbae18583e4cb0fd6cee2b648fa871db7d5424aa74e8861a773aa9"
     },
     {
       "path": "exports/jigs/gate1/preflight_inspection_template.csv",
@@ -1706,8 +1729,8 @@
     {
       "path": "exports/jigs/gate1/wiring_24v_hardcut.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3348,
-      "sha256": "bb117969df6720c8eb142d4f4895a5d3f773af497d2e2cb1f3ac71191d7eb958"
+      "normalized_bytes": 3356,
+      "sha256": "fde7afcddaa75799e2b992a5aa55f185bfc2cef93e64361237e66e7eaf45c59e"
     },
     {
       "path": "exports/jigs/gate1/wiring_bom.csv",
@@ -1748,14 +1771,14 @@
     {
       "path": "exports/print/PPR-C01/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 11100,
-      "sha256": "3ab34ebe259f16e764808366282601f444e52253b55f6b9ecf8e5ea320a63006"
+      "normalized_bytes": 11099,
+      "sha256": "7c6d815167ec8069d7502bb6f121379ad43d61e4a600bec8365c74eefbfc84f1"
     },
     {
       "path": "exports/print/PPR-C01/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1330,
-      "sha256": "1088b66155a9a054b1f7e7c6a5fba093ec17237835be6f9805dffc98f4476b52"
+      "normalized_bytes": 1329,
+      "sha256": "b14ae6d3c749305142da11a2774c0a79805070ed8aaf998c66c99e6228bb7d19"
     },
     {
       "path": "exports/print/PPR-C02/PPR-C02.3mf",
@@ -1790,14 +1813,14 @@
     {
       "path": "exports/print/PPR-C02/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 44822,
-      "sha256": "0253c23d07a4161f51dd20bad7b3f22e2dc09c531afadb4148a6b1504727dfd0"
+      "normalized_bytes": 44821,
+      "sha256": "b75b86d942bb71af867a8fe0ab722393c261281ad9d73a8cfdd85a5df29ffba5"
     },
     {
       "path": "exports/print/PPR-C02/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1497,
-      "sha256": "ffe9abe28fa9ec80ee8c53767f5065912097df85d394df4492de9c91cdcace60"
+      "normalized_bytes": 1496,
+      "sha256": "a3bb96c389d549acc3730ac498c1de46c8f45ca6265ef7a18411b21e09e782b9"
     },
     {
       "path": "exports/print/PPR-C03/PPR-C03.3mf",
@@ -1832,14 +1855,14 @@
     {
       "path": "exports/print/PPR-C03/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 16833,
-      "sha256": "05dd746531a8f491ecd57a8e8a16f023c3a260f2ab1a9b2c7deb6c5d453d482d"
+      "normalized_bytes": 16832,
+      "sha256": "9ec45c83dd54f9c994c1ed473169bcb289ae5cda97fea902d89689b1368a3dc6"
     },
     {
       "path": "exports/print/PPR-C03/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1279,
-      "sha256": "edb017b5f04ceaa14ff76f19c6aa4230915ef34d06b30c197b8b0e8c07d837e1"
+      "normalized_bytes": 1278,
+      "sha256": "ddd549d0b7e0e7169d8de2be5d649da7c52b78eebafee3c2df1128b97575ce09"
     },
     {
       "path": "exports/print/PPR-C04/PPR-C04.3mf",
@@ -1874,14 +1897,14 @@
     {
       "path": "exports/print/PPR-C04/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 10932,
-      "sha256": "d15d2a76a94811f8d7bc5530ab3d0e1a5c461559f4f24d1cc514dea27754c702"
+      "normalized_bytes": 10931,
+      "sha256": "de48d70df6876aa238b24e7b1dd98aa18d70b4d6ff6e5cf531cf8caf2989c31c"
     },
     {
       "path": "exports/print/PPR-C04/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1251,
-      "sha256": "2d3421d4ca0299814b7df1d6fb5b1db60a2d42c53395eb145fe5bf7ea2b7bdee"
+      "normalized_bytes": 1250,
+      "sha256": "c20bacf9277028236ae6c78643406795b6dc348603df0108659c66e41a0172d4"
     },
     {
       "path": "exports/print/PPR-C05/PPR-C05.3mf",
@@ -1916,14 +1939,14 @@
     {
       "path": "exports/print/PPR-C05/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 24438,
-      "sha256": "9cbf58597a8ca67b1a6624b5af976805481892f3790d9e53a811083ffd298fdd"
+      "normalized_bytes": 24437,
+      "sha256": "66a3e76972fac1ee7dc01be45ce1cc5af2dc707504a325629d8cacedf100a198"
     },
     {
       "path": "exports/print/PPR-C05/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1296,
-      "sha256": "f71aa721300dd996576a7acfb5acacbd0449045d380927b7b3d088104f7f42ad"
+      "normalized_bytes": 1295,
+      "sha256": "0f831bda59b3b7e75087efffdd109ab7b7d7c11c34d2fd2e31bdb286b6bde245"
     },
     {
       "path": "exports/print/PPR-C06/PPR-C06.3mf",
@@ -1958,14 +1981,14 @@
     {
       "path": "exports/print/PPR-C06/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 36255,
-      "sha256": "1e455b6887da03bc6d3de1dd97943b690272c9fdf99aedaacae2df9b9495e4f2"
+      "normalized_bytes": 36254,
+      "sha256": "0fec9ab0b46c07d8529b4511f7b991e11bdd8f8ab476533db533f374fe546dc7"
     },
     {
       "path": "exports/print/PPR-C06/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1405,
-      "sha256": "4fd904652ef9c6b7f8b5232756e20fd709e8084d2b200a6e4325e9df017b2168"
+      "normalized_bytes": 1404,
+      "sha256": "69b30098989cbfad3cd5509600239ae0f2677f05574dd39b9eda31dfc133b56c"
     },
     {
       "path": "exports/print/PPR-C07/PPR-C07.3mf",
@@ -2000,14 +2023,14 @@
     {
       "path": "exports/print/PPR-C07/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 36381,
-      "sha256": "940f290151ab23a0a06bfd355f7ebdc04bd5fc8150105158181d30b46ebc605f"
+      "normalized_bytes": 36380,
+      "sha256": "caf1fc1b474ff074db5c0b7d74b0880b8a24e8e82fc61028230be4062cc5dc7f"
     },
     {
       "path": "exports/print/PPR-C07/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1382,
-      "sha256": "13b3928c445457e2b733e5a8e6db93d0592b9fa14d818d2e4ab5c72221630942"
+      "normalized_bytes": 1381,
+      "sha256": "9e16e155298e020b2c51873398bb9283459e7c9b0fbc95401e8e21962bca34d4"
     },
     {
       "path": "exports/print/PPR-C08/PPR-C08.3mf",
@@ -2042,14 +2065,14 @@
     {
       "path": "exports/print/PPR-C08/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 10479,
-      "sha256": "3be379bfcaad0bd41a8f51d5c06264faedd3ccd994c624b87165c2c6c4aac861"
+      "normalized_bytes": 10478,
+      "sha256": "988bf6aeac27672f41411a6e7d9262dfc6ccb96889ae9ee68a9f7061ccac61a1"
     },
     {
       "path": "exports/print/PPR-C08/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1432,
-      "sha256": "e6d88596c5bc1648788e152aa63d58bb0c5fc96ce4831f33e82e88013a0c8816"
+      "normalized_bytes": 1431,
+      "sha256": "98a710ea80e3f0ed21290578603fc0f9ccd233accf5a21dc9085b5719fe00709"
     },
     {
       "path": "exports/print/PPR-C09/PPR-C09.3mf",
@@ -2084,14 +2107,14 @@
     {
       "path": "exports/print/PPR-C09/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 13718,
-      "sha256": "2298e23a3b9e87ba732a17a51020fe86e3c5ae6e103b0e56c7a62dd690477d84"
+      "normalized_bytes": 13717,
+      "sha256": "0aa4a035d909227c34981ab9a6d3d308b8e2a4477b6dc28f9def680d78ec7ee7"
     },
     {
       "path": "exports/print/PPR-C09/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1377,
-      "sha256": "99af1589e50356e3bff793762bafa1eac96a62836efc5577c3dc8c789886e305"
+      "normalized_bytes": 1376,
+      "sha256": "7ec8e2376999af5cdbc372d5827e70a48d48d89f11e1f244a2428fc712c685a3"
     },
     {
       "path": "exports/print/PPR-C10/PPR-C10.3mf",
@@ -2126,14 +2149,14 @@
     {
       "path": "exports/print/PPR-C10/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 22226,
-      "sha256": "22469e17b5355a89b4d770dd501e6d5f35b46ac6be25147efbd825d8300642cf"
+      "normalized_bytes": 22225,
+      "sha256": "31ffa93086205ddb6cc8d7311103f4653cf7490d9a28ef632b2807dedc3030e6"
     },
     {
       "path": "exports/print/PPR-C10/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1376,
-      "sha256": "4d7ff4a9656eb5326cf029222c9122b8e5d69cffea5690a09f768810d9b74964"
+      "normalized_bytes": 1375,
+      "sha256": "6b363d469c6ea3a22e8347bf2017fbddf3e48645bb71d2567e47253c61432e7a"
     },
     {
       "path": "exports/print/PPR-C11/PPR-C11.3mf",
@@ -2168,14 +2191,14 @@
     {
       "path": "exports/print/PPR-C11/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 18585,
-      "sha256": "a5f8bf2a1fb8ab712693ad53713981c836d4acd9eee2136f9332a82aa3c304cc"
+      "normalized_bytes": 18584,
+      "sha256": "95d8a8e8ee44f8aaf6e0e1eb4f4efc7ec7cb2c8566f186486116259a86ce2f51"
     },
     {
       "path": "exports/print/PPR-C11/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1305,
-      "sha256": "a25013d5fdda9c38b0a9f67232d200ce669e119547f1970a4a8faa03a65b25a9"
+      "normalized_bytes": 1304,
+      "sha256": "00f40c377d9b20e473ad3135b5cb1e55b3d4c5124bd8b6682cc988799bd6c646"
     },
     {
       "path": "exports/print/PPR-C12/PPR-C12.3mf",
@@ -2210,14 +2233,14 @@
     {
       "path": "exports/print/PPR-C12/dimension_sheet.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 9697,
-      "sha256": "53f9d82f67c1edbf4a85585e31e74f398ea618dfebc6c0d85483c066ef0a39a7"
+      "normalized_bytes": 9696,
+      "sha256": "ed10638c659e09f434e661b66f00551d85a22674c9cb9c6f3076979dcf618b40"
     },
     {
       "path": "exports/print/PPR-C12/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1310,
-      "sha256": "7de682ac96d1c3309365d50902b8893b65b35cf4bdb24dcc91c1eac76f0bd46e"
+      "normalized_bytes": 1309,
+      "sha256": "4f2b54eac62da3846e45ec3f3b302516f7d4859dbb98e74b0a27a8614a5149c5"
     },
     {
       "path": "exports/print/coupons/PPR-TC01/PPR-TC01.3mf",
@@ -2258,8 +2281,8 @@
     {
       "path": "exports/print/coupons/PPR-TC01/print_notes.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 903,
-      "sha256": "8acb64ad6bdf7f5faabfd507c1fac89df16c4c18c23a739c21c82d602b8c242a"
+      "normalized_bytes": 902,
+      "sha256": "8f0b68c80f0712ad68346c3a7d198653aad403af12b374673cf39469630cb190"
     },
     {
       "path": "exports/print/coupons/PPR-TC01/tolerance_coupon_results.csv",
@@ -2342,20 +2365,20 @@
     {
       "path": "exports/print/print_manifest.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 5430,
-      "sha256": "4f6d0000906a1f0b92c430398f79408e8a16e3f0e6ac6635ad8d7512b8d87f54"
+      "normalized_bytes": 5418,
+      "sha256": "26b10199d02b2b95b833359ec880be8426f698d076d3406669635be6e2e22636"
     },
     {
       "path": "exports/print/slicer_profiles/PPR_PrusaSlicer_2.9.6.ini",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 734,
-      "sha256": "dacec9e48792072f24590e21f9bfa70e08ebaad0f32003a2ce6a9a79417676cf"
+      "normalized_bytes": 733,
+      "sha256": "321aa3b19390b06eb59e20e04587b225d3dea06da825bacc34a09481b50ffc27"
     },
     {
       "path": "exports/print/slicer_profiles/README.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 497,
-      "sha256": "fa6d9917eafa8c4d78bd71aeddd993c33804ab225050866825b75e06dd3ce04e"
+      "normalized_bytes": 496,
+      "sha256": "48937c1deffad3db91f6971ef3f4a2b0a9c764d4c5a0f17cbe16d657f473c624"
     },
     {
       "path": "exports/print/slicing_previews/README.md",
@@ -2444,38 +2467,50 @@
     {
       "path": "exports/print/total_material_report.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 527,
-      "sha256": "a6beddb46babbbd10d752f45d8c237d6e0d82756eee270430997a4275c06b01e"
+      "normalized_bytes": 526,
+      "sha256": "1aa3b8cda1929ca21f3400c1fcffb3a2eb012b4af4407d93f5b1652aa7759208"
     },
     {
       "path": "exports/step/compact_full_assembly.step",
       "hash_mode": "STEP_TEXT_NORMALIZED_V1",
-      "normalized_bytes": 7128232,
-      "sha256": "669b9c72c01518417b13683a16a16e96c6c9169e3dd2b06720f6651ec67d4c02"
+      "normalized_bytes": 7147560,
+      "sha256": "6b8941199059a997eab8b33f3de244069a39e015abedef1784da0c5542b2298b"
     },
     {
       "path": "firmware/arduino_mega/Makefile",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 734,
-      "sha256": "f176f1ae44aa5ca797166b11db6f0e6118b114baa3238c6f24db7e458f404d93"
+      "normalized_bytes": 799,
+      "sha256": "8babbbfb74038fd4d4842a44b736dcd6f90aaec12e6f5bd5acb10a8aba6f7a9b"
     },
     {
       "path": "firmware/arduino_mega/README.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1713,
-      "sha256": "11aa916672112d937a939df87158dd4fd8e2bd1e932bdda46997545a9b58b2fb"
+      "normalized_bytes": 2043,
+      "sha256": "bf71f39a977d1b1dfbd111a566ad9535b573546a3a0f8d615066178e3c71cc34"
+    },
+    {
+      "path": "firmware/arduino_mega/arduino_mega.ino",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 3149,
+      "sha256": "c0140b00a535d94c126152e337b95cfab7e265a13031fad0d65251707301e30e"
     },
     {
       "path": "firmware/arduino_mega/generate_config.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3074,
-      "sha256": "429765cd8c493e52128772d8cb5cca2994cc1e67fe106aa81e63bc3b648563e6"
+      "normalized_bytes": 8451,
+      "sha256": "6a41107872fe7df9b7ab98acb33c3a5771b2d429572329c735c65dcc25143187"
+    },
+    {
+      "path": "firmware/arduino_mega/src/board_config.h",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 821,
+      "sha256": "4bd2b5da987c4ef85f65a9c0a349c3fd37b1a3988eb69b638996a323bd4e004a"
     },
     {
       "path": "firmware/arduino_mega/src/generated_profiles.h",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 958,
-      "sha256": "e32127733b68e94f5b8eb0c2fa00e350609376b1809a525e6e94aea3eacf4087"
+      "normalized_bytes": 2490,
+      "sha256": "22aa13679542dce760e25c2d481640bcbf30805291e36da7a3f2307b8d24ba0b"
     },
     {
       "path": "firmware/arduino_mega/src/material_profile.h",
@@ -2486,38 +2521,38 @@
     {
       "path": "firmware/arduino_mega/src/process_state.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2122,
-      "sha256": "a1c3c1c6605891ffd4fb857f105a0e11e929b7f1af6e493425df94c23743b539"
+      "normalized_bytes": 2693,
+      "sha256": "6a810ba5cac081c470e29f6463e127558e128854f278118f98da8d0075c50814"
     },
     {
       "path": "firmware/arduino_mega/src/process_state.h",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1189,
-      "sha256": "d599137d0206169a6ca06f3bd472664436a98b285eb819c1147b9027f8df4207"
+      "normalized_bytes": 829,
+      "sha256": "87dddff7a76dc2ab65a47bef5dd20c503a9cf2829b6031b34000f4c8f69c9cf5"
     },
     {
       "path": "firmware/arduino_mega/src/shredder_control.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4278,
-      "sha256": "16f87ab23644543a37a39d12763ac70f92a37d63bec6f30a684db574969a0b9d"
+      "normalized_bytes": 4821,
+      "sha256": "1e80607ae503f0d31398873a49b8b2b90bdb8968c737e88ccbf7d4d1816c8ca2"
     },
     {
       "path": "firmware/arduino_mega/src/shredder_control.h",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1134,
-      "sha256": "92753395ea431f1d940862ff630fb1aeab0d412884b5659b5ecb1319ee336f82"
+      "normalized_bytes": 1227,
+      "sha256": "d46320696229773a2363890356308e1822d53a212f02e6d7b7f21102c42094d3"
     },
     {
       "path": "firmware/arduino_mega/tests/test_profiles.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1472,
-      "sha256": "c4653694314cb991bea012db95b94d35ff3d863a1602b89ff8b972fefc07d365"
+      "normalized_bytes": 1820,
+      "sha256": "af8fdfb12ae4eaed6c0f75a0b268fe0db7481c4d04824b4dfe8b71abd13bdfb3"
     },
     {
       "path": "firmware/arduino_mega/tests/test_shredder_control.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1668,
-      "sha256": "53c86c03ca97bf8ad845bb8426f34a34cdfb3391738c7582a7a1c90300d3c775"
+      "normalized_bytes": 2602,
+      "sha256": "c877d10368cdeb10a08ebc28a2ac0879d4f5e753eebc2d441f7750e3d710a1fb"
     },
     {
       "path": "renders/assembly/compact_full_assembly_front.png",
@@ -2528,14 +2563,20 @@
     {
       "path": "renders/assembly/compact_full_assembly_isometric.png",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 49709,
-      "sha256": "133f687fbadccac0eb37fdcdf7683f490479581025679286c27f3dad7a54d22a"
+      "normalized_bytes": 50340,
+      "sha256": "dd11c9ea079fc2ab83ed1f185f59d22635b228c32a01f70af371b7e3dbc4f126"
+    },
+    {
+      "path": "renders/assembly/compact_full_assembly_side.png",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 20258,
+      "sha256": "6eedf64ae22eb0be8efde2913b567f901f362597b6998c42d4e170cfb9a43d11"
     },
     {
       "path": "renders/assembly/compact_full_assembly_top.png",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 20665,
-      "sha256": "563697557a5507600d50891e03d39e6f4a93796519998212c4971c2bcbbbe643"
+      "normalized_bytes": 21022,
+      "sha256": "1e8cbf3c12227bb932f31441600059da4988e5f95b68983be3193c74ef72f259"
     },
     {
       "path": "renders/cnc/extruder_die_exploded.png",
@@ -2616,10 +2657,22 @@
       "sha256": "b9e99cec7d8bceefa97254070b3267d180a65d59bce78fb9c0751bd613ef08fd"
     },
     {
+      "path": "renders/review/cable_routing.png",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 22790,
+      "sha256": "0c6acfe09a15a33c63745f5cc91edbe40b3464cca784a307272d57c3a6e0fba2"
+    },
+    {
+      "path": "renders/review/closed_operating_state.png",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 48147,
+      "sha256": "e957af65352127a03309cf28da4687448b784d66c54a6d7afce05c1fe95c74a6"
+    },
+    {
       "path": "renders/review/compact_exploded.png",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 48100,
-      "sha256": "daf5dd7f1de73b811392621e0ff984ee536fe2fce2bf3e7bb1b8d541174317d6"
+      "normalized_bytes": 48309,
+      "sha256": "f70c00a2fe9e7226930a9048964fd0a44604fe4e382c4f68cd20447e3aeabe41"
     },
     {
       "path": "renders/review/compact_section.png",
@@ -2628,10 +2681,22 @@
       "sha256": "44f04361c1007c6b9f5727b7023005c5d1369d713baf87b06fd45aec1c0a133b"
     },
     {
+      "path": "renders/review/cooling_and_forming.png",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 23773,
+      "sha256": "4481caf3385101cab5cb525a2440c539810dee1168cb3d85f1e60ead8522d545"
+    },
+    {
       "path": "renders/review/forming_spool_motion.png",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 33284,
       "sha256": "c70661e6f3bb41d0a327af8e3400c5165f032aa56c50c83a549f4d26424ab10b"
+    },
+    {
+      "path": "renders/review/heater_and_hot_zone.png",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 38347,
+      "sha256": "bb559e34b0e059f4814cd6d036c755ab57575ba1ab364d5d75d269d21a1a90e2"
     },
     {
       "path": "renders/review/print_orientation.png",
@@ -2640,10 +2705,22 @@
       "sha256": "acc4ddcc6d9ceb5122f3e3a591eff32a8b93c67d4d0f4b4626973e841680bad5"
     },
     {
+      "path": "renders/review/service_access.png",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 35727,
+      "sha256": "ce375a635722df2f7f9a546811ddc8e93a3a2338e67406127d3b142901518adf"
+    },
+    {
       "path": "renders/review/shredder_fastener_tool_access.png",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 24885,
       "sha256": "baddabb7bf74adc3a6e88c4f230d2b18fdf77da0807472fe491d577a8cb8a173"
+    },
+    {
+      "path": "renders/review/spool_and_dancer.png",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 30553,
+      "sha256": "a8180168b32ac41ba317d950cad6811dc0417cb7ddda0a54174c10eacf8eace9"
     },
     {
       "path": "renders/review/support_contact.png",
@@ -2654,38 +2731,38 @@
     {
       "path": "requirements/architecture_contract.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2785,
-      "sha256": "43aa02a48d720e65bc214aa17123271a1d2d3b49bab65f905b3ababc09e817da"
+      "normalized_bytes": 2796,
+      "sha256": "35abdfc19bc134d818a113de79f07d78985abd94f3a374feb1ce9677a52ae285"
     },
     {
       "path": "requirements/assumptions.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1396,
-      "sha256": "735ceb7c8639e5a57ba042fc7036619e83cdbf128f58ff2d6abb035a2689ce6a"
+      "normalized_bytes": 1453,
+      "sha256": "886b0857a712f60295e483e9ad38621ccb68a434fc659a3f6a5192fd2b1b602d"
     },
     {
       "path": "requirements/responsibility_matrix.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1445,
-      "sha256": "06dd2a0d352ce5f6c109add475a8f0c06b7a865f932672385f0fe720dc95a0e5"
+      "normalized_bytes": 1587,
+      "sha256": "1887bf4bef4640553a37b0bc0720a522ee0dfe409761fcb37cc7e206d8fbe532"
     },
     {
       "path": "requirements/system_requirements.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3296,
-      "sha256": "4bf801a5479916101929fc968a0b61f67ace4e9e1ebbab46c5702d41221c4880"
+      "normalized_bytes": 3362,
+      "sha256": "e52894c5e2f6e947003cab367bfd92ff0cc2b1ae27e1a3ac166b499df9b34006"
     },
     {
       "path": "simulation/cad_clearance.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 665,
-      "sha256": "1660bf6ca0f61becb30c47f325a84495d7effe8e063e7dc07102135cdd9f0644"
+      "normalized_bytes": 664,
+      "sha256": "9b998fb557e8764777a077511e17bff568c6339d924d5cf36ced12ab004d66db"
     },
     {
       "path": "simulation/engineering_summary.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 16952,
-      "sha256": "37a140a84fe79acad60204f30db81e6f858f0ddb95da123612fbe33c6aaf2c0a"
+      "normalized_bytes": 26858,
+      "sha256": "bbe306d55407a62a598698a4dea3943a0fe2028bcc7e2c35ee679801255ae704"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Components/DCMotorElectrical.mo",
@@ -2702,8 +2779,8 @@
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Components/HookMaterialLoad.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1379,
-      "sha256": "bca94c7bc4f5c01ccfe63a8441a156618399efa06f74f9c8fafe400a8d47425e"
+      "normalized_bytes": 1631,
+      "sha256": "a5c1727a0ba0c94fa41a5b0e3af0dc2feeca77d3ff95df605a6811046a2acc47"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Components/LossyGearbox.mo",
@@ -2720,8 +2797,8 @@
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Components/ShearFuse.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 913,
-      "sha256": "3e582726d5f89de00ab7b94d2f0e6b13e32384f8c7adfa764d30ab20762d718b"
+      "normalized_bytes": 802,
+      "sha256": "8fe0b1613a55b64b71184137cfcda0a8f66fe08e894f4df3d1497670bb747d95"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Components/SmoothBacklash.mo",
@@ -2738,26 +2815,68 @@
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Generated.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1584,
-      "sha256": "d9027a65f788553287da1de003b6f0e5010de5bfe3b462ac32fa7143c274f163"
+      "normalized_bytes": 1583,
+      "sha256": "866586e99c49030f34a6f2da535659be2c72ab3bee4d83f1bb2039d04b80fa8e"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/GeneratedControl.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 1574,
+      "sha256": "8849da5bf56e24f6a6c62898467a9e9fc014126b26ef95bfd3fbc1ee241843bb"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Parameters.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 810,
-      "sha256": "72cb6c17df2f1503fcb34c23ef9bea4911e8f87bdfbd7705e12742354922c9e0"
+      "normalized_bytes": 809,
+      "sha256": "26da9a63296e90c78122416c46bf7662ad0b1d926d88681e7bd3c6ca38db30fb"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/BrownoutLikeVoltageDrop.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 284,
+      "sha256": "32eb6c69e509753aa008dfc25733874566bbd29f8c7f2144774e05898af24a7d"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ChainBacklashReverse.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 430,
-      "sha256": "281daf6f4ad762123320b24ebe121087b9b2796e58b46c07d800b5b449ab4737"
+      "normalized_bytes": 462,
+      "sha256": "e78617349b42900ce7c87dc0ac3d48ede946e63ee126ffab2189b5e357b9258d"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ColdStartNoLoad.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 244,
+      "sha256": "3372c4c451b6399252f6227e8f10a3d22418c106dd8f083f0544a40957a33128"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ColdStartPET.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 230,
+      "sha256": "9af011a1470d4114b9afb8dd0f10ce88ea1c8ff2a760fef7c8f68a6e1469af24"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ColdStartPLA.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 230,
+      "sha256": "6c51bd2890a7525a9f2b00c689894840915ae9f353194205da7daf49246bf36d"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/DancerLimit.mo",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 354,
       "sha256": "d547f05c44c96a036ada4f41a522243e2a5505282477a2b688ea26977bc44e2d"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/DiameterFlowStep.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 259,
+      "sha256": "9792bd21c71f7381cc376ac643dcf7a71d4df5f45607edf545707887407e59c6"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/DiameterPullerDisturbance.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 295,
+      "sha256": "accd335567e000c7263c4edfa3119e0548eb6f9455d0a6fda595e0f9c00f570a"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/EmergencyStop.mo",
@@ -2781,13 +2900,13 @@
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ExtruderNominalPET.mo",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 416,
-      "sha256": "99da6ba534a9c2dc536d07fd83a7b37cf061820a5a8764a92a9ac486cd22916b"
+      "sha256": "a53f9026eaed9c93fc8c9c8757510dba0dfb38b50dd44dd371db39e4eb7f22e8"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ExtruderNominalPLA.mo",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 407,
-      "sha256": "b5c9151c8eb94fe41a02e36cebb7a6797e89af2e5b11f87ee41e0fe064d888fa"
+      "sha256": "a96e581a7680f66f0d079a8d87c990a35f9a4a3e20445e8b4eaa7dc4b4883998"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ExtruderWarmupPET.mo",
@@ -2804,8 +2923,8 @@
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/FullJam.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 422,
-      "sha256": "9228547d07f04d42b7728ba22817021f6a9992d28808613a291c7c754920ea3a"
+      "normalized_bytes": 427,
+      "sha256": "f1d4dd66bcfd12de0cbaf281d5797bf70ab180c1b8638412a4d024959374765d"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/FullSpool.mo",
@@ -2816,26 +2935,26 @@
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/FullSystemGaugeFailure.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 404,
-      "sha256": "daa19eaf0f7ca4587d7694a335247234b6f3d3cca078b5b39b68e54b2bc5c4d0"
+      "normalized_bytes": 444,
+      "sha256": "ec23b5f92be3da18717f2054bce3cfde4af4ef45dd9bbe60ddfe669f6e945e55"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/FullSystemJam.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 408,
-      "sha256": "a85f9226d4f1fbf02cd4e2af38e5e67b4320479d756d46e4471277c147f30e03"
+      "normalized_bytes": 448,
+      "sha256": "cac5f29091a810fa9cf3359937b10c2e7a57ded106d861c63ee0515d7a7c1478"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/FullSystemPET.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 358,
-      "sha256": "8fa0d744f2b654bc2dcd1263ff7e2442cb9f98995303d6e462fa80b55dec2a81"
+      "normalized_bytes": 413,
+      "sha256": "80a1b0963266cf17de9757290b63f34adf9623ef4c90c0e2e69e062c3c0e9485"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/FullSystemPLA.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 358,
-      "sha256": "eaecb2b1426df9e9525c548d86c604d76c7593aedfe342a9ecb77c3d432324ff"
+      "normalized_bytes": 413,
+      "sha256": "2da78fa84b7edb55a993fe5b9a0c7d62f0a265d74dff0722d073c3d9013777c8"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/GaugeDropout.mo",
@@ -2856,6 +2975,30 @@
       "sha256": "6f7de28e882c8416071d84928a784516b2e47481988e0e73a476c739c13a1508"
     },
     {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/HighInertiaStart.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 276,
+      "sha256": "58de2d76b97aa896dfd3e47cb0d4d5954158b8ff8dc408d1e792f408b37db36a"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/HotExtrusionJamPET.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 301,
+      "sha256": "4aa1ad2f67dadecd3ee8942df2cb189e2b417b94b775019bcd16e7ae54b486f3"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/HotExtrusionJamPLA.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 301,
+      "sha256": "04b0f2b579725ce36092678dd3ada3050333f687a4a87845afcd15e9eedd5e6c"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/IllegalShredHeaterOverlap.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 313,
+      "sha256": "514c75a130b75dd837f47386602d5b80d3a75ab08381fcc740bde20c098976ef"
+    },
+    {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/MOSFETStuckOn.mo",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 393,
@@ -2864,8 +3007,14 @@
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/MechanicalFuseTrip.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 407,
-      "sha256": "0da258156970e8c0346f86d5106633b549193e54156b722c8e4e4396bd69d5eb"
+      "normalized_bytes": 388,
+      "sha256": "45896b8f07882991b115020b5835836cae7d9d791b60e8d1efb2c586eb3a0de7"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/MotorLoadStep.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 310,
+      "sha256": "36a7272db03d1fcbfe0495c079117d0c63614733701b4730d523000136b3116c"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/MotorNoLoadStart.mo",
@@ -2888,14 +3037,38 @@
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/OneShaftJam.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 428,
-      "sha256": "a1d3348760b6d35750a9da653aeb06281d6c69fe4b47d8613fe5acbec94a45ef"
+      "normalized_bytes": 412,
+      "sha256": "eaa6dbe406197a79145984e10c806efecd7206cfd274a9d2bdcfb1b6626e015d"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PETFormingHighFlow.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 224,
+      "sha256": "34297782e7b7282df26928990c15ddc65f754bd83abd82cf247407b86d3b92ec"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PETFormingNominal.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 223,
+      "sha256": "98330f0a7eb955ab083f572ea118cdb384c5378ba6252cedd6a39f4f3144fba7"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PETNominal.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 389,
-      "sha256": "078823646298edba0f8f824045fb280a445aebbe36cfb1f3a568abc8dd718368"
+      "normalized_bytes": 413,
+      "sha256": "c927ada266734753e38a65e43bcba3bbc2243860860fcbf043440ed159aec530"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PLAFormingHighFlow.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 224,
+      "sha256": "98f5888be48fa9daeb2cf4b1464b1ade698c62f6c72a1ac8da7c8f60b82c6044"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PLAFormingNominal.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 223,
+      "sha256": "9023638c3780196d4e516da3059e2266bea9ce2d7cea1cf87a97ee347199b6d5"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PLANominal.mo",
@@ -2904,22 +3077,52 @@
       "sha256": "cbe3d6668c46d8c82042e5306e4d697cf2a2016e8174e05c6459206474bfd0ee"
     },
     {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PSUPeakExtrusion.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 165,
+      "sha256": "80cbb84cd6412b7ec813365a36c8393addca27e73a594de4a8e375ef2bdb307d"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PSUPeakPreheat.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 162,
+      "sha256": "763afa4c21918af07c73586c1fa2d519f516a029b17dae81d8f8c10e8ebaf576"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/PSUPeakShredding.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 165,
+      "sha256": "3530047aab3fb41d2be1134f803971a913d74c9bba9fc351cef835624b732184"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ProcessPreheatToExtrusionTransition.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 366,
+      "sha256": "f509b177e43f7eebe120e3864b153539b968cf911e2707b1e1ed65744e8d832f"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ProcessShredToPreheatTransition.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 336,
+      "sha256": "f0106c8e9c1d0fa4b3ffbd0963a491b5aea90afcd117087f6fb0ab2e1b4798f4"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/RealSpoolJam.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 249,
+      "sha256": "cfac2f5f8154126ef2010ddc9ca56209081ade381c405802fb1fc7df96119e84"
+    },
+    {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/RetryFailure.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 409,
-      "sha256": "963230b14ebe94a279fe17ea3a591997163403c65459255867507ee8668da1ed"
+      "normalized_bytes": 388,
+      "sha256": "25d1ec4c29bd5cbfcc33e4a58a33de99b831b7209710dee6fb7d45ffeec1753e"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ReverseClear.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 443,
-      "sha256": "12691c1a03646abf4cd91173fa1b7d441b7389a2d0ea9449236142b6a0e5aaf8"
-    },
-    {
-      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ScrewJam.mo",
-      "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 377,
-      "sha256": "2f72ff69940319eee2cf4472fdfe8f28c24552f48d9fd6e9fb5419209f7622fe"
+      "normalized_bytes": 417,
+      "sha256": "a754cfcd10287fa94fe1c9a51977d4d1fc8abc8e870798c33329fb3b2d232450"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/SensorOpen.mo",
@@ -2934,10 +3137,28 @@
       "sha256": "ff11bdd3128b19f42603072d4bc3a50f416c3c15e77b5fc6135771c35c9a89e1"
     },
     {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/SlowAcceleration.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 274,
+      "sha256": "b2f14e49d292008e06fca48a82893a520bbc8ff3a5b0f7ea0e61d3cbc88fc064"
+    },
+    {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/SpoolJam.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 362,
-      "sha256": "784a750b4c4c853cafdc9a9f47e41412a73c7cdb58d042d3de6cb06f72dd833a"
+      "normalized_bytes": 391,
+      "sha256": "752bab322c3698287da0aa524d0151d614a2e9113bf888349c71ef71e602c103"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/SpoolJamPropagation.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 300,
+      "sha256": "d536efbfe9c539765307c0ba4e56f5ba36108b128fe199d759e747172f1e991d"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/ThermalFuseLongDuration.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 297,
+      "sha256": "fb07e7071ab6c3b4bb05102cc42754eb8214cbecabeafaadf722d9c660ac4b21"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Scenarios/package.mo",
@@ -2948,26 +3169,38 @@
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/CoupledShredderSystem.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3489,
-      "sha256": "a5989295728db08c852e16cb264a852dc7a61f10f74c56e3fdb3453f615d1007"
+      "normalized_bytes": 5934,
+      "sha256": "b5120399d8845bacdf6ff10b634b9493a781f346d638e90ad532e7b20a3f4c89"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/DynamicSpoolSystem.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1684,
-      "sha256": "cad6836b1b86e3c0632b32d71c5c395c4ff77130b62d7682a033052186fdfbbf"
+      "normalized_bytes": 2960,
+      "sha256": "3d2bc1557dc67581f8ad4703b3f64f31000be271a16c949874a83bbb71d17c0e"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/FilamentFormingSystem.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 2390,
+      "sha256": "783aba8e67164e7ab8098fc2adb053913c50ee60034f0d03b6063259b7f148a8"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/FullCoupledSystem.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1107,
-      "sha256": "9c4ced7be3268516a180c8ac64fee7d3e86e5e9d7c4d03ff554037d0176a84dc"
+      "normalized_bytes": 4137,
+      "sha256": "fb75098abdee1ed0ee58220d763de41f0d451b35ebee3f1e208fc9d26568baa3"
+    },
+    {
+      "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/ProcessArbitrationSystem.mo",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 2301,
+      "sha256": "e1701e9bf11615dcd968ba8ea82a871b58d67012cb54da894ba7d61c00218b69"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/ThermalExtruderSystem.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3934,
-      "sha256": "13dfb4d93eae94fd28c004c4abc9a14ddb7a4aee3104d9b10147398f2fe7fe6d"
+      "normalized_bytes": 5753,
+      "sha256": "05b471d1093eb345ef6f69ee8586b40a8fcc0fe34463234491db1fab7f5a7937"
     },
     {
       "path": "simulation/openmodelica/PLA_PET_Recycler/Systems/package.mo",
@@ -2984,20 +3217,20 @@
     {
       "path": "simulation/openmodelica/acceptance_criteria.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1272,
-      "sha256": "efb24fe4f1da2d036c1a5634387f59b31d0ec29e53745bad9189d55a94ab3991"
+      "normalized_bytes": 3132,
+      "sha256": "2e754f10cd661a67ca047e1c8765abd1c3df874aa61d56d132178792c85dddd6"
     },
     {
       "path": "simulation/openmodelica/generated/CADParameters.mo",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1561,
-      "sha256": "05e4faec569322e0fe536b86f0d2d6d988b96f0b2abfafcf41d3b9025b5652d9"
+      "normalized_bytes": 1560,
+      "sha256": "aa12a66e220a9c19f01b1779bfa190b2e3eda85926550a4c11d9bb2c830adf3c"
     },
     {
       "path": "simulation/openmodelica/generated/cad_mass_properties.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4315,
-      "sha256": "90ab889c4cdae99df2972a8493c0c7f90e9db6fc615f2cae56efe15910108ab4"
+      "normalized_bytes": 4313,
+      "sha256": "6d0efe7e41a89b884f61b7191fa29cd5bcda5c20a74f5caf9e092b813c76e61b"
     },
     {
       "path": "simulation/openmodelica/generated/package.mo",
@@ -3008,32 +3241,32 @@
     {
       "path": "simulation/openmodelica/reports/mechanical_validation_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 914,
-      "sha256": "7aa6b25a6d58397b2a1479b132c57b0eba2a1fa22b23afcc298005e027f68271"
+      "normalized_bytes": 2719,
+      "sha256": "06c2c5ae27f1d91666d3f913471384bdcf50a1fd2b7d463361200244f0ce1648"
     },
     {
       "path": "simulation/openmodelica/results/dynamic_load_envelope.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 525,
-      "sha256": "e162ebece1c807566be44d1e5316c128b3771124945ffa8c1b2e8dda8b6233bb"
+      "normalized_bytes": 538,
+      "sha256": "09710e7a4248b7b5cc87e0a835f7dbb85345db5b617b680ea74c2e425b34f4a2"
     },
     {
       "path": "simulation/openmodelica/results/plots/FullSystemJam.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 117337,
-      "sha256": "aec361ba132daafcec9283fa07970763890cbc004a27f248315240ecf2675b54"
+      "normalized_bytes": 25255,
+      "sha256": "8d97de85a214cd6d272ed89ea9d8c27c87fce284ccad6ea8b75e3c5dfeef7286"
     },
     {
       "path": "simulation/openmodelica/results/plots/FullSystemPLA.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 600244,
-      "sha256": "54cf8d173c5c8b8af71497a8a5f61585667647f72a0efb66f1780a7e73e8ac00"
+      "normalized_bytes": 43648,
+      "sha256": "2c01c07e2059d2e1050e1017d3aef15aa2a5502d74e04beafee24adfb68d79a5"
     },
     {
       "path": "simulation/openmodelica/results/plots/GaugeDropout.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 10124,
-      "sha256": "9e969ef47747c4db8c94b8f8a393816f2f8435b04b30c04eada4d572d76275bd"
+      "normalized_bytes": 14901,
+      "sha256": "ec339f7af0ee88cff0715af38a64d58eace92f804dad6cb4f1f919540fd29a59"
     },
     {
       "path": "simulation/openmodelica/results/plots/InputFuseOperation.svg",
@@ -3050,14 +3283,14 @@
     {
       "path": "simulation/openmodelica/results/plots/MechanicalFuseTrip.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 24760,
-      "sha256": "dad87730e7a04abb6a3ea1eda86a5b3cb3e393ae18c325b4df9de3a4cd473b66"
+      "normalized_bytes": 43923,
+      "sha256": "958bbf58fd3b13a6446350b9fe569c3a628c81da55646196361b4a17b4c62b60"
     },
     {
       "path": "simulation/openmodelica/results/plots/ReverseClear.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 39123,
-      "sha256": "9baa95af2a2339ef07ed0c0935cab7c0f6a1afb07a3cbafc8c970abb30a74006"
+      "normalized_bytes": 75574,
+      "sha256": "e5f447e9d23b97072f8567efe5fb5a2b7298fe250c5463c467c0d8cdefb42078"
     },
     {
       "path": "simulation/openmodelica/results/plots/ScrewJam.svg",
@@ -3068,8 +3301,8 @@
     {
       "path": "simulation/openmodelica/results/summary.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 11827,
-      "sha256": "4aab20f5ac62bdfc603d1350d364592c4ba6fb8ada9566ea4f8c2db847b9f3a5"
+      "normalized_bytes": 31040,
+      "sha256": "933ef97b39fd27193cb0d6dba1307973b2e472b0d8004e8b58940d469fec834c"
     },
     {
       "path": "simulation/openmodelica/scripts/checkModel.mos",
@@ -3080,8 +3313,8 @@
     {
       "path": "simulation/openmodelica/scripts/run_all.mos",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 6159,
-      "sha256": "d3ac089d9320444e22bd688681da89fa503c4f0747cb659fb3a2f50819f270ed"
+      "normalized_bytes": 10574,
+      "sha256": "8073404b5e987008b6c43fc2bc77597e86afd515b76528d25da934029dc668b5"
     },
     {
       "path": "simulation/openmodelica/scripts/run_parameter_sweeps.mos",
@@ -3096,220 +3329,250 @@
       "sha256": "c7b67446d7980b7743a4207ab662e8541ec2821ce747b504b3b3712c033a2304"
     },
     {
+      "path": "validation/arduino_compile.py",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 2490,
+      "sha256": "91f375a8c26f9e847e799480239e1d73bd75a9c50cc364fa9df6d43eba64b617"
+    },
+    {
       "path": "validation/artifact_reproducibility.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3789,
-      "sha256": "4de1fe0a96e14e1832f6d440346b6593c41929d8b69cecb5bbac0e9413905087"
+      "normalized_bytes": 3799,
+      "sha256": "45a89ba4353c51f401a2b6087788918b03206a02ee420e5f9969e126f5cc453c"
     },
     {
       "path": "validation/assembly_collision_audit.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3793,
-      "sha256": "1f6c7d7e61f2531d974c6c915c1342344d41b2ee8de63ed6e1575f8c223e6bb0"
+      "normalized_bytes": 3917,
+      "sha256": "4ddc3ef77fd25e281f28681266c947d5d409408965051780b2d7eb0bbd47ffd8"
     },
     {
       "path": "validation/completion_audit_v0.4.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 9643,
-      "sha256": "98fb019339810d84a099de1daf5f2e12982db7ecbff9c23bd29a3974c9d2b444"
+      "normalized_bytes": 9883,
+      "sha256": "7e7e046b255306993641dc7988464865461db66e956e4f46651833f83e6683fa"
+    },
+    {
+      "path": "validation/completion_audit_v0.5.1.md",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 3271,
+      "sha256": "f7f1ba72a26e91f260cc95c0764197ee996e5b4fea3ce695f5178227cdba6d73"
     },
     {
       "path": "validation/completion_audit_v0.5.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2071,
-      "sha256": "4567a09a1ace3f83977657ba5905e341ecfdbaff1bab21b85c6feedb28a097d1"
+      "normalized_bytes": 2291,
+      "sha256": "cd4e40a4a7a70209dbf825eae10bdb6d52bde263303aa58157cbb1764acfbfff"
     },
     {
       "path": "validation/configuration_control.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2914,
-      "sha256": "c49bab3f820b618823a695086a29051a3db0c0a07c26b0a6315576185b2a8cc2"
+      "normalized_bytes": 2912,
+      "sha256": "21c6e1e706e7f912d260f4cc6973b3ef195ce2bc9972922b70a7e77c6655d1ba"
+    },
+    {
+      "path": "validation/controller_contract.py",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 6219,
+      "sha256": "08860aa2b53071312360d7809d1f3483cadc7ee6a4c4df9bec08a788a12bfd8e"
     },
     {
       "path": "validation/cutter_phase_sweep.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3539,
-      "sha256": "266b3961093ae254cfa6f87784c7b02eda9005bb3cf4a43e6fbd1837cb508bf7"
+      "normalized_bytes": 3549,
+      "sha256": "2daec3f2c9100b263f913d4df67d175ce1c23388a645d6c4a9604e0349602c98"
     },
     {
       "path": "validation/freecad_checks.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 8622,
-      "sha256": "97609430f78348e297493e83eb792c7cae3d1322cc41d11e7952559b8cb70362"
+      "normalized_bytes": 8621,
+      "sha256": "544a2c7688a47a20b6ced2bf2f2d7f0b52af15eb5ee06d610bb65fa0b67e8564"
     },
     {
       "path": "validation/gate1_readiness.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 6805,
-      "sha256": "535f0ac55495011985e03b253a4c22e5e5fa3bd390412e0aea7ab4c519a29359"
+      "normalized_bytes": 7123,
+      "sha256": "19d699f379366ce6e974a7a819462cf8f5632cad7c22eac8b28650936ac2bfdd"
     },
     {
       "path": "validation/interface_catalog_checks.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2042,
-      "sha256": "55f10b04323b3df5ca65325342bb291be931a8afebc23fb62042e5a953dfe857"
+      "normalized_bytes": 2148,
+      "sha256": "0c432991d12fe96dc52f6428ccd5b57862c1516361730887738ea5ccf9bad682"
     },
     {
       "path": "validation/manufacturing_checks.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 16484,
-      "sha256": "a0dd065c80895400a1571c12d3032fe4d44469da52b590e1554257a8305e69cd"
+      "normalized_bytes": 16677,
+      "sha256": "a5714c1acc8f11a4474e779f9ef4d7a15cb2afcb6be2a177ce4fa42c60658123"
     },
     {
       "path": "validation/mesh_checks.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2970,
-      "sha256": "806b477bdf71e8ba90456ac68165b683325b3b90e8453a6c623cbd41215aa8bb"
+      "normalized_bytes": 2969,
+      "sha256": "6913d59783ebfcb1df0788b5fb9e39ff2d23f5fa185291257cabd439c1c58b83"
     },
     {
       "path": "validation/modelica_library_check.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2563,
-      "sha256": "9cc3273e229a88842256fefd55a9269616b460d4f8bc699e8919d7a6a38deb94"
+      "normalized_bytes": 2562,
+      "sha256": "b960bf737b7dbe3e5c597f252cbf0c061d7f461e0c87a5479046317ef6480213"
     },
     {
       "path": "validation/motion_checks.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3523,
-      "sha256": "1aca79a987b2e51dff1e3011ff6b9ed5c4012823963d3ad7da8fa7700170748b"
+      "normalized_bytes": 3532,
+      "sha256": "90f96e380c6ea321a5c5f4fc97af13fdef4860090cf23097f9ff955795838348"
     },
     {
       "path": "validation/physical_gate_status.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 752,
-      "sha256": "d2a8aa4060def26c9ac129a0121b5f7881f61391ab4938ba938c44742d365487"
+      "normalized_bytes": 1285,
+      "sha256": "7267ba66198deed3456ed4ea192e8e15dbf00268ff93633fdf7c7f0ffbe8e13a"
     },
     {
       "path": "validation/print_interface_checks.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3990,
-      "sha256": "0bb6dae1ad14306d0836828688d96c9150dfa464f95cd69c8a8cb629fb79164f"
+      "normalized_bytes": 3989,
+      "sha256": "a07a5ff7fbe34392f064c4794b93b5d7a04c777df254853b530434aeb1c9390c"
     },
     {
       "path": "validation/release_checklist.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3129,
-      "sha256": "2fd1a82b87369f9350f6e722566665bfe6e73ba8a272bba1500704fb446d8a21"
+      "normalized_bytes": 2260,
+      "sha256": "9601be8e9a6eb144b8c4d6afbdd1c13d965a6bc55a23f3bd8f62f28606bda6ac"
+    },
+    {
+      "path": "validation/results/arduino_mega_compile.json",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 373,
+      "sha256": "4e0a6d2fcd6b30a00f3c3fa357b8716c4793a032ae61bb4f688c9bd3cdbbe133"
     },
     {
       "path": "validation/results/artifact_reproducibility.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 810,
-      "sha256": "82914853892ceff810b1b65e905191e28990077df657f4a036e35478f949768b"
+      "normalized_bytes": 820,
+      "sha256": "affd6bb13b673808152003947cef73acdc0c1ee7ec31e6b60f65c703bc4a29b3"
     },
     {
       "path": "validation/results/assembly_pairwise_collisions.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3473,
-      "sha256": "549b69b2f581c2331d648657a3c83d0c8d23b8d81331065c89c6e03bd83ba1be"
+      "normalized_bytes": 3779,
+      "sha256": "d02c1f32a4521a10fcc8402037e9c809443bcd4adee63f437128536127b2f9b7"
     },
     {
-      "path": "validation/results/clean_clone_validation.json",
+      "path": "validation/results/controller_contract.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1208,
-      "sha256": "ca66ea9a19e582e201988a63f1eb4b4a93c95396fd068515cd5889b109f9d5ce"
+      "normalized_bytes": 1476,
+      "sha256": "ae2171b2494d6054cac20a99cf15969bdc6c89f4e98810d8ca9334fe5aedbcdc"
     },
     {
       "path": "validation/results/cutter_phase_sweep.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1090,
-      "sha256": "5f8ea0ceb36be604cd008c5e436062d52de6ed0052b61bd35bc0cdfdd23d12ba"
+      "normalized_bytes": 1100,
+      "sha256": "27a1d9fb76027df96cc69d68becf1422366e2bed6a5655ca39b5cd1250fcac36"
     },
     {
       "path": "validation/results/full_motion.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 634,
-      "sha256": "713ee10b1cc05c51d5ad045283ec15a62bcf13afb381dd1b30f5ab090c2b4a65"
+      "normalized_bytes": 643,
+      "sha256": "f79191d3fb5c654cdaf148ae85140c4e76e5e7f41f5b5614fb8b689c481201c6"
     },
     {
       "path": "validation/results/gate1_readiness.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1510,
-      "sha256": "52bb9a3c31a2733992a9435401ba4571e7035005f5963aac8c498ef014062931"
+      "normalized_bytes": 1622,
+      "sha256": "2aa70e91795777d7d479734909d8f98046ec1589b3cc4c2d0bce3f89d5fb7418"
     },
     {
       "path": "validation/results/mesh_manifold.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2815,
-      "sha256": "824880f6a21893ad1cd02519ab65611cb13bd20d6040900123a4ba2270a5648c"
+      "normalized_bytes": 2814,
+      "sha256": "d38b91fa5ae360d7ae2956e0830f743c6a629d3da2a470ed1580fa48428275d8"
     },
     {
       "path": "validation/results/print_interfaces.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 15125,
-      "sha256": "8967cc7c8dda197e356e4953b53066a8fde5d471231a6414c6c3be8fe0ea062e"
+      "normalized_bytes": 15124,
+      "sha256": "d9e52487e38c3fc8b519bec0a359125df3832ea16cdfd9fff47788060dec0e25"
     },
     {
       "path": "validation/results/slicer_results.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 6843,
-      "sha256": "30157c5ba5f7cd8fb0097d0cf32598f3cee419b30a0a8bf9df2386bae2db4f49"
+      "normalized_bytes": 6842,
+      "sha256": "afead0543e802bb14aa51a7c04a9fb8004bcc30df6aa676606d6824bd0e32a55"
     },
     {
       "path": "validation/results/solid_topology.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 80476,
-      "sha256": "31148f201f787dd636ca7fda8389ba49a771d6c7347e040998f518a15bae34e8"
+      "normalized_bytes": 80866,
+      "sha256": "a2625ce2e05cd1eb9f43f7481667068e613b5ec2975457b3a89832097a20815b"
     },
     {
       "path": "validation/run_all.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4721,
-      "sha256": "9801cfd6c0059f84e9d2b7b97adc284ac3c5b5c1719c38fac9e7fb04e22002a7"
+      "normalized_bytes": 5197,
+      "sha256": "2f9b0352fb712a432696f72c98e9ebe8698ae94de68c3d25d102a36a9dafffe6"
     },
     {
       "path": "validation/slice_prints.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 14181,
-      "sha256": "46011c9c616759dc02cc7065f560a5491789d0344aefca793800611d507990e5"
+      "normalized_bytes": 14179,
+      "sha256": "6f99b08915f0e2fb2d6b6ee509e07c87b66f0fd01328789ccf37f538a8537d21"
     },
     {
       "path": "validation/solid_topology.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4055,
-      "sha256": "ee8bd31c16ce73ea4ce9af6c5c83adf94d14a1d5ff439fd34523a0a2c98350aa"
+      "normalized_bytes": 4054,
+      "sha256": "77314d4ec5508ae62123016d09223792ef36941264a5a0d23db3004ab16a04c6"
     },
     {
       "path": "validation/test_plans/physical_gates.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3027,
-      "sha256": "97fcb1165461381902d25698dd3fc20097c9d916a3847706aedb0dce87e9d0d4"
+      "normalized_bytes": 3443,
+      "sha256": "a4fd5c59259ace0aa9450757479070688af91904967025e4402477da0b7e452b"
     },
     {
       "path": "validation/test_release.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 8577,
-      "sha256": "65c65752f8708183b243bb2de65474c20d7435439ab2d05b275c32cc573f1452"
+      "normalized_bytes": 10214,
+      "sha256": "f80adfc2f86a17744bce393d19db12cdaae882a6eb4622880e5d705278804b5b"
     },
     {
       "path": "validation/visual_review/2026-08-28-compact-v0.3.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 5225,
-      "sha256": "46855471ae9a6ae484c5528f70542a418268c7fc1b92f20e8e5e1ce6a7043cb8"
+      "normalized_bytes": 5358,
+      "sha256": "8e2a6c82457a25c413e7f3a1e47f7c4282ad7073ed745a76e04343911057c18b"
     },
     {
       "path": "validation/visual_review/2026-08-28-ve-gate1-rfq.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2765,
-      "sha256": "7047e11150b11d604e48b23c807067af5e8113a4741f7fe9a0e0b2034ba741be"
+      "normalized_bytes": 2898,
+      "sha256": "bc344eb84d54986d0fbcc918fc0a5bac58f7783e4fb1eeae122ef35197c04b99"
     },
     {
       "path": "validation/visual_review/2026-08-29-solid-manifold-openmodelica-v0.4.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 6659,
-      "sha256": "fab2531a5e7bdd61e56cc3ff0bd31838e414ee910ffc77fd7d88dd58834ed8a3"
+      "normalized_bytes": 6792,
+      "sha256": "f4c7cf2067bc65d6ae2c6b68c22d5c5c6f993719093a8e8a92d4a3e4b2a000ea"
     },
     {
       "path": "validation/visual_review/2026-08-30-coupled-digital-validation-v0.5.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3080,
-      "sha256": "9dc2a7507ca59f6a8783d5398e2b9bcce9f2ea08adcf772bfe62f8426ba88816"
+      "normalized_bytes": 3286,
+      "sha256": "477d13d78847ac3b5b1f6d440e0becc47f2f200d0ac3602959c991dd19c64d42"
     },
     {
       "path": "validation/visual_review/2026-08-30-ve-gate1-drive.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2949,
-      "sha256": "c0863cd144f029b5ce7bfdcb447a0b76ec296c2c09f6fc1982a0a66718e722e9"
+      "normalized_bytes": 3093,
+      "sha256": "16b585aa723a188b492eb3df09baf23ab1ce8e4ebccdcf1550e1085c6bfe0029"
+    },
+    {
+      "path": "validation/visual_review/2026-08-30-virtual-physics-closure-v0.5.1.md",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 4225,
+      "sha256": "ed2fd77520d424fee1cc74adc77007bc051c490c9f0a882ba8b8545944d6e108"
     }
   ]
 }

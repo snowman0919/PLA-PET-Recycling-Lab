@@ -1,4 +1,6 @@
-# Parent visual review — solid-manifold-openmodelica-v0.4
+# Parent visual review — solid-manifold-openmodelica-v0.4 (HISTORICAL ARCHIVE)
+
+> 이 문서는 과거 revision의 시각 검토 이력이며 현재 release 판정에 사용하지 않는다.
 
 검토자: parent Codex
 상태: `DIGITAL_FABRICATION_BASELINE`, `PHYSICAL_NOT_RUN`

@@ -91,9 +91,9 @@ def main():
         probe=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
         require(barrel.common(probe).Volume<0.01,f"barrel M4 tap-drill missing at {angle}")
     for z in (95.0,170.0,245.0):
-        probe=Part.makeCylinder(1.59,6.9,App.Vector(0,16.95,z),App.Vector(0,-1,0))
+        probe=Part.makeCylinder(1.59,5.9,App.Vector(0,16.95,z),App.Vector(0,-1,0))
         require(barrel.common(probe).Volume<0.01,f"barrel Ø3.20 blind sensor bore missing at B+{z}")
-        ligament=Part.makeCylinder(1.2,1.7,App.Vector(0,9.8,z),App.Vector(0,-1,0))
+        ligament=Part.makeCylinder(1.2,2.5,App.Vector(0,10.8,z),App.Vector(0,-1,0))
         require(barrel.common(ligament).Volume>5.0,f"barrel sensor melt-bore ligament missing at B+{z}")
     rfq_by={p["id"]:p["shape"] for p in rfq_specs}
     require({f"EX-DIE-{i:02d}" for i in range(1,6)} <= set(rfq_by),"connected die RFQ set incomplete")
@@ -101,6 +101,8 @@ def main():
     horizontal=Part.makeCylinder(3.9,21,App.Vector(19,0,0),App.Vector(1,0,0))
     vertical=Part.makeCylinder(3.9,28,App.Vector(20,0,-24))
     require(body.common(horizontal).Volume<0.01 and body.common(vertical).Volume<0.01,"90 degree die melt channels missing")
+    heater_bore=Part.makeCylinder(3.024,40,App.Vector(20,-20,18),App.Vector(0,1,0))
+    require(body.common(heater_bore).Volume<0.01,"die Ø6.05 H7 heater bore missing")
     require(horizontal.common(vertical).Volume>1.0,"90 degree die channels do not intersect")
     require(rfq_by["EX-DIE-02"].Solids and rfq_by["EX-DIE-03"].Solids and rfq_by["EX-DIE-04"].Solids,"die removable parts invalid")
     retainer=rfq_by["EX-DIE-04"]
@@ -199,9 +201,9 @@ def main():
     require({"DriveMotorGMP60Reference","DriveAdapterGMP60","BarrelBandHeaterZ1","BarrelBandHeaterZ2","BarrelBandHeaterZ3","DieCartridgeHeater","TemperatureProbeT1","TemperatureProbeT2","TemperatureProbeT3","TemperatureProbeT4","TemperatureProbeT5","HopperPTCSpreader","HopperPTCClamp"} <= assembly_names,"v0.5 motor/thermal assembly objects incomplete")
     cut_rows=list(csv.DictReader((ROOT/"exports/fabrication/frame_cut_list.csv").open()))
     require({(r["part_id"],r["cut_length_mm"],r["quantity"]) for r in cut_rows}=={
-        ("FR-01","890.0","4"),("FR-02","430.0","11"),("FR-03","660.0","8"),
+        ("FR-01","890.0","4"),("FR-02","430.0","10"),("FR-03","660.0","6"),
         ("FR-04","300.0","2"),("FR-05","318.0","1"),("FR-06","280.0","2"),
-        ("FR-07","50.0","1")
+        ("FR-07","50.0","1"),("FR-08","660.0","2")
     },"frame cut list does not match butt-jointed CAD")
     jig_bom=list(csv.DictReader((ROOT/"exports/jigs/gate1/bom.csv").open()))
     require(any(r["item_id"]=="CUT-01" and r["qty"]=="2" for r in jig_bom),"Gate-1 coupon quantity")

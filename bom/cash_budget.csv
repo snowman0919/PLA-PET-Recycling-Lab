@@ -1,5 +1,5 @@
 category,item_id,description,planned_cash_krw,status,evidence_or_blocker
-CNC,CNC-01,반복 hook cutter coupon 및 이후 full stack target allowance,10000,QUOTE_REQUIRED,동일 CUT-01 flat profile nesting; Gate-1에서는 2장만 RFQ 허용하고 full stack는 결과 전 HOLD
+CNC,CNC-01,반복 hook cutter coupon 및 이후 full stack target allowance,10000,QUOTE_REQUIRED,동일 CUT-01 flat profile nesting; coupon package는 2장 범위; full stack은 별도 사용자 제작 승인 전 HOLD이며 optional Gate-1은 design-release 필수가 아님
 CNC,CNC-02,공통 bearing/end plate donor-sheet laser target allowance,3000,QUOTE_REQUIRED,동일 flat pattern nesting과 project-lab donor plate 우선; bearing seat만 finish
 CNC,CNC-03,20 mm keyed shaft pair 단순 선삭 target allowance,7000,QUOTE_REQUIRED,표준 S45C h6 shaft stock과 DRV-02 keyed interface 사용
 CNC,CNC-04,removable 5 mm screen laser target allowance,4000,QUOTE_REQUIRED,Gate-2 aperture 확정 전 coupon만
@@ -18,12 +18,12 @@ NON_CNC,SH-INTERFACE,#35 chain 표준 sprocket DRV-02 hub 및 적층 phase gear 
 NON_CNC,HEAT-BAND,TH-BH-01 custom mica band 24 V 100 W ID34 W45 3개,15000,QUOTE_REQUIRED,국내와 중국 custom RFQ 비교; stock Ø35 대체 금지; 견적 초과는 blocker
 NON_CNC,HEAT-DIE,TH-DIE-01 24 V 60 W Ø6 x38 cartridge heater,4000,BUY_HOLD,저항 절연 외형 수령검사와 사용자 승인 전 energization 금지
 NON_CNC,HEAT-PTC,35x21x5 class 24 V PTC 4개와 절연 clamp pad,3000,BUY_HOLD,1개 전력/평형온도 실측 후 4-8개 확정; PET dryer 대체 아님
-NON_CNC,TEMP-SENSE,T1-T5 grounded K-type probe와 isolated interface allowance,7500,BUY_HOLD,5 channel 전부 ice/boiling point check; barrel/die/hopper metal temperature 측정
+NON_CNC,TEMP-SENSE,T1-T5 ungrounded K-type probe와 MAX6675 common-reference interface allowance,22500,QUOTE_REQUIRED,devicemart module x5 vendor-pinned 약 22500 KRW; ungrounded probe 가격/재고는 별도 quote 필요; 5 channel sheath-to-junction insulation 및 ice/boiling point check
 NON_CNC,HEAT-MOSFET,5-channel 40-60 V low-RDSon MOSFET and branch fuse hardware,5000,BUY_HOLD,각 channel 10 A thermal capability bench test; thermal fuse와 branch fuse 삭제 금지
 PRINT,PRINT-ALLOW,PrusaSlicer 2.9.6 nominal 904.20 g plus 12 percent reserve,18229,BUY_HOLD,planning mass 1012.70 g at 18000 KRW/kg
-TEST,GATE1-METROLOGY,0-200 N force gauge/load-cell calibration allowance,7500,BUY_HOLD,project-lab 계측기 확인 시 미사용
-TEST,GATE1-PRINT,Gate-1 chute tray guard-corner 234.9 g 출력 allowance,4400,BUY_HOLD,실제 estimate 4228 KRW에 172 KRW 여유; final-machine package와 별도 집계
-NON_CNC,MACHINE-FAB-DONOR,frame profile sheet tube puller spooler feeder stock for exports/fabrication,0,CONDITIONAL_DONOR_UNVERIFIED,24 fabrication family와 frame 15.098 m의 재고 수량 재질 상태 실측 전 0원 확정 금지; 부족분은 예산 재검토 blocker
-TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,170629,CONDITIONAL_TARGET_PASS,coupled-digital-validation-v0.5; heater 360 W 포함; motor donor 증거와 실제 견적 전 구매 release는 BLOCKED
+OPTIONAL_EMPIRICAL,GATE1-METROLOGY,0-200 N force gauge/load-cell calibration allowance,7500,BUY_HOLD,optional empirical validation 비용; design-release machine subtotal에서 제외; project-lab 계측기 확인 시 미사용
+OPTIONAL_EMPIRICAL,GATE1-PRINT,Gate-1 chute tray guard-corner 234.9 g 출력 allowance,4400,BUY_HOLD,optional empirical validation 비용; design-release machine subtotal에서 제외; final-machine package와 별도 집계
+NON_CNC,MACHINE-FAB-DONOR,frame profile sheet tube puller spooler feeder stock for exports/fabrication,0,CONDITIONAL_DONOR_UNVERIFIED,frame 2020 13.348 m와 local 2040 1.320 m 포함 총 14.668 m의 재고 수량 재질 직진도 실측 전 0원 확정 금지; 부족분은 예산 재검토 blocker
+TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,173729,CONDITIONAL_TARGET_PASS,virtual-physics-closure-v0.5.1; heater 360 W 포함; motor donor 증거와 실제 견적 전 구매 release는 BLOCKED
 CONTINGENCY,ABSOLUTE_CAP_RESERVE,견적변동 예비비,20000,RESERVED,기능 추가에 사용 금지; 안전 또는 필수 제조 견적 차이만
-TOTAL,ABSOLUTE_TOTAL_WITH_RESERVE,예비비 포함 절대 계획 상한,190629,CONDITIONAL_CAP_PASS,200000 KRW 절대상한까지 9371 KRW 여유
+TOTAL,ABSOLUTE_TOTAL_WITH_RESERVE,예비비 포함 절대 계획 상한,193729,CONDITIONAL_CAP_PASS,200000 KRW 절대상한까지 6271 KRW 여유

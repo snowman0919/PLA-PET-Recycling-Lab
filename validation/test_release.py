@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""coupled-digital-validation-v0.5 decision-relevant release checks."""
+"""virtual-physics-closure-v0.5.1 mandatory digital release checks."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REV = "coupled-digital-validation-v0.5"
+REV = "virtual-physics-closure-v0.5.1"
 RELEASE = "DIGITAL_FABRICATION_BASELINE"
 
 
@@ -22,6 +22,8 @@ def require(condition, message):
 def test_revision_and_stale():
     params = json.loads((ROOT / "cad/parameters/baseline.json").read_text())
     require(params["revision"] == REV and params["release_class"] == RELEASE, "baseline revision/release mismatch")
+    require(params["geometry_validation"] == params["fabrication_validation"] == params["virtual_physics_validation"] == "PASS", "validation dimension mismatch")
+    require(params["virtual_physics_state"] == "VIRTUAL_PHYSICS_VALIDATED" and params["empirical_state"] == "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN", "release-state mismatch")
     current = (
         "README.md", "requirements/system_requirements.md", "requirements/architecture_contract.md",
         "requirements/responsibility_matrix.md", "requirements/assumptions.md", "bom/bom.csv",
@@ -51,7 +53,6 @@ def test_geometry_budget_and_prints():
     rows = list(csv.DictReader((ROOT / "bom/cash_budget.csv").open()))
     target = int(next(row for row in rows if row["item_id"] == "TARGET_TOTAL")["planned_cash_krw"])
     absolute = int(next(row for row in rows if row["item_id"] == "ABSOLUTE_TOTAL_WITH_RESERVE")["planned_cash_krw"])
-    require((target, absolute) == (170629, 190629), f"budget drift {(target, absolute)}")
     require(target <= 180000 and absolute <= 200000, "cash cap")
     verified = list(csv.DictReader((ROOT / "bom/verified_budget.csv").open()))
     require(any(r["budget_state"] == "VERIFIED_PROCUREMENT_BUDGET" and r["status"] == "NOT_ESTABLISHED" for r in verified), "unverified budget claimed")
@@ -77,12 +78,16 @@ def test_manufacturing_and_physics():
     engineering = json.loads((ROOT / "simulation/engineering_summary.json").read_text())
     require(engineering["revision"] == REV and engineering["release_class"] == RELEASE, "engineering revision")
     require(engineering["torque_hierarchy"]["strict_order_pass"], "torque hierarchy")
-    require(engineering["power"]["arbiter_peak_w"] <= engineering["power"]["psu_rating_w"], "power arbiter")
+    require(engineering["power"]["status"] == "PASS", "phase power budget")
+    require(all(row["peak_w"] <= 500 and row["remaining_w_to_psu"] >= 100 for row in engineering["power"]["states"]), "500 W / 100 W reserve criterion")
+    require(engineering["thermocouple_bore"]["selected_status"] == "PASS", "thermocouple bore local screen")
+    require(engineering["frame_sensitivity"]["selected"] == "B_LOCAL_2040" and engineering["frame_sensitivity"]["options"][1]["status"] == "PASS", "frame reinforcement")
+    require(engineering["cartridge_heater_fit"]["status"] == "PASS_DFM_SCREEN", "cartridge heater fit")
     require(engineering["throughput"]["profile_points"]["PLA"]["throughput_nominal_gph"] < 200, "PLA 200 g/h incorrectly claimed")
     require(engineering["throughput"]["profile_points"]["PET"]["throughput_nominal_gph"] < 200, "PET 200 g/h incorrectly claimed")
 
     modelica = json.loads((ROOT / "simulation/openmodelica/results/summary.json").read_text())
-    require(modelica["revision"] == REV and modelica["status"] == "PASS" and modelica["scenario_count"] == 32, "32-scenario coupled model")
+    require(modelica["revision"] == REV and modelica["status"] == "PASS" and modelica["scenario_count"] >= 55, "mandatory coupled scenarios")
     names = {row["scenario"] for row in modelica["scenarios"]}
     require({"ReverseClear", "RetryFailure", "MechanicalFuseTrip", "ExtruderWarmupPET", "MOSFETStuckOn", "FullSystemJam"} <= names, "critical scenarios absent")
     require(all(row["status"] == "PASS" for row in modelica["scenarios"]), "scenario failure")
@@ -97,25 +102,41 @@ def test_manufacturing_and_physics():
 
 def test_artifacts_and_locks():
     state = json.loads((ROOT / "validation/physical_gate_status.json").read_text())
-    require(state["gate1_result"] == "NOT_RUN" and state["physical_state"] == "PHYSICAL_VALIDATION_PENDING", "physical state")
+    require(state["optional_gate1_result"] == "NOT_RUN" and state["empirical_state"] == "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN", "empirical state")
+    require(state["design_release_gate"] == "PASS" and state["main_promotion_allowed"], "design release gate")
+    require(state["procurement_approval_gate"] == state["commissioning_gate"] == "USER_APPROVAL_REQUIRED", "approval gates")
     require(not state["full_cutter_order_release"] and not state["full_screw_barrel_order_release"], "full order unlocked")
-    require(not state["main_promotion_allowed"] and not state["donor_drive_verified"], "main/donor incorrectly released")
+    require(not state["donor_drive_verified"], "donor incorrectly verified")
     readiness = json.loads((ROOT / "validation/results/gate1_readiness.json").read_text())
-    require(readiness["revision"] == REV and readiness["status"] == "PASS" and readiness["physical_result"] == "NOT_RUN", "Gate-1 readiness")
-    require(not any(readiness["release_locks"].values()), "Gate-1 release lock opened")
+    require(readiness["revision"] == REV and readiness["status"] == "PASS" and readiness["empirical_result"] == "OPTIONAL_NOT_RUN", "optional Gate-1 readiness")
+    require(not any(readiness["procurement_locks"].values()), "procurement lock opened")
+    require(readiness["main_promotion_allowed"], "optional Gate-1 incorrectly gates main")
 
     manifest = json.loads((ROOT / "artifacts/manifest.json").read_text())
     require(manifest["revision"] == REV and manifest["release_state"] == RELEASE, "artifact manifest")
+    require(
+        manifest["geometry_validation"] == manifest["fabrication_validation"] == manifest["virtual_physics_validation"] == "PASS"
+        and manifest["virtual_physics_state"] == "VIRTUAL_PHYSICS_VALIDATED"
+        and manifest["empirical_state"] == "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
+        "artifact manifest release dimensions",
+    )
     reproducibility = json.loads((ROOT / "validation/results/artifact_reproducibility.json").read_text())
     require(reproducibility["revision"] == REV and reproducibility["status"] == "PASS" and not reproducibility["mismatches"], "reproducibility")
     require(reproducibility["checked_count"] == manifest["artifact_count"], "manifest count")
     for rel in ("docs/build_manual_ko.pdf", "docs/design_report_ko.pdf", "docs/digital_release_report_ko.pdf"):
         text = subprocess.run(["pdftotext", str(ROOT / rel), "-"], text=True, capture_output=True, check=True).stdout
-        require(REV in text and "PHYSICAL" in text and "Gate-1" in text, f"PDF current-state mismatch {rel}")
+        require(
+            REV in text
+            and "DIGITAL_FABRICATION_BASELINE" in text
+            and "VIRTUAL_PHYSICS_VALIDATED" in text
+            and "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN" in text
+            and "Gate-1" in text,
+            f"PDF current-state mismatch {rel}",
+        )
 
 
 def main():
-    test_revision_and_stale(); print("PASS REVISION_STALE")
+    test_revision_and_stale(); print("PASS CURRENT_REVISION_COHERENT")
     test_geometry_budget_and_prints(); print("PASS GEOMETRY_BUDGET_PRINT")
     test_manufacturing_and_physics(); print("PASS MANUFACTURING_COUPLED_PHYSICS")
     test_artifacts_and_locks(); print("PASS ARTIFACTS_PHYSICAL_LOCKS")

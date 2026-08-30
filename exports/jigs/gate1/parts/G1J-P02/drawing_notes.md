@@ -1,6 +1,6 @@
 # G1J-P02 — Removable chip collection tray
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `PLA`
 - process: `FDM`

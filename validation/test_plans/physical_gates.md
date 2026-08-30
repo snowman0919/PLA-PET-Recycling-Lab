@@ -1,4 +1,6 @@
-# 저비용 물리 Gate
+# OPTIONAL_EMPIRICAL_VALIDATION — 저비용 commissioning/model-correlation 절차
+
+이 문서의 Gate 1–5는 디지털 설계 릴리스나 `main` 승격의 필수조건이 아니다. 실행하려면 정확한 부품·lockout·위험 통제와 사용자 승인이 필요하며, 미수행 상태는 `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다.
 
 ## Gate 1 Cutter coupon
 
@@ -30,4 +32,4 @@ Gate 3 전에는 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm 공정 coupon만 허용�
 - 부품: traceable pin/wire, gauge, puller, dancer/traverse, full 1 kg spool dummy.
 - 합격: die-to-puller 323 mm straight span과 installed 2×100 mm duct 끝 strand temperature가 PLA <=48 °C/PET <=65 °C, U95 <=0.05 mm initial, 30 min mean 1.75 ±0.05 mm와 ovality <=0.08 mm, puller slip <=1%, dancer/endstop collision 0, full traverse spill 0. 200 g/h에서 온도 Gate 실패 시 장치를 키우지 않고 처리량을 낮춰 최대 안정값을 보고한다. Improvement target은 U95/diameter ±0.03 mm다.
 
-각 Gate 실행 전 사용자가 exact 부품과 절차를 승인해야 한다. 이 문서는 시험 결과가 아니다.
+각 Gate 실행 전 사용자가 exact 부품과 절차를 승인해야 한다. 이 문서는 시험 결과가 아니며, 수행하더라도 별도 검토 없이 안전/생산 인증으로 해석하지 않는다.

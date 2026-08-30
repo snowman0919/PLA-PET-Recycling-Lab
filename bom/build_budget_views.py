@@ -37,7 +37,9 @@ def main():
     print_row["description"]=f"PrusaSlicer 2.9.6 nominal {slicing['total_mass_g']:.2f} g plus 12 percent reserve"
     print_row["evidence_or_blocker"]=f"planning mass {slicing['planning_mass_g']:.2f} g at 18000 KRW/kg"
     reserve=int(next(r for r in rows if r["item_id"]=="ABSOLUTE_CAP_RESERVE")["planned_cash_krw"])
-    target=sum(int(r["planned_cash_krw"]) for r in rows if r["category"] not in {"TOTAL","CONTINGENCY"})
+    machine_rows=[r for r in rows if r["category"] not in {"TOTAL","CONTINGENCY","OPTIONAL_EMPIRICAL"}]
+    target=sum(int(r["planned_cash_krw"]) for r in machine_rows)
+    optional_empirical=sum(int(r["planned_cash_krw"]) for r in rows if r["category"]=="OPTIONAL_EMPIRICAL")
     absolute=target+reserve
     target_row=next(r for r in rows if r["item_id"]=="TARGET_TOTAL")
     target_row["planned_cash_krw"]=str(target)
@@ -52,13 +54,14 @@ def main():
     verified_subtotal=sum(int(r["planned_cash_krw"]) for r in verified)
     blocked=[r for r in rows if r["category"] not in {"TOTAL","CONTINGENCY"} and r["status"] not in {"RECEIPT_VERIFIED","QUOTE_VERIFIED"}]
     out=[
-        ["METADATA","revision","","coupled-digital-validation-v0.5","generated from bom/cash_budget.csv"],
+        ["METADATA","revision","","virtual-physics-closure-v0.5.1","generated from bom/cash_budget.csv"],
         ["CONDITIONAL_PLANNING_BUDGET","conditional_subtotal",target,"PASS_TARGET_LE_180000","target allowances; not quotes or receipts"],
         ["CONDITIONAL_PLANNING_BUDGET","print_material_including_support_and_12pct_reserve",print_cost,"PRUSASLICER_ESTIMATE","actual toolpath estimate, not purchase receipt"],
         ["CONDITIONAL_PLANNING_BUDGET","shipping_tax",0,"INCLUDED_ONLY_IN_CONTINGENCY","no supplier quote"],
         ["CONDITIONAL_PLANNING_BUDGET","contingency",reserve,"RESERVED","shipping machining variance failed prints fasteners consumables"],
         ["CONDITIONAL_PLANNING_BUDGET","absolute_total",absolute,"PASS_CAP_LE_200000","conditional subtotal plus contingency"],
         ["CONDITIONAL_PLANNING_BUDGET","remaining_margin",200000-absolute,"CONDITIONAL_ONLY","not verified purchasing headroom"],
+        ["OPTIONAL_EMPIRICAL_VALIDATION","gate1_optional_cost",optional_empirical,"EXCLUDED_FROM_DESIGN_RELEASE_MACHINE_TOTAL","requires separate user approval if performed"],
         ["VERIFIED_PROCUREMENT_BUDGET","verified_quoted_or_receipted_subtotal",verified_subtotal,"NOT_ESTABLISHED" if blocked else "PASS","zero means no item is yet evidence-qualified, not a zero-cost machine"],
         ["VERIFIED_PROCUREMENT_BUDGET","shipping_tax","","UNKNOWN","supplier destinations and quotes absent"],
         ["VERIFIED_PROCUREMENT_BUDGET","print_material_including_support","","UNKNOWN","filament lot/receipt absent"],

@@ -33,4 +33,4 @@ Compact single-path architecture와 모든 안전 기능을 유지했다. 특정
 - CUT-01: Gate-1에서는 정확히 2장만 견적 대상. 나머지 full stack는 Gate-1 PASS 전 `HOLD`.
 - Screw/barrel: process coupon과 제조성 audit는 견적용일 뿐, full EX-SCR-01/EX-BAR-01은 Gate-1과 Gate-3 전 `HOLD`.
 - 구매·CNC 주문은 사용자 승인 없이는 진행하지 않는다.
-- 물리 Gate-1 결과가 없으므로 release status는 `DIGITAL_FABRICATION_BASELINE`, 물리 상태는 `PHYSICAL_VALIDATION_PENDING`/`PHYSICAL_NOT_RUN`이다.
+- 물리 Gate-1 결과가 없으므로 release status는 `DIGITAL_FABRICATION_BASELINE`, 물리 상태는 `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`/`EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다.

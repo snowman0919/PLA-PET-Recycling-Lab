@@ -1,4 +1,6 @@
-# v0.4 요구사항 완료 감사
+# v0.4 요구사항 완료 감사 — HISTORICAL ARCHIVE
+
+> 이 문서는 v0.4 시점의 이력이며 현재 release 판정에 사용하지 않는다. 현재 판정은 `completion_audit_v0.5.1.md`를 따른다.
 
 Revision: `solid-manifold-openmodelica-v0.4`
 
@@ -11,17 +13,17 @@ Revision: `solid-manifold-openmodelica-v0.4`
 |12 print family의 실제 체결부·벽·치수도|`exports/print/PPR-Cxx`, `validation/results/print_interfaces.json`|PASS|
 |Watertight STL/3MF와 실제 slicing|`validation/results/mesh_manifold.json`, `slicer_results.json`|PASS|
 |사람이 검토 가능한 slicing preview|12 plate + PPR-TC01 첫 extrusion layer SVG, raw G-code는 재생성 제외물|PASS|
-|Tolerance coupon|`exports/print/coupons/PPR-TC01`|PASS_DIGITAL / PHYSICAL_NOT_RUN|
+|Tolerance coupon|`exports/print/coupons/PPR-TC01`|PASS_DIGITAL / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN|
 |Cutter 360°+±1° solid phase sweep|1° 간격 360자세×3 phase error = 1,080조건|PASS|
 |Dancer/traverse full motion|51 dancer자세, 41 traverse자세|PASS|
 |Interchangeable geared-DC drive|DRV-01/DRV-Axx/DRV-F01/#35/DRV-02/DRV-03 contract와 ratio calibration 표|PASS_DIGITAL / DONOR_UNVERIFIED|
-|Gate-1 jig 최소수량 package|FreeCAD/STEP/STL/DXF/BOM/체결표/배선/절차/원시기록 template|PASS_DIGITAL / PHYSICAL_NOT_RUN|
+|Gate-1 jig 최소수량 package|FreeCAD/STEP/STL/DXF/BOM/체결표/배선/절차/원시기록 template|PASS_DIGITAL / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN|
 |16×16 L/D screw/barrel RFQ|재료·공차·GD&T·Ra·열처리·route·coupon HOLD가 있는 drawing/PDF|PASS_DIGITAL / SUPPLIER_DFM_PENDING|
 |Connected open-die RFQ|EX-DIE-01…05 STEP/STL/DXF/FCStd, Ø8 교차유로, breaker/insert/gasket/relief drawing과 물리 coupon HOLD|PASS_DIGITAL / RELIEF_COUPON_NOT_RUN|
 |CAD mass/inertia to OpenModelica|revision/hash/unit/COM/inertia/shaft·bearing 좌표 bridge|PASS|
 |MSL system dynamics|Rotational/Translational/MultiBody, 18 scenario, 6 sweep|PASS_DIGITAL|
 |Analytic/CalculiX coupling|OpenModelica dynamic envelope를 입력으로 사용|PASS_DIGITAL|
-|안전·firmware lock|E-stop/lid/service hard cut, thermal/branch fuse, bounded retry, uncalibrated inhibit|PASS_DIGITAL / PHYSICAL_NOT_RUN|
+|안전·firmware lock|E-stop/lid/service hard cut, thermal/branch fuse, bounded retry, uncalibrated inhibit|PASS_DIGITAL / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN|
 |Conditional budget|178,137 KRW target, 198,137 KRW reserve 포함, 절대 cap 여유 1,863 KRW|PASS_CONDITIONAL|
 |Verified procurement budget|견적·영수증·donor 증거 부재|NOT_ESTABLISHED|
 

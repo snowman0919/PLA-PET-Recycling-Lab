@@ -1,6 +1,6 @@
 # DRV-F01A — Motor-side fuse inner hub
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `S45C`
 - process: `turn + keyway + radial drill`

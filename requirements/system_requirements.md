@@ -1,4 +1,4 @@
-# 시스템 요구사항 — coupled-digital-validation-v0.5
+# 시스템 요구사항 — virtual-physics-closure-v0.5.1
 
 ## Hard constraint
 
@@ -15,7 +15,7 @@
 |SYS-SAFE-01|E-stop, lid/service interlock, thermal fuse, branch fuse는 software 독립 hard cut|wiring review + physical gate|
 |SYS-TORQUE-01|14 continuous <18 electrical <22 mechanical fuse <34 phase <48 shaft/cutter|baseline/Modelica/firmware sync|
 |SYS-RATE-01|200 g/h는 stretch target; nominal 계산 및 물리 결과를 분리|RPM sensitivity + Gate-4|
-|SYS-RELEASE-01|digital release와 physical proof를 분리; physical 전 `PHYSICAL_NOT_RUN`|manifest/release validator|
+|SYS-RELEASE-01|geometry/fabrication/virtual physics/empirical 상태를 독립 기록; empirical 미수행은 release 비차단|manifest/release validator|
 
 ## 기능 baseline
 
@@ -25,7 +25,7 @@
 - 공정 heater는 barrel 3×100 W + die 60 W, T1–T5, independent thermal fuse를 포함하며 extrusion active peak는 490 W 이하로 제한한다.
 - Donor current는 직접 torque가 아니다. No-load current, torque/A, ratio, efficiency, speed/temperature를 calibration하고 firmware가 verified record 없이는 start를 거부한다.
 - External pre-dry + sealed maintenance hopper. PLA/PET pre-dry 조건은 현재 모두 `UNQUALIFIED_EXTERNAL_PROCESS`; 임의 온도·시간을 qualified recipe로 표시하지 않는다.
-- 공용 16 mm×16 L/D single screw, common barrel/breaker/open die. Profile screw RPM은 PLA 18, PET 20이다.
+- 공용 16 mm×16 L/D single screw, common barrel/breaker/open die. Default profile은 PLA 16 rpm/99.4 g/h, PET 18 rpm/97.5 g/h, fan 100%다.
 - 2축 LED/photodiode shadow gauge, puller diameter control, dancer-follow spooler, cabinet 내부 1 kg spool.
 - Arduino Mega 2560 realtime controller. 첫 화면 PLA/PET/Maintenance/Calibration, selected material lock.
 

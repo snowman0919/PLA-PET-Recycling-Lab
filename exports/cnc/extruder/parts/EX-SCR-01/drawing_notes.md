@@ -1,6 +1,6 @@
 # EX-SCR-01 — 16 mm x 16D single screw
 
-- revision: `coupled-digital-validation-v0.5`
+- revision: `virtual-physics-closure-v0.5.1`
 - quantity: `1`
 - material: `SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride`
 - process: `turn between centres, 4-axis flight mill, polish, nitride, finish grind`

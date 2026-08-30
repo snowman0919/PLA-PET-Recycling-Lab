@@ -1,7 +1,7 @@
 {
-  "revision": "coupled-digital-validation-v0.5",
+  "revision": "virtual-physics-closure-v0.5.1",
   "contract": "active part contains exactly one closed positive-volume B-Rep solid",
-  "active_count": 207,
+  "active_count": 208,
   "review_keepout_count": 4,
   "failed": [],
   "parts": [
@@ -641,7 +641,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 193096.366,
+      "volume_mm3": 193120.494,
       "bbox_mm": [
         34.0,
         34.0,
@@ -692,7 +692,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 68503.519,
+      "volume_mm3": 68561.246,
       "bbox_mm": [
         40.0,
         40.0,
@@ -1032,11 +1032,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 264000.0,
+      "volume_mm3": 528000.0,
       "bbox_mm": [
         20.0,
         660.0,
-        20.0
+        40.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1049,11 +1049,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 264000.0,
+      "volume_mm3": 528000.0,
       "bbox_mm": [
         20.0,
         660.0,
-        20.0
+        40.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1112,23 +1112,6 @@
     },
     {
       "id": "FrameBottomCross440",
-      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Solid",
-      "expected_solids": 1,
-      "solid_count": 1,
-      "shell_count": 1,
-      "volume_mm3": 172000.0,
-      "bbox_mm": [
-        430.0,
-        20.0,
-        20.0
-      ],
-      "geometry_check_findings": -1,
-      "status": "PASS",
-      "errors": []
-    },
-    {
-      "id": "FrameBottomCross460",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
@@ -2290,7 +2273,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 193096.366,
+      "volume_mm3": 193120.494,
       "bbox_mm": [
         280.0,
         34.0,
@@ -2460,7 +2443,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 68503.519,
+      "volume_mm3": 68561.246,
       "bbox_mm": [
         40.0,
         40.0,
@@ -2651,6 +2634,40 @@
       "bbox_mm": [
         250.0,
         18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HeaterCableDuctBridgeX",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3872.0,
+      "bbox_mm": [
+        64.0,
+        18.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HeaterCableDuctBridgeY",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 12608.0,
+      "bbox_mm": [
+        18.0,
+        232.0,
         18.0
       ],
       "geometry_check_findings": -1,

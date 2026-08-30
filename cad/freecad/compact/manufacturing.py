@@ -1,7 +1,7 @@
 """Manufacturing geometry for compact v0.5 drive, Gate-1 jig and extruder RFQ.
 
 All dimensions are millimetres.  Shapes in this module are fabrication/review
-geometry; physical Gate-1 and Gate-3 remain release locks.
+geometry; procurement and commissioning remain explicit user-approval gates.
 """
 
 from __future__ import annotations
@@ -418,10 +418,10 @@ def extruder_barrel():
         hole=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
         barrel=barrel.cut(hole)
     # Three Ø3.20 blind K-probe bores sit in the unheated gaps immediately
-    # downstream of each band.  Depth 7.0 leaves 1.9 mm nominal ligament to
+    # downstream of each band.  Depth 6.0 leaves 2.9 mm nominal ligament to
     # the Ø16.20 melt bore and measures barrel metal rather than heater skin.
     for z in (95.0, 170.0, 245.0):
-        sensor=Part.makeCylinder(1.60,7.0,App.Vector(0,17.0,z),App.Vector(0,-1,0))
+        sensor=Part.makeCylinder(1.60,6.0,App.Vector(0,17.0,z),App.Vector(0,-1,0))
         barrel=barrel.cut(sensor)
     return barrel
 
@@ -429,10 +429,10 @@ def extruder_barrel():
 def extruder_rfq_parts():
     return [
         dict(id="EX-SCR-01",name="16 mm x 16D single screw",shape=extruder_screw(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride",process="turn between centres, 4-axis flight mill, polish, nitride, finish grind",critical="total 316.00; active 256.00; OD 15.92 -0.02/0; RH pitch 16.00; land 1.60; Datum A axis from Ø12 h6 and Ø15 h6 journals; full part HOLD"),
-        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, die-interface thread and sensor bores, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; 4x M4-6H depth8 PCD26; 3x Ø3.20 +0.05/0 blind7 sensor bores at B+95/170/245; minimum bore ligament 1.85; outer/inner thread ligament >=2.0/2.9; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
+        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, die-interface thread and sensor bores, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; 4x M4-6H depth8 PCD26; 3x Ø3.20 +0.05/0 blind6 sensor bores at B+95/170/245; minimum bore ligament 2.85; outer/inner thread ligament >=2.0/2.9; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
         dict(id="EX-CPN-SCR",name="Three-pitch screw process coupon",shape=extruder_screw_process_coupon(),qty=1,material="same certified SCM440 heat as EX-SCR-01",process="same flight mill/polish/nitride route as EX-SCR-01",critical="L48.00; three pitches; OD/root/land/finish/case same as feed zone; coupon RFQ only"),
         dict(id="EX-CPN-BAR",name="Matched barrel process coupon",shape=extruder_barrel_process_coupon(),qty=1,material="same certified SCM440 heat as EX-BAR-01",process="same bore/hone/nitride route as EX-BAR-01",critical="L60.00; ID/OD/finish/case same as barrel; coupon RFQ only"),
-        dict(id="EX-DIE-01",name="Connected 90 degree down-die body",shape=down_die_body(),qty=1,material="SCM440 QT + gas nitride",process="6-face mill; gun drill/ream intersecting Ø8 channels; counterbore, drill/tap; stress relieve; gas nitride; lap sealing face",critical="40 x40 x48; barrel datum face X40; Ø8 melt turn; Ø16.20 +0.05/0 x3 breaker seat; Ø12.00 +0.03/0 x14 insert seat; 4x Ø4.5 + Ø8 head recess PCD26; heater Ø6.20 H9; sensor Ø3.20 blind12; face flatness 0.03; channel intersection fully deburred; full part HOLD"),
+        dict(id="EX-DIE-01",name="Connected 90 degree down-die body",shape=down_die_body(),qty=1,material="SCM440 QT + gas nitride",process="6-face mill; gun drill/ream intersecting Ø8 channels; counterbore, drill/tap; stress relieve; gas nitride; lap sealing face",critical="40 x40 x48; barrel datum face X40; Ø8 melt turn; Ø16.20 +0.05/0 x3 breaker seat; Ø12.00 +0.03/0 x14 insert seat; 4x Ø4.5 + Ø8 head recess PCD26; heater Ø6.05 H7 reamed; sensor Ø3.20 blind12; face flatness 0.03; channel intersection fully deburred; full part HOLD"),
         dict(id="EX-DIE-02",name="Seven-hole breaker plate",shape=down_die_breaker_plate(),qty=1,material="304 stainless",process="wire EDM or laser + double-side lap",critical="Ø15.90 -0.05/0 x2.00 ±0.03; 7x Ø2.00 +0.05/0, six on PCD10; flatness 0.03; all flow edges R0.15 max; HOLD with die body"),
         dict(id="EX-DIE-03",name="Replaceable Ø3 die insert",shape=down_die_insert(),qty=1,material="17-4PH H900 stainless",process="turn, drill/ream land, 60 degree included entrance blend, H900, finish lap",critical="OD Ø11.90 -0.02/0 x14.00 ±0.03; outlet Ø3.00 +0.02/0 x10.00 land; 4 mm transition from Ø8 to Ø3; land Ra<=0.4 um; concentricity 0.02 to OD; full part HOLD"),
         dict(id="EX-DIE-04",name="Sacrificial die relief retainer",shape=down_die_relief_retainer(),qty=1,material="304 stainless sheet t1.5",process="laser/waterjet + deburr; no heat treatment",critical="32 x20 x1.5; two 10 wide x2.5 long bending webs; 2x Ø4.5 at 24 centres; centre bypass Ø4; flatness 0.15; coupon-calibrate at operating temperature, analytical estimate is not release evidence"),

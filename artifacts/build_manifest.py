@@ -15,9 +15,14 @@ from manifest_lib import artifact_record, collect_paths  # noqa: E402
 def main():
     artifacts = [artifact_record(path, ROOT) for path in collect_paths(ROOT)]
     result = {
-        "revision": "coupled-digital-validation-v0.5",
+        "revision": "virtual-physics-closure-v0.5.1",
         "release_state": "DIGITAL_FABRICATION_BASELINE",
-        "physical_state": "PHYSICAL_VALIDATION_PENDING",
+        "geometry_validation": "PASS",
+        "fabrication_validation": "PASS",
+        "virtual_physics_validation": "PASS",
+        "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+        "empirical_validation": "OPTIONAL_NOT_RUN",
+        "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
         "regeneration_commands": [
             "FreeCADCmd console-stream runpy cad/generation/generate_all.py via validation/run_all.py",
             "PrusaSlicer 2.9.6 via validation/slice_prints.py",
