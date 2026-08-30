@@ -8,6 +8,7 @@ import shlex
 import subprocess
 import sys
 import json
+import os
 import threading
 import time
 from pathlib import Path
@@ -123,12 +124,14 @@ def main():
     else:
         print("PASS COMPACT_RENDER_PACKAGE_PRESENT_FROZEN_GEOMETRY", flush=True)
 
+    font_path = os.environ.get("PPR_FONT_PATH")
+    typst_font_arg = f" --font-path {shlex.quote(font_path)}" if font_path else ""
     typst = " && ".join([
-        "typst compile --root . docs/build_manual_ko.typ docs/build_manual_ko.pdf",
-        "typst compile --root . docs/design_report_ko.typ docs/design_report_ko.pdf",
-        "typst compile --root . docs/digital_release_report_ko.typ docs/digital_release_report_ko.pdf",
-        "typst compile --root . exports/cnc/extruder/rfq_drawing_ko.typ exports/cnc/extruder/rfq_drawing_ko.pdf",
-        "typst compile --root . exports/jigs/gate1/gate1_assembly_ko.typ exports/jigs/gate1/gate1_assembly_ko.pdf",
+        f"typst compile{typst_font_arg} --root . docs/build_manual_ko.typ docs/build_manual_ko.pdf",
+        f"typst compile{typst_font_arg} --root . docs/design_report_ko.typ docs/design_report_ko.pdf",
+        f"typst compile{typst_font_arg} --root . docs/digital_release_report_ko.typ docs/digital_release_report_ko.pdf",
+        f"typst compile{typst_font_arg} --root . exports/cnc/extruder/rfq_drawing_ko.typ exports/cnc/extruder/rfq_drawing_ko.pdf",
+        f"typst compile{typst_font_arg} --root . exports/jigs/gate1/gate1_assembly_ko.typ exports/jigs/gate1/gate1_assembly_ko.pdf",
         "echo DIGITAL_PDF_BUILD_OK",
     ])
     run(["bash", "-lc", typst] if shutil.which("typst") else nix(typst), "DIGITAL_PDF_BUILD_OK")
