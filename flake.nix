@@ -23,6 +23,7 @@
               prusa-slicer
               typst
               noto-fonts-cjk-sans-static
+              poppler-utils
               python3
               git-lfs
               arduino-cli
