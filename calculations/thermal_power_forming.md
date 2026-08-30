@@ -1,6 +1,6 @@
 # 열·전력·forming screening
 
-24 V 600 W PSU에서 normal-state limit는 500 W이고 최소 reserve는 100 W다. SHREDDING/PREHEATING/EXTRUSION/COOLDOWN의 peak는 각각 477.0/405.0/490.0/61.0 W이며 모두 phase limit를 만족한다. Shredder와 heater/screw는 상호배제한다.
+24 V 600 W PSU에서 normal-state limit는 500 W이고 최소 reserve는 100 W다. `orchestration_power.csv`는 contract의 합계값을 expected로 재사용하지 않고 actuator 정격, state permission, aggregate heater cap을 독립 합산한다. 모든 정상/고장 phase의 최대 peak는 477.2 W, 최소 reserve는 122.8 W다. Shredder와 heater/screw는 상호배제한다.
 
 `cooling_matrix.csv`는 PLA/PET, 50/75/100/125/150/175/200 g/h, fan 40/70/100%, duct 2.0/3.5/5.0 m/s를 모두 계산한다. 200 g/h에서 coupled forming 기준을 만족하지 않는 조합은 `DIGITAL_STRETCH_TARGET`이며 실제 filament tolerance를 주장하지 않는다.
 

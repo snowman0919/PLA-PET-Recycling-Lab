@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "exports/fabrication/interface_catalog.csv"
-REVISION = "implementation-crosssolver-v0.6"
+REVISION = "safety-orchestration-closure-v0.6.1"
 
 FIELDS = (
     "interface_id",

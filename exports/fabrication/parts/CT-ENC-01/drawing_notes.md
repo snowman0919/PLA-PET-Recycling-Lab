@@ -1,6 +1,6 @@
 # CT-ENC-01 — Control-panel sheet enclosure
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `2 mm 5052 aluminum`
 - process: `laser + brake + PE stud`

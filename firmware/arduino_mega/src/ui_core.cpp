@@ -6,14 +6,17 @@ UiIntent UiController::update(const UiEvent &e, MachineState phase,
     screen_ = UiScreen::FAULT;
     return e.confirm_pressed ? UiIntent::CLEAR_FAULT : UiIntent::NONE;
   }
-  if (session == MaterialSession::PURGE_REQUIRED || session == MaterialSession::SCREEN_CLEAN_REQUIRED ||
+  if (e.pause_pressed) return UiIntent::PAUSE;
+  if (session == MaterialSession::PURGE_PREHEAT_REQUIRED || session == MaterialSession::PURGE_READY_CONFIRM_REQUIRED ||
+      session == MaterialSession::PURGE_RUNNING || session == MaterialSession::SCREEN_CLEAN_REQUIRED ||
       session == MaterialSession::HOPPER_CLEAN_REQUIRED || session == MaterialSession::TEMPERATURE_TRANSITION_REQUIRED ||
       session == MaterialSession::FINAL_CONFIRM_REQUIRED) {
     screen_ = UiScreen::MATERIAL_CHANGE;
     if (e.back_pressed) return UiIntent::BACK;
+    if (session == MaterialSession::PURGE_READY_CONFIRM_REQUIRED && e.start_pressed)
+      return UiIntent::APPROVE_PURGE_FEED;
     return e.confirm_pressed ? UiIntent::CONFIRM : UiIntent::NONE;
   }
-  if (e.pause_pressed) return UiIntent::PAUSE;
   if (phase != MachineState::IDLE) {
     screen_ = UiScreen::RUN;
     return UiIntent::NONE;

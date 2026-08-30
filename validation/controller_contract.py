@@ -24,7 +24,7 @@ def invariant_results(permission: dict, actual: dict) -> dict[str, bool]:
         "heater_safe": actual["process_heaters"] == permission["process_heaters"] and (not actual["thermal_fault"] or not actual["process_heaters"]),
         "feeder_safe": actual["feeder"] == permission["feeder"] and (not actual["feeder"] or actual["screw"]),
         "puller_safe": actual["puller"] == permission["puller"] and (not actual["puller"] or actual["gauge_valid"]),
-        "spooler_safe": actual["spooler"] == permission["spooler"] and (not actual["spooler"] or not actual["spool_fault"]),
+        "spooler_safe": actual["spooler"] == permission["spooler"] and (not actual["spooler"] or actual["spool_eligible"]),
         "power_budget_safe": actual["power_w"] <= actual["power_limit_w"],
         "mechanical_fuse_state_safe": not actual["fuse_broken"] or actual["motor_command"] == 0,
         "restart_inhibited": not actual["fault_latched"] or not actual["restart_command"],
@@ -34,7 +34,7 @@ def invariant_results(permission: dict, actual: dict) -> dict[str, bool]:
 
 def nominal(permission: dict, peak_w: float, limit_w: float) -> dict:
     return permission | {
-        "thermal_fault": False, "gauge_valid": True, "spool_fault": False,
+        "thermal_fault": False, "gauge_valid": True, "spool_eligible": True,
         "power_w": peak_w, "power_limit_w": limit_w, "fuse_broken": False,
         "motor_command": 1 if permission["shredder"] or permission["screw"] else 0,
         "fault_latched": False, "restart_command": False, "guard_ok": True,
@@ -46,7 +46,8 @@ def main() -> None:
     contract = json.loads(raw)
     baseline = json.loads((ROOT / "cad/parameters/baseline.json").read_text())
     require(contract["revision"] == baseline["revision"], "revision drift")
-    require(contract["release"]["release_state"] == baseline["release_class"], "release state drift")
+    require(contract["release"]["release_state"] == "SAFETY_ORCHESTRATION_BASELINE", "release state drift")
+    require(contract["release"]["implementation_state"] == baseline["release_class"] == "IMPLEMENTATION_BASELINE", "implementation state drift")
     require(contract["release"]["virtual_physics_state"] == baseline["virtual_physics_state"], "virtual state drift")
     require(contract["release"]["empirical_state"] == baseline["empirical_state"], "empirical state drift")
     require(
@@ -66,20 +67,28 @@ def main() -> None:
     session = contract["material_session"]
     require(
         session["change_sequence"] == [
-            "PURGE_REQUIRED", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED",
+            "PURGE_PREHEAT_REQUIRED", "PURGE_READY_CONFIRM_REQUIRED", "PURGE_RUNNING",
+            "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED",
             "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED",
         ],
         "material change sequence drift",
     )
-    require(session["start_requires"] == ["process_phase_IDLE", "feed_stopped", "screw_stopped"], "material start interlock drift")
+    require(set(session["start_requires"]) == {
+        "process_phase_IDLE_or_PREHEATING", "previous_material_thermal_profile_active",
+        "thermal_chain_healthy", "cooling_feedback_calibrated",
+    }, "material start interlock drift")
+    require(set(session["purge_feed_requires"]) == {
+        "cooling_startup_probe_proven", "waste_path_confirmed",
+        "single_use_feed_approval", "screw_drive_healthy",
+    }, "purge feed interlock drift")
     require(set(session["production_allowed"]) == {"PLA_ACTIVE", "PET_ACTIVE"}, "material production lock drift")
-    hardware = contract["hardware"]
-    require(hardware["temperature_channels"] == ["T1", "T2", "T3", "Tdie", "Thopper"], "temperature channel drift")
-    require(hardware["shredder_driver"] == "PWM_DIR_ENABLE_HBRIDGE", "shredder hardware abstraction drift")
-    require(hardware["traverse_driver"] == "STEP_DIR_ENABLE", "traverse hardware abstraction drift")
+    readiness = contract["calibration_readiness"]
+    require(readiness["temperature_channels"]["channels"] == ["T1", "T2", "T3", "Tdie", "Thopper"], "temperature channel drift")
+    require(readiness["material_selection_does_not_imply_calibration"], "material/calibration separation drift")
+    require(contract["cooling_feedback"]["backend"] == "fan_current_feedback_analog", "cooling feedback backend drift")
     heater = contract["heater_control"]
     require(heater["sample_period_ms"] == 250 and heater["time_proportion_window_ms"] == 2000, "heater timing drift")
-    require(heater["process_heater_allowed_phases"] == ["PREHEATING", "EXTRUSION"], "heater phase permission drift")
+    require(set(heater["process_heater_allowed_phases"]) == {"PREHEATING", "EXTRUSION", "MAINTENANCE_PURGE", "FORMING_CHAIN_RUNDOWN", "THERMAL_HOLD", "REQUALIFYING"}, "heater phase permission drift")
     require(heater["overtemperature_c"] < heater["maximum_valid_c"], "heater overtemperature must precede sensor ceiling")
 
     phase_rows = []
@@ -87,6 +96,8 @@ def main() -> None:
     rating = contract["power"]["psu_rating_w"]
     limit = contract["power"]["normal_phase_peak_limit_w"]
     for state, power in contract["power"]["phases"].items():
+        require(sum(power["components_average_w"]) == power["average_w"], f"{state} average component sum drift")
+        require(sum(power["components_peak_w"]) == power["peak_w"], f"{state} peak component sum drift")
         require(power["peak_w"] <= limit, f"{state} exceeds 500 W normal limit")
         require(rating - power["peak_w"] >= contract["power"]["minimum_reserve_w"], f"{state} reserve below 100 W")
         permission = contract["states"][state]
@@ -100,14 +111,14 @@ def main() -> None:
         })
 
     permission = contract["states"]["EXTRUSION"]
-    base = nominal(permission, 490.0, limit)
+    base = nominal(permission, contract["power"]["phases"]["EXTRUSION"]["peak_w"], limit)
     mutations = {
         "shredder_drive_safe": {"shredder": True},
         "screw_drive_safe": {"screw": False},
         "heater_safe": {"thermal_fault": True},
         "feeder_safe": {"screw": False},
         "puller_safe": {"gauge_valid": False},
-        "spooler_safe": {"spool_fault": True},
+        "spooler_safe": {"spool_eligible": False},
         "power_budget_safe": {"power_w": 501.0},
         "mechanical_fuse_state_safe": {"fuse_broken": True, "motor_command": 1},
         "restart_inhibited": {"fault_latched": True, "restart_command": True},
@@ -126,7 +137,10 @@ def main() -> None:
         "power_phases": phase_rows, "mutation_regressions": mutation_results,
         "hard_assertion": "not (shredder_enabled and (screw_enabled or process_heater_enabled))",
         "material_session": "ORDERED_CHANGE_AND_EXPLICIT_CONFIRMATION_PASS",
-        "hardware_abstractions": "MEGA_IO_AND_HEATER_GAUGE_CONTRACT_PASS",
+        "hardware_abstractions": "MEGA_IO_HEATER_GAUGE_COOLING_FEEDBACK_CONTRACT_PASS",
+        "validator_sources": {
+            str(Path(__file__).resolve().relative_to(ROOT)): hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+        },
     }
     path = ROOT / "validation/results/controller_contract.json"
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")

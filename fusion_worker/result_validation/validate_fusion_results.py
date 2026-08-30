@@ -21,6 +21,9 @@ def main() -> None:
     package = Path(sys.argv[1]).resolve()
     result_csv = Path(sys.argv[2]).resolve()
     binding = json.loads((package / "run_binding.json").read_text())
+    source_lock = json.loads((package / "engineering_source_lock.json").read_text())
+    if binding.get("source_git_sha") != source_lock.get("engineering_source_sha"):
+        raise SystemExit("FUSION_RESULT_FAIL engineering source lock mismatch")
     models = {row["file"]: row for row in csv.DictReader((package / "model_manifest.csv").open())}
     rows = list(csv.DictReader(result_csv.open()))
     if not rows:

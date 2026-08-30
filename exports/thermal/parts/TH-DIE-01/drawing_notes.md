@@ -1,6 +1,6 @@
 # TH-DIE-01 — Die cartridge heater
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `stainless-sheathed cartridge`
 - process: `purchased reference + receipt test`

@@ -1,6 +1,6 @@
 # SP-DA-01 — Dancer arm
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `8 mm 6061-T6`
 - process: `waterjet + ream`

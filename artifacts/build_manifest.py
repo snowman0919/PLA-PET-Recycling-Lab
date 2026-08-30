@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build revision-locked SHA-256 manifest for the v0.6 implementation baseline."""
+"""Build revision-locked SHA-256 manifest for the v0.6.1 safety baseline."""
 
 from __future__ import annotations
 
@@ -15,8 +15,9 @@ from manifest_lib import artifact_record, collect_paths  # noqa: E402
 def main():
     artifacts = [artifact_record(path, ROOT) for path in collect_paths(ROOT)]
     result = {
-        "revision": "implementation-crosssolver-v0.6",
-        "release_state": "IMPLEMENTATION_BASELINE",
+        "revision": "safety-orchestration-closure-v0.6.1",
+        "release_state": "SAFETY_ORCHESTRATION_BASELINE",
+        "implementation_state": "IMPLEMENTATION_BASELINE",
         "geometry_validation": "PASS",
         "fabrication_validation": "PASS",
         "virtual_physics_validation": "PASS",

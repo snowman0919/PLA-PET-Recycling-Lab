@@ -53,7 +53,7 @@ def export_shape_set(specs, base):
         dxf=folder/f"{spec['id']}.dxf"; importDXF.export([obj],str(dxf)); normalize_dxf(dxf)
         (folder/"drawing_notes.md").write_text(
             f"# {spec['id']} — {spec['name']}\n\n"
-            f"- revision: `implementation-crosssolver-v0.6`\n"
+            f"- revision: `safety-orchestration-closure-v0.6.1`\n"
             f"- quantity: `{spec['qty']}`\n"
             f"- material: `{spec['material']}`\n"
             f"- process: `{spec['process']}`\n"
@@ -119,7 +119,7 @@ def write_machine_fabrication_package():
             ("spool_axis", "SP-SH-01", "PPR-C09/6001 bearings", "metal collars", "bearing fit per received lot", "full-spool runout", "GATE5"),
         ])
     (base / "README_ko.md").write_text(
-        "# Machine fabrication package — implementation-crosssolver-v0.6\n\n"
+        "# Machine fabrication package — safety-orchestration-closure-v0.6.1\n\n"
         "이 디렉터리는 shredder CUT, drive DRV, Gate-1 jig, extruder RFQ와 중복되지 않는 본체 제작품을 담는다. "
         "각 part 폴더의 note가 공차를 지배하고 STEP은 3D 형상, DXF/STL은 견적 reference다. "
         "Frame은 겹치는 profile solid가 아니라 `frame_cut_list.csv`의 butt-joint cut length로 조립한다. "
@@ -226,7 +226,7 @@ def write_drive_package():
             "DRV-F01P":"GATE1_COUPON_QTY_6_ALLOWED_AFTER_USER_APPROVAL",
         }
         for r in rows:w.writerow([r["id"],r["name"],r["qty"],r["material"],r["process"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}",release[r["id"]]])
-    (base/"interface_contract_ko.md").write_text("""# 교환식 분쇄기 구동 인터페이스 — implementation-crosssolver-v0.6
+    (base/"interface_contract_ko.md").write_text("""# 교환식 분쇄기 구동 인터페이스 — safety-orchestration-closure-v0.6.1
 
 공정 경로와 dual-shaft cutter는 변경하지 않는다. 특정 MY1016Z, KTR coupling, KHK gear의 part number는 요구조건이 아니다.
 
@@ -259,7 +259,7 @@ Chain efficiency 0.85 screening에서 12T:18T, 12T:24T, 12T:30T의 motor output 
 Active assembly의 red body는 GMP60-60127 공개 치수인 motor Ø60.5×127, gearbox Ø60×59, front pilot Ø32×4.85, shaft Ø12×25.8을 모델링한다. `DRV-A60`은 Ø32.2 pilot와 4×M5 PCD45를 제공한다. 다른 donor에는 이 모터 솔리드를 억지로 재사용하지 않고 `DRV-Axx`와 수령검사표만 바꾼다. Source URL과 확인일은 `reference_variant.json`에 고정한다. Donor 실측과 Gate-1 전에는 motor, full cutter stack, screw/barrel 발주를 승인하지 않는다.
 """,encoding="utf-8")
     reference={
-        "revision":"implementation-crosssolver-v0.6","manufacturer":"TT Motor","part_number":"GMP60-60127-2460",
+        "revision":"safety-orchestration-closure-v0.6.1","manufacturer":"TT Motor","part_number":"GMP60-60127-2460",
         "model":"GMP60-60127 24 V ratio 47","motor_type":"brushed PMDC planetary gearmotor",
         "published":{"voltage_v":24,"motor_power_w":138,"output_no_load_rpm":95,"output_rated_rpm":70,"continuous_torque_kg_cm":100,"continuous_torque_nm":9.80665,"no_load_current_a":0.75,"rated_current_a":8.2,"stall_current_a":31,"overall_axial_length_including_shaft_mm":211.8,"motor_diameter_mm":60.5,"motor_length_mm":127,"gearbox_diameter_mm":60,"gearbox_length_mm":59,"front_boss_diameter_mm":32,"front_boss_length_mm":4.85,"shaft_diameter_mm":12,"shaft_length_mm":25.8,"shaft_flat_length_mm":13,"shaft_flat_across_mm":10.9,"mounting":"4xM5 PCD45","gearbox_face_step_mm":2,"gear_ratio":47},
         "machine_interface":{"chain_ratio":"12T:30T","screening_efficiency":0.85,"cutter_rated_speed_rpm":28,"cutter_equivalent_continuous_capability_nm":20.84,"motor_side_relief_setting_nm":10.35,"adapter":"DRV-A60"},
@@ -281,7 +281,7 @@ def svg_gate1_hardcut(path):
     """Human-readable hardwired motor-energy cut schematic for Gate-1."""
     path.write_text("""<svg xmlns="http://www.w3.org/2000/svg" width="1189" height="841" viewBox="0 0 1189 841">
 <style>text{font-family:'Noto Sans CJK KR',sans-serif;font-size:18px}.t{font-size:27px;font-weight:bold}.w{stroke:#17465a;stroke-width:4;fill:none}.c{fill:#eef4f6;stroke:#111;stroke-width:2}.n{font-size:15px}.danger{fill:#a12c2c}</style>
-<text x="45" y="48" class="t">Optional Gate-1 24 V hardwired motor-energy cut — implementation-crosssolver-v0.6</text>
+<text x="45" y="48" class="t">Optional Gate-1 24 V hardwired motor-energy cut — safety-orchestration-closure-v0.6.1</text>
 <text x="45" y="83" class="danger">Mega output alone cannot energize K1. S0/S1 opening drops K0 and requires manual START reset.</text>
 <rect x="55" y="145" width="120" height="70" class="c"/><text x="76" y="185">24 V PSU</text>
 <path d="M175 170H235" class="w"/><rect x="235" y="145" width="95" height="50" class="c"/><text x="260" y="178">F1 20 A</text>
@@ -479,7 +479,7 @@ def write_gate1_package():
             w.writerow({"evidence_id":evidence_id,"evidence_type":evidence_type})
     (base/"gate1_release_record_ko.md").write_text("""# Gate-1 release record — 물리시험 후 작성
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - 현재 상태: `NOT_RUN`
 - preflight CSV SHA-256:
 - force calibration CSV SHA-256:
@@ -505,7 +505,7 @@ def write_gate1_package():
 """,encoding="utf-8")
     (base/"assembly_ko.md").write_text(f"""# Gate-1 cutter coupon jig 조립도
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - nominal assembly envelope: `{envelope[0]} x {envelope[1]} x {envelope[2]} mm`
 - powered configuration envelope: `{powered_envelope[0]} x {powered_envelope[1]} x {powered_envelope[2]} mm`
 - 목적: CUT-01 두 장만 사용해 PLA/PET peak torque, jam recovery와 chip-size fraction을 측정한다.

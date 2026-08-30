@@ -1,6 +1,6 @@
 # G1J-12 — Top guard panel with chute opening
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `3 mm polycarbonate`
 - process: `CNC router/drill`

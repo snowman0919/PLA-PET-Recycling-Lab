@@ -1,6 +1,6 @@
 # FM-RL-01 — Puller roller
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `2`
 - material: `aluminum hub + replaceable silicone sleeve`
 - process: `turn + bore`

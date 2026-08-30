@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""implementation-crosssolver-v0.6 mandatory digital release checks."""
+"""v0.6.1 safety-orchestration closure의 구현·release 증거를 검증한다."""
 
 from __future__ import annotations
 
@@ -10,8 +10,10 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REV = "implementation-crosssolver-v0.6"
-RELEASE = "IMPLEMENTATION_BASELINE"
+REV = "safety-orchestration-closure-v0.6.1"
+IMPLEMENTATION_STATE = "IMPLEMENTATION_BASELINE"
+RELEASE_STATE = "SAFETY_ORCHESTRATION_BASELINE"
+SAFETY_REV = REV
 
 
 def require(condition, message):
@@ -21,7 +23,7 @@ def require(condition, message):
 
 def test_revision_and_stale():
     params = json.loads((ROOT / "cad/parameters/baseline.json").read_text())
-    require(params["revision"] == REV and params["release_class"] == RELEASE, "baseline revision/release mismatch")
+    require(params["revision"] == REV and params["release_class"] == IMPLEMENTATION_STATE, "baseline revision/release mismatch")
     require(params["geometry_validation"] == params["fabrication_validation"] == params["virtual_physics_validation"] == "PASS", "validation dimension mismatch")
     require(params["virtual_physics_state"] == "VIRTUAL_PHYSICS_VALIDATED" and params["empirical_state"] == "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN", "release-state mismatch")
     current = (
@@ -76,7 +78,7 @@ def test_manufacturing_and_physics():
     require(len(list(csv.DictReader((ROOT / "exports/fabrication/interface_catalog.csv").open()))) == 32, "interface catalog row count")
 
     engineering = json.loads((ROOT / "simulation/engineering_summary.json").read_text())
-    require(engineering["revision"] == REV and engineering["release_class"] == RELEASE, "engineering revision")
+    require(engineering["revision"] == REV and engineering["release_class"] == IMPLEMENTATION_STATE, "engineering revision")
     require(engineering["torque_hierarchy"]["strict_order_pass"], "torque hierarchy")
     require(engineering["power"]["status"] == "PASS", "phase power budget")
     require(all(row["peak_w"] <= 500 and row["remaining_w_to_psu"] >= 100 for row in engineering["power"]["states"]), "500 W / 100 W reserve criterion")
@@ -111,12 +113,12 @@ def test_manufacturing_and_physics():
 
 def test_implementation_and_cross_solver():
     compile_result = json.loads((ROOT / "validation/results/arduino_mega_compile.json").read_text())
-    require(compile_result["revision"] == REV and compile_result["status"] == "PASS", "Arduino Mega compile evidence")
+    require(compile_result["revision"] == SAFETY_REV and compile_result["status"] == "PASS", "Arduino Mega v0.6.1 compile evidence")
     ino = (ROOT / "firmware/arduino_mega/arduino_mega.ino").read_text()
-    for token in ("Max6675Backend", "EEPROM", "materialSession", "heaterController", "gaugeController", "LOCKOUT_CONFIRM_PIN"):
+    for token in ("MachineSupervisor", "Max6675Backend", "CoolingFeedbackBackend", "EEPROM", "materialSession", "supervisor.update", "LOCKOUT_CONFIRM_PIN"):
         require(token in ino, f"firmware implementation missing {token}")
     process_state = (ROOT / "firmware/arduino_mega/src/process_state.cpp").read_text()
-    require(all(token in process_state for token in ("PURGE_REQUIRED", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED", "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED")), "ordered material-session implementation")
+    require(all(token in process_state for token in ("PURGE_PREHEAT_REQUIRED", "PURGE_READY_CONFIRM_REQUIRED", "PURGE_RUNNING", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED", "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED")), "ordered material-session implementation")
 
     package = ROOT / "exports/fusion_validation"
     model_rows = list(csv.DictReader((package / "model_manifest.csv").open()))
@@ -124,6 +126,11 @@ def test_implementation_and_cross_solver():
     require(len(model_rows) == 9 and len(load_rows) == 10, "Fusion neutral package count")
     binding = json.loads((package / "run_binding.json").read_text())
     require(binding["revision"] == REV and binding["fusion_result_state"] == "PENDING_EXTERNAL_EXECUTION", "Fusion binding state")
+    source_lock = json.loads((package / "engineering_source_lock.json").read_text())
+    require(binding["source_git_sha"] == binding["engineering_source_sha"] == source_lock["engineering_source_sha"], "Fusion engineering source lock")
+    require(binding["supersedes_archive_v0_6_sha"] == source_lock["archive_v0_6_sha"], "Fusion v0.6 supersession binding")
+    reruns = list(csv.DictReader((package / "rerun_delta_report.csv").open()))
+    require(len(reruns) == 10 and all(row["rerun_required"] == "true" and row["result_state"] == "PENDING_EXTERNAL_EXECUTION" for row in reruns), "Fusion LC01-LC10 rerun delta")
     require(binding["model_manifest_sha256"] == hashlib.sha256((package / "model_manifest.csv").read_bytes()).hexdigest(), "model manifest binding")
     require(binding["load_case_manifest_sha256"] == hashlib.sha256((package / "load_case_manifest.csv").read_bytes()).hexdigest(), "load manifest binding")
     for row in model_rows:
@@ -143,7 +150,7 @@ def test_implementation_and_cross_solver():
 def test_artifacts_and_locks():
     state = json.loads((ROOT / "validation/physical_gate_status.json").read_text())
     require(state["optional_gate1_result"] == "NOT_RUN" and state["empirical_state"] == "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN", "empirical state")
-    require(state["design_release_gate"] == "PASS" and state["main_promotion_allowed"], "design release gate")
+    require(state["design_release_gate"] == "PASS" and state["safety_orchestration_release_gate"] == "PASS" and state["main_promotion_allowed"], "safety orchestration release gate")
     require(state["procurement_approval_gate"] == state["commissioning_gate"] == "USER_APPROVAL_REQUIRED", "approval gates")
     require(not state["full_cutter_order_release"] and not state["full_screw_barrel_order_release"], "full order unlocked")
     require(not state["donor_drive_verified"], "donor incorrectly verified")
@@ -153,7 +160,8 @@ def test_artifacts_and_locks():
     require(readiness["main_promotion_allowed"], "optional Gate-1 incorrectly gates main")
 
     manifest = json.loads((ROOT / "artifacts/manifest.json").read_text())
-    require(manifest["revision"] == REV and manifest["release_state"] == RELEASE, "artifact manifest")
+    require(manifest["revision"] == REV and manifest["release_state"] == RELEASE_STATE and
+            manifest["implementation_state"] == IMPLEMENTATION_STATE, "artifact manifest")
     require(
         manifest["geometry_validation"] == manifest["fabrication_validation"] == manifest["virtual_physics_validation"] == "PASS"
         and manifest["virtual_physics_state"] == "VIRTUAL_PHYSICS_VALIDATED"
@@ -175,13 +183,37 @@ def test_artifacts_and_locks():
         )
 
 
+def test_safety_orchestration_closure():
+    for name in (
+        "runtime_supervisor", "orchestration_contract", "controller_contract",
+        "red_team_orchestration", "arduino_mega_compile",
+    ):
+        result = json.loads((ROOT / "validation/results" / f"{name}.json").read_text())
+        require(
+            result.get("revision") == SAFETY_REV and result.get("status") == "PASS",
+            f"v0.6.1 safety evidence missing/stale: {name}",
+        )
+    runtime = json.loads((ROOT / "validation/results/runtime_supervisor.json").read_text())
+    require(runtime["scenario_count"] >= 43 and runtime["trace_count"] >= 100, "runtime coverage regression")
+    require(runtime["invariant_failure_count"] == 0, "runtime invariant failure")
+    require(runtime["bounded_sequence"] == {
+        "fixed_seeds": 4, "maximum_events_per_seed": 64, "status": "PASS",
+    }, "bounded sequence evidence drift")
+    require(runtime["purge_revolution_evidence"] == "COMMAND_DERIVED_ESTIMATE_NOT_MEASURED", "purge revolution evidence false claim")
+    require(runtime["purge_operator_sequence"] == "approvePurgeFeed_then_independent_waste_path_confirmation", "purge operator sequence evidence drift")
+    red_team = json.loads((ROOT / "validation/results/red_team_orchestration.json").read_text())
+    require(red_team["mutation_count"] >= 14, "mandatory red-team mutation count")
+    require(all(value == "FAIL_DETECTED" for value in red_team["mutations"].values()), "red-team false PASS")
+
+
 def main():
     test_revision_and_stale(); print("PASS CURRENT_REVISION_COHERENT")
     test_geometry_budget_and_prints(); print("PASS GEOMETRY_BUDGET_PRINT")
     test_manufacturing_and_physics(); print("PASS MANUFACTURING_COUPLED_PHYSICS")
     test_implementation_and_cross_solver(); print("PASS IMPLEMENTATION_CROSS_SOLVER_BOUNDARY")
     test_artifacts_and_locks(); print("PASS ARTIFACTS_PHYSICAL_LOCKS")
-    print("IMPLEMENTATION_CROSSSOLVER_V06_RELEASE_OK")
+    test_safety_orchestration_closure(); print("PASS SAFETY_ORCHESTRATION_CLOSURE")
+    print("SAFETY_ORCHESTRATION_V061_RELEASE_OK")
 
 
 if __name__ == "__main__":

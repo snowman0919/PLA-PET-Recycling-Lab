@@ -1,6 +1,6 @@
 # DRV-GD-01 — Interlocked drive guard
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `1 mm galvanized steel`
 - process: `laser + brake + service-cover hardware`

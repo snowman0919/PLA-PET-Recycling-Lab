@@ -1,6 +1,6 @@
 # FD-MET-03 — Metering feeder shaft
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `304 shaft`
 - process: `cut/face Ø5 stock`

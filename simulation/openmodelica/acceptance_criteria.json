@@ -1,5 +1,5 @@
 {
-  "revision": "implementation-crosssolver-v0.6",
+  "revision": "safety-orchestration-closure-v0.6.1",
   "solver": "dassl",
   "tolerance": 1e-06,
   "phase_error_limit_rad": 0.0174532925199433,
@@ -17,17 +17,25 @@
   "normal_phase_peak_limit_w": 500.0,
   "psu_rating_w": 600.0,
   "minimum_psu_reserve_w": 100.0,
+  "maximum_fault_response_latency_s": 0.25,
+  "rundown_duration_s": 10.0,
   "line_tension_limit_n": 8.0,
-  "dancer_limit_rad": 0.4363,
+  "dancer_warning_rad": 0.32,
+  "dancer_controlled_stop_rad": 0.36,
+  "dancer_hard_stop_rad": 0.4363,
   "diameter_target_mm": 1.75,
   "diameter_initial_tolerance_mm": 0.05,
   "scenario_groups": {
     "shredder": ["MotorNoLoadStart", "ColdStartNoLoad", "ColdStartPLA", "ColdStartPET", "SlowAcceleration", "HighInertiaStart", "BrownoutLikeVoltageDrop", "MotorRatedLoad", "MotorLoadStep", "PLANominal", "PETNominal", "SingleHookImpact", "MultiHookEngagement", "OneShaftJam", "FullJam", "ReverseClear", "RetryFailure", "MechanicalFuseTrip", "ChainBacklashReverse", "EmergencyStop", "LeftShaftJam", "PhaseGearLoadReversal", "MultiHookProtectiveTrip", "MotorRatedLoadStrict"],
     "thermal": ["ExtruderWarmupPLA", "ExtruderWarmupPET", "ExtruderNominalPLA", "ExtruderNominalPET", "ExtruderHighFlow", "HeaterOpen", "SensorOpen", "MOSFETStuckOn", "HotExtrusionJamPLA", "HotExtrusionJamPET", "ThermalFuseLongDuration", "ReliefOpeningPLA", "ReliefOpeningPET"],
-    "spool": ["EmptySpool", "HalfSpool", "FullSpool", "SpoolJam", "DancerLimit", "RealSpoolJam", "SpoolJamPropagation"],
-    "full_system": ["FullSystemPLA", "FullSystemPET", "FullSystemGaugeFailure", "FullSystemJam", "GaugeFailureControlledPause", "FeederLossDuringExtrusion", "CoolingLossDuringExtrusion", "SpoolerPermissionLoss"],
-    "process_power": ["ProcessShredToPreheatTransition", "ProcessPreheatToExtrusionTransition", "IllegalShredHeaterOverlap", "PSUPeakShredding", "PSUPeakPreheat", "PSUPeakExtrusion", "DynamicPowerShredding", "DynamicPowerPreheating", "DynamicPowerExtrusion", "DynamicPowerCooldown"],
-    "forming": ["PLAFormingNominal", "PETFormingNominal", "PLAFormingHighFlow", "PETFormingHighFlow", "DiameterFlowStep", "DiameterPullerDisturbance", "GaugeNoise", "GaugeBias", "GaugeDropout", "PullerSlip", "PullerSaturation", "OvalityDisturbance"]
+    "spool": ["EmptySpool", "HalfSpool", "FullSpool", "SpoolJam", "DancerLimit", "RealSpoolJam", "SpoolJamPropagation", "EmptySpoolJam", "HalfSpoolJam", "FullSpoolJam", "DancerPrelimitStop", "DancerHardStopSensitivity"],
+    "full_system": ["FullSystemPLA", "FullSystemPET", "FullSystemGaugeFailure", "FullSystemJam", "GaugeFailureControlledPause", "FeederLossDuringExtrusion", "CoolingLossDuringExtrusion", "SpoolerPermissionLoss", "GaugeRequalification", "GaugeLossRundown", "CoolingLossRundown", "SpoolPermissionLossRundown"],
+    "process_power": ["ProcessShredToPreheatTransition", "ProcessPreheatToExtrusionTransition", "PreheatRequiresExplicitExtrusionArm", "PreheatRejectsUncalibratedCooling", "PreheatRejectsInvalidCoolingFeedback", "PreheatCoolingStartupProbe", "PreheatCoolingProbeDropout", "PurgeCoolingStartupProbe", "ShreddingRejectsUncalibratedCurrent", "AtomicFaultClearNoPartial", "CooldownAutomaticCompletion", "FaultCoolingRetention", "FaultCoolingInvalidFeedbackOff", "IllegalShredHeaterOverlap", "PSUPeakShredding", "PSUPeakPreheat", "PSUPeakExtrusion", "DynamicPowerShredding", "DynamicPowerPreheating", "DynamicPowerExtrusion", "DynamicPowerMaintenancePurge", "DynamicPowerFormingChainRundown", "DynamicPowerThermalHold", "DynamicPowerRequalifying", "DynamicPowerCooldown"],
+    "forming": ["PLAFormingNominal", "PETFormingNominal", "PLAFormingHighFlow", "PETFormingHighFlow", "DiameterFlowStep", "DiameterPullerDisturbance", "GaugeNoise", "GaugeBias", "GaugeDropout", "PullerSlip", "PullerSaturation", "OvalityDisturbance"],
+    "purge": ["PurgePLAtoPET", "PurgePETtoPLA", "PurgeWastePathBlocked", "PurgeFeedApprovalMissing", "PurgeEmergencyStop", "PurgeHeaterFault", "PurgeScrewFault", "PurgeCoolingFault"],
+    "purge_lifecycle": ["PurgeNormalAbortCooldown", "PurgeSuccessfulCompletionCooldown"],
+    "orchestration_supervisor": ["QualityViolationRequalification"],
+    "tach_monitor": ["PullerTachStartupGrace", "PullerTachStartupFailure"]
   },
   "required_scenarios": [
     "MotorNoLoadStart", "ColdStartNoLoad", "ColdStartPLA", "ColdStartPET", "SlowAcceleration", "HighInertiaStart", "BrownoutLikeVoltageDrop", "MotorRatedLoad", "MotorLoadStep", "PLANominal", "PETNominal", "SingleHookImpact", "MultiHookEngagement", "OneShaftJam", "FullJam", "ReverseClear", "RetryFailure", "MechanicalFuseTrip", "ChainBacklashReverse", "EmergencyStop",
@@ -40,6 +48,13 @@
     "GaugeFailureControlledPause", "FeederLossDuringExtrusion", "CoolingLossDuringExtrusion", "SpoolerPermissionLoss",
     "GaugeNoise", "GaugeBias", "PullerSlip", "PullerSaturation", "OvalityDisturbance",
     "ReliefOpeningPLA", "ReliefOpeningPET",
-    "DynamicPowerShredding", "DynamicPowerPreheating", "DynamicPowerExtrusion", "DynamicPowerCooldown"
+    "DynamicPowerShredding", "DynamicPowerPreheating", "DynamicPowerExtrusion", "DynamicPowerCooldown",
+    "EmptySpoolJam", "HalfSpoolJam", "FullSpoolJam", "DancerPrelimitStop", "DancerHardStopSensitivity",
+    "GaugeRequalification", "GaugeLossRundown", "CoolingLossRundown", "SpoolPermissionLossRundown",
+    "QualityViolationRequalification",
+    "PullerTachStartupGrace", "PullerTachStartupFailure",
+    "PurgePLAtoPET", "PurgePETtoPLA", "PurgeWastePathBlocked", "PurgeFeedApprovalMissing", "PurgeEmergencyStop", "PurgeHeaterFault", "PurgeScrewFault", "PurgeCoolingFault",
+    "PurgeNormalAbortCooldown", "PurgeSuccessfulCompletionCooldown",
+    "PreheatRequiresExplicitExtrusionArm", "PreheatRejectsUncalibratedCooling", "PreheatRejectsInvalidCoolingFeedback", "PreheatCoolingStartupProbe", "PreheatCoolingProbeDropout", "PurgeCoolingStartupProbe", "ShreddingRejectsUncalibratedCurrent", "AtomicFaultClearNoPartial", "CooldownAutomaticCompletion", "FaultCoolingRetention", "FaultCoolingInvalidFeedbackOff", "DynamicPowerMaintenancePurge", "DynamicPowerFormingChainRundown", "DynamicPowerThermalHold", "DynamicPowerRequalifying"
   ]
 }

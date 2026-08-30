@@ -42,4 +42,13 @@ archive의 문서, CAD, PDF와 artifact는 역사적 연구 기록이며 active 
 - archive branch: `archive/virtual-physics-closure-v0.5.1`
 - 동결일: 2026-08-30
 
-이 snapshot은 Arduino Mega 실제 I/O 구현, material-session lock, 확대된 74 scenario, CalculiX mesh convergence와 Fusion 중립 교차검증 package를 추가하기 전 v0.5.1 기준선이다. Active revision은 `implementation-crosssolver-v0.6`이며 이 archive branch는 수정하지 않는다.
+이 snapshot은 Arduino Mega 실제 I/O 구현, material-session lock, 확대된 74 scenario, CalculiX mesh convergence와 Fusion 중립 교차검증 package를 추가하기 전 v0.5.1 기준선이다. 이 archive branch는 수정하지 않는다.
+
+## Implementation cross-solver v0.6 동결
+
+- archive commit SHA: `60ccd92fe9a7df35b550a2a57649b1263da09d10`
+- annotated tag: `implementation-crosssolver-v0.6-final`
+- archive branch: `archive/implementation-crosssolver-v0.6-final`
+- 동결일: 2026-08-30
+
+이 snapshot은 `MachineSupervisor`, atomic fault clear, transactional start, 실제 maintenance purge, common forming-chain rundown, cooling feedback와 spool requalification을 추가하기 전 최종 v0.6 구현·교차 solver 기준선이다. Active revision은 `safety-orchestration-closure-v0.6.1`이며 archive branch와 tag는 수정하지 않는다.

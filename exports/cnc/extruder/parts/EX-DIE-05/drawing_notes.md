@@ -1,6 +1,6 @@
 # EX-DIE-05 — Annealed copper face gasket
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `2`
 - material: `C110 annealed copper t0.5`
 - process: `waterjet/punch; anneal after cutting; bag clean`

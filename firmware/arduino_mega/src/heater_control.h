@@ -27,10 +27,14 @@ class HeaterController {
   HeaterOutput update(uint8_t zone, const TemperatureReading &reading, float target_c,
                       bool phase_permission, bool thermal_chain_ok,
                       bool permission_feedback, uint32_t now_ms);
+  bool canClearFault(bool physical_lockout_confirmed, bool thermal_chain_ok,
+                     bool temperature_sensors_healthy = true) const;
   bool clearFault(bool physical_lockout_confirmed, bool thermal_chain_ok);
   uint16_t faults() const { return latched_faults_; }
 
  private:
+  friend class MachineSupervisor;
+  void commitFaultClear();
   struct Zone {
     float integral{0};
     float watch_temperature{0};

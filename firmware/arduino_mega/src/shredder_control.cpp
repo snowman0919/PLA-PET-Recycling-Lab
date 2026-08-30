@@ -98,15 +98,23 @@ void ShredderController::stop() {
   overload_active_ = false;
 }
 
+bool ShredderController::canClearFault(bool physical_lockout_confirmed,
+                                       const ShredderInputs& inputs) const {
+  return physical_lockout_confirmed && inputs.permission_chain_ok &&
+         !inputs.heater_or_screw_enabled;
+}
+
 bool ShredderController::clearFault(bool physical_lockout_confirmed,
                                     const ShredderInputs& inputs) {
-  if (command_ != ShredderCommand::FAULT_LATCHED || !physical_lockout_confirmed ||
-      !inputs.permission_chain_ok || inputs.heater_or_screw_enabled) {
-    return false;
-  }
+  if (command_ != ShredderCommand::FAULT_LATCHED ||
+      !canClearFault(physical_lockout_confirmed, inputs)) return false;
+  commitFaultClear();
+  return true;
+}
+
+void ShredderController::commitFaultClear() {
   stop();
   retries_ = 0;
-  return true;
 }
 
 void ShredderController::latchFault() {

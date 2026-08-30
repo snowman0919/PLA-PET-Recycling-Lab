@@ -1,6 +1,6 @@
 # 출력물 총 재료 보고 — 실제 slicing
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - slicer: `PrusaSlicer 2.9.6`, profile `PPR_PrusaSlicer_2.9.6.ini`
 - slicer filament: **904.2 g**
 - slicer minus solid-CAD nominal: **-213.5 g**

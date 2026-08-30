@@ -1,6 +1,6 @@
 # TH-PTC-02 — Hopper PTC grounded keeper
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `304 stainless t2`
 - process: `laser + deburr`

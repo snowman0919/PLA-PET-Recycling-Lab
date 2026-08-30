@@ -21,5 +21,6 @@ DANCER,input,endstop/analog,stop spooler,full sweep collision test
 PULLER_PWM_DIR_TACH,input/output,Mega/DC driver,zero,1 m length and tach calibration
 SPOOLER_PWM_DIR,input/output,Mega/DC driver,zero,dancer safe-pause test
 TRAVERSE_STEP_DIR_ENABLE,output,Mega/stepper driver,disabled,80 mm end-to-end and permission-loss test
-COOLING_PWM,output,Mega/fan branch,off,cooling-loss controlled-pause test
+COOLING_PWM,output,Mega/fan branch,off,cooling-loss controlled-rundown test
+COOLING_CURRENT,input,A4 low-side shunt/current-feedback backend,invalid,"0/25/50/100 percent command calibration, fan-only start proof 1.5 s/timeout 3.0 s, disconnected-fan and stalled-fan dwell test"
 DRIVER_FAULTS,input,all motor drivers,fault,open/active-low simulation per channel

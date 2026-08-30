@@ -1,5 +1,5 @@
 part_id,description,quantity,material_or_model,source,cash_class,status,notes
-FR-01,compact profile frame cut set,1,20x20 aluminum profile 890x4 430x10 660x6 300x2 318x1 280x2 50x1 plus local 20x40 660x2,project lab,REUSE_PENDING,UNVERIFIED,revision implementation-crosssolver-v0.6; 14.668 m total; local 2040 shredder rails; exports/fabrication/frame_cut_list.csv
+FR-01,compact profile frame cut set,1,20x20 aluminum profile 890x4 430x10 660x6 300x2 318x1 280x2 50x1 plus local 20x40 660x2,project lab,REUSE_PENDING,UNVERIFIED,revision safety-orchestration-closure-v0.6.1; geometry unchanged from 60ccd92fe9a7df35b550a2a57649b1263da09d10; 14.668 m total; local 2040 shredder rails; exports/fabrication/frame_cut_list.csv
 HP-01,refillable sliding-lid hopper,1,IN-HOP-01 plus PPR-C01/C02,mixed,MIXED,DESIGNED,4.5 L usable; fabrication STEP/DXF/note under exports/fabrication
 SH-01,dual-shaft hook cutter assembly,1,steel,CNC,CASH,COUPON_HOLD,common PLA/PET path
 SH-02,removable 5 mm screen,1,stainless steel,CNC,CASH,COUPON_HOLD,metal shim clearance
@@ -16,6 +16,7 @@ EX-04,die heater,1,TH-DIE-01 24 V 60 W Ø6x38 cartridge,stock/buy,CASH,USER_APPR
 EX-05,thermal sensors and switching,1,T1-T5 ungrounded mineral-insulated K-type plus MAX6675-class common-reference interfaces and 5 low-side MOSFET channels,mixed,MIXED,USER_APPROVAL_REQUIRED,each channel branch fuse; sheath-to-junction insulation receipt test; MAX6675 T- common electronics reference; software is not sole cutoff; vendor-pinned modules are purchase candidates only
 FH-02,hopper maintenance PTC assembly,1,4x 35x21x5 class PTC plus TH-PTC-01/02 metal spreader clamp,mixed,MIXED,RECEIPT_TEST_HOLD,external predry not replaced; one-element power/equilibrium test sets final 4-8 quantity; vendor pinned: AliExpress 24 V insulated aluminum-shell PTC 35x21x5 class
 CO-01,vertical compact air cooling,1,ABS duct and donor fans,mixed,MIXED,DESIGNED,two serviceable duct segments
+CO-02,cooling fan current feedback,1,calibrated low-side shunt plus protected analog amplifier to Mega A4,mixed,MIXED,USER_APPROVAL_REQUIRED,commanded PWM with 1.5 s bounded feedback dwell; donor-specific normal/stall/open calibration required; not a direct tach claim
 DG-01,dual-axis shadow gauge,1,LED photodiode slit,stock/buy,MIXED,CALIBRATION_HOLD,no accuracy claim
 PL-01,puller pair,1,FM-PL-01/RL-01/AX-01 plus donor motor,mixed,MIXED,UNVERIFIED,determines diameter; matched plates/rollers and metal spindles
 SP-01,dancer traverse spooler,1,FM-GR/GA SP-DA/AX/RL/SH plus donor motion and PPR-C08..10,mixed,MIXED,DESIGNED,1 kg spool inside envelope; donor support/motor dimensions remain verification hold

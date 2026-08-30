@@ -1,17 +1,17 @@
-# v0.6 조달 폐쇄 상태
+# v0.6.1 조달 폐쇄 상태
 
-Revision: `implementation-crosssolver-v0.6` / 기준일: 2026-08-30
+Revision: `safety-orchestration-closure-v0.6.1` / 기준일: 2026-08-31
 
 ## 결론
 
-- 조건부 계획 소계: **173,729 KRW** (`<=180,000`, PASS)
-- 예비비 20,000 KRW 포함 절대 계획액: **193,729 KRW** (`<=200,000`, 여유 6,271 KRW)
+- 조건부 계획 소계: **175,729 KRW** (`<=180,000`, PASS)
+- 예비비 20,000 KRW 포함 절대 계획액: **195,729 KRW** (`<=200,000`, 여유 4,271 KRW)
 - 검증 견적/영수증 소계: **0 KRW — NOT_ESTABLISHED**
 - 실제 project-lab 재고: **NOT_VERIFIED**
 - 외부 RFQ 회신: **NOT_REQUESTED / NOT_RECEIVED**
 - 발주·결제: **수행하지 않음**
 
-0 KRW verified subtotal은 무상 장비를 뜻하지 않는다. 증거 적격 quote/receipt가 한 건도 없다는 뜻이다. 기존 공개 vendor 후보와 planning allowance는 `bom/purchase_candidates.csv`와 v0.5.1 문서에 보존되지만 가격·납기 확정 증거로 승격하지 않는다.
+0 KRW verified subtotal은 무상 장비를 뜻하지 않는다. 증거 적격 quote/receipt가 한 건도 없다는 뜻이다. A4 cooling-current feedback용 shunt/보호 증폭 경로는 2,000 KRW generic allowance만 추가했으며 exact 부품 선정·구매·배선·통전은 수행하지 않았다. 기존 공개 vendor 후보와 planning allowance는 `bom/purchase_candidates.csv`와 v0.5.1 문서에 보존되지만 가격·납기 확정 증거로 승격하지 않는다.
 
 ## 준비된 실제 입력 양식
 
@@ -21,7 +21,7 @@ Revision: `implementation-crosssolver-v0.6` / 기준일: 2026-08-30
 
 ## 상한 위험
 
-공개 후보 가격으로 추정한 sensor/MOSF/PTC/heater delta는 현재 조건부 상한 여유 6,271 KRW보다 크다. 따라서 재고 확인과 실제 RFQ 없이는 200,000 KRW 실구매 가능성을 주장할 수 없다. 안전품(E-stop, interlock, branch/thermal fuse)을 삭제하거나 donor를 0원으로 가정해 상한을 맞추지 않는다.
+공개 후보 가격으로 추정한 sensor/MOSF/PTC/heater delta는 현재 조건부 상한 여유 4,271 KRW보다 크다. 따라서 재고 확인과 실제 RFQ 없이는 200,000 KRW 실구매 가능성을 주장할 수 없다. 안전품(E-stop, interlock, branch/thermal fuse, cooling feedback)을 삭제하거나 donor를 0원으로 가정해 상한을 맞추지 않는다.
 
 ## 다음 사용자 승인 지점
 

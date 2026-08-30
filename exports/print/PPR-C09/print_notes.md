@@ -1,6 +1,6 @@
 # PPR-C09 — Spool cone adapter
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: 2
 - material: PLA
 - nozzle diameter: 0.4 mm

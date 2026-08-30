@@ -1,6 +1,6 @@
 # EX-DIE-03 — Replaceable Ø3 die insert
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `17-4PH H900 stainless`
 - process: `turn, drill/ream land, 60 degree included entrance blend, H900, finish lap`

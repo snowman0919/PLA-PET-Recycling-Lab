@@ -1,6 +1,6 @@
 # EX-CPN-BAR — Matched barrel process coupon
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `same certified SCM440 heat as EX-BAR-01`
 - process: `same bore/hone/nitride route as EX-BAR-01`

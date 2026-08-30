@@ -1,6 +1,6 @@
 # IN-HOP-01 — Refillable input hopper
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `2 mm 5052-H32 aluminum`
 - process: `roll cone/cylinder + TIG weld + deburr`

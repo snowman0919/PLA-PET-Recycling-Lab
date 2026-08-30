@@ -1,21 +1,21 @@
-# Graph Report - PPR  (2026-08-30)
+# Graph Report - PPR  (2026-08-31)
 
 ## Corpus Check
-- 276 files · ~359,284 words
+- 297 files · ~386,921 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1199 nodes · 1727 edges · 208 communities (94 shown, 114 thin omitted)
-- Extraction: 83% EXTRACTED · 17% INFERRED · 0% AMBIGUOUS · INFERRED: 292 edges (avg confidence: 0.79)
+- 1500 nodes · 2528 edges · 230 communities (114 shown, 116 thin omitted)
+- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 472 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c556c565`
+- Built from commit: `7df3f853`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- StatePermissions
+- MachineSupervisor
 - ShredderController
 - v0.5.1 구매처·제품 후보 고정 (구매 실행 전 단계)
 - v0.5.1 가상 물리 폐쇄 완료 감사
@@ -24,13 +24,13 @@
 - controller_contract.py
 - Parent multimodal visual review — coupled-digital-validation-v0.5 (HISTORICAL ARCHIVE)
 - generate_runner.py
-- ActuatorCommands
-- GaugeReading
+- HeaterController
+- GaugeController
 - required
 - properties
 - enum
 - enum
-- v0.6 조달 폐쇄 상태
+- v0.6.1 조달 폐쇄 상태
 - run_manifest.schema.json
 - digest
 - Autodesk Fusion 교차 검증 중립 패키지
@@ -56,12 +56,33 @@
 - AGENTS.md
 - fusion_execution.md
 - fusion_worker/README.md
-- update
+- MachineViewState
 - Arduino Mega 2560 controller wiring contract
 - v0.6 구현·교차 solver 완료 감사
 - 2026-08-30-implementation-crosssolver-v0.6.md
 - geometry.py
+- InputSnapshot
+- runtime_supervisor_harness.cpp
+- generate_fusion_validation.py
+- ActuatorCommands
+- red_team_orchestration.py
+- hook_disc
+- hardware_interfaces.h
+- DiameterController
+- shredder_metal_parts
+- main
 - generate.py
+- GaugeReading
+- main
+- GaugeCalibration
+- v0.6.1 safety-orchestration 완료 감사
+- name
+- extruder_screw
+- generate_contract_artifacts.py
+- TraceMeta
+- CoolingFeedback
+- CoolingFeedbackBackend
+- assembly_collision_audit.py
 - manufacturing.py
 - render_views.py
 - ProcessController
@@ -79,10 +100,10 @@
 - 시스템 요구사항 — coupled-digital-validation-v0.5
 - artifacts/manifest.json
 - run_load_checks.py
-- main
+- review_keepout_objects
 - 환경 변경 이력
 - slice_prints.py
-- main
+- run_engineering.py
 - ShredderOutput
 - DriveCalibration
 - 16 mm × 16 L/D screw — RPM/처리량 sensitivity
@@ -218,16 +239,16 @@
 - Reverseclear
 
 ## God Nodes (most connected - your core abstractions)
-1. `assembly_objects()` - 56 edges
-2. `one_solid()` - 37 edges
-3. `gate1_assembly()` - 36 edges
-4. `ProcessProfile` - 24 edges
-5. `machine_fabrication_parts()` - 21 edges
-6. `ShredderController` - 21 edges
-7. `ProcessController` - 20 edges
-8. `gate1_parts()` - 19 edges
-9. `main()` - 16 edges
-10. `export_geometry()` - 15 edges
+1. `MachineSupervisor` - 106 edges
+2. `assembly_objects()` - 56 edges
+3. `InputSnapshot` - 53 edges
+4. `one_solid()` - 37 edges
+5. `update` - 37 edges
+6. `gate1_assembly()` - 36 edges
+7. `MachineViewState` - 36 edges
+8. `main()` - 32 edges
+9. `ProcessController` - 29 edges
+10. `ShredderController` - 26 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Gate-1 cutter coupon jig 조립도` --semantically_similar_to--> `Gate1 Assembly Ko`  [INFERRED] [semantically similar]
@@ -244,15 +265,15 @@
 ## Import Cycles
 - None detected.
 
-## Communities (208 total, 114 thin omitted)
+## Communities (230 total, 116 thin omitted)
 
-### Community 0 - "StatePermissions"
-Cohesion: 0.17
-Nodes (11): PhasePower, average_w, peak_w, StatePermissions, cooling, feeder, process_heaters, puller (+3 more)
+### Community 0 - "MachineSupervisor"
+Cohesion: 0.04
+Nodes (61): MaterialSession, FormingChainState, MachineSupervisor, acknowledgeMaterialStep, armExtrusion, calibration_, commanded_heater_power_w_, configureCoolingFeedbackCalibration (+53 more)
 
 ### Community 1 - "ShredderController"
-Cohesion: 0.18
-Nodes (11): ShredderController, calibration_, calibration_configured_, command_, forward_started_ms_, overload_active_, overload_since_ms_, profile_ (+3 more)
+Cohesion: 0.17
+Nodes (11): ShredderController, calibration_, calibration_configured_, forward_started_ms_, overload_active_, overload_since_ms_, profile_, retries_ (+3 more)
 
 ### Community 2 - "v0.5.1 구매처·제품 후보 고정 (구매 실행 전 단계)"
 Cohesion: 0.25
@@ -267,8 +288,8 @@ Cohesion: 0.33
 Nodes (5): v0.5.1 멀티모달 CAD 검토 기록, 검토 중 발견 및 수정, 검토한 실제 이미지, 최종 판정, 필수 시각 검토 결과
 
 ### Community 5 - "arduino_compile.py"
-Cohesion: 0.60
-Nodes (4): cli_candidates(), main(), Return Arduino CLI candidates, preferring explicit and ordinary PATH tools.…, resolve_cli()
+Cohesion: 0.52
+Nodes (6): cli_candidates(), main(), Path, Return Arduino CLI candidates, preferring explicit and ordinary PATH tools.…, resolve_cli(), sha256()
 
 ### Community 6 - "controller_contract.py"
 Cohesion: 0.70
@@ -278,13 +299,13 @@ Nodes (4): invariant_results(), main(), nominal(), require()
 Cohesion: 0.40
 Nodes (4): Parent multimodal visual review — coupled-digital-validation-v0.5 (HISTORICAL ARCHIVE), 관찰 (조치 불요, 기록 목적), 판정 근거, 확인 내용
 
-### Community 10 - "ActuatorCommands"
-Cohesion: 0.05
-Nodes (40): ActuatorBackend, apply, ActuatorCommands, cooling_pwm, heater_on, hopper_ptc_on, puller_pwm, screw_pwm (+32 more)
+### Community 10 - "HeaterController"
+Cohesion: 0.06
+Nodes (40): CalibrationRecord, calibrationRecordCrc(), calibrationRecordValid(), finalizeCalibrationRecord(), sanitizeCalibrationRecord(), PhasePower, average_w, peak_w (+32 more)
 
-### Community 11 - "GaugeReading"
-Cohesion: 0.09
-Nodes (27): clampf(), DiameterController, integral_, reset, safe_pause_, update, GaugeCalibration, u95_mm (+19 more)
+### Community 11 - "GaugeController"
+Cohesion: 0.22
+Nodes (6): GaugeController, calibration_, reading_, setCalibration, update, main()
 
 ### Community 12 - "required"
 Cohesion: 0.18
@@ -302,9 +323,9 @@ Nodes (9): study_type, enum, buckling, event_simulation, modal, nonlinear_static
 Cohesion: 0.29
 Nodes (7): status, enum, BLOCKED_EXTERNAL, FAIL, PASS, PENDING, RUNNING
 
-### Community 16 - "v0.6 조달 폐쇄 상태"
+### Community 16 - "v0.6.1 조달 폐쇄 상태"
 Cohesion: 0.33
-Nodes (5): v0.6 조달 폐쇄 상태, 결론, 다음 사용자 승인 지점, 상한 위험, 준비된 실제 입력 양식
+Nodes (5): v0.6.1 조달 폐쇄 상태, 결론, 다음 사용자 승인 지점, 상한 위험, 준비된 실제 입력 양식
 
 ### Community 17 - "run_manifest.schema.json"
 Cohesion: 0.40
@@ -342,45 +363,121 @@ Nodes (3): step_file, pattern, type
 Cohesion: 0.67
 Nodes (3): step_sha256, pattern, type
 
-### Community 44 - "update"
-Cohesion: 0.13
-Nodes (13): MachineState, MaterialSession, UiController, update, UiEvent, back_pressed, confirm_pressed, encoder_delta (+5 more)
+### Community 44 - "MachineViewState"
+Cohesion: 0.05
+Nodes (39): CalibrationReadiness, cooling_feedback_calibration_valid, current_sensor_calibration_valid, drive_calibration_valid, gauge_calibration_valid, temperature_channels_valid, CoolingStartupRequest, MachineState (+31 more)
 
 ### Community 45 - "Arduino Mega 2560 controller wiring contract"
-Cohesion: 0.40
-Nodes (4): Arduino Mega 2560 controller wiring contract, Inputs and commissioning, Outputs, Safety chain
+Cohesion: 0.33
+Nodes (5): Arduino Mega 2560 controller wiring contract, Cooling feedback commissioning hold, Inputs and commissioning, Outputs, Safety chain
 
 ### Community 46 - "v0.6 구현·교차 solver 완료 감사"
 Cohesion: 0.50
 Nodes (3): v0.6 구현·교차 solver 완료 감사, 미완료 외부·물리 증거, 완료된 디지털 증거
 
 ### Community 48 - "geometry.py"
-Cohesion: 0.05
-Nodes (94): compound(), export_geometry(), load_cases(), main(), Path, sha256(), source_tree_hash(), write_csv() (+86 more)
+Cohesion: 0.09
+Nodes (55): assembly_objects(), chain_sprocket_shape(), cylindrical_hopper(), dancer_arm_shape(), dancer_support_plate_shape(), die_cartridge_heater_shape(), drive_guard_shape(), feeder_housing_shape() (+47 more)
+
+### Community 49 - "InputSnapshot"
+Cohesion: 0.10
+Nodes (39): gaugeWithinProductionTolerance(), InputSnapshot, cooling_feedback_valid, dancer_angle_rad, gauge_optical_valid, gauge_x_adc, gauge_y_adc, puller_driver_ok (+31 more)
+
+### Community 50 - "runtime_supervisor_harness.cpp"
+Cohesion: 0.27
+Nodes (37): MaterialProfile, approvePurgeFeed, confirmPurgeWastePath, process_, requestMaterialChange, requestPreheat, requestPurgePreheat, selectMaterial (+29 more)
+
+### Community 51 - "generate_fusion_validation.py"
+Cohesion: 0.14
+Nodes (28): compound(), export_geometry(), load_cases(), main(), Path, sha256(), source_tree_hash(), write_csv() (+20 more)
+
+### Community 52 - "ActuatorCommands"
+Cohesion: 0.10
+Nodes (22): ActuatorCommands, cooling_pwm, feeder_enable, heater_on, hopper_ptc_on, puller_pwm, screw_pwm, shredder_pwm (+14 more)
+
+### Community 53 - "red_team_orchestration.py"
+Cohesion: 0.28
+Nodes (12): main(), Path, safe_row(), sha256(), main(), parse_row(), Path, sha256() (+4 more)
+
+### Community 54 - "hook_disc"
+Cohesion: 0.21
+Nodes (12): cyl(), hook_disc(), Asymmetric cycloidal-derived hook disc. A long 76 % capture flank follows a…, Ideal 20 degree involute envelope for a purchased steel phase gear. Root…, spur_phase_gear(), aggregate(), density_for(), main() (+4 more)
+
+### Community 55 - "hardware_interfaces.h"
+Cohesion: 0.17
+Nodes (9): ActuatorBackend, apply, TemperatureBackend, read, TemperatureReading, celsius, sampled_ms, sensor_open (+1 more)
+
+### Community 56 - "DiameterController"
+Cohesion: 0.33
+Nodes (6): clampf(), DiameterController, integral_, reset, safe_pause_, update
+
+### Community 57 - "shredder_metal_parts"
+Cohesion: 0.29
+Nodes (7): bearing_retainer_plate(), motor_mount_plate(), DRV-01/CUT-07 universal donor plate; donor-specific angles bolt on., Orderable metal part geometry exported by generate.py., shredder_metal_parts(), audit(), main()
+
+### Community 58 - "main"
+Cohesion: 0.50
+Nodes (7): CompletedProcess, git(), load_json(), main(), Path, require_current_hashes(), sha256()
 
 ### Community 59 - "generate.py"
 Cohesion: 0.07
 Nodes (39): main(), dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon() (+31 more)
 
+### Community 60 - "GaugeReading"
+Cohesion: 0.25
+Nodes (8): GaugeReading, calibrated, mean_mm, ovality_mm, u95_mm, valid, x_mm, y_mm
+
+### Community 61 - "main"
+Cohesion: 0.54
+Nodes (7): close(), cpp_method(), digest(), main(), numeric_token(), Path, require()
+
+### Community 62 - "GaugeCalibration"
+Cohesion: 0.29
+Nodes (7): GaugeCalibration, u95_mm, valid, x_mm_per_count, x_offset_adc, y_mm_per_count, y_offset_adc
+
+### Community 63 - "v0.6.1 safety-orchestration 완료 감사"
+Cohesion: 0.29
+Nodes (6): Purge와 계측 경계, v0.6.1 safety-orchestration 완료 감사, 검증 증거, 구현 감사, 기준선과 형상, 독립 gate
+
+### Community 64 - "name"
+Cohesion: 0.29
+Nodes (7): CoolingStartupRequest, FormingChainState, MachineState, MaterialProfile, MaterialSession, SupervisorUiState, name()
+
+### Community 65 - "extruder_screw"
+Cohesion: 0.33
+Nodes (6): extruder_screw(), extruder_screw_process_coupon(), helical_flight_reference(), 1 mm axial-facet quotation ridge with exact pitch and OD envelope., 16 mm, 16 L/D single-start screw with 8D/4D/4D zones. The helical sweep is…, Three-pitch SCM440 supplier coupon; not an operating screw.
+
+### Community 66 - "generate_contract_artifacts.py"
+Cohesion: 0.60
+Nodes (4): digest(), main(), Path, real()
+
+### Community 67 - "TraceMeta"
+Cohesion: 0.40
+Nodes (5): TraceMeta, explicit_restart_issued, fault_reason, nominal_spool_jam, scenario
+
+### Community 68 - "CoolingFeedback"
+Cohesion: 0.67
+Nodes (3): CoolingFeedback, current_amp, valid
+
 ### Community 77 - "manufacturing.py"
-Cohesion: 0.06
-Nodes (67): bearing_retainer_plate(), bearing_side_plate(), cutter_shaft(), gmp60_60127_reference_shape(), hook_disc(), motor_adapter_42gp775_shape(), motor_adapter_gmp60_shape(), motor_mount_plate() (+59 more)
+Cohesion: 0.09
+Nodes (45): motor_adapter_42gp775_shape(), motor_adapter_gmp60_shape(), DRV-A42 plate for the requested 42GP/GMP42 family reference., DRV-A60 plate for the selected GMP60-60127 reference motor., screen_plate(), bolt_on_sprocket_hub(), _flat_panel(), gate1_assembly() (+37 more)
 
 ### Community 222 - "render_views.py"
 Cohesion: 0.16
 Nodes (23): _cycloidal_ease(), cycloidal_hook_profile_points(), Unit cycloid displacement, with zero slope at both ends., Return the controlling asymmetric 7-hook profile points., gate1_render_items(), gui_render(), main(), mesh_render() (+15 more)
 
 ### Community 223 - "ProcessController"
-Cohesion: 0.11
-Nodes (30): MachineState, MaterialProfile, MaterialSession, guardsOk(), MachineState, MaterialProfile, MaterialSession, ProcessController (+22 more)
+Cohesion: 0.06
+Nodes (50): MachineState, MaterialProfile, MaterialSession, guardsOk(), MachineState, MaterialProfile, MaterialSession, ProcessController (+42 more)
 
 ### Community 234 - "ProcessProfile"
 Cohesion: 0.09
 Nodes (22): MaterialProfile, ProcessProfile, diameter_ki, diameter_kp, die_c, external_predry_qualified, fan_percent, feeder_rpm (+14 more)
 
 ### Community 253 - "shredder_control.cpp"
-Cohesion: 0.33
-Nodes (8): clearFault, configureDrive, estimateCutterTorque, latchFault, start, stop, update, main()
+Cohesion: 0.43
+Nodes (6): canClearFault, commitFaultClear, estimateCutterTorque, latchFault, stop, update
 
 ### Community 264 - "연구 설계 동결 인덱스"
 Cohesion: 0.18
@@ -430,9 +527,9 @@ Nodes (19): artifact_count, artifacts, cross_solver_state, empirical_state, empi
 Cohesion: 0.24
 Nodes (12): check(), convergence_result(), main(), parse_frd(), plate_deck(), Path, Use global displacement convergence; clamp-edge stress is singularity sensitive., 120×100×12 mm steel plate; fixed side to bearing-load side screening mesh. (+4 more)
 
-### Community 374 - "main"
-Cohesion: 0.53
-Nodes (5): main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape()
+### Community 374 - "review_keepout_objects"
+Cohesion: 0.22
+Nodes (11): box(), Non-manufacturing motion/service volumes, quarantined from exports., review_keepout_objects(), main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape() (+3 more)
 
 ### Community 376 - "환경 변경 이력"
 Cohesion: 0.18
@@ -442,13 +539,13 @@ Nodes (11): 2026-08-28  control-enclosure 검토 렌더 런타임, 2026-08-28  c
 Cohesion: 0.29
 Nodes (10): first_layer_preview_svg(), gcode_metrics(), main(), normalize_3mf_zip(), parse_time(), Rewrite a slicer 3MF with stable member order and ZIP metadata., Integrate positive filament-E moves tagged as support material., Render the first extrusion layer as a lightweight, reviewable bed SVG. (+2 more)
 
-### Community 415 - "main"
-Cohesion: 0.24
-Nodes (14): cartridge_heater_fit(), cooling_matrix(), diameter_control(), die_relief_screening(), drive_thresholds(), frame_sensitivity(), main(), phase_power_budget() (+6 more)
+### Community 415 - "run_engineering.py"
+Cohesion: 0.21
+Nodes (15): main(), cartridge_heater_fit(), cooling_matrix(), diameter_control(), die_relief_screening(), drive_thresholds(), frame_sensitivity(), main() (+7 more)
 
 ### Community 416 - "ShredderOutput"
-Cohesion: 0.25
-Nodes (6): ShredderOutput, command, estimated_cutter_torque_nm, retry_count, target_rpm, ShredderCommand
+Cohesion: 0.33
+Nodes (5): ShredderOutput, command, estimated_cutter_torque_nm, retry_count, target_rpm
 
 ### Community 417 - "DriveCalibration"
 Cohesion: 0.20
@@ -459,8 +556,8 @@ Cohesion: 0.31
 Nodes (9): 공학 계산 통합 보고  coupled-digital-validation-v05, 공학 계산 통합 보고 — coupled-digital-validation-v0.5, 16 mm  16 LD screw  RPM처리량 sensitivity, 16 mm × 16 L/D screw — RPM/처리량 sensitivity, Flight-tip radial-clearance sensitivity, Cycloidal-derived cutter와 interchangeable drive, Cycloidal-derived cutter와 interchangeable drive, 열·전력·forming screening (+1 more)
 
 ### Community 419 - "summarize_results.py"
-Cohesion: 0.38
-Nodes (15): evaluate(), evaluate_forming(), evaluate_full(), evaluate_power(), evaluate_shredder(), evaluate_thermal(), load(), main() (+7 more)
+Cohesion: 0.26
+Nodes (22): boolean_duration(), evaluate(), evaluate_forming(), evaluate_full(), evaluate_orchestration_supervisor(), evaluate_power(), evaluate_purge(), evaluate_purge_lifecycle() (+14 more)
 
 ### Community 467 - "Compact FreeCAD source"
 Cohesion: 0.36
@@ -479,16 +576,16 @@ Cohesion: 0.29
 Nodes (7): 저비용 물리 Gate, 저비용 물리 Gate, Gate 1 Cutter coupon, Gate 2 Flakefeed coupon, Gate 3 Extruder coldmechanical proof, Gate 4 Hot extrusion, Gate 5 Diameterspool
 
 ### Community 493 - "test_release.py"
-Cohesion: 0.61
-Nodes (7): main(), require(), test_artifacts_and_locks(), test_geometry_budget_and_prints(), test_implementation_and_cross_solver(), test_manufacturing_and_physics(), test_revision_and_stale()
+Cohesion: 0.56
+Nodes (8): main(), require(), test_artifacts_and_locks(), test_geometry_budget_and_prints(), test_implementation_and_cross_solver(), test_manufacturing_and_physics(), test_revision_and_stale(), test_safety_orchestration_closure()
 
 ### Community 494 - "generate_interface_catalog.py"
 Cohesion: 0.53
 Nodes (5): catalog_rows(), main(), Controlling mechanical and thermal interfaces in the active assembly., row(), validate()
 
 ### Community 495 - "ShredderInputs"
-Cohesion: 0.33
-Nodes (6): ShredderInputs, current_amp, cutter_rpm, heater_or_screw_enabled, now_ms, permission_chain_ok
+Cohesion: 0.18
+Nodes (10): clearFault, configureDrive, start, ShredderInputs, current_amp, cutter_rpm, heater_or_screw_enabled, now_ms (+2 more)
 
 ### Community 496 - "Gate1 Assembly"
 Cohesion: 1.00
@@ -595,24 +692,24 @@ Cohesion: 1.00
 Nodes (3): Compact Full Assembly Front, Compact Full Assembly Isometric, Compact Full Assembly Top
 
 ## Knowledge Gaps
-- **557 isolated node(s):** `revision`, `release_state`, `geometry_validation`, `fabrication_validation`, `virtual_physics_validation` (+552 more)
+- **669 isolated node(s):** `revision`, `release_state`, `geometry_validation`, `fabrication_validation`, `virtual_physics_validation` (+664 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **114 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **116 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `f()` connect `generate.py` to `geometry.py`, `manufacturing.py`, `slice_prints.py`, `main`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
-- **Why does `assembly_objects()` connect `geometry.py` to `main`, `generate.py`, `manufacturing.py`, `render_views.py`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **Why does `MachineSupervisor` connect `MachineSupervisor` to `ShredderController`, `HeaterController`, `GaugeController`, `MachineViewState`, `InputSnapshot`, `runtime_supervisor_harness.cpp`, `ActuatorCommands`, `DiameterController`, `ProcessController`?**
+  _High betweenness centrality (0.050) - this node is a cross-community bridge._
+- **Why does `MachineViewState` connect `MachineViewState` to `MachineSupervisor`, `ActuatorCommands`?**
+  _High betweenness centrality (0.018) - this node is a cross-community bridge._
+- **Why does `InputSnapshot` connect `InputSnapshot` to `MachineSupervisor`, `MachineViewState`, `runtime_supervisor_harness.cpp`, `ActuatorCommands`, `hardware_interfaces.h`, `ProcessController`?**
+  _High betweenness centrality (0.016) - this node is a cross-community bridge._
 - **Are the 10 inferred relationships involving `assembly_objects()` (e.g. with `main()` and `main()`) actually correct?**
   _`assembly_objects()` has 10 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 6 inferred relationships involving `gate1_assembly()` (e.g. with `write_gate1_package()` and `gate1_render_items()`) actually correct?**
-  _`gate1_assembly()` has 6 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 2 inferred relationships involving `machine_fabrication_parts()` (e.g. with `write_machine_fabrication_package()` and `main()`) actually correct?**
-  _`machine_fabrication_parts()` has 2 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 33 inferred relationships involving `update` (e.g. with `buildCommands` and `canCompleteCooldown`) actually correct?**
+  _`update` has 33 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `revision`, `release_state`, `geometry_validation` to the rest of the system?**
-  _557 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `ActuatorCommands` be split into smaller, more focused modules?**
-  _Cohesion score 0.04902867715078631 - nodes in this community are weakly interconnected._
+  _669 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `MachineSupervisor` be split into smaller, more focused modules?**
+  _Cohesion score 0.04092071611253197 - nodes in this community are weakly interconnected._

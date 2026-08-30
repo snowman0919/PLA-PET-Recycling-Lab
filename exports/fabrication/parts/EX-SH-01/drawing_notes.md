@@ -1,6 +1,6 @@
 # EX-SH-01 — Three-panel hot-zone shield
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `2 mm 5052 aluminum`
 - process: `laser + two 90deg bends; bond PE`

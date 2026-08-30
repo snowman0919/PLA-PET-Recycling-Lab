@@ -1,6 +1,6 @@
 # EX-DIE-02 — Seven-hole breaker plate
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `304 stainless`
 - process: `wire EDM or laser + double-side lap`

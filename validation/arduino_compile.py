@@ -4,12 +4,17 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import shutil
 import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def cli_candidates() -> list[str]:
@@ -51,12 +56,22 @@ def main() -> None:
     result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
     output = result.stdout + result.stderr
     passed = result.returncode == 0 and "Sketch uses" in output and "Global variables use" in output
+    source_paths = [ROOT / "firmware/arduino_mega/arduino_mega.ino"] + sorted(
+        path for path in (ROOT / "firmware/arduino_mega/src").iterdir()
+        if path.suffix in {".h", ".cpp"}
+    )
     evidence = {
-        "revision": "implementation-crosssolver-v0.6",
+        "revision": "safety-orchestration-closure-v0.6.1",
         "fqbn": "arduino:avr:mega",
         "target": "firmware/arduino_mega/arduino_mega.ino",
         "status": "PASS" if passed else "FAIL",
         "tool_output": output.strip(),
+        "source_hashes": {
+            str(path.relative_to(ROOT)): sha256(path) for path in source_paths
+        },
+        "validator_hashes": {
+            str(Path(__file__).resolve().relative_to(ROOT)): sha256(Path(__file__).resolve())
+        },
     }
     path = ROOT / "validation/results/arduino_mega_compile.json"
     path.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")

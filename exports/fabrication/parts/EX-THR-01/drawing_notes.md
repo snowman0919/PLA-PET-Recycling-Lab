@@ -1,6 +1,6 @@
 # EX-THR-01 — Extruder thrust plate
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `12 mm S45C or SS400`
 - process: `laser rough + bore/seat finish`

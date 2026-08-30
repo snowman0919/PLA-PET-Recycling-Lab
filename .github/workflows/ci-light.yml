@@ -13,15 +13,40 @@ jobs:
           fetch-depth: 0
       - name: Install host build tools
         run: sudo apt-get update && sudo apt-get install -y build-essential
+      - uses: arduino/setup-arduino-cli@v2
+      - name: Install Arduino Mega core
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr@1.8.8
       - name: Configuration and controller contracts
         run: |
           python3 validation/configuration_control.py
           python3 calculations/run_engineering.py
           python3 firmware/arduino_mega/generate_config.py
+          python3 control/generate_contract_artifacts.py
+          python3 validation/orchestration_contract.py
           python3 validation/controller_contract.py
           make -C firmware/arduino_mega test
+          python3 validation/runtime_supervisor.py
+          python3 validation/red_team_orchestration.py
+          python3 validation/arduino_compile.py
           python3 -m compileall -q fusion_worker
       - name: Budget and static syntax
         run: |
           python3 bom/build_budget_views.py
           python3 -m compileall -q artifacts analysis bom calculations control firmware fusion_worker simulation validation
+      - name: Exact-head CI-LIGHT evidence
+        run: python3 validation/exact_head_evidence.py --stage CI-LIGHT
+      - name: Upload exact-head runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: safety-orchestration-v061-ci-light-${{ github.sha }}
+          path: |
+            validation/evidence/exact_head_evidence.json
+            validation/results/runtime_supervisor.json
+            validation/results/runtime_traces/
+            validation/results/orchestration_contract.json
+            validation/results/red_team_orchestration.json
+            validation/results/controller_contract.json
+            validation/results/arduino_mega_compile.json

@@ -67,7 +67,7 @@ def main():
     output = ROOT / "validation/results/assembly_pairwise_collisions.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps({
-        "revision": "implementation-crosssolver-v0.6",
+        "revision": "safety-orchestration-closure-v0.6.1",
         "pair_count": len(objects) * (len(objects) - 1) // 2,
         "tolerance_mm3": TOLERANCE_MM3,
         "overlaps": hits,

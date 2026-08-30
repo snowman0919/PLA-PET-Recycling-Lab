@@ -1,6 +1,6 @@
 # EX-DIE-04 — Sacrificial die relief retainer
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `304 stainless sheet t1.5`
 - process: `laser/waterjet + deburr; no heat treatment`

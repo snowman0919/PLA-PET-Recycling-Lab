@@ -1,6 +1,6 @@
 # FM-GA-01 — Guide roller fixed axle
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `Ø5 h6 stainless shaft`
 - process: `cut/face + E-clip grooves or collars`

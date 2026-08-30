@@ -1,6 +1,6 @@
 # G1J-01 — Reusable jig base plate
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `8 mm donor steel/aluminum plate`
 - process: `laser/drill or donor plate drill template`

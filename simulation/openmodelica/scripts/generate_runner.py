@@ -11,6 +11,9 @@ CRITERIA = json.loads((ROOT / "simulation/openmodelica/acceptance_criteria.json"
 
 
 def duration(name: str) -> tuple[int, int]:
+    if name == "GaugeDropout": return 140, 2800
+    if name == "PullerSaturation": return 100, 2000
+    if name == "OvalityDisturbance": return 100, 2000
     if name == "ThermalFuseLongDuration": return 14400, 3600
     if name in {"MOSFETStuckOn"}: return 7200, 3600
     if name.startswith("HotExtrusionJam"): return 2400, 2400
@@ -19,9 +22,17 @@ def duration(name: str) -> tuple[int, int]:
     if name.startswith("FullSystem"):
         return (1800, 1800) if name in {"FullSystemPLA", "FullSystemPET", "FullSystemGaugeFailure"} else (20, 1000)
     if name in {"GaugeFailureControlledPause", "FeederLossDuringExtrusion", "CoolingLossDuringExtrusion", "SpoolerPermissionLoss"}: return 1800, 1800
+    if name in CRITERIA["scenario_groups"].get("purge", []): return 2200, 2200
+    if name == "PurgeNormalAbortCooldown": return 7, 700
+    if name == "PurgeSuccessfulCompletionCooldown": return 500, 1000
+    if name == "GaugeRequalification": return 2150, 4300
+    if name == "QualityViolationRequalification": return 45, 900
+    if name in {"GaugeLossRundown", "CoolingLossRundown", "SpoolPermissionLossRundown"}: return 1700, 3400
+    if name in {"PullerTachStartupGrace", "PullerTachStartupFailure"}: return 8, 800
     if name in CRITERIA["scenario_groups"]["shredder"]: return 18, 1800
     if name in CRITERIA["scenario_groups"]["forming"]: return 60, 1200
     if name in CRITERIA["scenario_groups"]["spool"]: return 12, 1200
+    if name in {"PreheatRejectsInvalidCoolingFeedback", "PreheatCoolingStartupProbe", "PreheatCoolingProbeDropout", "PurgeCoolingStartupProbe"}: return 7, 700
     return 5, 500
 
 

@@ -1,6 +1,6 @@
 # G1J-P02 — Removable chip collection tray
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `PLA`
 - process: `FDM`

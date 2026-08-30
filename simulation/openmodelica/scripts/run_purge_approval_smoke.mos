@@ -1,0 +1,7 @@
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Complex 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/ModelicaServices 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Modelica 4.0.0/package.mo");
+loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");
+cd("simulation/openmodelica/results/raw");
+simulate(PLA_PET_Recycler.Scenarios.PurgeFeedApprovalMissing,startTime=0,stopTime=20,numberOfIntervals=400,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PurgeFeedApprovalMissing");
+getErrorString();

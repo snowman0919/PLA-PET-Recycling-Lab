@@ -1,6 +1,6 @@
 # DRV-02 — Bolt-on cutter sprocket hub
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `S45C`
 - process: `turn + keyway + PCD drilling`

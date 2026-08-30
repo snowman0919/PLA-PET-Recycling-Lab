@@ -4,6 +4,20 @@ model ProcessArbitrationSystem
   parameter Integer nextState=initialState;
   parameter Real transitionTime=1e9;
   parameter Boolean illegalOverlapRequest=false;
+  parameter Boolean extrusionArmed=true;
+  parameter Boolean wastePathConfirmed=true;
+  parameter Boolean purgeFeedApproved=true;
+  parameter Boolean restartPermission=true;
+  parameter Boolean temperatureChannelsValid=true;
+  parameter Boolean coolingFeedbackValid=true;
+  parameter Real coolingFeedbackDropoutStart=1e9;
+  parameter Real coolingFeedbackDropoutDuration=0;
+  parameter Boolean coolingFeedbackCalibrationValid=true;
+  parameter Boolean driveCalibrationValid=true;
+  parameter Boolean gaugeCalibrationValid=true;
+  parameter Boolean currentSensorCalibrationValid=true;
+  parameter Real cooldownInitialTemperatureC=90;
+  parameter Real cooldownRateCPerS=8;
   discrete Integer processState(start=initialState,fixed=true);
   Boolean requestedShredder;
   Boolean requestedHeater;
@@ -16,6 +30,21 @@ model ProcessArbitrationSystem
   Boolean traverseEnabled;
   Boolean coolingEnabled;
   Boolean overlapBlocked;
+  Boolean phaseStartPermission;
+  Boolean transitionRequestAllowed;
+  Boolean transitionPreconditionsMet;
+  Boolean stateCalibrationReady;
+  Boolean nextCalibrationReady;
+  Boolean coolingStartupProbeRequired;
+  Boolean coolingStartupProbeEligible;
+  Boolean coolingStartupProbeActive;
+  Boolean coolingStartupFeedbackHealthy;
+  Boolean coolingStartupProven;
+  Real coolingStartupHealthyDwell(start=0,fixed=true);
+  Real coolingActuatorCommand(start=0,fixed=true);
+  Real coolingFeedbackCurrent;
+  Real cooldownProcessTemperature;
+  Boolean cooldownComplete;
   Real shredderCurrent(start=0,fixed=true);
   Real shredderMotorPower;
   Real driverLossPower;
@@ -36,29 +65,53 @@ model ProcessArbitrationSystem
   Boolean powerBudgetSafe;
 equation
   when time>=transitionTime then
-    processState=nextState;
+    processState=if coolingStartupProbeRequired then pre(processState) else if GeneratedControl.transitionAllowed[pre(processState),nextState] and nextCalibrationReady and ((nextState<>GeneratedControl.EXTRUSION and nextState<>GeneratedControl.REQUALIFYING) or extrusionArmed) and ((pre(processState)<>GeneratedControl.FAULT and pre(processState)<>GeneratedControl.ESTOP) or nextState<>GeneratedControl.IDLE or restartPermission) and (pre(processState)<>GeneratedControl.COOLDOWN or nextState<>GeneratedControl.IDLE or cooldownComplete) then nextState else pre(processState);
+  elsewhen coolingStartupHealthyDwell>=GeneratedControl.coolingStartupProbeDwell then
+    processState=if coolingStartupProbeEligible and pre(processState)==GeneratedControl.IDLE then nextState else pre(processState);
+  elsewhen time>=transitionTime+GeneratedControl.coolingStartupProbeTimeout then
+    processState=if coolingStartupProbeRequired and coolingStartupProbeEligible and pre(processState)==GeneratedControl.IDLE then GeneratedControl.FAULT else pre(processState);
+  elsewhen cooldownComplete then
+    processState=if pre(processState)==GeneratedControl.COOLDOWN then GeneratedControl.IDLE else pre(processState);
   end when;
-  requestedShredder=GeneratedControl.permissions[processState,1] or illegalOverlapRequest;
-  requestedHeater=GeneratedControl.permissions[processState,3] or illegalOverlapRequest;
+  when not coolingStartupFeedbackHealthy then
+    reinit(coolingStartupHealthyDwell,0);
+  end when;
+  transitionRequestAllowed=GeneratedControl.transitionAllowed[processState,nextState];
+  stateCalibrationReady=(not GeneratedControl.calibrationRequired[processState,1] or driveCalibrationValid) and (not GeneratedControl.calibrationRequired[processState,2] or gaugeCalibrationValid) and (not GeneratedControl.calibrationRequired[processState,3] or currentSensorCalibrationValid) and (not GeneratedControl.calibrationRequired[processState,4] or temperatureChannelsValid) and (not GeneratedControl.calibrationRequired[processState,5] or coolingFeedbackCalibrationValid);
+  nextCalibrationReady=(not GeneratedControl.calibrationRequired[nextState,1] or driveCalibrationValid) and (not GeneratedControl.calibrationRequired[nextState,2] or gaugeCalibrationValid) and (not GeneratedControl.calibrationRequired[nextState,3] or currentSensorCalibrationValid) and (not GeneratedControl.calibrationRequired[nextState,4] or temperatureChannelsValid) and (not GeneratedControl.calibrationRequired[nextState,5] or coolingFeedbackCalibrationValid);
+  coolingStartupProbeRequired=initialState==GeneratedControl.IDLE and GeneratedControl.coolingStartupProbeRequiredByState[nextState];
+  coolingStartupProbeEligible=coolingStartupProbeRequired and GeneratedControl.transitionAllowed[GeneratedControl.IDLE,nextState] and nextCalibrationReady;
+  coolingStartupProbeActive=coolingStartupProbeEligible and processState==GeneratedControl.IDLE and time>=transitionTime and time<transitionTime+GeneratedControl.coolingStartupProbeTimeout;
+  coolingStartupFeedbackHealthy=coolingActuatorCommand>=GeneratedControl.coolingCommandThreshold/100 and coolingFeedbackCurrent>=GeneratedControl.coolingCurrentMinimum and coolingFeedbackCurrent<=GeneratedControl.coolingCurrentMaximum;
+  coolingStartupProven=coolingStartupProbeRequired and processState==nextState and coolingStartupHealthyDwell>=GeneratedControl.coolingStartupProbeDwell;
+  der(coolingStartupHealthyDwell)=if coolingStartupProbeActive and coolingStartupFeedbackHealthy then 1 else 0;
+  cooldownProcessTemperature=max(25,cooldownInitialTemperatureC-cooldownRateCPerS*time);
+  cooldownComplete=temperatureChannelsValid and coolingFeedbackValid and cooldownProcessTemperature<=GeneratedControl.cooldownMaximumProcessTemperature;
+  transitionPreconditionsMet=((nextState<>GeneratedControl.EXTRUSION and nextState<>GeneratedControl.REQUALIFYING) or extrusionArmed) and (not GeneratedControl.calibrationRequired[nextState,5] or coolingFeedbackCalibrationValid) and ((processState<>GeneratedControl.FAULT and processState<>GeneratedControl.ESTOP) or nextState<>GeneratedControl.IDLE or restartPermission) and (processState<>GeneratedControl.COOLDOWN or nextState<>GeneratedControl.IDLE or cooldownComplete);
+  phaseStartPermission=stateCalibrationReady and ((processState<>GeneratedControl.EXTRUSION and processState<>GeneratedControl.REQUALIFYING) or extrusionArmed);
+  requestedShredder=(GeneratedControl.permissions[processState,1] and phaseStartPermission) or illegalOverlapRequest;
+  requestedHeater=(GeneratedControl.permissions[processState,3] and phaseStartPermission) or illegalOverlapRequest;
   shredderEnabled=requestedShredder and processState==GeneratedControl.SHREDDING;
   processHeaterEnabled=requestedHeater and not shredderEnabled and abs(shredderCurrent)<0.5;
-  screwEnabled=GeneratedControl.permissions[processState,2] and not shredderEnabled;
+  screwEnabled=GeneratedControl.permissions[processState,2] and phaseStartPermission and not shredderEnabled and (processState<>GeneratedControl.MAINTENANCE_PURGE or (wastePathConfirmed and purgeFeedApproved));
   feederEnabled=GeneratedControl.permissions[processState,4] and screwEnabled;
-  pullerEnabled=GeneratedControl.permissions[processState,5];
-  spoolerEnabled=GeneratedControl.permissions[processState,6];
-  traverseEnabled=spoolerEnabled;
-  coolingEnabled=GeneratedControl.permissions[processState,7];
+  pullerEnabled=GeneratedControl.permissions[processState,5] and phaseStartPermission and (processState<>GeneratedControl.MAINTENANCE_PURGE or (wastePathConfirmed and purgeFeedApproved));
+  spoolerEnabled=GeneratedControl.permissions[processState,6] and phaseStartPermission;
+  traverseEnabled=GeneratedControl.permissions[processState,7] and phaseStartPermission;
+  coolingEnabled=coolingStartupProbeActive or (GeneratedControl.permissions[processState,8] and phaseStartPermission and (processState<>GeneratedControl.FAULT or coolingFeedbackValid));
+  der(coolingActuatorCommand)=((if coolingEnabled then 1 else 0)-coolingActuatorCommand)/0.02;
+  coolingFeedbackCurrent=if coolingFeedbackValid and not (time>=coolingFeedbackDropoutStart and time<coolingFeedbackDropoutStart+coolingFeedbackDropoutDuration) and coolingActuatorCommand>=GeneratedControl.coolingCommandThreshold/100 then 0.65 else 0.02;
   overlapBlocked=not (shredderEnabled and (screwEnabled or processHeaterEnabled));
 
   der(shredderCurrent)=((if shredderEnabled then 17.2 else 0)-shredderCurrent)/0.35;
   shredderMotorPower=24*max(0,shredderCurrent);
   driverLossPower=if shredderEnabled then 0.08*shredderMotorPower else 0;
-  heaterDuty=if not processHeaterEnabled then 0 else if processState==GeneratedControl.PREHEATING then 1 else max(0.70,min(0.84,0.77+0.07*sin(0.7*time)));
+  heaterDuty=if not processHeaterEnabled then 0 else if processState==GeneratedControl.PREHEATING then 1 else if processState==GeneratedControl.MAINTENANCE_PURGE then max(0.72,min(0.92,0.82+0.10*sin(0.7*time))) else if processState==GeneratedControl.THERMAL_HOLD then max(0.55,min(0.89,0.72+0.17*sin(0.7*time))) else if processState==GeneratedControl.FORMING_CHAIN_RUNDOWN then max(0.60,min(0.89,0.75+0.14*sin(0.7*time))) else if processState==GeneratedControl.REQUALIFYING then max(0.65,min(0.86,0.75+0.11*sin(0.7*time))) else max(0.62,min(0.83,0.72+0.11*sin(0.7*time)));
   heaterPower=360*heaterDuty;
-  screwDrivePower=if screwEnabled then 74+8*sin(1.3*time)^2 else 0;
+  screwDrivePower=if screwEnabled then (if processState==GeneratedControl.MAINTENANCE_PURGE then 38+14*sin(1.3*time)^2 else if processState==GeneratedControl.FORMING_CHAIN_RUNDOWN then 42+18*sin(1.3*time)^2 else if processState==GeneratedControl.REQUALIFYING then 42+28*sin(1.3*time)^2 else 58+17*sin(1.3*time)^2) else 0;
   feederPower=if feederEnabled then 8 else 0;
   pullerPower=if pullerEnabled then 12 else 0;
-  spoolerPower=if spoolerEnabled then 10 else 0;
+  spoolerPower=if spoolerEnabled then 6+4*sin(0.9*time)^2 else 0;
   traversePower=if traverseEnabled then 4 else 0;
   coolingPower=if coolingEnabled then 16 else 0;
   electronicsPower=29;

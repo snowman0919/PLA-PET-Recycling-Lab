@@ -1,6 +1,6 @@
 # EX-BAR-01 — ID16.20 x OD34 barrel
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore`
 - process: `deep drill, stress relieve, ream/hone, port, die-interface thread and sensor bores, nitride, final hone`

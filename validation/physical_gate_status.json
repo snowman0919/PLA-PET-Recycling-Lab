@@ -1,6 +1,7 @@
 {
-  "revision": "implementation-crosssolver-v0.6",
-  "release_state": "IMPLEMENTATION_BASELINE",
+  "revision": "safety-orchestration-closure-v0.6.1",
+  "release_state": "SAFETY_ORCHESTRATION_BASELINE",
+  "implementation_state": "IMPLEMENTATION_BASELINE",
   "geometry_validation": "PASS",
   "fabrication_validation": "PASS",
   "virtual_physics_validation": "PASS",
@@ -8,6 +9,7 @@
   "empirical_validation": "OPTIONAL_NOT_RUN",
   "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
   "design_release_gate": "PASS",
+  "safety_orchestration_release_gate": "PASS",
   "procurement_approval_gate": "USER_APPROVAL_REQUIRED",
   "commissioning_gate": "USER_APPROVAL_REQUIRED",
   "main_promotion_allowed": true,
@@ -24,5 +26,5 @@
   "safety_hardware_purchase_release": false,
   "heater_energizing_release": false,
   "initial_powered_commissioning_release": false,
-  "reason": "디지털 설계 릴리스는 가상 물리 PASS로 성립한다. 경험 시험은 선택적 증거이며 구매·가공·통전·commissioning은 별도 사용자 승인 없이는 금지된다."
+  "reason": "디지털 safety-orchestration 릴리스는 구현·가상 물리·exact-head gate가 모두 통과한 경우에만 성립한다. 경험 시험은 선택적 증거이며 구매·가공·통전·commissioning은 별도 사용자 승인 없이는 금지된다."
 }

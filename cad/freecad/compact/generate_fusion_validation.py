@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the Fusion-neutral v0.6 handoff directly from FreeCAD source shapes."""
+"""Generate the Fusion-neutral v0.6.1 handoff from controlling FreeCAD sources."""
 
 from __future__ import annotations
 
@@ -40,6 +40,8 @@ LOADS = OUT / "loads"
 RESULTS = OUT / "results"
 CORRELATION = ROOT / "analysis" / "cross_solver"
 ENVELOPE_PATH = ROOT / "analysis" / "load_cases" / "openmodelica_dynamic_envelope.json"
+ENGINEERING_LOCK = OUT / "engineering_source_lock.json"
+REVISION = "safety-orchestration-closure-v0.6.1"
 
 
 def sha256(path: Path) -> str:
@@ -171,7 +173,7 @@ def load_cases(envelope: dict, source_sha: str) -> list[dict]:
     for case_id, title, geometry, values in cases:
         payload = {
             "schema_version": "1.0",
-            "revision": "implementation-crosssolver-v0.6",
+            "revision": REVISION,
             "case_id": case_id,
             "title": title,
             "source_git_sha": source_sha,
@@ -192,12 +194,26 @@ def load_cases(envelope: dict, source_sha: str) -> list[dict]:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--source-sha", help="exact committed source revision; default is git HEAD")
+    parser.add_argument(
+        "--source-sha",
+        help="exact committed engineering source; default is the persisted engineering lock, then git HEAD",
+    )
     # FreeCADCmd keeps its own `-c` flag in sys.argv when code is piped to the console.
     args, _freecad_args = parser.parse_known_args()
-    source_sha = args.source_sha or subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    if args.source_sha:
+        source_sha = args.source_sha
+    elif ENGINEERING_LOCK.is_file():
+        source_sha = json.loads(ENGINEERING_LOCK.read_text())["engineering_source_sha"]
+    else:
+        source_sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     if len(source_sha) != 40:
         raise SystemExit("source SHA must be a full 40-character Git object id")
+    commit_check = subprocess.run(
+        ["git", "cat-file", "-e", f"{source_sha}^{{commit}}"], cwd=ROOT,
+        text=True, capture_output=True,
+    )
+    if commit_check.returncode:
+        raise SystemExit("source SHA must resolve to a local Git commit")
     for directory in (GEOMETRY, LOADS, RESULTS, CORRELATION):
         directory.mkdir(parents=True, exist_ok=True)
     envelope = json.loads(ENVELOPE_PATH.read_text())
@@ -220,9 +236,19 @@ def main() -> None:
     )
     shutil.copyfile(OUT / "load_case_manifest.csv", LOADS / "load_case_manifest.csv")
     load_manifest_hash = sha256(OUT / "load_case_manifest.csv")
+    archive_sha = json.loads((ROOT / "cad/parameters/baseline.json").read_text())["geometry_unchanged_from_sha"]
+    ENGINEERING_LOCK.write_text(json.dumps({
+        "revision": REVISION,
+        "engineering_source_sha": source_sha,
+        "archive_v0_6_sha": archive_sha,
+        "geometry_change_required": False,
+        "authority": "exact committed engineering source; not a Fusion result",
+    }, indent=2, sort_keys=True) + "\n")
     run_binding = {
-        "revision": "implementation-crosssolver-v0.6",
+        "revision": REVISION,
+        "engineering_source_sha": source_sha,
         "source_git_sha": source_sha,
+        "supersedes_archive_v0_6_sha": archive_sha,
         "source_tree_sha256": source_tree_hash(),
         "model_manifest_sha256": sha256(OUT / "model_manifest.csv"),
         "load_case_manifest_sha256": load_manifest_hash,
@@ -231,6 +257,12 @@ def main() -> None:
         "required_result_binding": ["source_git_sha", "step_sha256", "load_case_manifest_sha256"],
     }
     (OUT / "run_binding.json").write_text(json.dumps(run_binding, indent=2, sort_keys=True) + "\n")
+    write_csv(
+        OUT / "rerun_delta_report.csv",
+        ["case_id", "geometry", "geometry_changed", "rerun_required", "reason", "result_state"],
+        [[case["case_id"], case["geometry"], "false", "true",
+          "V0.6.1_SOURCE_AND_ORCHESTRATION_BINDING_CHANGED", "PENDING_EXTERNAL_EXECUTION"] for case in cases],
+    )
     result_manifest = {
         **run_binding,
         "runs": [],

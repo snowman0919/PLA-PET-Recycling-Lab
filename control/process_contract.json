@@ -1,47 +1,510 @@
 {
-  "revision": "implementation-crosssolver-v0.6",
+  "revision": "safety-orchestration-closure-v0.6.1",
   "release": {
-    "release_state": "IMPLEMENTATION_BASELINE",
-    "geometry_validation": "PASS",
-    "fabrication_validation": "PASS",
+    "release_state": "SAFETY_ORCHESTRATION_BASELINE",
+    "implementation_state": "IMPLEMENTATION_BASELINE",
     "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
-    "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
-    "cross_solver_state": "CROSS_SOLVER_VALIDATION_PENDING"
+    "cross_solver_state": "CROSS_SOLVER_VALIDATION_PENDING",
+    "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
   },
+  "actuator_order": [
+    "shredder",
+    "screw",
+    "process_heaters",
+    "feeder",
+    "puller",
+    "spooler",
+    "traverse",
+    "cooling"
+  ],
   "states": {
-    "IDLE": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": false},
-    "SHREDDING": {"shredder": true, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": false},
-    "PREHEATING": {"shredder": false, "screw": false, "process_heaters": true, "feeder": false, "puller": false, "spooler": false, "cooling": true},
-    "EXTRUSION": {"shredder": false, "screw": true, "process_heaters": true, "feeder": true, "puller": true, "spooler": true, "cooling": true},
-    "COOLDOWN": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": true},
-    "FAULT": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": true},
-    "ESTOP": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": false}
+    "IDLE": {
+      "shredder": false,
+      "screw": false,
+      "process_heaters": false,
+      "feeder": false,
+      "puller": false,
+      "spooler": false,
+      "traverse": false,
+      "cooling": false
+    },
+    "SHREDDING": {
+      "shredder": true,
+      "screw": false,
+      "process_heaters": false,
+      "feeder": false,
+      "puller": false,
+      "spooler": false,
+      "traverse": false,
+      "cooling": false
+    },
+    "PREHEATING": {
+      "shredder": false,
+      "screw": false,
+      "process_heaters": true,
+      "feeder": false,
+      "puller": false,
+      "spooler": false,
+      "traverse": false,
+      "cooling": true
+    },
+    "EXTRUSION": {
+      "shredder": false,
+      "screw": true,
+      "process_heaters": true,
+      "feeder": true,
+      "puller": true,
+      "spooler": true,
+      "traverse": true,
+      "cooling": true
+    },
+    "MAINTENANCE_PURGE": {
+      "shredder": false,
+      "screw": true,
+      "process_heaters": true,
+      "feeder": true,
+      "puller": true,
+      "spooler": false,
+      "traverse": false,
+      "cooling": true
+    },
+    "FORMING_CHAIN_RUNDOWN": {
+      "shredder": false,
+      "screw": true,
+      "process_heaters": true,
+      "feeder": false,
+      "puller": true,
+      "spooler": false,
+      "traverse": false,
+      "cooling": true
+    },
+    "THERMAL_HOLD": {
+      "shredder": false,
+      "screw": false,
+      "process_heaters": true,
+      "feeder": false,
+      "puller": false,
+      "spooler": false,
+      "traverse": false,
+      "cooling": true
+    },
+    "REQUALIFYING": {
+      "shredder": false,
+      "screw": true,
+      "process_heaters": true,
+      "feeder": true,
+      "puller": true,
+      "spooler": false,
+      "traverse": false,
+      "cooling": true
+    },
+    "COOLDOWN": {
+      "shredder": false,
+      "screw": false,
+      "process_heaters": false,
+      "feeder": false,
+      "puller": false,
+      "spooler": false,
+      "traverse": false,
+      "cooling": true
+    },
+    "FAULT": {
+      "shredder": false,
+      "screw": false,
+      "process_heaters": false,
+      "feeder": false,
+      "puller": false,
+      "spooler": false,
+      "traverse": false,
+      "cooling": true
+    },
+    "ESTOP": {
+      "shredder": false,
+      "screw": false,
+      "process_heaters": false,
+      "feeder": false,
+      "puller": false,
+      "spooler": false,
+      "traverse": false,
+      "cooling": false
+    }
   },
   "transitions": {
-    "IDLE": ["SHREDDING", "PREHEATING", "FAULT", "ESTOP"],
-    "SHREDDING": ["IDLE", "PREHEATING", "FAULT", "ESTOP"],
-    "PREHEATING": ["EXTRUSION", "COOLDOWN", "FAULT", "ESTOP"],
-    "EXTRUSION": ["COOLDOWN", "FAULT", "ESTOP"],
-    "COOLDOWN": ["IDLE", "FAULT", "ESTOP"],
-    "FAULT": ["IDLE", "ESTOP"],
-    "ESTOP": ["IDLE"]
+    "IDLE": [
+      "SHREDDING",
+      "PREHEATING",
+      "MAINTENANCE_PURGE",
+      "FAULT",
+      "ESTOP"
+    ],
+    "SHREDDING": [
+      "IDLE",
+      "PREHEATING",
+      "FAULT",
+      "ESTOP"
+    ],
+    "PREHEATING": [
+      "REQUALIFYING",
+      "COOLDOWN",
+      "FAULT",
+      "ESTOP"
+    ],
+    "EXTRUSION": [
+      "FORMING_CHAIN_RUNDOWN",
+      "REQUALIFYING",
+      "COOLDOWN",
+      "FAULT",
+      "ESTOP"
+    ],
+    "MAINTENANCE_PURGE": [
+      "IDLE",
+      "COOLDOWN",
+      "FAULT",
+      "ESTOP"
+    ],
+    "FORMING_CHAIN_RUNDOWN": [
+      "THERMAL_HOLD",
+      "FAULT",
+      "ESTOP"
+    ],
+    "THERMAL_HOLD": [
+      "REQUALIFYING",
+      "COOLDOWN",
+      "FAULT",
+      "ESTOP"
+    ],
+    "REQUALIFYING": [
+      "EXTRUSION",
+      "FORMING_CHAIN_RUNDOWN",
+      "COOLDOWN",
+      "FAULT",
+      "ESTOP"
+    ],
+    "COOLDOWN": [
+      "IDLE",
+      "FAULT",
+      "ESTOP"
+    ],
+    "FAULT": [
+      "IDLE",
+      "ESTOP"
+    ],
+    "ESTOP": [
+      "IDLE"
+    ]
   },
   "material_session": {
-    "states": ["CLEAN", "PLA_ACTIVE", "PET_ACTIVE", "PURGE_REQUIRED", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED", "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED"],
-    "change_sequence": ["PURGE_REQUIRED", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED", "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED"],
-    "start_requires": ["process_phase_IDLE", "feed_stopped", "screw_stopped"],
-    "completion_requires": ["ordered_acknowledgements", "explicit_final_confirmation"],
-    "production_allowed": ["PLA_ACTIVE", "PET_ACTIVE"]
+    "states": [
+      "CLEAN",
+      "PLA_ACTIVE",
+      "PET_ACTIVE",
+      "PURGE_PREHEAT_REQUIRED",
+      "PURGE_READY_CONFIRM_REQUIRED",
+      "PURGE_RUNNING",
+      "SCREEN_CLEAN_REQUIRED",
+      "HOPPER_CLEAN_REQUIRED",
+      "TEMPERATURE_TRANSITION_REQUIRED",
+      "FINAL_CONFIRM_REQUIRED"
+    ],
+    "change_sequence": [
+      "PURGE_PREHEAT_REQUIRED",
+      "PURGE_READY_CONFIRM_REQUIRED",
+      "PURGE_RUNNING",
+      "SCREEN_CLEAN_REQUIRED",
+      "HOPPER_CLEAN_REQUIRED",
+      "TEMPERATURE_TRANSITION_REQUIRED",
+      "FINAL_CONFIRM_REQUIRED"
+    ],
+    "start_requires": [
+      "process_phase_IDLE_or_PREHEATING",
+      "previous_material_thermal_profile_active",
+      "thermal_chain_healthy",
+      "cooling_feedback_calibrated"
+    ],
+    "purge_feed_requires": [
+      "cooling_startup_probe_proven",
+      "waste_path_confirmed",
+      "single_use_feed_approval",
+      "screw_drive_healthy"
+    ],
+    "completion_requires": [
+      "minimum_elapsed_time",
+      "minimum_screw_revolutions",
+      "stable_temperature_band",
+      "no_pressure_or_drive_fault",
+      "operator_visual_confirmation",
+      "ordered_cleaning_acknowledgements",
+      "explicit_final_confirmation"
+    ],
+    "production_allowed": [
+      "PLA_ACTIVE",
+      "PET_ACTIVE"
+    ],
+    "pending_material_activation": "only_after_FINAL_CONFIRM_REQUIRED_commit"
   },
-  "hardware": {
-    "temperature_channels": ["T1", "T2", "T3", "Tdie", "Thopper"],
-    "temperature_backend": "ungrounded_K_type_MAX6675_common_reference",
-    "shredder_driver": "PWM_DIR_ENABLE_HBRIDGE",
-    "screw_driver": "PWM_DIR_ENABLE_DC_GEARED_MOTOR_PROVISIONAL_DONOR",
-    "puller_driver": "PWM_DIR_WITH_TACH",
-    "spooler_driver": "PWM_DIR_WITH_DANCER_SAFE_PAUSE",
-    "traverse_driver": "STEP_DIR_ENABLE",
-    "gauge": "dual_axis_ADC_calibrated_U95"
+  "calibration_readiness": {
+    "drive": {
+      "required_for": [
+        "SHREDDING"
+      ],
+      "independent_from": [
+        "material_selection",
+        "gauge"
+      ]
+    },
+    "current_sensor": {
+      "required_for": [
+        "SHREDDING"
+      ],
+      "independent_from": [
+        "material_selection",
+        "drive"
+      ]
+    },
+    "gauge": {
+      "required_for": [
+        "PREHEATING",
+        "EXTRUSION",
+        "REQUALIFYING"
+      ],
+      "independent_from": [
+        "material_selection",
+        "drive"
+      ]
+    },
+    "temperature_channels": {
+      "required_for": [
+        "PREHEATING",
+        "EXTRUSION",
+        "MAINTENANCE_PURGE",
+        "REQUALIFYING"
+      ],
+      "channels": [
+        "T1",
+        "T2",
+        "T3",
+        "Tdie",
+        "Thopper"
+      ]
+    },
+    "cooling_feedback": {
+      "required_for": [
+        "PREHEATING",
+        "EXTRUSION",
+        "MAINTENANCE_PURGE",
+        "REQUALIFYING"
+      ],
+      "readiness_kind": "CALIBRATION_ONLY_NOT_LIVE_HEALTH",
+      "independent_from": [
+        "material_selection",
+        "gauge"
+      ]
+    },
+    "state_requirements": {
+      "SHREDDING": [
+        "drive",
+        "current_sensor"
+      ],
+      "PREHEATING": [
+        "gauge",
+        "temperature_channels",
+        "cooling_feedback"
+      ],
+      "EXTRUSION": [
+        "gauge",
+        "temperature_channels",
+        "cooling_feedback"
+      ],
+      "MAINTENANCE_PURGE": [
+        "temperature_channels",
+        "cooling_feedback"
+      ],
+      "REQUALIFYING": [
+        "gauge",
+        "temperature_channels",
+        "cooling_feedback"
+      ]
+    },
+    "material_selection_does_not_imply_calibration": true
+  },
+  "extrusion_arm": {
+    "explicit_operator_action_required": true,
+    "preheat_ready_does_not_auto_start": true,
+    "arm_consumed_on_start_or_fault": true
+  },
+  "cooldown_completion": {
+    "max_process_temperature_c": 60.0,
+    "required_channels": [
+      "T1",
+      "T2",
+      "T3",
+      "Tdie"
+    ],
+    "all_channels_valid_required": true,
+    "cooling_feedback_valid_required": true,
+    "completion_transition": "IDLE",
+    "automatic_when_satisfied": true
+  },
+  "purge": {
+    "process_phase": "MAINTENANCE_PURGE",
+    "previous_material_remains_active": true,
+    "waste_path_confirmation_required": true,
+    "feed_approval_single_use": true,
+    "feed_approval_consumed_on": [
+      "completion",
+      "abort",
+      "new_material_change_request"
+    ],
+    "stale_feed_approval_reuse_forbidden": true,
+    "completion_is_mass_measured": false,
+    "nominal_mass_estimates_g": {
+      "PLA_to_PET": 120,
+      "PET_to_PLA": 80
+    },
+    "minimum_elapsed_s": 120.0,
+    "minimum_screw_revolutions": 32.0,
+    "screw_revolution_evidence": "COMMAND_DERIVED_ESTIMATE_NOT_MEASURED",
+    "revolution_estimate_invalidated_by_driver_fault": true,
+    "screw_scale": 0.25,
+    "stable_temperature_band_c": 5.0,
+    "operator_visual_confirmation_required": true,
+    "abort_requires_safe_session_recovery": true,
+    "hot_termination": {
+      "normal_stop_pause_abort": {
+        "material_session_transition": "PURGE_PREHEAT_REQUIRED",
+        "process_transition": "COOLDOWN",
+        "pending_material_preserved": true,
+        "automatic_restart_forbidden": true
+      },
+      "successful_completion": {
+        "material_session_transition": "SCREEN_CLEAN_REQUIRED",
+        "process_transition": "COOLDOWN",
+        "cleaning_acknowledgements_require_process_state": "IDLE"
+      },
+      "cooldown_permissions": "cooling_only_when_feedback_healthy",
+      "cooldown_exit": "cooldown_completion",
+      "estop_is_separate_all_zero": true
+    }
+  },
+  "forming_chain": {
+    "states": [
+      "NORMAL",
+      "RUNDOWN",
+      "THERMAL_HOLD",
+      "REQUALIFYING",
+      "READY_TO_RETHREAD",
+      "LATCHED_FAULT"
+    ],
+    "fault_reasons": [
+      "NONE",
+      "GAUGE_INVALID",
+      "GAUGE_UNCERTAINTY_INVALID",
+      "COOLING_FAILURE",
+      "PULLER_DRIVER_FAILURE",
+      "PULLER_TACH_FAILURE",
+      "SPOOLER_DRIVER_FAILURE",
+      "DANCER_CONTROLLED_STOP",
+      "DANCER_HARD_LIMIT",
+      "TRAVERSE_PERMISSION_LOSS"
+    ],
+    "rundown_duration_s": 10.0,
+    "thermal_hold_duration_s": 60.0,
+    "operator_rethread_confirmation_required": true
+  },
+  "requalification": {
+    "minimum_consecutive_valid_samples": 20,
+    "gauge_sample_period_s": 0.2,
+    "u95_max_mm": 0.03,
+    "diameter_target_mm": 1.75,
+    "diameter_tolerance_mm": 0.05,
+    "diameter_stable_duration_s": 10.0,
+    "ovality_max_mm": 0.05,
+    "ovality_stable_duration_s": 10.0,
+    "transport_delay_s": {
+      "PLA": 26.7,
+      "PET": 28.6
+    },
+    "transport_delay_physical_minimum_s": {
+      "PLA": 13.3,
+      "PET": 14.9
+    },
+    "transport_delay_basis": "248 mm die-to-gauge distance; qualification delay uses release nominal approximately 100 g/h line speed (PLA 0.00928 m/s, PET 0.00866 m/s); physical minimum is the 200 g/h DIGITAL_STRETCH_TARGET and is not accepted for release requalification",
+    "requires": [
+      "puller_not_saturated",
+      "cooling_feedback_valid",
+      "operator_rethread_confirmation"
+    ],
+    "quality_violation_policy": {
+      "conditions": [
+        "absolute_mean_diameter_error_gt_0.05_mm",
+        "ovality_gt_0.05_mm",
+        "puller_saturated"
+      ],
+      "new_fault_reason": false,
+      "normal_action": "SAME_SUPERVISOR_CYCLE_SPOOL_INELIGIBLE_WASTE_AND_REQUALIFYING",
+      "requalifying_action": "RESET_ALL_COUNTERS_AND_STABILITY_TIMERS_WITHOUT_RUNDOWN",
+      "production_flow_permissions": "HEATER_SCREW_PULLER_TO_WASTE",
+      "winding_restore_requires": "FULL_THRESHOLDS_AND_EXPLICIT_RETHREAD",
+      "manual_rethread_requires_fresh_preflight": true
+    }
+  },
+  "spool_eligibility": {
+    "initially_false_until_qualified": true,
+    "false_states": [
+      "RUNDOWN",
+      "THERMAL_HOLD",
+      "REQUALIFYING",
+      "READY_TO_RETHREAD",
+      "LATCHED_FAULT"
+    ],
+    "invalid_interval_must_be_waste": true,
+    "spooler_and_traverse_require_eligibility": true
+  },
+  "dancer": {
+    "warning_rad": 0.32,
+    "controlled_stop_rad": 0.36,
+    "mechanical_hard_stop_rad": 0.4363,
+    "hard_stop_stiffness_nm_per_rad": 40.0,
+    "hard_stop_damping_nms_per_rad": 0.35,
+    "nominal_jam_must_stop_before_hard_stop": true
+  },
+  "cooling_feedback": {
+    "backend": "fan_current_feedback_analog",
+    "command_threshold_percent": 40.0,
+    "healthy_current_window_a": [
+      0.2,
+      2.0
+    ],
+    "fault_dwell_s": 1.5,
+    "command_is_not_health_evidence": true,
+    "idle_fan_off_feedback_invalid_is_normal": true,
+    "startup_probe": {
+      "request_origin_state": "IDLE",
+      "required_for_requested_phases": [
+        "PREHEATING",
+        "MAINTENANCE_PURGE"
+      ],
+      "fan_only_during_probe": true,
+      "command_percent_by_material": {
+        "PLA": 100.0,
+        "PET": 100.0
+      },
+      "healthy_feedback_dwell_s": 1.5,
+      "timeout_s": 3.0,
+      "success_commits_requested_phase": true,
+      "failure_transition": "FAULT",
+      "inhibited_until_proven": [
+        "process_heaters",
+        "screw",
+        "feeder",
+        "puller",
+        "spooler",
+        "traverse"
+      ],
+      "clear_does_not_require_live_feedback_when_fan_off": true,
+      "next_start_requires_new_probe": true,
+      "automatic_restart_forbidden": true
+    }
   },
   "heater_control": {
     "sample_period_ms": 250,
@@ -54,11 +517,36 @@
     "unexpected_rise_dwell_ms": 60000,
     "unexpected_rise_c": 8.0,
     "output_limit_percent": 100.0,
-    "process_heater_allowed_phases": ["PREHEATING", "EXTRUSION"]
+    "process_heater_allowed_phases": [
+      "PREHEATING",
+      "EXTRUSION",
+      "MAINTENANCE_PURGE",
+      "FORMING_CHAIN_RUNDOWN",
+      "THERMAL_HOLD",
+      "REQUALIFYING"
+    ]
   },
   "materials": {
-    "PLA": {"shredder_rpm": 32, "screw_rpm": 16, "fan_percent": 100, "virtual_throughput_gph": 99.4, "overload_dwell_ms": 650, "reverse_ms": 800, "shredder_duty_bias": 0.10, "shredder_speed_kp": 0.08},
-    "PET": {"shredder_rpm": 24, "screw_rpm": 18, "fan_percent": 100, "virtual_throughput_gph": 97.5, "overload_dwell_ms": 850, "reverse_ms": 1100, "shredder_duty_bias": 0.115, "shredder_speed_kp": 0.06}
+    "PLA": {
+      "shredder_rpm": 32,
+      "screw_rpm": 16,
+      "fan_percent": 100,
+      "virtual_throughput_gph": 99.4,
+      "overload_dwell_ms": 650,
+      "reverse_ms": 800,
+      "shredder_duty_bias": 0.1,
+      "shredder_speed_kp": 0.08
+    },
+    "PET": {
+      "shredder_rpm": 24,
+      "screw_rpm": 18,
+      "fan_percent": 100,
+      "virtual_throughput_gph": 97.5,
+      "overload_dwell_ms": 850,
+      "reverse_ms": 1100,
+      "shredder_duty_bias": 0.115,
+      "shredder_speed_kp": 0.06
+    }
   },
   "jam": {
     "equation": "startup_grace_elapsed AND (torque_overload OR (current_sensor_saturated AND rpm_deficit))",
@@ -72,34 +560,347 @@
     "restart_requires_manual_reset": true
   },
   "shredder_speed_control": {
-    "duty_limit": 0.90,
-    "command_filter_s": 1.20,
+    "duty_limit": 0.9,
+    "command_filter_s": 1.2,
     "measurement_filter_s": 0.25
+  },
+  "drive_reference_calibration": {
+    "no_load_current_a": 0.75,
+    "torque_per_amp_nm": 1.316,
+    "motor_to_cutter_ratio": 2.5,
+    "drivetrain_efficiency": 0.85,
+    "status": "REFERENCE_ONLY_RECALCULATE_AFTER_DONOR_CALIBRATION"
   },
   "power": {
     "voltage_v": 24.0,
     "psu_rating_w": 600.0,
     "normal_phase_peak_limit_w": 500.0,
     "minimum_reserve_w": 100.0,
+    "component_order": [
+      "shredder_motor",
+      "driver_loss",
+      "process_heaters",
+      "screw_drive",
+      "feeder",
+      "puller",
+      "spooler",
+      "traverse",
+      "cooling",
+      "electronics"
+    ],
+    "heater_peak_cap_w": {
+      "IDLE": 0,
+      "SHREDDING": 0,
+      "PREHEATING": 360,
+      "EXTRUSION": 300,
+      "MAINTENANCE_PURGE": 330,
+      "FORMING_CHAIN_RUNDOWN": 320,
+      "THERMAL_HOLD": 320,
+      "REQUALIFYING": 310,
+      "COOLDOWN": 0,
+      "FAULT": 0,
+      "ESTOP": 0
+    },
+    "permission_policy": "aggregate process-heater output is capped before actuator application; component-summed instantaneous peak must remain <=500 W with >=100 W PSU reserve",
     "phases": {
-      "SHREDDING": {"average_w": 310.0, "peak_w": 477.0},
-      "PREHEATING": {"average_w": 300.0, "peak_w": 405.0},
-      "EXTRUSION": {"average_w": 340.0, "peak_w": 490.0},
-      "COOLDOWN": {"average_w": 36.0, "peak_w": 61.0}
+      "SHREDDING": {
+        "components_average_w": [
+          260,
+          21,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          29
+        ],
+        "components_peak_w": [
+          415,
+          33,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          29
+        ],
+        "average_w": 310,
+        "peak_w": 477
+      },
+      "PREHEATING": {
+        "components_average_w": [
+          0,
+          0,
+          255,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          360,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 300,
+        "peak_w": 405
+      },
+      "EXTRUSION": {
+        "components_average_w": [
+          0,
+          0,
+          225,
+          40,
+          8,
+          12,
+          6,
+          4,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          300,
+          75,
+          8,
+          12,
+          10,
+          4,
+          16,
+          29
+        ],
+        "average_w": 340,
+        "peak_w": 454
+      },
+      "MAINTENANCE_PURGE": {
+        "components_average_w": [
+          0,
+          0,
+          270,
+          38,
+          8,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          330,
+          52,
+          8,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 373,
+        "peak_w": 447
+      },
+      "FORMING_CHAIN_RUNDOWN": {
+        "components_average_w": [
+          0,
+          0,
+          260,
+          42,
+          0,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          320,
+          60,
+          0,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 359,
+        "peak_w": 437
+      },
+      "THERMAL_HOLD": {
+        "components_average_w": [
+          0,
+          0,
+          260,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          320,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 305,
+        "peak_w": 365
+      },
+      "REQUALIFYING": {
+        "components_average_w": [
+          0,
+          0,
+          250,
+          42,
+          8,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          310,
+          70,
+          8,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 357,
+        "peak_w": 445
+      },
+      "COOLDOWN": {
+        "components_average_w": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 36,
+        "peak_w": 45
+      }
     }
   },
   "safety_invariants": [
-    "shredder_drive_safe",
-    "screw_drive_safe",
-    "heater_safe",
-    "feeder_safe",
-    "puller_safe",
-    "spooler_safe",
+    "shredder_never_overlaps_screw_or_heaters",
+    "spooler_and_traverse_require_spool_eligible",
+    "pending_material_not_active_before_final_confirmation",
+    "forming_fault_requires_rundown_and_requalification",
+    "cooling_feedback_required_for_production",
+    "hard_stop_not_nominal_jam_success",
     "power_budget_safe",
-    "mechanical_fuse_state_safe",
     "restart_inhibited",
-    "guard_chain_safe"
+    "atomic_fault_clear_has_no_partial_state_change",
+    "failed_start_rolls_back_phase_and_outputs",
+    "heater_requires_permission_feedback_and_valid_sensor",
+    "estop_zeros_hazardous_outputs_within_one_supervisor_cycle",
+    "no_implicit_restart_after_fault_or_estop",
+    "cooling_startup_requires_consecutive_fan_only_proof",
+    "hot_purge_termination_requires_cooldown"
   ],
+  "safety_invariant_evidence": {
+    "atomic_fault_clear_has_no_partial_state_change": {
+      "canonical_gate": "transitions.FAULT_to_IDLE_requires_restart_permission",
+      "modelica_scenario": "AtomicFaultClearNoPartial",
+      "production_test": "test_machine_supervisor atomic refused clear"
+    },
+    "failed_start_rolls_back_phase_and_outputs": {
+      "canonical_gate": "extrusion_arm.explicit_operator_action_required",
+      "modelica_scenario": "PreheatRequiresExplicitExtrusionArm",
+      "production_test": "test_machine_supervisor failed start rollback"
+    },
+    "heater_requires_permission_feedback_and_valid_sensor": {
+      "canonical_gate": "heater_control sensor and permission feedback",
+      "modelica_scenarios": [
+        "SensorOpen",
+        "PurgeHeaterFault"
+      ],
+      "production_test": "test_heater_control"
+    },
+    "estop_zeros_hazardous_outputs_within_one_supervisor_cycle": {
+      "maximum_cycle_s": 0.25,
+      "modelica_scenarios": [
+        "EmergencyStop",
+        "PurgeEmergencyStop"
+      ],
+      "production_test": "test_machine_supervisor E-stop one-cycle zero"
+    },
+    "no_implicit_restart_after_fault_or_estop": {
+      "canonical_gate": "restart_permission",
+      "modelica_scenario": "AtomicFaultClearNoPartial",
+      "production_test": "test_machine_supervisor no implicit restart"
+    },
+    "cooling_startup_requires_consecutive_fan_only_proof": {
+      "canonical_gate": "cooling_feedback.startup_probe",
+      "normal_idle_semantics": "fan_off_feedback_invalid_is_normal",
+      "precommit_inhibition": "heater_screw_feed_puller_spool_traverse_zero",
+      "timeout_action": "FAULT_NO_AUTOMATIC_RESTART",
+      "modelica_scenarios": [
+        "PreheatCoolingStartupProbe",
+        "PreheatCoolingProbeDropout",
+        "PurgeCoolingStartupProbe",
+        "PreheatRejectsInvalidCoolingFeedback"
+      ],
+      "production_test": "test_machine_supervisor cooling startup probe consecutive dwell and timeout"
+    },
+    "hot_purge_termination_requires_cooldown": {
+      "canonical_gate": "purge.hot_termination",
+      "modelica_scenarios": [
+        "PurgeNormalAbortCooldown",
+        "PurgeSuccessfulCompletionCooldown",
+        "PurgeEmergencyStop"
+      ],
+      "production_test": "test_machine_supervisor purge abort and completion cooldown"
+    }
+  },
   "quality": {
     "target_diameter_mm": 1.75,
     "initial_tolerance_mm": 0.05,
@@ -107,7 +908,8 @@
     "acceptance_label": "VIRTUAL_DIAMETER_CONTROL_PASS"
   },
   "gates": {
-    "main_depends_on": ["DESIGN_RELEASE_GATE"],
+    "safety_orchestration": "DIGITAL_EVIDENCE_REQUIRED",
+    "cross_solver": "CROSS_SOLVER_VALIDATION_PENDING",
     "procurement": "USER_APPROVAL_REQUIRED",
     "commissioning": "USER_APPROVAL_REQUIRED",
     "empirical_procedures": "OPTIONAL_EMPIRICAL_VALIDATION"

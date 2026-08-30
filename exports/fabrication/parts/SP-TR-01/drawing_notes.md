@@ -1,6 +1,6 @@
 # SP-TR-01 — Traverse rod end plate
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `2`
 - material: `5 mm 6061-T6`
 - process: `waterjet + ream`

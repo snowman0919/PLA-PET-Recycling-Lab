@@ -23,6 +23,7 @@ struct GaugeReading {
 
 struct ActuatorCommands {
   int16_t shredder_pwm;
+  bool feeder_enable;
   int16_t screw_pwm;
   int16_t puller_pwm;
   int16_t spooler_pwm;
@@ -32,6 +33,17 @@ struct ActuatorCommands {
   bool traverse_enable;
   bool heater_on[4];
   bool hopper_ptc_on;
+};
+
+struct CoolingFeedback {
+  float current_amp;
+  bool valid;
+};
+
+class CoolingFeedbackBackend {
+ public:
+  virtual ~CoolingFeedbackBackend() = default;
+  virtual CoolingFeedback read(uint32_t now_ms) = 0;
 };
 
 class TemperatureBackend {

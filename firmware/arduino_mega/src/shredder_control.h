@@ -27,9 +27,15 @@ class ShredderController {
   bool start(const ProcessProfile& profile, const ShredderInputs& inputs);
   ShredderOutput update(const ShredderInputs& inputs);
   void stop();
+  bool canClearFault(bool physical_lockout_confirmed, const ShredderInputs& inputs) const;
   bool clearFault(bool physical_lockout_confirmed, const ShredderInputs& inputs);
+  bool faultLatched() const { return command_ == ShredderCommand::FAULT_LATCHED; }
+  bool calibrationValid() const { return calibration_configured_; }
+  ShredderCommand command() const { return command_; }
 
  private:
+  friend class MachineSupervisor;
+  void commitFaultClear();
   void latchFault();
   float estimateCutterTorque(float current_amp) const;
   const ProcessProfile* profile_{nullptr};

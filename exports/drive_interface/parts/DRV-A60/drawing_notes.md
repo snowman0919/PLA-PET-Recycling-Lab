@@ -1,6 +1,6 @@
 # DRV-A60 — GMP60-60127 selected adapter plate
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `6 mm SS400 steel`
 - process: `laser + drill/ream`

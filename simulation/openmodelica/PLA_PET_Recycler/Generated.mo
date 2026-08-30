@@ -1,8 +1,8 @@
 within PLA_PET_Recycler;
 package Generated
 package CADParameters
-  constant String revision = "implementation-crosssolver-v0.6";
-  constant String baselineSHA256 = "e2ad3cb555a046e8bf371e019cd3822f1eef767aa1fbdcd4fd870539c8c67b64";
+  constant String revision = "safety-orchestration-closure-v0.6.1";
+  constant String baselineSHA256 = "1fd09206bc13289febe49647bcac55c6d3bf54c2fae6f36bdc10399a0c8304e6";
   constant Real cutterDiscMass = 0.0684185363429 "kg";
   constant Real cutterRotorMass = 1.1752119536 "kg";
   constant Real cutterRotorJ = 0.000255685606089 "kg.m2";

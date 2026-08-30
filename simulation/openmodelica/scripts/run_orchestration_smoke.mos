@@ -1,0 +1,12 @@
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Complex 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/ModelicaServices 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Modelica 4.0.0/package.mo");
+loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");
+cd("simulation/openmodelica/results/raw");
+simulate(PLA_PET_Recycler.Scenarios.FullSystemPLA,startTime=0,stopTime=10,numberOfIntervals=100,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokeFullSystemPLA");
+simulate(PLA_PET_Recycler.Scenarios.GaugeRequalification,startTime=0,stopTime=2150,numberOfIntervals=4300,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokeGaugeRequalification");
+simulate(PLA_PET_Recycler.Scenarios.PurgePLAtoPET,startTime=0,stopTime=2200,numberOfIntervals=2200,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokePurgePLAtoPET");
+simulate(PLA_PET_Recycler.Scenarios.DancerPrelimitStop,startTime=0,stopTime=12,numberOfIntervals=1200,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokeDancerPrelimitStop");
+simulate(PLA_PET_Recycler.Scenarios.CoolingLossRundown,startTime=0,stopTime=1700,numberOfIntervals=3400,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokeCoolingLossRundown");
+simulate(PLA_PET_Recycler.Scenarios.PurgeCoolingFault,startTime=0,stopTime=2200,numberOfIntervals=2200,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokePurgeCoolingFault");
+getErrorString();

@@ -1,6 +1,6 @@
 # DRV-F01P — Replaceable waisted shear pin coupon
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `6`
 - material: `C360/CuZn39Pb3 brass`
 - process: `turn waist to released digital baseline; optional coupon correlation may refine later`

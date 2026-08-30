@@ -1,6 +1,6 @@
 # TH-PTC-EL — Hopper maintenance PTC element
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `4`
 - material: `24 V ceramic PTC`
 - process: `purchased candidate + single-element calorimetry`

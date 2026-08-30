@@ -84,13 +84,14 @@ def main():
     require(physical["optional_gate1_result"] == "NOT_RUN", "unreviewed optional empirical Gate-1 state")
     require(not physical["full_cutter_order_release"], "full cutter order accidentally released")
     require(not physical["full_screw_barrel_order_release"], "full screw/barrel order accidentally released")
-    require(physical["main_promotion_allowed"] and physical["design_release_gate"] == "PASS", "digital design release incorrectly blocked")
+    require(physical["main_promotion_allowed"] and physical["design_release_gate"] == "PASS" and
+            physical["safety_orchestration_release_gate"] == "PASS", "digital safety-orchestration release incorrectly blocked")
     require(physical["procurement_approval_gate"] == "USER_APPROVAL_REQUIRED", "procurement approval bypassed")
     release = (BASE / "gate1_release_record_ko.md").read_text()
     require("현재 상태: `NOT_RUN`" in release and "결론: `NOT_RUN | FAIL | PASS`" in release, "Gate-1 release template state")
 
     result = {
-        "revision": "implementation-crosssolver-v0.6",
+        "revision": "safety-orchestration-closure-v0.6.1",
         "gate": "OPTIONAL_EMPIRICAL_VALIDATION_GATE1_READINESS",
         "readiness": "OPTIONAL_EMPIRICAL_VALIDATION_READY_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
         "empirical_result": "OPTIONAL_NOT_RUN",
@@ -111,6 +112,7 @@ def main():
             "heater_purchase_release": False,
         },
         "design_release_gate": "PASS",
+        "safety_orchestration_release_gate": "PASS",
         "main_promotion_allowed": True,
         "remaining_external_inputs": [
             "exact donor identity and received inspection",

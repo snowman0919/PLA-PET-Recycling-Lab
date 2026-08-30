@@ -1,6 +1,6 @@
 # SP-DS-01 — Dancer pivot support plate
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `8 mm 6061-T6`
 - process: `waterjet + ream`

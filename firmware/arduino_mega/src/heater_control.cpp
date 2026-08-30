@@ -7,7 +7,9 @@ float clampf(float value, float low, float high) {
 }
 
 bool processHeaterPhaseAllowed(MachineState state) {
-  return state == MachineState::PREHEATING || state == MachineState::EXTRUSION;
+  return state == MachineState::PREHEATING || state == MachineState::EXTRUSION ||
+         state == MachineState::MAINTENANCE_PURGE || state == MachineState::FORMING_CHAIN_RUNDOWN ||
+         state == MachineState::THERMAL_HOLD || state == MachineState::REQUALIFYING;
 }
 
 HeaterOutput HeaterController::update(uint8_t zone, const TemperatureReading &reading,
@@ -66,9 +68,18 @@ HeaterOutput HeaterController::update(uint8_t zone, const TemperatureReading &re
   return {duty, duty > 0 && now_ms % HEATER_WINDOW_MS < on_ms, latched_faults_};
 }
 
+bool HeaterController::canClearFault(bool lockout, bool thermal_chain_ok,
+                                     bool temperature_sensors_healthy) const {
+  return lockout && thermal_chain_ok && temperature_sensors_healthy;
+}
+
 bool HeaterController::clearFault(bool lockout, bool thermal_chain_ok) {
-  if (!lockout || !thermal_chain_ok) return false;
+  if (!canClearFault(lockout, thermal_chain_ok)) return false;
+  commitFaultClear();
+  return true;
+}
+
+void HeaterController::commitFaultClear() {
   latched_faults_ = HEATER_FAULT_NONE;
   for (auto &zone : zones_) zone = Zone{};
-  return true;
 }

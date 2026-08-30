@@ -1,6 +1,6 @@
 # PPR-C03 — Flake bin sheet corner
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: 4
 - material: PLA
 - nozzle diameter: 0.4 mm

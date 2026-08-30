@@ -1,4 +1,4 @@
-#set document(title: "Implementation Cross-solver PLA/PET Recycler v0.6 설계 보고서")
+#set document(title: "Safety Orchestration PLA/PET Recycler v0.6.1 설계 보고서")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -13,7 +13,7 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision implementation-crosssolver-v0.6 · 2026-08-30]
+  #text(size: 11pt)[Revision safety-orchestration-closure-v0.6.1 · 2026-08-31]
 ]
 
 #warn[*계산·CAD release다.* 실제 cutter 성능, melt flow, 200 g/h, 직경 품질과 안전 인증은 물리 Gate 전 미검증이다. 구매·CNC·energization은 사용자 승인 전 금지한다.]
@@ -31,7 +31,7 @@ PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, fee
 
 #table(columns: (1.5fr, 1.2fr, 1fr, 1fr), inset: 4pt,
   [*후보*], [*Envelope mm*], [*계획비용*], [*판정*],
-  [Vertical down-die], [470 x 700 x 930], [173,729 KRW], [target PASS / donor·물리 Gate blocker],
+  [Vertical down-die], [470 x 700 x 930], [175,729 KRW], [target PASS / donor·물리 Gate blocker],
   [Internal U-fold], [480 x 710 x 940], [196,000 KRW], [soft bend 기각],
   [Side spool column], [495 x 720 x 950], [204,000 KRW], [비용/목표 기각],
 )
@@ -75,11 +75,15 @@ EX-DIE-01…05는 40×40×48 SCM440 body의 실제 교차 Ø8 유로, Ø15.9×2 
 Barrel 3×100 W band와 die 60 W cartridge로 열 path가 구성되고, `T1`~`T5` 온도 센서를 포함한다. 인터록으로 shredder와 고온 구간의 상호배제 하에서 실제 열 요구는 총 360 W가 된다.
 채널별 one-shot 차단을 포함해 `channel fuse`와 독립 thermal cutoff이 동작한다. 설계 기준은 3개의 상태를 분리한다: 1) `SHREDDER_ACTIVE`에서는 barrel/die heater는 OFF, 2) `EXTRUSION_ACTIVE`에서는 shredder drive는 hard-disable, 3) 비활성 안전 상태는 2차 방열만 유지.
 
-연산치 열 계산에서 `extrusion active` peak는 490 W로 관리되고, 24 V 600 W PSU 대비 연속 target는 500 W, 허용 reserve는 100 W다.
+독립 actuator watt 가정과 canonical permission/cap을 결합한 동적 상태 계산에서 정상·fault-response phase의 최대 peak는 `SHREDDING` 477.2 W, 최소 reserve는 122.8 W다. `MAINTENANCE_PURGE`, `FORMING_CHAIN_RUNDOWN`, `THERMAL_HOLD`, `REQUALIFYING`도 포함해 24 V 600 W PSU, peak 500 W 이하, reserve 100 W 이상 기준을 적용한다.
+
+`MachineSupervisor`가 process/material/forming 상태와 actuator transaction을 한 곳에서 조정한다. Shredder start는 verified drive/current calibration과 subsystem start 성공 뒤에만 `SHREDDING`을 commit한다. Extrusion은 preheat/gauge 준비 뒤 `READY_TO_EXTRUDE`에서 operator arm을 요구한다. Fault clear는 heater/shredder/forming/gauge latch 전체가 preflight를 통과한 경우에만 atomic commit하며 clear 자체로 actuator를 재시작하지 않는다.
+
+Material 변경은 이전 material thermal profile로 `MAINTENANCE_PURGE`를 실행하고 waste path, 최소 시간·screw revolution evidence·온도 안정·fault 없음·operator visual confirm과 ordered cleaning을 요구한다. Preheat/purge 시작은 IDLE에서 fan-only probe를 먼저 명령하고 A4 current feedback 1.5 s 연속 healthy 후에만 phase를 commit하며, 3.0 s timeout은 FAULT/all-zero다. 현재 revolution evidence는 별도 tach 측정이 아니라 verified command/RPM 적분이므로 `COMMAND_DERIVED_ESTIMATE_NOT_MEASURED`이며 drive fault에서 무효다. 고온 purge 중단·완료는 motion/heater를 끄고 유효한 cooling feedback으로 T1–Tdie 60 °C 이하까지 `COOLDOWN`을 유지한다. Forming-chain fault는 machine-readable response contract에 따라 feeder와 winding을 즉시 끄고 bounded screw/puller rundown과 thermal hold/cooldown을 수행한다. Spool eligibility는 gauge 연속성·U95·직경·ovality·puller·A4 cooling-current feedback·transport delay를 재검증하고 operator rethread 확인한 뒤에만 복원된다.
 
 300 °C hot path, 25 mm insulation, 10 mm air gap와 grounded sheet shield의 1D screening은 shield 52 °C, adjacent polymer 42 °C다. Seam/slot/radiation view를 포함하지 않으므로 Gate 4 thermocouple 기준은 shield 55 °C, polymer 45 °C다.
 
-200 g/h line speed는 PLA/PET 약 1.12/1.00 m/min이고 첫 gauge까지 248 mm transport delay는 약 13.3/14.9 s다. Diameter simulation은 first-order/transport model뿐이며 calibration·melt dynamics를 증명하지 않는다.
+200 g/h `DIGITAL_STRETCH_TARGET` line speed는 PLA/PET 약 1.12/1.00 m/min이고 첫 gauge까지 248 mm transport delay는 약 13.3/14.9 s다. 그러나 release nominal은 약 100 g/h이므로 requalification interlock은 같은 248 mm를 nominal line speed 0.00928/0.00866 m/s로 나눈 보수적 PLA 26.7 s/PET 28.6 s를 사용한다. Diameter simulation은 first-order/transport model뿐이며 calibration·melt dynamics를 증명하지 않는다.
 
 = Gauge와 spooler
 
@@ -87,11 +91,11 @@ Barrel 3×100 W band와 die 60 W cartridge로 열 path가 구성되고, `T1`~`T5
 
 #figure(image("../renders/review/forming_spool_motion.png", width: 92%), caption: [Puller 이후 solid guide, dancer sweep, traverse와 full spool])
 
-Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spool Ø200 x 73 mm와 dancer/traverse full motion이 assembly bounding box에 포함된다.
+Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spool Ø200 x 73 mm와 dancer/traverse full motion이 assembly bounding box에 포함된다. Dancer는 warning 0.32 rad, controlled stop 0.36 rad, mechanical hard stop 0.4363 rad으로 분리하며 normal jam 합격은 hard-stop contact 전에 정지해야 한다.
 
 = 비용과 제조
 
-Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 360 W heater계와 실제 slicing을 반영한 조건부 target은 173,729 KRW다. 20,000 KRW contingency 포함 absolute plan은 193,729 KRW이며 계획 여유는 6,271 KRW다. Motor 0원은 exact evidence 전 확정이 아니고 구매·가공은 별도 사용자 승인 대상이다. Optional Gate-1 미수행은 `main` 승격을 막지 않는다.
+Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 360 W heater계, actual slicing과 A4 cooling current feedback 2,000 KRW allowance를 반영한 조건부 target은 175,729 KRW다. 20,000 KRW contingency 포함 absolute plan은 195,729 KRW이며 계획 여유는 4,271 KRW다. Motor 0원은 exact evidence 전 확정이 아니고 구매·가공은 별도 사용자 승인 대상이다. Optional Gate-1 미수행은 `main` 승격을 막지 않는다.
 
 #figure(image("../renders/review/print_orientation.png", width: 92%), caption: [12개 출력 part family orientation overview])
 
@@ -99,7 +103,7 @@ PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 904.
 
 = 검증 경계
 
-#ok[Implementation baseline은 closed B-Rep, manifold mesh, actual slicing, Arduino Mega compile/host test, OpenModelica mandatory 74 scenario, CalculiX 3단계 mesh/analytical structure, controller-contract/firmware sync와 Fusion 중립 package hash binding을 검사한다. 상태는 IMPLEMENTATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / CROSS_SOLVER_VALIDATION_PENDING / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
+#ok[Safety-orchestration baseline은 closed B-Rep, manifold mesh, actual slicing, Arduino Mega compile/host test, OpenModelica mandatory 111 scenario, CalculiX 3단계 mesh/analytical structure, controller-contract/firmware sync와 Fusion 중립 package hash binding을 검사한다. 상태는 SAFETY_ORCHESTRATION_BASELINE / IMPLEMENTATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / CROSS_SOLVER_VALIDATION_PENDING / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
 
 Fusion용 STEP 9개와 LC01–LC10, static/modal/thermal/thermal-stress/nonlinear/event/buckling study 계약은 준비됐으나 Autodesk Fusion 실행 결과는 없다. 따라서 solver correlation은 PENDING이며 OpenModelica/CalculiX PASS를 Fusion PASS로 표시하지 않는다.
 

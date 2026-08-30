@@ -1,6 +1,6 @@
 # G1J-10 — CUT-03 plate foot angle
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `4`
 - material: `40 x40 x4 steel/aluminum angle`
 - process: `saw cut + drill`

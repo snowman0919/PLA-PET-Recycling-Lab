@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reject post-regeneration drift in every manifested artifact."""
+"""Compare configured regeneration outputs with the committed artifact manifest."""
 
 from __future__ import annotations
 
@@ -59,9 +59,9 @@ def main():
                 })
     modes = Counter(record["hash_mode"] for record in current.values())
     result = {
-        "revision": "implementation-crosssolver-v0.6",
+        "revision": "safety-orchestration-closure-v0.6.1",
         "gate": "CLEAN_CLONE_REPRODUCIBILITY",
-        "scope": "all manifested decision-relevant artifacts after full regeneration",
+        "scope": "all manifested decision-relevant artifacts after configured generation; frozen CAD binaries are validated and reused when geometry_change_required=false",
         "normalization_policy": {
             "STEP_TEXT_NORMALIZED_V1": "timestamp and OpenCASCADE process-local translator sequence only",
             "FCSTD_DOCUMENT_BREP_V1": "all ZIP members except non-manufacturing *.Shape.Map.txt history map",

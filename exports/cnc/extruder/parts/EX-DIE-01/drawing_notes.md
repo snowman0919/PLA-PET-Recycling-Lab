@@ -1,6 +1,6 @@
 # EX-DIE-01 — Connected 90 degree down-die body
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `SCM440 QT + gas nitride`
 - process: `6-face mill; gun drill/ream intersecting Ø8 channels; counterbore, drill/tap; stress relieve; gas nitride; lap sealing face`

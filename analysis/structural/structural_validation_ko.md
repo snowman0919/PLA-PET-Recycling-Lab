@@ -1,6 +1,6 @@
 # 동적 하중 연계 구조 검토
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - 판정: **PASS**
 - 가상 물리 상태: `VIRTUAL_PHYSICS_VALIDATED`
 - 경험적 검증 상태: `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`

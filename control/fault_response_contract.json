@@ -1,0 +1,144 @@
+{
+  "revision": "safety-orchestration-closure-v0.6.1",
+  "response_schema": [
+    "feeder",
+    "screw",
+    "puller",
+    "spooler",
+    "traverse",
+    "cooling",
+    "heater"
+  ],
+  "forming_chain_states": [
+    "NORMAL",
+    "RUNDOWN",
+    "THERMAL_HOLD",
+    "REQUALIFYING",
+    "READY_TO_RETHREAD",
+    "LATCHED_FAULT"
+  ],
+  "timing": {
+    "maximum_response_latency_s": 0.25,
+    "screw_rundown_s": 10.0,
+    "puller_waste_s": 3.0,
+    "puller_tach_startup_grace_s": 1.5,
+    "thermal_hold_s": 60.0,
+    "cooling_feedback_dwell_s": 1.5,
+    "puller_tach_startup_grace_basis": {
+      "encoder_pulses_per_revolution": 20,
+      "minimum_nominal_speed_rpm": 8.66,
+      "pulse_interval_s_at_minimum_nominal_speed": 0.346,
+      "supervisor_sample_period_s": 0.25,
+      "minimum_pulse_opportunities_in_grace": 4,
+      "starts_at_first_command_edge_only": true,
+      "qualified_latch_after_first_valid_pulse": true,
+      "running_loss_gets_no_new_grace": true,
+      "command_zero_resets_for_next_genuine_start": true,
+      "physical_confirmation_required": true
+    }
+  },
+  "common_response": {
+    "feeder": "OFF_IMMEDIATE",
+    "screw": "BOUNDED_RUNDOWN_THEN_OFF",
+    "spooler": "OFF_IMMEDIATE",
+    "traverse": "OFF_IMMEDIATE",
+    "heater": "BOUNDED_SAFE_HOLD_THEN_COOLDOWN_OR_FAULT",
+    "cooling": "KEEP_ON_IF_FEEDBACK_VALID_EXCEPT_COOLING_FAILURE_OR_ESTOP",
+    "spool_eligible": false,
+    "waste_mode": true
+  },
+  "cooling_failure_phase_policy": {
+    "rundown_thermal_hold_recovery_probe_requalify": [
+      "EXTRUSION",
+      "REQUALIFYING"
+    ],
+    "recovery_probe_feedback_dwell_s": 1.5,
+    "latched_fault_same_cycle_zero": [
+      "PREHEATING",
+      "MAINTENANCE_PURGE",
+      "FORMING_CHAIN_RUNDOWN",
+      "THERMAL_HOLD",
+      "COOLDOWN"
+    ],
+    "purge_clear_session": "PURGE_PREHEAT_REQUIRED",
+    "purge_clear_preserves_active_and_pending_material": true
+  },
+  "faults": {
+    "GAUGE_INVALID": {
+      "puller": "LAST_KNOWN_SAFE_TO_WASTE_THEN_OFF",
+      "cooling": "KEEP_ON_IF_FEEDBACK_VALID",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "RUNDOWN",
+      "recovery_requirement": "FULL_REQUALIFICATION_AND_EXPLICIT_RETHREAD"
+    },
+    "GAUGE_UNCERTAINTY_INVALID": {
+      "puller": "LAST_KNOWN_SAFE_TO_WASTE_THEN_OFF",
+      "cooling": "KEEP_ON_IF_FEEDBACK_VALID",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "RUNDOWN",
+      "recovery_requirement": "FULL_REQUALIFICATION_AND_EXPLICIT_RETHREAD"
+    },
+    "COOLING_FAILURE": {
+      "puller": "BOUNDED_WASTE_DISCHARGE_THEN_OFF",
+      "cooling": "OFF_AFTER_FAILURE_DETECTED",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "RUNDOWN",
+      "recovery_requirement": "COOLING_FEEDBACK_HEALTHY_AND_FULL_REQUALIFICATION_AND_EXPLICIT_RETHREAD"
+    },
+    "PULLER_DRIVER_FAILURE": {
+      "puller": "OFF_IMMEDIATE",
+      "cooling": "KEEP_ON_IF_FEEDBACK_VALID",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "RUNDOWN",
+      "recovery_requirement": "EXPLICIT_FAULT_CLEAR_AND_FULL_REQUALIFICATION"
+    },
+    "PULLER_TACH_FAILURE": {
+      "puller": "OFF_IMMEDIATE",
+      "cooling": "KEEP_ON_IF_FEEDBACK_VALID",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "RUNDOWN",
+      "recovery_requirement": "EXPLICIT_FAULT_CLEAR_AND_FULL_REQUALIFICATION"
+    },
+    "SPOOLER_DRIVER_FAILURE": {
+      "puller": "RESIDUAL_STRAND_TO_WASTE_DURING_RUNDOWN",
+      "cooling": "KEEP_ON_IF_FEEDBACK_VALID",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "RUNDOWN",
+      "recovery_requirement": "EXPLICIT_FAULT_CLEAR_AND_FULL_REQUALIFICATION"
+    },
+    "DANCER_CONTROLLED_STOP": {
+      "puller": "RESIDUAL_STRAND_TO_WASTE_DURING_RUNDOWN",
+      "cooling": "KEEP_ON_IF_FEEDBACK_VALID",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "RUNDOWN",
+      "recovery_requirement": "DANCER_BELOW_WARNING_AND_FULL_REQUALIFICATION"
+    },
+    "DANCER_HARD_LIMIT": {
+      "puller": "OFF_IMMEDIATE",
+      "cooling": "KEEP_ON_IF_FEEDBACK_VALID",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "LATCHED_FAULT",
+      "recovery_requirement": "PHYSICAL_LOCKOUT_INSPECTION_AND_EXPLICIT_FAULT_CLEAR"
+    },
+    "TRAVERSE_PERMISSION_LOSS": {
+      "puller": "RESIDUAL_STRAND_TO_WASTE_DURING_RUNDOWN",
+      "cooling": "KEEP_ON_IF_FEEDBACK_VALID",
+      "maximum_response_latency_s": 0.25,
+      "transition_target": "RUNDOWN",
+      "recovery_requirement": "EXPLICIT_FAULT_CLEAR_AND_FULL_REQUALIFICATION"
+    }
+  },
+  "requalification": {
+    "minimum_consecutive_valid_samples": 20,
+    "u95_max_mm": 0.03,
+    "diameter_tolerance_mm": 0.05,
+    "diameter_stable_duration_s": 10.0,
+    "ovality_max_mm": 0.05,
+    "ovality_stable_duration_s": 10.0,
+    "puller_not_saturated": true,
+    "cooling_feedback_valid": true,
+    "transport_delay_required": true,
+    "explicit_rethread_confirmation": true
+  },
+  "restart_policy": "NO_IMPLICIT_RESTART_AFTER_CLEAR_OR_RECOVERY"
+}

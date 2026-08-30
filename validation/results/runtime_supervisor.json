@@ -1,0 +1,368 @@
+{
+  "revision": "safety-orchestration-closure-v0.6.1",
+  "status": "PASS",
+  "harness": "production MachineSupervisor linked with fake InputSnapshot backend",
+  "trace_power_method": "independent component-summed phase peak envelope",
+  "purge_revolution_evidence": "COMMAND_DERIVED_ESTIMATE_NOT_MEASURED",
+  "purge_operator_sequence": "approvePurgeFeed_then_independent_waste_path_confirmation",
+  "production_sources": {
+    "firmware/arduino_mega/src/process_state.cpp": "1fcb998bf1c7d0b31851bfde072d21ba7e15f112231923a0e289e89b3f5abfca",
+    "firmware/arduino_mega/src/shredder_control.cpp": "d31917eede8479f8a31d107407e5bd48945b897f50f3e2bffb45e7e86bac8a0a",
+    "firmware/arduino_mega/src/heater_control.cpp": "39e8c81176f1f2c430061162d0b439f146a27ca18a80cde30368729a95dc358a",
+    "firmware/arduino_mega/src/gauge_control.cpp": "645a4a193f48155e7ef0ad117ef22de6124ff98cf6db78047427309b4b004e0b",
+    "firmware/arduino_mega/src/machine_supervisor.cpp": "423248aaf2925e87f4321bf4e9b85303eb5746c9003d478249153b47dc446994"
+  },
+  "production_headers": {
+    "firmware/arduino_mega/src/process_state.h": "96392f98609829dae22cdf86c8d729730a844f85a97a17cae84947bea797e227",
+    "firmware/arduino_mega/src/shredder_control.h": "e36d2d004897c453a2b584768f13d1c80f24ac4ecb7a2f6f94ecac7b748b874d",
+    "firmware/arduino_mega/src/heater_control.h": "a9b2fb2891cfa1debc24210672a786609962f68cf7498a0229695d7c9914f1e2",
+    "firmware/arduino_mega/src/gauge_control.h": "17aac5d1b39190603e231977b1e02f21f0b5bd353ed8ea8e616f1060327a1206",
+    "firmware/arduino_mega/src/machine_supervisor.h": "11f0f72fa58375915f7f5d4f0c0fcc2393d1b9cd95ba74b13f68b7e3cc38ba35",
+    "firmware/arduino_mega/src/generated_profiles.h": "d496e9802dc5ad61a5fc49e819637dec4130f566db63a9d5045083d3488cdf5f"
+  },
+  "validator_sources": {
+    "validation/runtime_supervisor.py": "895dec635573370c589782efb050993cf9d068f845ab4c447ed5b7ea7b0dff33",
+    "validation/runtime_trace_rules.py": "0a924d68d3313dbb8c4ec6b45d4dc8a6b8983ea97aca44c876b3f1526283bf4a"
+  },
+  "harness_sha256": "97a637a2611274354222b5113d180eba2ecdbb7e61768d9382a5a937a1bb2b42",
+  "scenario_count": 43,
+  "trace_count": 116,
+  "invariant_failure_count": 0,
+  "bounded_sequence": {
+    "fixed_seeds": 4,
+    "maximum_events_per_seed": 64,
+    "status": "PASS"
+  },
+  "calibration_readiness": {
+    "state_requirements": {
+      "SHREDDING": [
+        "drive",
+        "current_sensor"
+      ],
+      "PREHEATING": [
+        "gauge",
+        "temperature_channels",
+        "cooling_feedback"
+      ],
+      "EXTRUSION": [
+        "gauge",
+        "temperature_channels",
+        "cooling_feedback"
+      ],
+      "MAINTENANCE_PURGE": [
+        "temperature_channels",
+        "cooling_feedback"
+      ],
+      "REQUALIFYING": [
+        "gauge",
+        "temperature_channels",
+        "cooling_feedback"
+      ]
+    },
+    "missing_one_gate_scenario": "calibration_readiness_phase_gates",
+    "status": "PASS"
+  },
+  "scenarios": [
+    {
+      "name": "calibration_readiness_phase_gates",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/calibration_readiness_phase_gates.csv",
+      "event_count": 6,
+      "sha256": "31955af4c70463746fc2b94d1a3c1e29e0eb0c5102524d80394e1c83634e9520"
+    },
+    {
+      "name": "cold_boot_no_calibration",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/cold_boot_no_calibration.csv",
+      "event_count": 1,
+      "sha256": "b70fadd20c3d08d1fb891b30884b9d90dc5532f34b993b0e97e13f5f62c0c8e5"
+    },
+    {
+      "name": "cooldown_cooling_fault_clear_then_reprobe",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/cooldown_cooling_fault_clear_then_reprobe.csv",
+      "event_count": 1,
+      "sha256": "fa302e368c72c49039c2fc8161262998761a23ac5d77aa9f3ec2ab684a6ea2c9"
+    },
+    {
+      "name": "cooldown_cooling_loss_containment",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/cooldown_cooling_loss_containment.csv",
+      "event_count": 2,
+      "sha256": "5dc42c4ff659765355aedf12e3472643f3d3fd5576bb885eae855b7a848f72ad"
+    },
+    {
+      "name": "cooldown_to_idle_completion",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/cooldown_to_idle_completion.csv",
+      "event_count": 2,
+      "sha256": "8360a15799ad865a63fd8a8c6ae41afb06b7a371906b525ae6b1a5704c91041d"
+    },
+    {
+      "name": "cooling_fault_clear_then_reprobe",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/cooling_fault_clear_then_reprobe.csv",
+      "event_count": 2,
+      "sha256": "14d5a95b6dc86d02dc69f61e49e2721187fa5fc9d841b1b9f6cd74707f85e4e3"
+    },
+    {
+      "name": "cooling_loss_controlled_rundown",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/cooling_loss_controlled_rundown.csv",
+      "event_count": 1,
+      "sha256": "127531145d4eef9e1b81a0445da3c81801518c036c4575351aa4e94293780c80"
+    },
+    {
+      "name": "estop_clear_no_implicit_restart",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/estop_clear_no_implicit_restart.csv",
+      "event_count": 2,
+      "sha256": "f325bd015577c3b00136480288e84daf712ab900f4caccd54b55ac20138c0889"
+    },
+    {
+      "name": "estop_during_cooldown",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/estop_during_cooldown.csv",
+      "event_count": 1,
+      "sha256": "7a0ef7e50b93f63ec1c7060c3189c66c3b97286cccc2e10b78a1096c0fe44c4d"
+    },
+    {
+      "name": "estop_during_extrusion",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/estop_during_extrusion.csv",
+      "event_count": 1,
+      "sha256": "1dac4191631ec2f7c47f5bfae4fce4e9024247392d32fa57f3f43d2660e55e24"
+    },
+    {
+      "name": "estop_during_preheating",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/estop_during_preheating.csv",
+      "event_count": 1,
+      "sha256": "33c29fb96248da120231dbf67fceba7fe9d59ab3a1be4de4920bac4a20590cb5"
+    },
+    {
+      "name": "estop_during_purge",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/estop_during_purge.csv",
+      "event_count": 1,
+      "sha256": "f20ab344cf36a3ac300b23a2c3909bc36ae3672caff329579210bc68106270f3"
+    },
+    {
+      "name": "estop_during_shredding",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/estop_during_shredding.csv",
+      "event_count": 1,
+      "sha256": "4da189c2667fedcaf40a79bff505da784d49decd7ae0b1e1c987a8f482c42729"
+    },
+    {
+      "name": "explicit_material_selection",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/explicit_material_selection.csv",
+      "event_count": 1,
+      "sha256": "9ae0d82206b930ac8bd30da8574e96a51f5f0ab7953fb3a50ecf7d6abbe9e990"
+    },
+    {
+      "name": "extrusion_quality_same_cycle_interlocks",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/extrusion_quality_same_cycle_interlocks.csv",
+      "event_count": 6,
+      "sha256": "723a8b440af31487862e919059b3f261fbbc6bea618974a70583fb4c0895bef3"
+    },
+    {
+      "name": "gauge_loss_controlled_rundown",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/gauge_loss_controlled_rundown.csv",
+      "event_count": 1,
+      "sha256": "82d1ceb526744621d5e147dc24ef6b053eaefd93770229b22f2775601ba8b806"
+    },
+    {
+      "name": "gauge_requalification_manual_rethread",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/gauge_requalification_manual_rethread.csv",
+      "event_count": 16,
+      "sha256": "d8604a04e77e6d9e6dddbf6b8188154f1634644a19d3f61a81382410d6a81f8c"
+    },
+    {
+      "name": "general_fault_valid_cooling",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/general_fault_valid_cooling.csv",
+      "event_count": 1,
+      "sha256": "2af076a743f96aecdc4f960fdb76f0190c3fc8f26b3205e2d38a4433cdfeb461"
+    },
+    {
+      "name": "heater_sensor_fault_atomic_clear",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/heater_sensor_fault_atomic_clear.csv",
+      "event_count": 3,
+      "sha256": "0612ab2791f4216e208a205ee6abdc5ce186f37c75929324fac96f8337f47f66"
+    },
+    {
+      "name": "manual_rethread_fresh_invalid_rejected",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/manual_rethread_fresh_invalid_rejected.csv",
+      "event_count": 1,
+      "sha256": "fcc146058078bac44ce32f0d83f753a5068516a699f0898584a760191bbab2de"
+    },
+    {
+      "name": "normal_pla_extrusion",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/normal_pla_extrusion.csv",
+      "event_count": 8,
+      "sha256": "d5aa509c0441c31c6b1cd9338d8771e555a4c86dc47f40407e760ebcaeb1b8a6"
+    },
+    {
+      "name": "pet_to_pla_maintenance_purge",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/pet_to_pla_maintenance_purge.csv",
+      "event_count": 3,
+      "sha256": "2bef9f2488e4e649ceeaeee6e5e7a28adfd8cabdae5dbbcf620b9f69441b0ab0"
+    },
+    {
+      "name": "phase_specific_readiness_ui",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/phase_specific_readiness_ui.csv",
+      "event_count": 2,
+      "sha256": "cb179b9994e032b427a6ab39bae86012aa590b86f6e5eaa9292b7232ebed3d5d"
+    },
+    {
+      "name": "pla_to_pet_maintenance_purge",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/pla_to_pet_maintenance_purge.csv",
+      "event_count": 3,
+      "sha256": "a66e2025681157492f36a992b207f8fbb6f273f50cb4fb5a29bb2e159ffe133d"
+    },
+    {
+      "name": "preheat_cooling_loss_containment",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/preheat_cooling_loss_containment.csv",
+      "event_count": 2,
+      "sha256": "6600f56a64580b834e2fa248b4e5715565bbc4ec3a2a0b31ed08c36397a79597"
+    },
+    {
+      "name": "preheat_fan_first_startup_proof",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/preheat_fan_first_startup_proof.csv",
+      "event_count": 3,
+      "sha256": "c2d3fde5ab905daff41e4f03051aacd4e7b81c5956a7eda7d6ae836c9c3fc9fb"
+    },
+    {
+      "name": "preheat_waits_explicit_arm",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/preheat_waits_explicit_arm.csv",
+      "event_count": 8,
+      "sha256": "cccd4f48d4eda53cbd9cf691401b665afcc2289b8122c77ceab6d021f786fd3f"
+    },
+    {
+      "name": "puller_tach_startup_grace_and_loss",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/puller_tach_startup_grace_and_loss.csv",
+      "event_count": 4,
+      "sha256": "0c275ed5da276b6bee0b67785f94b2c24148c9543984ca0c72cbb03f31cd0e40"
+    },
+    {
+      "name": "purge_completion_fresh_fault_preflight",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/purge_completion_fresh_fault_preflight.csv",
+      "event_count": 4,
+      "sha256": "c98b656784b073bb54c1d2ef5ee4beb33641802855a1d8c7ee668a196ac41f82"
+    },
+    {
+      "name": "purge_cooling_fault_clear_then_reprobe",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/purge_cooling_fault_clear_then_reprobe.csv",
+      "event_count": 1,
+      "sha256": "11202a4375bf9a03d3d0b7d7d2ed687d792f44cac45ff39aac14c40c9db6b2d7"
+    },
+    {
+      "name": "purge_cooling_loss_containment",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/purge_cooling_loss_containment.csv",
+      "event_count": 2,
+      "sha256": "a74399de6d2b1eb8946908680edb105dec7bf5b61907f24ec8f42e9057a32ca4"
+    },
+    {
+      "name": "purge_fan_first_startup_proof",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/purge_fan_first_startup_proof.csv",
+      "event_count": 3,
+      "sha256": "3838437406d5b568da831399ab08cd2f0f9cc7e4413ba505c9e8df552bc8d072"
+    },
+    {
+      "name": "purge_panel_abort_all_stages",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/purge_panel_abort_all_stages.csv",
+      "event_count": 5,
+      "sha256": "74a242619ad11c3710073c03daa215f436f90d160ffd8219895356d561770f01"
+    },
+    {
+      "name": "purge_ready_waits_ordered_confirmations",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/purge_ready_waits_ordered_confirmations.csv",
+      "event_count": 3,
+      "sha256": "54bf4d1c6061feb9789bceb3e1d9d0ef580cb33d39c3d5c1ac708864c906b7a4"
+    },
+    {
+      "name": "purge_screw_driver_fault_containment",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/purge_screw_driver_fault_containment.csv",
+      "event_count": 1,
+      "sha256": "dc897adbe22e55c73da58eb7d320361c290b4e006a3b47eec3f4dc0368685989"
+    },
+    {
+      "name": "rejected_shredder_start_rollback",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/rejected_shredder_start_rollback.csv",
+      "event_count": 1,
+      "sha256": "52702f0165f61a490d48b131d9a7958a7fe338af79882849684d50716eb13288"
+    },
+    {
+      "name": "requalification_invalid_quality_resets_counter",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/requalification_invalid_quality_resets_counter.csv",
+      "event_count": 1,
+      "sha256": "a9b278302c964673f6ee7574b6ebf9fab71c5ccdd354e609fe96436afc636f10"
+    },
+    {
+      "name": "separate_calibration_loading",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/separate_calibration_loading.csv",
+      "event_count": 2,
+      "sha256": "f2844787328f88608a8ebbc58f477fa93f42e15d38c14b1d296435eecac7fa35"
+    },
+    {
+      "name": "shredder_jam_three_retries_atomic_clear",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/shredder_jam_three_retries_atomic_clear.csv",
+      "event_count": 4,
+      "sha256": "d5289331acc15f3dd3ff43dd275aedcd25f9a5357908f1670cff386a60c5a062"
+    },
+    {
+      "name": "spool_jam_before_hard_stop",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/spool_jam_before_hard_stop.csv",
+      "event_count": 1,
+      "sha256": "ce5b437e510ff2a33a29de65197c294f4bc4f2bc05c5fb4dcadd31775c39a3fa"
+    },
+    {
+      "name": "stale_purge_feed_approval_rejected",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/stale_purge_feed_approval_rejected.csv",
+      "event_count": 1,
+      "sha256": "88c8032579b7e3f000717c2640b5d680330bcee6b524d49acbd8efe0af6b1ada"
+    },
+    {
+      "name": "startup_probe_feedback_absent_containment",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/startup_probe_feedback_absent_containment.csv",
+      "event_count": 2,
+      "sha256": "4ec1a8288ec8f8c763fea788e4ba694c613cebbbe28b7f4e118c7771f0236b26"
+    },
+    {
+      "name": "successful_shredder_start",
+      "status": "PASS",
+      "trace_file": "validation/results/runtime_traces/successful_shredder_start.csv",
+      "event_count": 1,
+      "sha256": "5b42c6ddcd7faf203f9a7477cd42221ef0bb8825f4163e67fd8d7bfec28dc3dd"
+    }
+  ]
+}

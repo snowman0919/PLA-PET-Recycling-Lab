@@ -1,6 +1,6 @@
 # PPR-C07 — Puller pinch guard
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: 1
 - material: ABS
 - nozzle diameter: 0.4 mm

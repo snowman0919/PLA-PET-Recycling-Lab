@@ -1,6 +1,6 @@
 # G1J-05 — Right slotted guard panel
 
-- revision: `implementation-crosssolver-v0.6`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `3 mm polycarbonate`
 - process: `CNC router/drill`
