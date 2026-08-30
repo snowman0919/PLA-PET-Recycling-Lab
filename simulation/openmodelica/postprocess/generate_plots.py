@@ -42,7 +42,7 @@ def svg_plot(name: str, series: list[tuple[str, str]], ylabel: str) -> None:
 def main() -> None:
     svg_plot("ReverseClear", [("estimated cutter torque", "estimatedCutterTorque"), ("fuse torque", "inputFuse.transmittedTorque"), ("duty", "dutyCommand")], "torque / duty")
     svg_plot("MechanicalFuseTrip", [("estimated cutter torque", "estimatedCutterTorque"), ("fuse torque", "inputFuse.transmittedTorque")], "torque [N m]")
-    svg_plot("ScrewJam", [("zone 1", "T1"), ("zone 2", "T2"), ("zone 3", "T3"), ("die", "Tdie")], "temperature [degC]")
+    svg_plot("HotExtrusionJamPLA", [("zone 1", "T1"), ("zone 2", "T2"), ("zone 3", "T3"), ("die", "Tdie")], "temperature [degC]")
     svg_plot("GaugeDropout", [("line tension", "lineTension")], "tension [N]")
     svg_plot("FullSystemPLA", [("bus power", "busPower"), ("net flow", "extruder.netFlowGPH")], "power [W] / flow [g/h]")
     svg_plot("FullSystemJam", [("cutter torque", "shredder.estimatedCutterTorque"), ("motor current", "shredder.motor.current")], "torque [N m] / current [A]")

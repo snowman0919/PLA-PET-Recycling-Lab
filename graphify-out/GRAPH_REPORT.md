@@ -1,16 +1,16 @@
 # Graph Report - PPR  (2026-08-30)
 
 ## Corpus Check
-- 228 files · ~303,730 words
+- 228 files · ~310,970 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 954 nodes · 1409 edges · 172 communities (73 shown, 99 thin omitted)
+- 953 nodes · 1409 edges · 171 communities (73 shown, 98 thin omitted)
 - Extraction: 80% EXTRACTED · 20% INFERRED · 0% AMBIGUOUS · INFERRED: 277 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9943b0b6`
+- Built from commit: `02b788d6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -181,7 +181,6 @@
 - Plate 12 Ppr C12 First Layer
 - Playwright
 - Reverseclear
-- Screwjam
 
 ## God Nodes (most connected - your core abstractions)
 1. `assembly_objects()` - 54 edges
@@ -210,7 +209,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (172 total, 99 thin omitted)
+## Communities (171 total, 98 thin omitted)
 
 ### Community 0 - "StatePermissions"
 Cohesion: 0.17
@@ -485,9 +484,9 @@ Cohesion: 1.00
 Nodes (3): Compact Full Assembly Front, Compact Full Assembly Isometric, Compact Full Assembly Top
 
 ## Knowledge Gaps
-- **431 isolated node(s):** `revision`, `release_state`, `geometry_validation`, `fabrication_validation`, `virtual_physics_validation` (+426 more)
+- **430 isolated node(s):** `revision`, `release_state`, `geometry_validation`, `fabrication_validation`, `virtual_physics_validation` (+425 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **99 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **98 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -505,4 +504,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 2 inferred relationships involving `machine_fabrication_parts()` (e.g. with `write_machine_fabrication_package()` and `main()`) actually correct?**
   _`machine_fabrication_parts()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `revision`, `release_state`, `geometry_validation` to the rest of the system?**
-  _431 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _430 weakly-connected nodes found - possible documentation gaps or missing edges._
