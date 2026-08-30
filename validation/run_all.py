@@ -14,10 +14,22 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def run(cmd, marker):
-    result = subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True)
-    output = result.stdout + result.stderr
-    if result.returncode or marker not in output:
-        print(output, file=sys.stderr)
+    process = subprocess.Popen(
+        cmd,
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        bufsize=1,
+    )
+    output_lines = []
+    assert process.stdout is not None
+    for line in process.stdout:
+        output_lines.append(line)
+        print(line, end="", flush=True)
+    returncode = process.wait()
+    output = "".join(output_lines)
+    if returncode or marker not in output:
         raise SystemExit(f"FAIL {marker}: {' '.join(cmd)}")
     print(f"PASS {marker}", flush=True)
 

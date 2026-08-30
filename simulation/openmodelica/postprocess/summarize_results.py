@@ -364,11 +364,17 @@ def evaluate(name: str, rows: list[dict[str, float]]) -> tuple[dict, list[str]]:
 def main() -> None:
     names = C["required_scenarios"]
     if len(names) < 74 or len(set(names)) != len(names): raise AssertionError("74+ unique scenarios required")
-    results = {name: load(name) for name in names}
+    results = {}
+    for index, name in enumerate(names, 1):
+        results[name] = load(name)
+        if index % 5 == 0 or index == len(names):
+            print(f"MODELICA_SUMMARY_PROGRESS loaded={index}/{len(names)}", flush=True)
     metrics, failures = [], {}
-    for name in names:
+    for index, name in enumerate(names, 1):
         item, reasons = evaluate(name, results[name]); metrics.append(item)
         if reasons: failures[name] = reasons
+        if index % 10 == 0 or index == len(names):
+            print(f"MODELICA_ACCEPTANCE_PROGRESS evaluated={index}/{len(names)}", flush=True)
     shred = [row for row in metrics if row["scenario"] in GROUP["shredder"]]
     envelope = {"revision": C["revision"], "source": "OpenModelica DASSL virtual model; physical tests not run", "loads": {key: max(float(row[key]) for row in shred) for key in ("peak_cutter_torque_nm", "peak_phase_torque_nm", "peak_bearing_load_n", "peak_chain_force_n")}, "design_caps": {key: C[key] for key in ("electrical_trip_torque_nm", "mechanical_fuse_cutter_equivalent_nm", "phase_allowable_torque_nm", "shaft_allowable_torque_nm")}}
     summary = {"revision": C["revision"], "solver": C["solver"], "status": "PASS" if not failures else "FAIL", "release_state": RELEASE_STATE, "implementation_state": IMPLEMENTATION_STATE, "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED" if not failures else "VIRTUAL_PHYSICS_FAILED", "cross_solver_state": "CROSS_SOLVER_VALIDATION_PENDING", "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN", "failures": failures, "scenario_count": len(metrics), "scenarios": metrics}
