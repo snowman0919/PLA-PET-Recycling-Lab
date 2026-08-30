@@ -364,14 +364,12 @@ def evaluate(name: str, rows: list[dict[str, float]]) -> tuple[dict, list[str]]:
 def main() -> None:
     names = C["required_scenarios"]
     if len(names) < 74 or len(set(names)) != len(names): raise AssertionError("74+ unique scenarios required")
-    results = {}
-    for index, name in enumerate(names, 1):
-        results[name] = load(name)
-        if index % 5 == 0 or index == len(names):
-            print(f"MODELICA_SUMMARY_PROGRESS loaded={index}/{len(names)}", flush=True)
     metrics, failures = [], {}
     for index, name in enumerate(names, 1):
-        item, reasons = evaluate(name, results[name]); metrics.append(item)
+        rows = load(name)
+        if index % 5 == 0 or index == len(names):
+            print(f"MODELICA_SUMMARY_PROGRESS loaded={index}/{len(names)}", flush=True)
+        item, reasons = evaluate(name, rows); metrics.append(item)
         if reasons: failures[name] = reasons
         if index % 10 == 0 or index == len(names):
             print(f"MODELICA_ACCEPTANCE_PROGRESS evaluated={index}/{len(names)}", flush=True)
