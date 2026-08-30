@@ -9,7 +9,7 @@
     "CalculiX 2.23 via analysis/structural/run_load_checks.py",
     "Normalized artifact equality via validation/artifact_reproducibility.py"
   ],
-  "artifact_count": 549,
+  "artifact_count": 550,
   "artifacts": [
     {
       "path": "AGENTS.md",
@@ -80,8 +80,8 @@
     {
       "path": "bom/bom.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4156,
-      "sha256": "23d02ab278397b9cd42cc1d690f2f9db984b1b7a93fb12cc8be1f50f2409f353"
+      "normalized_bytes": 4849,
+      "sha256": "343454ee3d4dbd5fc5530a3232618f50025001591fd71f79c11bed5ac8ef3921"
     },
     {
       "path": "bom/build_budget_views.py",
@@ -120,10 +120,16 @@
       "sha256": "b729e612754daf37b78556b59265e28214439de37cfb012152978f404541842f"
     },
     {
+      "path": "bom/procurement_v0.5_ko.md",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 5022,
+      "sha256": "a83204df22e7dc94d1fe3cee750987fa28f7b22ee0762df3a852f4bf364819dc"
+    },
+    {
       "path": "bom/purchase_candidates.csv",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2791,
-      "sha256": "0209a11b3aa182ffe14c88f4a5bd8e1d375331656d3adab1e926fa7a9da8d06b"
+      "normalized_bytes": 6222,
+      "sha256": "1592a907694b47369f736f6afc29c2b27268e9d782a6e040e38def686b27cca8"
     },
     {
       "path": "bom/reuse_inventory.csv",
