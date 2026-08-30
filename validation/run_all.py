@@ -19,7 +19,7 @@ def run(cmd, marker):
     if result.returncode or marker not in output:
         print(output, file=sys.stderr)
         raise SystemExit(f"FAIL {marker}: {' '.join(cmd)}")
-    print(f"PASS {marker}")
+    print(f"PASS {marker}", flush=True)
 
 
 def nix(command):
@@ -50,7 +50,7 @@ def main():
     if shutil.which("arduino-cli"):
         run([sys.executable, "validation/arduino_compile.py"], "ARDUINO_MEGA_2560_COMPILE_OK")
     else:
-        print("PASS ARDUINO_MEGA_COMPILE_DEFERRED_TO_CI_FULL_OR_ARDUINO_CLI_ENV")
+        print("PASS ARDUINO_MEGA_COMPILE_DEFERRED_TO_CI_FULL_OR_ARDUINO_CLI_ENV", flush=True)
 
     baseline = json.loads((ROOT / "cad/parameters/baseline.json").read_text())
     if baseline.get("geometry_change_required", True):
@@ -58,7 +58,7 @@ def main():
     else:
         run([sys.executable, "cad/generation/refresh_revision_metadata.py"], "FROZEN_GEOMETRY_METADATA_REFRESH_OK")
         run(freecad("cad/generation/export_modelica_properties.py"), "CAD_TO_MODELICA_PARAMETER_SYNC_OK")
-        print(f"PASS FROZEN_GEOMETRY_REUSED_FROM_{baseline['geometry_unchanged_from_sha']}")
+        print(f"PASS FROZEN_GEOMETRY_REUSED_FROM_{baseline['geometry_unchanged_from_sha']}", flush=True)
     run([sys.executable, "validation/interface_catalog_checks.py"], "FABRICATION_INTERFACE_CATALOG_VALIDATED_OK")
     for script, marker in (
         ("validation/solid_topology.py", "SOLID_BREP_TOPOLOGY_OK"),
@@ -89,7 +89,7 @@ def main():
     ):
         run(freecad("cad/generation/render_views.py"), "COMPACT_RENDER_GENERATION_OK")
     else:
-        print("PASS COMPACT_RENDER_PACKAGE_PRESENT_FROZEN_GEOMETRY")
+        print("PASS COMPACT_RENDER_PACKAGE_PRESENT_FROZEN_GEOMETRY", flush=True)
 
     typst = " && ".join([
         "typst compile --root . docs/build_manual_ko.typ docs/build_manual_ko.pdf",
@@ -103,7 +103,7 @@ def main():
     run([sys.executable, "validation/artifact_reproducibility.py"], "CLEAN_CLONE_REPRODUCIBILITY_OK")
     run([sys.executable, "artifacts/build_manifest.py"], "ARTIFACT_MANIFEST_OK")
     run([sys.executable, "validation/test_release.py"], "SAFETY_ORCHESTRATION_V061_RELEASE_OK")
-    print("ALL_SAFETY_ORCHESTRATION_VIRTUAL_VALIDATIONS_OK; CROSS_SOLVER_VALIDATION_PENDING; EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN")
+    print("ALL_SAFETY_ORCHESTRATION_VIRTUAL_VALIDATIONS_OK; CROSS_SOLVER_VALIDATION_PENDING; EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN", flush=True)
 
 
 if __name__ == "__main__":

@@ -19,7 +19,7 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:avr@1.8.8
       - name: Full deterministic regeneration and validation
-        run: nix develop --command bash -lc 'python3 validation/run_all.py --regenerate-renders'
+        run: nix develop --command bash -lc 'python3 -u validation/run_all.py --regenerate-renders'
       - name: Exact-head CI-FULL evidence
         run: nix develop --command bash -lc 'python3 validation/exact_head_evidence.py --stage CI-FULL'
       - name: Upload validation evidence
