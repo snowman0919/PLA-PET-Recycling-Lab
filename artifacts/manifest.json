@@ -18,7 +18,7 @@
     "Arduino Mega compile via validation/arduino_compile.py and host tests via firmware Makefile",
     "Normalized artifact equality via validation/artifact_reproducibility.py"
   ],
-  "artifact_count": 753,
+  "artifact_count": 751,
   "artifacts": [
     {
       "path": ".github/workflows/ci-full.yml",
@@ -149,8 +149,8 @@
     {
       "path": "artifacts/manifest_lib.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4731,
-      "sha256": "1b835baa113dadcb08629fc39abe112b46c8d3cc2f70efa97893d1d653fc9526"
+      "normalized_bytes": 4809,
+      "sha256": "623a29be7a7b7c72ad40bc9313eff79ae04e64845baca4e0b7f2d796dd2bc31f"
     },
     {
       "path": "bom/bom.csv",
@@ -409,12 +409,6 @@
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 725,
       "sha256": "7811cb12e5a27b7f5eaa6f4f30d9090398d2b7ef0ad3b3d13ff7145773ea8916"
-    },
-    {
-      "path": "control/__pycache__/generate_contract_artifacts.cpython-314.pyc",
-      "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 21487,
-      "sha256": "15fb0974720dc23cb59e407038def3c0ed4be06cc29a568aa9869a891624b3fc"
     },
     {
       "path": "control/fault_response_contract.json",
@@ -3057,12 +3051,6 @@
       "sha256": "11f4e08fd9ec499f233cc8c591957762872ddd4a620eb27f9a49b36391c220ef"
     },
     {
-      "path": "fusion_worker/result_validation/__pycache__/validate_fusion_results.cpython-314.pyc",
-      "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 4611,
-      "sha256": "a2f96bac3110c18cee2aebef4611fa0220d34d892a3bebebc31d8aae5eb84d14"
-    },
-    {
       "path": "fusion_worker/result_validation/validate_fusion_results.py",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 2514,
@@ -4133,20 +4121,20 @@
     {
       "path": "simulation/openmodelica/results/plots/FullSystemJam.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 28625,
-      "sha256": "80e846302f9868b99ea934a4ce5cc78e0b8af781d2e0f5cf1f4bc0467fca36a1"
+      "normalized_bytes": 32943,
+      "sha256": "b9f35b067165ff68af72709407753f72b5790fcb76d4c4bd5909a06f11bfe0a4"
     },
     {
       "path": "simulation/openmodelica/results/plots/FullSystemPLA.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 471048,
-      "sha256": "8b3227fbb014ca08b21eec7039a28cf124c15e9ea97035f629e0f05b310a71c8"
+      "normalized_bytes": 903759,
+      "sha256": "de807e517a9cd5e96e49461a1f463a498ca0b273b175b25479f2e5c1969b4a56"
     },
     {
       "path": "simulation/openmodelica/results/plots/GaugeDropout.svg",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 42508,
-      "sha256": "7d898d9ac01208b128bcd776c4fddaaa878c2abf2d7e0083927e8a9c611734dd"
+      "normalized_bytes": 100004,
+      "sha256": "d3a4b7fa907ab183f05ae97ef011f965ffd156600aa9fd58a2ca409b95c1eaf7"
     },
     {
       "path": "simulation/openmodelica/results/plots/HotExtrusionJamPLA.svg",
@@ -4380,7 +4368,7 @@
       "path": "validation/results/artifact_reproducibility.json",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 911,
-      "sha256": "05dc55f7b6248d4de296e2650bff14c4eede0c584e1c3acebf9ea433a2507470"
+      "sha256": "f0b15e94fa945570724dddfcdb5525423af45976a292efce860597a475e4036f"
     },
     {
       "path": "validation/results/assembly_pairwise_collisions.json",

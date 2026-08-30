@@ -48,6 +48,8 @@ def collect_paths(root: Path) -> list[Path]:
         for pattern in PATTERNS
         for path in root.glob(pattern)
         if path.is_file()
+        and "__pycache__" not in path.parts
+        and path.suffix != ".pyc"
         and "simulation/openmodelica/results/raw" not in path.as_posix()
         and not ("exports/print/slicing_previews" in path.as_posix() and path.suffix == ".gcode")
     })
