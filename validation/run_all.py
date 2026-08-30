@@ -8,6 +8,8 @@ import shlex
 import subprocess
 import sys
 import json
+import threading
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,11 +25,29 @@ def run(cmd, marker):
         bufsize=1,
     )
     output_lines = []
+    last_output_at = [time.monotonic()]
+    heartbeat_stop = threading.Event()
+
+    def heartbeat() -> None:
+        while not heartbeat_stop.wait(60):
+            idle_s = int(time.monotonic() - last_output_at[0])
+            print(
+                f"VALIDATION_HEARTBEAT marker={marker} child_running=1 idle_s={idle_s}",
+                flush=True,
+            )
+
+    heartbeat_thread = threading.Thread(target=heartbeat, daemon=True)
+    heartbeat_thread.start()
     assert process.stdout is not None
-    for line in process.stdout:
-        output_lines.append(line)
-        print(line, end="", flush=True)
-    returncode = process.wait()
+    try:
+        for line in process.stdout:
+            last_output_at[0] = time.monotonic()
+            output_lines.append(line)
+            print(line, end="", flush=True)
+        returncode = process.wait()
+    finally:
+        heartbeat_stop.set()
+        heartbeat_thread.join()
     output = "".join(output_lines)
     if returncode or marker not in output:
         raise SystemExit(f"FAIL {marker}: {' '.join(cmd)}")
