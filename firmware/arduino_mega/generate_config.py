@@ -39,6 +39,7 @@ def main() -> None:
         f'constexpr const char* CONFIG_BASELINE_SHA256 = "{hashlib.sha256(raw).hexdigest()}";',
         f'constexpr const char* PROCESS_CONTRACT_SHA256 = "{hashlib.sha256(contract_raw).hexdigest()}";',
         "enum class MachineState : uint8_t { IDLE, SHREDDING, PREHEATING, EXTRUSION, COOLDOWN, FAULT, ESTOP };",
+        "enum class MaterialSession : uint8_t { CLEAN, PLA_ACTIVE, PET_ACTIVE, PURGE_REQUIRED, SCREEN_CLEAN_REQUIRED, HOPPER_CLEAN_REQUIRED, TEMPERATURE_TRANSITION_REQUIRED, FINAL_CONFIRM_REQUIRED };",
         "struct StatePermissions { bool shredder, screw, process_heaters, feeder, puller, spooler, cooling; };",
         "struct PhasePower { float average_w, peak_w; };",
         "constexpr DriveCalibration REFERENCE_DRIVE_CALIBRATION{",
@@ -77,8 +78,18 @@ def main() -> None:
         f"constexpr float PLA_SHREDDER_SPEED_KP = {f(contract['materials']['PLA']['shredder_speed_kp'])};",
         f"constexpr float PET_SHREDDER_DUTY_BIAS = {f(contract['materials']['PET']['shredder_duty_bias'])};",
         f"constexpr float PET_SHREDDER_SPEED_KP = {f(contract['materials']['PET']['shredder_speed_kp'])};",
+        f"constexpr float SHREDDER_MEASUREMENT_FILTER_S = {f(contract['shredder_speed_control']['measurement_filter_s'])};",
         f"constexpr float NORMAL_PHASE_PEAK_LIMIT_W = {f(contract['power']['normal_phase_peak_limit_w'])};",
         f"constexpr float PSU_RATING_W = {f(contract['power']['psu_rating_w'])};",
+        f"constexpr uint16_t HEATER_SAMPLE_PERIOD_MS = {int(contract['heater_control']['sample_period_ms'])};",
+        f"constexpr uint16_t HEATER_WINDOW_MS = {int(contract['heater_control']['time_proportion_window_ms'])};",
+        f"constexpr float HEATER_MIN_VALID_C = {f(contract['heater_control']['minimum_valid_c'])};",
+        f"constexpr float HEATER_MAX_VALID_C = {f(contract['heater_control']['maximum_valid_c'])};",
+        f"constexpr float HEATER_OVERTEMPERATURE_C = {f(contract['heater_control']['overtemperature_c'])};",
+        f"constexpr uint32_t HEATER_NOT_HEATING_DWELL_MS = {int(contract['heater_control']['not_heating_dwell_ms'])}UL;",
+        f"constexpr float HEATER_NOT_HEATING_MIN_RISE_C = {f(contract['heater_control']['not_heating_min_rise_c'])};",
+        f"constexpr uint32_t HEATER_UNEXPECTED_RISE_DWELL_MS = {int(contract['heater_control']['unexpected_rise_dwell_ms'])}UL;",
+        f"constexpr float HEATER_UNEXPECTED_RISE_C = {f(contract['heater_control']['unexpected_rise_c'])};",
         "constexpr StatePermissions STATE_PERMISSIONS[] = {",
     ]
     for state, permissions in contract["states"].items():
@@ -109,6 +120,8 @@ def main() -> None:
         f'  constant String contractSha256="{hashlib.sha256(contract_raw).hexdigest()}";',
     ]
     modelica += [f"  constant Integer {name}={index};" for index, name in enumerate(states, 1)]
+    material_states = contract["material_session"]["states"]
+    modelica += [f"  constant Integer MATERIAL_{name}={index};" for index, name in enumerate(material_states, 1)]
     modelica += [
         f"  constant Boolean permissions[{len(states)},7]=[{';'.join(permission_rows)}];",
         f"  constant Real jamStartupGrace={contract['jam']['startup_grace_ms']/1000:.6g};",
@@ -122,10 +135,12 @@ def main() -> None:
         f"  constant Integer maximumRetries={contract['jam']['maximum_retries']};",
         f"  constant Real shredderDutyLimit={contract['shredder_speed_control']['duty_limit']:.6g};",
         f"  constant Real shredderCommandFilter={contract['shredder_speed_control']['command_filter_s']:.6g};",
+        f"  constant Real shredderMeasurementFilter={contract['shredder_speed_control']['measurement_filter_s']:.6g};",
         "  constant Real shredderDutyBiasByMaterial[2]={" + ",".join(f"{contract['materials'][s]['shredder_duty_bias']:.6g}" for s in ("PLA", "PET")) + "};",
         "  constant Real shredderSpeedKpByMaterial[2]={" + ",".join(f"{contract['materials'][s]['shredder_speed_kp']:.6g}" for s in ("PLA", "PET")) + "};",
         f"  constant Real normalPhasePeakLimit={contract['power']['normal_phase_peak_limit_w']:.6g};",
         f"  constant Real psuRating={contract['power']['psu_rating_w']:.6g};",
+        f"  constant String crossSolverState=\"{contract['release']['cross_solver_state']}\";",
         "  constant Real phaseAverage[4]={" + ",".join(f"{contract['power']['phases'][s]['average_w']:.6g}" for s in ("SHREDDING", "PREHEATING", "EXTRUSION", "COOLDOWN")) + "};",
         "  constant Real phasePeak[4]={" + ",".join(f"{contract['power']['phases'][s]['peak_w']:.6g}" for s in ("SHREDDING", "PREHEATING", "EXTRUSION", "COOLDOWN")) + "};",
         "end GeneratedControl;",

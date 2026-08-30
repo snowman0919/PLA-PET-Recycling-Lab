@@ -1,0 +1,11 @@
+metric_id,load_cases,metric,reference_solver,reference_value,unit,acceptance,external_result_status
+M01,LC04,max global displacement,CalculiX fine mesh,0.252332,mm,medium-to-fine delta <=5%,PENDING
+M02,LC04,bearing plate screening stress,closed form,56.180,MPa,safety factor >=2.0,PENDING
+M03,LC02,max shaft displacement,CalculiX fine mesh,0.014140,mm,medium-to-fine delta <=5%,PENDING
+M04,LC02,shaft equivalent stress,closed form,67.205,MPa,safety factor >=2.0,PENDING
+M05,LC06,pressure trip,OpenModelica,6.0,MPa,relief opens and net flow stops,PENDING
+M06,LC07-LC08,barrel peak temperature,OpenModelica,270,degC,no independent overtemperature threshold exceeded,PENDING
+M07,LC10,first structural mode,Fusion required,,Hz,20% separation from cutter/drive excitation bands,PENDING
+M08,LC10,linear buckling factor,Fusion required,,,>=2.0,PENDING
+M09,LC01-LC10,static/thermal safety factor,Fusion required,,,>=2.0,PENDING
+M10,LC01-LC10,mesh convergence,Fusion required,,percent,medium-to-fine decision metric delta <=5%,PENDING

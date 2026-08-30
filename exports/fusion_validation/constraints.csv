@@ -1,0 +1,7 @@
+constraint_id,load_cases,geometry,selection,components,meaning,review_required
+BC01,LC01-LC05,shredder_frame.step,profile/table mounting holes,Tx Ty Tz,bearing plate to aluminum profile load path,yes
+BC02,LC02 LC05,cutter_shaft.step,bearing journal cylindrical faces,radial translation,6004 support idealization,yes
+BC03,LC04,bearing_plate.step,frame-side mounting-hole faces,Tx Ty Tz,CalculiX fixed-edge correlation abstraction,yes
+BC04,LC06-LC08,extruder_hot_zone.step,thrust-plate mounting interface,Tx Ty Tz,metal thrust path to profile,yes
+BC05,LC09,spooler_support.step,profile mounting-hole faces,Tx Ty Tz,metal plate to profile,yes
+BC06,LC10,frame.step,four table anchor interfaces,Tx Ty Tz,table anchoring required,yes

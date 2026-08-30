@@ -1,4 +1,4 @@
-# 아키텍처 계약 — virtual-physics-closure-v0.5.1
+# 아키텍처 계약 — implementation-crosssolver-v0.6
 
 ## 잠긴 결정
 
@@ -23,6 +23,6 @@
 
 ## Claim·발주 경계
 
-Release state `DIGITAL_FABRICATION_BASELINE`은 closed-solid CAD, actual slicing, 55개 mandatory coupled Modelica scenario와 CalculiX/analytical screening, interface catalog, controller contract와 재생성 hash가 일치한 상태다. 독립 상태는 `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`, `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. `VERIFIED_PROCUREMENT_BUDGET`는 supplier 견적과 donor 실물 증거 전 `NOT_ESTABLISHED`로 유지한다.
+Release state `IMPLEMENTATION_BASELINE`은 closed-solid CAD, actual slicing, 74개 mandatory coupled Modelica scenario와 CalculiX/analytical screening, interface catalog, controller contract와 재생성 hash가 일치한 상태다. 독립 상태는 `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`, `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. `VERIFIED_PROCUREMENT_BUDGET`는 supplier 견적과 donor 실물 증거 전 `NOT_ESTABLISHED`로 유지한다.
 
 Gate-1…5는 `OPTIONAL_EMPIRICAL_VALIDATION`이다. 미수행은 `main`을 차단하지 않는다. 다만 CUT-01 full stack, EX-SCR-01/EX-BAR-01, motor/heater/safety hardware의 구매·가공과 최초 통전은 별도 `PROCUREMENT_APPROVAL_GATE`/`COMMISSIONING_GATE`에서 사용자 승인을 요구한다.

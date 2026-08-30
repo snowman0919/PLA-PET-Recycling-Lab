@@ -1,6 +1,6 @@
 # 동적 하중 연계 구조 검토
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `implementation-crosssolver-v0.6`
 - 판정: **PASS**
 - 가상 물리 상태: `VIRTUAL_PHYSICS_VALIDATED`
 - 경험적 검증 상태: `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
@@ -9,14 +9,14 @@
 |부품|등가응력 MPa|허용 MPa|안전율|판정|
 |---|---:|---:|---:|---:|
 |CUT-01 cutter tooth/root|57.950|350.0|6.04|PASS|
-|SH-SHAFT-01 20 mm cutter shaft|55.016|177.5|3.23|PASS|
-|SH-PLATE-01 bearing plate|3.448|137.5|39.88|PASS|
+|SH-SHAFT-01 20 mm cutter shaft|55.826|177.5|3.18|PASS|
+|SH-PLATE-01 bearing plate|3.510|137.5|39.17|PASS|
 |PH-KEY-01 phase gear key|31.481|120.0|3.81|PASS|
 |CH-SPROCKET-01 overhang|33.444|177.5|5.31|PASS|
-|DRV-03 motor adapter plate|4.072|75.0|18.42|PASS|
+|DRV-03 motor adapter plate|4.147|75.0|18.09|PASS|
 |EX-THR-01 screw thrust plate|3.077|137.5|44.68|PASS|
 |SP-SHAFT-01 spool shaft|35.916|100.0|2.78|PASS|
-|FR-ANCHOR-01 M8 table anchor|31.497|320.0|10.16|PASS|
+|FR-ANCHOR-01 M8 table anchor|32.071|320.0|9.98|PASS|
 |EX-BAR-01 thermocouple blind-bore ligament|90.000|180.0|2.00|PASS|
 
 ## 해석 의미
@@ -25,4 +25,4 @@
 
 프레임은 local 2040 Option B를 채택했다. Bearing-center relative displacement는 0.351 mm, screen-clearance margin은 1.549 mm, phase center-distance variation은 0.175 mm다. Profile은 15.098 m에서 14.668 m로 감소한다.
 
-CalculiX deck는 `generated/bearing_plate.inp`, `generated/cutter_shaft.inp`이며 선형 탄성 global screening이다. 상세 notch/contact 검토 및 물리 coupon을 대체하지 않는다.
+CalculiX deck는 coarse/medium/fine 3단계로 실제 실행되며 medium-to-fine 전역 변위 차이 5% 이하를 합격 기준으로 한다. `generated/bearing_plate.inp`, `generated/cutter_shaft.inp`는 검토용 medium mesh다. 고정단 최대응력은 특이점에 민감하므로 수렴 판정에서 제외하고 폐형식 응력과 함께 판단한다. 상세 notch/contact 검토 및 물리 coupon을 대체하지 않는다.

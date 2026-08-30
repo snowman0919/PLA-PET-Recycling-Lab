@@ -13,12 +13,12 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision virtual-physics-closure-v0.5.1 · 2026-08-30]
+  #text(size: 11pt)[Revision implementation-crosssolver-v0.6 · 2026-08-30]
 ]
 
 #danger[*물리 운전 승인 문서가 아니다.* Cutter, screw, heater, mains/high-current는 사용자 승인, exact component 확인, guard와 commissioning gate 전 energize하지 않는다.]
 
-Release: `DIGITAL_FABRICATION_BASELINE` / `VIRTUAL_PHYSICS_VALIDATED` / `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`.
+Release: `IMPLEMENTATION_BASELINE` / `VIRTUAL_PHYSICS_VALIDATED` / `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`.
 
 #pagebreak()
 = 작업 전 확인

@@ -3,9 +3,14 @@ model DynamicSpoolSystem
   parameter Real lineSpeedCommand=0.020 "m/s";
   parameter Boolean useExternalLineSpeed=false;
   input Real externalLineSpeed=0;
+  parameter Boolean useExternalEnable=false;
+  input Boolean externalEnable=true;
+  input Boolean externalDemand=true;
   parameter Real initialFill=0 "0 empty, 0.5 half, 1 full";
   parameter Boolean spoolJammed=false;
   parameter Boolean gaugeValid=true;
+  parameter Boolean useExternalGaugeValid=false;
+  input Boolean externalGaugeValid=true;
   parameter Real traverseDisturbance=0.0;
   parameter Real coreRadius=0.052;
   parameter Real fullRadius=0.100;
@@ -36,6 +41,8 @@ model DynamicSpoolSystem
   Boolean tensionFault;
   Boolean jamDetected;
   Boolean safePause;
+  Boolean actuatorEnabled;
+  Boolean effectiveGaugeValid;
 equation
   filamentArea=Modelica.Constants.pi*(filamentDiameter/2)^2;
   spoolRadius=sqrt(coreRadius^2+fillFraction*(fullRadius^2-coreRadius^2));
@@ -43,11 +50,13 @@ equation
   surfaceSpeed=spoolSpeed*spoolRadius;
   lineLengthImbalance=deliveredLength-woundLength-0.20*dancerAngle;
   commandedLineSpeed=if useExternalLineSpeed then externalLineSpeed else lineSpeedCommand;
+  actuatorEnabled=if useExternalEnable then externalEnable else true;
+  effectiveGaugeValid=if useExternalGaugeValid then externalGaugeValid else gaugeValid;
   effectiveLineSpeed=if safePause then 0 else commandedLineSpeed;
   der(deliveredLength)=effectiveLineSpeed;
   der(woundLength)=max(0,surfaceSpeed);
   speedError=effectiveLineSpeed-surfaceSpeed+0.8*lineLengthImbalance;
-  motorTorque=if safePause or not gaugeValid then 0 else max(-0.45,min(0.45,6.0*speedError+0.20*dancerAngle));
+  motorTorque=if safePause or not effectiveGaugeValid or not actuatorEnabled then 0 else max(-0.45,min(0.45,6.0*speedError+0.20*dancerAngle));
   motorCurrent=abs(motorTorque)/0.12+0.15;
   brakeTorque=if spoolJammed then max(-8,min(8,1200*spoolSpeed+20*spoolAngle)) else 0;
   lineTension=max(0,1.2+220*(surfaceSpeed-effectiveLineSpeed)-12*dancerAngle+traverseDisturbance);
@@ -59,6 +68,6 @@ equation
   der(fillFraction)=if initialFill>=1 then 0 else filamentArea*max(0,surfaceSpeed)/(Modelica.Constants.pi*(fullRadius^2-coreRadius^2)*windingWidth*fillFactor);
   dancerLimit=abs(dancerAngle)>0.4363;
   jamDetected=spoolJammed and (abs(spoolSpeed)<0.02 or lineSlack>0.015);
-  tensionFault=lineTension>8 or dancerLimit or lineSlack>0.035 or not gaugeValid;
-  safePause=tensionFault;
+  tensionFault=lineTension>8 or dancerLimit or lineSlack>0.035 or not effectiveGaugeValid;
+  safePause=tensionFault or (useExternalEnable and externalDemand and not actuatorEnabled);
 end DynamicSpoolSystem;

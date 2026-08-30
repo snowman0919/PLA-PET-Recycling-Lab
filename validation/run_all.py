@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild and validate the virtual-physics-closure-v0.5.1 baseline."""
+"""Rebuild and validate the implementation-crosssolver-v0.6 baseline."""
 
 from __future__ import annotations
 

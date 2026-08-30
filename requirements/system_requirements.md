@@ -1,4 +1,4 @@
-# 시스템 요구사항 — virtual-physics-closure-v0.5.1
+# 시스템 요구사항 — implementation-crosssolver-v0.6
 
 ## Hard constraint
 

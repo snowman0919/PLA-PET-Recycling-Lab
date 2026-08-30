@@ -191,7 +191,7 @@ def main():
     reserve=0.12*total_mass; cad_difference=total_mass-sum(float(r["cad_net_mass_total_g"]) for r in rows)
     (ROOT/"exports/print/total_material_report.md").write_text(
         "# 출력물 총 재료 보고 — 실제 slicing\n\n"
-        "- revision: `virtual-physics-closure-v0.5.1`\n"
+        "- revision: `implementation-crosssolver-v0.6`\n"
         "- slicer: `PrusaSlicer 2.9.6`, profile `PPR_PrusaSlicer_2.9.6.ini`\n"
         f"- slicer filament: **{total_mass:.1f} g**\n- slicer minus solid-CAD nominal: **{cad_difference:.1f} g**\n"
         f"- failed-print reserve 12%: **{reserve:.1f} g**\n- procurement planning mass: **{total_mass+reserve:.1f} g**\n"
@@ -199,7 +199,7 @@ def main():
         f"- G-code support extrusion volume: **{total_support:.2f} cm³** (nominal mass에 포함)\n"
         f"- PPR-TC01 tolerance coupon (machine total excluded): **{coupon_mass:.1f} g / {coupon_time/3600:.1f} h**\n",
         encoding="utf-8")
-    result={"revision":"virtual-physics-closure-v0.5.1","slicer":"PrusaSlicer 2.9.6","profile":str(PROFILE.relative_to(ROOT)),"total_mass_g":round(total_mass,3),"failed_print_reserve_g":round(reserve,3),"planning_mass_g":round(total_mass+reserve,3),"total_time_s":total_time,"parts":results,"tolerance_coupon":coupon_result,"status":"PASS" if total_mass+reserve<=2000 else "FAIL"}
+    result={"revision":"implementation-crosssolver-v0.6","slicer":"PrusaSlicer 2.9.6","profile":str(PROFILE.relative_to(ROOT)),"total_mass_g":round(total_mass,3),"failed_print_reserve_g":round(reserve,3),"planning_mass_g":round(total_mass+reserve,3),"total_time_s":total_time,"parts":results,"tolerance_coupon":coupon_result,"status":"PASS" if total_mass+reserve<=2000 else "FAIL"}
     out=ROOT/"validation/results"; out.mkdir(parents=True,exist_ok=True); (out/"slicer_results.json").write_text(json.dumps(result,indent=2)+"\n")
     with (ROOT/"bom/printed_material_cost.csv").open("w",newline="") as f:
         fields=["part_id","quantity","material","slicer_mass_total_g","cost_krw_per_kg","estimated_cost_krw","status"]

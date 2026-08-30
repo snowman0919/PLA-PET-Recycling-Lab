@@ -1,4 +1,4 @@
-# 가정과 확인 대기 항목 — virtual-physics-closure-v0.5.1
+# 가정과 확인 대기 항목 — implementation-crosssolver-v0.6
 
 |항목|디지털 입력|상태/필요 증거|
 |---|---|---|

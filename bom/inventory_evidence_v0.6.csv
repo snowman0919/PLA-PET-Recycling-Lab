@@ -1,0 +1,11 @@
+inventory_id,required_item,required_quantity,claimed_available_quantity,verification_state,required_evidence,measured_or_label_value,evidence_path,release_effect
+INV-01,20x20 aluminum profile total 13.348 m,13.348 m,,USER_INSPECTION_REQUIRED,"photos with tape measure; section and straightness; cuttable lengths",,,cash budget remains conditional
+INV-02,20x40 aluminum profile total 1.320 m,1.320 m,,USER_INSPECTION_REQUIRED,"photos with tape measure; section and straightness",,,high-load local rail release blocked
+INV-03,24 V geared shredder motor,1,,USER_INSPECTION_REQUIRED,"nameplate; model; voltage; ratio; shaft; no-load current/RPM; 30 min temperature",,,donor zero-cash assumption blocked
+INV-04,24 V extruder gearmotor,1,,USER_INSPECTION_REQUIRED,"nameplate; shaft; torque/current/RPM evidence",,,adapter and drive release blocked
+INV-05,50 A Hall sensor or shunt,1,,USER_INSPECTION_REQUIRED,"part marking; isolation topology; 0/5/10/15/20 A calibration",,,torque estimator calibration blocked
+INV-06,K-type ungrounded probes,5,,USER_INSPECTION_REQUIRED,"probe labels; sheath-to-junction isolation; ice/boiling calibration",,,heater energization blocked
+INV-07,heater MOSFET modules,5,,USER_INSPECTION_REQUIRED,"part marking; VDS; 10 A thermal test",,,heater energization blocked
+INV-08,E-stop and independent interlocks,4,,USER_INSPECTION_REQUIRED,"contact blocks; NC continuity; positive opening evidence",,,all powered motion blocked
+INV-09,branch and thermal fuses,1 lot,,USER_INSPECTION_REQUIRED,"rating marks; quantity; continuity; mounting hardware",,,heater energization blocked
+INV-10,metal sheet/plate stock per RFQ,1 lot,,USER_INSPECTION_REQUIRED,"material/grade/thickness/usable area photos and measurements",,,CNC allowance not replaceable by assumed donor stock

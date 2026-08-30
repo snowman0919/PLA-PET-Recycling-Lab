@@ -1,13 +1,14 @@
 {
-  "revision": "virtual-physics-closure-v0.5.1",
-  "release_class": "DIGITAL_FABRICATION_BASELINE",
+  "revision": "implementation-crosssolver-v0.6",
+  "release_class": "IMPLEMENTATION_BASELINE",
   "geometry_validation": "PASS",
   "fabrication_validation": "PASS",
   "virtual_physics_validation": "PASS",
   "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
   "empirical_validation": "OPTIONAL_NOT_RUN",
   "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
-  "archive_sha": "9943b0b6c8148db0fa328c6388e00eca2d90619e",
+  "archive_sha": "b4ce4d73f3b7edee010018223083ee804c6e4cfb",
+  "cross_solver_state": "CROSS_SOLVER_VALIDATION_PENDING",
   "limits": {
     "hard_envelope_mm": [500.0, 750.0, 1000.0],
     "target_envelope_mm": [480.0, 720.0, 950.0],

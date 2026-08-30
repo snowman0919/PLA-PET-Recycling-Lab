@@ -24,6 +24,6 @@ PRINT,PRINT-ALLOW,PrusaSlicer 2.9.6 nominal 904.20 g plus 12 percent reserve,182
 OPTIONAL_EMPIRICAL,GATE1-METROLOGY,0-200 N force gauge/load-cell calibration allowance,7500,BUY_HOLD,optional empirical validation 비용; design-release machine subtotal에서 제외; project-lab 계측기 확인 시 미사용
 OPTIONAL_EMPIRICAL,GATE1-PRINT,Gate-1 chute tray guard-corner 234.9 g 출력 allowance,4400,BUY_HOLD,optional empirical validation 비용; design-release machine subtotal에서 제외; final-machine package와 별도 집계
 NON_CNC,MACHINE-FAB-DONOR,frame profile sheet tube puller spooler feeder stock for exports/fabrication,0,CONDITIONAL_DONOR_UNVERIFIED,frame 2020 13.348 m와 local 2040 1.320 m 포함 총 14.668 m의 재고 수량 재질 직진도 실측 전 0원 확정 금지; 부족분은 예산 재검토 blocker
-TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,173729,CONDITIONAL_TARGET_PASS,virtual-physics-closure-v0.5.1; heater 360 W 포함; motor donor 증거와 실제 견적 전 구매 release는 BLOCKED
+TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,173729,CONDITIONAL_TARGET_PASS,implementation-crosssolver-v0.6; heater 360 W 포함; motor donor 증거와 실제 견적 전 구매 release는 BLOCKED
 CONTINGENCY,ABSOLUTE_CAP_RESERVE,견적변동 예비비,20000,RESERVED,기능 추가에 사용 금지; 안전 또는 필수 제조 견적 차이만
 TOTAL,ABSOLUTE_TOTAL_WITH_RESERVE,예비비 포함 절대 계획 상한,193729,CONDITIONAL_CAP_PASS,200000 KRW 절대상한까지 6271 KRW 여유

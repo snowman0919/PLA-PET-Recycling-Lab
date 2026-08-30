@@ -63,6 +63,25 @@ def main() -> None:
         require(source["screw_rpm"] == baseline["profiles"][material]["screw_rpm"], f"{material} screw RPM drift")
         require(source["fan_percent"] == baseline["profiles"][material]["fan_percent"], f"{material} fan drift")
 
+    session = contract["material_session"]
+    require(
+        session["change_sequence"] == [
+            "PURGE_REQUIRED", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED",
+            "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED",
+        ],
+        "material change sequence drift",
+    )
+    require(session["start_requires"] == ["process_phase_IDLE", "feed_stopped", "screw_stopped"], "material start interlock drift")
+    require(set(session["production_allowed"]) == {"PLA_ACTIVE", "PET_ACTIVE"}, "material production lock drift")
+    hardware = contract["hardware"]
+    require(hardware["temperature_channels"] == ["T1", "T2", "T3", "Tdie", "Thopper"], "temperature channel drift")
+    require(hardware["shredder_driver"] == "PWM_DIR_ENABLE_HBRIDGE", "shredder hardware abstraction drift")
+    require(hardware["traverse_driver"] == "STEP_DIR_ENABLE", "traverse hardware abstraction drift")
+    heater = contract["heater_control"]
+    require(heater["sample_period_ms"] == 250 and heater["time_proportion_window_ms"] == 2000, "heater timing drift")
+    require(heater["process_heater_allowed_phases"] == ["PREHEATING", "EXTRUSION"], "heater phase permission drift")
+    require(heater["overtemperature_c"] < heater["maximum_valid_c"], "heater overtemperature must precede sensor ceiling")
+
     phase_rows = []
     voltage = contract["power"]["voltage_v"]
     rating = contract["power"]["psu_rating_w"]
@@ -106,6 +125,8 @@ def main() -> None:
         "revision": contract["revision"], "status": "PASS", "contract_sha256": digest,
         "power_phases": phase_rows, "mutation_regressions": mutation_results,
         "hard_assertion": "not (shredder_enabled and (screw_enabled or process_heater_enabled))",
+        "material_session": "ORDERED_CHANGE_AND_EXPLICIT_CONFIRMATION_PASS",
+        "hardware_abstractions": "MEGA_IO_AND_HEATER_GAUGE_CONTRACT_PASS",
     }
     path = ROOT / "validation/results/controller_contract.json"
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")

@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 P=json.loads((ROOT/"cad/parameters/baseline.json").read_text())
 CONTRACT=json.loads((ROOT/"control/process_contract.json").read_text())
-REV="virtual-physics-closure-v0.5.1"
+REV="implementation-crosssolver-v0.6"
 
 
 def throughput_model():
@@ -278,7 +278,7 @@ PET predry는 `UNQUALIFIED_EXTERNAL_PROCESS`; 65 °C/7 h를 qualified recipe로 
 """)
     (ROOT/"calculations/engineering_report.md").write_text(f"""# 공학 계산 통합 보고 — {REV}
 
-- release: `DIGITAL_FABRICATION_BASELINE`, `VIRTUAL_PHYSICS_VALIDATED`, `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
+- release: `IMPLEMENTATION_BASELINE`, `VIRTUAL_PHYSICS_VALIDATED`, `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
 - envelope: 470 × 700 × 930 mm
 - screw profiles: PLA 16 rpm / PET 18 rpm; analytical nominal {flow['profile_points']['PLA']['throughput_nominal_gph']}/{flow['profile_points']['PET']['throughput_nominal_gph']} g/h
 - 200 g/h: nominal 미입증 stretch target

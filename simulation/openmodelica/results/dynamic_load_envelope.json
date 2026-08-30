@@ -1,11 +1,11 @@
 {
-  "revision": "virtual-physics-closure-v0.5.1",
-  "source": "OpenModelica DASSL virtual-physics model; empirical validation optional not run",
+  "revision": "implementation-crosssolver-v0.6",
+  "source": "OpenModelica DASSL virtual model; physical tests not run",
   "loads": {
-    "peak_cutter_torque_nm": 21.99375000439907,
-    "peak_phase_torque_nm": 16.22025213688948,
-    "peak_bearing_load_n": 1292.83945661846,
-    "peak_chain_force_n": 602.7336257714188
+    "peak_cutter_torque_nm": 21.99375000439957,
+    "peak_phase_torque_nm": 20.00049692324236,
+    "peak_bearing_load_n": 1316.400716792292,
+    "peak_chain_force_n": 602.7336257714323
   },
   "design_caps": {
     "electrical_trip_torque_nm": 18.0,

@@ -24,10 +24,10 @@ def vm_bending_torsion(moment_nm: float, torque_nm: float, diameter_mm: float) -
     return math.sqrt(sigma**2 + 3 * tau**2) / 1e6
 
 
-def plate_deck(load_n: float) -> str:
+def plate_deck(load_n: float, scale: int = 2) -> str:
     """120×100×12 mm steel plate; fixed side to bearing-load side screening mesh."""
-    nx, ny, nz = 12, 10, 2
-    dx, dy, dz = 0.01, 0.01, 0.006
+    nx, ny, nz = 6 * scale, 5 * scale, scale
+    dx, dy, dz = 0.12 / nx, 0.10 / ny, 0.012 / nz
     nodes: list[str] = []
     node_id: dict[tuple[int, int, int], int] = {}
     nid = 1
@@ -49,7 +49,12 @@ def plate_deck(load_n: float) -> str:
                 elements.append(f"{eid}," + ",".join(map(str, conn)))
                 eid += 1
     fixed = [node_id[0, j, k] for k in range(nz + 1) for j in range(ny + 1)]
-    loaded = [node_id[nx, j, k] for k in range(nz + 1) for j in range(4, 7)]
+    loaded = [
+        node_id[nx, j, k]
+        for k in range(nz + 1)
+        for j in range(ny + 1)
+        if 0.04 - 1e-9 <= j * dy <= 0.06 + 1e-9
+    ]
     per_node = -load_n / len(loaded)
     fixed_lines = [",".join(map(str, fixed[i:i + 16])) for i in range(0, len(fixed), 16)]
     loaded_lines = [",".join(map(str, loaded[i:i + 16])) for i in range(0, len(loaded), 16)]
@@ -70,16 +75,16 @@ def plate_deck(load_n: float) -> str:
     ])
 
 
-def shaft_deck(radial_load_n: float, torque_nm: float) -> str:
+def shaft_deck(radial_load_n: float, torque_nm: float, elements_count: int = 3) -> str:
     """20 mm shaft 30 mm sprocket overhang screening, B31 elements."""
-    nodes = [f"{i+1},{i*0.01:.6f},0,0" for i in range(4)]
-    elements = [f"{i+1},{i+1},{i+2}" for i in range(3)]
+    nodes = [f"{i+1},{i*0.03/elements_count:.6f},0,0" for i in range(elements_count + 1)]
+    elements = [f"{i+1},{i+1},{i+2}" for i in range(elements_count)]
     return "\n".join([
         "*HEADING", "PPR v0.4 cutter shaft screening; SI units m N Pa",
         "*NODE", *nodes,
         "*ELEMENT,TYPE=B31,ELSET=EALL", *elements,
         "*NSET,NSET=FIXED", "1",
-        "*NSET,NSET=FREE", "4",
+        "*NSET,NSET=FREE", str(elements_count + 1),
         "*BEAM SECTION,ELSET=EALL,MATERIAL=S45C,SECTION=RECT", "0.01772,0.01772", "0,0,1",
         "*MATERIAL,NAME=S45C", "*ELASTIC", "2.05E11,0.29",
         "*BOUNDARY", "FIXED,1,6,0",
@@ -132,6 +137,22 @@ def run_ccx(stem: str) -> dict:
     if frd.exists():
         result.update(parse_frd(frd))
     return result
+
+
+def convergence_result(rows: list[dict], tolerance_percent: float = 5.0) -> dict:
+    """Use global displacement convergence; clamp-edge stress is singularity sensitive."""
+    if any(row["result"].get("status") != "PASS" for row in rows):
+        return {"status": "FAIL", "criterion": "all three CalculiX meshes PASS", "meshes": rows}
+    medium = rows[-2]["result"]["max_displacement_mm"]
+    fine = rows[-1]["result"]["max_displacement_mm"]
+    delta = abs(fine - medium) / max(abs(fine), 1e-12) * 100
+    return {
+        "status": "PASS" if delta <= tolerance_percent else "FAIL",
+        "criterion": f"medium-to-fine global displacement delta <= {tolerance_percent:.1f}%",
+        "medium_to_fine_displacement_delta_percent": round(delta, 4),
+        "stress_interpretation": "maximum clamp-edge stress is reported but excluded from convergence because the ideal fixed edge creates a local singularity",
+        "meshes": rows,
+    }
 
 
 def check(name: str, stress_mpa: float, allowable_mpa: float, source: str, note: str) -> dict:
@@ -200,13 +221,27 @@ def main() -> None:
 
     GEN.mkdir(parents=True, exist_ok=True)
     RESULTS.mkdir(parents=True, exist_ok=True)
-    (GEN / "bearing_plate.inp").write_text(plate_deck(radial))
-    (GEN / "cutter_shaft.inp").write_text(shaft_deck(radial, peak_cutter_torque))
-    fea = {"bearing_plate": run_ccx("bearing_plate"), "cutter_shaft": run_ccx("cutter_shaft")}
+    plate_rows = []
+    for label, scale in (("coarse", 4), ("medium", 8), ("fine", 12)):
+        stem = f"bearing_plate_{label}"
+        (GEN / f"{stem}.inp").write_text(plate_deck(radial, scale))
+        plate_rows.append({"mesh": label, "elements": 6 * scale * 5 * scale * scale, "result": run_ccx(stem)})
+    shaft_rows = []
+    for label, element_count in (("coarse", 3), ("medium", 6), ("fine", 12)):
+        stem = f"cutter_shaft_{label}"
+        (GEN / f"{stem}.inp").write_text(shaft_deck(radial, peak_cutter_torque, element_count))
+        shaft_rows.append({"mesh": label, "elements": element_count, "result": run_ccx(stem)})
+    # Stable convenience names remain for reviewers and point to the medium mesh.
+    (GEN / "bearing_plate.inp").write_text(plate_deck(radial, 2))
+    (GEN / "cutter_shaft.inp").write_text(shaft_deck(radial, peak_cutter_torque, 6))
+    fea = {
+        "bearing_plate": convergence_result(plate_rows),
+        "cutter_shaft": convergence_result(shaft_rows),
+    }
 
     failed = [item["component"] for item in checks if item["status"] != "PASS"]
     if any(item["status"] == "FAIL" for item in fea.values()):
-        failed.append("CalculiX execution")
+        failed.append("CalculiX mesh convergence")
     result = {
         "revision": envelope["revision"],
         "release_state": json.loads((ROOT / "cad/parameters/baseline.json").read_text())["release_class"],
@@ -225,6 +260,7 @@ def main() -> None:
             "OpenModelica cutter load is a reduced-order virtual load, not measured cutting torque; empirical correlation is optional and not run.",
             "Closed-form checks are screening models; stress concentration, fatigue, impact, weld and fastener preload require drawing review and physical gates.",
             "CalculiX decks are linear-elastic decision checks for global shaft/plate response and do not certify the machine.",
+            "Mesh convergence uses global displacement; maximum stress at an ideal fixed edge is singularity-sensitive and is not used as the convergence metric.",
         ],
     }
     (RESULTS / "structural_screening.json").write_text(json.dumps(result, indent=2) + "\n")
@@ -249,7 +285,7 @@ def main() -> None:
         "",
         f"프레임은 local 2040 Option B를 채택했다. Bearing-center relative displacement는 {frame['bearing_center_relative_displacement_mm']:.3f} mm, screen-clearance margin은 {frame['screen_clearance_margin_mm']:.3f} mm, phase center-distance variation은 {frame['phase_center_distance_variation_mm']:.3f} mm다. Profile은 15.098 m에서 14.668 m로 감소한다.",
         "",
-        "CalculiX deck는 `generated/bearing_plate.inp`, `generated/cutter_shaft.inp`이며 선형 탄성 global screening이다. 상세 notch/contact 검토 및 물리 coupon을 대체하지 않는다.",
+        "CalculiX deck는 coarse/medium/fine 3단계로 실제 실행되며 medium-to-fine 전역 변위 차이 5% 이하를 합격 기준으로 한다. `generated/bearing_plate.inp`, `generated/cutter_shaft.inp`는 검토용 medium mesh다. 고정단 최대응력은 특이점에 민감하므로 수렴 판정에서 제외하고 폐형식 응력과 함께 판단한다. 상세 notch/contact 검토 및 물리 coupon을 대체하지 않는다.",
         "",
     ]
     (HERE / "structural_validation_ko.md").write_text("\n".join(lines))

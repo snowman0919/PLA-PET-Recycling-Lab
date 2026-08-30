@@ -25,8 +25,9 @@ model CoupledShredderSystem
   Modelica.Mechanics.Rotational.Components.Inertia leftRotor(J=Generated.CADParameters.cutterRotorJ,phi(start=0,fixed=true),w(start=0,fixed=true));
   Components.PhaseGearMesh phase;
   Components.HookMaterialLoad rightLoad(material=rightMaterial,engagement=engagement,engagementAfter=engagementAfter,engagementStepTime=engagementStepTime,jamTorque=jamLoadTorque,releaseTime=jamReleaseTime);
-  Components.HookMaterialLoad leftLoad(material=leftMaterial,engagement=engagement,engagementAfter=engagementAfter,engagementStepTime=engagementStepTime,jamTorque=jamLoadTorque,releaseTime=jamReleaseTime,phaseOffset=Modelica.Constants.pi/7);
+  Components.HookMaterialLoad leftLoad(material=leftMaterial,engagement=engagement,engagementAfter=engagementAfter,engagementStepTime=engagementStepTime,jamTorque=jamLoadTorque,releaseTime=jamReleaseTime,phaseOffset=Modelica.Constants.pi/7,forwardDirection=-1);
   Real cutterRPM;
+  Real filteredCutterRPM(start=0,fixed=true);
   Real targetOmega;
   Real speedError;
   Real voltageFeedForward;
@@ -60,8 +61,9 @@ equation
   connect(phase.leftShaft,leftRotor.flange_a);
   connect(leftRotor.flange_b,leftLoad.shaft);
   cutterRPM=rightRotor.w*60/(2*Modelica.Constants.pi);
+  der(filteredCutterRPM)=(cutterRPM-filteredCutterRPM)/GeneratedControl.shredderMeasurementFilter;
   targetOmega=targetRPM*2*Modelica.Constants.pi/60;
-  speedError=targetOmega-rightRotor.w;
+  speedError=targetOmega-filteredCutterRPM*2*Modelica.Constants.pi/60;
   voltageFeedForward=motor.backEmfConstant*targetOmega*gearbox.ratio*chain.ratio/motor.supplyVoltage;
   calibratedCutterTorque=max(0,abs(motor.current)-GeneratedControl.driveNoLoadCurrent)*GeneratedControl.driveTorquePerAmp*GeneratedControl.driveMotorToCutterRatio*GeneratedControl.driveEfficiency;
   torqueOverload=calibratedCutterTorque>=GeneratedControl.jamTripTorque;

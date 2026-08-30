@@ -90,7 +90,7 @@ def main():
     require("현재 상태: `NOT_RUN`" in release and "결론: `NOT_RUN | FAIL | PASS`" in release, "Gate-1 release template state")
 
     result = {
-        "revision": "virtual-physics-closure-v0.5.1",
+        "revision": "implementation-crosssolver-v0.6",
         "gate": "OPTIONAL_EMPIRICAL_VALIDATION_GATE1_READINESS",
         "readiness": "OPTIONAL_EMPIRICAL_VALIDATION_READY_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
         "empirical_result": "OPTIONAL_NOT_RUN",

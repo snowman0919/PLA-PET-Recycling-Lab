@@ -1,32 +1,104 @@
 {
-  "revision": "virtual-physics-closure-v0.5.1",
-  "release_state": "DIGITAL_FABRICATION_BASELINE",
+  "revision": "implementation-crosssolver-v0.6",
+  "release_state": "IMPLEMENTATION_BASELINE",
   "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
   "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
   "input": "analysis/load_cases/openmodelica_dynamic_envelope.json",
-  "input_source": "OpenModelica DASSL virtual-physics model; empirical validation optional not run",
+  "input_source": "OpenModelica DASSL virtual model; physical tests not run",
   "load_values": {
-    "peak_cutter_torque_nm": 21.99375000439907,
-    "peak_phase_torque_nm": 16.22025213688948,
-    "peak_bearing_load_n": 1292.83945661846,
-    "peak_chain_force_n": 602.7336257714188
+    "peak_cutter_torque_nm": 21.99375000439957,
+    "peak_phase_torque_nm": 20.00049692324236,
+    "peak_bearing_load_n": 1316.400716792292,
+    "peak_chain_force_n": 602.7336257714323
   },
   "calculix": {
     "bearing_plate": {
       "status": "PASS",
-      "returncode": 0,
-      "frd_bytes": 98943,
-      "converged": true,
-      "max_displacement_mm": 0.18953501319028102,
-      "max_von_mises_mpa": 46.72700156140987
+      "criterion": "medium-to-fine global displacement delta <= 5.0%",
+      "medium_to_fine_displacement_delta_percent": 1.1644,
+      "stress_interpretation": "maximum clamp-edge stress is reported but excluded from convergence because the ideal fixed edge creates a local singularity",
+      "meshes": [
+        {
+          "mesh": "coarse",
+          "elements": 1920,
+          "result": {
+            "status": "PASS",
+            "returncode": 0,
+            "frd_bytes": 645335,
+            "converged": true,
+            "max_displacement_mm": 0.23521147172195916,
+            "max_von_mises_mpa": 54.86253031337235
+          }
+        },
+        {
+          "mesh": "medium",
+          "elements": 15360,
+          "result": {
+            "status": "PASS",
+            "returncode": 0,
+            "frd_bytes": 4670727,
+            "converged": true,
+            "max_displacement_mm": 0.24939400944657836,
+            "max_von_mises_mpa": 61.74536144679426
+          }
+        },
+        {
+          "mesh": "fine",
+          "elements": 51840,
+          "result": {
+            "status": "PASS",
+            "returncode": 0,
+            "frd_bytes": 15246263,
+            "converged": true,
+            "max_displacement_mm": 0.2523320958404816,
+            "max_von_mises_mpa": 64.33804373871513
+          }
+        }
+      ]
     },
     "cutter_shaft": {
       "status": "PASS",
-      "returncode": 0,
-      "frd_bytes": 5606,
-      "converged": true,
-      "max_displacement_mm": 0.013797002215423465,
-      "max_von_mises_mpa": 49.46733082283368
+      "criterion": "medium-to-fine global displacement delta <= 5.0%",
+      "medium_to_fine_displacement_delta_percent": 0.2769,
+      "stress_interpretation": "maximum clamp-edge stress is reported but excluded from convergence because the ideal fixed edge creates a local singularity",
+      "meshes": [
+        {
+          "mesh": "coarse",
+          "elements": 3,
+          "result": {
+            "status": "PASS",
+            "returncode": 0,
+            "frd_bytes": 5606,
+            "converged": true,
+            "max_displacement_mm": 0.013947328194209813,
+            "max_von_mises_mpa": 49.99618240207795
+          }
+        },
+        {
+          "mesh": "medium",
+          "elements": 6,
+          "result": {
+            "status": "PASS",
+            "returncode": 0,
+            "frd_bytes": 8489,
+            "converged": true,
+            "max_displacement_mm": 0.014100420188593673,
+            "max_von_mises_mpa": 52.322920152890994
+          }
+        },
+        {
+          "mesh": "fine",
+          "elements": 12,
+          "result": {
+            "status": "PASS",
+            "returncode": 0,
+            "frd_bytes": 14255,
+            "converged": true,
+            "max_displacement_mm": 0.014139571655032553,
+            "max_von_mises_mpa": 53.41334238338577
+          }
+        }
+      ]
     }
   },
   "checks": [
@@ -45,9 +117,9 @@
       "component": "SH-SHAFT-01 20 mm cutter shaft",
       "method": "closed-form screening",
       "source_load": "bearing envelope + fuse cap",
-      "equivalent_stress_mpa": 55.016,
+      "equivalent_stress_mpa": 55.826,
       "allowable_mpa": 177.5,
-      "safety_factor": 3.23,
+      "safety_factor": 3.18,
       "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "S45C normalized; allowable=0.5\u00d7355 MPa yield"
@@ -56,9 +128,9 @@
       "component": "SH-PLATE-01 bearing plate",
       "method": "closed-form screening",
       "source_load": "peak bearing load",
-      "equivalent_stress_mpa": 3.448,
+      "equivalent_stress_mpa": 3.51,
       "allowable_mpa": 137.5,
-      "safety_factor": 39.88,
+      "safety_factor": 39.17,
       "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "12 mm S275 ligament simplified as 75 mm strip"
@@ -89,9 +161,9 @@
       "component": "DRV-03 motor adapter plate",
       "method": "closed-form screening",
       "source_load": "peak frame reaction",
-      "equivalent_stress_mpa": 4.072,
+      "equivalent_stress_mpa": 4.147,
       "allowable_mpa": 75,
-      "safety_factor": 18.42,
+      "safety_factor": 18.09,
       "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "6 mm 6061-T6/S275 equivalent bending strip; slot edge inspection required"
@@ -122,9 +194,9 @@
       "component": "FR-ANCHOR-01 M8 table anchor",
       "method": "closed-form screening",
       "source_load": "frame reaction envelope",
-      "equivalent_stress_mpa": 31.497,
+      "equivalent_stress_mpa": 32.071,
       "allowable_mpa": 320,
-      "safety_factor": 10.16,
+      "safety_factor": 9.98,
       "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
       "status": "PASS",
       "note": "minor-diameter tensile area; four anchors required, one-anchor conservative screening"
@@ -215,6 +287,7 @@
   "limitations": [
     "OpenModelica cutter load is a reduced-order virtual load, not measured cutting torque; empirical correlation is optional and not run.",
     "Closed-form checks are screening models; stress concentration, fatigue, impact, weld and fastener preload require drawing review and physical gates.",
-    "CalculiX decks are linear-elastic decision checks for global shaft/plate response and do not certify the machine."
+    "CalculiX decks are linear-elastic decision checks for global shaft/plate response and do not certify the machine.",
+    "Mesh convergence uses global displacement; maximum stress at an ideal fixed edge is singularity-sensitive and is not used as the convergence metric."
   ]
 }

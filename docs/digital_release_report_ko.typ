@@ -9,11 +9,11 @@
   #text(size: 22pt, weight: "bold")[PLA/PET Recycler v0.5.1]
   #text(size: 15pt)[디지털 fabrication + virtual physics baseline 보고서]
   #v(4mm)
-  Revision `virtual-physics-closure-v0.5.1` · 2026-08-30
+  Revision `implementation-crosssolver-v0.6` · 2026-08-30
 ]
 
 #box[
-Release state: *DIGITAL_FABRICATION_BASELINE* \
+Release state: *IMPLEMENTATION_BASELINE* \
 Virtual physics: *VIRTUAL_PHYSICS_VALIDATED* \
 Empirical state: *EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN*
 ]
@@ -37,7 +37,7 @@ PLA/PET는 470 × 700 × 930 mm cabinet 안에서 공용 hopper, cycloidal-inspi
 
 = 기계 simulation과 구조 연계
 
-OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 explicit process arbitration, motor·gearbox·chain/backlash·ideal broken shear fuse·cutter, screw pressure-flow feedback, cooling/forming, explicit spool length balance를 결합한 mandatory 55 scenario를 실행했다. Torque hierarchy는 14 < 18 < 22 < 34 < 48 N·m다.
+OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 explicit process arbitration, motor·gearbox·chain/backlash·ideal broken shear fuse·cutter, screw pressure-flow feedback, cooling/forming, explicit spool length balance를 결합한 mandatory 74 scenario를 실행했다. Torque hierarchy는 14 < 18 < 22 < 34 < 48 N·m다.
 
 동일 JSON을 10개 closed-form 구조 screening과 CalculiX bearing plate/cutter shaft deck가 읽는다. Local 2040 rail 채택으로 bearing-center 상대 변위는 0.351 mm이고 profile 총 길이는 14.668 m다. Ø3.2 blind6 thermocouple bore는 2.9 mm ligament, 6 MPa/270 °C screen SF 2.00이다.
 

@@ -13,7 +13,7 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision virtual-physics-closure-v0.5.1 · 2026-08-30]
+  #text(size: 11pt)[Revision implementation-crosssolver-v0.6 · 2026-08-30]
 ]
 
 #warn[*계산·CAD release다.* 실제 cutter 성능, melt flow, 200 g/h, 직경 품질과 안전 인증은 물리 Gate 전 미검증이다. 구매·CNC·energization은 사용자 승인 전 금지한다.]
@@ -99,6 +99,6 @@ PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 904.
 
 = 검증 경계
 
-#ok[Digital baseline은 closed B-Rep, manifold mesh, actual slicing, OpenModelica mandatory 55 scenario, CalculiX/analytical structure, controller-contract/firmware sync를 검사한다. 상태는 DIGITAL_FABRICATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
+#ok[Digital baseline은 closed B-Rep, manifold mesh, actual slicing, OpenModelica mandatory 74 scenario, CalculiX/analytical structure, controller-contract/firmware sync를 검사한다. 상태는 IMPLEMENTATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
 
 Gate-1…5는 optional empirical commissioning/model-correlation 절차다. 수행 결과와 simulation 결과를 혼용하지 않는다.
