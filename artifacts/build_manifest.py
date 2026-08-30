@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build revision-locked SHA-256 manifest for the v0.4 digital baseline."""
+"""Build revision-locked SHA-256 manifest for the v0.5 digital baseline."""
 
 from __future__ import annotations
 
@@ -15,9 +15,9 @@ from manifest_lib import artifact_record, collect_paths  # noqa: E402
 def main():
     artifacts = [artifact_record(path, ROOT) for path in collect_paths(ROOT)]
     result = {
-        "revision": "solid-manifold-openmodelica-v0.4",
+        "revision": "coupled-digital-validation-v0.5",
         "release_state": "DIGITAL_FABRICATION_BASELINE",
-        "physical_state": "PHYSICAL_NOT_RUN",
+        "physical_state": "PHYSICAL_VALIDATION_PENDING",
         "regeneration_commands": [
             "FreeCADCmd console-stream runpy cad/generation/generate_all.py via validation/run_all.py",
             "PrusaSlicer 2.9.6 via validation/slice_prints.py",

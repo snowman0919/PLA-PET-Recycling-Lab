@@ -5,7 +5,7 @@
 
 = 16 mm × 16 L/D screw/barrel RFQ drawing
 
-Revision: `solid-manifold-openmodelica-v0.4` / 단위: mm / 온도: 20 ±2 °C / 일반 모서리 C0.2–0.5, burr 없음
+Revision: `coupled-digital-validation-v0.5` / 단위: mm / 온도: 20 ±2 °C / 일반 모서리 C0.2–0.5, burr 없음
 
 #hold
 

@@ -1,6 +1,6 @@
 # EX-DIE-04 — Sacrificial die relief retainer
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `304 stainless sheet t1.5`
 - process: `laser/waterjet + deburr; no heat treatment`

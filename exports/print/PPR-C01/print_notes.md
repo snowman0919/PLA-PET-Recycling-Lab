@@ -1,6 +1,6 @@
 # PPR-C01 — Sliding hopper lid
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: 1
 - material: PLA
 - nozzle diameter: 0.4 mm

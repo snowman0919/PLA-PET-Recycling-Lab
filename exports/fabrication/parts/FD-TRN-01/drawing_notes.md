@@ -1,6 +1,6 @@
 # FD-TRN-01 — Sealed transfer tube
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `304 tube OD32 x2`
 - process: `tube cut + socket fit + TIG tack/weld`

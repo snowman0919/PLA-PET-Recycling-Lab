@@ -1,54 +1,44 @@
-# Solid Manifold OpenModelica PLA/PET Recycler v0.4
+# Coupled Digital Validation PLA/PET Recycler v0.5
 
-Active revision은 `solid-manifold-openmodelica-v0.4`이며 release state는 `DIGITAL_FABRICATION_BASELINE`이다. PLA와 PET는 hopper부터 spooler까지 동일한 compact mechanical path를 사용한다. 물리 상태는 `PHYSICAL_VALIDATION_PENDING`/`PHYSICAL_NOT_RUN`이며, 성능·안전 인증을 뜻하지 않는다.
+Active revision은 `coupled-digital-validation-v0.5`, release state는 `DIGITAL_FABRICATION_BASELINE`이다. `compact-single-path-v0.3`의 단일 기계 경로와 `470 × 700 × 930 mm` 외형을 유지한다. 물리 상태는 `PHYSICAL_VALIDATION_PENDING`(`PHYSICAL_NOT_RUN`)이며 성능 또는 안전 인증이 아니다.
 
 ```text
-수동 검사/세척/재질 확인 -> 공용 hopper -> 공용 dual-shaft cycloidal-inspired hook cutter
--> removable 5 mm screen/flake bin -> 외부 pre-dry -> sealed feed hopper
--> 공용 16 mm x 16 L/D single screw -> metal down-die -> vertical air cooling
--> X/Y shadow gauge -> puller -> solid guide -> dancer/traverse/1 kg spool
+수동 검사/세척/재질 확인 → 공용 hopper → 공용 dual-shaft cycloidal-inspired hook cutter
+→ removable 5 mm screen/flake bin → 외부 pre-dry → sealed feed hopper
+→ 공용 16 mm × 16 L/D single screw → metal die → compact air cooling
+→ X/Y shadow gauge → puller → solid guide → dancer/traverse/1 kg spool
 ```
 
-설계 envelope는 `470 x 700 x 930 mm`이며 hard limit `500 x 750 x 1000 mm` 안에 정상운전 부품과 full-motion 범위를 포함한다. Manufacturing assembly에는 제작품/stock/reference LOD만 포함하고, chain motion·dancer/traverse sweep·screw withdrawal keep-out은 `cad/review_keepouts`로 격리했다.
+## 분쇄기 drive
 
-## Drive와 torque hierarchy
+`CUT-01`은 각 pitch의 76%에 cycloidal radial-rise capture flank, 24%에 빠른 hook relief를 둔 비대칭 7-hook cutter다. 특정 MY1016Z, coupling, phase-gear MPN 대신 `DRV-01 universal plate + DRV-Axx adapter + DRV-F01 replaceable shear fuse + #35 12T:30T chain + DRV-02 hub + generic/laminated M3 Z16 phase pair`를 사용한다.
 
-Cutter profile은 76% cycloidal radial-rise capture flank와 24% fast hook relief다. Shredder는 특정 MY1016Z, coupling 또는 phase gear MPN에 종속하지 않는다. `DRV-01 universal plate + DRV-Axx donor adapter + motor-side DRV-F01 + #35 chain + cutter-side DRV-02 + generic/laminated M3 Z16 phase pair` interface를 사용한다.
+Project-lab 우선 후보는 24 V wheelchair/conveyor geared brushed-DC, 그다음 검증된 scooter/e-bike geared motor다. 합격조건은 cutter 환산 20–40 rpm, 연속 14 N·m, 3초 peak 24 N·m, 30분 case ≤80 °C다. 정확한 디지털 기준모터 `GMP60-60127-2460 ratio 47`은 공개 정격 70 rpm/9.80665 N·m이며 12:30, η=0.85에서 cutter 28 rpm/20.84 N·m다. `GMP42-775PM ratio 51`은 동일 조건 5.42 N·m라 연속토크 기준에 불합격한다. 둘 다 donor 실물이나 구매 승인품을 뜻하지 않는다.
 
-Donor는 18–30 V reversible geared brushed-DC, cutter 14 N·m continuous, 20–40 rpm 조건을 Gate-1에서 입증해야 한다. Firmware는 고정 current threshold를 torque로 오인하지 않으며 donor calibration이 `verified=true`가 아니면 시작하지 않는다. 보호 순서 `14 < 18 < 22 < 34 < 48 N·m`는 cutter-shaft equivalent이며, DRV-F01의 물리 setting은 chain ratio에 따라 17.25/12.94/10.35 N·m다.
+보호 순서 `14 < 18 < 22 < 34 < 48 N·m`는 cutter-shaft equivalent다. Firmware는 donor의 no-load current, torque/A, ratio, efficiency와 encoder RPM을 교정한 `verified=true` record 없이는 시작하지 않는다. E-stop, lid/service hard-cut, branch fuse, DRV-F01과 independent thermal fuse는 유지한다.
 
-## 현재 디지털 결과
+## 디지털 검증 결과
 
-- CAD active object 181개: 유효 B-Rep/solid topology PASS. Print part 12종은 각 1 solid다.
-- STL 12종: watertight/manifold, zero-area/non-manifold edge 0, component 1.
-- PrusaSlicer 2.9.6: support 설정을 포함한 nominal 904.60 g, 12% reserve 포함 1,013.15 g, 81.7 h.
-- OpenModelica 1.27.0 / Modelica Standard Library 4.0.0: 18 scenario + 6 sensitivity sweep PASS.
-- Digital load envelope: cutter-equivalent relief 22 N·m, bearing 1.255 kN, chain 0.603 kN, table anchor tension 0.485 kN이다.
-- CalculiX screening: bearing plate 45.36 MPa/0.1840 mm, cutter shaft 48.63 MPa/0.0136 mm. Gate-1 load로 재검증해야 한다.
-- 16 mm screw nominal throughput: PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h. 200 g/h는 stretch target이며 현재 nominal claim이 아니다.
-- Barrel front interface는 4×M4-6H/PCD26으로 정정해 nominal outer/bore-side thread ligament 2.0/2.9 mm를 확보했으며 feed assembly는 rear Datum B+12…30 mm port에 정렬된다.
-- EX-DIE-01…05는 barrel과 동 gasket로 직접 접속되는 Ø8 교차 유로, seven-hole breaker, Ø3×10 land insert와 304 t1.5 sacrificial retainer다. 265 °C 보수 screening 4.32 MPa는 계산값이며 동일 lot 고온 물리 coupon 3개 전에는 release되지 않는다.
-- Conditional target cash 178,137 KRW; 20,000 KRW contingency 포함 198,137 KRW. 남은 계획 여유는 1,863 KRW뿐이고 donor/RFQ 미확정이므로 구매 release는 BLOCKED다.
-- `CLEAN_CLONE_REPRODUCIBILITY`는 전체 재생성 뒤 manifest의 모든 decision-relevant artifact를 다시 해시한다. STEP exporter counter, FCStd history map, ZIP timestamp만 정규화하며 B-Rep, 문서와 3MF member content는 해시 범위에 남긴다.
+- 설계 외형: `470 × 700 × 930 mm`; hard `500 × 750 × 1000 mm`, target `480 × 720 × 950 mm` 이내.
+- 출력품: 12종, 계획 질량 `904.20 g` (실패 12% reserve 포함 `1,012.70 g`) 이하 기준선; 개별 축 210 mm 이하. 실제 slicer 결과는 재검증 산출물을 따른다.
+- OpenModelica 1.27.0 / MSL 4.0.0: DC electrical motor, 47:1 gearbox, compliant #35 chain/backlash, one-shot shear fuse, phase mesh, cutter load, 4-node thermal-flow, dynamic spool을 연결한 32 scenario PASS.
+- Coupled peak envelope: cutter 21.994 N·m, phase 16.216 N·m, bearing 1.797 kN, chain 0.603 kN. 모두 실물 Gate-1 전 surrogate다.
+- Process heater: barrel 3×100 W + die 60 W = 360 W, T1–T5와 independent thermal cutoff. Extrusion active peak 490 W < 24 V 600 W; shredder와 heater/screw는 상호배제한다.
+- 16 mm screw nominal model: PLA 18 rpm 111.8 g/h, PET 20 rpm 108.4 g/h. 200 g/h는 `ExtruderHighFlow` 디지털 stretch case일 뿐 실제 달성 claim이 아니다.
+- 조건부 cash target `170,629 KRW`; 20,000 KRW reserve 포함 `190,629 KRW`; cap 여유 `9,371 KRW`. Supplier quote와 donor evidence가 없어 `VERIFIED_PROCUREMENT_BUDGET=NOT_ESTABLISHED`다.
+
+## 주문 가능한 범위와 잠금
+
+Gate-1 패키지는 `CUT-01` 2장 coupon만 사용하는 완전한 jig source/FCStd/STEP/STL/DXF/BOM/조립 PDF/배선/시험 CSV를 포함한다. PLA wall 1.2/2.0/3.0 mm, PET body/fold seam의 torque-current-RPM, jam/reverse, 3–6 mm chip fraction을 기록한다.
+
+16 mm × 16 L/D RFQ에는 screw SCM440 QT 28–32 HRC + gas nitriding, barrel SCM440 nitrided, radial clearance 0.14–0.16 mm, runout/concentricity/surface-finish/inspection/공정 경로를 명시했다. 그러나 EX-CPN-SCR/EX-CPN-BAR process coupon과 공급사 DFM 전 full screw/barrel 발주는 금지한다.
+
+Gate-1 signed raw CSV와 photo/video hash가 PASS이기 전에는 full cutter stack, full screw/barrel 발주와 `main` fast-forward를 모두 잠근다. 구매·CNC·heater energization은 사용자 승인 전 금지한다.
 
 ## 재현
 
 ```bash
-nix develop --command bash -lc 'printf "%s\\n" '\''import runpy,sys,os; _result=runpy.run_path("cad/generation/generate_all.py", run_name="__main__"); sys.stdout.flush(); os._exit(0)'\'' | FreeCADCmd -c'
-python3 validation/solid_topology.py
-python3 validation/mesh_checks.py
-python3 validation/slice_prints.py
-nix develop --command omc simulation/openmodelica/scripts/checkModel.mos
-nix develop --command omc simulation/openmodelica/scripts/run_all.mos
-python3 simulation/openmodelica/postprocess/summarize_results.py
-nix develop --command python3 analysis/structural/run_load_checks.py
-python3 firmware/arduino_mega/generate_config.py
-make -C firmware/arduino_mega test
-python3 validation/run_all.py
+python3 validation/run_all.py --regenerate-renders
 ```
 
-PrusaSlicer는 경로 순서 재현성을 위해 1 thread로 고정된다. `validation/artifact_reproducibility.py --bootstrap`은 기준선 작성자가 최초 manifest를 만들 때만 사용하며 일반 검증과 clean clone에서는 허용하지 않는다.
-
-구매·CNC 주문·heater energization은 사용자 승인 전 금지한다. Gate-1에서는 CUT-01 정확히 2장과 최소 jig만 허용하며, signed raw 결과가 PASS이기 전 full cutter stack과 full screw/barrel 발주 및 `main` fast-forward는 잠겨 있다.
-
-이전 snapshot의 tag/branch/SHA는 `docs/archive_index.md`에 기록한다.
+세부 생성 명령, 계산과 물리 한계는 `validation/release_checklist.md`, `bom/value_engineering_v0.5.md`, `exports/jigs/gate1`, `exports/cnc/extruder`에 기록한다. 이전 정확 snapshot은 `docs/archive_index.md`의 tag/branch/SHA로 보존한다.

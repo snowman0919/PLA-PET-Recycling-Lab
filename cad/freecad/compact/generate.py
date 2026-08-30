@@ -1,4 +1,4 @@
-"""Generate closed-solid FCStd/STEP/STL/3MF for compact v0.4."""
+"""Generate closed-solid FCStd/STEP/STL/3MF for compact v0.5."""
 
 from __future__ import annotations
 
@@ -134,7 +134,7 @@ def write_dimension_sheet(spec, path):
     svg=f'''<svg xmlns="http://www.w3.org/2000/svg" width="1123" height="794" viewBox="0 0 1123 794">
 <rect width="1123" height="794" fill="white"/><rect x="12" y="12" width="1099" height="770" fill="none" stroke="#263238" stroke-width="2"/>
 <text x="30" y="52" font-size="26" font-family="sans-serif" font-weight="bold">{html.escape(spec['id'])} PRINT DIMENSION SHEET</text>
-<text x="30" y="82" font-size="16" font-family="sans-serif">FreeCAD Python source of truth · units mm · DIGITAL_FABRICATION_BASELINE</text>
+<text x="30" y="82" font-size="16" font-family="sans-serif">FreeCAD Python source of truth · units mm · DIGITAL_GEOMETRY_AND_SURROGATE_BASELINE</text>
 <g font-family="sans-serif"><text x="40" y="132" font-size="16">TOP X-Y</text>{views[0]}<text x="405" y="132" font-size="16">FRONT X-Z</text>{views[1]}<text x="770" y="132" font-size="16">SIDE Y-Z</text>{views[2]}{text_rows}</g>
 </svg>\n'''
     path.write_text(svg)
@@ -142,7 +142,7 @@ def write_dimension_sheet(spec, path):
 
 def write_part_source(spec, path):
     path.write_text(f'''#!/usr/bin/env python3
-"""Regenerate {spec['id']} from the shared v0.4 FreeCAD source."""
+"""Regenerate {spec['id']} from the shared v0.5 FreeCAD source."""
 from pathlib import Path
 import sys
 ROOT=Path(__file__).resolve().parents[3]
@@ -293,6 +293,14 @@ def export_review_keepouts():
 
 def export_metal_parts():
     rows = []
+    gate1_release = {
+        "CUT-01": "GATE1_MAX_2_ALLOWED_USER_APPROVAL_REQUIRED; REMAINING_10_HOLD",
+        "CUT-03": "GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED",
+        "CUT-04": "GATE1_MAX_1_ALLOWED_USER_APPROVAL_REQUIRED; REMAINING_1_HOLD",
+        "CUT-05": "GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED",
+        "CUT-07": "GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
+        "CUT-08": "GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED",
+    }
     for spec in shredder_metal_parts():
         part_dir = ROOT / "exports/cnc" / spec["id"]
         part_dir.mkdir(parents=True, exist_ok=True)
@@ -306,6 +314,7 @@ def export_metal_parts():
         dxf = part_dir / f"{spec['id']}.dxf"
         importDXF.export([obj], str(dxf)); normalize_dxf(dxf)
         bb = spec["shape"].BoundBox
+        release_state=gate1_release.get(spec["id"], "HOLD_UNTIL_PHYSICAL_GATE1_PASS")
         notes = (
             f"# {spec['id']} — {spec['name']}\n\n"
             f"- 수량: {spec['qty']}\n- 재료: {spec['material']}\n- 공정: {spec['process']}\n"
@@ -313,7 +322,8 @@ def export_metal_parts():
             "- 일반공차: ISO 2768-m, 별도 표기 없는 edge C0.3 deburr\n"
             f"- 중요공차/검사: {spec['critical']}\n"
             "- 좌표기준: STEP 원점과 축을 기준으로 하며 DXF는 2D profile 견적용이다. 회전체는 STEP과 본 notes를 함께 견적한다.\n"
-            "- 발주상태: HOLD — 사용자 승인과 Gate 1 coupon 합격 전 full quantity 발주 금지\n"
+            f"- 발주상태: {release_state}\n"
+            "- 공통 잠금: 사용자 승인 없는 가공 금지. CUT-01 full stack과 Gate-1 지그에 불필요한 수량은 물리 Gate-1 PASS 전 발주 금지\n"
         )
         (part_dir / "drawing_notes.md").write_text(notes)
         rows.append({**spec, "x_mm": bb.XLength, "y_mm": bb.YLength, "z_mm": bb.ZLength})
@@ -322,7 +332,7 @@ def export_metal_parts():
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["part_id", "name", "quantity", "material", "process", "x_mm", "y_mm", "z_mm", "files", "release_state"])
         for r in rows:
-            w.writerow([r["id"], r["name"], r["qty"], r["material"], r["process"], f"{r['x_mm']:.2f}", f"{r['y_mm']:.2f}", f"{r['z_mm']:.2f}", "FCStd|STEP|DXF|notes", "HOLD_GATE_1"])
+            w.writerow([r["id"], r["name"], r["qty"], r["material"], r["process"], f"{r['x_mm']:.2f}", f"{r['y_mm']:.2f}", f"{r['z_mm']:.2f}", "FCStd|STEP|DXF|notes", gate1_release.get(r["id"], "HOLD_UNTIL_PHYSICAL_GATE1_PASS")])
     return rows
 
 

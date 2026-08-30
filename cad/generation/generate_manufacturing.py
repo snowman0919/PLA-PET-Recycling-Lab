@@ -23,9 +23,21 @@ from manufacturing import (  # noqa: E402
     gate1_assembly,
     gate1_parts,
     generic_phase_gear_lamination,
+    motor_side_fuse_inner_hub,
+    motor_side_fuse_outer_hub,
+    motor_side_fuse_pin,
     universal_motor_plate,
 )
-from geometry import machine_fabrication_parts  # noqa: E402
+from geometry import (  # noqa: E402
+    die_cartridge_heater_shape,
+    hopper_ptc_clamp_shape,
+    hopper_ptc_spreader_shape,
+    k_type_probe_shape,
+    machine_fabrication_parts,
+    mica_band_heater_shape,
+    motor_adapter_42gp775_shape,
+    motor_adapter_gmp60_shape,
+)
 
 
 def export_shape_set(specs, base):
@@ -41,7 +53,7 @@ def export_shape_set(specs, base):
         dxf=folder/f"{spec['id']}.dxf"; importDXF.export([obj],str(dxf)); normalize_dxf(dxf)
         (folder/"drawing_notes.md").write_text(
             f"# {spec['id']} — {spec['name']}\n\n"
-            f"- revision: `solid-manifold-openmodelica-v0.4`\n"
+            f"- revision: `coupled-digital-validation-v0.5`\n"
             f"- quantity: `{spec['qty']}`\n"
             f"- material: `{spec['material']}`\n"
             f"- process: `{spec['process']}`\n"
@@ -102,11 +114,11 @@ def write_machine_fabrication_package():
             ("transfer_lower_socket", "FD-TRN-01", "FD-MET-01", "TIG tack/weld or removable clamp", ">=8 mm socket engagement", "leak and cleanability check", "HOLD_USER_APPROVAL"),
             ("screw_to_barrel", "EX-SCR-01", "EX-BAR-01", "matched supplier pair", "0.14-0.16 mm radial at 20+/-2 C", "three-station report", "HOLD_PROCESS_COUPON_AND_GATE3"),
             ("puller_axes", "FM-AX-01", "FM-PL-01/FM-RL-01", "metal collars", "0.10 mm radial in Ø8.2 bores", "free rotation/TIR/slip", "GATE5"),
-            ("guide_axis", "FM-GA-01", "FM-GR-01/PPR-C08", "metal collars", "0.10 mm radial", "free rotation", "GATE5"),
+            ("guide_axis", "FM-GA-01", "625-2RS/FM-GR-01/PPR-C08", "two 625 bearings + metal collars", "Ø5 h6 axle; Ø16 H7 roller seats; Ø5.2 bracket clearance", "free rotation/no bearing preload", "GATE5"),
             ("spool_axis", "SP-SH-01", "PPR-C09/6001 bearings", "metal collars", "bearing fit per received lot", "full-spool runout", "GATE5"),
         ])
     (base / "README_ko.md").write_text(
-        "# Machine fabrication package — solid-manifold-openmodelica-v0.4\n\n"
+        "# Machine fabrication package — coupled-digital-validation-v0.5\n\n"
         "이 디렉터리는 shredder CUT, drive DRV, Gate-1 jig, extruder RFQ와 중복되지 않는 본체 제작품을 담는다. "
         "각 part 폴더의 note가 공차를 지배하고 STEP은 3D 형상, DXF/STL은 견적 reference다. "
         "Frame은 겹치는 profile solid가 아니라 `frame_cut_list.csv`의 butt-joint cut length로 조립한다. "
@@ -142,7 +154,7 @@ def svg_barrel_drawing(path):
 <rect x="150" y="260" width="50" height="85" class="b"/><path class="c" d="M90 375 H850"/>
 <path class="d" d="M120 480 V525 M820 480 V525 M120 510 H820"/><text x="415" y="550">LENGTH 280.0 ±0.05</text>
 <text x="55" y="620">OD Ø34.00 ±0.05 · bore Ø16.20 +0.02/0 after final hone · radial clearance 0.14–0.16</text>
-<text x="55" y="655">feed port 18 axial ×20, near edge 12.0 from rear Datum B · break edge R0.5</text>
+<text x="55" y="655">feed port 18 axial ×20, near edge B+12 · 3× sensor Ø3.20 +0.05/0 blind7 at B+95/170/245</text>
 <text x="55" y="690">4x M4×0.7-6H full depth8/tap drill11, PCD26 at 45° · outer/inner ligament ≥2.0/2.9 · faces B/C ⟂ D 0.03</text>
 <text x="55" y="725">bore Ra 0.4–0.8 µm; SCM440 QT 28–32 HRC → gas nitride 0.30–0.50 mm, ≥900 HV</text>
 <text x="55" y="760">Assembly: B aligns screw active start; screw tip is 24.0 behind C. Final hone after nitride; report ID at B+20/140/260.</text>
@@ -192,47 +204,68 @@ def write_drive_package():
     specs=[
         dict(id="DRV-01",name="Universal donor motor plate",shape=universal_motor_plate(),qty=1,material="6 mm SS400 steel",process="laser cut + standard metal angles",critical="180 x140 x6; frame holes 4xØ6.6; slots nominal per DXF; flatness <=0.5; motor-specific adapter carries motor load"),
         dict(id="DRV-02",name="Bolt-on cutter sprocket hub",shape=bolt_on_sprocket_hub(),qty=1,material="S45C",process="turn + keyway + PCD drilling",critical="bore Ø20.2 +0.03/0 after received CUT-05 measurement; 6.2 keyway; 4xØ6.6 PCD36; sprocket register TIR <=0.10"),
-        dict(id="DRV-03",name="M3 Z16 phase gear lamination",shape=generic_phase_gear_lamination(),qty=6,material="6 mm S45C",process="waterjet/laser rough + stack dowel/finish",critical="M3 Z16 20 degree; bore Ø20.2 +0.05/0; 2xM4 clearance Ø4.5 + 1xØ3 H7 dowel on PCD30 at 0/120/240 degree; three laminations per gear; stack face >=18"),
+        dict(id="DRV-03",name="M3 Z16 keyed phase gear lamination",shape=generic_phase_gear_lamination(),qty=6,material="6 mm S45C",process="waterjet/wire-EDM profile + stack dowel/finish",critical="M3 Z16 20 degree; bore Ø20.2 +0.05/0; internal 6.2 wide x6 radial keyway; 2xM4 clearance Ø4.5 + 1xØ3 H7 dowel on PCD30 at 0/120/240 degree; three laminations per gear; stack face >=18; key transmits shaft torque"),
+        dict(id="DRV-A42",name="42GP-775 reference adapter plate",shape=motor_adapter_42gp775_shape(),qty=1,material="6 mm SS400 steel",process="laser + drill/ream",critical="70 x70 x6; centre Ø26; 4xØ4.5 PCD35; two 6.6x16 universal slots; adapter is retained although 42GP rated torque fails full-machine target"),
+        dict(id="DRV-A60",name="GMP60-60127 selected adapter plate",shape=motor_adapter_gmp60_shape(),qty=1,material="6 mm SS400 steel",process="laser + drill/ream",critical="80 x80 x6; centre Ø32.2; 4xØ5.5 PCD45; two 6.6x18 universal slots; match official motor drawing before order"),
+        dict(id="DRV-F01A",name="Motor-side fuse inner hub",shape=motor_side_fuse_inner_hub(),qty=1,material="S45C",process="turn + keyway + radial drill",critical="Ø12.2 bore matched to received GMP60 Ø12 keyed shaft; OD20 x16; radial Ø3.2; no set-screw-only torque path"),
+        dict(id="DRV-F01B",name="Motor-side fuse sprocket carrier",shape=motor_side_fuse_outer_hub(),qty=1,material="S45C",process="turn + PCD drill + radial drill",critical="OD36/ID20.4 x10; radial Ø3.2; 4xØ4.5 PCD28 to 12T sprocket; rotates free after pin fracture"),
+        dict(id="DRV-F01P",name="Replaceable waisted shear pin coupon",shape=motor_side_fuse_pin(),qty=6,material="C360/CuZn39Pb3 brass",process="turn waist after coupon calibration",critical="Ø3 x36 blank; starting waist Ø1.8 x4; target 10.35 N.m motor-side; one-shot BROKEN state; Gate-1 torque calibration controls final waist"),
     ]
     rows=export_shape_set(specs,base/"parts")
     with (base/"manifest.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["part_id","name","quantity","material","process","x_mm","y_mm","z_mm","release_state"])
-        for r in rows:w.writerow([r["id"],r["name"],r["qty"],r["material"],r["process"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}","HOLD_DONOR_AND_GATE1"])
-    (base/"interface_contract_ko.md").write_text("""# Interchangeable shredder drive interface — solid-manifold-openmodelica-v0.4
+        release={
+            "DRV-03":"GATE1_QTY_6_ALLOWED_USER_APPROVAL_REQUIRED",
+            "DRV-01":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
+            "DRV-A42":"REFERENCE_ONLY_NOT_SELECTED",
+            "DRV-A60":"REFERENCE_ONLY_UNTIL_DONOR_SELECTED",
+            "DRV-02":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
+            "DRV-F01A":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
+            "DRV-F01B":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
+            "DRV-F01P":"GATE1_COUPON_QTY_6_ALLOWED_AFTER_USER_APPROVAL",
+        }
+        for r in rows:w.writerow([r["id"],r["name"],r["qty"],r["material"],r["process"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}",release[r["id"]]])
+    (base/"interface_contract_ko.md").write_text("""# 교환식 분쇄기 구동 인터페이스 — coupled-digital-validation-v0.5
 
 공정 경로와 dual-shaft cutter는 변경하지 않는다. 특정 MY1016Z, KTR coupling, KHK gear의 part number는 요구조건이 아니다.
 
-## 합격 가능한 donor motor
+## 선정 기준과 기준모터
 
 - 18–30 V brushed DC gearmotor, reversible
 - cutter 환산 continuous torque >=14 N·m, 3 s peak >=24 N·m
 - interface ratio 선택 후 cutter 20–40 rpm continuous, no-load <=80 rpm
 - shaft 10–20 mm이며 key, D-flat 또는 clamping hub 사용 가능
-- 20 A branch 안에서 실제 current/torque calibration 가능
+- 정상 운전전류가 20 A branch 안에 있고 실제 current/torque calibration 가능
 - S2 60 min 이상 또는 30분 coupon에서 winding/gearcase <=80 °C
 - label, 수량 1, 정상 회전, backlash, shaft 치수, 무부하 전류가 기록된 project-lab/donor만 현금 0원 인정
 
-우선순위는 (1) project-lab wheelchair/conveyor geared DC motor, (2) 검증된 24 V scooter/e-bike geared motor, (3) 기존 MY1016Z급 donor다. NEMA17은 full shredder actuator로 합격하지 않는다.
+우선순위는 (1) project-lab wheelchair/conveyor geared DC motor, (2) 검증된 24 V scooter/e-bike geared motor, (3) 검증된 60 mm급 신규 gearmotor다. MY1016Z, 특정 coupling, 특정 phase gear 제조사는 요구조건이 아니다. NEMA17과 정격토크가 부족한 42GP-775는 full shredder actuator로 합격하지 않는다.
+
+치수와 동역학의 정확한 digital reference는 `TT Motor GMP60-60127-2460`, 24 V, ratio 47이다. 제조사 공개값은 no-load 95 rpm, rated 70 rpm, rated 100 kg·cm(9.80665 N·m), rated current 8.2 A, stall current 31 A다. 12T:30T와 screening efficiency 0.85에서 cutter 정격점은 28 rpm, 20.84 N·m다. 이는 구매 승인이 아니며 수령품 라벨·축·전류·온도와 Gate-1을 통과해야 한다.
+
+요청된 42GP-775 계열용 `DRV-A42`도 남기지만, 공식 `GMP42-775PM ratio 51` 값(90 rpm, 26 kg·cm=2.5497 N·m)은 같은 12T:30T에서 cutter 환산 5.42 N·m뿐이라 14 N·m 기준에 불합격한다. 다른 42GP 변형은 공급자가 6.59 N·m 이상의 연속 출력축 토크와 열정격을 문서로 증명할 때만 재평가한다.
 
 ## 기계 interface
 
-`DRV-01` plate에는 motor-specific standard angle/saddle과 `DRV-Axx` donor adapter만 추가한다. Motor torque는 `DRV-F01` replaceable motor-side shear element와 #35 chain의 12T input, 교환 가능한 18T/24T/30T output sprocket을 거쳐 right CUT-05 shaft로 전달한다. `DRV-02`는 cutter-side Ø20 shaft와 PCD36 sprocket blank를 분리하는 output hub이며 sacrificial element가 아니다. Shaft가 다른 donor에는 `DRV-Axx`만 바꾼다. 두 cutter shaft의 counter-rotation/phase는 특정 공급사 대신 M3 Z16, 20°, face>=18 mm steel gear functional specification으로 조달하거나 `DRV-03` 3-lamination/gear를 사용한다. DRV-03 각 lamination은 PCD30의 2x M4 clamp hole과 1x Ø3 H7 dowel hole로 위상을 재현하며, 치면 맞물림만으로 정렬하지 않는다.
+`DRV-01` plate에는 motor-specific standard angle/saddle과 `DRV-Axx` donor adapter만 추가한다. 공통 plate의 Ø65 관통부는 60 mm급 gearcase가 plate와 충돌하지 않게 하고, 실제 face pilot와 bolt pattern은 DRV-Axx가 담당한다. Motor torque는 `DRV-F01` replaceable motor-side shear element와 #35 chain의 12T input, 교환 가능한 18T/24T/30T output sprocket을 거쳐 right CUT-05 shaft로 전달한다. `DRV-02`는 cutter-side Ø20 shaft와 PCD36 sprocket blank를 분리하는 output hub이며 sacrificial element가 아니다. Shaft가 다른 donor에는 `DRV-Axx`만 바꾼다. 두 cutter shaft의 counter-rotation/phase는 특정 공급사 대신 M3 Z16, 20°, face>=18 mm steel gear functional specification으로 조달하거나 `DRV-03` 3-lamination/gear를 사용한다. DRV-03 각 lamination은 공통 6 mm keyway로 CUT-05 torque를 전달하고, PCD30의 2x M4 clamp hole과 1x Ø3 H7 dowel hole로 적층 위상을 재현한다. 치면 맞물림이나 clamp friction만으로 torque/phase를 전달하지 않는다.
 
 Chain efficiency 0.85 screening에서 12T:18T, 12T:24T, 12T:30T의 motor output continuous/3 s capability는 각각 최소 11.0/18.8, 8.3/14.2, 6.6/11.3 N·m여야 한다. Motor speed 30–60/40–80/50–100 rpm이 cutter 20–40 rpm을 만든다. 24 V label power는 150 W 이상을 screening 시작점으로 쓰되 합격은 label watt가 아니라 Gate-1 torque/current/RPM/temperature 결과로 정한다. 후보별 기록표는 `bom/donor_drive_acceptance.csv`와 `donor_measurement_form.csv`다.
 
 14/18/22/34/48 N·m hierarchy는 모두 **cutter-shaft equivalent torque**다. 따라서 `DRV-F01`의 실제 motor-side mechanical setting은 efficiency 0.85에서 12:18=17.25, 12:24=12.94, 12:30=10.35 N·m다. DRV-F01이 작동해도 DRV-02, chain, phase pair의 위상 경로는 유지되어야 한다. Chain guard, 20 A fuse, E-stop/lid/service hard inhibit와 calibrated torque+RPM jam detection을 유지한다. Shear 재료·직경·groove는 Gate-1 quasi-static calibration으로 확정한다. Donor 확인과 Gate-1 전 full quantity 발주 금지다.
 
-## 치수 근거가 있는 외부 trade-study reference
+## 형상과 발주 잠금
 
-Parvalux `781096-735901` BRx70-60 24 V + GB12 30:1 PMDC gearmotor는 torque/speed 비교용 외부 reference일 뿐 선정품, BOM 또는 assembly solid가 아니다. 공개 overall length 270 mm는 현재 drive 위치에 무간섭으로 들어가지 않으므로 조립 후보에서 제외한다. Active assembly의 red body는 특정 제품이 아니라 DRV-01이 수용하는 donor 최대 body 90 x 180 x 110 mm이며, 실제 donor가 이 envelope와 shaft keep-in을 만족해야만 DRV-Axx를 release한다. Source URL과 확인일은 `reference_variant.json`에 고정한다.
+Active assembly의 red body는 GMP60-60127 공개 치수인 motor Ø60.5×127, gearbox Ø60×59, front pilot Ø32×4.85, shaft Ø12×25.8을 모델링한다. `DRV-A60`은 Ø32.2 pilot와 4×M5 PCD45를 제공한다. 다른 donor에는 이 모터 솔리드를 억지로 재사용하지 않고 `DRV-Axx`와 수령검사표만 바꾼다. Source URL과 확인일은 `reference_variant.json`에 고정한다. Donor 실측과 Gate-1 전에는 motor, full cutter stack, screw/barrel 발주를 승인하지 않는다.
 """,encoding="utf-8")
     reference={
-        "revision":"solid-manifold-openmodelica-v0.4","manufacturer":"Parvalux","part_number":"781096-735901",
-        "model":"BRx70-60 24V 3000RPM - GB12 30:1 Bronze","motor_type":"PMDC right-angle geared motor",
-        "published":{"voltage_v":24,"power_w":157,"output_speed_rpm":100,"continuous_torque_nm":9.8,"intermittent_torque_nm":17.2,"overall_envelope_mm":[270,81,138],"gear_ratio":30},
-        "machine_interface":{"chain_ratio":"12T:30T","screening_efficiency":0.85,"cutter_speed_rpm":40,"cutter_equivalent_continuous_capability_nm":20.83,"cutter_equivalent_intermittent_capability_nm":36.55,"motor_side_relief_setting_nm":10.35},
-        "source_url":"https://www.parvalux.com/product/brx70-60-24v-3000rpm-gb12-301-bronze/",
-        "source_checked_date":"2026-08-29","selection_state":"EXTERNAL_TRADE_STUDY_REFERENCE_DOES_NOT_FIT_ASSEMBLY_POSITION_NOT_SELECTED_NOT_IN_BUDGET","purchase_allowed":False,
+        "revision":"coupled-digital-validation-v0.5","manufacturer":"TT Motor","part_number":"GMP60-60127-2460",
+        "model":"GMP60-60127 24 V ratio 47","motor_type":"brushed PMDC planetary gearmotor",
+        "published":{"voltage_v":24,"motor_power_w":138,"output_no_load_rpm":95,"output_rated_rpm":70,"continuous_torque_kg_cm":100,"continuous_torque_nm":9.80665,"no_load_current_a":0.75,"rated_current_a":8.2,"stall_current_a":31,"overall_axial_length_including_shaft_mm":211.8,"motor_diameter_mm":60.5,"motor_length_mm":127,"gearbox_diameter_mm":60,"gearbox_length_mm":59,"front_boss_diameter_mm":32,"front_boss_length_mm":4.85,"shaft_diameter_mm":12,"shaft_length_mm":25.8,"shaft_flat_length_mm":13,"shaft_flat_across_mm":10.9,"mounting":"4xM5 PCD45","gearbox_face_step_mm":2,"gear_ratio":47},
+        "machine_interface":{"chain_ratio":"12T:30T","screening_efficiency":0.85,"cutter_rated_speed_rpm":28,"cutter_equivalent_continuous_capability_nm":20.84,"motor_side_relief_setting_nm":10.35,"adapter":"DRV-A60"},
+        "rejected_requested_reference":{"part_number":"GMP42-775PM ratio 51","rated_speed_rpm":90,"rated_torque_kg_cm":26,"rated_torque_nm":2.5497,"cutter_equivalent_torque_12T_30T_efficiency_0_85_nm":5.42,"status":"REJECTED_CONTINUOUS_TORQUE","adapter_retained":"DRV-A42"},
+        "source_url":"https://www.ttmotor.com/uploads/GMP60-609760127.pdf",
+        "rejected_reference_source_url":"https://www.ttmotor.com/uploads/GMP42-775PM.pdf",
+        "source_checked_date":"2026-08-29","selection_state":"DIGITAL_REFERENCE_ONLY_PHYSICAL_RECEIPT_AND_GATE1_REQUIRED","purchase_allowed":False,
     }
     (base/"reference_variant.json").write_text(json.dumps(reference,indent=2,ensure_ascii=False)+"\n")
     with (base/"ratio_and_fuse_settings.csv").open("w",newline="") as f:
@@ -247,7 +280,7 @@ def svg_gate1_hardcut(path):
     """Human-readable hardwired motor-energy cut schematic for Gate-1."""
     path.write_text("""<svg xmlns="http://www.w3.org/2000/svg" width="1189" height="841" viewBox="0 0 1189 841">
 <style>text{font-family:'Noto Sans CJK KR',sans-serif;font-size:18px}.t{font-size:27px;font-weight:bold}.w{stroke:#17465a;stroke-width:4;fill:none}.c{fill:#eef4f6;stroke:#111;stroke-width:2}.n{font-size:15px}.danger{fill:#a12c2c}</style>
-<text x="45" y="48" class="t">Gate-1 24 V hardwired motor-energy cut — solid-manifold-openmodelica-v0.4</text>
+<text x="45" y="48" class="t">Gate-1 24 V hardwired motor-energy cut — coupled-digital-validation-v0.5</text>
 <text x="45" y="83" class="danger">Mega output alone cannot energize K1. S0/S1 opening drops K0 and requires manual START reset.</text>
 <rect x="55" y="145" width="120" height="70" class="c"/><text x="76" y="185">24 V PSU</text>
 <path d="M175 170H235" class="w"/><rect x="235" y="145" width="95" height="50" class="c"/><text x="260" y="178">F1 20 A</text>
@@ -274,7 +307,8 @@ def svg_gate1_hardcut(path):
 def write_gate1_package():
     base=ROOT/"exports/jigs/gate1"; (base/"parts").mkdir(parents=True,exist_ok=True)
     rows=export_shape_set(gate1_parts(),base/"parts")
-    envelope=export_assembly(gate1_assembly(),base,"gate1_assembly")
+    envelope=export_assembly(gate1_assembly(mode="manual"),base,"gate1_assembly")
+    powered_envelope=export_assembly(gate1_assembly(mode="powered"),base,"gate1_powered_assembly")
     with (base/"jig_manifest.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n")
         w.writerow(["part_id","name","quantity","material","process","x_mm","y_mm","z_mm","critical","release_state"])
@@ -296,24 +330,30 @@ def write_gate1_package():
     with (base/"bom.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["item_id","item","qty","source","planning_cash_krw","budget_bucket","status","reuse_after_test","notes"])
         data=[
-            ("CUT-01","CUT-01 coupon disc",2,"exports/cnc/CUT-01",4000,"CNC-01","COUPON_RFQ_ALLOWED","yes","D2/SKD11 candidate; remaining full stack is HOLD"),
-            ("CUT-03","CUT-03 side plate",2,"exports/cnc/CUT-03",7000,"CNC-02","RFQ_HOLD","yes","42 H7 bearing seats match-machined"),
-            ("CUT-05","CUT-05 shaft",2,"exports/cnc/CUT-05",11000,"CNC-03","RFQ_HOLD","yes","final-machine shaft; received inspection required"),
-            ("CUT-04","CUT-04 5 mm screen coupon",1,"exports/cnc/CUT-04",5000,"CNC-04","COUPON_RFQ_ALLOWED","yes","3 mm 304; actual clearance >=1.9 mm"),
+            ("CUT-01","CUT-01 coupon disc",2,"exports/cnc/CUT-01",4000,"CNC-01","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","maximum Gate-1 release 2; remaining 10-disc full stack HOLD"),
+            ("CUT-03","CUT-03 side plate",2,"exports/cnc/CUT-03",3000,"CNC-02","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","both plates are required by Gate-1 and reused; 42 H7 seats match-machined"),
+            ("CUT-05","CUT-05 shaft",2,"exports/cnc/CUT-05",7000,"CNC-03","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","both final shafts are required by Gate-1; received inspection required"),
+            ("CUT-04","CUT-04 5 mm screen coupon",1,"exports/cnc/CUT-04",4000,"CNC-04","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","maximum Gate-1 release 1; second screen HOLD; actual clearance >=1.9 mm"),
+            ("CUT-08","6004 bearing retainer",2,"exports/cnc/CUT-08",0,"CNC-02","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","positive bearing outer-ring retention; nested in CNC-02 allowance"),
             ("BRG-6004","6004-2RS bearing",4,"project-lab/donor or HW-ALLOW",0,"HW-ALLOW","VERIFY_INVENTORY","yes","designation/play/corrosion; buy cost must remain inside bucket"),
-            ("DRV-03","M3 Z16 phase gear lamination",6,"exports/drive_interface",6000,"SH-INTERFACE","COUPON_RFQ_ALLOWED","yes","3 laminations/gear; 2xM4 + 1x3H7 dowel PCD30"),
-            ("G1J-01","Reusable base plate",1,"donor plate; drawing supplied",0,"HW-ALLOW","VERIFY_INVENTORY","jig","320x240x8, flatness <=0.30; no zero-cash claim until verified"),
-            ("G1J-02","250 mm torque arm",1,"exports/jigs/gate1/parts",0,"CNC-02","RFQ_HOLD","jig","nest with CNC-02 flat pack; no separate budget addition"),
+            ("DRV-03","M3 Z16 keyed phase gear lamination",6,"exports/drive_interface",3000,"SH-INTERFACE","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","3 laminations/gear; 6 mm key + 2xM4 + 1x3H7 dowel PCD30"),
+            ("DRV-01/Axx","Universal plate plus one measured motor adapter",1,"exports/drive_interface",0,"CNC-02","GATE1_RFQ_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL","yes","DRV-A60 is reference only; donor changes adapter, not common plate"),
+            ("DRV-F01/02/#35","Shear hub, cutter hub, 12T/30T sprockets and chain",1,"exports/drive_interface",3000,"SH-INTERFACE","GATE1_RFQ_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL","yes","powered configuration only; DRV-F01P calibrated before material feed"),
+            ("G1J-01","Reusable base plate",1,"donor plate; drawing supplied",0,"HW-ALLOW","VERIFY_INVENTORY","jig","380x280x8, flatness <=0.30; no zero-cash claim until verified"),
+            ("G1J-02","250 mm torque arm",1,"exports/jigs/gate1/parts",0,"CNC-02","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","jig","manual configuration only; remove before powered configuration"),
             ("G1J-03","Front/rear polycarbonate panels",2,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","3 mm PC, never acrylic; bucket includes all G1J-03..06 sheet"),
             ("G1J-04","Left polycarbonate panel",1,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","3 mm PC"),
             ("G1J-05","Right slotted polycarbonate panel",1,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","open edge slot and baffle required"),
             ("G1J-06","Torque-slot offset baffle",1,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","blocks fragment line of sight"),
-            ("G1J-07","20x20x2 metal guard upright L180",4,"standard angle stock",0,"HW-ALLOW","BUY_HOLD","jig","primary fragment-retention load path"),
+            ("G1J-07","20x20x2 metal guard upright L220",4,"standard angle stock",0,"HW-ALLOW","BUY_HOLD","jig","primary fragment-retention load path"),
             ("G1J-08","20x20x2 steel screen rail L150",2,"standard angle stock",0,"HW-ALLOW","BUY_HOLD","jig","shimmed/removable"),
             ("G1J-09","Interlock metal bracket",1,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","switch model-specific overtravel set at assembly"),
             ("G1J-10","40x40x4 CUT-03 foot L50",4,"standard angle stock",0,"HW-ALLOW","BUY_HOLD","jig","metal plate-to-base load path"),
+            ("G1J-11","40x40x4 DRV-01 foot L50",2,"same stock as G1J-10",0,"HW-ALLOW","BUY_HOLD","jig","powered configuration motor-plate load path"),
+            ("G1J-12","Top polycarbonate panel with chute opening",1,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","3 mm PC closes fragment path; included in guard allowance"),
             ("MET-01","0-200 N force gauge or 100 kg load cell/HX711",1,"project-lab or buy allowance",7500,"GATE1-METROLOGY","CALIBRATION_HOLD","jig","accuracy <=2%; M8 clevis and independent safety tether"),
-            ("G1J-P01..03","Printed chute/tray/edge trim",1,"exports/jigs/gate1/parts",4500,"GATE1-PRINT","PRINT_HOLD","jig","234 g estimate; cold low-load only"),
+            ("G1J-P01..03","Printed chute/tray/edge trim",1,"exports/jigs/gate1/parts",4400,"GATE1-PRINT","PRINT_HOLD","jig","generated mass/cost must remain inside GATE1-PRINT bucket; cold low-load only"),
+            ("COLLAR/KEY/SHIM","Ø20 split collars 8, 6x6 keys, 0.25/0.50 metal shims",1,"standard hardware",0,"HW-ALLOW","BUY_HOLD","yes","coupon and shaft axial retention; no printed shim or set-screw-only torque path"),
             ("SAFE-K0/K1","Manual-reset control relay and 24 V motor power relay",1,"project-lab or SAFE-ALLOW",0,"SAFE-ALLOW","VERIFY_RATING","yes","K1 DC breaking rating >=30 V/25 A; K0 has seal-in auxiliary contact"),
             ("SAFE-S0/S1","Latching E-stop NC + positive-opening guard switch NC",1,"project-lab or SAFE-ALLOW",0,"SAFE-ALLOW","VERIFY_RATING","yes","series hard inhibit; Mega cannot bypass"),
             ("SAFE-F1/F2","20 A motor branch fuse + 2 A control fuse",1,"project-lab or fuse allowance",0,"FUSE-ALLOW","VERIFY_RATING","yes","close to 24 V source"),
@@ -338,6 +378,12 @@ def write_gate1_package():
             ("FST-12","received guard switch to G1J-09","M4 x20 pan-head",2,"washer + nyloc","1.2","nyloc","PH2 + 7 mm","terminal/actuator not preloaded beyond rating"),
             ("FST-13","G1J-P01 feed chute to guard","M4 x16 pan-head",4,"large washer + nyloc","1.2","nyloc","PH2 + 7 mm","anti-reach baffle intact; push-stick-only path"),
             ("FST-14","G1J-02 force gauge clevis","M8 shoulder bolt or clevis pin",1,"two retainers + independent tether","hand snug","double retention","pliers/13 mm","line of pull <=2 degree; tether slack under normal load"),
+            ("FST-15","CUT-08 retainers to CUT-03","M4 x12 class 8.8 SHCS",12,"M4 washer + all-metal locknut","3","all-metal locknut","3 mm hex + 7 mm spanner","outer rings retained; seal untouched; free rotation"),
+            ("FST-16","CUT-01 coupons and shafts","6x6 keys + eight Ø20 split collars",1,"0.25/0.50 metal shim set","collar maker rating","split clamp; no set-screw-only retention","hex key + feeler gauge","6.5 mm offset; axial working gap 0.25-0.50"),
+            ("FST-17","DRV-01 to G1J-11/base","M6 x20 class 8.8 hex",8,"M6 washer + nyloc","9","nyloc","10 mm socket","plate verticality <=0.5/140; no rocking"),
+            ("FST-18","DRV-Axx to DRV-01 and motor","received adapter drawing hardware",1,"hardened washers + prevailing nuts","supplier/drawing","prevailing hardware","torque wrench","pilot seated; sprocket TIR <=0.20; donor envelope clear"),
+            ("FST-19","DRV-02 and #35 sprockets","4x M6 class 10.9 per hub/sprocket",8,"hardened washers + all-metal locknuts","10","all-metal locknut","5 mm hex + 10 mm spanner","witness marks; chain alignment <=0.20/150"),
+            ("FST-20","G1J-12 roof and G1J-P01 chute","M4 x16 pan-head",12,"M4 nylon washer + nyloc","1.2","nyloc; no threadlocker on PC","PH2 + 7 mm","roof retained; chute gap <=1 mm; no unguarded opening >6 mm"),
         ])
     with (base/"wiring_bom.csv").open("w",newline="") as f:
         w=csv.writer(f,lineterminator="\n")
@@ -388,6 +434,9 @@ def write_gate1_package():
             ("PF-09","S1 opens K0/K1 and motor bus","continuity + bus voltage","K1=0 and bus=0","boolean/V"),
             ("PF-10","power restore automatic restart","power-cycle observation","must not restart","boolean"),
             ("PF-11","guard panel crack/line of sight","visual + reach probe","0 crack; no cutter reach","count/boolean"),
+            ("PF-12","CUT-08/collar positive retention","visual + axial push/pull","no bearing/coupon axial release","boolean"),
+            ("PF-13","DRV-03 key engagement and phase stack","blue check + witness marks","full key engagement; no relative slip","boolean"),
+            ("PF-14","powered drive/outer guard clearance","feeler + hand rotation","moving drive clearance >=3; outer guard closed","mm/boolean"),
         )
         for item_id,inspection,method,acceptance,unit in rows:
             w.writerow({"item_id":item_id,"inspection":inspection,"method":method,"acceptance":acceptance,"unit":unit})
@@ -429,7 +478,7 @@ def write_gate1_package():
             w.writerow({"evidence_id":evidence_id,"evidence_type":evidence_type})
     (base/"gate1_release_record_ko.md").write_text("""# Gate-1 release record — 물리시험 후 작성
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - 현재 상태: `NOT_RUN`
 - preflight CSV SHA-256:
 - force calibration CSV SHA-256:
@@ -455,24 +504,26 @@ def write_gate1_package():
 """,encoding="utf-8")
     (base/"assembly_ko.md").write_text(f"""# Gate-1 cutter coupon jig 조립도
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - nominal assembly envelope: `{envelope[0]} x {envelope[1]} x {envelope[2]} mm`
+- powered configuration envelope: `{powered_envelope[0]} x {powered_envelope[1]} x {powered_envelope[2]} mm`
 - 목적: CUT-01 두 장만 사용해 PLA/PET peak torque, jam recovery와 chip-size fraction을 측정한다.
 
 ## 조립 순서
 
 1. G1J-01을 고정 table에 M8 네 점으로 체결하고 0.3 mm 이내 평면을 확인한다.
-2. G1J-10 metal foot 네 개에 최종기용 CUT-03 두 장을 체결한 뒤 6004 bearing 네 개를 조립한다. Bearing은 outer ring만 눌러 삽입한다.
-3. CUT-05 두 축을 넣고 CUT-01 coupon을 축당 한 장만 6.5 mm offset으로 장착한다. 0.25–0.50 mm metal shim으로 axial gap을 맞춘다.
+2. G1J-10 metal foot 네 개에 최종기용 CUT-03 두 장을 체결한 뒤 6004 bearing 네 개와 CUT-08 retainer 두 장을 조립한다. Bearing은 outer ring만 눌러 삽입한다.
+3. CUT-05 두 축을 넣고 CUT-01 coupon을 축당 한 장만 6.5 mm offset으로 장착한다. Ø20 split collar와 0.25–0.50 mm metal shim으로 axial gap을 맞춘다.
 4. G1J-08 steel angle rail 두 개에 CUT-04 5 mm screen coupon을 captive fastener로 고정하고, cutter tip 아래 nominal 3.0 mm/실제 최소 clearance 1.9 mm 이상을 shim으로 맞춘다.
-5. DRV-03 lamination을 gear당 3장, 2x M4 clamp bolt과 1x Ø3 h6 dowel로 조립하고 hand rotation 20회에서 간섭이 없어야 한다.
+5. DRV-03 lamination을 gear당 3장, 공통 6 mm key, 2x M4 clamp bolt과 1x Ø3 h6 dowel로 조립하고 hand rotation 20회에서 간섭·shaft 상대 slip이 없어야 한다.
 6. G1J-02 torque arm 중심에서 force hole까지 `250.0 ±0.5 mm`를 실측한다. Calibrated handheld force gauge를 M8 clevis에 연결하고 독립 safety tether를 단다. 힘 방향과 arm 운동평면 편차는 2° 이하다.
-7. G1J-07 metal upright 4개를 base에 체결한 뒤 G1J-03/04/05 3 mm polycarbonate panel을 nylon washer로 유지한다. G1J-06 offset baffle은 right-panel slot에서 10 mm 이상 떨어져 fragment 직선경로를 막아야 한다. G1J-P03은 edge trim일 뿐 panel 지지구가 아니다.
+7. G1J-07 metal upright 4개를 base에 체결한 뒤 G1J-03/04/05/12 3 mm polycarbonate panel을 nylon washer로 유지한다. G1J-12 roof와 G1J-P01 chute 사이 gap은 1 mm 이하, 그 밖의 unguarded opening은 6 mm 이하여야 한다. G1J-06 offset baffle은 right-panel slot에서 10 mm 이상 떨어져 fragment 직선경로를 막아야 한다. G1J-P03은 edge trim일 뿐 panel 지지구가 아니다.
 8. G1J-09에 positive-opening S1을 설치하고 `wiring_24v_hardcut.svg`대로 S0/S1→K0→K1 manual-reset hard cut을 배선한다. S0/S1 개방 후 START 없이 자동 재가동하면 FAIL이다.
 9. `fastener_schedule.csv`의 torque/witness mark, PE bond <0.1 ohm, panel crack 0을 확인한다.
-10. Manual torque test 뒤에만 합격 donor drive를 DRV-01/#35 chain interface로 연결한다.
+10. Manual torque test 뒤 main disconnect/shaft lockout에서 G1J-02와 gauge를 제거하고 `gate1_powered_assembly.step` 상태로 DRV-01/검증된 DRV-Axx/DRV-F01/DRV-02/#35 12T:30T를 장착한다. 두 상태를 동시에 조립하지 않는다.
+11. Powered 상태에서도 외곽 polycarbonate guard와 S0/S1 hard-cut을 모두 닫고, motor label·shaft·current·RPM·30분 온도 record가 없는 donor는 energize하지 않는다.
 
-고하중 경로는 cutter → metal shaft → 6004 → CUT-03 → G1J-01 → table이다. 출력 chute/tray/corner는 하중경로가 아니다.
+고하중 경로는 cutter → metal shaft → 6004/CUT-08 → CUT-03 → G1J-10 → G1J-01 → table이다. Powered 경로는 motor → DRV-Axx/DRV-01/G1J-11 → DRV-F01 → #35 chain/DRV-02 → shaft이며 출력 chute/tray/corner는 하중경로가 아니다.
 """,encoding="utf-8")
     (base/"test_procedure_ko.md").write_text("""# Gate-1 CUT-01 coupon 시험 절차와 합격기준
 
@@ -487,8 +538,8 @@ def write_gate1_package():
 ## A. Lockout와 dry mechanical
 
 1. Main disconnect OFF/0 V, shaft block, guard open 상태에서 fastener torque와 shim을 기록한다.
-2. Hand rotation 20회: cutter/plate/gear/screen 접촉 0, shaft TIR <=0.10 mm, phase error <=1.0°.
-3. Polycarbonate guard, S0 E-stop과 S1 positive-opening switch가 K0/K1을 drop하여 motor bus energy를 실제 제거하는지 각각 continuity/voltage test한다. 전원 복귀 후 S2 START 없이 K1이 자동 재투입되면 FAIL이다.
+2. Hand rotation 20회: cutter/plate/gear/screen 접촉 0, shaft TIR <=0.10 mm, phase error <=1.0°, CUT-08/collar 이탈 0, DRV-03 key 상대 slip 0.
+3. G1J-12 roof를 포함한 polycarbonate guard의 unguarded opening이 6 mm 이하인지 확인한다. S0 E-stop과 S1 positive-opening switch가 K0/K1을 drop하여 motor bus energy를 실제 제거하는지 각각 continuity/voltage test한다. 전원 복귀 후 S2 START 없이 K1이 자동 재투입되면 FAIL이다.
 
 ## B. Quasi-static 절단토크
 
@@ -499,7 +550,7 @@ def write_gate1_package():
 
 ## C. Motor/current와 jam recovery
 
-1. 합격한 donor motor만 연결하고 PLA 32 rpm/PET 24 rpm에서 no-load current/RPM, arm/load-cell torque 대비 current-to-torque slope, 실제 sprocket ratio와 효율을 기록한다. `verified` calibration record 없이는 powered cutter를 시작하지 않는다.
+1. Main disconnect/shaft lockout 상태에서 G1J-02 torque arm을 제거하고 `gate1_powered_assembly.step`대로 합격 donor motor와 DRV-01/Axx/F01/02/#35 경로를 연결한다. PLA 32 rpm/PET 24 rpm에서 no-load current/RPM, 별도 calibration arm/load-cell torque 대비 current-to-torque slope, 실제 sprocket ratio와 효율을 기록한다. `verified` calibration record 없이는 powered cutter를 시작하지 않는다.
 2. 14/18/22/34/48 N·m는 모두 cutter-shaft reference다. Motor-side `DRV-F01`을 구동모터 분리 상태에서 quasi-static calibration한다. 효율 0.85 기준 시작 setting은 12:18 = 17.25 N·m, 12:24 = 12.94 N·m, 12:30 = 10.35 N·m이며, 실제 ratio/효율/측정 불확도를 기록해 22 N·m cutter-equivalent에서 분리되도록 보정한다. DRV-02·chain·phase pair는 분리 또는 영구변형되면 FAIL이다.
 3. Controlled jam을 각 재질 3회 만든다. Calibrated cutter torque 18 N·m에서 PLA 650 ms/PET 850 ms 또는 command 대비 RPM 35% drop/500 ms에서 reverse가 시작돼야 한다. 고정 A값은 donor 공통 torque 기준으로 사용하지 않는다.
 4. Reverse는 PLA 800 ms/PET 1100 ms, 최대 3회다. 세 번째 실패 뒤 enable=0과 latched fault가 유지돼야 한다.
@@ -586,6 +637,7 @@ STEP은 3D 견적/간섭 기준, SVG와 본 문서는 치수·GD&T 기준이다.
 - SCM440 solid/seamless blank, QT 28–32 HRC. OD Ø34.00 ±0.05, length 280.00 ±0.05. Rear face=Datum B, front face=Datum C, final bore axis=Datum D. Assembly에서 B는 screw active start와 일치하고 screw tip은 C 뒤 24.0 ±0.2에 위치한다.
 - Bore after final hone Ø16.20 +0.02/0, Ra≤0.4–0.8 µm. Bore straightness ≤0.05/256 and concentricity to OD/register ≤0.05.
 - Feed opening은 축방향 18.00 ±0.10 x chord width 20.00 ±0.10, rear edge B+12.00 ±0.10. Port centre plane을 전면 bolt pattern의 0° 각도 기준으로 삼는다. Bore-intersection edge R0.5 ±0.2; screw flight 위 sharp edge 금지.
+- T1/T2/T3 radial blind sensor bores는 B+95.00/170.00/245.00 ±0.10, Ø3.20 +0.05/0, depth7.00 ±0.10이다. Bore axis는 Datum D와 0.10/7 이내 직각이며 melt bore로 breakthrough하지 않는다. 명목 최소 ligament 1.90 mm를 보존하고 plug gauge/depth gauge 결과를 제출한다.
 - Front die interface는 4x M4 x0.7-6H, full thread depth 8 minimum, tap-drill depth 11 minimum, PCD26.00 ±0.05 at 45/135/225/315° ±0.2° from feed-port centre plane이다. Ø3.3 tap drill 기준 nominal outer ligament 2.35 mm, bore-side ligament 3.25 mm이고 M4 major envelope 기준으로도 각각 2.0/2.9 mm 이상이다. 나사·counterbore가 OD 또는 bore로 breakthrough하면 FAIL이다. B/C faces은 D에 직각도 0.03; OD concentricity to D ≤0.05.
 - Rough turn/deep drill → 600–650 °C stress relieve(재료 공급사 표준 cycle, certificate 기록) → datum-face/OD finish → semi-finish ream/hone leaving 0.05–0.08 mm on diameter → feed port/thread machine → gas nitride 0.30–0.50 mm, ≥900 HV0.3 → final hone. Effective case after final hone is ≥0.25 mm.
 - Report bore at 20/140/260 mm and roundness ≤0.02 at each station. Front/rear face perpendicularity 0.03 to bore axis.
@@ -617,22 +669,67 @@ Body sealing face flatness는 0.03, melt channel Ø8 H9, insert seat Ø12.00 +0.
 3. Flight OD TIR 0.05/256, concentricity 0.03, Ra 0.8 검사 가능 여부.
 4. Barrel Ø16.20 +0.02/0 final hone, three-station ID/roundness와 Ra report 가능 여부.
 5. Front 4×M4-6H depth8/PCD26 가공 후 OD/bore breakthrough가 없고 major-envelope ligament outer 2.0 mm, bore-side 2.9 mm 이상인지 확인.
-6. Gas nitride case/surface hardness certificate와 barrel final-hone 후 effective case ≥0.25 mm 가능 여부.
-7. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
-8. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.
-9. 모든 deviation과 대체재를 발주 전 명시. 무응답 항목은 수락으로 간주하지 않는다.
-10. EX-DIE-01 intersecting Ø8 channel borescope/deburr, face flatness와 seat ID report 가능 여부.
-11. EX-DIE-03 Ø3×10 land Ra≤0.4 및 OD 기준 concentricity 0.02 검사 가능 여부.
-12. EX-DIE-04 동일 lot relief coupon 3개와 shielded 265 °C, 3–6 MPa 개방압 시험은 full die와 분리 견적한다.
+6. B+95/170/245의 3× Ø3.20 blind7 thermocouple bore, depth와 melt-bore breakthrough 없음 및 nominal ligament 1.90 mm 확인.
+7. Gas nitride case/surface hardness certificate와 barrel final-hone 후 effective case ≥0.25 mm 가능 여부.
+8. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
+9. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.
+10. 모든 deviation과 대체재를 발주 전 명시. 무응답 항목은 수락으로 간주하지 않는다.
+11. EX-DIE-01 intersecting Ø8 channel borescope/deburr, face flatness와 seat ID report 가능 여부.
+12. EX-DIE-03 Ø3×10 land Ra≤0.4 및 OD 기준 concentricity 0.02 검사 가능 여부.
+13. EX-DIE-04 동일 lot relief coupon 3개와 shielded 265 °C, 3–6 MPa 개방압 시험은 full die와 분리 견적한다.
 
 Full part order release는 `HOLD_PROCESS_COUPON_AND_GATE3`이며 본 checklist가 닫혀도 자동 승인되지 않는다.
 """,encoding="utf-8")
 
 
+def write_thermal_package():
+    """가열기·센서·PTC의 실제 형상과 구매 전 RFQ 계약을 생성한다."""
+    base=ROOT/"exports/thermal"; (base/"parts").mkdir(parents=True,exist_ok=True)
+    ptc=Part.makeBox(35,5,21)
+    fuse=Part.makeBox(20,6,8)
+    specs=[
+        dict(id="TH-BH-01",name="Custom barrel mica band heater",shape=mica_band_heater_shape(),qty=3,material="mica/NiCr/stainless sheath",process="custom heater RFQ",critical="24 VDC 100 W each; as-clamped ID34.00 +0.10/0; width45 ±0.5; radial build2 nominal; cold resistance 5.76 Ω ±10%; 300 mm fiberglass leads; grounded sheath; PET service 300 C design; no stock Ø35 substitution"),
+        dict(id="TH-DIE-01",name="Die cartridge heater",shape=die_cartridge_heater_shape(),qty=1,material="stainless-sheathed cartridge",process="purchased reference + receipt test",critical="24 VDC 60 W; Ø6.00 -0.02/-0.06 x38 ±0.5; cold resistance 9.60 Ω ±10%; fit EX-DIE-01 Ø6.20 H9 through; 300 mm fiberglass leads"),
+        dict(id="TH-PTC-EL",name="Hopper maintenance PTC element",shape=ptc,qty=4,material="24 V ceramic PTC",process="purchased candidate + single-element calorimetry",critical="35 x21 x5 class; 80-110 C self-regulating class; actual cold/hot W unknown until receipt test; four is provisional; never primary PET dryer"),
+        dict(id="TH-PTC-01",name="Hopper PTC aluminum spreader",shape=hopper_ptc_spreader_shape(),qty=1,material="6061-T6 t3",process="laser/waterjet + deburr",critical="120 x55 x3; 4x Ø4.5; flatness0.20; electrically bonded to hopper; PTC-to-metal insulation system supplier-rated"),
+        dict(id="TH-PTC-02",name="Hopper PTC grounded keeper",shape=hopper_ptc_clamp_shape(),qty=1,material="304 stainless t2",process="laser + deburr",critical="120 x55 x2; 4x Ø4.5; spring/compliant electrically-insulating pads prevent ceramic point load; PE bond"),
+        dict(id="TH-TC-01",name="Grounded K-type barrel/die/hopper probe",shape=k_type_probe_shape(),qty=5,material="Ø3 mineral-insulated 304 sheath",process="purchased + ice/boiling-point check",critical="Ø3.00 -0.05/0; insertion6 nominal, die10 and hopper4 by stop collar; 300 C minimum continuous; isolated amplifier channel per probe"),
+        dict(id="TH-FUSE-01",name="Independent one-shot thermal fuse envelope",shape=fuse,qty=3,material="300 C-class barrel/die plus hopper-specific lower setpoint",process="purchased + lot continuity/traceability",critical="one-shot, series hard cut independent of Mega/MOSFET; exact body/lead crimp from selected datasheet; never solder within hot zone"),
+    ]
+    rows=export_shape_set(specs,base/"parts")
+    with (base/"manifest.csv").open("w",newline="") as f:
+        w=csv.writer(f,lineterminator="\n"); w.writerow(["part_id","name","quantity","material","x_mm","y_mm","z_mm","release_state"])
+        for r in rows:w.writerow([r["id"],r["name"],r["qty"],r["material"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}","USER_APPROVAL_AND_RECEIPT_TEST_HOLD"])
+    (base/"heater_rfq_ko.md").write_text("""# v0.5 가열계 RFQ 및 수령검사 계약
+
+## 고정 아키텍처
+
+Barrel은 `TH-BH-01` 24 V/100 W/ID34/W45 mica band 3개, die는 `TH-DIE-01` 24 V/60 W/Ø6×38 cartridge 1개를 쓴다. 공정가열 정격합계는 360 W(15.0 A)다. Ø35 stock band를 Ø34 barrel에 느슨하게 쓰거나 PTC를 barrel 주가열에 쓰는 대체는 금지한다.
+
+Zone 중심은 barrel datum B에서 67.5/137.5/212.5 mm이며 band 범위는 B+45–90, 115–160, 190–235 mm다. T1/T2/T3 blind bore는 B+95/170/245 mm, Ø3.20 +0.05/0, 깊이7.0 ±0.1이며 melt bore까지 명목 ligament 1.9 mm다. T4는 die Ø3.20 blind12, T5는 hopper metal wall을 측정한다. Probe가 heater sheath만 읽도록 band 아래에 끼우지 않는다.
+
+각 100 W band cold resistance는 5.76 Ω ±10%, 60 W cartridge는 9.60 Ω ±10%를 수령 시 20 ±2 °C에서 기록한다. Sheath-to-lead 절연, PE bond, lead strain relief, 실제 외형과 clamp closure를 검사한다. 24 V 저전압이라도 각 channel branch fuse와 40–60 V VDS/10 A continuous thermal-capable MOSFET를 사용한다. Mega는 저주파 time-proportioning을 수행하지만 independent thermal fuse를 우회할 수 없다.
+
+Hopper PTC는 35×21×5 class 4개 시작 형상이며 외부 predry를 대체하지 않는다. PTC 1개의 cold current, 10/30/60분 전력과 spreader 평형온도를 먼저 측정하여 4–8개 범위를 확정한다. PTC는 aluminum spreader와 grounded keeper 사이에 절연·compliant pad로 고정하고 printed part에 직접 닿지 않는다.
+
+모든 heater 구매와 energization은 사용자 승인 대상이다. 수령검사·절연검사·thermal fuse continuity·무부하 단계가 끝나기 전 PSU에 연결하지 않는다.
+""",encoding="utf-8")
+    with (base/"channel_schedule.csv").open("w",newline="") as f:
+        w=csv.writer(f,lineterminator="\n"); w.writerow(["channel","load","nominal_w","nominal_a_24v","sensor","hard_cut","control","state"])
+        w.writerows([
+            ("HZ1","TH-BH-01 zone1",100,"4.17","T1 K-type","barrel thermal fuse + branch fuse","MOSFET1 low-frequency","HOLD"),
+            ("HZ2","TH-BH-01 zone2",100,"4.17","T2 K-type","barrel thermal fuse + branch fuse","MOSFET2 low-frequency","HOLD"),
+            ("HZ3","TH-BH-01 zone3",100,"4.17","T3 K-type","barrel thermal fuse + branch fuse","MOSFET3 low-frequency","HOLD"),
+            ("HDIE","TH-DIE-01",60,"2.50","T4 K-type","die thermal fuse + branch fuse","MOSFET4 low-frequency","HOLD"),
+            ("HPTC","4x TH-PTC-EL","RECEIPT_TEST","RECEIPT_TEST","T5 K-type","hopper thermal fuse + branch fuse","MOSFET5/relay maintenance","HOLD"),
+        ])
+    print(f"THERMAL_PACKAGE_OK parts={len(rows)} process_heater_w=360 sensors=5")
+
+
 def main():
     machine_rows = write_machine_fabrication_package()
-    write_drive_package(); write_gate1_package(); write_extruder_package()
-    print(f"MANUFACTURING_PACKAGE_OK machine_parts={len(machine_rows)} drive=3 jig_parts={len(gate1_parts())} extruder_parts={len(extruder_rfq_parts())}")
+    write_drive_package(); write_gate1_package(); write_extruder_package(); write_thermal_package()
+    print(f"MANUFACTURING_PACKAGE_OK machine_parts={len(machine_rows)} drive=8 jig_parts={len(gate1_parts())} extruder_parts={len(extruder_rfq_parts())}")
 
 
 if __name__=="__main__":main()

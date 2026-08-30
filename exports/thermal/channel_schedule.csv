@@ -1,0 +1,6 @@
+channel,load,nominal_w,nominal_a_24v,sensor,hard_cut,control,state
+HZ1,TH-BH-01 zone1,100,4.17,T1 K-type,barrel thermal fuse + branch fuse,MOSFET1 low-frequency,HOLD
+HZ2,TH-BH-01 zone2,100,4.17,T2 K-type,barrel thermal fuse + branch fuse,MOSFET2 low-frequency,HOLD
+HZ3,TH-BH-01 zone3,100,4.17,T3 K-type,barrel thermal fuse + branch fuse,MOSFET3 low-frequency,HOLD
+HDIE,TH-DIE-01,60,2.50,T4 K-type,die thermal fuse + branch fuse,MOSFET4 low-frequency,HOLD
+HPTC,4x TH-PTC-EL,RECEIPT_TEST,RECEIPT_TEST,T5 K-type,hopper thermal fuse + branch fuse,MOSFET5/relay maintenance,HOLD

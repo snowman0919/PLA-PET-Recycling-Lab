@@ -1,6 +1,6 @@
 # G1J-08 — Removable screen rail
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `2`
 - material: `20 x20 x2 steel angle`
 - process: `saw cut + drill`

@@ -1,6 +1,6 @@
 # EX-DIE-01 — Connected 90 degree down-die body
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `SCM440 QT + gas nitride`
 - process: `6-face mill; gun drill/ream intersecting Ø8 channels; counterbore, drill/tap; stress relieve; gas nitride; lap sealing face`

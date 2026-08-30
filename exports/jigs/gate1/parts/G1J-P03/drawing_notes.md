@@ -1,6 +1,6 @@
 # G1J-P03 — Guard edge trim
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `4`
 - material: `PLA`
 - process: `FDM`

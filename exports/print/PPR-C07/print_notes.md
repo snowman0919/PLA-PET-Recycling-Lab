@@ -1,6 +1,6 @@
 # PPR-C07 — Puller pinch guard
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: 1
 - material: ABS
 - nozzle diameter: 0.4 mm

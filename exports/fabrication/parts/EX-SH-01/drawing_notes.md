@@ -1,6 +1,6 @@
 # EX-SH-01 — Three-panel hot-zone shield
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `2 mm 5052 aluminum`
 - process: `laser + two 90deg bends; bond PE`

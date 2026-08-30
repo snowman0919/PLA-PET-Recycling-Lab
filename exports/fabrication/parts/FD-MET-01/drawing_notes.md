@@ -1,6 +1,6 @@
 # FD-MET-01 — Metering feeder housing
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `304 stainless`
 - process: `turn tube/flanges + drill`

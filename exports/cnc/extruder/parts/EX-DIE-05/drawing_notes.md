@@ -1,6 +1,6 @@
 # EX-DIE-05 — Annealed copper face gasket
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `2`
 - material: `C110 annealed copper t0.5`
 - process: `waterjet/punch; anneal after cutting; bag clean`

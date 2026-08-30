@@ -1,6 +1,6 @@
 # SP-SH-01 — Spool spindle
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `Ø12 h6 S45C`
 - process: `cut/turn faces + collar flats`

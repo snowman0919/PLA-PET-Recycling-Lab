@@ -1,6 +1,6 @@
 # Gate-1 release record — 물리시험 후 작성
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - 현재 상태: `NOT_RUN`
 - preflight CSV SHA-256:
 - force calibration CSV SHA-256:

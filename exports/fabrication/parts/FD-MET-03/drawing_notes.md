@@ -1,6 +1,6 @@
 # FD-MET-03 — Metering feeder shaft
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `304 shaft`
 - process: `cut/face Ø5 stock`

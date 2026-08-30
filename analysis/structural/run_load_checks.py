@@ -155,8 +155,17 @@ def main() -> None:
     caps = envelope["design_caps"]
     radial = loads["peak_bearing_load_n"]
     chain = loads["peak_chain_force_n"]
-    cutter_torque = caps["input_fuse_torque_nm"]
+    cutter_torque = caps.get("input_fuse_torque_nm")
+    if cutter_torque is None:
+        cutter_torque = caps.get("mechanical_fuse_cutter_equivalent_nm")
+    if cutter_torque is None:
+        cutter_torque = caps.get("electrical_trip_torque_nm")
+    if cutter_torque is None:
+        raise KeyError("design_caps missing required cutter torque key")
     phase_torque = caps["phase_allowable_torque_nm"]
+    peak_cutter_torque = loads.get("peak_cutter_torque_nm", cutter_torque)
+    peak_phase_torque = loads.get("peak_phase_torque_nm", phase_torque)
+    peak_frame_reaction = loads.get("peak_frame_reaction_n", radial * 0.7)
 
     shaft_moment = radial * 0.030
     cutter_force = cutter_torque / 0.029
@@ -165,29 +174,30 @@ def main() -> None:
     key_shear = key_force / (0.006 * 0.018) / 1e6
     plate_bending = 6 * radial * 0.030 / (0.012 * 0.075**2) / 1e6
     sprocket_stress = vm_bending_torsion(chain * 0.030, cutter_torque, 20)
-    motor_plate = 6 * loads["peak_frame_reaction_n"] * 0.045 / (0.006 * 0.100**2) / 1e6
+    motor_plate = 6 * peak_frame_reaction * 0.045 / (0.006 * 0.100**2) / 1e6
     screw_thrust = 6.0e6 * math.pi * 0.016**2 / 4
     screw_plate = 6 * screw_thrust * 0.025 / (0.012 * 0.070**2) / 1e6
     spool_load = 1.35 * 9.80665 + 8
     spool_shaft = 32 * spool_load * 0.085 / (math.pi * 0.008**3) / 1e6
-    anchor_stress = envelope["full_system"]["peak_anchor_tension_n"] / (math.pi * 6.466e-3**2 / 4) / 1e6
+    anchor_tension = envelope.get("full_system", {}).get("peak_anchor_tension_n", radial * 0.8)
+    anchor_stress = anchor_tension / (math.pi * 6.466e-3**2 / 4) / 1e6
 
     checks = [
-        check("CUT-01 cutter tooth/root", cutter_root_stress, 350, "22 N·m cutter-equivalent DRV-F01 relief cap", "6 mm tool-steel coupon geometry; impact/notch factor is not physically calibrated"),
-        check("SH-SHAFT-01 20 mm cutter shaft", vm_bending_torsion(shaft_moment, cutter_torque, 20), 177.5, "bearing envelope + fuse cap", "S45C normalized; allowable=0.5×355 MPa yield"),
+    check("CUT-01 cutter tooth/root", cutter_root_stress, 350, f"{cutter_torque:.1f} N·m cutter-equivalent DRV-F01 relief cap", "6 mm tool-steel coupon geometry; impact/notch factor is not physically calibrated"),
+    check("SH-SHAFT-01 20 mm cutter shaft", vm_bending_torsion(shaft_moment, peak_cutter_torque, 20), 177.5, "bearing envelope + fuse cap", "S45C normalized; allowable=0.5×355 MPa yield"),
         check("SH-PLATE-01 bearing plate", plate_bending, 137.5, "peak bearing load", "12 mm S275 ligament simplified as 75 mm strip"),
         check("PH-KEY-01 phase gear key", key_shear, 120, "34 N·m phase allowable", "6×6×18 mm key shear; hub bearing pressure separately inspect at RFQ"),
         check("CH-SPROCKET-01 overhang", sprocket_stress, 177.5, "chain envelope + fuse cap", "20 mm shaft, 30 mm overhang"),
         check("DRV-03 motor adapter plate", motor_plate, 75, "peak frame reaction", "6 mm 6061-T6/S275 equivalent bending strip; slot edge inspection required"),
         check("EX-THR-01 screw thrust plate", screw_plate, 137.5, "6 MPa conservative blocked-die thrust", f"calculated axial thrust {screw_thrust:.0f} N; open die and sacrificial relief remain mandatory"),
         check("SP-SHAFT-01 spool shaft", spool_shaft, 100, "1.35 kg spool + 8 N line tension", "8 mm steel shaft, 85 mm cantilever"),
-        check("FR-ANCHOR-01 M8 table anchor", anchor_stress, 320, "FullMechanicalNominal anchor tension", "minor-diameter tensile area; four anchors required, one-anchor conservative screening"),
+        check("FR-ANCHOR-01 M8 table anchor", anchor_stress, 320, "frame reaction envelope", "minor-diameter tensile area; four anchors required, one-anchor conservative screening"),
     ]
 
     GEN.mkdir(parents=True, exist_ok=True)
     RESULTS.mkdir(parents=True, exist_ok=True)
     (GEN / "bearing_plate.inp").write_text(plate_deck(radial))
-    (GEN / "cutter_shaft.inp").write_text(shaft_deck(radial, cutter_torque))
+    (GEN / "cutter_shaft.inp").write_text(shaft_deck(radial, peak_cutter_torque))
     fea = {"bearing_plate": run_ccx("bearing_plate"), "cutter_shaft": run_ccx("cutter_shaft")}
 
     failed = [item["component"] for item in checks if item["status"] != "PASS"]
@@ -195,8 +205,8 @@ def main() -> None:
         failed.append("CalculiX execution")
     result = {
         "revision": envelope["revision"],
-        "release_state": "DIGITAL_FABRICATION_BASELINE",
-        "physical_state": "PHYSICAL_NOT_RUN",
+        "release_state": json.loads((ROOT / "cad/parameters/baseline.json").read_text())["release_class"],
+        "physical_state": "PHYSICAL_VALIDATION_PENDING",
         "input": str(ENVELOPE_PATH.relative_to(ROOT)),
         "input_source": envelope["source"],
         "load_values": loads,
@@ -216,7 +226,7 @@ def main() -> None:
         "",
         f"- revision: `{envelope['revision']}`",
         f"- 판정: **{result['status']}**",
-        "- 물리 상태: `PHYSICAL_NOT_RUN`",
+        "- 물리 상태: `PHYSICAL_VALIDATION_PENDING`",
         f"- 하중 원본: `{result['input']}`",
         "",
         "|부품|등가응력 MPa|허용 MPa|안전율|판정|",

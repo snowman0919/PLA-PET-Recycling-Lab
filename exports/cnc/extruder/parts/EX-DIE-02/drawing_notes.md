@@ -1,6 +1,6 @@
 # EX-DIE-02 — Seven-hole breaker plate
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `304 stainless`
 - process: `wire EDM or laser + double-side lap`

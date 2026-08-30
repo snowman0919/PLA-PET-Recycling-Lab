@@ -1,8 +1,11 @@
-family_id,description,process,material,quantity,source,planned_krw,release_gate
-CNC-01,CUT-01 cycloidal-derived 58x6 repeated hook disc,waterjet/laser plus deburr and finish grind,D2/SKD11 candidate,2,exports/cnc/CUT-01/CUT-01.step,14000,Gate-1 coupon 2장만 허용; 나머지 10장 HOLD
-CNC-02,CUT-03/04/06/07/08 및 DRV-01/03 donor-flat pack,laser/waterjet plus critical bore finish,steel/304 by drawing,15,exports/drive_interface/manifest.csv,5000,Gate-1 coupon과 donor sheet 실측 우선
-CNC-03,CUT-02/05 spacer shaft 및 DRV-02 hub,simple turning plus keyway,S45C,13,exports/drive_interface/parts/DRV-02/DRV-02.step,9000,표준 shaft 재고 확인 후 Gate-1 정렬
-CNC-05,EX-CPN-SCR 3-pitch process coupon,turning flight milling polish nitride,SCM440 QT,1,exports/cnc/extruder/parts/EX-CPN-SCR/EX-CPN-SCR.step,18000,Full EX-SCR-01 HOLD
-CNC-06,EX-CPN-BAR 60 mm bore process coupon,boring honing nitride final hone,SCM440 QT,1,exports/cnc/extruder/parts/EX-CPN-BAR/EX-CPN-BAR.step,17000,Full EX-BAR-01 HOLD
-CNC-07,EX-DIE-01 to 05 connected open die breaker insert gasket and sacrificial retainer,6-face milling intersecting drilling turning and flat cutting,SCM440/304/17-4PH/C110,6,exports/cnc/extruder/rfq_manifest.csv,6000,Hot relief coupon plus Gate 4 guarded low feed; full die HOLD
-CNC-08,thrust plate and barrel clamps,donor plate laser cut plus drilling,steel,3,cad/freecad/compact/generate.py,3000,Gate 3 thrust path
+family_id,description,process,material,quantity,source,target_ceiling_krw,release_gate
+CNC-01-G1,CUT-01 cycloidal-derived 58x6 Gate-1 coupon,waterjet plus deburr and local finish grind,D2/SKD11 candidate,2,exports/cnc/CUT-01/CUT-01.step,4000,GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED
+CNC-01-REMAINING,CUT-01 remaining full-stack discs,same setup and nested flat profile,D2/SKD11 candidate,10,exports/cnc/CUT-01/CUT-01.dxf,6000,HOLD_UNTIL_SIGNED_PHYSICAL_GATE1_PASS
+CNC-02,CUT-03 pair CUT-08 retainers and DRV-01 common plate,donor flat laser/waterjet plus Ø42 H7 matched finish,steel by drawing,5,exports/cnc/shredder_manifest.csv,3000,GATE1_REQUIRED_QUANTITY_ONLY_USER_APPROVAL_REQUIRED
+CNC-03,CUT-05 keyed shaft pair,simple turning journal h6 and 6 mm keyway,S45C,2,exports/cnc/CUT-05/CUT-05.step,7000,GATE1_QTY2_USER_APPROVAL_REQUIRED
+CNC-04,CUT-04 5 mm screen coupon,laser cut deburr flatten,3 mm 304 stainless,1,exports/cnc/CUT-04/CUT-04.dxf,4000,GATE1_MAX1_USER_APPROVAL_REQUIRED_SECOND_SCREEN_HOLD
+SH-INTERFACE,DRV-03 keyed lamination pair plus DRV-F01/02 and number35 set,nested flat profile simple turning keyway,S45C and brass,1,exports/drive_interface/manifest.csv,6000,GATE1_ONLY_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL
+CNC-05,EX-CPN-SCR process coupon then EX-SCR-01 matched screw,turning flight milling polish nitriding,SCM440 QT,1,exports/cnc/extruder/rfq_manifest.csv,13000,PROCESS_COUPON_ALLOWED_AFTER_USER_APPROVAL_FULL_SCREW_HOLD
+CNC-06,EX-CPN-BAR process coupon then EX-BAR-01 matched barrel,boring honing nitriding final hone,SCM440 QT,1,exports/cnc/extruder/rfq_manifest.csv,13000,PROCESS_COUPON_ALLOWED_AFTER_USER_APPROVAL_FULL_BARREL_HOLD
+CNC-07,EX-DIE-01 to 05 connected open die package,6-face milling intersecting drilling turning and flat cutting,SCM440 304 17-4PH C110,6,exports/cnc/extruder/rfq_manifest.csv,5000,HOLD_UNTIL_PROCESS_COUPON_AND_USER_APPROVAL
+CNC-08,extruder thrust plate and clamps,donor plate laser cut plus drilling,steel,3,exports/fabrication/manifest.csv,2000,HOLD_UNTIL_GATE3_AND_USER_APPROVAL

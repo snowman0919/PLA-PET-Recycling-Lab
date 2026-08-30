@@ -1,0 +1,9 @@
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Complex 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/ModelicaServices 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Modelica 4.0.0/package.mo");
+loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");
+cd("simulation/openmodelica/results/raw");
+simulate(PLA_PET_Recycler.Scenarios.MotorNoLoadStart,startTime=0,stopTime=1,numberOfIntervals=200,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokeMotorNoLoadStart");
+simulate(PLA_PET_Recycler.Scenarios.MOSFETStuckOn,startTime=0,stopTime=10,numberOfIntervals=100,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokeMOSFETStuckOn");
+simulate(PLA_PET_Recycler.Scenarios.EmptySpool,startTime=0,stopTime=1,numberOfIntervals=200,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="smokeEmptySpool");
+getErrorString();

@@ -1,6 +1,6 @@
 # SP-DA-01 — Dancer arm
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `8 mm 6061-T6`
 - process: `waterjet + ream`

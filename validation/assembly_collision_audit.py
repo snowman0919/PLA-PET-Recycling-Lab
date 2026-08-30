@@ -15,8 +15,8 @@ from geometry import assembly_objects  # noqa: E402
 TOLERANCE_MM3 = 0.05
 
 ALLOWED_INTERFACES = {
-    frozenset(("CutterSprocket24T", "ChainTightSide")): "보수적 chain LOD와 sprocket 맞물림 체적",
-    frozenset(("CutterSprocket24T", "ChainSlackSide")): "보수적 chain LOD와 sprocket 맞물림 체적",
+    frozenset(("CutterSprocket30T", "ChainTightSide")): "보수적 chain LOD와 sprocket 맞물림 체적",
+    frozenset(("CutterSprocket30T", "ChainSlackSide")): "보수적 chain LOD와 sprocket 맞물림 체적",
     frozenset(("SealedFeedHopper", "FeedTransferChute")): "밀폐 hopper 용접/socket 삽입부",
     frozenset(("FeedTransferChute", "FeederHousing")): "feeder 용접/socket 삽입부",
     frozenset(("Spool", "SpoolCore")): "구매 spool envelope 안의 reference core",
@@ -66,7 +66,7 @@ def main():
     output = ROOT / "validation/results/assembly_pairwise_collisions.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps({
-        "revision": "solid-manifold-openmodelica-v0.4",
+        "revision": "coupled-digital-validation-v0.5",
         "pair_count": len(objects) * (len(objects) - 1) // 2,
         "tolerance_mm3": TOLERANCE_MM3,
         "overlaps": hits,

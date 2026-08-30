@@ -1,4 +1,4 @@
-"""Manufacturing geometry for compact v0.4 drive, Gate-1 jig and extruder RFQ.
+"""Manufacturing geometry for compact v0.5 drive, Gate-1 jig and extruder RFQ.
 
 All dimensions are millimetres.  Shapes in this module are fabrication/review
 geometry; physical Gate-1 and Gate-3 remain release locks.
@@ -14,33 +14,54 @@ import Part
 from geometry import (
     bearing_retainer_plate,
     bearing_side_plate,
+    chain_sprocket_shape,
     cutter_shaft,
     down_die_body,
     down_die_breaker_plate,
     down_die_copper_gasket,
     down_die_insert,
     down_die_relief_retainer,
+    gmp60_60127_reference_shape,
     hook_disc,
+    motor_adapter_42gp775_shape,
+    motor_adapter_gmp60_shape,
+    motor_mount_plate,
+    joined,
+    one_solid,
     screen_plate,
     spur_phase_gear,
 )
 
 
 def universal_motor_plate():
-    """6 mm metal plate accepting donor gearmotor brackets, not one MPN."""
-    plate = Part.makeBox(180, 140, 6)
-    # Frame/angle attachment.
-    for x in (12, 168):
-        for y in (12, 128):
-            plate = plate.cut(Part.makeCylinder(3.3, 6, App.Vector(x, y, 0)))
-    # Four long slots accept a separate motor-specific angle or saddle.
-    for x in (45, 90, 135):
-        slot = Part.makeBox(9, 70, 6, App.Vector(x - 4.5, 35, 0))
-        plate = plate.cut(slot)
-    # Chain tension adjustment slots at the driven-side frame interface.
-    for y in (28, 112):
-        plate = plate.cut(Part.makeBox(55, 9, 6, App.Vector(62.5, y - 4.5, 0)))
-    return plate
+    """Use the same DRV-01 solid as the full assembly and CNC export."""
+    return motor_mount_plate()
+
+
+def motor_side_fuse_inner_hub():
+    """DRV-F01A keyed motor hub; a replaceable waisted pin is the fuse."""
+    hub = Part.makeCylinder(10.0, 16.0).cut(Part.makeCylinder(6.1, 16.0))
+    hub = hub.cut(Part.makeBox(5.0, 6.5, 16.0, App.Vector(-2.5, 0, 6.0)))
+    hub = hub.cut(Part.makeCylinder(1.6, 20.0, App.Vector(-10, 0, 8), App.Vector(1, 0, 0)))
+    return hub
+
+
+def motor_side_fuse_outer_hub():
+    """DRV-F01B sprocket carrier, free after DRV-F01P pin shears."""
+    hub = Part.makeCylinder(18.0, 10.0).cut(Part.makeCylinder(10.2, 10.0))
+    hub = hub.cut(Part.makeCylinder(1.6, 36.0, App.Vector(-18, 0, 5), App.Vector(1, 0, 0)))
+    for angle in (45, 135, 225, 315):
+        a = math.radians(angle)
+        hub = hub.cut(Part.makeCylinder(2.25, 10, App.Vector(14 * math.cos(a), 14 * math.sin(a), 0)))
+    return hub
+
+
+def motor_side_fuse_pin():
+    """DRV-F01P brass pin blank; Gate-1 sets the waisted diameter."""
+    left = Part.makeCylinder(1.5, 16.0, App.Vector(-18, 0, 0), App.Vector(1, 0, 0))
+    waist = Part.makeCylinder(0.9, 4.0, App.Vector(-2, 0, 0), App.Vector(1, 0, 0))
+    right = Part.makeCylinder(1.5, 16.0, App.Vector(2, 0, 0), App.Vector(1, 0, 0))
+    return one_solid(joined(left, waist, right))
 
 
 def bolt_on_sprocket_hub(bore=20.2):
@@ -62,13 +83,16 @@ def generic_phase_gear_lamination():
         a=math.radians(angle)
         hole=Part.makeCylinder(diameter/2,6,App.Vector(15*math.cos(a),0,15*math.sin(a)),App.Vector(0,1,0))
         gear=gear.cut(hole)
+    # The phase stack must transmit shaft torque; clamp bolts only register the
+    # laminations and are not a substitute for this standard 6 mm keyway.
+    gear = gear.cut(Part.makeBox(6.2, 6, 6.0, App.Vector(-3.1, 0, 7.0)))
     return gear
 
 
 def gate1_base_plate():
-    plate = Part.makeBox(320, 240, 8)
-    for x in (20, 300):
-        for y in (20, 220):
+    plate = Part.makeBox(380, 280, 8)
+    for x in (20, 360):
+        for y in (20, 260):
             plate = plate.cut(Part.makeCylinder(4.5, 8, App.Vector(x, y, 0)))
     # Two side-plate foot patterns.  Slots permit shim alignment.
     for y in (58, 198):
@@ -87,8 +111,10 @@ def gate1_torque_arm():
 
 
 def gate1_feed_chute():
-    outer = Part.makeBox(120, 90, 95)
-    inner = Part.makeBox(117.6, 87.6, 95, App.Vector(1.2, 1.2, 1.2))
+    outer = Part.makeBox(120, 90, 115)
+    # Open at both ends: the former 1.2 mm printed floor could retain a coupon
+    # above the rotor and was not a buildable feed path.
+    inner = Part.makeBox(117.6, 87.6, 117, App.Vector(1.2, 1.2, -1))
     chute = outer.cut(inner)
     # Anti-reach offset baffle; coupon strips enter with a push stick only.
     chute = chute.fuse(Part.makeBox(120, 1.2, 30, App.Vector(0, 44.4, 37)))
@@ -103,9 +129,9 @@ def gate1_chip_tray():
 
 def gate1_guard_frame():
     """Printed edge trim only; metal angles retain the polycarbonate."""
-    corner = Part.makeBox(10, 10, 180)
-    corner = corner.cut(Part.makeBox(6, 2, 176, App.Vector(2, 6, 4)))
-    corner = corner.cut(Part.makeBox(2, 6, 176, App.Vector(6, 2, 4)))
+    corner = Part.makeBox(10, 10, 210)
+    corner = corner.cut(Part.makeBox(6, 2, 206, App.Vector(2, 6, 4)))
+    corner = corner.cut(Part.makeBox(2, 6, 206, App.Vector(6, 2, 4)))
     return corner
 
 
@@ -120,29 +146,35 @@ def _flat_panel(width,height,holes=True,mid_holes=False):
 
 
 def gate1_guard_front_rear_panel():
-    return _flat_panel(230,180,mid_holes=True)
+    return _flat_panel(340,220,mid_holes=True)
 
 
 def gate1_guard_left_panel():
-    return _flat_panel(180,180,mid_holes=True)
+    return _flat_panel(220,260,mid_holes=True)
 
 
 def gate1_guard_right_panel():
-    panel=_flat_panel(180,180,mid_holes=True)
+    panel=_flat_panel(220,260,mid_holes=True)
     # After the panel rotates into the machine YZ plane, local X maps to Z and
     # local Y maps to machine Y.  The slot therefore opens from local Y=0 and
-    # spans local X=53..82 to leave 2 mm around the arm at z=73..98.
-    return panel.cut(Part.makeBox(29,20,3,App.Vector(53,0,0)))
+    # spans local X=60..100 and local Y=30..55 around the manual arm.
+    return panel.cut(Part.makeBox(40,25,3,App.Vector(60,30,0)))
+
+
+def gate1_guard_top_panel():
+    """Horizontal fragment-retention roof with a close-fit chute opening."""
+    panel=_flat_panel(340,260,mid_holes=True)
+    return panel.cut(Part.makeBox(122,92,3,App.Vector(69,84,0)))
 
 
 def gate1_torque_slot_baffle():
-    return _flat_panel(30,55)
+    return _flat_panel(45,70)
 
 
 def gate1_guard_upright():
-    """20 x20 x2 standard metal angle, L180, with panel attachment holes."""
-    angle=Part.makeBox(20,2,180).fuse(Part.makeBox(2,20,180))
-    for z in (10,90,170):
+    """20 x20 x2 standard metal angle, L220, with panel attachment holes."""
+    angle=Part.makeBox(20,2,220).fuse(Part.makeBox(2,20,220))
+    for z in (10,110,210):
         angle=angle.cut(Part.makeCylinder(2.25,20,App.Vector(10,0,z),App.Vector(0,1,0)))
         angle=angle.cut(Part.makeCylinder(2.25,20,App.Vector(0,10,z),App.Vector(1,0,0)))
     return angle
@@ -176,29 +208,33 @@ def gate1_plate_foot():
 
 def gate1_parts():
     return [
-        dict(id="G1J-01", name="Reusable jig base plate", shape=gate1_base_plate(), qty=1, material="8 mm donor steel/aluminum plate", process="laser/drill or donor plate drill template", class_="metal",critical="320 x240 x8; table holes Ø9; flatness <=0.30; deburr C0.5"),
+        dict(id="G1J-01", name="Reusable jig base plate", shape=gate1_base_plate(), qty=1, material="8 mm donor steel/aluminum plate", process="laser/drill or donor plate drill template", class_="metal",critical="380 x280 x8; table holes Ø9; flatness <=0.30; deburr C0.5"),
         dict(id="G1J-02", name="250 mm torque arm", shape=gate1_torque_arm(), qty=1, material="6 mm S45C/structural steel", process="laser cut + deburr", class_="metal",critical="shaft bore Ø20.2 +0.10/0; 6.2 keyway; shaft centre to force hole 250.0 ±0.5; flatness 0.20"),
-        dict(id="G1J-03", name="Front/rear guard panel", shape=gate1_guard_front_rear_panel(), qty=2, material="3 mm polycarbonate", process="CNC router/laser only if supplier permits; drill and deburr", class_="sheet",critical="230 x180 x3; 6x Ø4.5 at X10/220 and Y10/90/170; no acrylic; edges R0.5"),
-        dict(id="G1J-04", name="Left guard panel", shape=gate1_guard_left_panel(), qty=1, material="3 mm polycarbonate", process="CNC router/drill", class_="sheet",critical="180 x180 x3; 6x Ø4.5 at X10/170 and Y10/90/170; no acrylic; edges R0.5"),
-        dict(id="G1J-05", name="Right slotted guard panel", shape=gate1_guard_right_panel(), qty=1, material="3 mm polycarbonate", process="CNC router/drill", class_="sheet",critical="180 x180 x3; open-edge slot X53..82 x Y0..20; 2 mm minimum arm clearance; 6x Ø4.5; no cracks"),
-        dict(id="G1J-06", name="Torque-slot offset baffle", shape=gate1_torque_slot_baffle(), qty=1, material="3 mm polycarbonate", process="CNC router/drill", class_="sheet",critical="30 x55 x3; 4x Ø4.5; offset >=10 from arm slot; blocks line of sight"),
-        dict(id="G1J-07", name="Metal guard upright", shape=gate1_guard_upright(), qty=4, material="20 x20 x2 aluminum/steel angle", process="saw cut + drill", class_="stock",critical="L180 ±0.5; 6x Ø4.5; verticality 0.5/180; primary fragment load path"),
+        dict(id="G1J-03", name="Front/rear guard panel", shape=gate1_guard_front_rear_panel(), qty=2, material="3 mm polycarbonate", process="CNC router/drill; laser only with supplier approval", class_="sheet",critical="340 x220 x3; 6x Ø4.5 at X10/330 and Y10/110/210; no acrylic; edges R0.5"),
+        dict(id="G1J-04", name="Left guard panel", shape=gate1_guard_left_panel(), qty=1, material="3 mm polycarbonate", process="CNC router/drill", class_="sheet",critical="220 x260 x3; 6x Ø4.5 at X10/210 and Y10/130/250; no acrylic; edges R0.5"),
+        dict(id="G1J-05", name="Right slotted guard panel", shape=gate1_guard_right_panel(), qty=1, material="3 mm polycarbonate", process="CNC router/drill", class_="sheet",critical="220 x260 x3; arm slot local X60..100/Y30..55; >=2 mm arm clearance; offset baffle required; no cracks"),
+        dict(id="G1J-06", name="Torque-slot offset baffle", shape=gate1_torque_slot_baffle(), qty=1, material="3 mm polycarbonate", process="CNC router/drill", class_="sheet",critical="45 x70 x3; 4x Ø4.5; offset >=10 from arm slot; blocks line of sight"),
+        dict(id="G1J-07", name="Metal guard upright", shape=gate1_guard_upright(), qty=4, material="20 x20 x2 aluminum/steel angle", process="saw cut + drill", class_="stock",critical="L220 ±0.5; 6x Ø4.5; verticality 0.5/220; primary fragment load path"),
         dict(id="G1J-08", name="Removable screen rail", shape=gate1_screen_rail(), qty=2, material="20 x20 x2 steel angle", process="saw cut + drill", class_="stock",critical="L150 ±0.5; 2x Ø5.5; screen plane shimmed for >=1.9 cutter clearance"),
         dict(id="G1J-09", name="Universal guard-interlock bracket", shape=gate1_interlock_bracket(), qty=1, material="2 mm steel", process="laser/drill + 90° bend", class_="metal",critical="50 x30 L bracket; 5 x14 slots; switch plunger overtravel per received switch"),
         dict(id="G1J-10", name="CUT-03 plate foot angle", shape=gate1_plate_foot(), qty=4, material="40 x40 x4 steel/aluminum angle", process="saw cut + drill", class_="stock",critical="L50 ±0.5; 4x Ø6.6; plate perpendicularity 0.20/125 after torque"),
+        dict(id="G1J-11", name="DRV-01 motor-plate foot angle", shape=gate1_plate_foot(), qty=2, material="40 x40 x4 steel/aluminum angle", process="saw cut + drill", class_="stock",critical="same stock profile as G1J-10; L50 ±0.5; DRV-01 verticality 0.5/140"),
+        dict(id="G1J-12", name="Top guard panel with chute opening", shape=gate1_guard_top_panel(), qty=1, material="3 mm polycarbonate", process="CNC router/drill", class_="sheet",critical="340 x260 x3; 122 x92 chute opening at X69/Y84; no acrylic; no unguarded gap >6 mm"),
         dict(id="G1J-P01", name="Anti-reach coupon feed chute", shape=gate1_feed_chute(), qty=1, material="PLA", process="FDM", class_="print",critical="3 walls minimum; no load-path duty; baffle intact"),
         dict(id="G1J-P02", name="Removable chip collection tray", shape=gate1_chip_tray(), qty=1, material="PLA", process="FDM", class_="print",critical="3 walls minimum; removable without rotor access"),
         dict(id="G1J-P03", name="Guard edge trim", shape=gate1_guard_frame(), qty=4, material="PLA", process="FDM", class_="print",critical="edge trim only; metal G1J-07 retains panel"),
     ]
 
 
-def gate1_assembly(exploded=False):
-    """Nominal Gate-1 arrangement using final CUT-03/05/08 and two CUT-01 coupons."""
+def gate1_assembly(exploded=False, mode="manual"):
+    """Gate-1 manual-torque or powered-jam configuration on one guarded base."""
+    if mode not in {"manual", "powered"}:
+        raise ValueError(f"unknown Gate-1 mode: {mode}")
     items = []
 
     def add(name, shape, color, group, material):
         if exploded:
-            offsets = {"base": (0, 0, -30), "rotor": (0, 0, 25), "measure": (35, -20, 30), "guard": (0, 30, 55)}
+            offsets = {"base": (0, 0, -30), "rotor": (0, 0, 25), "measure": (35, -20, 30), "drive": (45, -25, 45), "guard": (0, 30, 70)}
             dx, dy, dz = offsets.get(group, (0, 0, 0))
             shape = shape.copy(); shape.translate(App.Vector(dx, dy, dz))
         items.append(dict(name=name, shape=shape, color=color, group=group, material=material))
@@ -210,10 +246,18 @@ def gate1_assembly(exploded=False):
         p=bearing_side_plate(); p.rotate(App.Vector(),App.Vector(1,0,0),90); p.translate(App.Vector(85,y_max,18))
         add(f"CUT03{label}",p,steel,"rotor","final CUT-03")
     for cx in (135,183):
-        shaft=cutter_shaft(); shaft.translate(App.Vector(cx,28,73)); add(f"CUT05Shaft{cx}",shaft,steel,"rotor","final CUT-05")
+        shaft=cutter_shaft(); shaft.translate(App.Vector(cx,20,73)); add(f"CUT05Shaft{cx}",shaft,steel,"rotor","final CUT-05")
         for y in (58,198):
             b=Part.makeCylinder(21,12,App.Vector(cx,y,73),App.Vector(0,1,0)).cut(Part.makeCylinder(10.1,12,App.Vector(cx,y,73),App.Vector(0,1,0)))
             add(f"Bearing{cx}_{y}",b,purple,"rotor","6004-2RS")
+        for y in (48,126,190,210):
+            collar=Part.makeCylinder(15,8,App.Vector(cx,y,73),App.Vector(0,1,0)).cut(Part.makeCylinder(10.1,8,App.Vector(cx,y,73),App.Vector(0,1,0)))
+            add(f"SplitCollar{cx}_{y}",collar,steel,"rotor","standard Ø20 split clamp collar")
+    retainer=bearing_retainer_plate()
+    front_retainer=retainer.copy(); front_retainer.rotate(App.Vector(),App.Vector(1,0,0),90); front_retainer.translate(App.Vector(85,58,18))
+    rear_retainer=retainer.copy(); rear_retainer.rotate(App.Vector(),App.Vector(1,0,0),90); rear_retainer.translate(App.Vector(85,212,18))
+    add("CUT08Front",front_retainer,steel,"rotor","CUT-08 bearing retainer")
+    add("CUT08Rear",rear_retainer,steel,"rotor","CUT-08 bearing retainer")
     # One coupon per shaft, axially interleaved by 6.5 mm.
     for cx, y, angle in ((135,112,0),(183,118.5,180/7)):
         d=hook_disc(); d.rotate(App.Vector(),App.Vector(0,1,0),angle); d.translate(App.Vector(cx,y,73)); add(f"CUT01Coupon{cx}",d,orange,"rotor","CUT-01 coupon")
@@ -225,23 +269,60 @@ def gate1_assembly(exploded=False):
     for cx, phase in ((135,0),(183,180/16)):
         for index in range(3):
             g=lam.copy(); g.rotate(App.Vector(),App.Vector(0,1,0),phase); g.translate(App.Vector(cx,214+6*index,73)); add(f"PhaseLam{cx}_{index}",g,purple,"rotor","S45C lamination")
-    arm=gate1_torque_arm(); arm.rotate(App.Vector(),App.Vector(1,0,0),90); arm.translate(App.Vector(115,52,73)); add("TorqueArm250",arm,green,"measure","metal")
-    load=Part.makeBox(45,25,45,App.Vector(365,34,40)); add("ForceGauge",load,purple,"measure","0-200 N force gauge/load cell")
-    chute=gate1_feed_chute(); chute.translate(App.Vector(99,82,108)); add("FeedChute",chute,blue,"guard","printed")
+    if mode == "manual":
+        arm=gate1_torque_arm(); arm.rotate(App.Vector(),App.Vector(1,0,0),90); arm.translate(App.Vector(115,52,73)); add("TorqueArm250",arm,green,"measure","metal")
+        load=Part.makeBox(45,25,45,App.Vector(365,34,40)); add("ForceGauge",load,purple,"measure","0-200 N force gauge/load cell")
+    else:
+        # Reference powered configuration.  A donor changes only DRV-Axx and
+        # its received dimensions; the fuse/chain/cutter interfaces stay fixed.
+        motor=gmp60_60127_reference_shape(); motor.rotate(App.Vector(),App.Vector(1,0,0),90); motor.translate(App.Vector(265,226,160))
+        add("GMP60Reference",motor,(185,54,54),"drive","digital reference only; donor receipt required")
+        plate=universal_motor_plate(); plate.rotate(App.Vector(),App.Vector(1,0,0),90); plate.translate(App.Vector(175,34,90))
+        add("DRV01UniversalPlate",plate,steel,"drive","DRV-01 shared load plate")
+        adapter=motor_adapter_gmp60_shape(); adapter.rotate(App.Vector(),App.Vector(1,0,0),90); adapter.translate(App.Vector(225,40,120))
+        add("DRV-A60",adapter,steel,"drive","reference adapter; replace with measured DRV-Axx")
+        inner=motor_side_fuse_inner_hub(); inner.rotate(App.Vector(),App.Vector(1,0,0),-90); inner.translate(App.Vector(265,24,160))
+        outer=motor_side_fuse_outer_hub(); outer.rotate(App.Vector(),App.Vector(1,0,0),-90); outer.translate(App.Vector(265,24,160))
+        pin=motor_side_fuse_pin(); pin.rotate(App.Vector(),App.Vector(1,0,0),-90); pin.translate(App.Vector(265,29,160))
+        add("DRV-F01A",inner,steel,"drive","motor-side keyed inner hub")
+        add("DRV-F01B",outer,purple,"drive","sprocket carrier")
+        add("DRV-F01P",pin,(245,190,45),"drive","replaceable calibrated shear pin")
+        cutter_hub=bolt_on_sprocket_hub(); cutter_hub.rotate(App.Vector(),App.Vector(1,0,0),-90); cutter_hub.translate(App.Vector(183,20,73))
+        add("DRV02CutterHub",cutter_hub,purple,"drive","keyed cutter-side hub")
+        motor_sprocket=chain_sprocket_shape(12,12.2,10); motor_sprocket.rotate(App.Vector(),App.Vector(1,0,0),-90); motor_sprocket.translate(App.Vector(265,18,160))
+        cutter_sprocket=chain_sprocket_shape(30,20.2,10); cutter_sprocket.rotate(App.Vector(),App.Vector(1,0,0),-90); cutter_sprocket.translate(App.Vector(183,18,73))
+        add("MotorSprocket12T",motor_sprocket,orange,"drive","ANSI #35 12T")
+        add("CutterSprocket30T",cutter_sprocket,purple,"drive","ANSI #35 30T")
+
+        def chain_bar(x1,z1,x2,z2):
+            dx,dz=x2-x1,z2-z1; length=(dx*dx+dz*dz)**0.5
+            bar=Part.makeBox(length,8,4,App.Vector(0,18,-2))
+            bar.rotate(App.Vector(),App.Vector(0,1,0),-math.degrees(math.atan2(dz,dx)))
+            bar.translate(App.Vector(x1,0,z1))
+            return bar
+
+        dx,dz=82,87; length=(dx*dx+dz*dz)**0.5; nx,nz=-dz/length*26,dx/length*26
+        add("ChainTight",chain_bar(183+nx,73+nz,265+nx,160+nz),green,"drive","#35 chain conservative solid LOD")
+        add("ChainSlack",chain_bar(183-nx,73-nz,265-nx,160-nz),green,"drive","#35 chain conservative solid LOD")
+        for x in (175,305):
+            foot=gate1_plate_foot(); foot.translate(App.Vector(x,34,8)); add(f"G1J11MotorFoot{x}",foot,steel,"base","G1J-11 standard angle")
+
+    chute=gate1_feed_chute(); chute.translate(App.Vector(90,95,115)); add("FeedChute",chute,blue,"guard","printed")
     tray=gate1_chip_tray(); tray.translate(App.Vector(70,68,8)); add("ChipTray",tray,blue,"base","printed")
     # Primary guard retention is metal angle, never the printed edge trim.
-    for x,y in ((55,35),(285,35),(55,215),(285,215)):
+    for x,y in ((0,0),(360,0),(0,260),(360,260)):
         upright=gate1_guard_upright(); upright.translate(App.Vector(x,y,18)); add(f"G1J07Upright{x}_{y}",upright,steel,"guard","20 x20 x2 metal angle")
-    front=gate1_guard_front_rear_panel(); front.rotate(App.Vector(),App.Vector(1,0,0),90); front.translate(App.Vector(65,48,18)); add("GuardFront",front,clear,"guard","G1J-03 3 mm polycarbonate")
-    rear=gate1_guard_front_rear_panel(); rear.rotate(App.Vector(),App.Vector(1,0,0),90); rear.translate(App.Vector(65,225,18)); add("GuardRear",rear,clear,"guard","G1J-03 3 mm polycarbonate")
-    left=gate1_guard_left_panel(); left.rotate(App.Vector(),App.Vector(0,1,0),-90); left.translate(App.Vector(68,45,18)); add("GuardLeft",left,clear,"guard","G1J-04 3 mm polycarbonate")
-    right_panel=gate1_guard_right_panel(); right_panel.rotate(App.Vector(),App.Vector(0,1,0),-90); right_panel.translate(App.Vector(295,45,18)); add("GuardRight",right_panel,clear,"guard","G1J-05 3 mm polycarbonate with arm slot")
-    baffle=gate1_torque_slot_baffle(); baffle.rotate(App.Vector(),App.Vector(1,0,0),90); baffle.translate(App.Vector(286,32,60)); add("TorqueSlotBaffle",baffle,clear,"guard","G1J-06 3 mm polycarbonate offset baffle")
-    switch_bracket=gate1_interlock_bracket(); switch_bracket.translate(App.Vector(225,43,165)); add("G1J09InterlockBracket",switch_bracket,steel,"guard","2 mm metal + positive-opening switch")
-    switch=Part.makeBox(36,16,28,App.Vector(232,42,168)); add("GuardInterlockSwitch",switch,purple,"guard","positive-opening NC switch envelope")
+    front=gate1_guard_front_rear_panel(); front.rotate(App.Vector(),App.Vector(1,0,0),90); front.translate(App.Vector(20,13,10)); add("GuardFront",front,clear,"guard","G1J-03 3 mm polycarbonate")
+    rear=gate1_guard_front_rear_panel(); rear.rotate(App.Vector(),App.Vector(1,0,0),90); rear.translate(App.Vector(20,273,10)); add("GuardRear",rear,clear,"guard","G1J-03 3 mm polycarbonate")
+    left=gate1_guard_left_panel(); left.rotate(App.Vector(),App.Vector(0,1,0),-90); left.translate(App.Vector(23,10,10)); add("GuardLeft",left,clear,"guard","G1J-04 3 mm polycarbonate")
+    right_panel=gate1_guard_right_panel(); right_panel.rotate(App.Vector(),App.Vector(0,1,0),-90); right_panel.translate(App.Vector(363,10,10)); add("GuardRight",right_panel,clear,"guard","G1J-05 3 mm polycarbonate with arm slot")
+    top_panel=gate1_guard_top_panel(); top_panel.translate(App.Vector(20,10,230)); add("GuardTop",top_panel,clear,"guard","G1J-12 3 mm polycarbonate roof")
+    baffle=gate1_torque_slot_baffle(); baffle.rotate(App.Vector(),App.Vector(1,0,0),90); baffle.translate(App.Vector(354,25,65)); add("TorqueSlotBaffle",baffle,clear,"guard","G1J-06 3 mm polycarbonate offset baffle")
+    switch_bracket=gate1_interlock_bracket(); switch_bracket.translate(App.Vector(285,8,195)); add("G1J09InterlockBracket",switch_bracket,steel,"guard","2 mm metal + positive-opening switch")
+    switch=Part.makeBox(36,16,28,App.Vector(292,7,198)); add("GuardInterlockSwitch",switch,purple,"guard","positive-opening NC switch envelope")
     for x,y in ((85,66),(185,66),(85,194),(185,194)):
         foot=gate1_plate_foot(); foot.translate(App.Vector(x,y,8)); add(f"G1J10PlateFoot{x}_{y}",foot,steel,"base","40 x40 x4 standard angle")
-    for x,y in ((65,45),(285,45),(65,215),(285,215)):
+    for x,y in ((20,10),(360,10),(20,270),(360,270)):
         c=gate1_guard_frame(); c.translate(App.Vector(x,y,18)); add(f"GuardCorner{x}_{y}",c,blue,"guard","printed")
     return items
 
@@ -336,13 +417,19 @@ def extruder_barrel():
         a=math.radians(angle)
         hole=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
         barrel=barrel.cut(hole)
+    # Three Ø3.20 blind K-probe bores sit in the unheated gaps immediately
+    # downstream of each band.  Depth 7.0 leaves 1.9 mm nominal ligament to
+    # the Ø16.20 melt bore and measures barrel metal rather than heater skin.
+    for z in (95.0, 170.0, 245.0):
+        sensor=Part.makeCylinder(1.60,7.0,App.Vector(0,17.0,z),App.Vector(0,-1,0))
+        barrel=barrel.cut(sensor)
     return barrel
 
 
 def extruder_rfq_parts():
     return [
         dict(id="EX-SCR-01",name="16 mm x 16D single screw",shape=extruder_screw(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride",process="turn between centres, 4-axis flight mill, polish, nitride, finish grind",critical="total 316.00; active 256.00; OD 15.92 -0.02/0; RH pitch 16.00; land 1.60; Datum A axis from Ø12 h6 and Ø15 h6 journals; full part HOLD"),
-        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, die-interface thread, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; 4x M4-6H depth8 PCD26; outer/inner thread ligament >=2.0/2.9; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
+        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, die-interface thread and sensor bores, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; 4x M4-6H depth8 PCD26; 3x Ø3.20 +0.05/0 blind7 sensor bores at B+95/170/245; minimum bore ligament 1.85; outer/inner thread ligament >=2.0/2.9; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
         dict(id="EX-CPN-SCR",name="Three-pitch screw process coupon",shape=extruder_screw_process_coupon(),qty=1,material="same certified SCM440 heat as EX-SCR-01",process="same flight mill/polish/nitride route as EX-SCR-01",critical="L48.00; three pitches; OD/root/land/finish/case same as feed zone; coupon RFQ only"),
         dict(id="EX-CPN-BAR",name="Matched barrel process coupon",shape=extruder_barrel_process_coupon(),qty=1,material="same certified SCM440 heat as EX-BAR-01",process="same bore/hone/nitride route as EX-BAR-01",critical="L60.00; ID/OD/finish/case same as barrel; coupon RFQ only"),
         dict(id="EX-DIE-01",name="Connected 90 degree down-die body",shape=down_die_body(),qty=1,material="SCM440 QT + gas nitride",process="6-face mill; gun drill/ream intersecting Ø8 channels; counterbore, drill/tap; stress relieve; gas nitride; lap sealing face",critical="40 x40 x48; barrel datum face X40; Ø8 melt turn; Ø16.20 +0.05/0 x3 breaker seat; Ø12.00 +0.03/0 x14 insert seat; 4x Ø4.5 + Ø8 head recess PCD26; heater Ø6.20 H9; sensor Ø3.20 blind12; face flatness 0.03; channel intersection fully deburred; full part HOLD"),

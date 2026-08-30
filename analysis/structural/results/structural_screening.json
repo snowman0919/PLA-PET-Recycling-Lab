@@ -1,15 +1,14 @@
 {
-  "revision": "solid-manifold-openmodelica-v0.4",
+  "revision": "coupled-digital-validation-v0.5",
   "release_state": "DIGITAL_FABRICATION_BASELINE",
-  "physical_state": "PHYSICAL_NOT_RUN",
+  "physical_state": "PHYSICAL_VALIDATION_PENDING",
   "input": "analysis/load_cases/openmodelica_dynamic_envelope.json",
-  "input_source": "OpenModelica DASSL scenario maximum; PHYSICAL_NOT_RUN",
+  "input_source": "OpenModelica DASSL coupled surrogate; PHYSICAL_VALIDATION_PENDING",
   "load_values": {
-    "peak_cutter_torque_nm": 22.0,
-    "peak_phase_torque_nm": 11.08276331030844,
-    "peak_bearing_load_n": 1255.086741750262,
-    "peak_chain_force_n": 602.9556386019965,
-    "peak_frame_reaction_n": 1394.093622842456
+    "peak_cutter_torque_nm": 21.99375000439881,
+    "peak_phase_torque_nm": 16.21668665673847,
+    "peak_bearing_load_n": 1797.48967044812,
+    "peak_chain_force_n": 602.7336257714117
   },
   "calculix": {
     "bearing_plate": {
@@ -17,23 +16,23 @@
       "returncode": 0,
       "frd_bytes": 98943,
       "converged": true,
-      "max_displacement_mm": 0.18400025319917362,
-      "max_von_mises_mpa": 45.362428947202545
+      "max_displacement_mm": 0.2635190679740083,
+      "max_von_mises_mpa": 64.96650771359039
     },
     "cutter_shaft": {
       "status": "PASS",
       "returncode": 0,
       "frd_bytes": 5606,
       "converged": true,
-      "max_displacement_mm": 0.013558123255296066,
-      "max_von_mises_mpa": 48.631524506281885
+      "max_displacement_mm": 0.017056960618269598,
+      "max_von_mises_mpa": 61.29424065309243
     }
   },
   "checks": [
     {
       "component": "CUT-01 cutter tooth/root",
       "method": "closed-form screening",
-      "source_load": "22 N\u00b7m cutter-equivalent DRV-F01 relief cap",
+      "source_load": "22.0 N\u00b7m cutter-equivalent DRV-F01 relief cap",
       "equivalent_stress_mpa": 57.95,
       "allowable_mpa": 350,
       "safety_factor": 6.04,
@@ -45,9 +44,9 @@
       "component": "SH-SHAFT-01 20 mm cutter shaft",
       "method": "closed-form screening",
       "source_load": "bearing envelope + fuse cap",
-      "equivalent_stress_mpa": 53.729,
+      "equivalent_stress_mpa": 72.816,
       "allowable_mpa": 177.5,
-      "safety_factor": 3.3,
+      "safety_factor": 2.44,
       "criterion": "SF >= 2.0 before coupon; physical validation pending",
       "status": "PASS",
       "note": "S45C normalized; allowable=0.5\u00d7355 MPa yield"
@@ -56,9 +55,9 @@
       "component": "SH-PLATE-01 bearing plate",
       "method": "closed-form screening",
       "source_load": "peak bearing load",
-      "equivalent_stress_mpa": 3.347,
+      "equivalent_stress_mpa": 4.793,
       "allowable_mpa": 137.5,
-      "safety_factor": 41.08,
+      "safety_factor": 28.69,
       "criterion": "SF >= 2.0 before coupon; physical validation pending",
       "status": "PASS",
       "note": "12 mm S275 ligament simplified as 75 mm strip"
@@ -78,7 +77,7 @@
       "component": "CH-SPROCKET-01 overhang",
       "method": "closed-form screening",
       "source_load": "chain envelope + fuse cap",
-      "equivalent_stress_mpa": 33.45,
+      "equivalent_stress_mpa": 33.444,
       "allowable_mpa": 177.5,
       "safety_factor": 5.31,
       "criterion": "SF >= 2.0 before coupon; physical validation pending",
@@ -89,9 +88,9 @@
       "component": "DRV-03 motor adapter plate",
       "method": "closed-form screening",
       "source_load": "peak frame reaction",
-      "equivalent_stress_mpa": 6.273,
+      "equivalent_stress_mpa": 5.662,
       "allowable_mpa": 75,
-      "safety_factor": 11.96,
+      "safety_factor": 13.25,
       "criterion": "SF >= 2.0 before coupon; physical validation pending",
       "status": "PASS",
       "note": "6 mm 6061-T6/S275 equivalent bending strip; slot edge inspection required"
@@ -121,10 +120,10 @@
     {
       "component": "FR-ANCHOR-01 M8 table anchor",
       "method": "closed-form screening",
-      "source_load": "FullMechanicalNominal anchor tension",
-      "equivalent_stress_mpa": 14.772,
+      "source_load": "frame reaction envelope",
+      "equivalent_stress_mpa": 43.792,
       "allowable_mpa": 320,
-      "safety_factor": 21.66,
+      "safety_factor": 7.31,
       "criterion": "SF >= 2.0 before coupon; physical validation pending",
       "status": "PASS",
       "note": "minor-diameter tensile area; four anchors required, one-anchor conservative screening"

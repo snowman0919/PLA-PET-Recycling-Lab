@@ -11,8 +11,8 @@
 ## A. Lockout와 dry mechanical
 
 1. Main disconnect OFF/0 V, shaft block, guard open 상태에서 fastener torque와 shim을 기록한다.
-2. Hand rotation 20회: cutter/plate/gear/screen 접촉 0, shaft TIR <=0.10 mm, phase error <=1.0°.
-3. Polycarbonate guard, S0 E-stop과 S1 positive-opening switch가 K0/K1을 drop하여 motor bus energy를 실제 제거하는지 각각 continuity/voltage test한다. 전원 복귀 후 S2 START 없이 K1이 자동 재투입되면 FAIL이다.
+2. Hand rotation 20회: cutter/plate/gear/screen 접촉 0, shaft TIR <=0.10 mm, phase error <=1.0°, CUT-08/collar 이탈 0, DRV-03 key 상대 slip 0.
+3. G1J-12 roof를 포함한 polycarbonate guard의 unguarded opening이 6 mm 이하인지 확인한다. S0 E-stop과 S1 positive-opening switch가 K0/K1을 drop하여 motor bus energy를 실제 제거하는지 각각 continuity/voltage test한다. 전원 복귀 후 S2 START 없이 K1이 자동 재투입되면 FAIL이다.
 
 ## B. Quasi-static 절단토크
 
@@ -23,7 +23,7 @@
 
 ## C. Motor/current와 jam recovery
 
-1. 합격한 donor motor만 연결하고 PLA 32 rpm/PET 24 rpm에서 no-load current/RPM, arm/load-cell torque 대비 current-to-torque slope, 실제 sprocket ratio와 효율을 기록한다. `verified` calibration record 없이는 powered cutter를 시작하지 않는다.
+1. Main disconnect/shaft lockout 상태에서 G1J-02 torque arm을 제거하고 `gate1_powered_assembly.step`대로 합격 donor motor와 DRV-01/Axx/F01/02/#35 경로를 연결한다. PLA 32 rpm/PET 24 rpm에서 no-load current/RPM, 별도 calibration arm/load-cell torque 대비 current-to-torque slope, 실제 sprocket ratio와 효율을 기록한다. `verified` calibration record 없이는 powered cutter를 시작하지 않는다.
 2. 14/18/22/34/48 N·m는 모두 cutter-shaft reference다. Motor-side `DRV-F01`을 구동모터 분리 상태에서 quasi-static calibration한다. 효율 0.85 기준 시작 setting은 12:18 = 17.25 N·m, 12:24 = 12.94 N·m, 12:30 = 10.35 N·m이며, 실제 ratio/효율/측정 불확도를 기록해 22 N·m cutter-equivalent에서 분리되도록 보정한다. DRV-02·chain·phase pair는 분리 또는 영구변형되면 FAIL이다.
 3. Controlled jam을 각 재질 3회 만든다. Calibrated cutter torque 18 N·m에서 PLA 650 ms/PET 850 ms 또는 command 대비 RPM 35% drop/500 ms에서 reverse가 시작돼야 한다. 고정 A값은 donor 공통 torque 기준으로 사용하지 않는다.
 4. Reverse는 PLA 800 ms/PET 1100 ms, 최대 3회다. 세 번째 실패 뒤 enable=0과 latched fault가 유지돼야 한다.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate PPR-C03 from the shared v0.4 FreeCAD source."""
+"""Regenerate PPR-C03 from the shared v0.5 FreeCAD source."""
 from pathlib import Path
 import sys
 ROOT=Path(__file__).resolve().parents[3]

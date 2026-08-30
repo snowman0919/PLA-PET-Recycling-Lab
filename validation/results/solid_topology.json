@@ -1,7 +1,7 @@
 {
-  "revision": "solid-manifold-openmodelica-v0.4",
+  "revision": "coupled-digital-validation-v0.5",
   "contract": "active part contains exactly one closed positive-volume B-Rep solid",
-  "active_count": 181,
+  "active_count": 207,
   "review_keepout_count": 4,
   "failed": [],
   "parts": [
@@ -131,7 +131,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 32485.329,
+      "volume_mm3": 32656.231,
       "bbox_mm": [
         60.0,
         45.0,
@@ -301,10 +301,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 65700.173,
+      "volume_mm3": 71682.047,
       "bbox_mm": [
         20.0,
-        220.0,
+        240.0,
         20.0
       ],
       "geometry_check_findings": -1,
@@ -335,7 +335,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 131226.913,
+      "volume_mm3": 114815.822,
       "bbox_mm": [
         180.0,
         140.0,
@@ -369,10 +369,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 608332.248,
+      "volume_mm3": 845132.248,
       "bbox_mm": [
-        320.0,
-        240.0,
+        380.0,
+        280.0,
         8.0
       ],
       "geometry_check_findings": -1,
@@ -403,10 +403,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 123913.722,
+      "volume_mm3": 224113.722,
       "bbox_mm": [
-        230.0,
-        180.0,
+        340.0,
+        220.0,
         3.0
       ],
       "geometry_check_findings": -1,
@@ -420,10 +420,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 96913.722,
+      "volume_mm3": 171313.722,
       "bbox_mm": [
-        180.0,
-        180.0,
+        220.0,
+        260.0,
         3.0
       ],
       "geometry_check_findings": -1,
@@ -437,10 +437,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 95173.722,
+      "volume_mm3": 168313.722,
       "bbox_mm": [
-        180.0,
-        180.0,
+        220.0,
+        260.0,
         3.0
       ],
       "geometry_check_findings": -1,
@@ -454,10 +454,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 4759.148,
+      "volume_mm3": 9259.148,
       "bbox_mm": [
-        30.0,
-        55.0,
+        45.0,
+        70.0,
         3.0
       ],
       "geometry_check_findings": -1,
@@ -471,11 +471,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 13489.148,
+      "volume_mm3": 16529.148,
       "bbox_mm": [
         20.0,
         20.0,
-        180.0
+        220.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -533,17 +533,51 @@
       "errors": []
     },
     {
+      "id": "G1J-11",
+      "category": "JIG_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 14652.609,
+      "bbox_mm": [
+        50.0,
+        40.0,
+        40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "G1J-12",
+      "category": "JIG_SHEET",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 231241.722,
+      "bbox_mm": [
+        340.0,
+        260.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "G1J-P01",
       "category": "JIG_PRINT",
       "container_type": "Compound",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 63928.512,
+      "volume_mm3": 61531.2,
       "bbox_mm": [
         120.0,
         90.0,
-        95.0
+        115.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -573,11 +607,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 14480.0,
+      "volume_mm3": 16880.0,
       "bbox_mm": [
         10.0,
         10.0,
-        180.0
+        210.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -607,7 +641,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 193264.827,
+      "volume_mm3": 193096.366,
       "bbox_mm": [
         34.0,
         34.0,
@@ -1304,10 +1338,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 65700.173,
+      "volume_mm3": 71682.047,
       "bbox_mm": [
         20.0,
-        220.0,
+        240.0,
         20.0
       ],
       "geometry_check_findings": -1,
@@ -1457,10 +1491,10 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 65700.173,
+      "volume_mm3": 71682.047,
       "bbox_mm": [
         20.0,
-        220.0,
+        240.0,
         20.0
       ],
       "geometry_check_findings": -1,
@@ -1740,17 +1774,17 @@
       "errors": []
     },
     {
-      "id": "CutterSprocket24T",
+      "id": "CutterSprocket30T",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 33929.201,
+      "volume_mm3": 72478.689,
       "bbox_mm": [
-        60.0,
+        96.839,
         12.0,
-        60.0
+        96.687
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1763,11 +1797,11 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 16625.308,
+      "volume_mm3": 8786.025,
       "bbox_mm": [
-        42.0,
-        12.0,
-        42.0
+        41.763,
+        10.0,
+        41.763
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1810,11 +1844,11 @@
     {
       "id": "DriveGuard",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Solid",
+      "container_type": "Compound",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 63470.142,
+      "volume_mm3": 61102.142,
       "bbox_mm": [
         165.0,
         48.0,
@@ -1825,34 +1859,34 @@
       "errors": []
     },
     {
-      "id": "DriveMotorDonorEnvelope",
-      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "id": "DriveMotorGMP60Reference",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 1782000.0,
+      "volume_mm3": 538182.271,
       "bbox_mm": [
-        90.0,
-        180.0,
-        110.0
+        60.5,
+        211.8,
+        60.5
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
       "errors": []
     },
     {
-      "id": "DriveMotorOutputInterface",
-      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "id": "DriveAdapterGMP60",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 5079.955,
+      "volume_mm3": 31518.208,
       "bbox_mm": [
-        14.0,
-        33.0,
-        14.0
+        80.0,
+        6.0,
+        80.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -1865,7 +1899,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 131226.913,
+      "volume_mm3": 114815.822,
       "bbox_mm": [
         180.0,
         6.0,
@@ -1997,15 +2031,151 @@
     {
       "id": "SealedFeedHopper",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Compound",
+      "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 2,
-      "volume_mm3": 243613.853,
+      "volume_mm3": 243597.774,
       "bbox_mm": [
         156.0,
-        156.0,
+        156.001,
         200.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HopperPTCSpreader",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 19609.148,
+      "bbox_mm": [
+        120.0,
+        3.0,
+        55.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HopperPTC1",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3675.0,
+      "bbox_mm": [
+        35.0,
+        5.0,
+        21.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HopperPTC2",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3675.0,
+      "bbox_mm": [
+        35.0,
+        5.0,
+        21.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HopperPTC3",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3675.0,
+      "bbox_mm": [
+        35.0,
+        5.0,
+        21.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HopperPTC4",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3675.0,
+      "bbox_mm": [
+        35.0,
+        5.0,
+        21.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HopperPTCClamp",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 13072.765,
+      "bbox_mm": [
+        120.0,
+        2.0,
+        55.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TemperatureProbeT5",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 169.646,
+      "bbox_mm": [
+        3.0,
+        49.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HopperThermalFuse",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 960.0,
+      "bbox_mm": [
+        20.0,
+        6.0,
+        8.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2120,7 +2290,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 193264.827,
+      "volume_mm3": 193096.366,
       "bbox_mm": [
         280.0,
         34.0,
@@ -2131,13 +2301,132 @@
       "errors": []
     },
     {
-      "id": "HotShield",
+      "id": "BarrelBandHeaterZ1",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 9818.013,
+      "bbox_mm": [
+        45.0,
+        38.0,
+        37.894
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TemperatureProbeT1",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 157690.185,
+      "volume_mm3": 183.783,
+      "bbox_mm": [
+        3.0,
+        51.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "BarrelBandHeaterZ2",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 9818.013,
+      "bbox_mm": [
+        45.0,
+        38.0,
+        37.894
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TemperatureProbeT2",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 183.783,
+      "bbox_mm": [
+        3.0,
+        51.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "BarrelBandHeaterZ3",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 9818.013,
+      "bbox_mm": [
+        45.0,
+        38.0,
+        37.894
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TemperatureProbeT3",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 183.783,
+      "bbox_mm": [
+        3.0,
+        51.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "BarrelThermalFuse",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2112.0,
+      "bbox_mm": [
+        22.0,
+        8.0,
+        12.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HotShield",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 157149.831,
       "bbox_mm": [
         335.0,
         75.0,
@@ -2244,6 +2533,125 @@
         0.5,
         34.0,
         34.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DieCartridgeHeater",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1074.425,
+      "bbox_mm": [
+        6.0,
+        38.0,
+        6.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TemperatureProbeT4",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 212.058,
+      "bbox_mm": [
+        3.0,
+        55.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "DieThermalFuse",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1260.0,
+      "bbox_mm": [
+        18.0,
+        7.0,
+        10.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HeaterLeadZ1",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 691.15,
+      "bbox_mm": [
+        4.0,
+        55.0,
+        4.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HeaterLeadZ2",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 691.15,
+      "bbox_mm": [
+        4.0,
+        55.0,
+        4.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HeaterLeadZ3",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 691.15,
+      "bbox_mm": [
+        4.0,
+        55.0,
+        4.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HeaterCableDuct",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 13544.0,
+      "bbox_mm": [
+        250.0,
+        18.0,
+        18.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2443,7 +2851,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 19301.317,
+      "volume_mm3": 17198.335,
       "bbox_mm": [
         36.0,
         20.0,
@@ -2460,11 +2868,45 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 1507.964,
+      "volume_mm3": 589.049,
       "bbox_mm": [
-        8.0,
+        5.0,
         30.0,
-        8.0
+        5.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "GuideBearingFront",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 907.135,
+      "bbox_mm": [
+        16.0,
+        5.0,
+        16.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "GuideBearingRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Compound",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 907.135,
+      "bbox_mm": [
+        16.0,
+        5.0,
+        16.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2477,7 +2919,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 32485.329,
+      "volume_mm3": 32656.231,
       "bbox_mm": [
         60.0,
         45.0,
@@ -2494,7 +2936,7 @@
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 32485.329,
+      "volume_mm3": 32656.231,
       "bbox_mm": [
         60.0,
         45.0,

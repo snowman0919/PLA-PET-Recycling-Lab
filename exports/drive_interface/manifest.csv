@@ -1,4 +1,9 @@
 part_id,name,quantity,material,process,x_mm,y_mm,z_mm,release_state
-DRV-01,Universal donor motor plate,1,6 mm SS400 steel,laser cut + standard metal angles,180.00,140.00,6.00,HOLD_DONOR_AND_GATE1
-DRV-02,Bolt-on cutter sprocket hub,1,S45C,turn + keyway + PCD drilling,50.00,49.98,20.00,HOLD_DONOR_AND_GATE1
-DRV-03,M3 Z16 phase gear lamination,6,6 mm S45C,waterjet/laser rough + stack dowel/finish,54.00,6.00,54.00,HOLD_DONOR_AND_GATE1
+DRV-01,Universal donor motor plate,1,6 mm SS400 steel,laser cut + standard metal angles,180.00,140.00,6.00,GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL
+DRV-02,Bolt-on cutter sprocket hub,1,S45C,turn + keyway + PCD drilling,50.00,49.98,20.00,GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL
+DRV-03,M3 Z16 keyed phase gear lamination,6,6 mm S45C,waterjet/wire-EDM profile + stack dowel/finish,54.00,6.00,54.00,GATE1_QTY_6_ALLOWED_USER_APPROVAL_REQUIRED
+DRV-A42,42GP-775 reference adapter plate,1,6 mm SS400 steel,laser + drill/ream,70.00,70.00,6.00,REFERENCE_ONLY_NOT_SELECTED
+DRV-A60,GMP60-60127 selected adapter plate,1,6 mm SS400 steel,laser + drill/ream,80.00,80.00,6.00,REFERENCE_ONLY_UNTIL_DONOR_SELECTED
+DRV-F01A,Motor-side fuse inner hub,1,S45C,turn + keyway + radial drill,20.00,19.99,16.00,GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL
+DRV-F01B,Motor-side fuse sprocket carrier,1,S45C,turn + PCD drill + radial drill,36.00,35.99,10.00,GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL
+DRV-F01P,Replaceable waisted shear pin coupon,6,C360/CuZn39Pb3 brass,turn waist after coupon calibration,36.00,3.00,3.00,GATE1_COUPON_QTY_6_ALLOWED_AFTER_USER_APPROVAL

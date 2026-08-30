@@ -52,13 +52,13 @@ def main():
     require(bb.XLength<=500 and bb.YLength<=750 and bb.ZLength<=1000,"hard operating-motion envelope")
     require(bb.XLength<=480 and bb.YLength<=720 and bb.ZLength<=950,"target operating-motion envelope")
     result={
-        "revision":"solid-manifold-openmodelica-v0.4",
+        "revision":"coupled-digital-validation-v0.5",
         "dancer":{"range_deg":[-25,25],"samples":len(dancer_positions),"minimum_checked_clearance_mm":round(dancer_min_clearance,3)},
         "traverse":{"stroke_mm":80,"samples":len(traverse_positions),"minimum_checked_clearance_mm":round(traverse_min_clearance,3)},
         "operating_motion_bounding_box_mm":[round(bb.XLength,3),round(bb.YLength,3),round(bb.ZLength,3)],
         "service_path_checked_against":list(service_obstacles),
         "status":"PASS",
-        "scope":"nominal rigid CAD positions; donor cable flexibility and physical deflection remain PHYSICAL_NOT_RUN",
+        "scope":"nominal rigid CAD positions; donor cable flexibility and physical deflection remain PHYSICAL_VALIDATION_PENDING",
     }
     out=ROOT/"validation/results"; out.mkdir(parents=True,exist_ok=True)
     (out/"full_motion.json").write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n")

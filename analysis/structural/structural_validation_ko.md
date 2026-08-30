@@ -1,21 +1,21 @@
 # 동적 하중 연계 구조 검토
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - 판정: **PASS**
-- 물리 상태: `PHYSICAL_NOT_RUN`
+- 물리 상태: `PHYSICAL_VALIDATION_PENDING`
 - 하중 원본: `analysis/load_cases/openmodelica_dynamic_envelope.json`
 
 |부품|등가응력 MPa|허용 MPa|안전율|판정|
 |---|---:|---:|---:|---:|
 |CUT-01 cutter tooth/root|57.950|350.0|6.04|PASS|
-|SH-SHAFT-01 20 mm cutter shaft|53.729|177.5|3.30|PASS|
-|SH-PLATE-01 bearing plate|3.347|137.5|41.08|PASS|
+|SH-SHAFT-01 20 mm cutter shaft|72.816|177.5|2.44|PASS|
+|SH-PLATE-01 bearing plate|4.793|137.5|28.69|PASS|
 |PH-KEY-01 phase gear key|31.481|120.0|3.81|PASS|
-|CH-SPROCKET-01 overhang|33.450|177.5|5.31|PASS|
-|DRV-03 motor adapter plate|6.273|75.0|11.96|PASS|
+|CH-SPROCKET-01 overhang|33.444|177.5|5.31|PASS|
+|DRV-03 motor adapter plate|5.662|75.0|13.25|PASS|
 |EX-THR-01 screw thrust plate|3.077|137.5|44.68|PASS|
 |SP-SHAFT-01 spool shaft|35.916|100.0|2.78|PASS|
-|FR-ANCHOR-01 M8 table anchor|14.772|320.0|21.66|PASS|
+|FR-ANCHOR-01 M8 table anchor|43.792|320.0|7.31|PASS|
 
 ## 해석 의미
 

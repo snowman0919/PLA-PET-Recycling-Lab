@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""v0.4 coherent flow, torque, power, cooling and control calculations."""
+"""v0.5 coherent flow, torque, power, cooling and control calculations."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 P=json.loads((ROOT/"cad/parameters/baseline.json").read_text())
-REV="solid-manifold-openmodelica-v0.4"
+REV="coupled-digital-validation-v0.5"
 
 
 def throughput_model():
@@ -171,7 +171,7 @@ PET predry는 `UNQUALIFIED_EXTERNAL_PROCESS`; 65 °C/7 h를 qualified recipe로 
 """)
     (ROOT/"calculations/engineering_report.md").write_text(f"""# 공학 계산 통합 보고 — {REV}
 
-- release: `DIGITAL_FABRICATION_BASELINE`, `PHYSICAL_VALIDATION_PENDING`
+- release: `DIGITAL_GEOMETRY_AND_SURROGATE_BASELINE`, `PHYSICAL_NOT_RUN`
 - envelope: 470 × 700 × 930 mm
 - screw profiles: PLA 18 rpm / PET 20 rpm; nominal {flow['profile_points']['PLA']['throughput_nominal_gph']}/{flow['profile_points']['PET']['throughput_nominal_gph']} g/h
 - 200 g/h: nominal 미입증 stretch target

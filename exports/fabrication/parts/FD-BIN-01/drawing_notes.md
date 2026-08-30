@@ -1,6 +1,6 @@
 # FD-BIN-01 — Removable flake bin
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `1 mm PP or 304 sheet`
 - process: `laser/knife cut panels + thermal weld or fold/rivet`

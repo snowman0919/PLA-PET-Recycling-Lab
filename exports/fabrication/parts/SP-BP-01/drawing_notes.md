@@ -1,6 +1,6 @@
 # SP-BP-01 — Spool 6001 bearing plate
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `2`
 - material: `5 mm 6061-T6`
 - process: `waterjet + bearing-seat finish`

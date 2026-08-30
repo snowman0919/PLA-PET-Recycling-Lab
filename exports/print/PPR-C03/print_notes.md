@@ -1,6 +1,6 @@
 # PPR-C03 — Flake bin sheet corner
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: 4
 - material: PLA
 - nozzle diameter: 0.4 mm

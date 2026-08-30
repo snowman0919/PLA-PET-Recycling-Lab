@@ -1,4 +1,4 @@
-#set document(title: "Solid Manifold OpenModelica PLA/PET Recycler v0.4 설계 보고서")
+#set document(title: "Coupled Digital Validation PLA/PET Recycler v0.5 설계 보고서")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -13,7 +13,7 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision solid-manifold-openmodelica-v0.4 · 2026-08-29]
+  #text(size: 11pt)[Revision coupled-digital-validation-v0.5 · 2026-08-29]
 ]
 
 #warn[*계산·CAD release다.* 실제 cutter 성능, melt flow, 200 g/h, 직경 품질과 안전 인증은 물리 Gate 전 미검증이다. 구매·CNC·energization은 사용자 승인 전 금지한다.]
@@ -31,7 +31,7 @@ PLA와 PET는 하나의 hopper, hook cutter, screen/bin, sealed feed hopper, fee
 
 #table(columns: (1.5fr, 1.2fr, 1fr, 1fr), inset: 4pt,
   [*후보*], [*Envelope mm*], [*계획비용*], [*판정*],
-  [Vertical down-die], [470 x 700 x 930], [178,137 KRW], [target PASS / donor·물리 Gate blocker],
+  [Vertical down-die], [470 x 700 x 930], [170,629 KRW], [target PASS / donor·물리 Gate blocker],
   [Internal U-fold], [480 x 710 x 940], [196,000 KRW], [soft bend 기각],
   [Side spool column], [495 x 720 x 950], [204,000 KRW], [비용/목표 기각],
 )
@@ -72,7 +72,10 @@ EX-DIE-01…05는 40×40×48 SCM440 body의 실제 교차 Ø8 유로, Ø15.9×2 
 
 = 열·전력·제어
 
-Heater 300 W, shredder software peak 432 W, screw 85 W, motion/fan/logic 45 W의 단순 합은 862 W로 PSU를 초과한다. 따라서 shredder enable과 barrel heater/screw enable을 hardware-enable과 state machine 양쪽에서 상호 배제한다. 허용 state peak는 500 W, 600 W PSU margin은 100 W다.
+Barrel 3×100 W band와 die 60 W cartridge로 열 path가 구성되고, `T1`~`T5` 온도 센서를 포함한다. 인터록으로 shredder와 고온 구간의 상호배제 하에서 실제 열 요구는 총 360 W가 된다.
+채널별 one-shot 차단을 포함해 `channel fuse`와 독립 thermal cutoff이 동작한다. 설계 기준은 3개의 상태를 분리한다: 1) `SHREDDER_ACTIVE`에서는 barrel/die heater는 OFF, 2) `EXTRUSION_ACTIVE`에서는 shredder drive는 hard-disable, 3) 비활성 안전 상태는 2차 방열만 유지.
+
+연산치 열 계산에서 `extrusion active` peak는 490 W로 관리되고, 24 V 600 W PSU 대비 연속 target는 500 W, 허용 reserve는 100 W다.
 
 300 °C hot path, 25 mm insulation, 10 mm air gap와 grounded sheet shield의 1D screening은 shield 52 °C, adjacent polymer 42 °C다. Seam/slot/radiation view를 포함하지 않으므로 Gate 4 thermocouple 기준은 shield 55 °C, polymer 45 °C다.
 
@@ -88,14 +91,14 @@ Puller가 직경을 결정하며 spooler는 dancer를 추종한다. Maximum spoo
 
 = 비용과 제조
 
-Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 실제 slicing을 반영한 조건부 target은 178,137 KRW다. 20,000 KRW contingency 포함 absolute plan은 198,137 KRW이며 계획 여유는 1,863 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
+Specific motor/coupling/gear 종속 제거, donor flat stock과 coupon 선행, 360 W heater계와 실제 slicing을 반영한 조건부 target은 170,629 KRW다. 20,000 KRW contingency 포함 absolute plan은 190,629 KRW이며 계획 여유는 9,371 KRW다. Motor 0원은 exact evidence 전 확정이 아니며, CUT-01은 Gate-1용 2장만, screw/barrel은 EX-CPN-SCR/EX-CPN-BAR coupon만 먼저 허용한다. Gate-1 PASS 없이는 current-source가 모두 일치해도 main 승격하지 않는다.
 
 #figure(image("../renders/review/print_orientation.png", width: 92%), caption: [12개 출력 part family orientation overview])
 
-PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 904.60 g, 실패 reserve 12% 포함 procurement mass는 1,013.15 g, 총 시간은 81.7 h다. 12개 plate와 PPR-TC01의 첫 extrusion layer SVG를 `exports/print/slicing_previews`에 생성해 bed 배치와 perimeter/infill/support role을 사람이 검토할 수 있게 했다. CAD nominal mass와 slicer mass는 별도 기록한다. 고하중·hot path는 출력품을 사용하지 않는다.
+PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 904.20 g, 실패 reserve 12% 반영 기준 procurement mass는 1,012.70 g, 총 시간은 81.6 h다. 12개 plate와 PPR-TC01의 첫 extrusion layer SVG를 `exports/print/slicing_previews`에 생성해 bed 배치와 perimeter/infill/support role을 사람이 검토할 수 있게 했다. CAD nominal mass와 slicer mass는 별도 기록한다. 고하중·hot path는 출력품을 사용하지 않는다.
 
 = 검증 경계
 
-#ok[Digital baseline은 closed B-Rep, manifold mesh, actual slicing, OpenModelica 18 scenario/6 sweep, CalculiX와 firmware sync를 검사한다. 물리 상태는 PHYSICAL_NOT_RUN이다.]
+#ok[Digital baseline은 closed B-Rep, manifold mesh, actual slicing, OpenModelica coupled 32 scenario, CalculiX와 firmware sync를 검사한다. Release state는 DIGITAL_FABRICATION_BASELINE이고 물리 상태는 PHYSICAL_VALIDATION_PENDING이다.]
 
 물리 Gate는 cutter coupon, flake/feed, cold extruder, hot PLA/PET, diameter/full spool 순서다. Physical 결과를 simulation 결과와 혼용하지 않는다.

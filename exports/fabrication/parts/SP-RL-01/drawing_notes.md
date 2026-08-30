@@ -1,6 +1,6 @@
 # SP-RL-01 — Dancer end roller
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `POM-C`
 - process: `turn + bore`

@@ -1,0 +1,32 @@
+within PLA_PET_Recycler.Components;
+model DCMotorElectrical
+  parameter Real supplyVoltage=24 "V";
+  parameter Real armatureResistance=0.774 "ohm, 24 V/31 A stall REFERENCE_ESTIMATE";
+  parameter Real armatureInductance=0.0012 "H REFERENCE_ESTIMATE, sensitivity required";
+  parameter Real torqueConstant=0.0395 "N.m/A REFERENCE_ESTIMATE from rated point";
+  parameter Real backEmfConstant=0.0375 "V.s/rad REFERENCE_ESTIMATE from rated point";
+  parameter Real rotorInertia=0.00042 "kg.m2 REFERENCE_ESTIMATE";
+  parameter Real viscousLoss=0.00005 "N.m.s/rad REFERENCE_ESTIMATE";
+  parameter Real coulombLoss=0.015 "N.m REFERENCE_ESTIMATE";
+  input Real duty "-1..1 four-quadrant PWM command";
+  input Boolean enable;
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft;
+  Real current(start=0,fixed=true) "A";
+  Real angle(start=0,fixed=true) "rad";
+  Real speed(start=0,fixed=true) "rad/s";
+  Real appliedVoltage "V";
+  Real electromagneticTorque "N.m";
+  Real copperLoss "W";
+  Real mechanicalLoss "W";
+  Real thermalPower "W";
+equation
+  appliedVoltage = if enable then supplyVoltage*max(-1,min(1,duty)) else 0;
+  armatureInductance*der(current)=if enable then appliedVoltage-armatureResistance*current-backEmfConstant*speed else -armatureResistance*current;
+  der(angle)=speed;
+  shaft.phi=angle;
+  electromagneticTorque=torqueConstant*current;
+  rotorInertia*der(speed)=electromagneticTorque+shaft.tau-viscousLoss*speed-coulombLoss*tanh(50*speed);
+  copperLoss=armatureResistance*current*current;
+  mechanicalLoss=viscousLoss*speed*speed+coulombLoss*abs(speed);
+  thermalPower=copperLoss+mechanicalLoss;
+end DCMotorElectrical;

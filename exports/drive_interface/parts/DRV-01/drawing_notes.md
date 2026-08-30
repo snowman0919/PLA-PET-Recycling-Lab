@@ -1,6 +1,6 @@
 # DRV-01 — Universal donor motor plate
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `6 mm SS400 steel`
 - process: `laser cut + standard metal angles`

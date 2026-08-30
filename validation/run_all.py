@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild and validate the v0.4 digital fabrication baseline."""
+"""Rebuild and validate the coupled-digital-validation-v0.5 baseline."""
 
 from __future__ import annotations
 
@@ -43,6 +43,7 @@ def main():
     run(["make", "-C", "firmware/arduino_mega", "test"], "SHREDDER_CALIBRATED_TORQUE_RPM_RETRY_OK")
 
     run(freecad("cad/generation/generate_all.py"), "CAD_TO_MODELICA_PARAMETER_SYNC_OK")
+    run([sys.executable, "validation/interface_catalog_checks.py"], "FABRICATION_INTERFACE_CATALOG_VALIDATED_OK")
     for script, marker in (
         ("validation/solid_topology.py", "SOLID_BREP_TOPOLOGY_OK"),
         ("validation/freecad_checks.py", "FREECAD_COLLISION_LOAD_PATH_OK"),
@@ -59,9 +60,8 @@ def main():
     run([sys.executable, "bom/build_budget_views.py"], "CONDITIONAL_AND_VERIFIED_BUDGET_OK")
     run([sys.executable, "validation/modelica_library_check.py"], "MODELICA_MSL_CAD_BRIDGE_OK")
 
-    run(nix("omc simulation/openmodelica/scripts/checkModel.mos"), "Check of PLA_PET_Recycler.Systems.FullMechanicalSystem completed successfully")
-    run(nix("omc simulation/openmodelica/scripts/run_all.mos"), "FullMechanicalNominal_res.csv")
-    run(nix("omc simulation/openmodelica/scripts/run_parameter_sweeps.mos"), "SweepBacklashHigh_res.csv")
+    run(nix("omc simulation/openmodelica/scripts/checkModel.mos"), "Check of PLA_PET_Recycler.Systems.FullCoupledSystem completed successfully")
+    run(nix("omc simulation/openmodelica/scripts/run_all.mos"), "FullSystemJam_res.csv")
     run([sys.executable, "simulation/openmodelica/postprocess/summarize_results.py"], "OPENMODELICA_ACCEPTANCE_OK")
     run([sys.executable, "simulation/openmodelica/postprocess/generate_plots.py"], "OPENMODELICA_PLOTS_OK")
     run(nix("python3 analysis/structural/run_load_checks.py"), "STRUCTURAL_SCREENING_OK")
@@ -82,8 +82,8 @@ def main():
     run(["bash", "-lc", typst] if shutil.which("typst") else nix(typst), "DIGITAL_PDF_BUILD_OK")
     run([sys.executable, "validation/artifact_reproducibility.py"], "CLEAN_CLONE_REPRODUCIBILITY_OK")
     run([sys.executable, "artifacts/build_manifest.py"], "ARTIFACT_MANIFEST_OK")
-    run([sys.executable, "validation/test_release.py"], "SOLID_MANIFOLD_OPENMODELICA_RELEASE_VALIDATION_OK")
-    print("ALL_DIGITAL_VALIDATIONS_OK; PHYSICAL_NOT_RUN; MAIN_PROMOTION_LOCKED")
+    run([sys.executable, "validation/test_release.py"], "COUPLED_DIGITAL_VALIDATION_RELEASE_OK")
+    print("ALL_DIGITAL_VALIDATIONS_OK; PHYSICAL_VALIDATION_PENDING; MAIN_PROMOTION_LOCKED")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-# 시스템 요구사항 — solid-manifold-openmodelica-v0.4
+# 시스템 요구사항 — coupled-digital-validation-v0.5
 
 ## Hard constraint
 
@@ -21,6 +21,8 @@
 
 - 공용 dual-shaft asymmetric cycloidal-inspired hook cutter, removable 5 mm screen, lockout 후 수동 oversize recirculation.
 - Interchangeable shredder drive: 18–30 V donor geared brushed-DC, DRV-01/DRV-Axx, motor-side DRV-F01, #35 chain 12T:18/24/30T, cutter-side DRV-02, M3 Z16 phase pair. 특정 motor/coupling/gear MPN 금지.
+- Digital reference는 GMP60-60127-2460 ratio 47이며 12:30에서 28 rpm/20.84 N·m rated-point screening이다. GMP42-775PM ratio 51은 5.42 N·m로 연속기준 불합격이며 둘 다 donor 승인이나 구매 release가 아니다.
+- 공정 heater는 barrel 3×100 W + die 60 W, T1–T5, independent thermal fuse를 포함하며 extrusion active peak는 490 W 이하로 제한한다.
 - Donor current는 직접 torque가 아니다. No-load current, torque/A, ratio, efficiency, speed/temperature를 calibration하고 firmware가 verified record 없이는 start를 거부한다.
 - External pre-dry + sealed maintenance hopper. PLA/PET pre-dry 조건은 현재 모두 `UNQUALIFIED_EXTERNAL_PROCESS`; 임의 온도·시간을 qualified recipe로 표시하지 않는다.
 - 공용 16 mm×16 L/D single screw, common barrel/breaker/open die. Profile screw RPM은 PLA 18, PET 20이다.

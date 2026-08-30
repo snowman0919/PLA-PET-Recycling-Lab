@@ -59,7 +59,7 @@ def main():
                 })
     modes = Counter(record["hash_mode"] for record in current.values())
     result = {
-        "revision": "solid-manifold-openmodelica-v0.4",
+        "revision": "coupled-digital-validation-v0.5",
         "gate": "CLEAN_CLONE_REPRODUCIBILITY",
         "scope": "all manifested decision-relevant artifacts after full regeneration",
         "normalization_policy": {
@@ -72,7 +72,7 @@ def main():
         "hash_mode_counts": dict(sorted(modes.items())),
         "mismatches": mismatches,
         "status": "PASS" if not mismatches else "FAIL",
-        "physical_state": "PHYSICAL_NOT_RUN",
+        "physical_state": "PHYSICAL_VALIDATION_PENDING",
     }
     output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
     if mismatches:

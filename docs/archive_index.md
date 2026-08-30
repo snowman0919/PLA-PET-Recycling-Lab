@@ -17,3 +17,12 @@ archive의 문서, CAD, PDF와 artifact는 역사적 연구 기록이며 active 
 - 동결일: 2026-08-29
 
 이 snapshot은 v0.4에서 closed-solid/manifold CAD, actual slicing, CAD-to-Modelica mass/inertia bridge와 digital mechanics를 추가하기 전 compact architecture를 그대로 보존한다. Current source는 `solid-manifold-openmodelica-v0.4`이며 archive branch/tag를 수정하지 않는다.
+
+## Solid-manifold OpenModelica v0.4 동결
+
+- archive commit SHA: `6c1361b11814f0df72e3b2cfb195b6d56133c26b`
+- annotated tag: `solid-manifold-openmodelica-v0.4`
+- archive branch: `archive/solid-manifold-openmodelica-v0.4`
+- 동결일: 2026-08-29
+
+이 snapshot은 v0.5의 결합 DC motor·cutter·thermal-flow·spool physics와 최종 heater/reference-drive architecture를 적용하기 전 v0.4 제작 기준선을 보존한다. Active revision은 `coupled-digital-validation-v0.5`이며 이 archive branch와 annotated tag는 수정하지 않는다.

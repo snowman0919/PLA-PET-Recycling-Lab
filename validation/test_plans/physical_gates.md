@@ -2,7 +2,7 @@
 
 ## Gate 1 Cutter coupon
 
-- 부품: CUT-01 정확히 2개, CUT-04 5 mm screen coupon 1개, CUT-05 shaft 2개, CUT-03 plate 2개, 6004 4개, DRV-03 lamination 6개, G1J-01–10/P01–P03, calibrated 0–200 N gauge/load-cell, 50 A current sensor와 Hall RPM. G1J-07 metal upright가 3 mm polycarbonate guard를 유지하고 S0/S1→K0→K1 hard-cut 회로를 구성한다. Motor 시험은 functional interface를 통과한 donor만 연결한다.
+- 부품: CUT-01 정확히 2개, CUT-04 5 mm screen coupon 1개, CUT-05 shaft 2개, CUT-03 plate 2개, 6004 4개, CUT-08 retainer 2개, DRV-03 lamination 6개, G1J-01–12/P01–P03, calibrated 0–200 N gauge/load-cell, 50 A current sensor와 Hall RPM. G1J-07 metal upright와 G1J-12 closed roof가 3 mm polycarbonate guard를 유지하고 S0/S1→K0→K1 hard-cut 회로를 구성한다. Manual torque 상태와 powered jam 상태는 각각의 controlling STEP대로 따로 조립하며, motor 시험은 functional interface를 통과한 donor만 연결한다.
 - 입력: PET body/four-layer folded seam, PLA wall 1.2/2.0/3.0 mm 각 5개.
 - 측정: torque/current/RPM drop, capture/reverse, 조각 sieve mass.
 - 합격: PLA/PET body max<=14 N·m, PET folded seam max<=24 N·m, 영구변형/guard breach 0, bounded reverse 3회 뒤 latch, 3–6 mm>=55%, >20 mm PET strip<=10%, fines<=15%, recovery>=95%와 torque-current-RPM curve 확보. 상세 절차는 `exports/jigs/gate1/test_procedure_ko.md`가 controlling이다.

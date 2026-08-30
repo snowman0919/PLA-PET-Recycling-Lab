@@ -1,5 +1,5 @@
 {
-  "revision": "solid-manifold-openmodelica-v0.4",
+  "revision": "coupled-digital-validation-v0.5",
   "release_class": "DIGITAL_FABRICATION_BASELINE",
   "throughput": {
     "model": "solid_conveying_displacement_x_bulk_density_x_fill_x_efficiency_x_melt_backflow_factor",
@@ -541,28 +541,28 @@
   "drive_calibration": {
     "calibration": {
       "purpose": "digital sensitivity reference only; not a donor acceptance record",
-      "no_load_current_a": 1.8,
-      "torque_per_amp_nm": 1.35,
-      "motor_to_cutter_ratio": 2.0,
-      "drivetrain_efficiency": 0.72,
-      "max_continuous_current_a": 12.0,
-      "max_peak_current_a": 18.0,
-      "no_load_rpm": 64.0,
+      "no_load_current_a": 0.75,
+      "torque_per_amp_nm": 1.316,
+      "motor_to_cutter_ratio": 2.5,
+      "drivetrain_efficiency": 0.85,
+      "max_continuous_current_a": 8.2,
+      "max_peak_current_a": 20.0,
+      "no_load_rpm": 95.0,
       "thermal_limit_c": 80.0
     },
     "thresholds": {
       "PLA": {
         "continuous_torque_nm": 11.0,
         "jam_torque_nm": 18.0,
-        "reference_continuous_current_a": 7.46,
-        "reference_jam_current_a": 11.06,
+        "reference_continuous_current_a": 4.68,
+        "reference_jam_current_a": 7.19,
         "release_status": "REFERENCE_ONLY_RECALCULATE_AFTER_DONOR_CALIBRATION"
       },
       "PET": {
         "continuous_torque_nm": 13.0,
         "jam_torque_nm": 18.0,
-        "reference_continuous_current_a": 8.49,
-        "reference_jam_current_a": 11.06,
+        "reference_continuous_current_a": 5.4,
+        "reference_jam_current_a": 7.19,
         "release_status": "REFERENCE_ONLY_RECALCULATE_AFTER_DONOR_CALIBRATION"
       }
     },
@@ -591,14 +591,16 @@
   "power": {
     "psu_voltage_v": 24.0,
     "psu_rating_w": 600.0,
-    "heater_peak_w": 300.0,
+    "heater_peak_w": 360.0,
     "shredder_peak_w": 432.0,
     "extruder_peak_w": 85.0,
     "motion_fans_logic_peak_w": 45.0,
-    "arbiter_peak_w": 500.0,
-    "mutual_exclusion": "shredder drive disabled whenever barrel heater or screw drive is enabled",
-    "calculated_concurrent_peak_w": 862.0,
-    "arbiter_margin_w": 100.0
+    "arbiter_peak_w": 490.0,
+    "continuous_target_max_w": 500.0,
+    "minimum_psu_reserve_w": 100.0,
+    "mutual_exclusion": "SHREDDER_ACTIVE hard-disables barrel/die heater and screw drive; EXTRUSION_ACTIVE hard-disables shredder; full process heat disables hopper PTC",
+    "calculated_concurrent_peak_w": 922.0,
+    "arbiter_margin_w": 110.0
   },
   "thermal": {
     "hot_path_design_c": 300,

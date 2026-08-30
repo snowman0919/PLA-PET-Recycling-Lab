@@ -1,6 +1,6 @@
 # G1J-02 — 250 mm torque arm
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `6 mm S45C/structural steel`
 - process: `laser cut + deburr`

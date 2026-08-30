@@ -1,6 +1,6 @@
 # SP-TR-01 — Traverse rod end plate
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `2`
 - material: `5 mm 6061-T6`
 - process: `waterjet + ream`

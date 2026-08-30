@@ -1,6 +1,6 @@
 # DRV-GD-01 — Interlocked drive guard
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `1 mm galvanized steel`
 - process: `laser + brake + service-cover hardware`

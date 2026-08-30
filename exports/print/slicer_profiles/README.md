@@ -1,6 +1,6 @@
 # Release slicer profile
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - slicer: PrusaSlicer 2.9.6 (Nix-pinned)
 - printer bed: 220 × 220 × 220 mm
 - nozzle: 0.4 mm

@@ -1,6 +1,6 @@
 # G1J-10 — CUT-03 plate foot angle
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `4`
 - material: `40 x40 x4 steel/aluminum angle`
 - process: `saw cut + drill`

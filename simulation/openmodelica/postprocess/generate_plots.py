@@ -40,11 +40,13 @@ def svg_plot(name: str, series: list[tuple[str, str]], ylabel: str) -> None:
 
 
 def main() -> None:
-    svg_plot("JamReverseRetry", [("cutter torque", "cutterTorque"), ("phase torque", "phaseTorque")], "torque [N m]")
-    svg_plot("InputFuseOperation", [("requested", "requestedTorque"), ("transmitted", "transmittedTorque")], "torque [N m]")
-    svg_plot("ScrewJam", [("load torque", "load.torque"), ("drive torque", "drive.motorTorque")], "torque [N m]")
+    svg_plot("ReverseClear", [("estimated cutter torque", "estimatedCutterTorque"), ("fuse torque", "inputFuse.transmittedTorque"), ("duty", "dutyCommand")], "torque / duty")
+    svg_plot("MechanicalFuseTrip", [("estimated cutter torque", "estimatedCutterTorque"), ("fuse torque", "inputFuse.transmittedTorque")], "torque [N m]")
+    svg_plot("ScrewJam", [("zone 1", "T1"), ("zone 2", "T2"), ("zone 3", "T3"), ("die", "Tdie")], "temperature [degC]")
     svg_plot("GaugeDropout", [("line tension", "lineTension")], "tension [N]")
-    print("OPENMODELICA_PLOTS_OK count=4")
+    svg_plot("FullSystemPLA", [("bus power", "busPower"), ("net flow", "extruder.netFlowGPH")], "power [W] / flow [g/h]")
+    svg_plot("FullSystemJam", [("cutter torque", "shredder.estimatedCutterTorque"), ("motor current", "shredder.motor.current")], "torque [N m] / current [A]")
+    print("OPENMODELICA_PLOTS_OK count=6")
 
 
 if __name__ == "__main__":

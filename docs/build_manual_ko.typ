@@ -1,4 +1,4 @@
-#set document(title: "Solid Manifold OpenModelica PLA/PET Recycler v0.4 제작 매뉴얼")
+#set document(title: "Coupled Digital Validation PLA/PET Recycler v0.5 제작 매뉴얼")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -13,19 +13,19 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision solid-manifold-openmodelica-v0.4 · 2026-08-29]
+  #text(size: 11pt)[Revision coupled-digital-validation-v0.5 · 2026-08-29]
 ]
 
 #danger[*물리 운전 승인 문서가 아니다.* Cutter, screw, heater, mains/high-current는 사용자 승인, exact component 확인, guard와 물리 Gate 전 energize하지 않는다.]
 
-Release state: `DIGITAL_FABRICATION_BASELINE` / Physical state: `PHYSICAL_NOT_RUN`.
+Release state: `DIGITAL_FABRICATION_BASELINE` / Physical state: `PHYSICAL_VALIDATION_PENDING` (`PHYSICAL_NOT_RUN`).
 
 #pagebreak()
 = 작업 전 확인
 
 `bom/reuse_inventory.csv`의 UNVERIFIED 항목은 label, 수량, 상태, shaft, voltage/current와 telemetry를 기록한다. 사용할 수 없는 donor는 `cash_budget.csv` allowance 범위에서 대체하되 주문은 승인 후 진행한다.
 
-#danger[조건부 target은 178,137 KRW, contingency 포함 absolute plan은 198,137 KRW지만 donor motor와 RFQ는 UNVERIFIED다. 계획 여유는 1,863 KRW뿐이다. 정확 증거와 Gate-1 PASS 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
+#danger[조건부 target은 170,629 KRW, contingency 포함 absolute plan은 190,629 KRW지만 donor motor와 RFQ는 UNVERIFIED다. 계획 여유는 9,371 KRW다. 정확 증거와 Gate-1 PASS 전에는 0원 확정, full cutter/screw/barrel 발주 또는 main 승격에 이 문서를 사용하지 않는다.]
 
 PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesive와 오염을 제거하고 PLA에는 metal insert가 없어야 한다. 미확인 plastic은 투입하지 않는다.
 
@@ -75,7 +75,7 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 #figure(image("../renders/review/shredder_fastener_tool_access.png", width: 92%), caption: [Bearing plate/shaft/tool access review])
 
-#danger[Gate-1 전 CUT-01은 정확히 2장 coupon만 허용한다. `exports/jigs/gate1`의 G1J-01–10/P01–P03, metal guard upright/screen rail, fastener schedule, S0/S1→K0→K1 hard-cut 배선과 분리된 preflight/force/drive/torque/jam/chip/evidence CSV로 donor label/shaft/current/RPM, PET body/folded seam과 PLA 1.2/2.0/3.0 mm의 torque/jam/chip size를 측정한 뒤 full stack을 판단한다.]
+#danger[Gate-1 전 CUT-01은 정확히 2장 coupon만 허용한다. `exports/jigs/gate1`의 G1J-01–12/P01–P03, powered/manual assembly, metal guard upright/screen rail, closed roof, fastener schedule, S0/S1→K0→K1 hard-cut 배선과 분리된 preflight/force/drive/torque/jam/chip/evidence CSV로 donor label/shaft/current/RPM, PET body/folded seam과 PLA 1.2/2.0/3.0 mm의 torque/jam/chip size를 측정한 뒤 full stack을 판단한다.]
 
 = Dry feed와 extruder
 
@@ -119,6 +119,6 @@ Gate 1 cutter coupon -> Gate 2 flake/feed -> Gate 3 cold mechanical -> Gate 4 ho
 
 = Print package
 
-각 `exports/print/PPR-Cxx` 폴더에는 FreeCAD Python, FCStd, STEP, STL, 3MF, print notes와 dimension sheet가 있다. `plate_layouts`의 3MF는 PrusaSlicer 2.9.6이 생성한 실제 plate이며 필요한 part의 support를 포함해 nominal 904.60 g/81.7 h, reserve 포함 1,013.15 g이다. `slicing_previews/*-first-layer.svg`에서 220×220 mm bed상의 실제 첫 extrusion layer를 확인한다. 대용량 raw G-code는 같은 source/profile로 재생성한다. 모든 part는 각 축 210 mm 이하를 자동 검사한다. `PPR-TC01` tolerance coupon을 먼저 출력해 hole/insert/slide 보정을 기록한다.
+각 `exports/print/PPR-Cxx` 폴더에는 FreeCAD Python, FCStd, STEP, STL, 3MF, print notes와 dimension sheet가 있다. `plate_layouts`의 3MF는 PrusaSlicer 2.9.6이 생성한 실제 plate이며 필요한 part의 support를 포함해 nominal 904.20 g/81.6 h, reserve 포함 1,012.70 g이다. `slicing_previews/*-first-layer.svg`에서 220×220 mm bed상의 실제 첫 extrusion layer를 확인한다. 대용량 raw G-code는 같은 source/profile로 재생성한다. 모든 part는 각 축 210 mm 이하를 자동 검사한다. `PPR-TC01` tolerance coupon을 먼저 출력해 hole/insert/slide 보정을 기록한다.
 
 #figure(image("../renders/review/support_contact.png", width: 92%), caption: [아래보기 facet support-contact review — red])

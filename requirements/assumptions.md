@@ -1,4 +1,4 @@
-# 가정과 확인 대기 항목 — solid-manifold-openmodelica-v0.4
+# 가정과 확인 대기 항목 — coupled-digital-validation-v0.5
 
 |항목|디지털 입력|상태/필요 증거|
 |---|---|---|
@@ -6,10 +6,11 @@
 |Cutter shaft|20 mm keyed S45C|Gate-1 torque pulse 후 구조 재검토|
 |Torque hierarchy|14/18/22/34/48 N·m|22 N·m mechanical fuse 실물 calibration 필요|
 |Shredder motor|18–30 V geared brushed DC, cutter 20–40 rpm|exact donor/label/shaft/current/RPM/temperature 미확정|
-|Reference motor calibration|1.8 A no-load, 1.35 N·m/A, ratio 2, η 0.72|sensitivity 전용, `verified=false`, 운전 불가|
+|Reference motor|GMP60-60127-2460 ratio 47, 24 V, 70 rpm, 9.80665 N·m, 8.2 A rated|공개 datasheet 기반 digital reference; 수령검사/Gate-1 전 `verified=false`|
 |Screw drive|15 N·m continuous, 22 N·m trip|donor reducer와 torque calibration 필요|
 |PET pre-dry|온도·시간 미지정|`UNQUALIFIED_EXTERNAL_PROCESS`; dryer/moisture coupon 필요|
 |PLA pre-dry|온도·시간 미지정|`UNQUALIFIED_EXTERNAL_PROCESS`; dryer/moisture coupon 필요|
 |Gauge uncertainty|목표 U95 ≤0.03 mm|traceable pin/wire 교정 전 미달성|
-|Cash target|178,137 KRW + 20,000 KRW reserve = 198,137 KRW|donor/RFQ 전 conditional only; 절대 cap 여유 1,863 KRW|
+|Cash target|170,629 KRW + 20,000 KRW reserve = 190,629 KRW|donor/RFQ 전 conditional only; 절대 cap 여유 9,371 KRW|
+|Heater|barrel 3×100 W + die 60 W, T1–T5, extrusion peak 490 W|supplier/stock 확인과 physical thermal test 전 surrogate|
 |Throughput|PLA 18 rpm 111.8, PET 20 rpm 108.4 g/h nominal model|Gate-4 전 실제 claim 금지; 200 g/h stretch|

@@ -1,4 +1,4 @@
-#set document(title: "PLA/PET Recycler v0.4 디지털 release 보고서")
+#set document(title: "PLA/PET Recycler v0.5 디지털 release 보고서")
 #set page(paper: "a4", margin: 18mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -6,10 +6,10 @@
 #let warn(body) = block(width: 100%, fill: rgb("fff0e8"), stroke: 1pt + rgb("bd4b2d"), inset: 8pt, body)
 
 #align(center)[
-  #text(size: 22pt, weight: "bold")[PLA/PET Recycler v0.4]
+  #text(size: 22pt, weight: "bold")[PLA/PET Recycler v0.5]
   #text(size: 15pt)[디지털 fabrication baseline 보고서]
   #v(4mm)
-  Revision `solid-manifold-openmodelica-v0.4` · 2026-08-29
+  Revision `coupled-digital-validation-v0.5` · 2026-08-29
 ]
 
 #box[
@@ -29,14 +29,14 @@ PLA/PET는 470 × 700 × 930 mm cabinet 안에서 공용 hopper, cycloidal-inspi
 
 - Active CAD 181 objects: valid B-Rep/solid topology PASS.
 - Print part 12종: 각 1 solid, STL watertight 2-manifold, zero-area/non-manifold 0.
-- PrusaSlicer 2.9.6: support 포함 904.60 g, 81.7 h; 실패 reserve 포함 1,013.15 g.
+- PrusaSlicer 2.9.6: support 포함 904.20 g, 81.6 h; 실패 reserve 포함 1,012.70 g.
 - Keep-out 4개는 `REVIEW_ONLY_NOT_MANUFACTURED` package에 격리.
 
 전체 재생성 뒤 `CLEAN_CLONE_REPRODUCIBILITY`가 manifest의 모든 산출물을 재검사한다. STEP timestamp/export sequence, FCStd의 비제조 topological history map, ZIP member timestamp만 정규화한다. FCStd Document와 B-Rep 및 3MF member content는 해시 범위에 유지한다. PrusaSlicer는 path ordering 재현성을 위해 1 thread로 고정한다.
 
 = 기계 simulation과 구조 연계
 
-OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 18 scenario 및 6 sensitivity sweep를 실행했다. Torque hierarchy는 14 < 18 < 22 < 34 < 48 N·m다. Dynamic envelope는 cutter 전달 22.0 N·m, bearing 1.255 kN, chain 0.603 kN, table anchor 0.485 kN이다.
+OpenModelica 1.27.0과 Modelica Standard Library 4.0.0으로 electrical motor·gearbox·chain/backlash·shear fuse·phase mesh·cutter load·thermal-flow·spool을 결합한 32 scenario를 실행했다. Torque hierarchy는 14 < 18 < 22 < 34 < 48 N·m다. Dynamic envelope는 cutter 21.994 N·m, phase 16.216 N·m, bearing 1.797 kN, chain 0.603 kN이다.
 
 동일 JSON을 9개 closed-form 구조 screening과 CalculiX bearing plate/cutter shaft deck가 읽는다. CalculiX 결과는 plate 45.36 MPa/0.1840 mm, shaft 48.63 MPa/0.0136 mm다. Gate-1 실측 pulse를 얻으면 재실행한다.
 
@@ -50,9 +50,9 @@ EX-DIE-01…05는 barrel과 C110 gasket로 직접 연결되는 Ø8 교차 유로
 
 = Budget와 release lock
 
-- Conditional target: 178,137 KRW ≤180,000 KRW.
+- Conditional target: 170,629 KRW ≤180,000 KRW.
 - Quote contingency: 20,000 KRW.
-- Absolute plan: 198,137 KRW ≤200,000 KRW; 계획 여유 1,863 KRW.
+- Absolute plan: 190,629 KRW ≤200,000 KRW; 계획 여유 9,371 KRW.
 - Donor 0원과 모든 RFQ는 미확정이며 구매 release는 BLOCKED.
 - CUT-01 2장 Gate-1 coupon 외 full stack는 HOLD.
 - EX-CPN-SCR/EX-CPN-BAR 외 full screw/barrel은 HOLD.

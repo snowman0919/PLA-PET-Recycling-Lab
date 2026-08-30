@@ -1,0 +1,37 @@
+within PLA_PET_Recycler.Systems;
+model DynamicSpoolSystem
+  parameter Real lineSpeedCommand=0.020 "m/s";
+  parameter Real initialFill=0 "0 empty, 0.5 half, 1 full";
+  parameter Boolean spoolJammed=false;
+  parameter Boolean gaugeValid=true;
+  parameter Real traverseDisturbance=0.0;
+  Real spoolAngle(start=0,fixed=true);
+  Real spoolSpeed(start=0,fixed=true);
+  Real dancerAngle(start=0,fixed=true);
+  Real dancerSpeed(start=0,fixed=true);
+  Real fillFraction(start=initialFill,fixed=true);
+  Real spoolRadius;
+  Real spoolInertia;
+  Real lineTension;
+  Real motorTorque;
+  Real motorCurrent;
+  Real surfaceSpeed;
+  Real speedError;
+  Boolean dancerLimit;
+  Boolean tensionFault;
+equation
+  spoolRadius=0.052+0.048*fillFraction;
+  spoolInertia=Generated.CADParameters.spoolEmptyJ+(Generated.CADParameters.spoolFullJ-Generated.CADParameters.spoolEmptyJ)*fillFraction;
+  surfaceSpeed=spoolSpeed*spoolRadius;
+  speedError=lineSpeedCommand-surfaceSpeed-0.006*dancerAngle;
+  motorTorque=if spoolJammed or not gaugeValid then 0 else max(-0.45,min(0.45,6.0*speedError+0.20*dancerAngle));
+  motorCurrent=abs(motorTorque)/0.12+0.15;
+  lineTension=max(0,2.2+180*(surfaceSpeed-lineSpeedCommand)-8*dancerAngle+traverseDisturbance);
+  spoolInertia*der(spoolSpeed)=motorTorque-lineTension*spoolRadius-0.002*spoolSpeed;
+  der(spoolAngle)=spoolSpeed;
+  0.006*der(dancerSpeed)=lineTension*0.10-0.22*dancerAngle-0.018*dancerSpeed;
+  der(dancerAngle)=dancerSpeed;
+  der(fillFraction)=if initialFill>=1 then 0 else max(0,lineSpeedCommand)/(Modelica.Constants.pi*(0.10^2-0.052^2)*0.073)*1.75e-6;
+  dancerLimit=abs(dancerAngle)>0.4363;
+  tensionFault=lineTension>8 or dancerLimit;
+end DynamicSpoolSystem;

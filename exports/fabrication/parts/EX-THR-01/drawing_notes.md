@@ -1,6 +1,6 @@
 # EX-THR-01 — Extruder thrust plate
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `12 mm S45C or SS400`
 - process: `laser rough + bore/seat finish`

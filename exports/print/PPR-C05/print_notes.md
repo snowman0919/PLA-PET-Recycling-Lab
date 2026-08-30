@@ -1,6 +1,6 @@
 # PPR-C05 — Cooling duct segment
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: 2
 - material: ABS
 - nozzle diameter: 0.4 mm

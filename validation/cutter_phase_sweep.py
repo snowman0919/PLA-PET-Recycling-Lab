@@ -42,7 +42,7 @@ def main():
     if maximum_overlap>=0.001: raise AssertionError(f"cutter phase collision {maximum_overlap} mm3")
     if minimum<0.49: raise AssertionError(f"cutter axial clearance {minimum} mm")
     result={
-        "revision":"solid-manifold-openmodelica-v0.4",
+        "revision":"coupled-digital-validation-v0.5",
         "geometry":"exact released CUT-01 cycloidal-derived B-Rep",
         "base_angle_range_deg":[0,359],"base_angle_step_deg":1,"phase_error_samples_deg":list(errors),
         "configurations_checked":configurations,"exact_boolean_common_samples":exact_common_samples,"repeated_stack_interfaces":11,
@@ -52,7 +52,7 @@ def main():
         "adopted_dynamic_phase_error_limit_rad":math.radians(allowed_phase_deg),
         "derivation":"all 1080 rotated exact solids retain a constant positive axial B-Rep interval separation; periodic exact common() checks are zero. The 1 degree limit is the stricter capture/gear-backlash limit",
         "synchronization_requirement":"phase gears remain required for counter-rotation and capture timing even though axial disc separation prevents direct cutter collision",
-        "status":"PASS","physical_state":"PHYSICAL_NOT_RUN",
+        "status":"PASS","physical_state":"PHYSICAL_VALIDATION_PENDING",
     }
     out=ROOT/"validation/results"; out.mkdir(parents=True,exist_ok=True)
     (out/"cutter_phase_sweep.json").write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n")

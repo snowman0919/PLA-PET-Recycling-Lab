@@ -1,6 +1,6 @@
 # SP-AX-01 — Dancer pivot/roller axles
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `2`
 - material: `Ø8 h6 stainless shaft`
 - process: `cut/face + collars`

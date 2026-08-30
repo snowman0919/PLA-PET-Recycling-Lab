@@ -42,3 +42,12 @@
 - 커밋 전 관련 생성 스크립트와 검증을 실행한다.
 - `.env`, API 키, 인증 토큰, 다운로드 캐시, 주문용 임시 파일은 커밋하지 않는다.
 - software/firmware/scripts는 MIT, hardware CAD/drawing/electronics는 CERN-OHL-P-2.0을 적용한다. 자세한 범위는 `docs/licensing.md`를 따른다.
+
+## 지식 그래프 (graphify)
+
+- 프로젝트 지식 그래프는 `graphify`로 구축한다. 소스: 코드(AST, 무비용) + 문서/도면/이미지(시맨틱 추출).
+- 산출물 위치: `graphify-out/` — `GRAPH_REPORT.md`(보고서), `graph.json`(GraphRAG용), `graph.html`(인터랙티브 뷰), `manifest.json`/`cost.json`(증적).
+- 추적 정책: `GRAPH_REPORT.md`, `manifest.json`, `cost.json`은 사람이 검토 가능한 경량 산출물로 추적한다. `graph.json`/`graph.html`/`cache/` 등 대용량 재생성물은 `.gitignore`로 제외하고 재생성 명령으로 복원한다.
+- 실행: 전체 구축 `/graphify` (또는 `graphify` CLI), 증분 갱신 `/graphify --update` (또는 `graphify --update`), 조회 `graphify query "<질문>"` / `graphify path "<A>" "<B>"` / `graphify explain "<노드>"`. HTML은 5000 노드 초과 시 커뮤니티 집계 뷰로 자동 축소된다.
+- 추출 기준: `EXTRACTED`(원문 명시), `INFERRED`(합리적 추론, 신뢰도 0.55–0.95), `AMBIGUOUS`(불확실, 0.1–0.3)로 구분해 감사 추적(audit trail)을 유지한다.
+- 갱신 규칙: 문서/코드 변경 후 커밋 전 `graphify --update`로 증분 반영하고, `GRAPH_REPORT.md`의 God Nodes / Surprising Connections / Suggested Questions를 검토한다.

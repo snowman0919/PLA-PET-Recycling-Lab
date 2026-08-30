@@ -21,6 +21,7 @@ GEOM = ROOT / "cad/freecad/compact"
 sys.path.insert(0, str(GEOM))
 from geometry import (  # noqa: E402
     assembly_objects,
+    cycloidal_hook_profile_points,
     down_die_body,
     down_die_breaker_plate,
     down_die_copper_gasket,
@@ -198,9 +199,9 @@ def render_tool_access(assembly=None):
     render([i for i in assembly if i["group"]=="shredder"], ROOT/"renders/review/shredder_fastener_tool_access.png", "Shredder bearing plates / interleaved discs / M6 through-bolts", "right", arrow=True, arrow_target=(1210,680))
 
 
-def gate1_render_items(exploded=False):
+def gate1_render_items(exploded=False, mode="manual"):
     """Review LOD: preserve the exact screen envelope without tessellating holes."""
-    items=gate1_assembly(exploded=exploded)
+    items=gate1_assembly(exploded=exploded, mode=mode)
     for item in items:
         if item["name"]=="CUT04ScreenCoupon":
             bb=item["shape"].BoundBox
@@ -210,35 +211,62 @@ def gate1_render_items(exploded=False):
 
 
 def render_drive_interface():
-    plate=universal_motor_plate()
-    motor=Part.makeCylinder(43,92,App.Vector(58,70,6),App.Vector(0,0,1))
-    motor_shaft=Part.makeCylinder(8,22,App.Vector(58,70,98),App.Vector(0,0,1))
-    input_sprocket=Part.makeCylinder(30,8,App.Vector(58,70,112),App.Vector(0,0,1))
-    output_sprocket=Part.makeCylinder(45,8,App.Vector(245,70,112),App.Vector(0,0,1))
-    chain_upper=Part.makeBox(187,8,8,App.Vector(58,108,112))
-    chain_lower=Part.makeBox(187,8,8,App.Vector(58,24,112))
-    hub=bolt_on_sprocket_hub(); hub.translate(App.Vector(245,70,92))
-    fuse_pin=Part.makeCylinder(3,28,App.Vector(245,70,88),App.Vector(0,0,1))
-    gear1=generic_phase_gear_lamination(); gear1.rotate(App.Vector(),App.Vector(1,0,0),90); gear1.translate(App.Vector(245,70,142))
-    gear2=generic_phase_gear_lamination(); gear2.rotate(App.Vector(),App.Vector(1,0,0),90); gear2.translate(App.Vector(299,70,142))
-    mesh_render([
-        {"name":"DRV-01","shape":plate,"color":(88,101,112),"group":"drive"},
-        {"name":"DonorReferenceLOD","shape":motor,"color":(190,55,55),"group":"drive"},
-        {"name":"MotorShaft","shape":motor_shaft,"color":(70,80,88),"group":"drive"},
-        {"name":"InputSprocket","shape":input_sprocket,"color":(225,116,55),"group":"drive"},
-        {"name":"OutputSprocket","shape":output_sprocket,"color":(119,89,145),"group":"drive"},
-        {"name":"ChainUpper","shape":chain_upper,"color":(68,130,95),"group":"drive"},
-        {"name":"ChainLower","shape":chain_lower,"color":(68,130,95),"group":"drive"},
-        {"name":"DRV-02","shape":hub,"color":(119,89,145),"group":"drive"},
-        {"name":"Fuse22Nm","shape":fuse_pin,"color":(245,190,45),"group":"drive"},
-        {"name":"DRV-03A","shape":gear1,"color":(225,116,55),"group":"drive"},
-        {"name":"DRV-03B","shape":gear2,"color":(225,116,55),"group":"drive"},
-    ],ROOT/"renders/modules/interchangeable_drive_interface.png","DRV interface schematic LOD | motor-side DRV-F01 / #35 chain / cutter-side DRV-02 / M3 Z16 pair","iso")
+    # Use the exact powered Gate-1 assembly solids instead of an unrelated
+    # cylinder-and-bar schematic.  The red GMP60 solid remains a dimensional
+    # reference only; a received donor changes DRV-Axx, not DRV-01/F01/02.
+    names=("GMP60Reference","DRV01UniversalPlate","DRV-A60","DRV-F01A","DRV-F01B","DRV-F01P",
+           "DRV02CutterHub","MotorSprocket12T","CutterSprocket30T","ChainTight","ChainSlack",
+           "CUT05Shaft","PhaseLam")
+    items=[item for item in gate1_assembly(mode="powered") if item["name"].startswith(names)]
+    render(items,ROOT/"renders/modules/interchangeable_drive_interface.png","Interchangeable drive | exact DRV-01/Axx/F01/#35/DRV-02/keyed DRV-03 solids","iso")
+
+
+def render_cycloidal_hook_construction():
+    """Annotated controlling profile, so the cycloidal-derived flank is visible."""
+    points=cycloidal_hook_profile_points()
+    image=Image.new("RGB",(W,H),(248,250,251)); draw=ImageDraw.Draw(image)
+    try:
+        font=ImageFont.truetype("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",30)
+        small=ImageFont.truetype("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",24)
+    except OSError:
+        font=ImageFont.load_default(size=30); small=ImageFont.load_default(size=24)
+    cx,cy,scale=525,615,14.0
+    xy=lambda p:(cx+p.x*scale,cy-p.z*scale)
+    for radius,color,label in ((18,(130,145,155),"root Ø36"),(29,(75,95,105),"nominal OD Ø58")):
+        box=(cx-radius*scale,cy-radius*scale,cx+radius*scale,cy+radius*scale)
+        draw.ellipse(box,outline=color,width=3)
+        draw.text((cx+radius*scale+12,cy-18),label,fill=color,font=small)
+    profile=[xy(p) for p in points]
+    draw.polygon(profile,fill=(244,218,197)); draw.line(profile,fill=(35,52,62),width=5,joint="curve")
+    capture=[xy(p) for p in points[:19]]
+    nose=[xy(p) for p in points[18:22]]
+    relief=[xy(p) for p in points[21:30]]
+    draw.line(capture,fill=(225,116,55),width=11,joint="curve")
+    draw.line(nose,fill=(196,43,43),width=11,joint="curve")
+    draw.line(relief,fill=(119,89,145),width=11,joint="curve")
+    draw.rectangle((24,20,W-24,72),fill="white",outline=(75,95,105),width=2)
+    draw.text((42,31),"CUT-01 controlling asymmetric cycloidal-derived 7-hook profile",fill=(25,45,55),font=font)
+    x0=1010
+    draw.text((x0,210),"Actual DXF/STEP profile construction",fill=(25,45,55),font=font)
+    draw.line((x0,290,x0+95,290),fill=(225,116,55),width=11); draw.text((x0+115,272),"76% pitch capture flank",fill=(55,65,70),font=small)
+    draw.text((x0,335),"r(u)=r_root+(r_tip-r_root)·s(u)",fill=(55,65,70),font=small)
+    draw.text((x0,380),"s(u)=u-sin(2πu)/(2π)",fill=(55,65,70),font=small)
+    draw.line((x0,460,x0+95,460),fill=(196,43,43),width=11); draw.text((x0+115,442),"rounded overhung nose",fill=(55,65,70),font=small)
+    draw.line((x0,540,x0+95,540),fill=(119,89,145),width=11); draw.text((x0+115,522),"fast cubic relief",fill=(55,65,70),font=small)
+    draw.text((x0,620),"7 identical sectors · 6 mm plate",fill=(55,65,70),font=small)
+    draw.text((x0,665),"Ø20.2 bore + internal 6.2 mm keyway",fill=(55,65,70),font=small)
+    draw.text((x0,735),"Gate-1 releases only 2 coupons.",fill=(155,35,35),font=small)
+    draw.text((x0,780),"Physical PLA/PET torque, jam,",fill=(155,35,35),font=small)
+    draw.text((x0,825),"and chip-size data remain NOT_RUN.",fill=(155,35,35),font=small)
+    output=ROOT/"renders/modules/CUT-01_cycloidal_hook_profile.png"; output.parent.mkdir(parents=True,exist_ok=True); image.save(output)
 
 
 def render_manufacturing():
     render(gate1_render_items(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | metal uprights / screen rails / full guard","iso")
     render(gate1_render_items(exploded=True),ROOT/"renders/jigs/gate1_exploded.png","Gate-1 exploded | metal load path and removable guard","iso")
+    render(gate1_render_items(mode="powered"),ROOT/"renders/jigs/gate1_powered_assembly.png","Gate-1 powered | exact interchangeable drive inside closed guard","iso")
+    render(gate1_render_items(exploded=True, mode="powered"),ROOT/"renders/jigs/gate1_powered_exploded.png","Gate-1 powered exploded | DRV-01/Axx/F01/#35/DRV-02","iso")
+    render([i for i in gate1_render_items(mode="powered") if i["group"] != "guard"],ROOT/"renders/jigs/gate1_powered_guard_removed.png","Gate-1 powered guard removed | assembly review only / energization prohibited","iso")
     rotor=[i for i in gate1_assembly() if i["name"].startswith(("CUT01","CUT04","CUT05"))]
     mesh_render(rotor,ROOT/"renders/jigs/gate1_rotor_detail.png","Gate-1 | two cycloidal-derived hook coupons / 5 mm screen","front")
     render_extruder_rfq()
@@ -282,9 +310,12 @@ def main():
     if "--jig-only" in sys.argv:
         render(gate1_render_items(),ROOT/"renders/jigs/gate1_assembly.png","Gate-1 | metal uprights / screen rails / full guard","iso")
         render(gate1_render_items(exploded=True),ROOT/"renders/jigs/gate1_exploded.png","Gate-1 exploded | metal load path and removable guard","iso")
+        render(gate1_render_items(mode="powered"),ROOT/"renders/jigs/gate1_powered_assembly.png","Gate-1 powered | exact interchangeable drive inside closed guard","iso")
+        render(gate1_render_items(exploded=True, mode="powered"),ROOT/"renders/jigs/gate1_powered_exploded.png","Gate-1 powered exploded | DRV-01/Axx/F01/#35/DRV-02","iso")
+        render([i for i in gate1_render_items(mode="powered") if i["group"] != "guard"],ROOT/"renders/jigs/gate1_powered_guard_removed.png","Gate-1 powered guard removed | assembly review only / energization prohibited","iso")
         rotor=[i for i in gate1_assembly() if i["name"].startswith(("CUT01","CUT04","CUT05"))]
         render(rotor,ROOT/"renders/jigs/gate1_rotor_detail.png","Gate-1 | two cycloidal-derived hook coupons / 5 mm screen","front")
-        print("COMPACT_GATE1_RENDER_OK images=3")
+        print("COMPACT_GATE1_RENDER_OK images=6")
         return
     if "--jig-rotor-only" in sys.argv:
         rotor=[i for i in gate1_assembly() if i["name"].startswith(("CUT01","CUT04","CUT05"))]
@@ -292,7 +323,7 @@ def main():
         print("COMPACT_GATE1_ROTOR_RENDER_OK")
         return
     if "--shredder-only" in sys.argv:
-        mesh_render([{"name":"CUT-01","shape":cutter,"color":(225,116,55),"group":"part"}], ROOT/"renders/modules/CUT-01_cycloidal_hook_profile.png", "CUT-01 | 76% cycloidal capture / fast hook relief", "front")
+        render_cycloidal_hook_construction()
         visible_names = ("DriveMotorDonorEnvelope", "DriveMotorOutputInterface", "CutterSprocket", "MotorSprocket", "ChainTightSide", "ChainSlackSide", "PhaseGear", "Shaft", "MotorMountPlate")
         drive = [i for i in assembly if i["name"].startswith(visible_names) or i["name"] in ("Hook105_0", "Hook153_0")]
         mesh_render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "Guard removed | interchangeable #35 chain / M3 Z16 phase gears", "iso")
@@ -310,12 +341,12 @@ def main():
         render_tool_access(assembly)
         print("COMPACT_TOOL_ACCESS_RENDER_OK images=1")
         return
-    render(assembly, ROOT/"renders/assembly/compact_full_assembly_isometric.png", "solid-manifold-openmodelica-v0.4 | 470 x 700 x 930 mm", "iso")
+    render(assembly, ROOT/"renders/assembly/compact_full_assembly_isometric.png", "coupled-digital-validation-v0.5 | 470 x 700 x 930 mm", "iso")
     render(assembly, ROOT/"renders/assembly/compact_full_assembly_front.png", "Front | vertical forming path and full spool", "front")
     render(assembly, ROOT/"renders/assembly/compact_full_assembly_top.png", "Top | all normal-operation components inside frame", "top")
     shredder=[i for i in assembly if i["group"] in ("input","shredder","feed")]
     render(shredder, ROOT/"renders/modules/shared_shredder_module.png", "Shared hopper / hook cutter / removable screen / bin", "iso")
-    mesh_render([{"name":"CUT-01","shape":cutter,"color":(225,116,55),"group":"part"}], ROOT/"renders/modules/CUT-01_cycloidal_hook_profile.png", "CUT-01 | 76% cycloidal capture / fast hook relief", "front")
+    render_cycloidal_hook_construction()
     visible_names = ("DriveMotorDonorEnvelope", "DriveMotorOutputInterface", "CutterSprocket", "MotorSprocket", "ChainTightSide", "ChainSlackSide", "PhaseGear", "Shaft", "MotorMountPlate")
     drive = [i for i in assembly if i["name"].startswith(visible_names) or i["name"] in ("Hook105_0", "Hook153_0")]
     mesh_render(drive, ROOT/"renders/modules/shredder_drive_guard_removed.png", "Interchangeable #35 chain / M3 Z16 functional phase gears", "iso")

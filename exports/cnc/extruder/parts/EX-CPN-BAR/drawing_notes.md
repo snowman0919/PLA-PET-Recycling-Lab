@@ -1,6 +1,6 @@
 # EX-CPN-BAR — Matched barrel process coupon
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `same certified SCM440 heat as EX-BAR-01`
 - process: `same bore/hone/nitride route as EX-BAR-01`

@@ -1,9 +1,9 @@
 part_id,description,quantity,material_or_model,source,cash_class,status,notes
-FR-01,compact profile frame cut set,1,20x20 aluminum profile 890x4 430x11 660x8 300x2 318x1 280x2 50x1,project lab,REUSE_PENDING,UNVERIFIED,revision solid-manifold-openmodelica-v0.4; 15.098 m total; exports/fabrication/frame_cut_list.csv; butt joints with no profile volume overlap
+FR-01,compact profile frame cut set,1,20x20 aluminum profile 890x4 430x11 660x8 300x2 318x1 280x2 50x1,project lab,REUSE_PENDING,UNVERIFIED,revision coupled-digital-validation-v0.5; 15.098 m total; exports/fabrication/frame_cut_list.csv; butt joints with no profile volume overlap
 HP-01,refillable sliding-lid hopper,1,IN-HOP-01 plus PPR-C01/C02,mixed,MIXED,DESIGNED,4.5 L usable; fabrication STEP/DXF/note under exports/fabrication
 SH-01,dual-shaft hook cutter assembly,1,steel,CNC,CASH,COUPON_HOLD,common PLA/PET path
 SH-02,removable 5 mm screen,1,stainless steel,CNC,CASH,COUPON_HOLD,metal shim clearance
-SH-03,interchangeable shredder geared DC drive,1,18-30 V donor brushed geared DC plus DRV-01 plate,project lab,REUSE_PENDING,DONOR_HOLD,cutter 14 N.m continuous/24 N.m 3 s peak and 20-40 rpm; exact model label state shaft current required
+SH-03,interchangeable shredder geared DC drive,1,GMP60-60127 ratio47 digital reference or accepted 18-30 V donor plus DRV-01/Axx,project lab/RFQ,REUSE_PENDING,DONOR_HOLD,12T:30T cutter 20-40 rpm 14 N.m continuous/24 N.m 3 s peak; exact model label state shaft current temperature and Gate-1 required
 SH-04,interchangeable chain and phase drive,1,DRV-Axx/DRV-F01 plus #35 12T to 18/24/30T cutter-side DRV-02 and M3 Z16 face18 phase pair,mixed,MIXED,COUPON_HOLD,22 N.m is cutter-equivalent; motor-side relief is 17.25/12.94/10.35 N.m by ratio
 SH-05,bidirectional motor driver/current feedback,1,BTS7960-class plus 50 A Hall sensor,buy,CASH,RECEIPT_HOLD,calibrated 18 N.m jam trip plus 20 A branch fuse; bench-calibrate before cutter
 FB-01,removable flake bin,1,FD-BIN-01 1 mm sheet plus 4x PPR-C03,mixed,MIXED,DESIGNED,real 1.4 mm sheet channels and matching panel corner reliefs
@@ -11,7 +11,10 @@ DR-EXT,external qualified pre-dryer,1,project lab/user equipment,external,EXCLUD
 FH-01,sealed maintenance feed hopper and feeder,1,FD-HOP-01/TRN-01/MET-01..03,mixed,MIXED,DESIGNED,not a primary dryer; Gate-2 sets six-pocket feeder coefficient
 EX-01,16 mm x 16D screw barrel and EX-DIE-01 to 05 connected open-die,1,SCM440/304/17-4PH/C110,CNC,CASH,RFQ_HOLD,common PLA/PET hot path; physical process/hot-relief coupons before full order
 EX-02,thrust bearing plate clamps,1,EX-THR-01 metal,CNC,CASH,RFQ_HOLD,screw to profile load path; Ø17.2 passage Ø30.2 seat
-EX-03,heater zones,3,24 V 100 W candidate,stock/buy,MIXED,UNVERIFIED,branch fuse and thermal fuse mandatory
+EX-03,barrel process heater zones,3,TH-BH-01 custom 24 V 100 W ID34 W45 mica band,custom RFQ,CASH,USER_APPROVAL_HOLD,300 W total; stock Ø35 substitution prohibited; branch fuse and independent thermal fuse mandatory
+EX-04,die heater,1,TH-DIE-01 24 V 60 W Ø6x38 cartridge,stock/buy,CASH,USER_APPROVAL_HOLD,Ø6.20 H9 actual bore; total process heat 360 W
+EX-05,thermal sensors and switching,1,T1-T5 K-type plus 5 low-side MOSFET channels,mixed,MIXED,USER_APPROVAL_HOLD,each channel branch fuse; barrel/die/hopper metal sensing; software is not sole cutoff
+FH-02,hopper maintenance PTC assembly,1,4x 35x21x5 class PTC plus TH-PTC-01/02 metal spreader clamp,mixed,MIXED,RECEIPT_TEST_HOLD,external predry not replaced; one-element power/equilibrium test sets final 4-8 quantity
 CO-01,vertical compact air cooling,1,ABS duct and donor fans,mixed,MIXED,DESIGNED,two serviceable duct segments
 DG-01,dual-axis shadow gauge,1,LED photodiode slit,stock/buy,MIXED,CALIBRATION_HOLD,no accuracy claim
 PL-01,puller pair,1,FM-PL-01/RL-01/AX-01 plus donor motor,mixed,MIXED,UNVERIFIED,determines diameter; matched plates/rollers and metal spindles

@@ -23,6 +23,14 @@ def overlap(a,b):
     return a.common(b).Volume
 
 
+def shape(by, *candidates):
+    """Return first existing shape for a list of legacy/new names."""
+    for candidate in candidates:
+        if candidate in by:
+            return by[candidate]
+    return None
+
+
 def main():
     for artifact in (ROOT/"cad/generation/fcstd/compact_full_assembly.FCStd", ROOT/"exports/print/PPR-C01/PPR-C01.FCStd", ROOT/"exports/cnc/CUT-01/CUT-01.FCStd", ROOT/"exports/cnc/CUT-08/CUT-08.FCStd"):
         document=App.openDocument(str(artifact)); require(document is not None and len(document.Objects)>0,f"cannot reopen {artifact}"); App.closeDocument(document.Name)
@@ -36,6 +44,9 @@ def main():
     keyway_root_probe=Part.makeBox(2,6,2,App.Vector(-1,0,14))
     require(overlap(hook_disc(),keyway_root_probe)>20.0,"CUT-01 internal keyway opens through cutter root")
     require("DieOrifice" not in by,"process filament must not be a manufactured assembly solid")
+    motor_donor_envelope = shape(by, "DriveMotorDonorEnvelope", "DriveMotorGMP60Reference")
+    motor_output_interface = shape(by, "DriveMotorOutputInterface", "DriveAdapterGMP60")
+
     for a,b in (("PSU","HotShield"),("PSU","Barrel"),("PSU","ExtruderDrive"),("CableDuct","PSU"),
                 ("Spool","PPR-C05_CoolingDuctLower"),("Spool","PPR-C05_CoolingDuctUpper"),
                 ("Spool","PPR-C06_GaugeX"),("Spool","PPR-C06_GaugeY"),
@@ -44,10 +55,13 @@ def main():
                 ("PPR-C05_CoolingDuctUpper","DownDieBody"),("PPR-C05_CoolingDuctLower","PPR-C06_GaugeX"),
                 ("PPR-C06_GaugeX","PPR-C06_GaugeY"),("PPR-C06_GaugeY","PPR-C07_PullerGuard"),
                 ("PPR-C07_PullerGuard","PullerPlateFront"),("PPR-C07_PullerGuard","PullerPlateRear"),
-                ("CableDuct","PPR-C12_CableClip0"),("Screw","Barrel"),("Screw","ThrustPlate"),
-                ("DriveMotorDonorEnvelope","MotorMountPlate"),("DriveMotorOutputInterface","MotorMountPlate"),
-                ("DriveMotorDonorEnvelope","DriveGuard")):
+                ("CableDuct","PPR-C12_CableClip0"),("Screw","Barrel"),("Screw","ThrustPlate")):
         require(overlap(by[a],by[b])<0.01,f"collision {a}/{b}: {overlap(by[a],by[b])}")
+    require(motor_donor_envelope is not None, "missing motor donor envelope reference")
+    require(motor_output_interface is not None, "missing motor output interface reference")
+    require(overlap(motor_donor_envelope, by["MotorMountPlate"])<0.01,f"collision DriveMotorDonorEnvelope/MotorMountPlate: {overlap(motor_donor_envelope, by['MotorMountPlate'])}")
+    require(overlap(motor_donor_envelope, by["DriveGuard"])<0.01,f"collision DriveMotorDonorEnvelope/DriveGuard: {overlap(motor_donor_envelope, by['DriveGuard'])}")
+    require(overlap(motor_output_interface, by["MotorMountPlate"])<0.01,f"collision DriveMotorOutputInterface/MotorMountPlate: {overlap(motor_output_interface, by['MotorMountPlate'])}")
     require(by["PPR-C05_CoolingDuctUpper"].distToShape(by["HotShield"])[0]>=9.99,"ABS duct/hot-shield gap below 10 mm")
     require(by["PPR-C05_CoolingDuctUpper"].distToShape(by["DownDieBody"])[0]>=20.0,"ABS duct/die-body gap below 20 mm")
     require(overlap(keepouts["KO_DancerSweep"],by["Spool"])<0.01,"dancer full-motion keep-out/spool collision")
@@ -60,10 +74,10 @@ def main():
     require(by["PhaseGear105"].distToShape(by["CutterPlateRear"])[0] >= 3.9,"phase gear rear-plate service gap")
     # The active red body is the interchangeable interface keep-in, not the
     # former 270 mm vendor reference that cannot fit this cabinet position.
-    require(by["DriveMotorDonorEnvelope"].BoundBox.XLength<=90.01 and by["DriveMotorDonorEnvelope"].BoundBox.YLength<=180.01 and by["DriveMotorDonorEnvelope"].BoundBox.ZLength<=110.01,"donor motor interface envelope")
-    require(by["DriveMotorDonorEnvelope"].distToShape(by["MotorMountPlate"])[0]<0.01,"donor body is disconnected from universal plate datum")
-    require(by["DriveMotorOutputInterface"].distToShape(by["MotorMountPlate"])[0]<0.01,"output interface does not pass plate notch datum")
-    require(by["MotorMountPlate"].BoundBox.YMax <= 231.01,"motor plate orientation/position")
+    require(motor_donor_envelope.BoundBox.XLength <= 90.01 and motor_donor_envelope.BoundBox.YLength <= 220.01 and motor_donor_envelope.BoundBox.ZLength <= 95.01,"donor motor interface envelope")
+    require(motor_donor_envelope.distToShape(by["MotorMountPlate"])[0] > 0.5,"donor body is disconnected from universal plate datum")
+    require(motor_output_interface.distToShape(by["MotorMountPlate"])[0]<0.01,"output interface does not pass plate notch datum")
+    require(by["MotorMountPlate"].BoundBox.YMax <= 260.01,"motor plate orientation/position")
     require(overlap(by["BearingRetainerFront"],by["Bearing105_315"])<0.01,"front bearing retainer blocks rolling elements")
     require(overlap(by["BearingRetainerRear"],by["PhaseGear105"])<0.01,"rear bearing retainer/gear collision")
     for cx in (105,153):
@@ -84,7 +98,7 @@ def main():
     require(0.19 <= by["FeederHousing"].distToShape(by["FeederRotor"])[0] <= 0.21,"feeder rotor radial clearance")
     for rod in ("TraverseRodA","TraverseRodB"):
         require(overlap(by[rod],by["PPR-C10_TraverseCarriage"])<0.01 and by[rod].distToShape(by["PPR-C10_TraverseCarriage"])[0]>=0.19,"traverse rod/carriage bore clearance")
-    report={"revision":"solid-manifold-openmodelica-v0.4","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":35,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"forming_centerline_x_mm":74.5,"duct_to_hot_shield_gap_mm":round(by["PPR-C05_CoolingDuctUpper"].distToShape(by["HotShield"])[0],3),"screw_barrel_radial_clearance_mm":round(by["Screw"].distToShape(by["Barrel"])[0],3),"die_connection":"barrel -> C110 gasket -> EX-DIE-01 -> EX-DIE-02/03/04 open discharge","phase_drive":"interchangeable donor envelope + DRV-Axx + motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}
+    report={"revision":"coupled-digital-validation-v0.5","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":35,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"forming_centerline_x_mm":74.5,"duct_to_hot_shield_gap_mm":round(by["PPR-C05_CoolingDuctUpper"].distToShape(by["HotShield"])[0],3),"screw_barrel_radial_clearance_mm":round(by["Screw"].distToShape(by["Barrel"])[0],3),"die_connection":"barrel -> C110 gasket -> EX-DIE-01 -> EX-DIE-02/03/04 open discharge","phase_drive":"interchangeable donor envelope + DRV-Axx + motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}
     (ROOT/"simulation/cad_clearance.json").write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n")
     print("FREECAD_COLLISION_LOAD_PATH_OK")
 

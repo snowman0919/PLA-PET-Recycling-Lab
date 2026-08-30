@@ -1,6 +1,6 @@
 # PPR-C09 — Spool cone adapter
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: 2
 - material: PLA
 - nozzle diameter: 0.4 mm

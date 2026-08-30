@@ -1,6 +1,6 @@
 # EX-DIE-03 — Replaceable Ø3 die insert
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `17-4PH H900 stainless`
 - process: `turn, drill/ream land, 60 degree included entrance blend, H900, finish lap`

@@ -1,6 +1,6 @@
 # G1J-P01 — Anti-reach coupon feed chute
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `PLA`
 - process: `FDM`

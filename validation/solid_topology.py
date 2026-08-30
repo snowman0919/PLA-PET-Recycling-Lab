@@ -15,7 +15,7 @@ sys.path.insert(0,str(COMPACT))
 from geometry import assembly_objects, print_parts, review_keepout_objects, shredder_metal_parts, tolerance_coupon  # noqa: E402
 from manufacturing import extruder_rfq_parts, gate1_parts  # noqa: E402
 
-REV="solid-manifold-openmodelica-v0.4"
+REV="coupled-digital-validation-v0.5"
 
 
 def audit(part_id,shape,category,expected_solids=1):

@@ -1,14 +1,16 @@
 part_id,name,quantity,material,process,x_mm,y_mm,z_mm,critical,release_state
-G1J-01,Reusable jig base plate,1,8 mm donor steel/aluminum plate,laser/drill or donor plate drill template,320.00,240.00,8.00,320 x240 x8; table holes Ø9; flatness <=0.30; deburr C0.5,HOLD_USER_APPROVAL
+G1J-01,Reusable jig base plate,1,8 mm donor steel/aluminum plate,laser/drill or donor plate drill template,380.00,280.00,8.00,380 x280 x8; table holes Ø9; flatness <=0.30; deburr C0.5,HOLD_USER_APPROVAL
 G1J-02,250 mm torque arm,1,6 mm S45C/structural steel,laser cut + deburr,300.00,25.00,6.00,shaft bore Ø20.2 +0.10/0; 6.2 keyway; shaft centre to force hole 250.0 ±0.5; flatness 0.20,HOLD_USER_APPROVAL
-G1J-03,Front/rear guard panel,2,3 mm polycarbonate,CNC router/laser only if supplier permits; drill and deburr,230.00,180.00,3.00,230 x180 x3; 6x Ø4.5 at X10/220 and Y10/90/170; no acrylic; edges R0.5,HOLD_USER_APPROVAL
-G1J-04,Left guard panel,1,3 mm polycarbonate,CNC router/drill,180.00,180.00,3.00,180 x180 x3; 6x Ø4.5 at X10/170 and Y10/90/170; no acrylic; edges R0.5,HOLD_USER_APPROVAL
-G1J-05,Right slotted guard panel,1,3 mm polycarbonate,CNC router/drill,180.00,180.00,3.00,180 x180 x3; open-edge slot X53..82 x Y0..20; 2 mm minimum arm clearance; 6x Ø4.5; no cracks,HOLD_USER_APPROVAL
-G1J-06,Torque-slot offset baffle,1,3 mm polycarbonate,CNC router/drill,30.00,55.00,3.00,30 x55 x3; 4x Ø4.5; offset >=10 from arm slot; blocks line of sight,HOLD_USER_APPROVAL
-G1J-07,Metal guard upright,4,20 x20 x2 aluminum/steel angle,saw cut + drill,20.00,20.00,180.00,L180 ±0.5; 6x Ø4.5; verticality 0.5/180; primary fragment load path,HOLD_USER_APPROVAL
+G1J-03,Front/rear guard panel,2,3 mm polycarbonate,CNC router/drill; laser only with supplier approval,340.00,220.00,3.00,340 x220 x3; 6x Ø4.5 at X10/330 and Y10/110/210; no acrylic; edges R0.5,HOLD_USER_APPROVAL
+G1J-04,Left guard panel,1,3 mm polycarbonate,CNC router/drill,220.00,260.00,3.00,220 x260 x3; 6x Ø4.5 at X10/210 and Y10/130/250; no acrylic; edges R0.5,HOLD_USER_APPROVAL
+G1J-05,Right slotted guard panel,1,3 mm polycarbonate,CNC router/drill,220.00,260.00,3.00,220 x260 x3; arm slot local X60..100/Y30..55; >=2 mm arm clearance; offset baffle required; no cracks,HOLD_USER_APPROVAL
+G1J-06,Torque-slot offset baffle,1,3 mm polycarbonate,CNC router/drill,45.00,70.00,3.00,45 x70 x3; 4x Ø4.5; offset >=10 from arm slot; blocks line of sight,HOLD_USER_APPROVAL
+G1J-07,Metal guard upright,4,20 x20 x2 aluminum/steel angle,saw cut + drill,20.00,20.00,220.00,L220 ±0.5; 6x Ø4.5; verticality 0.5/220; primary fragment load path,HOLD_USER_APPROVAL
 G1J-08,Removable screen rail,2,20 x20 x2 steel angle,saw cut + drill,20.00,150.00,20.00,L150 ±0.5; 2x Ø5.5; screen plane shimmed for >=1.9 cutter clearance,HOLD_USER_APPROVAL
 G1J-09,Universal guard-interlock bracket,1,2 mm steel,laser/drill + 90° bend,50.00,30.00,30.00,50 x30 L bracket; 5 x14 slots; switch plunger overtravel per received switch,HOLD_USER_APPROVAL
 G1J-10,CUT-03 plate foot angle,4,40 x40 x4 steel/aluminum angle,saw cut + drill,50.00,40.00,40.00,L50 ±0.5; 4x Ø6.6; plate perpendicularity 0.20/125 after torque,HOLD_USER_APPROVAL
-G1J-P01,Anti-reach coupon feed chute,1,PLA,FDM,120.00,90.00,95.00,3 walls minimum; no load-path duty; baffle intact,HOLD_USER_APPROVAL
+G1J-11,DRV-01 motor-plate foot angle,2,40 x40 x4 steel/aluminum angle,saw cut + drill,50.00,40.00,40.00,same stock profile as G1J-10; L50 ±0.5; DRV-01 verticality 0.5/140,HOLD_USER_APPROVAL
+G1J-12,Top guard panel with chute opening,1,3 mm polycarbonate,CNC router/drill,340.00,260.00,3.00,340 x260 x3; 122 x92 chute opening at X69/Y84; no acrylic; no unguarded gap >6 mm,HOLD_USER_APPROVAL
+G1J-P01,Anti-reach coupon feed chute,1,PLA,FDM,120.00,90.00,115.00,3 walls minimum; no load-path duty; baffle intact,HOLD_USER_APPROVAL
 G1J-P02,Removable chip collection tray,1,PLA,FDM,180.00,160.00,42.00,3 walls minimum; removable without rotor access,HOLD_USER_APPROVAL
-G1J-P03,Guard edge trim,4,PLA,FDM,10.00,10.00,180.00,edge trim only; metal G1J-07 retains panel,HOLD_USER_APPROVAL
+G1J-P03,Guard edge trim,4,PLA,FDM,10.00,10.00,210.00,edge trim only; metal G1J-07 retains panel,HOLD_USER_APPROVAL

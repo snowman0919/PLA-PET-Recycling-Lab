@@ -1,9 +1,9 @@
 part_id,name,quantity,material,process,x_mm,y_mm,z_mm,files,release_state
-CUT-01,Cycloidal hook cutter disc,12,6 mm D2/SKD11 candidate,waterjet or laser + finish grind,57.62,6.00,56.69,FCStd|STEP|DXF|notes,HOLD_GATE_1
-CUT-02,Cutter spacer,10,steel,simple turning,28.00,28.00,7.00,FCStd|STEP|DXF|notes,HOLD_GATE_1
-CUT-03,Bearing side plate,2,12 mm steel or 15 mm 6061 after Gate 1,laser + bearing-seat finish,150.00,125.00,12.00,FCStd|STEP|DXF|notes,HOLD_GATE_1
-CUT-04,5 mm aperture screen,2,3 mm 304 stainless,laser cut + deburr,135.00,120.00,3.00,FCStd|STEP|DXF|notes,HOLD_GATE_1
-CUT-05,20 mm keyed cutter shaft,2,S45C,turn + keyway,20.00,220.00,20.00,FCStd|STEP|DXF|notes,HOLD_GATE_1
-CUT-06,Phase gear axial spacer,2,steel,simple turning,30.00,30.00,4.00,FCStd|STEP|DXF|notes,HOLD_GATE_1
-CUT-07,DRV-01 universal donor motor plate,1,6 mm steel,laser cut + deburr; standard metal angles,180.00,140.00,6.00,FCStd|STEP|DXF|notes,HOLD_GATE_1
-CUT-08,Dual 6004 bearing retainer,2,2 mm steel,laser cut + deburr,108.00,60.00,2.00,FCStd|STEP|DXF|notes,HOLD_GATE_1
+CUT-01,Cycloidal hook cutter disc,12,6 mm D2/SKD11 candidate,waterjet or laser + finish grind,57.62,6.00,56.69,FCStd|STEP|DXF|notes,GATE1_MAX_2_ALLOWED_USER_APPROVAL_REQUIRED; REMAINING_10_HOLD
+CUT-02,Cutter spacer,10,steel,simple turning,28.00,28.00,7.00,FCStd|STEP|DXF|notes,HOLD_UNTIL_PHYSICAL_GATE1_PASS
+CUT-03,Bearing side plate,2,12 mm steel or 15 mm 6061 after Gate 1,laser + bearing-seat finish,150.00,125.00,12.00,FCStd|STEP|DXF|notes,GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED
+CUT-04,5 mm aperture screen,2,3 mm 304 stainless,laser cut + deburr,135.00,120.00,3.00,FCStd|STEP|DXF|notes,GATE1_MAX_1_ALLOWED_USER_APPROVAL_REQUIRED; REMAINING_1_HOLD
+CUT-05,20 mm keyed cutter shaft,2,S45C,turn + keyway,20.00,240.00,20.00,FCStd|STEP|DXF|notes,GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED
+CUT-06,Phase gear axial spacer,2,steel,simple turning,30.00,30.00,4.00,FCStd|STEP|DXF|notes,HOLD_UNTIL_PHYSICAL_GATE1_PASS
+CUT-07,DRV-01 universal donor motor plate,1,6 mm steel,laser cut + deburr; standard metal angles,180.00,140.00,6.00,FCStd|STEP|DXF|notes,GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL
+CUT-08,Dual 6004 bearing retainer,2,2 mm steel,laser cut + deburr,108.00,60.00,2.00,FCStd|STEP|DXF|notes,GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED

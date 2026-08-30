@@ -1,21 +1,21 @@
 {
-  "revision": "solid-manifold-openmodelica-v0.4",
-  "pair_count": 9453,
+  "revision": "coupled-digital-validation-v0.5",
+  "pair_count": 13041,
   "tolerance_mm3": 0.05,
   "overlaps": [
     {
-      "left": "CutterSprocket24T",
+      "left": "CutterSprocket30T",
       "right": "ChainTightSide",
-      "overlap_mm3": 115.672,
+      "overlap_mm3": 1108.993,
       "left_class": "manufactured_or_stock",
       "right_class": "purchased_reference_lod",
       "allowed": true,
       "reason": "보수적 chain LOD와 sprocket 맞물림 체적"
     },
     {
-      "left": "CutterSprocket24T",
+      "left": "CutterSprocket30T",
       "right": "ChainSlackSide",
-      "overlap_mm3": 115.672,
+      "overlap_mm3": 1108.993,
       "left_class": "manufactured_or_stock",
       "right_class": "purchased_reference_lod",
       "allowed": true,

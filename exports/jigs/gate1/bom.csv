@@ -1,22 +1,28 @@
 item_id,item,qty,source,planning_cash_krw,budget_bucket,status,reuse_after_test,notes
-CUT-01,CUT-01 coupon disc,2,exports/cnc/CUT-01,4000,CNC-01,COUPON_RFQ_ALLOWED,yes,D2/SKD11 candidate; remaining full stack is HOLD
-CUT-03,CUT-03 side plate,2,exports/cnc/CUT-03,7000,CNC-02,RFQ_HOLD,yes,42 H7 bearing seats match-machined
-CUT-05,CUT-05 shaft,2,exports/cnc/CUT-05,11000,CNC-03,RFQ_HOLD,yes,final-machine shaft; received inspection required
-CUT-04,CUT-04 5 mm screen coupon,1,exports/cnc/CUT-04,5000,CNC-04,COUPON_RFQ_ALLOWED,yes,3 mm 304; actual clearance >=1.9 mm
+CUT-01,CUT-01 coupon disc,2,exports/cnc/CUT-01,4000,CNC-01,GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED,yes,maximum Gate-1 release 2; remaining 10-disc full stack HOLD
+CUT-03,CUT-03 side plate,2,exports/cnc/CUT-03,3000,CNC-02,GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED,yes,both plates are required by Gate-1 and reused; 42 H7 seats match-machined
+CUT-05,CUT-05 shaft,2,exports/cnc/CUT-05,7000,CNC-03,GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED,yes,both final shafts are required by Gate-1; received inspection required
+CUT-04,CUT-04 5 mm screen coupon,1,exports/cnc/CUT-04,4000,CNC-04,GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED,yes,maximum Gate-1 release 1; second screen HOLD; actual clearance >=1.9 mm
+CUT-08,6004 bearing retainer,2,exports/cnc/CUT-08,0,CNC-02,GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED,yes,positive bearing outer-ring retention; nested in CNC-02 allowance
 BRG-6004,6004-2RS bearing,4,project-lab/donor or HW-ALLOW,0,HW-ALLOW,VERIFY_INVENTORY,yes,designation/play/corrosion; buy cost must remain inside bucket
-DRV-03,M3 Z16 phase gear lamination,6,exports/drive_interface,6000,SH-INTERFACE,COUPON_RFQ_ALLOWED,yes,3 laminations/gear; 2xM4 + 1x3H7 dowel PCD30
-G1J-01,Reusable base plate,1,donor plate; drawing supplied,0,HW-ALLOW,VERIFY_INVENTORY,jig,"320x240x8, flatness <=0.30; no zero-cash claim until verified"
-G1J-02,250 mm torque arm,1,exports/jigs/gate1/parts,0,CNC-02,RFQ_HOLD,jig,nest with CNC-02 flat pack; no separate budget addition
+DRV-03,M3 Z16 keyed phase gear lamination,6,exports/drive_interface,3000,SH-INTERFACE,GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED,yes,3 laminations/gear; 6 mm key + 2xM4 + 1x3H7 dowel PCD30
+DRV-01/Axx,Universal plate plus one measured motor adapter,1,exports/drive_interface,0,CNC-02,GATE1_RFQ_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL,yes,"DRV-A60 is reference only; donor changes adapter, not common plate"
+DRV-F01/02/#35,"Shear hub, cutter hub, 12T/30T sprockets and chain",1,exports/drive_interface,3000,SH-INTERFACE,GATE1_RFQ_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL,yes,powered configuration only; DRV-F01P calibrated before material feed
+G1J-01,Reusable base plate,1,donor plate; drawing supplied,0,HW-ALLOW,VERIFY_INVENTORY,jig,"380x280x8, flatness <=0.30; no zero-cash claim until verified"
+G1J-02,250 mm torque arm,1,exports/jigs/gate1/parts,0,CNC-02,GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED,jig,manual configuration only; remove before powered configuration
 G1J-03,Front/rear polycarbonate panels,2,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,"3 mm PC, never acrylic; bucket includes all G1J-03..06 sheet"
 G1J-04,Left polycarbonate panel,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,3 mm PC
 G1J-05,Right slotted polycarbonate panel,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,open edge slot and baffle required
 G1J-06,Torque-slot offset baffle,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,blocks fragment line of sight
-G1J-07,20x20x2 metal guard upright L180,4,standard angle stock,0,HW-ALLOW,BUY_HOLD,jig,primary fragment-retention load path
+G1J-07,20x20x2 metal guard upright L220,4,standard angle stock,0,HW-ALLOW,BUY_HOLD,jig,primary fragment-retention load path
 G1J-08,20x20x2 steel screen rail L150,2,standard angle stock,0,HW-ALLOW,BUY_HOLD,jig,shimmed/removable
 G1J-09,Interlock metal bracket,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,switch model-specific overtravel set at assembly
 G1J-10,40x40x4 CUT-03 foot L50,4,standard angle stock,0,HW-ALLOW,BUY_HOLD,jig,metal plate-to-base load path
+G1J-11,40x40x4 DRV-01 foot L50,2,same stock as G1J-10,0,HW-ALLOW,BUY_HOLD,jig,powered configuration motor-plate load path
+G1J-12,Top polycarbonate panel with chute opening,1,exports/jigs/gate1/parts,0,SAFE-ALLOW,BUY_HOLD,jig,3 mm PC closes fragment path; included in guard allowance
 MET-01,0-200 N force gauge or 100 kg load cell/HX711,1,project-lab or buy allowance,7500,GATE1-METROLOGY,CALIBRATION_HOLD,jig,accuracy <=2%; M8 clevis and independent safety tether
-G1J-P01..03,Printed chute/tray/edge trim,1,exports/jigs/gate1/parts,4500,GATE1-PRINT,PRINT_HOLD,jig,234 g estimate; cold low-load only
+G1J-P01..03,Printed chute/tray/edge trim,1,exports/jigs/gate1/parts,4400,GATE1-PRINT,PRINT_HOLD,jig,generated mass/cost must remain inside GATE1-PRINT bucket; cold low-load only
+COLLAR/KEY/SHIM,"Ø20 split collars 8, 6x6 keys, 0.25/0.50 metal shims",1,standard hardware,0,HW-ALLOW,BUY_HOLD,yes,coupon and shaft axial retention; no printed shim or set-screw-only torque path
 SAFE-K0/K1,Manual-reset control relay and 24 V motor power relay,1,project-lab or SAFE-ALLOW,0,SAFE-ALLOW,VERIFY_RATING,yes,K1 DC breaking rating >=30 V/25 A; K0 has seal-in auxiliary contact
 SAFE-S0/S1,Latching E-stop NC + positive-opening guard switch NC,1,project-lab or SAFE-ALLOW,0,SAFE-ALLOW,VERIFY_RATING,yes,series hard inhibit; Mega cannot bypass
 SAFE-F1/F2,20 A motor branch fuse + 2 A control fuse,1,project-lab or fuse allowance,0,FUSE-ALLOW,VERIFY_RATING,yes,close to 24 V source

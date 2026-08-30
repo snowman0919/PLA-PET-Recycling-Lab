@@ -1,6 +1,6 @@
 # PPR-C12 — Cable duct clamp
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: 8
 - material: PLA
 - nozzle diameter: 0.4 mm

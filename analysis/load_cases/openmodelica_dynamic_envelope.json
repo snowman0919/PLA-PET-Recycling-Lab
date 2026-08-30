@@ -1,28 +1,15 @@
 {
-  "revision": "solid-manifold-openmodelica-v0.4",
-  "source": "OpenModelica DASSL scenario maximum; PHYSICAL_NOT_RUN",
-  "governing_scenarios": {
-    "peak_cutter_torque_nm": "InputFuseOperation",
-    "peak_phase_torque_nm": "InputFuseOperation",
-    "peak_bearing_load_n": "JamReverseRetry",
-    "peak_chain_force_n": "InputFuseOperation",
-    "peak_frame_reaction_n": "JamReverseRetry"
-  },
+  "revision": "coupled-digital-validation-v0.5",
+  "source": "OpenModelica DASSL coupled surrogate; PHYSICAL_VALIDATION_PENDING",
   "loads": {
-    "peak_cutter_torque_nm": 22.0,
-    "peak_phase_torque_nm": 11.08276331030844,
-    "peak_bearing_load_n": 1255.086741750262,
-    "peak_chain_force_n": 602.9556386019965,
-    "peak_frame_reaction_n": 1394.093622842456
-  },
-  "full_system": {
-    "peak_base_reaction_n": 1365.848870110161,
-    "peak_tipping_moment_nm": 380.4952444976162,
-    "peak_anchor_tension_n": 485.0741497492782,
-    "anchor_tension_limit_n": 1200.0
+    "peak_cutter_torque_nm": 21.99375000439881,
+    "peak_phase_torque_nm": 16.21668665673847,
+    "peak_bearing_load_n": 1797.48967044812,
+    "peak_chain_force_n": 602.7336257714117
   },
   "design_caps": {
-    "input_fuse_torque_nm": 22.0,
+    "electrical_trip_torque_nm": 18.0,
+    "mechanical_fuse_cutter_equivalent_nm": 22.0,
     "phase_allowable_torque_nm": 34.0,
     "shaft_allowable_torque_nm": 48.0
   }

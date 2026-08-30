@@ -31,7 +31,7 @@ def require_columns(name, required):
 
 def main():
     expected_counts = {
-        "preflight_inspection_template.csv": 11,
+        "preflight_inspection_template.csv": 14,
         "calibration_log_template.csv": 4,
         "drive_calibration_template.csv": 9,
         "gate1_results_template.csv": 25,
@@ -61,6 +61,25 @@ def main():
     require(sum(row["calibration_type"] == "TORQUE_CURRENT" for row in drive) == 5, "drive torque/current points")
     require(sum(row["calibration_type"] == "MECH_RELIEF" for row in drive) == 3, "mechanical relief repeats")
 
+    for name in ("gate1_assembly.FCStd","gate1_assembly.step","gate1_assembly.stl",
+                 "gate1_powered_assembly.FCStd","gate1_powered_assembly.step","gate1_powered_assembly.stl"):
+        require((BASE/name).exists() and (BASE/name).stat().st_size > 100, f"missing controlling Gate-1 assembly {name}")
+    bom=rows("bom.csv")
+    by_id={row["item_id"]:row for row in bom}
+    require(by_id["CUT-01"]["qty"] == "2" and "remaining 10" in by_id["CUT-01"]["notes"], "Gate-1 must release exactly two CUT-01 coupons")
+    for item_id in ("CUT-01","CUT-03","CUT-04","CUT-05","CUT-08","DRV-03"):
+        require("GATE1_RFQ_ALLOWED" in by_id[item_id]["status"], f"circular Gate-1 fabrication lock: {item_id}")
+    require("AFTER_DONOR_MEASUREMENT" in by_id["DRV-01/Axx"]["status"], "donor adapter must remain measurement-locked")
+    caps={row["item_id"]:int(row["planned_cash_krw"]) for row in csv.DictReader((ROOT/"bom/cash_budget.csv").open())
+          if row["item_id"] not in {"TARGET_TOTAL","ABSOLUTE_CAP_RESERVE","ABSOLUTE_TOTAL_WITH_RESERVE"}}
+    allocated={}
+    for row in bom:
+        bucket=row["budget_bucket"]
+        allocated[bucket]=allocated.get(bucket,0)+int(row["planning_cash_krw"])
+    for bucket,amount in allocated.items():
+        require(bucket in caps, f"Gate-1 BOM references unknown budget bucket {bucket}")
+        require(amount <= caps[bucket], f"Gate-1 allocation {bucket}={amount} exceeds cash budget {caps[bucket]}")
+
     physical = json.loads((ROOT / "validation/physical_gate_status.json").read_text())
     require(physical["gate1_result"] == "NOT_RUN", "unreviewed physical Gate-1 state")
     require(not physical["full_cutter_order_release"], "full cutter order accidentally released")
@@ -70,7 +89,7 @@ def main():
     require("현재 상태: `NOT_RUN`" in release and "결론: `NOT_RUN | FAIL | PASS`" in release, "Gate-1 release template state")
 
     result = {
-        "revision": "solid-manifold-openmodelica-v0.4",
+        "revision": "coupled-digital-validation-v0.5",
         "gate": "GATE1_EVIDENCE_READINESS",
         "readiness": "READY_FOR_PHYSICAL_GATE_1_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
         "physical_result": "NOT_RUN",
@@ -81,7 +100,8 @@ def main():
             "chip_batches": {"PLA": 1, "PET": 1},
             "drive_torque_current_points": 5,
             "mechanical_relief_repeats": 3,
-            "preflight_checks": 11,
+            "preflight_checks": 14,
+            "gate1_budget_allocation_krw": allocated,
             "evidence_hash_slots": 8,
         },
         "release_locks": {

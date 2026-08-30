@@ -1,6 +1,6 @@
 # DRV-02 — Bolt-on cutter sprocket hub
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `S45C`
 - process: `turn + keyway + PCD drilling`

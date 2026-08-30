@@ -10,3 +10,6 @@ PF-08,S0 opens K0/K1 and motor bus,continuity + bus voltage,K1=0 and bus=0,,bool
 PF-09,S1 opens K0/K1 and motor bus,continuity + bus voltage,K1=0 and bus=0,,boolean/V,,,,
 PF-10,power restore automatic restart,power-cycle observation,must not restart,,boolean,,,,
 PF-11,guard panel crack/line of sight,visual + reach probe,0 crack; no cutter reach,,count/boolean,,,,
+PF-12,CUT-08/collar positive retention,visual + axial push/pull,no bearing/coupon axial release,,boolean,,,,
+PF-13,DRV-03 key engagement and phase stack,blue check + witness marks,full key engagement; no relative slip,,boolean,,,,
+PF-14,powered drive/outer guard clearance,feeler + hand rotation,moving drive clearance >=3; outer guard closed,,mm/boolean,,,,

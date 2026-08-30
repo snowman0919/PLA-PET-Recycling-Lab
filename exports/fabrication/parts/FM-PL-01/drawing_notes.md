@@ -1,6 +1,6 @@
 # FM-PL-01 — Puller side plate
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `2`
 - material: `10 mm 6061-T6`
 - process: `waterjet + ream`

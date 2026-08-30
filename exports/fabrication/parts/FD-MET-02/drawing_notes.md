@@ -1,6 +1,6 @@
 # FD-MET-02 — Six-pocket metering rotor
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `POM-C or 304`
 - process: `turn + 3-axis mill six pockets`

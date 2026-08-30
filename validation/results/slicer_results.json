@@ -1,11 +1,11 @@
 {
-  "revision": "solid-manifold-openmodelica-v0.4",
+  "revision": "coupled-digital-validation-v0.5",
   "slicer": "PrusaSlicer 2.9.6",
   "profile": "exports/print/slicer_profiles/PPR_PrusaSlicer_2.9.6.ini",
-  "total_mass_g": 904.6,
-  "failed_print_reserve_g": 108.552,
-  "planning_mass_g": 1013.152,
-  "total_time_s": 294173,
+  "total_mass_g": 904.2,
+  "failed_print_reserve_g": 108.504,
+  "planning_mass_g": 1012.704,
+  "total_time_s": 293883,
   "parts": [
     {
       "part_id": "PPR-C01",
@@ -108,15 +108,15 @@
     {
       "part_id": "PPR-C08",
       "quantity": 2,
-      "mass_g": 61.42,
-      "time_s": 16688,
+      "mass_g": 61.02,
+      "time_s": 16398,
       "support_generation_enabled": true,
-      "support_volume_cm3": 0.618,
+      "support_volume_cm3": 0.3203,
       "plate": "exports/print/plate_layouts/plate-08-PPR-C08.3mf",
       "gcode": "exports/print/slicing_previews/plate-08-PPR-C08.gcode",
       "preview": "exports/print/slicing_previews/plate-08-PPR-C08-first-layer.svg",
       "preview_first_layer_z_mm": 0.24,
-      "preview_segment_count": 1584,
+      "preview_segment_count": 1532,
       "status": "PASS"
     },
     {

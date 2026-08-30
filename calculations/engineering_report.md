@@ -1,11 +1,11 @@
-# 공학 계산 통합 보고 — solid-manifold-openmodelica-v0.4
+# 공학 계산 통합 보고 — coupled-digital-validation-v0.5
 
-- release: `DIGITAL_FABRICATION_BASELINE`, `PHYSICAL_VALIDATION_PENDING`
+- release: `DIGITAL_GEOMETRY_AND_SURROGATE_BASELINE`, `PHYSICAL_NOT_RUN`
 - envelope: 470 × 700 × 930 mm
 - screw profiles: PLA 18 rpm / PET 20 rpm; nominal 111.8/108.4 g/h
 - 200 g/h: nominal 미입증 stretch target
 - torque hierarchy: 14 < 18 < 22 < 34 < 48 N·m, PASS
-- 24 V power arbiter: 500.0 W < 600 W, PASS
+- 24 V power arbiter: 490.0 W < 600 W, PASS
 - EX-DIE-04 first-yield screen: 4.32 MPa, physical relief coupon `NOT_RUN`
 - physical cutter/feed/melt/cooling/dimension tests: `PHYSICAL_NOT_RUN`
 

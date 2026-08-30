@@ -1,6 +1,6 @@
 within PLA_PET_Recycler;
 package Parameters
-  constant String revision = "solid-manifold-openmodelica-v0.4";
+  constant String revision = "coupled-digital-validation-v0.5";
   constant Real normalTorque = 14 "N.m";
   constant Real electricalTripTorque = 18 "N.m";
   constant Real inputFuseTorque = 22 "N.m";

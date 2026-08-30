@@ -1,10 +1,10 @@
 {
-  "revision": "solid-manifold-openmodelica-v0.4",
+  "revision": "coupled-digital-validation-v0.5",
   "gate": "GATE1_EVIDENCE_READINESS",
   "readiness": "READY_FOR_PHYSICAL_GATE_1_AFTER_USER_APPROVAL_AND_INVENTORY_VERIFICATION",
   "physical_result": "NOT_RUN",
   "template_rows": {
-    "preflight_inspection_template.csv": 11,
+    "preflight_inspection_template.csv": 14,
     "calibration_log_template.csv": 4,
     "drive_calibration_template.csv": 9,
     "gate1_results_template.csv": 25,
@@ -24,7 +24,19 @@
     },
     "drive_torque_current_points": 5,
     "mechanical_relief_repeats": 3,
-    "preflight_checks": 11,
+    "preflight_checks": 14,
+    "gate1_budget_allocation_krw": {
+      "CNC-01": 4000,
+      "CNC-02": 3000,
+      "CNC-03": 7000,
+      "CNC-04": 4000,
+      "HW-ALLOW": 0,
+      "SH-INTERFACE": 6000,
+      "SAFE-ALLOW": 0,
+      "GATE1-METROLOGY": 7500,
+      "GATE1-PRINT": 4400,
+      "FUSE-ALLOW": 0
+    },
     "evidence_hash_slots": 8
   },
   "release_locks": {

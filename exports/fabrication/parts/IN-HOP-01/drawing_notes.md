@@ -1,6 +1,6 @@
 # IN-HOP-01 — Refillable input hopper
 
-- revision: `solid-manifold-openmodelica-v0.4`
+- revision: `coupled-digital-validation-v0.5`
 - quantity: `1`
 - material: `2 mm 5052-H32 aluminum`
 - process: `roll cone/cylinder + TIG weld + deburr`
