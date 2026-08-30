@@ -1,6 +1,6 @@
 # PPR-C12 — Cable duct clamp
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: 8
 - material: PLA
 - nozzle diameter: 0.4 mm

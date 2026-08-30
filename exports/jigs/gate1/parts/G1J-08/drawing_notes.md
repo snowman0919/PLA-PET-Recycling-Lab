@@ -1,6 +1,6 @@
 # G1J-08 — Removable screen rail
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `2`
 - material: `20 x20 x2 steel angle`
 - process: `saw cut + drill`

@@ -1,6 +1,6 @@
 # SP-SH-01 — Spool spindle
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `Ø12 h6 S45C`
 - process: `cut/turn faces + collar flats`

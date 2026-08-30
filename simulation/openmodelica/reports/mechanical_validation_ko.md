@@ -1,8 +1,9 @@
-# OpenModelica virtual physics validation v0.6
+# OpenModelica virtual physics validation v0.6.1
 
 - 판정: **PASS**
-- 시나리오: 74개
-- release: `IMPLEMENTATION_BASELINE`
+- 시나리오: 111개
+- release: `SAFETY_ORCHESTRATION_BASELINE`
+- implementation: `IMPLEMENTATION_BASELINE`
 - virtual physics: `VIRTUAL_PHYSICS_VALIDATED`
 - cross solver: `CROSS_SOLVER_VALIDATION_PENDING`
 - empirical: `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
@@ -46,7 +47,7 @@
 |FullSpool|PASS|RELEASE_ACCEPTANCE|
 |SpoolJam|PASS|RELEASE_ACCEPTANCE|
 |DancerLimit|PASS|RELEASE_ACCEPTANCE|
-|GaugeDropout|PASS|RELEASE_ACCEPTANCE|
+|GaugeDropout|PASS|FAULT_CONTAINMENT_AND_REQUALIFICATION|
 |RealSpoolJam|PASS|RELEASE_ACCEPTANCE|
 |SpoolJamPropagation|PASS|RELEASE_ACCEPTANCE|
 |FullSystemPLA|PASS|RELEASE_ACCEPTANCE|
@@ -84,3 +85,40 @@
 |DynamicPowerPreheating|PASS|RELEASE_ACCEPTANCE|
 |DynamicPowerExtrusion|PASS|RELEASE_ACCEPTANCE|
 |DynamicPowerCooldown|PASS|RELEASE_ACCEPTANCE|
+|EmptySpoolJam|PASS|RELEASE_ACCEPTANCE|
+|HalfSpoolJam|PASS|RELEASE_ACCEPTANCE|
+|FullSpoolJam|PASS|RELEASE_ACCEPTANCE|
+|DancerPrelimitStop|PASS|RELEASE_ACCEPTANCE|
+|DancerHardStopSensitivity|PASS|SENSITIVITY_ONLY_NOT_NORMAL_SAFE_BEHAVIOR|
+|GaugeRequalification|PASS|RELEASE_ACCEPTANCE|
+|GaugeLossRundown|PASS|RELEASE_ACCEPTANCE|
+|CoolingLossRundown|PASS|RELEASE_ACCEPTANCE|
+|SpoolPermissionLossRundown|PASS|RELEASE_ACCEPTANCE|
+|QualityViolationRequalification|PASS|RELEASE_ACCEPTANCE|
+|PullerTachStartupGrace|PASS|RELEASE_ACCEPTANCE|
+|PullerTachStartupFailure|PASS|RELEASE_ACCEPTANCE|
+|PurgePLAtoPET|PASS|RELEASE_ACCEPTANCE|
+|PurgePETtoPLA|PASS|RELEASE_ACCEPTANCE|
+|PurgeWastePathBlocked|PASS|RELEASE_ACCEPTANCE|
+|PurgeFeedApprovalMissing|PASS|RELEASE_ACCEPTANCE|
+|PurgeEmergencyStop|PASS|RELEASE_ACCEPTANCE|
+|PurgeHeaterFault|PASS|RELEASE_ACCEPTANCE|
+|PurgeScrewFault|PASS|RELEASE_ACCEPTANCE|
+|PurgeCoolingFault|PASS|RELEASE_ACCEPTANCE|
+|PurgeNormalAbortCooldown|PASS|RELEASE_ACCEPTANCE|
+|PurgeSuccessfulCompletionCooldown|PASS|RELEASE_ACCEPTANCE|
+|PreheatRequiresExplicitExtrusionArm|PASS|RELEASE_ACCEPTANCE|
+|PreheatRejectsUncalibratedCooling|PASS|RELEASE_ACCEPTANCE|
+|PreheatRejectsInvalidCoolingFeedback|PASS|RELEASE_ACCEPTANCE|
+|PreheatCoolingStartupProbe|PASS|RELEASE_ACCEPTANCE|
+|PreheatCoolingProbeDropout|PASS|RELEASE_ACCEPTANCE|
+|PurgeCoolingStartupProbe|PASS|RELEASE_ACCEPTANCE|
+|ShreddingRejectsUncalibratedCurrent|PASS|RELEASE_ACCEPTANCE|
+|AtomicFaultClearNoPartial|PASS|RELEASE_ACCEPTANCE|
+|CooldownAutomaticCompletion|PASS|RELEASE_ACCEPTANCE|
+|FaultCoolingRetention|PASS|RELEASE_ACCEPTANCE|
+|FaultCoolingInvalidFeedbackOff|PASS|RELEASE_ACCEPTANCE|
+|DynamicPowerMaintenancePurge|PASS|RELEASE_ACCEPTANCE|
+|DynamicPowerFormingChainRundown|PASS|RELEASE_ACCEPTANCE|
+|DynamicPowerThermalHold|PASS|RELEASE_ACCEPTANCE|
+|DynamicPowerRequalifying|PASS|RELEASE_ACCEPTANCE|

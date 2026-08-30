@@ -1,0 +1,75 @@
+{
+  "revision": "safety-orchestration-closure-v0.6.1",
+  "status": "PASS",
+  "method": "deterministic trace mutation/fault injection",
+  "mutation_count": 14,
+  "mutations": {
+    "residual_subsystem_latch": "FAIL_DETECTED",
+    "failed_start_in_shredding": "FAIL_DETECTED",
+    "pet_active_without_purge": "FAIL_DETECTED",
+    "cooling_feedback_absent": "FAIL_DETECTED",
+    "dancer_hard_limit_crossing": "FAIL_DETECTED",
+    "invalid_strand_spool": "FAIL_DETECTED",
+    "one_sample_recovery": "FAIL_DETECTED",
+    "purge_over_500w": "FAIL_DETECTED",
+    "estop_clear_implicit_restart": "FAIL_DETECTED",
+    "startup_probe_heater_before_feedback_proof": "FAIL_DETECTED",
+    "purge_motion_before_waste_confirmation": "FAIL_DETECTED",
+    "production_invariant_false": "FAIL_DETECTED",
+    "stale_fusion_binding": "FAIL_DETECTED",
+    "stale_purge_feed_approval": "FAIL_DETECTED"
+  },
+  "detected_errors": {
+    "residual_subsystem_latch": [
+      "row[0] red_team_baseline@1000 IDLE_WITH_SUBSYSTEM_LATCH"
+    ],
+    "failed_start_in_shredding": [
+      "row[0] red_team_baseline@1000 SHREDDING_WITH_FAILED_START"
+    ],
+    "pet_active_without_purge": [
+      "row[0] red_team_baseline@1000 PENDING_MATERIAL_ACTIVE_WITHOUT_PURGE"
+    ],
+    "cooling_feedback_absent": [
+      "row[0] red_team_baseline@1000 COOLING_FEEDBACK_LOSS_NOT_CONTAINED",
+      "row[0] red_team_baseline@1000 SPOOL_ELIGIBILITY_WITHOUT_REQUALIFICATION"
+    ],
+    "dancer_hard_limit_crossing": [
+      "row[0] red_team_baseline@1000 NOMINAL_JAM_CROSSED_HARD_STOP",
+      "row[0] red_team_baseline@1000 SPOOLER_ACTIVE_AT_CONTROLLED_STOP"
+    ],
+    "invalid_strand_spool": [
+      "row[0] red_team_baseline@1000 INELIGIBLE_STRAND_TO_PRODUCTION_SPOOL"
+    ],
+    "one_sample_recovery": [
+      "row[0] red_team_baseline@1000 SPOOL_ELIGIBILITY_WITHOUT_REQUALIFICATION"
+    ],
+    "purge_over_500w": [
+      "row[0] red_team_baseline@1000 PURGE_POWER_ENVELOPE_EXCEEDED",
+      "row[0] red_team_baseline@1000 PURGE_RUNNING_WITHOUT_OPERATOR_PATH_CONFIRMATION"
+    ],
+    "estop_clear_implicit_restart": [
+      "row[1] red_team_baseline@1001 ESTOP_CLEAR_IMPLICIT_RESTART"
+    ],
+    "startup_probe_heater_before_feedback_proof": [
+      "row[0] red_team_baseline@1000 COOLING_STARTUP_HAZARDOUS_OUTPUT_BEFORE_PROOF",
+      "row[0] red_team_baseline@1000 SPOOL_ELIGIBILITY_WITHOUT_REQUALIFICATION"
+    ],
+    "purge_motion_before_waste_confirmation": [
+      "row[0] red_team_baseline@1000 PURGE_MOTION_BEFORE_WASTE_CONFIRMATION"
+    ],
+    "production_invariant_false": [
+      "row[0] red_team_baseline@1000 PRODUCTION_INVARIANT_FALSE"
+    ],
+    "stale_fusion_binding": [
+      "STALE_FUSION_BINDING_ACCEPTED"
+    ],
+    "stale_purge_feed_approval": [
+      "STALE_PURGE_FEED_APPROVAL_REUSE_ALLOWED"
+    ]
+  },
+  "source_hashes": {
+    "validation/red_team_orchestration.py": "60669829da6fcc6fbb347c2bb3452a3b2836f0a54d46423a205ddc6f40b03191",
+    "validation/runtime_trace_rules.py": "0a924d68d3313dbb8c4ec6b45d4dc8a6b8983ea97aca44c876b3f1526283bf4a",
+    "control/process_contract.json": "b0cda8ee3ed63098fad9d447a24b084d4c6e4ccccdea165bab2ca4afc6e8126d"
+  }
+}

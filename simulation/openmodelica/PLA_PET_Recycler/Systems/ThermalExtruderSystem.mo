@@ -13,6 +13,7 @@ model ThermalExtruderSystem
   parameter Boolean feederEnabled=enabled;
   parameter Boolean useExternalCommands=false;
   input Boolean externalHeaterCommand=false;
+  input Real externalHeaterPowerLimitW=360;
   input Boolean externalScrewCommand=false;
   input Boolean externalFeederCommand=false;
   input Real externalScrewScale=1;
@@ -46,6 +47,7 @@ model ThermalExtruderSystem
   Real power2;
   Real power3;
   Real powerDie;
+  Real heaterPowerScale;
   Real screwRPM;
   Real screwOmega(start=0,fixed=true);
   Real commandedScrewRPM;
@@ -100,10 +102,11 @@ equation
   duty2=if stuckOnZone==2 then 1 else if sensorOpen or thermalCut or not heaterCommand then 0 else max(0,min(1,0.20*(targetT2-sensorT2)));
   duty3=if stuckOnZone==3 then 1 else if sensorOpen or thermalCut or not heaterCommand then 0 else max(0,min(1,0.20*(targetT3-sensorT3)));
   dutyDie=if stuckOnZone==4 then 1 else if sensorOpen or thermalCut or not heaterCommand then 0 else max(0,min(1,0.20*(targetTdie-sensorTdie)));
-  power1=if fuseBlown or heaterOpenZone==1 then 0 else 100*duty1;
-  power2=if fuseBlown or heaterOpenZone==2 then 0 else 100*duty2;
-  power3=if fuseBlown or heaterOpenZone==3 then 0 else 100*duty3;
-  powerDie=if fuseBlown or heaterOpenZone==4 then 0 else 60*dutyDie;
+  heaterPowerScale=if useExternalCommands then max(0,min(1,externalHeaterPowerLimitW/360)) else 1;
+  power1=if fuseBlown or heaterOpenZone==1 then 0 else 100*duty1*heaterPowerScale;
+  power2=if fuseBlown or heaterOpenZone==2 then 0 else 100*duty2*heaterPowerScale;
+  power3=if fuseBlown or heaterOpenZone==3 then 0 else 100*duty3*heaterPowerScale;
+  powerDie=if fuseBlown or heaterOpenZone==4 then 0 else 60*dutyDie*heaterPowerScale;
   blockageFraction=if screwJammed then 0.99 else if time<blockageStart then 0 else min(maximumBlockage,(time-blockageStart)/blockageRamp*maximumBlockage);
   commandedScrewRPM=if screwCommand and not thermalCut and ready and not driveTripped then targetRPM*max(0,min(1,screwCommandScale)) else 0;
   screwRPM=screwOmega*60/(2*Modelica.Constants.pi);

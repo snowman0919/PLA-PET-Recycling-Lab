@@ -1,6 +1,6 @@
 # G1J-P03 — Guard edge trim
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `4`
 - material: `PLA`
 - process: `FDM`

@@ -2,12 +2,14 @@ CXX ?= g++
 CXXFLAGS := -std=c++17 -Wall -Wextra -Werror -Isrc
 
 .PHONY: test arduino clean
-test: build/test_profiles build/test_shredder_control build/test_heater_control build/test_gauge_control build/test_ui_core
+test: build/test_profiles build/test_shredder_control build/test_heater_control build/test_gauge_control build/test_ui_core build/test_machine_supervisor build/test_calibration_record
 	./build/test_profiles
 	./build/test_shredder_control
 	./build/test_heater_control
 	./build/test_gauge_control
 	./build/test_ui_core
+	./build/test_machine_supervisor
+	./build/test_calibration_record
 
 arduino:
 	arduino-cli compile --fqbn arduino:avr:mega .
@@ -32,5 +34,13 @@ build/test_ui_core: src/ui_core.cpp tests/test_ui_core.cpp src/ui_core.h src/pro
 	mkdir -p build
 	$(CXX) $(CXXFLAGS) src/ui_core.cpp tests/test_ui_core.cpp -o $@
 
+build/test_machine_supervisor: src/machine_supervisor.cpp src/process_state.cpp src/shredder_control.cpp src/heater_control.cpp src/gauge_control.cpp tests/test_machine_supervisor.cpp
+	mkdir -p build
+	$(CXX) $(CXXFLAGS) src/machine_supervisor.cpp src/process_state.cpp src/shredder_control.cpp src/heater_control.cpp src/gauge_control.cpp tests/test_machine_supervisor.cpp -o $@
+
+build/test_calibration_record: tests/test_calibration_record.cpp src/calibration_record.h
+	mkdir -p build
+	$(CXX) $(CXXFLAGS) tests/test_calibration_record.cpp -o $@
+
 clean:
-	rm -f build/test_profiles build/test_shredder_control build/test_heater_control build/test_gauge_control build/test_ui_core
+	rm -f build/test_profiles build/test_shredder_control build/test_heater_control build/test_gauge_control build/test_ui_core build/test_machine_supervisor build/test_calibration_record

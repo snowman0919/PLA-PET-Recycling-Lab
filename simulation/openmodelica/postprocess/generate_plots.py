@@ -43,7 +43,7 @@ def main() -> None:
     svg_plot("ReverseClear", [("estimated cutter torque", "estimatedCutterTorque"), ("fuse torque", "inputFuse.transmittedTorque"), ("duty", "dutyCommand")], "torque / duty")
     svg_plot("MechanicalFuseTrip", [("estimated cutter torque", "estimatedCutterTorque"), ("fuse torque", "inputFuse.transmittedTorque")], "torque [N m]")
     svg_plot("HotExtrusionJamPLA", [("zone 1", "T1"), ("zone 2", "T2"), ("zone 3", "T3"), ("die", "Tdie")], "temperature [degC]")
-    svg_plot("GaugeDropout", [("line tension", "lineTension")], "tension [N]")
+    svg_plot("GaugeDropout", [("measured diameter", "measuredDiameter"), ("safe pause", "safePause")], "diameter [mm] / state")
     svg_plot("FullSystemPLA", [("bus power", "busPower"), ("net flow", "extruder.netFlowGPH")], "power [W] / flow [g/h]")
     svg_plot("FullSystemJam", [("cutter torque", "shredder.estimatedCutterTorque"), ("motor current", "shredder.motor.current")], "torque [N m] / current [A]")
     print("OPENMODELICA_PLOTS_OK count=6")

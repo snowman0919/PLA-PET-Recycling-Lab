@@ -15,14 +15,17 @@ model FilamentFormingSystem
   parameter Real pullerDisturbanceFraction=0;
   parameter Real gaugeNoiseAmplitude=0;
   parameter Real gaugeBias=0;
+  parameter Real gaugeU95=0.01;
   parameter Real rollerSlipFraction=0.015;
   parameter Real pullerSaturation=0.08;
+  parameter Real pullerSaturationTime=0 "Delayed reduction supports pre-fault qualification scenarios";
   parameter Real ovalityDisturbance=0;
+  parameter Real ovalityDisturbanceTime=0;
   parameter Real transportDelay=if material==1 then 26.7 else 28.6;
   parameter Real gaugeSamplePeriod=0.2;
   parameter Real quantizationMM=0.005;
-  parameter Real diameterKp=if material==1 then 0.40 else 0.30;
-  parameter Real diameterKi=if material==1 then 0.025 else 0.018;
+  parameter Real diameterKp=if material==1 then 0.12 else 0.10;
+  parameter Real diameterKi=0.001;
   parameter Real feedforwardVelocity=if material==1 then 0.00928 else 0.00866;
   Real massFlowGPH;
   Real dieOutletTemperature;
@@ -32,6 +35,7 @@ model FilamentFormingSystem
   Real dieSwellRatio;
   Real coolingShrinkRatio;
   Real effectiveFanPercent;
+  Real flowFeedforwardVelocity;
   Real pullerCommand;
   Real pullerVelocity(start=feedforwardVelocity,fixed=true);
   Real effectiveDrawVelocity;
@@ -51,11 +55,39 @@ model FilamentFormingSystem
   Real diameterError;
   Real theoreticalDiameter;
   Real controlMargin;
+  Real activePullerLimit;
+  Real activeOvalityDisturbance;
   Real measuredOvality;
   Boolean effectiveGaugeValid;
   Boolean ovalityRisk;
   Boolean virtualDiameterPass;
   Boolean safePause;
+  Boolean qualitySampleValid;
+  Boolean spoolEligible;
+  Boolean wasteMode;
+  discrete Boolean qualityQualified(start=false,fixed=true);
+  discrete Integer qualityValidSamples(start=0,fixed=true);
+  discrete Real qualityStableStart(start=-1,fixed=true);
+algorithm
+  when initial() then
+    qualityQualified := false;
+    qualityValidSamples := 0;
+    qualityStableStart := -1;
+  elsewhen sample(0,gaugeSamplePeriod) then
+    if qualitySampleValid then
+      qualityValidSamples := pre(qualityValidSamples)+1;
+      if pre(qualityStableStart)<0 then
+        qualityStableStart := time;
+      end if;
+      if pre(qualityStableStart)>=0 and time-pre(qualityStableStart)>=max(GeneratedControl.requalStableDuration,transportDelay) and pre(qualityValidSamples)+1>=GeneratedControl.requalGaugeSamples then
+        qualityQualified := true;
+      end if;
+    else
+      qualityQualified := false;
+      qualityValidSamples := 0;
+      qualityStableStart := -1;
+    end if;
+  end when;
 equation
   density=if material==1 then 1240 else 1380;
   effectiveMassFlowGPH=max(0,massFlowGPH*(1+(if time>=flowStepTime then flowStepFraction else 0)));
@@ -65,13 +97,16 @@ equation
   effectiveGaugeValid=(if useExternalPermissions then externalGaugeValid else gaugeValid) and not (time>=gaugeDropoutTime and time<gaugeDropoutTime+gaugeDropoutDuration);
   safePause=not effectiveGaugeValid;
   der(controllerIntegral)=if enabled and effectiveGaugeValid then measuredDiameter-1.75 else -controllerIntegral/0.5;
-  pullerCommand=if enabled and not safePause then max(0,min(pullerSaturation,feedforwardVelocity+0.02*(diameterKp*(measuredDiameter-1.75)+diameterKi*controllerIntegral))) else 0;
+  flowFeedforwardVelocity=feedforwardVelocity*effectiveMassFlowGPH/(if material==1 then 99.4 else 100.7)/max(0.5,1-rollerSlipFraction);
+  activePullerLimit=if time>=pullerSaturationTime then pullerSaturation else 0.08;
+  pullerCommand=if enabled and not safePause then max(0,min(activePullerLimit,flowFeedforwardVelocity+0.02*(diameterKp*(measuredDiameter-1.75)+diameterKi*controllerIntegral))) else 0;
   der(pullerVelocity)=((if time>=pullerDisturbanceTime then 1+pullerDisturbanceFraction else 1)*pullerCommand-pullerVelocity)/0.8;
   effectiveDrawVelocity=max(0.0005,pullerVelocity*(1-rollerSlipFraction));
   theoreticalDiameter=1000*sqrt(4*max(1e-9,effectiveMassFlowGPH/1000/3600)/(Modelica.Constants.pi*density*effectiveDrawVelocity));
   massBalanceDiameter=theoreticalDiameter*dieSwellRatio*coolingShrinkRatio;
-  der(diameterX)=(massBalanceDiameter*(1+0.5*ovalityDisturbance)-diameterX)/1.2;
-  der(diameterY)=(massBalanceDiameter*(1-0.5*ovalityDisturbance)-diameterY)/1.4;
+  activeOvalityDisturbance=if time>=ovalityDisturbanceTime then ovalityDisturbance else 0;
+  der(diameterX)=(massBalanceDiameter*(1+0.5*activeOvalityDisturbance)-diameterX)/1.2;
+  der(diameterY)=(massBalanceDiameter*(1-0.5*activeOvalityDisturbance)-diameterY)/1.4;
   when sample(0,gaugeSamplePeriod) then
     sampledX=quantizationMM*floor((delay(diameterX,transportDelay)+gaugeBias+gaugeNoiseAmplitude*sin(17*time))/quantizationMM+0.5);
     sampledY=quantizationMM*floor((delay(diameterY,transportDelay)+gaugeBias-gaugeNoiseAmplitude*sin(13*time))/quantizationMM+0.5);
@@ -87,5 +122,8 @@ equation
   meanTemperature=25+(dieOutletTemperature-25)*exp(-coolingResidenceTime/(density*(if material==1 then 1800 else 1200)*1.75e-3/(4*convectionCoefficient)));
   ovalityRisk=measuredOvality>0.05 or meanTemperature>(if material==1 then 48 else 65);
   virtualDiameterPass=enabled and not safePause and abs(diameterError)<=0.05 and not ovalityRisk;
-  controlMargin=pullerSaturation-pullerCommand;
+  qualitySampleValid=effectiveGaugeValid and gaugeU95<=GeneratedControl.requalU95Max and abs(diameterError)<=GeneratedControl.requalDiameterTolerance and measuredOvality<=GeneratedControl.requalOvalityMax and controlMargin>1e-5 and effectiveFanPercent>=GeneratedControl.coolingCommandThreshold;
+  spoolEligible=qualityQualified and qualitySampleValid;
+  wasteMode=not spoolEligible;
+  controlMargin=activePullerLimit-pullerCommand;
 end FilamentFormingSystem;

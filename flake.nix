@@ -22,12 +22,15 @@
               calculix-ccx
               prusa-slicer
               typst
+              noto-fonts-cjk-sans-static
+              poppler-utils
               python3
               git-lfs
               arduino-cli
             ]) ++ pkgs.lib.optionals (openmodelica-omc != null) [ openmodelica-omc ];
             shellHook = ''
               export FILAMENT_RECYCLER_ROOT="$PWD"
+              export PPR_FONT_PATH="${pkgs.noto-fonts-cjk-sans-static}/share/fonts/opentype/noto-cjk"
               echo "filament-recycler engineering shell"
             '';
           };

@@ -1,6 +1,6 @@
 # SP-AX-01 — Dancer pivot/roller axles
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `2`
 - material: `Ø8 h6 stainless shaft`
 - process: `cut/face + collars`

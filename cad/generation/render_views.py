@@ -359,7 +359,7 @@ def main():
         render_tool_access(assembly)
         print("COMPACT_TOOL_ACCESS_RENDER_OK images=1")
         return
-    render(assembly, ROOT/"renders/assembly/compact_full_assembly_isometric.png", "virtual-physics-closure-v0.5.1 | 470 x 700 x 930 mm", "iso")
+    render(assembly, ROOT/"renders/assembly/compact_full_assembly_isometric.png", "safety-orchestration-closure-v0.6.1 | 470 x 700 x 930 mm", "iso")
     render(assembly, ROOT/"renders/assembly/compact_full_assembly_front.png", "Front | vertical forming path and full spool", "front")
     render(assembly, ROOT/"renders/assembly/compact_full_assembly_top.png", "Top | all normal-operation components inside frame", "top")
     render_release_review_views(assembly)

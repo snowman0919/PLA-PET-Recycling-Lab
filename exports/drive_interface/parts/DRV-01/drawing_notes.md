@@ -1,6 +1,6 @@
 # DRV-01 — Universal donor motor plate
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `6 mm SS400 steel`
 - process: `laser cut + standard metal angles`

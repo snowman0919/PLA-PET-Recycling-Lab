@@ -1,6 +1,6 @@
 # G1J-09 — Universal guard-interlock bracket
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `2 mm steel`
 - process: `laser/drill + 90° bend`

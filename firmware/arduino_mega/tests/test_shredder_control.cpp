@@ -63,6 +63,10 @@ int main() {
   assert(out.command == ShredderCommand::FORWARD);  // Brownout-like RPM deficit without torque overload.
   in.permission_chain_ok = false;
   assert(c.update(in).command == ShredderCommand::FAULT_LATCHED);
+  assert(!c.clearFault(true, in));
+  assert(c.faultLatched());
+  in.permission_chain_ok = true;
+  assert(c.clearFault(true, in));
 
   std::cout << "SHREDDER_CALIBRATED_TORQUE_RPM_RETRY_OK\n";
 }

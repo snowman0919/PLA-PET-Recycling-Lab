@@ -27,6 +27,7 @@ PATTERNS = (
     "exports/step/*.step",
     "exports/cnc/**/*.FCStd", "exports/cnc/**/*.step", "exports/cnc/**/*.dxf", "exports/cnc/**/*.md", "exports/cnc/**/*.pdf", "exports/cnc/*.csv",
     "exports/drive_interface/**/*", "exports/jigs/**/*",
+    "exports/fusion_validation/**/*", "fusion_worker/**/*",
     "exports/print/**/*.FCStd", "exports/print/**/*.step", "exports/print/**/*.stl", "exports/print/**/*.3mf",
     "exports/print/**/*.md", "exports/print/**/*.py", "exports/print/**/*.svg", "exports/print/**/*.csv", "exports/print/*.csv",
     "exports/print/slicer_profiles/*",
@@ -36,7 +37,7 @@ PATTERNS = (
     "firmware/arduino_mega/Makefile", "firmware/arduino_mega/*.md", "firmware/arduino_mega/*.py", "firmware/arduino_mega/*.ino", "firmware/arduino_mega/src/*", "firmware/arduino_mega/tests/*",
     "simulation/*.json", "simulation/openmodelica/**/*.mo", "simulation/openmodelica/**/*.mos",
     "simulation/openmodelica/**/*.json", "simulation/openmodelica/**/*.md", "simulation/openmodelica/results/plots/*.svg",
-    "analysis/**/*.py", "analysis/**/*.json", "analysis/**/*.md", "analysis/structural/generated/*.inp",
+    "analysis/**/*.py", "analysis/**/*.json", "analysis/**/*.md", "analysis/**/*.csv", "analysis/structural/generated/*.inp",
     "requirements/*.md", "validation/*.py", "validation/*.md", "validation/test_plans/*.md", "validation/visual_review/*.md", "validation/physical_gate_status.json", "validation/results/*.json",
 )
 
@@ -47,6 +48,8 @@ def collect_paths(root: Path) -> list[Path]:
         for pattern in PATTERNS
         for path in root.glob(pattern)
         if path.is_file()
+        and "__pycache__" not in path.parts
+        and path.suffix != ".pyc"
         and "simulation/openmodelica/results/raw" not in path.as_posix()
         and not ("exports/print/slicing_previews" in path.as_posix() and path.suffix == ".gcode")
     })

@@ -1,5 +1,6 @@
 {
-  "revision": "implementation-crosssolver-v0.6",
+  "revision": "safety-orchestration-closure-v0.6.1",
+  "safety_orchestration_release_state": "SAFETY_ORCHESTRATION_BASELINE",
   "release_class": "IMPLEMENTATION_BASELINE",
   "geometry_validation": "PASS",
   "fabrication_validation": "PASS",
@@ -7,7 +8,9 @@
   "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
   "empirical_validation": "OPTIONAL_NOT_RUN",
   "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
-  "archive_sha": "b4ce4d73f3b7edee010018223083ee804c6e4cfb",
+  "archive_sha": "60ccd92fe9a7df35b550a2a57649b1263da09d10",
+  "geometry_unchanged_from_sha": "60ccd92fe9a7df35b550a2a57649b1263da09d10",
+  "geometry_change_required": false,
   "cross_solver_state": "CROSS_SOLVER_VALIDATION_PENDING",
   "limits": {
     "hard_envelope_mm": [500.0, 750.0, 1000.0],
@@ -179,7 +182,7 @@
     "heater_zone_hardware": "3x custom mica band 24V 100W as-clamped ID34.00 +0.10/0 width45",
     "heater_zone_axial_ranges_from_barrel_rear_mm": [[45.0,90.0],[115.0,160.0],[190.0,235.0]],
     "barrel_sensor_bores_mm": [95.0,170.0,245.0],
-    "barrel_sensor_bore_spec": "3x diameter3.20 +0.05/0 blind6 radial; nominal melt-bore ligament2.9",
+    "barrel_sensor_bore_spec": "3x diameter3.20 +0.05/0 blind5.5 radial; nominal melt-bore ligament3.4",
     "die_heater_power_w": 60.0,
     "die_heater_spec": "24V 60W diameter6.00 -0.02/-0.06 x38 in diameter6.05 H7 reamed through bore; diametral clearance 0.070-0.122 mm; verify received heater minimum OD and camber",
     "process_heater_total_w": 360.0,

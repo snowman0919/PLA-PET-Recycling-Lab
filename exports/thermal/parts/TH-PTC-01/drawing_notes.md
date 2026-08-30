@@ -1,6 +1,6 @@
 # TH-PTC-01 — Hopper PTC aluminum spreader
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `6061-T6 t3`
 - process: `laser/waterjet + deburr`

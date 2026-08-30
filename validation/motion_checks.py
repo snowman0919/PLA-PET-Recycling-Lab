@@ -52,7 +52,7 @@ def main():
     require(bb.XLength<=500 and bb.YLength<=750 and bb.ZLength<=1000,"hard operating-motion envelope")
     require(bb.XLength<=480 and bb.YLength<=720 and bb.ZLength<=950,"target operating-motion envelope")
     result={
-        "revision":"implementation-crosssolver-v0.6",
+        "revision":"safety-orchestration-closure-v0.6.1",
         "dancer":{"range_deg":[-25,25],"samples":len(dancer_positions),"minimum_checked_clearance_mm":round(dancer_min_clearance,3)},
         "traverse":{"stroke_mm":80,"samples":len(traverse_positions),"minimum_checked_clearance_mm":round(traverse_min_clearance,3)},
         "operating_motion_bounding_box_mm":[round(bb.XLength,3),round(bb.YLength,3),round(bb.ZLength,3)],

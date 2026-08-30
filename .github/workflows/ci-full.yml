@@ -19,15 +19,20 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:avr@1.8.8
       - name: Full deterministic regeneration and validation
-        run: nix develop --command bash -lc 'python3 validation/run_all.py --regenerate-renders'
+        run: nix develop --command bash -lc 'python3 -u validation/run_all.py --regenerate-renders'
+      - name: Exact-head CI-FULL evidence
+        run: nix develop --command bash -lc 'python3 validation/exact_head_evidence.py --stage CI-FULL'
       - name: Upload validation evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: virtual-physics-validation-evidence
+          name: safety-orchestration-v061-full-${{ github.sha }}
           path: |
+            validation/evidence/exact_head_evidence.json
             validation/results/
             simulation/openmodelica/results/
             analysis/structural/results/
+            analysis/cross_solver/
+            exports/fusion_validation/
             artifacts/manifest.json
           retention-days: 30

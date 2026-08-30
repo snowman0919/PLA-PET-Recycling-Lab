@@ -1,6 +1,6 @@
 # G1J-01 — Reusable jig base plate
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `8 mm donor steel/aluminum plate`
 - process: `laser/drill or donor plate drill template`

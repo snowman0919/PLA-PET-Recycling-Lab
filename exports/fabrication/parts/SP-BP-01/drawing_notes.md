@@ -1,6 +1,6 @@
 # SP-BP-01 — Spool 6001 bearing plate
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `2`
 - material: `5 mm 6061-T6`
 - process: `waterjet + bearing-seat finish`

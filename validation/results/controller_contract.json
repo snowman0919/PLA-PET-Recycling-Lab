@@ -1,39 +1,71 @@
 {
-  "revision": "virtual-physics-closure-v0.5.1",
+  "revision": "safety-orchestration-closure-v0.6.1",
   "status": "PASS",
-  "contract_sha256": "98c5186e0b0a8083768ba63d240d5287e7e2a07723ddd23874e411bdf5bc65c4",
+  "contract_sha256": "b0cda8ee3ed63098fad9d447a24b084d4c6e4ccccdea165bab2ca4afc6e8126d",
   "power_phases": [
     {
       "state": "SHREDDING",
-      "average_w": 310.0,
-      "peak_w": 477.0,
+      "average_w": 310,
+      "peak_w": 477,
       "peak_current_a": 19.875,
       "remaining_w_margin": 123.0,
       "remaining_a_margin": 5.125
     },
     {
       "state": "PREHEATING",
-      "average_w": 300.0,
-      "peak_w": 405.0,
+      "average_w": 300,
+      "peak_w": 405,
       "peak_current_a": 16.875,
       "remaining_w_margin": 195.0,
       "remaining_a_margin": 8.125
     },
     {
       "state": "EXTRUSION",
-      "average_w": 340.0,
-      "peak_w": 490.0,
-      "peak_current_a": 20.417,
-      "remaining_w_margin": 110.0,
-      "remaining_a_margin": 4.583
+      "average_w": 340,
+      "peak_w": 454,
+      "peak_current_a": 18.917,
+      "remaining_w_margin": 146.0,
+      "remaining_a_margin": 6.083
+    },
+    {
+      "state": "MAINTENANCE_PURGE",
+      "average_w": 373,
+      "peak_w": 447,
+      "peak_current_a": 18.625,
+      "remaining_w_margin": 153.0,
+      "remaining_a_margin": 6.375
+    },
+    {
+      "state": "FORMING_CHAIN_RUNDOWN",
+      "average_w": 359,
+      "peak_w": 437,
+      "peak_current_a": 18.208,
+      "remaining_w_margin": 163.0,
+      "remaining_a_margin": 6.792
+    },
+    {
+      "state": "THERMAL_HOLD",
+      "average_w": 305,
+      "peak_w": 365,
+      "peak_current_a": 15.208,
+      "remaining_w_margin": 235.0,
+      "remaining_a_margin": 9.792
+    },
+    {
+      "state": "REQUALIFYING",
+      "average_w": 357,
+      "peak_w": 445,
+      "peak_current_a": 18.542,
+      "remaining_w_margin": 155.0,
+      "remaining_a_margin": 6.458
     },
     {
       "state": "COOLDOWN",
-      "average_w": 36.0,
-      "peak_w": 61.0,
-      "peak_current_a": 2.542,
-      "remaining_w_margin": 539.0,
-      "remaining_a_margin": 22.458
+      "average_w": 36,
+      "peak_w": 45,
+      "peak_current_a": 1.875,
+      "remaining_w_margin": 555.0,
+      "remaining_a_margin": 23.125
     }
   ],
   "mutation_regressions": {
@@ -48,5 +80,10 @@
     "restart_inhibited": "FAIL_DETECTED",
     "guard_chain_safe": "FAIL_DETECTED"
   },
-  "hard_assertion": "not (shredder_enabled and (screw_enabled or process_heater_enabled))"
+  "hard_assertion": "not (shredder_enabled and (screw_enabled or process_heater_enabled))",
+  "material_session": "ORDERED_CHANGE_AND_EXPLICIT_CONFIRMATION_PASS",
+  "hardware_abstractions": "MEGA_IO_HEATER_GAUGE_COOLING_FEEDBACK_CONTRACT_PASS",
+  "validator_sources": {
+    "validation/controller_contract.py": "68db860d6d412337401f2108647cedbbe476f2c9e297069ef0ccf24a663c264d"
+  }
 }

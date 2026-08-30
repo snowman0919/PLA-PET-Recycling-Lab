@@ -18,6 +18,8 @@ class GaugeController {
   bool setCalibration(const GaugeCalibration &calibration);
   GaugeReading update(uint16_t x_adc, uint16_t y_adc, bool optical_valid);
   const GaugeReading &reading() const { return reading_; }
+  bool calibrationValid() const { return calibration_.valid; }
+  void resetRecovery() { reading_.valid = false; }
 
  private:
   GaugeCalibration calibration_{0, 0, 0, 0, 1, false};
@@ -30,8 +32,10 @@ class DiameterController {
                float kp, float ki, float dt_s);
   void reset();
   bool safePause() const { return safe_pause_; }
+  bool saturated() const { return saturated_; }
 
  private:
   float integral_{0};
   bool safe_pause_{true};
+  bool saturated_{false};
 };

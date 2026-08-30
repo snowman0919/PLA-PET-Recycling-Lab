@@ -7,7 +7,7 @@
 3. Flight OD TIR 0.05/256, concentricity 0.03, Ra 0.8 검사 가능 여부.
 4. Barrel Ø16.20 +0.02/0 final hone, three-station ID/roundness와 Ra report 가능 여부.
 5. Front 4×M4-6H depth8/PCD26 가공 후 OD/bore breakthrough가 없고 major-envelope ligament outer 2.0 mm, bore-side 2.9 mm 이상인지 확인.
-6. B+95/170/245의 3× Ø3.20 blind6 thermocouple bore, depth와 melt-bore breakthrough 없음 및 nominal ligament 2.85 mm 확인.
+6. B+95/170/245의 3× Ø3.20 blind5.5 thermocouple bore, depth와 melt-bore breakthrough 없음 및 nominal ligament 3.35 mm 확인.
 7. Gas nitride case/surface hardness certificate와 barrel final-hone 후 effective case ≥0.25 mm 가능 여부.
 8. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
 9. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.

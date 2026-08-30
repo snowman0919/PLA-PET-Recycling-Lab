@@ -191,7 +191,7 @@ def main():
     reserve=0.12*total_mass; cad_difference=total_mass-sum(float(r["cad_net_mass_total_g"]) for r in rows)
     (ROOT/"exports/print/total_material_report.md").write_text(
         "# 출력물 총 재료 보고 — 실제 slicing\n\n"
-        "- revision: `implementation-crosssolver-v0.6`\n"
+        "- revision: `safety-orchestration-closure-v0.6.1`\n"
         "- slicer: `PrusaSlicer 2.9.6`, profile `PPR_PrusaSlicer_2.9.6.ini`\n"
         f"- slicer filament: **{total_mass:.1f} g**\n- slicer minus solid-CAD nominal: **{cad_difference:.1f} g**\n"
         f"- failed-print reserve 12%: **{reserve:.1f} g**\n- procurement planning mass: **{total_mass+reserve:.1f} g**\n"
@@ -199,7 +199,7 @@ def main():
         f"- G-code support extrusion volume: **{total_support:.2f} cm³** (nominal mass에 포함)\n"
         f"- PPR-TC01 tolerance coupon (machine total excluded): **{coupon_mass:.1f} g / {coupon_time/3600:.1f} h**\n",
         encoding="utf-8")
-    result={"revision":"implementation-crosssolver-v0.6","slicer":"PrusaSlicer 2.9.6","profile":str(PROFILE.relative_to(ROOT)),"total_mass_g":round(total_mass,3),"failed_print_reserve_g":round(reserve,3),"planning_mass_g":round(total_mass+reserve,3),"total_time_s":total_time,"parts":results,"tolerance_coupon":coupon_result,"status":"PASS" if total_mass+reserve<=2000 else "FAIL"}
+    result={"revision":"safety-orchestration-closure-v0.6.1","slicer":"PrusaSlicer 2.9.6","profile":str(PROFILE.relative_to(ROOT)),"total_mass_g":round(total_mass,3),"failed_print_reserve_g":round(reserve,3),"planning_mass_g":round(total_mass+reserve,3),"total_time_s":total_time,"parts":results,"tolerance_coupon":coupon_result,"status":"PASS" if total_mass+reserve<=2000 else "FAIL"}
     out=ROOT/"validation/results"; out.mkdir(parents=True,exist_ok=True); (out/"slicer_results.json").write_text(json.dumps(result,indent=2)+"\n")
     with (ROOT/"bom/printed_material_cost.csv").open("w",newline="") as f:
         fields=["part_id","quantity","material","slicer_mass_total_g","cost_krw_per_kg","estimated_cost_krw","status"]
@@ -207,9 +207,8 @@ def main():
         material={row["part_id"]:row["material"] for row in rows}
         for item in results:
             writer.writerow({"part_id":item["part_id"],"quantity":item["quantity"],"material":material[item["part_id"]],"slicer_mass_total_g":f"{item['mass_g']:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round(item["mass_g"]*18),"status":"PRUSASLICER_ESTIMATE"})
-        writer.writerow({"part_id":"TOTAL_NOMINAL","quantity":sum(item["quantity"] for item in results),"material":"MIXED","slicer_mass_total_g":f"{total_mass:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round(total_mass*18),"status":"PRUSASLICER_ESTIMATE"})
-        writer.writerow({"part_id":"FAILED_PRINT_RESERVE_12_PERCENT","quantity":0,"material":"MIXED","slicer_mass_total_g":f"{reserve:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round(reserve*18),"status":"PLANNING_RESERVE"})
-        writer.writerow({"part_id":"TOTAL_PLANNING","quantity":sum(item["quantity"] for item in results),"material":"MIXED","slicer_mass_total_g":f"{total_mass+reserve:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round((total_mass+reserve)*18),"status":"CONDITIONAL_BUDGET_INPUT"})
+        writer.writerow({"part_id":"TOTAL_SLICED","quantity":1,"material":"PLA/ABS","slicer_mass_total_g":f"{total_mass:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round(total_mass*18),"status":"PRUSASLICER_ESTIMATE"})
+        writer.writerow({"part_id":"TOTAL_PLANNING","quantity":1,"material":"PLA/ABS","slicer_mass_total_g":f"{total_mass+reserve:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round((total_mass+reserve)*18),"status":"PRUSASLICER_PLUS_12_PERCENT_RESERVE"})
     if result["status"]!="PASS": raise SystemExit("PRINT_MASS_AND_TIME_FAIL")
     print(f"SLICER_SUCCESS_OK parts={len(results)} mass_g={total_mass:.1f} time_h={total_time/3600:.1f}")
 

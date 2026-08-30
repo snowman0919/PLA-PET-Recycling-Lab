@@ -8,7 +8,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REV = "implementation-crosssolver-v0.6"
+REV = "safety-orchestration-closure-v0.6.1"
 
 
 def git(*args: str) -> str:
@@ -27,13 +27,14 @@ def main() -> None:
     params = json.loads((ROOT / "cad/parameters/baseline.json").read_text())
     expected = params["archive_sha"]
     assert params["revision"] == REV
-    # v0.5.1 is frozen as a branch at the exact source SHA used for v0.6.
+    # v0.6 is frozen at the exact reviewed source SHA used for this closure.
     branch_commit = resolve_any(
-        "refs/heads/archive/virtual-physics-closure-v0.5.1",
-        "refs/remotes/origin/archive/virtual-physics-closure-v0.5.1",
+        "refs/heads/archive/implementation-crosssolver-v0.6-final",
+        "refs/remotes/origin/archive/implementation-crosssolver-v0.6-final",
         expected,
     )
-    assert branch_commit == expected, (branch_commit, expected)
+    tag_commit = git("rev-parse", "implementation-crosssolver-v0.6-final^{}")
+    assert branch_commit == tag_commit == expected, (branch_commit, tag_commit, expected)
 
     compact_expected = "d0d7f5cfe866c433bc85ca928d12583a57155c99"
     compact_tag = git("rev-parse", "compact-v0.3-surface-proof^{}")
@@ -54,9 +55,9 @@ def main() -> None:
     assert old_tag == old_branch == old_expected, (old_tag, old_branch)
 
     archive_text = (ROOT / "docs/archive_index.md").read_text()
-    for token in (expected, "archive/virtual-physics-closure-v0.5.1", REV, compact_expected, "compact-v0.3-surface-proof", old_expected, "research-v0.2-two-tower"):
+    for token in (expected, "archive/implementation-crosssolver-v0.6-final", "implementation-crosssolver-v0.6-final", REV, compact_expected, "compact-v0.3-surface-proof", old_expected, "research-v0.2-two-tower"):
         assert token in archive_text, f"archive index missing {token}"
-    print(f"CONFIGURATION_CONTROL_OK v051={expected[:12]} compact={compact_expected[:12]} legacy={old_expected[:12]}")
+    print(f"CONFIGURATION_CONTROL_OK v06={expected[:12]} compact={compact_expected[:12]} legacy={old_expected[:12]}")
 
 
 if __name__ == "__main__":

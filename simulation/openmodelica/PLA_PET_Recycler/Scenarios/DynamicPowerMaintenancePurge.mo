@@ -1,0 +1,4 @@
+within PLA_PET_Recycler.Scenarios;
+model DynamicPowerMaintenancePurge
+  extends Systems.ProcessArbitrationSystem(initialState=GeneratedControl.MAINTENANCE_PURGE);
+end DynamicPowerMaintenancePurge;

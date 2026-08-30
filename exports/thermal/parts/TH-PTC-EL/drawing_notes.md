@@ -1,6 +1,6 @@
 # TH-PTC-EL — Hopper maintenance PTC element
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `4`
 - material: `24 V ceramic PTC`
 - process: `purchased candidate + single-element calorimetry`

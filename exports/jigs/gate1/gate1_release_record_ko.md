@@ -1,6 +1,6 @@
 # Gate-1 release record — 물리시험 후 작성
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - 현재 상태: `NOT_RUN`
 - preflight CSV SHA-256:
 - force calibration CSV SHA-256:

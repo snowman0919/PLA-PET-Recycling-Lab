@@ -1,19 +1,19 @@
 {
   "case_id": "LC08",
   "geometry": "extruder_hot_zone.step",
-  "geometry_sha256": "750b81acfef5e3fb308e9f0f7fdf5ba4be55e23226a084c69116256512b7dce2",
+  "geometry_sha256": "928f1d69f137974a1fb1995718ac281a31b230ad74bb76192a5745dc82a6610e",
   "loads": {
     "ambient_c": 25.0,
     "barrel_setpoint_c": 255.0,
     "heater_total_w": 360.0
   },
   "physical_test_state": "NOT_RUN",
-  "revision": "implementation-crosssolver-v0.6",
+  "revision": "safety-orchestration-closure-v0.6.1",
   "schema_version": "1.0",
   "source_envelope": "analysis/load_cases/openmodelica_dynamic_envelope.json",
-  "source_envelope_sha256": "baa7abb5b59df84b721edb8a415ae0297faf3a0cc0d1f172c0aa903417b7c214",
-  "source_git_sha": "968fd3dd7f5624b2a4fb593e239bf7102bf29379",
-  "source_tree_sha256": "f1199ff0a743f099d087142da8b52cf59e7a5a2f4f2c957afe91a694d55931ac",
+  "source_envelope_sha256": "4f9735292ab3046c40bc173c4e22611fc35ae475a6d087b674cd7882ea7aa1ed",
+  "source_git_sha": "93db9533dcaf0655f9bde158d53e6f4df24ebb42",
+  "source_tree_sha256": "99dd1c711885744c1e0788003c3b422658f66398346d10faab9042b1f0ad5b64",
   "title": "PET thermal steady/transient",
   "units": "mm, N, N*mm, MPa, degC, s unless key suffix states otherwise"
 }

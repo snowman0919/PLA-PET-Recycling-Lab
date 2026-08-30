@@ -91,7 +91,7 @@ def main():
         probe=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
         require(barrel.common(probe).Volume<0.01,f"barrel M4 tap-drill missing at {angle}")
     for z in (95.0,170.0,245.0):
-        probe=Part.makeCylinder(1.59,5.9,App.Vector(0,16.95,z),App.Vector(0,-1,0))
+        probe=Part.makeCylinder(1.59,5.4,App.Vector(0,16.95,z),App.Vector(0,-1,0))
         require(barrel.common(probe).Volume<0.01,f"barrel Ø3.20 blind sensor bore missing at B+{z}")
         ligament=Part.makeCylinder(1.2,2.5,App.Vector(0,10.8,z),App.Vector(0,-1,0))
         require(barrel.common(ligament).Volume>5.0,f"barrel sensor melt-bore ligament missing at B+{z}")

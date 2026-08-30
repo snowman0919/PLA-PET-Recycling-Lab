@@ -1,6 +1,6 @@
 # FD-TRN-01 — Sealed transfer tube
 
-- revision: `virtual-physics-closure-v0.5.1`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
 - material: `304 tube OD32 x2`
 - process: `tube cut + socket fit + TIG tack/weld`

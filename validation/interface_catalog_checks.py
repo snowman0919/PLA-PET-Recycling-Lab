@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "exports/fabrication/interface_catalog.csv"
-REVISION = "implementation-crosssolver-v0.6"
+REVISION = "safety-orchestration-closure-v0.6.1"
 
 
 def require(condition, message):

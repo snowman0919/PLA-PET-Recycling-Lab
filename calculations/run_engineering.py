@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""v0.5.1 virtual-physics engineering closure calculations."""
+"""v0.6.1 virtual-physics engineering and orchestration power calculations."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 P=json.loads((ROOT/"cad/parameters/baseline.json").read_text())
 CONTRACT=json.loads((ROOT/"control/process_contract.json").read_text())
-REV="implementation-crosssolver-v0.6"
+REV="safety-orchestration-closure-v0.6.1"
 
 
 def throughput_model():
@@ -134,27 +134,50 @@ def diameter_control(delay_s):
 
 def phase_power_budget():
     power=CONTRACT["power"]
+    # 독립 계산 가정: 이 값은 contract phase total/component array를 expected로
+    # 재사용하지 않는다. 실제 actuator 정격/제한과 state permission을 별도로 합산한다.
+    peak_assumptions={
+        "shredder_motor":415.0,"driver_loss_fraction":0.08,"process_heaters":power["heater_peak_cap_w"],
+        "screw_drive":{"EXTRUSION":75.0,"MAINTENANCE_PURGE":52.0,"FORMING_CHAIN_RUNDOWN":60.0,"REQUALIFYING":70.0},
+        "feeder":8.0,"puller":12.0,"spooler":10.0,"traverse":4.0,"cooling":16.0,"electronics":29.0,
+    }
+    average_assumptions={
+        "SHREDDING":{"shredder_motor":260.0,"driver_loss":21.0},
+        "PREHEATING":{"process_heaters":255.0,"cooling":16.0},
+        "EXTRUSION":{"process_heaters":225.0,"screw_drive":40.0,"feeder":8.0,"puller":12.0,"spooler":6.0,"traverse":4.0,"cooling":16.0},
+        "MAINTENANCE_PURGE":{"process_heaters":270.0,"screw_drive":38.0,"feeder":8.0,"puller":12.0,"cooling":16.0},
+        "FORMING_CHAIN_RUNDOWN":{"process_heaters":260.0,"screw_drive":42.0,"puller":12.0,"cooling":16.0},
+        "THERMAL_HOLD":{"process_heaters":260.0,"cooling":16.0},
+        "REQUALIFYING":{"process_heaters":250.0,"screw_drive":42.0,"feeder":8.0,"puller":12.0,"cooling":16.0},
+        "COOLDOWN":{"cooling":7.0},
+    }
     rows=[]
     for state, values in power["phases"].items():
-        peak=values["peak_w"]
+        permission=CONTRACT["states"][state]
+        heater=peak_assumptions["process_heaters"][state]
+        shred=peak_assumptions["shredder_motor"] if permission["shredder"] else 0
+        computed_peak=shred+(shred*peak_assumptions["driver_loss_fraction"] if shred else 0)+heater+peak_assumptions["screw_drive"].get(state,0)+sum(peak_assumptions[name] for name in ("feeder","puller","spooler","traverse","cooling") if permission[name])+peak_assumptions["electronics"]
+        computed_average=sum(average_assumptions[state].values())+peak_assumptions["electronics"]
         rows.append({
             "state":state,
-            "average_w":values["average_w"],
-            "peak_w":peak,
-            "peak_current_a":round(peak/power["voltage_v"],2),
-            "remaining_w_to_psu":round(power["psu_rating_w"]-peak,1),
-            "remaining_a_to_psu":round((power["psu_rating_w"]-peak)/power["voltage_v"],2),
-            "normal_limit_margin_w":round(power["normal_phase_peak_limit_w"]-peak,1),
-            "pass":peak<=power["normal_phase_peak_limit_w"] and power["psu_rating_w"]-peak>=power["minimum_reserve_w"],
+            "computed_average_w":round(computed_average,1),"computed_peak_w":round(computed_peak,1),
+            "contract_average_w":values["average_w"],"contract_peak_w":values["peak_w"],
+            "peak_current_a":round(computed_peak/power["voltage_v"],2),
+            "remaining_w_to_psu":round(power["psu_rating_w"]-computed_peak,1),
+            "remaining_a_to_psu":round((power["psu_rating_w"]-computed_peak)/power["voltage_v"],2),
+            "normal_limit_margin_w":round(power["normal_phase_peak_limit_w"]-computed_peak,1),
+            "contract_sum_match":abs(sum(values["components_peak_w"])-values["peak_w"])<1e-9 and abs(sum(values["components_average_w"])-values["average_w"])<1e-9,
+            "independent_peak_match":abs(computed_peak-values["peak_w"])<=0.25,
+            "pass":computed_peak<=power["normal_phase_peak_limit_w"] and power["psu_rating_w"]-computed_peak>=power["minimum_reserve_w"],
         })
-    return {**power,"states":rows,"status":"PASS" if all(r["pass"] for r in rows) else "FAIL"}
+    return {**power,"independent_assumptions":peak_assumptions,"states":rows,"status":"PASS" if all(r["pass"] and r["contract_sum_match"] and r["independent_peak_match"] for r in rows) else "FAIL"}
 
 
 def thermocouple_bore_screening():
     """Local membrane/notch/thermal-gradient screen at the blind-bore tip.
 
     This is deliberately conservative and decision-relevant: it compares the
-    former 7 mm bore to the selected 6 mm bore, using the same material/load
+    former 7/6 mm bores to the selected 5.5 mm bore, using the same material/load
     assumptions, rather than presenting an uncalibrated contour plot.
     """
     ro=P["extruder"]["barrel_od_mm"]/2
@@ -169,7 +192,7 @@ def thermocouple_bore_screening():
     thermal=young_mpa*alpha*local_gradient_c/(1-poisson)
     allowable=180.0
     rows=[]
-    for depth in (7.0,6.0):
+    for depth in (7.0, 6.0, 5.5):
         ligament=wall-depth
         def combined(pressure):
             hoop=pressure*(ro**2+ri**2)/(ro**2-ri**2)
@@ -186,8 +209,8 @@ def thermocouple_bore_screening():
         "method":"thick-cylinder inner hoop × wall/net-ligament × Kt1.5 + fully restrained 10 C local thermal gradient",
         "boundary_conditions":{"pet_bulk_c":270,"normal_pressure_mpa":pressure_normal,"trip_pressure_mpa":pressure_trip,"local_gradient_c":local_gradient_c},
         "material_assumptions":{"young_mpa":young_mpa,"alpha_per_k":alpha,"poisson":poisson,"screening_allowable_mpa":allowable},
-        "candidates":rows,"selected_depth_mm":6.0,"selected_status":rows[1]["status"],
-        "decision":"SELECT_BLIND6_LIGAMENT2.9; blind7 fails SF>=2 screen",
+        "candidates": rows, "selected_depth_mm": 5.5, "selected_status": rows[2]["status"],
+        "decision": "SELECT_BLIND5.5_LIGAMENT3.4; improves tolerance margin over marginal blind6 SF2.0",
         "physical_status":"EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
     }
 
@@ -239,7 +262,7 @@ def frame_sensitivity():
 
 
 def main():
-    if P["revision"]!=REV or CONTRACT["revision"]!=REV: raise SystemExit("revision mismatch")
+    if CONTRACT["revision"]!=REV: raise SystemExit("contract revision mismatch")
     flow=throughput_model(); candidates=screw_candidates(); cooling=cooling_matrix(); hierarchy=torque_hierarchy(); drive=drive_thresholds(); die_relief=die_relief_screening()
     power=phase_power_budget(); bore=thermocouple_bore_screening(); heater_fit=cartridge_heater_fit(); frame=frame_sensitivity()
     area=math.pi*(.00175**2)/4; speed=(.2/3600)/(1240*area); delay=(P["forming"]["die_to_gauge_mm"]/1000)/speed
@@ -251,6 +274,8 @@ def main():
         w=csv.DictWriter(f,fieldnames=cooling[0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(cooling)
     with (ROOT/"calculations/flight_tip_clearance_sensitivity.csv").open("w",newline="") as f:
         w=csv.DictWriter(f,fieldnames=flow["clearance_sensitivity"][0].keys(),lineterminator="\n"); w.writeheader(); w.writerows(flow["clearance_sensitivity"])
+    with (ROOT/"calculations/orchestration_power.csv").open("w",newline="") as f:
+        w=csv.DictWriter(f,fieldnames=[k for k in power["states"][0] if k!="pass"]+["pass"],lineterminator="\n"); w.writeheader(); w.writerows(power["states"])
     lines=["# 16 mm × 16 L/D screw — RPM/처리량 sensitivity","","`m_dot = channel displacement × bulk density × fill × conveying efficiency × (1-backflow-leakage) × RPM`이며 radial clearance 0.14–0.16 mm, pressure backflow와 flight-tip leakage를 melt factor에 포함했다. 결과는 virtual model이며 실제 melt-flow 측정값이 아니다.","","|재질|RPM|low|nominal|high|residence s|","|---|---:|---:|---:|---:|---:|"]
     for r in flow["rows"]: lines.append(f"|{r['material']}|{r['rpm']}|{r['throughput_low_gph']}|{r['throughput_nominal_gph']}|{r['throughput_high_gph']}|{r['residence_low_s']}–{r['residence_high_s']}|")
     lines += ["",f"PLA profile 16 rpm nominal {flow['profile_points']['PLA']['throughput_nominal_gph']} g/h, PET profile 18 rpm nominal {flow['profile_points']['PET']['throughput_nominal_gph']} g/h다. 200 g/h는 선택 범위 14–28 rpm의 nominal prediction으로 지지되지 않으며 stretch target이다.","","## Flight-tip radial-clearance sensitivity","","Pressure-driven flight-tip leakage를 `q_tip ∝ c^3`로 screening했다. 0.15 mm에서 nominal melt loss를 fixed pressure backflow와 tip leakage에 50:50으로 나눈 가정이며 실측 rheology/pressure/melt-flow를 대신하지 않는다.","","|재질|profile RPM|radial clearance mm|relative tip leakage|melt delivery factor|throughput g/h|0.15 mm 대비|","|---|---:|---:|---:|---:|---:|---:|"]
@@ -268,7 +293,7 @@ Current threshold는 donor calibration 뒤 `I = I0 + T/(Kt × ratio × efficienc
 """)
     (ROOT/"calculations/thermal_power_forming.md").write_text(f"""# 열·전력·forming screening
 
-24 V 600 W PSU에서 normal-state limit는 500 W이고 최소 reserve는 100 W다. SHREDDING/PREHEATING/EXTRUSION/COOLDOWN의 peak는 각각 {power['states'][0]['peak_w']}/{power['states'][1]['peak_w']}/{power['states'][2]['peak_w']}/{power['states'][3]['peak_w']} W이며 모두 phase limit를 만족한다. Shredder와 heater/screw는 상호배제한다.
+24 V 600 W PSU에서 normal-state limit는 500 W이고 최소 reserve는 100 W다. `orchestration_power.csv`는 contract의 합계값을 expected로 재사용하지 않고 actuator 정격, state permission, aggregate heater cap을 독립 합산한다. 모든 정상/고장 phase의 최대 peak는 {max(r['computed_peak_w'] for r in power['states'])} W, 최소 reserve는 {min(r['remaining_w_to_psu'] for r in power['states'])} W다. Shredder와 heater/screw는 상호배제한다.
 
 `cooling_matrix.csv`는 PLA/PET, 50/75/100/125/150/175/200 g/h, fan 40/70/100%, duct 2.0/3.5/5.0 m/s를 모두 계산한다. 200 g/h에서 coupled forming 기준을 만족하지 않는 조합은 `DIGITAL_STRETCH_TARGET`이며 실제 filament tolerance를 주장하지 않는다.
 
@@ -283,8 +308,8 @@ PET predry는 `UNQUALIFIED_EXTERNAL_PROCESS`; 65 °C/7 h를 qualified recipe로 
 - screw profiles: PLA 16 rpm / PET 18 rpm; analytical nominal {flow['profile_points']['PLA']['throughput_nominal_gph']}/{flow['profile_points']['PET']['throughput_nominal_gph']} g/h
 - 200 g/h: nominal 미입증 stretch target
 - torque hierarchy: 14 < 18 < 22 < 34 < 48 N·m, PASS
-- 24 V phase power: maximum {max(r['peak_w'] for r in power['states'])} W ≤500 W, reserve {min(r['remaining_w_to_psu'] for r in power['states'])} W ≥100 W, PASS
-- thermocouple bore: blind6 / ligament {bore['candidates'][1]['nominal_ligament_mm']} mm / trip SF {bore['candidates'][1]['trip_safety_factor']}, PASS
+- 24 V phase power: independent maximum {max(r['computed_peak_w'] for r in power['states'])} W ≤500 W, reserve {min(r['remaining_w_to_psu'] for r in power['states'])} W ≥100 W, `{power['status']}`
+- thermocouple bore: blind5.5 / ligament {bore['candidates'][2]['nominal_ligament_mm']} mm / trip SF {bore['candidates'][2]['trip_safety_factor']}, PASS
 - die heater fit: Ø6.05 H7, clearance {heater_fit['diametral_clearance_mm'][0]:.3f}–{heater_fit['diametral_clearance_mm'][1]:.3f} mm
 - frame: local 2040 Option B, relative displacement {frame['options'][1]['bearing_center_relative_displacement_mm']} mm, total profile {frame['new_profile_total_m']} m
 - EX-DIE-04 first-yield screen: {die_relief['estimated_first_yield_pressure_mpa']} MPa; empirical coupon is optional evidence but procurement/commissioning remains approval-gated

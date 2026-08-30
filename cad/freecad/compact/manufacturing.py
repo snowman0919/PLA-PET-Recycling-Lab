@@ -418,10 +418,10 @@ def extruder_barrel():
         hole=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
         barrel=barrel.cut(hole)
     # Three Ø3.20 blind K-probe bores sit in the unheated gaps immediately
-    # downstream of each band.  Depth 6.0 leaves 2.9 mm nominal ligament to
+    # downstream of each band.  Depth 5.5 leaves 3.4 mm nominal ligament to
     # the Ø16.20 melt bore and measures barrel metal rather than heater skin.
     for z in (95.0, 170.0, 245.0):
-        sensor=Part.makeCylinder(1.60,6.0,App.Vector(0,17.0,z),App.Vector(0,-1,0))
+        sensor=Part.makeCylinder(1.60,5.5,App.Vector(0,17.0,z),App.Vector(0,-1,0))
         barrel=barrel.cut(sensor)
     return barrel
 
@@ -429,7 +429,7 @@ def extruder_barrel():
 def extruder_rfq_parts():
     return [
         dict(id="EX-SCR-01",name="16 mm x 16D single screw",shape=extruder_screw(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride",process="turn between centres, 4-axis flight mill, polish, nitride, finish grind",critical="total 316.00; active 256.00; OD 15.92 -0.02/0; RH pitch 16.00; land 1.60; Datum A axis from Ø12 h6 and Ø15 h6 journals; full part HOLD"),
-        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, die-interface thread and sensor bores, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; 4x M4-6H depth8 PCD26; 3x Ø3.20 +0.05/0 blind6 sensor bores at B+95/170/245; minimum bore ligament 2.85; outer/inner thread ligament >=2.0/2.9; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
+        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, die-interface thread and sensor bores, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; 4x M4-6H depth8 PCD26; 3x Ø3.20 +0.05/0 blind5.5 sensor bores at B+95/170/245; minimum bore ligament 3.35; outer/inner thread ligament >=2.0/2.9; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
         dict(id="EX-CPN-SCR",name="Three-pitch screw process coupon",shape=extruder_screw_process_coupon(),qty=1,material="same certified SCM440 heat as EX-SCR-01",process="same flight mill/polish/nitride route as EX-SCR-01",critical="L48.00; three pitches; OD/root/land/finish/case same as feed zone; coupon RFQ only"),
         dict(id="EX-CPN-BAR",name="Matched barrel process coupon",shape=extruder_barrel_process_coupon(),qty=1,material="same certified SCM440 heat as EX-BAR-01",process="same bore/hone/nitride route as EX-BAR-01",critical="L60.00; ID/OD/finish/case same as barrel; coupon RFQ only"),
         dict(id="EX-DIE-01",name="Connected 90 degree down-die body",shape=down_die_body(),qty=1,material="SCM440 QT + gas nitride",process="6-face mill; gun drill/ream intersecting Ø8 channels; counterbore, drill/tap; stress relieve; gas nitride; lap sealing face",critical="40 x40 x48; barrel datum face X40; Ø8 melt turn; Ø16.20 +0.05/0 x3 breaker seat; Ø12.00 +0.03/0 x14 insert seat; 4x Ø4.5 + Ø8 head recess PCD26; heater Ø6.05 H7 reamed; sensor Ø3.20 blind12; face flatness 0.03; channel intersection fully deburred; full part HOLD"),

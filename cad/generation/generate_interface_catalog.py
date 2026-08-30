@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "exports/fabrication/interface_catalog.csv"
-REVISION = "virtual-physics-closure-v0.5.1"
+REVISION = "safety-orchestration-closure-v0.6.1"
 
 FIELDS = (
     "interface_id",
@@ -63,7 +63,7 @@ def catalog_rows():
         row("IF-022", "FD-MET-03 shaft", "FD-MET-02 rotor", "feeder shaft", "Ø5 h8", "Ø5.2", "0.20 mm nominal diametral clearance", "cross-pin/collars after donor measurement", "internal project fit", "removable pin/collars", "micrometer + pin gauge", "no rub through full revolution"),
         row("IF-023", "EX-BAR-01", "HT-BAND-01 x3", "band heater clamp", "OD Ø34.00 ±0.05", "ID Ø34.0 custom", "zero-gap clamp contact", "heater maker clamp range must include 33.95–34.05", "custom mica band supplier drawing", "split band clamp; no 35 mm substitution", "micrometer + feeler", "360° contact and cold insulation resistance"),
         row("IF-024", "EX-DIE-01", "HT-CART-01", "cartridge heater bore", "Ø6.05 H7 reamed through", "heater Ø6.00 -0.02/-0.06", "0.070–0.122 mm diametral clearance", "bore +0/+0.012 mm", "supplier fit guidance + received heater measurement", "thin anti-seize film + positive axial clamp", "pin gauge + micrometer + megohmmeter", "full insertion without force; no loose lead loading"),
-        row("IF-025", "EX-BAR zones 1–3", "TEMP-01..03", "barrel thermocouple", "Ø3.2 +0.05/0 blind6 bore", "Ø3 ungrounded mineral-insulated K probe", "0.20–0.25 mm diametral clearance", "2.85–2.90 mm nominal melt-bore ligament", "IEC 60584 K-type", "compression screw/washer", "depth gauge + insulation/continuity meter", "probe reads barrel metal; ungrounded junction required for MAX6675 architecture"),
+        row("IF-025", "EX-BAR zones 1–3", "TEMP-01..03", "barrel thermocouple", "Ø3.2 +0.05/0 blind5.5 bore", "Ø3 ungrounded mineral-insulated K probe", "0.20–0.25 mm diametral clearance", "3.35–3.40 mm nominal melt-bore ligament", "IEC 60584 K-type", "compression screw/washer", "depth gauge + insulation/continuity meter", "probe reads barrel metal; ungrounded junction required for MAX6675 architecture"),
         row("IF-026", "EX-DIE-01", "TEMP-04", "die thermocouple", "Ø3.2 blind bore", "Ø3 K probe", "0.2 mm diametral clearance", "tip 2.0–3.0 mm from melt channel", "IEC 60584 K-type", "compression screw/washer", "depth gauge + continuity meter", "no intersection with Ø8 melt/heater channels"),
         row("IF-027", "FD-HOP-01 wall", "HT-PTC-01 spreader", "hopper maintenance heater", "2 mm stainless wall", "aluminum spreader + insulated PTC", "full thermal-pad contact", "electrically isolated; no polymer contact", "supplier PTC data pending", "clamped metal sandwich", "megohmmeter + feeler", "measure one PTC power and equilibrium temperature before fixing quantity", "REFERENCE_POWER_MEASUREMENT_REQUIRED"),
         row("IF-028", "M3 heat-set insert", "PPR-C06/C11", "printed insert bore", "insert lot OD4.2/4.6", "matching blind bore", "coupon-selected interference", "PPR-TC01 controls", "insert supplier data", "temperature-controlled press", "coupon + pullout fixture", "print and pull-test PPR-TC01 with actual insert lot", "PHYSICAL_COUPON_PENDING"),

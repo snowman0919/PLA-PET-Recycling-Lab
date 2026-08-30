@@ -33,10 +33,13 @@ float DiameterController::update(const GaugeReading &gauge, float target_mm,
   safe_pause_ = false;
   const float error = gauge.mean_mm - target_mm;
   integral_ = clampf(integral_ + error * dt_s, -20.0f, 20.0f);
-  return clampf(feedforward_mm_s + kp * error + ki * integral_, 1.0f, 80.0f);
+  const float raw = feedforward_mm_s + kp * error + ki * integral_;
+  saturated_ = raw <= 1.0f || raw >= 80.0f;
+  return clampf(raw, 1.0f, 80.0f);
 }
 
 void DiameterController::reset() {
   integral_ = 0;
   safe_pause_ = true;
+  saturated_ = false;
 }

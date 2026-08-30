@@ -1,6 +1,6 @@
 {
-  "revision": "virtual-physics-closure-v0.5.1",
-  "release_class": "DIGITAL_FABRICATION_BASELINE",
+  "revision": "safety-orchestration-closure-v0.6.1",
+  "release_class": "IMPLEMENTATION_BASELINE",
   "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
   "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
   "throughput": {
@@ -793,63 +793,398 @@
     "psu_rating_w": 600.0,
     "normal_phase_peak_limit_w": 500.0,
     "minimum_reserve_w": 100.0,
+    "component_order": [
+      "shredder_motor",
+      "driver_loss",
+      "process_heaters",
+      "screw_drive",
+      "feeder",
+      "puller",
+      "spooler",
+      "traverse",
+      "cooling",
+      "electronics"
+    ],
+    "heater_peak_cap_w": {
+      "IDLE": 0,
+      "SHREDDING": 0,
+      "PREHEATING": 360,
+      "EXTRUSION": 300,
+      "MAINTENANCE_PURGE": 330,
+      "FORMING_CHAIN_RUNDOWN": 320,
+      "THERMAL_HOLD": 320,
+      "REQUALIFYING": 310,
+      "COOLDOWN": 0,
+      "FAULT": 0,
+      "ESTOP": 0
+    },
+    "permission_policy": "aggregate process-heater output is capped before actuator application; component-summed instantaneous peak must remain <=500 W with >=100 W PSU reserve",
     "phases": {
       "SHREDDING": {
-        "average_w": 310.0,
-        "peak_w": 477.0
+        "components_average_w": [
+          260,
+          21,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          29
+        ],
+        "components_peak_w": [
+          415,
+          33,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          29
+        ],
+        "average_w": 310,
+        "peak_w": 477
       },
       "PREHEATING": {
-        "average_w": 300.0,
-        "peak_w": 405.0
+        "components_average_w": [
+          0,
+          0,
+          255,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          360,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 300,
+        "peak_w": 405
       },
       "EXTRUSION": {
-        "average_w": 340.0,
-        "peak_w": 490.0
+        "components_average_w": [
+          0,
+          0,
+          225,
+          40,
+          8,
+          12,
+          6,
+          4,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          300,
+          75,
+          8,
+          12,
+          10,
+          4,
+          16,
+          29
+        ],
+        "average_w": 340,
+        "peak_w": 454
+      },
+      "MAINTENANCE_PURGE": {
+        "components_average_w": [
+          0,
+          0,
+          270,
+          38,
+          8,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          330,
+          52,
+          8,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 373,
+        "peak_w": 447
+      },
+      "FORMING_CHAIN_RUNDOWN": {
+        "components_average_w": [
+          0,
+          0,
+          260,
+          42,
+          0,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          320,
+          60,
+          0,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 359,
+        "peak_w": 437
+      },
+      "THERMAL_HOLD": {
+        "components_average_w": [
+          0,
+          0,
+          260,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          320,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 305,
+        "peak_w": 365
+      },
+      "REQUALIFYING": {
+        "components_average_w": [
+          0,
+          0,
+          250,
+          42,
+          8,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          310,
+          70,
+          8,
+          12,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 357,
+        "peak_w": 445
       },
       "COOLDOWN": {
-        "average_w": 36.0,
-        "peak_w": 61.0
+        "components_average_w": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          29
+        ],
+        "components_peak_w": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          29
+        ],
+        "average_w": 36,
+        "peak_w": 45
       }
+    },
+    "independent_assumptions": {
+      "shredder_motor": 415.0,
+      "driver_loss_fraction": 0.08,
+      "process_heaters": {
+        "IDLE": 0,
+        "SHREDDING": 0,
+        "PREHEATING": 360,
+        "EXTRUSION": 300,
+        "MAINTENANCE_PURGE": 330,
+        "FORMING_CHAIN_RUNDOWN": 320,
+        "THERMAL_HOLD": 320,
+        "REQUALIFYING": 310,
+        "COOLDOWN": 0,
+        "FAULT": 0,
+        "ESTOP": 0
+      },
+      "screw_drive": {
+        "EXTRUSION": 75.0,
+        "MAINTENANCE_PURGE": 52.0,
+        "FORMING_CHAIN_RUNDOWN": 60.0,
+        "REQUALIFYING": 70.0
+      },
+      "feeder": 8.0,
+      "puller": 12.0,
+      "spooler": 10.0,
+      "traverse": 4.0,
+      "cooling": 16.0,
+      "electronics": 29.0
     },
     "states": [
       {
         "state": "SHREDDING",
-        "average_w": 310.0,
-        "peak_w": 477.0,
+        "computed_average_w": 310.0,
+        "computed_peak_w": 477.2,
+        "contract_average_w": 310,
+        "contract_peak_w": 477,
         "peak_current_a": 19.88,
-        "remaining_w_to_psu": 123.0,
+        "remaining_w_to_psu": 122.8,
         "remaining_a_to_psu": 5.12,
-        "normal_limit_margin_w": 23.0,
+        "normal_limit_margin_w": 22.8,
+        "contract_sum_match": true,
+        "independent_peak_match": true,
         "pass": true
       },
       {
         "state": "PREHEATING",
-        "average_w": 300.0,
-        "peak_w": 405.0,
+        "computed_average_w": 300.0,
+        "computed_peak_w": 405.0,
+        "contract_average_w": 300,
+        "contract_peak_w": 405,
         "peak_current_a": 16.88,
         "remaining_w_to_psu": 195.0,
         "remaining_a_to_psu": 8.12,
         "normal_limit_margin_w": 95.0,
+        "contract_sum_match": true,
+        "independent_peak_match": true,
         "pass": true
       },
       {
         "state": "EXTRUSION",
-        "average_w": 340.0,
-        "peak_w": 490.0,
-        "peak_current_a": 20.42,
-        "remaining_w_to_psu": 110.0,
-        "remaining_a_to_psu": 4.58,
-        "normal_limit_margin_w": 10.0,
+        "computed_average_w": 340.0,
+        "computed_peak_w": 454.0,
+        "contract_average_w": 340,
+        "contract_peak_w": 454,
+        "peak_current_a": 18.92,
+        "remaining_w_to_psu": 146.0,
+        "remaining_a_to_psu": 6.08,
+        "normal_limit_margin_w": 46.0,
+        "contract_sum_match": true,
+        "independent_peak_match": true,
+        "pass": true
+      },
+      {
+        "state": "MAINTENANCE_PURGE",
+        "computed_average_w": 373.0,
+        "computed_peak_w": 447.0,
+        "contract_average_w": 373,
+        "contract_peak_w": 447,
+        "peak_current_a": 18.62,
+        "remaining_w_to_psu": 153.0,
+        "remaining_a_to_psu": 6.38,
+        "normal_limit_margin_w": 53.0,
+        "contract_sum_match": true,
+        "independent_peak_match": true,
+        "pass": true
+      },
+      {
+        "state": "FORMING_CHAIN_RUNDOWN",
+        "computed_average_w": 359.0,
+        "computed_peak_w": 437.0,
+        "contract_average_w": 359,
+        "contract_peak_w": 437,
+        "peak_current_a": 18.21,
+        "remaining_w_to_psu": 163.0,
+        "remaining_a_to_psu": 6.79,
+        "normal_limit_margin_w": 63.0,
+        "contract_sum_match": true,
+        "independent_peak_match": true,
+        "pass": true
+      },
+      {
+        "state": "THERMAL_HOLD",
+        "computed_average_w": 305.0,
+        "computed_peak_w": 365.0,
+        "contract_average_w": 305,
+        "contract_peak_w": 365,
+        "peak_current_a": 15.21,
+        "remaining_w_to_psu": 235.0,
+        "remaining_a_to_psu": 9.79,
+        "normal_limit_margin_w": 135.0,
+        "contract_sum_match": true,
+        "independent_peak_match": true,
+        "pass": true
+      },
+      {
+        "state": "REQUALIFYING",
+        "computed_average_w": 357.0,
+        "computed_peak_w": 445.0,
+        "contract_average_w": 357,
+        "contract_peak_w": 445,
+        "peak_current_a": 18.54,
+        "remaining_w_to_psu": 155.0,
+        "remaining_a_to_psu": 6.46,
+        "normal_limit_margin_w": 55.0,
+        "contract_sum_match": true,
+        "independent_peak_match": true,
         "pass": true
       },
       {
         "state": "COOLDOWN",
-        "average_w": 36.0,
-        "peak_w": 61.0,
-        "peak_current_a": 2.54,
-        "remaining_w_to_psu": 539.0,
-        "remaining_a_to_psu": 22.46,
-        "normal_limit_margin_w": 439.0,
+        "computed_average_w": 36.0,
+        "computed_peak_w": 45.0,
+        "contract_average_w": 36,
+        "contract_peak_w": 45,
+        "peak_current_a": 1.88,
+        "remaining_w_to_psu": 555.0,
+        "remaining_a_to_psu": 23.12,
+        "normal_limit_margin_w": 455.0,
+        "contract_sum_match": true,
+        "independent_peak_match": true,
         "pass": true
       }
     ],
@@ -885,11 +1220,19 @@
         "trip_combined_stress_mpa": 90.0,
         "trip_safety_factor": 2.0,
         "status": "PASS"
+      },
+      {
+        "blind_bore_depth_mm": 5.5,
+        "nominal_ligament_mm": 3.4,
+        "normal_combined_stress_mpa": 64.8,
+        "trip_combined_stress_mpa": 83.5,
+        "trip_safety_factor": 2.15,
+        "status": "PASS"
       }
     ],
-    "selected_depth_mm": 6.0,
+    "selected_depth_mm": 5.5,
     "selected_status": "PASS",
-    "decision": "SELECT_BLIND6_LIGAMENT2.9; blind7 fails SF>=2 screen",
+    "decision": "SELECT_BLIND5.5_LIGAMENT3.4; improves tolerance margin over marginal blind6 SF2.0",
     "physical_status": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
   },
   "cartridge_heater_fit": {
@@ -911,16 +1254,16 @@
     "status": "PASS_DFM_SCREEN"
   },
   "frame_sensitivity": {
-    "load_basis_n": 905.0,
+    "load_basis_n": 1299.6,
     "model": "two simply-supported local load rails, half load each + 0.15 mm joint-slip allowance",
     "options": [
       {
         "option": "A_2020_ONLY",
-        "bearing_center_relative_displacement_mm": 1.399,
-        "beam_component_mm": 1.249,
+        "bearing_center_relative_displacement_mm": 1.943,
+        "beam_component_mm": 1.793,
         "joint_allowance_mm": 0.15,
-        "screen_clearance_margin_mm": 0.501,
-        "phase_center_distance_variation_mm": 0.699,
+        "screen_clearance_margin_mm": -0.043,
+        "phase_center_distance_variation_mm": 0.971,
         "profile_2020_m": 15.098,
         "profile_2040_m": 0.0,
         "total_profile_m": 15.098,
@@ -930,11 +1273,11 @@
       },
       {
         "option": "B_LOCAL_2040",
-        "bearing_center_relative_displacement_mm": 0.351,
-        "beam_component_mm": 0.201,
+        "bearing_center_relative_displacement_mm": 0.438,
+        "beam_component_mm": 0.288,
         "joint_allowance_mm": 0.15,
-        "screen_clearance_margin_mm": 1.549,
-        "phase_center_distance_variation_mm": 0.175,
+        "screen_clearance_margin_mm": 1.462,
+        "phase_center_distance_variation_mm": 0.219,
         "profile_2020_m": 13.348,
         "profile_2040_m": 1.32,
         "total_profile_m": 14.668,

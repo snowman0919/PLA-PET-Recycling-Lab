@@ -1,35 +1,55 @@
-# Release checklist — implementation-crosssolver-v0.6
+# Release checklist — safety-orchestration-closure-v0.6.1
 
-## DESIGN_RELEASE_GATE
+## SAFETY_ORCHESTRATION_RELEASE_GATE
 
-- [x] `release_state=IMPLEMENTATION_BASELINE`
-- [x] `geometry_validation=PASS`, `fabrication_validation=PASS`
-- [x] `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`
-- [x] `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
-- [x] nominal envelope 470×700×930 mm; hard 500×750×1000 mm 이내
-- [x] closed B-Rep, manifold mesh, real slicer toolpath, interface catalog, motion/collision checks
-- [x] explicit IDLE/SHREDDING/PREHEATING/EXTRUSION/COOLDOWN/FAULT/ESTOP arbitration
-- [x] normal phase peak ≤500 W 및 PSU reserve ≥100 W
-- [x] canonical controller contract와 Modelica/Arduino/generated configuration hash 일치
-- [x] 독립 safety invariant 10개와 각각의 mutation-failure regression
-- [x] startup grace, production-config three-retry FSM, ideal broken shear fuse, speed-control metrics
-- [x] closed screw pressure-flow-torque-current model 및 hot operating jam
-- [x] coupled cooling/forming/diameter control 및 explicit spool length-balance jam
-- [x] OpenModelica mandatory scenario 74개 PASS
-- [x] shaft/bearing plate/thrust/local 2040 frame/thermocouple-bore 구조 screening PASS
-- [x] ungrounded K-type + MAX6675 common-reference architecture와 Ø6.05 H7 cartridge fit 정합
+- [x] `release_state=SAFETY_ORCHESTRATION_BASELINE`, `implementation_state=IMPLEMENTATION_BASELINE`
+- [x] v0.6 SHA `60ccd92fe9a7df35b550a2a57649b1263da09d10` archive branch/tag 보존
+- [x] 현재 main을 한 번 merge했고 v0.6 tree를 되돌린 항목 없음
+- [x] `MachineSupervisor`가 process/material/forming/calibration/start/clear/purge/spool 권한을 소유
+- [x] atomic all-subsystem fault clear; 실패 rollback과 clear 후 no-restart
+- [x] transactional shredder start; fan-first preheat/purge start; explicit extrusion arm
+- [x] cold boot material `NONE`; drive/gauge/current/cooling/temperature readiness 분리
+- [x] EEPROM v2 version/CRC와 invalid-record zero-sanitize
+- [x] 실제 `MAINTENANCE_PURGE`: feed 승인과 waste 확인 분리, previous profile, motion gate, 120 s/32 command-derived revolution, ordered cleaning
+- [x] purge STOP/PAUSE와 정상 완료의 hot `COOLDOWN`; E-stop은 별도 all-zero
+- [x] A4 fan-current production backend; start proof 1.5 s, timeout 3.0 s, 운전 fault dwell 1.5 s
+- [x] 공통 forming-chain rundown/thermal hold/cooling recovery/requalification
+- [x] gauge 20 samples, U95 0.03 mm, 직경/ovality 0.05 mm 10 s, transport delay, fresh manual rethread
+- [x] quality transient 동안 same-cycle spool/traverse off와 waste mode
+- [x] dancer warning/controlled stop/hard stop = 0.32/0.36/0.4363 rad; 정상 jam은 hard stop 비접촉
+- [x] 8개 동적 power phase peak <=500 W, reserve >=100 W; 최대 477.2 W, 최소 reserve 122.8 W
+- [x] firmware/Modelica generated contract drift 검사: 11 process phases, 8 power phases
+- [x] production-linked runtime 43 scenarios/116 traces, invariant failure 0
+- [x] bounded sequence 4 fixed seeds x 최대 64 events
+- [x] false-PASS red-team mutation 14/14 검출
+- [x] firmware host tests 7/7, Arduino Mega 2560 compile PASS
+- [x] closed B-Rep, manifold mesh, slicer, collision, CalculiX와 analytical structure 기준 유지
+- [x] 기계 geometry는 v0.6 exact SHA와 동일; binary CAD revision-only rewrite 없음
+- [ ] 최종 release commit의 clean-clone CI-LIGHT/CI-FULL 증거 — commit 후 외부 evidence로 기록
+- [ ] 실제 Autodesk Fusion solve/correlation — `PENDING_EXTERNAL_EXECUTION`, safety-orchestration gate와 독립
 
-최종 clean-clone SHA, artifact count와 reproducibility 결과는 branch 최종 commit에서 재생성한 뒤 이 checklist와 manifest에 기록한다.
+OpenModelica mandatory 111/111은 PASS했고 failure는 0이다. Clean-clone CI-FULL이 저장 결과를 다시 실행해 검증한다.
+
+## CROSS_SOLVER_GATE — `CROSS_SOLVER_VALIDATION_PENDING`
+
+- [x] FreeCAD controlling STEP 9개와 LC01–LC10 hash-bound package 준비
+- [x] v0.6.1 engineering source SHA lock과 v0.6 supersession binding
+- [x] LC01–LC10 모두 `rerun_required=true`, result cell 비움
+- [ ] 실제 Fusion 실행 결과와 OpenModelica/CalculiX correlation
 
 ## PROCUREMENT_APPROVAL_GATE — `USER_APPROVAL_REQUIRED`
 
 - [ ] `VERIFIED_PROCUREMENT_BUDGET` 확립 — 현재 `NOT_ESTABLISHED`
+- [ ] cooling-feedback exact shunt/amplifier/fan window와 donor 정격 확인
 - [ ] CNC/cutter/screw-barrel/motor/heater/safety hardware 구매 또는 가공 승인
-- [ ] donor identity, 라벨, 전압/전류/축경/토크 및 재고 확인
+- [ ] donor label, 전압/전류/축경/토크/센서 형식과 재고 확인
+
+조건부 계획 175,729 KRW, contingency 포함 195,729 KRW, 계획 여유 4,271 KRW다. 이 값은 quote/receipt가 아니다.
 
 ## COMMISSIONING_GATE — `USER_APPROVAL_REQUIRED`
 
 - [ ] heater energization과 최초 powered commissioning 승인
 - [ ] 물리 lockout, E-stop, lid/service interlock, branch/thermal fuse 실물 확인
+- [ ] fan-current open/stall 분리, puller tach pulse 형식, gauge와 temperature channel 물리 교정
 
-Gate-1…5는 `OPTIONAL_EMPIRICAL_VALIDATION` 절차로 유지한다. 미수행은 main promotion을 차단하지 않으며, 수행 결과가 생기면 model-correlation/commissioning 증거로 기록한다. 이 릴리스는 `SAFETY_CERTIFIED`, `EMPIRICALLY_VALIDATED`, `PRODUCTION_CERTIFIED`가 아니다.
+Gate-1…5는 `OPTIONAL_EMPIRICAL_VALIDATION`이며 현재 `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. 이 릴리스는 실제 성능·안전·생산 인증이 아니다.

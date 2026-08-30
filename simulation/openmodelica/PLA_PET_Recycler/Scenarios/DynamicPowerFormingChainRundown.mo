@@ -1,0 +1,4 @@
+within PLA_PET_Recycler.Scenarios;
+model DynamicPowerFormingChainRundown
+  extends Systems.ProcessArbitrationSystem(initialState=GeneratedControl.FORMING_CHAIN_RUNDOWN);
+end DynamicPowerFormingChainRundown;

@@ -1,0 +1,16 @@
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Complex 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/ModelicaServices 4.0.0/package.mo");
+loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Modelica 4.0.0/package.mo");
+loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");
+cd("simulation/openmodelica/results/raw");
+simulate(PLA_PET_Recycler.Scenarios.PreheatCoolingStartupProbe,startTime=0,stopTime=7,numberOfIntervals=700,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PreheatCoolingStartupProbe");
+simulate(PLA_PET_Recycler.Scenarios.PreheatCoolingProbeDropout,startTime=0,stopTime=7,numberOfIntervals=700,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PreheatCoolingProbeDropout");
+simulate(PLA_PET_Recycler.Scenarios.PreheatRejectsInvalidCoolingFeedback,startTime=0,stopTime=7,numberOfIntervals=700,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PreheatRejectsInvalidCoolingFeedback");
+simulate(PLA_PET_Recycler.Scenarios.PurgeCoolingStartupProbe,startTime=0,stopTime=7,numberOfIntervals=700,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PurgeCoolingStartupProbe");
+simulate(PLA_PET_Recycler.Scenarios.PurgeFeedApprovalMissing,startTime=0,stopTime=20,numberOfIntervals=400,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PurgeFeedApprovalMissing");
+simulate(PLA_PET_Recycler.Scenarios.PurgeNormalAbortCooldown,startTime=0,stopTime=7,numberOfIntervals=700,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PurgeNormalAbortCooldown");
+simulate(PLA_PET_Recycler.Scenarios.PurgeSuccessfulCompletionCooldown,startTime=0,stopTime=500,numberOfIntervals=1000,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PurgeSuccessfulCompletionCooldown");
+simulate(PLA_PET_Recycler.Scenarios.QualityViolationRequalification,startTime=0,stopTime=45,numberOfIntervals=900,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="QualityViolationRequalification");
+simulate(PLA_PET_Recycler.Scenarios.PullerTachStartupGrace,startTime=0,stopTime=8,numberOfIntervals=800,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PullerTachStartupGrace");
+simulate(PLA_PET_Recycler.Scenarios.PullerTachStartupFailure,startTime=0,stopTime=8,numberOfIntervals=800,tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="PullerTachStartupFailure");
+getErrorString();

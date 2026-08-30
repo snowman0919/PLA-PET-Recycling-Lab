@@ -1,0 +1,116 @@
+{
+  "revision": "safety-orchestration-closure-v0.6.1",
+  "status": "PASS",
+  "process_contract_sha256": "b0cda8ee3ed63098fad9d447a24b084d4c6e4ccccdea165bab2ca4afc6e8126d",
+  "fault_response_contract_sha256": "5a2ca711f09d33c60d262b62ee86b243a16aa92fa92963e66b1b0b21f5d951f4",
+  "equivalence": {
+    "process_phases": "PASS",
+    "material_session_states": "PASS",
+    "transition_matrix": "PASS",
+    "calibration_readiness": "PASS",
+    "cooling_startup_probe": "PASS",
+    "invariant_fail_closed": "PASS",
+    "physical_ui_purge_abort": "PASS",
+    "eeprom_zero_sanitize": "PASS",
+    "puller_tach_startup_grace": "PASS",
+    "hot_purge_cooldown": "PASS",
+    "purge_permissions": "PASS",
+    "fault_response_table": "PASS",
+    "rundown_durations": "PASS",
+    "requalification_thresholds": "PASS",
+    "spool_eligibility": "PASS",
+    "dancer_thresholds": "PASS",
+    "power_permissions": "PASS",
+    "arduino_generated_header": "PASS",
+    "openmodelica_generated_parameters": "PASS"
+  },
+  "transport_delay": {
+    "physical_minimum_s_at_digital_stretch": {
+      "PLA": 13.3,
+      "PET": 14.9
+    },
+    "qualification_delay_s_at_nominal": {
+      "PLA": 26.7,
+      "PET": 28.6
+    },
+    "semantic_equivalence": "DISTINCT_OPERATING_POINTS_DOCUMENTED"
+  },
+  "power_phases": [
+    {
+      "phase": "SHREDDING",
+      "average_w": 310,
+      "peak_w": 477,
+      "psu_current_a": 19.875,
+      "remaining_w_margin": 123.0,
+      "remaining_a_margin": 5.125
+    },
+    {
+      "phase": "PREHEATING",
+      "average_w": 300,
+      "peak_w": 405,
+      "psu_current_a": 16.875,
+      "remaining_w_margin": 195.0,
+      "remaining_a_margin": 8.125
+    },
+    {
+      "phase": "EXTRUSION",
+      "average_w": 340,
+      "peak_w": 454,
+      "psu_current_a": 18.917,
+      "remaining_w_margin": 146.0,
+      "remaining_a_margin": 6.083
+    },
+    {
+      "phase": "MAINTENANCE_PURGE",
+      "average_w": 373,
+      "peak_w": 447,
+      "psu_current_a": 18.625,
+      "remaining_w_margin": 153.0,
+      "remaining_a_margin": 6.375
+    },
+    {
+      "phase": "FORMING_CHAIN_RUNDOWN",
+      "average_w": 359,
+      "peak_w": 437,
+      "psu_current_a": 18.208,
+      "remaining_w_margin": 163.0,
+      "remaining_a_margin": 6.792
+    },
+    {
+      "phase": "THERMAL_HOLD",
+      "average_w": 305,
+      "peak_w": 365,
+      "psu_current_a": 15.208,
+      "remaining_w_margin": 235.0,
+      "remaining_a_margin": 9.792
+    },
+    {
+      "phase": "REQUALIFYING",
+      "average_w": 357,
+      "peak_w": 445,
+      "psu_current_a": 18.542,
+      "remaining_w_margin": 155.0,
+      "remaining_a_margin": 6.458
+    },
+    {
+      "phase": "COOLDOWN",
+      "average_w": 36,
+      "peak_w": 45,
+      "psu_current_a": 1.875,
+      "remaining_w_margin": 555.0,
+      "remaining_a_margin": 23.125
+    }
+  ],
+  "validator_sources": {
+    "validation/orchestration_contract.py": "4b010a90dd54a13ee2dc69d400eeac0daa1426d6a1d1bcfc41ffc55032ed49ba"
+  },
+  "production_audit_sources": {
+    "firmware/arduino_mega/arduino_mega.ino": "5c114212a10605bbc01b4873e75b9a030a0d052805dc22f3435b52e8c7ddd1b1",
+    "firmware/arduino_mega/src/machine_supervisor.cpp": "423248aaf2925e87f4321bf4e9b85303eb5746c9003d478249153b47dc446994",
+    "firmware/arduino_mega/src/process_state.cpp": "1fcb998bf1c7d0b31851bfde072d21ba7e15f112231923a0e289e89b3f5abfca",
+    "firmware/arduino_mega/src/calibration_record.h": "50ee795ff1f9b0622e459b2fc0a603440db9f12c59416e6cce3bfd1a17360e45",
+    "firmware/arduino_mega/tests/test_calibration_record.cpp": "d78fc4a434ea56fd472c3d1380ebac17b23a8e4a509aa3b4a2c730db47b912f4",
+    "firmware/arduino_mega/src/generated_profiles.h": "d496e9802dc5ad61a5fc49e819637dec4130f566db63a9d5045083d3488cdf5f",
+    "simulation/openmodelica/PLA_PET_Recycler/GeneratedControl.mo": "857a44081e16f90622412c85885f8cd4d12de6fa9ab4bb7165df48a9a6045a1d"
+  }
+}
