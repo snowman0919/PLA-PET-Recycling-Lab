@@ -207,9 +207,8 @@ def main():
         material={row["part_id"]:row["material"] for row in rows}
         for item in results:
             writer.writerow({"part_id":item["part_id"],"quantity":item["quantity"],"material":material[item["part_id"]],"slicer_mass_total_g":f"{item['mass_g']:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round(item["mass_g"]*18),"status":"PRUSASLICER_ESTIMATE"})
-        writer.writerow({"part_id":"TOTAL_NOMINAL","quantity":sum(item["quantity"] for item in results),"material":"MIXED","slicer_mass_total_g":f"{total_mass:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round(total_mass*18),"status":"PRUSASLICER_ESTIMATE"})
-        writer.writerow({"part_id":"FAILED_PRINT_RESERVE_12_PERCENT","quantity":0,"material":"MIXED","slicer_mass_total_g":f"{reserve:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round(reserve*18),"status":"PLANNING_RESERVE"})
-        writer.writerow({"part_id":"TOTAL_PLANNING","quantity":sum(item["quantity"] for item in results),"material":"MIXED","slicer_mass_total_g":f"{total_mass+reserve:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round((total_mass+reserve)*18),"status":"CONDITIONAL_BUDGET_INPUT"})
+        writer.writerow({"part_id":"TOTAL_SLICED","quantity":1,"material":"PLA/ABS","slicer_mass_total_g":f"{total_mass:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round(total_mass*18),"status":"PRUSASLICER_ESTIMATE"})
+        writer.writerow({"part_id":"TOTAL_PLANNING","quantity":1,"material":"PLA/ABS","slicer_mass_total_g":f"{total_mass+reserve:.2f}","cost_krw_per_kg":18000,"estimated_cost_krw":round((total_mass+reserve)*18),"status":"PRUSASLICER_PLUS_12_PERCENT_RESERVE"})
     if result["status"]!="PASS": raise SystemExit("PRINT_MASS_AND_TIME_FAIL")
     print(f"SLICER_SUCCESS_OK parts={len(results)} mass_g={total_mass:.1f} time_h={total_time/3600:.1f}")
 
