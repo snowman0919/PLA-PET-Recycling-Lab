@@ -81,7 +81,10 @@ def test_manufacturing_and_physics():
     require(engineering["revision"] == REV and engineering["release_class"] == IMPLEMENTATION_STATE, "engineering revision")
     require(engineering["torque_hierarchy"]["strict_order_pass"], "torque hierarchy")
     require(engineering["power"]["status"] == "PASS", "phase power budget")
-    require(all(row["peak_w"] <= 500 and row["remaining_w_to_psu"] >= 100 for row in engineering["power"]["states"]), "500 W / 100 W reserve criterion")
+    require(all(
+        row["computed_peak_w"] <= 500 and row["remaining_w_to_psu"] >= 100
+        for row in engineering["power"]["states"]
+    ), "500 W / 100 W reserve criterion")
     require(engineering["thermocouple_bore"]["selected_status"] == "PASS", "thermocouple bore local screen")
     require(engineering["frame_sensitivity"]["selected"] == "B_LOCAL_2040" and engineering["frame_sensitivity"]["options"][1]["status"] == "PASS", "frame reinforcement")
     require(engineering["cartridge_heater_fit"]["status"] == "PASS_DFM_SCREEN", "cartridge heater fit")

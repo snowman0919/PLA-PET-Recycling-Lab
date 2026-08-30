@@ -1,17 +1,17 @@
 {
-  "revision": "implementation-crosssolver-v0.6",
+  "revision": "safety-orchestration-closure-v0.6.1",
   "gate": "CLEAN_CLONE_REPRODUCIBILITY",
-  "scope": "all manifested decision-relevant artifacts after full regeneration",
+  "scope": "all manifested decision-relevant artifacts after configured generation; frozen CAD binaries are validated and reused when geometry_change_required=false",
   "normalization_policy": {
     "STEP_TEXT_NORMALIZED_V1": "timestamp and OpenCASCADE process-local translator sequence only",
     "FCSTD_DOCUMENT_BREP_V1": "all ZIP members except non-manufacturing *.Shape.Map.txt history map",
     "ZIP_MEMBER_CONTENT_V1": "sorted member names and exact contents; ZIP timestamps excluded",
     "RAW_SHA256_V1": "exact bytes"
   },
-  "checked_count": 687,
+  "checked_count": 753,
   "hash_mode_counts": {
     "FCSTD_DOCUMENT_BREP_V1": 56,
-    "RAW_SHA256_V1": 540,
+    "RAW_SHA256_V1": 606,
     "STEP_TEXT_NORMALIZED_V1": 65,
     "ZIP_MEMBER_CONTENT_V1": 26
   },
