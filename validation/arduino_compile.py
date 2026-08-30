@@ -52,7 +52,7 @@ def main() -> None:
     output = result.stdout + result.stderr
     passed = result.returncode == 0 and "Sketch uses" in output and "Global variables use" in output
     evidence = {
-        "revision": "virtual-physics-closure-v0.5.1",
+        "revision": "implementation-crosssolver-v0.6",
         "fqbn": "arduino:avr:mega",
         "target": "firmware/arduino_mega/arduino_mega.ino",
         "status": "PASS" if passed else "FAIL",

@@ -14,9 +14,11 @@ def duration(name: str) -> tuple[int, int]:
     if name == "ThermalFuseLongDuration": return 14400, 3600
     if name in {"MOSFETStuckOn"}: return 7200, 3600
     if name.startswith("HotExtrusionJam"): return 2400, 2400
+    if name.startswith("ReliefOpening"): return 2400, 2400
     if name.startswith("Extruder") or name.startswith("Heater"): return 1800, 1800
     if name.startswith("FullSystem"):
-        return (1800, 1800) if name in {"FullSystemPLA", "FullSystemPET"} else (20, 1000)
+        return (1800, 1800) if name in {"FullSystemPLA", "FullSystemPET", "FullSystemGaugeFailure"} else (20, 1000)
+    if name in {"GaugeFailureControlledPause", "FeederLossDuringExtrusion", "CoolingLossDuringExtrusion", "SpoolerPermissionLoss"}: return 1800, 1800
     if name in CRITERIA["scenario_groups"]["shredder"]: return 18, 1800
     if name in CRITERIA["scenario_groups"]["forming"]: return 60, 1200
     if name in CRITERIA["scenario_groups"]["spool"]: return 12, 1200

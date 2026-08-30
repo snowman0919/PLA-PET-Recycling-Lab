@@ -4,7 +4,7 @@
 
 int main() {
   ProcessController c;
-  SafetyInputs safe{true, true, true, true, true, true, true};
+  SafetyInputs safe{true, true, true, true, true, true, true, true, true};
   assert(c.selectMaterial(MaterialProfile::PLA));
   assert(c.requestState(MachineState::SHREDDING, safe));
   assert(c.permissions().shredder && !c.permissions().screw && !c.permissions().process_heaters);
@@ -17,11 +17,21 @@ int main() {
   assert(c.requestState(MachineState::COOLDOWN, safe));
   assert(c.permissions().cooling && !c.permissions().screw && !c.permissions().process_heaters);
   assert(c.requestState(MachineState::IDLE, safe));
+  assert(c.requestMaterialChange(MaterialProfile::PET, safe));
+  assert(c.materialSession() == MaterialSession::PURGE_REQUIRED);
+  assert(!c.requestState(MachineState::PREHEATING, safe));
+  assert(!c.acknowledgeMaterialStep(MaterialSession::PURGE_REQUIRED, false));
+  assert(c.acknowledgeMaterialStep(MaterialSession::PURGE_REQUIRED, true));
+  assert(c.acknowledgeMaterialStep(MaterialSession::SCREEN_CLEAN_REQUIRED, true));
+  assert(c.acknowledgeMaterialStep(MaterialSession::HOPPER_CLEAN_REQUIRED, true));
+  assert(c.acknowledgeMaterialStep(MaterialSession::TEMPERATURE_TRANSITION_REQUIRED, true));
+  assert(c.acknowledgeMaterialStep(MaterialSession::FINAL_CONFIRM_REQUIRED, true));
+  assert(c.material() == MaterialProfile::PET && c.materialReady());
   c.reportFault();
   assert(c.state() == MachineState::FAULT);
   assert(!c.clearFault(safe, false));
   assert(c.clearFault(safe, true));
-  SafetyInputs unsafe{true, false, true, true, true, true, true};
+  SafetyInputs unsafe{true, false, true, true, true, true, true, true, true};
   assert(!c.requestState(MachineState::SHREDDING, unsafe));
   assert(PLA_PROFILE.zone_c[2] < PET_PROFILE.zone_c[2]);
   assert(PLA_PROFILE.shredder_rpm == 32 && PET_PROFILE.shredder_rpm == 24);
@@ -32,5 +42,5 @@ int main() {
   assert(!PET_PROFILE.external_predry_qualified);
   assert(INPUT_MECHANICAL_FUSE_NM < PHASE_DRIVETRAIN_ALLOWABLE_NM);
   assert(PHASE_DRIVETRAIN_ALLOWABLE_NM < SHAFT_CUTTER_ALLOWABLE_NM);
-  std::cout << "PROCESS_PHASE_PROFILE_ARBITRATION_OK\n";
+  std::cout << "PROCESS_PHASE_MATERIAL_SESSION_ARBITRATION_OK\n";
 }

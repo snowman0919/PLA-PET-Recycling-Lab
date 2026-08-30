@@ -1,0 +1,9 @@
+rfq_id,scope,supplier_candidate,package,status,quoted_total_krw,shipping_tax_krw,lead_time_days,valid_until,evidence_path,next_action
+RFQ-01,CUT-01 cutter coupon then full stack,local laser/waterjet vendor,exports/cnc/CUT-01 + drawing,RFP_READY_NOT_SENT,,,,,,user approval required before external RFQ
+RFQ-02,CUT-03 bearing plate matched pair,local laser and bearing-seat finisher,exports/cnc/CUT-03 + drawing,RFP_READY_NOT_SENT,,,,,,request material alternative and finish-seat split price
+RFQ-03,CUT-05 keyed shaft pair,local turning/keyway vendor,exports/cnc/CUT-05 + drawing,RFP_READY_NOT_SENT,,,,,,request S45C h6/TIR evidence
+RFQ-04,EX-SCR-01 plus process coupon,screw machining vendor,exports/extruder RFQ package,RFP_READY_NOT_SENT,,,,,,quote coupon and full part separately
+RFQ-05,EX-BAR-01 plus matched coupon,deep-drill/hone/nitride vendor,exports/extruder RFQ package,RFP_READY_NOT_SENT,,,,,,quote process sequence and final inspection separately
+RFQ-06,custom 24 V band heater x3,한국전자전열 / 한일전열,exports/thermal/heater_rfq_ko.md,RFP_READY_NOT_SENT,,,,,,request resistance insulation lead and delivery evidence
+RFQ-07,GMP60-60127-2460 ratio47,TT Motor factory,bom motor functional specification,RFP_READY_NOT_SENT,,,,,,request unit price shipping lead time and exact drawing confirmation
+RFQ-08,#35 12T/30T sprockets and chain,한국미스미,bom interface specification,RFP_READY_NOT_SENT,,,,,,request bores stock status shipping and lead time

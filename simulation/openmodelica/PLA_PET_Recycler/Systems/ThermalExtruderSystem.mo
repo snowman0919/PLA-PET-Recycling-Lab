@@ -10,11 +10,17 @@ model ThermalExtruderSystem
   parameter Boolean enabled=true;
   parameter Boolean heaterEnabled=enabled;
   parameter Boolean screwEnabled=enabled;
+  parameter Boolean feederEnabled=enabled;
   parameter Boolean useExternalCommands=false;
   input Boolean externalHeaterCommand=false;
   input Boolean externalScrewCommand=false;
+  input Boolean externalFeederCommand=false;
+  input Real externalScrewScale=1;
+  input Boolean externalSafeHold=false;
   Boolean heaterCommand;
   Boolean screwCommand;
+  Boolean feederCommand;
+  Real screwCommandScale;
   parameter Real blockageStart=1e9;
   parameter Real blockageRamp=120;
   parameter Real maximumBlockage=0.92;
@@ -47,7 +53,16 @@ model ThermalExtruderSystem
   Real motorCurrent;
   Real polymerTorque;
   Real meltPressureMPa;
+  Real rawPressureMPa;
+  parameter Real reliefThresholdMPa=4.32;
+  discrete Integer reliefState(start=1,fixed=true) "1 CLOSED, 2 RETAINER_RELEASED";
+  Real effectiveBypassAreaMM2;
+  Real reliefFlowGPH;
+  Boolean normalExtrusionEnabled;
   Real blockageFraction;
+  Real screwCapacityGPH;
+  Real feedRateGPH;
+  Real feedInventoryG(start=0.5,fixed=true);
   Real solidConveyingGPH;
   Real meltEfficiency;
   Real viscosityFactor;
@@ -67,10 +82,12 @@ model ThermalExtruderSystem
 equation
   heaterCommand=if useExternalCommands then externalHeaterCommand else heaterEnabled;
   screwCommand=if useExternalCommands then externalScrewCommand else screwEnabled;
-  targetT1=(if material==1 then 180 else 245)-(if driveTripped then 20 else 0);
-  targetT2=(if material==1 then 195 else 260)-(if driveTripped then 20 else 0);
-  targetT3=(if material==1 then 205 else 270)-(if driveTripped then 20 else 0);
-  targetTdie=(if material==1 then 200 else 265)-(if driveTripped then 20 else 0);
+  screwCommandScale=if useExternalCommands then externalScrewScale else 1;
+  feederCommand=(if useExternalCommands then externalFeederCommand else feederEnabled) and not driveTripped and reliefState==1;
+  targetT1=(if material==1 then 180 else 245)-(if driveTripped or externalSafeHold then 20 else 0);
+  targetT2=(if material==1 then 195 else 260)-(if driveTripped or externalSafeHold then 20 else 0);
+  targetT3=(if material==1 then 205 else 270)-(if driveTripped or externalSafeHold then 20 else 0);
+  targetTdie=(if material==1 then 200 else 265)-(if driveTripped or externalSafeHold then 20 else 0);
   sensorT1=if sensorOpen then -273 else T1;
   sensorT2=if sensorOpen then -273 else T2;
   sensorT3=if sensorOpen then -273 else T3;
@@ -88,21 +105,31 @@ equation
   power3=if fuseBlown or heaterOpenZone==3 then 0 else 100*duty3;
   powerDie=if fuseBlown or heaterOpenZone==4 then 0 else 60*dutyDie;
   blockageFraction=if screwJammed then 0.99 else if time<blockageStart then 0 else min(maximumBlockage,(time-blockageStart)/blockageRamp*maximumBlockage);
-  commandedScrewRPM=if screwCommand and not thermalCut and ready and not driveTripped then targetRPM else 0;
+  commandedScrewRPM=if screwCommand and not thermalCut and ready and not driveTripped then targetRPM*max(0,min(1,screwCommandScale)) else 0;
   screwRPM=screwOmega*60/(2*Modelica.Constants.pi);
-  solidConveyingGPH=(if material==1 then 8.18 else 7.21)*screwRPM*(bulkDensity/330)*fillFactor/0.22;
+  screwCapacityGPH=max(0,(if material==1 then 8.18 else 7.21)*screwRPM*(bulkDensity/330)*fillFactor/0.22);
+  feedRateGPH=if feederCommand then (if material==1 then 105 else 102) else 0;
+  solidConveyingGPH=if screwCommand and feedInventoryG>0 then min(screwCapacityGPH,feedRateGPH+450*feedInventoryG) else 0;
+  der(feedInventoryG)=feedRateGPH/3600-solidConveyingGPH/3600;
   meltEfficiency=max(0,min(0.98,0.72+0.0012*(T2-ambient)+0.0008*(T3-ambient)));
   viscosityFactor=exp((if material==1 then 1750 else 2300)*(1/(Tdie+273.15)-1/(targetTdie+273.15)));
   potentialFlowGPH=max(0,solidConveyingGPH*meltEfficiency);
-  meltPressureMPa=min(8,3.0*potentialFlowGPH/100*(1+5*blockageFraction/max(0.08,1-blockageFraction)));
+  rawPressureMPa=3.0*potentialFlowGPH/100*(1+5*blockageFraction/max(0.08,1-blockageFraction));
+  effectiveBypassAreaMM2=if reliefState==2 then 60 else 0;
+  meltPressureMPa=min(50,rawPressureMPa/(1+0.70*effectiveBypassAreaMM2));
   backflowGPH=max(0,0.08*potentialFlowGPH*viscosityFactor*(1+meltPressureMPa/6));
   leakageGPH=max(0,0.035*potentialFlowGPH*viscosityFactor*(1+meltPressureMPa/6));
-  netFlowGPH=max(0,potentialFlowGPH*(1-blockageFraction)-backflowGPH-leakageGPH);
+  normalExtrusionEnabled=reliefState==1 and not driveTripped;
+  reliefFlowGPH=if reliefState==2 then max(0,0.60*potentialFlowGPH) else 0;
+  netFlowGPH=if normalExtrusionEnabled then max(0,potentialFlowGPH*(1-blockageFraction)-backflowGPH-leakageGPH) else 0;
   polymerTorque=1.5+2.5*meltPressureMPa;
   motorTorque=max(-22,min(22,0.8*(commandedScrewRPM*2*Modelica.Constants.pi/60-screwOmega)+polymerTorque));
   motorCurrent=abs(motorTorque)/1.50;
   0.08*der(screwOmega)=motorTorque-polymerTorque-0.05*screwOmega;
-  when meltPressureMPa>=6 or abs(motorTorque)>=21.9 or motorCurrent>=14.6 then
+  when rawPressureMPa>=reliefThresholdMPa then
+    reliefState=2;
+  end when;
+  when meltPressureMPa>=6 or abs(motorTorque)>=21.9 or motorCurrent>=14.6 or reliefState==2 then
     driveTripped=true;
   end when;
   polymerLoad1=netFlowGPH/3.6e6*(if material==1 then 1800 else 1200)*max(0,T1-ambient)*0.28;

@@ -1,5 +1,5 @@
 {
-  "revision": "virtual-physics-closure-v0.5.1",
+  "revision": "implementation-crosssolver-v0.6",
   "solver": "dassl",
   "tolerance": 1e-06,
   "phase_error_limit_rad": 0.0174532925199433,
@@ -22,12 +22,12 @@
   "diameter_target_mm": 1.75,
   "diameter_initial_tolerance_mm": 0.05,
   "scenario_groups": {
-    "shredder": ["MotorNoLoadStart", "ColdStartNoLoad", "ColdStartPLA", "ColdStartPET", "SlowAcceleration", "HighInertiaStart", "BrownoutLikeVoltageDrop", "MotorRatedLoad", "MotorLoadStep", "PLANominal", "PETNominal", "SingleHookImpact", "MultiHookEngagement", "OneShaftJam", "FullJam", "ReverseClear", "RetryFailure", "MechanicalFuseTrip", "ChainBacklashReverse", "EmergencyStop"],
-    "thermal": ["ExtruderWarmupPLA", "ExtruderWarmupPET", "ExtruderNominalPLA", "ExtruderNominalPET", "ExtruderHighFlow", "HeaterOpen", "SensorOpen", "MOSFETStuckOn", "HotExtrusionJamPLA", "HotExtrusionJamPET", "ThermalFuseLongDuration"],
-    "spool": ["EmptySpool", "HalfSpool", "FullSpool", "SpoolJam", "DancerLimit", "GaugeDropout", "RealSpoolJam", "SpoolJamPropagation"],
-    "full_system": ["FullSystemPLA", "FullSystemPET", "FullSystemGaugeFailure", "FullSystemJam"],
-    "process_power": ["ProcessShredToPreheatTransition", "ProcessPreheatToExtrusionTransition", "IllegalShredHeaterOverlap", "PSUPeakShredding", "PSUPeakPreheat", "PSUPeakExtrusion"],
-    "forming": ["PLAFormingNominal", "PETFormingNominal", "PLAFormingHighFlow", "PETFormingHighFlow", "DiameterFlowStep", "DiameterPullerDisturbance"]
+    "shredder": ["MotorNoLoadStart", "ColdStartNoLoad", "ColdStartPLA", "ColdStartPET", "SlowAcceleration", "HighInertiaStart", "BrownoutLikeVoltageDrop", "MotorRatedLoad", "MotorLoadStep", "PLANominal", "PETNominal", "SingleHookImpact", "MultiHookEngagement", "OneShaftJam", "FullJam", "ReverseClear", "RetryFailure", "MechanicalFuseTrip", "ChainBacklashReverse", "EmergencyStop", "LeftShaftJam", "PhaseGearLoadReversal", "MultiHookProtectiveTrip", "MotorRatedLoadStrict"],
+    "thermal": ["ExtruderWarmupPLA", "ExtruderWarmupPET", "ExtruderNominalPLA", "ExtruderNominalPET", "ExtruderHighFlow", "HeaterOpen", "SensorOpen", "MOSFETStuckOn", "HotExtrusionJamPLA", "HotExtrusionJamPET", "ThermalFuseLongDuration", "ReliefOpeningPLA", "ReliefOpeningPET"],
+    "spool": ["EmptySpool", "HalfSpool", "FullSpool", "SpoolJam", "DancerLimit", "RealSpoolJam", "SpoolJamPropagation"],
+    "full_system": ["FullSystemPLA", "FullSystemPET", "FullSystemGaugeFailure", "FullSystemJam", "GaugeFailureControlledPause", "FeederLossDuringExtrusion", "CoolingLossDuringExtrusion", "SpoolerPermissionLoss"],
+    "process_power": ["ProcessShredToPreheatTransition", "ProcessPreheatToExtrusionTransition", "IllegalShredHeaterOverlap", "PSUPeakShredding", "PSUPeakPreheat", "PSUPeakExtrusion", "DynamicPowerShredding", "DynamicPowerPreheating", "DynamicPowerExtrusion", "DynamicPowerCooldown"],
+    "forming": ["PLAFormingNominal", "PETFormingNominal", "PLAFormingHighFlow", "PETFormingHighFlow", "DiameterFlowStep", "DiameterPullerDisturbance", "GaugeNoise", "GaugeBias", "GaugeDropout", "PullerSlip", "PullerSaturation", "OvalityDisturbance"]
   },
   "required_scenarios": [
     "MotorNoLoadStart", "ColdStartNoLoad", "ColdStartPLA", "ColdStartPET", "SlowAcceleration", "HighInertiaStart", "BrownoutLikeVoltageDrop", "MotorRatedLoad", "MotorLoadStep", "PLANominal", "PETNominal", "SingleHookImpact", "MultiHookEngagement", "OneShaftJam", "FullJam", "ReverseClear", "RetryFailure", "MechanicalFuseTrip", "ChainBacklashReverse", "EmergencyStop",
@@ -35,6 +35,11 @@
     "EmptySpool", "HalfSpool", "FullSpool", "SpoolJam", "DancerLimit", "GaugeDropout", "RealSpoolJam", "SpoolJamPropagation",
     "FullSystemPLA", "FullSystemPET", "FullSystemGaugeFailure", "FullSystemJam",
     "ProcessShredToPreheatTransition", "ProcessPreheatToExtrusionTransition", "IllegalShredHeaterOverlap", "PSUPeakShredding", "PSUPeakPreheat", "PSUPeakExtrusion",
-    "PLAFormingNominal", "PETFormingNominal", "PLAFormingHighFlow", "PETFormingHighFlow", "DiameterFlowStep", "DiameterPullerDisturbance"
+    "PLAFormingNominal", "PETFormingNominal", "PLAFormingHighFlow", "PETFormingHighFlow", "DiameterFlowStep", "DiameterPullerDisturbance",
+    "LeftShaftJam", "PhaseGearLoadReversal", "MultiHookProtectiveTrip", "MotorRatedLoadStrict",
+    "GaugeFailureControlledPause", "FeederLossDuringExtrusion", "CoolingLossDuringExtrusion", "SpoolerPermissionLoss",
+    "GaugeNoise", "GaugeBias", "PullerSlip", "PullerSaturation", "OvalityDisturbance",
+    "ReliefOpeningPLA", "ReliefOpeningPET",
+    "DynamicPowerShredding", "DynamicPowerPreheating", "DynamicPowerExtrusion", "DynamicPowerCooldown"
   ]
 }

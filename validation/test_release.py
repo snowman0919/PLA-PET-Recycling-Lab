@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""virtual-physics-closure-v0.5.1 mandatory digital release checks."""
+"""implementation-crosssolver-v0.6 mandatory digital release checks."""
 
 from __future__ import annotations
 
@@ -10,8 +10,8 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REV = "virtual-physics-closure-v0.5.1"
-RELEASE = "DIGITAL_FABRICATION_BASELINE"
+REV = "implementation-crosssolver-v0.6"
+RELEASE = "IMPLEMENTATION_BASELINE"
 
 
 def require(condition, message):
@@ -87,17 +87,57 @@ def test_manufacturing_and_physics():
     require(engineering["throughput"]["profile_points"]["PET"]["throughput_nominal_gph"] < 200, "PET 200 g/h incorrectly claimed")
 
     modelica = json.loads((ROOT / "simulation/openmodelica/results/summary.json").read_text())
-    require(modelica["revision"] == REV and modelica["status"] == "PASS" and modelica["scenario_count"] >= 55, "mandatory coupled scenarios")
+    require(modelica["revision"] == REV and modelica["status"] == "PASS" and modelica["scenario_count"] >= 74, "mandatory coupled scenarios")
     names = {row["scenario"] for row in modelica["scenarios"]}
-    require({"ReverseClear", "RetryFailure", "MechanicalFuseTrip", "ExtruderWarmupPET", "MOSFETStuckOn", "FullSystemJam"} <= names, "critical scenarios absent")
+    require({
+        "ReverseClear", "RetryFailure", "MechanicalFuseTrip", "LeftShaftJam",
+        "PhaseGearLoadReversal", "MultiHookProtectiveTrip", "MotorRatedLoadStrict",
+        "GaugeFailureControlledPause", "FeederLossDuringExtrusion", "CoolingLossDuringExtrusion",
+        "SpoolerPermissionLoss", "GaugeNoise", "GaugeBias", "PullerSlip", "PullerSaturation",
+        "OvalityDisturbance", "ReliefOpeningPLA", "ReliefOpeningPET",
+        "DynamicPowerShredding", "DynamicPowerPreheating", "DynamicPowerExtrusion", "DynamicPowerCooldown",
+    } <= names, "v0.6 critical scenarios absent")
     require(all(row["status"] == "PASS" for row in modelica["scenarios"]), "scenario failure")
     bridge = json.loads((ROOT / "simulation/openmodelica/generated/cad_mass_properties.json").read_text())
     require(bridge["revision"] == REV, "CAD/Modelica bridge revision")
     require(bridge["baseline_sha256"] == hashlib.sha256((ROOT / "cad/parameters/baseline.json").read_bytes()).hexdigest(), "CAD/Modelica bridge hash")
     structural = json.loads((ROOT / "analysis/structural/results/structural_screening.json").read_text())
     require(structural["status"] == "PASS" and all(v["status"] == "PASS" for v in structural["calculix"].values()), "structural screening")
+    require(structural["calculix"]["bearing_plate"]["medium_to_fine_displacement_delta_percent"] <= 5, "bearing plate mesh convergence")
+    require(structural["calculix"]["cutter_shaft"]["medium_to_fine_displacement_delta_percent"] <= 5, "shaft mesh convergence")
     header = (ROOT / "firmware/arduino_mega/src/generated_profiles.h").read_text()
     require(bridge["baseline_sha256"] in header and "false}" in header, "firmware calibration lock/hash")
+
+
+def test_implementation_and_cross_solver():
+    compile_result = json.loads((ROOT / "validation/results/arduino_mega_compile.json").read_text())
+    require(compile_result["revision"] == REV and compile_result["status"] == "PASS", "Arduino Mega compile evidence")
+    ino = (ROOT / "firmware/arduino_mega/arduino_mega.ino").read_text()
+    for token in ("Max6675Backend", "EEPROM", "materialSession", "heaterController", "gaugeController", "LOCKOUT_CONFIRM_PIN"):
+        require(token in ino, f"firmware implementation missing {token}")
+    process_state = (ROOT / "firmware/arduino_mega/src/process_state.cpp").read_text()
+    require(all(token in process_state for token in ("PURGE_REQUIRED", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED", "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED")), "ordered material-session implementation")
+
+    package = ROOT / "exports/fusion_validation"
+    model_rows = list(csv.DictReader((package / "model_manifest.csv").open()))
+    load_rows = list(csv.DictReader((package / "load_case_manifest.csv").open()))
+    require(len(model_rows) == 9 and len(load_rows) == 10, "Fusion neutral package count")
+    binding = json.loads((package / "run_binding.json").read_text())
+    require(binding["revision"] == REV and binding["fusion_result_state"] == "PENDING_EXTERNAL_EXECUTION", "Fusion binding state")
+    require(binding["model_manifest_sha256"] == hashlib.sha256((package / "model_manifest.csv").read_bytes()).hexdigest(), "model manifest binding")
+    require(binding["load_case_manifest_sha256"] == hashlib.sha256((package / "load_case_manifest.csv").read_bytes()).hexdigest(), "load manifest binding")
+    for row in model_rows:
+        step = package / "geometry" / row["file"]
+        require(step.stat().st_size > 4000 and row["step_sha256"] == hashlib.sha256(step.read_bytes()).hexdigest(), f"STEP binding {row['file']}")
+    fusion_results = json.loads((package / "results/fusion_result_manifest.json").read_text())
+    require(fusion_results["status"] == "PENDING" and not fusion_results["runs"], "external Fusion result falsely claimed")
+    correlation = list(csv.DictReader((ROOT / "analysis/cross_solver/correlation_matrix.csv").open()))
+    require(correlation and all(row["status"] == "PENDING" for row in correlation), "cross-solver pending boundary")
+
+    inventory = list(csv.DictReader((ROOT / "bom/inventory_evidence_v0.6.csv").open()))
+    rfqs = list(csv.DictReader((ROOT / "bom/rfq_register_v0.6.csv").open()))
+    require(inventory and all(row["verification_state"] == "USER_INSPECTION_REQUIRED" and not row["claimed_available_quantity"] for row in inventory), "physical inventory falsely established")
+    require(rfqs and all(row["status"] == "RFP_READY_NOT_SENT" and not row["quoted_total_krw"] for row in rfqs), "RFQ falsely claimed")
 
 
 def test_artifacts_and_locks():
@@ -127,7 +167,7 @@ def test_artifacts_and_locks():
         text = subprocess.run(["pdftotext", str(ROOT / rel), "-"], text=True, capture_output=True, check=True).stdout
         require(
             REV in text
-            and "DIGITAL_FABRICATION_BASELINE" in text
+            and "IMPLEMENTATION_BASELINE" in text
             and "VIRTUAL_PHYSICS_VALIDATED" in text
             and "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN" in text
             and "Gate-1" in text,
@@ -139,8 +179,9 @@ def main():
     test_revision_and_stale(); print("PASS CURRENT_REVISION_COHERENT")
     test_geometry_budget_and_prints(); print("PASS GEOMETRY_BUDGET_PRINT")
     test_manufacturing_and_physics(); print("PASS MANUFACTURING_COUPLED_PHYSICS")
+    test_implementation_and_cross_solver(); print("PASS IMPLEMENTATION_CROSS_SOLVER_BOUNDARY")
     test_artifacts_and_locks(); print("PASS ARTIFACTS_PHYSICAL_LOCKS")
-    print("COUPLED_DIGITAL_VALIDATION_RELEASE_OK")
+    print("IMPLEMENTATION_CROSSSOLVER_V06_RELEASE_OK")
 
 
 if __name__ == "__main__":

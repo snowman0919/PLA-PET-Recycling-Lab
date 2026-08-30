@@ -1,11 +1,12 @@
-# OpenModelica virtual physics validation v0.5.1
+# OpenModelica virtual physics validation v0.6
 
 - 판정: **PASS**
-- 시나리오: 55개
-- release: `DIGITAL_FABRICATION_BASELINE`
+- 시나리오: 74개
+- release: `IMPLEMENTATION_BASELINE`
 - virtual physics: `VIRTUAL_PHYSICS_VALIDATED`
+- cross solver: `CROSS_SOLVER_VALIDATION_PENDING`
 - empirical: `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
-- 본 결과는 실제 제작품 성능·안전·직경 측정 인증이 아니다.
+- 결과는 실제 제작품 성능·안전·직경 인증이 아니다.
 
 |시나리오|판정|분류|
 |---|---:|---|
@@ -64,3 +65,22 @@
 |PETFormingHighFlow|PASS|DIGITAL_STRETCH_TARGET|
 |DiameterFlowStep|PASS|RELEASE_ACCEPTANCE|
 |DiameterPullerDisturbance|PASS|RELEASE_ACCEPTANCE|
+|LeftShaftJam|PASS|RELEASE_ACCEPTANCE|
+|PhaseGearLoadReversal|PASS|RELEASE_ACCEPTANCE|
+|MultiHookProtectiveTrip|PASS|RELEASE_ACCEPTANCE|
+|MotorRatedLoadStrict|PASS|RELEASE_ACCEPTANCE|
+|GaugeFailureControlledPause|PASS|RELEASE_ACCEPTANCE|
+|FeederLossDuringExtrusion|PASS|RELEASE_ACCEPTANCE|
+|CoolingLossDuringExtrusion|PASS|RELEASE_ACCEPTANCE|
+|SpoolerPermissionLoss|PASS|RELEASE_ACCEPTANCE|
+|GaugeNoise|PASS|RELEASE_ACCEPTANCE|
+|GaugeBias|PASS|RELEASE_ACCEPTANCE|
+|PullerSlip|PASS|RELEASE_ACCEPTANCE|
+|PullerSaturation|PASS|CONTROL_LIMIT_DETECTED|
+|OvalityDisturbance|PASS|OVALITY_FAULT_DETECTED|
+|ReliefOpeningPLA|PASS|RELEASE_ACCEPTANCE|
+|ReliefOpeningPET|PASS|RELEASE_ACCEPTANCE|
+|DynamicPowerShredding|PASS|RELEASE_ACCEPTANCE|
+|DynamicPowerPreheating|PASS|RELEASE_ACCEPTANCE|
+|DynamicPowerExtrusion|PASS|RELEASE_ACCEPTANCE|
+|DynamicPowerCooldown|PASS|RELEASE_ACCEPTANCE|

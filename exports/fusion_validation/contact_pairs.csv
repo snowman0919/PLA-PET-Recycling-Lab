@@ -1,0 +1,8 @@
+pair_id,study_scope,body_a,body_b,contact_type,friction,preload_or_note,status
+CP01,shredder,CUT-03 bearing plate,6004 outer ring,bonded,,screening simplification; inspect seat pressure separately,DEFINED
+CP02,shredder,cutter shaft,6004 inner ring,bonded,,screening simplification,DEFINED
+CP03,extruder,barrel,band heaters,bonded,,thermal contact conductance 1500 W/m2K sensitivity 750/3000,DEFINED
+CP04,extruder,barrel,die body,separation with friction,0.15,4x M4 preload must be entered from verified assembly torque,PRELOAD_PENDING
+CP05,extruder,die body,copper gasket,separation with friction,0.20,compression contact; nonlinear study,DEFINED
+CP06,spooler,spindle,6001 inner ring,bonded,,global screening,DEFINED
+CP07,frame,profile joints,profile joints,bonded,,global modal/buckling screening; bolt-slip excluded,DEFINED

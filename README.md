@@ -1,6 +1,6 @@
 # Virtual Physics Closure PLA/PET Recycler v0.5.1
 
-Active revision은 `virtual-physics-closure-v0.5.1`이다. 독립 상태는 `geometry_validation=PASS`, `fabrication_validation=PASS`, `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`, `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. 이는 프로젝트가 선택한 OpenModelica+해석역학+CalculiX+CAD 검증법에 따른 제작 기준선이며 안전·생산 인증이나 실제 filament 측정 합격을 뜻하지 않는다.
+Active revision은 `implementation-crosssolver-v0.6`이다. 독립 상태는 `geometry_validation=PASS`, `fabrication_validation=PASS`, `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`, `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다. 이는 프로젝트가 선택한 OpenModelica+해석역학+CalculiX+CAD 검증법에 따른 제작 기준선이며 안전·생산 인증이나 실제 filament 측정 합격을 뜻하지 않는다.
 
 ```text
 수동 검사/세척/재질 확인 → 공용 hopper → 공용 dual-shaft cycloidal-inspired hook cutter
@@ -21,7 +21,7 @@ Project-lab 우선 후보는 24 V wheelchair/conveyor geared brushed-DC, 그다�
 
 - 설계 외형: `470 × 700 × 930 mm`; hard `500 × 750 × 1000 mm`, target `480 × 720 × 950 mm` 이내.
 - 출력품: 12종, 계획 질량 `904.20 g` (실패 12% reserve 포함 `1,012.70 g`) 이하 기준선; 개별 축 210 mm 이하. 실제 slicer 결과는 재검증 산출물을 따른다.
-- OpenModelica 1.27.0 / MSL 4.0.0: process-phase arbiter, DC motor/gearbox/chain/fuse/cutter, reduced-order screw pressure-flow feedback, cooling/forming, explicit line-length spool jam을 연결한 55 scenario PASS.
+- OpenModelica 1.27.0 / MSL 4.0.0: process-phase arbiter, DC motor/gearbox/chain/fuse/cutter, reduced-order screw pressure-flow feedback, cooling/forming, explicit line-length spool jam을 연결한 74 scenario PASS.
 - Coupled peak envelope: cutter 21.994 N·m, phase 16.220 N·m, bearing 1.293 kN, chain 0.603 kN. 모두 측정값이 아닌 reduced-order virtual load이며 optional empirical correlation은 미수행이다.
 - Process heater: barrel 3×100 W + die 60 W = 360 W, T1–T5와 independent thermal cutoff. Extrusion active peak 490 W < 24 V 600 W; shredder와 heater/screw는 상호배제한다.
 - 16 mm screw default virtual point: PLA 16 rpm 99.4 g/h, PET 18 rpm 97.5 g/h, fan 100%. 200 g/h는 `DIGITAL_STRETCH_TARGET`이며 실제 달성 claim이 아니다.

@@ -1,8 +1,8 @@
-# Release checklist — virtual-physics-closure-v0.5.1
+# Release checklist — implementation-crosssolver-v0.6
 
 ## DESIGN_RELEASE_GATE
 
-- [x] `release_state=DIGITAL_FABRICATION_BASELINE`
+- [x] `release_state=IMPLEMENTATION_BASELINE`
 - [x] `geometry_validation=PASS`, `fabrication_validation=PASS`
 - [x] `virtual_physics_state=VIRTUAL_PHYSICS_VALIDATED`
 - [x] `empirical_state=EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
@@ -15,7 +15,7 @@
 - [x] startup grace, production-config three-retry FSM, ideal broken shear fuse, speed-control metrics
 - [x] closed screw pressure-flow-torque-current model 및 hot operating jam
 - [x] coupled cooling/forming/diameter control 및 explicit spool length-balance jam
-- [x] OpenModelica mandatory scenario 55개 PASS
+- [x] OpenModelica mandatory scenario 74개 PASS
 - [x] shaft/bearing plate/thrust/local 2040 frame/thermocouple-bore 구조 screening PASS
 - [x] ungrounded K-type + MAX6675 common-reference architecture와 Ø6.05 H7 cartridge fit 정합
 

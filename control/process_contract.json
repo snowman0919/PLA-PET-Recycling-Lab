@@ -1,11 +1,12 @@
 {
-  "revision": "virtual-physics-closure-v0.5.1",
+  "revision": "implementation-crosssolver-v0.6",
   "release": {
-    "release_state": "DIGITAL_FABRICATION_BASELINE",
+    "release_state": "IMPLEMENTATION_BASELINE",
     "geometry_validation": "PASS",
     "fabrication_validation": "PASS",
     "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
-    "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
+    "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
+    "cross_solver_state": "CROSS_SOLVER_VALIDATION_PENDING"
   },
   "states": {
     "IDLE": {"shredder": false, "screw": false, "process_heaters": false, "feeder": false, "puller": false, "spooler": false, "cooling": false},
@@ -25,6 +26,36 @@
     "FAULT": ["IDLE", "ESTOP"],
     "ESTOP": ["IDLE"]
   },
+  "material_session": {
+    "states": ["CLEAN", "PLA_ACTIVE", "PET_ACTIVE", "PURGE_REQUIRED", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED", "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED"],
+    "change_sequence": ["PURGE_REQUIRED", "SCREEN_CLEAN_REQUIRED", "HOPPER_CLEAN_REQUIRED", "TEMPERATURE_TRANSITION_REQUIRED", "FINAL_CONFIRM_REQUIRED"],
+    "start_requires": ["process_phase_IDLE", "feed_stopped", "screw_stopped"],
+    "completion_requires": ["ordered_acknowledgements", "explicit_final_confirmation"],
+    "production_allowed": ["PLA_ACTIVE", "PET_ACTIVE"]
+  },
+  "hardware": {
+    "temperature_channels": ["T1", "T2", "T3", "Tdie", "Thopper"],
+    "temperature_backend": "ungrounded_K_type_MAX6675_common_reference",
+    "shredder_driver": "PWM_DIR_ENABLE_HBRIDGE",
+    "screw_driver": "PWM_DIR_ENABLE_DC_GEARED_MOTOR_PROVISIONAL_DONOR",
+    "puller_driver": "PWM_DIR_WITH_TACH",
+    "spooler_driver": "PWM_DIR_WITH_DANCER_SAFE_PAUSE",
+    "traverse_driver": "STEP_DIR_ENABLE",
+    "gauge": "dual_axis_ADC_calibrated_U95"
+  },
+  "heater_control": {
+    "sample_period_ms": 250,
+    "time_proportion_window_ms": 2000,
+    "minimum_valid_c": -20.0,
+    "maximum_valid_c": 300.0,
+    "overtemperature_c": 285.0,
+    "not_heating_dwell_ms": 120000,
+    "not_heating_min_rise_c": 4.0,
+    "unexpected_rise_dwell_ms": 60000,
+    "unexpected_rise_c": 8.0,
+    "output_limit_percent": 100.0,
+    "process_heater_allowed_phases": ["PREHEATING", "EXTRUSION"]
+  },
   "materials": {
     "PLA": {"shredder_rpm": 32, "screw_rpm": 16, "fan_percent": 100, "virtual_throughput_gph": 99.4, "overload_dwell_ms": 650, "reverse_ms": 800, "shredder_duty_bias": 0.10, "shredder_speed_kp": 0.08},
     "PET": {"shredder_rpm": 24, "screw_rpm": 18, "fan_percent": 100, "virtual_throughput_gph": 97.5, "overload_dwell_ms": 850, "reverse_ms": 1100, "shredder_duty_bias": 0.115, "shredder_speed_kp": 0.06}
@@ -42,7 +73,8 @@
   },
   "shredder_speed_control": {
     "duty_limit": 0.90,
-    "command_filter_s": 0.50
+    "command_filter_s": 1.20,
+    "measurement_filter_s": 0.25
   },
   "power": {
     "voltage_v": 24.0,

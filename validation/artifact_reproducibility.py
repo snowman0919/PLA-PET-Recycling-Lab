@@ -59,7 +59,7 @@ def main():
                 })
     modes = Counter(record["hash_mode"] for record in current.values())
     result = {
-        "revision": "virtual-physics-closure-v0.5.1",
+        "revision": "implementation-crosssolver-v0.6",
         "gate": "CLEAN_CLONE_REPRODUCIBILITY",
         "scope": "all manifested decision-relevant artifacts after full regeneration",
         "normalization_policy": {

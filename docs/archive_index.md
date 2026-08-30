@@ -34,4 +34,12 @@ archive의 문서, CAD, PDF와 artifact는 역사적 연구 기록이며 active 
 - archive branch: `archive/coupled-digital-validation-v0.5`
 - 동결일: 2026-08-30
 
-이 snapshot은 explicit process arbitration, canonical controller contract, real spool-jam length balance, coupled forming, hot extrusion jam과 local 2040 frame reinforcement를 적용하기 전 v0.5 기준선이다. Active revision은 `virtual-physics-closure-v0.5.1`이며 archive branch/tag는 수정하지 않는다.
+이 snapshot은 explicit process arbitration, canonical controller contract, real spool-jam length balance, coupled forming, hot extrusion jam과 local 2040 frame reinforcement를 적용하기 전 v0.5 기준선이다. Archive branch/tag는 수정하지 않는다.
+
+## Virtual physics closure v0.5.1 동결
+
+- archive commit SHA: `b4ce4d73f3b7edee010018223083ee804c6e4cfb`
+- archive branch: `archive/virtual-physics-closure-v0.5.1`
+- 동결일: 2026-08-30
+
+이 snapshot은 Arduino Mega 실제 I/O 구현, material-session lock, 확대된 74 scenario, CalculiX mesh convergence와 Fusion 중립 교차검증 package를 추가하기 전 v0.5.1 기준선이다. Active revision은 `implementation-crosssolver-v0.6`이며 이 archive branch는 수정하지 않는다.

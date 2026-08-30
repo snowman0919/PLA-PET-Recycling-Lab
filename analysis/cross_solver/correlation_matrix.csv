@@ -1,0 +1,9 @@
+correlation_id,quantity,load_case,solver_a,solver_a_reference,solver_b,solver_b_result,tolerance,status
+C01,bearing plate displacement,LC04,CalculiX,0.252332 mm,Fusion,,15%,PENDING
+C02,cutter shaft displacement,LC02,CalculiX,0.014140 mm,Fusion,,15%,PENDING
+C03,bearing reaction balance,LC04,OpenModelica,1316.400717 N,Fusion,,5%,PENDING
+C04,cutter torque,LC01,OpenModelica,21.993750 N*m,Fusion reaction,,5%,PENDING
+C05,blocked-die pressure/thrust,LC06,OpenModelica,6 MPa / 1206.372 N,Fusion,,5%,PENDING
+C06,barrel thermal peak/gradient,LC07-LC08,OpenModelica,scenario envelope,Fusion,,documented sensitivity,PENDING
+C07,global frame mode,LC10,Fusion-required,,Fusion,,20% excitation separation,PENDING
+C08,buckling factor,LC10,Fusion-required,,Fusion,,>=2.0,PENDING
