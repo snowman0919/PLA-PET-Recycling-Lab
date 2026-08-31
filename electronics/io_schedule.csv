@@ -9,19 +9,22 @@ SHREDDER_ENABLE,output,Mega/permission chain,false,scope and contact test
 SHREDDER_PWM_DIR_REVERSE,output,Mega/H-bridge,zero,bounded forward/reverse scope test
 SHREDDER_LOAD,input,driver/encoder,false,calibrate against shaft torque coupon
 SHREDDER_CURRENT_50A,input,Hall current sensor,invalid,0/5/10/15/20 A calibrated load
-SHREDDER_SHAFT_RPM,input,driven-shaft Hall sensor,zero,6-pole ring tachometer comparison
+SHREDDER_SHAFT_RPM,input,driven-shaft Hall sensor,invalid,6 PPR timestamp/rollover and known-RPM comparison
 SCREW_ENABLE,output,Mega/permission chain,false,heater-off test
 SCREW_PWM_DIR,output,Mega/DC driver,zero,driver fault and direction test
+FEED_AUGER_PWM_DIR_TACH,unassigned input/output,Mega plus approved adapter,zero,host contract only; donor sensor and collision-free pin/counter allocation required before energization
+FEED_AGITATOR_PWM_DIR_TACH,unassigned input/output,Mega plus approved adapter,zero,host contract only; donor sensor and collision-free pin/counter allocation required before energization
+FEED_AUGER_AGITATOR_CURRENT,unassigned input,Mega plus approved ADC path,invalid,host contract only; independent calibrated channels required before energization
 HEATER_Z1_Z2_Z3_DIE,output,Mega/MOSF permission chain,false,stuck-MOSFET thermal chain test per channel
 HOPPER_PTC,output,maintenance-only branch,false,production-phase inhibition test
 T1_T2_T3_TDIE_THOPPER,input,MAX6675 SPI,invalid,open/range/ice-boiling/ungrounded-isolation test
 GAUGE_X,input,shadow gauge,invalid,traceable pin calibration
 GAUGE_Y,input,shadow gauge,invalid,traceable pin calibration
 DANCER,input,endstop/analog,stop spooler,full sweep collision test
-PULLER_PWM_DIR_TACH,input/output,Mega/DC driver,zero,1 m length and tach calibration
-SCREW_TACH,input,A13 PCINT21 Hall sensor,invalid,command/no-motion slip intermittent pulse and measured-revolution test
-SPOOLER_PWM_DIR_TACH,input/output,Mega/DC driver and A15 PCINT23,zero,dancer closed-loop jam and tach-loss test
-TRAVERSE_STEP_DIR_ENABLE,output,Mega/stepper driver,disabled,68 mm usable width pitch-synchronization and permission-loss test
+PULLER_PWM_DIR_TACH,input/output,Mega/DC driver and external interrupt,zero,20 PPR timestamp plus 1 m length and loaded-speed calibration
+SCREW_TACH,input,A13 PCINT21 Hall sensor,invalid,12 PPR timestamp command/no-motion slip intermittent pulse and measured-revolution test
+SPOOLER_PWM_DIR_TACH,input/output,Mega/DC driver and A15 PCINT23,zero,20 PPR timestamp dancer closed-loop jam and tach-loss test
+TRAVERSE_STEP_DIR_ENABLE,output,Mega/stepper driver,disabled,explicit HOME_TRAVERSE then 68 mm usable width pitch-synchronization and permission-loss test
 TRAVERSE_LEFT_RIGHT_LIMIT,input,A5/A6 positive-action switches,invalid,left/right calibration and missed-limit timeout test
 COOLING_PWM,output,Mega/fan branch,off,cooling-loss controlled-rundown test
 COOLING_CURRENT,input,A4 low-side shunt/current-feedback backend,invalid,"0/25/50/100 percent command calibration, fan-only start proof 1.5 s/timeout 3.0 s, disconnected-fan and stalled-fan dwell test"

@@ -6,6 +6,8 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 firmware/arduino_mega/build/
+firmware/arduino_mega/validation/
+validation/evidence/exact_head_evidence_v0.6.2.1.json
 
 # Regenerable engineering outputs
 datasheets/
@@ -40,6 +42,10 @@ graphify-out/wiki/
 # Regenerated solver/simulation outputs (manifest + generation commands are source of truth)
 simulation/openmodelica/results/raw/
 simulation/openmodelica/results_v0.6.2/raw/
+simulation/openmodelica/results_v0.6.2.1/raw/
+analysis/process_feed/nominal_state_trace.csv
+validation/results/hardware_adapter_tach/tach_estimator_trace.csv
+validation/results/hardware_adapter_tach/drive_adapter_trace.csv
 exports/print/slicing_previews/*.gcode
 analysis/structural/generated/*.frd
 analysis/structural/generated/*.dat

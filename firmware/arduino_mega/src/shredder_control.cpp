@@ -1,5 +1,7 @@
 #include "shredder_control.h"
 
+#include <math.h>
+
 bool ShredderController::configureDrive(const DriveCalibration& calibration) {
   const bool valid = calibration.verified && calibration.no_load_current_a >= 0.0f &&
                      calibration.motor_torque_per_amp_nm > 0.0f &&
@@ -9,8 +11,10 @@ bool ShredderController::configureDrive(const DriveCalibration& calibration) {
                      calibration.max_peak_current_a > calibration.no_load_current_a;
   if (!valid || command_ != ShredderCommand::STOP) return false;
   calibration_ = calibration;
-  calibration_configured_ = true;
-  return true;
+  calibration_configured_ = speed_controller_.configure(
+      {5.0f, 40.0f, 35, 255, 3.2f, 0.8f, JAM_STARTUP_GRACE_MS,
+       JAM_STARTUP_GRACE_MS, 1000, 3.0f});
+  return calibration_configured_;
 }
 
 bool ShredderController::start(const ProcessProfile& profile,
@@ -29,11 +33,11 @@ bool ShredderController::start(const ProcessProfile& profile,
 
 ShredderOutput ShredderController::update(const ShredderInputs& inputs) {
   if (command_ == ShredderCommand::STOP || command_ == ShredderCommand::FAULT_LATCHED) {
-    return {command_, 0, retries_, estimateCutterTorque(inputs.current_amp)};
+    return outputFor(inputs, 0);
   }
   if (!inputs.permission_chain_ok || inputs.heater_or_screw_enabled || profile_ == nullptr) {
     latchFault();
-    return {command_, 0, retries_, estimateCutterTorque(inputs.current_amp)};
+    return outputFor(inputs, 0);
   }
   if (command_ == ShredderCommand::RETRY_STOP) {
     if (inputs.now_ms >= stop_until_ms_) {
@@ -41,7 +45,7 @@ ShredderOutput ShredderController::update(const ShredderInputs& inputs) {
       command_ = ShredderCommand::REVERSE;
       reverse_until_ms_ = inputs.now_ms + profile_->reverse_ms;
     }
-    return {command_, 0, retries_, estimateCutterTorque(inputs.current_amp)};
+    return outputFor(inputs, 0);
   }
   if (command_ == ShredderCommand::REVERSE) {
     if (inputs.now_ms >= reverse_until_ms_) {
@@ -56,7 +60,7 @@ ShredderOutput ShredderController::update(const ShredderInputs& inputs) {
     const uint8_t target = command_ == ShredderCommand::REVERSE
                                ? static_cast<uint8_t>(profile_->shredder_rpm / 2)
                                : profile_->shredder_rpm;
-    return {command_, target, retries_, estimateCutterTorque(inputs.current_amp)};
+    return outputFor(inputs, target);
   }
 
   const float estimated_torque = estimateCutterTorque(inputs.current_amp);
@@ -68,7 +72,7 @@ ShredderOutput ShredderController::update(const ShredderInputs& inputs) {
   if (!overload) {
     overload_active_ = false;
     if (command_ == ShredderCommand::OVERLOAD_DWELL) command_ = ShredderCommand::FORWARD;
-    return {command_, profile_->shredder_rpm, retries_, estimated_torque};
+    return outputFor(inputs, profile_->shredder_rpm);
   }
   if (!overload_active_) {
     overload_active_ = true;
@@ -80,7 +84,35 @@ ShredderOutput ShredderController::update(const ShredderInputs& inputs) {
     overload_active_ = false;
   }
   const uint8_t target = command_ == ShredderCommand::RETRY_STOP ? 0 : profile_->shredder_rpm;
-  return {command_, target, retries_, estimated_torque};
+  return outputFor(inputs, target);
+}
+
+ShredderOutput ShredderController::outputFor(const ShredderInputs &inputs, uint8_t target_rpm) {
+  ShredderOutput out{command_, target_rpm, retries_, estimateCutterTorque(inputs.current_amp),
+                     0, command_ == ShredderCommand::STOP, false};
+  const bool forward = command_ == ShredderCommand::FORWARD ||
+                       command_ == ShredderCommand::OVERLOAD_DWELL;
+  const bool reverse = command_ == ShredderCommand::REVERSE;
+  const bool enabled = (forward || reverse) && target_rpm > 0;
+  const float signed_target = reverse ? -static_cast<float>(target_rpm)
+                                      : static_cast<float>(target_rpm);
+  const float signed_measured = reverse ? -fabsf(inputs.cutter_rpm) : fabsf(inputs.cutter_rpm);
+  const float torque = out.estimated_cutter_torque_nm;
+  const float load_bias_pwm = calibration_configured_ && profile_ != nullptr
+      ? 28.0f * torque / profile_->shredder_continuous_torque_nm
+      : 0.0f;
+  const DriveSpeedOutput speed = speed_controller_.update(
+      signed_target, signed_measured, inputs.tach_valid, enabled, inputs.now_ms, load_bias_pwm);
+  out.pwm = speed.pwm;
+  out.tach_valid = speed.tach_valid;
+  out.speed_saturated = speed.saturated;
+  if (enabled && speed.tach_loss) {
+    latchFault();
+    out.command = command_;
+    out.target_rpm = 0;
+    out.pwm = 0;
+  }
+  return out;
 }
 
 float ShredderController::estimateCutterTorque(float current_amp) const {
@@ -96,6 +128,7 @@ void ShredderController::stop() {
   command_ = ShredderCommand::STOP;
   profile_ = nullptr;
   overload_active_ = false;
+  speed_controller_.reset();
 }
 
 bool ShredderController::canClearFault(bool physical_lockout_confirmed,

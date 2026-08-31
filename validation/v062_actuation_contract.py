@@ -51,7 +51,10 @@ def main() -> None:
     ))
     require_tokens("firmware/arduino_mega/src/puller_speed_control.cpp", (
         "target_rpm", "measured_mm_s", "pwm_limited", "saturation_duration_ms",
-        "tach_loss_timeout_ms", "candidate_integral",
+        "tach_loss_timeout_ms",
+    ))
+    require_tokens("firmware/arduino_mega/src/drive_speed_control.h", (
+        "candidate_integral", "drives_further_into_limit", "tach_loss_timeout_ms",
     ))
     require_tokens("firmware/arduino_mega/src/screw_motion_monitor.cpp", (
         "cumulative_revolutions_", "last_valid_tach_ms_", "MOTION_MISMATCH_DWELL_MS",

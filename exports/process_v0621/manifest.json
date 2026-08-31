@@ -1,0 +1,192 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "source": "cad/freecad/compact/process_v0621.py",
+  "parameters": "cad/parameters/process_v0621.json",
+  "parts": [
+    {
+      "part_id": "SR-01",
+      "name": "rotor-swept return wedge",
+      "material": "AISI 304 sheet",
+      "printable": false,
+      "valid_solid": true,
+      "bbox_mm": [
+        92.0,
+        72.0,
+        38.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/SR-01/SR-01.FCStd",
+      "step": "exports/process_v0621/parts/SR-01/SR-01.step",
+      "step_sha256": "2780c1e2952bd711e427b7563cef80e22e6443b92ee6baf8835809214aeeb946",
+      "drawing": "exports/process_v0621/parts/SR-01/dimension_sheet.svg"
+    },
+    {
+      "part_id": "SR-02",
+      "name": "replaceable anti-ribbon comb",
+      "material": "AISI 304",
+      "printable": false,
+      "valid_solid": true,
+      "bbox_mm": [
+        90.0,
+        35.8,
+        12.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/SR-02/SR-02.FCStd",
+      "step": "exports/process_v0621/parts/SR-02/SR-02.step",
+      "step_sha256": "d54ee3e344eac81e0afb947add8079fbcd7a9002d1e906555bcae521159289a5",
+      "drawing": "exports/process_v0621/parts/SR-02/dimension_sheet.svg"
+    },
+    {
+      "part_id": "SR-03",
+      "name": "split axial labyrinth barrier",
+      "material": "PA-CF",
+      "printable": true,
+      "valid_solid": true,
+      "bbox_mm": [
+        49.972296539806926,
+        49.99855638340346,
+        8.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/SR-03/SR-03.FCStd",
+      "step": "exports/process_v0621/parts/SR-03/SR-03.step",
+      "step_sha256": "5e576392562e8041eb30ce5e03b491dda07e283a9bcb9b95f5f5d1f23c69cce9",
+      "stl": "exports/process_v0621/parts/SR-03/SR-03.stl",
+      "stl_sha256": "7827a0a315d89b031524a521fb76fecb7351bd0b05ce7496cd2b0caca8d4325a",
+      "drawing": "exports/process_v0621/parts/SR-03/dimension_sheet.svg"
+    },
+    {
+      "part_id": "SR-04",
+      "name": "removable 5 mm screen tray",
+      "material": "AISI 304 perforated sheet",
+      "printable": false,
+      "valid_solid": true,
+      "bbox_mm": [
+        100.0,
+        76.0,
+        12.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/SR-04/SR-04.FCStd",
+      "step": "exports/process_v0621/parts/SR-04/SR-04.step",
+      "step_sha256": "85581180653fe2c9d8da1182ff777592cda39dfb6dd6080e147c082053348574",
+      "drawing": "exports/process_v0621/parts/SR-04/dimension_sheet.svg"
+    },
+    {
+      "part_id": "SR-05",
+      "name": "downward service fragment guard",
+      "material": "PC",
+      "printable": true,
+      "valid_solid": true,
+      "bbox_mm": [
+        104.0,
+        78.0,
+        38.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/SR-05/SR-05.FCStd",
+      "step": "exports/process_v0621/parts/SR-05/SR-05.step",
+      "step_sha256": "d763bd7676c83ed9638e592f2e3e6e737429d64ec34c72728a8d5885019831a6",
+      "stl": "exports/process_v0621/parts/SR-05/SR-05.stl",
+      "stl_sha256": "e55abf58d09c0ab5ea7ee197262ccdd3910cc0f0970a9780b04cd803d433a611",
+      "drawing": "exports/process_v0621/parts/SR-05/dimension_sheet.svg"
+    },
+    {
+      "part_id": "PF-01",
+      "name": "steep sealed hopper body",
+      "material": "AISI 304 sheet",
+      "printable": false,
+      "valid_solid": true,
+      "bbox_mm": [
+        142.0,
+        118.0,
+        140.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/PF-01/PF-01.FCStd",
+      "step": "exports/process_v0621/parts/PF-01/PF-01.step",
+      "step_sha256": "edc405a23dbf02e6097ad75b5358470a654b2f3f2af3273e462c76c6837bc692",
+      "drawing": "exports/process_v0621/parts/PF-01/dimension_sheet.svg"
+    },
+    {
+      "part_id": "PF-02",
+      "name": "gasketed hopper lid",
+      "material": "PC",
+      "printable": true,
+      "valid_solid": true,
+      "bbox_mm": [
+        150.0,
+        126.0,
+        8.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/PF-02/PF-02.FCStd",
+      "step": "exports/process_v0621/parts/PF-02/PF-02.step",
+      "step_sha256": "fa32bcdc2ecb3daccb17784352a56cb01a0ffefe40ae6ce231e7a534ff5cc256",
+      "stl": "exports/process_v0621/parts/PF-02/PF-02.stl",
+      "stl_sha256": "9a20d953ea45b794b8f3bc84b8b0cb8b3f0bfb1f7b71c3bf2aa90ad14c777d3c",
+      "drawing": "exports/process_v0621/parts/PF-02/dimension_sheet.svg"
+    },
+    {
+      "part_id": "PF-03",
+      "name": "bounded low-speed agitator",
+      "material": "AISI 304",
+      "printable": false,
+      "valid_solid": true,
+      "bbox_mm": [
+        76.0,
+        76.0,
+        112.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/PF-03/PF-03.FCStd",
+      "step": "exports/process_v0621/parts/PF-03/PF-03.step",
+      "step_sha256": "3b448739a635632246d130d0688b50ae9ff9ab0f6a7dc66daae323dedba074b6",
+      "drawing": "exports/process_v0621/parts/PF-03/dimension_sheet.svg"
+    },
+    {
+      "part_id": "PF-04",
+      "name": "positive-displacement metering auger",
+      "material": "AISI 304",
+      "printable": false,
+      "valid_solid": true,
+      "bbox_mm": [
+        24.062204584286217,
+        24.062204584286214,
+        108.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/PF-04/PF-04.FCStd",
+      "step": "exports/process_v0621/parts/PF-04/PF-04.step",
+      "step_sha256": "8508c8b3d594cd63c650f8e527ed0923a43134a65068ec1df27e067eca776892",
+      "drawing": "exports/process_v0621/parts/PF-04/dimension_sheet.svg"
+    },
+    {
+      "part_id": "PF-05",
+      "name": "metering auger housing",
+      "material": "AISI 304",
+      "printable": false,
+      "valid_solid": true,
+      "bbox_mm": [
+        48.0,
+        48.0,
+        115.0
+      ],
+      "bbox_within_210_mm": true,
+      "fcstd": "exports/process_v0621/parts/PF-05/PF-05.FCStd",
+      "step": "exports/process_v0621/parts/PF-05/PF-05.step",
+      "step_sha256": "192b7fee75a114ae22ad5eabc76519ae21bbbae8ce3e6709bb761e019a0f422d",
+      "drawing": "exports/process_v0621/parts/PF-05/dimension_sheet.svg"
+    }
+  ],
+  "assemblies": [
+    "exports/process_v0621/process_feed_assembly.FCStd",
+    "exports/process_v0621/process_feed_assembly.step",
+    "exports/process_v0621/shredder_recirculation_assembly.FCStd",
+    "exports/process_v0621/shredder_recirculation_assembly.step"
+  ],
+  "all_valid_solids": true,
+  "all_bboxes_within_210_mm": true,
+  "physical_validation": "NOT_RUN"
+}

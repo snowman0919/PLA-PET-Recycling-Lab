@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "timebase": "uint32_micros",
+  "estimator": "hybrid_reciprocal_period_and_window_count",
+  "generated_header": "firmware/arduino_mega/src/tach_contract_generated.h",
+  "channels": [
+    {
+      "channel": "shredder",
+      "ppr": 6,
+      "physical_target": "six-pole magnet ring on cutter driven shaft",
+      "expected_min_rpm": 5.0,
+      "expected_max_rpm": 80.0,
+      "period_count_crossover_rpm": 40.0,
+      "count_window_us": 1000000,
+      "count_min_intervals": 4,
+      "timeout_us": 2500000,
+      "minimum_pulse_spacing_us": 20000,
+      "filter_time_constant_us": 250000,
+      "maximum_plausible_acceleration_rpm_s": 120.0,
+      "outlier_relative_tolerance": 0.35,
+      "fault_policy": "commanded motion without a fresh estimate after startup grace latches the drive fault; jam protection remains independent"
+    },
+    {
+      "channel": "screw",
+      "ppr": 12,
+      "physical_target": "twelve-pole add-on magnet ring on screw output shaft",
+      "expected_min_rpm": 1.0,
+      "expected_max_rpm": 25.0,
+      "period_count_crossover_rpm": 16.0,
+      "count_window_us": 1000000,
+      "count_min_intervals": 3,
+      "timeout_us": 6500000,
+      "minimum_pulse_spacing_us": 30000,
+      "filter_time_constant_us": 350000,
+      "maximum_plausible_acceleration_rpm_s": 30.0,
+      "outlier_relative_tolerance": 0.35,
+      "fault_policy": "tach loss or command-motion mismatch rejects purge revolution credit and requests bounded rundown"
+    },
+    {
+      "channel": "puller",
+      "ppr": 20,
+      "physical_target": "twenty-pole encoder ring on driven puller roller",
+      "expected_min_rpm": 1.0,
+      "expected_max_rpm": 30.0,
+      "period_count_crossover_rpm": 10.0,
+      "count_window_us": 1000000,
+      "count_min_intervals": 3,
+      "timeout_us": 4000000,
+      "minimum_pulse_spacing_us": 15000,
+      "filter_time_constant_us": 250000,
+      "maximum_plausible_acceleration_rpm_s": 45.0,
+      "outlier_relative_tolerance": 0.35,
+      "fault_policy": "tach loss after startup grace enters forming-chain controlled rundown"
+    },
+    {
+      "channel": "spooler",
+      "ppr": 20,
+      "physical_target": "twenty-pole encoder ring on metal spool spindle",
+      "expected_min_rpm": 0.5,
+      "expected_max_rpm": 30.0,
+      "period_count_crossover_rpm": 10.0,
+      "count_window_us": 1000000,
+      "count_min_intervals": 3,
+      "timeout_us": 7500000,
+      "minimum_pulse_spacing_us": 15000,
+      "filter_time_constant_us": 300000,
+      "maximum_plausible_acceleration_rpm_s": 40.0,
+      "outlier_relative_tolerance": 0.35,
+      "fault_policy": "tach loss or commanded-motion mismatch stops spool and traverse before the dancer hard stop"
+    }
+  ]
+}

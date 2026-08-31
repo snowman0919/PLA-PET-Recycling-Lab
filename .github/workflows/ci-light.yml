@@ -18,21 +18,35 @@ jobs:
         run: |
           arduino-cli core update-index
           arduino-cli core install arduino:avr@1.8.8
-      - name: v0.6.2 deterministic contracts and runtime gates
-        run: python3 validation/run_v062.py
+      - name: v0.6.2.1 deterministic technical closure gate
+        run: python3 validation/run_v0621.py
+      - name: Validate LC11 Fusion package binding
+        run: python3 fusion_worker/result_validation/validate_fusion_v0621_package.py exports/fusion_validation_v0621
       - name: Budget and static syntax
         run: |
           python3 bom/build_budget_views.py
           python3 -m compileall -q artifacts analysis bom calculations control firmware fusion_worker simulation validation
+      - name: Rebuild v0.6.2.1 artifact manifest
+        run: |
+          python3 artifacts/build_manifest_v0621.py
+          git diff --exit-code -- artifacts/manifest_v0.6.2.1.json
       - name: Exact-head CI-LIGHT evidence
-        run: python3 validation/exact_head_evidence.py --stage CI-LIGHT
+        run: python3 validation/exact_head_evidence_v0621.py --stage CI-LIGHT
       - name: Upload exact-head runtime evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: parallel-actuation-hardening-v062-ci-light-${{ github.sha }}
+          name: technical-blocker-closure-v0621-ci-light-${{ github.sha }}
           path: |
-            validation/evidence/exact_head_evidence.json
+            validation/evidence/exact_head_evidence_v0.6.2.1.json
+            validation/results/fusion_release_gate_v0.6.2.1.json
+            validation/results/hardware_adapter_e2e/
+            validation/results/hardware_adapter_tach/
+            validation/results/v0621_mutation_tests.json
+            simulation/openmodelica/results_v0.6.2.1/
+            analysis/process_feed/feed_validation.json
+            analysis/shredder_recirculation/recirculation_validation.json
+            artifacts/manifest_v0.6.2.1.json
             validation/results/runtime_supervisor.json
             validation/results/runtime_traces/
             validation/results/orchestration_contract.json

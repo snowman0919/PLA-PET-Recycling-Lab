@@ -1,0 +1,4 @@
+concept,return_to_active_cutter,anti_ribbon,anti_axial,dead_pocket_drain,cleanable,guarded_jam_clear,actuator_count,new_fault_modes,weighted_score,passes,reason
+passive wedge only,0.86,0,0,1,1,1,0,0,63,False,ribbon bypass and axial migration unresolved
+active return paddle,1,1,1,1,0,1,1,3,78,True,passes but adds jam/tach/drive failure and cleaning burden
+passive rotor-swept return shelf + comb + labyrinth,1,1,1,1,1,1,0,0,91,True,selected: all functions with no added actuator

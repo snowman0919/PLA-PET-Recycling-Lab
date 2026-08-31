@@ -1,0 +1,16 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "status": "PASS",
+  "checks": {
+    "auger_housing_common_volume_mm3": 0.0,
+    "agitator_hopper_common_volume_mm3": 0.0,
+    "rotor_shelf_clearance_mm": 3.2,
+    "comb_to_cutter_clearance_mm": 2.5,
+    "comb_to_screen_clearance_mm": 3.0,
+    "axial_labyrinth_radial_clearance_mm": 1.5,
+    "all_moving_pair_common_volume_below_mm3": 0.01
+  },
+  "pass": true,
+  "scope": "nominal CAD placement only; tolerance, deflection, debris and wiring are excluded",
+  "physical_validation": "NOT_RUN"
+}

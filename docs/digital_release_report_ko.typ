@@ -42,7 +42,7 @@ Pure C++ `MachineSupervisor`가 process/material/forming 상태, calibration, st
 
 = Purge와 forming-chain policy
 
-`MAINTENANCE_PURGE`는 이전 material profile을 유지한다. Feed 승인과 독립 waste-path 확인이 모두 fresh guard/temperature/cooling/driver preflight를 통과해야만 `PURGE_RUNNING`에서 bounded screw/feed/puller-to-waste motion을 허용한다. 최소 120 s, 32 screw revolution estimate, 온도 안정, no fault와 시각 확인 뒤 screen/hopper/temperature/final acknowledgement를 순서대로 요구한다. Revolution은 `COMMAND_DERIVED_ESTIMATE_NOT_MEASURED`이며 80 g/120 g도 측정 질량이 아니다.
+`MAINTENANCE_PURGE`는 이전 material profile을 유지한다. Feed 승인과 독립 waste-path 확인이 모두 fresh guard/temperature/cooling/driver preflight를 통과해야만 `PURGE_RUNNING`에서 bounded screw/feed/puller-to-waste motion을 허용한다. 최소 120 s, verified A13 timestamp tach로 적분한 실제 32 screw revolution, 온도 안정, no fault와 시각 확인 뒤 screen/hopper/temperature/final acknowledgement를 순서대로 요구한다. Tach timeout/mismatch/driver fault에서는 revolution evidence를 무효화하며 80 g/120 g은 측정 질량이 아니다.
 
 STOP/PAUSE purge abort는 session을 `PURGE_PREHEAT_REQUIRED`, 성공 완료는 `SCREEN_CLEAN_REQUIRED`로 옮긴다. 둘 다 motion/heater를 끄고 T1–Tdie가 60 °C 이하가 될 때까지 validated fan `COOLDOWN`을 유지한다. E-stop은 별도 즉시 all-zero다.
 

@@ -7,36 +7,38 @@
   "purge_operator_sequence": "approvePurgeFeed_then_independent_waste_path_confirmation",
   "production_sources": {
     "firmware/arduino_mega/src/process_state.cpp": "1fcb998bf1c7d0b31851bfde072d21ba7e15f112231923a0e289e89b3f5abfca",
-    "firmware/arduino_mega/src/shredder_control.cpp": "d31917eede8479f8a31d107407e5bd48945b897f50f3e2bffb45e7e86bac8a0a",
+    "firmware/arduino_mega/src/shredder_control.cpp": "3c26c699691902ce3e6ef9665ada620d8149c4aea919a727ab3eeedf7d25388a",
     "firmware/arduino_mega/src/heater_control.cpp": "522560d5be4ac4545fc419aeee3c968c7606ad2bc44c378d246d390eee9c6c74",
     "firmware/arduino_mega/src/gauge_control.cpp": "1031ca9b2c00d3c250a6dce4e31c9f1b3aa105c25474c9fb460595e66ce8b7e5",
     "firmware/arduino_mega/src/heater_power_allocator.cpp": "6dcfbc8e8387f8d10f5b716f5c2ead472e1cb693dc14bb577d91ba0241395df0",
-    "firmware/arduino_mega/src/puller_speed_control.cpp": "295835cb084854a508bb5a81efb15647b3ba7f1458f851d61423a0f0fad53f97",
-    "firmware/arduino_mega/src/screw_motion_monitor.cpp": "e2ff22f0619a04d36c2eda3ebfa1a745a1ddd376abb91b203af53337f3a70feb",
+    "firmware/arduino_mega/src/puller_speed_control.cpp": "ef883fce1f1c266bba1419225a73aacfab303ea215bd8f8dbfeb7ad6b21cff73",
+    "firmware/arduino_mega/src/screw_motion_monitor.cpp": "b6b0cd396064239e1282cc3fda05d761482e763bfad793c500060fcad7137bce",
     "firmware/arduino_mega/src/cooling_monitor.cpp": "af1955574ebb5af0369d19bde1cde66cdf2d4c337bb03e1aa645be394a317981",
-    "firmware/arduino_mega/src/spooler_control.cpp": "5e6484e2255a0d6cbff3f3acfc5f7022d8484336a31454c40198200de4747faf",
-    "firmware/arduino_mega/src/traverse_control.cpp": "fcb8c565f672ce117ef867359f54a22e527782db5a7348ff0839f689f4abc9d1",
-    "firmware/arduino_mega/src/machine_supervisor.cpp": "033c8faf66b0f94d8ddc748a82ad8c4c3ddbda6cd79374538f8fa25ff5f2c348"
+    "firmware/arduino_mega/src/spooler_control.cpp": "7a3bf2c0c9c880340da500073526bb5bab1b919f326d5b7329f1ec423c8c65de",
+    "firmware/arduino_mega/src/traverse_control.cpp": "5e968e77c6e991afc137c862e3d439675610abf730d7cb3b99b52a63403ebab5",
+    "firmware/arduino_mega/src/traverse_homing.cpp": "80e1c744e2133bb07e73ad5c5b7e40bfb9b1bddcc116560256756ef0271ddc3e",
+    "firmware/arduino_mega/src/machine_supervisor.cpp": "36cba55510c994e05d1139a2f070ef71d83c9d296906889011b5f3ea2a20440f"
   },
   "production_headers": {
     "firmware/arduino_mega/src/process_state.h": "96392f98609829dae22cdf86c8d729730a844f85a97a17cae84947bea797e227",
-    "firmware/arduino_mega/src/shredder_control.h": "e36d2d004897c453a2b584768f13d1c80f24ac4ecb7a2f6f94ecac7b748b874d",
+    "firmware/arduino_mega/src/shredder_control.h": "bfd7eb81f2a793c2b34c3e4cde5f2b05a46f1d85d7d688440a31deef9c3d2dba",
     "firmware/arduino_mega/src/heater_control.h": "187438c9d306d26731852cd4dbb523748765b1e90b1d5e60e1452075a8631c4f",
     "firmware/arduino_mega/src/gauge_control.h": "739ad4353c5237bdcc27d303447ad8b13480a93f058084a57bb35e35cea0f89b",
     "firmware/arduino_mega/src/heater_power_allocator.h": "2a9c62fd47567ebe731850fe792103399b45fb8d9a21453534481d8bb96b3c7b",
-    "firmware/arduino_mega/src/puller_speed_control.h": "7f1f2e812f75035e79db2f0ecd2473fca2e6e53d56b4bb252e8ad7963b3a78df",
-    "firmware/arduino_mega/src/screw_motion_monitor.h": "3fc47811be96120342e78aba567ba0643cc4af8942a7010d9c1779bdff39c86b",
+    "firmware/arduino_mega/src/puller_speed_control.h": "be1d8b45035fa3b41089aefafdf6ae9bf20270066387184caeb93605868f5eac",
+    "firmware/arduino_mega/src/screw_motion_monitor.h": "07d0a5bbec8771865a605fa45bf26514cd9a9e6db49485e8532640390ae04294",
     "firmware/arduino_mega/src/cooling_monitor.h": "700b9b873c9f3e2625c5670d8e9655e0420a63b3f74f7b49bb20fc47e49ad7b9",
-    "firmware/arduino_mega/src/spooler_control.h": "632dd3fac18d851d4876854323fb3f192027809ed6b1c29900c99fc6e108d798",
-    "firmware/arduino_mega/src/traverse_control.h": "307bc8bfecc077028ae1350f5ee8f179dda57849bb9e4fa18fce50cd5639f609",
-    "firmware/arduino_mega/src/machine_supervisor.h": "676c5e68a2474ff37b49684ca1754ef756f1dfa62eb5352ae2dd62460812945b",
+    "firmware/arduino_mega/src/spooler_control.h": "59ad7eaf0e88b25fd58ccbb28018596c6ea2943577909c6787ae26f224041f62",
+    "firmware/arduino_mega/src/traverse_control.h": "a72d5edca016922a486996c34bd129db4ff0f83d9c79800d1bf09ea6a51ce557",
+    "firmware/arduino_mega/src/traverse_homing.h": "edd60f0c04e44f728b046dc4ad570e280b712050041c85248a2d01e8f2e329a1",
+    "firmware/arduino_mega/src/machine_supervisor.h": "70f1fe19755f7e6d19d7fa2f50473733620a078190ea0f58d41c85a43bf0a9ab",
     "firmware/arduino_mega/src/generated_profiles.h": "d496e9802dc5ad61a5fc49e819637dec4130f566db63a9d5045083d3488cdf5f"
   },
   "validator_sources": {
-    "validation/runtime_supervisor.py": "3138827accb15b29bbbbca7a6a5e8e58c135ba1048014b05c54f5b4ada79f068",
+    "validation/runtime_supervisor.py": "261db5357b31685f012770f9b5798858fdb0d14cc23056efa1464651a5b7a83a",
     "validation/runtime_trace_rules.py": "0a924d68d3313dbb8c4ec6b45d4dc8a6b8983ea97aca44c876b3f1526283bf4a"
   },
-  "harness_sha256": "146604bac0c8b3a0c3fedcf4082faadee63fbfd5fe3e7bcde60205ce48026e93",
+  "harness_sha256": "b73cefb3080dd5edd06ea7d83a94e4b93c5726a2b54524d02bee168316066613",
   "scenario_count": 43,
   "trace_count": 116,
   "invariant_failure_count": 0,
@@ -80,7 +82,7 @@
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/calibration_readiness_phase_gates.csv",
       "event_count": 6,
-      "sha256": "6e3e3022c0a41676542beabf3a50f5cf941eb731f2d0fc85cfc2b50a434e93b1"
+      "sha256": "bc4461fa2626ef224815a6c1069ee22179235dae67ff6b412afff0f89c8955ba"
     },
     {
       "name": "cold_boot_no_calibration",
@@ -227,7 +229,7 @@
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/pet_to_pla_maintenance_purge.csv",
       "event_count": 3,
-      "sha256": "74b3ce32b53c87cf5ec2e626161614505d8a5b21c1b27d81002c57d751e48210"
+      "sha256": "16299c3f040a7ad133d191a32e216b803202da20b2daf0e2c0fa64b36a50477e"
     },
     {
       "name": "phase_specific_readiness_ui",
@@ -241,7 +243,7 @@
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/pla_to_pet_maintenance_purge.csv",
       "event_count": 3,
-      "sha256": "86050b54220cc50547224b766705cd138a75d8bfde3952551489f99833021106"
+      "sha256": "e0f06040ae91ff9cea34c67dd04c30e5f939e55ee257c93e6e19fe11f0ddaed7"
     },
     {
       "name": "preheat_cooling_loss_containment",
@@ -269,14 +271,14 @@
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/puller_tach_startup_grace_and_loss.csv",
       "event_count": 4,
-      "sha256": "0c275ed5da276b6bee0b67785f94b2c24148c9543984ca0c72cbb03f31cd0e40"
+      "sha256": "33337c98c98eb84f20cdea4ccf01f08231a7ec55d28b2b9968b9cabd14ea0304"
     },
     {
       "name": "purge_completion_fresh_fault_preflight",
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/purge_completion_fresh_fault_preflight.csv",
       "event_count": 4,
-      "sha256": "79d6b90ef292e70b92474cdb550cd423d338177fef33c242873fc9f4594464dd"
+      "sha256": "8a0a81b0b17aa10d25029fbe6bc4690429960aa7a9607b4e0a6bb6cc34662243"
     },
     {
       "name": "purge_cooling_fault_clear_then_reprobe",
@@ -290,7 +292,7 @@
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/purge_cooling_loss_containment.csv",
       "event_count": 2,
-      "sha256": "4770bb8241b02bdd46183852d060331200c94f510ae85523ccd1e218f5f03154"
+      "sha256": "d85c5e1e784d4f9ace9aee0fe05406b7f7b0a15954312c9dc160634f330d98af"
     },
     {
       "name": "purge_fan_first_startup_proof",
@@ -304,7 +306,7 @@
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/purge_panel_abort_all_stages.csv",
       "event_count": 5,
-      "sha256": "035c091145e02674278014e676f00f383618454383b75f2e95d38b4faeafb94b"
+      "sha256": "fd91a8d535581543cfb117b89b198338568603ecd22294e9d935770d28961e9b"
     },
     {
       "name": "purge_ready_waits_ordered_confirmations",
@@ -318,7 +320,7 @@
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/purge_screw_driver_fault_containment.csv",
       "event_count": 1,
-      "sha256": "928dd59ce6e7c52f2c2351487a819eef8c5fd3f6fd74f7af0da97ebd4cf9fc6a"
+      "sha256": "8b82756dcc3d4a77b41fb097c584d125a0cac0f26180b1c0e644f97e9e59faaf"
     },
     {
       "name": "rejected_shredder_start_rollback",
@@ -360,7 +362,7 @@
       "status": "PASS",
       "trace_file": "validation/results/runtime_traces/stale_purge_feed_approval_rejected.csv",
       "event_count": 1,
-      "sha256": "44d1a02162b8074392568decbc0911ea60d7dd2844baec82ceafaa23634d04c2"
+      "sha256": "f9a1c7e4b3749180e4d7200d75e5cb17203189e5eac2b919cb6545926999ea61"
     },
     {
       "name": "startup_probe_feedback_absent_containment",

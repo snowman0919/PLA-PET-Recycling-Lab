@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "drive_speed_control.h"
+
 struct PullerCalibration {
   float roller_diameter_mm;
   float tach_pulses_per_revolution;
@@ -14,6 +16,8 @@ struct PullerCalibration {
   uint16_t tach_loss_timeout_ms;
   uint16_t saturation_dwell_ms;
   float saturation_error_mm_s;
+  float minimum_stable_rpm{1.0f};
+  float motor_to_roller_ratio{0.0f};
 };
 
 struct PullerSpeedOutput {
@@ -40,9 +44,5 @@ class PullerSpeedController {
  private:
   PullerCalibration calibration_{};
   bool configured_{false};
-  float integral_{0};
-  uint32_t last_ms_{0};
-  uint32_t enabled_since_ms_{0};
-  uint32_t last_valid_tach_ms_{0};
-  uint32_t saturation_since_ms_{0};
+  DriveSpeedController speed_controller_{};
 };

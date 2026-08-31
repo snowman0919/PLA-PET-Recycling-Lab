@@ -9,6 +9,24 @@ struct MachineSupervisorTestAccess {
                                           const InputSnapshot &input, uint32_t now_ms) {
     return supervisor.finalizeOutput(candidate, input, now_ms);
   }
+
+  static void completeTraverseHoming(MachineSupervisor &supervisor) {
+    auto out = supervisor.traverse_homing_.update(true, false, true, 0);
+    assert(out.state == TraverseHomingState::TRAVERSE_BACKOFF);
+    for (uint32_t now = 2; now < 1000 && !out.homed; now += 2)
+      out = supervisor.traverse_homing_.update(false, false, true, now);
+    assert(out.homed && out.state == TraverseHomingState::TRAVERSE_READY);
+    supervisor.traverse_control_.setHomedPosition(out.estimated_position_mm);
+    supervisor.traverse_homing_output_ = out;
+  }
+
+  static void forceSpoolEligibility(MachineSupervisor &supervisor) {
+    supervisor.spool_eligible_ = true;
+  }
+
+  static float traverseStepsPerMm(const MachineSupervisor &supervisor) {
+    return supervisor.traverse_control_.stepsPerMm();
+  }
 };
 
 namespace {
@@ -24,16 +42,34 @@ InputSnapshot nominal() {
   in.shredder_current_amp = 2.0f;
   in.shredder_rpm = 32.0f;
   in.screw_rpm = 16.0f;
+  in.spooler_rpm = 0.3f;
   return in;
 }
 
-void calibrate(MachineSupervisor &s) {
+void calibrateDomains(MachineSupervisor &s) {
   DriveCalibration drive = REFERENCE_DRIVE_CALIBRATION;
   drive.verified = true;
   assert(s.configureDriveCalibration(drive));
   assert(s.configureCurrentSensorCalibration(512.0f, 0.01f));
   assert(s.configureGaugeCalibration({100, 0.002f, 100, 0.002f, 0.02f, true}));
   assert(s.configureCoolingFeedbackCalibration(100.0f, 0.01f));
+  assert(s.configurePullerCalibration({30.0f, 20.0f, 160.0f, 3.0f, 1.2f,
+                                       45, 255, 800, 600, 800, 2.0f}));
+  assert(s.configureSpoolerDriveCalibration(
+      {26.0f, 100.0f, 68.0f, 1.75f, 0.0f, 180.0f, 45.0f, 42, 220, 1200, 1000}));
+  assert(s.configureTachCalibration(CAL_SHREDDER_TACH, 7.0f));
+  assert(s.configureTachCalibration(CAL_SCREW_TACH, 1.0f));
+  assert(s.configureTachCalibration(CAL_SPOOLER_TACH, 20.0f));
+  assert(s.configureTachCalibration(CAL_FAN1_TACH, 2.0f));
+  assert(s.configureTachCalibration(CAL_FAN2_TACH, 2.0f));
+  assert(s.configureTraverseCalibration(80.0f));
+  assert(s.configureDancerCalibration(0.001f));
+  assert(s.formingCalibrationReady());
+}
+
+void calibrate(MachineSupervisor &s) {
+  calibrateDomains(s);
+  MachineSupervisorTestAccess::completeTraverseHoming(s);
 }
 
 SupervisorOutput completeCoolingStartupProbe(MachineSupervisor &s, const InputSnapshot &healthy,
@@ -68,8 +104,10 @@ uint32_t enterProductionExtrusion(MachineSupervisor &s, const InputSnapshot &inp
   assert(s.formingState() == FormingChainState::READY_TO_RETHREAD);
   assert(s.confirmManualRethread(input));
   out = s.update(input, 30001);
-  assert(s.spoolEligible() && out.actuators.spooler_pwm > 0);
-  return 30001;
+  assert(s.spoolEligible());
+  out = s.update(input, 30101);
+  assert(out.actuators.spooler_pwm > 0);
+  return 30101;
 }
 }
 
@@ -78,6 +116,7 @@ int main() {
 
   // Regression: NONE-profile cold boot cannot produce hazardous commands.
   MachineSupervisor cold_boot;
+  assert(!cold_boot.formingCalibrationReady() && !cold_boot.traverseHomed());
   auto cold = cold_boot.update(in, 250);
   assert(cold_boot.process().material() == MaterialProfile::NONE);
   assert(cold.actuators.shredder_pwm == 0 && cold.actuators.screw_pwm == 0 &&
@@ -100,6 +139,38 @@ int main() {
   assert(rejected.actuators.shredder_pwm == 0 && rejected.actuators.screw_pwm == 0 &&
          rejected.actuators.cooling_pwm == 0);
 
+  // Mutation guard: even complete independent calibration cannot permit winding before homing.
+  MachineSupervisor unhomed_winding;
+  calibrateDomains(unhomed_winding);
+  assert(unhomed_winding.formingCalibrationReady() && !unhomed_winding.traverseHomed());
+  MachineSupervisorTestAccess::forceSpoolEligibility(unhomed_winding);
+  ActuatorCommands premature_winding{};
+  premature_winding.spooler_pwm = 50;
+  const auto no_home = MachineSupervisorTestAccess::injectCandidate(
+      unhomed_winding, premature_winding, in, 700);
+  assert(!no_home.invariants_ok && no_home.actuators.spooler_pwm == 0);
+
+  MachineSupervisor independent_calibration;
+  assert(independent_calibration.configurePullerCalibration(
+      {30.0f, 20.0f, 160.0f, 3.0f, 1.2f, 45, 255, 800, 600, 800, 2.0f}));
+  assert(independent_calibration.calibrationReadiness().puller_drive_valid);
+  assert(independent_calibration.calibrationReadiness().puller_tach_valid);
+  assert(!independent_calibration.calibrationReadiness().screw_tach_valid);
+  assert(!independent_calibration.calibrationReadiness().spooler_tach_valid);
+  assert(!independent_calibration.calibrationReadiness().traverse_valid);
+
+  CalibrationRecord stored{};
+  stored.traverse_steps_per_mm = 80.0f;  // stale compatibility mirror must not win.
+  assert(setCalibrationValueRecord(stored.records[CAL_TRAVERSE], CAL_TRAVERSE, 40.0f,
+      CalibrationUnits::STEPS_PER_MILLIMETRE, 12,
+      CalibrationSource::COMMISSIONING_MEASUREMENT, true, 10.0f, 1000.0f));
+  finalizeCalibrationRecord(stored);
+  MachineSupervisor stored_calibration;
+  assert(stored_calibration.configureCalibrationRecord(stored));
+  assert(stored_calibration.calibrationReadiness().traverse_valid);
+  assert(!stored_calibration.calibrationReadiness().puller_drive_valid);
+  assert(MachineSupervisorTestAccess::traverseStepsPerMm(stored_calibration) == 40.0f);
+
   // Regression: boot must not select a material and calibration domains are independent.
   MachineSupervisor transaction;
   assert(transaction.process().material() == MaterialProfile::NONE);
@@ -109,6 +180,7 @@ int main() {
   assert(transaction.configureDriveCalibration(drive));
   assert(!transaction.calibrationReadiness().current_sensor_calibration_valid);
   assert(transaction.configureCurrentSensorCalibration(512.0f, 0.01f));
+  assert(transaction.configureTachCalibration(CAL_SHREDDER_TACH, 7.0f));
   assert(transaction.selectMaterial(MaterialProfile::PLA));
   InputSnapshot start_estop = in;
   start_estop.safety.estop_ok = false;
@@ -132,6 +204,8 @@ int main() {
   assert(missing_cooling.selectMaterial(MaterialProfile::PLA));
   assert(!missing_cooling.requestPreheat(in));
   assert(missing_cooling.configureCoolingFeedbackCalibration(100.0f, 0.01f));
+  assert(missing_cooling.configureTachCalibration(CAL_FAN1_TACH, 2.0f));
+  assert(missing_cooling.configureTachCalibration(CAL_FAN2_TACH, 2.0f));
   InputSnapshot unhealthy_fan = in;
   unhealthy_fan.cooling_feedback_valid = false;
   assert(missing_cooling.requestPreheat(unhealthy_fan));
@@ -155,6 +229,8 @@ int main() {
   MachineSupervisor extrusion_only_readiness;
   assert(extrusion_only_readiness.configureGaugeCalibration({100, 0.002f, 100, 0.002f, 0.02f, true}));
   assert(extrusion_only_readiness.configureCoolingFeedbackCalibration(100.0f, 0.01f));
+  assert(extrusion_only_readiness.configureTachCalibration(CAL_FAN1_TACH, 2.0f));
+  assert(extrusion_only_readiness.configureTachCalibration(CAL_FAN2_TACH, 2.0f));
   assert(extrusion_only_readiness.selectMaterial(MaterialProfile::PLA));
   out = extrusion_only_readiness.update(in, 10);
   assert(!out.view.calibration.drive_calibration_valid &&
@@ -193,8 +269,7 @@ int main() {
   for (bool heater_on : out.actuators.heater_on) assert(!heater_on);
 
   // Regression: thermal readiness alone never starts feeder/screw; explicit arm is mandatory.
-  assert(transaction.configureGaugeCalibration({100, 0.002f, 100, 0.002f, 0.02f, true}));
-  assert(transaction.configureCoolingFeedbackCalibration(100.0f, 0.01f));
+  calibrate(transaction);
   assert(transaction.requestPreheat(in));
   out = completeCoolingStartupProbe(transaction, in, 1000);
   assert(transaction.process().state() == MachineState::PREHEATING);
@@ -317,7 +392,9 @@ int main() {
   assert(purge.process().materialSession() == MaterialSession::PURGE_READY_CONFIRM_REQUIRED);
   assert(out.actuators.screw_pwm == 0 && !out.actuators.feeder_enable && out.actuators.puller_pwm == 0);
   assert(purge.confirmPurgeWastePath(in, 2000));
-  out = purge.update(in, 2000);
+  InputSnapshot purge_start = in;
+  purge_start.screw_rpm = 0.0f;
+  out = purge.update(purge_start, 2000);
   assert(!out.view.purge_run_completed);
   assert(!purge.confirmPurgeComplete(true, in, 2000));  // Elapsed time and measured revolutions are insufficient.
   assert(out.actuators.screw_pwm > 0 && out.actuators.feeder_enable && out.actuators.puller_pwm > 0);
@@ -533,7 +610,8 @@ int main() {
   out = puller_startup.update(no_puller_tach, 2000);
   assert(puller_startup.formingState() == FormingChainState::REQUALIFYING && out.actuators.puller_pwm > 0);
   out = puller_startup.update(no_puller_tach, 2000 + PULLER_TACH_STARTUP_GRACE_MS - 1);
-  assert(puller_startup.formingState() == FormingChainState::REQUALIFYING && out.actuators.puller_pwm > 0);
+  assert(puller_startup.formingState() == FormingChainState::REQUALIFYING);
+  assert(out.actuators.puller_pwm == 0);  // Inner loop fails zero before the supervisor grace expires.
   out = puller_startup.update(no_puller_tach, 2000 + PULLER_TACH_STARTUP_GRACE_MS);
   assert(puller_startup.formingState() == FormingChainState::RUNDOWN);
   assert((puller_startup.formingFaultReasons() & FORMING_PULLER_TACH_FAILURE) != 0);

@@ -1,0 +1,82 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "status": "PASS",
+  "classification": "VIRTUAL_SURROGATE_ONLY_PHYSICAL_TEST_REQUIRED",
+  "material_form_count": 8,
+  "sweep_case_count": 392,
+  "nominal_dynamic_case_count": 40,
+  "nominal_all_pass": true,
+  "delivered_feed_range_g_h": [
+    95.85599043482054,
+    100.24324830464609
+  ],
+  "worst_starvation_s": 1.0,
+  "worst_bridge_clear_cycles": 2,
+  "worst_torque_nm": 1.4132270676691736,
+  "worst_current_a": 2.768105142857144,
+  "inventory_range_g": [
+    19.971298966977244,
+    20.146298157539967
+  ],
+  "uncontrolled_overfeed_samples": 0,
+  "degraded_cases": [
+    {
+      "case": "PET_extreme_friction_aspect",
+      "trigger": "estimated torque/current margin low",
+      "response": "DERATE_75_G_H",
+      "settling_s": 1.25,
+      "mode_transitions": 1,
+      "delivered_g_h": 75.0,
+      "max_torque_nm": 2.05,
+      "max_current_a": 3.74,
+      "tach_valid": true,
+      "inventory_bounded": true,
+      "safe": true
+    },
+    {
+      "case": "auger_tach_loss",
+      "trigger": "commanded rotation and tach age timeout",
+      "response": "CONTROLLED_PAUSE",
+      "settling_s": 0.75,
+      "mode_transitions": 1,
+      "delivered_g_h": 0.0,
+      "max_torque_nm": 0.44,
+      "max_current_a": 1.29,
+      "tach_valid": false,
+      "inventory_bounded": true,
+      "safe": true
+    },
+    {
+      "case": "auger_overcurrent_jam",
+      "trigger": "current above 4.2 A for 0.5 s",
+      "response": "CONTROLLED_PAUSE",
+      "settling_s": 0.5,
+      "mode_transitions": 1,
+      "delivered_g_h": 0.0,
+      "max_torque_nm": 2.35,
+      "max_current_a": 4.19,
+      "tach_valid": true,
+      "inventory_bounded": true,
+      "safe": true
+    },
+    {
+      "case": "screen_discharge_loss",
+      "trigger": "inventory below 5 g",
+      "response": "DERATE_THEN_PAUSE",
+      "settling_s": 1.5,
+      "mode_transitions": 2,
+      "delivered_g_h": 0.0,
+      "max_torque_nm": 0.82,
+      "max_current_a": 1.87,
+      "tach_valid": true,
+      "inventory_bounded": true,
+      "safe": true
+    }
+  ],
+  "assumptions": [
+    "입자 파쇄·접촉을 직접 적분하지 않고 형상/마찰 기반 bridge index로 축약했다.",
+    "auger volumetric efficiency 0.18은 설계 가정이며 질량 계량 coupon으로 보정해야 한다.",
+    "motor torque/current 관계는 선형 설계 surrogate이며 donor motor 실측값이 아니다.",
+    "tach 상태는 센서 계약을 소비하는 추상 상태이며 pulse acquisition 자체를 검증하지 않는다."
+  ]
+}

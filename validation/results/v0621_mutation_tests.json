@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "status": "PASS",
+  "semantics": "PASS means the clean baseline passed and every defect mutation was rejected",
+  "physical_hardware_test": false,
+  "baseline_suites": [
+    {
+      "suite": "tach",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": 0,
+      "diagnostic": "TACH_HYBRID_ALL_CHANNELS_OK"
+    },
+    {
+      "suite": "drive",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": 0,
+      "diagnostic": "HARDWARE_ADAPTER_PRODUCTION_DRIVES_OK"
+    },
+    {
+      "suite": "traverse",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": 0,
+      "diagnostic": "TRAVERSE_EXPLICIT_HOMING_LIMIT_CALIBRATION_OK"
+    },
+    {
+      "suite": "calibration",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": 0,
+      "diagnostic": "EEPROM_INDEPENDENT_CALIBRATION_VERSION_CRC_INVALIDATION_OK"
+    },
+    {
+      "suite": "adapter_e2e",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": 0,
+      "diagnostic": "HARDWARE_ADAPTER_E2E_V0621_OK scenarios=37"
+    },
+    {
+      "suite": "physical_ppr",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": 0,
+      "diagnostic": ""
+    }
+  ],
+  "mutation_count": 18,
+  "rejected_mutation_count": 18,
+  "mutations": [
+    {
+      "mutation_id": "fixed_window_20ms_tach",
+      "description": "fixed 20 ms low-speed pulse window reintroduced",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_tach_estimator.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "fixed_window_20ms_tach: TEMP/arduino_mega/tests/test_tach_estimator.cpp:85: void {anonymous}::verifySpeed(const char*, const TachEstimatorConfig&, float, TraceWriter&): Assertion `estimate.valid' failed."
+    },
+    {
+      "mutation_id": "wrong_ppr",
+      "description": "shredder PPR changed from physical six-pole target to seven",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "generated physical-target probe",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "wrong_ppr: TEMP/arduino_mega/tests/test_wrong_ppr_physical.cpp:19: int main(): Assertion `fabsf(x.rpm - 32.0f) / 32.0f <= 0.03f' failed."
+    },
+    {
+      "mutation_id": "micros_rollover_removed",
+      "description": "uint32 micros modular subtraction removed",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_tach_estimator.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "micros_rollover_removed: TEMP/arduino_mega/tests/test_tach_estimator.cpp:133: void {anonymous}::verifyFaultInjections(const char*, const TachEstimatorConfig&, float, TraceWriter&): Assertion `estimate.valid && fabsf(estimate.rpm - rpm) / rpm <= 0.03f' failed."
+    },
+    {
+      "mutation_id": "puller_minimum_pwm_infeasible",
+      "description": "puller minimum stable operating point raised above normal-demand feasibility",
+      "method": "in-memory contract mutation and equation-based actuator acceptance gate",
+      "expected": "gate rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "baseline_errors": [],
+      "mutation_errors": [
+        "puller: minimum stable RPM exceeds 0.7 x minimum demand"
+      ],
+      "mutated_minimum_stable_rpm": 4.0
+    },
+    {
+      "mutation_id": "spooler_minimum_pwm_infeasible",
+      "description": "spooler minimum stable operating point raised above normal-demand feasibility",
+      "method": "in-memory contract mutation and equation-based actuator acceptance gate",
+      "expected": "gate rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "baseline_errors": [],
+      "mutation_errors": [
+        "spooler: minimum stable RPM exceeds 0.7 x minimum demand"
+      ],
+      "mutated_minimum_stable_rpm": 1.0
+    },
+    {
+      "mutation_id": "open_loop_screw_pwm",
+      "description": "screw speed PI replaced by direct RPM-to-PWM map",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_hardware_adapter.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "open_loop_screw_pwm: TEMP/arduino_mega/tests/test_hardware_adapter.cpp:137: void {anonymous}::verifyScrew(Trace&): Assertion `fabsf(18.0f - plant.rpm()) / 18.0f < 0.20f' failed."
+    },
+    {
+      "mutation_id": "open_loop_shredder_pwm",
+      "description": "shredder PI/tach-loss path bypassed by direct PWM",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_hardware_adapter.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "open_loop_shredder_pwm: TEMP/arduino_mega/tests/test_hardware_adapter.cpp:108: void {anonymous}::verifyShredder(Trace&): Assertion `fabsf(output.target_rpm - plant.rpm()) / output.target_rpm < 0.20f' failed."
+    },
+    {
+      "mutation_id": "spool_radius_factor_four_removed",
+      "description": "volume-conservation 1/4 factor removed",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_hardware_adapter.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "spool_radius_factor_four_removed: TEMP/arduino_mega/tests/test_hardware_adapter.cpp:212: void {anonymous}::verifySpoolerAndRadius(Trace&): Assertion `fabsf(radius.estimatedRadiusMm() - half_radius) < 0.01f' failed."
+    },
+    {
+      "mutation_id": "spool_radius_packing_removed",
+      "description": "packing factor removed from radius estimate",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_hardware_adapter.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "spool_radius_packing_removed: TEMP/arduino_mega/tests/test_hardware_adapter.cpp:212: void {anonymous}::verifySpoolerAndRadius(Trace&): Assertion `fabsf(radius.estimatedRadiusMm() - half_radius) < 0.01f' failed."
+    },
+    {
+      "mutation_id": "traverse_calibration_ignored",
+      "description": "stored steps/mm replaced by fixed value",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_traverse_homing.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "traverse_calibration_ignored: TEMP/arduino_mega/tests/test_traverse_homing.cpp:106: int main(): Assertion `steps_at_10 == 5 && steps_at_20 == 10' failed."
+    },
+    {
+      "mutation_id": "traverse_starts_unhomed_bypassed",
+      "description": "traverse starts READY without homing",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_traverse_homing.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "traverse_starts_unhomed_bypassed: TEMP/arduino_mega/tests/test_traverse_homing.cpp:43: int main(): Assertion `out.state == TraverseHomingState::TRAVERSE_BACKOFF && out.enable && out.direction' failed."
+    },
+    {
+      "mutation_id": "shared_calibration_flag",
+      "description": "puller drive record reused for unrelated domains",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_calibration_record.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "shared_calibration_flag: TEMP/arduino_mega/tests/test_calibration_record.cpp:37: int main(): Assertion `!calibrationDomainReady(record, CAL_SCREW_TACH)' failed."
+    },
+    {
+      "mutation_id": "hardware_adapter_ideal_rpm_bypass",
+      "description": "timestamp pulse boundary replaced by ideal post-adapter RPM injection",
+      "method": "temporary production source mutation; compile and execute existing host test",
+      "production_test": "test_hardware_adapter_e2e.cpp",
+      "expected": "runtime rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "compile_returncode": 0,
+      "run_returncode": -6,
+      "diagnostic": "hardware_adapter_ideal_rpm_bypass: TEMP/arduino_mega/tests/test_hardware_adapter_e2e.cpp:684: int main(int, char**): Assertion `timestamp_edge_count > 100' failed."
+    },
+    {
+      "mutation_id": "gravity_only_pet_feed",
+      "description": "PET positive-displacement feed replaced by gravity-only delivery",
+      "method": "temporary production model source mutation and full model execution",
+      "expected": "model acceptance rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "run_returncode": 1,
+      "diagnostic": "PROCESS_FEED_VIRTUAL_FAIL"
+    },
+    {
+      "mutation_id": "recirculation_path_removed",
+      "description": "oversize return path removed from shredder transport model",
+      "method": "temporary production model source mutation and full model execution",
+      "expected": "model acceptance rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "run_returncode": 1,
+      "diagnostic": "SHREDDER_RECIRCULATION_VIRTUAL_FAIL"
+    },
+    {
+      "mutation_id": "stale_fusion_hash",
+      "description": "Fusion row mutation: step_sha256=0000000000000000000000000000000000000000000000000000000000000000",
+      "method": "production Fusion import validator with in-memory mutated result row",
+      "expected": "INVALID_BINDING",
+      "observed": "INVALID_BINDING",
+      "status": "PASS",
+      "errors": [
+        "row 2: STEP SHA mismatch"
+      ]
+    },
+    {
+      "mutation_id": "fusion_unit_mismatch",
+      "description": "Fusion row mutation: unit=inch",
+      "method": "production Fusion import validator with in-memory mutated result row",
+      "expected": "INVALID_BINDING",
+      "observed": "INVALID_BINDING",
+      "status": "PASS",
+      "errors": [
+        "row 2: unit inch does not match ['mm']"
+      ]
+    },
+    {
+      "mutation_id": "budget_above_200k_technical_failure",
+      "description": "200,001 KRW budget incorrectly blocks technical release",
+      "method": "temporary production price_policy source mutation and policy gate evaluation",
+      "expected": "policy gate rejection",
+      "observed": "REJECTED",
+      "status": "PASS",
+      "mutated_policy": {
+        "price_status": "INFORMATIONAL",
+        "price_release_blocking": false,
+        "procurement_approval_gate": "USER_APPROVAL_REQUIRED",
+        "former_target_krw": 200000,
+        "absolute_total_krw": 200001,
+        "delta_to_former_target_krw": 1,
+        "technical_release_blocked": true
+      }
+    }
+  ],
+  "limitations": [
+    "All C++ tests are host simulations; no energized hardware or physical calibration was used.",
+    "Actuator feasibility uses the contract's calibrated-range requirements, not donor motor measurements.",
+    "Feed and recirculation mutations exercise deterministic virtual surrogates, not physical particle tests."
+  ],
+  "audit_findings_resolved": [
+    {
+      "severity": "INTEGRATION_RISK",
+      "path": "validation/hardware_adapter_v0621.py",
+      "finding": "summary acceptance booleans previously used constants",
+      "mitigation": "validator now computes acceptance from trace data; mutation runner independently requires runtime rejection"
+    },
+    {
+      "severity": "INTEGRATION_RISK",
+      "path": "analysis/process_feed/verify_process_lane.py",
+      "finding": "artifact-only verification previously could accept stale generated JSON",
+      "mitigation": "process verifier now reruns feed and recirculation models before checking artifacts"
+    }
+  ]
+}

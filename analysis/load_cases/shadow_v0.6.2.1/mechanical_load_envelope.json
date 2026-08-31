@@ -1,0 +1,28 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "source": "OpenModelica 1.27.0 DASSL reduced-order shadow; physical test not run",
+  "status": "PASS",
+  "loads": {
+    "peak_cutter_torque_nm": 21.99375000440007,
+    "peak_phase_torque_nm": 20.00049692324236,
+    "peak_bearing_load_n": 1856.544175556756,
+    "peak_chain_force_n": 602.7336257714462,
+    "feeder_attachment_reaction_torque_nm": 2.2,
+    "feeder_attachment_vertical_load_n": 5.4
+  },
+  "frozen_source": {
+    "path": "analysis/load_cases/openmodelica_dynamic_envelope.json",
+    "sha256": "4f9735292ab3046c40bc173c4e22611fc35ae475a6d087b674cd7882ea7aa1ed",
+    "revision": "safety-orchestration-closure-v0.6.1"
+  },
+  "boundary_conditions": {
+    "shredder_high_load_path": "unchanged frozen cutter/phase/bearing/chain envelope",
+    "feed_inventory_mass_max_kg": 0.55,
+    "feeder_attachment": "local 2.2 N.m reaction plus 5.4 N vertical load"
+  },
+  "assumptions_and_limits": [
+    "production contract and process-surrogate outputs are parameter inputs",
+    "closed-loop and particle/feed behavior is reduced-order virtual simulation",
+    "no donor motor calibration or physical structural/feed test was performed"
+  ]
+}

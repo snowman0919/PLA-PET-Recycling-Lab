@@ -1,0 +1,37 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "status": "PENDING_EXTERNAL_FUSION",
+  "exact_external_blocker": "LC02/04/05/07/08/10 Fusion binding 검증 미완료",
+  "worker_observation": {
+    "revision": "technical-blocker-closure-v0.6.2.1",
+    "status": "PENDING_EXTERNAL_FUSION",
+    "worker_alias": "win",
+    "attempt_count_this_goal": 3,
+    "last_attempt_utc": "2026-08-31T07:49:00Z",
+    "last_attempt_result": "SSH_CONNECT_TIMEOUT_12_SECONDS",
+    "last_known_reachable_state": {
+      "fusion_process_observed": true,
+      "fusion_version": "2704.1.53",
+      "interactive_session_id": 3
+    },
+    "mandatory_pending_cases": [
+      "LC02",
+      "LC04",
+      "LC05",
+      "LC07",
+      "LC08",
+      "LC08_PLUS_LC06",
+      "LC10",
+      "LC11_FEEDER_ATTACHMENT"
+    ],
+    "required_remaining_evidence": [
+      "actual Autodesk Fusion execution",
+      "coarse medium fine mesh evidence",
+      "source Git STEP and load-case manifest hash binding",
+      "global displacement reaction balance and regional stress correlation",
+      "all mandatory classifications AGREE or EXPLAINED_DIFFERENCE"
+    ],
+    "release_impact": "GOAL_UNMET_NO_PR_NO_MERGE",
+    "physical_test_performed": false
+  }
+}

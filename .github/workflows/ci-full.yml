@@ -20,19 +20,40 @@ jobs:
           arduino-cli core install arduino:avr@1.8.8
       - name: Full deterministic regeneration and validation
         run: nix develop --command bash -lc 'python3 -u validation/run_all.py --regenerate-renders'
+      - name: Regenerate v0.6.2.1 process CAD
+        run: nix develop --command bash -lc 'FreeCADCmd cad/freecad/compact/process_v0621.py && python3 analysis/process_feed/verify_process_lane.py'
+      - name: Execute v0.6.2.1 OpenModelica shadow
+        run: |
+          python3 simulation/openmodelica/scripts/generate_v0621_shadow.py
+          om_home=$(mktemp -d)
+          docker run --rm -v "$PWD:/work" -v "$om_home:/root/.openmodelica" -w /work \
+            openmodelica/openmodelica:v1.27.0-minimal \
+            bash -lc 'omc simulation/openmodelica/scripts/install_modelica_4.mos && omc simulation/openmodelica/scripts/run_v0621_shadow.mos'
+          python3 simulation/openmodelica/postprocess/validate_v0621_shadow.py
+      - name: Strict v0.6.2.1 technical release gate
+        run: python3 validation/run_v0621.py
+      - name: Validate LC11 Fusion package binding
+        run: python3 fusion_worker/result_validation/validate_fusion_v0621_package.py exports/fusion_validation_v0621
+      - name: Rebuild v0.6.2.1 artifact manifest
+        run: |
+          python3 artifacts/build_manifest_v0621.py
+          git diff --exit-code -- artifacts/manifest_v0.6.2.1.json
       - name: Exact-head CI-FULL evidence
-        run: nix develop --command bash -lc 'python3 validation/exact_head_evidence.py --stage CI-FULL'
+        run: nix develop --command bash -lc 'python3 validation/exact_head_evidence_v0621.py --stage CI-FULL'
       - name: Upload validation evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: safety-orchestration-v061-full-${{ github.sha }}
+          name: technical-blocker-closure-v0621-full-${{ github.sha }}
           path: |
-            validation/evidence/exact_head_evidence.json
+            validation/evidence/exact_head_evidence_v0.6.2.1.json
             validation/results/
             simulation/openmodelica/results/
+            simulation/openmodelica/results_v0.6.2.1/
             analysis/structural/results/
             analysis/cross_solver/
             exports/fusion_validation/
+            exports/fusion_validation_v0621/
             artifacts/manifest.json
+            artifacts/manifest_v0.6.2.1.json
           retention-days: 30

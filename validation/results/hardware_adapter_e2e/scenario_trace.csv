@@ -1,0 +1,38 @@
+scenario,status,path,time_ms,command_pwm,estimated_rpm,detail
+cold_boot_no_cal,PASS,MachineSupervisor::update,0,0,0,assertions_passed
+partial_calibration,PASS,CalibrationRecord-v4->MachineSupervisor,0,0,0,assertions_passed
+complete_calibration,PASS,CalibrationRecord-v4->MachineSupervisor,0,0,0,assertions_passed
+traverse_homing,PASS,MachineSupervisor->TraverseHomingController,1000,0,0,left_switch_then_2mm_backoff
+traverse_endpoint_loss,PASS,TraverseController missed endpoint->MachineSupervisor position loss,17,0,0,assertions_passed
+shredder_start,PASS,ShredderController::start,0,0,0,assertions_passed
+shredder_nominal,PASS,ADC-quantized->ShredderController->PWMPlant->TachEstimator,8000,220,32,adc_current_count=662
+shredder_jam,PASS,ShredderController overload dwell,9180,-35,27.9153,quantized_current_trip
+shredder_reverse,PASS,ShredderController retry reverse,9180,-35,27.9153,assertions_passed
+screw_nominal,PASS,ScrewMotionMonitor->PWMPlant->TachEstimator,6000,253,12.0445,assertions_passed
+screw_load,PASS,ScrewMotionMonitor closed-loop load step,12000,231,18.3233,assertions_passed
+screw_tach_loss,PASS,TachEstimator timeout->ScrewMotionMonitor,22000,0,0,assertions_passed
+puller_nominal,PASS,PullerSpeedController->PWMPlant->TachEstimator,9000,83,6.26179,assertions_passed
+puller_slip,PASS,PullerSpeedController closed-loop slip load,18000,92,5.61786,assertions_passed
+puller_deadzone,PASS,PWM dead-zone->TachEstimator timeout,5000,44,0,assertions_passed
+puller_saturation,PASS,PullerSpeedController saturation dwell,2500,255,0,assertions_passed
+spool_empty,PASS,SpoolerController->PWMPlant->TachEstimator,24000,111,3.4073,assertions_passed
+spool_half,PASS,SpoolerController volume-conservation radius,24100,66,1.36,assertions_passed
+spool_full,PASS,SpoolerController clamped full radius,24200,54,0.86,assertions_passed
+spool_jam,PASS,SpoolerController jam dwell,1301,179,0,assertions_passed
+purge_actual_pulse_revolutions,PASS,TachEstimator timestamps->InputSnapshot->MachineSupervisor purge evidence,123000,0,18,no_ideal_rpm_injection_after_adapter
+fan1_loss,PASS,fan TachEstimator->CoolingMonitor->MachineSupervisor rundown,8000,0,1799.96,assertions_passed
+fan2_loss,PASS,fan TachEstimator->CoolingMonitor->MachineSupervisor rundown,8000,0,1799.96,assertions_passed
+dual_fan_loss,PASS,fan TachEstimator->CoolingMonitor->MachineSupervisor rundown,8000,0,0,assertions_passed
+gauge_loss,PASS,GaugeController->MachineSupervisor bounded rundown,5100,0,0,assertions_passed
+forming_rundown,PASS,MachineSupervisor rundown->thermal hold,16000,0,0,assertions_passed
+gauge_requalification,PASS,GaugeController->MachineSupervisor requalification,38000,0,0,20_samples_plus_stability_and_transport
+estop_shredding,PASS,MachineSupervisor E-stop one-cycle zero,9000,0,0,assertions_passed
+estop_preheating,PASS,MachineSupervisor E-stop one-cycle zero,9000,0,0,assertions_passed
+estop_requalifying,PASS,MachineSupervisor E-stop one-cycle zero,9000,0,0,assertions_passed
+estop_extrusion,PASS,MachineSupervisor E-stop one-cycle zero,9000,0,0,assertions_passed
+estop_maintenance_purge,PASS,MachineSupervisor E-stop one-cycle zero,9000,0,0,assertions_passed
+estop_forming_rundown,PASS,MachineSupervisor E-stop one-cycle zero,9000,0,0,assertions_passed
+estop_thermal_hold,PASS,MachineSupervisor E-stop one-cycle zero,9000,0,0,assertions_passed
+estop_cooldown,PASS,MachineSupervisor E-stop one-cycle zero,9000,0,0,assertions_passed
+atomic_fault_clear,PASS,MachineSupervisor two-phase preflight/commit,10000,0,0,assertions_passed
+uint32_rollover,PASS,TachEstimator modular timestamp subtraction,1600,0,18,assertions_passed

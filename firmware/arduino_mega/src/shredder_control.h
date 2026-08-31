@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include "material_profile.h"
+#include "drive_speed_control.h"
 
 enum class ShredderCommand : uint8_t { STOP, FORWARD, OVERLOAD_DWELL, RETRY_STOP, REVERSE, FAULT_LATCHED };
 
@@ -12,6 +13,7 @@ struct ShredderInputs {
   float cutter_rpm;
   bool permission_chain_ok;
   bool heater_or_screw_enabled;
+  bool tach_valid{true};
 };
 
 struct ShredderOutput {
@@ -19,6 +21,9 @@ struct ShredderOutput {
   uint8_t target_rpm;
   uint8_t retry_count;
   float estimated_cutter_torque_nm;
+  int16_t pwm;
+  bool tach_valid;
+  bool speed_saturated;
 };
 
 class ShredderController {
@@ -38,6 +43,7 @@ class ShredderController {
   void commitFaultClear();
   void latchFault();
   float estimateCutterTorque(float current_amp) const;
+  ShredderOutput outputFor(const ShredderInputs &inputs, uint8_t target_rpm);
   const ProcessProfile* profile_{nullptr};
   DriveCalibration calibration_{};
   bool calibration_configured_{false};
@@ -48,4 +54,5 @@ class ShredderController {
   uint32_t stop_until_ms_{0};
   uint32_t reverse_until_ms_{0};
   bool overload_active_{false};
+  DriveSpeedController speed_controller_{};
 };

@@ -16,13 +16,33 @@ void TraverseController::reset() {
   endpoint_expected_since_ms_ = 0;
   has_seen_interior_ = false;
   hard_fault_ = false;
+  position_valid_ = true;
+}
+
+void TraverseController::setHomedPosition(float position_mm) {
+  if (!configured_ || !isfinite(position_mm)) return;
+  if (position_mm < 0) position_mm = 0;
+  if (position_mm > config_.usable_width_mm) position_mm = config_.usable_width_mm;
+  estimated_position_mm_ = position_mm;
+  endpoint_expected_since_ms_ = 0;
+  has_seen_interior_ = position_mm > config_.winding_pitch_mm &&
+                       position_mm < config_.usable_width_mm - config_.winding_pitch_mm;
+  hard_fault_ = false;
+  position_valid_ = true;
+}
+
+void TraverseController::invalidatePosition() {
+  position_valid_ = false;
+  endpoint_expected_since_ms_ = 0;
+  has_seen_interior_ = false;
 }
 
 TraverseOutput TraverseController::update(float spool_turns, bool left_limit, bool right_limit,
                                           bool enabled, uint32_t now_ms) {
   TraverseOutput out{};
   out.estimated_position_mm = estimated_position_mm_;
-  if (!configured_ || !enabled || hard_fault_) {
+  out.position_valid = position_valid_;
+  if (!configured_ || !enabled || hard_fault_ || !position_valid_) {
     out.hard_fault = hard_fault_;
     return out;
   }
@@ -66,5 +86,6 @@ TraverseOutput TraverseController::update(float spool_turns, bool left_limit, bo
   out.estimated_position_mm = estimated_position_mm_;
   out.hard_fault = hard_fault_;
   out.pitch_synchronized = true;
+  out.position_valid = position_valid_;
   return out;
 }

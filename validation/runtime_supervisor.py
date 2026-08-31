@@ -122,6 +122,7 @@ def main() -> None:
         FIRMWARE / "src/heater_power_allocator.cpp", FIRMWARE / "src/puller_speed_control.cpp",
         FIRMWARE / "src/screw_motion_monitor.cpp", FIRMWARE / "src/cooling_monitor.cpp",
         FIRMWARE / "src/spooler_control.cpp", FIRMWARE / "src/traverse_control.cpp",
+        FIRMWARE / "src/traverse_homing.cpp",
         FIRMWARE / "src/machine_supervisor.cpp",
         ROOT / "validation/runtime_supervisor_harness.cpp",
     ]
@@ -131,6 +132,7 @@ def main() -> None:
         FIRMWARE / "src/heater_power_allocator.h", FIRMWARE / "src/puller_speed_control.h",
         FIRMWARE / "src/screw_motion_monitor.h", FIRMWARE / "src/cooling_monitor.h",
         FIRMWARE / "src/spooler_control.h", FIRMWARE / "src/traverse_control.h",
+        FIRMWARE / "src/traverse_homing.h",
         FIRMWARE / "src/machine_supervisor.h", FIRMWARE / "src/generated_profiles.h",
     ]
     for source in [*compile_sources, *production_headers]:
@@ -361,7 +363,7 @@ def main() -> None:
         or not row["purge_revolutions_measured"]
         for row in successful_purge_rows
     ):
-        raise AssertionError("purge 완료의 command-derived revolution 증거 불충분/측정값 오표기")
+        raise AssertionError("purge 완료의 actual timestamp-tach revolution 증거 불충분")
     if any(
         not row["cmd_cooling"] or any(row[field] for field in (
             "cmd_shredder", "cmd_screw", "cmd_process_heaters", "cmd_feeder",

@@ -1,0 +1,54 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "model_kind": "deterministic reduced-order rigid-particle/feed-inventory surrogate",
+  "empirically_calibrated": false,
+  "geometry": {
+    "hopper_wall_angle_from_horizontal_deg": 70.7,
+    "hopper_usable_volume_l": 2.35,
+    "auger_outer_diameter_mm": 24.0,
+    "auger_root_diameter_mm": 10.0,
+    "auger_pitch_mm": 18.0,
+    "auger_active_length_mm": 108.0,
+    "throat_diameter_mm": 29.0,
+    "agitator_sweep_diameter_mm": 82.0,
+    "nominal_volumetric_efficiency": 0.18
+  },
+  "control": {
+    "target_feed_g_h": 100.0,
+    "normal_min_g_h": 90.0,
+    "normal_max_g_h": 110.0,
+    "auger_rpm_min": 4.0,
+    "auger_rpm_max": 20.0,
+    "agitator_rpm_normal": 14.0,
+    "agitator_rpm_clear": 20.0,
+    "inventory_target_g": 20.0,
+    "inventory_low_g": 5.0,
+    "inventory_high_g": 40.0,
+    "inventory_capacity_g": 55.0,
+    "starvation_threshold_g_h": 90.0,
+    "starvation_limit_s": 2.0,
+    "bridge_max_cycles": 3,
+    "torque_limit_nm": 2.2,
+    "current_limit_a": 4.2,
+    "pause_detection_s": 0.75,
+    "dt_s": 0.25,
+    "duration_s": 120.0
+  },
+  "material_forms": [
+    {"id":"PLA_SUPPORT","polymer":"PLA","form":"support fragments","bulk_density_kg_m3":[250,320,390],"aspect_ratio":[1.5,2.5,4.0],"wall_friction":[0.26,0.32,0.40],"inter_particle_friction":[0.30,0.38,0.46],"throat_fill":[0.58,0.66,0.74]},
+    {"id":"PLA_SPAGHETTI","polymer":"PLA","form":"spaghetti fragments","bulk_density_kg_m3":[150,200,260],"aspect_ratio":[4.5,7.0,9.0],"wall_friction":[0.29,0.35,0.43],"inter_particle_friction":[0.34,0.42,0.51],"throat_fill":[0.48,0.55,0.64]},
+    {"id":"PLA_THIN_WALL","polymer":"PLA","form":"thin walls","bulk_density_kg_m3":[130,180,240],"aspect_ratio":[3.0,4.5,6.5],"wall_friction":[0.31,0.38,0.46],"inter_particle_friction":[0.39,0.48,0.56],"throat_fill":[0.45,0.54,0.63]},
+    {"id":"PLA_DENSE_FLAKE","polymer":"PLA","form":"dense flakes","bulk_density_kg_m3":[340,420,500],"aspect_ratio":[1.2,1.8,2.8],"wall_friction":[0.22,0.28,0.35],"inter_particle_friction":[0.27,0.34,0.42],"throat_fill":[0.62,0.70,0.78]},
+    {"id":"PET_FLAT_FLAKE","polymer":"PET","form":"flat flakes","bulk_density_kg_m3":[220,300,380],"aspect_ratio":[2.0,3.0,4.5],"wall_friction":[0.33,0.40,0.48],"inter_particle_friction":[0.41,0.50,0.59],"throat_fill":[0.50,0.59,0.68]},
+    {"id":"PET_FOLDED_FLAKE","polymer":"PET","form":"folded flakes","bulk_density_kg_m3":[175,240,315],"aspect_ratio":[3.0,4.5,6.5],"wall_friction":[0.35,0.43,0.52],"inter_particle_friction":[0.44,0.54,0.63],"throat_fill":[0.45,0.54,0.63]},
+    {"id":"PET_LONG_ASPECT","polymer":"PET","form":"long-aspect fragments","bulk_density_kg_m3":[125,180,245],"aspect_ratio":[6.0,9.0,12.0],"wall_friction":[0.38,0.47,0.57],"inter_particle_friction":[0.47,0.58,0.68],"throat_fill":[0.40,0.49,0.58]},
+    {"id":"PET_LOW_BULK","polymer":"PET","form":"low-bulk-density flakes","bulk_density_kg_m3":[105,150,205],"aspect_ratio":[3.5,5.0,7.5],"wall_friction":[0.37,0.45,0.55],"inter_particle_friction":[0.45,0.55,0.65],"throat_fill":[0.39,0.48,0.57]}
+  ],
+  "sweep_contract": {
+    "method": "three-level one-factor-at-a-time plus deterministic 32-point balanced corner set per material form",
+    "variables": ["bulk_density_kg_m3","aspect_ratio","wall_friction","inter_particle_friction","agitator_rpm","auger_rpm","throat_fill","screen_discharge_variability"],
+    "agitator_rpm_levels": [8.0,14.0,20.0],
+    "auger_rpm_levels": [4.0,12.0,20.0],
+    "screen_discharge_variability_levels": [0.05,0.20,0.40]
+  }
+}

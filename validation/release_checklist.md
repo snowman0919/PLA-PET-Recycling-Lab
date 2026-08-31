@@ -1,4 +1,26 @@
-# Release checklist — safety-orchestration-closure-v0.6.1
+# Release checklist — technical-blocker-closure-v0.6.2.1
+
+## TECHNICAL_CLOSURE_RELEASE_GATE — `RELEASE_UNMET`
+
+- [x] source v0.6.2 `f9fde47359ef84744daf1a9279040c507ef60497` archive branch/tag 고정
+- [x] main은 source의 ancestor이므로 추가 merge 불필요
+- [x] P0-A hybrid tach, 6/12/20/20 PPR와 실제 timestamp pulse adapter
+- [x] P0-B~F 저속 actuator contract, 4-drive PI, spool radius, explicit traverse homing, 독립 calibration v4
+- [x] P0-G~H passive recirculation과 positive auger/agitator feed 가상 검증
+- [x] P0-I 독립 fan feedback와 fan-loss controlled rundown; airflow 수치는 실측 아님
+- [x] P0-J combined production-controller hardware-adapter 37/37 host scenario evidence
+- [x] P0-K OpenModelica 1.27.0 DASSL shadow 24/24와 Fusion delta 분류
+- [ ] P0-L 실제 Autodesk Fusion LC02/04/05/07/08/LC08+LC06/10/11 및 교차-solver 상관
+- [ ] final exact HEAD CI-LIGHT/CI-FULL와 artifact reproducibility
+- [ ] PR review 및 merge
+
+가격은 `PRICE_STATUS=INFORMATIONAL`, `PRICE_RELEASE_BLOCKING=false`이다. 현재 조건부 178,729 KRW, reserve 포함 198,729 KRW지만 이 값의 증감은 기술 release를 차단하지 않는다. 견적 미확정과 구매는 `PROCUREMENT_APPROVAL_GATE=USER_APPROVAL_REQUIRED`로 계속 잠긴다.
+
+현재 허용 가능한 판정은 `TECHNICAL_PREFLIGHT_PASS_RELEASE_UNMET`뿐이다. 실제 Fusion 증거가 없으므로 `CROSS_SOLVER_VALIDATED`나 `TECHNICAL_CLOSURE_BASELINE`을 사용하지 않는다.
+
+---
+
+## 동결 v0.6.1 checklist (historical reference)
 
 ## SAFETY_ORCHESTRATION_RELEASE_GATE
 

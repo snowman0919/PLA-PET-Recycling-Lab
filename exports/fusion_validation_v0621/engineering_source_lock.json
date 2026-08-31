@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "package_id": "PPR-v0.6.2.1-LC11",
+  "package_state": "AWAITING_ENGINEERING_SOURCE_COMMIT",
+  "engineering_source_sha": null,
+  "source_process_manifest": "exports/process_v0621/manifest.json",
+  "source_process_manifest_sha256": "c325fbf207a642cd7384040e289c6f4e3f3fb6338357a6058c67476dbe6284b4",
+  "geometry_sources": {
+    "geometry/PF-04.step": {
+      "source_path": "exports/process_v0621/parts/PF-04/PF-04.step",
+      "sha256": "8508c8b3d594cd63c650f8e527ed0923a43134a65068ec1df27e067eca776892"
+    },
+    "geometry/PF-05.step": {
+      "source_path": "exports/process_v0621/parts/PF-05/PF-05.step",
+      "sha256": "192b7fee75a114ae22ad5eabc76519ae21bbbae8ce3e6709bb761e019a0f422d"
+    },
+    "geometry/process_feed_assembly.step": {
+      "source_path": "exports/process_v0621/process_feed_assembly.step",
+      "sha256": "2741a3cb1e4454c8b068c045b2147a62378a571c8fde3874d87f8ee0dcf4091a"
+    }
+  },
+  "binding_command": "python3 exports/fusion_validation_v0621/scripts/finalize_engineering_binding.py --repo-root . --engineering-source-sha <40-char-source-SHA>"
+}

@@ -21,7 +21,7 @@ def checks(sources: dict[str, str]) -> dict[str, bool]:
     importer = sources["importer"]
     return {
         "puller_saturation_not_hardcoded_false":
-            "out.saturated = out.saturation_duration_ms >= calibration_.saturation_dwell_ms" in puller,
+            "out.saturated = speed.saturated" in puller,
         "both_fan_feedback_channels_required":
             "!fan1_running" in cooling and "!fan2_running" in cooling,
         "purge_uses_measured_revolutions":
@@ -54,7 +54,7 @@ def main() -> None:
     if not all(baseline.values()):
         raise AssertionError("baseline validator failed: " + str(baseline))
     mutations = {
-        "puller_saturation_hardcoded_false": ("puller", "out.saturated = out.saturation_duration_ms >= calibration_.saturation_dwell_ms", "out.saturated = false"),
+        "puller_saturation_hardcoded_false": ("puller", "out.saturated = speed.saturated", "out.saturated = false"),
         "fan2_channel_ignored": ("cooling", "if (commanded && !fan2_running) bits |= COOLING_FAN2_STOPPED;", ""),
         "purge_commanded_revolutions": ("supervisor", "screw_motion_output_.cumulative_revolutions - purge_start_screw_revolutions_", "input.screw_rpm"),
         "heater_feedback_removed": ("heater", "z.applied_duty - z.requested_duty", "0.0f"),

@@ -1,0 +1,132 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "status": "NEW_CASE_REQUIRED",
+  "shadow_status": "PASS",
+  "frozen_fusion_source": {
+    "engineering_source_sha": "93db9533dcaf0655f9bde158d53e6f4df24ebb42",
+    "source_git_sha": "93db9533dcaf0655f9bde158d53e6f4df24ebb42",
+    "run_binding_sha256": "90bfa7e76942a20b266ec9d3aa1de3b1047fec35c2586c890eade8eb3a2c239f",
+    "fusion_result_state": "PENDING_EXTERNAL_EXECUTION"
+  },
+  "mechanical_envelope_comparison": [
+    {
+      "quantity": "peak_cutter_torque_nm",
+      "old_value": 21.99375000440007,
+      "new_value": 21.99375000440007,
+      "percent_change": 0.0,
+      "direction_change": false,
+      "affected_cases": [
+        "LC01",
+        "LC02"
+      ],
+      "decision": "NO_RERUN"
+    },
+    {
+      "quantity": "peak_phase_torque_nm",
+      "old_value": 20.00049692324236,
+      "new_value": 20.00049692324236,
+      "percent_change": 0.0,
+      "direction_change": false,
+      "affected_cases": [
+        "LC01",
+        "LC03"
+      ],
+      "decision": "NO_RERUN"
+    },
+    {
+      "quantity": "peak_bearing_load_n",
+      "old_value": 1856.544175556756,
+      "new_value": 1856.544175556756,
+      "percent_change": 0.0,
+      "direction_change": false,
+      "affected_cases": [
+        "LC02",
+        "LC04"
+      ],
+      "decision": "NO_RERUN"
+    },
+    {
+      "quantity": "peak_chain_force_n",
+      "old_value": 602.7336257714462,
+      "new_value": 602.7336257714462,
+      "percent_change": 0.0,
+      "direction_change": false,
+      "affected_cases": [
+        "LC05"
+      ],
+      "decision": "NO_RERUN"
+    }
+  ],
+  "geometry_material_contact_boundary_changes": true,
+  "change_scope": "local recirculation/feed geometry outside LC01-LC10; new feeder attachment boundary required",
+  "fusion_cases": [
+    {
+      "case_id": "LC01",
+      "classification": "NO_RERUN",
+      "reason": "cutter and phase torque envelope unchanged"
+    },
+    {
+      "case_id": "LC02",
+      "classification": "NO_RERUN",
+      "reason": "mechanical-fuse cutter torque and bearing envelope unchanged"
+    },
+    {
+      "case_id": "LC03",
+      "classification": "NO_RERUN",
+      "reason": "phase reversal cap and geometry unchanged"
+    },
+    {
+      "case_id": "LC04",
+      "classification": "NO_RERUN",
+      "reason": "bearing reaction envelope and bearing plate geometry unchanged"
+    },
+    {
+      "case_id": "LC05",
+      "classification": "NO_RERUN",
+      "reason": "chain force and shaft overhang unchanged"
+    },
+    {
+      "case_id": "LC06",
+      "classification": "NO_RERUN",
+      "reason": "feed shadow does not change die pressure/axial thrust input"
+    },
+    {
+      "case_id": "LC07",
+      "classification": "NO_RERUN",
+      "reason": "feed shadow does not change PLA thermal boundary inputs"
+    },
+    {
+      "case_id": "LC08",
+      "classification": "NO_RERUN",
+      "reason": "feed shadow does not change PET thermal/pressure inputs"
+    },
+    {
+      "case_id": "LC09",
+      "classification": "NO_RERUN",
+      "reason": "spool mass, support geometry, and line tension inputs unchanged"
+    },
+    {
+      "case_id": "LC10",
+      "classification": "NO_RERUN",
+      "reason": "bounded 0.55 kg feed inventory is below frozen global frame reaction envelope"
+    },
+    {
+      "case_id": "LC11_FEEDER_ATTACHMENT",
+      "classification": "NEW_CASE_REQUIRED",
+      "loads": {
+        "reaction_torque_nm": 2.2,
+        "inventory_vertical_load_n": 5.4
+      },
+      "reason": "2.2 N.m local feeder reaction and 5.4 N vertical load are absent from LC01-LC10",
+      "status": "PENDING_EXTERNAL_FUSION_EXECUTION"
+    }
+  ],
+  "classification_counts": {
+    "NO_RERUN": 10,
+    "RERUN_REQUIRED": 0,
+    "NEW_CASE_REQUIRED": 1
+  },
+  "existing_result_reuse_permitted": false,
+  "reuse_note": "frozen Fusion execution is pending independently; NO_RERUN only means this delta does not invalidate LC01-LC10 inputs",
+  "physical_test_performed": false
+}

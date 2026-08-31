@@ -17,6 +17,7 @@ struct TraverseOutput {
   float estimated_position_mm;
   bool hard_fault;
   bool pitch_synchronized;
+  bool position_valid;
 };
 
 class TraverseController {
@@ -25,6 +26,10 @@ class TraverseController {
   TraverseOutput update(float spool_turns, bool left_limit, bool right_limit,
                         bool enabled, uint32_t now_ms);
   void reset();
+  void setHomedPosition(float position_mm);
+  void invalidatePosition();
+  bool positionValid() const { return position_valid_; }
+  float stepsPerMm() const { return config_.steps_per_mm; }
 
  private:
   TraverseConfig config_{};
@@ -34,4 +39,5 @@ class TraverseController {
   uint32_t endpoint_expected_since_ms_{0};
   bool has_seen_interior_{false};
   bool hard_fault_{false};
+  bool position_valid_{true};
 };

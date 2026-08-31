@@ -1,0 +1,4 @@
+mesh_level,global_size_mm,local_flange_size_mm,curvature_refinement,minimum_elements_through_3mm_wall,required_outputs,purpose
+coarse,3.0,1.2,medium,2,"element count; max displacement; reaction force/moment; non-singular von Mises stress; safety factor",trend seed only
+medium,2.0,0.8,high,3,"element count; max displacement; reaction force/moment; non-singular von Mises stress; safety factor",primary screen
+fine,1.25,0.5,high,5,"element count; max displacement; reaction force/moment; non-singular von Mises stress; safety factor",convergence reference

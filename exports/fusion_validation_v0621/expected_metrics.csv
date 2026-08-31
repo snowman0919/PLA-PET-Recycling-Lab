@@ -1,0 +1,10 @@
+metric,unit,required_mesh_levels,acceptance,notes
+element_count,count,coarse medium fine,greater than zero,Fusion mesh statistics
+max_displacement,mm,coarse medium fine,medium-to-fine change <= 5 percent,global maximum
+non_singular_von_mises_stress,MPa,coarse medium fine,<= 107.5 MPa,evaluate at least two local fine elements from fixed edge
+minimum_safety_factor,ratio,medium fine,>= 2.0,based on 215 MPa yield and reported non-singular stress
+reaction_force_z,N,coarse medium fine,imbalance <= 2 percent versus -5.4 N applied load,signed result
+reaction_moment_z,N*mm,coarse medium fine,imbalance <= 2 percent versus +2200 N*mm applied moment,signed result
+medium_to_fine_displacement_change,percent,fine,<= 5.0,computed from raw medium and fine displacement
+force_reaction_imbalance,percent,coarse medium fine,<= 2.0,absolute equilibrium residual
+moment_reaction_imbalance,percent,coarse medium fine,<= 2.0,absolute equilibrium residual

@@ -8,8 +8,10 @@
 #include "puller_speed_control.h"
 #include "screw_motion_monitor.h"
 #include "cooling_monitor.h"
+#include "calibration_record.h"
 #include "spooler_control.h"
 #include "traverse_control.h"
+#include "traverse_homing.h"
 #include "process_state.h"
 #include "shredder_control.h"
 
@@ -28,6 +30,7 @@ enum FormingFaultReason : uint16_t {
   FORMING_SPOOL_JAM = 1 << 10,
   FORMING_TRAVERSE_HARD_FAULT = 1 << 11,
   FORMING_SCREW_MOTION_MISMATCH = 1 << 12,
+  FORMING_CALIBRATION_LOSS = 1 << 13,
   FORMING_PULLER_FAILURE = FORMING_PULLER_DRIVER_FAILURE | FORMING_PULLER_TACH_FAILURE,
 };
 
@@ -62,6 +65,21 @@ enum class CoolingStartupRequest : uint8_t {
 };
 
 struct CalibrationReadiness {
+  bool shredder_tach_valid{false};
+  bool shredder_drive_valid{false};
+  bool screw_tach_valid{false};
+  bool puller_tach_valid{false};
+  bool puller_drive_valid{false};
+  bool spooler_tach_valid{false};
+  bool spooler_drive_valid{false};
+  bool traverse_valid{false};
+  bool gauge_xy_valid{false};
+  bool current_sensor_valid{false};
+  bool fan1_tach_valid{false};
+  bool fan2_tach_valid{false};
+  bool dancer_valid{false};
+  bool cooling_current_valid{false};
+  // Source-compatible mirrors used by the current UI/adapter.
   bool drive_calibration_valid{false};
   bool gauge_calibration_valid{false};
   bool current_sensor_calibration_valid{false};
@@ -95,10 +113,12 @@ struct InputSnapshot {
   bool traverse_permission_ok{true};
   bool traverse_left_limit{false};
   bool traverse_right_limit{false};
+  bool traverse_position_valid{true};
   bool purge_feed_approved{false};
   bool purge_waste_path_confirmed{false};
   bool screw_speed_is_measured{false};
   float dancer_angle_rad{0};
+  bool shredder_tach_valid{true};
 };
 
 struct MachineViewState {
@@ -134,6 +154,7 @@ struct MachineViewState {
   CoolingMonitorOutput cooling;
   SpoolerOutput spooler;
   TraverseOutput traverse;
+  TraverseHomingOutput traverse_homing;
   HeaterAllocation heater_allocation;
   uint32_t forming_fault_detected_ms;
   uint32_t forming_state_changed_ms;
@@ -155,6 +176,13 @@ class MachineSupervisor {
   bool configureCurrentSensorCalibration(float zero_adc, float amps_per_count);
   bool configureCoolingFeedbackCalibration(float zero_adc, float amps_per_count);
   bool configurePullerCalibration(const PullerCalibration &calibration);
+  bool configureCalibrationRecord(const CalibrationRecord &record);
+  bool configureTachCalibration(CalibrationId id, float pulses_per_revolution,
+                                bool verified = true);
+  bool configureSpoolerDriveCalibration(const SpoolerConfig &calibration,
+                                        bool verified = true);
+  bool configureTraverseCalibration(float steps_per_mm, bool verified = true);
+  bool configureDancerCalibration(float radians_per_count, bool verified = true);
 
   bool selectMaterial(MaterialProfile material);
   bool requestMaterialChange(MaterialProfile material, const InputSnapshot &input);
@@ -167,6 +195,7 @@ class MachineSupervisor {
   bool confirmPurgeComplete(bool visual_confirmation, const InputSnapshot &input, uint32_t now_ms);
   bool acknowledgeMaterialStep(MaterialSession expected, bool explicit_confirmation);
   bool confirmManualRethread(const InputSnapshot &input);
+  bool requestTraverseHoming(const InputSnapshot &input);
   void requestStop(const InputSnapshot &input);
 
   bool canClearFaults(const InputSnapshot &input, bool physical_lockout_confirmed) const;
@@ -184,6 +213,10 @@ class MachineSupervisor {
   uint16_t heaterFaults() const { return heaters_.faults(); }
   bool shredderFaultLatched() const { return shredder_.faultLatched(); }
   bool lastPullerSaturated() const { return puller_output_.saturated; }
+  bool formingCalibrationReady() const;
+  bool traverseHomed() const { return traverse_homing_.homed(); }
+  TraverseHomingState traverseHomingState() const { return traverse_homing_.state(); }
+  void reportTraversePositionLoss();
 
  private:
   bool guardsOk(const InputSnapshot &input) const;
@@ -199,6 +232,7 @@ class MachineSupervisor {
   ActuatorCommands buildCommands(const InputSnapshot &input, const GaugeReading &gauge, uint32_t now_ms);
   MachineViewState buildView(uint32_t now_ms) const;
   bool invariantsHold(const ActuatorCommands &commands) const;
+  void syncLegacyCalibrationAliases();
   SupervisorOutput finalizeOutput(ActuatorCommands commands, const InputSnapshot &input, uint32_t now_ms);
 
   friend struct MachineSupervisorTestAccess;
@@ -214,6 +248,7 @@ class MachineSupervisor {
   CoolingMonitor cooling_monitor_;
   SpoolerController spooler_control_;
   TraverseController traverse_control_;
+  TraverseHomingController traverse_homing_;
   CalibrationReadiness calibration_;
   FormingChainState forming_state_{FormingChainState::NORMAL};
   uint16_t forming_fault_reasons_{FORMING_FAULT_NONE};
@@ -223,6 +258,7 @@ class MachineSupervisor {
   bool spool_eligible_{false};
   bool waste_mode_{true};
   bool dancer_warning_{false};
+  bool traverse_homing_requested_{false};
   bool cooling_feedback_valid_{false};
   bool cooling_failure_pending_{false};
   bool cooling_failure_actioned_{false};
@@ -261,6 +297,7 @@ class MachineSupervisor {
   CoolingMonitorOutput cooling_output_{};
   SpoolerOutput spooler_output_{};
   TraverseOutput traverse_output_{};
+  TraverseHomingOutput traverse_homing_output_{};
   HeaterAllocation heater_allocation_{};
   uint32_t forming_fault_detected_ms_{0};
 };

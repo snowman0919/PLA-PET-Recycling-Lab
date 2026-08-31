@@ -111,8 +111,9 @@ def main() -> None:
     require(
         "record = CalibrationRecord{}" in calibration_source
         and "sanitizeCalibrationRecord(calibration_record)" in ino_source
-        and "garbage.readiness_flags == 0" in calibration_test
-        and "garbage.readiness_flags == CALIBRATION_HAS_COOLING" in calibration_test,
+        and "stale.version = 3" in calibration_test
+        and "garbage.magic == 0 && garbage.version == 0 && garbage.readiness_flags == 0" in calibration_test
+        and "calibrationDomainReady(record, CAL_TRAVERSE)" in calibration_test,
         "invalid EEPROM calibration zero-sanitize/reload regression missing",
     )
 
@@ -149,11 +150,11 @@ def main() -> None:
         "cooling calibration readiness가 fan-off live feedback과 혼동됨",
     )
     production_gate_tokens = {
-        "SHREDDING": ("requestShredding", "drive_calibration_valid", "current_sensor_calibration_valid"),
-        "PREHEATING": ("requestPreheat", "gauge_calibration_valid", "cooling_feedback_calibration_valid", "temperatureChannelsHealthy"),
-        "EXTRUSION": ("armExtrusion", "gauge_calibration_valid", "cooling_feedback_calibration_valid", "temperatures_ready"),
-        "MAINTENANCE_PURGE": ("requestPurgePreheat", "cooling_feedback_calibration_valid", "temperatureChannelsHealthy"),
-        "REQUALIFYING": ("armExtrusion", "gauge_calibration_valid", "cooling_feedback_calibration_valid", "temperatures_ready"),
+        "SHREDDING": ("requestShredding", "shredder_drive_valid", "current_sensor_valid", "shredder_tach_valid"),
+        "PREHEATING": ("requestPreheat", "gauge_calibration_valid", "cooling_feedback_calibration_valid", "fan1_tach_valid", "fan2_tach_valid", "temperatureChannelsHealthy"),
+        "EXTRUSION": ("armExtrusion", "gauge_xy_valid", "cooling_current_valid", "formingCalibrationReady", "temperatures_ready"),
+        "MAINTENANCE_PURGE": ("requestPurgePreheat", "cooling_feedback_calibration_valid", "fan1_tach_valid", "fan2_tach_valid", "temperatureChannelsHealthy"),
+        "REQUALIFYING": ("armExtrusion", "gauge_xy_valid", "cooling_current_valid", "formingCalibrationReady", "temperatures_ready"),
     }
     for phase, tokens in production_gate_tokens.items():
         method = cpp_method(supervisor_source, tokens[0])
