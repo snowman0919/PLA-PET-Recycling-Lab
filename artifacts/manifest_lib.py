@@ -50,6 +50,11 @@ def collect_paths(root: Path) -> list[Path]:
         if path.is_file()
         and "__pycache__" not in path.parts
         and path.suffix != ".pyc"
+        # CI evidence hashes the artifact manifest; including that same CI
+        # evidence in the manifest creates a self-referential hash cycle and
+        # makes an otherwise deterministic exact-head run dirty.
+        and not path.match("validation/results/ci_*.json")
+        and path.name != "artifact_reproducibility.json"
         and "simulation/openmodelica/results/raw" not in path.as_posix()
         and not ("exports/print/slicing_previews" in path.as_posix() and path.suffix == ".gcode")
     })

@@ -1,0 +1,55 @@
+{
+  "revision": "parallel-actuation-hardening-v0.6.2",
+  "extends_frozen_process_contract": "safety-orchestration-closure-v0.6.1",
+  "architecture_state": "FROZEN",
+  "implementation_state": "ACTUATION_HARDENING_CANDIDATE",
+  "fusion_baseline_state": "V0.6.1_IMMUTABLE",
+  "puller": {
+    "cascade": ["diameter_pi", "target_line_speed_mm_s", "target_roller_rpm", "tach_pi", "bounded_pwm"],
+    "saturation_requires": ["command_near_bound", "absolute_speed_error_above_threshold", "dwell_ms"],
+    "calibration_crc_fields": ["roller_diameter_mm", "tach_pulses_per_revolution"]
+  },
+  "screw_motion": {
+    "sensor": "hall_plus_shaft_magnet",
+    "purge_evidence": "ACTUAL_MEASURED_REVOLUTIONS",
+    "purge_mass_claim": false,
+    "completion_requires": ["actual_revolutions", "elapsed_time", "temperature_stability", "no_motion_fault", "operator_confirmation"]
+  },
+  "cooling": {
+    "topology": "A4_current_plus_two_fan_tachs_through_2_to_1_mux",
+    "detects": ["fan1_stopped", "fan2_stopped", "both_stopped", "command_without_feedback", "feedback_while_off"],
+    "tach_proves_airflow": false
+  },
+  "heater": {
+    "flow": ["zone_pid_request", "global_power_allocator", "applied_duty", "pid_back_calculation"],
+    "normal_phase_peak_limit_w": 500,
+    "minimum_psu_reserve_w": 100
+  },
+  "spooler": {
+    "control": "dancer_pi",
+    "radius_range_mm": [26, 100],
+    "radius_source": "wound_length_and_geometry_estimate",
+    "perfect_packing_claim": false
+  },
+  "traverse": {
+    "usable_width_mm": 68,
+    "winding_pitch_mm": 1.85,
+    "reversal_source": "spool_turns_and_calibrated_endpoints",
+    "wall_clock_reversal_forbidden": true
+  },
+  "requalification": {
+    "minimum_consecutive_valid_samples": 20,
+    "u95_max_mm": 0.03,
+    "diameter_tolerance_mm": 0.05,
+    "ovality_max_mm": 0.05,
+    "stable_duration_s": 10,
+    "required_motion_feedback": ["puller_tach_valid", "puller_not_saturated", "screw_tach_valid", "cooling_feedback_valid"],
+    "operator_rethread_confirmation": true,
+    "pre_confirmation_path": "WASTE"
+  },
+  "external_states": {
+    "fusion": "PENDING_EXTERNAL_EXECUTION",
+    "procurement": "USER_APPROVAL_REQUIRED",
+    "physical_test": "NOT_RUN"
+  }
+}

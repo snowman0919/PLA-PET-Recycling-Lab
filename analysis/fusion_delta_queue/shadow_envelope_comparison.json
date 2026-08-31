@@ -1,0 +1,49 @@
+{
+  "revision": "parallel-actuation-hardening-v0.6.2",
+  "frozen_baseline_revision": "safety-orchestration-closure-v0.6.1",
+  "fusion_input_delta": "NONE",
+  "comparisons": [
+    {
+      "quantity": "peak_cutter_torque_nm",
+      "old_value": 21.99375000440007,
+      "new_value": 21.99375000440007,
+      "percent_change": 0.0,
+      "direction_change": false,
+      "affected_fusion_case": "LC01,LC02",
+      "rerun_requirement": false,
+      "reason": "v0.6.2 control shadow does not alter frozen mechanical load envelope"
+    },
+    {
+      "quantity": "peak_phase_torque_nm",
+      "old_value": 20.00049692324236,
+      "new_value": 20.00049692324236,
+      "percent_change": 0.0,
+      "direction_change": false,
+      "affected_fusion_case": "LC03",
+      "rerun_requirement": false,
+      "reason": "v0.6.2 control shadow does not alter frozen mechanical load envelope"
+    },
+    {
+      "quantity": "peak_bearing_load_n",
+      "old_value": 1856.544175556756,
+      "new_value": 1856.544175556756,
+      "percent_change": 0.0,
+      "direction_change": false,
+      "affected_fusion_case": "LC04",
+      "rerun_requirement": false,
+      "reason": "v0.6.2 control shadow does not alter frozen mechanical load envelope"
+    },
+    {
+      "quantity": "peak_chain_force_n",
+      "old_value": 602.7336257714462,
+      "new_value": 602.7336257714462,
+      "percent_change": 0.0,
+      "direction_change": false,
+      "affected_fusion_case": "LC05",
+      "rerun_requirement": false,
+      "reason": "v0.6.2 control shadow does not alter frozen mechanical load envelope"
+    }
+  ],
+  "geometry_material_contact_boundary_changes": false,
+  "status": "PASS"
+}

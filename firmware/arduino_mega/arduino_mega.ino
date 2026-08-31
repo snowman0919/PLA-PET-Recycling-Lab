@@ -1,6 +1,7 @@
 #include <EEPROM.h>
 #include <stdlib.h>
 #include <string.h>
+#include <avr/interrupt.h>
 
 #include "src/board_config.h"
 #include "src/calibration_record.h"
@@ -8,6 +9,7 @@
 #include "src/ui_core.h"
 
 namespace {
+constexpr const char *ACTUATION_REVISION = "parallel-actuation-hardening-v0.6.2";
 MachineSupervisor supervisor;
 UiController ui;
 TemperatureReading temperatures[5]{};
@@ -15,10 +17,24 @@ ActuatorCommands last_commands{};
 CalibrationRecord calibration_record{};
 volatile uint32_t shredder_pulses = 0;
 volatile uint32_t puller_pulses = 0;
+volatile uint32_t screw_pulses = 0;
+volatile uint32_t spooler_pulses = 0;
+volatile uint32_t fan_pulses[2] = {0, 0};
+volatile bool fan_mux_channel = false;
+volatile uint8_t portk_previous = 0;
 float shredder_rpm = 0;
 float puller_rpm = 0;
-uint32_t last_sample_ms = 0;
+float screw_rpm = 0;
+float spooler_rpm = 0;
+float fan_rpm[2] = {0, 0};
+uint32_t last_tach_sample_ms = 0;
+uint32_t last_fan_sample_ms = 0;
+uint32_t last_temperature_sample_ms = 0;
 uint32_t last_log_ms = 0;
+#ifdef PPR_DEBUG
+uint32_t deadline_overruns = 0;
+uint32_t maximum_loop_us = 0;
+#endif
 bool purge_feed_approved = false;
 char serial_line[180]{};
 uint8_t serial_length = 0;
@@ -87,6 +103,15 @@ class BoardActuators final : public ActuatorBackend {
 void shredderPulse() { ++shredder_pulses; }
 void pullerPulse() { ++puller_pulses; }
 
+ISR(PCINT2_vect) {
+  const uint8_t current = PINK;
+  const uint8_t rising = static_cast<uint8_t>(current & static_cast<uint8_t>(~portk_previous));
+  if ((rising & _BV(PK5)) != 0) ++screw_pulses;   // A13 / PCINT21
+  if ((rising & _BV(PK6)) != 0) ++fan_pulses[fan_mux_channel ? 1 : 0]; // A14 / PCINT22
+  if ((rising & _BV(PK7)) != 0) ++spooler_pulses; // A15 / PCINT23
+  portk_previous = current;
+}
+
 bool allDriversHealthy() {
   for (uint8_t pin : Board::DRIVER_FAULT_PINS) if (digitalRead(pin) == LOW) return false;
   return true;
@@ -120,15 +145,24 @@ InputSnapshot readInputs(uint32_t now_ms) {
   input.shredder_current_amp = calibration_record.current_amps_per_count > 0
       ? abs(analogRead(Board::CURRENT_PIN) - calibration_record.current_zero_adc) * calibration_record.current_amps_per_count : 0;
   input.shredder_rpm = shredder_rpm;
-  const bool screw_commanded = last_commands.screw_pwm != 0 && supervisor.process().material() != MaterialProfile::NONE;
-  const float screw_scale = supervisor.process().materialSession() == MaterialSession::PURGE_RUNNING ? PURGE_SCREW_SCALE : 1.0f;
-  input.screw_rpm = screw_commanded ? profileFor(supervisor.process().material()).screw_rpm * screw_scale : 0;
-  input.screw_speed_is_measured = false;  // Command-derived estimate; no verified donor tach exists.
-  input.cooling_feedback_valid = cooling_feedback.read(now_ms).valid;
+  input.screw_rpm = screw_rpm;
+  input.screw_tach_valid = (calibration_record.readiness_flags & CALIBRATION_HAS_PULLER) != 0;
+  input.screw_speed_is_measured = input.screw_tach_valid;
+  const CoolingFeedback fan_current = cooling_feedback.read(now_ms);
+  input.cooling_feedback_valid = fan_current.valid;
+  input.fan1_rpm = fan_rpm[0];
+  input.fan2_rpm = fan_rpm[1];
+  input.fan1_tach_valid = input.screw_tach_valid;
+  input.fan2_tach_valid = input.screw_tach_valid;
   input.puller_driver_ok = digitalRead(Board::PULLER_FAULT_PIN) == HIGH;
   input.puller_tach_ok = last_commands.puller_pwm == 0 || puller_rpm > 0.1f;
+  input.puller_rpm = puller_rpm;
   input.spooler_driver_ok = digitalRead(Board::SPOOLER_FAULT_PIN) == HIGH;
+  input.spooler_tach_ok = last_commands.spooler_pwm == 0 || spooler_rpm > 0.1f;
+  input.spooler_rpm = spooler_rpm;
   input.traverse_permission_ok = true;
+  input.traverse_left_limit = digitalRead(Board::TRAVERSE_LEFT_LIMIT_PIN) == LOW;
+  input.traverse_right_limit = digitalRead(Board::TRAVERSE_RIGHT_LIMIT_PIN) == LOW;
   input.purge_feed_approved = purge_feed_approved;
   input.dancer_angle_rad = (analogRead(Board::DANCER_PIN) - 512) * (DANCER_MECHANICAL_HARD_STOP_RAD / 410.0f);
   return input;
@@ -148,6 +182,8 @@ bool loadCalibration() {
   if ((calibration_record.readiness_flags & CALIBRATION_HAS_COOLING) != 0)
     ok = supervisor.configureCoolingFeedbackCalibration(calibration_record.cooling_zero_adc,
                                                          calibration_record.cooling_amps_per_count) && ok;
+  if ((calibration_record.readiness_flags & CALIBRATION_HAS_PULLER) != 0)
+    ok = supervisor.configurePullerCalibration(calibration_record.puller) && ok;
   return ok;
 }
 
@@ -240,6 +276,24 @@ void executeCommand(char *line, InputSnapshot input, uint32_t now_ms) {
         calibration_record.readiness_flags |= CALIBRATION_HAS_COOLING;
         saveCalibration();
       }
+    } else if (ok && strcmp(kind, "ACTUATION") == 0) {
+      const float roller_mm = nextFloat(&context, ok);
+      const float puller_ppr = nextFloat(&context, ok);
+      const float screw_ppr = nextFloat(&context, ok);
+      const float spooler_ppr = nextFloat(&context, ok);
+      const float traverse_steps = nextFloat(&context, ok);
+      PullerCalibration puller{roller_mm, puller_ppr, 160.0f, 3.0f, 1.2f,
+                               45, 255, 800, 600, 800, 2.0f};
+      accepted = ok && screw_ppr >= 1.0f && spooler_ppr >= 1.0f && traverse_steps > 1.0f &&
+          supervisor.configurePullerCalibration(puller);
+      if (accepted) {
+        calibration_record.puller = puller;
+        calibration_record.screw_tach_pulses_per_revolution = screw_ppr;
+        calibration_record.spooler_tach_pulses_per_revolution = spooler_ppr;
+        calibration_record.traverse_steps_per_mm = traverse_steps;
+        calibration_record.readiness_flags |= CALIBRATION_HAS_PULLER;
+        saveCalibration();
+      }
     }
   }
   Serial.println(accepted ? F("COMMAND_OK") : F("COMMAND_REJECTED"));
@@ -323,22 +377,51 @@ void handlePhysicalUi(InputSnapshot input, uint32_t now_ms) {
   }
 }
 
-void sampleSlowInputs(uint32_t now_ms) {
-  if (now_ms - last_sample_ms < HEATER_SAMPLE_PERIOD_MS) return;
-  const float dt = last_sample_ms == 0 ? HEATER_SAMPLE_PERIOD_MS / 1000.0f : (now_ms - last_sample_ms) / 1000.0f;
+void sampleTachs(uint32_t now_ms) {
+  if (now_ms - last_tach_sample_ms < 20) return;
+  const float dt = last_tach_sample_ms == 0 ? 0.02f : (now_ms - last_tach_sample_ms) / 1000.0f;
   noInterrupts();
   const uint32_t shredder_count = shredder_pulses; shredder_pulses = 0;
   const uint32_t puller_count = puller_pulses; puller_pulses = 0;
+  const uint32_t screw_count = screw_pulses; screw_pulses = 0;
+  const uint32_t spooler_count = spooler_pulses; spooler_pulses = 0;
   interrupts();
   shredder_rpm = shredder_count * 60.0f / (7.0f * dt);
-  puller_rpm = puller_count * 60.0f / (20.0f * dt);
+  const float puller_ppr = calibration_record.puller.tach_pulses_per_revolution > 0
+      ? calibration_record.puller.tach_pulses_per_revolution : 20.0f;
+  const float screw_ppr = calibration_record.screw_tach_pulses_per_revolution > 0
+      ? calibration_record.screw_tach_pulses_per_revolution : 1.0f;
+  const float spooler_ppr = calibration_record.spooler_tach_pulses_per_revolution > 0
+      ? calibration_record.spooler_tach_pulses_per_revolution : 20.0f;
+  puller_rpm = puller_count * 60.0f / (puller_ppr * dt);
+  screw_rpm = screw_count * 60.0f / (screw_ppr * dt);
+  spooler_rpm = spooler_count * 60.0f / (spooler_ppr * dt);
+  last_tach_sample_ms = now_ms;
+}
+
+void sampleFans(uint32_t now_ms) {
+  if (now_ms - last_fan_sample_ms < 250) return;
+  const bool completed_channel = fan_mux_channel;
+  noInterrupts();
+  const uint32_t count = fan_pulses[completed_channel ? 1 : 0];
+  fan_pulses[completed_channel ? 1 : 0] = 0;
+  interrupts();
+  fan_rpm[completed_channel ? 1 : 0] = count * 60.0f / (2.0f * 0.25f);
+  fan_mux_channel = !fan_mux_channel;
+  digitalWrite(Board::FAN_TACH_MUX_SELECT_PIN, fan_mux_channel ? HIGH : LOW);
+  last_fan_sample_ms = now_ms;
+}
+
+void sampleTemperatures(uint32_t now_ms) {
+  if (now_ms - last_temperature_sample_ms < HEATER_SAMPLE_PERIOD_MS) return;
   for (uint8_t channel = 0; channel < 5; ++channel)
     temperatures[channel] = thermocouples.read(static_cast<TemperatureChannel>(channel), now_ms);
-  last_sample_ms = now_ms;
+  last_temperature_sample_ms = now_ms;
 }
 
 void logStatus(const SupervisorOutput &output, uint32_t now_ms) {
   if (now_ms - last_log_ms < 1000) return;
+  if (Serial.availableForWrite() < 32) return;
   last_log_ms = now_ms;
   Serial.print(F("phase=")); Serial.print(static_cast<uint8_t>(output.view.process_phase));
   Serial.print(F(" ui=")); Serial.print(static_cast<uint8_t>(output.view.ui_state));
@@ -359,7 +442,20 @@ void logStatus(const SupervisorOutput &output, uint32_t now_ms) {
   Serial.print('/'); Serial.print(output.view.cooling_startup_healthy_dwell_ms);
   Serial.print(F(" purge_approval=")); Serial.print(output.view.purge_feed_approved);
   Serial.print(F(" purge_completed=")); Serial.print(output.view.purge_run_completed);
+  Serial.print(F(" puller=")); Serial.print(output.view.puller.target_mm_s); Serial.print('/');
+  Serial.print(output.view.puller.measured_mm_s); Serial.print('/'); Serial.print(output.view.puller.pwm);
+  Serial.print(F(" puller_sat=")); Serial.print(output.view.puller.saturated); Serial.print('/');
+  Serial.print(output.view.puller.saturation_duration_ms);
+  Serial.print(F(" screw=")); Serial.print(output.view.screw_motion.actual_rpm); Serial.print('/');
+  Serial.print(output.view.screw_motion.cumulative_revolutions);
+  Serial.print(F(" fans=")); Serial.print(output.view.cooling.fan1_running); Serial.print('/');
+  Serial.print(output.view.cooling.fan2_running);
+  Serial.print(F(" waste_path=")); Serial.print(output.actuators.waste_path_active);
   Serial.print(F(" requal_samples=")); Serial.print(output.view.requalification_valid_samples);
+#ifdef PPR_DEBUG
+  Serial.print(F(" deadline_overruns=")); Serial.print(deadline_overruns);
+  Serial.print(F(" max_loop_us=")); Serial.print(maximum_loop_us);
+#endif
   Serial.print(F(" invariants=")); Serial.println(output.invariants_ok);
 }
 }
@@ -375,7 +471,9 @@ void setup() {
   for (uint8_t pin : Board::MOTOR_PWM_PINS) pinMode(pin, OUTPUT);
   const uint8_t inputs[] = {Board::START_PIN, Board::PAUSE_PIN, Board::BACK_PIN, Board::CONFIRM_PIN,
                             Board::ENCODER_BUTTON_PIN, Board::ENCODER_A_PIN, Board::ENCODER_B_PIN,
-                            Board::GAUGE_VALID_PIN, Board::LOCKOUT_CONFIRM_PIN};
+                            Board::GAUGE_VALID_PIN, Board::LOCKOUT_CONFIRM_PIN,
+                            Board::TRAVERSE_LEFT_LIMIT_PIN, Board::TRAVERSE_RIGHT_LIMIT_PIN,
+                            Board::SCREW_TACH_PIN, Board::FAN_TACH_MUX_PIN, Board::SPOOLER_TACH_PIN};
   for (uint8_t pin : inputs) pinMode(pin, INPUT_PULLUP);
   const uint8_t outputs[] = {Board::SHREDDER_DIR_PIN, Board::SHREDDER_REVERSE_PIN, Board::SHREDDER_ENABLE_PIN,
                              Board::FEEDER_ENABLE_PIN, Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN,
@@ -383,19 +481,30 @@ void setup() {
                              Board::SPOOLER_ENABLE_PIN, Board::TRAVERSE_STEP_PIN, Board::TRAVERSE_DIR_PIN,
                              Board::TRAVERSE_ENABLE_PIN, Board::HOPPER_PTC_PIN};
   for (uint8_t pin : outputs) pinMode(pin, OUTPUT);
+  pinMode(Board::FAN_TACH_MUX_SELECT_PIN, OUTPUT);
+  digitalWrite(Board::FAN_TACH_MUX_SELECT_PIN, LOW);
   pinMode(Board::SHREDDER_RPM_PIN, INPUT_PULLUP);
   pinMode(Board::PULLER_TACH_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(Board::SHREDDER_RPM_PIN), shredderPulse, RISING);
   attachInterrupt(digitalPinToInterrupt(Board::PULLER_TACH_PIN), pullerPulse, RISING);
+  portk_previous = PINK;
+  PCICR |= _BV(PCIE2);
+  PCMSK2 |= _BV(5) | _BV(6) | _BV(7);
   const bool loaded = loadCalibration();
-  Serial.print(F("PPR ")); Serial.print(CONFIG_REVISION); Serial.println(F(" READY SERIAL_TEXT_BACKEND"));
-  Serial.println(loaded ? F("CALIBRATION_RECORD_V2_LOADED") : F("CALIBRATION_REQUIRED_OUTPUTS_INHIBITED"));
+  Serial.print(F("PPR ")); Serial.print(ACTUATION_REVISION); Serial.print(F(" base="));
+  Serial.print(CONFIG_REVISION); Serial.println(F(" READY SERIAL_TEXT_BACKEND"));
+  Serial.println(loaded ? F("CALIBRATION_RECORD_V3_LOADED") : F("CALIBRATION_REQUIRED_OUTPUTS_INHIBITED"));
   Serial.println(F("MATERIAL_SELECTION_REQUIRED"));
 }
 
 void loop() {
+#ifdef PPR_DEBUG
+  const uint32_t loop_started_us = micros();
+#endif
   const uint32_t now_ms = millis();
-  sampleSlowInputs(now_ms);
+  sampleTachs(now_ms);
+  sampleFans(now_ms);
+  sampleTemperatures(now_ms);
   const InputSnapshot input = readInputs(now_ms);
   pollSerial(input, now_ms);
   handlePhysicalUi(input, now_ms);
@@ -403,4 +512,9 @@ void loop() {
   last_commands = output.invariants_ok ? output.actuators : ActuatorCommands{};
   actuators.apply(last_commands);
   logStatus(output, now_ms);
+#ifdef PPR_DEBUG
+  const uint32_t loop_us = micros() - loop_started_us;
+  if (loop_us > maximum_loop_us) maximum_loop_us = loop_us;
+  if (loop_us > 10000UL) ++deadline_overruns;
+#endif
 }

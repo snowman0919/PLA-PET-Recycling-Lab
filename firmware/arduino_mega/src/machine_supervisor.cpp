@@ -23,6 +23,20 @@ bool gaugeWithinProductionTolerance(const GaugeReading &gauge) {
       fabsf(gauge.mean_mm - 1.75f) <= REQUALIFICATION_DIAMETER_ERROR_MAX_MM &&
       gauge.ovality_mm <= REQUALIFICATION_OVALITY_MAX_MM;
 }
+
+bool coolingSnapshotHealthy(const InputSnapshot &input) {
+  return input.cooling_feedback_valid && input.fan1_tach_valid && input.fan2_tach_valid &&
+      input.fan1_rpm >= 300.0f && input.fan2_rpm >= 300.0f;
+}
+}
+
+MachineSupervisor::MachineSupervisor() {
+  const PullerCalibration puller{30.0f, 20.0f, 160.0f, 3.0f, 1.2f, 45, 255,
+                                  800, 600, 800, 2.0f};
+  calibration_.puller_calibration_valid = puller_speed_.configure(puller);
+  spooler_control_.configure({26.0f, 100.0f, 68.0f, 1.75f, 0.0f, 180.0f, 45.0f,
+                              42, 220, 1200, 1000});
+  traverse_control_.configure({68.0f, 1.85f, 80.0f, 1200});
 }
 
 bool MachineSupervisor::configureDriveCalibration(const DriveCalibration &c) {
@@ -43,6 +57,11 @@ bool MachineSupervisor::configureCurrentSensorCalibration(float zero_adc, float 
 bool MachineSupervisor::configureCoolingFeedbackCalibration(float zero_adc, float amps_per_count) {
   calibration_.cooling_feedback_calibration_valid = zero_adc >= 0 && zero_adc <= 1023 && amps_per_count > 0;
   return calibration_.cooling_feedback_calibration_valid;
+}
+
+bool MachineSupervisor::configurePullerCalibration(const PullerCalibration &calibration) {
+  calibration_.puller_calibration_valid = puller_speed_.configure(calibration);
+  return calibration_.puller_calibration_valid;
 }
 
 bool MachineSupervisor::selectMaterial(MaterialProfile material) {
@@ -103,7 +122,7 @@ void MachineSupervisor::updateCoolingStartupProbe(const InputSnapshot &input, ui
     cooling_startup_probe_started_ms_ = now_ms;
     return;
   }
-  if (input.cooling_feedback_valid) {
+  if (cooling_feedback_valid_) {
     if (!cooling_startup_healthy_started_) {
       cooling_startup_healthy_started_ = true;
       cooling_startup_healthy_since_ms_ = now_ms;
@@ -189,7 +208,7 @@ bool MachineSupervisor::armExtrusion(const InputSnapshot &input, uint32_t now_ms
   if (process_.state() != MachineState::PREHEATING || !extrusion_arm_required_ || !extrusion_ready_ ||
       !input.safety.temperatures_ready || !input.safety.gauge_valid ||
       !calibration_.gauge_calibration_valid || !calibration_.cooling_feedback_calibration_valid ||
-      !input.cooling_feedback_valid || !guardsOk(input)) return false;
+      !coolingSnapshotHealthy(input) || !guardsOk(input)) return false;
   if (!process_.requestState(MachineState::REQUALIFYING, input.safety)) return false;
   extrusion_arm_required_ = false;
   extrusion_ready_ = false;
@@ -220,12 +239,13 @@ bool MachineSupervisor::approvePurgeFeed(bool explicit_confirmation) {
 
 bool MachineSupervisor::confirmPurgeWastePath(const InputSnapshot &input, uint32_t now_ms) {
   if (!purge_feed_approved_ || !input.purge_waste_path_confirmed ||
-      !calibration_.cooling_feedback_calibration_valid || !input.cooling_feedback_valid ||
+      !calibration_.cooling_feedback_calibration_valid || !coolingSnapshotHealthy(input) ||
       !temperatureChannelsHealthy(input) || !guardsOk(input)) return false;
   if (!process_.startPurge(true, input.safety)) return false;
   purge_started_ms_ = now_ms;
   purge_screw_revolutions_ = 0;
-  purge_screw_revolutions_measured_ = input.screw_speed_is_measured;
+  purge_start_screw_revolutions_ = screw_motion_output_.cumulative_revolutions;
+  purge_screw_revolutions_measured_ = input.screw_speed_is_measured && input.screw_tach_valid;
   purge_temperature_stable_ = input.safety.temperatures_ready;
   purge_feed_approved_ = true;
   purge_run_completed_ = false;
@@ -235,9 +255,10 @@ bool MachineSupervisor::confirmPurgeWastePath(const InputSnapshot &input, uint32
 bool MachineSupervisor::confirmPurgeComplete(bool visual, const InputSnapshot &input, uint32_t now_ms) {
   const bool run_evidence = visual && now_ms - purge_started_ms_ >= PURGE_MINIMUM_MS &&
                             purge_screw_revolutions_ >= PURGE_MINIMUM_SCREW_REVOLUTIONS &&
-                            purge_temperature_stable_;
+                            purge_temperature_stable_ && purge_screw_revolutions_measured_ &&
+                            screw_motion_output_.tach_valid && !screw_motion_output_.command_motion_mismatch;
   if (!run_evidence) return false;
-  if (!calibration_.cooling_feedback_calibration_valid || !input.cooling_feedback_valid) {
+  if (!calibration_.cooling_feedback_calibration_valid || !coolingSnapshotHealthy(input)) {
     enterLatchedFormingFault(FORMING_COOLING_FAILURE);
     return false;
   }
@@ -260,7 +281,9 @@ bool MachineSupervisor::confirmManualRethread(const InputSnapshot &input) {
   const GaugeReading gauge = gauge_.update(input.gauge_x_adc, input.gauge_y_adc,
                                            input.gauge_optical_valid);
   if (forming_state_ != FormingChainState::READY_TO_RETHREAD || !guardsOk(input) ||
-      !input.cooling_feedback_valid || !input.safety.gauge_valid || input.puller_saturated ||
+      !coolingSnapshotHealthy(input) || !input.safety.gauge_valid ||
+      input.puller_saturated ||
+      !puller_output_.tach_valid || puller_output_.saturated || !screw_motion_output_.tach_valid ||
       !gaugeWithinProductionTolerance(gauge)) return false;
   if (!process_.requestState(MachineState::EXTRUSION, input.safety)) return false;
   forming_fault_reasons_ = FORMING_FAULT_NONE;
@@ -320,7 +343,7 @@ bool MachineSupervisor::canClearFaults(const InputSnapshot &input, bool lockout)
 }
 
 bool MachineSupervisor::canCompleteCooldown(const InputSnapshot &input) const {
-  if (process_.state() != MachineState::COOLDOWN || !input.cooling_feedback_valid ||
+  if (process_.state() != MachineState::COOLDOWN || !cooling_feedback_valid_ ||
       !calibration_.cooling_feedback_calibration_valid) return false;
   for (uint8_t channel = 0; channel < 4; ++channel) {
     const TemperatureReading &reading = input.temperatures[channel];
@@ -356,9 +379,21 @@ bool MachineSupervisor::clearAllFaults(const InputSnapshot &input, bool lockout)
   cooling_startup_preflight_fault_ = false;
   purge_started_ms_ = 0;
   purge_screw_revolutions_ = 0;
+  purge_start_screw_revolutions_ = 0;
   purge_screw_revolutions_measured_ = false;
   purge_feed_approved_ = false;
   purge_run_completed_ = false;
+  puller_speed_.reset();
+  screw_motion_.reset();
+  cooling_monitor_.reset();
+  spooler_control_.reset();
+  traverse_control_.reset();
+  puller_output_ = PullerSpeedOutput{};
+  screw_motion_output_ = ScrewMotionOutput{};
+  cooling_output_ = CoolingMonitorOutput{};
+  spooler_output_ = SpoolerOutput{};
+  traverse_output_ = TraverseOutput{};
+  forming_fault_detected_ms_ = 0;
   process_.commitFaultClear();
   return true;
 }
@@ -374,6 +409,7 @@ void MachineSupervisor::enterEstop(const InputSnapshot &input) {
 }
 
 bool MachineSupervisor::enterFormingRundown(uint16_t reason, const InputSnapshot &input, uint32_t now_ms) {
+  if (forming_fault_reasons_ == FORMING_FAULT_NONE) forming_fault_detected_ms_ = now_ms;
   forming_fault_reasons_ |= reason;
   spool_eligible_ = false;
   waste_mode_ = true;
@@ -412,7 +448,8 @@ void MachineSupervisor::updateRequalification(const InputSnapshot &input, const 
   if (forming_state_ != FormingChainState::REQUALIFYING) return;
   if (last_requalification_sample_ms_ != 0 && now_ms - last_requalification_sample_ms_ < 200UL) return;
   last_requalification_sample_ms_ = now_ms;
-  if (input.puller_saturated) {
+  if (input.puller_saturated || puller_output_.saturated || !puller_output_.tach_valid ||
+      !cooling_feedback_valid_ || !screw_motion_output_.tach_valid) {
     consecutive_gauge_samples_ = 0;
     diameter_stable_since_ms_ = 0;
     ovality_stable_since_ms_ = 0;
@@ -435,7 +472,8 @@ void MachineSupervisor::updateRequalification(const InputSnapshot &input, const 
       ovality_stable_since_ms_ != 0 && now_ms - diameter_stable_since_ms_ >= REQUALIFICATION_STABLE_MS &&
       now_ms - ovality_stable_since_ms_ >= REQUALIFICATION_STABLE_MS &&
       now_ms - requalification_started_ms_ >= transport_ms && !input.puller_saturated &&
-      input.cooling_feedback_valid) {
+      puller_output_.tach_valid && !puller_output_.saturated && cooling_feedback_valid_ &&
+      screw_motion_output_.tach_valid) {
     forming_state_ = FormingChainState::READY_TO_RETHREAD;
   }
 }
@@ -470,7 +508,7 @@ ActuatorCommands MachineSupervisor::buildCommands(const InputSnapshot &input, co
       (forming_state_ == FormingChainState::NORMAL || forming_state_ == FormingChainState::REQUALIFYING);
   if (maintenance_purge) c.feeder_enable = purge_motion_authorized;
   const float puller = diameter_.update(g, 1.75f, profile.puller_feedforward_mm_s,
-                                         profile.diameter_kp, profile.diameter_ki, 0.1f);
+                                        profile.diameter_kp, profile.diameter_ki, 0.1f);
   const bool waste_puller = forming_state_ == FormingChainState::RUNDOWN &&
                             now_ms - forming_state_since_ms_ < FORMING_PULLER_WASTE_MS &&
                             (forming_fault_reasons_ & FORMING_PULLER_FAILURE) == 0;
@@ -478,15 +516,29 @@ ActuatorCommands MachineSupervisor::buildCommands(const InputSnapshot &input, co
       (!maintenance_purge || purge_motion_authorized) &&
       (forming_state_ == FormingChainState::NORMAL || forming_state_ == FormingChainState::REQUALIFYING) &&
       puller > 0;
+  puller_output_ = puller_speed_.update(waste_puller ? puller_output_.target_mm_s : puller,
+                                        input.puller_rpm, input.puller_tach_ok,
+                                        puller_authorized || waste_puller, now_ms);
   if (puller_authorized || waste_puller)
-    c.puller_pwm = waste_puller ? last_safe_puller_pwm_ : rpmToPwm(puller, 80.0f);
+    c.puller_pwm = waste_puller ? last_safe_puller_pwm_ : puller_output_.pwm;
   if (forming_state_ == FormingChainState::NORMAL && c.puller_pwm > 0) last_safe_puller_pwm_ = c.puller_pwm;
   if (p.spooler && spool_eligible_ && forming_state_ == FormingChainState::NORMAL) {
-    c.spooler_pwm = 96;
-    c.traverse_enable = p.traverse && input.traverse_permission_ok;
-    c.traverse_direction = ((now_ms / 4000UL) & 1U) != 0;
-    c.traverse_step = c.traverse_enable && ((now_ms / 10UL) & 1U) != 0;
+    spooler_output_ = spooler_control_.update(puller_output_.target_mm_s, input.dancer_angle_rad,
+                                              input.spooler_rpm, input.spooler_tach_ok, true, now_ms);
+    c.spooler_pwm = spooler_output_.pwm;
+    traverse_output_ = traverse_control_.update(spooler_output_.cumulative_turns,
+        input.traverse_left_limit, input.traverse_right_limit,
+        p.traverse && input.traverse_permission_ok, now_ms);
+    c.traverse_enable = traverse_output_.enable;
+    c.traverse_direction = traverse_output_.direction;
+    c.traverse_step = traverse_output_.step;
+  } else {
+    spooler_output_ = spooler_control_.update(0, input.dancer_angle_rad, input.spooler_rpm,
+                                              input.spooler_tach_ok, false, now_ms);
+    traverse_output_ = traverse_control_.update(spooler_output_.cumulative_turns,
+        input.traverse_left_limit, input.traverse_right_limit, false, now_ms);
   }
+  c.waste_path_active = waste_mode_;
   c.cooling_pwm = p.cooling ? static_cast<uint8_t>(profile.fan_percent * 255 / 100) : 0;
   if ((forming_fault_reasons_ & FORMING_COOLING_FAILURE) != 0 &&
       !cooling_recovery_probe_active_ && process_.state() != MachineState::REQUALIFYING)
@@ -494,21 +546,25 @@ ActuatorCommands MachineSupervisor::buildCommands(const InputSnapshot &input, co
   const bool heater_permission = p.process_heaters && processHeaterPhaseAllowed(process_.state());
   const float targets[4] = {static_cast<float>(profile.zone_c[0]), static_cast<float>(profile.zone_c[1]),
                             static_cast<float>(profile.zone_c[2]), static_cast<float>(profile.die_c)};
-  bool heater_requested[4]{};
+  float heater_requested[4]{};
   for (uint8_t zone = 0; zone < 4; ++zone) {
     float target = targets[zone];
     if (forming_state_ == FormingChainState::THERMAL_HOLD) target -= 20.0f;
     const auto out = heaters_.update(zone, input.temperatures[zone], target, heater_permission,
                                      input.safety.thermal_chain_ok, input.safety.heater_permission_feedback, now_ms);
-    heater_requested[zone] = out.time_proportion_on;
+    heater_requested[zone] = out.requested_duty_percent;
     if (out.fault_bits != HEATER_FAULT_NONE) process_.reportFault();
   }
   constexpr float heater_watts[4] = {100.0f, 100.0f, 100.0f, 60.0f};
   const float heater_cap = STATE_HEATER_PEAK_CAP_W[static_cast<uint8_t>(process_.state())];
+  heater_allocation_ = heater_allocator_.allocate(heater_requested, heater_cap);
   commanded_heater_power_w_ = 0;
   for (uint8_t step = 0; step < 4; ++step) {
     const uint8_t zone = static_cast<uint8_t>((heater_priority_offset_ + step) % 4);
-    if (heater_requested[zone] && commanded_heater_power_w_ + heater_watts[zone] <= heater_cap) {
+    const auto applied = heaters_.applyAllocation(zone, heater_allocation_.allocated_duty[zone], now_ms);
+    heater_allocation_.integrator_state[zone] = applied.integrator_state;
+    heater_allocation_.actual_time_proportion_command[zone] = applied.time_proportion_on;
+    if (applied.time_proportion_on && commanded_heater_power_w_ + heater_watts[zone] <= heater_cap) {
       c.heater_on[zone] = true;
       commanded_heater_power_w_ += heater_watts[zone];
     }
@@ -546,7 +602,9 @@ MachineViewState MachineSupervisor::buildView(uint32_t now_ms) const {
           purge_feed_approved_, heaters_.faults(), shredder_.faultLatched(), consecutive_gauge_samples_, diameter_elapsed,
           ovality_elapsed, transport_elapsed, cooling_dwell, cooling_startup_request_, startup_elapsed, startup_healthy,
           forming_state_ == FormingChainState::READY_TO_RETHREAD, commanded_heater_power_w_,
-          purge_screw_revolutions_, purge_screw_revolutions_measured_, purge_run_completed_};
+          purge_screw_revolutions_, purge_screw_revolutions_measured_, purge_run_completed_,
+          puller_output_, screw_motion_output_, cooling_output_, spooler_output_, traverse_output_,
+          heater_allocation_, forming_fault_detected_ms_, forming_state_since_ms_};
 }
 
 bool MachineSupervisor::invariantsHold(const ActuatorCommands &c) const {
@@ -562,12 +620,12 @@ bool MachineSupervisor::invariantsHold(const ActuatorCommands &c) const {
 }
 
 SupervisorOutput MachineSupervisor::finalizeOutput(ActuatorCommands commands,
-                                                   const InputSnapshot &input, uint32_t now_ms) {
+                                                   const InputSnapshot &, uint32_t now_ms) {
   if (process_.state() == MachineState::ESTOP) {
     commands = ActuatorCommands{};
   } else if (process_.state() == MachineState::FAULT) {
     ActuatorCommands fault_commands{};
-    if (process_.material() != MaterialProfile::NONE && input.cooling_feedback_valid &&
+    if (process_.material() != MaterialProfile::NONE && cooling_feedback_valid_ &&
         (forming_fault_reasons_ & FORMING_COOLING_FAILURE) == 0 && !cooling_startup_preflight_fault_)
       fault_commands.cooling_pwm = commands.cooling_pwm;
     commands = fault_commands;
@@ -583,7 +641,21 @@ SupervisorOutput MachineSupervisor::finalizeOutput(ActuatorCommands commands,
 }
 
 SupervisorOutput MachineSupervisor::update(const InputSnapshot &input, uint32_t now_ms) {
-  cooling_feedback_valid_ = input.cooling_feedback_valid;
+  cooling_output_ = cooling_monitor_.update(last_cooling_pwm_, input.fan1_rpm,
+      input.fan1_tach_valid && input.cooling_feedback_valid, input.fan2_rpm,
+      input.fan2_tach_valid && input.cooling_feedback_valid, now_ms);
+  cooling_feedback_valid_ = input.cooling_feedback_valid && cooling_output_.valid;
+  float expected_screw_rpm = 0;
+  if (process_.material() != MaterialProfile::NONE && process_.permissions().screw &&
+      input.safety.driver_fault_free) {
+    expected_screw_rpm = profileFor(process_.material()).screw_rpm;
+    if (process_.materialSession() == MaterialSession::PURGE_RUNNING)
+      expected_screw_rpm *= PURGE_SCREW_SCALE;
+    if (process_.state() == MachineState::MAINTENANCE_PURGE &&
+        !(purge_feed_approved_ && input.purge_feed_approved)) expected_screw_rpm = 0;
+  }
+  screw_motion_output_ = screw_motion_.update(expected_screw_rpm, input.screw_rpm,
+      input.screw_tach_valid && input.screw_speed_is_measured, now_ms);
   calibration_.temperature_channels_valid = true;
   for (uint8_t i = 0; i < 5; ++i) calibration_.temperature_channels_valid =
       calibration_.temperature_channels_valid && input.temperatures[i].valid && !input.temperatures[i].sensor_open;
@@ -602,14 +674,16 @@ SupervisorOutput MachineSupervisor::update(const InputSnapshot &input, uint32_t 
   updateCoolingStartupProbe(input, now_ms);
 
   if (process_.state() == MachineState::PREHEATING && input.safety.temperatures_ready && gauge.valid &&
-      input.cooling_feedback_valid && calibration_.cooling_feedback_calibration_valid)
+      cooling_feedback_valid_ && calibration_.cooling_feedback_calibration_valid)
     extrusion_ready_ = true;
   if (process_.state() == MachineState::MAINTENANCE_PURGE &&
       process_.materialSession() == MaterialSession::PURGE_PREHEAT_REQUIRED && input.safety.temperatures_ready)
     process_.markPurgeReady(input.safety);
 
   if (last_update_ms_ != 0 && process_.materialSession() == MaterialSession::PURGE_RUNNING) {
-    purge_screw_revolutions_ += input.screw_rpm * (now_ms - last_update_ms_) / 60000.0f;
+    purge_screw_revolutions_ = screw_motion_output_.cumulative_revolutions - purge_start_screw_revolutions_;
+    purge_screw_revolutions_measured_ = purge_screw_revolutions_measured_ &&
+        screw_motion_output_.tach_valid && !screw_motion_output_.command_motion_mismatch;
     purge_temperature_stable_ = purge_temperature_stable_ && input.safety.temperatures_ready;
   }
   last_update_ms_ = now_ms;
@@ -618,7 +692,7 @@ SupervisorOutput MachineSupervisor::update(const InputSnapshot &input, uint32_t 
   const bool cooling_commanded = cooling_phase != MachineState::FAULT && cooling_phase != MachineState::ESTOP &&
       process_.permissions().cooling &&
       profileFor(process_.material()).fan_percent * 255 / 100 >= COOLING_COMMAND_THRESHOLD_PWM;
-  if (cooling_commanded && !input.cooling_feedback_valid) {
+  if (cooling_commanded && !cooling_feedback_valid_) {
     if (!cooling_failure_pending_) { cooling_failure_pending_ = true; cooling_failure_since_ms_ = now_ms; }
     else if (!cooling_failure_actioned_ && now_ms - cooling_failure_since_ms_ >= COOLING_FEEDBACK_DWELL_MS) {
       cooling_failure_actioned_ = true;
@@ -650,8 +724,13 @@ SupervisorOutput MachineSupervisor::update(const InputSnapshot &input, uint32_t 
     }
     if (!input.puller_driver_ok) enterFormingRundown(FORMING_PULLER_DRIVER_FAILURE, input, now_ms);
     if (pullerTachFault(input, now_ms)) enterFormingRundown(FORMING_PULLER_TACH_FAILURE, input, now_ms);
+    if (puller_output_.saturated) enterFormingRundown(FORMING_PULLER_SATURATION, input, now_ms);
     if (!input.spooler_driver_ok) enterFormingRundown(FORMING_SPOOLER_FAILURE, input, now_ms);
+    if (spooler_output_.jam) enterFormingRundown(FORMING_SPOOL_JAM, input, now_ms);
     if (!input.traverse_permission_ok && spool_eligible_) enterFormingRundown(FORMING_TRAVERSE_PERMISSION_LOSS, input, now_ms);
+    if (traverse_output_.hard_fault) enterFormingRundown(FORMING_TRAVERSE_HARD_FAULT, input, now_ms);
+    if (screw_motion_output_.command_motion_mismatch)
+      enterFormingRundown(FORMING_SCREW_MOTION_MISMATCH, input, now_ms);
     if (fabsf(input.dancer_angle_rad) >= DANCER_MECHANICAL_HARD_STOP_RAD) enterLatchedFormingFault(FORMING_DANCER_HARD_STOP);
     else if (fabsf(input.dancer_angle_rad) >= DANCER_CONTROLLED_STOP_RAD) enterFormingRundown(FORMING_DANCER_CONTROLLED_STOP, input, now_ms);
   }
@@ -667,14 +746,14 @@ SupervisorOutput MachineSupervisor::update(const InputSnapshot &input, uint32_t 
              now_ms - forming_state_since_ms_ >= THERMAL_HOLD_MS) {
     const bool cooling_fault = (forming_fault_reasons_ & FORMING_COOLING_FAILURE) != 0;
     if (cooling_fault) cooling_recovery_probe_active_ = true;
-    if (cooling_recovery_probe_active_ && input.cooling_feedback_valid) {
+    if (cooling_recovery_probe_active_ && cooling_feedback_valid_) {
       if (cooling_recovery_since_ms_ == 0) cooling_recovery_since_ms_ = now_ms;
     } else {
       cooling_recovery_since_ms_ = 0;
     }
     const bool cooling_recovered = !cooling_fault ||
         (cooling_recovery_since_ms_ != 0 && now_ms - cooling_recovery_since_ms_ >= COOLING_FEEDBACK_DWELL_MS);
-    if (cooling_recovered && input.cooling_feedback_valid && gauge.valid &&
+    if (cooling_recovered && cooling_feedback_valid_ && gauge.valid &&
         input.safety.temperatures_ready && guardsOk(input)) {
       if (process_.requestState(MachineState::REQUALIFYING, input.safety)) resetRequalification(now_ms);
       else enterLatchedFormingFault(forming_fault_reasons_);
@@ -687,5 +766,6 @@ SupervisorOutput MachineSupervisor::update(const InputSnapshot &input, uint32_t 
     commands.cooling_pwm = process_.material() == MaterialProfile::PET
         ? PET_COOLING_STARTUP_PROBE_PWM : PLA_COOLING_STARTUP_PROBE_PWM;
   }
+  last_cooling_pwm_ = commands.cooling_pwm;
   return finalizeOutput(commands, input, now_ms);
 }

@@ -4,6 +4,12 @@
 
 #include "gauge_control.h"
 #include "heater_control.h"
+#include "heater_power_allocator.h"
+#include "puller_speed_control.h"
+#include "screw_motion_monitor.h"
+#include "cooling_monitor.h"
+#include "spooler_control.h"
+#include "traverse_control.h"
 #include "process_state.h"
 #include "shredder_control.h"
 
@@ -18,6 +24,10 @@ enum FormingFaultReason : uint16_t {
   FORMING_DANCER_CONTROLLED_STOP = 1 << 6,
   FORMING_DANCER_HARD_STOP = 1 << 7,
   FORMING_TRAVERSE_PERMISSION_LOSS = 1 << 8,
+  FORMING_PULLER_SATURATION = 1 << 9,
+  FORMING_SPOOL_JAM = 1 << 10,
+  FORMING_TRAVERSE_HARD_FAULT = 1 << 11,
+  FORMING_SCREW_MOTION_MISMATCH = 1 << 12,
   FORMING_PULLER_FAILURE = FORMING_PULLER_DRIVER_FAILURE | FORMING_PULLER_TACH_FAILURE,
 };
 
@@ -56,6 +66,7 @@ struct CalibrationReadiness {
   bool gauge_calibration_valid{false};
   bool current_sensor_calibration_valid{false};
   bool cooling_feedback_calibration_valid{false};
+  bool puller_calibration_valid{false};
   bool temperature_channels_valid{false};
 };
 
@@ -68,12 +79,22 @@ struct InputSnapshot {
   float shredder_current_amp{0};
   float shredder_rpm{0};
   float screw_rpm{0};
+  bool screw_tach_valid{true};
   bool cooling_feedback_valid{false};
+  float fan1_rpm{1800.0f};
+  float fan2_rpm{1800.0f};
+  bool fan1_tach_valid{true};
+  bool fan2_tach_valid{true};
   bool puller_driver_ok{true};
   bool puller_tach_ok{true};
   bool puller_saturated{false};
+  float puller_rpm{6.0f};
   bool spooler_driver_ok{true};
+  bool spooler_tach_ok{true};
+  float spooler_rpm{12.0f};
   bool traverse_permission_ok{true};
+  bool traverse_left_limit{false};
+  bool traverse_right_limit{false};
   bool purge_feed_approved{false};
   bool purge_waste_path_confirmed{false};
   bool screw_speed_is_measured{false};
@@ -108,6 +129,14 @@ struct MachineViewState {
   float purge_screw_revolutions;
   bool purge_screw_revolutions_measured;
   bool purge_run_completed;
+  PullerSpeedOutput puller;
+  ScrewMotionOutput screw_motion;
+  CoolingMonitorOutput cooling;
+  SpoolerOutput spooler;
+  TraverseOutput traverse;
+  HeaterAllocation heater_allocation;
+  uint32_t forming_fault_detected_ms;
+  uint32_t forming_state_changed_ms;
 };
 
 struct SupervisorOutput {
@@ -120,10 +149,12 @@ struct MachineSupervisorTestAccess;
 
 class MachineSupervisor {
  public:
+  MachineSupervisor();
   bool configureDriveCalibration(const DriveCalibration &calibration);
   bool configureGaugeCalibration(const GaugeCalibration &calibration);
   bool configureCurrentSensorCalibration(float zero_adc, float amps_per_count);
   bool configureCoolingFeedbackCalibration(float zero_adc, float amps_per_count);
+  bool configurePullerCalibration(const PullerCalibration &calibration);
 
   bool selectMaterial(MaterialProfile material);
   bool requestMaterialChange(MaterialProfile material, const InputSnapshot &input);
@@ -174,8 +205,14 @@ class MachineSupervisor {
   ProcessController process_;
   ShredderController shredder_;
   HeaterController heaters_;
+  HeaterPowerAllocator heater_allocator_;
   GaugeController gauge_;
   DiameterController diameter_;
+  PullerSpeedController puller_speed_;
+  ScrewMotionMonitor screw_motion_;
+  CoolingMonitor cooling_monitor_;
+  SpoolerController spooler_control_;
+  TraverseController traverse_control_;
   CalibrationReadiness calibration_;
   FormingChainState forming_state_{FormingChainState::NORMAL};
   uint16_t forming_fault_reasons_{FORMING_FAULT_NONE};
@@ -205,6 +242,7 @@ class MachineSupervisor {
   uint8_t consecutive_gauge_samples_{0};
   uint32_t purge_started_ms_{0};
   float purge_screw_revolutions_{0};
+  float purge_start_screw_revolutions_{0};
   bool purge_screw_revolutions_measured_{false};
   uint32_t last_update_ms_{0};
   bool purge_temperature_stable_{false};
@@ -216,4 +254,12 @@ class MachineSupervisor {
   bool puller_command_active_{false};
   bool puller_tach_qualified_{false};
   uint32_t puller_command_started_ms_{0};
+  uint8_t last_cooling_pwm_{0};
+  PullerSpeedOutput puller_output_{};
+  ScrewMotionOutput screw_motion_output_{};
+  CoolingMonitorOutput cooling_output_{};
+  SpoolerOutput spooler_output_{};
+  TraverseOutput traverse_output_{};
+  HeaterAllocation heater_allocation_{};
+  uint32_t forming_fault_detected_ms_{0};
 };

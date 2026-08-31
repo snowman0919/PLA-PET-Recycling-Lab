@@ -54,7 +54,7 @@ def main():
     verified_subtotal=sum(int(r["planned_cash_krw"]) for r in verified)
     blocked=[r for r in rows if r["category"] not in {"TOTAL","CONTINGENCY"} and r["status"] not in {"RECEIPT_VERIFIED","QUOTE_VERIFIED"}]
     out=[
-        ["METADATA","revision","","safety-orchestration-closure-v0.6.1","generated from bom/cash_budget.csv"],
+        ["METADATA","revision","","parallel-actuation-hardening-v0.6.2","generated from bom/cash_budget.csv"],
         ["CONDITIONAL_PLANNING_BUDGET","conditional_subtotal",target,"PASS_TARGET_LE_180000","target allowances; not quotes or receipts"],
         ["CONDITIONAL_PLANNING_BUDGET","print_material_including_support_and_12pct_reserve",print_cost,"PRUSASLICER_ESTIMATE","actual toolpath estimate, not purchase receipt"],
         ["CONDITIONAL_PLANNING_BUDGET","shipping_tax",0,"INCLUDED_ONLY_IN_CONTINGENCY","no supplier quote"],

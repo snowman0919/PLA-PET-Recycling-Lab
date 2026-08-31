@@ -628,5 +628,55 @@ int main() {
   out = cooldown.update(cool, 2200);
   assert(cooldown.process().state() == MachineState::IDLE && out.actuators.screw_pwm == 0);
 
+  // v0.6.2: the individual fan tach channels feed the common forming fault.
+  MachineSupervisor single_fan_loss;
+  const uint32_t fan_prod = enterProductionExtrusion(single_fan_loss, in);
+  InputSnapshot fan1_stopped = in;
+  fan1_stopped.fan1_rpm = 0;
+  single_fan_loss.update(fan1_stopped, fan_prod + 1);
+  out = single_fan_loss.update(fan1_stopped, fan_prod + COOLING_FEEDBACK_DWELL_MS + 2);
+  assert(single_fan_loss.formingState() == FormingChainState::RUNDOWN);
+  assert((single_fan_loss.formingFaultReasons() & FORMING_COOLING_FAILURE) != 0);
+  assert(!out.actuators.feeder_enable && out.actuators.spooler_pwm == 0 &&
+         !out.actuators.traverse_enable && out.actuators.waste_path_active);
+
+  // v0.6.2: actual inner-loop saturation, not a hard-coded input, drives rundown.
+  MachineSupervisor persistent_saturation;
+  const uint32_t saturation_prod = enterProductionExtrusion(persistent_saturation, in);
+  assert(persistent_saturation.configurePullerCalibration(
+      {30.0f, 20.0f, 2.0f, 8.0f, 1.2f, 45, 255, 200, 600, 800, 2.0f}));
+  InputSnapshot stalled_puller = in;
+  stalled_puller.puller_rpm = 0;
+  persistent_saturation.update(stalled_puller, saturation_prod + 201);
+  persistent_saturation.update(stalled_puller, saturation_prod + 1002);
+  persistent_saturation.update(stalled_puller, saturation_prod + 1803);
+  out = persistent_saturation.update(stalled_puller, saturation_prod + 1804);
+  assert(persistent_saturation.formingState() == FormingChainState::RUNDOWN);
+  assert((persistent_saturation.formingFaultReasons() & FORMING_PULLER_SATURATION) != 0);
+  assert(out.view.forming_fault_detected_ms != 0 && out.actuators.waste_path_active);
+
+  // v0.6.2: purge/production state uses measured screw motion and faults slip.
+  MachineSupervisor screw_stationary;
+  const uint32_t screw_prod = enterProductionExtrusion(screw_stationary, in);
+  InputSnapshot no_screw_motion = in;
+  no_screw_motion.screw_rpm = 0;
+  no_screw_motion.screw_tach_valid = false;
+  screw_stationary.update(no_screw_motion, screw_prod + 1);
+  out = screw_stationary.update(no_screw_motion, screw_prod + 1602);
+  assert(screw_stationary.formingState() == FormingChainState::RUNDOWN);
+  assert((screw_stationary.formingFaultReasons() & FORMING_SCREW_MOTION_MISMATCH) != 0);
+
+  // v0.6.2: spool jam detection comes from closed-loop command/tach mismatch.
+  MachineSupervisor real_spool_jam;
+  const uint32_t spool_prod = enterProductionExtrusion(real_spool_jam, in);
+  InputSnapshot stopped_spool = in;
+  stopped_spool.spooler_rpm = 0;
+  stopped_spool.spooler_tach_ok = false;
+  real_spool_jam.update(stopped_spool, spool_prod + 1500);
+  real_spool_jam.update(stopped_spool, spool_prod + 2601);
+  out = real_spool_jam.update(stopped_spool, spool_prod + 2602);
+  assert(real_spool_jam.formingState() == FormingChainState::RUNDOWN);
+  assert((real_spool_jam.formingFaultReasons() & FORMING_SPOOL_JAM) != 0);
+
   std::cout << "MACHINE_SUPERVISOR_TRANSACTIONS_PURGE_RUNDOWN_REQUALIFICATION_OK\n";
 }

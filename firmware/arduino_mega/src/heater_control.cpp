@@ -16,7 +16,7 @@ HeaterOutput HeaterController::update(uint8_t zone, const TemperatureReading &re
                                       float target_c, bool phase_permission,
                                       bool thermal_chain_ok, bool permission_feedback,
                                       uint32_t now_ms) {
-  if (zone >= 4) return {0, false, HEATER_SENSOR_RANGE};
+  if (zone >= 4) return {0, 0, 0, 0, 0, true, false, HEATER_SENSOR_RANGE};
   Zone &z = zones_[zone];
   const float dt = z.last_ms == 0 ? HEATER_SAMPLE_PERIOD_MS / 1000.0f : clampf((now_ms - z.last_ms) / 1000.0f, 0.001f, 2.0f);
   z.last_ms = now_ms;
@@ -31,11 +31,16 @@ HeaterOutput HeaterController::update(uint8_t zone, const TemperatureReading &re
   const float error = target_c - reading.celsius;
   float duty = 0;
   if (allowed) {
-    z.integral = clampf(z.integral + error * dt, -500.0f, 500.0f);
+    // Back-calculation makes the local PI track power actually granted by the
+    // central allocator instead of integrating against a hidden denied output.
+    const float back_calculation = 0.35f * (z.applied_duty - z.requested_duty);
+    z.integral = clampf(z.integral + (error + back_calculation) * dt, -500.0f, 500.0f);
     duty = clampf(2.0f * error + 0.08f * z.integral, 0.0f, 100.0f);
   } else {
     z.integral = 0;
+    z.applied_duty = 0;
   }
+  z.requested_duty = duty;
 
   if (allowed && duty >= 40.0f) {
     if (!z.heating_watch) {
@@ -65,7 +70,20 @@ HeaterOutput HeaterController::update(uint8_t zone, const TemperatureReading &re
 
   if (latched_faults_ != HEATER_FAULT_NONE) duty = 0;
   const uint32_t on_ms = static_cast<uint32_t>(HEATER_WINDOW_MS * duty / 100.0f);
-  return {duty, duty > 0 && now_ms % HEATER_WINDOW_MS < on_ms, latched_faults_};
+  return {duty, duty, z.applied_duty, duty - z.applied_duty, z.integral,
+          duty - z.applied_duty > 0.01f,
+          duty > 0 && now_ms % HEATER_WINDOW_MS < on_ms, latched_faults_};
+}
+
+HeaterOutput HeaterController::applyAllocation(uint8_t zone, float allocated, uint32_t now_ms) {
+  if (zone >= 4) return {0, 0, 0, 0, 0, true, false, HEATER_SENSOR_RANGE};
+  Zone &z = zones_[zone];
+  z.applied_duty = clampf(allocated, 0.0f, z.requested_duty);
+  const float deficit = z.requested_duty - z.applied_duty;
+  const uint32_t on_ms = static_cast<uint32_t>(HEATER_WINDOW_MS * z.applied_duty / 100.0f);
+  return {z.requested_duty, z.requested_duty, z.applied_duty, deficit, z.integral,
+          deficit > 0.01f, z.applied_duty > 0 && now_ms % HEATER_WINDOW_MS < on_ms,
+          latched_faults_};
 }
 
 bool HeaterController::canClearFault(bool lockout, bool thermal_chain_ok,

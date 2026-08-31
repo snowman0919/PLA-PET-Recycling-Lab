@@ -20,11 +20,13 @@ NON_CNC,HEAT-DIE,TH-DIE-01 24 V 60 W Ø6 x38 cartridge heater,4000,BUY_HOLD,저�
 NON_CNC,HEAT-PTC,35x21x5 class 24 V PTC 4개와 절연 clamp pad,3000,BUY_HOLD,1개 전력/평형온도 실측 후 4-8개 확정; PET dryer 대체 아님
 NON_CNC,TEMP-SENSE,T1-T5 ungrounded K-type probe와 MAX6675 common-reference interface allowance,22500,QUOTE_REQUIRED,devicemart module x5 vendor-pinned 약 22500 KRW; ungrounded probe 가격/재고는 별도 quote 필요; 5 channel sheath-to-junction insulation 및 ice/boiling point check
 NON_CNC,HEAT-MOSFET,5-channel 40-60 V low-RDSon MOSFET and branch fuse hardware,5000,BUY_HOLD,각 channel 10 A thermal capability bench test; thermal fuse와 branch fuse 삭제 금지
-NON_CNC,COOL-FEEDBACK,fan low-side shunt and protected analog current-feedback allowance,2000,BUY_HOLD,A4 calibration path; exact shunt resistance power rating amplifier range and connector-open/stall separation evidence required
+NON_CNC,COOL-FEEDBACK,fan current feedback plus dual-tach 2:1 mux and protected input allowance,2000,BUY_HOLD,A4 current path plus A14 pin-change tach mux; exact fan tach level shifter/mux wiring and donor calibration required
+NON_CNC,ACTUATION-TACH,screw Hall sensor/magnet and puller/spooler tach harness allowance,2000,BUY_HOLD,donor shaft geometry and Hall voltage level 확인 전 주문 금지; screw actual revolution evidence 필수
+NON_CNC,TRAVERSE-LIMITS,left/right positive-action limit switch and connector allowance,1000,BUY_HOLD,A5/A6 polling input; end-to-end travel and missed-limit timeout 시험 필요
 PRINT,PRINT-ALLOW,PrusaSlicer 2.9.6 nominal 904.20 g plus 12 percent reserve,18229,BUY_HOLD,planning mass 1012.70 g at 18000 KRW/kg
 OPTIONAL_EMPIRICAL,GATE1-METROLOGY,0-200 N force gauge/load-cell calibration allowance,7500,BUY_HOLD,optional empirical validation 비용; design-release machine subtotal에서 제외; project-lab 계측기 확인 시 미사용
 OPTIONAL_EMPIRICAL,GATE1-PRINT,Gate-1 chute tray guard-corner 234.9 g 출력 allowance,4400,BUY_HOLD,optional empirical validation 비용; design-release machine subtotal에서 제외; final-machine package와 별도 집계
 NON_CNC,MACHINE-FAB-DONOR,frame profile sheet tube puller spooler feeder stock for exports/fabrication,0,CONDITIONAL_DONOR_UNVERIFIED,frame 2020 13.348 m와 local 2040 1.320 m 포함 총 14.668 m의 재고 수량 재질 직진도 실측 전 0원 확정 금지; 부족분은 예산 재검토 blocker
-TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,175729,CONDITIONAL_TARGET_PASS,safety-orchestration-closure-v0.6.1; heater 360 W와 cooling feedback allowance 포함; motor donor 증거와 실제 견적 전 구매 release는 BLOCKED
+TOTAL,TARGET_TOTAL,조건부 donor와 target RFQ 기준 신규 현금비용,178729,CONDITIONAL_TARGET_PASS,parallel-actuation-hardening-v0.6.2; heater 360 W와 screw/puller/spool/fan tach 및 traverse limit allowance 포함; 실제 견적 전 구매 release는 BLOCKED
 CONTINGENCY,ABSOLUTE_CAP_RESERVE,견적변동 예비비,20000,RESERVED,기능 추가에 사용 금지; 안전 또는 필수 제조 견적 차이만
-TOTAL,ABSOLUTE_TOTAL_WITH_RESERVE,예비비 포함 절대 계획 상한,195729,CONDITIONAL_CAP_PASS,200000 KRW 절대상한까지 4271 KRW 여유
+TOTAL,ABSOLUTE_TOTAL_WITH_RESERVE,예비비 포함 절대 계획 상한,198729,CONDITIONAL_CAP_PASS,200000 KRW 절대상한까지 1271 KRW 여유

@@ -13,7 +13,7 @@
 |Gauge uncertainty|목표 U95 ≤0.03 mm|traceable pin/wire 교정 전 미달성|
 |Cooling feedback|Mega A4 fan-current input, command threshold + 1.5 s dwell|shunt/증폭기 정격과 donor fan normal/open/stall window 실측 전 `valid=false`; 직접 tach claim 아님|
 |Traverse permission|software state permission + 공통 hardwired guard/driver chain|현재 별도 traverse-driver fault/tach feedback 없음; production adapter의 `traverse_permission_ok`는 motor-health 측정값이 아니며 전용 diagnostic 채택 시에만 별도 fault 입력으로 승격|
-|Cash target|175,729 KRW + 20,000 KRW reserve = 195,729 KRW|cooling feedback 2,000 KRW allowance 포함; donor/RFQ 전 conditional only; 절대 cap 여유 4,271 KRW|
+|Cash target|178,729 KRW + 20,000 KRW reserve = 198,729 KRW|cooling fan tach mux, screw/puller/spool tach와 traverse limits 최소 allowance 포함; donor/RFQ 전 conditional only; 절대 cap 여유 1,271 KRW|
 |Heater|barrel 3×100 W + die 60 W, T1–T5, extrusion peak 490 W|supplier/stock 확인과 physical thermal test 전 surrogate|
 |Throughput|PLA 16 rpm 99.4, PET 18 rpm 97.5 g/h virtual default|실제 측정 claim 금지; 200 g/h `DIGITAL_STRETCH_TARGET`|
 |Fusion solver|STEP 9개, LC01–LC10과 7개 study 계약|실제 Autodesk Fusion 결과 미제공; `PENDING_EXTERNAL_EXECUTION`|

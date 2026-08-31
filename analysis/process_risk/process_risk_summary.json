@@ -1,0 +1,106 @@
+{
+  "revision": "parallel-actuation-hardening-v0.6.2",
+  "method": "seeded reduced-order screening",
+  "sample_count_per_material": 12000,
+  "shredder_classification": "MITIGATION_REQUIRED",
+  "feed_classification": "MODEL_INSUFFICIENT",
+  "airflow_classification": "MITIGATION_REQUIRED",
+  "shredder": {
+    "PLA": {
+      "material": "PLA",
+      "oversize_recirculation_probability": 0.7399149756862007,
+      "pet_ribbon_escape_probability": 0.0,
+      "screen_bridging_probability": 0.4349135585338257,
+      "axial_migration_probability": 0.2971923387757539,
+      "mean_residence_cycles": 7.058419088652316
+    },
+    "PET": {
+      "material": "PET",
+      "oversize_recirculation_probability": 0.7638708639329623,
+      "pet_ribbon_escape_probability": 0.26208333333333333,
+      "screen_bridging_probability": 0.5563483267073259,
+      "axial_migration_probability": 0.5282331878834986,
+      "mean_residence_cycles": 7.78669042457132
+    }
+  },
+  "feed": {
+    "PLA": {
+      "throughput_p05_g_h": 43.779160747553156,
+      "throughput_median_g_h": 89.21510350954227,
+      "throughput_p95_g_h": 170.8410149502578,
+      "starvation_probability_below_70_g_h": 0.297,
+      "mean_bridge_probability": 0.4069762912557951,
+      "nominal_claim_g_h": 100.0
+    },
+    "PET": {
+      "throughput_p05_g_h": 31.878958299062695,
+      "throughput_median_g_h": 67.00111224409744,
+      "throughput_p95_g_h": 133.13822921028313,
+      "starvation_probability_below_70_g_h": 0.53875,
+      "mean_bridge_probability": 0.5421095081305228,
+      "nominal_claim_g_h": 100.0
+    }
+  },
+  "airflow": [
+    {
+      "case": "dual_fan_clean_centered",
+      "fan_count": 2,
+      "flow_p05_m3_h": 15.897340434089188,
+      "flow_median_m3_h": 19.083645780409814,
+      "flow_p95_m3_h": 23.180416410561612,
+      "relative_heat_transfer_median": 0.6949538760253463,
+      "airflow_is_measured": false
+    },
+    {
+      "case": "single_fan_loss",
+      "fan_count": 1,
+      "flow_p05_m3_h": 11.683092760096606,
+      "flow_median_m3_h": 14.350314319714784,
+      "flow_p95_m3_h": 17.551225974558704,
+      "relative_heat_transfer_median": 0.5857010756155661,
+      "airflow_is_measured": false
+    },
+    {
+      "case": "filter_fouling",
+      "fan_count": 2,
+      "flow_p05_m3_h": 12.800398568714616,
+      "flow_median_m3_h": 15.53307231553815,
+      "flow_p95_m3_h": 18.875911959288214,
+      "relative_heat_transfer_median": 0.6142053455549396,
+      "airflow_is_measured": false
+    },
+    {
+      "case": "duct_leakage",
+      "fan_count": 2,
+      "flow_p05_m3_h": 12.887750440690393,
+      "flow_median_m3_h": 15.391945682146098,
+      "flow_p95_m3_h": 18.875875951280275,
+      "relative_heat_transfer_median": 0.6108509964246681,
+      "airflow_is_measured": false
+    },
+    {
+      "case": "strand_position_edge",
+      "fan_count": 2,
+      "flow_p05_m3_h": 11.503457483676646,
+      "flow_median_m3_h": 13.779247171095927,
+      "flow_p95_m3_h": 16.699535038238565,
+      "relative_heat_transfer_median": 0.5716029582040418,
+      "airflow_is_measured": false
+    },
+    {
+      "case": "dual_fan_loss",
+      "fan_count": 0,
+      "flow_p05_m3_h": 0.0,
+      "flow_median_m3_h": 0.0,
+      "flow_p95_m3_h": 0.0,
+      "relative_heat_transfer_median": 0.007474104632489721,
+      "airflow_is_measured": false
+    }
+  ],
+  "claims_excluded": [
+    "actual chip size",
+    "actual mass flow",
+    "actual airflow",
+    "production reliability"
+  ]
+}

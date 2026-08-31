@@ -13,7 +13,8 @@ from pathlib import Path
 from runtime_trace_rules import HAZARDOUS_COMMANDS, validate_rows
 
 ROOT = Path(__file__).resolve().parents[1]
-REVISION = "safety-orchestration-closure-v0.6.1"
+REVISION = "parallel-actuation-hardening-v0.6.2"
+CONTRACT_REVISION = "safety-orchestration-closure-v0.6.1"
 FIRMWARE = ROOT / "firmware/arduino_mega"
 RESULTS = ROOT / "validation/results"
 TRACE_DIR = RESULTS / "runtime_traces"
@@ -118,12 +119,18 @@ def main() -> None:
     compile_sources = [
         FIRMWARE / "src/process_state.cpp", FIRMWARE / "src/shredder_control.cpp",
         FIRMWARE / "src/heater_control.cpp", FIRMWARE / "src/gauge_control.cpp",
+        FIRMWARE / "src/heater_power_allocator.cpp", FIRMWARE / "src/puller_speed_control.cpp",
+        FIRMWARE / "src/screw_motion_monitor.cpp", FIRMWARE / "src/cooling_monitor.cpp",
+        FIRMWARE / "src/spooler_control.cpp", FIRMWARE / "src/traverse_control.cpp",
         FIRMWARE / "src/machine_supervisor.cpp",
         ROOT / "validation/runtime_supervisor_harness.cpp",
     ]
     production_headers = [
         FIRMWARE / "src/process_state.h", FIRMWARE / "src/shredder_control.h",
         FIRMWARE / "src/heater_control.h", FIRMWARE / "src/gauge_control.h",
+        FIRMWARE / "src/heater_power_allocator.h", FIRMWARE / "src/puller_speed_control.h",
+        FIRMWARE / "src/screw_motion_monitor.h", FIRMWARE / "src/cooling_monitor.h",
+        FIRMWARE / "src/spooler_control.h", FIRMWARE / "src/traverse_control.h",
         FIRMWARE / "src/machine_supervisor.h", FIRMWARE / "src/generated_profiles.h",
     ]
     for source in [*compile_sources, *production_headers]:
@@ -159,7 +166,7 @@ def main() -> None:
         raise AssertionError("필수 runtime trace 누락: " + ", ".join(missing))
 
     contract = json.loads((ROOT / "control/process_contract.json").read_text())
-    if contract.get("revision") != REVISION:
+    if contract.get("revision") != CONTRACT_REVISION:
         raise AssertionError("runtime harness contract revision 불일치")
     # Harness는 command를 관측하고, 전력은 별도의 component-summed phase model로
     # 계산한다. production code가 같은 peak 상수를 expected로 되읽는 self-check가 아니다.
@@ -351,7 +358,7 @@ def main() -> None:
     minimum_revolutions = contract["purge"]["minimum_screw_revolutions"]
     if len(successful_purge_rows) != 2 or any(
         row["purge_screw_revolutions"] < minimum_revolutions
-        or row["purge_revolutions_measured"]
+        or not row["purge_revolutions_measured"]
         for row in successful_purge_rows
     ):
         raise AssertionError("purge 완료의 command-derived revolution 증거 불충분/측정값 오표기")
@@ -396,7 +403,7 @@ def main() -> None:
         "revision": REVISION, "status": "PASS",
         "harness": "production MachineSupervisor linked with fake InputSnapshot backend",
         "trace_power_method": "independent component-summed phase peak envelope",
-        "purge_revolution_evidence": "COMMAND_DERIVED_ESTIMATE_NOT_MEASURED",
+        "purge_revolution_evidence": "ACTUAL_SCREW_TACH_MEASURED_REVOLUTIONS",
         "purge_operator_sequence": "approvePurgeFeed_then_independent_waste_path_confirmation",
         "production_sources": {
             str(path.relative_to(ROOT)): sha256(path) for path in compile_sources[:-1]

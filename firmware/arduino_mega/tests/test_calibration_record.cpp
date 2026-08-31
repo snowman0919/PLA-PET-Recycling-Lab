@@ -9,6 +9,16 @@ int main() {
   record.gauge = {100, 0.002f, 100, 0.002f, 0.02f, true};
   finalizeCalibrationRecord(record);
   assert(calibrationRecordValid(record));
+  record.readiness_flags |= CALIBRATION_HAS_PULLER;
+  record.puller = {30.0f, 20.0f, 160.0f, 3.0f, 1.2f, 45, 255, 800, 600, 800, 2.0f};
+  record.screw_tach_pulses_per_revolution = 1.0f;
+  record.spooler_tach_pulses_per_revolution = 20.0f;
+  record.traverse_steps_per_mm = 80.0f;
+  finalizeCalibrationRecord(record);
+  assert(calibrationRecordValid(record));
+  CalibrationRecord motion_corrupt = record;
+  motion_corrupt.puller.roller_diameter_mm = 99.0f;
+  assert(!calibrationRecordValid(motion_corrupt));
   CalibrationRecord stale = record;
   stale.version = 1;
   stale.crc = calibrationRecordCrc(stale);

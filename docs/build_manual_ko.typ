@@ -91,7 +91,7 @@ Metal down-die 이후 puller까지 filament를 꺾지 않는다. 25 mm insulatio
 
 = Cooling, gauge, puller
 
-PPR-C05 ABS 100 mm duct 2개와 fan을 service connector로 조립한다. Upper duct와 hot shield 사이 10 mm, die body까지 28 mm 이상을 유지한다. Die 가까운 금속 shield가 먼저 복사를 차단한다. Fan branch에는 Mega A4로 들어가는 보호된 low-side current-feedback path를 둔다. Shunt 정격, 증폭기 gain/offset, 정상/open/stall current window를 교정하기 전 production cooling을 ready로 표시하지 않는다. Current feedback은 airflow나 tach를 직접 측정한 것이 아니다. PPR-C06 두 module은 높이 방향으로 연속 배치하고 하나를 Z축 90° 회전해 X/Y LED, slit, photodiode를 직교시킨다.
+PPR-C05 ABS 100 mm duct 2개와 fan을 service connector로 조립한다. Upper duct와 hot shield 사이 10 mm, die body까지 28 mm 이상을 유지한다. Die 가까운 금속 shield가 먼저 복사를 차단한다. Fan branch에는 Mega A4로 들어가는 보호된 low-side current-feedback path와 fan 1/2 tach를 선택하는 2:1 mux(A14)를 둔다. Shunt 정격, 증폭기 gain/offset, tach level, 정상/open/stall window를 교정하기 전 production cooling을 ready로 표시하지 않는다. Current feedback은 전기 부하, tach는 회전만 나타내며 실제 airflow가 아니다. PPR-C06 두 module은 높이 방향으로 연속 배치하고 하나를 Z축 90° 회전해 X/Y LED, slit, photodiode를 직교시킨다.
 
 PPR-C07 guard 아래 metal puller plate와 roller를 조립한다. Manual strand insertion은 heater/roller 상태를 UI가 안내하고 guard를 닫은 뒤에만 RUN을 허용한다.
 
@@ -103,15 +103,15 @@ Puller 아래에서 충분히 굳은 strand만 PPR-C08 guide roller로 방향 �
 
 #figure(image("../renders/review/forming_spool_motion.png", width: 92%), caption: [Solid guide와 full motion spooler])
 
-Empty/full dummy spool로 dancer 50° sweep, warning 0.32 rad, controlled stop 0.36 rad, mechanical hard stop 0.4363 rad, traverse 80 mm와 cable clearance를 확인한다. 정상 jam은 0.4363 rad mechanical hard stop에 닿기 전 controlled stop해야 하며 hard-stop contact는 emergency sensitivity 결과로만 기록한다. Spooler torque는 dancer 추종에만 사용하고 puller보다 빠르게 filament를 잡아당기지 않는다.
+Empty/full dummy spool로 dancer 50° sweep, warning 0.32 rad, controlled stop 0.36 rad, mechanical hard stop 0.4363 rad, traverse usable width 68 mm와 cable clearance를 확인한다. 정상 jam은 0.4363 rad mechanical hard stop에 닿기 전 controlled stop해야 하며 hard-stop contact는 emergency sensitivity 결과로만 기록한다. Spooler는 dancer PI와 A15 tach를 사용하고, traverse는 spool turn당 1.85 mm pitch로 A5/A6 endpoint 사이를 이동한다. Spooler torque는 dancer 추종에만 사용하고 puller보다 빠르게 filament를 잡아당기지 않는다.
 
 = Control과 UI
 
 Cold boot의 material `NONE`, 분리된 drive/current/gauge/cooling calibration readiness와 PLA/PET/Maintenance/Calibration 화면을 확인한다. START 후 material 변경이 거부되는지 host test와 실제 panel에서 확인한다. Preheat나 purge 요청은 IDLE에서 fan만 먼저 명령하고 A4 feedback이 1.5 s 연속 healthy임을 입증한 후에만 상태를 commit한다. 3.0 s 내 입증하지 못하면 FAULT/all-zero로 가며, clear해도 자동 재시작하지 않고 다음 START에서 새 probe를 요구한다. Extrusion은 preheat 완료 뒤에도 `READY_TO_EXTRUDE`에서 작업자가 strand/waste path를 확인해 별도 arm하기 전 screw/feeder/puller를 시작하지 않는다.
 
-Material 전환은 기존 thermal profile로 `MAINTENANCE_PURGE`를 실제 실행한다. Waste tray/manual path 확인, 최소 time, 최소 screw revolution evidence, stable temperature, fault 없음과 operator visual confirm 뒤 screen/hopper/temperature/final confirmation을 순서대로 요구한다. 별도 screw tach가 없는 현재 값은 verified command/RPM 적분의 `COMMAND_DERIVED_ESTIMATE_NOT_MEASURED`이며 driver fault 시 무효다. 80 g/120 g은 nominal estimate이며 measured purge mass로 기록하지 않는다. Purge 중 production spool/traverse와 shredder는 금지한다. 고온 purge를 STOP/PAUSE하거나 정상 완료해도 바로 IDLE로 가지 않고, heater와 motion을 끄고 유효한 cooling feedback으로 T1–Tdie 모두 60 °C 이하가 될 때까지 `COOLDOWN`을 유지한다. E-stop은 예외적으로 즉시 all-zero다.
+Material 전환은 기존 thermal profile로 `MAINTENANCE_PURGE`를 실제 실행한다. Waste tray/manual path 확인, 최소 time, A13 Hall tach의 최소 actual screw revolutions, stable temperature, motion fault 없음과 operator visual confirm 뒤 screen/hopper/temperature/final confirmation을 순서대로 요구한다. Commanded RPM 적분은 purge evidence로 사용하지 않는다. 80 g/120 g은 nominal estimate이며 mass-per-revolution calibration이 없으므로 measured purge mass로 기록하지 않는다. Purge 중 production spool/traverse와 shredder는 금지한다. 고온 purge를 STOP/PAUSE하거나 정상 완료해도 바로 IDLE로 가지 않고, heater와 motion을 끄고 유효한 cooling feedback으로 T1–Tdie 모두 60 °C 이하가 될 때까지 `COOLDOWN`을 유지한다. E-stop은 예외적으로 즉시 all-zero다.
 
-Mega pin과 wiring은 `electronics/controller_wiring_v0.6.md`/`board_config.h`를 따른다. EEPROM CRC calibration이 없으면 해당 subsystem 구동을 금지한다. Forming-chain fault는 공통 rundown에서 feeder/spooler/traverse 즉시 off, bounded screw/puller waste discharge, thermal hold/cooldown을 수행한다. Gauge 20개 연속 valid, U95 <=0.03 mm, diameter/ovality 10 s, puller/cooling/transport-delay 조건을 충족해도 `READY_TO_RETHREAD`에서 operator confirm 전 production spool을 금지한다.
+Mega pin과 wiring은 `electronics/controller_wiring_v0.6.md`/`board_config.h`를 따른다. EEPROM CRC calibration에는 puller roller diameter/tach PPR, screw/spool PPR와 traverse steps/mm를 포함하며 invalid record면 해당 evidence를 인정하지 않는다. Forming-chain fault는 공통 rundown에서 feeder/spooler/traverse 즉시 off, `waste_path_active`, bounded screw/puller waste discharge, thermal hold/cooldown을 수행한다. Gauge 20개 연속 valid, U95 <=0.03 mm, diameter/ovality 10 s, puller valid/not saturated, 두 fan tach valid, screw tach valid, transport-delay 조건을 충족해도 `READY_TO_RETHREAD`에서 operator confirm 전 production spool을 금지한다.
 
 Fault clear에는 physical lockout key와 모든 subsystem preflight가 필요하다. 일부가 거부되면 어떤 latch도 부분 clear하지 않고, 성공해도 자동 restart하지 않는다. 표시 항목은 material/session/process/forming state, calibration readiness, screw speed, shredder load, heater temperature, feeder, cooling feedback, X/Y/mean/ovality/U95, spool eligibility, waste/requalification 상태와 분리된 fault reason이다.
 

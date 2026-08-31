@@ -1,0 +1,12 @@
+change_id,path,summary,classification,fusion_cases_affected,reason,applied_to_v062,requires_fusion_rerun,status
+V062-001,firmware/arduino_mega/,tach closed loops allocator forming-chain integration,FUSION_NEUTRAL,NONE,control implementation does not alter frozen geometry/load/material/boundary,true,false,APPLIED
+V062-002,validation/,host runtime mutation and configuration validators,FUSION_NEUTRAL,NONE,verification-only change,true,false,APPLIED
+V062-003,simulation/openmodelica/results_v0.6.2/,actuation/process shadow scenarios,FUSION_NEUTRAL,NONE,separate namespace does not overwrite bound envelope,true,false,APPLIED
+V062-004,analysis/load_cases/shadow_v0.6.2/,shadow load evidence namespace,FUSION_NEUTRAL,NONE,separate namespace only,true,false,APPLIED
+V062-005,analysis/fusion_delta_queue/shadow_envelope_comparison.json,compare shadow and frozen envelope,FUSION_RESULT_CONSUMER,LC01-LC05,reads frozen loads and records zero delta without editing package,true,false,APPLIED
+V062-006,analysis/cross_solver/import_fusion_results.py,bound Fusion result intake,FUSION_RESULT_CONSUMER,LC01-LC10,consumer validates immutable hashes and never writes package inputs,true,false,APPLIED
+V062-007,analysis/process_risk/,shredder feed airflow reduced-order screening,FUSION_NEUTRAL,NONE,non-structural bounded screening outside Fusion,true,false,APPLIED
+V062-008,bom/,conditional tach mux and limit allowances,FUSION_NEUTRAL,NONE,procurement planning only; no part ordered or geometry changed,true,false,APPLIED
+V062-009,electronics/io_schedule.csv,Mega tach mux and limit signal assignment,FUSION_NEUTRAL,NONE,electrical control wiring only,true,false,APPLIED
+V062-010,docs/,v0.6.2 control and integration documents,FUSION_NEUTRAL,NONE,documentation only,true,false,APPLIED
+V062-011,.gitignore,exclude regenerable v0.6.2 raw solver outputs,FUSION_NEUTRAL,NONE,repository hygiene only,true,false,APPLIED
