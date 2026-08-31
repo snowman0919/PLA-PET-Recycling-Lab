@@ -29,10 +29,11 @@ class GaugeController {
 class DiameterController {
  public:
   float update(const GaugeReading &gauge, float target_mm, float feedforward_mm_s,
-               float kp, float ki, float dt_s);
+               float kp, float ki, float dt_s, bool allow_integral = true);
   void reset();
   bool safePause() const { return safe_pause_; }
   bool saturated() const { return saturated_; }
+  float integratorState() const { return integral_; }
 
  private:
   float integral_{0};

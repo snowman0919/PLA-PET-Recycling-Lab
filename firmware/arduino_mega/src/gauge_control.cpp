@@ -25,14 +25,15 @@ GaugeReading GaugeController::update(uint16_t x_adc, uint16_t y_adc, bool optica
 
 float DiameterController::update(const GaugeReading &gauge, float target_mm,
                                  float feedforward_mm_s, float kp, float ki,
-                                 float dt_s) {
+                                 float dt_s, bool allow_integral) {
   if (!gauge.valid || !gauge.calibrated || gauge.u95_mm > 0.03f) {
     reset();
     return 0;
   }
   safe_pause_ = false;
   const float error = gauge.mean_mm - target_mm;
-  integral_ = clampf(integral_ + error * dt_s, -20.0f, 20.0f);
+  if (allow_integral)
+    integral_ = clampf(integral_ + error * dt_s, -20.0f, 20.0f);
   const float raw = feedforward_mm_s + kp * error + ki * integral_;
   saturated_ = raw <= 1.0f || raw >= 80.0f;
   return clampf(raw, 1.0f, 80.0f);

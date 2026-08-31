@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import math
 import re
@@ -171,6 +172,15 @@ def check(name: str, stress_mpa: float, allowable_mpa: float, source: str, note:
 
 
 def main() -> None:
+    global GEN
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--generated-dir", type=Path,
+        help="CalculiX deck/result scratch directory; use this to preserve the frozen generated baseline",
+    )
+    args = parser.parse_args()
+    if args.generated_dir is not None:
+        GEN = args.generated_dir.resolve()
     envelope = json.loads(ENVELOPE_PATH.read_text())
     engineering = json.loads((ROOT / "simulation" / "engineering_summary.json").read_text())
     loads = envelope["loads"]

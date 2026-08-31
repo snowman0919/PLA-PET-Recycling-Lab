@@ -225,7 +225,12 @@ def main() -> None:
     require("MachineState::COOLDOWN" in complete_purge_method, "hot purge completion bypasses COOLDOWN")
     require("MachineState::COOLDOWN" in abort_purge_method, "hot purge abort bypasses COOLDOWN")
     confirm_complete = cpp_method(supervisor_source, "confirmPurgeComplete")
-    for token in ("input.cooling_feedback_valid", "temperatureChannelsHealthy(input)", "guardsOk(input)"):
+    require(
+        "input.cooling_feedback_valid" in confirm_complete or
+        "coolingSnapshotHealthy(input)" in confirm_complete,
+        "fresh purge completion cooling preflight missing",
+    )
+    for token in ("temperatureChannelsHealthy(input)", "guardsOk(input)"):
         require(token in confirm_complete, f"fresh purge completion preflight missing: {token}")
 
     requal = process["requalification"]

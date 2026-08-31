@@ -319,6 +319,7 @@ int main() {
   assert(purge.confirmPurgeWastePath(in, 2000));
   out = purge.update(in, 2000);
   assert(!out.view.purge_run_completed);
+  assert(!purge.confirmPurgeComplete(true, in, 2000));  // Elapsed time and measured revolutions are insufficient.
   assert(out.actuators.screw_pwm > 0 && out.actuators.feeder_enable && out.actuators.puller_pwm > 0);
   assert(purge.process().material() == MaterialProfile::PLA);
   purge.update(in, 122000);
@@ -639,6 +640,18 @@ int main() {
   assert((single_fan_loss.formingFaultReasons() & FORMING_COOLING_FAILURE) != 0);
   assert(!out.actuators.feeder_enable && out.actuators.spooler_pwm == 0 &&
          !out.actuators.traverse_enable && out.actuators.waste_path_active);
+
+  MachineSupervisor dual_fan_loss;
+  const uint32_t dual_fan_prod = enterProductionExtrusion(dual_fan_loss, in);
+  InputSnapshot both_fans_stopped = in;
+  both_fans_stopped.fan1_rpm = 0;
+  both_fans_stopped.fan2_rpm = 0;
+  dual_fan_loss.update(both_fans_stopped, dual_fan_prod + 1);
+  out = dual_fan_loss.update(both_fans_stopped,
+                             dual_fan_prod + COOLING_FEEDBACK_DWELL_MS + 2);
+  assert(dual_fan_loss.formingState() == FormingChainState::RUNDOWN);
+  assert((out.view.cooling.fault_bits & COOLING_FAN1_STOPPED) != 0);
+  assert((out.view.cooling.fault_bits & COOLING_FAN2_STOPPED) != 0);
 
   // v0.6.2: actual inner-loop saturation, not a hard-coded input, drives rundown.
   MachineSupervisor persistent_saturation;

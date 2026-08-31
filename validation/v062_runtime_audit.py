@@ -20,9 +20,14 @@ def main() -> None:
         if token not in board:
             raise AssertionError(f"pin assignment missing: {token}")
     for token in ("ISR(PCINT2_vect)", "sampleTachs(now_ms)", "sampleFans(now_ms)",
-                  "sampleTemperatures(now_ms)", "Serial.availableForWrite()", "deadline_overruns"):
+                  "sampleTemperatures(now_ms)", "Serial.availableForWrite()", "Serial.write(",
+                  "telemetry_snapshot = output", "telemetry_offset < telemetry_length",
+                  "forming_fault_detected_ms", "forming_state_changed_ms", "deadline_overruns"):
         if token not in sketch:
             raise AssertionError(f"runtime implementation missing: {token}")
+    log_body = sketch[sketch.index("void logStatus("):sketch.index("\n}\n\nvoid setup()")]
+    if "Serial.print(" in log_body or "Serial.println(" in log_body:
+        raise AssertionError("periodic telemetry contains potentially blocking print chain")
     if "delay(" in sketch:
         raise AssertionError("blocking delay in control sketch")
     with (ROOT / "firmware/arduino_mega/timer_pin_budget.csv").open(newline="") as handle:
@@ -35,6 +40,8 @@ def main() -> None:
     payload = {
         "revision": "parallel-actuation-hardening-v0.6.2", "status": "PASS",
         "resource_rows": len(rows), "blocking_waits_in_control_path": False,
+        "periodic_telemetry": "BOUNDED_SEGMENTED_SERIAL_WRITE",
+        "fault_sequence_timestamps_logged": True,
         "dynamic_allocation": False, "debug_deadline_instrumentation": True,
         "mega_compile": compile_result["status"],
     }

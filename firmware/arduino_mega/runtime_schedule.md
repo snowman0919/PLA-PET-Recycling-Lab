@@ -13,8 +13,8 @@
 | heater time proportion | 2 s window | applied-duty feedback + global allocator | phase cap, back-calculation anti-windup |
 | traverse step | ≥2 ms step interval | spool turns×pitch target 추종 | limit/timeout hard fault |
 | UI | 20–50 ms 목표 | edge polling, blocking wait 없음 | 명시 confirmation 없이는 restart 금지 |
-| logging | ≥1 s | `availableForWrite()` guard | buffer 부족 시 log drop; safety loop 대기 금지 |
+| logging | ≥1 s | 고정 snapshot을 160-byte 이하 segment로 만들고 매 loop에서 `availableForWrite()` 이하만 `Serial.write()` | TX buffer가 비면 다음 loop까지 보류; 장문 `Serial.print()` chain 없음 |
 
-동적 할당은 사용하지 않는다. EEPROM은 boot read와 명시적 `CAL` 성공 시에만 write한다. `millis()` Timer0을 변경하지 않고, step pulse/MAX6675/serial 경로에 `delay()`는 없다. MAX6675의 1–2 µs bit timing만 `delayMicroseconds()`를 사용한다.
+동적 할당은 사용하지 않는다. EEPROM은 boot read와 명시적 `CAL` 성공 시에만 write한다. `millis()` Timer0을 변경하지 않고, step pulse/MAX6675/serial 경로에 `delay()`는 없다. MAX6675의 1–2 µs bit timing만 `delayMicroseconds()`를 사용한다. 텔레메트리는 동일 supervisor snapshot의 forming fault source·fault detection timestamp·state transition timestamp와 puller/screw/fan/spooler/traverse/heater allocator 지표를 여러 loop에 걸쳐 전송한다.
 
-SRAM/flash evidence는 `validation/results/arduino_mega_compile.json`에 남긴다. 현재 compile은 flash 44,576 B/253,952 B, 전역 SRAM 2,089 B/8,192 B이며 stack/heap 여유는 6,103 B다. 이는 compile-time 수치이며 실제 worst-case stack 측정은 아니다.
+SRAM/flash evidence는 `validation/results/arduino_mega_compile.json`에 남긴다. 현재 compile은 flash 47,206 B/253,952 B(18%), 전역 SRAM 3,257 B/8,192 B(39%)이며 local/stack/heap 여유는 4,935 B다. 고정 telemetry snapshot/buffer를 포함한 compile-time 수치이며 실제 worst-case stack high-water 측정은 아니다.

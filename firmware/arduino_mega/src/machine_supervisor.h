@@ -183,6 +183,7 @@ class MachineSupervisor {
   bool extrusionArmRequired() const { return extrusion_arm_required_; }
   uint16_t heaterFaults() const { return heaters_.faults(); }
   bool shredderFaultLatched() const { return shredder_.faultLatched(); }
+  bool lastPullerSaturated() const { return puller_output_.saturated; }
 
  private:
   bool guardsOk(const InputSnapshot &input) const;

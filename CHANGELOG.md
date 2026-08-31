@@ -5,7 +5,7 @@
 - puller tach 기반 cascade PI와 실제 포화 dwell, screw 실제 회전수 기반 purge 완료, fan 2개 개별 tach/current 교차검증을 `MachineSupervisor`에 연결했다.
 - 히터 요청 duty와 중앙 전력 allocator의 applied duty를 분리하고 back-calculation anti-windup, zone별 deficit·적분기·실제 time-proportion 명령을 노출했다.
 - dancer 기반 spooler PI·권취 반경 추정·jam 검출과 spool 회전/피치 기반 traverse 동기화·종단 limit 누락 래치를 구현했다.
-- 20 ms tach task, 250 ms fan mux/temperature task, timer·pin budget과 `PPR_DEBUG` deadline 계측을 정의했다. Mega 2560 compile 결과 flash 44,774 B(17%), global 2,146 B(26%), local/stack 여유 6,046 B다.
+- 20 ms tach task, 250 ms fan mux/temperature task, timer·pin budget과 `PPR_DEBUG` deadline 계측을 정의했다. 지름 PI 적분은 이전 cycle의 puller tach-valid/non-saturated 상태에서만 허용한다. 장문 telemetry는 고정 snapshot의 bounded segment를 TX 여유 이하로만 전송한다. Mega 2560 compile 결과 flash 47,206 B(18%), global 3,257 B(39%), local/stack/heap 여유 4,935 B다.
 - production-linked runtime 43 scenario/116 trace와 v0.6.2 고위험 mutation 7종을 통과하고, OpenModelica actuation shadow 24/24를 실제 DASSL로 해석했다.
 - seeded process-risk screening은 shredder `MITIGATION_REQUIRED`, hopper/feed `MODEL_INSUFFICIENT`, cooling airflow `MITIGATION_REQUIRED`로 판정했다. 이 값은 실물 측정이나 생산 성능 주장이 아니다.
 - 외부 Fusion importer에 engineering source/STEP/load manifest/case/unit/evidence hash 결합 검증을 추가했다. 실제 외부 결과가 없어 상태는 `PENDING_EXTERNAL_EXECUTION`이며 상관 판정도 pending이다.

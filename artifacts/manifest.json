@@ -18,7 +18,7 @@
     "Arduino Mega compile via validation/arduino_compile.py and host tests via firmware Makefile",
     "Normalized artifact equality via validation/artifact_reproducibility.py"
   ],
-  "artifact_count": 845,
+  "artifact_count": 848,
   "artifacts": [
     {
       "path": ".github/workflows/ci-full.yml",
@@ -29,8 +29,8 @@
     {
       "path": ".github/workflows/ci-light.yml",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2077,
-      "sha256": "88fdc818a220cdd8d336a8c8aa5586824d6a81c8e822f68f201fb3f2f4d6a87e"
+      "normalized_bytes": 1770,
+      "sha256": "959d68ee899bc23f6fe923d01ba2a7cf327a76b769674831de4d2e364e98f96c"
     },
     {
       "path": "AGENTS.md",
@@ -41,8 +41,8 @@
     {
       "path": "CHANGELOG.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 9539,
-      "sha256": "022de1d8c1080ede2abdb44d3807c64ce10321d1a74a0d7c5ceb5004ecd5a28e"
+      "normalized_bytes": 9737,
+      "sha256": "f6cca1cc20037c3fc4c02a03374c793fe9cc4efc46ec1cba041aa1646dc10126"
     },
     {
       "path": "README.md",
@@ -215,8 +215,8 @@
     {
       "path": "analysis/structural/run_load_checks.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 15914,
-      "sha256": "18b07bd0f123000ae15e90051f3b408d35de6bbd844be048ca0b92b9068a8a82"
+      "normalized_bytes": 16273,
+      "sha256": "cdd49e824b78bbf676b65028558fd63d692526b7a4d2476146f8f7a1a9e3fabc"
     },
     {
       "path": "analysis/structural/structural_validation_ko.md",
@@ -653,8 +653,8 @@
     {
       "path": "docs/validation_report_ko.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 6501,
-      "sha256": "3569cebfc410b86c55d6ab1c6a6806edf3299140d72d2322612089f9149c8021"
+      "normalized_bytes": 6871,
+      "sha256": "b9ac284a7b44323de472cde652af975ad5e99ed1d71ae378831812bfe0889a93"
     },
     {
       "path": "electronics/controller_wiring_v0.6.md",
@@ -2784,7 +2784,7 @@
       "path": "exports/print/coupons/PPR-TC01/PPR-TC01_plate.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 778611,
-      "sha256": "4b5adcef85c8b8a89e7babd12619d257364b8ba1bf54c84898da6330abc9b683"
+      "sha256": "4ca9cd7d4b2a07ef61ffe462e1234ff2e8a5849035f6dea5e7528e9e27434995"
     },
     {
       "path": "exports/print/coupons/PPR-TC01/print_notes.md",
@@ -2802,73 +2802,73 @@
       "path": "exports/print/plate_layouts/plate-01-PPR-C01.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 73830,
-      "sha256": "e0b8db04f07d0a0e0e6830e2383ba6a4bd2b3b8a64c4b840ef92bcfcc27f1666"
+      "sha256": "0160dfac4c8650a3f598f6b1dd91c465f3c13ea13b99a19eb8ab153b09de8958"
     },
     {
       "path": "exports/print/plate_layouts/plate-02-PPR-C02.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 393550,
-      "sha256": "30b048d7156ac38897f6ced57854403794f1e693776158698f7121086f3789b6"
+      "sha256": "2606d0d99d2445572ceaa2eaf94b325ef779b942f8f2f8b3bc1200bf3dcd04ad"
     },
     {
       "path": "exports/print/plate_layouts/plate-03-PPR-C03.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 76318,
-      "sha256": "705b698e5dd59f783ca7e8b5fd8bf00625a3d1e514a146310837a6a79096af41"
+      "sha256": "bddbad62a69908fc77747665c3e13340fec8495b740fa8d0057a64c96e8bc8b5"
     },
     {
       "path": "exports/print/plate_layouts/plate-04-PPR-C04.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 74201,
-      "sha256": "0cd29f71524a1a4c06c304fd0d56f495f2638f0b8b9a0127c95bade53e238765"
+      "sha256": "b1a7c139640273b48c5b41ac9ff78085baad09f535fb72968c0ac69a5a8246ac"
     },
     {
       "path": "exports/print/plate_layouts/plate-05-PPR-C05.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 293937,
-      "sha256": "750a666e40375aff20405e7846918cf5be0b08da5cf331accf4b28781722efae"
+      "sha256": "b2491b5f8b144813b06c337afb731fae39a1388882e742c73b18d85421fcff5a"
     },
     {
       "path": "exports/print/plate_layouts/plate-06-PPR-C06.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 240389,
-      "sha256": "989a3486bc25b95f86417af7b5415e2d4704e1f09a138d1a98787f1484e5b4db"
+      "sha256": "f01ef7b9d04276d06ded175f2e346ddb180e33a7a3a9b408a47c879108a1456c"
     },
     {
       "path": "exports/print/plate_layouts/plate-07-PPR-C07.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 245136,
-      "sha256": "3cf33f70e384a03b215bfec808b5c3f9e0ac51bed5fa724c463a3d6b6c92947d"
+      "sha256": "0c284380291d0995ee9af7d0282acf95e80a88a8fbe196fe82e172cc07f0c36a"
     },
     {
       "path": "exports/print/plate_layouts/plate-08-PPR-C08.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 108599,
-      "sha256": "fa814bb39b883f6907640ad7986ee4e35de2e45d3358e3c3dcfda728d8f26567"
+      "sha256": "927c595b3d81fa87bcb956d5bc84d7b49a59bddbb2f74ca8bc2c9e3d828fdad1"
     },
     {
       "path": "exports/print/plate_layouts/plate-09-PPR-C09.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 302558,
-      "sha256": "e372409e0cf9c9de8fba056c0fdf59c2a2ce880681985311e5b060c7c0b1308a"
+      "sha256": "f54afc6ae726ebb0a3851719d9d03b1a6e64128057d4a5e55d305f1630e250e7"
     },
     {
       "path": "exports/print/plate_layouts/plate-10-PPR-C10.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 207456,
-      "sha256": "d083901a4cb7b9f43ef4eb567d30f940abde2a08db0d0dbc7921108cffb76ffa"
+      "sha256": "a94976cfb98fe9f38290c0103a17074a31f935c1967ea0dcbf37808cb659e240"
     },
     {
       "path": "exports/print/plate_layouts/plate-11-PPR-C11.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 289442,
-      "sha256": "34170f4fcbe0328386e4a1f880e391cd3a1f59d3cb748287f943226084065ab9"
+      "sha256": "a8ac718f808b6d8308b04d6487e1eb2a6b4af075b8e9c0c3cb674954cda4cca6"
     },
     {
       "path": "exports/print/plate_layouts/plate-12-PPR-C12.3mf",
       "hash_mode": "ZIP_MEMBER_CONTENT_V1",
       "normalized_bytes": 40860,
-      "sha256": "749fb3c82d3d32fe0eb05c77eea5d147bce45948864e134d4adeceecbefbbfc4"
+      "sha256": "894f71b8fbd98d22b2f824d2f6e65252cbed8b5df5e628e6fbacf5f4b4477c17"
     },
     {
       "path": "exports/print/print_manifest.csv",
@@ -2999,8 +2999,8 @@
     {
       "path": "firmware/arduino_mega/arduino_mega.ino",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 26173,
-      "sha256": "9f8c56851640f800c884517e41dd35e8e88ea49f49bcd7c4d5cea81323cbc7a4"
+      "normalized_bytes": 29846,
+      "sha256": "af30fa3c24fc44993f2956aacfb464d71dc7b1a08318be315a2295b16c6922f0"
     },
     {
       "path": "firmware/arduino_mega/generate_config.py",
@@ -3011,8 +3011,8 @@
     {
       "path": "firmware/arduino_mega/runtime_schedule.md",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2121,
-      "sha256": "0c5a551d8c53df661d42a731c15a329fe44ce4f681b239b0207535df3097980d"
+      "normalized_bytes": 2533,
+      "sha256": "cdc5a692d3f6676d0ea13e24fed401e725ae09a94fdb2c551b539a38a7035228"
     },
     {
       "path": "firmware/arduino_mega/src/board_config.h",
@@ -3041,14 +3041,14 @@
     {
       "path": "firmware/arduino_mega/src/gauge_control.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1636,
-      "sha256": "645a4a193f48155e7ef0ad117ef22de6124ff98cf6db78047427309b4b004e0b"
+      "normalized_bytes": 1681,
+      "sha256": "1031ca9b2c00d3c250a6dce4e31c9f1b3aa105c25474c9fb460595e66ce8b7e5"
     },
     {
       "path": "firmware/arduino_mega/src/gauge_control.h",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1054,
-      "sha256": "17aac5d1b39190603e231977b1e02f21f0b5bd353ed8ea8e616f1060327a1206"
+      "normalized_bytes": 1136,
+      "sha256": "739ad4353c5237bdcc27d303447ad8b13480a93f058084a57bb35e35cea0f89b"
     },
     {
       "path": "firmware/arduino_mega/src/generated_profiles.h",
@@ -3089,14 +3089,14 @@
     {
       "path": "firmware/arduino_mega/src/machine_supervisor.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 39369,
-      "sha256": "33f5922328616349e391be56e1de22dc48184ac8a1cb11a1c747968bedd149d7"
+      "normalized_bytes": 39794,
+      "sha256": "033c8faf66b0f94d8ddc748a82ad8c4c3ddbda6cd79374538f8fa25ff5f2c348"
     },
     {
       "path": "firmware/arduino_mega/src/machine_supervisor.h",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 9699,
-      "sha256": "151a45339a7280b6fc37b5d969358523348f96f7160a2d6355b528a06c509f68"
+      "normalized_bytes": 9771,
+      "sha256": "676c5e68a2474ff37b49684ca1754ef756f1dfa62eb5352ae2dd62460812945b"
     },
     {
       "path": "firmware/arduino_mega/src/material_profile.h",
@@ -3197,20 +3197,20 @@
     {
       "path": "firmware/arduino_mega/tests/test_forming_actuation.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 3717,
-      "sha256": "904ef0690e23a9f1fffb647a8ef2c77b923f1fdadaf57ebb8ae8fec78789a0e4"
+      "normalized_bytes": 5932,
+      "sha256": "43c76efdb1d5c02b6c0f73ca6dcbcaab86532355279d55ced677ee8050fb8389"
     },
     {
       "path": "firmware/arduino_mega/tests/test_gauge_control.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 850,
-      "sha256": "dfd9eceaf84586b08cd8d75591162d7a67f6eb8ba18cbd02cd96eff2bf96915d"
+      "normalized_bytes": 1296,
+      "sha256": "aba4e97b394bc61ef45e03c3c6cc6a07ab89cbed1e9a899502f448632bb8de38"
     },
     {
       "path": "firmware/arduino_mega/tests/test_heater_control.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 1067,
-      "sha256": "f0171c14ba0f2983c2418cb77f46a3d99dd322e7cf48d619bb23281a52886535"
+      "normalized_bytes": 2210,
+      "sha256": "04a11c161015cd495418ff4d9940fc82c24abb4febd63408737ed8ee9fc09ac8"
     },
     {
       "path": "firmware/arduino_mega/tests/test_heater_power_allocator.cpp",
@@ -3221,8 +3221,8 @@
     {
       "path": "firmware/arduino_mega/tests/test_machine_supervisor.cpp",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 38688,
-      "sha256": "8a12f5db05e0f251aecb3e5cecefb77a2791cf8784f49ef7b89c55a77abb0bb1"
+      "normalized_bytes": 39420,
+      "sha256": "de2e2bb91bde566bc78aa90d56213dbb09e7d0922a20ea487a648528153878b7"
     },
     {
       "path": "firmware/arduino_mega/tests/test_profiles.cpp",
@@ -4785,6 +4785,12 @@
       "sha256": "2d74fd69adedd35573497ff5e67df85e9300d59657d6ca036ca1b741869c4106"
     },
     {
+      "path": "validation/completion_audit_v0.6.2.md",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 3945,
+      "sha256": "147b5f0ae77796274fa36f4aef7749bca0d3b547ac03edee14378ed3de71c445"
+    },
+    {
       "path": "validation/completion_audit_v0.6.md",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 1896,
@@ -4865,8 +4871,8 @@
     {
       "path": "validation/orchestration_contract.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 22657,
-      "sha256": "4b010a90dd54a13ee2dc69d400eeac0daa1426d6a1d1bcfc41ffc55032ed49ba"
+      "normalized_bytes": 22827,
+      "sha256": "479bb75ab0167171dfcac9eeb9ae91bd997fe0b393eafb4d49e57c855bef8619"
     },
     {
       "path": "validation/physical_gate_status.json",
@@ -4896,7 +4902,7 @@
       "path": "validation/results/arduino_mega_compile.json",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 4155,
-      "sha256": "9e348f9efffd15d95acd9290de2af671f785241dbb4572626456142b861102a9"
+      "sha256": "a7fd710248b0567ee77ef41fe6edd7fbd2a13fdb400be7da414cef867c988fee"
     },
     {
       "path": "validation/results/assembly_pairwise_collisions.json",
@@ -4944,7 +4950,7 @@
       "path": "validation/results/orchestration_contract.json",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 3848,
-      "sha256": "390d11f9fdd587783f30895dc2e378152a9efddb3d0996c2d134cf3c0dfd95ce"
+      "sha256": "da69ca66f4d4d715b64c0a4f2a0559d1d588a2c65a406d52a67227b51e628aae"
     },
     {
       "path": "validation/results/print_interfaces.json",
@@ -4962,7 +4968,7 @@
       "path": "validation/results/runtime_supervisor.json",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 16722,
-      "sha256": "17be98d8c6c2b37158707fced28a0b28a12c2022adcf042924f5ac032a046ef3"
+      "sha256": "ebe9e7a87dcec2c695ee8a66b596c849656e26127a8aa466c30d22d7a6027616"
     },
     {
       "path": "validation/results/slicer_results.json",
@@ -4977,6 +4983,12 @@
       "sha256": "cb14468ccd110b83098c1e65de591fe601d240ead63de74a3158f9f4138b1d60"
     },
     {
+      "path": "validation/results/v062_actuation_contract.json",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 332,
+      "sha256": "c652ccc2dfc9273aeda35d90903b1eb29e14c5e736d95ae94b38670a5b58adc2"
+    },
+    {
       "path": "validation/results/v062_mutation_tests.json",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 977,
@@ -4985,8 +4997,8 @@
     {
       "path": "validation/results/v062_runtime_audit.json",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 241,
-      "sha256": "75267878eeadad4682d5e79200fd2ac58a8bea1cdde023a93c2f70ea3dd46c34"
+      "normalized_bytes": 343,
+      "sha256": "a163632516b3bf14da3fb1b2a68c356e013626dcc96c0e29ee16be6714cf0fb6"
     },
     {
       "path": "validation/run_all.py",
@@ -4997,8 +5009,8 @@
     {
       "path": "validation/run_v062.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 6034,
-      "sha256": "40e2cdddf0e744d7fab306f2b9152690b385f09b6700fd8356a3b39bb539717b"
+      "normalized_bytes": 9845,
+      "sha256": "219951d29d8ad3db27a32c66f67d00df24afe45fc396a0acb624f0da9b8de9cb"
     },
     {
       "path": "validation/runtime_supervisor.py",
@@ -5037,6 +5049,12 @@
       "sha256": "f2ae227d408645a697eab1048c6039c357f905d22341ef99afffbff44a47e88b"
     },
     {
+      "path": "validation/v062_actuation_contract.py",
+      "hash_mode": "RAW_SHA256_V1",
+      "normalized_bytes": 5799,
+      "sha256": "a417d3f5394164360023f0b22c71562fe64f9489061813ce16d5464a77c771ed"
+    },
+    {
       "path": "validation/v062_mutation_tests.py",
       "hash_mode": "RAW_SHA256_V1",
       "normalized_bytes": 4239,
@@ -5045,8 +5063,8 @@
     {
       "path": "validation/v062_runtime_audit.py",
       "hash_mode": "RAW_SHA256_V1",
-      "normalized_bytes": 2295,
-      "sha256": "6e3c09301148c7386a35a1438b85c75efa7bb0f55873ca90e056de032df4c74a"
+      "normalized_bytes": 2842,
+      "sha256": "c15031ec18ddc6e696a869b92d6e1d5f67754e79a98cb285b59493a631b253c8"
     },
     {
       "path": "validation/visual_review/2026-08-28-compact-v0.3.md",

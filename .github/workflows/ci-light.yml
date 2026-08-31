@@ -18,19 +18,8 @@ jobs:
         run: |
           arduino-cli core update-index
           arduino-cli core install arduino:avr@1.8.8
-      - name: Configuration and controller contracts
-        run: |
-          python3 validation/configuration_control.py
-          python3 calculations/run_engineering.py
-          python3 firmware/arduino_mega/generate_config.py
-          python3 control/generate_contract_artifacts.py
-          python3 validation/orchestration_contract.py
-          python3 validation/controller_contract.py
-          make -C firmware/arduino_mega test
-          python3 validation/runtime_supervisor.py
-          python3 validation/red_team_orchestration.py
-          python3 validation/arduino_compile.py
-          python3 -m compileall -q fusion_worker
+      - name: v0.6.2 deterministic contracts and runtime gates
+        run: python3 validation/run_v062.py
       - name: Budget and static syntax
         run: |
           python3 bom/build_budget_views.py
@@ -41,7 +30,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: safety-orchestration-v061-ci-light-${{ github.sha }}
+          name: parallel-actuation-hardening-v062-ci-light-${{ github.sha }}
           path: |
             validation/evidence/exact_head_evidence.json
             validation/results/runtime_supervisor.json
@@ -50,3 +39,7 @@ jobs:
             validation/results/red_team_orchestration.json
             validation/results/controller_contract.json
             validation/results/arduino_mega_compile.json
+            validation/results/v062_runtime_audit.json
+            validation/results/v062_mutation_tests.json
+            validation/results/v062_actuation_contract.json
+            validation/results/ci_light_v062.json

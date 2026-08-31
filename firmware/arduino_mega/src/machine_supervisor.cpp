@@ -507,8 +507,14 @@ ActuatorCommands MachineSupervisor::buildCommands(const InputSnapshot &input, co
   c.feeder_enable = p.feeder && !maintenance_purge &&
       (forming_state_ == FormingChainState::NORMAL || forming_state_ == FormingChainState::REQUALIFYING);
   if (maintenance_purge) c.feeder_enable = purge_motion_authorized;
+  // The outer diameter PI may accumulate only after the inner tach loop has
+  // qualified and while that loop has control authority. The previous-cycle
+  // output is intentional: it is the last fully evaluated inner-loop state.
+  const bool diameter_integral_allowed = input.puller_tach_ok &&
+      puller_output_.tach_valid && !puller_output_.saturated;
   const float puller = diameter_.update(g, 1.75f, profile.puller_feedforward_mm_s,
-                                        profile.diameter_kp, profile.diameter_ki, 0.1f);
+                                        profile.diameter_kp, profile.diameter_ki, 0.1f,
+                                        diameter_integral_allowed);
   const bool waste_puller = forming_state_ == FormingChainState::RUNDOWN &&
                             now_ms - forming_state_since_ms_ < FORMING_PULLER_WASTE_MS &&
                             (forming_fault_reasons_ & FORMING_PULLER_FAILURE) == 0;

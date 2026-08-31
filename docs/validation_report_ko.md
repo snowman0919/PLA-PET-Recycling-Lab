@@ -10,9 +10,10 @@
 |v0.6.2 Gate|현재 디지털 결과|근거|
 |---|---|---|
 |Frozen Fusion input|v0.6.1 frozen path diff 0, `FUSION_INPUT_DELTA=NONE`|`validation/results/fusion_delta_classification.json`|
-|Firmware actuation|puller/screw/fan/spooler/traverse 실제 feedback path와 히터 applied-duty anti-windup host test PASS|`firmware/arduino_mega/tests`, `validation/results/v062_runtime_audit.json`|
-|Mega target|compile PASS; flash 44,774 B(17%), global 2,146 B(26%), local/stack 여유 6,046 B|`validation/results/arduino_mega_compile.json`|
+|Firmware actuation|puller/screw/fan/spooler/traverse 실제 feedback path, inner-loop 유효/비포화 조건부 지름 PI 적분과 히터 applied-duty anti-windup host test PASS|`firmware/arduino_mega/tests`, `validation/results/v062_actuation_contract.json`|
+|Mega target|compile PASS; flash 47,206 B(18%), global 3,257 B(39%), local/stack/heap 여유 4,935 B|`validation/results/arduino_mega_compile.json`|
 |Runtime|production `MachineSupervisor` 43 scenario/116 trace PASS; actual screw tach purge evidence|`validation/results/runtime_supervisor.json`|
+|High-signal matrix|필수 22개 시나리오에 요구사항·입력·방법·증거·threshold·결과 결합 PASS|`validation/v062_high_signal_test_matrix.csv`, `validation/results/v062_actuation_contract.json`|
 |Mutation|고위험 false-PASS mutation 7/7 검출|`validation/results/v062_mutation_tests.json`|
 |OpenModelica shadow|DASSL 24/24 PASS; frozen 구조 envelope 4개 peak delta 0|`simulation/openmodelica/results_v0.6.2/summary.json`, `analysis/fusion_delta_queue/shadow_envelope_comparison.json`|
 |Process risk|shredder/airflow `MITIGATION_REQUIRED`; feed `MODEL_INSUFFICIENT`|`analysis/process_risk/process_risk_summary.json`|
@@ -64,6 +65,6 @@
 - Gauge dropout의 maximum diameter error 0.5425 mm, out-of-tolerance 8.8 s, recovery 85.8 s였으며 invalid 구간 spool eligibility는 전체 0이다. 이는 품질 PASS가 아니라 containment/requalification PASS다.
 - Purge revolution은 `COMMAND_DERIVED_ESTIMATE_NOT_MEASURED`; 80 g/120 g도 measured mass가 아니다.
 
-최종 commit의 CI-LIGHT/CI-FULL은 깨끗한 clone에서 다시 실행하며 exact SHA, OpenModelica scenario count, artifact count와 mismatch count를 release commit 밖의 exact-head evidence에 기록한다. 저장된 과거 PASS 또는 dirty-tree 진단은 release 증거로 사용하지 않는다.
+최종 commit의 동일 HEAD에서 `validation/run_v062.py`와 `--full`을 다시 실행한다. FULL의 CalculiX solve는 동결 `analysis/structural/generated/`를 덮어쓰지 않도록 임시 디렉터리에서 실행하고, 전체 실행 전후 Fusion 동결 경로 hash가 같아야만 PASS한다. 저장된 과거 PASS 또는 dirty-tree 진단은 release 증거로 사용하지 않는다.
 
 이 검증은 실제 fan airflow, 절단 성능, melt flow, filament tolerance, Fusion solve 또는 하드웨어 safety chain 시험이 아니다. `CROSS_SOLVER_GATE`는 PENDING이고 구매·가공·통전·commissioning은 모두 `USER_APPROVAL_REQUIRED`다.

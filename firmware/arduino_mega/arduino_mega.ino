@@ -1,4 +1,5 @@
 #include <EEPROM.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <avr/interrupt.h>
@@ -38,6 +39,13 @@ uint32_t maximum_loop_us = 0;
 bool purge_feed_approved = false;
 char serial_line[180]{};
 uint8_t serial_length = 0;
+SupervisorOutput telemetry_snapshot{};
+uint32_t telemetry_snapshot_ms = 0;
+uint8_t telemetry_segment = 0;
+uint8_t telemetry_length = 0;
+uint8_t telemetry_offset = 0;
+bool telemetry_active = false;
+char telemetry_buffer[160]{};
 
 class Max6675Backend final : public TemperatureBackend {
  public:
@@ -157,6 +165,7 @@ InputSnapshot readInputs(uint32_t now_ms) {
   input.puller_driver_ok = digitalRead(Board::PULLER_FAULT_PIN) == HIGH;
   input.puller_tach_ok = last_commands.puller_pwm == 0 || puller_rpm > 0.1f;
   input.puller_rpm = puller_rpm;
+  input.puller_saturated = supervisor.lastPullerSaturated();
   input.spooler_driver_ok = digitalRead(Board::SPOOLER_FAULT_PIN) == HIGH;
   input.spooler_tach_ok = last_commands.spooler_pwm == 0 || spooler_rpm > 0.1f;
   input.spooler_rpm = spooler_rpm;
@@ -419,44 +428,124 @@ void sampleTemperatures(uint32_t now_ms) {
   last_temperature_sample_ms = now_ms;
 }
 
-void logStatus(const SupervisorOutput &output, uint32_t now_ms) {
-  if (now_ms - last_log_ms < 1000) return;
-  if (Serial.availableForWrite() < 32) return;
-  last_log_ms = now_ms;
-  Serial.print(F("phase=")); Serial.print(static_cast<uint8_t>(output.view.process_phase));
-  Serial.print(F(" ui=")); Serial.print(static_cast<uint8_t>(output.view.ui_state));
-  Serial.print(F(" session=")); Serial.print(static_cast<uint8_t>(output.view.material_session));
-  Serial.print(F(" forming=")); Serial.print(static_cast<uint8_t>(output.view.forming_chain_state));
-  Serial.print(F(" fault=")); Serial.print(output.view.forming_fault_reasons);
-  Serial.print(F(" spool_eligible=")); Serial.print(output.view.spool_eligible);
-  Serial.print(F(" waste_mode=")); Serial.print(output.view.waste_mode);
-  Serial.print(F(" cal="));
-  Serial.print(output.view.calibration.drive_calibration_valid); Serial.print('/');
-  Serial.print(output.view.calibration.gauge_calibration_valid); Serial.print('/');
-  Serial.print(output.view.calibration.current_sensor_calibration_valid); Serial.print('/');
-  Serial.print(output.view.calibration.cooling_feedback_calibration_valid); Serial.print('/');
-  Serial.print(output.view.calibration.temperature_channels_valid);
-  Serial.print(F(" cooling_feedback=")); Serial.print(output.view.cooling_feedback_valid);
-  Serial.print(F(" cooling_probe=")); Serial.print(static_cast<uint8_t>(output.view.cooling_startup_request));
-  Serial.print('/'); Serial.print(output.view.cooling_startup_probe_elapsed_ms);
-  Serial.print('/'); Serial.print(output.view.cooling_startup_healthy_dwell_ms);
-  Serial.print(F(" purge_approval=")); Serial.print(output.view.purge_feed_approved);
-  Serial.print(F(" purge_completed=")); Serial.print(output.view.purge_run_completed);
-  Serial.print(F(" puller=")); Serial.print(output.view.puller.target_mm_s); Serial.print('/');
-  Serial.print(output.view.puller.measured_mm_s); Serial.print('/'); Serial.print(output.view.puller.pwm);
-  Serial.print(F(" puller_sat=")); Serial.print(output.view.puller.saturated); Serial.print('/');
-  Serial.print(output.view.puller.saturation_duration_ms);
-  Serial.print(F(" screw=")); Serial.print(output.view.screw_motion.actual_rpm); Serial.print('/');
-  Serial.print(output.view.screw_motion.cumulative_revolutions);
-  Serial.print(F(" fans=")); Serial.print(output.view.cooling.fan1_running); Serial.print('/');
-  Serial.print(output.view.cooling.fan2_running);
-  Serial.print(F(" waste_path=")); Serial.print(output.actuators.waste_path_active);
-  Serial.print(F(" requal_samples=")); Serial.print(output.view.requalification_valid_samples);
+long milli(float value) {
+  return static_cast<long>(value * 1000.0f);
+}
+
+void formatTelemetrySegment() {
+  const MachineViewState &v = telemetry_snapshot.view;
+  int written = 0;
+  switch (telemetry_segment) {
+    case 0:
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "ts=%lu phase=%u ui=%u session=%u forming=%u fault=%u fault_ms=%lu state_ms=%lu ",
+          static_cast<unsigned long>(telemetry_snapshot_ms), static_cast<unsigned>(v.process_phase),
+          static_cast<unsigned>(v.ui_state), static_cast<unsigned>(v.material_session),
+          static_cast<unsigned>(v.forming_chain_state), static_cast<unsigned>(v.forming_fault_reasons),
+          static_cast<unsigned long>(v.forming_fault_detected_ms),
+          static_cast<unsigned long>(v.forming_state_changed_ms));
+      break;
+    case 1:
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "spool_eligible=%u waste_mode=%u waste_path=%u cal=%u/%u/%u/%u/%u cooling_feedback=%u ",
+          v.spool_eligible, v.waste_mode, telemetry_snapshot.actuators.waste_path_active,
+          v.calibration.drive_calibration_valid, v.calibration.gauge_calibration_valid,
+          v.calibration.current_sensor_calibration_valid,
+          v.calibration.cooling_feedback_calibration_valid,
+          v.calibration.temperature_channels_valid, v.cooling_feedback_valid);
+      break;
+    case 2:
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "puller_mm_s_milli=%ld/%ld puller_rpm_milli=%ld/%ld puller_error_milli=%ld ",
+          milli(v.puller.target_mm_s), milli(v.puller.measured_mm_s), milli(v.puller.target_rpm),
+          milli(v.puller.measured_rpm), milli(v.puller.speed_error_mm_s));
+      break;
+    case 3:
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "puller_pwm=%d puller_sat=%u puller_tach=%u puller_limited=%u puller_sat_ms=%lu ",
+          v.puller.pwm, v.puller.saturated, v.puller.tach_valid, v.puller.pwm_limited,
+          static_cast<unsigned long>(v.puller.saturation_duration_ms));
+      break;
+    case 4:
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "screw_rpm_milli=%ld screw_rev_milli=%ld screw_tach=%u screw_mismatch=%u fans=%u/%u fan_fault=%u ",
+          milli(v.screw_motion.actual_rpm), milli(v.screw_motion.cumulative_revolutions),
+          v.screw_motion.tach_valid, v.screw_motion.command_motion_mismatch,
+          v.cooling.fan1_running, v.cooling.fan2_running, v.cooling.fault_bits);
+      break;
+    case 5:
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "spooler_pwm=%d radius_milli=%ld spool_rpm_milli=%ld/%ld turns_milli=%ld spool_tach=%u jam=%u ",
+          v.spooler.pwm, milli(v.spooler.estimated_radius_mm), milli(v.spooler.target_rpm),
+          milli(v.spooler.measured_rpm), milli(v.spooler.cumulative_turns),
+          v.spooler.tach_valid, v.spooler.jam);
+      break;
+    case 6:
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "traverse=%u/%u/%u target_milli=%ld pos_milli=%ld hard_fault=%u pitch_sync=%u requal_samples=%u ",
+          v.traverse.enable, v.traverse.direction, v.traverse.step,
+          milli(v.traverse.target_position_mm), milli(v.traverse.estimated_position_mm),
+          v.traverse.hard_fault, v.traverse.pitch_synchronized,
+          static_cast<unsigned>(v.requalification_valid_samples));
+      break;
+    case 7:
+    case 8:
+    case 9:
+    case 10: {
+      const uint8_t zone = telemetry_segment - 7;
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "heater%u_milli=%ld/%ld/%ld/%ld sat=%u on=%u ", static_cast<unsigned>(zone),
+          milli(v.heater_allocation.requested_duty[zone]),
+          milli(v.heater_allocation.allocated_duty[zone]),
+          milli(v.heater_allocation.allocation_deficit[zone]),
+          milli(v.heater_allocation.integrator_state[zone]),
+          v.heater_allocation.saturated[zone],
+          v.heater_allocation.actual_time_proportion_command[zone]);
+      break;
+    }
+    default:
 #ifdef PPR_DEBUG
-  Serial.print(F(" deadline_overruns=")); Serial.print(deadline_overruns);
-  Serial.print(F(" max_loop_us=")); Serial.print(maximum_loop_us);
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "cooling_probe=%u/%lu/%lu purge=%u/%u invariants=%u deadline_overruns=%lu max_loop_us=%lu\n",
+          static_cast<unsigned>(v.cooling_startup_request),
+          static_cast<unsigned long>(v.cooling_startup_probe_elapsed_ms),
+          static_cast<unsigned long>(v.cooling_startup_healthy_dwell_ms),
+          v.purge_feed_approved, v.purge_run_completed, telemetry_snapshot.invariants_ok,
+          static_cast<unsigned long>(deadline_overruns), static_cast<unsigned long>(maximum_loop_us));
+#else
+      written = snprintf(telemetry_buffer, sizeof(telemetry_buffer),
+          "cooling_probe=%u/%lu/%lu purge=%u/%u invariants=%u\n",
+          static_cast<unsigned>(v.cooling_startup_request),
+          static_cast<unsigned long>(v.cooling_startup_probe_elapsed_ms),
+          static_cast<unsigned long>(v.cooling_startup_healthy_dwell_ms),
+          v.purge_feed_approved, v.purge_run_completed, telemetry_snapshot.invariants_ok);
 #endif
-  Serial.print(F(" invariants=")); Serial.println(output.invariants_ok);
+      break;
+  }
+  telemetry_length = written <= 0 ? 0 : static_cast<uint8_t>(
+      written < static_cast<int>(sizeof(telemetry_buffer)) ? written : sizeof(telemetry_buffer) - 1);
+  telemetry_offset = 0;
+}
+
+void logStatus(const SupervisorOutput &output, uint32_t now_ms) {
+  if (!telemetry_active) {
+    if (now_ms - last_log_ms < 1000) return;
+    last_log_ms = now_ms;
+    telemetry_snapshot_ms = now_ms;
+    telemetry_snapshot = output;
+    telemetry_segment = 0;
+    telemetry_active = true;
+  }
+  if (telemetry_length == 0) formatTelemetrySegment();
+  const int available = Serial.availableForWrite();
+  if (available <= 0 || telemetry_length == 0) return;
+  const uint8_t remaining = telemetry_length - telemetry_offset;
+  const uint8_t write_count = remaining < available ? remaining : static_cast<uint8_t>(available);
+  Serial.write(reinterpret_cast<const uint8_t *>(telemetry_buffer + telemetry_offset), write_count);
+  telemetry_offset += write_count;
+  if (telemetry_offset < telemetry_length) return;
+  telemetry_length = 0;
+  if (++telemetry_segment > 11) telemetry_active = false;
 }
 }
 
