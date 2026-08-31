@@ -4,7 +4,7 @@
   "classification": "DIGITAL_ENGINEERING_EVIDENCE_PHYSICAL_TEST_NOT_RUN",
   "engineering_source_sha": "e86e436861fd28f4055af1a1b9387bb764a7179b",
   "fusion_result_state": "PENDING_EXTERNAL_EXECUTION",
-  "artifact_count": 115,
+  "artifact_count": 120,
   "generation_commands": [
     "python3 control/generate_tach_contract.py",
     "nix develop --command FreeCADCmd cad/freecad/compact/process_v0621.py",
@@ -12,6 +12,7 @@
     "python3 simulation/openmodelica/scripts/generate_v0621_shadow.py",
     "omc simulation/openmodelica/scripts/run_v0621_shadow.mos",
     "python3 simulation/openmodelica/postprocess/validate_v0621_shadow.py",
+    "python3 validation/fusion_worker_handoff_v0621.py",
     "python3 validation/run_v0621.py --allow-fusion-pending",
     "python3 artifacts/build_manifest_v0621.py",
     "graphify --update"
@@ -89,8 +90,8 @@
     },
     {
       "path": "docs/cross_solver_release_report_ko.md",
-      "sha256": "e40983fa75c2725083027efed05971e9704f27d49dd49d590996ad5bd322ed7e",
-      "size_bytes": 1597
+      "sha256": "b395a27f6913816178fabb58e4884d1846a252976824ad1077c41647ea94e14b",
+      "size_bytes": 2346
     },
     {
       "path": "docs/design_report_ko.pdf",
@@ -513,9 +514,29 @@
       "size_bytes": 2277
     },
     {
+      "path": "fusion_worker/README.md",
+      "sha256": "afbfbb50a4428df1c7a42c7d4c375d52c64ec99709ba633f08499fd8ed87e972",
+      "size_bytes": 2051
+    },
+    {
+      "path": "fusion_worker/cua_playbooks/fusion_execution.md",
+      "sha256": "7bbf9049bc2552a5a03cd337c52a479618c618be77b30bf1732dc315a09ddfed",
+      "size_bytes": 1319
+    },
+    {
       "path": "fusion_worker/result_validation/validate_fusion_v0621_package.py",
       "sha256": "291270ef8373877f8fdff2c218d5da68c3ef2c6b42883e9f1e42f381ab384b13",
       "size_bytes": 10027
+    },
+    {
+      "path": "fusion_worker/run_manifest.schema.json",
+      "sha256": "13f7445709ba4e2da3ec610d61a5b2e1581748e26d02ce4ba13672e0aaa7f0e8",
+      "size_bytes": 1750
+    },
+    {
+      "path": "fusion_worker/scripts/prepare_run.py",
+      "sha256": "fe54cd7f5ca805b56da66eb6f7c51d5885ad8c1a29594cc0eb0c049a77eafc06",
+      "size_bytes": 12247
     },
     {
       "path": "simulation/openmodelica/results_v0.6.2.1/scenario_manifest.json",
@@ -539,8 +560,8 @@
     },
     {
       "path": "validation/blocker_closure_report_ko.md",
-      "sha256": "1b97900474b5505f20e0b9dd1af7da8d78ff628fed7c4ed72fe90b5b6facf6ae",
-      "size_bytes": 2356
+      "sha256": "6c9796540d78e37255e71789d8ee44feffd7678cad6787b4ddd4e962081202d9",
+      "size_bytes": 3059
     },
     {
       "path": "validation/exact_head_evidence_v0621.py",
@@ -549,13 +570,18 @@
     },
     {
       "path": "validation/fusion_external_blocker_v0.6.2.1.json",
-      "sha256": "3a6898f7eca360d56e4ca5d37d325629966a80dfe2d8e98262385d2278d60efd",
-      "size_bytes": 964
+      "sha256": "1db75c5297659fbe44481c76d9d947d4bef810e40e213122f91a9c3bc7930ec5",
+      "size_bytes": 1354
     },
     {
       "path": "validation/fusion_release_gate_v0621.py",
       "sha256": "f6216e21fb69adfd38122b12372d7e8d69448aaa355d67135207419e5af4b7f3",
       "size_bytes": 6586
+    },
+    {
+      "path": "validation/fusion_worker_handoff_v0621.py",
+      "sha256": "d9aade5984498f4cec2eeed47f653dbd4dd10cdeb89c4aaea26e31681bb9c142",
+      "size_bytes": 4432
     },
     {
       "path": "validation/results/budget_policy_v0.6.2.1.json",
@@ -584,8 +610,8 @@
     },
     {
       "path": "validation/run_v0621.py",
-      "sha256": "83e4d441e3fcf411ef68a36ad3d489b75b71d4e28099fa0627693df26dd3934d",
-      "size_bytes": 2445
+      "sha256": "60b9d6b3a8018ca77b660a2db03de1599c51f7b1be3698be8a48a19e990b01cd",
+      "size_bytes": 2551
     },
     {
       "path": "validation/source_lock_v0.6.2.1.json",

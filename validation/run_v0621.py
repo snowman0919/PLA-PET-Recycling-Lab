@@ -37,6 +37,8 @@ def main() -> None:
         ([py, "analysis/process_risk/cooling_degradation_v0.6.2.1.py"], "COOLING_DEGRADATION_V0621_PASS"),
         ([py, "simulation/openmodelica/postprocess/validate_v0621_shadow.py", "--evidence-only"],
          "V0621_SHADOW_COMPACT_EVIDENCE_PASS"),
+        ([py, "validation/fusion_worker_handoff_v0621.py"],
+         "FUSION_WORKER_HANDOFF_V0621_PASS"),
         ([py, "validation/v0621_mutation_tests.py"], "V0621_MUTATION_GATE_PASS"),
     ]
     for command, token in checks:

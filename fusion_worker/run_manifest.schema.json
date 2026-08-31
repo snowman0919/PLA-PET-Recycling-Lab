@@ -5,15 +5,26 @@
   "required": ["run_id", "case_id", "study_type", "source_git_sha", "step_file", "step_sha256", "load_case_manifest_sha256", "solver_version", "started_utc", "status"],
   "properties": {
     "run_id": {"type": "string", "minLength": 1},
-    "case_id": {"type": "string", "pattern": "^LC(0[1-9]|10)$"},
-    "study_type": {"enum": ["static_stress", "modal", "thermal", "thermal_stress", "nonlinear_static", "event_simulation", "buckling"]},
+    "case_id": {"type": "string", "pattern": "^(LC(0[1-9]|10)|LC11_FEEDER_ATTACHMENT)$"},
+    "study_type": {"enum": ["static_stress", "modal_frequencies", "thermal", "thermal_stress", "nonlinear_static", "event_simulation", "buckling", "linear_static"]},
     "source_git_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
-    "step_file": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+[.]step$"},
+    "engineering_source_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "execution_checkout_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "step_file": {"type": "string", "pattern": "^(geometry/)?[A-Za-z0-9_.-]+[.]step$"},
     "step_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "load_case_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "model_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "run_binding_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "solver_version": {"type": "string", "minLength": 1},
     "started_utc": {"type": "string", "format": "date-time"},
     "completed_utc": {"type": ["string", "null"], "format": "date-time"},
+    "mesh_levels": {
+      "type": "array",
+      "items": {"enum": ["coarse", "medium", "fine"]},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "related_case_bindings": {"type": "array"},
     "status": {"enum": ["PENDING", "RUNNING", "PASS", "FAIL", "BLOCKED_EXTERNAL"]}
   },
   "additionalProperties": true

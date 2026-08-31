@@ -6,9 +6,18 @@
     "revision": "technical-blocker-closure-v0.6.2.1",
     "status": "PENDING_EXTERNAL_FUSION",
     "worker_alias": "win",
-    "attempt_count_this_goal": 4,
-    "last_attempt_utc": "2026-08-31T08:00:20Z",
-    "last_attempt_result": "SSH_CONNECT_TIMEOUT_12_SECONDS",
+    "attempt_count_this_goal": 5,
+    "last_attempt_utc": "2026-08-31T08:05:08Z",
+    "last_attempt_result": "TAILSCALE_PEER_OFFLINE_AND_SSH_CONNECT_TIMEOUT_12_SECONDS",
+    "network_diagnosis": {
+      "local_tailscale_backend": "Running",
+      "worker_tailscale_ip": "100.117.248.33",
+      "worker_peer_online": false,
+      "worker_last_seen_utc": "2026-08-31T06:50:00.1Z",
+      "tailscale_ping": "NO_REPLY_3_ATTEMPTS",
+      "icmp_ping": "100_PERCENT_LOSS_3_ATTEMPTS",
+      "scope": "WORKER_DEVICE_OR_TAILSCALE_PEER_OFFLINE_BEFORE_SSH"
+    },
     "last_known_reachable_state": {
       "fusion_process_observed": true,
       "fusion_version": "2704.1.53",
