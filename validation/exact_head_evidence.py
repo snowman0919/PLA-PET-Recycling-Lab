@@ -17,7 +17,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "validation/evidence/exact_head_evidence.json"
-REVISION = "safety-orchestration-closure-v0.6.1"
+REVISION = "parallel-actuation-hardening-v0.6.2"
+BASELINE_REVISION = "safety-orchestration-closure-v0.6.1"
 EXPECTED_MUTATIONS = {
     "residual_subsystem_latch": "IDLE_WITH_SUBSYSTEM_LATCH",
     "failed_start_in_shredding": "SHREDDING_WITH_FAILED_START",
@@ -33,6 +34,11 @@ EXPECTED_MUTATIONS = {
     "startup_probe_heater_before_feedback_proof": "COOLING_STARTUP_HAZARDOUS_OUTPUT_BEFORE_PROOF",
     "purge_motion_before_waste_confirmation": "PURGE_MOTION_BEFORE_WASTE_CONFIRMATION",
     "production_invariant_false": "PRODUCTION_INVARIANT_FALSE",
+}
+EXPECTED_V062_MUTATIONS = {
+    "puller_saturation_hardcoded_false", "fan2_channel_ignored",
+    "purge_commanded_revolutions", "heater_feedback_removed",
+    "spooler_fixed_pwm", "traverse_time_reversal", "fusion_binding_removed",
 }
 REQUIRED_RUNTIME_SCENARIOS = {
     "calibration_readiness_phase_gates", "purge_cooling_loss_containment",
@@ -106,20 +112,28 @@ def main() -> None:
     orchestration = load_json(ROOT / "validation/results/orchestration_contract.json")
     red_team = load_json(ROOT / "validation/results/red_team_orchestration.json")
     arduino = load_json(ROOT / "validation/results/arduino_mega_compile.json")
-    if contract.get("revision") != REVISION:
-        raise AssertionError("process_contract가 현재 v0.6.1 계약이 아님")
+    actuation = load_json(ROOT / "validation/results/v062_actuation_contract.json")
+    v062_mutation = load_json(ROOT / "validation/results/v062_mutation_tests.json")
+    shadow = load_json(ROOT / "simulation/openmodelica/results_v0.6.2/summary.json")
+    if contract.get("revision") != BASELINE_REVISION:
+        raise AssertionError("process_contract가 동결 v0.6.1 계약이 아님")
     release = contract.get("release", {})
     if release.get("release_state") != "SAFETY_ORCHESTRATION_BASELINE":
         raise AssertionError("process_contract release state 불일치")
     for label, payload in {
-        "runtime_supervisor": runtime,
+        "runtime_supervisor": runtime, "arduino_mega_compile": arduino,
+        "v062_actuation_contract": actuation, "v062_mutation_tests": v062_mutation,
+        "v062_shadow": shadow,
+    }.items():
+        if payload.get("revision") != REVISION or payload.get("status") != "PASS":
+            raise AssertionError(f"{label}가 현재 v0.6.2 PASS 증거가 아님")
+    for label, payload in {
         "controller_contract": controller,
         "orchestration_contract": orchestration,
         "red_team_orchestration": red_team,
-        "arduino_mega_compile": arduino,
     }.items():
-        if payload.get("revision") != REVISION or payload.get("status") != "PASS":
-            raise AssertionError(f"{label}가 현재 v0.6.1 PASS 증거가 아님")
+        if payload.get("revision") != BASELINE_REVISION or payload.get("status") != "PASS":
+            raise AssertionError(f"{label}가 동결 v0.6.1 PASS 증거가 아님")
 
     require_current_hashes("runtime production", runtime.get("production_sources", {}))
     require_current_hashes("runtime headers", runtime.get("production_headers", {}))
@@ -148,7 +162,7 @@ def main() -> None:
         or runtime.get("scenario_count", 0) < 43
         or runtime.get("trace_count", 0) < 100
         or runtime.get("invariant_failure_count") != 0
-        or runtime.get("purge_revolution_evidence") != "COMMAND_DERIVED_ESTIMATE_NOT_MEASURED"
+        or runtime.get("purge_revolution_evidence") != "ACTUAL_SCREW_TACH_MEASURED_REVOLUTIONS"
         or runtime.get("purge_operator_sequence") != "approvePurgeFeed_then_independent_waste_path_confirmation"
         or runtime.get("calibration_readiness", {}).get("status") != "PASS"
         or not REQUIRED_RUNTIME_SCENARIOS <= scenario_names
@@ -164,6 +178,15 @@ def main() -> None:
         errors = red_team.get("detected_errors", {}).get(mutation, [])
         if not any(expected_error in error for error in errors):
             raise AssertionError(f"red-team expected error code 누락: {mutation}")
+    v062_mutations = v062_mutation.get("mutations", [])
+    if (v062_mutation.get("mutation_count") != len(EXPECTED_V062_MUTATIONS) or
+            {row.get("mutation") for row in v062_mutations} != EXPECTED_V062_MUTATIONS or
+            any(row.get("result") != "PASS" for row in v062_mutations)):
+        raise AssertionError("v0.6.2 필수 mutation 결과 불일치")
+    if (actuation.get("documented_high_signal_scenarios") != 22 or
+            actuation.get("production_runtime_scenarios", 0) < 43 or
+            actuation.get("shadow_scenario_count") != 24):
+        raise AssertionError("v0.6.2 actuation/high-signal 증거 불일치")
     if arduino.get("fqbn") != "arduino:avr:mega" or arduino.get("target") != "firmware/arduino_mega/arduino_mega.ino":
         raise AssertionError("Arduino compile target/fqbn evidence 불일치")
     process_contract_path = ROOT / "control/process_contract.json"
@@ -183,18 +206,21 @@ def main() -> None:
     modelica = load_json(modelica_path) if modelica_path.is_file() else {}
 
     if args.stage == "CI-FULL":
-        if manifest.get("revision") != REVISION:
-            raise AssertionError("CI-FULL artifact manifest revision 불일치")
-        if reproducibility.get("revision") != REVISION or reproducibility.get("status") != "PASS":
+        if manifest.get("revision") != BASELINE_REVISION:
+            raise AssertionError("CI-FULL frozen artifact manifest revision 불일치")
+        if reproducibility.get("revision") != BASELINE_REVISION or reproducibility.get("status") != "PASS":
             raise AssertionError("CI-FULL artifact reproducibility PASS 증거 없음")
         if reproducibility.get("mismatches"):
             raise AssertionError("CI-FULL artifact mismatch가 0이 아님")
-        if modelica.get("revision") != REVISION or modelica.get("status") != "PASS":
-            raise AssertionError("CI-FULL OpenModelica 현행 PASS 증거 없음")
+        if modelica.get("revision") != BASELINE_REVISION or modelica.get("status") != "PASS":
+            raise AssertionError("CI-FULL OpenModelica frozen baseline PASS 증거 없음")
+        if shadow.get("scenario_count") != 24 or shadow.get("pass_count") != 24:
+            raise AssertionError("CI-FULL OpenModelica v0.6.2 shadow PASS 증거 없음")
 
     release_evidence = not status_lines
     evidence = {
         "revision": REVISION,
+        "frozen_baseline_revision": BASELINE_REVISION,
         "status": "PASS" if release_evidence else "DIAGNOSTIC_DIRTY_NOT_RELEASE_EVIDENCE",
         "stage": args.stage,
         "exact_commit_sha": head,
@@ -214,8 +240,9 @@ def main() -> None:
         "artifact_count": manifest.get("artifact_count") if args.stage == "CI-FULL" else None,
         "artifact_mismatch_count": len(reproducibility.get("mismatches", [])) if args.stage == "CI-FULL" else None,
         "scenario_count": modelica.get("scenario_count") if args.stage == "CI-FULL" else None,
+        "shadow_scenario_count": shadow.get("scenario_count") if args.stage == "CI-FULL" else None,
         "gates": {
-            "SAFETY_ORCHESTRATION_RELEASE_GATE": "PASS" if release_evidence else "NOT_EVALUATED_DIRTY_WORKTREE",
+            "ACTUATION_HARDENING_GATE": "PASS" if release_evidence else "NOT_EVALUATED_DIRTY_WORKTREE",
             "CROSS_SOLVER_GATE": "CROSS_SOLVER_VALIDATION_PENDING",
             "PROCUREMENT_APPROVAL_GATE": "USER_APPROVAL_REQUIRED",
             "COMMISSIONING_GATE": "USER_APPROVAL_REQUIRED",
