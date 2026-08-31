@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 from pathlib import Path
@@ -100,7 +101,43 @@ def evaluate(name: str, rows: list[dict[str, float]]) -> tuple[bool, str]:
     return passed, evidence
 
 
+def validate_summary_evidence() -> None:
+    summary = json.loads((OUT / "summary.json").read_text())
+    results = summary.get("results", [])
+    names = {row.get("scenario") for row in results}
+    if summary.get("revision") != "parallel-actuation-hardening-v0.6.2":
+        raise AssertionError("shadow summary revision mismatch")
+    if summary.get("status") != "PASS" or summary.get("scenario_count") != len(REQUIREMENTS):
+        raise AssertionError("shadow summary count/status mismatch")
+    if names != set(REQUIREMENTS):
+        raise AssertionError("shadow summary mandatory scenario set mismatch")
+    required_fields = {
+        "protected_requirement_or_failure_mode", "input", "method",
+        "expected_evidence", "pass_fail_threshold", "result", "evidence",
+    }
+    for row in results:
+        if row.get("result") != "PASS" or not all(row.get(field) for field in required_fields):
+            raise AssertionError(f"shadow summary evidence incomplete: {row.get('scenario')}")
+    comparison = json.loads(COMPARE.read_text())
+    if (comparison.get("status") != "PASS" or comparison.get("fusion_input_delta") != "NONE" or
+            comparison.get("geometry_material_contact_boundary_changes") is not False):
+        raise AssertionError("shadow/Fusion comparison status mismatch")
+    if any(row.get("percent_change") != 0 or row.get("rerun_requirement") is not False
+           for row in comparison.get("comparisons", [])):
+        raise AssertionError("shadow load delta is not zero")
+    print(f"V062_SHADOW_PASS {len(results)} scenarios summary-evidence")
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--summary-only", action="store_true",
+        help="validate committed clean-checkout evidence without requiring ignored raw solver CSVs",
+    )
+    args = parser.parse_args()
+    if args.summary_only:
+        validate_summary_evidence()
+        return
     OUT.mkdir(parents=True, exist_ok=True)
     results = []
     for name, requirement in REQUIREMENTS.items():

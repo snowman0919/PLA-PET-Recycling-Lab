@@ -102,7 +102,7 @@ def main() -> None:
           "exports/fusion_validation/results/fusion_result_template.csv",
           "--output", "analysis/cross_solver/fusion_import_review.json"], "PENDING_EXTERNAL_EXECUTION"),
         ([sys.executable, "analysis/process_risk/run_screening.py"], "PROCESS_RISK_SCREENING_OK"),
-        ([sys.executable, "simulation/openmodelica/postprocess/validate_v062_shadow.py"], "V062_SHADOW_PASS"),
+        ([sys.executable, "simulation/openmodelica/postprocess/validate_v062_shadow.py", "--summary-only"], "V062_SHADOW_PASS"),
         ([sys.executable, "validation/v062_actuation_contract.py"], "V062_ACTUATION_CONTRACT_HIGH_SIGNAL_OK"),
         ([sys.executable, "bom/build_budget_views.py"], "CONDITIONAL_AND_VERIFIED_BUDGET_OK"),
     ]
