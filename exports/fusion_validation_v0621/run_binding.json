@@ -1,16 +1,16 @@
 {
-  "schema_version": "1.0",
-  "package_id": "PPR-v0.6.2.1-LC11",
-  "package_state": "AWAITING_ENGINEERING_SOURCE_COMMIT",
-  "engineering_source_sha": null,
-  "source_git_sha": null,
-  "source_process_manifest_sha256": "c325fbf207a642cd7384040e289c6f4e3f3fb6338357a6058c67476dbe6284b4",
-  "model_manifest_sha256": "c1c41ecc8b67e87b9ee60c33beb4befedea50b0f427a42004bf09fe28ac105bb",
-  "load_case_manifest_sha256": "1582ec812dd4bfdc3c0a90f3c08e3427adee9b1f1b405f629058b064d8196a94",
+  "engineering_source_sha": "e86e436861fd28f4055af1a1b9387bb764a7179b",
   "fusion_result_state": "PENDING_EXTERNAL_EXECUTION",
+  "load_case_manifest_sha256": "1582ec812dd4bfdc3c0a90f3c08e3427adee9b1f1b405f629058b064d8196a94",
+  "model_manifest_sha256": "c1c41ecc8b67e87b9ee60c33beb4befedea50b0f427a42004bf09fe28ac105bb",
+  "package_id": "PPR-v0.6.2.1-LC11",
+  "package_state": "BOUND_TO_ENGINEERING_SOURCE",
   "required_result_binding": [
     "engineering_source_sha",
     "step_sha256",
     "load_case_manifest_sha256"
-  ]
+  ],
+  "schema_version": "1.0",
+  "source_git_sha": "e86e436861fd28f4055af1a1b9387bb764a7179b",
+  "source_process_manifest_sha256": "c325fbf207a642cd7384040e289c6f4e3f3fb6338357a6058c67476dbe6284b4"
 }

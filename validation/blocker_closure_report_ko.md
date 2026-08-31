@@ -13,6 +13,7 @@
 - Spool/traverse: volume-conservation radius, packing factor 0.88 test, explicit homing 후에만 spool eligibility.
 - Process: PLA/PET nominal 95.856–100.243 g/h, starvation 1 s, bridge 2 cycle, passive recirculation 검증.
 - OpenModelica: 실제 1.27.0 DASSL 24/24 PASS, 기존 고하중 envelope 변화 0%, LC11만 신규 case.
+- LC11 Fusion 패키지: 구현 source `e86e436861fd28f4055af1a1b9387bb764a7179b`에 Git object 기준 결박 완료. 실제 Fusion 실행과 결과 상관은 여전히 `PENDING_EXTERNAL_EXECUTION`이다.
 - Mutation: 요구 17/17 재도입 결함이 실제 compile/run 또는 validator에서 거부됨.
 - Hardware-adapter E2E: production class와 timestamp pulse/ADC/PWM 경계를 사용한 필수 37/37 scenario, powered phase E-stop 8종 PASS. 실제 hardware 시험은 아님.
 - CI 성격의 로컬 gate: `python3 validation/run_v0621.py --allow-fusion-pending` 통과. 이는 exact-head CI나 Fusion 완료를 의미하지 않는다.

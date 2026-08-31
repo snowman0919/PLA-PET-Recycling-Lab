@@ -1,16 +1,16 @@
 # Graph Report - PPR  (2026-08-31)
 
 ## Corpus Check
-- 423 files · ~573,713 words
+- 422 files · ~573,136 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2446 nodes · 4134 edges · 335 communities (182 shown, 153 thin omitted)
+- 2446 nodes · 4134 edges · 336 communities (183 shown, 153 thin omitted)
 - Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 665 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f9fde473`
+- Built from commit: `e86e4368`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -65,7 +65,7 @@
 - ActuationShadowSystem
 - slice_prints.py
 - Conditional Cash Target
-- review_keepout_objects
+- main
 - CalibrationReadiness
 - DriveCalibration
 - SpoolerOutput
@@ -342,6 +342,7 @@
 - process_feed_validation_ko.md
 - fusion_validation_v0621/coordinate_system.md
 - results_v0.6.2.1/README.md
+- main
 
 ## God Nodes (most connected - your core abstractions)
 1. `MachineSupervisor` - 162 edges
@@ -358,10 +359,10 @@
 ## Surprising Connections (you probably didn't know these)
 - `CoolingMonitor::update` --conceptually_related_to--> `Common Fault Containment Sequence`  [INFERRED]
   firmware/arduino_mega/src/cooling_monitor.cpp → docs/forming_chain_control_ko.md
-- `MachineSupervisor::enterFormingRundown` --implements--> `Common Fault Containment Sequence`  [INFERRED]
-  firmware/arduino_mega/src/machine_supervisor.cpp → docs/forming_chain_control_ko.md
 - `ScrewMotionMonitor::update` --conceptually_related_to--> `Common Fault Containment Sequence`  [INFERRED]
   firmware/arduino_mega/src/screw_motion_monitor.cpp → docs/forming_chain_control_ko.md
+- `MachineSupervisor::enterFormingRundown` --implements--> `Common Fault Containment Sequence`  [INFERRED]
+  firmware/arduino_mega/src/machine_supervisor.cpp → docs/forming_chain_control_ko.md
 - `Gauge U95 Target` --conceptually_related_to--> `Production Requalification Gate`  [INFERRED]
   requirements/assumptions.md → control/actuation_contract_v0.6.2.json
 - `Hash-Bound Correlation Review` --semantically_similar_to--> `Fusion Hash-Bound Result Intake`  [INFERRED] [semantically similar]
@@ -379,15 +380,15 @@
 - **Turn-Coupled Winding Control Flow** — docs_puller_spooler_traverse_control_ko_cascaded_diameter_and_tach_control, docs_puller_spooler_traverse_control_ko_estimated_spool_radius, docs_puller_spooler_traverse_control_ko_turn_synchronized_traverse, firmware_arduino_mega_src_puller_speed_control_update, firmware_arduino_mega_src_spooler_control_update, firmware_arduino_mega_src_traverse_control_update [INFERRED 0.95]
 - **v0.6.2 Digital Actuation Validation** — changelog_parallel_actuation_hardening_v0_6_2, changelog_closed_loop_actuation_feedback, changelog_runtime_and_mutation_validation, docs_validation_report_ko_actuation_hardening_complete, docs_validation_report_ko_actuation_feedback_gate [INFERRED 0.95]
 
-## Communities (335 total, 153 thin omitted)
+## Communities (336 total, 153 thin omitted)
 
 ### Community 0 - "MachineSupervisor"
 Cohesion: 0.03
 Nodes (68): FormingChainState, TraverseHomingState, MachineSupervisor, calibration_, commanded_heater_power_w_, consecutive_gauge_samples_, cooling_failure_actioned_, cooling_failure_pending_ (+60 more)
 
 ### Community 1 - "generate.py"
-Cohesion: 0.09
-Nodes (23): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+15 more)
+Cohesion: 0.08
+Nodes (24): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+16 more)
 
 ### Community 2 - "geometry.py"
 Cohesion: 0.08
@@ -423,7 +424,7 @@ Nodes (41): CoolingStartupRequest, MachineState, MaterialSession, SupervisorUiSt
 
 ### Community 11 - "generate_fusion_validation.py"
 Cohesion: 0.15
-Nodes (26): compound(), export_geometry(), load_cases(), main(), Path, Shape, sha256(), source_tree_hash() (+18 more)
+Nodes (27): compound(), export_geometry(), load_cases(), main(), Path, Shape, sha256(), source_tree_hash() (+19 more)
 
 ### Community 12 - "Parallel Actuation Hardening v0.6.2"
 Cohesion: 0.10
@@ -577,9 +578,9 @@ Nodes (10): first_layer_preview_svg(), gcode_metrics(), main(), normalize_3mf_zi
 Cohesion: 0.20
 Nodes (10): Absolute Cash Cap With Reserve, Blocked Procurement Allowances, Conditional Cash Target, Conditional Planning Budget, Optional Empirical Validation Cost, Verified Procurement Not Established, External State Holds, Conditional Cash Target Assumption (+2 more)
 
-### Community 50 - "review_keepout_objects"
-Cohesion: 0.19
-Nodes (12): Non-manufacturing motion/service volumes, quarantined from exports., review_keepout_objects(), main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape(), main() (+4 more)
+### Community 50 - "main"
+Cohesion: 0.53
+Nodes (5): main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape()
 
 ### Community 51 - "CalibrationReadiness"
 Cohesion: 0.10
@@ -858,8 +859,8 @@ Cohesion: 0.10
 Nodes (20): SpoolerConfig, core_radius_mm, dancer_target_rad, filament_diameter_mm, full_radius_mm, jam_dwell_ms, ki, kp (+12 more)
 
 ### Community 270 - "generate_manufacturing.py"
-Cohesion: 0.20
-Nodes (17): die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1., 가열기·센서·PTC의 실제 형상과 구매 전 RFQ 계약을 생성한다., Export every non-shredder stock/fabricated machine family. (+9 more)
+Cohesion: 0.18
+Nodes (19): normalize_zip_container(), Remove run time, random UUID and transient FreeCAD object IDs., die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1. (+11 more)
 
 ### Community 271 - "properties"
 Cohesion: 0.11
@@ -1077,6 +1078,10 @@ Nodes (3): type, null, string
 Cohesion: 0.67
 Nodes (3): source_git_sha, pattern, type
 
+### Community 335 - "main"
+Cohesion: 0.83
+Nodes (3): main(), overlap(), require()
+
 ## Knowledge Gaps
 - **1055 isolated node(s):** `revision`, `release_state`, `implementation_state`, `geometry_validation`, `fabrication_validation` (+1050 more)
   These have ≤1 connection - possible missing edges or undocumented components.
@@ -1086,9 +1091,9 @@ Nodes (3): source_git_sha, pattern, type
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `MachineSupervisor` connect `MachineSupervisor` to `InputSnapshot`, `HeaterController`, `machine_supervisor.h`, `ProcessController`, `update`, `MachineViewState`, `ActuatorCommands`, `TraverseController`, `main`, `TraverseHomingController`, `SpoolerController`, `HeaterAllocation`, `ScrewMotionMonitor`, `Arduino Mega Runtime Schedule`, `GaugeReading`, `ScrewMotionOutput`, `TraverseOutput`, `CoolingMonitorOutput`, `DiameterController`, `TraverseHomingOutput`, `ShredderController`, `CalibrationReadiness`, `GaugeController`, `SpoolerOutput`, `PullerCalibration`, `test_hardware_adapter_e2e.cpp`, `PullerSpeedOutput`, `machine_supervisor.cpp`?**
-  _High betweenness centrality (0.135) - this node is a cross-community bridge._
+  _High betweenness centrality (0.139) - this node is a cross-community bridge._
 - **Why does `Cooperative Scheduler` connect `Arduino Mega Runtime Schedule` to `MachineSupervisor`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `MachineSupervisor` (e.g. with `Cooperative Scheduler` and `calibrationAndTraverseScenarios()`) actually correct?**
   _`MachineSupervisor` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 10 inferred relationships involving `assembly_objects()` (e.g. with `main()` and `main()`) actually correct?**

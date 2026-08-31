@@ -5,20 +5,22 @@
 상태로 참조만 하며, 이 디렉터리에서 복제하거나 변경하지 않는다. 기존 필수 case의
 상태는 여전히 `PENDING_EXTERNAL_EXECUTION`이다.
 
-현재 상태는 `AWAITING_ENGINEERING_SOURCE_COMMIT`이다. dirty worktree의 현재 HEAD를
-engineering source로 간주하지 않았으며, 이 상태에서는 Fusion 실행 결과를 release
-증거로 접수할 수 없다. 구현 source commit이 생성된 뒤 다음 명령으로 결박한다.
+현재 상태는 `BOUND_TO_ENGINEERING_SOURCE`이며 engineering source는
+`e86e436861fd28f4055af1a1b9387bb764a7179b`이다. 결박 스크립트가 해당 commit의
+PF-04/PF-05 STEP, process feed assembly STEP 및 원본 manifest 바이트를 Git object에서
+검증했다. 이 결박은 Fusion 실행 허용 조건만 충족하며, 실제 Fusion 결과나 release
+합격을 의미하지 않는다.
 
 ```bash
 python3 exports/fusion_validation_v0621/scripts/finalize_engineering_binding.py \
-  --repo-root . --engineering-source-sha <40자리-구현-source-commit-SHA>
+  --repo-root . \
+  --engineering-source-sha e86e436861fd28f4055af1a1b9387bb764a7179b
 python3 fusion_worker/result_validation/validate_fusion_v0621_package.py \
   exports/fusion_validation_v0621
 ```
 
-결박 스크립트는 지정 commit의 PF-04/PF-05 STEP, process feed assembly STEP 및 원본
-manifest 바이트가 이 패키지와 정확히 같은지 Git object에서 검증한다. 일치하지 않으면
-아무 파일도 쓰지 않고 실패한다.
+다른 구현 commit으로 재결박할 때도 같은 검증을 거치며, 입력이 일치하지 않으면 아무
+파일도 쓰지 않고 실패한다.
 
 ## 해석 범위
 

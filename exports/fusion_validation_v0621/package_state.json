@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.0",
+  "engineering_source_sha": "e86e436861fd28f4055af1a1b9387bb764a7179b",
+  "fusion_execution_permitted": true,
   "package_id": "PPR-v0.6.2.1-LC11",
-  "package_state": "AWAITING_ENGINEERING_SOURCE_COMMIT",
-  "engineering_source_sha": null,
-  "fusion_execution_permitted": false,
-  "reason": "dirty working tree is not an engineering source lock; run the final binding script after the implementation source commit exists"
+  "package_state": "BOUND_TO_ENGINEERING_SOURCE",
+  "reason": "package geometry and source manifest match immutable Git objects",
+  "schema_version": "1.0"
 }
