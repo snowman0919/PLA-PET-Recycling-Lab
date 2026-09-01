@@ -56,6 +56,7 @@ def collect_paths(root: Path) -> list[Path]:
         and not path.match("validation/results/ci_*.json")
         and path.name != "artifact_reproducibility.json"
         and "simulation/openmodelica/results/raw" not in path.as_posix()
+        and "simulation/openmodelica/results_v0.6.2.1/raw" not in path.as_posix()
         and not ("exports/print/slicing_previews" in path.as_posix() and path.suffix == ".gcode")
     })
 

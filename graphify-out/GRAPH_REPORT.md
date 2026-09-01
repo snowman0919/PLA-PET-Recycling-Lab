@@ -1,16 +1,16 @@
 # Graph Report - PPR  (2026-09-01)
 
 ## Corpus Check
-- 431 files · ~579,383 words
+- 431 files · ~578,919 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2518 nodes · 4259 edges · 342 communities (190 shown, 152 thin omitted)
+- 2518 nodes · 4259 edges · 343 communities (191 shown, 152 thin omitted)
 - Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 665 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `a22f06ea`
+- Built from commit: `26d48952`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -65,7 +65,7 @@
 - ActuationShadowSystem
 - slice_prints.py
 - Conditional Cash Target
-- review_keepout_objects
+- main
 - CalibrationReadiness
 - DriveCalibration
 - SpoolerOutput
@@ -348,7 +348,8 @@
 - started_utc
 - build_release_metadata_v0621.py
 - element_count
-- source_git_sha
+- main
+- run_id
 
 ## God Nodes (most connected - your core abstractions)
 1. `MachineSupervisor` - 162 edges
@@ -386,15 +387,15 @@
 - **Turn-Coupled Winding Control Flow** — docs_puller_spooler_traverse_control_ko_cascaded_diameter_and_tach_control, docs_puller_spooler_traverse_control_ko_estimated_spool_radius, docs_puller_spooler_traverse_control_ko_turn_synchronized_traverse, firmware_arduino_mega_src_puller_speed_control_update, firmware_arduino_mega_src_spooler_control_update, firmware_arduino_mega_src_traverse_control_update [INFERRED 0.95]
 - **v0.6.2 Digital Actuation Validation** — changelog_parallel_actuation_hardening_v0_6_2, changelog_closed_loop_actuation_feedback, changelog_runtime_and_mutation_validation, docs_validation_report_ko_actuation_hardening_complete, docs_validation_report_ko_actuation_feedback_gate [INFERRED 0.95]
 
-## Communities (342 total, 152 thin omitted)
+## Communities (343 total, 152 thin omitted)
 
 ### Community 0 - "MachineSupervisor"
 Cohesion: 0.03
 Nodes (67): FormingChainState, TraverseHomingState, MachineSupervisor, calibration_, commanded_heater_power_w_, consecutive_gauge_samples_, cooling_failure_actioned_, cooling_failure_pending_ (+59 more)
 
 ### Community 1 - "generate.py"
-Cohesion: 0.09
-Nodes (23): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+15 more)
+Cohesion: 0.08
+Nodes (24): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+16 more)
 
 ### Community 2 - "geometry.py"
 Cohesion: 0.08
@@ -434,7 +435,7 @@ Nodes (41): CoolingStartupRequest, MachineState, MaterialSession, SupervisorUiSt
 
 ### Community 11 - "generate_fusion_validation.py"
 Cohesion: 0.15
-Nodes (26): compound(), export_geometry(), load_cases(), main(), Path, Shape, sha256(), source_tree_hash() (+18 more)
+Nodes (27): compound(), export_geometry(), load_cases(), main(), Path, Shape, sha256(), source_tree_hash() (+19 more)
 
 ### Community 12 - "Parallel Actuation Hardening v0.6.2"
 Cohesion: 0.10
@@ -588,9 +589,9 @@ Nodes (10): first_layer_preview_svg(), gcode_metrics(), main(), normalize_3mf_zi
 Cohesion: 0.20
 Nodes (10): Absolute Cash Cap With Reserve, Blocked Procurement Allowances, Conditional Cash Target, Conditional Planning Budget, Optional Empirical Validation Cost, Verified Procurement Not Established, External State Holds, Conditional Cash Target Assumption (+2 more)
 
-### Community 50 - "review_keepout_objects"
-Cohesion: 0.19
-Nodes (12): Non-manufacturing motion/service volumes, quarantined from exports., review_keepout_objects(), main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape(), main() (+4 more)
+### Community 50 - "main"
+Cohesion: 0.53
+Nodes (5): main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape()
 
 ### Community 51 - "CalibrationReadiness"
 Cohesion: 0.10
@@ -869,8 +870,8 @@ Cohesion: 0.10
 Nodes (20): SpoolerConfig, core_radius_mm, dancer_target_rad, filament_diameter_mm, full_radius_mm, jam_dwell_ms, ki, kp (+12 more)
 
 ### Community 270 - "generate_manufacturing.py"
-Cohesion: 0.20
-Nodes (17): die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1., 가열기·센서·PTC의 실제 형상과 구매 전 RFQ 계약을 생성한다., Export every non-shredder stock/fabricated machine family. (+9 more)
+Cohesion: 0.18
+Nodes (19): normalize_zip_container(), Remove run time, random UUID and transient FreeCAD object IDs., die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1. (+11 more)
 
 ### Community 271 - "properties"
 Cohesion: 0.12
@@ -1086,7 +1087,7 @@ Nodes (5): format, type, completed_utc, null, string
 
 ### Community 326 - "properties"
 Cohesion: 0.17
-Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, run_binding_sha256, run_id, type (+4 more)
+Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, run_binding_sha256, source_git_sha, type (+4 more)
 
 ### Community 335 - "enum"
 Cohesion: 0.50
@@ -1112,9 +1113,13 @@ Nodes (3): load(), main(), require()
 Cohesion: 0.67
 Nodes (3): minimum, type, element_count
 
-### Community 341 - "source_git_sha"
+### Community 341 - "main"
+Cohesion: 0.83
+Nodes (3): main(), overlap(), require()
+
+### Community 342 - "run_id"
 Cohesion: 0.67
-Nodes (3): source_git_sha, pattern, type
+Nodes (3): run_id, minLength, type
 
 ## Knowledge Gaps
 - **1074 isolated node(s):** `revision`, `release_state`, `implementation_state`, `geometry_validation`, `fabrication_validation` (+1069 more)
