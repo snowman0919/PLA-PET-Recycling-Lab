@@ -115,6 +115,10 @@ def main():
     run([sys.executable, "simulation/openmodelica/postprocess/summarize_results.py"], "OPENMODELICA_ACCEPTANCE_OK")
     run([sys.executable, "simulation/openmodelica/postprocess/generate_plots.py"], "OPENMODELICA_PLOTS_OK")
     run(nix("python3 analysis/structural/run_load_checks.py"), "STRUCTURAL_SCREENING_OK")
+    # nominal_state_trace.csv is intentionally ignored because it is a large,
+    # deterministic artifact.  Fresh CI clones therefore must regenerate the
+    # complete process-feed evidence set before the manifest comparison.
+    run([sys.executable, "analysis/process_feed/run_feed_surrogate.py"], "PROCESS_FEED_VIRTUAL_PASS")
     run(freecad("cad/freecad/compact/generate_fusion_validation.py"), "FUSION_NEUTRAL_PACKAGE_OK")
 
     if baseline.get("geometry_change_required", True) and (
