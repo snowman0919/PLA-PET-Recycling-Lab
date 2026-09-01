@@ -27,7 +27,7 @@ PATTERNS = (
     "exports/step/*.step",
     "exports/cnc/**/*.FCStd", "exports/cnc/**/*.step", "exports/cnc/**/*.dxf", "exports/cnc/**/*.md", "exports/cnc/**/*.pdf", "exports/cnc/*.csv",
     "exports/drive_interface/**/*", "exports/jigs/**/*",
-    "exports/fusion_validation/**/*", "fusion_worker/**/*",
+    "exports/fusion_validation/**/*", "exports/fusion_handoff_lock_v0.6.2.1.json", "fusion_worker/**/*",
     "exports/print/**/*.FCStd", "exports/print/**/*.step", "exports/print/**/*.stl", "exports/print/**/*.3mf",
     "exports/print/**/*.md", "exports/print/**/*.py", "exports/print/**/*.svg", "exports/print/**/*.csv", "exports/print/*.csv",
     "exports/print/slicer_profiles/*",

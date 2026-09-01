@@ -23,6 +23,13 @@ def git(*args: str) -> str:
     ).stdout.strip()
 
 
+def committed_sha256(commit: str, relative: str) -> str:
+    payload = subprocess.check_output(
+        ["git", "show", f"{commit}:{relative}"], cwd=ROOT, stderr=subprocess.PIPE
+    )
+    return hashlib.sha256(payload).hexdigest()
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -165,6 +172,33 @@ def main() -> None:
     elif not fusion_pass or blockers["P0-L"]["status"] != "PASS":
         raise AssertionError("Fusion REQUIRED/COMPLETED policy에 actual correlation PASS 없음")
 
+    handoff = load_json("exports/fusion_handoff_lock_v0.6.2.1.json")
+    handoff_source = handoff.get("engineering_source_sha")
+    if (
+        handoff.get("state") != "IMMUTABLE_HANDOFF_BOUND"
+        or handoff.get("fusion_gate_policy") != selected_policy
+        or handoff.get("fusion_solver_pass") is not False
+        or not isinstance(handoff_source, str)
+    ):
+        raise AssertionError("최종 Fusion handoff lock 상태 불일치")
+    if git("rev-parse", f"{handoff_source}^{{tree}}") != handoff.get("source_tree_hash"):
+        raise AssertionError("최종 Fusion handoff source tree hash 불일치")
+    if subprocess.run(
+        ["git", "merge-base", "--is-ancestor", handoff_source, head], cwd=ROOT
+    ).returncode:
+        raise AssertionError("exact HEAD가 최종 Fusion handoff source보다 이전임")
+    locked_files: dict[str, str] = dict(handoff.get("worker_contract_sha256", {}))
+    for package in handoff.get("packages", {}).values():
+        locked_files.update(package.get("files", {}))
+    if not locked_files:
+        raise AssertionError("최종 Fusion handoff file hash 없음")
+    for relative, expected in locked_files.items():
+        path = ROOT / relative
+        if not path.is_file() or sha256(path) != expected:
+            raise AssertionError(f"최종 Fusion handoff 현재 파일 hash drift: {relative}")
+        if committed_sha256(handoff_source, relative) != expected:
+            raise AssertionError(f"최종 Fusion handoff Git object hash drift: {relative}")
+
     manifest = load_json("artifacts/manifest_v0.6.2.1.json")
     if manifest.get("fusion_gate_policy") != selected_policy:
         raise AssertionError("artifact manifest Fusion policy 불일치")
@@ -215,6 +249,9 @@ def main() -> None:
         "fusion_gate_policy": selected_policy,
         "fusion_policy_sha256": sha256(ROOT / "validation/fusion_policy_v0.6.2.1.json"),
         "fusion_status": fusion.get("status"),
+        "fusion_final_handoff_source_sha": handoff_source,
+        "fusion_final_handoff_source_tree_hash": handoff.get("source_tree_hash"),
+        "fusion_final_handoff_input_set_sha256": handoff.get("handoff_input_set_sha256"),
         "release_states": release_states,
         "hardware_adapter_scenarios": adapter.get("scenario_count"),
         "mutation_count": mutation.get("mutation_count"),

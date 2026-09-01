@@ -26,6 +26,7 @@ def main() -> None:
     policy = load("validation/fusion_policy_v0.6.2.1.json")
     gate = load("validation/results/fusion_release_gate_v0.6.2.1.json")
     binding = load("exports/fusion_validation_v0621/run_binding.json")
+    handoff = load("exports/fusion_handoff_lock_v0.6.2.1.json")
     with (ROOT / "validation/blocker_closure_matrix.csv").open(newline="") as handle:
         blockers = {row["blocker_id"]: row for row in csv.DictReader(handle)}
     require(policy.get("fusion_gate_policy") == "DEFERRED", "release policy must be DEFERRED")
@@ -33,6 +34,8 @@ def main() -> None:
     require(gate.get("gate_outcome") == "DEFERRED", "deferred gate outcome mismatch")
     require(gate.get("deferred_is_solver_pass") is False, "deferred cannot be solver pass")
     require(gate.get("package_integrity", {}).get("status") == "PASS", "Fusion package integrity")
+    require(handoff.get("state") == "IMMUTABLE_HANDOFF_BOUND", "final Fusion handoff lock")
+    require(handoff.get("fusion_solver_pass") is False, "handoff deferred cannot be solver pass")
     require(all(blockers[f"P0-{letter}"]["status"].startswith("PASS") for letter in "ABCDEFGHIJK"),
             "P0-A~K non-Fusion blocker open")
     require(blockers["P0-L"]["status"] == "DEFERRED_USER_DECISION", "P0-L deferred status")
@@ -53,6 +56,9 @@ def main() -> None:
         "fusion_package_integrity": "PASS",
         "fusion_result_presence": gate.get("present_results", {}).get("presence"),
         "fusion_engineering_source_sha": binding.get("engineering_source_sha"),
+        "fusion_final_handoff_source_sha": handoff.get("engineering_source_sha"),
+        "fusion_final_handoff_source_tree_hash": handoff.get("source_tree_hash"),
+        "fusion_final_handoff_input_set_sha256": handoff.get("handoff_input_set_sha256"),
         "price_state": "INFORMATIONAL_NON_BLOCKING",
         "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
         "procurement_gate": "USER_APPROVAL_REQUIRED",

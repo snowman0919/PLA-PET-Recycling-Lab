@@ -74,6 +74,11 @@ def validate_schema(manifest: dict) -> None:
 
 
 def main() -> None:
+    final_lock_path = ROOT / "exports/fusion_handoff_lock_v0.6.2.1.json"
+    require(final_lock_path.is_file(), "final immutable handoff lock missing")
+    final_lock = json.loads(final_lock_path.read_text())
+    require(final_lock.get("state") == "IMMUTABLE_HANDOFF_BOUND", "final handoff state")
+    require(final_lock.get("fusion_solver_pass") is False, "deferred handoff cannot be solver pass")
     mandatory = {
         "LC02": "static_stress",
         "LC04": "static_stress",
@@ -100,6 +105,20 @@ def main() -> None:
     require(set(legacy_runs) == set(mandatory), "mandatory legacy set")
     for manifest in [*legacy_runs.values(), combined, lc11]:
         validate_schema(manifest)
+        require(
+            manifest.get("final_handoff_source_sha") == final_lock["engineering_source_sha"],
+            "run manifest final handoff source SHA",
+        )
+        require(
+            manifest.get("final_handoff_source_tree_hash") == final_lock["source_tree_hash"],
+            "run manifest final handoff source tree",
+        )
+        require(manifest.get("fusion_gate_policy") == "DEFERRED", "run manifest deferred policy")
+        require(
+            manifest.get("fusion_execution_state")
+            == "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE",
+            "run manifest deferred execution state",
+        )
     reject("exports/fusion_validation", "LC10", "modal", "허용되지 않은 study type")
     reject("exports/fusion_validation", "LC08", "thermal_stress", "LC06 pressure 결박")
     print("FUSION_WORKER_HANDOFF_V0621_PASS cases=LC02,LC04,LC05,LC07,LC08,LC08+LC06,LC10,LC11")

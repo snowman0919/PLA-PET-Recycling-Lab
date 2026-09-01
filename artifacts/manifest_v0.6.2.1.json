@@ -7,7 +7,11 @@
   "fusion_gate_policy": "DEFERRED",
   "cross_solver_state": "CROSS_SOLVER_VALIDATION_DEFERRED",
   "fusion_state": "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE",
-  "artifact_count": 130,
+  "final_handoff_state": "IMMUTABLE_HANDOFF_BOUND",
+  "final_handoff_engineering_source_sha": "a22f06ea534cad9e99949872e550d2789d49ef9f",
+  "final_handoff_source_tree_hash": "49fd972b95aa9647773aa4a347c9ca6531cc134b",
+  "final_handoff_input_set_sha256": "d311156905635edb9bd7585c1540e1a81cfc3262a1359553260bffd03ec88efa",
+  "artifact_count": 131,
   "generation_commands": [
     "python3 control/generate_tach_contract.py",
     "nix develop --command FreeCADCmd cad/freecad/compact/process_v0621.py",
@@ -113,8 +117,8 @@
     },
     {
       "path": "docs/fusion_deferred_policy_v0.6.2.1_ko.md",
-      "sha256": "992ebbd7415b4fad93bc493a407756d216b68a38bb41b5ebd9aab58f8bb440b4",
-      "size_bytes": 2239
+      "sha256": "74590e7e206b1904ff25f6a261bdb730c61f01319a7dfee89acacae3149ed221",
+      "size_bytes": 2966
     },
     {
       "path": "docs/hardware_adapter_validation_ko.md",
@@ -140,6 +144,11 @@
       "path": "exports/fabrication/interface_catalog.csv",
       "sha256": "2b553443b200a80ce3c87f0d11d3b2c737f26886a3339e6a1fe70be66267b6dc",
       "size_bytes": 10872
+    },
+    {
+      "path": "exports/fusion_handoff_lock_v0.6.2.1.json",
+      "sha256": "057c03856dd3d59ccf2f169cd80a400784834089abaa6315410d7232566b54b4",
+      "size_bytes": 13092
     },
     {
       "path": "exports/fusion_validation_v0621/engineering_source_lock.json",
@@ -583,18 +592,18 @@
     },
     {
       "path": "validation/blocker_closure_report_ko.md",
-      "sha256": "a17e07384a8d996f7d56099071ba3ee295c74f386fd7d7fc9959478480235859",
-      "size_bytes": 3357
+      "sha256": "f41b26e085ffd55bee0ff0c515efe944f14930820fdd0703d5358ffa43d61d1a",
+      "size_bytes": 3618
     },
     {
       "path": "validation/build_release_metadata_v0621.py",
-      "sha256": "090d058d1a981be493e8fe293d4714ede06f8816c57ebc6fbcd21673ddf95afc",
-      "size_bytes": 3152
+      "sha256": "d5786ef1c27153c82e4c0fa5997b66044b86147dd21b7c1f9a6b415f96bbe266",
+      "size_bytes": 3660
     },
     {
       "path": "validation/exact_head_evidence_v0621.py",
-      "sha256": "94b7e1e44a2101099d9423e832212aa9ca0c33b6819649316c5d6e4ef9841305",
-      "size_bytes": 11836
+      "sha256": "e72807b6134ef8127eadd048fe5a6dd860168664c1ce7c592a6bc0bab715f961",
+      "size_bytes": 13818
     },
     {
       "path": "validation/fusion_external_blocker_v0.6.2.1.json",
@@ -608,13 +617,13 @@
     },
     {
       "path": "validation/fusion_release_gate_v0621.py",
-      "sha256": "11ac3a90ad20004e098dfa3758506d6d93dcbb6ca23b3c5e98846ce5a9296d72",
-      "size_bytes": 13157
+      "sha256": "cd34b30a5dea922dd74940fe17a7af41b5401559c82641e60299a665e521c26b",
+      "size_bytes": 15464
     },
     {
       "path": "validation/fusion_worker_handoff_v0621.py",
-      "sha256": "d9aade5984498f4cec2eeed47f653dbd4dd10cdeb89c4aaea26e31681bb9c142",
-      "size_bytes": 4432
+      "sha256": "3ecde326a4c838cd89e8df21f02108f95ea2c4e8e9d80ec3657e5180929a2f3d",
+      "size_bytes": 5467
     },
     {
       "path": "validation/interface_catalog_checks.py",
@@ -623,8 +632,8 @@
     },
     {
       "path": "validation/release_checklist.md",
-      "sha256": "43cabaa533718975c83b549c8bd404af6e841c781d9e74a5f005306f3068f480",
-      "size_bytes": 5502
+      "sha256": "a11cbeb45b000a39579db238a9ed3f46e1c8c3fbf20f919916a52e9839012577",
+      "size_bytes": 5654
     },
     {
       "path": "validation/results/budget_policy_v0.6.2.1.json",
@@ -648,8 +657,8 @@
     },
     {
       "path": "validation/results/release_metadata_v0.6.2.1.json",
-      "sha256": "28e2719281e54eedb3ca9ae0fd43ffc7d19c05d1e0f4b6d12fa28a6bf823592b",
-      "size_bytes": 1117
+      "sha256": "2e6f4126858c1712618cdc160108327e39ff2f73490ce85266a0d2547f0fba97",
+      "size_bytes": 1396
     },
     {
       "path": "validation/results/v0621_mutation_tests.json",

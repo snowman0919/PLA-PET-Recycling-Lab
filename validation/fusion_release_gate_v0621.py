@@ -22,6 +22,7 @@ POLICIES = {"REQUIRED", "DEFERRED", "COMPLETED"}
 POLICY_PATH = ROOT / "validation/fusion_policy_v0.6.2.1.json"
 LEGACY_RESULTS = ROOT / "exports/fusion_validation/results/fusion_results.csv"
 LC11_RESULTS = ROOT / "exports/fusion_validation_v0621/results/fusion_results.csv"
+FINAL_HANDOFF_LOCK = ROOT / "exports/fusion_handoff_lock_v0.6.2.1.json"
 
 
 def sha256(path: Path) -> str:
@@ -70,6 +71,43 @@ def validate_package_integrity() -> dict:
         raise AssertionError("legacy Fusion result manifest load binding 불일치")
     if result_manifest.get("model_manifest_sha256") != binding.get("model_manifest_sha256"):
         raise AssertionError("legacy Fusion result manifest model binding 불일치")
+    final_lock = load_json(FINAL_HANDOFF_LOCK)
+    final_source = final_lock.get("engineering_source_sha")
+    if (
+        final_lock.get("state") != "IMMUTABLE_HANDOFF_BOUND"
+        or final_lock.get("fusion_gate_policy") != "DEFERRED"
+        or final_lock.get("fusion_solver_pass") is not False
+        or not isinstance(final_source, str)
+    ):
+        raise AssertionError("최종 Fusion handoff lock 상태 불일치")
+    tree = subprocess.run(
+        ["git", "rev-parse", f"{final_source}^{{tree}}"], cwd=ROOT,
+        text=True, capture_output=True,
+    )
+    if tree.returncode or tree.stdout.strip() != final_lock.get("source_tree_hash"):
+        raise AssertionError("최종 Fusion handoff source tree hash 불일치")
+    if subprocess.run(
+        ["git", "merge-base", "--is-ancestor", final_source, "HEAD"], cwd=ROOT
+    ).returncode:
+        raise AssertionError("현재 checkout이 최종 Fusion handoff source보다 이전임")
+    locked_files: dict[str, str] = dict(final_lock.get("worker_contract_sha256", {}))
+    for package in final_lock.get("packages", {}).values():
+        locked_files.update(package.get("files", {}))
+    if not locked_files:
+        raise AssertionError("최종 Fusion handoff 파일 hash 없음")
+    for relative, expected in locked_files.items():
+        path = ROOT / relative
+        if not path.is_file() or sha256(path) != expected:
+            raise AssertionError(f"최종 Fusion handoff hash drift: {relative}")
+        try:
+            committed = subprocess.check_output(
+                ["git", "show", f"{final_source}:{relative}"], cwd=ROOT,
+                stderr=subprocess.PIPE,
+            )
+        except subprocess.CalledProcessError as error:
+            raise AssertionError(f"최종 Fusion source Git object 없음: {relative}") from error
+        if hashlib.sha256(committed).hexdigest() != expected:
+            raise AssertionError(f"최종 Fusion source Git object drift: {relative}")
     return {
         "status": "PASS",
         "legacy_model_count": len(models),
@@ -78,6 +116,10 @@ def validate_package_integrity() -> dict:
         "lc11_engineering_source_sha": load_json(
             ROOT / "exports/fusion_validation_v0621/run_binding.json"
         )["engineering_source_sha"],
+        "final_handoff_state": final_lock["state"],
+        "final_handoff_engineering_source_sha": final_source,
+        "final_handoff_source_tree_hash": final_lock["source_tree_hash"],
+        "final_handoff_input_set_sha256": final_lock["handoff_input_set_sha256"],
     }
 
 

@@ -60,6 +60,7 @@ EXPLICIT_FILES = [
     "exports/fusion_validation_v0621/run_binding.json",
     "exports/fusion_validation_v0621/model_manifest.csv",
     "exports/fusion_validation_v0621/load_case_manifest.csv",
+    "exports/fusion_handoff_lock_v0.6.2.1.json",
     "fusion_worker/README.md",
     "fusion_worker/cua_playbooks/fusion_execution.md",
     "fusion_worker/run_manifest.schema.json",
@@ -119,6 +120,7 @@ def main() -> None:
     ]
     binding = json.loads((ROOT / "exports/fusion_validation_v0621/run_binding.json").read_text())
     policy = json.loads((ROOT / "validation/fusion_policy_v0.6.2.1.json").read_text())
+    handoff = json.loads((ROOT / "exports/fusion_handoff_lock_v0.6.2.1.json").read_text())
     payload = {
         "schema_version": 1,
         "revision": "technical-blocker-closure-v0.6.2.1",
@@ -128,6 +130,10 @@ def main() -> None:
         "fusion_gate_policy": policy.get("fusion_gate_policy"),
         "cross_solver_state": "CROSS_SOLVER_VALIDATION_DEFERRED",
         "fusion_state": "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE",
+        "final_handoff_state": handoff.get("state"),
+        "final_handoff_engineering_source_sha": handoff.get("engineering_source_sha"),
+        "final_handoff_source_tree_hash": handoff.get("source_tree_hash"),
+        "final_handoff_input_set_sha256": handoff.get("handoff_input_set_sha256"),
         "artifact_count": len(artifacts),
         "generation_commands": GENERATION_COMMANDS,
         "artifacts": artifacts,

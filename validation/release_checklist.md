@@ -11,6 +11,7 @@
 - [x] P0-J combined production-controller hardware-adapter 37/37 host scenario evidence
 - [x] P0-K OpenModelica 1.27.0 DASSL shadow 24/24와 Fusion delta 분류
 - [x] P0-L을 사용자 결정으로 `DEFERRED_USER_DECISION` 분류; package integrity와 present-result fail-closed gate 유지
+- [x] 최종 engineering source `a22f06ea534cad9e99949872e550d2789d49ef9f`에 Fusion handoff STEP/load/material/contact/constraint/worker 계약 결박
 - [ ] final exact HEAD CI-LIGHT/CI-FULL와 artifact reproducibility
 - [ ] PR review 및 merge
 

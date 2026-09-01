@@ -46,3 +46,15 @@ python3 validation/exact_head_evidence_v0621.py \
 후속 MacBook stage는 동결된 최종 handoff package로만 실행한다. FreeCAD Python은 계속
 지배 형상이며 Inventor는 독립 consumer로만 사용한다. 실제 결과가 생기기 전에는 이
 정책 문서를 solver 증거나 안전 인증으로 사용할 수 없다.
+
+## 최종 handoff lock
+
+두 중립 패키지와 worker 계약은 `exports/fusion_handoff_lock_v0.6.2.1.json`에 결박했다.
+최종 engineering source commit은
+`a22f06ea534cad9e99949872e550d2789d49ef9f`, Git source tree hash는
+`49fd972b95aa9647773aa4a347c9ca6531cc134b`, 전체 handoff 입력 집합 SHA-256은
+`d311156905635edb9bd7585c1540e1a81cfc3262a1359553260bffd03ec88efa`다.
+이 lock은 legacy와 LC11의 STEP, load manifest, material/contact/constraint, result schema,
+run binding 및 worker validator 바이트를 함께 검사한다. 후속 외부 실행 checkout은 위
+engineering source commit의 descendant여야 하며, 기존 package 내부 provenance SHA는
+감사 추적을 위해 그대로 보존한다.
