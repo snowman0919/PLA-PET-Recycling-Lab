@@ -50,6 +50,8 @@ jobs:
             validation/results/
             simulation/openmodelica/results/
             simulation/openmodelica/results_v0.6.2.1/
+            !simulation/openmodelica/results/raw/**
+            !simulation/openmodelica/results_v0.6.2.1/raw/**
             analysis/structural/results/
             analysis/cross_solver/
             exports/fusion_validation/
