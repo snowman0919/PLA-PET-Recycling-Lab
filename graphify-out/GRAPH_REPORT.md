@@ -1,7 +1,7 @@
 # Graph Report - PPR  (2026-09-01)
 
 ## Corpus Check
-- 431 files · ~578,919 words
+- 431 files · ~578,435 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `26d48952`
+- Built from commit: `3cd1d88a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -65,7 +65,7 @@
 - ActuationShadowSystem
 - slice_prints.py
 - Conditional Cash Target
-- main
+- review_keepout_objects
 - CalibrationReadiness
 - DriveCalibration
 - SpoolerOutput
@@ -127,10 +127,10 @@
 - case_id
 - load_case_manifest_sha256
 - FeedDeliveryConfig
-- solver_version
+- HeaterOutput
 - TachEstimatorConfig
 - step_file
-- step_sha256
+- run_binding_sha256
 - Compact Full Assembly Front
 - generate_runner.py
 - assembly_collision_audit.py
@@ -348,7 +348,7 @@
 - started_utc
 - build_release_metadata_v0621.py
 - element_count
-- main
+- source_git_sha
 - run_id
 
 ## God Nodes (most connected - your core abstractions)
@@ -394,8 +394,8 @@ Cohesion: 0.03
 Nodes (67): FormingChainState, TraverseHomingState, MachineSupervisor, calibration_, commanded_heater_power_w_, consecutive_gauge_samples_, cooling_failure_actioned_, cooling_failure_pending_ (+59 more)
 
 ### Community 1 - "generate.py"
-Cohesion: 0.08
-Nodes (24): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+16 more)
+Cohesion: 0.09
+Nodes (23): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+15 more)
 
 ### Community 2 - "geometry.py"
 Cohesion: 0.08
@@ -406,8 +406,8 @@ Cohesion: 0.06
 Nodes (58): coolingSnapshotHealthy(), gaugeWithinProductionTolerance(), InputSnapshot, cooling_feedback_valid, dancer_angle_rad, fan1_rpm, fan1_tach_valid, fan2_rpm (+50 more)
 
 ### Community 4 - "HeaterController"
-Cohesion: 0.12
-Nodes (21): clampf(), MachineState, HeaterController, applyAllocation, canClearFault, clearFault, commitFaultClear, latched_faults_ (+13 more)
+Cohesion: 0.22
+Nodes (12): clampf(), MachineState, HeaterController, applyAllocation, canClearFault, clearFault, commitFaultClear, latched_faults_ (+4 more)
 
 ### Community 5 - "machine_supervisor.h"
 Cohesion: 0.28
@@ -435,7 +435,7 @@ Nodes (41): CoolingStartupRequest, MachineState, MaterialSession, SupervisorUiSt
 
 ### Community 11 - "generate_fusion_validation.py"
 Cohesion: 0.15
-Nodes (27): compound(), export_geometry(), load_cases(), main(), Path, Shape, sha256(), source_tree_hash() (+19 more)
+Nodes (26): compound(), export_geometry(), load_cases(), main(), Path, Shape, sha256(), source_tree_hash() (+18 more)
 
 ### Community 12 - "Parallel Actuation Hardening v0.6.2"
 Cohesion: 0.10
@@ -566,7 +566,7 @@ Cohesion: 0.18
 Nodes (10): Mandatory Safety Parts, Actuator Feedback Topology, Arduino Mega 2560 controller wiring contract, Mega 2560 Controller Wiring Contract, Cooling Feedback Commissioning Hold, Fan-First Start Proof, Hardwired Safety Chain, Inputs and commissioning (+2 more)
 
 ### Community 44 - "hardware_interfaces.h"
-Cohesion: 0.11
+Cohesion: 0.10
 Nodes (14): ActuatorBackend, apply, CoolingFeedback, current_amp, valid, CoolingFeedbackBackend, read, TemperatureBackend (+6 more)
 
 ### Community 45 - "required"
@@ -589,9 +589,9 @@ Nodes (10): first_layer_preview_svg(), gcode_metrics(), main(), normalize_3mf_zi
 Cohesion: 0.20
 Nodes (10): Absolute Cash Cap With Reserve, Blocked Procurement Allowances, Conditional Cash Target, Conditional Planning Budget, Optional Empirical Validation Cost, Verified Procurement Not Established, External State Holds, Conditional Cash Target Assumption (+2 more)
 
-### Community 50 - "main"
-Cohesion: 0.53
-Nodes (5): main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape()
+### Community 50 - "review_keepout_objects"
+Cohesion: 0.19
+Nodes (12): Non-manufacturing motion/service volumes, quarantined from exports., review_keepout_objects(), main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape(), main() (+4 more)
 
 ### Community 51 - "CalibrationReadiness"
 Cohesion: 0.10
@@ -833,9 +833,9 @@ Nodes (3): pattern, type, load_case_manifest_sha256
 Cohesion: 0.08
 Nodes (24): FeedDeliveryConfig, agitator_bridge_current_a, agitator_max_rpm, agitator_minimum_pwm, agitator_to_auger_ratio, agitator_trip_current_a, anomaly_dwell_ms, auger_jam_current_a (+16 more)
 
-### Community 112 - "solver_version"
-Cohesion: 0.67
-Nodes (3): solver_version, minLength, type
+### Community 112 - "HeaterOutput"
+Cohesion: 0.22
+Nodes (9): HeaterOutput, allocated_duty_percent, allocation_deficit_percent, duty_percent, fault_bits, integrator_state, requested_duty_percent, saturation_state (+1 more)
 
 ### Community 113 - "TachEstimatorConfig"
 Cohesion: 0.14
@@ -845,9 +845,9 @@ Nodes (13): TachEstimatorConfig, count_min_intervals, count_window_us, expected_
 Cohesion: 0.67
 Nodes (3): step_file, pattern, type
 
-### Community 115 - "step_sha256"
+### Community 115 - "run_binding_sha256"
 Cohesion: 0.67
-Nodes (3): step_sha256, pattern, type
+Nodes (3): run_binding_sha256, pattern, type
 
 ### Community 116 - "Compact Full Assembly Front"
 Cohesion: 1.00
@@ -870,8 +870,8 @@ Cohesion: 0.10
 Nodes (20): SpoolerConfig, core_radius_mm, dancer_target_rad, filament_diameter_mm, full_radius_mm, jam_dwell_ms, ki, kp (+12 more)
 
 ### Community 270 - "generate_manufacturing.py"
-Cohesion: 0.18
-Nodes (19): normalize_zip_container(), Remove run time, random UUID and transient FreeCAD object IDs., die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1. (+11 more)
+Cohesion: 0.20
+Nodes (17): die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1., 가열기·센서·PTC의 실제 형상과 구매 전 RFQ 계약을 생성한다., Export every non-shredder stock/fabricated machine family. (+9 more)
 
 ### Community 271 - "properties"
 Cohesion: 0.12
@@ -1087,7 +1087,7 @@ Nodes (5): format, type, completed_utc, null, string
 
 ### Community 326 - "properties"
 Cohesion: 0.17
-Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, run_binding_sha256, source_git_sha, type (+4 more)
+Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, solver_version, step_sha256, type (+4 more)
 
 ### Community 335 - "enum"
 Cohesion: 0.50
@@ -1113,9 +1113,9 @@ Nodes (3): load(), main(), require()
 Cohesion: 0.67
 Nodes (3): minimum, type, element_count
 
-### Community 341 - "main"
-Cohesion: 0.83
-Nodes (3): main(), overlap(), require()
+### Community 341 - "source_git_sha"
+Cohesion: 0.67
+Nodes (3): source_git_sha, pattern, type
 
 ### Community 342 - "run_id"
 Cohesion: 0.67
