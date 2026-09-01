@@ -185,9 +185,11 @@ def test_artifacts_and_locks():
     for rel in ("docs/build_manual_ko.pdf", "docs/design_report_ko.pdf", "docs/digital_release_report_ko.pdf"):
         text = subprocess.run(["pdftotext", str(ROOT / rel), "-"], text=True, capture_output=True, check=True).stdout
         require(
-            REV in text
+            CLOSURE_REV in text
+            and "TECHNICAL_CLOSURE_BASELINE" in text
             and "IMPLEMENTATION_BASELINE" in text
             and "VIRTUAL_PHYSICS_VALIDATED" in text
+            and "CROSS_SOLVER_VALIDATION_DEFERRED" in text
             and "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN" in text
             and "Gate-1" in text,
             f"PDF current-state mismatch {rel}",

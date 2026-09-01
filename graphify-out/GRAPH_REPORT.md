@@ -1,16 +1,16 @@
 # Graph Report - PPR  (2026-09-01)
 
 ## Corpus Check
-- 431 files · ~578,435 words
+- 431 files · ~578,443 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2518 nodes · 4259 edges · 343 communities (191 shown, 152 thin omitted)
+- 2518 nodes · 4259 edges · 344 communities (192 shown, 152 thin omitted)
 - Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 665 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3cd1d88a`
+- Built from commit: `477b0155`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -57,7 +57,7 @@
 - 현금비용 value engineering — coupled-digital-validation-v0.5
 - 16 mm x 16 L/D screw/barrel 제조성 audit — RFQ 기준
 - ShredderController
-- main
+- machine_supervisor.cpp
 - Arduino Mega 2560 controller wiring contract
 - hardware_interfaces.h
 - required
@@ -65,7 +65,7 @@
 - ActuationShadowSystem
 - slice_prints.py
 - Conditional Cash Target
-- review_keepout_objects
+- main
 - CalibrationReadiness
 - DriveCalibration
 - SpoolerOutput
@@ -127,10 +127,10 @@
 - case_id
 - load_case_manifest_sha256
 - FeedDeliveryConfig
-- HeaterOutput
+- main
 - TachEstimatorConfig
 - step_file
-- run_binding_sha256
+- main
 - Compact Full Assembly Front
 - generate_runner.py
 - assembly_collision_audit.py
@@ -348,8 +348,9 @@
 - started_utc
 - build_release_metadata_v0621.py
 - element_count
-- source_git_sha
+- solver_version
 - run_id
+- step_sha256
 
 ## God Nodes (most connected - your core abstractions)
 1. `MachineSupervisor` - 162 edges
@@ -387,27 +388,27 @@
 - **Turn-Coupled Winding Control Flow** — docs_puller_spooler_traverse_control_ko_cascaded_diameter_and_tach_control, docs_puller_spooler_traverse_control_ko_estimated_spool_radius, docs_puller_spooler_traverse_control_ko_turn_synchronized_traverse, firmware_arduino_mega_src_puller_speed_control_update, firmware_arduino_mega_src_spooler_control_update, firmware_arduino_mega_src_traverse_control_update [INFERRED 0.95]
 - **v0.6.2 Digital Actuation Validation** — changelog_parallel_actuation_hardening_v0_6_2, changelog_closed_loop_actuation_feedback, changelog_runtime_and_mutation_validation, docs_validation_report_ko_actuation_hardening_complete, docs_validation_report_ko_actuation_feedback_gate [INFERRED 0.95]
 
-## Communities (343 total, 152 thin omitted)
+## Communities (344 total, 152 thin omitted)
 
 ### Community 0 - "MachineSupervisor"
 Cohesion: 0.03
-Nodes (67): FormingChainState, TraverseHomingState, MachineSupervisor, calibration_, commanded_heater_power_w_, consecutive_gauge_samples_, cooling_failure_actioned_, cooling_failure_pending_ (+59 more)
+Nodes (66): FormingChainState, TraverseHomingState, MachineSupervisor, calibration_, commanded_heater_power_w_, consecutive_gauge_samples_, cooling_failure_actioned_, cooling_failure_pending_ (+58 more)
 
 ### Community 1 - "generate.py"
-Cohesion: 0.09
-Nodes (23): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+15 more)
+Cohesion: 0.08
+Nodes (24): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+16 more)
 
 ### Community 2 - "geometry.py"
 Cohesion: 0.08
 Nodes (59): assembly_objects(), box(), cyl(), cylindrical_hopper(), dancer_arm_shape(), dancer_support_plate_shape(), drive_guard_shape(), feeder_housing_shape() (+51 more)
 
 ### Community 3 - "InputSnapshot"
-Cohesion: 0.06
-Nodes (58): coolingSnapshotHealthy(), gaugeWithinProductionTolerance(), InputSnapshot, cooling_feedback_valid, dancer_angle_rad, fan1_rpm, fan1_tach_valid, fan2_rpm (+50 more)
+Cohesion: 0.05
+Nodes (36): InputSnapshot, cooling_feedback_valid, dancer_angle_rad, fan1_rpm, fan1_tach_valid, fan2_rpm, fan2_tach_valid, gauge_optical_valid (+28 more)
 
 ### Community 4 - "HeaterController"
-Cohesion: 0.22
-Nodes (12): clampf(), MachineState, HeaterController, applyAllocation, canClearFault, clearFault, commitFaultClear, latched_faults_ (+4 more)
+Cohesion: 0.12
+Nodes (21): clampf(), MachineState, HeaterController, applyAllocation, canClearFault, clearFault, commitFaultClear, latched_faults_ (+13 more)
 
 ### Community 5 - "machine_supervisor.h"
 Cohesion: 0.28
@@ -426,8 +427,8 @@ Cohesion: 0.07
 Nodes (39): Production Requalification Gate, Airflow Measurement Boundary, Branch Current and Dual-Fan Tach, Cooling feedback topology와 한계, Common Fault Containment Sequence, Forming-chain Common Fault and Requalification, Cascaded Diameter and Tach Control, CRC Drive Calibration (+31 more)
 
 ### Community 9 - "update"
-Cohesion: 0.27
-Nodes (39): MaterialProfile, approvePurgeFeed, process_, requestMaterialChange, requestPreheat, requestPurgePreheat, requestShredding, selectMaterial (+31 more)
+Cohesion: 0.26
+Nodes (40): MaterialProfile, approvePurgeFeed, confirmPurgeWastePath, process_, requestMaterialChange, requestPreheat, requestPurgePreheat, requestShredding (+32 more)
 
 ### Community 10 - "MachineViewState"
 Cohesion: 0.05
@@ -435,7 +436,7 @@ Nodes (41): CoolingStartupRequest, MachineState, MaterialSession, SupervisorUiSt
 
 ### Community 11 - "generate_fusion_validation.py"
 Cohesion: 0.15
-Nodes (26): compound(), export_geometry(), load_cases(), main(), Path, Shape, sha256(), source_tree_hash() (+18 more)
+Nodes (27): compound(), export_geometry(), load_cases(), main(), Path, Shape, sha256(), source_tree_hash() (+19 more)
 
 ### Community 12 - "Parallel Actuation Hardening v0.6.2"
 Cohesion: 0.10
@@ -446,8 +447,8 @@ Cohesion: 0.13
 Nodes (27): _cycloidal_ease(), cycloidal_hook_profile_points(), hook_disc(), Unit cycloid displacement, with zero slope at both ends., Return the controlling asymmetric 7-hook profile points., Asymmetric cycloidal-derived hook disc. A long 76 % capture flank follows a…, gate1_render_items(), gui_render() (+19 more)
 
 ### Community 14 - "ActuatorCommands"
-Cohesion: 0.09
-Nodes (19): ActuatorCommands, cooling_pwm, feeder_enable, heater_on, hopper_ptc_on, puller_pwm, screw_pwm, shredder_pwm (+11 more)
+Cohesion: 0.10
+Nodes (24): ActuatorCommands, cooling_pwm, feeder_enable, heater_on, hopper_ptc_on, puller_pwm, screw_pwm, shredder_pwm (+16 more)
 
 ### Community 15 - "summarize_results.py"
 Cohesion: 0.26
@@ -557,16 +558,16 @@ Nodes (12): Ex Bar 01 Drawing, Ex Cpn Drawing, Ex Die Drawing, Controlling geome
 Cohesion: 0.13
 Nodes (21): ShredderController, calibration_, calibration_configured_, canClearFault, clearFault, commitFaultClear, configureDrive, estimateCutterTorque (+13 more)
 
-### Community 42 - "main"
-Cohesion: 0.16
-Nodes (23): CalibrationId, MaterialSession, acknowledgeMaterialStep, canCompleteCooldown, configureCalibrationRecord, configureCoolingFeedbackCalibration, configureCurrentSensorCalibration, configureDancerCalibration (+15 more)
+### Community 42 - "machine_supervisor.cpp"
+Cohesion: 0.15
+Nodes (31): coolingSnapshotHealthy(), CalibrationId, gaugeWithinProductionTolerance(), armExtrusion, canClearFaults, clearAllFaults, configureCalibrationRecord, configureCoolingFeedbackCalibration (+23 more)
 
 ### Community 43 - "Arduino Mega 2560 controller wiring contract"
 Cohesion: 0.18
 Nodes (10): Mandatory Safety Parts, Actuator Feedback Topology, Arduino Mega 2560 controller wiring contract, Mega 2560 Controller Wiring Contract, Cooling Feedback Commissioning Hold, Fan-First Start Proof, Hardwired Safety Chain, Inputs and commissioning (+2 more)
 
 ### Community 44 - "hardware_interfaces.h"
-Cohesion: 0.10
+Cohesion: 0.11
 Nodes (14): ActuatorBackend, apply, CoolingFeedback, current_amp, valid, CoolingFeedbackBackend, read, TemperatureBackend (+6 more)
 
 ### Community 45 - "required"
@@ -589,9 +590,9 @@ Nodes (10): first_layer_preview_svg(), gcode_metrics(), main(), normalize_3mf_zi
 Cohesion: 0.20
 Nodes (10): Absolute Cash Cap With Reserve, Blocked Procurement Allowances, Conditional Cash Target, Conditional Planning Budget, Optional Empirical Validation Cost, Verified Procurement Not Established, External State Holds, Conditional Cash Target Assumption (+2 more)
 
-### Community 50 - "review_keepout_objects"
-Cohesion: 0.19
-Nodes (12): Non-manufacturing motion/service volumes, quarantined from exports., review_keepout_objects(), main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape(), main() (+4 more)
+### Community 50 - "main"
+Cohesion: 0.53
+Nodes (5): main(), overlap(), Return first existing shape for a list of legacy/new names., require(), shape()
 
 ### Community 51 - "CalibrationReadiness"
 Cohesion: 0.10
@@ -833,9 +834,9 @@ Nodes (3): pattern, type, load_case_manifest_sha256
 Cohesion: 0.08
 Nodes (24): FeedDeliveryConfig, agitator_bridge_current_a, agitator_max_rpm, agitator_minimum_pwm, agitator_to_auger_ratio, agitator_trip_current_a, anomaly_dwell_ms, auger_jam_current_a (+16 more)
 
-### Community 112 - "HeaterOutput"
-Cohesion: 0.22
-Nodes (9): HeaterOutput, allocated_duty_percent, allocation_deficit_percent, duty_percent, fault_bits, integrator_state, requested_duty_percent, saturation_state (+1 more)
+### Community 112 - "main"
+Cohesion: 0.29
+Nodes (9): MaterialSession, acknowledgeMaterialStep, canCompleteCooldown, calibrate(), calibrateDomains(), completeCoolingStartupProbe(), enterProductionExtrusion(), main() (+1 more)
 
 ### Community 113 - "TachEstimatorConfig"
 Cohesion: 0.14
@@ -845,9 +846,9 @@ Nodes (13): TachEstimatorConfig, count_min_intervals, count_window_us, expected_
 Cohesion: 0.67
 Nodes (3): step_file, pattern, type
 
-### Community 115 - "run_binding_sha256"
-Cohesion: 0.67
-Nodes (3): run_binding_sha256, pattern, type
+### Community 115 - "main"
+Cohesion: 0.83
+Nodes (3): main(), overlap(), require()
 
 ### Community 116 - "Compact Full Assembly Front"
 Cohesion: 1.00
@@ -870,8 +871,8 @@ Cohesion: 0.10
 Nodes (20): SpoolerConfig, core_radius_mm, dancer_target_rad, filament_diameter_mm, full_radius_mm, jam_dwell_ms, ki, kp (+12 more)
 
 ### Community 270 - "generate_manufacturing.py"
-Cohesion: 0.20
-Nodes (17): die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1., 가열기·센서·PTC의 실제 형상과 구매 전 RFQ 계약을 생성한다., Export every non-shredder stock/fabricated machine family. (+9 more)
+Cohesion: 0.18
+Nodes (19): normalize_zip_container(), Remove run time, random UUID and transient FreeCAD object IDs., die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1. (+11 more)
 
 ### Community 271 - "properties"
 Cohesion: 0.12
@@ -1087,7 +1088,7 @@ Nodes (5): format, type, completed_utc, null, string
 
 ### Community 326 - "properties"
 Cohesion: 0.17
-Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, solver_version, step_sha256, type (+4 more)
+Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, run_binding_sha256, source_git_sha, type (+4 more)
 
 ### Community 335 - "enum"
 Cohesion: 0.50
@@ -1113,13 +1114,17 @@ Nodes (3): load(), main(), require()
 Cohesion: 0.67
 Nodes (3): minimum, type, element_count
 
-### Community 341 - "source_git_sha"
+### Community 341 - "solver_version"
 Cohesion: 0.67
-Nodes (3): source_git_sha, pattern, type
+Nodes (3): solver_version, minLength, type
 
 ### Community 342 - "run_id"
 Cohesion: 0.67
 Nodes (3): run_id, minLength, type
+
+### Community 343 - "step_sha256"
+Cohesion: 0.67
+Nodes (3): step_sha256, pattern, type
 
 ## Knowledge Gaps
 - **1074 isolated node(s):** `revision`, `release_state`, `implementation_state`, `geometry_validation`, `fabrication_validation` (+1069 more)
@@ -1129,7 +1134,7 @@ Nodes (3): run_id, minLength, type
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `MachineSupervisor` connect `MachineSupervisor` to `InputSnapshot`, `HeaterController`, `machine_supervisor.h`, `ProcessController`, `Production Requalification Gate`, `update`, `MachineViewState`, `ActuatorCommands`, `TraverseController`, `TraverseHomingController`, `SpoolerController`, `HeaterAllocation`, `ScrewMotionMonitor`, `ScrewMotionOutput`, `TraverseOutput`, `CoolingMonitorOutput`, `DiameterController`, `TraverseHomingOutput`, `ShredderController`, `GaugeCalibration`, `main`, `CalibrationReadiness`, `SpoolerOutput`, `PullerCalibration`, `test_hardware_adapter_e2e.cpp`, `PullerSpeedOutput`?**
+- **Why does `MachineSupervisor` connect `MachineSupervisor` to `InputSnapshot`, `HeaterController`, `machine_supervisor.h`, `ProcessController`, `Production Requalification Gate`, `update`, `MachineViewState`, `ActuatorCommands`, `TraverseController`, `TraverseHomingController`, `SpoolerController`, `HeaterAllocation`, `ScrewMotionMonitor`, `ScrewMotionOutput`, `TraverseOutput`, `CoolingMonitorOutput`, `DiameterController`, `TraverseHomingOutput`, `ShredderController`, `GaugeCalibration`, `machine_supervisor.cpp`, `CalibrationReadiness`, `SpoolerOutput`, `PullerCalibration`, `test_hardware_adapter_e2e.cpp`, `PullerSpeedOutput`, `main`?**
   _High betweenness centrality (0.128) - this node is a cross-community bridge._
 - **Why does `Cooperative Scheduler` connect `Production Requalification Gate` to `MachineSupervisor`?**
   _High betweenness centrality (0.033) - this node is a cross-community bridge._
@@ -1142,4 +1147,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `revision`, `release_state`, `implementation_state` to the rest of the system?**
   _1074 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `MachineSupervisor` be split into smaller, more focused modules?**
-  _Cohesion score 0.027719298245614036 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.02810810810810811 - nodes in this community are weakly interconnected._
