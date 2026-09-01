@@ -1,0 +1,189 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "status": "HOST_HARDWARE_ADAPTER_SIMULATION_PASS",
+  "physical_hardware_test": false,
+  "production_classes_linked": [
+    "TachEstimator",
+    "DriveSpeedController",
+    "ShredderController",
+    "ScrewMotionMonitor",
+    "PullerSpeedController",
+    "SpoolerController"
+  ],
+  "adapter_effects": [
+    "timestamped pulses",
+    "uint32 micros rollover",
+    "ADC quantization",
+    "PWM dead zone",
+    "missing and duplicate pulses",
+    "tach disconnect"
+  ],
+  "contract_sync": "PASS",
+  "acceptance": {
+    "steady_nominal_error_le_3_percent": true,
+    "single_missing_or_bounce_does_not_create_zero_spike": true,
+    "zero_speed_fault_within_channel_timeout": true,
+    "minimum_valid_speed_has_no_false_zero": true,
+    "uint32_rollover_safe": true,
+    "incorrect_ppr_mutation_fails": true
+  },
+  "tach_test_stdout": "TACH_HYBRID_ALL_CHANNELS_OK",
+  "drive_test_stdout": "HARDWARE_ADAPTER_PRODUCTION_DRIVES_OK",
+  "per_channel": {
+    "shredder": {
+      "nominal_samples": 85,
+      "maximum_nominal_relative_error": 0.008952000000000026,
+      "count_mode_observed": true,
+      "period_mode_observed": true,
+      "timeout_observed": true,
+      "bounce_rejections": 1,
+      "outlier_rejections": 1,
+      "missing_pulse_stable": true,
+      "bounce_pulse_stable": true,
+      "rollover_safe": true,
+      "incorrect_ppr_mutation_rejected": true,
+      "ppr": 6,
+      "minimum_measurable_rpm_at_timeout": 4.0,
+      "nominal_error_acceptance_percent": 3.0
+    },
+    "screw": {
+      "nominal_samples": 85,
+      "maximum_nominal_relative_error": 0.00943000000000005,
+      "count_mode_observed": true,
+      "period_mode_observed": true,
+      "timeout_observed": true,
+      "bounce_rejections": 1,
+      "outlier_rejections": 1,
+      "missing_pulse_stable": true,
+      "bounce_pulse_stable": true,
+      "rollover_safe": true,
+      "incorrect_ppr_mutation_rejected": true,
+      "ppr": 12,
+      "minimum_measurable_rpm_at_timeout": 0.7692307692307693,
+      "nominal_error_acceptance_percent": 3.0
+    },
+    "puller": {
+      "nominal_samples": 85,
+      "maximum_nominal_relative_error": 0.00930999999999993,
+      "count_mode_observed": true,
+      "period_mode_observed": true,
+      "timeout_observed": true,
+      "bounce_rejections": 1,
+      "outlier_rejections": 1,
+      "missing_pulse_stable": true,
+      "bounce_pulse_stable": true,
+      "rollover_safe": true,
+      "incorrect_ppr_mutation_rejected": true,
+      "ppr": 20,
+      "minimum_measurable_rpm_at_timeout": 0.75,
+      "nominal_error_acceptance_percent": 3.0
+    },
+    "spooler": {
+      "nominal_samples": 85,
+      "maximum_nominal_relative_error": 0.009611999999999954,
+      "count_mode_observed": true,
+      "period_mode_observed": true,
+      "timeout_observed": true,
+      "bounce_rejections": 1,
+      "outlier_rejections": 1,
+      "missing_pulse_stable": true,
+      "bounce_pulse_stable": true,
+      "rollover_safe": true,
+      "incorrect_ppr_mutation_rejected": true,
+      "ppr": 20,
+      "minimum_measurable_rpm_at_timeout": 0.4,
+      "nominal_error_acceptance_percent": 3.0
+    }
+  },
+  "drive_scenarios": {
+    "shredder:nominal": {
+      "final_time_ms": 5800,
+      "target_rpm": 32.0,
+      "estimated_rpm": 33.9899,
+      "plant_rpm": 33.8295,
+      "pwm": 217,
+      "tach_valid": true,
+      "plant_relative_error": 0.057171875000000094
+    },
+    "shredder:load_step": {
+      "final_time_ms": 12000,
+      "target_rpm": 32.0,
+      "estimated_rpm": 31.1847,
+      "plant_rpm": 31.251,
+      "pwm": 243,
+      "tach_valid": true,
+      "plant_relative_error": 0.023406249999999962
+    },
+    "shredder:tach_loss": {
+      "final_time_ms": 17500,
+      "target_rpm": 0.0,
+      "estimated_rpm": 0.0,
+      "plant_rpm": 40.0,
+      "pwm": 0,
+      "tach_valid": false,
+      "plant_relative_error": 0.0
+    },
+    "screw:nominal": {
+      "final_time_ms": 8800,
+      "target_rpm": 18.0,
+      "estimated_rpm": 18.1858,
+      "plant_rpm": 18.2535,
+      "pwm": 194,
+      "tach_valid": true,
+      "plant_relative_error": 0.014083333333333274
+    },
+    "screw:load_step": {
+      "final_time_ms": 18000,
+      "target_rpm": 18.0,
+      "estimated_rpm": 16.9489,
+      "plant_rpm": 17.0346,
+      "pwm": 211,
+      "tach_valid": true,
+      "plant_relative_error": 0.053633333333333276
+    },
+    "screw:tach_loss": {
+      "final_time_ms": 25920,
+      "target_rpm": 18.0,
+      "estimated_rpm": 0.0,
+      "plant_rpm": 0.26865,
+      "pwm": 0,
+      "tach_valid": false,
+      "plant_relative_error": 0.9850749999999999
+    },
+    "puller:nominal": {
+      "final_time_ms": 11800,
+      "target_rpm": 5.90783,
+      "estimated_rpm": 5.78616,
+      "plant_rpm": 5.81443,
+      "pwm": 68,
+      "tach_valid": true,
+      "plant_relative_error": 0.015809527356068123
+    },
+    "puller:slip_load": {
+      "final_time_ms": 25000,
+      "target_rpm": 5.90783,
+      "estimated_rpm": 5.95495,
+      "plant_rpm": 5.81926,
+      "pwm": 71,
+      "tach_valid": true,
+      "plant_relative_error": 0.0149919682861558
+    },
+    "spooler:empty_nominal": {
+      "final_time_ms": 35000,
+      "target_rpm": 3.29594,
+      "estimated_rpm": 3.35883,
+      "plant_rpm": 3.32304,
+      "pwm": 109,
+      "tach_valid": true,
+      "plant_relative_error": 0.008222237055286305
+    }
+  },
+  "artifacts": {
+    "tach_trace.csv": "4f67be11d395494c988945c12a223777367e4df2748948b8b98634e2dc94e43f",
+    "drive_trace.csv": "7b8743276540a47d5e5cc52b2d36247e61a3273e3a1f089c3f053dfc467b3bb4"
+  },
+  "limitations": [
+    "No motor, sensor, load, cutter, screw, puller, spool, or energized hardware was tested.",
+    "Donor gear ratio, dead zone, loaded speed curve, and tach target installation require physical calibration."
+  ]
+}

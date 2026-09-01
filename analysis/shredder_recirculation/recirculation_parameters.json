@@ -1,0 +1,32 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "selected_concept": "PASSIVE_ROTOR_SWEPT_RETURN",
+  "architecture": {
+    "return_wedge_angle_deg": 52.0,
+    "screen_angle_deg": 38.0,
+    "screen_gap_mm": 5.0,
+    "rotor_shelf_clearance_mm": 3.2,
+    "comb_to_cutter_clearance_mm": 2.5,
+    "comb_to_screen_clearance_mm": 3.0,
+    "axial_labyrinth_radial_clearance_mm": 1.5,
+    "axial_labyrinth_overlap_mm": 8.0,
+    "dead_pocket_drain_angle_deg": 55.0,
+    "screen_retainer_fasteners": "4x M5 captive, tool-side access",
+    "jam_guard": "downward hinged opaque guard with retained M5 fasteners",
+    "cleaning_access": "screen tray withdraws toward locked service side after rotor lockout"
+  },
+  "acceptance": {
+    "oversize_return_probability_min": 0.90,
+    "pet_ribbon_bypass_probability_max": 0.01,
+    "dead_pocket_retention_probability_max": 0.02,
+    "axial_migration_probability_max": 0.01,
+    "mean_residence_cycles_max": 4.0,
+    "fragment_ejection_permitted": false
+  },
+  "model_limits": [
+    "fracture-calibrated DEM이 아닌 결정적 transport surrogate",
+    "입자 형상은 등가 width/aspect/orientation으로 축약",
+    "실제 cutter phase, 마모, 수분, 정전기는 coupon 시험 전 미검증",
+    "guard와 lockout의 실제 파편 containment 성능은 물리 시험 필요"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "revision": "parallel-actuation-hardening-v0.6.2",
+  "mutation_count": 7,
+  "status": "PASS",
+  "mutations": [
+    {
+      "mutation": "puller_saturation_hardcoded_false",
+      "expected": "validator rejection",
+      "result": "PASS"
+    },
+    {
+      "mutation": "fan2_channel_ignored",
+      "expected": "validator rejection",
+      "result": "PASS"
+    },
+    {
+      "mutation": "purge_commanded_revolutions",
+      "expected": "validator rejection",
+      "result": "PASS"
+    },
+    {
+      "mutation": "heater_feedback_removed",
+      "expected": "validator rejection",
+      "result": "PASS"
+    },
+    {
+      "mutation": "spooler_fixed_pwm",
+      "expected": "validator rejection",
+      "result": "PASS"
+    },
+    {
+      "mutation": "traverse_time_reversal",
+      "expected": "validator rejection",
+      "result": "PASS"
+    },
+    {
+      "mutation": "fusion_binding_removed",
+      "expected": "validator rejection",
+      "result": "PASS"
+    }
+  ]
+}

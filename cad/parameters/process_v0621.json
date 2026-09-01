@@ -1,0 +1,19 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "units": "mm",
+  "print_bbox_limit_mm": 210.0,
+  "shredder": {
+    "return_wedge": {"length": 92.0, "width": 72.0, "height": 38.0, "tip_height": 8.0},
+    "anti_ribbon_comb": {"width": 90.0, "back_depth": 8.0, "back_height": 12.0, "tooth_length": 28.0, "tooth_width": 4.0, "tooth_gap": 4.5, "tooth_thickness": 6.0},
+    "axial_labyrinth": {"outer_diameter": 50.0, "inner_diameter": 28.0, "thickness": 8.0, "split_width": 2.0},
+    "screen_tray": {"length": 100.0, "width": 76.0, "thickness": 3.0, "hole_diameter": 5.0, "hole_pitch": 9.0},
+    "service_guard": {"width": 104.0, "depth": 78.0, "height": 38.0, "thickness": 3.0}
+  },
+  "feed": {
+    "hopper": {"top_x": 142.0, "top_y": 118.0, "bottom_x": 44.0, "bottom_y": 44.0, "height": 140.0, "wall": 2.0},
+    "lid": {"x": 150.0, "y": 126.0, "thickness": 8.0, "gasket_depth": 2.0},
+    "agitator": {"shaft_diameter": 8.0, "shaft_length": 112.0, "arm_radius": 38.0, "arm_diameter": 5.0},
+    "auger": {"outer_diameter": 24.0, "root_diameter": 10.0, "pitch": 18.0, "active_length": 108.0, "flight_thickness": 2.4},
+    "housing": {"outer_diameter": 33.0, "inner_diameter": 27.0, "length": 115.0, "flange_diameter": 48.0, "flange_thickness": 4.0}
+  }
+}

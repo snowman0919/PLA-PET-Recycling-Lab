@@ -100,11 +100,20 @@ InputSnapshot safeInput(uint32_t now_ms = 0) {
   input.shredder_current_amp = 2.0f;
   input.shredder_rpm = 32.0f;
   input.screw_rpm = 16.0f;
+  input.screw_tach_valid = true;
+  input.screw_speed_is_measured = true;
   input.cooling_feedback_valid = true;
+  input.fan1_rpm = 1800.0f;
+  input.fan2_rpm = 1800.0f;
+  input.fan1_tach_valid = true;
+  input.fan2_tach_valid = true;
   input.puller_driver_ok = true;
   input.puller_tach_ok = true;
+  input.puller_rpm = 6.0f;
   input.puller_saturated = false;
   input.spooler_driver_ok = true;
+  input.spooler_tach_ok = true;
+  input.spooler_rpm = 12.0f;
   input.traverse_permission_ok = true;
   input.dancer_angle_rad = 0.0f;
   return input;
@@ -116,7 +125,26 @@ void configure(MachineSupervisor &supervisor, bool gauge = true) {
   assert(supervisor.configureDriveCalibration(drive));
   assert(supervisor.configureCurrentSensorCalibration(512.0f, 0.01f));
   assert(supervisor.configureCoolingFeedbackCalibration(100.0f, 0.01f));
+  assert(supervisor.configurePullerCalibration({30.0f, 20.0f, 160.0f, 3.0f, 1.2f,
+                                                 45, 255, 800, 600, 800, 2.0f}));
+  assert(supervisor.configureSpoolerDriveCalibration(
+      {26.0f, 100.0f, 68.0f, 1.75f, 0.0f, 180.0f, 45.0f, 42, 220, 1200, 1000}));
+  assert(supervisor.configureTachCalibration(CAL_SHREDDER_TACH, 6.0f));
+  assert(supervisor.configureTachCalibration(CAL_SCREW_TACH, 12.0f));
+  assert(supervisor.configureTachCalibration(CAL_SPOOLER_TACH, 20.0f));
+  assert(supervisor.configureTachCalibration(CAL_FAN1_TACH, 2.0f));
+  assert(supervisor.configureTachCalibration(CAL_FAN2_TACH, 2.0f));
+  assert(supervisor.configureTraverseCalibration(80.0f));
+  assert(supervisor.configureDancerCalibration(0.001f));
   if (gauge) assert(supervisor.configureGaugeCalibration({100, 0.002f, 100, 0.002f, 0.02f, true}));
+  InputSnapshot homing = safeInput();
+  assert(supervisor.requestTraverseHoming(homing));
+  homing.traverse_left_limit = true;
+  supervisor.update(homing, 0);
+  homing.traverse_left_limit = false;
+  for (uint32_t now = 2; now < 1000 && !supervisor.traverseHomed(); now += 2)
+    supervisor.update(homing, now);
+  assert(supervisor.traverseHomed());
 }
 
 bool anyHeater(const ActuatorCommands &commands) {
@@ -289,10 +317,12 @@ void coolingStartupProbe() {
 
   // Fan-off feedback is expected to remain invalid during a physical lockout clear.
   assert(absent.clearAllFaults(input, true));
+  input.traverse_permission_ok = false;
   output = absent.update(input, COOLING_FEEDBACK_DWELL_MS * 2UL + 1);
   assert(output.view.process_phase == MachineState::IDLE && !hazardous(output.actuators));
   emit({"cooling_fault_clear_then_reprobe", "NONE", false, false},
        COOLING_FEEDBACK_DWELL_MS * 2UL + 1, input, output, absent);
+  input.traverse_permission_ok = true;
   assert(absent.requestPreheat(input));
   output = absent.update(input, COOLING_FEEDBACK_DWELL_MS * 2UL + 2);
   assert(output.view.process_phase == MachineState::IDLE && onlyCooling(output.actuators));
@@ -384,6 +414,8 @@ void phaseSpecificReadinessUi() {
   auto input = safeInput();
   MachineSupervisor supervisor;
   assert(supervisor.configureCoolingFeedbackCalibration(100.0f, 0.01f));
+  assert(supervisor.configureTachCalibration(CAL_FAN1_TACH, 2.0f));
+  assert(supervisor.configureTachCalibration(CAL_FAN2_TACH, 2.0f));
   assert(supervisor.configureGaugeCalibration({100, 0.002f, 100, 0.002f, 0.02f, true}));
   assert(supervisor.selectMaterial(MaterialProfile::PLA));
   assert(!supervisor.requestShredding(input, 0));
@@ -412,6 +444,7 @@ void shredderTransactions() {
   MachineSupervisor supervisor;
   configure(supervisor);
   assert(supervisor.selectMaterial(MaterialProfile::PLA));
+  input.shredder_rpm = 0.0f;
   assert(supervisor.requestShredding(input, 0));
   output = supervisor.update(input, 1);
   assert(output.view.process_phase == MachineState::SHREDDING);
@@ -483,6 +516,7 @@ MachineSupervisor qualifiedExtruder(InputSnapshot &input, uint32_t &now) {
   TraceMeta ready{"gauge_requalification_manual_rethread"};
   emit(ready, now, input, output, supervisor);
   assert(supervisor.confirmManualRethread(input));
+  input.spooler_rpm = 0.0f;
   output = supervisor.update(input, ++now);
   assert(output.view.spool_eligible && output.actuators.spooler_pwm != 0);
   TraceMeta meta{"normal_pla_extrusion"};
@@ -552,6 +586,7 @@ void purgePlaToPet() {
        now, input, output, supervisor);
   input.cooling_feedback_valid = true;
   assert(supervisor.confirmPurgeWastePath(input, ++now));
+  input.screw_rpm = 0.0f;
   output = supervisor.update(input, now);
   assert(output.view.process_phase == MachineState::MAINTENANCE_PURGE);
   assert(output.view.material_session == MaterialSession::PURGE_RUNNING);
@@ -559,6 +594,7 @@ void purgePlaToPet() {
   assert(output.actuators.spooler_pwm == 0 && !output.actuators.traverse_enable);
   TraceMeta running{"pla_to_pet_maintenance_purge"};
   emit(running, now, input, output, supervisor);
+  input.screw_rpm = 16.0f;
   now += 120001;
   output = supervisor.update(input, now);
   assert(supervisor.confirmPurgeComplete(true, input, now));

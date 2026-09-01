@@ -1,0 +1,250 @@
+{
+  "revision": "parallel-actuation-hardening-v0.6.2",
+  "solver": "OpenModelica 1.27.0 DASSL",
+  "scope": "firmware-equivalent reduced-order actuation/process shadow; physical test not run",
+  "scenario_count": 24,
+  "status": "PASS",
+  "pass_count": 24,
+  "results": [
+    {
+      "scenario": "PullerTransientSaturation",
+      "protected_requirement_or_failure_mode": "startup/transient limit does not latch persistent saturation",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "startup/transient limit does not latch persistent saturation",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=3.03598], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "PullerPersistentSaturation",
+      "protected_requirement_or_failure_mode": "persistent speed error and actuator limit cause forming-chain fault",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "persistent speed error and actuator limit cause forming-chain fault",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=0], pullerSaturated[peak=1,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=9.28], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "PullerTachLoss",
+      "protected_requirement_or_failure_mode": "loss-of-tach timeout disables production",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "loss-of-tach timeout disables production",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=0], pullerError[peak=9.28,final=-0.00572525], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "PullerSpeedLoopLoadStep",
+      "protected_requirement_or_failure_mode": "inner PI recovers after a bounded load step",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "inner PI recovers after a bounded load step",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=0], pullerSaturated[peak=1,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.393277], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "SingleCoolingFanLoss",
+      "protected_requirement_or_failure_mode": "either individual fan loss invalidates cooling",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "either individual fan loss invalidates cooling",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572389], coolingValid[peak=0,final=0], fan1Rpm[peak=0,final=0], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "DualCoolingFanLoss",
+      "protected_requirement_or_failure_mode": "dual fan loss invalidates cooling",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "dual fan loss invalidates cooling",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572389], coolingValid[peak=0,final=0], fan1Rpm[peak=0,final=0], fan2Rpm[peak=0,final=0], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "CoolingFeedbackImplausible",
+      "protected_requirement_or_failure_mode": "feedback while command is off is implausible",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "feedback while command is off is implausible",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572389], coolingValid[peak=0,final=0], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "DuctBlockageSensitivity",
+      "protected_requirement_or_failure_mode": "tach is not treated as measured airflow",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "tach is not treated as measured airflow",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572409], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "ScrewCommandNoMotion",
+      "protected_requirement_or_failure_mode": "commanded screw with zero motion faults",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "commanded screw with zero motion faults",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-1.67013e-11], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=1,final=1], measuredPurgeRevolutions[peak=0,final=0], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=382.757,final=382.757], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "ScrewCouplingSlip",
+      "protected_requirement_or_failure_mode": "coupling slip below motion ratio faults",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "coupling slip below motion ratio faults",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-2.38064e-10], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=1,final=1], measuredPurgeRevolutions[peak=8.66667,final=8.66667], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=382.757,final=382.757], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "PurgeMeasuredRevolutionsLow",
+      "protected_requirement_or_failure_mode": "elapsed time alone cannot complete purge",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "elapsed time alone cannot complete purge",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-3.77053e-10], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=16,final=16], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=382.757,final=382.757], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "PurgeMeasuredRevolutionsPass",
+      "protected_requirement_or_failure_mode": "measured revolutions plus elapsed time can qualify purge",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "measured revolutions plus elapsed time can qualify purge",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-6.10534e-12], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=34.6667,final=34.6667], purgeComplete[peak=1,final=1], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=382.757,final=382.757], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "HeaterAllocatorAllZonesCold",
+      "protected_requirement_or_failure_mode": "four-zone demand respects phase cap",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "four-zone demand respects phase cap",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572409], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "HeaterAllocatorRecovery",
+      "protected_requirement_or_failure_mode": "allocation recovers without a hidden cap",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "allocation recovers without a hidden cap",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572399], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=1,final=1], heaterIntegrator[peak=448.805,final=448.805], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "HeaterAppliedDutyAntiWindup",
+      "protected_requirement_or_failure_mode": "integrator remains bounded under denied duty",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "integrator remains bounded under denied duty",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572392], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.5,final=0.5], heaterIntegrator[peak=94.8181,final=94.8181], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "SpoolRadiusSweep",
+      "protected_requirement_or_failure_mode": "full-radius speed demand is recomputed",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "full-radius speed demand is recomputed",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572418], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "DancerClosedLoopDisturbance",
+      "protected_requirement_or_failure_mode": "dancer state returns to target",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "dancer state returns to target",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572416], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "SpoolJamBeforeControlledLimit",
+      "protected_requirement_or_failure_mode": "jam is detected before controlled-stop angle",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "jam is detected before controlled-stop angle",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572369], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0.12,final=9.37247e-09], spoolJamDetected[peak=1,final=1], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "TraversePitchEmptySpool",
+      "protected_requirement_or_failure_mode": "pitch is synchronized to empty-spool turns",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "pitch is synchronized to empty-spool turns",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572409], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "TraversePitchFullSpool",
+      "protected_requirement_or_failure_mode": "pitch is synchronized to full-spool turns",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "pitch is synchronized to full-spool turns",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572418], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    },
+    {
+      "scenario": "TraverseLimitFailure",
+      "protected_requirement_or_failure_mode": "missed limit becomes a hard fault",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "missed limit becomes a hard fault",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572369], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=1,final=1], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "FormingChainFaultCascade",
+      "protected_requirement_or_failure_mode": "fault disables feeder and production spool",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "fault disables feeder and production spool",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=1,final=1], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572389], coolingValid[peak=0,final=0], fan1Rpm[peak=0,final=0], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "GaugeRequalificationToWaste",
+      "protected_requirement_or_failure_mode": "requalification stays on waste until rethread",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "requalification stays on waste until rethread",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572389], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=0,final=0], wastePathActive[peak=1,final=1]"
+    },
+    {
+      "scenario": "ManualRethreadToProduction",
+      "protected_requirement_or_failure_mode": "explicit rethread enables production after stable dwell",
+      "input": "scenario parameters in V062ShadowScenarios.mo",
+      "method": "OpenModelica 1.27 DASSL reduced-order shadow simulation",
+      "expected_evidence": "explicit rethread enables production after stable dwell",
+      "pass_fail_threshold": "scenario-specific predicate in validate_v062_shadow.py",
+      "result": "PASS",
+      "evidence": "formingFault[peak=0,final=0], pullerSaturated[peak=0,final=0], pullerTachValid[peak=1,final=1], pullerError[peak=9.28,final=-0.00572409], coolingValid[peak=1,final=1], fan1Rpm[peak=1800,final=1800], fan2Rpm[peak=1800,final=1800], screwMotionMismatch[peak=0,final=0], measuredPurgeRevolutions[peak=5.33333,final=5.33333], purgeComplete[peak=0,final=0], heaterAllocationScale[peak=0.833333,final=0.833333], heaterIntegrator[peak=242.313,final=242.313], dancerAngle[peak=0,final=0], spoolJamDetected[peak=0,final=0], traverseHardFault[peak=0,final=0], spoolEligible[peak=1,final=1], wastePathActive[peak=1,final=0]"
+    }
+  ]
+}

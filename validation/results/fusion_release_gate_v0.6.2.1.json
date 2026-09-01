@@ -1,0 +1,34 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "status": "FUSION_GATE_DEFERRED",
+  "gate_outcome": "DEFERRED",
+  "fusion_gate_policy": "DEFERRED",
+  "fusion_state": "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE",
+  "cross_solver_state": "CROSS_SOLVER_VALIDATION_DEFERRED",
+  "release_blocking": false,
+  "deferred_is_solver_pass": false,
+  "package_integrity": {
+    "status": "PASS",
+    "legacy_model_count": 9,
+    "legacy_case_count": 10,
+    "legacy_engineering_source_sha": "93db9533dcaf0655f9bde158d53e6f4df24ebb42",
+    "lc11_engineering_source_sha": "e86e436861fd28f4055af1a1b9387bb764a7179b",
+    "final_handoff_state": "IMMUTABLE_HANDOFF_BOUND",
+    "final_handoff_engineering_source_sha": "a22f06ea534cad9e99949872e550d2789d49ef9f",
+    "final_handoff_source_tree_hash": "49fd972b95aa9647773aa4a347c9ca6531cc134b",
+    "final_handoff_input_set_sha256": "d311156905635edb9bd7585c1540e1a81cfc3262a1359553260bffd03ec88efa"
+  },
+  "present_results": {
+    "legacy_result_file_present": false,
+    "legacy_result_rows": 0,
+    "lc11_result_file_present": false,
+    "lc11_result_rows": 0,
+    "presence": "ABSENT",
+    "validation": "NOT_APPLICABLE"
+  },
+  "completed_result_summary": null,
+  "forbidden_claims": [
+    "CROSS_SOLVER_VALIDATED",
+    "FUSION_VALIDATED"
+  ]
+}

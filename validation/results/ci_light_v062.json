@@ -1,0 +1,19 @@
+{
+  "revision": "parallel-actuation-hardening-v0.6.2",
+  "gate": "CI-LIGHT",
+  "status": "PASS",
+  "fusion_solve_claimed": false,
+  "fusion_input_delta": "NONE",
+  "evidence_hashes": {
+    "validation/results/arduino_mega_compile.json": "271e4f08204f1212b9b4da4d957b8f2938c6d6f3905de28494f6ee162db11cdc",
+    "validation/results/runtime_supervisor.json": "84835308c988a90ac2e2c2c58b609b2d4dd7a36914d39f0f1b28fbad63580564",
+    "validation/results/v062_runtime_audit.json": "69c3d04d1d835c59e1a41e49a3c74565d6f3240213526ab4193233da4694a60a",
+    "validation/results/v062_mutation_tests.json": "a24210c358f8ab3772c3d6512667f49e0b8a8a2271f99b71213acde0361e4ada",
+    "validation/results/v062_actuation_contract.json": "c652ccc2dfc9273aeda35d90903b1eb29e14c5e736d95ae94b38670a5b58adc2",
+    "validation/results/fusion_delta_classification.json": "0d53100433cfca6b5728129f58bc9b85112c4866780eb4e01c67f74583c2663d",
+    "simulation/openmodelica/results_v0.6.2/summary.json": "6fb678c4261b013e65133566ec1ad42da974f983605a4131da9cab790b2c6bde",
+    "analysis/process_risk/process_risk_summary.json": "99b14915b2b460e6e61786afc12489b243f733543f4b9165a26d9f23de9d03e8",
+    "analysis/fusion_delta_queue/shadow_envelope_comparison.json": "4a90fedce1826b952995d8ec999c49ad5cdae9b53b83237f3f3837c89e8f3e2b",
+    "analysis/cross_solver/fusion_import_review.json": "67cde63ec3d2d371333ad89c08b38ff0404545059aa6021f8f834094d42bee88"
+  }
+}

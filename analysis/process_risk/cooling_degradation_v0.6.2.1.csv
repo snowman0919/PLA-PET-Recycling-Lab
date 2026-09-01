@@ -1,0 +1,15 @@
+material,case,assumed_h_w_m2k,puller_entry_limit_c,entry_at_100_gph_c,maximum_safe_rate_gph,analytical_rate_limit_gph,entry_at_command_c,control_policy,status,airflow_measured
+PLA,dual_fan_clean_centered,65.0,48.0,42.396,113.76,100.0,42.396,NORMAL,PASS,False
+PLA,filter_fouling,48.0,48.0,56.818,84.007,79.807,45.67,SENSITIVITY_LIMIT_ONLY,PASS,False
+PLA,duct_leakage,45.0,48.0,60.395,78.757,74.819,45.67,SENSITIVITY_LIMIT_ONLY,PASS,False
+PLA,partial_blockage,40.0,48.0,67.273,70.006,66.506,45.67,SENSITIVITY_LIMIT_ONLY,PASS,False
+PLA,strand_off_center,42.0,48.0,64.375,73.506,69.831,45.67,SENSITIVITY_LIMIT_ONLY,PASS,False
+PLA,single_fan_operation,35.0,48.0,75.488,61.255,0.0,25.0,CONTROLLED_RUNDOWN,PASS,False
+PLA,dual_fan_loss,0.0,48.0,200.0,0.0,0.0,25.0,CONTROLLED_RUNDOWN,PASS,False
+PET,dual_fan_clean_centered,65.0,65.0,32.522,150.0,100.0,32.522,NORMAL,PASS,False
+PET,filter_fouling,48.0,65.0,43.606,142.716,100.0,43.606,SENSITIVITY_LIMIT_ONLY,PASS,False
+PET,duct_leakage,45.0,65.0,46.831,133.796,100.0,46.831,SENSITIVITY_LIMIT_ONLY,PASS,False
+PET,partial_blockage,40.0,65.0,53.494,118.93,100.0,53.494,SENSITIVITY_LIMIT_ONLY,PASS,False
+PET,strand_off_center,42.0,65.0,50.614,124.877,100.0,50.614,SENSITIVITY_LIMIT_ONLY,PASS,False
+PET,single_fan_operation,35.0,65.0,62.191,104.064,0.0,25.0,CONTROLLED_RUNDOWN,PASS,False
+PET,dual_fan_loss,0.0,65.0,265.0,0.0,0.0,25.0,CONTROLLED_RUNDOWN,PASS,False

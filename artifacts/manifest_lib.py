@@ -27,7 +27,7 @@ PATTERNS = (
     "exports/step/*.step",
     "exports/cnc/**/*.FCStd", "exports/cnc/**/*.step", "exports/cnc/**/*.dxf", "exports/cnc/**/*.md", "exports/cnc/**/*.pdf", "exports/cnc/*.csv",
     "exports/drive_interface/**/*", "exports/jigs/**/*",
-    "exports/fusion_validation/**/*", "fusion_worker/**/*",
+    "exports/fusion_validation/**/*", "exports/fusion_handoff_lock_v0.6.2.1.json", "fusion_worker/**/*",
     "exports/print/**/*.FCStd", "exports/print/**/*.step", "exports/print/**/*.stl", "exports/print/**/*.3mf",
     "exports/print/**/*.md", "exports/print/**/*.py", "exports/print/**/*.svg", "exports/print/**/*.csv", "exports/print/*.csv",
     "exports/print/slicer_profiles/*",
@@ -50,7 +50,14 @@ def collect_paths(root: Path) -> list[Path]:
         if path.is_file()
         and "__pycache__" not in path.parts
         and path.suffix != ".pyc"
-        and "simulation/openmodelica/results/raw" not in path.as_posix()
+        # CI evidence hashes the artifact manifest; including that same CI
+        # evidence in the manifest creates a self-referential hash cycle and
+        # makes an otherwise deterministic exact-head run dirty.
+        and not path.match("validation/results/ci_*.json")
+        and path.name != "artifact_reproducibility.json"
+        and not re.search(
+            r"simulation/openmodelica/results(?:_v[^/]+)?/raw/", path.as_posix()
+        )
         and not ("exports/print/slicing_previews" in path.as_posix() and path.suffix == ".gcode")
     })
 

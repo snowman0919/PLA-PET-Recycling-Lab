@@ -1,5 +1,24 @@
 # 변경 이력
 
+## technical-blocker-closure-v0.6.2.1 — 2026-09-01
+
+- P0-A~K 저속 tach, 4-drive closed loop, spool/traverse, 독립 calibration, recirculation/positive feed, cooling rundown, hardware-adapter E2E와 OpenModelica shadow blocker를 폐쇄했다.
+- 사용자 결정으로 Autodesk Fusion 실행과 수치 상관을 post-v0.6.2.1 MacBook stage로 이관했다. 정책은 `DEFERRED`이며 `CROSS_SOLVER_VALIDATED` 또는 `FUSION_VALIDATED`를 주장하지 않는다.
+- tri-state Fusion gate(`REQUIRED`/`DEFERRED`/`COMPLETED`)를 추가했다. `DEFERRED`에서도 package hash 검증은 필수이고 실제 결과 파일이 존재하면 malformed/stale binding을 fail-closed로 거부한다.
+- LC02/04/05/07/08/08+06/10/11 hash-bound handoff와 `prepare_run.py`를 보존했다. 실제 Fusion 수치나 placeholder PASS는 생성하지 않았다.
+
+## parallel-actuation-hardening-v0.6.2 — 2026-08-31
+
+- puller tach 기반 cascade PI와 실제 포화 dwell, screw 실제 회전수 기반 purge 완료, fan 2개 개별 tach/current 교차검증을 `MachineSupervisor`에 연결했다.
+- 히터 요청 duty와 중앙 전력 allocator의 applied duty를 분리하고 back-calculation anti-windup, zone별 deficit·적분기·실제 time-proportion 명령을 노출했다.
+- dancer 기반 spooler PI·권취 반경 추정·jam 검출과 spool 회전/피치 기반 traverse 동기화·종단 limit 누락 래치를 구현했다.
+- 20 ms tach task, 250 ms fan mux/temperature task, timer·pin budget과 `PPR_DEBUG` deadline 계측을 정의했다. 지름 PI 적분은 이전 cycle의 puller tach-valid/non-saturated 상태에서만 허용한다. 장문 telemetry는 고정 snapshot의 bounded segment를 TX 여유 이하로만 전송한다. Mega 2560 compile 결과 flash 47,206 B(18%), global 3,257 B(39%), local/stack/heap 여유 4,935 B다.
+- production-linked runtime 43 scenario/116 trace와 v0.6.2 고위험 mutation 7종을 통과하고, OpenModelica actuation shadow 24/24를 실제 DASSL로 해석했다.
+- seeded process-risk screening은 shredder `MITIGATION_REQUIRED`, hopper/feed `MODEL_INSUFFICIENT`, cooling airflow `MITIGATION_REQUIRED`로 판정했다. 이 값은 실물 측정이나 생산 성능 주장이 아니다.
+- 외부 Fusion importer에 engineering source/STEP/load manifest/case/unit/evidence hash 결합 검증을 추가했다. 실제 외부 결과가 없어 상태는 `PENDING_EXTERNAL_EXECUTION`이며 상관 판정도 pending이다.
+- v0.6.1 Fusion 입력 경로와 hash를 그대로 보존했고 shadow load delta는 0이다. `FUSION_INPUT_DELTA=NONE`; main merge는 외부 Fusion 결과 또는 사용자 승인 전까지 차단한다.
+- sensor/control allowance 3,000 KRW를 추가해 조건부 178,729 KRW, reserve 포함 198,729 KRW로 갱신했다. verified procurement 총액은 계속 `NOT_ESTABLISHED`다.
+
 ## safety-orchestration-closure-v0.6.1 — 2026-08-31
 
 - pure C++ `MachineSupervisor`로 process/subsystem orchestration을 단일화하고 `.ino`는 물리 I/O·EEPROM·UI adapter로 축소했다.

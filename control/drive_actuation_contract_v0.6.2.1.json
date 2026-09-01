@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "validation_scope": "digital controller and hardware-adapter host model; received donor calibration remains required",
+  "drives": {
+    "shredder": {
+      "controlled_output": "cutter_shaft",
+      "normal_target_rpm": [24.0, 32.0],
+      "required_controllable_rpm": [5.0, 40.0],
+      "pwm_dead_zone": 35,
+      "maximum_pwm": 255,
+      "brake_mode": "bounded stop then reverse during jam retry",
+      "physical_calibration_state": "GATE1_REQUIRED"
+    },
+    "screw": {
+      "controlled_output": "screw_output_shaft",
+      "normal_target_rpm": [16.0, 18.0],
+      "required_controllable_rpm": [1.0, 25.0],
+      "pwm_dead_zone": 38,
+      "maximum_pwm": 255,
+      "brake_mode": "coast with supervisor bounded rundown",
+      "physical_calibration_state": "DONOR_LABEL_AND_LOADED_CURVE_REQUIRED"
+    },
+    "puller": {
+      "controlled_output": "30_mm_driven_roller",
+      "nominal_line_speed_mm_s": [8.66, 9.28],
+      "normal_target_rpm": [5.51, 5.91],
+      "required_controllable_rpm": [1.0, 45.0],
+      "minimum_stable_line_speed_mm_s": 1.571,
+      "maximum_available_line_speed_mm_s": 70.686,
+      "normal_target_fraction_of_max": [0.1224, 0.1313],
+      "low_speed_margin_ratio": 0.2592,
+      "high_speed_margin_ratio": 7.617,
+      "pwm_dead_zone": 45,
+      "maximum_pwm": 255,
+      "brake_mode": "coast in normal stop; controlled waste rundown on forming fault",
+      "physical_calibration_state": "DONOR_RATIO_AND_LOADED_CURVE_REQUIRED"
+    },
+    "spooler": {
+      "controlled_output": "metal_spool_spindle",
+      "normal_line_speed_mm_s": [8.66, 9.28],
+      "radius_range_mm": [26.0, 100.0],
+      "normal_target_rpm_empty_to_full": [0.827, 3.409],
+      "required_controllable_rpm": [0.5, 8.0],
+      "normal_target_fraction_of_max": [0.1034, 0.4261],
+      "worst_case_minimum_stable_line_speed_mm_s": 5.236,
+      "minimum_available_line_speed_mm_s_at_maximum_rpm": 21.782,
+      "low_speed_margin_ratio": 0.6046,
+      "high_speed_margin_ratio": 2.347,
+      "pwm_dead_zone": 42,
+      "maximum_pwm": 220,
+      "brake_mode": "coast on normal stop; immediate command removal on jam",
+      "physical_calibration_state": "DONOR_RATIO_AND_LOADED_CURVE_REQUIRED"
+    }
+  },
+  "release_note": "The numerical range is a design and host-model requirement, not evidence that an unidentified donor motor passed physical testing."
+}

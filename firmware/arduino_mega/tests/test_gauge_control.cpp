@@ -15,6 +15,13 @@ int main() {
   DiameterController controller;
   const float command = controller.update(reading, 1.75f, 9.28f, 0.40f, 0.025f, 0.1f);
   assert(command > 1 && !controller.safePause());
+  const float integrated = controller.integratorState();
+  assert(std::fabs(integrated) > 0.0001f);
+  for (unsigned sample = 0; sample < 20; ++sample)
+    controller.update(reading, 1.75f, 9.28f, 0.40f, 0.025f, 0.1f, false);
+  assert(std::fabs(controller.integratorState() - integrated) < 0.000001f);
+  controller.update(reading, 1.75f, 9.28f, 0.40f, 0.025f, 0.1f, true);
+  assert(std::fabs(controller.integratorState() - integrated) > 0.0001f);
   reading.valid = false;
   assert(controller.update(reading, 1.75f, 9.28f, 0.40f, 0.025f, 0.1f) == 0);
   assert(controller.safePause());

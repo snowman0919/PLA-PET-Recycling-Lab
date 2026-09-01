@@ -31,6 +31,7 @@ struct ActuatorCommands {
   bool traverse_step;
   bool traverse_direction;
   bool traverse_enable;
+  bool waste_path_active;
   bool heater_on[4];
   bool hopper_ptc_on;
 };

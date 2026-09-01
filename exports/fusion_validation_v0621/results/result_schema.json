@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PPR Fusion LC11 result CSV row",
+  "type": "object",
+  "required": [
+    "run_id", "case_id", "study_type", "engineering_source_sha", "step_file",
+    "step_sha256", "load_case_manifest_sha256", "mesh_level", "element_count",
+    "metric", "value", "unit", "solver_name", "solver_version", "completed_utc",
+    "evidence_file", "evidence_sha256", "operator", "status"
+  ],
+  "properties": {
+    "case_id": {"const": "LC11_FEEDER_ATTACHMENT"},
+    "study_type": {"const": "linear_static"},
+    "engineering_source_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "step_file": {"const": "geometry/PF-05.step"},
+    "step_sha256": {"const": "192b7fee75a114ae22ad5eabc76519ae21bbbae8ce3e6709bb761e019a0f422d"},
+    "load_case_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "mesh_level": {"enum": ["coarse", "medium", "fine"]},
+    "element_count": {"type": "integer", "minimum": 1},
+    "value": {"type": "number"},
+    "status": {"enum": ["PASS", "FAIL"]},
+    "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": true
+}

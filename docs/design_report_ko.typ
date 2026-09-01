@@ -1,4 +1,4 @@
-#set document(title: "Safety Orchestration PLA/PET Recycler v0.6.1 설계 보고서")
+#set document(title: "PLA/PET Recycler v0.6.2.1 기술 종결 설계 보고서")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -13,7 +13,7 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision safety-orchestration-closure-v0.6.1 · 2026-08-31]
+  #text(size: 11pt)[Revision technical-blocker-closure-v0.6.2.1 · 2026-09-01]
 ]
 
 #warn[*계산·CAD release다.* 실제 cutter 성능, melt flow, 200 g/h, 직경 품질과 안전 인증은 물리 Gate 전 미검증이다. 구매·CNC·energization은 사용자 승인 전 금지한다.]
@@ -79,7 +79,7 @@ Barrel 3×100 W band와 die 60 W cartridge로 열 path가 구성되고, `T1`~`T5
 
 `MachineSupervisor`가 process/material/forming 상태와 actuator transaction을 한 곳에서 조정한다. Shredder start는 verified drive/current calibration과 subsystem start 성공 뒤에만 `SHREDDING`을 commit한다. Extrusion은 preheat/gauge 준비 뒤 `READY_TO_EXTRUDE`에서 operator arm을 요구한다. Fault clear는 heater/shredder/forming/gauge latch 전체가 preflight를 통과한 경우에만 atomic commit하며 clear 자체로 actuator를 재시작하지 않는다.
 
-Material 변경은 이전 material thermal profile로 `MAINTENANCE_PURGE`를 실행하고 waste path, 최소 시간·screw revolution evidence·온도 안정·fault 없음·operator visual confirm과 ordered cleaning을 요구한다. Preheat/purge 시작은 IDLE에서 fan-only probe를 먼저 명령하고 A4 current feedback 1.5 s 연속 healthy 후에만 phase를 commit하며, 3.0 s timeout은 FAULT/all-zero다. 현재 revolution evidence는 별도 tach 측정이 아니라 verified command/RPM 적분이므로 `COMMAND_DERIVED_ESTIMATE_NOT_MEASURED`이며 drive fault에서 무효다. 고온 purge 중단·완료는 motion/heater를 끄고 유효한 cooling feedback으로 T1–Tdie 60 °C 이하까지 `COOLDOWN`을 유지한다. Forming-chain fault는 machine-readable response contract에 따라 feeder와 winding을 즉시 끄고 bounded screw/puller rundown과 thermal hold/cooldown을 수행한다. Spool eligibility는 gauge 연속성·U95·직경·ovality·puller·A4 cooling-current feedback·transport delay를 재검증하고 operator rethread 확인한 뒤에만 복원된다.
+Material 변경은 이전 material thermal profile로 `MAINTENANCE_PURGE`를 실행하고 waste path, 최소 시간·actual screw tach revolution evidence·온도 안정·fault 없음·operator visual confirm과 ordered cleaning을 요구한다. Preheat/purge 시작은 IDLE에서 fan-only probe를 먼저 명령하고 A4 current feedback 1.5 s 연속 healthy 후에만 phase를 commit하며, 3.0 s timeout은 FAULT/all-zero다. A13 hybrid tach의 verified timestamp pulse만 revolution credit로 적분하며 timeout, command-motion mismatch 또는 driver fault에서 무효다. 고온 purge 중단·완료는 motion/heater를 끄고 유효한 cooling feedback으로 T1–Tdie 60 °C 이하까지 `COOLDOWN`을 유지한다. Forming-chain fault는 machine-readable response contract에 따라 feeder와 winding을 즉시 끄고 bounded screw/puller rundown과 thermal hold/cooldown을 수행한다. Spool eligibility는 gauge 연속성·U95·직경·ovality·puller·A4 cooling-current feedback·transport delay와 explicit traverse home을 재검증하고 operator rethread 확인한 뒤에만 복원된다.
 
 300 °C hot path, 25 mm insulation, 10 mm air gap와 grounded sheet shield의 1D screening은 shield 52 °C, adjacent polymer 42 °C다. Seam/slot/radiation view를 포함하지 않으므로 Gate 4 thermocouple 기준은 shield 55 °C, polymer 45 °C다.
 
@@ -103,8 +103,8 @@ PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 904.
 
 = 검증 경계
 
-#ok[Safety-orchestration baseline은 closed B-Rep, manifold mesh, actual slicing, Arduino Mega compile/host test, OpenModelica mandatory 111 scenario, CalculiX 3단계 mesh/analytical structure, controller-contract/firmware sync와 Fusion 중립 package hash binding을 검사한다. 상태는 SAFETY_ORCHESTRATION_BASELINE / IMPLEMENTATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / CROSS_SOLVER_VALIDATION_PENDING / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
+#ok[Technical-closure baseline은 closed B-Rep, manifold mesh, actual slicing, Arduino Mega compile/host test, OpenModelica baseline 111 scenario와 v0.6.2.1 shadow 24 scenario, CalculiX 3단계 mesh/analytical structure, controller-contract/firmware sync와 Fusion 중립 package hash binding을 검사한다. 상태는 TECHNICAL_CLOSURE_BASELINE / IMPLEMENTATION_BASELINE / HARDWARE_ADAPTER_VALIDATED / CLOSED_LOOP_ACTUATION_VALIDATED / PROCESS_FEED_VIRTUAL_VALIDATED / VIRTUAL_PHYSICS_VALIDATED / CROSS_SOLVER_VALIDATION_DEFERRED / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
 
-Fusion용 STEP 9개와 LC01–LC10, static/modal/thermal/thermal-stress/nonlinear/event/buckling study 계약은 준비됐으나 Autodesk Fusion 실행 결과는 없다. 따라서 solver correlation은 PENDING이며 OpenModelica/CalculiX PASS를 Fusion PASS로 표시하지 않는다.
+Fusion용 STEP 9개와 LC01–LC10 및 LC11 feeder attachment, static/modal/thermal/thermal-stress/nonlinear/event/buckling study 계약은 준비됐으나 Autodesk Fusion 실행 결과는 없다. 사용자 결정으로 실제 실행과 solver correlation은 post-v0.6.2.1 MacBook stage에 deferred했으며 OpenModelica/CalculiX PASS를 Fusion PASS로 표시하지 않는다.
 
 Gate-1…5는 optional empirical commissioning/model-correlation 절차다. 수행 결과와 simulation 결과를 혼용하지 않는다.

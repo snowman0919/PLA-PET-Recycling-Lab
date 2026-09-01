@@ -1,0 +1,55 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "scenario_count": 24,
+  "p0_k_enumerated_count": 21,
+  "p0_k_scenarios": [
+    "LowSpeedTachShredder",
+    "LowSpeedTachScrew",
+    "LowSpeedTachPuller",
+    "LowSpeedTachSpooler",
+    "TachJitter",
+    "TachMissingPulse",
+    "TachRollover",
+    "ShredderClosedLoopLoadStep",
+    "ScrewClosedLoopPressureStep",
+    "PullerClosedLoopLowSpeed",
+    "SpoolerClosedLoopEmptyToFull",
+    "TraverseHomeMiddle",
+    "TraverseHomeWrongDirection",
+    "TraverseLimitFailure",
+    "PLAShredderRecirculation",
+    "PETRibbonRecirculation",
+    "PLAHopperBridgeClear",
+    "PETHopperBridgeClear",
+    "FeedRateNominalPLA",
+    "FeedRateNominalPET",
+    "FeedRateDegradedSafePause"
+  ],
+  "additional_p0_c_regressions": [
+    "ActuatorDeadZoneRecovery",
+    "ActuatorSaturationRecovery",
+    "ActuatorTachLossRundown"
+  ],
+  "source_hashes": {
+    "control/tach_contract.json": "cce59b3f7e351725ecdbe878e3cf1ccfcb9cec82ae8cbbd8263f0908b283b715",
+    "control/drive_actuation_contract_v0.6.2.1.json": "6a0f3ee3b668421900373561750264986c1e9583543932b4da0b359764887ec2",
+    "analysis/process_feed/feed_parameters.json": "cf34e0710b61f7df395f21d3efd831fc0e75317b09202873509aabcf34905964",
+    "analysis/process_feed/feed_validation.json": "0e0079c0d5d4940637761b9c4bf596ef906d917c15353cee3bda4b95478a17cf",
+    "analysis/shredder_recirculation/recirculation_parameters.json": "083008be77da2d7cb719f1555ef97d32e5b966478f536ce0980d9327ce4418e2",
+    "analysis/shredder_recirculation/recirculation_validation.json": "4cb2bda1198610fd6ee148e15c425727f7657b9d931bcc0cf358d89eca94335c",
+    "analysis/load_cases/openmodelica_dynamic_envelope.json": "4f9735292ab3046c40bc173c4e22611fc35ae475a6d087b674cd7882ea7aa1ed",
+    "exports/fusion_validation/run_binding.json": "90bfa7e76942a20b266ec9d3aa1de3b1047fec35c2586c890eade8eb3a2c239f",
+    "exports/process_v0621/fusion_change_classification.json": "310e7fc832eeaa0fa8fbfba4b55075e29f137d95f62820eee8f5d143d81a6f60",
+    "simulation/openmodelica/PLA_PET_Recycler/Scenarios/V0621ShadowScenarios.mo": "e8aae7d11a52bc68f781bd3cfc4edf3607cad56f8f0e28d9e1252141182a3c19",
+    "simulation/openmodelica/PLA_PET_Recycler/Scenarios/package.order": "b083e106b3a6c6779e0b0d8b6dbf9c05cf5fe0983281d8ab7fc171d736046b83",
+    "simulation/openmodelica/scripts/generate_v0621_shadow.py": "fde99f1111befc801ca2fb876186e97d858ffa9f9d2d56b824c266289953f881",
+    "simulation/openmodelica/postprocess/validate_v0621_shadow.py": "03818d69536f34088e785d29a4a07b364ccd1cdc8875d1e6d2a7cd414296f332",
+    "simulation/openmodelica/PLA_PET_Recycler/Scenarios/V0621Contracts.mo": "aba915162c171f3db2a47f3c36b4e4371a28634515839429c0cf1755504cea73",
+    "simulation/openmodelica/scripts/run_v0621_shadow.mos": "81f5914ac5e1d055e81c77a2080f7405bf34542eadeb9c24daf49df919991fe7"
+  },
+  "generated_files": [
+    "simulation/openmodelica/PLA_PET_Recycler/Scenarios/V0621Contracts.mo",
+    "simulation/openmodelica/scripts/run_v0621_shadow.mos"
+  ],
+  "classification": "VIRTUAL_SIMULATION_ONLY_PHYSICAL_TEST_NOT_RUN"
+}

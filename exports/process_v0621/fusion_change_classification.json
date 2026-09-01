@@ -1,0 +1,32 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "active_package": "exports/fusion_validation",
+  "classification": [
+    {
+      "change": "SR-01..SR-05 recirculation flow-path, comb, labyrinth, screen and guard",
+      "existing_cases": "LC01-LC10",
+      "decision": "NO_RERUN",
+      "reason": "cutter shaft, bearing plate, frame geometry and 22 N*m jam load are unchanged; local flow-path parts do not enter the frozen high-load model"
+    },
+    {
+      "change": "PF-01..PF-03 hopper, lid and low-speed agitator",
+      "existing_cases": "LC01-LC10",
+      "decision": "NO_RERUN",
+      "reason": "bounded feed inventory adds at most 0.55 kg and does not change frozen structural or thermal inputs"
+    },
+    {
+      "change": "PF-04/PF-05 positive metering auger and housing",
+      "existing_cases": "LC01-LC10",
+      "decision": "NEW_CASE_REQUIRED",
+      "reason": "2.2 N*m local feeder reaction/attachment is not represented by an existing Fusion case; it does not invalidate existing case results but needs its own attachment check"
+    }
+  ],
+  "existing_result_reuse_permitted": false,
+  "reason_existing_result_reuse_permitted_false": "active Fusion results are independently pending and the new feeder attachment case has not been solved",
+  "new_case": {
+    "case_id": "LC11_FEEDER_ATTACHMENT",
+    "geometry": ["parts/PF-04/PF-04.step", "parts/PF-05/PF-05.step"],
+    "load": {"reaction_torque_nm": 2.2, "inventory_vertical_load_n": 5.4},
+    "status": "PENDING_EXTERNAL_FUSION_EXECUTION"
+  }
+}

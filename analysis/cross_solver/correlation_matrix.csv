@@ -7,3 +7,6 @@ C05,blocked-die pressure/thrust,LC06,OpenModelica,6 MPa / 1206.372 N,Fusion,,5%,
 C06,barrel thermal peak/gradient,LC07-LC08,OpenModelica,scenario envelope,Fusion,,documented sensitivity,PENDING
 C07,global frame mode,LC10,Fusion-required,,Fusion,,20% excitation separation,PENDING
 C08,buckling factor,LC10,Fusion-required,,Fusion,,>=2.0,PENDING
+C09,shaft overhang displacement/reaction,LC05,CalculiX/closed-form,repository structural references,Fusion,,15% displacement / 5% reaction,PENDING
+C10,PET thermal-pressure combined regional stress,LC08+LC06,OpenModelica/closed-form,repository thermal and pressure envelope,Fusion,,25% regional stress,PENDING
+C11,feeder attachment displacement/reaction,LC11,closed-form,2.2 N*m + 5.4 N boundary,Fusion,,15% displacement / 5% reaction,PENDING

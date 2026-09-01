@@ -1,0 +1,43 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "status": "DEFERRED_EXTERNAL_FUSION",
+  "fusion_gate_policy": "DEFERRED",
+  "solver_pass": false,
+  "worker_alias": "win",
+  "attempt_count_this_goal": 6,
+  "last_attempt_utc": "2026-08-31T08:22:28Z",
+  "last_attempt_result": "TAILSCALE_PEER_OFFLINE_AND_SSH_CONNECT_TIMEOUT_12_SECONDS",
+  "network_diagnosis": {
+    "local_tailscale_backend": "Running",
+    "worker_tailscale_ip": "100.117.248.33",
+    "worker_peer_online": false,
+    "worker_last_seen_utc": "2026-08-31T06:50:00.1Z",
+    "tailscale_ping": "NO_REPLY_3_ATTEMPTS",
+    "icmp_ping": "100_PERCENT_LOSS_3_ATTEMPTS",
+    "scope": "WORKER_DEVICE_OR_TAILSCALE_PEER_OFFLINE_BEFORE_SSH"
+  },
+  "last_known_reachable_state": {
+    "fusion_process_observed": true,
+    "fusion_version": "2704.1.53",
+    "interactive_session_id": 3
+  },
+  "mandatory_pending_cases": [
+    "LC02",
+    "LC04",
+    "LC05",
+    "LC07",
+    "LC08",
+    "LC08_PLUS_LC06",
+    "LC10",
+    "LC11_FEEDER_ATTACHMENT"
+  ],
+  "required_remaining_evidence": [
+    "actual Autodesk Fusion execution",
+    "coarse medium fine mesh evidence",
+    "source Git STEP and load-case manifest hash binding",
+    "global displacement reaction balance and regional stress correlation",
+    "all mandatory classifications AGREE or EXPLAINED_DIFFERENCE"
+  ],
+  "release_impact": "NON_BLOCKING_FOR_V0.6.2.1_DEFERRED_TO_POST_RELEASE_STAGE",
+  "physical_test_performed": false
+}

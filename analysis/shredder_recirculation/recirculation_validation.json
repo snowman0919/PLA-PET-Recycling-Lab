@@ -1,0 +1,75 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "selected_concept": "PASSIVE_ROTOR_SWEPT_RETURN",
+  "selection_rule": "기능 합격 concept 중 actuator/fault/cleaning 부담이 가장 낮은 것",
+  "status": "PASS",
+  "classification": "VIRTUAL_SURROGATE_ONLY_PHYSICAL_TEST_REQUIRED",
+  "material_form_count": 8,
+  "sweep_case_count": 1944,
+  "worst_case": {
+    "minimum_oversize_return_probability": 0.9422200000000001,
+    "maximum_pet_ribbon_bypass_probability": 0.007875,
+    "maximum_dead_pocket_retention_probability": 0.011106666666666666,
+    "maximum_axial_migration_probability": 0.007073333333333334,
+    "maximum_mean_residence_cycles": 2.131136046823616,
+    "guarded_fragment_ejection": false
+  },
+  "functional_evidence": {
+    "return_to_active_cutter_region": "52 degree wedge terminates above rotor-swept shelf",
+    "anti_ribbon": "replaceable comb opening is narrower than 5 mm screen path",
+    "anti_axial": "8 mm overlap replaceable labyrinth at both shaft ends",
+    "no_dead_pocket": "55 degree drain floor and open sweep path",
+    "cleaning": "four captive M5 screen tray fasteners; withdraw on locked service side",
+    "operator_guard": "downward guarded service chute; rotor lockout required before access"
+  },
+  "trade": [
+    {
+      "concept": "passive wedge only",
+      "return_to_active_cutter": 0.86,
+      "anti_ribbon": 0,
+      "anti_axial": 0,
+      "dead_pocket_drain": 1,
+      "cleanable": 1,
+      "guarded_jam_clear": 1,
+      "actuator_count": 0,
+      "new_fault_modes": 0,
+      "weighted_score": 63,
+      "passes": false,
+      "reason": "ribbon bypass and axial migration unresolved"
+    },
+    {
+      "concept": "active return paddle",
+      "return_to_active_cutter": 1,
+      "anti_ribbon": 1,
+      "anti_axial": 1,
+      "dead_pocket_drain": 1,
+      "cleanable": 0,
+      "guarded_jam_clear": 1,
+      "actuator_count": 1,
+      "new_fault_modes": 3,
+      "weighted_score": 78,
+      "passes": true,
+      "reason": "passes but adds jam/tach/drive failure and cleaning burden"
+    },
+    {
+      "concept": "passive rotor-swept return shelf + comb + labyrinth",
+      "return_to_active_cutter": 1,
+      "anti_ribbon": 1,
+      "anti_axial": 1,
+      "dead_pocket_drain": 1,
+      "cleanable": 1,
+      "guarded_jam_clear": 1,
+      "actuator_count": 0,
+      "new_fault_modes": 0,
+      "weighted_score": 91,
+      "passes": true,
+      "reason": "selected: all functions with no added actuator"
+    }
+  ],
+  "model_limits": [
+    "fracture-calibrated DEM이 아닌 결정적 transport surrogate",
+    "입자 형상은 등가 width/aspect/orientation으로 축약",
+    "실제 cutter phase, 마모, 수분, 정전기는 coupon 시험 전 미검증",
+    "guard와 lockout의 실제 파편 containment 성능은 물리 시험 필요"
+  ]
+}

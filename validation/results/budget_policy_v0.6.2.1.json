@@ -1,0 +1,27 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "mutation": "budget_above_200000_treated_as_technical_failure",
+  "status": "PASS",
+  "cases": [
+    {
+      "absolute_total_krw": 0,
+      "technical_gate_pass": true
+    },
+    {
+      "absolute_total_krw": 199999,
+      "technical_gate_pass": true
+    },
+    {
+      "absolute_total_krw": 200000,
+      "technical_gate_pass": true
+    },
+    {
+      "absolute_total_krw": 200001,
+      "technical_gate_pass": true
+    },
+    {
+      "absolute_total_krw": 500000,
+      "technical_gate_pass": true
+    }
+  ]
+}

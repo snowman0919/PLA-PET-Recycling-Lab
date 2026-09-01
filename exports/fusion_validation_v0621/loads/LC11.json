@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "case_id": "LC11_FEEDER_ATTACHMENT",
+  "title": "feeder housing and idealized attachment reaction",
+  "study_type": "linear_static",
+  "primary_geometry": "geometry/PF-05.step",
+  "reference_geometry": "geometry/PF-04.step",
+  "placement_check_geometry": "geometry/process_feed_assembly.step",
+  "loads": {
+    "reaction_torque_n_mm": 2200.0,
+    "reaction_torque_axis": "+Z",
+    "inventory_vertical_load_n": 5.4,
+    "inventory_vertical_load_direction": "-Z",
+    "application": "distributed remote moment and force on PF-05 local z=115 mm upper annular face"
+  },
+  "constraint": "BC11 fixed lower flange annular face at PF-05 local z=0 mm",
+  "material": "MAT-304",
+  "mesh_levels": ["coarse", "medium", "fine"],
+  "acceptance": {
+    "minimum_safety_factor": 2.0,
+    "allowable_stress_mpa": 107.5,
+    "medium_to_fine_max_displacement_change_percent_max": 5.0,
+    "force_reaction_imbalance_percent_max": 2.0,
+    "moment_reaction_imbalance_percent_max": 2.0
+  },
+  "singularity_rule": "report the fixed-edge peak separately; acceptance stress is evaluated at least two local fine elements from the fixed boundary",
+  "physical_test_state": "NOT_RUN",
+  "fusion_result_state": "PENDING_EXTERNAL_FUSION_EXECUTION",
+  "limitations": [
+    "PF-04 is suppressed in the attachment solve because the source model has intentional running clearance and no bearing/bushing body",
+    "fastener holes, bracket, aluminum profile and table are absent; BC11 is a fixed-interface surrogate",
+    "linear static simulation does not validate cyclic fatigue, jam impact, fastener slip or physical assembly"
+  ]
+}

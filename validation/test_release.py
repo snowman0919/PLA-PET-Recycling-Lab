@@ -14,6 +14,8 @@ REV = "safety-orchestration-closure-v0.6.1"
 IMPLEMENTATION_STATE = "IMPLEMENTATION_BASELINE"
 RELEASE_STATE = "SAFETY_ORCHESTRATION_BASELINE"
 SAFETY_REV = REV
+ACTUATION_REV = "parallel-actuation-hardening-v0.6.2"
+CLOSURE_REV = "technical-blocker-closure-v0.6.2.1"
 
 
 def require(condition, message):
@@ -34,7 +36,9 @@ def test_revision_and_stale():
         "docs/validation_report_ko.md", "validation/release_checklist.md", "artifacts/manifest.json",
     )
     for rel in current:
-        require(REV in (ROOT / rel).read_text(errors="ignore"), f"revision missing: {rel}")
+        text = (ROOT / rel).read_text(errors="ignore")
+        require(any(revision in text for revision in (REV, ACTUATION_REV, CLOSURE_REV)),
+                f"recognized revision missing: {rel}")
     stale = ["2250 x 500 x 1100", "2510 x 600 x 1350", "two-tower", "Tower A", "Tower B", "6-color classifier", "3-stage release", "external 700 mm rail", "0.1.0-preflight", "0.2.0-undergraduate-mvp"]
     hits = [f"{rel}:{token}" for rel in current for token in stale if token in (ROOT / rel).read_text(errors="ignore")]
     require(not hits, "stale architecture: " + ", ".join(hits))
@@ -55,7 +59,11 @@ def test_geometry_budget_and_prints():
     rows = list(csv.DictReader((ROOT / "bom/cash_budget.csv").open()))
     target = int(next(row for row in rows if row["item_id"] == "TARGET_TOTAL")["planned_cash_krw"])
     absolute = int(next(row for row in rows if row["item_id"] == "ABSOLUTE_TOTAL_WITH_RESERVE")["planned_cash_krw"])
-    require(target <= 180000 and absolute <= 200000, "cash cap")
+    require(target >= 0 and absolute >= target, "invalid informational budget totals")
+    policy = json.loads((ROOT / "bom/budget_policy.json").read_text())
+    require(policy["price_status"] == "INFORMATIONAL", "price status must be informational")
+    require(policy["price_release_blocking"] is False, "price must not block technical release")
+    require(policy["procurement_approval_gate"] == "USER_APPROVAL_REQUIRED", "procurement approval gate")
     verified = list(csv.DictReader((ROOT / "bom/verified_budget.csv").open()))
     require(any(r["budget_state"] == "VERIFIED_PROCUREMENT_BUDGET" and r["status"] == "NOT_ESTABLISHED" for r in verified), "unverified budget claimed")
 
@@ -116,7 +124,7 @@ def test_manufacturing_and_physics():
 
 def test_implementation_and_cross_solver():
     compile_result = json.loads((ROOT / "validation/results/arduino_mega_compile.json").read_text())
-    require(compile_result["revision"] == SAFETY_REV and compile_result["status"] == "PASS", "Arduino Mega v0.6.1 compile evidence")
+    require(compile_result["revision"] == ACTUATION_REV and compile_result["status"] == "PASS", "Arduino Mega v0.6.2 compile evidence")
     ino = (ROOT / "firmware/arduino_mega/arduino_mega.ino").read_text()
     for token in ("MachineSupervisor", "Max6675Backend", "CoolingFeedbackBackend", "EEPROM", "materialSession", "supervisor.update", "LOCKOUT_CONFIRM_PIN"):
         require(token in ino, f"firmware implementation missing {token}")
@@ -177,9 +185,11 @@ def test_artifacts_and_locks():
     for rel in ("docs/build_manual_ko.pdf", "docs/design_report_ko.pdf", "docs/digital_release_report_ko.pdf"):
         text = subprocess.run(["pdftotext", str(ROOT / rel), "-"], text=True, capture_output=True, check=True).stdout
         require(
-            REV in text
+            CLOSURE_REV in text
+            and "TECHNICAL_CLOSURE_BASELINE" in text
             and "IMPLEMENTATION_BASELINE" in text
             and "VIRTUAL_PHYSICS_VALIDATED" in text
+            and "CROSS_SOLVER_VALIDATION_DEFERRED" in text
             and "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN" in text
             and "Gate-1" in text,
             f"PDF current-state mismatch {rel}",
@@ -187,14 +197,17 @@ def test_artifacts_and_locks():
 
 
 def test_safety_orchestration_closure():
-    for name in (
-        "runtime_supervisor", "orchestration_contract", "controller_contract",
-        "red_team_orchestration", "arduino_mega_compile",
-    ):
+    for name in ("orchestration_contract", "controller_contract", "red_team_orchestration"):
         result = json.loads((ROOT / "validation/results" / f"{name}.json").read_text())
         require(
             result.get("revision") == SAFETY_REV and result.get("status") == "PASS",
             f"v0.6.1 safety evidence missing/stale: {name}",
+        )
+    for name in ("runtime_supervisor", "arduino_mega_compile"):
+        result = json.loads((ROOT / "validation/results" / f"{name}.json").read_text())
+        require(
+            result.get("revision") == ACTUATION_REV and result.get("status") == "PASS",
+            f"v0.6.2 production actuation evidence missing/stale: {name}",
         )
     runtime = json.loads((ROOT / "validation/results/runtime_supervisor.json").read_text())
     require(runtime["scenario_count"] >= 43 and runtime["trace_count"] >= 100, "runtime coverage regression")
@@ -202,7 +215,7 @@ def test_safety_orchestration_closure():
     require(runtime["bounded_sequence"] == {
         "fixed_seeds": 4, "maximum_events_per_seed": 64, "status": "PASS",
     }, "bounded sequence evidence drift")
-    require(runtime["purge_revolution_evidence"] == "COMMAND_DERIVED_ESTIMATE_NOT_MEASURED", "purge revolution evidence false claim")
+    require(runtime["purge_revolution_evidence"] == "ACTUAL_SCREW_TACH_MEASURED_REVOLUTIONS", "actual purge tach evidence missing")
     require(runtime["purge_operator_sequence"] == "approvePurgeFeed_then_independent_waste_path_confirmation", "purge operator sequence evidence drift")
     red_team = json.loads((ROOT / "validation/results/red_team_orchestration.json").read_text())
     require(red_team["mutation_count"] >= 14, "mandatory red-team mutation count")

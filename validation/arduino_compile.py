@@ -61,7 +61,7 @@ def main() -> None:
         if path.suffix in {".h", ".cpp"}
     )
     evidence = {
-        "revision": "safety-orchestration-closure-v0.6.1",
+        "revision": "parallel-actuation-hardening-v0.6.2",
         "fqbn": "arduino:avr:mega",
         "target": "firmware/arduino_mega/arduino_mega.ino",
         "status": "PASS" if passed else "FAIL",

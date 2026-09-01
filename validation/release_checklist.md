@@ -1,4 +1,27 @@
-# Release checklist — safety-orchestration-closure-v0.6.1
+# Release checklist — technical-blocker-closure-v0.6.2.1
+
+## TECHNICAL_CLOSURE_RELEASE_GATE — `FUSION_DEFERRED_POLICY_ACTIVE`
+
+- [x] source v0.6.2 `f9fde47359ef84744daf1a9279040c507ef60497` archive branch/tag 고정
+- [x] main은 source의 ancestor이므로 추가 merge 불필요
+- [x] P0-A hybrid tach, 6/12/20/20 PPR와 실제 timestamp pulse adapter
+- [x] P0-B~F 저속 actuator contract, 4-drive PI, spool radius, explicit traverse homing, 독립 calibration v4
+- [x] P0-G~H passive recirculation과 positive auger/agitator feed 가상 검증
+- [x] P0-I 독립 fan feedback와 fan-loss controlled rundown; airflow 수치는 실측 아님
+- [x] P0-J combined production-controller hardware-adapter 37/37 host scenario evidence
+- [x] P0-K OpenModelica 1.27.0 DASSL shadow 24/24와 Fusion delta 분류
+- [x] P0-L을 사용자 결정으로 `DEFERRED_USER_DECISION` 분류; package integrity와 present-result fail-closed gate 유지
+- [x] 최종 engineering source `a22f06ea534cad9e99949872e550d2789d49ef9f`에 Fusion handoff STEP/load/material/contact/constraint/worker 계약 결박
+- [ ] final exact HEAD CI-LIGHT/CI-FULL와 artifact reproducibility
+- [ ] PR review 및 merge
+
+가격은 `PRICE_STATUS=INFORMATIONAL`, `PRICE_RELEASE_BLOCKING=false`이다. 현재 조건부 178,729 KRW, reserve 포함 198,729 KRW지만 이 값의 증감은 기술 release를 차단하지 않는다. 견적 미확정과 구매는 `PROCUREMENT_APPROVAL_GATE=USER_APPROVAL_REQUIRED`로 계속 잠긴다.
+
+현재 Fusion 정책은 `DEFERRED`이며 solver PASS가 아니다. P0-A~K와 로컬 deterministic gate가 모두 통과하면 `TECHNICAL_CLOSURE_BASELINE`을 사용할 수 있지만, `CROSS_SOLVER_VALIDATED`와 `FUSION_VALIDATED`는 실제 결과 전까지 금지한다. 최종 exact HEAD와 PR/merge 항목은 아직 별도 확인 대상이다.
+
+---
+
+## 동결 v0.6.1 checklist (historical reference)
 
 ## SAFETY_ORCHESTRATION_RELEASE_GATE
 

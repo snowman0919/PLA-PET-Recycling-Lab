@@ -1,0 +1,32 @@
+{
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "physical_validation": "NOT_RUN",
+  "shredder_service_sequence": [
+    "E-stop 후 main disconnect를 OFF/lockout하고 무전압을 확인한다.",
+    "불투명 하향 guard를 닫은 상태에서 loose fragment를 아래 수거함으로 배출한다.",
+    "retained M5 fastener 4개를 service side에서 풀고 screen tray를 작업자 반대 방향으로 뺀다.",
+    "comb, wedge, labyrinth를 검사·세척하고 금속 shim으로 clearance를 확인한다.",
+    "screen tray와 guard를 복구하고 공구/이물 inventory 확인 후에만 lockout을 해제한다."
+  ],
+  "feed_service_sequence": [
+    "heater, auger, agitator를 정지하고 main disconnect를 OFF/lockout한다.",
+    "hopper lid gasket을 열어 잔류 flake를 진공 회수한다.",
+    "agitator shaft와 auger를 분리해 throat의 dead pocket과 마모를 검사한다.",
+    "gasket, tach target, current-sensor harness를 확인하고 재조립한다."
+  ],
+  "tool_access": {
+    "screen_tray": "service-side 4 mm hex key envelope, 45 mm axial clearance",
+    "anti_ribbon_comb": "service-side 4 mm hex key envelope, screen removed first",
+    "axial_labyrinth": "split ring; shaft removal is not required",
+    "hopper_lid": "four retained M5 knobs",
+    "auger": "lower housing flange, 70 mm downward withdrawal envelope"
+  },
+  "safety_claim": "DIGITAL_ACCESS_REVIEW_ONLY",
+  "required_physical_tests": [
+    "fragment containment coupon",
+    "locked rotor jam-clear trial",
+    "screen removal/tool access trial",
+    "hot residue cleaning trial",
+    "gasket dust leakage test"
+  ]
+}

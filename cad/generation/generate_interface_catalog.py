@@ -9,7 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "exports/fabrication/interface_catalog.csv"
-REVISION = "safety-orchestration-closure-v0.6.1"
+BASELINE_REVISION = "safety-orchestration-closure-v0.6.1"
+PROCESS_FEED_REVISION = "technical-blocker-closure-v0.6.2.1"
+PROCESS_FEED_INTERFACE_IDS = {"IF-021", "IF-022", "IF-031"}
 
 FIELDS = (
     "interface_id",
@@ -59,8 +61,8 @@ def catalog_rows():
         row("IF-018", "PPR-C09", "SP-SH-01", "spool cone", "Ø12.2 printed bore", "Ø12 h6 spindle", "0.20–0.41 mm diametral clearance", "coupon-selected", "project printed clearance", "M6 cross clamp; metal collar bears axial load", "reamer + hex key", "adapter slides and clamps without split"),
         row("IF-019", "EX-SCR-01 flight OD", "EX-BAR-01 bore", "screw radial clearance", "Ø15.92 -0.02/0", "Ø16.20 +0.02/0", "0.14–0.16 mm radial", "matched three-station report", "RFQ drawing", "matched supplier pair", "micrometer + three-point bore gauge", "B+20/B+140/B+260 clearance report"),
         row("IF-020", "EX-SCR-01 journals", "thrust/drive bearings", "screw support", "Ø12 h6 / Ø15 h6", "received bearing IDs", "matched transition fit", "TIR ≤0.03 mm", "RFQ drawing + bearing data", "metal thrust stack", "micrometer + dial indicator", "hand rotation and axial endplay Gate-3"),
-        row("IF-021", "FD-MET-02 rotor", "FD-MET-01 housing", "metering rotor clearance", "OD31.60 -0.05/0", "ID32.00 nominal", "0.20–0.225 mm radial", "housing ID ±0.05 mm", "internal project fit", "removable rotor and collars", "micrometer + bore gauge", "hand rotation and Gate-2 feed coupon"),
-        row("IF-022", "FD-MET-03 shaft", "FD-MET-02 rotor", "feeder shaft", "Ø5 h8", "Ø5.2", "0.20 mm nominal diametral clearance", "cross-pin/collars after donor measurement", "internal project fit", "removable pin/collars", "micrometer + pin gauge", "no rub through full revolution"),
+        row("IF-021", "PF-04 auger flight", "PF-05 housing bore", "positive-metering running clearance", "OD24.0 nominal", "ID27.0 nominal", "1.50 mm radial nominal", "final metal process tolerance and flake coupon pending", "internal project clearance", "removable auger with metal thrust retention", "micrometer + bore gauge", "hand rotation plus PLA/PET feed coupon without rub", "PHYSICAL_COUPON_PENDING"),
+        row("IF-022", "PF-03 agitator shaft", "hopper-side support and donor drive", "agitator shaft support", "Ø8 nominal", "received bushing/bearing and donor coupling", "donor-specific fit not yet released", "measure donor shaft bearing and coupling before drawing release", "supplier data plus measured donor", "metal bearing/coupling path; printed wall is not sole support", "micrometer + dial indicator", "free bounded rotation without hopper-wall contact", "DONOR_MEASUREMENT_REQUIRED"),
         row("IF-023", "EX-BAR-01", "HT-BAND-01 x3", "band heater clamp", "OD Ø34.00 ±0.05", "ID Ø34.0 custom", "zero-gap clamp contact", "heater maker clamp range must include 33.95–34.05", "custom mica band supplier drawing", "split band clamp; no 35 mm substitution", "micrometer + feeler", "360° contact and cold insulation resistance"),
         row("IF-024", "EX-DIE-01", "HT-CART-01", "cartridge heater bore", "Ø6.05 H7 reamed through", "heater Ø6.00 -0.02/-0.06", "0.070–0.122 mm diametral clearance", "bore +0/+0.012 mm", "supplier fit guidance + received heater measurement", "thin anti-seize film + positive axial clamp", "pin gauge + micrometer + megohmmeter", "full insertion without force; no loose lead loading"),
         row("IF-025", "EX-BAR zones 1–3", "TEMP-01..03", "barrel thermocouple", "Ø3.2 +0.05/0 blind5.5 bore", "Ø3 ungrounded mineral-insulated K probe", "0.20–0.25 mm diametral clearance", "3.35–3.40 mm nominal melt-bore ligament", "IEC 60584 K-type", "compression screw/washer", "depth gauge + insulation/continuity meter", "probe reads barrel metal; ungrounded junction required for MAX6675 architecture"),
@@ -69,7 +71,7 @@ def catalog_rows():
         row("IF-028", "M3 heat-set insert", "PPR-C06/C11", "printed insert bore", "insert lot OD4.2/4.6", "matching blind bore", "coupon-selected interference", "PPR-TC01 controls", "insert supplier data", "temperature-controlled press", "coupon + pullout fixture", "print and pull-test PPR-TC01 with actual insert lot", "PHYSICAL_COUPON_PENDING"),
         row("IF-029", "M4 heat-set insert", "PPR-C01/PPR-C10", "printed insert bore", "insert lot OD4.6/5.6", "matching blind bore", "coupon-selected interference", "PPR-TC01 controls", "insert supplier data", "temperature-controlled press", "coupon + pullout fixture", "print and pull-test PPR-TC01 with actual insert lot", "PHYSICAL_COUPON_PENDING"),
         row("IF-030", "M4/M5/M6 fasteners", "printed/metal clearance holes", "bolt clearance", "actual fastener shank", "Ø4.5/5.5/6.6", "ISO normal clearance", "drawing-specific", "ISO 273", "washer + metal nut/T-nut/rivnut", "pin gauge + torque wrench", "all bolts insert and reach full thread"),
-        row("IF-031", "FD-TRN-01", "FD-HOP-01/FD-MET-01", "sealed feed sockets", "OD32 tube", "matching Ø32 sockets", ">=8 mm engagement", "leak path closed", "project welded/clamped joint", "TIG tack/weld or removable clamp", "depth gauge", "dry-flake leak/cleanability check"),
+        row("IF-031", "PF-01 hopper throat", "PF-05 auger housing flange", "sealed positive-feed interface", "44x44 mm hopper outlet", "Ø48 flange and Ø27 bore", "continuous gasketed transition without ledge/dead pocket", "final bolt pattern and gasket compression coupon pending", "project removable sanitary joint", "metal adapter and captive fasteners under service lockout", "caliper + feeler + visual", "dry-flake leak cleanability and no-retention coupon", "PHYSICAL_COUPON_PENDING"),
         row("IF-032", "PPR-C03 x4", "FD-BIN-01 sheet", "flake-bin corner channel", "1.4 mm printed slot", "1.0 mm sheet", "0.4 mm nominal slot clearance", "printed ±0.30 mm", "project printed sheet joint", "M3 fasteners + welded/folded sheet", "feeler + visual", "no inward dead pocket or burr"),
     ]
 
@@ -98,7 +100,12 @@ def main():
         writer = csv.DictWriter(stream, fieldnames=("revision",) + FIELDS, lineterminator="\n")
         writer.writeheader()
         for item in rows:
-            writer.writerow({"revision": REVISION, **item})
+            revision = (
+                PROCESS_FEED_REVISION
+                if item["interface_id"] in PROCESS_FEED_INTERFACE_IDS
+                else BASELINE_REVISION
+            )
+            writer.writerow({"revision": revision, **item})
     print(f"FABRICATION_INTERFACE_CATALOG_OK rows={len(rows)}")
 
 

@@ -18,6 +18,11 @@ enum HeaterFault : uint16_t {
 
 struct HeaterOutput {
   float duty_percent;
+  float requested_duty_percent;
+  float allocated_duty_percent;
+  float allocation_deficit_percent;
+  float integrator_state;
+  bool saturation_state;
   bool time_proportion_on;
   uint16_t fault_bits;
 };
@@ -27,6 +32,7 @@ class HeaterController {
   HeaterOutput update(uint8_t zone, const TemperatureReading &reading, float target_c,
                       bool phase_permission, bool thermal_chain_ok,
                       bool permission_feedback, uint32_t now_ms);
+  HeaterOutput applyAllocation(uint8_t zone, float allocated_duty_percent, uint32_t now_ms);
   bool canClearFault(bool physical_lockout_confirmed, bool thermal_chain_ok,
                      bool temperature_sensors_healthy = true) const;
   bool clearFault(bool physical_lockout_confirmed, bool thermal_chain_ok);
@@ -42,6 +48,8 @@ class HeaterController {
     uint32_t watch_start_ms{0};
     bool heating_watch{false};
     bool off_watch{false};
+    float requested_duty{0};
+    float applied_duty{0};
   } zones_[4];
   uint16_t latched_faults_{HEATER_FAULT_NONE};
 };

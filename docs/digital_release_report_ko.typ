@@ -1,4 +1,4 @@
-#set document(title: "PLA/PET Recycler v0.6.1 safety-orchestration release 보고서")
+#set document(title: "PLA/PET Recycler v0.6.2.1 technical-closure release 보고서")
 #set page(paper: "a4", margin: 18mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -6,17 +6,18 @@
 #let warn(body) = block(width: 100%, fill: rgb("fff0e8"), stroke: 1pt + rgb("bd4b2d"), inset: 8pt, body)
 
 #align(center)[
-  #text(size: 22pt, weight: "bold")[PLA/PET Recycler v0.6.1]
-  #text(size: 15pt)[Safety, purge, forming-chain orchestration closure]
+  #text(size: 22pt, weight: "bold")[PLA/PET Recycler v0.6.2.1]
+  #text(size: 15pt)[Technical blocker closure · Fusion deferred]
   #v(4mm)
-  Revision `safety-orchestration-closure-v0.6.1` · 2026-08-31
+  Revision `technical-blocker-closure-v0.6.2.1` · 2026-09-01
 ]
 
 #box[
-Release state: *SAFETY_ORCHESTRATION_BASELINE* \
+Release state: *TECHNICAL_CLOSURE_BASELINE* \
 Implementation: *IMPLEMENTATION_BASELINE* \
 Virtual physics: *VIRTUAL_PHYSICS_VALIDATED* \
-Cross solver: *CROSS_SOLVER_VALIDATION_PENDING* \
+Cross solver: *CROSS_SOLVER_VALIDATION_DEFERRED* \
+Fusion: *DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE* \
 Empirical: *EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN*
 ]
 
@@ -24,7 +25,7 @@ Empirical: *EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN*
 
 = 기준선과 architecture freeze
 
-최종 v0.6 source SHA `60ccd92fe9a7df35b550a2a57649b1263da09d10`을 archive branch/tag로 보존했다. v0.6.1 branch에는 현재 main을 한 번 merge했으며 v0.6 tree reversion은 없다. 기계 architecture와 geometry는 동결했다. FCStd/STEP/STL/3MF/PNG binary는 revision 문자열만 바꾸려고 재생성하지 않았고 경량 metadata에 동일 geometry provenance를 기록했다.
+source v0.6.2 SHA `f9fde47359ef84744daf1a9279040c507ef60497`을 archive branch/tag로 보존했다. main은 source의 ancestor라 추가 merge가 필요 없었다. v0.6.2.1 공정 feed/recirculation geometry와 LC11을 추가했고 source STEP/load package를 hash로 결박했다. 외부 Fusion solver 값은 생성하지 않았다.
 
 470 × 700 × 930 mm enclosure, 16 mm × 16 L/D screw, 360 W process heater, compact cooling, X/Y gauge, puller, dancer/traverse와 1 kg spool을 유지한다. 출력품 12종은 각 축 210 mm 이하이며 slicer planning mass는 reserve 포함 1,012.70 g이다.
 
@@ -42,7 +43,7 @@ Pure C++ `MachineSupervisor`가 process/material/forming 상태, calibration, st
 
 = Purge와 forming-chain policy
 
-`MAINTENANCE_PURGE`는 이전 material profile을 유지한다. Feed 승인과 독립 waste-path 확인이 모두 fresh guard/temperature/cooling/driver preflight를 통과해야만 `PURGE_RUNNING`에서 bounded screw/feed/puller-to-waste motion을 허용한다. 최소 120 s, 32 screw revolution estimate, 온도 안정, no fault와 시각 확인 뒤 screen/hopper/temperature/final acknowledgement를 순서대로 요구한다. Revolution은 `COMMAND_DERIVED_ESTIMATE_NOT_MEASURED`이며 80 g/120 g도 측정 질량이 아니다.
+`MAINTENANCE_PURGE`는 이전 material profile을 유지한다. Feed 승인과 독립 waste-path 확인이 모두 fresh guard/temperature/cooling/driver preflight를 통과해야만 `PURGE_RUNNING`에서 bounded screw/feed/puller-to-waste motion을 허용한다. 최소 120 s, verified A13 timestamp tach로 적분한 실제 32 screw revolution, 온도 안정, no fault와 시각 확인 뒤 screen/hopper/temperature/final acknowledgement를 순서대로 요구한다. Tach timeout/mismatch/driver fault에서는 revolution evidence를 무효화하며 80 g/120 g은 측정 질량이 아니다.
 
 STOP/PAUSE purge abort는 session을 `PURGE_PREHEAT_REQUIRED`, 성공 완료는 `SCREEN_CLEAN_REQUIRED`로 옮긴다. 둘 다 motion/heater를 끄고 T1–Tdie가 60 °C 이하가 될 때까지 validated fan `COOLDOWN`을 유지한다. E-stop은 별도 즉시 all-zero다.
 
@@ -72,7 +73,7 @@ Normal Empty/Half/Full spool jam과 dancer prelimit는 mechanical hard stop을 �
 
 = Fusion, budget와 gate
 
-FreeCAD controlling source의 STEP 9개와 LC01–LC10은 정확한 v0.6.1 engineering-source SHA, STEP/load/model/OpenModelica-envelope hash에 결속한다. LC01–LC10 모두 `rerun_required=true`, result cell은 비어 있고 Windows validator는 오래된 v0.6 binding을 거부한다. 실제 Fusion solve가 없으므로 `CROSS_SOLVER_VALIDATION_PENDING`이다.
+FreeCAD controlling source의 legacy STEP 9개/LC01–LC10과 v0.6.2.1 LC11 package는 engineering-source SHA, STEP/load/model hash에 결속한다. 필수 case result cell은 비어 있다. 사용자 결정으로 실제 Fusion solve와 수치 상관을 post-v0.6.2.1 MacBook stage로 이관해 `CROSS_SOLVER_VALIDATION_DEFERRED`이며 solver PASS가 아니다. `DEFERRED`에서도 존재하는 malformed/stale result는 release gate가 거부한다.
 
 - Conditional plan: 175,729 KRW.
 - Cooling-feedback generic allowance: 2,000 KRW.
