@@ -4,7 +4,10 @@
   "classification": "DIGITAL_ENGINEERING_EVIDENCE_PHYSICAL_TEST_NOT_RUN",
   "engineering_source_sha": "e86e436861fd28f4055af1a1b9387bb764a7179b",
   "fusion_result_state": "PENDING_EXTERNAL_EXECUTION",
-  "artifact_count": 120,
+  "fusion_gate_policy": "DEFERRED",
+  "cross_solver_state": "CROSS_SOLVER_VALIDATION_DEFERRED",
+  "fusion_state": "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE",
+  "artifact_count": 130,
   "generation_commands": [
     "python3 control/generate_tach_contract.py",
     "nix develop --command FreeCADCmd cad/freecad/compact/process_v0621.py",
@@ -13,20 +16,20 @@
     "omc simulation/openmodelica/scripts/run_v0621_shadow.mos",
     "python3 simulation/openmodelica/postprocess/validate_v0621_shadow.py",
     "python3 validation/fusion_worker_handoff_v0621.py",
-    "python3 validation/run_v0621.py --allow-fusion-pending",
+    "python3 validation/run_v0621.py --fusion-policy deferred",
     "python3 artifacts/build_manifest_v0621.py",
     "graphify --update"
   ],
   "artifacts": [
     {
       "path": ".github/workflows/ci-full.yml",
-      "sha256": "8e15d6e973422b7ac72c6cfe3f081dc2dffb3a89af59c0dc29e07d1e9231223c",
-      "size_bytes": 2691
+      "sha256": "23acb933e2c64153192d8df82b8022fd9cce35fbba2a8f3f0a2037f90792c86a",
+      "size_bytes": 2741
     },
     {
       "path": ".github/workflows/ci-light.yml",
-      "sha256": "49b3e9bc6d5568e952bfed00527ff2c35ad33617670147fc2ba2a266e3a3ee17",
-      "size_bytes": 2590
+      "sha256": "047f91c338379198925dd55ea33567b72ea683a28232743baad75a229f18e9d9",
+      "size_bytes": 2640
     },
     {
       "path": "analysis/cross_solver/correlation_matrix.csv",
@@ -35,8 +38,8 @@
     },
     {
       "path": "analysis/cross_solver/correlation_report_ko.md",
-      "sha256": "76eb557f03df9932b6cf4b2d73ac0bd080d4339a3ad85d54325c1d777a8d00c1",
-      "size_bytes": 1274
+      "sha256": "20b5a47c4f014ff260b2230aecc2db3f4bd4e4b73511332742fc91f219188317",
+      "size_bytes": 1537
     },
     {
       "path": "analysis/fusion_delta_queue/v0.6.2.1_delta_report.json",
@@ -69,6 +72,11 @@
       "size_bytes": 16561
     },
     {
+      "path": "cad/generation/generate_interface_catalog.py",
+      "sha256": "10d1f37a1a1270e33d44c5b1be20bd376f53e7c24e27b1ed9495c1db6412cdab",
+      "size_bytes": 13454
+    },
+    {
       "path": "cad/parameters/process_v0621.json",
       "sha256": "e33564bc2a58d9da2e54e9736090f2cc4ff53dfb42771a49f406691b740f7980",
       "size_bytes": 1257
@@ -85,23 +93,28 @@
     },
     {
       "path": "docs/build_manual_ko.pdf",
-      "sha256": "9c39281356d028c037ab40060094f836c5ca7400bb18ffc4d8a5979f80cac8f9",
-      "size_bytes": 374574
+      "sha256": "95ae2bf3254a124d404b2b3f765609d431e04420eaa5be813ef47f3644b8fd64",
+      "size_bytes": 374868
     },
     {
       "path": "docs/cross_solver_release_report_ko.md",
-      "sha256": "f57115675d6f37c7dad649fb96786a42ba58a8f2def894db38bd4e888ad2d048",
-      "size_bytes": 2379
+      "sha256": "99f9b9d52ef5f1f42674fcf8d9ad95aa4d1b03a4ae65b7eacda8678c38e59707",
+      "size_bytes": 2656
     },
     {
       "path": "docs/design_report_ko.pdf",
-      "sha256": "a7bce406e1fd9c66c05d3bbb09fd7d399c5d045fb7b7bcf5aae6a041f9535e39",
-      "size_bytes": 439118
+      "sha256": "e3b1f6e93575aaefa5c3e0f6d3901e9a16cb7f91d0959c85826707a70253e900",
+      "size_bytes": 439588
     },
     {
       "path": "docs/digital_release_report_ko.pdf",
-      "sha256": "3800d1635d868a3bf791bb558af73fcd5b91c256e541724bb0d339ffe1b5ba0a",
-      "size_bytes": 128635
+      "sha256": "d6e8c51ca8a6b97294d6a686f59629f3e529cf3e51bfb204d599119cd4179861",
+      "size_bytes": 129761
+    },
+    {
+      "path": "docs/fusion_deferred_policy_v0.6.2.1_ko.md",
+      "sha256": "992ebbd7415b4fad93bc493a407756d216b68a38bb41b5ebd9aab58f8bb440b4",
+      "size_bytes": 2239
     },
     {
       "path": "docs/hardware_adapter_validation_ko.md",
@@ -112,6 +125,11 @@
       "path": "docs/process_feed_validation_ko.md",
       "sha256": "054346e2173de7ed66e565e33bfc25ea93e248b91f717c0cbe535577ed6e212b",
       "size_bytes": 1626
+    },
+    {
+      "path": "docs/validation_report_ko.md",
+      "sha256": "c55b5b2f92934696bb6e1157477ad907317c9068b740654efd2f6c4efccd7918",
+      "size_bytes": 7736
     },
     {
       "path": "electronics/io_schedule.csv",
@@ -534,9 +552,14 @@
       "size_bytes": 1750
     },
     {
+      "path": "fusion_worker/scripts/finalize_v0621_handoff_lock.py",
+      "sha256": "8e30cc43336fc22d11a02e5eea1768bef897097af7c3cd63826662823983f02d",
+      "size_bytes": 7724
+    },
+    {
       "path": "fusion_worker/scripts/prepare_run.py",
-      "sha256": "fe54cd7f5ca805b56da66eb6f7c51d5885ad8c1a29594cc0eb0c049a77eafc06",
-      "size_bytes": 12247
+      "sha256": "740bcbbbc71fff2d74c9bbbced9b42e26fec83d357610c7dc86bf25bec51a223",
+      "size_bytes": 15003
     },
     {
       "path": "simulation/openmodelica/results_v0.6.2.1/scenario_manifest.json",
@@ -555,33 +578,53 @@
     },
     {
       "path": "validation/blocker_closure_matrix.csv",
-      "sha256": "9e06d1ebca4cbb2c600fb56f67d64e31d5fc05fc1cfa8948ec02dbd13e3a7414",
-      "size_bytes": 4336
+      "sha256": "9dadbb36f09c585553fb86a8150fb6b3c5774187179cdd49c959a735529cbe3b",
+      "size_bytes": 4403
     },
     {
       "path": "validation/blocker_closure_report_ko.md",
-      "sha256": "c9b190fdbfa604b539d23db94a6b4b89d18161c85ccc92693974148dc50faef4",
-      "size_bytes": 3066
+      "sha256": "a17e07384a8d996f7d56099071ba3ee295c74f386fd7d7fc9959478480235859",
+      "size_bytes": 3357
+    },
+    {
+      "path": "validation/build_release_metadata_v0621.py",
+      "sha256": "090d058d1a981be493e8fe293d4714ede06f8816c57ebc6fbcd21673ddf95afc",
+      "size_bytes": 3152
     },
     {
       "path": "validation/exact_head_evidence_v0621.py",
-      "sha256": "2e1bf6cca4e988eaae3bd905e5703faaa6dc7f95fd6801eb3768d0913c60c8c6",
-      "size_bytes": 8939
+      "sha256": "94b7e1e44a2101099d9423e832212aa9ca0c33b6819649316c5d6e4ef9841305",
+      "size_bytes": 11836
     },
     {
       "path": "validation/fusion_external_blocker_v0.6.2.1.json",
-      "sha256": "edb110213d1d527010323e532cd5889fbc843174d31453221fb949f2f0489eab",
-      "size_bytes": 1354
+      "sha256": "aa053f5a5e5801dff129aab5877738c2941c804b5560fcedc7a3428e587de132",
+      "size_bytes": 1446
+    },
+    {
+      "path": "validation/fusion_policy_v0.6.2.1.json",
+      "sha256": "f7a5cac6472242ecde31562f9922c56b540d0a01f4cf067fe9f4a2437c8e21b5",
+      "size_bytes": 567
     },
     {
       "path": "validation/fusion_release_gate_v0621.py",
-      "sha256": "f6216e21fb69adfd38122b12372d7e8d69448aaa355d67135207419e5af4b7f3",
-      "size_bytes": 6586
+      "sha256": "11ac3a90ad20004e098dfa3758506d6d93dcbb6ca23b3c5e98846ce5a9296d72",
+      "size_bytes": 13157
     },
     {
       "path": "validation/fusion_worker_handoff_v0621.py",
       "sha256": "d9aade5984498f4cec2eeed47f653dbd4dd10cdeb89c4aaea26e31681bb9c142",
       "size_bytes": 4432
+    },
+    {
+      "path": "validation/interface_catalog_checks.py",
+      "sha256": "e6708a858311b89299b9a12b866cc6a61df593f8b38a7f069ed9fd3ffd97e859",
+      "size_bytes": 2466
+    },
+    {
+      "path": "validation/release_checklist.md",
+      "sha256": "43cabaa533718975c83b549c8bd404af6e841c781d9e74a5f005306f3068f480",
+      "size_bytes": 5502
     },
     {
       "path": "validation/results/budget_policy_v0.6.2.1.json",
@@ -604,19 +647,29 @@
       "size_bytes": 5791
     },
     {
+      "path": "validation/results/release_metadata_v0.6.2.1.json",
+      "sha256": "28e2719281e54eedb3ca9ae0fd43ffc7d19c05d1e0f4b6d12fa28a6bf823592b",
+      "size_bytes": 1117
+    },
+    {
       "path": "validation/results/v0621_mutation_tests.json",
       "sha256": "c55614ffb5e3679f3451e621f77271f2a646cc51785217f85f03d8e225130ede",
       "size_bytes": 12913
     },
     {
       "path": "validation/run_v0621.py",
-      "sha256": "60b9d6b3a8018ca77b660a2db03de1599c51f7b1be3698be8a48a19e990b01cd",
-      "size_bytes": 2551
+      "sha256": "b459f987c3dbf6bf07664e33b9ca1090866820cd0793e53304858ca68c0b2d4c",
+      "size_bytes": 3276
     },
     {
       "path": "validation/source_lock_v0.6.2.1.json",
       "sha256": "5302ea84b822e0796ac798a7c2984eedcd6d287dfefea91770ca5b96e4a94597",
       "size_bytes": 1029
+    },
+    {
+      "path": "validation/test_fusion_policy_v0621.py",
+      "sha256": "359f17a4d53d7d8c55ec76f04e3366b58228c4ff8a1b855fd2e5953a6c12007e",
+      "size_bytes": 2179
     }
   ]
 }

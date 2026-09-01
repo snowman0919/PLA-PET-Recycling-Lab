@@ -1,4 +1,21 @@
-# 자동검증 보고 — parallel-actuation-hardening-v0.6.2
+# 자동검증 보고 — technical-blocker-closure-v0.6.2.1
+
+- release: `TECHNICAL_CLOSURE_BASELINE`
+- implementation: `IMPLEMENTATION_BASELINE`
+- hardware adapter: `HARDWARE_ADAPTER_VALIDATED`
+- actuation: `CLOSED_LOOP_ACTUATION_VALIDATED`
+- process feed: `PROCESS_FEED_VIRTUAL_VALIDATED`
+- virtual physics: `VIRTUAL_PHYSICS_VALIDATED`
+- cross solver: `CROSS_SOLVER_VALIDATION_DEFERRED`
+- Fusion: `DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE`, solver PASS 아님
+- price: `INFORMATIONAL_NON_BLOCKING`
+- physical validation: `NOT_RUN`
+
+2026-09-01 사용자 결정으로 실제 Autodesk Fusion 실행과 상관 검토는 post-v0.6.2.1
+stage로 이관했다. package integrity는 계속 필수이며 실제 결과 파일이 존재하면 stale/hash/unit
+오류를 fail-closed로 거부한다. 아래 v0.6.2와 v0.6.1 절은 역사적 기준 기록이다.
+
+## v0.6.2 역사적 기준
 
 - release: `ACTUATION_HARDENING_COMPLETE`
 - implementation: `PASS`

@@ -1,4 +1,4 @@
-#set document(title: "Safety Orchestration PLA/PET Recycler v0.6.1 설계 보고서")
+#set document(title: "PLA/PET Recycler v0.6.2.1 기술 종결 설계 보고서")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -13,7 +13,7 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision safety-orchestration-closure-v0.6.1 · 2026-08-31]
+  #text(size: 11pt)[Revision technical-blocker-closure-v0.6.2.1 · 2026-09-01]
 ]
 
 #warn[*계산·CAD release다.* 실제 cutter 성능, melt flow, 200 g/h, 직경 품질과 안전 인증은 물리 Gate 전 미검증이다. 구매·CNC·energization은 사용자 승인 전 금지한다.]
@@ -103,8 +103,8 @@ PrusaSlicer 2.9.6 toolpath 질량은 필요한 part의 support를 포함해 904.
 
 = 검증 경계
 
-#ok[Safety-orchestration baseline은 closed B-Rep, manifold mesh, actual slicing, Arduino Mega compile/host test, OpenModelica mandatory 111 scenario, CalculiX 3단계 mesh/analytical structure, controller-contract/firmware sync와 Fusion 중립 package hash binding을 검사한다. 상태는 SAFETY_ORCHESTRATION_BASELINE / IMPLEMENTATION_BASELINE / VIRTUAL_PHYSICS_VALIDATED / CROSS_SOLVER_VALIDATION_PENDING / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
+#ok[Technical-closure baseline은 closed B-Rep, manifold mesh, actual slicing, Arduino Mega compile/host test, OpenModelica baseline 111 scenario와 v0.6.2.1 shadow 24 scenario, CalculiX 3단계 mesh/analytical structure, controller-contract/firmware sync와 Fusion 중립 package hash binding을 검사한다. 상태는 TECHNICAL_CLOSURE_BASELINE / IMPLEMENTATION_BASELINE / HARDWARE_ADAPTER_VALIDATED / CLOSED_LOOP_ACTUATION_VALIDATED / PROCESS_FEED_VIRTUAL_VALIDATED / VIRTUAL_PHYSICS_VALIDATED / CROSS_SOLVER_VALIDATION_DEFERRED / EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN이다.]
 
-Fusion용 STEP 9개와 LC01–LC10, static/modal/thermal/thermal-stress/nonlinear/event/buckling study 계약은 준비됐으나 Autodesk Fusion 실행 결과는 없다. 따라서 solver correlation은 PENDING이며 OpenModelica/CalculiX PASS를 Fusion PASS로 표시하지 않는다.
+Fusion용 STEP 9개와 LC01–LC10 및 LC11 feeder attachment, static/modal/thermal/thermal-stress/nonlinear/event/buckling study 계약은 준비됐으나 Autodesk Fusion 실행 결과는 없다. 사용자 결정으로 실제 실행과 solver correlation은 post-v0.6.2.1 MacBook stage에 deferred했으며 OpenModelica/CalculiX PASS를 Fusion PASS로 표시하지 않는다.
 
 Gate-1…5는 optional empirical commissioning/model-correlation 절차다. 수행 결과와 simulation 결과를 혼용하지 않는다.

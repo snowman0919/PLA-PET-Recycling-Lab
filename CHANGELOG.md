@@ -1,5 +1,12 @@
 # 변경 이력
 
+## technical-blocker-closure-v0.6.2.1 — 2026-09-01
+
+- P0-A~K 저속 tach, 4-drive closed loop, spool/traverse, 독립 calibration, recirculation/positive feed, cooling rundown, hardware-adapter E2E와 OpenModelica shadow blocker를 폐쇄했다.
+- 사용자 결정으로 Autodesk Fusion 실행과 수치 상관을 post-v0.6.2.1 MacBook stage로 이관했다. 정책은 `DEFERRED`이며 `CROSS_SOLVER_VALIDATED` 또는 `FUSION_VALIDATED`를 주장하지 않는다.
+- tri-state Fusion gate(`REQUIRED`/`DEFERRED`/`COMPLETED`)를 추가했다. `DEFERRED`에서도 package hash 검증은 필수이고 실제 결과 파일이 존재하면 malformed/stale binding을 fail-closed로 거부한다.
+- LC02/04/05/07/08/08+06/10/11 hash-bound handoff와 `prepare_run.py`를 보존했다. 실제 Fusion 수치나 placeholder PASS는 생성하지 않았다.
+
 ## parallel-actuation-hardening-v0.6.2 — 2026-08-31
 
 - puller tach 기반 cascade PI와 실제 포화 dwell, screw 실제 회전수 기반 purge 완료, fan 2개 개별 tach/current 교차검증을 `MachineSupervisor`에 연결했다.

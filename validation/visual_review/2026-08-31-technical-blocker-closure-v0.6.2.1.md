@@ -17,11 +17,11 @@
 ## 제한과 후속 gate
 
 - 도면은 설계 판단용 투영이며 공차·용접·굽힘 전개·bearing/fastener 상세 제작도 승인을 대신하지 않는다.
-- PF-04/PF-05의 2.2 N·m attachment 반력은 기존 Fusion LC01–LC10에 없으므로 `LC11_FEEDER_ATTACHMENT` 실제 solve 전에는 해당 부착부를 구조 검증 완료로 표시하지 않는다.
+- PF-04/PF-05의 2.2 N·m attachment 반력은 기존 Fusion LC01–LC10에 없으므로 `LC11_FEEDER_ATTACHMENT` 실제 solve 전에는 해당 부착부를 구조 검증 완료로 표시하지 않는다. 실제 solve는 사용자 결정으로 post-v0.6.2.1 stage에 deferred됐다.
 - debris, cable, deflection, tolerance stack 및 service 손 접근은 실물 lockout 상태의 조립 검증이 필요하다.
 
-판정: `CAD_VISUAL_REVIEW_PASS_WITH_LC11_EXTERNAL_BLOCKER`.
+판정: `CAD_VISUAL_REVIEW_PASS_WITH_LC11_VALIDATION_DEFERRED`.
 
 ## PDF 재생성 시각 검토
 
-`build_manual_ko.pdf` 8쪽, `design_report_ko.pdf` 8쪽, `digital_release_report_ko.pdf` 3쪽을 Typst로 재생성한 뒤 80 dpi 전 페이지 contact sheet로 확인했다. 페이지 누락, 잘린 표/그림, 겹친 본문 또는 빈 페이지는 발견하지 못했다. 이는 문서 layout 검토이며 문서에 기술된 물리 성능의 실증이 아니다.
+2026-09-01에 `build_manual_ko.pdf` 8쪽(`95ae2bf3…`), `design_report_ko.pdf` 8쪽(`e3b1f6e9…`), `digital_release_report_ko.pdf` 3쪽(`d6e8c51c…`)을 Typst로 재생성한 뒤 80 dpi 전 페이지 contact sheet로 확인했다. 페이지 누락, 잘린 표/그림, 겹친 본문 또는 빈 페이지는 발견하지 못했다. 이는 문서 layout 검토이며 문서에 기술된 물리 성능의 실증이 아니다.

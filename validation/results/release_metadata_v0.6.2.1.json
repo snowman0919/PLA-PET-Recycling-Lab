@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "release_state": "TECHNICAL_CLOSURE_BASELINE",
+  "implementation_state": "IMPLEMENTATION_BASELINE",
+  "hardware_adapter_state": "HARDWARE_ADAPTER_VALIDATED",
+  "actuation_state": "CLOSED_LOOP_ACTUATION_VALIDATED",
+  "process_feed_state": "PROCESS_FEED_VIRTUAL_VALIDATED",
+  "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+  "cross_solver_state": "CROSS_SOLVER_VALIDATION_DEFERRED",
+  "fusion_state": "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE",
+  "fusion_gate_policy": "DEFERRED",
+  "fusion_gate_outcome": "DEFERRED",
+  "fusion_solver_pass": false,
+  "fusion_package_integrity": "PASS",
+  "fusion_result_presence": "ABSENT",
+  "fusion_engineering_source_sha": "e86e436861fd28f4055af1a1b9387bb764a7179b",
+  "price_state": "INFORMATIONAL_NON_BLOCKING",
+  "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
+  "procurement_gate": "USER_APPROVAL_REQUIRED",
+  "commissioning_gate": "USER_APPROVAL_REQUIRED",
+  "physical_test_performed": false,
+  "forbidden_claims": [
+    "CROSS_SOLVER_VALIDATED",
+    "FUSION_VALIDATED"
+  ]
+}

@@ -58,6 +58,52 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def validate_final_handoff_lock(
+    repo: Path, package: Path, binding: dict, head_sha: str
+) -> dict | None:
+    """검증된 최종 lock이 있으면 현재/committed handoff 바이트를 모두 확인한다."""
+    lock_path = repo / "exports/fusion_handoff_lock_v0.6.2.1.json"
+    if not lock_path.is_file():
+        return None
+    lock = load_json(lock_path)
+    final_sha = lock.get("engineering_source_sha")
+    if lock.get("state") != "IMMUTABLE_HANDOFF_BOUND" or not isinstance(final_sha, str):
+        raise ValueError("최종 Fusion handoff lock 상태 불일치")
+    if not SHA_RE.fullmatch(final_sha):
+        raise ValueError("최종 Fusion handoff engineering SHA 형식 불일치")
+    git(repo, "cat-file", "-e", f"{final_sha}^{{commit}}")
+    if str(git(repo, "rev-parse", f"{final_sha}^{{tree}}")).strip() != lock.get("source_tree_hash"):
+        raise ValueError("최종 Fusion handoff source tree hash 불일치")
+    if subprocess.run(
+        ["git", "-C", str(repo), "merge-base", "--is-ancestor", final_sha, head_sha]
+    ).returncode:
+        raise ValueError(f"현재 checkout이 최종 handoff source {final_sha}보다 이전임")
+    package_rel = relative_to_repo(package, repo)
+    package_lock = lock.get("packages", {}).get(package_rel)
+    if not isinstance(package_lock, dict):
+        raise ValueError(f"최종 Fusion handoff lock에 package 없음: {package_rel}")
+    if package_lock.get("provenance_engineering_source_sha") != binding.get("engineering_source_sha"):
+        raise ValueError("package provenance와 최종 handoff lock 불일치")
+    all_hashes = dict(package_lock.get("files", {}))
+    all_hashes.update(lock.get("worker_contract_sha256", {}))
+    if not all_hashes:
+        raise ValueError("최종 Fusion handoff lock 파일 hash 없음")
+    for relative, expected in all_hashes.items():
+        current = repo / relative
+        if not current.is_file() or sha256(current) != expected:
+            raise ValueError(f"최종 Fusion handoff 파일 hash drift: {relative}")
+        committed = git(repo, "show", f"{final_sha}:{relative}", binary=True)
+        if sha256_bytes(committed) != expected:
+            raise ValueError(f"최종 engineering source Git object hash drift: {relative}")
+    return {
+        "final_handoff_source_sha": final_sha,
+        "final_handoff_source_tree_hash": lock["source_tree_hash"],
+        "final_handoff_lock_sha256": sha256(lock_path),
+        "fusion_gate_policy": lock.get("fusion_gate_policy"),
+        "fusion_execution_state": lock.get("fusion_execution_state"),
+    }
+
+
 def git(repo: Path, *args: str, binary: bool = False) -> str | bytes:
     result = subprocess.run(
         ["git", "-C", str(repo), *args],
@@ -168,6 +214,7 @@ def build_manifest(repo: Path, package: Path, case_id: str, study_type: str,
     )
     if ancestor.returncode != 0:
         raise ValueError(f"engineering source {source_sha}가 현재 HEAD의 ancestor가 아님")
+    final_handoff = validate_final_handoff_lock(repo, package, binding, head_sha)
 
     model_path = package / "model_manifest.csv"
     load_manifest_path = package / "load_case_manifest.csv"
@@ -217,7 +264,7 @@ def build_manifest(repo: Path, package: Path, case_id: str, study_type: str,
         "units",
         "explicit load-key suffixes: mm, N, N*mm, MPa, degC, s",
     )
-    return {
+    manifest = {
         "schema_version": "1.1",
         "run_id": f"{case_id}-{study_type}-{safe_time}",
         "case_id": case_id,
@@ -242,6 +289,9 @@ def build_manifest(repo: Path, package: Path, case_id: str, study_type: str,
         "completed_utc": None,
         "status": "PENDING",
     }
+    if final_handoff is not None:
+        manifest.update(final_handoff)
+    return manifest
 
 
 def main() -> None:

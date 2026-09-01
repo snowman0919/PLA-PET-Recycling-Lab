@@ -19,7 +19,7 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:avr@1.8.8
       - name: v0.6.2.1 deterministic technical closure gate
-        run: python3 validation/run_v0621.py
+        run: python3 validation/run_v0621.py --fusion-policy deferred
       - name: Validate LC11 Fusion package binding
         run: python3 fusion_worker/result_validation/validate_fusion_v0621_package.py exports/fusion_validation_v0621
       - name: Budget and static syntax
@@ -31,7 +31,7 @@ jobs:
           python3 artifacts/build_manifest_v0621.py
           git diff --exit-code -- artifacts/manifest_v0.6.2.1.json
       - name: Exact-head CI-LIGHT evidence
-        run: python3 validation/exact_head_evidence_v0621.py --stage CI-LIGHT
+        run: python3 validation/exact_head_evidence_v0621.py --stage CI-LIGHT --fusion-policy deferred
       - name: Upload exact-head runtime evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "revision": "technical-blocker-closure-v0.6.2.1",
+  "fusion_gate_policy": "DEFERRED",
+  "allowed_policies": [
+    "REQUIRED",
+    "DEFERRED",
+    "COMPLETED"
+  ],
+  "decision": "EXPLICIT_USER_DECISION",
+  "decision_date": "2026-09-01",
+  "deferred_target": "POST_V0.6.2.1_MACBOOK_STAGE",
+  "missing_results_release_blocking": false,
+  "package_integrity_required": true,
+  "present_result_validation_required": true,
+  "deferred_is_solver_pass": false,
+  "forbidden_claims": [
+    "CROSS_SOLVER_VALIDATED",
+    "FUSION_VALIDATED"
+  ]
+}

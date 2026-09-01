@@ -47,7 +47,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--stage", choices=("CI-LIGHT", "CI-FULL"), required=True)
     parser.add_argument("--allow-dirty", action="store_true", help="개발 진단 전용")
-    parser.add_argument("--allow-fusion-pending", action="store_true", help="release 증거가 아닌 진단 전용")
+    parser.add_argument(
+        "--fusion-policy", choices=("required", "deferred", "completed"), required=True,
+        help="checked release policy; validation config와 일치해야 함",
+    )
     parser.add_argument("--output", type=Path, default=OUTPUT)
     args = parser.parse_args()
 
@@ -141,20 +144,64 @@ def main() -> None:
     if not_closed:
         raise AssertionError("P0-A~K 미종결: " + ",".join(not_closed))
 
+    policy = load_json("validation/fusion_policy_v0.6.2.1.json")
+    selected_policy = args.fusion_policy.upper()
+    if policy.get("fusion_gate_policy") != selected_policy:
+        raise AssertionError("CLI/config Fusion policy 불일치")
     fusion = load_json("validation/results/fusion_release_gate_v0.6.2.1.json")
+    if fusion.get("fusion_gate_policy") != selected_policy:
+        raise AssertionError("Fusion gate 결과의 selected policy 불일치")
     fusion_pass = fusion.get("status") == "CROSS_SOLVER_VALIDATED"
-    if not fusion_pass and not args.allow_fusion_pending:
-        raise AssertionError("P0-L actual Fusion/correlation 미완료: " + fusion.get("exact_external_blocker", "unknown"))
-    if fusion_pass and blockers["P0-L"]["status"] != "PASS":
-        raise AssertionError("Fusion PASS와 blocker matrix 상태 불일치")
+    fusion_deferred = (
+        fusion.get("status") == "FUSION_GATE_DEFERRED"
+        and fusion.get("gate_outcome") == "DEFERRED"
+        and fusion.get("deferred_is_solver_pass") is False
+        and fusion.get("package_integrity", {}).get("status") == "PASS"
+        and fusion.get("release_blocking") is False
+    )
+    if selected_policy == "DEFERRED":
+        if not fusion_deferred or blockers["P0-L"]["status"] != "DEFERRED_USER_DECISION":
+            raise AssertionError("Fusion DEFERRED policy/evidence 불일치")
+    elif not fusion_pass or blockers["P0-L"]["status"] != "PASS":
+        raise AssertionError("Fusion REQUIRED/COMPLETED policy에 actual correlation PASS 없음")
 
     manifest = load_json("artifacts/manifest_v0.6.2.1.json")
+    if manifest.get("fusion_gate_policy") != selected_policy:
+        raise AssertionError("artifact manifest Fusion policy 불일치")
     for artifact in manifest.get("artifacts", []):
         path = ROOT / artifact["path"]
         if not path.is_file() or sha256(path) != artifact["sha256"]:
             raise AssertionError(f"artifact manifest hash drift: {artifact['path']}")
 
-    release_evidence = not dirty and fusion_pass and args.stage in {"CI-LIGHT", "CI-FULL"}
+    fusion_policy_satisfied = fusion_deferred if selected_policy == "DEFERRED" else fusion_pass
+    release_evidence = not dirty and fusion_policy_satisfied and args.stage in {"CI-LIGHT", "CI-FULL"}
+    release_states = {
+        "release_state": "TECHNICAL_CLOSURE_BASELINE",
+        "implementation_state": "IMPLEMENTATION_BASELINE",
+        "hardware_adapter_state": "HARDWARE_ADAPTER_VALIDATED",
+        "actuation_state": "CLOSED_LOOP_ACTUATION_VALIDATED",
+        "process_feed_state": "PROCESS_FEED_VIRTUAL_VALIDATED",
+        "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+        "cross_solver_state": (
+            "CROSS_SOLVER_VALIDATION_DEFERRED"
+            if selected_policy == "DEFERRED"
+            else "CROSS_SOLVER_VALIDATED_FOR_DEFINED_CASES"
+        ),
+        "fusion_state": (
+            "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE"
+            if selected_policy == "DEFERRED"
+            else "COMPLETED"
+        ),
+        "price_state": "INFORMATIONAL_NON_BLOCKING",
+        "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
+        "procurement_gate": "USER_APPROVAL_REQUIRED",
+        "commissioning_gate": "USER_APPROVAL_REQUIRED",
+    }
+    release_metadata = load_json("validation/results/release_metadata_v0.6.2.1.json")
+    if any(release_metadata.get(key) != value for key, value in release_states.items()):
+        raise AssertionError("release metadata state 불일치")
+    if release_metadata.get("fusion_gate_policy") != selected_policy:
+        raise AssertionError("release metadata Fusion policy 불일치")
     evidence = {
         "revision": REVISION,
         "status": "PASS" if release_evidence else "DIAGNOSTIC_NOT_RELEASE_EVIDENCE",
@@ -165,7 +212,10 @@ def main() -> None:
         "workflow_run_id": os.environ.get("GITHUB_RUN_ID") or None,
         "worktree_clean": not dirty,
         "dirty_paths": dirty,
+        "fusion_gate_policy": selected_policy,
+        "fusion_policy_sha256": sha256(ROOT / "validation/fusion_policy_v0.6.2.1.json"),
         "fusion_status": fusion.get("status"),
+        "release_states": release_states,
         "hardware_adapter_scenarios": adapter.get("scenario_count"),
         "mutation_count": mutation.get("mutation_count"),
         "openmodelica_scenarios": shadow.get("scenario_count"),
@@ -176,7 +226,15 @@ def main() -> None:
             "ACTUATION_CONTROL_VALIDATION": "PASS",
             "PROCESS_FEED_VIRTUAL_VALIDATION": "PASS",
             "VIRTUAL_PHYSICS_VALIDATION": "PASS",
-            "CROSS_SOLVER_VALIDATION": "PASS" if fusion_pass else "PENDING_EXTERNAL_FUSION",
+            "CROSS_SOLVER_VALIDATION": (
+                "DEFERRED_NOT_PASS" if selected_policy == "DEFERRED" else "PASS"
+            ),
+            "FUSION_PACKAGE_INTEGRITY": "PASS",
+            "FUSION_EXECUTION": (
+                "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE"
+                if selected_policy == "DEFERRED"
+                else "PASS"
+            ),
             "EXACT_HEAD_REPRODUCIBILITY": "PASS" if release_evidence else "NOT_RELEASE_EVIDENCE",
             "PRICE_STATUS": "INFORMATIONAL_NON_BLOCKING",
             "PROCUREMENT_APPROVAL_GATE": "USER_APPROVAL_REQUIRED",

@@ -9,7 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "exports/fabrication/interface_catalog.csv"
-REVISION = "safety-orchestration-closure-v0.6.1"
+BASELINE_REVISION = "safety-orchestration-closure-v0.6.1"
+PROCESS_FEED_REVISION = "technical-blocker-closure-v0.6.2.1"
+PROCESS_FEED_INTERFACE_IDS = {"IF-021", "IF-022", "IF-031"}
 
 
 def require(condition, message):
@@ -29,7 +31,12 @@ def main():
     }
     require(required_columns == set(rows[0]), "interface catalog schema mismatch")
     for row in rows:
-        require(row["revision"] == REVISION, f"stale revision {row['interface_id']}")
+        expected_revision = (
+            PROCESS_FEED_REVISION
+            if row["interface_id"] in PROCESS_FEED_INTERFACE_IDS
+            else BASELINE_REVISION
+        )
+        require(row["revision"] == expected_revision, f"stale revision {row['interface_id']}")
         require(all(row[column].strip() for column in required_columns), f"blank field {row['interface_id']}")
         require("FAIL" not in row["status"] and "MISMATCH" not in row["status"], f"interface mismatch {row['interface_id']}")
 

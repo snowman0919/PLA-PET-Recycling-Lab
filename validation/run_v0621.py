@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""v0.6.2.1 기술 preflight 및 Fusion 의존 release gate."""
+"""v0.6.2.1 기술 release와 명시적 Fusion tri-state policy gate."""
 
 from __future__ import annotations
 
@@ -22,8 +22,10 @@ def run(command: list[str], token: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--allow-fusion-pending", action="store_true",
-                        help="A-K 기술 preflight만 판정하고 외부 Fusion pending을 허용")
+    parser.add_argument(
+        "--fusion-policy", choices=("required", "deferred", "completed"), required=True,
+        help="validation/fusion_policy_v0.6.2.1.json과 일치해야 하는 명시적 정책",
+    )
     args = parser.parse_args()
     py = sys.executable
     checks = [
@@ -39,21 +41,32 @@ def main() -> None:
          "V0621_SHADOW_COMPACT_EVIDENCE_PASS"),
         ([py, "validation/fusion_worker_handoff_v0621.py"],
          "FUSION_WORKER_HANDOFF_V0621_PASS"),
+        ([py, "-m", "unittest", "analysis/cross_solver/test_import_fusion_results.py"],
+         "OK"),
+        ([py, "validation/test_fusion_policy_v0621.py"],
+         "V0621_FUSION_POLICY_TEST_PASS"),
         ([py, "validation/v0621_mutation_tests.py"], "V0621_MUTATION_GATE_PASS"),
     ]
     for command, token in checks:
         run(command, token)
 
-    fusion_command = [py, "validation/fusion_release_gate_v0621.py"]
-    fusion_token = "V0621_FUSION_CROSS_SOLVER_GATE_PASS"
-    if args.allow_fusion_pending:
-        fusion_command.append("--allow-pending")
-        fusion_token = "V0621_FUSION_EXTERNAL_BLOCKER"
-    run(fusion_command, fusion_token)
-    if args.allow_fusion_pending:
-        print("V0621_TECHNICAL_PREFLIGHT_PASS_RELEASE_UNMET")
-        return
-    print("V0621_RELEASE_GATE_PASS")
+    fusion_command = [py, "validation/fusion_release_gate_v0621.py", "--policy", args.fusion_policy]
+    fusion_token = (
+        "V0621_FUSION_GATE_DEFERRED"
+        if args.fusion_policy == "deferred"
+        else "V0621_FUSION_CROSS_SOLVER_GATE_PASS"
+    )
+    result = subprocess.run(fusion_command, cwd=ROOT, text=True, capture_output=True)
+    output = result.stdout + result.stderr
+    if result.returncode or fusion_token not in output:
+        print(output, end="")
+        raise SystemExit(f"V0621_GATE_FAIL expected={fusion_token} command={' '.join(fusion_command)}")
+    if args.fusion_policy == "deferred":
+        print("DEFERRED V0621_FUSION_GATE_DEFERRED solver_pass=false")
+    else:
+        print(f"PASS {fusion_token}")
+    run([py, "validation/build_release_metadata_v0621.py"], "V0621_RELEASE_METADATA_OK")
+    print(f"V0621_TECHNICAL_CLOSURE_GATE_PASS fusion_policy={args.fusion_policy.upper()}")
 
 
 if __name__ == "__main__":

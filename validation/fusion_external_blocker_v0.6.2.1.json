@@ -1,6 +1,8 @@
 {
   "revision": "technical-blocker-closure-v0.6.2.1",
-  "status": "PENDING_EXTERNAL_FUSION",
+  "status": "DEFERRED_EXTERNAL_FUSION",
+  "fusion_gate_policy": "DEFERRED",
+  "solver_pass": false,
   "worker_alias": "win",
   "attempt_count_this_goal": 6,
   "last_attempt_utc": "2026-08-31T08:22:28Z",
@@ -36,6 +38,6 @@
     "global displacement reaction balance and regional stress correlation",
     "all mandatory classifications AGREE or EXPLAINED_DIFFERENCE"
   ],
-  "release_impact": "GOAL_UNMET_NO_PR_NO_MERGE",
+  "release_impact": "NON_BLOCKING_FOR_V0.6.2.1_DEFERRED_TO_POST_RELEASE_STAGE",
   "physical_test_performed": false
 }

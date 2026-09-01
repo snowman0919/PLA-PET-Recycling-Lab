@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""v0.6.2.1 Fusion 증거와 교차-solver 판정을 fail-closed로 검증한다."""
+"""v0.6.2.1 Fusion tri-state 정책과 결과/패키지를 fail-closed로 검증한다."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ import argparse
 import csv
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -17,6 +18,10 @@ import import_fusion_results as legacy_importer  # noqa: E402
 MANDATORY_LEGACY_CASES = {"LC02", "LC04", "LC05", "LC07", "LC08", "LC10"}
 MESH_LEVELS = {"coarse", "medium", "fine"}
 FINAL_CLASSES = {"AGREE", "EXPLAINED_DIFFERENCE"}
+POLICIES = {"REQUIRED", "DEFERRED", "COMPLETED"}
+POLICY_PATH = ROOT / "validation/fusion_policy_v0.6.2.1.json"
+LEGACY_RESULTS = ROOT / "exports/fusion_validation/results/fusion_results.csv"
+LC11_RESULTS = ROOT / "exports/fusion_validation_v0621/results/fusion_results.csv"
 
 
 def sha256(path: Path) -> str:
@@ -27,6 +32,86 @@ def load_json(path: Path) -> dict:
     if not path.is_file():
         raise AssertionError(f"필수 Fusion 증거 없음: {path.relative_to(ROOT)}")
     return json.loads(path.read_text())
+
+
+def validate_policy(selected: str) -> dict:
+    policy = load_json(POLICY_PATH)
+    configured = policy.get("fusion_gate_policy")
+    if configured not in POLICIES or sorted(policy.get("allowed_policies", [])) != sorted(POLICIES):
+        raise AssertionError("Fusion tri-state policy contract 불일치")
+    if selected != configured:
+        raise AssertionError(f"CLI/config Fusion policy 불일치: cli={selected} config={configured}")
+    if policy.get("package_integrity_required") is not True:
+        raise AssertionError("Fusion package integrity gate 비활성화 금지")
+    if policy.get("present_result_validation_required") is not True:
+        raise AssertionError("존재하는 Fusion 결과 fail-closed 검증 비활성화 금지")
+    if configured == "DEFERRED" and policy.get("deferred_is_solver_pass") is not False:
+        raise AssertionError("DEFERRED를 solver PASS로 해석할 수 없음")
+    return policy
+
+
+def validate_package_integrity() -> dict:
+    command = [
+        sys.executable,
+        "fusion_worker/result_validation/validate_fusion_v0621_package.py",
+        "exports/fusion_validation_v0621",
+    ]
+    result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+    if result.returncode or "FUSION_V0621_PACKAGE_OK" not in result.stdout + result.stderr:
+        raise AssertionError("LC11 package integrity 실패: " + (result.stdout + result.stderr).strip())
+    binding, models, cases = legacy_importer.load_contract()
+    source_lock = load_json(ROOT / "exports/fusion_validation/engineering_source_lock.json")
+    result_manifest = load_json(ROOT / "exports/fusion_validation/results/fusion_result_manifest.json")
+    if source_lock.get("engineering_source_sha") != binding.get("engineering_source_sha"):
+        raise AssertionError("legacy Fusion engineering source lock 불일치")
+    if result_manifest.get("source_git_sha") != binding.get("source_git_sha"):
+        raise AssertionError("legacy Fusion result manifest source binding 불일치")
+    if result_manifest.get("load_case_manifest_sha256") != binding.get("load_case_manifest_sha256"):
+        raise AssertionError("legacy Fusion result manifest load binding 불일치")
+    if result_manifest.get("model_manifest_sha256") != binding.get("model_manifest_sha256"):
+        raise AssertionError("legacy Fusion result manifest model binding 불일치")
+    return {
+        "status": "PASS",
+        "legacy_model_count": len(models),
+        "legacy_case_count": len(cases),
+        "legacy_engineering_source_sha": binding["engineering_source_sha"],
+        "lc11_engineering_source_sha": load_json(
+            ROOT / "exports/fusion_validation_v0621/run_binding.json"
+        )["engineering_source_sha"],
+    }
+
+
+def inspect_present_results() -> dict:
+    review = load_json(ROOT / "analysis/cross_solver/fusion_import_review.json")
+    legacy_manifest = load_json(ROOT / "exports/fusion_validation/results/fusion_result_manifest.json")
+    legacy_rows: list[dict[str, str]] = []
+    lc11_rows: list[dict[str, str]] = []
+    if LEGACY_RESULTS.is_file():
+        with LEGACY_RESULTS.open(newline="") as handle:
+            legacy_rows = list(csv.DictReader(handle))
+        live = legacy_importer.validate_rows(legacy_rows)
+        if live.get("state") == "INVALID_BINDING" or live.get("errors"):
+            raise AssertionError("존재하는 legacy Fusion 결과가 malformed/stale: " + "; ".join(live.get("errors", [])))
+        if review.get("state") != live.get("state") or review.get("accepted_rows") != live.get("accepted_rows") or review.get("errors") != live.get("errors"):
+            raise AssertionError("legacy Fusion import review가 현재 결과 CSV와 불일치")
+        if not legacy_manifest.get("runs"):
+            raise AssertionError("legacy Fusion 결과 CSV에 hash-bound run manifest 없음")
+    elif review.get("accepted_rows") or review.get("errors") or review.get("state") != "PENDING_EXTERNAL_EXECUTION":
+        raise AssertionError("legacy Fusion 결과 CSV 없이 stale import review 존재")
+    elif legacy_manifest.get("runs"):
+        raise AssertionError("legacy Fusion 결과 CSV 없이 run manifest 존재")
+
+    if LC11_RESULTS.is_file():
+        lc11_rows = validate_lc11_rows(LC11_RESULTS)
+
+    return {
+        "legacy_result_file_present": LEGACY_RESULTS.is_file(),
+        "legacy_result_rows": len(legacy_rows),
+        "lc11_result_file_present": LC11_RESULTS.is_file(),
+        "lc11_result_rows": len(lc11_rows),
+        "presence": "PRESENT" if legacy_rows or lc11_rows else "ABSENT",
+        "validation": "VALID" if legacy_rows or lc11_rows else "NOT_APPLICABLE",
+    }
 
 
 def validate_lc11_rows(path: Path) -> list[dict[str, str]]:
@@ -65,7 +150,7 @@ def validate_lc11_rows(path: Path) -> list[dict[str, str]]:
     return rows
 
 
-def validate_release() -> dict:
+def validate_completed_results() -> dict:
     review = load_json(ROOT / "analysis/cross_solver/fusion_import_review.json")
     rows = review.get("accepted_rows", [])
     live = legacy_importer.validate_rows(rows)
@@ -106,34 +191,75 @@ def validate_release() -> dict:
     }
 
 
+def evaluate(policy_name: str) -> dict:
+    policy = validate_policy(policy_name)
+    package = validate_package_integrity()
+    present = inspect_present_results()
+    completed = None
+    if policy_name in {"REQUIRED", "COMPLETED"}:
+        completed = validate_completed_results()
+    elif present["presence"] == "PRESENT":
+        try:
+            completed = validate_completed_results()
+        except (AssertionError, FileNotFoundError, ValueError, KeyError):
+            completed = None
+    if policy_name == "DEFERRED":
+        return {
+            "revision": "technical-blocker-closure-v0.6.2.1",
+            "status": "FUSION_GATE_DEFERRED",
+            "gate_outcome": "DEFERRED",
+            "fusion_gate_policy": policy_name,
+            "fusion_state": "DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE",
+            "cross_solver_state": "CROSS_SOLVER_VALIDATION_DEFERRED",
+            "release_blocking": False,
+            "deferred_is_solver_pass": False,
+            "package_integrity": package,
+            "present_results": present,
+            "completed_result_summary": completed,
+            "forbidden_claims": policy["forbidden_claims"],
+        }
+    assert completed is not None
+    completed.update({
+        "gate_outcome": "COMPLETED",
+        "fusion_gate_policy": policy_name,
+        "fusion_state": "COMPLETED",
+        "cross_solver_state": "CROSS_SOLVER_VALIDATED_FOR_DEFINED_CASES",
+        "release_blocking": False,
+        "deferred_is_solver_pass": False,
+        "package_integrity": package,
+        "present_results": present,
+    })
+    return completed
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--allow-pending", action="store_true")
+    parser.add_argument("--policy", choices=("required", "deferred", "completed"), required=True)
     parser.add_argument(
         "--output", type=Path,
         default=ROOT / "validation/results/fusion_release_gate_v0.6.2.1.json",
     )
     args = parser.parse_args()
     try:
-        result = validate_release()
+        result = evaluate(args.policy.upper())
     except (AssertionError, FileNotFoundError, ValueError, KeyError) as error:
-        external_path = ROOT / "validation/fusion_external_blocker_v0.6.2.1.json"
-        external = json.loads(external_path.read_text()) if external_path.is_file() else None
         result = {
             "revision": "technical-blocker-closure-v0.6.2.1",
-            "status": "PENDING_EXTERNAL_FUSION",
-            "exact_external_blocker": str(error),
-            "worker_observation": external,
+            "status": "FUSION_GATE_INVALID_OR_UNMET",
+            "gate_outcome": "FAIL",
+            "fusion_gate_policy": args.policy.upper(),
+            "exact_failure": str(error),
         }
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
-        print(f"V0621_FUSION_EXTERNAL_BLOCKER {error}")
-        if args.allow_pending:
-            return
+        print(f"V0621_FUSION_GATE_FAIL {error}")
         raise SystemExit(2)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
-    print("V0621_FUSION_CROSS_SOLVER_GATE_PASS")
+    if result["status"] == "FUSION_GATE_DEFERRED":
+        print("V0621_FUSION_GATE_DEFERRED package_integrity=PASS solver_pass=false")
+    else:
+        print("V0621_FUSION_CROSS_SOLVER_GATE_PASS")
 
 
 if __name__ == "__main__":
