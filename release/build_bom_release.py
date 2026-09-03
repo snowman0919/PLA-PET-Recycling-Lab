@@ -293,8 +293,8 @@ def fasteners() -> list[dict[str, object]]:
                 part["insert_or_nut"], "hex/driver sized to received fastener",
                 f"{part['interfaces']}; witness mark and no crack", "exports/print/print_manifest.csv", "RELEASED_DIGITAL"))))
     manual = [
-        ("SYS-01", "frame profile joints", "M5 T-nut + washer joining hardware set", 1, "4.0", "prevailing T-nut", "4 mm hex + square", "frame diagonal <=1.0 mm; exact connector count from final traveler", "COUNT_AS_ONE_CONTROLLED_SET—final kitting count required"),
-        ("SYS-02", "control/PSU/PE", "M4x10 + tooth washer bonding set", 1, "1.2", "tooth washer", "3 mm hex + DMM", "PE continuity and witness mark", "COUNT_AS_ONE_CONTROLLED_SET—exact kitting count required after enclosure/PE terminal freeze"),
+        ("SYS-01", "frame profile joints", "M5x12 SHCS + washer + prevailing T-nut; 56 kits paired across 28 two-fastener corner brackets", 56, "5.0", "prevailing T-nut", "4 mm hex + square", "all 56 witness marks present; frame diagonal <=1.0 mm", "RELEASED_DIGITAL"),
+        ("SYS-02", "PE-01..04 bonds", "M4x10 + two tooth washers + all-metal nut per bond", 4, "3.0", "tooth washer + all-metal nut", "3 mm hex + DMM", "four PE bonds pass continuity and have witness marks", "RELEASED_DIGITAL"),
         ("SYS-03", "EX-THR-01 / barrel", "M6x20 class 8.8", 8, "9", "prevailing metal nut", "5 mm hex/10 mm spanner", "metal thrust path; witness mark", "RELEASED_DIGITAL"),
         ("SYS-04", "EX-DIE-01 / EX-BAR-01", "M4x45 class 10.9", 4, "3.0", "all-metal lock", "3 mm hex/7 mm spanner", "cross torque; new EX-DIE-05 gasket", "RELEASED_DIGITAL"),
         ("SYS-05", "EX-DIE-04 / EX-DIE-01", "M4 retainer screw", 2, "1.2", "all-metal lock", "3 mm hex", "retainer captures insert", "RELEASED_DIGITAL"),
@@ -304,7 +304,7 @@ def fasteners() -> list[dict[str, object]]:
         ("SYS-09", "DRV-02 / #35 sprocket", "M6 class 10.9", 4, "10", "all-metal locknut", "5 mm hex + 10 mm spanner", "chain alignment <=0.20/150 mm", "RELEASED_DIGITAL"),
     ]
     for values in manual:
-        rows.append(dict(zip(fields, (*values[:8], "docs/build_manual_ko.typ", values[8]))))
+        rows.append(dict(zip(fields, (*values[:8], "docs/final/assembly_steps.csv", values[8]))))
     return rows
 
 
