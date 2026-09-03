@@ -181,29 +181,45 @@ def hopper_ptc_clamp_shape():
 
 
 def feeder_housing_shape():
-    """Compact vertical metering housing: Ø36/Ø32 x105 with bolted end flanges."""
-    tube = Part.makeCylinder(18, 105).cut(Part.makeCylinder(16, 105))
-    lower = Part.makeCylinder(24, 3).cut(Part.makeCylinder(16, 3))
-    upper = Part.makeCylinder(24, 3, App.Vector(0, 0, 102)).cut(
-        Part.makeCylinder(16, 3, App.Vector(0, 0, 102))
+    """Vertical metering-auger housing: Ø29/Ø25 x105 with bolted end flanges."""
+    tube = Part.makeCylinder(14.5, 105).cut(Part.makeCylinder(12.5, 105))
+    lower = Part.makeCylinder(22, 3).cut(Part.makeCylinder(12.5, 3))
+    upper = Part.makeCylinder(22, 3, App.Vector(0, 0, 102)).cut(
+        Part.makeCylinder(12.5, 3, App.Vector(0, 0, 102))
     )
     housing = joined(tube, lower, upper)
     for z in (0, 102):
         for angle in (0, 90, 180, 270):
             a = math.radians(angle)
             housing = housing.cut(
-                Part.makeCylinder(2.25, 3, App.Vector(20 * math.cos(a), 20 * math.sin(a), z))
+                Part.makeCylinder(2.25, 3, App.Vector(18 * math.cos(a), 18 * math.sin(a), z))
             )
     return one_solid(housing)
 
 
-def feeder_metering_rotor_shape():
-    """Six-pocket removable metering disc; physical feed coupon sets RPM/capacity."""
-    rotor = Part.makeCylinder(15.8, 8).cut(Part.makeCylinder(4.1, 8))
-    for angle in range(0, 360, 60):
-        a = math.radians(angle)
-        rotor = rotor.cut(Part.makeCylinder(4.0, 8, App.Vector(10 * math.cos(a), 10 * math.sin(a), 0)))
-    return one_solid(rotor)
+def feeder_auger_shape():
+    """Ø24.60 x105 removable positive-displacement auger on an Ø8 shaft."""
+    root_r, outer_r, length, pitch = 5.0, 12.3, 105.0, 18.0
+    root = Part.makeCylinder(root_r, length).cut(Part.makeCylinder(4.1, length))
+    segments_per_turn = 24
+    dz = pitch / segments_per_turn
+    segments = []
+    for index in range(int(math.ceil(length / dz))):
+        z = index * dz
+        segment = Part.makeBox(outer_r - root_r + 0.35, 3.4, min(2.0, length - z), App.Vector(root_r - 0.35, -1.7, z))
+        segment.rotate(App.Vector(0, 0, z), App.Vector(0, 0, 1), index * 360.0 / segments_per_turn)
+        segments.append(segment)
+    return one_solid(root.multiFuse(segments))
+
+
+def feeder_agitator_shaft_shape():
+    """Common Ø8 drive shaft with hopper anti-bridge paddles above the auger."""
+    shaft = Part.makeCylinder(4, 300)
+    for z, radius, angle in ((183, 25, 0), (228, 50, 90), (273, 60, 0)):
+        arm = Part.makeCylinder(2, 2 * radius, App.Vector(-radius, 0, z), App.Vector(1, 0, 0))
+        arm.rotate(App.Vector(0, 0, z), App.Vector(0, 0, 1), angle)
+        shaft = shaft.fuse(arm)
+    return one_solid(shaft)
 
 
 def thrust_plate_shape():
@@ -353,10 +369,10 @@ def down_die_copper_gasket():
 
 def cylindrical_hopper(radius, straight_height, cone_height, outlet_radius, wall=2.0):
     straight = Part.makeCylinder(radius, straight_height).cut(
-        Part.makeCylinder(radius-wall, straight_height, App.Vector(0, 0, wall))
+        Part.makeCylinder(radius-wall, straight_height)
     )
     outer_cone = Part.makeCone(outlet_radius, radius, cone_height, App.Vector(0, 0, -cone_height))
-    inner_cone = Part.makeCone(outlet_radius-wall, radius-wall, cone_height, App.Vector(0, 0, -cone_height+wall))
+    inner_cone = Part.makeCone(outlet_radius-wall, radius-wall, cone_height, App.Vector(0, 0, -cone_height))
     return straight.fuse(outer_cone.cut(inner_cone))
 
 
@@ -770,9 +786,9 @@ def machine_fabrication_parts():
         dict(id="FD-BIN-01", name="Removable flake bin", shape=flake_bin_sheet_shape(printed["PPR-C03"]), qty=1, material="1 mm 304 stainless sheet", process="laser cut, fold and rivet/TIG seam", critical="185 x175 x115 outside; PPR-C03 corner reliefs control; no inward burr/dead pocket; removable without cutter disassembly"),
         dict(id="FD-HOP-01", name="Sealed feed hopper", shape=cylindrical_hopper(78, 145, 55, 16), qty=1, material="2 mm 304 stainless", process="roll cone/cylinder + TIG weld + gasketed lid", critical="OD156 x straight145 + cone55; outlet Ø32; wall2.0; leak test; lid gasket limits moisture ingress"),
         dict(id="FD-TRN-01", name="Sealed transfer tube", shape=Part.makeCylinder(16, transfer_length).cut(Part.makeCylinder(14, transfer_length)), qty=1, material="304 tube OD32 x2", process="tube cut + socket fit + TIG tack/weld", critical=f"centreline length {transfer_length:.2f}; OD32, ID28; clock after dry assembly; both sockets >=8 engagement"),
-        dict(id="FD-MET-01", name="Metering feeder housing", shape=feeder_housing_shape(), qty=1, material="304 stainless", process="turn tube/flanges + drill", critical="Ø36/ID32.00 +0.05/0 x105; flanges Ø48 x3; 4xØ4.5 PCD40 each end; rotor radial clearance 0.20–0.25"),
-        dict(id="FD-MET-02", name="Six-pocket metering rotor", shape=feeder_metering_rotor_shape(), qty=1, material="POM-C", process="turn + 3-axis mill six pockets", critical="OD31.60 -0.05/0 x8; bore Ø8.2 +0.10/0; 6xØ8 pockets PCD20; balance and deburr; Gate-2 sets volumetric coefficient"),
-        dict(id="FD-MET-03", name="Metering feeder shaft", shape=Part.makeCylinder(4, 110), qty=1, material="304 shaft", process="cut/face Ø8 stock", critical="Ø8 h8 x110; straightness 0.10; 2.2 N·m design torque SF≥2; retain rotor with removable cross pin or two collars after donor motor measurement"),
+        dict(id="FD-MET-01", name="Metering auger housing", shape=feeder_housing_shape(), qty=1, material="304 stainless", process="turn tube/flanges + drill", critical="OD29/ID25.00 +0.05/0 x105; flanges Ø44 x3; 4xØ4.5 PCD36 each end; auger radial clearance 0.20–0.25"),
+        dict(id="FD-MET-02", name="Positive-displacement metering auger", shape=feeder_auger_shape(), qty=1, material="304 stainless", process="turn root/bore + mill or weld continuous flight", critical="OD24.60 -0.05/0 x105; root Ø10; bore Ø8.2 +0.10/0; pitch18; deburr/polish Ra≤3.2; Gate-2 sets mass/rev"),
+        dict(id="FD-MET-03", name="Common auger and anti-bridge agitator shaft", shape=feeder_agitator_shaft_shape(), qty=1, material="304 shaft", process="turn Ø8 shaft + weld/pin Ø4 paddles", critical="Ø8 h8 x300; paddle sweep Ø50/100/120 at Z183/228/273; straightness 0.10; 2.2 N·m design torque SF≥2; removable drive coupling after donor measurement"),
         dict(id="EX-THR-01", name="Extruder thrust plate", shape=thrust_plate_shape(), qty=1, material="12 mm S45C normalized steel", process="laser rough + bore/seat finish", critical="12 x95 x105; passage Ø17.2; thrust seat Ø30.2 x5; 4xØ6.6; seat axis square 0.05; metal-to-profile load path"),
         dict(id="EX-SH-01", name="Three-panel hot-zone shield", shape=hot_shield_shape(), qty=1, material="2 mm 5052 aluminum", process="laser + two 90deg bends; bond PE", critical="335 x75 x85; open bottom/ends; feeder opening Ø50 at X314/Y37; >=10 mm ABS-duct gap; edge hem/deburr"),
         dict(id="DRV-GD-01", name="Interlocked drive guard", shape=drive_guard_shape(), qty=1, material="1 mm galvanized steel", process="laser + brake + service-cover hardware", critical="165 x48 x190; two Ø26 shaft clearances at X20/68,Z55; open service face; positive-opening interlock flag; PE bond"),
@@ -924,28 +940,27 @@ def assembly_objects(exploded=False):
     add("FlakeBin", flake, blue, "feed", "1 mm PP sheet with PPR-C03 top corner reliefs")
     for index,corner in enumerate(corner_shapes):
         add(f"PPR-C03_FlakeCorner{index}",corner,blue,"feed","PLA")
-    feed = cylindrical_hopper(78, 145, 55, 16); feed.translate(App.Vector(350, 420, 635))
-    feed = one_solid(feed.cut(cyl(1.6,5.0,350,341,748,(0,1,0))))
+    feed = cylindrical_hopper(78, 145, 55, 12.5); feed.translate(App.Vector(354, 347, 560))
+    feed = one_solid(feed.cut(cyl(1.6,5.0,354,268,675,(0,1,0))))
     add("SealedFeedHopper", feed, aluminum, "feed", "2 mm sheet metal")
-    ptc_spreader=hopper_ptc_spreader_shape(); ptc_spreader.translate(App.Vector(290,338,690))
+    ptc_spreader=hopper_ptc_spreader_shape(); ptc_spreader.translate(App.Vector(294,265,615))
     add("HopperPTCSpreader",ptc_spreader,aluminum,"feed","TH-PTC-01 3 mm aluminum spreader")
-    for index,(x,z) in enumerate(((298,696),(337,696),(298,721),(337,721)),start=1):
-        add(f"HopperPTC{index}",box(x,333,z,35,5,21),orange,"feed","24 V 35x21x5 self-regulating PTC; power receipt-test required","purchased_reference_envelope")
-    ptc_clamp=hopper_ptc_clamp_shape(); ptc_clamp.translate(App.Vector(290,331,690))
+    for index,(x,z) in enumerate(((302,621),(341,621),(302,646),(341,646)),start=1):
+        add(f"HopperPTC{index}",box(x,260,z,35,5,21),orange,"feed","24 V 35x21x5 self-regulating PTC; power receipt-test required","purchased_reference_envelope")
+    ptc_clamp=hopper_ptc_clamp_shape(); ptc_clamp.translate(App.Vector(294,258,615))
     add("HopperPTCClamp",ptc_clamp,steel,"feed","TH-PTC-02 2 mm grounded metal keeper")
-    hopper_probe=k_type_probe_shape(insertion_length=4.0); hopper_probe.rotate(App.Vector(),App.Vector(1,0,0),-90); hopper_probe.translate(App.Vector(350,341,748))
+    hopper_probe=k_type_probe_shape(insertion_length=4.0); hopper_probe.rotate(App.Vector(),App.Vector(1,0,0),-90); hopper_probe.translate(App.Vector(354,268,675))
     add("TemperatureProbeT5",hopper_probe,purple,"feed","T5 ungrounded K-type probe; MAX6675 T- common reference at receiver only")
-    add("HopperThermalFuse",box(410,331,705,20,6,8),red,"feed","independent one-shot thermal fuse clamped at spreader edge")
-    transfer = hollow_tube_between((354, 347, 504), (350, 420, 580), 16, 2)
-    add("FeedTransferChute", transfer, aluminum, "feed", "2 mm sealed 304 transfer tube")
-    # Vertical six-pocket metering disc feeder.  Gate-2 determines its RPM and
-    # volumetric coefficient; the housing/rotor are real removable solids.
+    add("HopperThermalFuse",box(414,258,630,20,6,8),red,"feed","independent one-shot thermal fuse clamped at spreader edge")
+    # Coaxial auger and anti-bridge paddles use one bounded drive. Gate-2 sets
+    # mass/revolution; the lower auger remains removable under lockout.
     feeder_housing = feeder_housing_shape(); feeder_housing.translate(App.Vector(354, 347, 399))
-    feeder_rotor = feeder_metering_rotor_shape(); feeder_rotor.translate(App.Vector(354, 347, 402))
-    feeder_shaft = Part.makeCylinder(4, 110, App.Vector(354, 347, 402))
-    add("FeederHousing", feeder_housing, steel, "feed", "304 stainless Ø36/Ø32 housing")
-    add("FeederRotor", feeder_rotor, orange, "feed", "POM or 304 six-pocket metering disc")
-    add("FeederShaft", feeder_shaft, steel, "feed", "FD-MET-03 Ø8 h8 stainless shaft; 2.2 N·m design envelope; donor drive unverified")
+    feeder_auger = feeder_auger_shape(); feeder_auger.translate(App.Vector(354, 347, 399))
+    feeder_shaft = feeder_agitator_shaft_shape(); feeder_shaft.translate(App.Vector(354, 347, 396))
+    add("FeederHousing", feeder_housing, steel, "feed", "FD-MET-01 304 OD29/ID25 housing")
+    add("FeederAuger", feeder_auger, orange, "feed", "FD-MET-02 304 positive-displacement auger OD24.60 pitch18")
+    add("FeederAgitatorDriveShaft", feeder_shaft, steel, "feed", "FD-MET-03 coaxial auger/anti-bridge shaft Ø8 h8; 2.2 N·m envelope; donor drive unverified")
+    add("FeederDriveReference", box(326,319,708,56,56,52), red, "feed", "24 V geared-motor maximum installation envelope; shaft/mount unverified", "unverified_donor_envelope", evidence="label, rated torque, shaft and face-pattern measurement required before adapter release")
     add("FeederCableRouteEnvelope", box(432,320,580,12,12,170), purple, "feed", "segregated feeder/PTC/sensor cable service envelope", "purchased_reference_envelope")
 
     # Horizontal extruder and fully connected 90-degree metal down-die.

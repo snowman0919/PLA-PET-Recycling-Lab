@@ -23,7 +23,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(COMPACT))
 
 from geometry import assembly_objects, one_solid  # noqa: E402
-from cad.freecad.compact.generate import _projection_polylines, normalize_dxf, normalize_step  # noqa: E402
+from cad.freecad.compact.generate import _projection_polylines, normalize_dxf, normalize_step, normalize_zip_container  # noqa: E402
 
 PARAMS = json.loads((ROOT / "cad/parameters/final_v08.json").read_text())
 OUT = ROOT / "exports" / "final" / "step"
@@ -92,6 +92,9 @@ def export(path: Path, objects: list[dict]) -> dict:
         obj.Shape = item["shape"]
         exported.append(obj)
     doc.recompute()
+    if path.stem == "PPR-FULL-ASM":
+        fcstd = ROOT / "cad/generation/fcstd/final_v08_full_assembly.FCStd"
+        fcstd.unlink(missing_ok=True); doc.saveAs(str(fcstd)); normalize_zip_container(fcstd, normalize_fcstd=True)
     Part.export(exported, str(path))
     normalize_step(path)
     expected_solids = sum(len(item["shape"].Solids) for item in objects)
@@ -114,6 +117,29 @@ def export(path: Path, objects: list[dict]) -> dict:
         "volume_mm3": round(imported.Volume, 6), "mass_g": "",
         "sha256": sha256(path), "status": "PASS",
     }
+
+
+def export_assembly_metadata(objects: list[dict]) -> None:
+    compound = Part.makeCompound([item["shape"] for item in objects])
+    box = compound.BoundBox
+    metadata = {
+        "revision": PARAMS["revision"],
+        "bounding_box_mm": [round(box.XLength, 2), round(box.YLength, 2), round(box.ZLength, 2)],
+        "minimum_mm": [round(box.XMin, 2), round(box.YMin, 2), round(box.ZMin, 2)],
+        "maximum_mm": [round(box.XMax, 2), round(box.YMax, 2), round(box.ZMax, 2)],
+        "object_count": len(objects),
+        "reference_component_policy": "manufacturing, purchased-reference and fastener solids are classified; keep-outs remain in cad/review_keepouts",
+        "includes": ["closed lid", "guards", "hot-zone fixed/sliding mount", "mount fasteners", "cable duct", "1 kg spool", "dancer arm", "traverse rail"],
+        "excludes": ["motion and service keep-outs; see cad/review_keepouts"],
+    }
+    generation = ROOT / "cad/generation"
+    (generation / "assembly_metadata.json").write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n")
+    with (generation / "assembly_classification.csv").open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.writer(stream, lineterminator="\n")
+        writer.writerow(("object", "group", "material", "classification", "shape_type", "solid_count", "volume_mm3", "mass_override_kg", "evidence"))
+        for item in objects:
+            writer.writerow((item["name"], item["group"], item["material"], item["classification"], item["shape"].ShapeType,
+                             len(item["shape"].Solids), f'{item["shape"].Volume:.3f}', item.get("mass_override_kg") or "", item.get("evidence", "")))
 
 
 def export_hot_zone_drawings(additions: list[dict]) -> None:
@@ -153,6 +179,7 @@ def main() -> None:
     assembly.mkdir(parents=True, exist_ok=True)
     parts.mkdir(parents=True, exist_ok=True)
     objects = final_objects()
+    export_assembly_metadata(objects)
     groups = {
         "PPR-FULL-ASM.step": objects,
         "PPR-SHREDDER-ASM.step": [item for item in objects if item["group"] == "shredder"],

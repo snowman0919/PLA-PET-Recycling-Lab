@@ -54,24 +54,24 @@ def row(wire_id: str, source: str, destination: str, voltage: str, current: str,
 def power_wires() -> list[dict[str, str]]:
     u = "DONOR/SITE_VERIFICATION_REQUIRED"
     wires = [
-        row("AC-L", "AC inlet L", "PSU L", "SITE_MAINS_UNVERIFIED", u, "local code", "brown", "mains terminal", "TB-AC-L", "site breaker", "mains duct", "PE separate", "gland + clamp"),
-        row("AC-N", "AC inlet N", "PSU N", "SITE_MAINS_UNVERIFIED", u, "local code", "blue", "mains terminal", "TB-AC-N", "site breaker", "mains duct", "PE separate", "gland + clamp"),
-        row("PE-01", "AC inlet PE", "frame PE stud", "PE", "site fault current", "local code", "green/yellow", "ring lug", "PE-STUD", "site breaker", "short dedicated bond", "protective earth", "tooth washer + clamp"),
-        row("PE-02", "frame PE stud", "enclosure backplate", "PE", "site fault current", "local code", "green/yellow", "ring lug", "PE-ENC", "site breaker", "dedicated bond", "protective earth", "tooth washer + clamp"),
-        row("PE-03", "frame PE stud", "metal hot shield", "PE", "site fault current", "local code; hot sleeve", "green/yellow", "ring lug", "PE-HOT", "site breaker", "away from sensors", "protective earth", "tooth washer + hot clamp"),
-        row("PE-04", "frame PE stud", "motor frames", "PE", "site fault current", "local code", "green/yellow", "ring lug", "PE-MOTOR", "site breaker", "power route", "protective earth", "tooth washer + clamp"),
-        row("24-MAIN+", "PSU +24 V", "F-MAIN", "24 VDC", "25 A PSU maximum", ">=4 mm2 candidate; calculate", "red", "locking DC terminal", "TB24+", "F-MAIN 30 A candidate", "high-current duct", "paired 0 V", "both ends clamped"),
-        row("24-MAIN-", "PSU 0 V", "0 V star", "0 VDC", "25 A PSU maximum", ">=4 mm2 candidate; calculate", "black", "locking DC terminal", "TB24-", "F-MAIN upstream", "high-current duct", "functional 0 V; not PE", "both ends clamped"),
+        row("AC-L", "AC inlet L", "PSU L", "100–240 VAC", "8 A design maximum at 100 VAC", ">=1.5 mm2 Cu 90 C; local code may increase", "brown", "mains terminal", "TB-AC-L", "site OCPD <=16 A", "mains duct", "PE separate", "gland + clamp"),
+        row("AC-N", "AC inlet N", "PSU N", "100–240 VAC", "8 A design maximum at 100 VAC", ">=1.5 mm2 Cu 90 C; local code may increase", "blue", "mains terminal", "TB-AC-N", "site OCPD <=16 A", "mains duct", "PE separate", "gland + clamp"),
+        row("PE-01", "AC inlet PE", "frame PE stud", "PE", "site OCPD <=16 A fault path", ">=1.5 mm2 Cu green/yellow; local code may increase", "green/yellow", "ring lug", "PE-STUD", "site OCPD <=16 A", "short dedicated bond", "protective earth", "tooth washer + clamp"),
+        row("PE-02", "frame PE stud", "enclosure backplate", "PE", "site OCPD <=16 A fault path", ">=1.5 mm2 Cu green/yellow; local code may increase", "green/yellow", "ring lug", "PE-ENC", "site OCPD <=16 A", "dedicated bond", "protective earth", "tooth washer + clamp"),
+        row("PE-03", "frame PE stud", "metal hot shield", "PE", "site OCPD <=16 A fault path", ">=1.5 mm2 Cu green/yellow; 300 C sleeve", "green/yellow", "ring lug", "PE-HOT", "site OCPD <=16 A", "away from sensors", "protective earth", "tooth washer + hot clamp"),
+        row("PE-04", "frame PE stud", "motor frames", "PE", "site OCPD <=16 A fault path", ">=1.5 mm2 Cu green/yellow; local code may increase", "green/yellow", "ring lug", "PE-MOTOR", "site OCPD <=16 A", "power route", "protective earth", "tooth washer + clamp"),
+        row("24-MAIN+", "PSU +24 V", "F-MAIN", "24 VDC", "25 A PSU maximum", ">=6 mm2 Cu 90 C", "red", "locking DC terminal >=30 A 60 VDC", "TB24+", "F-MAIN 30 A DC", "high-current duct", "paired 0 V", "both ends clamped"),
+        row("24-MAIN-", "PSU 0 V", "0 V star", "0 VDC", "25 A PSU maximum", ">=6 mm2 Cu 90 C", "black", "locking DC terminal >=30 A 60 VDC", "TB24-", "F-MAIN upstream", "high-current duct", "functional 0 V; not PE", "both ends clamped"),
     ]
     branches = (
-        ("LOGIC", "F-MAIN", "Mega + sensors", "3 A design limit", ">=0.75 mm2 candidate", "F-LOGIC 3 A candidate", "logic duct"),
-        ("SAFE", "F-MAIN", "hardwired safety feed", "1 A design limit", ">=0.5 mm2 candidate", "F-SAFE 1 A candidate", "safety duct"),
+        ("LOGIC", "F-MAIN", "Mega + sensors", "3 A design limit", ">=0.75 mm2 Cu", "F-LOGIC 3 A DC", "logic duct"),
+        ("SAFE", "F-MAIN", "hardwired safety feed", "1 A design limit", ">=0.5 mm2 Cu", "F-SAFE 1 A DC", "safety duct"),
         ("SH", "K0 contactor", "shredder H-bridge", "20 A branch limit", ">=2.5 mm2 candidate", "F-SH 20 A", "motor duct"),
-        ("SCREW", "K0 contactor", "screw driver", "10 A design envelope", ">=1.5 mm2 candidate", "F-SCREW 10 A candidate", "motor duct"),
-        ("FEED", "K0 contactor", "FD-MET rotor driver", "5 A design envelope; donor must be <=5 A", ">=0.75 mm2 copper candidate", "F-FEED 5 A candidate", "motor duct"),
-        ("PULL", "K0 contactor", "puller driver", "5 A design envelope; donor must be <=5 A", ">=0.75 mm2 copper candidate", "F-PULL 5 A candidate", "forming duct"),
-        ("SPOOL", "K0 contactor", "spooler/traverse drivers", "5 A combined design envelope; donors must total <=5 A", ">=0.75 mm2 copper candidate", "F-SPOOL 5 A candidate", "forming duct"),
-        ("FAN", "K0 contactor", "cooling fan pair", "3 A design envelope", ">=0.75 mm2 candidate", "F-FAN 3 A candidate", "forming duct"),
+        ("SCREW", "K0 contactor", "screw driver", "10 A design envelope", ">=1.5 mm2 Cu", "F-SCREW 10 A DC", "motor duct"),
+        ("FEED", "K0 contactor", "FD-MET auger/agitator driver", "5 A design envelope; donor must be <=5 A", ">=0.75 mm2 Cu", "F-FEED 5 A DC", "motor duct"),
+        ("PULL", "K0 contactor", "puller driver", "5 A design envelope; donor must be <=5 A", ">=0.75 mm2 Cu", "F-PULL 5 A DC", "forming duct"),
+        ("SPOOL", "K0 contactor", "spooler/traverse drivers", "5 A combined design envelope; donors must total <=5 A", ">=0.75 mm2 Cu", "F-SPOOL 5 A DC", "forming duct"),
+        ("FAN", "K0 contactor", "cooling fan pair", "3 A design envelope", ">=0.75 mm2 Cu", "F-FAN 3 A DC", "forming duct"),
     )
     for tag, source, dest, current, gauge, fuse, route in branches:
         wires += [
@@ -80,14 +80,14 @@ def power_wires() -> list[dict[str, str]]:
         ]
     for i, dest in enumerate(("heater Z1", "heater Z2", "heater Z3", "die heater"), 1):
         wires += [
-            row(f"24-H{i}+", f"K0 via MOS-H{i}", dest, "24 VDC", "5 A maximum candidate", ">=0.75 mm2; 300 C sleeve", "red", f"J-H{i} locking high-temp", f"TB-H{i}+", f"F-H{i} 5 A candidate + thermal fuse", "separate hot route", "grounded metal shield", "metal P-clamp"),
-            row(f"24-H{i}-", dest, "heater 0 V star", "0 VDC", "5 A maximum candidate", ">=0.75 mm2; 300 C sleeve", "black", f"J-H{i} locking high-temp", f"TB-H{i}-", f"F-H{i} upstream", "separate hot route", "functional 0 V; shield PE-03", "metal P-clamp"),
+            row(f"24-H{i}+", f"K0 via MOS-H{i}", dest, "24 VDC", "5 A design maximum", ">=0.75 mm2 Cu; 300 C sleeve", "red", f"J-H{i} locking high-temp >=5 A 60 VDC", f"TB-H{i}+", f"F-H{i} 5 A DC + thermal fuse", "separate hot route", "grounded metal shield", "metal P-clamp"),
+            row(f"24-H{i}-", dest, "heater 0 V star", "0 VDC", "5 A design maximum", ">=0.75 mm2 Cu; 300 C sleeve", "black", f"J-H{i} locking high-temp >=5 A 60 VDC", f"TB-H{i}-", f"F-H{i} upstream", "separate hot route", "functional 0 V; shield PE-03", "metal P-clamp"),
         ]
     chain = (("F-SAFE", "S0 E-stop NC"), ("S0 E-stop NC", "S1 lid NC"),
              ("S1 lid NC", "S2 service NC"), ("S2 service NC", "TF independent thermal cutoff"),
              ("TF independent thermal cutoff", "K0 contactor A1"), ("K0 contactor A2", "0 V star"))
     for i, (source, dest) in enumerate(chain, 1):
-        wires.append(row(f"SAFE-{i:02d}", source, dest, "24 VDC" if i < 6 else "0 VDC", "1 A maximum candidate", ">=0.5 mm2; hot-rated at TF", "red" if i < 6 else "black", "positive-opening/locking terminal", f"SAFE-{i}", "F-SAFE", "dedicated safety duct", "paired return; not PE", "both ends clamped"))
+        wires.append(row(f"SAFE-{i:02d}", source, dest, "24 VDC" if i < 6 else "0 VDC", "1 A design maximum", ">=0.5 mm2 Cu; hot-rated at TF", "red" if i < 6 else "black", "positive-opening/locking terminal >=1 A 60 VDC", f"SAFE-{i}", "F-SAFE", "dedicated safety duct", "paired return; not PE", "both ends clamped"))
     return wires
 
 
@@ -116,7 +116,7 @@ def signal_wires(pin_rows: list[tuple[str, str]]) -> list[dict[str, str]]:
         output = name in OUTPUTS or name.startswith(("HEATER_PINS_", "THERMOCOUPLE_CS_PINS_", "THERMOCOUPLE_SCK"))
         source, dest = (f"Mega {pin}", target) if output else (target, f"Mega {pin}")
         shielded = any(key in name for key in ("TACH", "CURRENT", "GAUGE", "DANCER", "THERMOCOUPLE", "FAULT"))
-        wires.append(row(f"SIG-{pin}", source, dest, "5 V logic/interface dependent", "signal only; interface verify", "0.25 mm2 candidate; interface verify", "white + ID", f"J-{pin}", pin, "F-LOGIC upstream", "sensor duct; separated from PWM/motor" if shielded else "logic/control duct", "shield at enclosure end only" if shielded else "logic 0 V; not PE", "service loop + clamp"))
+        wires.append(row(f"SIG-{pin}", source, dest, "5 V logic/interface dependent", "0.1 A design maximum", ">=0.25 mm2 Cu; interface level verify", "white + ID", f"J-{pin}", pin, "F-LOGIC upstream", "sensor duct; separated from PWM/motor" if shielded else "logic/control duct", "shield at enclosure end only" if shielded else "logic 0 V; not PE", "service loop + clamp"))
     return wires
 
 
@@ -157,7 +157,7 @@ def diagram_data(pin_count: int) -> dict[str, tuple[str, list, list, list[str]]]
        [(50,150,190,80,"AC inlet|SITE MAINS",x),(290,150,210,80,"24 V / 600 W PSU|25 A max",o),(555,130,220,120,"F-MAIN|branch protection",o),(830,115,260,150,"HARDWIRED K0 CHAIN|E-stop · lid · service|independent thermal cutoff",r),(1150,120,390,140,"HAZARDOUS LOADS|shredder · feeder · screw|4 heater MOSFETs · forming",o),(555,400,220,100,"Arduino Mega|protected logic",b),(50,400,400,100,"SENSORS|thermocouples · gauge · tach|current · dancer · faults",g),(830,400,260,100,"command interfaces|PWM · DIR · ENABLE",b),(1150,400,390,100,"drivers / MOSFETs / fans|exact donor ratings pending",o),(290,680,210,80,"PE STUD",g),(555,680,220,80,"frame + enclosure",g),(830,680,260,80,"motor frames",g),(1150,680,390,80,"metal hot shield",g)],
        [(240,190,290,190,"AC-L/N","#334d5f"),(500,190,555,190,"24-MAIN±","#c24c36"),(775,190,830,190,"24-SAFE+","#c24c36"),(1090,190,1150,190,"protected 24 V","#c24c36"),(450,450,555,450,"SIG inputs","#31734f"),(775,450,830,450,"SIG outputs","#315a84"),(1090,450,1150,450,"logic only","#315a84"),(500,720,555,720,"PE-02","#31734f"),(775,720,830,720,"PE-04","#31734f"),(1090,720,1150,720,"PE-03","#31734f")],[safety,unknown]),
       "power_distribution": ("24 VDC single-line; all branch IDs appear in wire_schedule.csv",
-       [(45,135,205,80,"PSU 24 V / 600 W|25 A max",o),(300,135,180,80,"F-MAIN|30 A candidate",r)] + [(550,105+i*92,190,62,label,r) for i,label in enumerate(("F-LOGIC 3 A","F-SAFE 1 A","F-SH 20 A","F-SCREW 10 A","F-FEED 5 A","F-PULL/SPOOL 5 A each","F-FAN 3 A","F-H1..H4 5 A"))] + [(900,105+i*92,300,62,label,o if i>1 else b) for i,label in enumerate(("Mega + sensors","K0 safety coil","shredder driver","screw driver","FD-MET rotor driver","forming drivers","fan pair","MOS-H1..H4 + TF"))] + [(1300,340,240,120,"0 V STAR|functional return|NOT PE",x)],
+       [(45,135,205,80,"PSU 24 V / 600 W|25 A max",o),(300,135,180,80,"F-MAIN|30 A candidate",r)] + [(550,105+i*92,190,62,label,r) for i,label in enumerate(("F-LOGIC 3 A","F-SAFE 1 A","F-SH 20 A","F-SCREW 10 A","F-FEED 5 A","F-PULL/SPOOL 5 A each","F-FAN 3 A","F-H1..H4 5 A"))] + [(900,105+i*92,300,62,label,o if i>1 else b) for i,label in enumerate(("Mega + sensors","K0 safety coil","shredder driver","screw driver","FD-MET auger driver","forming drivers","fan pair","MOS-H1..H4 + TF"))] + [(1300,340,240,120,"0 V STAR|functional return|NOT PE",x)],
        [(250,175,300,175,"24-MAIN+","#c24c36")] + [(480,175,550,136+i*92,f"24-{tag}+","#c24c36") for i,tag in enumerate(("LOGIC","SAFE","SH","SCREW","FEED","PULL/SPOOL","FAN","H1..4"))] + [(740,136+i*92,900,136+i*92,f"F-{tag}","#c24c36") for i,tag in enumerate(("LOGIC","SAFE","SH","SCREW","FEED","PULL/SPOOL","FAN","H1..4"))],["500 W software heater cap does not replace branch fuses or independent thermal cutoff.",unknown]),
       "safety_chain": ("normally-closed hard cut; de-energize-to-trip",
        [(45+i*245,230,190,85,label,r if i else o) for i,label in enumerate(("F-SAFE","S0 E-STOP NC","S1 LID NC","S2 SERVICE NC","TF THERMAL CUTOFF","K0 COIL"))] + [(1080,500,240,85,"K0 feedback|force-guided",g),(650,500,240,85,"Mega D24|diagnostic only",b),(220,500,240,85,"K0 power contacts|hazardous branches",o)],
@@ -187,17 +187,17 @@ def electrical_release(commit: str) -> tuple[int, int]:
     if len({item["wire_id"] for item in wires}) != len(wires):
         raise SystemExit("duplicate wire_id")
     write_csv(ELEC / "wire_schedule.csv", WIRE_FIELDS, wires)
-    connectors = [{"connector_id": item["connector"], "wire_id": item["wire_id"], "from": item["from"], "to": item["to"], "terminal": item["terminal"], "retention": "locking/strain-relieved as scheduled", "rating": "EXACT_MPN_AND_RATING_USER_VERIFICATION_REQUIRED"} for item in wires]
+    connectors = [{"connector_id": item["connector"], "wire_id": item["wire_id"], "from": item["from"], "to": item["to"], "terminal": item["terminal"], "retention": "locking/strain-relieved as scheduled", "rating": f'>= scheduled {item["maximum_current"]}; >= scheduled {item["voltage"]}; exact MPN USER_APPROVAL_REQUIRED'} for item in wires]
     write_csv(ELEC / "connector_schedule.csv", tuple(connectors[0]), connectors)
     fuses = [
-      {"fuse_id":"F-MAIN","branch":"24 V main","rating":"30 A candidate","maximum_current":"25 A PSU maximum","dc_interrupt_rating":"verify","basis":"protect main conductors"},
-      {"fuse_id":"F-LOGIC","branch":"Mega/sensors","rating":"3 A candidate","maximum_current":"measure actual","dc_interrupt_rating":"verify","basis":"protected logic branch"},
-      {"fuse_id":"F-SAFE","branch":"hardwired safety","rating":"1 A candidate","maximum_current":"measure coil/contact load","dc_interrupt_rating":"verify","basis":"firmware-independent"},
-      {"fuse_id":"F-SH","branch":"shredder","rating":"20 A","maximum_current":"20 A","dc_interrupt_rating":"verify","basis":"donor label + calibration"},
-      {"fuse_id":"F-SCREW","branch":"screw","rating":"10 A candidate","maximum_current":"10 A envelope","dc_interrupt_rating":"verify","basis":"recalculate after donor"},
-      *[{"fuse_id":name,"branch":branch,"rating":"5 A candidate","maximum_current":"5 A design envelope","dc_interrupt_rating":"verify","basis":"received donor(s) must remain within envelope; otherwise redesign"} for name,branch in (("F-FEED","FD-MET rotor"),("F-PULL","puller"),("F-SPOOL","spooler/traverse combined"))],
-      {"fuse_id":"F-FAN","branch":"fans","rating":"3 A candidate","maximum_current":"3 A envelope","dc_interrupt_rating":"verify","basis":"verify start/stall"},
-      *[{"fuse_id":f"F-H{i}","branch":f"heater {i}","rating":"5 A candidate","maximum_current":"5 A candidate","dc_interrupt_rating":"verify","basis":"thermal fuse remains series"} for i in range(1,5)]
+      {"fuse_id":"F-MAIN","branch":"24 V main","rating":"30 A DC","maximum_current":"25 A PSU maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"protect 6 mm2 main conductors"},
+      {"fuse_id":"F-LOGIC","branch":"Mega/sensors","rating":"3 A DC","maximum_current":"3 A design maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"protected logic branch"},
+      {"fuse_id":"F-SAFE","branch":"hardwired safety","rating":"1 A DC","maximum_current":"1 A design maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"firmware-independent"},
+      {"fuse_id":"F-SH","branch":"shredder","rating":"20 A DC","maximum_current":"20 A","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"donor must remain inside design envelope"},
+      {"fuse_id":"F-SCREW","branch":"screw","rating":"10 A DC","maximum_current":"10 A envelope","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"donor must remain inside design envelope"},
+      *[{"fuse_id":name,"branch":branch,"rating":"5 A DC","maximum_current":"5 A design envelope","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"received donor(s) must remain within envelope; otherwise redesign"} for name,branch in (("F-FEED","FD-MET auger/agitator"),("F-PULL","puller"),("F-SPOOL","spooler/traverse combined"))],
+      {"fuse_id":"F-FAN","branch":"fans","rating":"3 A DC","maximum_current":"3 A envelope","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"start/stall must remain inside envelope"},
+      *[{"fuse_id":f"F-H{i}","branch":f"heater {i}","rating":"5 A DC","maximum_current":"5 A design maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"thermal fuse remains series"} for i in range(1,5)]
     ]
     write_csv(ELEC / "fuse_schedule.csv", tuple(fuses[0]), fuses)
     pin_records = [{"symbol": name, "mega_pin": pin, "wire_id": f"SIG-{pin}", "source":"firmware/arduino_mega/src/board_config.h", "revision":commit} for name,pin in pin_rows]
@@ -260,7 +260,7 @@ Source commit `{source_commit}`; `board_config.h` SHA-256 `{sha(SOURCE/'src/boar
 |---|---:|---|
 {table}
 
-`board_config.h` is authoritative. The active feeder is the single FD-MET six-pocket rotor on D44 PWM, D42 direction, D46 enable, D47 fault and A7 low-speed tach. A received donor exceeding the 5 A branch envelope is rejected or triggers an electrical redesign; it is never silently substituted. Hardwired E-stop, lid/service, thermal cutoff and branch fuses are firmware-independent.
+`board_config.h` is authoritative. The active feeder is the single coaxial FD-MET positive-displacement auger/agitator on D44 PWM, D42 direction, D46 enable, D47 fault and A7 low-speed tach. A received donor exceeding the 5 A branch envelope is rejected or triggers an electrical redesign; it is never silently substituted. Hardwired E-stop, lid/service, thermal cutoff and branch fuses are firmware-independent.
 """)
     cal = re.findall(r"^\s*(CAL_[A-Z0-9_]+)(?:\s*=\s*\d+)?,?\s*$", (SOURCE/"src/calibration_record.h").read_text(), re.M)
     write(FW/"EEPROM_schema.md", f"""# EEPROM schema v4

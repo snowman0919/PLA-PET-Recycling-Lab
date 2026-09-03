@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 NAME = "PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION"
 OUT = ROOT / "dist" / f"{NAME}.zip"
 REV = "final-design-fabrication-closure-v0.8"
-FORBIDDEN = (".env", ".FCBak", "__pycache__", "/archive/", "analysis/final_validation/results/v0.8/raw", "simulation/openmodelica/results_v0.8/raw")
+FORBIDDEN = (".env", ".FCBak", "__pycache__", "/archive/", ".tmp", ".bak", ".pem", ".key", ".p12", "credential", "secret", "token", "analysis/final_validation/results/v0.8/raw", "simulation/openmodelica/results_v0.8/raw")
 
 
 def sha(data: bytes) -> str:
@@ -28,17 +28,25 @@ def zi(name: str) -> zipfile.ZipInfo:
 
 def validate_inputs() -> None:
     active = json.loads((ROOT / "release/active_part_set.json").read_text())
-    assert active["revision"] == REV and len({p["part_id"] for p in active["parts"]}) == len(active["parts"])
-    assert all(isinstance(p["quantity"], int) and p["quantity"] > 0 for p in active["parts"])
+    active_parts = {p["part_id"]: p["quantity"] for p in active["parts"]}
+    assert active["revision"] == REV and len(active_parts) == len(active["parts"])
+    assert all(isinstance(quantity, int) and quantity > 0 for quantity in active_parts.values())
     print_rows = list(csv.DictReader((ROOT / "exports/final/print/print_manifest.csv").open()))
     step_rows = list(csv.DictReader((ROOT / "exports/final/step/step_manifest.csv").open()))
     draw_rows = list(csv.DictReader((ROOT / "docs/drawings/drawing_register.csv").open()))
+    rfq_rows = list(csv.DictReader((ROOT / "exports/final/manufacturing/RFQ/manifest.csv").open()))
+    expected_parts = {r["part_id"]: int(r["quantity"]) for r in print_rows + rfq_rows}
+    expected_parts.update({f"PPR-{name}-ASM": 1 for name in ("FULL", "SHREDDER", "FEEDER", "EXTRUDER", "FORMING", "FRAME")})
+    assert active_parts == expected_parts, "active part set differs from print/RFQ/assembly manifests"
     assert len(print_rows) == 12 and all(r["revision"] == REV and r["slicer_status"] == "PASS" and r["status"] == "PASS" and int(r["quantity"]) > 0 for r in print_rows)
     assert len(step_rows) >= 20 and all(r["revision"] == REV and r["status"] == "PASS" for r in step_rows)
     assert len(draw_rows) == 20 and all(r["revision"] == "v0.8" and r["status"] == "PASS" for r in draw_rows)
     build = json.loads((ROOT / "exports/final/firmware/build_manifest.json").read_text())
     binary = ROOT / "exports/final/firmware/binaries/filament_recycler_atmega2560.hex"
     assert build["status"] == "PASS" and sha(binary.read_bytes()) == build["binary_sha256"]
+    assert json.loads((ROOT / "validation/results/v08_release_inventory.json").read_text())["status"] == "PASS"
+    compliance = json.loads((ROOT / "validation/results/v08_full_compliance.json").read_text())
+    assert all(value["status"] == "PASS" for key, value in compliance["checks"].items() if key != "20_release_package")
 
 
 def collect() -> dict[str, tuple[Path, str]]:
@@ -71,7 +79,8 @@ def main() -> None:
     manifest = {
         "release": NAME, "revision": REV, "release_state": "FABRICATION_CANDIDATE", "source_commit": commit,
         "physical_validation_state": "NOT_RUN", "safety_certification_state": "NOT_CERTIFIED",
-        "procurement_gate": "USER_APPROVAL_REQUIRED", "commissioning_gate": "USER_APPROVAL_REQUIRED", "files": payload,
+        "procurement_gate": "USER_APPROVAL_REQUIRED", "commissioning_gate": "USER_APPROVAL_REQUIRED",
+        "fabrication_release_approval": "USER_APPROVAL_REQUIRED", "files": payload,
     }
     manifest_data = (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode()
     sums = [(item["sha256"], item["path"]) for item in payload] + [(sha(manifest_data), "00_START_HERE/release_manifest.json")]

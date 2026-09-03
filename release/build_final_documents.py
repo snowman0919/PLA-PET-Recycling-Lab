@@ -49,7 +49,7 @@ DRAWING_META = {
     "SH-004": ("S45C keyed hubs/gears / #35 chain", "12T:30T; chain alignment ≤0.50 mm; midspan slack 2–3%"),
     "FD-001": ("5052-H32 hopper", "feed opening 150 × 150 mm; all reachable edges R/C ≥0.5 mm"),
     "FD-002": ("304 screen / sheet chute", "screen aperture Ø5 on 9 pitch; rotor clearance ≥1.90 mm"),
-    "FD-003": ("304 rotor shaft / POM-C metering rotor", "shaft Ø8 h8; rotor radial running clearance 0.20–0.25 mm"),
+    "FD-003": ("304 auger/housing/common agitator shaft", "auger OD24.60; housing ID25.00 +0.05/0; radial clearance 0.20–0.25 mm; pitch18"),
     "EX-001": ("SCM440 screw/barrel / steel supports", "rear axial datum fixed; front guide axial travel ≥1.30 mm"),
     "EX-002": ("nitrided SCM440 / 17-4PH die insert", "cold diametral clearance 0.28–0.32 mm; coaxiality ≤0.05 mm"),
     "EX-003": ("mica/NiCr heater and MI thermocouple", "probe insertion ≥12 mm; heater-to-polymer path metal-only; shield clearance ≥12 mm"),
@@ -95,7 +95,7 @@ ASSEMBLY_STEPS = [
     (7, "DRV-01/A60/F01/02/03 ×1 set", "straightedge; dial; torque wrench", "M4/M6 keyed hardware", "M4 3 N·m; M6 9 N·m", "12T:30T guarded chain", "alignment≤0.50 mm; slack 2–3%", "SH-004", "blue check and hand rotation", "keyed path; no friction-only joint", "shredder guard"),
     (8, "DRV-GD-01 and interlock ×1", "2.5/3 mm hex; gap probe", "M4 guarded fasteners", "M4 3 N·m", "cover removable only under lockout", "hazard opening≤6 mm", "GD-001", "reach probe and switch actuation", "no reach path; forced-open works", "feed path"),
     (9, "IN-HOP-01/CUT-04/FD-HOP-01 ×1 set", "riveter; 3 mm hex", "M4/rivets", "M4 3 N·m", "flow down into screen", "rotor/static clearance≥1.90 mm", "FD-001/FD-002", "feeler gauge and burr check", "no sharp edge or rotor contact", "flake bin"),
-    (10, "FD-BIN-01/FD-MET-01..03 ×1 set", "caliper; 2.5 mm hex", "M3/M4 service hardware", "M3 1.2; M4 3 N·m", "metering rotor removable", "radial running clearance 0.20–0.25 mm", "FD-003", "hand turn and cleanout check", "no dead pocket or bind", "extruder support"),
+    (10, "FD-BIN-01/FD-MET-01..03 ×1 set", "caliper; bore gauge; 2.5 mm hex", "M3/M4 service hardware", "M3 1.2; M4 3 N·m", "vertical auger removable; paddles above hopper cone", "auger radial running clearance 0.20–0.25 mm; pitch 18 mm", "FD-003", "hand turn through 10 revolutions and cleanout check", "no rub, dead pocket or inaccessible retained flake", "extruder support"),
     (11, "rear datum/front guide/rail/collar ×1 set", "dial indicator; 4 mm hex", "M5 hot-mount hardware", "M5 5 N·m", "rear axial fixed; front radial sliding", "axis≤0.20/390; travel≥1.30 mm", "EX-001", "dial sweep and travel gauge", "travel and alignment pass", "screw/barrel"),
     (12, "EX-SCR-01/EX-BAR-01 ×1", "bore gauge; feeler gauge", "thrust/coupling hardware", "drawing-specific", "feed end to die end", "cold diametral clearance 0.28–0.32 mm", "EX-002", "three-station bore/OD report", "rotation free; coaxiality≤0.05 mm", "die/hot zone"),
     (13, "EX-DIE-01..05; heater/TC ×1 set", "insulation meter; torque wrench", "die fasteners", "cross-tighten per drawing", "TC tips in metal hot path", "probe insertion≥12 mm; shield gap≥12 mm", "EX-002/EX-003", "cold leak-path and continuity inspection", "all channels identified; physical hot test pending", "cooling path"),
@@ -238,17 +238,16 @@ def manuals() -> None:
 - 다음 선행조건: {data["next_prerequisite"]}
 ''')
     complete = FINAL / "complete_build_manual_ko.typ"
-    write(complete, '''#include "../build_manual_ko.typ"
-#pagebreak()
-= v0.8 실행용 조립 traveler
+    intro = '''이 문서와 `assembly_steps.csv`, `assembly_drawing_set.pdf`, `exports/final/manufacturing/`, `exports/final/electrical/`이 v0.8 조립의 단일 실행 기준이다. 구버전 매뉴얼은 적용하지 않는다.
 
-아래 단계와 `assembly_steps.csv`는 동일하다. 각 단계의 실측값·작업자·검토자·증거 경로를 기록한다. 계산·CAD PASS는 물리 합격이 아니다.
+각 단계의 실측값·작업자·검토자·증거 경로를 기록한다. 계산·CAD PASS는 물리 합격이 아니다. 구매·가공·통전·가열 전에는 해당 사용자 승인 gate를 통과해야 한다.
 
-''' + "\n".join(step_text))
+'''
+    write(complete, typ("v0.8 실행용 조립 매뉴얼", intro + "\n".join(step_text)))
     compile_typ(complete)
     bodies = {
         "exploded_views_ko": "== 조립 순서\n\nFrame → shredder frame → bearing/shaft → cutter stack → phase gear/chain/motor/shear fuse → screen/recirculation/hopper → flake bin → feeder → extruder/thrust → heater/sensor/die → hot shield → cooling → gauge → puller → spooler/traverse → guards → enclosure → wiring → firmware → calibration → dry checks.\n\n각 단계의 형상은 `assembly_drawing_set.pdf` 해당 도면 번호를 사용한다. 고하중 경로는 metal part → bearing/plate → aluminum profile → table이다.",
-        "tolerance_and_fit_guide_ko": "== 기준\n\n`exports/final/interface_catalog.csv`가 14개 critical interface의 nominal/tolerance/검사법을 지배한다. Cutter/blade clearance는 출력 공차가 아닌 ground metal shim으로 조절한다. Bearing seat, die insert, screw/barrel cold clearance, rear datum/front sliding travel을 조립 전 측정한다.\n\n#gate[측정기 ID·교정상태·온도·실측값을 기록하고 허용범위를 벗어나면 임의 rework 대신 source parameter와 도면 revision을 갱신한다.]",
+        "tolerance_and_fit_guide_ko": "== 기준\n\n`exports/final/interface_catalog.csv`가 16개 critical interface의 nominal/tolerance/검사법을 지배한다. Cutter/blade clearance는 출력 공차가 아닌 ground metal shim으로 조절한다. Bearing seat, die insert, screw/barrel cold/hot clearance, rear datum/front sliding travel을 조립 전 측정한다.\n\n#gate[측정기 ID·교정상태·온도·실측값을 기록하고 허용범위를 벗어나면 임의 rework 대신 source parameter와 도면 revision을 갱신한다.]",
         "electrical_assembly_ko": "== 순서\n\nPE bond → PSU 미통전 설치 → branch fuse → hardwired safety chain → drivers/MOSFET → logic → sensors → cable clamp 순이다. `exports/final/electrical`의 세 CSV와 8개 벡터 PDF를 작업표로 사용한다.\n\n#gate[전원 분리 상태에서 PE continuity, insulation, polarity, fuse/terminal ID, forced-open safety contact를 독립 검사한다.]",
         "firmware_and_calibration_ko": "== Firmware\n\nReleased HEX는 `exports/final/firmware/binaries/filament_recycler_atmega2560.hex`; build evidence는 `validation/results/arduino_mega_compile.json`이다. Source/HEX hash 일치를 검증하고 Mega 2560 target/fuse setting을 확인한다.\n\n== Calibration\n\nDonor label 확인 후 shredder current/RPM, screw tach, puller/spooler tach, traverse limits, X/Y gauge U95, dancer, cooling current와 fan tach를 각각 교정한다. EEPROM CRC/revision/unit/range가 유효하지 않으면 production ready를 금지한다.",
         "maintenance_manual_ko": "== Lockout\n\nMain disconnect OFF, 0 V, cutter/screw mechanical block, hot zone 60 °C 미만 확인 뒤 작업한다. E-stop만으로 jam을 제거하지 않는다.\n\n== 주기 점검\n\n매 사용 전 guard/interlock/PE/cable/누설; 매 lot cutter clearance·screen·die; 정기적으로 chain tension, bearing play, witness mark, fuse/thermal cutoff, calibration drift를 기록한다. Cutter·gasket·shear fuse replacement 기준은 제조도면과 실측 이력으로 관리한다.",

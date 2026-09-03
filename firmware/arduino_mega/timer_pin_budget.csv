@@ -13,7 +13,7 @@ GPIO,49,fan tach mux select,250 ms,digital output,ASSIGNED,mux truth-table test
 GPIO,A5/traverse left limit,traverse safety,loop <=10 ms,input pullup,ASSIGNED,positive-action endpoint test
 GPIO,A6/traverse right limit,traverse safety,loop <=10 ms,input pullup,ASSIGNED,positive-action endpoint test
 GPIO,39/40/41,traverse step/dir/enable,>=2 ms step interval,software pulse,ASSIGNED,68 mm travel and missed-limit test
-GPIO,A7/42/46/47 and Timer5 pin44,FD-MET six-pocket feeder,tach polling <=10 ms / PWM / direction / enable / fault,single bounded rotor adapter,ASSIGNED,5 A branch envelope; donor <=5 A and tach pulse calibration required
+GPIO,A7/42/46/47 and Timer5 pin44,FD-MET coaxial auger/agitator feeder,tach polling <=10 ms / PWM / direction / enable / fault,single bounded auger drive,ASSIGNED,5 A branch envelope; donor <=5 A and tach/mass-per-revolution calibration required
 SPI-like bitbang,50/52 and CS14-17/48,MAX6675,250 ms,manual clock/read,ASSIGNED,open/range and scheduler overrun test
 Serial0,0/1,runtime telemetry/commands,>=1 s log,115200 baud,ASSIGNED,availableForWrite guard and overrun counter
 SRAM,8192 B,Mega runtime,compile evidence,static allocation,39_PERCENT_GLOBAL_4935_B_REMAINING,stack margin requires debug high-water test

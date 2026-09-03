@@ -1,16 +1,16 @@
 {
-  "revision": "technical-blocker-closure-v0.6.2.1",
+  "revision": "final-design-fabrication-closure-v0.8",
   "model_kind": "deterministic reduced-order rigid-particle/feed-inventory surrogate",
   "empirically_calibrated": false,
   "geometry": {
     "hopper_wall_angle_from_horizontal_deg": 70.7,
     "hopper_usable_volume_l": 2.35,
-    "auger_outer_diameter_mm": 24.0,
+    "auger_outer_diameter_mm": 24.6,
     "auger_root_diameter_mm": 10.0,
     "auger_pitch_mm": 18.0,
-    "auger_active_length_mm": 108.0,
-    "throat_diameter_mm": 29.0,
-    "agitator_sweep_diameter_mm": 82.0,
+    "auger_active_length_mm": 105.0,
+    "throat_diameter_mm": 25.0,
+    "agitator_sweep_diameter_mm": 120.0,
     "nominal_volumetric_efficiency": 0.18
   },
   "control": {
