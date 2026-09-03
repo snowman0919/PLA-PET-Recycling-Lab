@@ -7,7 +7,8 @@
 - release: `PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION`
 - revision: `final-design-fabrication-closure-v0.8`
 - branch: `final-design-fabrication-closure-v0.8`
-- packaged source commit: `65f758c4b46b520eafd86cf3667ed249af2fb5f2`
+- document/release generator commit: `65f758c4b46b520eafd86cf3667ed249af2fb5f2`
+- packaged source commit: ZIP 내부 `00_START_HERE/release_manifest.json`이 지배한다.
 - release state: `FABRICATION_CANDIDATE`
 - design state: `FINAL_DESIGN_FROZEN`
 - physical validation: `NOT_RUN`

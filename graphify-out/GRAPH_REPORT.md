@@ -1,16 +1,16 @@
 # Graph Report - PPR  (2026-09-03)
 
 ## Corpus Check
-- 464 files · ~1,842,682 words
+- 464 files · ~1,842,690 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2654 nodes · 4467 edges · 368 communities (208 shown, 160 thin omitted)
+- 2654 nodes · 4467 edges · 369 communities (209 shown, 160 thin omitted)
 - Extraction: 85% EXTRACTED · 15% INFERRED · 0% AMBIGUOUS · INFERRED: 669 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `828e8073`
+- Built from commit: `d602eefc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -330,10 +330,10 @@
 - verify_process_lane.py
 - v0.6.2.1 Fusion deferred release 정책
 - fusion_worker_handoff_v0621.py
-- evidence_sha256
+- engineering_source_sha
 - generate_config.py
 - type
-- execution_checkout_sha
+- load_case_manifest_sha256
 - run_v0621.py
 - shadow_v0.6.2.1/README.md
 - cooling_degradation_v0.6.2.1_ko.md
@@ -345,7 +345,7 @@
 - enum
 - engineering_source_sha
 - model_manifest_sha256
-- started_utc
+- load_case_manifest_sha256
 - build_release_metadata_v0621.py
 - build_fabrication_release.py
 - solver_version
@@ -372,8 +372,9 @@
 - v0.8 fabrication candidate 승인 보고서
 - TraceMeta
 - source_git_sha
-- step_sha256
+- run_binding_sha256
 - acknowledgeMaterialStep
+- run_id
 
 ## God Nodes (most connected - your core abstractions)
 1. `MachineSupervisor` - 162 edges
@@ -411,15 +412,15 @@
 - **Turn-Coupled Winding Control Flow** — docs_puller_spooler_traverse_control_ko_cascaded_diameter_and_tach_control, docs_puller_spooler_traverse_control_ko_estimated_spool_radius, docs_puller_spooler_traverse_control_ko_turn_synchronized_traverse, firmware_arduino_mega_src_puller_speed_control_update, firmware_arduino_mega_src_spooler_control_update, firmware_arduino_mega_src_traverse_control_update [INFERRED 0.95]
 - **v0.6.2 Digital Actuation Validation** — changelog_parallel_actuation_hardening_v0_6_2, changelog_closed_loop_actuation_feedback, changelog_runtime_and_mutation_validation, docs_validation_report_ko_actuation_hardening_complete, docs_validation_report_ko_actuation_feedback_gate [INFERRED 0.95]
 
-## Communities (368 total, 160 thin omitted)
+## Communities (369 total, 160 thin omitted)
 
 ### Community 0 - "MachineSupervisor"
 Cohesion: 0.03
 Nodes (67): FormingChainState, TraverseHomingState, MachineSupervisor, calibration_, commanded_heater_power_w_, consecutive_gauge_samples_, cooling_failure_actioned_, cooling_failure_pending_ (+59 more)
 
 ### Community 1 - "compact/generate.py"
-Cohesion: 0.16
-Nodes (25): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+17 more)
+Cohesion: 0.14
+Nodes (27): dirs(), export_assembly(), export_metal_parts(), export_plates(), export_print_part(), export_review_keepouts(), export_tolerance_coupon(), feature() (+19 more)
 
 ### Community 2 - "geometry.py"
 Cohesion: 0.07
@@ -654,8 +655,8 @@ Cohesion: 0.50
 Nodes (7): git(), load_json(), main(), CompletedProcess, Path, require_current_hashes(), sha256()
 
 ### Community 60 - "final_v08/generate.py"
-Cohesion: 0.17
-Nodes (18): normalize_dxf(), _projection_polylines(), Keep FreeCAD's DXF export stable and free of trailing blank spaces., Return deterministic SVG polylines for one orthographic projection., export(), export_hot_zone_drawings(), final_objects(), fixed_collar() (+10 more)
+Cohesion: 0.19
+Nodes (16): _projection_polylines(), Return deterministic SVG polylines for one orthographic projection., export(), export_hot_zone_drawings(), final_objects(), fixed_collar(), main(), mount_plate() (+8 more)
 
 ### Community 61 - "PullerCalibration"
 Cohesion: 0.11
@@ -851,7 +852,7 @@ Nodes (3): pattern, type, case_id
 
 ### Community 110 - "properties"
 Cohesion: 0.17
-Nodes (12): pattern, type, properties, load_case_manifest_sha256, related_case_bindings, run_binding_sha256, run_id, type (+4 more)
+Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, started_utc, step_sha256, type (+4 more)
 
 ### Community 111 - "FeedDeliveryConfig"
 Cohesion: 0.08
@@ -898,8 +899,8 @@ Cohesion: 0.20
 Nodes (17): die_cartridge_heater_shape(), 24 V/60 W Ø6 x38 cartridge; local axis +Y., export_assembly(), export_shape_set(), main(), Human-readable hardwired motor-energy cut schematic for Gate-1., 가열기·센서·PTC의 실제 형상과 구매 전 RFQ 계약을 생성한다., Export every non-shredder stock/fabricated machine family. (+9 more)
 
 ### Community 271 - "properties"
-Cohesion: 0.12
-Nodes (17): const, pattern, type, pattern, type, properties, case_id, engineering_source_sha (+9 more)
+Cohesion: 0.14
+Nodes (14): const, pattern, type, properties, case_id, evidence_sha256, step_file, step_sha256 (+6 more)
 
 ### Community 272 - "FeedDeliveryController"
 Cohesion: 0.14
@@ -1101,17 +1102,17 @@ Nodes (4): Fail-closed 경계, v0.6.2.1 Fusion deferred release 정책, 결정, 
 Cohesion: 0.73
 Nodes (5): main(), prepare(), reject(), require(), validate_schema()
 
-### Community 323 - "evidence_sha256"
+### Community 323 - "engineering_source_sha"
 Cohesion: 0.67
-Nodes (3): pattern, type, evidence_sha256
+Nodes (3): pattern, type, engineering_source_sha
 
 ### Community 325 - "type"
 Cohesion: 0.40
 Nodes (5): format, type, completed_utc, null, string
 
-### Community 326 - "execution_checkout_sha"
+### Community 326 - "load_case_manifest_sha256"
 Cohesion: 0.67
-Nodes (3): pattern, type, execution_checkout_sha
+Nodes (3): pattern, type, load_case_manifest_sha256
 
 ### Community 335 - "enum"
 Cohesion: 0.50
@@ -1125,9 +1126,9 @@ Nodes (3): pattern, type, engineering_source_sha
 Cohesion: 0.67
 Nodes (3): pattern, type, model_manifest_sha256
 
-### Community 338 - "started_utc"
+### Community 338 - "load_case_manifest_sha256"
 Cohesion: 0.67
-Nodes (3): started_utc, format, type
+Nodes (3): pattern, type, load_case_manifest_sha256
 
 ### Community 339 - "build_release_metadata_v0621.py"
 Cohesion: 0.83
@@ -1205,9 +1206,13 @@ Nodes (5): TraceMeta, explicit_restart_issued, fault_reason, nominal_spool_jam, 
 Cohesion: 0.67
 Nodes (3): source_git_sha, pattern, type
 
-### Community 366 - "step_sha256"
+### Community 366 - "run_binding_sha256"
 Cohesion: 0.67
-Nodes (3): step_sha256, pattern, type
+Nodes (3): run_binding_sha256, pattern, type
+
+### Community 368 - "run_id"
+Cohesion: 0.67
+Nodes (3): run_id, minLength, type
 
 ## Knowledge Gaps
 - **1108 isolated node(s):** `revision`, `release_state`, `implementation_state`, `geometry_validation`, `fabrication_validation` (+1103 more)
