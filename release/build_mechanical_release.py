@@ -2,7 +2,7 @@
 """Build and verify the v0.8 mechanical manufacturing package.
 
 Run with FreeCAD's Python runtime:
-  nix develop --command FreeCADCmd -c 'exec(open("release/build_mechanical_release.py").read())'
+  nix develop --command FreeCADCmd -c 'import runpy; runpy.run_path("release/build_mechanical_release.py", run_name="__main__")'
 """
 
 from __future__ import annotations

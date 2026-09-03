@@ -118,10 +118,10 @@ def export(path: Path, objects: list[dict]) -> dict:
 
 def export_hot_zone_drawings(additions: list[dict]) -> None:
     out = ROOT / "exports/final/manufacturing/hot_zone"
-    if out.exists():
-        shutil.rmtree(out)
     out.mkdir(parents=True, exist_ok=True)
     for item in additions:
+        for suffix in (".dxf", ".svg"):
+            (out / f'{item["name"]}{suffix}').unlink(missing_ok=True)
         doc = App.newDocument("dxf_" + item["name"])
         obj = doc.addObject("PartDesign::Feature", item["name"]); obj.Shape = item["shape"]
         dxf = out / f'{item["name"]}.dxf'
