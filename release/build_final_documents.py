@@ -99,7 +99,7 @@ def drawing_set(commit: str) -> None:
         })
     DRAW.mkdir(parents=True, exist_ok=True)
     with (DRAW / "drawing_register.csv").open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=rows[0].keys())
+        writer = csv.DictWriter(fh, fieldnames=rows[0].keys(), lineterminator="\n")
         writer.writeheader(); writer.writerows(rows)
     pages = []
     for i, (number, name, svg) in enumerate(DRAWINGS):
@@ -117,12 +117,12 @@ General tolerance ISO 2768-m. Critical interfaces are controlled by `exports/fin
 def electrical() -> None:
     ELEC.mkdir(parents=True, exist_ok=True)
     with (ELEC / "wire_schedule.csv").open("w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh); w.writerow(("wire_id", "from", "to", "voltage", "maximum_current", "wire_gauge", "colour", "connector", "terminal", "fuse", "routing", "shield_ground", "strain_relief")); w.writerows(WIRES)
+        w = csv.writer(fh, lineterminator="\n"); w.writerow(("wire_id", "from", "to", "voltage", "maximum_current", "wire_gauge", "colour", "connector", "terminal", "fuse", "routing", "shield_ground", "strain_relief")); w.writerows(WIRES)
     connectors = sorted({(r[7], r[8], r[1], r[2], "exact MPN and mating retention USER_VERIFICATION_REQUIRED") for r in WIRES})
     with (ELEC / "connector_schedule.csv").open("w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh); w.writerow(("connector_id", "terminal", "from", "to", "verification")); w.writerows(connectors)
+        w = csv.writer(fh, lineterminator="\n"); w.writerow(("connector_id", "terminal", "from", "to", "verification")); w.writerows(connectors)
     with (ELEC / "fuse_schedule.csv").open("w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh); w.writerow(("fuse_id", "branch", "rating", "basis", "verification")); w.writerows(FUSES)
+        w = csv.writer(fh, lineterminator="\n"); w.writerow(("fuse_id", "branch", "rating", "basis", "verification")); w.writerows(FUSES)
 
     pin_text = (ROOT / "firmware/arduino_mega/src/board_config.h").read_text()
     pins = re.findall(r"constexpr uint8_t ([A-Z0-9_]+) = ([A-Z0-9]+);", pin_text)
