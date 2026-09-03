@@ -302,7 +302,7 @@ def commissioning() -> None:
             "이전/다음 material ID, verified screw tach, waste path, T1–T5, clean screen/hopper 도구.",
             "이전 material profile에서 waste path로 purge하고 시간·실제 screw 회전을 동시에 적산한다. Screen/hopper 청소와 다음 profile 전이를 각각 확인한다.",
             "Material-session log, screw RPM/revolution trace, purge 영상·폐기물 사진/실측 질량, 청소 signoff.",
-            "Purge ≥120 s AND actual screw ≥32 rev; 모든 zone target ±5 °C; visual contamination 0; screen/hopper signoff 완료; 종료 후 모든 hot point <60 °C."),
+            "Purge ≥120 s AND actual screw ≥32 rev; 모든 zone target ±5 °C; visual contamination 0; screen/hopper signoff 완료; 종료 후 모든 hot point 60 °C 미만."),
         "physical_validation_plan_ko": procedure(
             "승인된 coupon/fixture, calibrated instruments, 각 gate 작업자·독립 검토자, lockout/원격 E-stop.",
             "Gate 1 cutter coupon → Gate 2 safety/drive → Gate 3 hot-zone leak/relief → Gate 4 gauge/forming → Gate 5 full spool 순서로 수행하며 FAIL 시 즉시 lockout하고 다음 gate를 금지한다.",
