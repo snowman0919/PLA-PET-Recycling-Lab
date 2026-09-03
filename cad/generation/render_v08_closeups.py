@@ -51,11 +51,11 @@ MODULES = {
     "feeder": {
         "groups": {"input", "feed"},
         "focus": {
-            "interfaces": ("Hopper", "AntiReach", "FlakeBin", "Transfer", "FeederHousing"),
-            "fasteners": ("PTCClamp", "FeederShaft"), "adjusters": ("FeederRotor", "FeederShaft", "PTCClamp"),
+            "interfaces": ("Hopper", "AntiReach", "FlakeBin", "FeederHousing", "FeederAuger", "FeederAgitatorDriveShaft"),
+            "fasteners": ("PTCClamp", "FeederHousing"), "adjusters": ("FeederAuger", "FeederAgitatorDriveShaft", "FeederDriveReference", "PTCClamp"),
             "sensors": ("TemperatureProbeT5", "HopperThermalFuse"), "wire_routes": ("FeederCableRoute",),
             "hot_surfaces": ("HopperPTC", "HopperThermalFuse"),
-            "moving_hazards": ("FeederRotor", "FeederShaft"),
+            "moving_hazards": ("FeederAuger", "FeederAgitatorDriveShaft", "FeederDriveReference"),
             "maintenance_access": ("SlidingLid", "AntiReach", "FlakeBin", "SealedFeedHopper", "PTCClamp"),
         },
     },
