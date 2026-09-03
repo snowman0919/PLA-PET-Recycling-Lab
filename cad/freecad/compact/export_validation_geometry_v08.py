@@ -16,6 +16,7 @@ ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
 
 from geometry import bearing_side_plate  # noqa: E402
+from generate import normalize_step  # noqa: E402
 from manufacturing import extruder_barrel  # noqa: E402
 
 OUT = ROOT / "analysis" / "final_validation" / "input"
@@ -34,6 +35,7 @@ def export(name: str, shape: Part.Shape) -> dict:
     obj.Shape = shape
     doc.recompute()
     Part.export([obj], str(path))
+    normalize_step(path)
     App.closeDocument(doc.Name)
 
     check = App.newDocument(f"v08_reimport_{name}")

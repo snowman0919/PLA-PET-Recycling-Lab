@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import json
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,6 +13,25 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def present(*paths: str) -> bool:
     return all((ROOT / path).is_file() and (ROOT / path).stat().st_size > 100 for path in paths)
+
+
+def pdfs(*paths: str) -> bool:
+    return all((ROOT / path).is_file() and (ROOT / path).stat().st_size > 10_000 and (ROOT / path).read_bytes()[:5] == b"%PDF-" for path in paths)
+
+
+def csv_has(path: str, fields: set[str], rows: int = 1) -> bool:
+    with (ROOT / path).open() as fh:
+        data = list(csv.DictReader(fh))
+    return len(data) >= rows and fields <= set(data[0]) and all(all(row.get(field, "").strip() for field in fields) for row in data)
+
+
+def release_zip_ok() -> bool:
+    path = ROOT / "dist/PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION.zip"
+    if not path.is_file():
+        return False
+    with zipfile.ZipFile(path) as zf:
+        manifest = json.loads(zf.read("00_START_HERE/release_manifest.json"))
+        return manifest["release_state"] == "FABRICATION_CANDIDATE" and manifest["physical_validation_state"] == "NOT_RUN" and len(manifest["files"]) > 100
 
 
 def main() -> None:
@@ -26,30 +46,29 @@ def main() -> None:
         "hot_zone_manufacturing": present("exports/final/manufacturing/hot_zone/hot_zone_mount_drawings.pdf") and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.dxf"))) == 4,
         "hot_zone_bom": {"EX-MT-01", "EX-MT-02", "EX-MT-03", "EX-MT-04"} <= bom_ids,
         "firmware_binary": present("exports/final/firmware/binaries/filament_recycler_atmega2560.hex", "validation/results/arduino_mega_compile.json"),
-        "drawing_register": present("docs/drawings/drawing_register.csv"),
-        "electrical_final_package": present(
+        "drawing_register": csv_has("docs/drawings/drawing_register.csv", {"drawing_number", "part_assembly_id", "revision", "source_commit", "pdf", "page", "status"}, 20) and pdfs("docs/final/assembly_drawing_set.pdf"),
+        "electrical_final_package": pdfs(
             "exports/final/electrical/system_block_diagram.pdf", "exports/final/electrical/power_distribution.pdf",
             "exports/final/electrical/full_wiring_diagram.pdf", "exports/final/electrical/safety_chain.pdf",
-            "exports/final/electrical/connector_schedule.csv", "exports/final/electrical/wire_schedule.csv",
-            "exports/final/electrical/fuse_schedule.csv", "exports/final/electrical/grounding_bonding.pdf",
-        ),
-        "final_manual_set": present(
+            "exports/final/electrical/Arduino_Mega_pinmap.pdf", "exports/final/electrical/grounding_bonding.pdf",
+            "exports/final/electrical/enclosure_layout.pdf", "exports/final/electrical/cable_routing.pdf",
+        ) and csv_has("exports/final/electrical/wire_schedule.csv", {"wire_id", "from", "to", "voltage", "maximum_current", "wire_gauge", "colour", "connector", "terminal", "fuse", "routing", "shield_ground", "strain_relief"}, 10) and csv_has("exports/final/electrical/connector_schedule.csv", {"connector_id", "terminal", "from", "to", "verification"}) and csv_has("exports/final/electrical/fuse_schedule.csv", {"fuse_id", "branch", "rating", "basis", "verification"}),
+        "final_manual_set": pdfs(
             "docs/final/complete_build_manual_ko.pdf", "docs/final/exploded_views_ko.pdf",
             "docs/final/tolerance_and_fit_guide_ko.pdf", "docs/final/electrical_assembly_ko.pdf",
             "docs/final/firmware_and_calibration_ko.pdf", "docs/final/maintenance_manual_ko.pdf",
         ),
-        "commissioning_set": present(
+        "commissioning_set": pdfs(
             "docs/final/pre_power_checklist_ko.pdf", "docs/final/first_power_on_ko.pdf", "docs/final/dry_run_ko.pdf",
             "docs/final/heater_commissioning_ko.pdf", "docs/final/shredder_commissioning_ko.pdf",
             "docs/final/PLA_process_startup_ko.pdf", "docs/final/PET_process_startup_ko.pdf",
             "docs/final/material_change_purge_ko.pdf", "docs/final/physical_validation_plan_ko.pdf",
         ),
-        "multimodal_review": present("validation/multimodal_final_review.json", "docs/final/multimodal_review_ko.md"),
+        "multimodal_review": present("validation/multimodal_final_review.json", "docs/final/multimodal_review_ko.md") and json.loads((ROOT / "validation/multimodal_final_review.json").read_text())["status"] == "PASS",
         "release_package": present(
             "release/build_fabrication_release.py", "release/verify_fabrication_release.py",
             "release/release_manifest.schema.json", "release/active_part_set.json", "release/package_layout.json",
-            "dist/PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION.zip",
-        ),
+        ) and release_zip_ok(),
     }
     result = {
         "revision": "final-design-fabrication-closure-v0.8",
