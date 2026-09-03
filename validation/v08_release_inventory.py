@@ -5,7 +5,8 @@ from __future__ import annotations
 
 import csv
 import json
-import zipfile
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,9 +30,10 @@ def release_zip_ok() -> bool:
     path = ROOT / "dist/PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION.zip"
     if not path.is_file():
         return False
-    with zipfile.ZipFile(path) as zf:
-        manifest = json.loads(zf.read("00_START_HERE/release_manifest.json"))
-        return manifest["release_state"] == "FABRICATION_CANDIDATE" and manifest["physical_validation_state"] == "NOT_RUN" and len(manifest["files"]) > 100
+    return subprocess.run(
+        [sys.executable, str(ROOT / "release/verify_fabrication_release.py")],
+        cwd=ROOT, capture_output=True, text=True,
+    ).returncode == 0
 
 
 def main() -> None:

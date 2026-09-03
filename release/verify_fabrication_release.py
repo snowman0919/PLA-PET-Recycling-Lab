@@ -15,10 +15,22 @@ ROOT = Path(__file__).resolve().parents[1]
 NAME = "PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION"
 ZIP = ROOT / "dist" / f"{NAME}.zip"
 SECTIONS = {"00_START_HERE", "01_3D_PRINT", "02_CNC_AND_METAL", "03_FRAME", "04_BOM", "05_ELECTRICAL", "06_FIRMWARE", "07_ASSEMBLY_MANUAL", "08_COMMISSIONING", "09_VALIDATION", "10_DESIGN_SOURCE", "LICENSES"}
-FORBIDDEN = (".env", ".FCBak", "__pycache__", "/archive/", ".git/")
-SOURCE_PATHS = ("cad", "analysis/final_validation/run_calculix_v08.py", "simulation/openmodelica/v0.8",
-                "firmware/arduino_mega", "electronics", "release", "validation/run_v08_solver_validation.py",
-                "validation/v08_release_inventory.py")
+FORBIDDEN = (".env", ".FCBak", "__pycache__", "/archive/", ".git/", ".tmp", ".bak", ".pem",
+             ".key", ".p12", "credential", "secret", "token",
+             "analysis/final_validation/results/v0.8/raw", "simulation/openmodelica/results_v0.8/raw")
+SOURCE_PATHS = (
+    "bom/bom.csv", "cad/parameters/final_v08.json", "cad/freecad/final_v08", "cad/freecad/compact",
+    "cad/generation/draw_v08.py", "cad/generation/generate_interface_catalog.py",
+    "cad/generation/generate_manufacturing.py", "cad/generation/render_v08.py",
+    "cad/generation/render_v08_closeups.py", "calculations/tolerance_stack_final.py",
+    "analysis/process_feed/feed_parameters.json", "analysis/process_feed/run_feed_surrogate.py",
+    "analysis/final_validation/run_calculix_v08.py", "analysis/final_validation/run_qualification_v08.py",
+    "simulation/openmodelica/v0.8", "firmware/arduino_mega", "electronics/controller_wiring_v0.6.md",
+    "electronics/io_schedule.csv", "electronics/safety_power_topology.md", "electronics/shredder_drive_wiring.md", "release",
+    "validation/run_v08_solver_validation.py", "validation/solid_topology.py",
+    "validation/assembly_collision_audit.py", "validation/v08_release_inventory.py",
+    "validation/v08_full_compliance.py",
+)
 
 
 def digest(path: Path) -> str:

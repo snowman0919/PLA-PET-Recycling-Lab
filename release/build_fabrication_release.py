@@ -15,6 +15,19 @@ NAME = "PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION"
 OUT = ROOT / "dist" / f"{NAME}.zip"
 REV = "final-design-fabrication-closure-v0.8"
 FORBIDDEN = (".env", ".FCBak", "__pycache__", "/archive/", ".tmp", ".bak", ".pem", ".key", ".p12", "credential", "secret", "token", "analysis/final_validation/results/v0.8/raw", "simulation/openmodelica/results_v0.8/raw")
+SOURCE_PATHS = (
+    "bom/bom.csv", "cad/parameters/final_v08.json", "cad/freecad/final_v08", "cad/freecad/compact",
+    "cad/generation/draw_v08.py", "cad/generation/generate_interface_catalog.py",
+    "cad/generation/generate_manufacturing.py", "cad/generation/render_v08.py",
+    "cad/generation/render_v08_closeups.py", "calculations/tolerance_stack_final.py",
+    "analysis/process_feed/feed_parameters.json", "analysis/process_feed/run_feed_surrogate.py",
+    "analysis/final_validation/run_calculix_v08.py", "analysis/final_validation/run_qualification_v08.py",
+    "simulation/openmodelica/v0.8", "firmware/arduino_mega", "electronics/controller_wiring_v0.6.md",
+    "electronics/io_schedule.csv", "electronics/safety_power_topology.md", "electronics/shredder_drive_wiring.md", "release",
+    "validation/run_v08_solver_validation.py", "validation/solid_topology.py",
+    "validation/assembly_collision_audit.py", "validation/v08_release_inventory.py",
+    "validation/v08_full_compliance.py",
+)
 
 
 def sha(data: bytes) -> str:
@@ -27,6 +40,8 @@ def zi(name: str) -> zipfile.ZipInfo:
 
 
 def validate_inputs() -> None:
+    dirty = subprocess.check_output(["git", "status", "--porcelain", "--", *SOURCE_PATHS], cwd=ROOT, text=True)
+    assert not dirty, f"uncommitted release source:\n{dirty}"
     active = json.loads((ROOT / "release/active_part_set.json").read_text())
     active_parts = {p["part_id"]: p["quantity"] for p in active["parts"]}
     assert active["revision"] == REV and len(active_parts) == len(active["parts"])
@@ -68,9 +83,7 @@ def collect() -> dict[str, tuple[Path, str]]:
 def main() -> None:
     validate_inputs(); files = collect()
     commit = subprocess.check_output(
-        ["git", "log", "-1", "--format=%H", "--", "cad", "analysis/final_validation/run_calculix_v08.py",
-         "simulation/openmodelica/v0.8", "firmware/arduino_mega", "electronics", "release",
-         "validation/run_v08_solver_validation.py", "validation/v08_release_inventory.py"],
+        ["git", "log", "-1", "--format=%H", "--", *SOURCE_PATHS],
         cwd=ROOT, text=True,
     ).strip()
     payload = []

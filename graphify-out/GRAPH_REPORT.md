@@ -1,16 +1,16 @@
 # Graph Report - PPR  (2026-09-03)
 
 ## Corpus Check
-- 546 files · ~2,473,204 words
+- 546 files · ~2,473,264 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 4038 nodes · 6099 edges · 461 communities (286 shown, 175 thin omitted)
+- 4038 nodes · 6099 edges · 463 communities (288 shown, 175 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 481 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c06dc22a`
+- Built from commit: `f3b1e666`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -452,6 +452,8 @@
 - processHeaterPhaseAllowed
 - release_manifest.schema.json
 - step_sha256
+- TemperatureReading
+- source_commit
 
 ## God Nodes (most connected - your core abstractions)
 1. `MachineSupervisor` - 141 edges
@@ -489,7 +491,7 @@
 - **Turn-Coupled Winding Control Flow** — docs_puller_spooler_traverse_control_ko_cascaded_diameter_and_tach_control, docs_puller_spooler_traverse_control_ko_estimated_spool_radius, docs_puller_spooler_traverse_control_ko_turn_synchronized_traverse, firmware_arduino_mega_src_puller_speed_control_update, firmware_arduino_mega_src_spooler_control_update, firmware_arduino_mega_src_traverse_control_update [INFERRED 0.95]
 - **v0.6.2 Digital Actuation Validation** — changelog_parallel_actuation_hardening_v0_6_2, changelog_closed_loop_actuation_feedback, changelog_runtime_and_mutation_validation, docs_validation_report_ko_actuation_hardening_complete, docs_validation_report_ko_actuation_feedback_gate [INFERRED 0.95]
 
-## Communities (461 total, 175 thin omitted)
+## Communities (463 total, 175 thin omitted)
 
 ### Community 0 - "MachineSupervisor"
 Cohesion: 0.02
@@ -668,8 +670,8 @@ Cohesion: 0.18
 Nodes (10): Mandatory Safety Parts, Actuator Feedback Topology, Arduino Mega 2560 controller wiring contract, Mega 2560 Controller Wiring Contract, Cooling Feedback Commissioning Hold, Fan-First Start Proof, Hardwired Safety Chain, Inputs and commissioning (+2 more)
 
 ### Community 44 - "firmware/arduino_mega/src/hardware_interfaces.h"
-Cohesion: 0.11
-Nodes (14): ActuatorBackend, apply, CoolingFeedback, current_amp, valid, CoolingFeedbackBackend, read, TemperatureBackend (+6 more)
+Cohesion: 0.15
+Nodes (9): ActuatorBackend, apply, CoolingFeedback, current_amp, valid, CoolingFeedbackBackend, read, TemperatureBackend (+1 more)
 
 ### Community 45 - "required"
 Cohesion: 0.18
@@ -712,8 +714,8 @@ Cohesion: 0.28
 Nodes (9): Actuation Tach Package, Heater and Thermal Protection System, Actual Measured Purge Revolutions, Actuation Hardening Contract, Dancer PI Spooler, Global Heater Power Allocator, Puller Cascade Control, Spool-Turn Synchronized Traverse (+1 more)
 
 ### Community 55 - "properties"
-Cohesion: 0.10
-Nodes (20): const, const, const, const, properties, commissioning_gate, fabrication_release_approval, physical_validation_state (+12 more)
+Cohesion: 0.12
+Nodes (17): const, const, const, const, properties, commissioning_gate, fabrication_release_approval, physical_validation_state (+9 more)
 
 ### Community 56 - "enum"
 Cohesion: 0.20
@@ -1538,6 +1540,14 @@ Nodes (3): additionalProperties, $schema, type
 ### Community 460 - "step_sha256"
 Cohesion: 0.67
 Nodes (3): step_sha256, pattern, type
+
+### Community 461 - "TemperatureReading"
+Cohesion: 0.40
+Nodes (5): TemperatureReading, celsius, sampled_ms, sensor_open, valid
+
+### Community 462 - "source_commit"
+Cohesion: 0.67
+Nodes (3): source_commit, pattern, type
 
 ## Knowledge Gaps
 - **1736 isolated node(s):** `revision`, `release_state`, `implementation_state`, `geometry_validation`, `fabrication_validation` (+1731 more)
