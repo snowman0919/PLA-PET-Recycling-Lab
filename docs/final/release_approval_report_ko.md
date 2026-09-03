@@ -40,7 +40,7 @@
 - Firmware: Arduino Mega HEX SHA-256 `2147a5105bcc8435e52c5a207cb80794bfe4177c3a4fc97e8a28969bead97e65`
 - Release inventory: `13/13 PASS`
 - ZIP payload: 236 files, schema/hash/clean extraction PASS
-- ZIP SHA-256: `6012a38eceaff67ff41da2a671c16d95b42cedff8fedc91bf7b0748872eeb6a4`
+- ZIP SHA-256: `984c692a29defaf841692ce798673ea8c278f6b9a064b5531c63f4a5d4361038`
 
 ## 남은 사용자 승인
 
