@@ -58,7 +58,11 @@ def collect() -> dict[str, tuple[Path, str]]:
 
 
 def main() -> None:
-    validate_inputs(); files = collect(); commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    validate_inputs(); files = collect()
+    commit = subprocess.check_output(
+        ["git", "log", "-1", "--format=%H", "--", "cad", "analysis", "simulation", "firmware", "electronics", "release", "validation"],
+        cwd=ROOT, text=True,
+    ).strip()
     payload = []
     for path, (src, source) in sorted(files.items()):
         data = src.read_bytes(); payload.append({"path": path, "source": source, "size": len(data), "sha256": sha(data)})
