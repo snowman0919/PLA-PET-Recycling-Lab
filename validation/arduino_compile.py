@@ -70,6 +70,16 @@ def main() -> None:
         path for path in (ROOT / "firmware/arduino_mega/src").iterdir()
         if path.suffix in {".h", ".cpp"}
     )
+    with tempfile.TemporaryDirectory(prefix="ppr-feeder-monitor-") as temporary:
+        feeder_test = Path(temporary) / "test_feeder_motion_monitor"
+        feeder_result = subprocess.run(
+            ["g++", "-std=c++17", "-Wall", "-Wextra", "-Werror",
+             "firmware/arduino_mega/tests/test_feeder_motion_monitor.cpp", "-o", str(feeder_test)],
+            cwd=ROOT, text=True, capture_output=True,
+        )
+        if feeder_result.returncode == 0:
+            feeder_result = subprocess.run([str(feeder_test)], cwd=ROOT, text=True, capture_output=True)
+        passed = passed and feeder_result.returncode == 0
     evidence = {
         "revision": "parallel-actuation-hardening-v0.6.2",
         "fqbn": "arduino:avr:mega",
@@ -77,6 +87,7 @@ def main() -> None:
         "build_command": canonical_command,
         "cli_version": subprocess.run([cli, "version"], cwd=ROOT, text=True, capture_output=True, check=True).stdout.strip(),
         "status": "PASS" if passed else "FAIL",
+        "feeder_motion_monitor_test": "PASS" if feeder_result.returncode == 0 else "FAIL",
         "tool_output": output.strip(),
         "source_hashes": {
             str(path.relative_to(ROOT)): sha256(path) for path in source_paths

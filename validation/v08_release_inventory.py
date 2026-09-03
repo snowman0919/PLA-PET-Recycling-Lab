@@ -35,24 +35,24 @@ def release_zip_ok() -> bool:
 
 
 def main() -> None:
-    bom_ids = {row["part_id"] for row in csv.DictReader((ROOT / "bom/bom.csv").open())}
+    bom_ids = {row["part_id"] for row in csv.DictReader((ROOT / "exports/final/bom/BOM.csv").open())}
     step_rows = list(csv.DictReader((ROOT / "exports/final/step/step_manifest.csv").open()))
-    print_rows = list(csv.DictReader((ROOT / "exports/print/print_manifest.csv").open()))
+    print_rows = list(csv.DictReader((ROOT / "exports/final/print/print_manifest.csv").open()))
     checks = {
         "baseline_and_archive": present("validation/v0.8/baseline.json", "docs/archive/v0.7_exploratory_index.md"),
         "solver_evidence": present("analysis/final_validation/results/v0.8/summary.json", "simulation/openmodelica/results_v0.8/summary.json", "docs/final/solver_validation_ko.md"),
-        "final_step": len(step_rows) == 10 and all(row["status"] == "PASS" for row in step_rows),
-        "print_package": len(print_rows) == 12 and all(row["slicer_status"] == "PASS" for row in print_rows),
-        "hot_zone_manufacturing": present("exports/final/manufacturing/hot_zone/hot_zone_mount_drawings.pdf") and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.dxf"))) == 4,
+        "final_step": len(step_rows) >= 20 and all(row["status"] == "PASS" for row in step_rows),
+        "print_package": len(print_rows) == 12 and all(row["slicer_status"] == "PASS" and row["status"] == "PASS" for row in print_rows),
+        "hot_zone_manufacturing": csv_has("exports/final/manufacturing/hot_zone/manifest.csv", {"part_id", "revision", "quantity", "material", "process", "critical_tolerance", "inspection", "status"}, 5) and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.dxf"))) == 5 and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.step"))) == 5 and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.pdf"))) == 5,
         "hot_zone_bom": {"EX-MT-01", "EX-MT-02", "EX-MT-03", "EX-MT-04"} <= bom_ids,
-        "firmware_binary": present("exports/final/firmware/binaries/filament_recycler_atmega2560.hex", "validation/results/arduino_mega_compile.json"),
+        "firmware_binary": present("exports/final/firmware/binaries/filament_recycler_atmega2560.hex", "exports/final/firmware/build_manifest.json"),
         "drawing_register": csv_has("docs/drawings/drawing_register.csv", {"drawing_number", "part_assembly_id", "revision", "source_commit", "pdf", "page", "status"}, 20) and pdfs("docs/final/assembly_drawing_set.pdf"),
         "electrical_final_package": pdfs(
             "exports/final/electrical/system_block_diagram.pdf", "exports/final/electrical/power_distribution.pdf",
             "exports/final/electrical/full_wiring_diagram.pdf", "exports/final/electrical/safety_chain.pdf",
             "exports/final/electrical/Arduino_Mega_pinmap.pdf", "exports/final/electrical/grounding_bonding.pdf",
             "exports/final/electrical/enclosure_layout.pdf", "exports/final/electrical/cable_routing.pdf",
-        ) and csv_has("exports/final/electrical/wire_schedule.csv", {"wire_id", "from", "to", "voltage", "maximum_current", "wire_gauge", "colour", "connector", "terminal", "fuse", "routing", "shield_ground", "strain_relief"}, 10) and csv_has("exports/final/electrical/connector_schedule.csv", {"connector_id", "terminal", "from", "to", "verification"}) and csv_has("exports/final/electrical/fuse_schedule.csv", {"fuse_id", "branch", "rating", "basis", "verification"}),
+        ) and csv_has("exports/final/electrical/wire_schedule.csv", {"wire_id", "from", "to", "voltage", "maximum_current", "wire_gauge", "colour", "connector", "terminal", "fuse", "routing", "shield_ground", "strain_relief"}, 10) and csv_has("exports/final/electrical/connector_schedule.csv", {"connector_id", "wire_id", "from", "to", "terminal", "retention", "rating"}) and csv_has("exports/final/electrical/fuse_schedule.csv", {"fuse_id", "branch", "rating", "maximum_current", "dc_interrupt_rating", "basis"}),
         "final_manual_set": pdfs(
             "docs/final/complete_build_manual_ko.pdf", "docs/final/exploded_views_ko.pdf",
             "docs/final/tolerance_and_fit_guide_ko.pdf", "docs/final/electrical_assembly_ko.pdf",

@@ -6,6 +6,7 @@
 
 #include "src/board_config.h"
 #include "src/calibration_record.h"
+#include "src/feeder_motion_monitor.h"
 #include "src/machine_supervisor.h"
 #include "src/tach_contract_generated.h"
 #include "src/ui_core.h"
@@ -25,6 +26,8 @@ TachEstimate shredder_tach_sample{};
 TachEstimate puller_tach_sample{};
 TachEstimate screw_tach_sample{};
 TachEstimate spooler_tach_sample{};
+FeederMotionMonitor feeder_motion_monitor(Board::FEEDER_TACH_TIMEOUT_MS);
+bool feeder_motion_ok = true;
 volatile uint32_t fan_pulses[2] = {0, 0};
 volatile bool fan_mux_channel = false;
 volatile uint8_t portk_previous = 0;
@@ -92,7 +95,8 @@ class BoardActuators final : public ActuatorBackend {
   void apply(const ActuatorCommands &c) override {
     setMotor(Board::SHREDDER_PWM_PIN, Board::SHREDDER_DIR_PIN, Board::SHREDDER_ENABLE_PIN, c.shredder_pwm);
     digitalWrite(Board::SHREDDER_REVERSE_PIN, c.shredder_pwm < 0 ? HIGH : LOW);
-    digitalWrite(Board::FEEDER_ENABLE_PIN, c.feeder_enable ? HIGH : LOW);
+    setMotor(Board::FEEDER_PWM_PIN, Board::FEEDER_DIR_PIN, Board::FEEDER_ENABLE_PIN,
+             c.feeder_enable ? Board::FEEDER_RUN_PWM : 0);
     setMotor(Board::SCREW_PWM_PIN, Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN, c.screw_pwm);
     setMotor(Board::PULLER_PWM_PIN, Board::PULLER_DIR_PIN, Board::PULLER_ENABLE_PIN, c.puller_pwm);
     setMotor(Board::SPOOLER_PWM_PIN, Board::SPOOLER_DIR_PIN, Board::SPOOLER_ENABLE_PIN, c.spooler_pwm);
@@ -128,7 +132,7 @@ ISR(PCINT2_vect) {
 
 bool allDriversHealthy() {
   for (uint8_t pin : Board::DRIVER_FAULT_PINS) if (digitalRead(pin) == LOW) return false;
-  return true;
+  return feeder_motion_ok;
 }
 
 bool temperaturesReady() {
@@ -517,6 +521,11 @@ void sampleTachs(uint32_t now_ms) {
   last_tach_sample_ms = now_ms;
 }
 
+void sampleFeederMotion(uint32_t now_ms) {
+  feeder_motion_ok = feeder_motion_monitor.update(
+      last_commands.feeder_enable, digitalRead(Board::FEEDER_TACH_PIN) == HIGH, now_ms);
+}
+
 void sampleFans(uint32_t now_ms) {
   if (now_ms - last_fan_sample_ms < 250) return;
   const bool completed_channel = fan_mux_channel;
@@ -673,11 +682,11 @@ void setup() {
   const uint8_t inputs[] = {Board::START_PIN, Board::PAUSE_PIN, Board::BACK_PIN, Board::CONFIRM_PIN,
                             Board::ENCODER_BUTTON_PIN, Board::ENCODER_A_PIN, Board::ENCODER_B_PIN,
                             Board::GAUGE_VALID_PIN, Board::LOCKOUT_CONFIRM_PIN,
-                            Board::TRAVERSE_LEFT_LIMIT_PIN, Board::TRAVERSE_RIGHT_LIMIT_PIN,
+                            Board::TRAVERSE_LEFT_LIMIT_PIN, Board::TRAVERSE_RIGHT_LIMIT_PIN, Board::FEEDER_TACH_PIN,
                             Board::SCREW_TACH_PIN, Board::FAN_TACH_MUX_PIN, Board::SPOOLER_TACH_PIN};
   for (uint8_t pin : inputs) pinMode(pin, INPUT_PULLUP);
   const uint8_t outputs[] = {Board::SHREDDER_DIR_PIN, Board::SHREDDER_REVERSE_PIN, Board::SHREDDER_ENABLE_PIN,
-                             Board::FEEDER_ENABLE_PIN, Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN,
+                             Board::FEEDER_DIR_PIN, Board::FEEDER_ENABLE_PIN, Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN,
                              Board::PULLER_DIR_PIN, Board::PULLER_ENABLE_PIN, Board::SPOOLER_DIR_PIN,
                              Board::SPOOLER_ENABLE_PIN, Board::TRAVERSE_STEP_PIN, Board::TRAVERSE_DIR_PIN,
                              Board::TRAVERSE_ENABLE_PIN, Board::HOPPER_PTC_PIN};
@@ -704,6 +713,7 @@ void loop() {
   const uint32_t loop_started_us = micros();
 #endif
   const uint32_t now_ms = millis();
+  sampleFeederMotion(now_ms);
   sampleTachs(now_ms);
   sampleFans(now_ms);
   sampleTemperatures(now_ms);

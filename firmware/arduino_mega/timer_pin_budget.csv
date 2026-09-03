@@ -4,7 +4,7 @@ Timer1,11 and 12,heater Z2/Z3,2 s time proportion,digital output only,NO_CONFLIC
 Timer2,9 and 10,cooling PWM and heater Z1,Arduino PWM on pin 9,digital heater pin 10,NO_CONFLICT,scope PWM and heater permission
 Timer3,2 3 5,shredder/puller external IRQ plus shredder PWM,timestamp edge capture and PWM,hardware IRQ/PWM,NO_CONFLICT,hybrid tach timestamp and PWM scope
 Timer4,6 7 8,screw puller spooler PWM,10-20 ms control,hardware PWM,NO_CONFLICT,three-channel duty scope
-Timer5,44 45 46,MAX6675 CS 1-3,250 ms,digital CS only,NO_CONFLICT,no timer register use
+Timer5,44 45 46,feeder PWM / unused OC5B / feeder enable,10-20 ms control,hardware PWM on 44 plus digital enable on 46,NO_CONFLICT,scope PWM and fail-safe enable
 INT4/INT5,2/3,shredder and puller tach,edge driven,RISING external interrupt,ASSIGNED,pulse generator comparison
 PCINT21,A13,screw tach,uint32 micros timestamp,RISING software edge,ASSIGNED,12 PPR low-speed/rollover comparison
 PCINT22,A14,fan tach mux,250 ms mux slot,RISING software edge,ASSIGNED,fan1/fan2 independent stop injection
@@ -13,7 +13,7 @@ GPIO,49,fan tach mux select,250 ms,digital output,ASSIGNED,mux truth-table test
 GPIO,A5/traverse left limit,traverse safety,loop <=10 ms,input pullup,ASSIGNED,positive-action endpoint test
 GPIO,A6/traverse right limit,traverse safety,loop <=10 ms,input pullup,ASSIGNED,positive-action endpoint test
 GPIO,39/40/41,traverse step/dir/enable,>=2 ms step interval,software pulse,ASSIGNED,68 mm travel and missed-limit test
-TBD,unassigned,feed auger/agitator PWM direction tach and current,donor-dependent,no production adapter,COMMISSIONING_BLOCKED,resolve independent pulse capture current ADC and two bounded motor outputs without reusing safety channels
-SPI-like bitbang,50/52 and CS44-48,MAX6675,250 ms,manual clock/read,ASSIGNED,open/range and scheduler overrun test
+GPIO,A7/42/46/47 and Timer5 pin44,FD-MET six-pocket feeder,tach polling <=10 ms / PWM / direction / enable / fault,single bounded rotor adapter,ASSIGNED,5 A branch envelope; donor <=5 A and tach pulse calibration required
+SPI-like bitbang,50/52 and CS14-17/48,MAX6675,250 ms,manual clock/read,ASSIGNED,open/range and scheduler overrun test
 Serial0,0/1,runtime telemetry/commands,>=1 s log,115200 baud,ASSIGNED,availableForWrite guard and overrun counter
 SRAM,8192 B,Mega runtime,compile evidence,static allocation,39_PERCENT_GLOBAL_4935_B_REMAINING,stack margin requires debug high-water test

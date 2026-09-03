@@ -1,4 +1,6 @@
-# v0.6.2.1 공정 feed/recirculation 가상 검증
+# 보관됨: v0.6.2.1 dual-auger feed/recirculation 가상 검증
+
+> 상태: `SUPERSEDED_BY_FINAL_V0.8`. 이 문서는 탐색 이력이며 제작 기준이 아니다. 활성 설계는 `FD-HOP-01` + `FD-MET-01..03` 단일 six-pocket rotor, Ø8 shaft, radial clearance 0.20–0.25 mm이다. 최종 형상·도면·BOM·pin map은 `exports/final/`과 `cad/freecad/compact/geometry.py`를 따른다.
 
 결과는 설계 판단용 deterministic surrogate와 FreeCAD solid 검증이다. DEM 또는 실제 flake 시험이 아니다.
 

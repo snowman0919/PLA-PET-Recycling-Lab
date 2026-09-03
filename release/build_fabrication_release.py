@@ -30,15 +30,15 @@ def validate_inputs() -> None:
     active = json.loads((ROOT / "release/active_part_set.json").read_text())
     assert active["revision"] == REV and len({p["part_id"] for p in active["parts"]}) == len(active["parts"])
     assert all(isinstance(p["quantity"], int) and p["quantity"] > 0 for p in active["parts"])
-    print_rows = list(csv.DictReader((ROOT / "exports/print/print_manifest.csv").open()))
+    print_rows = list(csv.DictReader((ROOT / "exports/final/print/print_manifest.csv").open()))
     step_rows = list(csv.DictReader((ROOT / "exports/final/step/step_manifest.csv").open()))
     draw_rows = list(csv.DictReader((ROOT / "docs/drawings/drawing_register.csv").open()))
-    assert len(print_rows) == 12 and all(r["revision"] == REV and r["slicer_status"] == "PASS" and int(r["quantity"]) > 0 for r in print_rows)
-    assert len(step_rows) == 10 and all(r["revision"] == REV and r["status"] == "PASS" for r in step_rows)
+    assert len(print_rows) == 12 and all(r["revision"] == REV and r["slicer_status"] == "PASS" and r["status"] == "PASS" and int(r["quantity"]) > 0 for r in print_rows)
+    assert len(step_rows) >= 20 and all(r["revision"] == REV and r["status"] == "PASS" for r in step_rows)
     assert len(draw_rows) == 20 and all(r["revision"] == "v0.8" and r["status"] == "PASS" for r in draw_rows)
-    compile_result = json.loads((ROOT / "validation/results/arduino_mega_compile.json").read_text())
-    binary = ROOT / compile_result["binary"]["path"]
-    assert sha(binary.read_bytes()) == compile_result["binary"]["sha256"]
+    build = json.loads((ROOT / "exports/final/firmware/build_manifest.json").read_text())
+    binary = ROOT / "exports/final/firmware/binaries/filament_recycler_atmega2560.hex"
+    assert build["status"] == "PASS" and sha(binary.read_bytes()) == build["binary_sha256"]
 
 
 def collect() -> dict[str, tuple[Path, str]]:

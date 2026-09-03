@@ -199,7 +199,7 @@ def feeder_housing_shape():
 
 def feeder_metering_rotor_shape():
     """Six-pocket removable metering disc; physical feed coupon sets RPM/capacity."""
-    rotor = Part.makeCylinder(15.8, 8).cut(Part.makeCylinder(2.6, 8))
+    rotor = Part.makeCylinder(15.8, 8).cut(Part.makeCylinder(4.1, 8))
     for angle in range(0, 360, 60):
         a = math.radians(angle)
         rotor = rotor.cut(Part.makeCylinder(4.0, 8, App.Vector(10 * math.cos(a), 10 * math.sin(a), 0)))
@@ -536,12 +536,12 @@ def shredder_metal_parts():
     motor_mount = motor_mount_plate()
     bearing_retainer = bearing_retainer_plate()
     return [
-        dict(id="CUT-01", name="Cycloidal hook cutter disc", shape=hook_disc(), qty=12, material="6 mm D2/SKD11 candidate", process="waterjet or laser + finish grind", critical="OD 58.0; root 36.0; bore 20.2 +0.10/0; keyway width 6.2 +0.10/0; flatness 0.10; tooth side deburr C0.15 max; axial working gap is set by 0.25-0.50 mm metal shim, never by printed tolerance"),
-        dict(id="CUT-02", name="Cutter spacer", shape=Part.makeCylinder(14, 7).cut(Part.makeCylinder(10.1, 7)), qty=10, material="steel", process="simple turning", critical="OD 28.0; bore 20.2 +0.10/0; length 7.00 +/-0.03; faces parallel within 0.03"),
-        dict(id="CUT-03", name="Bearing side plate", shape=plate, qty=2, material="12 mm steel or 15 mm 6061 after Gate 1", process="laser + bearing-seat finish", critical="two 6004 seats diameter 42 H7; center distance 48.00 +/-0.03; match-machine both plates; seat-axis parallelism 0.05/140; four frame holes diameter 6.6"),
+        dict(id="CUT-01", name="Cycloidal hook cutter disc", shape=hook_disc(), qty=12, material="6 mm AISI D2 tool steel (JIS SKD11 equivalent)", process="rough waterjet, vacuum harden/double temper 58-60 HRC, finish profile/faces grind", critical="OD 58.0; root circle R18.0 with smooth DXF transition; bore 20.2 +0.10/0; keyway width 6.2 +0.10/0; final profile ±0.10 and taper <=0.05 through thickness after CAM kerf compensation; t6.00 ±0.03; flatness/parallelism 0.03; tooth side deburr C0.15 max; axial working gap 0.25-0.50 mm by metal shim; common 6x6 key plus engraved index line registers stack; replace on crack, chip >0.5 mm, edge recession >0.30 mm or lost shim gap"),
+        dict(id="CUT-02", name="Cutter spacer", shape=Part.makeCylinder(14, 7).cut(Part.makeCylinder(10.1, 7)), qty=10, material="S45C normalized steel", process="simple turning", critical="OD 28.0; bore 20.2 +0.10/0; length 7.00 +/-0.03; faces parallel within 0.03"),
+        dict(id="CUT-03", name="Bearing side plate", shape=plate, qty=2, material="12 mm S275JR steel", process="laser + bearing-seat finish", critical="two 6004 seats diameter 42 H7; center distance 48.00 +/-0.03; match-machine both plates; seat-axis parallelism 0.05/140; four frame holes diameter 6.6"),
         dict(id="CUT-04", name="5 mm aperture screen", shape=screen_plate(), qty=2, material="3 mm 304 stainless", process="laser cut + deburr", critical="135 x 120 x 3; apertures diameter 5.0 on 9.0 pitch; all strand-side edges R0.3; verify minimum 1.9 mm rotating clearance with shims before powered test"),
-        dict(id="CUT-05", name="20 mm keyed cutter shaft", shape=shaft, qty=2, material="S45C", process="turn + keyway", critical="diameter 20 h6 at two 6004 journals per shaft; overall 240.0 +/-0.10; TIR <=0.05; 6 mm keyways at y=0-35, 55-160 and 195-240 from datum end; keyway depth 3.5; install driven shaft at Y258 and slave shaft at Y278 to preserve 20 mm front sprocket clearance; use standard metal clamp collars for axial retention"),
-        dict(id="CUT-06", name="Phase gear axial spacer", shape=Part.makeCylinder(15, 4).cut(Part.makeCylinder(10.1, 4)), qty=2, material="steel", process="simple turning", critical="OD 30.0; bore 20.2 +0.10/0; length 4.00 +/-0.03; faces parallel within 0.03"),
+        dict(id="CUT-05", name="20 mm keyed cutter shaft", shape=shaft, qty=2, material="S45C normalized steel HB 170-229", process="turn + keyway; black oxide with bearing seats masked", critical="diameter 20 h6 at two 6004 journals per shaft; overall 240.0 +/-0.10; TIR <=0.05; 6 mm keyways at y=0-35, 55-160 and 195-240 from datum end; keyway depth 3.5; install driven shaft at Y258 and slave shaft at Y278 to preserve 20 mm front sprocket clearance; use standard metal clamp collars for axial retention"),
+        dict(id="CUT-06", name="Phase gear axial spacer", shape=Part.makeCylinder(15, 4).cut(Part.makeCylinder(10.1, 4)), qty=2, material="S45C normalized steel", process="simple turning", critical="OD 30.0; bore 20.2 +0.10/0; length 4.00 +/-0.03; faces parallel within 0.03"),
         dict(id="CUT-07", name="DRV-01 universal donor motor plate", shape=motor_mount, qty=1, material="6 mm steel", process="laser cut + deburr; standard metal angles", critical="180 x 140 x 6; three 9 x 70 motor-angle slots and two 55 x 9 tension slots; donor-specific angle/hub drilling is HOLD until exact model, shaft height and rotation envelope are measured"),
         dict(id="CUT-08", name="Dual 6004 bearing retainer", shape=bearing_retainer, qty=2, material="2 mm steel", process="laser cut + deburr", critical="figure-eight OD lobes 60; two relief bores diameter 34; center distance 48.00 +/-0.05; six M4 clearance holes diameter 4.5 at drawing coordinates; CUT-03 matching holes are included and may be match-reamed after bearing-seat finish"),
     ]
@@ -767,19 +767,19 @@ def machine_fabrication_parts():
     transfer_length = (4.0 ** 2 + 73.0 ** 2 + 76.0 ** 2) ** 0.5
     return [
         dict(id="IN-HOP-01", name="Refillable input hopper", shape=cylindrical_hopper(100, 150, 60, 20), qty=1, material="2 mm 5052-H32 aluminum", process="roll cone/cylinder + TIG weld + deburr", critical="OD200 x straight150 + cone60; outlet Ø40; wall 2.0; lid rail datum flatness 0.5; leak-free dry-flake seams"),
-        dict(id="FD-BIN-01", name="Removable flake bin", shape=flake_bin_sheet_shape(printed["PPR-C03"]), qty=1, material="1 mm PP or 304 sheet", process="laser/knife cut panels + thermal weld or fold/rivet", critical="185 x175 x115 outside; PPR-C03 corner reliefs control; no inward burr/dead pocket; removable without cutter disassembly"),
+        dict(id="FD-BIN-01", name="Removable flake bin", shape=flake_bin_sheet_shape(printed["PPR-C03"]), qty=1, material="1 mm 304 stainless sheet", process="laser cut, fold and rivet/TIG seam", critical="185 x175 x115 outside; PPR-C03 corner reliefs control; no inward burr/dead pocket; removable without cutter disassembly"),
         dict(id="FD-HOP-01", name="Sealed feed hopper", shape=cylindrical_hopper(78, 145, 55, 16), qty=1, material="2 mm 304 stainless", process="roll cone/cylinder + TIG weld + gasketed lid", critical="OD156 x straight145 + cone55; outlet Ø32; wall2.0; leak test; lid gasket limits moisture ingress"),
         dict(id="FD-TRN-01", name="Sealed transfer tube", shape=Part.makeCylinder(16, transfer_length).cut(Part.makeCylinder(14, transfer_length)), qty=1, material="304 tube OD32 x2", process="tube cut + socket fit + TIG tack/weld", critical=f"centreline length {transfer_length:.2f}; OD32, ID28; clock after dry assembly; both sockets >=8 engagement"),
-        dict(id="FD-MET-01", name="Metering feeder housing", shape=feeder_housing_shape(), qty=1, material="304 stainless", process="turn tube/flanges + drill", critical="Ø36/Ø32 x105; flanges Ø48 x3; 4xØ4.5 PCD40 each end; rotor radial clearance 0.20 nominal"),
-        dict(id="FD-MET-02", name="Six-pocket metering rotor", shape=feeder_metering_rotor_shape(), qty=1, material="POM-C or 304", process="turn + 3-axis mill six pockets", critical="OD31.60 -0.05/0 x8; bore Ø5.2; 6xØ8 pockets PCD20; balance and deburr; Gate-2 sets volumetric coefficient"),
-        dict(id="FD-MET-03", name="Metering feeder shaft", shape=Part.makeCylinder(2.5, 110), qty=1, material="304 shaft", process="cut/face Ø5 stock", critical="Ø5 h8 x110; straightness 0.10; retain rotor with removable cross pin or two collars after donor motor measurement"),
-        dict(id="EX-THR-01", name="Extruder thrust plate", shape=thrust_plate_shape(), qty=1, material="12 mm S45C or SS400", process="laser rough + bore/seat finish", critical="12 x95 x105; passage Ø17.2; thrust seat Ø30.2 x5; 4xØ6.6; seat axis square 0.05; metal-to-profile load path"),
+        dict(id="FD-MET-01", name="Metering feeder housing", shape=feeder_housing_shape(), qty=1, material="304 stainless", process="turn tube/flanges + drill", critical="Ø36/ID32.00 +0.05/0 x105; flanges Ø48 x3; 4xØ4.5 PCD40 each end; rotor radial clearance 0.20–0.25"),
+        dict(id="FD-MET-02", name="Six-pocket metering rotor", shape=feeder_metering_rotor_shape(), qty=1, material="POM-C", process="turn + 3-axis mill six pockets", critical="OD31.60 -0.05/0 x8; bore Ø8.2 +0.10/0; 6xØ8 pockets PCD20; balance and deburr; Gate-2 sets volumetric coefficient"),
+        dict(id="FD-MET-03", name="Metering feeder shaft", shape=Part.makeCylinder(4, 110), qty=1, material="304 shaft", process="cut/face Ø8 stock", critical="Ø8 h8 x110; straightness 0.10; 2.2 N·m design torque SF≥2; retain rotor with removable cross pin or two collars after donor motor measurement"),
+        dict(id="EX-THR-01", name="Extruder thrust plate", shape=thrust_plate_shape(), qty=1, material="12 mm S45C normalized steel", process="laser rough + bore/seat finish", critical="12 x95 x105; passage Ø17.2; thrust seat Ø30.2 x5; 4xØ6.6; seat axis square 0.05; metal-to-profile load path"),
         dict(id="EX-SH-01", name="Three-panel hot-zone shield", shape=hot_shield_shape(), qty=1, material="2 mm 5052 aluminum", process="laser + two 90deg bends; bond PE", critical="335 x75 x85; open bottom/ends; feeder opening Ø50 at X314/Y37; >=10 mm ABS-duct gap; edge hem/deburr"),
         dict(id="DRV-GD-01", name="Interlocked drive guard", shape=drive_guard_shape(), qty=1, material="1 mm galvanized steel", process="laser + brake + service-cover hardware", critical="165 x48 x190; two Ø26 shaft clearances at X20/68,Z55; open service face; positive-opening interlock flag; PE bond"),
         dict(id="FM-PL-01", name="Puller side plate", shape=puller_plate_shape(), qty=2, material="10 mm 6061-T6", process="waterjet + ream", critical="100 x10 x40; 2xØ8.2 roller axes 40.00 apart; 4xØ4.5 guard mounts; matched pair axis position ±0.05"),
-        dict(id="FM-RL-01", name="Puller roller", shape=puller_roller_shape(), qty=2, material="aluminum hub + replaceable silicone sleeve", process="turn + bore", critical="finished OD40 x60; bore Ø8.2; TIR <=0.05; Shore A 50-70 sleeve; matched OD within 0.05"),
+        dict(id="FM-RL-01", name="Puller roller", shape=puller_roller_shape(), qty=2, material="6061-T6 hub + replaceable Shore A 50-70 silicone sleeve", process="turn + bore", critical="finished OD40 x60; bore Ø8.2; TIR <=0.05; Shore A 50-70 sleeve; matched OD within 0.05"),
         dict(id="FM-AX-01", name="Puller roller spindle", shape=Part.makeCylinder(4, 80), qty=2, material="Ø8 h6 stainless shaft", process="cut/face + collar flats", critical="Ø8 h6 x80; TIR0.03; two metal collars; driven spindle interface remains donor-specific"),
-        dict(id="FM-GR-01", name="Solid-strand guide roller", shape=guide_roller_shape(), qty=1, material="POM-C or 6061", process="turn + bearing-seat bore", critical="OD36 x20; 2x Ø16 H7 x5.1-deep 625 seats; Ø12 through relief; seat shoulders square 0.05; groove-free polished surface Ra<=1.6; roller only after puller"),
+        dict(id="FM-GR-01", name="Solid-strand guide roller", shape=guide_roller_shape(), qty=1, material="POM-C", process="turn + bearing-seat bore", critical="OD36 x20; 2x Ø16 H7 x5.1-deep 625 seats; Ø12 through relief; seat shoulders square 0.05; groove-free polished surface Ra<=1.6; roller only after puller"),
         dict(id="FM-GA-01", name="Guide roller fixed axle", shape=Part.makeCylinder(2.5, 30), qty=1, material="Ø5 h6 stainless shaft", process="cut/face + E-clip grooves or collars", critical="Ø5 h6 x30; two E-clips/collars outside PPR-C08; bearing inner-ring clamp must not preload outer rings; no printed axle"),
         dict(id="SP-DA-01", name="Dancer arm", shape=dancer_arm_shape(0, (0, 0, 0)), qty=1, material="8 mm 6061-T6", process="waterjet + ream", critical="100 mm pivot centres; 12 mm arm; 2xØ8.2; edge R2; full -25..+25deg motion"),
         dict(id="SP-AX-01", name="Dancer pivot/roller axles", shape=Part.makeCylinder(4, 28), qty=2, material="Ø8 h6 stainless shaft", process="cut/face + collars", critical="Ø8 h6 x28; metal collars; one pivot and one end roller axle"),
@@ -909,6 +909,10 @@ def assembly_objects(exploded=False):
     rear_retainer = retainer.copy(); rear_retainer.rotate(App.Vector(0, 0, 0), App.Vector(1, 0, 0), 90); rear_retainer.translate(App.Vector(55, 469, 535))
     add("BearingRetainerFront", front_retainer, steel, "shredder", "CUT-08 2 mm steel")
     add("BearingRetainerRear", rear_retainer, steel, "shredder", "CUT-08 2 mm steel")
+    # Conservative installation envelopes close the routing/clearance model;
+    # exact sensor bodies and connectors remain receipt-inspection gates.
+    add("ShredderRPMSensorEnvelope", box(90,268,604,12,8,20), purple, "shredder", "6 PPR Hall sensor maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv SHREDDER_SHAFT_RPM; receipt dimensions and air gap required")
+    add("ShredderCableRouteEnvelope", box(195,238,570,12,12,125), purple, "shredder", "segregated motor/sensor cable service envelope", "purchased_reference_envelope")
     corner_poses = (
         ((33.0, 298.0, 427.0), 0),
         ((222.0, 298.0, 427.0), 90),
@@ -938,10 +942,11 @@ def assembly_objects(exploded=False):
     # volumetric coefficient; the housing/rotor are real removable solids.
     feeder_housing = feeder_housing_shape(); feeder_housing.translate(App.Vector(354, 347, 399))
     feeder_rotor = feeder_metering_rotor_shape(); feeder_rotor.translate(App.Vector(354, 347, 402))
-    feeder_shaft = Part.makeCylinder(2.5, 110, App.Vector(354, 347, 402))
+    feeder_shaft = Part.makeCylinder(4, 110, App.Vector(354, 347, 402))
     add("FeederHousing", feeder_housing, steel, "feed", "304 stainless Ø36/Ø32 housing")
     add("FeederRotor", feeder_rotor, orange, "feed", "POM or 304 six-pocket metering disc")
-    add("FeederShaft", feeder_shaft, steel, "feed", "Ø5 stainless shaft; NEMA17 donor drive")
+    add("FeederShaft", feeder_shaft, steel, "feed", "FD-MET-03 Ø8 h8 stainless shaft; 2.2 N·m design envelope; donor drive unverified")
+    add("FeederCableRouteEnvelope", box(432,320,580,12,12,170), purple, "feed", "segregated feeder/PTC/sensor cable service envelope", "purchased_reference_envelope")
 
     # Horizontal extruder and fully connected 90-degree metal down-die.
     # The RFQ screw/barrel solids are also the assembly solids.  Local Z runs
@@ -1008,6 +1013,7 @@ def assembly_objects(exploded=False):
         roller = puller_roller_shape(); roller.rotate(App.Vector(0, 0, 0), App.Vector(1, 0, 0), -90); roller.translate(App.Vector(x, 320, 35))
         add(f"PullerRoll{x}", roller, green, "forming", "PL-02 Ø40 x60 roller, Ø8.2 bore")
         add(f"PullerSpindle{x}", cyl(4,80,x,310,35,(0,1,0)), steel, "forming", "FM-AX-01 Ø8 h6 x80 metal spindle")
+    add("FormingCableRouteEnvelope", box(20,286,52,125,12,12), purple, "forming", "gauge/puller sensor cable service envelope", "purchased_reference_envelope")
     add("PPR-C07_PullerGuard",printed_at("PPR-C07",(20,300,0)),blue,"forming","ABS")
 
     # Solid guide, dancer/traverse and maximum spool motion.
@@ -1045,14 +1051,27 @@ def assembly_objects(exploded=False):
     add("TraverseEndPlateLeft", left_traverse_plate, aluminum, "spooler", "SP-TR-01 5 mm metal")
     add("TraverseEndPlateRight", right_traverse_plate, aluminum, "spooler", "SP-TR-01 5 mm metal")
     add("PPR-C10_TraverseCarriage",printed_at("PPR-C10",(270,420,268)),blue,"spooler","PLA")
+    add("DancerSensorEnvelope", box(158,426,105,12,12,22), purple, "spooler", "dancer analog sensor maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv DANCER; receipt dimensions and calibration required")
+    add("TraverseLeftLimitEnvelope", box(246,412,270,12,10,18), purple, "spooler", "positive-action left limit maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv TRAVERSE_LEFT_RIGHT_LIMIT; receipt dimensions required")
+    add("TraverseRightLimitEnvelope", box(391,412,270,12,10,18), purple, "spooler", "positive-action right limit maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv TRAVERSE_LEFT_RIGHT_LIMIT; receipt dimensions required")
+    add("SpoolerTachSensorEnvelope", box(350,475,188,14,10,18), purple, "spooler", "20 PPR Hall sensor maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv SPOOLER_PWM_DIR_TACH; receipt dimensions and air gap required")
+    add("SpoolerCableRouteEnvelope", box(150,405,300,270,12,12), purple, "spooler", "dancer/traverse/spooler cable service envelope", "purchased_reference_envelope")
 
     spool_motor_plate = spool_motor_mount_shape(); spool_motor_plate.translate(App.Vector(309,602,149))
     add("SpoolMotorMount", spool_motor_plate, aluminum, "spooler", "SP-MM-01 universal metal plate")
     add("SpoolMotorEnvelope", box(314,612,154,42,48,42), red, "spooler", "unverified donor NEMA17-class envelope", "unverified_donor_envelope", evidence="label, body, shaft, current and mounting measurement required before coupling release")
 
     panel = open_front_sheet_shell(190, 35, 190, 2); panel.translate(App.Vector(255, 35, 330))
+    for x,z,radius in ((330,505,9.5),*[(x,z,1.7) for x in (268,432) for z in (373,477)]):
+        panel = panel.cut(cyl(radius,8,x,33,z,(0,1,0)))
+    panel = panel.cut(cyl(20.5,6,253,52,480,(1,0,0)))
     add("ControlPanel", panel, blue, "control", "CT-01 2 mm sheet enclosure")
     add("PPR-C11_ControlBezel",printed_at("PPR-C11",(260,43,365),((1,0,0),90)),blue,"control","PLA")
+    add("ControlEmergencyStopEnvelope", cyl(20,30,227,52,480,(1,0,0)), red, "control", "SF-01 latching E-stop maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="BOM SF-01; positive-opening contact and receipt dimensions required")
+    add("ControlEncoderEnvelope", cyl(9,22,330,31,505,(0,1,0)), purple, "control", "UI encoder maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="CT-01 UI contract; receipt shaft/body dimensions required")
+    add("ControlSafetyInputEnvelope", box(270,70,440,70,24,35), purple, "control", "hardwired safety relay/input terminal envelope", "unverified_donor_envelope", evidence="BOM SF-01/SF-02; exact relay and terminals require approval")
+    for index,(x,z) in enumerate(((268,373),(432,373),(268,477),(432,477)),start=1):
+        add(f"ControlBezelM3Fastener{index}", cyl(1.5,12,x,33,z,(0,1,0)), orange, "control", "PPR-C11 M3 bezel fastener")
     add("PSU", box(275, 80, 200, 160, 180, 90), red, "control", "24 V 600 W unverified maximum envelope", "unverified_donor_envelope", evidence="label and measured L/W/H required before bracket release")
     add("CableDuct", box(425, 650, 80, 18, 18, 750), purple, "control", "18 x18 fixed vertical purchased duct envelope", "purchased_reference_envelope")
     for index,z in enumerate(range(100,821,100)):

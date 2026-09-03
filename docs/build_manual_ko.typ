@@ -1,4 +1,4 @@
-#set document(title: "PLA/PET Recycler v0.6.2.1 제작 매뉴얼")
+#set document(title: "PLA/PET Recycler v0.8 제작 매뉴얼")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
@@ -13,12 +13,12 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision technical-blocker-closure-v0.6.2.1 · 2026-09-01]
+  #text(size: 11pt)[Revision final-design-fabrication-closure-v0.8 · 2026-09-03]
 ]
 
 #danger[*물리 운전 승인 문서가 아니다.* Cutter, screw, heater, mains/high-current는 사용자 승인, exact component 확인, guard와 commissioning gate 전 energize하지 않는다.]
 
-Release target: `TECHNICAL_CLOSURE_BASELINE` / `IMPLEMENTATION_BASELINE` / `VIRTUAL_PHYSICS_VALIDATED` / `CROSS_SOLVER_VALIDATION_DEFERRED` / `DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE` / `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`.
+Release target: `FABRICATION_CANDIDATE` / `DIGITAL_TECHNICAL_CLOSURE` / `PHYSICAL_VALIDATION_NOT_RUN` / `SAFETY_NOT_CERTIFIED` / `USER_APPROVAL_REQUIRED`.
 
 #pagebreak()
 = 작업 전 확인
@@ -111,7 +111,7 @@ Cold boot의 material `NONE`, 분리된 drive/current/gauge/cooling calibration 
 
 Material 전환은 기존 thermal profile로 `MAINTENANCE_PURGE`를 실제 실행한다. Waste tray/manual path 확인, 최소 time, A13 Hall tach의 최소 actual screw revolutions, stable temperature, motion fault 없음과 operator visual confirm 뒤 screen/hopper/temperature/final confirmation을 순서대로 요구한다. Commanded RPM 적분은 purge evidence로 사용하지 않는다. 80 g/120 g은 nominal estimate이며 mass-per-revolution calibration이 없으므로 measured purge mass로 기록하지 않는다. Purge 중 production spool/traverse와 shredder는 금지한다. 고온 purge를 STOP/PAUSE하거나 정상 완료해도 바로 IDLE로 가지 않고, heater와 motion을 끄고 유효한 cooling feedback으로 T1–Tdie 모두 60 °C 이하가 될 때까지 `COOLDOWN`을 유지한다. E-stop은 예외적으로 즉시 all-zero다.
 
-Mega pin과 wiring은 `electronics/controller_wiring_v0.6.md`/`board_config.h`를 따른다. EEPROM v4 CRC calibration은 shredder/screw/puller/spooler tach와 drive, traverse, gauge, current, fan1/fan2 tach, dancer, cooling-current를 독립 domain으로 저장하며 source/verified/range/units/revision이 없는 record는 해당 evidence를 승인하지 않는다. `HOME_TRAVERSE` 후 left limit 탐색과 2 mm backoff가 끝나야 위치가 valid하다. Forming-chain fault는 공통 rundown에서 feeder/spooler/traverse 즉시 off, `waste_path_active`, bounded screw/puller waste discharge, thermal hold/cooldown을 수행한다. Gauge 20개 연속 valid, U95 <=0.03 mm, diameter/ovality 10 s, puller valid/not saturated, 두 fan tach valid, screw tach valid, transport-delay 조건을 충족해도 `READY_TO_RETHREAD`에서 operator confirm 전 production spool을 금지한다.
+Mega pin과 wiring은 `exports/final/electrical/Arduino_Mega_pinmap.pdf`/`board_config.h`를 따른다. 활성 feeder는 FD-MET 단일 six-pocket rotor이며 D44 PWM, D42 direction, D46 enable, D47 fault, A7 tach를 사용한다. EEPROM v4 CRC calibration은 shredder/screw/puller/spooler tach와 drive, traverse, gauge, current, fan1/fan2 tach, dancer, cooling-current를 독립 domain으로 저장하며 source/verified/range/units/revision이 없는 record는 해당 evidence를 승인하지 않는다. `HOME_TRAVERSE` 후 left limit 탐색과 2 mm backoff가 끝나야 위치가 valid하다. Forming-chain fault는 공통 rundown에서 feeder/spooler/traverse 즉시 off, `waste_path_active`, bounded screw/puller waste discharge, thermal hold/cooldown을 수행한다. Gauge 20개 연속 valid, U95 <=0.03 mm, diameter/ovality 10 s, puller valid/not saturated, 두 fan tach valid, screw tach valid, transport-delay 조건을 충족해도 `READY_TO_RETHREAD`에서 operator confirm 전 production spool을 금지한다.
 
 Fault clear에는 physical lockout key와 모든 subsystem preflight가 필요하다. 일부가 거부되면 어떤 latch도 부분 clear하지 않고, 성공해도 자동 restart하지 않는다. 표시 항목은 material/session/process/forming state, calibration readiness, screw speed, shredder load, heater temperature, feeder, cooling feedback, X/Y/mean/ovality/U95, spool eligibility, waste/requalification 상태와 분리된 fault reason이다.
 

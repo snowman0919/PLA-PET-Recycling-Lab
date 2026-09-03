@@ -52,8 +52,10 @@ def main() -> None:
     lc05 = fea["LC05"]["meshes"][-1]
     mount = fea["hot_zone_mount"]["cases"][2]
     step_rows = list(__import__("csv").DictReader((ROOT / "exports/final/step/step_manifest.csv").open()))
+    # This gate owns the six assemblies plus four v0.8 mount parts. The
+    # manufacturing release appends the broader per-part STEP inventory later.
     if len(step_rows) != 10 or any(row["status"] != "PASS" for row in step_rows):
-        raise SystemExit("FAIL final STEP manifest: expected 10 reimport-verified files")
+        raise SystemExit("FAIL final STEP manifest: expected 10 solver-stage reimport-verified files")
     lines = [
         "# v0.8 solver 검증 보고", "",
         "이 결과는 디지털 해석이며 실제 물리 시험·안전 인증이 아니다.", "",
