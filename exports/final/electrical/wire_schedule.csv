@@ -1,0 +1,11 @@
+wire_id,from,to,voltage,maximum_current,wire_gauge,colour,connector,terminal,fuse,routing,shield_ground,strain_relief
+W-PE-01,AC inlet PE,frame PE stud,PE,fault current; site dependent,green/yellow; local code,green/yellow,ring lug,PE-1,upstream breaker,short dedicated bond,protective earth,tooth washer + clamp
+W-PE-02,frame PE stud,hot shield,PE,fault current; site dependent,green/yellow; local code,green/yellow,ring lug,PE-2,upstream breaker,away from signal,protective earth,tooth washer + clamp
+W-24-00,24 V 600 W PSU,main fuse,24 VDC,25 A design maximum,>=4 mm2; verify,red,ferrule,F-MAIN,F-MAIN 30 A candidate,power duct,0 V paired,duct clamp
+W-24-01,F-MAIN,logic fuse,24 VDC,3 A design maximum,>=0.75 mm2; verify,red,ferrule,F-LOGIC,F-LOGIC 3 A candidate,signal duct,0 V paired,duct clamp
+W-SAFE-01,logic branch,E-stop/lid/service/thermal chain,24 VDC,1 A design maximum,>=0.5 mm2; verify,red,locking terminal,K-SAFE,F-SAFE 1 A candidate,dedicated safety route,0 V paired,both ends clamped
+W-SH-01,safety contactor,shredder driver,24 VDC,20 A branch limit,>=2.5 mm2; verify,red,locking power,DRV-SH,F-SH 20 A,power duct,0 V paired,both ends clamped
+W-EX-01,safety contactor,screw/feeder drivers,24 VDC,10 A design limit,>=1.5 mm2; verify,red,locking power,DRV-EX,F-EX 10 A candidate,power duct,0 V paired,both ends clamped
+W-HT-01,safety contactor,heater MOSFET branches,24 VDC,15 A installed heater total,>=2.5 mm2; 300 C sleeve near hot zone,red,locking high-temp,MOS-H1..H4,4 x F-H 5 A candidate,separate hot route,grounded shield; no signal share,hot-zone clamp
+W-FAN-01,fan fuse,cooling fan pair,24 VDC,3 A design limit,>=0.75 mm2; verify donor,blue,service plug,FAN-1/2,F-FAN 3 A candidate,forming-chain duct,tach shield grounded one end,service loop + clamp
+W-SENS-01,thermocouples,MAX6675/Mega,mV/5 V logic,signal only,K-type extension; donor verify,IEC K colours,mini-K/locking,T1..T5,logic branch,separate from heater/motor,shield one end; isolated probe verify,service loop

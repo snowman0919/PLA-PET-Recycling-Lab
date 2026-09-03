@@ -8,16 +8,16 @@
     "hot_zone_manufacturing": true,
     "hot_zone_bom": true,
     "firmware_binary": true,
-    "drawing_register": false,
-    "electrical_final_package": false,
-    "final_manual_set": false,
-    "commissioning_set": false,
+    "drawing_register": true,
+    "electrical_final_package": true,
+    "final_manual_set": true,
+    "commissioning_set": true,
     "multimodal_review": true,
-    "release_package": false
+    "release_package": true
   },
-  "passed": 8,
+  "passed": 13,
   "total": 13,
-  "status": "IN_PROGRESS",
+  "status": "PASS",
   "physical_validation_state": "NOT_RUN",
   "procurement_gate": "USER_APPROVAL_REQUIRED",
   "commissioning_gate": "USER_APPROVAL_REQUIRED"

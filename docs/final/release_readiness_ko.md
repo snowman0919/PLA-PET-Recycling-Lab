@@ -9,11 +9,11 @@
 - `PASS` hot_zone_manufacturing
 - `PASS` hot_zone_bom
 - `PASS` firmware_binary
-- `PENDING` drawing_register
-- `PENDING` electrical_final_package
-- `PENDING` final_manual_set
-- `PENDING` commissioning_set
+- `PASS` drawing_register
+- `PASS` electrical_final_package
+- `PASS` final_manual_set
+- `PASS` commissioning_set
 - `PASS` multimodal_review
-- `PENDING` release_package
+- `PASS` release_package
 
-결과: 8/13 — `IN_PROGRESS`
+결과: 13/13 — `PASS`

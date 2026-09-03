@@ -1,6 +1,6 @@
 # PPR-TC01 — fastener/insert/fit tolerance coupon
 
-- revision: `safety-orchestration-closure-v0.6.1`
+- revision: `final-design-fabrication-closure-v0.8`
 - status: `REQUIRED_BEFORE_PRODUCTION_PRINTS`; coupon mass is excluded from machine print total
 - material/profile: same spool, nozzle and slicer profile as the target PLA parts
 - orientation: flat; 0.4 mm nozzle; 0.20 mm layer; 4 perimeters; no support

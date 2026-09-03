@@ -1,0 +1,8 @@
+fuse_id,branch,rating,basis,verification
+F-MAIN,24 V distribution,30 A candidate,25 A PSU output,DC interrupt rating >= source; exact MPN verify
+F-LOGIC,Mega/gauge,3 A candidate,logic load measurement required,protect branch conductor
+F-SAFE,hardwired permission chain,1 A candidate,coil/current measurement required,firmware cannot bypass
+F-SH,shredder driver,20 A,donor label + calibrated current,"18 N m jam trip is calibrated, not fuse rating"
+F-EX,screw/feeder,10 A candidate,donor label/current required,recalculate after donor selection
+F-H1..H4,heater MOSFET channels,5 A each candidate,360 W installed aggregate,one-shot thermal fuse remains series independent
+F-FAN,cooling fans,3 A candidate,donor start/stall current required,A4 current and A14 tach are diagnostics only

@@ -1,0 +1,11 @@
+connector_id,terminal,from,to,verification
+ferrule,F-LOGIC,F-MAIN,logic fuse,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+ferrule,F-MAIN,24 V 600 W PSU,main fuse,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+locking high-temp,MOS-H1..H4,safety contactor,heater MOSFET branches,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+locking power,DRV-EX,safety contactor,screw/feeder drivers,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+locking power,DRV-SH,safety contactor,shredder driver,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+locking terminal,K-SAFE,logic branch,E-stop/lid/service/thermal chain,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+mini-K/locking,T1..T5,thermocouples,MAX6675/Mega,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+ring lug,PE-1,AC inlet PE,frame PE stud,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+ring lug,PE-2,frame PE stud,hot shield,exact MPN and mating retention USER_VERIFICATION_REQUIRED
+service plug,FAN-1/2,fan fuse,cooling fan pair,exact MPN and mating retention USER_VERIFICATION_REQUIRED

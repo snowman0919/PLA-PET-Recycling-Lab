@@ -1,6 +1,6 @@
 # PPR-C06 — Gauge enclosure half
 
-- revision: `safety-orchestration-closure-v0.6.1`
+- revision: `final-design-fabrication-closure-v0.8`
 - quantity: 2
 - material: ABS
 - nozzle diameter: 0.4 mm
