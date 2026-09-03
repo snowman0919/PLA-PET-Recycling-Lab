@@ -1,7 +1,7 @@
 # Graph Report - PPR  (2026-09-03)
 
 ## Corpus Check
-- 546 files · ~2,210,368 words
+- 546 files · ~2,473,204 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `37991b2e`
+- Built from commit: `c06dc22a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -451,7 +451,7 @@
 - processHeaterPhaseAllowed
 - processHeaterPhaseAllowed
 - release_manifest.schema.json
-- run_binding_sha256
+- step_sha256
 
 ## God Nodes (most connected - your core abstractions)
 1. `MachineSupervisor` - 141 edges
@@ -929,7 +929,7 @@ Nodes (3): pattern, type, case_id
 
 ### Community 110 - "properties"
 Cohesion: 0.17
-Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, source_git_sha, step_sha256, type (+4 more)
+Nodes (12): pattern, type, properties, execution_checkout_sha, related_case_bindings, run_binding_sha256, source_git_sha, type (+4 more)
 
 ### Community 111 - "FeedDeliveryConfig"
 Cohesion: 0.08
@@ -1535,9 +1535,9 @@ Nodes (3): MachineState, processHeaterPhaseAllowed(), main()
 Cohesion: 0.50
 Nodes (3): additionalProperties, $schema, type
 
-### Community 460 - "run_binding_sha256"
+### Community 460 - "step_sha256"
 Cohesion: 0.67
-Nodes (3): run_binding_sha256, pattern, type
+Nodes (3): step_sha256, pattern, type
 
 ## Knowledge Gaps
 - **1736 isolated node(s):** `revision`, `release_state`, `implementation_state`, `geometry_validation`, `fabrication_validation` (+1731 more)

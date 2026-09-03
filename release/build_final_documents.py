@@ -48,7 +48,7 @@ DRAWING_META = {
     "SH-003": ("S45C shafts / 6004-2RS", "Ø20 h6 seats; shaft TIR ≤0.05 mm; centre parallelism ≤0.10/150"),
     "SH-004": ("S45C keyed hubs/gears / #35 chain", "12T:30T; chain alignment ≤0.50 mm; midspan slack 2–3%"),
     "FD-001": ("5052-H32 hopper", "feed opening 150 × 150 mm; all reachable edges R/C ≥0.5 mm"),
-    "FD-002": ("304 screen / sheet chute", "screen aperture Ø5 on 9 pitch; rotor clearance ≥1.90 mm"),
+    "FD-002": ("304 screen / sheet chute", "screen aperture Ø5 on 9 pitch; cutter/static clearance ≥1.90 mm"),
     "FD-003": ("304 auger/housing/common agitator shaft", "auger OD24.60; housing ID25.00 +0.05/0; radial clearance 0.20–0.25 mm; pitch18"),
     "EX-001": ("SCM440 screw/barrel / steel supports", "rear axial datum fixed; front guide axial travel ≥1.30 mm"),
     "EX-002": ("nitrided SCM440 / 17-4PH die insert", "cold diametral clearance 0.28–0.32 mm; coaxiality ≤0.05 mm"),
@@ -61,29 +61,6 @@ DRAWING_META = {
     "SV-001": ("service-envelope reference geometry", "front/rear access ≥600 mm; hot-zone removal envelope kept clear"),
 }
 
-WIRES = [
-    ("W-PE-01", "AC inlet PE", "frame PE stud", "PE", "fault current; site dependent", "green/yellow; local code", "green/yellow", "ring lug", "PE-1", "upstream breaker", "short dedicated bond", "protective earth", "tooth washer + clamp"),
-    ("W-PE-02", "frame PE stud", "hot shield", "PE", "fault current; site dependent", "green/yellow; local code", "green/yellow", "ring lug", "PE-2", "upstream breaker", "away from signal", "protective earth", "tooth washer + clamp"),
-    ("W-24-00", "24 V 600 W PSU", "main fuse", "24 VDC", "25 A design maximum", ">=4 mm2; verify", "red", "ferrule", "F-MAIN", "F-MAIN 30 A candidate", "power duct", "0 V paired", "duct clamp"),
-    ("W-24-01", "F-MAIN", "logic fuse", "24 VDC", "3 A design maximum", ">=0.75 mm2; verify", "red", "ferrule", "F-LOGIC", "F-LOGIC 3 A candidate", "signal duct", "0 V paired", "duct clamp"),
-    ("W-SAFE-01", "logic branch", "E-stop/lid/service/thermal chain", "24 VDC", "1 A design maximum", ">=0.5 mm2; verify", "red", "locking terminal", "K-SAFE", "F-SAFE 1 A candidate", "dedicated safety route", "0 V paired", "both ends clamped"),
-    ("W-SH-01", "safety contactor", "shredder driver", "24 VDC", "20 A branch limit", ">=2.5 mm2; verify", "red", "locking power", "DRV-SH", "F-SH 20 A", "power duct", "0 V paired", "both ends clamped"),
-    ("W-EX-01", "safety contactor", "screw/feeder drivers", "24 VDC", "10 A design limit", ">=1.5 mm2; verify", "red", "locking power", "DRV-EX", "F-EX 10 A candidate", "power duct", "0 V paired", "both ends clamped"),
-    ("W-HT-01", "safety contactor", "heater MOSFET branches", "24 VDC", "15 A installed heater total", ">=2.5 mm2; 300 C sleeve near hot zone", "red", "locking high-temp", "MOS-H1..H4", "4 x F-H 5 A candidate", "separate hot route", "grounded shield; no signal share", "hot-zone clamp"),
-    ("W-FAN-01", "fan fuse", "cooling fan pair", "24 VDC", "3 A design limit", ">=0.75 mm2; verify donor", "blue", "service plug", "FAN-1/2", "F-FAN 3 A candidate", "forming-chain duct", "tach shield grounded one end", "service loop + clamp"),
-    ("W-SENS-01", "thermocouples", "MAX6675/Mega", "mV/5 V logic", "signal only", "K-type extension; donor verify", "IEC K colours", "mini-K/locking", "T1..T5", "logic branch", "separate from heater/motor", "shield one end; isolated probe verify", "service loop"),
-]
-
-FUSES = [
-    ("F-MAIN", "24 V distribution", "30 A candidate", "25 A PSU output", "DC interrupt rating >= source; exact MPN verify"),
-    ("F-LOGIC", "Mega/gauge", "3 A candidate", "logic load measurement required", "protect branch conductor"),
-    ("F-SAFE", "hardwired permission chain", "1 A candidate", "coil/current measurement required", "firmware cannot bypass"),
-    ("F-SH", "shredder driver", "20 A", "donor label + calibrated current", "18 N m jam trip is calibrated, not fuse rating"),
-    ("F-EX", "screw/feeder", "10 A candidate", "donor label/current required", "recalculate after donor selection"),
-    ("F-H1..H4", "heater MOSFET channels", "5 A each candidate", "360 W installed aggregate", "one-shot thermal fuse remains series independent"),
-    ("F-FAN", "cooling fans", "3 A candidate", "donor start/stall current required", "A4 current and A14 tach are diagnostics only"),
-]
-
 ASSEMBLY_FIELDS = ("step_number", "part_ids_quantity", "required_tools", "fasteners", "torque", "orientation", "clearance_tolerance", "drawing", "inspection_method", "pass_fail", "next_prerequisite")
 ASSEMBLY_STEPS = [
     (1, "BOM/revision traveler ×1", "document viewer; caliper", "N/A", "N/A—document gate", "v0.8 identifiers visible", "all files same revision", "GA-001", "hash and revision cross-check", "all required files present", "parts kitting"),
@@ -94,12 +71,12 @@ ASSEMBLY_STEPS = [
     (6, "CUT-01 ×12; CUT-02 ×10", "shim set; feeler gauge", "keys and metal shims", "collars per drawing", "hooks counter-rotate; phase offset", "axial gap 0.25–0.50 mm", "SH-002", "hand rotate 20 revolutions", "no disc/static contact", "phase drive"),
     (7, "DRV-01/A60/F01/02/03 ×1 set", "straightedge; dial; torque wrench", "M4/M6 keyed hardware", "M4 3 N·m; M6 9 N·m", "12T:30T guarded chain", "alignment≤0.50 mm; slack 2–3%", "SH-004", "blue check and hand rotation", "keyed path; no friction-only joint", "shredder guard"),
     (8, "DRV-GD-01 and interlock ×1", "2.5/3 mm hex; gap probe", "M4 guarded fasteners", "M4 3 N·m", "cover removable only under lockout", "hazard opening≤6 mm", "GD-001", "reach probe and switch actuation", "no reach path; forced-open works", "feed path"),
-    (9, "IN-HOP-01/CUT-04/FD-HOP-01 ×1 set", "riveter; 3 mm hex", "M4/rivets", "M4 3 N·m", "flow down into screen", "rotor/static clearance≥1.90 mm", "FD-001/FD-002", "feeler gauge and burr check", "no sharp edge or rotor contact", "flake bin"),
+    (9, "IN-HOP-01/CUT-04/FD-HOP-01 ×1 set", "riveter; 3 mm hex", "M4/rivets", "M4 3 N·m", "flow down into screen", "cutter/static clearance≥1.90 mm", "FD-001/FD-002", "feeler gauge and burr check", "no sharp edge or cutter contact", "flake bin"),
     (10, "FD-BIN-01/FD-MET-01..03 ×1 set", "caliper; bore gauge; 2.5 mm hex", "M3/M4 service hardware", "M3 1.2; M4 3 N·m", "vertical auger removable; paddles above hopper cone", "auger radial running clearance 0.20–0.25 mm; pitch 18 mm", "FD-003", "hand turn through 10 revolutions and cleanout check", "no rub, dead pocket or inaccessible retained flake", "extruder support"),
     (11, "rear datum/front guide/rail/collar ×1 set", "dial indicator; 4 mm hex", "M5 hot-mount hardware", "M5 5 N·m", "rear axial fixed; front radial sliding", "axis≤0.20/390; travel≥1.30 mm", "EX-001", "dial sweep and travel gauge", "travel and alignment pass", "screw/barrel"),
     (12, "EX-SCR-01/EX-BAR-01 ×1", "bore gauge; feeler gauge", "thrust/coupling hardware", "drawing-specific", "feed end to die end", "cold diametral clearance 0.28–0.32 mm", "EX-002", "three-station bore/OD report", "rotation free; coaxiality≤0.05 mm", "die/hot zone"),
     (13, "EX-DIE-01..05; heater/TC ×1 set", "insulation meter; torque wrench", "die fasteners", "cross-tighten per drawing", "TC tips in metal hot path", "probe insertion≥12 mm; shield gap≥12 mm", "EX-002/EX-003", "cold leak-path and continuity inspection", "all channels identified; physical hot test pending", "cooling path"),
-    (14, "CO-01/CO-02 ×1 set", "anemometer candidate; 3 mm hex", "M4 clamps", "M4 3 N·m", "airflow across strand away from hot zone", "strand centreline≤0.50 mm", "FM-001", "route and service removal check", "no hot contact; feedback wired", "gauge"),
+    (14, "CO-01/CO-02 ×1 set", "calibrated anemometer; 3 mm hex", "M4 clamps", "M4 3 N·m", "airflow across strand away from hot zone", "strand centreline≤0.50 mm", "FM-001", "route and service removal check", "no hot contact; feedback wired", "gauge"),
     (15, "gauge mechanism ×1", "gauge block; caliper", "M3 hardware", "M3 1.2 N·m", "U95 axes normal to strand", "datum alignment≤0.10 mm", "FM-002", "gauge block repeatability check", "mechanical repeatability recorded", "puller"),
     (16, "FM-PL/RL/AX/GR/GA ×1 set", "dial indicator; 3 mm hex", "M4 plus metal collars", "M4 3 N·m", "roller axes parallel", "parallel≤0.05/80; TIR≤0.05 mm", "FM-002", "hand feed dummy strand", "no pinch bypass or bind", "spooler"),
     (17, "SP-DA/AX/RL/SH/BP/MM/TR/DS ×1 set", "square; dial; 3 mm hex", "M4 plus collars", "M4 3 N·m", "traverse parallel to spool", "rod parallel≤0.10/160 mm", "SP-001", "full-stroke hand traverse", "no collision in service envelope", "all guards"),
@@ -211,7 +188,7 @@ def electrical() -> None:
         "power_distribution": common + "\n== 분배\n\nMain 24 V bus에서 logic, shredder, screw/feeder, heater 4채널, puller/spooler, fan을 각각 fuse로 분리한다. Software aggregate heater cap 500 W와 reserve 100 W는 물리 fuse를 대체하지 않는다.",
         "full_wiring_diagram": common + "\n== 배선 기준\n\n모든 active conductor는 `wire_schedule.csv`, connector는 `connector_schedule.csv`, 보호소자는 `fuse_schedule.csv`와 일치해야 한다. Heater/motor와 thermocouple/gauge/tach route를 분리한다.",
         "safety_chain": common + "\n== 안전 chain truth table\n\nE-stop, lid, service guard, thermal chain 중 하나라도 open이면 safety contactor가 de-energize되어 heater와 hazardous motion enable을 물리 제거한다. Welded contact/command-feedback mismatch는 latch하며 physical lockout key 없이 clear하지 않는다.",
-        "Arduino_Mega_pinmap": common + "\n== `board_config.h` exact pin map\n\n" + pin_rows + "\n\nArray pin groups와 analog pins는 source header가 최종 기준이다. 활성 FD-MET 단일 rotor는 D44 PWM, D42 direction, D46 enable, D47 fault, A7 tach를 사용한다.",
+        "Arduino_Mega_pinmap": common + "\n== `board_config.h` exact pin map\n\n" + pin_rows + "\n\nArray pin groups와 analog pins는 source header가 최종 기준이다. 활성 FD-MET 동축 auger/agitator는 D44 PWM, D42 direction, D46 enable, D47 fault, A7 tach를 사용한다.",
         "grounding_bonding": common + "\n== PE와 shield\n\nAC inlet PE → dedicated frame stud → enclosure, motor frames, metal hot shield. Paint를 제거하고 tooth washer를 사용하며 각 bond를 개별 continuity 측정한다. Signal shield는 지정된 한쪽 끝만 접지하고 PE conductor로 사용하지 않는다.",
         "enclosure_layout": common + "\n== 물리 구획\n\nAC/PSU와 DC high-current, heater MOSFET/driver, safety contactor, logic/sensor 영역을 분리한다. Fuse는 접근 가능한 표찰 위치, PE stud는 독립 위치, duct fill과 bend radius는 exact wire 선정 후 확인한다.",
         "cable_routing": common + "\n== route\n\nHot-zone cable은 300 °C급 sleeve 후보와 metal clamp를 사용하고 moving cable은 full service envelope에서 strain relief를 확인한다. Thermocouple/tach/gauge는 heater PWM·motor와 분리하며 solid·sharp edge 관통을 금지한다.",
