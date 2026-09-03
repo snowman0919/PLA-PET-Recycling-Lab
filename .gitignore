@@ -43,6 +43,8 @@ graphify-out/wiki/
 simulation/openmodelica/results/raw/
 simulation/openmodelica/results_v0.6.2/raw/
 simulation/openmodelica/results_v0.6.2.1/raw/
+simulation/openmodelica/results_v0.8/raw/*
+!simulation/openmodelica/results_v0.8/raw/.gitkeep
 analysis/process_feed/nominal_state_trace.csv
 validation/results/hardware_adapter_tach/tach_estimator_trace.csv
 validation/results/hardware_adapter_tach/drive_adapter_trace.csv
@@ -53,6 +55,7 @@ analysis/structural/generated/*.12d
 analysis/structural/generated/*.cvg
 analysis/structural/generated/*.sta
 analysis/structural/generated/spooles.out
+analysis/final_validation/results/v0.8/raw/
 analysis/structural/generated/*_coarse.inp
 analysis/structural/generated/*_medium.inp
 analysis/structural/generated/*_fine.inp

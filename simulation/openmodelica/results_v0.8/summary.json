@@ -1,0 +1,34 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "solver": "OpenModelica 1.27.0 DASSL",
+  "model_sha256": "1eb0e3d679b4d2e6e7c4e762176f2ee14a0f53289c0a10e329121ba6271bbed7",
+  "hot_zone": {
+    "temperatureC": 269.9888053196855,
+    "axialGrowthMm": 1.166146713321703,
+    "travelMarginMm": 0.1338532866782971,
+    "safetyFactor": 2.155688622754491,
+    "pass": 1.0
+  },
+  "LC09": {
+    "spindle_length_mm": 143.0,
+    "bearing_spacing_mm": 88.0,
+    "load_position_from_front_mm": 40.5,
+    "spool_mass_kg": 1.35,
+    "line_tension_n": 8.0,
+    "radialLoadN": 21.2389775,
+    "frontReactionN": 11.46422080965909,
+    "rearReactionN": 9.77475669034091,
+    "forceResidualN": 0.0,
+    "momentResidualNmm": 0.0,
+    "scopePass": 1.0
+  },
+  "checks": {
+    "hot_zone_travel_margin_nonnegative": true,
+    "hot_zone_regional_sf_ge_2": true,
+    "lc09_scope_contract": true,
+    "lc09_force_balance": true,
+    "lc09_moment_balance": true
+  },
+  "physical_validation_state": "NOT_RUN",
+  "status": "PASS"
+}

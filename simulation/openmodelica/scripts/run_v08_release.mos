@@ -1,0 +1,7 @@
+loadModel(Modelica, {"4.0.0"});
+loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");
+loadFile("simulation/openmodelica/v0.8/V08ReleaseScenarios.mo");
+cd("simulation/openmodelica/results_v0.8/raw");
+simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.HotZoneControlledExpansion,stopTime=600,numberOfIntervals=600,method="dassl",outputFormat="csv",fileNamePrefix="HotZoneControlledExpansion");
+simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.LC09SpoolScope,stopTime=1,numberOfIntervals=10,method="dassl",outputFormat="csv",fileNamePrefix="LC09SpoolScope");
+getErrorString();

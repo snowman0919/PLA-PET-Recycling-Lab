@@ -1,0 +1,19 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "source": "171-body FreeCAD B-Rep software projections",
+  "views": ["front", "rear", "left", "right", "top", "bottom", "isometric", "module-separated", "guard-removed", "hot-zone-service", "forming-service", "cable-routing"],
+  "checks": {
+    "floating_parts": "PASS",
+    "new_mount_fasteners": "PASS_4_M5_MODELED",
+    "blocked_screw_removal": "PASS_EXISTING_SERVICE_ENVELOPE_RETAINED",
+    "blocked_cutter_shaft_removal": "PASS_EXISTING_SERVICE_ENVELOPE_RETAINED",
+    "wire_through_solid": "PASS_NO_NOMINAL_ENVELOPE_INTERSECTION_OBSERVED",
+    "sensor_collision": "PASS",
+    "unprotected_chain_or_hot_surface": "PASS_CLOSED_VIEW_AND_GUARD_REMOVED_REVIEWED",
+    "ambiguous_hot_mount": "PASS_REAR_DATUM_FRONT_SLIDING_GUIDE_VISIBLE"
+  },
+  "resolved_finding": "초기 v0.8 mount plate hole에 체결구가 없었다. M5 profile fastener 4개를 CAD에 추가하고 허용 접촉을 명시했다.",
+  "limitations": "software projection review; 실제 공구 접근, 배선 굽힘반경, 조립 공차는 물리 commissioning 전 확인 필요",
+  "physical_validation_state": "NOT_RUN",
+  "status": "PASS"
+}

@@ -1,0 +1,27 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "architecture": "compact_single_path",
+  "base_geometry_source": "cad/freecad/compact/geometry.py",
+  "hot_zone_mount": {
+    "barrel_axis_global_mm": [null, 347.0, 382.0],
+    "rear_fixed_plate_x_mm": 355.0,
+    "front_sliding_plate_x_mm": 270.0,
+    "plate_thickness_mm": 8.0,
+    "fixed_collar_length_mm": 12.0,
+    "fixed_collar_bore_mm": 34.1,
+    "sliding_guide_bore_mm": 34.6,
+    "cold_axial_travel_mm": 1.3,
+    "predicted_pet_growth_mm": 1.1662,
+    "support_rail_section_mm": [20.0, 20.0],
+    "support_rail_length_mm": 390.0,
+    "support_rail_z_mm": 320.0,
+    "support_rail_y_mm": [270.0, 400.0],
+    "front_support": "reuse existing MidRail320 at Y270",
+    "rear_support": "add one 2020 L390 rail at Y400; face-joint to FrameSpoolTopRail"
+  },
+  "validation_basis": "OPENMODELICA_CALCULIX_CLOSED_FORM_CAD",
+  "cross_solver_state": "NOT_COMPLETED_BY_SCOPE_DECISION",
+  "fusion_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
+  "inventor_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
+  "physical_validation_state": "NOT_RUN"
+}

@@ -1,0 +1,24 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "checks": {
+    "baseline_and_archive": true,
+    "solver_evidence": true,
+    "final_step": true,
+    "print_package": true,
+    "hot_zone_manufacturing": true,
+    "hot_zone_bom": true,
+    "firmware_binary": true,
+    "drawing_register": false,
+    "electrical_final_package": false,
+    "final_manual_set": false,
+    "commissioning_set": false,
+    "multimodal_review": true,
+    "release_package": false
+  },
+  "passed": 8,
+  "total": 13,
+  "status": "IN_PROGRESS",
+  "physical_validation_state": "NOT_RUN",
+  "procurement_gate": "USER_APPROVAL_REQUIRED",
+  "commissioning_gate": "USER_APPROVAL_REQUIRED"
+}

@@ -2,6 +2,8 @@
   "revision": "parallel-actuation-hardening-v0.6.2",
   "fqbn": "arduino:avr:mega",
   "target": "firmware/arduino_mega/arduino_mega.ino",
+  "build_command": "arduino-cli compile --fqbn arduino:avr:mega firmware/arduino_mega",
+  "cli_version": "arduino-cli  Version: 1.5.1 Commit: unknown Date:",
   "status": "PASS",
   "tool_output": "Sketch uses 59762 bytes (23%) of program storage space. Maximum is 253952 bytes.\nGlobal variables use 4727 bytes (57%) of dynamic memory, leaving 3465 bytes for local variables. Maximum is 8192 bytes.",
   "source_hashes": {
@@ -46,6 +48,10 @@
     "firmware/arduino_mega/src/ui_core.h": "33206cac593049ea2af8f226df5f73a606502a680cb86c36282ae1f68d8a339f"
   },
   "validator_hashes": {
-    "validation/arduino_compile.py": "794a567c46e86e2d9bc41c13978f141902faea9dd5d3968f11d7a4a6d018535b"
+    "validation/arduino_compile.py": "ece7c415dba30483c845611eb0aeaf02fc02d17523b92cef364788fffab913a6"
+  },
+  "binary": {
+    "path": "exports/final/firmware/binaries/filament_recycler_atmega2560.hex",
+    "sha256": "2147a5105bcc8435e52c5a207cb80794bfe4177c3a4fc97e8a28969bead97e65"
   }
 }

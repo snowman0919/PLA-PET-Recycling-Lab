@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "snapshot_date": "2026-09-03",
+  "baseline_commit": "7de9bf2a6e4c91c7fa6b58da9c729e63dc52e3a0",
+  "repository_artifacts_found": 0,
+  "running_project_jobs_found": 0,
+  "entries": [
+    {
+      "case_id": "LC04",
+      "reported_value": "approximately 0.0147 mm",
+      "classification": "DIAGNOSTIC_ONLY",
+      "source": "v0.8 goal document; raw result unavailable",
+      "release_use": false
+    },
+    {
+      "case_id": "LC07",
+      "reported_value": "approximately SF 1.42",
+      "classification": "DIAGNOSTIC_ONLY",
+      "source": "v0.8 goal document; raw result unavailable",
+      "release_use": false
+    },
+    {
+      "case_id": "LC08",
+      "reported_value": "approximately SF 1.11",
+      "classification": "DIAGNOSTIC_ONLY",
+      "source": "v0.8 goal document; raw result unavailable",
+      "release_use": false
+    }
+  ],
+  "allowed_classifications": [
+    "VALID_REFERENCE",
+    "PROVISIONAL",
+    "INVALIDATED_BY_PIPELINE_CHANGE",
+    "DIAGNOSTIC_ONLY",
+    "NOT_RUN"
+  ]
+}
