@@ -1,7 +1,7 @@
 # Graph Report - PPR  (2026-09-03)
 
 ## Corpus Check
-- 464 files · ~1,842,700 words
+- 464 files · ~1,842,701 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9b082cbb`
+- Built from commit: `cc64b1da`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -423,7 +423,7 @@ Nodes (25): dirs(), export_assembly(), export_metal_parts(), export_plates(), ex
 
 ### Community 2 - "geometry.py"
 Cohesion: 0.07
-Nodes (53): assembly_objects(), box(), cyl(), cylindrical_hopper(), dancer_arm_shape(), dancer_support_plate_shape(), drive_guard_shape(), feeder_housing_shape() (+45 more)
+Nodes (51): assembly_objects(), box(), cyl(), cylindrical_hopper(), dancer_arm_shape(), dancer_support_plate_shape(), drive_guard_shape(), feeder_housing_shape() (+43 more)
 
 ### Community 3 - "InputSnapshot"
 Cohesion: 0.06
@@ -443,7 +443,7 @@ Nodes (37): MachineState, MaterialProfile, MaterialSession, guardsOk(), MachineS
 
 ### Community 7 - "manufacturing.py"
 Cohesion: 0.08
-Nodes (50): bearing_retainer_plate(), chain_sprocket_shape(), gmp60_60127_reference_shape(), motor_adapter_42gp775_shape(), motor_mount_plate(), TT Motor GMP60-60127-2460 with ratio-47 gearbox, shaft on +Z., DRV-A42 plate for the requested 42GP/GMP42 family reference., DRV-01/CUT-07 universal donor plate; donor-specific angles bolt on. (+42 more)
+Nodes (52): bearing_retainer_plate(), chain_sprocket_shape(), gmp60_60127_reference_shape(), motor_adapter_42gp775_shape(), motor_adapter_gmp60_shape(), motor_mount_plate(), TT Motor GMP60-60127-2460 with ratio-47 gearbox, shaft on +Z., DRV-A42 plate for the requested 42GP/GMP42 family reference. (+44 more)
 
 ### Community 8 - "Production Requalification Gate"
 Cohesion: 0.07

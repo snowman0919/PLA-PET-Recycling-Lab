@@ -60,7 +60,9 @@ def collect() -> dict[str, tuple[Path, str]]:
 def main() -> None:
     validate_inputs(); files = collect()
     commit = subprocess.check_output(
-        ["git", "log", "-1", "--format=%H", "--", "cad", "analysis", "simulation", "firmware", "electronics", "release", "validation"],
+        ["git", "log", "-1", "--format=%H", "--", "cad", "analysis/final_validation/run_calculix_v08.py",
+         "simulation/openmodelica/v0.8", "firmware/arduino_mega", "electronics", "release",
+         "validation/run_v08_solver_validation.py", "validation/v08_release_inventory.py"],
         cwd=ROOT, text=True,
     ).strip()
     payload = []
