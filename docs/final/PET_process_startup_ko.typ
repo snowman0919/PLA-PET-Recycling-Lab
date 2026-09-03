@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-PET 오염·수분 coupon, metal hot path, 300 °C급 thermal cutoff 후보의 실제 정격 확인 후 guarded low-feed first-hot-test를 수행한다. PET 조건은 PLA 결과로 대체하지 않는다.
+== 입력
+
+확인된 단일 PET lot과 오염·수분 coupon, all-metal hot path, 실제 정격 확인된 300 °C급 wiring/cutoff, calibrated sensors.
+
+== 방법
+
+245/260/270 °C barrel과 265 °C die가 ±5 °C band에 든 뒤 guarded low-feed first-hot-test를 수행한다. PLA 결과를 재사용하지 않는다.
+
+== 증거
+
+Lot/moisture·오염 기록, 온도/압력 징후, relief/leak 영상, X/Y diameter·ovality·U95, 실제 질량/시간.
+
+== 수치 합격기준
+
+Mean diameter error ≤0.05 mm; ovality ≤0.05 mm; U95 ≤0.03 mm; 20개 연속 valid; hot-zone travel ≥1.30 mm; 누설 0건; 3–6 MPa relief coupon 3개 모두 insert 포획 상태로 우회 개방.
 
 == Checklist
 

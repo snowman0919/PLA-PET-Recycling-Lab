@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-확인된 PLA lot과 외부 건조 coupon, clean path, PLA profile, cooling proof 후 low feed로 시작한다. Melt, diameter, ovality, U95와 measured output을 기록하고 200 g/h를 release 합격으로 요구하지 않는다.
+== 입력
+
+확인된 단일 PLA lot, 외부 건조 coupon, clean path, calibrated T1–T5/gauge/tach/cooling.
+
+== 방법
+
+180/195/205 °C barrel과 200 °C die가 ±5 °C band에 든 뒤 low feed로 시작하고 10 s 안정 구간 20개 sample을 기록한다.
+
+== 증거
+
+Lot/moisture 기록, 온도·screw/puller/spool RPM, X/Y diameter·ovality·U95, 실제 질량/시간.
+
+== 수치 합격기준
+
+Mean diameter error ≤0.05 mm; ovality ≤0.05 mm; U95 ≤0.03 mm; 20개 연속 valid; cooling current 0.2–2.0 A와 fan 2채널 tach valid. 200 g/h는 목표일 뿐 필수 release 기준이 아니다.
 
 == Checklist
 

@@ -1,0 +1,10 @@
+part_id,baseline,approved_alternative,approval_state,required_recalculation_or_recalibration,evidence_before_use
+SH-03,GMP60-60127 ratio47 digital reference,18–30 V donor geared DC candidate,NOT_APPROVED_UNTIL_MEASURED,"chain ratio, current-trip, torque/RPM calibration and adapter geometry",label/photos/shaft/current/RPM/backlash/30 min temperature + Gate-1
+CUT-03,12 mm steel,15 mm 6061-T6,CONDITIONAL_AFTER_GATE1,"bearing-seat, plate deflection/stress and fastener bearing",material certificate + rerun LC04/related plate case + Gate-1
+FD-BIN-01,1 mm PP sheet,1 mm 304 stainless sheet,LISTED_DESIGN_OPTION,mass/service handling check; no firmware recalibration,"slot fit, edge/burr and cleanability inspection"
+FD-MET-02,POM-C,304 stainless,LISTED_DESIGN_OPTION,drive current window and inertia check,"pocket dimensions, runout and dry-feed coupon"
+EX-THR-01,S45C,SS400,LISTED_DESIGN_OPTION,thrust plate stress/deflection if thickness or geometry changes,"material certificate, seat dimensions and LC05 boundary match"
+FM-GR-01,POM-C,6061-T6,LISTED_DESIGN_OPTION,roller inertia and puller/dancer control verification,"bearing fit, runout and strand surface inspection"
+EX-SCR-01/EX-BAR-01,SCM440 KS D3867/JIS G4105,chemically/mechanically equivalent SCM440 designation,CERTIFICATE_REVIEW_REQUIRED,thermal growth and strength if properties differ,"certificate, QT/nitride hardness/depth, Ra, TIR and matched clearance report"
+TH-BH-01,custom ID34 24 V 100 W band,none; Ø35 stock substitution prohibited,NO_APPROVED_ALTERNATIVE,power/current/fuse/PID and thermal model for any design change,new engineering release and receipt thermal test
+PPR-C01..12,material in print manifest,none,NO_APPROVED_ALTERNATIVE,"re-slice, fit coupon, temperature/strength review",new print manifest and interface validation

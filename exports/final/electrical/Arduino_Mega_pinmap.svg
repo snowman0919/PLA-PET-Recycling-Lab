@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#263f50"/></marker></defs>
+<rect width="1600" height="1050" fill="white"/><style>text{font-family:"Noto Sans CJK KR",sans-serif;fill:#15242d}.t{font-size:31px;font-weight:700}.s{font-size:17px}.n{font-size:15px;font-weight:600}.e{font-size:13px;font-weight:600}.edge{fill:none;stroke-width:3;marker-end:url(#a)}</style>
+<text x="50" y="52" class="t">Arduino Mega pinmap</text>
+<text x="50" y="82" class="s">65 assignments parsed from released board_config.h</text>
+<rect x="45" y="130" width="330" height="190" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="210.0" y="192.0" class="n" text-anchor="middle">SAFETY INPUTS</text>
+<text x="210.0" y="214.0" class="n" text-anchor="middle">D20 E-stop · D21 lid</text>
+<text x="210.0" y="236.0" class="n" text-anchor="middle">D22 service · D23 thermal</text>
+<text x="210.0" y="258.0" class="n" text-anchor="middle">D24 K0 feedback</text>
+<rect x="45" y="365" width="330" height="205" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="210.0" y="434.5" class="n" text-anchor="middle">MOTION FEEDBACK</text>
+<text x="210.0" y="456.5" class="n" text-anchor="middle">D2 shredder · D3 puller</text>
+<text x="210.0" y="478.5" class="n" text-anchor="middle">A13 screw · A15 spooler</text>
+<text x="210.0" y="500.5" class="n" text-anchor="middle">A14 fan mux · A5/A6 limits</text>
+<rect x="45" y="620" width="330" height="180" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="210.0" y="677.0" class="n" text-anchor="middle">ANALOG / FAULTS</text>
+<text x="210.0" y="699.0" class="n" text-anchor="middle">A0 current · A1 dancer · A2/A3 gauge</text>
+<text x="210.0" y="721.0" class="n" text-anchor="middle">A4 cooling · A7 feeder tach</text>
+<text x="210.0" y="743.0" class="n" text-anchor="middle">A8..A12 faults/valid</text>
+<rect x="600" y="300" width="400" height="260" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="800.0" y="408.0" class="n" text-anchor="middle">ARDUINO MEGA 2560</text>
+<text x="800.0" y="430.0" class="n" text-anchor="middle">board_config.h authoritative</text>
+<text x="800.0" y="452.0" class="n" text-anchor="middle">all SIG-&lt;PIN&gt; scheduled</text>
+<rect x="1225" y="130" width="330" height="210" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1390.0" y="202.0" class="n" text-anchor="middle">MOTOR COMMANDS</text>
+<text x="1390.0" y="224.0" class="n" text-anchor="middle">D5..D9 PWM · D30..D38 DIR/EN</text>
+<text x="1390.0" y="246.0" class="n" text-anchor="middle">D39..D41 traverse</text>
+<text x="1390.0" y="268.0" class="n" text-anchor="middle">D44/D42/D46 feeder</text>
+<rect x="1225" y="390" width="330" height="180" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1390.0" y="458.0" class="n" text-anchor="middle">HEATER / FAN</text>
+<text x="1390.0" y="480.0" class="n" text-anchor="middle">D10..D13 heater · D4 hopper PTC</text>
+<text x="1390.0" y="502.0" class="n" text-anchor="middle">D49 mux select</text>
+<rect x="1225" y="620" width="330" height="180" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="1390.0" y="688.0" class="n" text-anchor="middle">TC / UI</text>
+<text x="1390.0" y="710.0" class="n" text-anchor="middle">CS D14..D17,D48 · D50 SO · D52 SCK</text>
+<text x="1390.0" y="732.0" class="n" text-anchor="middle">D18/D19 encoder · D25..D29 buttons</text>
+<path class="edge" stroke="#315a84" d="M375,225 L600,365"/>
+<rect x="415" y="280" width="144" height="21" fill="white" opacity=".92"/>
+<text x="487" y="296" class="e" text-anchor="middle">SIG-D20..24</text>
+<path class="edge" stroke="#315a84" d="M375,467 L600,430"/>
+<rect x="415" y="433" width="144" height="21" fill="white" opacity=".92"/>
+<text x="487" y="449" class="e" text-anchor="middle">tach/limits</text>
+<path class="edge" stroke="#315a84" d="M375,710 L600,500"/>
+<rect x="415" y="590" width="144" height="21" fill="white" opacity=".92"/>
+<text x="487" y="606" class="e" text-anchor="middle">analog/faults</text>
+<path class="edge" stroke="#315a84" d="M1000,365 L1225,235"/>
+<rect x="1040" y="285" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1112" y="301" class="e" text-anchor="middle">motor SIG</text>
+<path class="edge" stroke="#315a84" d="M1000,430 L1225,480"/>
+<rect x="1040" y="440" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1112" y="456" class="e" text-anchor="middle">heater SIG</text>
+<path class="edge" stroke="#315a84" d="M1000,500 L1225,710"/>
+<rect x="1040" y="590" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1112" y="606" class="e" text-anchor="middle">TC/UI SIG</text>
+<rect x="45" y="890" width="1510" height="125" rx="7" fill="#fff4e8" stroke="#bb5d20" stroke-width="2"/>
+<text x="65" y="920" class="s">• pinmap.md and pin_schedule.csv list every assignment and source fingerprint.</text>
+<text x="65" y="948" class="s">• Hardware safety is independent of firmware; physical validation NOT_RUN.</text>
+</svg>

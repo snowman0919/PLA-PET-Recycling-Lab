@@ -1,0 +1,20 @@
+{
+  "status": "PASS_WITH_DOCUMENTED_SOURCE_HOLDS",
+  "digital_integrity_status": "PASS",
+  "fabrication_procurement_readiness": "HOLD",
+  "revision": "final-design-fabrication-closure-v0.8",
+  "authoritative_source": "bom/bom.csv",
+  "authoritative_source_sha256": "58db3a0ad75b9d1cf396f2091368b6a6151dbc273caf90519d0bd4afbceb0427",
+  "bom_rows": 110,
+  "active_parts_checked": 72,
+  "active_quantity_match": true,
+  "final_manufacturing_parts_checked": 54,
+  "drawings_checked": 90,
+  "manual_cross_reference": true,
+  "duplicate_part_revision": false,
+  "required_fields_complete": true,
+  "donor_zero_cost_or_false_approval": false,
+  "approved_mpn_pending_rows": 31,
+  "blocking_source_gaps": [],
+  "note": "digital BOM integrity only; supplier receipt, procurement, physical assembly and commissioning remain user approval gates"
+}

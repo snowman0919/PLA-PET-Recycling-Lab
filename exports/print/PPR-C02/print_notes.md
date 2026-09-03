@@ -1,6 +1,6 @@
 # PPR-C02 — Anti-reach baffle chute
 
-- revision: `final-design-fabrication-closure-v0.8`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: 1
 - material: PLA
 - nozzle diameter: 0.4 mm

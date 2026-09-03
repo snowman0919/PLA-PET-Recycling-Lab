@@ -1,5 +1,5 @@
 {
-  "revision": "safety-orchestration-closure-v0.6.1",
+  "revision": "final-design-fabrication-closure-v0.8",
   "bounding_box_mm": [
     470.0,
     700.0,
@@ -15,12 +15,13 @@
     700.0,
     930.0
   ],
-  "object_count": 163,
-  "reference_component_policy": "purchased/donor envelope objects retain classification and evidence; keep-outs remain in cad/review_keepouts",
+  "object_count": 187,
+  "reference_component_policy": "manufacturing, purchased-reference and fastener solids are classified; keep-outs remain in cad/review_keepouts",
   "includes": [
     "closed lid",
     "guards",
-    "parametric reference drive",
+    "hot-zone fixed/sliding mount",
+    "mount fasteners",
     "cable duct",
     "1 kg spool",
     "dancer arm",

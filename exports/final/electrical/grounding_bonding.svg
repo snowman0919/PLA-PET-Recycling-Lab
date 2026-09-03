@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#263f50"/></marker></defs>
+<rect width="1600" height="1050" fill="white"/><style>text{font-family:"Noto Sans CJK KR",sans-serif;fill:#15242d}.t{font-size:31px;font-weight:700}.s{font-size:17px}.n{font-size:15px;font-weight:600}.e{font-size:13px;font-weight:600}.edge{fill:none;stroke-width:3;marker-end:url(#a)}</style>
+<text x="50" y="52" class="t">grounding bonding</text>
+<text x="50" y="82" class="s">protective earth and functional shield/reference are separate</text>
+<rect x="45" y="190" width="200" height="90" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="145.0" y="235.0" class="n" text-anchor="middle">AC INLET PE</text>
+<rect x="320" y="180" width="250" height="110" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="445.0" y="224.0" class="n" text-anchor="middle">DEDICATED PE STUD</text>
+<text x="445.0" y="246.0" class="n" text-anchor="middle">bare metal + tooth washer</text>
+<rect x="690" y="120" width="270" height="80" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="825.0" y="149.0" class="n" text-anchor="middle">enclosure backplate</text>
+<text x="825.0" y="171.0" class="n" text-anchor="middle">PE-02</text>
+<rect x="690" y="245" width="270" height="80" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="825.0" y="274.0" class="n" text-anchor="middle">motor frames</text>
+<text x="825.0" y="296.0" class="n" text-anchor="middle">PE-04</text>
+<rect x="690" y="370" width="270" height="80" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="825.0" y="399.0" class="n" text-anchor="middle">metal hot shield</text>
+<text x="825.0" y="421.0" class="n" text-anchor="middle">PE-03</text>
+<rect x="1080" y="180" width="250" height="100" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="1205.0" y="219.0" class="n" text-anchor="middle">SHIELD BAR</text>
+<text x="1205.0" y="241.0" class="n" text-anchor="middle">functional / one-end</text>
+<rect x="1400" y="180" width="150" height="100" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="1475.0" y="219.0" class="n" text-anchor="middle">sensor cable</text>
+<text x="1475.0" y="241.0" class="n" text-anchor="middle">shields</text>
+<rect x="1080" y="430" width="250" height="100" rx="7" fill="#edf0f2" stroke="#294c60" stroke-width="2"/>
+<text x="1205.0" y="469.0" class="n" text-anchor="middle">0 V STAR</text>
+<text x="1205.0" y="491.0" class="n" text-anchor="middle">NOT PE</text>
+<rect x="1400" y="430" width="150" height="100" rx="7" fill="#edf0f2" stroke="#294c60" stroke-width="2"/>
+<text x="1475.0" y="469.0" class="n" text-anchor="middle">Mega / sensor</text>
+<text x="1475.0" y="491.0" class="n" text-anchor="middle">reference</text>
+<path class="edge" stroke="#31734f" d="M245,235 L320,235"/>
+<rect x="210" y="220" width="144" height="21" fill="white" opacity=".92"/>
+<text x="282" y="236" class="e" text-anchor="middle">PE-01</text>
+<path class="edge" stroke="#31734f" d="M570,235 L690,160"/>
+<rect x="558" y="182" width="144" height="21" fill="white" opacity=".92"/>
+<text x="630" y="198" class="e" text-anchor="middle">PE-02</text>
+<path class="edge" stroke="#31734f" d="M570,235 L690,285"/>
+<rect x="558" y="245" width="144" height="21" fill="white" opacity=".92"/>
+<text x="630" y="261" class="e" text-anchor="middle">PE-04</text>
+<path class="edge" stroke="#31734f" d="M570,235 L690,410"/>
+<rect x="558" y="307" width="144" height="21" fill="white" opacity=".92"/>
+<text x="630" y="323" class="e" text-anchor="middle">PE-03</text>
+<path class="edge" stroke="#315a84" d="M1330,230 L1400,230"/>
+<rect x="1293" y="215" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1365" y="231" class="e" text-anchor="middle">one end</text>
+<path class="edge" stroke="#202020" d="M1330,480 L1400,480"/>
+<rect x="1293" y="465" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1365" y="481" class="e" text-anchor="middle">0 V</text>
+<rect x="45" y="890" width="1510" height="125" rx="7" fill="#fff4e8" stroke="#bb5d20" stroke-width="2"/>
+<text x="65" y="920" class="s">• Measure each PE bond; paint, anodizing and loose hardware are not valid bond paths.</text>
+<text x="65" y="948" class="s">• Never use a shield or logic 0 V as PE; size and test per local code.</text>
+</svg>

@@ -1,0 +1,7 @@
+from_state,to_state,checklist,approval,status
+assembly incomplete,assembly complete,all 25 assembly_steps rows signed; dimensions and guards inspected,independent mechanical reviewer + user,NOT_RUN
+assembly complete,electrical inspection complete,"PE continuity, insulation, polarity, fuse IDs and point-to-point wiring PASS",qualified electrical reviewer + user,NOT_RUN
+electrical inspection complete,safe for low-voltage logic,current-limited logic rail; hardwired chain forced-open; outputs safe at reset,electrical reviewer + user,NOT_RUN
+safe for low-voltage logic,safe for motors,"donor labels/ratings confirmed; direction, current, tach and stop tests one branch at a time",mechanical/electrical reviewers + user,NOT_RUN
+safe for motors,safe for heaters,empty guarded hot path; independent thermal cutoff; TC mapping; low-power ramp,thermal/electrical reviewers + user,NOT_RUN
+safe for heaters,safe to process plastic,Gate 1–4 evidence PASS; leak/relief/strand control verified; material lot and purge path ready,final safety review + explicit user approval,NOT_RUN

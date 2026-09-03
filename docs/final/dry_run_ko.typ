@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-Heater와 원료 없이 fan → puller/spooler/traverse → screw → guarded shredder를 별도 승인으로 한 branch씩 시험한다. 방향, no-motion, tach, driver fault, E-stop stop time과 자동재기동 금지를 기록한다.
+== 입력
+
+원료 없음, heater fuse 제거, guard 장착, tach/current 계측, branch별 별도 승인.
+
+== 방법
+
+Fan→puller/spooler/traverse→FD-MET feeder→screw→guarded shredder 순으로 한 branch씩 구동한다. 방향·fault pin·tach-loss·limit·E-stop을 강제한다.
+
+== 증거
+
+명령/실측 RPM·전류·방향 표, fault/limit/E-stop timestamp log, 복전·재기동 video.
+
+== 수치 합격기준
+
+명령 반대 회전 0건; feeder 5 A, puller/spooler 각 5 A design envelope 이내; tach-loss 또는 driver fault 뒤 다음 supervisor cycle에서 command 0; traverse usable width 68 mm와 2 mm home backoff; 자동재기동 0건.
 
 == Checklist
 

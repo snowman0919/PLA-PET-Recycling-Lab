@@ -1,7 +1,7 @@
 # CUT-02 — Cutter spacer
 
 - 수량: 10
-- 재료: steel
+- 재료: S45C normalized steel
 - 공정: simple turning
 - CAD bounding box: 28.00 x 28.00 x 7.00 mm
 - 일반공차: ISO 2768-m, 별도 표기 없는 edge C0.3 deburr

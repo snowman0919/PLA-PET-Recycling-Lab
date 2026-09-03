@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-Waste path를 확인하고 이전 material profile로 purge한다. 실제 screw revolutions, stable temperature, visual confirmation과 measured purge mass를 기록한다. 완료 후 모든 hot points가 60 °C 미만일 때까지 cooling을 유지한다.
+== 입력
+
+이전/다음 material ID, verified screw tach, waste path, T1–T5, clean screen/hopper 도구.
+
+== 방법
+
+이전 material profile에서 waste path로 purge하고 시간·실제 screw 회전을 동시에 적산한다. Screen/hopper 청소와 다음 profile 전이를 각각 확인한다.
+
+== 증거
+
+Material-session log, screw RPM/revolution trace, purge 영상·폐기물 사진/실측 질량, 청소 signoff.
+
+== 수치 합격기준
+
+Purge ≥120 s AND actual screw ≥32 rev; 모든 zone target ±5 °C; visual contamination 0; screen/hopper signoff 완료; 종료 후 모든 hot point 60 °C 미만.
 
 == Checklist
 

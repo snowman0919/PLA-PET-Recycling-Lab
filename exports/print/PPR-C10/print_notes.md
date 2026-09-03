@@ -1,6 +1,6 @@
 # PPR-C10 — Traverse carriage
 
-- revision: `final-design-fabrication-closure-v0.8`
+- revision: `safety-orchestration-closure-v0.6.1`
 - quantity: 1
 - material: PLA
 - nozzle diameter: 0.4 mm

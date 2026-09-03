@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-Branch fuse를 제거한 logic-only 상태에서 current-limited 24 V를 인가하고 rail, Mega boot, input safe-state, E-stop/lid/service/thermal feedback을 확인한다. Hardware contactor가 각 forced-open에서 drop하지 않으면 즉시 차단.
+== 입력
+
+Motor/heater branch fuse 제거, 24 V current-limited supply, DMM·oscilloscope, hardwired K0 chain.
+
+== 방법
+
+Logic branch만 0.5 A limit로 올린 뒤 reset 출력을 확인한다. E-stop/lid/service/thermal contact를 하나씩 forced-open하고 K0 feedback과 물리 contact를 측정한다.
+
+== 증거
+
+Rail voltage/current trace, boot log, 4개 forced-open 사진·K0 voltage trace, 복전 후 상태 log.
+
+== 수치 합격기준
+
+24 V rail 22.8–25.2 V; 초기 logic current ≤0.5 A; reset 시 hazardous enable 0개; 각 contact open 시 K0 coil 0 V; 복전 후 자동 motor/heater command 0개.
 
 == Checklist
 

@@ -1,8 +1,14 @@
-fuse_id,branch,rating,basis,verification
-F-MAIN,24 V distribution,30 A candidate,25 A PSU output,DC interrupt rating >= source; exact MPN verify
-F-LOGIC,Mega/gauge,3 A candidate,logic load measurement required,protect branch conductor
-F-SAFE,hardwired permission chain,1 A candidate,coil/current measurement required,firmware cannot bypass
-F-SH,shredder driver,20 A,donor label + calibrated current,"18 N m jam trip is calibrated, not fuse rating"
-F-EX,screw/feeder,10 A candidate,donor label/current required,recalculate after donor selection
-F-H1..H4,heater MOSFET channels,5 A each candidate,360 W installed aggregate,one-shot thermal fuse remains series independent
-F-FAN,cooling fans,3 A candidate,donor start/stall current required,A4 current and A14 tach are diagnostics only
+fuse_id,branch,rating,maximum_current,dc_interrupt_rating,basis
+F-MAIN,24 V main,30 A DC,25 A PSU maximum,>=1 kA at >=32 VDC,protect 6 mm2 main conductors
+F-LOGIC,Mega/sensors,3 A DC,3 A design maximum,>=1 kA at >=32 VDC,protected logic branch
+F-SAFE,hardwired safety,1 A DC,1 A design maximum,>=1 kA at >=32 VDC,firmware-independent
+F-SH,shredder,20 A DC,20 A,>=1 kA at >=32 VDC,donor must remain inside design envelope
+F-SCREW,screw,10 A DC,10 A envelope,>=1 kA at >=32 VDC,donor must remain inside design envelope
+F-FEED,FD-MET auger/agitator,5 A DC,5 A design envelope,>=1 kA at >=32 VDC,received donor(s) must remain within envelope; otherwise redesign
+F-PULL,puller,5 A DC,5 A design envelope,>=1 kA at >=32 VDC,received donor(s) must remain within envelope; otherwise redesign
+F-SPOOL,spooler/traverse combined,5 A DC,5 A design envelope,>=1 kA at >=32 VDC,received donor(s) must remain within envelope; otherwise redesign
+F-FAN,fans,3 A DC,3 A envelope,>=1 kA at >=32 VDC,start/stall must remain inside envelope
+F-H1,heater 1,5 A DC,5 A design maximum,>=1 kA at >=32 VDC,thermal fuse remains series
+F-H2,heater 2,5 A DC,5 A design maximum,>=1 kA at >=32 VDC,thermal fuse remains series
+F-H3,heater 3,5 A DC,5 A design maximum,>=1 kA at >=32 VDC,thermal fuse remains series
+F-H4,heater 4,5 A DC,5 A design maximum,>=1 kA at >=32 VDC,thermal fuse remains series

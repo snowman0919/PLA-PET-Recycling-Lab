@@ -1,7 +1,7 @@
 # CUT-06 — Phase gear axial spacer
 
 - 수량: 2
-- 재료: steel
+- 재료: S45C normalized steel
 - 공정: simple turning
 - CAD bounding box: 30.00 x 30.00 x 4.00 mm
 - 일반공차: ISO 2768-m, 별도 표기 없는 edge C0.3 deburr

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#263f50"/></marker></defs>
+<rect width="1600" height="1050" fill="white"/><style>text{font-family:"Noto Sans CJK KR",sans-serif;fill:#15242d}.t{font-size:31px;font-weight:700}.s{font-size:17px}.n{font-size:15px;font-weight:600}.e{font-size:13px;font-weight:600}.edge{fill:none;stroke-width:3;marker-end:url(#a)}</style>
+<text x="50" y="52" class="t">system block diagram</text>
+<text x="50" y="82" class="s">energy, safety, control and process blocks</text>
+<rect x="50" y="150" width="190" height="80" rx="7" fill="#edf0f2" stroke="#294c60" stroke-width="2"/>
+<text x="145.0" y="179.0" class="n" text-anchor="middle">AC inlet</text>
+<text x="145.0" y="201.0" class="n" text-anchor="middle">SITE MAINS</text>
+<rect x="290" y="150" width="210" height="80" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="395.0" y="179.0" class="n" text-anchor="middle">24 V / 600 W PSU</text>
+<text x="395.0" y="201.0" class="n" text-anchor="middle">25 A max</text>
+<rect x="555" y="130" width="220" height="120" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="665.0" y="179.0" class="n" text-anchor="middle">F-MAIN</text>
+<text x="665.0" y="201.0" class="n" text-anchor="middle">branch protection</text>
+<rect x="830" y="115" width="260" height="150" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="960.0" y="168.0" class="n" text-anchor="middle">HARDWIRED K0 CHAIN</text>
+<text x="960.0" y="190.0" class="n" text-anchor="middle">E-stop · lid · service</text>
+<text x="960.0" y="212.0" class="n" text-anchor="middle">independent thermal cutoff</text>
+<rect x="1150" y="120" width="390" height="140" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1345.0" y="168.0" class="n" text-anchor="middle">HAZARDOUS LOADS</text>
+<text x="1345.0" y="190.0" class="n" text-anchor="middle">shredder · feeder · screw</text>
+<text x="1345.0" y="212.0" class="n" text-anchor="middle">4 heater MOSFETs · forming</text>
+<rect x="555" y="400" width="220" height="100" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="665.0" y="439.0" class="n" text-anchor="middle">Arduino Mega</text>
+<text x="665.0" y="461.0" class="n" text-anchor="middle">protected logic</text>
+<rect x="50" y="400" width="400" height="100" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="250.0" y="428.0" class="n" text-anchor="middle">SENSORS</text>
+<text x="250.0" y="450.0" class="n" text-anchor="middle">thermocouples · gauge · tach</text>
+<text x="250.0" y="472.0" class="n" text-anchor="middle">current · dancer · faults</text>
+<rect x="830" y="400" width="260" height="100" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="960.0" y="439.0" class="n" text-anchor="middle">command interfaces</text>
+<text x="960.0" y="461.0" class="n" text-anchor="middle">PWM · DIR · ENABLE</text>
+<rect x="1150" y="400" width="390" height="100" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1345.0" y="439.0" class="n" text-anchor="middle">drivers / MOSFETs / fans</text>
+<text x="1345.0" y="461.0" class="n" text-anchor="middle">ratings USER APPROVAL REQUIRED</text>
+<rect x="290" y="680" width="210" height="80" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="395.0" y="720.0" class="n" text-anchor="middle">PE STUD</text>
+<rect x="555" y="680" width="220" height="80" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="665.0" y="720.0" class="n" text-anchor="middle">frame + enclosure</text>
+<rect x="830" y="680" width="260" height="80" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="960.0" y="720.0" class="n" text-anchor="middle">motor frames</text>
+<rect x="1150" y="680" width="390" height="80" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="1345.0" y="720.0" class="n" text-anchor="middle">metal hot shield</text>
+<path class="edge" stroke="#334d5f" d="M240,190 L290,190"/>
+<rect x="193" y="175" width="144" height="21" fill="white" opacity=".92"/>
+<text x="265" y="191" class="e" text-anchor="middle">AC-L/N</text>
+<path class="edge" stroke="#c24c36" d="M500,190 L555,190"/>
+<rect x="455" y="175" width="144" height="21" fill="white" opacity=".92"/>
+<text x="527" y="191" class="e" text-anchor="middle">24-MAIN±</text>
+<path class="edge" stroke="#c24c36" d="M775,190 L830,190"/>
+<rect x="730" y="175" width="144" height="21" fill="white" opacity=".92"/>
+<text x="802" y="191" class="e" text-anchor="middle">24-SAFE+</text>
+<path class="edge" stroke="#c24c36" d="M1090,190 L1150,190"/>
+<rect x="1048" y="175" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1120" y="191" class="e" text-anchor="middle">protected 24 V</text>
+<path class="edge" stroke="#31734f" d="M450,450 L555,450"/>
+<rect x="430" y="435" width="144" height="21" fill="white" opacity=".92"/>
+<text x="502" y="451" class="e" text-anchor="middle">SIG inputs</text>
+<path class="edge" stroke="#315a84" d="M775,450 L830,450"/>
+<rect x="730" y="435" width="144" height="21" fill="white" opacity=".92"/>
+<text x="802" y="451" class="e" text-anchor="middle">SIG outputs</text>
+<path class="edge" stroke="#315a84" d="M1090,450 L1150,450"/>
+<rect x="1048" y="435" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1120" y="451" class="e" text-anchor="middle">logic only</text>
+<path class="edge" stroke="#31734f" d="M500,720 L555,720"/>
+<rect x="455" y="705" width="144" height="21" fill="white" opacity=".92"/>
+<text x="527" y="721" class="e" text-anchor="middle">PE-02</text>
+<path class="edge" stroke="#31734f" d="M775,720 L830,720"/>
+<rect x="730" y="705" width="144" height="21" fill="white" opacity=".92"/>
+<text x="802" y="721" class="e" text-anchor="middle">PE-04</text>
+<path class="edge" stroke="#31734f" d="M1090,720 L1150,720"/>
+<rect x="1048" y="705" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1120" y="721" class="e" text-anchor="middle">PE-03</text>
+<rect x="45" y="890" width="1510" height="125" rx="7" fill="#fff4e8" stroke="#bb5d20" stroke-width="2"/>
+<text x="65" y="920" class="s">• Hardware safety is independent of firmware; physical validation NOT_RUN.</text>
+<text x="65" y="948" class="s">• Exact donor ratings, conductor sizing and local-code compliance are USER_VERIFICATION_REQUIRED.</text>
+</svg>

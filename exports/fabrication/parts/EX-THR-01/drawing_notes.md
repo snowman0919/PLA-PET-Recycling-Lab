@@ -2,7 +2,7 @@
 
 - revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
-- material: `12 mm S45C or SS400`
+- material: `12 mm S45C normalized steel`
 - process: `laser rough + bore/seat finish`
 - controlling requirements: `12 x95 x105; passage Ø17.2; thrust seat Ø30.2 x5; 4xØ6.6; seat axis square 0.05; metal-to-profile load path`
 - file precedence: 본 note/치수 요구사항 > STEP > DXF/STL. DXF/STL은 견적·CAM reference이며 자동 공차를 부여하지 않는다.

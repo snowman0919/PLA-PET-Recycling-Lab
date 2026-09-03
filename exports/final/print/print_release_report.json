@@ -1,0 +1,26 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "digital_status": "PASS",
+  "part_count": 12,
+  "physical_fit_status": "HOLD_NOT_RUN",
+  "physical_validation_state": "NOT_RUN",
+  "checks": {
+    "watertight": "PASS",
+    "manifold": "PASS",
+    "positive_volume": "PASS",
+    "within_210mm": "PASS",
+    "orientation_documented": "PASS",
+    "plate_quantity_match": "PASS",
+    "plate_inside_220mm": "PASS",
+    "bom_quantity_match": "PASS",
+    "assembly_quantity_match": "PASS",
+    "three_mf_stl_geometry_match": "PASS",
+    "three_mf_revision_match": "PASS",
+    "slicer_status": "PASS"
+  },
+  "notes": [
+    "Per-part 3MF receives deterministic PPR:Revision metadata; mesh triangle count/bounds/volume match released STL.",
+    "BOM quantity is checked against exports/final/bom/BOM.csv and assembly quantity against cad/generation/assembly_classification.csv.",
+    "Digital manifold/slicer evidence does not replace tolerance-coupon, insert, thermal-clearance or assembled-fit inspection."
+  ]
+}

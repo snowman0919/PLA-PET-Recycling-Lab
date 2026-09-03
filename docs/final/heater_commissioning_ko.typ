@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-Motor disable/empty barrel/grounded shield 상태에서 thermal fuse·thermocouple open fault를 먼저 시험한다. 저출력 step부터 overshoot와 channel mapping을 확인하며 원격 stop·barrier를 사용한다.
+== 입력
+
+빈 metal hot path, 모든 motor disable, grounded shield, T1–T5 reference probe, 독립 thermal cutoff, 원격 stop.
+
+== 방법
+
+TC open과 permission-open을 먼저 시험하고 zone별 저출력 step으로 channel mapping/온도 상승을 확인한다. PLA 목표 180/195/205/200 °C, PET 245/260/270/265 °C는 별도 ramp로 수행한다.
+
+== 증거
+
+Zone별 command/온도 250 ms log, reference-probe 비교, cutoff 개방 trace, hot-zone travel 측정.
+
+== 수치 합격기준
+
+TC mapping 오류 0건; valid range -20–300 °C; 120 s 가열 명령에서 최소 +4 °C 아니면 fault; command-off 60 s 동안 +8 °C면 fault; software overtemperature 285 °C 이전 차단; cold axial travel ≥1.30 mm.
 
 == Checklist
 

@@ -1,7 +1,7 @@
 # CUT-03 — Bearing side plate
 
 - 수량: 2
-- 재료: 12 mm steel or 15 mm 6061 after Gate 1
+- 재료: 12 mm S275JR steel
 - 공정: laser + bearing-seat finish
 - CAD bounding box: 150.00 x 125.00 x 12.00 mm
 - 일반공차: ISO 2768-m, 별도 표기 없는 edge C0.3 deburr

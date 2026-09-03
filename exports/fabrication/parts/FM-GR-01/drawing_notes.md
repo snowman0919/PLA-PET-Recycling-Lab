@@ -2,7 +2,7 @@
 
 - revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `1`
-- material: `POM-C or 6061`
+- material: `POM-C`
 - process: `turn + bearing-seat bore`
 - controlling requirements: `OD36 x20; 2x Ø16 H7 x5.1-deep 625 seats; Ø12 through relief; seat shoulders square 0.05; groove-free polished surface Ra<=1.6; roller only after puller`
 - file precedence: 본 note/치수 요구사항 > STEP > DXF/STL. DXF/STL은 견적·CAM reference이며 자동 공차를 부여하지 않는다.

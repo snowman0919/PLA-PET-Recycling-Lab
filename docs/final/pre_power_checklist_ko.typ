@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-도면/BOM revision, fastener witness mark, cutter/screw hand rotation, guard, PE, insulation, polarity, fuse, connector, strain relief를 확인한다. 모든 donor label과 미확정 설계값을 닫기 전 FAIL.
+== 입력
+
+Released BOM/도면, 교정 유효 DMM·절연계·토크렌치, exact donor label, 미통전·lockout 상태.
+
+== 방법
+
+25개 assembly traveler와 witness mark를 대조하고 cutter/screw를 손으로 20회 회전한다. PE, 극성, fuse ID, connector, strain relief를 point-to-point 검사한다.
+
+== 증거
+
+서명 traveler, donor-label 사진, torque/치수표, PE·절연·극성 원시 측정 CSV.
+
+== 수치 합격기준
+
+PE bond 각 경로 ≤0.10 Ω; 전자장치 분리 후 500 VDC 절연 ≥1 MΩ; shaft centre 48.00±0.03 mm; feeder radial clearance 0.20–0.25 mm; screw TIR ≤0.10 mm; 미확정 donor 0건.
 
 == Checklist
 

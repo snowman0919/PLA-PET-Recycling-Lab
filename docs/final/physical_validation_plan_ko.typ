@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-Gate 1 cutter coupon → Gate 2 safety/drive → Gate 3 hot-zone leak/relief → Gate 4 gauge/forming → Gate 5 full spool 순으로 독립 evidence와 pass/fail을 남긴다. Simulation 결과는 시험 결과 칸에 복사하지 않는다.
+== 입력
+
+승인된 coupon/fixture, calibrated instruments, 각 gate 작업자·독립 검토자, lockout/원격 E-stop.
+
+== 방법
+
+Gate 1 cutter coupon → Gate 2 safety/drive → Gate 3 hot-zone leak/relief → Gate 4 gauge/forming → Gate 5 full spool 순서로 수행하며 FAIL 시 즉시 lockout하고 다음 gate를 금지한다.
+
+== 증거
+
+Gate별 입력·방법·원시 CSV/사진/video·판정·서명. Simulation 값은 시험 결과 칸에 복사하지 않는다.
+
+== 수치 합격기준
+
+G1: 18 N·m trip/22 N·m shear; G2: PE≤0.10 Ω·절연≥1 MΩ·자동재기동 0; G3: relief 3/3 PASS·누설 0; G4: diameter/ovality≤0.05 mm·U95≤0.03 mm; G5: 1 kg nominal spool, 68 mm traverse, dancer stop 0.36 rad 이전, hard-stop 0.4363 rad 비접촉.
 
 == Checklist
 

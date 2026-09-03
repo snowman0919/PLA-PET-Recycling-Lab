@@ -14,7 +14,21 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 절차
 
-Guard와 coupon fixture, calibrated torque/current/RPM 계측으로 no-load 후 Gate-1 coupon만 시험한다. 14 N m continuous, 18 N m jam trip과 shear element 분리를 물리 실측하며 full cutter stack 승인이 아니다.
+== 입력
+
+Gate-1의 정확히 2장 cutter coupon, closed guard, calibrated torque/current/RPM, PLA 1.2/2.0/3.0 mm와 PET body/folded-seam coupon.
+
+== 방법
+
+No-load 뒤 재료별 14 N·m 연속, 18 N·m jam trip, 22 N·m cutter-equivalent shear element를 단계적으로 시험한다. Full stack은 이 gate에서 조립하지 않는다.
+
+== 증거
+
+Torque/current/RPM CSV, jam-stop timestamp, chip-size 사진, shear coupon 파단 사진과 serial.
+
+== 수치 합격기준
+
+PLA 32 rpm/PET 24 rpm 목표의 ±10%; 14 N·m 연속 안정; 18 N·m에서 250 ms 이내 stop; 22 N·m 이하에서 replaceable shear element가 34 N·m phase pair보다 먼저 분리; guard 이탈 0건.
 
 == Checklist
 

@@ -10,6 +10,6 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 기준
 
-`exports/final/interface_catalog.csv`가 14개 critical interface의 nominal/tolerance/검사법을 지배한다. Cutter/blade clearance는 출력 공차가 아닌 ground metal shim으로 조절한다. Bearing seat, die insert, screw/barrel cold clearance, rear datum/front sliding travel을 조립 전 측정한다.
+`exports/final/interface_catalog.csv`가 16개 critical interface의 nominal/tolerance/검사법을 지배한다. Cutter/blade clearance는 출력 공차가 아닌 ground metal shim으로 조절한다. Bearing seat, die insert, screw/barrel cold/hot clearance, rear datum/front sliding travel을 조립 전 측정한다.
 
 #gate[측정기 ID·교정상태·온도·실측값을 기록하고 허용범위를 벗어나면 임의 rework 대신 source parameter와 도면 revision을 갱신한다.]

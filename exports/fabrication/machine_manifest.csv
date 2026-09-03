@@ -1,18 +1,18 @@
 part_id,name,quantity,material,process,x_mm,y_mm,z_mm,files,release_state
 IN-HOP-01,Refillable input hopper,1,2 mm 5052-H32 aluminum,roll cone/cylinder + TIG weld + deburr,200.00,199.94,210.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
-FD-BIN-01,Removable flake bin,1,1 mm PP or 304 sheet,laser/knife cut panels + thermal weld or fold/rivet,185.00,175.00,115.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
+FD-BIN-01,Removable flake bin,1,1 mm 304 stainless sheet,"laser cut, fold and rivet/TIG seam",185.00,175.00,115.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 FD-HOP-01,Sealed feed hopper,1,2 mm 304 stainless,roll cone/cylinder + TIG weld + gasketed lid,156.00,155.95,200.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 FD-TRN-01,Sealed transfer tube,1,304 tube OD32 x2,tube cut + socket fit + TIG tack/weld,32.00,31.99,105.46,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
-FD-MET-01,Metering feeder housing,1,304 stainless,turn tube/flanges + drill,48.00,47.99,105.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
-FD-MET-02,Six-pocket metering rotor,1,POM-C or 304,turn + 3-axis mill six pockets,31.60,31.59,8.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
-FD-MET-03,Metering feeder shaft,1,304 shaft,cut/face Ø5 stock,5.00,5.00,110.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
-EX-THR-01,Extruder thrust plate,1,12 mm S45C or SS400,laser rough + bore/seat finish,12.00,95.00,105.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
+FD-MET-01,Metering auger housing,1,304 stainless,turn tube/flanges + drill,44.00,43.99,105.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
+FD-MET-02,Positive-displacement metering auger,1,304 stainless,turn root/bore + mill or weld continuous flight,24.64,24.64,105.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
+FD-MET-03,Common auger and anti-bridge agitator shaft,1,304 shaft,turn Ø8 shaft + weld/pin Ø4 paddles,120.00,100.00,300.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
+EX-THR-01,Extruder thrust plate,1,12 mm S45C normalized steel,laser rough + bore/seat finish,12.00,95.00,105.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 EX-SH-01,Three-panel hot-zone shield,1,2 mm 5052 aluminum,laser + two 90deg bends; bond PE,335.00,75.00,85.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 DRV-GD-01,Interlocked drive guard,1,1 mm galvanized steel,laser + brake + service-cover hardware,165.00,48.00,190.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 FM-PL-01,Puller side plate,2,10 mm 6061-T6,waterjet + ream,100.00,10.00,40.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
-FM-RL-01,Puller roller,2,aluminum hub + replaceable silicone sleeve,turn + bore,40.00,39.99,60.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
+FM-RL-01,Puller roller,2,6061-T6 hub + replaceable Shore A 50-70 silicone sleeve,turn + bore,40.00,39.99,60.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 FM-AX-01,Puller roller spindle,2,Ø8 h6 stainless shaft,cut/face + collar flats,8.00,8.00,80.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
-FM-GR-01,Solid-strand guide roller,1,POM-C or 6061,turn + bearing-seat bore,36.00,35.99,20.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
+FM-GR-01,Solid-strand guide roller,1,POM-C,turn + bearing-seat bore,36.00,35.99,20.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 FM-GA-01,Guide roller fixed axle,1,Ø5 h6 stainless shaft,cut/face + E-clip grooves or collars,5.00,5.00,30.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 SP-DA-01,Dancer arm,1,8 mm 6061-T6,waterjet + ream,121.99,8.00,24.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
 SP-AX-01,Dancer pivot/roller axles,2,Ø8 h6 stainless shaft,cut/face + collars,8.00,8.00,28.00,FCStd|STEP|STL|DXF|drawing_notes,DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED
