@@ -12,6 +12,7 @@ import hashlib
 import html
 import json
 import re
+import runpy
 import shutil
 import subprocess
 import sys
@@ -396,6 +397,8 @@ def verify() -> dict[str, object]:
 def main() -> None:
     if not shutil.which("typst"):
         raise SystemExit("run inside `nix develop`: typst missing")
+    # Refresh subordinate STEP/DXF inputs from the FreeCAD Python source of truth.
+    runpy.run_path(str(ROOT / "cad/generation/generate_manufacturing.py"), run_name="__main__")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     DRAWINGS.mkdir(parents=True, exist_ok=True)
     for path in DRAWINGS.glob("*"):

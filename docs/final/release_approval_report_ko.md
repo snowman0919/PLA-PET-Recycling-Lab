@@ -32,7 +32,7 @@
 
 ## 산출물 및 gate
 
-- FreeCAD final assembly: 171 bodies, STEP 10개 reimport PASS, tolerance interface 14개
+- FreeCAD final assembly: 187 bodies, solver-stage STEP 10개와 manufacturing-expanded STEP manifest reimport PASS, tolerance interface 15개
 - Vector drawing: 20종 SVG + 20쪽 PDF, drawing register 20행
 - Print package: active part 12종, slicer/manifold PASS
 - Electrical: vector PDF 8종, wire 10행, connector 10행, fuse 7행

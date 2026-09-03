@@ -328,8 +328,6 @@ def main() -> None:
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     FINAL.mkdir(parents=True, exist_ok=True)
     drawing_set(commit)
-    if "--documents-only" not in sys.argv:
-        electrical()
     manuals(); commissioning()
     print(f"V08_FINAL_DOCUMENTS_OK drawings={len(DRAWINGS)} assembly_steps={len(ASSEMBLY_STEPS)}")
 
