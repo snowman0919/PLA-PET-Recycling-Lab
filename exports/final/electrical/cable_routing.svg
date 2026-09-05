@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#263f50"/></marker></defs>
+<rect width="1600" height="1050" fill="white"/><style>text{font-family:"Noto Sans CJK KR",sans-serif;fill:#15242d}.t{font-size:31px;font-weight:700}.s{font-size:17px}.n{font-size:15px;font-weight:600}.e{font-size:13px;font-weight:600}.edge{fill:none;stroke-width:3;marker-end:url(#a)}</style>
+<text x="50" y="52" class="t">cable routing</text>
+<text x="50" y="82" class="s">machine route zones, separation, service loops and strain relief</text>
+<rect x="45" y="150" width="280" height="125" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="185.0" y="190.5" class="n" text-anchor="middle">ENCLOSURE</text>
+<text x="185.0" y="212.5" class="n" text-anchor="middle">power glands low</text>
+<text x="185.0" y="234.5" class="n" text-anchor="middle">signal glands high</text>
+<rect x="430" y="120" width="270" height="105" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="565.0" y="161.5" class="n" text-anchor="middle">SHREDDER</text>
+<text x="565.0" y="183.5" class="n" text-anchor="middle">motor + 6 PPR tach</text>
+<rect x="430" y="280" width="270" height="105" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="565.0" y="321.5" class="n" text-anchor="middle">FD-MET FEEDER</text>
+<text x="565.0" y="343.5" class="n" text-anchor="middle">PWM/DIR/EN + fault/tach</text>
+<rect x="810" y="120" width="280" height="265" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="950.0" y="219.5" class="n" text-anchor="middle">HOT ZONE</text>
+<text x="950.0" y="241.5" class="n" text-anchor="middle">4 heater pairs</text>
+<text x="950.0" y="263.5" class="n" text-anchor="middle">5 thermocouples</text>
+<text x="950.0" y="285.5" class="n" text-anchor="middle">PE-bonded shield</text>
+<rect x="1200" y="120" width="350" height="105" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1375.0" y="161.5" class="n" text-anchor="middle">COOLING</text>
+<text x="1375.0" y="183.5" class="n" text-anchor="middle">fan power/current/tach</text>
+<rect x="1200" y="280" width="350" height="105" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="1375.0" y="321.5" class="n" text-anchor="middle">GAUGE + PULLER</text>
+<text x="1375.0" y="343.5" class="n" text-anchor="middle">shielded signal / motor power</text>
+<rect x="810" y="520" width="280" height="110" rx="7" fill="#edf0f2" stroke="#294c60" stroke-width="2"/>
+<text x="950.0" y="564.0" class="n" text-anchor="middle">FRAME TRUNK</text>
+<text x="950.0" y="586.0" class="n" text-anchor="middle">separate power/sensor ducts</text>
+<rect x="1200" y="520" width="350" height="110" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1375.0" y="564.0" class="n" text-anchor="middle">SPOOLER / TRAVERSE</text>
+<text x="1375.0" y="586.0" class="n" text-anchor="middle">service loop + limits</text>
+<path class="edge" stroke="#c24c36" d="M325,212 L430,172"/>
+<rect x="305" y="177" width="144" height="21" fill="white" opacity=".92"/>
+<text x="377" y="193" class="e" text-anchor="middle">24-SH± / SIG-D2</text>
+<path class="edge" stroke="#c24c36" d="M325,212 L430,332"/>
+<rect x="305" y="257" width="144" height="21" fill="white" opacity=".92"/>
+<text x="377" y="273" class="e" text-anchor="middle">24-FEED± / D44,D42,D46,D47,A7</text>
+<path class="edge" stroke="#c24c36" d="M325,212 L810,250"/>
+<rect x="495" y="216" width="144" height="21" fill="white" opacity=".92"/>
+<text x="567" y="232" class="e" text-anchor="middle">24-H1..4 / TC SIG</text>
+<path class="edge" stroke="#c24c36" d="M1090,250 L1200,172"/>
+<rect x="1073" y="196" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1145" y="212" class="e" text-anchor="middle">24-FAN± / A4,A14</text>
+<path class="edge" stroke="#c24c36" d="M1090,250 L1200,332"/>
+<rect x="1073" y="276" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1145" y="292" class="e" text-anchor="middle">24-PULL± / D3</text>
+<path class="edge" stroke="#31734f" d="M950,385 L950,520"/>
+<rect x="878" y="437" width="144" height="21" fill="white" opacity=".92"/>
+<text x="950" y="453" class="e" text-anchor="middle">split routes</text>
+<path class="edge" stroke="#c24c36" d="M1090,575 L1200,575"/>
+<rect x="1073" y="560" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1145" y="576" class="e" text-anchor="middle">24-SPOOL± / limits</text>
+<rect x="45" y="890" width="1510" height="125" rx="7" fill="#fff4e8" stroke="#bb5d20" stroke-width="2"/>
+<text x="65" y="920" class="s">• No cable may cross cutter, chain, hot surface, sharp edge or solid; verify full motion/service envelope.</text>
+<text x="65" y="948" class="s">• Sensor routes are separate from PWM/motor/heater conductors; cross at 90 degrees only.</text>
+</svg>

@@ -1,0 +1,33 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "authority": "FreeCAD Python controlling geometry",
+  "physical_validation_state": "NOT_RUN",
+  "parts": [
+    {
+      "file": "bearing_plate.step",
+      "sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
+      "solid_count": 1,
+      "volume_mm3": 188962.09952,
+      "bbox_mm": [
+        150.0,
+        125.0,
+        12.0
+      ],
+      "step_reimport_volume_error_fraction": 0.0,
+      "status": "PASS"
+    },
+    {
+      "file": "extruder_barrel.step",
+      "sha256": "eb72410cc4eaaf3f700e629017b0278edfee3c994cafb7f25c206896a65b0b75",
+      "solid_count": 1,
+      "volume_mm3": 193132.557511,
+      "bbox_mm": [
+        34.0,
+        34.0,
+        280.0
+      ],
+      "step_reimport_volume_error_fraction": 1.1932327677816074e-07,
+      "status": "PASS"
+    }
+  ]
+}

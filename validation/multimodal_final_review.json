@@ -1,0 +1,136 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "source": "187-body FreeCAD B-Rep software projections; no copied/raster-placeholder closeups",
+  "required_global_views": [
+    {
+      "view": "front",
+      "file": "renders/final_v08/front.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "3b3c92d53a28d7f1b9c3f7d4a575b072aa11594bd4fc20b7e69b2e0bfd7d2a91",
+      "status": "PRESENT"
+    },
+    {
+      "view": "rear",
+      "file": "renders/final_v08/rear.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "cd200a1204ff1ec99a1dfc8adad9f57f034851f14ab712207382dec4678c40e8",
+      "status": "PRESENT"
+    },
+    {
+      "view": "left",
+      "file": "renders/final_v08/left.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "471be0560d7af960decb57dbe646d5cc71a7290f97834f63e6d618a88878e4c6",
+      "status": "PRESENT"
+    },
+    {
+      "view": "right",
+      "file": "renders/final_v08/right.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "8c8f2dc6aab31d4587cee8c06b96221c3844eeb574f1ab71a1e084c7dbe70e2b",
+      "status": "PRESENT"
+    },
+    {
+      "view": "top",
+      "file": "renders/final_v08/top.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "962a0f9855f57bf94d474d732b69513711b39fe0db7cce54cf335ec8d1e8fee0",
+      "status": "PRESENT"
+    },
+    {
+      "view": "bottom",
+      "file": "renders/final_v08/bottom.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "44a82c0185d6004194123e8d5610caea111192ab9f066d497a39d6c6dafb28e8",
+      "status": "PRESENT"
+    },
+    {
+      "view": "isometric",
+      "file": "renders/final_v08/isometric.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "a4f9eec979457d763e12e840fbcc1e7ec93d67966180e575f0f5b1d3443849a9",
+      "status": "PRESENT"
+    },
+    {
+      "view": "exploded",
+      "file": "renders/final_closeups/global/exploded.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "71fe405b23ec9b3c8dd5537f36ba7a41c59ec80b9fd7ddc65efe51500c4dba29",
+      "status": "PRESENT"
+    },
+    {
+      "view": "module-separated",
+      "file": "renders/final_v08/module-separated.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "fdbcc9b05093605f640a064819f6f18e5bde724872ab08723ca9bcdb09d961d4",
+      "status": "PRESENT"
+    },
+    {
+      "view": "service-access",
+      "file": "renders/final_closeups/global/service-access.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "e0c48fc02e5650d74308ef23f3472e85632f23c09d105c6ba3a28ff3138603cb",
+      "status": "PRESENT"
+    },
+    {
+      "view": "guard-removed",
+      "file": "renders/final_v08/guard-removed.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "135c9df8e3b3c861ffc15fb70101b91d4e91d31cd9fe108afc0ae5fb577be1c9",
+      "status": "PRESENT"
+    },
+    {
+      "view": "cable-routing",
+      "file": "renders/final_v08/cable-routing.png",
+      "width_px": 1600,
+      "height_px": 1200,
+      "sha256": "b9f25d1a34e03884574a1d85a99697cffd6d9365215962efc39b1d63c34b647f",
+      "status": "PRESENT"
+    }
+  ],
+  "closeup_manifest": "validation/v0.8/multimodal_closeup_manifest.csv",
+  "closeup_coverage": {
+    "modules": 6,
+    "categories_per_module": 8,
+    "images": 48,
+    "required_categories": [
+      "interfaces",
+      "fasteners",
+      "adjusters",
+      "sensors",
+      "wire_routes",
+      "hot_surfaces",
+      "moving_hazards",
+      "maintenance_access"
+    ],
+    "unique_sha256": 48
+  },
+  "checks": {
+    "required_12_global_views": "PASS",
+    "image_presence_and_dimensions": "PASS",
+    "unique_hashes_no_copy_reuse": "PASS",
+    "actual_final_brep_selection": "PASS",
+    "floating_parts": "REVIEWED_IN_GLOBAL_AND_MODULE_VIEWS",
+    "blocked_screw_removal": "PASS_DIGITAL_KEEP_OUT_VISIBLE",
+    "blocked_cutter_shaft_removal": "REQUIRES_PHYSICAL_CONFIRMATION",
+    "wire_through_solid": "NO_NOMINAL_INTERSECTION_OBSERVED; PHYSICAL_BEND_RADIUS_AND_RECEIVED_CABLES_NOT_RUN",
+    "sensor_collision": "NO_NOMINAL_INTERSECTION_OBSERVED; RECEIVED_SENSOR_BODY_AND_AIR_GAP_NOT_RUN",
+    "unprotected_chain_or_hot_surface": "CLOSED_AND_GUARD_REMOVED_VIEWS_REVIEWED"
+  },
+  "model_detail_gaps": [],
+  "limitations": "software projection review only; tool access, bend radius, received hardware and assembly tolerance require physical commissioning",
+  "physical_validation_state": "NOT_RUN",
+  "multimodal_gate": "PASS",
+  "status": "PASS"
+}

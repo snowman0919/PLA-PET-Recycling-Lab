@@ -1,0 +1,14 @@
+fuse_id,branch,rating,maximum_current,dc_interrupt_rating,basis
+F-MAIN,24 V main,30 A DC,25 A PSU maximum,>=1 kA at >=32 VDC,protect 6 mm2 main conductors
+F-LOGIC,Mega/sensors,3 A DC,3 A design maximum,>=1 kA at >=32 VDC,protected logic branch
+F-SAFE,hardwired safety,1 A DC,1 A design maximum,>=1 kA at >=32 VDC,firmware-independent
+F-SH,shredder,20 A DC,20 A,>=1 kA at >=32 VDC,donor must remain inside design envelope
+F-SCREW,screw,10 A DC,10 A envelope,>=1 kA at >=32 VDC,donor must remain inside design envelope
+F-FEED,FD-MET auger/agitator,5 A DC,5 A design envelope,>=1 kA at >=32 VDC,received donor(s) must remain within envelope; otherwise redesign
+F-PULL,puller,5 A DC,5 A design envelope,>=1 kA at >=32 VDC,received donor(s) must remain within envelope; otherwise redesign
+F-SPOOL,spooler/traverse combined,5 A DC,5 A design envelope,>=1 kA at >=32 VDC,received donor(s) must remain within envelope; otherwise redesign
+F-FAN,fans,3 A DC,3 A envelope,>=1 kA at >=32 VDC,start/stall must remain inside envelope
+F-H1,heater 1,5 A DC,5 A design maximum,>=1 kA at >=32 VDC,thermal fuse remains series
+F-H2,heater 2,5 A DC,5 A design maximum,>=1 kA at >=32 VDC,thermal fuse remains series
+F-H3,heater 3,5 A DC,5 A design maximum,>=1 kA at >=32 VDC,thermal fuse remains series
+F-H4,heater 4,5 A DC,5 A design maximum,>=1 kA at >=32 VDC,thermal fuse remains series

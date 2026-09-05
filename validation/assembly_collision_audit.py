@@ -27,6 +27,10 @@ ALLOWED_INTERFACES = {
     frozenset(("SpoolCore", "PPR-C09_SpoolAdapterFront")): "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부",
     frozenset(("SpoolCore", "PPR-C09_SpoolAdapterRear")): "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부",
     frozenset(("HeaterCableDuctBridgeX", "HeaterCableDuctBridgeY")): "18x18 고정 금속 duct의 의도된 L자 결합부",
+    **{
+        frozenset(("PPR-C11_ControlBezel", f"ControlBezelM3Fastener{index}")): "PPR-C11 blind insert의 의도된 M3 나사산 체결부"
+        for index in range(1, 5)
+    },
 }
 
 
@@ -67,7 +71,7 @@ def main():
     output = ROOT / "validation/results/assembly_pairwise_collisions.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps({
-        "revision": "safety-orchestration-closure-v0.6.1",
+        "revision": "final-design-fabrication-closure-v0.8",
         "pair_count": len(objects) * (len(objects) - 1) // 2,
         "tolerance_mm3": TOLERANCE_MM3,
         "overlaps": hits,

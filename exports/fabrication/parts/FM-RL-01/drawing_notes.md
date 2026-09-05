@@ -2,7 +2,7 @@
 
 - revision: `safety-orchestration-closure-v0.6.1`
 - quantity: `2`
-- material: `aluminum hub + replaceable silicone sleeve`
+- material: `6061-T6 hub + replaceable Shore A 50-70 silicone sleeve`
 - process: `turn + bore`
 - controlling requirements: `finished OD40 x60; bore Ø8.2; TIR <=0.05; Shore A 50-70 sleeve; matched OD within 0.05`
 - file precedence: 본 note/치수 요구사항 > STEP > DXF/STL. DXF/STL은 견적·CAM reference이며 자동 공차를 부여하지 않는다.

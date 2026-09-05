@@ -12,9 +12,9 @@ SHREDDER_CURRENT_50A,input,Hall current sensor,invalid,0/5/10/15/20 A calibrated
 SHREDDER_SHAFT_RPM,input,driven-shaft Hall sensor,invalid,6 PPR timestamp/rollover and known-RPM comparison
 SCREW_ENABLE,output,Mega/permission chain,false,heater-off test
 SCREW_PWM_DIR,output,Mega/DC driver,zero,driver fault and direction test
-FEED_AUGER_PWM_DIR_TACH,unassigned input/output,Mega plus approved adapter,zero,host contract only; donor sensor and collision-free pin/counter allocation required before energization
-FEED_AGITATOR_PWM_DIR_TACH,unassigned input/output,Mega plus approved adapter,zero,host contract only; donor sensor and collision-free pin/counter allocation required before energization
-FEED_AUGER_AGITATOR_CURRENT,unassigned input,Mega plus approved ADC path,invalid,host contract only; independent calibrated channels required before energization
+FD_METER_AUGER_PWM_DIR_ENABLE,output,D44 PWM / D42 direction / D46 enable,zero,single coaxial FD-MET auger/agitator drive; 5 A branch envelope; inhibit until donor and mass/rev calibration
+FD_AUGER_TACH,input,A7 polled low-speed Hall input,invalid,6 PPR reference only; exact target and measured PPR required before production feed
+FD_AUGER_FAULT,input,D47 driver fault,stop feed and screw,active-safe level verified during commissioning; exact driver interface required
 HEATER_Z1_Z2_Z3_DIE,output,Mega/MOSF permission chain,false,stuck-MOSFET thermal chain test per channel
 HOPPER_PTC,output,maintenance-only branch,false,production-phase inhibition test
 T1_T2_T3_TDIE_THOPPER,input,MAX6675 SPI,invalid,open/range/ice-boiling/ungrounded-isolation test

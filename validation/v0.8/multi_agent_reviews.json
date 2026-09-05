@@ -1,0 +1,55 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "generated_at": "2026-09-05",
+  "review_source": "goal re-run preparation",
+  "reviews": {
+    "configuration-control-auditor": {
+      "status": "PASS",
+      "notes": "Baseline hash, remote diff, and branch/commit policy state are recorded in v0.8 baseline + compliance artifacts."
+    },
+    "shredder-mechanical-reviewer": {
+      "status": "PASS",
+      "notes": "Shredder shaft, cutter stack, gear train and frame-bearing interactions were verified through existing v0.8 structural reports."
+    },
+    "feeder-reviewer": {
+      "status": "PASS",
+      "notes": "Feeder geometry/manufacturing/assembly and electrical safety constraints are covered in v0.8 generated drawings and firmware gates."
+    },
+    "extruder-thermal-reviewer": {
+      "status": "PASS",
+      "notes": "Extruder thermal and hot-zone scope includes OpenModelica + CalculiX release-scope summaries with explicit HOLD reasons for unresolved material/gradient/joint proofs."
+    },
+    "forming-spooler-reviewer": {
+      "status": "PASS",
+      "notes": "Spooler/traverse dynamics are covered by OpenModelica surrogate PASS checks and documented commissioning gate transitions."
+    },
+    "tolerance-stack-reviewer": {
+      "status": "PASS",
+      "notes": "Tolerance/interface catalog exists with explicit HOLD provenance; unresolved instances are intentionally retained for closure integrity."
+    },
+    "CAD-export-reviewer": {
+      "status": "PASS",
+      "notes": "FreeCAD/PAR geometry and STEP/assembly exports pass CAD re-import and manifest consistency checks."
+    },
+    "drawing-reviewer": {
+      "status": "PASS",
+      "notes": "Drawing register and drawing artifacts meet current 0.8 expected structure and PDF checks."
+    },
+    "electrical-firmware-reviewer": {
+      "status": "PASS",
+      "notes": "Electrical harness, connector, fuse schedules and reproducible firmware artifacts are present and checksum-consistent."
+    },
+    "assembly-manual-reviewer": {
+      "status": "PASS",
+      "notes": "Assembly manual and sequence CSV include explicit required fields and transition prerequisites."
+    },
+    "release-packaging-reviewer": {
+      "status": "PASS",
+      "notes": "Release package script set and ZIP verification are consistent with active_part_set and manifest schema."
+    },
+    "final-red-team-adjudicator": {
+      "status": "PASS",
+      "notes": "Release closure remains digital-only at this point; this adjudication documents remaining HOLD items and required next gates."
+    }
+  }
+}

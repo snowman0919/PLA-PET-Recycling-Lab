@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["release", "revision", "release_state", "source_commit", "physical_validation_state", "safety_certification_state", "procurement_gate", "commissioning_gate", "fabrication_release_approval", "files"],
+  "properties": {
+    "release": {"const": "PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION"},
+    "revision": {"const": "final-design-fabrication-closure-v0.8"},
+    "release_state": {"const": "FABRICATION_CANDIDATE"},
+    "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "physical_validation_state": {"const": "NOT_RUN"},
+    "safety_certification_state": {"const": "NOT_CERTIFIED"},
+    "procurement_gate": {"const": "USER_APPROVAL_REQUIRED"},
+    "commissioning_gate": {"const": "USER_APPROVAL_REQUIRED"},
+    "fabrication_release_approval": {"const": "USER_APPROVAL_REQUIRED"},
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "source", "size", "sha256"],
+        "properties": {
+          "path": {"type": "string", "minLength": 3},
+          "source": {"type": "string", "minLength": 1},
+          "size": {"type": "integer", "minimum": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

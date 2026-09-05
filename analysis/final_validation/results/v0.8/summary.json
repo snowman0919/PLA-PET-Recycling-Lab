@@ -1,0 +1,703 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "pipeline_source_sha256": "f08e320fd0dc46c858e3f50741101f1872d116dcca33847caedc31968ed0ea24",
+  "process_isolation": [
+    "FreeCADCmd",
+    "gmsh CLI",
+    "ccx OMP_NUM_THREADS=1",
+    "Python postprocess"
+  ],
+  "solver_versions": {
+    "freecad": "1.1.3",
+    "gmsh": "4.15.2-git",
+    "calculix": "2.23"
+  },
+  "geometry": {
+    "revision": "final-design-fabrication-closure-v0.8",
+    "authority": "FreeCAD Python controlling geometry",
+    "physical_validation_state": "NOT_RUN",
+    "parts": [
+      {
+        "file": "bearing_plate.step",
+        "sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
+        "solid_count": 1,
+        "volume_mm3": 188962.09952,
+        "bbox_mm": [
+          150.0,
+          125.0,
+          12.0
+        ],
+        "step_reimport_volume_error_fraction": 0.0,
+        "status": "PASS"
+      },
+      {
+        "file": "extruder_barrel.step",
+        "sha256": "eb72410cc4eaaf3f700e629017b0278edfee3c994cafb7f25c206896a65b0b75",
+        "solid_count": 1,
+        "volume_mm3": 193132.557511,
+        "bbox_mm": [
+          34.0,
+          34.0,
+          280.0
+        ],
+        "step_reimport_volume_error_fraction": 1.1932327677816074e-07,
+        "status": "PASS"
+      }
+    ]
+  },
+  "LC02": {
+    "meshes": [
+      {
+        "mesh": "coarse",
+        "elements": 24,
+        "provenance": {
+          "geometry_scope": "CUT-05 full shaft L240 mm; bearing centres x=60/200 mm",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 13,
+          "applied_torque_nm": 22.0,
+          "applied_radial_force_n": 1856.544175556756,
+          "load_position_from_front_bearing_mm": 60.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -1856.544175556756
+          ],
+          "net_moment_about_origin_nm": [
+            22.0,
+            222.78530106681072,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.08403880775124074,
+          "max_von_mises_mpa": 66.72859399605608,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              -5.528015e-11,
+              -3.445995e-11,
+              1856.543800000019
+            ],
+            "moment_about_origin_nm": [
+              -22.0,
+              -222.78528,
+              -1.3818427999999993e-12
+            ],
+            "reaction_couple_source": "CalculiX fixed rotational DOF; magnitude cross-checked by applied-torque equilibrium"
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -5.528015e-11,
+              -3.445995e-11,
+              -0.00037555673702627246
+            ],
+            "moment_residual_nm": [
+              0.0,
+              2.10668107172296e-05,
+              -1.3818427999999993e-12
+            ]
+          },
+          "regional_safety_factor": 2.6600290725515805
+        }
+      },
+      {
+        "mesh": "medium",
+        "elements": 48,
+        "provenance": {
+          "geometry_scope": "CUT-05 full shaft L240 mm; bearing centres x=60/200 mm",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 25,
+          "applied_torque_nm": 22.0,
+          "applied_radial_force_n": 1856.544175556756,
+          "load_position_from_front_bearing_mm": 60.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -1856.544175556756
+          ],
+          "net_moment_about_origin_nm": [
+            22.0,
+            222.78530106681072,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.08404078629481046,
+          "max_von_mises_mpa": 71.55431140914642,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              -8.658985e-11,
+              -2.4628343999999997e-10,
+              1856.5437999999385
+            ],
+            "moment_about_origin_nm": [
+              -22.0,
+              -222.78528,
+              -3.977649e-11
+            ],
+            "reaction_couple_source": "CalculiX fixed rotational DOF; magnitude cross-checked by applied-torque equilibrium"
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -8.658985e-11,
+              -2.4628343999999997e-10,
+              -0.00037555681751655356
+            ],
+            "moment_residual_nm": [
+              0.0,
+              2.10668107172296e-05,
+              -3.977649e-11
+            ]
+          },
+          "regional_safety_factor": 2.48063319322658
+        }
+      },
+      {
+        "mesh": "fine",
+        "elements": 96,
+        "provenance": {
+          "geometry_scope": "CUT-05 full shaft L240 mm; bearing centres x=60/200 mm",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 49,
+          "applied_torque_nm": 22.0,
+          "applied_radial_force_n": 1856.544175556756,
+          "load_position_from_front_bearing_mm": 60.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -1856.544175556756
+          ],
+          "net_moment_about_origin_nm": [
+            22.0,
+            222.78530106681072,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.08404118200364628,
+          "max_von_mises_mpa": 73.89902790521916,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              2.1695990000000001e-10,
+              1.563886999999999e-11,
+              1856.5437999999515
+            ],
+            "moment_about_origin_nm": [
+              -22.0,
+              -222.78528,
+              -8.430764000000002e-12
+            ],
+            "reaction_couple_source": "CalculiX fixed rotational DOF; magnitude cross-checked by applied-torque equilibrium"
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              2.1695990000000001e-10,
+              1.563886999999999e-11,
+              -0.00037555680455625406
+            ],
+            "moment_residual_nm": [
+              0.0,
+              2.10668107172296e-05,
+              -8.430764000000002e-12
+            ]
+          },
+          "regional_safety_factor": 2.401926047358249
+        }
+      }
+    ],
+    "medium_to_fine_delta_percent": 0.0004708511070280503,
+    "status": "PASS"
+  },
+  "LC05": {
+    "meshes": [
+      {
+        "mesh": "coarse",
+        "elements": 24,
+        "provenance": {
+          "geometry_scope": "CUT-05 full shaft L240 mm; bearing centres x=60/200 mm",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 4,
+          "applied_torque_nm": 0.0,
+          "applied_radial_force_n": 602.7336257714462,
+          "load_position_from_front_bearing_mm": -30.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -602.7336257714462
+          ],
+          "net_moment_about_origin_nm": [
+            0.0,
+            18.082008773143386,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.039434834118854865,
+          "max_von_mises_mpa": 18.10624547172767,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              3.2241087400000004e-11,
+              2.0980710999999998e-11,
+              602.7336000000021
+            ],
+            "moment_about_origin_nm": [
+              0.0,
+              -18.082008000000002,
+              2.1603635999999995e-12
+            ],
+            "reaction_couple_source": "CalculiX fixed rotational DOF; magnitude cross-checked by applied-torque equilibrium"
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              3.2241087400000004e-11,
+              2.0980710999999998e-11,
+              -2.577144414317445e-05
+            ],
+            "moment_residual_nm": [
+              0.0,
+              7.731433839808233e-07,
+              2.1603635999999995e-12
+            ]
+          },
+          "regional_safety_factor": 9.803247187671271
+        }
+      },
+      {
+        "mesh": "medium",
+        "elements": 48,
+        "provenance": {
+          "geometry_scope": "CUT-05 full shaft L240 mm; bearing centres x=60/200 mm",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 7,
+          "applied_torque_nm": 0.0,
+          "applied_radial_force_n": 602.7336257714462,
+          "load_position_from_front_bearing_mm": -30.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -602.7336257714462
+          ],
+          "net_moment_about_origin_nm": [
+            0.0,
+            18.082008773143386,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.03954193552949074,
+          "max_von_mises_mpa": 18.76736389102953,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              5.52807717e-11,
+              7.908782000000001e-13,
+              602.7336000000247
+            ],
+            "moment_about_origin_nm": [
+              0.0,
+              -18.082008000000002,
+              1.13033364e-12
+            ],
+            "reaction_couple_source": "CalculiX fixed rotational DOF; magnitude cross-checked by applied-torque equilibrium"
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              5.52807717e-11,
+              7.908782000000001e-13,
+              -2.5771421519493742e-05
+            ],
+            "moment_residual_nm": [
+              0.0,
+              7.731433839808233e-07,
+              1.13033364e-12
+            ]
+          },
+          "regional_safety_factor": 9.457907942246587
+        }
+      },
+      {
+        "mesh": "fine",
+        "elements": 96,
+        "provenance": {
+          "geometry_scope": "CUT-05 full shaft L240 mm; bearing centres x=60/200 mm",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 13,
+          "applied_torque_nm": 0.0,
+          "applied_radial_force_n": 602.7336257714462,
+          "load_position_from_front_bearing_mm": -30.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -602.7336257714462
+          ],
+          "net_moment_about_origin_nm": [
+            0.0,
+            18.082008773143386,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.039568810272462125,
+          "max_von_mises_mpa": 19.07546275382892,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              -1.1053156e-10,
+              -1.4882200000000011e-12,
+              602.7335999999557
+            ],
+            "moment_about_origin_nm": [
+              0.0,
+              -18.082008000000002,
+              -1.5635039999999966e-13
+            ],
+            "reaction_couple_source": "CalculiX fixed rotational DOF; magnitude cross-checked by applied-torque equilibrium"
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -1.1053156e-10,
+              -1.4882200000000011e-12,
+              -2.577149052740424e-05
+            ],
+            "moment_residual_nm": [
+              0.0,
+              7.731433839808233e-07,
+              -1.5635039999999966e-13
+            ]
+          },
+          "regional_safety_factor": 9.305147785438198
+        }
+      }
+    ],
+    "medium_to_fine_delta_percent": 0.06791900688023829,
+    "status": "PASS"
+  },
+  "LC04": {
+    "case_id": "LC04",
+    "actual_step_sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
+    "provenance": {
+      "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
+      "material": "S275 linear elastic E=205 GPa nu=0.30",
+      "constraint_scope": "all translational DOF on four Ø6.6 frame-hole cylindrical surfaces",
+      "load_application": "cosine-weighted -Y load on lower halves of two Ø42 bearing-seat cylindrical surfaces",
+      "load_node_count": 188,
+      "constraint_node_count": 178,
+      "net_force_n": [
+        0.0,
+        -1856.544175556756,
+        0.0
+      ],
+      "net_moment_about_origin_nm": [
+        11.141575141080823,
+        0.0,
+        -137.64122715718585
+      ],
+      "result_definition": "maximum absolute nodal displacement"
+    },
+    "meshes": [
+      {
+        "mesh": "coarse",
+        "max_size_mm": 6.0,
+        "provenance": {
+          "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
+          "material": "S275 linear elastic E=205 GPa nu=0.30",
+          "constraint_scope": "all translational DOF on four Ø6.6 frame-hole cylindrical surfaces",
+          "load_application": "cosine-weighted -Y load on lower halves of two Ø42 bearing-seat cylindrical surfaces",
+          "load_node_count": 64,
+          "constraint_node_count": 142,
+          "net_force_n": [
+            0.0,
+            -1856.5441755567558,
+            0.0
+          ],
+          "net_moment_about_origin_nm": [
+            11.150965827141704,
+            0.0,
+            -137.91487549870322
+          ],
+          "result_definition": "maximum absolute nodal displacement"
+        },
+        "result": {
+          "max_displacement_mm": 0.001203949398093832,
+          "max_von_mises_mpa": 5.973400183126515,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 142,
+            "force_n": [
+              -8.700000000813092e-05,
+              1856.543875,
+              1.39999999998041e-05
+            ],
+            "moment_about_origin_nm": [
+              -11.150965295822617,
+              -4.666374989890226e-06,
+              137.9148962276478
+            ]
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -8.700000000813092e-05,
+              -0.0003005567557465838,
+              1.39999999998041e-05
+            ],
+            "force_error_percent": 1.6870494285980025e-05,
+            "moment_residual_nm": [
+              5.313190865052775e-07,
+              -4.666374989890226e-06,
+              2.0728944576831054e-05
+            ]
+          }
+        }
+      },
+      {
+        "mesh": "medium",
+        "max_size_mm": 4.5,
+        "provenance": {
+          "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
+          "material": "S275 linear elastic E=205 GPa nu=0.30",
+          "constraint_scope": "all translational DOF on four Ø6.6 frame-hole cylindrical surfaces",
+          "load_application": "cosine-weighted -Y load on lower halves of two Ø42 bearing-seat cylindrical surfaces",
+          "load_node_count": 142,
+          "constraint_node_count": 157,
+          "net_force_n": [
+            0.0,
+            -1856.544175556756,
+            0.0
+          ],
+          "net_moment_about_origin_nm": [
+            11.135246052783279,
+            0.0,
+            -137.1260848954892
+          ],
+          "result_definition": "maximum absolute nodal displacement"
+        },
+        "result": {
+          "max_displacement_mm": 0.0012285954264277723,
+          "max_von_mises_mpa": 6.21497794343308,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 157,
+            "force_n": [
+              -0.00021100000000823238,
+              1856.54425,
+              2.700000000079028e-05
+            ],
+            "moment_about_origin_nm": [
+              -11.135245373320096,
+              -5.337568397267844e-07,
+              137.12607960523638
+            ]
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -0.00021100000000823238,
+              7.44432438750664e-05,
+              2.700000000079028e-05
+            ],
+            "force_error_percent": 1.2139240056296281e-05,
+            "moment_residual_nm": [
+              6.794631826068098e-07,
+              -5.337568397267844e-07,
+              -5.290252829581732e-06
+            ]
+          }
+        }
+      },
+      {
+        "mesh": "fine",
+        "max_size_mm": 3.5,
+        "provenance": {
+          "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
+          "material": "S275 linear elastic E=205 GPa nu=0.30",
+          "constraint_scope": "all translational DOF on four Ø6.6 frame-hole cylindrical surfaces",
+          "load_application": "cosine-weighted -Y load on lower halves of two Ø42 bearing-seat cylindrical surfaces",
+          "load_node_count": 188,
+          "constraint_node_count": 178,
+          "net_force_n": [
+            0.0,
+            -1856.544175556756,
+            0.0
+          ],
+          "net_moment_about_origin_nm": [
+            11.141575141080823,
+            0.0,
+            -137.64122715718585
+          ],
+          "result_definition": "maximum absolute nodal displacement"
+        },
+        "result": {
+          "max_displacement_mm": 0.0012606543458918349,
+          "max_von_mises_mpa": 6.889407924379189,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 178,
+            "force_n": [
+              0.00023022999999858934,
+              1856.5436429,
+              -8.08000000023304e-06
+            ],
+            "moment_about_origin_nm": [
+              -11.141571723489307,
+              4.835472075345737e-06,
+              137.64119783931045
+            ]
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              0.00023022999999858934,
+              -0.0005326567561496631,
+              -8.08000000023304e-06
+            ],
+            "force_error_percent": 3.1259146583601736e-05,
+            "moment_residual_nm": [
+              3.4175915164524895e-06,
+              4.835472075345737e-06,
+              -2.9317875402057325e-05
+            ]
+          }
+        }
+      }
+    ],
+    "medium_to_fine_delta_percent": 2.543,
+    "legacy_surrogate": {
+      "geometry_scope": "120x100x12 unperforated rectangular cantilever surrogate",
+      "constraint_scope": "entire X=0 edge fixed",
+      "load_application": "total -Z load on narrow opposite-edge strip",
+      "result_definition": "maximum absolute nodal displacement",
+      "meshes": [
+        {
+          "mesh": "coarse",
+          "result": {
+            "max_displacement_mm": 0.33172269130285614,
+            "max_von_mises_mpa": 77.37364108318285,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          }
+        },
+        {
+          "mesh": "medium",
+          "result": {
+            "max_displacement_mm": 0.35172513895314617,
+            "max_von_mises_mpa": 87.08059581472021,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          }
+        },
+        {
+          "mesh": "fine",
+          "result": {
+            "max_displacement_mm": 0.35586877708441916,
+            "max_von_mises_mpa": 90.73706650171032,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          }
+        }
+      ]
+    },
+    "resolution": "DIFFERENT_METRIC_OR_MODEL",
+    "release_metric": "actual FreeCAD plate, in-plane bearing-seat displacement",
+    "status": "PASS"
+  },
+  "hot_zone_mount": {
+    "cases": [
+      {
+        "study": "A_FULLY_FIXED",
+        "temperature_c": 270,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 thermoelastic",
+        "free_axial_growth_mm": 1.1662,
+        "mount_stress_mpa": 791.318,
+        "pressure_sensor_bore_local_screen_mpa": 83.5,
+        "combined_regional_stress_mpa": 874.818,
+        "safety_factor": 0.206,
+        "status": "FAIL"
+      },
+      {
+        "study": "B_ONE_AXIAL_DATUM_SLIDING",
+        "temperature_c": 270,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 thermoelastic",
+        "free_axial_growth_mm": 1.1662,
+        "mount_stress_mpa": 0.0,
+        "pressure_sensor_bore_local_screen_mpa": 83.5,
+        "combined_regional_stress_mpa": 83.5,
+        "safety_factor": 2.156,
+        "status": "PASS"
+      },
+      {
+        "study": "C_RADIAL_CONTROLLED_AXIAL_EXPANSION",
+        "temperature_c": 270,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 thermoelastic",
+        "free_axial_growth_mm": 1.1662,
+        "mount_stress_mpa": 0.0,
+        "pressure_sensor_bore_local_screen_mpa": 83.5,
+        "combined_regional_stress_mpa": 83.5,
+        "safety_factor": 2.156,
+        "status": "PASS"
+      },
+      {
+        "study": "D_BOUNDED_FRAME_SPRING",
+        "temperature_c": 270,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 1000000.0,
+        "method": "closed-form barrel/frame series stiffness",
+        "free_axial_growth_mm": 1.1662,
+        "mount_stress_mpa": 1.6582,
+        "pressure_sensor_bore_local_screen_mpa": 83.5,
+        "combined_regional_stress_mpa": 85.1582,
+        "safety_factor": 2.114,
+        "status": "PASS"
+      }
+    ],
+    "selected_mount": "C_RADIAL_CONTROLLED_AXIAL_EXPANSION",
+    "resolution": "BC04_FULL_FIX_WAS_UNREALISTICALLY_OVERCONSTRAINED",
+    "selected_mount_requirement": "rear axial datum plus front radial guide; >=1.3 mm cold axial travel available",
+    "status": "PASS",
+    "limitations": "B31 mount study evaluates global axial restraint; 83.5 MPa sensor-bore/pressure term is the existing closed-form local screen, not a 3D notch FEA."
+  },
+  "cross_solver_state": "NOT_COMPLETED_BY_SCOPE_DECISION",
+  "fusion_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
+  "inventor_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
+  "physical_validation_state": "NOT_RUN",
+  "status": "PASS"
+}

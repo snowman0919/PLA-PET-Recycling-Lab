@@ -1,8 +1,8 @@
 # CUT-05 — 20 mm keyed cutter shaft
 
 - 수량: 2
-- 재료: S45C
-- 공정: turn + keyway
+- 재료: S45C normalized steel HB 170-229
+- 공정: turn + keyway; black oxide with bearing seats masked
 - CAD bounding box: 20.00 x 240.00 x 20.00 mm
 - 일반공차: ISO 2768-m, 별도 표기 없는 edge C0.3 deburr
 - 중요공차/검사: diameter 20 h6 at two 6004 journals per shaft; overall 240.0 +/-0.10; TIR <=0.05; 6 mm keyways at y=0-35, 55-160 and 195-240 from datum end; keyway depth 3.5; install driven shaft at Y258 and slave shaft at Y278 to preserve 20 mm front sprocket clearance; use standard metal clamp collars for axial retention

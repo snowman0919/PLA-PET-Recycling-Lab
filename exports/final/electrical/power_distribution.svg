@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#263f50"/></marker></defs>
+<rect width="1600" height="1050" fill="white"/><style>text{font-family:"Noto Sans CJK KR",sans-serif;fill:#15242d}.t{font-size:31px;font-weight:700}.s{font-size:17px}.n{font-size:15px;font-weight:600}.e{font-size:13px;font-weight:600}.edge{fill:none;stroke-width:3;marker-end:url(#a)}</style>
+<text x="50" y="52" class="t">power distribution</text>
+<text x="50" y="82" class="s">24 VDC single-line; all branch IDs appear in wire_schedule.csv</text>
+<rect x="45" y="135" width="205" height="80" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="147.5" y="164.0" class="n" text-anchor="middle">PSU 24 V / 600 W</text>
+<text x="147.5" y="186.0" class="n" text-anchor="middle">25 A max</text>
+<rect x="300" y="135" width="180" height="80" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="390.0" y="164.0" class="n" text-anchor="middle">F-MAIN</text>
+<text x="390.0" y="186.0" class="n" text-anchor="middle">30 A DC</text>
+<rect x="550" y="105" width="190" height="62" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="645.0" y="136.0" class="n" text-anchor="middle">F-LOGIC 3 A</text>
+<rect x="550" y="197" width="190" height="62" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="645.0" y="228.0" class="n" text-anchor="middle">F-SAFE 1 A</text>
+<rect x="550" y="289" width="190" height="62" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="645.0" y="320.0" class="n" text-anchor="middle">F-SH 20 A</text>
+<rect x="550" y="381" width="190" height="62" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="645.0" y="412.0" class="n" text-anchor="middle">F-SCREW 10 A</text>
+<rect x="550" y="473" width="190" height="62" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="645.0" y="504.0" class="n" text-anchor="middle">F-FEED 5 A</text>
+<rect x="550" y="565" width="190" height="62" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="645.0" y="596.0" class="n" text-anchor="middle">F-PULL/SPOOL 5 A each</text>
+<rect x="550" y="657" width="190" height="62" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="645.0" y="688.0" class="n" text-anchor="middle">F-FAN 3 A</text>
+<rect x="550" y="749" width="190" height="62" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="645.0" y="780.0" class="n" text-anchor="middle">F-H1..H4 5 A</text>
+<rect x="900" y="105" width="300" height="62" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="1050.0" y="136.0" class="n" text-anchor="middle">Mega + sensors</text>
+<rect x="900" y="197" width="300" height="62" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="1050.0" y="228.0" class="n" text-anchor="middle">K0 safety coil</text>
+<rect x="900" y="289" width="300" height="62" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1050.0" y="320.0" class="n" text-anchor="middle">shredder driver</text>
+<rect x="900" y="381" width="300" height="62" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1050.0" y="412.0" class="n" text-anchor="middle">screw driver</text>
+<rect x="900" y="473" width="300" height="62" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1050.0" y="504.0" class="n" text-anchor="middle">FD-MET auger driver</text>
+<rect x="900" y="565" width="300" height="62" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1050.0" y="596.0" class="n" text-anchor="middle">forming drivers</text>
+<rect x="900" y="657" width="300" height="62" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1050.0" y="688.0" class="n" text-anchor="middle">fan pair</text>
+<rect x="900" y="749" width="300" height="62" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1050.0" y="780.0" class="n" text-anchor="middle">MOS-H1..H4 + TF</text>
+<rect x="1300" y="340" width="240" height="120" rx="7" fill="#edf0f2" stroke="#294c60" stroke-width="2"/>
+<text x="1420.0" y="378.0" class="n" text-anchor="middle">0 V STAR</text>
+<text x="1420.0" y="400.0" class="n" text-anchor="middle">functional return</text>
+<text x="1420.0" y="422.0" class="n" text-anchor="middle">NOT PE</text>
+<path class="edge" stroke="#c24c36" d="M250,175 L300,175"/>
+<rect x="203" y="160" width="144" height="21" fill="white" opacity=".92"/>
+<text x="275" y="176" class="e" text-anchor="middle">24-MAIN+</text>
+<path class="edge" stroke="#c24c36" d="M480,175 L550,136"/>
+<rect x="443" y="140" width="144" height="21" fill="white" opacity=".92"/>
+<text x="515" y="156" class="e" text-anchor="middle">24-LOGIC+</text>
+<path class="edge" stroke="#c24c36" d="M480,175 L550,228"/>
+<rect x="443" y="186" width="144" height="21" fill="white" opacity=".92"/>
+<text x="515" y="202" class="e" text-anchor="middle">24-SAFE+</text>
+<path class="edge" stroke="#c24c36" d="M480,175 L550,320"/>
+<rect x="443" y="232" width="144" height="21" fill="white" opacity=".92"/>
+<text x="515" y="248" class="e" text-anchor="middle">24-SH+</text>
+<path class="edge" stroke="#c24c36" d="M480,175 L550,412"/>
+<rect x="443" y="278" width="144" height="21" fill="white" opacity=".92"/>
+<text x="515" y="294" class="e" text-anchor="middle">24-SCREW+</text>
+<path class="edge" stroke="#c24c36" d="M480,175 L550,504"/>
+<rect x="443" y="324" width="144" height="21" fill="white" opacity=".92"/>
+<text x="515" y="340" class="e" text-anchor="middle">24-FEED+</text>
+<path class="edge" stroke="#c24c36" d="M480,175 L550,596"/>
+<rect x="443" y="370" width="144" height="21" fill="white" opacity=".92"/>
+<text x="515" y="386" class="e" text-anchor="middle">24-PULL/SPOOL+</text>
+<path class="edge" stroke="#c24c36" d="M480,175 L550,688"/>
+<rect x="443" y="416" width="144" height="21" fill="white" opacity=".92"/>
+<text x="515" y="432" class="e" text-anchor="middle">24-FAN+</text>
+<path class="edge" stroke="#c24c36" d="M480,175 L550,780"/>
+<rect x="443" y="462" width="144" height="21" fill="white" opacity=".92"/>
+<text x="515" y="478" class="e" text-anchor="middle">24-H1..4+</text>
+<path class="edge" stroke="#c24c36" d="M740,136 L900,136"/>
+<rect x="748" y="121" width="144" height="21" fill="white" opacity=".92"/>
+<text x="820" y="137" class="e" text-anchor="middle">F-LOGIC</text>
+<path class="edge" stroke="#c24c36" d="M740,228 L900,228"/>
+<rect x="748" y="213" width="144" height="21" fill="white" opacity=".92"/>
+<text x="820" y="229" class="e" text-anchor="middle">F-SAFE</text>
+<path class="edge" stroke="#c24c36" d="M740,320 L900,320"/>
+<rect x="748" y="305" width="144" height="21" fill="white" opacity=".92"/>
+<text x="820" y="321" class="e" text-anchor="middle">F-SH</text>
+<path class="edge" stroke="#c24c36" d="M740,412 L900,412"/>
+<rect x="748" y="397" width="144" height="21" fill="white" opacity=".92"/>
+<text x="820" y="413" class="e" text-anchor="middle">F-SCREW</text>
+<path class="edge" stroke="#c24c36" d="M740,504 L900,504"/>
+<rect x="748" y="489" width="144" height="21" fill="white" opacity=".92"/>
+<text x="820" y="505" class="e" text-anchor="middle">F-FEED</text>
+<path class="edge" stroke="#c24c36" d="M740,596 L900,596"/>
+<rect x="748" y="581" width="144" height="21" fill="white" opacity=".92"/>
+<text x="820" y="597" class="e" text-anchor="middle">F-PULL/SPOOL</text>
+<path class="edge" stroke="#c24c36" d="M740,688 L900,688"/>
+<rect x="748" y="673" width="144" height="21" fill="white" opacity=".92"/>
+<text x="820" y="689" class="e" text-anchor="middle">F-FAN</text>
+<path class="edge" stroke="#c24c36" d="M740,780 L900,780"/>
+<rect x="748" y="765" width="144" height="21" fill="white" opacity=".92"/>
+<text x="820" y="781" class="e" text-anchor="middle">F-H1..4</text>
+<rect x="45" y="890" width="1510" height="125" rx="7" fill="#fff4e8" stroke="#bb5d20" stroke-width="2"/>
+<text x="65" y="920" class="s">• 500 W software heater cap does not replace branch fuses or independent thermal cutoff.</text>
+<text x="65" y="948" class="s">• Exact donor ratings, conductor sizing and local-code compliance are USER_VERIFICATION_REQUIRED.</text>
+</svg>

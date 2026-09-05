@@ -1,0 +1,33 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "new_objects": {
+    "ExtruderFixedCollar": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 9818.275786081529
+    },
+    "ExtruderFrontSlidingGuide": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 28694.57512700058
+    },
+    "ExtruderRearFixedDatum": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 23412.85341747784
+    },
+    "ExtruderSupportRailRear": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 156000.0
+    }
+  },
+  "unexpected_collisions": [],
+  "thermal_expansion": {
+    "predicted_pet_growth_mm": 1.1662,
+    "available_axial_travel_mm": 1.3,
+    "margin_mm": 0.1338
+  },
+  "physical_validation_state": "NOT_RUN",
+  "status": "PASS"
+}

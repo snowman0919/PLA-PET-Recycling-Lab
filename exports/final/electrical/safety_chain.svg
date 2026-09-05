@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#263f50"/></marker></defs>
+<rect width="1600" height="1050" fill="white"/><style>text{font-family:"Noto Sans CJK KR",sans-serif;fill:#15242d}.t{font-size:31px;font-weight:700}.s{font-size:17px}.n{font-size:15px;font-weight:600}.e{font-size:13px;font-weight:600}.edge{fill:none;stroke-width:3;marker-end:url(#a)}</style>
+<text x="50" y="52" class="t">safety chain</text>
+<text x="50" y="82" class="s">normally-closed hard cut; de-energize-to-trip</text>
+<rect x="45" y="230" width="190" height="85" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="140.0" y="272.5" class="n" text-anchor="middle">F-SAFE</text>
+<rect x="290" y="230" width="190" height="85" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="385.0" y="272.5" class="n" text-anchor="middle">S0 E-STOP NC</text>
+<rect x="535" y="230" width="190" height="85" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="630.0" y="272.5" class="n" text-anchor="middle">S1 LID NC</text>
+<rect x="780" y="230" width="190" height="85" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="875.0" y="272.5" class="n" text-anchor="middle">S2 SERVICE NC</text>
+<rect x="1025" y="230" width="190" height="85" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="1120.0" y="272.5" class="n" text-anchor="middle">TF THERMAL CUTOFF</text>
+<rect x="1270" y="230" width="190" height="85" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="1365.0" y="272.5" class="n" text-anchor="middle">K0 COIL</text>
+<rect x="1080" y="500" width="240" height="85" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="1200.0" y="531.5" class="n" text-anchor="middle">K0 feedback</text>
+<text x="1200.0" y="553.5" class="n" text-anchor="middle">force-guided</text>
+<rect x="650" y="500" width="240" height="85" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="770.0" y="531.5" class="n" text-anchor="middle">Mega D24</text>
+<text x="770.0" y="553.5" class="n" text-anchor="middle">diagnostic only</text>
+<rect x="220" y="500" width="240" height="85" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="340.0" y="531.5" class="n" text-anchor="middle">K0 power contacts</text>
+<text x="340.0" y="553.5" class="n" text-anchor="middle">hazardous branches</text>
+<path class="edge" stroke="#c24c36" d="M235,272 L290,272"/>
+<rect x="190" y="257" width="144" height="21" fill="white" opacity=".92"/>
+<text x="262" y="273" class="e" text-anchor="middle">SAFE-01</text>
+<path class="edge" stroke="#c24c36" d="M480,272 L535,272"/>
+<rect x="435" y="257" width="144" height="21" fill="white" opacity=".92"/>
+<text x="507" y="273" class="e" text-anchor="middle">SAFE-02</text>
+<path class="edge" stroke="#c24c36" d="M725,272 L780,272"/>
+<rect x="680" y="257" width="144" height="21" fill="white" opacity=".92"/>
+<text x="752" y="273" class="e" text-anchor="middle">SAFE-03</text>
+<path class="edge" stroke="#c24c36" d="M970,272 L1025,272"/>
+<rect x="925" y="257" width="144" height="21" fill="white" opacity=".92"/>
+<text x="997" y="273" class="e" text-anchor="middle">SAFE-04</text>
+<path class="edge" stroke="#c24c36" d="M1215,272 L1270,272"/>
+<rect x="1170" y="257" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1242" y="273" class="e" text-anchor="middle">SAFE-05</text>
+<path class="edge" stroke="#315a84" d="M1320,542 L890,542"/>
+<rect x="1033" y="527" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1105" y="543" class="e" text-anchor="middle">SIG-24</text>
+<rect x="45" y="890" width="1510" height="125" rx="7" fill="#fff4e8" stroke="#bb5d20" stroke-width="2"/>
+<text x="65" y="920" class="s">• Any open S0/S1/S2/TF removes K0 coil energy with firmware halted.</text>
+<text x="65" y="948" class="s">• Reset needs cause removal, physical lockout confirmation and explicit restart permission.</text>
+</svg>

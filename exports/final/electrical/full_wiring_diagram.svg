@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#263f50"/></marker></defs>
+<rect width="1600" height="1050" fill="white"/><style>text{font-family:"Noto Sans CJK KR",sans-serif;fill:#15242d}.t{font-size:31px;font-weight:700}.s{font-size:17px}.n{font-size:15px;font-weight:600}.e{font-size:13px;font-weight:600}.edge{fill:none;stroke-width:3;marker-end:url(#a)}</style>
+<text x="50" y="52" class="t">full wiring diagram</text>
+<text x="50" y="82" class="s">terminal topology; paired schedules contain every conductor field</text>
+<rect x="45" y="135" width="210" height="105" rx="7" fill="#edf0f2" stroke="#294c60" stroke-width="2"/>
+<text x="150.0" y="176.5" class="n" text-anchor="middle">TB-AC</text>
+<text x="150.0" y="198.5" class="n" text-anchor="middle">AC-L · AC-N · PE-01</text>
+<rect x="305" y="135" width="210" height="105" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="410.0" y="176.5" class="n" text-anchor="middle">PSU</text>
+<text x="410.0" y="198.5" class="n" text-anchor="middle">24 V / 600 W</text>
+<rect x="565" y="135" width="210" height="105" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="670.0" y="176.5" class="n" text-anchor="middle">TB24 + FUSES</text>
+<text x="670.0" y="198.5" class="n" text-anchor="middle">MAIN · LOGIC · SAFE</text>
+<rect x="825" y="115" width="225" height="145" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
+<text x="937.5" y="176.5" class="n" text-anchor="middle">K0 SAFETY</text>
+<text x="937.5" y="198.5" class="n" text-anchor="middle">SAFE-01..06</text>
+<rect x="1100" y="115" width="215" height="145" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1207.5" y="165.5" class="n" text-anchor="middle">POWER LOADS</text>
+<text x="1207.5" y="187.5" class="n" text-anchor="middle">SH · SCREW · FEED</text>
+<text x="1207.5" y="209.5" class="n" text-anchor="middle">PULL · SPOOL · FAN</text>
+<rect x="1365" y="115" width="180" height="145" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1455.0" y="176.5" class="n" text-anchor="middle">HEATERS</text>
+<text x="1455.0" y="198.5" class="n" text-anchor="middle">24-H1..H4</text>
+<rect x="565" y="420" width="210" height="125" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="670.0" y="460.5" class="n" text-anchor="middle">ARDUINO MEGA</text>
+<text x="670.0" y="482.5" class="n" text-anchor="middle">SIG-&lt;PIN&gt;</text>
+<text x="670.0" y="504.5" class="n" text-anchor="middle">D2..D52 / A0..A15</text>
+<rect x="45" y="420" width="410" height="125" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="250.0" y="460.5" class="n" text-anchor="middle">SENSOR TERMINALS</text>
+<text x="250.0" y="482.5" class="n" text-anchor="middle">TC1..5 · tach · current · gauge</text>
+<text x="250.0" y="504.5" class="n" text-anchor="middle">dancer · limits · driver faults</text>
+<rect x="825" y="420" width="225" height="125" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
+<text x="937.5" y="460.5" class="n" text-anchor="middle">CONTROL TERMINALS</text>
+<text x="937.5" y="482.5" class="n" text-anchor="middle">PWM · DIR · ENABLE</text>
+<text x="937.5" y="504.5" class="n" text-anchor="middle">STEP · mux · heater gate</text>
+<rect x="1100" y="420" width="445" height="125" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
+<text x="1322.5" y="460.5" class="n" text-anchor="middle">DRIVER / MOSFET INTERFACES</text>
+<text x="1322.5" y="482.5" class="n" text-anchor="middle">logic isolation as required</text>
+<text x="1322.5" y="504.5" class="n" text-anchor="middle">exact levels USER_VERIFY</text>
+<rect x="305" y="700" width="210" height="90" rx="7" fill="#edf0f2" stroke="#294c60" stroke-width="2"/>
+<text x="410.0" y="734.0" class="n" text-anchor="middle">0 V STAR</text>
+<text x="410.0" y="756.0" class="n" text-anchor="middle">all 24-*- returns</text>
+<rect x="565" y="700" width="210" height="90" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="670.0" y="734.0" class="n" text-anchor="middle">PE STUD</text>
+<text x="670.0" y="756.0" class="n" text-anchor="middle">PE-01..04</text>
+<rect x="825" y="700" width="225" height="90" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
+<text x="937.5" y="734.0" class="n" text-anchor="middle">SHIELD BAR</text>
+<text x="937.5" y="756.0" class="n" text-anchor="middle">one-end only</text>
+<rect x="1100" y="700" width="445" height="90" rx="7" fill="#edf0f2" stroke="#294c60" stroke-width="2"/>
+<text x="1322.5" y="723.0" class="n" text-anchor="middle">FIELD DEVICES</text>
+<text x="1322.5" y="745.0" class="n" text-anchor="middle">strain relief + service loops</text>
+<text x="1322.5" y="767.0" class="n" text-anchor="middle">no sharp-edge or solid crossing</text>
+<path class="edge" stroke="#334d5f" d="M255,187 L305,187"/>
+<rect x="208" y="172" width="144" height="21" fill="white" opacity=".92"/>
+<text x="280" y="188" class="e" text-anchor="middle">AC-L/N</text>
+<path class="edge" stroke="#c24c36" d="M515,187 L565,187"/>
+<rect x="468" y="172" width="144" height="21" fill="white" opacity=".92"/>
+<text x="540" y="188" class="e" text-anchor="middle">24-MAIN±</text>
+<path class="edge" stroke="#c24c36" d="M775,187 L825,187"/>
+<rect x="728" y="172" width="144" height="21" fill="white" opacity=".92"/>
+<text x="800" y="188" class="e" text-anchor="middle">24-SAFE+</text>
+<path class="edge" stroke="#c24c36" d="M1050,187 L1100,187"/>
+<rect x="1003" y="172" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1075" y="188" class="e" text-anchor="middle">branches</text>
+<path class="edge" stroke="#c24c36" d="M1315,187 L1365,187"/>
+<rect x="1268" y="172" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1340" y="188" class="e" text-anchor="middle">24-H1..4</text>
+<path class="edge" stroke="#31734f" d="M455,482 L565,482"/>
+<rect x="438" y="467" width="144" height="21" fill="white" opacity=".92"/>
+<text x="510" y="483" class="e" text-anchor="middle">SIG inputs</text>
+<path class="edge" stroke="#315a84" d="M775,482 L825,482"/>
+<rect x="728" y="467" width="144" height="21" fill="white" opacity=".92"/>
+<text x="800" y="483" class="e" text-anchor="middle">SIG outputs</text>
+<path class="edge" stroke="#315a84" d="M1050,482 L1100,482"/>
+<rect x="1003" y="467" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1075" y="483" class="e" text-anchor="middle">J-&lt;PIN&gt;</text>
+<path class="edge" stroke="#31734f" d="M515,745 L565,745"/>
+<rect x="468" y="730" width="144" height="21" fill="white" opacity=".92"/>
+<text x="540" y="746" class="e" text-anchor="middle">PE-02</text>
+<path class="edge" stroke="#315a84" d="M775,745 L825,745"/>
+<rect x="728" y="730" width="144" height="21" fill="white" opacity=".92"/>
+<text x="800" y="746" class="e" text-anchor="middle">shields</text>
+<path class="edge" stroke="#31734f" d="M1050,745 L1100,745"/>
+<rect x="1003" y="730" width="144" height="21" fill="white" opacity=".92"/>
+<text x="1075" y="746" class="e" text-anchor="middle">field routes</text>
+<rect x="45" y="890" width="1510" height="125" rx="7" fill="#fff4e8" stroke="#bb5d20" stroke-width="2"/>
+<text x="65" y="920" class="s">• This diagram plus wire, connector and fuse schedules is the terminal wiring definition.</text>
+<text x="65" y="948" class="s">• FD-MET feeder: D44 PWM / D42 DIR / D46 EN / D47 FAULT / A7 TACH; 5 A branch envelope.</text>
+</svg>
