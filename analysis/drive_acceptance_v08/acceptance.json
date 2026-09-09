@@ -1,0 +1,86 @@
+{
+  "status": "CONSISTENT_REVIEW_SNAPSHOT",
+  "machine_release": "HOLD",
+  "physical_validation": "NOT_RUN",
+  "hardware_authorization": "NOT_GRANTED",
+  "export_count": 41,
+  "new_drive_interference_count": 0,
+  "inherited_interference_count": 14,
+  "full_bbox_mm": [
+    470.0,
+    729.0,
+    930.0
+  ],
+  "full_solid_count": 254,
+  "journal_checks": 3,
+  "key_checks": 5,
+  "guard_test_output": "PASS 85 software checks; physical tests 0",
+  "guard_source_sha256": "142d0288946ba3efc1f03583c0ff4176d68bd9f9dddb1d127fb3bf028b5beedc",
+  "guard_test_sha256": "54dd481f6d6275932d0a18c5051ef344eec4de08603f49f17927e7d3202fa28f",
+  "process_case_count": 8,
+  "process_trip_margins": [
+    {
+      "case": "PLA_selected",
+      "peak_nm": 7.041222846750115,
+      "nominal_trip_margin_nm": 0.9587771532498852,
+      "margin_with_positive_calibration_bias_nm": 0.5587771532498852,
+      "physical_validation": "NOT_RUN"
+    },
+    {
+      "case": "PLA_selected_high_viscosity",
+      "peak_nm": 7.968671270125204,
+      "nominal_trip_margin_nm": 0.0313287298747964,
+      "margin_with_positive_calibration_bias_nm": -0.3686712701252036,
+      "physical_validation": "NOT_RUN"
+    },
+    {
+      "case": "PLA_reduced_high_viscosity",
+      "peak_nm": 7.253575148523719,
+      "nominal_trip_margin_nm": 0.7464248514762808,
+      "margin_with_positive_calibration_bias_nm": 0.34642485147628077,
+      "physical_validation": "NOT_RUN"
+    },
+    {
+      "case": "PLA_startup_high_viscosity",
+      "peak_nm": 6.900944454503301,
+      "nominal_trip_margin_nm": 1.0990555454966993,
+      "margin_with_positive_calibration_bias_nm": 0.6990555454966992,
+      "physical_validation": "NOT_RUN"
+    },
+    {
+      "case": "PET_selected",
+      "peak_nm": 7.972473925325824,
+      "nominal_trip_margin_nm": 0.027526074674176115,
+      "margin_with_positive_calibration_bias_nm": -0.3724739253258239,
+      "physical_validation": "NOT_RUN"
+    },
+    {
+      "case": "PET_selected_high_viscosity",
+      "peak_nm": 9.365547887988756,
+      "nominal_trip_margin_nm": -1.3655478879887557,
+      "margin_with_positive_calibration_bias_nm": -1.7655478879887556,
+      "physical_validation": "NOT_RUN"
+    },
+    {
+      "case": "PET_reduced_high_viscosity",
+      "peak_nm": 7.936565792848232,
+      "nominal_trip_margin_nm": 0.06343420715176773,
+      "margin_with_positive_calibration_bias_nm": -0.3365657928482323,
+      "physical_validation": "NOT_RUN"
+    },
+    {
+      "case": "PET_startup_high_viscosity",
+      "peak_nm": 7.468282879410861,
+      "nominal_trip_margin_nm": 0.5317171205891391,
+      "margin_with_positive_calibration_bias_nm": 0.1317171205891391,
+      "physical_validation": "NOT_RUN"
+    }
+  ],
+  "source_sha256": {
+    "exports/final/drive_ggm_v08/manifest.json": "e1838d85788c84565d5e5fa47e97aa56a11829b193161d754781bb4b885abc5a",
+    "analysis/drive_acceptance_v08/geometry_review.json": "8b18bd0375231b22fb1aa639f00a8bdeaf5f114116b565c5888114614bb0bc7a",
+    "analysis/drive_acceptance_v08/process_limits.json": "14d8537f77e8ba752a29b842af92a86f25f6f88612ee02ff94e6544b528b9abb",
+    "control/ggm_drive_contract.json": "c2404f98178c59649f3faa91571a317a9cd575cb0c42e19a7df14f510bab7d2a",
+    "analysis/drive_acceptance_v08/verify_snapshot.py": "96b0232e54f2f47523f33a496c609be0155377444450d4e34757d46bef2ae3d9"
+  }
+}
