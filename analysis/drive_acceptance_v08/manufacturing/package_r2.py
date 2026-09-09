@@ -28,6 +28,9 @@ def main():
         if p.suffix in {'.py','.json','.csv','.md','.typ'}:add(p,'03_METHOD_AND_EVIDENCE/'+p.name)
     add(R/'analysis/drive_acceptance_v08/drive_component_register.csv','04_BOM/drive_component_register.csv')
     add(R/'analysis/drive_acceptance_v08/firmware_review.json','05_FIRMWARE_REFERENCE/firmware_review.json')
+    fw=R/'exports/final/drive_ggm_v08/firmware'
+    for rel in ('manifest.json','binaries/arduino_mega.ino.hex','arduino_mega/src/ggm_drive_guard.h','arduino_mega/src/ggm_commissioning.h'):
+        add(fw/rel,'05_FIRMWARE_REFERENCE/'+rel)
     for p in (R/'cad/freecad/drive_v08').glob('*.py'):add(p,'06_SOURCE/'+str(p.relative_to(R)))
     for p in (R/'cad/freecad/compact').glob('*.py'):add(p,'06_SOURCE/'+str(p.relative_to(R)))
     for name in ['cad/freecad/final_v08/generate.py','cad/parameters/baseline.json','cad/parameters/final_v08.json','control/ggm_drive_contract.json']:
