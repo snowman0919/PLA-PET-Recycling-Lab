@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "decision_id": "PPR-PRACTICAL-MAKE-REUSE-20260909",
+  "state": "TARGET_ACCEPTED_IMPLEMENTATION_PENDING",
+  "source": "User decision in current conversation 2026-09-09",
+  "frame": {
+    "default_section": "2020",
+    "load_path": "metal parts -> metal brackets/bearing plates -> short-span 2020 -> table",
+    "legacy_2040": "LOCAL_REPLACEMENT_REVIEW_REQUIRED; no automatic substitution"
+  },
+  "housing": {
+    "default_material": "ABS",
+    "scope": "external enclosure and non-hot printed parts; functional parts require retained fit/load checks",
+    "exclude": [
+      "cutters",
+      "pressure-containing hot path",
+      "thrust seats",
+      "independent hot/fragment barrier"
+    ],
+    "printer_envelope_mm": [
+      220,
+      220,
+      220
+    ],
+    "part_design_envelope_mm": [
+      210,
+      210,
+      210
+    ],
+    "fit_prior_report_mm": 0.1,
+    "abs_fit_verified": false,
+    "metal_washers_and_captive_nuts_preferred": true
+  },
+  "fastener_stock": {
+    "nominal_diameters_mm": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "availability": "USER_REPORTED_AVAILABLE",
+    "length_pitch_grade_quantity": "NOT_ENUMERATED",
+    "panel_preference": [
+      "M3",
+      "M4"
+    ],
+    "profile_preference": "matching 2020 slot/T-nut, normally M5 or M6 subject to actual profile",
+    "critical_joint_rule": "retain specified grade, engagement and load path; stock diameter alone is insufficient"
+  },
+  "donor_printer": {
+    "asset_id": "DONOR-PRINTER-01",
+    "presence": "USER_REPORTED_AVAILABLE",
+    "fault_report": "MCU only failed",
+    "model": "NOT_CONFIRMED_FOR_THIS_ASSET",
+    "individual_parts": "CANDIDATE_UNINSPECTED",
+    "controller_board": "FAULT_REPORTED_NOT_ASSIGNED",
+    "relationship_to_previous_bed_fault_report": "Latest statement governs this asset; identity with earlier printer not assumed"
+  },
+  "cnc_policy": "standard stock/donor -> saw/drill/bend/cut-sheet -> local turning/ream/keyway -> special CNC only where functional geometry requires",
+  "price_policy": "cost and effort prioritized; no reinstated hard 200000 KRW release cap",
+  "purchases_performed": false,
+  "physical_validation": "NOT_RUN",
+  "machine_release": "HOLD"
+}

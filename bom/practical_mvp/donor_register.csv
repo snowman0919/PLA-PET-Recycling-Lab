@@ -1,0 +1,16 @@
+item_id,item,availability,target_use,minimal_check,constraint
+STOCK-FASTENERS,M2-M6 나사 세트,USER_REPORTED_AVAILABLE,본체 체결부 전반,직경별 길이/피치/수량; 하중부 강도등급; T너트/와셔 별도 확인,패널 M3/M4 우선; 주요 체결 규격은 검증 없이 변경하지 않음
+DONOR-MOTOR,프린터 모터,CANDIDATE_UNINSPECTED,traverse; spooler/puller의 조건부 대안,라벨 전류; 축경; 기어/벨트비; driver 규격,분쇄기/압출 screw의 토크를 NEMA 크기만으로 만족한다고 판단하지 않음
+DONOR-ROD,연마봉/리니어 가이드,CANDIDATE_UNINSPECTED,traverse와 gauge/puller 조정축,유효 길이; 직경; 직진성; 유격,기존 가이드 규격에 맞춰 어댑터 치수 결정
+DONOR-LEADSCREW,Z축 리드스크루/너트,CANDIDATE_UNINSPECTED,traverse 구동 후보,리드; 길이; 백래시; 결합축,리드 변경 시 steps/mm와 homing 설정 갱신
+DONOR-BELT,벨트/풀리/아이들러,CANDIDATE_UNINSPECTED,traverse; spooler 저부하 구동 후보,피치; 폭; 풀리 치수; 균열; 감속비,분쇄기 chain을 무검토 대체하지 않음
+DONOR-BEARING,프린터 베어링,CANDIDATE_UNINSPECTED,traverse/guide/저부하 회전체,각인; 내외경; 폭; 회전 유격,61905 및 51102 하중부 베어링과 호환을 가정하지 않음
+DONOR-FAN,프린터 팬,CANDIDATE_UNINSPECTED,전자부 냉각; filament 냉각 후보,정격전압; 소비전류; 크기; 풍량 조건; tach 유무,2선 팬을 개별 tach가 검증된 팬으로 처리하지 않음
+DONOR-ENDSTOP,엔드스톱 스위치/센서,CANDIDATE_UNINSPECTED,traverse homing; 상태 감지,기계식/광학/유도 방식; 전압; 논리; 반복성,비상정지나 안전 차단 기능과 자동 동등화하지 않음
+DONOR-DISPLAY,LCD/노브/버튼,CANDIDATE_UNINSPECTED,Arduino Mega 조작부,표시기 모델; 통신 방식; pinout; 논리전압,범용 인터페이스 확인 후 driver 재사용
+DONOR-DRIVER,스텝모터 드라이버,CANDIDATE_UNINSPECTED,저부하 모터축,분리형 여부; 손상범위; 전압/전류; STEP/DIR,고장 MCU와 일체형이면 정상 재사용품으로 지정하지 않음
+DONOR-HEATER,히터 카트리지/히팅베드,CANDIDATE_UNINSPECTED,규격 일치 시 die 가열 후보; bed는 별도 재사용 검토,전압; 저항/출력; 외경/길이; 절연/배선 상태,프린터 heater를 기존 360 W barrel+die 설계와 동등하다고 가정하지 않음
+DONOR-TEMP,온도센서,CANDIDATE_UNINSPECTED,정격과 interface가 맞는 센서 위치,thermistor/RTD/thermocouple 구분; 범위; 입력회로,thermistor는 MAX6675 Type-K 경로에 직접 연결하지 않음
+DONOR-WIRING,케이블/커넥터/브래킷,CANDIDATE_UNINSPECTED,저전압 배선; 저온 mounting,단면적; 전류/온도; 극성; 열손상,히터/주전원과 안전부 배선은 외형만으로 재사용하지 않음
+DONOR-PSU,프린터 PSU,CANDIDATE_UNINSPECTED,예비품; 주 PSU는 기존 보유24V600W 우선,전압; 정격; 단자; 보호접지,PSU 병렬 추가 없이 단일 PSU 정책 유지
+DONOR-MCU,고장 프린터 MCU 보드,FAULT_REPORTED,배정하지 않음,수리 요구 없음,Arduino Mega 제어 기준 유지
