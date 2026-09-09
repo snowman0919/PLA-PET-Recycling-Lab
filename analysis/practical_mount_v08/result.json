@@ -1,0 +1,88 @@
+{
+  "status": "SCOPED_ANALYTICAL_AUDIT_NOT_FABRICATION_APPROVAL",
+  "physical_validation": "NOT_RUN",
+  "machine_release": "HOLD",
+  "datum_x_mm": 367.0,
+  "guide_x_range_mm": [
+    265.0,
+    273.0
+  ],
+  "datum_to_guide_max_mm": 102.0,
+  "datum_to_barrel_front_mm": 272.0,
+  "datum_sensitivity": {
+    "assumed_existing_model_datum_x_mm": 367.0,
+    "other_shoulder_face_x_mm": 375.0,
+    "guide_travel_upper_other_face_mm": 0.5236,
+    "reason": "Axial contact face/endplay must be resolved by final assembly; no hidden datum assumption"
+  },
+  "existing_declared_axial_travel_mm": 1.3,
+  "cases": [
+    {
+      "alpha_per_k": 1.23e-05,
+      "barrel_uniform_bound_c": 270.0,
+      "guide_max_travel_mm": 0.31365,
+      "barrel_front_travel_mm": 0.8364,
+      "guide_clearance_nominal_mm": 0.4954500000000053,
+      "rear_bore_clearance_nominal_mm": -0.004549999999994725,
+      "shoulder_pocket_clearance_nominal_mm": -0.03529999999999944
+    },
+    {
+      "alpha_per_k": 1.23e-05,
+      "barrel_uniform_bound_c": 300.0,
+      "guide_max_travel_mm": 0.351288,
+      "barrel_front_travel_mm": 0.936768,
+      "guide_clearance_nominal_mm": 0.4829039999999978,
+      "rear_bore_clearance_nominal_mm": -0.01709600000000222,
+      "shoulder_pocket_clearance_nominal_mm": -0.051535999999998694
+    },
+    {
+      "alpha_per_k": 1.7e-05,
+      "barrel_uniform_bound_c": 270.0,
+      "guide_max_travel_mm": 0.4335,
+      "barrel_front_travel_mm": 1.156,
+      "guide_clearance_nominal_mm": 0.4555000000000007,
+      "rear_bore_clearance_nominal_mm": -0.04449999999999932,
+      "shoulder_pocket_clearance_nominal_mm": -0.0870000000000033
+    },
+    {
+      "alpha_per_k": 1.7e-05,
+      "barrel_uniform_bound_c": 300.0,
+      "guide_max_travel_mm": 0.48552,
+      "barrel_front_travel_mm": 1.2947199999999999,
+      "guide_clearance_nominal_mm": 0.43815999999999633,
+      "rear_bore_clearance_nominal_mm": -0.06184000000000367,
+      "shoulder_pocket_clearance_nominal_mm": -0.10943999999999932
+    }
+  ],
+  "pressures": [
+    {
+      "id": "normal_model",
+      "pressure_mpa": 3.0,
+      "force_n": 619.8874385135197,
+      "kgf": 63.21092712735947,
+      "tonne_force": 0.06321092712735947,
+      "measured": false
+    },
+    {
+      "id": "blocked_die_design_case",
+      "pressure_mpa": 6.0,
+      "force_n": 1239.7748770270393,
+      "kgf": 126.42185425471894,
+      "tonne_force": 0.12642185425471894,
+      "measured": false
+    }
+  ],
+  "limitations": [
+    "Nominal geometry only: tolerances, shaft/barrel alignment and pressure strain are not closed here.",
+    "Uniform barrel temperature and cold support are sensitivities, not measured operating states.",
+    "A nominal radial gap does not prove sliding, bearing contact, retained alignment or friction.",
+    "A specified 6 MPa case is not a verified pressure trip and is not inferred from motor current.",
+    "1,222 MPa is an HS-R1-S2-specific strength screen, not a machine extrusion-pressure requirement."
+  ],
+  "source_sha256": {
+    "analysis/practical_mount_v08/calculate.py": "6a34164f04c5c105b538bae5681c2056b56a7dbb4afb592c17f193a4b9badd5e",
+    "analysis/practical_mount_v08/geometry.json": "156d8020cbde969791288065ed78d1837401fb7425d93866fce89d41638cdcbb",
+    "cad/parameters/final_v08.json": "b793e1cf1123c82aab037b592b4256efb8374bd79ad0e1bb22c658aa66c78e81",
+    "cad/parameters/baseline.json": "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a"
+  }
+}
