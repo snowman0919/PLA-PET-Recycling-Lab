@@ -1,5 +1,9 @@
 # HS-R1-S2: 고온부 sliding 시험 기반
 
+## 현재 MVP 선택 상태
+2026-09-09 사용자 결정으로 HS-R1-S2는 `RESEARCH_OPTION_NOT_MVP_DEFAULT`다. 본 폴더의 시험 결과와 요구 강도는 이 후보에만 적용한다. 현재 작업은 `../../docs/final/practical_mvp_priority_ko.md`에 따라 기존 후방 금속 지지의 최소 변경을 우선한다. 기존 r0/r1/r2 묶음은 이 후보의 역사 자료로 보존하며 새 기본 제작안이라고 해석하지 않는다.
+
+
 현재 상태는 `PRESSURELESS_PROTOTYPE_REVIEW`이며 전체 기계 release는 `HOLD`다. 가공·구매·통전·기계 장착 승인이 아니다.
 
 ## 해결 구조

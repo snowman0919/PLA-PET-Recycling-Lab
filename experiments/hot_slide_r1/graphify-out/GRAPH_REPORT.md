@@ -5,7 +5,7 @@ AST + reviewed source-located document links only. Not a full project or full vi
 # Graph Report - hot_slide_r1  (2026-09-09)
 
 ## Corpus Check
-- 34 files · ~2,995 words
+- 34 files · ~3,074 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
