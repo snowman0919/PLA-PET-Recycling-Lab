@@ -10,6 +10,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "release"))
+from firmware_evidence import firmware_evidence_current
+from v08_full_compliance import manufacturing_files_current, PRINT_BINDINGS
 
 
 def present(*paths: str) -> bool:
@@ -36,18 +39,27 @@ def release_zip_ok() -> bool:
     ).returncode == 0
 
 
+def solver_evidence_ok() -> bool:
+    paths = ("analysis/final_validation/results/v0.8/summary.json",
+             "simulation/openmodelica/results_v0.8/summary.json",
+             "analysis/final_validation/results/v0.8/loaded_phase.json",
+             "calculations/tolerance_stack_final.json")
+    return present(*paths, "docs/final/solver_validation_ko.md") and all(
+        json.loads((ROOT/path).read_text()).get("status") == "PASS" for path in paths)
+
+
 def main() -> None:
     bom_ids = {row["part_id"] for row in csv.DictReader((ROOT / "exports/final/bom/BOM.csv").open())}
     step_rows = list(csv.DictReader((ROOT / "exports/final/step/step_manifest.csv").open()))
     print_rows = list(csv.DictReader((ROOT / "exports/final/print/print_manifest.csv").open()))
     checks = {
         "baseline_and_archive": present("validation/v0.8/baseline.json", "docs/archive/v0.7_exploratory_index.md"),
-        "solver_evidence": present("analysis/final_validation/results/v0.8/summary.json", "simulation/openmodelica/results_v0.8/summary.json", "docs/final/solver_validation_ko.md"),
-        "final_step": len(step_rows) >= 20 and all(row["status"] == "PASS" for row in step_rows),
-        "print_package": len(print_rows) == 12 and all(row["slicer_status"] == "PASS" and row["status"] == "PASS" for row in print_rows),
-        "hot_zone_manufacturing": csv_has("exports/final/manufacturing/hot_zone/manifest.csv", {"part_id", "revision", "quantity", "material", "process", "critical_tolerance", "inspection", "status"}, 5) and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.dxf"))) == 5 and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.step"))) == 5 and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.pdf"))) >= 5,
+        "solver_evidence": solver_evidence_ok(),
+        "final_step": len(step_rows) >= 20 and all(row["status"] == "PASS" and manufacturing_files_current(ROOT / "exports/final/step", row, (("file", "sha256"),)) for row in step_rows),
+        "print_package": len(print_rows) == 12 and all(row["slicer_status"] == "PASS" and row["status"] == "PASS" and manufacturing_files_current(ROOT / "exports/final/print", row, PRINT_BINDINGS) for row in print_rows),
+        "hot_zone_manufacturing": csv_has("exports/final/manufacturing/hot_zone/manifest.csv", {"part_id", "revision", "quantity", "material", "process", "critical_tolerance", "inspection", "status"}, 5) and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.dxf"))) >= 5 and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.step"))) >= 5 and len(list((ROOT / "exports/final/manufacturing/hot_zone").glob("*.pdf"))) >= 5,
         "hot_zone_bom": {"EX-MT-01", "EX-MT-02", "EX-MT-03", "EX-MT-04"} <= bom_ids,
-        "firmware_binary": present("exports/final/firmware/binaries/filament_recycler_atmega2560.hex", "exports/final/firmware/build_manifest.json"),
+        "firmware_binary": firmware_evidence_current(ROOT),
         "drawing_register": csv_has("docs/drawings/drawing_register.csv", {"drawing_number", "part_assembly_id", "revision", "source_commit", "pdf", "page", "status"}, 20) and pdfs("docs/final/assembly_drawing_set.pdf"),
         "electrical_final_package": pdfs(
             "exports/final/electrical/system_block_diagram.pdf", "exports/final/electrical/power_distribution.pdf",
@@ -84,7 +96,7 @@ def main() -> None:
     }
     out = ROOT / "validation/results/v08_release_inventory.json"
     out.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
-    rows = ["# v0.8 릴리스 준비도", "", "물리 시험·안전 인증이 아닌 디지털 산출물 감사다.", ""]
+    rows = ["# v0.8 릴리스 준비도", "", "물리 시험·안전 인증이 아닌 13항목 디지털 산출물 감사다. 전체 compliance와 승인 상태는 `release_notes_v1.0.0-rc1_ko.md` 및 `v08_full_compliance_ko.md`를 따른다. 이 감사의 PASS만으로 제작 후보 승인이나 현재 HOLD 해소를 선언하지 않는다.", ""]
     rows += [f"- `{'PASS' if ok else 'PENDING'}` {name}" for name, ok in checks.items()]
     rows += ["", f"결과: {result['passed']}/{result['total']} — `{result['status']}`", ""]
     (ROOT / "docs/final/release_readiness_ko.md").write_text("\n".join(rows))

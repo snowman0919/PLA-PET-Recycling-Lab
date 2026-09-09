@@ -24,6 +24,7 @@ struct GaugeReading {
 struct ActuatorCommands {
   int16_t shredder_pwm;
   bool feeder_enable;
+  uint16_t feeder_step_hz;
   int16_t screw_pwm;
   int16_t puller_pwm;
   int16_t spooler_pwm;
@@ -33,7 +34,6 @@ struct ActuatorCommands {
   bool traverse_enable;
   bool waste_path_active;
   bool heater_on[4];
-  bool hopper_ptc_on;
 };
 
 struct CoolingFeedback {

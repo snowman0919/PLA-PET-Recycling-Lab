@@ -351,7 +351,7 @@ int main() {
   assert(transaction.process().state() == MachineState::ESTOP);
   assert(out.actuators.shredder_pwm == 0 && out.actuators.screw_pwm == 0 &&
          out.actuators.puller_pwm == 0 && out.actuators.spooler_pwm == 0 && !out.actuators.feeder_enable &&
-         out.actuators.cooling_pwm == 0 && !out.actuators.traverse_enable && !out.actuators.hopper_ptc_on);
+         out.actuators.cooling_pwm == 0 && !out.actuators.traverse_enable);
 
   // Regression: a refused atomic clear leaves every latch and process state unchanged.
   const uint16_t reasons_before = transaction.formingFaultReasons();
@@ -398,6 +398,7 @@ int main() {
   assert(!out.view.purge_run_completed);
   assert(!purge.confirmPurgeComplete(true, in, 2000));  // Elapsed time and measured revolutions are insufficient.
   assert(out.actuators.screw_pwm > 0 && out.actuators.feeder_enable && out.actuators.puller_pwm > 0);
+  assert(out.actuators.feeder_step_hz == 880);  // PLA 6.6 rpm, 10:1, 800 pulse/rev.
   assert(purge.process().material() == MaterialProfile::PLA);
   purge.update(in, 122000);
   InputSnapshot unsafe_purge_completion = in;

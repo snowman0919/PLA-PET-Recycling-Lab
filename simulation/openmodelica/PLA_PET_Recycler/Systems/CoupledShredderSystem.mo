@@ -106,5 +106,5 @@ equation
   motor.duty=dutyCommand;
   motor.enable=enableCommand and time<stopTime and not jamFault;
   estimatedCutterTorque=abs(chain.transmittedTorque);
-  bearingLoad=abs(chain.tightSideForce)+phase.separatingForce+(rightLoad.loadTorque+leftLoad.loadTorque)/(2*0.029);
+  bearingLoad=chain.shaftRadialForceBound+phase.separatingForce+(rightLoad.loadTorque+leftLoad.loadTorque)/(2*0.029);
 end CoupledShredderSystem;

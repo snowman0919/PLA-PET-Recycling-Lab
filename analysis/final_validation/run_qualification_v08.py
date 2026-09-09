@@ -4,11 +4,13 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import math
 import os
 import re
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -27,7 +29,7 @@ def run(name: str, deck: str) -> tuple[Path, str]:
     proc = subprocess.run(["ccx", "model"], cwd=case, env=env, text=True, capture_output=True, timeout=120)
     log = proc.stdout + proc.stderr
     (case / "ccx.log").write_text(log)
-    if proc.returncode or not (case / "model.dat").is_file():
+    if proc.returncode or "JOB FINISHED" not in log.upper() or "negative jacobian" in log.lower() or not (case / "model.dat").is_file():
         raise RuntimeError(f"{name}: CalculiX failed\n{log[-2000:]}")
     return case, (case / "model.dat").read_text(errors="ignore")
 
@@ -184,10 +186,19 @@ def subsystem_checks() -> dict[str, dict]:
 
 
 def main() -> None:
+    global RAW
+    RAW.mkdir(parents=True, exist_ok=True)
+    RAW = Path(tempfile.mkdtemp(prefix="run-", dir=RAW))
     checks = {"torsion": torsion(), "thermal": thermal(), "modal": modal(), **subsystem_checks()}
     result = {"revision": "final-design-fabrication-closure-v0.8", "solver": "CalculiX OMP_NUM_THREADS=1",
               "checks": checks, "status": "PASS" if all(v["status"] == "PASS" for v in checks.values()) else "FAIL",
-              "physical_validation_state": "NOT_RUN"}
+              "physical_validation_state": "NOT_RUN",
+              "scope": "Solver benchmarks and named component screens; not complete assembly qualification",
+              "source_sha256": {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in (
+                  Path(__file__).resolve(), ROOT / "analysis/load_cases/openmodelica_dynamic_envelope.json")},
+              "raw_directory": str(RAW.relative_to(ROOT)),
+              "artifacts_sha256": {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                                   for p in sorted(RAW.rglob("*")) if p.suffix in {".inp", ".dat", ".log"}}}
     OUT.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
     print(f"V08_CALCULIX_QUALIFICATION_{result['status']} " + " ".join(f"{k}={v['status']}" for k, v in checks.items()))
     raise SystemExit(0 if result["status"] == "PASS" else 1)

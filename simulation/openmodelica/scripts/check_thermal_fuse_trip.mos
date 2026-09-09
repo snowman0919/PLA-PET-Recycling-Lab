@@ -1,0 +1,17 @@
+// Diagnostic elevated ambient, NOT an approved operating environment or fuse rating.
+loadModel(Modelica);
+loadFile(getEnvironmentVar("FILAMENT_RECYCLER_ROOT") + "/simulation/openmodelica/PLA_PET_Recycler/package.mo");
+setCompiler("gcc");
+setCXXCompiler("g++");
+loadString("model ThermalFuseTripProbe
+  extends PLA_PET_Recycler.Systems.ThermalExtruderSystem(material=2,ambient=200,stuckOnZone=3,feederEnabled=false,screwEnabled=false);
+equation
+  when time>=6000 then
+    assert(fuseBlown,\"Fuse never tripped\");
+    assert(power1+power2+power3+powerDie<1e-9,\"Heater power remains after trip\");
+    assert(max(max(T1,T2),max(T3,Tdie))<299,\"Cooldown not observed\");
+    assert(abs(duty3-1)<1e-9,\"Stuck-on fault removed instead of isolated\");
+  end when;
+end ThermalFuseTripProbe;");
+simulate(ThermalFuseTripProbe,stopTime=6000,numberOfIntervals=6000,outputFormat="csv");
+getErrorString();

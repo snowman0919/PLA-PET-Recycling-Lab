@@ -19,6 +19,7 @@ import sys
 import textwrap
 from pathlib import Path
 
+import FreeCAD  # Initialize the runtime before loading Part in standalone Python.
 import Part
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,8 +45,10 @@ MATERIAL_FREEZE = {
     "CUT-02": "S45C normalized steel",
     "CUT-03": "12 mm S275JR steel",
     "CUT-06": "S45C normalized steel",
-    "FD-BIN-01": "1 mm 304 stainless sheet",
-    "FD-MET-02": "POM-C",
+    "FD-BIN-01": "1.00 ±0.05 mm 304 stainless sheet",
+    "FD-MET-02": "304 stainless",
+    "FD-DA-01": "S275 steel",
+    "FD-CP-01": "S45C normalized steel",
     "EX-THR-01": "12 mm S45C normalized steel",
     "FM-GR-01": "POM-C",
     "FM-RL-01": "6061-T6 hub + replaceable Shore A 50–70 silicone sleeve",
@@ -68,21 +71,19 @@ def note_value(path: Path, label: str) -> str:
 
 
 def family(part_id: str) -> str:
-    if part_id == "TH-BH-01":
+    if part_id in {"TH-BH-01", "TH-TCR-01"}:
         return "hot_zone"
-    if part_id in {"TH-PTC-01", "TH-PTC-02"}:
-        return "feeder"
     if part_id in {"CUT-01", "CUT-02", "CUT-04"}:
         return "cutter"
-    if part_id in {"CUT-05", "FD-MET-03", "FM-AX-01", "FM-GA-01", "SP-AX-01", "SP-SH-01"}:
+    if part_id in {"CUT-05", "CUT-05R", "FD-MET-03", "FM-AX-01", "FM-GA-01", "SP-AX-01", "SP-SH-01"}:
         return "shafts"
-    if part_id in {"CUT-06", "DRV-02", "DRV-03", "DRV-F01A", "DRV-F01B", "DRV-F01P"}:
+    if part_id in {"CUT-06", "DRV-02", "DRV-03", "DRV-03R", "DRV-F01A", "DRV-F01B", "DRV-F01P"}:
         return "phase_gears"
     if part_id.startswith(("EX-SCR", "EX-BAR", "EX-CPN")):
         return "screw_barrel"
     if part_id.startswith("EX-DIE"):
         return "die"
-    if part_id in {"CUT-03", "CUT-08", "EX-THR-01", "FM-PL-01", "SP-BP-01"}:
+    if part_id in {"CUT-03", "CUT-08", "CUT-09", "CUT-10", "EX-THR-01", "FM-PL-01", "FM-EB-01", "FM-GC-01", "SP-BP-01", "SP-BR-01"}:
         return "bearing_plates"
     if part_id.startswith(("IN-", "FD-")):
         return "feeder"
@@ -126,7 +127,8 @@ def source_parts() -> list[dict[str, str]]:
 
     def add(row: dict[str, str], base: Path, quantity: str, release: str) -> None:
         part_id = row["part_id"]
-        if part_id in {"CUT-07", "DRV-A42"}:  # superseded duplicate and unselected reference
+        if part_id in {"CUT-07", "DRV-A42", "DRV-01", "DRV-A60", "DRV-F01A", "DRV-F01B", "DRV-F01P"}:
+            # Legacy motor-interface parts are superseded by the selected GGM drive family.
             return
         note = base / "drawing_notes.md"
         critical = note_value(note, "controlling requirements") or note_value(note, "중요공차/검사")
@@ -149,7 +151,9 @@ def source_parts() -> list[dict[str, str]]:
             "material": MATERIAL_FREEZE.get(part_id, row.get("material", "")),
             "process": row.get("process", ""),
             "critical_tolerance": critical,
-            "datum_scheme": datum_for(part_family) + "; verify datum marking on supplier inspection report",
+            "datum_scheme": ("B=rear face; C=front face; D=bore axis; nominal +X=feed, +Y=sensors; die holes 45+90n deg from +X; angle tolerance HOLD"
+                             if part_id == "EX-BAR-01" else datum_for(part_family))
+                            + "; verify datum marking on supplier inspection report",
             "inspection": inspection_for(part_id, part_family),
             "status": status,
             "release_gate": release,
@@ -167,7 +171,7 @@ def source_parts() -> list[dict[str, str]]:
     for row in rows("exports/drive_interface/manifest.csv"):
         add(row, ROOT / "exports/drive_interface/parts" / row["part_id"], row["quantity"], row["release_state"])
     for row in rows("exports/thermal/manifest.csv"):
-        if row["part_id"] not in {"TH-BH-01", "TH-PTC-01", "TH-PTC-02"}:
+        if row["part_id"] != "TH-BH-01":
             continue
         base = ROOT / "exports/thermal/parts" / row["part_id"]
         add({**row, "process": note_value(base / "drawing_notes.md", "process")}, base, row["quantity"], row["release_state"])
@@ -178,7 +182,7 @@ def projection(shape: Part.Shape, axes: tuple[str, str], box: tuple[int, int, in
     x0, y0, width, height = box
     paths, points = [], []
     for edge in shape.Edges:
-        row = [(getattr(p, axes[0]), getattr(p, axes[1])) for p in edge.discretize(Deflection=0.7)]
+        row = [(getattr(p, axes[0]), getattr(p, axes[1])) for p in edge.discretize(Deflection=0.01)]
         if len(row) > 1:
             paths.append(row); points.extend(row)
     if not points:
@@ -205,7 +209,7 @@ def drawing_svg(part: dict[str, str], shape: Part.Shape, path: Path, commit: str
         f"GD&T/datums: {part['datum_scheme']}",
         f"Inspection: {part['inspection']}",
         "Edges: remove burrs; break unspecified sharp edges C0.3–0.5. No unapproved material/tolerance substitution.",
-        f"Release: {part['status']} — physical validation NOT_RUN; procurement and machining USER_APPROVAL_REQUIRED.",
+        f"Artifact check: {part['status']} only; fabrication HOLD pending full v0.8 gates. Physical NOT_RUN; machining USER_APPROVAL_REQUIRED.",
     ]
     lines: list[str] = []
     for item in detail:
@@ -217,9 +221,9 @@ def drawing_svg(part: dict[str, str], shape: Part.Shape, path: Path, commit: str
         for i, line in enumerate(lines)
     )
     views = (
-        projection(shape, ("x", "y"), (25, 88, 335, 285)),
-        projection(shape, ("x", "z"), (394, 88, 335, 285)),
-        projection(shape, ("y", "z"), (763, 88, 335, 285)),
+        projection(shape, ("x", "y"), (25, 120, 335, 253)),
+        projection(shape, ("x", "z"), (394, 120, 335, 253)),
+        projection(shape, ("y", "z"), (763, 120, 335, 253)),
     )
     path.write_text(f'''<svg xmlns="http://www.w3.org/2000/svg" width="1123" height="794" viewBox="0 0 1123 794">
 <rect width="1123" height="794" fill="white"/><rect x="12" y="12" width="1099" height="770" fill="none" stroke="#111" stroke-width="2"/>
@@ -269,9 +273,11 @@ def copy_part(part: dict[str, str], commit: str) -> dict[str, str]:
 def hot_zone_parts(commit: str) -> list[dict[str, str]]:
     metadata = {
         "ExtruderSupportRailRear": ("1", "2020 aluminum profile L390", "saw cut, face and deburr", "length 390.0 ±0.5 mm; end squareness 0.3; front/rear support height difference ≤0.20 mm; axis parallelism ≤0.20/390"),
-        "ExtruderRearFixedDatum": ("1", "8 mm S275 steel", "laser/waterjet rough + bore/face finish", "barrel bore Ø34.10 +0.05/0; 2×Ø6.6 rail holes; datum face flatness 0.10; bore axis perpendicularity 0.10/54; hole position ±0.10"),
-        "ExtruderFrontSlidingGuide": ("1", "8 mm S275 steel", "laser/waterjet rough + bore/face finish", "guide bore Ø34.60 +0.10/0; 2×Ø6.6 rail holes; datum face flatness 0.10; bore position ±0.10; cold axial travel ≥1.30 mm; no axial clamp"),
-        "ExtruderFixedCollar": ("1", "S45C steel", "turn, split, black oxide with bore masked", "OD Ø50; L12.00 ±0.05; bore Ø34.10 +0.03/0; datum face runout 0.05 to bore axis; bore Ra≤1.6 µm; blue-fit contact ≥70%"),
+        "ExtruderRearFixedDatum": ("1", "8 mm S275 steel", "laser/waterjet rough + bore/face finish", "barrel bore Ø34.25 +0.05/0; 2×Ø6.6 rail holes; datum face flatness 0.10; bore axis perpendicularity 0.10/54; hole position ±0.10"),
+        "ExtruderFrontSlidingGuide": ("1", "8 mm S275 steel", "laser/waterjet rough + bore/face finish", "guide bore Ø34.60 +0.10/0; 2×Ø6.6 rail holes; datum face flatness 0.10; bore position ±0.10; cold axial travel ≥1.50 mm; no axial clamp"),
+        "ExtruderFixedCollar": ("1", "S45C steel", "turn, split, black oxide with bore masked", "OD Ø50; L12.00 ±0.05; bore Ø34.25 +0.03/0; datum face runout 0.05 to bore axis; bore Ra≤1.6 µm; non-contact radial locator only; no blue-fit clamp on hot barrel"),
+        "ExtruderRearRetainer": ("1", "4 mm S355J2 steel", "laser/waterjet rough + face and tap finish", "web 4.00 ±0.05; rear ribs 8.00 ±0.05; 2×M4×0.7-6H full engagement ≥8.0; face flatness 0.03; parent yield ≥177.5 MPa at service temperature; cold endplay 0.12–0.28 mm"),
+        "ExtruderRearRetainerSpacer318": ("2", "S275 steel", "turn, face and deburr; matched pair", "OD Ø8.00 ±0.03; ID Ø4.50 +0.10/0; L4.20 ±0.02; face flatness 0.01; matched length spread ≤0.02"),
     }
     result = []
     for part_id, (qty, material, process, critical) in metadata.items():
@@ -312,7 +318,7 @@ def populate_step_categories(data: list[dict[str, str]], commit: str) -> None:
         source = folder / f"{folder.name}.step"; target = STEP_OUT / "printed_parts" / source.name
         shutil.copyfile(source, target); step_rows["printed_parts"].append(step_row(folder.name, source, target, "PASS", "PHYSICAL_FIT_NOT_RUN"))
     for row in data:
-        category = "shafts" if row["part_id"] in {"CUT-05", "FD-MET-03", "FM-AX-01", "FM-GA-01", "SP-AX-01", "SP-SH-01"} else "sheet_parts"
+        category = "shafts" if row["part_id"] in {"CUT-05", "CUT-05R", "FD-MET-03", "FM-AX-01", "FM-GA-01", "SP-AX-01", "SP-SH-01"} else "sheet_parts"
         if category == "sheet_parts" and row["part_id"].startswith(("EX-SCR", "EX-BAR", "EX-CPN", "EX-DIE", "DRV-F", "TH-BH")):
             continue
         source_family = "hot_zone" if row["part_id"].startswith("Extruder") else family(row["part_id"])

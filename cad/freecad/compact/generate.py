@@ -300,6 +300,7 @@ def export_metal_parts():
         "CUT-05": "GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED",
         "CUT-07": "GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
         "CUT-08": "GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED",
+        "CUT-09": "GATE1_QTY_4_ALLOWED_USER_APPROVAL_REQUIRED",
     }
     for spec in shredder_metal_parts():
         part_dir = ROOT / "exports/cnc" / spec["id"]

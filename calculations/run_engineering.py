@@ -176,9 +176,8 @@ def phase_power_budget():
 def thermocouple_bore_screening():
     """Local membrane/notch/thermal-gradient screen at the blind-bore tip.
 
-    This is deliberately conservative and decision-relevant: it compares the
-    former 7/6 mm bores to the selected 5.5 mm bore, using the same material/load
-    assumptions, rather than presenting an uncalibrated contour plot.
+    Historical nominal comparison only. The radial subtraction omits tilt,
+    eccentricity and drill-tip geometry; it does not qualify minimum ligament.
     """
     ro=P["extruder"]["barrel_od_mm"]/2
     ri=P["extruder"]["barrel_id_mm"]/2
@@ -203,26 +202,34 @@ def thermocouple_bore_screening():
             "blind_bore_depth_mm":depth,"nominal_ligament_mm":round(ligament,2),
             "normal_combined_stress_mpa":round(normal,1),"trip_combined_stress_mpa":round(trip,1),
             "trip_safety_factor":round(allowable/trip,2),
-            "status":"PASS" if allowable/trip>=2 else "FAIL",
+            "screening_status":"PASS" if allowable/trip>=2 else "FAIL",
+            "status":"HOLD",
         })
     return {
         "method":"thick-cylinder inner hoop × wall/net-ligament × Kt1.5 + fully restrained 10 C local thermal gradient",
         "boundary_conditions":{"pet_bulk_c":270,"normal_pressure_mpa":pressure_normal,"trip_pressure_mpa":pressure_trip,"local_gradient_c":local_gradient_c},
         "material_assumptions":{"young_mpa":young_mpa,"alpha_per_k":alpha,"poisson":poisson,"screening_allowable_mpa":allowable},
         "candidates": rows, "selected_depth_mm": 5.5, "selected_status": rows[2]["status"],
-        "decision": "SELECT_BLIND5.5_LIGAMENT3.4; improves tolerance margin over marginal blind6 SF2.0",
-        "physical_status":"EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
+        "decision": "HOLD: nominal blind5.5 comparison is not minimum-ligament or high-temperature stress qualification",
+        "limitations": "Tilt/eccentricity/drill tip and SCM440 high-temperature properties, notch factor and thermal gradient remain unqualified; see final tolerance/CAD evidence.",
+        "physical_status":"NOT_RUN",
     }
 
 
 def cartridge_heater_fit():
-    hole_min=6.050; hole_max=6.062; heater_max=5.980; heater_min=5.940
+    # Tempco Type CG accepted drawing limits against a Ø6.55 H7 reamed bore.
+    hole_min=6.550; hole_max=6.565; heater_min=6.487; heater_max=6.513
+    heated_length=39.5-9.5-6.4
     return {
-        "selected_bore":"diameter6.05 H7 reamed through",
+        "selected_bore":"diameter6.55 H7 reamed through",
         "heater_limits_mm":[heater_min,heater_max],"bore_limits_mm":[hole_min,hole_max],
         "diametral_clearance_mm":[round(hole_min-heater_max,3),round(hole_max-heater_min,3)],
-        "decision":"ADOPT_6.05_H7; verify received heater OD/camber and full hand insertion; thin anti-seize film and positive axial clamp",
-        "evidence":"supplier guidance favors close metal contact; final fit remains conditional on received heater measurement",
+        "radial_clearance_mm":[round((hole_min-heater_max)/2,4),round((hole_max-heater_min)/2,4)],
+        "conservative_heated_length_mm":heated_length,
+        "watt_density_w_cm2":round(60/(3.141592653589793*.65*(heated_length/10)),2),
+        "decision":"ADOPT_CUSTOM_TEMPCO_CG_AND_MFR; verify vendor drawing, received OD/camber/resistance/insulation and full hand insertion",
+        "evidence":"Tempco metric Hi-Density Type CG/OAL/MFR/F/HTL published options; supplier drawing acceptance and physical receipt tests remain gated",
+        "tolerance_source":"https://www.tempco.com/Tempco/Resources/Engineering-Data/Specifications-and-Tolerances/Hi-Density-Cartridge-Heater-Metric-Sizes-Specifications-and-Tolerances.htm",
         "status":"PASS_DFM_SCREEN",
     }
 
@@ -303,14 +310,14 @@ PET predry는 `UNQUALIFIED_EXTERNAL_PROCESS`; 65 °C/7 h를 qualified recipe로 
 """)
     (ROOT/"calculations/engineering_report.md").write_text(f"""# 공학 계산 통합 보고 — {REV}
 
-- release: `IMPLEMENTATION_BASELINE`, `VIRTUAL_PHYSICS_VALIDATED`, `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`
+- final fabrication release: `HOLD`; 아래 값은 개별 명목 screening이며 전체 v0.8 제작 승인 또는 물리 검증이 아니다.
 - envelope: 470 × 700 × 930 mm
 - screw profiles: PLA 16 rpm / PET 18 rpm; analytical nominal {flow['profile_points']['PLA']['throughput_nominal_gph']}/{flow['profile_points']['PET']['throughput_nominal_gph']} g/h
 - 200 g/h: nominal 미입증 stretch target
 - torque hierarchy: 14 < 18 < 22 < 34 < 48 N·m, PASS
 - 24 V phase power: independent maximum {max(r['computed_peak_w'] for r in power['states'])} W ≤500 W, reserve {min(r['remaining_w_to_psu'] for r in power['states'])} W ≥100 W, `{power['status']}`
-- thermocouple bore: blind5.5 / ligament {bore['candidates'][2]['nominal_ligament_mm']} mm / trip SF {bore['candidates'][2]['trip_safety_factor']}, PASS
-- die heater fit: Ø6.05 H7, clearance {heater_fit['diametral_clearance_mm'][0]:.3f}–{heater_fit['diametral_clearance_mm'][1]:.3f} mm
+- thermocouple bore: blind5.5 / nominal radial-subtraction ligament {bore['candidates'][2]['nominal_ligament_mm']} mm / assumed trip SF {bore['candidates'][2]['trip_safety_factor']}, `{bore['selected_status']}`; 실제 최소 잔여 두께·고온 국부 응력 미검증
+- die heater fit: Ø6.55 H7 / Ø6.500±0.013 CG, diametral clearance {heater_fit['diametral_clearance_mm'][0]:.3f}–{heater_fit['diametral_clearance_mm'][1]:.3f} mm, conservative watt density {heater_fit['watt_density_w_cm2']:.2f} W/cm²
 - frame: local 2040 Option B, relative displacement {frame['options'][1]['bearing_center_relative_displacement_mm']} mm, total profile {frame['new_profile_total_m']} m
 - EX-DIE-04 first-yield screen: {die_relief['estimated_first_yield_pressure_mpa']} MPa; empirical coupon is optional evidence but procurement/commissioning remains approval-gated
 

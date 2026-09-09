@@ -681,6 +681,8 @@ ActuatorCommands MachineSupervisor::buildCommands(const InputSnapshot &input, co
   c.feeder_enable = p.feeder && !maintenance_purge && formingCalibrationReady() &&
       (forming_state_ == FormingChainState::NORMAL || forming_state_ == FormingChainState::REQUALIFYING);
   if (maintenance_purge) c.feeder_enable = purge_motion_authorized;
+  if (c.feeder_enable)
+    c.feeder_step_hz = static_cast<uint16_t>(profile.feeder_rpm * 800.0f * 10.0f / 60.0f + 0.5f);
   // The outer diameter PI may accumulate only after the inner tach loop has
   // qualified and while that loop has control authority. The previous-cycle
   // output is intentional: it is the last fully evaluated inner-loop state.
@@ -799,7 +801,7 @@ bool MachineSupervisor::invariantsHold(const ActuatorCommands &c) const {
   bool heaters_on = false;
   for (bool on : c.heater_on) heaters_on = heaters_on || on;
   const bool non_cooling_commanded = c.shredder_pwm != 0 || c.feeder_enable || c.screw_pwm != 0 ||
-      c.puller_pwm != 0 || c.spooler_pwm != 0 || c.traverse_enable || c.hopper_ptc_on || heaters_on;
+      c.puller_pwm != 0 || c.spooler_pwm != 0 || c.traverse_enable || heaters_on;
   const bool homing_motion = c.traverse_enable && traverse_homing_output_.enable &&
       !traverse_homing_.homed();
   const bool winding_motion = c.spooler_pwm != 0 || (c.traverse_enable && !homing_motion);

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import html
@@ -47,14 +48,46 @@ def mount_plate(x: float, sliding: bool) -> Part.Shape:
         shape = shape.cut(Part.makeBox(8, 16, 18, App.Vector(x, 339, 398)))
     else:
         shape = shape.cut(Part.makeBox(8, 54, 18, App.Vector(x, 320, 398)))
+        for y in (312, 374):
+            shape = shape.fuse(Part.makeBox(8, 8, 50, App.Vector(x, y, 348)))
+        for y, z in PARAMS["rear_axial_retainer"]["bolt_centres_yz_mm"]:
+            shape = shape.cut(Part.makeCylinder(2.25, 8, App.Vector(x, y, z), App.Vector(1, 0, 0)))
     return one_solid(shape)
 
 
 def fixed_collar() -> Part.Shape:
-    collar = Part.makeCylinder(25, 12, App.Vector(363, 347, 382), App.Vector(1, 0, 0))
-    collar = collar.cut(Part.makeCylinder(17.05, 12, App.Vector(363, 347, 382), App.Vector(1, 0, 0)))
-    collar = collar.cut(Part.makeBox(12, 50, 16, App.Vector(363, 322, 398)))
+    mount = PARAMS["hot_zone_mount"]
+    length = mount["fixed_collar_length_mm"]
+    x = mount["rear_fixed_plate_x_mm"] + mount["plate_thickness_mm"]
+    collar = Part.makeCylinder(25, length, App.Vector(x, 347, 382), App.Vector(1, 0, 0))
+    collar = collar.cut(Part.makeCylinder(mount["fixed_collar_bore_mm"] / 2, length,
+                                         App.Vector(x, 347, 382), App.Vector(1, 0, 0)))
+    collar = collar.cut(Part.makeBox(length, 50, 16, App.Vector(x, 322, 398)))
+    shoulder = PARAMS["rear_axial_retainer"]
+    collar = collar.cut(Part.makeCylinder(shoulder["collar_counterbore_mm"] / 2,
+                                          shoulder["barrel_shoulder_length_mm"],
+                                          App.Vector(x + length - shoulder["barrel_shoulder_length_mm"], 347, 382), App.Vector(1, 0, 0)))
     return one_solid(collar)
+
+
+def rear_retainer_shapes() -> tuple[Part.Shape, list[tuple[float, Part.Shape]], list[tuple[float, Part.Shape]]]:
+    spec = PARAMS["rear_axial_retainer"]
+    cap_x = PARAMS["hot_zone_mount"]["rear_fixed_plate_x_mm"] + 8 + spec["spacer_length_mm"] + spec["rear_rib_mm"]
+    cap = Part.makeBox(spec["retainer_thickness_mm"], 70, 50, App.Vector(cap_x, 312, 348))
+    cap = cap.cut(Part.makeCylinder(17.05, spec["retainer_thickness_mm"], App.Vector(cap_x, 347, 382), App.Vector(1, 0, 0)))
+    for y in (312, 372):
+        cap = cap.fuse(Part.makeBox(spec["rear_rib_mm"], 10, 50, App.Vector(cap_x-spec["rear_rib_mm"], y, 348)))
+    spacers, bolts = [], []
+    for y, z in spec["bolt_centres_yz_mm"]:
+        cap = cap.cut(Part.makeCylinder(1.65, spec["retainer_thickness_mm"] + spec["rear_rib_mm"],
+                                        App.Vector(cap_x-spec["rear_rib_mm"], y, z), App.Vector(1, 0, 0)))
+        spacer = Part.makeCylinder(spec["spacer_od_mm"] / 2, spec["spacer_length_mm"], App.Vector(363, y, z), App.Vector(1, 0, 0))
+        spacer = spacer.cut(Part.makeCylinder(spec["spacer_id_mm"] / 2, spec["spacer_length_mm"], App.Vector(363, y, z), App.Vector(1, 0, 0)))
+        bolt = Part.makeCylinder(2, 25, App.Vector(355, y, z), App.Vector(1, 0, 0)).fuse(
+            Part.makeCylinder(3.5, 4, App.Vector(351, y, z), App.Vector(1, 0, 0)))
+        spacers.append((y, one_solid(spacer)))
+        bolts.append((y, one_solid(bolt)))
+    return one_solid(cap.removeSplitter()), spacers, bolts
 
 
 def final_objects() -> list[dict]:
@@ -68,18 +101,24 @@ def final_objects() -> list[dict]:
             for x in (mount["front_sliding_plate_x_mm"], mount["rear_fixed_plate_x_mm"]):
                 for y in (309, 382):
                     item["shape"] = one_solid(item["shape"].cut(Part.makeBox(10, 4, 10, App.Vector(x - 1, y, 339))))
+    retainer, spacers, retainer_bolts = rear_retainer_shapes()
     additions = [
-        ("ExtruderSupportRailRear", Part.makeBox(mount["support_rail_length_mm"], 20, 20, App.Vector(20, 400, mount["support_rail_z_mm"])), "frame", "2020 aluminum profile L430"),
+        ("ExtruderSupportRailRear", Part.makeBox(mount["support_rail_length_mm"], 20, 20, App.Vector(20, 400, mount["support_rail_z_mm"])), "frame", f"2020 aluminum profile L{mount['support_rail_length_mm']:g}"),
         ("ExtruderRearFixedDatum", mount_plate(mount["rear_fixed_plate_x_mm"], False), "extruder", "EX-MT-01 8 mm S275 fixed datum plate"),
         ("ExtruderFrontSlidingGuide", mount_plate(mount["front_sliding_plate_x_mm"], True), "extruder", "EX-MT-02 8 mm S275 radial sliding guide"),
         ("ExtruderFixedCollar", fixed_collar(), "extruder", "EX-MT-03 S45C split collar"),
+        ("ExtruderRearRetainer", retainer, "extruder", "EX-MT-05 4 mm S355J2 positive-stop retainer"),
     ]
     for name, shape, group, material in additions:
         objects.append({"name": name, "shape": shape, "group": group, "material": material, "classification": "manufactured_or_stock"})
+    for y, shape in spacers:
+        objects.append({"name": f"ExtruderRearRetainerSpacer{int(y)}", "shape": shape, "group": "extruder", "material": "EX-MT-06 OD8/ID4.5/L4.20 S275 steel spacer", "classification": "manufactured_or_stock"})
+    for y, shape in retainer_bolts:
+        objects.append({"name": f"RearRetainerM4_{int(y)}", "shape": shape, "group": "extruder", "material": "M4x25 class 8.8 SHCS", "classification": "purchased_fastener"})
     for plate, x in (("Front", mount["front_sliding_plate_x_mm"]), ("Rear", mount["rear_fixed_plate_x_mm"])):
         for side, y in (("Front", 280), ("Rear", 410)):
             bolt = Part.makeCylinder(2.5, 32, App.Vector(x + 4, y, 316))
-            bolt = bolt.fuse(Part.makeCylinder(5, 4, App.Vector(x + 4, y, 344)))
+            bolt = bolt.fuse(Part.makeCylinder(5, 4, App.Vector(x + 4, y, 348)))
             objects.append({"name": f"HotMountBolt{plate}{side}", "shape": one_solid(bolt), "group": "extruder", "material": "M5 class 8.8 + profile nut", "classification": "purchased_fastener"})
     return objects
 
@@ -115,7 +154,7 @@ def export(path: Path, objects: list[dict]) -> dict:
         "body_count": len(objects), "solid_count": expected_solids,
         "bbox_mm": [round(box.XLength, 6), round(box.YLength, 6), round(box.ZLength, 6)],
         "volume_mm3": round(imported.Volume, 6), "mass_g": "",
-        "sha256": sha256(path), "status": "PASS",
+        "sha256": sha256(path), "status": "PASS", "release_gate": "USER_APPROVAL_REQUIRED",
     }
 
 
@@ -172,13 +211,26 @@ def export_hot_zone_drawings(additions: list[dict]) -> None:
 
 
 def main() -> None:
-    if OUT.exists():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--refresh-assemblies", action="store_true", help="Refresh assembly STEP/FCStd only; preserve other release artifacts")
+    args = parser.parse_args()
+    manifest = OUT / "step_manifest.csv"
+    previous = []
+    if args.refresh_assemblies:
+        with manifest.open(newline="") as stream:
+            previous = list(csv.DictReader(stream))
+    if OUT.exists() and not args.refresh_assemblies:
         shutil.rmtree(OUT)
     assembly = OUT / "assembly"
     parts = OUT / "cnc_parts"
     assembly.mkdir(parents=True, exist_ok=True)
     parts.mkdir(parents=True, exist_ok=True)
     objects = final_objects()
+    # Selected GGM drive supersedes the historical tiny donor envelopes.
+    if (ROOT / "control/ggm_drive_contract.json").is_file():
+        sys.path.insert(0, str(ROOT / "cad/freecad/drive_v08"))
+        from cad.freecad.drive_v08.assembly import integrated_objects
+        objects, _ = integrated_objects(objects)
     export_assembly_metadata(objects)
     groups = {
         "PPR-FULL-ASM.step": objects,
@@ -190,8 +242,23 @@ def main() -> None:
     }
     additions = {item["name"]: item for item in objects if item["name"] in {
         "ExtruderSupportRailRear", "ExtruderRearFixedDatum", "ExtruderFrontSlidingGuide", "ExtruderFixedCollar",
+        "ExtruderRearRetainer", "ExtruderRearRetainerSpacer318",
     }}
     rows = [export(assembly / name, items) for name, items in groups.items()]
+    if args.refresh_assemblies:
+        prior_by_file = {row["file"]: row for row in previous}
+        for index, row in enumerate(rows):
+            prior = prior_by_file.get(row["file"], {})
+            rows[index] = {**prior, **row,
+                           "release_gate": prior.get("release_gate") or row.get("release_gate") or "USER_APPROVAL_REQUIRED"}
+        replaced = {row["file"] for row in rows}
+        rows += [row for row in previous if row["file"] not in replaced]
+        with manifest.open("w", newline="", encoding="utf-8") as stream:
+            fields = list(dict.fromkeys(key for row in rows for key in row))
+            writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+            writer.writeheader(); writer.writerows(rows)
+        print(f"V08_ASSEMBLY_REFRESH_OK assemblies={len(groups)} manifest_rows={len(rows)}")
+        return
     rows += [export(parts / f"{name}.step", [item]) for name, item in additions.items()]
     export_hot_zone_drawings(list(additions.values()))
     manifest = OUT / "step_manifest.csv"

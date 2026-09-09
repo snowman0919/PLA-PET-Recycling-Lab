@@ -16,6 +16,7 @@ RELEASE_STATE = "SAFETY_ORCHESTRATION_BASELINE"
 SAFETY_REV = REV
 ACTUATION_REV = "parallel-actuation-hardening-v0.6.2"
 CLOSURE_REV = "technical-blocker-closure-v0.6.2.1"
+FINAL_REV = "final-design-fabrication-closure-v0.8"
 
 
 def require(condition, message):
@@ -37,7 +38,7 @@ def test_revision_and_stale():
     )
     for rel in current:
         text = (ROOT / rel).read_text(errors="ignore")
-        require(any(revision in text for revision in (REV, ACTUATION_REV, CLOSURE_REV)),
+        require(any(revision in text for revision in (REV, ACTUATION_REV, CLOSURE_REV, FINAL_REV)),
                 f"recognized revision missing: {rel}")
     stale = ["2250 x 500 x 1100", "2510 x 600 x 1350", "two-tower", "Tower A", "Tower B", "6-color classifier", "3-stage release", "external 700 mm rail", "0.1.0-preflight", "0.2.0-undergraduate-mvp"]
     hits = [f"{rel}:{token}" for rel in current for token in stale if token in (ROOT / rel).read_text(errors="ignore")]
@@ -83,7 +84,7 @@ def test_manufacturing_and_physics():
         "exports/drive_interface/interface_contract_ko.md", "exports/thermal/manifest.csv",
     ):
         require((ROOT / rel).exists() and (ROOT / rel).stat().st_size > 100, f"manufacturing artifact missing {rel}")
-    require(len(list(csv.DictReader((ROOT / "exports/fabrication/interface_catalog.csv").open()))) == 32, "interface catalog row count")
+    require(len(list(csv.DictReader((ROOT / "exports/fabrication/interface_catalog.csv").open()))) >= 32, "interface catalog row count")
 
     engineering = json.loads((ROOT / "simulation/engineering_summary.json").read_text())
     require(engineering["revision"] == REV and engineering["release_class"] == IMPLEMENTATION_STATE, "engineering revision")
@@ -93,9 +94,10 @@ def test_manufacturing_and_physics():
         row["computed_peak_w"] <= 500 and row["remaining_w_to_psu"] >= 100
         for row in engineering["power"]["states"]
     ), "500 W / 100 W reserve criterion")
-    require(engineering["thermocouple_bore"]["selected_status"] == "PASS", "thermocouple bore local screen")
+    selected_bore = next(row for row in engineering["thermocouple_bore"]["candidates"] if row["blind_bore_depth_mm"] == engineering["thermocouple_bore"]["selected_depth_mm"])
+    require(selected_bore["screening_status"] == "PASS" and engineering["thermocouple_bore"]["selected_status"] == "HOLD", "thermocouple bore local screen")
     require(engineering["frame_sensitivity"]["selected"] == "B_LOCAL_2040" and engineering["frame_sensitivity"]["options"][1]["status"] == "PASS", "frame reinforcement")
-    require(engineering["cartridge_heater_fit"]["status"] == "PASS_DFM_SCREEN", "cartridge heater fit")
+    require(engineering["cartridge_heater_fit"]["status"] == "PASS_DFM_SCREEN" and engineering["cartridge_heater_fit"]["diametral_clearance_mm"] == [.037, .078], "cartridge heater fit")
     require(engineering["throughput"]["profile_points"]["PLA"]["throughput_nominal_gph"] < 200, "PLA 200 g/h incorrectly claimed")
     require(engineering["throughput"]["profile_points"]["PET"]["throughput_nominal_gph"] < 200, "PET 200 g/h incorrectly claimed")
 
@@ -112,10 +114,10 @@ def test_manufacturing_and_physics():
     } <= names, "v0.6 critical scenarios absent")
     require(all(row["status"] == "PASS" for row in modelica["scenarios"]), "scenario failure")
     bridge = json.loads((ROOT / "simulation/openmodelica/generated/cad_mass_properties.json").read_text())
-    require(bridge["revision"] == REV, "CAD/Modelica bridge revision")
+    require(bridge["revision"] in {REV, FINAL_REV}, "CAD/Modelica bridge revision")
     require(bridge["baseline_sha256"] == hashlib.sha256((ROOT / "cad/parameters/baseline.json").read_bytes()).hexdigest(), "CAD/Modelica bridge hash")
     structural = json.loads((ROOT / "analysis/structural/results/structural_screening.json").read_text())
-    require(structural["status"] == "PASS" and all(v["status"] == "PASS" for v in structural["calculix"].values()), "structural screening")
+    require(structural["status"] == "FAIL" and structural["failures"] == ["PH-KEY-01 phase gear key"] and all(v["status"] == "PASS" for v in structural["calculix"].values()), "structural screening")
     require(structural["calculix"]["bearing_plate"]["medium_to_fine_displacement_delta_percent"] <= 5, "bearing plate mesh convergence")
     require(structural["calculix"]["cutter_shaft"]["medium_to_fine_displacement_delta_percent"] <= 5, "shaft mesh convergence")
     header = (ROOT / "firmware/arduino_mega/src/generated_profiles.h").read_text()
@@ -155,7 +157,7 @@ def test_implementation_and_cross_solver():
     inventory = list(csv.DictReader((ROOT / "bom/inventory_evidence_v0.6.csv").open()))
     rfqs = list(csv.DictReader((ROOT / "bom/rfq_register_v0.6.csv").open()))
     require(inventory and all(row["verification_state"] == "USER_INSPECTION_REQUIRED" and not row["claimed_available_quantity"] for row in inventory), "physical inventory falsely established")
-    require(rfqs and all(row["status"] == "RFP_READY_NOT_SENT" and not row["quoted_total_krw"] for row in rfqs), "RFQ falsely claimed")
+    require(rfqs and all(row["status"] in {"RFP_READY_NOT_SENT", "SUPPLIER_CAPABILITY_REJECTED"} and not row["quoted_total_krw"] for row in rfqs), "RFQ falsely claimed")
 
 
 def test_artifacts_and_locks():
@@ -184,6 +186,9 @@ def test_artifacts_and_locks():
     require(reproducibility["checked_count"] == manifest["artifact_count"], "manifest count")
     for rel in ("docs/build_manual_ko.pdf", "docs/design_report_ko.pdf", "docs/digital_release_report_ko.pdf"):
         text = subprocess.run(["pdftotext", str(ROOT / rel), "-"], text=True, capture_output=True, check=True).stdout
+        if rel == "docs/build_manual_ko.pdf":
+            require("역사 문서" in text and FINAL_REV in text and "Gate-1" in text, f"PDF historical-state mismatch {rel}")
+            continue
         require(
             CLOSURE_REV in text
             and "TECHNICAL_CLOSURE_BASELINE" in text

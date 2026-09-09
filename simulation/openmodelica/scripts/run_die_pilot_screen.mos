@@ -1,0 +1,19 @@
+// Diagnostic only: fixed lumped thermal coupling is not joint qualification.
+loadModel(Modelica);
+loadFile(getEnvironmentVar("FILAMENT_RECYCLER_ROOT") + "/simulation/openmodelica/PLA_PET_Recycler/package.mo");
+setCompiler("gcc");
+setCXXCompiler("g++");
+simulate(PLA_PET_Recycler.Systems.ThermalExtruderSystem, stopTime=3600, numberOfIntervals=3600, outputFormat="csv", fileNamePrefix="PilotPET", simflags="-override=material=2");
+getErrorString();
+simulate(PLA_PET_Recycler.Systems.ThermalExtruderSystem, stopTime=3600, numberOfIntervals=3600, outputFormat="csv", fileNamePrefix="PilotPETDieOpen", simflags="-override=material=2,heaterOpenZone=4");
+getErrorString();
+simulate(PLA_PET_Recycler.Systems.ThermalExtruderSystem, stopTime=3600, numberOfIntervals=3600, outputFormat="csv", fileNamePrefix="PilotPETBarrelOpen", simflags="-override=material=2,heaterOpenZone=3");
+getErrorString();
+simulate(PLA_PET_Recycler.Systems.ThermalExtruderSystem, stopTime=3600, numberOfIntervals=3600, outputFormat="csv", fileNamePrefix="PilotPETBarrelStuck", simflags="-override=material=2,stuckOnZone=3");
+getErrorString();
+simulate(PLA_PET_Recycler.Systems.ThermalExtruderSystem, stopTime=3600, numberOfIntervals=3600, outputFormat="csv", fileNamePrefix="PilotPETDieStuck", simflags="-override=material=2,stuckOnZone=4");
+getErrorString();
+simulate(PLA_PET_Recycler.Systems.ThermalExtruderSystem, stopTime=3600, numberOfIntervals=3600, outputFormat="csv", fileNamePrefix="PilotPETWeakJoint", simflags="-override=material=2,heaterOpenZone=4,barrelDieConductance=0.08");
+getErrorString();
+simulate(PLA_PET_Recycler.Systems.ThermalExtruderSystem, stopTime=3600, numberOfIntervals=3600, outputFormat="csv", fileNamePrefix="PilotPETVeryWeakJoint", simflags="-override=material=2,heaterOpenZone=4,barrelDieConductance=0.008");
+getErrorString();

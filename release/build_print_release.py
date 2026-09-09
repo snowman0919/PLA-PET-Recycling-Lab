@@ -56,6 +56,13 @@ def mesh_stats(items: list[tuple[tuple[float, float, float], ...]]) -> tuple[tup
     return bbox, abs(signed)
 
 
+def corresponding_meshes_match(first, second):
+    # ponytail: exporter preserves face order; reordered meshes require regeneration/review.
+    return bool(first) and len(first) == len(second) and all(
+        math.isfinite(x) and math.isfinite(y) and abs(x-y) <= .001
+        for a, b in zip(first, second) for u, v in zip(a, b) for x, y in zip(u, v))
+
+
 def model_xml(path: Path) -> bytes:
     with zipfile.ZipFile(path) as package:
         names = [name for name in package.namelist() if name.lower().endswith(".model")]
@@ -66,16 +73,38 @@ def model_xml(path: Path) -> bytes:
 
 def three_mf_mesh(path: Path) -> tuple[list[tuple[tuple[float, float, float], ...]], ET.Element]:
     root = ET.fromstring(model_xml(path))
+    objects = root.findall("m:resources/m:object", NS)
+    items = root.findall("m:build/m:item", NS)
+    meshes = [o for o in objects if o.find("m:mesh", NS) is not None]
+    ids = [o.get("id") for o in objects]
+    # ponytail: one mesh plus identity component aliases; other assemblies need an explicit transform evaluator.
+    if (root.get("unit") != "millimeter" or len(meshes) != 1
+            or not all(ids) or len(ids) != len(set(ids)) or not items
+            or any(item.get("objectid") not in ids for item in items)):
+        raise ValueError(f"{path}: expected explicit millimeters and one referenced mesh object")
+    for obj in objects:
+        if obj is meshes[0]:
+            continue
+        components = obj.findall("m:components/m:component", NS)
+        if (len(components) != 1 or components[0].get("objectid") != meshes[0].get("id")
+                or [float(v) for v in components[0].get("transform", "1 0 0 0 1 0 0 0 1 0 0 0").split()]
+                != [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]):
+            raise ValueError(f"{path}: unsupported component reference/transform")
     mesh = root.find(".//m:object[@type='model']/m:mesh", NS)
     if mesh is None:
         raise RuntimeError(f"{path}: no model mesh")
     vertices = [tuple(float(vertex.get(axis, "nan")) for axis in "xyz") for vertex in mesh.findall("m:vertices/m:vertex", NS)]
-    result = [tuple(vertices[int(triangle.get(key, "-1"))] for key in ("v1", "v2", "v3")) for triangle in mesh.findall("m:triangles/m:triangle", NS)]
+    if not vertices or not all(math.isfinite(v) for point in vertices for v in point):
+        raise ValueError(f"{path}: empty or nonfinite vertices")
+    indices = [tuple(int(triangle.get(key, "-1")) for key in ("v1", "v2", "v3")) for triangle in mesh.findall("m:triangles/m:triangle", NS)]
+    if not indices or any(not 0 <= index < len(vertices) for face in indices for index in face):
+        raise ValueError(f"{path}: empty mesh or invalid vertex index")
+    result = [tuple(vertices[index] for index in face) for face in indices]
     return result, root
 
 
 def normalized_3mf(source: Path, target: Path, title: str) -> None:
-    with zipfile.ZipFile(source) as source_zip, zipfile.ZipFile(target, "w", compression=zipfile.ZIP_DEFLATED) as target_zip:
+    with zipfile.ZipFile(source) as source_zip, zipfile.ZipFile(target, "w", compression=zipfile.ZIP_STORED) as target_zip:
         for member in sorted(source_zip.infolist(), key=lambda item: item.filename):
             data = source_zip.read(member.filename)
             if member.filename.lower().endswith(".model"):
@@ -87,7 +116,7 @@ def normalized_3mf(source: Path, target: Path, title: str) -> None:
                 text = re.sub(r"(<model\b[^>]*>)", r"\1" + insertion, text, count=1)
                 data = text.encode("utf-8")
             info = zipfile.ZipInfo(member.filename, (2000, 1, 1, 0, 0, 0))
-            info.compress_type = zipfile.ZIP_DEFLATED
+            info.compress_type = zipfile.ZIP_STORED
             info.external_attr = member.external_attr
             info.create_system = member.create_system
             target_zip.writestr(info, data)
@@ -110,7 +139,7 @@ def build_count_and_bounds(path: Path) -> tuple[int, bool]:
     inside = True
     for item in items:
         values = [float(value) for value in item.get("transform", "1 0 0 0 1 0 0 0 1 0 0 0").split()]
-        if len(values) != 12 or any(abs(values[index] - expected) > 1e-9 for index, expected in enumerate((1, 0, 0, 0, 1, 0, 0, 0, 1))):
+        if len(values) != 12 or not all(math.isfinite(v) for v in values) or any(abs(values[index] - expected) > 1e-9 for index, expected in enumerate((1, 0, 0, 0, 1, 0, 0, 0, 1))):
             inside = False
             continue
         translated_low = [low[axis] + values[9 + axis] for axis in range(3)]
@@ -157,7 +186,8 @@ def build_row(source_row: dict[str, str], index: int, bom: dict[str, int], assem
     topology = audit(stl)
     count, plate_inside = build_count_and_bounds(plate)
     geometry_match = (
-        len(stl_triangles) == len(three_triangles)
+        corresponding_meshes_match(stl_triangles, three_triangles)
+        and corresponding_meshes_match(stl_triangles, three_mf_mesh(plate)[0])
         and max(abs(a - b) for a, b in zip(stl_bbox, three_bbox)) <= 1e-3
         and abs(stl_volume - three_volume) / max(stl_volume, 1.0) <= 1e-5
     )
@@ -245,7 +275,7 @@ def verify(data: list[dict[str, str]]) -> dict[str, object]:
         "physical_fit_status": "HOLD_NOT_RUN", "physical_validation_state": "NOT_RUN",
         "checks": {field: "PASS" for field in required_pass},
         "notes": [
-            "Per-part 3MF receives deterministic PPR:Revision metadata; mesh triangle count/bounds/volume match released STL.",
+            "Per-part and plate-layout 3MF corresponding triangle vertices match released STL within0.001 mm; part count/bounds/volume checks also apply. Exporter-preserved face order is required. Identity aliases only in plate component references.",
             "BOM quantity is checked against exports/final/bom/BOM.csv and assembly quantity against cad/generation/assembly_classification.csv.",
             "Digital manifold/slicer evidence does not replace tolerance-coupon, insert, thermal-clearance or assembled-fit inspection.",
         ],

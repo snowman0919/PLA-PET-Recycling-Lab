@@ -1,7 +1,17 @@
+setCompiler("gcc");
+setCXXCompiler("g++");
 loadModel(Modelica, {"4.0.0"});
 loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");
 loadFile("simulation/openmodelica/v0.8/V08ReleaseScenarios.mo");
+system("mkdir -p simulation/openmodelica/results_v0.8/raw");
+system("sha256sum simulation/openmodelica/v0.8/V08ReleaseScenarios.mo simulation/openmodelica/PLA_PET_Recycler/Systems/DynamicSpoolSystem.mo simulation/openmodelica/PLA_PET_Recycler/Generated.mo simulation/openmodelica/PLA_PET_Recycler/GeneratedControl.mo cad/parameters/baseline.json control/drive_actuation_contract_v0.6.2.1.json control/process_contract.json control/fault_response_contract.json firmware/arduino_mega/src/spooler_control.h firmware/arduino_mega/src/machine_supervisor.cpp calculations/run_engineering.py simulation/openmodelica/scripts/run_v08_release.mos simulation/openmodelica/postprocess/validate_v08_release.py > simulation/openmodelica/results_v0.8/source_sha256.txt");
+writeFile("simulation/openmodelica/results_v0.8/solver_version.txt",getVersion());
 cd("simulation/openmodelica/results_v0.8/raw");
 simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.HotZoneControlledExpansion,stopTime=600,numberOfIntervals=600,method="dassl",outputFormat="csv",fileNamePrefix="HotZoneControlledExpansion");
 simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.LC09SpoolScope,stopTime=1,numberOfIntervals=10,method="dassl",outputFormat="csv",fileNamePrefix="LC09SpoolScope");
+simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.SpoolerTraverseEmptyToFull,stopTime=38000,numberOfIntervals=19000,tolerance=1e-8,method="dassl",outputFormat="csv",fileNamePrefix="SpoolerTraverseEmptyToFull");
+simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.SpoolerPETOneKg,stopTime=38000,numberOfIntervals=19000,tolerance=1e-8,method="dassl",outputFormat="csv",fileNamePrefix="SpoolerPETOneKg");
+simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.SpoolerFullRadiusPLA,stopTime=12000,numberOfIntervals=6000,tolerance=1e-8,method="dassl",outputFormat="csv",fileNamePrefix="SpoolerFullRadiusPLA");
+simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.SpoolerFullRadiusPET,stopTime=12000,numberOfIntervals=6000,tolerance=1e-8,method="dassl",outputFormat="csv",fileNamePrefix="SpoolerFullRadiusPET");
+simulate(PLA_PET_Recycler.Scenarios.V08ReleaseScenarios.SpoolerJamContainment,stopTime=20,numberOfIntervals=2000,tolerance=1e-8,method="dassl",outputFormat="csv",fileNamePrefix="SpoolerJamContainment");
 getErrorString();

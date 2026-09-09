@@ -13,10 +13,10 @@ ROOT=Path(__file__).resolve().parents[2]
 COMPACT=ROOT/"cad/freecad/compact"
 sys.path.insert(0,str(COMPACT))
 
-from geometry import assembly_objects, cutter_shaft, hook_disc, spur_phase_gear  # noqa: E402
-from manufacturing import extruder_screw  # noqa: E402
+from geometry import assembly_objects, cutter_shaft, hook_disc  # noqa: E402
+from manufacturing import extruder_screw, solid_phase_gear  # noqa: E402
 
-REV="safety-orchestration-closure-v0.6.1"
+REV="final-design-fabrication-closure-v0.8"
 DENSITY_KG_MM3={"steel":7.85e-6,"aluminum":2.70e-6,"polymer":1.20e-6,"mixed":4.0e-6}
 
 
@@ -27,8 +27,10 @@ def matrix(shape,density):
 
 
 def props(shape,density):
-    if shape.ShapeType != "Solid" and len(shape.Solids)==1:
-        shape=shape.Solids[0]
+    solids=list(shape.Solids)
+    if not solids: raise ValueError("mass-property shape has no solids")
+    if len(solids)>1: return aggregate([props(solid,density) for solid in solids])
+    shape=solids[0]
     c=shape.CenterOfMass
     return {"mass_kg":shape.Volume*density,"center_of_mass_m":[c.x/1000,c.y/1000,c.z/1000],"inertia_com_kg_m2":matrix(shape,density)}
 
@@ -55,7 +57,7 @@ def aggregate(items):
 
 def main():
     params=json.loads((ROOT/"cad/parameters/baseline.json").read_text())
-    cutter=hook_disc(); shaft=cutter_shaft(); gear=spur_phase_gear(module=3,teeth=16,thickness=18,bore=20.2); screw=extruder_screw(2.0)
+    cutter=hook_disc(); shaft=cutter_shaft(); gear=solid_phase_gear(); screw=extruder_screw(2.0)
     cutter_p=props(cutter,DENSITY_KG_MM3["steel"]); shaft_p=props(shaft,DENSITY_KG_MM3["steel"]); gear_p=props(gear,DENSITY_KG_MM3["steel"]); screw_p=props(screw,DENSITY_KG_MM3["steel"])
     rotor_mass=6*cutter_p["mass_kg"]+shaft_p["mass_kg"]+gear_p["mass_kg"]
     rotor_iyy=6*cutter_p["inertia_com_kg_m2"][1][1]+shaft_p["inertia_com_kg_m2"][1][1]+gear_p["inertia_com_kg_m2"][1][1]

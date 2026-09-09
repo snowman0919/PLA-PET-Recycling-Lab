@@ -47,7 +47,7 @@ def write_csv(path: Path, fields: list[str], rows: list[dict[str, object]]) -> N
 
 def category(part_id: str) -> str:
     return next((name for prefix, name in (
-        ("PPR-C", "3D_PRINT"), ("FR", "FRAME"), ("HP", "HOPPER"),
+        ("PPR-C", "3D_PRINT"), ("DR-GGM", "DRIVE"), ("FR", "FRAME"), ("HP", "HOPPER"),
         ("IN-HOP", "HOPPER"), ("FB", "FLAKE_HANDLING"), ("FD", "FEEDER"),
         ("FH", "FEEDER"), ("SH", "SHREDDER"), ("CUT", "SHREDDER"),
         ("DRV", "DRIVE"), ("EX", "EXTRUDER"), ("TH", "THERMAL"),
@@ -65,6 +65,11 @@ def drawing(part_id: str) -> str:
         "EX-MT-02": "exports/final/manufacturing/hot_zone/ExtruderFrontSlidingGuide.svg",
         "EX-MT-03": "exports/final/manufacturing/hot_zone/ExtruderFixedCollar.svg",
         "EX-MT-04": "exports/final/manufacturing/hot_zone/ExtruderSupportRailRear.svg",
+        "EX-MT-05": "exports/final/manufacturing/hot_zone/ExtruderRearRetainer.svg",
+        "EX-MT-06": "exports/final/manufacturing/hot_zone/ExtruderRearRetainerSpacer318.svg",
+        "DR-GGM-01": "exports/final/manufacturing/drive_ggm/PPR_GGM_MANUFACTURING_DRAWINGS_r2.pdf",
+        "DR-GGM-02": "exports/final/manufacturing/drive_ggm/PPR_GGM_ASSEMBLY_INSPECTION_KO_r2.pdf",
+        "DR-GGM-03": "exports/final/electrical/full_wiring_diagram.pdf",
     }
     if part_id in special:
         return special[part_id]
@@ -83,25 +88,49 @@ def drawing(part_id: str) -> str:
     return f"docs/drawings/v0.8/{name}"
 
 
+def assembly_step_number(part_id: str) -> int:
+    exact = {
+        "PPR-C01": 9, "PPR-C02": 9, "PPR-C03": 10, "PPR-C04": 9,
+        "PPR-C05": 14, "PPR-C06": 15, "PPR-C07": 16,
+        "PPR-C08": 17, "PPR-C09": 17, "PPR-C10": 17,
+        "PPR-C11": 22, "PPR-C12": 20,
+        "PPR-FULL-ASM": 1, "PPR-FRAME-ASM": 2,
+        "PPR-SHREDDER-ASM": 4, "PPR-FEEDER-ASM": 10,
+        "PPR-EXTRUDER-ASM": 11, "PPR-FORMING-ASM": 14,
+        "CUT-04": 9, "DRV-GD-01": 8, "FD-HOP-01": 9,
+        "EX-CPN-BAR": 1, "EX-CPN-SCR": 1, "EX-SH-01": 13,
+        "FM-GA-01": 17, "FM-GR-01": 17,
+        "FM-GC-01": 17,
+        "ExtruderSupportRailRear": 11, "ExtruderRearFixedDatum": 11,
+        "ExtruderFrontSlidingGuide": 11, "ExtruderFixedCollar": 11,
+        "ExtruderRearRetainer": 11, "ExtruderRearRetainerSpacer318": 11,
+        "SH-06": 5,
+        "GGM_ChainGuard": 8,
+        "GGM_SH_CutterKey": 8,
+        "DR-GGM-01": 8, "DR-GGM-02": 8, "DR-GGM-03": 19,
+    }
+    step = exact.get(part_id)
+    if step is None:
+        step = next((value for prefix, value in (
+            ("FR-ANCHOR", 3), ("FR", 2), ("CUT-03", 4), ("CUT-08", 4),
+            ("CUT-05", 5), ("CUT-01", 6), ("CUT-02", 6), ("CUT-06", 6),
+            ("DRV", 7), ("SH", 8), ("HP", 9), ("IN-HOP", 9), ("FB", 9),
+            ("FD", 10), ("FH", 10), ("EX-MT", 11), ("EX-THR", 12),
+            ("EX-SCR", 12), ("EX-BAR", 12), ("EX-DIE", 13), ("TH", 13),
+            ("EX", 12), ("CO", 14), ("DG", 15), ("PL", 16), ("FM", 16),
+            ("GGM_EX", 12), ("GGM_SH", 8), ("GGM_Jack", 8),
+            ("SP", 17), ("GD", 18), ("CT", 19), ("SF", 21), ("DR", 1),
+        ) if part_id.startswith(prefix)), 1)
+    return step
+
+
 def assembly_step(part_id: str) -> str:
-    label = next((label for prefix, label in (
-        ("FR", "Frame과 module 배치"), ("SH", "Hopper와 cutter"),
-        ("CUT", "Hopper와 cutter"), ("DRV", "Hopper와 cutter"),
-        ("HP", "Hopper와 cutter"), ("IN-HOP", "Hopper와 cutter"),
-        ("FB", "Hopper와 cutter"), ("FD", "Dry feed와 extruder"),
-        ("FH", "Dry feed와 extruder"), ("EX", "Dry feed와 extruder"),
-        ("TH", "Dry feed와 extruder"), ("CO", "Cooling, gauge, puller"),
-        ("DG", "Cooling, gauge, puller"), ("PL", "Cooling, gauge, puller"),
-        ("FM", "Cooling, gauge, puller"), ("SP", "Guide, dancer, traverse, spool"),
-        ("CT", "Control과 UI"), ("SF", "Control과 UI"),
-        ("GD", "조립·체결 schedule"), ("PPR-C", "Print package"),
-        ("DR", "작업 전 확인"),
-    ) if part_id.startswith(prefix)), "Frame과 module 배치")
-    return f"docs/build_manual_ko.typ §{label}"
+    return f"docs/final/complete_build_manual_ko.pdf step {assembly_step_number(part_id)}; docs/final/assembly_steps.csv"
 
 
 def critical(part_id: str, detail: str = "") -> str:
     base = next((text for prefix, text in (
+        ("DR-GGM", "selected GGM drive mounting, bearing support, coupling protection and current feedback"),
         ("FR", "profile joint squareness and table load path"),
         ("SH", "guarded cutter torque path and service lockout"),
         ("CUT", "shaft/bearing fit; cutter shim clearance; phase registration"),
@@ -131,7 +160,7 @@ def critical(part_id: str, detail: str = "") -> str:
 def firmware_dependency(part_id: str) -> str:
     if part_id.startswith(("SF", "GD")):
         return "hardware safety function; firmware monitoring only; never sole protection"
-    if part_id.startswith(("SH", "DRV", "FH-03", "EX-03", "EX-04", "EX-05", "EX-06", "TH", "CO-02", "DG", "PL", "SP", "CT")):
+    if part_id.startswith(("DR-GGM", "SH", "DRV", "FH-03", "EX-03", "EX-04", "EX-05", "EX-06", "EX-07", "EX-08", "TH", "CO-02", "DG", "PL", "SP", "CT")):
         return "firmware/arduino_mega/src + released pin map/calibration; physical calibration required"
     return "NONE"
 
@@ -166,6 +195,10 @@ def root_rows() -> list[dict[str, str]]:
         donor = "UNVERIFIED—label, rating, shaft, condition and functional test required" if any(
             token in (source + " " + src["status"].lower()) for token in ("donor", "reuse", "project lab", "unverified")
         ) else "NOT_APPLICABLE"
+        if pid == "DR-GGM-01":
+            make = "MAKE_TO_DRAWING"
+            donor = "NOT_APPLICABLE—project-lab fabrication from released stock/drawings"
+            supplier = "DIGITAL_DRAWING_PASS—FABRICATION_USER_APPROVAL_REQUIRED"
         mpn = "NONE_APPROVED—exact make/model and receipt evidence pending" if make in {"BUY", "BUY_CUSTOM", "MIXED", "VERIFY_REUSE_OR_BUY"} else "NOT_APPLICABLE—build to released specification"
         qty_note = src["quantity"].strip()[len(normalize_quantity(src["quantity"])):].strip()
         result.append({
@@ -231,6 +264,8 @@ def active_reference_rows(existing: set[str]) -> list[dict[str, str]]:
         "ExtruderRearFixedDatum": ("EX-MT-01", "exports/final/manufacturing/hot_zone/ExtruderRearFixedDatum.svg"),
         "ExtruderFrontSlidingGuide": ("EX-MT-02", "exports/final/manufacturing/hot_zone/ExtruderFrontSlidingGuide.svg"),
         "ExtruderFixedCollar": ("EX-MT-03", "exports/final/manufacturing/hot_zone/ExtruderFixedCollar.svg"),
+        "ExtruderRearRetainer": ("EX-MT-05", "exports/final/manufacturing/hot_zone/ExtruderRearRetainer.svg"),
+        "ExtruderRearRetainerSpacer318": ("EX-MT-06", "exports/final/manufacturing/hot_zone/ExtruderRearRetainerSpacer318.svg"),
     }
     assembly_drawings = {
         "PPR-FULL-ASM": "docs/drawings/v0.8/ASM-001_full_assembly.svg",
@@ -254,10 +289,44 @@ def active_reference_rows(existing: set[str]) -> list[dict[str, str]]:
             "critical interface": "reference identity must resolve to canonical BOM/drawing",
             "approved MPN": "NOT_APPLICABLE", "approved alternative": "NOT_APPLICABLE",
             "donor status": "NOT_APPLICABLE", "supplier status": "NOT_APPLICABLE_REFERENCE",
-            "drawing": draw, "assembly step": "docs/build_manual_ko.typ §조립·체결 schedule",
+            "drawing": draw, "assembly step": assembly_step(pid),
             "firmware dependency": "NONE", "notes": f"active_part_set reference; canonical={canonical}; exclude from procurement roll-up",
         })
     return result
+
+
+def ggm_manufacturing_rows(existing: set[str]) -> list[dict[str, str]]:
+    manifest = ROOT / "exports/final/manufacturing/drive_ggm/manifest.csv"
+    if not manifest.is_file(): return []
+    result=[]
+    for item in read_csv("exports/final/manufacturing/drive_ggm/manifest.csv"):
+        pid=item["part_id"]
+        if pid in existing: continue
+        result.append({
+            "part_id":pid,"description":f"GGM drive manufactured part: {pid}","revision":REV,
+            "category":"DRIVE","quantity":item["quantity"],"required_or_optional":"REQUIRED","make_or_buy":"MAKE",
+            "material/specification":f"{item['material']}; process={item['process']}",
+            "critical interface":item["critical_tolerance"],"approved MPN":"NOT_APPLICABLE_CUSTOM",
+            "approved alternative":"NONE_APPROVED—deviation requires drive-interface review",
+            "donor status":"NOT_APPLICABLE","supplier status":"DIGITAL_DRAWING_PASS; PHYSICAL_NOT_RUN",
+            "drawing":"exports/final/manufacturing/drive_ggm/PPR_GGM_MANUFACTURING_DRAWINGS_r2.pdf",
+            "assembly step":assembly_step(pid),"firmware dependency":"GGM/BTS7960 released profile; commissioning calibration remains NOT_RUN",
+            "notes":"authoritative sub-manifest: exports/final/manufacturing/drive_ggm/manifest.csv"})
+    return result
+
+
+def enrich_ggm_existing(bom: list[dict[str,str]]) -> int:
+    manifest=ROOT/"exports/final/manufacturing/drive_ggm/manifest.csv"
+    if not manifest.is_file(): return 0
+    by={r["part_id"]:r for r in bom}
+    count=0
+    for item in read_csv("exports/final/manufacturing/drive_ggm/manifest.csv"):
+        if item["part_id"] not in by: continue
+        row=by[item["part_id"]]; count+=1
+        row["drawing"] += "; exports/final/manufacturing/drive_ggm/PPR_GGM_MANUFACTURING_DRAWINGS_r2.pdf"
+        row["critical interface"] += "; GGM delta: "+item["critical_tolerance"]
+        row["notes"] += "; GGM drive delta drawing bound by drive_ggm manifest"
+    return count
 
 
 def enrich_final_manufacturing(bom: list[dict[str, str]]) -> int:
@@ -273,6 +342,7 @@ def enrich_final_manufacturing(bom: list[dict[str, str]]) -> int:
         drawing_pdf = f"exports/final/manufacturing/RFQ/{item['drawing_pdf']}"
         assert (ROOT / drawing_pdf).is_file(), f"missing final manufacturing drawing: {drawing_pdf}"
         row["drawing"] = drawing_pdf
+        row["material/specification"] = f"{item['material']}; process={item['process']}"
         row["critical interface"] = f"{row['critical interface']}; drawing tolerance={item['critical_tolerance']}; datum={item['datum_scheme']}"
         row["supplier status"] = f"DIGITAL_DRAWING_PASS; PART_GATE={item['status']}; PROCUREMENT_USER_APPROVAL_REQUIRED"
         row["notes"] += "; FINAL MANUFACTURING DETAIL: exports/final/manufacturing/RFQ/manifest.csv"
@@ -287,25 +357,47 @@ def fasteners() -> list[dict[str, object]]:
             match = re.match(r"\s*(\d+)x\s*(.*)", spec)
             if not match:
                 raise ValueError(f"fastener quantity missing: {part['part_id']} {spec}")
+            torque = part["tightening_torque"].replace(" N.m", "")
+            if ";" in torque:
+                thread = re.search(r"\bM\d+", match.group(2))
+                assert thread, f"missing thread for torque selection: {spec}"
+                torque = dict(value.strip().split(" ", 1) for value in torque.split(";"))[thread[0]]
             rows.append(dict(zip(fields, (
                 f"PR-{part['part_id']}-{index}", f"{part['part_id']} / {part['mating_part']}", match.group(2).strip(),
-                int(match.group(1)) * int(part["quantity"]), part["tightening_torque"].replace(" N.m", ""),
+                int(match.group(1)) * int(part["quantity"]), torque,
                 part["insert_or_nut"], "hex/driver sized to received fastener",
                 f"{part['interfaces']}; witness mark and no crack", "exports/print/print_manifest.csv", "RELEASED_DIGITAL"))))
     manual = [
         ("SYS-01", "frame profile joints", "M5x12 SHCS + washer + prevailing T-nut; 56 kits paired across 28 two-fastener corner brackets", 56, "5.0", "prevailing T-nut", "4 mm hex + square", "all 56 witness marks present; frame diagonal <=1.0 mm", "RELEASED_DIGITAL"),
         ("SYS-02", "PE-01..04 bonds", "M4x10 + two tooth washers + all-metal nut per bond", 4, "3.0", "tooth washer + all-metal nut", "3 mm hex + DMM", "four PE bonds pass continuity and have witness marks", "RELEASED_DIGITAL"),
         ("SYS-03", "EX-THR-01 / barrel", "M6x20 class 8.8", 8, "9", "prevailing metal nut", "5 mm hex/10 mm spanner", "metal thrust path; witness mark", "RELEASED_DIGITAL"),
-        ("SYS-04", "EX-DIE-01 / EX-BAR-01", "M4x45 class 10.9", 4, "3.0", "all-metal lock", "3 mm hex/7 mm spanner", "cross torque; new EX-DIE-05 gasket", "RELEASED_DIGITAL"),
+        ("SYS-04", "EX-DIE-01 / EX-BAR-01", "M4x45 class 10.9 SHCS cut/deburred to 42.5 +/-0.1", 4, "1.5", "dry thread; no threadlocker; witness mark", "3 mm hex; micrometer/depth gauge", "digital load-path PASS: engagement6.82-7.40 and thread-bottom clearance0.60-1.18 from die grip34.95-35.05, compressed gasket0.25-0.53 and barrel full thread8.00; 6 MPa retained-clamp separation SF2.14; physical receipt/leak/first thermal-cycle check NOT_RUN", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
         ("SYS-05", "EX-DIE-04 / EX-DIE-01", "M4 retainer screw", 2, "1.2", "all-metal lock", "3 mm hex", "retainer captures insert", "RELEASED_DIGITAL"),
         ("SYS-06", "CUT-08 / CUT-03", "M4x12 class 8.8 SHCS", 12, "3", "all-metal locknut", "3 mm hex + 7 mm spanner", "bearing seal untouched; free rotation", "RELEASED_DIGITAL"),
         ("SYS-07", "hot-zone datum/guide / rear rail", "M5 profile fastener", 4, "2.5", "prevailing T-nut", "4 mm hex", "rear datum fixed; front axial slide free", "RELEASED_DIGITAL"),
-        ("SYS-08", "DRV-03 phase gears", "M4x22 class 10.9 SHCS", 4, "3", "all-metal locknut + dowel", "3 mm hex + 7 mm spanner", "2 bolts/gear; registration dowel seated", "RELEASED_DIGITAL"),
+        ("SYS-08", "DRV-03 / DRV-03R phase gears", "M4x22 class 10.9 SHCS", 4, "3", "all-metal locknut + dowel", "3 mm hex + 7 mm spanner", "2 bolts/gear; clocking dowel seated; matched keys blue-checked", "RELEASED_DIGITAL"),
         ("SYS-09", "DRV-02 / #35 sprocket", "M6 class 10.9", 4, "10", "all-metal locknut", "5 mm hex + 10 mm spanner", "chain alignment <=0.20/150 mm", "RELEASED_DIGITAL"),
+        ("SYS-10", "ExtruderRearRetainer / ExtruderRearFixedDatum", "M4x25 class 8.8 SHCS", 2, "2.9", "dry thread; witness mark", "3 mm hex", "full thread engagement >=8.0 mm; cold endplay 0.12-0.28 mm", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
+        ("SYS-11", "FM-EB-01 / FM-PL-01", "M3x10 class 8.8 SHCS", 4, "1.2", "witness mark; clean dry thread", "2.5 mm hex", "paired bush index within0.5 deg; full-rotation roller gap1.60-1.90 mm", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
+        ("SYS-12", "FD-HOP-01 / FD-GSK-01 / FD-MET-01", "M4x16 A2-70 SHCS + washer + all-metal prevailing nut", 4, "HOLD", "all-metal prevailing nut", "3 mm hex; 7 mm spanner; feeler/depth gauge", "register clearance0.10-0.16; tighten crosswise only until gasket thickness0.35-0.40; dry-flake leak/retention test required", "HOLD_GASKET_COMPRESSION_PHYSICAL_NOT_RUN"),
+        ("SYS-13", "SP-BR-01 / SP-BP-01", "M5x20 A2-70 SHCS + washer + all-metal prevailing nut", 8, "2.5", "all-metal prevailing nut", "4 mm hex + 8 mm spanner", "four bolts per bearing; cross-tighten; blue-check outer-ring edge only; free rotation and axial capture", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
+        ("SYS-14", "FM-GC-01 / FM-GR-01", "M3x25 A2-70 SHCS + washers + all-metal prevailing nuts", 3, "0.35", "all-metal prevailing nut", "2.5 mm hex + 5.5 mm spanner", "three balanced through-bolts; caps flush; blue-check outer-ring edge only; free rotation and no cap rub", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
+        ("SYS-15", "FD-MET-02 / FD-MET-03 / FD-CP-01", "420 stainless slotted spring pins: Ø3x12 lower + Ø3x18 upper", 2, "N/A", "matched Ø3.00-3.05 cross-holes; replace after removal", "3 mm pin punch", "both pins flush; 10 hand turns without housing/coupling rub; inspect for looseness", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
+        ("SYS-16", "TH-DIE-01 / EX-DIE-01", "2x M3x8 A4-80 SHCS + Schnorr washer", 2, "1.0", "high-temperature serrated conical washer; no threadlocker", "2.5 mm hex", "flange seated; heater cannot back out; leads unloaded; cold witness-mark and recheck after first thermal cycle", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
+        ("SYS-17", "TH-TCR-01 / EX-BAR-01 / EX-DIE-01", "M3x8 A4-80 SHCS + Schnorr washer", 8, "0.5", "high-temperature serrated conical washer; no threadlocker", "2.5 mm hex", "four stop collars captured; 20 N pull causes <=0.10 mm motion cold and after thermal cycle", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
     ]
     for values in manual:
-        rows.append(dict(zip(fields, (*values[:8], "docs/final/assembly_steps.csv", values[8]))))
+        rows.append(dict(zip(fields, (*values[:8], "release/build_bom_release.py::fasteners; final manual generated from this schedule", values[8]))))
     return rows
+
+
+def fastener_step_number(joint: dict[str, object]) -> int:
+    if str(joint["joint_id"]).startswith("PR-"):
+        return assembly_step_number(str(joint["part_ids"]).split(" / ")[0])
+    return {"SYS-01": 2, "SYS-02": 19, "SYS-03": 12, "SYS-04": 13,
+            "SYS-05": 13, "SYS-06": 4, "SYS-07": 11, "SYS-08": 7,
+            "SYS-09": 7, "SYS-10": 11, "SYS-11": 16, "SYS-12": 10, "SYS-13": 17, "SYS-14": 17,
+            "SYS-15": 10, "SYS-16": 13, "SYS-17": 13}[str(joint["joint_id"])]
 
 
 def auxiliary(bom: list[dict[str, str]]) -> dict[str, tuple[list[str], list[dict[str, object]]]]:
@@ -322,7 +414,7 @@ def auxiliary(bom: list[dict[str, str]]) -> dict[str, tuple[list[str], list[dict
     ]
     tool_fields = ["tool_id", "tool", "minimum_capability", "used_for", "calibration_or_inspection", "required_or_optional"]
     tools = [
-        ("TL-01", "torque wrench/driver set", "0.5–18 N·m covering M3–M8", "all controlled fasteners", "current calibration certificate or check", "REQUIRED"),
+        ("TL-01", "torque wrench/driver set", "0.5–20 N·m covering M3–M8; anchor value provisional pending table/anchor verification", "all controlled fasteners", "current calibration certificate or check", "REQUIRED"),
         ("TL-02", "hex/socket/spanner set", "2.5/3/4/5 mm hex; 7/8/10/13 mm", "assembly and service", "inspect for wear", "REQUIRED"),
         ("TL-03", "DMM and proven 0 V tester", "DC voltage/resistance/continuity; rated for installed source", "polarity, PE, lockout verification", "prove tester before/after; calibration current", "REQUIRED"),
         ("TL-04", "insulation resistance tester", "test voltage suitable for disconnected equipment", "heater/sensor/PE inspection", "calibration current; isolate electronics", "REQUIRED"),
@@ -341,11 +433,14 @@ def auxiliary(bom: list[dict[str, str]]) -> dict[str, tuple[list[str], list[dict
         ("SH-03", "GMP60-60127 ratio47 digital reference", "18–30 V donor geared DC candidate", "NOT_APPROVED_UNTIL_MEASURED", "chain ratio, current-trip, torque/RPM calibration and adapter geometry", "label/photos/shaft/current/RPM/backlash/30 min temperature + Gate-1"),
         ("CUT-03", "12 mm steel", "15 mm 6061-T6", "CONDITIONAL_AFTER_GATE1", "bearing-seat, plate deflection/stress and fastener bearing", "material certificate + rerun LC04/related plate case + Gate-1"),
         ("FD-BIN-01", "1 mm PP sheet", "1 mm 304 stainless sheet", "LISTED_DESIGN_OPTION", "mass/service handling check; no firmware recalibration", "slot fit, edge/burr and cleanability inspection"),
-        ("FD-MET-02", "POM-C", "304 stainless", "LISTED_DESIGN_OPTION", "drive current window and inertia check", "pocket dimensions, runout and dry-feed coupon"),
+        ("FD-MET-02", "304 stainless auger/agitator per final RFQ", "none; legacy POM-C pocket rotor is not the active geometry", "NO_APPROVED_ALTERNATIVE", "any new material/geometry requires feeder clearance, torque/inertia, current-window and thermal review", "new drawing revision and dry-feed coupon"),
+        ("FH-03", "17E1K-07 + EG17-G10 + CL42T-V41 digital reference", "none until an exact replacement is documented", "PURCHASE_AND_RECEIPT_HOLD", "FD-DA-01/FD-CP-01 fit, output torque, STEP rate, current/fuse, ALM and tach", "datasheet + received shaft/pilot/pattern/current + 2.2 N.m torque-arm + tach-loss test"),
         ("EX-THR-01", "S45C", "SS400", "LISTED_DESIGN_OPTION", "thrust plate stress/deflection if thickness or geometry changes", "material certificate, seat dimensions and LC05 boundary match"),
         ("FM-GR-01", "POM-C", "6061-T6", "LISTED_DESIGN_OPTION", "roller inertia and puller/dancer control verification", "bearing fit, runout and strand surface inspection"),
         ("EX-SCR-01/EX-BAR-01", "SCM440 KS D3867/JIS G4105", "chemically/mechanically equivalent SCM440 designation", "CERTIFICATE_REVIEW_REQUIRED", "thermal growth and strength if properties differ", "certificate, QT/nitride hardness/depth, Ra, TIR and matched clearance report"),
         ("TH-BH-01", "custom ID34 24 V 100 W band", "none; Ø35 stock substitution prohibited", "NO_APPROVED_ALTERNATIVE", "power/current/fuse/PID and thermal model for any design change", "new engineering release and receipt thermal test"),
+        ("TH-DIE-01", "Tempco custom Hi-Density metric Ø6.50 CG x39.50 with HTL leads and MFR flange", "none; stock 3D-printer cartridge substitution prohibited", "CUSTOM_QUOTE_AND_DRAWING_REQUIRED", "fit, watt density, lead temperature, power/current/fuse/PID and flange retention", "accepted vendor drawing + OD/camber/resistance/insulation report + full hand insertion"),
+        ("TH-TC-01", "Tempco MTA1 K/2/M/A/Q/U custom probe with welded stop collar", "none until the same OD, stop, insulation and response contract is documented", "CUSTOM_QUOTE_AND_DRAWING_REQUIRED", "probe fit, junction isolation, insertion stop, transition temperature and control response", "accepted vendor drawing + dimensional/insulation certificate + cold/hot pull and coupon response tests"),
         ("PPR-C01..12", "material in print manifest", "none", "NO_APPROVED_ALTERNATIVE", "re-slice, fit coupon, temperature/strength review", "new print manifest and interface validation"),
     ]
     make_fields = ["part_id", "description", "quantity", "decision", "source_of_truth", "release_or_procurement_gate", "rationale"]
@@ -472,6 +567,10 @@ def pdf(path: Path, bom: list[dict[str, str]], aux: dict[str, tuple[list[str], l
 
 Fastener {len(aux["fastener_schedule"][1])}행 · Consumables {len(aux["consumables"][1])}행 · Tools {len(aux["tools_required"][1])}행 · Alternatives {len(aux["approved_alternatives"][1])}행.
 
+== 미검증 체결품 — 체결/조립 진행 보류
+
+{table(["joint_id", "specification", "torque_Nm", "inspection"], [r for r in aux["fastener_schedule"][1] if str(r["verification_state"]).startswith("HOLD")], ["20mm", "60mm", "25mm", "170mm"], ["Joint", "후보 규격", "토크 상태", "해소 필요 조건"])}
+
 세부값은 동봉 CSV와 BOM.xlsx의 동일 이름 sheet가 지배한다. `USER_APPROVAL_REQUIRED`, `RECEIPT_TEST_REQUIRED`, `NOT_APPROVED`는 누락이 아니라 의도적인 물리/조달 gate이며 승인으로 승격하지 않는다.
 '''
     tmp = OUT / ".BOM_KO.typ"
@@ -495,13 +594,22 @@ def validate(bom: list[dict[str, str]], aux: dict[str, tuple[list[str], list[dic
     by_id = {row["part_id"]: row for row in bom}
     assert all(item["part_id"] in by_id and float(by_id[item["part_id"]]["quantity"]) == item["quantity"] for item in active), "active quantity mismatch"
     checked_drawings = set()
+    steps = {int(row["step_number"]): row for row in read_csv("docs/final/assembly_steps.csv")}
     for row in bom:
         for item in row["drawing"].split(";"):
             file = item.strip().split(" §", 1)[0]
             assert (ROOT / file).is_file(), f"missing drawing: {row['part_id']} {file}"
             checked_drawings.add(file)
-        manual = row["assembly step"].split(" §", 1)[0]
-        assert (ROOT / manual).is_file(), f"missing manual: {row['part_id']} {manual}"
+        link = re.fullmatch(r"(docs/final/complete_build_manual_ko\.pdf) step (\d+); (docs/final/assembly_steps\.csv)", row["assembly step"])
+        assert link and int(link[2]) in steps, f"invalid final manual step: {row['part_id']}"
+        assert (ROOT / link[1]).is_file() and (ROOT / link[3]).is_file(), f"missing final manual: {row['part_id']}"
+    for item in active:
+        step = steps[assembly_step_number(item["part_id"])]
+        assert f"{item['part_id']} ×{item['quantity']}" in step["part_ids_quantity"].split("; "), f"active manual quantity mismatch: {item['part_id']}"
+    for joint in aux["fastener_schedule"][1]:
+        step = steps[fastener_step_number(joint)]
+        assert f"{joint['joint_id']}: {joint['specification']} ×{joint['quantity']}; " in step["fasteners"] + "; ", f"manual fastener mismatch: {joint['joint_id']}"
+        assert f"{joint['joint_id']}: {joint['torque_Nm']} N·m; " in step["torque"] + "; ", f"manual torque mismatch: {joint['joint_id']}"
     unsafe = [r["part_id"] for r in bom if r["donor status"].startswith("UNVERIFIED") and "approved" in r["supplier status"].lower()]
     assert not unsafe, f"unverified donor marked approved: {unsafe}"
     assert not any("0원" in json.dumps(row, ensure_ascii=False) or "zero-cost" in json.dumps(row).lower() for row in bom)
@@ -514,10 +622,13 @@ def validate(bom: list[dict[str, str]], aux: dict[str, tuple[list[str], list[dic
         "bom_rows": len(bom), "active_parts_checked": len(active), "active_quantity_match": True,
         "final_manufacturing_parts_checked": manufacturing_count,
         "drawings_checked": len(checked_drawings), "manual_cross_reference": True,
+        "active_manual_quantity_match": True, "final_manual_steps_checked": len(steps),
+        "fastener_manual_quantity_torque_match": True, "fastener_joints_checked": len(aux["fastener_schedule"][1]),
         "duplicate_part_revision": False, "required_fields_complete": True,
         "donor_zero_cost_or_false_approval": False,
         "approved_mpn_pending_rows": sum("NONE_APPROVED" in r["approved MPN"] for r in bom),
-        "blocking_source_gaps": [f"{joint}: exact piece count is absent from authoritative design source" for joint in kitting_holds],
+        "blocking_source_gaps": [f"{joint}: exact piece count is absent from authoritative design source" for joint in kitting_holds]
+            + [f"manual step {step}: {row['clearance_tolerance']}" for step, row in steps.items() if "joint definition (HOLD)" in row["clearance_tolerance"]],
         "note": "digital BOM integrity only; supplier receipt, procurement, physical assembly and commissioning remain user approval gates",
     }
 
@@ -530,9 +641,12 @@ def main() -> None:
         if row["part_id"] in seen:
             raise ValueError(f"duplicate detail part_id: {row['part_id']}")
         seen.add(row["part_id"]); bom.append(row)
+    for row in ggm_manufacturing_rows(seen):
+        if row["part_id"] in seen: raise ValueError(f"duplicate GGM part_id: {row['part_id']}")
+        seen.add(row["part_id"]); bom.append(row)
     bom.extend(active_reference_rows(seen))
     bom.sort(key=lambda row: row["part_id"])
-    manufacturing_count = enrich_final_manufacturing(bom)
+    manufacturing_count = enrich_final_manufacturing(bom) + enrich_ggm_existing(bom)
     aux = auxiliary(bom)
     report = validate(bom, aux, manufacturing_count)
     write_csv(OUT / "BOM.csv", FIELDS, bom)

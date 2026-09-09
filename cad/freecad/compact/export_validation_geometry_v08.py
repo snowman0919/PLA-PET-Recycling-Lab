@@ -15,7 +15,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
 
-from geometry import bearing_side_plate  # noqa: E402
+from geometry import assembly_objects, bearing_side_plate  # noqa: E402
 from generate import normalize_step  # noqa: E402
 from manufacturing import extruder_barrel  # noqa: E402
 
@@ -61,11 +61,26 @@ def export(name: str, shape: Part.Shape) -> dict:
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     rows = [export("bearing_plate", bearing_side_plate()), export("extruder_barrel", extruder_barrel())]
+    # Read real final-machine stations, not the old jig's 60/200 mm supports.
+    objects = {item["name"]: item["shape"] for item in assembly_objects()}
+    stations = {}
+    for shaft_id in (105, 153):
+        shaft = objects[f"Shaft{shaft_id}"].BoundBox
+        stations[str(shaft_id)] = {
+            "shaft_y_min_mm": shaft.YMin, "shaft_y_max_mm": shaft.YMax,
+            "bearing_y_mm": [objects[f"Bearing{shaft_id}_{y}"].BoundBox.Center.y for y in (315, 455)],
+            "gear_y_mm": objects[f"PhaseGear{shaft_id}"].BoundBox.Center.y,
+            "cutter_y_mm": [objects[f"Hook{shaft_id}_{i}"].BoundBox.Center.y for i in range(6)],
+        }
+        if shaft_id == 153:
+            stations[str(shaft_id)]["chain_sprocket_y_mm"] = objects["CutterSprocket30T"].BoundBox.Center.y
     (OUT / "geometry_manifest.json").write_text(json.dumps({
         "revision": "final-design-fabrication-closure-v0.8",
         "authority": "FreeCAD Python controlling geometry",
         "physical_validation_state": "NOT_RUN",
         "parts": rows,
+        "shredder_stations": stations,
+        "geometry_source_sha256": sha256(HERE / "geometry.py"),
     }, indent=2, ensure_ascii=False) + "\n")
     print(f"V08_FREECAD_GEOMETRY_OK parts={len(rows)}")
 

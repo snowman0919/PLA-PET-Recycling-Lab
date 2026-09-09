@@ -20,7 +20,7 @@ def main():
     ino=(OUT/'arduino_mega.ino').read_text()
     ino=replace_once(ino,'#include "src/board_config.h"','#include "src/board_config.h"\n#include "src/ggm_drive_guard.h"\n#include "src/ggm_commissioning.h"')
     ino=replace_once(ino,'class BoardActuators final : public ActuatorBackend {','GgmDriveGuard ggm_guard;\nclass BoardActuators final : public ActuatorBackend {')
-    ino=replace_once(ino,'  void begin() {\n    TCCR5A','  void begin() {\n    pinMode(4, OUTPUT); digitalWrite(4, LOW);\n    TCCR5A')
+    ino=replace_once(ino,'  void begin() {\n    TCCR5A','  void begin() {\n    pinMode(Board::SHREDDER_LPWM_PIN, OUTPUT); digitalWrite(Board::SHREDDER_LPWM_PIN, LOW);\n    TCCR5A')
     begin='''  void apply(const ActuatorCommands &c) {
     const bool verified=GgmCommissioning::RECEIPT_LIMITER_CURRENT_AND_WIRING_VERIFIED;
     const bool sh=c.shredder_pwm!=0;
@@ -38,7 +38,7 @@ def main():
       calibration_record.records[CAL_SHREDDER_TACH].value>0 &&
       float(shredder_tach_sample.pulse_age_us)>=60000000.0f/calibration_record.records[CAL_SHREDDER_TACH].value};
     const GgmOutput safe=ggm_guard.update(gi);
-    writeBts(Board::SHREDDER_PWM_PIN,4,Board::SHREDDER_ENABLE_PIN,safe.shredder);
+    writeBts(Board::SHREDDER_PWM_PIN,Board::SHREDDER_LPWM_PIN,Board::SHREDDER_ENABLE_PIN,safe.shredder);
     digitalWrite(Board::SHREDDER_ENABLE_PIN,safe.shredder!=0 ? HIGH:LOW);
 '''
     old='''  void apply(const ActuatorCommands &c) override {
@@ -73,6 +73,7 @@ def main():
     calibration.write_text(ct)
 
     board=OUT/'src/board_config.h';bt=board.read_text()
+    bt=replace_once(bt,'constexpr uint8_t SHREDDER_PWM_PIN = 5;','constexpr uint8_t SHREDDER_LPWM_PIN = 4;\nconstexpr uint8_t SHREDDER_PWM_PIN = 5;')
     bt=replace_once(bt,'{SHREDDER_FAULT_PIN, SCREW_FAULT_PIN, PULLER_FAULT_PIN, SPOOLER_FAULT_PIN, FEEDER_FAULT_PIN}','{PULLER_FAULT_PIN, SPOOLER_FAULT_PIN, FEEDER_FAULT_PIN}')
     board.write_text(bt)
 

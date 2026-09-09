@@ -27,6 +27,18 @@ ALLOWED_INTERFACES = {
     frozenset(("SpoolCore", "PPR-C09_SpoolAdapterFront")): "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부",
     frozenset(("SpoolCore", "PPR-C09_SpoolAdapterRear")): "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부",
     frozenset(("HeaterCableDuctBridgeX", "HeaterCableDuctBridgeY")): "18x18 고정 금속 duct의 의도된 L자 결합부",
+    frozenset(("FeederAgitatorDriveShaft", "FeederAugerSpringPin")): "SYS-15 lower spring-pin 체결부",
+    frozenset(("Barrel", "TemperatureProbeRetainerT1")): "barrel tangent-contact stop-collar bridge",
+    frozenset(("Barrel", "TemperatureProbeRetainerT2")): "barrel tangent-contact stop-collar bridge",
+    frozenset(("Barrel", "TemperatureProbeRetainerT3")): "barrel tangent-contact stop-collar bridge",
+    frozenset(("BarrelBandHeaterZ1", "TemperatureProbeRetainerT1")): "보수적 heater/retainer 접촉 LOD; 실물 간극 검사 대상",
+    frozenset(("TemperatureProbeT1", "TemperatureProbeRetainerT1")): "stop collar captured by bridge",
+    frozenset(("TemperatureProbeT2", "TemperatureProbeRetainerT2")): "stop collar captured by bridge",
+    frozenset(("TemperatureProbeT3", "TemperatureProbeRetainerT3")): "stop collar captured by bridge",
+    frozenset(("DownDieBody", "TemperatureProbeT4")): "T4 sheath inserted into die blind bore",
+    frozenset(("DownDieBody", "TemperatureProbeRetainerT4")): "die tangent-contact stop-collar bridge",
+    frozenset(("TemperatureProbeT4", "TemperatureProbeRetainerT4")): "stop collar captured by bridge",
+    frozenset(("SpoolBearingPlateFront", "SpoolerTachSensorEnvelope")): "tach sensor mounting envelope on metal plate",
     **{
         frozenset(("PPR-C11_ControlBezel", f"ControlBezelM3Fastener{index}")): "PPR-C11 blind insert의 의도된 M3 나사산 체결부"
         for index in range(1, 5)

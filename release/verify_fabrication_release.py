@@ -10,6 +10,7 @@ import subprocess
 import tempfile
 import zipfile
 from pathlib import Path, PurePosixPath
+from build_fabrication_release import collect
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION"
@@ -18,23 +19,24 @@ SECTIONS = {"00_START_HERE", "01_3D_PRINT", "02_CNC_AND_METAL", "03_FRAME", "04_
 FORBIDDEN = (".env", ".FCBak", "__pycache__", "/archive/", ".git/", ".tmp", ".bak", ".pem",
              ".key", ".p12", "credential", "secret", "token",
              "analysis/final_validation/results/v0.8/raw", "simulation/openmodelica/results_v0.8/raw")
-SOURCE_PATHS = (
-    "bom/bom.csv", "cad/parameters/final_v08.json", "cad/freecad/final_v08", "cad/freecad/compact",
-    "cad/generation/draw_v08.py", "cad/generation/generate_interface_catalog.py",
-    "cad/generation/generate_manufacturing.py", "cad/generation/render_v08.py",
-    "cad/generation/render_v08_closeups.py", "calculations/tolerance_stack_final.py",
-    "analysis/process_feed/feed_parameters.json", "analysis/process_feed/run_feed_surrogate.py",
-    "analysis/final_validation/run_calculix_v08.py", "analysis/final_validation/run_qualification_v08.py",
-    "simulation/openmodelica/v0.8", "firmware/arduino_mega", "electronics/controller_wiring_v0.6.md",
-    "electronics/io_schedule.csv", "electronics/safety_power_topology.md", "electronics/shredder_drive_wiring.md", "release",
-    "validation/run_v08_solver_validation.py", "validation/solid_topology.py",
-    "validation/assembly_collision_audit.py", "validation/v08_release_inventory.py",
-    "validation/v08_full_compliance.py",
-)
 
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def verify_current_source(root: Path, item: dict) -> None:
+    source = PurePosixPath(item["source"])
+    assert not source.is_absolute() and ".." not in source.parts
+    path = root / source
+    assert path.is_file(), f"package source missing: {source}"
+    assert path.stat().st_size == item["size"] and digest(path) == item["sha256"], f"package source changed: {source}"
+
+
+def verify_layout(listed: dict, files: dict) -> None:
+    assert {path: item["source"] for path, item in listed.items()} == {
+        path: source for path, (_, source) in files.items()
+    }, "package differs from current required layout"
 
 
 def main() -> None:
@@ -54,15 +56,14 @@ def main() -> None:
                 assert manifest[key] == rule["const"], f"schema const: {key}"
         assert set(manifest) == set(schema["properties"]), "manifest has missing or unknown fields"
         assert re.fullmatch(r"[0-9a-f]{40}", manifest["source_commit"])
-        expected_commit = subprocess.check_output(
-            ["git", "log", "-1", "--format=%H", "--", *SOURCE_PATHS], cwd=ROOT, text=True
-        ).strip()
+        expected_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
         assert manifest["source_commit"] == expected_commit, "package was built from stale design source"
         assert manifest["release"] == NAME and manifest["revision"].endswith("v0.8")
         assert manifest["release_state"] == "FABRICATION_CANDIDATE" and manifest["physical_validation_state"] == "NOT_RUN"
         assert manifest["safety_certification_state"] == "NOT_CERTIFIED"
         listed = {f["path"]: f for f in manifest["files"]}
         assert len(listed) == len(manifest["files"]), "duplicate manifest paths"
+        verify_layout(listed, collect())
         expected = set(names) - {"00_START_HERE/README.txt", "00_START_HERE/release_manifest.json", "00_START_HERE/SHA256SUMS"}
         assert set(listed) == expected
         for rel, item in listed.items():
@@ -73,6 +74,7 @@ def main() -> None:
             source = PurePosixPath(item["source"])
             assert not source.is_absolute() and ".." not in source.parts
             path = base / rel; assert path.stat().st_size == item["size"] and digest(path) == item["sha256"]
+            verify_current_source(ROOT, item)
         sums = {}
         for line in (base / "00_START_HERE/SHA256SUMS").read_text().splitlines():
             value, rel = line.split("  ", 1); sums[rel] = value

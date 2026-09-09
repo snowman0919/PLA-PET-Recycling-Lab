@@ -74,6 +74,7 @@ def main() -> None:
         f"- LC09 scope: spindle 143 mm, bearing spacing 88 mm, load at 40.5 mm, radial load {modelica['LC09']['radialLoadN']:.4f} N",
         f"- final STEP: {len(step_rows)} files, all clean-document reimport PASS (AP214 fallback)",
         "", "## 경계와 보류", "",
+        "- 축 moment residual은 출력된 절점 힘의 r×F만 포함한다. 회전 자유도 반력 couple은 추출하지 않았으므로 축방향 토크 평형의 독립 검증이 아니다.",
         "- BC04 완전 고정은 SF 0.206으로 실패하며 실제 mount로 채택하지 않는다.",
         "- 선택 mount는 rear axial datum + front radial sliding guide이며 final assembly와 STEP/DXF/PDF에 반영됐다.",
         "- B31 mount 결과는 global axial restraint 검증이다. sensor-bore 83.5 MPa는 폐형식 local screen이며 3D notch FEA가 아니다.",

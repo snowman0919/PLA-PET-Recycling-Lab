@@ -52,11 +52,11 @@ MODULES = {
         "groups": {"input", "feed"},
         "focus": {
             "interfaces": ("Hopper", "AntiReach", "FlakeBin", "FeederHousing", "FeederAuger", "FeederAgitatorDriveShaft"),
-            "fasteners": ("PTCClamp", "FeederHousing"), "adjusters": ("FeederAuger", "FeederAgitatorDriveShaft", "FeederDriveReference", "PTCClamp"),
-            "sensors": ("TemperatureProbeT5", "HopperThermalFuse"), "wire_routes": ("FeederCableRoute",),
-            "hot_surfaces": ("HopperPTC", "HopperThermalFuse"),
-            "moving_hazards": ("FeederAuger", "FeederAgitatorDriveShaft", "FeederDriveReference"),
-            "maintenance_access": ("SlidingLid", "AntiReach", "FlakeBin", "SealedFeedHopper", "PTCClamp"),
+            "fasteners": ("FeederHousing", "FeederDriveMount", "FeederDriveCoupling"), "adjusters": ("FeederAuger", "FeederAgitatorDriveShaft", "FeederDriveReference"),
+            "sensors": ("TemperatureProbeT5",), "wire_routes": ("FeederCableRoute",),
+            "hot_surfaces": (),
+            "moving_hazards": ("FeederAuger", "FeederAgitatorDriveShaft", "FeederDriveCoupling", "FeederDriveReference"),
+            "maintenance_access": ("SlidingLid", "AntiReach", "FlakeBin", "SealedFeedHopper"),
         },
     },
     "extruder": {
@@ -119,7 +119,7 @@ def colored(items: list[dict], focus: tuple[str, ...]) -> tuple[list[dict], list
 
 
 def review_state(module: str, category: str, focus_count: int) -> tuple[str, str]:
-    cold = {"shredder", "forming", "spooler", "control"}
+    cold = {"shredder", "feeder", "forming", "spooler", "control"}
     no_motion = {"control"}
     if category == "hot_surfaces" and module in cold:
         return "NOT_APPLICABLE_COLD_MODULE", "실제 모듈 형상에서 의도된 고온 표면 없음"

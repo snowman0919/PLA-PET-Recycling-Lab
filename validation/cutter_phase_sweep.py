@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import math
+import hashlib
 import sys
 from pathlib import Path
 
@@ -42,7 +43,7 @@ def main():
     if maximum_overlap>=0.001: raise AssertionError(f"cutter phase collision {maximum_overlap} mm3")
     if minimum<0.49: raise AssertionError(f"cutter axial clearance {minimum} mm")
     result={
-        "revision":"safety-orchestration-closure-v0.6.1",
+        "revision":"final-design-fabrication-closure-v0.8",
         "geometry":"exact released CUT-01 cycloidal-derived B-Rep",
         "base_angle_range_deg":[0,359],"base_angle_step_deg":1,"phase_error_samples_deg":list(errors),
         "configurations_checked":configurations,"exact_boolean_common_samples":exact_common_samples,"repeated_stack_interfaces":11,
@@ -50,9 +51,12 @@ def main():
         "nominal_axial_gap_mm":0.5,"worst_case_shim_gap_requirement_mm":0.25,
         "geometric_collision_free_phase_range_rad":math.pi,
         "adopted_dynamic_phase_error_limit_rad":math.radians(allowed_phase_deg),
-        "derivation":"all 1080 rotated exact solids retain a constant positive axial B-Rep interval separation; periodic exact common() checks are zero. The 1 degree limit is the stricter capture/gear-backlash limit",
+        "geometry_source_sha256":hashlib.sha256((ROOT/"cad/freecad/compact/geometry.py").read_bytes()).hexdigest(),
+        "loaded_phase_validation":"analysis/final_validation/results/v0.8/loaded_phase.json; separate structural gate, not proven by this unloaded sweep",
+        "derivation":"all 1080 rotated exact solids retain a constant positive axial B-Rep interval separation; periodic exact common() checks are zero. This establishes unloaded non-intersection, not capture performance or a dynamic phase limit",
+        "dynamic_limit_basis":"Existing adopted 1 degree design criterion, not numerically specified by attached v0.8 section5.1 and not derived from this collision sweep; capture-performance qualification remains open",
         "synchronization_requirement":"phase gears remain required for counter-rotation and capture timing even though axial disc separation prevents direct cutter collision",
-        "status":"PASS","empirical_state":"EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
+        "status":"PASS","physical_validation_state":"NOT_RUN",
     }
     out=ROOT/"validation/results"; out.mkdir(parents=True,exist_ok=True)
     (out/"cutter_phase_sweep.json").write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n")

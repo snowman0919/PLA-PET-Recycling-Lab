@@ -92,11 +92,25 @@ class BoardFanCurrentFeedback final : public CoolingFeedbackBackend {
 
 class BoardActuators final : public ActuatorBackend {
  public:
+  void begin() {
+    TCCR5A = _BV(WGM51);
+    TCCR5B = _BV(WGM53) | _BV(WGM52) | _BV(CS51) | _BV(CS50);
+    ICR5 = 0xFFFF;
+    OCR5C = 0;
+  }
+
   void apply(const ActuatorCommands &c) override {
     setMotor(Board::SHREDDER_PWM_PIN, Board::SHREDDER_DIR_PIN, Board::SHREDDER_ENABLE_PIN, c.shredder_pwm);
     digitalWrite(Board::SHREDDER_REVERSE_PIN, c.shredder_pwm < 0 ? HIGH : LOW);
-    setMotor(Board::FEEDER_PWM_PIN, Board::FEEDER_DIR_PIN, Board::FEEDER_ENABLE_PIN,
-             c.feeder_enable ? Board::FEEDER_RUN_PWM : 0);
+    const uint16_t requested_hz = c.feeder_enable ? c.feeder_step_hz : 0;
+    if (requested_hz && !feeder_step_hz_) feeder_enabled_us_ = micros();
+    feeder_step_hz_ = requested_hz;
+    digitalWrite(Board::FEEDER_DIR_PIN, HIGH);
+    digitalWrite(Board::FEEDER_ENABLE_PIN, feeder_step_hz_ ? HIGH : LOW);
+    if (!feeder_step_hz_) {
+      TCCR5A &= static_cast<uint8_t>(~_BV(COM5C1));
+      digitalWrite(Board::FEEDER_STEP_PIN, LOW);
+    }
     setMotor(Board::SCREW_PWM_PIN, Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN, c.screw_pwm);
     setMotor(Board::PULLER_PWM_PIN, Board::PULLER_DIR_PIN, Board::PULLER_ENABLE_PIN, c.puller_pwm);
     setMotor(Board::SPOOLER_PWM_PIN, Board::SPOOLER_DIR_PIN, Board::SPOOLER_ENABLE_PIN, c.spooler_pwm);
@@ -105,10 +119,19 @@ class BoardActuators final : public ActuatorBackend {
     digitalWrite(Board::TRAVERSE_ENABLE_PIN, c.traverse_enable ? HIGH : LOW);
     digitalWrite(Board::TRAVERSE_STEP_PIN, c.traverse_step ? HIGH : LOW);
     for (uint8_t zone = 0; zone < 4; ++zone) digitalWrite(Board::HEATER_PINS[zone], c.heater_on[zone] ? HIGH : LOW);
-    digitalWrite(Board::HOPPER_PTC_PIN, c.hopper_ptc_on ? HIGH : LOW);
+  }
+
+  void service(uint32_t now_us) {
+    if (!feeder_step_hz_ || now_us - feeder_enabled_us_ < 200000UL) return;
+    const uint16_t top = static_cast<uint16_t>(F_CPU / 64UL / feeder_step_hz_ - 1UL);
+    ICR5 = top;
+    OCR5C = static_cast<uint16_t>((top + 1U) / 2U);
+    TCCR5A |= _BV(COM5C1);
   }
 
  private:
+  uint16_t feeder_step_hz_ = 0;
+  uint32_t feeder_enabled_us_ = 0;
   static void setMotor(uint8_t pwm, uint8_t direction, uint8_t enable, int16_t value) {
     const uint8_t duty = static_cast<uint8_t>(constrain(abs(value), 0, 255));
     digitalWrite(direction, value >= 0 ? HIGH : LOW);
@@ -672,6 +695,7 @@ void logStatus(const SupervisorOutput &output, uint32_t now_ms) {
 
 void setup() {
   Serial.begin(115200);
+  actuators.begin();
   for (uint8_t pin : Board::SAFETY_INPUT_PINS) pinMode(pin, INPUT_PULLUP);
   for (uint8_t pin : Board::DRIVER_FAULT_PINS) pinMode(pin, INPUT_PULLUP);
   for (uint8_t pin : Board::THERMOCOUPLE_CS_PINS) { pinMode(pin, OUTPUT); digitalWrite(pin, HIGH); }
@@ -686,10 +710,11 @@ void setup() {
                             Board::SCREW_TACH_PIN, Board::FAN_TACH_MUX_PIN, Board::SPOOLER_TACH_PIN};
   for (uint8_t pin : inputs) pinMode(pin, INPUT_PULLUP);
   const uint8_t outputs[] = {Board::SHREDDER_DIR_PIN, Board::SHREDDER_REVERSE_PIN, Board::SHREDDER_ENABLE_PIN,
-                             Board::FEEDER_DIR_PIN, Board::FEEDER_ENABLE_PIN, Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN,
+                             Board::FEEDER_STEP_PIN, Board::FEEDER_DIR_PIN, Board::FEEDER_ENABLE_PIN,
+                             Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN,
                              Board::PULLER_DIR_PIN, Board::PULLER_ENABLE_PIN, Board::SPOOLER_DIR_PIN,
                              Board::SPOOLER_ENABLE_PIN, Board::TRAVERSE_STEP_PIN, Board::TRAVERSE_DIR_PIN,
-                             Board::TRAVERSE_ENABLE_PIN, Board::HOPPER_PTC_PIN};
+                             Board::TRAVERSE_ENABLE_PIN};
   for (uint8_t pin : outputs) pinMode(pin, OUTPUT);
   pinMode(Board::FAN_TACH_MUX_SELECT_PIN, OUTPUT);
   digitalWrite(Board::FAN_TACH_MUX_SELECT_PIN, LOW);
@@ -723,6 +748,7 @@ void loop() {
   const SupervisorOutput output = supervisor.update(input, now_ms);
   last_commands = output.invariants_ok ? output.actuators : ActuatorCommands{};
   actuators.apply(last_commands);
+  actuators.service(micros());
   logStatus(output, now_ms);
 #ifdef PPR_DEBUG
   const uint32_t loop_us = micros() - loop_started_us;

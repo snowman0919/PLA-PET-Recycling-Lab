@@ -67,7 +67,7 @@ def main():
     bom=rows("bom.csv")
     by_id={row["item_id"]:row for row in bom}
     require(by_id["CUT-01"]["qty"] == "2" and "remaining 10" in by_id["CUT-01"]["notes"], "Gate-1 must release exactly two CUT-01 coupons")
-    for item_id in ("CUT-01","CUT-03","CUT-04","CUT-05","CUT-08","DRV-03"):
+    for item_id in ("CUT-01", "CUT-03", "CUT-04", "CUT-05", "CUT-05R", "CUT-08", "CUT-10", "DRV-03", "DRV-03R"):
         require("GATE1_RFQ_ALLOWED" in by_id[item_id]["status"], f"circular Gate-1 fabrication lock: {item_id}")
     require("AFTER_DONOR_MEASUREMENT" in by_id["DRV-01/Axx"]["status"], "donor adapter must remain measurement-locked")
     caps={row["item_id"]:int(row["planned_cash_krw"]) for row in csv.DictReader((ROOT/"bom/cash_budget.csv").open())
