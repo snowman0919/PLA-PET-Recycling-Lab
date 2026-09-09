@@ -1,0 +1,69 @@
+{
+  "rail_deflection_reference_mm": {
+    "0.87": 1.0989591688322187,
+    "5.41": 0.17672726005250097
+  },
+  "rail_load_bound_n": 545.4104187828751,
+  "reference_plane": "gearbox output before2.5 chain; screw direct",
+  "pinion_radius_mm": 18.400886990806754,
+  "chain_radial_load_n": 545.4104187828751,
+  "bearing_reactions_n": [
+    309.0659039769626,
+    236.34451480591255
+  ],
+  "jackshaft_moment_nm": 4.0178567517005135,
+  "jackshaft_vm_mpa": 53.05514272859444,
+  "screened_local_vm_mpa": 95.49925691147,
+  "required_room_temp_yield_mpa_at_factor2": 190.99851382294,
+  "jackshaft_deflection_mm": 0.0014539202628568982,
+  "assumed_shaft_yield_mpa": 300,
+  "conditional_shaft_factor": 3.1413856997663014,
+  "key_checks": [
+    {
+      "engagement_mm": 15,
+      "shear_mpa": 25.833333333333336,
+      "bearing_mpa": 51.66666666666667
+    },
+    {
+      "engagement_mm": 17,
+      "shear_mpa": 22.794117647058822,
+      "bearing_mpa": 45.588235294117645
+    },
+    {
+      "engagement_mm": 20,
+      "shear_mpa": 19.375,
+      "bearing_mpa": 38.75
+    },
+    {
+      "engagement_mm": 22,
+      "shear_mpa": 17.613636363636367,
+      "bearing_mpa": 35.227272727272734
+    }
+  ],
+  "pin_neck_screen_mm": [
+    2.415715473043717,
+    2.4833956681952523
+  ],
+  "pin_shear_strength_assumption_mpa": 120,
+  "pin_blank_installable": false,
+  "bearing_static_capacity_reference_n": 3050,
+  "bearing_static_load_ratio_reference": 9.868445405182396,
+  "bearing_reference_not_alternate_brand_approval": true,
+  "peak_dc_power_w": 495,
+  "power_margin_w": 5,
+  "protection_order_pass": true,
+  "physical_validation": "NOT_RUN",
+  "calibration_and_release_coupon_required": true,
+  "assumptions": [
+    "S45C room-temperature yield300MPa must match supplied condition",
+    "Kt1.8 is a screening factor, not a notch FEA result",
+    "Chain slack tension20N per side is an assembly bound to check",
+    "NSK6201 reference rating is not approval of any unmarked donor bearing",
+    "Pin release range is an acceptance target, not a proven property of a3mm blank"
+  ],
+  "source_sha256": {
+    "analysis/drive_integration_v08/engineering.py": "cd28741db68a47f74813ea004a3bde9db63b23537de819578236fe30196f831c",
+    "control/ggm_drive_contract.json": "c2404f98178c59649f3faa91571a317a9cd575cb0c42e19a7df14f510bab7d2a"
+  },
+  "status": "DIGITAL_SCREEN_PASS_WITH_COMMISSIONING_REQUIRED"
+}
