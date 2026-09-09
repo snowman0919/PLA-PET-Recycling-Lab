@@ -8,7 +8,9 @@ def empty_meta():
     return dict(performed=False,kind='PHYSICAL_MEASUREMENT',operator=None,part_serial=None,
         instrument_id=None,instrument_calibration_ref=None,measured_at=None,raw_files={})
 def readings(ranges):return {key:dict(value=None,u95=None,unit=u,design_min=a,design_max=b) for key,(a,b,u) in ranges.items()}
+sim=I.simulation_gate()
 packet={'record_status':'NOT_RUN','all_physical_actions_authorized':False,
+  'simulation_prerequisite':{'source':'validation/results/v08_full_compliance.json','required_status':'PASS','current_status':sim['status'],'current_sha256':sim['sha256']},
   'design_sha256':{str(p.relative_to(R)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (R/'control/ggm_drive_contract.json',H/'drawing_contract.json')}}
 receipt={}
 for axis,gear in (('SH','K9G75C'),('EX','K9G150C')):

@@ -29,3 +29,10 @@
 FreeCAD1.1.3에서 구동부 `analysis/drive_integration_v08/rebuild.py`를 먼저 실행한다. 일반 Python에서 `define_drawings.py`, `finish_forms.py`, `test_inspection.py`를 실행한 뒤 FreeCADCmd로 `draw_parts.py`와 `check_mfg_geometry.py`를 실행한다. 한국어 문서는 PYTHONUTF8=1을 사용한다. 기존 Typst0.15.1로 drawing_book.typ과 assembly_inspection_ko.typ을 컴파일한다. PDF는 Poppler로 렌더해 검토했다.
 
 소스·STEP이 바뀌면 해시만 고치지 말고 해당 계산/도면을 재생성한다. 과거 r1 ZIP은 보존하고 현재 r2와 섞어 발주하지 않는다.
+
+## r2 후속 디지털 폐쇄
+- 추력판의 rigid bolt-bore 주변 nodal peak는 release metric에서 제외하고, 실제 bearing-seat와 bolt 이상화 영역을 제외한 load-path web의 regional stress를 별도 계산한다.
+- r2 C3D10 3.0→2.0 mm에서 regional max 변화는 약 1.25%, p95 변화는 약 1.35%로 수렴하며, fine regional max는 약 14.98 MPa다. 상온 S275 275 MPa reference 대비 screen SF는 약 18.36이다.
+- 이 수치는 냉간 선형 국부 screen이며 preload/contact/hot-joint 적격성을 대신하지 않는다. rigid-boundary nodal peak는 diagnostic으로 계속 보존한다.
+- GGM screw overspeed guard는 `control/ggm_drive_contract.json`의 hard limit 20 RPM과 일치하도록 수정했다. 독립 AVR build는 현재 release HEX와 동일함을 다시 확인한다.
+- 사용자 정책에 따라 `validation/results/v08_full_compliance.json`의 전체 디지털 상태가 `PASS`가 아니면 수령·정렬·보호핀·전류교정 물리 기록은 검사기에서 fail-closed로 거부한다. 현재 전체 상태는 FAIL이므로 네 physical domain은 모두 `NOT_RUN`이다.

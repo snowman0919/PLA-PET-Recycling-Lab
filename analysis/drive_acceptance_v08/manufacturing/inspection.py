@@ -3,6 +3,12 @@ from pathlib import Path
 import json,math,hashlib,datetime
 H=Path(__file__).resolve().parent
 R=H.parents[2]
+SIM_GATE=R/'validation/results/v08_full_compliance.json'
+
+def simulation_gate():
+    if not SIM_GATE.is_file(): return {'status':'MISSING','pass':False,'sha256':None}
+    data=json.loads(SIM_GATE.read_text())
+    return {'status':data.get('status','UNKNOWN'),'pass':data.get('status')=='PASS','sha256':hashlib.sha256(SIM_GATE.read_bytes()).hexdigest()}
 
 def number(v):
     if type(v) not in (int,float) or not math.isfinite(v): raise ValueError('finite numeric value required')
@@ -113,8 +119,9 @@ def currents(data):
     return output
 
 def inspect(packet):
+    sim=simulation_gate()
     report={'physical_test_executed_by_this_tool':False,'hardware_authorization':'NOT_GRANTED',
-      'machine_release':'HOLD','authenticity':'NOT_ESTABLISHED_BY_PARSER','domains':{}}
+      'machine_release':'HOLD','authenticity':'NOT_ESTABLISHED_BY_PARSER','simulation_gate':sim,'domains':{}}
     needed=['control/ggm_drive_contract.json',str((H/'drawing_contract.json').relative_to(R))]
     bindings=packet.get('design_sha256',{})
     binding_ok=all(bindings.get(k)==hashlib.sha256((R/k).read_bytes()).hexdigest() for k in needed)
@@ -122,6 +129,10 @@ def inspect(packet):
         row=packet.get(name,{})
         if row.get('performed') is not True:
             report['domains'][name]={'status':'NOT_RUN'}; continue
+        if not sim['pass']:
+            report['domains'][name]={'status':'REJECTED','reason':'full digital simulation/compliance gate is not PASS'}; continue
+        if packet.get('all_physical_actions_authorized') is not True:
+            report['domains'][name]={'status':'REJECTED','reason':'physical action authorization not granted'}; continue
         if not binding_ok:
             report['domains'][name]={'status':'REJECTED','reason':'missing or stale design binding'}; continue
         try: report['domains'][name]={'status':'NUMERIC_RECORD_CHECK_PASS','result':fn(row['data'])}

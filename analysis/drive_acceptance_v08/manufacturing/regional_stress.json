@@ -1,0 +1,76 @@
+{
+  "status": "REGIONAL_STRESS_CONVERGED",
+  "physical_validation": "NOT_RUN",
+  "machine_release": "HOLD",
+  "probe_definition": {
+    "x_mm": [
+      295.0,
+      345.0
+    ],
+    "z_mm": [
+      350.0,
+      414.0
+    ],
+    "bearing_centre_xz_mm": [
+      320.0,
+      382.0
+    ],
+    "excluded_radius_mm": 16.0,
+    "reason": "exclude loaded bearing seat and rigid bolt-bore singularities; retain the load-path web"
+  },
+  "cases": [
+    {
+      "case": "r2_4.0",
+      "node_count": 8907,
+      "max_mpa": 13.55712811263348,
+      "p99_mpa": 8.955185827032599,
+      "p95_mpa": 6.784011224426009,
+      "p90_mpa": 5.707735544030757,
+      "mean_mpa": 3.615030564342811,
+      "mesh_sha256": "66e7d519a753c3396f7291a7a2f7adbb7b925f70de2c5a4a2c621fc0ee0f7b82",
+      "frd_sha256": "98d515bec62f711c199ff99d60976378d11c2ba203b8329de7503b29465e83e2"
+    },
+    {
+      "case": "r2_3.0",
+      "node_count": 14035,
+      "max_mpa": 15.168404136093653,
+      "p99_mpa": 9.788220163007203,
+      "p95_mpa": 6.9994496358144165,
+      "p90_mpa": 5.890383042866228,
+      "mean_mpa": 3.6797217320182822,
+      "mesh_sha256": "01be63dd4ed5564d454542aa67a4b4c66fd963e34c79cb89fe547851bb09830a",
+      "frd_sha256": "b5582761d4db2c3a7a4f67f3992aeaf0d29a9e6b48ba0b3091fdc9125c432985"
+    },
+    {
+      "case": "r2_2.0",
+      "node_count": 31913,
+      "max_mpa": 14.981226310561565,
+      "p99_mpa": 9.135207425767081,
+      "p95_mpa": 6.906012845150913,
+      "p90_mpa": 5.894579775010448,
+      "mean_mpa": 3.667022449604557,
+      "mesh_sha256": "02a2166c31e5ce2af9787c557f6c9399347cb7fc724baa891357f652713987de",
+      "frd_sha256": "aa3bd14b6ac6a3156dff15eb99f27c5fa219155eed03a1c6dc488ef2d72bee94"
+    }
+  ],
+  "medium_to_fine": {
+    "regional_max_fraction": 0.012494159133029648,
+    "regional_p99_fraction": 0.07148307715468083,
+    "regional_p95_fraction": 0.013529773656460797,
+    "regional_p90_fraction": 0.0007119646021268577
+  },
+  "convergence_pass": true,
+  "fine_regional_max_mpa": 14.981226310561565,
+  "fine_regional_p95_mpa": 6.906012845150913,
+  "yield_reference_mpa": 275.0,
+  "regional_max_yield_screen_sf": 18.35630770800977,
+  "limits": [
+    "Cold linear-elastic local plate model only",
+    "Yield reference is a screening value, not material certificate evidence",
+    "Nodal peak at rigid constraints remains diagnostic and is not reclassified as converged"
+  ],
+  "source_sha256": {
+    "analysis/drive_acceptance_v08/manufacturing/regional_stress_review.py": "3d218c0e77aca3dddd8393022d837def7bfb56cbe92abe50f0e81471313852f1",
+    "analysis/drive_acceptance_v08/manufacturing/retention_strength_quadratic.json": "286a263e3773e95d5c74c3ff57f39e68642a46748f13bdf331e32bab1d3e1a17"
+  }
+}

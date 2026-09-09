@@ -1,6 +1,12 @@
 {
   "record_status": "NOT_RUN",
   "all_physical_actions_authorized": false,
+  "simulation_prerequisite": {
+    "source": "validation/results/v08_full_compliance.json",
+    "required_status": "PASS",
+    "current_status": "FAIL",
+    "current_sha256": "c858603952fbb536e8a70c505ee1bfa6742a45de9c6865e143f13feb4aebdf0b"
+  },
   "design_sha256": {
     "control/ggm_drive_contract.json": "c2404f98178c59649f3faa91571a317a9cd575cb0c42e19a7df14f510bab7d2a",
     "analysis/drive_acceptance_v08/manufacturing/drawing_contract.json": "6f2848840e0eb6f1d97eccc5739bf3b02b0f36c591570e1b100f99ddd9d46463"

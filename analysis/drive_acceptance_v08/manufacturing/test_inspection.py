@@ -114,6 +114,13 @@ class Tests(unittest.TestCase):
     def test_stale_design_binding(self):
         r=I.inspect({'design_sha256':{'control/ggm_drive_contract.json':'0'*64},'receipt':{'performed':True,'data':receipts()}})
         self.assertEqual(r['domains']['receipt']['status'],'REJECTED')
+    def test_physical_record_blocked_until_full_simulation_pass(self):
+        bindings={name:hashlib.sha256((I.R/name).read_bytes()).hexdigest() for name in ('control/ggm_drive_contract.json','analysis/drive_acceptance_v08/manufacturing/drawing_contract.json')}
+        packet={'all_physical_actions_authorized':True,'design_sha256':bindings,'receipt':{'performed':True,'data':receipts()}}
+        result=I.inspect(packet)
+        self.assertNotEqual(result['simulation_gate']['status'],'PASS')
+        self.assertEqual(result['domains']['receipt']['status'],'REJECTED')
+        self.assertIn('simulation',result['domains']['receipt']['reason'])
 if __name__=='__main__':
     result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(Tests))
     (H/'tests.json').write_text(json.dumps({'tests':result.testsRun,'failures':len(result.failures),

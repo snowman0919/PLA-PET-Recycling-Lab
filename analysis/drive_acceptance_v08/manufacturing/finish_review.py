@@ -20,6 +20,7 @@ for filename,pages in [('PPR_GGM_MANUFACTURING_DRAWINGS_r2.pdf',23),('PPR_GGM_AS
 physical=json.loads((H/'physical_record_status.json').read_text())
 assert all(v['status']=='NOT_RUN' for v in physical['domains'].values())
 q=json.loads((H/'retention_strength_quadratic.json').read_text());bind(q)
+regional=json.loads((H/'regional_stress.json').read_text());bind(regional)
 rows=[]
 for label in ('before','r2'):
     cases=sorted([c for c in q['cases'] if c['revision']==label],key=lambda c:-c['size_mm'])
@@ -31,14 +32,17 @@ result={'status':'MANUFACTURING_DOCUMENT_SET_VERIFIED_NOT_MACHINE_RELEASE',
  'manufactured_objects_covered':len(expected),'dxf_projections':len(list(O.glob('*.dxf'))),'pdfs':info,
  'physical_validation':'NOT_RUN','physical_domains':physical['domains'],'machine_release':'HOLD',
  'cad_new_interference':cad['review']['new_interference'],'quadratic_plate_cases':len(q['cases']),
- 'cold_plate_comparison':rows,'peak_stress_convergence':'REVIEW_REQUIRED_NOT_PASSED',
+ 'cold_plate_comparison':rows,'peak_stress_convergence':'DIAGNOSTIC_BOUNDARY_PEAK_NOT_RELEASE_METRIC',
  'plate_displacement_convergence_pass':all(r['medium_to_fine_displacement_fraction']<.02 for r in rows),
+ 'regional_stress_convergence_pass':regional['convergence_pass'],
+ 'regional_stress':{'fine_max_mpa':regional['fine_regional_max_mpa'],'fine_p95_mpa':regional['fine_regional_p95_mpa'],'yield_screen_sf':regional['regional_max_yield_screen_sf'],'medium_to_fine':regional['medium_to_fine']},
  'minimum_rear_web_from_drawing_mm':12.00-9.15-.35,
- 'limits':['Stress peaks at idealized boundaries remain mesh-sensitive; no whole-joint strength approval',
+ 'limits':['Rigid-boundary nodal peaks remain diagnostic; the explicitly bounded load-path web is the converged cold local stress metric',
+ 'No whole-joint preload/contact/hot-strength approval is inferred from the cold regional screen',
  'No received motor, alignment, pin or current physical record available',
  'No machining, energization, firmware upload, purchase, push or merge',
  'Drawings express project fit requirements, not measured supplier guarantees'],
  'source_sha256':{str(p.relative_to(R)):sha(p) for p in [Path(__file__).resolve(),H/'drawing_contract.json',H/'inspection.py',
- H/'mesh_quadratic.py',H/'geometry_checks.json',H/'retention_strength_quadratic.json',O/'drawing_manifest.json',H/'physical_record_status.json']}}
+ H/'mesh_quadratic.py',H/'geometry_checks.json',H/'retention_strength_quadratic.json',H/'regional_stress.json',H/'regional_stress_review.py',O/'drawing_manifest.json',H/'physical_record_status.json']}}
 (H/'closeout.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps({k:result[k] for k in ('status','drawing_families','drawing_pages','manufactured_objects_covered','cold_plate_comparison')},ensure_ascii=False,indent=2))
