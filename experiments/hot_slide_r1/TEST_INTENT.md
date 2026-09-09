@@ -13,3 +13,6 @@
 
 ## 패키지
 `package_review.py`는 실제 job 완료와 입력 해시, prototype source hash, STEP 대응, 파일목록과 clean extraction을 검사한다. 같은 snapshot에서 ZIP 두 번 조립한 결과만 비교하며 전체 solver/CAD pipeline 두 번 재생성이라고 주장하지 않는다. prototype이나 pressureless test 문서는 전체 PPR 제작 승인을 대체하지 않는다.
+
+## 기록 경계 보강
+`test_protocol_boundaries.py`의 25개 추가 합성 시험은 중복/음수 시각, 편도-only, 불확도 포함 이동폭·온도·near-envelope 하중, 잔류 변형, 허위 낮은 ramp 신고와 실제 표본 구배의 불일치, 비정상 입력 형식을 검사한다. 합성 51개 전체 통과는 물리 시험 수행을 의미하지 않는다.

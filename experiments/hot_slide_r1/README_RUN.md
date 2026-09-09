@@ -9,6 +9,7 @@ OMP_NUM_THREADS=1 python3 solve_sliding_kinematic.py
 OMP_NUM_THREADS=1 python3 solve_sliding_gradients.py
 python3 evaluate_sliding_envelope.py
 python3 test_protocol.py
+python3 test_protocol_boundaries.py
 printf "import runpy; _=runpy.run_path('test_fixture_geometry.py',run_name='__main__'); _=runpy.run_path('make_drawings.py',run_name='__main__')\n" | FreeCADCmd -c
 typst compile handbook.typ HS-R1-S2_prototype_review_ko_v2.pdf
 ```
@@ -20,3 +21,5 @@ FreeCAD 콘솔의 exit code만으로 합격시키지 않는다. STEP 재수입 �
 `raw_runs/`의 INP/FRD/DAT/log는 실제 머신에 남긴다. 배포 묶음에는 원시 파일 hash 목록을 포함한다. 전체 해석을 두 번 재실행했다는 주장은 하지 않는다. 같은 snapshot의 ZIP 반복 생성과 clean extraction만 별도 검사한다.
 
 `validate_physical_test.py RECORD_JSON GEOMETRY_SHA256 REQUIRED_YIELD_MPA`는 측정 기록 검사만 한다. 실제 측정과 approval가 없는 template은 NOT_RUN이다. 코드가 기계의 제작/가열/운전을 승인하지 않는다.
+
+실측 준비와 강화된 불확도·왕복·가열속도 검사는 COLD_TEST_READINESS_KO.md를 함께 읽는다. 두 시험 스크립트는 합성 시험 26개와 경계 회귀 시험 25개를 각각 실행한다.

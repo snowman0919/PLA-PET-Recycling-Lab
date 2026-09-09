@@ -10,11 +10,11 @@ def fixture():
         'approval_reference':'SYNTHETIC','force_calibration_reference':'SYNTHETIC',
         'position_calibration_reference':'SYNTHETIC','material_certificate_reference':'SYNTHETIC',
         'certified_yield_mpa_at_peak_temperature':1200,
-        'independent_mechanical_stops_verified':True,'post_cooldown_residual_offset_mm':.005,
-        'samples':[{'time_s':i,'travel_mm':-1+2*i/9,'pull_force_n':20,'radial_load_n':24,
+        'independent_mechanical_stops_verified':True,'post_cooldown_residual_offset_mm':.005,'residual_position_uncertainty_mm':.002,
+        'samples':[{'time_s':i,'travel_mm':-1.1+.44*i if i<=5 else 1.1-.44*(i-5),'pull_force_n':20,'radial_load_n':24.5,
                     'centre_x_mm':.01,'centre_y_mm':.02,'barrel_c':25,'spring_inner_c':25,
                     'spring_outer_c':25,'spring_face_a_c':25,'spring_face_b_c':25,'temperature_uncertainty_c':.5,'endplay_mm':.30,'force_uncertainty_n':.2,
-                    'position_uncertainty_mm':.005} for i in range(10)]}
+                    'position_uncertainty_mm':.005} for i in range(11)]}
 
 def main():
     results=[]
@@ -38,6 +38,8 @@ def main():
     f=fixture();f['samples'][3]['barrel_c']=150;check('heat_without_approval',f)
     f['heating_approval_reference']='SYNTHETIC';f['independent_thermal_cutoff_verified']=True;f['metal_shield_verified']=True
     f['peak_ramp_rate_c_per_min']=1.5;f['ramp_trace_reference']='SYNTHETIC'
+    for row in f['samples']:
+        for key in ('barrel_c','spring_inner_c','spring_outer_c','spring_face_a_c','spring_face_b_c'):row[key]=150.0
     check('synthetic_hot_protocol_record',f,True)
     f['heating_approval_reference']='';check('empty_hot_approval',f)
     f=fixture();f['samples'][3]['spring_face_a_c']=100;check('through_face_gradient',f)
