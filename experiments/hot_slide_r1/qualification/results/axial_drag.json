@@ -1,0 +1,74 @@
+{
+  "status": "CONDITIONAL_FRICTION_RESPONSE_NOT_QUALIFIED",
+  "physical_validation": "NOT_RUN",
+  "runs": [
+    {
+      "mesh_mm": 0.55,
+      "applied_axial_force_n": 25.0,
+      "axial_reaction_residual_n": 0.0,
+      "mean_shoe_axial_displacement_mm": 0.08235317424197061,
+      "result": {
+        "max_displacement_mm": 0.09448525674858964,
+        "max_von_mises_mpa": 103.01523007224411,
+        "max_von_mises_node_id": 40232,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "original_input_sha256": "0714af9362463803066f70dd0a13eb485167495196aedf341647f80b7d4b4fed",
+      "raw_directory": "raw/axial-drag-r7dzsf7n/mesh_0.55",
+      "files_sha256": {
+        "model.frd": "b680ceb099ae8b16555b96aa62b11ef1713b624a9b9628c71ee364fd49afba6e",
+        "ccx.log": "516f6784e17276647c89725658af721dab330378d455ac93425a56c65b49cca2",
+        "model.inp": "7dc272e0303a481ddc50ca87fa0d4b7cdd57158548d3924271d8897d8c8b1d65",
+        "model.dat": "7d4d5b8a4fa096e9947bc17c78a92f6b6aaed516e028c6c138416c04babd86a6"
+      }
+    },
+    {
+      "mesh_mm": 0.45,
+      "applied_axial_force_n": 25.0,
+      "axial_reaction_residual_n": 0.0,
+      "mean_shoe_axial_displacement_mm": 0.082380945723028,
+      "result": {
+        "max_displacement_mm": 0.0945189003235972,
+        "max_von_mises_mpa": 105.93801356390571,
+        "max_von_mises_node_id": 1327,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "original_input_sha256": "4965fb00bc7f4139d0d3d7175db53acafb1eb9e4308ab267eee9a5e9f82b6c94",
+      "raw_directory": "raw/axial-drag-r7dzsf7n/mesh_0.45",
+      "files_sha256": {
+        "model.frd": "fc4e9fba61014f88fc0fd1190a3f4f2730877867e4fff2ae5f48d8976d6a8980",
+        "ccx.log": "d0d8b2c09601c56a0004a66e9ae3d373f9c3082d72647daec46c96af380348ef",
+        "model.inp": "f8721e62c31ac0b8dc5e295b6d533eb99a0007cce33ead35e2a610ecba0ddb5b",
+        "model.dat": "c39878c8aa0b103b4c626dadefac45b6211caaf1e26578a74a6cce8d3e3e35db"
+      }
+    }
+  ],
+  "medium_to_fine_relative_change": {
+    "stress": 0.02758956292774429,
+    "axial_displacement": 0.0003371104909471957
+  },
+  "assumed_mu": 0.25,
+  "friction_stress_triangle_bound_mpa": 83.71195908293133,
+  "axial_displacement_at_assumed_mu_mm": 0.06509722172031498,
+  "previous_strength_requirement_mpa": 1054.1408425054715,
+  "strength_requirement_including_assumed_drag_mpa": 1221.5647606713342,
+  "limitations": [
+    "Axial traction is a linear sensitivity on existing shoe patches, not a solved frictional contact.",
+    "Uniform share over six sheets assumed; stack contact, separation and preload redistribution not solved.",
+    "Peak nodal stress may remain local-mesh sensitive; thermal/drag peaks are combined only as a triangle bound.",
+    "If deflection consumes inter-sheet clearance, this model is outside its stack-free assumption."
+  ],
+  "source_sha256": {
+    "qualification/run_axial_drag.py": "ed2772fd7495a526279d03dd99ebd1739f368c5d3ac94318006bc96991233bcd",
+    "solver_result.json": "ecc69a51322a6c738d56351e7464b74258ba3ed0e01af90716461d818b2fc6e7",
+    "solver_kernel.py": "e3194103f9cc5eda3328959890226426d8a48cfaab63ce0517e3a9201d90b660",
+    "pin_supports.py": "e243e5606c3bf6849bc4588916c22b338b520fe3529527d017a9fc8b8eea131b",
+    "sliding_envelope.json": "00c04fdf4ce8892743c16708c577840af17a44334c8aaaab268cc1636cc5c6b4",
+    "derived_requirements.json": "215c8c94bdc404edd7eecd842bb303de39d3e5558545fe94f68a1e332562c458"
+  },
+  "solver_binary_sha256": "ed44d38aa3a66a9ec5c1db5589d0bc62787645e5dfd48fb2be939dbc43eadd1e"
+}

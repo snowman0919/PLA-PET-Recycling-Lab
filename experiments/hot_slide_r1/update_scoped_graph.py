@@ -12,20 +12,20 @@ OUT = ROOT / 'graphify-out'
 
 def main():
     OUT.mkdir(exist_ok=True)
-    paths = sorted(ROOT.glob('*.py'))
+    paths = sorted(ROOT.glob('*.py')) + sorted((ROOT/'qualification').glob('*.py'))
     data = extract(paths, cache_root=ROOT, root=ROOT, parallel=False)
-    docs = sorted(ROOT.glob('*.md'))
+    docs = sorted(ROOT.glob('*.md')) + sorted((ROOT/'qualification').glob('*.md'))
     ids = {n['id'] for n in data['nodes']}
     for p in docs:
-        label = 'document:' + p.name
-        data['nodes'].append({'id': label, 'label': p.name, 'type': 'document', 'source_file': p.name})
+        label = 'document:' + str(p.relative_to(ROOT))
+        data['nodes'].append({'id': label, 'label': p.name, 'type': 'document', 'source_file': str(p.relative_to(ROOT))})
         for number, line in enumerate(p.read_text().splitlines(), 1):
             for target in paths:
                 if target.name not in line:
                     continue
                 matches = [n for n in data['nodes'] if n['id'] in ids and str(n.get('source_file', '')).endswith(target.name)]
                 if matches:
-                    data['edges'].append({'source': label, 'target': matches[0]['id'], 'relation': 'references', 'confidence': 1.0, 'evidence': 'EXTRACTED', 'source_file': p.name, 'source_location': str(number)})
+                    data['edges'].append({'source': label, 'target': matches[0]['id'], 'relation': 'references', 'confidence': 1.0, 'evidence': 'EXTRACTED', 'source_file': str(p.relative_to(ROOT)), 'source_location': str(number)})
     claims = [('README_KO.md', '실제 압출기 지지부 교체품이 아니다', 'fixture-not-machine-replacement'), ('README_KO.md', '실제 물리 시험 수는0', 'physical-tests-not-run'), ('TEST_INTENT.md', '두께방향 단독 최대응력은 수렴 완료가 아니다', 'face-gradient-not-converged')]
     for name, phrase, concept in claims:
         lines = (ROOT / name).read_text().splitlines()
@@ -46,7 +46,7 @@ def main():
     report = generate(graph, communities, cohesion, labels, gods, surprises, detection, {'input': 0, 'output': 0}, str(ROOT), suggested_questions=questions)
     scope = '# HS-R1-S2 scoped graph\n\nAST + reviewed source-located document links only. Not a full project or full visual-document semantic re-extraction. No paid API calls. Root project graph is preserved.\n\n'
     (OUT / 'GRAPH_REPORT.md').write_text(scope + report)
-    (OUT / 'manifest.json').write_text(json.dumps({'scope': 'experiments/hot_slide_r1', 'method': 'graphify AST plus host-reviewed literal semantic anchors', 'nodes': graph.number_of_nodes(), 'edges': graph.number_of_edges(), 'source_sha256': {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in paths + docs}}, indent=2))
+    (OUT / 'manifest.json').write_text(json.dumps({'scope': 'experiments/hot_slide_r1', 'method': 'graphify AST plus host-reviewed literal semantic anchors', 'nodes': graph.number_of_nodes(), 'edges': graph.number_of_edges(), 'source_sha256': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths + docs}}, indent=2))
     (OUT / 'cost.json').write_text(json.dumps({'additional_paid_api_calls': 0, 'additional_cost_usd': 0, 'tokens_measured': False, 'scope': 'local scoped graph only'}, indent=2))
     print(json.dumps({'nodes': graph.number_of_nodes(), 'edges': graph.number_of_edges(), 'communities': len(communities), 'scope': str(ROOT)}))
 
