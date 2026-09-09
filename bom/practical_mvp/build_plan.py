@@ -82,7 +82,7 @@ def main():
              'bom_rows_reviewed':len(bom),'bom_count_not_purchase_quantity':True,'route_counts':dict(Counter(r['proposed_route'] for r in routes)),
              'printed_part_types':len(prints),'printed_piece_count':sum(int(r['quantity']) for r in prints),
              'material_changes_required':sum(r['current_material']!=r['target_material'] for r in material),
-             'frame_section_changes_required':0,'donor_register_rows':len(donors),'verified_donor_components':0,
+             'frame_section_changes_required':sum(r['change_state']=='UNKNOWN_SECTION_REVIEW_REQUIRED' for r in rails),'donor_register_rows':len(donors),'verified_donor_components':0,
              'cad_changed':False,'slicer_rerun':False,'structural_reanalysis':False,'purchases_performed':False}
     if any(sha(ROOT/p)!=v for p,v in before.items()):raise RuntimeError('Sources changed during allocation')
     (out/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')

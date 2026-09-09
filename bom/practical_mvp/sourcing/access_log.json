@@ -1,0 +1,44 @@
+{
+  "bypass_attempted": false,
+  "cache_is_not_price_or_stock_validation": true,
+  "requests": [
+    {
+      "source_id": "MEGA-1001",
+      "url": "https://1001parts.co.kr/product/아두이노-메가-2560-r3-호환-보드-mega-2560-ch340/7731/",
+      "requested_utc": "2026-09-09T08:05:50.224085+00:00",
+      "status": "RESPONSE_CAPTURED_NOT_CHECKOUT",
+      "bytes": 197727,
+      "sha256": "958e9c239d0642a2bcd0cfc6edf7380ce06f4e84e3d172b40c7765d44d7d3166",
+      "cache": "source_cache/MEGA-1001.html",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "source_id": "BTS-ICBANQ",
+      "url": "https://www.icbanq.com/P014373686",
+      "requested_utc": "2026-09-09T08:05:50.620702+00:00",
+      "status": "RESPONSE_CAPTURED_NOT_CHECKOUT",
+      "bytes": 178239,
+      "sha256": "66844d77c020bef47cc98fc198381fcc07c508c39e60daa60f7de5f702f1fa8b",
+      "cache": "source_cache/BTS-ICBANQ.html",
+      "content_type": "text/html;charset=UTF-8"
+    },
+    {
+      "source_id": "MAX6675-COUPANG",
+      "url": "https://www.coupang.com/vp/products/8304428936",
+      "requested_utc": "2026-09-09T08:05:58.848288+00:00",
+      "status": "FETCH_FAILED_NO_RETRY",
+      "error_type": "HTTPError",
+      "http_status": 403
+    },
+    {
+      "source_id": "TT-GMP60-RFQ",
+      "url": "https://www.ttmotor.com/uploads/GMP60-609760127.pdf",
+      "requested_utc": "2026-09-09T08:05:58.891480+00:00",
+      "status": "RESPONSE_CAPTURED_NOT_CHECKOUT",
+      "bytes": 429081,
+      "sha256": "31ca20577bd3414293ba201ca36b944b970567c119146ca552afbdb41bbce53b",
+      "cache": "source_cache/TT-GMP60-RFQ.pdf",
+      "content_type": "application/pdf"
+    }
+  ]
+}

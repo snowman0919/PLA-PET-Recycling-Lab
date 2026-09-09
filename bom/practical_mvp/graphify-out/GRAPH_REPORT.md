@@ -5,12 +5,12 @@ AST + reviewed source-located document links only. Not a full project or full vi
 # Graph Report - practical_mvp  (2026-09-09)
 
 ## Corpus Check
-- 6 files · ~336 words
+- 11 files · ~699 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 49 nodes · 92 edges · 9 communities (2 shown, 7 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 1.0)
+- 70 nodes · 123 edges · 7 communities (4 shown, 3 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 1.0)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -20,50 +20,49 @@ AST + reviewed source-located document links only. Not a full project or full vi
 - Community 3
 - Community 4
 - Community 5
-- Community 6
-- Community 7
-- Community 8
 
 ## God Nodes (most connected - your core abstractions)
 1. `ResourceTests` - 14 edges
 2. `PolicyTests` - 13 edges
 3. `build()` - 10 edges
-4. `route()` - 8 edges
-5. `read_csv()` - 6 edges
-6. `calculate()` - 6 edges
-7. `target_material()` - 5 edges
-8. `main()` - 5 edges
-9. `sha()` - 4 edges
-10. `main()` - 4 edges
+4. `validate()` - 10 edges
+5. `SourceTests` - 9 edges
+6. `route()` - 8 edges
+7. `read_csv()` - 6 edges
+8. `calculate()` - 6 edges
+9. `target_material()` - 5 edges
+10. `main()` - 5 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `calculate()` --calls--> `target_material()`  [EXTRACTED]
+  resource_budget.py → build_plan.py
 - `main()` --calls--> `read_csv()`  [EXTRACTED]
   resource_budget.py → build_plan.py
 - `main()` --calls--> `sha()`  [EXTRACTED]
-  resource_budget.py → build_plan.py
-- `calculate()` --calls--> `target_material()`  [EXTRACTED]
   resource_budget.py → build_plan.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (9 total, 7 thin omitted)
+## Communities (7 total, 3 thin omitted)
+
+### Community 0 - "Community 0"
+Cohesion: 0.24
+Nodes (11): main(), User-asset and fabrication allocation; not donor performance qualification., read_csv(), sha(), target_material(), write_csv(), calculate(), finite() (+3 more)
+
+### Community 1 - "Community 1"
+Cohesion: 0.19
+Nodes (4): build(), route(), PolicyTests, Sourcing-policy regressions, not structural or physical qualification.
 
 ### Community 2 - "Community 2"
-Cohesion: 0.53
-Nodes (5): target_material(), calculate(), finite(), main(), Resource arithmetic on existing part manifests, not new slicer/PSU tests.
-
-### Community 3 - "Community 3"
-Cohesion: 0.60
-Nodes (4): main(), User-asset and fabrication allocation; not donor performance qualification., sha(), write_csv()
+Cohesion: 0.23
+Nodes (6): main(), Validate reviewed source records; no checkout or orders., read(), validate(), Cost records cannot invent inventory or a completed checkout., SourceTests
 
 ## Knowledge Gaps
-- **7 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `ResourceTests` connect `Community 0` to `Community 5`?**
-  _High betweenness centrality (0.017) - this node is a cross-community bridge._
-- **Why does `PolicyTests` connect `Community 6` to `Community 1`, `Community 4`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
+- **Why does `ResourceTests` connect `Community 3` to `Community 0`?**
+  _High betweenness centrality (0.008) - this node is a cross-community bridge._
