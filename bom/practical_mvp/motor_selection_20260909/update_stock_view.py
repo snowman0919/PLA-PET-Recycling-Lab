@@ -32,6 +32,9 @@ def apply_reply(source_rows, reply):
             row.update(confirmed_available_quantity='0', purchase_quantity='', state='NOT_PURCHASED_OPTION_RESELECTION_REQUIRED',
                        lab_question='구매 전임을 확인; 정격토크와 속도를 맞춘 옵션 선정 후 주문',
                        latest_evidence='User explicitly confirmed no purchase; selected screenshot is not inventory')
+            selected = reply.get('motor_design_reference', {}).get(key)
+            if selected:
+                row.update(state='DESIGN_REFERENCE_SELECTED_NOT_ORDERED', minimum_specification=selected['specification'], lab_question='선정 기준 모터의 최종 옵션/재고/장착 및 보호설정 확인; 주문은 별도 승인', latest_evidence=reply['motor_design_reference_source']+'; '+selected['model'])
         elif key in ('HEAT-BAND', 'HEAT-DIE'):
             row.update(state='PURCHASE_REQUIRED_SPEC_CONFIRMATION', lab_question='24V 제어히터 구매 규격 확정', latest_evidence='Integrated bed/PTC not allocated; no order placed')
     return rows

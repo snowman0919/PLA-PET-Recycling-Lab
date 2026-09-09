@@ -33,11 +33,23 @@
       "continuous_current_a": null,
       "control_interface": null,
       "bidirectional_operation": null,
-      "allocation": "RESERVE_PENDING_IDENTIFICATION",
+      "allocation": "EXCLUDED_FROM_MVP_USER_DECISION",
       "counted_as_verified_drive_channels": 0
     }
   },
   "purchases_performed": false,
   "physical_validation": "NOT_RUN",
-  "motor_purchase_status": "NO_ORDER_PLACED_OPTIONS_UNCONFIRMED"
+  "motor_purchase_status": "NO_ORDER_PLACED_OPTIONS_UNCONFIRMED",
+  "motor_design_reference": {
+    "DRV-SH": {
+      "model": "GGM K9DG60N2 + K9G75C",
+      "specification": "24V; gear 40rpm; output 16.0rpm/19.61Nm; reference only; protection/mount integration pending"
+    },
+    "DRV-EX": {
+      "model": "GGM K9DG60N2 + K9G150C",
+      "specification": "24V; gear 20rpm; output 20.0rpm/9.807Nm; reference only; protection/mount integration pending"
+    }
+  },
+  "motor_design_reference_source": "analysis/motor_sizing_v08/motor_selection.json",
+  "motor_design_reference_sha256": "11697828ace4b2527fca2a321d24db504b833897b90f490b779243825776e405"
 }

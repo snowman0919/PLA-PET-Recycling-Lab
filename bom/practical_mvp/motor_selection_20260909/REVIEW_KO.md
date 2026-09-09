@@ -25,3 +25,6 @@ BTS7960은 독립 DC축2개에 각각1모듈을 사용하는현재계획을 유�
 ## 재실행과 상태
 `python3 check_motors.py`, `python3 test_motors.py`, `python3 update_stock_view.py`를 실행한다. 수치·재고검사18개는소프트웨어시험이며물리시험은0이다. 결과와참조원본해시가일치하는지확인한다. 최신재고질문은remaining_confirmation_bom.csv이며기존sourcing/minimum_confirmation_bom.csv는회신전스냅샷으로남긴다.
 CAD/펌웨어/토크한도/주가열회로는변경하지않았고구매하지않았다. 이검토는모터구매전오류를줄이는것이며전체기계제작승인이아니다.
+
+## 이후 선정 결과
+스크린샷의 두 옵션 검토는 역사 기록이다. 시퀀스 부하를 분리해 산정한 이후 기준은 `analysis/motor_sizing_v08/motor_selection.json`이며 현재 재고표에 반영한다. 기존 소형 모터의 정격 부족 계산은 변경하지 않고, 새 모터는 별도 출처와 보호/전력/장착 변경 요구를 갖는다.

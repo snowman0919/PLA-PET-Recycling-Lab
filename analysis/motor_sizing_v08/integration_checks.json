@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "script": "bom/practical_mvp/build_plan.py",
+      "exit": 0
+    },
+    {
+      "script": "bom/practical_mvp/resource_budget.py",
+      "exit": 0
+    },
+    {
+      "script": "bom/practical_mvp/test_plan.py",
+      "exit": 0
+    },
+    {
+      "script": "bom/practical_mvp/test_resources.py",
+      "exit": 0
+    },
+    {
+      "script": "bom/practical_mvp/sourcing/check_sources.py",
+      "exit": 0
+    },
+    {
+      "script": "bom/practical_mvp/sourcing/test_sources.py",
+      "exit": 0
+    },
+    {
+      "script": "bom/practical_mvp/motor_selection_20260909/update_stock_view.py",
+      "exit": 0
+    },
+    {
+      "script": "bom/practical_mvp/motor_selection_20260909/check_motors.py",
+      "exit": 0
+    },
+    {
+      "script": "bom/practical_mvp/motor_selection_20260909/test_motors.py",
+      "exit": 0
+    },
+    {
+      "script": "analysis/motor_sizing_v08/test_sizing.py",
+      "exit": 0
+    },
+    {
+      "script": "analysis/motor_sizing_v08/test_selection.py",
+      "exit": 0
+    }
+  ],
+  "physical_validation": "NOT_RUN"
+}

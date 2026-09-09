@@ -34,7 +34,7 @@ def main():
     (HERE/'motor_selection.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     with (HERE/'motor_shortlist.csv').open('w',newline='') as f:
         fields=['id','model','voltage_v','gearbox_rated_rpm','gearbox_rated_torque_nm_used','external_ratio','output_rpm','output_torque_nm','unit_total_krw_vat_included','quantity','source_id']
-        writer=csv.DictWriter(f,fieldnames=fields);writer.writeheader()
+        writer=csv.DictWriter(f,fieldnames=fields,lineterminator=chr(10));writer.writeheader()
         for s in selected:writer.writerow({k:(s['output']['rpm'] if k=='output_rpm' else s['output']['torque_nm'] if k=='output_torque_nm' else s[k]) for k in fields})
     print(json.dumps({'status':report['status'],'recommended_peak_nm':[required_sh,required_ex],'selected_outputs':[s['output'] for s in selected],'pair_price_krw':202500}))
 if __name__=='__main__':main()
