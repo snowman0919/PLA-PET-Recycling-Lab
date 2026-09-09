@@ -1,0 +1,47 @@
+{
+  "status": "NUMERICAL_IMPLEMENTATION_CHECKS_PASS",
+  "physical_validation": "NOT_RUN",
+  "final_demand_runs": 20,
+  "time_step_runs": 2,
+  "time_step_checks": [
+    {
+      "case": "PLA_recommended",
+      "relative_delta": {
+        "shred_rms": 2.8258310991846614e-05,
+        "screw_peak": 1.2545520178264269e-14
+      },
+      "max_step_s": 0.005,
+      "csv_sha256": "b46c6df59e1c66bf43f86a0e50327c899efe5593c25bdc6b6352b8c8d96a964a",
+      "log_sha256": "a933e27b9601af9d5c542d51396a1bf96299d038b467a0ff5153709a66d49265"
+    },
+    {
+      "case": "PET_recommended",
+      "relative_delta": {
+        "shred_rms": 2.7525806569173028e-05,
+        "screw_peak": 2.0095036745715333e-14
+      },
+      "max_step_s": 0.005,
+      "csv_sha256": "c90e4866883a3128a4c531e33e75e2a3a1e958278e731bbc5bec57ec430699d4",
+      "log_sha256": "628d17abab14d6d2d6cf7c5cb38a05de64daff637fc76cec9065408407d2a321"
+    }
+  ],
+  "mutation_checks": [
+    {
+      "mutation": "stale_source",
+      "detected": true
+    },
+    {
+      "mutation": "physical_claim",
+      "detected": true
+    },
+    {
+      "mutation": "missing_case",
+      "detected": true
+    }
+  ],
+  "analytical_rms_checked": true,
+  "source_sha256": {
+    "verify_study.py": "d29c3dea0e3ae7aea30f22b7a56aefa1d1b498008cb050b40daf26b8d1c45e2d",
+    "results.json": "eebae9d717599b98c0030bbcb1cdfa8f6fffe283815bf40f20e08f393fbfd080"
+  }
+}
