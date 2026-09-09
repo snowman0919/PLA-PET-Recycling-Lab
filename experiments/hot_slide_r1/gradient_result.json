@@ -1,0 +1,238 @@
+{
+  "status": "SCREENING_ONLY",
+  "physical_validation": "NOT_RUN",
+  "runs": [
+    {
+      "mesh_mm": 0.55,
+      "mode": "RADIAL_HEAT",
+      "nodes": 214091,
+      "elements": 130824,
+      "shoe_radial_displacements_mm": [
+        0.060832706348814984,
+        0.060840311184453405,
+        0.06085162502201372
+      ],
+      "force_residual_n": 2.858322059484216e-08,
+      "result": {
+        "max_displacement_mm": 0.124988283021114,
+        "max_von_mises_mpa": 105.0246842192382,
+        "max_von_mises_node_id": 43373,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "force_n": [
+            1.2825414999999587e-08,
+            2.5544259329265328e-08,
+            -6.7060000000002455e-12
+          ],
+          "moment_nm": [
+            -1.5575715695420697e-10,
+            -1.577264416963226e-10,
+            -3.378851235752411e-10
+          ],
+          "moment_residual_nm": 4.0410924152523026e-10,
+          "support": "tangent/Z means, radial slip free"
+        }
+      },
+      "scope": "quadratic elastic sheet, three radial-slot tangent/Z mean constraints; contact/friction and hot material not qualified",
+      "input_sha256": "b7fa205d5463e0257eda33a4e5b88965013b9dfd706148a0fe4ba54c4c2d6c2b",
+      "raw_directory": "raw_runs/gradients/mesh_0.55/RADIAL_HEAT"
+    },
+    {
+      "mesh_mm": 0.55,
+      "mode": "RADIAL_COOL",
+      "nodes": 214091,
+      "elements": 130824,
+      "shoe_radial_displacements_mm": [
+        0.019461984510702725,
+        0.01945437300742101,
+        0.019443046596979565
+      ],
+      "force_residual_n": 5.981832396009084e-07,
+      "result": {
+        "max_displacement_mm": 0.1875881696286197,
+        "max_von_mises_mpa": 105.0246842192382,
+        "max_von_mises_node_id": 43373,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "force_n": [
+            -5.061029999999339e-07,
+            -1.0618857091044292e-07,
+            -3.0067745e-07
+          ],
+          "moment_nm": [
+            6.762260123930224e-09,
+            -4.848271324951863e-09,
+            -1.664909212732526e-08
+          ],
+          "moment_residual_nm": 1.8612527111819374e-08,
+          "support": "tangent/Z means, radial slip free"
+        }
+      },
+      "scope": "quadratic elastic sheet, three radial-slot tangent/Z mean constraints; contact/friction and hot material not qualified",
+      "input_sha256": "57ff3907ac095f9eaaf5317c155547a0084c77104b889b1b985eddb936a92d8a",
+      "raw_directory": "raw_runs/gradients/mesh_0.55/RADIAL_COOL"
+    },
+    {
+      "mesh_mm": 0.55,
+      "mode": "FACE_GRADIENT",
+      "nodes": 214091,
+      "elements": 130824,
+      "shoe_radial_displacements_mm": [
+        0.04014872250326343,
+        0.04014569603404613,
+        0.0401473708403852
+      ],
+      "force_residual_n": 1.165872599979938e-06,
+      "result": {
+        "max_displacement_mm": 0.6303949304267048,
+        "max_von_mises_mpa": 17.89395209660358,
+        "max_von_mises_node_id": 38518,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "force_n": [
+            8.205817799998331e-07,
+            -3.593100429158604e-07,
+            7.461908299999999e-07
+          ],
+          "moment_nm": [
+            -1.0564161351978535e-08,
+            2.5792610426560498e-09,
+            6.016479424972996e-08
+          ],
+          "moment_residual_nm": 6.113964801754373e-08,
+          "support": "tangent/Z means, radial slip free"
+        }
+      },
+      "scope": "quadratic elastic sheet, three radial-slot tangent/Z mean constraints; contact/friction and hot material not qualified",
+      "input_sha256": "7a2e588d86603febd75e199964f6a2955794f635f799095ebf1e69fa3336b51c",
+      "raw_directory": "raw_runs/gradients/mesh_0.55/FACE_GRADIENT"
+    },
+    {
+      "mesh_mm": 0.45,
+      "mode": "RADIAL_HEAT",
+      "nodes": 355988,
+      "elements": 224344,
+      "shoe_radial_displacements_mm": [
+        0.06085381401289561,
+        0.06085945100679421,
+        0.06084410712457781
+      ],
+      "force_residual_n": 6.267975007889886e-08,
+      "result": {
+        "max_displacement_mm": 0.12499377181139426,
+        "max_von_mises_mpa": 106.90210674419284,
+        "max_von_mises_node_id": 48179,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "force_n": [
+            -3.7467008999991834e-08,
+            -4.4797554240867846e-08,
+            -2.2762983999999998e-08
+          ],
+          "moment_nm": [
+            3.299865355973941e-10,
+            6.931660033059843e-10,
+            -2.6935941802281836e-09
+          ],
+          "moment_residual_nm": 2.800860551611576e-09,
+          "support": "tangent/Z means, radial slip free"
+        }
+      },
+      "scope": "quadratic elastic sheet, three radial-slot tangent/Z mean constraints; contact/friction and hot material not qualified",
+      "input_sha256": "2aaf8035a65a69765456a0e10f2ccd8daf404d2b473f5c2f31f2df9e9297b4bf",
+      "raw_directory": "raw_runs/gradients/mesh_0.45/RADIAL_HEAT"
+    },
+    {
+      "mesh_mm": 0.45,
+      "mode": "RADIAL_COOL",
+      "nodes": 355988,
+      "elements": 224344,
+      "shoe_radial_displacements_mm": [
+        0.019441198085340616,
+        0.019435542495645133,
+        0.019450905593158846
+      ],
+      "force_residual_n": 3.0944836282670014e-06,
+      "result": {
+        "max_displacement_mm": 0.1875790033209538,
+        "max_von_mises_mpa": 106.90210674419284,
+        "max_von_mises_node_id": 48179,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "force_n": [
+            6.081697999999408e-07,
+            -3.03123007538654e-06,
+            1.32674979e-07
+          ],
+          "moment_nm": [
+            2.0199904358882155e-09,
+            8.80466183660019e-09,
+            2.7637174791524106e-08
+          ],
+          "moment_residual_nm": 2.9076035869341254e-08,
+          "support": "tangent/Z means, radial slip free"
+        }
+      },
+      "scope": "quadratic elastic sheet, three radial-slot tangent/Z mean constraints; contact/friction and hot material not qualified",
+      "input_sha256": "55670c10299efb964216fdbfc687cc46b62f2ed8d24e32beff8587da10f72400",
+      "raw_directory": "raw_runs/gradients/mesh_0.45/RADIAL_COOL"
+    },
+    {
+      "mesh_mm": 0.45,
+      "mode": "FACE_GRADIENT",
+      "nodes": 355988,
+      "elements": 224344,
+      "shoe_radial_displacements_mm": [
+        0.040147665817617764,
+        0.04014787266544536,
+        0.040147047892628906
+      ],
+      "force_residual_n": 2.0043899176769106e-06,
+      "result": {
+        "max_displacement_mm": 0.6303659213784482,
+        "max_von_mises_mpa": 14.033163488948384,
+        "max_von_mises_node_id": 55435,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "force_n": [
+            5.021632199999424e-07,
+            -1.9369338851607533e-06,
+            1.1703916900000001e-07
+          ],
+          "moment_nm": [
+            9.055607794817561e-10,
+            8.020303423988538e-09,
+            2.403481572867116e-08
+          ],
+          "moment_residual_nm": 2.5353849302410798e-08,
+          "support": "tangent/Z means, radial slip free"
+        }
+      },
+      "scope": "quadratic elastic sheet, three radial-slot tangent/Z mean constraints; contact/friction and hot material not qualified",
+      "input_sha256": "abefd0dd0d3fbe3c38b30c97fe943c045b9acbff7399fdcf79a852f07be7250e",
+      "raw_directory": "raw_runs/gradients/mesh_0.45/FACE_GRADIENT"
+    }
+  ],
+  "source_sha256": {
+    "contract.json": "0380995fa923ff83fba3409cc60a93545974ab88620028a8b1c326f51a84182e",
+    "solve_sliding_gradients.py": "1e3d73d9e888cdb44be17a2b8412d21498a299dd871a697611b394509f02b4c5",
+    "pin_supports.py": "e243e5606c3bf6849bc4588916c22b338b520fe3529527d017a9fc8b8eea131b",
+    "quadratic_mesh.py": "089b56cfacc1ecebc95230980ed9e481ff4fe94ce2a2294ab8bcbca481ebcb59",
+    "solver_kernel.py": "e3194103f9cc5eda3328959890226426d8a48cfaab63ce0517e3a9201d90b660",
+    "distributing_patch_v08.py": "6ca866d725e431860731005382b2c3034e0886a0de14f9c0e63898e33aace6c0",
+    "sliding_geometry_slotted.py": "e5032e5e3011126fec3d79c6c7f898d9fac91688c8a2a82d4083a9c272c75433"
+  },
+  "geometry_sha256": "075fd23f0ef1fba3683cec3351974cf8cb8157177c7f415f449ec436769265aa"
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "variant": "HS-R1-S2",
+  "status": "PRESSURELESS_PROTOTYPE_NOT_MACHINE_RELEASE",
+  "physical_validation_state": "NOT_RUN",
+  "sheet_thickness_mm": 3.0,
+  "sheet_count_per_carrier": 6,
+  "shoe_free_radius_mm": 16.86,
+  "shoe_radius_tolerance_mm": 0.01,
+  "web_mm": 2.0,
+  "barrel_radius_limits_mm": [
+    16.985,
+    17.0
+  ],
+  "barrel_temperatures_c": [
+    20,
+    270,
+    300
+  ],
+  "spring_temperatures_c": [
+    20,
+    100,
+    200,
+    300
+  ],
+  "barrel_cte_sensitivity_per_k": [
+    1.23e-05,
+    1.7e-05
+  ],
+  "spring_cte_sensitivity_per_k": [
+    1.15e-05,
+    1.71e-05
+  ],
+  "spring_E_sensitivity_mpa": [
+    160000,
+    200000
+  ],
+  "mesh_levels_mm": [
+    0.8,
+    0.55,
+    0.45
+  ],
+  "proposed_radial_load_per_carrier_n": 25.0,
+  "measured_fixture_alignment_budget_mm": 0.04,
+  "nominal_carrier_span_mm": 140.0,
+  "material_policy": "E/CTE are sensitivity bounds, not a qualified certificate. Required yield is calculated from stress; hot test blocked without material and heater safety approval.",
+  "pressure_test_allowed": false,
+  "machine_installation_approved": false
+}
