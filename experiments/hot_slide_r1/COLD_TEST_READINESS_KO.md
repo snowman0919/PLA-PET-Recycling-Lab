@@ -25,4 +25,8 @@
 
 `physical_test_template.json`은 performed=false와 빈 samples를 유지한다. 실제 원시 자료는 무시 경로 `measurements/`에 별도로 보존하며, 합성 software test를 실측 보고서로 복사하지 않는다. 실제 부품의 불합격을 기록에서 삭제하거나 불확도를 줄여 통과시키지 않는다.
 
-CLI는 derived_requirements.json의 잠정 최소 사용온도 강도 요구(현재 1,100 MPa)보다 낮은 REQUIRED_YIELD_MPA를 거부한다. 이 기준 자체도 재료 보증이 아니라 확인할 요구이며, parameter를 낮춰 재료 미확정을 닫지 않는다.
+CLI는 qualification/minimum_requirements.py를 통해 추가 축방향 drag 해석과 이전 요구를 결박·재계산한다. 현재 frozen 가정(mu0.25·6장 균등분담)에서 최소 입력은 1,222 MPa다. 과거1,100 MPa 문구는 추가 하중을 포함하지 않은 부분 요구다. 이 잠정 바닥값은 재료 보증이나 실제 drag의 허용 정격이 아니며, 실측 하중/온도·sheet별 분담이 달라지면 요구를 재계산해야 한다. 원본 누락·해시 변화·산술 불일치는 거부한다.
+
+
+## 최신 근거와 시험 경로
+qualification/SOURCE_ASSESSMENT_KO.md와 TEST_PLAN_KO.md의 M01/F01/H01/A01을 함께 읽는다. 제조사 일반표와 NACA의 다른 두께/열처리 자료는 현재 부품 성적서가 아니다. 실제 마찰 데이터는 없으며 코드/가정값을 MEASURED로 표시하지 않는다. 기존300 N은 입증된 rating이 아니고, 재료/하중 검토가 요구하는 더 낮은 중단 경계를 우선한다.

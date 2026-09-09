@@ -25,3 +25,6 @@ FreeCAD 콘솔의 exit code만으로 합격시키지 않는다. STEP 재수입 �
 실측 준비와 강화된 불확도·왕복·가열속도 검사는 COLD_TEST_READINESS_KO.md를 함께 읽는다. 두 시험 스크립트는 합성 시험 26개와 경계 회귀 시험 25개를 각각 실행한다.
 
 검토용 r1 묶음 생성: `python3 package_review.py`. 두 합성 시험을 다시 실행하고 빈 실측 template을 확인한다. 기존 20260909.zip은 보존하며 20260909-r1.zip으로 생성한다. 이 명령은 실물 시험·구매·가열을 수행하지 않는다.
+
+## r2 추가 검증
+`python qualification/test_qualification.py`와 `python qualification/test_strength_floor.py`를 실행한다. 실제 추가 해석은 기존 raw_runs/selected가 있는 체크아웃에서 `OMP_NUM_THREADS=1 python qualification/run_axial_drag.py`로 재현한다. 본체 추력 민감도 재생성은 전체 PPR 체크아웃의 기존 retainer evidence가 필요하다. 공개자료 다운로드는 collect_sources.py를 명시적으로 실행할 때만 수행한다.

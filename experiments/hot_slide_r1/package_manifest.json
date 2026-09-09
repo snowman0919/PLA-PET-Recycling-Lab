@@ -3,14 +3,15 @@
   "variant": "HS-R1-S2",
   "machine_release": "HOLD",
   "physical_validation": "NOT_RUN",
-  "record_protocol_revision": "20260909-r1",
+  "record_protocol_revision": "20260909-r2",
   "read_first": "COLD_TEST_READINESS_KO.md",
-  "generation_base_git_sha": "c161403354eddc1e573ba3c1d0b47d85645edcb3",
-  "successful_selected_solver_runs": 18,
-  "raw_files_hashed": 72,
+  "generation_base_git_sha": "9468ab1fd68c0df0d5c4aa58c29f7837e60292df",
+  "successful_selected_solver_runs": 20,
+  "provisional_strength_floor_mpa": 1222.0,
+  "raw_files_hashed": 80,
   "algebraic_corner_cases": 6144,
   "free_expansion_pair_checks": 48,
-  "unit_tests": 51,
+  "unit_tests": 91,
   "geometry_bridge": {
     "status": "PASS",
     "scope": "Same BRep geometry in solver STEP and prototype manufacturing STEP; not a physical load rating",
@@ -33,8 +34,8 @@
       "bytes": 2067
     },
     "COLD_TEST_READINESS_KO.md": {
-      "sha256": "5848380e0e11ea131b78e3ec38c9dda5560fd83c81a7ebe78717ff0d0afb1290",
-      "bytes": 3045
+      "sha256": "186a5a70966fcb904586c64c7397e8c650857a4cd71bb6301ac3d9e4ac86993c",
+      "bytes": 3759
     },
     "HS-R1-S2_prototype_review_ko_v2.pdf": {
       "sha256": "3e56761949044421e527b64f6de56732327248b28f61a9cad8ccc4d1ee9e5014",
@@ -49,16 +50,16 @@
       "bytes": 1087
     },
     "README_KO.md": {
-      "sha256": "213751beebc0c2b6324d706cdde2f980730e8dd54c51fdd56d2147de1737035b",
-      "bytes": 3478
+      "sha256": "feedce43f88e346ea7079cc9b29a78fff116179762cea5f27a32aa3a1882c57a",
+      "bytes": 4024
     },
     "README_RUN.md": {
-      "sha256": "6b670ab30f6816c1cb4a549bd5dda37508801489e4585954a1e2978a09781688",
-      "bytes": 2477
+      "sha256": "d60bbe1c49021561b6fd0ed55d98a3af28b27afdb0a67f4c16cf1c0ae92daf53",
+      "bytes": 2967
     },
     "TEST_INTENT.md": {
-      "sha256": "7cbbc4eb0afe20b4d429d9516f0811f6668f5a4b3d034bb98fc57d3434791b6a",
-      "bytes": 2688
+      "sha256": "8792bce899ee584f0911225fc15b4315c7de6a760e94c1b1f645832a7b194630",
+      "bytes": 3108
     },
     "change_log.json": {
       "sha256": "00f78229bd13ebc8e9fa0b8554ad5788b6c7bb4f5f020ff7effa36eb7b273922",
@@ -221,16 +222,16 @@
       "bytes": 8559
     },
     "graphify-out/GRAPH_REPORT.md": {
-      "sha256": "c0e717abcf15ec31765a72e9f9595efba22751e0c6f7e12356bae57b533c0aaf",
-      "bytes": 4285
+      "sha256": "e554c6c7a362087f22f7da63b4d280a1ac24966931084e7382a90c091db34fb2",
+      "bytes": 5316
     },
     "graphify-out/cost.json": {
       "sha256": "3e749c88612eee767fd1dfc3b9b6b290fafb7230808423ad3b991063660fe797",
       "bytes": 130
     },
     "graphify-out/manifest.json": {
-      "sha256": "039580efa73dca24bd859e647dadb6a9108b4c46224623426be6cda6f4e30a51",
-      "bytes": 2470
+      "sha256": "3783665a0bb40b32cae769e862a53f4168fcee4cc18b4c0f3c8502f19600cd52",
+      "bytes": 3591
     },
     "handbook.typ": {
       "sha256": "464c03be0bc0c25273335f73ae540084d62c27292c8596acd195033b5df63c59",
@@ -249,8 +250,8 @@
       "bytes": 274
     },
     "package_review.py": {
-      "sha256": "b4c933116d430123acb81eef3cbfca7655d1e59b9ff0e15516f87f5783b0bea8",
-      "bytes": 6771
+      "sha256": "5eaa84b1ab99a076ca00b3e7649c6f15d721ef0738aa039879828041377c92ad",
+      "bytes": 8027
     },
     "physical_test_template.json": {
       "sha256": "1d4b221a6544c3630c95b21e1d462fbb402b53e3b6b505bb6720c30c359ec096",
@@ -292,9 +293,85 @@
       "sha256": "089b56cfacc1ecebc95230980ed9e481ff4fe94ce2a2294ab8bcbca481ebcb59",
       "bytes": 1300
     },
+    "qualification/SOURCE_ASSESSMENT_KO.md": {
+      "sha256": "59a4f090fec2c8a3a4fbf9e75249ab936c53a508d8c0ee7b29534bef410550a6",
+      "bytes": 3398
+    },
+    "qualification/SUPPLIER_AND_LAB_REQUEST_DRAFT_KO.md": {
+      "sha256": "e680e526f4e944af49208408686e8fafb4d7a11149b372aabfd1e054c15be4e5",
+      "bytes": 3249
+    },
+    "qualification/TEST_PLAN_KO.md": {
+      "sha256": "bfa82c8ab8c8ae21e3e41e80f483e66e3c655c57c1f3add259fd54e282b62f4d",
+      "bytes": 7730
+    },
+    "qualification/calculate_evidence_bounds.py": {
+      "sha256": "4cd1f3357fae43a4f6d55bb1231ecef408e328b63d5546b28fc4c9b7edd243d4",
+      "bytes": 6139
+    },
+    "qualification/collect_sources.py": {
+      "sha256": "fd94821c4d2fe2b650278e6a58399d36a78847db191f82178110c394c1d8089a",
+      "bytes": 2862
+    },
+    "qualification/evidence_checks.py": {
+      "sha256": "470b8b4dcb644e5995b0370c3f8161eb5022ff069cc10e0f23f5c325aff419f6",
+      "bytes": 7468
+    },
+    "qualification/evidence_packet_template.json": {
+      "sha256": "f424c55a2772d7d946c7a6f6e7237af66205c2a1e0cf54c54c17d5029e842b62",
+      "bytes": 769
+    },
+    "qualification/friction_measurement_template.csv": {
+      "sha256": "e374c8aed96496c05403333b9d1f81c4af91f3eb07393ff3edac611d8de03862",
+      "bytes": 216
+    },
+    "qualification/minimum_requirements.py": {
+      "sha256": "19adc7cbda1f52e9a125cbcf57a6d895f734ed0a01fe46c74a45d2a5c665ad3a",
+      "bytes": 2010
+    },
+    "qualification/naca4075_selected.csv": {
+      "sha256": "425e2a2cd265194117daf18b26ccdb903b1186abd3af4b1dbfd9428355500c69",
+      "bytes": 377
+    },
+    "qualification/results/axial_drag.json": {
+      "sha256": "5d661a924169e9ad8d626edac5b173be93ff96361ffc2f572db78c18fa9c6f6e",
+      "bytes": 3625
+    },
+    "qualification/results/cli_rejections.json": {
+      "sha256": "40d1709e65e4b83c844a0ee6b0a81a8a27da9aeaf6c05990f1ee7dc0b3e0868b",
+      "bytes": 1503
+    },
+    "qualification/results/evidence_bounds.json": {
+      "sha256": "f0c560ddfc65de7f63e721bc6729838d0f913704b6f4e4a950fa5e9812fad19b",
+      "bytes": 714306
+    },
+    "qualification/results/strength_floor_tests.json": {
+      "sha256": "50a353ad390524500492cd60dbe270e72b33aaa3656435801e0a5e2a3e7c0e5a",
+      "bytes": 370
+    },
+    "qualification/results/test_results.json": {
+      "sha256": "b5d13355b59c9a9ca45f674c3d76e295a2486da116b2833af6d2e89d4340c922",
+      "bytes": 469
+    },
+    "qualification/run_axial_drag.py": {
+      "sha256": "ed2772fd7495a526279d03dd99ebd1739f368c5d3ac94318006bc96991233bcd",
+      "bytes": 5623
+    },
+    "qualification/sources.json": {
+      "sha256": "d742674f1ab4c6f436daeb5bca7b9673568e6683ce1808c5ccf4480562c2e8e7",
+      "bytes": 4831
+    },
+    "qualification/test_qualification.py": {
+      "sha256": "23cbc9fca18c315f72dab42d26d9d87467fecd2022d24ad368e2e2556987860f",
+      "bytes": 8917
+    },
+    "qualification/test_strength_floor.py": {
+      "sha256": "766b2a3cf66cd20571cf896656dc1207b8a2c34ba19b75b0621cecbaa6c782e8",
+      "bytes": 3469
+    },
     "raw_result_hashes.json": {
-      "sha256": "374d7ff62cf14371ca3ef625e527770d4cec4dc1164358e501804d3040698d44",
-      "bytes": 8498
+      "sha256": "a28cfff40dbfd2a89803170b54082dd168f6701057b109c745d9a81ac09ac905",
+      "bytes": 9542
     },
     "relief_candidate/ExtruderFixedCollar.step": {
       "sha256": "669b5a7789e4de6a55e977dedbcf00477246e4fde33f2a6f48f13b6b5f8c322e",
@@ -353,8 +430,8 @@
       "bytes": 5848
     },
     "test_package_guards.py": {
-      "sha256": "e6dfaf7c63b90e26a73a15d2e2b6e7abce2ea3ca440c672ba4a4cd45ffe8e34d",
-      "bytes": 1759
+      "sha256": "c0da39a1927cb4c13683460a28efb1155ad21f57057ee10aa33b39929fc2f58b",
+      "bytes": 1885
     },
     "test_protocol.py": {
       "sha256": "a06f9bbce468d138f9961c81c7d08c0ca6b024a600e4d00843de0616265c6577",
@@ -365,12 +442,12 @@
       "bytes": 4661
     },
     "update_scoped_graph.py": {
-      "sha256": "21b4a961f2e89bb8b7d117fedf1d5d70020b9787854f8896abe5e898397615ee",
-      "bytes": 4073
+      "sha256": "a8ab15368ba343e95ad8b9cd335944d189885663631d756aa651563b4e92f823",
+      "bytes": 4237
     },
     "validate_physical_test.py": {
-      "sha256": "c15b1c0b0d1a360dc7e65b253516054272fcd8d0ffa73921706e7263725be0ea",
-      "bytes": 7778
+      "sha256": "9d8179e545a1ca851f6dee3956ded99036c40c6679a2b3e136a4d37809d8dfd0",
+      "bytes": 7954
     },
     "verify_geometry_bridge.py": {
       "sha256": "6814c987b6c3c876526cbd0f1cff56c70cc3959a854b680e1e56a505e16e1783",

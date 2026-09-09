@@ -25,3 +25,6 @@
 
 ## 실측 기록 보강
 기존 26개 시험에 25개 경계 회귀 시험을 추가했다. 검사기는 왕복, 불확도, 시간과 가열속도를 확인하며 실제 측정 여부 또는 하드웨어 승인을 부여하지 않는다. 실물 단계 전에 COLD_TEST_READINESS_KO.md를 함께 읽는다.
+
+## 2026-09-09 r2 보완
+위1,100 MPa 부분 요구는 axial sliding drag 하중을 누락한 이전 범위다. qualification/results/axial_drag.json의 추가2회 C3D10 해석을 포함한 잠정 요구는1,221.565 MPa이며 CLI는1,222 MPa로 올림한다. 실제 재료/온도/마찰과 접촉을 검증한 것은 아니다. qualification/TEST_PLAN_KO.md와 COLD_TEST_READINESS_KO.md를 우선 읽는다. r2에는 공개1차 자료의 적용한계, 추가40개 합성 회귀시험, 실제 마찰과 예압 원시자료 양식이 포함된다.

@@ -106,8 +106,12 @@ if __name__ == '__main__':
     if len(sys.argv) != 4:
         raise SystemExit('usage: validate_physical_test.py RECORD_JSON GEOMETRY_SHA256 REQUIRED_YIELD_MPA')
     root = Path(__file__).resolve().parent
-    requirements = json.loads((root / 'derived_requirements.json').read_text())
-    floor = requirements['proposed_certificate_minimum_mpa_at_actual_service_temperature']
+    from qualification.minimum_requirements import minimum_yield_floor
+    try:
+        floor = minimum_yield_floor(root)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        print(json.dumps(outcome('TEST_REVIEW_REQUIRED', ['Strength evidence unavailable, stale or invalid: ' + type(exc).__name__])))
+        raise SystemExit(1)
     requested = float(sys.argv[3])
     if not number(floor) or floor <= 0 or not number(requested) or requested < floor:
         print(json.dumps(outcome('TEST_REVIEW_REQUIRED', ['Requested material threshold below recorded requirement'])))

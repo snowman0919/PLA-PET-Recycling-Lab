@@ -19,3 +19,6 @@
 
 ## 패키지 r1
 패키지 생성 때 두 시험을 실제 재실행한다. 실측한 것처럼 채운 template과 stale solver source는 격리된 사본의 부정 시험에서 거부되어야 한다. 최상위 payload는 명시적 목록으로 제한하여 임의 측정 JSON이 섞이지 않게 한다.
+
+## r2 추가 시험
+qualification/test_qualification.py의32개 및 test_strength_floor.py의8개는 합성 입력의 근거 적용범위/불확도/경계와 source 결박을 검사한다. 실제 material certificate 또는 마찰 측정을 수행하지 않는다. 추가 solver2회는 기존 선택 mesh의 axial traction 선형 응답이다. 하중분담/접촉 및 material3mm 고온 적격성은 여전히 HOLD다.
