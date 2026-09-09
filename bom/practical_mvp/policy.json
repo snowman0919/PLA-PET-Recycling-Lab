@@ -102,17 +102,25 @@
     "not_counted_in_dc_psu_w": true
   },
   "latest_component_reply": {
-    "evidence": "User message with two selected motor screenshots",
+    "evidence": "Explicit follow-up: motors not purchased; BTS7960 two modules; unidentified 24V two-channel controllers two boards",
     "stock_available_families": [
       "BTS7960",
       "Arduino Mega",
       "E-stop"
     ],
-    "quantities": "NOT_ENUMERATED",
+    "quantities": {
+      "BTS7960": 2,
+      "unidentified_24v_dual_dc_controller": 2,
+      "Arduino Mega": null,
+      "E-stop": null
+    },
     "motor_candidate_record": "motor_selection_20260909/source_rows.json",
     "latest_confirmation_view": "motor_selection_20260909/remaining_confirmation_bom.csv",
     "main_heaters": "PURCHASE_REQUIRED",
     "donor_heater": "BED_INTEGRATED_NOT_ASSIGNED",
-    "motor_adapters_locked": false
+    "motor_adapters_locked": false,
+    "motor_ownership": "NOT_PURCHASED_PURCHASE_CANDIDATES",
+    "bts7960_additional_purchase_quantity": 0,
+    "unidentified_controllers": "RESERVE_PENDING_IDENTIFICATION_NOT_COUNTED_AS_VALIDATED_CHANNELS"
   }
 }

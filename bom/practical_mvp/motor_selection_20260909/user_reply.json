@@ -1,13 +1,20 @@
 {
-  "source": "User message and selected screenshot options",
-  "motor_ownership": "NOT_CONFIRMED_BY_PRODUCT_SCREENSHOT",
+  "source": "User screenshots and explicit follow-up: motors not purchased; BTS7960 x2; unidentified 24V dual-channel controllers x2",
+  "motor_ownership": "NOT_PURCHASED_PURCHASE_CANDIDATES",
   "heaters": "NEED_PURCHASE_USER_CONFIRMED",
   "chiron_heated_bed": "INTEGRATED_NOT_ASSIGNED_TO_BARREL_OR_DIE",
   "ptc": "NOT_SELECTED",
   "stock": {
     "BTS7960": {
       "availability": "USER_REPORTED_AVAILABLE",
-      "quantity": null
+      "quantity": 2,
+      "quantity_evidence": "USER_EXPLICIT_COUNT",
+      "planned_allocation": {
+        "shredder": 1,
+        "extruder": 1
+      },
+      "additional_purchase_quantity": 0,
+      "rating_and_function": "NOT_TESTED"
     },
     "Arduino Mega": {
       "availability": "USER_REPORTED_AVAILABLE",
@@ -16,8 +23,21 @@
     "E-stop": {
       "availability": "USER_REPORTED_AVAILABLE",
       "quantity": null
+    },
+    "Unidentified 24V dual-channel DC controller": {
+      "availability": "USER_REPORTED_AVAILABLE",
+      "quantity": 2,
+      "reported_channels_per_unit": 2,
+      "reported_voltage_v": 24,
+      "model": null,
+      "continuous_current_a": null,
+      "control_interface": null,
+      "bidirectional_operation": null,
+      "allocation": "RESERVE_PENDING_IDENTIFICATION",
+      "counted_as_verified_drive_channels": 0
     }
   },
   "purchases_performed": false,
-  "physical_validation": "NOT_RUN"
+  "physical_validation": "NOT_RUN",
+  "motor_purchase_status": "NO_ORDER_PLACED_OPTIONS_UNCONFIRMED"
 }

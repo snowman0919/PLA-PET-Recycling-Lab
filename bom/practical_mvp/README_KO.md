@@ -28,3 +28,7 @@ python3 bom/practical_mvp/test_resources.py
 ## 모터·전자부품 최신 회신
 
 BTS7960·Arduino Mega·E-stop은 사용자 보유 회신으로 반영했다. 히터는 구매 대상이다. 모터는 사진의24V120RPM/24V57RPM 후보와 같은브랜드 공개정격표를 구분해 검토했다. 최신 재고 질문과 계산은 `motor_selection_20260909/remaining_confirmation_bom.csv`, `REVIEW_KO.md`, `result.json`을 따른다. 회신전 sourcing/minimum_confirmation_bom.csv의 미확인 상태를 최신 재고로 재사용하지 않는다.
+
+## 수량 확정 추가
+
+모터 두 개는 구매 전 옵션이다. BTS7960은2개 보유로 확인되어 분쇄기/압출기에1개씩 계획 배정하고 추가 구매량은0이다. 미식별24V DC2채널 컨트롤러2개는 예비로 등록했다. 정격전류·정역회전·MCU 입력 방식이 확인되기 전에는 구동회로에 자동 배정하지 않는다. 최신 재고표는 `motor_selection_20260909/update_stock_view.py`로 재생성한다.
