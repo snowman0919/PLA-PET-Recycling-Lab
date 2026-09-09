@@ -1,0 +1,114 @@
+{
+  "status": "CONDITIONAL_RATED_POINT_SCREEN",
+  "physical_validation": "NOT_RUN",
+  "no_new_safety_factor_applied": true,
+  "runtime_or_geometry_changed": false,
+  "motors": [
+    {
+      "id": "DRV-SH",
+      "rated_torque_nm": 1.96133,
+      "rated_shaft_power_w": 20.538999730884232,
+      "source_applicability": "SAME_BRAND_TABLE_ORDER_MATCH_NOT_CONFIRMED",
+      "required_torque_nm": 14.0,
+      "required_rpm": [
+        20.0,
+        40.0
+      ],
+      "ratio_cases": [
+        {
+          "ratio": 1.5,
+          "output_rpm": 66.66666666666667,
+          "output_torque_nm": 2.5006957499999998,
+          "output_power_w": 17.4581497712516
+        },
+        {
+          "ratio": 2.0,
+          "output_rpm": 50.0,
+          "output_torque_nm": 3.334261,
+          "output_power_w": 17.4581497712516
+        },
+        {
+          "ratio": 2.5,
+          "output_rpm": 40.0,
+          "output_torque_nm": 4.16782625,
+          "output_power_w": 17.4581497712516
+        }
+      ],
+      "efficiency_sensitivity": [
+        {
+          "efficiency": 0.85,
+          "ratio_lower_bound": 8.397662930406467,
+          "ratio_upper_bound": 5.0,
+          "rated_point_can_meet_current_envelope": false,
+          "max_rpm_at_required_torque_from_power": 11.908075
+        },
+        {
+          "efficiency": 1.0,
+          "ratio_lower_bound": 7.1380134908454975,
+          "ratio_upper_bound": 5.0,
+          "rated_point_can_meet_current_envelope": false,
+          "max_rpm_at_required_torque_from_power": 14.009500000000001
+        }
+      ]
+    },
+    {
+      "id": "DRV-EX",
+      "rated_torque_nm": 1.8632635,
+      "rated_shaft_power_w": 8.97554288239641,
+      "source_applicability": "SAME_BRAND_TABLE_ORDER_MATCH_NOT_CONFIRMED",
+      "required_torque_nm": 15.0,
+      "required_rpm": [
+        14.0,
+        28.0
+      ],
+      "ratio_cases": [
+        {
+          "ratio": 1.0,
+          "output_rpm": 46.0,
+          "output_torque_nm": 1.8632635,
+          "output_power_w": 8.97554288239641
+        },
+        {
+          "ratio": 2.0,
+          "output_rpm": 23.0,
+          "output_torque_nm": 3.16754795,
+          "output_power_w": 7.629211450036948
+        },
+        {
+          "ratio": 3.0,
+          "output_rpm": 15.333333333333334,
+          "output_torque_nm": 4.751321924999999,
+          "output_power_w": 7.629211450036948
+        },
+        {
+          "ratio": 4.0,
+          "output_rpm": 11.5,
+          "output_torque_nm": 6.3350959,
+          "output_power_w": 7.629211450036948
+        }
+      ],
+      "efficiency_sensitivity": [
+        {
+          "efficiency": 0.85,
+          "ratio_lower_bound": 9.471048417751655,
+          "ratio_upper_bound": 3.2857142857142856,
+          "rated_point_can_meet_current_envelope": false,
+          "max_rpm_at_required_torque_from_power": 4.856906856666667
+        },
+        {
+          "efficiency": 1.0,
+          "ratio_lower_bound": 8.050391155088906,
+          "ratio_upper_bound": 3.2857142857142856,
+          "rated_point_can_meet_current_envelope": false,
+          "max_rpm_at_required_torque_from_power": 5.714008066666667
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "bom/practical_mvp/motor_selection_20260909/check_motors.py": "3e380bf28138a5c280c928a86726f24a4789f902157fe7706a4522bb8abb4b98",
+    "cad/parameters/baseline.json": "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a",
+    "bom/practical_mvp/motor_selection_20260909/source_rows.json": "179cc595c8334407db8685d270a4ebad129583b58af4b4b5fa1784eb208314ad",
+    "bom/practical_mvp/motor_selection_20260909/user_reply.json": "81ce74b58a4f996f427f46ecd00fd6a5c9ff5730377438addbf20f8a62b6369c"
+  }
+}

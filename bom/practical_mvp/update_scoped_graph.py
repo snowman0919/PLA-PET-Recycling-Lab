@@ -12,9 +12,9 @@ OUT = ROOT / 'graphify-out'
 
 def main():
     OUT.mkdir(exist_ok=True)
-    paths = sorted(ROOT.glob('*.py')) + sorted((ROOT/'sourcing').glob('*.py'))
+    paths = sorted(ROOT.glob('*.py')) + sorted((ROOT/'sourcing').glob('*.py')) + sorted((ROOT/'motor_selection_20260909').glob('*.py'))
     data = extract(paths, cache_root=ROOT, root=ROOT, parallel=False)
-    docs = sorted(ROOT.glob('*.md')) + sorted((ROOT/'sourcing').glob('*.md'))
+    docs = sorted(ROOT.glob('*.md')) + sorted((ROOT/'sourcing').glob('*.md')) + sorted((ROOT/'motor_selection_20260909').glob('*.md'))
     ids = {n['id'] for n in data['nodes']}
     for p in docs:
         label = 'document:' + str(p.relative_to(ROOT))

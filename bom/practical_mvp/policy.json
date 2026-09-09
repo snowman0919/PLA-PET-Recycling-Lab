@@ -100,5 +100,19 @@
     "selected_for_mvp": false,
     "decision": "RESERVE_ONLY; common PLA/PET path retains controlled 24V heaters; no AC wiring",
     "not_counted_in_dc_psu_w": true
+  },
+  "latest_component_reply": {
+    "evidence": "User message with two selected motor screenshots",
+    "stock_available_families": [
+      "BTS7960",
+      "Arduino Mega",
+      "E-stop"
+    ],
+    "quantities": "NOT_ENUMERATED",
+    "motor_candidate_record": "motor_selection_20260909/source_rows.json",
+    "latest_confirmation_view": "motor_selection_20260909/remaining_confirmation_bom.csv",
+    "main_heaters": "PURCHASE_REQUIRED",
+    "donor_heater": "BED_INTEGRATED_NOT_ASSIGNED",
+    "motor_adapters_locked": false
   }
 }
