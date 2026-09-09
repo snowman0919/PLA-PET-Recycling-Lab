@@ -13,12 +13,12 @@ OUT = OWN / 'graphify-drive-out'
 
 def main():
     OUT.mkdir(exist_ok=True)
-    paths = sorted(OWN.glob('*.py'))
+    paths = sorted(OWN.glob('*.py')) + sorted((OWN/'manufacturing').glob('*.py'))
     for folder in ('cad/freecad/drive_v08', 'analysis/drive_integration_v08', 'firmware/ggm_drive_v08'):
         paths += sorted((ROOT/folder).glob('*.py'))
     paths += [ROOT/'firmware/arduino_mega/src/ggm_drive_guard.h', ROOT/'firmware/ggm_drive_v08/test_guard.cpp']
     data = extract(paths, cache_root=OWN, root=ROOT, parallel=False)
-    docs = sorted(OWN.glob('*.md'))
+    docs = sorted(OWN.glob('*.md')) + sorted((OWN/'manufacturing').glob('*.md'))
     ids = {n['id'] for n in data['nodes']}
     for p in docs:
         label = 'document:' + str(p.relative_to(ROOT))

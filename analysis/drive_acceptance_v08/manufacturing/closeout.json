@@ -1,0 +1,72 @@
+{
+  "status": "MANUFACTURING_DOCUMENT_SET_VERIFIED_NOT_MACHINE_RELEASE",
+  "drawing_families": 21,
+  "drawing_pages": 23,
+  "manufactured_objects_covered": 39,
+  "dxf_projections": 21,
+  "pdfs": {
+    "PPR_GGM_MANUFACTURING_DRAWINGS_r2.pdf": {
+      "pages": 23,
+      "sha256": "6b60e8836f539288160fff454acd7a0cf789a7de00ff312d8786c0edfac44af0"
+    },
+    "PPR_GGM_ASSEMBLY_INSPECTION_KO_r2.pdf": {
+      "pages": 5,
+      "sha256": "00919a089f5a44dde5c5cf6e6d5b3f52ebfdcca2b40a93c6c63bce60df9ddb05"
+    }
+  },
+  "physical_validation": "NOT_RUN",
+  "physical_domains": {
+    "receipt": {
+      "status": "NOT_RUN"
+    },
+    "alignment": {
+      "status": "NOT_RUN"
+    },
+    "protection_pin": {
+      "status": "NOT_RUN"
+    },
+    "current_calibration": {
+      "status": "NOT_RUN"
+    }
+  },
+  "machine_release": "HOLD",
+  "cad_new_interference": [],
+  "quadratic_plate_cases": 6,
+  "cold_plate_comparison": [
+    {
+      "variant": "before",
+      "medium_to_fine_displacement_fraction": 0.012237809967472923,
+      "medium_to_fine_peak_stress_fraction": 0.23062440188675848,
+      "fine_displacement_mm": 0.005982703134800941,
+      "fine_peak_stress_mpa": 40.153078710488685,
+      "max_reaction_error": 2.1917657151174058e-08
+    },
+    {
+      "variant": "r2",
+      "medium_to_fine_displacement_fraction": 0.009682274921728684,
+      "medium_to_fine_peak_stress_fraction": 0.22702886215387508,
+      "fine_displacement_mm": 0.006356861200018135,
+      "fine_peak_stress_mpa": 39.603455809941636,
+      "max_reaction_error": 4.116308670281635e-08
+    }
+  ],
+  "peak_stress_convergence": "REVIEW_REQUIRED_NOT_PASSED",
+  "plate_displacement_convergence_pass": true,
+  "minimum_rear_web_from_drawing_mm": 2.4999999999999996,
+  "limits": [
+    "Stress peaks at idealized boundaries remain mesh-sensitive; no whole-joint strength approval",
+    "No received motor, alignment, pin or current physical record available",
+    "No machining, energization, firmware upload, purchase, push or merge",
+    "Drawings express project fit requirements, not measured supplier guarantees"
+  ],
+  "source_sha256": {
+    "analysis/drive_acceptance_v08/manufacturing/finish_review.py": "ba54c6298e2daf1aaf479c3ea6707d5d9e84602664d98bc939175e87fcfbe138",
+    "analysis/drive_acceptance_v08/manufacturing/drawing_contract.json": "6f2848840e0eb6f1d97eccc5739bf3b02b0f36c591570e1b100f99ddd9d46463",
+    "analysis/drive_acceptance_v08/manufacturing/inspection.py": "49595414168e3b47b250aa7e0b70f7ef62077b27246394a0423b2908a4d6e3e1",
+    "analysis/drive_acceptance_v08/manufacturing/mesh_quadratic.py": "a3229586cb8bc9c77683c78fde3eb7cf7c22af0866d531cb422435f8a42cd494",
+    "analysis/drive_acceptance_v08/manufacturing/geometry_checks.json": "5653191551eda0915bd36b4ad2788467f76d610040a6a322cc311e701a505ee2",
+    "analysis/drive_acceptance_v08/manufacturing/retention_strength_quadratic.json": "286a263e3773e95d5c74c3ff57f39e68642a46748f13bdf331e32bab1d3e1a17",
+    "exports/final/drive_ggm_v08/manufacturing_r2/drawing_manifest.json": "b35db157f3b405afb8265a0cea0e53953115f990ffd1a71f9210c6d37d78ab50",
+    "analysis/drive_acceptance_v08/manufacturing/physical_record_status.json": "014010415877303e402e23c1236ae359257bac279db1f17a8eebafe67048b508"
+  }
+}
