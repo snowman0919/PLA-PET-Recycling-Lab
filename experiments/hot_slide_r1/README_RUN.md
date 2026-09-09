@@ -23,3 +23,5 @@ FreeCAD 콘솔의 exit code만으로 합격시키지 않는다. STEP 재수입 �
 `validate_physical_test.py RECORD_JSON GEOMETRY_SHA256 REQUIRED_YIELD_MPA`는 측정 기록 검사만 한다. 실제 측정과 approval가 없는 template은 NOT_RUN이다. 코드가 기계의 제작/가열/운전을 승인하지 않는다.
 
 실측 준비와 강화된 불확도·왕복·가열속도 검사는 COLD_TEST_READINESS_KO.md를 함께 읽는다. 두 시험 스크립트는 합성 시험 26개와 경계 회귀 시험 25개를 각각 실행한다.
+
+검토용 r1 묶음 생성: `python3 package_review.py`. 두 합성 시험을 다시 실행하고 빈 실측 template을 확인한다. 기존 20260909.zip은 보존하며 20260909-r1.zip으로 생성한다. 이 명령은 실물 시험·구매·가열을 수행하지 않는다.

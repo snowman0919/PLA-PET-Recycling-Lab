@@ -3,12 +3,14 @@
   "variant": "HS-R1-S2",
   "machine_release": "HOLD",
   "physical_validation": "NOT_RUN",
-  "source_head": "e03e843fe3f8ce98edf7dcd26292200c3547a9d8",
+  "record_protocol_revision": "20260909-r1",
+  "read_first": "COLD_TEST_READINESS_KO.md",
+  "generation_base_git_sha": "c161403354eddc1e573ba3c1d0b47d85645edcb3",
   "successful_selected_solver_runs": 18,
   "raw_files_hashed": 72,
   "algebraic_corner_cases": 6144,
   "free_expansion_pair_checks": 48,
-  "unit_tests": 26,
+  "unit_tests": 51,
   "geometry_bridge": {
     "status": "PASS",
     "scope": "Same BRep geometry in solver STEP and prototype manufacturing STEP; not a physical load rating",
@@ -22,9 +24,17 @@
     "verifier_sha256": "6814c987b6c3c876526cbd0f1cff56c70cc3959a854b680e1e56a505e16e1783"
   },
   "files": {
+    "AGENTS.md": {
+      "sha256": "ade38493f67b36516a67db78a160b9e96cdef8335bec1416100b5ac0990e449a",
+      "bytes": 1335
+    },
     "BOM.csv": {
       "sha256": "1c8f883f3b92edf77a17621eb6a4589fe15684dc55ca8e7569cf4c0053af68d9",
       "bytes": 2067
+    },
+    "COLD_TEST_READINESS_KO.md": {
+      "sha256": "5848380e0e11ea131b78e3ec38c9dda5560fd83c81a7ebe78717ff0d0afb1290",
+      "bytes": 3045
     },
     "HS-R1-S2_prototype_review_ko_v2.pdf": {
       "sha256": "3e56761949044421e527b64f6de56732327248b28f61a9cad8ccc4d1ee9e5014",
@@ -39,16 +49,16 @@
       "bytes": 1087
     },
     "README_KO.md": {
-      "sha256": "093047191452cb9bd642df8f12a5b5b2ee98477738191d045da8cc15327652b3",
-      "bytes": 3172
+      "sha256": "213751beebc0c2b6324d706cdde2f980730e8dd54c51fdd56d2147de1737035b",
+      "bytes": 3478
     },
     "README_RUN.md": {
-      "sha256": "b3bed50bc8b1edd3668cd5631204a56d8f0ea7f36640b2e5c4e9c1ea75df54d3",
-      "bytes": 1944
+      "sha256": "6b670ab30f6816c1cb4a549bd5dda37508801489e4585954a1e2978a09781688",
+      "bytes": 2477
     },
     "TEST_INTENT.md": {
-      "sha256": "f2a18632f3a846ebeb55eb880c4963424b3fe21806a5fb3a3c4c3fb9381bb273",
-      "bytes": 2003
+      "sha256": "7cbbc4eb0afe20b4d429d9516f0811f6668f5a4b3d034bb98fc57d3434791b6a",
+      "bytes": 2688
     },
     "change_log.json": {
       "sha256": "00f78229bd13ebc8e9fa0b8554ad5788b6c7bb4f5f020ff7effa36eb7b273922",
@@ -210,6 +220,18 @@
       "sha256": "55ce74061b284cd01199f3bed62a5a0fd3658cd48bbe2dc51152e9762dad3124",
       "bytes": 8559
     },
+    "graphify-out/GRAPH_REPORT.md": {
+      "sha256": "c0e717abcf15ec31765a72e9f9595efba22751e0c6f7e12356bae57b533c0aaf",
+      "bytes": 4285
+    },
+    "graphify-out/cost.json": {
+      "sha256": "3e749c88612eee767fd1dfc3b9b6b290fafb7230808423ad3b991063660fe797",
+      "bytes": 130
+    },
+    "graphify-out/manifest.json": {
+      "sha256": "039580efa73dca24bd859e647dadb6a9108b4c46224623426be6cda6f4e30a51",
+      "bytes": 2470
+    },
     "handbook.typ": {
       "sha256": "464c03be0bc0c25273335f73ae540084d62c27292c8596acd195033b5df63c59",
       "bytes": 7351
@@ -222,17 +244,25 @@
       "sha256": "0c5b731d750f2c8df3360ec4edbad50c332a7d2ff4b8a8800b0425c0089a7100",
       "bytes": 228
     },
+    "package_guard_results.json": {
+      "sha256": "fd55961408f061703add835c6bd291d30cce8bd8ed0747eab621791fc60fc869",
+      "bytes": 274
+    },
     "package_review.py": {
-      "sha256": "aedc6a7bc2944133c2ee4da88fe30723cc195442d0ae66ea63c2b939a3aa0043",
-      "bytes": 4791
+      "sha256": "b4c933116d430123acb81eef3cbfca7655d1e59b9ff0e15516f87f5783b0bea8",
+      "bytes": 6771
     },
     "physical_test_template.json": {
-      "sha256": "377db28a98df81f37bf328bc2e58d82803c4cd0b6696b0e922e0365acf6c764f",
-      "bytes": 595
+      "sha256": "1d4b221a6544c3630c95b21e1d462fbb402b53e3b6b505bb6720c30c359ec096",
+      "bytes": 639
     },
     "pin_supports.py": {
       "sha256": "e243e5606c3bf6849bc4588916c22b338b520fe3529527d017a9fc8b8eea131b",
       "bytes": 1666
+    },
+    "protocol_boundary_results.json": {
+      "sha256": "a799c03ca06897fda2876c562ea1450c08edba0377cb1cdd028a079230dbbc4d",
+      "bytes": 154
     },
     "protocol_test_results.json": {
       "sha256": "a393399fffb4893bcf7ffeb3f42008cc2aa5bc96a78331c6d5fc940b41f7e612",
@@ -322,13 +352,25 @@
       "sha256": "8c974b57f371813c0921fb2249755e341b8025cd8c1a7839587a773f91cf1bc6",
       "bytes": 5848
     },
+    "test_package_guards.py": {
+      "sha256": "e6dfaf7c63b90e26a73a15d2e2b6e7abce2ea3ca440c672ba4a4cd45ffe8e34d",
+      "bytes": 1759
+    },
     "test_protocol.py": {
-      "sha256": "61f610471de517eba06be8d11dbf03113466d6c5f7edccb27b2902906366fd8b",
-      "bytes": 3435
+      "sha256": "a06f9bbce468d138f9961c81c7d08c0ca6b024a600e4d00843de0616265c6577",
+      "bytes": 3652
+    },
+    "test_protocol_boundaries.py": {
+      "sha256": "441b68e252ead94316a54b93e1b3447230da97dd64f5bbf5b224479034b1fd3d",
+      "bytes": 4661
+    },
+    "update_scoped_graph.py": {
+      "sha256": "21b4a961f2e89bb8b7d117fedf1d5d70020b9787854f8896abe5e898397615ee",
+      "bytes": 4073
     },
     "validate_physical_test.py": {
-      "sha256": "3016253c81b64db54fdb9b03d5272472cefe6682ac835d62e345e8da04c5d9d8",
-      "bytes": 5273
+      "sha256": "c15b1c0b0d1a360dc7e65b253516054272fcd8d0ffa73921706e7263725be0ea",
+      "bytes": 7778
     },
     "verify_geometry_bridge.py": {
       "sha256": "6814c987b6c3c876526cbd0f1cff56c70cc3959a854b680e1e56a505e16e1783",
