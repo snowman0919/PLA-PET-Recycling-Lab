@@ -9,13 +9,13 @@ class PolicyTests(unittest.TestCase):
         self.row = {'part_id':'PPR-C01','description':'cover','make_or_buy':'MAKE_3D_PRINT'}
         self.prints = [{'part_id':'PPR-C01','name':'cover','quantity':'1','material':'PLA'}]
         self.frame = [{'part_id':'FR-08','stock':'20x40 aluminum profile','quantity':'2'}]
-    def test_abs_is_not_slicer_pass(self):
+    def test_pla_default_does_not_invent_new_slicing(self):
         _,p,_ = build([self.row],self.prints,self.frame,self.policy)
-        self.assertEqual(p[0]['target_material'],'ABS')
-        self.assertIn('REQUIRES_RESLICE',p[0]['state'])
-    def test_2040_requires_review(self):
+        self.assertEqual(p[0]['target_material'],'PLA')
+        self.assertIn('MATCH_NOT_PHYSICALLY',p[0]['state'])
+    def test_2040_retained_without_section_swap(self):
         _,_,f = build([self.row],self.prints,self.frame,self.policy)
-        self.assertEqual(f[0]['change_state'],'SECTION_AND_JOINT_REVIEW_REQUIRED')
+        self.assertEqual(f[0]['change_state'],'RETAIN_SECTION_STOCK_LENGTH_PENDING')
         self.assertEqual(f[0]['stock'],'20x40 aluminum profile')
     def test_reference_not_double_counted(self):
         self.assertEqual(route(dict(self.row,make_or_buy='REFERENCE_ONLY'))[0],'REFERENCE_ONLY')
@@ -28,7 +28,7 @@ class PolicyTests(unittest.TestCase):
     def test_duplicate_part_rejected(self):
         with self.assertRaises(ValueError): build([self.row,self.row],self.prints,self.frame,self.policy)
     def test_legacy_abs_no_physical_claim(self):
-        _,p,_ = build([self.row],[dict(self.prints[0],material='ABS')],[],self.policy)
+        _,p,_ = build([self.row],[dict(self.prints[0],part_id='PPR-C05',material='ABS')],[],self.policy)
         self.assertIn('NOT_PHYSICALLY_VERIFIED',p[0]['state'])
     def test_input_unchanged(self):
         before = copy.deepcopy((self.row,self.prints,self.frame))
@@ -39,7 +39,7 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(stock['nominal_diameters_mm'],[2,3,4,5,6])
         self.assertEqual(stock['length_pitch_grade_quantity'],'NOT_ENUMERATED')
     def test_donor_model_not_invented(self):
-        self.assertEqual(self.policy['donor_printer']['model'],'NOT_CONFIRMED_FOR_THIS_ASSET')
+        self.assertEqual(self.policy['donor_printer']['model'],'Anycubic Chiron')
         self.assertEqual(self.policy['donor_printer']['controller_board'],'FAULT_REPORTED_NOT_ASSIGNED')
 if __name__ == '__main__':
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(PolicyTests)

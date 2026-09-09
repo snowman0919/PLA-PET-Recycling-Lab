@@ -1,16 +1,20 @@
 {
-  "schema_version": 1,
-  "decision_id": "PPR-PRACTICAL-MAKE-REUSE-20260909",
-  "state": "TARGET_ACCEPTED_IMPLEMENTATION_PENDING",
-  "source": "User decision in current conversation 2026-09-09",
+  "schema_version": 2,
+  "decision_id": "PPR-CHIRON-REUSE-20260909",
+  "state": "DESIGN_BASIS_LOCKED_INTERFACE_CHECKS_OPEN",
+  "source": "Explicit user update 2026-09-09: Chiron; 24V800W; 2020+2040; ABS500g and PLA10000g; AC220V245C PTC",
   "frame": {
     "default_section": "2020",
     "load_path": "metal parts -> metal brackets/bearing plates -> short-span 2020 -> table",
-    "legacy_2040": "LOCAL_REPLACEMENT_REVIEW_REQUIRED; no automatic substitution"
+    "legacy_2040": "RETAIN_EXISTING_LOCAL_2040; both sections available; cuttable lengths pending",
+    "available_sections": [
+      "2020",
+      "2040"
+    ]
   },
   "housing": {
-    "default_material": "ABS",
-    "scope": "external enclosure and non-hot printed parts; functional parts require retained fit/load checks",
+    "default_material": "PLA",
+    "scope": "PLA cold external panels; retain three ABS part types; independent metal hot/fragment barriers remain",
     "exclude": [
       "cutters",
       "pressure-containing hot path",
@@ -29,7 +33,15 @@
     ],
     "fit_prior_report_mm": 0.1,
     "abs_fit_verified": false,
-    "metal_washers_and_captive_nuts_preferred": true
+    "metal_washers_and_captive_nuts_preferred": true,
+    "abs_part_ids": [
+      "PPR-C05",
+      "PPR-C06",
+      "PPR-C07"
+    ],
+    "available_pla_g": 10000,
+    "available_abs_g": 500,
+    "abs_reserve_g": 100
   },
   "fastener_stock": {
     "nominal_diameters_mm": [
@@ -51,15 +63,42 @@
   "donor_printer": {
     "asset_id": "DONOR-PRINTER-01",
     "presence": "USER_REPORTED_AVAILABLE",
-    "fault_report": "MCU only failed",
-    "model": "NOT_CONFIRMED_FOR_THIS_ASSET",
-    "individual_parts": "CANDIDATE_UNINSPECTED",
+    "fault_report": "MCU only failed; most other parts usable per user",
+    "model": "Anycubic Chiron",
+    "individual_parts": "ALLOCATE_AFTER_LABEL_AND_INTERFACE_CHECK",
     "controller_board": "FAULT_REPORTED_NOT_ASSIGNED",
-    "relationship_to_previous_bed_fault_report": "Latest statement governs this asset; identity with earlier printer not assumed"
+    "relationship_to_previous_bed_fault_report": "Latest explicit identification is Chiron; no Zortrax parts assigned",
+    "profile_origin": "same Chiron",
+    "psu_asset_id": "CHIRON-PSU-01"
   },
   "cnc_policy": "standard stock/donor -> saw/drill/bend/cut-sheet -> local turning/ream/keyway -> special CNC only where functional geometry requires",
   "price_policy": "cost and effort prioritized; no reinstated hard 200000 KRW release cap",
   "purchases_performed": false,
   "physical_validation": "NOT_RUN",
-  "machine_release": "HOLD"
+  "machine_release": "HOLD",
+  "psu": {
+    "asset_id": "CHIRON-PSU-01",
+    "origin": "Anycubic Chiron donor",
+    "voltage_v": 24.0,
+    "reported_output_power_w": 800.0,
+    "rating_evidence": "USER_REPORTED_CORRECTION_600_TO_800",
+    "label_model": null,
+    "label_photo": null,
+    "load_test_performed": false,
+    "controller_continuous_limit_w": 500.0,
+    "legacy_validated_capacity_w": 600.0,
+    "increase_controller_limit": false,
+    "double_count_as_second_psu": false
+  },
+  "ptc": {
+    "asset_id": "PTC-AC-01",
+    "availability": "USER_REPORTED_AVAILABLE",
+    "input_vac": 220.0,
+    "temperature_grade_c": 245.0,
+    "rated_power_w": null,
+    "model": null,
+    "selected_for_mvp": false,
+    "decision": "RESERVE_ONLY; common PLA/PET path retains controlled 24V heaters; no AC wiring",
+    "not_counted_in_dc_psu_w": true
+  }
 }

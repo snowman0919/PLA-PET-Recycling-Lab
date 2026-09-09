@@ -12,5 +12,7 @@ DONOR-DRIVER,스텝모터 드라이버,CANDIDATE_UNINSPECTED,저부하 모터축
 DONOR-HEATER,히터 카트리지/히팅베드,CANDIDATE_UNINSPECTED,규격 일치 시 die 가열 후보; bed는 별도 재사용 검토,전압; 저항/출력; 외경/길이; 절연/배선 상태,프린터 heater를 기존 360 W barrel+die 설계와 동등하다고 가정하지 않음
 DONOR-TEMP,온도센서,CANDIDATE_UNINSPECTED,정격과 interface가 맞는 센서 위치,thermistor/RTD/thermocouple 구분; 범위; 입력회로,thermistor는 MAX6675 Type-K 경로에 직접 연결하지 않음
 DONOR-WIRING,케이블/커넥터/브래킷,CANDIDATE_UNINSPECTED,저전압 배선; 저온 mounting,단면적; 전류/온도; 극성; 열손상,히터/주전원과 안전부 배선은 외형만으로 재사용하지 않음
-DONOR-PSU,프린터 PSU,CANDIDATE_UNINSPECTED,예비품; 주 PSU는 기존 보유24V600W 우선,전압; 정격; 단자; 보호접지,PSU 병렬 추가 없이 단일 PSU 정책 유지
+DONOR-PSU,Chiron 24 V 800 W PSU 1대,USER_REPORTED_AVAILABLE,기존 600 W 진술을 대체하는 동일 PSU; 500 W 운전한도 유지,DC OUTPUT 전압/A/모델 라벨 사진; 단자/PE/출력 상태,두 번째 PSU로 중복 구매하지 않음; 입력소비전력과 출력정격 구분
 DONOR-MCU,고장 프린터 MCU 보드,FAULT_REPORTED,배정하지 않음,수리 요구 없음,Arduino Mega 제어 기준 유지
+DONOR-PROFILES,Chiron 2020 및 2040 프로파일,USER_REPORTED_AVAILABLE,기존 혼합 단면 프레임,단면별 보유길이/수량; 슬롯 T너트,2040 보강 유지; 전체 절단목록을 충족한다고 가정하지 않음
+PTC-AC-01,220 VAC 245 C급 PTC,USER_REPORTED_AVAILABLE,예비; 공용 PET/PLA 가열기에 미배정,모델/W/치수/절연/온도표시 정의,24V MOSFET에 연결 금지; 별도 mains 설계 없이 사용하지 않음

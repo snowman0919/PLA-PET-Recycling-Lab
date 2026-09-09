@@ -1,21 +1,21 @@
 {
-  "state": "TARGET_ACCEPTED_IMPLEMENTATION_PENDING",
+  "state": "DESIGN_BASIS_LOCKED_INTERFACE_CHECKS_OPEN",
   "machine_release": "HOLD",
   "physical_validation": "NOT_RUN",
   "source_sha256": {
     "exports/final/bom/BOM.csv": "f8b494a595a891c89d77b3e2131a8f0b897986f89857551fa50ab7eb1321111a",
     "exports/final/print/print_manifest.csv": "ba02d75d47107a5ff2b3075e3a32f6758f63e6ea7611104ec7d021655e173a17",
     "exports/fabrication/frame_cut_list.csv": "4239d5443c4268584fcea49668a6da8fee6327ba875eccd9382cf1b83c1ad264",
-    "bom/practical_mvp/policy.json": "744cbcb7744b765307ab08f92bddd673a16cd41608abf601fe9ce0181add218a",
-    "bom/practical_mvp/donor_register.csv": "cacaafdb0cc71396723d70113e7db08aaf964285f54779cdedcfa4b072fc88f2",
-    "bom/practical_mvp/build_plan.py": "e99663e62691408edd132f96d92b40803c038652ad1683ee2c325b6a8aa6aca7"
+    "bom/practical_mvp/policy.json": "3282bd5526411d5422ee6ed9dba2c9ef6f996678297bf78e33cc386bf5072f3a",
+    "bom/practical_mvp/donor_register.csv": "82834d35911b68727af83d084bb1d53c74a52ee52514f33e67881cdd7d4b3cab",
+    "bom/practical_mvp/build_plan.py": "76df43c2d9c22fd5eadbfbc6c03033ab9ce3c270672887a3aff7118d9898930f"
   },
   "bom_rows_reviewed": 119,
   "bom_count_not_purchase_quantity": true,
   "route_counts": {
     "ASSEMBLY_OR_GROUP_REVIEW": 17,
     "REUSE_FIRST_IF_COMPATIBLE": 15,
-    "ABS_OUTER_SHELL_REDESIGN": 3,
+    "PLA_OUTER_SHELL_REDESIGN": 3,
     "RETAIN_FUNCTIONAL_PRECISION": 10,
     "DONOR_OR_STANDARD_STOCK_REVIEW": 9,
     "CUT_DRILL_LOCAL_FINISH": 8,
@@ -23,19 +23,18 @@
     "REVIEW_EXISTING_ROUTE": 21,
     "ALTERNATE_VARIANT_REVIEW": 1,
     "REFERENCE_ONLY": 12,
-    "2020_FRAME_TARGET": 1,
-    "ABS_PRINT_TARGET": 12
+    "RETAIN_2020_2040_FRAME": 1,
+    "PLA_PRINT_TARGET": 9,
+    "ABS_PRINT_TARGET": 3
   },
   "printed_part_types": 12,
   "printed_piece_count": 26,
-  "non_abs_types": 9,
-  "non2020_rail_rows": 1,
-  "non2020_rail_pieces": 2,
-  "donor_register_rows": 15,
+  "material_changes_required": 0,
+  "frame_section_changes_required": 0,
+  "donor_register_rows": 17,
   "verified_donor_components": 0,
   "cad_changed": false,
   "slicer_rerun": false,
   "structural_reanalysis": false,
-  "price_savings": "NOT_ESTABLISHED",
-  "purchase_performed": false
+  "purchases_performed": false
 }

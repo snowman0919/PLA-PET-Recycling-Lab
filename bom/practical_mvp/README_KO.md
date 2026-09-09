@@ -1,28 +1,26 @@
-# 실용적 제작·재사용 기준 — 2026-09-09
+# Chiron 기반 최소 제작 기준 — 2026-09-09
 
-사용자 결정은 policy.json에 고정한다. 기본 뼈대는2020, 외장과 저온 출력부는ABS, 체결은 보유M2~M6를 우선한다. CNC는 절삭형상·압력경계·정밀 끼워맞춤을 만족하는 데 필요한 범위로 제한한다.
-이 폴더는 새 제작 목표와 현재 산출물의 차이를 관리한다. 기존 CAD/도면/STL/3MF를 새 설계로 조용히 승격하지 않는다. 현재 machine_release=HOLD, physical_validation=NOT_RUN이다.
+최신 사용자 자산을 policy.json에 고정했다. MCU만 고장 난 Anycubic Chiron 1대, 그 프린터에서 추출한 2020/2040 프로파일과 24 V 800 W PSU, M2~M6 나사, PLA 약10 kg와 ABS 약0.5 kg가 기준이다. 과거 Zortrax 또는 별도600 W PSU를 추가 자산으로 세지 않는다.
 
-## 기본 제작 방법
-- 프레임: 재고2020 절단·T너트·금속 코너브래킷. 분쇄기/추력부는 짧은 지지 간격과 금속 거싯으로 하중을 전달한다. 기존2040 보강2개는 치수 이름만 바꾸지 않고 강성·접합을 재검토한다.
-- ABS: 외장 패널, 덮개, 가이드, 전자부 bezel을 분할 출력한다. 별도 print envelope220mm 안에 부품210mm 기준을 유지한다. 외장과 비상시 파편/용융물/고온을 막는 내부 금속 장벽은 구분한다.
-- 나사: 외장M3/M4 우선, 프로파일은 실제 슬롯/T너트에 맞춘다. 와셔·captured nut·금속 spacer를 활용한다. 보유 직경 범위는 길이/피치/등급/너트/와셔의 모든 수량을 보증하지 않는다.
-- 금속판: 브래킷/커버/스크린은 판재 절단·드릴·절곡을 우선하고, 베어링 좌면 등 기능부만 국부 정밀가공한다. 모든 평판을 CNC 밀링품으로 발주하지 않는다.
-- 축/기어/압출부: 규격품과 donor를 우선 검토하되 cutter, keyseat, 위상기어, screw/barrel/die의 실제 기능 요구를 삭제하지 않는다. 선택되지 않은 모터 어댑터와 assembly/reference 항목을 중복 발주하지 않는다.
+## 확정한 방향
+사이클로이드에서 착안한 고토크 양축 분쇄 -> 공용 PLA/PET 압출 -> 냉각/직경 확인 -> 권취 구조를 유지한다. 프레임은2020 기본과 기존2040 국부보강을 그대로 사용한다. 별도 특수 spring 연구안을 본체 요구로 복원하지 않는다. 신규 CNC는 cutter/shaft/key/정밀 seat/screw-barrel-die 등 기능부에 집중한다. 평판과 가드는 절단·드릴·절곡, 저온 외장은 PLA 분할 출력, 고온·파편 장벽은 금속을 유지한다.
 
-## 프린터 재사용
-현재 사용자 진술은 MCU만 고장 난 프린터1대의 보유 사실이다. 이 자산을 과거 bed 고장 프린터와 같은 기계라고 가정하지 않는다. 개별 donor 수량·모델·정격·작동 상태는 아직 미확인이다.
-재사용 우선순위는 rod/rail, lead screw, belt/pulley, motor, endstop, fan, display, bracket/cable이다. donor_register.csv의 간단한 라벨/치수 확인으로 adapter와 BOM을 맞춘다. 모든 소형 부품에 고가 시험을 추가하지 않는다.
-프린터 stepper가 분쇄·screw 토크를 낸다고 가정하거나, hotend를 flake용 screw/barrel과 동등화하지 않는다. heater/sensor/fan/driver는 전압·출력·interface를 확인하고 existing firmware 계약과 연결한다.
-기존 별도24V600W PSU와 Arduino Mega 기준은 유지한다. 고장 MCU 보드를 제어기로 배정하지 않는다.
+## 출력 재료와 전력
+현재 print manifest의12종26개는 PLA712.33 g, ABS209.11 g다. ABS는 C05 냉각덕트, C06 gauge enclosure, C07 puller guard에 배정한다. ABS100 g 예비분까지 합쳐309.11 g이므로 현재500 g 내에 들어간다. 새 전체 외장 패널은 이 수량에 아직 포함되지 않으며 PLA로 배정한다.
+resource_budget.py는 기존36개 STL/3MF/STEP 해시를 대조한다. 새로 slice하거나 실제 출력했다고 주장하지 않는다. 기존 부품 재질이 목표와 일치하므로 라벨만 바꿔 새 검증을 만들지 않는다.
+800 W는 사용자 보고값이다. 24 V 출력이라면 정격전류33.33 A지만, 실제 모델/라벨과 DC OUTPUT을 확인해야 한다. 기존 model의600 W와500 W 운전 cap은 검증 이력으로 보존하며, 새 자산값으로 출력 명령이나 배선/fuse를 자동 상향하지 않는다. 압출 모드490 W, 분쇄 모드477 W를 동시에 합산해 운전하지 않는다.
 
-## ABS 전환
-현재 출력물의 재질 표기와 슬라이서 증거를 분리한다. PLA에서ABS로 선택이 바뀌면 재슬라이스·작은 fit 확인이 필요하다. 사용자의 기존0.1mm 맞춤 경험은 유지하되 ABS에서 같은 결과라고 간주하지 않는다. 자동으로 전체 모델을1~2% 확대하지 않는다.
-Prusa는 ABS의 휨/수축과 enclosure·환기를 안내한다: https://help.prusa3d.com/article/abs_2058
-UltiMaker ABS의 HDT 예시는 약86.6°C(0.455MPa)이며 모든 ABS의 연속사용온도나 선정 재료의 보증값은 아니다: https://ultimaker.com/materials/abs/
-따라서 ABS 외장이 있어도 기존 고온부 금속 차폐, 보호접지와 독립 과열/전력 차단은 유지한다. 제작을 위해 쓰는 ABS 폐기물은 PLA/PET 재활용 feed와 분리한다.
+## 새 PTC
+220 VAC,245 C급 PTC는 보유 예비품이다. W·치수·절연·온도 정의가 없고 기존PET 설정265~270 C의 주가열원을 대체한다는 근거가 없다. 공용MVP에는 기존24 V 제어 가열기를 유지한다. PTC를24 V MOSFET에 연결하거나800 W DC 예산에 더하지 않는다. 공짜 소자 때문에 별도AC 스위칭/차폐 부품을 추가하지 않는다.
 
-## 재생성과 검증
-`python3 bom/practical_mvp/build_plan.py`는 현재119행 등 BOM 스냅샷으로부터 generated/의 가공경로·ABS전환·프레임전환 표를 생성한다. 행수는 실행 시 읽으며 구매 부품수나 비용으로 해석하지 않는다.
-`python3 bom/practical_mvp/test_plan.py`는 정책의 오판 방지 시험이다. 물리강성, ABS 치수, donor 성능을 시험한 것이 아니다.
-현재 도면이나 BOM을 수정할 때 이 목표와 generated/summary.json의 미반영 항목을 확인하고, 실제 변경된 module만 재생성·재검증한다. 전체 프로젝트를 새로 설계하는 지시가 아니다.
+## 도너 적용과 확정 전 확인
+Chiron 기구·모터·센서·팬은 우선 재사용한다. 다만 현재 puller/spooler 어댑터는PWM/DIR이고 stepper는STEP/DIR이라 인터페이스를 확인한 뒤 해당 어댑터만 변경한다. Z축 나사와 선형부는 실제 치수로 traverse에 배정한다. donor heater 치수/전압/출력, NTC와Type-K 구분은 유지한다. 모든 소형 부품에 고가 시험을 요구하지 않는다.
+필요 재고는 sourcing/minimum_confirmation_bom.csv에서 모아 확인한다. 구매수량은 보유량 답변 전까지 미확정이며, 이미 확보한PSU/프로파일/필라멘트/나사/소형구동품을 다시 구매하지 않는다.
+
+## 검증과 상태
+python3 bom/practical_mvp/build_plan.py
+python3 bom/practical_mvp/resource_budget.py
+python3 bom/practical_mvp/test_plan.py
+python3 bom/practical_mvp/test_resources.py
+
+기준선은 확정했지만 donor 접합 치수, 기존 rear hot-mount 수정과 공차, 실제 출력/통전은 별도다. 현재 machine_release=HOLD, physical_validation=NOT_RUN이다. 과거FABRICATION ZIP을 최신 완성본으로 배포하지 않는다.

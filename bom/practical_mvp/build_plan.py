@@ -1,4 +1,4 @@
-"""Build a proposal from observed BOMs; never certify donor parts or new CAD."""
+"""User-asset and fabrication allocation; not donor performance qualification."""
 from __future__ import annotations
 import csv, hashlib, json
 from collections import Counter
@@ -21,67 +21,70 @@ def write_csv(path, rows, fields):
     with path.open('w', newline='', encoding='utf-8') as stream:
         writer = csv.DictWriter(stream, fields, lineterminator='\n')
         writer.writeheader(); writer.writerows(rows)
-def route(row):
+def target_material(part_id, policy):
+    return 'ABS' if part_id in policy['housing']['abs_part_ids'] else policy['housing']['default_material']
+def route(row, policy=None):
+    policy = policy or json.loads((HERE/'policy.json').read_text())
     key = row['part_id']
     if row['make_or_buy'] == 'REFERENCE_ONLY':
-        return 'REFERENCE_ONLY', 'No additional purchase or manufacture quantity'
+        return 'REFERENCE_ONLY', 'No extra purchase quantity for an assembly alias'
     if key.startswith('PPR-C'):
-        return 'ABS_PRINT_TARGET', 'Re-slice with chosen ABS; check fit, load and thermal location'
+        return target_material(key,policy)+'_PRINT_TARGET', 'Keep current geometry; material mismatch requires new slicing'
     if key in PRECISION:
-        return 'RETAIN_FUNCTIONAL_PRECISION', 'Use suitable standard part first; retain cutting/pressure/fit/phase requirements'
+        return 'RETAIN_FUNCTIONAL_PRECISION', 'Standard part first; retain cutting, pressure, fit and phase requirements'
     if key in CUT_FINISH:
-        return 'CUT_DRILL_LOCAL_FINISH', 'Blank from plate/stock; finish only functional bores and datums; geometry review required'
+        return 'CUT_DRILL_LOCAL_FINISH', 'Finish only functional bores/datums in plate or stock'
     if key in SHEET:
-        return 'CUT_SHEET_DRILL_BEND', 'Retain specified metal thickness and local tolerances; not a billet-CNC default'
+        return 'CUT_SHEET_DRILL_BEND', 'Keep specified metal barrier or load-path functions'
     if key in STOCK:
-        return 'DONOR_OR_STANDARD_STOCK_REVIEW', 'Match shaft, length, rating and interface; local end machining only as needed'
+        return 'DONOR_OR_STANDARD_STOCK_REVIEW', 'Verify dimensions and rating; machine ends only if needed'
     if key in OUTER:
-        return 'ABS_OUTER_SHELL_REDESIGN', 'Separate outer cover from any structural, pressure, fire or fragment barrier'
+        return 'PLA_OUTER_SHELL_REDESIGN', 'Cold outer shell only; keep separate metal safety barriers'
     if key == 'FR-01':
-        return '2020_FRAME_TARGET', 'Legacy 2040 rails need support-span/joint redesign before replacement'
+        return 'RETAIN_2020_2040_FRAME', 'Reuse both available sections; measure cuttable lengths before cutting'
     if key == 'DRV-A42':
-        return 'ALTERNATE_VARIANT_REVIEW', 'Do not procure both motor adapters; confirm selected drive first'
-    if row['make_or_buy'] in ('MIXED', 'MAKE_CNC'):
-        return 'ASSEMBLY_OR_GROUP_REVIEW', 'Do not add assembly quantity to child-part quantities'
-    if row['make_or_buy'] in ('BUY', 'BUY_TO_SPEC', 'BUY_CUSTOM', 'VERIFY_REUSE_OR_BUY'):
-        return 'REUSE_FIRST_IF_COMPATIBLE', 'Retain safety/rating/interface checks; availability alone is not compatibility'
-    return 'REVIEW_EXISTING_ROUTE', 'No unreviewed material or process substitution'
+        return 'ALTERNATE_VARIANT_REVIEW', 'Only one selected motor adapter, never both'
+    if row['make_or_buy'] in ('MIXED','MAKE_CNC'):
+        return 'ASSEMBLY_OR_GROUP_REVIEW', 'Do not double-count assembly and children'
+    if row['make_or_buy'] in ('BUY','BUY_TO_SPEC','BUY_CUSTOM','VERIFY_REUSE_OR_BUY'):
+        return 'REUSE_FIRST_IF_COMPATIBLE', 'Asset presence alone is not interface compatibility'
+    return 'REVIEW_EXISTING_ROUTE', 'No unreviewed process substitution'
 def build(bom, prints, frame, policy):
-    if policy['frame']['default_section'] != '2020' or policy['housing']['default_material'] != 'ABS':
-        raise ValueError('Unexpected user manufacturing target')
-    ids = [r['part_id'] for r in bom]
-    if len(ids) != len(set(ids)): raise ValueError('Duplicate BOM IDs')
-    routes = [dict(part_id=r['part_id'], description=r['description'], current_route=r['make_or_buy'],
-                   proposed_route=route(r)[0], scope_note=route(r)[1], state='PROPOSAL_NOT_MANUFACTURING_RELEASE') for r in bom]
-    material = [dict(part_id=r['part_id'], name=r['name'], quantity=r['quantity'], current_material=r['material'],
-                     target_material='ABS', state='ABS_MATERIAL_CHANGE_REQUIRES_RESLICE_AND_FIT' if r['material'] != 'ABS' else 'ABS_ALREADY_LISTED_NOT_PHYSICALLY_VERIFIED') for r in prints]
-    rails = [dict(r, target_stock='20x20 aluminum profile', change_state='SECTION_AND_JOINT_REVIEW_REQUIRED') for r in frame if r['stock'] != '20x20 aluminum profile']
-    return routes, material, rails
+    if set(policy['frame']['available_sections']) != {'2020','2040'} or policy['housing']['default_material'] != 'PLA':
+        raise ValueError('Unexpected current manufacturing basis')
+    ids=[r['part_id'] for r in bom]
+    if len(ids)!=len(set(ids)): raise ValueError('Duplicate BOM IDs')
+    routes=[dict(part_id=r['part_id'],description=r['description'],current_route=r['make_or_buy'],
+                 proposed_route=route(r,policy)[0],scope_note=route(r,policy)[1],state='ALLOCATION_NOT_MANUFACTURING_APPROVAL') for r in bom]
+    material=[]; rails=[]
+    for row in prints:
+        target=target_material(row['part_id'],policy)
+        state='EXISTING_MATERIAL_MATCH_NOT_PHYSICALLY_VERIFIED' if target==row['material'] else 'MATERIAL_CHANGE_REQUIRES_RESLICE_AND_FIT'
+        material.append(dict(part_id=row['part_id'],name=row['name'],quantity=row['quantity'],
+                             current_material=row['material'],target_material=target,state=state))
+    for row in frame:
+        supported=row['stock'] in ('20x20 aluminum profile','20x40 aluminum profile')
+        rails.append(dict(row,target_stock=row['stock'],change_state='RETAIN_SECTION_STOCK_LENGTH_PENDING' if supported else 'UNKNOWN_SECTION_REVIEW_REQUIRED'))
+    return routes,material,rails
 def main():
-    paths = [ROOT/p for p in SOURCES] + [HERE/'policy.json', HERE/'donor_register.csv', Path(__file__)]
-    before = {str(p.relative_to(ROOT)): sha(p) for p in paths}
-    policy = json.loads((HERE/'policy.json').read_text())
-    bom, prints, frame = [read_csv(ROOT/p) for p in SOURCES]
-    donors = read_csv(HERE/'donor_register.csv')
-    if any(r['availability'] not in {'USER_REPORTED_AVAILABLE', 'CANDIDATE_UNINSPECTED', 'FAULT_REPORTED'} for r in donors):
-        raise ValueError('Sourcing plan must not invent verified donor stock')
-    routes, material, rails = build(bom, prints, frame, policy)
-    out = HERE/'generated'; out.mkdir(exist_ok=True)
-    write_csv(out/'manufacturing_route_review.csv', routes, list(routes[0]))
-    write_csv(out/'abs_material_transition.csv', material, list(material[0]))
-    write_csv(out/'frame_transition.csv', rails, list(rails[0]) if rails else ['part_id','target_stock','change_state'])
-    summary = {'state':'TARGET_ACCEPTED_IMPLEMENTATION_PENDING', 'machine_release':'HOLD',
-               'physical_validation':'NOT_RUN', 'source_sha256':before,
-               'bom_rows_reviewed':len(bom), 'bom_count_not_purchase_quantity':True,
-               'route_counts':dict(Counter(r['proposed_route'] for r in routes)),
-               'printed_part_types':len(prints), 'printed_piece_count':sum(int(r['quantity']) for r in prints),
-               'non_abs_types':sum(r['material'] != 'ABS' for r in prints),
-               'non2020_rail_rows':len(rails), 'non2020_rail_pieces':sum(int(r['quantity']) for r in rails),
-               'donor_register_rows':len(donors), 'verified_donor_components':0,
-               'cad_changed':False, 'slicer_rerun':False, 'structural_reanalysis':False,
-               'price_savings':'NOT_ESTABLISHED', 'purchase_performed':False}
-    if any(sha(ROOT/p) != value for p,value in before.items()): raise RuntimeError('Inputs changed during plan build')
+    paths=[ROOT/p for p in SOURCES]+[HERE/'policy.json',HERE/'donor_register.csv',Path(__file__)]
+    before={str(p.relative_to(ROOT)):sha(p) for p in paths}
+    policy=json.loads((HERE/'policy.json').read_text())
+    bom,prints,frame=[read_csv(ROOT/p) for p in SOURCES]
+    donors=read_csv(HERE/'donor_register.csv')
+    if any(r['availability'] not in {'USER_REPORTED_AVAILABLE','CANDIDATE_UNINSPECTED','FAULT_REPORTED'} for r in donors):
+        raise ValueError('Unsubstantiated donor verification')
+    routes,material,rails=build(bom,prints,frame,policy)
+    out=HERE/'generated';out.mkdir(exist_ok=True)
+    for name,rows in [('manufacturing_route_review',routes),('abs_material_transition',material),('frame_transition',rails)]:
+        write_csv(out/(name+'.csv'),rows,list(rows[0]) if rows else ['part_id','state'])
+    summary={'state':policy['state'],'machine_release':'HOLD','physical_validation':'NOT_RUN','source_sha256':before,
+             'bom_rows_reviewed':len(bom),'bom_count_not_purchase_quantity':True,'route_counts':dict(Counter(r['proposed_route'] for r in routes)),
+             'printed_part_types':len(prints),'printed_piece_count':sum(int(r['quantity']) for r in prints),
+             'material_changes_required':sum(r['current_material']!=r['target_material'] for r in material),
+             'frame_section_changes_required':0,'donor_register_rows':len(donors),'verified_donor_components':0,
+             'cad_changed':False,'slicer_rerun':False,'structural_reanalysis':False,'purchases_performed':False}
+    if any(sha(ROOT/p)!=v for p,v in before.items()):raise RuntimeError('Sources changed during allocation')
     (out/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({k:v for k,v in summary.items() if k!='source_sha256'},ensure_ascii=False))
-if __name__ == '__main__':
-    main()
+if __name__=='__main__': main()

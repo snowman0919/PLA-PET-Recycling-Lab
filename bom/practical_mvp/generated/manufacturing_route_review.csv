@@ -1,120 +1,120 @@
 part_id,description,current_route,proposed_route,scope_note,state
-CO-01,vertical compact air cooling,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CO-02,cooling fan current plus independent tach feedback,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CT-01,Arduino Mega user interface,VERIFY_REUSE_OR_BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CT-ENC-01,Control-panel sheet enclosure,MAKE_TO_DRAWING,ABS_OUTER_SHELL_REDESIGN,"Separate outer cover from any structural, pressure, fire or fragment barrier",PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-01,Cycloidal hook cutter disc,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-02,Cutter spacer,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-03,Bearing side plate,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Blank from plate/stock; finish only functional bores and datums; geometry review required,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-04,5 mm aperture screen,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-05,25 mm keyed cutter shaft left,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-05R,25 mm keyed cutter shaft right,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-06,Phase gear axial spacer,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-07,DRV-01 universal donor motor plate,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-08,Dual 61905 bearing retainer,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-09,Shredder chamber distance sleeve,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-CUT-10,61905 bearing seat ring,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Blank from plate/stock; finish only functional bores and datums; geometry review required,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DG-01,dual-axis shadow gauge,BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DR-EXT,external qualified pre-dryer,USER_SUPPLIED_EXTERNAL,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-01,Universal donor motor plate,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-02,Bolt-on cutter sprocket hub,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Blank from plate/stock; finish only functional bores and datums; geometry review required,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-03,M3 Z16 solid phase gear left,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-03R,M3 Z16 solid phase gear right,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-A42,42GP-775 reference adapter plate,MAKE_TO_DRAWING,ALTERNATE_VARIANT_REVIEW,Do not procure both motor adapters; confirm selected drive first,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-A60,GMP60-60127 released reference adapter plate,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-F01A,Motor-side fuse inner hub,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-F01B,Motor-side fuse sprocket carrier,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-F01P,Replaceable waisted shear pin coupon,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-DRV-GD-01,Interlocked drive guard,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-01,16 mm x 16D screw barrel and EX-DIE-01 to 05 connected open-die,MAKE_CNC,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-02,extruder thrust stack,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-03,barrel process heater zones,BUY_CUSTOM,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-04,die heater,BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-05,thermal sensors and switching,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-06,screw shaft tach,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-BAR-01,ID16.20 x OD34 barrel,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-CPN-BAR,Matched barrel process coupon,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-CPN-SCR,Three-pitch screw process coupon,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-DIE-01,Connected 90 degree down-die body,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-DIE-02,Seven-hole breaker plate,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-DIE-03,Replaceable Ø3 die insert,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-DIE-04,Sacrificial die relief retainer,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-DIE-05,Annealed copper face gasket,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-MT-01,rear hot-zone axial datum plate,MAKE_CNC,CUT_DRILL_LOCAL_FINISH,Blank from plate/stock; finish only functional bores and datums; geometry review required,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-MT-02,front hot-zone radial sliding guide,MAKE_CNC,CUT_DRILL_LOCAL_FINISH,Blank from plate/stock; finish only functional bores and datums; geometry review required,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-MT-03,rear split fixed collar,MAKE_CNC,CUT_DRILL_LOCAL_FINISH,Blank from plate/stock; finish only functional bores and datums; geometry review required,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-MT-04,rear hot-zone support rail,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-SCR-01,16 mm x 16D single screw,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,Use suitable standard part first; retain cutting/pressure/fit/phase requirements,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-SH-01,Three-panel hot-zone shield,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
-EX-THR-01,Extruder thrust plate,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Blank from plate/stock; finish only functional bores and datums; geometry review required,PROPOSAL_NOT_MANUFACTURING_RELEASE
-ExtruderFixedCollar,reference alias: EX-MT-03,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-ExtruderFrontSlidingGuide,reference alias: EX-MT-02,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-ExtruderRearFixedDatum,reference alias: EX-MT-01,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-ExtruderRearRetainer,reference alias: EX-MT-05,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-ExtruderRearRetainerSpacer318,reference alias: EX-MT-06,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-ExtruderSupportRailRear,reference alias: EX-MT-04,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FB-01,removable flake bin,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FD-BIN-01,Removable flake bin,MAKE_TO_DRAWING,ABS_OUTER_SHELL_REDESIGN,"Separate outer cover from any structural, pressure, fire or fragment barrier",PROPOSAL_NOT_MANUFACTURING_RELEASE
-FD-CP-01,Feeder positive drive coupling,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Blank from plate/stock; finish only functional bores and datums; geometry review required,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FD-DA-01,Feeder reference-drive frame mount,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FD-GSK-01,Feed-hopper flange gasket,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FD-HOP-01,Sealed feed hopper,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FD-MET-01,Metering auger housing,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FD-MET-02,Positive-displacement metering auger,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FD-MET-03,Common auger and anti-bridge agitator shaft,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FH-01,sealed steep-wall hopper with coaxial anti-bridge agitator and positive metering auger,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FH-03,single metering-rotor drive sensing interface,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FM-AX-01,Puller roller spindle,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-FM-EB-01,Puller eccentric pressure bushing,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FM-GA-01,Guide roller fixed axle,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-FM-GC-01,Guide roller 625 outer-ring retainer,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FM-GR-01,Solid-strand guide roller,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FM-PL-01,Puller side plate,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FM-RL-01,Puller roller,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-FR-01,compact profile frame cut set,VERIFY_REUSE_OR_BUY,2020_FRAME_TARGET,Legacy 2040 rails need support-span/joint redesign before replacement,PROPOSAL_NOT_MANUFACTURING_RELEASE
-GD-01,cutter and hot-zone guards,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-HP-01,refillable sliding-lid hopper,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-IN-HOP-01,Refillable input hopper,MAKE_TO_DRAWING,ABS_OUTER_SHELL_REDESIGN,"Separate outer cover from any structural, pressure, fire or fragment barrier",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PL-01,puller pair with tach,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C01,Sliding hopper lid,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C02,Anti-reach baffle chute,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C03,Flake bin sheet corner,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C04,Screen drawer handle,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C05,Cooling duct segment,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C06,Gauge enclosure,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C07,Puller pinch guard,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C08,Solid-strand guide axle bracket,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C09,Spool cone adapter,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C10,Traverse carriage,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C11,Control panel bezel,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-C12,Cable duct clamp,MAKE_3D_PRINT,ABS_PRINT_TARGET,"Re-slice with chosen ABS; check fit, load and thermal location",PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-EXTRUDER-ASM,reference alias: PPR-EXTRUDER-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-FEEDER-ASM,reference alias: PPR-FEEDER-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-FORMING-ASM,reference alias: PPR-FORMING-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-FRAME-ASM,reference alias: PPR-FRAME-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-FULL-ASM,reference alias: PPR-FULL-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-PPR-SHREDDER-ASM,reference alias: PPR-SHREDDER-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No additional purchase or manufacture quantity,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SF-01,latching E-stop and hardwired cut,BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SF-02,lid and service interlocks,BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SF-03,thermal and branch fuses,BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SH-01,dual-shaft hook cutter assembly,MAKE_CNC,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SH-02,removable 5 mm screen,MAKE_CNC,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SH-03,interchangeable shredder geared DC drive,VERIFY_REUSE_OR_BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SH-04,interchangeable chain and phase drive,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SH-05,bidirectional motor driver/current feedback,BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SH-06,shredder shaft bearings,BUY,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-01,dancer traverse spooler,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not add assembly quantity to child-part quantities,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-AX-01,Dancer pivot/roller axles,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-BP-01,Spool 6001 bearing pocket plate,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-BR-01,Spool 6001 outer-ring retainer,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-DA-01,Dancer arm,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-DS-01,Dancer pivot support plate,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-MM-01,Universal NEMA17-class spool motor plate,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-RL-01,Dancer end roller,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed material or process substitution,PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-SH-01,Spool spindle,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-SP-TR-01,Traverse rod end plate,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,"Match shaft, length, rating and interface; local end machining only as needed",PROPOSAL_NOT_MANUFACTURING_RELEASE
-TH-BH-01,Custom barrel mica band heater,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-TH-DIE-01,Die cartridge heater,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-TH-FUSE-01,Independent one-shot thermal fuse envelope,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-TH-TC-01,Tempco MTA1 custom ungrounded Type-K probes,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Retain safety/rating/interface checks; availability alone is not compatibility,PROPOSAL_NOT_MANUFACTURING_RELEASE
-TH-TCR-01,Thermocouple stop-collar retainer bridge,BUY_TO_SPEC,CUT_SHEET_DRILL_BEND,Retain specified metal thickness and local tolerances; not a billet-CNC default,PROPOSAL_NOT_MANUFACTURING_RELEASE
+CO-01,vertical compact air cooling,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CO-02,cooling fan current plus independent tach feedback,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CT-01,Arduino Mega user interface,VERIFY_REUSE_OR_BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CT-ENC-01,Control-panel sheet enclosure,MAKE_TO_DRAWING,PLA_OUTER_SHELL_REDESIGN,Cold outer shell only; keep separate metal safety barriers,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-01,Cycloidal hook cutter disc,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-02,Cutter spacer,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-03,Bearing side plate,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Finish only functional bores/datums in plate or stock,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-04,5 mm aperture screen,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-05,25 mm keyed cutter shaft left,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-05R,25 mm keyed cutter shaft right,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-06,Phase gear axial spacer,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-07,DRV-01 universal donor motor plate,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-08,Dual 61905 bearing retainer,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-09,Shredder chamber distance sleeve,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+CUT-10,61905 bearing seat ring,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Finish only functional bores/datums in plate or stock,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DG-01,dual-axis shadow gauge,BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DR-EXT,external qualified pre-dryer,USER_SUPPLIED_EXTERNAL,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-01,Universal donor motor plate,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-02,Bolt-on cutter sprocket hub,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Finish only functional bores/datums in plate or stock,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-03,M3 Z16 solid phase gear left,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-03R,M3 Z16 solid phase gear right,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-A42,42GP-775 reference adapter plate,MAKE_TO_DRAWING,ALTERNATE_VARIANT_REVIEW,"Only one selected motor adapter, never both",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-A60,GMP60-60127 released reference adapter plate,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-F01A,Motor-side fuse inner hub,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-F01B,Motor-side fuse sprocket carrier,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-F01P,Replaceable waisted shear pin coupon,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+DRV-GD-01,Interlocked drive guard,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-01,16 mm x 16D screw barrel and EX-DIE-01 to 05 connected open-die,MAKE_CNC,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-02,extruder thrust stack,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-03,barrel process heater zones,BUY_CUSTOM,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-04,die heater,BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-05,thermal sensors and switching,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-06,screw shaft tach,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-BAR-01,ID16.20 x OD34 barrel,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-CPN-BAR,Matched barrel process coupon,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-CPN-SCR,Three-pitch screw process coupon,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-DIE-01,Connected 90 degree down-die body,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-DIE-02,Seven-hole breaker plate,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-DIE-03,Replaceable Ø3 die insert,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-DIE-04,Sacrificial die relief retainer,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-DIE-05,Annealed copper face gasket,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-MT-01,rear hot-zone axial datum plate,MAKE_CNC,CUT_DRILL_LOCAL_FINISH,Finish only functional bores/datums in plate or stock,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-MT-02,front hot-zone radial sliding guide,MAKE_CNC,CUT_DRILL_LOCAL_FINISH,Finish only functional bores/datums in plate or stock,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-MT-03,rear split fixed collar,MAKE_CNC,CUT_DRILL_LOCAL_FINISH,Finish only functional bores/datums in plate or stock,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-MT-04,rear hot-zone support rail,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-SCR-01,16 mm x 16D single screw,MAKE_TO_DRAWING,RETAIN_FUNCTIONAL_PRECISION,"Standard part first; retain cutting, pressure, fit and phase requirements",ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-SH-01,Three-panel hot-zone shield,MAKE_TO_DRAWING,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+EX-THR-01,Extruder thrust plate,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Finish only functional bores/datums in plate or stock,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+ExtruderFixedCollar,reference alias: EX-MT-03,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+ExtruderFrontSlidingGuide,reference alias: EX-MT-02,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+ExtruderRearFixedDatum,reference alias: EX-MT-01,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+ExtruderRearRetainer,reference alias: EX-MT-05,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+ExtruderRearRetainerSpacer318,reference alias: EX-MT-06,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+ExtruderSupportRailRear,reference alias: EX-MT-04,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FB-01,removable flake bin,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FD-BIN-01,Removable flake bin,MAKE_TO_DRAWING,PLA_OUTER_SHELL_REDESIGN,Cold outer shell only; keep separate metal safety barriers,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FD-CP-01,Feeder positive drive coupling,MAKE_TO_DRAWING,CUT_DRILL_LOCAL_FINISH,Finish only functional bores/datums in plate or stock,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FD-DA-01,Feeder reference-drive frame mount,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FD-GSK-01,Feed-hopper flange gasket,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FD-HOP-01,Sealed feed hopper,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FD-MET-01,Metering auger housing,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FD-MET-02,Positive-displacement metering auger,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FD-MET-03,Common auger and anti-bridge agitator shaft,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FH-01,sealed steep-wall hopper with coaxial anti-bridge agitator and positive metering auger,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FH-03,single metering-rotor drive sensing interface,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FM-AX-01,Puller roller spindle,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FM-EB-01,Puller eccentric pressure bushing,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FM-GA-01,Guide roller fixed axle,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FM-GC-01,Guide roller 625 outer-ring retainer,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FM-GR-01,Solid-strand guide roller,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FM-PL-01,Puller side plate,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FM-RL-01,Puller roller,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+FR-01,compact profile frame cut set,VERIFY_REUSE_OR_BUY,RETAIN_2020_2040_FRAME,Reuse both available sections; measure cuttable lengths before cutting,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+GD-01,cutter and hot-zone guards,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+HP-01,refillable sliding-lid hopper,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+IN-HOP-01,Refillable input hopper,MAKE_TO_DRAWING,PLA_OUTER_SHELL_REDESIGN,Cold outer shell only; keep separate metal safety barriers,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PL-01,puller pair with tach,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C01,Sliding hopper lid,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C02,Anti-reach baffle chute,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C03,Flake bin sheet corner,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C04,Screen drawer handle,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C05,Cooling duct segment,MAKE_3D_PRINT,ABS_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C06,Gauge enclosure,MAKE_3D_PRINT,ABS_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C07,Puller pinch guard,MAKE_3D_PRINT,ABS_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C08,Solid-strand guide axle bracket,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C09,Spool cone adapter,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C10,Traverse carriage,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C11,Control panel bezel,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-C12,Cable duct clamp,MAKE_3D_PRINT,PLA_PRINT_TARGET,Keep current geometry; material mismatch requires new slicing,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-EXTRUDER-ASM,reference alias: PPR-EXTRUDER-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-FEEDER-ASM,reference alias: PPR-FEEDER-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-FORMING-ASM,reference alias: PPR-FORMING-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-FRAME-ASM,reference alias: PPR-FRAME-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-FULL-ASM,reference alias: PPR-FULL-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+PPR-SHREDDER-ASM,reference alias: PPR-SHREDDER-ASM,REFERENCE_ONLY,REFERENCE_ONLY,No extra purchase quantity for an assembly alias,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SF-01,latching E-stop and hardwired cut,BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SF-02,lid and service interlocks,BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SF-03,thermal and branch fuses,BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SH-01,dual-shaft hook cutter assembly,MAKE_CNC,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SH-02,removable 5 mm screen,MAKE_CNC,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SH-03,interchangeable shredder geared DC drive,VERIFY_REUSE_OR_BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SH-04,interchangeable chain and phase drive,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SH-05,bidirectional motor driver/current feedback,BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SH-06,shredder shaft bearings,BUY,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-01,dancer traverse spooler,MIXED,ASSEMBLY_OR_GROUP_REVIEW,Do not double-count assembly and children,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-AX-01,Dancer pivot/roller axles,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-BP-01,Spool 6001 bearing pocket plate,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-BR-01,Spool 6001 outer-ring retainer,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-DA-01,Dancer arm,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-DS-01,Dancer pivot support plate,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-MM-01,Universal NEMA17-class spool motor plate,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-RL-01,Dancer end roller,MAKE_TO_DRAWING,REVIEW_EXISTING_ROUTE,No unreviewed process substitution,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-SH-01,Spool spindle,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+SP-TR-01,Traverse rod end plate,MAKE_TO_DRAWING,DONOR_OR_STANDARD_STOCK_REVIEW,Verify dimensions and rating; machine ends only if needed,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+TH-BH-01,Custom barrel mica band heater,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+TH-DIE-01,Die cartridge heater,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+TH-FUSE-01,Independent one-shot thermal fuse envelope,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+TH-TC-01,Tempco MTA1 custom ungrounded Type-K probes,BUY_TO_SPEC,REUSE_FIRST_IF_COMPATIBLE,Asset presence alone is not interface compatibility,ALLOCATION_NOT_MANUFACTURING_APPROVAL
+TH-TCR-01,Thermocouple stop-collar retainer bridge,BUY_TO_SPEC,CUT_SHEET_DRILL_BEND,Keep specified metal barrier or load-path functions,ALLOCATION_NOT_MANUFACTURING_APPROVAL
