@@ -20,7 +20,7 @@ class GgmDriveGuard {
         uint32_t(i.now_ms-i.feedback_ms)>100 || i.gearbox_nm_per_amp<=0 || i.no_load_current_a<0) return o;
     const float torque=fmaxf(0, fabsf(i.motor_current_a)-i.no_load_current_a)*i.gearbox_nm_per_amp;
     if ((i.shredder && i.screw) || i.screw<0 || fabsf(i.motor_current_a)>6.0f ||
-        torque>8.0f || fabsf(i.shredder_rpm)>21 || fabsf(i.screw_rpm)>22) latched_=true;
+        torque>8.0f || fabsf(i.shredder_rpm)>21 || fabsf(i.screw_rpm)>20) latched_=true;
     o.fault=latched_; if (latched_) return o;
     const int8_t next=i.shredder<0 ? -1 : 1;
     if (i.shredder && next!=direction_) {

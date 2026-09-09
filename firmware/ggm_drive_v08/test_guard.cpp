@@ -16,6 +16,7 @@ int main(){
   {GgmDriveGuard g;auto i=good();i.motor_current_a=6.1f;expect(g.update(i).fault,"current");}
   {GgmDriveGuard g;auto i=good();i.gearbox_nm_per_amp=5;expect(g.update(i).fault,"torque");i=good();expect(g.update(i).shredder==0,"latched");expect(!g.clear(true,2,0,0),"clear loaded");expect(g.clear(true,0,0,0),"clear stopped");}
   {GgmDriveGuard g;auto i=good();i.shredder_rpm=22;expect(g.update(i).fault,"overspeed");}
+  {GgmDriveGuard g;auto i=good();i.shredder=0;i.screw=100;i.screw_rpm=20.0f;expect(g.update(i).screw==100,"screw hard limit accepted");i.screw_rpm=20.1f;expect(g.update(i).fault,"screw overspeed");}
   {GgmDriveGuard g;auto i=good();i.shredder=300;expect(g.update(i).shredder==255,"saturate");}
   {GgmDriveGuard g;auto i=good();i.shredder=-100;expect(g.update(i).shredder==0,"reverse begins coast");i.now_ms=1499;i.feedback_ms=1499;i.shredder_rpm=0;expect(g.update(i).shredder==0,"reverse dwell");i.now_ms=1500;i.feedback_ms=1500;expect(g.update(i).shredder==-100,"reverse released");}
   {GgmDriveGuard g;auto i=good();i.shredder=-100;i.now_ms=0xffffff00UL;i.feedback_ms=i.now_ms;g.update(i);i.now_ms+=600;i.feedback_ms=i.now_ms;i.shredder_rpm=0;expect(g.update(i).shredder==-100,"rollover");}
