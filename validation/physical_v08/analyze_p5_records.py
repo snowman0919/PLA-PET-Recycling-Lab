@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Offline P5 process-coupon record analyzer. Never authorizes an order or fabrication."""
 from __future__ import annotations
-import argparse,csv,json,math,re
+import argparse,csv,datetime,hashlib,json,math,re
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
+ROOT=HERE.parents[1]
 CONTRACT=json.loads((HERE/'p5_coupon_contract.json').read_text(encoding='utf-8'))
 
 def read(path):
@@ -18,6 +19,18 @@ def maybe(value):
     return None if value is None or str(value).strip()=='' else num(value)
 def yes(v): return str(v).strip().upper() in {'YES','Y','PASS','TRUE','APPROVED'}
 def hashish(v): return bool(re.fullmatch(r'[0-9a-fA-F]{64}',str(v).strip()))
+def authenticate(row, *, timestamp_required=False):
+    path_text=str(row.get('evidence_path','')).strip(); digest=str(row.get('sha256','')).strip().lower()
+    if not path_text or not hashish(digest): raise ValueError('evidence path/hash missing')
+    path=(ROOT/path_text).resolve()
+    if not path.is_relative_to(ROOT) or not path.is_file(): raise ValueError('evidence file missing: '+path_text)
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=digest: raise ValueError('evidence hash mismatch: '+path_text)
+    if timestamp_required:
+        text=str(row.get('measured_at','')).strip()
+        if not text: raise ValueError('measurement timestamp missing')
+        dt=datetime.datetime.fromisoformat(text.replace('Z','+00:00'))
+        if dt.tzinfo is None: raise ValueError('measurement timestamp must include timezone')
+    return path_text
 
 def interval(row):
     value=num(row['value']); u=num(row['u95_or_mpe'],'u95_or_mpe')
@@ -32,15 +45,18 @@ def check_capability(rows):
     hard=[r for r in rows if r['gate_class']=='HARD_GATE']
     for r in hard:
         if not yes(r['supplier_response']): raise ValueError(r['id']+' supplier hard gate not YES')
-        if not r['evidence_path'].strip() or not hashish(r['sha256']): raise ValueError(r['id']+' supplier evidence missing')
+        try: authenticate(r)
+        except ValueError as e: raise ValueError(r['id']+' supplier evidence invalid: '+str(e))
     dev=by['CAP-10']
     if not yes(dev['supplier_response']): raise ValueError('CAP-10 deviation declaration missing')
     deviation=dev['proposed_deviation'].strip()
     baseline=deviation.upper() in {'','NONE','NO DEVIATION','N/A'}
     if not baseline:
         hp=by['CAP-11']
-        if not yes(hp['supplier_response']) or not hp['evidence_path'].strip() or not hashish(hp['sha256']):
+        if not yes(hp['supplier_response']):
             raise ValueError('material/process deviation requires high-temperature property evidence and re-analysis')
+        try: authenticate(hp)
+        except ValueError as e: raise ValueError('material/process deviation evidence invalid: '+str(e))
         raise ValueError('declared deviation requires separate engineering re-analysis before P5 acceptance')
     return {'hard_gates':len(hard),'baseline_route':True,'hot_properties_hard_gate':False}
 
@@ -50,7 +66,7 @@ def check_measurements(rows):
     required_meta=('instrument_id','calibration_ref','measured_at','operator','evidence_path','sha256')
     for r in rows:
         if any(not str(r.get(k,'')).strip() for k in required_meta): raise ValueError(f"{r['part_id']} {r['characteristic']} measurement metadata missing")
-        if not hashish(r['sha256']): raise ValueError('measurement sha256 invalid')
+        authenticate(r,timestamp_required=True)
         t=num(r['temperature_c'],'temperature_c')
         if t<18 or t>22: raise ValueError('dimensional/roughness inspection outside 18-22 C')
         value,u=interval(r)
@@ -77,14 +93,19 @@ def check_certificates(rows):
         grade=by[(part,'material_grade')]
         text=grade['value'].upper().replace(' ','')
         if 'SCM440' not in text or 'G4105' not in text: raise ValueError(part+' material grade/MTC mismatch')
-        if not grade['certificate_id'].strip() or not grade['evidence_path'].strip() or not hashish(grade['sha256']): raise ValueError(part+' MTC evidence missing')
+        if not grade['certificate_id'].strip(): raise ValueError(part+' MTC certificate ID missing')
+        try: authenticate(grade)
+        except ValueError as e: raise ValueError(part+' MTC evidence invalid: '+str(e))
         lot=by[(part,'heat_lot_id')]
-        if not lot['value'].strip() or not lot['certificate_id'].strip() or not lot['evidence_path'].strip() or not hashish(lot['sha256']): raise ValueError(part+' heat/lot ID evidence missing')
+        if not lot['value'].strip() or not lot['certificate_id'].strip(): raise ValueError(part+' heat/lot ID evidence missing')
+        try: authenticate(lot)
+        except ValueError as e: raise ValueError(part+' heat/lot evidence invalid: '+str(e))
     numeric=[]
     for r in rows:
         if r['characteristic'] in {'material_grade','heat_lot_id'}: continue
-        if not r['certificate_id'].strip() or not r['provider'].strip() or not r['evidence_path'].strip() or not hashish(r['sha256']):
+        if not r['certificate_id'].strip() or not r['provider'].strip():
             raise ValueError(f"{r['part_id']} {r['characteristic']} certificate metadata missing")
+        authenticate(r)
         if r['characteristic'] in {'qt_core_hardness','surface_hardness','final_effective_case_depth','nitride_process_case_target'} and not r.get('method_or_standard','').strip():
             raise ValueError(f"{r['part_id']} {r['characteristic']} method/test-load definition missing")
         value=num(r['value']); u=num(r['u95_or_mpe'],'u95_or_mpe')

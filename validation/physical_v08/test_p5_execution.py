@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-import csv,json,subprocess,tempfile,unittest
+import csv,hashlib,json,subprocess,tempfile,unittest
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
-HASH='a'*64
 
 def write_csv(path,fieldnames,rows):
     with path.open('w',newline='',encoding='utf-8') as f:
         w=csv.DictWriter(f,fieldnames=fieldnames,lineterminator='\n'); w.writeheader(); w.writerows(rows)
 
 def synthetic_packet(dst, bad_barrel_case=False):
+    ev=dst/'evidence'; ev.mkdir()
+    evidence={}
+    for name,text in [('supplier.pdf','synthetic supplier capability'),('metrology.csv','synthetic metrology evidence'),('cert.pdf','synthetic certificate evidence')]:
+        path=ev/name; path.write_text(text); evidence[name]=hashlib.sha256(path.read_bytes()).hexdigest()
     with (HERE/'templates/p5_supplier_capability.csv').open(newline='',encoding='utf-8') as f: cap=list(csv.DictReader(f))
     for r in cap:
         if r['gate_class']=='HARD_GATE' or r['id']=='CAP-10':
-            r['supplier_response']='YES'; r['evidence_path']='evidence/supplier.pdf'; r['sha256']=HASH
+            r['supplier_response']='YES'; r['evidence_path']=str((dst/'evidence/supplier.pdf').relative_to(HERE.parents[1])); r['sha256']=evidence['supplier.pdf']
         if r['id']=='CAP-10': r['proposed_deviation']='NONE'
         if r['id']=='CAP-11': r['supplier_response']='UNAVAILABLE'
     write_csv(dst/'p5_supplier_capability.csv',cap[0].keys(),cap)
@@ -30,7 +33,7 @@ def synthetic_packet(dst, bad_barrel_case=False):
         if r['characteristic'].endswith('_Ra'): r['u95_or_mpe']='0.02'
         r['temperature_c']='20'; r['instrument_id']='SYN-MET'; r['calibration_ref']='SYN-CAL'
         r['measured_at']='2026-09-10T10:00:00+09:00'; r['operator']='SYNTHETIC'
-        r['evidence_path']='evidence/metrology.csv'; r['sha256']=HASH
+        r['evidence_path']=str((dst/'evidence/metrology.csv').relative_to(HERE.parents[1])); r['sha256']=evidence['metrology.csv']
     write_csv(dst/'p5_coupon_measurements.csv',ms[0].keys(),ms)
 
     with (HERE/'templates/p5_coupon_certificates.csv').open(newline='',encoding='utf-8') as f: cert=list(csv.DictReader(f))
@@ -47,7 +50,7 @@ def synthetic_packet(dst, bad_barrel_case=False):
         r['value']=vals[(r['part_id'],r['characteristic'])]
         r['u95_or_mpe']='0.005' if r['unit']=='mm' else ('1' if r['unit'] in {'HRC','HV0.3'} else '')
         r['method_or_standard']='SYN-METHOD' if r['characteristic'] not in {'material_grade','heat_lot_id','final_hone_removed_on_diameter'} else ''
-        r['certificate_id']='SYN-CERT'; r['provider']='SYN-LAB'; r['evidence_path']='evidence/cert.pdf'; r['sha256']=HASH
+        r['certificate_id']='SYN-CERT'; r['provider']='SYN-LAB'; r['evidence_path']=str((dst/'evidence/cert.pdf').relative_to(HERE.parents[1])); r['sha256']=evidence['cert.pdf']
     # Text rows do not use numeric uncertainty.
     for r in cert:
         if r['characteristic'] in {'material_grade','heat_lot_id'}: r['u95_or_mpe']=''
@@ -55,7 +58,7 @@ def synthetic_packet(dst, bad_barrel_case=False):
 
 class P5ExecutionTest(unittest.TestCase):
     def run_packet(self,bad=False):
-        td=tempfile.TemporaryDirectory(); d=Path(td.name); synthetic_packet(d,bad)
+        td=tempfile.TemporaryDirectory(dir=HERE); d=Path(td.name); synthetic_packet(d,bad)
         proc=subprocess.run(['python3',str(HERE/'analyze_p5_records.py'),str(d)],capture_output=True,text=True)
         return td,proc
     def test_p5_synthetic_pass(self):
