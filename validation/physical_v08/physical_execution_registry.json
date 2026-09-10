@@ -134,9 +134,11 @@
       "doc": "P9_EMPTY_HOT_ZONE_KO.md",
       "analyzer": "analyze_p9_records.py",
       "templates": [
+        "templates/p9_hot_zone_receipt.csv",
         "templates/p9_thermal_profile.csv",
         "templates/p9_hot_safety.csv"
-      ]
+      ],
+      "receipt_analyzer": "analyze_p9_receipt.py"
     },
     {
       "id": "P10",

@@ -221,18 +221,20 @@
       "prerequisites": [
         "P7_STAGE_RELEASE_VALIDATED for electrical safety/logic",
         "P8_STAGE_RELEASE_VALIDATED for installed motor dry-run state",
-        "heater/probe receipt PASS",
-        "independent thermal cutoff installed",
+        "HOT_ZONE_RECEIPT_RECORD_CHECK_PASS against current thermal contracts",
+        "THERMAL_CUTOFF_TOPOLOGY_PASS: TF-BARREL then TF-DIE in K0 coil chain",
         "metal hot shield and remote stop available",
-        "explicit user heater-power approval recorded for this P9 run"
+        "explicit user heater-power approval recorded for this bounded P9 run"
       ],
       "acceptance": [
-        "T1-T5 mapping verified and no sensor open/short fault",
-        "PLA and PET target temperature holds within +/-5 C under bounded empty-path check",
-        "polymer leak-tightness is NOT evaluated in the empty-path test; electrical insulation/PE remains valid",
-        "hot-zone does not bottom its axial allowance; cold available travel was >=1.50 mm",
-        "forced-open independent thermal chain removes heater energy",
-        "M4 die fasteners are 42.5 +/-0.1 mm from M4x45 class10.9 stock and installed dry at 1.50 N.m only after receipt checks"
+        "T1-T5 mapping verified and sensor open/short faults detected",
+        "PLA and PET target temperature means remain within +/-5 C including U95",
+        "run peak + U95 remains below generated firmware overtemperature ceiling",
+        "polymer leak-tightness is NOT evaluated in the empty-path test; post-cycle insulation/PE remains valid",
+        "hot-zone does not bottom axial allowance; cold available travel was >=1.50 mm",
+        "forced-open TF-BARREL and TF-DIE each independently remove K0/heater energy",
+        "M4 die fasteners are 42.5 +/-0.1 mm from M4x45 class10.9 stock and installed dry at 1.50 N.m after receipt checks",
+        "thermocouple retainer remains <=0.10 mm motion after hot-cycle 20 N pull check"
       ],
       "unlocks": [
         "P10 low-feed PLA"

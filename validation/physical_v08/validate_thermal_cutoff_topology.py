@@ -18,10 +18,10 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def require(condition: bool, message: str) -> None:
     if not condition:
-        raise SystemExit(message)
+        raise ValueError(message)
 
 
-def main() -> None:
+def validate() -> dict:
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
     inv = contract["inventory"]
     devices = [item["id"] for item in contract["installed_devices"]]
@@ -63,7 +63,27 @@ def main() -> None:
     require("TF-BARREL -> TF-DIE -> K0 safety contactor/relay coil" in safety_doc, "human safety topology drift")
     require("two installed devices plus one same-spec spare" in safety_doc, "installed/spare allocation missing")
 
-    print("THERMAL_CUTOFF_TOPOLOGY_PASS procurement=3 installed=2 spare=1 safety_segments=7 heater_branches=4")
+    return {
+        "status": "THERMAL_CUTOFF_TOPOLOGY_PASS",
+        "procurement_quantity": 3,
+        "installed_quantity": 2,
+        "spare_quantity": 1,
+        "safety_segments": 7,
+        "heater_branches": 4,
+        "machine_release": "HOLD",
+    }
+
+
+def main() -> None:
+    try:
+        result = validate(); code = 0
+    except (ValueError, KeyError, FileNotFoundError, json.JSONDecodeError) as exc:
+        result = {"status": "THERMAL_CUTOFF_TOPOLOGY_REJECTED", "machine_release": "HOLD", "reason": str(exc)}; code = 2
+    if code == 0:
+        print("THERMAL_CUTOFF_TOPOLOGY_PASS procurement=3 installed=2 spare=1 safety_segments=7 heater_branches=4")
+    else:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    raise SystemExit(code)
 
 
 if __name__ == "__main__":

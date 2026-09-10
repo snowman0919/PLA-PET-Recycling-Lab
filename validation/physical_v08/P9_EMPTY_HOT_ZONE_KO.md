@@ -1,15 +1,22 @@
 # P9 빈 hot-zone 가열 검증
 
-P9는 plastic을 투입하지 않은 상태에서 heater channel, thermocouple mapping, 독립 thermal cut, 열팽창 여유를 확인하는 단계다. 모든 motor는 disable하고 grounded metal shield와 원격 정지를 준비한다.
+P9는 polymer를 투입하지 않은 상태에서 heater channel, T1-T5 mapping, dual one-shot thermal cutoff, 열팽창 여유를 확인한다. 모든 motor branch는 물리적으로 격리하고 grounded metal shield와 remote stop을 준비한다. P7/P8 stage release와 hot-zone receipt evidence가 검증되지 않으면 P9 기록 자체를 판정하지 않는다.
 
-## 순서
+## 선행 검증
 
-1. T1–T5를 reference probe와 대조해 channel mapping을 확인하고 open/short fault를 강제한다.
-2. Zone별 저출력 step으로 heater-to-sensor 대응을 확인한다. 잘못 매핑된 channel은 즉시 FAIL이다.
-3. PLA profile 180/195/205 °C barrel + 200 °C die를 각각 ±5 °C band에서 기록한다.
-4. 냉각 후 별도 PET profile 245/260/270 °C barrel + 265 °C die를 각각 ±5 °C band에서 기록한다.
-5. Hot run 중 sliding mount가 hard stop에 닿지 않는지 확인한다. P6/P2에서 cold available travel은 1.50 mm 이상이어야 한다.
-6. Independent thermal chain을 forced-open해 heater energy가 hardware에서 제거되는지 확인한다.
-7. SYS-04 die fastener는 수령검사된 M4×45 class10.9 stock을 42.5±0.1 mm로 절단/deburr한 뒤 dry 1.50 N·m setting으로만 조립한다.
+1. `analyze_p9_receipt.py templates/p9_hot_zone_receipt.csv`로 heater/probe/cutoff 수령 기록을 검증한다.
+2. `validate_p7_stage_release.py`와 `validate_p8_stage_release.py`가 각각 유효한 P9 prerequisite를 반환해야 한다.
+3. `validate_thermal_cutoff_topology.py`가 `TF-BARREL -> TF-DIE -> K0 coil`과 `TH-FUSE-01 = installed 2 + spare 1`을 확인해야 한다.
+4. 별도 P9 heater-power 승인 기록은 이 bounded run에만 적용하며 지속 가열 권한이나 machine release가 아니다.
 
-P9에서는 polymer가 없으므로 melt leak-tightness를 판정하지 않는다. 누설은 P10 최초 PLA low-feed에서 처음 평가한다. `templates/p9_thermal_profile.csv`와 `templates/p9_hot_safety.csv`를 기록하고 `analyze_p9_records.py`로 판정한다.
+## 실행 기록
+
+1. T1-T5를 independent reference logger와 대조하고 sensor open/short fault를 각각 검증한다.
+2. PLA 180/195/205 C barrel + 200 C die, PET 245/260/270 C barrel + 265 C die를 기록한다. Mean +/- U95가 target +/-5 C 안에 있어야 한다.
+3. 각 run의 peak + U95는 `generated_profiles.h`의 현재 firmware overtemperature ceiling보다 낮아야 한다.
+4. Hot run 동안 sliding mount가 hard stop에 닿지 않아야 하며 cold available travel reference는 1.50 mm 이상이어야 한다.
+5. `TF-BARREL`과 `TF-DIE`를 한 번에 하나씩 open-circuit 상태로 검증한다. 각각 독립적으로 K0/heater energy를 제거해야 한다.
+6. SYS-04 die fastener는 M4x45 class 10.9 stock을 42.5 +/-0.1 mm로 절단/deburr하고 dry 1.50 N.m setting을 사용한다.
+7. Cool-down 후 thermocouple retainer를 20 N으로 확인하고 이동량 <=0.10 mm, PE <=0.10 ohm, insulation >=1 Mohm @ 500 VDC를 재검사한다.
+
+P9에서는 polymer leak-tightness를 판정하지 않는다. 누설은 P10 최초 PLA low-feed에서 평가한다. `analyze_p9_records.py`가 `P9_RECORD_CHECK_PASS`를 내더라도 `stage_p9_pass`, `p10_entry_prerequisite`, `material_feed_authorized`, `continuing_power_authority`는 모두 false다. P10 진입은 별도 human-reviewed P9 stage release가 필요하다.
