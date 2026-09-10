@@ -10,6 +10,15 @@ import build_final_documents as documents
 def main():
     rows = {r['step_number']:r for r in documents.assembly_rows()}
     assert {n for n,r in rows.items() if any('HOLD' in (value or '') for value in r.values())} == {'7','10','12','13'}
+    assert 'GGM_SH_Mount' in rows['7']['part_ids_quantity'] and 'GGM_SH_Jackshaft' in rows['7']['part_ids_quantity']
+    assert 'GGM_SH_CouplingGuard' in rows['8']['part_ids_quantity'] and 'GGM_SH_Mount' not in rows['8']['part_ids_quantity']
+    assert 'GGM_EX_Mount' in rows['12']['part_ids_quantity']
+    assert '8.8–9.3 N·m' in rows['7']['inspection_method'] or 'P3 current/torque/protection evidence' in rows['7']['inspection_method']
+    serialized = str(rows)
+    for stale in ('DRV-F01P', 'donor adapter', '14 N·m', '18 N·m', '22 N·m'):
+        assert stale not in serialized, stale
+    assert '470±0.8 mm' in rows['2']['clearance_tolerance'] and '700±0.8 mm' in rows['2']['clearance_tolerance']
+    assert 'U95_A+U95_B≤1.0 mm' in rows['2']['pass_fail']
     assert 'SYS-12' in rows['10']['fasteners'] and rows['10']['pass_fail'].startswith('HOLD')
     assert rows['13']['pass_fail'].startswith('HOLD')
     assert 'cold axial free travel≥1.50 mm' in rows['11']['clearance_tolerance']

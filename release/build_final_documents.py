@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""v0.8 최종 벡터 도면, 전장 schedule, 매뉴얼과 시운전 문서를 생성한다."""
+"""v0.8 최종 벡터 도면, 조립 매뉴얼과 시운전 문서를 생성한다.
+
+Electrical/firmware release는 `release/build_electrical_firmware_release.py`만 생성한다.
+"""
 
 from __future__ import annotations
 
 import csv
 import json
 import os
-import re
 import subprocess
-import sys
 from pathlib import Path
 
 from build_bom_release import assembly_step_number, fastener_step_number, fasteners
@@ -16,7 +17,6 @@ from build_bom_release import assembly_step_number, fastener_step_number, fasten
 ROOT = Path(__file__).resolve().parents[1]
 FINAL = ROOT / "docs/final"
 DRAW = ROOT / "docs/drawings"
-ELEC = ROOT / "exports/final/electrical"
 REV = "final-design-fabrication-closure-v0.8"
 
 DRAWINGS = [
@@ -68,17 +68,17 @@ DRAWING_META = {
 ASSEMBLY_FIELDS = ("step_number", "part_ids_quantity", "required_tools", "fasteners", "torque", "orientation", "clearance_tolerance", "drawing", "inspection_method", "pass_fail", "next_prerequisite")
 ASSEMBLY_STEPS = [
     (1, "BOM/revision traveler ×1", "document viewer; caliper", "N/A", "N/A—document gate", "v0.8 identifiers visible", "all files same revision", "GA-001", "hash and revision cross-check", "all required files present", "parts kitting"),
-    (2, "FR profiles ×28; corner brackets ×28", "square; 3/5 mm hex", "M5x12/washer/T-nut joint kits ×56", "M5 5 N·m", "470×700 base square", "squareness ≤0.50/700 mm", "FR-001", "56 witness marks; diagonal and rocking measurement", "both diagonals within 1 mm", "table anchors"),
+    (2, "FR profiles ×28; corner brackets ×28", "square; long steel tape/rule; 3/5 mm hex", "M5x12/washer/T-nut joint kits ×56", "M5 5 N·m", "470×700 base square", "base X470±0.8 mm; Y700±0.8 mm; rail squareness≤0.50/700 mm; all numeric limits include U95", "FR-001", "56 witness marks; independent X/Y and two-diagonal measurements with evidence hash; rocking check", "|diagonal A-B|+U95_A+U95_B≤1.0 mm; no rocking", "table anchors"),
     (3, "FR-ANCHOR-01 ×4", "8 mm socket; torque wrench", "M8 anchors ×4", "M8 20 N·m provisional", "load path into table", "no gap; frame level ≤0.5°", "FR-001", "witness mark and level", "four anchors engaged", "shredder frame"),
     (4, "CUT-03/CUT-08 plates ×2 each; CUT-09 sleeves ×4; G1J-10 feet ×4", "square; 3/5 mm hex; 10 mm socket/spanner; torque wrench", "bearing retainer M4 ×12; FST-21 M6×170 class10.9 ×4; FST-02/FST-03 M6×20 class8.8 ×16", "retainer M4 3 N·m; chamber tie M6 7 N·m; foot joints M6 9 N·m", "bearing datums inward; four CUT-09 steel sleeves span the128 mm inner-face gap; four chamber ties pass through both CUT-03 plates and sleeves; upper two also pass through PPR-C02 clearance holes without clamping the polymer; each plate mounts to two G1J-10 steel feet and the feet mount to G1J-01/profile", "shaft centres48.00±0.03 mm; inside plate gap128.00±0.06 mm; four-sleeve matched length spread≤0.03 mm; plate perpendicularity≤0.20/125", "SH-001/SH-003", "CMM/caliper centre distance and inside gap at four tie positions; verify every sleeve is metal-to-metal seated; 12 retainer +4 tie +16 foot-joint witness marks", "pair parallel; retainer clears seal/inner ring; no printed part lies in chamber or plate-to-profile compression path", "bearings/shafts dry-fit"),
     (5, "CUT-05 ×1; CUT-05R ×1; SKF 61905-2RS1 ×4; CUT-10 ×4", "arbor press; micrometer; optical index", "Ø25 metal collars", "collar screw per maker", "left key datum0°; right all-key datum25.714°", "Ø25 h6; key clock±0.02°; TIR≤0.05 mm", "SH-003", "micrometer, optical comparator and dial indicator", "free rotation without preload; CUT-10 contacts outer ring only", "cutter stack"),
     (6, "CUT-01 ×12; numbered CUT-02 ×10", "shim set; feeler gauge", "keys and 0.05/0.10/0.25 mm metal shims", "collars per drawing", "install each spacer at its engraved shaft/position; hooks counter-rotate; phase offset", "all 11 axial gaps 0.25–0.50 mm over one full rotation", "SH-002", "feeler sweep every gap, then hand rotate 20 revolutions; record position map", "all gaps accepted; no disc/static contact", "phase drive"),
-    (7, "DRV-01/A60/F01/02; DRV-03/DRV-03R solid gears ×1 each", "straightedge; dial; optical index; torque wrench", "phase gear M4 ×4; sprocket M6 ×4", "phase M4 3 N·m; sprocket M6 10 N·m", "12T:30T with one #35 40-pitch endless loop; set C≈86.17 in slot range81–99; solid18 left/right gears; right gear keyway14.464° to tooth datum; DRV-F01P coupons are qualification/replacements; donor adapter stays HOLD until measured", "pair backlash0.120–0.140 mm; combined digital phase≤1.0°; chain alignment≤0.20/150 mm; midspan slack2–3%; no tight spot in20 hand turns", "SH-004", "CMM/blue check, optical clocking and hand rotation", "matched keyed path; no friction-only joint; physical fit and shear coupon pending", "shredder guard"),
+    (7, "GGM shredder drive set; DRV-02/DRV-03/DRV-03R", "straightedge; dial; optical index; torque wrench; receipt packet", "phase gear M4 ×4; sprocket M6 ×4", "phase M4 3 N·m; sprocket M6 10 N·m", "K9DG60N2+K9G75C → keyed GGM protection coupling → 6201-supported jackshaft → #35 12T:30T → DRV-02; DRV-03/DRV-03R retain cutter phase; mount drilling follows authenticated PCD/output-offset receipt gate", "GGM mount as-drawn compatibility required; pair backlash0.120–0.140 mm; combined digital phase≤1.0°; chain alignment≤0.20/150 mm; midspan slack2–3%; no tight spot in20 hand turns", "SH-004 + GGM manufacturing r2", "authenticated receipt and mount-compatibility result; blue-check keys; optical clocking; hand rotation; P3 current/torque/protection evidence", "HOLD: GGM receipt/mount compatibility and P3 physical bench remain NOT_RUN; no friction-only joint", "shredder guard"),
     (8, "DRV-GD-01 and interlock ×1", "2.5/3 mm hex; gap probe", "M4 guarded fasteners", "M4 3 N·m", "cover removable only under lockout", "hazard opening≤6 mm", "GD-001", "reach probe and switch actuation", "no reach path; forced-open works", "feed path"),
     (9, "IN-HOP-01/CUT-04/FD-HOP-01 ×1 set", "riveter; 3 mm hex", "M4/rivets", "M4 3 N·m", "flow down into screen", "cutter/static clearance≥1.90 mm", "FD-001/FD-002", "feeler gauge and burr check", "no sharp edge or cutter contact", "flake bin"),
     (10, "FD-BIN-01/FD-MET-01..03/FD-DA-01/FD-CP-01 ×1 set", "caliper; bore gauge; 3 mm pin punch; dial indicator", "SYS-15 Ø3x12 lower + Ø3x18 upper spring pins; M4/M6 mount hardware", "SYS-15 N/A; mount torque receipt-gated", "key EG17-G10 into FD-CP-01; install both matched pins; bolt FD-DA-01 only to metal frame", "auger radial clearance0.20–0.25; coupling diametral clearance0.050–0.102; gearbox axis≤0.10 mm", "FD-003", "pin gauge/micrometer; coupling TIR; 10 hand turns; 2.2 N.m torque-arm and 24 PPR tach test", "digital reference defined; purchase/receipt and physical tests remain HOLD", "extruder support"),
     (11, "rear datum/front guide/rail/collar/retainer ×1; matched spacer ×2", "dial indicator; 3/4 mm hex; torque wrench", "M5 hot-mount hardware ×4; M4×25 class8.8 ×2", "M5 2.5 N·m; dry M4 2.9 N·m candidate", "integral shoulder captured by rear retainer through 4.20 mm matched spacers; front radial sliding", "axis≤0.20/390; cold axial free travel≥1.50 mm; cold endplay 0.12–0.28 mm; first thermal cycle hard-stop contact 0", "EX-001", "dial sweep, feeler/endplay and travel gauge; record material certificate and torque witness; first authorized thermal cycle records axial motion/hard-stop clearance", "digital geometry/strength PASS; physical endplay, preload retention and thermal-cycle inspection NOT_RUN", "physical inspection approval before screw/barrel"),
-    (12, "EX-THR-01/EX-SCR-01/EX-BAR-01/NSK 51102 ×1 set", "micrometer; bore/depth gauge; dial indicator; torque wrench", "M6×20 class 8.8 thrust-plate fasteners ×8; 0.05–0.30 mm ground steel shim selection", "M6 9 N·m", "51102 shaft washer against integral Ø23 shoulder; housing washer in marked-face pocket; donor coupling remains uninstalled", "screw/barrel diametral0.28–0.32 mm; pocket diametral0.30–0.35 mm; loaded-direction endplay0.05–0.15 mm", "EX-002", "bearing marking/height, seat/pocket/abutment limits, blue-check washer ribs, three-station bore/OD, dial endplay and free rotation", "digital dimensions PASS; receipt/endplay/hot rotation NOT_RUN; donor adapter IF-008 HOLD", "die/hot zone"),
+    (12, "EX-THR-01/EX-SCR-01/EX-BAR-01/NSK 51102 + GGM extruder drive ×1 set", "micrometer; bore/depth gauge; dial indicator; torque wrench; receipt packet", "M6×20 class 8.8 thrust-plate fasteners ×8; 0.05–0.30 mm ground steel shim selection", "M6 9 N·m", "51102 shaft washer against integral Ø23 shoulder; housing washer in marked-face pocket; K9DG60N2+K9G150C direct keyed protection coupling with 6201 rear radial support; gearbox carries no extrusion thrust", "screw/barrel diametral0.28–0.32 mm; pocket diametral0.30–0.35 mm; loaded-direction endplay0.05–0.15 mm; GGM mount as-drawn compatibility required", "EX-002 + GGM manufacturing r2", "bearing marking/height, seat/pocket/abutment limits, blue-check washer ribs, three-station bore/OD, dial endplay/free rotation, authenticated GGM receipt/mount result and P3 drive evidence", "HOLD: digital dimensions PASS; GGM receipt/mount/P3 drive evidence, physical endplay and hot rotation remain NOT_RUN", "die/hot zone"),
     (13, "EX-DIE-01..05; heater/TC ×1 set", "insulation meter; torque wrench; depth gauge; 0.05 mm feeler; 20 N pull gauge", "M4x45 class 10.9 SHCS cut/deburred to 42.5 +/-0.1 ×4; M4 retainer screws ×2; SYS-17 M3×8 ×8", "SYS-04 1.50 N·m dry design torque; SYS-17 0.5 N·m", "band free-state ID34.10–34.20; usable closure≥1.00; EX-DIE-05 issued2; TH-TC-01 Tempco MTA1 T1–T4 with supplier-welded stops", "band closure reserve≥0.25 mm; T1–T3 probe Ø3.00±0.03 in bore3.20–3.25, stop5.20±0.05, tip gap0.10–0.30; T4 stop10.00±0.05 in depth11.95–12.05; TH-TCR-01 bridge captures collar; never clamp MI sheath", "EX-002/EX-003", "verify band contact; vendor drawing; probe dimensions and ≥100 MΩ at100 VDC; 20 N pull motion≤0.10 cold/hot; coupon bias≤2°C and t90≤30s; SYS-04 physical receipt/leak/first thermal cycle remains NOT_RUN", "HOLD: supplier drawing, receipt/thermal tests and band contact; SYS-04 digital load-path PASS but physical receipt/leak/first thermal cycle NOT_RUN", "센서 수령시험 및 체결 HOLD 해소 전 다음 단계 진행 금지"),
     (14, "CO-01/CO-02 ×1 set", "calibrated anemometer; 3 mm hex", "M4 clamps", "M4 3 N·m", "airflow across strand away from hot zone", "strand centreline≤0.50 mm", "FM-001", "route and service removal check", "no hot contact; feedback wired", "gauge"),
     (15, "gauge mechanism ×1", "gauge block; caliper", "M3 hardware", "M3 1.2 N·m", "U95 axes normal to strand", "datum alignment≤0.10 mm", "FM-002", "gauge block repeatability check", "mechanical repeatability recorded", "puller"),
@@ -108,7 +108,7 @@ def typ(title: str, body: str) -> str:
 #let danger(body) = block(width: 100%, fill: rgb("ffece5"), stroke: 1pt + rgb("c5482e"), inset: 7pt, body)
 #let gate(body) = block(width: 100%, fill: rgb("eaf3f7"), stroke: 1pt + rgb("33738b"), inset: 7pt, body)
 = {title}
-#danger[*물리 검증·안전 인증·통전 승인이 아니다.* E-stop, lid/service interlock, branch fuse, 독립 thermal fuse를 정상 firmware와 독립 구현하고 exact donor 정격·배선·보호소자를 실측 확인하기 전 통전하지 않는다.]
+#danger[*물리 검증·안전 인증·통전 승인이 아니다.* E-stop, lid/service interlock, branch fuse, 독립 thermal fuse를 정상 firmware와 독립 구현하고 exact received component 정격·배선·보호소자를 실측 확인하기 전 통전하지 않는다.]
 Revision: `{REV}` · 상태: `DIGITAL_DOCUMENT / PHYSICAL_NOT_RUN / USER_APPROVAL_REQUIRED`
 
 {body}
@@ -161,45 +161,6 @@ def drawing_set(commit: str) -> None:
     src = FINAL / "assembly_drawing_set.typ"
     write(src, typ("v0.8 치수·검사 조립 도면 세트", "\n\n".join(pages[:-1])))
     compile_typ(src)
-
-
-def electrical() -> None:
-    ELEC.mkdir(parents=True, exist_ok=True)
-    with (ELEC / "wire_schedule.csv").open("w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh, lineterminator="\n"); w.writerow(("wire_id", "from", "to", "voltage", "maximum_current", "wire_gauge", "colour", "connector", "terminal", "fuse", "routing", "shield_ground", "strain_relief")); w.writerows(WIRES)
-    connectors = sorted({(r[7], r[8], r[1], r[2], "exact MPN and mating retention USER_VERIFICATION_REQUIRED") for r in WIRES})
-    with (ELEC / "connector_schedule.csv").open("w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh, lineterminator="\n"); w.writerow(("connector_id", "terminal", "from", "to", "verification")); w.writerows(connectors)
-    with (ELEC / "fuse_schedule.csv").open("w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh, lineterminator="\n"); w.writerow(("fuse_id", "branch", "rating", "basis", "verification")); w.writerows(FUSES)
-
-    pin_text = (ROOT / "firmware/arduino_mega/src/board_config.h").read_text()
-    pins = re.findall(r"constexpr uint8_t ([A-Z0-9_]+) = ([A-Z0-9]+);", pin_text)
-    pin_rows = "\n".join(f"- `{name}` → `{pin}`" for name, pin in pins)
-    common = '''
-== 설계 기준
-
-`24 V / 600 W PSU (25 A)` → main fuse → 분기 보호. Hazardous motion/heater permission은 `E-stop → lid → service guard → independent thermal cutoff → safety contactor`의 hardwired normally-safe chain이다. Mega는 feedback만 읽으며 chain을 우회하지 않는다. Protective earth는 frame과 metal hot shield에 전용 bond한다.
-
-== 통전 전 gate
-
-- exact PSU/driver/MOSFET/fuse/connector 정격과 DC 차단능력 확인
-- 각 conductor ampacity·온도·길이·전압강하를 현지 규정과 donor stall current로 재계산
-- PE continuity, insulation, polarity, branch isolation, forced-open interlock 시험 기록
-- logic-only → motor → heater 순으로 별도 사용자 승인; power restore 자동 재기동 금지
-'''
-    docs = {
-        "system_block_diagram": common + "\n== 블록\n\n`AC inlet/main switch → verified PSU → main fuse → logic / hardwired safety chain → motor, heater, fan branches`\n\nSensors → protected interfaces → Arduino Mega; commands → drivers only while hardware permission is present.",
-        "power_distribution": common + "\n== 분배\n\nMain 24 V bus에서 logic, shredder, screw/feeder, heater 4채널, puller/spooler, fan을 각각 fuse로 분리한다. Software aggregate heater cap 500 W와 reserve 100 W는 물리 fuse를 대체하지 않는다.",
-        "full_wiring_diagram": common + "\n== 배선 기준\n\n모든 active conductor는 `wire_schedule.csv`, connector는 `connector_schedule.csv`, 보호소자는 `fuse_schedule.csv`와 일치해야 한다. Heater/motor와 thermocouple/gauge/tach route를 분리한다.",
-        "safety_chain": common + "\n== 안전 chain truth table\n\nE-stop, lid, service guard, thermal chain 중 하나라도 open이면 safety contactor가 de-energize되어 heater와 hazardous motion enable을 물리 제거한다. Welded contact/command-feedback mismatch는 latch하며 physical lockout key 없이 clear하지 않는다.",
-        "Arduino_Mega_pinmap": common + "\n== `board_config.h` exact pin map\n\n" + pin_rows + "\n\nArray pin groups와 analog pins는 source header가 최종 기준이다. 활성 FD-MET 동축 auger/agitator 기준 drive는 D44 STEP, D42 DIR, D46 ENA, D47 ALM, A7 24 PPR tach를 사용한다.",
-        "grounding_bonding": common + "\n== PE와 shield\n\nAC inlet PE → dedicated frame stud → enclosure, motor frames, metal hot shield. Paint를 제거하고 tooth washer를 사용하며 각 bond를 개별 continuity 측정한다. Signal shield는 지정된 한쪽 끝만 접지하고 PE conductor로 사용하지 않는다.",
-        "enclosure_layout": common + "\n== 물리 구획\n\nAC/PSU와 DC high-current, heater MOSFET/driver, safety contactor, logic/sensor 영역을 분리한다. Fuse는 접근 가능한 표찰 위치, PE stud는 독립 위치, duct fill과 bend radius는 exact wire 선정 후 확인한다.",
-        "cable_routing": common + "\n== route\n\nHot-zone cable은 300 °C급 sleeve 후보와 metal clamp를 사용하고 moving cable은 full service envelope에서 strain relief를 확인한다. Thermocouple/tach/gauge는 heater PWM·motor와 분리하며 solid·sharp edge 관통을 금지한다.",
-    }
-    for name, body in docs.items():
-        path = ELEC / f"{name}.typ"; write(path, typ(name.replace("_", " "), body)); compile_typ(path)
 
 
 def assembly_rows() -> list[dict[str, str]]:
@@ -271,7 +232,7 @@ def manuals() -> None:
         "exploded_views_ko": "== 조립 순서\n\nFrame → shredder frame → bearing/shaft → cutter stack → phase gear/chain/motor/shear fuse → screen/recirculation/hopper → flake bin → feeder → extruder/thrust → heater/sensor/die → hot shield → cooling → gauge → puller → spooler/traverse → guards → enclosure → wiring → firmware → calibration → dry checks.\n\n각 단계의 형상은 `assembly_drawing_set.pdf` 해당 도면 번호를 사용한다. 고하중 경로는 metal part → bearing/plate → aluminum profile → table이다.",
         "tolerance_and_fit_guide_ko": "== 기준\n\n" + interface_summary + "\n\n`exports/final/interface_catalog.csv`가 critical interface별 nominal/tolerance/검사법과 source HOLD를 지배한다. HOLD 또는 NOT_EVALUATED 행은 조립·가공 승인 기준이 아니다. Cutter/blade clearance는 출력 공차가 아닌 ground metal shim으로 조절한다. Bearing seat, die insert, screw/barrel cold/hot clearance, rear datum/front sliding travel을 조립 전 측정한다.\n\n#gate[측정기 ID·교정상태·온도·실측값을 기록하고 허용범위를 벗어나면 임의 rework 대신 source parameter와 도면 revision을 갱신한다.]",
         "electrical_assembly_ko": "== 순서\n\nPE bond → PSU 미통전 설치 → branch fuse → hardwired safety chain → drivers/MOSFET → logic → sensors → cable clamp 순이다. `exports/final/electrical`의 세 CSV와 8개 벡터 PDF를 작업표로 사용한다.\n\n#gate[전원 분리 상태에서 PE continuity, insulation, polarity, fuse/terminal ID, forced-open safety contact를 독립 검사한다.]",
-        "firmware_and_calibration_ko": "== Firmware\n\nReleased HEX는 `exports/final/firmware/binaries/filament_recycler_atmega2560.hex`; build evidence는 `validation/results/arduino_mega_compile.json`이다. Source/HEX hash 일치를 검증하고 Mega 2560 target/fuse setting을 확인한다.\n\n== Calibration\n\nDonor label 확인 후 shredder current/RPM, screw tach, puller/spooler tach, traverse limits, X/Y gauge U95, dancer, cooling current와 fan tach를 각각 교정한다. EEPROM CRC/revision/unit/range가 유효하지 않으면 production ready를 금지한다.",
+        "firmware_and_calibration_ko": "== Firmware\n\nReleased HEX는 `exports/final/firmware/binaries/filament_recycler_atmega2560.hex`; build evidence는 `validation/results/arduino_mega_compile.json`이다. Source/HEX hash 일치를 검증하고 Mega 2560 target/fuse setting을 확인한다.\n\n== Calibration\n\nReceived GGM label/serial을 receipt packet과 대조한 뒤 A0 shredder current, A9 extruder current, shredder/screw tach, puller/spooler tach, traverse limits, X/Y gauge U95, dancer, cooling current와 fan tach를 각각 교정한다. EEPROM CRC/revision/unit/range가 유효하지 않으면 production ready를 금지한다.",
         "maintenance_manual_ko": """== Lockout
 
 Main disconnect OFF, 0 V 확인과 재투입 방지, cutter/screw mechanical block 및 사용자 확인 뒤 작업한다. E-stop만으로 jam을 제거하지 않는다. 잔류 압력과 저장 에너지를 해제하고 충분히 냉각한다. 기존 60 °C 기준만으로 접촉 안전을 보증하지 않으며, 온도 표시값만으로 내부 냉각 완료를 판단하지 않는다.
@@ -302,7 +263,7 @@ def commissioning() -> None:
 
     items = {
         "pre_power_checklist_ko": procedure(
-            "Released BOM/도면, 교정 유효 DMM·절연계·토크렌치, exact donor label, 미통전·lockout 상태.",
+            "Released BOM/도면, 교정 유효 DMM·절연계·토크렌치, exact received component label/serial, 미통전·lockout 상태.",
             "25개 assembly traveler와 witness mark를 대조하고 cutter/screw를 손으로 20회 회전한다. PE, 극성, fuse ID, connector, strain relief를 point-to-point 검사한다.",
             "서명 traveler, donor-label 사진, torque/치수표, PE·절연·극성 원시 측정 CSV.",
             "PE bond 각 경로 ≤0.10 Ω; 전자장치 분리 후 500 VDC 절연 ≥1 MΩ; shaft centre 48.00±0.03 mm; feeder radial clearance 0.20–0.25 mm; screw TIR ≤0.10 mm; 미확정 donor 0건."),
@@ -322,10 +283,10 @@ def commissioning() -> None:
             "Zone별 command/온도 250 ms log, reference-probe 비교, cutoff 개방 trace, hot-zone travel 측정.",
             "TC mapping 오류 0건; valid range -20–300 °C; 120 s 가열 명령에서 최소 +4 °C 아니면 fault; command-off 60 s 동안 +8 °C면 fault; software overtemperature 285 °C 이전 차단; cold axial travel ≥1.50 mm."),
         "shredder_commissioning_ko": procedure(
-            "Gate-1의 정확히 2장 cutter coupon, closed guard, calibrated torque/current/RPM, PLA 1.2/2.0/3.0 mm와 PET body/folded-seam coupon.",
-            "No-load 뒤 재료별 14 N·m 연속, 18 N·m jam trip, 22 N·m cutter-equivalent shear element를 단계적으로 시험한다. Full stack은 이 gate에서 조립하지 않는다.",
-            "Torque/current/RPM CSV, jam-stop timestamp, chip-size 사진, shear coupon 파단 사진과 serial.",
-            "PLA 32 rpm/PET 24 rpm 목표의 ±10%; 14 N·m 연속 안정; 18 N·m에서 250 ms 이내 stop; 22 N·m 이하에서 replaceable shear element가 34 N·m phase pair보다 먼저 분리; guard 이탈 0건."),
+            "P3 physical release PASS, 정확히 2장 CUT-01 P4 coupon, closed GGM guards, calibrated A0 current/torque/RPM, PLA 1.2/2.0/3.0 mm와 PET body/folded-seam coupon.",
+            "No-load에서 약 16 rpm cutter speed를 기록한 뒤 P4 재료 coupon을 낮은 투입률로 시험한다. P3에서 보정한 software gearbox torque limit 8.0 N·m가 정상 처리 중 반복되면 feed를 낮추고 원인을 기록하며 보호값을 올리지 않는다. Controlled jam은 bounded reverse 최대 3회 후 미복구 시 latched fault로 끝내고 자동 재시작을 허용하지 않는다. 8.8–9.3 N·m mechanical protection은 P3에서 독립 quasi-static coupon으로 선행 검증한다. Full 12-disc stack은 P4 PASS 전 제작/조립하지 않는다.",
+            "P3 release/evidence manifest, P4 torque-current-RPM CSV, jam recovery log, chip-size/회수율 기록, guard/interlock 및 손상 검사 사진.",
+            "영구 구조·key·guard 손상 0건; jam retry≤3이고 미복구 3차 실패는 latched fault; 자동 재시작 0건; oversize recirculation≤1; 3–6 mm 질량분율≥70%, >20 mm PET strip≤2%, fines≤15%, 회수율≥95%. P3 mechanical protection은 U95 포함 8.8–9.3 N·m 및 파단 후 자유회전/허브·키 무손상."),
         "PLA_process_startup_ko": procedure(
             "확인된 단일 PLA lot, 외부 건조 coupon, clean path, calibrated T1–T5/gauge/tach/cooling.",
             "180/195/205 °C barrel과 200 °C die가 ±5 °C band에 든 뒤 low feed로 시작하고 10 s 안정 구간 20개 sample을 기록한다.",
@@ -351,7 +312,7 @@ def commissioning() -> None:
         ("assembly incomplete", "assembly complete", "all 25 assembly_steps rows signed; dimensions and guards inspected", "independent mechanical reviewer + user", "NOT_RUN"),
         ("assembly complete", "electrical inspection complete", "PE continuity, insulation, polarity, fuse IDs and point-to-point wiring PASS", "qualified electrical reviewer + user", "NOT_RUN"),
         ("electrical inspection complete", "safe for low-voltage logic", "current-limited logic rail; hardwired chain forced-open; outputs safe at reset", "electrical reviewer + user", "NOT_RUN"),
-        ("safe for low-voltage logic", "safe for motors", "donor labels/ratings confirmed; direction, current, tach and stop tests one branch at a time", "mechanical/electrical reviewers + user", "NOT_RUN"),
+        ("safe for low-voltage logic", "safe for motors", "received GGM/driver labels and ratings confirmed; P3 current/torque protection evidence; direction, tach and stop tests one branch at a time", "mechanical/electrical reviewers + user", "NOT_RUN"),
         ("safe for motors", "safe for heaters", "empty guarded hot path; independent thermal cutoff; TC mapping; low-power ramp", "thermal/electrical reviewers + user", "NOT_RUN"),
         ("safe for heaters", "safe to process plastic", "Gate 1–4 evidence PASS; leak/relief/strand control verified; material lot and purge path ready", "final safety review + explicit user approval", "NOT_RUN"),
     ]
