@@ -138,6 +138,8 @@ def main():
         "validation/physical_v08/test_p8_firmware_commissioning.py",
         "validation/physical_v08/analyze_p8_records.py",
         "validation/physical_v08/test_p8_execution.py",
+        "validation/physical_v08/validate_p8_stage_release.py",
+        "validation/physical_v08/templates/p8_stage_release.json",
         "validation/physical_v08/templates/p8_motor_dry_run.csv",
         "validation/physical_v08/templates/p8_tach_calibration.csv",
         "validation/physical_v08/templates/p8_firmware_installation.csv",
@@ -183,7 +185,10 @@ def main():
     assert "build_p3_firmware_profile.py" in p3_doc and "p8_entry_prerequisite`는 false" in p3_doc
     p8_registry = next(stage for stage in registry["stages"] if stage["id"] == "P8")
     assert p8_registry["firmware_commissioning_validator"] == "validate_p8_firmware_commissioning.py"
+    assert p8_registry["stage_release_validator"] == "validate_p8_stage_release.py"
     assert "templates/p8_tach_calibration.csv" in p8_registry["templates"] and "templates/p8_firmware_installation.csv" in p8_registry["templates"]
+    p8_release = j("validation/physical_v08/templates/p8_stage_release.json")
+    assert p8_release["status"] == "NOT_RUN" and p8_release["heater_energization_authorized"] is False and p8_release["machine_release"] == "HOLD"
     p8_fw = (ROOT / "validation/physical_v08/validate_p8_firmware_commissioning.py").read_text(encoding="utf-8")
     assert "FIRMWARE_COMMISSIONING_RECORD_CHECK_PASS" in p8_fw and "GGM_REPORT" in p8_fw and "flash readback" in p8_fw
     p8_analyzer = (ROOT / "validation/physical_v08/analyze_p8_records.py").read_text(encoding="utf-8")

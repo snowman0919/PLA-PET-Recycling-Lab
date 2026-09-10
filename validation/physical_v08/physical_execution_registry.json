@@ -121,9 +121,11 @@
       "templates": [
         "templates/p8_motor_dry_run.csv",
         "templates/p8_tach_calibration.csv",
-        "templates/p8_firmware_installation.csv"
+        "templates/p8_firmware_installation.csv",
+        "templates/p8_stage_release.json"
       ],
-      "firmware_commissioning_validator": "validate_p8_firmware_commissioning.py"
+      "firmware_commissioning_validator": "validate_p8_firmware_commissioning.py",
+      "stage_release_validator": "validate_p8_stage_release.py"
     },
     {
       "id": "P9",

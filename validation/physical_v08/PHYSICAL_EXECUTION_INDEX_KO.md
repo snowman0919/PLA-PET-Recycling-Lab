@@ -12,7 +12,7 @@
 | P5 | SCREW_BARREL_PROCESS_COUPON | `P5_PROCESS_COUPON_KO.md` | `analyze_p5_records.py` | `NOT_RUN` |
 | P6 | COLD_EXTRUDER_ASSEMBLY | `P6_COLD_EXTRUDER_KO.md` | `analyze_p6_records.py` | `NOT_RUN` |
 | P7 | ELECTRICAL_SAFETY_AND_LOGIC | `P7_ELECTRICAL_SAFETY_KO.md` | `analyze_p7_records.py` | `NOT_RUN` |
-| P8 | INSTALLED_MOTOR_DRY_RUN | `P8_INSTALLED_MOTOR_DRY_RUN_KO.md` | firmware calibration/readback gate -> `analyze_p8_records.py` | `NOT_RUN` |
+| P8 | INSTALLED_MOTOR_DRY_RUN | `P8_INSTALLED_MOTOR_DRY_RUN_KO.md` | firmware calibration/readback -> records -> `validate_p8_stage_release.py` | `NOT_RUN` |
 | P9 | EMPTY_HOT_ZONE | `P9_EMPTY_HOT_ZONE_KO.md` | `analyze_p9_records.py` | `NOT_RUN` |
 | P10 | PLA_LOW_FEED | `P10_P11_MATERIAL_RUN_KO.md` | `analyze_material_run.py` | `NOT_RUN` |
 | P11 | PET_LOW_FEED | `P10_P11_MATERIAL_RUN_KO.md` | `analyze_material_run.py` | `NOT_RUN` |

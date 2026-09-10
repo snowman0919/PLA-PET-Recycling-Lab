@@ -211,7 +211,7 @@
         "GGM shredder/extruder measured current including U95 remains <=6.0 A"
       ],
       "unlocks": [
-        "P9 heater commissioning"
+        "P9 empty-hot-zone entry review only; heater power remains separately approved"
       ]
     },
     {
@@ -219,11 +219,12 @@
       "name": "EMPTY_HOT_ZONE",
       "action": "empty guarded hot-path thermal commissioning; motors inhibited",
       "prerequisites": [
-        "P7 PASS",
+        "P7_STAGE_RELEASE_VALIDATED for electrical safety/logic",
+        "P8_STAGE_RELEASE_VALIDATED for installed motor dry-run state",
         "heater/probe receipt PASS",
         "independent thermal cutoff installed",
         "metal hot shield and remote stop available",
-        "user heater-power approval"
+        "explicit user heater-power approval recorded for this P9 run"
       ],
       "acceptance": [
         "T1-T5 mapping verified and no sensor open/short fault",

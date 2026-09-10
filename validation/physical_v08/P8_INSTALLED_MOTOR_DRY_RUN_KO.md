@@ -17,3 +17,7 @@ P8은 P3에서 교정한 GGM 구동계를 실제 machine load path에 장착한 
 P3의 review-only profile을 사람이 검토해 실제 `firmware/ggm_drive_v08/ggm_commissioning.h`에 적용하고 새 final HEX를 생성한 뒤에도, 파일이 존재한다는 사실만으로 P8 진입 조건이 되지 않는다. SH/EX tach는 logic-only/lockout 상태에서 각각 최소 10회 수동 회전해 실제 pulse 수를 세고 `templates/p8_tach_calibration.csv`에 기록한다. 특정 PPR 값을 문서에서 가정하지 않고 `observed_pulses / manual_revolutions`가 양의 정수로 귀결되는지 확인한다.
 
 Flash 후에는 MCU의 읽기 전용 `GGM_REPORT` 한 줄과 실제 flash readback HEX를 원시 evidence로 저장한다. `templates/p8_firmware_installation.csv`는 이 두 파일의 repository 경로와 SHA-256, 작업자·독립 검토자·timezone 포함 시각을 가리킨다. `validate_p8_firmware_commissioning.py`는 P3 release, candidate profile, 적용된 commissioning header, variant/final build manifest, final HEX, flash readback, `GGM_REPORT`, tach calibration을 모두 교차검증한다. `FIRMWARE_COMMISSIONING_RECORD_CHECK_PASS`여도 motor/heater authorization은 false이고 machine release는 HOLD다.
+
+## P8 완료 release
+
+P8 analyzer 결과가 통과한 뒤에는 `templates/p8_stage_release.json`에 exact P3/P6/P7 release, firmware profile manifest, tach calibration, firmware-installation record, P8 raw record/result의 SHA-256과 독립 검토 정보를 기록한다. `validate_p8_stage_release.py`가 현재 P8 analyzer로 전체 chain을 재계산해 `P8_STAGE_RELEASE_VALIDATED`를 낸 경우에만 P9 진입 검토에 사용할 수 있다. 이 artifact도 heater energization을 승인하지 않는다.

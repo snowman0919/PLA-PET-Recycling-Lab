@@ -2,6 +2,7 @@
 import csv
 import hashlib
 import importlib.util
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -16,6 +17,7 @@ def load(name):
 
 
 P8 = load("analyze_p8_records")
+P8REL = load("validate_p8_stage_release")
 
 
 def digest(path):
@@ -53,7 +55,7 @@ def fixture(run: Path):
     releases = {}
     for stage in ("p3", "p6", "p7"):
         path = run / f"{stage}_release.json"; path.write_text("{}\n"); releases[stage] = path
-    profile = run / "profile"; profile.mkdir()
+    profile = run / "profile"; profile.mkdir(); (profile / "manifest.json").write_text("{}\n")
     tach = run / "tach.csv"; tach.write_text("synthetic\n")
     install = run / "install.csv"; install.write_text("synthetic\n")
     return record, releases, profile, tach, install
@@ -71,6 +73,10 @@ def run_eval(record, releases, profile, tach, install, *, p6_ok=True):
     )
 
 
+def stage_analyzer(record, p3, p6, p7, profile, tach, install):
+    return run_eval(record, {"p3": p3, "p6": p6, "p7": p7}, profile, tach, install)
+
+
 class P8ExecutionTest(unittest.TestCase):
     def test_authenticated_motor_record_passes_without_continuing_authority(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:
@@ -79,6 +85,31 @@ class P8ExecutionTest(unittest.TestCase):
             self.assertTrue(result["input_motor_power_approval_recorded"])
             self.assertFalse(result["stage_p8_pass"]); self.assertFalse(result["hardware_authorization"])
             self.assertFalse(result["heater_energization_authorized"]); self.assertEqual(result["machine_release"], "HOLD")
+
+    def test_p8_stage_release_revalidates_exact_chain(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            run = Path(td); record, releases, profile, tach, install = fixture(run)
+            result = run_eval(record, releases, profile, tach, install)
+            result_path = run / "p8_result.json"; result_path.write_text(json.dumps(result, indent=2) + "\n")
+            release = {
+                "stage": "P8", "status": "PASS", "release_scope": "P8_DRY_RUN_COMPLETE_P9_ENTRY_ONLY",
+                "approved_by": "ENGINEER-A", "independent_reviewer": "REVIEWER-B",
+                "reviewed_at": "2026-09-10T19:10:00+09:00",
+                "p3_release": releases["p3"].name, "p3_release_sha256": digest(releases["p3"]),
+                "p6_release": releases["p6"].name, "p6_release_sha256": digest(releases["p6"]),
+                "p7_release": releases["p7"].name, "p7_release_sha256": digest(releases["p7"]),
+                "profile_dir": profile.name, "profile_manifest_sha256": digest(profile / "manifest.json"),
+                "tach_calibration": tach.name, "tach_calibration_sha256": digest(tach),
+                "firmware_installation": install.name, "firmware_installation_sha256": digest(install),
+                "p8_record": record.name, "p8_record_sha256": digest(record),
+                "p8_result": result_path.name, "p8_result_sha256": digest(result_path),
+                "p9_entry_review": True, "heater_energization_authorized": False, "machine_release": "HOLD",
+            }
+            release_path = run / "p8_stage_release.json"; release_path.write_text(json.dumps(release, indent=2) + "\n")
+            checked = P8REL.validate(release_path, analyzer=stage_analyzer)
+            self.assertEqual(checked["status"], "P8_STAGE_RELEASE_VALIDATED"); self.assertTrue(checked["p9_entry_prerequisite"])
+            release["p8_record_sha256"] = "0" * 64; release_path.write_text(json.dumps(release, indent=2) + "\n")
+            with self.assertRaises(ValueError): P8REL.validate(release_path, analyzer=stage_analyzer)
 
     def test_motor_approval_record_is_mandatory(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:
