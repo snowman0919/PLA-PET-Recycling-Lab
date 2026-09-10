@@ -25,7 +25,7 @@ def main():
     const bool verified=GgmCommissioning::RECEIPT_LIMITER_CURRENT_AND_WIRING_VERIFIED;
     const bool sh=c.shredder_pwm!=0;
     const float amps=calibration_record.current_amps_per_count>0 ?
-        (sh ? abs(analogRead(Board::CURRENT_PIN)-calibration_record.current_zero_adc)*calibration_record.current_amps_per_count : (GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT>0 ? fabsf(analogRead(A9)-GgmCommissioning::EX_CURRENT_ZERO_ADC)*GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT : NAN)) : NAN;
+        (sh ? abs(analogRead(Board::CURRENT_PIN)-calibration_record.current_zero_adc)*calibration_record.current_amps_per_count : (GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT>0 ? fabsf(analogRead(Board::EX_CURRENT_PIN)-GgmCommissioning::EX_CURRENT_ZERO_ADC)*GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT : NAN)) : NAN;
 '''
     begin+='''    const GgmInput gi{millis(),last_tach_sample_ms,c.shredder_pwm,c.screw_pwm,
       amps,shredder_rpm,screw_rpm,
@@ -75,6 +75,7 @@ def main():
     board=OUT/'src/board_config.h';bt=board.read_text()
     bt=replace_once(bt,'constexpr uint8_t SHREDDER_PWM_PIN = 5;','constexpr uint8_t SHREDDER_LPWM_PIN = 4;\nconstexpr uint8_t SHREDDER_PWM_PIN = 5;')
     bt=replace_once(bt,'{SHREDDER_FAULT_PIN, SCREW_FAULT_PIN, PULLER_FAULT_PIN, SPOOLER_FAULT_PIN, FEEDER_FAULT_PIN}','{PULLER_FAULT_PIN, SPOOLER_FAULT_PIN, FEEDER_FAULT_PIN}')
+    bt=replace_once(bt,'constexpr uint8_t SHREDDER_FAULT_PIN = A8;\nconstexpr uint8_t SCREW_FAULT_PIN = A9;','constexpr uint8_t EX_CURRENT_PIN = A9;')
     board.write_text(bt)
 
     p=OUT/'src/generated_profiles.h';text=p.read_text()

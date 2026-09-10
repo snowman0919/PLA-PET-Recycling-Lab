@@ -111,8 +111,13 @@ def pins() -> list[tuple[str, str]]:
         raise SystemExit(f"pin parser incomplete: {len(result)}")
     # GGM/BTS7960 variant: D30/D31 legacy DIR/REVERSE are held low and not field-wired.
     result = [(name,pin) for name,pin in result if name not in {"SHREDDER_DIR_PIN", "SHREDDER_REVERSE_PIN"}]
-    if not any(name == "SHREDDER_LPWM_PIN" and pin == "4" for name,pin in result):
-        raise SystemExit("GGM shredder LPWM D4 missing from variant board_config.h")
+    required = {("SHREDDER_LPWM_PIN", "4"), ("CURRENT_PIN", "A0"), ("EX_CURRENT_PIN", "A9")}
+    missing = required - set(result)
+    if missing:
+        raise SystemExit(f"GGM variant pin contract incomplete: {sorted(missing)}")
+    forbidden = {"SHREDDER_FAULT_PIN", "SCREW_FAULT_PIN"} & {name for name,_ in result}
+    if forbidden:
+        raise SystemExit(f"legacy GGM fault pins must not be field-wired: {sorted(forbidden)}")
     return result
 
 
@@ -122,6 +127,7 @@ def signal_wires(pin_rows: list[tuple[str, str]]) -> list[dict[str, str]]:
         target_alias = {
             "SHREDDER_PWM_PIN": "Shredder RPWM", "SHREDDER_LPWM_PIN": "Shredder LPWM",
             "SCREW_PWM_PIN": "Screw RPWM", "SCREW_DIR_PIN": "Screw LPWM",
+            "CURRENT_PIN": "Shredder Current", "EX_CURRENT_PIN": "Extruder Current",
         }
         target = target_alias.get(name, name.removesuffix("_PIN").replace("_", " ").title())
         output = name in OUTPUTS or name.startswith(("HEATER_PINS_", "THERMOCOUPLE_CS_PINS_", "THERMOCOUPLE_SCK"))
@@ -174,10 +180,10 @@ def diagram_data(pin_count: int) -> dict[str, tuple[str, list, list, list[str]]]
        [(45+i*245,230,190,85,label,r if i else o) for i,label in enumerate(("F-SAFE","S0 E-STOP NC","S1 LID NC","S2 SERVICE NC","TF THERMAL CUTOFF","K0 COIL"))] + [(1080,500,240,85,"K0 feedback|force-guided",g),(650,500,240,85,"Mega D24|diagnostic only",b),(220,500,240,85,"K0 power contacts|hazardous branches",o)],
        [(235+i*245,272,290+i*245,272,f"SAFE-{i+1:02d}","#c24c36") for i in range(5)] + [(1320,542,890,542,"SIG-24","#315a84")],["Any open S0/S1/S2/TF removes K0 coil energy with firmware halted.","Reset needs cause removal, physical lockout confirmation and explicit restart permission."]),
       "full_wiring_diagram": ("terminal topology; paired schedules contain every conductor field",
-       [(45,135,210,105,"TB-AC|AC-L · AC-N · PE-01",x),(305,135,210,105,"PSU|24 V / 800 W",o),(565,135,210,105,"TB24 + FUSES|MAIN · LOGIC · SAFE",o),(825,115,225,145,"K0 SAFETY|SAFE-01..06",r),(1100,115,215,145,"POWER LOADS|SH · SCREW · FEED|PULL · SPOOL · FAN",o),(1365,115,180,145,"HEATERS|24-H1..H4",o),(565,420,210,125,"ARDUINO MEGA|SIG-<PIN>|D2..D52 / A0..A15",b),(45,420,410,125,"SENSOR TERMINALS|TC1..5 · tach · current · gauge|dancer · limits · driver faults",g),(825,420,225,125,"CONTROL TERMINALS|PWM · DIR · ENABLE|STEP · mux · heater gate",b),(1100,420,445,125,"DRIVER / MOSFET INTERFACES|logic isolation as required|exact levels USER_VERIFY",o),(305,700,210,90,"0 V STAR|all 24-*- returns",x),(565,700,210,90,"PE STUD|PE-01..04",g),(825,700,225,90,"SHIELD BAR|one-end only",g),(1100,700,445,90,"FIELD DEVICES|strain relief + service loops|no sharp-edge or solid crossing",x)],
+       [(45,135,210,105,"TB-AC|AC-L · AC-N · PE-01",x),(305,135,210,105,"PSU|24 V / 800 W",o),(565,135,210,105,"TB24 + FUSES|MAIN · LOGIC · SAFE",o),(825,115,225,145,"K0 SAFETY|SAFE-01..06",r),(1100,115,215,145,"POWER LOADS|SH · SCREW · FEED|PULL · SPOOL · FAN",o),(1365,115,180,145,"HEATERS|24-H1..H4",o),(565,420,210,125,"ARDUINO MEGA|SIG-<PIN>|D2..D52 / A0..A15",b),(45,420,410,125,"SENSOR TERMINALS|TC1..5 · tach · SH/EX current · gauge|dancer · limits · auxiliary driver faults",g),(825,420,225,125,"CONTROL TERMINALS|PWM · DIR · ENABLE|STEP · mux · heater gate",b),(1100,420,445,125,"DRIVER / MOSFET INTERFACES|logic isolation as required|exact levels USER_VERIFY",o),(305,700,210,90,"0 V STAR|all 24-*- returns",x),(565,700,210,90,"PE STUD|PE-01..04",g),(825,700,225,90,"SHIELD BAR|one-end only",g),(1100,700,445,90,"FIELD DEVICES|strain relief + service loops|no sharp-edge or solid crossing",x)],
        [(255,187,305,187,"AC-L/N","#334d5f"),(515,187,565,187,"24-MAIN±","#c24c36"),(775,187,825,187,"24-SAFE+","#c24c36"),(1050,187,1100,187,"branches","#c24c36"),(1315,187,1365,187,"24-H1..4","#c24c36"),(455,482,565,482,"SIG inputs","#31734f"),(775,482,825,482,"SIG outputs","#315a84"),(1050,482,1100,482,"J-<PIN>","#315a84"),(515,745,565,745,"PE-02","#31734f"),(775,745,825,745,"shields","#315a84"),(1050,745,1100,745,"field routes","#31734f")],["This diagram plus wire, connector and fuse schedules is the terminal wiring definition.","FD-MET feeder: D44 STEP / D42 DIR / D46 ENA / D47 ALM / A7 24 PPR TACH; 5 A branch."]),
       "Arduino_Mega_pinmap": (f"{pin_count} assignments parsed from released board_config.h",
-       [(45,130,330,190,"SAFETY INPUTS|D20 E-stop · D21 lid|D22 service · D23 thermal|D24 K0 feedback",r),(45,365,330,205,"MOTION FEEDBACK|D2 shredder · D3 puller|A13 screw · A15 spooler|A14 fan mux · A5/A6 limits",g),(45,620,330,180,"ANALOG / FAULTS|A0 current · A1 dancer · A2/A3 gauge|A4 cooling · A7 feeder tach|A8..A12 faults/valid",g),(600,300,400,260,"ARDUINO MEGA 2560|board_config.h authoritative|all SIG-<PIN> scheduled",b),(1225,130,330,210,"MOTOR COMMANDS|D5..D9 PWM · D30..D38 DIR/EN|D39..D41 traverse|D44/D42/D46 feeder",o),(1225,390,330,180,"HEATER / FAN|D10..D13 process heaters · D49 mux select",o),(1225,620,330,180,"TC / UI|CS D14..D17,D48 · D50 SO · D52 SCK|D18/D19 encoder · D25..D29 buttons",g)],
+       [(45,130,330,190,"SAFETY INPUTS|D20 E-stop · D21 lid|D22 service · D23 thermal|D24 K0 feedback",r),(45,365,330,205,"MOTION FEEDBACK|D2 shredder · D3 puller|A13 screw · A15 spooler|A14 fan mux · A5/A6 limits",g),(45,620,330,180,"ANALOG / FAULTS|A0 shredder current · A9 extruder current|A1 dancer · A2/A3 gauge · A4 cooling|A10/A11 aux faults · A12 gauge valid",g),(600,300,400,260,"ARDUINO MEGA 2560|board_config.h authoritative|all SIG-<PIN> scheduled",b),(1225,130,330,210,"MOTOR COMMANDS|D5..D9 PWM · D30..D38 DIR/EN|D39..D41 traverse|D44/D42/D46 feeder",o),(1225,390,330,180,"HEATER / FAN|D10..D13 process heaters · D49 mux select",o),(1225,620,330,180,"TC / UI|CS D14..D17,D48 · D50 SO · D52 SCK|D18/D19 encoder · D25..D29 buttons",g)],
        [(375,225,600,365,"SIG-D20..24","#315a84"),(375,467,600,430,"tach/limits","#315a84"),(375,710,600,500,"analog/faults","#315a84"),(1000,365,1225,235,"motor SIG","#315a84"),(1000,430,1225,480,"heater SIG","#315a84"),(1000,500,1225,710,"TC/UI SIG","#315a84")],["pinmap.md and pin_schedule.csv list every assignment and source fingerprint.",safety]),
       "grounding_bonding": ("protective earth and functional shield/reference are separate",
        [(45,190,200,90,"AC INLET PE",g),(320,180,250,110,"DEDICATED PE STUD|bare metal + tooth washer",g),(690,120,270,80,"enclosure backplate|PE-02",g),(690,245,270,80,"motor frames|PE-04",g),(690,370,270,80,"metal hot shield|PE-03",g),(1080,180,250,100,"SHIELD BAR|functional / one-end",b),(1400,180,150,100,"sensor cable|shields",b),(1080,430,250,100,"0 V STAR|NOT PE",x),(1400,430,150,100,"Mega / sensor|reference",x)],
@@ -204,8 +210,8 @@ def electrical_release(commit: str) -> tuple[int, int]:
       {"fuse_id":"F-MAIN","branch":"24 V main","rating":"30 A DC","maximum_current":"30 A protected machine envelope; PSU 33.3 A available","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"protect 6 mm2 main conductors"},
       {"fuse_id":"F-LOGIC","branch":"Mega/sensors","rating":"3 A DC","maximum_current":"3 A design maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"protected logic branch"},
       {"fuse_id":"F-SAFE","branch":"hardwired safety","rating":"1 A DC","maximum_current":"1 A design maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"firmware-independent"},
-      {"fuse_id":"F-SH","branch":"shredder","rating":"20 A DC","maximum_current":"20 A","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"donor must remain inside design envelope"},
-      {"fuse_id":"F-SCREW","branch":"screw","rating":"10 A DC","maximum_current":"10 A envelope","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"donor must remain inside design envelope"},
+      {"fuse_id":"F-SH","branch":"shredder","rating":"20 A DC","maximum_current":"20 A branch protection; GGM rated 4.6 A and control ceiling 6.0 A","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"GGM/BTS7960 branch/conductor protection; not the motor operating-current or torque-limit setpoint"},
+      {"fuse_id":"F-SCREW","branch":"screw","rating":"10 A DC","maximum_current":"10 A branch protection; GGM rated 4.6 A and control ceiling 6.0 A","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"GGM/BTS7960 branch/conductor protection; not the motor operating-current or torque-limit setpoint"},
       *[{"fuse_id":name,"branch":branch,"rating":"5 A DC","maximum_current":"5 A design envelope","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"received donor(s) must remain within envelope; otherwise redesign"} for name,branch in (("F-FEED","FD-MET auger/agitator"),("F-PULL","puller"),("F-SPOOL","spooler/traverse combined"))],
       {"fuse_id":"F-FAN","branch":"fans","rating":"3 A DC","maximum_current":"3 A envelope","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"start/stall must remain inside envelope"},
       *[{"fuse_id":f"F-H{i}","branch":f"heater {i}","rating":"5 A DC","maximum_current":"5 A design maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"thermal fuse remains series"} for i in range(1,5)]
@@ -299,7 +305,7 @@ Source commit `{source_commit}`; `board_config.h` SHA-256 `{sha(SOURCE/'src/boar
 |---|---:|---|
 {table}
 
-`board_config.h` is authoritative for the released GGM/BTS7960 variant. Shredder bridge uses D5 RPWM / D4 LPWM / D32 enable; screw bridge uses D6 RPWM / D33 LPWM / D34 enable. Legacy D30/D31 generic shredder DIR/REVERSE pins are held low and intentionally absent from the field-wiring schedule. The active feeder reference drive is StepperOnline 17E1K-07 + EG17-G10 + CL42T-V41: D44 STEP, D42 DIR, D46 ENA, D47 ALM and A7 low-speed output-shaft tach. A received substitute exceeding the 5 A branch envelope requires redesign. Hardwired E-stop, lid/service, thermal cutoff and branch fuses are firmware-independent.
+`board_config.h` is authoritative for the released GGM/BTS7960 variant. Shredder bridge uses D5 RPWM / D4 LPWM / D32 enable; screw bridge uses D6 RPWM / D33 LPWM / D34 enable. Legacy D30/D31 generic shredder DIR/REVERSE pins are held low and intentionally absent from the field-wiring schedule. The GGM/BTS7960 current inputs are A0 for shredder motor-lead current and A9 for extruder motor-lead current; A8 and the legacy A9 screw-fault role are not field-wired in this variant. The active feeder reference drive is StepperOnline 17E1K-07 + EG17-G10 + CL42T-V41: D44 STEP, D42 DIR, D46 ENA, D47 ALM and A7 low-speed output-shaft tach. A received substitute exceeding the 5 A branch envelope requires redesign. Hardwired E-stop, lid/service, thermal cutoff and branch fuses are firmware-independent.
 """)
     cal_text = (SOURCE/"src/calibration_record.h").read_text(encoding="utf-8")
     cal = re.findall(r"^\s*(CAL_[A-Z0-9_]+)(?:\s*=\s*\d+)?,?\s*$", cal_text, re.M)
@@ -330,7 +336,7 @@ Flash는 safety chain이 아니다. E-stop, lid/service, thermal cutoff, K0와 f
 모든 값은 donor label, 계측기 ID, 날짜, 단위, 범위, revision, 원시 증거와 함께 EEPROM v4 CRC로 기록한다. Reference/simulation은 verified가 아니다.
 
 1. Tach: shredder 6 PPR, screw 12 PPR, puller/spooler 20 PPR 후보를 실회전/pulse로 각각 확인한다.
-2. GGM/BTS7960 drive/current: motor-lead current를 traceable reference와 최소 5점(0~4.6 A 이상)에서 ADC 교정하고 no-load current를 3회 이상 기록한다. Torque arm은 8.0 N·m software limit 아래의 fit sample과 독립 holdout sample을 분리하며, holdout 오차+U95가 0.4 N·m 이하여야 한다. Shredder는 F/R, extruder는 F만 검증한다.
+2. GGM/BTS7960 drive/current: shredder A0와 extruder A9 motor-lead current를 각각 traceable reference와 최소 5점(0~4.6 A 이상, 전체 검증범위 0~6.0 A)에서 ADC 교정하고 no-load current를 3회 이상 기록한다. Torque arm은 8.0 N·m software limit 아래의 fit sample과 독립 holdout sample을 분리하며, holdout 오차+U95가 0.4 N·m 이하여야 한다. Shredder는 F/R, extruder는 F만 검증한다.
 3. Mechanical protection pin: software current/torque calibration과 별개로 8.8–9.3 N·m release torque를 각 허용 방향 3개 독립 coupon으로 확인한다. 실측 전 blank Ø3 pin을 release pin으로 간주하지 않는다.
 4. Fan: 0/25/50/100%의 A4 current와 fan1/2 tach, open/stall/one-fan-only를 시험한다. Tach는 airflow 증거가 아니다.
 5. Gauge/dancer: traceable pin으로 X/Y/U95/ovality를, 전각도 sweep으로 0.32 rad warning, 0.36 rad stop, 0.4363 rad hard-stop을 확인한다.
@@ -405,7 +411,14 @@ def self_check(wire_count: int, pin_count: int) -> None:
     assert tuple(wires[0]) == WIRE_FIELDS and len(wires) == wire_count
     assert all(all(item[field].strip() for field in WIRE_FIELDS) for item in wires)
     assert {f"SIG-{pin}" for _,pin in pins()} <= {item["wire_id"] for item in wires}
-    assert len(list(csv.DictReader((ELEC/"pin_schedule.csv").open(encoding="utf-8")))) == pin_count
+    pin_schedule = list(csv.DictReader((ELEC/"pin_schedule.csv").open(encoding="utf-8")))
+    assert len(pin_schedule) == pin_count
+    pin_map = {row["symbol"]: row["mega_pin"] for row in pin_schedule}
+    assert pin_map.get("CURRENT_PIN") == "A0" and pin_map.get("EX_CURRENT_PIN") == "A9"
+    assert "SHREDDER_FAULT_PIN" not in pin_map and "SCREW_FAULT_PIN" not in pin_map
+    wire_map = {row["wire_id"]: (row["from"], row["to"]) for row in wires}
+    assert wire_map["SIG-A0"] == ("Shredder Current", "Mega A0")
+    assert wire_map["SIG-A9"] == ("Extruder Current", "Mega A9")
     for name in DIAGRAMS:
         assert (ELEC/f"{name}.svg").stat().st_size > 2000
         assert (ELEC/f"{name}.pdf").stat().st_size > 10000
