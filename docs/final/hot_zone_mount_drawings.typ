@@ -21,7 +21,7 @@
   [재료/수량], [S275 steel plate t8 / 1],
   [기준], [Datum A: rail 접촉면, B: guide bore Ø34.60, C: front edge],
   [가공], [plate profile + Ø34.60 +0.10/0 bore; 2×Ø6.6 rail holes; open-top service slot],
-  [공차/검사], [A 평면도 0.10; B position ±0.10; cold axial travel ≥1.30 mm를 feeler/travel gauge로 검사],
+  [공차/검사], [A 평면도 0.10; B position ±0.10; cold axial free travel ≥1.50 mm를 feeler/travel gauge로 검사],
   [표면/조립], [Zn-rich primer, bore mask; axial clamp 금지, dry sliding guide로만 사용],
 ))
 

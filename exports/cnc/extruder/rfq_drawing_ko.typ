@@ -9,6 +9,11 @@ Revision: `virtual-physics-closure-v0.5.1` / 단위: mm / 온도: 20 ±2 °C / �
 
 #hold
 
+*v0.8 공급자 확인: JLCCNC 현 사양 부적합 회신 / 전문 SCM440·Q&T·질화 업체 미선정.*
+SCM440 QT·질화 및 최종 처리 상태의 245–270 °C 물성 근거를 요청한다.
+45\# steel 등 대체재는 성적서 제출만으로 승인되지 않으며 설계 검토·재해석과
+별도 승인이 필요하다. 현 도면은 가공 가능성 검토용이며 업로드·발주 승인이 아니다.
+
 == EX-SCR-01
 
 #image("EX-SCR-01_drawing.svg", width: 100%)
@@ -33,9 +38,10 @@ Revision: `virtual-physics-closure-v0.5.1` / 단위: mm / 온도: 20 ±2 °C / �
 
 #table(columns: (30%, 70%), inset: 4pt,
   [재료], [SCM440 solid/seamless blank, QT 28–32 HRC],
-  [주요 치수], [OD Ø34.00 ±0.05; L280.00 ±0.05; final bore Ø16.20 +0.02/0],
+  [주요 치수], [OD Ø34.00 -0.03/0; L280.00 ±0.05; final bore Ø16.20 +0.02/0],
   [Port/thread], [18 axial ×20, rear edge 12.0 from Datum B, edge R0.5; front 4× M4×0.7-6H full depth≥8/tap drill≥11 on PCD26 at 45/135/225/315° from port centre plane; OD/bore breakthrough 금지],
   [나사 ligament], [M4 major envelope 기준 outer 2.0 mm, bore-side 2.9 mm 이상; supplier는 thread minor/major와 실제 OD/ID로 재확인],
+  [센서 보어], [Ø3.20 +0.05/0 flat-bottom blind5.40 ±0.05; 보수적 최소 ligament3.345≥3.32. 프로브 선정·삽입·고정·열응답은 별도 HOLD],
   [GD&T], [Bore straightness ≤0.05/256; bore-to-OD/register concentricity ≤0.05; end face perpendicularity 0.03],
   [표면], [Final bore Ra 0.4–0.8 µm; no weld/plating in bore],
   [열처리], [Gas nitride 0.30–0.50, ≥900 HV; final hone 후 effective case ≥0.25],
@@ -59,7 +65,7 @@ Matched drawing-limit diametral clearance는 0.28–0.32, radial clearance는 0.
   [EX-DIE-03 insert], [17-4PH H900, OD Ø11.90 -0.02/0 ×14; outlet Ø3.00 +0.02/0 ×10 land Ra≤0.4; concentricity 0.02 to OD],
   [EX-DIE-04 relief], [304 stainless t1.5, 32×20, two 10×2.5 webs, 2×Ø4.5 at 24, Ø4 bypass; three same-lot coupons must physically open 3–6 MPa at 265 °C without insert ejection],
   [EX-DIE-05 gasket], [C110 annealed t0.50 ±0.03, OD34, ID16.20, 4×Ø4.5 PCD26; qty2 including one spare],
-  [Fastener], [4×M4×45 class 10.9 at 3.0 N·m; retainer 2×M4 at 1.2 N·m; new gasket each removal],
+  [Fastener], [SYS-04 4×M4×45 class10.9 stock screw cut/deburred to42.5±0.1; dry1.50 N·m; engagement6.82–7.40; thread-bottom clearance0.60–1.18; physical receipt/leak/first thermal cycle NOT_RUN; retainer 2×M4 at1.2 N·m; new gasket each removal],
 )
 
 가공 route: six-face datum mill → intersecting Ø8 drill/ream → seat/bolt/heater/sensor machine → stress relieve → final seat/face → gas nitride → sealing face lap → borescope/deburr/pressure-coupon inspection. 교차 유로 step/burr는 R0.3 이하이며 weld repair와 hot-path plating은 금지한다. Relief 265 °C 계산 screening 4.32 MPa는 RFQ reference일 뿐 release evidence가 아니다.

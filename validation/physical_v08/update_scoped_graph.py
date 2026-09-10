@@ -16,6 +16,10 @@ EXTERNAL=[
     PROJECT/'exports/cnc/extruder/inspection_report_template.csv',
     PROJECT/'docs/final/specialist_hot_zone_inquiry_email_en.txt',
     PROJECT/'docs/final/specialist_hot_zone_supplier_response.csv',
+    PROJECT/'release/build_bom_release.py',
+    PROJECT/'release/build_final_documents.py',
+    PROJECT/'validation/test_assembly_hold_propagation.py',
+    PROJECT/'docs/final/hot_zone_mount_drawings.typ',
 ]
 def rel(p): return str(p.relative_to(PROJECT))
 
@@ -24,7 +28,7 @@ def main():
     local_code=sorted(p for p in ROOT.glob('*.py') if p.name!='update_scoped_graph.py')+[ROOT/'update_scoped_graph.py']
     code=local_code+[p for p in EXTERNAL if p.suffix=='.py' and p.is_file()]
     data=extract(code,cache_root=ROOT,root=PROJECT,parallel=False)
-    docs=sorted(ROOT.glob('*.md'))+[p for p in EXTERNAL if p.suffix in {'.md','.txt'} and p.is_file()]
+    docs=sorted(ROOT.glob('*.md'))+[p for p in EXTERNAL if p.suffix in {'.md','.txt','.typ'} and p.is_file()]
     structured=[p for p in sorted(ROOT.glob('*.json')) if p.name not in GENERATED]
     structured+=sorted(ROOT.glob('*.csv'))+sorted((ROOT/'templates').glob('*.csv'))
     structured+=[p for p in EXTERNAL if p.suffix in {'.json','.csv'} and p.is_file()]
@@ -70,9 +74,9 @@ def main():
     to_json(graph,communities,str(OUT/'graph.json'),force=True)
     detection={'total_files':len(all_files),'total_words':sum(len(p.read_text(encoding='utf-8',errors='ignore').split()) for p in docs+structured),'files':{'code':[str(p) for p in code],'document':[str(p) for p in docs+structured]}}
     report=generate(graph,communities,cohesion,labels,gods,surprises,detection,{'input':0,'output':0},str(ROOT),suggested_questions=questions)
-    scope='# Physical v0.8 scoped graph\n\nAST + host-reviewed literal file/stage anchors for `validation/physical_v08` plus explicitly bound P5 RFQ generator/inspection/inquiry sources. No paid API calls. This is not a full repository semantic extraction.\n\n'
+    scope='# Physical v0.8 scoped graph\n\nAST + host-reviewed literal file/stage anchors for `validation/physical_v08` plus explicitly bound P5 RFQ sources and current SYS-04/hot-mount source/test contracts. No paid API calls. This is not a full repository semantic extraction.\n\n'
     (OUT/'GRAPH_REPORT.md').write_text(scope+report)
-    manifest={'scope':'validation/physical_v08 + selected P5 external bindings','method':'graphify AST + literal document/file/stage anchors','nodes':graph.number_of_nodes(),'edges':graph.number_of_edges(),'source_sha256':{rel(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in all_files}}
+    manifest={'scope':'validation/physical_v08 + selected P5/SYS04/hot-mount source bindings','method':'graphify AST + literal document/file/stage anchors','nodes':graph.number_of_nodes(),'edges':graph.number_of_edges(),'source_sha256':{rel(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in all_files}}
     (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     (OUT/'cost.json').write_text(json.dumps({'additional_paid_api_calls':0,'additional_cost_usd':0,'tokens_measured':False,'scope':'local scoped graph only'},indent=2)+'\n')
     print(json.dumps({'nodes':graph.number_of_nodes(),'edges':graph.number_of_edges(),'communities':len(communities),'sources':len(all_files),'scope':manifest['scope']}))

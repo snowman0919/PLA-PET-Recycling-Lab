@@ -10,7 +10,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 상태 전이
 
-`assembly complete` → `electrical inspection complete` → `safe for low-voltage logic` → `safe for motors` → `safe for heaters` → `safe to process plastic`. 앞 단계의 서명·측정 증거와 별도 사용자 승인이 없으면 다음 단계로 이동하지 않는다.
+`assembly complete` → `electrical inspection complete` → `safe for low-voltage logic` → `safe for motors` → `safe for heaters` → `safe to process plastic`. 이 전이는 실제 장치의 물리 단계에 적용한다. 앞 단계의 서명·측정 증거와 해당 단계의 별도 사용자 승인이 없으면 다음 단계로 이동하지 않는다. 문서 작성·호스트 테스트·시뮬레이션의 진행이나 완료를 승인하는 절차는 아니다.
 
 == 절차
 
@@ -28,7 +28,7 @@ Lot/moisture·오염 기록, 온도/압력 징후, relief/leak 영상, X/Y diame
 
 == 수치 합격기준
 
-Mean diameter error ≤0.05 mm; ovality ≤0.05 mm; U95 ≤0.03 mm; 20개 연속 valid; hot-zone travel ≥1.30 mm; 누설 0건; 3–6 MPa relief coupon 3개 모두 insert 포획 상태로 우회 개방.
+Mean diameter error ≤0.05 mm; ovality ≤0.05 mm; U95 ≤0.03 mm; 20개 연속 valid; 가열 전 cold axial travel ≥1.50 mm이고 hot run 중 hard-stop 접촉 0; 누설 0건; relief coupon은 별도 승인된 절차의 실제 결과만 사용.
 
 == Checklist
 

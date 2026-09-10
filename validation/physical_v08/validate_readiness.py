@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cross-check physical-readiness documents against current v0.8 design evidence."""
 from __future__ import annotations
-import csv, json, math
+import csv, json, math, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -91,6 +91,7 @@ def main():
         "validation/physical_v08/templates/p5_coupon_certificates.csv",
         "validation/physical_v08/p5_supplier_inspection_requirements.csv",
         "validation/physical_v08/build_p5_inquiry_package.py",
+        "validation/physical_v08/validate_fabrication_handoff.py",
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
     by_stage_id = {(r["gate"], r["item_id"]): r for r in stage_bom}
@@ -126,6 +127,7 @@ def main():
     plan = (ROOT / "release/build_final_documents.py").read_text(encoding="utf-8")
     for token in ("8.0 N·m", "8.8–9.3 N·m", "cold axial travel≥1.50 mm"):
         assert token in plan
+    subprocess.run([sys.executable, str(BASE / "validate_fabrication_handoff.py")], check=True, cwd=ROOT)
     print(f"PHYSICAL_V08_READINESS_CONTRACT_OK gates={len(gate['gates'])} inventory={len(inv)} equipment={len(equipment)} sequence={len(seq)} stage_bom={len(stage_bom)}")
 
 if __name__ == "__main__":

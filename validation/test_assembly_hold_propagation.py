@@ -12,15 +12,18 @@ def main():
     assert {n for n,r in rows.items() if any('HOLD' in (value or '') for value in r.values())} == {'7','10','12','13'}
     assert 'SYS-12' in rows['10']['fasteners'] and rows['10']['pass_fail'].startswith('HOLD')
     assert rows['13']['pass_fail'].startswith('HOLD')
-    assert 'SYS-04: HOLD' in rows['13']['torque']
-    assert 'M4x40 class 10.9' in rows['13']['fasteners']
-    assert '4.12–4.80' in rows['13']['inspection_method']
-    assert '3.20–3.88' in rows['13']['inspection_method']
-    assert 'M4×45' not in rows['13']['fasteners']
+    assert 'cold axial free travel≥1.50 mm' in rows['11']['clearance_tolerance']
+    assert 'hot calculated endplay' not in rows['11']['clearance_tolerance']
+    assert 'SYS-04: 1.5 N·m' in rows['13']['torque']
+    assert 'M4x45 class 10.9 SHCS cut/deburred to 42.5 +/-0.1' in rows['13']['fasteners']
+    assert 'physical receipt/leak/first thermal cycle remains NOT_RUN' in rows['13']['inspection_method']
     assert '진행 금지' in rows['13']['next_prerequisite']
     die_joint = next(j for j in documents.fasteners() if j['joint_id'] == 'SYS-04')
-    assert die_joint['specification'].startswith('M4x40 class 10.9')
-    assert die_joint['verification_state'] == 'HOLD_GASKET_AND_HOT_PRELOAD_UNQUALIFIED'
+    assert die_joint['specification'].startswith('M4x45 class 10.9 SHCS cut/deburred to 42.5 +/-0.1')
+    assert die_joint['torque_Nm'] == '1.5'
+    assert die_joint['verification_state'] == 'RELEASED_DIGITAL_PHYSICAL_NOT_RUN'
+    assert 'engagement6.82-7.40' in die_joint['inspection']
+    assert 'thread-bottom clearance0.60-1.18' in die_joint['inspection']
     joints = [dict(j) for j in documents.fasteners()]
     joint = next(j for j in joints if j['joint_id']=='SYS-01')
     joint['verification_state'] = 'HOLD_SYNTHETIC_UNQUALIFIED'
@@ -31,7 +34,7 @@ def main():
     assert '진행 금지' in held['next_prerequisite']
     assert 'synthetic reason must reach manual' in held['inspection_method']
     assert rows['2']['pass_fail'] != held['pass_fail']
-    print('ASSEMBLY_HOLD_PROPAGATION_PASS M4x40_bottoming_clear_torque_hold')
+    print('ASSEMBLY_HOLD_PROPAGATION_PASS SYS04_DIGITAL_PASS_PHYSICAL_HOLD')
 
 
 if __name__ == '__main__':
