@@ -106,8 +106,8 @@ def assembly_step_number(part_id: str) -> int:
         "ExtruderRearRetainer": 11, "ExtruderRearRetainerSpacer318": 11,
         "SH-06": 5,
         "GGM_ChainGuard": 8,
-        "GGM_SH_CutterKey": 8,
-        "DR-GGM-01": 8, "DR-GGM-02": 8, "DR-GGM-03": 19,
+        "GGM_SH_CouplingGuard": 8,
+        "DR-GGM-01": 7, "DR-GGM-02": 7, "DR-GGM-03": 19,
     }
     step = exact.get(part_id)
     if step is None:
@@ -118,7 +118,7 @@ def assembly_step_number(part_id: str) -> int:
             ("FD", 10), ("FH", 10), ("EX-MT", 11), ("EX-THR", 12),
             ("EX-SCR", 12), ("EX-BAR", 12), ("EX-DIE", 13), ("TH", 13),
             ("EX", 12), ("CO", 14), ("DG", 15), ("PL", 16), ("FM", 16),
-            ("GGM_EX", 12), ("GGM_SH", 8), ("GGM_Jack", 8),
+            ("GGM_EX", 12), ("GGM_SH", 7), ("GGM_Jack", 7),
             ("SP", 17), ("GD", 18), ("CT", 19), ("SF", 21), ("DR", 1),
         ) if part_id.startswith(prefix)), 1)
     return step
@@ -134,7 +134,7 @@ def critical(part_id: str, detail: str = "") -> str:
         ("FR", "profile joint squareness and table load path"),
         ("SH", "guarded cutter torque path and service lockout"),
         ("CUT", "shaft/bearing fit; cutter shim clearance; phase registration"),
-        ("DRV", "donor shaft interface; chain alignment; replaceable shear element"),
+        ("DRV", "keyed phase/sprocket interface; chain alignment; GGM protection coupling governs mechanical release"),
         ("HP", "anti-reach opening and removable hopper interface"),
         ("IN-HOP", "anti-reach opening and removable hopper interface"),
         ("FB", "screen/bin clearance and service withdrawal"),
@@ -410,7 +410,7 @@ def auxiliary(bom: list[dict[str, str]]) -> dict[str, tuple[list[str], list[dict
         dict(zip(consumable_fields, ("CON-ABS", "ABS print material including 12% process reserve", f"{print_mass['ABS'] * 1.12 / 1000:.3f}", "kg", "dry ABS matching released slicer profile", "PPR-C05/06/07", "replace failed print only after root-cause check", "PLANNING_QUANTITY"))),
         dict(zip(consumable_fields, ("CON-GASKET", "die face gasket", "2", "each", "EX-DIE-05 C110 annealed copper t0.5", "EX-DIE-01 to EX-BAR-01", "fit a new gasket after each opened hot-path joint", "REQUIRED; procurement approval pending"))),
         dict(zip(consumable_fields, ("CON-SHIM", "ground metal shim assortment", "1", "set", "0.05/0.10/0.25 mm metal; never printed", "cutter stack and aligned interfaces", "replace if creased, burred or thickness out of tolerance", "REQUIRED; final stack selection by measurement"))),
-        dict(zip(consumable_fields, ("CON-SHEARPIN", "replaceable motor-side shear pin coupons", "6", "each", "DRV-F01P C360/CuZn39Pb3 per released drawing", "shredder drive", "replace after actuation; recalibrate by selected ratio", "USER_APPROVAL_AND_GATE1_REQUIRED"))),
+        dict(zip(consumable_fields, ("CON-SHEARPIN", "GGM mechanical-protection calibration pin coupons", "9", "each", "lot-controlled brass blank per GGM_SH/EX_FusePinBlank; final neck is determined only by measured release", "P3 GGM bench: 3 SH-F + 3 SH-R + 3 EX-F", "replace after every actuation; accept final geometry only when U95-bounded release is 8.8-9.3 N.m and post-release drive is free/undamaged", "USER_APPROVAL_AND_P3_REQUIRED"))),
     ]
     tool_fields = ["tool_id", "tool", "minimum_capability", "used_for", "calibration_or_inspection", "required_or_optional"]
     tools = [
@@ -430,7 +430,7 @@ def auxiliary(bom: list[dict[str, str]]) -> dict[str, tuple[list[str], list[dict
     ]
     alt_fields = ["part_id", "baseline", "approved_alternative", "approval_state", "required_recalculation_or_recalibration", "evidence_before_use"]
     alternatives = [
-        ("SH-03", "GMP60-60127 ratio47 digital reference", "18–30 V donor geared DC candidate", "NOT_APPROVED_UNTIL_MEASURED", "chain ratio, current-trip, torque/RPM calibration and adapter geometry", "label/photos/shaft/current/RPM/backlash/30 min temperature + Gate-1"),
+        ("SH-03", "GGM K9DG60N2 + K9G75C selected drive", "none until an exact shaft/mount/ratio/current/torque equivalent is documented", "PURCHASE_AND_RECEIPT_HOLD", "PCD/output-offset mount compatibility, ratio/speed, 0-6 A current map, gearbox torque map and 8.8-9.3 N.m mechanical protection", "vendor/received label + authenticated receipt packet + mount-compatibility PASS + P3 bench evidence"),
         ("CUT-03", "12 mm steel", "15 mm 6061-T6", "CONDITIONAL_AFTER_GATE1", "bearing-seat, plate deflection/stress and fastener bearing", "material certificate + rerun LC04/related plate case + Gate-1"),
         ("FD-BIN-01", "1 mm PP sheet", "1 mm 304 stainless sheet", "LISTED_DESIGN_OPTION", "mass/service handling check; no firmware recalibration", "slot fit, edge/burr and cleanability inspection"),
         ("FD-MET-02", "304 stainless auger/agitator per final RFQ", "none; legacy POM-C pocket rotor is not the active geometry", "NO_APPROVED_ALTERNATIVE", "any new material/geometry requires feeder clearance, torque/inertia, current-window and thermal review", "new drawing revision and dry-feed coupon"),
