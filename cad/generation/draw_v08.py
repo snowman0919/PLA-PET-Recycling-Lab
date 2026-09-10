@@ -12,13 +12,13 @@ import Part
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from cad.freecad.compact.generate import _projection_polylines  # noqa: E402
-from cad.freecad.final_v08.generate import final_objects  # noqa: E402
+from cad.freecad.drive_v08.assembly import integrated_objects  # noqa: E402
 
 OUT = ROOT / "docs/drawings/v0.8"
 
 
 def main() -> None:
-    items = final_objects()
+    items, _ = integrated_objects()
     groups = {
         "GA-001_general_arrangement": lambda i: True,
         "ASM-001_full_assembly": lambda i: True,
@@ -55,7 +55,7 @@ def main() -> None:
         (OUT / f"{drawing}.svg").write_text(f'''<svg xmlns="http://www.w3.org/2000/svg" width="1123" height="520" viewBox="0 0 1123 520">
 <rect width="1123" height="520" fill="white"/><rect x="8" y="8" width="1107" height="504" fill="none" stroke="#111" stroke-width="2"/>
 <g font-family="Noto Sans CJK KR,sans-serif" fill="#111"><text x="24" y="42" font-size="23" font-weight="bold">{title}</text>
-<text x="24" y="68" font-size="14">v0.8 · mm · 제3각법 · source: FreeCAD Python · bodies {len(selected)}</text>
+<text x="24" y="68" font-size="14">v0.8 · mm · 제3각법 · source: GGM integrated FreeCAD assembly · bodies {len(selected)}</text>
 <text x="35" y="110" font-size="14">TOP X-Y</text>{views[0]}<text x="400" y="110" font-size="14">FRONT X-Z</text>{views[1]}<text x="765" y="110" font-size="14">SIDE Y-Z</text>{views[2]}
 <text x="24" y="475" font-size="15">Overall X {bb.XLength:.2f} · Y {bb.YLength:.2f} · Z {bb.ZLength:.2f} mm · 치수/공차는 개별 제작도면과 interface catalog 우선</text>
 <text x="24" y="498" font-size="13">Revision final-design-fabrication-closure-v0.8 · physical validation NOT_RUN</text></g></svg>\n''', encoding="utf-8")
