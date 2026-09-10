@@ -1,63 +1,138 @@
 #!/usr/bin/env python3
-"""Offline profile nesting check. Reads measurements only; never authorizes cutting."""
+"""Fail-closed profile stock nesting from authenticated physical length records.
+
+The solver consumes conservative usable length (measured value minus U95) and a
+caller-supplied non-negative kerf budget. It never authorizes cutting.
+"""
 from __future__ import annotations
-import argparse,csv,json
+
+import argparse
+import csv
+import datetime
+import hashlib
+import json
+import math
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parents[2]
-CUTLIST=ROOT/'exports/fabrication/frame_cut_list.csv'
+ROOT = Path(__file__).resolve().parents[2]
+CUTLIST = ROOT / "exports/fabrication/frame_cut_list.csv"
+REQUIRED_PROVENANCE = ("source_asset", "instrument_id", "instrument_calibration_ref", "measured_at", "operator", "reviewer", "evidence_path", "sha256")
+
 
 def requirements():
-    out={}
-    with CUTLIST.open(newline='', encoding='utf-8') as fh:
-      source=list(csv.DictReader(fh))
-    for r in source:
-        typ='2020' if r['stock'].startswith('20x20') else '2040' if r['stock'].startswith('20x40') else None
+    out = {}
+    with CUTLIST.open(newline="", encoding="utf-8") as fh:
+        source = list(csv.DictReader(fh))
+    for row in source:
+        typ = "2020" if row["stock"].startswith("20x20") else "2040" if row["stock"].startswith("20x40") else None
         if typ:
-            out.setdefault(typ,[]).extend([(r['part_id'],float(r['cut_length_mm']))]*int(r['quantity']))
+            out.setdefault(typ, []).extend([(row["part_id"], float(row["cut_length_mm"]))] * int(row["quantity"]))
     return out
+
+
+def _evidence(row):
+    for field in REQUIRED_PROVENANCE:
+        if not row.get(field, "").strip():
+            raise ValueError(f"{row.get('record_id','?')}: missing {field}")
+    datetime.datetime.fromisoformat(row["measured_at"].replace("Z", "+00:00"))
+    path = (ROOT / row["evidence_path"]).resolve()
+    if not path.is_relative_to(ROOT) or not path.is_file():
+        raise ValueError(f"{row['record_id']}: invalid evidence path")
+    digest = row["sha256"].lower()
+    if len(digest) != 64 or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+        raise ValueError(f"{row['record_id']}: stale evidence hash")
+
 
 def measured(path):
-    out={'2020':[],'2040':[]}
-    with path.open(newline='', encoding='utf-8') as fh:
-      source=list(csv.DictReader(fh))
-    for r in source:
-        typ=r.get('profile_type','').strip().upper().replace('X','')
-        typ={'2020':'2020','2040':'2040'}.get(typ)
-        if not typ or r.get('status','').strip().upper() not in {'MEASURED','PASS','USABLE'}: continue
-        out[typ].append((r['record_id'],float(r['usable_length_mm'])))
+    out = {"2020": [], "2040": []}
+    seen = set()
+    with path.open(newline="", encoding="utf-8") as fh:
+        source = list(csv.DictReader(fh))
+    for row in source:
+        status = row.get("status", "").strip().upper()
+        if status not in {"USABLE", "PASS"}:
+            continue
+        record_id = row.get("record_id", "").strip()
+        if not record_id or record_id in seen:
+            raise ValueError("blank or duplicate profile record_id")
+        seen.add(record_id)
+        typ = row.get("profile_type", "").strip().upper().replace("X", "")
+        typ = {"2020": "2020", "2040": "2040"}.get(typ)
+        if not typ:
+            raise ValueError(f"{record_id}: invalid profile_type")
+        if not row.get("straightness_note", "").strip() or not row.get("damage_note", "").strip():
+            raise ValueError(f"{record_id}: missing condition notes")
+        length = float(row["usable_length_mm"])
+        u95 = float(row["u95_length_mm"])
+        if not math.isfinite(length) or not math.isfinite(u95) or length <= 0 or u95 < 0 or length - u95 <= 0:
+            raise ValueError(f"{record_id}: invalid usable length interval")
+        _evidence(row)
+        out[typ].append((record_id, length - u95))
     return out
 
-def solve(cuts,bars,kerf):
-    cuts=sorted(cuts,key=lambda x:x[1],reverse=True); bars=sorted(bars,key=lambda x:x[1],reverse=True)
-    rem=[b[1] for b in bars]; plan=[[] for _ in bars]
+
+def solve(cuts, bars, kerf):
+    cuts = sorted(cuts, key=lambda x: x[1], reverse=True)
+    bars = sorted(bars, key=lambda x: x[1], reverse=True)
+    rem = [bar[1] for bar in bars]
+    plan = [[] for _ in bars]
     def rec(i):
-        if i==len(cuts): return True
-        pid,L=cuts[i]; need=L+kerf; seen=set()
-        for j,r in enumerate(rem):
-            key=round(r,6)
-            if key in seen or r+1e-9<need: continue
-            seen.add(key); rem[j]-=need; plan[j].append((pid,L))
-            if rec(i+1): return True
-            plan[j].pop(); rem[j]+=need
+        if i == len(cuts):
+            return True
+        pid, length = cuts[i]
+        need = length + kerf
+        seen = set()
+        for j, remaining in enumerate(rem):
+            key = round(remaining, 6)
+            if key in seen or remaining + 1e-9 < need:
+                continue
+            seen.add(key)
+            rem[j] -= need
+            plan[j].append((pid, length))
+            if rec(i + 1):
+                return True
+            plan[j].pop()
+            rem[j] += need
         return False
-    ok=rec(0)
-    return ok,[{'stock_id':bars[i][0],'stock_mm':bars[i][1],'cuts':plan[i],'leftover_mm':round(rem[i],3)} for i in range(len(bars))]
+    ok = rec(0)
+    return ok, [{"stock_id": bars[i][0], "conservative_stock_mm": bars[i][1], "cuts": plan[i], "leftover_mm": round(rem[i], 3)} for i in range(len(bars))]
+
 
 def main():
-    ap=argparse.ArgumentParser(); ap.add_argument('measurements',type=Path); ap.add_argument('--kerf-mm',type=float,required=True); ap.add_argument('--output',type=Path)
-    a=ap.parse_args()
-    if a.kerf_mm<0: raise SystemExit('kerf must be >=0')
-    req=requirements(); stock=measured(a.measurements)
-    result={'status':'PASS','cut_authorization':False,'kerf_mm':a.kerf_mm,'profiles':{}}
-    for typ in ('2020','2040'):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("measurements", type=Path)
+    ap.add_argument("--kerf-mm", type=float, required=True, help="conservative per-cut kerf budget")
+    ap.add_argument("--output", type=Path)
+    args = ap.parse_args()
+    if not math.isfinite(args.kerf_mm) or args.kerf_mm < 0:
+        raise SystemExit("kerf must be finite and >=0")
+    req = requirements()
+    try:
+        stock = measured(args.measurements)
+    except (KeyError, ValueError) as exc:
+        raise SystemExit(f"profile evidence rejected: {exc}")
+    result = {"status": "PASS", "cut_authorization": False, "kerf_budget_mm": args.kerf_mm, "stock_length_basis": "measured_minus_u95", "profiles": {}}
+    for typ in ("2020", "2040"):
         if not stock[typ]:
-            result['profiles'][typ]={'status':'NOT_RUN','required_piece_count':len(req[typ])}; result['status']='NOT_RUN'; continue
-        ok,plan=solve(req[typ],stock[typ],a.kerf_mm)
-        result['profiles'][typ]={'status':'PASS' if ok else 'INSUFFICIENT_OR_UNNESTABLE','required_piece_count':len(req[typ]),'required_raw_mm':sum(x[1] for x in req[typ]),'measured_usable_mm':sum(x[1] for x in stock[typ]),'plan':plan if ok else []}
-        if not ok: result['status']='FAIL'
-    text=json.dumps(result,ensure_ascii=False,indent=2)+'\n'
-    if a.output: a.output.write_text(text)
-    print(text,end='')
-    raise SystemExit(0 if result['status'] in {'PASS','NOT_RUN'} else 2)
-if __name__=='__main__': main()
+            result["profiles"][typ] = {"status": "NOT_RUN", "required_piece_count": len(req[typ])}
+            result["status"] = "NOT_RUN"
+            continue
+        ok, plan = solve(req[typ], stock[typ], args.kerf_mm)
+        result["profiles"][typ] = {
+            "status": "PASS" if ok else "INSUFFICIENT_OR_UNNESTABLE",
+            "required_piece_count": len(req[typ]),
+            "required_raw_mm": sum(x[1] for x in req[typ]),
+            "measured_conservative_usable_mm": sum(x[1] for x in stock[typ]),
+            "plan": plan if ok else [],
+        }
+        if not ok:
+            result["status"] = "FAIL"
+    text = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
+    if args.output:
+        args.output.write_text(text, encoding="utf-8")
+    print(text, end="")
+    raise SystemExit(0 if result["status"] in {"PASS", "NOT_RUN"} else 2)
+
+
+if __name__ == "__main__":
+    main()
