@@ -16,4 +16,6 @@ Chip-size는 5 mm screen, oversize recirculation 최대 1회 조건에서 3–6 
 
 ## 기록
 
-기존 `exports/jigs/gate1/`의 preflight, gate1_results, jam_recovery, chip_size CSV를 사용한다. 결과 파일은 template을 덮어쓰지 말고 별도 run directory에 복사해 작성한다. `analyze_p4_records.py --p3-release <P3 release.json>`가 네 CSV를 검사하기 전에 P3 release의 packet/report SHA-256, 독립 검토자, inspector provenance와 현재 P3 domain PASS를 다시 검증한다. P3 release가 stale하거나 조작되었으면 P4 numeric record check 자체가 거부된다. P4 통전은 별도 사용자 승인 사항이다.
+실제 P4 기록은 `validation/physical_v08/templates/`의 `p4_preflight.csv`, `p4_quasistatic.csv`, `p4_jam.csv`, `p4_chip.csv` 네 파일을 별도 run directory에 복사해 작성한다. `exports/jigs/gate1/*_template.csv`는 legacy Gate-1 형상/시험 참고자료이며 P4 authoritative record 형식이 아니다. 각 실제 행은 작업자와 독립 검토자, timezone 포함 시각, 계측기/교정 참조가 필요한 경우 해당 ID, repository 내부 raw evidence 경로와 SHA-256을 가진다.
+
+`analyze_p4_records.py <run-dir> --p3-release <P3 release.json>`는 먼저 네 P4 파일의 raw evidence hash를 검증하고, 19개 atomic preflight 조건, 25개 quasi-static specimen의 `F*r*cos(theta)`와 U95, 6개 jam trial, PLA/PET raw chip mass를 다시 계산한다. Chip fraction은 입력 percentage를 믿지 않고 질량과 U95에서 보수적으로 산출하며, representative feed에서 software torque-limit event가 있거나 mechanical protection 8.8 N.m 하한에 닿으면 거부한다. 그 뒤 P3 release의 packet/report SHA-256, 독립 검토자, inspector provenance와 현재 P3 domain PASS도 재검증한다. 출력은 `stage_p4_pass=false`, `hardware_authorization=false`, `fabrication_authorized=false`를 유지하므로 남은 CUT-01 10장 제작이나 추가 통전을 자동 승인하지 않는다.

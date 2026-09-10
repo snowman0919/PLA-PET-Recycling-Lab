@@ -18,11 +18,12 @@ def rows(name):
 
 def main():
     prereq = json.loads((PHYS / "simulation_prerequisite.json").read_text(encoding="utf-8"))
-    stages = json.loads((PHYS / "stage_status.json").read_text(encoding="utf-8"))
+    registry = json.loads((PHYS / "physical_execution_registry.json").read_text(encoding="utf-8"))
     contract = json.loads((PHYS / "physical_gate_contract.json").read_text(encoding="utf-8"))
     require(prereq["status"] == "PASS" and prereq["required_technical_gate_count"] == 23,
             "23-gate technical prerequisite is not PASS")
-    require(stages["physical_action_authorized"] is False and stages["stages"]["P4"] == "NOT_RUN",
+    p4_registry = next(stage for stage in registry["stages"] if stage["id"] == "P4")
+    require(registry["policy"]["physical_action_authorized"] is False and p4_registry["state"] == "NOT_RUN",
             "template must not imply physical execution")
     require(next(g for g in contract["gates"] if g["id"] == "P3")["name"] == "GGM_DRIVE_BENCH",
             "P3 GGM bench contract missing")
@@ -41,6 +42,11 @@ def main():
     for name, expected in expected_counts.items():
         require((BASE / name).is_file() and len(rows(name)) == expected,
                 f"missing/unexpected Gate-1 template {name}")
+    canonical = {"p4_preflight.csv": 19, "p4_quasistatic.csv": 25, "p4_jam.csv": 6, "p4_chip.csv": 2}
+    for name, expected in canonical.items():
+        path = PHYS / "templates" / name
+        with path.open(newline="", encoding="utf-8") as handle:
+            require(len(list(csv.DictReader(handle))) == expected, f"missing/unexpected canonical P4 template {name}")
 
     bom = {row["item_id"]: row for row in rows("bom.csv")}
     require(bom["CUT-01"]["qty"] == "2" and "remaining 10" in bom["CUT-01"]["notes"],

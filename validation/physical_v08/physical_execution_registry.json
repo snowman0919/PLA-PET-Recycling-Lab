@@ -63,10 +63,10 @@
       "doc": "P4_SHREDDER_COUPON_KO.md",
       "analyzer": "analyze_p4_records.py",
       "templates": [
-        "../../exports/jigs/gate1/preflight_inspection_template.csv",
-        "../../exports/jigs/gate1/gate1_results_template.csv",
-        "../../exports/jigs/gate1/jam_recovery_results_template.csv",
-        "../../exports/jigs/gate1/chip_size_results_template.csv"
+        "templates/p4_preflight.csv",
+        "templates/p4_quasistatic.csv",
+        "templates/p4_jam.csv",
+        "templates/p4_chip.csv"
       ]
     },
     {

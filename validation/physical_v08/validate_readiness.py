@@ -135,6 +135,12 @@ def main():
         "validation/physical_v08/build_p3_inspection_packet.py",
         "validation/physical_v08/validate_p3_stage_release.py",
         "validation/physical_v08/test_p3_packet_builder.py",
+        "validation/physical_v08/analyze_p4_records.py",
+        "validation/physical_v08/test_p4_execution.py",
+        "validation/physical_v08/templates/p4_preflight.csv",
+        "validation/physical_v08/templates/p4_quasistatic.csv",
+        "validation/physical_v08/templates/p4_jam.csv",
+        "validation/physical_v08/templates/p4_chip.csv",
         "validation/physical_v08/validate_fabrication_handoff.py",
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
@@ -165,6 +171,13 @@ def main():
     assert "validate_p3_stage_release.py" in p4_doc and "P3_STAGE_RELEASE_VALIDATED" in p4_doc
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_analyzer and "p3_prerequisite" in p4_analyzer
+    assert "torque_from_force" in p4_analyzer and "fraction_3_6_lower_percent" in p4_analyzer
+    p4_registry = next(stage for stage in registry["stages"] if stage["id"] == "P4")
+    assert p4_registry["templates"] == ["templates/p4_preflight.csv", "templates/p4_quasistatic.csv", "templates/p4_jam.csv", "templates/p4_chip.csv"]
+    assert len(rows("validation/physical_v08/templates/p4_preflight.csv")) == 19
+    assert len(rows("validation/physical_v08/templates/p4_quasistatic.csv")) == 25
+    assert len(rows("validation/physical_v08/templates/p4_jam.csv")) == 6
+    assert len(rows("validation/physical_v08/templates/p4_chip.csv")) == 2
     p3_builder = (ROOT / "validation/physical_v08/build_p3_inspection_packet.py").read_text(encoding="utf-8")
     assert 'add_argument("--preflight-result"' in p3_builder and 'result["p3_preflight"]' in p3_builder
     p3_inspector = (ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py").read_text(encoding="utf-8")
