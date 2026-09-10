@@ -155,6 +155,9 @@ def main():
         "validation/physical_v08/templates/p9_hot_safety.csv",
         "validation/physical_v08/validate_p9_stage_release.py",
         "validation/physical_v08/test_p9_stage_release.py",
+        "validation/physical_v08/validate_p10_stage_release.py",
+        "validation/physical_v08/test_p10_stage_release.py",
+        "validation/physical_v08/templates/p10_stage_release.json",
         "validation/physical_v08/templates/p9_stage_release.json",
         "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md",
         "validation/physical_v08/analyze_material_run.py",
@@ -239,6 +242,11 @@ def main():
         assert token in material_analyzer
     material_doc = (ROOT / "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md").read_text(encoding="utf-8")
     assert "torque + U95 < 8.0 N.m" in material_doc and "current + U95 <= 6.0 A" in material_doc
+    p10_registry = next(stage for stage in registry["stages"] if stage["id"] == "P10")
+    assert p10_registry["stage_release_validator"] == "validate_p10_stage_release.py"
+    assert "templates/p10_stage_release.json" in p10_registry["templates"]
+    p10_release = j("validation/physical_v08/templates/p10_stage_release.json")
+    assert p10_release["status"] == "NOT_RUN" and p10_release["material_feed_authorized"] is False
     p4_doc = (ROOT / "validation/physical_v08/P4_SHREDDER_COUPON_KO.md").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_doc and "P3_STAGE_RELEASE_VALIDATED" in p4_doc
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")
