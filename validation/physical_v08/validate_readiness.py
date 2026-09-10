@@ -41,6 +41,9 @@ def main():
     p3 = next(row for row in gate["gates"] if row["id"] == "P3")
     assert not any("calibrated against independent reference" in x for x in p3["prerequisites"]), "P3 must not require its own calibration result as an entry condition"
     assert any("independent current reference available" in x for x in p3["prerequisites"])
+    p2_gate = next(row for row in gate["gates"] if row["id"] == "P2")
+    assert any("470 +/-0.8 x 700 +/-0.8" in x for x in p2_gate["acceptance"])
+    assert any("diagonal difference" in x and "<=1.0 mm" in x for x in p2_gate["acceptance"])
 
     assert ggm["selected"]["shredder"] == "GGM K9DG60N2 + K9G75C"
     assert ggm["selected"]["screw"] == "GGM K9DG60N2 + K9G150C"
@@ -74,6 +77,9 @@ def main():
     assert len(equipment) >= 15 and len(seq) == 14
     required_execution_files = [
         "validation/physical_v08/P1_EXECUTION_KO.md",
+        "validation/physical_v08/P2_COLD_FIT_KO.md",
+        "validation/physical_v08/analyze_p2_records.py",
+        "validation/physical_v08/templates/p2_cold_fit.csv",
         "validation/physical_v08/P3_GGM_BENCH_KO.md",
         "validation/physical_v08/profile_nesting.py",
         "validation/physical_v08/analyze_p3_records.py",

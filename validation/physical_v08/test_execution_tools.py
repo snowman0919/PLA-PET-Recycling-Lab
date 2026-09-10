@@ -5,7 +5,7 @@ HERE=Path(__file__).resolve().parent
 
 def load(name):
     spec=importlib.util.spec_from_file_location(name,HERE/f'{name}.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
-nest=load('profile_nesting'); p1=load('analyze_p1_records'); mount=load('analyze_ggm_mount_compatibility'); p3=load('analyze_p3_records')
+nest=load('profile_nesting'); p1=load('analyze_p1_records'); p2=load('analyze_p2_records'); mount=load('analyze_ggm_mount_compatibility'); p3=load('analyze_p3_records')
 
 class ExecutionToolsTest(unittest.TestCase):
     def test_p1_fail_closed_and_ggm_pending(self):
@@ -26,6 +26,35 @@ class ExecutionToolsTest(unittest.TestCase):
             self.assertEqual(p1.evaluate(rows,HERE.parents[1])['status'],'P1_RECORD_CHECK_PASS')
             rows[0]['sha256']='0'*64
             with self.assertRaises(ValueError): p1.evaluate(rows,HERE.parents[1])
+    def test_p2_authenticated_cold_fit(self):
+        import hashlib
+        root=HERE.parents[1]
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            d=Path(td); evidence=d/'p2.txt'; evidence.write_text('synthetic P2 inspection')
+            digest=hashlib.sha256(evidence.read_bytes()).hexdigest(); rel=str(evidence.relative_to(root))
+            numeric={
+                'frame_base_x':(470.0,.10,'mm'), 'frame_base_y':(700.0,.10,'mm'),
+                'frame_diagonal_a':(843.0,.10,'mm'), 'frame_diagonal_b':(843.2,.10,'mm'),
+                'rail_squareness_700':(.30,.05,'mm'), 'shredder_min_static_clearance':(2.10,.05,'mm'),
+                'shredder_hand_rotation_contacts':(0,0,'count'), 'extruder_cold_axial_travel':(1.70,.05,'mm'),
+                'extruder_rear_retainer_endplay':(.20,.02,'mm')}
+            rows=[]
+            for metric,(value,u95,unit) in numeric.items():
+                rows.append({'metric':metric,'value':str(value),'u95':str(u95),'unit':unit,'instrument_id':'MEAS-P2','instrument_calibration_ref':'CAL-P2','operator':'TEST','reviewer':'REVIEW','measured_at':'2026-09-10T15:30+09:00','evidence_path':rel,'sha256':digest})
+            for metric in ('frame_rocking','guard_moving_envelope_intrusion','guard_hot_envelope_intrusion'):
+                rows.append({'metric':metric,'value':'false','u95':'','unit':'boolean','instrument_id':'','instrument_calibration_ref':'','operator':'TEST','reviewer':'REVIEW','measured_at':'2026-09-10T15:30+09:00','evidence_path':rel,'sha256':digest})
+            ok=p2.evaluate(rows,root)
+            self.assertEqual(ok['status'],'PASS'); self.assertFalse(ok['fabrication_authorized']); self.assertFalse(ok['stage_release_granted'])
+            by={r['metric']:r for r in rows}
+            by['frame_base_x']['value']='470.75'; by['frame_base_x']['u95']='0.10'
+            self.assertEqual(p2.evaluate(rows,root)['status'],'FAIL')
+            by['frame_base_x']['value']='470.0'; by['frame_base_x']['u95']='0.10'
+            by['frame_diagonal_b']['value']='843.85'
+            self.assertEqual(p2.evaluate(rows,root)['status'],'FAIL')
+            by['frame_diagonal_b']['value']='843.2'; by['frame_rocking']['value']='true'
+            self.assertEqual(p2.evaluate(rows,root)['status'],'FAIL')
+            by['frame_rocking']['value']='false'; by['rail_squareness_700']['sha256']='0'*64
+            with self.assertRaises(ValueError): p2.evaluate(rows,root)
     def test_ggm_mount_compatibility_from_receipt(self):
         import hashlib
         root=HERE.parents[1]

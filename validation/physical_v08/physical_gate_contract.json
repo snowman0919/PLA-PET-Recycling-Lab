@@ -59,7 +59,9 @@
         "user fabrication approval"
       ],
       "acceptance": [
-        "frame base 470x700 mm nominal and rail squareness <=0.50/700",
+        "frame base 470 +/-0.8 x 700 +/-0.8 mm under FR-001 ISO 2768-m general tolerance; full U95 interval inside limits",
+        "frame diagonal difference plus both diagonal U95 contributions <=1.0 mm and no rocking",
+        "rail squareness <=0.50/700 mm including U95",
         "2020/2040 cut lengths checked before cutting",
         "rotating-to-static shredder clearance >=1.90 mm",
         "extruder cold axial travel >=1.50 mm",
