@@ -349,8 +349,8 @@ def write_gate1_package():
             ("BRG-61905","SKF 61905-2RS1 bearing",4,"approved stock/buy",0,"HW-ALLOW","VERIFY_INVENTORY","yes","verify etched designation, 25x42x9, seal drag and corrosion; no order placed"),
             ("DRV-03","M3 Z16 solid phase gear left",1,"exports/drive_interface/parts/DRV-03",1500,"SH-INTERFACE","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","18 mm S45C; 8 mm matched key at datum0 deg"),
             ("DRV-03R","M3 Z16 solid phase gear right",1,"exports/drive_interface/parts/DRV-03R",1500,"SH-INTERFACE","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","18 mm S45C; local key14.464 deg; installed tooth phase11.25 deg"),
-            ("DRV-01/Axx","Universal plate plus one measured motor adapter",1,"exports/drive_interface",0,"CNC-02","GATE1_RFQ_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL","yes","DRV-A60 is reference only; donor changes adapter, not common plate"),
-            ("DRV-F01/02/#35","Shear hub, cutter hub, 12T/30T sprockets and chain",1,"exports/drive_interface",3000,"SH-INTERFACE","GATE1_RFQ_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL","yes","powered configuration only; DRV-F01P calibrated before material feed"),
+            ("DRV-01/Axx","LEGACY universal motor adapter — DO NOT USE WITH GGM",1,"exports/drive_interface",0,"CNC-02","LEGACY_NOT_FOR_GGM_DO_NOT_FABRICATE","no","historical v0.6 powered fixture only; current P4 uses final GGM shredder drive"),
+            ("GGM-SH-PATH","Current GGM protection/jackshaft + #35 12T:30T drive path",1,"exports/final/manufacturing/drive_ggm + exports/drive_interface/parts/DRV-02",0,"SH-INTERFACE","P3_GGM_BENCH_PASS_REQUIRED_BEFORE_P4","yes","K9DG60N2+K9G75C; software gearbox limit8.0 N.m; mechanical protection8.8-9.3 N.m; final GGM drawings govern"),
             ("G1J-01","Reusable base plate",1,"donor plate; drawing supplied",0,"HW-ALLOW","VERIFY_INVENTORY","jig","380x280x8, flatness <=0.30; no zero-cash claim until verified"),
             ("G1J-02","250 mm torque arm",1,"exports/jigs/gate1/parts",0,"CNC-02","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","jig","manual configuration only; remove before powered configuration"),
             ("G1J-03","Front/rear polycarbonate panels",2,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","3 mm PC, never acrylic; bucket includes all G1J-03..06 sheet"),
@@ -361,7 +361,7 @@ def write_gate1_package():
             ("G1J-08","20x20x2 steel screen rail L150",2,"standard angle stock",0,"HW-ALLOW","BUY_HOLD","jig","shimmed/removable"),
             ("G1J-09","Interlock metal bracket",1,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","switch model-specific overtravel set at assembly"),
             ("G1J-10","40x40x4 CUT-03 foot L50",4,"standard angle stock",0,"HW-ALLOW","BUY_HOLD","jig","metal plate-to-base load path"),
-            ("G1J-11","40x40x4 DRV-01 foot L50",2,"same stock as G1J-10",0,"HW-ALLOW","BUY_HOLD","jig","powered configuration motor-plate load path"),
+            ("G1J-11","LEGACY DRV-01 foot L50",2,"same stock as G1J-10",0,"HW-ALLOW","LEGACY_NOT_FOR_GGM_DO_NOT_FABRICATE","no","historical powered fixture only; current GGM support uses final drive drawings"),
             ("G1J-12","Top polycarbonate panel with chute opening",1,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","3 mm PC closes fragment path; included in guard allowance"),
             ("MET-01","0-200 N force gauge or 100 kg load cell/HX711",1,"project-lab or buy allowance",7500,"GATE1-METROLOGY","CALIBRATION_HOLD","jig","accuracy <=2%; M8 clevis and independent safety tether"),
             ("G1J-P01..03","Printed chute/tray/edge trim",1,"exports/jigs/gate1/parts",4400,"GATE1-PRINT","PRINT_HOLD","jig","generated mass/cost must remain inside GATE1-PRINT bucket; cold low-load only"),
@@ -464,16 +464,16 @@ def write_gate1_package():
         fields=["date_time","operator","reviewer","donor_id","calibration_type","point","input_teeth","output_teeth","motor_rpm","cutter_rpm","motor_current_A","no_load_current_A","force_N","arm_radius_m","cutter_torque_Nm","current_above_no_load_A","cutter_torque_per_amp_Nm_A","derived_efficiency","motor_case_C","relief_released","permanent_phase_damage","evidence_path","pass_fail"]
         w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()
         w.writerow({"calibration_type":"NO_LOAD","point":1,"input_teeth":12,"arm_radius_m":"0.2500"})
-        for point,target in enumerate((4,8,12,16,18),1):
-            w.writerow({"calibration_type":"TORQUE_CURRENT","point":point,"input_teeth":12,"arm_radius_m":"0.2500","cutter_torque_Nm":target})
+        for point,target in enumerate((2,4,6,7.5,8.0),1):
+            w.writerow({"calibration_type":"GGM_GEARBOX_TORQUE_CURRENT_REFERENCE","point":point,"input_teeth":12,"arm_radius_m":"0.2500","cutter_torque_Nm":"","evidence_path":f"gearbox reference target {target} N.m; actual current/torque recorded in physical_v08 GGM inspection packet"})
         for point in range(1,4):
-            w.writerow({"calibration_type":"MECH_RELIEF","point":point,"input_teeth":12,"arm_radius_m":"0.2500","cutter_torque_Nm":22})
+            w.writerow({"calibration_type":"GGM_MECH_PROTECTION_REFERENCE","point":point,"input_teeth":12,"arm_radius_m":"0.2500","cutter_torque_Nm":"","evidence_path":"gearbox-side target 8.8-9.3 N.m; physical_v08 GGM inspection packet governs"})
     with (base/"jam_recovery_results_template.csv").open("w",newline="",encoding="utf-8") as f:
         fields=["date_time","operator","reviewer","material","trial","command_rpm","pre_jam_rpm","trip_cutter_torque_Nm","overload_duration_ms","rpm_drop_percent","rpm_drop_duration_ms","reverse_start_ms","reverse_duration_ms","retry_count","jam_cleared","latched_fault_after_third_failure","guard_lockout_required_for_reset","motor_case_C","permanent_damage","photo_video_path","raw_log_path","pass_fail"]
         w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()
-        for material,command_rpm in (("PLA",32),("PET",24)):
+        for material,command_rpm in (("PLA",16),("PET",16)):
             for trial in range(1,4):
-                w.writerow({"material":material,"trial":trial,"command_rpm":command_rpm,"trip_cutter_torque_Nm":18})
+                w.writerow({"material":material,"trial":trial,"command_rpm":command_rpm,"trip_cutter_torque_Nm":""})
     with (base/"chip_size_results_template.csv").open("w",newline="",encoding="utf-8") as f:
         fields=["date_time","operator","reviewer","material","batch_id","screen_hole_mm","screen_dwell_s","oversize_recirc_count","input_mass_g","mass_3_6_g","mass_6_20_g","mass_gt20_g","fines_lt3_g","recovered_total_g","fraction_3_6_percent","fraction_6_20_percent","fraction_gt20_percent","fines_percent","recovery_percent","longest_strip_mm","photo_path","scale_log_path","pass_fail"]
         w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n"); w.writeheader()

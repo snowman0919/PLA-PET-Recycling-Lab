@@ -28,6 +28,7 @@ def main():
     inv = {r["item_id"]: r for r in rows("validation/physical_v08/inventory_confirmation.csv")}
     seq = rows("validation/physical_v08/fabrication_sequence.csv")
     equipment = rows("validation/physical_v08/measurement_equipment.csv")
+    stage_bom = rows("validation/physical_v08/stage_minimum_bom.csv")
 
     assert sim["status"] == "PASS" and sim["required_technical_gate_count"] == 23
     assert sim["failed_technical_gates"] == []
@@ -65,6 +66,12 @@ def main():
     assert inv["BUY-GGM-SH"]["current_state"] == "SELECTED_NOT_ORDERED"
     assert inv["BUY-GGM-EX"]["current_state"] == "SELECTED_NOT_ORDERED"
     assert len(equipment) >= 15 and len(seq) == 14
+    by_stage_id = {(r["gate"], r["item_id"]): r for r in stage_bom}
+    assert len(stage_bom) == 28 and by_stage_id[("P4", "CUT-01")]["quantity"] == "2"
+    assert by_stage_id[("P3", "PIN-COUPON")]["quantity"] == "9"
+    assert by_stage_id[("P3", "GGM-SH")]["item"] == "GGM K9DG60N2 + K9G75C"
+    assert by_stage_id[("P3", "GGM-EX")]["item"] == "GGM K9DG60N2 + K9G150C"
+    assert by_stage_id[("P5", "EX-CPN-SCR")]["quantity"] == "1" and by_stage_id[("P5", "EX-CPN-BAR")]["quantity"] == "1"
 
     assert packet["all_physical_actions_authorized"] is False
     assert packet["simulation_prerequisite"]["current_status"] == "PASS"
@@ -77,7 +84,7 @@ def main():
     plan = (ROOT / "release/build_final_documents.py").read_text(encoding="utf-8")
     for token in ("8.0 N·m", "8.8–9.3 N·m", "cold axial travel≥1.50 mm"):
         assert token in plan
-    print(f"PHYSICAL_V08_READINESS_CONTRACT_OK gates={len(gate['gates'])} inventory={len(inv)} equipment={len(equipment)} sequence={len(seq)}")
+    print(f"PHYSICAL_V08_READINESS_CONTRACT_OK gates={len(gate['gates'])} inventory={len(inv)} equipment={len(equipment)} sequence={len(seq)} stage_bom={len(stage_bom)}")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,29 @@
+gate,item_id,item,quantity,action,source_priority,disposition,notes
+P1,FRAME-2020,2020 profile usable stock,13.348 m minimum before kerf/scrap,STOCK_MEASURE,project lab,final machine,do not cut until usable lengths are recorded; optimize nesting after measurement
+P1,FRAME-2040,2040 profile usable stock,1.320 m minimum before kerf/scrap,STOCK_MEASURE,project lab,final machine,2x660 mm local shredder reinforcement
+P1,BRG-6201,6201-2RS 12x32x10,3,CHECK_STOCK_THEN_BUY,project lab/low-cost buy,final machine,2 jackshaft +1 extruder radial
+P1,BRG-61905,61905/6905 25x42x9,4,CHECK_STOCK_THEN_BUY,project lab/low-cost buy,P4 reusable final parts,verify exact dimensions/rating before alternate substitution
+P1,BRG-51102,51102 15x28x9,1,CHECK_STOCK_THEN_BUY,project lab/low-cost buy,final machine,extruder thrust
+P1,SAFE-K0K1,24V manual-reset control relay + DC motor-power contactor/relay with aux,1 set,CHECK_STOCK_THEN_BUY,project lab,test/final reusable,DC interrupt/contact rating must be recorded
+P1,SAFE-SW,positive-opening NC guard/service switches,3,CHECK_STOCK_THEN_BUY,project lab,final machine,E-stop already user-reported available; verify its NC block too
+P1,SAFE-FUSE,branch fuse holders + thermal cutoffs,1 set,CHECK_STOCK_THEN_BUY,project lab,final machine,match released electrical schedule after heater receipt
+P1,CS-GGM,bidirectional Hall current sensor 5V analog,2,CHECK_STOCK_THEN_BUY,project lab,final machine,useful calibrated range 0-6 A; U95 error <=0.10 A
+P1,CHAIN35,#35 chain + 12T/30T sprocket path,1 set,CHECK_STOCK_THEN_BUY,project lab,P4/final reusable,final GGM geometry governs key/bore/alignment
+P3,GGM-SH,GGM K9DG60N2 + K9G75C,1,SELECTED_BUY_USER_APPROVAL,supplier,final machine,receipt before final mount drilling
+P3,GGM-EX,GGM K9DG60N2 + K9G150C,1,SELECTED_BUY_USER_APPROVAL,supplier,final machine,receipt before final mount drilling
+P3,DRV-BTS,BTS7960 module,2,OWNED_VERIFY,user stock,final machine,one per GGM axis; unidentified cheap controllers excluded
+P3,CTRL-MEGA,Arduino Mega,1,OWNED_VERIFY,user stock,final machine,logic-only check first
+P3,PIN-COUPON,brass mechanical-protection coupon blank,9,MAKE_TEST_CONSUMABLE,small brass stock,test consumable,3 SH-forward +3 SH-reverse +3 EX-forward; final neck by measured release 8.8-9.3 N.m
+P3,FORCE-REF,0-200 N force gauge/load cell + 250.0 mm arm,1 set,BORROW_OR_USE_LAB,project lab,metrology,8.8-9.3 N.m corresponds to 35.2-37.2 N at 250 mm
+P4,CUT-01,cycloidal-inspired D2/SKD11 cutter coupon,2,MAKE_ONLY_AFTER_USER_APPROVAL,CNC/waterjet+finish,reusable final if passes,remaining 10 locked
+P4,CUT-03,shredder side plate,2,MAKE_ONLY_AFTER_USER_APPROVAL,plate machining,reusable final,match-machine bearing centres
+P4,CUT-05-LR,CUT-05 + CUT-05R shafts,1 each,MAKE_ONLY_AFTER_USER_APPROVAL,S45C machining,reusable final,right key clocking inspection required
+P4,CUT-04,5 mm screen coupon,1,MAKE_ONLY_AFTER_USER_APPROVAL,sheet/plate,reusable or reference,second/full screen held until P4
+P4,CUT-08/09/10,retainer x2 + sleeve x4 + outer-ring seat x4,1 current Gate1 set,MAKE_ONLY_AFTER_USER_APPROVAL,simple metal machining,reusable final,no printed structural spacer
+P4,DRV-03/03R,phase gear pair,1 pair,MAKE_ONLY_AFTER_USER_APPROVAL,S45C gear machining,reusable final,installed tooth phase 11.25 +/-1.0 deg physical check
+P4,GATE1-GUARD,Gate1 metal/3mm PC guard + printed trim,1 set,MAKE_FROM_STOCK_AFTER_USER_APPROVAL,project lab + PLA print,test fixture,legacy G1J-11 motor feet excluded from current powered path
+P5,EX-CPN-SCR,3-pitch screw process coupon,1,QUOTE_ORDER_USER_APPROVAL,specialist supplier,test witness,same certified heat/QT/nitride/finish route as eventual screw
+P5,EX-CPN-BAR,60 mm barrel process coupon,1,QUOTE_ORDER_USER_APPROVAL,specialist supplier,test witness,same certified heat/QT/nitride/final-hone route as eventual barrel
+P9,HEAT-BAND,24V100W ID34 W45 mica band heater,3,BUY_AFTER_RECEIPT_SPEC_USER_APPROVAL,supplier,final machine,do not buy before supplier dimensional drawing is acceptable
+P9,HEAT-DIE,24V60W cartridge heater approx D6x38,1,BUY_AFTER_FINAL_BORE_USER_APPROVAL,supplier,final machine,match final die bore and measured cold resistance
+P9,TC-K,ungrounded mineral-insulated Type-K probe + interface,5 channels,CHECK_STOCK_THEN_BUY,project lab/supplier,final machine,T1-T5; current interface uses MAX6675-compatible common reference

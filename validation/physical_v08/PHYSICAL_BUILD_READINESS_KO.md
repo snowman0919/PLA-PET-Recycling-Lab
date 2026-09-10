@@ -33,6 +33,7 @@ Rear datum/collar bore는 Ø34.25, front guide는 Ø34.60이며 cold axial free 
 - `inventory_confirmation.csv`: 프로젝트실 재고 및 구매 전 확인표.
 - `measurement_equipment.csv`: 필요한 계측 능력. 구매 목록이 아니라 lab borrowing/공급사 측정을 포함한다.
 - `fabrication_sequence.csv`: 최소수량 제작 순서와 사용자 승인 지점.
+- `stage_minimum_bom.csv`: P1/P3/P4/P5/P9에서 실제로 준비할 최소 수량. 시험용 consumable과 최종 기계 부품을 구분한다.
 - GGM 실제 raw measurement 형식은 `analysis/drive_acceptance_v08/manufacturing/inspection_packet_template.json`을 사용한다.
 
 물리시험 수치는 simulation 값을 복사해 채우지 않는다. 모든 실제 값은 측정 장비 ID, 측정시각, 원시 CSV/사진/로그의 hash와 함께 기록한다.
