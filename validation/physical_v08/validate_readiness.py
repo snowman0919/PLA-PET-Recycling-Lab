@@ -45,7 +45,7 @@ def main():
     p3 = next(row for row in gate["gates"] if row["id"] == "P3")
     assert not any("calibrated against independent reference" in x for x in p3["prerequisites"]), "P3 must not require its own calibration result as an entry condition"
     assert any("independent current reference available" in x for x in p3["prerequisites"])
-    assert "P2 applicable cold-fit/fixture PASS" in p3["prerequisites"]
+    assert any("P2_STAGE_RELEASE_VALIDATED" in x and "same GGM receipt packet" in x for x in p3["prerequisites"])
     assert any("pre-power evidence record check PASS" in x and "does not itself authorize" in x for x in p3["prerequisites"])
     p2_gate = next(row for row in gate["gates"] if row["id"] == "P2")
     assert any("470 +/-0.8 x 700 +/-0.8" in x for x in p2_gate["acceptance"])
@@ -116,6 +116,9 @@ def main():
         "validation/physical_v08/profile_nesting.py",
         "validation/physical_v08/templates/p2_fabrication_approval.json",
         "validation/physical_v08/test_p2_execution.py",
+        "validation/physical_v08/templates/p2_stage_release.json",
+        "validation/physical_v08/validate_p2_stage_release.py",
+        "validation/physical_v08/test_p2_stage_release.py",
         "validation/physical_v08/analyze_p3_preflight.py",
         "validation/physical_v08/templates/p3_preflight.csv",
         "validation/physical_v08/analyze_p3_records.py",
@@ -222,12 +225,18 @@ def main():
         assert token in p1_analyzer
 
     p2_registry = next(stage for stage in registry["stages"] if stage["id"] == "P2")
-    assert p2_registry["templates"] == ["templates/p2_fabrication_approval.json", "templates/p2_cold_fit.csv"]
+    assert p2_registry["templates"] == ["templates/p2_fabrication_approval.json", "templates/p2_cold_fit.csv", "templates/p2_stage_release.json"]
+    assert p2_registry["stage_release_validator"] == "validate_p2_stage_release.py"
     p2_analyzer = (ROOT / "validation/physical_v08/analyze_p2_records.py").read_text(encoding="utf-8")
     for token in ("P1_RECORD_CHECK_PASS", "AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED", "P2_BOUND_CUT_PRINT_ASSEMBLY_ONLY", "P2_RECORD_CHECK_PASS"):
         assert token in p2_analyzer
     p2_approval = j("validation/physical_v08/templates/p2_fabrication_approval.json")
     assert p2_approval["status"] == "NOT_RUN" and p2_approval["procurement_authorized"] is False and p2_approval["energization_authorized"] is False
+
+    p2_release = j("validation/physical_v08/templates/p2_stage_release.json")
+    assert p2_release["status"] == "NOT_RUN" and p2_release["motor_energization_authorized"] is False and p2_release["further_fabrication_authorized"] is False
+    p3_preflight_source = (ROOT / "validation/physical_v08/analyze_p3_preflight.py").read_text(encoding="utf-8")
+    assert "P2_STAGE_RELEASE_VALIDATED" in p3_preflight_source and "P2 and P3 GGM receipt packet binding differ" in p3_preflight_source
 
     p3_registry = next(stage for stage in registry["stages"] if stage["id"] == "P3")
     assert p3_registry["preflight_analyzer"] == "analyze_p3_preflight.py"
