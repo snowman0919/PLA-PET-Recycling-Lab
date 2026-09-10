@@ -45,6 +45,8 @@ def main():
     p3 = next(row for row in gate["gates"] if row["id"] == "P3")
     assert not any("calibrated against independent reference" in x for x in p3["prerequisites"]), "P3 must not require its own calibration result as an entry condition"
     assert any("independent current reference available" in x for x in p3["prerequisites"])
+    assert "P2 applicable cold-fit/fixture PASS" in p3["prerequisites"]
+    assert any("pre-power evidence record check PASS" in x and "does not itself authorize" in x for x in p3["prerequisites"])
     p2_gate = next(row for row in gate["gates"] if row["id"] == "P2")
     assert any("470 +/-0.8 x 700 +/-0.8" in x for x in p2_gate["acceptance"])
     assert any("diagonal difference" in x and "<=1.0 mm" in x for x in p2_gate["acceptance"])
@@ -112,6 +114,8 @@ def main():
         "validation/physical_v08/templates/p2_cold_fit.csv",
         "validation/physical_v08/P3_GGM_BENCH_KO.md",
         "validation/physical_v08/profile_nesting.py",
+        "validation/physical_v08/analyze_p3_preflight.py",
+        "validation/physical_v08/templates/p3_preflight.csv",
         "validation/physical_v08/analyze_p3_records.py",
         "validation/physical_v08/p3_bench_bom.csv",
         "validation/physical_v08/templates/p1_inventory_record.csv",
@@ -145,6 +149,12 @@ def main():
     assert close(p3_fixture["calculated_force_n_at_250mm"]["9.30"], 37.2)
     assert p3_fixture["mechanical_release"]["coupon_count"] == 9
     assert any(r["id"] == "P3-BRK-01" and "OPTIONAL" in r["disposition"] for r in p3_bom)
+    registry = j("validation/physical_v08/physical_execution_registry.json")
+    p3_registry = next(stage for stage in registry["stages"] if stage["id"] == "P3")
+    assert p3_registry["preflight_analyzer"] == "analyze_p3_preflight.py"
+    assert "templates/p3_preflight.csv" in p3_registry["templates"]
+    p3_preflight_header = (ROOT / "validation/physical_v08/templates/p3_preflight.csv").read_text(encoding="utf-8").splitlines()[0]
+    assert p3_preflight_header == "check_id,observed,status,operator,reviewer,checked_at,evidence_path,sha256,notes"
     assert p5["status"] == "DESIGN_ONLY_NOT_ORDERED" and p5["purchase_or_manufacturing_authorized"] is False
     assert p5["screw"]["quantity"] == 1 and p5["barrel"]["quantity"] == 1
     assert p5["screw"]["effective_case_after_final_grind_mm"] == [0.30, 0.50]
@@ -156,10 +166,11 @@ def main():
     assert "microhardness" in meas15["minimum_capability"] and "test load" in meas15["minimum_capability"]
 
     assert packet["all_physical_actions_authorized"] is False
-    assert packet["simulation_prerequisite"]["current_status"] == "PASS"
-    assert packet["simulation_prerequisite"]["technical_gate_count"] == 23
+    packet_p0 = packet["simulation_prerequisite"]
+    assert packet_p0["source"] == "validation/physical_v08/simulation_prerequisite.py"
+    assert packet_p0["required_status"] == "PASS" and packet_p0["runtime_status"] == "RUNTIME_CHECK_REQUIRED"
     import hashlib
-    assert packet["simulation_prerequisite"]["current_sha256"] == hashlib.sha256((ROOT / "validation/physical_v08/simulation_prerequisite.json").read_bytes()).hexdigest()
+    assert packet_p0["source_sha256"] == hashlib.sha256((ROOT / packet_p0["source"]).read_bytes()).hexdigest()
     text = (ROOT / "exports/jigs/gate1/test_procedure_ko.md").read_text(encoding="utf-8")
     assert "legacy" in text and "K9DG60N2 + K9G75C" in text
     assert "software limit 8.0 N·m" in text

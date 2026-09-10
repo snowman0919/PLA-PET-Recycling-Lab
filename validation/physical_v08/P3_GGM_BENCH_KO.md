@@ -1,6 +1,14 @@
 # P3 GGM 구동계 벤치 검증 절차
 
-P3는 cutter, screw, heater를 장착하지 않은 상태에서 두 GGM 구동축의 **실제 속도·전류·토크 대응과 기계식 보호핀**을 교정하는 단계다. 실행에는 P0 PASS, GGM 수령 PASS, 배선 점검, 독립 기준계측 준비와 별도 사용자 통전 승인이 필요하다.
+P3는 cutter, screw, heater를 장착하지 않은 상태에서 두 GGM 구동축의 **실제 속도·전류·토크 대응과 기계식 보호핀**을 교정하는 단계다. 실행에는 P0 PASS, P2의 적용 가능한 냉간 fixture/fit 검토, GGM 수령·mount compatibility PASS, 배선 점검, 독립 기준계측 준비와 별도 사용자 통전 승인이 필요하다.
+
+## P3-0: 통전 전 preflight
+
+모터 전원 연결을 검토하기 전에 `templates/p3_preflight.csv`의 21개 항목을 모두 실제 증거로 채운다. 각 행에는 작업자와 독립 검토자, timezone이 포함된 시각, 저장소 상대 evidence 경로와 SHA-256이 필요하다. `analyze_p3_preflight.py <p3_preflight.csv> --receipt-packet <P1 GGM receipt packet>`를 실행해 `PREPOWER_RECORD_CHECK_PASS`를 받아야 한다.
+
+Preflight는 P2 냉간 fixture 검토, rigid metal load path, 12 mm/2x6201 test arbor, coupling/brake guard, cutter·screw 부재, heater branch 격리, 한 축씩만 통전하는 정책, BTS7960 두 채널, A0 shredder/A9 extruder motor-lead current wiring, F-SH 20 A/F-SCREW 10 A branch protection, de-energized hard-cut continuity, E-stop/positive-action interlock, 독립 current/RPM/torque 기준계측기와 P3 fixture 한정 승인 기록을 함께 확인한다. 수령 packet은 현 D02/D03와 `AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED`여야 한다.
+
+`PREPOWER_RECORD_CHECK_PASS`는 **통전 허가가 아니다**. 분석기의 `motor_energization_authorized`와 `stage_p3_pass`는 의도적으로 항상 false다. 실제 P3 fixture 통전은 해당 evidence를 사람이 검토하고 그 실행에 대한 별도 승인을 내린 뒤에만 가능하다. Preflight가 실패하거나 evidence hash가 바뀌면 원인을 수정하고 다시 검사하며, bypass 값이나 임시 점퍼로 통과시키지 않는다.
 
 ## 치구
 

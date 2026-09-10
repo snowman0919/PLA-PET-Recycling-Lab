@@ -23,6 +23,9 @@ def main():
   doc=resolve(s['doc']); analyzer=resolve(s['analyzer'])
   req(doc.is_file(),s['id']+' missing doc '+str(doc)); req(analyzer.is_file(),s['id']+' missing analyzer '+str(analyzer))
   if analyzer.suffix=='.py': py_compile.compile(str(analyzer),doraise=True)
+  if s.get('preflight_analyzer'):
+   preflight=resolve(s['preflight_analyzer']); req(preflight.is_file(),s['id']+' missing preflight analyzer '+str(preflight))
+   py_compile.compile(str(preflight),doraise=True)
   for t in s['templates']:
    p=resolve(t); req(p.is_file(),s['id']+' missing template '+str(p))
  p3=json.loads((ROOT/'templates/p3_stage_release.json').read_text()); req(p3['status']=='NOT_RUN','P3 release template must remain NOT_RUN')

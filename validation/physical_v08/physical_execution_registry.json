@@ -45,12 +45,14 @@
       "doc": "P3_GGM_BENCH_KO.md",
       "analyzer": "analyze_p3_records.py",
       "templates": [
+        "templates/p3_preflight.csv",
         "templates/p3_current_sensor_calibration.csv",
         "templates/p3_no_load.csv",
         "templates/p3_torque_map.csv",
         "templates/p3_pin_release.csv",
         "templates/p3_stage_release.json"
-      ]
+      ],
+      "preflight_analyzer": "analyze_p3_preflight.py"
     },
     {
       "id": "P4",

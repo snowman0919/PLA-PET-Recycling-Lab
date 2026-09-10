@@ -78,9 +78,11 @@
       "action": "guarded low-voltage motor bench test, no cutter/screw/heater load",
       "prerequisites": [
         "P0 PASS",
+        "P2 applicable cold-fit/fixture PASS",
         "GGM receipt PASS",
         "BTS7960 wiring checked",
         "current sensor identity/wiring verified; independent current reference available for in-gate calibration",
+        "P3 pre-power evidence record check PASS; this does not itself authorize energization",
         "user energization approval for this fixture only"
       ],
       "acceptance": [

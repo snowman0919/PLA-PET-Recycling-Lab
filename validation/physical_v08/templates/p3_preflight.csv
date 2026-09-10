@@ -1,0 +1,22 @@
+check_id,observed,status,operator,reviewer,checked_at,evidence_path,sha256,notes
+p2_applicable_cold_fit,,NOT_RUN,,,,,,P2 applicable cold-fit/fixture evidence reviewed
+fixture_structure,,NOT_RUN,,,,,,rigid metal load path only
+test_arbor_support,,NOT_RUN,,,,,,12 mm arbor supported by two 6201 bearings
+coupling_guard,,NOT_RUN,,,,,,no exposed rotating coupling
+brake_reference_guard,,NOT_RUN,,,,,,guarded Prony brake or guarded torque transducer
+process_load_state,,NOT_RUN,,,,,,cutter and screw absent from P3 bench
+heater_branch_state,,NOT_RUN,,,,,,heater branch absent or positively isolated
+axis_power_policy,,NOT_RUN,,,,,,only one GGM axis may be energized at a time
+shredder_driver,,NOT_RUN,,,,,,BTS7960 identity and wiring inspected
+extruder_driver,,NOT_RUN,,,,,,BTS7960 identity and wiring inspected
+shredder_current_channel,,NOT_RUN,,,,,,A0 motor-lead sensor path verified
+extruder_current_channel,,NOT_RUN,,,,,,A9 motor-lead sensor path verified
+shredder_branch_fuse,,NOT_RUN,,,,,,F-SH 20 A DC branch protection present
+extruder_branch_fuse,,NOT_RUN,,,,,,F-SCREW 10 A DC branch protection present
+hardcut_chain,,NOT_RUN,,,,,,de-energized continuity of hard-cut chain verified
+estop_guard_interlocks,,NOT_RUN,,,,,,E-stop and positive-action guard/service mechanisms inspected
+current_reference,,NOT_RUN,,,,,,independent calibrated current reference available
+rpm_reference,,NOT_RUN,,,,,,independent calibrated RPM reference available
+torque_reference,,NOT_RUN,,,,,,force/arm or rotary torque reference available
+workspace_clear,,NOT_RUN,,,,,,fixture secured and personnel/tool clearance confirmed
+p3_energization_approval_record,,NOT_RUN,,,,,,explicit approval record for P3 fixture only; analyzer does not grant it

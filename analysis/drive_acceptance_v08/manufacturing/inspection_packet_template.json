@@ -2,10 +2,11 @@
   "record_status": "NOT_RUN",
   "all_physical_actions_authorized": false,
   "simulation_prerequisite": {
-    "source": "validation/results/v08_full_compliance.json",
+    "source": "validation/physical_v08/simulation_prerequisite.py",
     "required_status": "PASS",
-    "current_status": "FAIL",
-    "current_sha256": "c858603952fbb536e8a70c505ee1bfa6742a45de9c6865e143f13feb4aebdf0b"
+    "runtime_status": "RUNTIME_CHECK_REQUIRED",
+    "source_sha256": "b97d00a018520012242b22aa2f133bf26db5f07905f0adbd1552b111f18a10d6",
+    "note": "Runtime P0 status and snapshot hash are evaluated at the physical-stage check; the reusable template is not HEAD-bound."
   },
   "design_sha256": {
     "control/ggm_drive_contract.json": "c2404f98178c59649f3faa91571a317a9cd575cb0c42e19a7df14f510bab7d2a",

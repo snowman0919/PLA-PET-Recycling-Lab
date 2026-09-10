@@ -5,7 +5,7 @@ HERE=Path(__file__).resolve().parent
 
 def load(name):
     spec=importlib.util.spec_from_file_location(name,HERE/f'{name}.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
-nest=load('profile_nesting'); p1=load('analyze_p1_records'); p2=load('analyze_p2_records'); mount=load('analyze_ggm_mount_compatibility'); p3=load('analyze_p3_records')
+nest=load('profile_nesting'); p1=load('analyze_p1_records'); p2=load('analyze_p2_records'); mount=load('analyze_ggm_mount_compatibility'); p3pre=load('analyze_p3_preflight'); p3=load('analyze_p3_records')
 
 class ExecutionToolsTest(unittest.TestCase):
     def test_p1_fail_closed_and_ggm_pending(self):
@@ -82,6 +82,49 @@ class ExecutionToolsTest(unittest.TestCase):
             self.assertEqual(hold['status'],'HOLD_REDRAW_REQUIRED'); self.assertTrue(hold['mount_redesign_required'])
             packet['design_sha256']['control/ggm_drive_contract.json']='0'*64
             self.assertEqual(mount.evaluate(packet)['status'],'BLOCKED_STALE_DESIGN_BINDING')
+    def test_p3_preflight_authenticated_and_fail_closed(self):
+        import hashlib
+        root=HERE.parents[1]
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            d=Path(td); evidence=d/'p3-preflight.txt'; evidence.write_text('synthetic P3 preflight evidence')
+            digest=hashlib.sha256(evidence.read_bytes()).hexdigest(); rel=str(evidence.relative_to(root))
+            def rec(axis,gear,offset=18.0):
+                return {'kind':'PHYSICAL_MEASUREMENT','performed':True,'operator':'TEST','part_serial':'SER-'+axis,
+                    'instrument_id':'MEAS-01','instrument_calibration_ref':'CAL-R','measured_at':'2026-09-10T16:00+09:00',
+                    'raw_files':{rel:digest},'motor_model':'K9DG60N2','gear_model':gear,'readings':{
+                        'voltage_v':{'value':24.0,'u95':0.0,'unit':'V'},
+                        'shaft_diameter':{'value':11.99,'u95':0.002,'unit':'mm'},
+                        'shaft_projection':{'value':32.0,'u95':0.05,'unit':'mm'},
+                        'bolt_pcd':{'value':104.0,'u95':0.01,'unit':'mm'},
+                        'output_offset':{'value':offset,'u95':0.01,'unit':'mm'},
+                        'case_width':{'value':90.0,'u95':0.1,'unit':'mm'},
+                        'rear_length':{'value':209.0,'u95':0.1,'unit':'mm'}}}
+            bindings={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in (
+                'control/ggm_drive_contract.json','analysis/drive_acceptance_v08/manufacturing/drawing_contract.json')}
+            packet={'design_sha256':bindings,'receipt':{'performed':True,'data':{'SH':rec('SH','K9G75C'),'EX':rec('EX','K9G150C')}}}
+            common={'status':'PASS','operator':'TEST','reviewer':'REVIEW','checked_at':'2026-09-10T16:05+09:00','evidence_path':rel,'sha256':digest,'notes':'synthetic'}
+            rows=[{'check_id':check_id,'observed':sorted(accepted)[0],**common} for check_id,accepted in p3pre.EXPECTED.items()]
+            p2_result=d/'p2-result.json'; p2_result.write_text(json.dumps({'status':'PASS','physical_evidence_evaluated':True,'stage_release_granted':False}))
+            p2_digest=hashlib.sha256(p2_result.read_bytes()).hexdigest(); p2_rel=str(p2_result.relative_to(root))
+            p2row=next(r for r in rows if r['check_id']=='p2_applicable_cold_fit'); p2row['evidence_path']=p2_rel; p2row['sha256']=p2_digest
+            ok=p3pre.evaluate(rows,packet,root)
+            self.assertEqual(ok['status'],'PREPOWER_RECORD_CHECK_PASS')
+            self.assertFalse(ok['motor_energization_authorized']); self.assertFalse(ok['stage_p3_pass'])
+            self.assertEqual(ok['mount_status'],'AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED')
+            self.assertEqual(ok['p0_snapshot_head'], json.loads((root/'validation/physical_v08/simulation_prerequisite.json').read_text())['head'])
+            p2_result.write_text(json.dumps({'status':'FAIL','physical_evidence_evaluated':True,'stage_release_granted':False}))
+            p2row['sha256']=hashlib.sha256(p2_result.read_bytes()).hexdigest()
+            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)
+            p2_result.write_text(json.dumps({'status':'PASS','physical_evidence_evaluated':True,'stage_release_granted':False})); p2row['sha256']=hashlib.sha256(p2_result.read_bytes()).hexdigest()
+            by={r['check_id']:r for r in rows}
+            by['extruder_current_channel']['observed']='A8_MOTOR_LEAD'
+            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)
+            by['extruder_current_channel']['observed']='A9_MOTOR_LEAD'; by['workspace_clear']['sha256']='0'*64
+            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)
+            by['workspace_clear']['sha256']=digest
+            packet['receipt']['data']['EX']=rec('EX','K9G150C',offset=18.35)
+            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)
+
     def test_profile_nesting_synthetic(self):
         import hashlib
         req=nest.requirements()

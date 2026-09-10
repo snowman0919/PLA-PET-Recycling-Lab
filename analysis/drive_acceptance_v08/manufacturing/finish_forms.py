@@ -8,9 +8,11 @@ def empty_meta():
     return dict(performed=False,kind='PHYSICAL_MEASUREMENT',operator=None,part_serial=None,
         instrument_id=None,instrument_calibration_ref=None,measured_at=None,raw_files={})
 def readings(ranges):return {key:dict(value=None,u95=None,unit=u,design_min=a,design_max=b) for key,(a,b,u) in ranges.items()}
-sim=I.simulation_gate()
+prereq=R/'validation/physical_v08/simulation_prerequisite.py'
 packet={'record_status':'NOT_RUN','all_physical_actions_authorized':False,
-  'simulation_prerequisite':{'source':'validation/results/v08_full_compliance.json','required_status':'PASS','current_status':sim['status'],'current_sha256':sim['sha256']},
+  'simulation_prerequisite':{'source':'validation/physical_v08/simulation_prerequisite.py','required_status':'PASS',
+    'runtime_status':'RUNTIME_CHECK_REQUIRED','source_sha256':hashlib.sha256(prereq.read_bytes()).hexdigest(),
+    'note':'Runtime P0 status and snapshot hash are evaluated at the physical-stage check; the reusable template is not HEAD-bound.'},
   'design_sha256':{str(p.relative_to(R)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (R/'control/ggm_drive_contract.json',H/'drawing_contract.json')}}
 receipt={}
 for axis,gear in (('SH','K9G75C'),('EX','K9G150C')):
