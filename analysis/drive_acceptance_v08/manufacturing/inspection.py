@@ -147,10 +147,18 @@ def currents(data):
                       'write_firmware':False,'profile_enabled':False}
     return output
 
+def canonical_sha(data):
+    payload=json.dumps(data,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode('utf-8')
+    return hashlib.sha256(payload).hexdigest()
+
 def inspect(packet):
     sim=simulation_gate()
     report={'physical_test_executed_by_this_tool':False,'hardware_authorization':'NOT_GRANTED',
-      'machine_release':'HOLD','authenticity':'NOT_ESTABLISHED_BY_PARSER','simulation_gate':sim,'domains':{}}
+      'machine_release':'HOLD','authenticity':'NOT_ESTABLISHED_BY_PARSER',
+      'input_packet_canonical_sha256':canonical_sha(packet),
+      'inspection_engine_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+      'input_physical_authorization_present':packet.get('all_physical_actions_authorized') is True,
+      'simulation_gate':sim,'domains':{}}
     needed=['control/ggm_drive_contract.json',str((H/'drawing_contract.json').relative_to(R))]
     bindings=packet.get('design_sha256',{})
     binding_ok=all(bindings.get(k)==hashlib.sha256((R/k).read_bytes()).hexdigest() for k in needed)

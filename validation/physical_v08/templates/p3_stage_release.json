@@ -1,9 +1,15 @@
 {
   "stage": "P3",
   "status": "NOT_RUN",
+  "release_scope": "P3_COMPLETE_P4_ENTRY_ONLY",
   "approved_by": null,
+  "independent_reviewer": null,
   "reviewed_at": null,
-  "raw_evidence_manifest": null,
-  "raw_evidence_manifest_sha256": null,
-  "notes": "Populate only after authenticated P3 evidence review and explicit physical authorization."
+  "inspection_packet": null,
+  "inspection_packet_sha256": null,
+  "inspection_report": null,
+  "inspection_report_sha256": null,
+  "p4_energization_authorized": false,
+  "machine_release": "HOLD",
+  "notes": "Populate PASS only after human review of the exact authoritative P3 inspection packet/report. This release permits P4 entry review only and never energizes P4 or releases the machine."
 }

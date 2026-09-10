@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse,csv,hashlib,json,math
+import argparse,csv,hashlib,importlib.util,json,math
 from pathlib import Path
 
 def read_csv(p):
@@ -13,19 +13,23 @@ def num(v):
     return x
 
 def check_p3(path:Path):
-    d=json.loads(path.read_text())
-    if d.get('stage')!='P3' or d.get('status')!='PASS': raise ValueError('P3 physical release is not PASS')
-    for k in ('approved_by','reviewed_at','raw_evidence_manifest','raw_evidence_manifest_sha256'):
-        if not d.get(k): raise ValueError('P3 release missing '+k)
-    evidence=(path.parent/d['raw_evidence_manifest']).resolve() if not Path(d['raw_evidence_manifest']).is_absolute() else Path(d['raw_evidence_manifest'])
-    if not evidence.is_file(): raise ValueError('P3 evidence manifest missing')
-    if hashlib.sha256(evidence.read_bytes()).hexdigest()!=d['raw_evidence_manifest_sha256']: raise ValueError('P3 evidence hash mismatch')
+    validator=Path(__file__).resolve().parent/'validate_p3_stage_release.py'
+    spec=importlib.util.spec_from_file_location('ppr_p4_p3_release',validator)
+    if spec is None or spec.loader is None: raise ValueError('P3 stage-release validator unavailable')
+    module=importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+    result=module.validate(path)
+    if result.get('status')!='P3_STAGE_RELEASE_VALIDATED' or result.get('p4_entry_prerequisite') is not True:
+        raise ValueError('P3 stage release did not validate')
+    if result.get('p4_energization_authorized') is not False or result.get('machine_release')!='HOLD':
+        raise ValueError('P3 stage release has unsafe downstream authorization semantics')
+    return result
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('dir',type=Path); ap.add_argument('--p3-release',type=Path,required=True); ap.add_argument('--output',type=Path)
     a=ap.parse_args(); d=a.dir
     try:
-        check_p3(a.p3_release)
+        p3_release=check_p3(a.p3_release)
+        p3_release["stage_release_file_sha256"]=hashlib.sha256(a.p3_release.read_bytes()).hexdigest()
         pre=read_csv(d/'preflight_inspection.csv'); torque=read_csv(d/'gate1_results.csv'); jam=read_csv(d/'jam_recovery_results.csv'); chip=read_csv(d/'chip_size_results.csv')
         if len(pre)<14 or any(r.get('pass_fail','').strip().upper()!='PASS' for r in pre): raise ValueError('P4 preflight incomplete/fail')
         if any(not r.get('operator') or not r.get('reviewer') or not r.get('evidence_path') for r in pre): raise ValueError('preflight provenance incomplete')
@@ -51,7 +55,7 @@ def main():
             f36=num(r['fraction_3_6_percent']); f20=num(r['fraction_gt20_percent']); fines=num(r['fines_percent']); rec=num(r['recovery_percent'])
             if f36<70 or f20>2 or fines>15 or rec<95: raise ValueError(r['material']+' chip-size acceptance')
             if not r.get('operator') or not r.get('reviewer') or not r.get('photo_path') or not r.get('scale_log_path'): raise ValueError('chip provenance incomplete')
-        result={'status':'NUMERIC_RECORD_CHECK_PASS','stage_p4_pass':False,'hardware_authorization':False,'note':'Independent review and explicit stage release are still required.'}
+        result={'status':'NUMERIC_RECORD_CHECK_PASS','stage_p4_pass':False,'hardware_authorization':False,'p3_prerequisite':p3_release,'note':'Independent review and explicit P4 energization/stage release are still required.'}
     except (ValueError,KeyError,FileNotFoundError) as e:
         result={'status':'NOT_RUN_OR_REJECTED','stage_p4_pass':False,'hardware_authorization':False,'reason':str(e)}
     text=json.dumps(result,ensure_ascii=False,indent=2)+'\n'; print(text,end='')

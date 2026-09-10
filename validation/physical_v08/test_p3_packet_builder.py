@@ -17,6 +17,7 @@ def load(path, name):
 B = load(HERE / "build_p3_inspection_packet.py", "p3_builder")
 P = load(HERE / "analyze_p3_preflight.py", "p3_preflight_test")
 I = load(ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py", "ggm_inspection_test")
+S = load(HERE / "validate_p3_stage_release.py", "p3_stage_release_test")
 
 class P3PacketBuilderTest(unittest.TestCase):
     def test_csv_to_authoritative_packet(self):
@@ -69,8 +70,35 @@ class P3PacketBuilderTest(unittest.TestCase):
             authorized = json.loads(json.dumps(out)); authorized["all_physical_actions_authorized"] = True
             inspected = I.inspect(authorized)
             self.assertEqual(inspected["p3_preflight"]["status"], "NUMERIC_RECORD_CHECK_PASS")
+            self.assertEqual(inspected["domains"]["receipt"]["status"], "NUMERIC_RECORD_CHECK_PASS")
             self.assertEqual(inspected["domains"]["current_calibration"]["status"], "NUMERIC_RECORD_CHECK_PASS")
             self.assertEqual(inspected["domains"]["protection_pin"]["status"], "NUMERIC_RECORD_CHECK_PASS")
+            self.assertTrue(inspected["input_physical_authorization_present"])
+            self.assertEqual(inspected["input_packet_canonical_sha256"], I.canonical_sha(authorized))
+
+            packet_file = d / "authoritative_p3_packet.json"
+            report_file = d / "authoritative_p3_report.json"
+            packet_file.write_text(json.dumps(authorized, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            report_file.write_text(json.dumps(inspected, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            release = {
+                "stage": "P3", "status": "PASS", "release_scope": "P3_COMPLETE_P4_ENTRY_ONLY",
+                "approved_by": "APPROVER", "independent_reviewer": "REVIEWER", "reviewed_at": "2026-09-10T16:00+09:00",
+                "inspection_packet": packet_file.name, "inspection_packet_sha256": hashlib.sha256(packet_file.read_bytes()).hexdigest(),
+                "inspection_report": report_file.name, "inspection_report_sha256": hashlib.sha256(report_file.read_bytes()).hexdigest(),
+                "p4_energization_authorized": False, "machine_release": "HOLD", "notes": "synthetic stage-release test",
+            }
+            release_file = d / "p3_stage_release.json"
+            release_file.write_text(json.dumps(release, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            stage = S.validate(release_file)
+            self.assertEqual(stage["status"], "P3_STAGE_RELEASE_VALIDATED")
+            self.assertTrue(stage["p4_entry_prerequisite"]); self.assertFalse(stage["p4_energization_authorized"])
+            bad = json.loads(json.dumps(release)); bad["independent_reviewer"] = bad["approved_by"]
+            release_file.write_text(json.dumps(bad, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            with self.assertRaises(ValueError): S.validate(release_file)
+            bad = json.loads(json.dumps(release)); bad["inspection_packet_sha256"] = "0" * 64
+            release_file.write_text(json.dumps(bad, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            with self.assertRaises(ValueError): S.validate(release_file)
+
             out["protection_pin"]["data"]["samples"][0]["hub_key_damage"] = "YES"
             with self.assertRaises(ValueError): I.pins(out["protection_pin"]["data"])
             preflight["receipt_packet_sha256"] = "0" * 64

@@ -29,9 +29,14 @@ def main():
   if s.get('packet_builder'):
    builder=resolve(s['packet_builder']); req(builder.is_file(),s['id']+' missing packet builder '+str(builder))
    py_compile.compile(str(builder),doraise=True)
+  if s.get('stage_release_validator'):
+   stage_validator=resolve(s['stage_release_validator']); req(stage_validator.is_file(),s['id']+' missing stage-release validator '+str(stage_validator))
+   py_compile.compile(str(stage_validator),doraise=True)
   for t in s['templates']:
    p=resolve(t); req(p.is_file(),s['id']+' missing template '+str(p))
  p3=json.loads((ROOT/'templates/p3_stage_release.json').read_text()); req(p3['status']=='NOT_RUN','P3 release template must remain NOT_RUN')
+ req(p3.get('release_scope')=='P3_COMPLETE_P4_ENTRY_ONLY','P3 release scope drift')
+ req(p3.get('p4_energization_authorized') is False and p3.get('machine_release')=='HOLD','P3 release template must remain fail-closed')
  text=(ROOT/'PHYSICAL_EXECUTION_INDEX_KO.md').read_text()
  for sid in expected: req(f'| {sid} |' in text,'index missing '+sid)
  print(f'PHYSICAL_EXECUTION_REGISTRY_OK stages={len(stages)} physical_authorized=false procurement_authorized=false')
