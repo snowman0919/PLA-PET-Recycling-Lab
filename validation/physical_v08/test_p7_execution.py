@@ -2,6 +2,7 @@
 import csv
 import hashlib
 import importlib.util
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -16,6 +17,7 @@ def load(name):
 
 
 P7 = load("analyze_p7_records")
+P7REL = load("validate_p7_stage_release")
 
 
 def write_csv(path, fields, rows):
@@ -101,6 +103,26 @@ class P7ExecutionTest(unittest.TestCase):
             result = P7.evaluate(path)
             self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
             self.assertIn("independent reviewer", result["reason"])
+
+    def test_p7_stage_release_revalidates_record(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            run = Path(td); record = make_record(run); result = P7.evaluate(record)
+            result_path = run / "p7_result.json"; result_path.write_text(json.dumps(result, indent=2) + "\n")
+            release = {
+                "stage": "P7", "status": "PASS", "release_scope": "P7_LOGIC_SAFETY_COMPLETE_P8_P9_ENTRY_ONLY",
+                "approved_by": "ENGINEER-A", "independent_reviewer": "REVIEWER-B",
+                "reviewed_at": "2026-09-10T18:20:00+09:00", "p7_record": record.name,
+                "p7_record_sha256": hashlib.sha256(record.read_bytes()).hexdigest(), "p7_result": result_path.name,
+                "p7_result_sha256": hashlib.sha256(result_path.read_bytes()).hexdigest(),
+                "p8_motor_entry_review": True, "p9_heater_entry_review": True,
+                "motor_energization_authorized": False, "heater_energization_authorized": False, "machine_release": "HOLD",
+            }
+            release_path = run / "p7_stage_release.json"; release_path.write_text(json.dumps(release, indent=2) + "\n")
+            checked = P7REL.validate(release_path)
+            self.assertEqual(checked["status"], "P7_STAGE_RELEASE_VALIDATED")
+            self.assertTrue(checked["p8_entry_prerequisite"]); self.assertTrue(checked["p9_entry_prerequisite"])
+            release["p7_record_sha256"] = "0" * 64; release_path.write_text(json.dumps(release, indent=2) + "\n")
+            with self.assertRaises(ValueError): P7REL.validate(release_path)
 
 
 if __name__ == "__main__":

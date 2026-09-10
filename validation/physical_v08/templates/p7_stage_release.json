@@ -1,0 +1,18 @@
+{
+  "stage": "P7",
+  "status": "NOT_RUN",
+  "release_scope": "P7_LOGIC_SAFETY_COMPLETE_P8_P9_ENTRY_ONLY",
+  "approved_by": null,
+  "independent_reviewer": null,
+  "reviewed_at": null,
+  "p7_record": null,
+  "p7_record_sha256": null,
+  "p7_result": null,
+  "p7_result_sha256": null,
+  "p8_motor_entry_review": false,
+  "p9_heater_entry_review": false,
+  "motor_energization_authorized": false,
+  "heater_energization_authorized": false,
+  "machine_release": "HOLD",
+  "notes": "Set PASS only after independent review of the exact authenticated P7 record/result. It permits downstream entry review only; motor/heater power remains separately gated."
+}

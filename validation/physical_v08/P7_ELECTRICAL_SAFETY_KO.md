@@ -16,4 +16,4 @@ P7은 motor/heater branch를 물리적으로 분리한 상태에서 배선, PE, 
 3. E-stop, lid, service guard, thermal chain을 한 번에 하나씩 forced-open한다. 각 경우 K0가 실제 dropout되고 motor/heater permission이 제거되어야 한다.
 4. 전원 복귀 또는 contact 재폐쇄만으로 motor/heater command가 자동 생성되면 FAIL이다.
 
-`templates/p7_electrical_safety.csv`의 모든 행에 작업자·독립 검토자·timezone 포함 시각, repository 내부 raw evidence 경로와 SHA-256을 기록한다. Numeric 행은 계측기 ID와 교정 참조도 필수다. `analyze_p7_records.py`는 raw evidence hash를 재검증하고 현재 fuse/pin/wire/I/O schedule의 SHA-256을 결과에 결박한다. 출력이 통과해도 `stage_p7_pass=false`, motor/heater authorization은 false, `action_state=HOLD`이며 P8/P9는 각각 별도 gate다.
+`templates/p7_electrical_safety.csv`의 모든 행에 작업자·독립 검토자·timezone 포함 시각, repository 내부 raw evidence 경로와 SHA-256을 기록한다. Numeric 행은 계측기 ID와 교정 참조도 필수다. `analyze_p7_records.py`는 raw evidence hash를 재검증하고 현재 fuse/pin/wire/I/O schedule의 SHA-256을 결과에 결박한다. 결과를 저장한 뒤 별도 사람이 `templates/p7_stage_release.json`의 exact record/result SHA-256을 검토하고, `validate_p7_stage_release.py`가 현재 analyzer로 다시 계산해 `P7_STAGE_RELEASE_VALIDATED`를 내야 P8/P9 진입 검토에 사용할 수 있다. 이 release도 motor/heater authorization은 false이고 machine release는 HOLD다.
