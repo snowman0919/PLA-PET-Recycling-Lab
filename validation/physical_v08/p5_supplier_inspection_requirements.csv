@@ -1,0 +1,19 @@
+part,characteristic,requirement,inspection_sequence,evidence_required
+EX-CPN-SCR,length,47.95-48.05 mm,before destructive section,supplier dimensional report
+EX-CPN-SCR,flight OD,15.90-15.92 mm at 3 pitch locations,before destructive section,micrometer/CMM with stated uncertainty
+EX-CPN-SCR,root OD,10.85-10.91 mm at 3 pitch locations,before destructive section,CMM/appropriate groove metrology
+EX-CPN-SCR,pitch,15.97-16.03 mm each of 3 pitches,before destructive section,axial/CMM measurement
+EX-CPN-SCR,land,1.55-1.65 mm each of 3 flights,before destructive section,optical/CMM measurement
+EX-CPN-SCR,roughness,flight OD Ra <=0.8 um; root/flank Ra <=1.6 um,before destructive section,profilometer trace
+EX-CPN-SCR,Q&T core hardness,28-32 HRC,after dimensional/Ra inspection,report method/location
+EX-CPN-SCR,surface hardness,900-1100 HV0.3,after final grind,report test load/location
+EX-CPN-SCR,effective case,0.30-0.50 mm,after final grind; destructive microsection last,report method/definition/traverse
+EX-CPN-BAR,length / OD,L59.95-60.05 mm; OD33.95-34.05 mm,before destructive section,supplier dimensional report
+EX-CPN-BAR,final bore ID,16.20-16.22 mm at z20/z40 in X/Y,after final hone; before destructive section,bore gauge/air gauge/CMM with stated uncertainty
+EX-CPN-BAR,bore roughness,Ra0.4-0.8 um,after final hone; before destructive section,profilometer trace
+EX-CPN-BAR,Q&T core hardness,28-32 HRC,after dimensional/Ra inspection,report method/location
+EX-CPN-BAR,surface hardness,>=900 HV0.3,after final hone,report test load/location
+EX-CPN-BAR,nitriding process target,effective case 0.30-0.50 mm before final-hone removal,process certificate,record case-depth definition
+EX-CPN-BAR,final effective case,>=0.25 mm,after final hone; destructive microsection last,report method/definition/traverse and hone removal
+PAIR,actual diametral clearance,0.28-0.32 mm including measurement uncertainty,derive before destructive section,min=min(ID)-max(OD); max=max(ID)-min(OD); report uncertainty
+PAIR,material/process traceability,SCM440 JIS G4105; Q&T 28-32 HRC; traceable nitriding and final finishing,document gate,same certified heat/route identified for eventual production parts

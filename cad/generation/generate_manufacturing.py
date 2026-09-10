@@ -608,15 +608,26 @@ def write_extruder_package():
         w=csv.writer(f,lineterminator="\n")
         w.writerow(["part_id","serial_or_lot","characteristic","station_mm","direction","lower_limit_mm","upper_limit_mm","measured","instrument_id","temperature_C","pass_fail","certificate_or_trace"])
         w.writerows([
-            ("EX-CPN-SCR","","flight_OD",24,"X/Y",15.90,15.92,"","",20,"",""),
-            ("EX-CPN-SCR","","pitch","0-48","axial",15.97,16.03,"","",20,"",""),
+            ("EX-CPN-SCR","","length","overall","axial",47.95,48.05,"","",20,"",""),
+            ("EX-CPN-SCR","","flight_OD","8/24/40","micrometer",15.90,15.92,"","",20,"",""),
+            ("EX-CPN-SCR","","root_OD","8/24/40","diameter",10.85,10.91,"","",20,"",""),
+            ("EX-CPN-SCR","","pitch","three pitches","axial",15.97,16.03,"","",20,"",""),
             ("EX-CPN-SCR","","land","three flights","normal",1.55,1.65,"","",20,"",""),
-            ("EX-CPN-BAR","","bore_ID",20,"X/Y",16.20,16.22,"","",20,"",""),
-            ("EX-CPN-BAR","","bore_ID",40,"X/Y",16.20,16.22,"","",20,"",""),
-            ("EX-CPN-SCR/BAR","","diametral_clearance","matched min/max","derived",0.28,0.32,"","",20,"",""),
-            ("EX-CPN-SCR/BAR","","surface_hardness","each coupon","HV0.3",900,1100,"","",20,"",""),
-            ("EX-CPN-SCR/BAR","","effective_case_depth","each coupon","mm",0.30,0.50,"","",20,"",""),
+            ("EX-CPN-SCR","","end_perpendicularity","both ends","to axis",0,0.03,"","",20,"",""),
+            ("EX-CPN-BAR","","length","overall","axial",59.95,60.05,"","",20,"",""),
+            ("EX-CPN-BAR","","OD","representative","diameter",33.95,34.05,"","",20,"",""),
+            ("EX-CPN-BAR","","bore_ID","20/40","X/Y",16.20,16.22,"","",20,"",""),
+            ("EX-CPN-BAR","","end_perpendicularity","both ends","to bore",0,0.03,"","",20,"",""),
+            ("EX-CPN-SCR/BAR","","diametral_clearance","matched min/max including measurement uncertainty","derived",0.28,0.32,"","",20,"",""),
+            ("EX-CPN-SCR","","qt_core_hardness","microsection","HRC",28,32,"","",20,"",""),
+            ("EX-CPN-BAR","","qt_core_hardness","microsection","HRC",28,32,"","",20,"",""),
+            ("EX-CPN-SCR","","surface_hardness","after final grind","HV0.3",900,1100,"","",20,"",""),
+            ("EX-CPN-BAR","","surface_hardness","after final hone","HV0.3",900,"","","",20,"",""),
+            ("EX-CPN-SCR","","effective_case_depth","after final grind","mm",0.30,0.50,"","",20,"",""),
+            ("EX-CPN-BAR","","effective_case_depth","after final hone","mm",0.25,"","","",20,"",""),
+            ("EX-CPN-BAR","","nitriding_case_process_target","before final hone / certificate","mm",0.30,0.50,"","",20,"",""),
             ("EX-CPN-SCR","","flight_OD_Ra","one trace","um",0,0.8,"","",20,"",""),
+            ("EX-CPN-SCR","","root_flank_Ra","one trace","um",0,1.6,"","",20,"",""),
             ("EX-CPN-BAR","","bore_Ra","one trace","um",0.4,0.8,"","",20,"",""),
             ("EX-DIE-01","","barrel_face_flatness","entire face","mm",0,0.03,"","",20,"",""),
             ("EX-DIE-01","","melt_channel_ID","horizontal/vertical","X/Z",8.00,8.10,"","",20,"",""),
@@ -639,7 +650,7 @@ STEP은 3D 견적/간섭 기준, SVG와 본 문서는 치수·GD&T 기준이다.
 - 모든 치수는 mm, 표면조도는 Ra µm, 별도 표기 없는 선형치수 공차는 ±0.10 mm, 각도는 ±0.5°다.
 - 재료는 SCM440 KS D3867/JIS G4105 또는 동등 chemical/mechanical certificate를 제출한다. Supplier stock allowance는 임의이지만 추천 rough blank는 screw Ø22 x330, barrel solid/seamless Ø42 x295다.
 - 임의 대체재·공정·공차 이탈은 deviation list에 써서 회신하며 무응답은 수락으로 간주하지 않는다.
-- JLCCNC는 2026-09-08 회신에서 비목록 SCM440 조달, Q&T, 가스질화 및 coupon-first 생산 순서를 지원하지 않는다고 확인되어 현 사양 공급 후보에서 제외했다. 다른 전문 업체도 동등재 성적서만으로 대체 승인하지 않으며, 45# steel 등을 자동 선택하지 않는다. 적용 규격 판본·최종 QT/질화 상태·245–270 °C 물성 근거를 제출하고 설계 검토 및 재해석 후 별도 승인한다.
+- JLCCNC는 2026-09-08 회신에서 비목록 SCM440 조달, Q&T, 가스질화 및 coupon-first 생산 순서를 지원하지 않는다고 확인되어 현 사양 공급 후보에서 제외했다. 다른 전문 업체도 동등재 성적서만으로 대체 승인하지 않으며, 45# steel 등을 자동 선택하지 않는다. baseline SCM440/Q&T 경로는 적용 규격 판본·최종 QT/질화 상태를 제출한다. 245–270 °C 최종상태 물성은 제공 가능하면 수집하되 baseline P5의 단독 blocker로 두지 않는다. 재료·열처리 deviation은 해당 고온 물성 근거를 제출하고 설계 재해석 후 별도 승인한다.
 
 ## EX-SCR-01 screw
 
@@ -689,10 +700,10 @@ Body sealing face flatness는 0.03, melt channel Ø8 H9, insert seat Ø12.00 +0.
 4. Barrel Ø16.20 +0.02/0 final hone, three-station ID/roundness와 Ra report 가능 여부.
 5. Front 4×M4-6H depth8/PCD26 가공 후 OD/bore breakthrough가 없고 major-envelope ligament outer 2.0 mm, bore-side 2.9 mm 이상인지 확인.
 6. B+95/170/245의 3× Ø3.20 +0.05/0 flat-bottom blind5.40 ±0.05 thermocouple bore는 보수적 최소 ligament3.345 mm(요구≥3.32)를 적용한다. 각 보어 양쪽 axial pitch10에 TH-TCR-01용 2×M3-6H depth4를 가공한다. 평바닥 외 공구 형상은 deviation이며 Tempco MTA1 Ø3.00±0.03/stop5.20±0.05 승인도면과 독립 대조한다.
-7. Gas nitride case/surface hardness certificate와 barrel final-hone 후 effective case ≥0.25 mm 가능 여부.
+7. Gas nitride case/surface hardness certificate, screw final-grind 후 effective case 0.30–0.50 mm, barrel final-hone 후 effective case ≥0.25 mm 가능 여부. Barrel의 nitride 공정 목표 0.30–0.50 mm와 final-hone 제거량을 함께 기록한다.
 8. Drawing-limit radial clearance 0.14–0.16 matched measurement 가능 여부.
 9. EX-CPN-SCR/EX-CPN-BAR coupon 단가·납기와 full part 단가·납기를 분리 기재.
-10. 모든 deviation과 대체재를 발주 전 명시. 무응답 항목은 수락으로 간주하지 않는다.
+10. 모든 deviation과 대체재를 발주 전 명시. 무응답 항목은 수락으로 간주하지 않는다. Baseline SCM440의 245–270 °C 물성은 가능하면 제출하되, 재료/열처리 deviation 제안 시에는 재해석 입력으로 필수다.
 11. EX-DIE-01 intersecting Ø8 channel borescope/deburr, face flatness와 seat ID report 가능 여부.
 12. EX-DIE-03 Ø3×10 land Ra≤0.4 및 OD 기준 concentricity 0.02 검사 가능 여부.
 13. EX-DIE-04 동일 lot relief coupon 3개와 shielded 265 °C, 3–6 MPa 개방압 시험은 full die와 분리 견적한다.

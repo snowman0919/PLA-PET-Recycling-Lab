@@ -31,6 +31,7 @@ def main():
     stage_bom = rows("validation/physical_v08/stage_minimum_bom.csv")
     p3_fixture = j("validation/physical_v08/p3_fixture_contract.json")
     p3_bom = rows("validation/physical_v08/p3_bench_bom.csv")
+    p5 = j("validation/physical_v08/p5_coupon_contract.json")
 
     assert sim["status"] == "PASS" and sim["required_technical_gate_count"] == 23
     assert sim["failed_technical_gates"] == []
@@ -82,6 +83,14 @@ def main():
         "validation/physical_v08/templates/p3_no_load.csv",
         "validation/physical_v08/templates/p3_torque_map.csv",
         "validation/physical_v08/templates/p3_pin_release.csv",
+        "validation/physical_v08/P5_PROCESS_COUPON_KO.md",
+        "validation/physical_v08/p5_coupon_contract.json",
+        "validation/physical_v08/analyze_p5_records.py",
+        "validation/physical_v08/templates/p5_supplier_capability.csv",
+        "validation/physical_v08/templates/p5_coupon_measurements.csv",
+        "validation/physical_v08/templates/p5_coupon_certificates.csv",
+        "validation/physical_v08/p5_supplier_inspection_requirements.csv",
+        "validation/physical_v08/build_p5_inquiry_package.py",
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
     by_stage_id = {(r["gate"], r["item_id"]): r for r in stage_bom}
@@ -96,6 +105,15 @@ def main():
     assert close(p3_fixture["calculated_force_n_at_250mm"]["9.30"], 37.2)
     assert p3_fixture["mechanical_release"]["coupon_count"] == 9
     assert any(r["id"] == "P3-BRK-01" and "OPTIONAL" in r["disposition"] for r in p3_bom)
+    assert p5["status"] == "DESIGN_ONLY_NOT_ORDERED" and p5["purchase_or_manufacturing_authorized"] is False
+    assert p5["screw"]["quantity"] == 1 and p5["barrel"]["quantity"] == 1
+    assert p5["screw"]["effective_case_after_final_grind_mm"] == [0.30, 0.50]
+    assert close(p5["barrel"]["effective_case_after_final_hone_mm_min"], 0.25)
+    assert p5["barrel"]["nitriding_effective_case_process_target_mm"] == [0.30, 0.50]
+    assert p5["matched_pair"]["actual_diametral_clearance_mm"] == [0.28, 0.32]
+    assert "absence alone does not reject P5" in p5["traceability"]["hot_properties_policy"]
+    meas15 = next(r for r in equipment if r["id"] == "MEAS-15")
+    assert "microhardness" in meas15["minimum_capability"] and "test load" in meas15["minimum_capability"]
 
     assert packet["all_physical_actions_authorized"] is False
     assert packet["simulation_prerequisite"]["current_status"] == "PASS"

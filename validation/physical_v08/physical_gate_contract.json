@@ -125,13 +125,15 @@
         "user approval for EX-CPN-SCR and EX-CPN-BAR only"
       ],
       "acceptance": [
-        "EX-CPN-SCR L48.00 +/-0.05 mm, pitch 16.00 +/-0.03 mm, land 1.60 +/-0.05 mm",
-        "EX-CPN-BAR L60.00 +/-0.05 mm, final ID 16.20 +0.02/0 mm",
-        "surface hardness 900-1100 HV where specified",
-        "effective nitrided case 0.30-0.50 mm before any specified final-removal allowance",
-        "screw OD Ra <=0.8 um and barrel bore Ra 0.4-0.8 um",
-        "matched coupon diametral clearance 0.28-0.32 mm",
-        "material/heat/process traceability and supplier DFM recorded"
+        "EX-CPN-SCR L48.00 +/-0.05 mm, pitch 16.00 +/-0.03 mm, flight OD 15.90-15.92 mm, root OD 10.88 +/-0.03 mm, land 1.60 +/-0.05 mm",
+        "EX-CPN-BAR L60.00 +/-0.05 mm, OD 34.00 +/-0.05 mm, final ID 16.20 +0.02/0 mm",
+        "matched actual diametral clearance including measurement uncertainty remains 0.28-0.32 mm at 18-22 C",
+        "Q&T core hardness 28-32 HRC; screw surface hardness 900-1100 HV0.3; barrel surface hardness >=900 HV0.3",
+        "screw effective case after final grind 0.30-0.50 mm",
+        "barrel nitride process target 0.30-0.50 mm is recorded and effective case after final hone is >=0.25 mm; final hone removal is recorded",
+        "screw flight OD Ra <=0.8 um and root/flank Ra <=1.6 um; barrel bore Ra 0.4-0.8 um",
+        "SCM440/JIS G4105 material/heat, Q&T/nitriding/final-finish route, inspection and subcontractor responsibility are traceable",
+        "baseline SCM440 245-270 C properties are collected if available but are not a standalone P5 blocker; any material/heat-treatment deviation requires property evidence and engineering re-analysis"
       ],
       "unlocks": [
         "full EX-SCR-01/EX-BAR-01 quotation/order may be considered, still requiring explicit user approval"
