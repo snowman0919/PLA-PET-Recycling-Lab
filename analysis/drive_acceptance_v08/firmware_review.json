@@ -15,24 +15,26 @@
   ],
   "compiler_cli": "arduino-cli 1.5.1",
   "board": "arduino:avr:mega",
-  "hex_sha256": "d1e9f3130a0b3c7165f7c18ef5fef62a62f8e68882d54644ae0b4bc7f4bae8f2",
-  "released_hex_sha256": "d1e9f3130a0b3c7165f7c18ef5fef62a62f8e68882d54644ae0b4bc7f4bae8f2",
+  "hex_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
+  "released_hex_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
   "screw_hard_limit_rpm": 20,
-  "guard_source_sha256": "02629ddf1a15fc4fcd70f7673f1f14ffe4903e257cb1d38701a4d15a80a8594a",
-  "contract_sha256": "c2404f98178c59649f3faa91571a317a9cd575cb0c42e19a7df14f510bab7d2a",
-  "build_log_sha256": "428d4e21d24eae535b290b208bae7cffec47736fae9b04ab706e4c35dbea8fb2",
+  "ggm_report_command_present": true,
+  "commissioning_profile_enabled": false,
+  "guard_source_sha256": "de7167b6e3426735902306b74b9b7de28109191b8e8e8d4397fe3d4709308346",
+  "contract_sha256": "0c847fea963b5a08c86273f80542706d26c784ad6d0201307e500879662fd210",
+  "build_log_sha256": "efa367d40369922b44f46c5c583b26f4a6ba7c8aaa4294873adb7a9a86708eb8",
   "source_sha256": {
-    "analysis/drive_acceptance_v08/review_firmware.py": "9d811c6e1cd8319770299c501546d579996b22a562baf566395d9fc917a73638",
-    "firmware/ggm_drive_v08/build_variant.py": "aa6036bef6da230532dcd2e9f4340cce6c9c685b1cd602898c1221977f5ccb15",
+    "analysis/drive_acceptance_v08/review_firmware.py": "a8c4016616b9874a012f5040a20dbd6e07fcaddde80b4e37c12cd671a8517564",
+    "firmware/ggm_drive_v08/build_variant.py": "a483d63ecac4cb988c7ffe76bd101c9c078b41b49f642e8de7f2cf65de000eb7",
     "firmware/ggm_drive_v08/ggm_commissioning.h": "03da892bb45404ee4e4597be3e0bf0bf6e720655086b077f6ad0e20ab9bebec8",
-    "firmware/arduino_mega/src/ggm_drive_guard.h": "02629ddf1a15fc4fcd70f7673f1f14ffe4903e257cb1d38701a4d15a80a8594a",
-    "exports/final/drive_ggm_v08/firmware/manifest.json": "70ef87c071616c96d0a9ce1919a77e7d04ae383083034bdd3f98b26205feeaf2",
-    "control/ggm_drive_contract.json": "c2404f98178c59649f3faa91571a317a9cd575cb0c42e19a7df14f510bab7d2a",
-    "exports/final/drive_ggm_v08/firmware/arduino_mega/src/ggm_drive_guard.h": "02629ddf1a15fc4fcd70f7673f1f14ffe4903e257cb1d38701a4d15a80a8594a"
+    "firmware/arduino_mega/src/ggm_drive_guard.h": "de7167b6e3426735902306b74b9b7de28109191b8e8e8d4397fe3d4709308346",
+    "exports/final/drive_ggm_v08/firmware/manifest.json": "3fbabd89dff9ddfcfac3b9975e5515b015d0cd4a67baed662a8029fefd157c29",
+    "control/ggm_drive_contract.json": "0c847fea963b5a08c86273f80542706d26c784ad6d0201307e500879662fd210",
+    "exports/final/drive_ggm_v08/firmware/arduino_mega/src/ggm_drive_guard.h": "de7167b6e3426735902306b74b9b7de28109191b8e8e8d4397fe3d4709308346"
   },
   "limitations": [
     "No upload to Arduino Mega",
     "No BTS7960 or motor energization",
-    "Current-to-torque coefficients remain zero until physical calibration"
+    "Compile equivalence does not prove that P3 calibration was physically performed or that EEPROM calibration was applied/read back"
   ]
 }

@@ -1,6 +1,6 @@
 """Rebuild the GGM Arduino variant and bind the exact binary/source snapshot."""
 from pathlib import Path
-import hashlib, json, shutil, subprocess
+import hashlib, json, re, shutil, subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
@@ -38,16 +38,21 @@ def main():
     if run.returncode:
         raise RuntimeError("AVR build failed")
     built_hex = binaries / "arduino_mega.ino.hex"
-    released_hex = FIRMWARE / "binaries/arduino_mega.ino.hex"
+    released_hex = ROOT / "exports/final/firmware/binaries/filament_recycler_atmega2560.hex"
     if sha(built_hex) != sha(released_hex):
-        raise RuntimeError("independent HEX differs from released GGM binary")
+        raise RuntimeError("independent HEX differs from authoritative final firmware binary")
     guard = SKETCH / "src/ggm_drive_guard.h"
     contract = json.loads((ROOT / "control/ggm_drive_contract.json").read_text())
     guard_text = guard.read_text()
     hard_limit = contract["screw"]["hard_speed_limit_rpm"]
-    expected = f"fabsf(i.screw_rpm)>{hard_limit:g}"
-    if expected not in guard_text:
+    expected = rf"fabsf\(i\.screw_rpm\)\s*>\s*{hard_limit:g}(?:\.0)?f"
+    if re.search(expected, guard_text) is None:
         raise RuntimeError("screw hard-speed guard does not match contract")
+    generated_ino = (SKETCH / "arduino_mega.ino").read_text()
+    if "GGM_REPORT profile=" not in generated_ino:
+        raise RuntimeError("read-only GGM commissioning report command missing")
+    commissioning_text = (ROOT / "firmware/ggm_drive_v08/ggm_commissioning.h").read_text()
+    profile_enabled = "RECEIPT_LIMITER_CURRENT_AND_WIRING_VERIFIED = true" in commissioning_text
     result = {
         "status": "INDEPENDENT_AVR_BUILD_MATCHES_CURRENT_GGM_BINARY",
         "physical_validation": "NOT_RUN",
@@ -58,6 +63,8 @@ def main():
         "hex_sha256": sha(built_hex),
         "released_hex_sha256": sha(released_hex),
         "screw_hard_limit_rpm": hard_limit,
+        "ggm_report_command_present": True,
+        "commissioning_profile_enabled": profile_enabled,
         "guard_source_sha256": sha(guard),
         "contract_sha256": sha(ROOT / "control/ggm_drive_contract.json"),
         "build_log_sha256": sha(log),
@@ -70,7 +77,7 @@ def main():
         "limitations": [
             "No upload to Arduino Mega",
             "No BTS7960 or motor energization",
-            "Current-to-torque coefficients remain zero until physical calibration",
+            "Compile equivalence does not prove that P3 calibration was physically performed or that EEPROM calibration was applied/read back",
         ],
     }
     (HERE / "firmware_review.json").write_text(json.dumps(result, indent=2) + "\n")
