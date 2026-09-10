@@ -1,0 +1,152 @@
+{
+  "revision": "physical-execution-v0.8-r1",
+  "policy": {
+    "physical_action_authorized": false,
+    "procurement_authorized": false,
+    "motor_energization_authorized": false,
+    "heater_energization_authorized": false,
+    "production_certification": false
+  },
+  "stages": [
+    {
+      "id": "P0",
+      "name": "DIGITAL_TECHNICAL_ENTRY",
+      "state": "RUNTIME_EVALUATED",
+      "doc": "PHYSICAL_BUILD_READINESS_KO.md",
+      "analyzer": "simulation_prerequisite.py",
+      "templates": []
+    },
+    {
+      "id": "P1",
+      "name": "INVENTORY_AND_RECEIPT",
+      "state": "NOT_RUN",
+      "doc": "P1_EXECUTION_KO.md",
+      "analyzer": "profile_nesting.py",
+      "templates": [
+        "templates/profile_stock_measurement.csv",
+        "templates/p1_inventory_record.csv",
+        "templates/component_receipt.csv"
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "COLD_FRAME_AND_FIT",
+      "state": "NOT_RUN",
+      "doc": "P2_COLD_FIT_KO.md",
+      "analyzer": "analyze_p2_records.py",
+      "templates": [
+        "templates/p2_cold_fit.csv"
+      ]
+    },
+    {
+      "id": "P3",
+      "name": "GGM_DRIVE_BENCH",
+      "state": "NOT_RUN",
+      "doc": "P3_GGM_BENCH_KO.md",
+      "analyzer": "analyze_p3_records.py",
+      "templates": [
+        "templates/p3_current_sensor_calibration.csv",
+        "templates/p3_no_load.csv",
+        "templates/p3_torque_map.csv",
+        "templates/p3_pin_release.csv",
+        "templates/p3_stage_release.json"
+      ]
+    },
+    {
+      "id": "P4",
+      "name": "SHREDDER_COUPON",
+      "state": "NOT_RUN",
+      "doc": "P4_SHREDDER_COUPON_KO.md",
+      "analyzer": "analyze_p4_records.py",
+      "templates": [
+        "../../exports/jigs/gate1/preflight_inspection_template.csv",
+        "../../exports/jigs/gate1/gate1_results_template.csv",
+        "../../exports/jigs/gate1/jam_recovery_results_template.csv",
+        "../../exports/jigs/gate1/chip_size_results_template.csv"
+      ]
+    },
+    {
+      "id": "P5",
+      "name": "SCREW_BARREL_PROCESS_COUPON",
+      "state": "NOT_RUN",
+      "doc": "P5_PROCESS_COUPON_KO.md",
+      "analyzer": "analyze_p5_records.py",
+      "templates": [
+        "templates/p5_coupon_certificates.csv",
+        "templates/p5_coupon_measurements.csv",
+        "templates/p5_supplier_capability.csv"
+      ]
+    },
+    {
+      "id": "P6",
+      "name": "COLD_EXTRUDER_ASSEMBLY",
+      "state": "NOT_RUN",
+      "doc": "P6_COLD_EXTRUDER_KO.md",
+      "analyzer": "analyze_p6_records.py",
+      "templates": [
+        "templates/p6_cold_extruder.csv"
+      ]
+    },
+    {
+      "id": "P7",
+      "name": "ELECTRICAL_SAFETY_AND_LOGIC",
+      "state": "NOT_RUN",
+      "doc": "P7_ELECTRICAL_SAFETY_KO.md",
+      "analyzer": "analyze_p7_records.py",
+      "templates": [
+        "templates/p7_electrical_safety.csv"
+      ]
+    },
+    {
+      "id": "P8",
+      "name": "INSTALLED_MOTOR_DRY_RUN",
+      "state": "NOT_RUN",
+      "doc": "P8_INSTALLED_MOTOR_DRY_RUN_KO.md",
+      "analyzer": "analyze_p8_records.py",
+      "templates": [
+        "templates/p8_motor_dry_run.csv"
+      ]
+    },
+    {
+      "id": "P9",
+      "name": "EMPTY_HOT_ZONE",
+      "state": "NOT_RUN",
+      "doc": "P9_EMPTY_HOT_ZONE_KO.md",
+      "analyzer": "analyze_p9_records.py",
+      "templates": [
+        "templates/p9_thermal_profile.csv",
+        "templates/p9_hot_safety.csv"
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "PLA_LOW_FEED",
+      "state": "NOT_RUN",
+      "doc": "P10_P11_MATERIAL_RUN_KO.md",
+      "analyzer": "analyze_material_run.py",
+      "templates": [
+        "templates/p10_p11_material_run.csv"
+      ]
+    },
+    {
+      "id": "P11",
+      "name": "PET_LOW_FEED",
+      "state": "NOT_RUN",
+      "doc": "P10_P11_MATERIAL_RUN_KO.md",
+      "analyzer": "analyze_material_run.py",
+      "templates": [
+        "templates/p10_p11_material_run.csv"
+      ]
+    },
+    {
+      "id": "P12",
+      "name": "FORMING_AND_SPOOL",
+      "state": "NOT_RUN",
+      "doc": "P12_FORMING_SPOOL_KO.md",
+      "analyzer": "analyze_p12_records.py",
+      "templates": [
+        "templates/p12_forming_spool.csv"
+      ]
+    }
+  ]
+}
