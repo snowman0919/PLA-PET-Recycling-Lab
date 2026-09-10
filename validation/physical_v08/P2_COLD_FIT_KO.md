@@ -14,3 +14,7 @@ P2는 절삭/가열/재료 투입 전의 순수 기계 조립 gate다. `P1_RECOR
 ## 기록
 
 `templates/p2_cold_fit.csv`의 모든 numeric 행에 실측값, U95, 단위, 계측기 ID·교정 참조, 작업자·검토자, ISO timestamp, 저장소 상대 evidence 경로와 SHA-256을 기록한다. Boolean 항목도 작업자·검토자·timestamp와 사진/영상 또는 점검기록의 경로/hash가 필요하다. 실행은 `analyze_p2_records.py RECORD --p1-inventory ... --ggm-packet ... --profile-stock ... --kerf-mm ... --fabrication-approval ...` 형식이다. Analyzer는 P1을 현재 authority로 재계산하고, GGM mount와 profile nesting을 다시 계산한 뒤 exact approval binding을 검증한다. `P2_RECORD_CHECK_PASS`여도 `fabrication_authorized`, `energization_authorized`, `stage_release_granted`는 항상 false이며 다음 단계에는 별도 reviewed stage release가 필요하다.
+
+## P2 stage release
+
+`P2_RECORD_CHECK_PASS` 이후 exact P1 inventory, GGM packet, profile-stock record, kerf, P2 fabrication approval, cold-fit record/result를 `templates/p2_stage_release.json`에 결박하고 독립 검토자가 서명한다. `validate_p2_stage_release.py`가 현재 analyzer로 전체 체인을 재계산해 `P2_STAGE_RELEASE_VALIDATED`를 내야 P3/P5 entry review에 사용할 수 있다. 이 release도 motor power와 추가 fabrication을 자동 승인하지 않는다.

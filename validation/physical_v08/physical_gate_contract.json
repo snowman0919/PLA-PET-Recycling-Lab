@@ -81,12 +81,12 @@
       "action": "guarded low-voltage motor bench test, no cutter/screw/heater load",
       "prerequisites": [
         "P0 PASS",
-        "P2 applicable cold-fit/fixture PASS",
-        "GGM receipt PASS",
+        "P2_STAGE_RELEASE_VALIDATED against the same GGM receipt packet used for P3",
+        "GGM receipt/mount compatibility remains AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED",
         "BTS7960 wiring checked",
         "current sensor identity/wiring verified; independent current reference available for in-gate calibration",
         "P3 pre-power evidence record check PASS; this does not itself authorize energization",
-        "user energization approval for this fixture only"
+        "user explicitly approves energization for the P3 fixture after reviewing the preflight evidence"
       ],
       "acceptance": [
         "SH K9G75C and EX K9G150C no-load speed/current recorded",

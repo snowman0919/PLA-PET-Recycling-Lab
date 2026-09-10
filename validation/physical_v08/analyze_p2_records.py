@@ -181,7 +181,10 @@ def validate_prerequisites(inventory: Path, packet: Path, stock: Path, kerf_mm: 
         if not measured[typ]: raise ValueError(typ+" profile stock missing")
         ok,plan=nesting.solve(req[typ],measured[typ],kerf_mm)
         if not ok: raise ValueError(typ+" profile stock is insufficient or unnested")
-        profile_results[typ]={"required_piece_count":len(req[typ]),"plan":plan}
+        canonical_plan=[]
+        for bar in plan:
+            canonical_plan.append({**bar, "cuts": [[part_id, length] for part_id, length in bar["cuts"]]})
+        profile_results[typ]={"required_piece_count":len(req[typ]),"plan":canonical_plan}
     approval_result=verify_approval(approval,inventory,packet,stock,kerf_mm,root)
     return {
         "p1_status":p1_result["status"], "p1_inventory_sha256":sha(inventory),

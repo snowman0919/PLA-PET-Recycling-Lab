@@ -134,28 +134,32 @@ class ExecutionToolsTest(unittest.TestCase):
             bindings={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in (
                 'control/ggm_drive_contract.json','analysis/drive_acceptance_v08/manufacturing/drawing_contract.json')}
             packet={'design_sha256':bindings,'receipt':{'performed':True,'data':{'SH':rec('SH','K9G75C'),'EX':rec('EX','K9G150C')}}}
+            receipt_file=d/'p3-receipt.json'; receipt_file.write_text(json.dumps(packet,indent=2)+'\n')
+            receipt_digest=hashlib.sha256(receipt_file.read_bytes()).hexdigest()
             common={'status':'PASS','operator':'TEST','reviewer':'REVIEW','checked_at':'2026-09-10T16:05+09:00','evidence_path':rel,'sha256':digest,'notes':'synthetic'}
             rows=[{'check_id':check_id,'observed':sorted(accepted)[0],**common} for check_id,accepted in p3pre.EXPECTED.items()]
-            p2_result=d/'p2-result.json'; p2_result.write_text(json.dumps({'status':'PASS','physical_evidence_evaluated':True,'stage_release_granted':False}))
-            p2_digest=hashlib.sha256(p2_result.read_bytes()).hexdigest(); p2_rel=str(p2_result.relative_to(root))
+            p2_release=d/'p2-stage-release.json'; p2_release.write_text('{"stage":"P2","status":"PASS"}\n')
+            p2_digest=hashlib.sha256(p2_release.read_bytes()).hexdigest(); p2_rel=str(p2_release.relative_to(root))
             p2row=next(r for r in rows if r['check_id']=='p2_applicable_cold_fit'); p2row['evidence_path']=p2_rel; p2row['sha256']=p2_digest
-            ok=p3pre.evaluate(rows,packet,root)
+            p2_ok=lambda _: {'status':'P2_STAGE_RELEASE_VALIDATED','p3_entry_prerequisite':True,
+                'motor_energization_authorized':False,'machine_release':'HOLD','ggm_packet_sha256':receipt_digest}
+            ok=p3pre.evaluate(rows,packet,root,p2_checker=p2_ok,receipt_packet_sha256=receipt_digest)
             self.assertEqual(ok['status'],'PREPOWER_RECORD_CHECK_PASS')
             self.assertFalse(ok['motor_energization_authorized']); self.assertFalse(ok['stage_p3_pass'])
             self.assertEqual(ok['mount_status'],'AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED')
+            self.assertEqual(ok['p2_stage_release']['status'],'P2_STAGE_RELEASE_VALIDATED')
             self.assertEqual(ok['p0_snapshot_head'], subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip())
-            p2_result.write_text(json.dumps({'status':'FAIL','physical_evidence_evaluated':True,'stage_release_granted':False}))
-            p2row['sha256']=hashlib.sha256(p2_result.read_bytes()).hexdigest()
-            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)
-            p2_result.write_text(json.dumps({'status':'PASS','physical_evidence_evaluated':True,'stage_release_granted':False})); p2row['sha256']=hashlib.sha256(p2_result.read_bytes()).hexdigest()
+            p2_bad=lambda _: {'status':'NOT_RUN_OR_REJECTED','p3_entry_prerequisite':False,
+                'motor_energization_authorized':False,'machine_release':'HOLD','ggm_packet_sha256':receipt_digest}
+            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root,p2_checker=p2_bad,receipt_packet_sha256=receipt_digest)
             by={r['check_id']:r for r in rows}
             by['extruder_current_channel']['observed']='A8_MOTOR_LEAD'
-            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)
+            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root,p2_checker=p2_ok,receipt_packet_sha256=receipt_digest)
             by['extruder_current_channel']['observed']='A9_MOTOR_LEAD'; by['workspace_clear']['sha256']='0'*64
-            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)
+            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root,p2_checker=p2_ok,receipt_packet_sha256=receipt_digest)
             by['workspace_clear']['sha256']=digest
             packet['receipt']['data']['EX']=rec('EX','K9G150C',offset=18.35)
-            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)
+            with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root,p2_checker=p2_ok,receipt_packet_sha256=receipt_digest)
 
     def test_profile_nesting_synthetic(self):
         import hashlib

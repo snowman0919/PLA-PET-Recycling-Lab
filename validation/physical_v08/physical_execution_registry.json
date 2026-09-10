@@ -42,8 +42,10 @@
       "analyzer": "analyze_p2_records.py",
       "templates": [
         "templates/p2_fabrication_approval.json",
-        "templates/p2_cold_fit.csv"
-      ]
+        "templates/p2_cold_fit.csv",
+        "templates/p2_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p2_stage_release.py"
     },
     {
       "id": "P3",

@@ -19,6 +19,7 @@ P = load(HERE / "analyze_p3_preflight.py", "p3_preflight_test")
 I = load(ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py", "ggm_inspection_test")
 S = load(HERE / "validate_p3_stage_release.py", "p3_stage_release_test")
 F = load(HERE / "build_p3_firmware_profile.py", "p3_firmware_profile_test")
+P2T = load(HERE / "test_p2_stage_release.py", "p2_stage_fixture_for_p3")
 
 class P3PacketBuilderTest(unittest.TestCase):
     def test_csv_to_authoritative_packet(self):
@@ -26,32 +27,15 @@ class P3PacketBuilderTest(unittest.TestCase):
             d = Path(td); evidence = d / "evidence.txt"; evidence.write_text("synthetic P3 evidence")
             digest = hashlib.sha256(evidence.read_bytes()).hexdigest(); rel = str(evidence.relative_to(ROOT))
             common = {"evidence_path": rel, "sha256": digest, "operator": "TEST", "measured_at": "2026-09-10T15:00+09:00"}
-            def receipt(axis, gear):
-                readings = {
-                    "voltage_v": (24.0, 0.0, "V"), "shaft_diameter": (11.99, .002, "mm"),
-                    "shaft_projection": (32.0, .05, "mm"), "bolt_pcd": (104.0, .01, "mm"),
-                    "output_offset": (18.0, .01, "mm"), "case_width": (90.0, .1, "mm"), "rear_length": (209.0, .1, "mm")}
-                return {"performed": True, "kind": "PHYSICAL_MEASUREMENT", "operator": "TEST", "part_serial": "SER-"+axis,
-                    "instrument_id": "MEAS-01", "instrument_calibration_ref": "CAL-R", "measured_at": common["measured_at"],
-                    "raw_files": {rel: digest}, "motor_model": "K9DG60N2", "gear_model": gear,
-                    "readings": {k: {"value": v, "u95": u, "unit": unit} for k, (v, u, unit) in readings.items()}}
-            bindings = {name: hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in (
-                "control/ggm_drive_contract.json", "analysis/drive_acceptance_v08/manufacturing/drawing_contract.json")}
-            packet = {"all_physical_actions_authorized": False, "design_sha256": bindings,
-                "receipt": {"performed": True, "data": {"SH": receipt("SH", "K9G75C"), "EX": receipt("EX", "K9G150C")}},
-                "alignment": {"performed": False, "data": {}}, "protection_pin": {"performed": False, "data": {}},
-                "current_calibration": {"performed": False, "data": {}}}
-            receipt_file = d / "receipt_packet.json"
-            receipt_file.write_text(json.dumps(packet, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-            p2_result = d / "p2_result.json"
-            p2_result.write_text(json.dumps({"status":"PASS","physical_evidence_evaluated":True,"stage_release_granted":False}) + "\n", encoding="utf-8")
+            p2_release, _, _, _, receipt_file, _, _, _ = P2T.make_release(d)
+            packet = json.loads(receipt_file.read_text(encoding="utf-8"))
             pre_common = {"status":"PASS","operator":"TEST","reviewer":"REVIEW","checked_at":"2026-09-10T15:05+09:00",
                 "evidence_path":rel,"sha256":digest,"notes":"synthetic preflight"}
             pre_rows = [{"check_id":check_id,"observed":sorted(accepted)[0],**pre_common} for check_id,accepted in P.EXPECTED.items()]
             p2row = next(row for row in pre_rows if row["check_id"] == "p2_applicable_cold_fit")
-            p2row["evidence_path"] = str(p2_result.relative_to(ROOT)); p2row["sha256"] = hashlib.sha256(p2_result.read_bytes()).hexdigest()
-            preflight = P.evaluate(pre_rows, packet, ROOT)
-            preflight["receipt_packet_sha256"] = hashlib.sha256(receipt_file.read_bytes()).hexdigest()
+            p2row["evidence_path"] = str(p2_release.relative_to(ROOT)); p2row["sha256"] = hashlib.sha256(p2_release.read_bytes()).hexdigest()
+            preflight = P.evaluate(pre_rows, packet, ROOT, receipt_packet_sha256=hashlib.sha256(receipt_file.read_bytes()).hexdigest())
+            P.validate_result(preflight, ROOT)
             preflight_file = d / "p3_preflight_result.json"
             preflight_file.write_text(json.dumps(preflight, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             preflight_binding = B.bind_preflight(preflight_file, receipt_file)

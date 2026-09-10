@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 MOUNT_ANALYZER = HERE / "analyze_ggm_mount_compatibility.py"
 SIM_ANALYZER = HERE / "simulation_prerequisite.py"
+P2_STAGE_VALIDATOR = HERE / "validate_p2_stage_release.py"
 
 EXPECTED = {
     "p2_applicable_cold_fit": {"PASS_REVIEWED"},
@@ -49,6 +50,7 @@ SOURCE_FILES = (
     "analysis/drive_acceptance_v08/manufacturing/drawing_contract.json",
     "validation/physical_v08/simulation_prerequisite.py",
     "validation/physical_v08/analyze_ggm_mount_compatibility.py",
+    "validation/physical_v08/validate_p2_stage_release.py",
     "validation/physical_v08/analyze_p3_preflight.py",
     "validation/physical_v08/p3_fixture_contract.json",
     "validation/physical_v08/p3_bench_bom.csv",
@@ -160,7 +162,8 @@ def validate_machine_contract(root: Path) -> dict:
     }
 
 
-def evaluate(record_rows: list[dict[str, str]], receipt_packet: dict, root: Path = ROOT) -> dict:
+def evaluate(record_rows: list[dict[str, str]], receipt_packet: dict, root: Path = ROOT, *,
+             p2_checker=None, receipt_packet_sha256: str | None = None) -> dict:
     by_id: dict[str, dict[str, str]] = {}
     for row in record_rows:
         check_id = row.get("check_id", "").strip()
@@ -186,14 +189,20 @@ def evaluate(record_rows: list[dict[str, str]], receipt_packet: dict, root: Path
         if observed not in accepted:
             raise ValueError(f"{check_id}: observed {observed!r}, expected one of {sorted(accepted)}")
         if check_id == "p2_applicable_cold_fit":
-            try:
-                p2_result = json.loads(evidence_path.read_text(encoding="utf-8"))
-            except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-                raise ValueError("p2_applicable_cold_fit: evidence must be P2 analyzer JSON") from exc
-            if p2_result.get("status") != "PASS" or p2_result.get("physical_evidence_evaluated") is not True:
-                raise ValueError("p2_applicable_cold_fit: P2 analyzer result is not authenticated PASS")
-            if p2_result.get("stage_release_granted") is not False:
-                raise ValueError("p2_applicable_cold_fit: unexpected automatic stage release")
+            if receipt_packet_sha256 is None or len(receipt_packet_sha256) != 64:
+                raise ValueError("p2_applicable_cold_fit: exact receipt packet SHA-256 is required")
+            checker = p2_checker or load_module(P2_STAGE_VALIDATOR, "ppr_p3_p2_release").validate
+            p2_result = checker(evidence_path)
+            if p2_result.get("status") != "P2_STAGE_RELEASE_VALIDATED" or p2_result.get("p3_entry_prerequisite") is not True:
+                raise ValueError("p2_applicable_cold_fit: P2 stage release is not validated for P3")
+            if p2_result.get("motor_energization_authorized") is not False or p2_result.get("machine_release") != "HOLD":
+                raise ValueError("p2_applicable_cold_fit: P2 release authorization semantics drift")
+            if p2_result.get("ggm_packet_sha256") != receipt_packet_sha256:
+                raise ValueError("p2_applicable_cold_fit: P2 and P3 GGM receipt packet binding differ")
+            p2_binding = {
+                "path": str(evidence_path.relative_to(root)), "sha256": row["sha256"].lower(),
+                "status": p2_result["status"], "ggm_packet_sha256": p2_result["ggm_packet_sha256"],
+            }
         checks[check_id] = {"observed": observed, "evidence_sha256": row["sha256"].lower(), "pass": True}
 
     machine = validate_machine_contract(root)
@@ -221,6 +230,8 @@ def evaluate(record_rows: list[dict[str, str]], receipt_packet: dict, root: Path
         "motor_energization_authorized": False,
         "stage_p3_pass": False,
         "mount_status": mount["status"],
+        "p2_stage_release": p2_binding,
+        "receipt_packet_sha256": receipt_packet_sha256,
         "p0_runtime_digest": p0_digest(simulation),
         "p0_snapshot_head": simulation.get("head"),
         "checks": checks,
@@ -230,7 +241,7 @@ def evaluate(record_rows: list[dict[str, str]], receipt_packet: dict, root: Path
     }
 
 
-def validate_result(result: dict, root: Path = ROOT) -> dict:
+def validate_result(result: dict, root: Path = ROOT, *, p2_checker=None) -> dict:
     if result.get("status") != "PREPOWER_RECORD_CHECK_PASS":
         raise ValueError("P3 preflight result is not PASS")
     if result.get("record_check_only") is not True or result.get("physical_evidence_evaluated") is not True:
@@ -241,6 +252,20 @@ def validate_result(result: dict, root: Path = ROOT) -> dict:
         raise ValueError("P3 preflight must not self-authorize motor power or stage release")
     if result.get("mount_status") != "AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED":
         raise ValueError("P3 preflight mount state invalid")
+    p2_binding = result.get("p2_stage_release", {})
+    p2_path = (root / p2_binding.get("path", "")).resolve()
+    if not p2_path.is_relative_to(root) or not p2_path.is_file():
+        raise ValueError("P3 preflight P2 stage-release path invalid")
+    if p2_binding.get("sha256") != sha(p2_path):
+        raise ValueError("P3 preflight P2 stage-release hash stale")
+    checker = p2_checker or load_module(P2_STAGE_VALIDATOR, "ppr_p3_p2_revalidate").validate
+    p2_result = checker(p2_path)
+    if p2_result.get("status") != "P2_STAGE_RELEASE_VALIDATED" or p2_result.get("p3_entry_prerequisite") is not True:
+        raise ValueError("P3 preflight P2 stage release no longer validates")
+    if p2_result.get("motor_energization_authorized") is not False or p2_result.get("machine_release") != "HOLD":
+        raise ValueError("P3 preflight P2 release authorization semantics drift")
+    if p2_result.get("ggm_packet_sha256") != result.get("receipt_packet_sha256"):
+        raise ValueError("P3 preflight P2/P3 GGM receipt binding stale")
     checks = result.get("checks", {})
     if set(checks) != set(EXPECTED) or any(row.get("pass") is not True for row in checks.values()):
         raise ValueError("P3 preflight check set incomplete")
@@ -264,9 +289,10 @@ def main() -> None:
     ap.add_argument("--output", type=Path)
     args = ap.parse_args()
     try:
-        result = evaluate(rows(args.preflight_csv), json.loads(args.receipt_packet.read_text(encoding="utf-8")))
+        receipt_digest = sha(args.receipt_packet)
+        result = evaluate(rows(args.preflight_csv), json.loads(args.receipt_packet.read_text(encoding="utf-8")),
+                          receipt_packet_sha256=receipt_digest)
         validate_result(result)
-        result["receipt_packet_sha256"] = sha(args.receipt_packet)
         code = 0
     except (ValueError, KeyError, FileNotFoundError, json.JSONDecodeError) as exc:
         result = {"status": "NOT_RUN_OR_REJECTED", "record_check_only": True, "motor_energization_authorized": False, "stage_p3_pass": False, "reason": str(exc)}

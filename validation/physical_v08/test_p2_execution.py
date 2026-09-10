@@ -74,11 +74,15 @@ def make_fixture(run: Path):
     bindings = {name: sha(ROOT / name) for name in (
         "control/ggm_drive_contract.json", "analysis/drive_acceptance_v08/manufacturing/drawing_contract.json")}
     packet_data = {
+        "all_physical_actions_authorized": False,
         "design_sha256": bindings,
         "receipt": {"performed": True, "data": {
             "SH": receipt("SH", "K9G75C", rel, digest),
             "EX": receipt("EX", "K9G150C", rel, digest),
         }},
+        "alignment": {"performed": False, "data": {}},
+        "protection_pin": {"performed": False, "data": {}},
+        "current_calibration": {"performed": False, "data": {}},
     }
     packet = run / "ggm_packet.json"; packet.write_text(json.dumps(packet_data, indent=2) + "\n", encoding="utf-8")
 
