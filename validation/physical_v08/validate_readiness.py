@@ -206,6 +206,19 @@ def main():
     assert p3_fixture["mechanical_release"]["coupon_count"] == 9
     assert any(r["id"] == "P3-BRK-01" and "OPTIONAL" in r["disposition"] for r in p3_bom)
     registry = j("validation/physical_v08/physical_execution_registry.json")
+    p1_registry = next(stage for stage in registry["stages"] if stage["id"] == "P1")
+    assert p1_registry["external_templates"] == [{
+        "source": "analysis/drive_acceptance_v08/manufacturing/inspection_packet_template.json",
+        "archive_name": "p1_ggm_receipt_packet.json",
+    }]
+    p1_rows = rows("validation/physical_v08/templates/p1_inventory_record.csv")
+    assert len(p1_rows) == 29 and {r["item_id"] for r in p1_rows} == set(inv)
+    p1_header = (ROOT / "validation/physical_v08/templates/p1_inventory_record.csv").read_text(encoding="utf-8").splitlines()[0]
+    assert "instrument_calibration_ref" in p1_header and "reviewer" in p1_header
+    p1_analyzer = (ROOT / "validation/physical_v08/analyze_p1_records.py").read_text(encoding="utf-8")
+    for token in ("P1 inventory coverage mismatch", "GGM PASS rows require --ggm-packet", "inventory_control_sha256"):
+        assert token in p1_analyzer
+
     p3_registry = next(stage for stage in registry["stages"] if stage["id"] == "P3")
     assert p3_registry["preflight_analyzer"] == "analyze_p3_preflight.py"
     assert p3_registry["packet_builder"] == "build_p3_inspection_packet.py"

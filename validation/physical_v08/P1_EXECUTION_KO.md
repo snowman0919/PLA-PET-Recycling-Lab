@@ -11,9 +11,9 @@ P1은 구매나 통전이 아니라 **현재 보유품을 식별하고 실제 �
 
 ## 2. 기록 규칙
 
-`templates/p1_inventory_record.csv`의 `observed_*` 칸만 실측으로 채우고 증거 파일은 저장소 상대경로와 SHA-256으로 결박한다. Profile stock record도 instrument calibration ref, operator/reviewer, timestamp, evidence path/hash가 모두 있어야 하며 nesting에는 `usable_length_mm - u95_length_mm`만 사용한다. 미확인은 `NOT_FOUND` 또는 `IDENTITY_PENDING`, 보유하지만 미측정은 `SEEN_NOT_MEASURED`로 구분한다. 구매 후보라는 이유만으로 `PASS`를 입력하지 않는다.
+`templates/p1_inventory_record.csv`의 29개 item row를 삭제하거나 추가하지 않는다. Analyzer는 `inventory_confirmation.csv`의 exact item set, `planned_state`, required quantity/capacity와 전부 대조한다. PASS row는 instrument calibration ref, operator와 서로 다른 reviewer, timezone 포함 timestamp, evidence path/SHA-256을 모두 요구한다. Profile stock record도 같은 provenance를 유지하며 nesting에는 `usable_length_mm - u95_length_mm`만 사용한다. 미확인은 `NOT_FOUND` 또는 `IDENTITY_PENDING`, 보유하지만 미측정은 `SEEN_NOT_MEASURED`로 구분한다. 구매 후보라는 이유만으로 `PASS`를 입력하지 않는다.
 
-`analyze_p1_records.py templates/p1_inventory_record.csv`는 증거 경로/SHA-256과 provenance를 fail-closed로 확인한다. 프로젝트실 조사 대상이 모두 판정되고 GGM만 미수령이면 `P1_STOCK_SURVEY_PASS_GGM_PENDING`, 두 GGM 수령검사까지 PASS면 `P1_RECORD_CHECK_PASS`가 된다. `NOT_FOUND`, `IDENTITY_PENDING`, `SEEN_NOT_MEASURED`는 P1 통과로 승격되지 않는다.
+`analyze_p1_records.py templates/p1_inventory_record.csv`는 증거 경로/SHA-256과 provenance를 fail-closed로 확인한다. GGM 축을 PASS로 기록하려면 `--ggm-packet`에 `analysis/drive_acceptance_v08/manufacturing/inspection_packet_template.json`을 복사해 채운 physical receipt packet을 함께 넘겨야 하며, 해당 축의 model/serial, raw evidence hash와 voltage/shaft/PCD/output-offset/case envelope를 current inspection authority로 재검증한다. 현장 launch ZIP에는 이를 `01_TEMPLATES/p1_ggm_receipt_packet.json`으로 포함한다. 프로젝트실 조사 대상이 모두 판정되고 GGM만 미수령이면 `P1_STOCK_SURVEY_PASS_GGM_PENDING`, 두 GGM receipt까지 검증되어야 `P1_RECORD_CHECK_PASS`가 된다. `NOT_FOUND`, `IDENTITY_PENDING`, `SEEN_NOT_MEASURED`는 P1 통과로 승격되지 않는다.
 
 ## 3. 다음 단계로 넘기는 정보
 

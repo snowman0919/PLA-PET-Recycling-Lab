@@ -46,6 +46,13 @@ def main() -> None:
     for path in sorted((PHYS / "templates").iterdir()):
         if path.is_file():
             items.append((path, "01_TEMPLATES/" + path.name))
+    for stage in registry["stages"]:
+        for entry in stage.get("external_templates", []):
+            source = entry.get("source", "")
+            archive_name = entry.get("archive_name", "")
+            if not source or not archive_name or Path(archive_name).name != archive_name:
+                raise SystemExit(f"invalid external template declaration in {stage['id']}")
+            add_file(items, source, "01_TEMPLATES/" + archive_name)
 
     tool_names = {"profile_nesting.py", "build_p5_inquiry_package.py"}
     for stage in registry["stages"]:

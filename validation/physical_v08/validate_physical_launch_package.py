@@ -40,6 +40,10 @@ def require_registry_payload(archive: zipfile.ZipFile, names: set[str]) -> None:
             archive_name = "01_TEMPLATES/" + Path(template).name
             if archive_name not in names:
                 raise SystemExit(f"missing {stage_id} template {archive_name}")
+        for entry in stage.get("external_templates", []):
+            archive_name = "01_TEMPLATES/" + Path(entry.get("archive_name", "")).name
+            if archive_name not in names:
+                raise SystemExit(f"missing {stage_id} external template {archive_name}")
         for key, value in stage.items():
             if isinstance(value, str) and value.endswith(".py"):
                 archive_name = "02_ANALYZERS/" + Path(value).name

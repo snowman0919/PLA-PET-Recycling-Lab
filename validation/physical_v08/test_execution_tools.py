@@ -9,23 +9,55 @@ nest=load('profile_nesting'); p1=load('analyze_p1_records'); p2=load('analyze_p2
 
 class ExecutionToolsTest(unittest.TestCase):
     def test_p1_fail_closed_and_ggm_pending(self):
+        import hashlib
+        root=HERE.parents[1]
         with tempfile.TemporaryDirectory(dir=HERE) as td:
             d=Path(td); evidence=d/'evidence.txt'; evidence.write_text('measured')
-            digest=__import__('hashlib').sha256(evidence.read_bytes()).hexdigest()
-            rel=str(evidence.relative_to(HERE.parents[1]))
-            base={'observed_quantity':'1','manufacturer_model_marking':'MODEL','dimension_or_rating_summary':'ok','condition':'GOOD','instrument_id':'MEAS-01','measured_at':'2026-09-10T13:00+09:00','operator':'TEST','evidence_path':rel,'sha256':digest,'result':'PASS'}
+            digest=hashlib.sha256(evidence.read_bytes()).hexdigest(); rel=str(evidence.relative_to(root))
+            template=p1.read_csv(HERE/'templates/p1_inventory_record.csv')
             rows=[]
-            for item,state in [('ASSET-BTS','USER_REPORTED_AVAILABLE'),('STOCK-6201','CHECK_PROJECT_LAB_FIRST'),('BUY-GGM-SH','SELECTED_NOT_ORDERED'),('BUY-GGM-EX','SELECTED_NOT_ORDERED')]:
-                row={'item_id':item,'planned_state':state,**base}
-                if item.startswith('BUY-GGM'): row['result']='NOT_RUN'
+            for source in template:
+                row=dict(source)
+                if row['planned_state'] in p1.SURVEY_STATES:
+                    row.update({'observed_quantity':'1','manufacturer_model_marking':'MODEL',
+                        'dimension_or_rating_summary':'checked','condition':'GOOD','instrument_id':'MEAS-P1',
+                        'instrument_calibration_ref':'CAL-P1','measured_at':'2026-09-10T13:00+09:00',
+                        'operator':'TEST','reviewer':'REVIEW','evidence_path':rel,'sha256':digest,'result':'PASS'})
                 rows.append(row)
-            result=p1.evaluate(rows,HERE.parents[1])
-            self.assertEqual(result['status'],'P1_STOCK_SURVEY_PASS_GGM_PENDING')
+            pending=p1.evaluate(rows,root)
+            self.assertEqual(pending['status'],'P1_STOCK_SURVEY_PASS_GGM_PENDING')
+            self.assertEqual(pending['required_item_count'],29)
+
+            def receipt(axis,gear):
+                return {'kind':'PHYSICAL_MEASUREMENT','performed':True,'operator':'TEST',
+                    'part_serial':'SER-'+axis,'instrument_id':'MEAS-P1','instrument_calibration_ref':'CAL-P1',
+                    'measured_at':'2026-09-10T13:10+09:00','raw_files':{rel:digest},
+                    'motor_model':'K9DG60N2','gear_model':gear,'readings':{
+                        'voltage_v':{'value':24.0,'u95':0.0,'unit':'V'},
+                        'shaft_diameter':{'value':11.99,'u95':0.002,'unit':'mm'},
+                        'shaft_projection':{'value':32.0,'u95':0.05,'unit':'mm'},
+                        'bolt_pcd':{'value':104.0,'u95':0.01,'unit':'mm'},
+                        'output_offset':{'value':18.0,'u95':0.01,'unit':'mm'},
+                        'case_width':{'value':90.0,'u95':0.1,'unit':'mm'},
+                        'rear_length':{'value':209.0,'u95':0.1,'unit':'mm'}}}
+            packet={'receipt':{'performed':True,'data':{
+                'SH':receipt('SH','K9G75C'),'EX':receipt('EX','K9G150C')}}}
             for row in rows:
-                if row['item_id'].startswith('BUY-GGM'): row['result']='PASS'
-            self.assertEqual(p1.evaluate(rows,HERE.parents[1])['status'],'P1_RECORD_CHECK_PASS')
+                if row['item_id'] in p1.GGM_AXES:
+                    row.update({'observed_quantity':'1','manufacturer_model_marking':'K9DG60N2 '+p1.GGM_AXES[row['item_id']][1],
+                        'dimension_or_rating_summary':'receipt geometry measured','condition':'GOOD','instrument_id':'MEAS-P1',
+                        'instrument_calibration_ref':'CAL-P1','measured_at':'2026-09-10T13:10+09:00',
+                        'operator':'TEST','reviewer':'REVIEW','evidence_path':rel,'sha256':digest,'result':'PASS'})
+            with self.assertRaises(ValueError): p1.evaluate(rows,root)
+            passed=p1.evaluate(rows,root,packet)
+            self.assertEqual(passed['status'],'P1_RECORD_CHECK_PASS')
+            self.assertEqual(set(passed['ggm_receipt_verified']),{'SH','EX'})
+
+            short=rows[:-1]
+            with self.assertRaises(ValueError): p1.evaluate(short,root,packet)
             rows[0]['sha256']='0'*64
-            with self.assertRaises(ValueError): p1.evaluate(rows,HERE.parents[1])
+            with self.assertRaises(ValueError): p1.evaluate(rows,root,packet)
+
     def test_p2_authenticated_cold_fit(self):
         import hashlib
         root=HERE.parents[1]

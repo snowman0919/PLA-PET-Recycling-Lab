@@ -26,6 +26,12 @@
         "templates/profile_stock_measurement.csv",
         "templates/p1_inventory_record.csv",
         "templates/component_receipt.csv"
+      ],
+      "external_templates": [
+        {
+          "source": "analysis/drive_acceptance_v08/manufacturing/inspection_packet_template.json",
+          "archive_name": "p1_ggm_receipt_packet.json"
+        }
       ]
     },
     {
