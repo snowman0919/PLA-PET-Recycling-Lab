@@ -135,6 +135,8 @@ def main():
         "validation/physical_v08/build_p3_inspection_packet.py",
         "validation/physical_v08/build_p3_firmware_profile.py",
         "validation/physical_v08/validate_p8_firmware_commissioning.py",
+        "validation/physical_v08/validate_thermal_cutoff_topology.py",
+        "control/thermal_cutoff_contract.json",
         "validation/physical_v08/test_p8_firmware_commissioning.py",
         "validation/physical_v08/analyze_p8_records.py",
         "validation/physical_v08/test_p8_execution.py",
@@ -251,6 +253,7 @@ def main():
     for token in ("8.0 N·m", "8.8–9.3 N·m", "cold axial travel≥1.50 mm"):
         assert token in plan
     subprocess.run([sys.executable, str(BASE / "validate_fabrication_handoff.py")], check=True, cwd=ROOT)
+    subprocess.run([sys.executable, str(BASE / "validate_thermal_cutoff_topology.py")], check=True, cwd=ROOT)
     print(f"PHYSICAL_V08_READINESS_CONTRACT_OK gates={len(gate['gates'])} inventory={len(inv)} equipment={len(equipment)} sequence={len(seq)} stage_bom={len(stage_bom)}")
 
 if __name__ == "__main__":
