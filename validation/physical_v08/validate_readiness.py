@@ -188,6 +188,9 @@ def main():
         "validation/physical_v08/templates/p4_quasistatic.csv",
         "validation/physical_v08/templates/p4_jam.csv",
         "validation/physical_v08/templates/p4_chip.csv",
+        "validation/physical_v08/build_physical_evidence_package.py",
+        "validation/physical_v08/validate_physical_evidence_package.py",
+        "validation/physical_v08/test_physical_evidence_package.py",
         "validation/physical_v08/validate_fabrication_handoff.py",
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)

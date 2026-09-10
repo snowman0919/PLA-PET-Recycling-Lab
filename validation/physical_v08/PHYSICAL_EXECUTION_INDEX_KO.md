@@ -29,3 +29,11 @@ P1 결과가 들어오면 profile nesting으로 P2 절단계획을 확정하고,
 ## 현장 launch package
 
 `build_physical_launch_package.py`는 P1~P12 실행 문서·빈 측정 template·P3 GGM 준비자료·P4 두-cutter coupon CAD·P5 process coupon CAD만 묶는다. Production `EX-SCR-01/EX-BAR-01`, legacy `DRV-01/Axx/F01`, `gate1_powered_assembly`는 의도적으로 제외한다. `validate_physical_launch_package.py`가 이 금지목록과 payload SHA-256 전수검사를 수행한다. 패키지 상태는 항상 `PREPARATION_ONLY_NOT_FABRICATION_AUTHORIZATION`이며 별도 사용자 승인 없이 구매·가공·통전·가열을 허용하지 않는다.
+
+## Launch package와 completion evidence package의 구분
+
+`build_physical_launch_package.py`가 만드는 ZIP은 실행 전 준비물이며 항상 P1-P12를 NOT_RUN으로 취급하고 실제 실행 권한을 부여하지 않는다. 실제 P12까지 수행한 뒤에는 이 launch ZIP을 완료 증거로 재사용하지 않는다.
+
+독립 검토된 exact `p12_stage_release.json`에서 `P12_STAGE_RELEASE_VALIDATED`가 나온 경우에만 `build_physical_evidence_package.py`로 completion evidence bundle을 만든다. 이 builder는 P12 release에서 참조되는 JSON/CSV와 그 내부 evidence path를 재귀적으로 수집해 SHA-256 manifest를 생성한다.
+
+`validate_physical_evidence_package.py`는 bundle 내부 무결성과 review-candidate 상태를 검증한다. 이 상태에서도 production authorization, continuing-power authority, safety certification은 false이고 machine release는 `HOLD`다.

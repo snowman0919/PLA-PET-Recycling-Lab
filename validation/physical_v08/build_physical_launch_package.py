@@ -54,7 +54,7 @@ def main() -> None:
                 raise SystemExit(f"invalid external template declaration in {stage['id']}")
             add_file(items, source, "01_TEMPLATES/" + archive_name)
 
-    tool_names = {"profile_nesting.py", "build_p5_inquiry_package.py"}
+    tool_names = {"profile_nesting.py", "build_p5_inquiry_package.py", "build_physical_evidence_package.py", "validate_physical_evidence_package.py"}
     for stage in registry["stages"]:
         for value in stage.values():
             if isinstance(value, str) and value.endswith(".py"):
