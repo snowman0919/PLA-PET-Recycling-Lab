@@ -173,6 +173,8 @@ def main():
     assert "validate_p3_stage_release.py" in p4_doc and "P3_STAGE_RELEASE_VALIDATED" in p4_doc
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_analyzer and "p3_prerequisite" in p4_analyzer
+    launch_builder = (ROOT / "validation/physical_v08/build_physical_launch_package.py").read_text(encoding="utf-8")
+    assert "validate_*_stage_release.py" in launch_builder
     assert "torque_from_force" in p4_analyzer and "fraction_3_6_lower_percent" in p4_analyzer
     p4_registry = next(stage for stage in registry["stages"] if stage["id"] == "P4")
     assert p4_registry["templates"] == ["templates/p4_preflight.csv", "templates/p4_quasistatic.csv", "templates/p4_jam.csv", "templates/p4_chip.csv", "templates/p4_stage_release.json"]
