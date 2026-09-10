@@ -33,7 +33,7 @@ def pin_record():
     r=meta();r['samples']=[]
     for axis,direction in [('SH','F'),('SH','R'),('EX','F')]:
         for i in range(3):r['samples'].append({'axis':axis,'direction':direction,'coupon_id':axis+direction+str(i),
-          'material_lot':'SYNTHETIC','drawing_revision':'TEST','release_torque':reading(9.05,'N.m',.05)})
+          'material_lot':'SYNTHETIC','drawing_revision':'TEST','neck_diameter_mm':2.45,'free_after_release':'YES','hub_key_damage':'NO','release_torque':reading(9.05,'N.m',.05)})
     return r
 class Tests(unittest.TestCase):
     def test_no_records_stay_not_run(self):
@@ -69,6 +69,12 @@ class Tests(unittest.TestCase):
     def test_pin_synthetic_numeric(self):self.assertEqual(I.pins(pin_record())['coupons'],9)
     def test_pin_above_range(self):
         r=pin_record();r['samples'][0]['release_torque']=reading(9.5,'N.m')
+        with self.assertRaises(ValueError):I.pins(r)
+    def test_pin_post_release_damage_rejected(self):
+        r=pin_record();r['samples'][0]['hub_key_damage']='YES'
+        with self.assertRaises(ValueError):I.pins(r)
+    def test_pin_post_release_bind_rejected(self):
+        r=pin_record();r['samples'][0]['free_after_release']='NO'
         with self.assertRaises(ValueError):I.pins(r)
     def test_duplicate_coupon(self):
         r=pin_record();r['samples'][1]['coupon_id']=r['samples'][0]['coupon_id']
@@ -117,10 +123,15 @@ class Tests(unittest.TestCase):
     def test_physical_record_blocked_until_full_simulation_pass(self):
         bindings={name:hashlib.sha256((I.R/name).read_bytes()).hexdigest() for name in ('control/ggm_drive_contract.json','analysis/drive_acceptance_v08/manufacturing/drawing_contract.json')}
         packet={'all_physical_actions_authorized':True,'design_sha256':bindings,'receipt':{'performed':True,'data':receipts()}}
-        result=I.inspect(packet)
-        self.assertNotEqual(result['simulation_gate']['status'],'PASS')
+        original=I.simulation_gate
+        try:
+            I.simulation_gate=lambda:{'status':'BLOCKED','pass':False,'sha256':'synthetic','required_technical_gate_count':23,'failed_technical_gates':['synthetic'],'excluded_release_only_gates':{}}
+            result=I.inspect(packet)
+        finally:
+            I.simulation_gate=original
+        self.assertEqual(result['simulation_gate']['status'],'BLOCKED')
         self.assertEqual(result['domains']['receipt']['status'],'REJECTED')
-        self.assertIn('simulation',result['domains']['receipt']['reason'])
+        self.assertIn('technical digital prerequisite',result['domains']['receipt']['reason'])
 if __name__=='__main__':
     result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(Tests))
     (H/'tests.json').write_text(json.dumps({'tests':result.testsRun,'failures':len(result.failures),

@@ -24,4 +24,4 @@ P3는 cutter, screw, heater를 장착하지 않은 상태에서 두 GGM 구동�
 
 ## P3 판정
 
-`analyze_p3_records.py`는 숫자 정합만 판정하며 하드웨어를 승인하거나 구동하지 않는다. 실제 P3 PASS는 기존 `analysis/drive_acceptance_v08/manufacturing/inspection.py`에 raw evidence hash·작업자·계측기 교정정보와 별도 physical authorization이 함께 들어간 뒤에만 승격한다.
+`analyze_p3_records.py`는 숫자 정합만 판정하며 하드웨어를 승인하거나 구동하지 않는다. 현장에서는 4개 P3 CSV를 직접 유지하고, `build_p3_inspection_packet.py --receipt-packet <P1 수령 packet> --records-dir <P3 기록 디렉터리> --output <packet.json>`로 이를 authoritative inspection packet 구조로 변환한다. Builder는 각 행의 evidence SHA-256, 작업자/시각, force/tach/current/arm 계측기 ID와 calibration ref를 다시 확인하고 force×arm에서 torque/U95를 재계산한다. source packet의 physical authorization 값은 그대로 보존하며 새 승인을 만들어내지 않는다. 실제 P3 PASS는 `analysis/drive_acceptance_v08/manufacturing/inspection.py`에서 raw evidence와 별도 physical authorization이 함께 검증된 뒤에만 승격한다. 보호핀은 8.8–9.3 N·m뿐 아니라 파단 뒤 자유회전과 hub/key 무손상도 authoritative 조건이다.

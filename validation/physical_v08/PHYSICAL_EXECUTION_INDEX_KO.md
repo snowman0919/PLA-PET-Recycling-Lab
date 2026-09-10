@@ -7,7 +7,7 @@
 | P0 | DIGITAL_TECHNICAL_ENTRY | `PHYSICAL_BUILD_READINESS_KO.md` | `simulation_prerequisite.py` | `RUNTIME_EVALUATED` |
 | P1 | INVENTORY_AND_RECEIPT | `P1_EXECUTION_KO.md` | `analyze_p1_records.py` + GGM mount compatibility + `profile_nesting.py` | `NOT_RUN` |
 | P2 | COLD_FRAME_AND_FIT | `P2_COLD_FIT_KO.md` | `analyze_p2_records.py` | `NOT_RUN` |
-| P3 | GGM_DRIVE_BENCH | `P3_GGM_BENCH_KO.md` | `analyze_p3_records.py` | `NOT_RUN` |
+| P3 | GGM_DRIVE_BENCH | `P3_GGM_BENCH_KO.md` | `analyze_p3_records.py` + packet builder | `NOT_RUN` |
 | P4 | SHREDDER_COUPON | `P4_SHREDDER_COUPON_KO.md` | `analyze_p4_records.py` | `NOT_RUN` |
 | P5 | SCREW_BARREL_PROCESS_COUPON | `P5_PROCESS_COUPON_KO.md` | `analyze_p5_records.py` | `NOT_RUN` |
 | P6 | COLD_EXTRUDER_ASSEMBLY | `P6_COLD_EXTRUDER_KO.md` | `analyze_p6_records.py` | `NOT_RUN` |

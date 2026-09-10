@@ -69,6 +69,8 @@ def pins(data):
         if key not in groups or row['coupon_id'] in seen: raise ValueError('coupon identity/direction')
         seen.add(row['coupon_id']); groups[key].append(interval(row['release_torque'],8.8,9.3,'N.m'))
         if not row.get('material_lot') or not row.get('drawing_revision'): raise ValueError('coupon binding missing')
+        if row.get('free_after_release','').strip().upper() not in {'YES','PASS','TRUE'}: raise ValueError('post-release free rotation failed')
+        if row.get('hub_key_damage','').strip().upper() not in {'NO','NONE','0'}: raise ValueError('hub/key damage after release')
     if any(len(v)<3 for v in groups.values()): raise ValueError('three independent coupons per permitted direction required')
     return {'coupons':len(rows),'minimum_nm':min(v for a in groups.values() for v in a),'maximum_nm':max(v for a in groups.values() for v in a)}
 def fit_line(points):

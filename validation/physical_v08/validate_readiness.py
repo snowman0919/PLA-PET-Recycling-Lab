@@ -92,6 +92,8 @@ def main():
         "validation/physical_v08/p5_supplier_inspection_requirements.csv",
         "validation/physical_v08/build_p5_inquiry_package.py",
         "validation/physical_v08/analyze_ggm_mount_compatibility.py",
+        "validation/physical_v08/build_p3_inspection_packet.py",
+        "validation/physical_v08/test_p3_packet_builder.py",
         "validation/physical_v08/validate_fabrication_handoff.py",
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
