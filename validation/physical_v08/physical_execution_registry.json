@@ -93,9 +93,11 @@
       "analyzer": "analyze_p6_records.py",
       "templates": [
         "templates/p6_production_receipt.csv",
-        "templates/p6_cold_extruder.csv"
+        "templates/p6_cold_extruder.csv",
+        "templates/p6_stage_release.json"
       ],
-      "entry_validator": "validate_p5_stage_release.py"
+      "entry_validator": "validate_p5_stage_release.py",
+      "stage_release_validator": "validate_p6_stage_release.py"
     },
     {
       "id": "P7",

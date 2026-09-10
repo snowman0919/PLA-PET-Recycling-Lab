@@ -19,6 +19,7 @@ def load(name):
 P5 = load("analyze_p5_records")
 P5REL = load("validate_p5_stage_release")
 P6 = load("analyze_p6_records")
+P6REL = load("validate_p6_stage_release")
 T5 = load("test_p5_execution")
 
 
@@ -104,6 +105,28 @@ class P6ExecutionTest(unittest.TestCase):
             self.assertEqual(result["status"], "NUMERIC_RECORD_CHECK_PASS")
             self.assertFalse(result["stage_p6_pass"]); self.assertEqual(result["action_state"], "HOLD")
             self.assertEqual(result["production_receipt"]["route"], "SYN-ROUTE-01")
+
+    def test_p6_stage_release_revalidates_chain(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            run = Path(td); p5_release = make_p5_release(run); receipt, cold = make_p6_records(run)
+            result = P6.evaluate(cold, p5_release, receipt)
+            result_path = run / "p6_result.json"; result_path.write_text(json.dumps(result, indent=2) + "\n")
+            release = {
+                "stage": "P6", "status": "PASS", "release_scope": "P6_COLD_EXTRUDER_COMPLETE_P8_ENTRY_ONLY",
+                "approved_by": "ENGINEER-A", "independent_reviewer": "REVIEWER-B",
+                "reviewed_at": "2026-09-10T18:30:00+09:00", "p5_release": p5_release.name,
+                "p5_release_sha256": hashlib.sha256(p5_release.read_bytes()).hexdigest(),
+                "production_receipt": receipt.name, "production_receipt_sha256": hashlib.sha256(receipt.read_bytes()).hexdigest(),
+                "cold_record": cold.name, "cold_record_sha256": hashlib.sha256(cold.read_bytes()).hexdigest(),
+                "p6_result": result_path.name, "p6_result_sha256": hashlib.sha256(result_path.read_bytes()).hexdigest(),
+                "p8_entry_review": True, "motor_energization_authorized": False,
+                "heater_energization_authorized": False, "machine_release": "HOLD",
+            }
+            release_path = run / "p6_stage_release.json"; release_path.write_text(json.dumps(release, indent=2) + "\n")
+            checked = P6REL.validate(release_path); self.assertEqual(checked["status"], "P6_STAGE_RELEASE_VALIDATED")
+            self.assertTrue(checked["p8_entry_prerequisite"])
+            release["production_receipt_sha256"] = "0" * 64; release_path.write_text(json.dumps(release, indent=2) + "\n")
+            with self.assertRaises(ValueError): P6REL.validate(release_path)
 
     def test_p6_rejects_route_drift(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:

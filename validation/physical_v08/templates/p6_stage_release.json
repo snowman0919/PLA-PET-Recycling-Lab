@@ -1,0 +1,21 @@
+{
+  "stage": "P6",
+  "status": "NOT_RUN",
+  "release_scope": "P6_COLD_EXTRUDER_COMPLETE_P8_ENTRY_ONLY",
+  "approved_by": null,
+  "independent_reviewer": null,
+  "reviewed_at": null,
+  "p5_release": null,
+  "p5_release_sha256": null,
+  "production_receipt": null,
+  "production_receipt_sha256": null,
+  "cold_record": null,
+  "cold_record_sha256": null,
+  "p6_result": null,
+  "p6_result_sha256": null,
+  "p8_entry_review": false,
+  "motor_energization_authorized": false,
+  "heater_energization_authorized": false,
+  "machine_release": "HOLD",
+  "notes": "Set PASS only after independent review of exact P5/P6 artifacts. This permits P8 entry review only; motor/heater power remains separately gated."
+}

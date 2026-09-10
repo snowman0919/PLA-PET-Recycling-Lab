@@ -96,7 +96,7 @@ def check_receipt(path: Path, p5: dict) -> dict:
         if row.get("disposition", "").strip().upper() != "PASS":
             raise ValueError(part + ": receipt disposition is not PASS")
     return {"parts": 2, "supplier": p5["qualified_supplier"], "route": p5["qualified_route_id"],
-            "serials": {part: by[part]["part_serial"] for part in by}}
+            "serials": {part: by[part]["part_serial"] for part in by}, "record_sha256": sha(path)}
 
 def limit_ok(value: float, u95: float, mode: str, limit) -> bool:
     if u95 < 0:
