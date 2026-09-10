@@ -2,7 +2,7 @@
 <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#263f50"/></marker></defs>
 <rect width="1600" height="1050" fill="white"/><style>text{font-family:"Noto Sans CJK KR",sans-serif;fill:#15242d}.t{font-size:31px;font-weight:700}.s{font-size:17px}.n{font-size:15px;font-weight:600}.e{font-size:13px;font-weight:600}.edge{fill:none;stroke-width:3;marker-end:url(#a)}</style>
 <text x="50" y="52" class="t">Arduino Mega pinmap</text>
-<text x="50" y="82" class="s">65 assignments parsed from released board_config.h</text>
+<text x="50" y="82" class="s">62 assignments parsed from released board_config.h</text>
 <rect x="45" y="130" width="330" height="190" rx="7" fill="#ffe1dc" stroke="#294c60" stroke-width="2"/>
 <text x="210.0" y="192.0" class="n" text-anchor="middle">SAFETY INPUTS</text>
 <text x="210.0" y="214.0" class="n" text-anchor="middle">D20 E-stop · D21 lid</text>
@@ -15,9 +15,9 @@
 <text x="210.0" y="500.5" class="n" text-anchor="middle">A14 fan mux · A5/A6 limits</text>
 <rect x="45" y="620" width="330" height="180" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
 <text x="210.0" y="677.0" class="n" text-anchor="middle">ANALOG / FAULTS</text>
-<text x="210.0" y="699.0" class="n" text-anchor="middle">A0 current · A1 dancer · A2/A3 gauge</text>
-<text x="210.0" y="721.0" class="n" text-anchor="middle">A4 cooling · A7 feeder tach</text>
-<text x="210.0" y="743.0" class="n" text-anchor="middle">A8..A12 faults/valid</text>
+<text x="210.0" y="699.0" class="n" text-anchor="middle">A0 shredder current · A9 extruder current</text>
+<text x="210.0" y="721.0" class="n" text-anchor="middle">A1 dancer · A2/A3 gauge · A4 cooling</text>
+<text x="210.0" y="743.0" class="n" text-anchor="middle">A10/A11 aux faults · A12 gauge valid</text>
 <rect x="600" y="300" width="400" height="260" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
 <text x="800.0" y="408.0" class="n" text-anchor="middle">ARDUINO MEGA 2560</text>
 <text x="800.0" y="430.0" class="n" text-anchor="middle">board_config.h authoritative</text>
@@ -28,9 +28,8 @@
 <text x="1390.0" y="246.0" class="n" text-anchor="middle">D39..D41 traverse</text>
 <text x="1390.0" y="268.0" class="n" text-anchor="middle">D44/D42/D46 feeder</text>
 <rect x="1225" y="390" width="330" height="180" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
-<text x="1390.0" y="458.0" class="n" text-anchor="middle">HEATER / FAN</text>
-<text x="1390.0" y="480.0" class="n" text-anchor="middle">D10..D13 heater · D4 hopper PTC</text>
-<text x="1390.0" y="502.0" class="n" text-anchor="middle">D49 mux select</text>
+<text x="1390.0" y="469.0" class="n" text-anchor="middle">HEATER / FAN</text>
+<text x="1390.0" y="491.0" class="n" text-anchor="middle">D10..D13 process heaters · D49 mux select</text>
 <rect x="1225" y="620" width="330" height="180" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
 <text x="1390.0" y="688.0" class="n" text-anchor="middle">TC / UI</text>
 <text x="1390.0" y="710.0" class="n" text-anchor="middle">CS D14..D17,D48 · D50 SO · D52 SCK</text>

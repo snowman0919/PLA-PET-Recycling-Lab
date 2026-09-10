@@ -1,6 +1,6 @@
 # Arduino Mega 2560 pin map — v0.8
 
-Source commit `df59fd138780f538a5fa62dad6e2770b49bf4d94`; `board_config.h` SHA-256 `3c3b1da09c042bcbb388cebdc925e06d9748d8ca153e63524d24f7e2c5417b39`.
+Source commit `base:74128942ba0f106062bc9f366cb1515a99b2bb61; variant-builder:feff02262394a58cdfdabcb3890ffe3fce3d0b15`; `board_config.h` SHA-256 `bc919a9f40a6eac08d8c00fbd6c9d9b952d041a74c97f0f849b6c953f8a5cfbf`.
 
 | Symbol | Mega pin | wire ID |
 |---|---:|---|
@@ -18,8 +18,6 @@ Source commit `df59fd138780f538a5fa62dad6e2770b49bf4d94`; `board_config.h` SHA-2
 | `BACK_PIN` | `27` | `SIG-27` |
 | `CONFIRM_PIN` | `28` | `SIG-28` |
 | `ENCODER_BUTTON_PIN` | `29` | `SIG-29` |
-| `SHREDDER_DIR_PIN` | `30` | `SIG-30` |
-| `SHREDDER_REVERSE_PIN` | `31` | `SIG-31` |
 | `SHREDDER_ENABLE_PIN` | `32` | `SIG-32` |
 | `SCREW_DIR_PIN` | `33` | `SIG-33` |
 | `SCREW_ENABLE_PIN` | `34` | `SIG-34` |
@@ -33,23 +31,22 @@ Source commit `df59fd138780f538a5fa62dad6e2770b49bf4d94`; `board_config.h` SHA-2
 | `LOCKOUT_CONFIRM_PIN` | `43` | `SIG-43` |
 | `FAN_TACH_MUX_SELECT_PIN` | `49` | `SIG-49` |
 | `FEEDER_DIR_PIN` | `42` | `SIG-42` |
-| `FEEDER_PWM_PIN` | `44` | `SIG-44` |
+| `FEEDER_STEP_PIN` | `44` | `SIG-44` |
 | `FEEDER_ENABLE_PIN` | `46` | `SIG-46` |
 | `FEEDER_FAULT_PIN` | `47` | `SIG-47` |
+| `SHREDDER_LPWM_PIN` | `4` | `SIG-4` |
 | `SHREDDER_PWM_PIN` | `5` | `SIG-5` |
 | `SCREW_PWM_PIN` | `6` | `SIG-6` |
 | `PULLER_PWM_PIN` | `7` | `SIG-7` |
 | `SPOOLER_PWM_PIN` | `8` | `SIG-8` |
 | `COOLING_PWM_PIN` | `9` | `SIG-9` |
-| `HOPPER_PTC_PIN` | `4` | `SIG-4` |
 | `THERMOCOUPLE_SO_PIN` | `50` | `SIG-50` |
 | `THERMOCOUPLE_SCK_PIN` | `52` | `SIG-52` |
 | `CURRENT_PIN` | `A0` | `SIG-A0` |
 | `DANCER_PIN` | `A1` | `SIG-A1` |
 | `GAUGE_X_PIN` | `A2` | `SIG-A2` |
 | `GAUGE_Y_PIN` | `A3` | `SIG-A3` |
-| `SHREDDER_FAULT_PIN` | `A8` | `SIG-A8` |
-| `SCREW_FAULT_PIN` | `A9` | `SIG-A9` |
+| `EX_CURRENT_PIN` | `A9` | `SIG-A9` |
 | `PULLER_FAULT_PIN` | `A10` | `SIG-A10` |
 | `SPOOLER_FAULT_PIN` | `A11` | `SIG-A11` |
 | `GAUGE_VALID_PIN` | `A12` | `SIG-A12` |
@@ -70,4 +67,4 @@ Source commit `df59fd138780f538a5fa62dad6e2770b49bf4d94`; `board_config.h` SHA-2
 | `THERMOCOUPLE_CS_PINS_4` | `17` | `SIG-17` |
 | `THERMOCOUPLE_CS_PINS_5` | `48` | `SIG-48` |
 
-`board_config.h` is authoritative. The active feeder is the single coaxial FD-MET positive-displacement auger/agitator on D44 PWM, D42 direction, D46 enable, D47 fault and A7 low-speed tach. A received donor exceeding the 5 A branch envelope is rejected or triggers an electrical redesign; it is never silently substituted. Hardwired E-stop, lid/service, thermal cutoff and branch fuses are firmware-independent.
+`board_config.h` is authoritative for the released GGM/BTS7960 variant. Shredder bridge uses D5 RPWM / D4 LPWM / D32 enable; screw bridge uses D6 RPWM / D33 LPWM / D34 enable. Legacy D30/D31 generic shredder DIR/REVERSE pins are held low and intentionally absent from the field-wiring schedule. The GGM/BTS7960 current inputs are A0 for shredder motor-lead current and A9 for extruder motor-lead current; A8 and the legacy A9 screw-fault role are not field-wired in this variant. The active feeder reference drive is StepperOnline 17E1K-07 + EG17-G10 + CL42T-V41: D44 STEP, D42 DIR, D46 ENA, D47 ALM and A7 low-speed output-shaft tach. A received substitute exceeding the 5 A branch envelope requires redesign. Hardwired E-stop, lid/service, thermal cutoff and branch fuses are firmware-independent.

@@ -8,7 +8,7 @@
 <text x="150.0" y="198.5" class="n" text-anchor="middle">AC-L · AC-N · PE-01</text>
 <rect x="305" y="135" width="210" height="105" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
 <text x="410.0" y="176.5" class="n" text-anchor="middle">PSU</text>
-<text x="410.0" y="198.5" class="n" text-anchor="middle">24 V / 600 W</text>
+<text x="410.0" y="198.5" class="n" text-anchor="middle">24 V / 800 W</text>
 <rect x="565" y="135" width="210" height="105" rx="7" fill="#fff0d7" stroke="#294c60" stroke-width="2"/>
 <text x="670.0" y="176.5" class="n" text-anchor="middle">TB24 + FUSES</text>
 <text x="670.0" y="198.5" class="n" text-anchor="middle">MAIN · LOGIC · SAFE</text>
@@ -28,8 +28,8 @@
 <text x="670.0" y="504.5" class="n" text-anchor="middle">D2..D52 / A0..A15</text>
 <rect x="45" y="420" width="410" height="125" rx="7" fill="#e4f3e7" stroke="#294c60" stroke-width="2"/>
 <text x="250.0" y="460.5" class="n" text-anchor="middle">SENSOR TERMINALS</text>
-<text x="250.0" y="482.5" class="n" text-anchor="middle">TC1..5 · tach · current · gauge</text>
-<text x="250.0" y="504.5" class="n" text-anchor="middle">dancer · limits · driver faults</text>
+<text x="250.0" y="482.5" class="n" text-anchor="middle">TC1..5 · tach · SH/EX current · gauge</text>
+<text x="250.0" y="504.5" class="n" text-anchor="middle">dancer · limits · auxiliary driver faults</text>
 <rect x="825" y="420" width="225" height="125" rx="7" fill="#e2f1f8" stroke="#294c60" stroke-width="2"/>
 <text x="937.5" y="460.5" class="n" text-anchor="middle">CONTROL TERMINALS</text>
 <text x="937.5" y="482.5" class="n" text-anchor="middle">PWM · DIR · ENABLE</text>
@@ -86,5 +86,5 @@
 <text x="1075" y="746" class="e" text-anchor="middle">field routes</text>
 <rect x="45" y="890" width="1510" height="125" rx="7" fill="#fff4e8" stroke="#bb5d20" stroke-width="2"/>
 <text x="65" y="920" class="s">• This diagram plus wire, connector and fuse schedules is the terminal wiring definition.</text>
-<text x="65" y="948" class="s">• FD-MET feeder: D44 PWM / D42 DIR / D46 EN / D47 FAULT / A7 TACH; 5 A branch envelope.</text>
+<text x="65" y="948" class="s">• FD-MET feeder: D44 STEP / D42 DIR / D46 ENA / D47 ALM / A7 24 PPR TACH; 5 A branch.</text>
 </svg>
