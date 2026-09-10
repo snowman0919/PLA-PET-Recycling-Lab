@@ -9,6 +9,7 @@ from __future__ import annotations
 import csv
 import json
 import os
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -115,9 +116,17 @@ Revision: `{REV}` · 상태: `DIGITAL_DOCUMENT / PHYSICAL_NOT_RUN / USER_APPROVA
 '''
 
 
+def typst_binary() -> str:
+    candidates = [shutil.which("typst"), *sorted(Path("/nix/store").glob("*-typst-*/bin/typst"))]
+    for candidate in candidates:
+        if candidate and subprocess.run([str(candidate), "--version"], capture_output=True).returncode == 0:
+            return str(candidate)
+    raise SystemExit("required tool unavailable: typst")
+
+
 def compile_typ(path: Path, output: Path | None = None) -> None:
     env = os.environ.copy(); env["SOURCE_DATE_EPOCH"] = "946684800"
-    subprocess.run(["typst", "compile", str(path), str(output or path.with_suffix(".pdf")), "--root", str(ROOT)], check=True, cwd=ROOT, env=env)
+    subprocess.run([typst_binary(), "compile", str(path), str(output or path.with_suffix(".pdf")), "--root", str(ROOT)], check=True, cwd=ROOT, env=env)
 
 
 def drawing_set(commit: str) -> None:
