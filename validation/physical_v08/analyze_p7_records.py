@@ -21,6 +21,7 @@ SOURCE_FILES = (
     "exports/final/electrical/wire_schedule.csv",
     "electronics/io_schedule.csv",
     "validation/physical_v08/physical_gate_contract.json",
+    "control/thermal_cutoff_contract.json",
 )
 LIMITS = {
     "pe_bond_worst": ("max", 0.10, "ohm"),
@@ -38,7 +39,8 @@ BOOL = {
     "estop_k0_deenergized": True,
     "lid_k0_deenergized": True,
     "service_k0_deenergized": True,
-    "thermal_k0_deenergized": True,
+    "tf_barrel_k0_deenergized": True,
+    "tf_die_k0_deenergized": True,
     "motor_heater_permission_removed_on_open": True,
     "automatic_restart_after_power_restore": False,
     "fuse_ids_match_schedule": True,

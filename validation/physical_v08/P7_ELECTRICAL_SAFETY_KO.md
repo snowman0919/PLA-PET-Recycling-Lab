@@ -13,7 +13,9 @@ P7은 motor/heater branch를 물리적으로 분리한 상태에서 배선, PE, 
 
 1. 24 V supply current limit를 0.5 A로 두고 logic branch만 연결한다. Rail은 22.8–25.2 V, 초기 logic current는 0.5 A 이하여야 한다.
 2. Reset 직후 hazardous enable 출력은 0개여야 한다.
-3. E-stop, lid, service guard, thermal chain을 한 번에 하나씩 forced-open한다. 각 경우 K0가 실제 dropout되고 motor/heater permission이 제거되어야 한다.
+3. E-stop, lid, service guard를 각각 forced-open하고, `TF-BARREL`과 `TF-DIE`는 one-shot element 자체를 파괴하지 말고 각각의 series terminal을 한 번에 하나씩 open-circuit로 만들어 시험한다. 다섯 경우 모두 K0가 실제 dropout되고 motor/heater permission이 제거되어야 한다.
 4. 전원 복귀 또는 contact 재폐쇄만으로 motor/heater command가 자동 생성되면 FAIL이다.
+
+`TF-BARREL`과 `TF-DIE`는 `control/thermal_cutoff_contract.json`의 순서대로 K0 coil chain에 직렬이어야 하며 `F-H1..F-H4` branch fuse와 역할을 혼동하지 않는다.
 
 `templates/p7_electrical_safety.csv`의 모든 행에 작업자·독립 검토자·timezone 포함 시각, repository 내부 raw evidence 경로와 SHA-256을 기록한다. Numeric 행은 계측기 ID와 교정 참조도 필수다. `analyze_p7_records.py`는 raw evidence hash를 재검증하고 현재 fuse/pin/wire/I/O schedule의 SHA-256을 결과에 결박한다. 결과를 저장한 뒤 별도 사람이 `templates/p7_stage_release.json`의 exact record/result SHA-256을 검토하고, `validate_p7_stage_release.py`가 현재 analyzer로 다시 계산해 `P7_STAGE_RELEASE_VALIDATED`를 내야 P8/P9 진입 검토에 사용할 수 있다. 이 release도 motor/heater authorization은 false이고 machine release는 HOLD다.

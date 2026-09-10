@@ -43,8 +43,8 @@ def make_record(run: Path):
         "motor_branches_isolated": "YES", "heater_branches_isolated": "YES",
         "logic_power_approval_recorded": "YES", "electronics_disconnected_for_megger": "YES",
         "estop_k0_deenergized": "YES", "lid_k0_deenergized": "YES",
-        "service_k0_deenergized": "YES", "thermal_k0_deenergized": "YES",
-        "motor_heater_permission_removed_on_open": "YES",
+        "service_k0_deenergized": "YES", "tf_barrel_k0_deenergized": "YES",
+        "tf_die_k0_deenergized": "YES", "motor_heater_permission_removed_on_open": "YES",
         "automatic_restart_after_power_restore": "NO",
         "fuse_ids_match_schedule": "YES", "point_to_point_wiring_match": "YES",
     }
