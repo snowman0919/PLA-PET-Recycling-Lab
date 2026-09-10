@@ -189,6 +189,8 @@ def main():
     drive_ids={"DRV-01","DRV-02","DRV-03","DRV-03R","DRV-A42","DRV-A60","DRV-F01A","DRV-F01B","DRV-F01P"}
     drive_rows=list(csv.DictReader((ROOT/"exports/drive_interface/manifest.csv").open()))
     require({row["part_id"] for row in drive_rows}==drive_ids,"drive interface family set incomplete")
+    drive_by_id={row["part_id"]:row for row in drive_rows}
+    require(drive_by_id["DRV-02"]["release_state"]=="LEGACY_SUPERSEDED_BY_DIRECT_KEYED_GGM_SH_30T","DRV-02 was reactivated")
     for part_id in drive_ids:
         folder=ROOT/"exports/drive_interface/parts"/part_id
         for ext in ("FCStd","step","stl","dxf"):
@@ -282,9 +284,14 @@ def main():
     },"frame cut list does not match butt-jointed CAD")
     jig_bom=list(csv.DictReader((ROOT/"exports/jigs/gate1/bom.csv").open()))
     require(any(r["item_id"]=="CUT-01" and r["qty"]=="2" for r in jig_bom),"Gate-1 coupon quantity")
+    p4_path=next(r for r in jig_bom if r["item_id"]=="GGM-SH-PATH")
+    require("DRV-02" not in p4_path["source"] and "direct-keyed" in p4_path["item"],"P4 powered path still depends on DRV-02")
+    require("4x4 key" in p4_path["notes"] and "6x6 key" in p4_path["notes"],"P4 direct sprocket torque path missing")
+    fst19=next(r for r in csv.DictReader((ROOT/"exports/jigs/gate1/fastener_schedule.csv").open()) if r["joint_id"]=="FST-19")
+    require(fst19["nominal_torque_Nm"]=="HOLD" and "axial retention" in fst19["mating_parts"],"P4 sprocket retention was given an unverified fixed torque")
     require({r["item_id"] for r in jig_bom if r["item_id"].startswith("G1J-")} >= {f"G1J-{i:02d}" for i in range(1,13)},"Gate-1 BOM part coverage")
     hardcut=(ROOT/"exports/jigs/gate1/wiring_24v_hardcut.svg").read_text()
-    for token in ("F1 20 A","F2 2 A","S0 E-STOP","S1 GUARD","K0 coil","K1 NO","manual-reset"):
+    for token in ("F1 20 A","F2 2 A","S0 E-STOP","S1 GUARD","K0 coil","K1 NO","M1 GGM SH","manual-reset"):
         require(token in hardcut,f"hard-cut schematic token missing: {token}")
     result_rows=list(csv.DictReader((ROOT/"exports/jigs/gate1/gate1_results_template.csv").open()))
     require(len(result_rows)==25,"Gate-1 result template must preallocate 25 specimen trials")

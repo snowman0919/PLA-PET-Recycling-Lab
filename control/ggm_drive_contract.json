@@ -60,6 +60,35 @@
         13
       ],
       "retension_requires_cold_lockout": true
+    },
+    "chain_drive": {
+      "input_sprocket": {
+        "part_id": "GGM_SH_12T",
+        "type": "ANSI #35 12T steel keyed sprocket",
+        "shaft_interface": "GGM_SH_Jackshaft D12 h6",
+        "key": "4x4 steel; key flank carries torque",
+        "reference_bore_mm": 12.05,
+        "reference_hub_width_mm": 15.0,
+        "axial_retention": "received sprocket maker retention feature required; retention hardware carries axial load only",
+        "received_hardware_torque": "HOLD_UNTIL_RECEIPT",
+        "radial_tir_mm_max": 0.1
+      },
+      "output_sprocket": {
+        "part_id": "GGM_SH_30T",
+        "type": "ANSI #35 30T steel keyed sprocket",
+        "shaft_interface": "CUT-05R D25 h6 drive-end land",
+        "key": "6x6x20 steel; key flank carries torque",
+        "reference_bore_mm": 25.05,
+        "reference_hub_width_mm": 30.0,
+        "axial_retention": "received sprocket maker retention feature required; retention hardware carries axial load only",
+        "received_hardware_torque": "HOLD_UNTIL_RECEIPT",
+        "radial_tir_mm_max": 0.1
+      },
+      "chain_plane_alignment_mm_per_150_max": 0.2,
+      "assembled_axial_shift_u95_mm_max": 0.2,
+      "torque_path_rule": "keys carry torque; friction-only or set-screw-only torque transfer is prohibited",
+      "retention_failure_policy": "if received keyed sprocket cannot meet bore/key/axial-retention/TIR requirements, HOLD and issue an adapter revision; do not silently reactivate DRV-02",
+      "legacy_drv02_state": "SUPERSEDED_BY_DIRECT_KEYED_GGM_SH_30T"
     }
   },
   "screw": {

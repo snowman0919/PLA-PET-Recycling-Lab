@@ -11,7 +11,7 @@ REG=ROOT/'analysis/drive_acceptance_v08/drive_component_register.csv'
 CONTRACT=ROOT/'analysis/drive_acceptance_v08/manufacturing/drawing_contract.json'
 CLOSE=ROOT/'analysis/drive_acceptance_v08/manufacturing/closeout.json'
 REV='final-design-fabrication-closure-v0.8'
-SUPERSEDED={'DRV-01','DRV-A60','DRV-F01A','DRV-F01B','DRV-F01P'}
+SUPERSEDED={'DRV-01','DRV-02','DRV-A60','DRV-F01A','DRV-F01B','DRV-F01P'}
 ALIASES={'Screw':'EX-SCR-01','ThrustPlate':'EX-THR-01'}
 
 def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -72,6 +72,11 @@ def update_active(ggm_rows):
         if pid in SUPERSEDED: continue
         if pid in parts and parts[pid]!=qty: raise ValueError(f'quantity conflict {pid}')
         parts[pid]=qty
+    register={r['part_id']:r for r in read_csv(REG)}
+    for pid in ('GGM_SH_12T','GGM_SH_30T'):
+        r=register[pid]
+        if r['classification']!='purchased_reference_envelope': raise ValueError(pid+' is no longer a purchased sprocket reference')
+        parts[pid]=int(r['quantity'])
     active={'revision':REV,'state':'FABRICATION_CANDIDATE','physical_validation_state':'NOT_RUN',
             'parts':[{'part_id':pid,'quantity':qty} for pid,qty in sorted(parts.items())]}
     (ROOT/'release/active_part_set.json').write_text(json.dumps(active,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')

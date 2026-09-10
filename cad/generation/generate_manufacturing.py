@@ -222,47 +222,25 @@ def write_drive_package():
             "DRV-01":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
             "DRV-A42":"REFERENCE_ONLY_NOT_SELECTED",
             "DRV-A60":"RELEASED_DIGITAL_REFERENCE_VARIANT_RECEIPT_AND_GATE1_REQUIRED",
-            "DRV-02":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
+            "DRV-02":"LEGACY_SUPERSEDED_BY_DIRECT_KEYED_GGM_SH_30T",
             "DRV-F01A":"RELEASED_DIGITAL_REFERENCE_VARIANT_RECEIPT_AND_GATE1_REQUIRED",
             "DRV-F01B":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
             "DRV-F01P":"GATE1_COUPON_QTY_6_ALLOWED_AFTER_USER_APPROVAL",
         }
         for r in rows:w.writerow([r["id"],r["name"],r["qty"],r["material"],r["process"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}",release[r["id"]]])
-    (base/"interface_contract_ko.md").write_text("""# 교환식 분쇄기 구동 인터페이스 — safety-orchestration-closure-v0.6.1
+    (base/"interface_contract_ko.md").write_text("""# GGM v0.8 분쇄기 구동 인터페이스
 
-공정 경로와 dual-shaft cutter는 변경하지 않는다. 특정 MY1016Z, KTR coupling, KHK gear의 part number는 요구조건이 아니다.
+Revision: `final-design-fabrication-closure-v0.8`
 
-## 선정 기준과 기준모터
+현재 powered 기준은 `GGM K9DG60N2 + K9G75C -> GGM 보호 커플링 -> 2x6201 지지 jackshaft -> direct-keyed #35 12T:30T -> CUT-05R`이다. 12T는 jackshaft의 4x4 key, 30T는 CUT-05R의 6x6x20 key가 토크를 전달한다. Key가 아닌 set screw/clamp 마찰만으로 토크를 전달하지 않는다.
 
-- 18–30 V brushed DC gearmotor, reversible
-- cutter 환산 continuous torque >=14 N·m, 3 s peak >=24 N·m
-- interface ratio 선택 후 cutter 20–40 rpm continuous, no-load <=80 rpm
-- motor shaft 10–20 mm이며 key, D-flat 또는 clamping hub 사용 가능; cutter shaft는 Ϙ25 h6
-- 정상 운전전류가 20 A branch 안에 있고 실제 current/torque calibration 가능
-- S2 60 min 이상 또는 30분 coupon에서 winding/gearcase <=80 °C
-- label, 수량 1, 정상 회전, backlash, shaft 치수, 무부하 전류가 기록된 project-lab/donor만 현금 0원 인정
+두 sprocket의 exact MPN은 아직 승인되지 않았다. 수령품은 key/bore가 해당 shaft와 맞고 maker의 독립 axial-retention feature가 있어야 한다. Retention hardware는 축방향 위치만 유지하며 체결 토크는 수령품 maker 값 확인 전 `HOLD`다. 조립 후 각 sprocket tooth/root radial TIR <=0.10 mm, total axial shift + U95 <=0.20 mm, chain plane alignment <=0.20/150 mm, midspan slack 2-3%를 확인한다. 이 조건을 만족하지 못하면 adapter revision을 새로 발행하며 구형 `DRV-02`를 임의 재사용하지 않는다.
 
-우선순위는 (1) project-lab wheelchair/conveyor geared DC motor, (2) 검증된 24 V scooter/e-bike geared motor, (3) 검증된 60 mm급 신규 gearmotor다. MY1016Z, 특정 coupling, 특정 phase gear 제조사는 요구조건이 아니다. NEMA17과 정격토크가 부족한 42GP-775는 full shredder actuator로 합격하지 않는다.
+`DRV-03/DRV-03R` phase gear pair는 계속 active이며 matched 8 mm key가 shaft torque/phase를 전달한다. `DRV-01`, `DRV-02`, `DRV-A42`, `DRV-A60`, `DRV-F01A/B/P`는 generic donor-drive compatibility archive이며 현재 GGM fabrication baseline에서는 superseded다. 이 디렉터리의 해당 STEP/DXF가 존재하더라도 제작 승인으로 해석하지 않는다.
 
-치수와 동역학의 정확한 digital reference는 `TT Motor GMP60-60127-2460`, 24 V, ratio 47이다. 제조사 공개값은 no-load 95 rpm, rated 70 rpm, rated 100 kg·cm(9.80665 N·m), rated current 8.2 A, stall current 31 A다. 12T:30T와 screening efficiency 0.85에서 cutter 정격점은 28 rpm, 20.84 N·m다. 이는 구매 승인이 아니며 수령품 라벨·축·전류·온도와 Gate-1을 통과해야 한다.
+현재 보호 기준은 gearbox software limit 8.0 N.m, mechanical protection coupon 8.8-9.3 N.m, motor-lead current calibrated range 0-6 A다. 과거 14/18/22 N.m donor-drive hierarchy와 50 A current calibration은 GGM v0.8 물리 합격기준이 아니다.
 
-요청된 42GP-775 계열용 `DRV-A42`도 남기지만, 공식 `GMP42-775PM ratio 51` 값(90 rpm, 26 kg·cm=2.5497 N·m)은 같은 12T:30T에서 cutter 환산 5.42 N·m뿐이라 14 N·m 기준에 불합격한다. 다른 42GP 변형은 공급자가 6.59 N·m 이상의 연속 출력축 토크와 열정격을 문서로 증명할 때만 재평가한다.
-
-## 기계 interface
-
-현재 v0.8 위상 경로는 CUT-05 좌축 datum 0°, CUT-05R 우축 키 datum 25.714±0.02°, DRV-03R 로컬 키 14.464±0.02°를 사용해 조립 치면 위상 11.25°를 만든다. 두 기어는 각각 단일 18 mm S45C 솔리드이며 Ϙ25.01 bore, 8.005–8.010 matched keyway, root fillet R1 이상을 적용한다. 수치/CalculiX 검증은 디지털 결과이며 수령품 키 접촉과 위상은 물리 Gate-1에서 확인한다.
-
-`DRV-01` plate에는 motor-specific standard angle/saddle과 `DRV-Axx` donor adapter만 추가한다. 공통 plate의 Ø65 관통부는 60 mm급 gearcase가 plate와 충돌하지 않게 하고, 실제 face pilot와 bolt pattern은 DRV-Axx가 담당한다. Motor torque는 `DRV-F01` replaceable motor-side shear element와 #35 chain의 12T input, 고정된 30T output sprocket을 거쳐 right CUT-05R shaft로 전달한다. `DRV-02`는 cutter-side Ϙ25 shaft와 PCD36 sprocket blank를 분리하는 output hub이며 sacrificial element가 아니다. 표준 #35 30T blank(face 6 mm 이상)는 DRV-02를 지그로 match-drill하여 4×Ø6.6 PCD36.00±0.05로 마감하고, 조립 후 tooth-root radial TIR≤0.10 mm를 확인한다. Shaft가 다른 donor에는 `DRV-Axx`만 바꾼다. 두 cutter shaft의 counter-rotation/phase는 `DRV-03`/`DRV-03R` M3 Z16, 20°, face18 mm S45C solid gear pair가 담당하며 8 mm matched key와 조사용 Ø3 H7 clocking hole을 사용한다. 치면 맞물림이나 clamp friction만으로 torque/phase를 전달하지 않는다.
-
-체인은 ANSI #35 pitch 9.525 mm, 40 pitches의 endless loop로 고정한다. 12T/30T 표준 2-sprocket 식의 pitch-line 축간거리는 86.167 mm이며, nominal 90 mm에서 DRV-A60의 chain-centre 방향 18 mm 장공이 제공하는 81–99 mm 범위 안이다. Main disconnect/shaft lockout에서 86.17 mm로 시작해 straightedge pitch-plane 오프셋≤0.20/150 mm, midspan slack 2–3%, 20회 손회전에서 tight spot 없음으로 최종 위치를 정한다. 40-pitch loop로 이 세 조건을 동시에 만족하지 못하면 장공 끝에서 억지 장력하지 않고 sprocket/chain lot를 거부한다.
-
-Chain efficiency 0.85 screening에서 12T:18T, 12T:24T, 12T:30T의 motor output continuous/3 s capability는 각각 최소 11.0/18.8, 8.3/14.2, 6.6/11.3 N·m여야 한다. Motor speed 30–60/40–80/50–100 rpm이 cutter 20–40 rpm을 만든다. 24 V label power는 150 W 이상을 screening 시작점으로 쓰되 합격은 label watt가 아니라 Gate-1 torque/current/RPM/temperature 결과로 정한다. 후보별 기록표는 `bom/donor_drive_acceptance.csv`와 `donor_measurement_form.csv`다.
-
-14/18/22/34/48 N·m hierarchy는 모두 **cutter-shaft equivalent torque**다. 따라서 `DRV-F01`의 실제 motor-side mechanical setting은 efficiency 0.85에서 12:18=17.25, 12:24=12.94, 12:30=10.35 N·m다. DRV-F01이 작동해도 DRV-02, chain, phase pair의 위상 경로는 유지되어야 한다. Chain guard, 20 A fuse, E-stop/lid/service hard inhibit와 calibrated torque+RPM jam detection을 유지한다. Shear 재료·직경·groove는 Gate-1 quasi-static calibration으로 확정한다. Donor 확인과 Gate-1 전 full quantity 발주 금지다.
-
-## 형상과 발주 잠금
-
-Active assembly의 red body는 GMP60-60127 공개 치수인 motor Ø60.5×127, gearbox Ø60×59, front pilot Ø32×4.85, shaft Ø12×25.8/D-flat10.9×13을 모델링한다. 공개 nominal에 수령 합격범위를 부여해 `DRV-A60` pilot bore Ø32.05–32.10, 4×Ø5.50–5.60 PCD45.00±0.05와 `DRV-F01A` D-bore Ø12.02–12.05/across-flat10.92–10.95를 디지털 기준 변형으로 release한다. 다른 donor는 이 형상을 억지로 재사용하지 않고 새 `DRV-Axx`/`DRV-F01Axx` 편차를 발행해 IF-008을 다시 계산한다. 이는 구매·수령검사·물리 Gate-1 승인이 아니다.
+Controlling sources: `control/ggm_drive_contract.json`, `analysis/drive_acceptance_v08/drive_component_register.csv`, `validation/physical_v08/P3_GGM_BENCH_KO.md`, `validation/physical_v08/P4_SHREDDER_COUPON_KO.md`.
 """,encoding="utf-8")
     reference={
         "revision":"safety-orchestration-closure-v0.6.1","manufacturer":"TT Motor","part_number":"GMP60-60127-2460",
@@ -272,13 +250,13 @@ Active assembly의 red body는 GMP60-60127 공개 치수인 motor Ø60.5×127, g
         "rejected_requested_reference":{"part_number":"GMP42-775PM ratio 51","rated_speed_rpm":90,"rated_torque_kg_cm":26,"rated_torque_nm":2.5497,"cutter_equivalent_torque_12T_30T_efficiency_0_85_nm":5.42,"status":"REJECTED_CONTINUOUS_TORQUE","adapter_retained":"DRV-A42"},
         "source_url":"https://www.ttmotor.com/uploads/GMP60-609760127.pdf",
         "rejected_reference_source_url":"https://www.ttmotor.com/uploads/GMP42-775PM.pdf",
-        "source_checked_date":"2026-09-09","selection_state":"RELEASED_DIGITAL_REFERENCE_VARIANT_PHYSICAL_RECEIPT_AND_GATE1_REQUIRED","purchase_allowed":False,
+        "source_checked_date":"2026-09-09","selection_state":"LEGACY_GENERIC_REFERENCE_SUPERSEDED_BY_GGM_V08","purchase_allowed":False,
     }
     (base/"reference_variant.json").write_text(json.dumps(reference,indent=2,ensure_ascii=False)+"\n")
     with (base/"ratio_and_fuse_settings.csv").open("w",newline="",encoding="utf-8") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["input_teeth","output_teeth","ratio","efficiency","motor_rpm_for_cutter_20_40","minimum_motor_continuous_nm_for_14_cutter_nm","minimum_motor_peak_nm_for_24_cutter_nm","motor_side_electrical_trip_nm_for_18_cutter_nm","motor_side_mechanical_relief_nm_for_22_cutter_nm","status"])
         for output,ratio in ((18,1.5),(24,2.0),(30,2.5)):
-            gain=ratio*0.85; w.writerow([12,output,ratio,0.85,f"{20*ratio:.0f}-{40*ratio:.0f}",f"{14/gain:.2f}",f"{24/gain:.2f}",f"{18/gain:.2f}",f"{22/gain:.2f}","GATE1_CALIBRATION_REQUIRED"])
+            gain=ratio*0.85; w.writerow([12,output,ratio,0.85,f"{20*ratio:.0f}-{40*ratio:.0f}",f"{14/gain:.2f}",f"{24/gain:.2f}",f"{18/gain:.2f}",f"{22/gain:.2f}","LEGACY_GENERIC_DRIVE_NOT_GGM_ACCEPTANCE"])
     with (base/"donor_measurement_form.csv").open("w",newline="",encoding="utf-8") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["candidate_id","manufacturer","model","serial","quantity","condition","label_voltage_v","label_power_w","output_no_load_rpm","shaft_diameter_mm","shaft_form","shaft_length_mm","mount_pattern_mm","shaft_height_mm","overall_l_w_h_mm","no_load_current_a","continuous_current_a","stall_or_peak_current_a","backlash_deg","case_temp_after_30min_c","selected_chain_ratio","motor_side_relief_setting_nm","gate1_result","photo_hash","operator","status"]); w.writerow(["DONOR-","","","",1,"","","","","","key/D-flat/clamp","","","","","","","","","","","","NOT_RUN","","","UNVERIFIED"])
     return rows
@@ -294,7 +272,7 @@ def svg_gate1_hardcut(path):
 <path d="M175 170H235" class="w"/><rect x="235" y="145" width="95" height="50" class="c"/><text x="260" y="178">F1 20 A</text>
 <path d="M330 170H390" class="w"/><rect x="390" y="135" width="130" height="70" class="c"/><text x="420" y="175">K1 NO</text><text x="410" y="195" class="n">DC >=30 V/25 A</text>
 <path d="M520 170H580" class="w"/><rect x="580" y="135" width="145" height="70" class="c"/><text x="604" y="166">BTS7960</text><text x="596" y="193" class="n">reversing driver</text>
-<path d="M725 170H785" class="w"/><rect x="785" y="135" width="145" height="70" class="c"/><text x="812" y="165">M1 donor</text><text x="801" y="193" class="n">24 V geared DC</text>
+<path d="M725 170H785" class="w"/><rect x="785" y="135" width="145" height="70" class="c"/><text x="803" y="165">M1 GGM SH</text><text x="795" y="193" class="n">K9DG60N2+K9G75C</text>
 <path d="M55 360H125" class="w"/><rect x="125" y="335" width="95" height="50" class="c"/><text x="151" y="368">F2 2 A</text>
 <path d="M220 360H275" class="w"/><rect x="275" y="330" width="125" height="60" class="c"/><text x="295" y="356">S0 E-STOP</text><text x="307" y="380" class="n">NC, latching</text>
 <path d="M400 360H455" class="w"/><rect x="455" y="330" width="145" height="60" class="c"/><text x="475" y="356">S1 GUARD</text><text x="468" y="380" class="n">positive-opening NC</text>
@@ -350,7 +328,7 @@ def write_gate1_package():
             ("DRV-03","M3 Z16 solid phase gear left",1,"exports/drive_interface/parts/DRV-03",1500,"SH-INTERFACE","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","18 mm S45C; 8 mm matched key at datum0 deg"),
             ("DRV-03R","M3 Z16 solid phase gear right",1,"exports/drive_interface/parts/DRV-03R",1500,"SH-INTERFACE","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","yes","18 mm S45C; local key14.464 deg; installed tooth phase11.25 deg"),
             ("DRV-01/Axx","LEGACY universal motor adapter — DO NOT USE WITH GGM",1,"exports/drive_interface",0,"CNC-02","LEGACY_NOT_FOR_GGM_DO_NOT_FABRICATE","no","historical v0.6 powered fixture only; current P4 uses final GGM shredder drive"),
-            ("GGM-SH-PATH","Current GGM protection/jackshaft + #35 12T:30T drive path",1,"exports/final/manufacturing/drive_ggm + exports/drive_interface/parts/DRV-02",0,"SH-INTERFACE","P3_GGM_BENCH_PASS_REQUIRED_BEFORE_P4","yes","K9DG60N2+K9G75C; software gearbox limit8.0 N.m; mechanical protection8.8-9.3 N.m; final GGM drawings govern"),
+            ("GGM-SH-PATH","Current direct-keyed GGM protection/jackshaft + #35 12T:30T drive path",1,"control/ggm_drive_contract.json + analysis/drive_acceptance_v08/drive_component_register.csv",0,"SH-INTERFACE","P3_GGM_BENCH_PASS_REQUIRED_BEFORE_P4","yes","K9DG60N2+K9G75C; 4x4 key at 12T and 6x6 key at 30T carry torque; received maker axial retention required; DRV-02 superseded"),
             ("G1J-01","Reusable base plate",1,"donor plate; drawing supplied",0,"HW-ALLOW","VERIFY_INVENTORY","jig","380x280x8, flatness <=0.30; no zero-cash claim until verified"),
             ("G1J-02","250 mm torque arm",1,"exports/jigs/gate1/parts",0,"CNC-02","GATE1_RFQ_ALLOWED_USER_APPROVAL_REQUIRED","jig","manual configuration only; remove before powered configuration"),
             ("G1J-03","Front/rear polycarbonate panels",2,"exports/jigs/gate1/parts",0,"SAFE-ALLOW","BUY_HOLD","jig","3 mm PC, never acrylic; bucket includes all G1J-03..06 sheet"),
@@ -394,7 +372,7 @@ def write_gate1_package():
             ("FST-16","CUT-01 coupons and shafts","6x6 keys + eight Ø25 split collars",1,"0.25/0.50 metal shim set","collar maker rating","split clamp; no set-screw-only retention","hex key + feeler gauge","6.5 mm offset; axial working gap 0.25-0.50"),
             ("FST-17","DRV-01 to G1J-11/base","M6 x20 class 8.8 hex",8,"M6 washer + nyloc","9","nyloc","10 mm socket","plate verticality <=0.5/140; no rocking"),
             ("FST-18","DRV-Axx to DRV-01 and motor","received adapter drawing hardware",1,"hardened washers + prevailing nuts","supplier/drawing","prevailing hardware","torque wrench","pilot seated; sprocket TIR <=0.20; donor envelope clear"),
-            ("FST-19","DRV-02 and #35 sprockets","4x M6 class 10.9 per hub/sprocket",8,"hardened washers + all-metal locknuts","10","all-metal locknut","5 mm hex + 10 mm spanner","witness marks; chain alignment <=0.20/150"),
+            ("FST-19","GGM_SH_12T/GGM_SH_30T axial retention","received sprocket maker axial-retention hardware",2,"maker-specified locking/retention feature","HOLD","maker specification; key carries torque","tool per received hardware","blue-check 4x4/6x6 keys; radial TIR <=0.10; axial shift+U95 <=0.20; chain alignment <=0.20/150; no friction-only torque path"),
             ("FST-20","G1J-12 roof and G1J-P01 chute","M4 x16 pan-head",12,"M4 nylon washer + nyloc","1.2","nyloc; no threadlocker on PC","PH2 + 7 mm","roof retained; chute gap <=1 mm; no unguarded opening >6 mm"),
             ("FST-21","CUT-03 pair through four CUT-09 sleeves","M6 x170 class 10.9 hex",4,"M6 hardened washer both ends + all-metal locknut","7","all-metal locknut; no threadlocker near polymer","10 mm socket + spanner","sleeves fully seated; plate inside gap128.00 +/-0.06; matched sleeve spread <=0.03; printed chute carries no clamp load"),
         ])
@@ -410,7 +388,7 @@ def write_gate1_package():
             ("K0",1,"24 VDC manual-reset control relay, >=2 NO auxiliary contacts, coil suppression","project-lab then low-cost buy","SAFE-ALLOW","coil voltage, seal-in drop on S0/S1","HOLD"),
             ("K1",1,"24 VDC motor-power relay/contactor, NO main contact >=30 VDC/25 A plus aux","project-lab then low-cost buy","SAFE-ALLOW","DC breaking rating; contact drop/temp under coupon load","HOLD"),
             ("DRV",1,"reversible 24 V motor driver, >=30 A peak with heatsink","existing BTS7960-class candidate","SH-DRIVE","load test and heatsink temperature","HOLD"),
-            ("CS1",1,"galvanically isolated 50 A current sensor","existing ACS758-class candidate","SH-DRIVE","zero/span calibration; never sole safety cut","HOLD"),
+            ("CS1",1,"bidirectional Hall motor-lead current sensor, 5 V analog, useful calibrated range 0-6 A","project-lab sensor or buy to current GGM contract","SH-DRIVE","A0 polarity/zero/span against independent reference; residual+U95 <=0.10 A","HOLD"),
             ("TB1",1,"touch-safe terminal block >=32 VDC/30 A","project-lab then low-cost buy","HW-ALLOW","rating and screw retention","HOLD"),
             ("WIRE-P",1,"red/black >=2.5 mm2 copper motor harness, 105 C","project-lab then low-cost buy","HW-ALLOW","crimp pull test and voltage drop","HOLD"),
             ("WIRE-C",1,"0.5-0.75 mm2 control wire, ferrules, labels","project-lab then low-cost buy","HW-ALLOW","point-to-point continuity","HOLD"),
@@ -535,7 +513,7 @@ def write_gate1_package():
 
 ## Powered coupon 변경
 
-Manual torque test 뒤 torque arm을 제거한다. **legacy `gate1_powered_assembly.step`, DRV-01/Axx, DRV-F01 경로는 사용하지 않는다.** Powered coupon은 P3 GGM bench PASS 이후 final GGM shredder path `K9DG60N2+K9G75C → GGM protection coupling → 6201 jackshaft → #35 12T:30T → CUT-05R`를 사용한다. Manual arm과 powered drive는 동시에 장착하지 않는다.
+Manual torque test 뒤 torque arm을 제거한다. **legacy `gate1_powered_assembly.step`, DRV-01/Axx, DRV-F01 경로는 사용하지 않는다.** Powered coupon은 P3 GGM bench PASS 이후 final GGM shredder path `K9DG60N2+K9G75C → GGM protection coupling → 6201 jackshaft → #35 12T:30T → CUT-05R`를 사용한다. Manual arm과 powered drive는 동시에 장착하지 않는다. 12T/30T는 각각 4x4/6x6 key가 토크를 전달하고, 수령된 sprocket의 maker axial-retention feature가 별도로 축방향 위치를 유지해야 한다. `DRV-02`는 이 경로에서 사용하지 않는다.
 
 고하중 구조경로는 cutter → metal shaft → 61905/CUT-10/CUT-08 → CUT-03 → G1J-10/GGM final support → frame/table이다. 출력 chute/tray/printed trim은 구조 하중경로가 아니다.
 """,encoding="utf-8")

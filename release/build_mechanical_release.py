@@ -127,8 +127,8 @@ def source_parts() -> list[dict[str, str]]:
 
     def add(row: dict[str, str], base: Path, quantity: str, release: str) -> None:
         part_id = row["part_id"]
-        if part_id in {"CUT-07", "DRV-A42", "DRV-01", "DRV-A60", "DRV-F01A", "DRV-F01B", "DRV-F01P"}:
-            # Legacy motor-interface parts are superseded by the selected GGM drive family.
+        if part_id in {"CUT-07", "DRV-A42", "DRV-01", "DRV-02", "DRV-A60", "DRV-F01A", "DRV-F01B", "DRV-F01P"}:
+            # Legacy motor/sprocket-interface parts are superseded by the selected GGM drive family.
             return
         note = base / "drawing_notes.md"
         critical = note_value(note, "controlling requirements") or note_value(note, "중요공차/검사")

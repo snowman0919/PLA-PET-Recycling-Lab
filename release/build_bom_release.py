@@ -24,6 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "exports/final/bom"
 REV = "final-design-fabrication-closure-v0.8"
+GGM_SUPERSEDED_DRIVE = {"DRV-01", "DRV-02", "DRV-A42", "DRV-A60", "DRV-F01A", "DRV-F01B", "DRV-F01P"}
 FIELDS = [
     "part_id", "description", "revision", "category", "quantity",
     "required_or_optional", "make_or_buy", "material/specification",
@@ -253,9 +254,39 @@ def expanded_rows() -> list[dict[str, str]]:
         add(row["part_id"], row["name"], row["quantity"], row["material"], "buy/custom fabricate to thermal drawing note",
             row["release_state"], "exports/thermal/manifest.csv", f"exports/thermal/parts/{row['part_id']}/drawing_notes.md")
     for row in read_csv("exports/drive_interface/manifest.csv"):
+        if row["part_id"] in GGM_SUPERSEDED_DRIVE:
+            continue
         add(row["part_id"], row["name"], row["quantity"], row["material"], row["process"], row["release_state"],
             "exports/drive_interface/manifest.csv", f"exports/drive_interface/parts/{row['part_id']}/drawing_notes.md")
     return rows
+
+
+def ggm_sprocket_rows(existing: set[str]) -> list[dict[str, str]]:
+    contract = json.loads((ROOT / "control/ggm_drive_contract.json").read_text(encoding="utf-8"))["shredder"]["chain_drive"]
+    register = {row["part_id"]: row for row in read_csv("analysis/drive_acceptance_v08/drive_component_register.csv")}
+    result = []
+    for role in ("input_sprocket", "output_sprocket"):
+        spec = contract[role]; pid = spec["part_id"]
+        if pid in existing:
+            continue
+        reg = register[pid]
+        if reg["classification"] != "purchased_reference_envelope":
+            raise ValueError(pid + " must remain a purchased reference envelope")
+        result.append({
+            "part_id": pid, "description": spec["type"], "revision": REV, "category": "DRIVE",
+            "quantity": reg["quantity"], "required_or_optional": "REQUIRED", "make_or_buy": "BUY_TO_SPEC",
+            "material/specification": reg["material_note"] + "; " + spec["shaft_interface"] + "; " + spec["key"],
+            "critical interface": f"keyed torque path; radial TIR <= {spec['radial_tir_mm_max']:.2f} mm; assembled axial shift+U95 <= {contract['assembled_axial_shift_u95_mm_max']:.2f} mm; chain alignment <= {contract['chain_plane_alignment_mm_per_150_max']:.2f}/150 mm; received maker axial retention required",
+            "approved MPN": "NONE_APPROVED—received keyed #35 sprocket must pass P1/P4 fit and retention evidence",
+            "approved alternative": "NONE_APPROVED—failed bore/key/retention/TIR requires an engineering adapter revision",
+            "donor status": "NOT_APPLICABLE",
+            "supplier status": "CHECK_EXISTING_STOCK_FIRST—PURCHASE_USER_APPROVAL_REQUIRED—PHYSICAL_RECEIPT_HOLD",
+            "drawing": "docs/drawings/v0.8/SH-004_chain_phase_gear.svg",
+            "assembly step": assembly_step(pid),
+            "firmware dependency": "GGM torque/current protection calibration; sprocket retention is mechanical",
+            "notes": "CURRENT GGM PURCHASED SPROCKET SOURCE: control/ggm_drive_contract.json + analysis/drive_acceptance_v08/drive_component_register.csv; key carries torque; maker retention hardware is axial-only; DRV-02 is superseded",
+        })
+    return result
 
 
 def active_reference_rows(existing: set[str]) -> list[dict[str, str]]:
@@ -336,6 +367,7 @@ def enrich_final_manufacturing(bom: list[dict[str, str]]) -> int:
         return 0
     by_id = {row["part_id"]: row for row in bom}
     rows = read_csv("exports/final/manufacturing/RFQ/manifest.csv")
+    rows = [item for item in rows if item["part_id"] not in GGM_SUPERSEDED_DRIVE]
     for item in rows:
         row = by_id[item["part_id"]]
         assert float(row["quantity"]) == float(item["quantity"]), f"manufacturing quantity mismatch: {item['part_id']}"
@@ -376,7 +408,7 @@ def fasteners() -> list[dict[str, object]]:
         ("SYS-06", "CUT-08 / CUT-03", "M4x12 class 8.8 SHCS", 12, "3", "all-metal locknut", "3 mm hex + 7 mm spanner", "bearing seal untouched; free rotation", "RELEASED_DIGITAL"),
         ("SYS-07", "hot-zone datum/guide / rear rail", "M5 profile fastener", 4, "2.5", "prevailing T-nut", "4 mm hex", "rear datum fixed; front axial slide free", "RELEASED_DIGITAL"),
         ("SYS-08", "DRV-03 / DRV-03R phase gears", "M4x22 class 10.9 SHCS", 4, "3", "all-metal locknut + dowel", "3 mm hex + 7 mm spanner", "2 bolts/gear; clocking dowel seated; matched keys blue-checked", "RELEASED_DIGITAL"),
-        ("SYS-09", "DRV-02 / #35 sprocket", "M6 class 10.9", 4, "10", "all-metal locknut", "5 mm hex + 10 mm spanner", "chain alignment <=0.20/150 mm", "RELEASED_DIGITAL"),
+        ("SYS-09", "GGM_SH_12T / GGM_SH_30T axial retention", "received sprocket maker axial-retention hardware; 4x4/6x6 keys carry torque", 2, "HOLD", "maker locking/retention feature; axial retention only", "tool and torque per accepted received hardware", "blue-check key flank; no friction-only/set-screw-only torque path; each sprocket radial TIR <=0.10 mm; total axial shift+U95 <=0.20 mm; chain alignment <=0.20/150 mm", "HOLD_SPROCKET_RECEIPT_AXIAL_RETENTION_NOT_RUN"),
         ("SYS-10", "ExtruderRearRetainer / ExtruderRearFixedDatum", "M4x25 class 8.8 SHCS", 2, "2.9", "dry thread; witness mark", "3 mm hex", "full thread engagement >=8.0 mm; cold endplay 0.12-0.28 mm", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
         ("SYS-11", "FM-EB-01 / FM-PL-01", "M3x10 class 8.8 SHCS", 4, "1.2", "witness mark; clean dry thread", "2.5 mm hex", "paired bush index within0.5 deg; full-rotation roller gap1.60-1.90 mm", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
         ("SYS-12", "FD-HOP-01 / FD-GSK-01 / FD-MET-01", "M4x16 A2-70 SHCS + washer + all-metal prevailing nut", 4, "HOLD", "all-metal prevailing nut", "3 mm hex; 7 mm spanner; feeler/depth gauge", "register clearance0.10-0.16; tighten crosswise only until gasket thickness0.35-0.40; dry-flake leak/retention test required", "HOLD_GASKET_COMPRESSION_PHYSICAL_NOT_RUN"),
@@ -591,6 +623,8 @@ def validate(bom: list[dict[str, str]], aux: dict[str, tuple[list[str], list[dic
     assert all(float(row["quantity"]) > 0 for row in bom)
     source_ids = {r["part_id"] for r in read_csv("bom/bom.csv")}
     assert source_ids <= set(ids), "authoritative source row lost"
+    assert not (GGM_SUPERSEDED_DRIVE & set(ids)), "superseded generic drive item reactivated"
+    assert {"GGM_SH_12T", "GGM_SH_30T"} <= set(ids), "direct-keyed GGM sprockets missing from final BOM"
     active = json.loads((ROOT / "release/active_part_set.json").read_text(encoding="utf-8"))["parts"]
     by_id = {row["part_id"]: row for row in bom}
     assert all(item["part_id"] in by_id and float(by_id[item["part_id"]]["quantity"]) == item["quantity"] for item in active), "active quantity mismatch"
@@ -644,6 +678,9 @@ def main() -> None:
         seen.add(row["part_id"]); bom.append(row)
     for row in ggm_manufacturing_rows(seen):
         if row["part_id"] in seen: raise ValueError(f"duplicate GGM part_id: {row['part_id']}")
+        seen.add(row["part_id"]); bom.append(row)
+    for row in ggm_sprocket_rows(seen):
+        if row["part_id"] in seen: raise ValueError(f"duplicate GGM sprocket part_id: {row['part_id']}")
         seen.add(row["part_id"]); bom.append(row)
     bom.extend(active_reference_rows(seen))
     bom.sort(key=lambda row: row["part_id"])
