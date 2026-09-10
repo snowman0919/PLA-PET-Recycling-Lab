@@ -147,8 +147,10 @@ def main():
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
     by_stage_id = {(r["gate"], r["item_id"]): r for r in stage_bom}
-    assert len(stage_bom) == 28 and by_stage_id[("P4", "CUT-01")]["quantity"] == "2"
+    assert len(stage_bom) == 29 and by_stage_id[("P4", "CUT-01")]["quantity"] == "2"
     assert by_stage_id[("P3", "PIN-COUPON")]["quantity"] == "9"
+    sprockets = by_stage_id[("P4", "GGM-SPROCKETS")]
+    assert sprockets["quantity"] == "1 pair" and "direct-keyed" in sprockets["item"] and "DRV-02 superseded" in sprockets["notes"]
     assert by_stage_id[("P3", "GGM-SH")]["item"] == "GGM K9DG60N2 + K9G75C"
     assert by_stage_id[("P3", "GGM-EX")]["item"] == "GGM K9DG60N2 + K9G150C"
     assert by_stage_id[("P5", "EX-CPN-SCR")]["quantity"] == "1" and by_stage_id[("P5", "EX-CPN-BAR")]["quantity"] == "1"
@@ -182,11 +184,18 @@ def main():
     p4_release = j("validation/physical_v08/templates/p4_stage_release.json")
     assert p4_release["status"] == "NOT_RUN" and p4_release["remaining_cut01_quantity"] == 10
     assert p4_release["remaining_cut01_fabrication_authorized"] is False and p4_release["downstream_energization_authorized"] is False
-    assert len(rows("validation/physical_v08/templates/p4_preflight.csv")) == 19
+    assert len(rows("validation/physical_v08/templates/p4_preflight.csv")) == 27
     assert len(rows("validation/physical_v08/templates/p4_quasistatic.csv")) == 25
     assert len(rows("validation/physical_v08/templates/p4_jam.csv")) == 6
     assert len(rows("validation/physical_v08/templates/p4_chip.csv")) == 2
     assert "P4_STAGE_RELEASE_VALIDATED" in p4_doc and "remaining_cut01_fabrication_authorized" in p4_doc
+    for token in ("GGM_SH_12T", "GGM_SH_30T", "DRV-02", "radial TIR", "axial shift"):
+        assert token in p4_doc
+    chain = ggm["shredder"]["chain_drive"]
+    assert chain["input_sprocket"]["part_id"] == "GGM_SH_12T" and chain["output_sprocket"]["part_id"] == "GGM_SH_30T"
+    assert close(chain["assembled_axial_shift_u95_mm_max"], .20) and close(chain["output_sprocket"]["radial_tir_mm_max"], .10)
+    p4_gate = next(row for row in gate["gates"] if row["id"] == "P4")
+    assert any("DRV-02 is not an active P4 part" in x for x in p4_gate["acceptance"])
     p3_builder = (ROOT / "validation/physical_v08/build_p3_inspection_packet.py").read_text(encoding="utf-8")
     assert 'add_argument("--preflight-result"' in p3_builder and 'result["p3_preflight"]' in p3_builder
     p3_inspector = (ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py").read_text(encoding="utf-8")

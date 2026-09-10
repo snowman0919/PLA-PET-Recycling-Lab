@@ -36,6 +36,10 @@ PRE_NUMERIC = {
     "chain_alignment_150": ("max", 0.20, "mm"),
     "chain_midspan_slack_percent": ("range", (2.0, 3.0), "percent"),
     "drive_guard_clearance": ("min", 3.0, "mm"),
+    "sprocket_12t_radial_tir": ("max", 0.10, "mm"),
+    "sprocket_30t_radial_tir": ("max", 0.10, "mm"),
+    "sprocket_12t_axial_shift": ("max", 0.20, "mm"),
+    "sprocket_30t_axial_shift": ("max", 0.20, "mm"),
 }
 PRE_BOOLEAN = {
     "cutter_coupon_revision_match": True,
@@ -47,6 +51,10 @@ PRE_BOOLEAN = {
     "key_relative_slip": False,
     "outer_guard_closed": True,
     "p4_energization_approval_record": True,
+    "sprocket_12t_key_torque_path": True,
+    "sprocket_30t_key_torque_path": True,
+    "sprocket_12t_axial_retention_verified": True,
+    "sprocket_30t_axial_retention_verified": True,
 }
 EXPECTED_SPECIMENS = {
     *(f"PLA12-{i:02d}" for i in range(1, 6)),

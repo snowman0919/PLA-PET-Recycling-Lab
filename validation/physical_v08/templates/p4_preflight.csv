@@ -18,3 +18,11 @@ bearing_axial_release,,,,,,,,,,,no bearing/collar axial release
 key_relative_slip,,,,,,,,,,,no relative key/hub slip
 outer_guard_closed,,,,,,,,,,,outer guards fully closed
 p4_energization_approval_record,,,,,,,,,,,explicit P4 coupon-only energization approval record exists
+sprocket_12t_radial_tir,,,,,,,,,,,12T tooth/root radial TIR after keyed assembly; value+U95 <=0.10 mm
+sprocket_30t_radial_tir,,,,,,,,,,,30T tooth/root radial TIR after keyed assembly; value+U95 <=0.10 mm
+sprocket_12t_axial_shift,,,,,,,,,,,12T total measurable axial shift; value+U95 <=0.20 mm
+sprocket_30t_axial_shift,,,,,,,,,,,30T total measurable axial shift; value+U95 <=0.20 mm
+sprocket_12t_key_torque_path,,,,,,,,,,,4x4 key flank visibly/blue-check engaged; friction or set screw is not torque path
+sprocket_30t_key_torque_path,,,,,,,,,,,6x6 key flank visibly/blue-check engaged; friction or set screw is not torque path
+sprocket_12t_axial_retention_verified,,,,,,,,,,,received 12T maker retention feature positively retains axial position; maker torque/spec recorded
+sprocket_30t_axial_retention_verified,,,,,,,,,,,received 30T maker retention feature positively retains axial position; maker torque/spec recorded

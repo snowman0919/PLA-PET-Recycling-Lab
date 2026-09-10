@@ -20,6 +20,7 @@ P4,CUT-03,shredder side plate,2,MAKE_ONLY_AFTER_USER_APPROVAL,plate machining,re
 P4,CUT-05-LR,CUT-05 + CUT-05R shafts,1 each,MAKE_ONLY_AFTER_USER_APPROVAL,S45C machining,reusable final,right key clocking inspection required
 P4,CUT-04,5 mm screen coupon,1,MAKE_ONLY_AFTER_USER_APPROVAL,sheet/plate,reusable or reference,second/full screen held until P4
 P4,CUT-08/09/10,retainer x2 + sleeve x4 + outer-ring seat x4,1 current Gate1 set,MAKE_ONLY_AFTER_USER_APPROVAL,simple metal machining,reusable final,no printed structural spacer
+P4,GGM-SPROCKETS,direct-keyed GGM_SH_12T + GGM_SH_30T #35 steel sprockets with maker axial-retention hardware,1 pair,CHECK_STOCK_OR_BUY_ONLY_AFTER_USER_APPROVAL,project lab/standard sprocket supplier,P4/final reusable,12T uses 4x4 key on GGM jackshaft; 30T uses 6x6x20 key directly on CUT-05R; key carries torque; radial TIR <=0.10 mm and axial shift+U95 <=0.20 mm each; DRV-02 superseded
 P4,DRV-03/03R,phase gear pair,1 pair,MAKE_ONLY_AFTER_USER_APPROVAL,S45C gear machining,reusable final,installed tooth phase 11.25 +/-1.0 deg physical check
 P4,GATE1-GUARD,Gate1 metal/3mm PC guard + printed trim,1 set,MAKE_FROM_STOCK_AFTER_USER_APPROVAL,project lab + PLA print,test fixture,legacy G1J-11 motor feet excluded from current powered path
 P5,EX-CPN-SCR,3-pitch screw process coupon,1,QUOTE_ORDER_USER_APPROVAL,specialist supplier,test witness,same certified heat/QT/nitride/finish route as eventual screw

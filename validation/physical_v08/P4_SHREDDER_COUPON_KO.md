@@ -4,7 +4,7 @@ P4의 목적은 full 12-disc stack 발주 전에 CUT-01 형상, screen, phase pa
 
 ## 시험 구성
 
-CUT-01은 축당 1장, 총 2장만 사용한다. CUT-03/CUT-05/CUT-05R/CUT-04/CUT-08/09/10, 61905 bearing, phase gear pair와 현 GGM shredder path를 사용한다. Legacy DRV-01/Axx/F01 powered fixture는 사용하지 않는다.
+CUT-01은 축당 1장, 총 2장만 사용한다. CUT-03/CUT-05/CUT-05R/CUT-04/CUT-08/09/10, 61905 bearing, phase gear pair와 현 GGM shredder path를 사용한다. Chain path는 `GGM_SH_12T`가 4x4 key로 jackshaft에 직접 결합되고 `GGM_SH_30T`가 6x6x20 key로 CUT-05R에 직접 결합되는 12T:30T 구조다. `DRV-02`와 legacy DRV-01/Axx/F01 powered fixture는 사용하지 않는다. 두 sprocket의 key flank가 토크를 전달해야 하며 수령품 maker retention feature는 축방향 유지 전용이다. 수령된 retention 체결 사양이 불명확하면 P4를 HOLD하고 임의 set-screw torque를 만들지 않는다.
 
 ## 판정 원칙
 

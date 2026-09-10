@@ -42,7 +42,7 @@ def main():
     for name, expected in expected_counts.items():
         require((BASE / name).is_file() and len(rows(name)) == expected,
                 f"missing/unexpected Gate-1 template {name}")
-    canonical = {"p4_preflight.csv": 19, "p4_quasistatic.csv": 25, "p4_jam.csv": 6, "p4_chip.csv": 2}
+    canonical = {"p4_preflight.csv": 27, "p4_quasistatic.csv": 25, "p4_jam.csv": 6, "p4_chip.csv": 2}
     for name, expected in canonical.items():
         path = PHYS / "templates" / name
         with path.open(newline="", encoding="utf-8") as handle:
@@ -59,6 +59,11 @@ def main():
             "legacy motor foot was reactivated")
     require(bom["GGM-SH-PATH"]["status"] == "P3_GGM_BENCH_PASS_REQUIRED_BEFORE_P4",
             "current GGM powered path not bound to P3")
+    require("DRV-02" not in bom["GGM-SH-PATH"]["source"] and "direct-keyed" in bom["GGM-SH-PATH"]["item"],
+            "P4 current chain path still depends on DRV-02")
+    fasteners={r["joint_id"]:r for r in rows("fastener_schedule.csv")}
+    require(fasteners["FST-19"]["nominal_torque_Nm"] == "HOLD" and "axial retention" in fasteners["FST-19"]["mating_parts"],
+            "unverified sprocket retention torque leaked into P4")
 
     drive = rows("drive_calibration_template.csv")
     require(sum(r["calibration_type"] == "GGM_GEARBOX_TORQUE_CURRENT_REFERENCE" for r in drive) == 5,

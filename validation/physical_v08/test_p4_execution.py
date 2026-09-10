@@ -26,6 +26,8 @@ class P4ExecutionTest(unittest.TestCase):
             "phase_error":(.50,.05,"deg"), "min_cutter_screen_clearance":(2.10,.05,"mm"), "hand_rotation_contacts":(0,0,"count"),
             "pe_bond_worst":(.05,.01,"ohm"), "chain_alignment_150":(.10,.02,"mm"),
             "chain_midspan_slack_percent":(2.5,.1,"percent"), "drive_guard_clearance":(4.0,.1,"mm"),
+            "sprocket_12t_radial_tir":(.05,.01,"mm"), "sprocket_30t_radial_tir":(.06,.01,"mm"),
+            "sprocket_12t_axial_shift":(.08,.01,"mm"), "sprocket_30t_axial_shift":(.09,.01,"mm"),
         }
         pre=[]
         for check,(value,u95,unit) in numeric.items():
@@ -78,7 +80,7 @@ class P4ExecutionTest(unittest.TestCase):
             result=P4.evaluate_records(d,ROOT)
             self.assertEqual(result["status"],"NUMERIC_RECORD_CHECK_PASS")
             self.assertFalse(result["stage_p4_pass"]); self.assertFalse(result["hardware_authorization"])
-            self.assertEqual(result["preflight"]["checks"],19)
+            self.assertEqual(result["preflight"]["checks"],27)
             self.assertEqual(result["quasistatic"]["PLA"]["samples"],15); self.assertEqual(result["quasistatic"]["PET"]["samples"],10)
             self.assertGreater(result["chip"]["PLA"]["recovery_lower_percent"],95)
 
@@ -115,6 +117,12 @@ class P4ExecutionTest(unittest.TestCase):
             with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
             self.build_records(d)
             self.mutate(d/"p4_preflight.csv", lambda rows: next(r for r in rows if r["check_id"]=="min_cutter_screen_clearance").update(value="1.90",u95="0.05"))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+            self.build_records(d)
+            self.mutate(d/"p4_preflight.csv", lambda rows: next(r for r in rows if r["check_id"]=="sprocket_30t_axial_shift").update(value="0.20",u95="0.01"))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+            self.build_records(d)
+            self.mutate(d/"p4_preflight.csv", lambda rows: next(r for r in rows if r["check_id"]=="sprocket_30t_key_torque_path").update(value="NO"))
             with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
             self.build_records(d)
             self.mutate(d/"p4_quasistatic.csv", lambda rows: rows[0].update(sha256="0"*64))

@@ -18,6 +18,8 @@
 
 250 mm torque arm에서는 8.0 N·m = 32.0 N, 8.8 N·m = 35.2 N, 9.3 N·m = 37.2 N이므로 기존 0–200 N force gauge 범위로 충분하다. 전류센서는 motor lead에서 독립 기준으로 교정하며 0–6 A 사용 범위에서 U95 포함 오차 <=0.10 A, torque holdout error <=0.40 N·m를 목표로 한다.
 
+분쇄기 chain output은 구형 DRV-02 bolt-on hub가 아니라 direct-keyed `GGM_SH_12T/GGM_SH_30T`다. 4x4/6x6 key가 토크를 전달하고 수령 sprocket의 maker retention feature가 축방향 위치만 유지한다. 각 sprocket radial TIR는 U95 포함 <=0.10 mm, total axial shift는 U95 포함 <=0.20 mm이며, 이 retention 사양을 수령품에서 확인하지 못하면 P4 powered coupon으로 진행하지 않는다.
+
 ## 고온부의 현재 물리 기준
 
 Rear datum/collar bore는 Ø34.25, front guide는 Ø34.60이며 cold axial free travel은 1.50 mm 이상이다. Screw/barrel matched diametral clearance는 0.28–0.32 mm다. Die SYS-04는 M4x45 class 10.9 stock screw를 42.5±0.1 mm로 절단·디버링하고 dry 1.50 N·m를 사용한다. 첫 thermal cycle과 실제 누설은 아직 NOT_RUN이다.
