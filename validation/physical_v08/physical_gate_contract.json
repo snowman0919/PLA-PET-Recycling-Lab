@@ -267,14 +267,15 @@
       "name": "PET_LOW_FEED",
       "action": "dry PET process validation after PLA succeeds",
       "prerequisites": [
-        "P10 PASS",
-        "known cleaned/dried PET lot",
-        "PET thermal profile ready",
-        "user PET-feed approval"
+        "P10_STAGE_RELEASE_VALIDATED for bounded PLA material-run state",
+        "known cleaned/dried PET lot with authenticated drying evidence",
+        "PET thermal profile bound to current generated firmware targets",
+        "explicit user PET-feed approval for this bounded P11 run"
       ],
       "acceptance": [
-        "start screw around 8-10 rpm; 18 rpm is not assumed safe and is approached only if measured gearbox torque retains margin below 8.0 N.m limit",
-        "no leakage or hot-zone binding",
+        "start screw around 8-10 rpm; higher speed is approached only from measured torque/current/diameter behavior",
+        "all stable samples keep gearbox torque + U95 < 8.0 N.m and GGM motor current + U95 <=6.0 A",
+        "no leakage, uncontrolled pressure symptom, guard contact, repeated torque-trip control, or hot-zone binding",
         "20 consecutive stable diameter samples: mean error <=0.05 mm, ovality <=0.05 mm, U95 <=0.03 mm target",
         "actual maximum stable throughput is reported instead of forcing 200 g/h"
       ],

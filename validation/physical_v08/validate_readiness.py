@@ -157,6 +157,7 @@ def main():
         "validation/physical_v08/test_p9_stage_release.py",
         "validation/physical_v08/validate_p10_stage_release.py",
         "validation/physical_v08/test_p10_stage_release.py",
+        "validation/physical_v08/test_p11_execution.py",
         "validation/physical_v08/templates/p10_stage_release.json",
         "validation/physical_v08/templates/p9_stage_release.json",
         "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md",
@@ -242,6 +243,9 @@ def main():
         assert token in material_analyzer
     material_doc = (ROOT / "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md").read_text(encoding="utf-8")
     assert "torque + U95 < 8.0 N.m" in material_doc and "current + U95 <= 6.0 A" in material_doc
+    p11_gate = next(row for row in gate["gates"] if row["id"] == "P11")
+    assert any("P10_STAGE_RELEASE_VALIDATED" in x for x in p11_gate["prerequisites"])
+    assert any("current + U95 <=6.0 A" in x for x in p11_gate["acceptance"])
     p10_registry = next(stage for stage in registry["stages"] if stage["id"] == "P10")
     assert p10_registry["stage_release_validator"] == "validate_p10_stage_release.py"
     assert "templates/p10_stage_release.json" in p10_registry["templates"]
