@@ -80,8 +80,10 @@
       "templates": [
         "templates/p5_coupon_certificates.csv",
         "templates/p5_coupon_measurements.csv",
-        "templates/p5_supplier_capability.csv"
-      ]
+        "templates/p5_supplier_capability.csv",
+        "templates/p5_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p5_stage_release.py"
     },
     {
       "id": "P6",

@@ -119,20 +119,32 @@ def check_certificates(rows):
             'barrel_final_case_mm':num(by[('EX-CPN-BAR','final_effective_case_depth')]['value']),
             'barrel_hone_removed_diameter_mm':num(by[('EX-CPN-BAR','final_hone_removed_on_diameter')]['value'])}
 
-def main():
-    ap=argparse.ArgumentParser(); ap.add_argument('dir',type=Path); ap.add_argument('--output',type=Path)
-    a=ap.parse_args(); d=a.dir
-    files={'capability':'p5_supplier_capability.csv','measurements':'p5_coupon_measurements.csv','certificates':'p5_coupon_certificates.csv'}
+FILES={'capability':'p5_supplier_capability.csv','measurements':'p5_coupon_measurements.csv','certificates':'p5_coupon_certificates.csv'}
+SOURCE_FILES=('validation/physical_v08/p5_coupon_contract.json','validation/physical_v08/analyze_p5_records.py')
+
+def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def evaluate(d:Path):
+    d=d.resolve()
     result={'status':'NOT_RUN_OR_REJECTED','stage_p5_pass':False,'full_part_order_authorized':False,'physical_action_authorized':False}
     try:
+        if not d.is_relative_to(ROOT): raise ValueError('P5 records directory must be inside repository')
         if CONTRACT['purchase_or_manufacturing_authorized'] is not False: raise ValueError('contract authorization invariant')
-        data={k:read(d/v) for k,v in files.items()}
-        result.update({'status':'NUMERIC_RECORD_CHECK_PASS','capability':check_capability(data['capability']),
+        data={k:read(d/v) for k,v in FILES.items()}
+        result.update({'status':'NUMERIC_RECORD_CHECK_PASS','records_dir':str(d.relative_to(ROOT)),
+                       'record_files_sha256':{v:sha(d/v) for v in FILES.values()},
+                       'source_bindings_sha256':{name:sha(ROOT/name) for name in SOURCE_FILES},
+                       'capability':check_capability(data['capability']),
                        'measurements':check_measurements(data['measurements']),
                        'certificates':check_certificates(data['certificates']),
                        'note':'Coupon record arithmetic/document completeness passed. Engineering review and explicit user approval are still required before any production order.'})
-    except (ValueError,KeyError,ZeroDivisionError) as e:
+    except (ValueError,KeyError,ZeroDivisionError,FileNotFoundError) as e:
         result['reason']=str(e)
+    return result
+
+def main():
+    ap=argparse.ArgumentParser(); ap.add_argument('dir',type=Path); ap.add_argument('--output',type=Path)
+    a=ap.parse_args(); result=evaluate(a.dir)
     text=json.dumps(result,ensure_ascii=False,indent=2)+'\n'
     if a.output: a.output.write_text(text)
     print(text,end='')

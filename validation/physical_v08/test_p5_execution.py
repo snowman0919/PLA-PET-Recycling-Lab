@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
-import csv,hashlib,json,subprocess,tempfile,unittest
+import csv,hashlib,importlib.util,json,subprocess,tempfile,unittest
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
+ROOT=HERE.parents[1]
+
+def load(name):
+    spec=importlib.util.spec_from_file_location(name,HERE/f'{name}.py')
+    mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod
+
+P5=load('analyze_p5_records')
+P5REL=load('validate_p5_stage_release')
 
 def write_csv(path,fieldnames,rows):
     with path.open('w',newline='',encoding='utf-8') as f:
@@ -68,6 +76,24 @@ class P5ExecutionTest(unittest.TestCase):
             out=json.loads(proc.stdout); self.assertEqual(out['status'],'NUMERIC_RECORD_CHECK_PASS')
             self.assertFalse(out['full_part_order_authorized']); self.assertFalse(out['stage_p5_pass'])
             self.assertAlmostEqual(out['measurements']['clearance_min_nominal_mm'],0.30,places=6)
+        finally: td.cleanup()
+    def test_stage_release_revalidates_exact_records(self):
+        td=tempfile.TemporaryDirectory(dir=HERE); d=Path(td.name)
+        try:
+            synthetic_packet(d,False)
+            result=P5.evaluate(d); self.assertEqual(result['status'],'NUMERIC_RECORD_CHECK_PASS')
+            result_path=d/'p5_result.json'; result_path.write_text(json.dumps(result,indent=2)+'\n')
+            release={
+                'stage':'P5','status':'PASS','release_scope':'P5_COUPON_COMPLETE_P6_REVIEW_ONLY',
+                'approved_by':'ENGINEER-A','independent_reviewer':'REVIEWER-B','reviewed_at':'2026-09-10T17:30:00+09:00',
+                'records_dir':str(d.relative_to(ROOT)),'p5_result':result_path.name,
+                'p5_result_sha256':hashlib.sha256(result_path.read_bytes()).hexdigest(),
+                'p6_entry_review':True,'action_state':'HOLD','machine_release':'HOLD'}
+            release_path=d/'p5_stage_release.json'; release_path.write_text(json.dumps(release,indent=2)+'\n')
+            checked=P5REL.validate(release_path); self.assertEqual(checked['status'],'P5_STAGE_RELEASE_VALIDATED')
+            self.assertTrue(checked['p6_entry_prerequisite']); self.assertEqual(checked['action_state'],'HOLD')
+            release['p5_result_sha256']='0'*64; release_path.write_text(json.dumps(release,indent=2)+'\n')
+            with self.assertRaises(ValueError): P5REL.validate(release_path)
         finally: td.cleanup()
     def test_barrel_case_uncertainty_rejects_edge(self):
         td,proc=self.run_packet(True)
