@@ -35,6 +35,9 @@ def main():
   if s.get('stage_release_validator'):
    stage_validator=resolve(s['stage_release_validator']); req(stage_validator.is_file(),s['id']+' missing stage-release validator '+str(stage_validator))
    py_compile.compile(str(stage_validator),doraise=True)
+  if s.get('firmware_commissioning_validator'):
+   fw_validator=resolve(s['firmware_commissioning_validator']); req(fw_validator.is_file(),s['id']+' missing firmware commissioning validator '+str(fw_validator))
+   py_compile.compile(str(fw_validator),doraise=True)
   if s.get('entry_validator'):
    entry_validator=resolve(s['entry_validator']); req(entry_validator.is_file(),s['id']+' missing entry validator '+str(entry_validator))
    py_compile.compile(str(entry_validator),doraise=True)

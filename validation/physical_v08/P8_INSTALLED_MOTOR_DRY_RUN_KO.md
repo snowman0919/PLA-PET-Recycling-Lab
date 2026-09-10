@@ -1,6 +1,6 @@
 # P8 설치 후 motor dry-run
 
-P8은 P3에서 교정한 GGM 구동계를 실제 machine load path에 장착한 뒤 재료·히터 없이 저속으로 구동해 방향, tach, stop, bearing/coupling 상태를 확인한다. P7 PASS와 별도 motor 통전 승인이 선행되어야 한다.
+P8은 P3에서 교정한 GGM 구동계를 실제 machine load path에 장착한 뒤 재료·히터 없이 저속으로 구동해 방향, tach, stop, bearing/coupling 상태를 확인한다. 진입 검토에는 재검증 가능한 P3/P6/P7 stage release와 P3 calibration이 적용된 firmware/EEPROM의 readback 증거가 필요하며, 실제 motor 통전은 그와 별개의 명시적 승인이다.
 
 ## 순서
 
@@ -11,3 +11,9 @@ P8은 P3에서 교정한 GGM 구동계를 실제 machine load path에 장착한 
 5. Normal stop, E-stop, tach-loss를 각각 강제한다. 모든 경우 hazardous command가 제거되고 전원/신호 복구만으로 자동 재시작하지 않아야 한다.
 
 `templates/p8_motor_dry_run.csv`에 실제 측정값과 evidence를 기록하고 `analyze_p8_records.py`로 판정한다. Shredder의 16 rpm은 비교 기준이며 새로운 임의 허용 band를 만들지 않는다.
+
+## P8 firmware commissioning evidence
+
+P3의 review-only profile을 사람이 검토해 실제 `firmware/ggm_drive_v08/ggm_commissioning.h`에 적용하고 새 final HEX를 생성한 뒤에도, 파일이 존재한다는 사실만으로 P8 진입 조건이 되지 않는다. SH/EX tach는 logic-only/lockout 상태에서 각각 최소 10회 수동 회전해 실제 pulse 수를 세고 `templates/p8_tach_calibration.csv`에 기록한다. 특정 PPR 값을 문서에서 가정하지 않고 `observed_pulses / manual_revolutions`가 양의 정수로 귀결되는지 확인한다.
+
+Flash 후에는 MCU의 읽기 전용 `GGM_REPORT` 한 줄과 실제 flash readback HEX를 원시 evidence로 저장한다. `templates/p8_firmware_installation.csv`는 이 두 파일의 repository 경로와 SHA-256, 작업자·독립 검토자·timezone 포함 시각을 가리킨다. `validate_p8_firmware_commissioning.py`는 P3 release, candidate profile, 적용된 commissioning header, variant/final build manifest, final HEX, flash readback, `GGM_REPORT`, tach calibration을 모두 교차검증한다. `FIRMWARE_COMMISSIONING_RECORD_CHECK_PASS`여도 motor/heater authorization은 false이고 machine release는 HOLD다.

@@ -134,6 +134,10 @@ def main():
         "validation/physical_v08/analyze_ggm_mount_compatibility.py",
         "validation/physical_v08/build_p3_inspection_packet.py",
         "validation/physical_v08/build_p3_firmware_profile.py",
+        "validation/physical_v08/validate_p8_firmware_commissioning.py",
+        "validation/physical_v08/test_p8_firmware_commissioning.py",
+        "validation/physical_v08/templates/p8_tach_calibration.csv",
+        "validation/physical_v08/templates/p8_firmware_installation.csv",
         "validation/physical_v08/validate_p3_stage_release.py",
         "validation/physical_v08/test_p3_packet_builder.py",
         "validation/physical_v08/analyze_p4_records.py",
@@ -174,6 +178,13 @@ def main():
     assert "--preflight-result" in p3_doc and "PREPOWER_RECORD_CHECK_PASS" in p3_doc
     assert "validate_p3_stage_release.py" in p3_doc and "P3_STAGE_RELEASE_VALIDATED" in p3_doc
     assert "build_p3_firmware_profile.py" in p3_doc and "p8_entry_prerequisite`는 false" in p3_doc
+    p8_registry = next(stage for stage in registry["stages"] if stage["id"] == "P8")
+    assert p8_registry["firmware_commissioning_validator"] == "validate_p8_firmware_commissioning.py"
+    assert "templates/p8_tach_calibration.csv" in p8_registry["templates"] and "templates/p8_firmware_installation.csv" in p8_registry["templates"]
+    p8_fw = (ROOT / "validation/physical_v08/validate_p8_firmware_commissioning.py").read_text(encoding="utf-8")
+    assert "FIRMWARE_COMMISSIONING_RECORD_CHECK_PASS" in p8_fw and "GGM_REPORT" in p8_fw and "flash readback" in p8_fw
+    p8_doc = (ROOT / "validation/physical_v08/P8_INSTALLED_MOTOR_DRY_RUN_KO.md").read_text(encoding="utf-8")
+    assert "validate_p8_firmware_commissioning.py" in p8_doc and "GGM_REPORT" in p8_doc
     p4_doc = (ROOT / "validation/physical_v08/P4_SHREDDER_COUPON_KO.md").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_doc and "P3_STAGE_RELEASE_VALIDATED" in p4_doc
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")

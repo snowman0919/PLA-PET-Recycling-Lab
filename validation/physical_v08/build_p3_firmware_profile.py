@@ -104,6 +104,7 @@ def generate(release_path: Path, output_dir: Path) -> dict:
         "p3_release_sha256": release_digest,
         "inspection_packet_sha256": sha(packet_path),
         "inspection_report_sha256": sha(report_path),
+        "profile_builder_sha256": sha(Path(__file__).resolve()),
         "p3_stage_validator_sha256": sha(P3_VALIDATOR),
         "inspection_engine_sha256": sha(INSPECTION),
         "calibration": {

@@ -119,8 +119,11 @@
       "doc": "P8_INSTALLED_MOTOR_DRY_RUN_KO.md",
       "analyzer": "analyze_p8_records.py",
       "templates": [
-        "templates/p8_motor_dry_run.csv"
-      ]
+        "templates/p8_motor_dry_run.csv",
+        "templates/p8_tach_calibration.csv",
+        "templates/p8_firmware_installation.csv"
+      ],
+      "firmware_commissioning_validator": "validate_p8_firmware_commissioning.py"
     },
     {
       "id": "P9",
