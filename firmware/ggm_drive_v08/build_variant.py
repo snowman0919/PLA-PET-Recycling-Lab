@@ -24,19 +24,25 @@ def main():
     begin='''  void apply(const ActuatorCommands &c) {
     const bool verified=GgmCommissioning::RECEIPT_LIMITER_CURRENT_AND_WIRING_VERIFIED;
     const bool sh=c.shredder_pwm!=0;
-    const float amps=calibration_record.current_amps_per_count>0 ?
-        (sh ? abs(analogRead(Board::CURRENT_PIN)-calibration_record.current_zero_adc)*calibration_record.current_amps_per_count : (GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT>0 ? fabsf(analogRead(Board::EX_CURRENT_PIN)-GgmCommissioning::EX_CURRENT_ZERO_ADC)*GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT : NAN)) : NAN;
+    const bool ex=c.screw_pwm!=0;
+    const bool sh_current_valid=calibrationDomainReady(calibration_record,CAL_CURRENT_SENSOR) && calibration_record.current_amps_per_count>0;
+    const bool ex_current_valid=GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT>0;
+    const float amps=sh ? (sh_current_valid ? abs(analogRead(Board::CURRENT_PIN)-calibration_record.current_zero_adc)*calibration_record.current_amps_per_count : NAN) :
+        (ex ? (ex_current_valid ? fabsf(analogRead(Board::EX_CURRENT_PIN)-GgmCommissioning::EX_CURRENT_ZERO_ADC)*GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT : NAN) : 0.0f);
 '''
-    begin+='''    const GgmInput gi{millis(),last_tach_sample_ms,c.shredder_pwm,c.screw_pwm,
+    begin+='''    const bool sh_tach_valid=calibrationDomainReady(calibration_record,CAL_SHREDDER_TACH) && shredder_tach_sample.valid;
+    const bool ex_tach_valid=calibrationDomainReady(calibration_record,CAL_SCREW_TACH) && screw_tach_sample.valid;
+    const bool sh_stopped=calibrationDomainReady(calibration_record,CAL_SHREDDER_TACH) &&
+      shredder_tach_sample.accepted_pulses>=2 && calibration_record.records[CAL_SHREDDER_TACH].value>0 &&
+      float(shredder_tach_sample.pulse_age_us)>=60000000.0f/calibration_record.records[CAL_SHREDDER_TACH].value;
+    const GgmInput gi{millis(),c.shredder_pwm,c.screw_pwm,
       amps,shredder_rpm,screw_rpm,
       sh?GgmCommissioning::SH_GEARBOX_NM_PER_AMP:GgmCommissioning::EX_GEARBOX_NM_PER_AMP,
       sh?GgmCommissioning::SH_NO_LOAD_CURRENT_A:GgmCommissioning::EX_NO_LOAD_CURRENT_A,
+      SHREDDER_TACH_CONFIG.timeout_us/1000UL,SCREW_TACH_CONFIG.timeout_us/1000UL,
       verified,digitalRead(Board::ESTOP_PIN)==HIGH && digitalRead(Board::SERVICE_GUARD_PIN)==HIGH &&
       digitalRead(Board::LID_PIN)==HIGH && digitalRead(Board::THERMAL_CHAIN_PIN)==HIGH,
-      calibrationDomainReady(calibration_record,CAL_CURRENT_SENSOR),
-      calibrationDomainReady(calibration_record,CAL_SHREDDER_TACH) && shredder_tach_sample.accepted_pulses>=2 &&
-      calibration_record.records[CAL_SHREDDER_TACH].value>0 &&
-      float(shredder_tach_sample.pulse_age_us)>=60000000.0f/calibration_record.records[CAL_SHREDDER_TACH].value};
+      sh?sh_current_valid:(ex?ex_current_valid:true),sh_tach_valid,ex_tach_valid,sh_stopped};
     const GgmOutput safe=ggm_guard.update(gi);
     writeBts(Board::SHREDDER_PWM_PIN,Board::SHREDDER_LPWM_PIN,Board::SHREDDER_ENABLE_PIN,safe.shredder);
     digitalWrite(Board::SHREDDER_ENABLE_PIN,safe.shredder!=0 ? HIGH:LOW);
