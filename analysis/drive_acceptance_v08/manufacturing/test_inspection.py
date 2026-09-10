@@ -120,6 +120,15 @@ class Tests(unittest.TestCase):
     def test_stale_design_binding(self):
         r=I.inspect({'design_sha256':{'control/ggm_drive_contract.json':'0'*64},'receipt':{'performed':True,'data':receipts()}})
         self.assertEqual(r['domains']['receipt']['status'],'REJECTED')
+    def test_p3_records_reject_missing_preflight(self):
+        bindings={name:hashlib.sha256((I.R/name).read_bytes()).hexdigest() for name in ('control/ggm_drive_contract.json','analysis/drive_acceptance_v08/manufacturing/drawing_contract.json')}
+        packet={'all_physical_actions_authorized':True,'design_sha256':bindings,
+            'current_calibration':{'performed':True,'data':current_records()}}
+        result=I.inspect(packet)
+        self.assertEqual(result['p3_preflight']['status'],'NOT_RUN')
+        self.assertEqual(result['domains']['current_calibration']['status'],'REJECTED')
+        self.assertIn('preflight',result['domains']['current_calibration']['reason'])
+
     def test_physical_record_blocked_until_full_simulation_pass(self):
         bindings={name:hashlib.sha256((I.R/name).read_bytes()).hexdigest() for name in ('control/ggm_drive_contract.json','analysis/drive_acceptance_v08/manufacturing/drawing_contract.json')}
         packet={'all_physical_actions_authorized':True,'design_sha256':bindings,'receipt':{'performed':True,'data':receipts()}}

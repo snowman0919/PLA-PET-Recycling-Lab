@@ -12,11 +12,13 @@ import datetime
 import hashlib
 import importlib.util
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 MOUNT_ANALYZER = HERE / "analyze_ggm_mount_compatibility.py"
+SIM_ANALYZER = HERE / "simulation_prerequisite.py"
 
 EXPECTED = {
     "p2_applicable_cold_fit": {"PASS_REVIEWED"},
@@ -44,6 +46,10 @@ EXPECTED = {
 
 SOURCE_FILES = (
     "control/ggm_drive_contract.json",
+    "analysis/drive_acceptance_v08/manufacturing/drawing_contract.json",
+    "validation/physical_v08/simulation_prerequisite.py",
+    "validation/physical_v08/analyze_ggm_mount_compatibility.py",
+    "validation/physical_v08/analyze_p3_preflight.py",
     "validation/physical_v08/p3_fixture_contract.json",
     "validation/physical_v08/p3_bench_bom.csv",
     "electronics/io_schedule.csv",
@@ -63,13 +69,22 @@ def rows(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
-def load_mount_analyzer():
-    spec = importlib.util.spec_from_file_location("ppr_p3_mount", MOUNT_ANALYZER)
+def load_module(path: Path, name: str):
+    spec = importlib.util.spec_from_file_location(name, path)
     if spec is None or spec.loader is None:
-        raise RuntimeError("cannot load GGM mount analyzer")
+        raise RuntimeError("cannot load " + str(path))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def runtime_p0() -> dict:
+    return load_module(SIM_ANALYZER, "ppr_p3_p0").evaluate(refresh=True)
+
+
+def p0_digest(data: dict) -> str:
+    canonical = json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
 
 
 def verify_evidence(row: dict[str, str], root: Path) -> Path:
@@ -182,13 +197,13 @@ def evaluate(record_rows: list[dict[str, str]], receipt_packet: dict, root: Path
         checks[check_id] = {"observed": observed, "evidence_sha256": row["sha256"].lower(), "pass": True}
 
     machine = validate_machine_contract(root)
-    mount = load_mount_analyzer().evaluate(receipt_packet)
+    mount = load_module(MOUNT_ANALYZER, "ppr_p3_mount").evaluate(receipt_packet)
     if mount.get("status") != "AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED":
         raise ValueError("GGM receipt/mount gate is not compatible: " + mount.get("status", "UNKNOWN"))
 
-    simulation = json.loads((root / "validation/physical_v08/simulation_prerequisite.json").read_text(encoding="utf-8"))
-    if simulation.get("status") != "PASS":
-        raise ValueError("P0 technical prerequisite is not PASS")
+    simulation = runtime_p0()
+    if simulation.get("status") != "PASS" or simulation.get("required_technical_gate_count") != 23:
+        raise ValueError("P0 technical prerequisite is not 23/23 PASS")
     packet_sim = receipt_packet.get("simulation_prerequisite", {})
     expected_prereq_source = "validation/physical_v08/simulation_prerequisite.py"
     if packet_sim:
@@ -198,7 +213,6 @@ def evaluate(record_rows: list[dict[str, str]], receipt_packet: dict, root: Path
         if source_digest and source_digest != sha(root / expected_prereq_source):
             raise ValueError("receipt packet P0 checker source binding is stale")
 
-    p0_snapshot = root / "validation/physical_v08/simulation_prerequisite.json"
     return {
         "status": "PREPOWER_RECORD_CHECK_PASS",
         "record_check_only": True,
@@ -207,13 +221,40 @@ def evaluate(record_rows: list[dict[str, str]], receipt_packet: dict, root: Path
         "motor_energization_authorized": False,
         "stage_p3_pass": False,
         "mount_status": mount["status"],
-        "p0_snapshot_sha256": sha(p0_snapshot),
+        "p0_runtime_digest": p0_digest(simulation),
         "p0_snapshot_head": simulation.get("head"),
         "checks": checks,
         "machine_contract": machine,
         "source_bindings_sha256": {name: sha(root / name) for name in SOURCE_FILES},
         "note": "A separate human decision at the fixture remains required. This analyzer never energizes hardware or grants P3 release.",
     }
+
+
+def validate_result(result: dict, root: Path = ROOT) -> dict:
+    if result.get("status") != "PREPOWER_RECORD_CHECK_PASS":
+        raise ValueError("P3 preflight result is not PASS")
+    if result.get("record_check_only") is not True or result.get("physical_evidence_evaluated") is not True:
+        raise ValueError("P3 preflight result semantics invalid")
+    if result.get("approval_record_present") is not True:
+        raise ValueError("P3 preflight approval record missing")
+    if result.get("motor_energization_authorized") is not False or result.get("stage_p3_pass") is not False:
+        raise ValueError("P3 preflight must not self-authorize motor power or stage release")
+    if result.get("mount_status") != "AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED":
+        raise ValueError("P3 preflight mount state invalid")
+    checks = result.get("checks", {})
+    if set(checks) != set(EXPECTED) or any(row.get("pass") is not True for row in checks.values()):
+        raise ValueError("P3 preflight check set incomplete")
+    bindings = result.get("source_bindings_sha256", {})
+    stale = [name for name in SOURCE_FILES if bindings.get(name) != sha(root / name)]
+    if stale:
+        raise ValueError("P3 preflight source binding stale: " + ", ".join(stale))
+    current = runtime_p0()
+    current_head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    if current.get("status") != "PASS" or current.get("head") != current_head:
+        raise ValueError("current P0 runtime state is not fresh PASS")
+    if result.get("p0_snapshot_head") != current_head or result.get("p0_runtime_digest") != p0_digest(current):
+        raise ValueError("P3 preflight P0 binding is stale")
+    return {"checks": len(checks), "p0_head": current_head, "source_bindings": len(bindings)}
 
 
 def main() -> None:
@@ -224,6 +265,7 @@ def main() -> None:
     args = ap.parse_args()
     try:
         result = evaluate(rows(args.preflight_csv), json.loads(args.receipt_packet.read_text(encoding="utf-8")))
+        validate_result(result)
         result["receipt_packet_sha256"] = sha(args.receipt_packet)
         code = 0
     except (ValueError, KeyError, FileNotFoundError, json.JSONDecodeError) as exc:

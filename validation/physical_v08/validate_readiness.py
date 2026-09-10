@@ -152,9 +152,16 @@ def main():
     registry = j("validation/physical_v08/physical_execution_registry.json")
     p3_registry = next(stage for stage in registry["stages"] if stage["id"] == "P3")
     assert p3_registry["preflight_analyzer"] == "analyze_p3_preflight.py"
+    assert p3_registry["packet_builder"] == "build_p3_inspection_packet.py"
     assert "templates/p3_preflight.csv" in p3_registry["templates"]
     p3_preflight_header = (ROOT / "validation/physical_v08/templates/p3_preflight.csv").read_text(encoding="utf-8").splitlines()[0]
     assert p3_preflight_header == "check_id,observed,status,operator,reviewer,checked_at,evidence_path,sha256,notes"
+    p3_doc = (ROOT / "validation/physical_v08/P3_GGM_BENCH_KO.md").read_text(encoding="utf-8")
+    assert "--preflight-result" in p3_doc and "PREPOWER_RECORD_CHECK_PASS" in p3_doc
+    p3_builder = (ROOT / "validation/physical_v08/build_p3_inspection_packet.py").read_text(encoding="utf-8")
+    assert 'add_argument("--preflight-result"' in p3_builder and 'result["p3_preflight"]' in p3_builder
+    p3_inspector = (ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py").read_text(encoding="utf-8")
+    assert "authenticated P3 preflight is required" in p3_inspector
     assert p5["status"] == "DESIGN_ONLY_NOT_ORDERED" and p5["purchase_or_manufacturing_authorized"] is False
     assert p5["screw"]["quantity"] == 1 and p5["barrel"]["quantity"] == 1
     assert p5["screw"]["effective_case_after_final_grind_mm"] == [0.30, 0.50]

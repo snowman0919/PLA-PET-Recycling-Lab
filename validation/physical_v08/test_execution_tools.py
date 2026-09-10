@@ -111,7 +111,7 @@ class ExecutionToolsTest(unittest.TestCase):
             self.assertEqual(ok['status'],'PREPOWER_RECORD_CHECK_PASS')
             self.assertFalse(ok['motor_energization_authorized']); self.assertFalse(ok['stage_p3_pass'])
             self.assertEqual(ok['mount_status'],'AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED')
-            self.assertEqual(ok['p0_snapshot_head'], json.loads((root/'validation/physical_v08/simulation_prerequisite.json').read_text())['head'])
+            self.assertEqual(ok['p0_snapshot_head'], subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip())
             p2_result.write_text(json.dumps({'status':'FAIL','physical_evidence_evaluated':True,'stage_release_granted':False}))
             p2row['sha256']=hashlib.sha256(p2_result.read_bytes()).hexdigest()
             with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root)

@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 CONTROL = ROOT / "control/ggm_drive_contract.json"
 DRAWING = ROOT / "analysis/drive_acceptance_v08/manufacturing/drawing_contract.json"
 INSPECTION = ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py"
+PREFLIGHT = ROOT / "validation/physical_v08/analyze_p3_preflight.py"
 
 
 
@@ -30,8 +31,40 @@ def load_inspection():
     spec.loader.exec_module(module)
     return module
 
+def load_preflight():
+    spec = importlib.util.spec_from_file_location("ppr_p3_preflight_builder", PREFLIGHT)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("cannot load P3 preflight module")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def bind_preflight(preflight_path: Path, receipt_packet_path: Path) -> dict:
+    preflight_path = preflight_path.resolve(); receipt_packet_path = receipt_packet_path.resolve()
+    for path, name in ((preflight_path, "preflight result"), (receipt_packet_path, "receipt packet")):
+        if not path.is_relative_to(ROOT) or not path.is_file():
+            raise ValueError(name + " must be an existing file inside the repository")
+    result = json.loads(preflight_path.read_text(encoding="utf-8"))
+    load_preflight().validate_result(result, ROOT)
+    receipt_digest = sha(receipt_packet_path)
+    if result.get("receipt_packet_sha256") != receipt_digest:
+        raise ValueError("P3 preflight was not evaluated against this exact receipt packet")
+    return {
+        "performed": True,
+        "result_path": str(preflight_path.relative_to(ROOT)),
+        "result_sha256": sha(preflight_path),
+        "receipt_packet_sha256": receipt_digest,
+        "status": result["status"],
+        "p0_snapshot_head": result["p0_snapshot_head"],
+        "p0_runtime_digest": result["p0_runtime_digest"],
+        "motor_energization_authorized": False,
+        "stage_p3_pass": False,
+    }
 
 
 def read_rows(path: Path) -> list[dict[str, str]]:
@@ -108,8 +141,12 @@ def check_bindings(packet: dict) -> None:
         raise ValueError("source receipt packet has stale design binding: " + ", ".join(stale))
 
 
-def build(receipt_packet: dict, records_dir: Path) -> dict:
+def build(receipt_packet: dict, records_dir: Path, preflight_binding: dict) -> dict:
     check_bindings(receipt_packet)
+    if preflight_binding.get("performed") is not True or preflight_binding.get("status") != "PREPOWER_RECORD_CHECK_PASS":
+        raise ValueError("authenticated P3 preflight binding required")
+    if preflight_binding.get("motor_energization_authorized") is not False or preflight_binding.get("stage_p3_pass") is not False:
+        raise ValueError("P3 preflight binding has invalid authorization semantics")
     receipt = receipt_packet.get("receipt", {})
     if receipt.get("performed") is not True:
         raise ValueError("GGM receipt domain is not performed")
@@ -188,6 +225,7 @@ def build(receipt_packet: dict, records_dir: Path) -> dict:
         })
     pin_meta["samples"] = samples
     result["protection_pin"] = {"performed": True, "data": pin_meta}
+    result["p3_preflight"] = dict(preflight_binding)
     result["record_status"] = "P3_RECORDS_COMPILED_NOT_STAGE_RELEASE"
     result["packet_builder"] = {
         "source": "validation/physical_v08/build_p3_inspection_packet.py",
@@ -202,10 +240,12 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--receipt-packet", type=Path, required=True)
     ap.add_argument("--records-dir", type=Path, required=True)
+    ap.add_argument("--preflight-result", type=Path, required=True)
     ap.add_argument("--output", type=Path, required=True)
     args = ap.parse_args()
     packet = json.loads(args.receipt_packet.read_text(encoding="utf-8"))
-    result = build(packet, args.records_dir)
+    preflight_binding = bind_preflight(args.preflight_result, args.receipt_packet)
+    result = build(packet, args.records_dir, preflight_binding)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("P3_INSPECTION_PACKET_BUILT authorization_preserved=%s stage_release=false" % str(result["packet_builder"]["physical_authorization_preserved"]).lower())
 

@@ -52,7 +52,8 @@
         "templates/p3_pin_release.csv",
         "templates/p3_stage_release.json"
       ],
-      "preflight_analyzer": "analyze_p3_preflight.py"
+      "preflight_analyzer": "analyze_p3_preflight.py",
+      "packet_builder": "build_p3_inspection_packet.py"
     },
     {
       "id": "P4",

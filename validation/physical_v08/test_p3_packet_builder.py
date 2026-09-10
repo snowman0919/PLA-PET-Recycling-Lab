@@ -2,6 +2,7 @@
 import csv
 import hashlib
 import importlib.util
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -14,6 +15,7 @@ def load(path, name):
     module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module); return module
 
 B = load(HERE / "build_p3_inspection_packet.py", "p3_builder")
+P = load(HERE / "analyze_p3_preflight.py", "p3_preflight_test")
 I = load(ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py", "ggm_inspection_test")
 
 class P3PacketBuilderTest(unittest.TestCase):
@@ -37,19 +39,43 @@ class P3PacketBuilderTest(unittest.TestCase):
                 "receipt": {"performed": True, "data": {"SH": receipt("SH", "K9G75C"), "EX": receipt("EX", "K9G150C")}},
                 "alignment": {"performed": False, "data": {}}, "protection_pin": {"performed": False, "data": {}},
                 "current_calibration": {"performed": False, "data": {}}}
+            receipt_file = d / "receipt_packet.json"
+            receipt_file.write_text(json.dumps(packet, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            p2_result = d / "p2_result.json"
+            p2_result.write_text(json.dumps({"status":"PASS","physical_evidence_evaluated":True,"stage_release_granted":False}) + "\n", encoding="utf-8")
+            pre_common = {"status":"PASS","operator":"TEST","reviewer":"REVIEW","checked_at":"2026-09-10T15:05+09:00",
+                "evidence_path":rel,"sha256":digest,"notes":"synthetic preflight"}
+            pre_rows = [{"check_id":check_id,"observed":sorted(accepted)[0],**pre_common} for check_id,accepted in P.EXPECTED.items()]
+            p2row = next(row for row in pre_rows if row["check_id"] == "p2_applicable_cold_fit")
+            p2row["evidence_path"] = str(p2_result.relative_to(ROOT)); p2row["sha256"] = hashlib.sha256(p2_result.read_bytes()).hexdigest()
+            preflight = P.evaluate(pre_rows, packet, ROOT)
+            preflight["receipt_packet_sha256"] = hashlib.sha256(receipt_file.read_bytes()).hexdigest()
+            preflight_file = d / "p3_preflight_result.json"
+            preflight_file.write_text(json.dumps(preflight, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            preflight_binding = B.bind_preflight(preflight_file, receipt_file)
             self._write_current(d, common)
             self._write_no_load(d, common)
             self._write_torque(d, common)
             self._write_pins(d, common)
-            out = B.build(packet, d)
+            out = B.build(packet, d, preflight_binding)
             self.assertEqual(out["record_status"], "P3_RECORDS_COMPILED_NOT_STAGE_RELEASE")
+            self.assertTrue(out["p3_preflight"]["performed"]); self.assertFalse(out["p3_preflight"]["motor_energization_authorized"])
             self.assertFalse(out["all_physical_actions_authorized"])
             self.assertFalse(out["packet_builder"]["stage_release_granted"])
             currents = I.currents(out["current_calibration"]["data"])
             self.assertLessEqual(currents["SH"]["holdout_error_bound_nm"], .40)
             self.assertEqual(I.pins(out["protection_pin"]["data"])["coupons"], 9)
+            self.assertEqual(I.p3_preflight(out["p3_preflight"])["checks"], len(P.EXPECTED))
+            authorized = json.loads(json.dumps(out)); authorized["all_physical_actions_authorized"] = True
+            inspected = I.inspect(authorized)
+            self.assertEqual(inspected["p3_preflight"]["status"], "NUMERIC_RECORD_CHECK_PASS")
+            self.assertEqual(inspected["domains"]["current_calibration"]["status"], "NUMERIC_RECORD_CHECK_PASS")
+            self.assertEqual(inspected["domains"]["protection_pin"]["status"], "NUMERIC_RECORD_CHECK_PASS")
             out["protection_pin"]["data"]["samples"][0]["hub_key_damage"] = "YES"
             with self.assertRaises(ValueError): I.pins(out["protection_pin"]["data"])
+            preflight["receipt_packet_sha256"] = "0" * 64
+            preflight_file.write_text(json.dumps(preflight, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            with self.assertRaises(ValueError): B.bind_preflight(preflight_file, receipt_file)
 
     def _write_current(self, d, common):
         fields = "axis point adc_count reference_current_a u95_a instrument_id calibration_ref evidence_path sha256 operator measured_at".split()

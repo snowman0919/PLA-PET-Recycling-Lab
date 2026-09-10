@@ -4,6 +4,7 @@ import json,math,hashlib,datetime,importlib.util
 H=Path(__file__).resolve().parent
 R=H.parents[2]
 PREREQ=R/'validation/physical_v08/simulation_prerequisite.py'
+P3_PREFLIGHT=R/'validation/physical_v08/analyze_p3_preflight.py'
 
 def simulation_gate():
     if not PREREQ.is_file(): return {'status':'MISSING','pass':False,'sha256':None}
@@ -16,6 +17,25 @@ def simulation_gate():
             'required_technical_gate_count':data.get('required_technical_gate_count'),
             'failed_technical_gates':data.get('failed_technical_gates',[]),
             'excluded_release_only_gates':data.get('excluded_release_only_gates',{})}
+
+def p3_preflight(data):
+    if data.get('performed') is not True or data.get('status')!='PREPOWER_RECORD_CHECK_PASS':
+        raise ValueError('P3 preflight binding missing or not PASS')
+    if data.get('motor_energization_authorized') is not False or data.get('stage_p3_pass') is not False:
+        raise ValueError('P3 preflight self-authorization is forbidden')
+    path=(R/data['result_path']).resolve()
+    if not path.is_relative_to(R) or not path.is_file(): raise ValueError('P3 preflight result path invalid')
+    digest=data.get('result_sha256','')
+    if len(digest)!=64 or hashlib.sha256(path.read_bytes()).hexdigest()!=digest: raise ValueError('P3 preflight result hash mismatch')
+    result=json.loads(path.read_text())
+    spec=importlib.util.spec_from_file_location('ppr_p3_preflight_inspection',P3_PREFLIGHT)
+    if spec is None or spec.loader is None: raise ValueError('P3 preflight validator unavailable')
+    module=importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+    module.validate_result(result,R)
+    if result.get('receipt_packet_sha256')!=data.get('receipt_packet_sha256'):
+        raise ValueError('P3 preflight receipt binding mismatch')
+    return {'status':result['status'],'checks':len(result.get('checks',{})),'p0_head':result.get('p0_snapshot_head')}
+
 
 def number(v):
     if type(v) not in (int,float) or not math.isfinite(v): raise ValueError('finite numeric value required')
@@ -134,12 +154,23 @@ def inspect(packet):
     needed=['control/ggm_drive_contract.json',str((H/'drawing_contract.json').relative_to(R))]
     bindings=packet.get('design_sha256',{})
     binding_ok=all(bindings.get(k)==hashlib.sha256((R/k).read_bytes()).hexdigest() for k in needed)
+    preflight_ok=False
+    preflight_record=packet.get('p3_preflight',{})
+    if preflight_record.get('performed') is True:
+        try:
+            report['p3_preflight']={'status':'NUMERIC_RECORD_CHECK_PASS','result':p3_preflight(preflight_record)};preflight_ok=True
+        except (KeyError,ValueError,TypeError,json.JSONDecodeError) as e:
+            report['p3_preflight']={'status':'REJECTED','reason':str(e)}
+    else:
+        report['p3_preflight']={'status':'NOT_RUN'}
     for name,fn in [('receipt',receipt),('alignment',alignment),('protection_pin',pins),('current_calibration',currents)]:
         row=packet.get(name,{})
         if row.get('performed') is not True:
             report['domains'][name]={'status':'NOT_RUN'}; continue
         if not sim['pass']:
             report['domains'][name]={'status':'REJECTED','reason':'23-gate technical digital prerequisite is not PASS'}; continue
+        if name in ('protection_pin','current_calibration') and not preflight_ok:
+            report['domains'][name]={'status':'REJECTED','reason':'authenticated P3 preflight is required before P3 physical records are accepted'}; continue
         if packet.get('all_physical_actions_authorized') is not True:
             report['domains'][name]={'status':'REJECTED','reason':'physical action authorization not granted'}; continue
         if not binding_ok:

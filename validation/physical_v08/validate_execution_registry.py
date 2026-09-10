@@ -26,6 +26,9 @@ def main():
   if s.get('preflight_analyzer'):
    preflight=resolve(s['preflight_analyzer']); req(preflight.is_file(),s['id']+' missing preflight analyzer '+str(preflight))
    py_compile.compile(str(preflight),doraise=True)
+  if s.get('packet_builder'):
+   builder=resolve(s['packet_builder']); req(builder.is_file(),s['id']+' missing packet builder '+str(builder))
+   py_compile.compile(str(builder),doraise=True)
   for t in s['templates']:
    p=resolve(t); req(p.is_file(),s['id']+' missing template '+str(p))
  p3=json.loads((ROOT/'templates/p3_stage_release.json').read_text()); req(p3['status']=='NOT_RUN','P3 release template must remain NOT_RUN')
