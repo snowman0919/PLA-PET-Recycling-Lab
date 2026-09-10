@@ -7,29 +7,29 @@
   "base_firmware_last_commit": "64f260eb851b3451563228cf56419e8b4bda7c7b",
   "binary": {
     "path": "binaries/filament_recycler_atmega2560.hex",
-    "sha256": "e3c5f5a5b6137e99be8751829fd81cd0b21061d435eca931e357bc036cf3ff21"
+    "sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f"
   },
-  "binary_sha256": "e3c5f5a5b6137e99be8751829fd81cd0b21061d435eca931e357bc036cf3ff21",
+  "binary_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
   "board_target": "arduino:avr:mega",
   "clean_rebuild": {
-    "original_source_hex_sha256": "e3c5f5a5b6137e99be8751829fd81cd0b21061d435eca931e357bc036cf3ff21",
-    "released_source_hex_sha256": "e3c5f5a5b6137e99be8751829fd81cd0b21061d435eca931e357bc036cf3ff21",
+    "original_source_hex_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
+    "released_source_hex_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
     "status": "PASS"
   },
   "compiler_version": "avr-g++ (GCC) 7.3.0",
   "exact_build_command": "arduino-cli compile --fqbn arduino:avr:mega --clean --build-path <clean-dir>/build --output-dir <clean-dir> source/arduino_mega",
   "flash": {
     "maximum_bytes": 253952,
-    "percent_reported": 23,
-    "used_bytes": 60640
+    "percent_reported": 24,
+    "used_bytes": 61824
   },
-  "generation_base_git_sha": "64f260eb851b3451563228cf56419e8b4bda7c7b",
+  "generation_base_git_sha": "2c154dbbef0d61927dd41d83ec98448d52ba7191",
   "libraries": [],
   "release_revision": "final-design-fabrication-closure-v0.8",
   "safety_note": "E-stop, lid/service interlocks, independent thermal cutoff and branch fuses are firmware-independent.",
   "schema_version": 1,
   "source_files": {
-    "arduino_mega.ino": "df99532cf42043384c28f56c76ac1fea499dc5e37517f133b2b0b6aa94fa5ba3",
+    "arduino_mega.ino": "44a808eb8a926e8d813468e211b11316ca1976e3766cbd6b78b61ec0ecd1ac6d",
     "src/board_config.h": "bc919a9f40a6eac08d8c00fbd6c9d9b952d041a74c97f0f849b6c953f8a5cfbf",
     "src/calibration_record.h": "a37b1471175750042922f44e735e2462e2bc52716d21027f34fb6b3671e15670",
     "src/cooling_monitor.cpp": "af1955574ebb5af0369d19bde1cde66cdf2d4c337bb03e1aa645be394a317981",
@@ -74,10 +74,10 @@
   },
   "source_kind": "GGM_BTS7960_VARIANT",
   "sram": {
-    "global_bytes": 4737,
-    "local_stack_heap_headroom_bytes": 3455,
+    "global_bytes": 4779,
+    "local_stack_heap_headroom_bytes": 3413,
     "maximum_bytes": 8192,
-    "percent_reported": 57
+    "percent_reported": 58
   },
   "status": "PASS",
   "variant_base_source_sha256": {
@@ -123,9 +123,9 @@
     "firmware/arduino_mega/src/ui_core.cpp": "84615bcabe05662bc4d61e07e26d2a526d8f45b68bb793b0b401afdfd710a377",
     "firmware/arduino_mega/src/ui_core.h": "33206cac593049ea2af8f226df5f73a606502a680cb86c36282ae1f68d8a339f"
   },
-  "variant_builder_last_commit": "64f260eb851b3451563228cf56419e8b4bda7c7b",
-  "variant_builder_sha256": "bd35443ddf2cfdbc9f311994cdd2093ec11686daa431670a3815bda0b7c041d0",
+  "variant_builder_last_commit": "2c154dbbef0d61927dd41d83ec98448d52ba7191",
+  "variant_builder_sha256": "a483d63ecac4cb988c7ffe76bd101c9c078b41b49f642e8de7f2cf65de000eb7",
   "variant_manifest": "exports/final/drive_ggm_v08/firmware/manifest.json",
-  "variant_manifest_sha256": "0728f2318d4eecd1a30fe806670e408338be522b8bf2b6cfb7870aff0c011718",
+  "variant_manifest_sha256": "3fbabd89dff9ddfcfac3b9975e5515b015d0cd4a67baed662a8029fefd157c29",
   "variant_source_dir": "exports/final/drive_ggm_v08/firmware/arduino_mega"
 }

@@ -336,6 +336,21 @@ void executeCommand(char *line, InputSnapshot input, uint32_t now_ms) {
   } else if (strcmp(verb, "CLEAR") == 0) {
     accepted = supervisor.clearAllFaults(input, input.safety.restart_permission);
     if (accepted) purge_feed_approved = false;
+  } else if (strcmp(verb, "GGM_REPORT") == 0) {
+    Serial.print(F("GGM_REPORT profile=")); Serial.print(GgmCommissioning::PROFILE);
+    Serial.print(F(" verified=")); Serial.print(GgmCommissioning::RECEIPT_LIMITER_CURRENT_AND_WIRING_VERIFIED ? 1 : 0);
+    Serial.print(F(" sh_zero=")); Serial.print(calibration_record.current_zero_adc, 9);
+    Serial.print(F(" sh_scale=")); Serial.print(calibration_record.current_amps_per_count, 9);
+    Serial.print(F(" ex_zero=")); Serial.print(GgmCommissioning::EX_CURRENT_ZERO_ADC, 9);
+    Serial.print(F(" ex_scale=")); Serial.print(GgmCommissioning::EX_CURRENT_AMPS_PER_COUNT, 9);
+    Serial.print(F(" sh_nm_per_a=")); Serial.print(GgmCommissioning::SH_GEARBOX_NM_PER_AMP, 9);
+    Serial.print(F(" ex_nm_per_a=")); Serial.print(GgmCommissioning::EX_GEARBOX_NM_PER_AMP, 9);
+    Serial.print(F(" sh_idle_a=")); Serial.print(GgmCommissioning::SH_NO_LOAD_CURRENT_A, 9);
+    Serial.print(F(" ex_idle_a=")); Serial.print(GgmCommissioning::EX_NO_LOAD_CURRENT_A, 9);
+    Serial.print(F(" sh_tach_ppr=")); Serial.print(calibrationDomainReady(calibration_record,CAL_SHREDDER_TACH) ? calibration_record.records[CAL_SHREDDER_TACH].value : 0.0f, 6);
+    Serial.print(F(" ex_tach_ppr=")); Serial.print(calibrationDomainReady(calibration_record,CAL_SCREW_TACH) ? calibration_record.records[CAL_SCREW_TACH].value : 0.0f, 6);
+    Serial.print(F(" cal_record_valid=")); Serial.println(calibrationRecordValid(calibration_record) ? 1 : 0);
+    accepted = true;
   } else if (strcmp(verb, "CAL") == 0) {
     char *kind = strtok_r(nullptr, " ", &context);
     bool ok = kind != nullptr;

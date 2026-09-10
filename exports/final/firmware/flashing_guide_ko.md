@@ -1,6 +1,6 @@
 # ATmega2560 flashing guide
 
-Target `arduino:avr:mega`; source `base:64f260eb851b3451563228cf56419e8b4bda7c7b; variant-builder:64f260eb851b3451563228cf56419e8b4bda7c7b`; generation base `64f260eb851b3451563228cf56419e8b4bda7c7b`. 먼저 `python3 reproducible_build/build_and_verify.py`로 clean build/HEX 일치를 확인한다.
+Target `arduino:avr:mega`; source `base:64f260eb851b3451563228cf56419e8b4bda7c7b; variant-builder:2c154dbbef0d61927dd41d83ec98448d52ba7191`; generation base `2c154dbbef0d61927dd41d83ec98448d52ba7191`. 먼저 `python3 reproducible_build/build_and_verify.py`로 clean build/HEX 일치를 확인한다.
 
 1. Main 24 V, heater와 motor branch를 물리 lockout하고 USB만 연결한다.
 2. 보드/포트를 확인하고 `arduino-cli upload -p <PORT> --fqbn arduino:avr:mega source/arduino_mega`로 기록한다.
