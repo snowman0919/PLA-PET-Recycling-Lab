@@ -29,6 +29,9 @@ def main():
   if s.get('packet_builder'):
    builder=resolve(s['packet_builder']); req(builder.is_file(),s['id']+' missing packet builder '+str(builder))
    py_compile.compile(str(builder),doraise=True)
+  if s.get('firmware_profile_builder'):
+   profile_builder=resolve(s['firmware_profile_builder']); req(profile_builder.is_file(),s['id']+' missing firmware profile builder '+str(profile_builder))
+   py_compile.compile(str(profile_builder),doraise=True)
   if s.get('stage_release_validator'):
    stage_validator=resolve(s['stage_release_validator']); req(stage_validator.is_file(),s['id']+' missing stage-release validator '+str(stage_validator))
    py_compile.compile(str(stage_validator),doraise=True)

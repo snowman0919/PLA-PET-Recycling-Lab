@@ -133,6 +133,7 @@ def main():
         "validation/physical_v08/build_p5_inquiry_package.py",
         "validation/physical_v08/analyze_ggm_mount_compatibility.py",
         "validation/physical_v08/build_p3_inspection_packet.py",
+        "validation/physical_v08/build_p3_firmware_profile.py",
         "validation/physical_v08/validate_p3_stage_release.py",
         "validation/physical_v08/test_p3_packet_builder.py",
         "validation/physical_v08/analyze_p4_records.py",
@@ -164,6 +165,7 @@ def main():
     p3_registry = next(stage for stage in registry["stages"] if stage["id"] == "P3")
     assert p3_registry["preflight_analyzer"] == "analyze_p3_preflight.py"
     assert p3_registry["packet_builder"] == "build_p3_inspection_packet.py"
+    assert p3_registry["firmware_profile_builder"] == "build_p3_firmware_profile.py"
     assert p3_registry["stage_release_validator"] == "validate_p3_stage_release.py"
     assert "templates/p3_preflight.csv" in p3_registry["templates"]
     p3_preflight_header = (ROOT / "validation/physical_v08/templates/p3_preflight.csv").read_text(encoding="utf-8").splitlines()[0]
@@ -171,6 +173,7 @@ def main():
     p3_doc = (ROOT / "validation/physical_v08/P3_GGM_BENCH_KO.md").read_text(encoding="utf-8")
     assert "--preflight-result" in p3_doc and "PREPOWER_RECORD_CHECK_PASS" in p3_doc
     assert "validate_p3_stage_release.py" in p3_doc and "P3_STAGE_RELEASE_VALIDATED" in p3_doc
+    assert "build_p3_firmware_profile.py" in p3_doc and "p8_entry_prerequisite`는 false" in p3_doc
     p4_doc = (ROOT / "validation/physical_v08/P4_SHREDDER_COUPON_KO.md").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_doc and "P3_STAGE_RELEASE_VALIDATED" in p4_doc
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")

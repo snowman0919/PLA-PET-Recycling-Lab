@@ -18,6 +18,7 @@ B = load(HERE / "build_p3_inspection_packet.py", "p3_builder")
 P = load(HERE / "analyze_p3_preflight.py", "p3_preflight_test")
 I = load(ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py", "ggm_inspection_test")
 S = load(HERE / "validate_p3_stage_release.py", "p3_stage_release_test")
+F = load(HERE / "build_p3_firmware_profile.py", "p3_firmware_profile_test")
 
 class P3PacketBuilderTest(unittest.TestCase):
     def test_csv_to_authoritative_packet(self):
@@ -92,6 +93,24 @@ class P3PacketBuilderTest(unittest.TestCase):
             stage = S.validate(release_file)
             self.assertEqual(stage["status"], "P3_STAGE_RELEASE_VALIDATED")
             self.assertTrue(stage["p4_entry_prerequisite"]); self.assertFalse(stage["p4_energization_authorized"])
+
+            source_header = ROOT / "firmware/ggm_drive_v08/ggm_commissioning.h"
+            source_before = hashlib.sha256(source_header.read_bytes()).hexdigest()
+            profile_dir = d / "firmware_profile_candidate"
+            profile = F.generate(release_file, profile_dir)
+            self.assertEqual(profile["status"], "REVIEW_CANDIDATE_ONLY")
+            self.assertFalse(profile["firmware_built"]); self.assertFalse(profile["hardware_flashed"])
+            self.assertFalse(profile["eeprom_command_applied"]); self.assertFalse(profile["p8_entry_prerequisite"])
+            self.assertAlmostEqual(profile["calibration"]["SH"]["amps_per_adc"], .01, places=9)
+            self.assertAlmostEqual(profile["calibration"]["SH"]["zero_adc"], 100.0, places=6)
+            self.assertAlmostEqual(profile["calibration"]["SH"]["gearbox_nm_per_amp"], 2.0, places=6)
+            self.assertAlmostEqual(profile["calibration"]["EX"]["amps_per_adc"], .01, places=9)
+            self.assertEqual((profile_dir / "shredder_eeprom_command.txt").read_text().strip(), "CAL CURRENT 100.000000000 0.010000000")
+            candidate = (profile_dir / "ggm_commissioning_generated.h").read_text()
+            self.assertIn("RECEIPT_LIMITER_CURRENT_AND_WIRING_VERIFIED = true", candidate)
+            self.assertIn("EX_CURRENT_ZERO_ADC = 100.000000000f", candidate)
+            self.assertEqual(hashlib.sha256(source_header.read_bytes()).hexdigest(), source_before)
+
             bad = json.loads(json.dumps(release)); bad["independent_reviewer"] = bad["approved_by"]
             release_file.write_text(json.dumps(bad, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             with self.assertRaises(ValueError): S.validate(release_file)

@@ -21,7 +21,7 @@ def main():
  for n in core: add_file(items,f'validation/physical_v08/{n}',f'00_EXECUTION/{n}')
  for p in sorted((PHYS/'templates').iterdir()):
   if p.is_file(): items.append((p,'01_TEMPLATES/'+p.name))
- tools=set(PHYS.glob('analyze_*.py'))|set(PHYS.glob('validate_*_stage_release.py'))|{PHYS/'profile_nesting.py',PHYS/'build_p3_inspection_packet.py'}
+ tools=set(PHYS.glob('analyze_*.py'))|set(PHYS.glob('validate_*_stage_release.py'))|{PHYS/'profile_nesting.py',PHYS/'build_p3_inspection_packet.py',PHYS/'build_p3_firmware_profile.py'}
  for p in sorted(tools):
   if p.is_file(): items.append((p,'02_ANALYZERS/'+p.name))
  gate1=['assembly_ko.md','bom.csv','fastener_schedule.csv','wiring_bom.csv','wiring_24v_hardcut.svg','test_procedure_ko.md','preflight_inspection_template.csv','gate1_results_template.csv','jam_recovery_results_template.csv','chip_size_results_template.csv','drive_calibration_template.csv','calibration_log_template.csv','evidence_manifest_template.csv','gate1_assembly.step']
