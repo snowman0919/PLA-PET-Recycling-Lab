@@ -1,0 +1,19 @@
+# P7 전기 안전·logic 검증
+
+P7은 motor/heater branch를 제거한 상태에서 배선, PE, 절연, hardwired permission chain과 reset safe-state를 확인하는 단계다. 통전 구간은 logic branch만이며 별도 사용자 승인이 필요하다.
+
+## P7-A: 무통전 검사
+
+1. Main disconnect OFF와 0 V를 확인하고 motor/heater branch fuse를 제거한다.
+2. Accessible metal의 PE bond를 측정한다. U95 포함 0.10 Ω 이하여야 한다.
+3. Mega, sensor module, motor driver, MOSFET 등 전자장치를 절연시험 경로에서 분리한 뒤 500 VDC 절연시험을 수행한다. 최소 1 MΩ이어야 한다. 연결된 전자장치에 megger를 인가하지 않는다.
+4. Fuse ID, polarity, terminal label과 point-to-point wiring을 released schedule과 대조한다.
+
+## P7-B: current-limited logic-only
+
+1. 24 V supply current limit를 0.5 A로 두고 logic branch만 연결한다. Rail은 22.8–25.2 V, 초기 logic current는 0.5 A 이하여야 한다.
+2. Reset 직후 hazardous enable 출력은 0개여야 한다.
+3. E-stop, lid, service guard, thermal chain을 한 번에 하나씩 forced-open한다. 각 경우 K0가 실제 dropout되고 motor/heater permission이 제거되어야 한다.
+4. 전원 복귀 또는 contact 재폐쇄만으로 motor/heater command가 자동 생성되면 FAIL이다.
+
+`templates/p7_electrical_safety.csv`에 측정·증거를 기록하고 `analyze_p7_records.py`로 판정한다. P7 PASS는 motor/heater 구동 승인이 아니며 P8/P9는 각각 별도 gate다.
