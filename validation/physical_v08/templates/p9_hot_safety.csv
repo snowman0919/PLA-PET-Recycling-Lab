@@ -1,0 +1,10 @@
+metric,value,u95,unit,acceptance,instrument_id,operator,reviewer,evidence_path,notes
+t1_t5_mapping_correct,,,boolean,true,,,,,
+sensor_open_short_fault_detected,,,boolean,true,,,,,
+independent_thermal_chain_removes_heater_energy,,,boolean,true,,,,,
+hot_mount_hard_stop_contact,,,boolean,false,,,,,
+cold_axial_travel_reference,,,mm,>=1.50 from prior cold gate,,,,,
+die_fastener_length_min,,,mm,>=42.4,,,,,
+die_fastener_length_max,,,mm,<=42.6,,,,,
+die_fasteners_dry_1p50Nm_setting,,,boolean,true,,,,,
+polymer_leak_evaluated_in_p9,,,boolean,false,,,,,

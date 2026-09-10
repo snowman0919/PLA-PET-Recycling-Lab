@@ -1,0 +1,12 @@
+metric,value,u95,unit,acceptance,instrument_id,operator,reviewer,evidence_path,notes
+shredder_cutter_rpm,,,rpm,record and compare with 16 rpm design expectation,,,,,
+shredder_speed_expectation_reviewed,,,boolean,true,,,,,
+screw_start_rpm,,,rpm,<=10,,,,,
+screw_max_rpm,,,rpm,<=20,,,,,
+screw_reverse_commanded,,,boolean,false,,,,,
+abnormal_bearing_or_coupling_temp_trend,,,boolean,false,,,,,
+abnormal_vibration_or_noise,,,boolean,false,,,,,
+normal_stop_removes_command,,,boolean,true,,,,,
+estop_removes_command,,,boolean,true,,,,,
+tach_loss_removes_command,,,boolean,true,,,,,
+automatic_restart_after_recovery,,,boolean,false,,,,,
