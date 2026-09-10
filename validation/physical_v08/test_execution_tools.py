@@ -5,9 +5,27 @@ HERE=Path(__file__).resolve().parent
 
 def load(name):
     spec=importlib.util.spec_from_file_location(name,HERE/f'{name}.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
-nest=load('profile_nesting'); p3=load('analyze_p3_records')
+nest=load('profile_nesting'); p1=load('analyze_p1_records'); p3=load('analyze_p3_records')
 
 class ExecutionToolsTest(unittest.TestCase):
+    def test_p1_fail_closed_and_ggm_pending(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            d=Path(td); evidence=d/'evidence.txt'; evidence.write_text('measured')
+            digest=__import__('hashlib').sha256(evidence.read_bytes()).hexdigest()
+            rel=str(evidence.relative_to(HERE.parents[1]))
+            base={'observed_quantity':'1','manufacturer_model_marking':'MODEL','dimension_or_rating_summary':'ok','condition':'GOOD','instrument_id':'MEAS-01','measured_at':'2026-09-10T13:00+09:00','operator':'TEST','evidence_path':rel,'sha256':digest,'result':'PASS'}
+            rows=[]
+            for item,state in [('ASSET-BTS','USER_REPORTED_AVAILABLE'),('STOCK-6201','CHECK_PROJECT_LAB_FIRST'),('BUY-GGM-SH','SELECTED_NOT_ORDERED'),('BUY-GGM-EX','SELECTED_NOT_ORDERED')]:
+                row={'item_id':item,'planned_state':state,**base}
+                if item.startswith('BUY-GGM'): row['result']='NOT_RUN'
+                rows.append(row)
+            result=p1.evaluate(rows,HERE.parents[1])
+            self.assertEqual(result['status'],'P1_STOCK_SURVEY_PASS_GGM_PENDING')
+            for row in rows:
+                if row['item_id'].startswith('BUY-GGM'): row['result']='PASS'
+            self.assertEqual(p1.evaluate(rows,HERE.parents[1])['status'],'P1_RECORD_CHECK_PASS')
+            rows[0]['sha256']='0'*64
+            with self.assertRaises(ValueError): p1.evaluate(rows,HERE.parents[1])
     def test_profile_nesting_synthetic(self):
         req=nest.requirements()
         ok,plan=nest.solve(req['2020'],[('SYN-2020',14000.0)],2.0)

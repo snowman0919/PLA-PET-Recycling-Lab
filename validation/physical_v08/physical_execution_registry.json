@@ -21,7 +21,7 @@
       "name": "INVENTORY_AND_RECEIPT",
       "state": "NOT_RUN",
       "doc": "P1_EXECUTION_KO.md",
-      "analyzer": "profile_nesting.py",
+      "analyzer": "analyze_p1_records.py",
       "templates": [
         "templates/profile_stock_measurement.csv",
         "templates/p1_inventory_record.csv",

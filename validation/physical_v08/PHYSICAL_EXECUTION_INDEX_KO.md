@@ -5,7 +5,7 @@
 | Stage | 목적 | 실행 문서 | 자동 분석 | 현재 상태 |
 |---|---|---|---|---|
 | P0 | DIGITAL_TECHNICAL_ENTRY | `PHYSICAL_BUILD_READINESS_KO.md` | `simulation_prerequisite.py` | `RUNTIME_EVALUATED` |
-| P1 | INVENTORY_AND_RECEIPT | `P1_EXECUTION_KO.md` | `profile_nesting.py` | `NOT_RUN` |
+| P1 | INVENTORY_AND_RECEIPT | `P1_EXECUTION_KO.md` | `analyze_p1_records.py` + `profile_nesting.py` | `NOT_RUN` |
 | P2 | COLD_FRAME_AND_FIT | `P2_COLD_FIT_KO.md` | `analyze_p2_records.py` | `NOT_RUN` |
 | P3 | GGM_DRIVE_BENCH | `P3_GGM_BENCH_KO.md` | `analyze_p3_records.py` | `NOT_RUN` |
 | P4 | SHREDDER_COUPON | `P4_SHREDDER_COUPON_KO.md` | `analyze_p4_records.py` | `NOT_RUN` |

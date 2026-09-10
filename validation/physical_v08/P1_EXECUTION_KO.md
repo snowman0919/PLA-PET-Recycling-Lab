@@ -13,7 +13,7 @@ P1은 구매나 통전이 아니라 **현재 보유품을 식별하고 실제 �
 
 `templates/p1_inventory_record.csv`의 `observed_*` 칸만 실측으로 채우고 증거 파일은 저장소 상대경로와 SHA-256으로 결박한다. 미확인은 `NOT_FOUND` 또는 `IDENTITY_PENDING`, 보유하지만 미측정은 `SEEN_NOT_MEASURED`로 구분한다. 구매 후보라는 이유만으로 `PASS`를 입력하지 않는다.
 
-P1 전체 PASS에는 GGM 두 세트의 실제 수령검사까지 필요하다. 모터를 아직 구매하지 않은 동안은 stock survey를 완료해도 P1 전체 상태는 `PARTIAL_NOT_RUN`로 남는다.
+`analyze_p1_records.py templates/p1_inventory_record.csv`는 증거 경로/SHA-256과 provenance를 fail-closed로 확인한다. 프로젝트실 조사 대상이 모두 판정되고 GGM만 미수령이면 `P1_STOCK_SURVEY_PASS_GGM_PENDING`, 두 GGM 수령검사까지 PASS면 `P1_RECORD_CHECK_PASS`가 된다. `NOT_FOUND`, `IDENTITY_PENDING`, `SEEN_NOT_MEASURED`는 P1 통과로 승격되지 않는다.
 
 ## 3. 다음 단계로 넘기는 정보
 
