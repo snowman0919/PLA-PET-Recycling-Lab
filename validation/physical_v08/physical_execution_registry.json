@@ -66,8 +66,10 @@
         "templates/p4_preflight.csv",
         "templates/p4_quasistatic.csv",
         "templates/p4_jam.csv",
-        "templates/p4_chip.csv"
-      ]
+        "templates/p4_chip.csv",
+        "templates/p4_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p4_stage_release.py"
     },
     {
       "id": "P5",

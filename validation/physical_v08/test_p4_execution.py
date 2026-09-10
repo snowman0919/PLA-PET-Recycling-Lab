@@ -14,6 +14,7 @@ def load(name):
     module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module); return module
 
 P4 = load("analyze_p4_records")
+P4_STAGE = load("validate_p4_stage_release")
 
 class P4ExecutionTest(unittest.TestCase):
     def build_records(self, d: Path):
@@ -80,6 +81,32 @@ class P4ExecutionTest(unittest.TestCase):
             self.assertEqual(result["preflight"]["checks"],19)
             self.assertEqual(result["quasistatic"]["PLA"]["samples"],15); self.assertEqual(result["quasistatic"]["PET"]["samples"],10)
             self.assertGreater(result["chip"]["PLA"]["recovery_lower_percent"],95)
+
+            fake_p3_file=d/"p3_release.json"; fake_p3_file.write_text("{}\n",encoding="utf-8")
+            fake_p3={"status":"P3_STAGE_RELEASE_VALIDATED","p4_entry_prerequisite":True,"p4_energization_authorized":False,"machine_release":"HOLD","stage_release_file_sha256":hashlib.sha256(fake_p3_file.read_bytes()).hexdigest()}
+            result.update({
+                "records_directory":str(d.relative_to(ROOT)),
+                "p3_stage_release_path":str(fake_p3_file.relative_to(ROOT)),
+                "p3_stage_release_sha256":hashlib.sha256(fake_p3_file.read_bytes()).hexdigest(),
+                "p3_prerequisite":fake_p3,
+                "analyzer_sha256":hashlib.sha256((HERE/"analyze_p4_records.py").read_bytes()).hexdigest(),
+            })
+            fake_checker=lambda path: dict(fake_p3)
+            verified=P4.validate_result(result,ROOT,p3_checker=fake_checker)
+            self.assertEqual(verified["record_files"],4)
+            result_file=d/"p4_result.json"; result_file.write_text(__import__('json').dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            release={"stage":"P4","status":"PASS","release_scope":"P4_COMPLETE_REMAINING_CUTTER_REVIEW_ONLY",
+                "approved_by":"APPROVER","independent_reviewer":"REVIEWER","reviewed_at":"2026-09-10T16:45+09:00",
+                "p4_result":result_file.name,"p4_result_sha256":hashlib.sha256(result_file.read_bytes()).hexdigest(),
+                "remaining_cut01_quantity":10,"remaining_cut01_fabrication_authorized":False,
+                "downstream_energization_authorized":False,"machine_release":"HOLD","notes":"synthetic"}
+            release_file=d/"p4_stage_release.json"; release_file.write_text(__import__('json').dumps(release,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            stage=P4_STAGE.validate(release_file,ROOT,p4_module=P4,p3_checker=fake_checker)
+            self.assertEqual(stage["status"],"P4_STAGE_RELEASE_VALIDATED")
+            self.assertTrue(stage["remaining_cut01_fabrication_review_allowed"]); self.assertFalse(stage["remaining_cut01_fabrication_authorized"])
+            bad=dict(release); bad["remaining_cut01_fabrication_authorized"]=True
+            release_file.write_text(__import__('json').dumps(bad,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            with self.assertRaises(ValueError): P4_STAGE.validate(release_file,ROOT,p4_module=P4,p3_checker=fake_checker)
 
             self.mutate(d/"p4_chip.csv", lambda rows: rows[0].update(software_torque_limit_events="1"))
             with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)

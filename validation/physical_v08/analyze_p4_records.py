@@ -307,6 +307,20 @@ def evaluate_records(directory: Path, root: Path = ROOT) -> dict:
     return result
 
 
+def canonical(data) -> str:
+    payload = json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def repo_path(value: str, root: Path, label: str) -> Path:
+    path = Path(value)
+    path = path if path.is_absolute() else root / path
+    path = path.resolve()
+    if not path.is_relative_to(root) or not path.exists():
+        raise ValueError(label + " must resolve inside repository")
+    return path
+
+
 def check_p3(path: Path) -> dict:
     validator = HERE / "validate_p3_stage_release.py"
     spec = importlib.util.spec_from_file_location("ppr_p4_p3_release", validator)
@@ -323,6 +337,63 @@ def check_p3(path: Path) -> dict:
     return result
 
 
+def build_result(directory: Path, p3_release: Path, root: Path = ROOT) -> dict:
+    result = evaluate_records(directory, root)
+    records_directory = directory.resolve()
+    p3_path = p3_release.resolve()
+    if not records_directory.is_relative_to(root) or not p3_path.is_relative_to(root) or not p3_path.is_file():
+        raise ValueError("P4 records/P3 release must resolve inside repository")
+    p3 = check_p3(p3_path)
+    result.update({
+        "records_directory": str(records_directory.relative_to(root)),
+        "p3_stage_release_path": str(p3_path.relative_to(root)),
+        "p3_stage_release_sha256": sha(p3_path),
+        "p3_prerequisite": p3,
+        "analyzer_sha256": sha(Path(__file__)),
+    })
+    return result
+
+
+def validate_result(result: dict, root: Path = ROOT, p3_checker=None) -> dict:
+    if result.get("status") != "NUMERIC_RECORD_CHECK_PASS" or result.get("record_check_only") is not True:
+        raise ValueError("P4 result is not a numeric record PASS")
+    if result.get("physical_evidence_evaluated") is not True:
+        raise ValueError("P4 result did not evaluate physical evidence")
+    if result.get("stage_p4_pass") is not False or result.get("hardware_authorization") is not False or result.get("fabrication_authorized") is not False:
+        raise ValueError("P4 result has unsafe authorization semantics")
+    if result.get("analyzer_sha256") != sha(Path(__file__)):
+        raise ValueError("P4 result analyzer binding is stale")
+    bindings = result.get("source_bindings_sha256", {})
+    stale = [name for name in SOURCE_FILES if bindings.get(name) != sha(root / name)]
+    if stale:
+        raise ValueError("P4 result source binding stale: " + ", ".join(stale))
+    records_dir = repo_path(result.get("records_directory", ""), root, "P4 records directory")
+    if not records_dir.is_dir():
+        raise ValueError("P4 records directory is not a directory")
+    file_hashes = result.get("record_files_sha256", {})
+    for name in P4_FILES:
+        path = records_dir / name
+        if not path.is_file() or file_hashes.get(name) != sha(path):
+            raise ValueError("P4 record file hash mismatch: " + name)
+    fresh = evaluate_records(records_dir, root)
+    for key in ("preflight", "quasistatic", "jam", "chip", "record_files_sha256"):
+        if canonical(result.get(key)) != canonical(fresh.get(key)):
+            raise ValueError("P4 recomputed result mismatch: " + key)
+    p3_path = repo_path(result.get("p3_stage_release_path", ""), root, "P3 stage release")
+    if not p3_path.is_file() or result.get("p3_stage_release_sha256") != sha(p3_path):
+        raise ValueError("P4 result P3-release binding is stale")
+    checker = p3_checker or check_p3
+    fresh_p3 = checker(p3_path)
+    if canonical(result.get("p3_prerequisite")) != canonical(fresh_p3):
+        raise ValueError("P4 result P3 prerequisite has changed")
+    return {
+        "records_directory": str(records_dir.relative_to(root)),
+        "record_files": len(P4_FILES),
+        "p3_stage_release_sha256": sha(p3_path),
+        "analyzer_sha256": sha(Path(__file__)),
+    }
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("dir", type=Path)
@@ -330,8 +401,7 @@ def main() -> None:
     ap.add_argument("--output", type=Path)
     args = ap.parse_args()
     try:
-        result = evaluate_records(args.dir)
-        result["p3_prerequisite"] = check_p3(args.p3_release)
+        result = build_result(args.dir, args.p3_release)
         code = 0
     except (ValueError, KeyError, FileNotFoundError, json.JSONDecodeError) as exc:
         result = {"status": "NOT_RUN_OR_REJECTED", "record_check_only": True, "stage_p4_pass": False,

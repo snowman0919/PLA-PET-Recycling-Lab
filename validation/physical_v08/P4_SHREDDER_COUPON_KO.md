@@ -19,3 +19,9 @@ Chip-size는 5 mm screen, oversize recirculation 최대 1회 조건에서 3–6 
 실제 P4 기록은 `validation/physical_v08/templates/`의 `p4_preflight.csv`, `p4_quasistatic.csv`, `p4_jam.csv`, `p4_chip.csv` 네 파일을 별도 run directory에 복사해 작성한다. `exports/jigs/gate1/*_template.csv`는 legacy Gate-1 형상/시험 참고자료이며 P4 authoritative record 형식이 아니다. 각 실제 행은 작업자와 독립 검토자, timezone 포함 시각, 계측기/교정 참조가 필요한 경우 해당 ID, repository 내부 raw evidence 경로와 SHA-256을 가진다.
 
 `analyze_p4_records.py <run-dir> --p3-release <P3 release.json>`는 먼저 네 P4 파일의 raw evidence hash를 검증하고, 19개 atomic preflight 조건, 25개 quasi-static specimen의 `F*r*cos(theta)`와 U95, 6개 jam trial, PLA/PET raw chip mass를 다시 계산한다. Chip fraction은 입력 percentage를 믿지 않고 질량과 U95에서 보수적으로 산출하며, representative feed에서 software torque-limit event가 있거나 mechanical protection 8.8 N.m 하한에 닿으면 거부한다. 그 뒤 P3 release의 packet/report SHA-256, 독립 검토자, inspector provenance와 현재 P3 domain PASS도 재검증한다. 출력은 `stage_p4_pass=false`, `hardware_authorization=false`, `fabrication_authorized=false`를 유지하므로 남은 CUT-01 10장 제작이나 추가 통전을 자동 승인하지 않는다.
+
+## P4 완료 release와 남은 cutter 잠금
+
+`analyze_p4_records.py`의 결과를 저장한 뒤 사람이 exact result와 raw evidence를 검토한다. `templates/p4_stage_release.json`을 run directory에 복사해 `approved_by`, 서로 다른 `independent_reviewer`, timezone 포함 `reviewed_at`, `p4_result`, `p4_result_sha256`을 채운다. `validate_p4_stage_release.py <release.json>`는 현재 P4 analyzer로 네 raw CSV와 P3 prerequisite를 다시 계산하고, result/analyzer/source hash가 모두 동일할 때만 `P4_STAGE_RELEASE_VALIDATED`를 낸다.
+
+이 상태의 의미는 **남은 CUT-01 10장의 제작 요청을 별도로 검토할 수 있다**는 것뿐이다. validator 출력의 `remaining_cut01_fabrication_authorized`, `downstream_energization_authorized`는 계속 false이며 machine release는 HOLD다. 실제 10장 제작은 `fabrication_sequence.csv` S7의 별도 사용자 full-shredder fabrication approval 없이는 시작하지 않는다.
