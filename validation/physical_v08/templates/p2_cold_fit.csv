@@ -1,0 +1,10 @@
+metric,value,u95,unit,acceptance,instrument_id,operator,reviewer,evidence_path,notes
+frame_base_x,,,mm,470 mm nominal,,,,,
+frame_base_y,,,mm,700 mm nominal,,,,,
+rail_squareness_700,,,mm,<=0.50,,,,,
+shredder_min_static_clearance,,,mm,>=1.90,,,,,
+shredder_hand_rotation_contacts,,,count,=0 over 20 turns,,,,,
+extruder_cold_axial_travel,,,mm,>=1.50,,,,,
+extruder_rear_retainer_endplay,,,mm,0.12-0.28,,,,,
+guard_moving_envelope_intrusion,,,boolean,false,,,,,
+guard_hot_envelope_intrusion,,,boolean,false,,,,,
