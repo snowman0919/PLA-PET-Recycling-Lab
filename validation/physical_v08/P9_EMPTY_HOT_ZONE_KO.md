@@ -20,3 +20,9 @@ P9는 polymer를 투입하지 않은 상태에서 heater channel, T1-T5 mapping,
 7. Cool-down 후 thermocouple retainer를 20 N으로 확인하고 이동량 <=0.10 mm, PE <=0.10 ohm, insulation >=1 Mohm @ 500 VDC를 재검사한다.
 
 P9에서는 polymer leak-tightness를 판정하지 않는다. 누설은 P10 최초 PLA low-feed에서 평가한다. `analyze_p9_records.py`가 `P9_RECORD_CHECK_PASS`를 내더라도 `stage_p9_pass`, `p10_entry_prerequisite`, `material_feed_authorized`, `continuing_power_authority`는 모두 false다. P10 진입은 별도 human-reviewed P9 stage release가 필요하다.
+
+## Stage release
+
+`P9_RECORD_CHECK_PASS` 결과를 저장한 뒤 별도 검토자가 `templates/p9_stage_release.json`에 exact P7/P8 release, P9 receipt, thermal record, safety record, result SHA-256을 기록한다. `validate_p9_stage_release.py`는 현재 P9 analyzer로 전체 입력을 다시 계산한다.
+
+`P9_STAGE_RELEASE_VALIDATED`만 P10 진입 검토에 사용할 수 있다. 이 상태에서도 `material_feed_authorized=false`, `continuing_power_authority=false`, `machine_release=HOLD`이며, 실제 PLA 투입에는 P10 전용 사용자 승인과 P10 evidence gate가 별도로 필요하다.

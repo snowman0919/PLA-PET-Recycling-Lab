@@ -136,9 +136,11 @@
       "templates": [
         "templates/p9_hot_zone_receipt.csv",
         "templates/p9_thermal_profile.csv",
-        "templates/p9_hot_safety.csv"
+        "templates/p9_hot_safety.csv",
+        "templates/p9_stage_release.json"
       ],
-      "receipt_analyzer": "analyze_p9_receipt.py"
+      "receipt_analyzer": "analyze_p9_receipt.py",
+      "stage_release_validator": "validate_p9_stage_release.py"
     },
     {
       "id": "P10",

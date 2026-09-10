@@ -153,6 +153,9 @@ def main():
         "validation/physical_v08/templates/p9_hot_zone_receipt.csv",
         "validation/physical_v08/templates/p9_thermal_profile.csv",
         "validation/physical_v08/templates/p9_hot_safety.csv",
+        "validation/physical_v08/validate_p9_stage_release.py",
+        "validation/physical_v08/test_p9_stage_release.py",
+        "validation/physical_v08/templates/p9_stage_release.json",
         "validation/physical_v08/validate_p3_stage_release.py",
         "validation/physical_v08/test_p3_packet_builder.py",
         "validation/physical_v08/analyze_p4_records.py",
@@ -212,15 +215,21 @@ def main():
     p9_registry = next(stage for stage in registry["stages"] if stage["id"] == "P9")
     assert p9_registry["receipt_analyzer"] == "analyze_p9_receipt.py"
     assert p9_registry["analyzer"] == "analyze_p9_records.py"
-    assert p9_registry["templates"] == ["templates/p9_hot_zone_receipt.csv", "templates/p9_thermal_profile.csv", "templates/p9_hot_safety.csv"]
+    assert p9_registry["stage_release_validator"] == "validate_p9_stage_release.py"
+    assert p9_registry["templates"] == ["templates/p9_hot_zone_receipt.csv", "templates/p9_thermal_profile.csv", "templates/p9_hot_safety.csv", "templates/p9_stage_release.json"]
+    p9_release = j("validation/physical_v08/templates/p9_stage_release.json")
+    assert p9_release["status"] == "NOT_RUN" and p9_release["material_feed_authorized"] is False and p9_release["machine_release"] == "HOLD"
     p9_analyzer = (ROOT / "validation/physical_v08/analyze_p9_records.py").read_text(encoding="utf-8")
     for token in ("P7_STAGE_RELEASE_VALIDATED", "P8_STAGE_RELEASE_VALIDATED", "HOT_ZONE_RECEIPT_RECORD_CHECK_PASS", "THERMAL_CUTOFF_TOPOLOGY_PASS"):
         assert token in p9_analyzer
     p9_doc = (ROOT / "validation/physical_v08/P9_EMPTY_HOT_ZONE_KO.md").read_text(encoding="utf-8")
     assert "TF-BARREL" in p9_doc and "TF-DIE" in p9_doc and "P9_RECORD_CHECK_PASS" in p9_doc
+    assert "validate_p9_stage_release.py" in p9_doc and "P9_STAGE_RELEASE_VALIDATED" in p9_doc
     p9_gate = next(row for row in gate["gates"] if row["id"] == "P9")
     assert any("HOT_ZONE_RECEIPT_RECORD_CHECK_PASS" in x for x in p9_gate["prerequisites"])
     assert any("TF-BARREL" in x and "TF-DIE" in x for x in p9_gate["acceptance"])
+    p10_gate = next(row for row in gate["gates"] if row["id"] == "P10")
+    assert any("P9_STAGE_RELEASE_VALIDATED" in x for x in p10_gate["prerequisites"])
     p4_doc = (ROOT / "validation/physical_v08/P4_SHREDDER_COUPON_KO.md").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_doc and "P3_STAGE_RELEASE_VALIDATED" in p4_doc
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")

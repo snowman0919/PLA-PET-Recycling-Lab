@@ -245,9 +245,12 @@
       "name": "PLA_LOW_FEED",
       "action": "first material process validation",
       "prerequisites": [
-        "P4/P6/P8/P9 PASS",
-        "known dry PLA lot",
-        "user material-feed approval"
+        "P4_STAGE_RELEASE_VALIDATED for shredder coupon configuration",
+        "P6_STAGE_RELEASE_VALIDATED for production screw/barrel cold fit",
+        "P8_STAGE_RELEASE_VALIDATED for installed motor dry-run state",
+        "P9_STAGE_RELEASE_VALIDATED for empty hot-zone thermal state",
+        "known dry PLA lot with authenticated drying evidence",
+        "explicit user material-feed approval for this bounded P10 run"
       ],
       "acceptance": [
         "start screw around 8-10 rpm and increase only from measured torque/diameter behavior",
