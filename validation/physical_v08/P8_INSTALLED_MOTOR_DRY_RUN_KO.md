@@ -10,7 +10,7 @@ P8은 P3에서 교정한 GGM 구동계를 실제 machine load path에 장착한 
 4. 각 branch에서 current, rpm, bearing/coupling temperature trend, vibration/abnormal noise를 기록한다.
 5. Normal stop, E-stop, tach-loss를 각각 강제한다. 모든 경우 hazardous command가 제거되고 전원/신호 복구만으로 자동 재시작하지 않아야 한다.
 
-`templates/p8_motor_dry_run.csv`에 실제 측정값과 evidence를 기록하고 `analyze_p8_records.py`로 판정한다. Shredder의 16 rpm은 비교 기준이며 새로운 임의 허용 band를 만들지 않는다.
+`templates/p8_motor_dry_run.csv`의 모든 행은 timezone 포함 시각, 작업자·독립 검토자, repository 내부 raw evidence SHA-256을 가져야 하며 numeric 행은 계측기/교정 참조도 필요하다. `analyze_p8_records.py <record.csv> --p3-release ... --p6-release ... --p7-release ... --profile-dir ... --tach-calibration ... --firmware-installation ...`은 모든 선행 release와 firmware commissioning을 다시 검증한 뒤 P8 기록을 판정한다. Shredder의 16 rpm은 비교 기준이며 새로운 임의 허용 band를 만들지 않는다.
 
 ## P8 firmware commissioning evidence
 

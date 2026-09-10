@@ -136,6 +136,9 @@ def main():
         "validation/physical_v08/build_p3_firmware_profile.py",
         "validation/physical_v08/validate_p8_firmware_commissioning.py",
         "validation/physical_v08/test_p8_firmware_commissioning.py",
+        "validation/physical_v08/analyze_p8_records.py",
+        "validation/physical_v08/test_p8_execution.py",
+        "validation/physical_v08/templates/p8_motor_dry_run.csv",
         "validation/physical_v08/templates/p8_tach_calibration.csv",
         "validation/physical_v08/templates/p8_firmware_installation.csv",
         "validation/physical_v08/validate_p3_stage_release.py",
@@ -183,8 +186,14 @@ def main():
     assert "templates/p8_tach_calibration.csv" in p8_registry["templates"] and "templates/p8_firmware_installation.csv" in p8_registry["templates"]
     p8_fw = (ROOT / "validation/physical_v08/validate_p8_firmware_commissioning.py").read_text(encoding="utf-8")
     assert "FIRMWARE_COMMISSIONING_RECORD_CHECK_PASS" in p8_fw and "GGM_REPORT" in p8_fw and "flash readback" in p8_fw
+    p8_analyzer = (ROOT / "validation/physical_v08/analyze_p8_records.py").read_text(encoding="utf-8")
+    for token in ("P3_STAGE_RELEASE_VALIDATED", "P6_STAGE_RELEASE_VALIDATED", "P7_STAGE_RELEASE_VALIDATED", "FIRMWARE_COMMISSIONING_RECORD_CHECK_PASS"):
+        assert token in p8_analyzer
     p8_doc = (ROOT / "validation/physical_v08/P8_INSTALLED_MOTOR_DRY_RUN_KO.md").read_text(encoding="utf-8")
     assert "validate_p8_firmware_commissioning.py" in p8_doc and "GGM_REPORT" in p8_doc
+    p8_gate = next(row for row in gate["gates"] if row["id"] == "P8")
+    assert any("P3_STAGE_RELEASE_VALIDATED" in x for x in p8_gate["prerequisites"])
+    assert any("<=6.0 A" in x for x in p8_gate["acceptance"])
     p4_doc = (ROOT / "validation/physical_v08/P4_SHREDDER_COUPON_KO.md").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_doc and "P3_STAGE_RELEASE_VALIDATED" in p4_doc
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")

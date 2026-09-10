@@ -195,16 +195,20 @@
       "name": "INSTALLED_MOTOR_DRY_RUN",
       "action": "one motor branch at a time, heaters disabled, no plastic",
       "prerequisites": [
-        "P3 PASS",
-        "P6/P7 applicable checks PASS",
-        "guards closed",
-        "user motor-power approval"
+        "P3_STAGE_RELEASE_VALIDATED for the installed GGM calibration basis",
+        "P6_STAGE_RELEASE_VALIDATED for cold extruder assembly",
+        "P7_STAGE_RELEASE_VALIDATED for logic/safety wiring",
+        "FIRMWARE_COMMISSIONING_RECORD_CHECK_PASS for applied P3 profile, final HEX, flash readback, GGM_REPORT and tach PPR",
+        "guards closed and heater branches isolated",
+        "explicit user motor-power approval recorded for this P8 run"
       ],
       "acceptance": [
         "shredder cutter speed near design 16 rpm after chain ratio, actual value recorded",
         "screw starts at <=10 rpm for commissioning and never exceeds 20 rpm hard limit",
         "bearing/coupling temperature rise and vibration show no abnormal trend during bounded dry run",
-        "stop/E-stop/tach-loss behavior verified without automatic restart"
+        "stop/E-stop/tach-loss behavior verified without automatic restart",
+        "one motor branch energized at a time during first dry-run sequence",
+        "GGM shredder/extruder measured current including U95 remains <=6.0 A"
       ],
       "unlocks": [
         "P9 heater commissioning"
