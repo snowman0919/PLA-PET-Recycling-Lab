@@ -24,7 +24,7 @@
 
 P1 결과가 들어오면 profile nesting으로 P2 절단계획을 확정하고, GGM 수령 후 P3 bench fixture 치수를 received data에 맞춰 확정한다. P4에서는 CUT-01 두 장만 먼저 제작하며 나머지 10장은 결과 전까지 잠근다. P5에서는 screw/barrel 본품보다 process coupon을 먼저 승인한다.
 
-P12까지 PASS해도 상태는 `PHYSICAL_VALIDATION_REVIEW_CANDIDATE`일 뿐 자동 생산·안전 인증이 아니다.
+`P12_STAGE_RELEASE_VALIDATED`까지 재검증되어야 `PHYSICAL_VALIDATION_REVIEW_CANDIDATE`로 볼 수 있다. 이 상태도 자동 생산 승인, 지속 통전 권한 또는 안전 인증이 아니다.
 
 ## 현장 launch package
 

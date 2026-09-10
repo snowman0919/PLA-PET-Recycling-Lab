@@ -196,7 +196,9 @@ def main():
     assert by_stage_id[("P5", "EX-CPN-SCR")]["quantity"] == "1" and by_stage_id[("P5", "EX-CPN-BAR")]["quantity"] == "1"
     assert by_stage_id[("P9", "TC-RET")]["quantity"] == "4"
     assert "Ø6.500" in by_stage_id[("P9", "HEAT-DIE")]["item"]
-    assert "2 installed + 1 spare" in by_stage_id[("P1", "SAFE-FUSE")]["quantity"]
+    assert "ID34.10-34.20" in by_stage_id[("P9", "HEAT-BAND")]["item"]
+    assert "5.184-6.336" in by_stage_id[("P9", "HEAT-BAND")]["notes"]
+    assert "2 installed" in by_stage_id[("P1", "SAFE-FUSE")]["quantity"] and "fuse_schedule.csv" in by_stage_id[("P1", "SAFE-FUSE")]["quantity"]
     assert p3_fixture["status"] == "DESIGN_ONLY_NOT_FABRICATED" and p3_fixture["physical_action_authorized"] is False
     assert close(p3_fixture["prony"]["reaction_arm_mm"], 250.0) and close(p3_fixture["prony"]["reaction_arm_tolerance_mm"], 0.5)
     assert close(p3_fixture["calculated_force_n_at_250mm"]["8.00"], 32.0)
@@ -266,6 +268,10 @@ def main():
     assert any("P11_STAGE_RELEASE_VALIDATED" in x for x in p12_gate["prerequisites"])
     assert any("source_lot_id" in x for x in p12_gate["acceptance"])
     assert any("torque + U95 <8.0" in x for x in p12_gate["acceptance"])
+    sequence_by_step = {row["step"]: row for row in seq}
+    assert sequence_by_step["S11"]["exit_condition"] == "P9_STAGE_RELEASE_VALIDATED"
+    assert "P11_STAGE_RELEASE_VALIDATED" in sequence_by_step["S12"]["exit_condition"]
+    assert "P12_STAGE_RELEASE_VALIDATED" in sequence_by_step["S13"]["exit_condition"]
     p12_analyzer = (ROOT / "validation/physical_v08/analyze_p12_records.py").read_text(encoding="utf-8")
     assert "P12_RECORD_CHECK_PASS" in p12_analyzer and "P11_STAGE_RELEASE_VALIDATED" in p12_analyzer
     p11_registry = next(stage for stage in registry["stages"] if stage["id"] == "P11")
