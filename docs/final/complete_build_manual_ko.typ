@@ -5,7 +5,7 @@
 #let danger(body) = block(width: 100%, fill: rgb("ffece5"), stroke: 1pt + rgb("c5482e"), inset: 7pt, body)
 #let gate(body) = block(width: 100%, fill: rgb("eaf3f7"), stroke: 1pt + rgb("33738b"), inset: 7pt, body)
 = v0.8 실행용 조립 매뉴얼
-#danger[*물리 검증·안전 인증·통전 승인이 아니다.* E-stop, lid/service interlock, branch fuse, 독립 thermal fuse를 정상 firmware와 독립 구현하고 exact donor 정격·배선·보호소자를 실측 확인하기 전 통전하지 않는다.]
+#danger[*물리 검증·안전 인증·통전 승인이 아니다.* E-stop, lid/service interlock, branch fuse, 독립 thermal fuse를 정상 firmware와 독립 구현하고 exact received component 정격·배선·보호소자를 실측 확인하기 전 통전하지 않는다.]
 Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT / PHYSICAL_NOT_RUN / USER_APPROVAL_REQUIRED`
 
 이 문서와 `assembly_steps.csv`, `assembly_drawing_set.pdf`, `exports/final/manufacturing/`, `exports/final/electrical/`이 v0.8 조립의 단일 실행 기준이다. 구버전 매뉴얼은 적용하지 않는다.
@@ -27,13 +27,13 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 단계 2: PPR-FRAME-ASM ×1; FR profiles ×28; corner brackets ×28
 
-- 공구: square; 3/5 mm hex
+- 공구: square; long steel tape/rule; 3/5 mm hex
 - 체결품 / 토크: SYS-01: M5x12 SHCS + washer + prevailing T-nut; 56 kits paired across 28 two-fastener corner brackets ×56 / SYS-01: 5.0 N·m
 - 방향: 470×700 base square
-- 공차·간극: squareness ≤0.50/700 mm
+- 공차·간극: base X470±0.8 mm; Y700±0.8 mm; rail squareness≤0.50/700 mm; all numeric limits include U95
 - 도면: FR-001
-- 검사: 56 witness marks; diagonal and rocking measurement
-- 합격: both diagonals within 1 mm
+- 검사: 56 witness marks; independent X/Y and two-diagonal measurements with evidence hash; rocking check
+- 합격: |diagonal A-B|+U95_A+U95_B≤1.0 mm; no rocking
 - 다음 선행조건: table anchors
 
 == 단계 3: FR-ANCHOR-01 ×4
@@ -80,18 +80,18 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 - 합격: all gaps accepted; no disc/static contact
 - 다음 선행조건: phase drive
 
-== 단계 7: DRV-02 ×1; DRV-03 ×1; DRV-03R ×1
+== 단계 7: DRV-02 ×1; DRV-03 ×1; DRV-03R ×1; GGM_JackInnerSpacer_front ×1; GGM_JackInnerSpacer_pinionfront ×1; GGM_JackInnerSpacer_pinionrear ×1; GGM_JackInnerSpacer_rear ×1; GGM_SH_Angle201 ×1; GGM_SH_Angle83 ×1; GGM_SH_Base ×1; GGM_SH_BearingCap271 ×1; GGM_SH_BearingCap283 ×1; GGM_SH_BearingCap301 ×1; GGM_SH_BearingCap313 ×1; GGM_SH_BearingPlate273 ×1; GGM_SH_BearingPlate303 ×1; GGM_SH_CutterKey ×1; GGM_SH_FuseInput ×1; GGM_SH_FuseOutput ×1; GGM_SH_FusePinBlank ×1; GGM_SH_JackInputKey ×1; GGM_SH_JackSprocketKey ×1; GGM_SH_Jackshaft ×1; GGM_SH_MotorKey ×1; GGM_SH_Mount ×1; GGM_SH_Spacer_220_100 ×1; GGM_SH_Spacer_220_280 ×1; GGM_SH_Spacer_90_100 ×1; GGM_SH_Spacer_90_280 ×1
 
-- 공구: straightedge; dial; optical index; torque wrench
+- 공구: straightedge; dial; optical index; torque wrench; receipt packet
 - 체결품 / 토크: SYS-08: M4x22 class 10.9 SHCS ×4; SYS-09: M6 class 10.9 ×4 / SYS-08: 3 N·m; SYS-09: 10 N·m
-- 방향: 12T:30T with one #35 40-pitch endless loop; set C≈86.17 in slot range81–99; solid18 left/right gears; right gear keyway14.464° to tooth datum; DRV-F01P coupons are qualification/replacements; donor adapter stays HOLD until measured
-- 공차·간극: pair backlash0.120–0.140 mm; combined digital phase≤1.0°; chain alignment≤0.20/150 mm; midspan slack2–3%; no tight spot in20 hand turns
-- 도면: SH-004
-- 검사: CMM/blue check, optical clocking and hand rotation
-- 합격: matched keyed path; no friction-only joint; physical fit and shear coupon pending
+- 방향: K9DG60N2+K9G75C → keyed GGM protection coupling → 6201-supported jackshaft → #35 12T:30T → DRV-02; DRV-03/DRV-03R retain cutter phase; mount drilling follows authenticated PCD/output-offset receipt gate
+- 공차·간극: GGM mount as-drawn compatibility required; pair backlash0.120–0.140 mm; combined digital phase≤1.0°; chain alignment≤0.20/150 mm; midspan slack2–3%; no tight spot in20 hand turns
+- 도면: SH-004 + GGM manufacturing r2
+- 검사: authenticated receipt and mount-compatibility result; blue-check keys; optical clocking; hand rotation; P3 current/torque/protection evidence
+- 합격: HOLD: GGM receipt/mount compatibility and P3 physical bench remain NOT_RUN; no friction-only joint
 - 다음 선행조건: shredder guard
 
-== 단계 8: DRV-GD-01 ×1; GGM_ChainGuard ×1; GGM_JackInnerSpacer_front ×1; GGM_JackInnerSpacer_pinionfront ×1; GGM_JackInnerSpacer_pinionrear ×1; GGM_JackInnerSpacer_rear ×1; GGM_SH_Angle201 ×1; GGM_SH_Angle83 ×1; GGM_SH_Base ×1; GGM_SH_BearingCap271 ×1; GGM_SH_BearingCap283 ×1; GGM_SH_BearingCap301 ×1; GGM_SH_BearingCap313 ×1; GGM_SH_BearingPlate273 ×1; GGM_SH_BearingPlate303 ×1; GGM_SH_CouplingGuard ×1; GGM_SH_CutterKey ×1; GGM_SH_FuseInput ×1; GGM_SH_FuseOutput ×1; GGM_SH_FusePinBlank ×1; GGM_SH_JackInputKey ×1; GGM_SH_JackSprocketKey ×1; GGM_SH_Jackshaft ×1; GGM_SH_MotorKey ×1; GGM_SH_Mount ×1; GGM_SH_Spacer_220_100 ×1; GGM_SH_Spacer_220_280 ×1; GGM_SH_Spacer_90_100 ×1; GGM_SH_Spacer_90_280 ×1
+== 단계 8: DRV-GD-01 ×1; GGM_ChainGuard ×1; GGM_SH_CouplingGuard ×1
 
 - 공구: 2.5/3 mm hex; gap probe
 - 체결품 / 토크: M4 guarded fasteners / M4 3 N·m
@@ -137,13 +137,13 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 
 == 단계 12: EX-BAR-01 ×1; EX-SCR-01 ×1; EX-THR-01 ×1; GGM_EX_CouplingGuard ×1; GGM_EX_FuseInput ×1; GGM_EX_FuseOutput ×1; GGM_EX_FusePinBlank ×1; GGM_EX_MotorKey ×1; GGM_EX_Mount ×1; GGM_EX_RadialCap ×1; GGM_EX_RadialHolder ×1; GGM_EX_ScrewKey ×1
 
-- 공구: micrometer; bore/depth gauge; dial indicator; torque wrench
+- 공구: micrometer; bore/depth gauge; dial indicator; torque wrench; receipt packet
 - 체결품 / 토크: SYS-03: M6x20 class 8.8 ×8 / SYS-03: 9 N·m
-- 방향: 51102 shaft washer against integral Ø23 shoulder; housing washer in marked-face pocket; donor coupling remains uninstalled
-- 공차·간극: screw/barrel diametral0.28–0.32 mm; pocket diametral0.30–0.35 mm; loaded-direction endplay0.05–0.15 mm
-- 도면: EX-002
-- 검사: bearing marking/height, seat/pocket/abutment limits, blue-check washer ribs, three-station bore/OD, dial endplay and free rotation
-- 합격: digital dimensions PASS; receipt/endplay/hot rotation NOT_RUN; donor adapter IF-008 HOLD
+- 방향: 51102 shaft washer against integral Ø23 shoulder; housing washer in marked-face pocket; K9DG60N2+K9G150C direct keyed protection coupling with 6201 rear radial support; gearbox carries no extrusion thrust
+- 공차·간극: screw/barrel diametral0.28–0.32 mm; pocket diametral0.30–0.35 mm; loaded-direction endplay0.05–0.15 mm; GGM mount as-drawn compatibility required
+- 도면: EX-002 + GGM manufacturing r2
+- 검사: bearing marking/height, seat/pocket/abutment limits, blue-check washer ribs, three-station bore/OD, dial endplay/free rotation, authenticated GGM receipt/mount result and P3 drive evidence
+- 합격: HOLD: digital dimensions PASS; GGM receipt/mount/P3 drive evidence, physical endplay and hot rotation remain NOT_RUN
 - 다음 선행조건: die/hot zone
 
 == 단계 13: EX-DIE-01 ×1; EX-DIE-02 ×1; EX-DIE-03 ×1; EX-DIE-04 ×1; EX-DIE-05 ×2; EX-SH-01 ×1; TH-BH-01 ×3
