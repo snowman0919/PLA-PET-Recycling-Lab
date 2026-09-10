@@ -21,6 +21,7 @@ BASE_SOURCE = ROOT / "firmware/arduino_mega"
 VARIANT_BUILDER = ROOT / "firmware/ggm_drive_v08/build_variant.py"
 SOURCE = ROOT / "exports/final/drive_ggm_v08/firmware/arduino_mega"
 VARIANT_MANIFEST = ROOT / "exports/final/drive_ggm_v08/firmware/manifest.json"
+THERMAL_CUTOFF_CONTRACT = ROOT / "control/thermal_cutoff_contract.json"
 REV = "final-design-fabrication-closure-v0.8"
 FQBN = "arduino:avr:mega"
 DIAGRAMS = ("system_block_diagram", "power_distribution", "full_wiring_diagram", "safety_chain",
@@ -47,6 +48,19 @@ def tool(name: str) -> str:
     raise SystemExit(f"required tool unavailable: {name}")
 
 
+def thermal_cutoff_contract() -> dict:
+    data = json.loads(THERMAL_CUTOFF_CONTRACT.read_text(encoding="utf-8"))
+    ids = [item["id"] for item in data["installed_devices"]]
+    inv = data["inventory"]
+    if ids != ["TF-BARREL", "TF-DIE"]:
+        raise SystemExit("unexpected thermal cutoff device contract")
+    if inv["installed_quantity"] != 2 or inv["procurement_quantity"] != inv["installed_quantity"] + inv["spare_quantity"]:
+        raise SystemExit("thermal cutoff inventory contract inconsistent")
+    if data["policy"].get("heater_branch_thermal_fuse") is not False or data["policy"].get("k0_coil_series_cutoff") is not True:
+        raise SystemExit("thermal cutoff topology policy inconsistent")
+    return data
+
+
 def row(wire_id: str, source: str, destination: str, voltage: str, current: str,
         gauge: str, colour: str, connector: str, terminal: str, fuse: str,
         routing: str, shield: str, strain: str) -> dict[str, str]:
@@ -56,6 +70,8 @@ def row(wire_id: str, source: str, destination: str, voltage: str, current: str,
 
 def power_wires() -> list[dict[str, str]]:
     u = "DONOR/SITE_VERIFICATION_REQUIRED"
+    cutoff = thermal_cutoff_contract()
+    tf_barrel, tf_die = [item["id"] for item in cutoff["installed_devices"]]
     wires = [
         row("AC-L", "AC inlet L", "PSU L", "100–240 VAC", "8 A design maximum at 100 VAC", ">=1.5 mm2 Cu 90 C; local code may increase", "brown", "mains terminal", "TB-AC-L", "site OCPD <=16 A", "mains duct", "PE separate", "gland + clamp"),
         row("AC-N", "AC inlet N", "PSU N", "100–240 VAC", "8 A design maximum at 100 VAC", ">=1.5 mm2 Cu 90 C; local code may increase", "blue", "mains terminal", "TB-AC-N", "site OCPD <=16 A", "mains duct", "PE separate", "gland + clamp"),
@@ -83,14 +99,15 @@ def power_wires() -> list[dict[str, str]]:
         ]
     for i, dest in enumerate(("heater Z1", "heater Z2", "heater Z3", "die heater"), 1):
         wires += [
-            row(f"24-H{i}+", f"K0 via MOS-H{i}", dest, "24 VDC", "5 A design maximum", ">=0.75 mm2 Cu; 300 C sleeve", "red", f"J-H{i} locking high-temp >=5 A 60 VDC", f"TB-H{i}+", f"F-H{i} 5 A DC + thermal fuse", "separate hot route", "grounded metal shield", "metal P-clamp"),
+            row(f"24-H{i}+", f"K0 via MOS-H{i}", dest, "24 VDC", "5 A design maximum", ">=0.75 mm2 Cu; 300 C sleeve", "red", f"J-H{i} locking high-temp >=5 A 60 VDC", f"TB-H{i}+", f"F-H{i} 5 A DC", "separate hot route", "grounded metal shield", "metal P-clamp"),
             row(f"24-H{i}-", dest, "heater 0 V star", "0 VDC", "5 A design maximum", ">=0.75 mm2 Cu; 300 C sleeve", "black", f"J-H{i} locking high-temp >=5 A 60 VDC", f"TB-H{i}-", f"F-H{i} upstream", "separate hot route", "functional 0 V; shield PE-03", "metal P-clamp"),
         ]
     chain = (("F-SAFE", "S0 E-stop NC"), ("S0 E-stop NC", "S1 lid NC"),
-             ("S1 lid NC", "S2 service NC"), ("S2 service NC", "TF independent thermal cutoff"),
-             ("TF independent thermal cutoff", "K0 contactor A1"), ("K0 contactor A2", "0 V star"))
+             ("S1 lid NC", "S2 service NC"), ("S2 service NC", f"{tf_barrel} thermal cutoff"),
+             (f"{tf_barrel} thermal cutoff", f"{tf_die} thermal cutoff"),
+             (f"{tf_die} thermal cutoff", "K0 contactor A1"), ("K0 contactor A2", "0 V star"))
     for i, (source, dest) in enumerate(chain, 1):
-        wires.append(row(f"SAFE-{i:02d}", source, dest, "24 VDC" if i < 6 else "0 VDC", "1 A design maximum", ">=0.5 mm2 Cu; hot-rated at TF", "red" if i < 6 else "black", "positive-opening/locking terminal >=1 A 60 VDC", f"SAFE-{i}", "F-SAFE", "dedicated safety duct", "paired return; not PE", "both ends clamped"))
+        wires.append(row(f"SAFE-{i:02d}", source, dest, "24 VDC" if i < 7 else "0 VDC", "1 A design maximum", ">=0.5 mm2 Cu; hot-rated at thermal cutoffs", "red" if i < 7 else "black", "positive-opening/locking terminal >=1 A 60 VDC", f"SAFE-{i}", "F-SAFE", "dedicated safety duct", "paired return; not PE", "both ends clamped"))
     return wires
 
 
@@ -167,20 +184,22 @@ def svg(title: str, subtitle: str, nodes: list[tuple[int, int, int, int, str, st
 
 def diagram_data(pin_count: int) -> dict[str, tuple[str, list, list, list[str]]]:
     b, g, o, x, r = "#e2f1f8", "#e4f3e7", "#fff0d7", "#edf0f2", "#ffe1dc"
+    cutoff = thermal_cutoff_contract()
+    tf_barrel, tf_die = [item["id"] for item in cutoff["installed_devices"]]
     safety = "Hardware safety is independent of firmware; physical validation NOT_RUN."
     unknown = "Exact donor ratings, conductor sizing and local-code compliance are USER_VERIFICATION_REQUIRED."
     return {
       "system_block_diagram": ("energy, safety, control and process blocks",
-       [(50,150,190,80,"AC inlet|SITE MAINS",x),(290,150,210,80,"24 V / 800 W PSU|33.3 A available",o),(555,130,220,120,"F-MAIN|branch protection",o),(830,115,260,150,"HARDWIRED K0 CHAIN|E-stop · lid · service|independent thermal cutoff",r),(1150,120,390,140,"HAZARDOUS LOADS|shredder · feeder · screw|4 heater MOSFETs · forming",o),(555,400,220,100,"Arduino Mega|protected logic",b),(50,400,400,100,"SENSORS|thermocouples · gauge · tach|current · dancer · faults",g),(830,400,260,100,"command interfaces|PWM · DIR · ENABLE",b),(1150,400,390,100,"drivers / MOSFETs / fans|ratings USER APPROVAL REQUIRED",o),(290,680,210,80,"PE STUD",g),(555,680,220,80,"frame + enclosure",g),(830,680,260,80,"motor frames",g),(1150,680,390,80,"metal hot shield",g)],
+       [(50,150,190,80,"AC inlet|SITE MAINS",x),(290,150,210,80,"24 V / 800 W PSU|33.3 A available",o),(555,130,220,120,"F-MAIN|branch protection",o),(830,115,260,150,"HARDWIRED K0 CHAIN|E-stop · lid · service|dual thermal cutoffs",r),(1150,120,390,140,"HAZARDOUS LOADS|shredder · feeder · screw|4 heater MOSFETs · forming",o),(555,400,220,100,"Arduino Mega|protected logic",b),(50,400,400,100,"SENSORS|thermocouples · gauge · tach|current · dancer · faults",g),(830,400,260,100,"command interfaces|PWM · DIR · ENABLE",b),(1150,400,390,100,"drivers / MOSFETs / fans|ratings USER APPROVAL REQUIRED",o),(290,680,210,80,"PE STUD",g),(555,680,220,80,"frame + enclosure",g),(830,680,260,80,"motor frames",g),(1150,680,390,80,"metal hot shield",g)],
        [(240,190,290,190,"AC-L/N","#334d5f"),(500,190,555,190,"24-MAIN±","#c24c36"),(775,190,830,190,"24-SAFE+","#c24c36"),(1090,190,1150,190,"protected 24 V","#c24c36"),(450,450,555,450,"SIG inputs","#31734f"),(775,450,830,450,"SIG outputs","#315a84"),(1090,450,1150,450,"logic only","#315a84"),(500,720,555,720,"PE-02","#31734f"),(775,720,830,720,"PE-04","#31734f"),(1090,720,1150,720,"PE-03","#31734f")],[safety,unknown]),
       "power_distribution": ("24 VDC single-line; all branch IDs appear in wire_schedule.csv",
-       [(45,135,205,80,"PSU 24 V / 800 W|33.3 A available",o),(300,135,180,80,"F-MAIN|30 A DC",r)] + [(550,105+i*92,190,62,label,r) for i,label in enumerate(("F-LOGIC 3 A","F-SAFE 1 A","F-SH 20 A","F-SCREW 10 A","F-FEED 5 A","F-PULL/SPOOL 5 A each","F-FAN 3 A","F-H1..H4 5 A"))] + [(900,105+i*92,300,62,label,o if i>1 else b) for i,label in enumerate(("Mega + sensors","K0 safety coil","shredder driver","screw driver","FD-MET auger driver","forming drivers","fan pair","MOS-H1..H4 + TF"))] + [(1300,340,240,120,"0 V STAR|functional return|NOT PE",x)],
+       [(45,135,205,80,"PSU 24 V / 800 W|33.3 A available",o),(300,135,180,80,"F-MAIN|30 A DC",r)] + [(550,105+i*92,190,62,label,r) for i,label in enumerate(("F-LOGIC 3 A","F-SAFE 1 A","F-SH 20 A","F-SCREW 10 A","F-FEED 5 A","F-PULL/SPOOL 5 A each","F-FAN 3 A","F-H1..H4 5 A"))] + [(900,105+i*92,300,62,label,o if i>1 else b) for i,label in enumerate(("Mega + sensors","K0 safety coil","shredder driver","screw driver","FD-MET auger driver","forming drivers","fan pair","MOS-H1..H4|branch fuses only"))] + [(1300,340,240,120,"0 V STAR|functional return|NOT PE",x)],
        [(250,175,300,175,"24-MAIN+","#c24c36")] + [(480,175,550,136+i*92,f"24-{tag}+","#c24c36") for i,tag in enumerate(("LOGIC","SAFE","SH","SCREW","FEED","PULL/SPOOL","FAN","H1..4"))] + [(740,136+i*92,900,136+i*92,f"F-{tag}","#c24c36") for i,tag in enumerate(("LOGIC","SAFE","SH","SCREW","FEED","PULL/SPOOL","FAN","H1..4"))],["500 W software heater cap does not replace branch fuses or independent thermal cutoff.",unknown]),
       "safety_chain": ("normally-closed hard cut; de-energize-to-trip",
-       [(45+i*245,230,190,85,label,r if i else o) for i,label in enumerate(("F-SAFE","S0 E-STOP NC","S1 LID NC","S2 SERVICE NC","TF THERMAL CUTOFF","K0 COIL"))] + [(1080,500,240,85,"K0 feedback|force-guided",g),(650,500,240,85,"Mega D24|diagnostic only",b),(220,500,240,85,"K0 power contacts|hazardous branches",o)],
-       [(235+i*245,272,290+i*245,272,f"SAFE-{i+1:02d}","#c24c36") for i in range(5)] + [(1320,542,890,542,"SIG-24","#315a84")],["Any open S0/S1/S2/TF removes K0 coil energy with firmware halted.","Reset needs cause removal, physical lockout confirmation and explicit restart permission."]),
+       [(45+i*205,230,165,85,label,r if i else o) for i,label in enumerate(("F-SAFE","S0 E-STOP NC","S1 LID NC","S2 SERVICE NC",tf_barrel,tf_die,"K0 COIL"))] + [(1080,500,240,85,"K0 feedback|force-guided",g),(650,500,240,85,"Mega D24|diagnostic only",b),(220,500,240,85,"K0 power contacts|hazardous branches",o)],
+       [(210+i*205,272,250+i*205,272,f"SAFE-{i+1:02d}","#c24c36") for i in range(6)] + [(1320,542,890,542,"SIG-24","#315a84")],[f"Any open S0/S1/S2/{tf_barrel}/{tf_die} removes K0 coil energy with firmware halted.","Reset needs cause removal, physical lockout confirmation and explicit restart permission."]),
       "full_wiring_diagram": ("terminal topology; paired schedules contain every conductor field",
-       [(45,135,210,105,"TB-AC|AC-L · AC-N · PE-01",x),(305,135,210,105,"PSU|24 V / 800 W",o),(565,135,210,105,"TB24 + FUSES|MAIN · LOGIC · SAFE",o),(825,115,225,145,"K0 SAFETY|SAFE-01..06",r),(1100,115,215,145,"POWER LOADS|SH · SCREW · FEED|PULL · SPOOL · FAN",o),(1365,115,180,145,"HEATERS|24-H1..H4",o),(565,420,210,125,"ARDUINO MEGA|SIG-<PIN>|D2..D52 / A0..A15",b),(45,420,410,125,"SENSOR TERMINALS|TC1..5 · tach · SH/EX current · gauge|dancer · limits · auxiliary driver faults",g),(825,420,225,125,"CONTROL TERMINALS|PWM · DIR · ENABLE|STEP · mux · heater gate",b),(1100,420,445,125,"DRIVER / MOSFET INTERFACES|logic isolation as required|exact levels USER_VERIFY",o),(305,700,210,90,"0 V STAR|all 24-*- returns",x),(565,700,210,90,"PE STUD|PE-01..04",g),(825,700,225,90,"SHIELD BAR|one-end only",g),(1100,700,445,90,"FIELD DEVICES|strain relief + service loops|no sharp-edge or solid crossing",x)],
+       [(45,135,210,105,"TB-AC|AC-L · AC-N · PE-01",x),(305,135,210,105,"PSU|24 V / 800 W",o),(565,135,210,105,"TB24 + FUSES|MAIN · LOGIC · SAFE",o),(825,115,225,145,"K0 SAFETY|SAFE-01..07",r),(1100,115,215,145,"POWER LOADS|SH · SCREW · FEED|PULL · SPOOL · FAN",o),(1365,115,180,145,"HEATERS|24-H1..H4",o),(565,420,210,125,"ARDUINO MEGA|SIG-<PIN>|D2..D52 / A0..A15",b),(45,420,410,125,"SENSOR TERMINALS|TC1..5 · tach · SH/EX current · gauge|dancer · limits · auxiliary driver faults",g),(825,420,225,125,"CONTROL TERMINALS|PWM · DIR · ENABLE|STEP · mux · heater gate",b),(1100,420,445,125,"DRIVER / MOSFET INTERFACES|logic isolation as required|exact levels USER_VERIFY",o),(305,700,210,90,"0 V STAR|all 24-*- returns",x),(565,700,210,90,"PE STUD|PE-01..04",g),(825,700,225,90,"SHIELD BAR|one-end only",g),(1100,700,445,90,"FIELD DEVICES|strain relief + service loops|no sharp-edge or solid crossing",x)],
        [(255,187,305,187,"AC-L/N","#334d5f"),(515,187,565,187,"24-MAIN±","#c24c36"),(775,187,825,187,"24-SAFE+","#c24c36"),(1050,187,1100,187,"branches","#c24c36"),(1315,187,1365,187,"24-H1..4","#c24c36"),(455,482,565,482,"SIG inputs","#31734f"),(775,482,825,482,"SIG outputs","#315a84"),(1050,482,1100,482,"J-<PIN>","#315a84"),(515,745,565,745,"PE-02","#31734f"),(775,745,825,745,"shields","#315a84"),(1050,745,1100,745,"field routes","#31734f")],["This diagram plus wire, connector and fuse schedules is the terminal wiring definition.","FD-MET feeder: D44 STEP / D42 DIR / D46 ENA / D47 ALM / A7 24 PPR TACH; 5 A branch."]),
       "Arduino_Mega_pinmap": (f"{pin_count} assignments parsed from released board_config.h",
        [(45,130,330,190,"SAFETY INPUTS|D20 E-stop · D21 lid|D22 service · D23 thermal|D24 K0 feedback",r),(45,365,330,205,"MOTION FEEDBACK|D2 shredder · D3 puller|A13 screw · A15 spooler|A14 fan mux · A5/A6 limits",g),(45,620,330,180,"ANALOG / FAULTS|A0 shredder current · A9 extruder current|A1 dancer · A2/A3 gauge · A4 cooling|A10/A11 aux faults · A12 gauge valid",g),(600,300,400,260,"ARDUINO MEGA 2560|board_config.h authoritative|all SIG-<PIN> scheduled",b),(1225,130,330,210,"MOTOR COMMANDS|D5..D9 PWM · D30..D38 DIR/EN|D39..D41 traverse|D44/D42/D46 feeder",o),(1225,390,330,180,"HEATER / FAN|D10..D13 process heaters · D49 mux select",o),(1225,620,330,180,"TC / UI|CS D14..D17,D48 · D50 SO · D52 SCK|D18/D19 encoder · D25..D29 buttons",g)],
@@ -214,7 +233,7 @@ def electrical_release(commit: str) -> tuple[int, int]:
       {"fuse_id":"F-SCREW","branch":"screw","rating":"10 A DC","maximum_current":"10 A branch protection; GGM rated 4.6 A and control ceiling 6.0 A","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"GGM/BTS7960 branch/conductor protection; not the motor operating-current or torque-limit setpoint"},
       *[{"fuse_id":name,"branch":branch,"rating":"5 A DC","maximum_current":"5 A design envelope","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"received donor(s) must remain within envelope; otherwise redesign"} for name,branch in (("F-FEED","FD-MET auger/agitator"),("F-PULL","puller"),("F-SPOOL","spooler/traverse combined"))],
       {"fuse_id":"F-FAN","branch":"fans","rating":"3 A DC","maximum_current":"3 A envelope","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"start/stall must remain inside envelope"},
-      *[{"fuse_id":f"F-H{i}","branch":f"heater {i}","rating":"5 A DC","maximum_current":"5 A design maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"thermal fuse remains series"} for i in range(1,5)]
+      *[{"fuse_id":f"F-H{i}","branch":f"heater {i}","rating":"5 A DC","maximum_current":"5 A design maximum","dc_interrupt_rating":">=1 kA at >=32 VDC","basis":"branch overcurrent protection only; thermal trip acts through TF-BARREL/TF-DIE in K0 coil chain"} for i in range(1,5)]
     ]
     write_csv(ELEC / "fuse_schedule.csv", tuple(fuses[0]), fuses)
     pin_records = [{"symbol": name, "mega_pin": pin, "wire_id": f"SIG-{pin}", "source":"GGM/BTS7960 released variant src/board_config.h", "revision":commit} for name,pin in pin_rows]

@@ -24,7 +24,7 @@ E-stop, lid, service guard and independent thermal chain remove hazardous branch
 - Puller/spooler retain separate PWM/direction/enable paths and their released feedback/fault channels. Puller external-interrupt tach is used by the inner speed loop; A15 spool tach is used by dancer/radius/jam logic.
 - Traverse uses STEP/DIR/enable and A5/A6 left/right limits; loss of spool permission or missed-limit timeout disables the drive.
 - Cooling uses PWM, A4 current feedback and the A14 fan-tach mux. Cooling electrical feedback does not prove airflow; blocked-flow validation remains a separate physical check.
-- Heaters are four machine branches only: Z1/Z2/Z3/die, each with branch protection and independent thermal cutoff. Hopper pre-dry is external and has no active machine heater branch.
+- Heaters are four machine branches only: Z1/Z2/Z3/die. Each has its own `F-H1..F-H4` branch overcurrent fuse; TH-FUSE-01 is not duplicated per branch. `TF-BARREL` and `TF-DIE` are the two installed one-shot thermal cutoffs and are wired in series in the K0 coil hard-cut chain. Hopper pre-dry is external and has no active machine heater branch.
 
 ## Inputs and commissioning
 

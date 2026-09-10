@@ -15,7 +15,9 @@ For the two GGM axes, F-SH/F-SCREW are conductor/branch protection only. Each K9
 
 Hazardous motion/heater permission is removed in hardware by the normally-safe chain:
 
-`E-stop NC -> lid positive-opening NC -> service positive-opening NC -> independent thermal cutoff -> K0 safety contactor/relay chain`.
+`E-stop NC -> lid positive-opening NC -> service positive-opening NC -> TF-BARREL -> TF-DIE -> K0 safety contactor/relay coil`.
+
+`TF-BARREL` is clamped to the barrel inter-zone region and `TF-DIE` to the die body. Both are one-shot, normally-continuous devices in the low-current K0 coil chain; opening either removes K0 coil energy and therefore disconnects every hazardous motor/heater branch. `TH-FUSE-01` procurement quantity is three: these two installed devices plus one same-spec spare. The spare is not counted as an installed safety element.
 
 The Mega reads feedback but cannot energize around an open safety contact. K0 auxiliary feedback is compared with commanded state; a mismatch latches a fault. Reset requires the physical cause to be removed and the released restart/lockout procedure. Serial/software commands alone are never safety reset authority.
 
@@ -35,7 +37,7 @@ The former donor-drive 14/18/22 N.m hierarchy is superseded and must not be used
 
 ## Heater and aggregate power
 
-The active hot zone has four machine heater branches: barrel Z1/Z2/Z3 and die. Hopper pre-dry is external and has no active machine heater branch. Software power arbitration limits commanded heater/motion combinations but cannot replace fuses, conductor sizing, K0 or independent thermal cutoff. The currently released arbitration basis is 360 W heater budget during preheat, 300 W heater budget during running, and 500 W aggregate running cap.
+The active hot zone has four machine heater branches: barrel Z1/Z2/Z3 and die. `F-H1..F-H4` are 5 A branch overcurrent fuses only; no extra TH-FUSE-01 is placed in each heater branch. Thermal trip authority is instead the dual `TF-BARREL -> TF-DIE` series path in the K0 coil chain. Hopper pre-dry is external and has no active machine heater branch. Software power arbitration limits commanded heater/motion combinations but cannot replace branch fuses, conductor sizing, K0 or either thermal cutoff. The currently released arbitration basis is 360 W heater budget during preheat, 300 W heater budget during running, and 500 W aggregate running cap.
 
 ## Grounding and signal separation
 
