@@ -29,7 +29,11 @@ def main() -> None:
         "SH-001_shredder_assembly": lambda i: i["group"] == "shredder",
         "SH-002_cutter_stack": lambda i: i["name"].startswith(("Hook", "Shaft", "CutterPlate", "M6Fastener")),
         "SH-003_shaft_bearing": lambda i: i["name"].startswith(("Shaft", "Bearing")),
-        "SH-004_chain_phase_gear": lambda i: any(t in i["name"] for t in ("Gear", "Sprocket", "Chain", "Drive")),
+        "SH-004_chain_phase_gear": lambda i: i["name"] in {
+            "Shaft105", "Shaft153", "PhaseGear105", "PhaseGear153",
+            "GGM_SH_Jackshaft", "GGM_SH_12T", "GGM_SH_30T",
+            "GGM_SH_JackSprocketKey", "GGM_SH_CutterKey",
+        },
         "FD-001_hopper": lambda i: "Hopper" in i["name"] or i["group"] == "input",
         "FD-002_recirculation_screen": lambda i: any(t in i["name"] for t in ("Screen", "Flake", "AntiReach")),
         "FD-003_positive_feeder": lambda i: i["group"] == "feed",
