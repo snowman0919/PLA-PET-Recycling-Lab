@@ -136,11 +136,44 @@
       "source_location": "L16"
     },
     {
-      "id": "validation_physical_v08_update_execution_graph_main",
+      "id": "validation_physical_v08_build_physical_launch_package_add_file",
+      "label": "add_file()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "file_type": "code",
+      "norm_label": "add_file()",
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L10"
+    },
+    {
+      "id": "validation_physical_v08_build_physical_launch_package_main",
       "label": "main()",
       "_callable": true,
       "_origin": "ast",
       "community": 15,
+      "file_type": "code",
+      "norm_label": "main()",
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L14"
+    },
+    {
+      "id": "validation_physical_v08_build_physical_launch_package_sha",
+      "label": "sha()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "file_type": "code",
+      "norm_label": "sha()",
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L9"
+    },
+    {
+      "id": "validation_physical_v08_update_execution_graph_main",
+      "label": "main()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
       "file_type": "code",
       "norm_label": "main()",
       "source_file": "validation/physical_v08/update_execution_graph.py",
@@ -151,7 +184,7 @@
       "label": "rel()",
       "_callable": true,
       "_origin": "ast",
-      "community": 15,
+      "community": 16,
       "file_type": "code",
       "norm_label": "rel()",
       "source_file": "validation/physical_v08/update_execution_graph.py",
@@ -162,7 +195,7 @@
       "label": "main()",
       "_callable": true,
       "_origin": "ast",
-      "community": 16,
+      "community": 17,
       "file_type": "code",
       "norm_label": "main()",
       "source_file": "validation/physical_v08/validate_execution_registry.py",
@@ -173,7 +206,7 @@
       "label": "req()",
       "_callable": true,
       "_origin": "ast",
-      "community": 16,
+      "community": 17,
       "file_type": "code",
       "norm_label": "req()",
       "source_file": "validation/physical_v08/validate_execution_registry.py",
@@ -184,7 +217,7 @@
       "label": "resolve()",
       "_callable": true,
       "_origin": "ast",
-      "community": 16,
+      "community": 17,
       "file_type": "code",
       "norm_label": "resolve()",
       "source_file": "validation/physical_v08/validate_execution_registry.py",
@@ -299,6 +332,17 @@
       "norm_label": "yes()",
       "source_file": "validation/physical_v08/analyze_p5_records.py",
       "source_location": "L19"
+    },
+    {
+      "id": "validation_physical_v08_validate_physical_launch_package_main",
+      "label": "main()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 21,
+      "file_type": "code",
+      "norm_label": "main()",
+      "source_file": "validation/physical_v08/validate_physical_launch_package.py",
+      "source_location": "L8"
     },
     {
       "id": "validation_physical_v08_analyze_p4_records_check_p3",
@@ -623,10 +667,20 @@
       "source_location": "L1"
     },
     {
+      "id": "validation_physical_v08_build_physical_launch_package",
+      "label": "build_physical_launch_package.py",
+      "_origin": "ast",
+      "community": 15,
+      "file_type": "code",
+      "norm_label": "build_physical_launch_package.py",
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L1"
+    },
+    {
       "id": "validation_physical_v08_update_execution_graph",
       "label": "update_execution_graph.py",
       "_origin": "ast",
-      "community": 15,
+      "community": 16,
       "file_type": "code",
       "norm_label": "update_execution_graph.py",
       "source_file": "validation/physical_v08/update_execution_graph.py",
@@ -636,7 +690,7 @@
       "id": "validation_physical_v08_update_execution_graph_rationale_1",
       "label": "Build a no-paid-API graph for the physical execution contracts only.",
       "_origin": "ast",
-      "community": 15,
+      "community": 16,
       "file_type": "rationale",
       "norm_label": "build a no-paid-api graph for the physical execution contracts only.",
       "source_file": "validation/physical_v08/update_execution_graph.py",
@@ -646,7 +700,7 @@
       "id": "validation_physical_v08_validate_execution_registry",
       "label": "validate_execution_registry.py",
       "_origin": "ast",
-      "community": 16,
+      "community": 17,
       "file_type": "code",
       "norm_label": "validate_execution_registry.py",
       "source_file": "validation/physical_v08/validate_execution_registry.py",
@@ -660,6 +714,16 @@
       "file_type": "code",
       "norm_label": "analyze_p5_records.py",
       "source_file": "validation/physical_v08/analyze_p5_records.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "validation_physical_v08_validate_physical_launch_package",
+      "label": "validate_physical_launch_package.py",
+      "_origin": "ast",
+      "community": 21,
+      "file_type": "code",
+      "norm_label": "validate_physical_launch_package.py",
+      "source_file": "validation/physical_v08/validate_physical_launch_package.py",
       "source_location": "L1"
     },
     {
@@ -1016,7 +1080,7 @@
     {
       "id": "document:validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md",
       "label": "P10_P11_MATERIAL_RUN_KO.md",
-      "community": 17,
+      "community": 18,
       "file_type": "concept",
       "norm_label": "p10_p11_material_run_ko.md",
       "source_file": "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md",
@@ -1025,7 +1089,7 @@
     {
       "id": "document:validation/physical_v08/templates/material_run.csv",
       "label": "material_run.csv",
-      "community": 17,
+      "community": 18,
       "file_type": "concept",
       "norm_label": "material_run.csv",
       "source_file": "validation/physical_v08/templates/material_run.csv",
@@ -1034,7 +1098,7 @@
     {
       "id": "document:validation/physical_v08/templates/p10_p11_material_run.csv",
       "label": "p10_p11_material_run.csv",
-      "community": 17,
+      "community": 18,
       "file_type": "concept",
       "norm_label": "p10_p11_material_run.csv",
       "source_file": "validation/physical_v08/templates/p10_p11_material_run.csv",
@@ -1043,7 +1107,7 @@
     {
       "id": "document:validation/physical_v08/P1_EXECUTION_KO.md",
       "label": "P1_EXECUTION_KO.md",
-      "community": 18,
+      "community": 19,
       "file_type": "concept",
       "norm_label": "p1_execution_ko.md",
       "source_file": "validation/physical_v08/P1_EXECUTION_KO.md",
@@ -1052,7 +1116,7 @@
     {
       "id": "document:validation/physical_v08/templates/p1_inventory_record.csv",
       "label": "p1_inventory_record.csv",
-      "community": 18,
+      "community": 19,
       "file_type": "concept",
       "norm_label": "p1_inventory_record.csv",
       "source_file": "validation/physical_v08/templates/p1_inventory_record.csv",
@@ -1061,7 +1125,7 @@
     {
       "id": "document:validation/physical_v08/templates/profile_stock_measurement.csv",
       "label": "profile_stock_measurement.csv",
-      "community": 18,
+      "community": 19,
       "file_type": "concept",
       "norm_label": "profile_stock_measurement.csv",
       "source_file": "validation/physical_v08/templates/profile_stock_measurement.csv",
@@ -1070,7 +1134,7 @@
     {
       "id": "document:validation/physical_v08/P2_COLD_FIT_KO.md",
       "label": "P2_COLD_FIT_KO.md",
-      "community": 19,
+      "community": 20,
       "file_type": "concept",
       "norm_label": "p2_cold_fit_ko.md",
       "source_file": "validation/physical_v08/P2_COLD_FIT_KO.md",
@@ -1079,7 +1143,7 @@
     {
       "id": "document:validation/physical_v08/templates/p2_cold_fit.csv",
       "label": "p2_cold_fit.csv",
-      "community": 19,
+      "community": 20,
       "file_type": "concept",
       "norm_label": "p2_cold_fit.csv",
       "source_file": "validation/physical_v08/templates/p2_cold_fit.csv",
@@ -1088,7 +1152,7 @@
     {
       "id": "document:validation/physical_v08/templates/README.md",
       "label": "README.md",
-      "community": 20,
+      "community": 22,
       "file_type": "concept",
       "norm_label": "readme.md",
       "source_file": "validation/physical_v08/templates/README.md",
@@ -1097,7 +1161,7 @@
     {
       "id": "document:validation/physical_v08/templates/electrical_preflight_record.csv",
       "label": "electrical_preflight_record.csv",
-      "community": 21,
+      "community": 23,
       "file_type": "concept",
       "norm_label": "electrical_preflight_record.csv",
       "source_file": "validation/physical_v08/templates/electrical_preflight_record.csv",
@@ -1106,7 +1170,7 @@
     {
       "id": "document:validation/physical_v08/templates/physical_evidence_manifest.csv",
       "label": "physical_evidence_manifest.csv",
-      "community": 22,
+      "community": 24,
       "file_type": "concept",
       "norm_label": "physical_evidence_manifest.csv",
       "source_file": "validation/physical_v08/templates/physical_evidence_manifest.csv",
@@ -1115,7 +1179,7 @@
     {
       "id": "document:validation/physical_v08/templates/thermal_first_cycle.csv",
       "label": "thermal_first_cycle.csv",
-      "community": 23,
+      "community": 25,
       "file_type": "concept",
       "norm_label": "thermal_first_cycle.csv",
       "source_file": "validation/physical_v08/templates/thermal_first_cycle.csv",
@@ -1715,6 +1779,30 @@
       "weight": 1.0
     },
     {
+      "source": "validation_physical_v08_build_physical_launch_package_main",
+      "target": "validation_physical_v08_build_physical_launch_package_add_file",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "validation_physical_v08_build_physical_launch_package_main",
+      "target": "validation_physical_v08_build_physical_launch_package_sha",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
       "source": "validation_physical_v08_simulation_prerequisite_evaluate",
       "target": "validation_physical_v08_simulation_prerequisite_refresh_compliance",
       "relation": "calls",
@@ -2299,6 +2387,39 @@
       "weight": 1.0
     },
     {
+      "source": "validation_physical_v08_build_physical_launch_package",
+      "target": "validation_physical_v08_build_physical_launch_package_add_file",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "validation_physical_v08_build_physical_launch_package",
+      "target": "validation_physical_v08_build_physical_launch_package_main",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "validation_physical_v08_build_physical_launch_package",
+      "target": "validation_physical_v08_build_physical_launch_package_sha",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "validation/physical_v08/build_physical_launch_package.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "validation_physical_v08_simulation_prerequisite",
       "target": "validation_physical_v08_simulation_prerequisite_sha",
       "relation": "contains",
@@ -2395,6 +2516,17 @@
       "confidence_score": 1.0,
       "source_file": "validation/physical_v08/validate_execution_registry.py",
       "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "validation_physical_v08_validate_physical_launch_package",
+      "target": "validation_physical_v08_validate_physical_launch_package_main",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "validation/physical_v08/validate_physical_launch_package.py",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -3211,5 +3343,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3bbfe2f88d1cebaeed95d9db8e219216e1e3499a"
+  "built_at_commit": "668be5ab4ce43bdf7d39dfb3f355970a60f8793d"
 }

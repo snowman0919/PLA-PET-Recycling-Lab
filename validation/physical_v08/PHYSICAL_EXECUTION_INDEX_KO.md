@@ -25,3 +25,7 @@
 P1 결과가 들어오면 profile nesting으로 P2 절단계획을 확정하고, GGM 수령 후 P3 bench fixture 치수를 received data에 맞춰 확정한다. P4에서는 CUT-01 두 장만 먼저 제작하며 나머지 10장은 결과 전까지 잠근다. P5에서는 screw/barrel 본품보다 process coupon을 먼저 승인한다.
 
 P12까지 PASS해도 상태는 `PHYSICAL_VALIDATION_REVIEW_CANDIDATE`일 뿐 자동 생산·안전 인증이 아니다.
+
+## 현장 launch package
+
+`build_physical_launch_package.py`는 P1~P12 실행 문서·빈 측정 template·P3 GGM 준비자료·P4 두-cutter coupon CAD·P5 process coupon CAD만 묶는다. Production `EX-SCR-01/EX-BAR-01`, legacy `DRV-01/Axx/F01`, `gate1_powered_assembly`는 의도적으로 제외한다. `validate_physical_launch_package.py`가 이 금지목록과 payload SHA-256 전수검사를 수행한다. 패키지 상태는 항상 `PREPARATION_ONLY_NOT_FABRICATION_AUTHORIZATION`이며 별도 사용자 승인 없이 구매·가공·통전·가열을 허용하지 않는다.

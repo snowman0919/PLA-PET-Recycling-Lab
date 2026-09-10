@@ -5,12 +5,12 @@ P0-P12 execution contracts only. AST + literal reviewed anchors; no paid API cal
 # Graph Report - physical_v08  (2026-09-10)
 
 ## Corpus Check
-- 56 files · ~6,174 words
+- 58 files · ~6,218 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 126 nodes · 189 edges · 24 communities
-- Extraction: 53% EXTRACTED · 47% INFERRED · 0% AMBIGUOUS · INFERRED: 89 edges (avg confidence: 1.0)
+- 132 nodes · 195 edges · 26 communities
+- Extraction: 54% EXTRACTED · 46% INFERRED · 0% AMBIGUOUS · INFERRED: 89 edges (avg confidence: 1.0)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -28,6 +28,7 @@ P0-P12 execution contracts only. AST + literal reviewed anchors; no paid API cal
 - Community 14
 - Community 15
 - Community 16
+- Community 17
 
 ## God Nodes (most connected - your core abstractions)
 1. `main()` - 6 edges
@@ -47,7 +48,7 @@ P0-P12 execution contracts only. AST + literal reviewed anchors; no paid API cal
 ## Import Cycles
 - None detected.
 
-## Communities (24 total, 0 thin omitted)
+## Communities (26 total, 0 thin omitted)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.14
@@ -98,10 +99,14 @@ Cohesion: 0.83
 Nodes (3): main(), n(), prov()
 
 ### Community 15 - "Community 15"
+Cohesion: 0.83
+Nodes (3): add_file(), main(), sha()
+
+### Community 16 - "Community 16"
 Cohesion: 0.67
 Nodes (3): main(), Build a no-paid-API graph for the physical execution contracts only., rel()
 
-### Community 16 - "Community 16"
+### Community 17 - "Community 17"
 Cohesion: 0.83
 Nodes (3): main(), req(), resolve()
 
