@@ -1,0 +1,11 @@
+metric,value,u95,unit,acceptance,instrument_id,operator,reviewer,evidence_path,notes
+puller_slip,,,percent,<=1.0,,,,,
+traverse_usable_width,,,mm,>=68.0,,,,,
+traverse_end_collision,,,boolean,false,,,,,
+dancer_control_stop_angle,,,rad,<0.36,,,,,
+dancer_hard_stop_contact,,,boolean,false,,,,,
+full_1kg_nominal_winding_path_completed,,,boolean,true,,,,,
+spool_spill,,,boolean,false,,,,,
+guard_contact,,,boolean,false,,,,,
+traverse_jam,,,boolean,false,,,,,
+stable_strand_used_for_final_pass,,,boolean,true,,,,,
