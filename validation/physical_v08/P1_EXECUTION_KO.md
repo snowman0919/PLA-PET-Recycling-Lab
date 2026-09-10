@@ -17,4 +17,4 @@ P1은 구매나 통전이 아니라 **현재 보유품을 식별하고 실제 �
 
 ## 3. 다음 단계로 넘기는 정보
 
-Profile nesting이 가능하면 P2 절단계획을 만들 수 있다. GGM 실측이 들어오면 최종 mount drilling과 P3 bench를 확정한다. P1에서 부족한 품목은 한 번에 구매목록으로 모으되 **주문은 별도 사용자 승인 전 실행하지 않는다.**
+Profile nesting이 가능하면 P2 절단계획을 만들 수 있다. GGM 실측이 들어오면 `analyze_ggm_mount_compatibility.py`로 D02/D03의 PCD104, 출력축 편심 18 mm, Ø6.60 M6 clearance budget과 실측 U95를 먼저 대조한다. `AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED`일 때만 기존 mount 도면을 그대로 유지할 수 있으며, `HOLD_REDRAW_REQUIRED`이면 현장에서 장공 가공이나 강제 체결로 보정하지 않고 CAD/도면을 재검토한다. 어느 결과도 drilling 자체를 승인하지 않는다. P1에서 부족한 품목은 한 번에 구매목록으로 모으되 **주문은 별도 사용자 승인 전 실행하지 않는다.**

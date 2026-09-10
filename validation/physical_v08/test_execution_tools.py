@@ -5,7 +5,7 @@ HERE=Path(__file__).resolve().parent
 
 def load(name):
     spec=importlib.util.spec_from_file_location(name,HERE/f'{name}.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
-nest=load('profile_nesting'); p1=load('analyze_p1_records'); p3=load('analyze_p3_records')
+nest=load('profile_nesting'); p1=load('analyze_p1_records'); mount=load('analyze_ggm_mount_compatibility'); p3=load('analyze_p3_records')
 
 class ExecutionToolsTest(unittest.TestCase):
     def test_p1_fail_closed_and_ggm_pending(self):
@@ -26,6 +26,33 @@ class ExecutionToolsTest(unittest.TestCase):
             self.assertEqual(p1.evaluate(rows,HERE.parents[1])['status'],'P1_RECORD_CHECK_PASS')
             rows[0]['sha256']='0'*64
             with self.assertRaises(ValueError): p1.evaluate(rows,HERE.parents[1])
+    def test_ggm_mount_compatibility_from_receipt(self):
+        import hashlib
+        root=HERE.parents[1]
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            evidence=Path(td)/'receipt.txt'; evidence.write_text('synthetic receipt geometry')
+            digest=hashlib.sha256(evidence.read_bytes()).hexdigest(); rel=str(evidence.relative_to(root))
+            def rec(axis,gear,pcd=104.0,offset=18.0):
+                return {'kind':'PHYSICAL_MEASUREMENT','performed':True,'operator':'TEST','part_serial':'SER-'+axis,
+                    'instrument_id':'MEAS-01','instrument_calibration_ref':'TEST','measured_at':'2026-09-10T14:00+09:00',
+                    'raw_files':{rel:digest},'motor_model':'K9DG60N2','gear_model':gear,'readings':{
+                        'voltage_v':{'value':24.0,'u95':0.0,'unit':'V'},
+                        'shaft_diameter':{'value':11.99,'u95':0.002,'unit':'mm'},
+                        'shaft_projection':{'value':32.0,'u95':0.05,'unit':'mm'},
+                        'bolt_pcd':{'value':pcd,'u95':0.01,'unit':'mm'},
+                        'output_offset':{'value':offset,'u95':0.01,'unit':'mm'},
+                        'case_width':{'value':90.0,'u95':0.1,'unit':'mm'},
+                        'rear_length':{'value':209.0,'u95':0.1,'unit':'mm'}}}
+            bindings={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in (
+                'control/ggm_drive_contract.json','analysis/drive_acceptance_v08/manufacturing/drawing_contract.json')}
+            packet={'design_sha256':bindings,'receipt':{'performed':True,'data':{'SH':rec('SH','K9G75C'),'EX':rec('EX','K9G150C')}}}
+            ok=mount.evaluate(packet)
+            self.assertEqual(ok['status'],'AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED'); self.assertFalse(ok['drilling_authorized'])
+            packet['receipt']['data']['EX']=rec('EX','K9G150C',offset=18.35)
+            hold=mount.evaluate(packet)
+            self.assertEqual(hold['status'],'HOLD_REDRAW_REQUIRED'); self.assertTrue(hold['mount_redesign_required'])
+            packet['design_sha256']['control/ggm_drive_contract.json']='0'*64
+            self.assertEqual(mount.evaluate(packet)['status'],'BLOCKED_STALE_DESIGN_BINDING')
     def test_profile_nesting_synthetic(self):
         req=nest.requirements()
         ok,plan=nest.solve(req['2020'],[('SYN-2020',14000.0)],2.0)
