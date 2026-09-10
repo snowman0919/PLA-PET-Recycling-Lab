@@ -160,6 +160,9 @@ def main():
         "validation/physical_v08/test_p11_execution.py",
         "validation/physical_v08/validate_p11_stage_release.py",
         "validation/physical_v08/test_p11_stage_release.py",
+        "validation/physical_v08/analyze_p12_records.py",
+        "validation/physical_v08/test_p12_execution.py",
+        "validation/physical_v08/templates/p12_forming_spool.csv",
         "validation/physical_v08/templates/p11_stage_release.json",
         "validation/physical_v08/templates/p10_stage_release.json",
         "validation/physical_v08/templates/p9_stage_release.json",
@@ -246,6 +249,12 @@ def main():
         assert token in material_analyzer
     material_doc = (ROOT / "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md").read_text(encoding="utf-8")
     assert "torque + U95 < 8.0 N.m" in material_doc and "current + U95 <= 6.0 A" in material_doc
+    p12_gate = next(row for row in gate["gates"] if row["id"] == "P12")
+    assert any("P11_STAGE_RELEASE_VALIDATED" in x for x in p12_gate["prerequisites"])
+    assert any("source_lot_id" in x for x in p12_gate["acceptance"])
+    assert any("torque + U95 <8.0" in x for x in p12_gate["acceptance"])
+    p12_analyzer = (ROOT / "validation/physical_v08/analyze_p12_records.py").read_text(encoding="utf-8")
+    assert "P12_RECORD_CHECK_PASS" in p12_analyzer and "P11_STAGE_RELEASE_VALIDATED" in p12_analyzer
     p11_registry = next(stage for stage in registry["stages"] if stage["id"] == "P11")
     assert p11_registry["stage_release_validator"] == "validate_p11_stage_release.py"
     assert "templates/p11_stage_release.json" in p11_registry["templates"]
