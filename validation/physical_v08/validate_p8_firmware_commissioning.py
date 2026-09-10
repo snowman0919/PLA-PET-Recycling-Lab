@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parents[2]
 P3_VALIDATOR = ROOT / "validation/physical_v08/validate_p3_stage_release.py"
 PROFILE_BUILDER = ROOT / "validation/physical_v08/build_p3_firmware_profile.py"
 APPLIED_HEADER = ROOT / "firmware/ggm_drive_v08/ggm_commissioning.h"
+VARIANT_HEADER = ROOT / "exports/final/drive_ggm_v08/firmware/arduino_mega/src/ggm_commissioning.h"
+RELEASED_HEADER = ROOT / "exports/final/firmware/source/arduino_mega/src/ggm_commissioning.h"
+VARIANT_BUILDER = ROOT / "firmware/ggm_drive_v08/build_variant.py"
 VARIANT_MANIFEST = ROOT / "exports/final/drive_ggm_v08/firmware/manifest.json"
 BUILD_MANIFEST = ROOT / "exports/final/firmware/build_manifest.json"
 FINAL_HEX = ROOT / "exports/final/firmware/binaries/filament_recycler_atmega2560.hex"
@@ -141,14 +144,19 @@ def close(a, b, tol=1e-6) -> bool:
 
 
 def validate(p3_release: Path, profile_dir: Path, tach_path: Path, install_path: Path, *,
-             applied_header: Path = APPLIED_HEADER, variant_manifest: Path = VARIANT_MANIFEST,
-             build_manifest: Path = BUILD_MANIFEST, final_hex: Path = FINAL_HEX,
-             p3_validator=None) -> dict:
+             applied_header: Path = APPLIED_HEADER, variant_header: Path = VARIANT_HEADER,
+             released_header: Path = RELEASED_HEADER, variant_builder: Path = VARIANT_BUILDER,
+             variant_manifest: Path = VARIANT_MANIFEST, build_manifest: Path = BUILD_MANIFEST,
+             final_hex: Path = FINAL_HEX, p3_validator=None) -> dict:
     p3_release = p3_release.resolve(); profile_dir = profile_dir.resolve()
+    tach_path = tach_path.resolve(); install_path = install_path.resolve()
     if not p3_release.is_relative_to(ROOT) or not p3_release.is_file():
         raise ValueError("P3 release must be an existing repository file")
     if not profile_dir.is_relative_to(ROOT) or not profile_dir.is_dir():
         raise ValueError("P3 firmware profile directory must exist inside repository")
+    for source, label in ((tach_path, "tach calibration"), (install_path, "firmware installation")):
+        if not source.is_relative_to(ROOT) or not source.is_file():
+            raise ValueError(label + " must be an existing repository file")
     authority = p3_validator or load(P3_VALIDATOR, "ppr_p8_p3_release")
     stage = authority.validate(p3_release) if p3_validator is None else authority(p3_release)
     if stage.get("status") != "P3_STAGE_RELEASE_VALIDATED":
@@ -158,8 +166,9 @@ def validate(p3_release: Path, profile_dir: Path, tach_path: Path, install_path:
     eeprom_command = profile_dir / "shredder_eeprom_command.txt"
     for path, label in ((manifest_path, "profile manifest"), (candidate_header, "candidate header"),
                         (eeprom_command, "EEPROM command"), (applied_header, "applied commissioning header"),
-                        (variant_manifest, "variant manifest"), (build_manifest, "build manifest"),
-                        (final_hex, "final HEX")):
+                        (variant_header, "variant commissioning header"), (released_header, "released commissioning header"),
+                        (variant_builder, "variant builder"), (variant_manifest, "variant manifest"),
+                        (build_manifest, "build manifest"), (final_hex, "final HEX")):
         if not path.is_file():
             raise ValueError(label + " missing")
     profile = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -179,6 +188,8 @@ def validate(p3_release: Path, profile_dir: Path, tach_path: Path, install_path:
         raise ValueError("P3 firmware profile output hash mismatch")
     if candidate_header.read_bytes() != applied_header.read_bytes():
         raise ValueError("applied commissioning header differs from reviewed P3 candidate")
+    if variant_header.read_bytes() != applied_header.read_bytes() or released_header.read_bytes() != applied_header.read_bytes():
+        raise ValueError("generated/released commissioning header differs from applied source")
 
     variant = json.loads(variant_manifest.read_text(encoding="utf-8"))
     build = json.loads(build_manifest.read_text(encoding="utf-8"))
@@ -191,7 +202,8 @@ def validate(p3_release: Path, profile_dir: Path, tach_path: Path, install_path:
         raise ValueError("final build commissioning-header binding mismatch")
     if build.get("variant_manifest_sha256") != sha(variant_manifest):
         raise ValueError("final build variant-manifest binding mismatch")
-    if build.get("variant_builder_sha256") != variant.get("builder_sha256"):
+    current_builder_sha = sha(variant_builder)
+    if variant.get("builder_sha256") != current_builder_sha or build.get("variant_builder_sha256") != current_builder_sha:
         raise ValueError("variant builder binding mismatch")
     clean = build.get("clean_rebuild", {})
     final_digest = sha(final_hex)

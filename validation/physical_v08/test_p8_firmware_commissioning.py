@@ -55,17 +55,19 @@ def make_fixture(run: Path):
     }
     (profile_dir / "manifest.json").write_text(json.dumps(profile, indent=2) + "\n")
     applied = run / "ggm_commissioning.h"; applied.write_bytes(header.read_bytes())
+    variant_header = run / "variant_ggm_commissioning.h"; variant_header.write_bytes(header.read_bytes())
+    released_header = run / "released_ggm_commissioning.h"; released_header.write_bytes(header.read_bytes())
     final_hex = run / "final.hex"; final_hex.write_text(":00000001FF\n")
     flash_readback = run / "flash_readback.hex"; flash_readback.write_bytes(final_hex.read_bytes())
     variant = {
         "commissioning_header_sha256": digest(applied),
         "source_payload": {"src/ggm_commissioning.h": digest(applied)},
-        "builder_sha256": "b" * 64,
+        "builder_sha256": digest(V.VARIANT_BUILDER),
     }
     variant_path = run / "variant_manifest.json"; variant_path.write_text(json.dumps(variant, indent=2) + "\n")
     build = {
         "source_files": {"src/ggm_commissioning.h": digest(applied)},
-        "variant_manifest_sha256": digest(variant_path), "variant_builder_sha256": "b" * 64,
+        "variant_manifest_sha256": digest(variant_path), "variant_builder_sha256": digest(V.VARIANT_BUILDER),
         "clean_rebuild": {"status": "PASS", "original_source_hex_sha256": digest(final_hex),
                           "released_source_hex_sha256": digest(final_hex)},
         "binary": {"sha256": digest(final_hex)}, "binary_sha256": digest(final_hex),
@@ -101,7 +103,8 @@ def make_fixture(run: Path):
     write_csv(install_path, install_fields, install)
     return {
         "p3_release": p3_release, "profile_dir": profile_dir, "tach": tach_path, "install": install_path,
-        "applied": applied, "variant": variant_path, "build": build_path, "hex": final_hex,
+        "applied": applied, "variant_header": variant_header, "released_header": released_header,
+        "variant": variant_path, "build": build_path, "hex": final_hex,
         "report": report, "flash": flash_readback,
     }
 
@@ -109,8 +112,9 @@ def make_fixture(run: Path):
 def run_validate(fx):
     return V.validate(
         fx["p3_release"], fx["profile_dir"], fx["tach"], fx["install"],
-        applied_header=fx["applied"], variant_manifest=fx["variant"],
-        build_manifest=fx["build"], final_hex=fx["hex"],
+        applied_header=fx["applied"], variant_header=fx["variant_header"],
+        released_header=fx["released_header"], variant_builder=V.VARIANT_BUILDER,
+        variant_manifest=fx["variant"], build_manifest=fx["build"], final_hex=fx["hex"],
         p3_validator=lambda _: {"status": "P3_STAGE_RELEASE_VALIDATED"},
     )
 
