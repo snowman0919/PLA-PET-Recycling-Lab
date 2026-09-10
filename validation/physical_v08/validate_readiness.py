@@ -29,12 +29,17 @@ def main():
     seq = rows("validation/physical_v08/fabrication_sequence.csv")
     equipment = rows("validation/physical_v08/measurement_equipment.csv")
     stage_bom = rows("validation/physical_v08/stage_minimum_bom.csv")
+    p3_fixture = j("validation/physical_v08/p3_fixture_contract.json")
+    p3_bom = rows("validation/physical_v08/p3_bench_bom.csv")
 
     assert sim["status"] == "PASS" and sim["required_technical_gate_count"] == 23
     assert sim["failed_technical_gates"] == []
     assert set(sim["excluded_release_only_gates"]) == {"20_release_package", "21_release_policy"}
     assert all(v is False for v in gate["global_state"].values() if isinstance(v, bool))
     assert [row["id"] for row in gate["gates"]] == [f"P{i}" for i in range(13)]
+    p3 = next(row for row in gate["gates"] if row["id"] == "P3")
+    assert not any("calibrated against independent reference" in x for x in p3["prerequisites"]), "P3 must not require its own calibration result as an entry condition"
+    assert any("independent current reference available" in x for x in p3["prerequisites"])
 
     assert ggm["selected"]["shredder"] == "GGM K9DG60N2 + K9G75C"
     assert ggm["selected"]["screw"] == "GGM K9DG60N2 + K9G150C"
@@ -66,12 +71,31 @@ def main():
     assert inv["BUY-GGM-SH"]["current_state"] == "SELECTED_NOT_ORDERED"
     assert inv["BUY-GGM-EX"]["current_state"] == "SELECTED_NOT_ORDERED"
     assert len(equipment) >= 15 and len(seq) == 14
+    required_execution_files = [
+        "validation/physical_v08/P1_EXECUTION_KO.md",
+        "validation/physical_v08/P3_GGM_BENCH_KO.md",
+        "validation/physical_v08/profile_nesting.py",
+        "validation/physical_v08/analyze_p3_records.py",
+        "validation/physical_v08/p3_bench_bom.csv",
+        "validation/physical_v08/templates/p1_inventory_record.csv",
+        "validation/physical_v08/templates/p3_current_sensor_calibration.csv",
+        "validation/physical_v08/templates/p3_no_load.csv",
+        "validation/physical_v08/templates/p3_torque_map.csv",
+        "validation/physical_v08/templates/p3_pin_release.csv",
+    ]
+    assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
     by_stage_id = {(r["gate"], r["item_id"]): r for r in stage_bom}
     assert len(stage_bom) == 28 and by_stage_id[("P4", "CUT-01")]["quantity"] == "2"
     assert by_stage_id[("P3", "PIN-COUPON")]["quantity"] == "9"
     assert by_stage_id[("P3", "GGM-SH")]["item"] == "GGM K9DG60N2 + K9G75C"
     assert by_stage_id[("P3", "GGM-EX")]["item"] == "GGM K9DG60N2 + K9G150C"
     assert by_stage_id[("P5", "EX-CPN-SCR")]["quantity"] == "1" and by_stage_id[("P5", "EX-CPN-BAR")]["quantity"] == "1"
+    assert p3_fixture["status"] == "DESIGN_ONLY_NOT_FABRICATED" and p3_fixture["physical_action_authorized"] is False
+    assert close(p3_fixture["prony"]["reaction_arm_mm"], 250.0) and close(p3_fixture["prony"]["reaction_arm_tolerance_mm"], 0.5)
+    assert close(p3_fixture["calculated_force_n_at_250mm"]["8.00"], 32.0)
+    assert close(p3_fixture["calculated_force_n_at_250mm"]["9.30"], 37.2)
+    assert p3_fixture["mechanical_release"]["coupon_count"] == 9
+    assert any(r["id"] == "P3-BRK-01" and "OPTIONAL" in r["disposition"] for r in p3_bom)
 
     assert packet["all_physical_actions_authorized"] is False
     assert packet["simulation_prerequisite"]["current_status"] == "PASS"

@@ -1,0 +1,14 @@
+id,item,qty,disposition,specification,note
+P3-FIX-01,final GGM mount/base hardware,1 set,REUSE_FINAL_PARTS,GGM_SH_Base + GGM_SH_Mount or equivalent rigid metal fixture,fabrication approval required before making
+P3-FIX-02,12 mm supported test arbor,1,REUSE_FINAL_PARTS,GGM_SH_Jackshaft + 2x6201,use sequentially for SH and EX bench
+P3-FIX-03,GGM protection coupling hubs,SH+EX sets,REUSE_FINAL_PARTS,D06/D07 drawings,same 12.05 mm keyed interface
+P3-FIX-04,coupling guard,1 reusable,METAL_GUARD,current GGM split metal cover or bench equivalent,no exposed coupling during powered tests
+P3-BRK-01,Prony brake drum,1,OPTIONAL_IF_NO_TORQUE_TRANSDUCER,"steel OD60 x W25, 12.05 keyed bore",planning geometry; final stock/process after inventory
+P3-BRK-02,reaction brake body + arm,1,OPTIONAL_IF_NO_TORQUE_TRANSDUCER,"metal brake body, reaction radius 250.0 +/-0.5 mm",force gauge/load cell inline; independent tether
+P3-BRK-03,brake heat/pinch guard,1,REQUIRED_WITH_PRONY,metal/PC enclosure outside rotating contact,printed part may only support sensor/trim
+P3-MET-01,force reference,1,BORROW_OR_LAB,0-200 N <=2% verified,32-37.2 N covers critical range
+P3-MET-02,rpm reference,1,BORROW_OR_LAB,optical tach <=1%,independent from machine tach
+P3-MET-03,current reference,1,BORROW_OR_LAB,DMM+shunt or DC clamp <=1-2%,calibration through >=4.6 A
+P3-ELEC-01,24 V protected bench feed,1,REUSE_OR_LAB,branch fuse + K0/K1 hard cut + E-stop,no heater branch present
+P3-ELEC-02,BTS7960 + Hall sensor,2 channels,OWNED_VERIFY,one axis energized at a time,module marking is not continuous-current proof
+P3-CONS-01,brass protection coupons,9,TEST_CONSUMABLE,same lot tracked,3 SH-F + 3 SH-R + 3 EX-F

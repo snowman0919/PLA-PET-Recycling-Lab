@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "DESIGN_ONLY_NOT_FABRICATED",
+  "physical_action_authorized": false,
+  "purpose": "low-cost P3 torque/current correlation and mechanical release qualification without cutter, screw, or heaters",
+  "interfaces": {
+    "test_arbor": "12 h6 supported by 2x6201",
+    "coupling_output_bore_mm": [
+      12.05,
+      12.06
+    ],
+    "keyway_width_mm": [
+      4.1,
+      4.13
+    ],
+    "reuse": "GGM_SH_Jackshaft may be reused sequentially for SH and EX bench"
+  },
+  "reference_methods": {
+    "preferred": "traceable rotary torque transducer if available in project lab",
+    "fallback": "reaction-arm Prony brake"
+  },
+  "prony": {
+    "reaction_arm_mm": 250.0,
+    "reaction_arm_tolerance_mm": 0.5,
+    "brake_drum_planning_od_mm": 60.0,
+    "brake_drum_planning_width_mm": 25.0,
+    "brake_drum_material": "ordinary steel; actual stock confirmed before fabrication",
+    "force_reference_range_n": [
+      0,
+      200
+    ],
+    "force_line_angle_max_deg": 2.0,
+    "guard_required": true,
+    "structural_prints_allowed": false
+  },
+  "dynamic_map": {
+    "fit_target_nm": [
+      1.5,
+      3.0,
+      4.5,
+      6.0,
+      7.8
+    ],
+    "holdout_target_nm": [
+      2.25,
+      5.25,
+      7.2
+    ],
+    "software_limit_nm": 8.0,
+    "max_current_a": 6.0,
+    "loaded_point_capture_note": "brief stabilized capture; record rpm/current/drum temperature; no forced duration if abnormal trend appears"
+  },
+  "mechanical_release": {
+    "target_nm": [
+      8.8,
+      9.3
+    ],
+    "method": "motor OFF and locked out, quasi-static reaction arm",
+    "replicates": {
+      "SH-F": 3,
+      "SH-R": 3,
+      "EX-F": 3
+    },
+    "coupon_count": 9
+  },
+  "calculated_force_n_at_250mm": {
+    "1.50": 6.0,
+    "2.25": 9.0,
+    "3.00": 12.0,
+    "4.50": 18.0,
+    "5.25": 21.0,
+    "6.00": 24.0,
+    "7.20": 28.8,
+    "7.80": 31.2,
+    "8.00": 32.0,
+    "8.80": 35.2,
+    "9.30": 37.2
+  },
+  "power_reference_w": {
+    "SH_40rpm_at_7p8Nm": 32.67256359733385,
+    "SH_40rpm_at_8Nm": 33.510321638291124,
+    "EX_20rpm_at_7p8Nm": 16.336281798666924,
+    "EX_20rpm_at_8Nm": 16.755160819145562
+  },
+  "note": "dimensions above define measurement geometry, not fabrication authorization. Brake body details may use available lab hardware if the 250 mm reaction datum and guarded load path are preserved."
+}
