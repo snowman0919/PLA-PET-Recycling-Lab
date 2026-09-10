@@ -16,6 +16,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CUTLIST = ROOT / "exports/fabrication/frame_cut_list.csv"
+SELF = Path(__file__).resolve()
+
+
+def sha(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 REQUIRED_PROVENANCE = ("source_asset", "instrument_id", "instrument_calibration_ref", "measured_at", "operator", "reviewer", "evidence_path", "sha256")
 
 
@@ -106,12 +111,24 @@ def main():
     args = ap.parse_args()
     if not math.isfinite(args.kerf_mm) or args.kerf_mm < 0:
         raise SystemExit("kerf must be finite and >=0")
+    measurements = args.measurements.resolve()
+    if not measurements.is_relative_to(ROOT) or not measurements.is_file():
+        raise SystemExit("measurement record must be an existing repository file")
     req = requirements()
     try:
-        stock = measured(args.measurements)
+        stock = measured(measurements)
     except (KeyError, ValueError) as exc:
         raise SystemExit(f"profile evidence rejected: {exc}")
-    result = {"status": "PASS", "cut_authorization": False, "kerf_budget_mm": args.kerf_mm, "stock_length_basis": "measured_minus_u95", "profiles": {}}
+    result = {
+        "status": "PASS", "cut_authorization": False, "kerf_budget_mm": args.kerf_mm,
+        "stock_length_basis": "measured_minus_u95",
+        "measurements_path": str(measurements.relative_to(ROOT)),
+        "measurements_sha256": sha(measurements),
+        "cutlist_path": str(CUTLIST.relative_to(ROOT)),
+        "cutlist_sha256": sha(CUTLIST),
+        "solver_source_sha256": sha(SELF),
+        "profiles": {},
+    }
     for typ in ("2020", "2040"):
         if not stock[typ]:
             result["profiles"][typ] = {"status": "NOT_RUN", "required_piece_count": len(req[typ])}

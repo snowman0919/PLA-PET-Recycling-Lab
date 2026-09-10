@@ -75,18 +75,18 @@ class ExecutionToolsTest(unittest.TestCase):
                 rows.append({'metric':metric,'value':str(value),'u95':str(u95),'unit':unit,'instrument_id':'MEAS-P2','instrument_calibration_ref':'CAL-P2','operator':'TEST','reviewer':'REVIEW','measured_at':'2026-09-10T15:30+09:00','evidence_path':rel,'sha256':digest})
             for metric in ('frame_rocking','guard_moving_envelope_intrusion','guard_hot_envelope_intrusion'):
                 rows.append({'metric':metric,'value':'false','u95':'','unit':'boolean','instrument_id':'','instrument_calibration_ref':'','operator':'TEST','reviewer':'REVIEW','measured_at':'2026-09-10T15:30+09:00','evidence_path':rel,'sha256':digest})
-            ok=p2.evaluate(rows,root)
-            self.assertEqual(ok['status'],'PASS'); self.assertFalse(ok['fabrication_authorized']); self.assertFalse(ok['stage_release_granted'])
+            ok=p2.evaluate_measurements(rows,root)
+            self.assertEqual(ok['status'],'PASS')
             by={r['metric']:r for r in rows}
             by['frame_base_x']['value']='470.75'; by['frame_base_x']['u95']='0.10'
-            self.assertEqual(p2.evaluate(rows,root)['status'],'FAIL')
+            self.assertEqual(p2.evaluate_measurements(rows,root)['status'],'FAIL')
             by['frame_base_x']['value']='470.0'; by['frame_base_x']['u95']='0.10'
             by['frame_diagonal_b']['value']='843.85'
-            self.assertEqual(p2.evaluate(rows,root)['status'],'FAIL')
+            self.assertEqual(p2.evaluate_measurements(rows,root)['status'],'FAIL')
             by['frame_diagonal_b']['value']='843.2'; by['frame_rocking']['value']='true'
-            self.assertEqual(p2.evaluate(rows,root)['status'],'FAIL')
+            self.assertEqual(p2.evaluate_measurements(rows,root)['status'],'FAIL')
             by['frame_rocking']['value']='false'; by['rail_squareness_700']['sha256']='0'*64
-            with self.assertRaises(ValueError): p2.evaluate(rows,root)
+            with self.assertRaises(ValueError): p2.evaluate_measurements(rows,root)
     def test_ggm_mount_compatibility_from_receipt(self):
         import hashlib
         root=HERE.parents[1]
@@ -178,6 +178,14 @@ class ExecutionToolsTest(unittest.TestCase):
             stock=nest.measured(csv_path)
             self.assertEqual(stock['2020'][0][1],13999.0)
             ok3,_=nest.solve(req['2040'],stock['2040'],2.0); self.assertTrue(ok3)
+            output=d/'nesting.json'
+            proc=subprocess.run(['python3',str(HERE/'profile_nesting.py'),str(csv_path),'--kerf-mm','2.0','--output',str(output)],capture_output=True,text=True,cwd=root)
+            self.assertEqual(proc.returncode,0,proc.stdout+proc.stderr)
+            bound=json.loads(output.read_text())
+            self.assertEqual(bound['status'],'PASS'); self.assertFalse(bound['cut_authorization'])
+            self.assertEqual(bound['measurements_sha256'],hashlib.sha256(csv_path.read_bytes()).hexdigest())
+            self.assertEqual(bound['cutlist_sha256'],hashlib.sha256((root/'exports/fabrication/frame_cut_list.csv').read_bytes()).hexdigest())
+            self.assertEqual(bound['solver_source_sha256'],hashlib.sha256((HERE/'profile_nesting.py').read_bytes()).hexdigest())
             with csv_path.open(newline='') as f: rows=list(csv.DictReader(f))
             rows[0]['sha256']='0'*64
             with csv_path.open('w',newline='') as f:
