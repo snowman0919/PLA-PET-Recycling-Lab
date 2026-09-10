@@ -1,6 +1,6 @@
 # P2 냉간 프레임·fit 검증
 
-P2는 절삭/가열/재료 투입 전의 순수 기계 조립 gate다. P1에서 실제 재고와 수령 치수를 확인한 부품만 사용한다. 이 단계에서는 모터와 히터를 통전하지 않는다.
+P2는 절삭/가열/재료 투입 전의 순수 기계 조립 gate다. `P1_RECORD_CHECK_PASS`가 난 exact 29-item inventory와 authenticated GGM receipt packet, 실측 profile stock, kerf budget을 먼저 고정한다. `templates/p2_fabrication_approval.json`은 이 네 입력과 현재 `frame_cut_list.csv`의 SHA-256에 묶인 P2 전용 승인 artifact다. 이 단계에서는 모터와 히터를 통전하지 않으며 approval도 procurement/energization 권한을 주지 않는다.
 
 ## 조립 순서
 
@@ -13,4 +13,4 @@ P2는 절삭/가열/재료 투입 전의 순수 기계 조립 gate다. P1에서 
 
 ## 기록
 
-`templates/p2_cold_fit.csv`의 모든 numeric 행에 실측값, U95, 단위, 계측기 ID·교정 참조, 작업자·검토자, ISO timestamp, 저장소 상대 evidence 경로와 SHA-256을 기록한다. Boolean 항목도 작업자·검토자·timestamp와 사진/영상 또는 점검기록의 경로/hash가 필요하다. `analyze_p2_records.py`는 evidence hash와 단위를 먼저 검증하고 공차 경계에서 불확도를 보수적으로 반영한다. 출력의 `fabrication_authorized`와 `stage_release_granted`는 항상 false이며, 계산 PASS만으로 다음 물리행동이 승인되지 않는다.
+`templates/p2_cold_fit.csv`의 모든 numeric 행에 실측값, U95, 단위, 계측기 ID·교정 참조, 작업자·검토자, ISO timestamp, 저장소 상대 evidence 경로와 SHA-256을 기록한다. Boolean 항목도 작업자·검토자·timestamp와 사진/영상 또는 점검기록의 경로/hash가 필요하다. 실행은 `analyze_p2_records.py RECORD --p1-inventory ... --ggm-packet ... --profile-stock ... --kerf-mm ... --fabrication-approval ...` 형식이다. Analyzer는 P1을 현재 authority로 재계산하고, GGM mount와 profile nesting을 다시 계산한 뒤 exact approval binding을 검증한다. `P2_RECORD_CHECK_PASS`여도 `fabrication_authorized`, `energization_authorized`, `stage_release_granted`는 항상 false이며 다음 단계에는 별도 reviewed stage release가 필요하다.

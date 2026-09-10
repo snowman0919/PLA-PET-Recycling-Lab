@@ -55,8 +55,11 @@
       "name": "COLD_FRAME_AND_FIT",
       "action": "cut/print/assemble without electrical power",
       "prerequisites": [
-        "P1 required stock identified",
-        "user fabrication approval"
+        "P1_RECORD_CHECK_PASS from exact 29-item inventory plus authenticated GGM receipt packet",
+        "GGM mount result AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED against current design binding",
+        "2020 and 2040 stock nesting PASS from measured length minus U95 and approved kerf budget",
+        "P2 bound fabrication approval matches exact P1 inventory, GGM packet, profile stock, current frame cut list and kerf budget",
+        "P2 approval does not authorize procurement or energization"
       ],
       "acceptance": [
         "frame base 470 +/-0.8 x 700 +/-0.8 mm under FR-001 ISO 2768-m general tolerance; full U95 interval inside limits",

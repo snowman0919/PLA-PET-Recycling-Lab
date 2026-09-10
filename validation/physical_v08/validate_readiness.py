@@ -114,6 +114,8 @@ def main():
         "validation/physical_v08/templates/p2_cold_fit.csv",
         "validation/physical_v08/P3_GGM_BENCH_KO.md",
         "validation/physical_v08/profile_nesting.py",
+        "validation/physical_v08/templates/p2_fabrication_approval.json",
+        "validation/physical_v08/test_p2_execution.py",
         "validation/physical_v08/analyze_p3_preflight.py",
         "validation/physical_v08/templates/p3_preflight.csv",
         "validation/physical_v08/analyze_p3_records.py",
@@ -218,6 +220,14 @@ def main():
     p1_analyzer = (ROOT / "validation/physical_v08/analyze_p1_records.py").read_text(encoding="utf-8")
     for token in ("P1 inventory coverage mismatch", "GGM PASS rows require --ggm-packet", "inventory_control_sha256"):
         assert token in p1_analyzer
+
+    p2_registry = next(stage for stage in registry["stages"] if stage["id"] == "P2")
+    assert p2_registry["templates"] == ["templates/p2_fabrication_approval.json", "templates/p2_cold_fit.csv"]
+    p2_analyzer = (ROOT / "validation/physical_v08/analyze_p2_records.py").read_text(encoding="utf-8")
+    for token in ("P1_RECORD_CHECK_PASS", "AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED", "P2_BOUND_CUT_PRINT_ASSEMBLY_ONLY", "P2_RECORD_CHECK_PASS"):
+        assert token in p2_analyzer
+    p2_approval = j("validation/physical_v08/templates/p2_fabrication_approval.json")
+    assert p2_approval["status"] == "NOT_RUN" and p2_approval["procurement_authorized"] is False and p2_approval["energization_authorized"] is False
 
     p3_registry = next(stage for stage in registry["stages"] if stage["id"] == "P3")
     assert p3_registry["preflight_analyzer"] == "analyze_p3_preflight.py"
