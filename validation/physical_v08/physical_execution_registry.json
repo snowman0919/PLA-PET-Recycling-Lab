@@ -140,7 +140,8 @@
         "templates/p9_stage_release.json"
       ],
       "receipt_analyzer": "analyze_p9_receipt.py",
-      "stage_release_validator": "validate_p9_stage_release.py"
+      "stage_release_validator": "validate_p9_stage_release.py",
+      "topology_validator": "validate_thermal_cutoff_topology.py"
     },
     {
       "id": "P10",

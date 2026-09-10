@@ -230,6 +230,7 @@ def main():
     assert any("P3_STAGE_RELEASE_VALIDATED" in x for x in p8_gate["prerequisites"])
     assert any("<=6.0 A" in x for x in p8_gate["acceptance"])
     p9_registry = next(stage for stage in registry["stages"] if stage["id"] == "P9")
+    assert p9_registry["topology_validator"] == "validate_thermal_cutoff_topology.py"
     assert p9_registry["receipt_analyzer"] == "analyze_p9_receipt.py"
     assert p9_registry["analyzer"] == "analyze_p9_records.py"
     assert p9_registry["stage_release_validator"] == "validate_p9_stage_release.py"
@@ -282,7 +283,7 @@ def main():
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_analyzer and "p3_prerequisite" in p4_analyzer
     launch_builder = (ROOT / "validation/physical_v08/build_physical_launch_package.py").read_text(encoding="utf-8")
-    assert "validate_*_stage_release.py" in launch_builder
+    assert "physical_execution_registry.json" in launch_builder and 'value.endswith(".py")' in launch_builder
     assert "torque_from_force" in p4_analyzer and "fraction_3_6_lower_percent" in p4_analyzer
     p4_registry = next(stage for stage in registry["stages"] if stage["id"] == "P4")
     assert p4_registry["templates"] == ["templates/p4_preflight.csv", "templates/p4_quasistatic.csv", "templates/p4_jam.csv", "templates/p4_chip.csv", "templates/p4_stage_release.json"]
