@@ -162,6 +162,9 @@ def main():
         "validation/physical_v08/test_p11_stage_release.py",
         "validation/physical_v08/analyze_p12_records.py",
         "validation/physical_v08/test_p12_execution.py",
+        "validation/physical_v08/validate_p12_stage_release.py",
+        "validation/physical_v08/test_p12_stage_release.py",
+        "validation/physical_v08/templates/p12_stage_release.json",
         "validation/physical_v08/templates/p12_forming_spool.csv",
         "validation/physical_v08/templates/p11_stage_release.json",
         "validation/physical_v08/templates/p10_stage_release.json",
@@ -249,6 +252,12 @@ def main():
         assert token in material_analyzer
     material_doc = (ROOT / "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md").read_text(encoding="utf-8")
     assert "torque + U95 < 8.0 N.m" in material_doc and "current + U95 <= 6.0 A" in material_doc
+    p12_registry = next(stage for stage in registry["stages"] if stage["id"] == "P12")
+    assert p12_registry["stage_release_validator"] == "validate_p12_stage_release.py"
+    assert "templates/p12_stage_release.json" in p12_registry["templates"]
+    p12_release = j("validation/physical_v08/templates/p12_stage_release.json")
+    assert p12_release["status"] == "NOT_RUN" and p12_release["production_authorized"] is False
+    assert p12_release["safety_certification"] is False and p12_release["machine_release"] == "HOLD"
     p12_gate = next(row for row in gate["gates"] if row["id"] == "P12")
     assert any("P11_STAGE_RELEASE_VALIDATED" in x for x in p12_gate["prerequisites"])
     assert any("source_lot_id" in x for x in p12_gate["acceptance"])

@@ -19,3 +19,5 @@ P12 is the final physical gate in the ordered P10 -> P11 -> P12 sequence. Final-
 6. Extruder gearbox torque + U95 remains <8.0 N.m and GGM motor current + U95 remains <=6.0 A.
 
 `analyze_p12_records.py RECORD --p11-release ...` produces only `P12_RECORD_CHECK_PASS`. It does not set `stage_p12_pass`, production authority, continuing-power authority, machine release, or safety certification. A separate reviewed P12 stage release is required before the evidence set can be called a physical-validation completion candidate.
+
+After independent review, bind the exact P11 release, P12 record and P12 analyzer result in `templates/p12_stage_release.json`, then run `validate_p12_stage_release.py`. `P12_STAGE_RELEASE_VALIDATED` means only `physical_validation_complete_candidate=true` and `evidence_package_review_allowed=true`; production authorization, continuing-power authority, safety certification and machine release remain false/HOLD.
