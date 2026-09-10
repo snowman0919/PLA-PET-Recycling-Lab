@@ -516,9 +516,10 @@ def typst_text(value: object) -> str:
 
 
 def pdf(path: Path, bom: list[dict[str, str]], aux: dict[str, tuple[list[str], list[dict[str, object]]]]) -> None:
-    typst = shutil.which("typst")
+    candidates = [shutil.which("typst"), *sorted(Path("/nix/store").glob("*-typst-*/bin/typst"))]
+    typst = next((str(candidate) for candidate in candidates if candidate and subprocess.run([str(candidate), "--version"], capture_output=True).returncode == 0), None)
     if not typst:
-        raise RuntimeError("typst not found; run with: nix develop --command python3 release/build_bom_release.py")
+        raise RuntimeError("typst not found in PATH or /nix/store")
     def table(fields: list[str], rows: list[dict[str, object]], widths: list[str], labels: list[str]) -> str:
         cells = ",\n".join("[" + typst_text(row[field]) + "]" for row in rows for field in fields)
         heads = ", ".join(f"[*{label}*]" for label in labels)
