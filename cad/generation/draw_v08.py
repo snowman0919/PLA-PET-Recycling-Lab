@@ -11,8 +11,10 @@ import Part
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
+DRIVE_V08 = ROOT / "cad/freecad/drive_v08"
+sys.path.insert(0, str(DRIVE_V08))
 from cad.freecad.compact.generate import _projection_polylines  # noqa: E402
-from cad.freecad.drive_v08.assembly import integrated_objects  # noqa: E402
+from assembly import integrated_objects  # noqa: E402
 
 OUT = ROOT / "docs/drawings/v0.8"
 
