@@ -1,0 +1,30 @@
+item_id,item,required_quantity_or_capacity,current_state,confirmation_action,design_note
+ASSET-CHIRON,Anycubic Chiron donor machine,1,USER_REPORTED_AVAILABLE,identify salvageable motors/fans/rails/endstops/heater wiring by label and dimensions,do not assume donor hotbed heater is usable as barrel heater
+ASSET-PSU,24 V 800 W donor PSU,1,USER_REPORTED_AVAILABLE,photograph DC output label; verify 24 V and available current; visual/continuity inspection before power,machine still uses 30 A protected envelope and ~500 W operational cap
+ASSET-2020,2020 aluminum profile,>=13.348 m current cut-list total,MEASURE_STOCK,record each usable length before cutting,GGM reference LOD is not added twice; reconcile with active frame cuts
+ASSET-2040,2040 aluminum profile,>=1.320 m current cut-list total,MEASURE_STOCK,record each usable length before cutting,local shredder reinforcement
+ASSET-HW,M2-M6 screw assortment,assorted,USER_REPORTED_AVAILABLE,record lengths/grades actually available; do not equate diameter availability with required length/grade,prefer M3/M4 covers and existing M5/M6 structural schedule
+ASSET-PLA,PLA filament,~10 kg,USER_REPORTED_AVAILABLE,reserve test/fixture quantity,default print material for cold housings
+ASSET-ABS,ABS filament,~0.5 kg,USER_REPORTED_AVAILABLE,reserve ~0.21 kg design allocation plus failure margin,use only where current print manifest requires ABS
+ASSET-BTS,BTS7960 modules,2,USER_REPORTED_AVAILABLE,"visual inspection, heatsink/terminal condition; bench voltage-drop/temperature check",one shredder + one extruder; unidentified cheap controllers excluded
+ASSET-MEGA,Arduino Mega,1,USER_REPORTED_AVAILABLE,"board identity, USB/logic-only boot check",GGM/BTS7960 released firmware target
+ASSET-ESTOP,Latching mushroom E-stop,1,USER_REPORTED_AVAILABLE,confirm NC positive-opening contact block and terminal identity,button alone does not replace K0/branch cut
+BUY-GGM-SH,GGM K9DG60N2 + K9G75C,1,SELECTED_NOT_ORDERED,order only after user approval; receipt against GGM inspection packet,shredder gearbox
+BUY-GGM-EX,GGM K9DG60N2 + K9G150C,1,SELECTED_NOT_ORDERED,order only after user approval; receipt against GGM inspection packet,extruder gearbox
+STOCK-6201,6201-2RS bearing 12x32x10,3,CHECK_PROJECT_LAB_FIRST,"record marking, dimensions, free rotation; buy only shortage",2 jackshaft + 1 extruder radial
+STOCK-61905,61905/6905 bearing 25x42x9,4,CHECK_PROJECT_LAB_FIRST,prefer specified SKF61905-2RS1 or verify alternate rating/fit before substitution,shredder shafts
+STOCK-51102,51102 thrust bearing 15x28x9,1,CHECK_PROJECT_LAB_FIRST,record brand/marking/height/free rotation,extruder thrust path
+BUY-CS,Bidirectional Hall current sensor,2,CHECK_PROJECT_LAB_FIRST_THEN_BUY,5 V analog; useful range must cover 0-6 A with calibration U95 <=0.10 A,motor-lead current sensing A0/A9
+BUY-BAND,24 V 100 W mica band heater ID34 W45,3,NOT_ORDERED,supplier drawing/actual free ID and closure range before order acceptance,barrel Z1-Z3
+BUY-DIE-HEATER,24 V 60 W cartridge heater ~D6x38,1,NOT_ORDERED,match final die bore/lead geometry and cold resistance requirement,die heater
+STOCK-KTC,Ungrounded mineral-insulated Type-K probes,5,CHECK_PROJECT_LAB_FIRST_THEN_BUY,probe OD/stop/insertion geometry and insulation test,T1-T5
+STOCK-MAX6675,MAX6675-compatible interfaces,5,CHECK_PROJECT_LAB_FIRST_THEN_BUY,common-reference wiring matches released electronics,T1-T5 electronics
+STOCK-K0,Hardwired safety contactor/relay chain,1 set,CHECK_PROJECT_LAB_FIRST,24 VDC coil; hazardous 24 V branch interruption and auxiliary feedback; actual DC ratings recorded,do not treat firmware as safety cut
+STOCK-INTERLOCK,Positive-opening lid/service switches,3,CHECK_PROJECT_LAB_FIRST_THEN_BUY,NC forced-opening action and overtravel,lid/service hard cut
+STOCK-FUSE,DC branch fuse holders + thermal cutoffs,1 set,CHECK_PROJECT_LAB_FIRST_THEN_BUY,ratings matched to released branch schedule/heater receipt,mandatory before power
+STOCK-CHAIN,#35 chain + 12T/30T sprockets,1 set,CHECK_PROJECT_LAB_FIRST_THEN_BUY,bore/key/chain condition and alignment,GGM shredder path
+MAT-CUT,D2/SKD11 t6 cutter stock,2 coupon discs first,QUOTE_AFTER_USER_APPROVAL,CUT-01 full 12 count remains held until P4,coupon-first cost control
+MAT-SHAFT,S45C shaft/hub stock,as drawings,CHECK_PROJECT_LAB_FIRST,material identity and machinable sizes,shredder shafts/GGM jackshaft/couplings
+MAT-PLATE,S275/S355 steel plate/sheet,as drawings,CHECK_PROJECT_LAB_FIRST,use cut/drill/bend before CNC where possible,mounts/guards/retainers
+MAT-HOT,SCM440 process coupon stock,EX-CPN-SCR x1 + EX-CPN-BAR x1,QUOTE_AFTER_USER_APPROVAL,same certified heat/process route as eventual full parts,full screw/barrel remains held until P5
+MAT-GASKET,C110 annealed copper gasket stock,small quantity,CHECK_PROJECT_LAB_FIRST,t0.50 material/flatness,die joint

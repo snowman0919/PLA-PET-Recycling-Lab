@@ -1,14 +1,21 @@
 """Offline record checks only. Never enables hardware or executes a test."""
 from pathlib import Path
-import json,math,hashlib,datetime
+import json,math,hashlib,datetime,importlib.util
 H=Path(__file__).resolve().parent
 R=H.parents[2]
-SIM_GATE=R/'validation/results/v08_full_compliance.json'
+PREREQ=R/'validation/physical_v08/simulation_prerequisite.py'
 
 def simulation_gate():
-    if not SIM_GATE.is_file(): return {'status':'MISSING','pass':False,'sha256':None}
-    data=json.loads(SIM_GATE.read_text())
-    return {'status':data.get('status','UNKNOWN'),'pass':data.get('status')=='PASS','sha256':hashlib.sha256(SIM_GATE.read_bytes()).hexdigest()}
+    if not PREREQ.is_file(): return {'status':'MISSING','pass':False,'sha256':None}
+    spec=importlib.util.spec_from_file_location('ppr_physical_prereq',PREREQ)
+    if spec is None or spec.loader is None: return {'status':'LOAD_FAILED','pass':False,'sha256':None}
+    module=importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+    data=module.evaluate(refresh=True)
+    return {'status':data.get('status','UNKNOWN'),'pass':data.get('status')=='PASS',
+            'sha256':hashlib.sha256(PREREQ.read_bytes()).hexdigest(),
+            'required_technical_gate_count':data.get('required_technical_gate_count'),
+            'failed_technical_gates':data.get('failed_technical_gates',[]),
+            'excluded_release_only_gates':data.get('excluded_release_only_gates',{})}
 
 def number(v):
     if type(v) not in (int,float) or not math.isfinite(v): raise ValueError('finite numeric value required')
@@ -130,7 +137,7 @@ def inspect(packet):
         if row.get('performed') is not True:
             report['domains'][name]={'status':'NOT_RUN'}; continue
         if not sim['pass']:
-            report['domains'][name]={'status':'REJECTED','reason':'full digital simulation/compliance gate is not PASS'}; continue
+            report['domains'][name]={'status':'REJECTED','reason':'23-gate technical digital prerequisite is not PASS'}; continue
         if packet.get('all_physical_actions_authorized') is not True:
             report['domains'][name]={'status':'REJECTED','reason':'physical action authorization not granted'}; continue
         if not binding_ok:

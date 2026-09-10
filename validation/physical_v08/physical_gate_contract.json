@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "revision": "physical-readiness-v0.8",
+  "design_branch": "final-design-fabrication-closure-v0.8",
+  "principle": "minimum-cost staged fabrication; no full-count order before the preceding cheap coupon/receipt gate passes",
+  "digital_entry": {
+    "source": "validation/physical_v08/simulation_prerequisite.json",
+    "required_status": "PASS",
+    "required_technical_gates": 23,
+    "release_package_required": false,
+    "remote_push_required": false
+  },
+  "global_state": {
+    "physical_validation": "NOT_RUN",
+    "purchase_authorized": false,
+    "fabrication_authorized": false,
+    "energization_authorized": false,
+    "full_machine_build_authorized": false
+  },
+  "gates": [
+    {
+      "id": "P0",
+      "name": "DIGITAL_TECHNICAL_ENTRY",
+      "action": "record-only",
+      "prerequisites": [],
+      "acceptance": [
+        "23/23 technical digital gates PASS",
+        "release ZIP and remote policy explicitly excluded from this entry decision"
+      ],
+      "unlocks": [
+        "P1 planning and user-approved stock/receipt inspection only"
+      ]
+    },
+    {
+      "id": "P1",
+      "name": "INVENTORY_AND_RECEIPT",
+      "action": "unpowered inspection",
+      "prerequisites": [
+        "P0 PASS",
+        "explicit user approval before any purchase"
+      ],
+      "acceptance": [
+        "selected GGM motor/gearbox receipt dimensions within inspection packet intervals",
+        "profile usable lengths reconciled to active cut list",
+        "bearing/heater/sensor/safety component identities recorded",
+        "owned assets distinguished from physically inspected assets"
+      ],
+      "unlocks": [
+        "final mount drilling dimensions",
+        "P2 cold fabrication"
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "COLD_FRAME_AND_FIT",
+      "action": "cut/print/assemble without electrical power",
+      "prerequisites": [
+        "P1 required stock identified",
+        "user fabrication approval"
+      ],
+      "acceptance": [
+        "frame base 470x700 mm nominal and rail squareness <=0.50/700",
+        "2020/2040 cut lengths checked before cutting",
+        "rotating-to-static shredder clearance >=1.90 mm",
+        "extruder cold axial travel >=1.50 mm",
+        "guards/covers fit without entering moving or hot envelopes"
+      ],
+      "unlocks": [
+        "P3 drive bench fixture",
+        "P5 process coupons"
+      ]
+    },
+    {
+      "id": "P3",
+      "name": "GGM_DRIVE_BENCH",
+      "action": "guarded low-voltage motor bench test, no cutter/screw/heater load",
+      "prerequisites": [
+        "P0 PASS",
+        "GGM receipt PASS",
+        "BTS7960 wiring checked",
+        "current sensor calibrated against independent reference",
+        "user energization approval for this fixture only"
+      ],
+      "acceptance": [
+        "SH K9G75C and EX K9G150C no-load speed/current recorded",
+        "current calibration error including U95 <=0.10 A over useful range through at least 4.6 A",
+        "current-to-output-torque holdout error <=0.40 N.m",
+        "software gearbox torque limit 8.0 N.m remains below mechanical release target",
+        "mechanical protection coupons release 8.8-9.3 N.m; SH forward/reverse and EX forward each >=3 independent coupons",
+        "extruder reverse remains prohibited"
+      ],
+      "unlocks": [
+        "P4 powered shredder coupon",
+        "P6 extruder drive installation"
+      ]
+    },
+    {
+      "id": "P4",
+      "name": "SHREDDER_COUPON",
+      "action": "two-cutter guarded coupon only",
+      "prerequisites": [
+        "P3 PASS",
+        "CUT-01 quantity exactly 2",
+        "guard/interlock/hard cut verified",
+        "user approval for Gate-1 coupon"
+      ],
+      "acceptance": [
+        "no permanent shaft/plate/guard damage",
+        "no repeated software torque-limit operation during representative normal PLA/PET body feed",
+        "bounded reverse recovery works without automatic restart",
+        "after at most one recirculation: 3-6 mm mass fraction >=70%, >20 mm PET strip <=2%, fines <=15%, mass recovery >=95%",
+        "actual torque/current/RPM curves recorded; old 22/24 N.m acceptance values are not used"
+      ],
+      "unlocks": [
+        "remaining CUT-01 quantity may be considered for fabrication",
+        "P5/P6 continue"
+      ]
+    },
+    {
+      "id": "P5",
+      "name": "SCREW_BARREL_PROCESS_COUPON",
+      "action": "supplier/process coupons only",
+      "prerequisites": [
+        "P0 PASS",
+        "user approval for EX-CPN-SCR and EX-CPN-BAR only"
+      ],
+      "acceptance": [
+        "EX-CPN-SCR L48.00 +/-0.05 mm, pitch 16.00 +/-0.03 mm, land 1.60 +/-0.05 mm",
+        "EX-CPN-BAR L60.00 +/-0.05 mm, final ID 16.20 +0.02/0 mm",
+        "surface hardness 900-1100 HV where specified",
+        "effective nitrided case 0.30-0.50 mm before any specified final-removal allowance",
+        "screw OD Ra <=0.8 um and barrel bore Ra 0.4-0.8 um",
+        "matched coupon diametral clearance 0.28-0.32 mm",
+        "material/heat/process traceability and supplier DFM recorded"
+      ],
+      "unlocks": [
+        "full EX-SCR-01/EX-BAR-01 quotation/order may be considered, still requiring explicit user approval"
+      ]
+    },
+    {
+      "id": "P6",
+      "name": "COLD_EXTRUDER_ASSEMBLY",
+      "action": "full mechanical dry assembly, heater power disconnected",
+      "prerequisites": [
+        "P5 PASS",
+        "full screw/barrel receipt inspection PASS",
+        "P3 EX drive PASS"
+      ],
+      "acceptance": [
+        "hand rotation through full screw travel without rub/bind",
+        "screw/barrel diametral clearance 0.28-0.32 mm from supplier/receipt evidence",
+        "51102 pocket diametral clearance 0.30-0.35 mm",
+        "loaded-direction thrust endplay 0.05-0.15 mm",
+        "drive coaxiality <=0.05 mm",
+        "front guide available cold axial travel >=1.50 mm",
+        "rear retainer cold endplay 0.12-0.28 mm"
+      ],
+      "unlocks": [
+        "P7 electrical integration"
+      ]
+    },
+    {
+      "id": "P7",
+      "name": "ELECTRICAL_SAFETY_AND_LOGIC",
+      "action": "logic-only/current-limited commissioning before motor/heater branches",
+      "prerequisites": [
+        "mechanical guards fitted",
+        "K0/hardwired chain and branch protection physically present",
+        "user logic-power approval"
+      ],
+      "acceptance": [
+        "PE bond <=0.10 ohm at each required metal bond",
+        "insulation check passes applicable isolated circuit test without exposing electronics to inappropriate megger voltage",
+        "24 V rail 22.8-25.2 V under logic-only check",
+        "logic startup current <=0.5 A",
+        "opening E-stop/lid/service/thermal chain removes K0 coil energy",
+        "reset never creates automatic motor/heater command",
+        "all fuse IDs and point-to-point wiring match schedule"
+      ],
+      "unlocks": [
+        "P8 installed motor dry-run"
+      ]
+    },
+    {
+      "id": "P8",
+      "name": "INSTALLED_MOTOR_DRY_RUN",
+      "action": "one motor branch at a time, heaters disabled, no plastic",
+      "prerequisites": [
+        "P3 PASS",
+        "P6/P7 applicable checks PASS",
+        "guards closed",
+        "user motor-power approval"
+      ],
+      "acceptance": [
+        "shredder cutter speed near design 16 rpm after chain ratio, actual value recorded",
+        "screw starts at <=10 rpm for commissioning and never exceeds 20 rpm hard limit",
+        "bearing/coupling temperature rise and vibration show no abnormal trend during bounded dry run",
+        "stop/E-stop/tach-loss behavior verified without automatic restart"
+      ],
+      "unlocks": [
+        "P9 heater commissioning"
+      ]
+    },
+    {
+      "id": "P9",
+      "name": "EMPTY_HOT_ZONE",
+      "action": "empty guarded hot-path thermal commissioning; motors inhibited",
+      "prerequisites": [
+        "P7 PASS",
+        "heater/probe receipt PASS",
+        "independent thermal cutoff installed",
+        "metal hot shield and remote stop available",
+        "user heater-power approval"
+      ],
+      "acceptance": [
+        "T1-T5 mapping verified and no sensor open/short fault",
+        "PLA and PET target temperature holds within +/-5 C under bounded empty-path check",
+        "polymer leak-tightness is NOT evaluated in the empty-path test; electrical insulation/PE remains valid",
+        "hot-zone does not bottom its axial allowance; cold available travel was >=1.50 mm",
+        "forced-open independent thermal chain removes heater energy",
+        "M4 die fasteners are 42.5 +/-0.1 mm from M4x45 class10.9 stock and installed dry at 1.50 N.m only after receipt checks"
+      ],
+      "unlocks": [
+        "P10 low-feed PLA"
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "PLA_LOW_FEED",
+      "action": "first material process validation",
+      "prerequisites": [
+        "P4/P6/P8/P9 PASS",
+        "known dry PLA lot",
+        "user material-feed approval"
+      ],
+      "acceptance": [
+        "start screw around 8-10 rpm and increase only from measured torque/diameter behavior",
+        "no leak, uncontrolled pressure symptom, guard contact, or repeated torque trip",
+        "20 consecutive stable diameter samples: mean error <=0.05 mm, ovality <=0.05 mm, U95 <=0.03 mm target",
+        "actual mass/time, temperature, screw RPM, current/torque, puller RPM recorded"
+      ],
+      "unlocks": [
+        "P11 PET test"
+      ]
+    },
+    {
+      "id": "P11",
+      "name": "PET_LOW_FEED",
+      "action": "dry PET process validation after PLA succeeds",
+      "prerequisites": [
+        "P10 PASS",
+        "known cleaned/dried PET lot",
+        "PET thermal profile ready",
+        "user PET-feed approval"
+      ],
+      "acceptance": [
+        "start screw around 8-10 rpm; 18 rpm is not assumed safe and is approached only if measured gearbox torque retains margin below 8.0 N.m limit",
+        "no leakage or hot-zone binding",
+        "20 consecutive stable diameter samples: mean error <=0.05 mm, ovality <=0.05 mm, U95 <=0.03 mm target",
+        "actual maximum stable throughput is reported instead of forcing 200 g/h"
+      ],
+      "unlocks": [
+        "P12 forming/spool validation"
+      ]
+    },
+    {
+      "id": "P12",
+      "name": "FORMING_AND_SPOOL",
+      "action": "full strand path and spool validation",
+      "prerequisites": [
+        "P10 or P11 stable strand",
+        "gauge/puller/dancer/traverse calibration PASS",
+        "user full-path approval"
+      ],
+      "acceptance": [
+        "puller slip <=1% during stable interval",
+        "traverse usable width 68 mm verified without end collision",
+        "dancer stop before 0.36 rad and no contact with 0.4363 rad hard stop",
+        "1 kg nominal spool dummy/full winding path completes without spill or guard contact"
+      ],
+      "unlocks": [
+        "physical-validation evidence package may be reviewed; not automatic production/safety certification"
+      ]
+    }
+  ]
+}

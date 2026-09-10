@@ -335,7 +335,7 @@ def commissioning() -> None:
             "확인된 단일 PET lot과 오염·수분 coupon, all-metal hot path, 실제 정격 확인된 300 °C급 wiring/cutoff, calibrated sensors.",
             "245/260/270 °C barrel과 265 °C die가 ±5 °C band에 든 뒤 guarded low-feed first-hot-test를 수행한다. PLA 결과를 재사용하지 않는다.",
             "Lot/moisture·오염 기록, 온도/압력 징후, relief/leak 영상, X/Y diameter·ovality·U95, 실제 질량/시간.",
-            "Mean diameter error ≤0.05 mm; ovality ≤0.05 mm; U95 ≤0.03 mm; 20개 연속 valid; hot-zone travel ≥1.30 mm; 누설 0건; 3–6 MPa relief coupon 3개 모두 insert 포획 상태로 우회 개방."),
+            "Mean diameter error ≤0.05 mm; ovality ≤0.05 mm; U95 ≤0.03 mm; 20개 연속 valid; 가열 전 cold axial travel ≥1.50 mm이고 hot run 중 hard-stop 접촉 0; 누설 0건; relief coupon은 별도 승인된 절차의 실제 결과만 사용."),
         "material_change_purge_ko": procedure(
             "이전/다음 material ID, verified screw tach, waste path, T1–T5, clean screen/hopper 도구.",
             "이전 material profile에서 waste path로 purge하고 시간·실제 screw 회전을 동시에 적산한다. Screen/hopper 청소와 다음 profile 전이를 각각 확인한다.",
@@ -343,9 +343,9 @@ def commissioning() -> None:
             "Purge ≥120 s AND actual screw ≥32 rev; 모든 zone target ±5 °C; visual contamination 0; screen/hopper signoff 완료; 종료 후 모든 hot point 60 °C 미만."),
         "physical_validation_plan_ko": procedure(
             "승인된 coupon/fixture, calibrated instruments, 각 gate 작업자·독립 검토자, lockout/원격 E-stop.",
-            "Gate 1 cutter coupon → Gate 2 safety/drive → Gate 3 hot-zone leak/relief → Gate 4 gauge/forming → Gate 5 full spool 순서로 수행하며 FAIL 시 즉시 lockout하고 다음 gate를 금지한다.",
+            "P0 23-gate digital prerequisite → P1 inventory/receipt → P2 cold fit → P3 GGM bench → P4 two-cutter coupon → P5 process coupon → P6 cold extruder → P7 safety/logic → P8 motor dry-run → P9 empty hot-zone → P10 PLA → P11 PET → P12 forming/spool 순서로 진행한다. 각 물리 단계는 별도 사용자 승인 전 NOT_RUN이다.",
             "Gate별 입력·방법·원시 CSV/사진/video·판정·서명. Simulation 값은 시험 결과 칸에 복사하지 않는다.",
-            "G1: 18 N·m trip/22 N·m shear; G2: PE≤0.10 Ω·절연≥1 MΩ·자동재기동 0; G3: relief 3/3 PASS·누설 0; G4: diameter/ovality≤0.05 mm·U95≤0.03 mm; G5: 1 kg nominal spool, 68 mm traverse, dancer stop 0.36 rad 이전, hard-stop 0.4363 rad 비접촉."),
+            "GGM: software gearbox torque limit 8.0 N·m, mechanical protection 8.8–9.3 N·m 실측; cutter는 CUT-01 2개 coupon 선행. Electrical: PE≤0.10 Ω·자동재기동 0. Hot-zone: cold axial travel≥1.50 mm, SYS-04 42.5±0.1 mm/1.50 N·m, 실제 누설은 first-hot-test에서 확인. Forming: diameter/ovality≤0.05 mm, U95≤0.03 mm target; spool: 68 mm traverse, dancer stop 0.36 rad 이전, hard-stop 0.4363 rad 비접촉."),
     }
     gate_rows = [
         ("assembly incomplete", "assembly complete", "all 25 assembly_steps rows signed; dimensions and guards inspected", "independent mechanical reviewer + user", "NOT_RUN"),

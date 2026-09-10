@@ -4,20 +4,22 @@
 
 = Gate-1 CUT-01 최소수량 coupon 지그 조립도
 
+#box(fill: rgb("fff0d7"), inset: 6pt, stroke: rgb("b45f06"), [*GGM v0.8 POWERED PATH SUPERSEDES LEGACY:* `gate1_powered_assembly.step`와 DRV-01/Axx/F01은 powered 시험에 사용하지 않는다. Manual coupon geometry만 재사용하고 powered 시험은 `validation/physical_v08`의 GGM 경로를 따른다.])
+
 Revision: `virtual-physics-closure-v0.5.1` / 수동·구동 두 상태는 생성된 `assembly_ko.md` 외형값을 따른다.
 
 #image("../../../renders/jigs/gate1_assembly.png", width: 88%)
 
 == 구성과 하중경로
 
-CUT-01은 축당 1장, 합계 2장만 쓴다. CUT-04 5 mm screen coupon 1개, CUT-05 shaft 2개, CUT-03/CUT-08 각 2개, 6004-2RS 4개, keyed DRV-03 lamination 6개, G1J-01–12/P01–P03, 3 mm polycarbonate guard와 0–200 N gauge/load-cell로 구성한다.
+CUT-01은 축당 1장, 합계 2장만 쓴다. CUT-04 5 mm screen coupon 1개, CUT-05 shaft 2개, CUT-03/CUT-08 각 2개, 61905/6905 25×42×9 4개, keyed DRV-03 lamination 6개, G1J-01–12/P01–P03, 3 mm polycarbonate guard와 0–200 N gauge/load-cell로 구성한다.
 
-고하중 경로는 cutter → metal shaft → 6004/CUT-08 → CUT-03 → G1J-10 metal feet → G1J-01 metal base → 고정 table이다. Powered 경로는 motor → DRV-Axx/DRV-01/G1J-11 → DRV-F01 → #35 chain/DRV-02 → cutter shaft다. Guard fragment 유지는 G1J-07 metal upright가 담당하며 printed chute/tray/edge trim은 load path가 아니다.
+고하중 경로는 cutter → metal shaft → 61905/CUT-10/CUT-08 → CUT-03 → G1J-10 metal feet → frame/table이다. 현 powered 경로는 GGM K9DG60N2+K9G75C → GGM protection coupling → 6201-supported jackshaft → #35 12T:30T → cutter shaft다. Legacy DRV-Axx/DRV-01/F01 경로는 historical reference다. Guard fragment 유지는 metal upright/guard가 담당하며 printed chute/tray/edge trim은 load path가 아니다.
 
 == 조립
 
 1. G1J-01을 table에 M8 4점 체결하고 평면도 0.3 이하를 확인한다.
-2. G1J-10 foot에 CUT-03/6004/CUT-05/CUT-08을 조립하고 bearing outer ring만 눌러 삽입한다.
+2. G1J-10 foot에 CUT-03/CUT-10/61905/CUT-05/CUT-08을 조립하고 bearing outer ring만 눌러 삽입한다.
 3. CUT-01 두 장을 6.5 axial offset으로 interleave하고 Ø20 split collar와 0.25–0.50 metal shim으로 gap을 설정한다.
 4. CUT-04 screen을 G1J-08 steel rail에 체결하고 cutter tip 아래 nominal 3.0, 실제 최소 clearance 1.9 이상으로 shim 고정한다.
 5. DRV-03을 3장/gear, 공통 6 mm key, 2x M4 + 1x Ø3 h6 dowel로 체결한다. 20회 hand rotation에서 접촉·shaft 상대 slip이 0이어야 한다.
@@ -25,7 +27,7 @@ CUT-01은 축당 1장, 합계 2장만 쓴다. CUT-04 5 mm screen coupon 1개, CU
 7. G1J-07 metal upright에 G1J-03/04/05/12 polycarbonate panel과 roof를 nylon washer로 체결한다. 양단 개방형 G1J-P01 chute와 roof의 gap은 1 mm 이하, 그 밖의 unguarded opening은 6 mm 이하로 하고 G1J-06 offset baffle이 arm slot의 fragment 직선경로를 막는지 확인한다.
 8. G1J-09의 positive-opening switch와 E-stop을 아래 hard-cut 회로로 배선한다. Guard/E-stop 개방 후 manual START 없이 K1이 재투입되면 FAIL이다.
 9. `fastener_schedule.csv`대로 체결·witness mark를 완료한 뒤 manual torque 시험을 수행한다.
-10. Main disconnect/shaft lockout에서 torque arm을 제거하고 아래 powered 상태로 DRV-01/Axx/F01/02/#35를 조립한다. 수동 arm과 powered drive를 동시에 장착하지 않는다.
+10. Main disconnect/shaft lockout에서 torque arm을 제거한다. 아래 legacy powered view는 historical reference일 뿐 현재 구동부로 사용하지 않는다. Powered coupon은 `validation/physical_v08/physical_gate_contract.json`의 P3 PASS 뒤 GGM K9DG60N2+K9G75C, GGM protection coupling, 6201 jackshaft, #35 12T:30T 경로를 사용한다. 수동 arm과 powered drive를 동시에 장착하지 않는다.
 
 #image("../../../renders/jigs/gate1_exploded.png", width: 88%)
 

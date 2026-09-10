@@ -1,35 +1,33 @@
-# OPTIONAL_EMPIRICAL_VALIDATION — 저비용 commissioning/model-correlation 절차
+# v0.8 PHYSICAL VALIDATION — 현재 실행 기준
 
-이 문서의 Gate 1–5는 디지털 설계 릴리스나 `main` 승격의 필수조건이 아니다. 실행하려면 정확한 부품·lockout·위험 통제와 사용자 승인이 필요하며, 미수행 상태는 `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`이다.
+이 문서의 controlling 상세는 `validation/physical_v08/PHYSICAL_BUILD_READINESS_KO.md`와 `physical_gate_contract.json`이다. 물리 진입은 release ZIP/GitHub 상태가 아니라 `simulation_prerequisite.py`가 확인하는 23개 기술 gate 전부 PASS를 요구한다. 각 실제 구매·가공·통전 단계는 별도 사용자 승인 전 `NOT_RUN`이다.
 
-## Gate 1 Cutter coupon
+## P1–P3: 수령·냉간조립·GGM bench
 
-- 부품: CUT-01 정확히 2개, CUT-04 5 mm screen coupon 1개, CUT-05 shaft 2개, CUT-03 plate 2개, 6004 4개, CUT-08 retainer 2개, DRV-03 lamination 6개, G1J-01–12/P01–P03, calibrated 0–200 N gauge/load-cell, 50 A current sensor와 Hall RPM. G1J-07 metal upright와 G1J-12 closed roof가 3 mm polycarbonate guard를 유지하고 S0/S1→K0→K1 hard-cut 회로를 구성한다. Manual torque 상태와 powered jam 상태는 각각의 controlling STEP대로 따로 조립하며, motor 시험은 functional interface를 통과한 donor만 연결한다.
-- 입력: PET body/four-layer folded seam, PLA wall 1.2/2.0/3.0 mm 각 5개.
-- 측정: torque/current/RPM drop, capture/reverse, 조각 sieve mass.
-- 합격: PLA/PET body max<=14 N·m, PET folded seam max<=24 N·m, 영구변형/guard breach 0, bounded reverse 3회 뒤 latch, 3–6 mm>=55%, >20 mm PET strip<=10%, fines<=15%, recovery>=95%와 torque-current-RPM curve 확보. 상세 절차는 `exports/jigs/gate1/test_procedure_ko.md`가 controlling이다.
+GGM K9DG60N2+K9G75C(분쇄)와 K9DG60N2+K9G150C(압출)의 실제 축/PCD/편심/길이를 수령 측정한다. BTS7960 두 개는 각각 한 축에 배정한다. current sensor는 motor lead에서 독립 기준으로 교정하며 0–6 A 유효범위의 U95 포함 오차 ≤0.10 A, torque holdout error ≤0.40 N·m를 요구한다.
 
-## Gate 2 Flake/feed coupon
+Gearbox software torque limit은 8.0 N·m이고 mechanical protection coupon은 8.8–9.3 N·m에서 분리되어야 한다. 분쇄 정/역, 압출 정방향 각각 독립 coupon 3개 이상을 사용한다. 압출 reverse는 허용하지 않는다. 과거 18 N·m trip/22 N·m shear 값은 현 GGM 설계의 합격기준이 아니다.
 
-- 부품: 4/5/6 mm screen coupon, removable bin, sealed hopper/feeder.
-- 측정: 3–6 mm mass fraction, oversize/fines/긴 PET strip, bridge와 30 min feed CV.
-- 합격: 5 mm 기준 3–6 mm fraction >=70% 또는 recirculation 1회 후 >=85%, long strip <=2%, feed CV <=10%. 실패 시에만 별도 granulator ADR 재개.
+## P4: Shredder coupon
 
-## Gate 3 Extruder cold/mechanical proof
+CUT-01은 정확히 2개만 먼저 가공한다. CUT-04 5 mm screen, CUT-05/CUT-05R, 61905 계열 베어링과 현재 GGM 구동계를 사용한다. Manual torque fixture는 기존 Gate-1 형상을 재사용할 수 있지만, legacy `DRV-01/Axx/F01` powered path와 `gate1_powered_assembly.step`은 사용하지 않는다.
 
-- 부품: screw/barrel/thrust plate/bearing/drive, heater 미장착 또는 분리.
-- 합격: hand rotation 전 길이 binding 0, radial rub 0, shaft alignment <=0.10 mm TIR, thrust path가 metal/profile에 닫힘, 30 min heater-off load에서 fastener 이동 0.
+실측 torque/current/RPM과 손상 여부를 기록한다. 정상 PLA/PET body 투입에서 반복적인 8.0 N·m gearbox software limit 동작이 없어야 한다. 한 번 이하 재순환 후 3–6 mm ≥70%, >20 mm PET strip ≤2%, fines ≤15%, 회수율 ≥95%를 목표 합격기준으로 사용한다. 실패하면 남은 CUT-01 10개를 제작하지 않는다.
 
-Gate 3 전에는 EX-CPN-SCR 3-pitch와 EX-CPN-BAR 60 mm 공정 coupon만 허용한다. Drawing limit radial clearance 0.14–0.16 mm, hardness/case depth/Ra/TIR report와 공급사 DFM이 닫히기 전 full screw/barrel 발주를 승인하지 않는다.
+## P5–P6: Screw/barrel coupon과 냉간 압출부
 
-## Gate 4 Hot extrusion
+Full screw/barrel 전에 `EX-CPN-SCR` 3-pitch와 `EX-CPN-BAR` 60 mm만 같은 heat/QT/nitride/finish route로 제작한다. Coupon은 pitch/land/ID/OD, 900–1100 HV, effective case 0.30–0.50 mm, screw Ra≤0.8 µm, barrel bore Ra0.4–0.8 µm, matched diametral clearance 0.28–0.32 mm를 확인한다.
 
-- 부품: metal shield, remote E-stop, branch/thermal fuse, thermocouple logger, low-feed PLA.
-- 합격: runaway/open-sensor에서 independent cut, jam에서 torque trip/guard containment, shield <=55 °C와 adjacent polymer <=45 °C, PLA 30 min 안정 후에만 dry PET 시험. Pressure sensor 유무와 관계없이 blockage test를 기록한다.
+Coupon이 통과한 뒤에만 full part를 별도 사용자 승인 대상으로 올린다. 냉간 조립에서는 rub/binding 0, 51102 endplay 0.05–0.15 mm, drive coaxiality ≤0.05 mm, front guide cold axial travel ≥1.50 mm를 확인한다.
 
-## Gate 5 Diameter/spool
+## P7–P9: 전기·구동·고온부
 
-- 부품: traceable pin/wire, gauge, puller, dancer/traverse, full 1 kg spool dummy.
-- 합격: die-to-puller 323 mm straight span과 installed 2×100 mm duct 끝 strand temperature가 PLA <=48 °C/PET <=65 °C, U95 <=0.05 mm initial, 30 min mean 1.75 ±0.05 mm와 ovality <=0.08 mm, puller slip <=1%, dancer/endstop collision 0, full traverse spill 0. 200 g/h에서 온도 Gate 실패 시 장치를 키우지 않고 처리량을 낮춰 최대 안정값을 보고한다. Improvement target은 U95/diameter ±0.03 mm다.
+Logic-only 단계에서 PE≤0.10 Ω, 24 V rail 22.8–25.2 V, 초기 logic current≤0.5 A, E-stop/lid/service/thermal chain forced-open 시 K0 coil de-energize, 자동재기동 0을 확인한다. 이후 모터는 한 branch씩 dry-run하고 heater는 motor inhibited 상태에서 최초 가열한다.
 
-각 Gate 실행 전 사용자가 exact 부품과 절차를 승인해야 한다. 이 문서는 시험 결과가 아니며, 수행하더라도 별도 검토 없이 안전/생산 인증으로 해석하지 않는다.
+Die SYS-04는 M4×45 class10.9 stock screw를 42.5±0.1 mm로 절단·디버링하고 dry 1.50 N·m를 사용한다. 가열 전 cold axial travel은 ≥1.50 mm이며 first hot cycle에서 hard-stop 접촉·누설이 없어야 한다. 독립 thermal chain은 강제 개방으로 heater energy removal을 확인하며 장치를 일부러 과열시켜 시험하지 않는다.
+
+## P10–P12: PLA → PET → forming/spool
+
+PLA를 먼저 known dry lot으로 8–10 rpm 부근에서 시작한다. PET는 PLA가 안정된 뒤 동일하게 저속에서 시작하며 18 rpm을 기본 안전값으로 가정하지 않는다. 실제 gearbox torque가 8.0 N·m hard limit에 충분한 여유를 보일 때만 속도를 올린다. 200 g/h를 강제하지 않고 실제 최대 안정 처리량을 기록한다.
+
+직경 검증은 20개 연속 stable sample에서 mean error≤0.05 mm, ovality≤0.05 mm, U95≤0.03 mm target을 사용한다. 최종 forming/spool에서는 puller slip≤1%, traverse 68 mm, dancer stop 0.36 rad 이전, 0.4363 rad hard-stop 비접촉을 확인한다.
