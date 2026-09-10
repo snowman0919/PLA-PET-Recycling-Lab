@@ -66,7 +66,7 @@ def validate(path: Path, analyzer=None) -> dict:
         raise ValueError("P5 release scope invalid")
     if release.get("action_state") != "HOLD" or release.get("machine_release") != "HOLD":
         raise ValueError("P5 release safety state invalid")
-    for field in ("approved_by", "independent_reviewer"):
+    for field in ("approved_by", "independent_reviewer", "qualified_supplier", "qualified_route_id", "screw_heat_reservation_ref", "barrel_heat_reservation_ref"):
         if not isinstance(release.get(field), str) or not release[field].strip():
             raise ValueError("P5 release missing " + field)
     if release["approved_by"].strip() == release["independent_reviewer"].strip():
@@ -102,6 +102,10 @@ def validate(path: Path, analyzer=None) -> dict:
         "p5_result_sha256": sha(result_path),
         "p5_analyzer_sha256": sha(P5_ANALYZER),
         "record_files_sha256": fresh["record_files_sha256"],
+        "qualified_supplier": release["qualified_supplier"],
+        "qualified_route_id": release["qualified_route_id"],
+        "screw_heat_reservation_ref": release["screw_heat_reservation_ref"],
+        "barrel_heat_reservation_ref": release["barrel_heat_reservation_ref"],
         "approved_by": release["approved_by"],
         "independent_reviewer": release["independent_reviewer"],
         "reviewed_at": release["reviewed_at"],

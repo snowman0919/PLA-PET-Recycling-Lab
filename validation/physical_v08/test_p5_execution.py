@@ -88,6 +88,8 @@ class P5ExecutionTest(unittest.TestCase):
                 'approved_by':'ENGINEER-A','independent_reviewer':'REVIEWER-B','reviewed_at':'2026-09-10T17:30:00+09:00',
                 'records_dir':str(d.relative_to(ROOT)),'p5_result':result_path.name,
                 'p5_result_sha256':hashlib.sha256(result_path.read_bytes()).hexdigest(),
+                'qualified_supplier':'SYN-SUPPLIER','qualified_route_id':'SYN-ROUTE-01',
+                'screw_heat_reservation_ref':'SYN-SCR-HEAT','barrel_heat_reservation_ref':'SYN-BAR-HEAT',
                 'p6_entry_review':True,'action_state':'HOLD','machine_release':'HOLD'}
             release_path=d/'p5_stage_release.json'; release_path.write_text(json.dumps(release,indent=2)+'\n')
             checked=P5REL.validate(release_path); self.assertEqual(checked['status'],'P5_STAGE_RELEASE_VALIDATED')

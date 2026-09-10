@@ -32,6 +32,9 @@ def main():
   if s.get('stage_release_validator'):
    stage_validator=resolve(s['stage_release_validator']); req(stage_validator.is_file(),s['id']+' missing stage-release validator '+str(stage_validator))
    py_compile.compile(str(stage_validator),doraise=True)
+  if s.get('entry_validator'):
+   entry_validator=resolve(s['entry_validator']); req(entry_validator.is_file(),s['id']+' missing entry validator '+str(entry_validator))
+   py_compile.compile(str(entry_validator),doraise=True)
   for t in s['templates']:
    p=resolve(t); req(p.is_file(),s['id']+' missing template '+str(p))
  p3=json.loads((ROOT/'templates/p3_stage_release.json').read_text()); req(p3['status']=='NOT_RUN','P3 release template must remain NOT_RUN')

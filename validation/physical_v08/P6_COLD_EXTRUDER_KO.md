@@ -1,6 +1,6 @@
 # P6 냉간 압출기 조립 검증
 
-P6는 P5 process coupon이 승인되고 production screw/barrel을 수령한 뒤, 히터를 장착하거나 통전하기 전에 수행한다. 목표는 실제 screw/barrel/thrust stack이 냉간에서 자유롭게 회전하고 열팽창용 축방향 여유를 확보하는지 확인하는 것이다.
+P6는 P5 process coupon 결과가 `validate_p5_stage_release.py`에서 `P5_STAGE_RELEASE_VALIDATED`로 재검증되고 production screw/barrel을 수령한 뒤, 히터를 장착하거나 통전하기 전에 수행한다. P5 release에는 qualified supplier/process-route ID와 screw/barrel heat-reservation reference가 포함되어야 하며, P6 production receipt는 이 식별자와 정확히 일치해야 한다. 목표는 실제 screw/barrel/thrust stack이 냉간에서 자유롭게 회전하고 열팽창용 축방향 여유를 확보하는지 확인하는 것이다.
 
 ## 조립·측정 순서
 
@@ -13,4 +13,4 @@ P6는 P5 process coupon이 승인되고 production screw/barrel을 수령한 뒤
 
 ## 판정
 
-`templates/p6_cold_extruder.csv`에 실제 값과 계측기·작업자·독립 검토자·증거 경로를 기록하고 `analyze_p6_records.py`로 판정한다. P6 PASS는 heater authorization이 아니며 P7 전기안전 gate와 P9 empty-hot-zone gate가 별도로 남는다.
+`templates/p6_production_receipt.csv`에는 EX-SCR-01/EX-BAR-01의 serial, supplier/process-route ID, P5 heat-reservation reference, 실제 heat/lot, material/process/final-finish report ID와 evidence SHA-256을 기록한다. `templates/p6_cold_extruder.csv`의 모든 행에는 timezone 포함 시각, 계측기/교정 참조, 작업자·독립 검토자, repository 내부 evidence 경로와 SHA-256을 기록한다. `analyze_p6_records.py <cold.csv> --p5-release <p5_release.json> --production-receipt <receipt.csv>`는 P5 release를 현재 validator로 다시 검증한 뒤 production identity와 cold-fit U95를 판정한다. 출력이 통과해도 `stage_p6_pass=false`, `hardware_authorization=false`, `action_state=HOLD`이며 P7 전기안전 gate와 P9 empty-hot-zone gate가 별도로 남는다.

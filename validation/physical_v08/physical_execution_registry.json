@@ -92,8 +92,10 @@
       "doc": "P6_COLD_EXTRUDER_KO.md",
       "analyzer": "analyze_p6_records.py",
       "templates": [
+        "templates/p6_production_receipt.csv",
         "templates/p6_cold_extruder.csv"
-      ]
+      ],
+      "entry_validator": "validate_p5_stage_release.py"
     },
     {
       "id": "P7",
