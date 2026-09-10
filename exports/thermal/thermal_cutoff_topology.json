@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "revision": "thermal-cutoff-topology-v0.8-r1",
+  "part_id": "TH-FUSE-01",
+  "policy": {
+    "firmware_independent": true,
+    "heater_branch_thermal_fuse": false,
+    "k0_coil_series_cutoff": true,
+    "machine_release": "HOLD"
+  },
+  "inventory": {
+    "procurement_quantity": 3,
+    "installed_quantity": 2,
+    "spare_quantity": 1
+  },
+  "installed_devices": [
+    {
+      "id": "TF-BARREL",
+      "location": "barrel inter-zone metal clamp",
+      "protected_region": "barrel Z1-Z3",
+      "function": "one-shot thermal cutoff in K0 coil safety chain"
+    },
+    {
+      "id": "TF-DIE",
+      "location": "die body metal clamp",
+      "protected_region": "die heater",
+      "function": "one-shot thermal cutoff in K0 coil safety chain"
+    }
+  ],
+  "safety_chain": [
+    "F-SAFE",
+    "S0 E-stop NC",
+    "S1 lid NC",
+    "S2 service NC",
+    "TF-BARREL",
+    "TF-DIE",
+    "K0 contactor A1",
+    "K0 contactor A2",
+    "0 V star"
+  ],
+  "heater_branches": [
+    {
+      "id": "H1",
+      "load": "barrel Z1",
+      "branch_fuse": "F-H1",
+      "branch_fuse_a": 5
+    },
+    {
+      "id": "H2",
+      "load": "barrel Z2",
+      "branch_fuse": "F-H2",
+      "branch_fuse_a": 5
+    },
+    {
+      "id": "H3",
+      "load": "barrel Z3",
+      "branch_fuse": "F-H3",
+      "branch_fuse_a": 5
+    },
+    {
+      "id": "H4",
+      "load": "die heater",
+      "branch_fuse": "F-H4",
+      "branch_fuse_a": 5
+    }
+  ],
+  "wiring_rule": "F-H1..F-H4 provide branch overcurrent protection only. TF-BARREL and TF-DIE are series elements in the low-current K0 coil safety chain, so opening either removes K0 coil energy and disconnects all hazardous branches.",
+  "procurement_rule": "Procure three compatible TH-FUSE-01 devices: two installed devices plus one same-spec spare. Exact MPN, temperature/current ratings, crimp method, body mounting, lot continuity and receipt evidence remain USER_APPROVAL_REQUIRED.",
+  "prohibited": [
+    "Do not place an additional TH-FUSE-01 in each H1-H4 branch unless the contract is revised and revalidated.",
+    "Do not bypass either installed cutoff in firmware, MOSFET control, service wiring or commissioning.",
+    "Do not count the spare device as an installed safety element."
+  ]
+}

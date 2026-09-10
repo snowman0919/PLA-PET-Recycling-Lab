@@ -1,5 +1,5 @@
 999
-FreeCAD v1.1 Unknown
+FreeCAD v0.21 33771 (Git)
   0
 SECTION
   2
@@ -227,7 +227,7 @@ TABLE
   2
 LAYER
   5
-A0E
+A32
 330
 0
 100
@@ -237,9 +237,9 @@ AcDbSymbolTable
   0
 LAYER
   5
-A0F
+A33
 330
-A0E
+A32
 100
 AcDbSymbolTableRecord
 100
@@ -255,9 +255,9 @@ CONTINUOUS
   0
 LAYER
   5
-A10
+A34
 330
-A0E
+A32
 100
 AcDbSymbolTableRecord
 100
@@ -273,9 +273,9 @@ CONTINUOUS
   0
 LAYER
   5
-A11
+A35
 330
-A0E
+A32
 100
 AcDbSymbolTableRecord
 100
@@ -711,13 +711,11 @@ Part
 100
 AcDbCircle
  10
-0.000000000
+0
  20
-19.000000000
- 30
-0.000000000
+20
  40
-3.000000000
+3.25
   0
 LINE
   5
@@ -731,17 +729,17 @@ Part
 100
 AcDbLine
  10
--0.000000000
+-7.9602e-16
  20
--19.000000000
+-19
  30
-3.000000000
+3.25
  11
--0.000000000
+-7.9602e-16
  21
-19.000000000
+20
  31
-3.000000000
+3.25
   0
 CIRCLE
   5
@@ -755,13 +753,11 @@ Part
 100
 AcDbCircle
  10
-0.000000000
+0
  20
--19.000000000
- 30
-0.000000000
+-19
  40
-3.000000000
+3.25
   0
 LINE
   5
@@ -775,19 +771,19 @@ Part
 100
 AcDbLine
  10
--0.000000000
+-7.9602e-16
  20
--19.000000000
+-19
  30
-3.000000000
+3.25
  11
--0.000000000
+-7.9602e-16
  21
-19.000000000
+20
  31
-3.000000000
+3.25
   0
-CIRCLE
+LINE
   5
 A0C
 330
@@ -797,17 +793,21 @@ AcDbEntity
   8
 Part
 100
-AcDbCircle
+AcDbLine
  10
-0.000000000
+-10
  20
-19.000000000
+20
  30
-0.000000000
- 40
-3.000000000
+-6
+ 11
+10
+ 21
+20
+ 31
+-6
   0
-CIRCLE
+LINE
   5
 A0D
 330
@@ -817,15 +817,823 @@ AcDbEntity
   8
 Part
 100
+AcDbLine
+ 10
+10
+ 20
+20
+ 30
+-6
+ 11
+10
+ 21
+20
+ 31
+6
+  0
+LINE
+  5
+A0E
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+-6
+ 11
+-10
+ 21
+20
+ 31
+6
+  0
+LINE
+  5
+A0F
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+6
+ 11
+10
+ 21
+20
+ 31
+6
+  0
+CIRCLE
+  5
+A10
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
 AcDbCircle
  10
-0.000000000
+-7
  20
--19.000000000
- 30
-0.000000000
+20
  40
-3.000000000
+1.7
+  0
+CIRCLE
+  5
+A11
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+0
+ 20
+20
+ 40
+3.25
+  0
+CIRCLE
+  5
+A12
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+7
+ 20
+20
+ 40
+1.7
+  0
+CIRCLE
+  5
+A13
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+0
+ 20
+-19
+ 40
+3.25
+  0
+LINE
+  5
+A14
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+-6
+ 11
+-10
+ 21
+21.5
+ 31
+-6
+  0
+LINE
+  5
+A15
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+21.5
+ 30
+-6
+ 11
+10
+ 21
+21.5
+ 31
+-6
+  0
+LINE
+  5
+A16
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+10
+ 20
+20
+ 30
+-6
+ 11
+10
+ 21
+21.5
+ 31
+-6
+  0
+LINE
+  5
+A17
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+-6
+ 11
+10
+ 21
+20
+ 31
+-6
+  0
+LINE
+  5
+A18
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+10
+ 20
+20
+ 30
+-6
+ 11
+10
+ 21
+20
+ 31
+6
+  0
+LINE
+  5
+A19
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+10
+ 20
+20
+ 30
+6
+ 11
+10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A1A
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+10
+ 20
+21.5
+ 30
+-6
+ 11
+10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A1B
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+10
+ 20
+20
+ 30
+-6
+ 11
+10
+ 21
+21.5
+ 31
+-6
+  0
+LINE
+  5
+A1C
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+-6
+ 11
+-10
+ 21
+20
+ 31
+6
+  0
+LINE
+  5
+A1D
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+6
+ 11
+-10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A1E
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+21.5
+ 30
+-6
+ 11
+-10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A1F
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+-6
+ 11
+-10
+ 21
+21.5
+ 31
+-6
+  0
+LINE
+  5
+A20
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+6
+ 11
+-10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A21
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+21.5
+ 30
+6
+ 11
+10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A22
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+10
+ 20
+20
+ 30
+6
+ 11
+10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A23
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+20
+ 30
+6
+ 11
+10
+ 21
+20
+ 31
+6
+  0
+CIRCLE
+  5
+A24
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+-7
+ 20
+21.5
+ 40
+1.7
+  0
+LINE
+  5
+A25
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-7
+ 20
+20
+ 30
+1.7
+ 11
+-7
+ 21
+21.5
+ 31
+1.7
+  0
+CIRCLE
+  5
+A26
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+-7
+ 20
+20
+ 40
+1.7
+  0
+LINE
+  5
+A27
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-7
+ 20
+20
+ 30
+1.7
+ 11
+-7
+ 21
+21.5
+ 31
+1.7
+  0
+CIRCLE
+  5
+A28
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+7
+ 20
+21.5
+ 40
+1.7
+  0
+LINE
+  5
+A29
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+7
+ 20
+20
+ 30
+1.7
+ 11
+7
+ 21
+21.5
+ 31
+1.7
+  0
+CIRCLE
+  5
+A2A
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+7
+ 20
+20
+ 40
+1.7
+  0
+LINE
+  5
+A2B
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+7
+ 20
+20
+ 30
+1.7
+ 11
+7
+ 21
+21.5
+ 31
+1.7
+  0
+LINE
+  5
+A2C
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+21.5
+ 30
+-6
+ 11
+10
+ 21
+21.5
+ 31
+-6
+  0
+LINE
+  5
+A2D
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+10
+ 20
+21.5
+ 30
+-6
+ 11
+10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A2E
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+21.5
+ 30
+-6
+ 11
+-10
+ 21
+21.5
+ 31
+6
+  0
+LINE
+  5
+A2F
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbLine
+ 10
+-10
+ 20
+21.5
+ 30
+6
+ 11
+10
+ 21
+21.5
+ 31
+6
+  0
+CIRCLE
+  5
+A30
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+-7
+ 20
+21.5
+ 40
+1.7
+  0
+CIRCLE
+  5
+A31
+330
+A02
+100
+AcDbEntity
+  8
+Part
+100
+AcDbCircle
+ 10
+7
+ 20
+21.5
+ 40
+1.7
   0
 ENDSEC
   0
