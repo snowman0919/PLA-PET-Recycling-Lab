@@ -1,14 +1,22 @@
-# P10/P11 PLA·PET low-feed 물리 검증
+# P10/P11 PLA/PET low-feed physical validation
 
-P10과 P11은 처음으로 polymer를 hot path에 투입하는 gate다. P10 PLA PASS 후에만 P11 PET를 수행한다. 각 material마다 별도 사용자 feed 승인이 필요하다.
+P10/P11 are the first material-feed gates. P10 is PLA only; P11 is PET only and remains blocked until a validated P10 stage release exists. Each bounded run requires a separate material-feed approval evidence file.
 
-## 공통 절차
+## Evidence contract
 
-1. Lot ID, 세척/건조 기록을 먼저 고정한다. Screw는 8–10 rpm에서 시작한다.
-2. PLA는 180/195/205 °C barrel + 200 °C die, PET는 245/260/270 °C + 265 °C die를 사용한다. 각 sample에서 실제 온도를 기록한다.
-3. 10 s 단위로 screw rpm, gearbox torque/current, X/Y diameter, gauge U95, puller/spool rpm, cumulative mass와 이상상태를 기록한다.
-4. 실제 melt leak, uncontrolled pressure symptom, guard contact가 있으면 즉시 해당 run을 FAIL로 종료한다. 반복적인 torque-trip을 정상 제어로 사용하지 않는다.
-5. 연속 20개 stable sample에서 전체 mean diameter의 1.75 mm 대비 error가 0.05 mm 이하, 각 sample ovality가 0.05 mm 이하, gauge U95가 0.03 mm 이하여야 한다.
-6. PET는 18 rpm을 안전값으로 가정하지 않는다. 실제 gearbox torque가 8.0 N·m limit 아래에 여유를 유지할 때만 단계적으로 접근한다.
+1. Copy `templates/p10_p11_material_run.csv` for exactly one material/run.
+2. Keep `lot_id`, drying-record path/hash, feed-approval path/hash/scope, operator and independent reviewer constant across the run.
+3. Every sample carries timezone-aware `measured_at`, raw evidence path/SHA-256, temperature logger calibration, diameter gauge calibration, torque calibration and current calibration references.
+4. P10 approval scope is `P10_BOUNDED_PLA_RUN`; P11 scope is `P11_BOUNDED_PET_RUN`.
+5. P10 requires validated P4, P6, P8 and P9 stage releases. P11 requires a validated P10 stage release.
 
-`templates/p10_p11_material_run.csv`을 run별로 복사해 기록하고 `analyze_material_run.py`로 분석한다. 실제 mass/time에서 안정 throughput을 보고하며 200 g/h는 강제 합격기준이 아니다.
+## Bounded run acceptance
+
+1. Screw starts at 8-10 rpm. Higher speed is approached only from measured torque/current/diameter behavior.
+2. Temperature mean +/- U95 stays inside the current generated firmware profile target +/-5 C for all four zones.
+3. Every stable candidate requires gearbox torque + U95 < 8.0 N.m and motor current + U95 <= 6.0 A.
+4. Leak, uncontrolled pressure symptom, guard contact or torque trip excludes that sample from the stable window. More than one torque trip rejects the run as repeated-trip control.
+5. A valid window is 20 consecutive stable samples with mean diameter error <=0.05 mm, sample ovality <=0.05 mm and diameter U95 <=0.03 mm.
+6. Stable throughput is computed from measured cumulative mass and elapsed time. 200 g/h is not a forced pass criterion.
+
+P10 analysis uses `analyze_material_run.py RECORD --stage P10 --p4-release ... --p6-release ... --p8-release ... --p9-release ...`. P11 uses `--stage P11 --p10-release ...`. `MATERIAL_RUN_RECORD_CHECK_PASS` never sets `stage_pass`, downstream entry, material-feed authority, continuing-power authority or machine release; a separate reviewed stage release is required.

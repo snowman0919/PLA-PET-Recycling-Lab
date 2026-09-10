@@ -156,6 +156,10 @@ def main():
         "validation/physical_v08/validate_p9_stage_release.py",
         "validation/physical_v08/test_p9_stage_release.py",
         "validation/physical_v08/templates/p9_stage_release.json",
+        "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md",
+        "validation/physical_v08/analyze_material_run.py",
+        "validation/physical_v08/test_material_run.py",
+        "validation/physical_v08/templates/p10_p11_material_run.csv",
         "validation/physical_v08/validate_p3_stage_release.py",
         "validation/physical_v08/test_p3_packet_builder.py",
         "validation/physical_v08/analyze_p4_records.py",
@@ -230,6 +234,11 @@ def main():
     assert any("TF-BARREL" in x and "TF-DIE" in x for x in p9_gate["acceptance"])
     p10_gate = next(row for row in gate["gates"] if row["id"] == "P10")
     assert any("P9_STAGE_RELEASE_VALIDATED" in x for x in p10_gate["prerequisites"])
+    material_analyzer = (ROOT / "validation/physical_v08/analyze_material_run.py").read_text(encoding="utf-8")
+    for token in ("P4_STAGE_RELEASE_VALIDATED", "P6_STAGE_RELEASE_VALIDATED", "P8_STAGE_RELEASE_VALIDATED", "P9_STAGE_RELEASE_VALIDATED", "P10_BOUNDED_PLA_RUN", "MATERIAL_RUN_RECORD_CHECK_PASS"):
+        assert token in material_analyzer
+    material_doc = (ROOT / "validation/physical_v08/P10_P11_MATERIAL_RUN_KO.md").read_text(encoding="utf-8")
+    assert "torque + U95 < 8.0 N.m" in material_doc and "current + U95 <= 6.0 A" in material_doc
     p4_doc = (ROOT / "validation/physical_v08/P4_SHREDDER_COUPON_KO.md").read_text(encoding="utf-8")
     assert "validate_p3_stage_release.py" in p4_doc and "P3_STAGE_RELEASE_VALIDATED" in p4_doc
     p4_analyzer = (ROOT / "validation/physical_v08/analyze_p4_records.py").read_text(encoding="utf-8")
