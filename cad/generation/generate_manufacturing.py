@@ -217,17 +217,26 @@ def write_drive_package():
     with (base/"manifest.csv").open("w",newline="",encoding="utf-8") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["part_id","name","quantity","material","process","x_mm","y_mm","z_mm","release_state"])
         release={
-            "DRV-03":"GATE1_QTY_1_ALLOWED_USER_APPROVAL_REQUIRED",
-            "DRV-03R":"GATE1_QTY_1_ALLOWED_USER_APPROVAL_REQUIRED",
-            "DRV-01":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
-            "DRV-A42":"REFERENCE_ONLY_NOT_SELECTED",
-            "DRV-A60":"RELEASED_DIGITAL_REFERENCE_VARIANT_RECEIPT_AND_GATE1_REQUIRED",
+            "DRV-03":"ACTIVE_GGM_PHASE_GEAR_GATE1_QTY_1_USER_APPROVAL_REQUIRED",
+            "DRV-03R":"ACTIVE_GGM_PHASE_GEAR_GATE1_QTY_1_USER_APPROVAL_REQUIRED",
+            "DRV-01":"LEGACY_GENERIC_DRIVE_SUPERSEDED_BY_GGM_V08",
+            "DRV-A42":"LEGACY_GENERIC_DRIVE_SUPERSEDED_BY_GGM_V08",
+            "DRV-A60":"LEGACY_GENERIC_DRIVE_SUPERSEDED_BY_GGM_V08",
             "DRV-02":"LEGACY_SUPERSEDED_BY_DIRECT_KEYED_GGM_SH_30T",
-            "DRV-F01A":"RELEASED_DIGITAL_REFERENCE_VARIANT_RECEIPT_AND_GATE1_REQUIRED",
-            "DRV-F01B":"GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL",
-            "DRV-F01P":"GATE1_COUPON_QTY_6_ALLOWED_AFTER_USER_APPROVAL",
+            "DRV-F01A":"LEGACY_GENERIC_DRIVE_SUPERSEDED_BY_GGM_V08",
+            "DRV-F01B":"LEGACY_GENERIC_DRIVE_SUPERSEDED_BY_GGM_V08",
+            "DRV-F01P":"LEGACY_GENERIC_DRIVE_SUPERSEDED_BY_GGM_V08",
         }
-        for r in rows:w.writerow([r["id"],r["name"],r["qty"],r["material"],r["process"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}",release[r["id"]]])
+        for r in rows:
+            state=release[r["id"]]
+            w.writerow([r["id"],r["name"],r["qty"],r["material"],r["process"],f"{r['x']:.2f}",f"{r['y']:.2f}",f"{r['z']:.2f}",state])
+            note=base/"parts"/r["id"]/"drawing_notes.md"
+            text=note.read_text(encoding="utf-8")
+            text=text.replace("revision: `safety-orchestration-closure-v0.6.1`", "revision: `final-design-fabrication-closure-v0.8`")
+            replacement=("- release: `"+state+"`; DRV-03/DRV-03R만 current GGM phase path에서 사용한다. "
+                         "LEGACY 상태 부품은 STEP/DXF가 존재해도 GGM v0.8 제작에 사용하지 않는다.\n")
+            text=text.replace("- release: `HOLD`; 해당 물리 gate와 사용자 승인 전 양산/전체수량 발주 금지.\n",replacement)
+            note.write_text(text,encoding="utf-8")
     (base/"interface_contract_ko.md").write_text("""# GGM v0.8 분쇄기 구동 인터페이스
 
 Revision: `final-design-fabrication-closure-v0.8`

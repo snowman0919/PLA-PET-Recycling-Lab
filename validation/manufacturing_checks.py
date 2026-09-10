@@ -191,6 +191,14 @@ def main():
     require({row["part_id"] for row in drive_rows}==drive_ids,"drive interface family set incomplete")
     drive_by_id={row["part_id"]:row for row in drive_rows}
     require(drive_by_id["DRV-02"]["release_state"]=="LEGACY_SUPERSEDED_BY_DIRECT_KEYED_GGM_SH_30T","DRV-02 was reactivated")
+    active_drive={"DRV-03","DRV-03R"}
+    for pid,row in drive_by_id.items():
+        if pid in active_drive:
+            require(row["release_state"].startswith("ACTIVE_GGM_PHASE_GEAR"),pid+" active phase state drift")
+        else:
+            require(row["release_state"].startswith("LEGACY_"),pid+" generic drive part was not marked legacy")
+        note=(ROOT/"exports/drive_interface/parts"/pid/"drawing_notes.md").read_text(encoding="utf-8")
+        require(row["release_state"] in note,pid+" drawing note release state drift")
     for part_id in drive_ids:
         folder=ROOT/"exports/drive_interface/parts"/part_id
         for ext in ("FCStd","step","stl","dxf"):
