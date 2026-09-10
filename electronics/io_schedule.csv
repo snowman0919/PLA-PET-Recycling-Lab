@@ -6,27 +6,27 @@ THERMAL_CHAIN_OK,input,hardwired chain,false,open-circuit simulation
 HEATER_PERMISSION_FEEDBACK,input,hardwired chain,false,command/feedback mismatch test
 PHYSICAL_LOCKOUT_KEY,input,maintainer key,false,continuity plus deliberate clear-fault test
 SHREDDER_ENABLE,output,Mega/permission chain,false,scope and contact test
-SHREDDER_PWM_DIR_REVERSE,output,Mega/H-bridge,zero,bounded forward/reverse scope test
-SHREDDER_LOAD,input,driver/encoder,false,calibrate against shaft torque coupon
-SHREDDER_CURRENT_50A,input,Hall current sensor,invalid,0/5/10/15/20 A calibrated load
-SHREDDER_SHAFT_RPM,input,driven-shaft Hall sensor,invalid,6 PPR timestamp/rollover and known-RPM comparison
-SCREW_ENABLE,output,Mega/permission chain,false,heater-off test
-SCREW_PWM_DIR,output,Mega/DC driver,zero,driver fault and direction test
+SHREDDER_PWM_DIR_REVERSE,output,D5 RPWM / D4 LPWM / D32 enable,zero,released GGM/BTS7960 forward/reverse scope test; controller coast and stopped-observation guard must pass
+SHREDDER_TORQUE_ESTIMATE,internal,GGM runtime guard,invalid,P3 current-to-gearbox-torque map; independent holdout error including U95 <=0.40 N.m
+SHREDDER_CURRENT,input,A0 bidirectional motor-lead Hall current sensor,invalid,independent 0-6 A calibration; every point residual plus U95 <=0.10 A
+SHREDDER_SHAFT_RPM,input,D2 driven-shaft Hall input,invalid,physically verified PPR required; timestamp/rollover and known-RPM comparison; stopped observation must satisfy current GGM contract
+SCREW_ENABLE,output,D34 Mega/permission chain,false,GGM extruder forward-only enable; heater/process interlock and safe reset test
+SCREW_BTS7960_PWM,output,D6 RPWM / D33 LPWM / D34 enable,zero,forward-only runtime command; any reverse request is rejected/latches according to GGM guard
+EXTRUDER_CURRENT,input,A9 bidirectional motor-lead Hall current sensor,invalid,independent 0-6 A calibration; every point residual plus U95 <=0.10 A; P3 torque-map holdout <=0.40 N.m
 FD_METER_AUGER_PWM_DIR_ENABLE,output,D44 PWM / D42 direction / D46 enable,zero,single coaxial FD-MET auger/agitator drive; 5 A branch envelope; inhibit until donor and mass/rev calibration
 FD_AUGER_TACH,input,A7 polled low-speed Hall input,invalid,6 PPR reference only; exact target and measured PPR required before production feed
 FD_AUGER_FAULT,input,D47 driver fault,stop feed and screw,active-safe level verified during commissioning; exact driver interface required
 HEATER_Z1_Z2_Z3_DIE,output,Mega/MOSF permission chain,false,stuck-MOSFET thermal chain test per channel
-HOPPER_PTC,output,maintenance-only branch,false,production-phase inhibition test
 T1_T2_T3_TDIE_THOPPER,input,MAX6675 SPI,invalid,open/range/ice-boiling/ungrounded-isolation test
 GAUGE_X,input,shadow gauge,invalid,traceable pin calibration
 GAUGE_Y,input,shadow gauge,invalid,traceable pin calibration
 DANCER,input,endstop/analog,stop spooler,full sweep collision test
 PULLER_PWM_DIR_TACH,input/output,Mega/DC driver and external interrupt,zero,20 PPR timestamp plus 1 m length and loaded-speed calibration
-SCREW_TACH,input,A13 PCINT21 Hall sensor,invalid,12 PPR timestamp command/no-motion slip intermittent pulse and measured-revolution test
+SCREW_TACH,input,A13 PCINT21 Hall sensor,invalid,physically verified PPR required; timestamp command/no-motion/slip/intermittent-pulse and measured-revolution test
 SPOOLER_PWM_DIR_TACH,input/output,Mega/DC driver and A15 PCINT23,zero,20 PPR timestamp dancer closed-loop jam and tach-loss test
 TRAVERSE_STEP_DIR_ENABLE,output,Mega/stepper driver,disabled,explicit HOME_TRAVERSE then 68 mm usable width pitch-synchronization and permission-loss test
 TRAVERSE_LEFT_RIGHT_LIMIT,input,A5/A6 positive-action switches,invalid,left/right calibration and missed-limit timeout test
 COOLING_PWM,output,Mega/fan branch,off,cooling-loss controlled-rundown test
 COOLING_CURRENT,input,A4 low-side shunt/current-feedback backend,invalid,"0/25/50/100 percent command calibration, fan-only start proof 1.5 s/timeout 3.0 s, disconnected-fan and stalled-fan dwell test"
 COOLING_FAN1_FAN2_TACH,input,A14 PCINT22 through 2:1 mux,invalid,"fan 1 stopped, fan 2 stopped, both stopped, command-off implausible feedback; tach does not prove airflow"
-DRIVER_FAULTS,input,all motor drivers,fault,open/active-low simulation per channel
+DRIVER_FAULTS,input,A10 puller / A11 spooler / D47 feeder auxiliary fault inputs,fault,active-safe/open simulation per auxiliary channel; GGM shredder/extruder axes do not field-wire legacy A8/A9 fault inputs

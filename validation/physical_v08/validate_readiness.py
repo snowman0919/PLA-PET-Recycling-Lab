@@ -32,6 +32,10 @@ def main():
     p3_fixture = j("validation/physical_v08/p3_fixture_contract.json")
     p3_bom = rows("validation/physical_v08/p3_bench_bom.csv")
     p5 = j("validation/physical_v08/p5_coupon_contract.json")
+    io = {r["signal"]: r for r in rows("electronics/io_schedule.csv")}
+    pin_schedule = {r["symbol"]: r["mega_pin"] for r in rows("exports/final/electrical/pin_schedule.csv")}
+    wire_schedule = {r["wire_id"]: r for r in rows("exports/final/electrical/wire_schedule.csv")}
+    fuse_schedule = {r["fuse_id"]: r for r in rows("exports/final/electrical/fuse_schedule.csv")}
 
     assert sim["status"] == "PASS" and sim["required_technical_gate_count"] == 23
     assert sim["failed_technical_gates"] == []
@@ -50,6 +54,32 @@ def main():
     assert close(ggm["protection"]["command_limit_gearbox_nm"], 8.0)
     assert ggm["protection"]["mechanical_release_acceptance_nm"] == [8.8, 9.3]
     assert close(ggm["screw"]["hard_speed_limit_rpm"], 20)
+
+    # GGM electrical handoff must agree across semantic I/O, generated pins, wires and branch protection.
+    assert "SHREDDER_CURRENT_50A" not in io and "SCREW_PWM_DIR" not in io and "HOPPER_PTC" not in io
+    assert io["SHREDDER_CURRENT"]["owner"].startswith("A0 ")
+    assert "0-6 A" in io["SHREDDER_CURRENT"]["verification"] and "<=0.10 A" in io["SHREDDER_CURRENT"]["verification"]
+    assert io["EXTRUDER_CURRENT"]["owner"].startswith("A9 ")
+    assert "0-6 A" in io["EXTRUDER_CURRENT"]["verification"] and "<=0.40 N.m" in io["EXTRUDER_CURRENT"]["verification"]
+    assert io["SCREW_BTS7960_PWM"]["owner"] == "D6 RPWM / D33 LPWM / D34 enable"
+    assert "reverse request is rejected" in io["SCREW_BTS7960_PWM"]["verification"]
+    assert "A10 puller / A11 spooler / D47 feeder" in io["DRIVER_FAULTS"]["owner"]
+    assert pin_schedule["CURRENT_PIN"] == "A0" and pin_schedule["EX_CURRENT_PIN"] == "A9"
+    assert "SHREDDER_FAULT_PIN" not in pin_schedule and "SCREW_FAULT_PIN" not in pin_schedule
+    assert wire_schedule["SIG-A0"]["from"] == "Shredder Current" and wire_schedule["SIG-A0"]["to"] == "Mega A0"
+    assert wire_schedule["SIG-A9"]["from"] == "Extruder Current" and wire_schedule["SIG-A9"]["to"] == "Mega A9"
+    assert "GGM rated 4.6 A" in fuse_schedule["F-SH"]["maximum_current"]
+    assert "not the motor operating-current or torque-limit setpoint" in fuse_schedule["F-SH"]["basis"]
+    assert "GGM rated 4.6 A" in fuse_schedule["F-SCREW"]["maximum_current"]
+
+    controller_text = (ROOT / "electronics/controller_wiring_v0.6.md").read_text(encoding="utf-8")
+    topology_text = (ROOT / "electronics/safety_power_topology.md").read_text(encoding="utf-8")
+    drive_text = (ROOT / "electronics/shredder_drive_wiring.md").read_text(encoding="utf-8")
+    for text in (controller_text, topology_text, drive_text):
+        assert "8.0 N.m" in text and "8.8" in text and "9.3" in text
+    assert "A0" in controller_text and "A9" in controller_text and "D6 RPWM" in controller_text and "D33 LPWM" in controller_text
+    assert "24 V 800 W" in topology_text and "F-MAIN = 30 A DC" in topology_text
+    assert "GGM K9DG60N2 24 V + K9G75C" in drive_text and "D5" in drive_text and "D4" in drive_text and "D32" in drive_text
 
     hz = params["hot_zone_mount"]
     assert close(hz["fixed_collar_bore_mm"], 34.25)
