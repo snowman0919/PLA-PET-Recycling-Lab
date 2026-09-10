@@ -187,13 +187,16 @@ def main():
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
     by_stage_id = {(r["gate"], r["item_id"]): r for r in stage_bom}
-    assert len(stage_bom) == 29 and by_stage_id[("P4", "CUT-01")]["quantity"] == "2"
+    assert len(stage_bom) == 30 and by_stage_id[("P4", "CUT-01")]["quantity"] == "2"
     assert by_stage_id[("P3", "PIN-COUPON")]["quantity"] == "9"
     sprockets = by_stage_id[("P4", "GGM-SPROCKETS")]
     assert sprockets["quantity"] == "1 pair" and "direct-keyed" in sprockets["item"] and "DRV-02 superseded" in sprockets["notes"]
     assert by_stage_id[("P3", "GGM-SH")]["item"] == "GGM K9DG60N2 + K9G75C"
     assert by_stage_id[("P3", "GGM-EX")]["item"] == "GGM K9DG60N2 + K9G150C"
     assert by_stage_id[("P5", "EX-CPN-SCR")]["quantity"] == "1" and by_stage_id[("P5", "EX-CPN-BAR")]["quantity"] == "1"
+    assert by_stage_id[("P9", "TC-RET")]["quantity"] == "4"
+    assert "Ø6.500" in by_stage_id[("P9", "HEAT-DIE")]["item"]
+    assert "2 installed + 1 spare" in by_stage_id[("P1", "SAFE-FUSE")]["quantity"]
     assert p3_fixture["status"] == "DESIGN_ONLY_NOT_FABRICATED" and p3_fixture["physical_action_authorized"] is False
     assert close(p3_fixture["prony"]["reaction_arm_mm"], 250.0) and close(p3_fixture["prony"]["reaction_arm_tolerance_mm"], 0.5)
     assert close(p3_fixture["calculated_force_n_at_250mm"]["8.00"], 32.0)

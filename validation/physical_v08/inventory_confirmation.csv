@@ -16,7 +16,7 @@ STOCK-61905,61905/6905 bearing 25x42x9,4,CHECK_PROJECT_LAB_FIRST,prefer specifie
 STOCK-51102,51102 thrust bearing 15x28x9,1,CHECK_PROJECT_LAB_FIRST,record brand/marking/height/free rotation,extruder thrust path
 BUY-CS,Bidirectional Hall current sensor,2,CHECK_PROJECT_LAB_FIRST_THEN_BUY,5 V analog; useful range must cover 0-6 A with calibration U95 <=0.10 A,motor-lead current sensing A0/A9
 BUY-BAND,24 V 100 W mica band heater ID34 W45,3,NOT_ORDERED,supplier drawing/actual free ID and closure range before order acceptance,barrel Z1-Z3
-BUY-DIE-HEATER,24 V 60 W cartridge heater ~D6x38,1,NOT_ORDERED,match final die bore/lead geometry and cold resistance requirement,die heater
+BUY-DIE-HEATER,TH-DIE-01 Tempco custom 24 V 60 W Ø6.500±0.013 x39.50±0.20 flanged cartridge heater,1,NOT_ORDERED,"obtain accepted supplier drawing; verify OD/camber, 9.12-10.56 ohm at 20±2 C, insulation/hipot and full hand fit in Ø6.55 H7 die bore",generic D6x38 cartridge is not an approved substitute; purchase and energization remain separately gated
 STOCK-KTC,Ungrounded mineral-insulated Type-K probes,5,CHECK_PROJECT_LAB_FIRST_THEN_BUY,probe OD/stop/insertion geometry and insulation test,T1-T5
 STOCK-MAX6675,MAX6675-compatible interfaces,5,CHECK_PROJECT_LAB_FIRST_THEN_BUY,common-reference wiring matches released electronics,T1-T5 electronics
 STOCK-K0,Hardwired safety contactor/relay chain,1 set,CHECK_PROJECT_LAB_FIRST,24 VDC coil; hazardous 24 V branch interruption and auxiliary feedback; actual DC ratings recorded,do not treat firmware as safety cut

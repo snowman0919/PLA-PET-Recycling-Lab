@@ -6,7 +6,7 @@ P1,BRG-61905,61905/6905 25x42x9,4,CHECK_STOCK_THEN_BUY,project lab/low-cost buy,
 P1,BRG-51102,51102 15x28x9,1,CHECK_STOCK_THEN_BUY,project lab/low-cost buy,final machine,extruder thrust
 P1,SAFE-K0K1,24V manual-reset control relay + DC motor-power contactor/relay with aux,1 set,CHECK_STOCK_THEN_BUY,project lab,test/final reusable,DC interrupt/contact rating must be recorded
 P1,SAFE-SW,positive-opening NC guard/service switches,3,CHECK_STOCK_THEN_BUY,project lab,final machine,E-stop already user-reported available; verify its NC block too
-P1,SAFE-FUSE,branch fuse holders + thermal cutoffs,1 set,CHECK_STOCK_THEN_BUY,project lab,final machine,match released electrical schedule after heater receipt
+P1,SAFE-FUSE,heater branch fuses F-H1..F-H4 + TH-FUSE-01 dual one-shot cutoff stock,4 heater branch positions + 3 TH-FUSE-01 (2 installed + 1 spare),CHECK_STOCK_THEN_BUY,project lab,final machine,TF-BARREL -> TF-DIE are series contacts in K0 coil chain; H1-H4 retain branch overcurrent fuses only; verify remaining branch protection against final fuse schedule
 P1,CS-GGM,bidirectional Hall current sensor 5V analog,2,CHECK_STOCK_THEN_BUY,project lab,final machine,useful calibrated range 0-6 A; U95 error <=0.10 A
 P1,CHAIN35,#35 chain + 12T/30T sprocket path,1 set,CHECK_STOCK_THEN_BUY,project lab,P4/final reusable,final GGM geometry governs key/bore/alignment
 P3,GGM-SH,GGM K9DG60N2 + K9G75C,1,SELECTED_BUY_USER_APPROVAL,supplier,final machine,receipt before final mount drilling
@@ -26,5 +26,6 @@ P4,GATE1-GUARD,Gate1 metal/3mm PC guard + printed trim,1 set,MAKE_FROM_STOCK_AFT
 P5,EX-CPN-SCR,3-pitch screw process coupon,1,QUOTE_ORDER_USER_APPROVAL,specialist supplier,test witness,same certified heat/QT/nitride/finish route as eventual screw
 P5,EX-CPN-BAR,60 mm barrel process coupon,1,QUOTE_ORDER_USER_APPROVAL,specialist supplier,test witness,same certified heat/QT/nitride/final-hone route as eventual barrel
 P9,HEAT-BAND,24V100W ID34 W45 mica band heater,3,BUY_AFTER_RECEIPT_SPEC_USER_APPROVAL,supplier,final machine,do not buy before supplier dimensional drawing is acceptable
-P9,HEAT-DIE,24V60W cartridge heater approx D6x38,1,BUY_AFTER_FINAL_BORE_USER_APPROVAL,supplier,final machine,match final die bore and measured cold resistance
-P9,TC-K,ungrounded mineral-insulated Type-K probe + interface,5 channels,CHECK_STOCK_THEN_BUY,project lab/supplier,final machine,T1-T5; current interface uses MAX6675-compatible common reference
+P9,HEAT-DIE,TH-DIE-01 Tempco custom 24V60W Ø6.500±0.013 x39.50±0.20 flanged cartridge,1,BUY_ONLY_AFTER_ACCEPTED_DRAWING_USER_APPROVAL,supplier,final machine,Ø6.55 H7 die bore; 9.12-10.56 ohm at 20±2 C; insulation/hipot and full hand-fit receipt evidence required
+P9,TC-K,TH-TC-01 Tempco MTA1 custom ungrounded Type-K probes,5,BUY_ONLY_AFTER_ACCEPTED_DRAWING_USER_APPROVAL,project lab/supplier,final machine,T1-T3 stop 5.20±0.05 mm; T4 10.00±0.05; T5 4.00±0.05; insulation/reference-bias/t90 receipt tests required
+P9,TC-RET,TH-TCR-01 304SS thermocouple stop-collar retainer bridge,4,MAKE_ONLY_AFTER_PROBE_DRAWING_ACCEPTED,laser/waterjet + drill / project lab,final machine,12x16x1.5; centre Ø3.4; 2xØ3.4 at 10 pitch; 2xM3x6 A4-80 at 0.5 N.m; prove 20 N pull with <=0.10 mm motion cold and after thermal cycle
