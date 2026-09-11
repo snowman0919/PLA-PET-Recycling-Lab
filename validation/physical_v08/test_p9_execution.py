@@ -34,7 +34,8 @@ def prerequisite_stubs():
         lambda _: {"status": "P8_STAGE_RELEASE_VALIDATED", "p9_entry_prerequisite": True,
                    "heater_energization_authorized": False, "machine_release": "HOLD"},
         lambda _: {"status": "HOT_ZONE_RECEIPT_RECORD_CHECK_PASS", "p9_receipt_prerequisite": True,
-                   "power_authorization": False, "machine_release": "HOLD"},
+                   "power_authorization": False, "machine_release": "HOLD",
+                   "checks": {"tape_continuous_service_rating": {"value": 300.0, "pass": True}}},
         lambda: {"status": "THERMAL_CUTOFF_TOPOLOGY_PASS", "machine_release": "HOLD"},
     )
 
@@ -77,6 +78,9 @@ def make_inputs(run: Path):
         "post_cycle_pe_bond_worst": (0.05, 0.005),
         "post_cycle_insulation_resistance": (20.0, 0.5),
         "post_cycle_insulation_test_voltage": (500.0, 0.0),
+        "thermal_barrier_tape_edge_lift_max": (0.5, 0.05),
+        "thermal_barrier_tape_interface_peak": (120.0, 1.0),
+        "thermal_barrier_tape_outer_surface_peak": (70.0, 1.0),
     }
     false_metrics = set(P9.BOOL_FALSE)
     for row in safety_rows:
@@ -160,6 +164,18 @@ class P9ExecutionTest(unittest.TestCase):
             result = evaluate_with_stubs(tuple(inputs))
             self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
             self.assertIn("tf_die_open_removes_k0_heater_energy", result["reason"])
+
+    def test_rejects_thermal_tape_temperature_margin_failure(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            inputs = list(make_inputs(Path(td)))
+            safety = inputs[1]
+            with safety.open(encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle)); fields = list(rows[0].keys())
+            next(r for r in rows if r["metric"] == "thermal_barrier_tape_interface_peak")["value"] = "275.0"
+            write_csv(safety, fields, rows)
+            result = evaluate_with_stubs(tuple(inputs))
+            self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
+            self.assertIn("temperature margin", result["reason"])
 
     def test_rejects_stale_raw_evidence(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:

@@ -43,7 +43,8 @@
         "selected GGM motor/gearbox receipt dimensions within inspection packet intervals",
         "profile usable lengths reconciled to active cut list",
         "bearing/heater/sensor/safety component identities recorded",
-        "owned assets distinguished from physically inspected assets"
+        "owned assets distinguished from physically inspected assets",
+        "TH-INS-01 exact identity/backing/adhesive/dimensions/continuous service rating recorded before installation"
       ],
       "unlocks": [
         "final mount drilling dimensions",
@@ -55,7 +56,7 @@
       "name": "COLD_FRAME_AND_FIT",
       "action": "cut/print/assemble without electrical power",
       "prerequisites": [
-        "P1_RECORD_CHECK_PASS from exact 29-item inventory plus authenticated GGM receipt packet",
+        "P1_RECORD_CHECK_PASS from exact 30-item inventory plus authenticated GGM receipt packet",
         "GGM mount result AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED against current design binding",
         "2020 and 2040 stock nesting PASS from measured length minus U95 and approved kerf budget",
         "P2 bound fabrication approval matches exact P1 inventory, GGM packet, profile stock, current frame cut list and kerf budget",
@@ -227,6 +228,7 @@
         "P8_STAGE_RELEASE_VALIDATED for installed motor dry-run state",
         "HOT_ZONE_RECEIPT_RECORD_CHECK_PASS against current thermal contracts",
         "THERMAL_CUTOFF_TOPOLOGY_PASS: TF-BARREL then TF-DIE in K0 coil chain",
+        "TH-INS-01 receipt identity and S4 coupon smoke evidence PASS under thermal barrier tape contract",
         "metal hot shield and remote stop available",
         "explicit user heater-power approval recorded for this bounded P9 run"
       ],
@@ -238,7 +240,9 @@
         "hot-zone does not bottom axial allowance; cold available travel was >=1.50 mm",
         "forced-open TF-BARREL and TF-DIE each independently remove K0/heater energy",
         "M4 die fasteners are 42.5 +/-0.1 mm from M4x45 class10.9 stock and installed dry at 1.50 N.m after receipt checks",
-        "thermocouple retainer remains <=0.10 mm motion after hot-cycle 20 N pull check"
+        "thermocouple retainer remains <=0.10 mm motion after hot-cycle 20 N pull check",
+        "TH-INS-01 installed only on allowed grounded hot-shield exterior surfaces; it does not cover heaters/cutoffs/probes/terminals/vents",
+        "TH-INS-01 adhesive-interface peak + U95 + 30 C <= documented continuous service rating; cooldown edge lift + U95 <=2.0 mm and no smoke/char/melt/adhesive flow"
       ],
       "unlocks": [
         "P10 low-feed PLA"

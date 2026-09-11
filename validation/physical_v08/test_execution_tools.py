@@ -26,7 +26,7 @@ class ExecutionToolsTest(unittest.TestCase):
                 rows.append(row)
             pending=p1.evaluate(rows,root)
             self.assertEqual(pending['status'],'P1_STOCK_SURVEY_PASS_GGM_PENDING')
-            self.assertEqual(pending['required_item_count'],29)
+            self.assertEqual(pending['required_item_count'],30)
 
             def receipt(axis,gear):
                 return {'kind':'PHYSICAL_MEASUREMENT','performed':True,'operator':'TEST',

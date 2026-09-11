@@ -203,6 +203,9 @@
       "S3",
       "S4",
       "S5"
-    ]
+    ],
+    "validator": "validate_mvp_smoke_contract.py",
+    "tape_contract": "../../control/thermal_barrier_tape_contract.json",
+    "tape_validator": "validate_thermal_barrier_tape_contract.py"
   }
 }

@@ -4,7 +4,7 @@ P9는 polymer를 투입하지 않은 상태에서 heater channel, T1-T5 mapping,
 
 ## 선행 검증
 
-1. `analyze_p9_receipt.py templates/p9_hot_zone_receipt.csv`로 heater/probe/cutoff 수령 기록을 검증한다.
+1. `analyze_p9_receipt.py templates/p9_hot_zone_receipt.csv`로 heater/probe/cutoff/TH-INS-01 수령 기록을 검증한다.
 2. `validate_p7_stage_release.py`와 `validate_p8_stage_release.py`가 각각 유효한 P9 prerequisite를 반환해야 한다.
 3. `validate_thermal_cutoff_topology.py`가 `TF-BARREL -> TF-DIE -> K0 coil`과 `TH-FUSE-01 = installed 2 + spare 1`을 확인해야 한다.
 4. 별도 P9 heater-power 승인 기록은 이 bounded run에만 적용하며 지속 가열 권한이나 machine release가 아니다.
@@ -26,3 +26,9 @@ P9에서는 polymer leak-tightness를 판정하지 않는다. 누설은 P10 최�
 `P9_RECORD_CHECK_PASS` 결과를 저장한 뒤 별도 검토자가 `templates/p9_stage_release.json`에 exact P7/P8 release, P9 receipt, thermal record, safety record, result SHA-256을 기록한다. `validate_p9_stage_release.py`는 현재 P9 analyzer로 전체 입력을 다시 계산한다.
 
 `P9_STAGE_RELEASE_VALIDATED`만 P10 진입 검토에 사용할 수 있다. 이 상태에서도 `material_feed_authorized=false`, `continuing_power_authority=false`, `machine_release=HOLD`이며, 실제 PLA 투입에는 P10 전용 사용자 승인과 P10 evidence gate가 별도로 필요하다.
+
+## TH-INS-01 열 차단 테이프
+
+`TH-INS-01`은 안전장치가 아니라 grounded metal hot shield 외측의 보조 차열재다. heater band, barrel, die, TF-BARREL/TF-DIE, T1-T5/retainer, 전기 단자·커넥터, 통풍구 또는 moving envelope를 직접 덮지 않는다. P9 전에 별도 S4 coupon smoke를 통과하고 exact backing/adhesive/continuous service rating을 증거로 남긴다.
+
+최종 장착 상태에서는 가장 뜨거운 접착 interface의 peak + U95 + 30 C가 문서화된 continuous service rating 이하여야 한다. 외측 표면 peak도 함께 기록해 실제 차열 효과를 비교하지만 이 값으로 hot-side limit을 완화하지 않는다. Cool-down 후 edge lift + U95 <=2.0 mm이며 smoke, char, melt, adhesive flow가 없어야 한다. 하나라도 실패하면 P9는 HOLD하고 tape 위치/재료 또는 shield 설계를 repository에서 수정한 뒤 S4/P9를 다시 수행한다.

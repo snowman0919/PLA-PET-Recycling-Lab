@@ -21,6 +21,7 @@ PROFILE_SOURCE = ROOT / "firmware/arduino_mega/src/generated_profiles.h"
 SOURCE_FILES = (
     "firmware/arduino_mega/src/generated_profiles.h",
     "control/thermal_cutoff_contract.json",
+    "control/thermal_barrier_tape_contract.json",
     "exports/thermal/manifest.csv",
     "exports/thermal/channel_schedule.csv",
     "exports/final/electrical/fuse_schedule.csv",
@@ -35,6 +36,7 @@ NUMERIC = {
     "post_cycle_pe_bond_worst": ("max", 0.10, "ohm"),
     "post_cycle_insulation_resistance": ("min", 1.0, "Mohm"),
     "post_cycle_insulation_test_voltage": ("range", (500.0, 500.0), "VDC"),
+    "thermal_barrier_tape_edge_lift_max": ("max", 2.0, "mm"),
 }
 BOOL_TRUE = {
     "p9_heater_power_approval_recorded", "motor_branches_isolated", "motor_commands_inhibited",
@@ -43,11 +45,15 @@ BOOL_TRUE = {
     "tf_barrel_open_removes_k0_heater_energy", "tf_die_open_removes_k0_heater_energy",
     "thermal_cutoff_series_order_match_contract", "heater_branch_fuse_ids_match_schedule",
     "die_fasteners_dry_1p50Nm_setting", "tcr_hot_cycle_pull_20n_verified",
+    "thermal_barrier_tape_installed_allowed_surfaces_only",
+    "thermal_barrier_tape_no_sensor_cutoff_terminal_vent_coverage",
+    "thermal_barrier_tape_no_smoke_char_melt_adhesive_flow",
 }
 BOOL_FALSE = {
     "hot_mount_hard_stop_contact", "polymer_leak_evaluated_in_p9",
     "automatic_restart_after_thermal_cut_recovery",
 }
+DYNAMIC_NUMERIC = {"thermal_barrier_tape_interface_peak": "C", "thermal_barrier_tape_outer_surface_peak": "C"}
 
 
 def sha(path: Path) -> str:
@@ -212,7 +218,7 @@ def evaluate(thermal_path: Path, safety_path: Path, p7_release: Path, p8_release
 
         safety_rows = rows(safety_path)
         by_safety = {r.get("metric", "").strip(): r for r in safety_rows}
-        required_safety = set(NUMERIC) | BOOL_TRUE | BOOL_FALSE
+        required_safety = set(NUMERIC) | set(DYNAMIC_NUMERIC) | BOOL_TRUE | BOOL_FALSE
         if len(safety_rows) != len(required_safety) or set(by_safety) != required_safety:
             raise ValueError("P9 hot-safety metric set mismatch")
         safety_checks = {}
@@ -225,6 +231,28 @@ def evaluate(thermal_path: Path, safety_path: Path, p7_release: Path, p8_release
             if value < 0 or not limit_ok(value, u95, mode, limit):
                 raise ValueError(metric + ": outside U95-bounded acceptance")
             safety_checks[metric] = {"value": value, "u95": u95, "unit": unit, "pass": True}
+        for metric, unit in DYNAMIC_NUMERIC.items():
+            row = by_safety[metric]; authenticate(row, numeric=True)
+            if row.get("unit", "").strip() != unit:
+                raise ValueError(metric + ": unit mismatch")
+            value = number(row.get("value"), metric); u95 = number(row.get("u95"), metric + " U95")
+            if value < 0 or u95 < 0:
+                raise ValueError(metric + ": invalid temperature evidence")
+            safety_checks[metric] = {"value": value, "u95": u95, "unit": unit, "pass": True}
+        tape_rating = prerequisites["receipt"].get("checks", {}).get("tape_continuous_service_rating", {}).get("value")
+        if tape_rating is None:
+            raise ValueError("thermal barrier tape continuous service rating missing from receipt")
+        interface = safety_checks["thermal_barrier_tape_interface_peak"]
+        required_margin = 30.0
+        if interface["value"] + interface["u95"] + required_margin > float(tape_rating):
+            raise ValueError("thermal barrier tape continuous-service temperature margin failed")
+        safety_checks["thermal_barrier_tape_rating_margin"] = {
+            "documented_rating_c": float(tape_rating),
+            "interface_peak_plus_u95_c": interface["value"] + interface["u95"],
+            "required_margin_c": required_margin,
+            "remaining_margin_c": float(tape_rating) - interface["value"] - interface["u95"],
+            "pass": True,
+        }
         for metric, expected in [(x, True) for x in BOOL_TRUE] + [(x, False) for x in BOOL_FALSE]:
             row = by_safety[metric]; authenticate(row, numeric=False)
             actual = bool_value(row, metric)

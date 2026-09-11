@@ -45,6 +45,10 @@ def make_record(run: Path):
             limit, _ = P9R.MINIMUMS[metric]
             row["value"] = str(limit * 1.5); row["u95"] = "0.1"
             row["instrument_id"] = "SYN-METER"; row["calibration_ref"] = "SYN-CAL"
+        elif metric in P9R.POSITIVE:
+            defaults = {"tape_width": 50.0, "tape_thickness": 0.2, "tape_continuous_service_rating": 300.0}
+            row["value"] = str(defaults[metric]); row["u95"] = "0.1"
+            row["instrument_id"] = "SYN-METER"; row["calibration_ref"] = "SYN-CAL"
         else:
             row["value"] = "YES"; row["u95"] = ""
             row["instrument_id"] = "N/A"; row["calibration_ref"] = "N/A"

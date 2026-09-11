@@ -1,6 +1,6 @@
 # P2 냉간 프레임·fit 검증
 
-P2는 절삭/가열/재료 투입 전의 순수 기계 조립 gate다. `P1_RECORD_CHECK_PASS`가 난 exact 29-item inventory와 authenticated GGM receipt packet, 실측 profile stock, kerf budget을 먼저 고정한다. `templates/p2_fabrication_approval.json`은 이 네 입력과 현재 `frame_cut_list.csv`의 SHA-256에 묶인 P2 전용 승인 artifact다. 이 단계에서는 모터와 히터를 통전하지 않으며 approval도 procurement/energization 권한을 주지 않는다.
+P2는 절삭/가열/재료 투입 전의 순수 기계 조립 gate다. `P1_RECORD_CHECK_PASS`가 난 exact 30-item inventory와 authenticated GGM receipt packet, 실측 profile stock, kerf budget을 먼저 고정한다. `templates/p2_fabrication_approval.json`은 이 네 입력과 현재 `frame_cut_list.csv`의 SHA-256에 묶인 P2 전용 승인 artifact다. 이 단계에서는 모터와 히터를 통전하지 않으며 approval도 procurement/energization 권한을 주지 않는다.
 
 ## 조립 순서
 

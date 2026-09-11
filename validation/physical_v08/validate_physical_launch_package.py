@@ -12,12 +12,14 @@ BANNED = ("EX-SCR-01", "EX-BAR-01", "gate1_powered_assembly", "DRV-01", "DRV-Axx
 FIXED_REQUIRED = {
     "00_READ_FIRST/STATUS.json", "00_EXECUTION/PHYSICAL_EXECUTION_INDEX_KO.md",
     "00_EXECUTION/physical_gate_contract.json", "00_EXECUTION/physical_execution_registry.json",
+    "00_EXECUTION/mvp_smoke_contract.json", "00_EXECUTION/MVP_SMOKE_VALIDATION_KO.md",
+    "02_ANALYZERS/validate_mvp_smoke_contract.py", "02_ANALYZERS/validate_thermal_barrier_tape_contract.py",
     "03_P4_GATE1/gate1_assembly.step", "04_P4_CNC/CUT-01/CUT-01.step",
     "05_P5_COUPONS/EX-CPN-SCR/EX-CPN-SCR.step", "05_P5_COUPONS/EX-CPN-BAR/EX-CPN-BAR.step",
     "06_P3_GGM/manifest.csv", "MANIFEST.sha256",
 }
 SOURCE_BINDINGS = (
-    "control/thermal_cutoff_contract.json", "exports/thermal/thermal_cutoff_topology.json",
+    "control/thermal_cutoff_contract.json", "control/thermal_barrier_tape_contract.json", "exports/thermal/thermal_cutoff_topology.json",
     "exports/thermal/manifest.csv", "exports/thermal/channel_schedule.csv",
     "exports/final/electrical/fuse_schedule.csv", "exports/final/electrical/wire_schedule.csv",
     "exports/final/electrical/pin_schedule.csv", "electronics/io_schedule.csv",
@@ -49,6 +51,15 @@ def require_registry_payload(archive: zipfile.ZipFile, names: set[str]) -> None:
                 archive_name = "02_ANALYZERS/" + Path(value).name
                 if archive_name not in names:
                     raise SystemExit(f"missing {stage_id} tool {key}={archive_name}")
+    smoke = registry.get("smoke_contract", {})
+    if smoke.get("checkpoints") != [f"S{i}" for i in range(6)]:
+        raise SystemExit("smoke checkpoint registry drift")
+    if "00_EXECUTION/" + Path(smoke.get("contract", "")).name not in names or "00_EXECUTION/" + Path(smoke.get("doc", "")).name not in names:
+        raise SystemExit("missing MVP smoke contract/doc")
+    for key in ("validator", "tape_validator"):
+        archive_name = "02_ANALYZERS/" + Path(smoke.get(key, "")).name
+        if archive_name not in names:
+            raise SystemExit("missing smoke validator " + archive_name)
 
 
 def validate_package(path: Path) -> dict:

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "revision": "thermal-barrier-tape-v0.8-r1",
+  "part_id": "TH-INS-01",
+  "state": "RECEIVED_UNQUALIFIED",
+  "quantity": "1 roll minimum",
+  "role": "secondary thermal/radiant barrier on the outside face of the grounded metal hot shield",
+  "safety_role": "NONE",
+  "placement": {
+    "allowed": [
+      "outside face of grounded metal hot shield",
+      "nonmoving cable thermal shield where released clearance remains satisfied"
+    ],
+    "forbidden": [
+      "directly on heater band",
+      "directly on barrel or die",
+      "over TF-BARREL or TF-DIE",
+      "over T1-T5 thermocouples or retainers",
+      "over electrical terminals or connectors",
+      "over ventilation openings",
+      "inside moving/rotating envelope",
+      "as a substitute for grounded metal shielding"
+    ]
+  },
+  "receipt_requirements": [
+    "exact product/brand/lot or package identity evidence",
+    "manufacturer datasheet or package temperature rating evidence",
+    "backing material recorded",
+    "adhesive chemistry/type recorded",
+    "width and thickness measured",
+    "continuous service temperature rating recorded"
+  ],
+  "coupon_smoke": {
+    "required_before_final_hot_zone_use": true,
+    "representative_surface": "scrap or representative metal shield material, not a heater/barrel/die wrap",
+    "acceptance": [
+      "no visible smoke/charring",
+      "no melting",
+      "no adhesive flow",
+      "no loss of adhesion that creates loose material",
+      "raw photo/video/temperature evidence preserved"
+    ]
+  },
+  "installed_p9_acceptance": {
+    "continuous_rating_margin_c": 30.0,
+    "criterion": "adhesive-interface peak temperature + U95 + 30 C <= documented continuous service rating",
+    "edge_lift_after_cooldown_max_mm": 2.0,
+    "record_outer_surface_temperature": true,
+    "no_smoke_char_melt_adhesive_flow": true
+  },
+  "authorization": {
+    "installation_authorized": false,
+    "heater_energization_authorized": false,
+    "machine_release": "HOLD"
+  },
+  "note": "Receipt or smoke PASS does not make TH-INS-01 a safety cutoff. TF-BARREL/TF-DIE and grounded metal shield remain independent requirements."
+}

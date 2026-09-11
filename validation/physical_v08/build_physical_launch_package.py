@@ -35,6 +35,7 @@ def main() -> None:
     common = [
         "PHYSICAL_EXECUTION_INDEX_KO.md", "PHYSICAL_BUILD_READINESS_KO.md",
         "physical_gate_contract.json", "physical_execution_registry.json",
+        "mvp_smoke_contract.json", "MVP_SMOKE_VALIDATION_KO.md",
         "stage_minimum_bom.csv", "fabrication_sequence.csv", "inventory_confirmation.csv",
         "measurement_equipment.csv", "p3_bench_bom.csv", "p3_fixture_contract.json",
         "p5_coupon_contract.json", "p5_supplier_inspection_requirements.csv",
@@ -54,7 +55,8 @@ def main() -> None:
                 raise SystemExit(f"invalid external template declaration in {stage['id']}")
             add_file(items, source, "01_TEMPLATES/" + archive_name)
 
-    tool_names = {"profile_nesting.py", "build_p5_inquiry_package.py", "build_physical_evidence_package.py", "validate_physical_evidence_package.py"}
+    tool_names = {"profile_nesting.py", "build_p5_inquiry_package.py", "build_physical_evidence_package.py", "validate_physical_evidence_package.py",
+                  "validate_mvp_smoke_contract.py", "validate_thermal_barrier_tape_contract.py"}
     for stage in registry["stages"]:
         for value in stage.values():
             if isinstance(value, str) and value.endswith(".py"):
@@ -93,7 +95,7 @@ def main() -> None:
             items.append((path, "06_P3_GGM/" + path.name))
 
     bindings = [
-        "control/thermal_cutoff_contract.json", "exports/thermal/thermal_cutoff_topology.json",
+        "control/thermal_cutoff_contract.json", "control/thermal_barrier_tape_contract.json", "exports/thermal/thermal_cutoff_topology.json",
         "exports/thermal/manifest.csv", "exports/thermal/channel_schedule.csv",
         "exports/final/electrical/fuse_schedule.csv", "exports/final/electrical/wire_schedule.csv",
         "exports/final/electrical/pin_schedule.csv", "electronics/io_schedule.csv",

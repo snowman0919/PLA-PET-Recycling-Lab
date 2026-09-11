@@ -142,6 +142,9 @@ def main():
         "validation/physical_v08/validate_p8_firmware_commissioning.py",
         "validation/physical_v08/validate_thermal_cutoff_topology.py",
         "control/thermal_cutoff_contract.json",
+        "control/thermal_barrier_tape_contract.json",
+        "validation/physical_v08/validate_thermal_barrier_tape_contract.py",
+        "validation/physical_v08/test_thermal_barrier_tape_contract.py",
         "validation/physical_v08/test_p8_firmware_commissioning.py",
         "validation/physical_v08/analyze_p8_records.py",
         "validation/physical_v08/test_p8_execution.py",
@@ -198,8 +201,10 @@ def main():
         "validation/physical_v08/test_mvp_smoke_contract.py",
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
+    tape_contract_result = __import__("subprocess").run([__import__("sys").executable, str(ROOT / "validation/physical_v08/validate_thermal_barrier_tape_contract.py")], cwd=ROOT, text=True, capture_output=True)
+    assert tape_contract_result.returncode == 0 and "THERMAL_BARRIER_TAPE_CONTRACT_PASS" in tape_contract_result.stdout
     by_stage_id = {(r["gate"], r["item_id"]): r for r in stage_bom}
-    assert len(stage_bom) == 30 and by_stage_id[("P4", "CUT-01")]["quantity"] == "2"
+    assert len(stage_bom) == 31 and by_stage_id[("P4", "CUT-01")]["quantity"] == "2"
     assert by_stage_id[("P3", "PIN-COUPON")]["quantity"] == "9"
     sprockets = by_stage_id[("P4", "GGM-SPROCKETS")]
     assert sprockets["quantity"] == "1 pair" and "direct-keyed" in sprockets["item"] and "DRV-02 superseded" in sprockets["notes"]
@@ -211,6 +216,7 @@ def main():
     assert "ID34.10-34.20" in by_stage_id[("P9", "HEAT-BAND")]["item"]
     assert "5.184-6.336" in by_stage_id[("P9", "HEAT-BAND")]["notes"]
     assert "2 installed" in by_stage_id[("P1", "SAFE-FUSE")]["quantity"] and "fuse_schedule.csv" in by_stage_id[("P1", "SAFE-FUSE")]["quantity"]
+    assert by_stage_id[("P1", "THERMAL-TAPE")]["quantity"] == "1 roll minimum" and "S4 coupon smoke" in by_stage_id[("P1", "THERMAL-TAPE")]["notes"]
     assert p3_fixture["status"] == "DESIGN_ONLY_NOT_FABRICATED" and p3_fixture["physical_action_authorized"] is False
     assert close(p3_fixture["prony"]["reaction_arm_mm"], 250.0) and close(p3_fixture["prony"]["reaction_arm_tolerance_mm"], 0.5)
     assert close(p3_fixture["calculated_force_n_at_250mm"]["8.00"], 32.0)
@@ -226,7 +232,8 @@ def main():
         "archive_name": "p1_ggm_receipt_packet.json",
     }]
     p1_rows = rows("validation/physical_v08/templates/p1_inventory_record.csv")
-    assert len(p1_rows) == 29 and {r["item_id"] for r in p1_rows} == set(inv)
+    assert len(p1_rows) == 30 and {r["item_id"] for r in p1_rows} == set(inv)
+    assert next(r for r in p1_rows if r["item_id"] == "ASSET-TH-INS")["planned_state"] == "USER_REPORTED_AVAILABLE"
     p1_header = (ROOT / "validation/physical_v08/templates/p1_inventory_record.csv").read_text(encoding="utf-8").splitlines()[0]
     assert "instrument_calibration_ref" in p1_header and "reviewer" in p1_header
     p1_analyzer = (ROOT / "validation/physical_v08/analyze_p1_records.py").read_text(encoding="utf-8")
@@ -303,6 +310,7 @@ def main():
         assert token in p9_analyzer
     p9_doc = (ROOT / "validation/physical_v08/P9_EMPTY_HOT_ZONE_KO.md").read_text(encoding="utf-8")
     assert "TF-BARREL" in p9_doc and "TF-DIE" in p9_doc and "P9_RECORD_CHECK_PASS" in p9_doc
+    assert "TH-INS-01" in p9_doc and "peak + U95 + 30 C" in p9_doc and "edge lift + U95 <=2.0 mm" in p9_doc
     assert "validate_p9_stage_release.py" in p9_doc and "P9_STAGE_RELEASE_VALIDATED" in p9_doc
     p9_gate = next(row for row in gate["gates"] if row["id"] == "P9")
     assert any("HOT_ZONE_RECEIPT_RECORD_CHECK_PASS" in x for x in p9_gate["prerequisites"])

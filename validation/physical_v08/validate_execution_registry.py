@@ -21,8 +21,11 @@ def main():
  req(policy.get('design_feedback_required_on_smoke_failure') is True,'smoke failure must feed back into design')
  smoke=reg.get('smoke_contract',{})
  req(smoke.get('checkpoints')==[f'S{i}' for i in range(6)],'smoke checkpoint registry drift')
- for key in ('contract','doc'):
+ for key in ('contract','doc','validator','tape_validator'):
   req(resolve(smoke.get(key,'')).is_file(),'missing smoke '+key)
+ req(resolve(smoke.get('tape_contract','')).is_file(),'missing thermal barrier tape contract')
+ for key in ('validator','tape_validator'):
+  py_compile.compile(str(resolve(smoke[key])),doraise=True)
  smoke_contract=contract.get('mvp_final_identity',{})
  req(smoke_contract.get('mvp_is_final_product') is True and smoke_contract.get('same_physical_artifact_required') is True,'gate MVP identity drift')
  req(smoke_contract.get('throwaway_prototype_allowed') is False and smoke_contract.get('failure_policy')=='HOLD_AND_REVISE','gate smoke failure policy drift')

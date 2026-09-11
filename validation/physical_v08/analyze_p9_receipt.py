@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_FILES = (
     "control/thermal_cutoff_contract.json",
+    "control/thermal_barrier_tape_contract.json",
     "exports/thermal/manifest.csv",
     "exports/thermal/channel_schedule.csv",
     "exports/thermal/thermal_cutoff_topology.json",
@@ -39,12 +40,16 @@ MAXIMUMS = {
     "tc_t90_max": (30.0, "s"),
 }
 MINIMUMS = {"tc_min_insulation": (100.0, "Mohm")}
+POSITIVE = {"tape_width": "mm", "tape_thickness": "mm", "tape_continuous_service_rating": "C"}
 BOOL_TRUE = {
     "bh_all_pe_bond_verified", "die_positive_retention_verified",
     "tcr_cold_pull_20n_motion_le_0p10", "tf_barrel_datasheet_rating_accepted",
     "tf_die_datasheet_rating_accepted", "tf_barrel_continuity_verified",
     "tf_die_continuity_verified", "tf_barrel_installed_k0_chain",
     "tf_die_installed_k0_chain", "tf_spare_same_spec", "tf_spare_not_installed",
+    "tape_identity_datasheet_traceable", "tape_backing_material_recorded",
+    "tape_adhesive_material_recorded", "tape_non_safety_role_acknowledged",
+    "tape_allowed_surface_rule_acknowledged", "tape_coupon_smoke_pass",
 }
 
 
@@ -104,7 +109,7 @@ def evaluate(path: Path) -> dict:
             raise ValueError("P9 receipt record must be an existing repository file")
         data = read_rows(path)
         by = {row.get("metric", "").strip(): row for row in data}
-        required = set(RANGES) | set(MAXIMUMS) | set(MINIMUMS) | BOOL_TRUE
+        required = set(RANGES) | set(MAXIMUMS) | set(MINIMUMS) | set(POSITIVE) | BOOL_TRUE
         if len(data) != len(required) or set(by) != required:
             raise ValueError("P9 hot-zone receipt metric set mismatch")
         source_hashes = {}
@@ -134,6 +139,12 @@ def evaluate(path: Path) -> dict:
             value = number(row.get("value"), metric); u95 = number(row.get("u95"), metric + " U95")
             if row.get("unit", "").strip() != unit or u95 < 0 or value - u95 < limit:
                 raise ValueError(metric + ": minimum acceptance failed")
+            checks[metric] = {"value": value, "u95": u95, "unit": unit, "pass": True}
+        for metric, unit in POSITIVE.items():
+            row = by[metric]; authenticate(row, numeric=True)
+            value = number(row.get("value"), metric); u95 = number(row.get("u95"), metric + " U95")
+            if row.get("unit", "").strip() != unit or u95 < 0 or value - u95 <= 0:
+                raise ValueError(metric + ": positive recorded value required")
             checks[metric] = {"value": value, "u95": u95, "unit": unit, "pass": True}
         for metric in BOOL_TRUE:
             row = by[metric]; authenticate(row, numeric=False)
