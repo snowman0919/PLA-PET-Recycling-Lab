@@ -92,6 +92,16 @@ def main() -> None:
         if not source.is_file():
             raise ValueError('missing execution evidence: ' + name)
         files['verification/' + name] = source.read_bytes()
+    regeneration = json.loads(files['verification/regeneration.json'])
+    if regeneration.get('status') != 'PASS' or not regeneration.get('records'):
+        raise ValueError('regeneration has not passed')
+    git('merge-base', '--is-ancestor', regeneration['generation_base_commit'], head)
+    for record in regeneration['records']:
+        name = Path(safe_name(record['log'])).name
+        content = (evidence/'regeneration'/name).read_bytes()
+        if record.get('status') != 'PASS' or record.get('returncode') != 0 or sha(content) != record['log_sha256']:
+            raise ValueError('invalid regeneration evidence: ' + name)
+        files['verification/regeneration/' + name] = content
     runs = json.loads(files['verification/github_runs.json'])
     for workflow in ('CI-LIGHT', 'CI-FULL'):
         if not any(r.get('workflowName') == workflow and r.get('headSha') == head and

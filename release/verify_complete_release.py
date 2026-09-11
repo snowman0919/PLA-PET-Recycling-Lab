@@ -78,6 +78,21 @@ def validate_contents(data: dict, read) -> None:
             log = safe_name(f'verification/{suite}/' + record['log'])
             if sha(read(src)) != record['source_sha256'] or sha(read(log)) != record['log_sha256']:
                 raise ValueError('CI source/log digest mismatch')
+    regeneration = json.loads(read('verification/regeneration.json'))
+    if regeneration.get('status') != 'PASS' or not regeneration.get('records'):
+        raise ValueError('missing successful regeneration')
+    for record in regeneration['records']:
+        source = safe_name('repository/' + record['script'])
+        log = 'verification/regeneration/' + PurePosixPath(safe_name(record['log'])).name
+        if record.get('status') != 'PASS' or record.get('returncode') != 0:
+            raise ValueError('failed regeneration stage')
+        if sha(read(source)) != record['source_sha256'] or sha(read(log)) != record['log_sha256']:
+            raise ValueError('regeneration source/log mismatch')
+    runs = json.loads(read('verification/github_runs.json'))
+    for workflow in ('CI-LIGHT', 'CI-FULL'):
+        if not any(r.get('workflowName') == workflow and r.get('headSha') == head and
+                   r.get('status') == 'completed' and r.get('conclusion') == 'success' for r in runs):
+            raise ValueError('exact-head remote CI evidence missing: ' + workflow)
     fw = json.loads(read('repository/exports/final/firmware/build_manifest.json'))
     digest = fw['binary_sha256']
     binary = read('repository/exports/final/firmware/binaries/filament_recycler_atmega2560.hex')

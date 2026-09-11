@@ -73,3 +73,6 @@ __pycache__/
 
 # Scoped disposable clean-checkout and release verification workspace
 /.build/
+
+# Release archives are tag assets, not self-referential source inputs.
+/dist/
