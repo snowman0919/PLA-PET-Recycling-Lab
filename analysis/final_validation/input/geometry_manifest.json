@@ -18,16 +18,54 @@
     },
     {
       "file": "extruder_barrel.step",
-      "sha256": "eb72410cc4eaaf3f700e629017b0278edfee3c994cafb7f25c206896a65b0b75",
+      "sha256": "dc21e0c4f542c98bcceb3118b9215ada6cb07c14b0757ce0fc646db69fba7d26",
       "solid_count": 1,
-      "volume_mm3": 193132.557511,
+      "volume_mm3": 196898.993147,
       "bbox_mm": [
-        34.0,
-        34.0,
+        39.0,
+        44.0,
         280.0
       ],
-      "step_reimport_volume_error_fraction": 1.1932327677816074e-07,
+      "step_reimport_volume_error_fraction": 4.365482663775444e-08,
       "status": "PASS"
     }
-  ]
+  ],
+  "shredder_stations": {
+    "105": {
+      "shaft_y_min_mm": 278.0,
+      "shaft_y_max_mm": 518.0,
+      "bearing_y_mm": [
+        321.0,
+        461.0
+      ],
+      "gear_y_mm": 480.0,
+      "cutter_y_mm": [
+        342.0,
+        355.0,
+        368.0,
+        381.0,
+        394.0,
+        407.0
+      ]
+    },
+    "153": {
+      "shaft_y_min_mm": 258.0,
+      "shaft_y_max_mm": 498.0,
+      "bearing_y_mm": [
+        321.0,
+        461.0
+      ],
+      "gear_y_mm": 480.0,
+      "cutter_y_mm": [
+        348.5,
+        361.5,
+        374.5,
+        387.5,
+        400.5,
+        413.5
+      ],
+      "chain_sprocket_y_mm": 264.0
+    }
+  },
+  "geometry_source_sha256": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57"
 }
