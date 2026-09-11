@@ -1,7 +1,7 @@
 {
   "revision": "safety-orchestration-closure-v0.6.1",
   "release_state": "IMPLEMENTATION_BASELINE",
-  "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+  "virtual_physics_state": "STRUCTURAL_SCREENING_INCOMPLETE",
   "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
   "input": "analysis/load_cases/openmodelica_dynamic_envelope.json",
   "input_source": "OpenModelica DASSL virtual model; physical tests not run",
@@ -27,7 +27,8 @@
             "frd_bytes": 645335,
             "converged": true,
             "max_displacement_mm": 0.33172269130285614,
-            "max_von_mises_mpa": 77.37364108318285
+            "max_von_mises_mpa": 77.37364108318285,
+            "max_von_mises_node_id": 252
           }
         },
         {
@@ -39,7 +40,8 @@
             "frd_bytes": 4670727,
             "converged": true,
             "max_displacement_mm": 0.35172513895314617,
-            "max_von_mises_mpa": 87.08059581472021
+            "max_von_mises_mpa": 87.08059581472021,
+            "max_von_mises_node_id": 982
           }
         },
         {
@@ -51,7 +53,8 @@
             "frd_bytes": 15246263,
             "converged": true,
             "max_displacement_mm": 0.35586877708441916,
-            "max_von_mises_mpa": 90.73706650171032
+            "max_von_mises_mpa": 90.73706650171032,
+            "max_von_mises_node_id": 2192
           }
         }
       ]
@@ -71,7 +74,8 @@
             "frd_bytes": 5606,
             "converged": true,
             "max_displacement_mm": 0.017442685057335636,
-            "max_von_mises_mpa": 62.73261573953691
+            "max_von_mises_mpa": 62.73261573953691,
+            "max_von_mises_node_id": 5
           }
         },
         {
@@ -83,7 +87,8 @@
             "frd_bytes": 8489,
             "converged": true,
             "max_displacement_mm": 0.017659383337268606,
-            "max_von_mises_mpa": 66.44348020139533
+            "max_von_mises_mpa": 66.44348020139533,
+            "max_von_mises_node_id": 8
           }
         },
         {
@@ -95,7 +100,8 @@
             "frd_bytes": 14255,
             "converged": true,
             "max_displacement_mm": 0.017714637512029424,
-            "max_von_mises_mpa": 68.2028127430326
+            "max_von_mises_mpa": 68.2028127430326,
+            "max_von_mises_node_id": 14
           }
         }
       ]
@@ -142,9 +148,37 @@
       "equivalent_stress_mpa": 31.481,
       "allowable_mpa": 120,
       "safety_factor": 3.81,
-      "criterion": "SF >= 2.0 virtual design-release screen; empirical correlation optional",
-      "status": "PASS",
-      "note": "6\u00d76\u00d718 mm key shear; hub bearing pressure separately inspect at RFQ"
+      "criterion": "Shear SF >= 2 AND qualified lamination load sharing and hub bearing strength",
+      "status": "HOLD",
+      "note": "Ideal6\u00d76\u00d718 engagement screen; three-lamination load sharing and hub contact pressure unqualified; not complete key validation",
+      "shear_screen_status": "PASS",
+      "load_sharing_basis": "18 full-stack ideal;6 full lamination;4 current slave first lamination geometric overlap;2 unadopted gear -Y2 candidate first lamination overlap. Each scenario applies full phase torque conservatively; actual sharing and key length remain unqualified.",
+      "load_sharing_scenarios": [
+        {
+          "engaged_length_mm": 18,
+          "tangential_force_n": 3400.0,
+          "average_shear_mpa": 31.48148148148148,
+          "average_hub_bearing_mpa": 78.70370370370371
+        },
+        {
+          "engaged_length_mm": 6,
+          "tangential_force_n": 3400.0,
+          "average_shear_mpa": 94.44444444444444,
+          "average_hub_bearing_mpa": 236.11111111111114
+        },
+        {
+          "engaged_length_mm": 4,
+          "tangential_force_n": 3400.0,
+          "average_shear_mpa": 141.66666666666666,
+          "average_hub_bearing_mpa": 354.1666666666667
+        },
+        {
+          "engaged_length_mm": 2,
+          "tangential_force_n": 3400.0,
+          "average_shear_mpa": 283.3333333333333,
+          "average_hub_bearing_mpa": 708.3333333333334
+        }
+      ]
     },
     {
       "component": "CH-SPROCKET-01 overhang",
@@ -282,8 +316,28 @@
     "incremental_planning_cost_krw": 5000,
     "status": "PASS"
   },
-  "status": "PASS",
-  "failures": [],
+  "shredder_chamber_joint": {
+    "status": "PASS",
+    "physical_validation_state": "NOT_RUN",
+    "design_separation_n": 3713.088351113512,
+    "torque_nm": 7,
+    "nut_factor": 0.25,
+    "preload_per_bolt_n": 4666.666666666667,
+    "two_bolt_share_load_per_bolt_n": 6523.210842223423,
+    "four_bolt_clamp_margin_n": 14953.578315553155,
+    "sleeve_compression_mpa": 105.27612583446893,
+    "safety_factors": {
+      "bolt_proof": 2.5574828720872116,
+      "sleeve_yield": 2.6121781915910987,
+      "sleeve_euler_buckling": 10.524882102095583
+    },
+    "criterion": "all conditional SF >=2 and positive clamp margin",
+    "limitations": "Centered load shared by one bolt row; prying, embedment, torque scatter beyond K=0.25, fatigue and physical torque/preload remain unqualified."
+  },
+  "status": "FAIL",
+  "failures": [
+    "PH-KEY-01 phase gear key"
+  ],
   "limitations": [
     "OpenModelica cutter load is a reduced-order virtual load, not measured cutting torque; empirical correlation is optional and not run.",
     "Closed-form checks are screening models; stress concentration, fatigue, impact, weld and fastener preload require drawing review and physical gates.",

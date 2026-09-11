@@ -38,6 +38,7 @@ graphify-out/graph.graphml
 graphify-out/cypher.txt
 graphify-out/obsidian/
 graphify-out/wiki/
+graphify-out/reflections/
 
 # Regenerated solver/simulation outputs (manifest + generation commands are source of truth)
 simulation/openmodelica/results/raw/
@@ -57,6 +58,7 @@ analysis/structural/generated/*.sta
 analysis/structural/generated/spooles.out
 analysis/final_validation/results/v0.8/raw/
 analysis/final_validation/results/v0.8/qualification_raw/
+analysis/final_validation/results/v0.8/phase_raw/
 analysis/structural/generated/*_coarse.inp
 analysis/structural/generated/*_medium.inp
 analysis/structural/generated/*_fine.inp
@@ -68,3 +70,6 @@ cad/graphify-out/
 nohup.out
 __pycache__/
 *.pyc
+
+# Scoped disposable clean-checkout and release verification workspace
+/.build/

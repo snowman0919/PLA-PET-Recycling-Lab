@@ -21,8 +21,14 @@ def main():
             root = Path(temporary)
             out = root/'analysis/final_validation/results/v0.8'
             out.mkdir(parents=True)
-            for path in source.glob('PilotPET*_res.csv'):
-                shutil.copyfile(path,out/path.name)
+            for case in ('PilotPET', 'PilotPETDieOpen', 'PilotPETBarrelOpen', 'PilotPETBarrelStuck', 'PilotPETDieStuck', 'PilotPETWeakJoint', 'PilotPETVeryWeakJoint'):
+                with (out/(case+'_res.csv')).open('w', newline='') as stream:
+                    writer = csv.DictWriter(stream, fieldnames=['time','T1','T2','T3','Tdie','fuseBlown','power3','powerDie'])
+                    writer.writeheader()
+                    for t in range(3601):
+                        writer.writerow(dict(time=t,T1=245,T2=260,T3=270,Tdie=265,fuseBlown=0,
+                            power3=100 if case=='PilotPETBarrelStuck' else 0,
+                            powerDie=60 if case=='PilotPETDieStuck' else 0))
             path = out/filename
             with path.open() as stream:
                 reader = csv.DictReader(stream)

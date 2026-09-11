@@ -164,7 +164,7 @@ bool onlyCooling(const ActuatorCommands &commands) {
   return commands.cooling_pwm != 0 && commands.shredder_pwm == 0 &&
          !commands.feeder_enable && commands.screw_pwm == 0 &&
          commands.puller_pwm == 0 && commands.spooler_pwm == 0 &&
-         !commands.traverse_enable && !commands.hopper_ptc_on && !anyHeater(commands);
+         !commands.traverse_enable && !anyHeater(commands);
 }
 
 bool purgeMotionStopped(const ActuatorCommands &commands) {

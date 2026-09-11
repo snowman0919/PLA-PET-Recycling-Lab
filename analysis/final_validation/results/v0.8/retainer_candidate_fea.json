@@ -1,0 +1,392 @@
+{
+  "status": "HOLD",
+  "physical_validation_state": "NOT_RUN",
+  "thrust_n": 1239.7748770270393,
+  "medium_to_fine_displacement_change": 0.03891095241522714,
+  "displacement_convergence_5_percent": true,
+  "meshes": [
+    {
+      "mesh_mm": 2.0,
+      "loaded_area_mm2": 495.29607281156666,
+      "result": {
+        "max_displacement_mm": 0.014608502917770067,
+        "max_von_mises_mpa": 50.179094232760924,
+        "max_von_mises_node_id": 391,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 110,
+          "force_n": [
+            -1239.774707,
+            -0.0011009999999832265,
+            0.00017499999999026628
+          ],
+          "moment_about_origin_nm": [
+            0.0004732607510642417,
+            -468.15025015455785,
+            430.1050285834481
+          ]
+        }
+      },
+      "peak_stress_coordinate_mm": [
+        379.2,
+        319.6086310551,
+        381.63284045897
+      ],
+      "peak_stress_distance_to_fixed_bore_mm": 4.3010039973978564e-13,
+      "force_residual_n": 0.00017002703930302232,
+      "moment_residual_nm": [
+        0.0004732607510642417,
+        -1.957058088919439e-07,
+        -0.00047432493425958455
+      ],
+      "fixed_bore_reactions": [
+        {
+          "centre_yz_mm": [
+            318,
+            382
+          ],
+          "node_count": 55,
+          "force_n": [
+            -622.390747,
+            -52.60628999999998,
+            0.1334389999999967
+          ],
+          "moment_about_origin_nm": [
+            19.053257515425727,
+            -235.05639545601537,
+            185.77384472177116
+          ]
+        },
+        {
+          "centre_yz_mm": [
+            376,
+            382
+          ],
+          "node_count": 55,
+          "force_n": [
+            -617.38396,
+            52.605188999999996,
+            -0.13326400000000643
+          ],
+          "moment_about_origin_nm": [
+            -19.05278425467466,
+            -233.09385469854237,
+            244.33118386167706
+          ]
+        }
+      ],
+      "deck_sha256": "e596536ccae8cddf211d8c1d2be2105fb1b823e965635aaf8d146f7231068553"
+    },
+    {
+      "mesh_mm": 1.5,
+      "loaded_area_mm2": 495.02660203829106,
+      "result": {
+        "max_displacement_mm": 0.015906556053360478,
+        "max_von_mises_mpa": 52.81412343502446,
+        "max_von_mises_node_id": 515,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 153,
+          "force_n": [
+            -1239.7746429,
+            1.9100000000646378e-05,
+            0.0001485999999927684
+          ],
+          "moment_about_origin_nm": [
+            4.741888083925616e-05,
+            -468.30705627100946,
+            430.3611031929086
+          ]
+        }
+      },
+      "peak_stress_coordinate_mm": [
+        379.2,
+        374.3913689449,
+        381.63284045897
+      ],
+      "peak_stress_distance_to_fixed_bore_mm": 4.3010039973978564e-13,
+      "force_residual_n": 0.00023412703944813984,
+      "moment_residual_nm": [
+        4.741888083925616e-05,
+        3.443937259817176e-05,
+        -8.1295632412548e-05
+      ],
+      "fixed_bore_reactions": [
+        {
+          "centre_yz_mm": [
+            318,
+            382
+          ],
+          "node_count": 77,
+          "force_n": [
+            -616.522594,
+            -55.12992889999999,
+            0.19668899999999245
+          ],
+          "moment_about_origin_nm": [
+            19.97752423287795,
+            -232.98116788637245,
+            182.92497593734063
+          ]
+        },
+        {
+          "centre_yz_mm": [
+            376,
+            382
+          ],
+          "node_count": 76,
+          "force_n": [
+            -623.2520489,
+            55.12994799999999,
+            -0.1965403999999997
+          ],
+          "moment_about_origin_nm": [
+            -19.977476813997143,
+            -235.32588838463712,
+            247.43612725556784
+          ]
+        }
+      ],
+      "deck_sha256": "1af4d9695ec55a1b1b28fe55e62aa80f9f00c314dc43cfcd4065c40c71f6384b"
+    },
+    {
+      "mesh_mm": 1.0,
+      "loaded_area_mm2": 489.9519797411296,
+      "result": {
+        "max_displacement_mm": 0.019068170789495555,
+        "max_von_mises_mpa": 67.43690742827698,
+        "max_von_mises_node_id": 774,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 338,
+          "force_n": [
+            -1239.7746562,
+            -0.0001177999999998347,
+            -0.00012440000001050222
+          ],
+          "moment_about_origin_nm": [
+            5.810611836243318e-06,
+            -468.22504959013037,
+            430.1951032936564
+          ]
+        }
+      },
+      "peak_stress_coordinate_mm": [
+        379.2,
+        319.6332053791,
+        381.76518051685
+      ],
+      "peak_stress_distance_to_fixed_bore_mm": 3.646416502078864e-12,
+      "force_residual_n": 0.0002208270393566636,
+      "moment_residual_nm": [
+        5.810611836243318e-06,
+        0.00013102772959427966,
+        -0.00012334452480899927
+      ],
+      "fixed_bore_reactions": [
+        {
+          "centre_yz_mm": [
+            318,
+            382
+          ],
+          "node_count": 169,
+          "force_n": [
+            -620.2571849,
+            -56.97654429999999,
+            0.07521799999999819
+          ],
+          "moment_about_origin_nm": [
+            20.619854177708373,
+            -234.29742034476354,
+            183.51321129212297
+          ]
+        },
+        {
+          "centre_yz_mm": [
+            376,
+            382
+          ],
+          "node_count": 169,
+          "force_n": [
+            -619.5174713,
+            56.976426499999995,
+            -0.07534240000000869
+          ],
+          "moment_about_origin_nm": [
+            -20.61984836709651,
+            -233.92762924536711,
+            246.68189200153356
+          ]
+        }
+      ],
+      "deck_sha256": "076ccf8a96e6cebbdc0a14c435d3f699a9c145c644d362f8cbf07bfbfb983fe9"
+    },
+    {
+      "mesh_mm": 0.7,
+      "loaded_area_mm2": 491.48908718132503,
+      "result": {
+        "max_displacement_mm": 0.020635351072324774,
+        "max_von_mises_mpa": 77.11907322193063,
+        "max_von_mises_node_id": 1083,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 682,
+          "force_n": [
+            -1239.77475393,
+            0.0007953999999878066,
+            0.0002742300000097026
+          ],
+          "moment_about_origin_nm": [
+            -0.00020308793912526824,
+            -468.1893993164969,
+            430.2230117581776
+          ]
+        }
+      },
+      "peak_stress_coordinate_mm": [
+        379.2,
+        374.43075674811,
+        382.50987804072
+      ],
+      "peak_stress_distance_to_fixed_bore_mm": 3.2578384434600594e-12,
+      "force_residual_n": 0.00012309703924984206,
+      "moment_residual_nm": [
+        -0.00020308793912526824,
+        -5.574079978032387e-05,
+        0.00025689308705523217
+      ],
+      "fixed_bore_reactions": [
+        {
+          "centre_yz_mm": [
+            318,
+            382
+          ],
+          "node_count": 341,
+          "force_n": [
+            -619.3303612,
+            -57.285035900000004,
+            0.026888330000008995
+          ],
+          "moment_about_origin_nm": [
+            20.720972913394952,
+            -233.88606669490588,
+            183.0944253917505
+          ]
+        },
+        {
+          "centre_yz_mm": [
+            376,
+            382
+          ],
+          "node_count": 341,
+          "force_n": [
+            -620.44439273,
+            57.28583129999999,
+            -0.026614099999999294
+          ],
+          "moment_about_origin_nm": [
+            -20.721176001333983,
+            -234.3033326215912,
+            247.12858636642704
+          ]
+        }
+      ],
+      "deck_sha256": "1b8972c04d3f65b626478310c1e4f12ea83260ffe336271655c7d75ad82d8771"
+    },
+    {
+      "mesh_mm": 0.5,
+      "loaded_area_mm2": 491.01925729568615,
+      "result": {
+        "max_displacement_mm": 0.021470800363589237,
+        "max_von_mises_mpa": 88.38248496861978,
+        "max_von_mises_node_id": 1507,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 1222,
+          "force_n": [
+            -1239.7749224,
+            -2.0379999992654494e-05,
+            0.00013166400000442764
+          ],
+          "moment_about_origin_nm": [
+            5.564912729921767e-05,
+            -468.1639755948127,
+            430.22958570523826
+          ]
+        }
+      },
+      "peak_stress_coordinate_mm": [
+        379.2,
+        374.35461373465,
+        382.12330465442
+      ],
+      "peak_stress_distance_to_fixed_bore_mm": 1.227240531420648e-12,
+      "force_residual_n": -4.537296058515494e-05,
+      "moment_residual_nm": [
+        5.564912729921767e-05,
+        -6.70348169933277e-05,
+        1.0095397556142416e-05
+      ],
+      "fixed_bore_reactions": [
+        {
+          "centre_yz_mm": [
+            318,
+            382
+          ],
+          "node_count": 611,
+          "force_n": [
+            -619.2216065,
+            -57.56963378,
+            0.0018680200000022822
+          ],
+          "moment_about_origin_nm": [
+            20.818196945314348,
+            -233.82869835138195,
+            182.95868487280526
+          ]
+        },
+        {
+          "centre_yz_mm": [
+            376,
+            382
+          ],
+          "node_count": 611,
+          "force_n": [
+            -620.5533159,
+            57.56961340000001,
+            -0.0017363559999978547
+          ],
+          "moment_about_origin_nm": [
+            -20.81814129618713,
+            -234.33527724343105,
+            247.2709008324329
+          ]
+        }
+      ],
+      "deck_sha256": "bea97445ffff5e1e495114aa709f8d972ac392bfc6f878da4636bf66f8791acd"
+    }
+  ],
+  "raw_directory": "analysis/final_validation/results/v0.8/retainer-65xnbix8",
+  "limitations": [
+    "E190 GPa and nu0.3 assumed, not elevated-temperature qualified material.",
+    "Fully fixed tapped bores omit bolt stretch, prying/contact and thread failure.",
+    "Triangle-centroid pressure footprint is approximate; no stress acceptance claimed."
+  ],
+  "source_sha256": {
+    "analysis/final_validation/run_retainer_candidate.py": "879f7f52e4a4475fd82d68544ca858cd96e12d72aced2202bb3758729e49b7c2",
+    "analysis/final_validation/results/v0.8/axial_shoulder_candidate.json": "6169313576ca80a5432c077f342b9f625bd8f762c1589060ef0ece96e06309c8",
+    "analysis/final_validation/input/retainer_candidate.step": "8ea96dd7ecef0872935ada78f73b844c085f837fb81882da3a454455eb97e8e5",
+    "analysis/final_validation/run_calculix_v08.py": "d5e4430ab0208394700a04674737d90cfb25400a29c7fb4660c228d45c5a9acd",
+    "analysis/structural/run_load_checks.py": "5fd498c9a55ab327f410d95eabf44244cb9c0b44611e8693051d79b34e7f39ba"
+  }
+}

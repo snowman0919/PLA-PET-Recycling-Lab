@@ -1,0 +1,350 @@
+{
+  "status": "HOLD",
+  "physical_validation_state": "NOT_RUN",
+  "rows": [
+    {
+      "bolt_centre_yz_mm": [
+        318,
+        382
+      ],
+      "envelope": "shaft_OD4_L100",
+      "collisions": [],
+      "nominal_space_check": "PASS"
+    },
+    {
+      "bolt_centre_yz_mm": [
+        318,
+        382
+      ],
+      "envelope": "grip_OD30_L60",
+      "collisions": [
+        {
+          "part": "Barrel",
+          "volume_mm3": 1635.582124059475
+        },
+        {
+          "part": "BarrelBandHeaterZ2",
+          "volume_mm3": 1175.527075870199
+        },
+        {
+          "part": "HotShield",
+          "volume_mm3": 3098.415939301093
+        }
+      ],
+      "nominal_space_check": "FAIL"
+    },
+    {
+      "bolt_centre_yz_mm": [
+        318,
+        382
+      ],
+      "envelope": "L_key_OD4_short20_long40_outward_plus_minus30_conservative_box",
+      "collisions": [
+        {
+          "part": "HotShield",
+          "volume_mm3": 352.0
+        }
+      ],
+      "nominal_space_check": "FAIL"
+    },
+    {
+      "bolt_centre_yz_mm": [
+        318,
+        382
+      ],
+      "envelope": "L_key_same_sweep_HotShield_removed",
+      "required_removed_parts": [
+        "HotShield"
+      ],
+      "collisions": [],
+      "nominal_space_check": "PASS"
+    },
+    {
+      "bolt_centre_yz_mm": [
+        376,
+        382
+      ],
+      "envelope": "shaft_OD4_L100",
+      "collisions": [
+        {
+          "part": "TemperatureProbeT1",
+          "volume_mm3": 26.11292732548513
+        },
+        {
+          "part": "HeaterLeadZ1",
+          "volume_mm3": 42.66666666741259
+        }
+      ],
+      "nominal_space_check": "FAIL"
+    },
+    {
+      "bolt_centre_yz_mm": [
+        376,
+        382
+      ],
+      "envelope": "grip_OD30_L60",
+      "collisions": [
+        {
+          "part": "Barrel",
+          "volume_mm3": 1582.5655189966021
+        },
+        {
+          "part": "BarrelBandHeaterZ2",
+          "volume_mm3": 1175.527075870201
+        },
+        {
+          "part": "TemperatureProbeT2",
+          "volume_mm3": 202.16090728919232
+        },
+        {
+          "part": "TemperatureProbeRetainerT2",
+          "volume_mm3": 183.55570835874548
+        },
+        {
+          "part": "HotShield",
+          "volume_mm3": 2959.159260928461
+        },
+        {
+          "part": "HeaterLeadZ2",
+          "volume_mm3": 288.59897154868725
+        }
+      ],
+      "nominal_space_check": "FAIL"
+    },
+    {
+      "bolt_centre_yz_mm": [
+        376,
+        382
+      ],
+      "envelope": "L_key_OD4_short20_long40_outward_plus_minus30_conservative_box",
+      "collisions": [
+        {
+          "part": "HotShield",
+          "volume_mm3": 352.0
+        }
+      ],
+      "nominal_space_check": "FAIL"
+    },
+    {
+      "bolt_centre_yz_mm": [
+        376,
+        382
+      ],
+      "envelope": "L_key_same_sweep_HotShield_removed",
+      "required_removed_parts": [
+        "HotShield"
+      ],
+      "collisions": [],
+      "nominal_space_check": "PASS"
+    }
+  ],
+  "service_window_candidate": [
+    {
+      "bolt_centre_yz_mm": [
+        318,
+        382
+      ],
+      "window_xz_mm": [
+        325,
+        356,
+        12,
+        52
+      ],
+      "cover_box_mm": [
+        317,
+        308,
+        348,
+        28,
+        2,
+        68
+      ],
+      "hole_centres_xz_mm": [
+        [
+          321,
+          352
+        ],
+        [
+          321,
+          412
+        ],
+        [
+          341,
+          352
+        ],
+        [
+          341,
+          412
+        ]
+      ],
+      "hole_diameter_mm": 3.4,
+      "cover_edge_ligament_mm": 2.3,
+      "cover_step": "analysis/final_validation/results/v0.8/shield_service_cover_318_candidate.step",
+      "cover_step_sha256": "554972d98ac43bf087db7a0ffaf3becf67c935f631bf5d3ff63caa96b643e59e",
+      "closed_cover_collisions": [],
+      "cover_outward20_sweep_collisions": [],
+      "open_window_tool_collisions": [],
+      "status": "HOLD"
+    },
+    {
+      "bolt_centre_yz_mm": [
+        376,
+        382
+      ],
+      "window_xz_mm": [
+        325,
+        356,
+        12,
+        52
+      ],
+      "cover_box_mm": [
+        317,
+        385,
+        348,
+        28,
+        2,
+        68
+      ],
+      "hole_centres_xz_mm": [
+        [
+          321,
+          352
+        ],
+        [
+          321,
+          412
+        ],
+        [
+          341,
+          352
+        ],
+        [
+          341,
+          412
+        ]
+      ],
+      "hole_diameter_mm": 3.4,
+      "cover_edge_ligament_mm": 2.3,
+      "cover_step": "analysis/final_validation/results/v0.8/shield_service_cover_376_candidate.step",
+      "cover_step_sha256": "098c3ab7d9fac91b751f5f36209780271370b0b0ee69c05b424cde9128ee9b7e",
+      "closed_cover_collisions": [],
+      "cover_outward20_sweep_collisions": [],
+      "open_window_tool_collisions": [],
+      "status": "HOLD"
+    }
+  ],
+  "service_window_step_sha256": "f949934aaff6edec6144b412fe8382f873a4469a4ed3b939b2ea5b943507ca85",
+  "service_window_limitations": "Unadopted geometry only: cover fasteners, retention, PE bonding, hot-surface protection, edge finishing, stiffness and hand access unqualified. Cover removal requires lockout, cooling and user confirmation.",
+  "shield_upward_removal_samples": [
+    {
+      "upward_translation_mm": 0.1,
+      "collisions": [],
+      "sample_check": "PASS"
+    },
+    {
+      "upward_translation_mm": 1,
+      "collisions": [
+        {
+          "part": "TemperatureProbeT1",
+          "volume_mm3": 1.4005292046960331
+        },
+        {
+          "part": "TemperatureProbeT2",
+          "volume_mm3": 1.4005292046960356
+        },
+        {
+          "part": "TemperatureProbeT3",
+          "volume_mm3": 1.4005292046960345
+        }
+      ],
+      "sample_check": "FAIL"
+    },
+    {
+      "upward_translation_mm": 5,
+      "collisions": [
+        {
+          "part": "PPR-C03_FlakeCorner1",
+          "volume_mm3": 56.0
+        },
+        {
+          "part": "TemperatureProbeT1",
+          "volume_mm3": 10.995574287564219
+        },
+        {
+          "part": "TemperatureProbeT2",
+          "volume_mm3": 10.995574287564196
+        },
+        {
+          "part": "TemperatureProbeT3",
+          "volume_mm3": 10.995574287564196
+        },
+        {
+          "part": "TemperatureProbeT4",
+          "volume_mm3": 6.2831853071795605
+        },
+        {
+          "part": "HeaterLeadZ1",
+          "volume_mm3": 25.132741228718444
+        },
+        {
+          "part": "HeaterLeadZ2",
+          "volume_mm3": 25.132741228718373
+        },
+        {
+          "part": "HeaterLeadZ3",
+          "volume_mm3": 25.132741228718373
+        }
+      ],
+      "sample_check": "FAIL"
+    },
+    {
+      "upward_translation_mm": 20,
+      "collisions": [
+        {
+          "part": "FlakeBin",
+          "volume_mm3": 917.9999999999964
+        },
+        {
+          "part": "PPR-C03_FlakeCorner1",
+          "volume_mm3": 215.99999999999983
+        },
+        {
+          "part": "TemperatureProbeT1",
+          "volume_mm3": 10.995574287564217
+        },
+        {
+          "part": "TemperatureProbeT2",
+          "volume_mm3": 10.995574287564194
+        },
+        {
+          "part": "TemperatureProbeT3",
+          "volume_mm3": 10.995574287564194
+        },
+        {
+          "part": "TemperatureProbeT4",
+          "volume_mm3": 6.2831853071795605
+        },
+        {
+          "part": "HeaterLeadZ1",
+          "volume_mm3": 25.13274122871843
+        },
+        {
+          "part": "HeaterLeadZ2",
+          "volume_mm3": 25.13274122871836
+        },
+        {
+          "part": "HeaterLeadZ3",
+          "volume_mm3": 25.13274122871836
+        }
+      ],
+      "sample_check": "FAIL"
+    }
+  ],
+  "shield_motion_scope": "Baseline assembly, four discrete vertical translations, not continuous path clearance or candidate mount clearance. No cable disconnection or fastener removal credited.",
+  "scope": "Tool envelopes end at head rear face X351; candidate added solids lie at X>=351. L-key bounding box contains nominal outward +/-30 degree rotation. No socket engagement, insertion sweep, hand space or selected tool qualification; a box collision alone does not prove actual L-key collision.",
+  "source_sha256": {
+    "cad/freecad/final_v08/check_retainer_tool_access.py": "88c0831f1ba7b435ba798c5354f6f7785bfc021a7b3c42ea0f1fc2b74e9ffb59",
+    "analysis/final_validation/results/v0.8/axial_shoulder_candidate.json": "6169313576ca80a5432c077f342b9f625bd8f762c1589060ef0ece96e06309c8",
+    "cad/freecad/final_v08/generate.py": "5e3788761eac33931118c9406edaff4041b8c740a7df364f44c0f8be7737335f",
+    "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57"
+  }
+}

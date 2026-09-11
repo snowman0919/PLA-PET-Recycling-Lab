@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "physical_validation_state": "NOT_RUN",
+  "rows": [
+    {
+      "side": "L",
+      "shaft_key_datum_deg": 0.0,
+      "installed_tooth_phase_deg": 0.0,
+      "gear_local_keyway_deg": 0.0,
+      "clocking_residual_deg": 0.0,
+      "status": "PASS"
+    },
+    {
+      "side": "R",
+      "shaft_key_datum_deg": 25.714285714285715,
+      "installed_tooth_phase_deg": 11.25,
+      "gear_local_keyway_deg": 14.464285714285715,
+      "clocking_residual_deg": 0.0,
+      "status": "PASS"
+    }
+  ],
+  "scope": "Nominal released solids and key void alignment; manufacturing clock inspection and physical fit remain NOT_RUN.",
+  "source_sha256": {
+    "validation/check_phase_clocking_release.py": "eaf774b5466e64892bdb3de09e38557c24e5e801dafb98e32de801fa77546aa5",
+    "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb"
+  }
+}

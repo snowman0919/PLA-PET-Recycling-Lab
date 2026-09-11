@@ -1,0 +1,191 @@
+{
+  "status": "HOLD",
+  "geometry_check": "PASS",
+  "sampled_retention_at_1mm": true,
+  "candidate": "ADOPTED_RELEASE_GEOMETRY: integral rear shoulder OD44 x8 flattened at global Z398; collar counterbore OD44.25 x8; shoulder at global X367",
+  "barrel_collar_gap_mm": 0.0,
+  "negative_x_0_01mm_stop_overlap_mm3": 4.838982585997874,
+  "unexpected_collisions": [],
+  "retainer_candidate": "ADOPTED_RELEASE_GEOMETRY: 4 mm web X375.20..379.20 with integral8 mm rear ribs at Y312..322/372..382; two M4x25; OD8/ID4.5 x4.20 spacers; minimum full thread engagement8 mm",
+  "retainer_thickness_mm": 4,
+  "minimum_full_thread_engagement_mm": 8.0,
+  "retainer_material_requirement": "certified yield >=177.5 MPa at maximum measured service temperature",
+  "retainer_front_x_mm": 375.2,
+  "retainer_bolt_centres_yz_mm": [
+    [
+      318,
+      382
+    ],
+    [
+      376,
+      382
+    ]
+  ],
+  "axial_tolerance_stack": {
+    "datum_back_x_mm": 363.0,
+    "retainer_front_x_mm": 375.2,
+    "capture_span_mm": 12.199999999999989,
+    "collar_length_mm": 12.0,
+    "nominal_collar_endplay_mm": 0.19999999999998863,
+    "nominal_flange_retainer_gap_mm": 0.19999999999998863,
+    "candidate_length_tolerance_mm": 0.02,
+    "candidate_face_flatness_mm": 0.01,
+    "worst_case_cold_endplay_mm": [
+      0.11999999999998863,
+      0.27999999999998865
+    ],
+    "cold_stack_basis": "Candidate spacer4.20±0.02 plus integral rib8.00±0.02 minus collar12.00±0.02; two0.01 face/seat allowances. Unadopted, not measured.",
+    "worst_case_hot_endplay_mm": [
+      0.06287999999998863,
+      0.33807199999998866
+    ],
+    "thermal_bound": "alpha<=17e-6/K, 20..300 C; independently heat collar-only for minimum and spacer+rib-only for maximum",
+    "status": "PASS_RELEASE_DIGITAL",
+    "missing_inputs": [
+      "released spacer/collar/flange allocations must be physically inspected"
+    ],
+    "criterion": "0.00 <= worst-case endplay <= 0.35 mm"
+  },
+  "retention_motion_samples": [
+    {
+      "moving_group": "barrel_only",
+      "direction": "positive_x",
+      "distance_mm": 0.01,
+      "mount_overlap_mm3": 0.0,
+      "interference_at_sample": false
+    },
+    {
+      "moving_group": "barrel_only",
+      "direction": "positive_x",
+      "distance_mm": 0.1,
+      "mount_overlap_mm3": 0.0,
+      "interference_at_sample": false
+    },
+    {
+      "moving_group": "barrel_only",
+      "direction": "positive_x",
+      "distance_mm": 1.0,
+      "mount_overlap_mm3": 392.8249770132653,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_only",
+      "direction": "negative_x",
+      "distance_mm": 0.01,
+      "mount_overlap_mm3": 4.838982585997874,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_only",
+      "direction": "negative_x",
+      "distance_mm": 0.1,
+      "mount_overlap_mm3": 48.389825860037035,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_only",
+      "direction": "negative_x",
+      "distance_mm": 1.0,
+      "mount_overlap_mm3": 483.8982586002636,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_only",
+      "direction": "uplift_z",
+      "distance_mm": 0.01,
+      "mount_overlap_mm3": 0.0,
+      "interference_at_sample": false
+    },
+    {
+      "moving_group": "barrel_only",
+      "direction": "uplift_z",
+      "distance_mm": 0.1,
+      "mount_overlap_mm3": 0.0,
+      "interference_at_sample": false
+    },
+    {
+      "moving_group": "barrel_only",
+      "direction": "uplift_z",
+      "distance_mm": 1.0,
+      "mount_overlap_mm3": 214.31111930605323,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "positive_x",
+      "distance_mm": 0.01,
+      "mount_overlap_mm3": 0.0,
+      "interference_at_sample": false
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "positive_x",
+      "distance_mm": 0.1,
+      "mount_overlap_mm3": 0.0,
+      "interference_at_sample": false
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "positive_x",
+      "distance_mm": 1.0,
+      "mount_overlap_mm3": 644.0405227339018,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "negative_x",
+      "distance_mm": 0.01,
+      "mount_overlap_mm3": 8.110566861715384,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "negative_x",
+      "distance_mm": 0.1,
+      "mount_overlap_mm3": 81.1056686173844,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "negative_x",
+      "distance_mm": 1.0,
+      "mount_overlap_mm3": 811.0566861737975,
+      "interference_at_sample": true
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "uplift_z",
+      "distance_mm": 0.01,
+      "mount_overlap_mm3": 0.0,
+      "interference_at_sample": false
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "uplift_z",
+      "distance_mm": 0.1,
+      "mount_overlap_mm3": 0.0,
+      "interference_at_sample": false
+    },
+    {
+      "moving_group": "barrel_and_collar",
+      "direction": "uplift_z",
+      "distance_mm": 1.0,
+      "mount_overlap_mm3": 82.86356263967498,
+      "interference_at_sample": true
+    }
+  ],
+  "retainer_step_sha256": "8ea96dd7ecef0872935ada78f73b844c085f837fb81882da3a454455eb97e8e5",
+  "motion_scope": "Sampled translations against rear datum/collar/retainer; not a continuous escape-path proof or a force analysis. Other machine parts cannot be credited as mount restraints.",
+  "limitations": [
+    "Release geometry is digitally checked; thread strength is screened separately, while physical preload/contact and tool access remain NOT_RUN.",
+    "Shoulder stress and actual thermal contact require the specified material certificate and physical inspection."
+  ],
+  "physical_validation_state": "NOT_RUN",
+  "source_sha256": {
+    "cad/freecad/final_v08/check_axial_shoulder_candidate.py": "7071e224e06937efb48c040ba9332f3246acb5e109aecbdab1b0e8e34ae07a51",
+    "cad/freecad/final_v08/generate.py": "5e3788761eac33931118c9406edaff4041b8c740a7df364f44c0f8be7737335f",
+    "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "cad/parameters/final_v08.json": "c14f7e3a26bb6a37a59106ff0e43fe8b9ec1ccee4a3728c9c3db43eab2b93517"
+  }
+}

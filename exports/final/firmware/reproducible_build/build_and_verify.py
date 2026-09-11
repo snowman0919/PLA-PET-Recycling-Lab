@@ -10,12 +10,12 @@ def cli():
     raise SystemExit("arduino-cli unavailable")
 manifest = json.loads((ROOT / "build_manifest.json").read_text())
 lock = json.loads((ROOT / "library_lock.json").read_text())
-command = cli()
-def output(*args): return subprocess.check_output([command, *args], text=True).strip()
-assert output("version") == manifest["arduino_cli_version"], "CLI version mismatch"
 assert lock["fqbn"] == manifest["board_target"], "board lock mismatch"
 assert lock["platforms"] == [manifest["arduino_core"]], "core lock mismatch"
 assert lock["libraries"] == manifest["libraries"] == [], "external libraries not supported by this core-only build"
+command = cli()
+def output(*args): return subprocess.check_output([command, *args], text=True).strip()
+assert output("version") == manifest["arduino_cli_version"], "CLI version mismatch"
 cores = json.loads(output("core", "list", "--format", "json"))["platforms"]
 core = next(p for p in cores if p["id"] == manifest["arduino_core"]["id"])
 assert core["installed_version"] == manifest["arduino_core"]["version"], "installed core mismatch"

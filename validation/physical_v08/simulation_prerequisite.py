@@ -33,13 +33,14 @@ def sha(path: Path) -> str:
 
 
 def refresh_compliance() -> dict[str, object]:
+    COMPLIANCE.unlink(missing_ok=True)
     proc = subprocess.run(
-        [sys.executable, str(VALIDATOR)], cwd=ROOT, text=True,
-        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        [sys.executable, str(VALIDATOR), "--technical-only"], cwd=ROOT, text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=180,
     )
     # v08_full_compliance intentionally returns non-zero while only packaging or
     # remote-release gates are open. The JSON is the authoritative result.
-    if not COMPLIANCE.is_file():
+    if proc.returncode not in (0, 1) or not COMPLIANCE.is_file():
         raise RuntimeError("full compliance report was not produced")
     data = json.loads(COMPLIANCE.read_text(encoding="utf-8"))
     if not isinstance(data.get("checks"), dict):

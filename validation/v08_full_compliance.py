@@ -109,6 +109,7 @@ def audit_sections(checks: dict[str, dict[str, object]], extras: dict[str, bool]
 
 
 def main() -> None:
+    technical_only = "--technical-only" in sys.argv[1:]
     checks: dict[str, dict[str, object]] = {}
     freshness_audits = {}
 
@@ -281,7 +282,7 @@ def main() -> None:
 
     package = ROOT / "dist/PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION.zip"
     package_ok = False
-    if package.is_file():
+    if package.is_file() and not technical_only:
         proc = subprocess.run([sys.executable, str(ROOT / "release/verify_fabrication_release.py")], cwd=ROOT, text=True, capture_output=True)
         with zipfile.ZipFile(package) as zf:
             manifest = json.loads(zf.read("00_START_HERE/release_manifest.json"))
@@ -293,6 +294,8 @@ def main() -> None:
     branch = head = "UNKNOWN"
     pr = {}
     try:
+        if technical_only:
+            raise FileNotFoundError("distribution checks explicitly outside technical-only scope")
         branch = subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip()
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
         pushed = subprocess.check_output(["git", "ls-remote", "origin", f"refs/heads/{branch}"], cwd=ROOT, text=True).split()[0]
@@ -308,6 +311,9 @@ def main() -> None:
     policy_ok = exists("docs/final/release_notes_v1.0.0-rc1_ko.md", 200) and remote_ok
     policy_ok &= remote.get("release_published") is False and remote.get("fabrication_release_approval") == "USER_APPROVAL_REQUIRED"
     record("21_release_policy", policy_ok, "origin HEAD + open main-target PR verified; GitHub Release publish remains blocked")
+    if technical_only:
+        for gate in ("20_release_package", "21_release_policy"):
+            checks[gate] = {"status": "NOT_EVALUATED", "evidence": "Explicitly outside technical-only CI scope; required separately for release."}
 
     all_checks_ok = all(v["status"] == "PASS" for v in checks.values())
     parameters = json.loads((ROOT / "cad/parameters/final_v08.json").read_text())
@@ -334,7 +340,7 @@ def main() -> None:
     thrust_path = ROOT / "analysis/final_validation/results/v0.8/extruder_thrust_stack_candidate.json"
     thrust = json.loads(thrust_path.read_text()) if thrust_path.is_file() else {}
     current_zip = "NOT_CREATED"
-    if package.is_file():
+    if package.is_file() and not technical_only:
         current_zip += f"; 기존 파일은 과거 산출물 SHA-256 {sha(package)}"
     CURRENT_REPORT.write_text(f"""# v0.8 현재 closure 보고서
 

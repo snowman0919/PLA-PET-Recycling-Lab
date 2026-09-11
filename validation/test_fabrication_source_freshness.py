@@ -51,17 +51,21 @@ def main():
     assert firmware_evidence_current(ROOT), "current firmware evidence mismatch"
     with tempfile.TemporaryDirectory() as folder:
         root = Path(folder)
-        for rel in ("firmware/arduino_mega", "exports/final/firmware"):
+        for rel in ("firmware/arduino_mega", "exports/final/firmware", "exports/final/drive_ggm_v08/firmware", "control/ggm_drive_contract.json"):
+            if (ROOT / rel).is_file():
+                (root / rel).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / rel, root / rel)
+                continue
             shutil.copytree(ROOT / rel, root / rel)
         assert firmware_evidence_current(root)
-        for rel in ("firmware/arduino_mega/src/board_config.h",
+        for rel in ("exports/final/drive_ggm_v08/firmware/arduino_mega/src/board_config.h",
                     "exports/final/firmware/source/arduino_mega/src/board_config.h"):
             path = root / rel
             original = path.read_bytes()
             path.write_bytes(original + b"\n// changed\n")
             assert not firmware_evidence_current(root), rel
             path.write_bytes(original)
-        added = root / "firmware/arduino_mega/src/unlisted.cpp"
+        added = root / "exports/final/drive_ggm_v08/firmware/arduino_mega/src/unlisted.cpp"
         added.write_text("// unlisted compile input\n")
         assert not firmware_evidence_current(root), "unlisted source accepted"
         fw = root / "exports/final/firmware"

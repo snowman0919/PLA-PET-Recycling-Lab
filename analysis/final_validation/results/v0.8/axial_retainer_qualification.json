@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "physical_validation_state": "NOT_RUN",
+  "numeric_screen": "PASS",
+  "geometry_check": "PASS",
+  "cold_endplay_mm": [
+    0.11999999999998863,
+    0.27999999999998865
+  ],
+  "hot_endplay_mm": [
+    0.06287999999998863,
+    0.33807199999998866
+  ],
+  "finest_mesh_mm": 0.5,
+  "finest_displacement_mm": 0.021470800363589237,
+  "finest_singular_peak_stress_mpa": 88.38248496861978,
+  "per_bolt_reaction_n": 620.5533159,
+  "design_bolt_load_n": 1241.1066318,
+  "m4_class88_proof_safety_factor": 4.103112391410234,
+  "m4_pitch_diameter_mm": 3.54533666304,
+  "minimum_full_thread_engagement_mm": 8.0,
+  "parent_material_yield_requirement_mpa_at_service_temperature": 177.5,
+  "nasa_rp1228_thread_pullout_capacity_n": 3043.7839090979555,
+  "thread_pullout_safety_factor": 2.4524757431063753,
+  "thread_formula_source": "https://ntrs.nasa.gov/api/citations/19900009424/downloads/19900009424.pdf",
+  "candidate_installation_torque_nm": [
+    2.8,
+    3.0
+  ],
+  "screening_nut_factor_range": [
+    0.18,
+    0.25
+  ],
+  "calculated_preload_range_n": [
+    2799.9999999999995,
+    4166.666666666667
+  ],
+  "minimum_preload_to_design_load_ratio": 2.25605111459207,
+  "maximum_preload_proof_fraction": 0.8182127615007987,
+  "spacer_compressive_stress_mpa": 36.11945240779025,
+  "spacer_yield_safety_factor": 7.613625945798889,
+  "nominal_l_key_access_with_shield_removed": "PASS",
+  "limitations": [
+    "Release geometry and its specified retention load path pass the scoped digital screen; physical validation remains NOT_RUN.",
+    "Thread pullout and torque/preload are conservative closed-form screens; local contact/prying is bounded by the explicit 2x bolt-load factor, not a nonlinear contact solve.",
+    "The parent material certificate must prove >=177.5 MPa yield at the measured service temperature.",
+    "The actual dry-thread nut factor, relaxation and thermal-cycle preload must be verified before adopting the candidate torque.",
+    "Nominal L-key access requires shield removal; selected-tool insertion, hand space and service sequence remain unqualified.",
+    "The fixed-bore peak is a mesh-sensitive boundary singularity and is not a stress acceptance result.",
+    "Manufactured parts still require receipt inspection against released tolerances."
+  ],
+  "source_sha256": {
+    "validation/check_axial_retainer_candidate.py": "db0beae19edd43d35448f71b5a05310d9307d1f437c7bb055062b07a4e5ff051",
+    "analysis/final_validation/results/v0.8/axial_shoulder_candidate.json": "6169313576ca80a5432c077f342b9f625bd8f762c1589060ef0ece96e06309c8",
+    "analysis/final_validation/results/v0.8/retainer_candidate_fea.json": "9fb37f6a11345e4dc3992329b9253d722d0b40a893d3b94d65f7a02d4811cf57",
+    "analysis/final_validation/results/v0.8/retainer_tool_access.json": "7bc628c264e9fc4e757921817cc1e4e096033c433b5478c2d566484a7fb3a9fe"
+  }
+}
