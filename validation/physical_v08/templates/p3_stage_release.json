@@ -1,7 +1,7 @@
 {
   "stage": "P3",
   "status": "NOT_RUN",
-  "release_scope": "P3_COMPLETE_P4_ENTRY_ONLY",
+  "release_scope": "P3_COMPLETE_P4_P6_ENTRY_ONLY",
   "approved_by": null,
   "independent_reviewer": null,
   "reviewed_at": null,
@@ -9,7 +9,10 @@
   "inspection_packet_sha256": null,
   "inspection_report": null,
   "inspection_report_sha256": null,
+  "p4_entry_review": false,
+  "p6_entry_review": false,
   "p4_energization_authorized": false,
+  "p6_energization_authorized": false,
   "machine_release": "HOLD",
-  "notes": "Populate PASS only after human review of the exact authoritative P3 inspection packet/report. This release permits P4 entry review only and never energizes P4 or releases the machine."
+  "notes": "Populate PASS only after human review of the exact authoritative P3 inspection packet/report. This release permits P4/P6 entry review only and never authorizes downstream energization or machine release."
 }

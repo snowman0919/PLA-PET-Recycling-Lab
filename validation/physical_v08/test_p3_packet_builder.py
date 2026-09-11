@@ -66,17 +66,18 @@ class P3PacketBuilderTest(unittest.TestCase):
             packet_file.write_text(json.dumps(authorized, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             report_file.write_text(json.dumps(inspected, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             release = {
-                "stage": "P3", "status": "PASS", "release_scope": "P3_COMPLETE_P4_ENTRY_ONLY",
+                "stage": "P3", "status": "PASS", "release_scope": "P3_COMPLETE_P4_P6_ENTRY_ONLY",
                 "approved_by": "APPROVER", "independent_reviewer": "REVIEWER", "reviewed_at": "2026-09-10T16:00+09:00",
                 "inspection_packet": packet_file.name, "inspection_packet_sha256": hashlib.sha256(packet_file.read_bytes()).hexdigest(),
                 "inspection_report": report_file.name, "inspection_report_sha256": hashlib.sha256(report_file.read_bytes()).hexdigest(),
-                "p4_energization_authorized": False, "machine_release": "HOLD", "notes": "synthetic stage-release test",
+                "p4_energization_authorized": False, "p6_energization_authorized": False, "machine_release": "HOLD", "notes": "synthetic stage-release test",
             }
             release_file = d / "p3_stage_release.json"
             release_file.write_text(json.dumps(release, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             stage = S.validate(release_file)
             self.assertEqual(stage["status"], "P3_STAGE_RELEASE_VALIDATED")
-            self.assertTrue(stage["p4_entry_prerequisite"]); self.assertFalse(stage["p4_energization_authorized"])
+            self.assertTrue(stage["p4_entry_prerequisite"]); self.assertTrue(stage["p6_entry_prerequisite"])
+            self.assertFalse(stage["p4_energization_authorized"]); self.assertFalse(stage["p6_energization_authorized"])
 
             source_header = ROOT / "firmware/ggm_drive_v08/ggm_commissioning.h"
             source_before = hashlib.sha256(source_header.read_bytes()).hexdigest()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate a human-reviewed P3 stage-release record before P4 may consume it.
+"""Validate a human-reviewed P3 stage-release record before P4 or P6 may consume it.
 
 This validator does not create, sign, or approve a release. It verifies that a
 manually completed release is bound to exact P3 packet/report files and that the
@@ -56,10 +56,10 @@ def validate(path: Path, root: Path = ROOT, inspector=None) -> dict:
     release = json.loads(path.read_text(encoding="utf-8"))
     if release.get("stage") != "P3" or release.get("status") != "PASS":
         raise ValueError("P3 physical release is not PASS")
-    if release.get("release_scope") != "P3_COMPLETE_P4_ENTRY_ONLY":
+    if release.get("release_scope") != "P3_COMPLETE_P4_P6_ENTRY_ONLY":
         raise ValueError("P3 release scope invalid")
-    if release.get("p4_energization_authorized") is not False or release.get("machine_release") != "HOLD":
-        raise ValueError("P3 stage release must not authorize P4 energization or machine release")
+    if release.get("p4_energization_authorized") is not False or release.get("p6_energization_authorized") is not False or release.get("machine_release") != "HOLD":
+        raise ValueError("P3 stage release must not authorize P4/P6 energization or machine release")
     for field in ("approved_by", "independent_reviewer"):
         if not isinstance(release.get(field), str) or not release[field].strip():
             raise ValueError("P3 release missing " + field)
@@ -113,7 +113,9 @@ def validate(path: Path, root: Path = ROOT, inspector=None) -> dict:
         "status": "P3_STAGE_RELEASE_VALIDATED",
         "stage": "P3",
         "p4_entry_prerequisite": True,
+        "p6_entry_prerequisite": True,
         "p4_energization_authorized": False,
+        "p6_energization_authorized": False,
         "machine_release": "HOLD",
         "inspection_packet_sha256": sha(packet_path),
         "inspection_packet_canonical_sha256": packet_canonical_sha,
@@ -134,8 +136,9 @@ def main() -> None:
         result = validate(args.release)
         code = 0
     except (ValueError, KeyError, FileNotFoundError, json.JSONDecodeError) as exc:
-        result = {"status": "NOT_RUN_OR_REJECTED", "p4_entry_prerequisite": False,
-                  "p4_energization_authorized": False, "machine_release": "HOLD", "reason": str(exc)}
+        result = {"status": "NOT_RUN_OR_REJECTED", "p4_entry_prerequisite": False, "p6_entry_prerequisite": False,
+                  "p4_energization_authorized": False, "p6_energization_authorized": False,
+                  "machine_release": "HOLD", "reason": str(exc)}
         code = 2
     text = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
     print(text, end="")

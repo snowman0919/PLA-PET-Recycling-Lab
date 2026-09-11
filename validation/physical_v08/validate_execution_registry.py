@@ -44,8 +44,8 @@ def main():
   for t in s['templates']:
    p=resolve(t); req(p.is_file(),s['id']+' missing template '+str(p))
  p3=json.loads((ROOT/'templates/p3_stage_release.json').read_text()); req(p3['status']=='NOT_RUN','P3 release template must remain NOT_RUN')
- req(p3.get('release_scope')=='P3_COMPLETE_P4_ENTRY_ONLY','P3 release scope drift')
- req(p3.get('p4_energization_authorized') is False and p3.get('machine_release')=='HOLD','P3 release template must remain fail-closed')
+ req(p3.get('release_scope')=='P3_COMPLETE_P4_P6_ENTRY_ONLY','P3 release scope drift')
+ req(p3.get('p4_entry_review') is False and p3.get('p6_entry_review') is False and p3.get('p4_energization_authorized') is False and p3.get('p6_energization_authorized') is False and p3.get('machine_release')=='HOLD','P3 release template must remain fail-closed')
  p4=json.loads((ROOT/'templates/p4_stage_release.json').read_text()); req(p4['status']=='NOT_RUN','P4 release template must remain NOT_RUN')
  req(p4.get('release_scope')=='P4_COMPLETE_REMAINING_CUTTER_REVIEW_ONLY','P4 release scope drift')
  req(p4.get('remaining_cut01_quantity')==10,'P4 remaining cutter count drift')
