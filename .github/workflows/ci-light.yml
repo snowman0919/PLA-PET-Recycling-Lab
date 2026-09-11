@@ -27,6 +27,8 @@ jobs:
           python-version: '3.12'
       - name: Install host verification tools
         run: sudo apt-get update && sudo apt-get install -y g++ poppler-utils
+      - name: Install pinned numerical test dependency
+        run: python3 -m pip install -r environment/ci-requirements.txt
       - name: Current v0.8 contracts, runtime and negative tests
         run: python3 validation/ci_v08.py --suite light
       - name: Upload current CI evidence
