@@ -80,16 +80,16 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 - 합격: all gaps accepted; no disc/static contact
 - 다음 선행조건: phase drive
 
-== 단계 7: DRV-02 ×1; DRV-03 ×1; DRV-03R ×1; GGM_JackInnerSpacer_front ×1; GGM_JackInnerSpacer_pinionfront ×1; GGM_JackInnerSpacer_pinionrear ×1; GGM_JackInnerSpacer_rear ×1; GGM_SH_Angle201 ×1; GGM_SH_Angle83 ×1; GGM_SH_Base ×1; GGM_SH_BearingCap271 ×1; GGM_SH_BearingCap283 ×1; GGM_SH_BearingCap301 ×1; GGM_SH_BearingCap313 ×1; GGM_SH_BearingPlate273 ×1; GGM_SH_BearingPlate303 ×1; GGM_SH_CutterKey ×1; GGM_SH_FuseInput ×1; GGM_SH_FuseOutput ×1; GGM_SH_FusePinBlank ×1; GGM_SH_JackInputKey ×1; GGM_SH_JackSprocketKey ×1; GGM_SH_Jackshaft ×1; GGM_SH_MotorKey ×1; GGM_SH_Mount ×1; GGM_SH_Spacer_220_100 ×1; GGM_SH_Spacer_220_280 ×1; GGM_SH_Spacer_90_100 ×1; GGM_SH_Spacer_90_280 ×1
+== 단계 7: DRV-03 ×1; DRV-03R ×1; GGM_JackInnerSpacer_front ×1; GGM_JackInnerSpacer_pinionfront ×1; GGM_JackInnerSpacer_pinionrear ×1; GGM_JackInnerSpacer_rear ×1; GGM_SH_12T ×1; GGM_SH_30T ×1; GGM_SH_Angle201 ×1; GGM_SH_Angle83 ×1; GGM_SH_Base ×1; GGM_SH_BearingCap271 ×1; GGM_SH_BearingCap283 ×1; GGM_SH_BearingCap301 ×1; GGM_SH_BearingCap313 ×1; GGM_SH_BearingPlate273 ×1; GGM_SH_BearingPlate303 ×1; GGM_SH_CutterKey ×1; GGM_SH_FuseInput ×1; GGM_SH_FuseOutput ×1; GGM_SH_FusePinBlank ×1; GGM_SH_JackInputKey ×1; GGM_SH_JackSprocketKey ×1; GGM_SH_Jackshaft ×1; GGM_SH_MotorKey ×1; GGM_SH_Mount ×1; GGM_SH_Spacer_220_100 ×1; GGM_SH_Spacer_220_280 ×1; GGM_SH_Spacer_90_100 ×1; GGM_SH_Spacer_90_280 ×1
 
-- 공구: straightedge; dial; optical index; torque wrench; receipt packet
-- 체결품 / 토크: SYS-08: M4x22 class 10.9 SHCS ×4; SYS-09: M6 class 10.9 ×4 / SYS-08: 3 N·m; SYS-09: 10 N·m
-- 방향: K9DG60N2+K9G75C → keyed GGM protection coupling → 6201-supported jackshaft → #35 12T:30T → DRV-02; DRV-03/DRV-03R retain cutter phase; mount drilling follows authenticated PCD/output-offset receipt gate
-- 공차·간극: GGM mount as-drawn compatibility required; pair backlash0.120–0.140 mm; combined digital phase≤1.0°; chain alignment≤0.20/150 mm; midspan slack2–3%; no tight spot in20 hand turns
-- 도면: SH-004 + GGM manufacturing r2
-- 검사: authenticated receipt and mount-compatibility result; blue-check keys; optical clocking; hand rotation; P3 current/torque/protection evidence
-- 합격: HOLD: GGM receipt/mount compatibility and P3 physical bench remain NOT_RUN; no friction-only joint
-- 다음 선행조건: shredder guard
+- 공구: straightedge; dial indicator; optical index; torque wrench; receipt packet
+- 체결품 / 토크: SYS-08: M4x22 class 10.9 SHCS ×4; SYS-09: received sprocket maker axial-retention hardware; 4x4/6x6 keys carry torque ×2 / SYS-08: 3 N·m; SYS-09: HOLD N·m
+- 방향: K9DG60N2+K9G75C → keyed GGM protection coupling → 6201-supported jackshaft → direct-keyed GGM_SH_12T:#35:GGM_SH_30T → CUT-05R; 4x4/6x6 keys carry sprocket torque; DRV-03/DRV-03R retain cutter phase; DRV-02 is superseded
+- 공차·간극: GGM mount as-drawn compatibility required; pair backlash0.120–0.140 mm; combined digital phase≤1.0°; sprocket radial TIR≤0.10 mm; sprocket total axial shift+U95≤0.20 mm; chain alignment≤0.20/150 mm; midspan slack2–3%; no tight spot in20 hand turns
+- 도면: SH-004 + GGM drive contract/component register
+- 검사: authenticated GGM receipt/mount result; received sprocket bore/key/retention identity; blue-check key flank contact; axial-shift and radial-TIR dial checks; optical clocking; hand rotation; P3 current/torque/protection evidence; SYS-09: blue-check key flank; no friction-only/set-screw-only torque path; each sprocket radial TIR <=0.10 mm; total axial shift+U95 <=0.20 mm; chain alignment <=0.20/150 mm
+- 합격: HOLD: 미검증 체결품이 있어 조립 합격 불가; HOLD: GGM receipt/mount, keyed sprocket axial retention and P3 physical bench remain NOT_RUN; friction-only/set-screw-only torque path prohibited
+- 다음 선행조건: 진행 금지: 체결 규격·토크 검증 및 승인 후 다음 단계
 
 == 단계 8: DRV-GD-01 ×1; GGM_ChainGuard ×1; GGM_SH_CouplingGuard ×1
 
