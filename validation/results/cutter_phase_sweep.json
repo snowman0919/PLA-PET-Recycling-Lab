@@ -1,5 +1,5 @@
 {
-  "revision": "safety-orchestration-closure-v0.6.1",
+  "revision": "final-design-fabrication-closure-v0.8",
   "geometry": "exact released CUT-01 cycloidal-derived B-Rep",
   "base_angle_range_deg": [
     0,
@@ -20,8 +20,11 @@
   "worst_case_shim_gap_requirement_mm": 0.25,
   "geometric_collision_free_phase_range_rad": 3.141592653589793,
   "adopted_dynamic_phase_error_limit_rad": 0.017453292519943295,
-  "derivation": "all 1080 rotated exact solids retain a constant positive axial B-Rep interval separation; periodic exact common() checks are zero. The 1 degree limit is the stricter capture/gear-backlash limit",
+  "geometry_source_sha256": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+  "loaded_phase_validation": "analysis/final_validation/results/v0.8/loaded_phase.json; separate structural gate, not proven by this unloaded sweep",
+  "derivation": "all 1080 rotated exact solids retain a constant positive axial B-Rep interval separation; periodic exact common() checks are zero. This establishes unloaded non-intersection, not capture performance or a dynamic phase limit",
+  "dynamic_limit_basis": "Existing adopted 1 degree design criterion, not numerically specified by attached v0.8 section5.1 and not derived from this collision sweep; capture-performance qualification remains open",
   "synchronization_requirement": "phase gears remain required for counter-rotation and capture timing even though axial disc separation prevents direct cutter collision",
   "status": "PASS",
-  "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
+  "physical_validation_state": "NOT_RUN"
 }

@@ -38,11 +38,11 @@
     },
     "frame": {
       "method": "FR-ANCHOR-01 one-anchor conservative tension",
-      "equivalent_stress_mpa": 56.53846398780692,
+      "equivalent_stress_mpa": 52.883712165896604,
       "allowable_mpa": 320.0,
-      "safety_factor": 5.659863700383003,
+      "safety_factor": 6.051012436421966,
       "status": "PASS",
-      "applied_load_n": 1856.544175556756,
+      "applied_load_n": 1736.533695442964,
       "anchor_minor_diameter_mm": 6.466,
       "limitations": "four-anchor table installation and substrate require physical verification"
     },
@@ -69,5 +69,22 @@
     }
   },
   "status": "PASS",
-  "physical_validation_state": "NOT_RUN"
+  "physical_validation_state": "NOT_RUN",
+  "scope": "Solver benchmarks and named component screens; not complete assembly qualification",
+  "source_sha256": {
+    "analysis/final_validation/run_qualification_v08.py": "dfb687686a99df8db69311b37d06b1dcfe3bfe4a99352a85a65a1887560e3a1f",
+    "analysis/load_cases/openmodelica_dynamic_envelope.json": "22e1ec87e052ce5629c82e601c68d18e1c5474821f3859396fae4b924c213073"
+  },
+  "raw_directory": "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz",
+  "artifacts_sha256": {
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/modal/ccx.log": "eb371e5e83dc7c42b538463233bf674a26e218b1dda976e6da7a50da304bbb1d",
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/modal/model.dat": "aa2af1656ccc56baa87f6e4513255372989fbc54a94f819b5ac97a82c5a7ae1e",
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/modal/model.inp": "864453fafd4bbd8b1a124fad607008831b392aec715823bbc6fc49d53d388424",
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/thermal/ccx.log": "e3ec85ea5cb5283d990515eb1bcfeafd83b91ead3c11afe7b8121f62dc59aba6",
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/thermal/model.dat": "34c5c7b2667f2ebfc946c4936f9c8b6bb30a1881bf4c43ef81d306908b73b6da",
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/thermal/model.inp": "648d1cb00458eb1cdae2c794de87c968ba371f2b8cbd9d071dd2a8dd740a7c3e",
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/torsion/ccx.log": "3781d62226f2852c41a8f8029fc3dde21b05ba934f76829dac392a31f32ed54a",
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/torsion/model.dat": "ce2c79694a4a434dcfa9256e0b087d2992961392a78a1867eb3e026fed576e29",
+    "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/torsion/model.inp": "1f98b6ffe46b767b3e2915bd8e588f67c6043948a3611691506f87015686d3e4"
+  }
 }

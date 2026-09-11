@@ -4,7 +4,7 @@
     "ExtruderFixedCollar": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 9818.275786081529
+      "volume_mm3": 5756.382201901582
     },
     "ExtruderFrontSlidingGuide": {
       "valid": true,
@@ -14,7 +14,22 @@
     "ExtruderRearFixedDatum": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 23412.85341747784
+      "volume_mm3": 29501.320711206525
+    },
+    "ExtruderRearRetainer": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 18174.850596734166
+    },
+    "ExtruderRearRetainerSpacer318": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 144.31691252428124
+    },
+    "ExtruderRearRetainerSpacer376": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 144.31691252428124
     },
     "ExtruderSupportRailRear": {
       "valid": true,
@@ -25,9 +40,41 @@
   "unexpected_collisions": [],
   "thermal_expansion": {
     "predicted_pet_growth_mm": 1.1662,
-    "available_axial_travel_mm": 1.3,
-    "margin_mm": 0.1338
+    "available_axial_travel_mm": 1.5,
+    "margin_mm": 0.3338
   },
   "physical_validation_state": "NOT_RUN",
+  "thrust_seat_axis_alignment": {
+    "status": "PASS",
+    "target_yz_mm": [
+      347,
+      382
+    ],
+    "seat_axes_yz_mm": [
+      [
+        347.0,
+        382.0
+      ]
+    ]
+  },
+  "rear_axial_load_path": {
+    "barrel_to_collar_minimum_distance_mm": 0.0,
+    "collar_to_datum_minimum_distance_mm": 0.0,
+    "necessary_contact_check": "PASS",
+    "axial_retention_qualification": "PASS",
+    "qualification_evidence": "analysis/final_validation/results/v0.8/axial_retainer_qualification.json",
+    "bolt_proof_safety_factor": 4.103112391410234,
+    "thread_pullout_safety_factor": 2.4524757431063753,
+    "limitation": "Scoped digital geometry/strength screen only; material certificate, torque/preload and thermal-cycle physical validation remain NOT_RUN."
+  },
+  "source_sha256": {
+    "validation/final_v08_cad.py": "0e4f557758afc982d6ce2caef3543ecdb6ff60c4a9c9ff1321367edcd3ee956e",
+    "cad/freecad/final_v08/generate.py": "5e3788761eac33931118c9406edaff4041b8c740a7df364f44c0f8be7737335f",
+    "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "cad/parameters/final_v08.json": "c14f7e3a26bb6a37a59106ff0e43fe8b9ec1ccee4a3728c9c3db43eab2b93517",
+    "analysis/final_validation/results/v0.8/axial_retainer_qualification.json": "7e7a328f9f71aacf503a9604e90b8fecfb82e45f0ff4bb76e1ccb120c784903a"
+  },
+  "geometry_screening_status": "PASS",
   "status": "PASS"
 }
