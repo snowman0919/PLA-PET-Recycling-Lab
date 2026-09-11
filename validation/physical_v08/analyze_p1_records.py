@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Fail-closed P1 inventory/receipt analyzer; never authorizes procurement or fabrication."""
 from __future__ import annotations
-import argparse, csv, datetime, hashlib, importlib.util, json, re
+import argparse, csv, datetime, hashlib, importlib.util, json, re, sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+sys.path.insert(0, str(HERE))
+import p1_semantics
 CONTROL = HERE / "inventory_confirmation.csv"
 GGM_INSPECTION = ROOT / "analysis/drive_acceptance_v08/manufacturing/inspection.py"
 SURVEY_STATES = {
@@ -46,7 +48,7 @@ def verify_evidence(row, root: Path):
     missing = [field for field in required if not row.get(field, "").strip()]
     if missing:
         raise ValueError(f"{item}: PASS missing " + ",".join(missing))
-    if row["operator"].strip() == row["reviewer"].strip():
+    if row["operator"].strip().casefold() == row["reviewer"].strip().casefold():
         raise ValueError(f"{item}: independent reviewer must differ from operator")
     require_time(row["measured_at"].strip(), item)
     rel = row["evidence_path"].strip(); digest = row["sha256"].strip().lower()
@@ -81,6 +83,8 @@ def validate_ggm_axis(packet: dict, axis: str, gear: str, inspection) -> dict:
 
 
 def evaluate(rows, evidence_root: Path, ggm_packet: dict | None = None):
+    if not isinstance(rows, list) or any(not isinstance(r, dict) or any(not isinstance(k, str) or not isinstance(v, str) for k, v in r.items()) for r in rows):
+        raise ValueError("P1 inventory must contain text-valued CSV records")
     expected = expected_inventory()
     by_id = {r.get("item_id", "").strip(): r for r in rows}
     if len(by_id) != len(rows) or "" in by_id:
@@ -95,14 +99,16 @@ def evaluate(rows, evidence_root: Path, ggm_packet: dict | None = None):
         if row.get("required", "").strip() != control["required_quantity_or_capacity"].strip():
             raise ValueError(f"{item}: required quantity/capacity drift")
 
-    unresolved=[]; failures=[]; passed=[]; verified_ggm={}
+    unresolved=[]; failures=[]; passed=[]; verified_ggm={}; semantics={}
     ggm_pass_ids=[]
     for item, row in by_id.items():
         result=row.get("result", "").strip().upper()
         if result not in ALLOWED_RESULTS:
             raise ValueError(f"{item}: invalid result {result!r}")
         if result == "PASS":
-            verify_evidence(row, evidence_root); passed.append(item)
+            verify_evidence(row, evidence_root)
+            semantics[item] = p1_semantics.validate_row(row, evidence_root, CONTROL)
+            passed.append(item)
             if item in GGM_AXES: ggm_pass_ids.append(item)
         elif result in {"NOT_FOUND", "IDENTITY_PENDING", "SEEN_NOT_MEASURED"}:
             failures.append(item)
@@ -133,6 +139,9 @@ def evaluate(rows, evidence_root: Path, ggm_packet: dict | None = None):
         "passed_count":len(passed), "survey_unresolved":sorted(unresolved),
         "nonconforming_or_missing":sorted(failures), "ggm_receipt_pending":missing_ggm,
         "ggm_receipt_verified":verified_ggm,
+        "semantics_revision":"P1_TYPED_INVENTORY_R2", "semantic_checks":semantics,
+        "semantics_source_sha256":sha(Path(p1_semantics.__file__)),
+        "final_material_kitting_verified":False,
     }
 
 
@@ -140,8 +149,8 @@ def main():
     ap=argparse.ArgumentParser(); ap.add_argument("inventory", type=Path)
     ap.add_argument("--ggm-packet", type=Path); ap.add_argument("--output", type=Path)
     args=ap.parse_args()
-    packet=json.loads(args.ggm_packet.read_text(encoding="utf-8")) if args.ggm_packet else None
     try:
+        packet=json.loads(args.ggm_packet.read_text(encoding="utf-8")) if args.ggm_packet else None
         result=evaluate(read_csv(args.inventory), ROOT, packet); code=0 if result["status"] in {"P1_STOCK_SURVEY_PASS_GGM_PENDING", "P1_RECORD_CHECK_PASS"} else 2
     except (ValueError, KeyError, TypeError, FileNotFoundError, json.JSONDecodeError) as exc:
         result={"status":"P1_REJECTED", "stage_p1_pass":False, "hardware_authorization":False,

@@ -2,15 +2,15 @@
 
 P0-P12 execution contracts only. AST + literal reviewed anchors; no paid API calls; not a full-repository semantic graph.
 
-# Graph Report - physical_v08  (2026-09-11)
+# Graph Report - physical_v08  (2026-09-12)
 
 ## Corpus Check
-- 84 files · ~11,347 words
+- 88 files · ~11,726 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 290 nodes · 613 edges · 32 communities
-- Extraction: 79% EXTRACTED · 21% INFERRED · 0% AMBIGUOUS · INFERRED: 130 edges (avg confidence: 1.0)
+- 309 nodes · 648 edges · 33 communities
+- Extraction: 79% EXTRACTED · 21% INFERRED · 0% AMBIGUOUS · INFERRED: 133 edges (avg confidence: 1.0)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -24,16 +24,18 @@ P0-P12 execution contracts only. AST + literal reviewed anchors; no paid API cal
 - Community 8
 - Community 9
 - Community 10
-- Community 11
 - Community 12
 - Community 13
 - Community 14
 - Community 15
 - Community 16
-- Community 19
+- Community 17
+- Community 18
+- Community 20
 - Community 21
-- Community 25
-- Community 26
+- Community 22
+- Community 27
+- Community 28
 
 ## God Nodes (most connected - your core abstractions)
 1. `evaluate()` - 12 edges
@@ -53,7 +55,7 @@ P0-P12 execution contracts only. AST + literal reviewed anchors; no paid API cal
 ## Import Cycles
 - None detected.
 
-## Communities (32 total, 0 thin omitted)
+## Communities (33 total, 0 thin omitted)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.32
@@ -95,43 +97,51 @@ Nodes (11): authenticate(), check_cold(), check_receipt(), evaluate(), limit_ok(
 Cohesion: 0.39
 Nodes (11): boolean(), evaluate(), evidence(), load(), main(), metric_ok(), number(), Path (+3 more)
 
-### Community 11 - "Community 11"
+### Community 12 - "Community 12"
 Cohesion: 0.42
 Nodes (10): evaluate(), expected_inventory(), load_inspection(), main(), Path, read_csv(), require_time(), sha() (+2 more)
 
-### Community 12 - "Community 12"
+### Community 13 - "Community 13"
 Cohesion: 0.33
 Nodes (9): add_file(), main(), Path, sha(), main(), Path, require_registry_payload(), validate_package() (+1 more)
 
-### Community 13 - "Community 13"
+### Community 14 - "Community 14"
 Cohesion: 0.33
 Nodes (9): axis_compatibility(), bolt_pattern_mismatch_mm(), evaluate(), _interval(), _load_inspection(), main(), Path, Worst bolt-centre mismatch after translating the gearbox to align its output… (+1 more)
 
-### Community 14 - "Community 14"
+### Community 15 - "Community 15"
 Cohesion: 0.42
 Nodes (9): auth(), boolean(), evaluate(), main(), num(), Path, rows(), sha() (+1 more)
 
-### Community 15 - "Community 15"
+### Community 16 - "Community 16"
 Cohesion: 0.47
 Nodes (8): authenticate(), evaluate(), limit_ok(), main(), number(), Path, read_rows(), sha()
 
-### Community 16 - "Community 16"
+### Community 17 - "Community 17"
 Cohesion: 0.47
 Nodes (8): authenticate(), bool_value(), evaluate(), main(), number(), Path, read_rows(), sha()
 
-### Community 19 - "Community 19"
+### Community 18 - "Community 18"
+Cohesion: 0.50
+Nodes (8): checked_file(), detail(), digest(), number(), Path, Typed inventory declarations; hashes do not establish physical truth., required_set(), validate_row()
+
+### Community 20 - "Community 20"
+Cohesion: 0.43
+Nodes (7): _evidence(), main(), measured(), Path, requirements(), sha(), solve()
+
+### Community 21 - "Community 21"
 Cohesion: 0.57
 Nodes (6): current_fit(), fit_line(), main(), num(), read(), torque()
 
-### Community 21 - "Community 21"
+### Community 22 - "Community 22"
 Cohesion: 0.53
 Nodes (5): evaluate(), main(), Path, refresh_compliance(), sha()
 
-### Community 25 - "Community 25"
+### Community 27 - "Community 27"
 Cohesion: 0.67
 Nodes (3): main(), Build a no-paid-API graph for the physical execution contracts only., rel()
 
-### Community 26 - "Community 26"
+### Community 28 - "Community 28"
 Cohesion: 0.83
 Nodes (3): main(), req(), resolve()
 
@@ -139,6 +149,6 @@ Nodes (3): main(), req(), resolve()
 _Questions this graph is uniquely positioned to answer:_
 
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.11688311688311688 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10869565217391304 - nodes in this community are weakly interconnected._
 - **Should `Community 7` be split into smaller, more focused modules?**
   _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._

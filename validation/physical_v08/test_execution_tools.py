@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import csv,importlib.util,json,subprocess,tempfile,unittest
 from pathlib import Path
+from p1_test_fixtures import fill_semantics
 HERE=Path(__file__).resolve().parent
 
 def load(name):
@@ -24,6 +25,7 @@ class ExecutionToolsTest(unittest.TestCase):
                         'instrument_calibration_ref':'CAL-P1','measured_at':'2026-09-10T13:00+09:00',
                         'operator':'TEST','reviewer':'REVIEW','evidence_path':rel,'sha256':digest,'result':'PASS'})
                 rows.append(row)
+            fill_semantics(rows,root,d)
             pending=p1.evaluate(rows,root)
             self.assertEqual(pending['status'],'P1_STOCK_SURVEY_PASS_GGM_PENDING')
             self.assertEqual(pending['required_item_count'],30)
@@ -48,6 +50,7 @@ class ExecutionToolsTest(unittest.TestCase):
                         'dimension_or_rating_summary':'receipt geometry measured','condition':'GOOD','instrument_id':'MEAS-P1',
                         'instrument_calibration_ref':'CAL-P1','measured_at':'2026-09-10T13:10+09:00',
                         'operator':'TEST','reviewer':'REVIEW','evidence_path':rel,'sha256':digest,'result':'PASS'})
+            fill_semantics(rows,root,d)
             with self.assertRaises(ValueError): p1.evaluate(rows,root)
             passed=p1.evaluate(rows,root,packet)
             self.assertEqual(passed['status'],'P1_RECORD_CHECK_PASS')

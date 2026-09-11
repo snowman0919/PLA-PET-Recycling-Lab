@@ -6,6 +6,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from p1_test_fixtures import fill_semantics
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -68,6 +69,7 @@ def make_fixture(run: Path):
                 "reviewer": "REVIEWER-B", "evidence_path": rel, "sha256": digest, "result": "PASS",
             })
         inv_rows.append(row)
+    fill_semantics(inv_rows, ROOT, run)
     inventory = run / "p1_inventory.csv"
     write_csv(inventory, list(inv_rows[0]), inv_rows)
 

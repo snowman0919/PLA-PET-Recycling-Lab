@@ -14,7 +14,7 @@ OUT=ROOT/'graphify-execution-out'
 def rel(p): return str(p.relative_to(PROJECT))
 def main():
  OUT.mkdir(exist_ok=True)
- code=sorted(p for p in ROOT.glob('analyze_*.py'))+[ROOT/'simulation_prerequisite.py',ROOT/'validate_execution_registry.py',ROOT/'build_physical_launch_package.py',ROOT/'validate_physical_launch_package.py',ROOT/'update_execution_graph.py']
+ code=sorted(p for p in ROOT.glob('analyze_*.py'))+[ROOT/'simulation_prerequisite.py',ROOT/'validate_execution_registry.py',ROOT/'build_physical_launch_package.py',ROOT/'validate_physical_launch_package.py',ROOT/'update_execution_graph.py',ROOT/'p1_semantics.py',ROOT/'profile_nesting.py']
  code=[p for p in dict.fromkeys(code) if p.is_file()]
  docs=sorted(ROOT.glob('P*_KO.md'))+[ROOT/'PHYSICAL_BUILD_READINESS_KO.md',ROOT/'PHYSICAL_EXECUTION_INDEX_KO.md']
  docs=[p for p in dict.fromkeys(docs) if p.is_file()]
