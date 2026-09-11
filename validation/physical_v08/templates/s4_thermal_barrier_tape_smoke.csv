@@ -1,0 +1,14 @@
+metric,value,u95,unit,acceptance,instrument_id,calibration_ref,measured_at,operator,reviewer,evidence_path,sha256,notes
+datasheet_continuous_service_rating,,,C,>0 documented continuous rating,,,,,,,,
+coupon_interface_peak,,,C,peak+U95+30 C <= documented continuous rating,,,,,,,,representative shield-metal/tape adhesive interface
+coupon_outer_surface_peak,,,C,record only; no safety credit,,,,,,,,
+post_cool_edge_lift_max,,,mm,<=2.0 after cooldown,,,,,,,,
+same_lot_as_final_install,,,boolean,true,N/A,N/A,,,,,,
+representative_metal_shield_surface,,,boolean,true,N/A,N/A,,,,,,
+direct_heater_barrel_die_wrap_used,,,boolean,false,N/A,N/A,,,,,,
+visible_smoke,,,boolean,false,N/A,N/A,,,,,,
+visible_charring,,,boolean,false,N/A,N/A,,,,,,
+melting_or_shrink_failure,,,boolean,false,N/A,N/A,,,,,,
+adhesive_flow_or_drip,,,boolean,false,N/A,N/A,,,,,,
+loose_delamination,,,boolean,false,N/A,N/A,,,,,,
+safety_function_claimed,,,boolean,false,N/A,N/A,,,,,,

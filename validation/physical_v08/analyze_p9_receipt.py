@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE_FILES = (
     "control/thermal_cutoff_contract.json",
     "control/thermal_barrier_tape_contract.json",
+    "validation/physical_v08/analyze_s4_thermal_barrier_tape.py",
     "exports/thermal/manifest.csv",
     "exports/thermal/channel_schedule.csv",
     "exports/thermal/thermal_cutoff_topology.json",
@@ -150,6 +151,21 @@ def evaluate(path: Path) -> dict:
             row = by[metric]; authenticate(row, numeric=False)
             if not bool_value(row, metric):
                 raise ValueError(metric + ": required true evidence missing")
+            if metric == "tape_coupon_smoke_pass":
+                smoke_path = (ROOT / row["evidence_path"]).resolve()
+                try:
+                    smoke = json.loads(smoke_path.read_text(encoding="utf-8"))
+                except json.JSONDecodeError as exc:
+                    raise ValueError("tape_coupon_smoke_pass: evidence must be S4 result JSON") from exc
+                if smoke.get("status") != "S4_THERMAL_BARRIER_TAPE_SMOKE_PASS" or smoke.get("p9_tape_smoke_prerequisite") is not True:
+                    raise ValueError("tape_coupon_smoke_pass: S4 result is not PASS")
+                if smoke.get("installation_authorized") is not False or smoke.get("heater_energization_authorized") is not False or smoke.get("machine_release") != "HOLD":
+                    raise ValueError("tape_coupon_smoke_pass: S4 authorization semantics drift")
+                tape_contract = ROOT / "control/thermal_barrier_tape_contract.json"
+                if smoke.get("contract_sha256") != sha(tape_contract):
+                    raise ValueError("tape_coupon_smoke_pass: S4 contract binding drift")
+                checks[metric] = {"value": True, "s4_result_sha256": sha(smoke_path), "pass": True}
+                continue
             checks[metric] = {"value": True, "pass": True}
         out.update({
             "status": "HOT_ZONE_RECEIPT_RECORD_CHECK_PASS",

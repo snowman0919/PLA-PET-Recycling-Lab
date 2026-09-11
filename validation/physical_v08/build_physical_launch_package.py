@@ -56,7 +56,7 @@ def main() -> None:
             add_file(items, source, "01_TEMPLATES/" + archive_name)
 
     tool_names = {"profile_nesting.py", "build_p5_inquiry_package.py", "build_physical_evidence_package.py", "validate_physical_evidence_package.py",
-                  "validate_mvp_smoke_contract.py", "validate_thermal_barrier_tape_contract.py"}
+                  "validate_mvp_smoke_contract.py", "validate_thermal_barrier_tape_contract.py", "analyze_s4_thermal_barrier_tape.py"}
     for stage in registry["stages"]:
         for value in stage.values():
             if isinstance(value, str) and value.endswith(".py"):

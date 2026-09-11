@@ -206,6 +206,8 @@
     ],
     "validator": "validate_mvp_smoke_contract.py",
     "tape_contract": "../../control/thermal_barrier_tape_contract.json",
-    "tape_validator": "validate_thermal_barrier_tape_contract.py"
+    "tape_validator": "validate_thermal_barrier_tape_contract.py",
+    "s4_analyzer": "analyze_s4_thermal_barrier_tape.py",
+    "s4_template": "templates/s4_thermal_barrier_tape_smoke.csv"
   }
 }

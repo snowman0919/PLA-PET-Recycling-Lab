@@ -14,6 +14,7 @@ FIXED_REQUIRED = {
     "00_EXECUTION/physical_gate_contract.json", "00_EXECUTION/physical_execution_registry.json",
     "00_EXECUTION/mvp_smoke_contract.json", "00_EXECUTION/MVP_SMOKE_VALIDATION_KO.md",
     "02_ANALYZERS/validate_mvp_smoke_contract.py", "02_ANALYZERS/validate_thermal_barrier_tape_contract.py",
+    "02_ANALYZERS/analyze_s4_thermal_barrier_tape.py", "01_TEMPLATES/s4_thermal_barrier_tape_smoke.csv",
     "03_P4_GATE1/gate1_assembly.step", "04_P4_CNC/CUT-01/CUT-01.step",
     "05_P5_COUPONS/EX-CPN-SCR/EX-CPN-SCR.step", "05_P5_COUPONS/EX-CPN-BAR/EX-CPN-BAR.step",
     "06_P3_GGM/manifest.csv", "MANIFEST.sha256",

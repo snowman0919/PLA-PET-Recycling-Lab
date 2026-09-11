@@ -90,7 +90,9 @@
         "delamination beyond project criterion",
         "datasheet temperature margin failure",
         "coverage of sensor/cutoff/terminal/vent"
-      ]
+      ],
+      "analyzer": "validation/physical_v08/analyze_s4_thermal_barrier_tape.py",
+      "template": "validation/physical_v08/templates/s4_thermal_barrier_tape_smoke.csv"
     },
     {
       "id": "S5",

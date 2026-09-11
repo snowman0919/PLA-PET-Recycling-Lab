@@ -29,6 +29,18 @@ def make_record(run: Path):
     evidence.write_text("synthetic hot-zone receipt evidence")
     digest = hashlib.sha256(evidence.read_bytes()).hexdigest()
     relative = str(evidence.relative_to(ROOT))
+    tape_contract = ROOT / "control/thermal_barrier_tape_contract.json"
+    s4_result = run / "s4_result.json"
+    s4_result.write_text(__import__("json").dumps({
+        "status": "S4_THERMAL_BARRIER_TAPE_SMOKE_PASS",
+        "p9_tape_smoke_prerequisite": True,
+        "installation_authorized": False,
+        "heater_energization_authorized": False,
+        "machine_release": "HOLD",
+        "contract_sha256": hashlib.sha256(tape_contract.read_bytes()).hexdigest(),
+    }) + "\n", encoding="utf-8")
+    s4_digest = hashlib.sha256(s4_result.read_bytes()).hexdigest()
+    s4_relative = str(s4_result.relative_to(ROOT))
     with (HERE / "templates/p9_hot_zone_receipt.csv").open(encoding="utf-8") as handle:
         template = list(csv.DictReader(handle)); fields = list(template[0].keys())
     for row in template:
@@ -54,7 +66,10 @@ def make_record(run: Path):
             row["instrument_id"] = "N/A"; row["calibration_ref"] = "N/A"
         row["measured_at"] = "2026-09-10T20:30:00+09:00"
         row["operator"] = "TECH-A"; row["reviewer"] = "REVIEWER-B"
-        row["evidence_path"] = relative; row["sha256"] = digest
+        if metric == "tape_coupon_smoke_pass":
+            row["evidence_path"] = s4_relative; row["sha256"] = s4_digest
+        else:
+            row["evidence_path"] = relative; row["sha256"] = digest
     path = run / "p9_hot_zone_receipt.csv"
     write_csv(path, fields, template)
     return path
@@ -88,6 +103,20 @@ class P9ReceiptTest(unittest.TestCase):
             write_csv(path, fields, rows); result = P9R.evaluate(path)
             self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
             self.assertIn("tf_spare_not_installed", result["reason"])
+
+    def test_invalid_s4_result_rejected(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            path = make_record(Path(td))
+            with path.open(encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle)); fields = list(rows[0].keys())
+            row = next(r for r in rows if r["metric"] == "tape_coupon_smoke_pass")
+            s4 = ROOT / row["evidence_path"]
+            data = __import__("json").loads(s4.read_text()); data["status"] = "S4_NOT_RUN_OR_REJECTED"
+            s4.write_text(__import__("json").dumps(data) + "\n")
+            row["sha256"] = hashlib.sha256(s4.read_bytes()).hexdigest()
+            write_csv(path, fields, rows); result = P9R.evaluate(path)
+            self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
+            self.assertIn("S4 result is not PASS", result["reason"])
 
     def test_evidence_hash_mismatch_rejected(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:

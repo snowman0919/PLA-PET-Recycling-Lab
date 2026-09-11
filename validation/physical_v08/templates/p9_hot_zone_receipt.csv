@@ -40,4 +40,4 @@ tape_backing_material_recorded,,,boolean,true,N/A,N/A,,,,,,
 tape_adhesive_material_recorded,,,boolean,true,N/A,N/A,,,,,,
 tape_non_safety_role_acknowledged,,,boolean,true,N/A,N/A,,,,,,
 tape_allowed_surface_rule_acknowledged,,,boolean,true,N/A,N/A,,,,,,
-tape_coupon_smoke_pass,,,boolean,true,N/A,N/A,,,,,,
+tape_coupon_smoke_pass,,,boolean,true; evidence_path must reference validated S4 result JSON,N/A,N/A,,,,,,S4 result must bind current thermal barrier tape contract and remain non-authorizing
