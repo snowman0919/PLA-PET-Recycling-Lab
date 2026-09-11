@@ -10,9 +10,9 @@ JOBS=[
  ('validation/test_native_model_handoff.py',[],True,'GGM_NATIVE_STEP_HANDOFF_PASS'),
  ('release/build_ggm_drive_release.py',[],False,'V08_GGM_DRIVE_RELEASE_OK'),
  ('release/build_electrical_firmware_release.py',[],False,'V08_ELECTRICAL_FIRMWARE_RELEASE_OK'),
+ ('release/build_final_documents.py',[],False,'V08_FINAL_DOCUMENTS_OK'),
  ('release/build_bom_release.py',[],False,'V08_BOM_RELEASE_OK'),
  ('release/build_print_release.py',[],False,'V08_PRINT_RELEASE_OK'),
- ('release/build_final_documents.py',[],False,'V08_FINAL_DOCUMENTS_OK'),
  ('release/render_handoff.py',[],True,'HANDOFF_RENDER_PASS')]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():

@@ -17,7 +17,7 @@ from source_identity import source_identity
 CAD_TESTS = {
     "test_assembly_refresh.py", "test_cad_retention_gate.py",
     "test_if031_registered_flange.py", "test_manufacturing_projection.py",
-    "test_native_model_handoff.py",
+    "test_native_model_handoff.py", "test_shredder_manifest_regeneration.py",
 }
 HISTORICAL_TESTS = {
     "test_release.py": "v0.6.1 release-state snapshot; superseded by v0.8 technical gates",

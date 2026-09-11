@@ -404,6 +404,9 @@ def main() -> None:
     if not shutil.which("typst"):
         raise SystemExit("run inside `nix develop`: typst missing")
     # Refresh subordinate STEP/DXF inputs from the FreeCAD Python source of truth.
+    sys.path.insert(0, str(ROOT))
+    from cad.freecad.compact.generate import export_metal_parts
+    export_metal_parts()
     runpy.run_path(str(ROOT / "cad/generation/generate_manufacturing.py"), run_name="__main__")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     DRAWINGS.mkdir(parents=True, exist_ok=True)
