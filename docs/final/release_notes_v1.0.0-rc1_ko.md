@@ -3,8 +3,9 @@
 이 자산은 `final-design-fabrication-closure-v0.8`의 디지털 설계·해석·제작 문서 후보이며 물리 시험 또는 안전 인증 결과가 아니다.
 
 - release tag: `v1.0.0-rc1` (게시하지 않음)
-- release state: `IN_PROGRESS` — 제작 후보 승인 전
-- design state: `REOPENED_FOR_VALIDATION`
+- release state: `FABRICATION_CANDIDATE` — 디지털 패키지 검증 완료, 사용자 제작 승인 전
+- design state: `FINAL_DESIGN_FROZEN`
+- technical handoff state: `READY_FOR_USER_APPROVAL`
 - validation basis: `OPENMODELICA_CALCULIX_CLOSED_FORM_CAD`
 - cross-solver state: `NOT_COMPLETED_BY_SCOPE_DECISION`
 - physical validation state: `NOT_RUN`
@@ -13,22 +14,22 @@
 - commissioning gate: `USER_APPROVAL_REQUIRED`
 - fabrication release approval: `USER_APPROVAL_REQUIRED`
 
-기존 `dist/PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION.zip`은 이번 재감사 결과를 포함하지 않는 과거 산출물이다. 현재 제작·구매 기준으로 사용하지 않는다. 최신 상태는 `validation/results/v08_full_compliance.json` 및 `analysis/final_validation/results/v0.8/loaded_phase.json`을 따른다. hot-zone 재료·국부응력·접합부, 하중 위상, 공차/체결부 HOLD가 해소되고 패키지 재검증이 끝나야 새 제작 후보를 선언한다.
+현재 fabrication candidate는 이 release note와 동일한 repository `HEAD`에서 `release/build_fabrication_release.py`로 생성되고 `release/verify_fabrication_release.py`가 PASS한 `dist/PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION.zip` 하나다. ZIP 내부 `release_manifest.json`의 `source_commit`이 현재 HEAD와 다르거나 원본 SHA-256 검증이 실패한 과거 ZIP은 제작 기준으로 사용하지 않는다. 디지털 검증은 제작 후보 검토를 위한 것이며 구매·가공·통전·시운전 승인이나 물리 적합성·안전 인증을 대체하지 않는다.
 
 구매 승인 전에는 대상 MPN·정격·요구 치수·가격·대체 조건을 검토한다. Donor 라벨·전압·전류·토크·축경·센서 형식은 증거로 확정하며 추측하지 않는다. 수령 후에는 치수와 정격을 확인하고, 조립 후에는 실제 fit과 냉간 clearance를 검사한다. 열간 clearance와 interlock/PE/fuse 기능 시험은 해당 통전·시운전 단계의 선행 조건과 별도 사용자 승인 아래 수행한다. 각 결과는 해당 후속 단계의 승인 증거로 사용한다. 구매·가공·통전의 별도 승인과 단계별 물리 gate는 유지한다.
 
-전체 검증의 최신 항목별 판정은 `validation/results/v08_full_compliance.json`을 따른다. 현재 전체 상태는 `FAIL`이다. `release_readiness_ko.md`의 13항목 산출물 감사와 전체 25항목 compliance는 서로 다른 검사 범위다. 과거 `release_approval_report_ko.md`의 PASS와 동결 선언은 현재 승인 근거가 아니다.
+전체 검증의 최신 항목별 판정은 `validation/results/v08_full_compliance.json`을 따른다. exact-HEAD fabrication ZIP 생성·검증 뒤 25개 산출물 gate와 26개 goal-section coverage가 모두 PASS해야 `DIGITAL_TECHNICAL_CLOSURE`로 인정한다. 이 상태는 `READY_FOR_USER_APPROVAL`이며 자동 제작 승인이 아니다. `release_readiness_ko.md`의 inventory gate와 전체 compliance는 검사 범위가 다르며, 물리시험 `NOT_RUN`과 안전인증 `NOT_CERTIFIED`는 계속 유지한다.
 
 ZIP 검증기는 내부 해시뿐 아니라 manifest가 가리키는 현재 작업트리 원본의 크기와
 SHA-256도 대조한다. 같은 Git commit에서 수정한 원본도 과거 패키지와 구분한다.
 재검사에서 기존 ZIP의 `exports/print/PPR-C01/dimension_sheet.svg`가 현재 원본과
 달라 거부됐다. 같은 크기의 내용 변경을 거부하는 회귀 시험도 통과했다.
-모든 디지털 gate가 닫힌 뒤 현재 원본으로 패키지를 재생성·재검증해야 한다.
+현재 fabrication candidate는 반드시 현재 원본으로 재생성하고 같은 HEAD에서 verifier PASS를 받아야 한다.
 
 생성 단계는 inventory13항목 및 compliance25항목의 정확한 항목 집합과 v0.8
 리비전을 요구한다. 생성 후 검사할 패키지 항목만 선행조건에서 제외하며, 나머지는
 모두 명시적으로 통과해야 한다. 빈 결과, 누락 항목, 문자열 False, HOLD, 과거
-리비전을 거부하는 부정 시험5개를 실행했다. 최신 inventory는12/13 IN_PROGRESS다.
+리비전을 거부하는 부정 시험5개를 실행했다. exact-HEAD ZIP verifier 완료 시 release inventory는13/13 PASS여야 하며, 하나라도 미충족이면 이 fabrication candidate를 사용하지 않는다.
 
 이 단계에서는 GitHub Release를 만들거나 게시하지 않는다. branch와 PR은 디지털 변경 검토용이며 merge도 자동 수행하지 않는다.
 
