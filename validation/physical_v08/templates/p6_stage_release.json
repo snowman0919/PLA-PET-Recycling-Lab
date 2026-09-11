@@ -5,6 +5,8 @@
   "approved_by": null,
   "independent_reviewer": null,
   "reviewed_at": null,
+  "p3_release": null,
+  "p3_release_sha256": null,
   "p5_release": null,
   "p5_release_sha256": null,
   "production_receipt": null,
@@ -17,5 +19,5 @@
   "motor_energization_authorized": false,
   "heater_energization_authorized": false,
   "machine_release": "HOLD",
-  "notes": "Set PASS only after independent review of exact P5/P6 artifacts. This permits P8 entry review only; motor/heater power remains separately gated."
+  "notes": "Set PASS only after independent review of exact P3/P5/P6 artifacts. This permits P8 entry review only; motor/heater power remains separately gated."
 }

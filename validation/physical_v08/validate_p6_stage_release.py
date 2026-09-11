@@ -40,7 +40,7 @@ def require_time(value: str) -> None:
         raise ValueError("reviewed_at must include timezone")
 
 
-def validate(path: Path, analyzer=None) -> dict:
+def validate(path: Path, analyzer=None, *, p3_checker=None, p5_checker=None) -> dict:
     path = path.resolve()
     if not path.is_relative_to(ROOT) or not path.is_file():
         raise ValueError("P6 stage release must be an existing repository file")
@@ -59,19 +59,22 @@ def validate(path: Path, analyzer=None) -> dict:
     if release["approved_by"].strip() == release["independent_reviewer"].strip():
         raise ValueError("P6 release requires an independent reviewer")
     require_time(release.get("reviewed_at"))
+    p3_path = repo_file(release.get("p3_release", ""), path, "P3 release")
     p5_path = repo_file(release.get("p5_release", ""), path, "P5 release")
     receipt_path = repo_file(release.get("production_receipt", ""), path, "production receipt")
     cold_path = repo_file(release.get("cold_record", ""), path, "P6 cold record")
     result_path = repo_file(release.get("p6_result", ""), path, "P6 result")
-    for field, target in (("p5_release_sha256", p5_path), ("production_receipt_sha256", receipt_path),
+    for field, target in (("p3_release_sha256", p3_path), ("p5_release_sha256", p5_path), ("production_receipt_sha256", receipt_path),
                           ("cold_record_sha256", cold_path), ("p6_result_sha256", result_path)):
         if release.get(field) != sha(target):
             raise ValueError(field + " mismatch")
     saved = json.loads(result_path.read_text(encoding="utf-8"))
     authority = analyzer or load_analyzer()
-    fresh = authority.evaluate(cold_path, p5_path, receipt_path)
+    fresh = authority.evaluate(cold_path, p3_path, p5_path, receipt_path, p3_checker=p3_checker, p5_checker=p5_checker)
     if saved.get("status") != "NUMERIC_RECORD_CHECK_PASS" or fresh.get("status") != "NUMERIC_RECORD_CHECK_PASS":
         raise ValueError("P6 analyzer result is not PASS")
+    if saved.get("p3_release", {}).get("sha256") != fresh.get("p3_release", {}).get("sha256"):
+        raise ValueError("P6 P3-release binding drift")
     if saved.get("p5_release", {}).get("sha256") != fresh.get("p5_release", {}).get("sha256"):
         raise ValueError("P6 P5-release binding drift")
     if saved.get("production_receipt") != fresh.get("production_receipt"):
@@ -86,7 +89,7 @@ def validate(path: Path, analyzer=None) -> dict:
     return {
         "status": "P6_STAGE_RELEASE_VALIDATED", "stage": "P6", "p8_entry_prerequisite": True,
         "motor_energization_authorized": False, "heater_energization_authorized": False,
-        "machine_release": "HOLD", "p5_release_sha256": sha(p5_path),
+        "machine_release": "HOLD", "p3_release_sha256": sha(p3_path), "p5_release_sha256": sha(p5_path),
         "production_receipt_sha256": sha(receipt_path), "cold_record_sha256": sha(cold_path),        "p6_result_sha256": sha(result_path), "p6_analyzer_sha256": sha(ANALYZER),
         "approved_by": release["approved_by"], "independent_reviewer": release["independent_reviewer"],
         "reviewed_at": release["reviewed_at"],

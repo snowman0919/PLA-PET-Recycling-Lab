@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fail-closed P6 cold-extruder evidence checker.
 
-Requires a validated P5 release, authenticated production receipt, and cold-fit
+Requires validated P3/P5 releases, authenticated production receipt, and cold-fit
 measurements. It never grants machining, energization, or machine release.
 """
 from __future__ import annotations
@@ -16,6 +16,7 @@ import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+P3_VALIDATOR = ROOT / "validation/physical_v08/validate_p3_stage_release.py"
 P5_VALIDATOR = ROOT / "validation/physical_v08/validate_p5_stage_release.py"
 LIMITS = {
     "screw_barrel_clearance_min": ("min", 0.28, "mm"),
@@ -47,10 +48,10 @@ def read_rows(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
-def load_p5_validator():
-    spec = importlib.util.spec_from_file_location("ppr_p6_p5_validator", P5_VALIDATOR)
+def load_validator(path: Path, name: str):
+    spec = importlib.util.spec_from_file_location(name, path)
     if spec is None or spec.loader is None:
-        raise RuntimeError("cannot load P5 stage validator")
+        raise RuntimeError("cannot load stage validator: " + str(path))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -138,14 +139,21 @@ def check_cold(path: Path) -> dict:
         checks[metric] = {"value": actual, "pass": True}
     return {"checks": checks, "rows": len(rows), "record_sha256": sha(path)}
 
-def evaluate(cold_path: Path, p5_release: Path, receipt_path: Path) -> dict:
+def evaluate(cold_path: Path, p3_release: Path, p5_release: Path, receipt_path: Path, *,
+             p3_checker=None, p5_checker=None) -> dict:
     out = {"status": "NOT_RUN_OR_REJECTED", "stage_p6_pass": False,
            "hardware_authorization": False, "action_state": "HOLD", "machine_release": "HOLD"}
     try:
-        p5 = load_p5_validator().validate(p5_release)
+        p3 = (p3_checker or load_validator(P3_VALIDATOR, "ppr_p6_p3_validator").validate)(p3_release)
+        if p3.get("status") != "P3_STAGE_RELEASE_VALIDATED" or p3.get("p6_entry_prerequisite") is not True:
+            raise ValueError("P3 stage release prerequisite is not valid")
+        if p3.get("p6_energization_authorized") is not False or p3.get("machine_release") != "HOLD":
+            raise ValueError("P3 release authorization semantics drift")
+        p5 = (p5_checker or load_validator(P5_VALIDATOR, "ppr_p6_p5_validator").validate)(p5_release)
         if p5.get("status") != "P5_STAGE_RELEASE_VALIDATED" or p5.get("p6_entry_prerequisite") is not True:
             raise ValueError("P5 stage release prerequisite is not valid")
         out.update({"status": "NUMERIC_RECORD_CHECK_PASS",
+                    "p3_release": {"sha256": sha(p3_release), "validated": p3},
                     "p5_release": {"sha256": sha(p5_release), "validated": p5},
                     "production_receipt": check_receipt(receipt_path, p5),
                     "cold_fit": check_cold(cold_path),
@@ -158,11 +166,12 @@ def evaluate(cold_path: Path, p5_release: Path, receipt_path: Path) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("cold_record", type=Path)
+    ap.add_argument("--p3-release", type=Path, required=True)
     ap.add_argument("--p5-release", type=Path, required=True)
     ap.add_argument("--production-receipt", type=Path, required=True)
     ap.add_argument("--output", type=Path)
     args = ap.parse_args()
-    result = evaluate(args.cold_record, args.p5_release, args.production_receipt)
+    result = evaluate(args.cold_record, args.p3_release, args.p5_release, args.production_receipt)
     text = json.dumps(result, ensure_ascii=False, indent=2) + "\n"; print(text, end="")
     if args.output: args.output.write_text(text, encoding="utf-8")
     raise SystemExit(0 if result["status"] == "NUMERIC_RECORD_CHECK_PASS" else 2)

@@ -1,6 +1,6 @@
 # P6 냉간 압출기 조립 검증
 
-P6는 P5 process coupon 결과가 `validate_p5_stage_release.py`에서 `P5_STAGE_RELEASE_VALIDATED`로 재검증되고 production screw/barrel을 수령한 뒤, 히터를 장착하거나 통전하기 전에 수행한다. P5 release에는 qualified supplier/process-route ID와 screw/barrel heat-reservation reference가 포함되어야 하며, P6 production receipt는 이 식별자와 정확히 일치해야 한다. 목표는 실제 screw/barrel/thrust stack이 냉간에서 자유롭게 회전하고 열팽창용 축방향 여유를 확보하는지 확인하는 것이다.
+P6는 P3 GGM bench가 `P3_STAGE_RELEASE_VALIDATED`로 재검증되어 `p6_entry_prerequisite=true`이고, P5 process coupon 결과도 `P5_STAGE_RELEASE_VALIDATED`로 재검증된 뒤 production screw/barrel을 수령해 수행한다. 두 upstream release 모두 P6 통전 권한은 부여하지 않으며, P6 자체도 히터를 장착하거나 통전하기 전에 수행한다. P5 release에는 qualified supplier/process-route ID와 screw/barrel heat-reservation reference가 포함되어야 하며, P6 production receipt는 이 식별자와 정확히 일치해야 한다. 목표는 실제 screw/barrel/thrust stack이 냉간에서 자유롭게 회전하고 열팽창용 축방향 여유를 확보하는지 확인하는 것이다.
 
 ## 조립·측정 순서
 
@@ -13,4 +13,4 @@ P6는 P5 process coupon 결과가 `validate_p5_stage_release.py`에서 `P5_STAGE
 
 ## 판정
 
-`templates/p6_production_receipt.csv`에는 EX-SCR-01/EX-BAR-01의 serial, supplier/process-route ID, P5 heat-reservation reference, 실제 heat/lot, material/process/final-finish report ID와 evidence SHA-256을 기록한다. `templates/p6_cold_extruder.csv`의 모든 행에는 timezone 포함 시각, 계측기/교정 참조, 작업자·독립 검토자, repository 내부 evidence 경로와 SHA-256을 기록한다. `analyze_p6_records.py <cold.csv> --p5-release <p5_release.json> --production-receipt <receipt.csv>`는 P5 release를 현재 validator로 다시 검증한 뒤 production identity와 cold-fit U95를 판정한다. 결과를 저장한 뒤 `templates/p6_stage_release.json`에 exact P5 release, production receipt, cold record, P6 result의 SHA-256과 독립 검토 정보를 기록하고 `validate_p6_stage_release.py`로 재검증해야 P8 진입 검토에 사용할 수 있다. 이 release도 motor/heater authorization은 false이고 machine release는 HOLD다.
+`templates/p6_production_receipt.csv`에는 EX-SCR-01/EX-BAR-01의 serial, supplier/process-route ID, P5 heat-reservation reference, 실제 heat/lot, material/process/final-finish report ID와 evidence SHA-256을 기록한다. `templates/p6_cold_extruder.csv`의 모든 행에는 timezone 포함 시각, 계측기/교정 참조, 작업자·독립 검토자, repository 내부 evidence 경로와 SHA-256을 기록한다. `analyze_p6_records.py <cold.csv> --p3-release <p3_release.json> --p5-release <p5_release.json> --production-receipt <receipt.csv>`는 P3/P5 release를 현재 validator로 다시 검증한 뒤 production identity와 cold-fit U95를 판정한다. 결과를 저장한 뒤 `templates/p6_stage_release.json`에 exact P3 release, P5 release, production receipt, cold record, P6 result의 SHA-256과 독립 검토 정보를 기록하고 `validate_p6_stage_release.py`로 재검증해야 P8 진입 검토에 사용할 수 있다. 이 release도 motor/heater authorization은 false이고 machine release는 HOLD다.

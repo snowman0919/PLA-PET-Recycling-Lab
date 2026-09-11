@@ -47,6 +47,22 @@ def make_p5_release(run: Path) -> Path:
     return path
 
 
+def make_p3_release(run: Path) -> Path:
+    path = run / "p3_stage_release.json"
+    path.write_text(json.dumps({"synthetic": "P3 release placeholder"}) + "\n")
+    return path
+
+
+def p3_valid(_):
+    return {"status": "P3_STAGE_RELEASE_VALIDATED", "p6_entry_prerequisite": True,
+            "p6_energization_authorized": False, "machine_release": "HOLD"}
+
+
+def p3_invalid(_):
+    return {"status": "NOT_RUN_OR_REJECTED", "p6_entry_prerequisite": False,
+            "p6_energization_authorized": False, "machine_release": "HOLD"}
+
+
 def make_p6_records(run: Path, route: str = "SYN-ROUTE-01"):
     evidence = run / "p6_evidence.txt"; evidence.write_text("synthetic P6 evidence")
     digest = hashlib.sha256(evidence.read_bytes()).hexdigest(); rel = str(evidence.relative_to(ROOT))
@@ -99,23 +115,24 @@ def make_p6_records(run: Path, route: str = "SYN-ROUTE-01"):
 class P6ExecutionTest(unittest.TestCase):
     def test_p6_binds_p5_route_and_evidence(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:
-            run = Path(td); p5_release = make_p5_release(run)
+            run = Path(td); p3_release = make_p3_release(run); p5_release = make_p5_release(run)
             receipt, cold = make_p6_records(run)
-            result = P6.evaluate(cold, p5_release, receipt)
+            result = P6.evaluate(cold, p3_release, p5_release, receipt, p3_checker=p3_valid)
             self.assertEqual(result["status"], "NUMERIC_RECORD_CHECK_PASS")
             self.assertFalse(result["stage_p6_pass"]); self.assertEqual(result["action_state"], "HOLD")
             self.assertEqual(result["production_receipt"]["route"], "SYN-ROUTE-01")
 
     def test_p6_stage_release_revalidates_chain(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:
-            run = Path(td); p5_release = make_p5_release(run); receipt, cold = make_p6_records(run)
-            result = P6.evaluate(cold, p5_release, receipt)
+            run = Path(td); p3_release = make_p3_release(run); p5_release = make_p5_release(run); receipt, cold = make_p6_records(run)
+            result = P6.evaluate(cold, p3_release, p5_release, receipt, p3_checker=p3_valid)
             result_path = run / "p6_result.json"; result_path.write_text(json.dumps(result, indent=2) + "\n")
             release = {
                 "stage": "P6", "status": "PASS", "release_scope": "P6_COLD_EXTRUDER_COMPLETE_P8_ENTRY_ONLY",
                 "approved_by": "ENGINEER-A", "independent_reviewer": "REVIEWER-B",
-                "reviewed_at": "2026-09-10T18:30:00+09:00", "p5_release": p5_release.name,
-                "p5_release_sha256": hashlib.sha256(p5_release.read_bytes()).hexdigest(),
+                "reviewed_at": "2026-09-10T18:30:00+09:00", "p3_release": p3_release.name,
+                "p3_release_sha256": hashlib.sha256(p3_release.read_bytes()).hexdigest(),
+                "p5_release": p5_release.name, "p5_release_sha256": hashlib.sha256(p5_release.read_bytes()).hexdigest(),
                 "production_receipt": receipt.name, "production_receipt_sha256": hashlib.sha256(receipt.read_bytes()).hexdigest(),
                 "cold_record": cold.name, "cold_record_sha256": hashlib.sha256(cold.read_bytes()).hexdigest(),
                 "p6_result": result_path.name, "p6_result_sha256": hashlib.sha256(result_path.read_bytes()).hexdigest(),
@@ -123,41 +140,54 @@ class P6ExecutionTest(unittest.TestCase):
                 "heater_energization_authorized": False, "machine_release": "HOLD",
             }
             release_path = run / "p6_stage_release.json"; release_path.write_text(json.dumps(release, indent=2) + "\n")
-            checked = P6REL.validate(release_path); self.assertEqual(checked["status"], "P6_STAGE_RELEASE_VALIDATED")
+            checked = P6REL.validate(release_path, p3_checker=p3_valid); self.assertEqual(checked["status"], "P6_STAGE_RELEASE_VALIDATED")
             self.assertTrue(checked["p8_entry_prerequisite"])
+            self.assertEqual(checked["p3_release_sha256"], hashlib.sha256(p3_release.read_bytes()).hexdigest())
+            original_p3_sha = release["p3_release_sha256"]
+            release["p3_release_sha256"] = "0" * 64; release_path.write_text(json.dumps(release, indent=2) + "\n")
+            with self.assertRaises(ValueError): P6REL.validate(release_path, p3_checker=p3_valid)
+            release["p3_release_sha256"] = original_p3_sha
             release["production_receipt_sha256"] = "0" * 64; release_path.write_text(json.dumps(release, indent=2) + "\n")
-            with self.assertRaises(ValueError): P6REL.validate(release_path)
+            with self.assertRaises(ValueError): P6REL.validate(release_path, p3_checker=p3_valid)
 
     def test_p6_rejects_route_drift(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:
-            run = Path(td); p5_release = make_p5_release(run)
+            run = Path(td); p3_release = make_p3_release(run); p5_release = make_p5_release(run)
             receipt, cold = make_p6_records(run, route="OTHER-ROUTE")
-            result = P6.evaluate(cold, p5_release, receipt)
+            result = P6.evaluate(cold, p3_release, p5_release, receipt, p3_checker=p3_valid)
             self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
             self.assertIn("supplier/process route differs", result["reason"])
 
     def test_p6_rejects_stale_cold_evidence(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:
-            run = Path(td); p5_release = make_p5_release(run)
+            run = Path(td); p3_release = make_p3_release(run); p5_release = make_p5_release(run)
             receipt, cold = make_p6_records(run)
             with cold.open(encoding="utf-8") as handle:
                 rows = list(csv.DictReader(handle))
             rows[0]["sha256"] = "0" * 64
             write_csv(cold, rows[0].keys(), rows)
-            result = P6.evaluate(cold, p5_release, receipt)
+            result = P6.evaluate(cold, p3_release, p5_release, receipt, p3_checker=p3_valid)
             self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
             self.assertIn("evidence hash mismatch", result["reason"])
 
     def test_p6_rejects_invalid_p5_release(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:
-            run = Path(td); p5_release = make_p5_release(run)
+            run = Path(td); p3_release = make_p3_release(run); p5_release = make_p5_release(run)
             receipt, cold = make_p6_records(run)
             release = json.loads(p5_release.read_text())
             release["qualified_route_id"] = "TAMPERED"
             p5_release.write_text(json.dumps(release, indent=2) + "\n")
-            result = P6.evaluate(cold, p5_release, receipt)
+            result = P6.evaluate(cold, p3_release, p5_release, receipt, p3_checker=p3_valid)
             self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
             self.assertIn("P5", result["reason"])
+
+    def test_p6_rejects_invalid_p3_release(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            run = Path(td); p3_release = make_p3_release(run); p5_release = make_p5_release(run)
+            receipt, cold = make_p6_records(run)
+            result = P6.evaluate(cold, p3_release, p5_release, receipt, p3_checker=p3_invalid)
+            self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
+            self.assertIn("P3 stage release", result["reason"])
 
 
 if __name__ == "__main__":

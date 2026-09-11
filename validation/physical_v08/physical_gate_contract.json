@@ -154,9 +154,10 @@
       "name": "COLD_EXTRUDER_ASSEMBLY",
       "action": "full mechanical dry assembly, heater power disconnected",
       "prerequisites": [
-        "P5 PASS",
-        "full screw/barrel receipt inspection PASS",
-        "P3 EX drive PASS"
+        "P5_STAGE_RELEASE_VALIDATED for qualified screw/barrel process route and heat reservations",
+        "full production screw/barrel receipt inspection PASS against the exact P5 route/heat reservations",
+        "P3_STAGE_RELEASE_VALIDATED with p6_entry_prerequisite=true for the calibrated extruder GGM drive",
+        "P3/P5 release semantics remain fail-closed; neither release authorizes P6 energization"
       ],
       "acceptance": [
         "hand rotation through full screw travel without rub/bind",

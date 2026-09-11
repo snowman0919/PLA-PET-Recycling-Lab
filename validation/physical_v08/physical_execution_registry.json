@@ -106,8 +106,9 @@
         "templates/p6_cold_extruder.csv",
         "templates/p6_stage_release.json"
       ],
-      "entry_validator": "validate_p5_stage_release.py",
-      "stage_release_validator": "validate_p6_stage_release.py"
+      "stage_release_validator": "validate_p6_stage_release.py",
+      "p3_entry_validator": "validate_p3_stage_release.py",
+      "p5_entry_validator": "validate_p5_stage_release.py"
     },
     {
       "id": "P7",

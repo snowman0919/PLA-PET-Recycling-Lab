@@ -41,6 +41,10 @@ def main():
   if s.get('entry_validator'):
    entry_validator=resolve(s['entry_validator']); req(entry_validator.is_file(),s['id']+' missing entry validator '+str(entry_validator))
    py_compile.compile(str(entry_validator),doraise=True)
+  for key in ('p3_entry_validator','p5_entry_validator'):
+   if s.get(key):
+    entry_validator=resolve(s[key]); req(entry_validator.is_file(),s['id']+' missing '+key+' '+str(entry_validator))
+    py_compile.compile(str(entry_validator),doraise=True)
   for t in s['templates']:
    p=resolve(t); req(p.is_file(),s['id']+' missing template '+str(p))
  p3=json.loads((ROOT/'templates/p3_stage_release.json').read_text()); req(p3['status']=='NOT_RUN','P3 release template must remain NOT_RUN')
@@ -53,8 +57,11 @@ def main():
  p5=json.loads((ROOT/'templates/p5_stage_release.json').read_text()); req(p5['status']=='NOT_RUN','P5 release template must remain NOT_RUN')
  req(p5.get('release_scope')=='P5_COUPON_COMPLETE_P6_REVIEW_ONLY','P5 release scope drift')
  req(p5.get('p6_entry_review') is False and p5.get('action_state')=='HOLD' and p5.get('machine_release')=='HOLD','P5 release template must remain fail-closed')
+ p6_stage=next(s for s in stages if s['id']=='P6')
+ req(p6_stage.get('p3_entry_validator')=='validate_p3_stage_release.py' and p6_stage.get('p5_entry_validator')=='validate_p5_stage_release.py','P6 dual entry-validator drift')
  p6=json.loads((ROOT/'templates/p6_stage_release.json').read_text()); req(p6['status']=='NOT_RUN','P6 release template must remain NOT_RUN')
  req(p6.get('release_scope')=='P6_COLD_EXTRUDER_COMPLETE_P8_ENTRY_ONLY','P6 release scope drift')
+ req(p6.get('p3_release') is None and p6.get('p3_release_sha256') is None,'P6 template must explicitly bind P3 release at execution time')
  req(p6.get('motor_energization_authorized') is False and p6.get('heater_energization_authorized') is False and p6.get('machine_release')=='HOLD','P6 release template must remain fail-closed')
  p7=json.loads((ROOT/'templates/p7_stage_release.json').read_text()); req(p7['status']=='NOT_RUN','P7 release template must remain NOT_RUN')
  req(p7.get('release_scope')=='P7_LOGIC_SAFETY_COMPLETE_P8_P9_ENTRY_ONLY','P7 release scope drift')

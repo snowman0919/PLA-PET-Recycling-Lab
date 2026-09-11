@@ -253,6 +253,21 @@ def main():
     assert "--preflight-result" in p3_doc and "PREPOWER_RECORD_CHECK_PASS" in p3_doc
     assert "validate_p3_stage_release.py" in p3_doc and "P3_STAGE_RELEASE_VALIDATED" in p3_doc
     assert "build_p3_firmware_profile.py" in p3_doc and "p8_entry_prerequisite`는 false" in p3_doc
+    p3_release = j("validation/physical_v08/templates/p3_stage_release.json")
+    assert p3_release["release_scope"] == "P3_COMPLETE_P4_P6_ENTRY_ONLY"
+    assert p3_release["p4_energization_authorized"] is False and p3_release["p6_energization_authorized"] is False
+    p6_registry = next(stage for stage in registry["stages"] if stage["id"] == "P6")
+    assert p6_registry["p3_entry_validator"] == "validate_p3_stage_release.py"
+    assert p6_registry["p5_entry_validator"] == "validate_p5_stage_release.py"
+    assert p6_registry["stage_release_validator"] == "validate_p6_stage_release.py"
+    p6_analyzer = (ROOT / "validation/physical_v08/analyze_p6_records.py").read_text(encoding="utf-8")
+    for token in ("P3_STAGE_RELEASE_VALIDATED", "p6_entry_prerequisite", "P5_STAGE_RELEASE_VALIDATED", "p3_release"):
+        assert token in p6_analyzer
+    p6_release = j("validation/physical_v08/templates/p6_stage_release.json")
+    assert p6_release["p3_release"] is None and p6_release["p3_release_sha256"] is None
+    p6_gate = next(row for row in gate["gates"] if row["id"] == "P6")
+    assert any("P3_STAGE_RELEASE_VALIDATED" in x for x in p6_gate["prerequisites"])
+    assert any("P5_STAGE_RELEASE_VALIDATED" in x for x in p6_gate["prerequisites"])
     p8_registry = next(stage for stage in registry["stages"] if stage["id"] == "P8")
     assert p8_registry["firmware_commissioning_validator"] == "validate_p8_firmware_commissioning.py"
     assert p8_registry["stage_release_validator"] == "validate_p8_stage_release.py"
