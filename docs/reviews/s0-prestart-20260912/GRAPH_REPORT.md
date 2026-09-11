@@ -1,6 +1,6 @@
 # S0 review scoped graph
 
-Explicit references only; 8 nodes / 7 edges. No paid semantic API and no full-repository graph claim.
+Explicit references and post-publication observation only; 9 nodes / 8 edges. No paid API or full-repository semantic reindex.
 
 {
   "god_nodes": [],
