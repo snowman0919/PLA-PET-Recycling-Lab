@@ -22,7 +22,8 @@ RAW = HERE / "results" / "v0.8" / "raw"
 SUMMARY = HERE / "results" / "v0.8" / "summary.json"
 from beam_torque_recovery import add_measured_root_torque
 
-LOAD = 1856.544175556756
+ENVELOPE = ROOT / "analysis/load_cases/openmodelica_dynamic_envelope.json"
+LOAD = float(json.loads(ENVELOPE.read_text(encoding="utf-8"))["loads"]["peak_bearing_load_n"])
 ALLOWABLE_MPA = 180.0
 
 sys.path.insert(0, str(ROOT / "analysis" / "structural"))
