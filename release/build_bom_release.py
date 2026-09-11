@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "exports/final/bom"
 REV = "final-design-fabrication-closure-v0.8"
-GGM_SUPERSEDED_DRIVE = {"DRV-01", "DRV-02", "DRV-A42", "DRV-A60", "DRV-F01A", "DRV-F01B", "DRV-F01P"}
+GGM_SUPERSEDED_DRIVE = {"CUT-07", "DRV-01", "DRV-02", "DRV-A42", "DRV-A60", "DRV-F01A", "DRV-F01B", "DRV-F01P"}
 FIELDS = [
     "part_id", "description", "revision", "category", "quantity",
     "required_or_optional", "make_or_buy", "material/specification",
@@ -98,6 +98,7 @@ def assembly_step_number(part_id: str) -> int:
         "PPR-FULL-ASM": 1, "PPR-FRAME-ASM": 2,
         "PPR-SHREDDER-ASM": 4, "PPR-FEEDER-ASM": 10,
         "PPR-EXTRUDER-ASM": 11, "PPR-FORMING-ASM": 14,
+        "CUT-09": 4, "CUT-10": 5,
         "CUT-04": 9, "DRV-GD-01": 8, "FD-HOP-01": 9,
         "EX-CPN-BAR": 1, "EX-CPN-SCR": 1, "EX-SH-01": 13,
         "FM-GA-01": 17, "FM-GR-01": 17,
@@ -221,6 +222,8 @@ def expanded_rows() -> list[dict[str, str]]:
 
     def add(pid: str, desc: str, qty: str, material: str, process: str, state: str,
             source: str, draw: str | None = None, detail: str = "") -> None:
+        if pid in GGM_SUPERSEDED_DRIVE:
+            return
         manufacture = pid.startswith("PPR-C") or any(token in process.lower() for token in ("print", "laser", "waterjet", "turn", "mill", "drill", "cut", "weld", "brake", "ream", "hone", "edm"))
         rows.append({
             "part_id": pid, "description": desc, "revision": REV, "category": category(pid),

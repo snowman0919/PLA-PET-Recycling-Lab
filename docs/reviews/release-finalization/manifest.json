@@ -20,5 +20,13 @@
     "cad/freecad/compact/generate.py": "71900f37e772c62bbed71e6d9d6dc05630fe2ff2c73ff1dc18b781d51aea51bc",
     "validation/test_shredder_manifest_regeneration.py": "6bc075f2b1fc4c7af082e0980a837980c70910dfc3f4b80cfa9d089f10ab44ce"
   },
-  "incremental_note": "Added direct generation and remote-CI provenance validation; function topology retained. Separate explicit source/log checks were reviewed."
+  "incremental_note": "Added direct generation and remote-CI provenance validation; function topology retained. Separate explicit source/log checks were reviewed.",
+  "reviewed_bom_followup": {
+    "retired_alias": "CUT-07=DRV-01",
+    "assembly_installation": {
+      "CUT-09": 4,
+      "CUT-10": 5
+    },
+    "test_source_sha256": "2d7b277be0f911c07d5803f6ade330f3d146831bbe959683116d1e1a7bfe1cd8"
+  }
 }
