@@ -19,7 +19,7 @@
     "slicer_status": "PASS"
   },
   "notes": [
-    "Per-part 3MF receives deterministic PPR:Revision metadata; mesh triangle count/bounds/volume match released STL.",
+    "Per-part and plate-layout 3MF corresponding triangle vertices match released STL within0.001 mm; part count/bounds/volume checks also apply. Exporter-preserved face order is required. Identity aliases only in plate component references.",
     "BOM quantity is checked against exports/final/bom/BOM.csv and assembly quantity against cad/generation/assembly_classification.csv.",
     "Digital manifold/slicer evidence does not replace tolerance-coupon, insert, thermal-clearance or assembled-fit inspection."
   ]
