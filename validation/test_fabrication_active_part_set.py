@@ -27,6 +27,14 @@ class FabricationActivePartSetTest(unittest.TestCase):
         with self.assertRaises(AssertionError):
             release.add_purchased_ggm_parts({}, rows)
 
+
+    def test_drawing_register_requires_canonical_revision(self):
+        rows = [{"revision": release.REV, "status": "PASS"} for _ in range(20)]
+        release.validate_drawing_rows(rows)
+        rows[0]["revision"] = "v0.8"
+        with self.assertRaises(AssertionError):
+            release.validate_drawing_rows(rows)
+
     def test_rejects_quantity_conflict(self):
         rows = [
             {"part_id": "GGM_SH_12T", "quantity": "1", "classification": "purchased_reference_envelope"},

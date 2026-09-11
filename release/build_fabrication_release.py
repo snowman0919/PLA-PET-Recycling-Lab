@@ -68,6 +68,11 @@ def add_purchased_ggm_parts(parts: dict[str, int], register_rows: list[dict[str,
         parts[pid] = qty
 
 
+def validate_drawing_rows(rows: list[dict[str, str]]) -> None:
+    assert len(rows) == 20, "drawing register row count drift"
+    assert all(row.get("revision") == REV and row.get("status") == "PASS" for row in rows), "drawing register revision/status drift"
+
+
 def validate_inputs(files: dict[str, tuple[Path, str]]) -> None:
     validate_payload_git_state(files)
     active = json.loads((ROOT / "release/active_part_set.json").read_text())
@@ -90,7 +95,7 @@ def validate_inputs(files: dict[str, tuple[Path, str]]) -> None:
     assert active_parts == expected_parts, "active part set differs from print/RFQ/GGM purchased-reference/assembly manifests"
     assert len(print_rows) == 12 and all(r["revision"] == REV and r["slicer_status"] == "PASS" and r["status"] == "PASS" and int(r["quantity"]) > 0 for r in print_rows)
     assert len(step_rows) >= 20 and all(r["revision"] == REV and r["status"] == "PASS" for r in step_rows)
-    assert len(draw_rows) == 20 and all(r["revision"] == "v0.8" and r["status"] == "PASS" for r in draw_rows)
+    validate_drawing_rows(draw_rows)
     assert firmware_evidence_current(ROOT), "firmware source/binary evidence stale"
     inventory = json.loads((ROOT / "validation/results/v08_release_inventory.json").read_text())
     compliance = json.loads((ROOT / "validation/results/v08_full_compliance.json").read_text())
