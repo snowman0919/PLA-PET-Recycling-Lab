@@ -35,7 +35,7 @@ def main():
         rows.append(export_shape(name,next(o['shape'] for o in objects if o['name']==name),stepdir))
     sources=[Path(__file__).resolve(),ROOT/'cad/freecad/compact/geometry.py',ROOT/'cad/freecad/compact/manufacturing.py',ROOT/'cad/freecad/final_v08/generate.py',ROOT/'cad/parameters/baseline.json',ROOT/'cad/parameters/final_v08.json']
     report={'status':'ENGINEERING_REVIEW_ONLY','machine_release_state':'HOLD','physical_validation_state':'NOT_RUN','rows':rows,'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in sources}}
-    (out/'geometry_manifest.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    (out/'geometry_manifest.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
     with (out/'component_review_BOM.csv').open('w',newline='') as f:
         w=csv.writer(f);w.writerow(['part_id','quantity','material','state'])
         for s in specs:w.writerow([s['id'],s['qty'],s['material'],'REVIEW_ONLY_NOT_APPROVED'])
