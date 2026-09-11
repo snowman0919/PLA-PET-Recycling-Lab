@@ -83,16 +83,28 @@
         "P9"
       ],
       "power": "SEPARATE_COUPON_OR_BOUNDED_HOT_SHIELD_CHECK",
-      "purpose": "Qualify TH-INS-01 identity, adhesive/backing thermal behavior and installation rule before relying on it as a final thermal barrier.",
+      "purpose": "Qualify the received TH-INS-01 PI gold finger polyimide tape from the same physical 25 mm x 30 m roll before final hot-shield installation.",
       "stop_on": [
+        "interface peak+U95 above 190 C",
+        "interface peak-U95 below 180 C during qualification hold",
+        "hot dwell below 600 s",
         "smoke or charring",
         "melt or adhesive flow",
         "delamination beyond project criterion",
-        "datasheet temperature margin failure",
         "coverage of sensor/cutoff/terminal/vent"
       ],
       "analyzer": "validation/physical_v08/analyze_s4_thermal_barrier_tape.py",
-      "template": "validation/physical_v08/templates/s4_thermal_barrier_tape_smoke.csv"
+      "template": "validation/physical_v08/templates/s4_thermal_barrier_tape_smoke.csv",
+      "design_basis": {
+        "continuous_service_rating_c": 220.0,
+        "max_interface_peak_plus_u95_c": 190.0,
+        "qualification_interface_window_c": [
+          180.0,
+          190.0
+        ],
+        "minimum_hot_dwell_s": 600.0,
+        "short_term_300c_not_used_for_design": true
+      }
     },
     {
       "id": "S5",

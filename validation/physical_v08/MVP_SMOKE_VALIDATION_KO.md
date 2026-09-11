@@ -15,7 +15,7 @@
 2. **S1 Cold Geometry/Motion**: P2/P6과 함께 최종 frame/hot path의 fit, hand rotation, travel, TIR/alignment를 본다.
 3. **S2 Logic/Safety**: P7에서 logic-only/current-limited 상태로 K0, interlock, PE, reset fail-safe를 본다.
 4. **S3 Single-axis Drive**: P3/P8에서 heater를 격리하고 final GGM path를 한 축씩 bounded run한다.
-5. **S4 Thermal Barrier Tape**: TH-INS-01의 exact identity/datasheet를 고정하고 대표 금속 면에서 접착·연기·용융·들뜸·온도 margin을 확인한다.
+5. **S4 Thermal Barrier Tape**: 현재 수령한 TH-INS-01은 `PI 골드 핑거 테이프`, polyimide film, 25 mm × 30 m이며 제품 정보에는 장기 220–280 °C/단기 300 °C가 표기되어 있다. 제조사/lot와 접착제 화학종은 아직 확정하지 않는다. 동일 30 m roll에서 coupon을 잘라 대표 금속 shield 면에 부착하고 접착 interface가 `180 °C <= peak-U95`, `peak+U95 <=190 °C`인 상태를 최소 600 s 유지한 뒤 연기·탄화·용융·접착제 유동·들뜸을 확인한다. 220 °C는 보수적 continuous design basis이고 300 °C 단기 표기는 정상 운전 설계값으로 쓰지 않는다.
 6. **S5 Empty Hot Zone**: P9에서 final hot shield/tape configuration으로 heater-only bounded run을 수행한다.
 
 ## 실패 후 설계 feedback

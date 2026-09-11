@@ -48,7 +48,7 @@ BOOL_TRUE = {
     "tf_die_datasheet_rating_accepted", "tf_barrel_continuity_verified",
     "tf_die_continuity_verified", "tf_barrel_installed_k0_chain",
     "tf_die_installed_k0_chain", "tf_spare_same_spec", "tf_spare_not_installed",
-    "tape_identity_datasheet_traceable", "tape_backing_material_recorded",
+    "tape_identity_product_information_traceable", "tape_backing_material_recorded",
     "tape_adhesive_material_recorded", "tape_non_safety_role_acknowledged",
     "tape_allowed_surface_rule_acknowledged", "tape_coupon_smoke_pass",
 }
@@ -147,6 +147,16 @@ def evaluate(path: Path) -> dict:
             if row.get("unit", "").strip() != unit or u95 < 0 or value - u95 <= 0:
                 raise ValueError(metric + ": positive recorded value required")
             checks[metric] = {"value": value, "u95": u95, "unit": unit, "pass": True}
+        tape_contract = json.loads((ROOT / "control/thermal_barrier_tape_contract.json").read_text(encoding="utf-8"))
+        tape_basis = tape_contract.get("design_basis", {})
+        tape_product = tape_contract.get("received_product", {})
+        width = checks["tape_width"]
+        if width["value"] - width["u95"] < 24.5 or width["value"] + width["u95"] > 25.5 or tape_product.get("width_mm") != 25.0:
+            raise ValueError("tape_width: current received 25 mm roll identity mismatch")
+        rating = checks["tape_continuous_service_rating"]
+        if not math.isclose(rating["value"], float(tape_basis.get("continuous_service_rating_c", -1)), abs_tol=1e-9) or rating["u95"] != 0.0:
+            raise ValueError("tape_continuous_service_rating: must equal fixed 220 C conservative design basis with U95=0")
+
         for metric in BOOL_TRUE:
             row = by[metric]; authenticate(row, numeric=False)
             if not bool_value(row, metric):

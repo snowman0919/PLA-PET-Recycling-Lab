@@ -219,7 +219,7 @@ def main():
     assert "ID34.10-34.20" in by_stage_id[("P9", "HEAT-BAND")]["item"]
     assert "5.184-6.336" in by_stage_id[("P9", "HEAT-BAND")]["notes"]
     assert "2 installed" in by_stage_id[("P1", "SAFE-FUSE")]["quantity"] and "fuse_schedule.csv" in by_stage_id[("P1", "SAFE-FUSE")]["quantity"]
-    assert by_stage_id[("P1", "THERMAL-TAPE")]["quantity"] == "1 roll minimum" and "S4 coupon smoke" in by_stage_id[("P1", "THERMAL-TAPE")]["notes"]
+    assert by_stage_id[("P1", "THERMAL-TAPE")]["quantity"] == "1 roll = 25 mm x 30 m" and "220 C" in by_stage_id[("P1", "THERMAL-TAPE")]["notes"] and "190 C" in by_stage_id[("P1", "THERMAL-TAPE")]["notes"]
     assert p3_fixture["status"] == "DESIGN_ONLY_NOT_FABRICATED" and p3_fixture["physical_action_authorized"] is False
     assert close(p3_fixture["prony"]["reaction_arm_mm"], 250.0) and close(p3_fixture["prony"]["reaction_arm_tolerance_mm"], 0.5)
     assert close(p3_fixture["calculated_force_n_at_250mm"]["8.00"], 32.0)
@@ -313,7 +313,7 @@ def main():
         assert token in p9_analyzer
     p9_doc = (ROOT / "validation/physical_v08/P9_EMPTY_HOT_ZONE_KO.md").read_text(encoding="utf-8")
     assert "TF-BARREL" in p9_doc and "TF-DIE" in p9_doc and "P9_RECORD_CHECK_PASS" in p9_doc
-    assert "TH-INS-01" in p9_doc and "peak + U95 + 30 C" in p9_doc and "edge lift + U95 <=2.0 mm" in p9_doc
+    assert "TH-INS-01" in p9_doc and "220 °C continuous design basis" in p9_doc and "peak + U95 <=190 °C" in p9_doc and "edge lift + U95 <=2.0 mm" in p9_doc
     assert "validate_p9_stage_release.py" in p9_doc and "P9_STAGE_RELEASE_VALIDATED" in p9_doc
     p9_gate = next(row for row in gate["gates"] if row["id"] == "P9")
     assert any("HOT_ZONE_RECEIPT_RECORD_CHECK_PASS" in x for x in p9_gate["prerequisites"])

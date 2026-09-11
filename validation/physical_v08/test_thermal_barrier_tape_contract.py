@@ -5,6 +5,12 @@ HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('tape',HERE/'validate_thermal_barrier_tape_contract.py'); M=importlib.util.module_from_spec(spec); spec.loader.exec_module(M)
 class TapeContractTest(unittest.TestCase):
     def test_current_passes(self): self.assertEqual(M.validate()['status'],'THERMAL_BARRIER_TAPE_CONTRACT_PASS')
+    def test_received_product_basis_is_fixed(self):
+        result=M.validate(); self.assertEqual(result['status'],'THERMAL_BARRIER_TAPE_CONTRACT_PASS')
+        d=json.loads((HERE.parents[1]/'control/thermal_barrier_tape_contract.json').read_text()); d['design_basis']['continuous_service_rating_c']=280.0
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            p=Path(td)/'t.json'; p.write_text(json.dumps(d))
+            with self.assertRaisesRegex(ValueError,'design basis'): M.validate(p)
     def test_rejects_safety_role(self):
         d=json.loads((HERE.parents[1]/'control/thermal_barrier_tape_contract.json').read_text()); d['safety_role']='PRIMARY_CUTOFF'
         with tempfile.TemporaryDirectory(dir=HERE) as td:

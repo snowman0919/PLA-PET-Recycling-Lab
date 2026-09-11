@@ -32,12 +32,12 @@ tf_barrel_installed_k0_chain,,,boolean,true at barrel inter-zone clamp,N/A,N/A,,
 tf_die_installed_k0_chain,,,boolean,true at die body clamp,N/A,N/A,,,,,,
 tf_spare_same_spec,,,boolean,true,N/A,N/A,,,,,,
 tf_spare_not_installed,,,boolean,true,N/A,N/A,,,,,,
-tape_width,,,mm,>0; record received roll width,,,,,,,,
+tape_width,,,mm,25.0 mm received nominal; measurement must be consistent with current TH-INS-01 contract,,,,,,,,
 tape_thickness,,,mm,>0; record received total thickness,,,,,,,,
-tape_continuous_service_rating,,,C,documented continuous rating; final P9 requires interface peak+U95+30 C <= rating,,,,,,,,use datasheet/package rating evidence; do not infer from color/material appearance
-tape_identity_datasheet_traceable,,,boolean,true,N/A,N/A,,,,,,
+tape_continuous_service_rating,,,C,220 C exact conservative design basis from claimed long-term 220-280 C; do not enter 280 or short-term 300 as continuous rating,,,,,,,,P9 interface peak+U95 must be <=190 C
+tape_identity_product_information_traceable,,,boolean,true; archive received-roll/product-information evidence; manufacturer/lot may remain NOT_ESTABLISHED,N/A,N/A,,,,,,
 tape_backing_material_recorded,,,boolean,true,N/A,N/A,,,,,,
-tape_adhesive_material_recorded,,,boolean,true,N/A,N/A,,,,,,
+tape_adhesive_material_recorded,,,boolean,"true; record exact chemistry if specified, else NOT_SPECIFIED_BY_LISTING",N/A,N/A,,,,,,
 tape_non_safety_role_acknowledged,,,boolean,true,N/A,N/A,,,,,,
 tape_allowed_surface_rule_acknowledged,,,boolean,true,N/A,N/A,,,,,,
 tape_coupon_smoke_pass,,,boolean,true; evidence_path must reference validated S4 result JSON,N/A,N/A,,,,,,S4 result must bind current thermal barrier tape contract and remain non-authorizing

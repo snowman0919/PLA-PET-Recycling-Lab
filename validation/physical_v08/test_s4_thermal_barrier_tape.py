@@ -8,7 +8,7 @@ def write(p,fields,rows):
 def make(run):
  e=run/'evidence.txt';e.write_text('synthetic S4 tape evidence');digest=hashlib.sha256(e.read_bytes()).hexdigest();rel=str(e.relative_to(ROOT))
  with (HERE/'templates/s4_thermal_barrier_tape_smoke.csv').open(encoding='utf-8') as f: rows=list(csv.DictReader(f));fields=list(rows[0])
- numeric={'datasheet_continuous_service_rating':(300,.1),'coupon_interface_peak':(120,1),'coupon_outer_surface_peak':(70,1),'post_cool_edge_lift_max':(.5,.05)}
+ numeric={'datasheet_continuous_service_rating':(220,0),'coupon_interface_peak':(185,1),'coupon_outer_surface_peak':(70,1),'qualification_hot_dwell':(605,1),'post_cool_edge_lift_max':(.5,.05)}
  for r in rows:
   m=r['metric']
   if m in numeric:r['value'],r['u95']=map(str,numeric[m]);r['instrument_id']='SYN';r['calibration_ref']='SYN-CAL'
@@ -23,7 +23,12 @@ class S4Test(unittest.TestCase):
   with tempfile.TemporaryDirectory(dir=HERE) as td:
    p=make(Path(td));
    with p.open(encoding='utf-8') as f: rows=list(csv.DictReader(f));fields=list(rows[0]);
-   next(r for r in rows if r['metric']=='coupon_interface_peak')['value']='275';write(p,fields,rows);self.assertIn('temperature margin',M.evaluate(p)['reason'])
+   next(r for r in rows if r['metric']=='coupon_interface_peak')['value']='195';write(p,fields,rows);self.assertIn('qualification temperature window',M.evaluate(p)['reason'])
+ def test_rejects_280c_as_continuous_basis(self):
+  with tempfile.TemporaryDirectory(dir=HERE) as td:
+   p=make(Path(td));
+   with p.open(encoding='utf-8') as f: rows=list(csv.DictReader(f));fields=list(rows[0]);
+   next(r for r in rows if r['metric']=='datasheet_continuous_service_rating')['value']='280';write(p,fields,rows);self.assertIn('fixed 220 C',M.evaluate(p)['reason'])
  def test_rejects_smoke(self):
   with tempfile.TemporaryDirectory(dir=HERE) as td:
    p=make(Path(td));

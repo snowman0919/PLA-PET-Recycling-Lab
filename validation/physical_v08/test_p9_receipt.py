@@ -58,8 +58,9 @@ def make_record(run: Path):
             row["value"] = str(limit * 1.5); row["u95"] = "0.1"
             row["instrument_id"] = "SYN-METER"; row["calibration_ref"] = "SYN-CAL"
         elif metric in P9R.POSITIVE:
-            defaults = {"tape_width": 50.0, "tape_thickness": 0.2, "tape_continuous_service_rating": 300.0}
-            row["value"] = str(defaults[metric]); row["u95"] = "0.1"
+            defaults = {"tape_width": 25.0, "tape_thickness": 0.06, "tape_continuous_service_rating": 220.0}
+            row["value"] = str(defaults[metric])
+            row["u95"] = {"tape_continuous_service_rating": "0", "tape_width": "0.1", "tape_thickness": "0.005"}[metric]
             row["instrument_id"] = "SYN-METER"; row["calibration_ref"] = "SYN-CAL"
         else:
             row["value"] = "YES"; row["u95"] = ""
@@ -117,6 +118,17 @@ class P9ReceiptTest(unittest.TestCase):
             write_csv(path, fields, rows); result = P9R.evaluate(path)
             self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
             self.assertIn("S4 result is not PASS", result["reason"])
+
+    def test_rejects_280c_as_continuous_tape_rating(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            path = make_record(Path(td))
+            with path.open(encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle)); fields = list(rows[0].keys())
+            row = next(r for r in rows if r["metric"] == "tape_continuous_service_rating")
+            row["value"] = "280"; row["u95"] = "0"
+            write_csv(path, fields, rows); result = P9R.evaluate(path)
+            self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
+            self.assertIn("fixed 220 C", result["reason"])
 
     def test_evidence_hash_mismatch_rejected(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:

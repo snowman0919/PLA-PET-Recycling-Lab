@@ -9,9 +9,10 @@ NUMERIC={
  'datasheet_continuous_service_rating':('positive',None,'C'),
  'coupon_interface_peak':('positive_or_zero',None,'C'),
  'coupon_outer_surface_peak':('positive_or_zero',None,'C'),
+ 'qualification_hot_dwell':('min',600.0,'s'),
  'post_cool_edge_lift_max':('max',2.0,'mm'),
 }
-BOOL_TRUE={'same_lot_as_final_install','representative_metal_shield_surface'}
+BOOL_TRUE={'same_physical_roll_as_final_install','representative_metal_shield_surface'}
 BOOL_FALSE={'direct_heater_barrel_die_wrap_used','visible_smoke','visible_charring','melting_or_shrink_failure','adhesive_flow_or_drip','loose_delamination','safety_function_claimed'}
 
 def sha(p:Path)->str: return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -58,12 +59,17 @@ def evaluate(path:Path)->dict:
    if mode=='positive' and v-u<=0: raise ValueError(m+': positive rating required')
    if mode=='positive_or_zero' and v-u<0: raise ValueError(m+': nonnegative temperature required')
    if mode=='max' and v+u>float(limit): raise ValueError(m+': maximum acceptance failed')
+   if mode=='min' and v-u<float(limit): raise ValueError(m+': minimum acceptance failed')
    checks[m]={'value':v,'u95':u,'unit':unit,'pass':True}
-  rating=checks['datasheet_continuous_service_rating']['value']
-  interface=checks['coupon_interface_peak']
+  basis=contract.get('design_basis',{})
+  rating=checks['datasheet_continuous_service_rating']['value']; rating_u95=checks['datasheet_continuous_service_rating']['u95']
+  design_rating=float(basis['continuous_service_rating_c']); max_interface=float(basis['max_interface_peak_plus_u95_c'])
+  if not math.isclose(rating,design_rating,abs_tol=1e-9) or rating_u95!=0.0: raise ValueError('S4 rating must equal fixed 220 C conservative design basis with U95=0')
+  interface=checks['coupon_interface_peak']; window=contract['coupon_smoke']['qualification_window']
+  if interface['value']-interface['u95']<float(window['interface_peak_minus_u95_min_c']) or interface['value']+interface['u95']>float(window['interface_peak_plus_u95_max_c']): raise ValueError('S4 tape qualification temperature window failed')
   margin=float(contract['installed_p9_acceptance']['continuous_rating_margin_c'])
-  if interface['value']+interface['u95']+margin>rating: raise ValueError('S4 tape continuous-service temperature margin failed')
-  checks['continuous_rating_margin']={'rating_c':rating,'interface_peak_plus_u95_c':interface['value']+interface['u95'],'required_margin_c':margin,'remaining_margin_c':rating-interface['value']-interface['u95'],'pass':True}
+  if interface['value']+interface['u95']+margin>design_rating: raise ValueError('S4 tape continuous-service temperature margin failed')
+  checks['continuous_rating_margin']={'rating_c':design_rating,'interface_peak_plus_u95_c':interface['value']+interface['u95'],'required_margin_c':margin,'remaining_margin_c':design_rating-interface['value']-interface['u95'],'pass':True}
   for m,expected in [(x,True) for x in BOOL_TRUE]+[(x,False) for x in BOOL_FALSE]:
    r=by[m];auth(r,False);actual=boolean(r,m)
    if actual is not expected: raise ValueError(m+': boolean acceptance failed')

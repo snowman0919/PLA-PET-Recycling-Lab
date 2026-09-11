@@ -8,7 +8,7 @@ P1은 구매나 통전이 아니라 **현재 보유품을 식별하고 실제 �
 2. 24 V PSU, BTS7960 x2, Arduino Mega, E-stop은 사용자 보유 회신과 실물 검사를 구분한다. 라벨/단자/손상 사진을 남기고 실제 식별 전에는 `INSPECTED`로 바꾸지 않는다.
 3. 6201 x3, 61905/6905 x4, 51102 x1은 각인·내경·외경·폭·부식·자유회전을 기록한다. 대체 브랜드는 치수 일치만으로 정격 동등품으로 간주하지 않는다.
 4. K0/K1, positive-opening NC switch, fuse holder, Hall current sensor, #35 chain/sprocket은 보유 여부와 **정확한 모델/정격**을 먼저 확인한다.
-5. 도착한 `TH-INS-01` 열 차단 테이프는 포장/라벨, backing, adhesive, 폭/두께, 제조사 continuous service temperature rating을 기록한다. 이 단계에서는 hot-zone에 붙이지 않으며 안전 cutoff로 간주하지 않는다.
+5. 도착한 `TH-INS-01`은 현재 제공 정보 기준 `PI 골드 핑거 테이프`, polyimide film, 폭 25 mm, 길이 30 m이며 장기 220–280 °C/단기 300 °C가 표기되어 있다. 설계에는 장기 범위의 하한 220 °C만 continuous basis로 사용하고 단기 300 °C는 정상 운전 한계로 사용하지 않는다. 접착제 화학종은 제공 정보에 없으므로 `NOT_SPECIFIED_BY_LISTING`으로 기록한다. 포장/라벨, backing, 폭/두께와 실제 수령 roll 표시를 보존한다. 이 단계에서는 hot-zone에 붙이지 않으며 안전 cutoff로 간주하지 않는다.
 
 ## 2. 기록 규칙
 

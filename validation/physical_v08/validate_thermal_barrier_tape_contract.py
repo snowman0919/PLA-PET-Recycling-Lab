@@ -7,7 +7,12 @@ DEFAULT=ROOT/'control/thermal_barrier_tape_contract.json'
 def validate(path:Path=DEFAULT)->dict:
     d=json.loads(path.read_text(encoding='utf-8'))
     if d.get('part_id')!='TH-INS-01' or d.get('safety_role')!='NONE': raise ValueError('TH-INS-01 identity/safety-role drift')
-    if d.get('state')!='RECEIVED_UNQUALIFIED': raise ValueError('received tape must remain unqualified until evidence passes')
+    if d.get('state')!='RECEIVED_IDENTITY_CLAIM_RECORDED_S4_PENDING': raise ValueError('received tape identity state drift')
+    rp=d.get('received_product',{}); basis=d.get('design_basis',{})
+    if rp.get('width_mm')!=25.0 or rp.get('roll_length_m')!=30.0: raise ValueError('received tape dimension claim drift')
+    if rp.get('claimed_long_term_temperature_range_c')!=[220.0,280.0] or rp.get('claimed_short_term_temperature_c')!=300.0: raise ValueError('received tape temperature claim drift')
+    if rp.get('adhesive_chemistry')!='NOT_SPECIFIED_BY_LISTING': raise ValueError('tape adhesive evidence drift')
+    if basis.get('continuous_service_rating_c')!=220.0 or basis.get('required_operating_margin_c')!=30.0 or basis.get('max_interface_peak_plus_u95_c')!=190.0: raise ValueError('tape conservative design basis drift')
     place=d.get('placement',{}); forbidden=' '.join(place.get('forbidden',[]))
     for token in ('heater band','barrel or die','TF-BARREL','T1-T5','electrical terminals','ventilation'):
         if token not in forbidden: raise ValueError('missing forbidden placement: '+token)
