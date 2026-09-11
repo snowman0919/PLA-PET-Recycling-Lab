@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "review_status": "COMPLETE_WITH_OPEN_P1_P2_BLOCKERS",
+  "reviewed_tag": "v1.0.0-rc1",
+  "source_commit": "e323c54effa956b1b90ba586fdee8f9d89b447d1",
+  "release_id": 387184669,
+  "publication_scope": "DESIGN_PRERELEASE_WITH_KNOWN_ISSUES",
+  "s0_scope": "UNPOWERED_IDENTIFICATION_AND_STOCK_RECORDING_ONLY",
+  "physical_validation_state": "NOT_RUN",
+  "safety_certification_state": "NOT_CERTIFIED",
+  "p1_acceptance_ready": false,
+  "p2_fabrication_ready": false,
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "independent_external_review": false,
+  "new_full_physics_solve": false,
+  "verification": {
+    "source_blobs": 2922,
+    "complete_manifest_files": 3004,
+    "light_commands": 53,
+    "light_test_modules": 49,
+    "cad_test_modules": 6,
+    "compliance_pass": 25,
+    "inventory_pass": 13,
+    "goal_sections_pass": 26,
+    "pdf_files": 164,
+    "pdf_pages": 261,
+    "xlsx_csv_sheets": 6,
+    "html_links": 62,
+    "bom_rows": 156,
+    "active_parts": 114,
+    "blank_p1_exit_code": 2,
+    "blank_p1_result": "P1_SURVEY_INCOMPLETE"
+  },
+  "ci_runs": [
+    {
+      "id": 34620746579,
+      "name": "CI-LIGHT",
+      "head_sha": "e323c54effa956b1b90ba586fdee8f9d89b447d1",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "html_url": "https://github.com/snowman0919/PLA-PET-Recycling-Lab/actions/runs/34620746579"
+    },
+    {
+      "id": 34619824641,
+      "name": "CI-FULL",
+      "head_sha": "e323c54effa956b1b90ba586fdee8f9d89b447d1",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "html_url": "https://github.com/snowman0919/PLA-PET-Recycling-Lab/actions/runs/34619824641"
+    }
+  ],
+  "draft_asset_downloads": [
+    {
+      "id": 557594984,
+      "name": "PLA-PET-Recycling-Lab-v1.0.0-rc1-COMPLETE.zip",
+      "bytes": 84342485,
+      "sha256": "448176383fbf9a3c497f070118bb7cb1634776d92432ec34c27bd3672649bd7c",
+      "status": "PASS"
+    },
+    {
+      "id": 557594985,
+      "name": "PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION.zip",
+      "bytes": 90812836,
+      "sha256": "417bc5100abf9a297afc358438bfe0e287f2288d6cf140e60604962b2411e19f",
+      "status": "PASS"
+    },
+    {
+      "id": 557594982,
+      "name": "PPR-v08-PHYSICAL-VALIDATION-LAUNCH-e323c54e.zip",
+      "bytes": 7613052,
+      "sha256": "df324a9b82d4f5040972038ae7bc8c63e6c2deb040a67e3739a7d63e6f3f5d09",
+      "status": "PASS"
+    },
+    {
+      "id": 557595002,
+      "name": "PPR_overview.png",
+      "bytes": 421837,
+      "sha256": "6659d30b64f894b4852b61a67de57d8d894b3aedc941da664e8f9285bda7ab60",
+      "status": "PASS"
+    },
+    {
+      "id": 557594986,
+      "name": "RELEASE_VERIFICATION.json",
+      "bytes": 2227,
+      "sha256": "74fb7969455197203d4e73b865a70abd28f32d9b7c1d14cf7bf130a5fbd4e591",
+      "status": "PASS"
+    },
+    {
+      "id": 557594983,
+      "name": "SHA256SUMS",
+      "bytes": 516,
+      "sha256": "2647552a558a32e005be1fe3d1fd628cb9be1cd38879d86cc31c0403148d8c56",
+      "status": "PASS"
+    }
+  ],
+  "findings": [
+    {
+      "id": "R1",
+      "blocking_before": "P2_CUTTING",
+      "issue": "Baseline frame cut list does not cover integrated GGM native profile envelopes",
+      "cut_list_mm": {
+        "2020": 13348,
+        "2040": 1320
+      },
+      "native_nominal_envelope_mm": {
+        "2020": 15567,
+        "2040": 2180
+      },
+      "native_member_count": {
+        "2020": 38,
+        "2040": 4
+      },
+      "new_cut_list_authorized": false
+    },
+    {
+      "id": "R2",
+      "blocking_before": "P1_ACCEPTANCE",
+      "issue": "P1 free-text quantity, marking and condition are not substantively validated",
+      "negative_result": "P1_STOCK_SURVEY_PASS_GGM_PENDING",
+      "negative_fixture_only": true,
+      "full_p1_bypass_proven": false,
+      "authorization_granted": false
+    },
+    {
+      "id": "R3",
+      "blocking_before": "ANY_S0_POWER",
+      "issue": "Some inventory action descriptions mention later powered inspections; S0 power NONE overrides them"
+    },
+    {
+      "id": "R4",
+      "blocking_before": "P7_DRAWING_ONLY_WIRING",
+      "issue": "Safety-chain diagram wire labels overlap component text; use readable terminal schedule plus qualified review, not figure alone"
+    }
+  ]
+}
