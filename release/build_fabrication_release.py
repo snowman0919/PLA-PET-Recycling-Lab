@@ -15,6 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 NAME = "PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION"
 OUT = ROOT / "dist" / f"{NAME}.zip"
 REV = "final-design-fabrication-closure-v0.8"
+GGM_REGISTER = ROOT / "analysis/drive_acceptance_v08/drive_component_register.csv"
+PURCHASED_ACTIVE_GGM = ("GGM_SH_12T", "GGM_SH_30T")
 FORBIDDEN = (".env", ".FCBak", "__pycache__", "/archive/", ".git/", ".tmp", ".bak", ".pem", ".key", ".p12", "credential", "secret", "token", "analysis/final_validation/results/v0.8/raw", "simulation/openmodelica/results_v0.8/raw")
 
 
@@ -52,6 +54,20 @@ def validate_payload_git_state(files: dict[str, tuple[Path, str]]) -> None:
     assert subprocess.run(["git", "diff", "--cached", "--quiet", "--", *sources], cwd=ROOT).returncode == 0, "staged release payload"
 
 
+def add_purchased_ggm_parts(parts: dict[str, int], register_rows: list[dict[str, str]]) -> None:
+    by_id = {row["part_id"]: row for row in register_rows}
+    assert len(by_id) == len(register_rows), "duplicate GGM component-register part_id"
+    for pid in PURCHASED_ACTIVE_GGM:
+        row = by_id.get(pid)
+        assert row is not None, f"missing purchased GGM active part: {pid}"
+        assert row.get("classification") == "purchased_reference_envelope", f"GGM active part classification drift: {pid}"
+        qty = int(row["quantity"])
+        assert qty > 0, f"invalid purchased GGM quantity: {pid}"
+        if pid in parts and parts[pid] != qty:
+            raise AssertionError(f"active quantity conflict: {pid}")
+        parts[pid] = qty
+
+
 def validate_inputs(files: dict[str, tuple[Path, str]]) -> None:
     validate_payload_git_state(files)
     active = json.loads((ROOT / "release/active_part_set.json").read_text())
@@ -69,7 +85,9 @@ def validate_inputs(files: dict[str, tuple[Path, str]]) -> None:
         if pid in expected_parts and expected_parts[pid] != qty: raise AssertionError(f"active quantity conflict: {pid}")
         expected_parts[pid]=qty
     expected_parts.update({f"PPR-{name}-ASM": 1 for name in ("FULL", "SHREDDER", "FEEDER", "EXTRUDER", "FORMING", "FRAME")})
-    assert active_parts == expected_parts, "active part set differs from print/RFQ/assembly manifests"
+    with GGM_REGISTER.open(encoding="utf-8-sig", newline="") as handle:
+        add_purchased_ggm_parts(expected_parts, list(csv.DictReader(handle)))
+    assert active_parts == expected_parts, "active part set differs from print/RFQ/GGM purchased-reference/assembly manifests"
     assert len(print_rows) == 12 and all(r["revision"] == REV and r["slicer_status"] == "PASS" and r["status"] == "PASS" and int(r["quantity"]) > 0 for r in print_rows)
     assert len(step_rows) >= 20 and all(r["revision"] == REV and r["status"] == "PASS" for r in step_rows)
     assert len(draw_rows) == 20 and all(r["revision"] == "v0.8" and r["status"] == "PASS" for r in draw_rows)
