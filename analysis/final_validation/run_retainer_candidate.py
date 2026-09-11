@@ -12,7 +12,7 @@ from run_calculix_v08 import ROOT, INPUT, mesh_step, read_gmsh_inp, nset, sha256
 
 def main():
     evidence = ROOT / "analysis/final_validation/results/v0.8/axial_shoulder_candidate.json"
-    candidate = json.loads(evidence.read_text())
+    candidate = json.loads(evidence.read_text(encoding="utf-8"))
     if candidate.get("geometry_check") != "PASS" or candidate.get("unexpected_collisions"):
         raise ValueError("Retainer candidate has not passed assembly geometry checks")
     assert all(sha256(ROOT/p) == h for p,h in candidate["source_sha256"].items())
@@ -87,7 +87,7 @@ def main():
                               "Triangle-centroid pressure footprint is approximate; no stress acceptance claimed."],
               "source_sha256": {str(p.relative_to(ROOT)): sha256(p) for p in (Path(__file__).resolve(), evidence, step,
                   ROOT/"analysis/final_validation/run_calculix_v08.py", ROOT/"analysis/structural/run_load_checks.py")}}
-    (evidence.parent/"retainer_candidate_fea.json").write_text(json.dumps(result, indent=2)+"\n")
+    (evidence.parent/"retainer_candidate_fea.json").write_text(json.dumps(result, indent=2)+"\n", encoding="utf-8")
     print(f"RETAINER_CANDIDATE_DIAGNOSTIC_DONE status=HOLD displacement_mm={rows[-1]['result']['max_displacement_mm']:.6f}")
 
 
