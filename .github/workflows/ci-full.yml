@@ -23,16 +23,22 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@v8
       - name: Current FreeCAD geometry regressions
         run: nix develop --command python3 validation/ci_v08.py --suite cad
+      - name: Install bwrap-free pinned AVR toolchain
+        uses: arduino/setup-arduino-cli@81d310742121c928ea9c8bbd407b4217b432ae02 # v2
+        with:
+          version: '1.5.1'
       - name: Exact released AVR firmware replay
+        shell: bash
         run: |
-          nix develop --command bash -c '
-            set -euo pipefail
-            mkdir -p .build/ci-v08/firmware/tmp
-            export TMPDIR="$PWD/.build/ci-v08/firmware/tmp"
-            arduino-cli core update-index
-            arduino-cli core install arduino:avr@1.8.8
-            python3 exports/final/firmware/reproducible_build/build_and_verify.py | tee .build/ci-v08/firmware/rebuild.log
-          '
+          set -euo pipefail
+          mkdir -p .build/ci-v08/firmware/tmp
+          export TMPDIR="$PWD/.build/ci-v08/firmware/tmp"
+          export ARDUINO_DIRECTORIES_DATA="$PWD/.build/ci-v08/firmware/arduino-data"
+          export ARDUINO_DIRECTORIES_DOWNLOADS="$PWD/.build/ci-v08/firmware/arduino-downloads"
+          export ARDUINO_DIRECTORIES_USER="$PWD/.build/ci-v08/firmware/arduino-user"
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr@1.8.8
+          python3 exports/final/firmware/reproducible_build/build_and_verify.py 2>&1 | tee .build/ci-v08/firmware/rebuild.log
       - name: Upload CAD and firmware evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

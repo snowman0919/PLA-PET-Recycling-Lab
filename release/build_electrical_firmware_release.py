@@ -293,7 +293,18 @@ assert lock["platforms"] == [manifest["arduino_core"]], "core lock mismatch"
 assert lock["libraries"] == manifest["libraries"] == [], "external libraries not supported by this core-only build"
 command = cli()
 def output(*args): return subprocess.check_output([command, *args], text=True).strip()
-assert output("version") == manifest["arduino_cli_version"], "CLI version mismatch"
+def cli_version(text):
+    tokens = text.split()
+    if len(tokens) < 3 or tokens[:2] != ["arduino-cli", "Version:"]:
+        raise AssertionError("unrecognized CLI version banner")
+    version = tokens[2]
+    if __import__("re").fullmatch(r"[0-9]+[.][0-9]+[.][0-9]+(?:[-+][0-9A-Za-z.+-]+)?", version) is None:
+        raise AssertionError("unrecognized CLI version token")
+    return version
+observed_cli = output("version")
+print("ARDUINO_CLI_OBSERVED " + observed_cli, flush=True)
+print("ARDUINO_CLI_RECORDED " + manifest["arduino_cli_version"], flush=True)
+assert cli_version(observed_cli) == cli_version(manifest["arduino_cli_version"]), "CLI version mismatch"
 cores = json.loads(output("core", "list", "--format", "json"))["platforms"]
 core = next(p for p in cores if p["id"] == manifest["arduino_core"]["id"])
 assert core["installed_version"] == manifest["arduino_core"]["version"], "installed core mismatch"
