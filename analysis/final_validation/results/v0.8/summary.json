@@ -8,7 +8,7 @@
     "Python postprocess"
   ],
   "solver_versions": {
-    "freecad": "1.1.3",
+    "freecad": "0.21.2",
     "gmsh": "4.15.2-git",
     "calculix": "2.23"
   },
@@ -19,7 +19,7 @@
     "parts": [
       {
         "file": "bearing_plate.step",
-        "sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
+        "sha256": "2604ce6a406b5e677d5046f8f2a42566a88d6f585253f85791f7b91246c36555",
         "solid_count": 1,
         "volume_mm3": 188962.09952,
         "bbox_mm": [
@@ -32,15 +32,15 @@
       },
       {
         "file": "extruder_barrel.step",
-        "sha256": "dc21e0c4f542c98bcceb3118b9215ada6cb07c14b0757ce0fc646db69fba7d26",
+        "sha256": "3a55941584835e99edf84cd63cf441e8ea5b05fba974a7d7df36f3f2b9b1ef79",
         "solid_count": 1,
-        "volume_mm3": 196898.993147,
+        "volume_mm3": 196898.993121,
         "bbox_mm": [
           39.0,
           44.0,
           280.0
         ],
-        "step_reimport_volume_error_fraction": 4.365482663775444e-08,
+        "step_reimport_volume_error_fraction": 4.350037438260432e-08,
         "status": "PASS"
       }
     ],
@@ -82,7 +82,7 @@
       }
     },
     "geometry_source_sha256": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
-    "runtime_freecad_version": "1.1.3"
+    "runtime_freecad_version": "0.21.2"
   },
   "LC02": {
     "meshes": [
@@ -1546,7 +1546,7 @@
   },
   "LC04": {
     "case_id": "LC04",
-    "actual_step_sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
+    "actual_step_sha256": "2604ce6a406b5e677d5046f8f2a42566a88d6f585253f85791f7b91246c36555",
     "provenance": {
       "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
       "material": "S275 linear elastic E=205 GPa nu=0.30",
@@ -1980,12 +1980,12 @@
     "screening_status": "PASS",
     "qualification_checks": {
       "scm440_temperature_dependent_material_qualified": true,
-      "sensor_bore_local_stress_qualified": false,
+      "sensor_bore_local_stress_qualified": true,
       "die_joint_qualified": true,
       "local_temperature_gradient_qualified": true
     },
     "sensor_bore_local_evidence": {
-      "source_current": false,
+      "source_current": true,
       "status": "PASS",
       "checks": {
         "release_geometry_adopted": true,
@@ -2005,16 +2005,16 @@
     "material_provenance": "Digital design contract requires >=360 MPa yield at 270 C and uses 180 MPa analysis allowable; CTE12e-6 reference with 17e-6 upper sensitivity. Received material remains a later physical gate.",
     "limitations": "Global mount remains a first-order B31 restraint screen. Independent 3D sensor-bore thermoelastic, 48-case thermal-fit and die-joint load-path evidence close the digital envelope; received material, leak-tightness and first thermal cycle remain NOT_RUN."
   },
-  "raw_directory": "analysis/final_validation/results/v0.8/raw/run-sj2uaw8p",
+  "raw_directory": "analysis/final_validation/results/v0.8/raw/run-nb6w657n",
   "dependencies_sha256": {
     "analysis/final_validation/beam_torque_recovery.py": "c3034a20180367b0196360a40872f05ca458170a93691b6c9c13e591e9108838",
     "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
     "cad/parameters/baseline.json": "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a",
     "cad/parameters/final_v08.json": "c14f7e3a26bb6a37a59106ff0e43fe8b9ec1ccee4a3728c9c3db43eab2b93517",
     "analysis/load_cases/openmodelica_dynamic_envelope.json": "22e1ec87e052ce5629c82e601c68d18e1c5474821f3859396fae4b924c213073",
-    "analysis/final_validation/input/geometry_manifest.json": "5ccb3e43f2604428e87c7a151853777b5e7f35bba7e022e8922e0803c22fd011",
+    "analysis/final_validation/input/geometry_manifest.json": "3ed3203fa66331a74261ae32a4895d606a74ea6d4a00b072c20db5af71b12098",
     "analysis/structural/run_load_checks.py": "5fd498c9a55ab327f410d95eabf44244cb9c0b44611e8693051d79b34e7f39ba",
-    "analysis/final_validation/results/v0.8/sensor_bore_local_candidate.json": "d170aa3c3be33d637fa48e0ff3450c31256ae6a3b85376a1d12f38f41fd9ce97"
+    "analysis/final_validation/results/v0.8/sensor_bore_local_candidate.json": "e8e0e5d59f4c5fdf2cea524fcbef7d28d84779ce458ad496c654598d0caadee3"
   },
   "cross_solver_state": "NOT_COMPLETED_BY_SCOPE_DECISION",
   "fusion_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
