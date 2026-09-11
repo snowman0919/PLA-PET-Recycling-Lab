@@ -1,0 +1,26 @@
+{
+  "status": "HOLD",
+  "physical_validation_state": "NOT_RUN",
+  "centre_distance_mm": 48.0,
+  "nominal_relative_phase_deg": 11.25,
+  "sampled_common_volumes_mm3": {
+    "-0.16": 1.7690477220123083e-05,
+    "-0.15": 0.0,
+    "0": 0.0,
+    "0.15": 0.0,
+    "0.16": 1.769047737065565e-05
+  },
+  "cad_pair_free_rotation_bound_deg": [
+    0.3,
+    0.32
+  ],
+  "cad_pair_backlash_bound_mm": [
+    0.1256637061435917,
+    0.13404128655316452
+  ],
+  "scope": "Static BRep interference bracketing for the candidate pair only; no flank contact, runout, load, wear or manufacturing-error model.",
+  "source_sha256": {
+    "cad/freecad/final_v08/check_phase_pair_backlash_candidate.py": "2be07a7291166ebe235fb96e0fb6ef28a4cfd824d4c4e3aedf1a10536f6b9480",
+    "analysis/final_validation/results/v0.8/phase_path_25_solid_gear.step": "d5fb4588276f44eaed9d589be8aaa4c0caa71ebbedf9091e76e6abcc8016262d"
+  }
+}

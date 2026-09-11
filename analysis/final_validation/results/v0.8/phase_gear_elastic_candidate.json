@@ -1,0 +1,203 @@
+{
+  "status": "HOLD",
+  "physical_validation_state": "NOT_RUN",
+  "solver_and_angle_screen": "PASS",
+  "conditional_strength_screen": "PASS",
+  "torque_nm": 34.0,
+  "pitch_radius_mm": 24.0,
+  "gear_piece_count": 1,
+  "face_width_mm": 18.0,
+  "force_on_solid_gear_n": 1416.6666666666667,
+  "meshes": [
+    {
+      "mesh_mm": 1.5,
+      "fixed_nodes": 594,
+      "loaded_nodes": 98,
+      "mean_tangential_displacement_mm": 0.007192969346938776,
+      "force_residual_n": -9.113333317145589e-05,
+      "result": {
+        "max_displacement_mm": 0.008698723698049042,
+        "max_von_mises_mpa": 86.28771809135412,
+        "max_von_mises_node_id": 8911,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 594,
+          "force_n": [
+            -5.092999976231104e-06,
+            4.1962000000368265e-05,
+            -1416.6667578
+          ],
+          "moment_about_origin_nm": [
+            -12.980407166755748,
+            37.67128457944068,
+            1.7006642312672525e-06
+          ]
+        }
+      },
+      "deck_sha256": "2a09cd0e4e345a28ccf79368ba64e7ca6b4ea68b681c47f97bed312617679f7a",
+      "cache_revalidated_by_deck_sha256": true
+    },
+    {
+      "mesh_mm": 1.0,
+      "fixed_nodes": 1347,
+      "loaded_nodes": 155,
+      "mean_tangential_displacement_mm": 0.0075161925161290315,
+      "force_residual_n": 2.3106667867978103e-06,
+      "result": {
+        "max_displacement_mm": 0.00834199130198013,
+        "max_von_mises_mpa": 96.91107932791309,
+        "max_von_mises_node_id": 733,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 1347,
+          "force_n": [
+            -4.2710000000523076e-05,
+            2.884299997345174e-06,
+            -1416.666664356
+          ],
+          "moment_about_origin_nm": [
+            -12.716269350267563,
+            37.60885758652188,
+            5.53355057576879e-07
+          ]
+        }
+      },
+      "deck_sha256": "2c1ebe306b87707db14bb2f8aeb979ea0dde0de68841577abbbd16d0dfb4314d",
+      "cache_revalidated_by_deck_sha256": true
+    },
+    {
+      "mesh_mm": 0.7,
+      "fixed_nodes": 2631,
+      "loaded_nodes": 273,
+      "mean_tangential_displacement_mm": 0.007742517743589744,
+      "force_residual_n": 9.425566668141983e-05,
+      "result": {
+        "max_displacement_mm": 0.009000395062421484,
+        "max_von_mises_mpa": 115.95624650599926,
+        "max_von_mises_node_id": 731,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 2631,
+          "force_n": [
+            2.0115000001293907e-05,
+            -1.6590900000001593e-05,
+            -1416.666572411
+          ],
+          "moment_about_origin_nm": [
+            -12.753215108516232,
+            37.494474243631714,
+            -6.209772193609912e-07
+          ]
+        }
+      },
+      "deck_sha256": "f045f4b99c5ebac369a3b1e50362788c381872d59fdd4cfeb50f220194b1efd1",
+      "cache_revalidated_by_deck_sha256": true
+    },
+    {
+      "mesh_mm": 0.5,
+      "fixed_nodes": 5099,
+      "loaded_nodes": 394,
+      "mean_tangential_displacement_mm": 0.008114465870558375,
+      "force_residual_n": -9.845133263297612e-06,
+      "result": {
+        "max_displacement_mm": 0.009730668256008936,
+        "max_von_mises_mpa": 151.38090834237087,
+        "max_von_mises_node_id": 33942,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 5099,
+          "force_n": [
+            -0.00011431420000098739,
+            -6.578124999369928e-06,
+            -1416.6666765118
+          ],
+          "moment_about_origin_nm": [
+            -12.805337554000259,
+            37.48656442049443,
+            -4.7444942052540795e-07
+          ]
+        }
+      },
+      "deck_sha256": "9e8f80cb2ec20267835ca61a904b96b4db20b11e52f01caa068aa877b196f465",
+      "cache_revalidated_by_deck_sha256": true
+    },
+    {
+      "mesh_mm": 0.35,
+      "fixed_nodes": 10366,
+      "loaded_nodes": 915,
+      "mean_tangential_displacement_mm": 0.007908651753005464,
+      "force_residual_n": 1.0340696690036566e-05,
+      "result": {
+        "max_displacement_mm": 0.009637418413764599,
+        "max_von_mises_mpa": 162.691279692594,
+        "max_von_mises_node_id": 56449,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 10366,
+          "force_n": [
+            -0.00010848105000352138,
+            -2.767629599919903e-06,
+            -1416.66665632597
+          ],
+          "moment_about_origin_nm": [
+            -12.499592107260165,
+            37.27619129628459,
+            7.211183125880976e-07
+          ]
+        }
+      },
+      "deck_sha256": "484aa206ada5c99384fa6aff4de85c5dba8e8aa28780b65a05111ea03a77b4b5",
+      "cache_revalidated_by_deck_sha256": true
+    },
+    {
+      "mesh_mm": 0.3,
+      "fixed_nodes": 13961,
+      "loaded_nodes": 1606,
+      "mean_tangential_displacement_mm": 0.007888805765877957,
+      "force_residual_n": -7.456163302776986e-06,
+      "result": {
+        "max_displacement_mm": 0.009127607334389228,
+        "max_von_mises_mpa": 158.80147356635578,
+        "max_von_mises_node_id": 44467,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "reaction": {
+          "node_count": 13961,
+          "force_n": [
+            5.370453999331099e-05,
+            1.0475792000258854e-05,
+            -1416.66667412283
+          ],
+          "moment_about_origin_nm": [
+            -12.751100297289138,
+            37.23916011063011,
+            1.0532129057440651e-07
+          ]
+        }
+      },
+      "deck_sha256": "148da748d89abb62627186f2a78eacd66054a4bc2f1cd51d1cfbb3f42791a82f",
+      "cache_revalidated_by_deck_sha256": true
+    }
+  ],
+  "relative_mesh_change": 0.002515715016504625,
+  "peak_stress_relative_mesh_change": 0.02449477349851453,
+  "two_gear_relative_tangential_deflection_mm": 0.015777611531755914,
+  "two_gear_elastic_angle_deg": 0.03766627298193966,
+  "conditional_sf_at_355_mpa": 2.235495628771114,
+  "scope": "One M3 Z16 18 mm solid S45C gear carries the full 34 N.m reverse torque. The external envelope equals the former three-lamination 18 mm stack. All bore-surface translations are fixed and load is distributed over +X tooth-tip nodes. Contact/root fillet, hub/key load transfer and actual S45C condition remain unqualified.",
+  "source_sha256": {
+    "analysis/final_validation/run_phase_gear_elastic_candidate.py": "bfb4436ab97e5edf5b2a219a4f4ffeb2074aceba4b6ae64a4f293eac2f920a59",
+    "analysis/final_validation/results/v0.8/phase_path_25_solid_gear.step": "d5fb4588276f44eaed9d589be8aaa4c0caa71ebbedf9091e76e6abcc8016262d"
+  }
+}

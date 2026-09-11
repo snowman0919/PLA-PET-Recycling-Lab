@@ -1,0 +1,168 @@
+{
+  "status": "PASS",
+  "physical_validation_state": "NOT_RUN",
+  "geometry": {
+    "outer_radius_mm": 16.985,
+    "inner_radius_mm": 8.11,
+    "length_mm": 12.0,
+    "sensor_radius_mm": 1.625,
+    "sensor_depth_mm": 5.45,
+    "minimum_flat_tip_ligament_mm": 3.425
+  },
+  "pressure_mpa": 6.0,
+  "conditional_temperature_boundary_c": {
+    "inner": 270.0,
+    "outer": 245.0
+  },
+  "meshes": [
+    {
+      "mesh_mm": 1.0,
+      "nodes": 8582,
+      "elements": 40421,
+      "loaded_inner_area_mm2": 611.1928262452,
+      "applied_net_force_n": [
+        0.0020849058840299375,
+        -0.0009192973610603096,
+        0.0
+      ],
+      "result": {
+        "max_displacement_mm": 0.14000259683138022,
+        "max_von_mises_mpa": 43.681225212568414,
+        "max_von_mises_node_id": 3,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "sensor_region_peak_stress_mpa": 43.681225212568414,
+      "sensor_region_peak_coordinate_mm": [
+        1.990051048614e-16,
+        16.985,
+        7.625
+      ],
+      "temperature_range_c": [
+        245.0,
+        270.0
+      ],
+      "thermal_deck_sha256": "ac78840bb1e16fbca77def30e0524720dbd64758be6b8979e30cd65053ffd1d8",
+      "deck_sha256": "0bd793a36a1a94293a67c53b427a606f694a27fcc1fa0c0a851f0fe5198e91b9"
+    },
+    {
+      "mesh_mm": 0.75,
+      "nodes": 18560,
+      "elements": 93007,
+      "loaded_inner_area_mm2": 611.3181246455832,
+      "applied_net_force_n": [
+        0.004106732507694867,
+        0.0006923797151646028,
+        0.0
+      ],
+      "result": {
+        "max_displacement_mm": 0.1402611857513332,
+        "max_von_mises_mpa": 45.416632919128595,
+        "max_von_mises_node_id": 4,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "sensor_region_peak_stress_mpa": 45.416632919128595,
+      "sensor_region_peak_coordinate_mm": [
+        -3.980102097229e-16,
+        16.985,
+        4.375
+      ],
+      "temperature_range_c": [
+        245.0,
+        270.0
+      ],
+      "thermal_deck_sha256": "5f83669431e69821d52bff5130643502e6a425d47adffcee0771579ba2cf036a",
+      "deck_sha256": "af52f7ef022758ee778aa8c43719f3cc94ef979ff1f10125dbd4413f70f28847"
+    },
+    {
+      "mesh_mm": 0.55,
+      "nodes": 43994,
+      "elements": 233063,
+      "loaded_inner_area_mm2": 611.3945265527182,
+      "applied_net_force_n": [
+        0.00039712400510123584,
+        0.0004552319928283007,
+        0.0
+      ],
+      "result": {
+        "max_displacement_mm": 0.1404645202624848,
+        "max_von_mises_mpa": 49.11837865293894,
+        "max_von_mises_node_id": 3,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "sensor_region_peak_stress_mpa": 49.11837865293894,
+      "sensor_region_peak_coordinate_mm": [
+        1.990051048614e-16,
+        16.985,
+        7.625
+      ],
+      "temperature_range_c": [
+        245.0,
+        270.0
+      ],
+      "thermal_deck_sha256": "aa306c3648a6bb41bfc6396c3d47125e4415ee1bb0463e2a3b2b0f8d7ee3de75",
+      "deck_sha256": "6feda1e4baf85a47526d945ce32db76d0d1a453aa9f43ac273c9ca75439e2387"
+    },
+    {
+      "mesh_mm": 0.4,
+      "nodes": 107163,
+      "elements": 593341,
+      "loaded_inner_area_mm2": 611.4338077888616,
+      "applied_net_force_n": [
+        -5.471714323830937e-05,
+        2.974917035857435e-05,
+        0.0
+      ],
+      "result": {
+        "max_displacement_mm": 0.14061474724601258,
+        "max_von_mises_mpa": 49.934606554121274,
+        "max_von_mises_node_id": 20272,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "sensor_region_peak_stress_mpa": 49.934606554121274,
+      "sensor_region_peak_coordinate_mm": [
+        -0.32617880359337,
+        16.408996075028,
+        4.4080727440971
+      ],
+      "temperature_range_c": [
+        245.0,
+        270.0
+      ],
+      "thermal_deck_sha256": "33327762140e1030a3b7bac99c4fe931d22835d670c78b6fafc7e13d2533b607",
+      "deck_sha256": "0fb8a5370a0f80bdac3112bc177891015024c614e3b29b94614cec9ed3cc7c0a"
+    }
+  ],
+  "medium_to_fine_regional_stress_change": 0.01634593636574816,
+  "required_yield_mpa_for_regional_sf_2": 99.86921310824255,
+  "conditional_sf_at_177p5_mpa": 3.5546490149595527,
+  "checks": {
+    "release_geometry_adopted": true,
+    "four_mesh_levels_solved": true,
+    "medium_to_fine_change_le_5pct": true,
+    "conditional_regional_sf_ge_2": true,
+    "pressure_load_self_equilibrated": true
+  },
+  "qualification_scope": "released sensor-bore geometry and converged local 3D thermoelastic stress; strength remains conditional on qualified elevated-temperature material allowable",
+  "limitations": [
+    "12 mm segment with prescribed inner270/outer245 C bounds; no heater/contact/mount/die load coupling.",
+    "Sharp flat-bottom bore edge is manufacturing-tool dependent and may remain mesh sensitive.",
+    "Uniform k=35 W/mK, E=190 GPa, nu=0.30, alpha=12e-6/K and 177.5 MPa yield are conditional, not qualified actual QT/nitrided SCM440 data.",
+    "Released depth5.40\u00b10.05 is represented; the purchased probe/retention and physical bore remain unselected/NOT_RUN."
+  ],
+  "raw_directory": "analysis/final_validation/results/v0.8/sensor-bore-i56_07zf",
+  "source_sha256": {
+    "analysis/final_validation/run_sensor_bore_local_candidate.py": "b6c87a925fb6ffadebed1887cd628117331ecd3d101978f665b856172e5b8e1a",
+    "analysis/final_validation/input/sensor_bore_local_candidate.step": "fe6be218a93e86460d8647d8f17fb79bdefd42972f5a2d73436d0d0d0af30537",
+    "analysis/final_validation/run_calculix_v08.py": "06cb79abbbe19d1eaeb7d49a7cd1faebb8fd14085ce6301949f844632824b2d9",
+    "cad/freecad/final_v08/check_sensor_ligament_candidate.py": "8de6fd315b9f1b34f6857945f08e8842feb92d8a96e2f90087c2372ae196a8f6",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb"
+  }
+}

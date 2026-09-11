@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "physical_validation_state": "NOT_RUN",
+  "nominal_geometry_check": "PASS",
+  "shaft_diameter_mm": 25.0,
+  "shaft_length_mm": 240,
+  "shaft_step": "analysis/final_validation/results/v0.8/phase_path_25_shaft.step",
+  "shaft_step_sha256": "8850b55fabcd68a005a462a9136fbd61c0e8ffb293c5f16ddb7a51fbd990ac9a",
+  "gear_lamination_step": "analysis/final_validation/results/v0.8/phase_path_25_gear_lamination.step",
+  "gear_lamination_step_sha256": "c076c9097c3b1796666c7a3d1af9e2d3015d9af2448ee95ace53080dade5fba6",
+  "solid_gear_step": "analysis/final_validation/results/v0.8/phase_path_25_solid_gear.step",
+  "solid_gear_step_sha256": "d5fb4588276f44eaed9d589be8aaa4c0caa71ebbedf9091e76e6abcc8016262d",
+  "solid_gear_face_width_mm": 18.0,
+  "solid_gear_piece_count": 1,
+  "gear_root_fillet_mm": 1.0,
+  "cad_pair_backlash_target_mm": 0.125,
+  "spans": [
+    {
+      "shaft": "153",
+      "length_mm": 131.5,
+      "step": "analysis/final_validation/results/v0.8/phase_path_25_153.step",
+      "step_sha256": "78dd748b63d10dc8c222df601fddac816d7f218322e5d805ed218d04d1f7dac3"
+    },
+    {
+      "shaft": "105",
+      "length_mm": 138.0,
+      "step": "analysis/final_validation/results/v0.8/phase_path_25_105.step",
+      "step_sha256": "0f1d88eae3ada28b813fc3531f757f93449b19627d8965197ca15c02a033e54e"
+    }
+  ],
+  "cutter_bore_mm": 25.01,
+  "cutter_matched_keyway_width_mm": 6.0075,
+  "gear_matched_keyway_width_mm": 8.0075,
+  "gear_key_nominal_mm": [
+    8.0,
+    7.0
+  ],
+  "keyway_to_root_ligament_mm": 4.75,
+  "bearing": {
+    "candidate_mpn": "SKF 61905-2RS1",
+    "dimensions_mm": [
+      25,
+      42,
+      9
+    ],
+    "basic_dynamic_rating_n": 7020.0,
+    "basic_static_rating_n": 4300.0,
+    "cn_unmounted_radial_internal_clearance_mm": [
+      0.005,
+      0.02
+    ],
+    "two_shaft_worst_relative_clearance_mm": 0.04,
+    "candidate_max_reaction_n": 1274.798,
+    "dynamic_rating_ratio": 5.506754795661744,
+    "static_rating_ratio": 3.3730834218440884,
+    "official_source": "https://cdn.skfmediahub.skf.com/api/public/0901d196802809de/pdf_preview_medium/0901d196802809de_pdf_preview_medium.pdf"
+  },
+  "existing_plate_bearing_bore_mm": 42,
+  "bearing_pair_edge_gap_mm": 6,
+  "seat_ring_mm": {
+    "od": 42,
+    "id": 25.5,
+    "width": 3,
+    "quantity": 4
+  },
+  "combined_phase_screen_deg": 0.7830584146121241,
+  "scope": "Released nominal cold CAD and bearing-rating screen. Exact keyed-shaft and gear FEA are bound separately; shock/misalignment, manufacturing tolerance and physical fit remain NOT_RUN.",
+  "source_sha256": {
+    "cad/freecad/final_v08/check_phase_path_25_candidate.py": "46df68eb60cbc6091511643e856f2f32afc82b942267bedefa5a7f7ae978c76b",
+    "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "analysis/final_validation/run_phase_section_sensitivity_v08.py": "3bd62f1a0d84a0081b4e7b63d1283961ede8a0edddc8b10a8bcb1eca2e88541d",
+    "analysis/final_validation/results/v0.8/phase_section_sensitivity.json": "5207cc4c7baf685d68fbb0fcb0f860918ec5c38755bfa351d727eb9d94f5f6c4"
+  }
+}
