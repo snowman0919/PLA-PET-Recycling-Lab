@@ -19,8 +19,6 @@
     "normal_max_g_h": 110.0,
     "auger_rpm_min": 4.0,
     "auger_rpm_max": 20.0,
-    "agitator_rpm_normal": 14.0,
-    "agitator_rpm_clear": 20.0,
     "inventory_target_g": 20.0,
     "inventory_low_g": 5.0,
     "inventory_high_g": 40.0,
@@ -46,8 +44,7 @@
   ],
   "sweep_contract": {
     "method": "three-level one-factor-at-a-time plus deterministic 32-point balanced corner set per material form",
-    "variables": ["bulk_density_kg_m3","aspect_ratio","wall_friction","inter_particle_friction","agitator_rpm","auger_rpm","throat_fill","screen_discharge_variability"],
-    "agitator_rpm_levels": [8.0,14.0,20.0],
+    "variables": ["bulk_density_kg_m3","aspect_ratio","wall_friction","inter_particle_friction","auger_rpm","throat_fill","screen_discharge_variability"],
     "auger_rpm_levels": [4.0,12.0,20.0],
     "screen_discharge_variability_levels": [0.05,0.20,0.40]
   }
