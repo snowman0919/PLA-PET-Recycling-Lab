@@ -4,8 +4,8 @@ FST-02,G1J-10 to G1J-01,M6 x20 class 8.8 hex,8,M6 washer + nyloc,9,nyloc,10 mm s
 FST-03,CUT-03 to four G1J-10,M6 x20 class 8.8 hex,8,M6 washer + nyloc,9,nyloc,10 mm socket,plate perpendicularity <=0.20/125
 FST-04,G1J-08 screen rails to CUT-03/feet,M5 x16 class 8.8 hex,4,M5 washer + nyloc,5,nyloc,8 mm socket,screen minimum cutter clearance >=1.9 mm
 FST-05,CUT-04 to G1J-08 rails,M5 x12 thumb screw,4,M5 large washer + captive nut,3,captive nut,hand/8 mm,screen cannot lift; tool removal only after lockout
-FST-06,DRV-03 three-lamination stack per gear,M4 x22 class 10.9 SHCS,4,M4 washer + all-metal locknut,3,all-metal locknut,3 mm hex + 7 mm spanner,2 bolts/gear; dowel seated; stack face 18 mm
-FST-07,DRV-03 registration per gear,3 x18 hardened dowel h6,2,press/slip fit per drawing,N/A,3 H7 lamination holes,arbor press,one dowel/gear; no tooth-based registration
+FST-06,DRV-03/DRV-03R solid gear retention,M4 x22 class 10.9 SHCS,4,M4 washer + all-metal locknut,3,all-metal locknut,3 mm hex + 7 mm spanner,2 bolts/gear; matched 8 mm key blue-checked
+FST-07,DRV-03/DRV-03R inspection registration,3 x18 hardened dowel h6,2,press/slip fit per drawing,N/A,3 H7 inspection hole,arbor press,"one dowel/gear; verify clock datum, not torque path"
 FST-08,G1J-07 upright to G1J-01,M4 x16 class 8.8 hex,8,M4 washer + nyloc,3,nyloc,7 mm socket,upright verticality <=0.5/180
 FST-09,G1J-03/04/05 PC panel to G1J-07,M4 x16 pan-head,24,M4 nylon washer + nyloc,1.2,nyloc; no threadlocker on PC,PH2 + 7 mm,"panel retained, no crazing; 0.5 mm compliant washer compression"
 FST-10,G1J-06 baffle to G1J-05/upright,M4 x20 pan-head + 10 mm spacer,4,nylon washer + nyloc,1.2,nyloc,PH2 + 7 mm,>=10 mm offset and no line-of-sight to cutter
@@ -14,8 +14,9 @@ FST-12,received guard switch to G1J-09,M4 x20 pan-head,2,washer + nyloc,1.2,nylo
 FST-13,G1J-P01 feed chute to guard,M4 x16 pan-head,4,large washer + nyloc,1.2,nyloc,PH2 + 7 mm,anti-reach baffle intact; push-stick-only path
 FST-14,G1J-02 force gauge clevis,M8 shoulder bolt or clevis pin,1,two retainers + independent tether,hand snug,double retention,pliers/13 mm,line of pull <=2 degree; tether slack under normal load
 FST-15,CUT-08 retainers to CUT-03,M4 x12 class 8.8 SHCS,12,M4 washer + all-metal locknut,3,all-metal locknut,3 mm hex + 7 mm spanner,outer rings retained; seal untouched; free rotation
-FST-16,CUT-01 coupons and shafts,6x6 keys + eight Ø20 split collars,1,0.25/0.50 metal shim set,collar maker rating,split clamp; no set-screw-only retention,hex key + feeler gauge,6.5 mm offset; axial working gap 0.25-0.50
+FST-16,CUT-01 coupons and shafts,6x6 keys + eight Ø25 split collars,1,0.25/0.50 metal shim set,collar maker rating,split clamp; no set-screw-only retention,hex key + feeler gauge,6.5 mm offset; axial working gap 0.25-0.50
 FST-17,DRV-01 to G1J-11/base,M6 x20 class 8.8 hex,8,M6 washer + nyloc,9,nyloc,10 mm socket,plate verticality <=0.5/140; no rocking
 FST-18,DRV-Axx to DRV-01 and motor,received adapter drawing hardware,1,hardened washers + prevailing nuts,supplier/drawing,prevailing hardware,torque wrench,pilot seated; sprocket TIR <=0.20; donor envelope clear
-FST-19,DRV-02 and #35 sprockets,4x M6 class 10.9 per hub/sprocket,8,hardened washers + all-metal locknuts,10,all-metal locknut,5 mm hex + 10 mm spanner,witness marks; chain alignment <=0.20/150
+FST-19,GGM_SH_12T/GGM_SH_30T axial retention,received sprocket maker axial-retention hardware,2,maker-specified locking/retention feature,HOLD,maker specification; key carries torque,tool per received hardware,blue-check 4x4/6x6 keys; radial TIR <=0.10; axial shift+U95 <=0.20; chain alignment <=0.20/150; no friction-only torque path
 FST-20,G1J-12 roof and G1J-P01 chute,M4 x16 pan-head,12,M4 nylon washer + nyloc,1.2,nyloc; no threadlocker on PC,PH2 + 7 mm,roof retained; chute gap <=1 mm; no unguarded opening >6 mm
+FST-21,CUT-03 pair through four CUT-09 sleeves,M6 x170 class 10.9 hex,4,M6 hardened washer both ends + all-metal locknut,7,all-metal locknut; no threadlocker near polymer,10 mm socket + spanner,sleeves fully seated; plate inside gap128.00 +/-0.06; matched sleeve spread <=0.03; printed chute carries no clamp load

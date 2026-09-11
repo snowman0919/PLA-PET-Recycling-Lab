@@ -1,9 +1,12 @@
 part_id,name,quantity,material,process,x_mm,y_mm,z_mm,files,release_state
 CUT-01,Cycloidal hook cutter disc,12,6 mm AISI D2 tool steel (JIS SKD11 equivalent),"rough waterjet, vacuum harden/double temper 58-60 HRC, finish profile/faces grind",57.62,6.00,56.69,FCStd|STEP|DXF|notes,GATE1_MAX_2_ALLOWED_USER_APPROVAL_REQUIRED; REMAINING_10_HOLD
-CUT-02,Cutter spacer,10,S45C normalized steel,simple turning,28.00,28.00,7.00,FCStd|STEP|DXF|notes,HOLD_UNTIL_PHYSICAL_GATE1_PASS
+CUT-02,Cutter spacer,10,S45C normalized steel,"turn, then match-grind/lap as one numbered two-shaft stack",34.00,34.00,7.00,FCStd|STEP|DXF|notes,HOLD_UNTIL_PHYSICAL_GATE1_PASS
 CUT-03,Bearing side plate,2,12 mm S275JR steel,laser + bearing-seat finish,150.00,125.00,12.00,FCStd|STEP|DXF|notes,GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED
 CUT-04,5 mm aperture screen,2,3 mm 304 stainless,laser cut + deburr,135.00,120.00,3.00,FCStd|STEP|DXF|notes,GATE1_MAX_1_ALLOWED_USER_APPROVAL_REQUIRED; REMAINING_1_HOLD
-CUT-05,20 mm keyed cutter shaft,2,S45C normalized steel HB 170-229,turn + keyway; black oxide with bearing seats masked,20.00,240.00,20.00,FCStd|STEP|DXF|notes,GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED
-CUT-06,Phase gear axial spacer,2,S45C normalized steel,simple turning,30.00,30.00,4.00,FCStd|STEP|DXF|notes,HOLD_UNTIL_PHYSICAL_GATE1_PASS
+CUT-05,25 mm keyed cutter shaft left,1,S45C QT steel,turn + indexed keyway; black oxide with bearing seats masked,25.00,240.00,25.00,FCStd|STEP|DXF|notes,GATE1_QTY_1_ALLOWED_USER_APPROVAL_REQUIRED
+CUT-05R,25 mm keyed cutter shaft right,1,S45C QT steel,turn + indexed keyway; black oxide with bearing seats masked,25.00,240.00,25.00,FCStd|STEP|DXF|notes,GATE1_QTY_1_ALLOWED_USER_APPROVAL_REQUIRED
+CUT-06,Phase gear axial spacer,2,S45C normalized steel,simple turning,34.00,34.00,4.00,FCStd|STEP|DXF|notes,HOLD_UNTIL_PHYSICAL_GATE1_PASS
 CUT-07,DRV-01 universal donor motor plate,1,6 mm steel,laser cut + deburr; standard metal angles,180.00,140.00,6.00,FCStd|STEP|DXF|notes,GATE1_QTY_1_ALLOWED_AFTER_DONOR_MEASUREMENT_AND_USER_APPROVAL
-CUT-08,Dual 6004 bearing retainer,2,2 mm steel,laser cut + deburr,108.00,60.00,2.00,FCStd|STEP|DXF|notes,GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED
+CUT-08,Dual 61905 bearing retainer,2,2 mm steel,laser cut + deburr,108.00,60.00,2.00,FCStd|STEP|DXF|notes,GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED
+CUT-09,Shredder chamber distance sleeve,4,S275JR steel,"turn, drill/ream and match-face as a set",10.00,10.00,128.00,FCStd|STEP|DXF|notes,GATE1_QTY_4_ALLOWED_USER_APPROVAL_REQUIRED
+CUT-10,61905 bearing seat ring,4,S45C normalized steel,turn and match-face,42.00,42.00,3.00,FCStd|STEP|DXF|notes,GATE1_QTY_4_ALLOWED_USER_APPROVAL_REQUIRED

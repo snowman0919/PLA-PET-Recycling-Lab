@@ -4,7 +4,7 @@
 - quantity: `1`
 - material: `12 mm S45C normalized steel`
 - process: `laser rough + bore/seat finish`
-- controlling requirements: `12 x95 x105; passage Ø17.2; thrust seat Ø30.2 x5; 4xØ6.6; seat axis square 0.05; metal-to-profile load path`
+- controlling requirements: `12 x95 x105; passage Ø17.2; 51102 pocket Ø28.30 +0.05/0 x9.10 +0.05/0 from marked front face; 4xØ6.6; pocket shoulder square0.05 to bore; NSK general-purpose housing radial clearance >0.25; metal-to-profile load path`
 - file precedence: 본 note/치수 요구사항 > STEP > DXF/STL. DXF/STL은 견적·CAM reference이며 자동 공차를 부여하지 않는다.
 - edge/inspection: 별도 표기가 없으면 burr 제거, sharp edge C0.3–0.5, 가공 후 유해한 균열·뒤틀림 없음.
 - release: `HOLD`; 해당 물리 gate와 사용자 승인 전 양산/전체수량 발주 금지.

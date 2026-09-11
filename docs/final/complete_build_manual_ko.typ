@@ -6,15 +6,16 @@
 #let gate(body) = block(width: 100%, fill: rgb("eaf3f7"), stroke: 1pt + rgb("33738b"), inset: 7pt, body)
 = v0.8 실행용 조립 매뉴얼
 #danger[*물리 검증·안전 인증·통전 승인이 아니다.* E-stop, lid/service interlock, branch fuse, 독립 thermal fuse를 정상 firmware와 독립 구현하고 exact received component 정격·배선·보호소자를 실측 확인하기 전 통전하지 않는다.]
+전체 배치: `GGM-FULL-ASM` / 구동계: `GGM R2`. 기본 조립 투상도는 통합 전 참조이며 최신 전체 배치가 아니다.
 Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT / PHYSICAL_NOT_RUN / USER_APPROVAL_REQUIRED`
 
-이 문서와 `assembly_steps.csv`, `assembly_drawing_set.pdf`, `exports/final/manufacturing/`, `exports/final/electrical/`이 v0.8 조립의 단일 실행 기준이다. 구버전 매뉴얼은 적용하지 않는다.
+이 문서와 `assembly_steps.csv`, 부품별 제조도면, 전기 schedule을 함께 사용한다. 전체 기계의 최신 배치는 `exports/final/drive_ggm_v08/GGM-FULL-ASM.step` 및 FCStd이며 구동계는 R2 GGM 도면이 우선한다. `assembly_drawing_set.pdf`의 기본 조립 투상도는 GGM 통합 전의 부품 관계 참조다. GGM-R2와 충돌하는 전체 배치·좌표·구동부는 복사하지 않는다. 구버전 매뉴얼은 적용하지 않는다.
 
 각 단계의 실측값·작업자·검토자·증거 경로를 기록한다. 계산·CAD PASS는 물리 합격이 아니다. 구매·가공·통전·가열 전에는 해당 사용자 승인 gate를 통과해야 한다.
 
 부품 수량은 `release/active_part_set.json`의 출고/검사 단위이며 assembly ID는 중복 구매하지 않는 참조다. 공정 witness, qualification coupon과 교체용 gasket은 해당 단계의 설치품과 구분한다. `SYS-*` 체결값은 `release/build_bom_release.py::fasteners`, `PR-*` 값은 `exports/print/print_manifest.csv`에서 BOM과 함께 생성한다. 금속 조인트 기본 토크를 출력물에 적용하지 않는다. 표에 없는 donor/구매품 체결은 수령품 제조사 값과 실측 승인 전 HOLD다.
 
-== 단계 1: CUT-09 ×4; CUT-10 ×4; EX-CPN-BAR ×1; EX-CPN-SCR ×1; PPR-FULL-ASM ×1; BOM/revision traveler ×1
+== 단계 1: EX-CPN-BAR ×1; EX-CPN-SCR ×1; PPR-FULL-ASM ×1; BOM/revision traveler ×1
 
 - 공구: document viewer; caliper
 - 체결품 / 토크: N/A / N/A—document gate
@@ -47,7 +48,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 - 합격: four anchors engaged
 - 다음 선행조건: shredder frame
 
-== 단계 4: CUT-03 ×2; CUT-08 ×2; PPR-SHREDDER-ASM ×1
+== 단계 4: CUT-03 ×2; CUT-08 ×2; CUT-09 ×4; PPR-SHREDDER-ASM ×1
 
 - 공구: square; 3/5 mm hex; 10 mm socket/spanner; torque wrench
 - 체결품 / 토크: SYS-06: M4x12 class 8.8 SHCS ×12 / SYS-06: 3 N·m
@@ -58,7 +59,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 - 합격: pair parallel; retainer clears seal/inner ring; no printed part lies in chamber or plate-to-profile compression path
 - 다음 선행조건: bearings/shafts dry-fit
 
-== 단계 5: CUT-05 ×1; CUT-05R ×1; SKF 61905-2RS1 ×4
+== 단계 5: CUT-05 ×1; CUT-05R ×1; CUT-10 ×4; SKF 61905-2RS1 ×4
 
 - 공구: arbor press; micrometer; optical index
 - 체결품 / 토크: Ø25 metal collars / collar screw per maker
@@ -105,7 +106,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 == 단계 9: CUT-04 ×2; FD-HOP-01 ×1; IN-HOP-01 ×1; PPR-C01 ×1; PPR-C02 ×1; PPR-C04 ×1
 
 - 공구: riveter; 3 mm hex
-- 체결품 / 토크: non-printed interfaces only: M4/rivets; PR-PPR-C01-1: M4x16 90° flat-head latch flag screw + washer + nyloc ×1; PR-PPR-C02-1: M4x12 + washer ×4; PR-PPR-C02-2: chamber M6 tie bolts inside steel sleeves ×2; PR-PPR-C04-1: M5x16 + large washer + nyloc ×2 / non-printed interfaces only: M4 3 N·m; PR-PPR-C01-1: 1.2 N·m; PR-PPR-C02-1: 1.2 N·m; PR-PPR-C02-2: 6 N·m; PR-PPR-C04-1: 2.0 N·m
+- 체결품 / 토크: non-printed interfaces only: M4/rivets; PR-PPR-C01-1: M4x10 latch flag screw ×1; PR-PPR-C02-1: M4x12 + washer ×4; PR-PPR-C02-2: chamber M6 tie bolts through clearance holes ×2; PR-PPR-C04-1: M5x16 + large washer + nyloc ×2 / non-printed interfaces only: M4 3 N·m; PR-PPR-C01-1: 1.2 N·m; PR-PPR-C02-1: 1.2 N·m; PR-PPR-C02-2: 6 N·m; PR-PPR-C04-1: 2.0 N·m
 - 방향: flow down into screen
 - 공차·간극: cutter/static clearance≥1.90 mm
 - 도면: FD-001/FD-002
@@ -171,7 +172,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 == 단계 15: PPR-C06 ×2
 
 - 공구: gauge block; caliper
-- 체결품 / 토크: non-printed interfaces only: M3 hardware; PR-PPR-C06-1: M3x12 + washers + all-metal nuts ×8 / non-printed interfaces only: M3 1.2 N·m; PR-PPR-C06-1: 0.5 N·m
+- 체결품 / 토크: non-printed interfaces only: M3 hardware; PR-PPR-C06-1: M3x12 ×8 / non-printed interfaces only: M3 1.2 N·m; PR-PPR-C06-1: 0.5 N·m
 - 방향: U95 axes normal to strand
 - 공차·간극: datum alignment≤0.10 mm
 - 도면: FM-002
@@ -193,7 +194,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 == 단계 17: FM-GA-01 ×1; FM-GC-01 ×2; FM-GR-01 ×1; PPR-C08 ×2; PPR-C09 ×2; PPR-C10 ×1; SP-AX-01 ×2; SP-BP-01 ×2; SP-BR-01 ×2; SP-DA-01 ×1; SP-DS-01 ×1; SP-MM-01 ×1; SP-RL-01 ×1; SP-SH-01 ×1; SP-TR-01 ×2
 
 - 공구: square; dial; 3 mm hex
-- 체결품 / 토크: PR-PPR-C08-1: M5x16 + washer + T-nut ×4; PR-PPR-C09-1: M6x30 through clamp + washer + nyloc ×2; PR-PPR-C10-1: M4x25 belt-clamp screws + washers + nyloc ×2; SYS-13: M5x20 A2-70 SHCS + washer + all-metal prevailing nut ×8; SYS-14: M3x25 A2-70 SHCS + washers + all-metal prevailing nuts ×3 / PR-PPR-C08-1: 2.0 N·m; PR-PPR-C09-1: 2.5 N·m; PR-PPR-C10-1: 1.2 N·m; SYS-13: 2.5 N·m; SYS-14: 0.35 N·m
+- 체결품 / 토크: PR-PPR-C08-1: M5x16 + washer + T-nut ×4; PR-PPR-C09-1: M6x30 through clamp + washer + nyloc ×2; PR-PPR-C10-1: M4x16 belt-clamp screws ×2; SYS-13: M5x20 A2-70 SHCS + washer + all-metal prevailing nut ×8; SYS-14: M3x25 A2-70 SHCS + washers + all-metal prevailing nuts ×3 / PR-PPR-C08-1: 2.0 N·m; PR-PPR-C09-1: 2.5 N·m; PR-PPR-C10-1: 1.2 N·m; SYS-13: 2.5 N·m; SYS-14: 0.35 N·m
 - 방향: traverse parallel to spool
 - 공차·간극: rod parallel≤0.10/160 mm
 - 도면: SP-001
@@ -248,7 +249,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 == 단계 22: PPR-C11 ×1
 
 - 공구: DMM; logic current limiter
-- 체결품 / 토크: non-printed interfaces only: locking low-voltage terminals; PR-PPR-C11-1: M3x16 + washers + all-metal nuts ×4 / non-printed interfaces only: terminal maker value; PR-PPR-C11-1: 0.5 N·m
+- 체결품 / 토크: non-printed interfaces only: locking low-voltage terminals; PR-PPR-C11-1: M3x10 ×4 / non-printed interfaces only: terminal maker value; PR-PPR-C11-1: 0.5 N·m
 - 방향: outputs safe at reset
 - 공차·간극: pin schedule exact match
 - 도면: Arduino_Mega_pinmap.pdf
