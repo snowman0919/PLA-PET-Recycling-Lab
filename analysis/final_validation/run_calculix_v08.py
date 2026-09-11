@@ -511,6 +511,7 @@ def main() -> None:
                                 "cad/freecad/compact/geometry.py": sha256(ROOT / "cad/freecad/compact/geometry.py"),
                                 "cad/parameters/baseline.json": sha256(ROOT / "cad/parameters/baseline.json"),
                                 "cad/parameters/final_v08.json": sha256(ROOT / "cad/parameters/final_v08.json"),
+                                "analysis/load_cases/openmodelica_dynamic_envelope.json": sha256(ENVELOPE),
                                 "analysis/final_validation/input/geometry_manifest.json": sha256(INPUT / "geometry_manifest.json"),
                                 "analysis/structural/run_load_checks.py": sha256(ROOT / "analysis/structural/run_load_checks.py"),
                                 "analysis/final_validation/results/v0.8/sensor_bore_local_candidate.json": sha256(ROOT / "analysis/final_validation/results/v0.8/sensor_bore_local_candidate.json")},
