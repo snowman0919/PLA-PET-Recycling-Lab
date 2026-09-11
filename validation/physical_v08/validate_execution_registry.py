@@ -16,6 +16,16 @@ def main():
  policy=reg['policy']
  for k in ('physical_action_authorized','procurement_authorized','motor_energization_authorized','heater_energization_authorized','production_certification'):
   req(policy.get(k) is False,k+' must remain false')
+ req(policy.get('mvp_is_final_product') is True,'MVP must remain the final product')
+ req(policy.get('throwaway_prototype_allowed') is False,'throwaway prototype must remain prohibited')
+ req(policy.get('design_feedback_required_on_smoke_failure') is True,'smoke failure must feed back into design')
+ smoke=reg.get('smoke_contract',{})
+ req(smoke.get('checkpoints')==[f'S{i}' for i in range(6)],'smoke checkpoint registry drift')
+ for key in ('contract','doc'):
+  req(resolve(smoke.get(key,'')).is_file(),'missing smoke '+key)
+ smoke_contract=contract.get('mvp_final_identity',{})
+ req(smoke_contract.get('mvp_is_final_product') is True and smoke_contract.get('same_physical_artifact_required') is True,'gate MVP identity drift')
+ req(smoke_contract.get('throwaway_prototype_allowed') is False and smoke_contract.get('failure_policy')=='HOLD_AND_REVISE','gate smoke failure policy drift')
  cby={g['id']:g for g in contract['gates']}; req(set(cby)==set(expected),'contract stage set mismatch')
  for s in stages:
   req(s['name']==cby[s['id']]['name'],s['id']+' name drift')

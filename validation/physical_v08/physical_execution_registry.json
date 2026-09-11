@@ -5,7 +5,10 @@
     "procurement_authorized": false,
     "motor_energization_authorized": false,
     "heater_energization_authorized": false,
-    "production_certification": false
+    "production_certification": false,
+    "mvp_is_final_product": true,
+    "throwaway_prototype_allowed": false,
+    "design_feedback_required_on_smoke_failure": true
   },
   "stages": [
     {
@@ -189,5 +192,17 @@
       ],
       "stage_release_validator": "validate_p12_stage_release.py"
     }
-  ]
+  ],
+  "smoke_contract": {
+    "contract": "mvp_smoke_contract.json",
+    "doc": "MVP_SMOKE_VALIDATION_KO.md",
+    "checkpoints": [
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5"
+    ]
+  }
 }

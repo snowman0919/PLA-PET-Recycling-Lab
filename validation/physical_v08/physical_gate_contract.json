@@ -2,7 +2,7 @@
   "schema_version": 1,
   "revision": "physical-readiness-v0.8",
   "design_branch": "final-design-fabrication-closure-v0.8",
-  "principle": "minimum-cost staged fabrication; no full-count order before the preceding cheap coupon/receipt gate passes",
+  "principle": "minimum-cost staged fabrication on the same final machine; interleave smoke validation with fabrication and do not advance downstream work past failed evidence",
   "digital_entry": {
     "source": "validation/physical_v08/simulation_prerequisite.json",
     "required_status": "PASS",
@@ -309,5 +309,12 @@
         "physical-validation evidence package may be reviewed; not automatic production/safety certification"
       ]
     }
-  ]
+  ],
+  "mvp_final_identity": {
+    "mvp_is_final_product": true,
+    "same_physical_artifact_required": true,
+    "throwaway_prototype_allowed": false,
+    "smoke_contract": "validation/physical_v08/mvp_smoke_contract.json",
+    "failure_policy": "HOLD_AND_REVISE"
+  }
 }

@@ -39,3 +39,7 @@ Rear datum/collar bore는 Ø34.25, front guide는 Ø34.60이며 cold axial free 
 - GGM 실제 raw measurement 형식은 `analysis/drive_acceptance_v08/manufacturing/inspection_packet_template.json`을 사용한다.
 
 물리시험 수치는 simulation 값을 복사해 채우지 않는다. 모든 실제 값은 측정 장비 ID, 측정시각, 원시 CSV/사진/로그의 hash와 함께 기록한다.
+
+## MVP와 smoke 검증 정책
+
+이 프로젝트의 MVP는 별도 프로토타입이 아니라 최종 제품 자체다. `MVP_SMOKE_VALIDATION_KO.md`와 `mvp_smoke_contract.json`의 S0~S5를 P1~P9와 병행하고, 실패한 checkpoint는 downstream 작업을 HOLD한다. raw evidence를 보존한 뒤 repository 설계를 수정하고 영향을 받는 release artifact와 stage release를 다시 검증한다. smoke 결과를 이유로 acceptance limit을 현장에서 완화하지 않는다.

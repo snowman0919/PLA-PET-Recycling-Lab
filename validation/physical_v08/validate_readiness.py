@@ -192,6 +192,10 @@ def main():
         "validation/physical_v08/validate_physical_evidence_package.py",
         "validation/physical_v08/test_physical_evidence_package.py",
         "validation/physical_v08/validate_fabrication_handoff.py",
+        "validation/physical_v08/mvp_smoke_contract.json",
+        "validation/physical_v08/MVP_SMOKE_VALIDATION_KO.md",
+        "validation/physical_v08/validate_mvp_smoke_contract.py",
+        "validation/physical_v08/test_mvp_smoke_contract.py",
     ]
     assert all((ROOT / f).is_file() and (ROOT / f).stat().st_size > 0 for f in required_execution_files)
     by_stage_id = {(r["gate"], r["item_id"]): r for r in stage_bom}
@@ -213,6 +217,8 @@ def main():
     assert close(p3_fixture["calculated_force_n_at_250mm"]["9.30"], 37.2)
     assert p3_fixture["mechanical_release"]["coupon_count"] == 9
     assert any(r["id"] == "P3-BRK-01" and "OPTIONAL" in r["disposition"] for r in p3_bom)
+    smoke_result = __import__("subprocess").run([__import__("sys").executable, str(ROOT / "validation/physical_v08/validate_mvp_smoke_contract.py")], cwd=ROOT, text=True, capture_output=True)
+    assert smoke_result.returncode == 0 and "MVP_SMOKE_CONTRACT_PASS" in smoke_result.stdout
     registry = j("validation/physical_v08/physical_execution_registry.json")
     p1_registry = next(stage for stage in registry["stages"] if stage["id"] == "P1")
     assert p1_registry["external_templates"] == [{
