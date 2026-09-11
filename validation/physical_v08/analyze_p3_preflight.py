@@ -13,9 +13,12 @@ import hashlib
 import importlib.util
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "release"))
+from source_identity import source_identity
 HERE = Path(__file__).resolve().parent
 MOUNT_ANALYZER = HERE / "analyze_ggm_mount_compatibility.py"
 SIM_ANALYZER = HERE / "simulation_prerequisite.py"
@@ -274,7 +277,7 @@ def validate_result(result: dict, root: Path = ROOT, *, p2_checker=None) -> dict
     if stale:
         raise ValueError("P3 preflight source binding stale: " + ", ".join(stale))
     current = runtime_p0()
-    current_head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    current_head, _ = source_identity(root)
     if current.get("status") != "PASS" or current.get("head") != current_head:
         raise ValueError("current P0 runtime state is not fresh PASS")
     if result.get("p0_snapshot_head") != current_head or result.get("p0_runtime_digest") != p0_digest(current):

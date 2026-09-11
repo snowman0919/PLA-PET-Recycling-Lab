@@ -1,0 +1,703 @@
+{
+  "status": "NEW_DRIVE_CLEARANCE_PASS",
+  "machine_release": "HOLD",
+  "physical_validation": "NOT_RUN",
+  "review": {
+    "new_interference": [],
+    "inherited_findings": [
+      [
+        "MidRail320",
+        "HotMountBoltFrontFront",
+        392.69908
+      ],
+      [
+        "FeederAgitatorDriveShaft",
+        "FeederAugerSpringPin",
+        55.53632
+      ],
+      [
+        "Barrel",
+        "TemperatureProbeRetainerT1",
+        86.0528
+      ],
+      [
+        "Barrel",
+        "TemperatureProbeRetainerT2",
+        86.05283
+      ],
+      [
+        "Barrel",
+        "TemperatureProbeRetainerT3",
+        86.05283
+      ],
+      [
+        "BarrelBandHeaterZ1",
+        "TemperatureProbeRetainerT1",
+        3.00346
+      ],
+      [
+        "TemperatureProbeT1",
+        "TemperatureProbeRetainerT1",
+        22.19549
+      ],
+      [
+        "TemperatureProbeT2",
+        "TemperatureProbeRetainerT2",
+        22.19549
+      ],
+      [
+        "TemperatureProbeT3",
+        "TemperatureProbeRetainerT3",
+        22.19549
+      ],
+      [
+        "DownDieBody",
+        "TemperatureProbeT4",
+        16.18549
+      ],
+      [
+        "DownDieBody",
+        "TemperatureProbeRetainerT4",
+        112.06511
+      ],
+      [
+        "TemperatureProbeT4",
+        "TemperatureProbeRetainerT4",
+        27.44635
+      ],
+      [
+        "ExtruderRearRetainer",
+        "RearRetainerM4_318",
+        48.16062
+      ],
+      [
+        "ExtruderRearRetainer",
+        "RearRetainerM4_376",
+        48.16062
+      ]
+    ],
+    "profile_tslot_lod_contacts": [
+      [
+        "MidRail320",
+        "HotMountBoltFrontRear",
+        392.69908
+      ],
+      [
+        "HotMountBoltRearFront",
+        "GGM_HotRearRail",
+        392.69908
+      ],
+      [
+        "HotMountBoltRearRear",
+        "GGM_HotRearRail",
+        392.69908
+      ],
+      [
+        "GGM_ExMotorRail",
+        "GGM_M5_EX_MountL",
+        235.61945
+      ],
+      [
+        "GGM_ExMotorRail",
+        "GGM_M5_EX_MountR",
+        235.61945
+      ]
+    ]
+  },
+  "exports": [
+    {
+      "file": "GGM-FULL-ASM.step",
+      "sha256": "bdf5becf8661782f6534122f3641a3e09646530bba0bddcd29f3207a6d4a43a5",
+      "fcstd": "GGM-FULL-ASM.FCStd",
+      "fcstd_sha256": "48c11e3dc09e2ea6748826ec653644e3c97346c64dd76d0166376d5b3cc4dec9",
+      "solids": 256,
+      "volume_mm3": 21670409.224460393,
+      "bbox_mm": [
+        470.0,
+        729.0,
+        930.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM-DRIVE-ASM.step",
+      "sha256": "ccfc5cb301bab0c4d02fcc210f73b4e24d85141e232e57f7b6304e64c5c49a3d",
+      "fcstd": "GGM-DRIVE-ASM.FCStd",
+      "fcstd_sha256": "bc662f7b132583f408cd559981cd9f162d7d0d20b204b4e39b0b25dfa2d7faa9",
+      "solids": 61,
+      "volume_mm3": 5463562.682265392,
+      "bbox_mm": [
+        430.0,
+        715.0,
+        618.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Base.step",
+      "sha256": "f856fdcf5eeb642042e0a51bb986f3fee5ce4963f0a2ca04a1e38cbbcc96b803",
+      "fcstd": "GGM_SH_Base.FCStd",
+      "fcstd_sha256": "f844ac1d6de852ea06f7b3c4c085a65394db3c9bb54a79a78d3c7e2570eedcd9",
+      "solids": 1,
+      "volume_mm3": 355338.7142774312,
+      "bbox_mm": [
+        235.0,
+        253.0,
+        6.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Spacer_90_100.step",
+      "sha256": "7a2b8793d98790af6f5ea1bff28ef0d6dee3a06ba13f754d8c83544856631152",
+      "fcstd": "GGM_SH_Spacer_90_100.FCStd",
+      "fcstd_sha256": "421950eb51e00882288023df85bf1716d72e1928f76dc368d36ed86ba5ab13ba",
+      "solids": 1,
+      "volume_mm3": 788.8539153163972,
+      "bbox_mm": [
+        12.0,
+        12.0,
+        10.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Spacer_90_280.step",
+      "sha256": "fb1c4f0503202185f42e6de1f9893b44896de5571d24f1ee7a8878b4b1e33fb3",
+      "fcstd": "GGM_SH_Spacer_90_280.FCStd",
+      "fcstd_sha256": "0588e030a2b950f3d7b1fa16988ca6145b908add7fa0d32dd99700445f0b76cf",
+      "solids": 1,
+      "volume_mm3": 788.8539153163973,
+      "bbox_mm": [
+        12.0,
+        12.0,
+        10.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Spacer_220_100.step",
+      "sha256": "c343f7425234509883feb8f6fcaece0bf94b0ef898fcc68b103a34ffe99bd6b2",
+      "fcstd": "GGM_SH_Spacer_220_100.FCStd",
+      "fcstd_sha256": "73856be45728ed930fea422dd75da3505763ae7c3258a857b97f3a841d3aa275",
+      "solids": 1,
+      "volume_mm3": 788.853915316396,
+      "bbox_mm": [
+        12.0,
+        12.0,
+        10.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Spacer_220_280.step",
+      "sha256": "bac85c32a7079d3a70c64404098a76653522b1d2ea8c1e835e31307fc7e4d9b2",
+      "fcstd": "GGM_SH_Spacer_220_280.FCStd",
+      "fcstd_sha256": "407a00d630c65d1456ca3db5973ac22ab1cefde5f57e56545e069d1e9934cf68",
+      "solids": 1,
+      "volume_mm3": 788.8539153163962,
+      "bbox_mm": [
+        12.0,
+        12.0,
+        10.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Mount.step",
+      "sha256": "a5c88e1e1597271cdd9f4fb83a8413b3f567dd61f7bb415ffb7ab95a552e5f47",
+      "fcstd": "GGM_SH_Mount.FCStd",
+      "fcstd_sha256": "6df4ffca8adc9dbc80eab052b15c7efe4c781ec21fb3518c038c0fd90a1d6747",
+      "solids": 1,
+      "volume_mm3": 152523.30340043065,
+      "bbox_mm": [
+        140.00000000000003,
+        6.000000000000028,
+        190.16700000000003
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_BearingPlate273.step",
+      "sha256": "53d5b221a49faa2697dfc0c34b41d85396d7b6d01b574c814293cdc053f85a38",
+      "fcstd": "GGM_SH_BearingPlate273.FCStd",
+      "fcstd_sha256": "cf5f0004c377a857a3f3b4de60d63e7aa8afe2974674bcd9e3ad0647eb57e03c",
+      "solids": 1,
+      "volume_mm3": 120395.75477492921,
+      "bbox_mm": [
+        216.0,
+        10.0,
+        60.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_BearingPlate303.step",
+      "sha256": "454c329080197105ce92d54bb3f72e60cb3efe0385afad86f6fd055a133744f9",
+      "fcstd": "GGM_SH_BearingPlate303.FCStd",
+      "fcstd_sha256": "e0b7c61b94b8f3ce44e3745818e88992e096f7dcd0f702b2f4100e62b2fe4c33",
+      "solids": 1,
+      "volume_mm3": 120493.9295453539,
+      "bbox_mm": [
+        216.0,
+        10.0,
+        60.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Jackshaft.step",
+      "sha256": "3511cd957f04f9c1fa49ab17d5c3acff207a294ccf3c83ef2e570b9e290aee67",
+      "fcstd": "GGM_SH_Jackshaft.FCStd",
+      "fcstd_sha256": "9226de4cb01f75d0caab14871b4fc7d68b9685440992a7fbe9602f3296f43475",
+      "solids": 1,
+      "volume_mm3": 8439.678681707019,
+      "bbox_mm": [
+        12.0,
+        78.0,
+        12.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_FuseInput.step",
+      "sha256": "a1aeb785df40cc9253814b573ec45d3c0aa1b110977a7cb9e42a81df2f9c917b",
+      "fcstd": "GGM_SH_FuseInput.FCStd",
+      "fcstd_sha256": "c75a610c65854d9681eae17eb9be325d08acf9c73e5122488430883410bd6aae",
+      "solids": 1,
+      "volume_mm3": 17687.893553676688,
+      "bbox_mm": [
+        46.0,
+        30.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_FuseOutput.step",
+      "sha256": "456f1463a5b3d09359d0014ea7c735f4928f7f17da9834e2157e1a36f0f7d83e",
+      "fcstd": "GGM_SH_FuseOutput.FCStd",
+      "fcstd_sha256": "6c3748fce13f158142ca062317f707108573cd9c31d6e3332038f7f116f00645",
+      "solids": 1,
+      "volume_mm3": 16104.92165128469,
+      "bbox_mm": [
+        46.0,
+        26.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_FusePinBlank.step",
+      "sha256": "e8a5a73988d641e5cf41cc0ff9e0fbe7806ba0aa7d551562ff0c609a5a882d62",
+      "fcstd": "GGM_SH_FusePinBlank.FCStd",
+      "fcstd_sha256": "ad7309f2f30fdaaba9b9ea8e79bc3127a70837ed9438dd80a5e3d73c16a1b079",
+      "solids": 1,
+      "volume_mm3": 93.38198616850944,
+      "bbox_mm": [
+        4.0,
+        12.700000000000017,
+        4.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_FuseInput.step",
+      "sha256": "8bf33722a09c65d2bebf11261814fb759e2a368723961e1157143849ea4c6ca5",
+      "fcstd": "GGM_EX_FuseInput.FCStd",
+      "fcstd_sha256": "fe0467e84a2e23fd46ef8709cf3618cd04ff81bff35c93812a1fce8a05c4bb99",
+      "solids": 1,
+      "volume_mm3": 17687.893553677248,
+      "bbox_mm": [
+        46.0,
+        30.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_FuseOutput.step",
+      "sha256": "de552b06ecb15c9ed502fc67a44ffebdcb0691f971bc963e9e52d279b59b1df1",
+      "fcstd": "GGM_EX_FuseOutput.FCStd",
+      "fcstd_sha256": "a1718f9aa6722bc5156ea7a6f6b634fe2c55f68e417a6362a5e6eeb5be94cf1d",
+      "solids": 1,
+      "volume_mm3": 16104.921651285134,
+      "bbox_mm": [
+        46.0,
+        26.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_FusePinBlank.step",
+      "sha256": "255b8ad4b79ec58effdcdf32dc824387b66d47841ac28aa5ebea31d9e2aeb5ee",
+      "fcstd": "GGM_EX_FusePinBlank.FCStd",
+      "fcstd_sha256": "3275f6c04c2e59e3ecaf244119ce8a02d83a9c3c008f7a1018175f9ed0c3895e",
+      "solids": 1,
+      "volume_mm3": 93.3819861685287,
+      "bbox_mm": [
+        4.0,
+        12.699999999999989,
+        4.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_Mount.step",
+      "sha256": "2ded78bc7c08ef29e3fb87176ed8877a98e1d6ec75d3ca67ff95e7687205e14a",
+      "fcstd": "GGM_EX_Mount.FCStd",
+      "fcstd_sha256": "e10e853873fd813b945e11a588d163227ff5fb09263fad7cb7550161f915a8ba",
+      "solids": 1,
+      "volume_mm3": 93297.92386711737,
+      "bbox_mm": [
+        120.0,
+        6.0,
+        140.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_BearingCap271.step",
+      "sha256": "b9eb8deecc88791256f70fa908eecfd0caa59cd52f5e3009325d3f3b5c7eaa26",
+      "fcstd": "GGM_SH_BearingCap271.FCStd",
+      "fcstd_sha256": "928903c3fcb913cab9cac9c20f871a5e98f2bd4d2ea6583766bcb7616d01021e",
+      "solids": 1,
+      "volume_mm3": 2108.197166117963,
+      "bbox_mm": [
+        46.0,
+        2.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_BearingCap283.step",
+      "sha256": "2b6b2ddb2e5dae9fd166f8250d56effcb618f71490af7c0f180be14451bc8e9a",
+      "fcstd": "GGM_SH_BearingCap283.FCStd",
+      "fcstd_sha256": "a91a8ab1c34be43933920170947a51022ee5039adb2f0d6b3314c1cc1eb18257",
+      "solids": 1,
+      "volume_mm3": 2108.197166117963,
+      "bbox_mm": [
+        46.0,
+        2.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_BearingCap301.step",
+      "sha256": "c1380b50077ad4c9fa6b53f21a2f0e6d4c9fd9e723d47ce8b8473d59d464d76e",
+      "fcstd": "GGM_SH_BearingCap301.FCStd",
+      "fcstd_sha256": "109c72e073fcaf61d401d70ade2213ce98a31d43acce4f9a22b8304da9342064",
+      "solids": 1,
+      "volume_mm3": 2108.197166117963,
+      "bbox_mm": [
+        46.0,
+        2.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_BearingCap313.step",
+      "sha256": "0f2d8b0f750964edd8194f90d201c2238a63d36ec2cf654c2bda7ef9d24f7a30",
+      "fcstd": "GGM_SH_BearingCap313.FCStd",
+      "fcstd_sha256": "541560c572fee0803f72e759338b6a8da96c6af8d78d12fcc38df06996ee5b67",
+      "solids": 1,
+      "volume_mm3": 2108.197166117963,
+      "bbox_mm": [
+        46.0,
+        2.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_MotorKey.step",
+      "sha256": "18f2b1e5caf8899d1bedd5d802362b783da73b17e1e63674271005eddc65a719",
+      "fcstd": "GGM_SH_MotorKey.FCStd",
+      "fcstd_sha256": "daf4d7f56591280d5220a0f03bde97d5be9e103033f86c37202141effd219672",
+      "solids": 1,
+      "volume_mm3": 400.0,
+      "bbox_mm": [
+        4.0,
+        25.0,
+        4.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_JackInputKey.step",
+      "sha256": "2377030cf16a604350c24a2065a05e9ef4e852ab0ab9504abd047cb1c174f1a3",
+      "fcstd": "GGM_SH_JackInputKey.FCStd",
+      "fcstd_sha256": "0a7a63713b4fa6e2e03608541ded1117086dd580ce000c716104520a752dd369",
+      "solids": 1,
+      "volume_mm3": 351.99999999999994,
+      "bbox_mm": [
+        4.0,
+        22.0,
+        4.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_JackSprocketKey.step",
+      "sha256": "fd9af7f4ddf1228c667f3206ab53e34803fc997e7c5e4d4d5f1a1525e96389f4",
+      "fcstd": "GGM_SH_JackSprocketKey.FCStd",
+      "fcstd_sha256": "625caf3e4c5c3eb3a37b8319a26a646180f8f295c1022a7a2ec92da51c937d08",
+      "solids": 1,
+      "volume_mm3": 240.0,
+      "bbox_mm": [
+        4.0,
+        15.0,
+        4.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_MotorKey.step",
+      "sha256": "f411a7b79cce4fedc3809cb8d5618162ae937dc9af9a8b0021dec9dfb95ca6ed",
+      "fcstd": "GGM_EX_MotorKey.FCStd",
+      "fcstd_sha256": "2c90bcef4ac1e8e173b2918c6b171b25acd425571585b63ae847d3a3e53ef952",
+      "solids": 1,
+      "volume_mm3": 400.0,
+      "bbox_mm": [
+        4.0,
+        25.0,
+        4.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_ScrewKey.step",
+      "sha256": "d058808bb07068833acde00b5531d6ecbac2d36ca465070ad973090c5ffb043e",
+      "fcstd": "GGM_EX_ScrewKey.FCStd",
+      "fcstd_sha256": "5a1f1d95d8ee62391c718808564b6e7cde6d397887f714dfc4b70203442dee00",
+      "solids": 1,
+      "volume_mm3": 272.0,
+      "bbox_mm": [
+        4.0,
+        17.0,
+        4.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_CutterKey.step",
+      "sha256": "9f595f3e30e8df9a283b13389f63d95f8f44f841cead7d29a220e88f80e6a1f2",
+      "fcstd": "GGM_SH_CutterKey.FCStd",
+      "fcstd_sha256": "d5cea948fe33e79071858189a218cf8219c13120d215da760f07e3f859c39b5d",
+      "solids": 1,
+      "volume_mm3": 719.9999999999629,
+      "bbox_mm": [
+        8.009101666864808,
+        20.0,
+        8.009101666871516
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_CouplingGuard.step",
+      "sha256": "30659433f7586a0cd83316f7c0b12ee2452c4d5d3ea9093bd818f7464ff196b9",
+      "fcstd": "GGM_SH_CouplingGuard.FCStd",
+      "fcstd_sha256": "4a61200da87a6397a520937dff5f13343244a410cb0fd272fc6de6ac684edd7d",
+      "solids": 2,
+      "volume_mm3": 22771.189259458253,
+      "bbox_mm": [
+        75.99342076785665,
+        57.0,
+        76.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_CouplingGuard.step",
+      "sha256": "6bedbf170debd1125df3265bfc5f80b8ea5441e32798ad8e9e0d73a3c2f29508",
+      "fcstd": "GGM_EX_CouplingGuard.FCStd",
+      "fcstd_sha256": "153d74e022f5ff7c4d95638310b5497d1a63511ef94873d685c0930fe751fe3d",
+      "solids": 2,
+      "volume_mm3": 13833.691127874714,
+      "bbox_mm": [
+        75.99342076785666,
+        58.0,
+        76.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_ChainGuard.step",
+      "sha256": "73fe1ef1dfc8ef7403db61169916499977f915039cfe591f175bcdfa21fb7eab",
+      "fcstd": "GGM_ChainGuard.FCStd",
+      "fcstd_sha256": "faf2fffc691ba867200d2bef4195b4c0302763f18237ded94cef6bb3bf69f7c3",
+      "solids": 1,
+      "volume_mm3": 39401.40582045682,
+      "bbox_mm": [
+        118.0,
+        33.0,
+        173.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_JackInnerSpacer_front.step",
+      "sha256": "b5049427361af6077a2500ed2768a34a67f562524dbf22cc238eb967baf08e5e",
+      "fcstd": "GGM_JackInnerSpacer_front.FCStd",
+      "fcstd_sha256": "66dfda1e5f3df2a44b472d0845ad822d1911d51a944e6c3e20a6290a92912ec6",
+      "solids": 1,
+      "volume_mm3": 291.17380270899037,
+      "bbox_mm": [
+        17.0,
+        2.5999999999999943,
+        17.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_JackInnerSpacer_pinionfront.step",
+      "sha256": "5b36dbd2a6acd35431c63957c8c72586e43cf6e60d390d3649447946b19c3e9e",
+      "fcstd": "GGM_JackInnerSpacer_pinionfront.FCStd",
+      "fcstd_sha256": "cd14ca1434567e32025488ab6f6277a1786ac01d6e3ddd6afd0a58c0e009d79a",
+      "solids": 1,
+      "volume_mm3": 223.97984823768536,
+      "bbox_mm": [
+        17.0,
+        2.0,
+        17.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_JackInnerSpacer_pinionrear.step",
+      "sha256": "c6d1485edcd96d31847a516b0441700a1b9b8682740336e8fda5f1ea821428bb",
+      "fcstd": "GGM_JackInnerSpacer_pinionrear.FCStd",
+      "fcstd_sha256": "b2d374ea844cc4735c24128059db4ebbcbc17cc6b27577f1c319fcae28795fb2",
+      "solids": 1,
+      "volume_mm3": 335.9697723565282,
+      "bbox_mm": [
+        17.0,
+        3.0,
+        17.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_JackInnerSpacer_rear.step",
+      "sha256": "74b6774cfe0980a4b75bf8415d7d0b50b308206ea25845446eefb8c468168aea",
+      "fcstd": "GGM_JackInnerSpacer_rear.FCStd",
+      "fcstd_sha256": "ed793b6b74b376e62aa51ea553e1354d6f106f251e7803893b6c50a20dc9c5a6",
+      "solids": 1,
+      "volume_mm3": 111.98992411884268,
+      "bbox_mm": [
+        17.0,
+        1.0,
+        17.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_RadialHolder.step",
+      "sha256": "86efbf0823de7a9eabe787f0f99bb9e901ff6f608d17f9e79ef3a12d5d150a25",
+      "fcstd": "GGM_EX_RadialHolder.FCStd",
+      "fcstd_sha256": "2b6beb643e212622766c342a2040ef3c8b5e222382659ef1f72e31bef785ce72",
+      "solids": 1,
+      "volume_mm3": 14248.08881071282,
+      "bbox_mm": [
+        48.0,
+        10.0,
+        48.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_EX_RadialCap.step",
+      "sha256": "556f885ece86c816e1b2570c26ee93da4fabf7d7a3ab1084579a9aae0ae0eaeb",
+      "fcstd": "GGM_EX_RadialCap.FCStd",
+      "fcstd_sha256": "83e415a3b7de31937e4d93d5e7162b97ceacec332b9355c09569430ca6cc600c",
+      "solids": 1,
+      "volume_mm3": 2108.1971661179678,
+      "bbox_mm": [
+        46.0,
+        2.0,
+        46.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Angle83.step",
+      "sha256": "c89199362a4ed3f852cb9fcca8ca92c47d54ac660f6b0e10cd125f56b59f5ade",
+      "fcstd": "GGM_SH_Angle83.FCStd",
+      "fcstd_sha256": "67091e000cdebafc09fb7f5308629d1f138d3e73d3767cd70b307f3135a44f98",
+      "solids": 1,
+      "volume_mm3": 17952.0,
+      "bbox_mm": [
+        22.0,
+        36.0,
+        106.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "GGM_SH_Angle201.step",
+      "sha256": "4c66a72b3d409ba7fda00a3d6fa6ff48be36298620de02c5fa878d3a4d52ba02",
+      "fcstd": "GGM_SH_Angle201.FCStd",
+      "fcstd_sha256": "d095533ed1420f8533e20b3bc91cf9b3c15468489185fe09d037244e1698f55a",
+      "solids": 1,
+      "volume_mm3": 17952.0,
+      "bbox_mm": [
+        22.0,
+        36.0,
+        106.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "Screw-GGM.step",
+      "sha256": "20bfcff86318c178bfb6766af845f7e222a27145a14d053319dbc976509812f9",
+      "fcstd": "Screw-GGM.FCStd",
+      "fcstd_sha256": "d59ab97245ec3d926cee69d7fb296a79f333825fc910fff26b7cf62dc1a50df1",
+      "solids": 1,
+      "volume_mm3": 41631.46997027086,
+      "bbox_mm": [
+        23.0,
+        316.0,
+        23.0
+      ],
+      "status": "REIMPORT_PASS"
+    },
+    {
+      "file": "ThrustPlate-GGM.step",
+      "sha256": "7ae327c07cc00a53c1d5895b5d66978446e95d397c82a872e637819e86545dd5",
+      "fcstd": "ThrustPlate-GGM.FCStd",
+      "fcstd_sha256": "28e06a24f9d476ba259b41e1c1354b2a98a0f0cca077f0fe90b8ffc567f0ad1d",
+      "solids": 1,
+      "volume_mm3": 111190.80505329925,
+      "bbox_mm": [
+        95.0,
+        12.0,
+        105.0
+      ],
+      "status": "REIMPORT_PASS"
+    }
+  ],
+  "source_sha256": {
+    "cad/freecad/drive_v08/cache_source.py": "1b00ec5f870e695a712892c402bf62bef83d1c3767b8843dd67c627f0e55b7e0",
+    "cad/freecad/drive_v08/render_geometry.py": "ae8ee1e93f8d80bbe65c9b9dc0c3b2c3818eb3f65bad0326709ae34e06cce481",
+    "cad/freecad/drive_v08/layout.py": "a5c09d11c976f27c86aa3f8e8f1d110bedd5f2cc432dee169abc55cee9c14f44",
+    "cad/freecad/drive_v08/probe.py": "e1079763fa31e040e92afea02e8fdd94be55e080df190ab0870ec428e4b57819",
+    "cad/freecad/drive_v08/parts.py": "0d9aa8336bcb873810ed70e5a94ede103300b446b73812c1d6957eb08b49baf6",
+    "cad/freecad/drive_v08/detail.py": "fb8d42ccd8dfc6ba7c4c8782e789718e6a3caade6b30d8b9c550755e1ea2783a",
+    "cad/freecad/drive_v08/run_generate.py": "42fc38e87ba7619d679ff557f36a6f96cfd7e5ee72b635a4c9b39b283094920c",
+    "cad/freecad/drive_v08/guard_details.py": "875ea078ba7aa196491a0c3bd5e79da98216275a3e28164424d67ffa03ed297b",
+    "cad/freecad/drive_v08/assembly.py": "4b83ea96078cc7fd08a0003d515f6eac4df2be4c65666f1bef46f9e6937f70a5",
+    "cad/freecad/drive_v08/generate.py": "aff7d89f123649f4d611d4148c164d7d4cba3dae4d2180b0c63e303780ebbc46",
+    "control/ggm_drive_contract.json": "0c847fea963b5a08c86273f80542706d26c784ad6d0201307e500879662fd210",
+    "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "cad/freecad/final_v08/generate.py": "5e3788761eac33931118c9406edaff4041b8c740a7df364f44c0f8be7737335f",
+    "cad/parameters/final_v08.json": "c14f7e3a26bb6a37a59106ff0e43fe8b9ec1ccee4a3728c9c3db43eab2b93517",
+    "cad/parameters/baseline.json": "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a"
+  },
+  "motor_envelopes_not_internals": true,
+  "standard_sprockets_are_reference_envelopes_not_cutting_masters": true
+}

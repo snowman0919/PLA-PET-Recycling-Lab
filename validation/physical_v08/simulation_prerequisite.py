@@ -14,6 +14,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "release"))
+from source_identity import source_identity
 COMPLIANCE = ROOT / "validation/results/v08_full_compliance.json"
 VALIDATOR = ROOT / "validation/v08_full_compliance.py"
 EXCLUDED_RELEASE_ONLY = {"20_release_package", "21_release_policy"}
@@ -69,8 +71,7 @@ def evaluate(refresh: bool = True) -> dict[str, object]:
             binding_hashes[rel] = sha(path)
         else:
             missing_bindings.append(rel)
-    head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    branch = subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip()
+    head, branch = source_identity(ROOT)
     passed = not failed and not missing_bindings and len(required) == 23
     return {
         "schema_version": 1,

@@ -391,7 +391,7 @@ def verify() -> dict[str, object]:
         "procurement_gate": "USER_APPROVAL_REQUIRED", "manufacturing_part_ids": sorted(checked),
         "counts": totals,
         "notes": [
-            "CUT-07 is superseded by identical active DRV-01; DRV-A42 is an unselected reference and excluded.",
+            "CUT-07 and legacy DRV-01/02/A42/A60/F01 are excluded; GGM R2 is the current drive family.",
             "Manifest status covers digital geometry/drawing completeness; release_gate preserves user approval, donor measurement, coupon and physical gates.",
             "STEP validation is clean reimport/solid/bounds evidence, not physical inspection or safety certification.",
         ],

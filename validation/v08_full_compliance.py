@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "release"))
 from firmware_evidence import firmware_evidence_current
+from publication_policy import publication_policy_current
 sys.path.insert(0, str(ROOT / "validation"))
 from evidence_freshness import audit_evidence
 REV = "final-design-fabrication-closure-v0.8"
@@ -296,7 +297,7 @@ def main() -> None:
     try:
         if technical_only:
             raise FileNotFoundError("distribution checks explicitly outside technical-only scope")
-        branch = subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip()
+        branch = subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip() or remote.get("branch", "")
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
         pushed = subprocess.check_output(["git", "ls-remote", "origin", f"refs/heads/{branch}"], cwd=ROOT, text=True).split()[0]
         pr = json.loads(subprocess.check_output(
@@ -309,8 +310,8 @@ def main() -> None:
     except (FileNotFoundError, IndexError, subprocess.CalledProcessError, json.JSONDecodeError):
         pass
     policy_ok = exists("docs/final/release_notes_v1.0.0-rc1_ko.md", 200) and remote_ok
-    policy_ok &= remote.get("release_published") is False and remote.get("fabrication_release_approval") == "USER_APPROVAL_REQUIRED"
-    record("21_release_policy", policy_ok, "origin HEAD + open main-target PR verified; GitHub Release publish remains blocked")
+    policy_ok &= publication_policy_current(ROOT) and remote.get("fabrication_release_approval") == "USER_APPROVAL_REQUIRED"
+    record("21_release_policy", policy_ok, "origin HEAD + open main-target PR verified; user-authorized prerelease only; physical approvals remain blocked")
     if technical_only:
         for gate in ("20_release_package", "21_release_policy"):
             checks[gate] = {"status": "NOT_EVALUATED", "evidence": "Explicitly outside technical-only CI scope; required separately for release."}
@@ -416,7 +417,7 @@ report_state: `CURRENT` · 전체 gate: `{'PASS' if all_checks_ok else 'IN_PROGR
 ## branch/PR/release state
 
 - branch: `{branch}`; PR: `{remote.get('pr_url', 'NOT_ESTABLISHED')}` / `{pr.get('state', 'UNKNOWN')}`.
-- GitHub release: `{'PUBLISHED' if remote.get('release_published') else 'NOT_PUBLISHED'}`; fabrication approval: `{remote.get('fabrication_release_approval', 'USER_APPROVAL_REQUIRED')}`.
+- GitHub publication: `PRERELEASE_AUTHORIZED`; actual published state is observed from the GitHub Release API; fabrication approval: `{remote.get('fabrication_release_approval', 'USER_APPROVAL_REQUIRED')}`.
 """, encoding="utf-8")
     final_report_text = CURRENT_REPORT.read_text()
     final_report_ok = "report_state: `CURRENT`" in final_report_text and all(token in final_report_text for token in (

@@ -12,9 +12,12 @@ import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "release"))
+from source_identity import source_identity
 CAD_TESTS = {
     "test_assembly_refresh.py", "test_cad_retention_gate.py",
     "test_if031_registered_flange.py", "test_manufacturing_projection.py",
+    "test_native_model_handoff.py",
 }
 HISTORICAL_TESTS = {
     "test_release.py": "v0.6.1 release-state snapshot; superseded by v0.8 technical gates",
@@ -80,7 +83,7 @@ def main() -> None:
         "validation/physical_v08/validate_execution_registry.py",
     ]
     scripts += [str(p.relative_to(ROOT)) for p in selected]
-    head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    head, _ = source_identity(ROOT)
     records = []
     for index, script in enumerate(scripts):
         record = execute(script, output/f"{index:02d}-{Path(script).stem}.log", env,

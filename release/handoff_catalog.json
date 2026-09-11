@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "title": "PPR - PLA/PET Recycling Lab",
+  "subtitle_ko": "v1.0.0-rc1 / 동일한 최종 제품을 제작하며 검증하는 디지털 제작 후보",
+  "primary_model": "exports/final/drive_ggm_v08/GGM-FULL-ASM.step",
+  "primary_native_model": "exports/final/drive_ggm_v08/GGM-FULL-ASM.FCStd",
+  "primary_render": "exports/final/handoff/GGM_complete_assembly.png",
+  "integrated_envelope_mm": [
+    470,
+    729,
+    930
+  ],
+  "frame_base_mm": [
+    470,
+    700
+  ],
+  "hard_envelope_mm": [
+    500,
+    750,
+    1000
+  ],
+  "preferred_envelope_mm": [
+    480,
+    720,
+    950
+  ],
+  "preferred_envelope_deviation_ko": "GGM 통합 모델의 Y 외형은 선호 목표보다 9 mm 크다. hard envelope 안이지만 선호 목표 충족으로 표시하지 않는다.",
+  "groups": [
+    {
+      "title": "처음 읽기 / 전체 스펙",
+      "files": [
+        "README.md",
+        "docs/final/COMPLETE_HANDOFF_KO.md",
+        "docs/final/product_specification_ko.md",
+        "docs/final/open_items_ko.md",
+        "release/publication_policy.json",
+        "docs/final/release_notes_v1.0.0-rc1_ko.md"
+      ]
+    },
+    {
+      "title": "최신 GGM 통합 CAD / 구동계",
+      "files": [
+        "exports/final/drive_ggm_v08/GGM-FULL-ASM.step",
+        "exports/final/drive_ggm_v08/GGM-FULL-ASM.FCStd",
+        "exports/final/drive_ggm_v08/GGM-DRIVE-ASM.step",
+        "exports/final/drive_ggm_v08/manifest.json",
+        "exports/final/manufacturing/drive_ggm/PPR_GGM_MANUFACTURING_DRAWINGS_r2.pdf",
+        "exports/final/manufacturing/drive_ggm/PPR_GGM_ASSEMBLY_INSPECTION_KO_r2.pdf"
+      ]
+    },
+    {
+      "title": "금속 / 가공 / 공차",
+      "files": [
+        "exports/final/manufacturing/RFQ/manifest.csv",
+        "exports/final/manufacturing/drive_ggm/manifest.csv",
+        "exports/final/step/step_manifest.csv",
+        "exports/final/interface_catalog.csv",
+        "calculations/tolerance_stack_final.json",
+        "docs/final/tolerance_and_fit_guide_ko.pdf"
+      ]
+    },
+    {
+      "title": "구매와 재료 / 부품표",
+      "files": [
+        "exports/final/bom/BOM.xlsx",
+        "exports/final/bom/BOM.csv",
+        "exports/final/bom/BOM_KO.pdf",
+        "exports/final/bom/fastener_schedule.csv",
+        "exports/final/bom/make_buy_matrix.csv",
+        "exports/fabrication/frame_cut_list.csv",
+        "docs/final/jlccnc_response_2026-09-08_ko.md"
+      ]
+    },
+    {
+      "title": "3D 프린팅",
+      "files": [
+        "exports/final/print/print_manifest.csv",
+        "exports/final/step/README.md"
+      ]
+    },
+    {
+      "title": "조립 / 정비",
+      "files": [
+        "docs/final/complete_build_manual_ko.pdf",
+        "docs/final/assembly_steps.csv",
+        "docs/final/assembly_drawing_set.pdf",
+        "docs/drawings/drawing_register.csv",
+        "docs/final/exploded_views_ko.pdf",
+        "docs/final/maintenance_manual_ko.pdf"
+      ]
+    },
+    {
+      "title": "전기 / 보호회로",
+      "files": [
+        "exports/final/electrical/wire_schedule.csv",
+        "exports/final/electrical/pin_schedule.csv",
+        "exports/final/electrical/fuse_schedule.csv",
+        "electronics/io_schedule.csv",
+        "control/thermal_cutoff_contract.json",
+        "docs/final/electrical_assembly_ko.pdf"
+      ]
+    },
+    {
+      "title": "펌웨어 / 교정",
+      "files": [
+        "exports/final/firmware/binaries/filament_recycler_atmega2560.hex",
+        "exports/final/firmware/build_manifest.json",
+        "exports/final/firmware/library_lock.json",
+        "exports/final/firmware/reproducible_build/build_and_verify.py",
+        "docs/final/firmware_and_calibration_ko.pdf"
+      ]
+    },
+    {
+      "title": "실물 제작 병행 시험",
+      "files": [
+        "validation/physical_v08/PHYSICAL_EXECUTION_INDEX_KO.md",
+        "validation/physical_v08/MVP_SMOKE_VALIDATION_KO.md",
+        "validation/physical_v08/physical_gate_contract.json",
+        "validation/physical_v08/stage_minimum_bom.csv",
+        "validation/physical_v08/inventory_confirmation.csv",
+        "validation/physical_v08/measurement_equipment.csv",
+        "validation/physical_v08/P9_EMPTY_HOT_ZONE_KO.md"
+      ]
+    },
+    {
+      "title": "소스 / 재현 / 검증",
+      "files": [
+        "cad/parameters/final_v08.json",
+        "cad/freecad/compact/geometry.py",
+        "cad/freecad/drive_v08/assembly.py",
+        "flake.nix",
+        "flake.lock",
+        "validation/ci_v08.py",
+        "docs/final/package_replay_ko.md",
+        "docs/final/ci_release_audit_ko.md",
+        "LICENSE",
+        "LICENSE-HARDWARE"
+      ]
+    }
+  ]
+}

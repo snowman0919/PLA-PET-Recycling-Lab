@@ -3,7 +3,11 @@
     "sections": {
         "00_START_HERE": [
             "docs/final/package_replay_ko.md",
-            "docs/final/release_notes_v1.0.0-rc1_ko.md"
+            "docs/final/release_notes_v1.0.0-rc1_ko.md",
+            "docs/final/COMPLETE_HANDOFF_KO.md",
+            "docs/final/product_specification_ko.md",
+            "docs/final/open_items_ko.md",
+            "release/handoff_catalog.json"
         ],
         "01_3D_PRINT": [
             "exports/final/step/printed_parts/*.step",
@@ -19,7 +23,12 @@
         ],
         "03_FRAME": [
             "exports/final/step/assembly/*.step",
-            "exports/final/step/README.md"
+            "exports/final/step/README.md",
+            "exports/final/drive_ggm_v08/*.step",
+            "exports/final/drive_ggm_v08/*.FCStd",
+            "exports/final/drive_ggm_v08/manifest.json",
+            "exports/final/handoff/*",
+            "exports/fabrication/frame_cut_list.csv"
         ],
         "04_BOM": [
             "exports/final/bom/*"
@@ -93,7 +102,16 @@
             "analysis/final_validation/results/v0.8/thermal_fit_closure.json",
             "analysis/drive_acceptance_v08/manufacturing/closeout.json",
             "analysis/drive_acceptance_v08/manufacturing/regional_stress.json",
-            "analysis/drive_acceptance_v08/firmware_review.json"
+            "analysis/drive_acceptance_v08/firmware_review.json",
+            "analysis/final_validation/results/v0.8/axial_retainer_qualification.json",
+            "analysis/final_validation/results/v0.8/axial_shoulder_candidate.json",
+            "analysis/final_validation/results/v0.8/phase_clocking_release.json",
+            "analysis/final_validation/results/v0.8/retainer_candidate_fea.json",
+            "analysis/final_validation/results/v0.8/retainer_tool_access.json",
+            "analysis/final_validation/results/v0.8/shaft_section.json",
+            "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/model.inp",
+            "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/model.dat",
+            "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/ccx.log"
         ],
         "10_DESIGN_SOURCE": [
             "flake.nix",
@@ -171,7 +189,14 @@
             "firmware/ggm_drive_v08/*",
             "release/build_ggm_drive_release.py",
             "control/thermal_barrier_tape_contract.json",
-            "validation/evidence_freshness.py"
+            "validation/evidence_freshness.py",
+            "release/publication_policy.py",
+            "release/publication_policy.json",
+            "release/source_identity.py",
+            "release/regenerate_release.py",
+            "release/render_handoff.py",
+            "release/build_complete_release.py",
+            "release/verify_complete_release.py"
         ],
         "LICENSES": [
             "LICENSE",

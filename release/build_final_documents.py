@@ -110,6 +110,7 @@ def typ(title: str, body: str) -> str:
 #let gate(body) = block(width: 100%, fill: rgb("eaf3f7"), stroke: 1pt + rgb("33738b"), inset: 7pt, body)
 = {title}
 #danger[*물리 검증·안전 인증·통전 승인이 아니다.* E-stop, lid/service interlock, branch fuse, 독립 thermal fuse를 정상 firmware와 독립 구현하고 exact received component 정격·배선·보호소자를 실측 확인하기 전 통전하지 않는다.]
+전체 배치: `GGM-FULL-ASM` / 구동계: `GGM R2`. 기본 조립 투상도는 통합 전 참조이며 최신 전체 배치가 아니다.
 Revision: `{REV}` · 상태: `DIGITAL_DOCUMENT / PHYSICAL_NOT_RUN / USER_APPROVAL_REQUIRED`
 
 {body}
@@ -225,7 +226,7 @@ def manuals() -> None:
 - 다음 선행조건: {data["next_prerequisite"]}
 ''')
     complete = FINAL / "complete_build_manual_ko.typ"
-    intro = '''이 문서와 `assembly_steps.csv`, `assembly_drawing_set.pdf`, `exports/final/manufacturing/`, `exports/final/electrical/`이 v0.8 조립의 단일 실행 기준이다. 구버전 매뉴얼은 적용하지 않는다.
+    intro = '''이 문서와 `assembly_steps.csv`, 부품별 제조도면, 전기 schedule을 함께 사용한다. 전체 기계의 최신 배치는 `exports/final/drive_ggm_v08/GGM-FULL-ASM.step` 및 FCStd이며 구동계는 R2 GGM 도면이 우선한다. `assembly_drawing_set.pdf`의 기본 조립 투상도는 GGM 통합 전의 부품 관계 참조다. GGM-R2와 충돌하는 전체 배치·좌표·구동부는 복사하지 않는다. 구버전 매뉴얼은 적용하지 않는다.
 
 각 단계의 실측값·작업자·검토자·증거 경로를 기록한다. 계산·CAD PASS는 물리 합격이 아니다. 구매·가공·통전·가열 전에는 해당 사용자 승인 gate를 통과해야 한다.
 
@@ -236,12 +237,12 @@ def manuals() -> None:
     compile_typ(complete)
     with (ROOT / "exports/final/interface_catalog.csv").open(encoding="utf-8", newline="") as fh:
         interfaces = list(csv.DictReader(fh))
-    interface_summary = f"Source-pinned unified catalog {len(interfaces)}행(alias reconciliation 포함): {sum(row['status'] == 'PASS' for row in interfaces)} PASS / {sum(row['status'] == 'HOLD' for row in interfaces)} HOLD. Exhaustive mating coverage는 HOLD다."
+    interface_summary = f"Source-pinned unified catalog {len(interfaces)}행(alias reconciliation 포함): {sum(row['status'] == 'PASS' for row in interfaces)} PASS / {sum(row['status'] == 'HOLD' for row in interfaces)} HOLD. 이 집합의 digital coverage는 calculations/tolerance_stack_final.json의 coverage 상태를 따르며 실물 mating 검증은 NOT_RUN이다."
     bodies = {
         "exploded_views_ko": "== 조립 순서\n\nFrame → shredder frame → bearing/shaft → cutter stack → phase gear/chain/motor/shear fuse → screen/recirculation/hopper → flake bin → feeder → extruder/thrust → heater/sensor/die → hot shield → cooling → gauge → puller → spooler/traverse → guards → enclosure → wiring → firmware → calibration → dry checks.\n\n각 단계의 형상은 `assembly_drawing_set.pdf` 해당 도면 번호를 사용한다. 고하중 경로는 metal part → bearing/plate → aluminum profile → table이다.",
         "tolerance_and_fit_guide_ko": "== 기준\n\n" + interface_summary + "\n\n`exports/final/interface_catalog.csv`가 critical interface별 nominal/tolerance/검사법과 source HOLD를 지배한다. HOLD 또는 NOT_EVALUATED 행은 조립·가공 승인 기준이 아니다. Cutter/blade clearance는 출력 공차가 아닌 ground metal shim으로 조절한다. Bearing seat, die insert, screw/barrel cold/hot clearance, rear datum/front sliding travel을 조립 전 측정한다.\n\n#gate[측정기 ID·교정상태·온도·실측값을 기록하고 허용범위를 벗어나면 임의 rework 대신 source parameter와 도면 revision을 갱신한다.]",
         "electrical_assembly_ko": "== 순서\n\nPE bond → PSU 미통전 설치 → branch fuse → hardwired safety chain → drivers/MOSFET → logic → sensors → cable clamp 순이다. `exports/final/electrical`의 세 CSV와 8개 벡터 PDF를 작업표로 사용한다.\n\n#gate[전원 분리 상태에서 PE continuity, insulation, polarity, fuse/terminal ID, forced-open safety contact를 독립 검사한다.]",
-        "firmware_and_calibration_ko": "== Firmware\n\nReleased HEX는 `exports/final/firmware/binaries/filament_recycler_atmega2560.hex`; build evidence는 `validation/results/arduino_mega_compile.json`이다. Source/HEX hash 일치를 검증하고 Mega 2560 target/fuse setting을 확인한다.\n\n== Calibration\n\nReceived GGM label/serial을 receipt packet과 대조한 뒤 A0 shredder current, A9 extruder current, shredder/screw tach, puller/spooler tach, traverse limits, X/Y gauge U95, dancer, cooling current와 fan tach를 각각 교정한다. EEPROM CRC/revision/unit/range가 유효하지 않으면 production ready를 금지한다.",
+        "firmware_and_calibration_ko": "== Firmware\n\nReleased HEX는 `exports/final/firmware/binaries/filament_recycler_atmega2560.hex`; build evidence는 `exports/final/firmware/build_manifest.json`이며 GGM/BTS7960 variant source를 사용한다. Source/HEX hash 일치를 검증하고 Mega 2560 target/fuse setting을 확인한다.\n\n== Calibration\n\nReceived GGM label/serial을 receipt packet과 대조한 뒤 A0 shredder current, A9 extruder current, shredder/screw tach, puller/spooler tach, traverse limits, X/Y gauge U95, dancer, cooling current와 fan tach를 각각 교정한다. EEPROM CRC/revision/unit/range가 유효하지 않으면 production ready를 금지한다.",
         "maintenance_manual_ko": """== Lockout
 
 Main disconnect OFF, 0 V 확인과 재투입 방지, cutter/screw mechanical block 및 사용자 확인 뒤 작업한다. E-stop만으로 jam을 제거하지 않는다. 잔류 압력과 저장 에너지를 해제하고 충분히 냉각한다. 기존 60 °C 기준만으로 접촉 안전을 보증하지 않으며, 온도 표시값만으로 내부 냉각 완료를 판단하지 않는다.

@@ -148,7 +148,7 @@ class ExecutionToolsTest(unittest.TestCase):
             self.assertFalse(ok['motor_energization_authorized']); self.assertFalse(ok['stage_p3_pass'])
             self.assertEqual(ok['mount_status'],'AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED')
             self.assertEqual(ok['p2_stage_release']['status'],'P2_STAGE_RELEASE_VALIDATED')
-            self.assertEqual(ok['p0_snapshot_head'], subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip())
+            self.assertEqual(ok['p0_snapshot_head'], p3pre.source_identity(root)[0])
             p2_bad=lambda _: {'status':'NOT_RUN_OR_REJECTED','p3_entry_prerequisite':False,
                 'motor_energization_authorized':False,'machine_release':'HOLD','ggm_packet_sha256':receipt_digest}
             with self.assertRaises(ValueError): p3pre.evaluate(rows,packet,root,p2_checker=p2_bad,receipt_packet_sha256=receipt_digest)
