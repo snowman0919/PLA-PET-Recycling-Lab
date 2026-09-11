@@ -201,15 +201,15 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 - 합격: no collision in service envelope
 - 다음 선행조건: all guards
 
-== 단계 18: GD panels/interlocks ×1 set
+== 단계 18: GD panels/interlocks ×1 set; TH-INS-01 qualified shield-exterior cut set ×1
 
-- 공구: gap probe; 3 mm hex
-- 체결품 / 토크: captive M4 hardware / M4 3 N·m
-- 방향: labels outward; service panels keyed
-- 공차·간극: openings≤6 mm at hazards
-- 도면: GD-001/SV-001
-- 검사: reach/access and removal test
-- 합격: all hazards covered
+- 공구: gap probe; 3 mm hex; scissors/roller for qualified tape
+- 체결품 / 토크: captive M4 hardware; tape has no structural/safety fastener role / M4 3 N·m; tape N/A
+- 방향: labels outward; service panels keyed; TH-INS-01 only on outside face of grounded metal hot shield after S4 coupon PASS; no heater/barrel/die/cutoff/probe/terminal/vent coverage
+- 공차·간극: openings≤6 mm at hazards; tape adhesive-interface peak+U95+30 C≤documented continuous rating; cooldown edge lift+U95≤2.0 mm
+- 도면: GD-001/SV-001 + control/thermal_barrier_tape_contract.json
+- 검사: reach/access/removal test; S4 coupon evidence; P9 interface/outer-surface temperature and cooldown edge-lift record
+- 합격: all hazards covered; no smoke/char/melt/adhesive flow; tape does not obstruct sensing, cutoff, terminals or ventilation
 - 다음 선행조건: enclosure/PE
 
 == 단계 19: CT-ENC-01 ×1; PE-01..04 bonds ×4
