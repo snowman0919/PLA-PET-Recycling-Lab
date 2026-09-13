@@ -2,9 +2,10 @@ metric,value,u95,unit,acceptance,instrument_id,calibration_ref,measured_at,opera
 bh_z1_cold_resistance,,,ohm,5.184-6.336 at 20+/-2 C,,,,,,,,
 bh_z2_cold_resistance,,,ohm,5.184-6.336 at 20+/-2 C,,,,,,,,
 bh_z3_cold_resistance,,,ohm,5.184-6.336 at 20+/-2 C,,,,,,,,
-bh_z1_width,,,mm,44.5-45.5,,,,,,,,
+bh_z1_width,,,mm,39.5-40.5; TH-BH-02 Z1 revised W40; supplier drawing required,,,,,,,,
 bh_z2_width,,,mm,44.5-45.5,,,,,,,,
 bh_z3_width,,,mm,44.5-45.5,,,,,,,,
+bh_z1_revised_supplier_drawing_accepted,,,boolean,true; TH-BH-02 W40 24V100W watt density and lead layout accepted by supplier,N/A,N/A,,,,,,
 die_cold_resistance,,,ohm,9.12-10.56 at 20+/-2 C,,,,,,,,
 die_od,,,mm,6.487-6.513,,,,,,,,
 die_insertion_length,,,mm,39.30-39.70,,,,,,,,
@@ -41,3 +42,4 @@ tape_adhesive_material_recorded,,,boolean,"true; record exact chemistry if speci
 tape_non_safety_role_acknowledged,,,boolean,true,N/A,N/A,,,,,,
 tape_allowed_surface_rule_acknowledged,,,boolean,true,N/A,N/A,,,,,,
 tape_coupon_smoke_pass,,,boolean,true; evidence_path must reference validated S4 result JSON,N/A,N/A,,,,,,S4 result must bind current thermal barrier tape contract and remain non-authorizing
+tcr_fastener_stack_no_bottoming_verified,,,boolean,true; SYS-17 M3x6 only after actual washer and bridge stack plus useful thread and positive bottom clearance verified; not M3x8,N/A,N/A,,,,,,

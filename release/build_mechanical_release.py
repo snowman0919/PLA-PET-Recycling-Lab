@@ -71,7 +71,7 @@ def note_value(path: Path, label: str) -> str:
 
 
 def family(part_id: str) -> str:
-    if part_id in {"TH-BH-01", "TH-TCR-01"}:
+    if part_id in {"TH-BH-01", "TH-BH-02", "TH-TCR-01"}:
         return "hot_zone"
     if part_id in {"CUT-01", "CUT-02", "CUT-04"}:
         return "cutter"
@@ -171,7 +171,7 @@ def source_parts() -> list[dict[str, str]]:
     for row in rows("exports/drive_interface/manifest.csv"):
         add(row, ROOT / "exports/drive_interface/parts" / row["part_id"], row["quantity"], row["release_state"])
     for row in rows("exports/thermal/manifest.csv"):
-        if row["part_id"] != "TH-BH-01":
+        if row["part_id"] not in {"TH-BH-01", "TH-BH-02"}:
             continue
         base = ROOT / "exports/thermal/parts" / row["part_id"]
         add({**row, "process": note_value(base / "drawing_notes.md", "process")}, base, row["quantity"], row["release_state"])

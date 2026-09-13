@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "revision": "GGM_FRAME_R1_REDUCED_20260912",
+  "reference_commit": "e323c54effa956b1b90ba586fdee8f9d89b447d1",
+  "remove_profiles": [
+    "FrameBottomCross275",
+    "SpoolTopSegment290"
+  ],
+  "preserve_2040_count": 4,
+  "expected_profiles": {
+    "2020": {
+      "count": 36,
+      "length_mm": 15078
+    },
+    "2040": {
+      "count": 4,
+      "length_mm": 2180
+    }
+  },
+  "tie": {
+    "part_id": "FR-TIE-01",
+    "object": "FrameBottomSteelTie",
+    "length_mm": 470,
+    "width_mm": 40,
+    "height_mm": 20,
+    "thickness_mm": 3,
+    "inside_bend_radius_mm": 3,
+    "origin_mm": [
+      0,
+      265,
+      20
+    ],
+    "material": "S275JR steel",
+    "hole_diameter_mm": 5.5,
+    "hole_x_mm": [
+      10,
+      460
+    ],
+    "hole_y_local_mm": [
+      12,
+      28
+    ],
+    "fastener": "M5x10 class 8.8 SHCS + washer + matching profile T-nut",
+    "fastener_quantity": 4,
+    "torque_nm_reference": 5.0,
+    "torque_release": "HOLD_UNTIL_RECEIVED_T_NUT_THREAD_ENGAGEMENT_AND_MAKER_TORQUE_CHECK",
+    "finished_length_tolerance_mm": 0.5,
+    "finished_section_tolerance_mm": 0.3,
+    "hole_position_tolerance_mm": 0.2,
+    "notes": "Finished formed channel controls; develop flat blank with actual bend tooling. Deburr. No printed load path.",
+    "washer_od_mm_max": 10.0
+  },
+  "comparative_screen_limit_ratio": 1.05,
+  "screen_scope": "Linear beam sensitivity only; no physical stiffness, joint-slip, fatigue or safety qualification",
+  "physical_validation_state": "NOT_RUN",
+  "cut_authorization": false
+}

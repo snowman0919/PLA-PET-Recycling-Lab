@@ -1,0 +1,1033 @@
+{
+  "schema_version": 1,
+  "status": "SCOPED_GEOMETRY_R1_R2_VERIFIED_GLOBAL_P0_BLOCKED",
+  "base_commit": "ffe1d570c346aa5e9bc700c812402a5ca5739d9e",
+  "tested_worktree": true,
+  "new_published_release": false,
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "cut_authorization": false,
+  "energization_authorized": false,
+  "cad_suite_status": "PASS",
+  "cad_modules": 10,
+  "light_suite_status": "FAIL",
+  "p0_status": "BLOCKED",
+  "failed_technical_gates": [
+    "03_calculix_core",
+    "03_hot_zone_mount",
+    "05_loaded_phase_centre",
+    "05_v08_motion_dynamics",
+    "07_freecad_source"
+  ],
+  "frame_totals": {
+    "2020": {
+      "count": 36,
+      "length_mm": 15078.0
+    },
+    "2040": {
+      "count": 4,
+      "length_mm": 2180.0
+    }
+  },
+  "beam_worst_compliance_ratio": 1.0025992241110238,
+  "nominal_collision_review": {
+    "status": "GGM_NOMINAL_COLLISION_POLICY_PASS",
+    "object_count": 253,
+    "pairs": 31878,
+    "tolerance_mm3": 0.01,
+    "repaired_interface_checks": 14,
+    "clearances": [
+      {
+        "left": "FeederHousing",
+        "right": "BarrelBandHeaterZ1",
+        "gap_mm": 2.083189157584572,
+        "minimum_mm": 2.0
+      },
+      {
+        "left": "TemperatureProbeRetainerT1",
+        "right": "ExtruderFrontSlidingGuide",
+        "gap_mm": 2.9999999999998863,
+        "minimum_mm": 3.0
+      }
+    ],
+    "reference_overlaps": [
+      {
+        "left": "MidRail320",
+        "right": "HotMountBoltFrontFront",
+        "volume_mm3": 392.69908169872605,
+        "left_class": "manufactured_or_stock",
+        "right_class": "purchased_fastener",
+        "reference_overlap_only": true,
+        "limit_mm3": 400,
+        "reason": "M5 fastener in solid profile reference; slot/clearance machining not represented",
+        "component_roles_match": true
+      },
+      {
+        "left": "MidRail320",
+        "right": "HotMountBoltFrontRear",
+        "volume_mm3": 392.69908169872525,
+        "left_class": "manufactured_or_stock",
+        "right_class": "purchased_fastener",
+        "reference_overlap_only": true,
+        "limit_mm3": 400,
+        "reason": "M5 fastener in solid profile reference; slot/clearance machining not represented",
+        "component_roles_match": true
+      },
+      {
+        "left": "Spool",
+        "right": "SpoolCore",
+        "volume_mm3": 155031.31426934924,
+        "left_class": "purchased_reference_envelope",
+        "right_class": "purchased_reference_lod",
+        "reference_overlap_only": true,
+        "limit_mm3": 155100,
+        "reason": "Purchased spool/core solid envelope; bore omitted",
+        "component_roles_match": true
+      },
+      {
+        "left": "Spool",
+        "right": "SpoolSpindle",
+        "volume_mm3": 8256.105493633979,
+        "left_class": "purchased_reference_envelope",
+        "right_class": "manufactured_or_stock",
+        "reference_overlap_only": true,
+        "limit_mm3": 8300,
+        "reason": "Purchased spool envelope; fit requires received core dimensions",
+        "component_roles_match": true
+      },
+      {
+        "left": "Spool",
+        "right": "PPR-C09_SpoolAdapterFront",
+        "volume_mm3": 24324.593838793404,
+        "left_class": "purchased_reference_envelope",
+        "right_class": "manufactured_or_stock",
+        "reference_overlap_only": true,
+        "limit_mm3": 24400,
+        "reason": "Purchased spool envelope; fit requires received core dimensions",
+        "component_roles_match": true
+      },
+      {
+        "left": "Spool",
+        "right": "PPR-C09_SpoolAdapterRear",
+        "volume_mm3": 24324.593838793386,
+        "left_class": "purchased_reference_envelope",
+        "right_class": "manufactured_or_stock",
+        "reference_overlap_only": true,
+        "limit_mm3": 24400,
+        "reason": "Purchased spool envelope; fit requires received core dimensions",
+        "component_roles_match": true
+      },
+      {
+        "left": "SpoolCore",
+        "right": "SpoolSpindle",
+        "volume_mm3": 8256.105493633979,
+        "left_class": "purchased_reference_lod",
+        "right_class": "manufactured_or_stock",
+        "reference_overlap_only": true,
+        "limit_mm3": 8300,
+        "reason": "Generic solid core LOD; not a machined core drawing",
+        "component_roles_match": true
+      },
+      {
+        "left": "SpoolCore",
+        "right": "PPR-C09_SpoolAdapterFront",
+        "volume_mm3": 13349.347784928093,
+        "left_class": "purchased_reference_lod",
+        "right_class": "manufactured_or_stock",
+        "reference_overlap_only": true,
+        "limit_mm3": 13400,
+        "reason": "Generic solid core LOD; not a machined core drawing",
+        "component_roles_match": true
+      },
+      {
+        "left": "SpoolCore",
+        "right": "PPR-C09_SpoolAdapterRear",
+        "volume_mm3": 13349.346643322326,
+        "left_class": "purchased_reference_lod",
+        "right_class": "manufactured_or_stock",
+        "reference_overlap_only": true,
+        "limit_mm3": 13400,
+        "reason": "Generic solid core LOD; not a machined core drawing",
+        "component_roles_match": true
+      },
+      {
+        "left": "ExtruderRearRetainer",
+        "right": "RearRetainerM4_318",
+        "volume_mm3": 48.160615379532786,
+        "left_class": "manufactured_or_stock",
+        "right_class": "purchased_fastener",
+        "reference_overlap_only": true,
+        "limit_mm3": 49,
+        "reason": "M4 major diameter in 3.3 mm tap-drill representation; thread engagement only",
+        "component_roles_match": true
+      },
+      {
+        "left": "ExtruderRearRetainer",
+        "right": "RearRetainerM4_376",
+        "volume_mm3": 48.160615379532786,
+        "left_class": "manufactured_or_stock",
+        "right_class": "purchased_fastener",
+        "reference_overlap_only": true,
+        "limit_mm3": 49,
+        "reason": "M4 major diameter in 3.3 mm tap-drill representation; thread engagement only",
+        "component_roles_match": true
+      },
+      {
+        "left": "HotMountBoltRearFront",
+        "right": "GGM_HotRearRail",
+        "volume_mm3": 392.69908169872605,
+        "left_class": "purchased_fastener",
+        "right_class": "purchased_reference_lod",
+        "reference_overlap_only": true,
+        "limit_mm3": 400,
+        "reason": "M5 fastener in solid profile reference; slot/clearance machining not represented",
+        "component_roles_match": true
+      },
+      {
+        "left": "HotMountBoltRearRear",
+        "right": "GGM_HotRearRail",
+        "volume_mm3": 392.69908169872525,
+        "left_class": "purchased_fastener",
+        "right_class": "purchased_reference_lod",
+        "reference_overlap_only": true,
+        "limit_mm3": 400,
+        "reason": "M5 fastener in solid profile reference; slot/clearance machining not represented",
+        "component_roles_match": true
+      },
+      {
+        "left": "GGM_ExMotorRail",
+        "right": "GGM_M5_EX_MountL",
+        "volume_mm3": 235.6194490192352,
+        "left_class": "purchased_reference_lod",
+        "right_class": "purchased_fastener",
+        "reference_overlap_only": true,
+        "limit_mm3": 240,
+        "reason": "M5 T-nut joint in solid profile LOD; slot void omitted",
+        "component_roles_match": true
+      },
+      {
+        "left": "GGM_ExMotorRail",
+        "right": "GGM_M5_EX_MountR",
+        "volume_mm3": 235.6194490192352,
+        "left_class": "purchased_reference_lod",
+        "right_class": "purchased_fastener",
+        "reference_overlap_only": true,
+        "limit_mm3": 240,
+        "reason": "M5 T-nut joint in solid profile LOD; slot void omitted",
+        "component_roles_match": true
+      }
+    ],
+    "unexpected_count": 0,
+    "physical_validation_state": "NOT_RUN",
+    "fabrication_authorized": false,
+    "scope": "Nominal rigid solids only; reference overlaps disclosed, not removed by blind cutting",
+    "not_qualified": [
+      "received extrusion slot and fastener fit",
+      "assembly/tool access",
+      "service and motion swept volumes",
+      "retainer fasteners and pull test",
+      "thermal performance after geometry changes"
+    ]
+  },
+  "motion_review": {
+    "status": "GGM_NOMINAL_MOTION_CLEARANCE_PASS",
+    "traverse_axis": "Y_PARALLEL_TO_SPOOL",
+    "traverse_stroke_mm": 80.0,
+    "continuous_traverse_bounding_envelope_clear": true,
+    "traverse_sample_count": 81,
+    "dancer_sample_count": 51,
+    "support_contacts": {
+      "Left": {
+        "base_area_mm2": 399.99999999999994,
+        "plate_area_mm2": 512.4834111144538
+      },
+      "Right": {
+        "base_area_mm2": 399.99999999999994,
+        "plate_area_mm2": 512.4834111144538
+      }
+    },
+    "lid_opening_covered": true,
+    "lid_service_direction": "NEGATIVE_X",
+    "lid_service_travel_mm": 214.0,
+    "lid_service_left_extent_mm": -191.0,
+    "physical_validation_state": "NOT_RUN",
+    "fabrication_authorized": false,
+    "scope": "Nominal solids and service space. Dancer sampled; not a continuous angular proof.",
+    "not_qualified": [
+      "rod retention",
+      "limit actuation and stopping distance",
+      "bracket/joint capacity and carriage wear",
+      "filament routing, belt drive and winding",
+      "lid rails, interlock and tool access"
+    ]
+  },
+  "checks": [
+    {
+      "script": "validation/test_frame_reduction_geometry.py",
+      "returncode": 0,
+      "seconds": 36.161,
+      "source_sha256": "a455db250e54b121d3d7755605ee5cdaf9b38820e2d1932782345a5f377a2d6c",
+      "log_sha256": "ca5e0a84136c65d2ddb051d6ae01abbe3ce98c1931b0a192d9fd2b6033102a47",
+      "log": "docs/reviews/geometry-closure-v08/checks/focused-test-test_frame_reduction_geometry.txt",
+      "lane": "focused"
+    },
+    {
+      "script": "validation/test_integrated_assembly_clearance.py",
+      "returncode": 0,
+      "seconds": 80.2,
+      "source_sha256": "5f519a64cefce005ad31091eda48fd2c71723e615874023ad32d7caa2864fcde",
+      "log_sha256": "f4b7c454f7b9870099a4242750f033f5e693dcbe2fa56fbd846af21d34cbdb18",
+      "log": "docs/reviews/geometry-closure-v08/checks/focused-test-test_integrated_assembly_clearance.txt",
+      "lane": "focused"
+    },
+    {
+      "script": "validation/test_integrated_motion_clearance.py",
+      "returncode": 0,
+      "seconds": 64.456,
+      "source_sha256": "4986b875c96a15d07408a4b846f27fa393abbdecb7c74632ab447911a668b1e4",
+      "log_sha256": "9e9af8b403f176ed445502810df807bc9d5055a878ad15690f7ce7d9e73fd068",
+      "log": "docs/reviews/geometry-closure-v08/checks/focused-test-test_integrated_motion_clearance.txt",
+      "lane": "focused"
+    },
+    {
+      "script": "validation/test_thermocouple_fastener_fit.py",
+      "returncode": 0,
+      "seconds": 1.316,
+      "source_sha256": "38e1cda12fc31c5308ce6c4889af9c2fe00ad38bddafb6b8f07dbed30986f806",
+      "log_sha256": "fccfe37a835d6486c3caa6c15c4cd1ca3932d498bb7af7ab79a0c42666839739",
+      "log": "docs/reviews/geometry-closure-v08/checks/focused-test-test_thermocouple_fastener_fit.txt",
+      "lane": "focused"
+    },
+    {
+      "script": "validation/test_frame_release.py",
+      "returncode": 0,
+      "seconds": 0.364,
+      "source_sha256": "8972eae256840246de1d56252128cf76d44c6a99337f346fce69949999f352b2",
+      "log_sha256": "3a1904f81986496829b65f7099da2f89fd68d6ca6fcbd9dfb4d742e42004c703",
+      "log": "docs/reviews/geometry-closure-v08/checks/focused-test-test_frame_release.txt",
+      "lane": "focused"
+    },
+    {
+      "script": "validation/physical_v08/test_p1_semantics.py",
+      "returncode": 0,
+      "seconds": 1.065,
+      "source_sha256": "2b94ac3a8439417fe67898e26f68369f3435858eda98426a4c2f3cacde1722ec",
+      "log_sha256": "bd0d4ace4c934c1854f4d8089f1da80f536acc782fd98c6a47a623d53d7de33e",
+      "log": "docs/reviews/geometry-closure-v08/checks/focused-test-test_p1_semantics.txt",
+      "lane": "focused"
+    },
+    {
+      "script": "validation/physical_v08/test_p2_execution.py",
+      "returncode": 0,
+      "seconds": 0.464,
+      "source_sha256": "1ab7af2460a96f19f74c5911cb9eb1e6fc7463c635447e0a82e75c2dbdafc853",
+      "log_sha256": "10c1eb15929182309103671a52f09731afb1bcc280d773394411e5172a5beb33",
+      "log": "docs/reviews/geometry-closure-v08/checks/focused-test-test_p2_execution.txt",
+      "lane": "focused"
+    },
+    {
+      "script": "validation/physical_v08/test_p9_receipt.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "26ce67be9d6eca2c6df63a0e70fc3f1599662aff45063c4ed7cd5695a451b64f",
+      "log_sha256": "d5a4875b4579cd8d17f8638658e481f105ebc0103894fd6f33918fb7e91153a0",
+      "log": "docs/reviews/geometry-closure-v08/checks/focused-test-test_p9_receipt.txt",
+      "lane": "focused"
+    },
+    {
+      "script": "validation/test_assembly_refresh.py",
+      "returncode": 0,
+      "seconds": 1.316,
+      "source_sha256": "0c313fcfb80a88af6a65ae581521c987d1a49e281cf00cb731ca4f9b7c6211a0",
+      "log_sha256": "2472708f087c80ce831ab2eade9e4299079da779f3f72cae64d9c20b583be91b",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-00-test_assembly_refresh.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_cad_retention_gate.py",
+      "returncode": 0,
+      "seconds": 1.316,
+      "source_sha256": "d70e5fc0c691722cc7d6f32e124fdb947e58393cacd1ebaf71c520aa71490fcd",
+      "log_sha256": "c7f28d3b398e4f28157a86e26c7609e63e0233aa46f90c6cf4cdba3768d6dd40",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-01-test_cad_retention_gate.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_frame_reduction_geometry.py",
+      "returncode": 0,
+      "seconds": 36.061,
+      "source_sha256": "a455db250e54b121d3d7755605ee5cdaf9b38820e2d1932782345a5f377a2d6c",
+      "log_sha256": "ca5e0a84136c65d2ddb051d6ae01abbe3ce98c1931b0a192d9fd2b6033102a47",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-02-test_frame_reduction_geometry.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_if031_registered_flange.py",
+      "returncode": 0,
+      "seconds": 3.172,
+      "source_sha256": "4d1b315086ae2a1ddf49c595651633f287162538ca0d061ef3681358d093e31f",
+      "log_sha256": "842f0338b26cce3c0e09e82c109bc694ddf339401ab5ad70c1570cc6192a4aff",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-03-test_if031_registered_flange.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_integrated_assembly_clearance.py",
+      "returncode": 0,
+      "seconds": 80.297,
+      "source_sha256": "5f519a64cefce005ad31091eda48fd2c71723e615874023ad32d7caa2864fcde",
+      "log_sha256": "f4b7c454f7b9870099a4242750f033f5e693dcbe2fa56fbd846af21d34cbdb18",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-04-test_integrated_assembly_clearance.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_integrated_motion_clearance.py",
+      "returncode": 0,
+      "seconds": 64.706,
+      "source_sha256": "4986b875c96a15d07408a4b846f27fa393abbdecb7c74632ab447911a668b1e4",
+      "log_sha256": "9e9af8b403f176ed445502810df807bc9d5055a878ad15690f7ce7d9e73fd068",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-05-test_integrated_motion_clearance.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_manufacturing_projection.py",
+      "returncode": 0,
+      "seconds": 0.665,
+      "source_sha256": "9e677899bff5f47eb0499d59db7e7b623e0a80c219b18bcb82405f595ae8775c",
+      "log_sha256": "31314b7e8cd46970db82fd2000165f89660dd950bb3968bc5796317f29864e21",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-06-test_manufacturing_projection.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_native_model_handoff.py",
+      "returncode": 0,
+      "seconds": 47.674,
+      "source_sha256": "164ed1a382df5ad5ce864d584e088a0cf2a8e0c258cea81b50d2b8d3584c9cc1",
+      "log_sha256": "cf38824215e82097fb27744d7d9b8e6604a4423f72d41852cccc8770dee99a31",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-07-test_native_model_handoff.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_shredder_manifest_regeneration.py",
+      "returncode": 0,
+      "seconds": 1.97,
+      "source_sha256": "6bc075f2b1fc4c7af082e0980a837980c70910dfc3f4b80cfa9d089f10ab44ce",
+      "log_sha256": "4eb4cc37d70f08b18f9f034c3c26d9ed1b3e986ed45e7cdebe1ffcd81cccd634",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-08-test_shredder_manifest_regeneration.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/test_thermocouple_fastener_fit.py",
+      "returncode": 0,
+      "seconds": 1.316,
+      "source_sha256": "38e1cda12fc31c5308ce6c4889af9c2fe00ad38bddafb6b8f07dbed30986f806",
+      "log_sha256": "fccfe37a835d6486c3caa6c15c4cd1ca3932d498bb7af7ab79a0c42666839739",
+      "log": "docs/reviews/geometry-closure-v08/checks/cad-09-test_thermocouple_fastener_fit.txt",
+      "lane": "cad"
+    },
+    {
+      "script": "validation/runtime_supervisor.py",
+      "returncode": 0,
+      "seconds": 2.117,
+      "source_sha256": "261db5357b31685f012770f9b5798858fdb0d14cc23056efa1464651a5b7a83a",
+      "log_sha256": "57231be91e1aafe32116b623758f54b494fccc60ea878c9bfd9848868b3bfbd4",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-00-runtime_supervisor.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/simulation_prerequisite.py",
+      "returncode": 2,
+      "seconds": 1.216,
+      "source_sha256": "401a55754f0bb8dea53ddd6f29dfcc9d852be29f29e382cf8b87f96eeeca89b0",
+      "log_sha256": "3ed2d7cc754aa2c94a86a9b890cdbc230dc4eaa981e9976380770621a03be1c4",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-01-simulation_prerequisite.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/validate_readiness.py",
+      "returncode": 1,
+      "seconds": 0.064,
+      "source_sha256": "d3f58ba77aafe2a14bcf8d9f4de585ffe14bf4fdc798f89bedcc38ce6d837d29",
+      "log_sha256": "e41dbc9e768d6fe8e0b58fa1a41e8c64cede6c81de8cf16e6295a13ff5d8fad5",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-02-validate_readiness.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/validate_execution_registry.py",
+      "returncode": 0,
+      "seconds": 0.114,
+      "source_sha256": "6daf41d26f6ad92711b16e90442c6ae4d1de22a3e15ca5c7a816b0bc2e2b4812",
+      "log_sha256": "3a15eaff38d6eff758196d5ad771dd9d39d27fca63e2e57d354f4125b5169f2c",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-03-validate_execution_registry.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_3mf_vertex_evidence.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "5929f196bd1ea30483948884c1d676d99974d9020a861ecbbd603829e2fed6fe",
+      "log_sha256": "133457623e2e7042198136087ad3b46dd5e42c3065b190013406284b4e7eeba3",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-04-test_3mf_vertex_evidence.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_arduino_cli_version.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "2ea82c69ead84537fdc18b389d99148b026e541bbc20c75811a5d55e34dba050",
+      "log_sha256": "0f7e4b97443e54aca647179972594d13bb587afcbf151fab8228148587ea844a",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-05-test_arduino_cli_version.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_assembly_hold_propagation.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "9cf3679ee0f210e546933777cb0466c0c24b14083cf0397f88ba8027343987bb",
+      "log_sha256": "feb2cb585598e18af66225d2e9d6dec9630121fe5133705403a613432e6a3c86",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-06-test_assembly_hold_propagation.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_beam_torque_recovery.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "ba93743094f650f2e7269727c05473bd45f0a31f3bb88ca9dcba8c95a0ea904b",
+      "log_sha256": "5bf1260b2a546566ac6f89d67cef462c45d61c155b12794ed72e382ab4596d8d",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-07-test_beam_torque_recovery.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_bom_release_scope.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "2d7b277be0f911c07d5803f6ade330f3d146831bbe959683116d1e1a7bfe1cd8",
+      "log_sha256": "fe008aab760eb03ccac7578e2b84665b1b50b0d7f855b17a0c7a8d039435b658",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-08-test_bom_release_scope.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_bore_screening_hold.py",
+      "returncode": 0,
+      "seconds": 0.032,
+      "source_sha256": "0e05b12302ed47f725681e5c913e65380858c639435a5b0d89c3e15dd5710acc",
+      "log_sha256": "4bbd7001a008c33a7f72cac7e7616ce7fb54f6e7d760cd449ebb70a5efa76f1f",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-09-test_bore_screening_hold.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_complete_package.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "3fe1d2d8552eafd5d4b948e324240319163faf854409ed17e241cb2c99ed5a84",
+      "log_sha256": "56e03afda220e7ba78bbcecf9a2e53a0149cfc3e311fa10bbd01b25e8e5ba671",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-10-test_complete_package.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_core_shaft_stations.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "f9185c2ec8ee59441ff7b5964c18e0479d610658fd6807915728c6f8bdcbb247",
+      "log_sha256": "07c839666a32d32f3d82f1fed7b2bb10e247e0765fa857148247b9207ad25fd3",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-11-test_core_shaft_stations.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_die_pilot_thermal_evidence.py",
+      "returncode": 0,
+      "seconds": 0.214,
+      "source_sha256": "34980093639ee762ad814dde1200376ff65bccd1e7264f698b7599435f855b7d",
+      "log_sha256": "2d16b9a09123f50aeae7be99b6657ffb986c5602da36f034c1f2c263a6e842f2",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-12-test_die_pilot_thermal_evidence.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_evidence_freshness.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "4f4ebdc10137757659f5a8c0641983a6223e2f1a475f946fcf5065366c01944a",
+      "log_sha256": "6bde23fd1d4b3ce5443e8fbe8efa38ac0cf0b50bce006a333e540f453a37d8d8",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-13-test_evidence_freshness.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_fabrication_active_part_set.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "1f99a215c7cde9c03456d08f496c4925416eeb581a82190f84f3af5cf5e00b39",
+      "log_sha256": "e6ec182765cd965f2837d8eeaef5a64af48a104f245cd1a0b7281559194c57c1",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-14-test_fabrication_active_part_set.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_fabrication_source_freshness.py",
+      "returncode": 0,
+      "seconds": 0.214,
+      "source_sha256": "4e35b9cc6af750ec4985c714f75a5670a67298f2f31fd3c2176f907b1425a01f",
+      "log_sha256": "c32dcc5984170aa3bc2f2ff58cbe17a33aa30284e4d15fdab05b2b98a0656e3f",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-15-test_fabrication_source_freshness.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_frame_release.py",
+      "returncode": 0,
+      "seconds": 0.314,
+      "source_sha256": "8972eae256840246de1d56252128cf76d44c6a99337f346fce69949999f352b2",
+      "log_sha256": "af957a61dfbb118780a00d9397db12a6c68024386eeb87c1ce7bfeac9a2dc44b",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-16-test_frame_release.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_group_rerun_time_evidence.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "b8006fc1c925de9f75da19b607b74c5dc5e5a152767497db4bec191fd3df60a9",
+      "log_sha256": "24e68303dded0bbc45d2886d404b9400bb2dda435c77118d30f22829c292d215",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-17-test_group_rerun_time_evidence.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_load_path_closure.py",
+      "returncode": 0,
+      "seconds": 0.114,
+      "source_sha256": "e56117617051e1b70bc37d90e1f85f61d18f509d150a76ad3950df3579f64d4d",
+      "log_sha256": "4fca9c93ff8627390b500df3e2a7602bdb53c4c219890b15a218dfacf546cae1",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-18-test_load_path_closure.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_loaded_phase_evidence.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "a6c967b592fb3f60d35857db1eb5bc1ee8d0834714ab84837dc9d4d521e073bb",
+      "log_sha256": "19057c2ff9642466f4dd8d2e616de983f3608b52bbfdc390e84d636569b77bc4",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-19-test_loaded_phase_evidence.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_manufacturing_file_evidence.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "1e788082e56b12f2c84339cedc356d57372f5d8df9026fb781b7977b78dd19c6",
+      "log_sha256": "fd79463d6a168bd9aff549c2b3feec02fe3ebc194d7f0016d3a88ac4d358349f",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-20-test_manufacturing_file_evidence.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_package_import_closure.py",
+      "returncode": 0,
+      "seconds": 0.214,
+      "source_sha256": "036b457adefc7feb71e79d5f59ff6d5dc9fe0a5fb95448ba51ed8affa5065a6a",
+      "log_sha256": "39508a949ca3a63f3eceaf10ec977ed5dfc1a9859af4ea46d275fa64ca5d58ac",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-21-test_package_import_closure.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_phase_direct_dependency.py",
+      "returncode": 0,
+      "seconds": 0.032,
+      "source_sha256": "7020982ca71e27017f959ee4d6acabf8f4658823600a1dfb29837197780c6c41",
+      "log_sha256": "a693dd91db582aea4bc107ab0f3c71bc8236aa66148464f93c795f13a5601718",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-22-test_phase_direct_dependency.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_phase_solver_dependency_scope.py",
+      "returncode": 0,
+      "seconds": 0.016,
+      "source_sha256": "fe0b0354c281fbfcdf06d4c7d133fdfb083f42832cbf22181ed801487b424b82",
+      "log_sha256": "ec3d2553587c20272f5ca4e887fbbbc4e5d96232ef28d7816d7305241d7b29e6",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-23-test_phase_solver_dependency_scope.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_probe_procurement_state.py",
+      "returncode": 0,
+      "seconds": 0.015,
+      "source_sha256": "4a9e9b9339054c66aab6ce3de9e580b04f4f61b3238e8d564f528f66427eebcf",
+      "log_sha256": "7a2fdce2c32213be2e7eecd807b96b2760a8fdcf4a5a12612454b7421ed81777",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-24-test_probe_procurement_state.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_probe_thermal_evidence.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "96fd169cb8134ae4e8181eac8d0f37812a5621e99d0d01ed5b73f432f0fe29cd",
+      "log_sha256": "71cbc7ae868b46d5c7b109aaab33b82da491c11acd669e8cc821e1f1bea5fa1d",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-25-test_probe_thermal_evidence.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_publication_policy.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "a3a9fb975f3a49ae4b4a14ad07292a25d82a30c65b2b5e92dd1fbfd6b2047958",
+      "log_sha256": "a6707d4eff38012da33ddc34bc6dc076a3b17151cfc9aef223c8790cbe64c3da",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-26-test_publication_policy.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_retainer_source_chain.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "f908324e4ff3965a90bde33607f87cab8790da92347a19ddea872c6c19fe0cc2",
+      "log_sha256": "14071a1bf39742b37dfd157b7f08f5d59db3a7ee99441702dfd01b318e7896ec",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-27-test_retainer_source_chain.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_sensor_bore_local_evidence.py",
+      "returncode": 0,
+      "seconds": 0.032,
+      "source_sha256": "5e789c4fffe1cfc19049e59cd17821b75d04364c510436de7eaf7b795ba84064",
+      "log_sha256": "c948338339192edd30191909810c689adec31f4ef37d8841d7d0d2ab4c6992dc",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-28-test_sensor_bore_local_evidence.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_shaft_reaction_provenance.py",
+      "returncode": 0,
+      "seconds": 0.032,
+      "source_sha256": "52bcff8e57d3fe5d96d074e00774d76c8f41964fefff129fbf4515944b5a53b0",
+      "log_sha256": "1979d064adff1f88a0d37c44d0c79c2a31ee54a8ef0eb226a5bca8cfc681fddc",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-29-test_shaft_reaction_provenance.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/test_thermal_protection_evidence.py",
+      "returncode": 0,
+      "seconds": 0.032,
+      "source_sha256": "cd399d532f4430531dedfce4c84c33348eab31d3e1d1dcb6b4bcb18f5b7c22a7",
+      "log_sha256": "8b2016aadb1700a0d68d864d3fb48eef135de1d9f609b1312a5ef3aeb1b40edc",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-30-test_thermal_protection_evidence.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_execution_tools.py",
+      "returncode": 1,
+      "seconds": 1.466,
+      "source_sha256": "2b317e880fd25df6152d04ee72be28370534be968bf2b5e2b884f843d675d049",
+      "log_sha256": "350dbe21dc559609e2794503cac410ac6b2c0c0a74d9e3bc9402bd83a24dfbf0",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-31-test_execution_tools.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_material_run.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "c8e584e1b7398e8fa730973d5be9c3e6518e12b2a9a68f052ebbaa5c73e05765",
+      "log_sha256": "4c979c0d06f0e9e2109df48cae7f69ac5d403754045b4cfe404fe744e7390b47",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-32-test_material_run.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_mvp_smoke_contract.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "8cc2f2eb543ec1631f735757a7aa286d14c085fda53402decf3cefea8d9fdaa7",
+      "log_sha256": "921b60a7fd52e978fbb551cacd29df2d6708879400278e1fcc70fceeb0c6f8e0",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-33-test_mvp_smoke_contract.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p10_stage_release.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "94f32da01f6e12bc9df0ace0a6398192508d1b224c0e55f715ed788a2b971ca0",
+      "log_sha256": "869ea8047d0ae89dddb808470175fa3bdce5d6007a92e195f2d7e7e762e1f49f",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-34-test_p10_stage_release.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p11_execution.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "656488c299548a436ac2b028d9ef9059556daa07ad213ed1caed60e1b83ea8de",
+      "log_sha256": "80144f3bf12d071a1497821467ab02765712cb11da3f547a5e2b5cf79f938e9a",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-35-test_p11_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p11_stage_release.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "fd95f0e912edf2a7ba6b854df9cff2d176245a1e5d36f8f8bba24bea59d7a31d",
+      "log_sha256": "7d59a8fbca92ef540f42b6883247c3844892d23f501b6cf2621d0e535813fb81",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-36-test_p11_stage_release.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p12_execution.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "098795305d1b0b802018d351b4d5b00f479018d27b56b81d32c4a524f9d9c97c",
+      "log_sha256": "464e0ee629edf74de09ef21e4232fbcedc26588ff7cc23c470f47fe2da88c255",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-37-test_p12_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p12_stage_release.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "28a57fa2acb8b371ce606a2957f2516ec882bc07772d18a5634c98cb2f42e790",
+      "log_sha256": "7d59a8fbca92ef540f42b6883247c3844892d23f501b6cf2621d0e535813fb81",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-38-test_p12_stage_release.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p1_semantics.py",
+      "returncode": 0,
+      "seconds": 1.065,
+      "source_sha256": "2b94ac3a8439417fe67898e26f68369f3435858eda98426a4c2f3cacde1722ec",
+      "log_sha256": "1bd8020af564187c107956d853deed89460e1ac035f97bbebeef5f3a16345ff5",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-39-test_p1_semantics.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p2_execution.py",
+      "returncode": 0,
+      "seconds": 0.464,
+      "source_sha256": "1ab7af2460a96f19f74c5911cb9eb1e6fc7463c635447e0a82e75c2dbdafc853",
+      "log_sha256": "1188419378bf54a53b350a5390d2d482ae4a9795a6613bf8c70c2c6a3750e9e0",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-40-test_p2_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p2_stage_release.py",
+      "returncode": 0,
+      "seconds": 0.515,
+      "source_sha256": "180380d030b0ca81c20bbc88490287ed7e4062aa225533db89bf4dc7430fba82",
+      "log_sha256": "14563d5018205d1b5be72b375fbb01077c05ae25f09f7338467cddae0073c133",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-41-test_p2_stage_release.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p3_packet_builder.py",
+      "returncode": 1,
+      "seconds": 1.366,
+      "source_sha256": "bd777e363a8faa13a29f817eacd5e84ff2f61d2e9e3f5ba7b587a95bea8254cf",
+      "log_sha256": "a5027057bb5cd2b6ba51fb1602fa7fee9f4067635efeb7d5c51a9d61d081cdd3",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-42-test_p3_packet_builder.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p4_execution.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "0c61545309d821ac8ced6c22688ec7465fc7e5bca0cbcbe9e4f54f40846e4fc0",
+      "log_sha256": "774d1086a37de6d8b9e2865f12621648cb23ee1c9a1e8f5919ee23e907dcf70c",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-43-test_p4_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p5_execution.py",
+      "returncode": 0,
+      "seconds": 0.114,
+      "source_sha256": "e7091745ccbfd1c11eaf23947ebb6b7ca4f2a82b0ba08d982ad1c0f6d8fddca7",
+      "log_sha256": "fd51ad5506b769ac9824f4c9125ea1063a1e2a12ddb3b48c1c06e9f3eed6651d",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-44-test_p5_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p6_execution.py",
+      "returncode": 0,
+      "seconds": 0.114,
+      "source_sha256": "0f3ae59a7324990a6cba8dd4ee465fad179ad2f6017549978f59879de8614a96",
+      "log_sha256": "869a9c102d66165e7a031e8a235972433171a416be80960c17c6e68371358d74",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-45-test_p6_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p7_execution.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "55c29ac03cfa50156cda92d4193fadedfdf2029e62081cce235f7137ba66e958",
+      "log_sha256": "1f11b6e880045ee35de832b81b45d06257342e13b5c79bbf0034379d4ca220b9",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-46-test_p7_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p8_execution.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "fc645ddfd8f8bbbf41b73d3306c185f9fa15254853bcaedefaf3273248d8d7d5",
+      "log_sha256": "d1a3bdcaa925bbf92cc120237c5ab1078f911832e5f3bbdd16fd82aab85d59fa",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-47-test_p8_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p8_firmware_commissioning.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "cd1fd5e1245ab1ca924cd47b5adb2db707b19f53b673ae7034eadbbebf20f321",
+      "log_sha256": "e73c3805f810fdcf3d0167ced7085c48306c9482a952ffb710551d230cdb3e51",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-48-test_p8_firmware_commissioning.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p9_execution.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "13b61c1150e23eaea61d04873d46dd69ba7f8f4b0fe1b5d08c8df9fdba3ce4ec",
+      "log_sha256": "a25b5619af971eae96a8c9d37ebc69133b4c28e990455e210be0507206df182c",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-49-test_p9_execution.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p9_receipt.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "26ce67be9d6eca2c6df63a0e70fc3f1599662aff45063c4ed7cd5695a451b64f",
+      "log_sha256": "d5a4875b4579cd8d17f8638658e481f105ebc0103894fd6f33918fb7e91153a0",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-50-test_p9_receipt.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_p9_stage_release.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "def5ba7185157a10edb0a88935158f58291e6d923f4c2b5b903c555850a91883",
+      "log_sha256": "199ba496f288116d36c62f29346d4fbf0bd75745a1c893abfcbdaa4c6d5b1033",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-51-test_p9_stage_release.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_physical_evidence_package.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "7961ffb71258ab35572c7a9d9868e6c8607e42ab192926899a5bee554663e742",
+      "log_sha256": "455a234a903f02c7d36882c9b036acc1ee7cca1176404082cfe9897ae40211f7",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-52-test_physical_evidence_package.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_s4_thermal_barrier_tape.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "ec4f97f675fbfef6e1d27556e79577d38cec857f0728bef966e57d4e078a73bb",
+      "log_sha256": "baf49b59538192f3e136ca0404cac516ecb8dd2fe5ba1416604056f3080fa49c",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-53-test_s4_thermal_barrier_tape.txt",
+      "lane": "light"
+    },
+    {
+      "script": "validation/physical_v08/test_thermal_barrier_tape_contract.py",
+      "returncode": 0,
+      "seconds": 0.064,
+      "source_sha256": "2afbd91ef5e010eadc4650f567d4bf03bddcdeef5bd61bcc0870653f60e65efe",
+      "log_sha256": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6",
+      "log": "docs/reviews/geometry-closure-v08/checks/light-54-test_thermal_barrier_tape_contract.txt",
+      "lane": "light"
+    },
+    {
+      "script": "analysis/frame_v08/audit_geometry.py",
+      "returncode": 0,
+      "seconds": 39.612,
+      "source_sha256": "ff491315e02508d194ff3f45873f0db505065240b12ca1cf6356656c4be45a65",
+      "log_sha256": "81ea05931d9dab9d5edca981e5ecbf095aff94f8b2f78a922a892245067d911b",
+      "log": "docs/reviews/geometry-closure-v08/checks/regeneration-audit_geometry.txt",
+      "lane": "regeneration"
+    },
+    {
+      "script": "analysis/frame_v08/beam_screen.py",
+      "returncode": 0,
+      "seconds": 23.104,
+      "source_sha256": "c1e89ad713fd59b2597e1e58e90e4df8e4bf383bcda58bc71ee5df9be598b5a2",
+      "log_sha256": "9db8d6ac4e5e5fb3cfb0846d860abd94e14dd7eed97fa8924dba70db9ef4eb12",
+      "log": "docs/reviews/geometry-closure-v08/checks/regeneration-beam_screen.txt",
+      "lane": "regeneration"
+    },
+    {
+      "script": "cad/freecad/drive_v08/run_generate.py",
+      "returncode": 0,
+      "seconds": 34.077,
+      "source_sha256": "42fc38e87ba7619d679ff557f36a6f96cfd7e5ee72b635a4c9b39b283094920c",
+      "log_sha256": "3fdfbb77d284fdc5976f4a0dd63db87f5473a20c60598baa4c48a94c9a3d0869",
+      "log": "docs/reviews/geometry-closure-v08/checks/regeneration-run_generate.txt",
+      "lane": "regeneration"
+    },
+    {
+      "script": "release/build_frame_release.py",
+      "returncode": 0,
+      "seconds": 1.617,
+      "source_sha256": "5184ee27bba506da5f43aa01bdc5eb5b8baab8db06983f629ec0b6f57182b499",
+      "log_sha256": "8ce4d0e897a477f79cb02258ba0bd2485d9afe996788c36b9b4ae9296f3360bf",
+      "log": "docs/reviews/geometry-closure-v08/checks/regeneration-build_frame_release.txt",
+      "lane": "regeneration"
+    }
+  ],
+  "source_and_artifact_sha256": {
+    "analysis/frame_v08/results/beam_comparison.json": "127fddef2f9b4da46caccd8c6d81c8a40058aabe3b9eac46aa56bafd415afe34",
+    "analysis/frame_v08/results/geometry.json": "2cf120543cae6686082af1c2ed18c23f8e448637efb0ec002abd878ea589738b",
+    "analysis/frame_v08/results/published_comparison.json": "a2dcf04523b6a420ef427f2bd34d99b88a210cdc1ecb1f5e7ea263cfab3038b0",
+    "cad/freecad/compact/check_shaft_section_v08.py": "888d22e20fb0e2fa9e571020ecfaa0d15df32b9809cfe2097e88e5daafc44e15",
+    "cad/freecad/compact/export_validation_geometry_v08.py": "9f669fda6759eb69f59dfde5101013cea9611a6b6308939bbd8e0332ad8b6fbf",
+    "cad/freecad/compact/generate.py": "71900f37e772c62bbed71e6d9d6dc05630fe2ff2c73ff1dc18b781d51aea51bc",
+    "cad/freecad/compact/generate_fusion_validation.py": "20bf9de8d69498c7771651e1c8d78dd1c30f5ec972e2342c328c035b40f16d4e",
+    "cad/freecad/compact/geometry.py": "140e0b8c37fc4beadd13d9940b5ca258709ed47ac6f87b235fbdc22313159d4f",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "cad/freecad/compact/process_v0621.py": "3c69c8f14e9cdbb185da58acd63eab1412552d640cf6a6059cac309ed2ef6ccf",
+    "cad/freecad/compact/traverse_revision.py": "bdf47c625c378184001ca3061ade07ecb8b3e957f0914da0d1d717b4e5271650",
+    "cad/freecad/drive_v08/assembly.py": "5d80060fc98896f5b42f10d7095f59f7fd4828538e6b4c9e172a210640dc946e",
+    "cad/freecad/drive_v08/cache_source.py": "df713a8725b195cf48258e1c8fec24f80d0645041113f65fec30b0d50328789c",
+    "cad/freecad/drive_v08/detail.py": "fb8d42ccd8dfc6ba7c4c8782e789718e6a3caade6b30d8b9c550755e1ea2783a",
+    "cad/freecad/drive_v08/frame_revision.py": "59d7381e26eab435831d8d08d2d0f1a7c0c159337ed46e46e72d1fe068cb0fe9",
+    "cad/freecad/drive_v08/generate.py": "e8f046f90ea0c771c604851b223e8d053ee6e499627df4025fffd0ecc476a837",
+    "cad/freecad/drive_v08/guard_details.py": "875ea078ba7aa196491a0c3bd5e79da98216275a3e28164424d67ffa03ed297b",
+    "cad/freecad/drive_v08/layout.py": "12d854fcceba995a03effd2cfd2600c02be96e16f62770e7a90990849418e056",
+    "cad/freecad/drive_v08/parts.py": "0d9aa8336bcb873810ed70e5a94ede103300b446b73812c1d6957eb08b49baf6",
+    "cad/freecad/drive_v08/probe.py": "e1079763fa31e040e92afea02e8fdd94be55e080df190ab0870ec428e4b57819",
+    "cad/freecad/drive_v08/render_geometry.py": "ae8ee1e93f8d80bbe65c9b9dc0c3b2c3818eb3f65bad0326709ae34e06cce481",
+    "cad/freecad/drive_v08/run_generate.py": "42fc38e87ba7619d679ff557f36a6f96cfd7e5ee72b635a4c9b39b283094920c",
+    "cad/freecad/final_v08/audit_thermal_mating_closure.py": "22cfa0c819b618501a65aed252bd711f6ef3b8cb285a491faa134a98864ad14c",
+    "cad/freecad/final_v08/check_axial_shoulder_candidate.py": "7071e224e06937efb48c040ba9332f3246acb5e109aecbdab1b0e8e34ae07a51",
+    "cad/freecad/final_v08/check_cutter_shim_candidate.py": "f0314650ea3398af44ca3ac59f0820f4806084214b120eb4511b02e4a52f6366",
+    "cad/freecad/final_v08/check_die_bolt_spacer_candidate.py": "5042f8a4db450b331fec637cb7fac7e59bb6022595f1362f4e8d49e7d61171c8",
+    "cad/freecad/final_v08/check_die_pilot_candidate.py": "164515e39ead2812400617e86b718a95c87b76164c25f02625e6eb45f651876c",
+    "cad/freecad/final_v08/check_phase_pair_backlash_candidate.py": "2be07a7291166ebe235fb96e0fb6ef28a4cfd824d4c4e3aedf1a10536f6b9480",
+    "cad/freecad/final_v08/check_phase_path_25_candidate.py": "46df68eb60cbc6091511643e856f2f32afc82b942267bedefa5a7f7ae978c76b",
+    "cad/freecad/final_v08/check_retainer_tool_access.py": "88c0831f1ba7b435ba798c5354f6f7785bfc021a7b3c42ea0f1fc2b74e9ffb59",
+    "cad/freecad/final_v08/check_sensor_ligament_candidate.py": "8de6fd315b9f1b34f6857945f08e8842feb92d8a96e2f90087c2372ae196a8f6",
+    "cad/freecad/final_v08/check_short_probe_envelope.py": "1979f8da7afded81ddc3b389ed3938d7fa82aee7bd77055c77bc8fba8acb0736",
+    "cad/freecad/final_v08/check_slave_keyseat_candidate.py": "f8d48ffcecae9d026abd606a6b9133e14f9dc869f1ece9475ac5aa5a0d9ddaaa",
+    "cad/freecad/final_v08/export_torsion_load_path.py": "442cf3bf7235e9df6c08060792e2ffef171fbb5c2c4ef017079427a9ac6a4883",
+    "cad/freecad/final_v08/generate.py": "5e3788761eac33931118c9406edaff4041b8c740a7df364f44c0f8be7737335f",
+    "cad/parameters/baseline.json": "190af1c1806b8d832a9c9883b631f41bcf5048d8c977e73f4a92e4322fa83779",
+    "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b",
+    "cad/parameters/ggm_frame_revision.json": "d51cbb6ee6c6075ef67f42c0d388e39c8e79f91777f7c987c726e909246ca0a5",
+    "control/ggm_drive_contract.json": "0c847fea963b5a08c86273f80542706d26c784ad6d0201307e500879662fd210",
+    "exports/fabrication/frame_cut_list.csv": "c1c1c2ac5372c2e059fb70991abbed6c07fc7c615a8dddcd96f73c2f21abece8",
+    "exports/final/drive_ggm_v08/GGM-FULL-ASM.FCStd": "52934485d6abc2fe39be860274771b53e1c2022a4c72c4b5e5555441e5eae3d2",
+    "exports/final/drive_ggm_v08/GGM-FULL-ASM.step": "0db531a96a9ed583b351c1ec601a9b3e3741f88240150800a59cd39353a8c4af",
+    "exports/final/drive_ggm_v08/manifest.json": "daed51cf5dc7e4e4de8923ce1e36f06e7510594d7bfa22348311bf1635f7b218",
+    "exports/final/frame_v08/FR-TIE-01.FCStd": "8803b9a25212d893b9cc56cc0f0e39c3aff77f1eb7de35bc6055cd3483679ac0",
+    "exports/final/frame_v08/FR-TIE-01.dxf": "7cdce1ed98e3927b12ff35fdc5ad4d5379d5dbfbf9d1dc43ac4ea26e1c81d6b3",
+    "exports/final/frame_v08/FR-TIE-01.step": "710076834e7b1ae686613197abeaabded533bfb950200cb3031cfe34f57ea4df",
+    "exports/final/frame_v08/FR-TIE-01.svg": "443d86bd11d754b2bebeddc180f85d926e0867fc4cafe4563536b95ca26d6f7d",
+    "exports/final/frame_v08/FRAME_CUT_AND_TIE_KO.pdf": "e466f2239af32b1f30f5d2eeaa4b29ccfe7fec10fb93f6bf05a720894ed2c069",
+    "exports/final/frame_v08/FRAME_CUT_AND_TIE_KO.typ": "d92ed504687abd574f86481139c92948527cbc3178a4ea36d0ae0597ba05401c",
+    "exports/final/frame_v08/README.md": "15549ab973582d1c139a7c0a252b3664d8f55d8d7ead72a2f6b1efe23124149b",
+    "exports/final/frame_v08/frame_connections.csv": "25ba7d2806d6a98e7f059dcc2606f82c0321dcbfac401895fcbded48159b8966",
+    "exports/final/frame_v08/frame_members.csv": "c1c1c2ac5372c2e059fb70991abbed6c07fc7c615a8dddcd96f73c2f21abece8",
+    "exports/final/frame_v08/frame_release.json": "c562223a41d0ffb6b185259e2570f7843976deff9622e2c20ff1f758153e7d7c",
+    "release/build_frame_release.py": "5184ee27bba506da5f43aa01bdc5eb5b8baab8db06983f629ec0b6f57182b499",
+    "validation/integrated_assembly_clearance.py": "91d53b7919647131f709c4c8a0cbbc1ee96358c6b7fd6c43ca14debaf34feb93",
+    "validation/integrated_motion_clearance.py": "b2e3fff43340ce1fc57b14bdcbb42a3d65697ff7ca4242fd26afa2f980a62644"
+  },
+  "visual_review": {
+    "frame_pdf": "exports/final/frame_v08/FRAME_CUT_AND_TIE_KO.pdf",
+    "pages_reviewed": [
+      1,
+      2
+    ],
+    "assembly_preview": "exports/final/handoff/GGM_complete_assembly.png",
+    "meaning": "visual layout check, not physical qualification"
+  },
+  "next_required": [
+    "Current-geometry CalculiX/hot-zone evidence",
+    "Loaded-phase and motion-dynamics evidence refresh",
+    "Final CAD source gate",
+    "Unified manufacturing/document/package regeneration",
+    "Physical stock, joints, retained mechanisms and commissioning tests"
+  ]
+}

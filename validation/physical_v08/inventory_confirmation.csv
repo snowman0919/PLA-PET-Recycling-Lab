@@ -1,13 +1,13 @@
 item_id,item,required_quantity_or_capacity,current_state,confirmation_action,design_note
 ASSET-CHIRON,Anycubic Chiron donor machine,1,USER_REPORTED_AVAILABLE,identify salvageable motors/fans/rails/endstops/heater wiring by label and dimensions,do not assume donor hotbed heater is usable as barrel heater
 ASSET-PSU,24 V 800 W donor PSU,1,USER_REPORTED_AVAILABLE,photograph DC output label; verify 24 V and available current; visual/continuity inspection before power,machine still uses 30 A protected envelope and ~500 W operational cap
-ASSET-2020,2020 aluminum profile,>=13.348 m current cut-list total,MEASURE_STOCK,record each usable length before cutting,GGM reference LOD is not added twice; reconcile with active frame cuts
-ASSET-2040,2040 aluminum profile,>=1.320 m current cut-list total,MEASURE_STOCK,record each usable length before cutting,local shredder reinforcement
+ASSET-2020,2020 aluminum profile,>=15.078 m final GGM nominal cut total before kerf/allowance,MEASURE_STOCK,"UNPOWERED: record each usable bar length, U95 and exact section; bind current frame cut-list SHA256; P2 nesting required",36 individually identified 2020 members
+ASSET-2040,2040 aluminum profile,>=2.180 m final GGM nominal cut total before kerf/allowance,MEASURE_STOCK,"UNPOWERED: record each usable bar length, U95 and exact section; bind current frame cut-list SHA256; P2 nesting required",4 members: 2x660 and 2x430; 40 mm side vertical
 ASSET-HW,M2-M6 screw assortment,assorted,USER_REPORTED_AVAILABLE,record lengths/grades actually available; do not equate diameter availability with required length/grade,prefer M3/M4 covers and existing M5/M6 structural schedule
 ASSET-PLA,PLA filament,~10 kg,USER_REPORTED_AVAILABLE,reserve test/fixture quantity,default print material for cold housings
 ASSET-ABS,ABS filament,~0.5 kg,USER_REPORTED_AVAILABLE,reserve ~0.21 kg design allocation plus failure margin,use only where current print manifest requires ABS
-ASSET-BTS,BTS7960 modules,2,USER_REPORTED_AVAILABLE,"visual inspection, heatsink/terminal condition; bench voltage-drop/temperature check",one shredder + one extruder; unidentified cheap controllers excluded
-ASSET-MEGA,Arduino Mega,1,USER_REPORTED_AVAILABLE,"board identity, USB/logic-only boot check",GGM/BTS7960 released firmware target
+ASSET-BTS,BTS7960 modules,2,USER_REPORTED_AVAILABLE,"UNPOWERED visual/label/heatsink/terminal inspection; powered voltage-drop/temperature checks belong to P3/P8, not S0",one shredder + one extruder; unidentified cheap controllers excluded
+ASSET-MEGA,Arduino Mega,1,USER_REPORTED_AVAILABLE,"UNPOWERED identity and visual inspection only; USB/logic boot belongs to P7, not S0",GGM/BTS7960 released firmware target
 ASSET-ESTOP,Latching mushroom E-stop,1,USER_REPORTED_AVAILABLE,confirm NC positive-opening contact block and terminal identity,button alone does not replace K0/branch cut
 BUY-GGM-SH,GGM K9DG60N2 + K9G75C,1,SELECTED_NOT_ORDERED,order only after user approval; receipt against GGM inspection packet,shredder gearbox
 BUY-GGM-EX,GGM K9DG60N2 + K9G150C,1,SELECTED_NOT_ORDERED,order only after user approval; receipt against GGM inspection packet,extruder gearbox
@@ -15,7 +15,7 @@ STOCK-6201,6201-2RS bearing 12x32x10,3,CHECK_PROJECT_LAB_FIRST,"record marking, 
 STOCK-61905,61905/6905 bearing 25x42x9,4,CHECK_PROJECT_LAB_FIRST,prefer specified SKF61905-2RS1 or verify alternate rating/fit before substitution,shredder shafts
 STOCK-51102,51102 thrust bearing 15x28x9,1,CHECK_PROJECT_LAB_FIRST,record brand/marking/height/free rotation,extruder thrust path
 BUY-CS,Bidirectional Hall current sensor,2,CHECK_PROJECT_LAB_FIRST_THEN_BUY,5 V analog; useful range must cover 0-6 A with calibration U95 <=0.10 A,motor-lead current sensing A0/A9
-BUY-BAND,TH-BH-01 custom 24 V 100 W mica band heater; free ID34.10-34.20; W45+/-0.5,3,NOT_ORDERED,"do not treat generic ID34/35 stock as compatible; require 5.184-6.336 ohm at 20+/-2 C, >=1.00 mm split-closure travel, PE-bonded sheath and accepted dimensional drawing",3 final units; procurement remains P9-scoped and user-approved
+BUY-BAND,TH-BH-02 Z1 W40 x1 + TH-BH-01 Z2/Z3 W45 x2; 24 V 100 W each; free ID34.10-34.20,3,NOT_ORDERED,"do not treat generic ID34/35 stock as compatible; require 5.184-6.336 ohm at 20+/-2 C, >=1.00 mm split-closure travel, PE-bonded sheath and accepted dimensional drawing",3 final units; procurement remains P9-scoped and user-approved
 BUY-DIE-HEATER,TH-DIE-01 Tempco custom 24 V 60 W Ø6.500±0.013 x39.50±0.20 flanged cartridge heater,1,NOT_ORDERED,"obtain accepted supplier drawing; verify OD/camber, 9.12-10.56 ohm at 20±2 C, insulation/hipot and full hand fit in Ø6.55 H7 die bore",generic D6x38 cartridge is not an approved substitute; purchase and energization remain separately gated
 STOCK-KTC,TH-TC-01-equivalent ungrounded Type-K probes for T1-T5,5,CHECK_PROJECT_LAB_FIRST_THEN_BUY,"compare any stock candidate against Ø2.97-3.03 mm sheath, 25.40+/-0.25 mm length, welded stop geometry 5.20/10.00/4.00 mm by channel, >=100 Mohm insulation and thermal-response receipt contract",selected reference is Tempco MTA1 custom; generic K-type stock is not PASS unless every released interface/receipt criterion is met
 STOCK-MAX6675,MAX6675-compatible interfaces,5,CHECK_PROJECT_LAB_FIRST_THEN_BUY,common-reference wiring matches released electronics,T1-T5 electronics

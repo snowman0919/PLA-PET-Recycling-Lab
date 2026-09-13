@@ -25,7 +25,8 @@ def fill_semantics(rows, root: Path, folder: Path):
             with (root / "exports/fabrication/frame_cut_list.csv").open(newline="") as f:
                 length = sum(float(r["cut_length_mm"]) * int(r["quantity"]) for r in csv.DictReader(f) if r["stock"].startswith(semantics.PROFILES[item])) + 1000
             unit = "mm"; quantity = length
-            entry.update(quantity=length, unit="mm", u95=1.0)
+            entry.update(quantity=length, unit="mm", u95=1.0, profile_type="2020" if item=="ASSET-2020" else "2040")
+            extra = {"frame_cut_list_sha256": hashlib.sha256((root/"exports/fabrication/frame_cut_list.csv").read_bytes()).hexdigest()}
         elif item in semantics.MASS:
             unit = "kg"; quantity = 10.0 if item == "ASSET-PLA" else .5
             entry.update(quantity=quantity, unit="kg", u95=.001)

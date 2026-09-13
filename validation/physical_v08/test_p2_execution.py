@@ -91,15 +91,18 @@ def make_fixture(run: Path):
     with (HERE / "templates/profile_stock_measurement.csv").open(encoding="utf-8") as handle:
         stock_fields = next(csv.reader(handle))
     common = {
+        "condition_check": "USABLE_REVIEWED", "inspection_power_state": "NONE",
         "source_asset": "LAB", "u95_length_mm": "1.0", "straightness_note": "OK",
         "damage_note": "NONE", "instrument_id": "MEAS-16", "instrument_calibration_ref": "CAL-LONG",
         "measured_at": "2026-09-10T23:42:00+09:00", "operator": "TECH-A", "reviewer": "REVIEWER-B",
         "evidence_path": rel, "sha256": digest, "status": "USABLE", "notes": "synthetic",
     }
-    stock_rows = [
-        {"record_id": "S2020", "profile_type": "2020", "usable_length_mm": "14000", **common},
-        {"record_id": "S2040", "profile_type": "2040", "usable_length_mm": "1400", **common},
-    ]
+    stock_rows = []
+    for item, typ in (("ASSET-2020", "2020"), ("ASSET-2040", "2040")):
+        detail=json.loads((ROOT/next(r for r in inv_rows if r["item_id"]==item)["detail_path"]).read_text())
+        for entry in detail['entries']:
+            stock_rows.append({**common,"record_id":entry['id'],"profile_type":typ,
+                               "usable_length_mm":str(entry['quantity']),"u95_length_mm":str(entry['u95'])})
     stock = run / "profile_stock.csv"; write_csv(stock, stock_fields, stock_rows)
 
     approval_data = {
@@ -107,6 +110,7 @@ def make_fixture(run: Path):
         "approved_by": "USER-A", "approved_at": "2026-09-10T23:45:00+09:00",
         "p1_inventory_sha256": sha(inventory), "ggm_packet_sha256": sha(packet),
         "profile_stock_sha256": sha(stock), "frame_cut_list_sha256": sha(P2.FRAME_CUTLIST),
+        "frame_release_sha256": sha(ROOT/"exports/final/frame_v08/frame_release.json"),
         "kerf_budget_mm": 2.0, "procurement_authorized": False,
         "energization_authorized": False, "machine_release": "HOLD",
     }

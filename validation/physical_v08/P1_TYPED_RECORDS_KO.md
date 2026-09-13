@@ -24,3 +24,9 @@ PLA/ABS는 `kg` 단위의 실제 순재고를 기록한다. 약 10 kg/0.5 kg라�
 나사·판재·축재·가스켓은 `lot` 1개 아래 entries마다 식별·양·단위·치수/규격을 적고 사람이 검토한다. `ITEMIZED_STOCK_REVIEWED_NOT_FINAL_KITTING`은 재고 내용 검토이지 전체 부품 kitting 완료가 아니다. 상세 JSON은 `P1_INVENTORY_DETAIL`, schema_version 1, item_id, inventory_control_sha256, CSV와 같은 표기/상태/단위/작업자/검토자/시각, `raw_files`, `entries`를 포함한다. `content_review=ACCEPTED_FOR_UNPOWERED_INVENTORY_ONLY`, `physical_action_authorized=false`를 유지한다.
 
 P1_STOCK_SURVEY_PASS_GGM_PENDING은 GGM 수령 미완료다. P1_RECORD_CHECK_PASS도 재고/수령 기록의 검사 결과이며 후속 제작·전력 인가 권한이 아니다. P2는 새 P1 분석기를 다시 호출하므로 오래된 PASS JSON만으로 R2를 우회할 수 없다.
+
+## R1 최종 프레임 결박
+
+프로파일 detail에는 현재 `exports/fabrication/frame_cut_list.csv`의 `frame_cut_list_sha256`을 넣고, bar별 entry의 `profile_type`을 2020 또는 2040으로 지정한다. `frame_release.py`가 CAD/파라미터/비교검사와 절단표 정합성을 먼저 확인한다. 해시를 맞춘 다른 단면, 예전 절단표, null/string entry, boolean schema_version은 거부한다.
+
+2020의 현재 명목 요구는 15,078 mm/36개, 2040은 2,180 mm/4개다. P1의 길이 합계 PASS는 P2의 bar별 nesting PASS를 대신하지 않는다. P1이 물리시험·최종 kitting·가공·통전을 승인하지 않는 경계는 유지한다.

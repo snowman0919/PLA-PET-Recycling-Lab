@@ -130,6 +130,20 @@ class P9ReceiptTest(unittest.TestCase):
             self.assertEqual(result["status"], "NOT_RUN_OR_REJECTED")
             self.assertIn("fixed 220 C", result["reason"])
 
+    def test_legacy_z1_width_and_unapproved_revision_rejected(self):
+        for metric, value in [('bh_z1_width', '45'),
+                              ('bh_z1_revised_supplier_drawing_accepted', 'NO'),
+                              ('tcr_fastener_stack_no_bottoming_verified', 'NO')]:
+            with self.subTest(metric=metric), tempfile.TemporaryDirectory(dir=HERE) as td:
+                path = make_record(Path(td))
+                with path.open(encoding='utf-8') as handle:
+                    rows = list(csv.DictReader(handle)); fields = list(rows[0])
+                next(r for r in rows if r['metric'] == metric)['value'] = value
+                write_csv(path, fields, rows)
+                result = P9R.evaluate(path)
+                self.assertEqual(result['status'], 'NOT_RUN_OR_REJECTED')
+                self.assertIn(metric, result['reason'])
+
     def test_evidence_hash_mismatch_rejected(self):
         with tempfile.TemporaryDirectory(dir=HERE) as td:
             path = make_record(Path(td))

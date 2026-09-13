@@ -1,6 +1,6 @@
 gate,item_id,item,quantity,action,source_priority,disposition,notes
-P1,FRAME-2020,2020 profile usable stock,13.348 m minimum before kerf/scrap,STOCK_MEASURE,project lab,final machine,do not cut until usable lengths are recorded; optimize nesting after measurement
-P1,FRAME-2040,2040 profile usable stock,1.320 m minimum before kerf/scrap,STOCK_MEASURE,project lab,final machine,2x660 mm local shredder reinforcement
+P1,FRAME-2020,2020 profile usable stock,15.078 m minimum before kerf/scrap,STOCK_MEASURE,project lab,final machine,do not cut until usable lengths are recorded; optimize nesting after measurement
+P1,FRAME-2040,2040 profile usable stock,2.180 m minimum before kerf/scrap,STOCK_MEASURE,project lab,final machine,2x660 + 2x430 mm; all four 2040 reinforcements retained
 P1,BRG-6201,6201-2RS 12x32x10,3,CHECK_STOCK_THEN_BUY,project lab/low-cost buy,final machine,2 jackshaft +1 extruder radial
 P1,BRG-61905,61905/6905 25x42x9,4,CHECK_STOCK_THEN_BUY,project lab/low-cost buy,P4 reusable final parts,verify exact dimensions/rating before alternate substitution
 P1,BRG-51102,51102 15x28x9,1,CHECK_STOCK_THEN_BUY,project lab/low-cost buy,final machine,extruder thrust
@@ -25,7 +25,7 @@ P4,DRV-03/03R,phase gear pair,1 pair,MAKE_ONLY_AFTER_USER_APPROVAL,S45C gear mac
 P4,GATE1-GUARD,Gate1 metal/3mm PC guard + printed trim,1 set,MAKE_FROM_STOCK_AFTER_USER_APPROVAL,project lab + PLA print,test fixture,legacy G1J-11 motor feet excluded from current powered path
 P5,EX-CPN-SCR,3-pitch screw process coupon,1,QUOTE_ORDER_USER_APPROVAL,specialist supplier,test witness,same certified heat/QT/nitride/finish route as eventual screw
 P5,EX-CPN-BAR,60 mm barrel process coupon,1,QUOTE_ORDER_USER_APPROVAL,specialist supplier,test witness,same certified heat/QT/nitride/final-hone route as eventual barrel
-P9,HEAT-BAND,TH-BH-01 custom 24V100W mica band; free ID34.10-34.20; W45+/-0.5,3,BUY_AFTER_RECEIPT_SPEC_USER_APPROVAL,supplier,final machine,3 units; cold resistance 5.184-6.336 ohm at 20+/-2 C; usable split-closure travel >=1.00 mm; PE-bonded sheath; accepted supplier dimensional drawing before purchase
+P9,HEAT-BAND,TH-BH-02 Z1 W40 x1 + TH-BH-01 Z2/Z3 W45 x2; 24V100W each; free ID34.10-34.20,3,BUY_AFTER_RECEIPT_SPEC_USER_APPROVAL,supplier,final machine,3 units; cold resistance 5.184-6.336 ohm at 20+/-2 C; usable split-closure travel >=1.00 mm; PE-bonded sheath; accepted supplier dimensional drawing before purchase
 P9,HEAT-DIE,TH-DIE-01 Tempco custom 24V60W Ø6.500±0.013 x39.50±0.20 flanged cartridge,1,BUY_ONLY_AFTER_ACCEPTED_DRAWING_USER_APPROVAL,supplier,final machine,Ø6.55 H7 die bore; 9.12-10.56 ohm at 20±2 C; insulation/hipot and full hand-fit receipt evidence required
 P9,TC-K,TH-TC-01 Tempco MTA1 custom ungrounded Type-K probes,5,BUY_ONLY_AFTER_ACCEPTED_DRAWING_USER_APPROVAL,project lab/supplier,final machine,T1-T3 stop 5.20±0.05 mm; T4 10.00±0.05; T5 4.00±0.05; insulation/reference-bias/t90 receipt tests required
 P9,TC-RET,TH-TCR-01 304SS thermocouple stop-collar retainer bridge,4,MAKE_ONLY_AFTER_PROBE_DRAWING_ACCEPTED,laser/waterjet + drill / project lab,final machine,12x16x1.5; centre Ø3.4; 2xØ3.4 at 10 pitch; 2xM3x6 A4-80 at 0.5 N.m; prove 20 N pull with <=0.10 mm motion cold and after thermal cycle

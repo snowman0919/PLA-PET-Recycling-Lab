@@ -8,7 +8,7 @@ sys.path.insert(0,str(ROOT))
 from cad.freecad.final_v08.generate import final_objects
 OUT=ROOT/'analysis/drive_integration_v08/raw/source'
 OUT.mkdir(parents=True,exist_ok=True)
-paths=[ROOT/'cad/freecad/compact/geometry.py',ROOT/'cad/freecad/compact/manufacturing.py',ROOT/'cad/freecad/final_v08/generate.py',ROOT/'cad/parameters/final_v08.json',ROOT/'cad/parameters/baseline.json']
+paths=sorted((ROOT/'cad/freecad/compact').glob('*.py'))+sorted((ROOT/'cad/freecad/final_v08').glob('*.py'))+[Path(__file__).resolve(),ROOT/'cad/parameters/final_v08.json',ROOT/'cad/parameters/baseline.json']
 hashes={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
 items=final_objects()
 rows=[]

@@ -91,15 +91,12 @@ def main():
     assert hot["status"] == "PASS" and close(hot["thermal_fit"]["declared_cold_axial_travel_mm"], 1.5)
     assert die["status"] == "PASS" and close(die["assembly_torque_nm"], 1.5)
 
-    frame = rows("exports/fabrication/frame_cut_list.csv")
-    totals = {}
-    for r in frame:
-        totals.setdefault(r["stock"], 0.0)
-        totals[r["stock"]] += float(r["cut_length_mm"]) * int(r["quantity"])
-    assert close(totals["20x20 aluminum profile"], 13348.0)
-    assert close(totals["20x40 aluminum profile"], 1320.0)
-    assert "13.348" in inv["ASSET-2020"]["required_quantity_or_capacity"]
-    assert "1.320" in inv["ASSET-2040"]["required_quantity_or_capacity"]
+    from frame_release import validate as validate_frame
+    frame_result = validate_frame(ROOT)
+    expected = j("cad/parameters/ggm_frame_revision.json")["expected_profiles"]
+    assert frame_result["totals"] == expected and frame_result["cut_authorization"] is False
+    for typ, data in expected.items():
+        assert f"{data['length_mm']/1000:.3f}" in inv["ASSET-"+typ]["required_quantity_or_capacity"]
 
     assert inv["ASSET-BTS"]["current_state"] == "USER_REPORTED_AVAILABLE"
     assert inv["ASSET-MEGA"]["current_state"] == "USER_REPORTED_AVAILABLE"

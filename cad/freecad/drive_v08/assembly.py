@@ -1,6 +1,8 @@
 """Motor integration: lengthwise direct extrusion and supported shredder shaft."""
 import FreeCAD as App
 import Part
+import json
+from pathlib import Path
 from layout import layout,item,moved,motor_pose
 from parts import fuse_hubs,motor_plate,jackshaft,bearing_plate,sprocket,key,guard
 
@@ -8,7 +10,7 @@ def box(x,y,z,dx,dy,dz): return Part.makeBox(dx,dy,dz,App.Vector(x,y,z))
 def ring(r,ri,h,point,direction):
     return Part.makeCylinder(r,h,App.Vector(*point),App.Vector(*direction)).cut(Part.makeCylinder(ri,h,App.Vector(*point),App.Vector(*direction)))
 
-def integrated_objects(base_items=None):
+def integrated_objects(base_items=None, *, frame_revision=True):
     items,changed=layout(base_items); removed={'ExtruderDrive','CutterSprocket30T'}
     items=[r for r in items if r['name'] not in removed]
     def add(n,s,material='S275 steel',kind='manufactured_or_stock',group='drive'):
@@ -23,7 +25,9 @@ def integrated_objects(base_items=None):
         if r['name']=='MidRail500':
             r['shape']=box(20,270,480,430,20,40);r['material']='2040 profile L430; 40mm vertical; top datum520';changed.append(r['name'])
         if r['name']=='MidRail320':
-            r['shape']=moved(r['shape'],offset=(0,-11,0));changed.append(r['name'])
+            mount=json.loads((Path(__file__).resolve().parents[3]/'cad/parameters/final_v08.json').read_text())['hot_zone_mount']
+            centre=mount['front_sliding_plate_x_mm']+mount['plate_thickness_mm']/2
+            r['shape']=moved(r['shape'],offset=(0,centre-280,0));changed.append(r['name'])
         if r['name']=='Screw':
             # Replace erroneous transverse notch by an axial rear drive keyseat.
             s=r['shape'].fuse(Part.makeCylinder(6,35,App.Vector(320,400,382),App.Vector(0,1,0)))
@@ -108,4 +112,8 @@ def integrated_objects(base_items=None):
     from detail import details
     additions=details(items); items.extend(additions); changed.extend(r["name"] for r in additions)
     changed.append("ThrustPlate")
+    if frame_revision:
+        from cad.freecad.drive_v08.frame_revision import apply_revision
+        items, frame_changes = apply_revision(items)
+        changed.extend(frame_changes)
     return items,changed

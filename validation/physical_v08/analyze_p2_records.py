@@ -21,6 +21,7 @@ SOURCE_BINDINGS = (
     "docs/drawings/drawing_register.csv",
     "docs/final/assembly_steps.csv",
     "exports/fabrication/frame_cut_list.csv",
+    "exports/final/frame_v08/frame_release.json",
 )
 
 NUMERIC = {
@@ -157,7 +158,7 @@ def verify_approval(path: Path, inventory: Path, packet: Path, stock: Path, kerf
     if not isinstance(data.get("approved_by"),str) or not data["approved_by"].strip():
         raise ValueError("P2 fabrication approval missing approved_by")
     require_time(data.get("approved_at", ""),"P2 approved_at")
-    bindings={"p1_inventory_sha256":inventory,"ggm_packet_sha256":packet,"profile_stock_sha256":stock,"frame_cut_list_sha256":root/"exports/fabrication/frame_cut_list.csv"}
+    bindings={"p1_inventory_sha256":inventory,"ggm_packet_sha256":packet,"profile_stock_sha256":stock,"frame_cut_list_sha256":root/"exports/fabrication/frame_cut_list.csv", "frame_release_sha256":root/"exports/final/frame_v08/frame_release.json"}
     for field,target in bindings.items():
         if data.get(field)!=sha(target): raise ValueError(field+" mismatch")
     approved_kerf=number(data.get("kerf_budget_mm"),"P2 approved kerf")
@@ -169,6 +170,8 @@ def verify_approval(path: Path, inventory: Path, packet: Path, stock: Path, kerf
 def validate_prerequisites(inventory: Path, packet: Path, stock: Path, kerf_mm: float, approval: Path, root: Path = ROOT) -> dict:
     if not math.isfinite(kerf_mm) or kerf_mm < 0: raise ValueError("kerf budget must be finite and non-negative")
     inventory=repo_file(inventory,"P1 inventory",root); packet=repo_file(packet,"GGM receipt packet",root); stock=repo_file(stock,"profile stock record",root)
+    from frame_release import validate as validate_frame
+    frame=validate_frame(root)
     ggm=json.loads(packet.read_text(encoding="utf-8"))
     p1=load(P1_ANALYZER,"ppr_p2_p1")
     p1_result=p1.evaluate(p1.read_csv(inventory),root,ggm)
@@ -176,9 +179,15 @@ def validate_prerequisites(inventory: Path, packet: Path, stock: Path, kerf_mm: 
     mount=load(MOUNT_ANALYZER,"ppr_p2_mount").evaluate(ggm)
     if mount.get("status")!="AS_DRAWN_COMPATIBLE_NOT_AUTHORIZED": raise ValueError("GGM mount is not as-drawn compatible")
     nesting=load(NESTING_ANALYZER,"ppr_p2_nesting")
-    req=nesting.requirements(); measured=nesting.measured(stock); profile_results={}
+    req=nesting.requirements(root); measured=nesting.measured(stock, root); profile_results={}
+    raw_stock={r["record_id"].strip():r for r in read_rows(stock) if r.get("status", "").strip().upper() in {"USABLE", "PASS"}}
     for typ in ("2020","2040"):
         if not measured[typ]: raise ValueError(typ+" profile stock missing")
+        declared=p1_result["semantic_checks"]["ASSET-"+typ]["stock_records"]
+        for bar_id, _ in measured[typ]:
+            prior=declared.get(bar_id); current=raw_stock[bar_id]
+            if prior is None or prior["profile_type"] != typ or any(float(current[k]) != prior[k] for k in ("usable_length_mm", "u95_length_mm")):
+                raise ValueError(typ+" profile stock differs from authenticated P1 bar identity/measurement")
         ok,plan=nesting.solve(req[typ],measured[typ],kerf_mm)
         if not ok: raise ValueError(typ+" profile stock is insufficient or unnested")
         canonical_plan=[]
@@ -191,6 +200,7 @@ def validate_prerequisites(inventory: Path, packet: Path, stock: Path, kerf_mm: 
         "ggm_packet_sha256":sha(packet), "mount_status":mount["status"],
         "profile_stock_sha256":sha(stock), "kerf_budget_mm":kerf_mm,
         "profile_nesting":profile_results, "fabrication_approval":approval_result,
+        "frame_design":frame,
     }
 
 

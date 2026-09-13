@@ -16,9 +16,12 @@ SOURCE_FILES = (
     "control/thermal_barrier_tape_contract.json",
     "validation/physical_v08/analyze_s4_thermal_barrier_tape.py",
     "exports/thermal/manifest.csv",
+    "exports/final/bom/fastener_schedule.csv",
     "exports/thermal/channel_schedule.csv",
     "exports/thermal/thermal_cutoff_topology.json",
+    "cad/parameters/baseline.json",
     "exports/thermal/parts/TH-BH-01/drawing_notes.md",
+    "exports/thermal/parts/TH-BH-02/drawing_notes.md",
     "exports/thermal/parts/TH-DIE-01/drawing_notes.md",
     "exports/thermal/parts/TH-TC-01/drawing_notes.md",
     "docs/final/thermocouple_selection_basis_ko.md",
@@ -27,7 +30,8 @@ SOURCE_FILES = (
 
 RANGES = {
     **{f"bh_z{i}_cold_resistance": (5.184, 6.336, "ohm") for i in range(1, 4)},
-    **{f"bh_z{i}_width": (44.5, 45.5, "mm") for i in range(1, 4)},
+    "bh_z1_width": (39.5, 40.5, "mm"),
+    **{f"bh_z{i}_width": (44.5, 45.5, "mm") for i in (2, 3)},
     "die_cold_resistance": (9.12, 10.56, "ohm"),
     "die_od": (6.487, 6.513, "mm"),
     "die_insertion_length": (39.30, 39.70, "mm"),
@@ -44,6 +48,8 @@ MINIMUMS = {"tc_min_insulation": (100.0, "Mohm")}
 POSITIVE = {"tape_width": "mm", "tape_thickness": "mm", "tape_continuous_service_rating": "C"}
 BOOL_TRUE = {
     "bh_all_pe_bond_verified", "die_positive_retention_verified",
+    "bh_z1_revised_supplier_drawing_accepted",
+    "tcr_fastener_stack_no_bottoming_verified",
     "tcr_cold_pull_20n_motion_le_0p10", "tf_barrel_datasheet_rating_accepted",
     "tf_die_datasheet_rating_accepted", "tf_barrel_continuity_verified",
     "tf_die_continuity_verified", "tf_barrel_installed_k0_chain",
@@ -119,6 +125,9 @@ def evaluate(path: Path) -> dict:
             if not source.is_file():
                 raise ValueError("missing controlling source: " + relative)
             source_hashes[relative] = sha(source)
+        heater_ranges = json.loads((ROOT / "cad/parameters/baseline.json").read_text())["extruder"]["heater_zone_axial_ranges_from_barrel_rear_mm"]
+        if heater_ranges != [[45.0, 85.0], [115.0, 160.0], [190.0, 235.0]]:
+            raise ValueError("heater axial geometry and receipt contract differ")
         checks = {}
         for metric, (lo, hi, unit) in RANGES.items():
             row = by[metric]; authenticate(row, numeric=True)

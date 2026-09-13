@@ -93,7 +93,7 @@ def write_machine_fabrication_package():
         w.writerow(["part_id", "name", "quantity", "material", "process", "x_mm", "y_mm", "z_mm", "files", "release_state"])
         for row in rows:
             w.writerow([row["id"], row["name"], row["qty"], row["material"], row["process"], f"{row['x']:.2f}", f"{row['y']:.2f}", f"{row['z']:.2f}", "FCStd|STEP|STL|DXF|drawing_notes", "DESIGN_RELEASED_PROCUREMENT_USER_APPROVAL_REQUIRED"])
-    with (base / "frame_cut_list.csv").open("w", newline="", encoding="utf-8") as f:
+    with (base / "frame_cut_list_baseline_reference.csv").open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["part_id", "stock", "cut_length_mm", "quantity", "end_condition", "length_tolerance_mm", "source", "release_state"])
         w.writerows([
@@ -122,7 +122,7 @@ def write_machine_fabrication_package():
         "# Machine fabrication package — safety-orchestration-closure-v0.6.1\n\n"
         "이 디렉터리는 shredder CUT, drive DRV, Gate-1 jig, extruder RFQ와 중복되지 않는 본체 제작품을 담는다. "
         "각 part 폴더의 note가 공차를 지배하고 STEP은 3D 형상, DXF/STL은 견적 reference다. "
-        "Frame은 겹치는 profile solid가 아니라 `frame_cut_list.csv`의 butt-joint cut length로 조립한다. "
+        "최종 GGM 프로파일은 release/build_frame_release.py가 생성하는 frame_cut_list.csv를 따른다. frame_cut_list_baseline_reference.csv는 구형 기본 배치 참조이며 절단에 사용하지 않는다. "
         "모든 주문은 사용자 승인 전 HOLD이며, donor 치수와 Gate-1/2/3/5 상태는 대체할 수 없다.\n",
         encoding="utf-8",
     )
@@ -708,7 +708,8 @@ def write_thermal_package():
         raise RuntimeError("thermal cutoff inventory contract is inconsistent")
     fuse=Part.makeBox(20,6,8)
     specs=[
-        dict(id="TH-BH-01",name="Custom barrel mica band heater",shape=mica_band_heater_shape(),qty=3,material="mica/NiCr/stainless sheath",process="custom heater RFQ",critical="24 VDC 100 W each; free-state ID34.10–34.20; usable split-closure travel >=1.00; width45 ±0.5; radial build2 nominal; cold resistance 5.76 Ω ±10%; 300 mm fiberglass leads; PE-bonded sheath; PET service 300 C design; no stock Ø35 substitution"),
+        dict(id="TH-BH-01",name="Custom barrel mica band heater Z2/Z3",shape=mica_band_heater_shape(),qty=2,material="mica/NiCr/stainless sheath",process="custom heater RFQ",critical="24 VDC 100 W each; free-state ID34.10–34.20; usable split-closure travel >=1.00; width45 ±0.5; radial build2 nominal; cold resistance 5.76 Ω ±10%; 300 mm fiberglass leads; PE-bonded sheath; PET service 300 C design; no stock Ø35 substitution"),
+        dict(id="TH-BH-02",name="Custom barrel mica band heater Z1",shape=mica_band_heater_shape(width=40),qty=1,material="mica/NiCr/stainless sheath",process="custom heater RFQ",critical="24 VDC 100 W each; free-state ID34.10–34.20; usable split-closure travel >=1.00; width40 ±0.5; radial build2 nominal; cold resistance 5.76 Ω ±10%; 300 mm fiberglass leads; PE-bonded sheath; PET service 300 C design; no stock Ø35 substitution; reduced-width 100 W design requires supplier watt-density and lead-layout review; thermal response NOT_RUN"),
         dict(id="TH-DIE-01",name="Die cartridge heater",shape=die_cartridge_heater_shape(),qty=1,material="Tempco custom Hi-Density; 321SS sheath; 304SS flange",process="custom RFQ + accepted drawing + receipt test NOT_RUN",critical="24 VDC 60 W; Ø6.500 ±0.013 Type CG; insertion39.50 ±0.20 Type OAL; lead-end cold≥9.5 and disc-end cold≥6.4; HTL550 C leads; custom MFR flange t1.5 20x12 with 2xØ3.4 at14 pitch; cold resistance9.12–10.56 Ω; fit EX-DIE-01 Ø6.55 H7=6.550–6.565; diametral clearance0.037–0.078; SYS-16 positive retention; vendor acceptance/received OD-camber-insulation required; HOLD purchase/energization"),
         dict(id="TH-TC-01",name="Tempco MTA1 custom ungrounded Type-K probes",shape=k_type_probe_shape(),qty=5,material="Alloy 600 MI sheath Ø3.00 ±0.03; 96% MgO; supplier-welded 304SS stop collar",process="custom Tempco RFQ; accepted drawing/receipt0 C insulation and thermal response receipt tests NOT_RUN",critical="MTA1 options K/2/M/A/Q, ungrounded U, sheath25.40 mm, fiberglass lead300 mm, high-temp ceramic potting; T1-T3 collar gives insertion5.20 ±0.05, T4 10.00 ±0.05, T5 4.00 ±0.05; flat closed tip; collar Ø6.0x0.8; bore Ø3.20 +0.05/0 gives diametral clearance0.17-0.28; no compression fitting; exact MPN assigned after quote; supplier drawing/insulation/calibration/thermal-response receipt evidence HOLD"),
         dict(id="TH-TCR-01",name="Thermocouple stop-collar retainer bridge",shape=thermocouple_retainer_shape(),qty=4,material="304 stainless t1.5",process="laser/waterjet + deburr",critical="12x16x1.5; centre Ø3.4; 2xØ3.4 at10 pitch; retain supplier-welded Ø6x0.8 collar with 2xM3x6 A4-80 at0.5 N.m; no clamp load on MI sheath; prove >=20 N axial pull cold and after thermal cycle"),
@@ -725,9 +726,9 @@ def write_thermal_package():
 
 ## 고정 아키텍처
 
-Barrel은 `TH-BH-01` 24 V/100 W/ID34/W45 mica band 3개, die는 `TH-DIE-01` Tempco custom 24 V/60 W/Ø6.50×39.50 Type CG cartridge 1개를 쓴다. 공정가열 정격합계는 360 W(15.0 A)다. TH-DIE-01은 HTL lead, OAL, MFR flange를 포함한 승인 도면이 필요하며 일반 3D-printer cartridge 대체를 금지한다. Ø35 stock band를 Ø34 barrel에 느슨하게 쓰거나 PTC를 barrel 주가열에 쓰는 대체는 금지한다.
+Barrel은 Z1 `TH-BH-02` 24 V/100 W/ID34/W40 1개와 Z2/Z3 `TH-BH-01` W45 2개, die는 `TH-DIE-01` Tempco custom 24 V/60 W/Ø6.50×39.50 Type CG cartridge 1개를 쓴다. 공정가열 정격합계는 360 W(15.0 A)다. TH-DIE-01은 HTL lead, OAL, MFR flange를 포함한 승인 도면이 필요하며 일반 3D-printer cartridge 대체를 금지한다. Ø35 stock band를 Ø34 barrel에 느슨하게 쓰거나 PTC를 barrel 주가열에 쓰는 대체는 금지한다.
 
-Zone 중심은 barrel datum B에서 67.5/137.5/212.5 mm이며 band 범위는 B+45–90, 115–160, 190–235 mm다. Band free-state ID는34.10–34.20 mm, clamp의 usable split-closure travel은 최소1.00 mm다. Barrel OD33.97–34.00 mm에 필요한 최악 원주방향 closure는 π(34.20−33.97)=0.723 mm이고 잔여 travel은 최소0.277 mm다. 냉간 체결 뒤 split ±10°를 제외한 8개 등간격 sector에서 0.05 mm feeler가 5 mm 넘게 들어가지 않아야 한다. 이 검사는 수령 후 `NOT_RUN`이며 디지털 closure 계산만 PASS다. T1/T2/T3 bore는 B+95/170/245 mm, Ø3.20 +0.05/0, flat-bottom 깊이5.40 ±0.05이며 보수적 최소 ligament3.345 mm(요구≥3.32)를 유지한다. TH-TC-01은 Tempco MTA1 K/U/Q 맞춤품으로 Ø3.00±0.03, sheath25.40±0.25와 공급자 용접 stop collar를 쓴다. T1–T3 stop5.20±0.05, T4 stop10.00±0.05이며 TH-TCR-01 bridge와 2×M3로 고정한다. 직경 clearance는0.17–0.28 mm다. 승인도면·절연·인발·열응답 수령검사는 HOLD다.
+Zone 중심은 barrel datum B에서 65.0/137.5/212.5 mm이며 band 범위는 B+45–85, 115–160, 190–235 mm다. Band free-state ID는34.10–34.20 mm, clamp의 usable split-closure travel은 최소1.00 mm다. Barrel OD33.97–34.00 mm에 필요한 최악 원주방향 closure는 π(34.20−33.97)=0.723 mm이고 잔여 travel은 최소0.277 mm다. 냉간 체결 뒤 split ±10°를 제외한 8개 등간격 sector에서 0.05 mm feeler가 5 mm 넘게 들어가지 않아야 한다. 이 검사는 수령 후 `NOT_RUN`이며 디지털 closure 계산만 PASS다. T1/T2/T3 bore는 B+95/170/245 mm, Ø3.20 +0.05/0, flat-bottom 깊이5.40 ±0.05이며 보수적 최소 ligament3.345 mm(요구≥3.32)를 유지한다. TH-TC-01은 Tempco MTA1 K/U/Q 맞춤품으로 Ø3.00±0.03, sheath25.40±0.25와 공급자 용접 stop collar를 쓴다. T1–T3 stop5.20±0.05, T4 stop10.00±0.05이며 TH-TCR-01 bridge와 2×M3로 고정한다. 직경 clearance는0.17–0.28 mm다. 승인도면·절연·인발·열응답 수령검사는 HOLD다.
 
 각 100 W band cold resistance는 5.76 Ω ±10%, 60 W cartridge는 Tempco 공개 resistance tolerance -5/+10%를 적용한 9.12–10.56 Ω를 수령 시 20 ±2 °C에서 기록한다. Sheath-to-lead 절연, PE bond, lead strain relief, 실제 외형과 clamp closure를 검사한다. 24 V 저전압이라도 각 channel은 F-H1..F-H4 5 A branch fuse와 40–60 V VDS/10 A continuous thermal-capable MOSFET를 사용한다. 이 branch fuse는 과전류 보호이며 thermal cutoff가 아니다.
 
@@ -738,7 +739,7 @@ Zone 중심은 barrel datum B에서 67.5/137.5/212.5 mm이며 band 범위는 B+4
     with (base/"channel_schedule.csv").open("w",newline="",encoding="utf-8") as f:
         w=csv.writer(f,lineterminator="\n"); w.writerow(["channel","load","nominal_w","nominal_a_24v","sensor","hard_cut","control","state"])
         w.writerows([
-            ("HZ1","TH-BH-01 zone1",100,"4.17","T1 K-type","F-H1 branch fuse + K0 dual thermal-cutoff chain","MOSFET1 low-frequency","HOLD"),
+            ("HZ1","TH-BH-02 zone1 W40",100,"4.17","T1 K-type","F-H1 branch fuse + K0 dual thermal-cutoff chain","MOSFET1 low-frequency","HOLD"),
             ("HZ2","TH-BH-01 zone2",100,"4.17","T2 K-type","F-H2 branch fuse + K0 dual thermal-cutoff chain","MOSFET2 low-frequency","HOLD"),
             ("HZ3","TH-BH-01 zone3",100,"4.17","T3 K-type","F-H3 branch fuse + K0 dual thermal-cutoff chain","MOSFET3 low-frequency","HOLD"),
             ("HDIE","TH-DIE-01",60,"2.50","T4 K-type","F-H4 branch fuse + K0 dual thermal-cutoff chain","MOSFET4 low-frequency","HOLD"),

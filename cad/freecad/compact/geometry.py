@@ -7,13 +7,16 @@ part of the fabrication assembly or printable exports.
 from __future__ import annotations
 
 import math
+import json
 from pathlib import Path
 
 import FreeCAD as App
 import Part
+from traverse_revision import SPEC as TRAVERSE, carriage_shape, end_plate_shape, rotated_at
 
 
 ROOT = Path(__file__).resolve().parents[3]
+LID = json.loads((ROOT / "cad/parameters/baseline.json").read_text())["input_lid"]
 
 
 def box(x, y, z, dx, dy, dz):
@@ -270,7 +273,7 @@ def feeder_agitator_shaft_shape():
         arm = Part.makeCylinder(2, 2 * radius, App.Vector(-radius, 0, z), App.Vector(1, 0, 0))
         arm.rotate(App.Vector(0, 0, z), App.Vector(0, 0, 1), angle)
         shaft = shaft.fuse(arm)
-    shaft = shaft.cut(Part.makeCylinder(1.5, 8.0, App.Vector(-4, 0, 8), App.Vector(1, 0, 0)))
+    shaft = shaft.cut(Part.makeCylinder(1.5, 8.0, App.Vector(-4, 0, 11), App.Vector(1, 0, 0)))
     return one_solid(shaft.cut(Part.makeCylinder(1.5, 8.0, App.Vector(-4, 0, 292), App.Vector(1, 0, 0))))
 
 
@@ -380,12 +383,7 @@ def spool_motor_mount_shape():
 
 
 def traverse_end_plate_shape():
-    plate = Part.makeBox(5, 50, 40)
-    for y in (10, 35):
-        plate = plate.cut(Part.makeCylinder(4.1, 5, App.Vector(0, y, 20), App.Vector(1, 0, 0)))
-    for y in (6, 44):
-        plate = plate.cut(Part.makeCylinder(2.75, 5, App.Vector(0, y, 6), App.Vector(1, 0, 0)))
-    return one_solid(plate)
+    return one_solid(end_plate_shape())
 
 
 def dancer_support_plate_shape():
@@ -728,12 +726,12 @@ def print_parts():
     # clearance/insert bore in the released solid.  Bosses overlap the parent
     # wall or plate; no floating cylinders are used.
     lid = joined(
-        Part.makeBox(195, 195, 2),
-        Part.makeBox(195, 4, 6),
-        Part.makeBox(195, 4, 6, App.Vector(0, 191, 0)),
-        Part.makeCylinder(7, 8, App.Vector(180, 12, 0)),
-    ).cut(Part.makeCylinder(2.25, 8, App.Vector(180, 12, 0))).cut(
-        Part.makeCone(4.2, 2.25, 2.0, App.Vector(180, 12, 0))
+        Part.makeBox(LID["width_mm"], LID["length_mm"], 2),
+        Part.makeBox(LID["width_mm"], 4, 6),
+        Part.makeBox(LID["width_mm"], 4, 6, App.Vector(0, LID["length_mm"]-4, 0)),
+        Part.makeCylinder(7, 8, App.Vector(LID["latch_x_mm"], 12, 0)),
+    ).cut(Part.makeCylinder(2.25, 8, App.Vector(LID["latch_x_mm"], 12, 0))).cut(
+        Part.makeCone(4.2, 2.25, 2.0, App.Vector(LID["latch_x_mm"], 12, 0))
     )
 
     # Two staggered horizontal ledges form a real zig-zag anti-reach path.
@@ -794,17 +792,7 @@ def print_parts():
         bracket = bracket.cut(Part.makeCylinder(2.75, 5, App.Vector(x, 30, 0)))
     adapter = Part.makeCone(18, 35, 35).cut(Part.makeCone(14, 31, 33, App.Vector(0, 0, 2))).cut(cyl(6.1, 35, 0, 0, 0))
     adapter = adapter.cut(Part.makeCylinder(3.3, 60, App.Vector(-30, 0, 10), App.Vector(1, 0, 0)))
-    carriage = joined(
-        Part.makeBox(90, 55, 8),
-        Part.makeBox(90, 6, 18, App.Vector(0, 0, 6)),
-        Part.makeBox(90, 6, 18, App.Vector(0, 49, 6)),
-        cyl(7.0, 90, 0, 15, 12, (1, 0, 0)),
-        cyl(7.0, 90, 0, 40, 12, (1, 0, 0)),
-        Part.makeBox(30, 20, 8, App.Vector(30, 17.5, 6)),
-    )
-    carriage = one_solid(carriage.cut(cyl(4.2, 90, 0, 15, 12, (1, 0, 0))).cut(cyl(4.2, 90, 0, 40, 12, (1, 0, 0))))
-    for x in (38, 52):
-        carriage = carriage.cut(Part.makeCylinder(2.25, 14, App.Vector(x, 27.5, 0)))
+    carriage = one_solid(carriage_shape())
     bezel = Part.makeBox(180, 120, 5).cut(Part.makeBox(145, 82, 5, App.Vector(17.5, 19, 0)))
     bezel = joined(bezel, *(Part.makeCylinder(6, 8, App.Vector(x, y, 0)) for x, y in ((8, 8), (172, 8), (8, 112), (172, 112))))
     for x, y in ((8, 8), (172, 8), (8, 112), (172, 112)):
@@ -824,14 +812,14 @@ def print_parts():
         dict(id="PPR-C07", name="Puller pinch guard", shape=guard, qty=1, material="ABS", orientation="outer face down", layer="0.24 mm", walls=5, infill="20%", support="window bridge only", support_contact="80x32 inspection-window upper edge", support_removal="deburr from open guard interior", fastener="4x M4 captive screws", insert="4x M4 rivnuts in metal puller plate", tightening="1.2 N.m", tolerance="0.40 mm guard gap", mating="metal puller plate", order=15, edge_distance="8 mm boss centre; Ø14 boss", interfaces="4x Ø4.5 through; 80x32 guarded window"),
         dict(id="PPR-C08", name="Solid-strand guide axle bracket", shape=bracket, qty=2, material="PLA", orientation="L side", layer="0.20 mm", walls=5, infill="40%", support="yes under axle bore", support_contact="Ø5.2 axle-bore lower semicircle", support_removal="ream both bores to Ø5.20–5.40 after support removal", fastener="2x M5x16 + washer + T-nut", insert="none", tightening="2.0 N.m", tolerance="finished bore Ø5.20–5.40; align both loose T-slot brackets on the same axle before 2.0 N.m torque; axle shall pass by hand without visible bending", mating="FM-GA-01 fixed Ø5 axle and profile; 625 bearings are seated in FM-GR-01", order=16, edge_distance="15 mm hole centre", interfaces="2x Ø5.5 base holes; Ø5.20–5.40 fixed-axle bore; complete-pair hand-pass alignment"),
         dict(id="PPR-C09", name="Spool cone adapter", shape=adapter, qty=2, material="PLA", orientation="large face down", layer="0.20 mm", walls=5, infill="35%", support="no", support_contact="none", support_removal="ream spindle bore to Ø12.20–12.40", fastener="1x M6x30 through clamp + washer + nyloc", insert="none; metal shaft collar carries axial load", tightening="2.5 N.m", tolerance="finished spindle bore Ø12.20–12.40; diametral clearance0.20–0.411 to Ø12 h6; cone-to-received-spool contact is separately selected", mating="12 mm metal spindle, metal collar, and received spool", order=18, edge_distance="radial cross-hole at z=10", interfaces="Ø12.20–12.40 axial bore; Ø6.6 radial through clamp; metal collar carries axial load"),
-        dict(id="PPR-C10", name="Traverse carriage", shape=carriage, qty=1, material="PLA", orientation="flat", layer="0.20 mm", walls=5, infill="40%", support="rod bores only", support_contact="two Ø8.4 rod-bores", support_removal="ream rod bores to Ø8.40–8.50 and belt-clamp holes to Ø4.50–4.70", fastener="2x M4x25 belt-clamp screws + washers + nyloc", insert="none", tightening="1.2 N.m", tolerance="finished rod bores Ø8.40–8.50; finished clamp holes Ø4.50–4.70; use two Ø8 h6=7.991–8.000 ground steel rods", mating="specified Ø8 h6 rods and GT2 belt", order=19, edge_distance="8 mm from belt-pad edge", interfaces="2x Ø8.40–8.50 rod bores; 2x Ø4.50–4.70 through clamp bores"),
+        dict(id="PPR-C10", name="Traverse carriage", shape=carriage, qty=1, material="PLA", orientation="flat", layer="0.20 mm", walls=5, infill="40%", support="rod bores only", support_contact="two Ø8.4 rod-bores", support_removal="ream rod bores to Ø8.40–8.50 and belt-clamp holes to Ø4.50–4.70", fastener="2x M4x25 belt-clamp screws + washers + nyloc", insert="none", tightening="1.2 N.m", tolerance="finished rod bores Ø8.40–8.50; finished clamp holes Ø4.50–4.70; use two Ø8 h6=7.991–8.000 ground steel rods", mating="specified Ø8 h6 rods and GT2 belt", order=19, edge_distance="8 mm from belt-pad edge", interfaces="40x55 carriage; rod bores8.40-8.50; clamp holes4.50-4.70 at local X13/27 Y27.5; Y travel80 parallel to spindle"),
         dict(id="PPR-C11", name="Control panel bezel", shape=bezel, qty=1, material="PLA", orientation="front face down", layer="0.20 mm", walls=4, infill="20%", support="no", support_contact="none", support_removal="ream fastener holes to Ø3.40–3.50", fastener="4x M3x16 + washers + all-metal nuts", insert="none", tightening="0.5 N.m", tolerance="finished holes Ø3.40–3.50; 0.25 mm TFT", mating="metal control panel", order=21, edge_distance="8 mm boss centre; Ø12 boss", interfaces="4x Ø3.40–3.50 through bores; 145x82 display opening"),
         dict(id="PPR-C12", name="Cable duct clamp", shape=clip, qty=8, material="PLA", orientation="flat", layer="0.20 mm", walls=4, infill="50%", support="no", support_contact="none", support_removal="none", fastener="1x M4x10 + profile T-nut", insert="none", tightening="1.0 N.m", tolerance="18.6 mm cavity; 0.30 mm/side", mating="20 mm profile and fixed 18x18 cable duct", order=22, edge_distance="6 mm hole centre on 12 mm side tab", interfaces="1x Ø4.5 through tab; 18.6x18.6 duct cavity"),
     ]
     # axis, start xyz, radius, length.  validation/print_interface_checks.py
     # probes these actual voids and a surrounding annulus in the final B-Rep.
     interface_bores = {
-        "PPR-C01": [("z", (180, 12, 0), 2.25, 8)],
+        "PPR-C01": [("z", (LID["latch_x_mm"], 12, 0), 2.25, 8)],
         "PPR-C02": (
             [("z", (x, y, 0), 2.25, 8) for x, y in ((8, 8), (182, 8), (8, 112), (182, 112))]
             + [("y", (x, 0, 25), 5.25, 120) for x in (35, 155)]
@@ -843,7 +831,7 @@ def print_parts():
         "PPR-C07": [("z", (x, y, 0), 2.25, 8) for x, y in ((8, 8), (102, 8), (8, 92), (102, 92))],
         "PPR-C08": [("z", (x, 30, 0), 2.75, 5) for x in (15, 45)],
         "PPR-C09": [("x", (-30, 0, 10), 3.3, 60)],
-        "PPR-C10": [("z", (x, 27.5, 0), 2.25, 14) for x in (38, 52)],
+        "PPR-C10": [("z", (x, 27.5, 0), 2.25, 14) for x in TRAVERSE["clamp_hole_x_mm"]],
         "PPR-C11": [("z", (x, y, 0), 1.7, 8) for x, y in ((8, 8), (172, 8), (8, 112), (172, 112))],
         "PPR-C12": [("z", (-6, 13, 0), 2.25, 8)],
     }
@@ -914,7 +902,7 @@ def machine_fabrication_parts():
         dict(id="FD-GSK-01", name="Feed-hopper flange gasket", shape=feed_hopper_gasket_shape(), qty=2, material="food-contact platinum silicone 0.50±0.05 mm", process="die cut", critical="OD44; ID29.20 +0.20/0; 4xØ4.60 +0.10/0 PCD36±0.10; compress to0.35–0.40; one installed plus one replacement"),
         dict(id="FD-MET-01", name="Metering auger housing", shape=feeder_housing_shape(), qty=1, material="304 stainless", process="turn tube/flanges + drill", critical="OD29/ID25.00 +0.05/0 x105 flange face plus upper spigot OD28.77–28.80 x1.20±0.05; flanges Ø44 x3; 4xØ4.60 +0.10/0 PCD36±0.05; auger radial clearance 0.20–0.25"),
         dict(id="FD-MET-02", name="Positive-displacement metering auger", shape=feeder_auger_shape(), qty=1, material="304 stainless", process="turn root/bore + mill or weld continuous flight", critical="OD24.60 -0.05/0 x105; root Ø10 with local Ø12 x8 pin boss at Z4–12; bore Ø8.20 +0.10/0; Ø3.00 +0.05/0 cross-hole at Z8; pitch18; deburr/polish Ra≤3.2; Gate-2 sets mass/rev"),
-        dict(id="FD-MET-03", name="Common auger and anti-bridge agitator shaft", shape=feeder_agitator_shaft_shape(), qty=1, material="304 shaft", process="turn Ø8 shaft + cross-drill + weld/pin Ø4 paddles", critical="Ø8 h8=7.978–8.000 x300; Ø3.00 +0.05/0 cross-holes at Z8 and Z292; lower hole matched with FD-MET-02, upper with FD-CP-01; paddle sweep Ø50/100/120 at Z183/228/273; straightness0.10; 2.2 N·m design torque SF≥2"),
+        dict(id="FD-MET-03", name="Common auger and anti-bridge agitator shaft", shape=feeder_agitator_shaft_shape(), qty=1, material="304 shaft", process="turn Ø8 shaft + cross-drill + weld/pin Ø4 paddles", critical="Ø8 h8=7.978–8.000 x300; Ø3.00 +0.05/0 cross-holes at Z11 and Z292; lower hole matched with FD-MET-02, upper with FD-CP-01; paddle sweep Ø50/100/120 at Z183/228/273; straightness0.10; 2.2 N·m design torque SF≥2"),
         dict(id="FD-DA-01", name="Feeder reference-drive frame mount", shape=feeder_drive_mount_shape(), qty=1, material="8 mm S275 steel", process="laser/waterjet + bore finish + weld flange", critical="126x70x70 welded shelf; gearbox pilot Ø26 clearance; 4xØ4.5 at31 mm square; 2xØ6.6 frame holes at40 pitch; mount centre30/35; weld continuous both sides; gearbox axis position0.10 to frame datum"),
         dict(id="FD-CP-01", name="Feeder positive drive coupling", shape=feeder_drive_coupling_shape(), qty=1, material="S45C normalized steel", process="turn + broach 3 mm keyway + cross-drill", critical="OD18 x24; both bores Ø8.05 +0.03/0; gearbox half 3.10 +0.05/0 keyway x12; feeder half Ø3.00 +0.05/0 cross-hole at Z6 matched to FD-MET-03; new Ø3x18 spring pin; no set-screw-only torque path"),
         dict(id="EX-THR-01", name="Extruder thrust plate", shape=thrust_plate_shape(), qty=1, material="12 mm S45C normalized steel", process="laser rough + bore/seat finish", critical="12 x95 x105; passage Ø17.2; 51102 pocket Ø28.30 +0.05/0 x9.10 +0.05/0 from marked front face; 4xØ6.6; pocket shoulder square0.05 to bore; NSK general-purpose housing radial clearance >0.25; metal-to-profile load path"),
@@ -934,7 +922,7 @@ def machine_fabrication_parts():
         dict(id="SP-BP-01", name="Spool 6001 bearing pocket plate", shape=spool_bearing_plate_shape(), qty=2, material="10 mm 6061-T6", process="waterjet rough + pocket bore finish", critical="105 x10 x60; bearing centre X30/Z30; Ø28.000–28.021 H7 x8.05–8.10 pocket from marked inner face; Ø26 through relief leaves 1.95–2.00 shoulder; 4xØ5.5 retainer + 2xØ5.5 profile tab; matched axis position ±0.05"),
         dict(id="SP-BR-01", name="Spool 6001 outer-ring retainer", shape=spool_bearing_retainer_shape(), qty=2, material="2 mm 304 stainless sheet", process="laser cut + deburr", critical="54 x2 x54; Ø26.0 +0.10/0 relief gives 0.95–1.00 radial outer-ring overlap; 4xØ5.5 at 44 mm square; flatness0.10; burr away from bearing; use 4x M5 with SP-BP-01"),
         dict(id="SP-MM-01", name="Universal NEMA17-class spool motor plate", shape=spool_motor_mount_shape(), qty=1, material="6 mm 6061-T6", process="laser/waterjet + drill", critical="101 x6 x52; motor centre X26, Ø24; 4xØ4.5 at 31 mm square; 2xØ5.5 profile tab; actual donor shaft and body measurement required before coupling release"),
-        dict(id="SP-TR-01", name="Traverse rod end plate", shape=traverse_end_plate_shape(), qty=2, material="5 mm 6061-T6", process="waterjet + ream", critical="5 x50 x40; two finished Ø8.20–8.30 at 25 mm spacing; 2xØ5.5 mount; use two Ø8 h6=7.991–8.000 x160 ground steel rods; match-ream pair and accept rod parallelism <=0.10/160"),
+        dict(id="SP-TR-01", name="Y-axis traverse stepped support", shape=traverse_end_plate_shape(), qty=2, material="8 mm 6061-T6", process="waterjet + ream", critical="8x60x132; stem14x84; rod bores8.20-8.30 at local Y10/35 Z114; M5 holes5.5 at Y7 Z8/32; two8 h6 x188 rods; parallelism<=0.10/188; spindle-parallel Y axis; four M5x16 plus received washer/T-nut; axial rod retention and bracket/joint proof HOLD"),
         dict(id="SP-DS-01", name="Dancer pivot support plate", shape=dancer_support_plate_shape(), qty=1, material="8 mm 6061-T6", process="waterjet + ream", critical="36 x8 x80; pivot Ø8.20 +0.05/0 at X18/Z45; 2xØ5.5 foot mounts; metal support carries spring/tension load"),
         dict(id="CT-ENC-01", name="Control-panel sheet enclosure", shape=open_front_sheet_shell(190, 35, 190, 2), qty=1, material="2 mm 5052 aluminum", process="laser + brake + PE stud", critical="190 x35 x190; service-open face; PPR-C11 bezel datum; M4 profile mounts; segregate heater/motor and signal wiring"),
     ]
@@ -980,12 +968,12 @@ def assembly_objects(exploded=False):
     add("FrameSpoolColumnFront", box(410,480,20,20,20,300), aluminum, "frame", "20x20 profile L300")
     add("FrameSpoolColumnRear", box(410,588,20,20,20,300), aluminum, "frame", "20x20 profile L300")
     add("FrameSpoolTopRail", box(410,290,320,20,318,20), aluminum, "frame", "20x20 profile L318")
-    add("FrameTraversePostLeft", box(220,405,20,20,20,280), aluminum, "frame", "20x20 profile L280")
-    add("FrameTraversePostRight", box(410,405,20,20,20,280), aluminum, "frame", "20x20 profile L280")
+    add("FrameTraversePostLeft", box(*TRAVERSE["post_origins_mm"][0],20,20,280), aluminum, "frame", "20x20 profile L280")
+    add("FrameTraversePostRight", box(*TRAVERSE["post_origins_mm"][1],20,20,280), aluminum, "frame", "20x20 profile L280")
 
     hopper = cylindrical_hopper(100, 150, 60, 20); hopper.translate(App.Vector(125, 395, 750))
     add("MetalHopper", hopper, aluminum, "input", "2 mm sheet metal")
-    add("PPR-C01_SlidingLid", printed_at("PPR-C01",(30,290,900)), blue, "input", "PLA")
+    add("PPR-C01_SlidingLid", printed_at("PPR-C01",LID["origin_mm"]), blue, "input", "PLA")
     add("PPR-C02_AntiReach", printed_at("PPR-C02",(35,331,620)), blue, "input", "PLA")
 
     # Shredder metal load path.
@@ -1110,12 +1098,14 @@ def assembly_objects(exploded=False):
     add("ScrewThrustBearing",one_solid(thrust_bearing),purple,"extruder","NSK 51102 15x28x9 reference envelope","purchased_reference_envelope")
     add("Screw", screw, orange, "extruder", "EX-SCR-01 SCM440 QT + gas nitride")
     add("Barrel", barrel, steel, "extruder", "EX-BAR-01 SCM440 QT + gas nitride")
-    for zone,(z0,sensor_z) in enumerate(((45.0,95.0),(115.0,170.0),(190.0,245.0)),start=1):
-        band=mica_band_heater_shape(); band.translate(App.Vector(0,0,z0)); band.rotate(App.Vector(),App.Vector(0,1,0),-90); band.translate(App.Vector(375,347,382))
-        add(f"BarrelBandHeaterZ{zone}",band,orange,"extruder",f"24 V 100 W custom mica band ID34.00 W45 zone {zone}","purchased_reference_envelope")
+    thermal = json.loads((ROOT/"cad/parameters/baseline.json").read_text())["extruder"]
+    ranges = thermal["heater_zone_axial_ranges_from_barrel_rear_mm"]
+    for zone, ((z0, z1), sensor_z) in enumerate(zip(ranges, thermal["barrel_sensor_bores_mm"]), start=1):
+        band=mica_band_heater_shape(width=z1-z0); band.translate(App.Vector(0,0,z0)); band.rotate(App.Vector(),App.Vector(0,1,0),-90); band.translate(App.Vector(375,347,382))
+        add(f"BarrelBandHeaterZ{zone}",band,orange,"extruder",f"24 V 100 W custom mica band ID34.00 W{z1-z0:g} zone {zone}","purchased_reference_envelope")
         probe=k_type_probe_shape(insertion_length=5.20); probe.rotate(App.Vector(),App.Vector(1,0,0),90); probe.translate(App.Vector(375-sensor_z,364,382))
         add(f"TemperatureProbeT{zone}",probe,purple,"extruder",f"T{zone} Tempco MTA1 custom K/U/Q probe; Ø3.00±0.03, 5.20±0.05 stop collar")
-        retainer=thermocouple_retainer_shape(); retainer.rotate(App.Vector(),App.Vector(1,0,0),90); retainer.translate(App.Vector(375-sensor_z,364.8,382))
+        retainer=thermocouple_retainer_shape(); retainer.rotate(App.Vector(),App.Vector(0,1,0),90); retainer.translate(App.Vector(375-sensor_z,364.8,382))
         add(f"TemperatureProbeRetainerT{zone}",retainer,steel,"extruder","TH-TCR-01 304SS stop-collar bridge; 2xM3")
     add("BarrelThermalFuse",box(263,343,401.5,22,8,12),red,"extruder","independent 300 C one-shot fuse on metal clamp in inter-zone gap")
     shield = hot_shield_shape(); shield.translate(App.Vector(40, 310, 340))
@@ -1138,9 +1128,9 @@ def assembly_objects(exploded=False):
         add(name, shape, orange, "extruder", material)
     die_heater=die_cartridge_heater_shape(); die_heater.translate(App.Vector(74.5,347,400))
     add("DieCartridgeHeater",die_heater,red,"extruder","TH-DIE-01 custom 24 V 60 W Ø6.50 CG x39.50 with MFR flange in Ø6.55 H7 bore","purchased_reference_envelope")
-    die_probe=k_type_probe_shape(insertion_length=10.0); die_probe.rotate(App.Vector(),App.Vector(1,0,0),-90); die_probe.translate(App.Vector(62.5,328,397))
+    die_probe=k_type_probe_shape(insertion_length=10.0); die_probe.rotate(App.Vector(),App.Vector(1,0,0),-90); die_probe.translate(App.Vector(62.5,327,397))
     add("TemperatureProbeT4",die_probe,purple,"extruder","T4 Tempco MTA1 custom K/U/Q probe; Ø3.00±0.03, 10.00±0.05 stop collar")
-    die_probe_retainer=thermocouple_retainer_shape(); die_probe_retainer.rotate(App.Vector(),App.Vector(1,0,0),-90); die_probe_retainer.translate(App.Vector(62.5,327.2,397))
+    die_probe_retainer=thermocouple_retainer_shape(); die_probe_retainer.translate(App.Vector(62.5,324.7,397))
     add("TemperatureProbeRetainerT4",die_probe_retainer,steel,"extruder","TH-TCR-01 304SS stop-collar bridge; 2xM3")
     add("DieThermalFuse",box(72,345,407,18,7,10),red,"extruder","independent die thermal fuse on metal clamp above die body")
     # High-temperature leads enter a fixed metal duct; flexible sections stay
@@ -1212,17 +1202,17 @@ def assembly_objects(exploded=False):
     add("SpoolBearingRear", cyl(14,8,335,588,175,(0,1,0)).cut(cyl(6.1,8,335,588,175,(0,1,0))), purple, "spooler", "6001-2RSH bearing")
     add("PPR-C09_SpoolAdapterFront",printed_at("PPR-C09",(335,500,175),((1,0,0),-90)),blue,"spooler","PLA")
     add("PPR-C09_SpoolAdapterRear",printed_at("PPR-C09",(335,573,175),((1,0,0),90)),blue,"spooler","PLA")
-    add("TraverseRodA", cyl(4, 160, 245, 435, 280, (1, 0, 0)), steel, "spooler", "Ø8 h6 ground steel rod")
-    add("TraverseRodB", cyl(4, 160, 245, 460, 280, (1, 0, 0)), steel, "spooler", "Ø8 h6 ground steel rod")
-    left_traverse_plate = traverse_end_plate_shape(); left_traverse_plate.translate(App.Vector(240,425,260))
-    right_traverse_plate = traverse_end_plate_shape(); right_traverse_plate.translate(App.Vector(405,425,260))
-    add("TraverseEndPlateLeft", left_traverse_plate, aluminum, "spooler", "SP-TR-01 5 mm metal")
-    add("TraverseEndPlateRight", right_traverse_plate, aluminum, "spooler", "SP-TR-01 5 mm metal")
-    add("PPR-C10_TraverseCarriage",printed_at("PPR-C10",(270,420,268)),blue,"spooler","PLA")
+    add("TraverseRodA", cyl(4, TRAVERSE["rod_length_mm"], *TRAVERSE["rod_origins_mm"][0], TRAVERSE["axis"]), steel, "spooler", "Ø8 h6 ground steel rod")
+    add("TraverseRodB", cyl(4, TRAVERSE["rod_length_mm"], *TRAVERSE["rod_origins_mm"][1], TRAVERSE["axis"]), steel, "spooler", "Ø8 h6 ground steel rod")
+    left_traverse_plate = rotated_at(traverse_end_plate_shape(), TRAVERSE["plate_origins_mm"][0])
+    right_traverse_plate = rotated_at(traverse_end_plate_shape(), TRAVERSE["plate_origins_mm"][1])
+    add("TraverseEndPlateLeft", left_traverse_plate, aluminum, "spooler", "SP-TR-01 8 mm stepped metal bracket")
+    add("TraverseEndPlateRight", right_traverse_plate, aluminum, "spooler", "SP-TR-01 8 mm stepped metal bracket")
+    add("PPR-C10_TraverseCarriage",rotated_at(printed["PPR-C10"], TRAVERSE["carriage_origin_mm"]),blue,"spooler","PLA")
     add("DancerSensorEnvelope", box(158,426,105,12,12,22), purple, "spooler", "dancer analog sensor maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv DANCER; receipt dimensions and calibration required")
-    add("TraverseLeftLimitEnvelope", box(246,412,270,12,10,18), purple, "spooler", "positive-action left limit maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv TRAVERSE_LEFT_RIGHT_LIMIT; receipt dimensions required")
-    add("TraverseRightLimitEnvelope", box(391,412,270,12,10,18), purple, "spooler", "positive-action right limit maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv TRAVERSE_LEFT_RIGHT_LIMIT; receipt dimensions required")
-    add("SpoolerTachSensorEnvelope", box(350,475,188,14,10,18), purple, "spooler", "20 PPR Hall sensor maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv SPOOLER_PWM_DIR_TACH; receipt dimensions and air gap required")
+    add("TraverseLeftLimitEnvelope", box(*TRAVERSE["limit_origins_mm"][0],12,10,18), purple, "spooler", "positive-action left limit maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv TRAVERSE_LEFT_RIGHT_LIMIT; receipt dimensions required")
+    add("TraverseRightLimitEnvelope", box(*TRAVERSE["limit_origins_mm"][1],12,10,18), purple, "spooler", "positive-action right limit maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv TRAVERSE_LEFT_RIGHT_LIMIT; receipt dimensions required")
+    add("SpoolerTachSensorEnvelope", box(350,472,188,14,10,18), purple, "spooler", "20 PPR Hall sensor maximum envelope; exact model unverified", "unverified_donor_envelope", evidence="electronics/io_schedule.csv SPOOLER_PWM_DIR_TACH; receipt dimensions and air gap required")
     add("SpoolerCableRouteEnvelope", box(150,405,300,270,12,12), purple, "spooler", "dancer/traverse/spooler cable service envelope", "purchased_reference_envelope")
 
     spool_motor_plate = spool_motor_mount_shape(); spool_motor_plate.translate(App.Vector(309,602,149))

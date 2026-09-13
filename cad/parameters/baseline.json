@@ -13,9 +13,21 @@
   "geometry_change_required": false,
   "cross_solver_state": "CROSS_SOLVER_VALIDATION_PENDING",
   "limits": {
-    "hard_envelope_mm": [500.0, 750.0, 1000.0],
-    "target_envelope_mm": [480.0, 720.0, 950.0],
-    "design_envelope_mm": [470.0, 700.0, 930.0],
+    "hard_envelope_mm": [
+      500.0,
+      750.0,
+      1000.0
+    ],
+    "target_envelope_mm": [
+      480.0,
+      720.0,
+      950.0
+    ],
+    "design_envelope_mm": [
+      470.0,
+      700.0,
+      930.0
+    ],
     "print_part_axis_max_mm": 210.0,
     "print_mass_target_g": 1500.0,
     "print_mass_review_g": 2000.0,
@@ -24,21 +36,87 @@
   },
   "layout": {
     "frame_profile_mm": 20.0,
-    "hopper_box": [25.0, 285.0, 690.0, 205.0, 220.0, 220.0],
-    "lid_motion_box": [25.0, 285.0, 900.0, 205.0, 220.0, 10.0],
-    "shredder_box": [35.0, 300.0, 530.0, 210.0, 190.0, 155.0],
-    "flake_bin_box": [45.0, 300.0, 410.0, 190.0, 180.0, 120.0],
-    "sealed_feed_box": [270.0, 330.0, 500.0, 165.0, 180.0, 210.0],
-    "extruder_box": [70.0, 300.0, 330.0, 365.0, 95.0, 105.0],
-    "forming_box": [55.0, 305.0, 70.0, 95.0, 90.0, 270.0],
-    "spool_motion_box": [225.0, 430.0, 55.0, 220.0, 220.0, 260.0],
-    "control_box": [255.0, 35.0, 190.0, 190.0, 225.0, 330.0],
+    "hopper_box": [
+      25.0,
+      285.0,
+      690.0,
+      205.0,
+      220.0,
+      220.0
+    ],
+    "lid_motion_box": [
+      25.0,
+      285.0,
+      900.0,
+      205.0,
+      220.0,
+      10.0
+    ],
+    "shredder_box": [
+      35.0,
+      300.0,
+      530.0,
+      210.0,
+      190.0,
+      155.0
+    ],
+    "flake_bin_box": [
+      45.0,
+      300.0,
+      410.0,
+      190.0,
+      180.0,
+      120.0
+    ],
+    "sealed_feed_box": [
+      270.0,
+      330.0,
+      500.0,
+      165.0,
+      180.0,
+      210.0
+    ],
+    "extruder_box": [
+      70.0,
+      300.0,
+      330.0,
+      365.0,
+      95.0,
+      105.0
+    ],
+    "forming_box": [
+      55.0,
+      305.0,
+      70.0,
+      95.0,
+      90.0,
+      270.0
+    ],
+    "spool_motion_box": [
+      225.0,
+      430.0,
+      55.0,
+      220.0,
+      220.0,
+      260.0
+    ],
+    "control_box": [
+      255.0,
+      35.0,
+      190.0,
+      190.0,
+      225.0,
+      330.0
+    ],
     "screw_service_withdrawal_mm": 310.0
   },
   "hopper": {
     "usable_volume_l": 4.5,
     "nominal_batch_kg": 1.0,
-    "bulk_density_range_kg_m3": [200.0, 350.0],
+    "bulk_density_range_kg_m3": [
+      200.0,
+      350.0
+    ],
     "maintenance_heater_w_provisional": 80.0,
     "maintenance_heater_element": "4x_24V_35x21x5_PTC_starting_geometry_receipt_power_test_required",
     "pla_hold_c": 45.0,
@@ -74,23 +152,46 @@
     "pla_rpm": 32.0,
     "pet_rpm": 24.0,
     "material_torque_limits_nm": {
-      "PLA": {"continuous": 11.0, "jam": 18.0},
-      "PET": {"continuous": 13.0, "jam": 18.0}
+      "PLA": {
+        "continuous": 11.0,
+        "jam": 18.0
+      },
+      "PET": {
+        "continuous": 13.0,
+        "jam": 18.0
+      }
     },
     "motor": {
       "model": "TT_MOTOR_GMP60-60127-2460_RATIO47_DIGITAL_REFERENCE_WITH_INTERCHANGEABLE_DONOR_INTERFACE",
       "type": "brushed_geared_DC",
-      "rated_voltage_range_v": [18.0, 30.0],
+      "rated_voltage_range_v": [
+        18.0,
+        30.0
+      ],
       "required_cutter_continuous_torque_nm": 14.0,
       "required_cutter_peak_torque_nm": 24.0,
       "required_peak_duration_s": 3.0,
-      "required_cutter_speed_range_rpm": [20.0, 40.0],
+      "required_cutter_speed_range_rpm": [
+        20.0,
+        40.0
+      ],
       "maximum_no_load_cutter_rpm": 80.0,
-      "acceptable_output_shaft_mm": [10.0, 20.0],
-      "maximum_donor_body_envelope_mm": [90.0, 200.0, 110.0],
+      "acceptable_output_shaft_mm": [
+        10.0,
+        20.0
+      ],
+      "maximum_donor_body_envelope_mm": [
+        90.0,
+        200.0,
+        110.0
+      ],
       "minimum_duty": "S2:60_or_30min_coupon_case_le_80C",
-      "secondary_ratio_options": [1.5, 2.0, 2.5],
-    "drive_topology": "DRV-01_universal_plate_plus_DRV-Axx_donor_adapter_plus_DRV-F01_motor_side_fuse_plus_number35_chain_12T_to_18T_24T_or_30T_plus_DRV-02_cutter_hub_plus_DRV-03_and_DRV-03R_solid_M3_Z16_face18_phase_pair",
+      "secondary_ratio_options": [
+        1.5,
+        2.0,
+        2.5
+      ],
+      "drive_topology": "DRV-01_universal_plate_plus_DRV-Axx_donor_adapter_plus_DRV-F01_motor_side_fuse_plus_number35_chain_12T_to_18T_24T_or_30T_plus_DRV-02_cutter_hub_plus_DRV-03_and_DRV-03R_solid_M3_Z16_face18_phase_pair",
       "reference_variant": {
         "manufacturer": "TT Motor",
         "part_number": "GMP60-60127-2460",
@@ -100,8 +201,15 @@
         "published_continuous_torque_nm": 9.80665,
         "published_rated_current_a": 8.2,
         "published_stall_current_a": 31.0,
-        "published_envelope_mm": [60.5, 211.8, 60.5],
-        "published_front_pilot_mm": [32.0, 4.85],
+        "published_envelope_mm": [
+          60.5,
+          211.8,
+          60.5
+        ],
+        "published_front_pilot_mm": [
+          32.0,
+          4.85
+        ],
         "published_mounting": "4xM5_PCD45",
         "chain_ratio": 2.5,
         "cutter_rated_rpm": 28.0,
@@ -139,7 +247,12 @@
     }
   },
   "extruder": {
-    "candidate_diameters_mm": [12.0, 14.0, 16.0, 18.0],
+    "candidate_diameters_mm": [
+      12.0,
+      14.0,
+      16.0,
+      18.0
+    ],
     "selected_diameter_mm": 16.0,
     "length_to_diameter": 16.0,
     "active_length_mm": 256.0,
@@ -150,7 +263,11 @@
     "pitch_ratio": 1.0,
     "die_bore_mm": 3.0,
     "die_land_mm": 10.0,
-    "die_body_mm": [40.0, 40.0, 48.0],
+    "die_body_mm": [
+      40.0,
+      40.0,
+      48.0
+    ],
     "die_turn_channel_mm": 8.0,
     "die_insert_od_mm": 11.9,
     "die_insert_length_mm": 14.0,
@@ -172,25 +289,69 @@
     "trip_pressure_equivalent_mpa": 6.0,
     "continuous_drive_torque_nm": 15.0,
     "trip_torque_nm": 22.0,
-    "virtual_commissioning_rpm": [14.0, 28.0],
+    "virtual_commissioning_rpm": [
+      14.0,
+      28.0
+    ],
     "nominal_model_throughput_gph_at_14_28_rpm": {
-      "PLA": [86.9, 173.9],
-      "PET": [75.9, 151.7]
+      "PLA": [
+        86.9,
+        173.9
+      ],
+      "PET": [
+        75.9,
+        151.7
+      ]
     },
     "stretch_target_gph": 200.0,
-    "heater_zone_power_w": [100.0, 100.0, 100.0],
-    "heater_zone_hardware": "3x custom mica band 24V 100W as-clamped ID34.00 +0.10/0 width45",
-    "heater_zone_axial_ranges_from_barrel_rear_mm": [[45.0,90.0],[115.0,160.0],[190.0,235.0]],
-    "barrel_sensor_bores_mm": [95.0,170.0,245.0],
+    "heater_zone_power_w": [
+      100.0,
+      100.0,
+      100.0
+    ],
+    "heater_zone_hardware": "Z1 TH-BH-02 width40; Z2/Z3 TH-BH-01 width45; each custom mica band 24V 100W as-clamped ID34.00 +0.10/0",
+    "heater_zone_axial_ranges_from_barrel_rear_mm": [
+      [
+        45.0,
+        85.0
+      ],
+      [
+        115.0,
+        160.0
+      ],
+      [
+        190.0,
+        235.0
+      ]
+    ],
+    "barrel_sensor_bores_mm": [
+      95.0,
+      170.0,
+      245.0
+    ],
     "barrel_sensor_bore_spec": "3x diameter3.20 +0.05/0 flat-bottom blind5.40 +/-0.05 radial; conservative minimum melt-bore ligament3.345 mm",
     "die_heater_power_w": 60.0,
     "die_heater_spec": "TH-DIE-01 custom Tempco Hi-Density metric 24V 60W diameter6.500 +/-0.013 CG x39.50 +/-0.20 with HTL leads and custom MFR flange in diameter6.55 H7 through bore; diametral clearance 0.037-0.078 mm; vendor drawing and receipt inspection required",
     "process_heater_total_w": 360.0,
-    "temperature_sensors": ["T1_barrel_zone1_ungrounded_K","T2_barrel_zone2_ungrounded_K","T3_barrel_zone3_ungrounded_K","T4_die_ungrounded_K","T5_sealed_hopper_ungrounded_K"],
+    "temperature_sensors": [
+      "T1_barrel_zone1_ungrounded_K",
+      "T2_barrel_zone2_ungrounded_K",
+      "T3_barrel_zone3_ungrounded_K",
+      "T4_die_ungrounded_K",
+      "T5_sealed_hopper_ungrounded_K"
+    ],
     "thermocouple_architecture": "ungrounded_mineral_insulated_K_type_with_MAX6675_Tminus_common_reference",
     "thermocouple_probe_spec": "TH-TC-01 Tempco MTA1 custom K/2/M/A/Q/U: Alloy600 diameter3.00 +/-0.03 x25.40 +/-0.25, high-temp potting and fiberglass/SS overbraid lead; supplier-welded stop collar at5.20 +/-0.05 for T1-T3 and10.00 +/-0.05 for T4; TH-TCR-01/SYS-17 retention; accepted drawing and receipt tests required",
-    "pla_zone_c": [180.0, 195.0, 205.0],
-    "pet_zone_c": [245.0, 260.0, 270.0],
+    "pla_zone_c": [
+      180.0,
+      195.0,
+      205.0
+    ],
+    "pet_zone_c": [
+      245.0,
+      260.0,
+      270.0
+    ],
     "pla_die_c": 200.0,
     "pet_die_c": 265.0,
     "thermal_fuse_c": 300.0,
@@ -216,7 +377,103 @@
     "dancer_arm_mm": 105.0,
     "dancer_sweep_deg": 50.0,
     "traverse_mm": 80.0,
-    "axis_height_mm": 175.0
+    "axis_height_mm": 175.0,
+    "traverse_layout": {
+      "revision": "TRAVERSE_AXIS_CLEARANCE_20260913",
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "carriage_length_mm": 40.0,
+      "clamp_hole_x_mm": [
+        13.0,
+        27.0
+      ],
+      "plate_thickness_mm": 8.0,
+      "plate_width_mm": 60.0,
+      "plate_height_mm": 132.0,
+      "plate_stem_width_mm": 14.0,
+      "plate_stem_height_mm": 84.0,
+      "rod_local_y_mm": [
+        10.0,
+        35.0
+      ],
+      "rod_local_z_mm": 114.0,
+      "mount_local_y_mm": 7.0,
+      "mount_local_z_mm": [
+        8.0,
+        32.0
+      ],
+      "rod_length_mm": 188.0,
+      "rod_origins_mm": [
+        [
+          437,
+          454,
+          374
+        ],
+        [
+          412,
+          454,
+          374
+        ]
+      ],
+      "plate_origins_mm": [
+        [
+          447,
+          460,
+          260
+        ],
+        [
+          447,
+          628,
+          260
+        ]
+      ],
+      "post_origins_mm": [
+        [
+          430,
+          440,
+          20
+        ],
+        [
+          430,
+          608,
+          20
+        ]
+      ],
+      "carriage_origin_mm": [
+        452,
+        476.5,
+        362
+      ],
+      "limit_origins_mm": [
+        [
+          455,
+          474,
+          362
+        ],
+        [
+          455,
+          595,
+          362
+        ]
+      ],
+      "lid_service_axis": [
+        -1,
+        0,
+        0
+      ],
+      "lid_service_travel_mm": 214.0,
+      "physical_validation_state": "NOT_RUN",
+      "fabrication_authorized": false,
+      "qualification_holds": [
+        "rod axial retention",
+        "received limit actuator and stopping distance",
+        "plate/joint load and carriage play",
+        "filament routing and winding trial"
+      ]
+    }
   },
   "power": {
     "psu_voltage_v": 24.0,
@@ -239,7 +496,7 @@
       "screw_rpm": 16.0,
       "fan_percent": 100.0,
       "puller_feedforward_mm_s": 9.28,
-      "kp": 0.40,
+      "kp": 0.4,
       "ki": 0.025,
       "purge": "PLA compatible purge, 80 g minimum then clear screen"
     },
@@ -251,9 +508,27 @@
       "screw_rpm": 18.0,
       "fan_percent": 100.0,
       "puller_feedforward_mm_s": 8.66,
-      "kp": 0.30,
+      "kp": 0.3,
       "ki": 0.018,
       "purge": "feed stop, empty PET, approved transition purge 120 g, cool below 210 C, inspect screen"
     }
+  },
+  "input_lid": {
+    "width_mm": 204.0,
+    "length_mm": 204.0,
+    "latch_x_mm": 189.0,
+    "origin_mm": [
+      23,
+      293,
+      900
+    ],
+    "service_axis": [
+      -1,
+      0,
+      0
+    ],
+    "service_travel_mm": 214.0,
+    "physical_validation_state": "NOT_RUN",
+    "rails_latch_and_interlock_receipt_required": true
   }
 }

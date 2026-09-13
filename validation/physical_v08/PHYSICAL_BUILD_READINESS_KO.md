@@ -10,7 +10,7 @@
 
 전체 기계를 한 번에 만들지 않는다. 먼저 프로젝트실 재고를 조사하고, GGM 모터를 수령해 실제 치수를 측정한 다음 장착부를 확정한다. 분쇄기는 CUT-01 12장 중 2장만 coupon으로 먼저 가공한다. screw/barrel은 본품 전에 EX-CPN-SCR/EX-CPN-BAR만 동일 공정으로 만들고 경도·질화층·Ra·치수/간극을 확인한다. 실패하면 나머지 수량을 발주하지 않는다.
 
-현재 frame cut list 합계는 2020 profile 13.348 m/26 pieces, 2040 profile 1.320 m/2 pieces다. 보유 프로파일의 실측 usable length를 먼저 적고 부족분만 구매한다. GGM CAD의 reference profile LOD를 이 길이에 중복 가산하지 않는다.
+최종 GGM R1 절단표는 2020 36개/15.078 m, 2040 4개/2.180 m다. FR-TIE-01 강판 연결재 1개가 추가된다. 명목 완성 길이만의 합계이며 실제 bar별 usable length-U95, 절단 허용차 상한 0.5 mm/개 및 kerf를 반영한 P2 nesting이 별도로 필요하다. frame_release.py가 현재 통합 CAD·형상 변경 검증·절단표 해시를 재검사한다. 기본 배치의 frame_cut_list_baseline_reference.csv를 최종 절단에 사용하지 않는다.
 
 ## 구동부의 현재 물리 기준
 

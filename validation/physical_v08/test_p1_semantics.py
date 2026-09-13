@@ -33,7 +33,7 @@ class P1SemanticsTest(unittest.TestCase):
         self.assertFalse(result['hardware_authorization'])
         self.assertFalse(result['stage_p1_pass'])
     def test_exact_counts_reject_invalid_short_surplus(self):
-        for value in ('0','-1','2','4','3.1','nan','inf','-inf','1e309','','three',True):
+        for value in ('0','-1','2','4','3.1','3.00000000000000001','nan','inf','-inf','1e309','','three',True):
             with self.subTest(value=value):
                 rows=copy.deepcopy(self.rows);self.row(rows,'STOCK-6201')['observed_quantity']=value
                 with self.assertRaises(ValueError):p1.evaluate(rows,ROOT)
@@ -79,6 +79,14 @@ class P1SemanticsTest(unittest.TestCase):
     def test_missing_details_rejected(self):
         rows=copy.deepcopy(self.rows);self.row(rows,'ASSET-2020')['detail_path']=''
         with self.assertRaises(ValueError):p1.evaluate(rows,ROOT)
+    def test_wrong_profile_section_rejected(self):
+        self.mutate_detail('ASSET-2020',lambda d,r:d['entries'][0].update(profile_type='2040'))
+    def test_stale_cut_schedule_rejected(self):
+        self.mutate_detail('ASSET-2020',lambda d,r:d.update(frame_cut_list_sha256='0'*64))
+    def test_non_object_entry_rejected(self):
+        self.mutate_detail('MAT-PLATE',lambda d,r:d['entries'].append('GOOD'))
+    def test_boolean_schema_rejected(self):
+        self.mutate_detail('MAT-PLATE',lambda d,r:d.update(schema_version=True))
     def test_blank_template_never_passes(self):
         result=p1.evaluate(p1.read_csv(HERE/'templates/p1_inventory_record.csv'),ROOT)
         self.assertEqual(result['status'],'P1_SURVEY_INCOMPLETE')

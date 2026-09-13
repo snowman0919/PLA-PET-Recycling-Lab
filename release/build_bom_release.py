@@ -62,6 +62,8 @@ def drawing(part_id: str) -> str:
     if part_id.startswith("PPR-C"):
         return f"exports/print/{part_id}/dimension_sheet.svg"
     special = {
+        "FR-01": "exports/final/frame_v08/FRAME_CUT_AND_TIE_KO.pdf",
+        "FR-TIE-01": "exports/final/frame_v08/FR-TIE-01.svg",
         "EX-MT-01": "exports/final/manufacturing/hot_zone/ExtruderRearFixedDatum.svg",
         "EX-MT-02": "exports/final/manufacturing/hot_zone/ExtruderFrontSlidingGuide.svg",
         "EX-MT-03": "exports/final/manufacturing/hot_zone/ExtruderFixedCollar.svg",
@@ -403,7 +405,7 @@ def fasteners() -> list[dict[str, object]]:
                 part["insert_or_nut"], "hex/driver sized to received fastener",
                 f"{part['interfaces']}; witness mark and no crack", "exports/print/print_manifest.csv", "RELEASED_DIGITAL"))))
     manual = [
-        ("SYS-01", "frame profile joints", "M5x12 SHCS + washer + prevailing T-nut; 56 kits paired across 28 two-fastener corner brackets", 56, "5.0", "prevailing T-nut", "4 mm hex + square", "all 56 witness marks present; frame diagonal <=1.0 mm", "RELEASED_DIGITAL"),
+        ("SYS-01", "frame profile joints", "BASE FRAME ALLOWANCE ONLY: M5x12 + washer + T-nut 56 kits; not final GGM joint count; FR-TIE-01 needs four separate M5x10 kits", 56, "5.0", "prevailing T-nut", "4 mm hex + square", "P2 member-by-member connection review; final GGM bracket/T-nut allocation and tie thread engagement required; frame diagonal <=1.0 mm", "HOLD_GGM_MEMBER_CONNECTION_RECEIPT_REVIEW"),
         ("SYS-02", "PE-01..04 bonds", "M4x10 + two tooth washers + all-metal nut per bond", 4, "3.0", "tooth washer + all-metal nut", "3 mm hex + DMM", "four PE bonds pass continuity and have witness marks", "RELEASED_DIGITAL"),
         ("SYS-03", "EX-THR-01 / barrel", "M6x20 class 8.8", 8, "9", "prevailing metal nut", "5 mm hex/10 mm spanner", "metal thrust path; witness mark", "RELEASED_DIGITAL"),
         ("SYS-04", "EX-DIE-01 / EX-BAR-01", "M4x45 class 10.9 SHCS cut/deburred to 42.5 +/-0.1", 4, "1.5", "dry thread; no threadlocker; witness mark", "3 mm hex; micrometer/depth gauge", "digital load-path PASS: engagement6.82-7.40 and thread-bottom clearance0.60-1.18 from die grip34.95-35.05, compressed gasket0.25-0.53 and barrel full thread8.00; 6 MPa retained-clamp separation SF2.14; physical receipt/leak/first thermal-cycle check NOT_RUN", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
@@ -419,7 +421,7 @@ def fasteners() -> list[dict[str, object]]:
         ("SYS-14", "FM-GC-01 / FM-GR-01", "M3x25 A2-70 SHCS + washers + all-metal prevailing nuts", 3, "0.35", "all-metal prevailing nut", "2.5 mm hex + 5.5 mm spanner", "three balanced through-bolts; caps flush; blue-check outer-ring edge only; free rotation and no cap rub", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
         ("SYS-15", "FD-MET-02 / FD-MET-03 / FD-CP-01", "420 stainless slotted spring pins: Ø3x12 lower + Ø3x18 upper", 2, "N/A", "matched Ø3.00-3.05 cross-holes; replace after removal", "3 mm pin punch", "both pins flush; 10 hand turns without housing/coupling rub; inspect for looseness", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
         ("SYS-16", "TH-DIE-01 / EX-DIE-01", "2x M3x8 A4-80 SHCS + Schnorr washer", 2, "1.0", "high-temperature serrated conical washer; no threadlocker", "2.5 mm hex", "flange seated; heater cannot back out; leads unloaded; cold witness-mark and recheck after first thermal cycle", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
-        ("SYS-17", "TH-TCR-01 / EX-BAR-01 / EX-DIE-01", "M3x8 A4-80 SHCS + Schnorr washer", 8, "0.5", "high-temperature serrated conical washer; no threadlocker", "2.5 mm hex", "four stop collars captured; 20 N pull causes <=0.10 mm motion cold and after thermal cycle", "RELEASED_DIGITAL_PHYSICAL_NOT_RUN"),
+        ("SYS-17", "TH-TCR-01 / EX-BAR-01 / EX-DIE-01", "M3x6 A4-80 SHCS + Schnorr washer; M3x8 prohibited in 4 mm blind threads", 8, "0.5", "high-temperature serrated conical washer; no threadlocker", "2.5 mm hex", "confirm actual washer/collar/bridge stack, useful thread engagement and positive bottom clearance before torque; nominal M3x6 clears whereas M3x8 bottoms; four stop collars captured; 20 N pull causes <=0.10 mm motion cold and after thermal cycle", "HOLD_RECEIVED_RETAINER_STACK_AND_PULL_TEST"),
     ]
     for values in manual:
         rows.append(dict(zip(fields, (*values[:8], "release/build_bom_release.py::fasteners; final manual generated from this schedule", values[8]))))

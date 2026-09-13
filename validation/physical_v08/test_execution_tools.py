@@ -167,8 +167,8 @@ class ExecutionToolsTest(unittest.TestCase):
     def test_profile_nesting_synthetic(self):
         import hashlib
         req=nest.requirements()
-        ok,plan=nest.solve(req['2020'],[('SYN-2020',14000.0)],2.0)
-        self.assertTrue(ok); self.assertEqual(sum(len(x['cuts']) for x in plan),26)
+        ok,plan=nest.solve(req['2020'],[('SYN-2020',18000.0)],2.0)
+        self.assertTrue(ok); self.assertEqual(sum(len(x['cuts']) for x in plan),36)
         ok2,_=nest.solve(req['2040'],[('SYN-2040',1000.0)],2.0)
         self.assertFalse(ok2)
         root=HERE.parents[1]
@@ -176,14 +176,14 @@ class ExecutionToolsTest(unittest.TestCase):
             d=Path(td); evidence=d/'profile.txt'; evidence.write_text('profile measured')
             digest=hashlib.sha256(evidence.read_bytes()).hexdigest(); rel=str(evidence.relative_to(root))
             csv_path=d/'stock.csv'
-            fields=['record_id','profile_type','source_asset','usable_length_mm','u95_length_mm','straightness_note','damage_note','instrument_id','instrument_calibration_ref','measured_at','operator','reviewer','evidence_path','sha256','status','notes']
+            fields=['record_id','profile_type','source_asset','usable_length_mm','u95_length_mm','straightness_note','damage_note','instrument_id','instrument_calibration_ref','measured_at','operator','reviewer','evidence_path','sha256','status','notes','condition_check','inspection_power_state']
             with csv_path.open('w',newline='') as f:
                 w=csv.DictWriter(f,fieldnames=fields); w.writeheader()
-                common={'source_asset':'LAB','u95_length_mm':'1.0','straightness_note':'OK','damage_note':'NONE','instrument_id':'MEAS-16','instrument_calibration_ref':'CHECK-1M','measured_at':'2026-09-10T14:30+09:00','operator':'TEST','reviewer':'REVIEW','evidence_path':rel,'sha256':digest,'status':'USABLE','notes':''}
-                w.writerow({'record_id':'S2020','profile_type':'2020','usable_length_mm':'14000',**common})
-                w.writerow({'record_id':'S2040','profile_type':'2040','usable_length_mm':'1400',**common})
+                common={'source_asset':'LAB','u95_length_mm':'1.0','straightness_note':'OK','damage_note':'NONE','instrument_id':'MEAS-16','instrument_calibration_ref':'CHECK-1M','measured_at':'2026-09-10T14:30+09:00','operator':'TEST','reviewer':'REVIEW','evidence_path':rel,'sha256':digest,'status':'USABLE','notes':'','condition_check':'USABLE_REVIEWED','inspection_power_state':'NONE'}
+                w.writerow({'record_id':'S2020','profile_type':'2020','usable_length_mm':'18000',**common})
+                w.writerow({'record_id':'S2040','profile_type':'2040','usable_length_mm':'3000',**common})
             stock=nest.measured(csv_path)
-            self.assertEqual(stock['2020'][0][1],13999.0)
+            self.assertEqual(stock['2020'][0][1],17999.0)
             ok3,_=nest.solve(req['2040'],stock['2040'],2.0); self.assertTrue(ok3)
             output=d/'nesting.json'
             proc=subprocess.run(['python3',str(HERE/'profile_nesting.py'),str(csv_path),'--kerf-mm','2.0','--output',str(output)],capture_output=True,text=True,cwd=root)

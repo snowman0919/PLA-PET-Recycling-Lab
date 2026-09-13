@@ -26,5 +26,49 @@ assert len(native.Solids) == len(step.Solids) == row['solids']
 assert abs(native.Volume-step.Volume) <= step.Volume*1e-6
 for actual, expected, hard in zip((step.BoundBox.XLength,step.BoundBox.YLength,step.BoundBox.ZLength), row['bbox_mm'], (500,750,1000)):
     assert abs(actual-expected) <= 1e-5 and actual <= hard
+
+import sys
+sys.path.insert(0, str(ROOT / 'validation'))
+from integrated_assembly_clearance import audit
+native_rows = [{'name': o.SourceObjectId, 'shape': o.Shape,
+                'classification': o.ComponentRole,
+                'material': o.MaterialSpecification, 'group': o.Subsystem}
+               for o in objects]
+native_review = audit(native_rows)
+assert native_review['unexpected_count'] == 0
+
+def same_location(a, b):
+    return (a.CenterOfMass - b.CenterOfMass).Length <= 1e-5
+
+def solid_equivalence(left, right):
+    """Apply the exporter's one-ppm volume tolerance to each individual solid."""
+    remaining = list(right)
+    for solid in left:
+        tolerance = max(1e-5, solid.Volume * 1e-6)
+        for index, other in enumerate(remaining):
+            if not same_location(solid, other) or abs(solid.Volume-other.Volume) > tolerance:
+                continue
+            common = solid.common(other).Volume
+            if abs(solid.Volume-common) <= tolerance and abs(other.Volume-common) <= tolerance:
+                remaining.pop(index)
+                break
+        else:
+            candidates = [(other.Volume, solid.common(other).Volume, other.isValid()) for other in remaining if same_location(solid, other)]
+            raise AssertionError(f'STEP/native individual solid mismatch volume={solid.Volume} bbox={solid.BoundBox} candidates={candidates}')
+    assert not remaining, 'STEP contains extra solids'
+
+solid_equivalence(native.Solids, step.Solids)
+probe = native.Solids[0].copy()
+probe.translate(App.Vector(0.5, 0, 0))
+try:
+    solid_equivalence([probe], [native.Solids[0]])
+except AssertionError:
+    pass
+else:
+    raise AssertionError('same-volume displaced solid was accepted')
+print('GGM_EXPORTED_SOLIDS_EQUIVALENT', len(step.Solids),
+      'unexpected_overlaps', native_review['unexpected_count'],
+      'reference_overlaps', len(native_review['reference_overlaps']))
+
 App.closeDocument(doc.Name)
 print('GGM_NATIVE_STEP_HANDOFF_PASS envelope=470x729x930 hard_envelope=500x750x1000 physical=NOT_RUN')

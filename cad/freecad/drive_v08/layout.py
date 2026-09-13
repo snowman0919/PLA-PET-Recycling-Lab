@@ -32,6 +32,12 @@ def motor_pose(shape, point, extruder=False):
 
 def load_base():
     data=json.loads((SRC/'manifest.json').read_text()); result=[]
+    sources=data.get('source_sha256',{})
+    required={'cad/freecad/compact/geometry.py','cad/freecad/compact/traverse_revision.py','cad/parameters/baseline.json'}
+    if not required <= set(sources): raise ValueError('Incomplete source cache bindings; recapture current geometry')
+    for rel,digest in sources.items():
+        if hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()!=digest:
+            raise ValueError('Stale source cache: '+rel)
     for r in data['objects']:
         path=SRC/(r['name']+'.brep')
         if hashlib.sha256(path.read_bytes()).hexdigest()!=r.get('brep_sha256'):raise ValueError('Stale BRep cache:'+r['name'])

@@ -1,6 +1,7 @@
 """Typed inventory declarations; hashes do not establish physical truth."""
 from __future__ import annotations
 import csv
+from decimal import Decimal
 import hashlib
 import json
 import math
@@ -44,7 +45,9 @@ def checked_file(root: Path, rel, expected_hash) -> Path:
 
 def detail(row, root: Path, control: Path) -> dict:
     data = json.loads(checked_file(root, row.get("detail_path"), row.get("detail_sha256")).read_text())
-    if data.get("schema_version") != 1 or data.get("kind") != "P1_INVENTORY_DETAIL":
+    if not isinstance(data, dict):
+        raise ValueError("P1 structured evidence must be an object")
+    if type(data.get("schema_version")) is not int or data.get("schema_version") != 1 or data.get("kind") != "P1_INVENTORY_DETAIL":
         raise ValueError("invalid P1 structured evidence schema")
     if data.get("item_id") != row["item_id"] or data.get("inventory_control_sha256") != digest(control):
         raise ValueError("structured evidence item/requirement binding mismatch")
@@ -84,7 +87,7 @@ def validate_row(row: dict, root: Path, control_path: Path) -> dict:
     numeric_required = row["required"].strip()
     count = int(numeric_required) if numeric_required.isdecimal() else 2 if item == "MAT-CUT" else None
     if count is not None:
-        if row.get("quantity_unit") != "count" or not n.is_integer() or n != count:
+        if row.get("quantity_unit") != "count" or not n.is_integer() or Decimal(str(row["observed_quantity"])) != Decimal(count):
             raise ValueError(item + ": exact allocated quantity mismatch")
         return {"kind": "exact_count", "observed": n, "required": count}
     data = detail(row, root, control_path)
@@ -93,6 +96,7 @@ def validate_row(row: dict, root: Path, control_path: Path) -> dict:
         raise ValueError(item + ": structured entries required")
     ids = set()
     for entry in entries:
+        if not isinstance(entry, dict): raise ValueError(item + ": invalid structured entry")
         key = entry.get("id")
         if not isinstance(key, str) or not key.strip() or key in ids:
             raise ValueError(item + ": blank/duplicate entry identity")
@@ -101,8 +105,16 @@ def validate_row(row: dict, root: Path, control_path: Path) -> dict:
             raise ValueError(item + ": entry marking absent")
         if entry.get("condition") not in GOOD:
             raise ValueError(item + ": entry condition rejected")
-        number(entry.get("quantity"), item + " entry quantity")
+        qty = number(entry.get("quantity"), item + " entry quantity")
+        if entry.get("unit") in {"count", "roll"} and not qty.is_integer():
+            raise ValueError(item + ": fractional discrete entry quantity")
     if item in PROFILES:
+        from frame_release import validate as validate_frame
+        frame = validate_frame(root)
+        if data.get("frame_cut_list_sha256") != frame["cutlist_sha256"]:
+            raise ValueError(item + ": stale frame cut-list binding")
+        if any(e.get("profile_type") != ("2020" if item == "ASSET-2020" else "2040") for e in entries):
+            raise ValueError(item + ": profile section mismatch")
         if row.get("quantity_unit") != "mm": raise ValueError(item + ": unit must be mm")
         if any(e.get("unit") != "mm" for e in entries): raise ValueError("profile entry unit")
         total = sum(number(e["quantity"], "length") for e in entries)
@@ -113,7 +125,8 @@ def validate_row(row: dict, root: Path, control_path: Path) -> dict:
             minimum = sum(float(r["cut_length_mm"]) * int(r["quantity"]) for r in csv.DictReader(f) if r["stock"].startswith(PROFILES[item]))
         if minimum <= 0 or lower < minimum or not math.isclose(total, n, abs_tol=1e-6, rel_tol=0):
             raise ValueError(item + ": profile length short or entry total mismatch")
-        return {"kind": "stock_length", "measured_mm": total, "conservative_mm": lower, "nominal_cut_mm": minimum, "nesting_required_at_p2": True}
+        return {"kind": "stock_length", "measured_mm": total, "conservative_mm": lower, "nominal_cut_mm": minimum, "nesting_required_at_p2": True,
+                "stock_records": {e["id"]: {"profile_type": e["profile_type"], "usable_length_mm": float(e["quantity"]), "u95_length_mm": float(e["u95"])} for e in entries}}
     if item in MASS:
         if row.get("quantity_unit") != "kg" or any(e.get("unit") != "kg" for e in entries):
             raise ValueError(item + ": mass unit must be kg")
