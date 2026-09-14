@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "scope": "BARREL_ONLY_LINEAR_SENSITIVITY_NOT_PROCESS_QUALIFICATION",
+  "reference_commit": "e323c54effa956b1b90ba586fdee8f9d89b447d1",
+  "reference_zone1_range_mm": [
+    45.0,
+    90.0
+  ],
+  "reference_front_plate_mm": 265.0,
+  "density_kg_m3": 7800.0,
+  "conductivity_w_mk": [
+    25.0,
+    45.0
+  ],
+  "specific_heat_j_kgk": [
+    480.0,
+    650.0
+  ],
+  "heater_contact_h_w_m2k": [
+    200.0,
+    1000.0,
+    5000.0
+  ],
+  "support_sink_g_w_k": [
+    0.0,
+    0.2,
+    1.0
+  ],
+  "external_effective_h_w_m2k": [
+    8.0,
+    25.0
+  ],
+  "heater_capacity_j_k": 25.0,
+  "ambient_c": 25.0,
+  "times_s": [
+    0.0,
+    30.0,
+    60.0,
+    120.0,
+    180.0
+  ],
+  "mesh_mm": 5.0,
+  "refinement_mm": [
+    2.5,
+    1.25
+  ],
+  "mesh_peak_temperature_tolerance_c": 1.0,
+  "young_pa": 190000000000.0,
+  "alpha_per_k": 1.7e-05,
+  "width_tolerance_mm": 0.5,
+  "sheath_comparison_temperature_c": 300.0,
+  "source_notes": [
+    "Ovako typical 42CrMo4: density7800, ambient k40-45, cp460-480 at50/100C; not a received-material certificate or high-temperature curve.",
+    "k25/cp650, contact h, support G, effective external h and heater C are uncalibrated sensitivity choices, not guaranteed bounds. No tape insulation credit.",
+    "Constant full barrel-heater power for180s is a numerical excitation, not a commissioning procedure. Die, screw, polymer, PID, radiation nonlinearity, leads and safety trips are excluded.",
+    "300C is the project comparison ceiling, NOT a supplier-approved heater-sheath rating."
+  ],
+  "status": "NOT_RUN_MODEL_IMPLEMENTATION_BLOCKED",
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "note": "Only a proposed sensitivity input set; model.py was not created. No thermal or structural solver result is supplied by this file."
+}
