@@ -58,7 +58,7 @@ def drawing(row):
     (OUT/(row['name']+'.svg')).write_text(svg)
 
 def main():
-    paths=list(Path(__file__).resolve().parent.glob('*.py'))+[ROOT/'control/ggm_drive_contract.json', ROOT/'cad/parameters/ggm_frame_revision.json', ROOT/'validation/integrated_assembly_clearance.py', ROOT/'validation/integrated_motion_clearance.py']
+    paths=list(Path(__file__).resolve().parent.glob('*.py'))+[ROOT/'control/ggm_drive_contract.json', ROOT/'cad/parameters/ggm_frame_revision.json', ROOT/'validation/integrated_assembly_clearance.py', ROOT/'validation/integrated_motion_clearance.py', ROOT/'validation/shaft_retention_clearance.py']
     base_paths=json.loads((ROOT/'analysis/drive_integration_v08/raw/source/manifest.json').read_text())['source_sha256']
     for p,h in base_paths.items():
         if sha(ROOT/p)!=h:raise RuntimeError('Refresh source cache before generation: '+p)

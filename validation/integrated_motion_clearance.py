@@ -63,7 +63,10 @@ def audit(items):
     lid_travel=config['input_lid']['service_travel_mm']
     sweep=Part.makeBox(b.XLength+lid_travel,b.YLength,b.ZLength,App.Vector(b.XMin-lid_travel,b.YMin,b.ZMin))
     check_clear(sweep,by,{'PPR-C01_SlidingLid'},'left lid service envelope')
+    from validation.shaft_retention_clearance import audit_traverse_retention
+    retention = audit_traverse_retention(items, config['spooler']['traverse_layout'])
     return {'status':'GGM_NOMINAL_MOTION_CLEARANCE_PASS',
+        'traverse_retention': retention,
         'traverse_axis':'Y_PARALLEL_TO_SPOOL', 'traverse_stroke_mm':travel,
         'continuous_traverse_bounding_envelope_clear':True,'traverse_sample_count':int(travel)+1,
         'dancer_sample_count':51,'support_contacts':contacts,
@@ -71,7 +74,7 @@ def audit(items):
         'lid_service_travel_mm':lid_travel,'lid_service_left_extent_mm':b.XMin-lid_travel,
         'physical_validation_state':'NOT_RUN','fabrication_authorized':False,
         'scope':'Nominal solids and service space. Dancer sampled; not a continuous angular proof.',
-        'not_qualified':['rod retention','limit actuation and stopping distance','bracket/joint capacity and carriage wear','filament routing, belt drive and winding','lid rails, interlock and tool access']}
+        'not_qualified':['received collar tightening torque and axial-slip proof','limit actuation and stopping distance','bracket/joint capacity and carriage wear','filament routing, belt drive and winding','lid rails, interlock and tool access']}
 
 def main():
     sys.path[:0]=[str(ROOT),str(ROOT/'cad/freecad/drive_v08')]
@@ -80,7 +83,7 @@ def main():
     items,_=integrated_objects(final_objects())
     result=audit(items)
     from validation.integrated_assembly_clearance import geometry_source_paths
-    sources=geometry_source_paths()+[Path(__file__).resolve(),ROOT/'validation/integrated_assembly_clearance.py']
+    sources=geometry_source_paths()+[Path(__file__).resolve(),ROOT/'validation/integrated_assembly_clearance.py', ROOT/'validation/shaft_retention_clearance.py']
     result['source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
     out=ROOT/'analysis/frame_v08/results/integrated_motion.json'
     out.parent.mkdir(parents=True,exist_ok=True)

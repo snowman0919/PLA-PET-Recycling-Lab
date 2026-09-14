@@ -17,16 +17,20 @@ def main():
  code=sorted(p for p in ROOT.glob('analyze_*.py'))+[ROOT/'simulation_prerequisite.py',ROOT/'validate_execution_registry.py',ROOT/'build_physical_launch_package.py',ROOT/'validate_physical_launch_package.py',ROOT/'update_execution_graph.py',ROOT/'p1_semantics.py',ROOT/'profile_nesting.py',ROOT/'frame_release.py']
  code += [PROJECT/rel for rel in (
   'cad/freecad/compact/geometry.py','cad/freecad/compact/traverse_revision.py',
+  'cad/freecad/compact/shaft_retention.py','validation/shaft_retention_clearance.py',
+  'release/build_mechanical_release.py','validation/test_native_model_handoff.py',
+  'validation/test_shaft_retention_geometry.py',
   'cad/freecad/drive_v08/assembly.py','cad/freecad/drive_v08/frame_revision.py',
   'validation/integrated_assembly_clearance.py','validation/integrated_motion_clearance.py',
   'analysis/frame_v08/audit_geometry.py','analysis/frame_v08/beam_screen.py',
   'analysis/frame_v08/compare_published.py','release/build_frame_release.py')]
  code=[p for p in dict.fromkeys(code) if p.is_file()]
  docs=sorted(ROOT.glob('P*_KO.md'))+[ROOT/'PHYSICAL_BUILD_READINESS_KO.md',ROOT/'PHYSICAL_EXECUTION_INDEX_KO.md',ROOT/'FRAME_R1_EXECUTION_KO.md']
- docs += [PROJECT/'docs/reviews/geometry-closure-v08/README_KO.md']
+ docs += [PROJECT/'docs/reviews/geometry-closure-v08/README_KO.md', PROJECT/'docs/reviews/geometry-closure-v08/TRAVERSE_RETENTION_KO.md']
  docs=[p for p in dict.fromkeys(docs) if p.is_file()]
  structured=[ROOT/'physical_gate_contract.json',ROOT/'physical_execution_registry.json',ROOT/'stage_minimum_bom.csv',ROOT/'fabrication_sequence.csv',ROOT/'inventory_confirmation.csv',ROOT/'measurement_equipment.csv']
  structured+=[p for p in sorted((ROOT/'templates').iterdir()) if p.is_file()]
+ structured += [PROJECT/'docs/reviews/geometry-closure-v08/retention_verification.json']
  structured=[p for p in dict.fromkeys(structured) if p.is_file()]
  data=extract(code,cache_root=ROOT,root=PROJECT,parallel=False)
  source_nodes={}

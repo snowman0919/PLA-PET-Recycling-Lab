@@ -13,6 +13,7 @@ from pathlib import Path
 import FreeCAD as App
 import Part
 from traverse_revision import SPEC as TRAVERSE, carriage_shape, end_plate_shape, rotated_at
+from shaft_retention import traverse_collar_rows
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -922,7 +923,8 @@ def machine_fabrication_parts():
         dict(id="SP-BP-01", name="Spool 6001 bearing pocket plate", shape=spool_bearing_plate_shape(), qty=2, material="10 mm 6061-T6", process="waterjet rough + pocket bore finish", critical="105 x10 x60; bearing centre X30/Z30; Ø28.000–28.021 H7 x8.05–8.10 pocket from marked inner face; Ø26 through relief leaves 1.95–2.00 shoulder; 4xØ5.5 retainer + 2xØ5.5 profile tab; matched axis position ±0.05"),
         dict(id="SP-BR-01", name="Spool 6001 outer-ring retainer", shape=spool_bearing_retainer_shape(), qty=2, material="2 mm 304 stainless sheet", process="laser cut + deburr", critical="54 x2 x54; Ø26.0 +0.10/0 relief gives 0.95–1.00 radial outer-ring overlap; 4xØ5.5 at 44 mm square; flatness0.10; burr away from bearing; use 4x M5 with SP-BP-01"),
         dict(id="SP-MM-01", name="Universal NEMA17-class spool motor plate", shape=spool_motor_mount_shape(), qty=1, material="6 mm 6061-T6", process="laser/waterjet + drill", critical="101 x6 x52; motor centre X26, Ø24; 4xØ4.5 at 31 mm square; 2xØ5.5 profile tab; actual donor shaft and body measurement required before coupling release"),
-        dict(id="SP-TR-01", name="Y-axis traverse stepped support", shape=traverse_end_plate_shape(), qty=2, material="8 mm 6061-T6", process="waterjet + ream", critical="8x60x132; stem14x84; rod bores8.20-8.30 at local Y10/35 Z114; M5 holes5.5 at Y7 Z8/32; two8 h6 x188 rods; parallelism<=0.10/188; spindle-parallel Y axis; four M5x16 plus received washer/T-nut; axial rod retention and bracket/joint proof HOLD"),
+        dict(id="SP-TG-01", name="Traverse guide rod", shape=Part.makeCylinder(4,TRAVERSE["rod_length_mm"]), qty=2, material="8 h6 ground steel shaft", process="cut/face/deburr; collar witness marks outside carriage stroke", critical="8 h6 x196; nominal end margin2 beyond each8 mm collar; keep set-screw contact outside carriage path; actual collar torque and shaft retention test HOLD"),
+        dict(id="SP-TR-01", name="Y-axis traverse stepped support", shape=traverse_end_plate_shape(), qty=2, material="8 mm 6061-T6", process="waterjet + ream", critical="8x60x132; stem14x84; rod bores8.20-8.30 at local Y10/35 Z114; M5 holes5.5 at Y7 Z8/32; two SP-TG-01 rods8 h6 x196; four SP-SC-08 collars outside support plates; parallelism<=0.10 over support spacing; spindle-parallel Y axis; four M5x16 plus received washer/T-nut; received collar torque/anti-slip test and bracket/joint proof HOLD"),
         dict(id="SP-DS-01", name="Dancer pivot support plate", shape=dancer_support_plate_shape(), qty=1, material="8 mm 6061-T6", process="waterjet + ream", critical="36 x8 x80; pivot Ø8.20 +0.05/0 at X18/Z45; 2xØ5.5 foot mounts; metal support carries spring/tension load"),
         dict(id="CT-ENC-01", name="Control-panel sheet enclosure", shape=open_front_sheet_shell(190, 35, 190, 2), qty=1, material="2 mm 5052 aluminum", process="laser + brake + PE stud", critical="190 x35 x190; service-open face; PPR-C11 bezel datum; M4 profile mounts; segregate heater/motor and signal wiring"),
     ]
@@ -1204,6 +1206,9 @@ def assembly_objects(exploded=False):
     add("PPR-C09_SpoolAdapterRear",printed_at("PPR-C09",(335,573,175),((1,0,0),90)),blue,"spooler","PLA")
     add("TraverseRodA", cyl(4, TRAVERSE["rod_length_mm"], *TRAVERSE["rod_origins_mm"][0], TRAVERSE["axis"]), steel, "spooler", "Ø8 h6 ground steel rod")
     add("TraverseRodB", cyl(4, TRAVERSE["rod_length_mm"], *TRAVERSE["rod_origins_mm"][1], TRAVERSE["axis"]), steel, "spooler", "Ø8 h6 ground steel rod")
+    for collar in traverse_collar_rows(TRAVERSE):
+        add(collar["name"], collar["shape"], steel, collar["group"], collar["material"],
+            collar["classification"], evidence=collar["evidence"])
     left_traverse_plate = rotated_at(traverse_end_plate_shape(), TRAVERSE["plate_origins_mm"][0])
     right_traverse_plate = rotated_at(traverse_end_plate_shape(), TRAVERSE["plate_origins_mm"][1])
     add("TraverseEndPlateLeft", left_traverse_plate, aluminum, "spooler", "SP-TR-01 8 mm stepped metal bracket")

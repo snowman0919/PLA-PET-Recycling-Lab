@@ -1,8 +1,8 @@
 {
   "scope": "P0-P12 and integrated geometry R1/R2 dependency review",
   "method": "graphify AST + literal reviewed anchors",
-  "nodes": 479,
-  "edges": 1013,
+  "nodes": 515,
+  "edges": 1087,
   "source_sha256": {
     "validation/physical_v08/analyze_ggm_mount_compatibility.py": "5400c5f5e36b1b1519cc75c658e13d6056c26ba677433c299282c6d28ab03df6",
     "validation/physical_v08/analyze_material_run.py": "646205ef8e25c02ed6147e7fe072d038d68c5ce9652164d6fa39b345cd4461d2",
@@ -23,16 +23,21 @@
     "validation/physical_v08/validate_execution_registry.py": "6daf41d26f6ad92711b16e90442c6ae4d1de22a3e15ca5c7a816b0bc2e2b4812",
     "validation/physical_v08/build_physical_launch_package.py": "8a65e9584c6f767301e9b1d173fddba528bc6907919395720076cc3b7c66394a",
     "validation/physical_v08/validate_physical_launch_package.py": "70f77c054bf707a547a3ff68872f264daa2d991e5bc98d0a26e54df7dbaa99a1",
-    "validation/physical_v08/update_execution_graph.py": "56e6fd312dcc2c9d4b2040cd6d794717402ff7499fd9fd166f027a53b1ce3902",
+    "validation/physical_v08/update_execution_graph.py": "17676009dd91a0bc66d51a3cd8f5d97284eecaa83aa700ce0e93c14af2802126",
     "validation/physical_v08/p1_semantics.py": "3d383360c88fc75acc9e2a8b943df731a993454dfe2eb39b1e5079d7ac3427ab",
     "validation/physical_v08/profile_nesting.py": "04c10a90fac6da41cd7a2f8cda5d2babfcb9fa9a97fbfb57759cfe5c3edaff2a",
     "validation/physical_v08/frame_release.py": "0c7068fbb71be1b92f12326819d4546a22a0b96b178a38cb743dd5a7345ef7d8",
-    "cad/freecad/compact/geometry.py": "140e0b8c37fc4beadd13d9940b5ca258709ed47ac6f87b235fbdc22313159d4f",
+    "cad/freecad/compact/geometry.py": "e4d1be67a563164262e76d7b3a1086fb3bd054f60ecbf3b56315938cbcdb28ad",
     "cad/freecad/compact/traverse_revision.py": "bdf47c625c378184001ca3061ade07ecb8b3e957f0914da0d1d717b4e5271650",
+    "cad/freecad/compact/shaft_retention.py": "09089f8bdfe484fe8ed2d9f584f46b5e27af156dad865579b39e4eb77f2f56a3",
+    "validation/shaft_retention_clearance.py": "1ea105b593ef98e7f2351315b1467f41b78e116ed1326881aff7b4df902e1014",
+    "release/build_mechanical_release.py": "75994af05ea3e2f5b5dcf81ef63e42da2e97e76aab82f106e56cdee9bd38a2eb",
+    "validation/test_native_model_handoff.py": "ef893dc5d30dd09d7cba908292dea169a361cbb5e99bb9ab687c92713c4c096b",
+    "validation/test_shaft_retention_geometry.py": "588365c787c36d13c8b8fd00b7b03b97e69893b0c1a9bf5033396a5d4c067014",
     "cad/freecad/drive_v08/assembly.py": "5d80060fc98896f5b42f10d7095f59f7fd4828538e6b4c9e172a210640dc946e",
     "cad/freecad/drive_v08/frame_revision.py": "59d7381e26eab435831d8d08d2d0f1a7c0c159337ed46e46e72d1fe068cb0fe9",
     "validation/integrated_assembly_clearance.py": "91d53b7919647131f709c4c8a0cbbc1ee96358c6b7fd6c43ca14debaf34feb93",
-    "validation/integrated_motion_clearance.py": "b2e3fff43340ce1fc57b14bdcbb42a3d65697ff7ca4242fd26afa2f980a62644",
+    "validation/integrated_motion_clearance.py": "7e48ebf365bb47ef337025af6d9f876c25a343b82fda0f5653754fb152707f61",
     "analysis/frame_v08/audit_geometry.py": "ff491315e02508d194ff3f45873f0db505065240b12ca1cf6356656c4be45a65",
     "analysis/frame_v08/beam_screen.py": "c1e89ad713fd59b2597e1e58e90e4df8e4bf383bcda58bc71ee5df9be598b5a2",
     "analysis/frame_v08/compare_published.py": "37c76ddb4fa81f4a9a5452e6fe38a480a072969645a55fca3b088ea7c6a8b1b0",
@@ -53,6 +58,7 @@
     "validation/physical_v08/PHYSICAL_EXECUTION_INDEX_KO.md": "24cdf5ca8373a0f8a2a3e3c0018fe8a51ae0f3f9394cda9dd3dbe23ed5f3fb08",
     "validation/physical_v08/FRAME_R1_EXECUTION_KO.md": "288f60cb7fd633705794d25d1ba2eff68ff62bc5335c55344b45689eeddf2265",
     "docs/reviews/geometry-closure-v08/README_KO.md": "997dfeafc49381891f2f683026339fb705dcedd5d5ef385e08908610ff83b98b",
+    "docs/reviews/geometry-closure-v08/TRAVERSE_RETENTION_KO.md": "6cb540fb325a967352434bafb0e87eb0dcdf56dc5eee00378df0a1388e38aa4e",
     "validation/physical_v08/physical_gate_contract.json": "1a628d6351ad80b7cb566d5f1cabbbc391a8334e6763a4fe19cc8f30ce32dc4b",
     "validation/physical_v08/physical_execution_registry.json": "fdad2b3927c2a2099218a77f32cf202b579e2319dd0133c6dc9ff155af297a42",
     "validation/physical_v08/stage_minimum_bom.csv": "b094d98a8020e83f0b402647415fd165ed67097f716721ddaab1848c6539a35d",
@@ -104,6 +110,7 @@
     "validation/physical_v08/templates/physical_evidence_manifest.csv": "c7bf7b9d7350a8631d186e06461d4639a0936b4f39a07b457b6507c1452a1228",
     "validation/physical_v08/templates/profile_stock_measurement.csv": "1a145fbcc1e06528f2452d790ac6517ca0d7e7ca98a558be07607a78c4471d99",
     "validation/physical_v08/templates/s4_thermal_barrier_tape_smoke.csv": "50f8f91e62274bbb6fe16d80af9a8922036b49f59066f5eef34bea73806a7ac0",
-    "validation/physical_v08/templates/thermal_first_cycle.csv": "2423e72970f6d3d785e933554ed4232bc79cabd03cafb682f9a45fe47c5d2f7c"
+    "validation/physical_v08/templates/thermal_first_cycle.csv": "2423e72970f6d3d785e933554ed4232bc79cabd03cafb682f9a45fe47c5d2f7c",
+    "docs/reviews/geometry-closure-v08/retention_verification.json": "7e29f61b8740edccf49bc66c9ee455ed167fa2c8c4293a88cbe50b38386a368d"
   }
 }

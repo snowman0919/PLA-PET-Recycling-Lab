@@ -379,7 +379,7 @@
     "traverse_mm": 80.0,
     "axis_height_mm": 175.0,
     "traverse_layout": {
-      "revision": "TRAVERSE_AXIS_CLEARANCE_20260913",
+      "revision": "TRAVERSE_RETAINED_RODS_20260914",
       "axis": [
         0,
         1,
@@ -405,16 +405,16 @@
         8.0,
         32.0
       ],
-      "rod_length_mm": 188.0,
+      "rod_length_mm": 196.0,
       "rod_origins_mm": [
         [
           437,
-          454,
+          450,
           374
         ],
         [
           412,
-          454,
+          450,
           374
         ]
       ],
@@ -468,11 +468,31 @@
       "physical_validation_state": "NOT_RUN",
       "fabrication_authorized": false,
       "qualification_holds": [
-        "rod axial retention",
+        "received collar torque, anti-slip retention and shaft surface condition",
         "received limit actuator and stopping distance",
         "plate/joint load and carriage play",
         "filament routing and winding trial"
-      ]
+      ],
+      "retention": {
+        "part_id": "SP-SC-08",
+        "reference_model": "GN 705-8-E",
+        "bore_mm": 8.0,
+        "outer_diameter_mm": 16.0,
+        "width_mm": 8.0,
+        "screw_major_diameter_mm": 4.0,
+        "screw_length_mm": 6.0,
+        "screw_tip_envelope_length_mm": 2.0,
+        "quantity": 4,
+        "rod_end_margin_mm": 2.0,
+        "tool_corridor_radius_mm": 3.0,
+        "tool_corridor_length_mm": 30.0,
+        "manufacturer_source": "https://www.ganternorm.com/en/products/3.2-Mounting-Positioning-Leveling-with-Retaining-Cables-Screws-Clamping-and-Supporting-Elements/Shaft-collars/GN-705-Shaft-collars-blackened",
+        "procurement_status": "REFERENCE_ONLY_RECEIPT_REQUIRED",
+        "torque_nm": null,
+        "holding_force_n": null,
+        "physical_validation_state": "NOT_RUN",
+        "geometry_scope": "Nominal ring with major-diameter thread clearance and conservative screw protrusion; not cutting master"
+      }
     }
   },
   "power": {

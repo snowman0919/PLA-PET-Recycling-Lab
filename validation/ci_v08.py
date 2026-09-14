@@ -20,6 +20,7 @@ CAD_TESTS = {
     "test_native_model_handoff.py", "test_shredder_manifest_regeneration.py",
     "test_frame_reduction_geometry.py", "test_integrated_assembly_clearance.py",
     "test_thermocouple_fastener_fit.py", "test_integrated_motion_clearance.py",
+    "test_shaft_retention_geometry.py",
 }
 HISTORICAL_TESTS = {
     "test_release.py": "v0.6.1 release-state snapshot; superseded by v0.8 technical gates",

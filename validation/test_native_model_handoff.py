@@ -41,20 +41,21 @@ def same_location(a, b):
     return (a.CenterOfMass - b.CenterOfMass).Length <= 1e-5
 
 def solid_equivalence(left, right):
-    """Apply the exporter's one-ppm volume tolerance to each individual solid."""
+    """Compare actual missing/added solids, not subtraction of volume integrals."""
     remaining = list(right)
     for solid in left:
         tolerance = max(1e-5, solid.Volume * 1e-6)
         for index, other in enumerate(remaining):
-            if not same_location(solid, other) or abs(solid.Volume-other.Volume) > tolerance:
+            if not same_location(solid, other):
                 continue
-            common = solid.common(other).Volume
-            if abs(solid.Volume-common) <= tolerance and abs(other.Volume-common) <= tolerance:
+            missing, added = solid.cut(other), other.cut(solid)
+            if not (missing.isNull() or missing.isValid()) or not (added.isNull() or added.isValid()):
+                continue
+            if missing.Volume <= tolerance and added.Volume <= tolerance:
                 remaining.pop(index)
                 break
         else:
-            candidates = [(other.Volume, solid.common(other).Volume, other.isValid()) for other in remaining if same_location(solid, other)]
-            raise AssertionError(f'STEP/native individual solid mismatch volume={solid.Volume} bbox={solid.BoundBox} candidates={candidates}')
+            raise AssertionError(f'STEP/native geometry differs volume={solid.Volume} bbox={solid.BoundBox}')
     assert not remaining, 'STEP contains extra solids'
 
 solid_equivalence(native.Solids, step.Solids)
@@ -72,3 +73,21 @@ print('GGM_EXPORTED_SOLIDS_EQUIVALENT', len(step.Solids),
 
 App.closeDocument(doc.Name)
 print('GGM_NATIVE_STEP_HANDOFF_PASS envelope=470x729x930 hard_envelope=500x750x1000 physical=NOT_RUN')
+
+# Equal scalar measurements must not hide differently located internal features.
+stock = Part.makeBox(20, 20, 20)
+left = stock.copy()
+right = stock.copy()
+for x, y in ((5, 10), (15, 10)):
+    left = left.cut(Part.makeCylinder(1, 20, App.Vector(x, y, 0)))
+for x, y in ((10, 5), (10, 15)):
+    right = right.cut(Part.makeCylinder(1, 20, App.Vector(x, y, 0)))
+assert abs(left.Volume - right.Volume) < 1e-5
+assert same_location(left.Solids[0], right.Solids[0])
+try:
+    solid_equivalence(left.Solids, right.Solids)
+except AssertionError:
+    pass
+else:
+    raise AssertionError('different internal holes with equal volume/centroid were accepted')
+print('GGM_INTERNAL_FEATURE_DIFFERENCE_REJECTION_PASS')

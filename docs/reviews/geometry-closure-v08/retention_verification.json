@@ -1,0 +1,99 @@
+{
+  "status": "SCOPED_RETENTION_GEOMETRY_VERIFIED_GLOBAL_RELEASE_HOLD",
+  "base_commit": "d2bf590616a1daae515f3e719f0b4283d1dd6158",
+  "tested_worktree": true,
+  "native_objects": 257,
+  "native_step_solids": 263,
+  "pair_count": 32896,
+  "unexpected_interferences": 0,
+  "disclosed_reference_overlaps": 15,
+  "frame": {
+    "2020_count": 36,
+    "2020_length_mm": 15078,
+    "2040_count": 4,
+    "2040_length_mm": 2180,
+    "aluminum_reduction_mm": 489
+  },
+  "traverse": {
+    "guide_rod_length_mm": 196,
+    "rod_quantity": 2,
+    "collar_quantity": 4,
+    "stroke_mm": 80,
+    "axial_end_margin_mm": 2,
+    "holding_force_verified": false
+  },
+  "checks": [
+    {
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/native.log",
+      "sha256": "738b14a9b866916b8bdb512beb67fbcdced3abb77e9539f5688abf997a093024",
+      "status": "PASS"
+    },
+    {
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/08-test_shaft_retention_geometry.log",
+      "sha256": "54ca7da5bc0789b00f4b68799a5f202e058c60cd59cf7af709dc61592166df09",
+      "status": "PASS"
+    },
+    {
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/04-test_integrated_assembly_clearance.log",
+      "sha256": "f4b7c454f7b9870099a4242750f033f5e693dcbe2fa56fbd846af21d34cbdb18",
+      "status": "PASS"
+    },
+    {
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/05-test_integrated_motion_clearance.log",
+      "sha256": "9e9af8b403f176ed445502810df807bc9d5055a878ad15690f7ce7d9e73fd068",
+      "status": "PASS"
+    },
+    {
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/02-test_frame_reduction_geometry.log",
+      "sha256": "ca5e0a84136c65d2ddb051d6ae01abbe3ce98c1931b0a192d9fd2b6033102a47",
+      "status": "PASS"
+    },
+    {
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/39-test_p1_semantics.log",
+      "sha256": "6c88633b7d4c12eb974676f494934b07d2b8509389278ae95b1e42fc69448d68",
+      "status": "PASS"
+    },
+    {
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/40-test_p2_execution.log",
+      "sha256": "fd0bd5684bfbf6bb57922520600610d96804328e4a4ec46dc95bcbd111a85ef4",
+      "status": "PASS"
+    },
+    {
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/16-test_frame_release.log",
+      "sha256": "dbdd9674448a06e1b0c30ab882947d9cb7fc864e7d7c138852e5ad3f9de059a5",
+      "status": "PASS"
+    }
+  ],
+  "global_p0": {
+    "status": "BLOCKED",
+    "technical_gates": 23,
+    "failed_count": 5
+  },
+  "light_suite": "FAIL_P0_AND_DEPENDENT_READINESS_P3_CHECKS",
+  "source_sha256": {
+    "cad/freecad/compact/shaft_retention.py": "09089f8bdfe484fe8ed2d9f584f46b5e27af156dad865579b39e4eb77f2f56a3",
+    "cad/freecad/compact/geometry.py": "e4d1be67a563164262e76d7b3a1086fb3bd054f60ecbf3b56315938cbcdb28ad",
+    "cad/parameters/baseline.json": "b5dda947cddac6a65f50d947ea36672ac1578b73071d2c2ff688395b9b25a5c9",
+    "cad/freecad/drive_v08/generate.py": "aa15e6ca82ae9f2120a701994531f4c669531827bf48d475a1eb3ee72c787559",
+    "validation/shaft_retention_clearance.py": "1ea105b593ef98e7f2351315b1467f41b78e116ed1326881aff7b4df902e1014",
+    "validation/integrated_motion_clearance.py": "7e48ebf365bb47ef337025af6d9f876c25a343b82fda0f5653754fb152707f61",
+    "validation/test_shaft_retention_geometry.py": "588365c787c36d13c8b8fd00b7b03b97e69893b0c1a9bf5033396a5d4c067014",
+    "validation/test_native_model_handoff.py": "ef893dc5d30dd09d7cba908292dea169a361cbb5e99bb9ab687c92713c4c096b",
+    "validation/ci_v08.py": "42b4f596d88a140bdf0c5cd8efc44f21cb20b5b66a2b520370ba114806112795",
+    "release/build_mechanical_release.py": "75994af05ea3e2f5b5dcf81ef63e42da2e97e76aab82f106e56cdee9bd38a2eb",
+    "bom/bom.csv": "6833eeebe2ecdf62dfdeda70595c9cce0d3a0c998d13f89e7c34140b6a098b6a"
+  },
+  "deferred": [
+    "independent rod/support drawing generation and handoff preview request blocked by tool",
+    "subsequent regeneration and manifest-summary request blocked by tool",
+    "generated artifact promotion and new release not completed",
+    "full physics impact revalidation",
+    "dancer axle manufacturing/assembly length review",
+    "actual collar torque, slip test and hardware receipt"
+  ],
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "cut_authorization": false,
+  "energization_authorized": false,
+  "published_rc1_changed": false
+}
