@@ -203,7 +203,17 @@ def main() -> None:
     retainer_sources = retainer.get("source_sha256", {})
     retainer_current = bool(retainer_sources) and all(exists(path) and sha(ROOT / path) == digest for path, digest in retainer_sources.items())
     retainer_current &= transitive_current("analysis/final_validation/results/v0.8/axial_retainer_qualification.json")
-    record("07_freecad_source", cad_current and retainer_current and contact == "PASS" and cad.get("status") == "PASS" and not cad.get("unexpected_collisions") and len(cad.get("new_objects", {})) == 7, f"FreeCAD mount solids/collision/contact gate; source_current={cad_current}; axial_contact={contact}; candidate_current={retainer_current} candidate={retainer.get('status')}/{retainer.get('numeric_screen')}")
+    try:
+        from importlib.util import spec_from_file_location, module_from_spec
+        frame_spec = spec_from_file_location('ppr_frame_binding', ROOT/'validation/physical_v08/frame_release.py')
+        frame_module = module_from_spec(frame_spec)
+        frame_spec.loader.exec_module(frame_module)
+        integrated_frame = frame_module.validate(ROOT)
+    except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
+        integrated_frame = {'status': 'FAIL', 'reason': str(error)}
+    frame_current = (integrated_frame.get('status') == 'FRAME_CUTLIST_BINDING_PASS'
+                     and integrated_frame.get('cut_authorization') is False)
+    record("07_freecad_source", cad_current and retainer_current and frame_current and contact == "PASS" and cad.get("status") == "PASS" and not cad.get("unexpected_collisions") and len(cad.get("new_objects", {})) == 7, f"Integrated GGM frame={integrated_frame}; FreeCAD mount solids/collision/contact gate; source_current={cad_current}; axial_contact={contact}; candidate_current={retainer_current} candidate={retainer.get('status')}/{retainer.get('numeric_screen')}")
     step_rows, step_fields = csv_rows("exports/final/step/step_manifest.csv")
     required_step = {"part_id", "revision", "source_object", "source_commit", "file", "format", "units", "body_count", "solid_count", "bbox_mm", "volume_mm3", "sha256", "status"}
     step_dirs_ok = all((ROOT / "exports/final/step" / name).is_dir() and any((ROOT / "exports/final/step" / name).iterdir()) for name in STEP_DIRS)

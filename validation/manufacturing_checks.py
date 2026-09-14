@@ -175,6 +175,7 @@ def main():
         for ext in ("FCStd","step","stl","dxf"):
             require((folder/f"{spec['id']}.{ext}").exists(),f"missing extruder fabrication format {spec['id']}.{ext}")
     required_machine_ids={"IN-HOP-01","FD-BIN-01","FD-HOP-01","FD-GSK-01","FD-MET-01","FD-MET-02","FD-MET-03","FD-DA-01","FD-CP-01","EX-THR-01","EX-SH-01","DRV-GD-01","FM-PL-01","FM-RL-01","FM-AX-01","FM-EB-01","FM-GR-01","FM-GC-01","FM-GA-01","SP-DA-01","SP-AX-01","SP-RL-01","SP-SH-01","SP-BP-01","SP-BR-01","SP-MM-01","SP-TR-01","SP-DS-01","CT-ENC-01"}
+    required_machine_ids |= {"SP-TG-01", "SP-AX-02", "SP-AW-08"}
     require({spec["id"] for spec in machine_specs}==required_machine_ids,"machine fabrication family set incomplete")
     shredder_by={spec["id"]:spec["shape"] for spec in shredder_specs}
     require("CUT-09" in shredder_by,"CUT-09 chamber sleeves missing")
@@ -221,7 +222,7 @@ def main():
     auger=machine_by["FD-MET-02"]
     feeder_shaft=machine_by["FD-MET-03"]
     auger_pin_probe=Part.makeCylinder(1.49,12,App.Vector(-6,0,8),App.Vector(1,0,0))
-    shaft_pin_probe=Part.makeCylinder(1.49,8,App.Vector(-4,0,8),App.Vector(1,0,0))
+    shaft_pin_probe=Part.makeCylinder(1.49,8,App.Vector(-4,0,11),App.Vector(1,0,0))
     require(auger.common(auger_pin_probe).Volume<0.01,"FD-MET-02 Ø3 cross-pin hole missing")
     require(feeder_shaft.common(shaft_pin_probe).Volume<0.01,"FD-MET-03 Ø3 cross-pin hole missing")
     upper_pin_probe=Part.makeCylinder(1.49,8,App.Vector(-4,0,292),App.Vector(1,0,0))
@@ -284,12 +285,15 @@ def main():
     require("FeederAugerSpringPin" in assembly_names,"SYS-15 feeder auger pin missing from assembly")
     require({"FeederDriveMount","FeederDriveCoupling","FeederDriveReference"} <= assembly_names,
             "selected feeder reference drive path missing from assembly")
-    cut_rows=list(csv.DictReader((ROOT/"exports/fabrication/frame_cut_list.csv").open()))
-    require({(r["part_id"],r["cut_length_mm"],r["quantity"]) for r in cut_rows}=={
-        ("FR-01","890.0","4"),("FR-02","430.0","10"),("FR-03","660.0","6"),
-        ("FR-04","300.0","2"),("FR-05","318.0","1"),("FR-06","280.0","2"),
-        ("FR-07","50.0","1"),("FR-08","660.0","2")
-    },"frame cut list does not match butt-jointed CAD")
+    sys.path.insert(0,str(ROOT))
+    from validation.physical_v08.frame_release import validate as validate_frame
+    frame = validate_frame(ROOT)
+    require(frame['status']=='FRAME_CUTLIST_BINDING_PASS', 'current GGM cut list binding failed')
+    require(frame['members']==40 and frame['cut_authorization'] is False,
+            'frame member count or authorization drift')
+    require(frame['totals']=={'2020':{'count':36,'length_mm':15078.0},
+                             '2040':{'count':4,'length_mm':2180.0}},
+            'current modest frame reduction changed unexpectedly')
     jig_bom=list(csv.DictReader((ROOT/"exports/jigs/gate1/bom.csv").open()))
     require(any(r["item_id"]=="CUT-01" and r["qty"]=="2" for r in jig_bom),"Gate-1 coupon quantity")
     p4_path=next(r for r in jig_bom if r["item_id"]=="GGM-SH-PATH")

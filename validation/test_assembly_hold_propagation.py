@@ -9,7 +9,7 @@ import build_final_documents as documents
 
 def main():
     rows = {r['step_number']:r for r in documents.assembly_rows()}
-    assert {n for n,r in rows.items() if any('HOLD' in (value or '') for value in r.values())} == {'7','10','12','13'}
+    assert {n for n,r in rows.items() if any('HOLD' in (value or '') for value in r.values())} == {'2','7','10','12','13'}
     assert 'GGM_SH_Mount' in rows['7']['part_ids_quantity'] and 'GGM_SH_Jackshaft' in rows['7']['part_ids_quantity']
     assert 'GGM_SH_CouplingGuard' in rows['8']['part_ids_quantity'] and 'GGM_SH_Mount' not in rows['8']['part_ids_quantity']
     assert 'GGM_EX_Mount' in rows['12']['part_ids_quantity']
@@ -42,7 +42,15 @@ def main():
     assert held['pass_fail'].startswith('HOLD')
     assert '진행 금지' in held['next_prerequisite']
     assert 'synthetic reason must reach manual' in held['inspection_method']
-    assert rows['2']['pass_fail'] != held['pass_fail']
+    assert rows['2']['inspection_method'] != held['inspection_method']
+    released = [dict(j) for j in joints]
+    for entry in released:
+        if documents.fastener_step_number(entry) == 2:
+            entry['verification_state'] = 'RELEASED_DIGITAL_PHYSICAL_NOT_RUN'
+    with patch.object(documents, 'fasteners', return_value=released):
+        baseline = {r['step_number']: r for r in documents.assembly_rows()}['2']
+    assert not baseline['pass_fail'].startswith('HOLD')
+    assert baseline['pass_fail'] != held['pass_fail']
     print('ASSEMBLY_HOLD_PROPAGATION_PASS SYS04_DIGITAL_PASS_PHYSICAL_HOLD')
 
 

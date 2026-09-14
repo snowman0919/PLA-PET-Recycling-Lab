@@ -8,6 +8,9 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "cad/freecad/final_v08"))
 import generate
+import importlib
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "cad/freecad/drive_v08"))
+ggm_assembly = importlib.import_module("cad.freecad.drive_v08.assembly")
 
 with tempfile.TemporaryDirectory() as directory:
     out = Path(directory)
@@ -19,10 +22,12 @@ with tempfile.TemporaryDirectory() as directory:
     def fake_export(path, objects):
         path.write_bytes(b"assembly fixture")
         return {"file": str(path.relative_to(out)), "status": "PASS", "solid_count": 1}
-    with patch.object(generate, "OUT", out), patch.object(sys, "argv", ["generate.py", "--refresh-assemblies"]), patch.object(generate, "final_objects", return_value=[]), patch.object(generate, "export_assembly_metadata"), patch.object(generate, "export", side_effect=fake_export), patch.object(generate.shutil, "rmtree", side_effect=AssertionError("unexpected directory deletion")):
+    with patch.object(generate, "OUT", out), patch.object(sys, "argv", ["generate.py", "--refresh-assemblies"]), patch.object(generate, "final_objects", return_value=[]), patch.object(ggm_assembly, "integrated_objects", return_value=([], {})) as ggm_hook, patch.object(generate, "export_assembly_metadata"), patch.object(generate, "export", side_effect=fake_export), patch.object(generate.shutil, "rmtree", side_effect=AssertionError("unexpected directory deletion")):
         generate.main()
         first = manifest.read_bytes()
         generate.main()
+    assert ggm_hook.call_count == 2
+    assert all(call.args == ([],) for call in ggm_hook.call_args_list)
     assert manifest.read_bytes() == first
     assert untouched.read_bytes() == b"preserved non-assembly fixture"
     with manifest.open() as stream:
