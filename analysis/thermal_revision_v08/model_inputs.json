@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "scope": "UNCALIBRATED_EMPTY_BARREL_SENSITIVITY",
+  "steel_density_kg_m3": 7800.0,
+  "steel_cp_j_kg_k": 480.0,
+  "steel_k_w_m_k": 35.0,
+  "young_pa": 190000000000.0,
+  "alpha_per_k": 1.7e-05,
+  "ambient_c": 25.0,
+  "heater_capacity_j_k": 25.0,
+  "die_capacity_j_k": 150.0,
+  "die_contact_g_w_k": 2.0,
+  "die_surface_m2": 0.009,
+  "contact_h_w_m2_k": [
+    200.0,
+    1000.0
+  ],
+  "air_h_w_m2_k": [
+    8.0,
+    15.0
+  ],
+  "support_conductance_w_k": [
+    0.05,
+    0.2
+  ],
+  "emissivity": 0.7,
+  "closure_gap_mm": 4.0,
+  "barrel_length_mm": 280.0,
+  "barrel_rear_x_mm": 375.0,
+  "support_width_mm": 8.0,
+  "mesh_mm": 2.5,
+  "timestep_s": 0.5,
+  "duration_s": 1800.0,
+  "convergence_tolerance_c": 1.0,
+  "comparison_ceiling_c": 300.0,
+  "property_sensitivity_pairs": [
+    [
+      25.0,
+      650.0
+    ],
+    [
+      45.0,
+      480.0
+    ]
+  ],
+  "references": [
+    "https://steelnavigator.ovako.com/steel-grades/42crmo4/",
+    "https://www.tempco.com/Duraband-Heaters.htm"
+  ],
+  "physical_validation_state": "NOT_RUN",
+  "source_notes": [
+    "Density and low-temperature heat capacity reference typical Ovako42CrMo4 values; not a received SCM440 certificate.",
+    "k35, E190GPa and alpha17e-6 are analysis assumptions. All conductances, die/heater capacities and radiation emissivity are uncalibrated.",
+    "Relay with +/-1C hysteresis is a numerical sensitivity excitation, not the released PID, a safe power sequence or a safety-trip test.",
+    "300C is a project comparison ceiling, NOT a supplier-approved sheath rating. No PI tape insulation credit."
+  ]
+}

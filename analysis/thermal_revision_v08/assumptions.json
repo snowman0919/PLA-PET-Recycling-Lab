@@ -55,9 +55,10 @@
     "Constant full barrel-heater power for180s is a numerical excitation, not a commissioning procedure. Die, screw, polymer, PID, radiation nonlinearity, leads and safety trips are excluded.",
     "300C is the project comparison ceiling, NOT a supplier-approved heater-sheath rating."
   ],
-  "status": "NOT_RUN_MODEL_IMPLEMENTATION_BLOCKED",
+  "status": "SUPERSEDED_PROPOSAL",
   "physical_validation_state": "NOT_RUN",
   "fabrication_authorized": false,
   "energization_authorized": false,
-  "note": "Only a proposed sensitivity input set; model.py was not created. No thermal or structural solver result is supplied by this file."
+  "note": "Historical unexecuted proposal. Active inputs are model_inputs.json; implementation model.py; results analysis/final_validation/results/v0.8/hot_zone_revision_review.json. Do not mix assumption sets.",
+  "superseded_by": "analysis/thermal_revision_v08/model_inputs.json"
 }
