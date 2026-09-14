@@ -14,6 +14,7 @@ enum HeaterFault : uint16_t {
   HEATER_NOT_HEATING = 1 << 4,
   HEATER_UNEXPECTED_RISE = 1 << 5,
   HEATER_PERMISSION_MISMATCH = 1 << 6,
+  HEATER_COMMAND_RANGE = 1 << 7,
 };
 
 struct HeaterOutput {
