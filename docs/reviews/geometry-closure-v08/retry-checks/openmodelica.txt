@@ -1,0 +1,115 @@
+true
+true
+true
+true
+true
+0
+0
+true
+"/home/monad/develop/PPR/simulation/openmodelica/results_v0.8/raw"
+record SimulationResult
+    resultFile = "/home/monad/develop/PPR/simulation/openmodelica/results_v0.8/raw/HotZoneControlledExpansion_res.csv",
+    simulationOptions = "startTime = 0.0, stopTime = 600.0, numberOfIntervals = 600, tolerance = 1e-6, method = 'dassl', fileNamePrefix = 'HotZoneControlledExpansion', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = ''",
+    messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+LOG_SUCCESS       | info    | The simulation finished successfully.
+",
+    timeFrontend = 0.0043561830000000005,
+    timeBackend = 0.011018703000000001,
+    timeSimCode = 0.002148171,
+    timeTemplates = 0.0048159660000000005,
+    timeCompile = 0.4547667489999999,
+    timeSimulation = 0.010615036000000001,
+    timeTotal = 0.48836816299999997
+end SimulationResult;
+record SimulationResult
+    resultFile = "/home/monad/develop/PPR/simulation/openmodelica/results_v0.8/raw/LC09SpoolScope_res.csv",
+    simulationOptions = "startTime = 0.0, stopTime = 1.0, numberOfIntervals = 10, tolerance = 1e-6, method = 'dassl', fileNamePrefix = 'LC09SpoolScope', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = ''",
+    messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+LOG_SUCCESS       | info    | The simulation finished successfully.
+",
+    timeFrontend = 0.0016901910000000002,
+    timeBackend = 0.002673206,
+    timeSimCode = 0.021092484,
+    timeTemplates = 0.001128658,
+    timeCompile = 0.431041846,
+    timeSimulation = 0.008300493,
+    timeTotal = 0.465992291
+end SimulationResult;
+record SimulationResult
+    resultFile = "/home/monad/develop/PPR/simulation/openmodelica/results_v0.8/raw/SpoolerTraverseEmptyToFull_res.csv",
+    simulationOptions = "startTime = 0.0, stopTime = 38000.0, numberOfIntervals = 19000, tolerance = 1e-8, method = 'dassl', fileNamePrefix = 'SpoolerTraverseEmptyToFull', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = ''",
+    messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+[/home/monad/develop/PPR/simulation/openmodelica/v0.8/V08ReleaseScenarios.mo:99:7-99:100:writable]
+LOG_STDOUT        | info    | Simulation call terminate() at time 36131.451115
+|                 | |       | Message : One-kilogram material-fill experiment complete; stopping/unwinding not validated
+LOG_SUCCESS       | info    | The simulation finished successfully.
+",
+    timeFrontend = 0.003912140000000001,
+    timeBackend = 0.01071789,
+    timeSimCode = 0.0015838520000000002,
+    timeTemplates = 0.003683711,
+    timeCompile = 0.506011065,
+    timeSimulation = 0.149253181,
+    timeTotal = 0.675220437
+end SimulationResult;
+record SimulationResult
+    resultFile = "/home/monad/develop/PPR/simulation/openmodelica/results_v0.8/raw/SpoolerPETOneKg_res.csv",
+    simulationOptions = "startTime = 0.0, stopTime = 38000.0, numberOfIntervals = 19000, tolerance = 1e-8, method = 'dassl', fileNamePrefix = 'SpoolerPETOneKg', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = ''",
+    messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+[/home/monad/develop/PPR/simulation/openmodelica/v0.8/V08ReleaseScenarios.mo:99:7-99:100:writable]
+LOG_STDOUT        | info    | Simulation call terminate() at time 34790.466223
+|                 | |       | Message : One-kilogram material-fill experiment complete; stopping/unwinding not validated
+LOG_SUCCESS       | info    | The simulation finished successfully.
+",
+    timeFrontend = 0.002650944,
+    timeBackend = 0.010177776000000001,
+    timeSimCode = 0.0014786250000000001,
+    timeTemplates = 0.0026448220000000002,
+    timeCompile = 0.506329652,
+    timeSimulation = 0.143298158,
+    timeTotal = 0.666638887
+end SimulationResult;
+record SimulationResult
+    resultFile = "/home/monad/develop/PPR/simulation/openmodelica/results_v0.8/raw/SpoolerFullRadiusPLA_res.csv",
+    simulationOptions = "startTime = 0.0, stopTime = 12000.0, numberOfIntervals = 6000, tolerance = 1e-8, method = 'dassl', fileNamePrefix = 'SpoolerFullRadiusPLA', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = ''",
+    messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+LOG_SUCCESS       | info    | The simulation finished successfully.
+",
+    timeFrontend = 0.002543833,
+    timeBackend = 0.00889528,
+    timeSimCode = 0.0013127430000000001,
+    timeTemplates = 0.0020786000000000003,
+    timeCompile = 0.5077756250000001,
+    timeSimulation = 0.053718127000000004,
+    timeTotal = 0.576383839
+end SimulationResult;
+record SimulationResult
+    resultFile = "/home/monad/develop/PPR/simulation/openmodelica/results_v0.8/raw/SpoolerFullRadiusPET_res.csv",
+    simulationOptions = "startTime = 0.0, stopTime = 12000.0, numberOfIntervals = 6000, tolerance = 1e-8, method = 'dassl', fileNamePrefix = 'SpoolerFullRadiusPET', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = ''",
+    messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+LOG_SUCCESS       | info    | The simulation finished successfully.
+",
+    timeFrontend = 0.0033935970000000004,
+    timeBackend = 0.009733573,
+    timeSimCode = 0.0015953130000000001,
+    timeTemplates = 0.002486304,
+    timeCompile = 0.525556015,
+    timeSimulation = 0.053535975000000006,
+    timeTotal = 0.5963599079999999
+end SimulationResult;
+record SimulationResult
+    resultFile = "/home/monad/develop/PPR/simulation/openmodelica/results_v0.8/raw/SpoolerJamContainment_res.csv",
+    simulationOptions = "startTime = 0.0, stopTime = 20.0, numberOfIntervals = 2000, tolerance = 1e-8, method = 'dassl', fileNamePrefix = 'SpoolerJamContainment', options = '', outputFormat = 'csv', variableFilter = '.*', cflags = '', simflags = ''",
+    messages = "LOG_SUCCESS       | info    | The initialization finished successfully without homotopy method.
+LOG_SUCCESS       | info    | The simulation finished successfully.
+",
+    timeFrontend = 0.0031762500000000003,
+    timeBackend = 0.010530237000000001,
+    timeSimCode = 0.001532616,
+    timeTemplates = 0.002458343,
+    timeCompile = 0.49985104700000005,
+    timeSimulation = 0.024300924,
+    timeTotal = 0.5419108
+end SimulationResult;
+"Warning: There are nonlinear iteration variables with default zero start attribute found in NLSJac8. For more information set -d=initialization. In OMEdit Tools->Options->Simulation->Show additional information from the initialization process, in OMNotebook call setCommandLineOptions(\"-d=initialization\").
+"

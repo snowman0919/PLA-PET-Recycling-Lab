@@ -1,0 +1,88 @@
+{
+  "basis_commit": "a0a2a4b9fd0d6e65b5e93161c40834c80c7312d1",
+  "scope": "LOCAL_NUMERICAL_REPLAY_AND_PACKAGE_IMPORT_REPAIR",
+  "solvers": [
+    {
+      "name": "z1-four-way",
+      "command": [
+        "/nix/store/l82gv351b9akxnmhqlxj3a931gnyijd6-python3-3.14.7-env/bin/python3",
+        "analysis/final_validation/hot_zone_revision_review.py"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "seconds": 112.647,
+      "log": ".build/retry-closure-20260914/z1-four-way.txt",
+      "log_sha256": "b7e0e8476ebe904cf9e92d94b91f002f1e7bc3a194357cc8699c15e6b6ac0e68",
+      "archived_log": "docs/reviews/geometry-closure-v08/retry-checks/z1-four-way.txt"
+    },
+    {
+      "name": "openmodelica",
+      "command": [
+        "omc",
+        "simulation/openmodelica/scripts/run_v08_release.mos"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "seconds": 4.736,
+      "log": ".build/retry-closure-20260914/openmodelica.txt",
+      "log_sha256": "e731ac8cb0e92ff075bf422e56864e1dcdce8acdc483ad1e44db3c4d09a05f33",
+      "archived_log": "docs/reviews/geometry-closure-v08/retry-checks/openmodelica.txt"
+    },
+    {
+      "name": "modelica-validation",
+      "command": [
+        "/nix/store/l82gv351b9akxnmhqlxj3a931gnyijd6-python3-3.14.7-env/bin/python3",
+        "simulation/openmodelica/postprocess/validate_v08_release.py"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "seconds": 1.115,
+      "log": ".build/retry-closure-20260914/modelica-validation.txt",
+      "log_sha256": "d371eb34a1c5dfd4033f2ff15408b00320c30e9f6e178a6bd5eae01cebab9e64",
+      "archived_log": "docs/reviews/geometry-closure-v08/retry-checks/modelica-validation.txt"
+    },
+    {
+      "name": "hot-envelope",
+      "command": [
+        "/nix/store/l82gv351b9akxnmhqlxj3a931gnyijd6-python3-3.14.7-env/bin/python3",
+        "analysis/final_validation/qualify_hot_zone_digital_v08.py"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "seconds": 0.032,
+      "log": ".build/retry-closure-20260914/hot-envelope.txt",
+      "log_sha256": "0a3898468688beac51ee7c4a790d6cea0be77c3bd08ba8704c6ee3930939af77",
+      "archived_log": "docs/reviews/geometry-closure-v08/retry-checks/hot-envelope.txt"
+    },
+    {
+      "name": "calculix",
+      "command": [
+        "/nix/store/l82gv351b9akxnmhqlxj3a931gnyijd6-python3-3.14.7-env/bin/python3",
+        "analysis/final_validation/run_calculix_v08.py"
+      ],
+      "returncode": 0,
+      "passed": true,
+      "seconds": 66.259,
+      "log": ".build/retry-closure-20260914/calculix.txt",
+      "log_sha256": "966a21dc986e6cf56a2bf7e1fbdcf49322005bad8136746e2eca337e5a7c412b",
+      "archived_log": "docs/reviews/geometry-closure-v08/retry-checks/calculix.txt"
+    }
+  ],
+  "light_ci": {
+    "status": "PASS",
+    "commands": 60,
+    "test_modules": 56
+  },
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "full_package_complete": false,
+  "new_source_sha256": {
+    "release/package_layout.json": "fa3bdc34938dbda1f3ee2f8e7155f4b26af6d35ebdf072dfe558826e6c4e0913",
+    "validation/test_package_import_closure.py": "136a4dec483894027f35b72cf3a13e1283d8c370acb4d9828f4fd48effbfaf52"
+  },
+  "graph_update": {
+    "AST": "EXECUTED_NO_LLM",
+    "semantic_document_graph": "NOT_COMPLETED"
+  }
+}

@@ -28,7 +28,8 @@
             "exports/final/drive_ggm_v08/*.FCStd",
             "exports/final/drive_ggm_v08/manifest.json",
             "exports/final/handoff/*",
-            "exports/fabrication/frame_cut_list.csv"
+            "exports/fabrication/frame_cut_list.csv",
+            "exports/final/frame_v08/*"
         ],
         "04_BOM": [
             "exports/final/bom/*"
@@ -111,7 +112,8 @@
             "analysis/final_validation/results/v0.8/shaft_section.json",
             "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/model.inp",
             "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/model.dat",
-            "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/ccx.log"
+            "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/ccx.log",
+            "analysis/final_validation/results/v0.8/hot_zone_revision_review.json"
         ],
         "10_DESIGN_SOURCE": [
             "flake.nix",
@@ -196,7 +198,24 @@
             "release/regenerate_release.py",
             "release/render_handoff.py",
             "release/build_complete_release.py",
-            "release/verify_complete_release.py"
+            "release/verify_complete_release.py",
+            "cad/parameters/ggm_frame_revision.json",
+            "analysis/frame_v08/*.py",
+            "analysis/frame_v08/results/*.json",
+            "validation/physical_v08/frame_release.py",
+            "validation/physical_v08/p1_semantics.py",
+            "release/build_frame_release.py",
+            "cad/generation/export_modelica_properties.py",
+            "analysis/final_validation/hot_zone_revision_review.py",
+            "analysis/thermal_revision_v08/model.py",
+            "analysis/thermal_revision_v08/compare.py",
+            "analysis/thermal_revision_v08/model_inputs.json",
+            "analysis/thermal_revision_v08/reference_geometry.json",
+            "analysis/thermal_revision_v08/README_KO.md",
+            "release/plain_shaft_drawing.py",
+            "validation/integrated_assembly_clearance.py",
+            "validation/integrated_motion_clearance.py",
+            "validation/shaft_retention_clearance.py"
         ],
         "LICENSES": [
             "LICENSE",
