@@ -2,6 +2,10 @@
 #include <math.h>
 
 namespace {
+constexpr float kProportionalGain = 4.0f;
+constexpr float kIntegralGain = 0.02f;
+constexpr float kTrackingRatePerSecond = 0.028f;
+constexpr float kIntegralMaximum = 100.0f / kIntegralGain;
 float clampf(float value, float low, float high) {
   return value < low ? low : (value > high ? high : value);
 }
@@ -39,16 +43,22 @@ HeaterOutput HeaterController::update(uint8_t zone, const TemperatureReading &re
   if (allowed) {
     // Back-calculation makes the local PI track power actually granted by the
     // central allocator instead of integrating against a hidden denied output.
-    const float back_calculation = 0.35f * (z.applied_duty - z.requested_duty);
-    z.integral = clampf(z.integral + (error + back_calculation) * dt, -500.0f, 500.0f);
-    duty = clampf(2.0f * error + 0.08f * z.integral, 0.0f, 100.0f);
+    const float back_calculation = kTrackingRatePerSecond *
+        (z.applied_duty - z.requested_duty) / kIntegralGain;
+    const float delta = (error + back_calculation) * dt;
+    const float candidate = clampf(z.integral + delta, -500.0f, kIntegralMaximum);
+    const float candidate_output = kProportionalGain * error + kIntegralGain * candidate;
+    const bool winds_further = (candidate_output > 100.0f && delta > 0) ||
+                              (candidate_output < 0.0f && delta < 0);
+    if (!winds_further) z.integral = candidate;
+    duty = clampf(kProportionalGain * error + kIntegralGain * z.integral, 0.0f, 100.0f);
   } else {
     z.integral = 0;
     z.applied_duty = 0;
   }
   z.requested_duty = duty;
 
-  if (allowed && duty >= 40.0f) {
+  if (allowed && duty >= 40.0f && error > HEATER_NOT_HEATING_MIN_RISE_C) {
     if (!z.heating_watch) {
       z.heating_watch = true;
       z.watch_start_ms = now_ms;

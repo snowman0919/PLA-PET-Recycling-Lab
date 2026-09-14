@@ -1,6 +1,6 @@
 # Arduino Mega 2560 pin map — v0.8
 
-Source commit `base:8a568e867ade42ea1d29fd6a8a1a66bc1499eecf; variant-builder:2c154dbbef0d61927dd41d83ec98448d52ba7191`; `board_config.h` SHA-256 `bc919a9f40a6eac08d8c00fbd6c9d9b952d041a74c97f0f849b6c953f8a5cfbf`.
+Source commit `base:74929bcbc9e52f06cdc3cf7542f4377c89e45624; variant-builder:2c154dbbef0d61927dd41d83ec98448d52ba7191`; `board_config.h` SHA-256 `bc919a9f40a6eac08d8c00fbd6c9d9b952d041a74c97f0f849b6c953f8a5cfbf`.
 
 | Symbol | Mega pin | wire ID |
 |---|---:|---|
