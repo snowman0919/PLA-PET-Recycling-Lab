@@ -62,7 +62,11 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     rows = [export("bearing_plate", bearing_side_plate()), export("extruder_barrel", extruder_barrel())]
     # Read real final-machine stations, not the old jig's 60/200 mm supports.
-    objects = {item["name"]: item["shape"] for item in assembly_objects()}
+    sys.path[:0] = [str(ROOT), str(ROOT/"cad/freecad/drive_v08")]
+    from cad.freecad.final_v08.generate import final_objects
+    from cad.freecad.drive_v08.assembly import integrated_objects
+    integrated, _ = integrated_objects(final_objects())
+    objects = {item["name"]: item["shape"] for item in integrated}
     stations = {}
     for shaft_id in (105, 153):
         shaft = objects[f"Shaft{shaft_id}"].BoundBox
@@ -73,13 +77,20 @@ def main() -> None:
             "cutter_y_mm": [objects[f"Hook{shaft_id}_{i}"].BoundBox.Center.y for i in range(6)],
         }
         if shaft_id == 153:
-            stations[str(shaft_id)]["chain_sprocket_y_mm"] = objects["CutterSprocket30T"].BoundBox.Center.y
+            stations[str(shaft_id)]["chain_sprocket_y_mm"] = objects["GGM_SH_30T"].BoundBox.Center.y
     (OUT / "geometry_manifest.json").write_text(json.dumps({
         "revision": "final-design-fabrication-closure-v0.8",
         "authority": "FreeCAD Python controlling geometry",
         "physical_validation_state": "NOT_RUN",
         "parts": rows,
         "shredder_stations": stations,
+        "hot_zone_stations": {
+            "barrel_rear_y_mm": objects["Barrel"].BoundBox.YMax,
+            "barrel_die_y_mm": objects["Barrel"].BoundBox.YMin,
+            "rear_datum_y_mm": objects["ExtruderRearFixedDatum"].BoundBox.Center.y,
+            "front_guide_y_mm": objects["ExtruderFrontSlidingGuide"].BoundBox.Center.y,
+            "authority": "GGM integrated final native CAD"
+        },
         "geometry_source_sha256": sha256(HERE / "geometry.py"),
     }, indent=2, ensure_ascii=False) + "\n")
     print(f"V08_FREECAD_GEOMETRY_OK parts={len(rows)}")
