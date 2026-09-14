@@ -107,19 +107,36 @@ def jam_checks(rows: list[dict[str, float]], maximum_latency: float) -> dict[str
     }
 
 
+def hot_travel_current(rows, compiled, mount) -> bool:
+    try:
+        expected = float(mount["cold_axial_travel_mm"])
+        actual = float(compiled["axialTravelMm"])
+        if not math.isfinite(expected) or expected <= 0 or not math.isfinite(actual):
+            return False
+        return abs(actual-expected)<1e-9 and bool(rows) and all(
+            math.isfinite(row["axialGrowthMm"]) and math.isfinite(row["travelMarginMm"])
+            and abs(row["axialGrowthMm"]+row["travelMarginMm"]-expected)<1e-8
+            for row in rows)
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
 def main() -> None:
     hot, spool, jam = read("HotZoneControlledExpansion"), read("LC09SpoolScope"), read("SpoolerJamContainment")
     series = {name: read(name) for name in NOMINAL}
     scenarios = {name: dynamics(series[name], *settings) for name, settings in NOMINAL.items()}
     source_hashes = dict(line.rstrip().split("  ", 1)[::-1] for line in (OUT / "source_sha256.txt").read_text().splitlines())
-    source_current = len(source_hashes) == 13 and all(hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == sha for path, sha in source_hashes.items())
+    source_current = len(source_hashes) == 15 and all(hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == sha for path, sha in source_hashes.items())
     firmware = (ROOT / "firmware/arduino_mega/src/machine_supervisor.cpp").read_text()
     header = (ROOT / "firmware/arduino_mega/src/spooler_control.h").read_text()
     drive = json.loads((ROOT / "control/drive_actuation_contract_v0.6.2.1.json").read_text())["drives"]["spooler"]
     fault = json.loads((ROOT / "control/fault_response_contract.json").read_text())
     generated = (ROOT / "simulation/openmodelica/PLA_PET_Recycler/Generated.mo").read_text()
     generated_control = (ROOT / "simulation/openmodelica/PLA_PET_Recycler/GeneratedControl.mo").read_text()
+    mount=json.loads((ROOT/"cad/parameters/final_v08.json").read_text())["hot_zone_mount"]
+    hot_params=parameters("HotZoneControlledExpansion")
     binding = {
+        "compiled_hot_travel_matches_live_cad": hot_travel_current(hot, hot_params, mount),
         "all_simulation_source_hashes_current": source_current,
         "fresh_outputs_from_this_run": all((RAW / f"{name}_{suffix}").stat().st_mtime_ns >= (OUT / "source_sha256.txt").stat().st_mtime_ns
             for name in [*NOMINAL, "SpoolerJamContainment", "HotZoneControlledExpansion", "LC09SpoolScope"] for suffix in ["res.csv", "init.xml"]),
@@ -174,6 +191,8 @@ def main() -> None:
         "hot_zone": {
             "scope": "UNIFORM_TEMPERATURE_FIRST_ORDER_EXPANSION_SCREEN_WITH_INHERITED_83_5_MPA_STRESS_NOT_CURRENT_CALCULIX_RESULT",
             "release_state": "HOLD",
+            "compiled_cold_axial_travel_mm": hot_params["axialTravelMm"],
+            "heater_width_and_support_heat_transfer_modeled": False,
             "hold_reasons": ["E/alpha material-source mismatch", "3D notch not verified", "die-joint not verified", "temperature gradient not verified"],
             **{key: hot[-1][key] for key in ("temperatureC", "axialGrowthMm", "travelMarginMm", "safetyFactor", "pass")}},
         "LC09": {"spindle_length_mm": 143, "bearing_spacing_mm": 88, "load_position_from_front_mm": 40.5,

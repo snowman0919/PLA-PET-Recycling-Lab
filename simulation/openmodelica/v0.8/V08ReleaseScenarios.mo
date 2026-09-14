@@ -5,7 +5,7 @@ package V08ReleaseScenarios
     parameter Real alphaPerK=17e-6;
     parameter Real ambientC=25;
     parameter Real petBulkC=270;
-    parameter Real axialTravelMm=1.3;
+    parameter Real axialTravelMm=Generated.CADParameters.coldAxialTravelMm;
     parameter Real regionalStressMPa=83.5;
     parameter Real allowableMPa=180;
     Real temperatureC(start=ambientC,fixed=true);

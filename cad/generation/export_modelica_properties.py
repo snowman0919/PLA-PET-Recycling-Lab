@@ -70,6 +70,7 @@ def main():
     assembly=aggregate(items); frame=aggregate([item for item in items if item["group"]=="frame"])
     total_mass=assembly["mass_kg"]; com=assembly["center_of_mass_m"]
     baseline_hash=hashlib.sha256((ROOT/"cad/parameters/baseline.json").read_bytes()).hexdigest()
+    hot_mount=json.loads((ROOT/"cad/parameters/final_v08.json").read_text())["hot_zone_mount"]
     p35=9.525/1000
     result={
         "revision":REV,"baseline_sha256":baseline_hash,"units":{"length":"m","mass":"kg","inertia":"kg.m2"},
@@ -89,6 +90,7 @@ def main():
     constants=f'''package CADParameters
   constant String revision = "{REV}";
   constant String baselineSHA256 = "{baseline_hash}";
+  constant Real coldAxialTravelMm = {hot_mount["cold_axial_travel_mm"]:.12g} "mm";
   constant Real cutterDiscMass = {cutter_p['mass_kg']:.12g} "kg";
   constant Real cutterRotorMass = {rotor_mass:.12g} "kg";
   constant Real cutterRotorJ = {rotor_iyy:.12g} "kg.m2";

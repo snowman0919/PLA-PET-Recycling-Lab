@@ -177,13 +177,32 @@ def bearing_plate_deck(gmsh_inp: Path, load_n: float) -> tuple[str, dict, set[in
 
 def hot_mount_deck(case: str, temperature_c: float, spring_n_m: float = 0.0,
                    pressure_mpa: float = 0.0, feed_temperature_c: float | None = None) -> str:
-    nodes = [f"{index+1},{index*0.280/14:.9f},0,0" for index in range(15)]
-    elements = [f"{index+1},{index+1},{index+2}" for index in range(14)]
+    geometry = json.loads((INPUT / "geometry_manifest.json").read_text())
+    if geometry["geometry_source_sha256"] != sha256(ROOT / "cad/freecad/compact/geometry.py"):
+        raise ValueError("stale hot-mount geometry export")
+    stations = geometry["hot_zone_stations"]
+    values = [stations[k] for k in ("barrel_rear_y_mm", "barrel_die_y_mm", "rear_datum_y_mm", "front_guide_y_mm")]
+    if not all(math.isfinite(v) for v in values):
+        raise ValueError("non-finite support station")
+    rear_y, die_y, fixed_y, sliding_y = values
+    length, rear, front = rear_y-die_y, rear_y-fixed_y, rear_y-sliding_y
+    if not 0 < rear < front < length:
+        raise ValueError("hot-mount stations outside barrel")
+    mount = json.loads((ROOT / "cad/parameters/final_v08.json").read_text())["hot_zone_mount"]
+    if abs(sliding_y-mount["front_sliding_plate_x_mm"]-mount["plate_thickness_mm"]/2)>1e-6:
+        raise ValueError("front guide CAD/parameter drift")
+    if abs(fixed_y-mount["rear_fixed_plate_x_mm"]-mount["plate_thickness_mm"]/2)>1e-6:
+        raise ValueError("rear datum CAD/parameter drift")
+    anchors = sorted(set([length*i/14 for i in range(15)] + [rear, front]))
+    nodes = [f"{i+1},{x/1000:.12g},0,0" for i,x in enumerate(anchors)]
+    elements = [f"{i+1},{i+1},{i+2}" for i in range(len(anchors)-1)]
+    rear_node, front_node, tip_node = anchors.index(rear)+1, anchors.index(front)+1, len(anchors)
     deck = [
         "*HEADING", f"PPR v0.8 hot-zone mount {case}; SI units m N Pa K", "*NODE", *nodes,
         "*ELEMENT,TYPE=B31,ELSET=BARREL", *elements,
-        "*NSET,NSET=ALL", ",".join(str(index) for index in range(1, 16)),
-        "*NSET,NSET=REAR", "1", "*NSET,NSET=FRONT", "15",
+        *nset("ALL", list(range(1, len(anchors)+1))),
+        "*NSET,NSET=REAR", str(rear_node), "*NSET,NSET=FRONT", str(front_node),
+        "*NSET,NSET=TIP", str(tip_node),
         "*BEAM SECTION,ELSET=BARREL,MATERIAL=SCM440,SECTION=RECT", "0.0265,0.0265", "0,0,1",
         "** Screening E/CTE assumptions; not qualified SCM440 temperature-dependent data",
         "*MATERIAL,NAME=SCM440", "*ELASTIC", "1.90E11,0.30", "*EXPANSION", "1.70E-5",
@@ -192,15 +211,15 @@ def hot_mount_deck(case: str, temperature_c: float, spring_n_m: float = 0.0,
     deck += ["FRONT,1,6,0"] if case == "A_FULLY_FIXED" else ["FRONT,2,3,0"]
     if spring_n_m:
         # ccx distinguishes DOF integers from stiffness reals by the decimal point.
-        deck += ["*ELEMENT,TYPE=SPRING1,ELSET=AXIAL_SPRING", "1001,15", "*SPRING,ELSET=AXIAL_SPRING", "1", f"{spring_n_m:.9e}"]
+        deck += ["*ELEMENT,TYPE=SPRING1,ELSET=AXIAL_SPRING", f"1001,{front_node}", "*SPRING,ELSET=AXIAL_SPRING", "1", f"{spring_n_m:.9e}"]
     deck += ["*STEP", "*STATIC", "0.1,1.0", "*TEMPERATURE"]
     cold = temperature_c if feed_temperature_c is None else feed_temperature_c
-    deck += [f"{i+1},{cold + (temperature_c-cold)*i/14:.9g}" for i in range(15)]
+    deck += [f"{i+1},{cold + (temperature_c-cold)*x/length:.9g}" for i,x in enumerate(anchors)]
     if pressure_mpa:
         # Full bore thrust is applied; relief operation is NOT assumed successful.
         thrust_n = pressure_mpa * math.pi * 16.22**2 / 4
-        deck += ["*CLOAD", f"FRONT,1,{thrust_n:.12g}"]
-    deck += ["*NODE PRINT,NSET=FRONT", "U", "*NODE PRINT,NSET=REAR", "RF",
+        deck += ["*CLOAD", f"TIP,1,{thrust_n:.12g}"]
+    deck += ["*NODE PRINT,NSET=TIP", "U", "*NODE PRINT,NSET=REAR", "RF",
              "*NODE FILE", "U,RF", "*EL FILE", "S", "*END STEP", ""]
     return "\n".join(deck)
 
@@ -466,7 +485,10 @@ def run_hot_mount() -> dict:
     return {
         "cases": rows, "selected_mount": realistic["study"],
         "resolution": "BC04_FULL_FIX_WAS_UNREALISTICALLY_OVERCONSTRAINED",
-        "selected_mount_requirement": "rear axial datum plus front radial guide; >=1.3 mm cold axial travel available",
+        "selected_mount_requirement": "CAD-station rear clamp / front radial guide screening; travel from final_v08.json",
+        "support_stations": json.loads((INPUT / "geometry_manifest.json").read_text())["hot_zone_stations"],
+        "available_cold_axial_travel_mm": params["hot_zone_mount"]["cold_axial_travel_mm"],
+        "beam_scope": "Legacy equivalent rectangular section, prescribed temperature, rear rotational clamp; not detailed support contact/rail capacity or Z1 heat transfer",
         "local_screen_inputs": {"outer_radius_mm": ro, "inner_radius_mm": ri, "blind_depth_mm": depth,
             "ligament_mm": ligament, "young_mpa": young_mpa, "alpha_per_k": alpha,
             "poisson": poisson, "notch_factor_assumption": kt, "allowable_mpa": ALLOWABLE_MPA},
