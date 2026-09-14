@@ -7,7 +7,9 @@
             "docs/final/COMPLETE_HANDOFF_KO.md",
             "docs/final/product_specification_ko.md",
             "docs/final/open_items_ko.md",
-            "release/handoff_catalog.json"
+            "release/handoff_catalog.json",
+            "docs/reviews/digital-hold-closure-v08/CONTROLLER_COUPLING_KO.md",
+            "docs/reviews/digital-hold-closure-v08/CONTROLLER_PLANT_REPLAY_KO.md"
         ],
         "01_3D_PRINT": [
             "exports/final/step/printed_parts/*.step",
@@ -114,7 +116,8 @@
             "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/model.dat",
             "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/ccx.log",
             "analysis/final_validation/results/v0.8/hot_zone_revision_review.json",
-            "analysis/final_validation/results/v0.8/journal_keyseat_closure/result.json"
+            "analysis/final_validation/results/v0.8/journal_keyseat_closure/result.json",
+            "analysis/thermal_revision_v08/results/controller_replay.json"
         ],
         "10_DESIGN_SOURCE": [
             "flake.nix",
@@ -222,7 +225,38 @@
             "validation/check_axial_retainer_candidate.py",
             "validation/check_phase_clocking_release.py",
             "validation/check_shaft_journal_keyseat_closure.py",
-            "release/evidence_closure.py"
+            "release/evidence_closure.py",
+            "analysis/thermal_revision_v08/coupled_replay.py",
+            "analysis/thermal_revision_v08/power_loop.py",
+            "analysis/thermal_revision_v08/power_loop_bridge.cpp",
+            "analysis/thermal_revision_v08/run_controller_replay.py",
+            "analysis/thermal_revision_v08/steady_state.py",
+            "firmware/arduino_mega/arduino_mega.ino",
+            "firmware/arduino_mega/src/board_config.h",
+            "firmware/arduino_mega/src/calibration_record.h",
+            "firmware/arduino_mega/src/cooling_monitor.h",
+            "firmware/arduino_mega/src/drive_speed_control.h",
+            "firmware/arduino_mega/src/feed_delivery_control.h",
+            "firmware/arduino_mega/src/feeder_motion_monitor.h",
+            "firmware/arduino_mega/src/gauge_control.h",
+            "firmware/arduino_mega/src/generated_profiles.h",
+            "firmware/arduino_mega/src/ggm_drive_guard.h",
+            "firmware/arduino_mega/src/hardware_interfaces.h",
+            "firmware/arduino_mega/src/heater_control.cpp",
+            "firmware/arduino_mega/src/heater_control.h",
+            "firmware/arduino_mega/src/heater_power_allocator.cpp",
+            "firmware/arduino_mega/src/heater_power_allocator.h",
+            "firmware/arduino_mega/src/machine_supervisor.h",
+            "firmware/arduino_mega/src/material_profile.h",
+            "firmware/arduino_mega/src/process_state.h",
+            "firmware/arduino_mega/src/puller_speed_control.h",
+            "firmware/arduino_mega/src/screw_motion_monitor.h",
+            "firmware/arduino_mega/src/shredder_control.h",
+            "firmware/arduino_mega/src/tach_contract_generated.h",
+            "firmware/arduino_mega/src/tach_estimator.h",
+            "firmware/arduino_mega/src/traverse_control.h",
+            "firmware/arduino_mega/src/traverse_homing.h",
+            "firmware/arduino_mega/src/ui_core.h"
         ],
         "LICENSES": [
             "LICENSE",

@@ -1,0 +1,63 @@
+HEATER_TRACKING_AND_WARMUP_WATCH_PASS cases=5
+PRODUCTION_HEATER_TRACKING_PASS physical=NOT_RUN
+HEATER_NUMERIC_AND_GLOBAL_LATCH_PASS cases=10
+PRODUCTION_HEATER_NUMERIC_SAFETY_PASS physical=NOT_RUN
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.291s
+
+OK
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.013s
+
+OK
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.005s
+
+OK
+make: Entering directory '/home/monad/develop/PPR/firmware/arduino_mega'
+mkdir -p build
+g++ -std=c++17 -Wall -Wextra -Werror -Isrc src/heater_control.cpp tests/test_heater_tracking.cpp -o build/test_heater_tracking
+mkdir -p build
+g++ -std=c++17 -Wall -Wextra -Werror -Isrc src/heater_control.cpp tests/test_heater_numeric_safety.cpp -o build/test_heater_numeric_safety
+mkdir -p build
+g++ -std=c++17 -Wall -Wextra -Werror -Isrc src/heater_control.cpp tests/test_heater_control.cpp -o build/test_heater_control
+mkdir -p build
+g++ -std=c++17 -Wall -Wextra -Werror -Isrc src/machine_supervisor.cpp src/process_state.cpp src/shredder_control.cpp src/drive_speed_control.cpp src/heater_control.cpp src/heater_power_allocator.cpp src/gauge_control.cpp src/puller_speed_control.cpp src/screw_motion_monitor.cpp src/cooling_monitor.cpp src/spooler_control.cpp src/traverse_control.cpp src/traverse_homing.cpp tests/test_machine_supervisor.cpp -o build/test_machine_supervisor
+mkdir -p build ../../validation/results/hardware_adapter_e2e
+g++ -std=c++17 -Wall -Wextra -Werror -Isrc src/machine_supervisor.cpp src/process_state.cpp src/shredder_control.cpp src/drive_speed_control.cpp src/heater_control.cpp src/heater_power_allocator.cpp src/gauge_control.cpp src/puller_speed_control.cpp src/screw_motion_monitor.cpp src/cooling_monitor.cpp src/spooler_control.cpp src/traverse_control.cpp src/traverse_homing.cpp src/tach_estimator.cpp tests/test_hardware_adapter_e2e.cpp -o build/test_hardware_adapter_e2e
+./build/test_heater_tracking
+HEATER_TRACKING_AND_WARMUP_WATCH_PASS cases=5
+./build/test_heater_numeric_safety
+HEATER_NUMERIC_AND_GLOBAL_LATCH_PASS cases=10
+./build/test_profiles
+PROCESS_PHASE_MATERIAL_SESSION_ARBITRATION_OK
+./build/test_shredder_control
+SHREDDER_CALIBRATED_TORQUE_RPM_RETRY_OK
+./build/test_heater_control
+HEATER_PID_TIME_PROPORTION_PROTECTIONS_OK
+./build/test_heater_power_allocator
+HEATER_ALLOCATOR_PHASE_CAP_OK
+./build/test_gauge_control
+GAUGE_CALIBRATION_DIAMETER_PI_SAFE_PAUSE_OK
+./build/test_forming_actuation
+FORMING_ACTUATION_CLOSED_LOOPS_OK
+./build/test_ui_core
+UI_NAVIGATION_MATERIAL_WIZARD_FAULT_SEMANTICS_OK
+./build/test_machine_supervisor
+MACHINE_SUPERVISOR_TRANSACTIONS_PURGE_RUNDOWN_REQUALIFICATION_OK
+./build/test_calibration_record
+EEPROM_INDEPENDENT_CALIBRATION_VERSION_CRC_INVALIDATION_OK
+./build/test_tach_estimator ../../validation/results/hardware_adapter_tach/tach_estimator_trace.csv
+TACH_HYBRID_ALL_CHANNELS_OK
+./build/test_hardware_adapter ../../validation/results/hardware_adapter_tach/drive_adapter_trace.csv
+HARDWARE_ADAPTER_PRODUCTION_DRIVES_OK
+./build/test_hardware_adapter_e2e ../../validation/results/hardware_adapter_e2e/scenario_trace.csv
+HARDWARE_ADAPTER_E2E_V0621_OK scenarios=37
+./build/test_traverse_homing
+TRAVERSE_EXPLICIT_HOMING_LIMIT_CALIBRATION_OK
+./build/test_feed_delivery_control
+FEED_DELIVERY_HOST_SIMULATION_ONLY_NORMAL_TACH_CURRENT_BRIDGE_RETRY_PERMISSION_OK
+make: Leaving directory '/home/monad/develop/PPR/firmware/arduino_mega'

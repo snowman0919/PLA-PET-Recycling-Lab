@@ -32,6 +32,9 @@ with tempfile.TemporaryDirectory() as directory:
 
 files = collect()
 sources = {rel for src, rel in files.values()}
+from evidence_closure import validate_evidence_closure
+physics = validate_evidence_closure(ROOT, sources)
+assert 'analysis/thermal_revision_v08/results/controller_replay.json' in physics['roots']
 assert {
     'analysis/final_validation/hot_zone_revision_review.py',
     'analysis/final_validation/results/v0.8/hot_zone_revision_review.json',

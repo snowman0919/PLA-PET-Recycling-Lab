@@ -40,6 +40,15 @@ class EvidenceClosureTest(unittest.TestCase):
         self.assertEqual(result['status'], 'PACKAGED_PHYSICS_DEPENDENCIES_CURRENT')
         self.assertFalse(result['fabrication_authorized'])
 
+    def test_controller_replay_requires_current_inputs(self):
+        replay = 'analysis/thermal_revision_v08/results/controller_replay.json'
+        self.bind(replay, LEAF)
+        sources = {replay, LEAF}
+        self.assertEqual(validate_evidence_closure(self.root, sources)['root_count'], 1)
+        self.put(LEAF, b'changed-controller')
+        with self.assertRaisesRegex(ValueError, 'stale'):
+            validate_evidence_closure(self.root, sources)
+
     def test_leaf_present_locally_but_not_packaged(self):
         with self.assertRaisesRegex(ValueError, 'unpackaged'):
             validate_evidence_closure(self.root, self.sources - {LEAF})

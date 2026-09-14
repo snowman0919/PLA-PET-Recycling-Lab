@@ -12,6 +12,7 @@ from evidence_freshness import audit_evidence, MAP_KEYS, SCALAR_BINDINGS
 def is_physics_report(relative: str) -> bool:
     return relative.endswith('.json') and (
         relative.startswith('analysis/final_validation/results/v0.8/')
+        or relative == 'analysis/thermal_revision_v08/results/controller_replay.json'
         or relative == 'validation/results/final_v08_cad.json'
         or relative == 'simulation/openmodelica/results_v0.8/summary.json')
 

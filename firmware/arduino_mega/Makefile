@@ -2,7 +2,8 @@ CXX ?= g++
 CXXFLAGS := -std=c++17 -Wall -Wextra -Werror -Isrc
 
 .PHONY: test arduino clean
-test: build/test_heater_numeric_safety build/test_profiles build/test_shredder_control build/test_heater_control build/test_heater_power_allocator build/test_gauge_control build/test_forming_actuation build/test_ui_core build/test_machine_supervisor build/test_calibration_record build/test_tach_estimator build/test_hardware_adapter build/test_hardware_adapter_e2e build/test_traverse_homing build/test_feed_delivery_control
+test: build/test_heater_tracking build/test_heater_numeric_safety build/test_profiles build/test_shredder_control build/test_heater_control build/test_heater_power_allocator build/test_gauge_control build/test_forming_actuation build/test_ui_core build/test_machine_supervisor build/test_calibration_record build/test_tach_estimator build/test_hardware_adapter build/test_hardware_adapter_e2e build/test_traverse_homing build/test_feed_delivery_control
+	./build/test_heater_tracking
 	./build/test_heater_numeric_safety
 	./build/test_profiles
 	./build/test_shredder_control
@@ -79,8 +80,12 @@ build/test_feed_delivery_control: src/feed_delivery_control.cpp tests/test_feed_
 	$(CXX) $(CXXFLAGS) src/feed_delivery_control.cpp tests/test_feed_delivery_control.cpp -o $@
 
 clean:
-	rm -f build/test_heater_numeric_safety build/test_profiles build/test_shredder_control build/test_heater_control build/test_heater_power_allocator build/test_gauge_control build/test_forming_actuation build/test_ui_core build/test_machine_supervisor build/test_calibration_record build/test_tach_estimator build/test_hardware_adapter build/test_hardware_adapter_e2e build/test_traverse_homing build/test_feed_delivery_control
+	rm -f build/test_heater_tracking build/test_heater_numeric_safety build/test_profiles build/test_shredder_control build/test_heater_control build/test_heater_power_allocator build/test_gauge_control build/test_forming_actuation build/test_ui_core build/test_machine_supervisor build/test_calibration_record build/test_tach_estimator build/test_hardware_adapter build/test_hardware_adapter_e2e build/test_traverse_homing build/test_feed_delivery_control
 
 build/test_heater_numeric_safety: src/heater_control.cpp src/heater_control.h src/hardware_interfaces.h src/generated_profiles.h tests/test_heater_numeric_safety.cpp
 	mkdir -p build
 	$(CXX) $(CXXFLAGS) src/heater_control.cpp tests/test_heater_numeric_safety.cpp -o $@
+
+build/test_heater_tracking: src/heater_control.cpp tests/test_heater_tracking.cpp src/heater_control.h src/hardware_interfaces.h src/generated_profiles.h
+	mkdir -p build
+	$(CXX) $(CXXFLAGS) src/heater_control.cpp tests/test_heater_tracking.cpp -o $@
