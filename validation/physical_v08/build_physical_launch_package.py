@@ -11,6 +11,17 @@ ROOT = Path(__file__).resolve().parents[2]
 PHYS = ROOT / "validation/physical_v08"
 DIST = ROOT / "dist"
 
+SOURCE_BINDINGS = (
+    "cad/parameters/ggm_frame_revision.json", "exports/fabrication/frame_cut_list.csv",
+    "exports/final/frame_v08/frame_release.json", "exports/final/frame_v08/FRAME_CUT_AND_TIE_KO.pdf",
+    "control/thermal_cutoff_contract.json", "control/thermal_barrier_tape_contract.json", "exports/thermal/thermal_cutoff_topology.json",
+    "exports/thermal/manifest.csv", "exports/thermal/channel_schedule.csv",
+    "exports/final/electrical/fuse_schedule.csv", "exports/final/electrical/wire_schedule.csv",
+    "exports/final/electrical/pin_schedule.csv", "electronics/io_schedule.csv",
+    "firmware/arduino_mega/src/generated_profiles.h", "firmware/arduino_mega/src/machine_supervisor.cpp",
+    "exports/final/firmware/build_manifest.json",
+)
+
 
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -95,16 +106,7 @@ def main() -> None:
         if path.is_file() and (path.name.startswith("GGM_") or path.name in {"manifest.csv", "release_report.json"}) and path.suffix in {".step", ".dxf", ".csv", ".json"}:
             items.append((path, "06_P3_GGM/" + path.name))
 
-    bindings = [
-        "cad/parameters/ggm_frame_revision.json", "exports/fabrication/frame_cut_list.csv",
-        "exports/final/frame_v08/frame_release.json", "exports/final/frame_v08/FRAME_CUT_AND_TIE_KO.pdf",
-        "control/thermal_cutoff_contract.json", "control/thermal_barrier_tape_contract.json", "exports/thermal/thermal_cutoff_topology.json",
-        "exports/thermal/manifest.csv", "exports/thermal/channel_schedule.csv",
-        "exports/final/electrical/fuse_schedule.csv", "exports/final/electrical/wire_schedule.csv",
-        "exports/final/electrical/pin_schedule.csv", "electronics/io_schedule.csv",
-        "firmware/arduino_mega/src/generated_profiles.h", "firmware/arduino_mega/src/machine_supervisor.cpp",
-        "exports/final/firmware/build_manifest.json",
-    ]
+    bindings = SOURCE_BINDINGS
     for source in bindings:
         add_file(items, source, "07_SOURCE_BINDINGS/" + source)
 

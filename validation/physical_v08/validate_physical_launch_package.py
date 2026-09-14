@@ -19,14 +19,9 @@ FIXED_REQUIRED = {
     "05_P5_COUPONS/EX-CPN-SCR/EX-CPN-SCR.step", "05_P5_COUPONS/EX-CPN-BAR/EX-CPN-BAR.step",
     "06_P3_GGM/manifest.csv", "MANIFEST.sha256",
 }
-SOURCE_BINDINGS = (
-    "control/thermal_cutoff_contract.json", "control/thermal_barrier_tape_contract.json", "exports/thermal/thermal_cutoff_topology.json",
-    "exports/thermal/manifest.csv", "exports/thermal/channel_schedule.csv",
-    "exports/final/electrical/fuse_schedule.csv", "exports/final/electrical/wire_schedule.csv",
-    "exports/final/electrical/pin_schedule.csv", "electronics/io_schedule.csv",
-    "firmware/arduino_mega/src/generated_profiles.h", "firmware/arduino_mega/src/machine_supervisor.cpp",
-    "exports/final/firmware/build_manifest.json",
-)
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from build_physical_launch_package import SOURCE_BINDINGS
 
 
 def require_registry_payload(archive: zipfile.ZipFile, names: set[str]) -> None:
@@ -63,6 +58,21 @@ def require_registry_payload(archive: zipfile.ZipFile, names: set[str]) -> None:
             raise SystemExit("missing smoke validator " + archive_name)
 
 
+def validate_source_binding_payload(archive, names, status, root):
+    expected = {'07_SOURCE_BINDINGS/' + source for source in SOURCE_BINDINGS}
+    actual = {name for name in names if name.startswith('07_SOURCE_BINDINGS/')}
+    if len(SOURCE_BINDINGS) != len(set(SOURCE_BINDINGS)) or actual != expected:
+        raise SystemExit('source binding path coverage drift')
+    count = status.get('source_binding_count')
+    if type(count) is not int or count != len(SOURCE_BINDINGS):
+        raise SystemExit('source binding count drift')
+    for source in SOURCE_BINDINGS:
+        local = root / source
+        content = archive.read('07_SOURCE_BINDINGS/' + source)
+        if not local.is_file() or hashlib.sha256(local.read_bytes()).digest() != hashlib.sha256(content).digest():
+            raise SystemExit('source binding content drift: ' + source)
+
+
 def validate_package(path: Path) -> dict:
     root = Path(__file__).resolve().parents[2]
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
@@ -77,17 +87,14 @@ def validate_package(path: Path) -> dict:
         if missing:
             raise SystemExit("missing required paths: " + ", ".join(missing))
         require_registry_payload(archive, names)
-        for source in SOURCE_BINDINGS:
-            archive_name = "07_SOURCE_BINDINGS/" + source
-            if archive_name not in names:
-                raise SystemExit("missing source binding " + archive_name)
 
         status = json.loads(archive.read("00_READ_FIRST/STATUS.json"))
         if status.get("package_state") != "PREPARATION_ONLY_NOT_FABRICATION_AUTHORIZATION":
             raise SystemExit("wrong package state")
         if status.get("head") != head:
             raise SystemExit("package HEAD is stale")
-        if status.get("registry_stage_count") != 13 or status.get("source_binding_count") != len(SOURCE_BINDINGS):
+        validate_source_binding_payload(archive, names, status, root)
+        if status.get("registry_stage_count") != 13:
             raise SystemExit("package coverage metadata drift")
         for key in ("procurement_authorized", "motor_energization_authorized", "heater_energization_authorized", "production_authorized"):
             if status.get(key) is not False:
