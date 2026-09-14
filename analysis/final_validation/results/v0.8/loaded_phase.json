@@ -107,7 +107,7 @@
               400.5,
               413.5
             ],
-            "chain_sprocket_y_mm": 264.0
+            "chain_sprocket_y_mm": 273.0
           },
           "cutter_load_sign": -1,
           "result": {
@@ -144,7 +144,7 @@
               400.5,
               413.5
             ],
-            "chain_sprocket_y_mm": 264.0
+            "chain_sprocket_y_mm": 273.0
           },
           "cutter_load_sign": 1,
           "result": {
@@ -290,7 +290,7 @@
               400.5,
               413.5
             ],
-            "chain_sprocket_y_mm": 264.0
+            "chain_sprocket_y_mm": 273.0
           },
           "cutter_load_sign": -1,
           "result": {
@@ -327,7 +327,7 @@
               400.5,
               413.5
             ],
-            "chain_sprocket_y_mm": 264.0
+            "chain_sprocket_y_mm": 273.0
           },
           "cutter_load_sign": 1,
           "result": {
@@ -473,7 +473,7 @@
               400.5,
               413.5
             ],
-            "chain_sprocket_y_mm": 264.0
+            "chain_sprocket_y_mm": 273.0
           },
           "cutter_load_sign": -1,
           "result": {
@@ -510,7 +510,7 @@
               400.5,
               413.5
             ],
-            "chain_sprocket_y_mm": 264.0
+            "chain_sprocket_y_mm": 273.0
           },
           "cutter_load_sign": 1,
           "result": {
@@ -656,7 +656,7 @@
               400.5,
               413.5
             ],
-            "chain_sprocket_y_mm": 264.0
+            "chain_sprocket_y_mm": 273.0
           },
           "cutter_load_sign": -1,
           "result": {
@@ -693,7 +693,7 @@
               400.5,
               413.5
             ],
-            "chain_sprocket_y_mm": 264.0
+            "chain_sprocket_y_mm": 273.0
           },
           "cutter_load_sign": 1,
           "result": {
@@ -745,17 +745,17 @@
   "status": "PASS",
   "physical_validation_state": "NOT_RUN",
   "source_sha256": "581302acb8bdf718cbb8f4bc962a846b5e79f76be9a613fa41b67c2b43fbe3b1",
-  "geometry_source_sha256": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+  "geometry_source_sha256": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
   "dependencies_sha256": {
-    "analysis/final_validation/run_calculix_v08.py": "d5e4430ab0208394700a04674737d90cfb25400a29c7fb4660c228d45c5a9acd",
+    "analysis/final_validation/run_calculix_v08.py": "e3e21cd1f82dbc8737657ef82fd0378c5439afd8372196b3a21ad27e15df8e8c",
     "analysis/final_validation/run_qualification_v08.py": "dfb687686a99df8db69311b37d06b1dcfe3bfe4a99352a85a65a1887560e3a1f",
     "analysis/structural/run_load_checks.py": "5fd498c9a55ab327f410d95eabf44244cb9c0b44611e8693051d79b34e7f39ba",
-    "analysis/final_validation/input/geometry_manifest.json": "3ed3203fa66331a74261ae32a4895d606a74ea6d4a00b072c20db5af71b12098",
-    "analysis/final_validation/results/v0.8/shaft_section.json": "851ded9e52eb6bc5484c63b54ba8b7fbda8f4a2e004435bf6e15d0930b05e65b",
+    "analysis/final_validation/input/geometry_manifest.json": "ac3ee95d0f5d1affb325901b4c6a440cb9f5894bb6f9f434e1c2b22e3ca14725",
+    "analysis/final_validation/results/v0.8/shaft_section.json": "97a912535f6f3b45633dbfc713203c221e2137f1e957bfdcf7ef4242f620051d",
     "analysis/final_validation/results/v0.8/phase_pair_backlash_candidate.json": "4e597d88f4b188e608a26c6591b5d8177e8f95af4973459baa3d67233931ce4f",
-    "analysis/final_validation/results/v0.8/phase_path_25_qualification.json": "979775fdb4bb7e10521b92ec6422ecde4f449086425d89266ce67da738ffc136"
+    "analysis/final_validation/results/v0.8/phase_path_25_qualification.json": "08ae5c53e5a32b596027fad3d3f80192a8d7d08b57ba66f3a7b0e889d1af3a94"
   },
-  "raw_directory": "analysis/final_validation/results/v0.8/phase_raw/run-6robqmye",
+  "raw_directory": "analysis/final_validation/results/v0.8/phase_raw/run-_7xl6qzi",
   "criterion_source": "released CAD pair backlash 0.125664–0.134041 mm; 1 degree capture limit",
   "formula_source": "https://www.khkgears.us/media/1224/a-primer-on-backlash-and-its-purpose-in-gear-designs.pdf",
   "limitations": [

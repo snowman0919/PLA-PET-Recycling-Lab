@@ -1,7 +1,7 @@
-# TH-BH-01 — Custom barrel mica band heater
+# TH-BH-01 — Custom barrel mica band heater Z2/Z3
 
 - revision: `safety-orchestration-closure-v0.6.1`
-- quantity: `3`
+- quantity: `2`
 - material: `mica/NiCr/stainless sheath`
 - process: `custom heater RFQ`
 - controlling requirements: `24 VDC 100 W each; free-state ID34.10–34.20; usable split-closure travel >=1.00; width45 ±0.5; radial build2 nominal; cold resistance 5.76 Ω ±10%; 300 mm fiberglass leads; PE-bonded sheath; PET service 300 C design; no stock Ø35 substitution`

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "revision": "final-design-fabrication-closure-v0.8",
+  "status": "HOLD_MATERIAL_AND_THERMAL_FIELD_QUALIFICATION",
+  "physical_validation_state": "NOT_RUN",
+  "source_material": "SCM440 QT plus gas nitriding as currently specified",
+  "nominal_cte_reference_per_k": 1.23e-05,
+  "cte_sensitivity_per_k": [
+    1.23e-05,
+    1.7e-05
+  ],
+  "support_cte_sensitivity_per_k": 1.2e-05,
+  "barrel_temperature_cases_c": [
+    270,
+    300
+  ],
+  "support_temperature_cases_c": [
+    20,
+    100,
+    200
+  ],
+  "reference_temperature_c": 20,
+  "sources": [
+    {
+      "id": "MIKI_SCM440",
+      "url": "https://www.mikipulley.co.jp/en/resources/selection-calculation-guide-physical-mechanical-properties-metals",
+      "claims": {
+        "cte_per_k": 1.23e-05,
+        "conductivity_w_mk": 42.7
+      },
+      "limits": "Manufacturer engineering reference; temperature interval, QT/nitriding condition and hot yield not specified; not a 300C material certificate."
+    },
+    {
+      "id": "OVAKO_42CRMO4",
+      "url": "https://steelnavigator.ovako.com/steel-grades/42crmo4/",
+      "claims": {
+        "mean_cte_20_300_per_k": 1.2e-05
+      },
+      "limits": "Different grade/supplier. Typical property only; not an automatic replacement for SCM440."
+    }
+  ],
+  "unresolved": [
+    "SCM440 temperature-dependent yield after actual QT/nitriding",
+    "transient barrel-to-support temperature difference",
+    "die gasket seating and retained hot preload"
+  ],
+  "policy": "17e-6 is a retained screening upper assumption, not an experimentally verified SCM440 property. Numerical agreement never sets material-qualified=true."
+}

@@ -5,7 +5,7 @@
   "parts": [
     {
       "file": "bearing_plate.step",
-      "sha256": "2604ce6a406b5e677d5046f8f2a42566a88d6f585253f85791f7b91246c36555",
+      "sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
       "solid_count": 1,
       "volume_mm3": 188962.09952,
       "bbox_mm": [
@@ -18,15 +18,15 @@
     },
     {
       "file": "extruder_barrel.step",
-      "sha256": "3a55941584835e99edf84cd63cf441e8ea5b05fba974a7d7df36f3f2b9b1ef79",
+      "sha256": "dc21e0c4f542c98bcceb3118b9215ada6cb07c14b0757ce0fc646db69fba7d26",
       "solid_count": 1,
-      "volume_mm3": 196898.993121,
+      "volume_mm3": 196898.993147,
       "bbox_mm": [
         39.0,
         44.0,
         280.0
       ],
-      "step_reimport_volume_error_fraction": 4.350037438260432e-08,
+      "step_reimport_volume_error_fraction": 4.365482663775444e-08,
       "status": "PASS"
     }
   ],
@@ -64,8 +64,15 @@
         400.5,
         413.5
       ],
-      "chain_sprocket_y_mm": 264.0
+      "chain_sprocket_y_mm": 273.0
     }
   },
-  "geometry_source_sha256": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57"
+  "hot_zone_stations": {
+    "barrel_rear_y_mm": 375.00000000000006,
+    "barrel_die_y_mm": 95.00000000000006,
+    "rear_datum_y_mm": 359.00000000000006,
+    "front_guide_y_mm": 265.00000000000006,
+    "authority": "GGM integrated final native CAD"
+  },
+  "geometry_source_sha256": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7"
 }

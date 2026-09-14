@@ -51,8 +51,8 @@
   },
   "integrated_clearance": {
     "status": "GGM_NOMINAL_COLLISION_POLICY_PASS",
-    "object_count": 253,
-    "pairs": 31878,
+    "object_count": 266,
+    "pairs": 35245,
     "tolerance_mm3": 0.01,
     "repaired_interface_checks": 14,
     "clearances": [
@@ -250,6 +250,90 @@
   },
   "integrated_motion": {
     "status": "GGM_NOMINAL_MOTION_CLEARANCE_PASS",
+    "traverse_retention": {
+      "status": "TRAVERSE_AXIAL_STOP_GEOMETRY_PASS",
+      "checks": [
+        {
+          "collar": "TraverseCollarAFront",
+          "plate": "TraverseEndPlateLeft",
+          "annular_contact_area_mm2": 148.25175732290202,
+          "rod_end_margin_mm": 2.0,
+          "tool_corridor_clear": true
+        },
+        {
+          "collar": "TraverseCollarARear",
+          "plate": "TraverseEndPlateRight",
+          "annular_contact_area_mm2": 148.25175732290202,
+          "rod_end_margin_mm": 2.0,
+          "tool_corridor_clear": true
+        },
+        {
+          "collar": "TraverseCollarBFront",
+          "plate": "TraverseEndPlateLeft",
+          "annular_contact_area_mm2": 148.25175732290202,
+          "rod_end_margin_mm": 2.0,
+          "tool_corridor_clear": true
+        },
+        {
+          "collar": "TraverseCollarBRear",
+          "plate": "TraverseEndPlateRight",
+          "annular_contact_area_mm2": 148.25175732290202,
+          "rod_end_margin_mm": 2.0,
+          "tool_corridor_clear": true
+        }
+      ],
+      "guide_rod_length_mm": 196.0,
+      "collar_quantity": 4,
+      "physical_validation_state": "NOT_RUN",
+      "fabrication_authorized": false,
+      "holding_force_verified": false,
+      "manufacturer_source": "https://www.ganternorm.com/en/products/3.2-Mounting-Positioning-Leveling-with-Retaining-Cables-Screws-Clamping-and-Supporting-Elements/Shaft-collars/GN-705-Shaft-collars-blackened",
+      "limitations": [
+        "received dimensions and screw protrusion",
+        "manufacturer tightening torque and axial slip force",
+        "shaft indentation/burrs outside the carriage stroke",
+        "loaded stroke, wear and limit stopping distance"
+      ]
+    },
+    "dancer_retention": {
+      "status": "DANCER_RETENTION_GEOMETRY_PASS",
+      "collars": [
+        {
+          "collar": "DancerPivotCollarFront",
+          "shaft_end_margin_mm": 2.0,
+          "seated_on": "DancerSupportPlate",
+          "tool_corridor_clear": true
+        },
+        {
+          "collar": "DancerPivotCollarRear",
+          "shaft_end_margin_mm": 2.8000000000000114,
+          "seated_on": "DancerPivotWasher1",
+          "tool_corridor_clear": true
+        },
+        {
+          "collar": "DancerEndCollarFront",
+          "shaft_end_margin_mm": 3.3999999999999773,
+          "seated_on": "DancerEndWasher0",
+          "tool_corridor_clear": true
+        },
+        {
+          "collar": "DancerEndCollarRear",
+          "shaft_end_margin_mm": 2.8999999999999773,
+          "seated_on": "DancerEndWasher2",
+          "tool_corridor_clear": true
+        }
+      ],
+      "manufacturing_lengths_mm": [
+        38.0,
+        52.0
+      ],
+      "nominal_pivot_endplay_mm": 0.19999999999998863,
+      "nominal_roller_endplay_mm": 0.20000000000004547,
+      "washer_quantity": 5,
+      "physical_validation_state": "NOT_RUN",
+      "holding_force_verified": false,
+      "fabrication_authorized": false
+    },
     "traverse_axis": "Y_PARALLEL_TO_SPOOL",
     "traverse_stroke_mm": 80.0,
     "continuous_traverse_bounding_envelope_clear": true,
@@ -273,7 +357,7 @@
     "fabrication_authorized": false,
     "scope": "Nominal solids and service space. Dancer sampled; not a continuous angular proof.",
     "not_qualified": [
-      "rod retention",
+      "received collar tightening torque and axial-slip proof",
       "limit actuation and stopping distance",
       "bracket/joint capacity and carriage wear",
       "filament routing, belt drive and winding",
@@ -283,11 +367,11 @@
   "exports": [
     {
       "file": "GGM-FULL-ASM.step",
-      "sha256": "0db531a96a9ed583b351c1ec601a9b3e3741f88240150800a59cd39353a8c4af",
+      "sha256": "46d48c67e5ed50681384d57520ea16bab0875c8100cfe65c257e99bdb0d06a90",
       "fcstd": "GGM-FULL-ASM.FCStd",
-      "fcstd_sha256": "52934485d6abc2fe39be860274771b53e1c2022a4c72c4b5e5555441e5eae3d2",
-      "solids": 255,
-      "volume_mm3": 21587550.60926891,
+      "fcstd_sha256": "c2d327ec887f0b291d730bc15f8ffb2b26cedeb6941b1cb3b6c995681db6bc06",
+      "solids": 276,
+      "volume_mm3": 21600359.87820948,
       "bbox_mm": [
         470.0,
         729.0,
@@ -299,7 +383,7 @@
       "file": "GGM-DRIVE-ASM.step",
       "sha256": "ccfc5cb301bab0c4d02fcc210f73b4e24d85141e232e57f7b6304e64c5c49a3d",
       "fcstd": "GGM-DRIVE-ASM.FCStd",
-      "fcstd_sha256": "769bb257ea3f653cab5e4ca6ae1f65b82a87521ee8e5dfcd3baa4511adf7d4fe",
+      "fcstd_sha256": "2dfa8cb3b50b27124b317b1e7668209f116d1557c32c5d30ac7736d21e98435d",
       "solids": 61,
       "volume_mm3": 5463562.682265392,
       "bbox_mm": [
@@ -677,7 +761,7 @@
       "file": "GGM_SH_CouplingGuard.step",
       "sha256": "30659433f7586a0cd83316f7c0b12ee2452c4d5d3ea9093bd818f7464ff196b9",
       "fcstd": "GGM_SH_CouplingGuard.FCStd",
-      "fcstd_sha256": "cae14a1fb6597205f674ba146b5fcebff3621a224361e8b2bf61ccc289434749",
+      "fcstd_sha256": "1d9640a00d5331bdc8f70d1ba6ecdf1796c47b7ba464e4ee833efbed97bf6680",
       "solids": 2,
       "volume_mm3": 22771.189259458253,
       "bbox_mm": [
@@ -705,7 +789,7 @@
       "file": "GGM_ChainGuard.step",
       "sha256": "73fe1ef1dfc8ef7403db61169916499977f915039cfe591f175bcdfa21fb7eab",
       "fcstd": "GGM_ChainGuard.FCStd",
-      "fcstd_sha256": "659ef29d929344c845b5254cbd30dc96683813b2c68a4e6f641e97e8d9d749c2",
+      "fcstd_sha256": "c2077b7103c6993c5e84b7a820356c25787d27de5c0a169644938436dea60dc2",
       "solids": 1,
       "volume_mm3": 39401.40582045682,
       "bbox_mm": [
@@ -867,18 +951,21 @@
     "cad/freecad/drive_v08/guard_details.py": "875ea078ba7aa196491a0c3bd5e79da98216275a3e28164424d67ffa03ed297b",
     "cad/freecad/drive_v08/frame_revision.py": "59d7381e26eab435831d8d08d2d0f1a7c0c159337ed46e46e72d1fe068cb0fe9",
     "cad/freecad/drive_v08/assembly.py": "5d80060fc98896f5b42f10d7095f59f7fd4828538e6b4c9e172a210640dc946e",
-    "cad/freecad/drive_v08/generate.py": "e8f046f90ea0c771c604851b223e8d053ee6e499627df4025fffd0ecc476a837",
+    "cad/freecad/drive_v08/generate.py": "aa15e6ca82ae9f2120a701994531f4c669531827bf48d475a1eb3ee72c787559",
     "control/ggm_drive_contract.json": "0c847fea963b5a08c86273f80542706d26c784ad6d0201307e500879662fd210",
     "cad/parameters/ggm_frame_revision.json": "d51cbb6ee6c6075ef67f42c0d388e39c8e79f91777f7c987c726e909246ca0a5",
     "validation/integrated_assembly_clearance.py": "91d53b7919647131f709c4c8a0cbbc1ee96358c6b7fd6c43ca14debaf34feb93",
-    "validation/integrated_motion_clearance.py": "b2e3fff43340ce1fc57b14bdcbb42a3d65697ff7ca4242fd26afa2f980a62644",
+    "validation/integrated_motion_clearance.py": "85e364181408a03ce538d0a4f3217d343c237fff2916722b7c3b0e3c8d17ab38",
+    "validation/shaft_retention_clearance.py": "264546484876b001d13a68be0ba0bbe803c3b19dce81c3fffacc1ebe784029ca",
     "cad/freecad/compact/check_shaft_section_v08.py": "888d22e20fb0e2fa9e571020ecfaa0d15df32b9809cfe2097e88e5daafc44e15",
-    "cad/freecad/compact/export_validation_geometry_v08.py": "9f669fda6759eb69f59dfde5101013cea9611a6b6308939bbd8e0332ad8b6fbf",
+    "cad/freecad/compact/dancer_revision.py": "59a9557b583174128d85e5bc9e5f34fc9dc0372fc84254ed9d198db1e130bfed",
+    "cad/freecad/compact/export_validation_geometry_v08.py": "3e36986cd3a170c17b19f32bdfa76fb42079dd98e21d4e6265d88b614eb30975",
     "cad/freecad/compact/generate.py": "71900f37e772c62bbed71e6d9d6dc05630fe2ff2c73ff1dc18b781d51aea51bc",
     "cad/freecad/compact/generate_fusion_validation.py": "20bf9de8d69498c7771651e1c8d78dd1c30f5ec972e2342c328c035b40f16d4e",
-    "cad/freecad/compact/geometry.py": "140e0b8c37fc4beadd13d9940b5ca258709ed47ac6f87b235fbdc22313159d4f",
+    "cad/freecad/compact/geometry.py": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
     "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
     "cad/freecad/compact/process_v0621.py": "3c69c8f14e9cdbb185da58acd63eab1412552d640cf6a6059cac309ed2ef6ccf",
+    "cad/freecad/compact/shaft_retention.py": "09089f8bdfe484fe8ed2d9f584f46b5e27af156dad865579b39e4eb77f2f56a3",
     "cad/freecad/compact/traverse_revision.py": "bdf47c625c378184001ca3061ade07ecb8b3e957f0914da0d1d717b4e5271650",
     "cad/freecad/final_v08/audit_thermal_mating_closure.py": "22cfa0c819b618501a65aed252bd711f6ef3b8cb285a491faa134a98864ad14c",
     "cad/freecad/final_v08/check_axial_shoulder_candidate.py": "7071e224e06937efb48c040ba9332f3246acb5e109aecbdab1b0e8e34ae07a51",
@@ -894,7 +981,7 @@
     "cad/freecad/final_v08/export_torsion_load_path.py": "442cf3bf7235e9df6c08060792e2ffef171fbb5c2c4ef017079427a9ac6a4883",
     "cad/freecad/final_v08/generate.py": "5e3788761eac33931118c9406edaff4041b8c740a7df364f44c0f8be7737335f",
     "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b",
-    "cad/parameters/baseline.json": "190af1c1806b8d832a9c9883b631f41bcf5048d8c977e73f4a92e4322fa83779"
+    "cad/parameters/baseline.json": "f71d689a445a7a292d371e214a76347e57fea98e4f787262883caea8663e1fc4"
   },
   "motor_envelopes_not_internals": true,
   "standard_sprockets_are_reference_envelopes_not_cutting_masters": true

@@ -2,24 +2,26 @@
   "revision": "final-design-fabrication-closure-v0.8",
   "solver": "OpenModelica 1.27.0~5-ga0783c0 DASSL",
   "validation_scope": "PARAMETER_BOUND_MECHANICAL_AND_CONTROL_SURROGATE_NOT_FIRMWARE_OR_PHYSICAL_VALIDATION",
-  "model_sha256": "60d4e4ba9e2a394f5a30488d32a320ddf27de177d8b696c1b8f654eac0270826",
+  "model_sha256": "ba0bf7192b23b4ee8095371525a0d641e307ea38e6e34fe122e39bfe6535c0cc",
   "source_sha256": {
-    "simulation/openmodelica/v0.8/V08ReleaseScenarios.mo": "60d4e4ba9e2a394f5a30488d32a320ddf27de177d8b696c1b8f654eac0270826",
+    "simulation/openmodelica/v0.8/V08ReleaseScenarios.mo": "ba0bf7192b23b4ee8095371525a0d641e307ea38e6e34fe122e39bfe6535c0cc",
     "simulation/openmodelica/PLA_PET_Recycler/Systems/DynamicSpoolSystem.mo": "3839a9cbd676f00de8edd59f450c9bd26f9de078f007e918b6e16208c12758a4",
-    "simulation/openmodelica/PLA_PET_Recycler/Generated.mo": "62cbbc4a831a8967bbabd4c1c5149a2a74a25d9e36e5d5b8a7551f1100e97352",
+    "simulation/openmodelica/PLA_PET_Recycler/Generated.mo": "c931b8b519c482f1c2e976ca8a358881586817d6cc3151df80c027d2e64dfe8a",
     "simulation/openmodelica/PLA_PET_Recycler/GeneratedControl.mo": "857a44081e16f90622412c85885f8cd4d12de6fa9ab4bb7165df48a9a6045a1d",
-    "cad/parameters/baseline.json": "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a",
+    "cad/parameters/baseline.json": "f71d689a445a7a292d371e214a76347e57fea98e4f787262883caea8663e1fc4",
     "control/drive_actuation_contract_v0.6.2.1.json": "6a0f3ee3b668421900373561750264986c1e9583543932b4da0b359764887ec2",
     "control/process_contract.json": "b0cda8ee3ed63098fad9d447a24b084d4c6e4ccccdea165bab2ca4afc6e8126d",
     "control/fault_response_contract.json": "5a2ca711f09d33c60d262b62ee86b243a16aa92fa92963e66b1b0b21f5d951f4",
     "firmware/arduino_mega/src/spooler_control.h": "59ad7eaf0e88b25fd58ccbb28018596c6ea2943577909c6787ae26f224041f62",
     "firmware/arduino_mega/src/machine_supervisor.cpp": "de9073ea4fad90bfa18553d287abbaf3ae05b0403fb0d4e009ad8390f04240da",
     "calculations/run_engineering.py": "9b011de99355acf3fab2c06fd390338eae7c84b4c6595183c7a2a019664c78b6",
-    "simulation/openmodelica/scripts/run_v08_release.mos": "cd1e8487529e5f640e8573b81fa09f640b76bcec5ac05772572335f4ed3e1cba",
-    "simulation/openmodelica/postprocess/validate_v08_release.py": "aa38b446db310059bca478ebc4b6203ab528d11b2825dd25a467f828ebdecff4"
+    "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b",
+    "cad/generation/export_modelica_properties.py": "3e8707ffd505a1ab1ce86e490c5612a5ec1d6da17f53396c0aab1bd695195221",
+    "simulation/openmodelica/scripts/run_v08_release.mos": "a14f24fa2246aa37107facd68de097cd3ab223d3a05234ba2e364b67fbc01d5c",
+    "simulation/openmodelica/postprocess/validate_v08_release.py": "f6e02f1c92fc63982ef7ecbc9b27953216e105d267d03de44496c92caf5b925f"
   },
   "raw_csv_sha256": {
-    "HotZoneControlledExpansion_res.csv": "98c772d7ccd5ec8d73cb0a6d7f1ff662d24620461b04bb7bd3f02de80408ae90",
+    "HotZoneControlledExpansion_res.csv": "b9139786a36e8fb93d947bbb42ad0ddbac38b269d3c18b21afefad49e4cafb3f",
     "LC09SpoolScope_res.csv": "41766c3f1a476b670506327f6e05a0d7090d0984b016c560aa69a6e1342a66f5",
     "SpoolerFullRadiusPET_res.csv": "685cbe2ff84aebe37a99fd3896f2ebb6b261419ea07368327d38c808b0998df8",
     "SpoolerFullRadiusPLA_res.csv": "bdb68feef8381cf30c263137e422be16c51efaf528d58d852f8820c42653dde3",
@@ -28,6 +30,7 @@
     "SpoolerTraverseEmptyToFull_res.csv": "ea94ff86c971b3f2eeae6e62e9e9b3f9f8e591f67f187a9f7c882177774fd4a4"
   },
   "parameter_binding": {
+    "compiled_hot_travel_matches_live_cad": true,
     "all_simulation_source_hashes_current": true,
     "fresh_outputs_from_this_run": true,
     "current_spool_drive_contract": true,
@@ -43,6 +46,8 @@
   "hot_zone": {
     "scope": "UNIFORM_TEMPERATURE_FIRST_ORDER_EXPANSION_SCREEN_WITH_INHERITED_83_5_MPA_STRESS_NOT_CURRENT_CALCULIX_RESULT",
     "release_state": "HOLD",
+    "compiled_cold_axial_travel_mm": 1.5,
+    "heater_width_and_support_heat_transfer_modeled": false,
     "hold_reasons": [
       "E/alpha material-source mismatch",
       "3D notch not verified",
@@ -51,7 +56,7 @@
     ],
     "temperatureC": 269.9888053196855,
     "axialGrowthMm": 1.166146713321703,
-    "travelMarginMm": 0.1338532866782971,
+    "travelMarginMm": 0.3338532866782971,
     "safetyFactor": 2.155688622754491,
     "pass": 1.0
   },

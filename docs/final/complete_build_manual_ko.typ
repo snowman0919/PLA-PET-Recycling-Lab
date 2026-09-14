@@ -26,16 +26,16 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 - 합격: all required files present
 - 다음 선행조건: parts kitting
 
-== 단계 2: PPR-FRAME-ASM ×1; FR profiles ×28; corner brackets ×28
+== 단계 2: PPR-FRAME-ASM ×1; FR profiles ×40; FR-TIE-01 ×1; bracket allocation by member
 
 - 공구: square; long steel tape/rule; 3/5 mm hex
-- 체결품 / 토크: SYS-01: M5x12 SHCS + washer + prevailing T-nut; 56 kits paired across 28 two-fastener corner brackets ×56 / SYS-01: 5.0 N·m
-- 방향: 470×700 base square
-- 공차·간극: base X470±0.8 mm; Y700±0.8 mm; rail squareness≤0.50/700 mm; all numeric limits include U95
-- 도면: FR-001
-- 검사: 56 witness marks; independent X/Y and two-diagonal measurements with evidence hash; rocking check
-- 합격: |diagonal A-B|+U95_A+U95_B≤1.0 mm; no rocking
-- 다음 선행조건: table anchors
+- 체결품 / 토크: SYS-01: BASE FRAME ALLOWANCE ONLY: M5x12 + washer + T-nut 56 kits; not final GGM joint count; FR-TIE-01 needs four separate M5x10 kits ×56 / SYS-01: 5.0 N·m
+- 방향: 470×700 base square; final GGM frame per exports/final/frame_v08/frame_members.csv; FR-TIE-01 U40x20x3 R3 L470 at X0/Y265/Z20; four M5x10+OD10 washer+matched T-nut; no old bottom L430 or dangling L59
+- 공차·간극: base X470±0.8 mm; Y700±0.8 mm; rail squareness≤0.50/700 mm; all numeric limits include U95; per-bar nesting consumes nominal+0.5 mm per part+kerf; received T-nut torque/engagement is a physical HOLD
+- 도면: FR-001; exports/final/frame_v08/FRAME_CUT_AND_TIE_KO.pdf
+- 검사: member-by-member joint/received T-nut engagement check; FR-TIE four M5x10 joints; independent X/Y and two-diagonal measurements with evidence hash; rocking check; SYS-01: P2 member-by-member connection review; final GGM bracket/T-nut allocation and tie thread engagement required; frame diagonal <=1.0 mm
+- 합격: HOLD: 미검증 체결품이 있어 조립 합격 불가; |diagonal A-B|+U95_A+U95_B≤1.0 mm; no rocking
+- 다음 선행조건: 진행 금지: 체결 규격·토크 검증 및 승인 후 다음 단계
 
 == 단계 3: FR-ANCHOR-01 ×4
 
@@ -106,7 +106,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 == 단계 9: CUT-04 ×2; FD-HOP-01 ×1; IN-HOP-01 ×1; PPR-C01 ×1; PPR-C02 ×1; PPR-C04 ×1
 
 - 공구: riveter; 3 mm hex
-- 체결품 / 토크: non-printed interfaces only: M4/rivets; PR-PPR-C01-1: M4x10 latch flag screw ×1; PR-PPR-C02-1: M4x12 + washer ×4; PR-PPR-C02-2: chamber M6 tie bolts through clearance holes ×2; PR-PPR-C04-1: M5x16 + large washer + nyloc ×2 / non-printed interfaces only: M4 3 N·m; PR-PPR-C01-1: 1.2 N·m; PR-PPR-C02-1: 1.2 N·m; PR-PPR-C02-2: 6 N·m; PR-PPR-C04-1: 2.0 N·m
+- 체결품 / 토크: non-printed interfaces only: M4/rivets; PR-PPR-C01-1: M4x16 90° flat-head latch flag screw + washer + nyloc ×1; PR-PPR-C02-1: M4x12 + washer ×4; PR-PPR-C02-2: chamber M6 tie bolts inside steel sleeves ×2; PR-PPR-C04-1: M5x16 + large washer + nyloc ×2 / non-printed interfaces only: M4 3 N·m; PR-PPR-C01-1: 1.2 N·m; PR-PPR-C02-1: 1.2 N·m; PR-PPR-C02-2: 6 N·m; PR-PPR-C04-1: 2.0 N·m
 - 방향: flow down into screen
 - 공차·간극: cutter/static clearance≥1.90 mm
 - 도면: FD-001/FD-002
@@ -147,16 +147,16 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 - 합격: HOLD: digital dimensions PASS; GGM receipt/mount/P3 drive evidence, physical endplay and hot rotation remain NOT_RUN
 - 다음 선행조건: die/hot zone
 
-== 단계 13: EX-DIE-01 ×1; EX-DIE-02 ×1; EX-DIE-03 ×1; EX-DIE-04 ×1; EX-DIE-05 ×2; EX-SH-01 ×1; TH-BH-01 ×3
+== 단계 13: EX-DIE-01 ×1; EX-DIE-02 ×1; EX-DIE-03 ×1; EX-DIE-04 ×1; EX-DIE-05 ×2; EX-SH-01 ×1; TH-BH-01 ×2; TH-BH-02 ×1
 
 - 공구: insulation meter; torque wrench; depth gauge; 0.05 mm feeler; 20 N pull gauge
-- 체결품 / 토크: SYS-04: M4x45 class 10.9 SHCS cut/deburred to 42.5 +/-0.1 ×4; SYS-05: M4 retainer screw ×2; SYS-16: 2x M3x8 A4-80 SHCS + Schnorr washer ×2; SYS-17: M3x8 A4-80 SHCS + Schnorr washer ×8 / SYS-04: 1.5 N·m; SYS-05: 1.2 N·m; SYS-16: 1.0 N·m; SYS-17: 0.5 N·m
+- 체결품 / 토크: SYS-04: M4x45 class 10.9 SHCS cut/deburred to 42.5 +/-0.1 ×4; SYS-05: M4 retainer screw ×2; SYS-16: 2x M3x8 A4-80 SHCS + Schnorr washer ×2; SYS-17: M3x6 A4-80 SHCS + Schnorr washer; M3x8 prohibited in 4 mm blind threads ×8 / SYS-04: 1.5 N·m; SYS-05: 1.2 N·m; SYS-16: 1.0 N·m; SYS-17: 0.5 N·m
 - 방향: band free-state ID34.10–34.20; usable closure≥1.00; EX-DIE-05 issued2; TH-TC-01 Tempco MTA1 T1–T4 with supplier-welded stops
 - 공차·간극: band closure reserve≥0.25 mm; T1–T3 probe Ø3.00±0.03 in bore3.20–3.25, stop5.20±0.05, tip gap0.10–0.30; T4 stop10.00±0.05 in depth11.95–12.05; TH-TCR-01 bridge captures collar; never clamp MI sheath
 - 도면: EX-002/EX-003
-- 검사: verify band contact; vendor drawing; probe dimensions and ≥100 MΩ at100 VDC; 20 N pull motion≤0.10 cold/hot; coupon bias≤2°C and t90≤30s; SYS-04 physical receipt/leak/first thermal cycle remains NOT_RUN
-- 합격: HOLD: supplier drawing, receipt/thermal tests and band contact; SYS-04 digital load-path PASS but physical receipt/leak/first thermal cycle NOT_RUN
-- 다음 선행조건: 센서 수령시험 및 체결 HOLD 해소 전 다음 단계 진행 금지
+- 검사: verify band contact; vendor drawing; probe dimensions and ≥100 MΩ at100 VDC; 20 N pull motion≤0.10 cold/hot; coupon bias≤2°C and t90≤30s; SYS-04 physical receipt/leak/first thermal cycle remains NOT_RUN; SYS-17: confirm actual washer/collar/bridge stack, useful thread engagement and positive bottom clearance before torque; nominal M3x6 clears whereas M3x8 bottoms; four stop collars captured; 20 N pull causes <=0.10 mm motion cold and after thermal cycle
+- 합격: HOLD: 미검증 체결품이 있어 조립 합격 불가; HOLD: supplier drawing, receipt/thermal tests and band contact; SYS-04 digital load-path PASS but physical receipt/leak/first thermal cycle NOT_RUN
+- 다음 선행조건: 진행 금지: 체결 규격·토크 검증 및 승인 후 다음 단계
 
 == 단계 14: PPR-C05 ×2; PPR-FORMING-ASM ×1
 
@@ -172,7 +172,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 == 단계 15: PPR-C06 ×2
 
 - 공구: gauge block; caliper
-- 체결품 / 토크: non-printed interfaces only: M3 hardware; PR-PPR-C06-1: M3x12 ×8 / non-printed interfaces only: M3 1.2 N·m; PR-PPR-C06-1: 0.5 N·m
+- 체결품 / 토크: non-printed interfaces only: M3 hardware; PR-PPR-C06-1: M3x12 + washers + all-metal nuts ×8 / non-printed interfaces only: M3 1.2 N·m; PR-PPR-C06-1: 0.5 N·m
 - 방향: U95 axes normal to strand
 - 공차·간극: datum alignment≤0.10 mm
 - 도면: FM-002
@@ -191,10 +191,10 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 - 합격: gap remains in range; no pinch bypass, bush slip or bind
 - 다음 선행조건: spooler
 
-== 단계 17: FM-GA-01 ×1; FM-GC-01 ×2; FM-GR-01 ×1; PPR-C08 ×2; PPR-C09 ×2; PPR-C10 ×1; SP-AX-01 ×2; SP-BP-01 ×2; SP-BR-01 ×2; SP-DA-01 ×1; SP-DS-01 ×1; SP-MM-01 ×1; SP-RL-01 ×1; SP-SH-01 ×1; SP-TR-01 ×2
+== 단계 17: FM-GA-01 ×1; FM-GC-01 ×2; FM-GR-01 ×1; PPR-C08 ×2; PPR-C09 ×2; PPR-C10 ×1; SP-AW-08 ×5; SP-AX-01 ×1; SP-AX-02 ×1; SP-BP-01 ×2; SP-BR-01 ×2; SP-DA-01 ×1; SP-DS-01 ×1; SP-MM-01 ×1; SP-RL-01 ×1; SP-SH-01 ×1; SP-TG-01 ×2; SP-TR-01 ×2
 
 - 공구: square; dial; 3 mm hex
-- 체결품 / 토크: PR-PPR-C08-1: M5x16 + washer + T-nut ×4; PR-PPR-C09-1: M6x30 through clamp + washer + nyloc ×2; PR-PPR-C10-1: M4x16 belt-clamp screws ×2; SYS-13: M5x20 A2-70 SHCS + washer + all-metal prevailing nut ×8; SYS-14: M3x25 A2-70 SHCS + washers + all-metal prevailing nuts ×3 / PR-PPR-C08-1: 2.0 N·m; PR-PPR-C09-1: 2.5 N·m; PR-PPR-C10-1: 1.2 N·m; SYS-13: 2.5 N·m; SYS-14: 0.35 N·m
+- 체결품 / 토크: PR-PPR-C08-1: M5x16 + washer + T-nut ×4; PR-PPR-C09-1: M6x30 through clamp + washer + nyloc ×2; PR-PPR-C10-1: M4x25 belt-clamp screws + washers + nyloc ×2; SYS-13: M5x20 A2-70 SHCS + washer + all-metal prevailing nut ×8; SYS-14: M3x25 A2-70 SHCS + washers + all-metal prevailing nuts ×3 / PR-PPR-C08-1: 2.0 N·m; PR-PPR-C09-1: 2.5 N·m; PR-PPR-C10-1: 1.2 N·m; SYS-13: 2.5 N·m; SYS-14: 0.35 N·m
 - 방향: traverse parallel to spool
 - 공차·간극: rod parallel≤0.10/160 mm
 - 도면: SP-001
@@ -249,7 +249,7 @@ Revision: `final-design-fabrication-closure-v0.8` · 상태: `DIGITAL_DOCUMENT /
 == 단계 22: PPR-C11 ×1
 
 - 공구: DMM; logic current limiter
-- 체결품 / 토크: non-printed interfaces only: locking low-voltage terminals; PR-PPR-C11-1: M3x10 ×4 / non-printed interfaces only: terminal maker value; PR-PPR-C11-1: 0.5 N·m
+- 체결품 / 토크: non-printed interfaces only: locking low-voltage terminals; PR-PPR-C11-1: M3x16 + washers + all-metal nuts ×4 / non-printed interfaces only: terminal maker value; PR-PPR-C11-1: 0.5 N·m
 - 방향: outputs safe at reset
 - 공차·간극: pin schedule exact match
 - 도면: Arduino_Mega_pinmap.pdf

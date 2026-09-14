@@ -2,7 +2,8 @@ within PLA_PET_Recycler;
 package Generated
 package CADParameters
   constant String revision = "final-design-fabrication-closure-v0.8";
-  constant String baselineSHA256 = "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a";
+  constant String baselineSHA256 = "f71d689a445a7a292d371e214a76347e57fea98e4f787262883caea8663e1fc4";
+  constant Real coldAxialTravelMm = 1.5 "mm";
   constant Real cutterDiscMass = 0.0605277466479 "kg";
   constant Real cutterRotorMass = 1.42370480027 "kg";
   constant Real cutterRotorJ = 0.000284882157782 "kg.m2";
@@ -15,11 +16,11 @@ package CADParameters
   constant Real bearingCenters[4,3] = [0.105,0.315,0.590;0.105,0.455,0.590;0.153,0.315,0.590;0.153,0.455,0.590] "m";
   constant Real spoolEmptyJ = 0.0018683 "kg.m2";
   constant Real spoolFullJ = 0.0072063 "kg.m2";
-  constant Real assemblyMass = 72.2155391098 "kg";
-  constant Real assemblyCOM[3] = {0.265176227106,0.359153742189,0.386034825956};
-  constant Real assemblyInertia[3,3] = [7.42940911907,-0.0661297823577,0.558025482487;-0.0661297823577,6.49161967693,0.409053059984;0.558025482487,0.409053059984,4.24289205832];
+  constant Real assemblyMass = 72.6103030407 "kg";
+  constant Real assemblyCOM[3] = {0.267833450998,0.362074820156,0.386248282256};
+  constant Real assemblyInertia[3,3] = [7.48872844674,-0.109149409862,0.583228891337;-0.109149409862,6.52600972512,0.433887946962;0.583228891337,0.433887946962,4.3318483111];
   constant Real frameMass = 25.5008 "kg";
-  constant Real frameCOM[3] = {0.248817919438,0.367713765843,0.38688292132};
-  constant Real frameInertia[3,3] = [3.9629894641,-0.0427729077576,0.0621685212197;-0.0427729077576,3.48008705035,0.155081760181;0.0621685212197,0.155081760181,2.46357184182];
+  constant Real frameCOM[3] = {0.252858576986,0.371894968001,0.38688292132};
+  constant Real frameInertia[3,3] = [3.99163777447,-0.0675990484126,0.0855465374326;-0.0675990484126,3.49913350416,0.179272924784;0.0855465374326,0.179272924784,2.51126660599];
 end CADParameters;
 end Generated;
