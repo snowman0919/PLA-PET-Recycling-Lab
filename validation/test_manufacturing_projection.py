@@ -25,6 +25,21 @@ def main():
         chord = math.dist(a, b)
         sagitta_mm = (radius_px - math.sqrt(max(0, radius_px**2 - chord**2/4))) * 17/radius_px
         assert sagitta_mm < .012, sagitta_mm
+    from plain_shaft_drawing import views
+    for pid,length in [('SP-TG-01',196),('SP-AX-01',38),('SP-AX-02',52)]:
+        shaft=Part.makeCylinder(4,length)
+        rendered=views({'part_id':pid},shaft)
+        tree=ET.fromstring('<svg>'+rendered+'</svg>')
+        rectangle=tree.find('.//rect')
+        assert rectangle is not None
+        assert abs(float(rectangle.attrib['height'])/float(rectangle.attrib['width'])-8/length)<1e-9
+        assert f'L {length}' in rendered and '7.991 - 8.000' in rendered
+        assert 'marker-start=' in rendered and 'SILHOUETTE' in rendered
+    for shape in [Part.makeCylinder(3,52),Part.makeBox(8,8,52),
+                  Part.makeCylinder(4,52).cut(Part.makeCylinder(1,52))]:
+        try: views({'part_id':'SP-AX-02'},shape)
+        except ValueError: pass
+        else: raise AssertionError('non-plain feature silently hidden')
     print("MANUFACTURING_PROJECTION_CIRCLE_AND_TITLE_CLEARANCE_PASS")
 
 

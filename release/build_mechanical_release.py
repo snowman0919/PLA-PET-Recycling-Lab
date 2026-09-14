@@ -225,10 +225,16 @@ def drawing_svg(part: dict[str, str], shape: Part.Shape, path: Path, commit: str
         projection(shape, ("x", "z"), (394, 120, 335, 253)),
         projection(shape, ("y", "z"), (763, 120, 335, 253)),
     )
+    from release.plain_shaft_drawing import PLAIN_SHAFT_IDS, views as shaft_views
+    view_markup = ('<text x="35" y="106" font-size="14">TOP X-Y</text>'+views[0]
+                   +'<text x="404" y="106" font-size="14">FRONT X-Z</text>'+views[1]
+                   +'<text x="773" y="106" font-size="14">SIDE Y-Z</text>'+views[2])
+    if part['part_id'] in PLAIN_SHAFT_IDS:
+        view_markup = shaft_views(part, shape)
     path.write_text(f'''<svg xmlns="http://www.w3.org/2000/svg" width="1123" height="794" viewBox="0 0 1123 794">
 <rect width="1123" height="794" fill="white"/><rect x="12" y="12" width="1099" height="770" fill="none" stroke="#111" stroke-width="2"/>
 <g font-family="Noto Sans CJK KR,sans-serif" fill="#111"><text x="28" y="48" font-size="24" font-weight="bold">MFG-{html.escape(part['part_id'])} · v0.8 MANUFACTURING DRAWING</text>
-<text x="35" y="106" font-size="14">TOP X-Y</text>{views[0]}<text x="404" y="106" font-size="14">FRONT X-Z</text>{views[1]}<text x="773" y="106" font-size="14">SIDE Y-Z</text>{views[2]}
+{view_markup}
 <line x1="20" y1="398" x2="1103" y2="398" stroke="#111"/>{text_rows}</g></svg>\n''', encoding="utf-8")
 
 
