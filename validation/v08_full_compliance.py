@@ -134,6 +134,11 @@ def main() -> None:
     om = json.loads((ROOT / "simulation/openmodelica/results_v0.8/summary.json").read_text())
     solver_current = solver.get("pipeline_source_sha256") == sha(ROOT / "analysis/final_validation/run_calculix_v08.py")
     solver_dependencies = solver.get("dependencies_sha256", {})
+    solver_current &= transitive_current(
+        "analysis/final_validation/results/v0.8/solid_load_path_closure.json",
+        ("analysis/final_validation/results/v0.8/journal_keyseat_closure/result.json",))
+    solver_current &= transitive_current(
+        "analysis/final_validation/results/v0.8/hot_zone_digital_qualification.json")
     solver_current &= bool(solver_dependencies) and all(exists(p) and sha(ROOT/p) == digest for p,digest in solver_dependencies.items())
     solver_current &= transitive_current("analysis/final_validation/results/v0.8/summary.json", ("analysis/final_validation/run_calculix_v08.py", "cad/freecad/compact/geometry.py"))
     record("03_calculix_core", solver_current and solver.get("status") == "PASS" and all(solver.get(k, {}).get("status") == "PASS" for k in ("LC02", "LC04", "LC05", "hot_zone_mount")), f"LC02/04/05 + hot mount; source_current={solver_current}")

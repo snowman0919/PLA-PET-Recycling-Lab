@@ -75,6 +75,8 @@ def validate_drawing_rows(rows: list[dict[str, str]]) -> None:
 
 def validate_inputs(files: dict[str, tuple[Path, str]]) -> None:
     validate_payload_git_state(files)
+    from evidence_closure import validate_evidence_closure
+    validate_evidence_closure(ROOT, {relative for _, relative in files.values()})
     active = json.loads((ROOT / "release/active_part_set.json").read_text())
     active_parts = {p["part_id"]: p["quantity"] for p in active["parts"]}
     assert active["revision"] == REV and len(active_parts) == len(active["parts"])

@@ -113,7 +113,8 @@
             "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/model.inp",
             "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/model.dat",
             "analysis/final_validation/results/v0.8/qualification_raw/run-geeg0kjz/*/ccx.log",
-            "analysis/final_validation/results/v0.8/hot_zone_revision_review.json"
+            "analysis/final_validation/results/v0.8/hot_zone_revision_review.json",
+            "analysis/final_validation/results/v0.8/journal_keyseat_closure/result.json"
         ],
         "10_DESIGN_SOURCE": [
             "flake.nix",
@@ -215,7 +216,13 @@
             "release/plain_shaft_drawing.py",
             "validation/integrated_assembly_clearance.py",
             "validation/integrated_motion_clearance.py",
-            "validation/shaft_retention_clearance.py"
+            "validation/shaft_retention_clearance.py",
+            "analysis/final_validation/contracts/thermomechanical_closure_v08.json",
+            "analysis/final_validation/run_retainer_candidate.py",
+            "validation/check_axial_retainer_candidate.py",
+            "validation/check_phase_clocking_release.py",
+            "validation/check_shaft_journal_keyseat_closure.py",
+            "release/evidence_closure.py"
         ],
         "LICENSES": [
             "LICENSE",

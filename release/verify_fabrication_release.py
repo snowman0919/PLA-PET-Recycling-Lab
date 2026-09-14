@@ -41,7 +41,9 @@ def verify_layout(listed: dict, files: dict) -> None:
 
 def main() -> None:
     assert ZIP.is_file() and ZIP.stat().st_size > 1000
-    with tempfile.TemporaryDirectory(prefix="ppr-v08-release-") as td, zipfile.ZipFile(ZIP) as zf:
+    temporary = ROOT / ".build" / "fabrication-verification"
+    temporary.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="extract-", dir=temporary) as td, zipfile.ZipFile(ZIP) as zf:
         names = zf.namelist(); assert len(names) == len(set(names))
         for name in names:
             p = PurePosixPath(name)
@@ -75,6 +77,14 @@ def main() -> None:
             assert not source.is_absolute() and ".." not in source.parts
             path = base / rel; assert path.stat().st_size == item["size"] and digest(path) == item["sha256"]
             verify_current_source(ROOT, item)
+        from evidence_closure import validate_evidence_closure
+        import shutil
+        replay = base / "reconstructed_sources"
+        for rel, item in listed.items():
+            target = replay / item["source"]
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(base / rel, target)
+        validate_evidence_closure(replay, {item["source"] for item in listed.values()})
         sums = {}
         for line in (base / "00_START_HERE/SHA256SUMS").read_text().splitlines():
             value, rel = line.split("  ", 1); sums[rel] = value
