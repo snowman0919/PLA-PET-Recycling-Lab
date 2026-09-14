@@ -4,16 +4,16 @@
     "id": "arduino:avr",
     "version": "1.8.8"
   },
-  "base_firmware_last_commit": "64f260eb851b3451563228cf56419e8b4bda7c7b",
+  "base_firmware_last_commit": "8a568e867ade42ea1d29fd6a8a1a66bc1499eecf",
   "binary": {
     "path": "binaries/filament_recycler_atmega2560.hex",
-    "sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f"
+    "sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3"
   },
-  "binary_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
+  "binary_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
   "board_target": "arduino:avr:mega",
   "clean_rebuild": {
-    "original_source_hex_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
-    "released_source_hex_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
+    "original_source_hex_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
+    "released_source_hex_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
     "status": "PASS"
   },
   "compiler_version": "avr-g++ (GCC) 7.3.0",
@@ -21,9 +21,9 @@
   "flash": {
     "maximum_bytes": 253952,
     "percent_reported": 24,
-    "used_bytes": 61824
+    "used_bytes": 62278
   },
-  "generation_base_git_sha": "93ec6a9c0c2afa3ad72288a967f07b7c8d03c99e",
+  "generation_base_git_sha": "8a568e867ade42ea1d29fd6a8a1a66bc1499eecf",
   "libraries": [],
   "release_revision": "final-design-fabrication-closure-v0.8",
   "safety_note": "E-stop, lid/service interlocks, independent thermal cutoff and branch fuses are firmware-independent.",
@@ -45,8 +45,8 @@
     "src/ggm_commissioning.h": "03da892bb45404ee4e4597be3e0bf0bf6e720655086b077f6ad0e20ab9bebec8",
     "src/ggm_drive_guard.h": "de7167b6e3426735902306b74b9b7de28109191b8e8e8d4397fe3d4709308346",
     "src/hardware_interfaces.h": "09264ccfd9a47940bf350b63c49d9358405534557a47414c1ab6afe9c70d488b",
-    "src/heater_control.cpp": "522560d5be4ac4545fc419aeee3c968c7606ad2bc44c378d246d390eee9c6c74",
-    "src/heater_control.h": "187438c9d306d26731852cd4dbb523748765b1e90b1d5e60e1452075a8631c4f",
+    "src/heater_control.cpp": "d2852b3182b992ae27abdc0dc8a17adf1a673171629557e41f7784e8d10eb460",
+    "src/heater_control.h": "8bd5204447641dafa2469a718ca7ce46bb8f07e8a401c1d3b2a8ffc4dc41fbef",
     "src/heater_power_allocator.cpp": "6dcfbc8e8387f8d10f5b716f5c2ead472e1cb693dc14bb577d91ba0241395df0",
     "src/heater_power_allocator.h": "2a9c62fd47567ebe731850fe792103399b45fb8d9a21453534481d8bb96b3c7b",
     "src/machine_supervisor.cpp": "de9073ea4fad90bfa18553d287abbaf3ae05b0403fb0d4e009ad8390f04240da",
@@ -96,8 +96,8 @@
     "firmware/arduino_mega/src/generated_profiles.h": "64ebb41461f977d1cb311810a60a11e2e43b03a38af1559d52541f67087a991b",
     "firmware/arduino_mega/src/ggm_drive_guard.h": "de7167b6e3426735902306b74b9b7de28109191b8e8e8d4397fe3d4709308346",
     "firmware/arduino_mega/src/hardware_interfaces.h": "09264ccfd9a47940bf350b63c49d9358405534557a47414c1ab6afe9c70d488b",
-    "firmware/arduino_mega/src/heater_control.cpp": "522560d5be4ac4545fc419aeee3c968c7606ad2bc44c378d246d390eee9c6c74",
-    "firmware/arduino_mega/src/heater_control.h": "187438c9d306d26731852cd4dbb523748765b1e90b1d5e60e1452075a8631c4f",
+    "firmware/arduino_mega/src/heater_control.cpp": "d2852b3182b992ae27abdc0dc8a17adf1a673171629557e41f7784e8d10eb460",
+    "firmware/arduino_mega/src/heater_control.h": "8bd5204447641dafa2469a718ca7ce46bb8f07e8a401c1d3b2a8ffc4dc41fbef",
     "firmware/arduino_mega/src/heater_power_allocator.cpp": "6dcfbc8e8387f8d10f5b716f5c2ead472e1cb693dc14bb577d91ba0241395df0",
     "firmware/arduino_mega/src/heater_power_allocator.h": "2a9c62fd47567ebe731850fe792103399b45fb8d9a21453534481d8bb96b3c7b",
     "firmware/arduino_mega/src/machine_supervisor.cpp": "de9073ea4fad90bfa18553d287abbaf3ae05b0403fb0d4e009ad8390f04240da",
@@ -126,6 +126,6 @@
   "variant_builder_last_commit": "2c154dbbef0d61927dd41d83ec98448d52ba7191",
   "variant_builder_sha256": "a483d63ecac4cb988c7ffe76bd101c9c078b41b49f642e8de7f2cf65de000eb7",
   "variant_manifest": "exports/final/drive_ggm_v08/firmware/manifest.json",
-  "variant_manifest_sha256": "3fbabd89dff9ddfcfac3b9975e5515b015d0cd4a67baed662a8029fefd157c29",
+  "variant_manifest_sha256": "3a337998c3fe697efe8b9ba8c5d62ef3abf65c1e42d3be5f8f86c4e07e7ff1fd",
   "variant_source_dir": "exports/final/drive_ggm_v08/firmware/arduino_mega"
 }

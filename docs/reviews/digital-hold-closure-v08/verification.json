@@ -18,6 +18,27 @@
   },
   "log_sha256": {
     "docs/reviews/digital-hold-closure-v08/checks/numeric-safety.txt": "c80982543a25689cdb58f304fa6bbe22a737cd65bf409ea7cce0c11f96a2ca41",
-    "docs/reviews/digital-hold-closure-v08/checks/firmware-tests.txt": "1feb436992291b4fececc8dfd6338c22579428cec50acb7fc81ef737f5c696d9"
+    "docs/reviews/digital-hold-closure-v08/checks/firmware-tests.txt": "1feb436992291b4fececc8dfd6338c22579428cec50acb7fc81ef737f5c696d9",
+    "docs/reviews/digital-hold-closure-v08/checks/firmware-release.txt": "135f5abaf7643818ac5eff98b2742074f21184453e4e4c8ad32689c959a84a91",
+    "docs/reviews/digital-hold-closure-v08/checks/ci-light.txt": "b4e2a20c8264070dc72aa3c9df2075dd93271de81ea642acf1511cb11cf83784"
+  },
+  "local_ci_light": {
+    "head": "8a568e867ade42ea1d29fd6a8a1a66bc1499eecf",
+    "status": "PASS",
+    "commands": 63,
+    "test_modules": 59
+  },
+  "avr_release": {
+    "generation_base_commit": "8a568e867ade42ea1d29fd6a8a1a66bc1499eecf",
+    "board": "arduino:avr:mega",
+    "hex_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
+    "flash_bytes": 62278,
+    "sram_bytes": 4779,
+    "clean_rebuild": {
+      "original_source_hex_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
+      "released_source_hex_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
+      "status": "PASS"
+    },
+    "physical_upload_performed": false
   }
 }

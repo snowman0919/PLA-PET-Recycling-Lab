@@ -26,3 +26,9 @@ controller_bridge.cpp/py는 같은 HeaterController의 host 호출용 도구다.
 - 위 변경의 통합 CAD/도면/BOM/전체 해석/새 배포 재생성.
 
 위 항목을 완료하지 않은 채 PHYSICAL_ONLY_REMAINDER나 전체 디지털 closure로 승격하지 않는다. 기존 physical_validation_state=NOT_RUN 및 제작/통전 HOLD를 유지한다.
+
+## 실행 마감
+
+AVR Mega2560용 GGM 변형 소스를 재생성하고 독립 clean rebuild의 HEX 일치를 확인했다. flash62278 bytes, SRAM4779 bytes. 새 HEX는 b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3. 실제 보드에 upload하지 않았다.
+
+로컬 CI-LIGHT는 63개 명령 / 59개 시험 모듈 PASS다. 이것은 GitHub Actions 완료나 기존 Z1/지지/조립 HOLD 해소를 의미하지 않는다. 기존 25개 gate가 검증하지 않는 디지털 상세까지 완료로 주장하지 않는다.

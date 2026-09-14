@@ -1,4 +1,5 @@
 #include "heater_control.h"
+#include <math.h>
 
 namespace {
 float clampf(float value, float low, float high) {
@@ -22,13 +23,18 @@ HeaterOutput HeaterController::update(uint8_t zone, const TemperatureReading &re
   z.last_ms = now_ms;
 
   if (reading.sensor_open) latched_faults_ |= HEATER_SENSOR_OPEN;
-  if (!reading.valid || reading.celsius < HEATER_MIN_VALID_C || reading.celsius > HEATER_MAX_VALID_C) latched_faults_ |= HEATER_SENSOR_RANGE;
+  const bool reading_ok = reading.valid && isfinite(reading.celsius) &&
+      reading.celsius >= HEATER_MIN_VALID_C && reading.celsius <= HEATER_MAX_VALID_C;
+  const bool target_ok = isfinite(target_c) && target_c >= 0 &&
+      target_c < HEATER_OVERTEMPERATURE_C;
+  if (!reading_ok) latched_faults_ |= HEATER_SENSOR_RANGE;
+  if (!target_ok) latched_faults_ |= HEATER_COMMAND_RANGE;
   if (!thermal_chain_ok) latched_faults_ |= HEATER_THERMAL_CHAIN;
   if (reading.valid && reading.celsius >= HEATER_OVERTEMPERATURE_C) latched_faults_ |= HEATER_OVERTEMPERATURE;
   if (phase_permission && !permission_feedback) latched_faults_ |= HEATER_PERMISSION_MISMATCH;
 
   const bool allowed = phase_permission && thermal_chain_ok && permission_feedback && latched_faults_ == HEATER_FAULT_NONE;
-  const float error = target_c - reading.celsius;
+  const float error = reading_ok && target_ok ? target_c - reading.celsius : 0;
   float duty = 0;
   if (allowed) {
     // Back-calculation makes the local PI track power actually granted by the
@@ -78,6 +84,12 @@ HeaterOutput HeaterController::update(uint8_t zone, const TemperatureReading &re
 HeaterOutput HeaterController::applyAllocation(uint8_t zone, float allocated, uint32_t now_ms) {
   if (zone >= 4) return {0, 0, 0, 0, 0, true, false, HEATER_SENSOR_RANGE};
   Zone &z = zones_[zone];
+  if (!isfinite(allocated) || allocated < 0 || allocated > 100)
+    latched_faults_ |= HEATER_COMMAND_RANGE;
+  if (latched_faults_ != HEATER_FAULT_NONE) {
+    z.requested_duty = 0; z.applied_duty = 0; z.integral = 0;
+    return {0, 0, 0, 0, 0, true, false, latched_faults_};
+  }
   z.applied_duty = clampf(allocated, 0.0f, z.requested_duty);
   const float deficit = z.requested_duty - z.applied_duty;
   const uint32_t on_ms = static_cast<uint32_t>(HEATER_WINDOW_MS * z.applied_duty / 100.0f);
