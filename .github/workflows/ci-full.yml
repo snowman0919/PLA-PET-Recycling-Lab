@@ -14,13 +14,15 @@ jobs:
   cad-and-firmware-replay:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
           persist-credentials: false
       - uses: DeterminateSystems/nix-installer-action@v16
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
       - name: Current FreeCAD geometry regressions
         run: nix develop --command python3 validation/ci_v08.py --suite cad
       - name: Install bwrap-free pinned AVR toolchain
