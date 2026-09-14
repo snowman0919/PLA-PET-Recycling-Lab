@@ -24,42 +24,42 @@
   },
   "checks": [
     {
-      "log": "docs/reviews/geometry-closure-v08/retention-checks/native.log",
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/native.txt",
       "sha256": "738b14a9b866916b8bdb512beb67fbcdced3abb77e9539f5688abf997a093024",
       "status": "PASS"
     },
     {
-      "log": "docs/reviews/geometry-closure-v08/retention-checks/08-test_shaft_retention_geometry.log",
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/08-test_shaft_retention_geometry.txt",
       "sha256": "54ca7da5bc0789b00f4b68799a5f202e058c60cd59cf7af709dc61592166df09",
       "status": "PASS"
     },
     {
-      "log": "docs/reviews/geometry-closure-v08/retention-checks/04-test_integrated_assembly_clearance.log",
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/04-test_integrated_assembly_clearance.txt",
       "sha256": "f4b7c454f7b9870099a4242750f033f5e693dcbe2fa56fbd846af21d34cbdb18",
       "status": "PASS"
     },
     {
-      "log": "docs/reviews/geometry-closure-v08/retention-checks/05-test_integrated_motion_clearance.log",
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/05-test_integrated_motion_clearance.txt",
       "sha256": "9e9af8b403f176ed445502810df807bc9d5055a878ad15690f7ce7d9e73fd068",
       "status": "PASS"
     },
     {
-      "log": "docs/reviews/geometry-closure-v08/retention-checks/02-test_frame_reduction_geometry.log",
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/02-test_frame_reduction_geometry.txt",
       "sha256": "ca5e0a84136c65d2ddb051d6ae01abbe3ce98c1931b0a192d9fd2b6033102a47",
       "status": "PASS"
     },
     {
-      "log": "docs/reviews/geometry-closure-v08/retention-checks/39-test_p1_semantics.log",
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/39-test_p1_semantics.txt",
       "sha256": "6c88633b7d4c12eb974676f494934b07d2b8509389278ae95b1e42fc69448d68",
       "status": "PASS"
     },
     {
-      "log": "docs/reviews/geometry-closure-v08/retention-checks/40-test_p2_execution.log",
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/40-test_p2_execution.txt",
       "sha256": "fd0bd5684bfbf6bb57922520600610d96804328e4a4ec46dc95bcbd111a85ef4",
       "status": "PASS"
     },
     {
-      "log": "docs/reviews/geometry-closure-v08/retention-checks/16-test_frame_release.log",
+      "log": "docs/reviews/geometry-closure-v08/retention-checks/16-test_frame_release.txt",
       "sha256": "dbdd9674448a06e1b0c30ab882947d9cb7fc864e7d7c138852e5ad3f9de059a5",
       "status": "PASS"
     }
@@ -95,5 +95,6 @@
   "fabrication_authorized": false,
   "cut_authorization": false,
   "energization_authorized": false,
-  "published_rc1_changed": false
+  "published_rc1_changed": false,
+  "source_revision_commit": "edea3477"
 }
