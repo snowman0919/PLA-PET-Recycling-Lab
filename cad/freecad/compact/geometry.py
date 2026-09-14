@@ -14,6 +14,7 @@ import FreeCAD as App
 import Part
 from traverse_revision import SPEC as TRAVERSE, carriage_shape, end_plate_shape, rotated_at
 from shaft_retention import traverse_collar_rows
+from dancer_revision import SPEC as DANCER, axle_parts, assembly_rows as dancer_rows, washer_shape
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -917,7 +918,8 @@ def machine_fabrication_parts():
         dict(id="FM-GC-01", name="Guide roller 625 outer-ring retainer", shape=guide_roller_retainer_shape(), qty=2, material="1 mm 304 stainless sheet", process="laser cut + deburr", critical="Ø32 x1; bore Ø15.00 +0.10/0 gives outer-ring radial overlap0.446-0.500; 3xØ3.4 PCD26; flatness0.05; bearing face burr-free; install flush in FM-GR-01 recess"),
         dict(id="FM-GA-01", name="Guide roller fixed axle", shape=Part.makeCylinder(2.5, 30), qty=1, material="Ø5 h6 stainless shaft", process="cut/face + E-clip grooves or collars", critical="Ø5 h6=4.992-5.000 x30; SKF625-2Z bore4.992-5.000; two E-clips/collars outside PPR-C08; bearing inner-ring clamp must not preload outer rings; no printed axle"),
         dict(id="SP-DA-01", name="Dancer arm", shape=dancer_arm_shape(0, (0, 0, 0)), qty=1, material="8 mm 6061-T6", process="waterjet + ream", critical="100 mm pivot centres; 12 mm arm; 2xØ8.20 +0.05/0; edge R2; full -25..+25deg motion"),
-        dict(id="SP-AX-01", name="Dancer pivot/roller axles", shape=Part.makeCylinder(4, 28), qty=2, material="Ø8 h6 stainless shaft", process="cut/face + collars", critical="Ø8 h6 =7.991-8.000 x28; metal collars; one pivot and one end roller axle"),
+        *axle_parts(),
+        dict(id="SP-AW-08", name="Dancer thrust shim washer", shape=washer_shape(), qty=5, material="304 stainless", process="precision shim cut + deburr", critical="OD16 +/-0.10; ID8.20 +0.10/0; thickness0.50 +/-0.03; burr free; select/shim for assembled endplay0.10-0.30; 2 pivot and 3 roller stack"),
         dict(id="SP-RL-01", name="Dancer end roller", shape=Part.makeCylinder(10, 20).cut(Part.makeCylinder(4.1, 20)), qty=1, material="POM-C", process="turn + bore", critical="OD20 x20; bore Ø8.20 +0.05/0; diametral axle clearance0.20-0.259; free rotation under 0.2-1.0 N filament tension"),
         dict(id="SP-SH-01", name="Spool spindle", shape=Part.makeCylinder(6, 143), qty=1, material="Ø12 h6 S45C", process="cut/turn faces + collar flats", critical="Ø12 h6=11.989-12.000 x143; straightness0.05; two SKF6001-2RSH bore11.992-12.000; axial collars carry spool load"),
         dict(id="SP-BP-01", name="Spool 6001 bearing pocket plate", shape=spool_bearing_plate_shape(), qty=2, material="10 mm 6061-T6", process="waterjet rough + pocket bore finish", critical="105 x10 x60; bearing centre X30/Z30; Ø28.000–28.021 H7 x8.05–8.10 pocket from marked inner face; Ø26 through relief leaves 1.95–2.00 shoulder; 4xØ5.5 retainer + 2xØ5.5 profile tab; matched axis position ±0.05"),
@@ -1181,14 +1183,14 @@ def assembly_objects(exploded=False):
     front_bracket = printed["PPR-C08"].copy().mirror(App.Vector(0,0,0), App.Vector(0,1,0)); front_bracket.translate(App.Vector(145,375,40))
     add("PPR-C08_GuideBracketFront",front_bracket,blue,"spooler","PLA")
     add("PPR-C08_GuideBracketRear",printed_at("PPR-C08",(145,395,40)),blue,"spooler","PLA")
-    add("DancerArm", dancer_arm_shape(0), aluminum, "spooler", "metal")
+    add("DancerArm", dancer_arm_shape(0, tuple(DANCER["pivot_mm"])), aluminum, "spooler", "metal")
     dancer_support = dancer_support_plate_shape(); dancer_support.translate(App.Vector(170,440,70))
     add("DancerSupportPlate", dancer_support, aluminum, "spooler", "SP-DS-01 8 mm metal")
     add("DancerSupportPost", box(170,440,20,20,20,50), aluminum, "spooler", "SP-DP-01 20x20 metal support")
-    add("DancerPivotAxle", cyl(4,16,188,444,115,(0,1,0)), steel, "spooler", "SP-AX-01 Ø8 h6 metal axle")
+    for row in dancer_rows():
+        add(row["name"], row["shape"], steel, row["group"], row["material"], row["classification"])
     dancer_roller = Part.makeCylinder(10,20,App.Vector(288,428,115),App.Vector(0,1,0)).cut(Part.makeCylinder(4.1,20,App.Vector(288,428,115),App.Vector(0,1,0)))
     add("DancerEndRoller", dancer_roller, green, "spooler", "SP-RL-01 POM roller")
-    add("DancerEndAxle", cyl(4,36,288,424,115,(0,1,0)), steel, "spooler", "SP-AX-01 Ø8 h6 metal axle")
     add("Spool", cyl(100, 73, 335, 500, 175, (0, 1, 0)), (223, 187, 104), "spooler", "1 kg spool full envelope", "purchased_reference_envelope", evidence="generic 1 kg spool maximum envelope; actual spool must fit PPR-C09")
     add("SpoolCore", cyl(26, 73, 335, 500, 175, (0, 1, 0)), steel, "spooler", "spool core reference", "purchased_reference_lod")
     add("SpoolSpindle", cyl(6, 143, 335, 465, 175, (0, 1, 0)), steel, "spooler", "SP-01 Ø12 metal spindle")

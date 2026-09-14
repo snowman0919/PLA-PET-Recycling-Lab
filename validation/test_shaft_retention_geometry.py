@@ -43,7 +43,7 @@ assert abs(part['shape'].Volume - by['TraverseRodA']['shape'].Volume) < 1e-4
 assert abs(part['shape'].BoundBox.ZLength - layout['rod_length_mm']) < 1e-6
 with (ROOT/'bom/bom.csv').open(newline='') as handle:
     collars = [r for r in csv.DictReader(handle) if r['part_id'] == 'SP-SC-08']
-assert len(collars) == 1 and float(collars[0]['quantity']) == 4
+assert len(collars) == 1 and float(collars[0]['quantity']) == 8
 assert collars[0]['status'] == 'RECEIPT_HOLD'
 assert layout['retention']['torque_nm'] is None
 assert layout['retention']['holding_force_n'] is None

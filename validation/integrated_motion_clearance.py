@@ -50,10 +50,11 @@ def audit(items):
         contacts[side] = {'base_area_mm2':contact_area(post, by[base]), 'plate_area_mm2':contact_area(post, plate)}
         if contacts[side]['base_area_mm2'] < 399.9 or contacts[side]['plate_area_mm2'] < 500:
             raise ValueError('traverse support face missing: '+side)
-    dancer = {'DancerArm','DancerEndRoller','DancerEndAxle'}
+    from cad.freecad.compact.dancer_revision import moving_names
+    dancer = moving_names()
     for angle in range(-25,26):
         for name in dancer:
-            shape=by[name].copy();shape.rotate(App.Vector(188,452,115),App.Vector(0,1,0),angle)
+            shape=by[name].copy();shape.rotate(App.Vector(*config['spooler']['dancer_layout']['pivot_mm']),App.Vector(0,1,0),angle)
             check_clear(shape,by,dancer,'dancer '+str(angle))
 
     lid = by['PPR-C01_SlidingLid']; b=lid.BoundBox
@@ -65,8 +66,11 @@ def audit(items):
     check_clear(sweep,by,{'PPR-C01_SlidingLid'},'left lid service envelope')
     from validation.shaft_retention_clearance import audit_traverse_retention
     retention = audit_traverse_retention(items, config['spooler']['traverse_layout'])
+    from validation.shaft_retention_clearance import audit_dancer_retention
+    from cad.freecad.compact.geometry import machine_fabrication_parts
+    dancer_retention = audit_dancer_retention(items, config['spooler']['dancer_layout'], machine_fabrication_parts())
     return {'status':'GGM_NOMINAL_MOTION_CLEARANCE_PASS',
-        'traverse_retention': retention,
+        'traverse_retention': retention, 'dancer_retention': dancer_retention,
         'traverse_axis':'Y_PARALLEL_TO_SPOOL', 'traverse_stroke_mm':travel,
         'continuous_traverse_bounding_envelope_clear':True,'traverse_sample_count':int(travel)+1,
         'dancer_sample_count':51,'support_contacts':contacts,

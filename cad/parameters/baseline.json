@@ -493,6 +493,86 @@
         "physical_validation_state": "NOT_RUN",
         "geometry_scope": "Nominal ring with major-diameter thread clearance and conservative screw protrusion; not cutting master"
       }
+    },
+    "dancer_layout": {
+      "revision": "DANCER_RETAINED_AXLES_20260914",
+      "pivot_mm": [
+        188.0,
+        452.6,
+        115.0
+      ],
+      "pivot_centres_mm": 100.0,
+      "sweep_deg": [
+        -25.0,
+        25.0
+      ],
+      "shaft_diameter_mm": 8.0,
+      "shaft_length_tolerance_mm": 0.1,
+      "pivot_axle": {
+        "part_id": "SP-AX-01",
+        "origin_mm": [
+          188.0,
+          430.0,
+          115.0
+        ],
+        "length_mm": 38.0,
+        "collar_start_y_mm": [
+          432.0,
+          457.2
+        ],
+        "washer_start_y_mm": [
+          448.0,
+          456.7
+        ]
+      },
+      "end_axle": {
+        "part_id": "SP-AX-02",
+        "origin_mm": [
+          288.0,
+          416.0,
+          115.0
+        ],
+        "length_mm": 52.0,
+        "collar_start_y_mm": [
+          419.4,
+          457.1
+        ],
+        "washer_start_y_mm": [
+          427.4,
+          448.1,
+          456.6
+        ]
+      },
+      "roller_origin_mm": [
+        288.0,
+        428.0,
+        115.0
+      ],
+      "washer": {
+        "part_id": "SP-AW-08",
+        "outer_diameter_mm": 16.0,
+        "bore_mm": 8.2,
+        "thickness_mm": 0.5,
+        "thickness_tolerance_mm": 0.03,
+        "quantity": 5
+      },
+      "collar_part_id": "SP-SC-08",
+      "collar_quantity": 4,
+      "nominal_pivot_endplay_mm": 0.2,
+      "nominal_roller_endplay_mm": 0.2,
+      "assembly_endplay_limits_mm": [
+        0.1,
+        0.3
+      ],
+      "minimum_shaft_end_margin_mm": 2.0,
+      "physical_validation_state": "NOT_RUN",
+      "holding_force_verified": false,
+      "fabrication_authorized": false,
+      "notes": [
+        "Set collars against shimmed moving stack, then measure axial endplay; nominal positions are not fixed machining stops.",
+        "Dancer collars/roller axle move with the arm; check full angular sweep.",
+        "Exact collar torque and axial slip force remain receipt/bench requirements."
+      ]
     }
   },
   "power": {

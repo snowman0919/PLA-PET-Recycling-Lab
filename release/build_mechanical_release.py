@@ -75,7 +75,7 @@ def family(part_id: str) -> str:
         return "hot_zone"
     if part_id in {"CUT-01", "CUT-02", "CUT-04"}:
         return "cutter"
-    if part_id in {"CUT-05", "CUT-05R", "FD-MET-03", "FM-AX-01", "FM-GA-01", "SP-AX-01", "SP-SH-01", "SP-TG-01"}:
+    if part_id in {"CUT-05", "CUT-05R", "FD-MET-03", "FM-AX-01", "FM-GA-01", "SP-AX-01", "SP-AX-02", "SP-SH-01", "SP-TG-01"}:
         return "shafts"
     if part_id in {"CUT-06", "DRV-02", "DRV-03", "DRV-03R", "DRV-F01A", "DRV-F01B", "DRV-F01P"}:
         return "phase_gears"
@@ -318,7 +318,7 @@ def populate_step_categories(data: list[dict[str, str]], commit: str) -> None:
         source = folder / f"{folder.name}.step"; target = STEP_OUT / "printed_parts" / source.name
         shutil.copyfile(source, target); step_rows["printed_parts"].append(step_row(folder.name, source, target, "PASS", "PHYSICAL_FIT_NOT_RUN"))
     for row in data:
-        category = "shafts" if row["part_id"] in {"CUT-05", "CUT-05R", "FD-MET-03", "FM-AX-01", "FM-GA-01", "SP-AX-01", "SP-SH-01", "SP-TG-01"} else "sheet_parts"
+        category = "shafts" if row["part_id"] in {"CUT-05", "CUT-05R", "FD-MET-03", "FM-AX-01", "FM-GA-01", "SP-AX-01", "SP-AX-02", "SP-SH-01", "SP-TG-01"} else "sheet_parts"
         if category == "sheet_parts" and row["part_id"].startswith(("EX-SCR", "EX-BAR", "EX-CPN", "EX-DIE", "DRV-F", "TH-BH")):
             continue
         source_family = "hot_zone" if row["part_id"].startswith("Extruder") else family(row["part_id"])
