@@ -673,14 +673,37 @@ def validate(bom: list[dict[str, str]], aux: dict[str, tuple[list[str], list[dic
     }
 
 
+def merge_expanded_rows(root, details):
+    import math
+    governed = {'SP-TG-01', 'SP-AX-01', 'SP-AX-02', 'SP-AW-08'}
+    result = [dict(row) for row in root]
+    by_id = {row['part_id']: row for row in result}
+    if len(by_id) != len(result):
+        raise ValueError('duplicate authoritative root part')
+    detail_seen = set()
+    for row in details:
+        pid = row['part_id']
+        if pid in detail_seen:
+            raise ValueError('duplicate subordinate detail part: '+pid)
+        detail_seen.add(pid)
+        if pid in by_id:
+            if pid not in governed:
+                raise ValueError('duplicate detail part_id: '+pid)
+            quantities = [float(by_id[pid]['quantity']), float(row['quantity'])]
+            if not all(math.isfinite(q) and q>0 for q in quantities) or quantities[0]!=quantities[1]:
+                raise ValueError('root/detail quantity drift: '+pid)
+            by_id[pid]['notes'] += '; MATCHED_DETAIL_NOT_ADDITIONAL_QUANTITY: '+row['notes']
+            by_id[pid]['drawing'] = row['drawing']
+            by_id[pid]['critical interface'] = row['critical interface']
+        else:
+            result.append(dict(row)); by_id[pid]=result[-1]
+    return result
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    bom = root_rows()
-    seen = {r["part_id"] for r in bom}
-    for row in expanded_rows():
-        if row["part_id"] in seen:
-            raise ValueError(f"duplicate detail part_id: {row['part_id']}")
-        seen.add(row["part_id"]); bom.append(row)
+    bom = merge_expanded_rows(root_rows(), expanded_rows())
+    seen = {r['part_id'] for r in bom}
     for row in ggm_manufacturing_rows(seen):
         if row["part_id"] in seen: raise ValueError(f"duplicate GGM part_id: {row['part_id']}")
         seen.add(row["part_id"]); bom.append(row)
