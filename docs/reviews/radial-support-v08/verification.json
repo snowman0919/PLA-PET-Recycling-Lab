@@ -1,0 +1,56 @@
+{
+  "basis_commit": "8d95c18e74d157cca02f73abc656e3aac7679d2f",
+  "status": "SCOPED_CANDIDATE_AND_SOLID_REVIEW_TESTED",
+  "mechanics_tests": 13,
+  "candidate_cad_tests": 4,
+  "local_ci_light": {
+    "head": "8d95c18e74d157cca02f73abc656e3aac7679d2f",
+    "status": "PASS",
+    "commands": 70,
+    "test_modules": 66
+  },
+  "source_sha256": {
+    "analysis/radial_support_v08/cad_candidate.py": "9499b629f55bbbe12f0279b2cc7d0d6bfacfd7b9f35d3e1aa5e3134f0e5977c3",
+    "analysis/radial_support_v08/mechanics.py": "96968878ea2ffccd9f559249b1e6042604815a096076390c0731661ff0119142",
+    "analysis/radial_support_v08/run_review.py": "60ce40fd15e418294877cdb4a0ffeaa4a274346e77b38d3fe3ae1146072b52e8",
+    "analysis/radial_support_v08/contract.json": "7983887595c587b5c259072244a1f0b3548cc79f9abbf50dafa794be8241cba5",
+    "validation/ci_v08.py": "6286f6f53dcad20069828ea1ae4ca4e857b76eeb5e2fe8be343dcbc98c41180d",
+    "validation/test_radial_support_candidate.py": "035e64c0f7831fdd9f28c5cc04ad14968e7063c71d38d86eb1c82b8f605589d4",
+    "validation/test_radial_support_mechanics.py": "f1f4106922e32e93625dc6936a12d858978b42331c873cf22b4cf55e58b5f822",
+    "docs/reviews/radial-support-v08/REVIEW_KO.md": "28e39269bb6f58fe30f29dc7a3278d3b89c7891d680fcba5f1a8883ea49f5a77",
+    "exports/review/radial_support_v08/README_KO.md": "bb5eaa4766c3e5866dd48325bf0a84c14d14a9e0b83823ec3c59e58997e6748c",
+    "analysis/radial_support_v08/plate_fea.py": "33e32087d20c7dc21cf8a8af8d56514f97c2fd8c690dcee2a39c752a8fe94e7f",
+    "validation/test_radial_plate_fea.py": "21bc38b78ecabaa090a3d0fb6400ae385dca48a80eff19260f06525e088afd2b",
+    "docs/reviews/radial-support-v08/PLATE_FEA_KO.md": "269846c8b088d56a8d1c23ba0bec3931cbb2af845e04bc2e4a71d664eb14ca0f"
+  },
+  "artifacts_sha256": {
+    "analysis/radial_support_v08/results/geometry.json": "f514dabbd69fa85b073dcbe0af4de057c21962c17aa44e43e4e71f6dd9ef7d7e",
+    "analysis/radial_support_v08/results/review.json": "442d46c0c985f15fdfea0fa3eb91fac0bb60395d38951e7078a2ba65a0e3dac5",
+    "exports/review/radial_support_v08/RS-FRONT-GUIDE-CANDIDATE.step": "acc680a2c2d039fb330dd12eb2034e2ceb1786de5f5733e0565ac9ee844ef361",
+    "analysis/radial_support_v08/results/plate_fea.json": "daa75fcc91a19197159589f4421b0014e4507b9e8882288c15d32a1e5094b21d"
+  },
+  "log_sha256": {
+    "docs/reviews/radial-support-v08/checks/final-targeted.txt": "4116012f3aff2a34fc860b25d4629622265bcba824da26265b4356a488f7980b",
+    "docs/reviews/radial-support-v08/checks/mechanics-tests.txt": "0c4133c5815fec5e2f1509c21ec487e5c18d91facdcb58f7cab7015d00401a3a",
+    "docs/reviews/radial-support-v08/checks/ci-light.txt": "c67c680cb38c415105fa857f5248d7f662e09cfc58de98e9e7ea3d329f5ffb3c",
+    "docs/reviews/radial-support-v08/checks/graphify.txt": "d19fefd0e040ba18f8778e6e144d484ee7f707095f94bb59d857472d3117c99f",
+    "docs/reviews/radial-support-v08/checks/candidate-geometry.txt": "3a55e9c0b45509ccc45809ab06a04a8a900ab39e0b0fba57e2df2f89b2da0b34",
+    "docs/reviews/radial-support-v08/checks/plate-fea.txt": "dd2ccc59537bf388e0c60945a2c792ef7bfc35298435a1b13c4f1d4141f5c1ef",
+    "docs/reviews/radial-support-v08/checks/continuation-light.txt": "24819d6723ec5fd4050b6d8420ca405a1eb2e29d442af021c2955d9cbbbd6b65",
+    "docs/reviews/radial-support-v08/checks/plate-unit-tests.txt": "a93cfa7bf7fe0a1507bc3830da553ec02bf6af25c6d91f43ef4927e91e89b690",
+    "docs/reviews/radial-support-v08/checks/plate-fea-refined.txt": "d99e7d76deb554180aaea971f915bafb912e338716527dd2a985219707d8deff"
+  },
+  "canonical_geometry_promoted": false,
+  "new_plate_fea_executed": true,
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "remaining_digital_holds": true,
+  "graph_update": {
+    "AST": "EXECUTED_NO_LLM",
+    "semantic_document_graph": "NOT_COMPLETED"
+  },
+  "plate_fea_unit_tests": 5,
+  "plate_fea_solver_cases": 6,
+  "plate_raw_storage": "Large raw decks/results remain in repository-local .build paths recorded in plate_fea.json; archived text logs are tracked."
+}

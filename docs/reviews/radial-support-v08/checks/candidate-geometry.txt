@@ -1,0 +1,16 @@
+warning: Git tree '/home/monad/develop/PPR' is dirty
+filament-recycler engineering shell
+RUN analysis/radial_support_v08/cad_candidate.py
+EXIT 0 analysis/radial_support_v08/cad_candidate.py
+[FreeCAD Console mode <Use Ctrl-D (i.e. EOF) to exit.>]
+>>> [32;1m
+*******************************************************************
+******        Statistics on Transfer (Write)                 ******[0m
+[32;1m
+*******************************************************************
+******        Transfer Mode = 0  I.E.  As Is       ******[0m
+[32;1m******        Transferring Shape, ShapeType = 0                      ******[0m
+[32;1m** WorkSession : Sending all data[0m
+[32;1m Step File Name : /home/monad/develop/PPR/exports/review/radial_support_v08/RS-FRONT-GUIDE-CANDIDATE.step(574 ents)  Write  Done[0m
+RADIAL_SUPPORT_CANDIDATE_GEOMETRY_PASS {"object_count": 266, "unexpected_count": 0, "service_gaps_mm": {"TemperatureProbeT3": 6.0, "TemperatureProbeRetainerT3": 3.0, "BarrelBandHeaterZ3": 7.0}, "support_face_contacts_mm2": {"FrameTierY320_0": 399.99999999999994, "FrameTierY320_450": 399.99999999999994, "guide_to_rail": 1131.5761120048137}, "canonical_params_unchanged": true}
+

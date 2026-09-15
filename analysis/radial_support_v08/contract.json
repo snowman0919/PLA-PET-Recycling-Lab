@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "reference_commit": "8d95c18e74d157cca02f73abc656e3aac7679d2f",
+  "status": "REVIEW_CANDIDATE_NOT_ACTIVE_MACHINE",
+  "candidate_front_plate_x_mm": 125.0,
+  "candidate_front_bore_mm": 34.25,
+  "candidate_side_window": {
+    "y_min_mm": 356.0,
+    "z_min_mm": 373.0,
+    "height_mm": 18.0
+  },
+  "barrel_length_mm": 280.0,
+  "barrel_rear_x_mm": 375.0,
+  "axis_y_mm": 347.0,
+  "axis_z_mm": 382.0,
+  "foot_z_mm": 340.0,
+  "steel_density_kg_m3": 7800.0,
+  "tip_load_n": 25.0,
+  "proof_load_n": 75.0,
+  "young_pa": 190000000000.0,
+  "poisson": 0.3,
+  "conditional_yield_mpa": 177.5,
+  "required_yield_factor": 2.0,
+  "contact_patch_half_angle_deg": 30.0,
+  "fea_mesh_mm": [
+    1.25,
+    0.8,
+    0.5
+  ],
+  "displacement_convergence_fraction": 0.05,
+  "cold_axis_setting_mm": -0.065,
+  "cold_axis_setting_tolerance_mm": 0.01,
+  "barrel_cte_per_k": [
+    1.23e-05,
+    1.7e-05
+  ],
+  "support_cte_per_k": 1.2e-05,
+  "barrel_temperature_c": [
+    20.0,
+    245.0,
+    270.0,
+    300.0
+  ],
+  "support_temperature_c": [
+    20.0,
+    100.0,
+    200.0
+  ],
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "limitations": [
+    "25 N tip load is inherited from the prior comparison, not a measured complete-machine load envelope.",
+    "75 N radial proof load is an explicit analysis load, not a performed physical proof test.",
+    "Candidate guide retains the same 2020 rail and profile count; existing end brackets remain outside the isolated plate FEA.",
+    "Cold axis setting is a proposed measurable assembly requirement, not a demonstrated capability or automatic machining offset.",
+    "Support temperatures, material properties and heat-transfer coefficients are sensitivity assumptions.",
+    "Hertz contact assumes smooth, elastic, frictionless cylinder-on-concave-cylinder contact away from edges.",
+    "Plate FEA uses a distributed bore load and fixed mounting-hole surfaces, not nonlinear bolt or barrel contact.",
+    "Neither the existing release tag nor canonical CAD parameters are changed by this review."
+  ]
+}

@@ -1,0 +1,25 @@
+warning: Git tree '/home/monad/develop/PPR' is dirty
+filament-recycler engineering shell
+RESULT analysis/radial_support_v08/cad_candidate.py 0 48.84
+[FreeCAD Console mode <Use Ctrl-D (i.e. EOF) to exit.>]
+
+*******************************************************************
+******        Statistics on Transfer (Write)                 ******
+
+*******************************************************************
+******        Transfer Mode = 0  I.E.  As Is       ******
+******        Transferring Shape, ShapeType = 0                      ******
+** WorkSession : Sending all data
+ Step File Name : /home/monad/develop/PPR/exports/review/radial_support_v08/RS-FRONT-GUIDE-CANDIDATE.step(574 ents)  Write  Done
+RADIAL_SUPPORT_CANDIDATE_GEOMETRY_PASS {"object_count": 266, "unexpected_count": 0, "service_gaps_mm": {"TemperatureProbeT3": 6.0, "TemperatureProbeRetainerT3": 3.0, "BarrelBandHeaterZ3": 7.0}, "support_face_contacts_mm2": {"FrameTierY320_0": 399.99999999999994, "FrameTierY320_450": 399.99999999999994, "guide_to_rail": 1131.5761120048137}, "canonical_params_unchanged": true}
+
+RESULT validation/test_radial_support_candidate.py 0 76.182
+[FreeCAD Console mode <Use Ctrl-D (i.e. EOF) to exit.>]
+RADIAL_SUPPORT_CANDIDATE_TEST_PASS cases=4 active_design_unchanged=1 physical=NOT_RUN
+
+RADIAL_SUPPORT_ARITHMETIC_REVIEW_COMPLETE {"current_reactions": {"rear_n": -50.00988296479176, "front_n": 90.04084958780594, "force_residual_n": 3.552713678800501e-15, "moment_residual_nmm": 9.094947017729282e-13}, "candidate_reactions": {"rear_n": 3.2316628784326227, "front_n": 36.79930374458156, "force_residual_n": 3.552713678800501e-15, "moment_residual_nmm": 9.094947017729282e-13}, "proposed_axis_setting": {"nominal_mm": -0.065, "tolerance_mm": 0.01, "support_axis_range_mm": [-0.075, 0.0797796], "whole_barrel_axis_error_bound_mm": 0.10266006260869569, "minimum_reference_hot_radial_gap_mm": 0.13715249999999912, "residual_budget_before_runout_bending_eccentricity_mm": 0.034492437391303435}, "candidate_all_thermal_cases_feasible": false}
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.000s
+
+OK
