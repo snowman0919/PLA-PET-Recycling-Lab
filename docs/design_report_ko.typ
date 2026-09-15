@@ -58,6 +58,8 @@ OpenModelica scenario에서 cutter-equivalent relief가 22 N·m로 전달토크�
 
 Integrated dryer 대신 외부 pre-dry + sealed 4.5 L maintenance hopper를 채택했다. 장치 heater는 PLA 45 °C/PET 60 °C 유지용이며 건조 완료를 대신하지 않는다. 외부 dryer의 qualified temperature/time은 아직 없으므로 PLA/PET 모두 `UNQUALIFIED_EXTERNAL_PROCESS`다.
 
+Sealed hopper와 FD-MET-01 auger housing은 별도 전이관 없이 동축 registered flange로 연결한다. Feeder spigot Ø28.77–28.80과 hopper socket Ø28.90–28.93의 diametral clearance는0.10–0.16 mm이고, hopper ID24.90–25.00에서 housing ID25.00–25.05로만 넓어져 inward ledge가 없다. FD-GSK-01은 flow path 밖에서0.35–0.40 mm로 압축하며 실제 누설·잔류 시험 전 SYS-12 torque는 HOLD다.
+
 12/14/16/18 mm screw를 12–20 L/D 범위에서 비교해 16 mm x 16 L/D, active 256 mm를 선택했다. Pressure-only torque 식은
 
 $ T = 1.5 (Delta p pi D^3) / 16 $
@@ -66,7 +68,7 @@ $ T = 1.5 (Delta p pi D^3) / 16 $
 
 Barrel front interface는 기존 M5/PCD28에서 M4-6H/PCD26으로 수정했다. Ø34 body와 Ø16.20 bore 사이에서 M4 major envelope 기준 outer/bore-side ligament를 각각 2.0/2.9 mm 이상 확보하고 OD 또는 bore breakthrough를 RFQ 불합격으로 규정했다. Assembly feeder centre도 rear Datum B에서 12–30 mm인 실제 feed-port 구간의 중심에 맞췄다.
 
-EX-DIE-01…05는 40×40×48 SCM440 body의 실제 교차 Ø8 유로, Ø15.9×2 seven-hole 304 breaker, Ø11.9×14 17-4PH H900 insert, C110 gasket와 304 t1.5 sacrificial retainer다. Body와 barrel은 4×M4×45로 접속되고 outlet centreline X=74.5 mm가 두 cooling duct, 직렬·직교 X/Y gauge와 puller nip에 정렬된다. Retainer의 두 10×2.5 mm web은 265 °C 보수 first-yield 식에서 4.32 MPa지만 고온 physical coupon 3개가 3–6 MPa 개방창을 확인하기 전 합격이 아니다. Upper ABS duct는 hot shield에서 10 mm, die body에서 28 mm 이상 떨어지고 기존 관통은 제거했다.
+EX-DIE-01…05는 40×40×48 SCM440 body의 실제 교차 Ø8 유로, Ø15.9×2 seven-hole 304 breaker, Ø11.9×14 17-4PH H900 insert, C110 gasket와 304 t1.5 sacrificial retainer다. Body와 barrel은 SYS-04의 M4×45 class10.9 stock screw 4개를 42.5±0.1 mm로 절단·디버링해 dry 1.50 N·m로 접속한다. grip34.95–35.05와 압축 gasket0.25–0.53 mm에서 물림6.82–7.40 mm, thread-bottom 여유0.60–1.18 mm이며 digital load-path는 PASS다. 실제 수령·누설·첫 thermal cycle은 NOT_RUN이다. Outlet centreline X=74.5 mm가 두 cooling duct, 직렬·직교 X/Y gauge와 puller nip에 정렬된다. Retainer의 두 10×2.5 mm web은 265 °C 보수 first-yield 식에서 4.32 MPa지만 고온 physical coupon 3개가 3–6 MPa 개방창을 확인하기 전 합격이 아니다. Upper ABS duct는 hot shield에서 10 mm, die body에서 28 mm 이상 떨어지고 기존 관통은 제거했다.
 
 #figure(image("../renders/review/compact_section.png", width: 92%), caption: [Section — hopper/cutter와 horizontal hot zone, vertical forming])
 

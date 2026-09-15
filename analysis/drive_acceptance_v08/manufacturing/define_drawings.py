@@ -1,0 +1,127 @@
+"""Author explicit machining requirements; nominal geometry remains CAD-owned."""
+from pathlib import Path
+import json,hashlib
+H=Path(__file__).resolve().parent
+R=H.parents[2]
+D=[]
+def add(number,title,objects,process,notes,axis='Y'):
+    D.append(dict(id=number,title=title,objects=objects,process=process,notes=notes,axis=axis))
+add('D01','분쇄 구동대 바닥판',['GGM_SH_Base'],'판재 절단 + 드릴',[
+ 'S275, 235 x 253 x 6.00 mm. 두께 6.00 +/-0.10; 외곽 +/-0.20.',
+ '상면 A, X 최소 모서리 B, Y 최소 모서리 C. 구멍 위치는 좌표표 기준 +/-0.10.',
+ '4xD6.60 +0.10/0: M6 관통. 4xD5.50 +0.10/0: profile 끝단 M5 체결용.',
+ '지지면 평면도 0.15, 버 제거 C0.2. 가공 후 두 rail 위 흔들림 확인.'],axis='Z')
+add('D02','분쇄 GGM 장착판',['GGM_SH_Mount'],'판재 절단 + 드릴 + 지그 용접',[
+ 'S275 t6.00 +/-0.10. 140 x 190.167, 외곽 +/-0.20.',
+ 'D36.50 +0.10/0 통과공은 정밀 파일럿이 아니다. 축 정렬은 조립 검사로 확보.',
+ '4xD6.60 +0.10/0, PCD104 중심은 출력축에서 18.00 mm 편심. 표를 따라 가공.',
+ 'M6 관통 볼트 사용. 두 보강 angle을 jig에서 3 mm 연속 필릿 용접. 용접 뒤 정렬면 평면도0.15.'])
+add('D03','압출 GGM 장착판',['GGM_EX_Mount'],'판재 절단 + 드릴',[
+ 'S275 t6.00 +/-0.10. 120 x140 외곽 +/-0.20.',
+ 'D36.50 +0.10/0, 4xD6.60 PCD104. 출력축 중심과 bolt-grid 중심은18.00 mm 다름.',
+ '하부 2xD5.50 관통은 rail 체결. 도면 좌표를 따르고 기어박스 사각 중앙을 축으로 삼지 않는다.',
+ 'A=모터 접촉면, B=출력축, C=바닥 모서리. 접촉면 평면도0.15.'])
+add('D04','중간축 베어링판 2개',['GGM_SH_BearingPlate273','GGM_SH_BearingPlate303'],'판재 + 보링/리머 + 탭',[
+ 'S275, 216 x60 x10.00 +/-0.05. D32.030 +/-0.010; bore Ra1.6 이하.',
+ '193 x40 hole grid는 축에 대하여 비대칭이다. 좌표표로 가공. 4xD5.50 관통.',
+ '2xD2.50은 M3x0.5 탭드릴 표기. 양면에서 유효 나사6 mm 이상; 캡용 2개 관통탭.',
+ '두 판은 동일 jig로 보링. 합성 축심차0.03 이하 목표; 외륜 endplay는 선택 shim으로0.05~0.20.'])
+add('D05','중간축',['GGM_SH_Jackshaft'],'규격 S45C 봉 + 선삭 + 키홈',[
+ 'S45C 공급 상태는 상온 항복강도300 MPa 이상 근거 필요. 전장78.00 +/-0.10.',
+ 'D12 h6=11.989~12.000. 베어링 land Ra0.8 이하, 기타 원통 Ra1.6 이하.',
+ '축 원점=전방 끝면. 키홈1 Z2.40~24.40; 키홈2 Z39.00~57.00. 폭4.00 +0.02/0; 바닥은 축중심에서3.50 mm.',
+ '베어링 land Z27~37 및57~67은 원통면을 보존. 끝면 C0.2, 키홈 뿌리 R0.2 이하.',
+ '두 land 기준 TIR0.03 이하. h6는 현재 원형 설계 기준이며 수령 bearing과 실제 fit/creep 판정 전 운전 금지.'])
+add('D06','입력 커플링 허브 2개',['GGM_SH_FuseInput','GGM_EX_FuseInput'],'선삭 + 키홈 + 드릴/탭',[
+ 'S45C. 축방향 원점 Z0=입력 끝면, A=축 보어. Z0~22 OD28; Z22~26 OD46; Z26~30 OD20.',
+ '보어 D12.050 +0.010/0 관통; 키홈 폭4.10 +0.03/0, 중심에서 홈 천장8.025. 외경/보어 TIR0.03.',
+ '정합 pilot OD20.000 -0.020/0, Ra1.6. 정합부 축방향면 직각도0.03.',
+ '전단핀 hole D3.10 +0.02/0, R16.00 +/-0.03. Z22부터 flange 관통; 출력허브와 조립 jig에서 match-drill.',
+ 'Z12의 radial D3.30은 M4x0.7 탭드릴; 유효나사5 mm 이상. set screw는 축방향 유지, 토크는 키로 전달.'])
+add('D07','출력 커플링 허브 2개',['GGM_SH_FuseOutput','GGM_EX_FuseOutput'],'선삭 + 키홈 + 드릴/탭',[
+ 'S45C. 공통 결합 datum Z26.40~30.40 OD46, Z30.40~52.40 OD28; 전장26.00 +/-0.05.',
+ '보어 D12.050 +0.010/0, key4.10 +0.03/0. 입력면 counterbore D20.100 +0.020/0, 깊이4.20 +/-0.05.',
+ '전단핀 D3.10 +0.02/0, R16.00 +/-0.03. 입력허브와 match-drill. 양 flange 사이 축간극0.40 +/-0.10.',
+ '공통 datum Z40.40 radial D3.30은 M4x0.7, 유효나사5 mm 이상. 외경/보어 TIR0.03.',
+ '핀 파단 뒤 pilot이 걸리지 않도록 무하중 자유회전 확인. 이 구조는 압력 방출장치가 아니다.'])
+add('D08','전단핀 가공용 blank 2개',['GGM_SH_FusePinBlank','GGM_EX_FusePinBlank'],'황동봉 선삭 + 교차 드릴',[
+ '이 도면은 교정용 blank이며 운전용 전단핀 완성도가 아니다. 황동 lot를 구분한다.',
+ '몸통 D3.00 -0.02/0 x11.70, 머리 D4.00 x1.00, 총12.70 +/-0.05.',
+ '공통 coupling datum: 머리 Z20.70~21.70, 몸통21.70~33.40. 유지용 교차공 D0.90, 중심 Z32.00.',
+ 'R16 단일 전단 가정에서 목경 약2.416~2.483 mm는 계산 참고값만 해당. 목경을 확정값으로 가공 발주하지 않는다.',
+ '설계검증 종료와 별도 시험 승인 뒤, 실제 결합 coupon의 8.8~9.3 N.m 해제 결과로 목경/길이를 확정한다.'])
+add('D09','중간축 외륜 유지 캡 4개',['GGM_SH_BearingCap271','GGM_SH_BearingCap283','GGM_SH_BearingCap301','GGM_SH_BearingCap313'],'2 mm 판재 절단 + 드릴',[
+ 'OD46.00 +/-0.10, ID27.40 +0.10/0, t2.00 +/-0.05. 2xD3.40 관통, PCD40.',
+ '외륜에만 접촉. 씰/내륜과 간섭하지 않는지 수령 bearing으로 확인.',
+ 'M3x10 class8.8와 washer; 유효물림6 mm 이상, 바닥 여유1 mm 이상. 외륜 endplay0.05~0.20을 shim으로 맞춘다.'])
+add('D10','압출 후방 반경 베어링 홀더',['GGM_EX_RadialHolder'],'판재 보링/리머 + 드릴/탭',[
+ 'S275 48 x48 x10.00 +/-0.05. 중심 D32.030 +/-0.010, Ra1.6.',
+ '4xD4.50 관통, 38 x38 정사각. thrust plate의 대응 4개 M4x0.7과 결합.',
+ '2xD2.50은 M3x0.5 캡용 관통탭, 유효6 mm 이상. 홀더 보어는 screw와 추력좌면 기준으로 정렬.',
+ '베어링 정면을 압출 추력 전달면으로 사용하지 않는다. 지정된51102 경로를 유지.'])
+add('D11','압출 반경 베어링 외륜 캡',['GGM_EX_RadialCap'],'2 mm 판재 절단 + 드릴',[
+ 'R2 변경: ID18에서 ID27.40 +0.10/0으로 수정. OD46.00 +/-0.10, t2.00 +/-0.05.',
+ '2xD3.40 관통 PCD40. M3x10와 washer. 외륜만 유지하며 씰/내륜 접촉 금지.',
+ '캡과 홀더의 선택 shim으로 axial endplay0.05~0.20. 강제로 조여 bearing을 pre-load하지 않는다.'])
+add('D12','분쇄 모터 지지 angle 2개',['GGM_SH_Angle83','GGM_SH_Angle201'],'6 mm 판재 두 조각 + 용접',[
+ '각 22 x36 x6 foot와22 x100 x6 web. 조립 높이106.00 +/-0.20.',
+ '재고 angle을 잘라도 동일한 두께/외형/접촉면이 필요. 모터판과 바닥판에3 mm 연속 필릿, 비드 간섭 제거.',
+ '용접 jig 상태에서 축 위치 확인. 냉각 후 평면도0.15 및 수직도0.10/100 확인.'])
+add('D13','구동대 spacer 4개',['GGM_SH_Spacer_90_100','GGM_SH_Spacer_90_280','GGM_SH_Spacer_220_100','GGM_SH_Spacer_220_280'],'규격 강관 절단 + 끝면 다듬기',[
+ 'OD12.00 +/-0.10, ID6.60 +0.10/0, nominal L10.00 +/-0.05.',
+ '체인 장력은4개를 동일 길이8~13 mm로 조절. 같은 set의 길이 차이0.03 이하.',
+ '서로 다른 spacer 높이로 축 기울기를 만들지 않는다. 연질 출력 spacer 금지.'],axis='Z')
+add('D14','중간축 내륜 spacer 4개',['GGM_JackInnerSpacer_front','GGM_JackInnerSpacer_pinionfront','GGM_JackInnerSpacer_pinionrear','GGM_JackInnerSpacer_rear'],'강관/washer 선삭',[
+ '모두 OD17.00 -0.05/0, ID12.10 +0.03/0. 길이는 대응 부품표2.60/2.00/3.00/1.00 mm.',
+ '길이 +/-0.02, 양 끝면 평행도0.02, Ra1.6. 외륜/씰이 아닌 내륜만 누른다.',
+ '최종 collar와 shim은 두 bearing 사이 강제 예압 없이 축방향 유격0.05~0.20에서 선택.'])
+add('D15','규격 키 절단표',['GGM_SH_MotorKey','GGM_SH_JackInputKey','GGM_SH_JackSprocketKey','GGM_EX_MotorKey','GGM_EX_ScrewKey','GGM_SH_CutterKey'],'규격 키 stock 절단',[
+ '4x4: 길이25(2개),22(1),15(1),17(1). 6x6: 길이20(1개). 표의 bbox는 회전 배치 크기일 수 있다.',
+ '4 mm 폭3.985~4.000, 6 mm 폭5.985~6.000; 높이는 nominal-0.03/0, 길이-0.20/0.',
+ '키홈 천장과 키 상면0.10 이상 여유. 버 제거 C0.1, 억지 타격 금지. 실제 flank contact와 손회전 확인.'])
+add('D16','분쇄 커플링 보호 커버',['GGM_SH_CouplingGuard'],'2 mm 강판 롤 + 분할 seam',[
+ '형성 외곽 OD54, ID50, 길이57.00 +/-0.30. 평판 mid-surface 전개 circumference163.36 mm 참고.',
+ 'STEP은 보호 envelope다. 실제 두 half-cover의 겹침 seam, captiveM3, 고정 tab은 assembly hold 항목이다.',
+ '외형만 보고 한 덩어리 폐쇄 원통으로 제작하지 않는다. 서비스 interlock과 기계 고정 상세가 완료되기 전 발주 금지.'])
+add('D17','압출 커플링 보호 커버',['GGM_EX_CouplingGuard'],'1 mm 강판 롤 + 2 mm half flange',[
+ 'shell OD50/ID48, 길이58.00 +/-0.30. R2에서 실제 t1에 맞춰 재료 표기를 정정.',
+ '상하2개 half-cover, seam gap1.00 +/-0.20. front flange OD76/ID48 x2, 각 half에2개 M3 clearance.',
+ '장착4개 좌표는 조립도 참조. flange와 shell은 연속 접합 후 버 제거. 통전 전 service interlock 실물 확인.'])
+add('D18','체인 보호커버',['GGM_ChainGuard'],'1 mm 강판 절단/절곡 + 두 mounting tab',[
+ '기본 outer118 x24 x173, t1.0; 아래 전개 설명과 좌표 cutout을 따른다. STEP은 완성 외형.',
+ '20 x10 x2 foot +20 x20 x2 upright tab2개를 용접. tab holeD3.40, front bearing plate에 M3x0.5.',
+ '전면 개구는 두 bearing판의 실물 외곽으로 막혀야 한다. panel/plate gap0.30 nominal, 파편·손 접근 경로 확인.',
+ '절곡 반경1.0, 각도90 +/-1deg. flat blank는 실제 절곡장비의 bend allowance로 계산; 외곽치수는 완성치수.',
+ '전면 mounting2개 외 service cover 잠금과 NC interlock은 전기 안전회로에 연결. 현장 무단 제거 금지.'])
+add('D19','Screw 후방 구동부 변경도',['Screw'],'기존 screw의 후방 keyseat 수정만',[
+ 'Screw-GGM.step 중 후방60 mm를 확대. 용융부 flight는 기존EX-SCR-01 치수·재료·열처리 도면을 유지.',
+ '구동부 D12 h6 x35. 축방향 keyseat 폭4.05 +0.03/0 x20.00 +0.05/0, end에서1~21 mm.',
+ '베어링 land는 end에서24~34 mm: 중단 없는 원통면, Ra0.8, TIR0.03. 횡방향 notch 가공 금지.',
+ '바닥 평면은 중심에서3.50 mm. 기존 thrust shoulder/51102 seat를 변경하지 않는다.',
+ '이 변경도만으로 전체 screw를 새로 발주하지 않는다. 기존 active flight source와 함께 사용.'])
+add('D20','Thrust plate 변경도',['ThrustPlate'],'기존 plate 추가 drilling/tap/relief',[
+ '두께12.00 +0.10/0; 기존EX-THR-01와51102 하우징 pocket을 유지. 4xM4x0.7: 반경 holder hole grid38 x38.',
+ 'R2: 후면6201 접촉 중앙에D27.40 +0.10/0 x0.30 +0.05/0 relief. 외륜의 환형 좌면만 남긴다.',
+ '추력 bearing의 정면 pocket은 기존D28.30~28.35 x9.10~9.15 기준이며 R2 rear relief와 혼동 금지.',
+ '4개의 원래 M6 frame hole을 유지. bearing seat와 후면에 버/돌기 금지; 겹친 tap깊이·잔여벽 확인.'])
+front=next(d for d in D if d['id']=='D04')
+rear=dict(front,id='D04R',objects=['GGM_SH_BearingPlate303'],notes=list(front['notes']))
+front['objects']=['GGM_SH_BearingPlate273']
+front['notes'].append('R2 front판에만 chain guard tab용2xM3x0.5를 좌표표대로 추가한다.')
+D.insert(D.index(front)+1,rear)
+for entry in D:
+    if entry['id']=='D16':
+        entry['notes']=['shell OD54/ID50 x57.00 +/-0.30; steel t2.0, 상하2개 half-cover.',
+          'seam gap1.00 +/-0.20, front flangeOD76/ID50 x2.0. flange4개 D3.40 mounting.',
+          '장착판 대응4개M3x0.5. captiveM3x8 기준; 실제물림/끝면여유 확인. flange용접 후 중심 정렬.',
+          '커플링과 최소 radial gap1.0 확인. 실제 NC service interlock은 별도 수령·설계검증 후 연결.']
+for entry in D:
+    if entry['id'] in ('D02','D03'):
+        entry['notes'].append('R2: coupling cover 4xD2.50은 M3x0.5 관통탭, 유효5 mm 이상. 나사 끝단 돌출/모터 간섭 금지.')
+contract={'revision':'GGM-MFG-v0.8-r2','status':'DIGITAL_DRAWING_REVIEW_NOT_FABRICATION_AUTHORIZATION',
+ 'scope':'selected GGM drive and changed rear screw/thrust interfaces, not entire machine',
+ 'parts':D,'physical_validation':'NOT_RUN','machine_release':'HOLD','purchase_authorized':False,
+ 'workspace':str(R),'branch_policy':'reuse existing branch; no sibling worktrees',
+ 'tolerance_basis':'Project design requirements, not measured supplier guarantees; source dimensional nominal stays CAD-owned'}
+(H/'drawing_contract.json').write_text(json.dumps(contract,ensure_ascii=False,indent=2)+'\n')
+print('DRAWING_FAMILIES',len(D),'OBJECTS',sum(len(d['objects']) for d in D))

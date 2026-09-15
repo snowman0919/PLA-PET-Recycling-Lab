@@ -1,0 +1,40 @@
+{
+  "status": "INDEPENDENT_AVR_BUILD_MATCHES_CURRENT_GGM_BINARY",
+  "physical_validation": "NOT_RUN",
+  "hardware_enabled": false,
+  "command": [
+    "/nix/store/7gx4b6cn5k07q20ws2gxg8brxk771qsv-arduino-cli-1.5.1/bin/arduino-cli",
+    "compile",
+    "--fqbn",
+    "arduino:avr:mega",
+    "--build-path",
+    "/home/monad/develop/PPR/analysis/drive_acceptance_v08/raw/avr_guard20",
+    "--output-dir",
+    "/home/monad/develop/PPR/analysis/drive_acceptance_v08/raw/avr_guard20_binaries",
+    "/home/monad/develop/PPR/exports/final/drive_ggm_v08/firmware/arduino_mega"
+  ],
+  "compiler_cli": "arduino-cli 1.5.1",
+  "board": "arduino:avr:mega",
+  "hex_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
+  "released_hex_sha256": "a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f",
+  "screw_hard_limit_rpm": 20,
+  "ggm_report_command_present": true,
+  "commissioning_profile_enabled": false,
+  "guard_source_sha256": "de7167b6e3426735902306b74b9b7de28109191b8e8e8d4397fe3d4709308346",
+  "contract_sha256": "0c847fea963b5a08c86273f80542706d26c784ad6d0201307e500879662fd210",
+  "build_log_sha256": "efa367d40369922b44f46c5c583b26f4a6ba7c8aaa4294873adb7a9a86708eb8",
+  "source_sha256": {
+    "analysis/drive_acceptance_v08/review_firmware.py": "a8c4016616b9874a012f5040a20dbd6e07fcaddde80b4e37c12cd671a8517564",
+    "firmware/ggm_drive_v08/build_variant.py": "a483d63ecac4cb988c7ffe76bd101c9c078b41b49f642e8de7f2cf65de000eb7",
+    "firmware/ggm_drive_v08/ggm_commissioning.h": "03da892bb45404ee4e4597be3e0bf0bf6e720655086b077f6ad0e20ab9bebec8",
+    "firmware/arduino_mega/src/ggm_drive_guard.h": "de7167b6e3426735902306b74b9b7de28109191b8e8e8d4397fe3d4709308346",
+    "exports/final/drive_ggm_v08/firmware/manifest.json": "3fbabd89dff9ddfcfac3b9975e5515b015d0cd4a67baed662a8029fefd157c29",
+    "control/ggm_drive_contract.json": "0c847fea963b5a08c86273f80542706d26c784ad6d0201307e500879662fd210",
+    "exports/final/drive_ggm_v08/firmware/arduino_mega/src/ggm_drive_guard.h": "de7167b6e3426735902306b74b9b7de28109191b8e8e8d4397fe3d4709308346"
+  },
+  "limitations": [
+    "No upload to Arduino Mega",
+    "No BTS7960 or motor energization",
+    "Compile equivalence does not prove that P3 calibration was physically performed or that EEPROM calibration was applied/read back"
+  ]
+}

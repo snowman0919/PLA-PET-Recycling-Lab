@@ -1,0 +1,15 @@
+metric,value,u95,unit,acceptance,instrument_id,calibration_ref,measured_at,operator,reviewer,evidence_path,sha256,notes
+datasheet_continuous_service_rating,,,C,=220 C conservative design basis for current received TH-INS-01 roll,,,,,,,,listing claims long-term 220-280 C; lower bound 220 C governs; short-term 300 C not used
+coupon_interface_peak,,,C,180 C <= peak-U95 and peak+U95 <=190 C,,,,,,,,representative shield-metal/tape adhesive interface
+coupon_outer_surface_peak,,,C,record only; no safety credit,,,,,,,,
+qualification_hot_dwell,,,s,>=600 s while interface remains in qualification window,,,,,,,,
+post_cool_edge_lift_max,,,mm,<=2.0 after cooldown,,,,,,,,
+same_physical_roll_as_final_install,,,boolean,true: coupon cut from same 25 mm x 30 m received roll,N/A,N/A,,,,,,
+representative_metal_shield_surface,,,boolean,true,N/A,N/A,,,,,,
+direct_heater_barrel_die_wrap_used,,,boolean,false,N/A,N/A,,,,,,
+visible_smoke,,,boolean,false,N/A,N/A,,,,,,
+visible_charring,,,boolean,false,N/A,N/A,,,,,,
+melting_or_shrink_failure,,,boolean,false,N/A,N/A,,,,,,
+adhesive_flow_or_drip,,,boolean,false,N/A,N/A,,,,,,
+loose_delamination,,,boolean,false,N/A,N/A,,,,,,
+safety_function_claimed,,,boolean,false,N/A,N/A,,,,,,

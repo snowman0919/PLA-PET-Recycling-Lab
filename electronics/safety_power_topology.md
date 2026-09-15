@@ -1,25 +1,46 @@
-# 24 V safety/power topology
+# PPR v0.8 safety and power topology
 
-```text
-AC inlet/main switch -> verified 24 V 600 W PSU -> main fuse
-  -> protected logic branch -> Mega + gauge
-  -> hardwired E-stop/lid/service permission chain -> branch enables
-       -> shredder fuse + driver
-       -> feeder/screw fuse + drivers
-       -> heater branch fuses + MOSFETs + one-shot thermal fuse in series
-       -> puller/spooler branch
-```
+Revision: `final-design-fabrication-closure-v0.8`
+State: `DIGITAL_TOPOLOGY / PHYSICAL_NOT_RUN / ENERGIZATION_NOT_AUTHORIZED`
 
-Mega는 permission chain feedback을 읽지만 chain을 우회할 수 없다. E-stop 또는 guard open은 heater enable과 모든 hazardous motion을 hardware에서 제거한다. PSU, MOSFET, fuse, switch, connector의 exact model/current/temperature rating은 donor inspection 전 미확정이다.
+## Power envelope
 
-Cooling fan PWM command는 fan 동작 증거가 아니다. Fan branch return의 검증된 low-side shunt/보호 증폭 경로를 Mega A4 `COOLING_CURRENT`에 연결하고 donor fan별 normal/open/stall window를 교정한다. Command threshold 이상에서 feedback이 정상 window 밖으로 1.5 s 지속되면 firmware와 virtual model은 `COOLING_FAILURE` forming-chain rundown으로 전환한다. 교정 전에는 fail-safe invalid이며 이 current feedback을 airflow 또는 tach 측정으로 표시하지 않는다.
+The user-reported available supply is a 24 V 800 W unit, approximately 33.3 A nameplate capability, but its exact label, terminals and condition remain a P1 receipt item. The machine envelope remains protected by `F-MAIN = 30 A DC`; available PSU current is not permission to raise branch or software limits.
 
-Process heater의 설치 정격은 360 W지만 active motion과 동시에 네 채널을 무제한 ON하지 않는다. Machine-readable phase power contract가 PREHEATING과 EXTRUSION/PURGE/RUNDOWN/HOLD/REQUALIFYING의 heater aggregate cap을 정의하고 `MachineSupervisor`가 요청 channel을 공정하게 time-slot arbitration한다. 실제 command의 독립 component 합이 500 W 이하이고 600 W PSU reserve가 100 W 이상이어야 한다. 이 software power arbitration은 branch fuse, independent thermal fuse와 hardware permission chain을 대체하지 않는다.
+Released branch fuses are `F-LOGIC 3 A`, `F-SAFE 1 A`, `F-SH 20 A`, `F-SCREW 10 A`, `F-FEED 5 A`, `F-PULL 5 A`, `F-SPOOL 5 A`, `F-FAN 3 A`, and `F-H1..H4 5 A` each. Exact DC interrupt rating and received fuse-holder compatibility must be verified before power.
 
-v0.6 Mega wiring은 `controller_wiring_v0.6.md`, exact pins는 `board_config.h`, safe-state/시험은 `io_schedule.csv`가 지배한다. Command와 heater permission feedback 불일치는 latch되며 physical lockout key 없이 clear되지 않는다. EEPROM calibration이 유효하지 않으면 shredder와 gauge quality release를 inhibit한다.
+For the two GGM axes, F-SH/F-SCREW are conductor/branch protection only. Each K9DG60N2 is rated 4.6 A and the released control ceiling is 6.0 A. Shredder current is A0; extruder current is A9. Neither axis uses the former 50 A calibration contract.
 
-Shredder 기준은 특정 MPN이 아닌 18–30 V reversible brushed geared-DC donor functional interface, 20 A branch fuse, reversible H-bridge와 isolated 50 A current feedback이다. Cutter 14 N·m continuous와 20–40 rpm을 donor label·실측·Gate-1으로 확인한다. Current를 직접 torque로 보지 않고 donor calibration으로 PLA/PET 11/13 N·m continuous 및 공통 18 N·m jam trip을 계산하며 Hall RPM drop을 함께 쓴다. Cutter-equivalent 22 N·m relief는 motor-side DRV-F01에서 ratio별 17.25/12.94/10.35 N·m로 설정하며 cutter-side DRV-02와 34 N·m phase/48 N·m shaft 경로는 sacrificial element가 아니다. Shredder enable 중 heater/screw enable을 차단하고 heater/screw enable 중 shredder hardware-enable을 차단한다. 상세 wiring과 입고시험은 `electronics/shredder_drive_wiring.md`를 따른다.
+## Hardwired safety authority
 
-Melt blockage 방호는 open 3 mm die와 7 x 2 mm breaker flow area, removable screen, calibrated screw torque trip, guarded sacrificial die-retainer feature의 조합이다. Pressure sensor가 있으면 계측을 추가하지만 sensor/firmware 하나에 safety를 맡기지 않는다.
+Hazardous motion/heater permission is removed in hardware by the normally-safe chain:
 
-PET 기준 hot path는 metal, 300 °C thermal fuse candidate, temperature-rated wire/sleeve, 25 mm insulation과 grounded sheet shield를 사용한다. First-hot-test는 remote stop/guard 뒤에서 low feed로 수행한다.
+`E-stop NC -> lid positive-opening NC -> service positive-opening NC -> TF-BARREL -> TF-DIE -> K0 safety contactor/relay coil`.
+
+`TF-BARREL` is clamped to the barrel inter-zone region and `TF-DIE` to the die body. Both are one-shot, normally-continuous devices in the low-current K0 coil chain; opening either removes K0 coil energy and therefore disconnects every hazardous motor/heater branch. `TH-FUSE-01` procurement quantity is three: these two installed devices plus one same-spec spare. The spare is not counted as an installed safety element.
+
+The Mega reads feedback but cannot energize around an open safety contact. K0 auxiliary feedback is compared with commanded state; a mismatch latches a fault. Reset requires the physical cause to be removed and the released restart/lockout procedure. Serial/software commands alone are never safety reset authority.
+
+The first logic-only test keeps motor/heater branch fuses removed or otherwise positively isolated. Motor commissioning is one branch at a time. Heater commissioning is a later P9 stage with motors inhibited for the first heat cycle. Each transition needs separate explicit user approval.
+
+## GGM protection hierarchy
+
+The active GGM criteria are:
+
+- calibrated current range: 0–6.0 A, U95-inclusive error <=0.10 A;
+- software gearbox torque limit: 8.0 N.m;
+- mechanical protection release: 8.8–9.3 N.m including U95;
+- current-to-torque holdout error: <=0.40 N.m;
+- extruder reverse: forbidden.
+
+The former donor-drive 14/18/22 N.m hierarchy is superseded and must not be used as a physical acceptance target for v0.8 GGM hardware.
+
+## Heater and aggregate power
+
+The active hot zone has four machine heater branches: barrel Z1/Z2/Z3 and die. `F-H1..F-H4` are 5 A branch overcurrent fuses only; no extra TH-FUSE-01 is placed in each heater branch. Thermal trip authority is instead the dual `TF-BARREL -> TF-DIE` series path in the K0 coil chain. Hopper pre-dry is external and has no active machine heater branch. Software power arbitration limits commanded heater/motion combinations but cannot replace branch fuses, conductor sizing, K0 or either thermal cutoff. The currently released arbitration basis is 360 W heater budget during preheat, 300 W heater budget during running, and 500 W aggregate running cap.
+
+## Grounding and signal separation
+
+Protective earth uses a dedicated frame/enclosure/hot-shield bond path and must not share logic return conductors. Motor/heater current returns stay out of the logic reference. Current/tach/thermocouple/gauge wiring is routed separately from PWM/high-current conductors where practical, with shield termination only as specified by the final wire schedule.
+
+The detailed GGM axis wiring is `electronics/shredder_drive_wiring.md`; the final field schedules under `exports/final/electrical/` remain the generated wiring source of truth.

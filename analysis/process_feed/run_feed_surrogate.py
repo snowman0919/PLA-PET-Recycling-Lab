@@ -33,10 +33,10 @@ def state(material: dict, levels: dict[str, float]) -> dict[str, float]:
         "wall_friction": levels.get("wall_friction", material["wall_friction"][1]),
         "inter_particle_friction": levels.get("inter_particle_friction", material["inter_particle_friction"][1]),
         "throat_fill": levels.get("throat_fill", material["throat_fill"][1]),
-        "agitator_rpm": levels.get("agitator_rpm", 14.0),
         "auger_rpm": levels.get("auger_rpm", 12.0),
         "screen_discharge_variability": levels.get("screen_discharge_variability", 0.20),
     }
+    row["agitator_rpm"] = row["auger_rpm"]  # One physical shaft; independent speeds are impossible.
     aspect_n = normalized(row["aspect_ratio"], material["aspect_ratio"])
     wall_n = normalized(row["wall_friction"], material["wall_friction"])
     inter_n = normalized(row["inter_particle_friction"], material["inter_particle_friction"])
@@ -75,7 +75,6 @@ def sweep_rows() -> list[dict]:
     rows: list[dict] = []
     names = PARAM["sweep_contract"]["variables"]
     external = {
-        "agitator_rpm": PARAM["sweep_contract"]["agitator_rpm_levels"],
         "auger_rpm": PARAM["sweep_contract"]["auger_rpm_levels"],
         "screen_discharge_variability": PARAM["sweep_contract"]["screen_discharge_variability_levels"],
     }
@@ -104,12 +103,14 @@ def nominal_dynamic(material: dict, variant: int) -> tuple[dict, list[dict]]:
         "wall_friction": material["wall_friction"][1] * (0.96 + 0.02 * variant),
         "inter_particle_friction": material["inter_particle_friction"][1] * (0.95 + 0.025 * variant),
         "throat_fill": material["throat_fill"][1] * (0.96 + 0.02 * variant),
-        "agitator_rpm": CTRL["agitator_rpm_normal"],
         "screen_discharge_variability": 0.12 + 0.03 * variant,
     }
-    basis = state(material, levels | {"auger_rpm": 12.0})
-    rpm_ff = CTRL["target_feed_g_h"] / max(0.01, 60.0 * basis["mass_per_rev_g"] * (1.0 - 0.18 * basis["bridge_index"]))
-    rpm_command = clamp(rpm_ff, CTRL["auger_rpm_min"], CTRL["auger_rpm_max"])
+    rpm_command = 12.0
+    for _ in range(4):
+        basis = state(material, levels | {"auger_rpm": rpm_command})
+        rpm_ff = CTRL["target_feed_g_h"] / max(0.01, 60.0 * basis["mass_per_rev_g"] * (1.0 - 0.18 * basis["bridge_index"]))
+        rpm_command = clamp(rpm_ff, CTRL["auger_rpm_min"], CTRL["auger_rpm_max"])
+    basis = state(material, levels | {"auger_rpm": rpm_command})
     inventory = CTRL["inventory_target_g"]
     trace: list[dict] = []
     bridge_countdown = 0.0
@@ -147,7 +148,7 @@ def nominal_dynamic(material: dict, variant: int) -> tuple[dict, list[dict]]:
             "material_id": material["id"], "variant": variant, "time_s": time_s,
             "mode": "BRIDGE_CLEAR" if bridge_active else "METERING", "feed_inventory_g": inventory,
             "upstream_g_h": upstream, "delivered_g_h": delivered, "auger_command_rpm": rpm,
-            "auger_tach_rpm": rpm * 0.992, "tach_valid": tach_valid, "agitator_rpm": CTRL["agitator_rpm_clear"] if bridge_active else CTRL["agitator_rpm_normal"],
+            "auger_tach_rpm": rpm * 0.992, "tach_valid": tach_valid, "agitator_rpm": rpm,
             "torque_nm": torque, "motor_current_a": current, "bridge_cycle": bridge_cycles if bridge_active else 0,
         })
     max_starvation = max(max_starvation, starvation_run)

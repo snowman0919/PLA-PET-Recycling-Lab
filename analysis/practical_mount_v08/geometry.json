@@ -1,0 +1,92 @@
+{
+  "status": "READ_ONLY_GEOMETRY_AUDIT",
+  "physical_validation": "NOT_RUN",
+  "parts": [
+    {
+      "name": "Barrel",
+      "solid_count": 1,
+      "volume_mm3": 196898.993147317,
+      "bbox_mm": [
+        95.0,
+        325.0,
+        360.0,
+        375.0,
+        369.0,
+        399.00000000000006
+      ]
+    },
+    {
+      "name": "ExtruderRearFixedDatum",
+      "solid_count": 1,
+      "volume_mm3": 29558.38441253708,
+      "bbox_mm": [
+        355.0,
+        270.0,
+        340.0,
+        363.0,
+        420.0,
+        398.0
+      ]
+    },
+    {
+      "name": "ExtruderFixedCollar",
+      "solid_count": 1,
+      "volume_mm3": 5848.0210894567845,
+      "bbox_mm": [
+        363.0,
+        322.0,
+        357.0,
+        375.0,
+        372.0,
+        398.00000000000017
+      ]
+    },
+    {
+      "name": "ExtruderFrontSlidingGuide",
+      "solid_count": 1,
+      "volume_mm3": 28694.57512700058,
+      "bbox_mm": [
+        265.0,
+        270.0,
+        340.0,
+        273.0,
+        420.0,
+        416.0
+      ]
+    },
+    {
+      "name": "ExtruderRearRetainer",
+      "solid_count": 1,
+      "volume_mm3": 18174.850596734166,
+      "bbox_mm": [
+        367.2,
+        312.0,
+        348.0,
+        379.2,
+        382.0,
+        398.0
+      ]
+    },
+    {
+      "name": "ThrustPlate",
+      "solid_count": 1,
+      "volume_mm3": 111640.11249302303,
+      "bbox_mm": [
+        389.0,
+        299.5,
+        329.5,
+        401.0,
+        394.5,
+        434.5
+      ]
+    }
+  ],
+  "source_sha256": {
+    "analysis/practical_mount_v08/inspect_geometry.py": "4e270137a8f1eaf1e2a709e3965ff459691850713a18217c09473a5e79746214",
+    "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "cad/freecad/final_v08/generate.py": "ac680b87e7af834b2c5ce7b92708511d79a9adadf144a3c016ecd1356557da0e",
+    "cad/parameters/final_v08.json": "b793e1cf1123c82aab037b592b4256efb8374bd79ad0e1bb22c658aa66c78e81",
+    "cad/parameters/baseline.json": "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a"
+  }
+}

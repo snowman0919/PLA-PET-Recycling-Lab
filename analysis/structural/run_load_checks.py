@@ -25,6 +25,17 @@ def vm_bending_torsion(moment_nm: float, torque_nm: float, diameter_mm: float) -
     return math.sqrt(sigma**2 + 3 * tau**2) / 1e6
 
 
+def key_demands(torque_nm: float, engaged_length_mm: float) -> dict:
+    """6×6 key on Ø20 shaft/Ø20.2 hub; nominal average stress, no load-share claim."""
+    if not math.isfinite(torque_nm) or not math.isfinite(engaged_length_mm) or torque_nm < 0 or engaged_length_mm <= 0:
+        raise ValueError("finite nonnegative torque and positive engaged length required")
+    force = torque_nm / .010
+    # Key top radius12.5 minus hub bore radius10.1: conservative projected height.
+    return {"tangential_force_n": force,
+            "average_shear_mpa": force / (6 * engaged_length_mm),
+            "average_hub_bearing_mpa": force / (2.4 * engaged_length_mm)}
+
+
 def plate_deck(load_n: float, scale: int = 2) -> str:
     """120×100×12 mm steel plate; fixed side to bearing-load side screening mesh."""
     nx, ny, nz = 6 * scale, 5 * scale, scale
@@ -101,6 +112,8 @@ def parse_frd(path: Path) -> dict:
     mode = ""
     max_displacement = 0.0
     max_vm = 0.0
+    max_vm_node = None
+    records = {"DISP": 0, "STRESS": 0}
     number_pattern = re.compile(r"[-+]?\d*\.?\d+(?:E[-+]?\d+)?")
     for line in path.read_text(errors="ignore").splitlines():
         if line.startswith(" -4"):
@@ -111,14 +124,25 @@ def parse_frd(path: Path) -> dict:
             continue
         if not mode or not line.startswith(" -1"):
             continue
-        values = [float(value) for value in number_pattern.findall(line)][2:]
+        record = [float(value) for value in number_pattern.findall(line)]
+        values = record[2:]
+        expected = 3 if mode == "DISP" else 6
+        if len(record) != expected + 2 or not all(math.isfinite(value) for value in record):
+            raise ValueError(f"invalid {mode} FRD record in {path}")
+        records[mode] += 1
         if mode == "DISP" and len(values) >= 3:
             max_displacement = max(max_displacement, math.sqrt(sum(value**2 for value in values[:3])))
         if mode == "STRESS" and len(values) >= 6:
             sx, sy, sz, txy, tyz, tzx = values[:6]
             vm = math.sqrt(0.5*((sx-sy)**2+(sy-sz)**2+(sz-sx)**2)+3*(txy**2+tyz**2+tzx**2))
-            max_vm = max(max_vm, vm)
-    return {"max_displacement_mm": max_displacement * 1000, "max_von_mises_mpa": max_vm / 1e6}
+            if max_vm_node is None or vm > max_vm:
+                max_vm, max_vm_node = vm, int(record[1])
+    if mode:
+        raise ValueError(f"FRD result block not terminated: {path}")
+    if not all(records.values()):
+        raise ValueError(f"FRD missing displacement/stress data: {path}: {records}")
+    return {"max_displacement_mm": max_displacement * 1000, "max_von_mises_mpa": max_vm / 1e6,
+            "max_von_mises_node_id": max_vm_node}
 
 
 def run_ccx(stem: str) -> dict:
@@ -171,6 +195,37 @@ def check(name: str, stress_mpa: float, allowable_mpa: float, source: str, note:
     }
 
 
+def chamber_joint_screen(peak_bearing_load_n: float) -> dict:
+    """Four symmetric M6 ties with matched steel sleeves; conservative dry-torque screen."""
+    design_separation_n = 2 * peak_bearing_load_n
+    preload_per_bolt_n = 7 / (.25 * .006)  # T/(K*d), high K gives lower preload.
+    proof_load_n = 830 * 20.1  # class10.9 proof MPa × M6 tensile area mm².
+    bolt_load_n = preload_per_bolt_n + design_separation_n / 2
+    sleeve_area_mm2 = math.pi / 4 * (10**2 - 6.6**2)
+    sleeve_stress_mpa = preload_per_bolt_n / sleeve_area_mm2
+    sleeve_i_mm4 = math.pi / 64 * (10**4 - 6.6**4)
+    sleeve_buckling_n = math.pi**2 * 205000 * sleeve_i_mm4 / 128**2
+    factors = {
+        "bolt_proof": proof_load_n / bolt_load_n,
+        "sleeve_yield": 275 / sleeve_stress_mpa,
+        "sleeve_euler_buckling": sleeve_buckling_n / preload_per_bolt_n,
+    }
+    return {
+        "status": "PASS" if min(factors.values()) >= 2 and 4 * preload_per_bolt_n > design_separation_n else "FAIL",
+        "physical_validation_state": "NOT_RUN",
+        "design_separation_n": design_separation_n,
+        "torque_nm": 7,
+        "nut_factor": .25,
+        "preload_per_bolt_n": preload_per_bolt_n,
+        "two_bolt_share_load_per_bolt_n": bolt_load_n,
+        "four_bolt_clamp_margin_n": 4 * preload_per_bolt_n - design_separation_n,
+        "sleeve_compression_mpa": sleeve_stress_mpa,
+        "safety_factors": factors,
+        "criterion": "all conditional SF >=2 and positive clamp margin",
+        "limitations": "Centered load shared by one bolt row; prying, embedment, torque scatter beyond K=0.25, fatigue and physical torque/preload remain unqualified.",
+    }
+
+
 def main() -> None:
     global GEN
     parser = argparse.ArgumentParser()
@@ -202,8 +257,7 @@ def main() -> None:
     shaft_moment = radial * 0.030
     cutter_force = cutter_torque / 0.029
     cutter_root_stress = 6 * cutter_force * 0.011 / (0.006 * 0.012**2) / 1e6
-    key_force = phase_torque / 0.010
-    key_shear = key_force / (0.006 * 0.018) / 1e6
+    key_shear = key_demands(phase_torque, 18)["average_shear_mpa"]
     plate_bending = 6 * radial * 0.030 / (0.012 * 0.075**2) / 1e6
     sprocket_stress = vm_bending_torsion(chain * 0.030, cutter_torque, 20)
     motor_plate = 6 * peak_frame_reaction * 0.045 / (0.006 * 0.100**2) / 1e6
@@ -215,18 +269,28 @@ def main() -> None:
     anchor_stress = anchor_tension / (math.pi * 6.466e-3**2 / 4) / 1e6
     bore = next(row for row in engineering["thermocouple_bore"]["candidates"] if row["blind_bore_depth_mm"] == engineering["thermocouple_bore"]["selected_depth_mm"])
     frame = next(row for row in engineering["frame_sensitivity"]["options"] if row["option"] == "B_LOCAL_2040")
+    chamber_joint = chamber_joint_screen(radial)
 
     checks = [
     check("CUT-01 cutter tooth/root", cutter_root_stress, 350, f"{cutter_torque:.1f} N·m cutter-equivalent DRV-F01 relief cap", "6 mm tool-steel coupon geometry; impact/notch factor is not physically calibrated"),
     check("SH-SHAFT-01 20 mm cutter shaft", vm_bending_torsion(shaft_moment, peak_cutter_torque, 20), 177.5, "bearing envelope + fuse cap", "S45C normalized; allowable=0.5×355 MPa yield"),
         check("SH-PLATE-01 bearing plate", plate_bending, 137.5, "peak bearing load", "12 mm S275 ligament simplified as 75 mm strip"),
-        check("PH-KEY-01 phase gear key", key_shear, 120, "34 N·m phase allowable", "6×6×18 mm key shear; hub bearing pressure separately inspect at RFQ"),
+        check("PH-KEY-01 phase gear key", key_shear, 120, "34 N·m phase allowable", "Ideal6×6×18 engagement screen; three-lamination load sharing and hub contact pressure unqualified; not complete key validation"),
         check("CH-SPROCKET-01 overhang", sprocket_stress, 177.5, "chain envelope + fuse cap", "20 mm shaft, 30 mm overhang"),
         check("DRV-03 motor adapter plate", motor_plate, 75, "peak frame reaction", "6 mm 6061-T6/S275 equivalent bending strip; slot edge inspection required"),
         check("EX-THR-01 screw thrust plate", screw_plate, 137.5, "6 MPa conservative blocked-die thrust", f"calculated axial thrust {screw_thrust:.0f} N; open die and sacrificial relief remain mandatory"),
         check("SP-SHAFT-01 spool shaft", spool_shaft, 100, "1.35 kg spool + 8 N line tension", "8 mm steel shaft, 85 mm cantilever"),
         check("FR-ANCHOR-01 M8 table anchor", anchor_stress, 320, "frame reaction envelope", "minor-diameter tensile area; four anchors required, one-anchor conservative screening"),
         check("EX-BAR-01 thermocouple blind-bore ligament", bore["trip_combined_stress_mpa"], 180, "6 MPa pressure-trip + 270 C / 10 C local-gradient screen", "Ø3.2 blind5.5 leaves 3.4 mm nominal ligament; thick-cylinder/net-section/notch/thermal closed-form screen"),
+    ]
+    key_check = next(row for row in checks if row["component"] == "PH-KEY-01 phase gear key")
+    key_check["shear_screen_status"] = key_check["status"]
+    key_check["status"] = "HOLD"
+    key_check["criterion"] = "Shear SF >= 2 AND qualified lamination load sharing and hub bearing strength"
+    key_check["load_sharing_basis"] = "18 full-stack ideal;6 full lamination;4 current slave first lamination geometric overlap;2 unadopted gear -Y2 candidate first lamination overlap. Each scenario applies full phase torque conservatively; actual sharing and key length remain unqualified."
+    key_check["load_sharing_scenarios"] = [
+        {"engaged_length_mm": length, **key_demands(phase_torque, length)}
+        for length in (18, 6, 4, 2)
     ]
 
     GEN.mkdir(parents=True, exist_ok=True)
@@ -255,7 +319,7 @@ def main() -> None:
     result = {
         "revision": envelope["revision"],
         "release_state": json.loads((ROOT / "cad/parameters/baseline.json").read_text())["release_class"],
-        "virtual_physics_state": "VIRTUAL_PHYSICS_VALIDATED",
+        "virtual_physics_state": "STRUCTURAL_SCREENING_INCOMPLETE" if failed else "SCOPED_STRUCTURAL_SCREENING_PASS",
         "empirical_state": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
         "input": str(ENVELOPE_PATH.relative_to(ROOT)),
         "input_source": envelope["source"],
@@ -264,6 +328,7 @@ def main() -> None:
         "checks": checks,
         "frame_sensitivity": engineering["frame_sensitivity"],
         "selected_frame": frame,
+        "shredder_chamber_joint": chamber_joint,
         "status": "PASS" if not failed else "FAIL",
         "failures": failed,
         "limitations": [
@@ -279,7 +344,7 @@ def main() -> None:
         "",
         f"- revision: `{envelope['revision']}`",
         f"- 판정: **{result['status']}**",
-        "- 가상 물리 상태: `VIRTUAL_PHYSICS_VALIDATED`",
+        f"- 가상 물리 상태: `{result['virtual_physics_state']}`",
         "- 경험적 검증 상태: `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`",
         f"- 하중 원본: `{result['input']}`",
         "",
@@ -294,6 +359,8 @@ def main() -> None:
         "각 계산의 source_load는 동일 OpenModelica envelope 또는 명시된 mechanical cap이다. 따라서 upstream 22 N·m torque fuse가 34 N·m phase drivetrain과 48 N·m shaft/cutter보다 먼저 작동해야 한다. Optional empirical Gate-1 데이터를 얻으면 model-correlation 자료로 갱신할 수 있지만 design release의 필수조건은 아니다.",
         "",
         f"프레임은 local 2040 Option B를 채택했다. Bearing-center relative displacement는 {frame['bearing_center_relative_displacement_mm']:.3f} mm, screen-clearance margin은 {frame['screen_clearance_margin_mm']:.3f} mm, phase center-distance variation은 {frame['phase_center_distance_variation_mm']:.3f} mm다. Profile은 15.098 m에서 14.668 m로 감소한다.",
+        "",
+        f"CUT-03 chamber joint는 4× M6x170 class10.9 tie, CUT-09 OD10/ID6.6/L128 steel sleeve, dry7 N·m로 정의했다. Peak bearing load의2배를 분리하중으로 두고 K=0.25, 가까운 한 bolt row(2개)가 전부 분담하면 bolt proof SF={chamber_joint['safety_factors']['bolt_proof']:.2f}, sleeve yield SF={chamber_joint['safety_factors']['sleeve_yield']:.2f}, Euler SF={chamber_joint['safety_factors']['sleeve_euler_buckling']:.2f}, 4-bolt clamp margin={chamber_joint['four_bolt_clamp_margin_n']:.0f} N이다. 이는 조건부 디지털 screen이며 prying/fatigue/실제 preload 시험은 NOT_RUN이다.",
         "",
         "CalculiX deck는 coarse/medium/fine 3단계로 실제 실행되며 medium-to-fine 전역 변위 차이 5% 이하를 합격 기준으로 한다. `generated/bearing_plate.inp`, `generated/cutter_shaft.inp`는 검토용 medium mesh다. 고정단 최대응력은 특이점에 민감하므로 수렴 판정에서 제외하고 폐형식 응력과 함께 판단한다. 상세 notch/contact 검토 및 물리 coupon을 대체하지 않는다.",
         "",

@@ -2,58 +2,45 @@ name: CI-LIGHT
 
 on:
   push:
+    branches: [main]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ppr-light-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   deterministic-contracts:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
-      - name: Install host build tools
-        run: sudo apt-get update && sudo apt-get install -y build-essential
-      - uses: arduino/setup-arduino-cli@v2
-      - name: Install Arduino Mega core
-        run: |
-          arduino-cli core update-index
-          arduino-cli core install arduino:avr@1.8.8
-      - name: v0.6.2.1 deterministic technical closure gate
-        run: python3 validation/run_v0621.py --fusion-policy deferred
-      - name: Validate LC11 Fusion package binding
-        run: python3 fusion_worker/result_validation/validate_fusion_v0621_package.py exports/fusion_validation_v0621
-      - name: Budget and static syntax
-        run: |
-          python3 bom/build_budget_views.py
-          python3 -m compileall -q artifacts analysis bom calculations control firmware fusion_worker simulation validation
-      - name: Rebuild v0.6.2.1 artifact manifest
-        run: |
-          python3 artifacts/build_manifest_v0621.py
-          git diff --exit-code -- artifacts/manifest_v0.6.2.1.json
-      - name: Exact-head CI-LIGHT evidence
-        run: python3 validation/exact_head_evidence_v0621.py --stage CI-LIGHT --fusion-policy deferred
-      - name: Upload exact-head runtime evidence
-        if: always()
-        uses: actions/upload-artifact@v4
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
-          name: technical-blocker-closure-v0621-ci-light-${{ github.sha }}
+          python-version: '3.12'
+      - name: Install host verification tools
+        run: sudo apt-get update && sudo apt-get install -y g++ poppler-utils
+      - name: Install pinned numerical test dependency
+        run: python3 -m pip install -r environment/ci-requirements.txt
+      - name: Current v0.8 contracts, runtime and negative tests
+        run: python3 validation/ci_v08.py --suite light
+      - name: Upload current CI evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ppr-v08-light-${{ github.sha }}
           path: |
-            validation/evidence/exact_head_evidence_v0.6.2.1.json
-            validation/results/fusion_release_gate_v0.6.2.1.json
-            validation/results/hardware_adapter_e2e/
-            validation/results/hardware_adapter_tach/
-            validation/results/v0621_mutation_tests.json
-            simulation/openmodelica/results_v0.6.2.1/
-            analysis/process_feed/feed_validation.json
-            analysis/shredder_recirculation/recirculation_validation.json
-            artifacts/manifest_v0.6.2.1.json
-            validation/results/runtime_supervisor.json
-            validation/results/runtime_traces/
-            validation/results/orchestration_contract.json
-            validation/results/red_team_orchestration.json
-            validation/results/controller_contract.json
-            validation/results/arduino_mega_compile.json
-            validation/results/v062_runtime_audit.json
-            validation/results/v062_mutation_tests.json
-            validation/results/v062_actuation_contract.json
-            validation/results/ci_light_v062.json
+            .build/ci-v08/light/result.json
+            .build/ci-v08/light/SUMMARY.md
+            .build/ci-v08/light/*.log
+            validation/physical_v08/simulation_prerequisite.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30

@@ -1,7 +1,7 @@
 interface,part_a,part_b,hardware,fit_or_clearance,inspection,status
 feeder_to_barrel,FD-MET-01,EX-BAR-01,metal saddle/clamp + high-temp gasket,face contact; no bore intrusion,dry-fit light/feeler check,GATE2_AND_GATE3
-transfer_upper_socket,FD-TRN-01,FD-HOP-01,TIG tack/weld or removable clamp,>=8 mm socket engagement,leak and cleanability check,HOLD_USER_APPROVAL
-transfer_lower_socket,FD-TRN-01,FD-MET-01,TIG tack/weld or removable clamp,>=8 mm socket engagement,leak and cleanability check,HOLD_USER_APPROVAL
+hopper_feeder_registered_flange,FD-HOP-01/FD-GSK-01,FD-MET-01,4xM4 through bolts + all-metal locknuts,register diametral clearance0.10–0.16; flow-path expansion0–0.15; gasket compressed0.35–0.40,"bore gauge, depth gauge, feeler, dry-flake leak/retention check",GATE2
+feeder_reference_drive,FD-MET-03/FD-CP-01,EG17-G10/FD-DA-01,3 mm key + Ø3x18 spring pin + 4xM4 gearbox screws + 2xM6 frame bolts,coupling bore clearance0.05–0.102; axis position≤0.10; gearbox continuous rating5 N.m,micrometer/pin gauge; hand turn; no-load tach; torque-arm test,DIGITAL_REFERENCE_PURCHASE_AND_PHYSICAL_TEST_HOLD
 screw_to_barrel,EX-SCR-01,EX-BAR-01,matched supplier pair,0.14-0.16 mm radial at 20+/-2 C,three-station report,HOLD_PROCESS_COUPON_AND_GATE3
 puller_axes,FM-AX-01,FM-PL-01/FM-RL-01,metal collars,0.10 mm radial in Ø8.2 bores,free rotation/TIR/slip,GATE5
 guide_axis,FM-GA-01,625-2RS/FM-GR-01/PPR-C08,two 625 bearings + metal collars,Ø5 h6 axle; Ø16 H7 roller seats; Ø5.2 bracket clearance,free rotation/no bearing preload,GATE5

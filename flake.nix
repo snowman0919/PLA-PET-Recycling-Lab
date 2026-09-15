@@ -24,7 +24,7 @@
               typst
               noto-fonts-cjk-sans-static
               poppler-utils
-              python3
+              (python3.withPackages (ps: [ ps.numpy ]))
               git-lfs
               arduino-cli
             ]) ++ pkgs.lib.optionals (openmodelica-omc != null) [ openmodelica-omc ];

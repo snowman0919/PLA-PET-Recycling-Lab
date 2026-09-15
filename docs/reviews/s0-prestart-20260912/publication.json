@@ -1,0 +1,89 @@
+{
+  "status": "PUBLISHED_AND_PUBLIC_DOWNLOAD_VERIFIED",
+  "release_id": 387184669,
+  "tag": "v1.0.0-rc1",
+  "source_commit": "e323c54effa956b1b90ba586fdee8f9d89b447d1",
+  "review_commit": "04025a1829f63687fb4a07fe5ea03c6c23dd30c1",
+  "release_url": "https://github.com/snowman0919/PLA-PET-Recycling-Lab/releases/tag/v1.0.0-rc1",
+  "draft": false,
+  "prerelease": true,
+  "published_at": "2026-09-11T18:17:25Z",
+  "observed_at": "2026-09-11T18:18:58.714024+00:00",
+  "anonymous_api_access": "PASS",
+  "public_downloads": [
+    {
+      "name": "PLA-PET-Recycling-Lab-v1.0.0-rc1-COMPLETE.zip",
+      "bytes": 84342485,
+      "sha256": "448176383fbf9a3c497f070118bb7cb1634776d92432ec34c27bd3672649bd7c",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "PLA-PET-Recycling-Lab-v1.0.0-rc1-FABRICATION.zip",
+      "bytes": 90812836,
+      "sha256": "417bc5100abf9a297afc358438bfe0e287f2288d6cf140e60604962b2411e19f",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "PPR-v08-PHYSICAL-VALIDATION-LAUNCH-e323c54e.zip",
+      "bytes": 7613052,
+      "sha256": "df324a9b82d4f5040972038ae7bc8c63e6c2deb040a67e3739a7d63e6f3f5d09",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "PPR_overview.png",
+      "bytes": 421837,
+      "sha256": "6659d30b64f894b4852b61a67de57d8d894b3aedc941da664e8f9285bda7ab60",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "RELEASE_VERIFICATION.json",
+      "bytes": 2227,
+      "sha256": "74fb7969455197203d4e73b865a70abd28f32d9b7c1d14cf7bf130a5fbd4e591",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "S0_PRESTART_REVIEW.json",
+      "bytes": 4315,
+      "sha256": "e3a30cbe8fd370d9b1e3bad8a12d2e78e7a725cec708673df33ed62e1f9333c7",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "S0_PRESTART_REVIEW_KO.md",
+      "bytes": 8246,
+      "sha256": "30b23816aacfc2d3b1b6b01f1b0d4ca6e4d5c8f76b34e0b6a48ea99d62f1cf2c",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "S0_REVIEW_EVIDENCE.zip",
+      "bytes": 241345,
+      "sha256": "3c341c61fd341be3cf87fa362aaa9f66b7329d1c1fa6876aa418a0d4e45f976e",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "S0_REVIEW_SHA256SUMS",
+      "bytes": 270,
+      "sha256": "27f387909fef37589b821e84d54dfd46085a1481c5ff54fb8fd301656438549b",
+      "anonymous_download": "PASS"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 516,
+      "sha256": "2647552a558a32e005be1fe3d1fd628cb9be1cd38879d86cc31c0403148d8c56",
+      "anonymous_download": "PASS"
+    }
+  ],
+  "complete_verifier": {
+    "status": "COMPLETE_PACKAGE_VERIFY_PASS",
+    "source_commit": "e323c54effa956b1b90ba586fdee8f9d89b447d1",
+    "files": 3004,
+    "physical_validation_state": "NOT_RUN",
+    "safety_certification_state": "NOT_CERTIFIED"
+  },
+  "physical_validation_state": "NOT_RUN",
+  "safety_certification_state": "NOT_CERTIFIED",
+  "p1_acceptance_ready": false,
+  "p2_fabrication_ready": false,
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "review_record": "docs/reviews/s0-prestart-20260912/REVIEW_KO.md"
+}

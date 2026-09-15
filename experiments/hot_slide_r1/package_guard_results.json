@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "kind": "SYNTHETIC_MUTATIONS_ONLY",
+  "tests": [
+    {
+      "mutation": "performed_template",
+      "status": "REJECTED"
+    },
+    {
+      "mutation": "stale_solver_source",
+      "status": "REJECTED"
+    }
+  ],
+  "physical_validation": "NOT_RUN"
+}

@@ -39,9 +39,11 @@ def universal_motor_plate():
 
 
 def motor_side_fuse_inner_hub():
-    """DRV-F01A keyed motor hub; a replaceable waisted pin is the fuse."""
-    hub = Part.makeCylinder(10.0, 16.0).cut(Part.makeCylinder(6.1, 16.0))
-    hub = hub.cut(Part.makeBox(5.0, 6.5, 16.0, App.Vector(-2.5, 0, 6.0)))
+    """DRV-F01A D-bore motor hub; a replaceable waisted pin is the fuse."""
+    hub = Part.makeCylinder(10.0, 16.0)
+    round_bore = Part.makeCylinder(6.02, 16.0)
+    d_bore = round_bore.common(Part.makeBox(12.04, 10.94, 13.0, App.Vector(-6.02, -6.02, 0)))
+    hub = hub.cut(d_bore.fuse(Part.makeCylinder(6.02, 3.0, App.Vector(0, 0, 13.0))))
     hub = hub.cut(Part.makeCylinder(1.6, 20.0, App.Vector(-10, 0, 8), App.Vector(1, 0, 0)))
     return hub
 
@@ -64,19 +66,19 @@ def motor_side_fuse_pin():
     return one_solid(joined(left, waist, right))
 
 
-def bolt_on_sprocket_hub(bore=20.2):
+def bolt_on_sprocket_hub(bore=25.01):
     """Common hub: shaft/key on one side, any qualified sprocket blank on PCD36."""
     hub = Part.makeCylinder(25, 20).cut(Part.makeCylinder(bore / 2, 20))
-    hub = hub.cut(Part.makeBox(6.2, 20, 6, App.Vector(-3.1, 0, 7.0)))
+    hub = hub.cut(Part.makeBox(6.0075, 20, 6, App.Vector(-3.00375, 0, 9.0)))
     for angle in (0, 90, 180, 270):
         a = math.radians(angle)
         hub = hub.cut(Part.makeCylinder(3.3, 20, App.Vector(18 * math.cos(a), 18 * math.sin(a), 0)))
     return hub
 
 
-def generic_phase_gear_lamination():
+def generic_phase_gear_lamination(bore=20.2, key_width=6.2, key_top=13.0):
     """One of three 6 mm steel laminations per phase gear, M3 Z16 20 degree."""
-    gear=spur_phase_gear(module=3.0, teeth=16, thickness=6.0, bore=20.2)
+    gear=spur_phase_gear(module=3.0, teeth=16, thickness=6.0, bore=bore)
     # Two M4 clamp bolts and one Ø3 H7 dowel on PCD30 make the three-sheet
     # stack deterministic without relying on tooth contact for registration.
     for angle,diameter in ((0,4.5),(120,4.5),(240,3.0)):
@@ -85,8 +87,23 @@ def generic_phase_gear_lamination():
         gear=gear.cut(hole)
     # The phase stack must transmit shaft torque; clamp bolts only register the
     # laminations and are not a substitute for this standard 6 mm keyway.
-    gear = gear.cut(Part.makeBox(6.2, 6, 6.0, App.Vector(-3.1, 0, 7.0)))
+    gear = gear.cut(Part.makeBox(key_width, 6, 6.0, App.Vector(-key_width / 2, 0, key_top - 6.0)))
     return gear
+
+
+def solid_phase_gear(key_angle_deg=0.0):
+    """Released M3 Z16 x18 gear with matched 8 mm keyed clocking."""
+    gear = spur_phase_gear(module=3.0, teeth=16, thickness=18.0, bore=25.01, pair_backlash_mm=.125)
+    for angle, diameter in ((0, 4.5), (120, 4.5), (240, 3.0)):
+        a = math.radians(angle)
+        gear = gear.cut(Part.makeCylinder(diameter / 2, 18, App.Vector(15 * math.cos(a), 0, 15 * math.sin(a)), App.Vector(0, 1, 0)))
+    keyway = Part.makeBox(8.0075, 18, 6, App.Vector(-4.00375, 0, 9.5))
+    keyway.rotate(App.Vector(), App.Vector(0, 1, 0), key_angle_deg)
+    gear = one_solid(gear.cut(keyway))
+    roots = [edge for edge in gear.Edges if len(edge.Vertexes) == 2
+             and all(abs(math.hypot(vertex.Point.x, vertex.Point.z) - 20.25) < 1e-5 for vertex in edge.Vertexes)
+             and abs(abs(edge.Vertexes[1].Point.y - edge.Vertexes[0].Point.y) - 18) < 1e-6]
+    return one_solid(gear.makeFillet(1.0, roots))
 
 
 def gate1_base_plate():
@@ -246,13 +263,13 @@ def gate1_assembly(exploded=False, mode="manual"):
         p=bearing_side_plate(); p.rotate(App.Vector(),App.Vector(1,0,0),90); p.translate(App.Vector(85,y_max,18))
         add(f"CUT03{label}",p,steel,"rotor","final CUT-03")
     for cx in (135,183):
-        shaft=cutter_shaft(); shaft.translate(App.Vector(cx,20,73)); add(f"CUT05Shaft{cx}",shaft,steel,"rotor","final CUT-05")
+        shaft=cutter_shaft(key_phase_deg=180/7 if cx == 183 else 0, shaft_id="153" if cx == 183 else "105"); shaft.translate(App.Vector(cx,20,73)); add(f"CUT05Shaft{cx}",shaft,steel,"rotor","final CUT-05/CUT-05R")
         for y in (58,198):
-            b=Part.makeCylinder(21,12,App.Vector(cx,y,73),App.Vector(0,1,0)).cut(Part.makeCylinder(10.1,12,App.Vector(cx,y,73),App.Vector(0,1,0)))
-            add(f"Bearing{cx}_{y}",b,purple,"rotor","6004-2RS")
+            b=Part.makeCylinder(21,12,App.Vector(cx,y,73),App.Vector(0,1,0)).cut(Part.makeCylinder(12.5,12,App.Vector(cx,y,73),App.Vector(0,1,0)))
+            add(f"Bearing{cx}_{y}",b,purple,"rotor","61905-2RS1 + CUT-10")
         for y in (48,126,190,210):
-            collar=Part.makeCylinder(15,8,App.Vector(cx,y,73),App.Vector(0,1,0)).cut(Part.makeCylinder(10.1,8,App.Vector(cx,y,73),App.Vector(0,1,0)))
-            add(f"SplitCollar{cx}_{y}",collar,steel,"rotor","standard Ø20 split clamp collar")
+            collar=Part.makeCylinder(17.5,8,App.Vector(cx,y,73),App.Vector(0,1,0)).cut(Part.makeCylinder(12.55,8,App.Vector(cx,y,73),App.Vector(0,1,0)))
+            add(f"SplitCollar{cx}_{y}",collar,steel,"rotor","standard Ø25 split clamp collar")
     retainer=bearing_retainer_plate()
     front_retainer=retainer.copy(); front_retainer.rotate(App.Vector(),App.Vector(1,0,0),90); front_retainer.translate(App.Vector(85,58,18))
     rear_retainer=retainer.copy(); rear_retainer.rotate(App.Vector(),App.Vector(1,0,0),90); rear_retainer.translate(App.Vector(85,212,18))
@@ -264,11 +281,9 @@ def gate1_assembly(exploded=False, mode="manual"):
     left_rail=gate1_screen_rail(); left_rail.translate(App.Vector(89.5,67,36)); add("G1J08ScreenRailLeft",left_rail,steel,"base","20 x20 x2 steel angle")
     right_rail=gate1_screen_rail(); right_rail.rotate(App.Vector(),App.Vector(0,0,1),180); right_rail.translate(App.Vector(228.5,217,36)); add("G1J08ScreenRailRight",right_rail,steel,"base","20 x20 x2 steel angle")
     screen=screen_plate(); screen.translate(App.Vector(91.5,82,38)); add("CUT04ScreenCoupon",screen,green,"rotor","CUT-04 5 mm screen coupon")
-    # Three generic 6 mm laminations per gear; one pair is reusable in final machine.
-    lam=generic_phase_gear_lamination()
-    for cx, phase in ((135,0),(183,180/16)):
-        for index in range(3):
-            g=lam.copy(); g.rotate(App.Vector(),App.Vector(0,1,0),phase); g.translate(App.Vector(cx,214+6*index,73)); add(f"PhaseLam{cx}_{index}",g,purple,"rotor","S45C lamination")
+    for cx, phase, key_angle in ((135, 0, 0), (183, 180/16, 180/7-180/16)):
+        gear=solid_phase_gear(key_angle); gear.rotate(App.Vector(),App.Vector(0,1,0),phase); gear.translate(App.Vector(cx,214,73))
+        add(f"PhaseGear{cx}",gear,purple,"rotor","S45C solid18 matched-key gear")
     if mode == "manual":
         arm=gate1_torque_arm(); arm.rotate(App.Vector(),App.Vector(1,0,0),90); arm.translate(App.Vector(115,52,73)); add("TorqueArm250",arm,green,"measure","metal")
         load=Part.makeBox(45,25,45,App.Vector(365,34,40)); add("ForceGauge",load,purple,"measure","0-200 N force gauge/load cell")
@@ -378,9 +393,10 @@ def extruder_screw(facet_step=1.0):
     core.translate(App.Vector(0,0,60))
     drive=Part.makeCylinder(6,35,App.Vector(0,0,0))
     drive=drive.cut(Part.makeBox(4.2,35,3.2,App.Vector(-2.1,0,3.8)))
-    thrust=Part.makeCylinder(7.5,20,App.Vector(0,0,35))
+    bearing_seat=Part.makeCylinder(7.5,11,App.Vector(0,0,35))
+    thrust_shoulder=Part.makeCylinder(11.5,9,App.Vector(0,0,46))
     neck=Part.makeCylinder(feed_root,5,App.Vector(0,0,55))
-    body=drive.fuse(thrust).fuse(neck).fuse(core).removeSplitter()
+    body=drive.fuse(bearing_seat).fuse(thrust_shoulder).fuse(neck).fuse(core).removeSplitter()
     joined=body.fuse(flight).removeSplitter()
     return joined.Solids[0] if len(joined.Solids)==1 else joined
 
@@ -399,10 +415,12 @@ def extruder_barrel_process_coupon():
 
 
 def extruder_barrel():
-    """SCM440 barrel quotation geometry, 34 OD x 16.20 ID x 280."""
+    """SCM440 barrel quotation geometry, 34 OD x 16.20 ID x 280 with integral rear shoulder."""
     outer=Part.makeCylinder(17,280)
     bore=Part.makeCylinder(8.10,280)
-    barrel=outer.cut(bore)
+    shoulder=Part.makeCylinder(22,8).cut(Part.makeCylinder(8.10,8))
+    shoulder=shoulder.cut(Part.makeBox(20,50,8,App.Vector(16,-25,0)))
+    barrel=outer.fuse(shoulder).removeSplitter().cut(bore)
     # Feed opening: 18 mm axial x 20 mm chord, B+12..30 from rear datum.
     # The cylinder axis is local Z, so the box's Z length is the axial size.
     # Open only the +X radial side down to the bore.  After the assembly's
@@ -417,24 +435,28 @@ def extruder_barrel():
         a=math.radians(angle)
         hole=Part.makeCylinder(1.65,11,App.Vector(13*math.cos(a),13*math.sin(a),269))
         barrel=barrel.cut(hole)
+    for y in (-13.0, 13.0):
+        barrel=barrel.cut(Part.makeCylinder(1.5,6,App.Vector(0,y,274)))
     # Three Ø3.20 blind K-probe bores sit in the unheated gaps immediately
-    # downstream of each band.  Depth 5.5 leaves 3.4 mm nominal ligament to
-    # the Ø16.20 melt bore and measures barrel metal rather than heater skin.
+    # downstream of each band.  The released 5.40±0.05 flat-bottom depth keeps
+    # the conservative tilted/eccentric ligament above 3.32 mm.
     for z in (95.0, 170.0, 245.0):
-        sensor=Part.makeCylinder(1.60,5.5,App.Vector(0,17.0,z),App.Vector(0,-1,0))
+        sensor=Part.makeCylinder(1.60,5.4,App.Vector(0,17.0,z),App.Vector(0,-1,0))
         barrel=barrel.cut(sensor)
+        for station in (z-5.0,z+5.0):
+            barrel=barrel.cut(Part.makeCylinder(1.25,4.0,App.Vector(0,17.0,station),App.Vector(0,-1,0)))
     return barrel
 
 
 def extruder_rfq_parts():
     return [
-        dict(id="EX-SCR-01",name="16 mm x 16D single screw",shape=extruder_screw(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride",process="turn between centres, 4-axis flight mill, polish, nitride, finish grind",critical="total 316.00; active 256.00; OD 15.92 -0.02/0; RH pitch 16.00; land 1.60; Datum A axis from Ø12 h6 and Ø15 h6 journals; full part HOLD"),
-        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="deep drill, stress relieve, ream/hone, port, die-interface thread and sensor bores, nitride, final hone",critical="L280.00; ID16.20 +0.02/0 after hone; OD34.00; 4x M4-6H depth8 PCD26; 3x Ø3.20 +0.05/0 blind5.5 sensor bores at B+95/170/245; minimum bore ligament 3.35; outer/inner thread ligament >=2.0/2.9; Datum B rear face/C front face; bore axis Datum D; full part HOLD"),
+        dict(id="EX-SCR-01",name="16 mm x 16D single screw",shape=extruder_screw(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride",process="turn between centres, 4-axis flight mill, polish, nitride, finish grind",critical="total 316.00; active 256.00; OD 15.92 -0.02/0; RH pitch 16.00; land 1.60; Datum A axis from Ø12 h6 drive and Ø15 h6 x11 thrust-bearing seat; integral Ø23.00 +0.05/0 x9 shaft-washer abutment, face runout0.03 to A; full part HOLD material/process"),
+        dict(id="EX-BAR-01",name="ID16.20 x OD34 barrel",shape=extruder_barrel(),qty=1,material="SCM440 (KS D3867/JIS G4105 equivalent) QT + gas nitride bore",process="machine integral rear shoulder from oversized blank, deep drill, stress relieve, ream/hone, port, die-interface thread and sensor bores, nitride, final hone",critical="L280; ID16.20 +0.02/0 honed; OD34 -0.03/0 ground; rear shoulder Ø44 -0.05/0 x8 +/-0.02, feed flat X16; face runout0.03 to Datum D; 4xM4-6H depth8 PCD26; 2xØ3 H7 locating holes PCD26 at0/180 deg, position Ø0.02 to D, selected Ø3 m6 dowels; 3xØ3.20 +0.05/0 flat-bottom blind5.40 +/-0.05 at B+95/170/245; 2xM3-6H depth4 at axial pitch10 around each sensor; sensor position0.05 to D, perpendicularity0.10/5.5; conservative ligament3.345 >=3.32; thread ligament outer/inner>=2.0/2.9; B rear face/C front face/D bore axis; HOLD material/process"),
         dict(id="EX-CPN-SCR",name="Three-pitch screw process coupon",shape=extruder_screw_process_coupon(),qty=1,material="same certified SCM440 heat as EX-SCR-01",process="same flight mill/polish/nitride route as EX-SCR-01",critical="L48.00; three pitches; OD/root/land/finish/case same as feed zone; coupon RFQ only"),
         dict(id="EX-CPN-BAR",name="Matched barrel process coupon",shape=extruder_barrel_process_coupon(),qty=1,material="same certified SCM440 heat as EX-BAR-01",process="same bore/hone/nitride route as EX-BAR-01",critical="L60.00; ID/OD/finish/case same as barrel; coupon RFQ only"),
-        dict(id="EX-DIE-01",name="Connected 90 degree down-die body",shape=down_die_body(),qty=1,material="SCM440 QT + gas nitride",process="6-face mill; gun drill/ream intersecting Ø8 channels; counterbore, drill/tap; stress relieve; gas nitride; lap sealing face",critical="40 x40 x48; barrel datum face X40; Ø8 melt turn; Ø16.20 +0.05/0 x3 breaker seat; Ø12.00 +0.03/0 x14 insert seat; 4x Ø4.5 + Ø8 head recess PCD26; heater Ø6.05 H7 reamed; sensor Ø3.20 blind12; face flatness 0.03; channel intersection fully deburred; full part HOLD"),
+        dict(id="EX-DIE-01",name="Connected 90 degree down-die body",shape=down_die_body(),qty=1,material="SCM440 QT + gas nitride",process="6-face mill; gun drill/ream intersecting Ø8 channels; counterbore, drill/tap; stress relieve; gas nitride; lap sealing face",critical="40x40x48; barrel face X40; Ø8 melt turn; Ø16.20 +0.05/0 x3 breaker seat; Ø12.00 +0.03/0 x14 insert seat; 4xØ4.5 + Ø8 recess PCD26; 2xØ3 H7 depth6 PCD26 at0/180 deg, position Ø0.02 to melt axis, selected Ø3 m6 dowels; heater Ø6.55 H7 through; 2xM3-6H depth6 at14 mm pitch for heater flange; sensor Ø3.20 +0.05/0 blind12.00 +/-0.05; 2xM3-6H depth4 at10 mm pitch around sensor; face flatness0.03; deburr flow intersection; HOLD"),
         dict(id="EX-DIE-02",name="Seven-hole breaker plate",shape=down_die_breaker_plate(),qty=1,material="304 stainless",process="wire EDM or laser + double-side lap",critical="Ø15.90 -0.05/0 x2.00 ±0.03; 7x Ø2.00 +0.05/0, six on PCD10; flatness 0.03; all flow edges R0.15 max; HOLD with die body"),
         dict(id="EX-DIE-03",name="Replaceable Ø3 die insert",shape=down_die_insert(),qty=1,material="17-4PH H900 stainless",process="turn, drill/ream land, 60 degree included entrance blend, H900, finish lap",critical="OD Ø11.90 -0.02/0 x14.00 ±0.03; outlet Ø3.00 +0.02/0 x10.00 land; 4 mm transition from Ø8 to Ø3; land Ra<=0.4 um; concentricity 0.02 to OD; full part HOLD"),
         dict(id="EX-DIE-04",name="Sacrificial die relief retainer",shape=down_die_relief_retainer(),qty=1,material="304 stainless sheet t1.5",process="laser/waterjet + deburr; no heat treatment",critical="32 x20 x1.5; two 10 wide x2.5 long bending webs; 2x Ø4.5 at 24 centres; centre bypass Ø4; flatness 0.15; coupon-calibrate at operating temperature, analytical estimate is not release evidence"),
-        dict(id="EX-DIE-05",name="Annealed copper face gasket",shape=down_die_copper_gasket(),qty=2,material="C110 annealed copper t0.5",process="waterjet/punch; anneal after cutting; bag clean",critical="OD34; ID16.20 +0.10/0; 4x Ø4.5 PCD26 at 45 degree; t0.50 ±0.03; burr <=0.03; one spare required"),
+        dict(id="EX-DIE-05",name="Annealed copper face gasket",shape=down_die_copper_gasket(),qty=2,material="C110 annealed copper t0.5",process="waterjet/punch; anneal after cutting; bag clean",critical="OD34; ID16.20 +0.10/0; 4x Ø4.5 PCD26 at45 degree; 2x Ø3.20 dowel clearance at PCD26 angles0/180; t0.50 ±0.03; burr <=0.03; one spare required"),
     ]

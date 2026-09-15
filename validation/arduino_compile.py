@@ -8,6 +8,7 @@ import hashlib
 import os
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,25 +53,51 @@ def resolve_cli() -> str:
 
 def main() -> None:
     cli = resolve_cli()
-    command = [cli, "compile", "--fqbn", "arduino:avr:mega", "firmware/arduino_mega"]
-    result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
-    output = result.stdout + result.stderr
-    passed = result.returncode == 0 and "Sketch uses" in output and "Global variables use" in output
+    canonical_command = "arduino-cli compile --fqbn arduino:avr:mega firmware/arduino_mega"
+    with tempfile.TemporaryDirectory(prefix="ppr-arduino-build-") as temporary:
+        command = [cli, "compile", "--fqbn", "arduino:avr:mega", "--output-dir", temporary, "firmware/arduino_mega"]
+        result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+        output = result.stdout + result.stderr
+        passed = result.returncode == 0 and "Sketch uses" in output and "Global variables use" in output
+        hexes = list(Path(temporary).glob("*.ino.hex"))
+        if passed and len(hexes) == 1:
+            binary = ROOT / "exports/final/firmware/binaries/filament_recycler_atmega2560.hex"
+            binary.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(hexes[0], binary)
+        else:
+            passed = False
     source_paths = [ROOT / "firmware/arduino_mega/arduino_mega.ino"] + sorted(
         path for path in (ROOT / "firmware/arduino_mega/src").iterdir()
         if path.suffix in {".h", ".cpp"}
     )
+    with tempfile.TemporaryDirectory(prefix="ppr-feeder-monitor-") as temporary:
+        feeder_test = Path(temporary) / "test_feeder_motion_monitor"
+        feeder_result = subprocess.run(
+            ["g++", "-std=c++17", "-Wall", "-Wextra", "-Werror",
+             "firmware/arduino_mega/tests/test_feeder_motion_monitor.cpp", "-o", str(feeder_test)],
+            cwd=ROOT, text=True, capture_output=True,
+        )
+        if feeder_result.returncode == 0:
+            feeder_result = subprocess.run([str(feeder_test)], cwd=ROOT, text=True, capture_output=True)
+        passed = passed and feeder_result.returncode == 0
     evidence = {
         "revision": "parallel-actuation-hardening-v0.6.2",
         "fqbn": "arduino:avr:mega",
         "target": "firmware/arduino_mega/arduino_mega.ino",
+        "build_command": canonical_command,
+        "cli_version": subprocess.run([cli, "version"], cwd=ROOT, text=True, capture_output=True, check=True).stdout.strip(),
         "status": "PASS" if passed else "FAIL",
+        "feeder_motion_monitor_test": "PASS" if feeder_result.returncode == 0 else "FAIL",
         "tool_output": output.strip(),
         "source_hashes": {
             str(path.relative_to(ROOT)): sha256(path) for path in source_paths
         },
         "validator_hashes": {
             str(Path(__file__).resolve().relative_to(ROOT)): sha256(Path(__file__).resolve())
+        },
+        "binary": {
+            "path": str(binary.relative_to(ROOT)) if passed else None,
+            "sha256": sha256(binary) if passed else None,
         },
     }
     path = ROOT / "validation/results/arduino_mega_compile.json"

@@ -1,0 +1,19 @@
+loadModel(Modelica);
+loadFile(getEnvironmentVar("FILAMENT_RECYCLER_ROOT") + "/simulation/openmodelica/PLA_PET_Recycler/package.mo");
+setCompiler("gcc");
+setCXXCompiler("g++");
+loadString("model ChainForceCheck
+  PLA_PET_Recycler.Components.ElasticChainDrive chain(slackSideTension=100,elasticity(relativeAngle(start=0.02,fixed=true)));
+  Modelica.Mechanics.Rotational.Components.Fixed fixed;
+  Modelica.Mechanics.Rotational.Sources.ConstantTorque load(tau_constant=22);
+equation
+  connect(fixed.flange,chain.motorSprocket);
+  connect(load.flange,chain.cutterSprocket);
+  assert(abs(chain.cutterPitchRadius-0.009525/(2*sin(Modelica.Constants.pi/30)))<1e-12,\"CAD pitch radius mismatch\");
+  assert(abs(chain.effectiveChainForce-22/chain.cutterPitchRadius)<1e-6,\"Effective force mismatch\");
+  assert(abs(chain.tightSideForce-chain.effectiveChainForce-100)<1e-6,\"Tight tension mismatch\");
+  assert(abs(chain.shaftRadialForceBound-chain.effectiveChainForce-200)<1e-6,\"Two strand tensions missing\");
+end ChainForceCheck;");
+checkModel(ChainForceCheck);
+simulate(ChainForceCheck,stopTime=1,numberOfIntervals=10,outputFormat="csv");
+getErrorString();

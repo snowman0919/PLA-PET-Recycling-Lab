@@ -1,0 +1,1028 @@
+{
+  "status": "RADIAL_SUPPORT_ARITHMETIC_REVIEW_COMPLETE",
+  "source_sha256": {
+    "analysis/radial_support_v08/run_review.py": "60ce40fd15e418294877cdb4a0ffeaa4a274346e77b38d3fe3ae1146072b52e8",
+    "analysis/radial_support_v08/contract.json": "7983887595c587b5c259072244a1f0b3548cc79f9abbf50dafa794be8241cba5",
+    "analysis/radial_support_v08/mechanics.py": "96968878ea2ffccd9f559249b1e6042604815a096076390c0731661ff0119142",
+    "cad/parameters/baseline.json": "f71d689a445a7a292d371e214a76347e57fea98e4f787262883caea8663e1fc4",
+    "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b",
+    "analysis/thermal_revision_v08/steady_state.py": "a3f74b07910fcee4c3ff30fba3392c131515c62533f3b0db6d15d58047b80e36",
+    "analysis/thermal_revision_v08/model.py": "4caa72ce9b25740802e9f01b53e2719d6e5db397599a53498e27dea3fcfb5600",
+    "analysis/thermal_revision_v08/model_inputs.json": "ffdefd5c4c4f44562deaa4afa4c03d7a164c0ebb02d671e5e7ffa13ef6a64f67",
+    "analysis/radial_support_v08/results/geometry.json": "f514dabbd69fa85b073dcbe0af4de057c21962c17aa44e43e4e71f6dd9ef7d7e"
+  },
+  "barrel_only_weight_n": 15.030966623014177,
+  "supports_mm": {
+    "rear": 16.0,
+    "current_front": 110.0,
+    "candidate_front": 246.0
+  },
+  "current_reactions": {
+    "rear_n": -50.00988296479176,
+    "front_n": 90.04084958780594,
+    "force_residual_n": 3.552713678800501e-15,
+    "moment_residual_nmm": 9.094947017729282e-13
+  },
+  "candidate_reactions": {
+    "rear_n": 3.2316628784326227,
+    "front_n": 36.79930374458156,
+    "force_residual_n": 3.552713678800501e-15,
+    "moment_residual_nmm": 9.094947017729282e-13
+  },
+  "free_seating_diagnostic": {
+    "rear_up_mm": 0.1338607405582124,
+    "front_down_mm": 0.3000000000000007,
+    "extrapolated_barrel_axis_mm": {
+      "0.0": 0.2077093772489721,
+      "280.0": -1.0846417648393223
+    },
+    "scope": "Unconstrained rigid seating limit, NOT actual motion; screw/feed/thrust contact would redistribute load"
+  },
+  "candidate_unadjusted_cold_drop_mm": 0.125,
+  "proposed_axis_setting": {
+    "nominal_mm": -0.065,
+    "tolerance_mm": 0.01,
+    "support_axis_range_mm": [
+      -0.075,
+      0.0797796
+    ],
+    "whole_barrel_axis_error_bound_mm": 0.10266006260869569,
+    "minimum_reference_hot_radial_gap_mm": 0.13715249999999912,
+    "residual_budget_before_runout_bending_eccentricity_mm": 0.034492437391303435
+  },
+  "thermal_seating_cases": [
+    {
+      "barrel_c": 20.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.0
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.0
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.023952000000000005
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.023937600000000003
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.05389200000000001
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.05385960000000001
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.0470059875
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.047047500000000006
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.0709579875
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.07098510000000001
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.10089798750000001
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.10090710000000001
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.052228875
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.052275
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.07618087500000001
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.0762126
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.106120875
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.10613460000000001
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.05849634
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.058548
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.08244834000000001
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.0824856
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.11238834
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.23e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.11240760000000001
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.0
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.0
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.023952000000000005
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.023937600000000003
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.05389200000000001
+    },
+    {
+      "barrel_c": 20.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.05385960000000001
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.064967625
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.065025
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.088919625
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.0889626
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.11885962500000001
+    },
+    {
+      "barrel_c": 245.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.1188846
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.07218625
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.07225
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.09613825
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.0961876
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.12607825
+    },
+    {
+      "barrel_c": 270.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.1261096
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.08084859999999999
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 20.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.08091999999999999
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.1048006
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 100.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.1048576
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 33.97,
+      "thermal_axis_shift_mm": 0.1347406
+    },
+    {
+      "barrel_c": 300.0,
+      "support_c": 200.0,
+      "barrel_cte": 1.7e-05,
+      "outer_mm": 34.0,
+      "thermal_axis_shift_mm": 0.1347796
+    }
+  ],
+  "steady_thermal_cases": [
+    {
+      "front_station_mm": 110.0,
+      "contact_h": 200.0,
+      "air_h": 8.0,
+      "support_g": 0.05,
+      "required_watts": [
+        73.07948755862643,
+        27.526166741781,
+        83.00867746030023,
+        48.68050683757967
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        303.49664898251416,
+        252.93606433248954,
+        328.99611978018186
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 285.02716357963766,
+      "local_residual_w": 1.905253732559231e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.2396307031158358e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 110.0,
+      "contact_h": 200.0,
+      "air_h": 8.0,
+      "support_g": 0.2,
+      "required_watts": [
+        127.92464107216203,
+        40.41902903614329,
+        83.0086774603067,
+        48.68050683757967
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        366.01663564904436,
+        262.2730663289546,
+        328.99611978018766
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 285.0271635796377,
+      "local_residual_w": 5.186961971048731e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.034994395216927e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 110.0,
+      "contact_h": 200.0,
+      "air_h": 15.0,
+      "support_g": 0.05,
+      "required_watts": [
+        95.58579795595945,
+        38.1170482539835,
+        109.74520632374536,
+        66.09073677054457
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        317.5840195319352,
+        254.60661894609467,
+        344.68176790983875
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 289.56001424606296,
+      "local_residual_w": 1.5347723092418164e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.5120349416974932e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 110.0,
+      "contact_h": 200.0,
+      "air_h": 15.0,
+      "support_g": 0.2,
+      "required_watts": [
+        152.24586394404417,
+        51.296445312701465,
+        109.74520632374102,
+        66.09073677054457
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        379.2262487003525,
+        263.8900988798939,
+        344.6817679098357
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 289.5600142460639,
+      "local_residual_w": 6.73594513500575e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 8.185452315956354e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 110.0,
+      "contact_h": 1000.0,
+      "air_h": 8.0,
+      "support_g": 0.05,
+      "required_watts": [
+        63.26418265408407,
+        29.381954473400658,
+        75.55830892985452,
+        48.68050683757967
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        259.8514584161848,
+        251.85449054381078,
+        291.1469791048902
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 284.247757591841,
+      "local_residual_w": 1.933078697113899e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.0094148567295633e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 110.0,
+      "contact_h": 1000.0,
+      "air_h": 8.0,
+      "support_g": 0.2,
+      "required_watts": [
+        106.29770307172623,
+        43.047158322611594,
+        75.55830892985351,
+        48.68050683757967
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        279.85513261312303,
+        252.78205991677282,
+        291.14697910488957
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 284.24775759184075,
+      "local_residual_w": 1.9331203304773226e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.1084466677857563e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 110.0,
+      "contact_h": 1000.0,
+      "air_h": 15.0,
+      "support_g": 0.05,
+      "required_watts": [
+        81.84973334353182,
+        39.97197843499313,
+        97.84570243622677,
+        66.09073677054457
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        264.07355955924055,
+        252.25131152365006,
+        297.0760939807844
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 288.44190591751385,
+      "local_residual_w": 2.0245471965552042e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 7.503331289626658e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 110.0,
+      "contact_h": 1000.0,
+      "air_h": 15.0,
+      "support_g": 0.2,
+      "required_watts": [
+        124.79033210296235,
+        53.60597471646977,
+        97.84570243623185,
+        66.0907367705474
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        283.9315388869955,
+        253.174319342808,
+        297.0760939807881
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 288.44190591751715,
+      "local_residual_w": 3.185979258191196e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.1482370609883219e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 246.0,
+      "contact_h": 200.0,
+      "air_h": 8.0,
+      "support_g": 0.05,
+      "required_watts": [
+        72.48484681339252,
+        4.361920929494164,
+        111.23199582836169,
+        49.08294677872098
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        302.6401738175825,
+        226.85524208523066,
+        360.0778586873473
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 295.2565346147913,
+      "local_residual_w": 1.617372902273928e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.6427748050773516e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 246.0,
+      "contact_h": 200.0,
+      "air_h": 8.0,
+      "support_g": 0.2,
+      "required_watts": [
+        127.33090728286683,
+        -49.425363037811614,
+        202.14041235779155,
+        50.278137999220824
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        365.23913773991126,
+        158.7406772794778,
+        453.1973738213664
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 326.1291946244318,
+      "local_residual_w": 5.8406612879480235e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 1.602984411874786e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 246.0,
+      "contact_h": 200.0,
+      "air_h": 15.0,
+      "support_g": 0.05,
+      "required_watts": [
+        94.93967885810773,
+        14.001078569150796,
+        139.66603989839518,
+        66.48892029470177
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        269.99999999999994,
+        265.0
+      ],
+      "heater_c": [
+        316.71526000386757,
+        228.59336292446403,
+        375.79114312488014
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 299.8270240528339,
+      "local_residual_w": 2.1495097368706695e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.3305801732931286e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 246.0,
+      "contact_h": 200.0,
+      "air_h": 15.0,
+      "support_g": 0.2,
+      "required_watts": [
+        151.57923568583053,
+        -42.32659763920096,
+        235.98143064127987,
+        67.67148528810466
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        378.40660728988735,
+        160.62149266882085,
+        468.9946883659685
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 330.68354701169653,
+      "local_residual_w": 7.361222742474638e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 1.6825651982799172e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 246.0,
+      "contact_h": 1000.0,
+      "air_h": 8.0,
+      "support_g": 0.05,
+      "required_watts": [
+        62.6725545453193,
+        9.408848071765124,
+        98.17354256810178,
+        49.08294677872303
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        259.3734770722572,
+        242.8233059749972,
+        303.69150014105
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 293.6468056927319,
+      "local_residual_w": 1.6995641005657092e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.1458390619955026e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 246.0,
+      "contact_h": 1000.0,
+      "air_h": 8.0,
+      "support_g": 0.2,
+      "required_watts": [
+        105.0693243948587,
+        -35.64207948503747,
+        166.76243430802944,
+        50.27813799922041
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        278.9180176759178,
+        216.77677138469838,
+        341.26107571882676
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 321.9205299881381,
+      "local_residual_w": 1.8937074131031295e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 3.353761712787673e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 246.0,
+      "contact_h": 1000.0,
+      "air_h": 15.0,
+      "support_g": 0.05,
+      "required_watts": [
+        81.22788233286366,
+        19.700492744504754,
+        121.02787429554245,
+        66.48892029470096
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.00000000000006,
+        265.0
+      ],
+      "heater_c": [
+        263.59220752944043,
+        243.2439480174886,
+        309.6222249941621
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 297.8658086848455,
+      "local_residual_w": 1.8975376825380863e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 5.343281372915953e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    },
+    {
+      "front_station_mm": 246.0,
+      "contact_h": 1000.0,
+      "air_h": 15.0,
+      "support_g": 0.2,
+      "required_watts": [
+        123.49023225259295,
+        -26.279775134990192,
+        191.33267188467238,
+        67.67148528810645
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        282.97651821938797,
+        217.26342057168412,
+        347.1971154856655
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 326.1272054852787,
+      "local_residual_w": 2.3844190510935448e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 1.0970779840135947e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false
+    }
+  ],
+  "checks": {
+    "force_balance": true,
+    "moment_balance": true,
+    "candidate_reactions_compressive": true,
+    "candidate_75n_analysis_load_exceeds_twice_nominal": true,
+    "numerical_heat_balance": true,
+    "sources_unchanged": true
+  },
+  "candidate_all_thermal_cases_feasible": false,
+  "canonical_geometry_promoted": false,
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "design_acceptance": "HOLD_PENDING_INTEGRATED_THERMAL_ALIGNMENT_AND_JOINT_QUALIFICATION",
+  "limitations": [
+    "25 N tip load is inherited from the prior comparison, not a measured complete-machine load envelope.",
+    "75 N radial proof load is an explicit analysis load, not a performed physical proof test.",
+    "Candidate guide retains the same 2020 rail and profile count; existing end brackets remain outside the isolated plate FEA.",
+    "Cold axis setting is a proposed measurable assembly requirement, not a demonstrated capability or automatic machining offset.",
+    "Support temperatures, material properties and heat-transfer coefficients are sensitivity assumptions.",
+    "Hertz contact assumes smooth, elastic, frictionless cylinder-on-concave-cylinder contact away from edges.",
+    "Plate FEA uses a distributed bore load and fixed mounting-hole surfaces, not nonlinear bolt or barrel contact.",
+    "Neither the existing release tag nor canonical CAD parameters are changed by this review.",
+    "Whole-barrel axis bound excludes screw runout, barrel ID/OD eccentricity, rail/plate deflection and feed/thrust alignment.",
+    "Positive nominal reactions do not bound impact, operator loads, cable drag, or all possible extrusion loads.",
+    "A change of support location shifts thermal losses; it does not solve the existing heater power deficit."
+  ]
+}

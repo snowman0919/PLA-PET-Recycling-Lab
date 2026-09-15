@@ -1,0 +1,166 @@
+{
+  "status": "SELECTED_DIGITAL_REFERENCE_PENDING_INTERFACE_AND_PURCHASE_REVIEW",
+  "selected": [
+    {
+      "id": "SH-GGM75",
+      "axis": "shredder",
+      "model": "GGM K9DG60N2 + K9G75C",
+      "voltage_v": 24,
+      "motor_rated_output_w_before_gear": 60,
+      "motor_rated_current_a": 4.6,
+      "gearbox_rated_torque_nm_used": 9.22805765,
+      "gearbox_rated_rpm": 40,
+      "gearbox_max_torque_nm_used": 9.80665,
+      "external_ratio": 2.5,
+      "external_efficiency_assumption": 0.85,
+      "output": {
+        "rpm": 16.0,
+        "torque_nm": 19.60962250625,
+        "shaft_power_w": 32.8562378694955
+      },
+      "required_scope_peak_nm": 14.52,
+      "matches_declared_demand_torque": true,
+      "motor_base_krw": 53840,
+      "gear_option_krw": 47410,
+      "unit_total_krw_vat_included": 101250,
+      "quantity": 1,
+      "motor_plus_gear_mass_kg": 3.24,
+      "source_id": "GGM_SHOP"
+    },
+    {
+      "id": "EX-GGM150",
+      "axis": "extruder",
+      "model": "GGM K9DG60N2 + K9G150C",
+      "voltage_v": 24,
+      "motor_rated_output_w_before_gear": 60,
+      "motor_rated_current_a": 4.6,
+      "gearbox_rated_torque_nm_used": 9.80665,
+      "gearbox_rated_rpm": 20,
+      "gearbox_max_torque_nm_used": 9.80665,
+      "external_ratio": 1,
+      "external_efficiency_assumption": 1,
+      "output": {
+        "rpm": 20.0,
+        "torque_nm": 9.80665,
+        "shaft_power_w": 20.538999730884225
+      },
+      "required_scope_peak_nm": 9.475881331882038,
+      "matches_declared_demand_torque": true,
+      "motor_base_krw": 53840,
+      "gear_option_krw": 47410,
+      "unit_total_krw_vat_included": 101250,
+      "quantity": 1,
+      "motor_plus_gear_mass_kg": 3.24,
+      "source_id": "GGM_SHOP"
+    }
+  ],
+  "specification_tiers": [
+    {
+      "tier": "minimum",
+      "nominal_feed_map_target_gph": 50,
+      "scope": "Conditional input envelope, not guaranteed throughput or absolute material minimum",
+      "shredder_rated_torque_selection_nm": 7,
+      "shredder_rated_speed_reference_rpm": 10,
+      "extruder_rated_torque_selection_nm": 4,
+      "extruder_rated_speed_reference_rpm": 10,
+      "model_shred_peak_nm": 6.167999999999999,
+      "model_extruder_peak_nm": 3.393957536001355
+    },
+    {
+      "tier": "recommended",
+      "nominal_feed_map_target_gph": 100,
+      "scope": "Conditional input envelope, not guaranteed throughput or absolute material minimum",
+      "shredder_rated_torque_selection_nm": 15,
+      "shredder_rated_speed_reference_rpm": 16,
+      "extruder_rated_torque_selection_nm": 9.5,
+      "extruder_rated_speed_reference_rpm": 20,
+      "model_shred_peak_nm": 11.735999999999999,
+      "model_extruder_peak_nm": 8.046029554588019
+    },
+    {
+      "tier": "headroom",
+      "nominal_feed_map_target_gph": 150,
+      "scope": "Conditional input envelope, not guaranteed throughput or absolute material minimum",
+      "shredder_rated_torque_selection_nm": 20,
+      "shredder_rated_speed_reference_rpm": 24,
+      "extruder_rated_torque_selection_nm": 15,
+      "extruder_rated_speed_reference_rpm": 30,
+      "model_shred_peak_nm": 17.304000000000002,
+      "model_extruder_peak_nm": 14.13215759322502
+    }
+  ],
+  "alternatives": [
+    {
+      "model": "ZENG 42GP-775 24V 120rpm selected screenshot",
+      "output": {
+        "rpm": 40.0,
+        "torque_nm": 4.16782625,
+        "shaft_power_w": 17.4581497712516
+      },
+      "decision": "BELOW_RECOMMENDED",
+      "price": "Screenshot USD30.21; wrong option for recommendation; not current checkout"
+    },
+    {
+      "model": "ZENG 32GP-31ZY 24V 57rpm selected screenshot",
+      "output": {
+        "rpm": 15.333333333333334,
+        "torque_nm": 4.751321924999999,
+        "shaft_power_w": 7.629211450036948
+      },
+      "decision": "BELOW_RECOMMENDED",
+      "price": "Screenshot USD16.82; wrong option for recommendation; not current checkout"
+    },
+    {
+      "model": "TT GMP60-60127-2460 ratio47 with existing2.5 chain",
+      "output": {
+        "rpm": 28.0,
+        "torque_nm": 20.839131249999998,
+        "shaft_power_w": 61.10352419938058
+      },
+      "decision": "SHREDDER_HEADROOM_REFERENCE_NOT_PURCHASED",
+      "price": "EXACT_SINGLE_UNIT_QUOTE_REQUIRED",
+      "source_id": "TT_GMP60"
+    }
+  ],
+  "protection_integration": {
+    "shredder_legacy_22nm_fuse_at_gearbox_nm": 10.352941176470589,
+    "selected_gearbox_limit_nm": 9.80665,
+    "legacy_fuse_reuse_allowed": false,
+    "reason": "22 Nm cutter equivalent exceeds the selected gearbox published100kgf.cm limit; current limit and sacrificial element must be recalibrated before hardware use",
+    "extruder_legacy_22nm_trip_reuse_allowed": false,
+    "new_trip_current_a": null,
+    "hardware_settings_written": false,
+    "peak_stall_current_a": "NOT_SUPPLIED_BY_SELECTED_CATALOGUE",
+    "unidentified_controllers": "EXCLUDED_FROM_BASELINE",
+    "BTS7960_available_count": 2,
+    "additional_driver_purchase": 0
+  },
+  "recommended_case_uncertainty": "Separate viscosity1.5x, shear50MPa and pressure-work efficiency0.3 cases; not simultaneous all-corner qualification",
+  "joint_high_viscosity_and_low_efficiency_screen_peak_nm": 10.791323331882039,
+  "joint_corner_covered_by_selected_extruder": false,
+  "total_motor_and_gear_price_krw": 202500,
+  "standard_shipping_by_displayed_threshold_krw": 0,
+  "shipping_final_checkout": "NOT_VERIFIED",
+  "optional_bracket_each_krw": 15180,
+  "bracket_selected": false,
+  "lowest_global_price_claim": false,
+  "purchase_performed": false,
+  "power_integration": {
+    "psu_reported_w": 800,
+    "retained_control_cap_w": 500,
+    "motor_rated_electrical_input_w": 110.39999999999999,
+    "auxiliary_envelope_w": 45,
+    "heater_power_budget_w_before_driver_loss": 344.6,
+    "full_360w_heat_plus_rated_motor_exceeds_500w": true,
+    "action": "retain phase arbitration; recalculate allocator reservations; no unconditional full-power simultaneous run"
+  },
+  "motor_mount_cad_finalized": false,
+  "firmware_calibrated": false,
+  "physical_validation": "NOT_RUN",
+  "machine_release": "HOLD",
+  "source_sha256": {
+    "results.json": "eebae9d717599b98c0030bbcb1cdfa8f6fffe283815bf40f20e08f393fbfd080",
+    "sources.json": "4bb4ea4c08cff24e1c03cdbddc047b4afa241dbacbc893650598de7d42fa8f31",
+    "select_motors.py": "6d9603174a68adb121af6efe9e4ca8d70a71474eb355579411aba52eda5d58c6"
+  }
+}

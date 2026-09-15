@@ -1,0 +1,1962 @@
+{
+  "status": "PASS",
+  "physical_validation_state": "NOT_RUN",
+  "runs": [
+    {
+      "shaft": "153",
+      "share": 0.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 3.0,
+      "nodes": 5141,
+      "elements": 21767,
+      "actual_load_patches": [
+        {
+          "y_mm": 272.82294405187264,
+          "fx_n": -145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": -22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 492.05233308131835,
+          "patch_centroid_xz_mm": [
+            0.25028266311919367,
+            0.40231607744997516
+          ],
+          "nodes": 103
+        },
+        {
+          "y_mm": 348.38957131293193,
+          "fx_n": 0,
+          "fz_n": 1222.2222222222224,
+          "torque_nm": 22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 348.5,
+          "patch_area_mm2": 473.61864684942145,
+          "patch_centroid_xz_mm": [
+            0.9462622693789979,
+            0.3829877846891108
+          ],
+          "nodes": 102
+        }
+      ],
+      "applied_force_n": [
+        -145.72140757529945,
+        -3.903127820947816e-16,
+        1796.9751146324693
+      ],
+      "applied_moment_nm": [
+        582.8519840724424,
+        6.13398221105399e-15,
+        39.78194426805675
+      ],
+      "reaction": {
+        "force_n": [
+          145.72136999999998,
+          6.144711e-10,
+          -1796.97523
+        ],
+        "moment_about_origin_nm": [
+          -582.85202103,
+          -5.670570000000001e-12,
+          -39.78193157
+        ],
+        "gauge_torque_nm": -5.670570000000001e-12,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": 195.6830330296878,
+        "front_fz_n": -1753.9538840937612,
+        "rear_fx_n": -49.961625454388376,
+        "rear_fz_n": -43.02123053870881,
+        "max_bearing_n": 1764.8359915140243
+      },
+      "force_residual_n": [
+        -3.757529947279181e-05,
+        6.144707096872179e-10,
+        -0.00011536753072505235
+      ],
+      "moment_residual_nm": [
+        -3.695755754051788e-05,
+        -5.664436017788947e-12,
+        1.2698056750082287e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.013298511835333305,
+        "max_von_mises_mpa": 19.65468035344452,
+        "max_von_mises_node_id": 2057,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "595856c35c0885a6794d0d825d46b6c71eb615e86827dc3b34f7b1ffd2ce8189",
+      "frd_sha256": "ea1023b83cc18b7dea91cb438b092939a9f36b56965130857db58647da9ef617",
+      "dat_sha256": "51cb1c3f364ae84f27a6d20a85a90909bcf0410a64300a8600e2086a44979da4",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q0.0_d-1_mesh3.0"
+    },
+    {
+      "shaft": "153",
+      "share": 0.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 2.0,
+      "nodes": 15428,
+      "elements": 73481,
+      "actual_load_patches": [
+        {
+          "y_mm": 273.0444109856894,
+          "fx_n": -145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": -22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 446.40186489347974,
+          "patch_centroid_xz_mm": [
+            0.416074435755196,
+            0.8045696608043504
+          ],
+          "nodes": 188
+        },
+        {
+          "y_mm": 348.4678715922638,
+          "fx_n": 0,
+          "fz_n": 1222.2222222222224,
+          "torque_nm": 22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 348.5,
+          "patch_area_mm2": 467.4289389522802,
+          "patch_centroid_xz_mm": [
+            0.27640919129637503,
+            0.7970198368267745
+          ],
+          "nodes": 217
+        }
+      ],
+      "applied_force_n": [
+        -145.72140757529942,
+        -1.0737938316296436e-15,
+        1796.97511463247
+      ],
+      "applied_moment_nm": [
+        582.8519840724418,
+        -2.7144952952085077e-14,
+        39.78194426805675
+      ],
+      "reaction": {
+        "force_n": [
+          145.72136999999998,
+          1.991364e-09,
+          -1796.97523
+        ],
+        "moment_about_origin_nm": [
+          -582.85202103,
+          4.37290625e-11,
+          -39.78193157
+        ],
+        "gauge_torque_nm": 4.37290625e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": 195.6830330296878,
+        "front_fz_n": -1753.9538840937612,
+        "rear_fx_n": -49.961625454388376,
+        "rear_fz_n": -43.02123053870881,
+        "max_bearing_n": 1764.8359915140243
+      },
+      "force_residual_n": [
+        -3.75752994443701e-05,
+        1.9913629262061684e-09,
+        -0.00011536753004293132
+      ],
+      "moment_residual_nm": [
+        -3.695755810895207e-05,
+        4.3701917547047914e-11,
+        1.2698056750082287e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.013679786252017975,
+        "max_von_mises_mpa": 21.882617647143448,
+        "max_von_mises_node_id": 6040,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "a636728e77d4181f406e95185fc07b796cccc99200f802fdfe76c44d2632f095",
+      "frd_sha256": "73fa58d7f620a979ee29bafe2aee0150d9c9c23c59a851a356e9515771e4fde0",
+      "dat_sha256": "044ea0caf483285d77f7c5545a75a14ebc0235c4eefac5a71f85753e4cbd3709",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q0.0_d-1_mesh2.0"
+    },
+    {
+      "shaft": "153",
+      "share": 0.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 1.5,
+      "nodes": 33571,
+      "elements": 169846,
+      "actual_load_patches": [
+        {
+          "y_mm": 272.95493888797597,
+          "fx_n": -145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": -22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 473.89849801944985,
+          "patch_centroid_xz_mm": [
+            0.5480458476641107,
+            0.47084417426516206
+          ],
+          "nodes": 337
+        },
+        {
+          "y_mm": 348.5158294026058,
+          "fx_n": 0,
+          "fz_n": 1222.2222222222224,
+          "torque_nm": 22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 348.5,
+          "patch_area_mm2": 478.14484124887474,
+          "patch_centroid_xz_mm": [
+            0.33205006694112216,
+            0.5063775136391552
+          ],
+          "nodes": 362
+        }
+      ],
+      "applied_force_n": [
+        -145.7214075752994,
+        1.0002849243351264e-15,
+        1796.97511463247
+      ],
+      "applied_moment_nm": [
+        582.8519840724426,
+        -2.9455604622086184e-15,
+        39.78194426805675
+      ],
+      "reaction": {
+        "force_n": [
+          145.72136999999998,
+          5.05679e-09,
+          -1796.97523
+        ],
+        "moment_about_origin_nm": [
+          -582.85202103,
+          -1.29106375e-11,
+          -39.78193157
+        ],
+        "gauge_torque_nm": -1.29106375e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": 195.6830330296878,
+        "front_fz_n": -1753.9538840937612,
+        "rear_fx_n": -49.961625454388376,
+        "rear_fz_n": -43.02123053870881,
+        "max_bearing_n": 1764.8359915140243
+      },
+      "force_residual_n": [
+        -3.757529941594839e-05,
+        5.056791000284925e-09,
+        -0.00011536753004293132
+      ],
+      "moment_residual_nm": [
+        -3.695755731314421e-05,
+        -1.2913583060462209e-11,
+        1.2698056750082287e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.013782205217224855,
+        "max_von_mises_mpa": 25.8516935720022,
+        "max_von_mises_node_id": 10867,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "453a79c443dcf252b11423025690e07def3e576efbdbb7ee1076c8a0353c3d53",
+      "frd_sha256": "370e901fc777109b58464da3c530b1b1a9faa7193c295b28f1e269d4dd132258",
+      "dat_sha256": "420403a4c3b525e9a82a7b33d0cea1916efe069700f6bfba9c96dd4f742098e8",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q0.0_d-1_mesh1.5"
+    },
+    {
+      "shaft": "153",
+      "share": 0.0,
+      "direction": 1,
+      "cut_index": 5,
+      "mesh_mm": 3.0,
+      "nodes": 5141,
+      "elements": 21767,
+      "actual_load_patches": [
+        {
+          "y_mm": 272.82294405187264,
+          "fx_n": 145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": 22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 492.05233308131835,
+          "patch_centroid_xz_mm": [
+            0.25028266311919367,
+            0.40231607744997516
+          ],
+          "nodes": 103
+        },
+        {
+          "y_mm": 413.4383132713924,
+          "fx_n": 0,
+          "fz_n": -1222.2222222222224,
+          "torque_nm": -22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 413.5,
+          "patch_area_mm2": 493.1362128207515,
+          "patch_centroid_xz_mm": [
+            0.22461521415495592,
+            0.6068963917674108
+          ],
+          "nodes": 107
+        }
+      ],
+      "applied_force_n": [
+        145.72140757529942,
+        3.9898639947466563e-17,
+        -647.4693298119757
+      ],
+      "applied_moment_nm": [
+        -348.4813492608916,
+        -1.61259894326804e-14,
+        -39.78194426805682
+      ],
+      "reaction": {
+        "force_n": [
+          -145.72136999999998,
+          3.410512e-10,
+          647.4694999999999
+        ],
+        "moment_about_origin_nm": [
+          348.48142950000005,
+          4.70101625e-11,
+          39.78193157
+        ],
+        "gauge_torque_nm": 4.70101625e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -195.6830330296878,
+        "front_fz_n": -357.1284872683641,
+        "rear_fx_n": 49.961625454388376,
+        "rear_fz_n": 1004.5978170803389,
+        "max_bearing_n": 1005.8394196394505
+      },
+      "force_residual_n": [
+        3.75752994443701e-05,
+        3.4105123989863994e-10,
+        0.00017018802418533596
+      ],
+      "moment_residual_nm": [
+        8.023910845622595e-05,
+        4.699403651056732e-11,
+        -1.269805682113656e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.05205343217057258,
+        "max_von_mises_mpa": 38.54603796104862,
+        "max_von_mises_node_id": 2691,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "e794138e6cb2a2f4319bb2c8c9d24e5c2abb1eadcb5da28506253b4f12c9b085",
+      "frd_sha256": "0d3246cb865f3e933475580bb3dec50b99679c1cb09447e74d798a325fdbb851",
+      "dat_sha256": "b8738a7ce287a6da4be547f6f73cb736d3d9ef146e1f6f9537059dfedaaf9a58",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q0.0_d1_mesh3.0"
+    },
+    {
+      "shaft": "153",
+      "share": 0.0,
+      "direction": 1,
+      "cut_index": 5,
+      "mesh_mm": 2.0,
+      "nodes": 15428,
+      "elements": 73481,
+      "actual_load_patches": [
+        {
+          "y_mm": 273.0444109856894,
+          "fx_n": 145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": 22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 446.40186489347974,
+          "patch_centroid_xz_mm": [
+            0.416074435755196,
+            0.8045696608043504
+          ],
+          "nodes": 188
+        },
+        {
+          "y_mm": 413.4508641671133,
+          "fx_n": 0,
+          "fz_n": -1222.2222222222224,
+          "torque_nm": -22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 413.5,
+          "patch_area_mm2": 464.92545484580484,
+          "patch_centroid_xz_mm": [
+            0.6671354968540213,
+            0.892205447454897
+          ],
+          "nodes": 206
+        }
+      ],
+      "applied_force_n": [
+        145.7214075752994,
+        1.4849232954361469e-15,
+        -647.4693298119748
+      ],
+      "applied_moment_nm": [
+        -348.4813492608913,
+        9.540979117872439e-15,
+        -39.78194426805668
+      ],
+      "reaction": {
+        "force_n": [
+          -145.72136999999998,
+          -4.65277e-09,
+          647.4694999999999
+        ],
+        "moment_about_origin_nm": [
+          348.48142950000005,
+          -8.23171e-12,
+          39.78193157
+        ],
+        "gauge_torque_nm": -8.23171e-12,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -195.6830330296878,
+        "front_fz_n": -357.1284872683641,
+        "rear_fx_n": 49.961625454388376,
+        "rear_fz_n": 1004.5978170803389,
+        "max_bearing_n": 1005.8394196394505
+      },
+      "force_residual_n": [
+        3.757529941594839e-05,
+        -4.652768515076704e-09,
+        0.00017018802509483066
+      ],
+      "moment_residual_nm": [
+        8.023910874044304e-05,
+        -8.222169020882128e-12,
+        -1.2698056679028014e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.053475922582000394,
+        "max_von_mises_mpa": 38.821750504601155,
+        "max_von_mises_node_id": 319,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "dffdb07e0cb71eaed6d58786b1934b55cfc578eb1ebd2d0dcc0c8d2844966a6d",
+      "frd_sha256": "d3fc75f1b2543fd7bd62fff0be0d35db5cdab16d7c839f0ad5ac927d594f5f13",
+      "dat_sha256": "7dc5b59d1b619b81870762f49f43e8ff4a131b7e4f07c301847241a4c25d7646",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q0.0_d1_mesh2.0"
+    },
+    {
+      "shaft": "153",
+      "share": 0.0,
+      "direction": 1,
+      "cut_index": 5,
+      "mesh_mm": 1.5,
+      "nodes": 33571,
+      "elements": 169846,
+      "actual_load_patches": [
+        {
+          "y_mm": 272.95493888797597,
+          "fx_n": 145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": 22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 473.89849801944985,
+          "patch_centroid_xz_mm": [
+            0.5480458476641107,
+            0.47084417426516206
+          ],
+          "nodes": 337
+        },
+        {
+          "y_mm": 413.44993232841244,
+          "fx_n": 0,
+          "fz_n": -1222.2222222222224,
+          "torque_nm": -22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 413.5,
+          "patch_area_mm2": 470.6816826508817,
+          "patch_centroid_xz_mm": [
+            0.25406244574576264,
+            0.39379601078656107
+          ],
+          "nodes": 341
+        }
+      ],
+      "applied_force_n": [
+        145.72140757529942,
+        -4.581296279837499e-16,
+        -647.4693298119745
+      ],
+      "applied_moment_nm": [
+        -348.4813492608913,
+        -1.2846494701346245e-14,
+        -39.781944268056726
+      ],
+      "reaction": {
+        "force_n": [
+          -145.72136999999998,
+          4.155121e-08,
+          647.4694999999999
+        ],
+        "moment_about_origin_nm": [
+          348.48142950000005,
+          -1.019613875e-10,
+          39.78193157
+        ],
+        "gauge_torque_nm": -1.019613875e-10,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -195.6830330296878,
+        "front_fz_n": -357.1284872683641,
+        "rear_fx_n": 49.961625454388376,
+        "rear_fz_n": 1004.5978170803389,
+        "max_bearing_n": 1005.8394196394505
+      },
+      "force_residual_n": [
+        3.75752994443701e-05,
+        4.155120954187037e-08,
+        0.00017018802543589118
+      ],
+      "moment_residual_nm": [
+        8.023910874044304e-05,
+        -1.0197423399470135e-10,
+        -1.2698056728766005e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.05398546593003065,
+        "max_von_mises_mpa": 41.44146587594845,
+        "max_von_mises_node_id": 420,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "7683d16a2b1de6a64be0b685f24f9d2c62c6d19b552cb9e1d8ea2be2d2719b7f",
+      "frd_sha256": "34fcab88cdc69aab3117289f916394b3f66d404434044cb154ce073b12b97344",
+      "dat_sha256": "215a13bdbc6ab8b5853dc32901b7948aa1875d51343275137efe515abbbdb415",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q0.0_d1_mesh1.5"
+    },
+    {
+      "shaft": "153",
+      "share": 1.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 3.0,
+      "nodes": 5141,
+      "elements": 21767,
+      "actual_load_patches": [
+        {
+          "y_mm": 272.82294405187264,
+          "fx_n": -145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": -22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 492.05233308131835,
+          "patch_centroid_xz_mm": [
+            0.25028266311919367,
+            0.40231607744997516
+          ],
+          "nodes": 103
+        },
+        {
+          "y_mm": 480.028469132284,
+          "fx_n": 333.6393814106855,
+          "fz_n": 916.6666666666666,
+          "torque_nm": 22.0,
+          "source": "master phase gear: outward separation +X, resisting torque",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1453.9880025199207,
+          "patch_centroid_xz_mm": [
+            0.3249730939773678,
+            0.5259735706330901
+          ],
+          "nodes": 282
+        }
+      ],
+      "applied_force_n": [
+        187.91797383538594,
+        -4.12647346847983e-16,
+        1491.4195590769139
+      ],
+      "applied_moment_nm": [
+        596.9075396279975,
+        3.851086116668512e-15,
+        -120.36495880907226
+      ],
+      "reaction": {
+        "force_n": [
+          -187.9179,
+          1.431875e-10,
+          -1491.4196
+        ],
+        "moment_about_origin_nm": [
+          -596.9075536,
+          3.05356875e-11,
+          120.3649299
+        ],
+        "gauge_torque_nm": 3.05356875e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": 240.96266336399512,
+        "front_fz_n": -647.4062650461417,
+        "rear_fx_n": -428.88063719938117,
+        "rear_fz_n": -844.0132940307724,
+        "max_bearing_n": 946.7296559552902
+      },
+      "force_residual_n": [
+        7.383538593330741e-05,
+        1.4318708735265316e-10,
+        -4.092308608960593e-05
+      ],
+      "moment_residual_nm": [
+        -1.3972002534501371e-05,
+        3.053953858611667e-11,
+        -2.890907225605588e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.0372778261502733,
+        "max_von_mises_mpa": 25.60507828431696,
+        "max_von_mises_node_id": 2962,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "8efb25b227ba7d20b432b9010bda4dbfb114d60d87dbb6637c22fbb7cf1323c9",
+      "frd_sha256": "1aea4958743d92a1f656815ff3a78f5f2f59c3352e3b2f3d4397660cbe08e9c1",
+      "dat_sha256": "a4e559807c1ca7fabc2fe7ed14d9102fcf2cf586432d9f4a6ac1ff824d9e6297",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q1.0_d-1_mesh3.0"
+    },
+    {
+      "shaft": "153",
+      "share": 1.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 2.0,
+      "nodes": 15428,
+      "elements": 73481,
+      "actual_load_patches": [
+        {
+          "y_mm": 273.0444109856894,
+          "fx_n": -145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": -22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 446.40186489347974,
+          "patch_centroid_xz_mm": [
+            0.416074435755196,
+            0.8045696608043504
+          ],
+          "nodes": 188
+        },
+        {
+          "y_mm": 480.0024131935462,
+          "fx_n": 333.6393814106855,
+          "fz_n": 916.6666666666666,
+          "torque_nm": 22.0,
+          "source": "master phase gear: outward separation +X, resisting torque",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1430.4703392350482,
+          "patch_centroid_xz_mm": [
+            0.12375056223201242,
+            0.43364752179724164
+          ],
+          "nodes": 543
+        }
+      ],
+      "applied_force_n": [
+        187.91797383538596,
+        -6.276446376518585e-16,
+        1491.4195590769136
+      ],
+      "applied_moment_nm": [
+        596.907539627998,
+        -4.2028013014228094e-14,
+        -120.36495880907219
+      ],
+      "reaction": {
+        "force_n": [
+          -187.9179,
+          -4.536434e-09,
+          -1491.4196
+        ],
+        "moment_about_origin_nm": [
+          -596.9075536,
+          4.06559125e-10,
+          120.3649299
+        ],
+        "gauge_torque_nm": 4.06559125e-10,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": 240.96266336399512,
+        "front_fz_n": -647.4062650461417,
+        "rear_fx_n": -428.88063719938117,
+        "rear_fz_n": -844.0132940307724,
+        "max_bearing_n": 946.7296559552902
+      },
+      "force_residual_n": [
+        7.383538596172912e-05,
+        -4.536434627644638e-09,
+        -4.092308631697961e-05
+      ],
+      "moment_residual_nm": [
+        -1.397200207975402e-05,
+        4.065170969869858e-10,
+        -2.8909072185001605e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.038284538108062635,
+        "max_von_mises_mpa": 29.473740026024846,
+        "max_von_mises_node_id": 6035,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "f2dd07ba82a9b31394296e0c457a41465f8d46319cd2503371b985267bbef469",
+      "frd_sha256": "7a66c08d09fae2f14d584626404dec799bab1349e2d81648565e4da139662bf6",
+      "dat_sha256": "e93c93324735824564bed235860fe081746d2cb98262a304b8f8b92de2f4a408",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q1.0_d-1_mesh2.0"
+    },
+    {
+      "shaft": "153",
+      "share": 1.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 1.5,
+      "nodes": 33571,
+      "elements": 169846,
+      "actual_load_patches": [
+        {
+          "y_mm": 272.95493888797597,
+          "fx_n": -145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": -22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 473.89849801944985,
+          "patch_centroid_xz_mm": [
+            0.5480458476641107,
+            0.47084417426516206
+          ],
+          "nodes": 337
+        },
+        {
+          "y_mm": 480.09609320506434,
+          "fx_n": 333.6393814106855,
+          "fz_n": 916.6666666666666,
+          "torque_nm": 22.0,
+          "source": "master phase gear: outward separation +X, resisting torque",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1463.281593829685,
+          "patch_centroid_xz_mm": [
+            0.14651577818047362,
+            0.35786097905118974
+          ],
+          "nodes": 906
+        }
+      ],
+      "applied_force_n": [
+        187.91797383538605,
+        5.368969158148218e-16,
+        1491.4195590769152
+      ],
+      "applied_moment_nm": [
+        596.9075396279981,
+        -9.748278573251667e-15,
+        -120.36495880907233
+      ],
+      "reaction": {
+        "force_n": [
+          -187.9179,
+          4.112152e-08,
+          -1491.4196
+        ],
+        "moment_about_origin_nm": [
+          -596.9075536,
+          2.2588950000000003e-10,
+          120.3649299
+        ],
+        "gauge_torque_nm": 2.2588950000000003e-10,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": 240.96266336399512,
+        "front_fz_n": -647.4062650461417,
+        "rear_fx_n": -428.88063719938117,
+        "rear_fz_n": -844.0132940307724,
+        "max_bearing_n": 946.7296559552902
+      },
+      "force_residual_n": [
+        7.383538604699424e-05,
+        4.112152053689692e-08,
+        -4.092308472536388e-05
+      ],
+      "moment_residual_nm": [
+        -1.3972001966067182e-05,
+        2.2587975172142678e-10,
+        -2.8909072327110152e-05
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.03860886633617335,
+        "max_von_mises_mpa": 35.010537493603955,
+        "max_von_mises_node_id": 11791,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "1089f70cda8e217a44b915b9390cebce3b2dced1f1095f362bca554626a9ff40",
+      "frd_sha256": "eafcf5be3f9544a6104465968ea7a0b3b8675a5e676b803f82ca4e5e688db837",
+      "dat_sha256": "be4ad427fbff498a9d755f9d3a5c982b3908e3704e594285217571c8ab090210",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q1.0_d-1_mesh1.5"
+    },
+    {
+      "shaft": "153",
+      "share": 1.0,
+      "direction": 1,
+      "cut_index": 0,
+      "mesh_mm": 3.0,
+      "nodes": 5141,
+      "elements": 21767,
+      "actual_load_patches": [
+        {
+          "y_mm": 272.82294405187264,
+          "fx_n": 145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": 22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 492.05233308131835,
+          "patch_centroid_xz_mm": [
+            0.25028266311919367,
+            0.40231607744997516
+          ],
+          "nodes": 103
+        },
+        {
+          "y_mm": 480.028469132284,
+          "fx_n": 333.6393814106855,
+          "fz_n": -916.6666666666666,
+          "torque_nm": -22.0,
+          "source": "master phase gear: outward separation +X, resisting torque",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1453.9880025199207,
+          "patch_centroid_xz_mm": [
+            0.3249730939773678,
+            0.5259735706330901
+          ],
+          "nodes": 282
+        }
+      ],
+      "applied_force_n": [
+        479.36078898598475,
+        -6.492202608843201e-16,
+        -341.9137742564192
+      ],
+      "applied_moment_nm": [
+        -283.09246037200234,
+        -1.9012569296705806e-15,
+        -199.92884734518572
+      ],
+      "reaction": {
+        "force_n": [
+          -479.36080000000004,
+          -4.984071e-10,
+          341.91420000000016
+        ],
+        "moment_about_origin_nm": [
+          283.0926582000001,
+          -2.9618775e-11,
+          199.92885280000002
+        ],
+        "gauge_torque_nm": -2.9618775e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -150.4034026953804,
+        "front_fz_n": -896.2157888556659,
+        "rear_fx_n": -328.95738629060446,
+        "rear_fz_n": 1238.129563112085,
+        "max_bearing_n": 1281.0846096364082
+      },
+      "force_residual_n": [
+        -1.101401528558199e-05,
+        -4.984077492202609e-10,
+        0.0004257435809904564
+      ],
+      "moment_residual_nm": [
+        0.00019782799773793158,
+        -2.962067625692967e-11,
+        5.454814299810096e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.026061859555766547,
+        "max_von_mises_mpa": 22.656388691430944,
+        "max_von_mises_node_id": 18,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "dee631355603d395c296e21527658e97089311667eda4acd202a52bd0246e8a6",
+      "frd_sha256": "459b989eaeed500033ca36ebec4f2fe4251a32f7014fb0a370bf17019ce0319e",
+      "dat_sha256": "f12932c06d7deb1b4773d22ce95cec5db2f88ba11b404cd850b9e42f15f9a28c",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q1.0_d1_mesh3.0"
+    },
+    {
+      "shaft": "153",
+      "share": 1.0,
+      "direction": 1,
+      "cut_index": 0,
+      "mesh_mm": 2.0,
+      "nodes": 15428,
+      "elements": 73481,
+      "actual_load_patches": [
+        {
+          "y_mm": 273.0444109856894,
+          "fx_n": 145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": 22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 446.40186489347974,
+          "patch_centroid_xz_mm": [
+            0.416074435755196,
+            0.8045696608043504
+          ],
+          "nodes": 188
+        },
+        {
+          "y_mm": 480.0024131935462,
+          "fx_n": 333.6393814106855,
+          "fz_n": -916.6666666666666,
+          "torque_nm": -22.0,
+          "source": "master phase gear: outward separation +X, resisting torque",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1430.4703392350482,
+          "patch_centroid_xz_mm": [
+            0.12375056223201242,
+            0.43364752179724164
+          ],
+          "nodes": 543
+        }
+      ],
+      "applied_force_n": [
+        479.3607889859848,
+        7.893533916780715e-16,
+        -341.91377425641906
+      ],
+      "applied_moment_nm": [
+        -283.09246037200217,
+        2.334590853969587e-14,
+        -199.92884734518572
+      ],
+      "reaction": {
+        "force_n": [
+          -479.36080000000004,
+          -1.013743e-08,
+          341.91420000000016
+        ],
+        "moment_about_origin_nm": [
+          283.0926582000001,
+          2.621475e-11,
+          199.92885280000002
+        ],
+        "gauge_torque_nm": 2.621475e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -150.4034026953804,
+        "front_fz_n": -896.2157888556659,
+        "rear_fx_n": -328.95738629060446,
+        "rear_fz_n": 1238.129563112085,
+        "max_bearing_n": 1281.0846096364082
+      },
+      "force_residual_n": [
+        -1.1014015228738572e-05,
+        -1.0137429210646608e-08,
+        0.00042574358110414323
+      ],
+      "moment_residual_nm": [
+        0.00019782799790846184,
+        2.6238095908539697e-11,
+        5.454814299810096e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.026792967625160525,
+        "max_von_mises_mpa": 27.440958145988635,
+        "max_von_mises_node_id": 18,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "18a64b7c131f333782ff215529a36c9447837e93b7df71866db823a70fe7442a",
+      "frd_sha256": "a004aa89bf646f293c586e7a2bcddcd2645ff9e3f06717a537118f5ad124fc65",
+      "dat_sha256": "2b09e4f0d803144af6c5da9090a009b3ede01767e42a537396e118f55653855e",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q1.0_d1_mesh2.0"
+    },
+    {
+      "shaft": "153",
+      "share": 1.0,
+      "direction": 1,
+      "cut_index": 0,
+      "mesh_mm": 1.5,
+      "nodes": 33571,
+      "elements": 169846,
+      "actual_load_patches": [
+        {
+          "y_mm": 272.95493888797597,
+          "fx_n": 145.72140757529942,
+          "fz_n": 574.7528924102476,
+          "torque_nm": 22,
+          "source": "chain exact open-span tangents toward motor +Z",
+          "nominal_y_mm": 273.0,
+          "patch_area_mm2": 473.89849801944985,
+          "patch_centroid_xz_mm": [
+            0.5480458476641107,
+            0.47084417426516206
+          ],
+          "nodes": 337
+        },
+        {
+          "y_mm": 480.09609320506434,
+          "fx_n": 333.6393814106855,
+          "fz_n": -916.6666666666666,
+          "torque_nm": -22.0,
+          "source": "master phase gear: outward separation +X, resisting torque",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1463.281593829685,
+          "patch_centroid_xz_mm": [
+            0.14651577818047362,
+            0.35786097905118974
+          ],
+          "nodes": 906
+        }
+      ],
+      "applied_force_n": [
+        479.36078898598504,
+        -3.9054317505643477e-16,
+        -341.91377425641906
+      ],
+      "applied_moment_nm": [
+        -283.09246037200217,
+        -9.775600467998302e-15,
+        -199.92884734518603
+      ],
+      "reaction": {
+        "force_n": [
+          -479.36080000000004,
+          2.465032e-08,
+          341.91420000000016
+        ],
+        "moment_about_origin_nm": [
+          283.0926582000001,
+          3.2500750000000003e-10,
+          199.92885280000002
+        ],
+        "gauge_torque_nm": 3.2500750000000003e-10,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -150.4034026953804,
+        "front_fz_n": -896.2157888556659,
+        "rear_fx_n": -328.95738629060446,
+        "rear_fz_n": 1238.129563112085,
+        "max_bearing_n": 1281.0846096364082
+      },
+      "force_residual_n": [
+        -1.1014015001364896e-05,
+        2.4650319609456823e-08,
+        0.00042574358110414323
+      ],
+      "moment_residual_nm": [
+        0.00019782799790846184,
+        3.2499772439953203e-10,
+        5.454813987171292e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.02704992000003697,
+        "max_von_mises_mpa": 33.07513307688119,
+        "max_von_mises_node_id": 18,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "deck_sha256": "324236d8e671cc78dd10d27e477401ecfc75b0e9b660c415549c9c27fa5bae4c",
+      "frd_sha256": "0d41ecc82bf511bb221a74599fb519bdcee76ee9a907c83ddea696a359abdfa2",
+      "dat_sha256": "eadb5880c0aab66e55f4ccb229408e319f4bab8869409ef86f3b15bce3c6a937",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/153_q1.0_d1_mesh1.5"
+    },
+    {
+      "shaft": "105",
+      "share": 1.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 3.0,
+      "nodes": 5219,
+      "elements": 22122,
+      "actual_load_patches": [
+        {
+          "y_mm": 479.957851719289,
+          "fx_n": -333.6393814106855,
+          "fz_n": -916.6666666666666,
+          "torque_nm": 22.0,
+          "source": "slave phase gear: reaction opposite master, counterrotating input",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1470.7284105292033,
+          "patch_centroid_xz_mm": [
+            0.006992993183078204,
+            0.6151353190910289
+          ],
+          "nodes": 294
+        },
+        {
+          "y_mm": 342.1365299542032,
+          "fx_n": 0,
+          "fz_n": 1222.2222222222224,
+          "torque_nm": -22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 342.0,
+          "patch_area_mm2": 441.42526313625183,
+          "patch_centroid_xz_mm": [
+            0.0559320804100121,
+            0.1463450736388749
+          ],
+          "nodes": 101
+        }
+      ],
+      "applied_force_n": [
+        -333.6393814106856,
+        6.739400704169896e-16,
+        305.5555555555562
+      ],
+      "applied_moment_nm": [
+        -21.999999999999602,
+        1.39194211712379e-14,
+        160.14690307712917
+      ],
+      "reaction": {
+        "force_n": [
+          333.63937,
+          -2.506701e-09,
+          -305.55590000000007
+        ],
+        "moment_about_origin_nm": [
+          21.99989009999996,
+          -1.4958225000000002e-11,
+          -160.14689777
+        ],
+        "gauge_torque_nm": -1.4958225000000002e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -45.27963033430734,
+        "front_fz_n": -1163.293650793651,
+        "rear_fx_n": 378.9190117449928,
+        "rear_fz_n": 857.7380952380953,
+        "max_bearing_n": 1164.1745414241082
+      },
+      "force_residual_n": [
+        -1.141068560173153e-05,
+        -2.5067003260599295e-09,
+        -0.0003444444438400751
+      ],
+      "moment_residual_nm": [
+        -0.00010989999964294839,
+        -1.4944305578828764e-11,
+        5.3071291574724455e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.03769363749334496,
+        "max_von_mises_mpa": 23.04126633851983,
+        "max_von_mises_node_id": 147,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "23c5eb730a36117cdf74685a3f7bd5f6240a91de4a4eaeb3624c391cd2c7a189",
+      "deck_sha256": "e2314acbdd0f12d67a9e02da35188741322cb9624a08216b61ac135977c4fd04",
+      "frd_sha256": "92b36cb98d9cb49529dfe01e5ada05bafa8c536a99ab9fb1f9079dcd1bf6b452",
+      "dat_sha256": "acd44a36522fde7bb9716f9ad0431b5e7a05dcbbb11144c259b3178560159a8c",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/105_q1.0_d-1_mesh3.0"
+    },
+    {
+      "shaft": "105",
+      "share": 1.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 2.0,
+      "nodes": 15707,
+      "elements": 74949,
+      "actual_load_patches": [
+        {
+          "y_mm": 479.833492725529,
+          "fx_n": -333.6393814106855,
+          "fz_n": -916.6666666666666,
+          "torque_nm": 22.0,
+          "source": "slave phase gear: reaction opposite master, counterrotating input",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1458.9130362045505,
+          "patch_centroid_xz_mm": [
+            -0.12269814741452262,
+            0.5295139401960918
+          ],
+          "nodes": 586
+        },
+        {
+          "y_mm": 341.963256823775,
+          "fx_n": 0,
+          "fz_n": 1222.2222222222224,
+          "torque_nm": -22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 342.0,
+          "patch_area_mm2": 465.1976705885399,
+          "patch_centroid_xz_mm": [
+            -0.005230470377734862,
+            0.28726369146277064
+          ],
+          "nodes": 209
+        }
+      ],
+      "applied_force_n": [
+        -333.6393814106852,
+        4.829036476250437e-16,
+        305.5555555555568
+      ],
+      "applied_moment_nm": [
+        -21.999999999999723,
+        -1.7111312367035225e-14,
+        160.14690307712897
+      ],
+      "reaction": {
+        "force_n": [
+          333.63937,
+          -3.335934e-09,
+          -305.55590000000007
+        ],
+        "moment_about_origin_nm": [
+          21.99989009999996,
+          6.48962125e-11,
+          -160.14689777
+        ],
+        "gauge_torque_nm": 6.48962125e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -45.27963033430734,
+        "front_fz_n": -1163.293650793651,
+        "rear_fx_n": 378.9190117449928,
+        "rear_fz_n": 857.7380952380953,
+        "max_bearing_n": 1164.1745414241082
+      },
+      "force_residual_n": [
+        -1.1410685203827597e-05,
+        -3.3359335170963525e-09,
+        -0.0003444444432716409
+      ],
+      "moment_residual_nm": [
+        -0.00010989999976374065,
+        6.487910118763296e-11,
+        5.3071289585204795e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.03893783261030973,
+        "max_von_mises_mpa": 25.622546922093832,
+        "max_von_mises_node_id": 6,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "23c5eb730a36117cdf74685a3f7bd5f6240a91de4a4eaeb3624c391cd2c7a189",
+      "deck_sha256": "b5215076dbf96e44e2d4a57ebd90255792e88318ecf3726fa3604b93b706ee35",
+      "frd_sha256": "aed3dd78e8fe059a73c0b96b0d5fa82da5a876d15ef214a63ee5a9db32501da1",
+      "dat_sha256": "63fab12a376952473c64cbb542566dc3bfc9ba08f988a93575f47e9ded4f25d4",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/105_q1.0_d-1_mesh2.0"
+    },
+    {
+      "shaft": "105",
+      "share": 1.0,
+      "direction": -1,
+      "cut_index": 0,
+      "mesh_mm": 1.5,
+      "nodes": 34208,
+      "elements": 173815,
+      "actual_load_patches": [
+        {
+          "y_mm": 479.87161261968436,
+          "fx_n": -333.6393814106855,
+          "fz_n": -916.6666666666666,
+          "torque_nm": 22.0,
+          "source": "slave phase gear: reaction opposite master, counterrotating input",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1457.542164623491,
+          "patch_centroid_xz_mm": [
+            0.027678334630298618,
+            0.6466275958184734
+          ],
+          "nodes": 926
+        },
+        {
+          "y_mm": 342.0795876713966,
+          "fx_n": 0,
+          "fz_n": 1222.2222222222224,
+          "torque_nm": -22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 342.0,
+          "patch_area_mm2": 472.7734847624393,
+          "patch_centroid_xz_mm": [
+            0.06667169750384816,
+            0.3519226750767205
+          ],
+          "nodes": 367
+        }
+      ],
+      "applied_force_n": [
+        -333.63938141068576,
+        -5.074066167232161e-16,
+        305.5555555555556
+      ],
+      "applied_moment_nm": [
+        -22.000000000000504,
+        -2.4610521953682962e-14,
+        160.14690307712897
+      ],
+      "reaction": {
+        "force_n": [
+          333.63937,
+          -3.385125e-08,
+          -305.55590000000007
+        ],
+        "moment_about_origin_nm": [
+          21.99989009999996,
+          1.307155e-10,
+          -160.14689777
+        ],
+        "gauge_torque_nm": 1.307155e-10,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -45.27963033430734,
+        "front_fz_n": -1163.293650793651,
+        "rear_fx_n": 378.9190117449928,
+        "rear_fz_n": 857.7380952380953,
+        "max_bearing_n": 1164.1745414241082
+      },
+      "force_residual_n": [
+        -1.1410685772261786e-05,
+        -3.3851250507406614e-08,
+        -0.0003444444444653527
+      ],
+      "moment_residual_nm": [
+        -0.00010990000054533766,
+        1.3069088947804632e-10,
+        5.3071289585204795e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.039462241198733455,
+        "max_von_mises_mpa": 27.682763530755267,
+        "max_von_mises_node_id": 137,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "23c5eb730a36117cdf74685a3f7bd5f6240a91de4a4eaeb3624c391cd2c7a189",
+      "deck_sha256": "473ccbcbbe23bfea057fbe88540cfae183878012aa5cf5956b4c4a1e6e6e458a",
+      "frd_sha256": "2f1a63d07662c79d510bf834a4c574feab0d067e2c4d79fe235bbd735a7c6875",
+      "dat_sha256": "dbca7a954eb04a27df760dc41e4e0503a30c9811dcf61eb0d23629be7878b5a8",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/105_q1.0_d-1_mesh1.5"
+    },
+    {
+      "shaft": "105",
+      "share": 1.0,
+      "direction": 1,
+      "cut_index": 0,
+      "mesh_mm": 3.0,
+      "nodes": 5219,
+      "elements": 22122,
+      "actual_load_patches": [
+        {
+          "y_mm": 479.957851719289,
+          "fx_n": -333.6393814106855,
+          "fz_n": 916.6666666666666,
+          "torque_nm": -22.0,
+          "source": "slave phase gear: reaction opposite master, counterrotating input",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1470.7284105292033,
+          "patch_centroid_xz_mm": [
+            0.006992993183078204,
+            0.6151353190910289
+          ],
+          "nodes": 294
+        },
+        {
+          "y_mm": 342.1365299542032,
+          "fx_n": 0,
+          "fz_n": -1222.2222222222224,
+          "torque_nm": 22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 342.0,
+          "patch_area_mm2": 441.42526313625183,
+          "patch_centroid_xz_mm": [
+            0.0559320804100121,
+            0.1463450736388749
+          ],
+          "nodes": 101
+        }
+      ],
+      "applied_force_n": [
+        -333.63938141068553,
+        -6.262351748276274e-16,
+        -305.5555555555562
+      ],
+      "applied_moment_nm": [
+        22.000000000000057,
+        2.160771561676711e-14,
+        160.14690307712905
+      ],
+      "reaction": {
+        "force_n": [
+          333.63937,
+          1.519039e-09,
+          305.55590000000007
+        ],
+        "moment_about_origin_nm": [
+          -21.99989009999996,
+          -3.43358875e-11,
+          -160.14689777
+        ],
+        "gauge_torque_nm": -3.43358875e-11,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -45.27963033430734,
+        "front_fz_n": 1163.293650793651,
+        "rear_fx_n": 378.9190117449928,
+        "rear_fz_n": -857.7380952380953,
+        "max_bearing_n": 1164.1745414241082
+      },
+      "force_residual_n": [
+        -1.141068554488811e-05,
+        1.5190383737648252e-09,
+        0.0003444444438400751
+      ],
+      "moment_residual_nm": [
+        0.00010990000009769574,
+        -3.4314279784383235e-11,
+        5.307129043785608e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.037552036558215374,
+        "max_von_mises_mpa": 22.62919768462468,
+        "max_von_mises_node_id": 79,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "23c5eb730a36117cdf74685a3f7bd5f6240a91de4a4eaeb3624c391cd2c7a189",
+      "deck_sha256": "351778be3e6cd2df846d17c1994671a80204246c7ad1bc74fa8da31531b50481",
+      "frd_sha256": "943b07e7b0a6375c6eb8a1f34e567725584bf88d089cc8a08090e6476b53b82d",
+      "dat_sha256": "d793c53cfd851cbbe15b671faa69bf9119003457ac10a9d501e98069eee067dd",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/105_q1.0_d1_mesh3.0"
+    },
+    {
+      "shaft": "105",
+      "share": 1.0,
+      "direction": 1,
+      "cut_index": 0,
+      "mesh_mm": 2.0,
+      "nodes": 15707,
+      "elements": 74949,
+      "actual_load_patches": [
+        {
+          "y_mm": 479.833492725529,
+          "fx_n": -333.6393814106855,
+          "fz_n": 916.6666666666666,
+          "torque_nm": -22.0,
+          "source": "slave phase gear: reaction opposite master, counterrotating input",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1458.9130362045505,
+          "patch_centroid_xz_mm": [
+            -0.12269814741452262,
+            0.5295139401960918
+          ],
+          "nodes": 586
+        },
+        {
+          "y_mm": 341.963256823775,
+          "fx_n": 0,
+          "fz_n": -1222.2222222222224,
+          "torque_nm": 22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 342.0,
+          "patch_area_mm2": 465.1976705885399,
+          "patch_centroid_xz_mm": [
+            -0.005230470377734862,
+            0.28726369146277064
+          ],
+          "nodes": 209
+        }
+      ],
+      "applied_force_n": [
+        -333.63938141068525,
+        -6.68519059554562e-16,
+        -305.5555555555568
+      ],
+      "applied_moment_nm": [
+        21.999999999999893,
+        2.7769453403436728e-14,
+        160.14690307712863
+      ],
+      "reaction": {
+        "force_n": [
+          333.63937,
+          5.064777e-09,
+          305.55590000000007
+        ],
+        "moment_about_origin_nm": [
+          -21.99989009999996,
+          2.8568275e-13,
+          -160.14689777
+        ],
+        "gauge_torque_nm": 2.8568275e-13,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -45.27963033430734,
+        "front_fz_n": 1163.293650793651,
+        "rear_fx_n": 378.9190117449928,
+        "rear_fz_n": -857.7380952380953,
+        "max_bearing_n": 1164.1745414241082
+      },
+      "force_residual_n": [
+        -1.1410685260671016e-05,
+        5.064776331480941e-09,
+        0.0003444444432716409
+      ],
+      "moment_residual_nm": [
+        0.00010989999993427091,
+        3.1345220340343675e-13,
+        5.307128617459966e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.03880749872283168,
+        "max_von_mises_mpa": 26.586768092966846,
+        "max_von_mises_node_id": 6,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "23c5eb730a36117cdf74685a3f7bd5f6240a91de4a4eaeb3624c391cd2c7a189",
+      "deck_sha256": "2cd2bfcea5f20a04d5e3b9163cec02a2bb03e3746ea45ac87bec45faefe2cb28",
+      "frd_sha256": "4fa5ee61ac75e2447ff01c1824fe3e26841473555a8a1abcd8970e94502476af",
+      "dat_sha256": "56224967e64bafd6d5c7381ecfd4d7f6c8233ec413c00357ae4dae0424207161",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/105_q1.0_d1_mesh2.0"
+    },
+    {
+      "shaft": "105",
+      "share": 1.0,
+      "direction": 1,
+      "cut_index": 0,
+      "mesh_mm": 1.5,
+      "nodes": 34208,
+      "elements": 173815,
+      "actual_load_patches": [
+        {
+          "y_mm": 479.87161261968436,
+          "fx_n": -333.6393814106855,
+          "fz_n": 916.6666666666666,
+          "torque_nm": -22.0,
+          "source": "slave phase gear: reaction opposite master, counterrotating input",
+          "nominal_y_mm": 480.0,
+          "patch_area_mm2": 1457.542164623491,
+          "patch_centroid_xz_mm": [
+            0.027678334630298618,
+            0.6466275958184734
+          ],
+          "nodes": 926
+        },
+        {
+          "y_mm": 342.0795876713966,
+          "fx_n": 0,
+          "fz_n": -1222.2222222222224,
+          "torque_nm": 22.0,
+          "source": "inner-side hook tangent; additional wedge normal unqualified",
+          "nominal_y_mm": 342.0,
+          "patch_area_mm2": 472.7734847624393,
+          "patch_centroid_xz_mm": [
+            0.06667169750384816,
+            0.3519226750767205
+          ],
+          "nodes": 367
+        }
+      ],
+      "applied_force_n": [
+        -333.63938141068564,
+        5.9891328008099265e-16,
+        -305.5555555555556
+      ],
+      "applied_moment_nm": [
+        22.000000000000504,
+        5.658494506288747e-14,
+        160.14690307712902
+      ],
+      "reaction": {
+        "force_n": [
+          333.63937,
+          -1.669443e-08,
+          305.55590000000007
+        ],
+        "moment_about_origin_nm": [
+          -21.99989009999996,
+          -1.193447625e-10,
+          -160.14689777
+        ],
+        "gauge_torque_nm": -1.193447625e-10,
+        "support_centroids_m": [
+          [
+            0.0,
+            0.321,
+            0.0
+          ],
+          [
+            0.0,
+            0.461,
+            0.0
+          ]
+        ]
+      },
+      "analytic_support_reaction": {
+        "front_fx_n": -45.27963033430734,
+        "front_fz_n": 1163.293650793651,
+        "rear_fx_n": 378.9190117449928,
+        "rear_fz_n": -857.7380952380953,
+        "max_bearing_n": 1164.1745414241082
+      },
+      "force_residual_n": [
+        -1.1410685658574948e-05,
+        -1.669442940108672e-08,
+        0.0003444444444653527
+      ],
+      "moment_residual_nm": [
+        0.00010990000054533766,
+        -1.192881775549371e-10,
+        5.307129015363898e-06
+      ],
+      "equilibrium_pass": true,
+      "result": {
+        "max_displacement_mm": 0.039323000845150974,
+        "max_von_mises_mpa": 29.290775960196108,
+        "max_von_mises_node_id": 137,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "step_sha256": "23c5eb730a36117cdf74685a3f7bd5f6240a91de4a4eaeb3624c391cd2c7a189",
+      "deck_sha256": "34d62ab294b9c913db70d92b8605aa4343f7237eee01052df3e79f470195fe3f",
+      "frd_sha256": "f6a8e71afbda576cc8c4b6f38fb73ea14debd267aa17d0a77557563e25501c73",
+      "dat_sha256": "2107ad5fda571a1ed95a91f420c837a12afa0560184eee43c3da8a7cb90e459b",
+      "raw_dir": "analysis/final_validation/results/v0.8/raw/solid-load-nbe_v_c4/105_q1.0_d1_mesh1.5"
+    }
+  ],
+  "convergence": [
+    {
+      "shaft": "153",
+      "share": 0.0,
+      "direction": -1,
+      "displacement_relative_change": 0.007431246567049916
+    },
+    {
+      "shaft": "153",
+      "share": 0.0,
+      "direction": 1,
+      "displacement_relative_change": 0.009438528301129534
+    },
+    {
+      "shaft": "153",
+      "share": 1.0,
+      "direction": -1,
+      "displacement_relative_change": 0.008400356158783338
+    },
+    {
+      "shaft": "153",
+      "share": 1.0,
+      "direction": 1,
+      "displacement_relative_change": 0.009499191675098946
+    },
+    {
+      "shaft": "105",
+      "share": 1.0,
+      "direction": -1,
+      "displacement_relative_change": 0.013288869879001054
+    },
+    {
+      "shaft": "105",
+      "share": 1.0,
+      "direction": 1,
+      "displacement_relative_change": 0.013109429881744709
+    }
+  ],
+  "checks": {
+    "all_18_solver_cases_pass": true,
+    "all_equilibrium_checks_pass": true,
+    "medium_to_fine_displacement_change_le_5pct": true,
+    "modeled_bearing_envelope_ge_openmodelica_peak": true,
+    "modeled_chain_envelope_ge_openmodelica_peak": true,
+    "keyed_solid_stress_below_177p5mpa_screen": true
+  },
+  "envelope_comparison": {
+    "modeled_max_bearing_n": 1764.8359915140243,
+    "openmodelica_peak_bearing_n": 1736.533695442964,
+    "modeled_max_chain_n": 592.938121526751,
+    "openmodelica_peak_chain_n": 482.7239662893072,
+    "max_solid_stress_mpa": 41.44146587594845
+  },
+  "scope": "Actual keyed STEP C3D4 with force/moment-consistent surface resultants and distributed bearing supports. 22 N.m jam/chain cases exceed the current OpenModelica bearing and chain envelopes; contact/fatigue remain later physical/service observations, not extra hidden load multipliers.",
+  "calculix_helper_source_sha256": "cf3120b84e2ae06ee8d085297dd8c4bae415924ba248c667407a10bb05b62f50",
+  "source_sha256": {
+    "analysis/final_validation/run_solid_load_path_closure.py": "6fc1e84a8a385bd1af22e697181c254cd354222882d7c581c1a2ebfe28006134",
+    "analysis/final_validation/distributing_patch_v08.py": "6ca866d725e431860731005382b2c3034e0886a0de14f9c0e63898e33aace6c0",
+    "analysis/final_validation/load_path_contract_v08.py": "45d484688f68104a94484edf217322daaa0b74654b819a27a84f0ed23b97e043",
+    "analysis/final_validation/results/v0.8/journal_keyseat_closure/result.json": "9a63a57447b8ea72339ab35c2382caa1bfce31929ccfec43786dba7e8e17b0dc",
+    "analysis/load_cases/openmodelica_dynamic_envelope.json": "22e1ec87e052ce5629c82e601c68d18e1c5474821f3859396fae4b924c213073",
+    "analysis/structural/run_load_checks.py": "5fd498c9a55ab327f410d95eabf44244cb9c0b44611e8693051d79b34e7f39ba",
+    "analysis/final_validation/input/geometry_manifest.json": "ac3ee95d0f5d1affb325901b4c6a440cb9f5894bb6f9f434e1c2b22e3ca14725",
+    "analysis/final_validation/input/CUT-05.step": "23c5eb730a36117cdf74685a3f7bd5f6240a91de4a4eaeb3624c391cd2c7a189",
+    "analysis/final_validation/input/CUT-05R.step": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "device": "mathcat",
+  "observed_utc": "2026-09-09T03:27:50.042494+00:00",
+  "system": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [GCC 13.3.0]",
+  "numpy": "2.4.2",
+  "freecad": "1.1.3",
+  "calculix": "2.23",
+  "gmsh": "4.15.2-git",
+  "typst": "0.15.1",
+  "omp_num_threads": 1,
+  "executables": {
+    "ccx": {
+      "path": "/nix/store/fi6dwih1zs339k119m89z35hdzizg95a-calculix-ccx-2.23/bin/ccx",
+      "sha256": "ed44d38aa3a66a9ec5c1db5589d0bc62787645e5dfd48fb2be939dbc43eadd1e"
+    },
+    "FreeCADCmd": {
+      "path": "/nix/store/1lh14ikhjd0jgwngiik411g6blv43bq8-freecad-1.1.3/bin/FreeCADCmd",
+      "sha256": "50754e4f91b7424c1a27cce7b3ff8fb9ac4f7053131415b585676a5cef974e3e"
+    },
+    "gmsh": {
+      "path": "/nix/store/jnacdcsyxn0pigc2mc5way71nwhpsb4a-gmsh-4.15.2/bin/gmsh",
+      "sha256": "838aaac50a289a9c92865af438139b2c6de5a0df8754500172e0d016df95bdea"
+    },
+    "typst": {
+      "path": "/nix/store/n1fhw9lc9zxmz1w11d1zykmsqwi5bxcd-typst-0.15.1/bin/typst",
+      "sha256": "c54939d9e84fe31feecd1b8c1b24ae0066db6a16f0e29f34ebec1f0f390861f0"
+    }
+  },
+  "notes": [
+    "FreeCADCmd hash is the installed wrapper; Nix store path records the selected derivation.",
+    "No package installation or security-policy changes were performed.",
+    "GUI/physical actuation not used."
+  ]
+}

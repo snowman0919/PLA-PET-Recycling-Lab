@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "scope": "CAD centroidal bending section properties only",
+  "physical_validation_state": "NOT_RUN",
+  "sections": [
+    {
+      "y_mm": 10,
+      "area_mm2": 470.6002046000324,
+      "centroid_z_mm": -0.46058203519953117,
+      "Ixx_mm4": 16738.199912607754,
+      "Izz_mm4": 19115.688762543414,
+      "Imin_mm4": 16738.199912607754
+    },
+    {
+      "y_mm": 40,
+      "area_mm2": 490.8738521234052,
+      "centroid_z_mm": 2.8950115500610145e-16,
+      "Ixx_mm4": 19174.75984857046,
+      "Izz_mm4": 19174.759848570924,
+      "Imin_mm4": 19174.75984857046
+    },
+    {
+      "y_mm": 60,
+      "area_mm2": 470.6002046000324,
+      "centroid_z_mm": -0.46058203519953117,
+      "Ixx_mm4": 16738.199912607746,
+      "Izz_mm4": 19115.6887625431,
+      "Imin_mm4": 16738.199912607746
+    },
+    {
+      "y_mm": 170,
+      "area_mm2": 490.8738521234052,
+      "centroid_z_mm": 2.8950115500610145e-16,
+      "Ixx_mm4": 19174.759848565103,
+      "Izz_mm4": 19174.75984856883,
+      "Imin_mm4": 19174.759848565103
+    },
+    {
+      "y_mm": 200,
+      "area_mm2": 460.60774260431106,
+      "centroid_z_mm": -0.6831554000536726,
+      "Ixx_mm4": 15651.64612670146,
+      "Izz_mm4": 19020.789370845036,
+      "Imin_mm4": 15651.64612670146
+    }
+  ],
+  "screening_diameter_mm": 22.0,
+  "screening_I_mm4": 11499.01451030204,
+  "minimum_CAD_to_screening_I_ratio": 1.3611293483175493,
+  "limitations": [
+    "Does not qualify torsion, key contact, local stress or bearing/frame compliance.",
+    "Loaded phase acceptance is evaluated separately with exact keyed torsion and bearing/gear terms."
+  ],
+  "source_sha256": {
+    "cad/freecad/compact/check_shaft_section_v08.py": "888d22e20fb0e2fa9e571020ecfaa0d15df32b9809cfe2097e88e5daafc44e15",
+    "cad/freecad/compact/geometry.py": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7"
+  }
+}

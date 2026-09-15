@@ -1,0 +1,15 @@
+step,name,initial_quantity_or_scope,activity_class,instruction,approval_gate,exit_condition
+S0,Freeze digital prerequisite,0,none,run simulation_prerequisite.py; store PASS hash,none,P0 technical PASS
+S1,Project-lab stock survey,0,none,measure profile lengths; identify bearings/safety parts/sensors/material stock,none,inventory_confirmation.csv updated
+S2,Buy only selected GGM motors if stock survey cannot substitute without redesign,2 motor+gear sets,buy,user approves order; receipt dimensions before final mount drilling,user purchase approval,P1 motor receipt PASS
+S3,Make/fit low-cost frame and GGM bench fixture,profiles/plate/printed guards only,cut/drill/print,cold dimensional fit first,user fabrication approval,P2 + P3 fixture ready
+S4,Calibrate GGM current/torque and mechanical protection,9 small brass protection coupons maximum planned,bench coupon,no cutter/screw/heater load,user fixture energization approval,P3 PASS
+S5,Fabricate shredder coupon set only,CUT-01 x2; supporting Gate-1 parts only,CNC/minimum machining,do not make remaining CUT-01 x10,user coupon fabrication approval,P4 PASS
+S6,Order/make SCM440 process coupons only,EX-CPN-SCR x1; EX-CPN-BAR x1,supplier process coupon,same heat/QT/nitride/finish route; full screw/barrel held,user coupon order approval,P5 PASS
+S7,Fabricate full shredder stack only if P4 passes,remaining CUT-01 x10 and remaining final shredder parts,CNC,reuse P4 shafts/plates where final-compatible,user full shredder approval,shredder mechanical set complete
+S8,Order full screw/barrel/die only if P5 passes,EX-SCR-01/EX-BAR-01/die set,precision supplier,receive/inspect before motor/heater power,user full hot-zone approval,P6 cold extruder PASS
+S9,Install safety/electrical with logic-only test first,K0/interlocks/fuses/Mega/BTS/current sensors,electrical assembly,motor/heater fuses removed during first logic test,user logic power approval,P7 PASS
+S10,Installed motor dry-run,one branch at a time,commissioning,heaters off; no plastic,user motor power approval,P8 PASS
+S11,Buy/install heaters and commission empty hot path,3x band + 1x cartridge + 5x probe + 4x retainer + TH-FUSE-01 x3 (2 installed + 1 spare),thermal commissioning,motors inhibited for first heat; TF-BARREL and TF-DIE in K0 coil chain; F-H1..H4 remain branch overcurrent protection only,user heater power approval,P9_STAGE_RELEASE_VALIDATED
+S12,PLA then PET low-feed validation,small known dry lots,process validation,"start 8-10 rpm; increase from measured margin, not target pressure",user material feed approval,P10_STAGE_RELEASE_VALIDATED then P11_STAGE_RELEASE_VALIDATED
+S13,Forming/spool validation,gauge/puller/traverse/spool,process validation,actual max stable throughput recorded,user full-path approval,P12_STAGE_RELEASE_VALIDATED review candidate

@@ -1,0 +1,19 @@
+﻿part_id,quantity,make_buy,material_or_type,specification,state
+HS-R1-SHEET,12,MAKE,3 mm qualified spring stainless; actual-condition strength certificate required,Free R16.86 +/-0.01; web2.00 +/-0.03; radial slots per STEP,HOT_MATERIAL_HOLD
+HS-R1-CARRIER,2,MAKE,Machined steel angle; cold dimensional fixture,90x36 foot; height95; support plane7; axis Z50,PROTOTYPE_REVIEW
+HS-R1-BASE,1,MAKE,Steel plate,100x270x10; six M6 through tapped holes from drawing,PROTOTYPE_REVIEW
+HS-R1-MANDREL,1,MAKE,Ground steel solid bar,OD33.970-34.000; L220; two lead cones; M6 end tap,PROTOTYPE_REVIEW
+HS-R1-PIN,6,MAKE,Ground steel shoulder pin; certificate for heated use,4 h6 x27.40 +/-0.02; M3x8; head7x2,PROTOTYPE_REVIEW
+HS-R1-SHIM025,42,MAKE_OR_BUY,Ground stainless shim,OD6/ID4.10/t0.25; seven per pin,RECEIPT_INSPECTION
+HS-R1-ADJUST035,6,MATCH_SHIM,Ground metal shim set,Nominal0.35; select measured endplay0.25-0.35 cold,MATCHED_ASSEMBLY_REQUIRED
+HS-R1-STOP-BRACKET,1,MAKE,Machined steel angle,60x25x65; plate6/foot8; hole10; two mounts6.6,PROTOTYPE_REVIEW
+M3-WIDE-WASHER,6,BUY,Steel washer,Bore3.2; OD8.5 or greater; thickness0.8 nominal,VERIFY_RECEIPT
+M3-LOCK-NUT,12,BUY,All-metal locking or paired steel nuts,Two per pin; do not clamp sheet stack,VERIFY_RECEIPT
+M6-PULL-STUD,1,BUY,Steel full-thread stud,M6x70; >=8mm full engagement at mandrel,VERIFY_RECEIPT
+M6-STOP-WASHER,2,BUY,Steel washer,OD18/ID6.6/t1.6,VERIFY_RECEIPT
+M6-STOP-NUT,2,BUY,Steel nut,M6 standard; faces per stop drawing,VERIFY_RECEIPT
+M6-JAM-NUT,2,BUY,Steel jam nut,M6 thin; mechanically lock stop positions,VERIFY_RECEIPT
+M6-MOUNT,6,BUY,Steel screw and washer,M6x16; verify thread engagement and no bottoming,VERIFY_RECEIPT
+FORCE-GAUGE,1,INSTRUMENT,Calibrated push-pull gauge,Capacity >=500 N; record uncertainty,CALIBRATION_REQUIRED
+POSITION-GAUGE,2,INSTRUMENT,Calibrated displacement indicators,Transverse axes; resolution0.01mm or better,CALIBRATION_REQUIRED
+TEMPERATURE-LOGGER,1,INSTRUMENT,Five channels or greater,Mandrel; shoe; rim; two spring faces,HOT_TEST_APPROVAL_REQUIRED

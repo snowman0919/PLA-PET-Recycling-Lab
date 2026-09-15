@@ -3,6 +3,7 @@ model ThermalExtruderSystem
   parameter Integer material=1 "1 PLA, 2 PET";
   parameter Real targetRPM=if material==1 then 16 else 18;
   parameter Real ambient=25 "degC";
+  parameter Real barrelDieConductance(min=0)=0.8 "W/K; lumped assumed coupling, requires joint calibration";
   parameter Integer heaterOpenZone=0 "0 none, 1..4 failed open";
   parameter Integer stuckOnZone=0 "0 none, 1..4 MOSFET stuck on";
   parameter Boolean sensorOpen=false;
@@ -141,8 +142,8 @@ equation
   polymerLoadDie=netFlowGPH/3.6e6*(if material==1 then 1800 else 1200)*max(0,Tdie-T3)*0.15;
   170*der(T1)=power1-0.25*(T1-ambient)-1.0*(T1-T2)-polymerLoad1;
   165*der(T2)=power2-0.25*(T2-ambient)+1.0*(T1-T2)-1.0*(T2-T3)-polymerLoad2;
-  160*der(T3)=power3-0.25*(T3-ambient)+1.0*(T2-T3)-0.8*(T3-Tdie)-polymerLoad3;
-  95*der(Tdie)=powerDie-0.22*(Tdie-ambient)+0.8*(T3-Tdie)-polymerLoadDie;
+  160*der(T3)=power3-0.25*(T3-ambient)+1.0*(T2-T3)-barrelDieConductance*(T3-Tdie)-polymerLoad3;
+  95*der(Tdie)=powerDie-0.22*(Tdie-ambient)+barrelDieConductance*(T3-Tdie)-polymerLoadDie;
   ready=abs(T1-targetT1)<5 and abs(T2-targetT2)<5 and abs(T3-targetT3)<5 and abs(Tdie-targetTdie)<5 and not sensorOpen;
   torqueTrip=driveTripped;
 end ThermalExtruderSystem;

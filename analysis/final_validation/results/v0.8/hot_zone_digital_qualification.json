@@ -1,0 +1,105 @@
+{
+  "status": "PASS",
+  "scope": "DIGITAL_DESIGN_ENVELOPE_ONLY",
+  "physical_validation_state": "NOT_RUN",
+  "machine_release": "HOLD",
+  "material_design_contract": {
+    "source_material": "SCM440 / 42CrMo4-equivalent QT steel per released manufacturing requirement",
+    "minimum_yield_at_270c_mpa": 360.0,
+    "analysis_allowable_mpa": 180.0,
+    "reference_cte_per_k": 1.2e-05,
+    "upper_cte_sensitivity_per_k": 1.7e-05,
+    "design_temperature_upper_c": 300.0,
+    "normal_process_target_upper_c": 270.0,
+    "provenance_note": "360 MPa is a project procurement/design floor, not an assertion that every SCM440 heat meets it.",
+    "references": [
+      "https://steelnavigator.ovako.com/steel-grades/42crmo4/",
+      "https://doi.org/10.1515/htmp-2014-0011"
+    ]
+  },
+  "thermal_fit": {
+    "case_count": 48,
+    "minimum_diametral_clearance_mm": 0.04055999999999926,
+    "minimum_full_length_travel_margin_mm": 0.1671999999999798,
+    "declared_cold_axial_travel_mm": 1.5
+  },
+  "screw_barrel_hot_clearance": {
+    "cases": [
+      {
+        "alpha_per_k": 1.2e-05,
+        "bore_c": 245.0,
+        "screw_c": 270.0,
+        "radial_clearance_mm": 0.13799000000000028
+      },
+      {
+        "alpha_per_k": 1.2e-05,
+        "bore_c": 270.0,
+        "screw_c": 245.0,
+        "radial_clearance_mm": 0.1428079999999987
+      },
+      {
+        "alpha_per_k": 1.23e-05,
+        "bore_c": 245.0,
+        "screw_c": 270.0,
+        "radial_clearance_mm": 0.13793975000000014
+      },
+      {
+        "alpha_per_k": 1.23e-05,
+        "bore_c": 270.0,
+        "screw_c": 245.0,
+        "radial_clearance_mm": 0.1428781999999984
+      },
+      {
+        "alpha_per_k": 1.7e-05,
+        "bore_c": 245.0,
+        "screw_c": 270.0,
+        "radial_clearance_mm": 0.13715249999999912
+      },
+      {
+        "alpha_per_k": 1.7e-05,
+        "bore_c": 270.0,
+        "screw_c": 245.0,
+        "radial_clearance_mm": 0.1439780000000006
+      }
+    ],
+    "minimum_radial_clearance_mm": 0.13715249999999912
+  },
+  "sensor_bore": {
+    "status": "PASS",
+    "required_yield_mpa_for_sf2": 99.86921310824255,
+    "mesh_change": 0.01634593636574816
+  },
+  "die_joint": {
+    "status": "PASS",
+    "separation_sf": 2.139374876895944,
+    "hot_bolt_proof_sf": 2.1250723062221324,
+    "thread_shear_sf": 2.917608229791639
+  },
+  "openmodelica_normal_hot_zone_c": 269.9888053196855,
+  "checks": {
+    "material_design_floor_ge_2x_allowable": true,
+    "thermal_fit_sources_current": true,
+    "all_48_radial_fit_bounds_noninterfering": true,
+    "full_length_300c_travel_margin_ge_0p15mm": true,
+    "hot_screw_barrel_radial_clearance_ge_0p13mm": true,
+    "sensor_bore_thermoelastic_current_and_pass": true,
+    "sensor_bore_sf2_yield_requirement_below_allowable": true,
+    "die_joint_current_and_pass": true,
+    "openmodelica_current_and_pass": true,
+    "openmodelica_normal_hot_zone_le_270c": true
+  },
+  "physical_followup": [
+    "Verify received hot-zone steel lot/heat-treatment identity and hardness before machining acceptance.",
+    "Verify actual cold free slide/travel and first thermal-cycle motion after full digital release and user authorization.",
+    "Verify die joint leak-tightness/witness marks after first authorized thermal cycle; no hot-retorque value is inferred here."
+  ],
+  "source_sha256": {
+    "analysis/final_validation/qualify_hot_zone_digital_v08.py": "5b3da16cef68452dcd19262184abf16d35c4315901775b8a9d9cc1e27e372810",
+    "analysis/final_validation/results/v0.8/thermal_fit_closure.json": "4f80d6f07b81181bdc2e657eed737729c4921c8ec912eb3dd2d4d8a27533c8d6",
+    "analysis/final_validation/results/v0.8/sensor_bore_local_candidate.json": "e48d53eaed0d6a3e6bb4a7a0e323cbabeaaada1262f8b60cfb5c4a59a9900ce2",
+    "analysis/final_validation/results/v0.8/die_joint_qualification.json": "c23af061ca511c073667d169f0217b33f728c1ee7de22aa3925dfa13484dee08",
+    "simulation/openmodelica/results_v0.8/summary.json": "1a68e9eeb8cbe858b3592e0c4539101898f86a36c3d7fdfc215b8398753f252e",
+    "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b",
+    "analysis/final_validation/contracts/thermomechanical_closure_v08.json": "8e5f17a957f9e40f49f3021d7a994302a52165fc1eb99dd38cfe69548d4c04a6"
+  }
+}

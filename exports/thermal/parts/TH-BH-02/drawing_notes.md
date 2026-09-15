@@ -1,0 +1,10 @@
+# TH-BH-02 — Custom barrel mica band heater Z1
+
+- revision: `safety-orchestration-closure-v0.6.1`
+- quantity: `1`
+- material: `mica/NiCr/stainless sheath`
+- process: `custom heater RFQ`
+- controlling requirements: `24 VDC 100 W each; free-state ID34.10–34.20; usable split-closure travel >=1.00; width40 ±0.5; radial build2 nominal; cold resistance 5.76 Ω ±10%; 300 mm fiberglass leads; PE-bonded sheath; PET service 300 C design; no stock Ø35 substitution; reduced-width 100 W design requires supplier watt-density and lead-layout review; thermal response NOT_RUN`
+- file precedence: 본 note/치수 요구사항 > STEP > DXF/STL. DXF/STL은 견적·CAM reference이며 자동 공차를 부여하지 않는다.
+- edge/inspection: 별도 표기가 없으면 burr 제거, sharp edge C0.3–0.5, 가공 후 유해한 균열·뒤틀림 없음.
+- release: `HOLD`; 해당 물리 gate와 사용자 승인 전 양산/전체수량 발주 금지.

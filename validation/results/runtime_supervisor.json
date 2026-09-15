@@ -17,7 +17,7 @@
     "firmware/arduino_mega/src/spooler_control.cpp": "7a3bf2c0c9c880340da500073526bb5bab1b919f326d5b7329f1ec423c8c65de",
     "firmware/arduino_mega/src/traverse_control.cpp": "5e968e77c6e991afc137c862e3d439675610abf730d7cb3b99b52a63403ebab5",
     "firmware/arduino_mega/src/traverse_homing.cpp": "80e1c744e2133bb07e73ad5c5b7e40bfb9b1bddcc116560256756ef0271ddc3e",
-    "firmware/arduino_mega/src/machine_supervisor.cpp": "36cba55510c994e05d1139a2f070ef71d83c9d296906889011b5f3ea2a20440f"
+    "firmware/arduino_mega/src/machine_supervisor.cpp": "de9073ea4fad90bfa18553d287abbaf3ae05b0403fb0d4e009ad8390f04240da"
   },
   "production_headers": {
     "firmware/arduino_mega/src/process_state.h": "96392f98609829dae22cdf86c8d729730a844f85a97a17cae84947bea797e227",
@@ -32,13 +32,13 @@
     "firmware/arduino_mega/src/traverse_control.h": "a72d5edca016922a486996c34bd129db4ff0f83d9c79800d1bf09ea6a51ce557",
     "firmware/arduino_mega/src/traverse_homing.h": "edd60f0c04e44f728b046dc4ad570e280b712050041c85248a2d01e8f2e329a1",
     "firmware/arduino_mega/src/machine_supervisor.h": "70f1fe19755f7e6d19d7fa2f50473733620a078190ea0f58d41c85a43bf0a9ab",
-    "firmware/arduino_mega/src/generated_profiles.h": "d496e9802dc5ad61a5fc49e819637dec4130f566db63a9d5045083d3488cdf5f"
+    "firmware/arduino_mega/src/generated_profiles.h": "64ebb41461f977d1cb311810a60a11e2e43b03a38af1559d52541f67087a991b"
   },
   "validator_sources": {
     "validation/runtime_supervisor.py": "261db5357b31685f012770f9b5798858fdb0d14cc23056efa1464651a5b7a83a",
     "validation/runtime_trace_rules.py": "0a924d68d3313dbb8c4ec6b45d4dc8a6b8983ea97aca44c876b3f1526283bf4a"
   },
-  "harness_sha256": "b73cefb3080dd5edd06ea7d83a94e4b93c5726a2b54524d02bee168316066613",
+  "harness_sha256": "04edd06d36d2b5195d44857dc7da48ae8cd07c652157899ff7c63cad9097c55a",
   "scenario_count": 43,
   "trace_count": 116,
   "invariant_failure_count": 0,

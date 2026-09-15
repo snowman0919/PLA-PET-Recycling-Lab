@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -37,6 +38,14 @@ def duration(name: str) -> tuple[int, int]:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--group', choices=CRITERIA['scenario_groups'])
+    parser.add_argument('--raw-dir', type=Path)
+    parser.add_argument('--output', type=Path)
+    args = parser.parse_args()
+    if args.group and (not args.raw_dir or not args.output):
+        parser.error('group rerun requires separate --raw-dir and --output')
+    names = CRITERIA['scenario_groups'][args.group] if args.group else CRITERIA['required_scenarios']
     lines = [
         'loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/Complex 4.0.0/package.mo");',
         'loadFile(getInstallationDirectoryPath()+"/share/omlibrary/libraries/ModelicaServices 4.0.0/package.mo");',
@@ -44,12 +53,17 @@ def main() -> None:
         'loadFile("simulation/openmodelica/PLA_PET_Recycler/package.mo");',
         'cd("simulation/openmodelica/results/raw");',
     ]
-    for name in CRITERIA["required_scenarios"]:
+    if args.raw_dir:
+        args.raw_dir.mkdir(parents=True, exist_ok=True)
+        lines = ['loadModel(Modelica);', 'setCompiler("gcc");', 'setCXXCompiler("g++");',
+                 f'loadFile({json.dumps(str(ROOT / "simulation/openmodelica/PLA_PET_Recycler/package.mo"))});',
+                 f'cd({json.dumps(str(args.raw_dir.resolve()))});']
+    for name in names:
         stop, intervals = duration(name)
         lines.append(f'simulate(PLA_PET_Recycler.Scenarios.{name},startTime=0,stopTime={stop},numberOfIntervals={intervals},tolerance=1e-6,method="dassl",outputFormat="csv",fileNamePrefix="{name}");')
     lines.append("getErrorString();")
-    (ROOT / "simulation/openmodelica/scripts/run_all.mos").write_text("\n".join(lines) + "\n")
-    print(f"MODELICA_RUNNER_SYNC_OK scenarios={len(CRITERIA['required_scenarios'])}")
+    (args.output or ROOT / "simulation/openmodelica/scripts/run_all.mos").write_text("\n".join(lines) + "\n")
+    print(f"MODELICA_RUNNER_SYNC_OK scenarios={len(names)}")
 
 
 if __name__ == "__main__":

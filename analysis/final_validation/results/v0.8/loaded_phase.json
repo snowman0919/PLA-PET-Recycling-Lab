@@ -1,0 +1,767 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "checks": {
+    "mesh_convergence": true,
+    "positive_loaded_backlash": true,
+    "backlash_below_one_degree": true,
+    "frame_and_bearing_compliance_qualified": true,
+    "torsional_phase_compliance_qualified": true
+  },
+  "meshes": [
+    {
+      "refinement": 2,
+      "shaft_cases": [
+        {
+          "gear_displacement_mm": 0.01387525,
+          "support_reaction_n": [
+            1333.979,
+            188.9256
+          ],
+          "force_residual_n": -0.00019414607072576473,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 278.0,
+            "shaft_y_max_mm": 518.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              342.0,
+              355.0,
+              368.0,
+              381.0,
+              394.0,
+              407.0
+            ]
+          },
+          "cutter_load_sign": -1,
+          "result": {
+            "max_displacement_mm": 0.04219026267710241,
+            "max_von_mises_mpa": 45.43840549637691,
+            "max_von_mises_node_id": 58,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "6bfd5bacb9d21964bc292b0184ef0aa7a63106451fec9982bf061dd6d499b227"
+        },
+        {
+          "gear_displacement_mm": -0.008295991,
+          "support_reaction_n": [
+            -1224.689,
+            -965.4951
+          ],
+          "force_residual_n": -0.0005430325581983197,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 278.0,
+            "shaft_y_max_mm": 518.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              342.0,
+              355.0,
+              368.0,
+              381.0,
+              394.0,
+              407.0
+            ]
+          },
+          "cutter_load_sign": 1,
+          "result": {
+            "max_displacement_mm": 0.026027799999999997,
+            "max_von_mises_mpa": 39.51181531946235,
+            "max_von_mises_node_id": 58,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "e6cde77882851e08fbced1948002b58b19eba0b438c38bd3c95fb8fb00a103de"
+        },
+        {
+          "gear_displacement_mm": 0.01420049,
+          "support_reaction_n": [
+            1273.38,
+            249.5252
+          ],
+          "force_residual_n": 0.0004058539293509966,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "cutter_load_sign": -1,
+          "result": {
+            "max_displacement_mm": 0.0312036,
+            "max_von_mises_mpa": 42.18802787999813,
+            "max_von_mises_node_id": 58,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "cb060543b0cdabe4131bb49a1ddfa9e2c8abf85e0d2299d17c9ed0877fba49fa"
+        },
+        {
+          "gear_displacement_mm": -0.008662969,
+          "support_reaction_n": [
+            -1161.124,
+            -1029.059
+          ],
+          "force_residual_n": 0.0005569674417529313,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "cutter_load_sign": 1,
+          "result": {
+            "max_displacement_mm": 0.026406022219493792,
+            "max_von_mises_mpa": 36.779003706272306,
+            "max_von_mises_node_id": 58,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "86e7f1c713ffaf6e6d4d66fbbb45edd8b3506da2b798ee5ff5a9a2e1864e61fc"
+        }
+      ],
+      "plate": {
+        "force_per_bore_n": 1333.979,
+        "relative_centre_bound_mm": 0.0022460946053625523,
+        "result": {
+          "max_displacement_mm": 0.0011230473026812762,
+          "max_von_mises_mpa": 5.822411727902302,
+          "max_von_mises_node_id": 409,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 142,
+            "force_n": [
+              4.189999999669458e-05,
+              -0.000226000000000115,
+              9.999999981110189e-07
+            ],
+            "moment_about_origin_nm": [
+              -5.228117488410844e-08,
+              0.01141533896631803,
+              -0.07981091619580832
+            ]
+          }
+        },
+        "deck_sha256": "c24bc65ee052960b19b3486666f884778f4325c2f3844bee7b63c465ba8d96cb"
+      },
+      "centre_movement_bound_mm": 0.030931488855389534,
+      "backlash_range_mm": [
+        0.10314742365379459,
+        0.15655756904296164
+      ],
+      "backlash_angular_bound_deg": 0.3737536648745705
+    },
+    {
+      "refinement": 4,
+      "shaft_cases": [
+        {
+          "gear_displacement_mm": 0.01473585,
+          "support_reaction_n": [
+            1300.472,
+            222.4331
+          ],
+          "force_residual_n": 0.000305853929148725,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 278.0,
+            "shaft_y_max_mm": 518.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              342.0,
+              355.0,
+              368.0,
+              381.0,
+              394.0,
+              407.0
+            ]
+          },
+          "cutter_load_sign": -1,
+          "result": {
+            "max_displacement_mm": 0.04478676173766195,
+            "max_von_mises_mpa": 46.875774541052095,
+            "max_von_mises_node_id": 114,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "cf957f4e91e9ddfd0355d484484491c263a1a86afa891486be487a34dcb5f087"
+        },
+        {
+          "gear_displacement_mm": -0.008938448,
+          "support_reaction_n": [
+            -1195.642,
+            -994.5412
+          ],
+          "force_residual_n": 0.00035696744180313544,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 278.0,
+            "shaft_y_max_mm": 518.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              342.0,
+              355.0,
+              368.0,
+              381.0,
+              394.0,
+              407.0
+            ]
+          },
+          "cutter_load_sign": 1,
+          "result": {
+            "max_displacement_mm": 0.028225399999999998,
+            "max_von_mises_mpa": 40.782621824558724,
+            "max_von_mises_node_id": 114,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "bd6a6babc3387b5a15edd486221c74cde07f325ca7681a4b32a2672a076b24bd"
+        },
+        {
+          "gear_displacement_mm": 0.015271799999999999,
+          "support_reaction_n": [
+            1231.483,
+            291.422
+          ],
+          "force_residual_n": 0.00020585392917382705,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "cutter_load_sign": -1,
+          "result": {
+            "max_displacement_mm": 0.03790151868617008,
+            "max_von_mises_mpa": 47.63290607217214,
+            "max_von_mises_node_id": 114,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "75a88dab7f59915ca58fbda157a94b347378f4c4917e3d3d3d03329b3321b87d"
+        },
+        {
+          "gear_displacement_mm": -0.009483809999999999,
+          "support_reaction_n": [
+            -1124.701,
+            -1065.483
+          ],
+          "force_residual_n": -0.0004430325584507955,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "cutter_load_sign": 1,
+          "result": {
+            "max_displacement_mm": 0.033017222594865545,
+            "max_von_mises_mpa": 41.53580179023298,
+            "max_von_mises_node_id": 114,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "fa5b5d77502eb6841a13e336a0779f688604221563ece11294f886f64c4794f8"
+        }
+      ],
+      "plate": {
+        "force_per_bore_n": 1300.472,
+        "relative_centre_bound_mm": 0.0022232944471564896,
+        "result": {
+          "max_displacement_mm": 0.0011116472235782448,
+          "max_von_mises_mpa": 5.921992512905343,
+          "max_von_mises_node_id": 3851,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 157,
+            "force_n": [
+              0.0001500000000000945,
+              0.0003840000000071564,
+              -2.4300000000490596e-05
+            ],
+            "moment_about_origin_nm": [
+              -5.774058801911314e-06,
+              -0.003844411930476209,
+              -0.0013068691312718705
+            ]
+          }
+        },
+        "deck_sha256": "64c96bb416879decd0152197455537c78f9e9d57f1735fa5f644c9ec5d22b816"
+      },
+      "centre_movement_bound_mm": 0.03283441008281325,
+      "backlash_range_mm": [
+        0.10176221028392352,
+        0.15794278241283272
+      ],
+      "backlash_angular_bound_deg": 0.37706061820035003
+    },
+    {
+      "refinement": 8,
+      "shaft_cases": [
+        {
+          "gear_displacement_mm": 0.01513858,
+          "support_reaction_n": [
+            1284.784,
+            238.1209
+          ],
+          "force_residual_n": 0.00010585392919892911,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 278.0,
+            "shaft_y_max_mm": 518.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              342.0,
+              355.0,
+              368.0,
+              381.0,
+              394.0,
+              407.0
+            ]
+          },
+          "cutter_load_sign": -1,
+          "result": {
+            "max_displacement_mm": 0.04598749925770698,
+            "max_von_mises_mpa": 42.59631239806119,
+            "max_von_mises_node_id": 226,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "2b49ee0b93ec21d489f3c2a0111da91cd0928e1073caffebc04982eee35ff8e3"
+        },
+        {
+          "gear_displacement_mm": -0.009180741000000001,
+          "support_reaction_n": [
+            -1182.058,
+            -1008.126
+          ],
+          "force_residual_n": -0.0004430325584507955,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 278.0,
+            "shaft_y_max_mm": 518.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              342.0,
+              355.0,
+              368.0,
+              381.0,
+              394.0,
+              407.0
+            ]
+          },
+          "cutter_load_sign": 1,
+          "result": {
+            "max_displacement_mm": 0.029277599999999997,
+            "max_von_mises_mpa": 37.08913116083102,
+            "max_von_mises_node_id": 226,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "ea3a011da64dfa53719586db51b06433288ab2863f634198c473b21d220b3dc8"
+        },
+        {
+          "gear_displacement_mm": 0.015896570000000002,
+          "support_reaction_n": [
+            1206.627,
+            316.2774
+          ],
+          "force_residual_n": -0.0003941460709029343,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "cutter_load_sign": -1,
+          "result": {
+            "max_displacement_mm": 0.04227692305572864,
+            "max_von_mises_mpa": 45.65272617754593,
+            "max_von_mises_node_id": 226,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "df2870b0dd8abb68cc734a69ae89adf948720a65e5c5ecfef801584dcca1152e"
+        },
+        {
+          "gear_displacement_mm": -0.009929312,
+          "support_reaction_n": [
+            -1103.097,
+            -1087.086
+          ],
+          "force_residual_n": 0.0005569674417529313,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "cutter_load_sign": 1,
+          "result": {
+            "max_displacement_mm": 0.03684600319142498,
+            "max_von_mises_mpa": 39.83392947475446,
+            "max_von_mises_node_id": 226,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "566cbce85499a93da510cbb73288c92fc2038722e5518e163fbc7c94b69b0bd7"
+        }
+      ],
+      "plate": {
+        "force_per_bore_n": 1284.784,
+        "relative_centre_bound_mm": 0.0022740820364907243,
+        "result": {
+          "max_displacement_mm": 0.0011370410182453621,
+          "max_von_mises_mpa": 5.650121235118235,
+          "max_von_mises_node_id": 5558,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 178,
+            "force_n": [
+              0.00035429999998312645,
+              0.000357999999993891,
+              7.699999996366863e-06
+            ],
+            "moment_about_origin_nm": [
+              -1.6860907734658759e-06,
+              0.0012863781191673682,
+              -0.002319658294513083
+            ]
+          }
+        },
+        "deck_sha256": "10db46efa0c6f581613f44eec502113b61b5e102b80340ca6ec6bcb6f485b46d"
+      },
+      "centre_movement_bound_mm": 0.03392648287496678,
+      "backlash_range_mm": [
+        0.10096724630393178,
+        0.15873774639282445
+      ],
+      "backlash_angular_bound_deg": 0.3789584549052854
+    },
+    {
+      "refinement": 16,
+      "shaft_cases": [
+        {
+          "gear_displacement_mm": 0.015264249999999998,
+          "support_reaction_n": [
+            1279.807,
+            243.0977
+          ],
+          "force_residual_n": -9.414607075086678e-05,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 278.0,
+            "shaft_y_max_mm": 518.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              342.0,
+              355.0,
+              368.0,
+              381.0,
+              394.0,
+              407.0
+            ]
+          },
+          "cutter_load_sign": -1,
+          "result": {
+            "max_displacement_mm": 0.046357804343389694,
+            "max_von_mises_mpa": 38.858512522545006,
+            "max_von_mises_node_id": 450,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "95ca77275b08743c44225c0dcc63694dc524cb573658d621d66e3fe082112964"
+        },
+        {
+          "gear_displacement_mm": -0.009214804,
+          "support_reaction_n": [
+            -1177.762,
+            -1012.422
+          ],
+          "force_residual_n": -0.0004430325584507955,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 278.0,
+            "shaft_y_max_mm": 518.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              342.0,
+              355.0,
+              368.0,
+              381.0,
+              394.0,
+              407.0
+            ]
+          },
+          "cutter_load_sign": 1,
+          "result": {
+            "max_displacement_mm": 0.0296231,
+            "max_von_mises_mpa": 33.857384433075566,
+            "max_von_mises_node_id": 450,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "f76bfdcba98d4c6ca5b59ecfb96bde0bb521aea00f30dc761d73037ad13a6e49"
+        },
+        {
+          "gear_displacement_mm": 0.01612727,
+          "support_reaction_n": [
+            1197.125,
+            325.7797
+          ],
+          "force_residual_n": -9.414607075086678e-05,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "cutter_load_sign": -1,
+          "result": {
+            "max_displacement_mm": 0.04394106608743125,
+            "max_von_mises_mpa": 41.054859873866874,
+            "max_von_mises_node_id": 450,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "e08e48ee871462af6709772da7226ebeee75f6c4dbf7111455dca34f31c0c852"
+        },
+        {
+          "gear_displacement_mm": -0.010070039999999999,
+          "support_reaction_n": [
+            -1094.845,
+            -1095.339
+          ],
+          "force_residual_n": -0.0004430325584507955,
+          "section_lower_bound_diameter_mm": 22.0,
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "cutter_load_sign": 1,
+          "result": {
+            "max_displacement_mm": 0.03830940884257547,
+            "max_von_mises_mpa": 35.843877231955446,
+            "max_von_mises_node_id": 450,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          },
+          "deck_sha256": "8ce9f878cabc6a9e3c124ee0fff7ee583af619f52f70492a334caadec1e756c4"
+        }
+      ],
+      "plate": {
+        "force_per_bore_n": 1279.807,
+        "relative_centre_bound_mm": 0.0023030212412509616,
+        "result": {
+          "max_displacement_mm": 0.0011515106206254808,
+          "max_von_mises_mpa": 5.801797967487609,
+          "max_von_mises_node_id": 9234,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 276,
+            "force_n": [
+              3.059999999737578e-05,
+              0.00012020000000725894,
+              -4.121999999976778e-05
+            ],
+            "moment_about_origin_nm": [
+              -2.6077843351401953e-06,
+              0.3345036093177276,
+              -0.0030877243800268572
+            ]
+          }
+        },
+        "deck_sha256": "9ee1b5ec58387820e99f5650ea94a9dafdec558ee24f5088edd7c1f2f2e3b731"
+      },
+      "centre_movement_bound_mm": 0.034319647006733366,
+      "backlash_range_mm": [
+        0.10068104622164348,
+        0.15902394647511275
+      ],
+      "backlash_angular_bound_deg": 0.3796417072724277
+    }
+  ],
+  "loaded_qualification_note": "Released 25 mm shaft, 61905 clearance, plate movement, exact keyed torsion and solid-gear elasticity are combined in phase_path_25_qualification.json; physical inspection remains NOT_RUN.",
+  "status": "PASS",
+  "physical_validation_state": "NOT_RUN",
+  "source_sha256": "581302acb8bdf718cbb8f4bc962a846b5e79f76be9a613fa41b67c2b43fbe3b1",
+  "geometry_source_sha256": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
+  "dependencies_sha256": {
+    "analysis/final_validation/run_calculix_v08.py": "e3e21cd1f82dbc8737657ef82fd0378c5439afd8372196b3a21ad27e15df8e8c",
+    "analysis/final_validation/run_qualification_v08.py": "dfb687686a99df8db69311b37d06b1dcfe3bfe4a99352a85a65a1887560e3a1f",
+    "analysis/structural/run_load_checks.py": "5fd498c9a55ab327f410d95eabf44244cb9c0b44611e8693051d79b34e7f39ba",
+    "analysis/final_validation/input/geometry_manifest.json": "ac3ee95d0f5d1affb325901b4c6a440cb9f5894bb6f9f434e1c2b22e3ca14725",
+    "analysis/final_validation/results/v0.8/shaft_section.json": "97a912535f6f3b45633dbfc713203c221e2137f1e957bfdcf7ef4242f620051d",
+    "analysis/final_validation/results/v0.8/phase_pair_backlash_candidate.json": "4e597d88f4b188e608a26c6591b5d8177e8f95af4973459baa3d67233931ce4f",
+    "analysis/final_validation/results/v0.8/phase_path_25_qualification.json": "08ae5c53e5a32b596027fad3d3f80192a8d7d08b57ba66f3a7b0e889d1af3a94"
+  },
+  "raw_directory": "analysis/final_validation/results/v0.8/phase_raw/run-_7xl6qzi",
+  "criterion_source": "released CAD pair backlash 0.125664–0.134041 mm; 1 degree capture limit",
+  "formula_source": "https://www.khkgears.us/media/1224/a-primer-on-backlash-and-its-purpose-in-gear-designs.pdf",
+  "limitations": [
+    "Cold backlash comes from released BRep interference bracketing and was not widened to force PASS.",
+    "Cutter radial envelope is applied to both shafts in opposite worst-case signs.",
+    "The Ø22 beam is bounded by the released Ø25 keyed-section minimum bending inertia; exact keyed torsion is separate CalculiX evidence.",
+    "Physical backlash, clocking, bearing clearance and loaded rotation remain NOT_RUN."
+  ]
+}

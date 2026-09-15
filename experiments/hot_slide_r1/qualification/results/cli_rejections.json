@@ -1,0 +1,48 @@
+{
+  "kind": "BLANK_TEMPLATE_NEGATIVE_SMOKES",
+  "physical_validation": "NOT_RUN",
+  "cases": [
+    {
+      "requested_yield_mpa": 1100,
+      "exit": 1,
+      "output": {
+        "status": "TEST_REVIEW_REQUIRED",
+        "machine_release": "HOLD",
+        "hardware_authorization": "NOT_GRANTED",
+        "measurement_authenticity": "NOT_ESTABLISHED_BY_PARSER",
+        "scope": "Record screening only; not physical approval, fatigue or pressure qualification",
+        "issues": [
+          "Requested material threshold below recorded requirement"
+        ]
+      }
+    },
+    {
+      "requested_yield_mpa": 1200,
+      "exit": 1,
+      "output": {
+        "status": "TEST_REVIEW_REQUIRED",
+        "machine_release": "HOLD",
+        "hardware_authorization": "NOT_GRANTED",
+        "measurement_authenticity": "NOT_ESTABLISHED_BY_PARSER",
+        "scope": "Record screening only; not physical approval, fatigue or pressure qualification",
+        "issues": [
+          "Requested material threshold below recorded requirement"
+        ]
+      }
+    },
+    {
+      "requested_yield_mpa": 1300,
+      "exit": 1,
+      "output": {
+        "status": "NOT_RUN",
+        "machine_release": "HOLD",
+        "hardware_authorization": "NOT_GRANTED",
+        "measurement_authenticity": "NOT_ESTABLISHED_BY_PARSER",
+        "scope": "Record screening only; not physical approval, fatigue or pressure qualification",
+        "issues": [
+          "No performed measurement record"
+        ]
+      }
+    }
+  ]
+}

@@ -7,7 +7,7 @@ S2,1,"momentary START pushbutton, 1 NO, >=24 VDC/1 A",project-lab then low-cost 
 K0,1,"24 VDC manual-reset control relay, >=2 NO auxiliary contacts, coil suppression",project-lab then low-cost buy,SAFE-ALLOW,"coil voltage, seal-in drop on S0/S1",HOLD
 K1,1,"24 VDC motor-power relay/contactor, NO main contact >=30 VDC/25 A plus aux",project-lab then low-cost buy,SAFE-ALLOW,DC breaking rating; contact drop/temp under coupon load,HOLD
 DRV,1,"reversible 24 V motor driver, >=30 A peak with heatsink",existing BTS7960-class candidate,SH-DRIVE,load test and heatsink temperature,HOLD
-CS1,1,galvanically isolated 50 A current sensor,existing ACS758-class candidate,SH-DRIVE,zero/span calibration; never sole safety cut,HOLD
+CS1,1,"bidirectional Hall motor-lead current sensor, 5 V analog, useful calibrated range 0-6 A",project-lab sensor or buy to current GGM contract,SH-DRIVE,A0 polarity/zero/span against independent reference; residual+U95 <=0.10 A,HOLD
 TB1,1,touch-safe terminal block >=32 VDC/30 A,project-lab then low-cost buy,HW-ALLOW,rating and screw retention,HOLD
 WIRE-P,1,"red/black >=2.5 mm2 copper motor harness, 105 C",project-lab then low-cost buy,HW-ALLOW,crimp pull test and voltage drop,HOLD
 WIRE-C,1,"0.5-0.75 mm2 control wire, ferrules, labels",project-lab then low-cost buy,HW-ALLOW,point-to-point continuity,HOLD

@@ -1,4 +1,4 @@
-# CUT-08 — Dual 6004 bearing retainer
+# CUT-08 — Dual 61905 bearing retainer
 
 - 수량: 2
 - 재료: 2 mm steel

@@ -104,8 +104,12 @@ def export_geometry(source_sha: str) -> list[list[object]]:
     spool_support_names = {
         "DancerArm", "DancerSupportPlate", "DancerSupportPost", "DancerPivotAxle",
         "DancerEndRoller", "DancerEndAxle", "SpoolSpindle", "SpoolBearingPlateFront",
-        "SpoolBearingPlateRear", "TraverseRodA", "TraverseRodB", "TraverseEndPlateLeft",
-        "TraverseEndPlateRight", "SpoolMotorMount",
+        "SpoolBearingPlateRear", "SpoolBearingRetainerFront", "SpoolBearingRetainerRear",
+        "GuideRoller", "GuideBearingFront", "GuideBearingRear",
+        "GuideBearingRetainerFront", "GuideBearingRetainerRear", "GuideRollerAxle",
+        "TraverseRodA", "TraverseRodB", "TraverseEndPlateLeft",
+        "TraverseEndPlateRight", "SpoolMotorMount", "GuideRoller", "GuideRollerAxle",
+        "GuideBearingFront", "GuideBearingRear", "GuideBearingRetainerFront", "GuideBearingRetainerRear",
     }
     die = Part.makeCompound([
         down_die_body(), down_die_breaker_plate(), down_die_insert(),

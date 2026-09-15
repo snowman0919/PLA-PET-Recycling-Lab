@@ -1211,7 +1211,8 @@
         "normal_combined_stress_mpa": 79.6,
         "trip_combined_stress_mpa": 113.1,
         "trip_safety_factor": 1.59,
-        "status": "FAIL"
+        "screening_status": "FAIL",
+        "status": "HOLD"
       },
       {
         "blind_bore_depth_mm": 6.0,
@@ -1219,7 +1220,8 @@
         "normal_combined_stress_mpa": 68.1,
         "trip_combined_stress_mpa": 90.0,
         "trip_safety_factor": 2.0,
-        "status": "PASS"
+        "screening_status": "PASS",
+        "status": "HOLD"
       },
       {
         "blind_bore_depth_mm": 5.5,
@@ -1227,43 +1229,52 @@
         "normal_combined_stress_mpa": 64.8,
         "trip_combined_stress_mpa": 83.5,
         "trip_safety_factor": 2.15,
-        "status": "PASS"
+        "screening_status": "PASS",
+        "status": "HOLD"
       }
     ],
     "selected_depth_mm": 5.5,
-    "selected_status": "PASS",
-    "decision": "SELECT_BLIND5.5_LIGAMENT3.4; improves tolerance margin over marginal blind6 SF2.0",
-    "physical_status": "EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN"
+    "selected_status": "HOLD",
+    "decision": "HOLD: nominal blind5.5 comparison is not minimum-ligament or high-temperature stress qualification",
+    "limitations": "Tilt/eccentricity/drill tip and SCM440 high-temperature properties, notch factor and thermal gradient remain unqualified; see final tolerance/CAD evidence.",
+    "physical_status": "NOT_RUN"
   },
   "cartridge_heater_fit": {
-    "selected_bore": "diameter6.05 H7 reamed through",
+    "selected_bore": "diameter6.55 H7 reamed through",
     "heater_limits_mm": [
-      5.94,
-      5.98
+      6.487,
+      6.513
     ],
     "bore_limits_mm": [
-      6.05,
-      6.062
+      6.55,
+      6.565
     ],
     "diametral_clearance_mm": [
-      0.07,
-      0.122
+      0.037,
+      0.078
     ],
-    "decision": "ADOPT_6.05_H7; verify received heater OD/camber and full hand insertion; thin anti-seize film and positive axial clamp",
-    "evidence": "supplier guidance favors close metal contact; final fit remains conditional on received heater measurement",
+    "radial_clearance_mm": [
+      0.0185,
+      0.039
+    ],
+    "conservative_heated_length_mm": 23.6,
+    "watt_density_w_cm2": 12.45,
+    "decision": "ADOPT_CUSTOM_TEMPCO_CG_AND_MFR; verify vendor drawing, received OD/camber/resistance/insulation and full hand insertion",
+    "evidence": "Tempco metric Hi-Density Type CG/OAL/MFR/F/HTL published options; supplier drawing acceptance and physical receipt tests remain gated",
+    "tolerance_source": "https://www.tempco.com/Tempco/Resources/Engineering-Data/Specifications-and-Tolerances/Hi-Density-Cartridge-Heater-Metric-Sizes-Specifications-and-Tolerances.htm",
     "status": "PASS_DFM_SCREEN"
   },
   "frame_sensitivity": {
-    "load_basis_n": 1299.6,
+    "load_basis_n": 1215.6,
     "model": "two simply-supported local load rails, half load each + 0.15 mm joint-slip allowance",
     "options": [
       {
         "option": "A_2020_ONLY",
-        "bearing_center_relative_displacement_mm": 1.943,
-        "beam_component_mm": 1.793,
+        "bearing_center_relative_displacement_mm": 1.827,
+        "beam_component_mm": 1.677,
         "joint_allowance_mm": 0.15,
-        "screen_clearance_margin_mm": -0.043,
-        "phase_center_distance_variation_mm": 0.971,
+        "screen_clearance_margin_mm": 0.073,
+        "phase_center_distance_variation_mm": 0.914,
         "profile_2020_m": 15.098,
         "profile_2040_m": 0.0,
         "total_profile_m": 15.098,
@@ -1273,11 +1284,11 @@
       },
       {
         "option": "B_LOCAL_2040",
-        "bearing_center_relative_displacement_mm": 0.438,
-        "beam_component_mm": 0.288,
+        "bearing_center_relative_displacement_mm": 0.42,
+        "beam_component_mm": 0.27,
         "joint_allowance_mm": 0.15,
-        "screen_clearance_margin_mm": 1.462,
-        "phase_center_distance_variation_mm": 0.219,
+        "screen_clearance_margin_mm": 1.48,
+        "phase_center_distance_variation_mm": 0.21,
         "profile_2020_m": 13.348,
         "profile_2040_m": 1.32,
         "total_profile_m": 14.668,

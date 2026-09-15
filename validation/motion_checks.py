@@ -46,17 +46,31 @@ def main():
     for name in service_obstacles:
         require(overlap(keepouts["KO_ScrewService"],by[name])<0.01,f"screw service path blocked by {name}")
 
+    hot_shield_clearances = {name: by["HotShield"].distToShape(by[name])[0]
+                             for name in ("PPR-C05_CoolingDuctLower", "PPR-C05_CoolingDuctUpper")}
+    require(min(hot_shield_clearances.values()) >= 12.0 - 1e-6, "hot shield to ABS duct nominal clearance below 12 mm")
+    guard_clearances = {
+        f"DriveGuard/{name}": by["DriveGuard"].distToShape(by[name])[0]
+        for name in ("Shaft105", "Shaft153")
+    } | {
+        f"PPR-C07_PullerGuard/{name}": by["PPR-C07_PullerGuard"].distToShape(by[name])[0]
+        for name in ("PullerRoll53.6", "PullerRoll95.4")
+    }
+    require(min(guard_clearances.values()) >= 3.0 - 1e-6, "guard-to-moving nominal clearance below 3 mm")
+
     operating=Part.makeCompound([item["shape"] for item in items]+dancer_positions+traverse_positions)
     bb=operating.BoundBox
     require(bb.XMin>=0 and bb.YMin>=0 and bb.ZMin>=0,"motion leaves positive machine datum")
     require(bb.XLength<=500 and bb.YLength<=750 and bb.ZLength<=1000,"hard operating-motion envelope")
     require(bb.XLength<=480 and bb.YLength<=720 and bb.ZLength<=950,"target operating-motion envelope")
     result={
-        "revision":"safety-orchestration-closure-v0.6.1",
+        "revision":"final-design-fabrication-closure-v0.8",
         "dancer":{"range_deg":[-25,25],"samples":len(dancer_positions),"minimum_checked_clearance_mm":round(dancer_min_clearance,3)},
         "traverse":{"stroke_mm":80,"samples":len(traverse_positions),"minimum_checked_clearance_mm":round(traverse_min_clearance,3)},
         "operating_motion_bounding_box_mm":[round(bb.XLength,3),round(bb.YLength,3),round(bb.ZLength,3)],
         "service_path_checked_against":list(service_obstacles),
+        "hot_shield_to_abs_duct_clearance_mm": {name: round(value, 3) for name, value in hot_shield_clearances.items()},
+        "guard_to_moving_clearance_mm": {name: round(value, 3) for name, value in guard_clearances.items()},
         "status":"PASS",
         "scope":"nominal rigid CAD positions; donor cable flexibility and physical deflection remain EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN",
     }

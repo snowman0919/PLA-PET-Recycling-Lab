@@ -1,0 +1,28 @@
+check_id,value,u95,unit,instrument_id,calibration_ref,operator,reviewer,checked_at,evidence_path,sha256,notes
+cutter_coupon_count,,,,,,,,,,,count exactly two CUT-01 coupons
+cutter_coupon_revision_match,,,,,,,,,,,both coupons match released CUT-01 revision
+shaft_tir_left,,,,,,,,,,,left cutter shaft TIR
+shaft_tir_right,,,,,,,,,,,right cutter shaft TIR
+phase_error,,,,,,,,,,,installed cutter phase error
+min_cutter_screen_clearance,,,,,,,,,,,minimum rotating-to-screen clearance
+hand_rotation_contacts,,,,,,,,,,,contacts during 20 locked-out turns
+pe_bond_worst,,,,,,,,,,,worst protective-earth bond used by P4 fixture
+chain_alignment_150,,,,,,,,,,,sprocket pitch-plane offset over 150 mm
+chain_midspan_slack_percent,,,,,,,,,,,midspan chain slack
+drive_guard_clearance,,,,,,,,,,,minimum moving-drive to guard clearance
+estop_removes_motor_power,,,,,,,,,,,E-stop removes motor power in hard-cut path
+guard_interlock_removes_motor_power,,,,,,,,,,,guard/service interlock removes motor power
+power_restore_auto_restart,,,,,,,,,,,power restore must not restart motion
+guard_reach_path,,,,,,,,,,,no reach path to moving cutter/drive
+bearing_axial_release,,,,,,,,,,,no bearing/collar axial release
+key_relative_slip,,,,,,,,,,,no relative key/hub slip
+outer_guard_closed,,,,,,,,,,,outer guards fully closed
+p4_energization_approval_record,,,,,,,,,,,explicit P4 coupon-only energization approval record exists
+sprocket_12t_radial_tir,,,,,,,,,,,12T tooth/root radial TIR after keyed assembly; value+U95 <=0.10 mm
+sprocket_30t_radial_tir,,,,,,,,,,,30T tooth/root radial TIR after keyed assembly; value+U95 <=0.10 mm
+sprocket_12t_axial_shift,,,,,,,,,,,12T total measurable axial shift; value+U95 <=0.20 mm
+sprocket_30t_axial_shift,,,,,,,,,,,30T total measurable axial shift; value+U95 <=0.20 mm
+sprocket_12t_key_torque_path,,,,,,,,,,,4x4 key flank visibly/blue-check engaged; friction or set screw is not torque path
+sprocket_30t_key_torque_path,,,,,,,,,,,6x6 key flank visibly/blue-check engaged; friction or set screw is not torque path
+sprocket_12t_axial_retention_verified,,,,,,,,,,,received 12T maker retention feature positively retains axial position; maker torque/spec recorded
+sprocket_30t_axial_retention_verified,,,,,,,,,,,received 30T maker retention feature positively retains axial position; maker torque/spec recorded

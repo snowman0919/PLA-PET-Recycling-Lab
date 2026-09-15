@@ -1,57 +1,49 @@
-# Shredder geared-DC drive wiring — solid-manifold-openmodelica-v0.4
+# GGM shredder drive wiring contract — v0.8
 
-## 기준 actuator
+Revision: `final-design-fabrication-closure-v0.8`
+State: `DIGITAL_WIRING_CONTRACT / PHYSICAL_NOT_RUN / ENERGIZATION_NOT_AUTHORIZED`
 
-- Motor: interchangeable 18–30 V reversible brushed geared-DC donor. #35 12T:18T/24T/30T를 선택해 cutter 20–40 rpm, cutter 환산 continuous 14 N·m을 만족해야 한다. `DRV-F01`은 motor side에 있고 `DRV-02`는 cutter-side output hub다.
-- Project-lab/donor 우선순위: wheelchair/conveyor geared motor → scooter/e-bike geared motor → 동급 24 V geared motor. Exact model, label, 수량, 상태, 축경, 무부하 전류·RPM, 30 min 온도를 확인하기 전에는 현금 0원으로 확정하지 않는다.
-- Driver: BTS7960-class bidirectional H-bridge candidate, **module 입고 후 20 A/60 s thermal load test 필수**
-- Current feedback: isolated 50 A Hall sensor 우선, 대안은 calibrated low-side shunt + differential amplifier
-- Speed feedback: cutter driven shaft에 6-pole magnet ring + Hall switch 1개. Motor supply current만 torque로 간주하지 않는다. Donor별 no-load current, torque/A, ratio와 efficiency를 torque arm으로 calibration하고 cutter RPM drop과 함께 판정한다.
+This file supersedes the former donor-motor/DRV-F01 electrical narrative. The active shredder drive is `GGM K9DG60N2 24 V + K9G75C`, one BTS7960 bridge, GGM keyed mechanical-protection coupling, 6201-supported jackshaft and #35 12T:30T chain path. Legacy 14/18/22 N.m acceptance values and a 50 A current channel are not v0.8 GGM criteria.
 
-## Hardwired power path
+## Controlling sources
 
-```text
-24 V PSU+
-  -> main DC fuse
-  -> latching E-stop controlled DC cut relay / verified high-current switch
-  -> 20 A shredder branch fuse
-  -> service/lid interlock hard inhibit contact
-  -> H-bridge B+
-  -> accepted donor geared-DC motor
+1. `control/ggm_drive_contract.json` controls GGM model, speed/current/torque and protection limits.
+2. `exports/final/electrical/pin_schedule.csv`, `wire_schedule.csv` and `fuse_schedule.csv` control field wiring.
+3. `exports/final/firmware/source/arduino_mega/src/board_config.h` controls the released Mega pin names.
+4. `validation/physical_v08/P3_GGM_BENCH_KO.md` controls physical calibration evidence.
 
-Motor return -> 50 A Hall current sensor -> H-bridge B-
-Mega PWM/DIR  -> opto/logic interface -> H-bridge inputs
-Mega ENABLE   -> hard-inhibit series gate (logic command only, not sole safety layer)
-Driven-shaft Hall -> Mega interrupt input
-```
+If this document conflicts with those generated schedules, stop and regenerate/review the handoff rather than improvising wiring.
 
-E-stop과 lid/service interlock은 firmware가 멈춰도 H-bridge의 motor energy를 제거한다. Reverse command는 contact가 닫히고 current가 2 A 아래로 떨어진 뒤 150 ms dead-time 후에만 허용한다.
+## 24 V power path
 
-## Profile과 fault
+`24 V protected bus -> F-SH 20 A DC branch fuse -> BTS7960 power input -> K9DG60N2 motor`.
 
-| 항목 | PLA | PET |
-|---|---:|---:|
-| Cutter command | 32 rpm | 24 rpm |
-| Calibrated continuous torque | 11 N·m | 13 N·m |
-| Calibrated jam trip torque | 18 N·m | 18 N·m |
-| Overload duration | 650 ms | 850 ms |
-| Reverse | 800 ms | 1100 ms |
-| Retry | 3 | 3 |
+The 20 A fuse protects the branch/conductor envelope; it is not the allowed motor operating current and is not a torque setpoint. The selected motor rated current is 4.6 A and the control current ceiling is 6.0 A. Current above the calibrated control envelope is a fault/hold condition even if the branch fuse has not opened.
 
-Reference sensitivity current는 donor 공통 threshold가 아니다. `verified=true` calibration record가 없으면 start를 거부한다. 세 번째 retry에서 latched fault다. 또한 명령 대비 cutter speed가 35% 아래로 500 ms 이상 내려가면 torque estimate가 threshold 아래여도 jam으로 처리한다. Reset은 E-stop release만으로 되지 않고, 전원 차단·guard open·jam 제거·guard close·작업자 확인이 모두 필요하다.
+## Mega/BTS7960 signals
 
-## 600 W PSU arbiter
+- `D5`: shredder RPWM.
+- `D4`: shredder LPWM.
+- `D32`: shredder enable/permission output.
+- `A0`: bidirectional shredder motor-lead current sensor.
+- `D2`: shredder/jackshaft tach input used with the physically verified pulses-per-revolution value.
+- Legacy `D30/D31` DIR/reverse wiring is not field-wired in the GGM variant.
+- Legacy `A8 SHREDDER_FAULT_PIN` is not field-wired; the selected BTS7960 interface has no authoritative fault input in this design.
 
-Shredder branch의 power-budget sensitivity peak는 24 V x 18 A = 432 W다. 이 18 A는 reference driver/PSU envelope이며 universal torque threshold가 아니다. Shredder enable 중 barrel heater와 screw motor enable을 금지한다. 반대로 barrel heater 또는 screw motor가 켜져 있으면 H-bridge hardware-enable을 내린다. 이 mutual exclusion은 batch flake bin 운전과 일치하며 전체 peak를 PSU 아래로 제한한다.
+RPWM/LPWM are never a substitute for the hardwired safety chain. On reset, stale calibration, missing permission, tach/current invalidity or runtime fault, the software command returns to zero/disabled while K0 remains the hardware authority for hazardous branch power.
 
-## 입고검사와 calibration
+## Current and torque calibration
 
-1. Label에서 exact model, rated voltage/power/current/speed, duty와 시리얼을 촬영한다.
-2. Shaft diameter/length, key or D-flat, mount pattern, rotation, motor/gearbox envelope를 측정하고 `bom/donor_drive_acceptance.csv`에 기록한다.
-3. Guard 안 무부하로 12/18/24 V speed와 current, 방향을 기록한다.
-4. Torque arm + load cell로 cutter-equivalent 5/10/15/18/22 N·m에서 current와 RPM을 기록하고 no-load subtraction/ratio/efficiency를 포함한 calibration record를 만든다.
-5. 14/18/22/34/48 N·m는 cutter-shaft reference다. DRV-F01 motor-side shear setting을 12:18/24/30에서 각각 17.25/12.94/10.35 N·m로 quasi-static calibration하고, 22 N·m cutter-equivalent에서 분리되며 DRV-02/phase path는 그대로 동기화되는지 확인한다.
-6. H-bridge heatsink 온도가 20 A/60 s에서 80 °C 미만인지 확인한다.
-7. 20 A branch fuse, E-stop, lid/service contact를 각각 열어 motor energy가 제거되는지 확인한다. Gate-1은 `exports/jigs/gate1/wiring_24v_hardcut.svg`의 S0/S1→K0→K1 manual-reset 회로를 추가로 따른다.
+P3 calibrates A0 against an independent 0–6 A reference. The U95-inclusive current error must be <=0.10 A. Torque is not inferred from BTS7960 marketing current: a 250 mm torque arm and independent force reference create the current-to-gearbox-torque map, with holdout error <=0.40 N.m.
 
-입고 또는 calibration이 하나라도 실패하면 motor-side adapter/hub와 full `CUT-01` stack을 발주하지 않는다. `CUT-05`는 Gate-1 실제 jig의 축으로 필요하므로 최소 수량 2개만 별도 사용 승인 후 가공할 수 있다.
+The software gearbox torque limit is 8.0 N.m. The independent mechanical-protection coupling is calibrated with nine lot-controlled brass coupons across the whole GGM system: 3 shredder-forward, 3 shredder-reverse and 3 extruder-forward. Each accepted release interval is 8.8–9.3 N.m including uncertainty, followed by free rotation and no hub/key damage. The final neck geometry is not fixed from calculation alone.
+
+## Rotation and jam behavior
+
+Nominal shredder gearbox output is 40 rpm and the 12T:30T path gives approximately 16 rpm at the cutter. Actual speed is measured, not assumed. P4 uses exactly two CUT-01 coupons before the remaining ten cutters are released for fabrication.
+
+A controlled jam may use bounded reverse only under the released runtime policy. Maximum retry count is three; failure after the third attempt latches a fault and must not auto-restart. Repeated contact with the 8.0 N.m software limit during ordinary material processing is not permission to raise the threshold; feed/process conditions must be corrected.
+
+## Pre-power physical requirements
+
+Before any motor energization, the received GGM identity and geometry, mount-compatibility gate, mechanical key/guard fit, F-SH identity, A0 sensor polarity/range, K0 hardwired chain, E-stop and positive-opening service/lid interlocks must have physical evidence. First power is one motor branch at a time under a separate explicit user approval. This document itself never grants that approval.

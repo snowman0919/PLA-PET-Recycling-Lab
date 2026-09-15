@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "status": "DESIGN_ONLY_NOT_ORDERED",
+  "purchase_or_manufacturing_authorized": false,
+  "scope": "EX-CPN-SCR x1 and EX-CPN-BAR x1 only; production screw/barrel remain HOLD",
+  "purpose": "qualify specialist machining, Q&T, gas nitriding and final finishing route before full hot-zone parts",
+  "temperature_c": {
+    "dimensional_inspection": [
+      18,
+      22
+    ]
+  },
+  "sequence": [
+    "supplier capability/DFM response",
+    "coupon-only user approval",
+    "manufacture coupons",
+    "dimensional and roughness inspection before destructive work",
+    "surface/core hardness inspection",
+    "destructive microsection/case-depth inspection last",
+    "engineering review before any full-part approval"
+  ],
+  "screw": {
+    "id": "EX-CPN-SCR",
+    "quantity": 1,
+    "length_mm": [
+      47.95,
+      48.05
+    ],
+    "pitch_mm": [
+      15.97,
+      16.03
+    ],
+    "flight_od_mm": [
+      15.9,
+      15.92
+    ],
+    "root_od_mm": [
+      10.85,
+      10.91
+    ],
+    "land_mm": [
+      1.55,
+      1.65
+    ],
+    "end_perpendicularity_mm_max": 0.03,
+    "flight_od_ra_um": [
+      0.0,
+      0.8
+    ],
+    "root_flank_ra_um": [
+      0.0,
+      1.6
+    ],
+    "qt_core_hardness_hrc": [
+      28,
+      32
+    ],
+    "surface_hardness_hv03": [
+      900,
+      1100
+    ],
+    "effective_case_after_final_grind_mm": [
+      0.3,
+      0.5
+    ]
+  },
+  "barrel": {
+    "id": "EX-CPN-BAR",
+    "quantity": 1,
+    "length_mm": [
+      59.95,
+      60.05
+    ],
+    "od_mm": [
+      33.95,
+      34.05
+    ],
+    "final_bore_id_mm": [
+      16.2,
+      16.22
+    ],
+    "end_perpendicularity_mm_max": 0.03,
+    "bore_ra_um": [
+      0.4,
+      0.8
+    ],
+    "qt_core_hardness_hrc": [
+      28,
+      32
+    ],
+    "surface_hardness_hv03_min": 900,
+    "nitriding_effective_case_process_target_mm": [
+      0.3,
+      0.5
+    ],
+    "effective_case_after_final_hone_mm_min": 0.25,
+    "final_hone_removed_on_diameter_mm_record_required": true
+  },
+  "matched_pair": {
+    "actual_diametral_clearance_mm": [
+      0.28,
+      0.32
+    ],
+    "calculation": "minimum=minimum measured barrel ID - maximum measured screw flight OD; maximum=maximum measured barrel ID - minimum measured screw flight OD"
+  },
+  "traceability": {
+    "hard_gates": [
+      "SCM440/JIS G4105 material certificate with heat/lot ID",
+      "Q&T 28-32 HRC route/certificate",
+      "gas nitriding provider/process certificate",
+      "post-treatment screw grind and barrel final-hone route",
+      "inspection instrument/report traceability",
+      "same certified heat and same route reserved/identified for eventual production parts",
+      "responsible supplier identified across any subcontractors"
+    ],
+    "hot_properties_policy": "245-270 C final-condition property data is requested when available for baseline SCM440, but absence alone does not reject P5. Any material or heat-treatment deviation requires identified high-temperature properties and engineering re-analysis before approval.",
+    "production_release": "P5 PASS only permits considering a full-part quote/order; explicit user approval remains required."
+  },
+  "evidence_policy": {
+    "numeric_interval_rule": "for bounded numeric requirements, measured value +/- stated U95/MPE must lie inside acceptance interval",
+    "destructive_case_depth_last": true,
+    "simulation_values_may_not_fill_physical_fields": true
+  }
+}

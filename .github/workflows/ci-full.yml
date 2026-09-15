@@ -3,59 +3,54 @@ name: CI-FULL
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ppr-full-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  full-virtual-physics-release:
-    runs-on: ubuntu-latest
-    timeout-minutes: 180
+  cad-and-firmware-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: DeterminateSystems/nix-installer-action@v16
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - uses: arduino/setup-arduino-cli@v2
-      - name: Install Arduino Mega core
+      - name: Current FreeCAD geometry regressions
+        run: nix develop --command python3 validation/ci_v08.py --suite cad
+      - name: Install bwrap-free pinned AVR toolchain
+        uses: arduino/setup-arduino-cli@81d310742121c928ea9c8bbd407b4217b432ae02 # v2
+        with:
+          version: '1.5.1'
+      - name: Exact released AVR firmware replay
+        shell: bash
         run: |
+          set -euo pipefail
+          mkdir -p .build/ci-v08/firmware/tmp
+          export TMPDIR="$PWD/.build/ci-v08/firmware/tmp"
+          export ARDUINO_DIRECTORIES_DATA="$PWD/.build/ci-v08/firmware/arduino-data"
+          export ARDUINO_DIRECTORIES_DOWNLOADS="$PWD/.build/ci-v08/firmware/arduino-downloads"
+          export ARDUINO_DIRECTORIES_USER="$PWD/.build/ci-v08/firmware/arduino-user"
           arduino-cli core update-index
           arduino-cli core install arduino:avr@1.8.8
-      - name: Full deterministic regeneration and validation
-        run: nix develop --command bash -lc 'python3 -u validation/run_all.py --regenerate-renders'
-      - name: Regenerate v0.6.2.1 process CAD
-        run: nix develop --command bash -lc 'FreeCADCmd cad/freecad/compact/process_v0621.py && python3 analysis/process_feed/verify_process_lane.py'
-      - name: Execute v0.6.2.1 OpenModelica shadow
-        run: |
-          python3 simulation/openmodelica/scripts/generate_v0621_shadow.py
-          om_home=$(mktemp -d)
-          docker run --rm -v "$PWD:/work" -v "$om_home:/root/.openmodelica" -w /work \
-            openmodelica/openmodelica:v1.27.0-minimal \
-            bash -lc 'omc simulation/openmodelica/scripts/install_modelica_4.mos && omc simulation/openmodelica/scripts/run_v0621_shadow.mos'
-          python3 simulation/openmodelica/postprocess/validate_v0621_shadow.py
-      - name: Strict v0.6.2.1 technical release gate
-        run: python3 validation/run_v0621.py --fusion-policy deferred
-      - name: Validate LC11 Fusion package binding
-        run: python3 fusion_worker/result_validation/validate_fusion_v0621_package.py exports/fusion_validation_v0621
-      - name: Rebuild v0.6.2.1 artifact manifest
-        run: |
-          python3 artifacts/build_manifest_v0621.py
-          git diff --exit-code -- artifacts/manifest_v0.6.2.1.json
-      - name: Exact-head CI-FULL evidence
-        run: nix develop --command bash -lc 'python3 validation/exact_head_evidence_v0621.py --stage CI-FULL --fusion-policy deferred'
-      - name: Upload validation evidence
+          python3 exports/final/firmware/reproducible_build/build_and_verify.py 2>&1 | tee .build/ci-v08/firmware/rebuild.log
+      - name: Upload CAD and firmware evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: technical-blocker-closure-v0621-full-${{ github.sha }}
+          name: ppr-v08-cad-firmware-${{ github.sha }}
           path: |
-            validation/evidence/exact_head_evidence_v0.6.2.1.json
-            validation/results/
-            simulation/openmodelica/results/
-            simulation/openmodelica/results_v0.6.2.1/
-            !simulation/openmodelica/results/raw/**
-            !simulation/openmodelica/results_v0.6.2.1/raw/**
-            analysis/structural/results/
-            analysis/cross_solver/
-            exports/fusion_validation/
-            exports/fusion_validation_v0621/
-            artifacts/manifest.json
-            artifacts/manifest_v0.6.2.1.json
+            .build/ci-v08/cad/result.json
+            .build/ci-v08/cad/SUMMARY.md
+            .build/ci-v08/cad/*.log
+            .build/ci-v08/firmware/rebuild.log
+          include-hidden-files: true
+          if-no-files-found: error
           retention-days: 30

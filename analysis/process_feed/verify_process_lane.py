@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import hashlib
+import csv
 import json
 import subprocess
 from pathlib import Path
@@ -24,6 +25,8 @@ def main() -> None:
     subprocess.run(["python3", "analysis/shredder_recirculation/run_recirculation_surrogate.py"],
                    cwd=ROOT, check=True)
     feed = json.loads((ROOT / "analysis/process_feed/feed_validation.json").read_text())
+    with (ROOT / "analysis/process_feed/nominal_state_trace.csv").open(newline="") as handle:
+        trace = list(csv.DictReader(handle))
     recirc = json.loads((ROOT / "analysis/shredder_recirculation/recirculation_validation.json").read_text())
     cad = json.loads((ROOT / "exports/process_v0621/manifest.json").read_text())
     collision = json.loads((ROOT / "exports/process_v0621/collision_and_clearance.json").read_text())
@@ -33,6 +36,8 @@ def main() -> None:
     require(feed["worst_starvation_s"] <= 2 and feed["worst_bridge_clear_cycles"] <= 3, "starvation/bridge")
     require(feed["worst_torque_nm"] < 2.2 and feed["worst_current_a"] < 4.2, "torque/current")
     require(feed["uncontrolled_overfeed_samples"] == 0, "overfeed")
+    require(all(abs(float(row["agitator_rpm"]) - float(row["auger_command_rpm"])) < 1e-9
+                for row in trace), "common-shaft speed contract")
     require(all(c["safe"] and c["response"] in {"DERATE_75_G_H", "CONTROLLED_PAUSE", "DERATE_THEN_PAUSE"} for c in feed["degraded_cases"]), "degraded response")
     require(recirc["status"] == "PASS" and recirc["selected_concept"] == "PASSIVE_ROTOR_SWEPT_RETURN", "recirculation selection")
     require(recirc["worst_case"]["maximum_pet_ribbon_bypass_probability"] <= 0.01, "ribbon bypass")

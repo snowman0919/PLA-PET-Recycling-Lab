@@ -1,0 +1,31 @@
+{
+  "time_utc": "2026-09-09T03:30:14.130826+00:00",
+  "base_head": "e03e843fe3f8ce98edf7dcd26292200c3547a9d8",
+  "branch": "final-design-fabrication-closure-v0.8",
+  "write_scope": "experiments/hot_slide_r1 only; standalone pressureless prototype",
+  "active_source_before_sha256": {
+    "cad/parameters/final_v08.json": "b793e1cf1123c82aab037b592b4256efb8374bd79ad0e1bb22c658aa66c78e81",
+    "cad/parameters/baseline.json": "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a",
+    "cad/freecad/final_v08/generate.py": "ac680b87e7af834b2c5ce7b92708511d79a9adadf144a3c016ecd1356557da0e",
+    "cad/freecad/compact/geometry.py": "70ffde0909648ee73a4d61944e0d2d90def8fa6d2c5c2d90aa0f7b98194e7c57",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "cad/freecad/compact/generate.py": "abfc400087477846c7ca96b78c70651fffdb852a9e2cd938f740d154c61a304d",
+    "analysis/final_validation/run_calculix_v08.py": "7ba609d35acd8ea5a26fa0802f5c3f2b096dc44de051c331913d9d74c51f3e03",
+    "analysis/structural/run_load_checks.py": "5fd498c9a55ab327f410d95eabf44244cb9c0b44611e8693051d79b34e7f39ba",
+    "docs/final/release_notes_v1.0.0-rc1_ko.md": "b2063e6e19b93ca00ab3455f0c069e1d2618e0516e2d158836435c8ab9dff496"
+  },
+  "active_source_unchanged": true,
+  "selected_variant": "HS-R1-S2",
+  "hardware_operation": false,
+  "purchase_or_publication": false,
+  "physical_validation": "NOT_RUN",
+  "machine_release": "HOLD",
+  "reviewed_pdf_pages": 7,
+  "pdf_renderer_note": "Remote write_pdf browser sandbox unavailable; existing Typst used without changing security settings.",
+  "scope_limits": [
+    "No machine integration/axial pressure qualification.",
+    "Contact, real friction, fatigue, material certificate and actual hot field remain open.",
+    "300 N is a proposed test stop criterion, not a certified structural force rating.",
+    "Exploration failures preserved outside the selected prototype dataset."
+  ]
+}

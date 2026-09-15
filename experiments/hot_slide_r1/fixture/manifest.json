@@ -1,0 +1,70 @@
+{
+  "status": "PRESSURELESS_TEST_FIXTURE_DESIGN",
+  "nominal_mechanical_travel_limits_mm": [
+    -3.0,
+    3.0
+  ],
+  "base_dimensions_mm": [
+    100,
+    270,
+    10
+  ],
+  "assembly_model": "Free-state sheets intentionally overlap mandrel; nuts/studs are purchased-part envelopes, threads omitted",
+  "physical_state": "NOT_RUN",
+  "rows": [
+    {
+      "part_id": "HS-R1-SHEET",
+      "sha256": "54ac00271a8ac14122c769da85cbb29f1408f9efd04bf01bdcd305ec89c63834",
+      "volume_mm3": 3933.345200983532,
+      "reimport_relative_error": 1.5862156346211857e-13
+    },
+    {
+      "part_id": "HS-R1-CARRIER",
+      "sha256": "808cafe7684a7f97d2f1b90cf009b595e6c2f68b90d4f3ce1cc242d820facf0d",
+      "volume_mm3": 68282.75198172037,
+      "reimport_relative_error": 0.0
+    },
+    {
+      "part_id": "HS-R1-BASE",
+      "sha256": "b8373da62eb49d8570869d254408cfa5ef70b2e911528ecc5c5257697e386f3d",
+      "volume_mm3": 268821.9027549039,
+      "reimport_relative_error": 0.0
+    },
+    {
+      "part_id": "HS-R1-MANDREL",
+      "sha256": "c95a6ca896ac5c59b5b0226422b0dc855a84969813cf0d26f184108af0faaa22",
+      "volume_mm3": 199336.67186415032,
+      "reimport_relative_error": 1.3724318949186693e-14
+    },
+    {
+      "part_id": "HS-R1-STOP-BRACKET",
+      "sha256": "c67d01f6e55d2ab246d8ef74adffdfd43e4c1e81c5ee8832dd383991a94204d5",
+      "volume_mm3": 31501.36999800004,
+      "reimport_relative_error": 0.0
+    },
+    {
+      "part_id": "HS-R1-PIN",
+      "sha256": "ea9a0c059a355f2db6c9df57852141b57e657c24f3c08864a187fea85f43a8d3",
+      "volume_mm3": 477.8362426110075,
+      "reimport_relative_error": 0.0
+    },
+    {
+      "part_id": "HS-R1-SHIM025",
+      "sha256": "6caf19d44c8d1fddea2b7c1064f558a8c1fe7bb77f0fa57b40e1300d58522b7e",
+      "volume_mm3": 3.7679476888992585,
+      "reimport_relative_error": 0.0
+    },
+    {
+      "part_id": "HS-R1-ADJUST035",
+      "sha256": "93d8222bee6d64870e8a9e477b6ffd89acb18450d61154524b3493e663788f95",
+      "volume_mm3": 5.275126764458961,
+      "reimport_relative_error": 0.0
+    }
+  ],
+  "mounting": "pin4mm shoulder27.40+/-0.02mm + M3 thread8; nuts seat on shoulder via M3 washer, not spring stack; match shim cold axial endplay0.25-0.35mm",
+  "source_sha256": {
+    "test_fixture_geometry.py": "8c974b57f371813c0921fb2249755e341b8025cd8c1a7839587a773f91cf1bc6",
+    "sliding_geometry_slotted.py": "e5032e5e3011126fec3d79c6c7f898d9fac91688c8a2a82d4083a9c272c75433",
+    "contract.json": "0380995fa923ff83fba3409cc60a93545974ab88620028a8b1c326f51a84182e"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "files": [
+    {
+      "file": "GGM_SH_Guard_LOWER.step",
+      "assembly_object": "GGM_SH_CouplingGuard",
+      "half": "LOWER",
+      "solids": 1,
+      "volume_mm3": 11385.59462972889,
+      "sha256": "c2365e164f1bc26cbca8d5671a624f8d8bdf8011173346872e2c99e1ad976f5f"
+    },
+    {
+      "file": "GGM_SH_Guard_UPPER.step",
+      "assembly_object": "GGM_SH_CouplingGuard",
+      "half": "UPPER",
+      "solids": 1,
+      "volume_mm3": 11385.594629728657,
+      "sha256": "fdb7110d5c178c0174e1f427e2a0cd723599fcf4b996fb6f3af4727e30a6da52"
+    },
+    {
+      "file": "GGM_EX_Guard_LOWER.step",
+      "assembly_object": "GGM_EX_CouplingGuard",
+      "half": "LOWER",
+      "solids": 1,
+      "volume_mm3": 6916.845563936255,
+      "sha256": "130dc62bd0ec97c6e9d9538af4e10cf80fbbb336ba466ec9577f79ca3cc1be89"
+    },
+    {
+      "file": "GGM_EX_Guard_UPPER.step",
+      "assembly_object": "GGM_EX_CouplingGuard",
+      "half": "UPPER",
+      "solids": 1,
+      "volume_mm3": 6916.845563937466,
+      "sha256": "4672f40549f9cd8b7e871c3dc48e948c40c0fc0d8b6653d1c496c97c176bbeaa"
+    }
+  ],
+  "physical_validation": "NOT_RUN",
+  "source_sha256": {
+    "exports/final/drive_ggm_v08/GGM-FULL-ASM.FCStd": "097bc6e46f33372abd67ede4ccb5061693f8750c90dccf2d30266791e976010b",
+    "analysis/drive_acceptance_v08/manufacturing/split_guard_parts.py": "e626c8c4c4d07ccab31c150eada7119b39c5e5791942470440068ea391362c73"
+  }
+}

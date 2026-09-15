@@ -1,0 +1,13 @@
+metric,value,u95,unit,acceptance,instrument_id,instrument_calibration_ref,operator,reviewer,measured_at,evidence_path,sha256,notes
+frame_base_x,,,mm,470 +/-0.8 mm; full U95 interval inside,,,,,,,,
+frame_base_y,,,mm,700 +/-0.8 mm; full U95 interval inside,,,,,,,,
+frame_diagonal_a,,,mm,paired with diagonal B; conservative difference <=1.0 mm,,,,,,,,
+frame_diagonal_b,,,mm,paired with diagonal A; conservative difference <=1.0 mm,,,,,,,,
+frame_rocking,,,boolean,false; no unstable corner lift,,,,,,,,
+rail_squareness_700,,,mm,<=0.50 including U95,,,,,,,,
+shredder_min_static_clearance,,,mm,>=1.90 including U95,,,,,,,,
+shredder_hand_rotation_contacts,,,count,=0 over 20 turns,,,,,,,,
+extruder_cold_axial_travel,,,mm,>=1.50 including U95,,,,,,,,
+extruder_rear_retainer_endplay,,,mm,0.12-0.28 including U95,,,,,,,,
+guard_moving_envelope_intrusion,,,boolean,false,,,,,,,,
+guard_hot_envelope_intrusion,,,boolean,false,,,,,,,,

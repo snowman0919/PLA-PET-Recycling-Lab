@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "physical_validation_state": "NOT_RUN",
+  "machine_release": "HOLD",
+  "joint": "EX-DIE-01 to EX-BAR-01 through EX-DIE-05 C110 gasket",
+  "fastener": "4x M4 class 10.9 SHCS; M4x45 stock cut/deburred to 42.5+/-0.1 mm",
+  "assembly_torque_nm": 1.5,
+  "pressure_design_case_mpa": 6.0,
+  "engagement_mm": [
+    6.820000000000001,
+    7.399999999999999
+  ],
+  "thread_bottom_clearance_mm": [
+    0.6000000000000014,
+    1.1799999999999988
+  ],
+  "gasket_net_area_mm2": 619.5456332328091,
+  "separation_force_n": 1252.0346281984082,
+  "preload_each_n": [
+    1339.2857142857142,
+    2083.3333333333335
+  ],
+  "retained_preload_fraction_design_floor": 0.5,
+  "retained_total_clamp_n": 2678.5714285714284,
+  "separation_sf": 2.139374876895944,
+  "residual_average_gasket_contact_mpa": 2.3025532323249625,
+  "bolt_stress_mpa": 272.9318895652546,
+  "room_proof_reference_mpa": 830.0,
+  "hot_proof_screen_mpa": 580.0,
+  "hot_bolt_proof_sf": 2.1250723062221324,
+  "internal_material_hot_yield_floor_mpa": 360.0,
+  "thread_shear_capacity_n": 6991.587112536529,
+  "thread_shear_sf": 2.917608229791639,
+  "checks": {
+    "minimum_engagement_ge_1p5d": true,
+    "thread_bottom_clearance_ge_0p5mm": true,
+    "retained_clamp_vs_6mpa_separation_sf_ge_2": true,
+    "positive_residual_gasket_contact": true,
+    "hot_bolt_proof_screen_sf_ge_2": true,
+    "internal_thread_shear_screen_sf_ge_2": true
+  },
+  "limitations": [
+    "Torque-to-preload and 50% retained-preload values are design envelopes, not measured preload.",
+    "PASS qualifies the defined digital load path, not hot leak-tightness or first-cycle retorque.",
+    "Received bolt class, cut length, gasket thickness and material lot remain physical receipt gates."
+  ],
+  "source_sha256": {
+    "analysis/final_validation/qualify_die_joint_v08.py": "6e611e33d81c5386d8927e1e3b64c877ec47117226065467e8ef5a16f90ad8c1",
+    "cad/freecad/compact/geometry.py": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b"
+  }
+}

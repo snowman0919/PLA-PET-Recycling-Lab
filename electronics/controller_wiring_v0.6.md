@@ -1,25 +1,37 @@
-# Arduino Mega 2560 controller wiring contract
+# Arduino Mega 2560 controller wiring contract — v0.8 GGM override
 
-Revision: `parallel-actuation-hardening-v0.6.2` (Fusion geometry/load baseline remains v0.6.1)
+Revision: `final-design-fabrication-closure-v0.8`
+State: `DIGITAL_WIRING_CONTRACT / PHYSICAL_NOT_RUN / ENERGIZATION_NOT_AUTHORIZED`
 
-Exact pin assignment is controlled by `firmware/arduino_mega/src/board_config.h`; `io_schedule.csv` defines safe state and acceptance. Mega ground is the protected logic reference. MAX6675 T- channels share electronics reference only with verified ungrounded probes. Heater/motor current must not return through logic wiring.
+The filename is retained for repository compatibility, but the controlling field pin map is the v0.8 generated release: `exports/final/electrical/pin_schedule.csv`, `wire_schedule.csv`, and `exports/final/firmware/source/arduino_mega/src/board_config.h`. The base development header under `firmware/arduino_mega/src` is not a field-wiring authority by itself. `electronics/io_schedule.csv` defines signal safe-state and verification intent.
+
+Mega ground is the protected logic reference. MAX6675 T- channels share electronics reference only with verified ungrounded probes. Heater/motor current must not return through logic wiring.
 
 ## Safety chain
 
-E-stop, lid, service guard and thermal chain remove hazardous branch permission in hardware. Mega reads their feedback but cannot assert permission. `HEATER_PERMISSION_FEEDBACK` command mismatch latches a fault. Fault clear requires de-energized cause removal, physical lockout key and restart permission; software/Serial alone cannot clear it.
+E-stop, lid, service guard and independent thermal chain remove hazardous branch permission in hardware through K0. Mega reads their feedback but cannot assert permission around an open contact. Command/feedback mismatch latches a fault. Fault clear requires de-energized cause removal, physical lockout/restart conditions and the applicable user approval; software/Serial alone cannot clear a hardware safety condition.
 
-## Outputs
+## GGM motor outputs and feedback
 
-- Shredder: PWM + DIR + reverse + enable to reversible H-bridge; 50 A current input and shaft tach close the calibrated torque/RPM loop.
-- Screw, puller, spooler: separate PWM/DIR/enable and active-low driver faults. Puller external interrupt tach는 inner speed PI, A13 screw tach는 actual purge revolutions, A15 spool tach는 dancer/radius/jam loop에 사용한다.
-- Traverse: STEP/DIR/enable와 A5/A6 left/right limit; spool turns×pitch를 따르며 loss of spool permission 또는 missed-limit timeout이 disable/fault한다.
-- Cooling: PWM fan output, A4 `COOLING_CURRENT`, fan1/fan2 tach 2:1 mux를 함께 사용한다. Mux select는 pin 49, tach edge는 A14 PCINT22다. PREHEAT/PURGE start는 IDLE에서 fan만 먼저 명령하고 두 fan tach와 current가 1.5 s 연속 healthy인 뒤에만 heater/motion phase를 commit한다. 한 fan stop, 두 fan stop, command-off implausible tach는 구분하되 tach를 airflow로 간주하지 않는다.
-- Heaters: four time-proportion outputs (Z1/Z2/Z3/die), each with branch fuse and independent thermal cutoff. Hopper PTC is maintenance-only.
+- Shredder BTS7960: `D5 RPWM`, `D4 LPWM`, `D32 ENABLE`; `A0` is the bidirectional motor-lead current input and `D2` is the tach input.
+- Extruder BTS7960: `D6 RPWM`, `D33 LPWM`, `D34 ENABLE`; `A9` is the bidirectional motor-lead current input and `A13` is the screw tach input.
+- The runtime guard prohibits extruder reverse even though D33 is a physical LPWM output required by the BTS7960 interface.
+- Legacy shredder D30/D31 DIR/reverse wiring and legacy A8/A9 shredder/screw fault inputs are not field-wired in this GGM variant. Auxiliary driver fault inputs remain for subsystems that actually expose them.
+- A0 and A9 are each calibrated with an independent 0–6 A reference; U95-inclusive current error must be <=0.10 A. P3 maps current to gearbox torque with <=0.40 N.m holdout error. Software gearbox limit is 8.0 N.m and the separate mechanical protection is 8.8–9.3 N.m.
+
+## Other outputs
+
+- Puller/spooler retain separate PWM/direction/enable paths and their released feedback/fault channels. Puller external-interrupt tach is used by the inner speed loop; A15 spool tach is used by dancer/radius/jam logic.
+- Traverse uses STEP/DIR/enable and A5/A6 left/right limits; loss of spool permission or missed-limit timeout disables the drive.
+- Cooling uses PWM, A4 current feedback and the A14 fan-tach mux. Cooling electrical feedback does not prove airflow; blocked-flow validation remains a separate physical check.
+- Heaters are four machine branches only: Z1/Z2/Z3/die. Each has its own `F-H1..F-H4` branch overcurrent fuse; TH-FUSE-01 is not duplicated per branch. `TF-BARREL` and `TF-DIE` are the two installed one-shot thermal cutoffs and are wired in series in the K0 coil hard-cut chain. Hopper pre-dry is external and has no active machine heater branch.
 
 ## Inputs and commissioning
 
-T1/T2/T3/Tdie/Thopper use five CS lines with shared SCK/SO. Gauge X/Y, dancer, shredder current, cooling current와 fault lines occupy separate analog inputs. Cooling feedback는 fan 전원 branch만 측정하며 shredder 50 A channel과 공유하지 않는다. Encoder/button signals use pull-ups and edge detection. Wire label, terminal, conductor gauge, fuse rating, shunt 발열, ADC 최대전압과 measured polarity must be recorded against the exact purchased/donor components before powered commissioning.
+T1/T2/T3/Tdie/Thopper use five thermocouple channels with shared digital bus lines as released. Gauge X/Y, dancer, GGM current, cooling current, tach and auxiliary driver-fault signals use their generated pin assignments. Do not infer a pin from this prose if the final pin schedule disagrees.
+
+Before powered commissioning, record wire ID, terminal, conductor gauge, fuse, sensor supply/range, measured polarity and the exact received component identity. GGM A0/A9 calibration, current-to-torque mapping and mechanical-protection coupons belong to P3. First motor power is one branch at a time and requires a separate explicit user approval.
 
 ## Cooling feedback commissioning hold
 
-`COOLING_CURRENT`는 전기적 소비전류, fan tach는 회전 증거다. 정상 fan의 0/25/50/100% current와 RPM, connector-open, blade-stall, fan1-only/fan2-only를 shielded bench에서 기록하고 calibration을 valid로 만들기 전 production extrusion을 허용하지 않는다. Duct blockage는 이 신호로 검출되지 않으며 별도 airflow/pressure coupon이 필요하다. 구매·배선·통전은 계속 사용자 승인 대상이다.
+`COOLING_CURRENT` proves electrical consumption and fan tach proves rotation only. Normal current/RPM, connector-open, blade-stall and fan1/fan2 cases must be recorded before production extrusion. Duct blockage is not proven by those signals and still requires airflow/pressure evidence. Purchase, wiring energization and physical commissioning remain user-approval gates.

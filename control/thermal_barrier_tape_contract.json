@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "revision": "thermal-barrier-tape-v0.8-r2",
+  "part_id": "TH-INS-01",
+  "state": "RECEIVED_IDENTITY_CLAIM_RECORDED_S4_PENDING",
+  "quantity": "1 roll, 25 mm x 30 m",
+  "role": "secondary thermal/radiant barrier on the outside face of the grounded metal hot shield",
+  "safety_role": "NONE",
+  "placement": {
+    "allowed": [
+      "outside face of grounded metal hot shield",
+      "nonmoving cable thermal shield where released clearance remains satisfied"
+    ],
+    "forbidden": [
+      "directly on heater band",
+      "directly on barrel or die",
+      "over TF-BARREL or TF-DIE",
+      "over T1-T5 thermocouples or retainers",
+      "over electrical terminals or connectors",
+      "over ventilation openings",
+      "inside moving/rotating envelope",
+      "as a substitute for grounded metal shielding"
+    ]
+  },
+  "receipt_requirements": [
+    "exact product/brand/lot or package identity evidence",
+    "manufacturer datasheet or package temperature rating evidence",
+    "backing material recorded",
+    "width and thickness measured",
+    "continuous service temperature rating recorded",
+    "adhesive chemistry/type recorded if specified; otherwise explicitly record NOT_SPECIFIED_BY_LISTING and retain mandatory S4 coupon qualification"
+  ],
+  "coupon_smoke": {
+    "required_before_final_hot_zone_use": true,
+    "representative_surface": "scrap or representative metal shield material, not a heater/barrel/die wrap",
+    "acceptance": [
+      "coupon is cut from the same physical roll intended for final installation",
+      "representative metal-shield adhesive interface reaches at least 180 C including U95 lower bound and never exceeds 190 C including U95 upper bound",
+      "hot dwell at qualification window is at least 600 s",
+      "no visible smoke/charring",
+      "no melting",
+      "no adhesive flow",
+      "no loss of adhesion that creates loose material",
+      "raw photo/video/temperature evidence preserved"
+    ],
+    "qualification_window": {
+      "interface_peak_minus_u95_min_c": 180.0,
+      "interface_peak_plus_u95_max_c": 190.0,
+      "minimum_hot_dwell_s": 600.0,
+      "coupon_source": "same physical 25 mm x 30 m roll intended for final installation"
+    }
+  },
+  "installed_p9_acceptance": {
+    "continuous_rating_margin_c": 30.0,
+    "criterion": "adhesive-interface peak temperature + U95 <= 190 C, derived from 220 C conservative continuous design basis minus 30 C margin",
+    "edge_lift_after_cooldown_max_mm": 2.0,
+    "record_outer_surface_temperature": true,
+    "no_smoke_char_melt_adhesive_flow": true
+  },
+  "authorization": {
+    "installation_authorized": false,
+    "heater_energization_authorized": false,
+    "machine_release": "HOLD"
+  },
+  "note": "Receipt or smoke PASS does not make TH-INS-01 a safety cutoff. TF-BARREL/TF-DIE and grounded metal shield remain independent requirements.",
+  "received_product": {
+    "product_name_claimed_ko": "PI 골드 핑거 테이프",
+    "color_claimed": [
+      "금",
+      "금속 다크 브라운"
+    ],
+    "backing_material_claimed": "폴리이미드 필름",
+    "additional_material_claim_text_ko": "불소수지 방출 물질",
+    "adhesive_chemistry": "NOT_SPECIFIED_BY_LISTING",
+    "width_mm": 25.0,
+    "roll_length_m": 30.0,
+    "claimed_long_term_temperature_range_c": [
+      220.0,
+      280.0
+    ],
+    "claimed_short_term_temperature_c": 300.0,
+    "claimed_properties_ko": [
+      "고온 저항",
+      "용매 저항",
+      "방사선 저항",
+      "잔류 접착제 없음"
+    ],
+    "provenance": "USER_SUPPLIED_PRODUCT_INFORMATION_IMAGE_2026-09-11",
+    "manufacturer_or_lot": "NOT_ESTABLISHED"
+  },
+  "design_basis": {
+    "continuous_service_rating_c": 220.0,
+    "basis": "conservative lower bound of claimed long-term 220-280 C range",
+    "short_term_rating_not_used_for_steady_state_design_c": 300.0,
+    "required_operating_margin_c": 30.0,
+    "max_interface_peak_plus_u95_c": 190.0,
+    "adhesive_unknown_policy": "adhesive chemistry is not inferred; S4 coupon smoke/adhesion evidence is mandatory before final installation"
+  }
+}

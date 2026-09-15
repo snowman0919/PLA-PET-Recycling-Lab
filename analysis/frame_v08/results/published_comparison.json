@@ -1,0 +1,277 @@
+{
+  "status": "PUBLISHED_CAD_COMPARISON_PASS",
+  "reference_commit": "e323c54effa956b1b90ba586fdee8f9d89b447d1",
+  "reference_native_sha256": "48c11e3dc09e2ea6748826ec653644e3c97346c64dd76d0166376d5b3cc4dec9",
+  "current_native_sha256": "52934485d6abc2fe39be860274771b53e1c2022a4c72c4b5e5555441e5eae3d2",
+  "pairs": [
+    {
+      "left": "FeederAgitatorDriveShaft",
+      "right": "FeederAugerSpringPin",
+      "published_overlap_mm3": 55.53632467823043,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "FeederHousing",
+      "right": "BarrelBandHeaterZ1",
+      "published_overlap_mm3": 0.0,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "TemperatureProbeRetainerT1",
+      "right": "ExtruderFrontSlidingGuide",
+      "published_overlap_mm3": 0.0,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "SpoolBearingPlateFront",
+      "right": "SpoolerTachSensorEnvelope",
+      "published_overlap_mm3": 642.7251166716813,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "DownDieBody",
+      "right": "TemperatureProbeT4",
+      "published_overlap_mm3": 16.18548535129467,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "DownDieBody",
+      "right": "TemperatureProbeRetainerT4",
+      "published_overlap_mm3": 112.06511247990281,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "TemperatureProbeT4",
+      "right": "TemperatureProbeRetainerT4",
+      "published_overlap_mm3": 27.446365170034166,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "Barrel",
+      "right": "TemperatureProbeRetainerT1",
+      "published_overlap_mm3": 86.05279881905383,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "TemperatureProbeT1",
+      "right": "TemperatureProbeRetainerT1",
+      "published_overlap_mm3": 22.195486930966265,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "Barrel",
+      "right": "TemperatureProbeRetainerT2",
+      "published_overlap_mm3": 86.05283434929801,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "TemperatureProbeT2",
+      "right": "TemperatureProbeRetainerT2",
+      "published_overlap_mm3": 22.19548692912529,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "Barrel",
+      "right": "TemperatureProbeRetainerT3",
+      "published_overlap_mm3": 86.05283434921655,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "TemperatureProbeT3",
+      "right": "TemperatureProbeRetainerT3",
+      "published_overlap_mm3": 22.19548692912528,
+      "revised_overlap_mm3": 0.0
+    },
+    {
+      "left": "BarrelBandHeaterZ1",
+      "right": "TemperatureProbeRetainerT1",
+      "published_overlap_mm3": 3.0034648654232954,
+      "revised_overlap_mm3": 0.0
+    }
+  ],
+  "resolved_published_intersections": 12,
+  "removed_objects": [
+    "FrameBottomCross275",
+    "SpoolTopSegment290"
+  ],
+  "added_objects": [
+    "FrameBottomSteelTie"
+  ],
+  "scope": "Named nominal interface comparison; not whole-machine physical qualification",
+  "reference_overlaps": [
+    {
+      "left": "MidRail320",
+      "right": "HotMountBoltFrontFront",
+      "volume_mm3": 392.69908169872605,
+      "left_class": "manufactured_or_stock",
+      "right_class": "purchased_fastener",
+      "reference_overlap_only": true,
+      "limit_mm3": 400,
+      "reason": "M5 fastener in solid profile reference; slot/clearance machining not represented",
+      "component_roles_match": true
+    },
+    {
+      "left": "MidRail320",
+      "right": "HotMountBoltFrontRear",
+      "volume_mm3": 392.69908169872525,
+      "left_class": "manufactured_or_stock",
+      "right_class": "purchased_fastener",
+      "reference_overlap_only": true,
+      "limit_mm3": 400,
+      "reason": "M5 fastener in solid profile reference; slot/clearance machining not represented",
+      "component_roles_match": true
+    },
+    {
+      "left": "Spool",
+      "right": "SpoolCore",
+      "volume_mm3": 155031.31426934924,
+      "left_class": "purchased_reference_envelope",
+      "right_class": "purchased_reference_lod",
+      "reference_overlap_only": true,
+      "limit_mm3": 155100,
+      "reason": "Purchased spool/core solid envelope; bore omitted",
+      "component_roles_match": true
+    },
+    {
+      "left": "Spool",
+      "right": "SpoolSpindle",
+      "volume_mm3": 8256.105493633979,
+      "left_class": "purchased_reference_envelope",
+      "right_class": "manufactured_or_stock",
+      "reference_overlap_only": true,
+      "limit_mm3": 8300,
+      "reason": "Purchased spool envelope; fit requires received core dimensions",
+      "component_roles_match": true
+    },
+    {
+      "left": "Spool",
+      "right": "PPR-C09_SpoolAdapterFront",
+      "volume_mm3": 24324.593838793404,
+      "left_class": "purchased_reference_envelope",
+      "right_class": "manufactured_or_stock",
+      "reference_overlap_only": true,
+      "limit_mm3": 24400,
+      "reason": "Purchased spool envelope; fit requires received core dimensions",
+      "component_roles_match": true
+    },
+    {
+      "left": "Spool",
+      "right": "PPR-C09_SpoolAdapterRear",
+      "volume_mm3": 24324.593838793386,
+      "left_class": "purchased_reference_envelope",
+      "right_class": "manufactured_or_stock",
+      "reference_overlap_only": true,
+      "limit_mm3": 24400,
+      "reason": "Purchased spool envelope; fit requires received core dimensions",
+      "component_roles_match": true
+    },
+    {
+      "left": "SpoolCore",
+      "right": "SpoolSpindle",
+      "volume_mm3": 8256.105493633979,
+      "left_class": "purchased_reference_lod",
+      "right_class": "manufactured_or_stock",
+      "reference_overlap_only": true,
+      "limit_mm3": 8300,
+      "reason": "Generic solid core LOD; not a machined core drawing",
+      "component_roles_match": true
+    },
+    {
+      "left": "SpoolCore",
+      "right": "PPR-C09_SpoolAdapterFront",
+      "volume_mm3": 13349.347784928093,
+      "left_class": "purchased_reference_lod",
+      "right_class": "manufactured_or_stock",
+      "reference_overlap_only": true,
+      "limit_mm3": 13400,
+      "reason": "Generic solid core LOD; not a machined core drawing",
+      "component_roles_match": true
+    },
+    {
+      "left": "SpoolCore",
+      "right": "PPR-C09_SpoolAdapterRear",
+      "volume_mm3": 13349.346643322326,
+      "left_class": "purchased_reference_lod",
+      "right_class": "manufactured_or_stock",
+      "reference_overlap_only": true,
+      "limit_mm3": 13400,
+      "reason": "Generic solid core LOD; not a machined core drawing",
+      "component_roles_match": true
+    },
+    {
+      "left": "ExtruderRearRetainer",
+      "right": "RearRetainerM4_318",
+      "volume_mm3": 48.160615379532786,
+      "left_class": "manufactured_or_stock",
+      "right_class": "purchased_fastener",
+      "reference_overlap_only": true,
+      "limit_mm3": 49,
+      "reason": "M4 major diameter in 3.3 mm tap-drill representation; thread engagement only",
+      "component_roles_match": true
+    },
+    {
+      "left": "ExtruderRearRetainer",
+      "right": "RearRetainerM4_376",
+      "volume_mm3": 48.160615379532786,
+      "left_class": "manufactured_or_stock",
+      "right_class": "purchased_fastener",
+      "reference_overlap_only": true,
+      "limit_mm3": 49,
+      "reason": "M4 major diameter in 3.3 mm tap-drill representation; thread engagement only",
+      "component_roles_match": true
+    },
+    {
+      "left": "HotMountBoltRearFront",
+      "right": "GGM_HotRearRail",
+      "volume_mm3": 392.69908169872605,
+      "left_class": "purchased_fastener",
+      "right_class": "purchased_reference_lod",
+      "reference_overlap_only": true,
+      "limit_mm3": 400,
+      "reason": "M5 fastener in solid profile reference; slot/clearance machining not represented",
+      "component_roles_match": true
+    },
+    {
+      "left": "HotMountBoltRearRear",
+      "right": "GGM_HotRearRail",
+      "volume_mm3": 392.69908169872525,
+      "left_class": "purchased_fastener",
+      "right_class": "purchased_reference_lod",
+      "reference_overlap_only": true,
+      "limit_mm3": 400,
+      "reason": "M5 fastener in solid profile reference; slot/clearance machining not represented",
+      "component_roles_match": true
+    },
+    {
+      "left": "GGM_ExMotorRail",
+      "right": "GGM_M5_EX_MountL",
+      "volume_mm3": 235.6194490192352,
+      "left_class": "purchased_reference_lod",
+      "right_class": "purchased_fastener",
+      "reference_overlap_only": true,
+      "limit_mm3": 240,
+      "reason": "M5 T-nut joint in solid profile LOD; slot void omitted",
+      "component_roles_match": true
+    },
+    {
+      "left": "GGM_ExMotorRail",
+      "right": "GGM_M5_EX_MountR",
+      "volume_mm3": 235.6194490192352,
+      "left_class": "purchased_reference_lod",
+      "right_class": "purchased_fastener",
+      "reference_overlap_only": true,
+      "limit_mm3": 240,
+      "reason": "M5 T-nut joint in solid profile LOD; slot void omitted",
+      "component_roles_match": true
+    }
+  ],
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "source_sha256": {
+    "analysis/frame_v08/compare_published.py": "37c76ddb4fa81f4a9a5452e6fe38a480a072969645a55fca3b088ea7c6a8b1b0",
+    "cad/parameters/ggm_frame_revision.json": "d51cbb6ee6c6075ef67f42c0d388e39c8e79f91777f7c987c726e909246ca0a5",
+    "exports/final/drive_ggm_v08/manifest.json": "daed51cf5dc7e4e4de8923ce1e36f06e7510594d7bfa22348311bf1635f7b218",
+    "exports/final/drive_ggm_v08/GGM-FULL-ASM.FCStd": "52934485d6abc2fe39be860274771b53e1c2022a4c72c4b5e5555441e5eae3d2",
+    "validation/integrated_assembly_clearance.py": "91d53b7919647131f709c4c8a0cbbc1ee96358c6b7fd6c43ca14debaf34feb93"
+  }
+}

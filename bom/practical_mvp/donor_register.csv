@@ -1,0 +1,22 @@
+item_id,item,availability,target_use,minimal_check,constraint
+STOCK-FASTENERS,M2-M6 나사 세트,USER_REPORTED_AVAILABLE,본체 체결부 전반,직경별 길이/피치/수량; 하중부 강도등급; T너트/와셔 별도 확인,패널 M3/M4 우선; 주요 체결 규격은 검증 없이 변경하지 않음
+DONOR-MOTOR,프린터 모터,CANDIDATE_UNINSPECTED,traverse; spooler/puller의 조건부 대안,라벨 전류; 축경; 기어/벨트비; driver 규격,분쇄기/압출 screw의 토크를 NEMA 크기만으로 만족한다고 판단하지 않음
+DONOR-ROD,연마봉/리니어 가이드,CANDIDATE_UNINSPECTED,traverse와 gauge/puller 조정축,유효 길이; 직경; 직진성; 유격,기존 가이드 규격에 맞춰 어댑터 치수 결정
+DONOR-LEADSCREW,Z축 리드스크루/너트,CANDIDATE_UNINSPECTED,traverse 구동 후보,리드; 길이; 백래시; 결합축,리드 변경 시 steps/mm와 homing 설정 갱신
+DONOR-BELT,벨트/풀리/아이들러,CANDIDATE_UNINSPECTED,traverse; spooler 저부하 구동 후보,피치; 폭; 풀리 치수; 균열; 감속비,분쇄기 chain을 무검토 대체하지 않음
+DONOR-BEARING,프린터 베어링,CANDIDATE_UNINSPECTED,traverse/guide/저부하 회전체,각인; 내외경; 폭; 회전 유격,61905 및 51102 하중부 베어링과 호환을 가정하지 않음
+DONOR-FAN,프린터 팬,CANDIDATE_UNINSPECTED,전자부 냉각; filament 냉각 후보,정격전압; 소비전류; 크기; 풍량 조건; tach 유무,2선 팬을 개별 tach가 검증된 팬으로 처리하지 않음
+DONOR-ENDSTOP,엔드스톱 스위치/센서,CANDIDATE_UNINSPECTED,traverse homing; 상태 감지,기계식/광학/유도 방식; 전압; 논리; 반복성,비상정지나 안전 차단 기능과 자동 동등화하지 않음
+DONOR-DISPLAY,LCD/노브/버튼,CANDIDATE_UNINSPECTED,Arduino Mega 조작부,표시기 모델; 통신 방식; pinout; 논리전압,범용 인터페이스 확인 후 driver 재사용
+DONOR-DRIVER,스텝모터 드라이버,CANDIDATE_UNINSPECTED,저부하 모터축,분리형 여부; 손상범위; 전압/전류; STEP/DIR,고장 MCU와 일체형이면 정상 재사용품으로 지정하지 않음
+DONOR-HEATER,Chiron bed 내장 열선,USER_REPORTED_AVAILABLE,공용 barrel/die 가열원에 배정하지 않음; 제어히터 구매,사용자 최신 회신으로 bed 내장형 확인,별도 카트리지 히터를 추출 가능한 재고로 가정하지 않음
+DONOR-TEMP,온도센서,CANDIDATE_UNINSPECTED,정격과 interface가 맞는 센서 위치,thermistor/RTD/thermocouple 구분; 범위; 입력회로,thermistor는 MAX6675 Type-K 경로에 직접 연결하지 않음
+DONOR-WIRING,케이블/커넥터/브래킷,CANDIDATE_UNINSPECTED,저전압 배선; 저온 mounting,단면적; 전류/온도; 극성; 열손상,히터/주전원과 안전부 배선은 외형만으로 재사용하지 않음
+DONOR-PSU,Chiron 24 V 800 W PSU 1대,USER_REPORTED_AVAILABLE,기존 600 W 진술을 대체하는 동일 PSU; 500 W 운전한도 유지,DC OUTPUT 전압/A/모델 라벨 사진; 단자/PE/출력 상태,두 번째 PSU로 중복 구매하지 않음; 입력소비전력과 출력정격 구분
+DONOR-MCU,고장 프린터 MCU 보드,FAULT_REPORTED,배정하지 않음,수리 요구 없음,Arduino Mega 제어 기준 유지
+DONOR-PROFILES,Chiron 2020 및 2040 프로파일,USER_REPORTED_AVAILABLE,기존 혼합 단면 프레임,단면별 보유길이/수량; 슬롯 T너트,2040 보강 유지; 전체 절단목록을 충족한다고 가정하지 않음
+PTC-AC-01,220 VAC 245 C급 PTC,USER_REPORTED_AVAILABLE,예비; 공용 PET/PLA 가열기에 미배정,모델/W/치수/절연/온도표시 정의,24V MOSFET에 연결 금지; 별도 mains 설계 없이 사용하지 않음
+STOCK-MEGA,Arduino Mega,USER_REPORTED_AVAILABLE,기존 firmware 제어기,보유 회신 완료; 수량 미열거,작동 시험은 별도
+STOCK-BTS7960,BTS7960 module 2개,USER_REPORTED_AVAILABLE,분쇄기 1개 + 압출기 1개 계획 배정; 추가 구매 0,수량 회신 완료; 선정 모터의 전류 및 모듈 방열/전압강하 확인,보유 수량과 실제 연속전류 적격성은 구분
+STOCK-ESTOP,E-stop,USER_REPORTED_AVAILABLE,기존 hard-cut 안전 체인,접점/차단부 연결; 보유 회신 완료,E-stop 보유가 relay/fuse/interlock 전체 확보를 뜻하지 않음
+STOCK-UNKNOWN-DC2,미식별 24 V DC 2채널 컨트롤러 2개,USER_REPORTED_AVAILABLE,MVP 배정에서 제외; 사용자 최신 결정,보드 양면/단자 표기/IC 각인 사진; 모터출력/전원/입력 인터페이스 식별,정격 미확정; BTS7960두개를 주구동에 유지; 추가 DC드라이버 구매 안함

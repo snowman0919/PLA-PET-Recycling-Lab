@@ -1,0 +1,86 @@
+{
+  "status": "BEARING_LAND_AND_KEY_GEOMETRY_REVIEW",
+  "physical_validation": "NOT_RUN",
+  "machine_release": "HOLD",
+  "journal_checks": [
+    {
+      "id": "jack_front",
+      "datum": [
+        153,
+        243,
+        676.167
+      ],
+      "length_mm": 10,
+      "missing_round_journal_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "id": "jack_rear",
+      "datum": [
+        153,
+        273,
+        676.167
+      ],
+      "length_mm": 10,
+      "missing_round_journal_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "id": "screw_radial",
+      "datum": [
+        320,
+        401,
+        382
+      ],
+      "length_mm": 10,
+      "missing_round_journal_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "key_checks": [
+    {
+      "parts": [
+        "GGM_SH_Jackshaft",
+        "GGM_SH_JackInputKey"
+      ],
+      "intersection_mm3": 0.0
+    },
+    {
+      "parts": [
+        "GGM_SH_Jackshaft",
+        "GGM_SH_JackSprocketKey"
+      ],
+      "intersection_mm3": 0.0
+    },
+    {
+      "parts": [
+        "GGM_Shredder",
+        "GGM_SH_MotorKey"
+      ],
+      "intersection_mm3": 0.0
+    },
+    {
+      "parts": [
+        "GGM_Extruder",
+        "GGM_EX_MotorKey"
+      ],
+      "intersection_mm3": 0.0
+    },
+    {
+      "parts": [
+        "Screw",
+        "GGM_EX_ScrewKey"
+      ],
+      "intersection_mm3": 0.0
+    }
+  ],
+  "chain_calculated_pitches": 40.00002144117806,
+  "chain_contract_pitches": 40,
+  "scope": "Nominal CAD; not fits, contact stiffness, tooth profile or fatigue qualification",
+  "source_sha256": {
+    "exports/final/drive_ggm_v08/GGM-FULL-ASM.FCStd": "097bc6e46f33372abd67ede4ccb5061693f8750c90dccf2d30266791e976010b",
+    "exports/final/drive_ggm_v08/manifest.json": "f1693a493fa4f41c64f8ff7a8bc9132aadc7d8f4c9464630875ca42f0bbf78f6",
+    "control/ggm_drive_contract.json": "c2404f98178c59649f3faa91571a317a9cd575cb0c42e19a7df14f510bab7d2a",
+    "analysis/drive_acceptance_v08/check_geometry.py": "d97519d4ba599c491d158380986bbfed6243c8d37362f8df44a84a91a084eb4f"
+  }
+}

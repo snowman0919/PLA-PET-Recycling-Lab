@@ -53,7 +53,7 @@ def digest(path: Path) -> str:
 
 def tail(text: str, limit: int = 500) -> str:
     clean = " ".join(text.strip().split())
-    clean = re.sub(r"/tmp/ppr-[^/ ]+/arduino_mega/", "TEMP/arduino_mega/", clean)
+    clean = re.sub(r"/tmp/(?:[^/ ]+/)?ppr-[^/ ]+/arduino_mega/", "TEMP/arduino_mega/", clean)
     return clean[-limit:]
 
 

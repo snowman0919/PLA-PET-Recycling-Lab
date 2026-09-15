@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+import csv
+import hashlib
+import importlib.util
+import tempfile
+import unittest
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
+
+def load(name):
+    spec = importlib.util.spec_from_file_location(name, HERE / f"{name}.py")
+    module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module); return module
+
+P4 = load("analyze_p4_records")
+P4_STAGE = load("validate_p4_stage_release")
+
+class P4ExecutionTest(unittest.TestCase):
+    def build_records(self, d: Path):
+        evidence = d / "p4_raw_evidence.txt"; evidence.write_text("synthetic P4 evidence only\n", encoding="utf-8")
+        digest = hashlib.sha256(evidence.read_bytes()).hexdigest(); rel = str(evidence.relative_to(ROOT))
+        common = {"operator":"TEST_OPERATOR","reviewer":"TEST_REVIEWER","evidence_path":rel,"sha256":digest}
+        numeric = {
+            "cutter_coupon_count":(2,0,"count"), "shaft_tir_left":(.05,.01,"mm"), "shaft_tir_right":(.06,.01,"mm"),
+            "phase_error":(.50,.05,"deg"), "min_cutter_screen_clearance":(2.10,.05,"mm"), "hand_rotation_contacts":(0,0,"count"),
+            "pe_bond_worst":(.05,.01,"ohm"), "chain_alignment_150":(.10,.02,"mm"),
+            "chain_midspan_slack_percent":(2.5,.1,"percent"), "drive_guard_clearance":(4.0,.1,"mm"),
+            "sprocket_12t_radial_tir":(.05,.01,"mm"), "sprocket_30t_radial_tir":(.06,.01,"mm"),
+            "sprocket_12t_axial_shift":(.08,.01,"mm"), "sprocket_30t_axial_shift":(.09,.01,"mm"),
+        }
+        pre=[]
+        for check,(value,u95,unit) in numeric.items():
+            pre.append({"check_id":check,"value":value,"u95":u95,"unit":unit,"instrument_id":"MEAS-P4","calibration_ref":"CAL-P4","checked_at":"2026-09-10T16:20+09:00","notes":"synthetic",**common})
+        for check,expected in P4.PRE_BOOLEAN.items():
+            pre.append({"check_id":check,"value":"YES" if expected else "NO","u95":"","unit":"boolean","instrument_id":"","calibration_ref":"","checked_at":"2026-09-10T16:20+09:00","notes":"synthetic",**common})
+        self.write(d/"p4_preflight.csv", pre)
+
+        quasi=[]
+        for sid in sorted(P4.EXPECTED_SPECIMENS):
+            mat="PLA" if sid.startswith("PLA") else "PET"
+            thickness=1.2 if sid.startswith("PLA12") else 2.0 if sid.startswith("PLA20") else 3.0 if sid.startswith("PLA30") else 2.5
+            quasi.append({"measured_at":"2026-09-10T16:25+09:00","material":mat,"specimen_id":sid,"actual_thickness_or_fold_mm":thickness,
+                "force_n":20.0,"u95_force_n":.05,"arm_mm":250.0,"u95_arm_mm":.1,"force_angle_error_deg":0.0,"u95_angle_deg":.1,
+                "force_instrument_id":"FORCE","force_calibration_ref":"CAL-FORCE","arm_instrument_id":"ARM","arm_calibration_ref":"CAL-ARM",
+                "failure_mode":"capture-cut","permanent_damage":"NO","notes":"synthetic",**common})
+        self.write(d/"p4_quasistatic.csv", quasi)
+
+        jams=[]
+        for mat in ("PLA","PET"):
+            for trial in range(1,4):
+                jams.append({"measured_at":"2026-09-10T16:30+09:00","material":mat,"trial":trial,"pre_jam_cutter_rpm":16.0,"u95_rpm":.1,
+                    "rpm_instrument_id":"RPM","rpm_calibration_ref":"CAL-RPM","max_gearbox_torque_nm":7.8,"u95_torque_nm":.1,
+                    "torque_reference_id":"TORQUE","torque_calibration_ref":"CAL-TORQUE","retry_count":1,"jam_cleared":"YES",
+                    "latched_fault_after_third_failure":"NO","guard_lockout_required_for_reset":"YES","automatic_restart":"NO","permanent_damage":"NO",
+                    "notes":"synthetic",**common})
+        self.write(d/"p4_jam.csv", jams)
+
+        chips=[]
+        for mat in ("PLA","PET"):
+            chips.append({"measured_at":"2026-09-10T16:35+09:00","material":mat,"batch_id":mat+"-CHIP-01","screen_hole_mm":5.0,
+                "oversize_recirc_count":1,"input_mass_g":100.0,"mass_3_6_g":75.0,"mass_6_20_g":20.0,"mass_gt20_g":1.0,"fines_lt3_g":1.0,
+                "u95_mass_g":.05,"longest_strip_mm":18.0,"max_gearbox_torque_nm":6.5,"u95_torque_nm":.1,"software_torque_limit_events":0,
+                "scale_instrument_id":"SCALE","scale_calibration_ref":"CAL-SCALE","torque_reference_id":"TORQUE","torque_calibration_ref":"CAL-TORQUE",
+                "notes":"synthetic",**common})
+        self.write(d/"p4_chip.csv", chips)
+
+    def write(self, path: Path, rows):
+        with path.open("w", newline="", encoding="utf-8") as f:
+            writer=csv.DictWriter(f,fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
+
+    def mutate(self, path: Path, fn):
+        with path.open(newline="",encoding="utf-8") as f: rows=list(csv.DictReader(f))
+        fn(rows)
+        self.write(path, rows)
+
+    def test_p4_records_fail_closed(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as td:
+            d=Path(td); self.build_records(d)
+            result=P4.evaluate_records(d,ROOT)
+            self.assertEqual(result["status"],"NUMERIC_RECORD_CHECK_PASS")
+            self.assertFalse(result["stage_p4_pass"]); self.assertFalse(result["hardware_authorization"])
+            self.assertEqual(result["preflight"]["checks"],27)
+            self.assertEqual(result["quasistatic"]["PLA"]["samples"],15); self.assertEqual(result["quasistatic"]["PET"]["samples"],10)
+            self.assertGreater(result["chip"]["PLA"]["recovery_lower_percent"],95)
+
+            fake_p3_file=d/"p3_release.json"; fake_p3_file.write_text("{}\n",encoding="utf-8")
+            fake_p3={"status":"P3_STAGE_RELEASE_VALIDATED","p4_entry_prerequisite":True,"p4_energization_authorized":False,"machine_release":"HOLD","stage_release_file_sha256":hashlib.sha256(fake_p3_file.read_bytes()).hexdigest()}
+            result.update({
+                "records_directory":str(d.relative_to(ROOT)),
+                "p3_stage_release_path":str(fake_p3_file.relative_to(ROOT)),
+                "p3_stage_release_sha256":hashlib.sha256(fake_p3_file.read_bytes()).hexdigest(),
+                "p3_prerequisite":fake_p3,
+                "analyzer_sha256":hashlib.sha256((HERE/"analyze_p4_records.py").read_bytes()).hexdigest(),
+            })
+            fake_checker=lambda path: dict(fake_p3)
+            verified=P4.validate_result(result,ROOT,p3_checker=fake_checker)
+            self.assertEqual(verified["record_files"],4)
+            result_file=d/"p4_result.json"; result_file.write_text(__import__('json').dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            release={"stage":"P4","status":"PASS","release_scope":"P4_COMPLETE_REMAINING_CUTTER_REVIEW_ONLY",
+                "approved_by":"APPROVER","independent_reviewer":"REVIEWER","reviewed_at":"2026-09-10T16:45+09:00",
+                "p4_result":result_file.name,"p4_result_sha256":hashlib.sha256(result_file.read_bytes()).hexdigest(),
+                "remaining_cut01_quantity":10,"remaining_cut01_fabrication_authorized":False,
+                "downstream_energization_authorized":False,"machine_release":"HOLD","notes":"synthetic"}
+            release_file=d/"p4_stage_release.json"; release_file.write_text(__import__('json').dumps(release,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            stage=P4_STAGE.validate(release_file,ROOT,p4_module=P4,p3_checker=fake_checker)
+            self.assertEqual(stage["status"],"P4_STAGE_RELEASE_VALIDATED")
+            self.assertTrue(stage["remaining_cut01_fabrication_review_allowed"]); self.assertFalse(stage["remaining_cut01_fabrication_authorized"])
+            bad=dict(release); bad["remaining_cut01_fabrication_authorized"]=True
+            release_file.write_text(__import__('json').dumps(bad,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            with self.assertRaises(ValueError): P4_STAGE.validate(release_file,ROOT,p4_module=P4,p3_checker=fake_checker)
+
+            self.mutate(d/"p4_chip.csv", lambda rows: rows[0].update(software_torque_limit_events="1"))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+            self.build_records(d)
+            self.mutate(d/"p4_jam.csv", lambda rows: rows[0].update(automatic_restart="YES"))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+            self.build_records(d)
+            self.mutate(d/"p4_preflight.csv", lambda rows: next(r for r in rows if r["check_id"]=="min_cutter_screen_clearance").update(value="1.90",u95="0.05"))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+            self.build_records(d)
+            self.mutate(d/"p4_preflight.csv", lambda rows: next(r for r in rows if r["check_id"]=="sprocket_30t_axial_shift").update(value="0.20",u95="0.01"))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+            self.build_records(d)
+            self.mutate(d/"p4_preflight.csv", lambda rows: next(r for r in rows if r["check_id"]=="sprocket_30t_key_torque_path").update(value="NO"))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+            self.build_records(d)
+            self.mutate(d/"p4_quasistatic.csv", lambda rows: rows[0].update(sha256="0"*64))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+            self.build_records(d)
+            self.mutate(d/"p4_chip.csv", lambda rows: rows[0].update(mass_3_6_g="65"))
+            with self.assertRaises(ValueError): P4.evaluate_records(d,ROOT)
+
+if __name__ == "__main__": unittest.main()

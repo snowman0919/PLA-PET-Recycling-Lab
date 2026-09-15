@@ -1,7 +1,7 @@
 {
-  "revision": "safety-orchestration-closure-v0.6.1",
+  "revision": "final-design-fabrication-closure-v0.8",
   "contract": "active part contains exactly one closed positive-volume B-Rep solid",
-  "active_count": 208,
+  "active_count": 232,
   "review_keepout_count": 4,
   "failed": [],
   "parts": [
@@ -1235,8 +1235,8 @@
       "container_type": "Compound",
       "expected_solids": 1,
       "solid_count": 1,
-      "shell_count": 2,
-      "volume_mm3": 350155.867,
+      "shell_count": 1,
+      "volume_mm3": 231095.556,
       "bbox_mm": [
         200.0,
         200.0,
@@ -1927,6 +1927,40 @@
       "errors": []
     },
     {
+      "id": "ShredderRPMSensorEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 1920.0,
+      "bbox_mm": [
+        12.0,
+        8.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ShredderCableRouteEnvelope",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 18000.0,
+      "bbox_mm": [
+        12.0,
+        12.0,
+        125.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "FlakeBin",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
@@ -2017,8 +2051,8 @@
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
-      "shell_count": 2,
-      "volume_mm3": 243597.774,
+      "shell_count": 1,
+      "volume_mm3": 170870.854,
       "bbox_mm": [
         156.0,
         156.001,
@@ -2165,33 +2199,16 @@
       "errors": []
     },
     {
-      "id": "FeedTransferChute",
-      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Solid",
-      "expected_solids": 1,
-      "solid_count": 1,
-      "shell_count": 1,
-      "volume_mm3": 19878.016,
-      "bbox_mm": [
-        35.977,
-        96.094,
-        98.185
-      ],
-      "geometry_check_findings": -1,
-      "status": "PASS",
-      "errors": []
-    },
-    {
       "id": "FeederHousing",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 26799.356,
+      "volume_mm3": 22591.193,
       "bbox_mm": [
-        48.0,
-        48.0,
+        44.0,
+        44.0,
         105.0
       ],
       "geometry_check_findings": -1,
@@ -2199,34 +2216,68 @@
       "errors": []
     },
     {
-      "id": "FeederRotor",
+      "id": "FeederAuger",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 3691.497,
+      "volume_mm3": 8226.812,
       "bbox_mm": [
-        31.6,
-        31.6,
-        8.0
+        24.642,
+        24.642,
+        105.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
       "errors": []
     },
     {
-      "id": "FeederShaft",
+      "id": "FeederAgitatorDriveShaft",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 2159.845,
+      "volume_mm3": 18180.718,
       "bbox_mm": [
-        5.0,
-        5.0,
-        110.0
+        120.0,
+        100.0,
+        300.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FeederDriveReference",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 163072.0,
+      "bbox_mm": [
+        56.0,
+        56.0,
+        52.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FeederCableRouteEnvelope",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 24480.0,
+      "bbox_mm": [
+        12.0,
+        12.0,
+        170.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -2405,11 +2456,11 @@
     {
       "id": "HotShield",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Compound",
+      "container_type": "Solid",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 157149.831,
+      "volume_mm3": 156429.831,
       "bbox_mm": [
         335.0,
         75.0,
@@ -2839,6 +2890,23 @@
         8.0,
         80.0,
         8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "FormingCableRouteEnvelope",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 18000.0,
+      "bbox_mm": [
+        125.0,
+        12.0,
+        12.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -3304,6 +3372,91 @@
       "errors": []
     },
     {
+      "id": "DancerSensorEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 3168.0,
+      "bbox_mm": [
+        12.0,
+        12.0,
+        22.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TraverseLeftLimitEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2160.0,
+      "bbox_mm": [
+        12.0,
+        10.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TraverseRightLimitEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2160.0,
+      "bbox_mm": [
+        12.0,
+        10.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolerTachSensorEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 2520.0,
+      "bbox_mm": [
+        14.0,
+        10.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "SpoolerCableRouteEnvelope",
+      "category": "ASSEMBLY_PURCHASED_REFERENCE_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 38880.0,
+      "bbox_mm": [
+        270.0,
+        12.0,
+        12.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
       "id": "SpoolMotorMount",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
       "container_type": "Solid",
@@ -3340,11 +3493,11 @@
     {
       "id": "ControlPanel",
       "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
-      "container_type": "Solid",
+      "container_type": "Compound",
       "expected_solids": 1,
       "solid_count": 1,
       "shell_count": 1,
-      "volume_mm3": 121832.0,
+      "volume_mm3": 119275.361,
       "bbox_mm": [
         190.0,
         35.0,
@@ -3366,6 +3519,125 @@
         180.0,
         8.0,
         120.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ControlEmergencyStopEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 37699.112,
+      "bbox_mm": [
+        30.0,
+        40.0,
+        40.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ControlEncoderEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 5598.318,
+      "bbox_mm": [
+        18.0,
+        22.0,
+        18.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ControlSafetyInputEnvelope",
+      "category": "ASSEMBLY_UNVERIFIED_DONOR_ENVELOPE",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 58800.0,
+      "bbox_mm": [
+        70.0,
+        24.0,
+        35.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ControlBezelM3Fastener1",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 84.823,
+      "bbox_mm": [
+        3.0,
+        12.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ControlBezelM3Fastener2",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 84.823,
+      "bbox_mm": [
+        3.0,
+        12.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ControlBezelM3Fastener3",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 84.823,
+      "bbox_mm": [
+        3.0,
+        12.0,
+        3.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ControlBezelM3Fastener4",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 84.823,
+      "bbox_mm": [
+        3.0,
+        12.0,
+        3.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",
@@ -3536,6 +3808,142 @@
         38.0,
         26.0,
         8.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ExtruderSupportRailRear",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 156000.0,
+      "bbox_mm": [
+        390.0,
+        20.0,
+        20.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ExtruderRearFixedDatum",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 23412.853,
+      "bbox_mm": [
+        8.0,
+        150.0,
+        58.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ExtruderFrontSlidingGuide",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 28694.575,
+      "bbox_mm": [
+        8.0,
+        150.0,
+        76.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "ExtruderFixedCollar",
+      "category": "ASSEMBLY_MANUFACTURED_OR_STOCK",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 9818.276,
+      "bbox_mm": [
+        12.0,
+        50.0,
+        41.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HotMountBoltFrontFront",
+      "category": "ASSEMBLY_PURCHASED_FASTENER",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 863.938,
+      "bbox_mm": [
+        10.0,
+        10.0,
+        32.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HotMountBoltFrontRear",
+      "category": "ASSEMBLY_PURCHASED_FASTENER",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 863.938,
+      "bbox_mm": [
+        10.0,
+        10.0,
+        32.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HotMountBoltRearFront",
+      "category": "ASSEMBLY_PURCHASED_FASTENER",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 863.938,
+      "bbox_mm": [
+        10.0,
+        10.0,
+        32.0
+      ],
+      "geometry_check_findings": -1,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "HotMountBoltRearRear",
+      "category": "ASSEMBLY_PURCHASED_FASTENER",
+      "container_type": "Solid",
+      "expected_solids": 1,
+      "solid_count": 1,
+      "shell_count": 1,
+      "volume_mm3": 863.938,
+      "bbox_mm": [
+        10.0,
+        10.0,
+        32.0
       ],
       "geometry_check_findings": -1,
       "status": "PASS",

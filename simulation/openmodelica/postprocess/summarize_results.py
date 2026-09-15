@@ -79,7 +79,7 @@ def evaluate_shredder(name, rows, item, fail):
         "peak_phase_torque_nm": peak(rows, "phase.meshTorque"),
         "peak_phase_error_rad": peak(rows, "phase.phaseError"),
         "peak_bearing_load_n": peak(rows, "bearingLoad"),
-        "peak_chain_force_n": peak(rows, "chain.tightSideForce"),
+        "peak_chain_force_n": peak(rows, "chain.shaftRadialForceBound"),
         "peak_motor_current_a": peak(rows, "motor.current"),
         "peak_cutter_rpm": peak(rows, "cutterRPM"),
         "retry_count": int(maximum(rows, "retryCount")),
@@ -133,8 +133,12 @@ def evaluate_thermal(name, rows, item, fail):
     if name == "SensorOpen" and item["peak_process_heater_w"] > 1e-9: fail.append("sensor-open inhibit")
     if name in {"MOSFETStuckOn", "ThermalFuseLongDuration"}:
         late = tail(rows, .05)
-        equilibrium_delta = max_temperature(late)-max(minimum(late, k) for k in ("T1", "T2", "T3", "Tdie"))
-        protected = item["fuse_blown"] or (item["max_temperature_c"] < 300 and equilibrium_delta < 2)
+        equilibrium_delta = max(maximum(late,k)-minimum(late,k) for k in ("T1", "T2", "T3", "Tdie"))
+        fused = [row for row in rows if row['fuseBlown']>.5]
+        fuse_cuts_power = bool(fused) and all(sum(row[k] for k in ('power1','power2','power3','powerDie'))<=1e-9 for row in fused)
+        protected = fuse_cuts_power or (not fused and item["max_temperature_c"] < 300 and equilibrium_delta < 2)
+        item['late_max_zone_temperature_range_c'] = equilibrium_delta
+        item['fuse_power_cut_verified'] = fuse_cuts_power
         item["protection_mechanism"] = "THERMAL_FUSE" if item["fuse_blown"] else "SUB_300C_STABLE_EQUILIBRIUM"
         if not protected: fail.append("stuck-on equilibrium/fuse")
     if name.startswith("HotExtrusionJam") and not (item["ready"] and item["drive_tripped"] and item["relief_state"] == 2 and item["peak_pressure_mpa"] < 6 and abs(rows[-1]["screwRPM"]) < .1 and rows[-1]["netFlowGPH"] < .1): fail.append("hot jam relief/trip propagation")

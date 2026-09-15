@@ -1,0 +1,23 @@
+{
+  "status": "PROTOTYPE_TEST_REQUIREMENTS_NOT_MATERIAL_QUALIFICATION",
+  "uniform_field_strength_requirement_mpa": 839.0584895816141,
+  "prescribed_radial_gradient_peak_mpa": 106.90210674419284,
+  "face_gradient_280k_diagnostic_peak_mpa": 17.89395209660358,
+  "face_gradient_10k_linearly_scaled_peak_mpa": 0.6390697177358422,
+  "face_gradient_10k_linearly_scaled_max_displacement_mm": 0.0225141046580966,
+  "conservative_combined_screen_requirement_mpa": 1054.1408425054715,
+  "proposed_certificate_minimum_mpa_at_actual_service_temperature": 1100,
+  "limitations": [
+    "Face-gradient standalone peak is not mesh-converged; retain as diagnostic, not final strength validation.",
+    "Linear superposition under assumed properties does not qualify contact, fatigue, local material condition or a measured thermal field.",
+    "The 0.04 mm mounting budget is an inspection requirement, not an as-built measurement.",
+    "No machine installation or heating is authorized."
+  ],
+  "physical_validation_state": "NOT_RUN",
+  "source_sha256": {
+    "contract.json": "0380995fa923ff83fba3409cc60a93545974ab88620028a8b1c326f51a84182e",
+    "solver_result.json": "ecc69a51322a6c738d56351e7464b74258ba3ed0e01af90716461d818b2fc6e7",
+    "gradient_result.json": "55ce74061b284cd01199f3bed62a5a0fd3658cd48bbe2dc51152e9762dad3124",
+    "sliding_envelope.json": "00c04fdf4ce8892743c16708c577840af17a44334c8aaaab268cc1636cc5c6b4"
+  }
+}

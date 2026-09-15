@@ -1,11 +1,11 @@
-# CUT-05 — 20 mm keyed cutter shaft
+# CUT-05 — 25 mm keyed cutter shaft left
 
-- 수량: 2
-- 재료: S45C
-- 공정: turn + keyway
-- CAD bounding box: 20.00 x 240.00 x 20.00 mm
+- 수량: 1
+- 재료: S45C QT steel
+- 공정: turn + indexed keyway; black oxide with bearing seats masked
+- CAD bounding box: 25.00 x 240.00 x 25.00 mm
 - 일반공차: ISO 2768-m, 별도 표기 없는 edge C0.3 deburr
-- 중요공차/검사: diameter 20 h6 at two 6004 journals per shaft; overall 240.0 +/-0.10; TIR <=0.05; 6 mm keyways at y=0-35, 55-160 and 195-240 from datum end; keyway depth 3.5; install driven shaft at Y258 and slave shaft at Y278 to preserve 20 mm front sprocket clearance; use standard metal clamp collars for axial retention
+- 중요공차/검사: continuous Ø25 h6 =24.987-25.000 across 61905 journals, cutter land and gear/hub land; overall240.0 +/-0.10; TIR<=0.05; 6.005-6.010 keyways at y=0-35 and55-160 with selected key5.995-6.000; 8.005-8.010 keyway at195-240 with selected key7.995-8.000; datum clock0 deg; install slave shaft at Y278
 - 좌표기준: STEP 원점과 축을 기준으로 하며 DXF는 2D profile 견적용이다. 회전체는 STEP과 본 notes를 함께 견적한다.
-- 발주상태: GATE1_QTY_2_ALLOWED_USER_APPROVAL_REQUIRED
+- 발주상태: GATE1_QTY_1_ALLOWED_USER_APPROVAL_REQUIRED
 - 공통 잠금: 사용자 승인 없는 가공 금지. CUT-01 full stack과 Gate-1 지그에 불필요한 수량은 물리 Gate-1 PASS 전 발주 금지

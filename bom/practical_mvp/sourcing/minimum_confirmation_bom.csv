@@ -1,0 +1,14 @@
+item_id,item,required_quantity,unit,confirmed_available_quantity,purchase_quantity,state,minimum_specification,lab_question,source_ids
+CTRL-01,Arduino Mega 2560,1,board,,,CHECK_LAB_FIRST,ATmega2560 compatible completed board; keep current firmware,프로젝트 실 Mega2560 보유 여부,MEGA-1001|MEGA-COUPANG
+DRV-SH,분쇄기 감속모터,1,motor,,,CHECK_LAB_FIRST,24V reversible geared DC; before 12T:30T chain 50-100rpm and continuous >=6.59Nm; shaft/mount dimensions,이 범위 감속모터 또는 휠체어/컨베이어용 모터 라벨 사진,TT-GMP60-RFQ
+DRV-EX,압출 screw 감속모터,1,motor,,,CHECK_LAB_FIRST,24V; screw output 14-28rpm and current design continuous15Nm; measured transmission ratio,압출용 저속 고토크 감속모터 여부,TT-GMP60-RFQ
+DRV-POWER,분쇄/압출 DC 전력드라이버,2,channel,,,INTERFACE_CONFIRMATION,Bidirectional24V; branch current and cooling matched to final motors; peak marking not continuous rating,BTS7960급 모듈 또는 동급 드라이버/전류센서 여부,BTS-ICBANQ|BTS-11ST
+HEAT-BAND,배럴 제어 가열기,3,zone,,,CHECK_LAB_FIRST,현재24V100W ID34mm width45mm; 규격품 선택시 해당 clamp/zone만 수정,밴드히터 또는 동등한 배럴 가열부품 전압/W/내경/폭,HEATER-RFQ
+HEAT-DIE,die 가열기,1,zone,,,DONOR_DIMENSION_FIRST,현재24V60W cartridge; donor heater는 실제 지름/삽입길이/출력에 맞춰 국부 설계,Chiron heater 또는 다른 카트리지의 외경/길이/전압/W,HEATER-RFQ
+TEMP-01,Type-K 온도센서 및 변환부,5,channel,,,CHECK_LAB_FIRST,3 barrel +1 die +1 hopper current contract; ungrounded K probe separate from MAX6675 board,MAX6675와 Type-K 보유 여부; Chiron NTC는 직접 호환 아님,MAX6675-COUPANG|MAX6675-PARTS
+BEARING-SH,분쇄축 베어링,4,bearing,,,CHECK_LAB_FIRST,25x42x9mm sealed; current SKF61905-2RS1; alternate brand needs load check,6905/61905 규격 보유 여부 및 각인,NJL6905
+BEARING-EX,압출 추력베어링,1,bearing,,,CHECK_LAB_FIRST,15x28x9mm 51102; current NSK single direction,51102 또는 치수/정격이 맞는 추력베어링 여부,JAPAN51102
+SAFETY-01,안전차단과 전력보호,1,set,,,CHECK_LAB_FIRST,E-stop1; lid/service interlocks3; rated power interruption; independent temperature cutoff; branch fuses,비상정지/NC스위치/릴레이 또는 접촉기/온도퓨즈/퓨즈홀더 모델 및 수량,LAB-SAFETY
+GAUGE-01,직경검출 부품,1,two-axis-set,,,CHECK_LAB_FIRST,기존 LED/photodiode slit two-axis design; no new camera or Pi,광다이오드/LED/아날로그 회로와 위치조정용 부품 여부,LAB-GAUGE
+MACHINE-01,필수 절삭/압력/정밀 금속부,1,drawing-set,,,STOCK_OR_RFQ_PENDING,커터12장; 분쇄축2; 위상기어2; screw/barrel pair1; die와 기능 seat; 판재는 절단/드릴 우선,공구강/강봉/두꺼운 판재와 학교 선반/리머/밀링 사용 가능 여부,CNC-RFQ
+AUX-01,소형축 구동/이송/팬/UI,1,donor-lot,,,DONOR_FIRST_NOT_NEW_PURCHASE,Chiron 모터/driver/lead-screw/벨트/팬/display 우선; STEP-DIR와 기존PWM-DIR 어댑터 구분,모터/driver/팬 라벨과 Z나사 및 profile 보유길이 사진,CHIRON-ASSET

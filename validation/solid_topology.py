@@ -10,12 +10,14 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 COMPACT=ROOT/"cad/freecad/compact"
+sys.path.insert(0,str(ROOT))
 sys.path.insert(0,str(COMPACT))
 
-from geometry import assembly_objects, print_parts, review_keepout_objects, shredder_metal_parts, tolerance_coupon  # noqa: E402
+from geometry import print_parts, review_keepout_objects, shredder_metal_parts, tolerance_coupon  # noqa: E402
+from cad.freecad.final_v08.generate import final_objects  # noqa: E402
 from manufacturing import extruder_rfq_parts, gate1_parts  # noqa: E402
 
-REV="safety-orchestration-closure-v0.6.1"
+REV="final-design-fabrication-closure-v0.8"
 
 
 def audit(part_id,shape,category,expected_solids=1):
@@ -45,7 +47,7 @@ def audit(part_id,shape,category,expected_solids=1):
 
 
 def main():
-    params=json.loads((ROOT/"cad/parameters/baseline.json").read_text())
+    params=json.loads((ROOT/"cad/parameters/final_v08.json").read_text())
     if params["revision"] != REV: raise SystemExit("revision mismatch")
     rows=[]
     for spec in print_parts(): rows.append(audit(spec["id"],spec["shape"],"PRINT",spec.get("expected_solids",1)))
@@ -53,7 +55,7 @@ def main():
     for spec in shredder_metal_parts(): rows.append(audit(spec["id"],spec["shape"],"MACHINED",1))
     for spec in gate1_parts(): rows.append(audit(spec["id"],spec["shape"],"JIG_"+spec["class_"].upper(),1))
     for spec in extruder_rfq_parts(): rows.append(audit(spec["id"],spec["shape"],"EXTRUDER_RFQ",1))
-    for item in assembly_objects(): rows.append(audit(item["name"],item["shape"],"ASSEMBLY_"+item["classification"].upper(),1))
+    for item in final_objects(): rows.append(audit(item["name"],item["shape"],"ASSEMBLY_"+item["classification"].upper(),1))
 
     keepouts=[]
     for item in review_keepout_objects():

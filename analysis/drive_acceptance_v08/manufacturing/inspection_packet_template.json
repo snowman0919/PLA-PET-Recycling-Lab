@@ -1,0 +1,277 @@
+{
+  "record_status": "NOT_RUN",
+  "all_physical_actions_authorized": false,
+  "simulation_prerequisite": {
+    "source": "validation/physical_v08/simulation_prerequisite.py",
+    "required_status": "PASS",
+    "runtime_status": "RUNTIME_CHECK_REQUIRED",
+    "source_sha256": "401a55754f0bb8dea53ddd6f29dfcc9d852be29f29e382cf8b87f96eeeca89b0",
+    "note": "Runtime P0 status and snapshot hash are evaluated at the physical-stage check; the reusable template is not HEAD-bound."
+  },
+  "design_sha256": {
+    "control/ggm_drive_contract.json": "c2404f98178c59649f3faa91571a317a9cd575cb0c42e19a7df14f510bab7d2a",
+    "analysis/drive_acceptance_v08/manufacturing/drawing_contract.json": "6f2848840e0eb6f1d97eccc5739bf3b02b0f36c591570e1b100f99ddd9d46463"
+  },
+  "receipt": {
+    "performed": false,
+    "data": {
+      "SH": {
+        "performed": false,
+        "kind": "PHYSICAL_MEASUREMENT",
+        "operator": null,
+        "part_serial": null,
+        "instrument_id": null,
+        "instrument_calibration_ref": null,
+        "measured_at": null,
+        "raw_files": {},
+        "motor_model": "K9DG60N2",
+        "gear_model": "K9G75C",
+        "readings": {
+          "voltage_v": {
+            "value": null,
+            "u95": null,
+            "unit": "V",
+            "design_min": 24,
+            "design_max": 24
+          },
+          "shaft_diameter": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 11.982,
+            "design_max": 12.0
+          },
+          "shaft_projection": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 31.8,
+            "design_max": 32.2
+          },
+          "bolt_pcd": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 103.9,
+            "design_max": 104.1
+          },
+          "output_offset": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 17.9,
+            "design_max": 18.1
+          },
+          "case_width": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 89,
+            "design_max": 91
+          },
+          "rear_length": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 208,
+            "design_max": 210
+          }
+        }
+      },
+      "EX": {
+        "performed": false,
+        "kind": "PHYSICAL_MEASUREMENT",
+        "operator": null,
+        "part_serial": null,
+        "instrument_id": null,
+        "instrument_calibration_ref": null,
+        "measured_at": null,
+        "raw_files": {},
+        "motor_model": "K9DG60N2",
+        "gear_model": "K9G150C",
+        "readings": {
+          "voltage_v": {
+            "value": null,
+            "u95": null,
+            "unit": "V",
+            "design_min": 24,
+            "design_max": 24
+          },
+          "shaft_diameter": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 11.982,
+            "design_max": 12.0
+          },
+          "shaft_projection": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 31.8,
+            "design_max": 32.2
+          },
+          "bolt_pcd": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 103.9,
+            "design_max": 104.1
+          },
+          "output_offset": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 17.9,
+            "design_max": 18.1
+          },
+          "case_width": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 89,
+            "design_max": 91
+          },
+          "rear_length": {
+            "value": null,
+            "u95": null,
+            "unit": "mm",
+            "design_min": 208,
+            "design_max": 210
+          }
+        }
+      }
+    }
+  },
+  "alignment": {
+    "performed": false,
+    "data": {
+      "performed": false,
+      "kind": "PHYSICAL_MEASUREMENT",
+      "operator": null,
+      "part_serial": null,
+      "instrument_id": null,
+      "instrument_calibration_ref": null,
+      "measured_at": null,
+      "raw_files": {},
+      "assembly_revision": "GGM-MFG-v0.8-r2",
+      "readings": {
+        "coupling_offset": {
+          "value": null,
+          "u95": null,
+          "unit": "mm",
+          "design_min": 0,
+          "design_max": 0.03
+        },
+        "coupling_angle": {
+          "value": null,
+          "u95": null,
+          "unit": "deg",
+          "design_min": 0,
+          "design_max": 0.05
+        },
+        "sprocket_plane_offset": {
+          "value": null,
+          "u95": null,
+          "unit": "mm",
+          "design_min": 0,
+          "design_max": 0.25
+        },
+        "shaft_tir": {
+          "value": null,
+          "u95": null,
+          "unit": "mm",
+          "design_min": 0,
+          "design_max": 0.03
+        },
+        "sprocket_tir": {
+          "value": null,
+          "u95": null,
+          "unit": "mm",
+          "design_min": 0,
+          "design_max": 0.1
+        },
+        "coupling_face_gap": {
+          "value": null,
+          "u95": null,
+          "unit": "mm",
+          "design_min": 0.3,
+          "design_max": 0.5
+        },
+        "jack_endplay": {
+          "value": null,
+          "u95": null,
+          "unit": "mm",
+          "design_min": 0.05,
+          "design_max": 0.2
+        },
+        "radial_bearing_endplay": {
+          "value": null,
+          "u95": null,
+          "unit": "mm",
+          "design_min": 0.05,
+          "design_max": 0.2
+        }
+      }
+    }
+  },
+  "protection_pin": {
+    "performed": false,
+    "data": {
+      "performed": false,
+      "kind": "PHYSICAL_MEASUREMENT",
+      "operator": null,
+      "part_serial": null,
+      "instrument_id": null,
+      "instrument_calibration_ref": null,
+      "measured_at": null,
+      "raw_files": {},
+      "samples": []
+    }
+  },
+  "current_calibration": {
+    "performed": false,
+    "data": {
+      "SH": {
+        "performed": false,
+        "kind": "PHYSICAL_MEASUREMENT",
+        "operator": null,
+        "part_serial": null,
+        "instrument_id": null,
+        "instrument_calibration_ref": null,
+        "measured_at": null,
+        "raw_files": {},
+        "current_location": "motor_lead",
+        "units": {
+          "current": "A",
+          "torque": "N.m",
+          "speed": "rpm",
+          "adc": "count"
+        },
+        "adc_samples": [],
+        "no_load_a": [],
+        "torque_samples": []
+      },
+      "EX": {
+        "performed": false,
+        "kind": "PHYSICAL_MEASUREMENT",
+        "operator": null,
+        "part_serial": null,
+        "instrument_id": null,
+        "instrument_calibration_ref": null,
+        "measured_at": null,
+        "raw_files": {},
+        "current_location": "motor_lead",
+        "units": {
+          "current": "A",
+          "torque": "N.m",
+          "speed": "rpm",
+          "adc": "count"
+        },
+        "adc_samples": [],
+        "no_load_a": [],
+        "torque_samples": []
+      }
+    }
+  }
+}

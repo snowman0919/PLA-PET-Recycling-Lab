@@ -27,7 +27,10 @@ def normalize_3mf_zip(path):
             info.compress_type=zipfile.ZIP_DEFLATED
             info.external_attr=member.external_attr
             info.create_system=member.create_system
-            target.writestr(info,source.read(member.filename))
+            data=source.read(member.filename)
+            if member.filename.endswith(".model"):
+                data=re.sub(rb"<(Creation|Modification)Date>\d{4}-\d{2}-\d{2}</\1Date>",rb"<\1Date>2000-01-01</\1Date>",data)
+            target.writestr(info,data)
     temporary.replace(path)
 
 

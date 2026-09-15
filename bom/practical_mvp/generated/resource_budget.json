@@ -1,0 +1,34 @@
+{
+  "status": "BUDGET_ARITHMETIC_PASS",
+  "scope": "Existing 12 listed part types only; future full panels not included",
+  "material_g": {
+    "PLA": 712.33,
+    "ABS": 209.11
+  },
+  "abs_reserve_g": 100.0,
+  "abs_unallocated_after_reserve_g": 190.89,
+  "pla_unallocated_g": 9287.67,
+  "power": {
+    "reported_dc_capacity_w": 800.0,
+    "reported_dc_capacity_a": 33.333333333333336,
+    "controller_cap_w": 500.0,
+    "extrusion_phase_w": 490.0,
+    "shredding_phase_w": 477.0,
+    "headroom_against_reported_rating_w": 310.0,
+    "simultaneous_shred_and_heat_allowed": false,
+    "legacy_model_rating_w": 600.0,
+    "physical_output_verified": false,
+    "ptc_capacity_credit_w": 0
+  },
+  "physical_validation": "NOT_RUN",
+  "machine_release": "HOLD",
+  "source_sha256": {
+    "bom/practical_mvp/policy.json": "9bcc4411e52f0abbea52d72c6fcbe49e560d9728e2ad38c4ddcf4f2ba72afb08",
+    "bom/practical_mvp/resource_budget.py": "980970da71ac68336ae65e714497bd5f59f28f7768aeae87b282af450411cdfa",
+    "bom/practical_mvp/build_plan.py": "0cb137b16eb8911c90d096bc051c0b9a71ea727a8f8be96dde6e5c72816f5228",
+    "cad/parameters/baseline.json": "eecde1249c65d84c499f7ab949a05ebbcb7fbd8dfa49d762d15d1eba24db304a",
+    "exports/final/print/print_manifest.csv": "ba02d75d47107a5ff2b3075e3a32f6758f63e6ea7611104ec7d021655e173a17"
+  },
+  "existing_print_artifact_hashes_checked": 36,
+  "new_slicing_performed": false
+}

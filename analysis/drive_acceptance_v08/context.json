@@ -1,0 +1,12 @@
+{
+  "source_head": "643d362c053eadbb1068ef912ad88cbfbe3b6dc2",
+  "scope": "Independent continuation validation; concurrent drive_v08 builder remains sole writer of drive geometry and firmware",
+  "protected_roots": [
+    "cad/freecad/drive_v08",
+    "firmware/ggm_drive_v08",
+    "control/ggm_drive_contract.json"
+  ],
+  "own_scope": "analysis/drive_acceptance_v08",
+  "observed_utc": "2026-09-09T14:22:31Z",
+  "physical_validation": "NOT_RUN"
+}

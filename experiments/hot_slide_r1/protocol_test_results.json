@@ -1,0 +1,138 @@
+{
+  "status": "PASS",
+  "kind": "SYNTHETIC_SOFTWARE_TESTS_ONLY",
+  "count": 26,
+  "tests": [
+    {
+      "name": "valid_synthetic_cold_record",
+      "status": "PASS",
+      "observed": "MEASURED_DATA_WITHIN_TEST_PROTOCOL"
+    },
+    {
+      "name": "not_run",
+      "status": "PASS",
+      "observed": "NOT_RUN"
+    },
+    {
+      "name": "fixture_is_not_measured",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "wrong_hash",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "pressure",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "rotation",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "no_approval",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "weak_material",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "no_stops",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "residual_set",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "empty_samples",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "nonfinite",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "excess_force",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "excess_radial",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "axis_drift",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "overtravel",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "too_hot",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "cold_stack_clamped",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "negative_uncertainty",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "time_reversal",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "no_travel",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "no_lateral_proof",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "heat_without_approval",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "synthetic_hot_protocol_record",
+      "status": "PASS",
+      "observed": "MEASURED_DATA_WITHIN_TEST_PROTOCOL"
+    },
+    {
+      "name": "empty_hot_approval",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    },
+    {
+      "name": "through_face_gradient",
+      "status": "PASS",
+      "observed": "TEST_REVIEW_REQUIRED"
+    }
+  ],
+  "physical_validation_state": "NOT_RUN"
+}

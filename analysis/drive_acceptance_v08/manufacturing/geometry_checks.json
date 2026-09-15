@@ -1,0 +1,142 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "cap central bore clear",
+      "value": 0.0,
+      "limit": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "plate rear relief clear",
+      "value": 0.0,
+      "limit": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "SH two independently removable halves",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "SH open split seam",
+      "value": 0.0,
+      "limit": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "SH mounting (-29, -18, 0)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "SH mounting (-29, -18, 1)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "SH mounting (-29, 18, 0)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "SH mounting (-29, 18, 1)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "SH mounting (29, -18, 0)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "SH mounting (29, -18, 1)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "SH mounting (29, 18, 0)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "SH mounting (29, 18, 1)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX two independently removable halves",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX open split seam",
+      "value": 0.0,
+      "limit": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "EX mounting (-18, -29, 0)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX mounting (-18, -29, 1)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX mounting (-18, 29, 0)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX mounting (-18, 29, 1)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX mounting (18, -29, 0)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX mounting (18, -29, 1)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX mounting (18, 29, 0)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "check": "EX mounting (18, 29, 1)",
+      "value": 0,
+      "limit": 0,
+      "pass": true
+    }
+  ],
+  "physical_validation": "NOT_RUN",
+  "source_sha256": {
+    "exports/final/drive_ggm_v08/GGM-FULL-ASM.FCStd": "097bc6e46f33372abd67ede4ccb5061693f8750c90dccf2d30266791e976010b",
+    "analysis/drive_acceptance_v08/manufacturing/check_mfg_geometry.py": "34e81f4e8334701b76a6248084bbe79106f32fc7cba8e22851063566e63b021b"
+  }
+}

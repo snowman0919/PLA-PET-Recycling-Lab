@@ -7,6 +7,7 @@ STEP은 3D 견적/간섭 기준, SVG와 본 문서는 치수·GD&T 기준이다.
 - 모든 치수는 mm, 표면조도는 Ra µm, 별도 표기 없는 선형치수 공차는 ±0.10 mm, 각도는 ±0.5°다.
 - 재료는 SCM440 KS D3867/JIS G4105 또는 동등 chemical/mechanical certificate를 제출한다. Supplier stock allowance는 임의이지만 추천 rough blank는 screw Ø22 x330, barrel solid/seamless Ø42 x295다.
 - 임의 대체재·공정·공차 이탈은 deviation list에 써서 회신하며 무응답은 수락으로 간주하지 않는다.
+- JLCCNC는 2026-09-08 회신에서 비목록 SCM440 조달, Q&T, 가스질화 및 coupon-first 생산 순서를 지원하지 않는다고 확인되어 현 사양 공급 후보에서 제외했다. 다른 전문 업체도 동등재 성적서만으로 대체 승인하지 않으며, 45# steel 등을 자동 선택하지 않는다. baseline SCM440/Q&T 경로는 적용 규격 판본·최종 QT/질화 상태를 제출한다. 245–270 °C 최종상태 물성은 제공 가능하면 수집하되 baseline P5의 단독 blocker로 두지 않는다. 재료·열처리 deviation은 해당 고온 물성 근거를 제출하고 설계 재해석 후 별도 승인한다.
 
 ## EX-SCR-01 screw
 
@@ -20,10 +21,10 @@ STEP은 3D 견적/간섭 기준, SVG와 본 문서는 치수·GD&T 기준이다.
 
 ## EX-BAR-01 barrel
 
-- SCM440 solid/seamless blank, QT 28–32 HRC. OD Ø34.00 ±0.05, length 280.00 ±0.05. Rear face=Datum B, front face=Datum C, final bore axis=Datum D. Assembly에서 B는 screw active start와 일치하고 screw tip은 C 뒤 24.0 ±0.2에 위치한다.
+- SCM440 solid/seamless blank, QT 28–32 HRC. OD Ø34.00 -0.03/0, length 280.00 ±0.05. Rear face=Datum B, front face=Datum C, final bore axis=Datum D. Assembly에서 B는 screw active start와 일치하고 screw tip은 C 뒤 24.0 ±0.2에 위치한다.
 - Bore after final hone Ø16.20 +0.02/0, Ra≤0.4–0.8 µm. Bore straightness ≤0.05/256 and concentricity to OD/register ≤0.05.
 - Feed opening은 축방향 18.00 ±0.10 x chord width 20.00 ±0.10, rear edge B+12.00 ±0.10. Port centre plane을 전면 bolt pattern의 0° 각도 기준으로 삼는다. Bore-intersection edge R0.5 ±0.2; screw flight 위 sharp edge 금지.
-- T1/T2/T3 radial blind sensor bores는 B+95.00/170.00/245.00 ±0.10, Ø3.20 +0.05/0, depth5.50 ±0.10이다. Bore axis는 Datum D와 0.10/5.5 이내 직각이며 melt bore로 breakthrough하지 않는다. 명목 최소 ligament 3.35 mm를 보존하고 plug gauge/depth gauge 결과를 제출한다.
+- T1/T2/T3 radial blind sensor bores는 B+95.00/170.00/245.00 ±0.10, Ø3.20 +0.05/0, flat-bottom depth5.40 ±0.05이다. 깊이는 OD 진입점에서 평바닥까지이며 drill cone을 추가하지 않는다. 다른 tool-tip 형상은 deviation으로 제출한다. Bore axis 위치는 Datum D 기준0.05 max, 직각도는0.10/5.5 이내다. 편심·기울기·치수 한계를 포함한 보수적 최소 ligament는3.345 mm로 요구값3.32 mm를 넘는다. 프로브 선정·삽입·고정·열응답은 별도 HOLD이며 plug/depth gauge 결과를 제출한다.
 - Front die interface는 4x M4 x0.7-6H, full thread depth 8 minimum, tap-drill depth 11 minimum, PCD26.00 ±0.05 at 45/135/225/315° ±0.2° from feed-port centre plane이다. Ø3.3 tap drill 기준 nominal outer ligament 2.35 mm, bore-side ligament 3.25 mm이고 M4 major envelope 기준으로도 각각 2.0/2.9 mm 이상이다. 나사·counterbore가 OD 또는 bore로 breakthrough하면 FAIL이다. B/C faces은 D에 직각도 0.03; OD concentricity to D ≤0.05.
 - Rough turn/deep drill → 600–650 °C stress relieve(재료 공급사 표준 cycle, certificate 기록) → datum-face/OD finish → semi-finish ream/hone leaving 0.05–0.08 mm on diameter → feed port/thread machine → gas nitride 0.30–0.50 mm, ≥900 HV0.3 → final hone. Effective case after final hone is ≥0.25 mm.
 - Report bore at 20/140/260 mm and roundness ≤0.02 at each station. Front/rear face perpendicularity 0.03 to bore axis.
@@ -40,8 +41,8 @@ Coupon controlling dimensions: EX-CPN-SCR L48.00 ±0.05, three RH pitches 16.00 
 
 ## EX-DIE connected open-die assembly
 
-`EX-DIE-01`은 barrel 전면에 4×M4×45 class 10.9 bolt와 `EX-DIE-05` annealed copper gasket로 체결되는 40×40×48 SCM440 body다. Ø8 수평 유로와 Ø8 수직 유로는 X20/Z0에서 실제로 교차하며, 공급사는 교차부를 borescope로 확인하고 burr·step을 R0.3 이하로 제거한다. Barrel-side에는 Ø15.90×2 `EX-DIE-02` seven-hole 304 breaker가 Ø16.20×3 seat에 갇힌다. Bottom에는 OD Ø11.90×14 `EX-DIE-03` 17-4PH H900 insert가 Ø12.00×14 seat에 들어가고 Ø3.00×10 land와 4 mm conical transition으로 open discharge한다. 직접 hot path에 polymer는 없다.
+`EX-DIE-01`은 barrel 전면에 SYS-04 4×M4×45 class 10.9 SHCS를 42.5±0.1 mm로 절단·디버링해 `EX-DIE-05` annealed copper gasket와 체결하는 40×40×48 SCM440 body다. die grip34.95–35.05, 압축 gasket0.25–0.53, barrel full thread depth8.00에서 물림6.82–7.40 mm와 thread-bottom 여유0.60–1.18 mm를 확보한다. 디지털 6 MPa joint screen은 1.50 N·m dry design torque에서 PASS이며, 실제 수령 길이·누설·첫 thermal cycle witness check는 NOT_RUN이다. Ø8 수평 유로와 Ø8 수직 유로는 X20/Z0에서 실제로 교차하며, 공급사는 교차부를 borescope로 확인하고 burr·step을 R0.3 이하로 제거한다. Barrel-side에는 Ø15.90×2 `EX-DIE-02` seven-hole 304 breaker가 Ø16.20×3 seat에 갇힌다. Bottom에는 OD Ø11.90×14 `EX-DIE-03` 17-4PH H900 insert가 Ø12.00×14 seat에 들어가고 Ø3.00×10 land와 4 mm conical transition으로 open discharge한다. 직접 hot path에 polymer는 없다.
 
-Body sealing face flatness는 0.03, melt channel Ø8 H9, insert seat Ø12.00 +0.03/0, breaker seat Ø16.20 +0.05/0이다. Heater bore Ø6.05 H7 reamed through와 sensor bore Ø3.20 +0.05/0 blind12는 유로와 bolt를 관통하지 않는다. Body는 6-face datum machining → intersecting drill/ream → stress relieve → final seat/face → gas nitride → sealing face lap 순서다. Channel/seat에는 weld repair와 plating을 금지한다.
+Body sealing face flatness는 0.03, melt channel Ø8 H9, insert seat Ø12.00 +0.03/0, breaker seat Ø16.20 +0.05/0이다. Heater bore Ø6.55 H7 reamed through와 lead-face 2×M3×0.5-6H depth6(14 mm pitch) flange thread, sensor bore Ø3.20 +0.05/0 blind12는 유로와 bolt를 관통하지 않는다. Body는 6-face datum machining → intersecting drill/ream → stress relieve → final seat/face → gas nitride → sealing face lap 순서다. Channel/seat에는 weld repair와 plating을 금지한다.
 
 `EX-DIE-04`는 304 stainless t1.5의 교환식 sacrificial retainer다. 두 10 mm wide ×2.5 mm long web, 265 °C 보수 항복강도 150 MPa와 Ø11.9 insert에서 Ø3 orifice를 뺀 투영면적을 쓴 단순 탄성 항복 screening은 약 4.32 MPa이며 normal 3 MPa와 motor-trip equivalent 6 MPa 사이를 겨냥한다. 이는 release 값이 아니다. 동일 lot coupon 3개를 shielded heated hydraulic fixture에서 265 °C 조건으로 시험해 최초 영구변형/우회 개방이 3–6 MPa이고 fragment/ejection이 없을 때만 사용한다. Retainer는 insert를 포획한 채 우회 유로를 열어야 하며, grounded metal shield와 remote first-hot-test 없이는 가열하지 않는다. Full die assembly 역시 process coupon, relief coupon 및 Gate-3 전 `HOLD_PROCESS_COUPON_AND_GATE3`다.

@@ -254,7 +254,7 @@ bool allHazardsOff(const ActuatorCommands &a) {
   for (bool on : a.heater_on) heater = heater || on;
   return a.shredder_pwm == 0 && !a.feeder_enable && a.screw_pwm == 0 &&
       a.puller_pwm == 0 && a.spooler_pwm == 0 && a.cooling_pwm == 0 &&
-      !a.traverse_enable && !a.hopper_ptc_on && !heater;
+      !a.traverse_enable && !heater;
 }
 
 void calibrationAndTraverseScenarios(Trace &trace) {

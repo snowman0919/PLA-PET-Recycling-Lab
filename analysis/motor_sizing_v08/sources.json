@@ -1,0 +1,43 @@
+{
+  "observed_utc": "2026-09-09T11:19:46.869516+00:00",
+  "sources": [
+    {
+      "id": "GGM_SHOP",
+      "url": "https://sym.or.kr/product/detail.html?product_no=1279",
+      "local": "source_cache/GGM_SHOP.html",
+      "role": "Seller primary offered specification and option prices; checkout not performed",
+      "sha256": "bfadec2b821ebbfd976dcf1834f499dbee8fa6c15c01013098af0c1560e7a03b",
+      "bytes": 226861
+    },
+    {
+      "id": "GGM_CATALOG",
+      "url": "https://sym.or.kr/exec/front/Board/download/?no=385&realname=2015/08/12/ad973f33ec6581719b6f3b76c7e90c53.pdf&filename=K9DG60N1.pdf",
+      "local": "source_cache/GGM_CATALOG.pdf",
+      "role": "Seller-hosted GGM-series dimension/rating sheet; 24V table also on product page",
+      "sha256": "ac911bae214ece8660e1fe35c910ea49a4dac4f66ee6b574b7a06a81a6730503",
+      "bytes": 335187
+    },
+    {
+      "id": "TT_GMP60",
+      "url": "https://www.ttmotor.com/uploads/GMP60-609760127.pdf",
+      "local": "source_cache/TT_GMP60.pdf",
+      "role": "Original manufacturer datasheet; exact winding/ratio matters",
+      "sha256": "31ca20577bd3414293ba201ca36b944b970567c119146ca552afbdb41bbce53b",
+      "bytes": 429081
+    },
+    {
+      "id": "NFP42",
+      "url": "https://nfpmotor.com/42mm-dc-planetary-geared-motor-model-nfp-42gp-775",
+      "state": "FETCH_FAILED",
+      "error_type": "HTTPError"
+    }
+  ],
+  "remote_access_failures": [
+    {
+      "url": "https://www.ggmamerica.com/dc/",
+      "state": "HTTP_ERROR_NO_BYPASS"
+    }
+  ],
+  "purchase": false,
+  "lowest_global_price_claim": false
+}

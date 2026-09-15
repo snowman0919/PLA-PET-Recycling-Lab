@@ -1,9 +1,11 @@
-#set document(title: "PLA/PET Recycler v0.6.2.1 제작 매뉴얼")
+#set document(title: "HISTORICAL — PLA/PET Recycler v0.8 구형 제작 매뉴얼")
 #set page(paper: "a4", margin: 17mm, numbering: "1")
 #set text(font: "Noto Sans CJK KR", size: 9pt, lang: "ko")
 #set heading(numbering: "1.1")
 #let danger(body) = block(width: 100%, fill: rgb("ffece5"), stroke: 1pt + rgb("c5482e"), inset: 8pt, body)
 #let gate(body) = block(width: 100%, fill: rgb("eaf3f7"), stroke: 1pt + rgb("33738b"), inset: 8pt, body)
+
+#danger[*역사 문서 / 사용 금지.* 현재 조립 기준은 `docs/final/complete_build_manual_ko.pdf`와 `docs/final/assembly_steps.csv`다. 이 문서의 과거 치수·토크·프로브 지시는 제작 또는 조립 승인값이 아니다.]
 
 #align(center)[
   #v(20mm)
@@ -13,12 +15,12 @@
   #v(8mm)
   #image("../renders/assembly/compact_full_assembly_isometric.png", width: 95%)
   #v(5mm)
-  #text(size: 11pt)[Revision technical-blocker-closure-v0.6.2.1 · 2026-09-01]
+  #text(size: 11pt)[Revision final-design-fabrication-closure-v0.8 · 2026-09-03]
 ]
 
 #danger[*물리 운전 승인 문서가 아니다.* Cutter, screw, heater, mains/high-current는 사용자 승인, exact component 확인, guard와 commissioning gate 전 energize하지 않는다.]
 
-Release target: `TECHNICAL_CLOSURE_BASELINE` / `IMPLEMENTATION_BASELINE` / `VIRTUAL_PHYSICS_VALIDATED` / `CROSS_SOLVER_VALIDATION_DEFERRED` / `DEFERRED_TO_POST_V0.6.2.1_MACBOOK_STAGE` / `EMPIRICAL_VALIDATION_OPTIONAL_NOT_RUN`.
+Release target: `FABRICATION_CANDIDATE` / `DIGITAL_TECHNICAL_CLOSURE` / `PHYSICAL_VALIDATION_NOT_RUN` / `SAFETY_NOT_CERTIFIED` / `USER_APPROVAL_REQUIRED`.
 
 #pagebreak()
 = 작업 전 확인
@@ -37,7 +39,7 @@ PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesi
 
 #figure(image("../renders/assembly/compact_full_assembly_front.png", width: 92%), caption: [전면 조립 기준])
 
-조립 순서: frame -> control/PSU와 PE -> extruder thrust/barrel -> vertical forming -> spooler -> sealed hopper/feeder -> shredder plates/shaft -> screen/bin -> anti-reach/hopper/lid -> guard/cable duct다. 본체 금속 제작품 24 family의 FCStd/STEP/STL/DXF와 controlling note는 `exports/fabrication/parts`에 있으며 `machine_manifest.csv`와 `assembly_interface_schedule.csv`가 수량·접속·검사 Gate를 지배한다. Printed housing에 cutter/extruder load를 전달하지 않는다.
+조립 순서: frame -> control/PSU와 PE -> extruder thrust/barrel -> vertical forming -> spooler -> sealed hopper/feeder -> shredder plates/shaft -> screen/bin -> anti-reach/hopper/lid -> guard/cable duct다. 본체 금속 제작품 25 family의 FCStd/STEP/STL/DXF와 controlling note는 `exports/fabrication/parts`에 있으며 `machine_manifest.csv`와 `assembly_interface_schedule.csv`가 수량·접속·검사 Gate를 지배한다. Printed housing에 cutter/extruder load를 전달하지 않는다.
 
 == 조립·체결 schedule
 
@@ -47,7 +49,7 @@ PLA/PET 원료는 batch별로 분리한다. PET는 cap, neck ring, label, adhesi
   table.header([순서], [부품/수량], [체결품], [공구], [체결 torque], [방향·순서·critical clearance]),
   [1], [20×20 frame rail/column], [M5 T-nut·washer], [4 mm hex, square, tape], [4.0 N·m], [바닥→column→상부; 대각차 ≤1.0, table M8 anchor는 최종 수평 후 체결],
   [2], [Control/PSU/PE], [M4×10 + tooth washer], [3 mm hex, DMM], [1.2 N·m], [PE를 먼저, 신호선을 나중; hot shield·motor cable과 분리, 0 V continuity 기록],
-  [3], [Thrust/barrel/EX-DIE-01…05], [M6×20 8.8; die 4×M4×45 10.9 + C110 gasket; retainer 2×M4], [3/5 mm hex, dial indicator], [M4 die 3.0 / retainer 1.2 / M6 9 N·m], [Thrust→barrel→breaker→gasket→die body→insert→retainer; screw hand TIR ≤0.10, shield air gap ≥10],
+  [3], [Thrust/barrel/EX-DIE-01…05], [M6×20 8.8; die SYS-04 4×M4×45 10.9 stock cut/deburred to42.5±0.1 + C110 gasket; retainer 2×M4], [3/5 mm hex, dial indicator], [SYS-04 dry 1.50 / retainer 1.2 / M6 9 N·m], [SYS-04 engagement6.82–7.40, thread-bottom clearance0.60–1.18; digital load-path PASS, physical receipt/leak/first thermal cycle NOT_RUN],
   [4], [Cooling/gauge/puller], [PPR-C05 M4×12, C06 M3×12, C07 M4 captive], [2.5/3 mm hex], [M3 0.5 / M4 1.2 N·m], [die→duct→X/Y gauge→puller 직선; soft filament 굴곡 금지],
   [5], [Guide/dancer/spool], [PPR-C08 M5, C09 M6 clamp, C10 M4], [4/5/3 mm hex], [M4 1.2 / M5 2.5 / M6 4 N·m], [metal spindle가 축하중 부담; dancer -25…+25°, traverse 0…80 전 범위 확인],
   [6], [CUT-03/05/6004/CUT-08], [M6 plate + M4 retainer], [press sleeve, 4/5 mm hex], [M4 1.2 / M6 9 N·m], [Bearing outer ring만 압입; shaft→bearing→plate→profile 금속 하중경로],
@@ -79,11 +81,13 @@ PPR-C01 sliding lid와 PPR-C02 baffle을 metal hopper에 M4 captured nut로 조�
 
 = Dry feed와 extruder
 
-원료는 외부 dryer에서 준비한 뒤 밀폐 용기로 옮겨 sealed hopper에 넣는다. 현재 PLA/PET dryer recipe는 `UNQUALIFIED_EXTERNAL_PROCESS`이므로 물리 moisture coupon과 사용자 확인 없이 건조 완료로 표시하지 않는다. Maintenance heater branch에 fuse, independent high-limit와 one-shot fuse를 직렬 설치한다.
+원료는 외부 dryer에서 준비한 뒤 밀폐 용기로 옮겨 sealed hopper에 넣는다. 현재 PLA/PET dryer recipe는 `UNQUALIFIED_EXTERNAL_PROCESS`이므로 물리 moisture coupon과 사용자 확인 없이 건조 완료로 표시하지 않는다. 활성 hopper heater branch는 없으며 T5는 비가열 감시 센서다.
 
-16 mm screw/barrel은 `exports/cnc/extruder`의 SCM440 QT/nitride drawing을 따른다. Barrel T1–T3은 Ø3.20 blind5.5이고 nominal melt-bore ligament는 3.4 mm다. Ø3 ungrounded mineral-insulated K probe의 접촉 길이를 5.5 mm로 제한해 MAX6675 T- common electronics reference에 연결하며 sheath-to-junction insulation을 수령 검사한다. Die cartridge는 Ø6.00 -0.02/-0.06, bore는 Ø6.05 H7 reamed이고 허용 직경 간극은 0.070–0.122 mm다. Thrust bearing -> metal plate -> profile 순서로 조립하고 cooldown/0 V 뒤 screw를 축방향 인출한다.
+FD-HOP-01은 FD-MET-01 위에 동축으로 직접 체결한다. 폐기된 FD-TRN-01 전이관을 사용하지 않는다. Feeder의 Ø28.77–28.80×1.20 spigot을 hopper의 Ø28.90–28.93×1.40 socket에 넣고 새 FD-GSK-01을 0.35–0.40 mm까지 균일 압축한다. 네 M4를 대각 순서로 조이되 gasket 두께·건식 flake 누설·잔류 검사를 통과하기 전 SYS-12 torque는 HOLD다.
 
-EX-DIE-02 seven-hole breaker를 EX-DIE-01의 barrel-side Ø16.20×3 seat에 넣고 새 EX-DIE-05 C110 annealed gasket를 barrel과 body 사이에 둔다. 4×M4×45 class 10.9를 3.0 N·m로 대각 체결한다. EX-DIE-03 Ø11.90×14 insert를 아래에서 넣고 EX-DIE-04 304 t1.5 retainer를 2×M4, 1.2 N·m로 고정한다. Ø8 수평/수직 channel은 borescope로 burr/step이 없는지 확인한다. 265 °C 계산값 4.32 MPa는 합격 근거가 아니며 동일 lot 3개가 shielded 265 °C hydraulic fixture에서 3–6 MPa에 insert를 포획한 채 우회 개방해야 한다. 누설·relief first-hot-test는 grounded shield, 원격 E-stop과 물리 barrier 뒤에서만 수행한다.
+16 mm screw/barrel은 현재 final RFQ drawing을 따른다. Barrel T1–T3 프로브는 미선정이며 Ø3.20 blind5.5 보어가 삽입·접촉·ligament를 입증하지 않는다. 프로브 외경 공차·선단·삽입 스톱·고정·열응답을 검증하기 전 바닥까지 밀어 넣거나 보어를 깊게 가공하지 않는다. MAX6675에는 ungrounded junction과 sheath-to-junction insulation 확인이 필요하다. Die cartridge fit도 현재 final interface gate를 따른다. Thrust bearing -> metal plate -> profile 순서로 조립하고 cooldown/0 V 뒤 screw를 축방향 인출한다.
+
+EX-DIE-02 seven-hole breaker를 EX-DIE-01의 barrel-side Ø16.20×3 seat에 넣고 새 EX-DIE-05 C110 annealed gasket를 barrel과 body 사이에 둔다. 현행 SYS-04는 M4×45 class10.9 stock screw 4개를 42.5±0.1 mm로 절단·디버링해 dry 1.50 N·m로 체결한다. die grip34.95–35.05와 압축 gasket0.25–0.53 mm에서 물림6.82–7.40 mm, 완전 나사8.00 mm 기준 바닥 여유0.60–1.18 mm다. 이는 digital load-path PASS이며 실제 수령 길이·누설·첫 thermal cycle은 NOT_RUN이다. EX-DIE-03 Ø11.90×14 insert를 아래에서 넣고 EX-DIE-04 304 t1.5 retainer를 2×M4, 1.2 N·m로 고정한다. Ø8 수평/수직 channel은 borescope로 burr/step이 없는지 확인한다. 265 °C 계산값 4.32 MPa는 합격 근거가 아니며 동일 lot 3개가 shielded 265 °C hydraulic fixture에서 3–6 MPa에 insert를 포획한 채 우회 개방해야 한다. 누설·relief first-hot-test는 grounded shield, 원격 E-stop과 물리 barrier 뒤에서만 수행한다.
 
 #figure(image("../renders/review/compact_section.png", width: 92%), caption: [Hot path와 straight vertical forming section])
 
@@ -111,7 +115,7 @@ Cold boot의 material `NONE`, 분리된 drive/current/gauge/cooling calibration 
 
 Material 전환은 기존 thermal profile로 `MAINTENANCE_PURGE`를 실제 실행한다. Waste tray/manual path 확인, 최소 time, A13 Hall tach의 최소 actual screw revolutions, stable temperature, motion fault 없음과 operator visual confirm 뒤 screen/hopper/temperature/final confirmation을 순서대로 요구한다. Commanded RPM 적분은 purge evidence로 사용하지 않는다. 80 g/120 g은 nominal estimate이며 mass-per-revolution calibration이 없으므로 measured purge mass로 기록하지 않는다. Purge 중 production spool/traverse와 shredder는 금지한다. 고온 purge를 STOP/PAUSE하거나 정상 완료해도 바로 IDLE로 가지 않고, heater와 motion을 끄고 유효한 cooling feedback으로 T1–Tdie 모두 60 °C 이하가 될 때까지 `COOLDOWN`을 유지한다. E-stop은 예외적으로 즉시 all-zero다.
 
-Mega pin과 wiring은 `electronics/controller_wiring_v0.6.md`/`board_config.h`를 따른다. EEPROM v4 CRC calibration은 shredder/screw/puller/spooler tach와 drive, traverse, gauge, current, fan1/fan2 tach, dancer, cooling-current를 독립 domain으로 저장하며 source/verified/range/units/revision이 없는 record는 해당 evidence를 승인하지 않는다. `HOME_TRAVERSE` 후 left limit 탐색과 2 mm backoff가 끝나야 위치가 valid하다. Forming-chain fault는 공통 rundown에서 feeder/spooler/traverse 즉시 off, `waste_path_active`, bounded screw/puller waste discharge, thermal hold/cooldown을 수행한다. Gauge 20개 연속 valid, U95 <=0.03 mm, diameter/ovality 10 s, puller valid/not saturated, 두 fan tach valid, screw tach valid, transport-delay 조건을 충족해도 `READY_TO_RETHREAD`에서 operator confirm 전 production spool을 금지한다.
+Mega pin과 wiring은 `exports/final/electrical/Arduino_Mega_pinmap.pdf`/`board_config.h`를 따른다. 활성 feeder는 FD-MET-01..03 동축 positive-displacement auger/anti-bridge shaft와 17E1K-07 + EG17-G10 + CL42T-V41 기준 구동계이며 D44 STEP, D42 DIR, D46 ENA, D47 ALM, A7 tach를 사용한다. EEPROM v4 CRC calibration은 shredder/screw/puller/spooler tach와 drive, traverse, gauge, current, fan1/fan2 tach, dancer, cooling-current를 독립 domain으로 저장하며 source/verified/range/units/revision이 없는 record는 해당 evidence를 승인하지 않는다. `HOME_TRAVERSE` 후 left limit 탐색과 2 mm backoff가 끝나야 위치가 valid하다. Forming-chain fault는 공통 rundown에서 feeder/spooler/traverse 즉시 off, `waste_path_active`, bounded screw/puller waste discharge, thermal hold/cooldown을 수행한다. Gauge 20개 연속 valid, U95 <=0.03 mm, diameter/ovality 10 s, puller valid/not saturated, 두 fan tach valid, screw tach valid, transport-delay 조건을 충족해도 `READY_TO_RETHREAD`에서 operator confirm 전 production spool을 금지한다.
 
 Fault clear에는 physical lockout key와 모든 subsystem preflight가 필요하다. 일부가 거부되면 어떤 latch도 부분 clear하지 않고, 성공해도 자동 restart하지 않는다. 표시 항목은 material/session/process/forming state, calibration readiness, screw speed, shredder load, heater temperature, feeder, cooling feedback, X/Y/mean/ovality/U95, spool eligibility, waste/requalification 상태와 분리된 fault reason이다.
 

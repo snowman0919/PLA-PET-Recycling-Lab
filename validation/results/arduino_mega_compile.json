@@ -2,11 +2,14 @@
   "revision": "parallel-actuation-hardening-v0.6.2",
   "fqbn": "arduino:avr:mega",
   "target": "firmware/arduino_mega/arduino_mega.ino",
+  "build_command": "arduino-cli compile --fqbn arduino:avr:mega firmware/arduino_mega",
+  "cli_version": "arduino-cli  Version: 1.5.1 Commit: unknown Date:",
   "status": "PASS",
-  "tool_output": "Sketch uses 59762 bytes (23%) of program storage space. Maximum is 253952 bytes.\nGlobal variables use 4727 bytes (57%) of dynamic memory, leaving 3465 bytes for local variables. Maximum is 8192 bytes.",
+  "feeder_motion_monitor_test": "PASS",
+  "tool_output": "Sketch uses 60042 bytes (23%) of program storage space. Maximum is 253952 bytes.\nGlobal variables use 4743 bytes (57%) of dynamic memory, leaving 3449 bytes for local variables. Maximum is 8192 bytes.",
   "source_hashes": {
-    "firmware/arduino_mega/arduino_mega.ino": "c33e27be6e5c6305a4a48e0cdeca4ee18d2fadb34b0f99c38506671752a53e48",
-    "firmware/arduino_mega/src/board_config.h": "94733450b4966fe5a5da45c6d8f3426284d6e150a44ec8f38fcf1c5a60372fdc",
+    "firmware/arduino_mega/arduino_mega.ino": "cc3d34a03eb078773ac2884c27de600fa8e30f91aed39b52d77459bf968e3c15",
+    "firmware/arduino_mega/src/board_config.h": "3c3b1da09c042bcbb388cebdc925e06d9748d8ca153e63524d24f7e2c5417b39",
     "firmware/arduino_mega/src/calibration_record.h": "e52b1b88ee9c54c69c38513b5a2dbffdca56ea8c98ae1e3c13031f1532c479b0",
     "firmware/arduino_mega/src/cooling_monitor.cpp": "af1955574ebb5af0369d19bde1cde66cdf2d4c337bb03e1aa645be394a317981",
     "firmware/arduino_mega/src/cooling_monitor.h": "700b9b873c9f3e2625c5670d8e9655e0420a63b3f74f7b49bb20fc47e49ad7b9",
@@ -14,6 +17,7 @@
     "firmware/arduino_mega/src/drive_speed_control.h": "3a198d2077ae63db6789874c1196f2ecbecab2b511b0a78a98dac3e0a5fa0815",
     "firmware/arduino_mega/src/feed_delivery_control.cpp": "ec86234fa70c9ba0a40f8386e57087dfaab92305814e83b08d3cd3c676c75ebd",
     "firmware/arduino_mega/src/feed_delivery_control.h": "1e55b8f427d3794d467f9df9e967c640e79e379a112fd488791325ef1aade2fc",
+    "firmware/arduino_mega/src/feeder_motion_monitor.h": "da64eb9e04dcfa9d3f46c787d636981b791b79e2931794cc854a204d581592a6",
     "firmware/arduino_mega/src/gauge_control.cpp": "1031ca9b2c00d3c250a6dce4e31c9f1b3aa105c25474c9fb460595e66ce8b7e5",
     "firmware/arduino_mega/src/gauge_control.h": "739ad4353c5237bdcc27d303447ad8b13480a93f058084a57bb35e35cea0f89b",
     "firmware/arduino_mega/src/generated_profiles.h": "d496e9802dc5ad61a5fc49e819637dec4130f566db63a9d5045083d3488cdf5f",
@@ -46,6 +50,10 @@
     "firmware/arduino_mega/src/ui_core.h": "33206cac593049ea2af8f226df5f73a606502a680cb86c36282ae1f68d8a339f"
   },
   "validator_hashes": {
-    "validation/arduino_compile.py": "794a567c46e86e2d9bc41c13978f141902faea9dd5d3968f11d7a4a6d018535b"
+    "validation/arduino_compile.py": "d29d514e4f930adc3171a41f3ca87d86bc3ccb0c129836e0def16b7fae3d7086"
+  },
+  "binary": {
+    "path": "exports/final/firmware/binaries/filament_recycler_atmega2560.hex",
+    "sha256": "e4f67a278ff204cd681cf70357047294478478ce365fa3838dc8be6e858274ae"
   }
 }

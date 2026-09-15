@@ -38,11 +38,14 @@ graphify-out/graph.graphml
 graphify-out/cypher.txt
 graphify-out/obsidian/
 graphify-out/wiki/
+graphify-out/reflections/
 
 # Regenerated solver/simulation outputs (manifest + generation commands are source of truth)
 simulation/openmodelica/results/raw/
 simulation/openmodelica/results_v0.6.2/raw/
 simulation/openmodelica/results_v0.6.2.1/raw/
+simulation/openmodelica/results_v0.8/raw/*
+!simulation/openmodelica/results_v0.8/raw/.gitkeep
 analysis/process_feed/nominal_state_trace.csv
 validation/results/hardware_adapter_tach/tach_estimator_trace.csv
 validation/results/hardware_adapter_tach/drive_adapter_trace.csv
@@ -53,6 +56,9 @@ analysis/structural/generated/*.12d
 analysis/structural/generated/*.cvg
 analysis/structural/generated/*.sta
 analysis/structural/generated/spooles.out
+analysis/final_validation/results/v0.8/raw/
+analysis/final_validation/results/v0.8/qualification_raw/
+analysis/final_validation/results/v0.8/phase_raw/
 analysis/structural/generated/*_coarse.inp
 analysis/structural/generated/*_medium.inp
 analysis/structural/generated/*_fine.inp
@@ -64,3 +70,9 @@ cad/graphify-out/
 nohup.out
 __pycache__/
 *.pyc
+
+# Scoped disposable clean-checkout and release verification workspace
+/.build/
+
+# Release archives are tag assets, not self-referential source inputs.
+/dist/

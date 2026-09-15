@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "simulation/openmodelica/PLA_PET_Recycler"
-REV = "safety-orchestration-closure-v0.6.1"
+REV = "final-design-fabrication-closure-v0.8"
 
 
 def main() -> None:

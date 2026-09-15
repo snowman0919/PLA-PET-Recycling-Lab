@@ -1,0 +1,2040 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "pipeline_source_sha256": "e3e21cd1f82dbc8737657ef82fd0378c5439afd8372196b3a21ad27e15df8e8c",
+  "process_isolation": [
+    "FreeCADCmd",
+    "gmsh CLI",
+    "ccx OMP_NUM_THREADS=1",
+    "Python postprocess"
+  ],
+  "solver_versions": {
+    "freecad": "1.1.3",
+    "gmsh": "4.15.2-git",
+    "calculix": "2.23"
+  },
+  "geometry": {
+    "revision": "final-design-fabrication-closure-v0.8",
+    "authority": "FreeCAD Python controlling geometry",
+    "physical_validation_state": "NOT_RUN",
+    "parts": [
+      {
+        "file": "bearing_plate.step",
+        "sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
+        "solid_count": 1,
+        "volume_mm3": 188962.09952,
+        "bbox_mm": [
+          150.0,
+          125.0,
+          12.0
+        ],
+        "step_reimport_volume_error_fraction": 0.0,
+        "status": "PASS"
+      },
+      {
+        "file": "extruder_barrel.step",
+        "sha256": "dc21e0c4f542c98bcceb3118b9215ada6cb07c14b0757ce0fc646db69fba7d26",
+        "solid_count": 1,
+        "volume_mm3": 196898.993147,
+        "bbox_mm": [
+          39.0,
+          44.0,
+          280.0
+        ],
+        "step_reimport_volume_error_fraction": 4.365482663775444e-08,
+        "status": "PASS"
+      }
+    ],
+    "shredder_stations": {
+      "105": {
+        "shaft_y_min_mm": 278.0,
+        "shaft_y_max_mm": 518.0,
+        "bearing_y_mm": [
+          321.0,
+          461.0
+        ],
+        "gear_y_mm": 480.0,
+        "cutter_y_mm": [
+          342.0,
+          355.0,
+          368.0,
+          381.0,
+          394.0,
+          407.0
+        ]
+      },
+      "153": {
+        "shaft_y_min_mm": 258.0,
+        "shaft_y_max_mm": 498.0,
+        "bearing_y_mm": [
+          321.0,
+          461.0
+        ],
+        "gear_y_mm": 480.0,
+        "cutter_y_mm": [
+          348.5,
+          361.5,
+          374.5,
+          387.5,
+          400.5,
+          413.5
+        ],
+        "chain_sprocket_y_mm": 273.0
+      }
+    },
+    "hot_zone_stations": {
+      "barrel_rear_y_mm": 375.00000000000006,
+      "barrel_die_y_mm": 95.00000000000006,
+      "rear_datum_y_mm": 359.00000000000006,
+      "front_guide_y_mm": 265.00000000000006,
+      "authority": "GGM integrated final native CAD"
+    },
+    "geometry_source_sha256": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
+    "runtime_freecad_version": "1.1.3"
+  },
+  "LC02": {
+    "meshes": [
+      {
+        "mesh": "coarse",
+        "elements": 24,
+        "provenance": {
+          "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "actual_elements": 16,
+          "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 9,
+          "applied_torque_nm": 22.0,
+          "applied_radial_force_n": 1736.533695442964,
+          "load_position_from_front_bearing_mm": 60.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -1736.533695442964
+          ],
+          "net_moment_about_origin_nm": [
+            22.0,
+            213.59364453948456,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.08218975961821526,
+          "max_von_mises_mpa": 58.99792721255709,
+          "max_von_mises_node_id": 74,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              1.9091537999999998e-11,
+              1.0133844e-10,
+              1736.5337000002326
+            ],
+            "moment_about_origin_nm": [
+              -22.00001792,
+              -213.5936411,
+              1.634751307e-11
+            ],
+            "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+            "torsional_reaction_qualified": true,
+            "measured_root_torque": {
+              "measured_torque_nm": -22.00001792,
+              "applied_torque_nm": 22.0,
+              "residual_nm": -1.7920000001225844e-05,
+              "tolerance_nm": 0.00022,
+              "root_nodes": [
+                18,
+                19,
+                20,
+                21
+              ],
+              "status": "PASS",
+              "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+            },
+            "assembly_load_path_qualified": false
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              1.9091537999999998e-11,
+              1.0133844e-10,
+              4.55726853942906e-06
+            ],
+            "moment_residual_nm": [
+              -1.7920000001225844e-05,
+              3.439484544287552e-06,
+              1.634751307e-11
+            ]
+          },
+          "regional_safety_factor": 3.008580273684954
+        }
+      },
+      {
+        "mesh": "medium",
+        "elements": 48,
+        "provenance": {
+          "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "actual_elements": 36,
+          "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 19,
+          "applied_torque_nm": 22.0,
+          "applied_radial_force_n": 1736.533695442964,
+          "load_position_from_front_bearing_mm": 60.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -1736.533695442964
+          ],
+          "net_moment_about_origin_nm": [
+            22.0,
+            213.59364453948456,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.08240424144350823,
+          "max_von_mises_mpa": 66.35573962501721,
+          "max_von_mises_node_id": 174,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              3.6859308199999997e-10,
+              1.6094284e-10,
+              1736.533699999921
+            ],
+            "moment_about_origin_nm": [
+              -22.00001792,
+              -213.5936411,
+              2.1103832680000003e-11
+            ],
+            "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+            "torsional_reaction_qualified": true,
+            "measured_root_torque": {
+              "measured_torque_nm": -22.00001792,
+              "applied_torque_nm": 22.0,
+              "residual_nm": -1.7920000001225844e-05,
+              "tolerance_nm": 0.00022,
+              "root_nodes": [
+                38,
+                39,
+                40,
+                41
+              ],
+              "status": "PASS",
+              "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+            },
+            "assembly_load_path_qualified": false
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              3.6859308199999997e-10,
+              1.6094284e-10,
+              4.556957037493703e-06
+            ],
+            "moment_residual_nm": [
+              -1.7920000001225844e-05,
+              3.439484544287552e-06,
+              2.1103832680000003e-11
+            ]
+          },
+          "regional_safety_factor": 2.674975834842169
+        }
+      },
+      {
+        "mesh": "fine",
+        "elements": 96,
+        "provenance": {
+          "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "actual_elements": 76,
+          "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 39,
+          "applied_torque_nm": 22.0,
+          "applied_radial_force_n": 1736.533695442964,
+          "load_position_from_front_bearing_mm": 60.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -1736.533695442964
+          ],
+          "net_moment_about_origin_nm": [
+            22.0,
+            213.59364453948456,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.08244532471189618,
+          "max_von_mises_mpa": 69.44139371423528,
+          "max_von_mises_node_id": 374,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              -6.2374117e-10,
+              6.914266e-10,
+              1736.5337000000136
+            ],
+            "moment_about_origin_nm": [
+              -22.00001792,
+              -213.5936411,
+              1.4781040953e-10
+            ],
+            "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+            "torsional_reaction_qualified": true,
+            "measured_root_torque": {
+              "measured_torque_nm": -22.00001792,
+              "applied_torque_nm": 22.0,
+              "residual_nm": -1.7920000001225844e-05,
+              "tolerance_nm": 0.00022,
+              "root_nodes": [
+                78,
+                79,
+                80,
+                81
+              ],
+              "status": "PASS",
+              "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+            },
+            "assembly_load_path_qualified": false
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -6.2374117e-10,
+              6.914266e-10,
+              4.557049578579608e-06
+            ],
+            "moment_residual_nm": [
+              -1.7920000001225844e-05,
+              3.439484544287552e-06,
+              1.4781040953e-10
+            ]
+          },
+          "regional_safety_factor": 2.5561122913293866
+        }
+      }
+    ],
+    "medium_to_fine_delta_percent": 0.04983092556371494,
+    "screening_status": "PASS",
+    "status": "PASS",
+    "representative_shaft": "153",
+    "per_shaft": {
+      "105": {
+        "meshes": [
+          {
+            "mesh": "coarse",
+            "elements": 24,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 278.0,
+                "shaft_y_max_mm": 518.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  342.0,
+                  355.0,
+                  368.0,
+                  381.0,
+                  394.0,
+                  407.0
+                ]
+              },
+              "actual_elements": 16,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 9,
+              "applied_torque_nm": 22.0,
+              "applied_radial_force_n": 1736.533695442964,
+              "load_position_from_front_bearing_mm": 53.49999999999999,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -1736.533695442964
+              ],
+              "net_moment_about_origin_nm": [
+                22.0,
+                167.57550161024602,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.07935644068618501,
+              "max_von_mises_mpa": 57.8322622493581,
+              "max_von_mises_node_id": 74,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  3.7478524000000004e-11,
+                  -8.079056999999999e-11,
+                  1736.5339000000345
+                ],
+                "moment_about_origin_nm": [
+                  -22.00001792,
+                  -167.57550369999998,
+                  -9.59758745e-12
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": -22.00001792,
+                  "applied_torque_nm": 22.0,
+                  "residual_nm": -1.7920000001225844e-05,
+                  "tolerance_nm": 0.00022,
+                  "root_nodes": [
+                    18,
+                    19,
+                    20,
+                    21
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  3.7478524000000004e-11,
+                  -8.079056999999999e-11,
+                  0.00020455707044675364
+                ],
+                "moment_residual_nm": [
+                  -1.7920000001225844e-05,
+                  -2.089753962764007e-06,
+                  -9.59758745e-12
+                ]
+              },
+              "regional_safety_factor": 3.069221107669364
+            }
+          },
+          {
+            "mesh": "medium",
+            "elements": 48,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 278.0,
+                "shaft_y_max_mm": 518.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  342.0,
+                  355.0,
+                  368.0,
+                  381.0,
+                  394.0,
+                  407.0
+                ]
+              },
+              "actual_elements": 36,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 19,
+              "applied_torque_nm": 22.0,
+              "applied_radial_force_n": 1736.533695442964,
+              "load_position_from_front_bearing_mm": 53.49999999999999,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -1736.533695442964
+              ],
+              "net_moment_about_origin_nm": [
+                22.0,
+                167.57550161024602,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.07906389153798336,
+              "max_von_mises_mpa": 64.80677009835912,
+              "max_von_mises_node_id": 174,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  1.19826487e-10,
+                  -4.7199819999999986e-12,
+                  1736.5338999999865
+                ],
+                "moment_about_origin_nm": [
+                  -22.00001792,
+                  -167.57550369999998,
+                  -7.475231786e-12
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": -22.00001792,
+                  "applied_torque_nm": 22.0,
+                  "residual_nm": -1.7920000001225844e-05,
+                  "tolerance_nm": 0.00022,
+                  "root_nodes": [
+                    38,
+                    39,
+                    40,
+                    41
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  1.19826487e-10,
+                  -4.7199819999999986e-12,
+                  0.00020455702247090812
+                ],
+                "moment_residual_nm": [
+                  -1.7920000001225844e-05,
+                  -2.089753962764007e-06,
+                  -7.475231786e-12
+                ]
+              },
+              "regional_safety_factor": 2.7389113780952683
+            }
+          },
+          {
+            "mesh": "fine",
+            "elements": 96,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 278.0,
+                "shaft_y_max_mm": 518.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  342.0,
+                  355.0,
+                  368.0,
+                  381.0,
+                  394.0,
+                  407.0
+                ]
+              },
+              "actual_elements": 76,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 39,
+              "applied_torque_nm": 22.0,
+              "applied_radial_force_n": 1736.533695442964,
+              "load_position_from_front_bearing_mm": 53.49999999999999,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -1736.533695442964
+              ],
+              "net_moment_about_origin_nm": [
+                22.0,
+                167.57550161024602,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.07900708527749205,
+              "max_von_mises_mpa": 67.73235949990408,
+              "max_von_mises_node_id": 374,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  5.3585924e-10,
+                  -3.148109e-11,
+                  1736.5338999999663
+                ],
+                "moment_about_origin_nm": [
+                  -22.00001792,
+                  -167.57550369999998,
+                  1.0249901899999998e-11
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": -22.00001792,
+                  "applied_torque_nm": 22.0,
+                  "residual_nm": -1.7920000001225844e-05,
+                  "tolerance_nm": 0.00022,
+                  "root_nodes": [
+                    78,
+                    79,
+                    80,
+                    81
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  5.3585924e-10,
+                  -3.148109e-11,
+                  0.000204557002234651
+                ],
+                "moment_residual_nm": [
+                  -1.7920000001225844e-05,
+                  -2.089753962764007e-06,
+                  1.0249901899999998e-11
+                ]
+              },
+              "regional_safety_factor": 2.620608543841609
+            }
+          }
+        ],
+        "medium_to_fine_delta_percent": 0.07190021033151417,
+        "screening_status": "PASS",
+        "status": "HOLD"
+      },
+      "153": {
+        "meshes": [
+          {
+            "mesh": "coarse",
+            "elements": 24,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 258.0,
+                "shaft_y_max_mm": 498.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  348.5,
+                  361.5,
+                  374.5,
+                  387.5,
+                  400.5,
+                  413.5
+                ],
+                "chain_sprocket_y_mm": 273.0
+              },
+              "actual_elements": 16,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 9,
+              "applied_torque_nm": 22.0,
+              "applied_radial_force_n": 1736.533695442964,
+              "load_position_from_front_bearing_mm": 60.0,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -1736.533695442964
+              ],
+              "net_moment_about_origin_nm": [
+                22.0,
+                213.59364453948456,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.08218975961821526,
+              "max_von_mises_mpa": 58.99792721255709,
+              "max_von_mises_node_id": 74,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  1.9091537999999998e-11,
+                  1.0133844e-10,
+                  1736.5337000002326
+                ],
+                "moment_about_origin_nm": [
+                  -22.00001792,
+                  -213.5936411,
+                  1.634751307e-11
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": -22.00001792,
+                  "applied_torque_nm": 22.0,
+                  "residual_nm": -1.7920000001225844e-05,
+                  "tolerance_nm": 0.00022,
+                  "root_nodes": [
+                    18,
+                    19,
+                    20,
+                    21
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  1.9091537999999998e-11,
+                  1.0133844e-10,
+                  4.55726853942906e-06
+                ],
+                "moment_residual_nm": [
+                  -1.7920000001225844e-05,
+                  3.439484544287552e-06,
+                  1.634751307e-11
+                ]
+              },
+              "regional_safety_factor": 3.008580273684954
+            }
+          },
+          {
+            "mesh": "medium",
+            "elements": 48,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 258.0,
+                "shaft_y_max_mm": 498.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  348.5,
+                  361.5,
+                  374.5,
+                  387.5,
+                  400.5,
+                  413.5
+                ],
+                "chain_sprocket_y_mm": 273.0
+              },
+              "actual_elements": 36,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 19,
+              "applied_torque_nm": 22.0,
+              "applied_radial_force_n": 1736.533695442964,
+              "load_position_from_front_bearing_mm": 60.0,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -1736.533695442964
+              ],
+              "net_moment_about_origin_nm": [
+                22.0,
+                213.59364453948456,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.08240424144350823,
+              "max_von_mises_mpa": 66.35573962501721,
+              "max_von_mises_node_id": 174,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  3.6859308199999997e-10,
+                  1.6094284e-10,
+                  1736.533699999921
+                ],
+                "moment_about_origin_nm": [
+                  -22.00001792,
+                  -213.5936411,
+                  2.1103832680000003e-11
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": -22.00001792,
+                  "applied_torque_nm": 22.0,
+                  "residual_nm": -1.7920000001225844e-05,
+                  "tolerance_nm": 0.00022,
+                  "root_nodes": [
+                    38,
+                    39,
+                    40,
+                    41
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  3.6859308199999997e-10,
+                  1.6094284e-10,
+                  4.556957037493703e-06
+                ],
+                "moment_residual_nm": [
+                  -1.7920000001225844e-05,
+                  3.439484544287552e-06,
+                  2.1103832680000003e-11
+                ]
+              },
+              "regional_safety_factor": 2.674975834842169
+            }
+          },
+          {
+            "mesh": "fine",
+            "elements": 96,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 258.0,
+                "shaft_y_max_mm": 498.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  348.5,
+                  361.5,
+                  374.5,
+                  387.5,
+                  400.5,
+                  413.5
+                ],
+                "chain_sprocket_y_mm": 273.0
+              },
+              "actual_elements": 76,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 39,
+              "applied_torque_nm": 22.0,
+              "applied_radial_force_n": 1736.533695442964,
+              "load_position_from_front_bearing_mm": 60.0,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -1736.533695442964
+              ],
+              "net_moment_about_origin_nm": [
+                22.0,
+                213.59364453948456,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.08244532471189618,
+              "max_von_mises_mpa": 69.44139371423528,
+              "max_von_mises_node_id": 374,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  -6.2374117e-10,
+                  6.914266e-10,
+                  1736.5337000000136
+                ],
+                "moment_about_origin_nm": [
+                  -22.00001792,
+                  -213.5936411,
+                  1.4781040953e-10
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": -22.00001792,
+                  "applied_torque_nm": 22.0,
+                  "residual_nm": -1.7920000001225844e-05,
+                  "tolerance_nm": 0.00022,
+                  "root_nodes": [
+                    78,
+                    79,
+                    80,
+                    81
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  -6.2374117e-10,
+                  6.914266e-10,
+                  4.557049578579608e-06
+                ],
+                "moment_residual_nm": [
+                  -1.7920000001225844e-05,
+                  3.439484544287552e-06,
+                  1.4781040953e-10
+                ]
+              },
+              "regional_safety_factor": 2.5561122913293866
+            }
+          }
+        ],
+        "medium_to_fine_delta_percent": 0.04983092556371494,
+        "screening_status": "PASS",
+        "status": "HOLD"
+      }
+    },
+    "solid_load_path_evidence": {
+      "path": "analysis/final_validation/results/v0.8/solid_load_path_closure.json",
+      "source_current": true,
+      "status": "PASS"
+    },
+    "qualification_note": "CAD-station beam screen plus current keyed-solid 22 N.m load-path envelope; actual receipt/fatigue remain NOT_RUN."
+  },
+  "LC05": {
+    "meshes": [
+      {
+        "mesh": "coarse",
+        "elements": 24,
+        "provenance": {
+          "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "actual_elements": 16,
+          "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 5,
+          "applied_torque_nm": 0.0,
+          "applied_radial_force_n": 602.7336257714462,
+          "load_position_from_front_bearing_mm": -48.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -602.7336257714462
+          ],
+          "net_moment_about_origin_nm": [
+            0.0,
+            9.041004386571693,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.07123336703603578,
+          "max_von_mises_mpa": 27.357103622822628,
+          "max_von_mises_node_id": 82,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              -5.5857779e-11,
+              3.1349666e-11,
+              602.7336999999635
+            ],
+            "moment_about_origin_nm": [
+              9.711123496e-13,
+              -9.0410131,
+              1.0651447799999978e-13
+            ],
+            "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+            "torsional_reaction_qualified": true,
+            "measured_root_torque": {
+              "measured_torque_nm": 9.711123496e-13,
+              "applied_torque_nm": 0.0,
+              "residual_nm": 9.711123496e-13,
+              "tolerance_nm": 0.0001,
+              "root_nodes": [
+                18,
+                19,
+                20,
+                21
+              ],
+              "status": "PASS",
+              "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+            },
+            "assembly_load_path_qualified": false
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -5.5857779e-11,
+              3.1349666e-11,
+              7.422851729188551e-05
+            ],
+            "moment_residual_nm": [
+              9.711123496e-13,
+              -8.713428307771665e-06,
+              1.0651447799999978e-13
+            ]
+          },
+          "regional_safety_factor": 6.488259957897037
+        }
+      },
+      {
+        "mesh": "medium",
+        "elements": 48,
+        "provenance": {
+          "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "actual_elements": 36,
+          "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 10,
+          "applied_torque_nm": 0.0,
+          "applied_radial_force_n": 602.7336257714462,
+          "load_position_from_front_bearing_mm": -48.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -602.7336257714462
+          ],
+          "net_moment_about_origin_nm": [
+            0.0,
+            9.041004386571693,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.07212778181404832,
+          "max_von_mises_mpa": 29.44402385233452,
+          "max_von_mises_node_id": 182,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              -2.32204317e-10,
+              -3.490909e-11,
+              602.7336999998669
+            ],
+            "moment_about_origin_nm": [
+              2.8191244160000033e-14,
+              -9.0410131,
+              1.75601237e-12
+            ],
+            "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+            "torsional_reaction_qualified": true,
+            "measured_root_torque": {
+              "measured_torque_nm": 2.8191244160000033e-14,
+              "applied_torque_nm": 0.0,
+              "residual_nm": 2.8191244160000033e-14,
+              "tolerance_nm": 0.0001,
+              "root_nodes": [
+                38,
+                39,
+                40,
+                41
+              ],
+              "status": "PASS",
+              "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+            },
+            "assembly_load_path_qualified": false
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -2.32204317e-10,
+              -3.490909e-11,
+              7.422842065807345e-05
+            ],
+            "moment_residual_nm": [
+              2.8191244160000033e-14,
+              -8.713428307771665e-06,
+              1.75601237e-12
+            ]
+          },
+          "regional_safety_factor": 6.028387997856027
+        }
+      },
+      {
+        "mesh": "fine",
+        "elements": 96,
+        "provenance": {
+          "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+          "cad_stations": {
+            "shaft_y_min_mm": 258.0,
+            "shaft_y_max_mm": 498.0,
+            "bearing_y_mm": [
+              321.0,
+              461.0
+            ],
+            "gear_y_mm": 480.0,
+            "cutter_y_mm": [
+              348.5,
+              361.5,
+              374.5,
+              387.5,
+              400.5,
+              413.5
+            ],
+            "chain_sprocket_y_mm": 273.0
+          },
+          "actual_elements": 76,
+          "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+          "material": "S45C linear elastic E=205 GPa nu=0.29",
+          "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+          "load_application_node": 20,
+          "applied_torque_nm": 0.0,
+          "applied_radial_force_n": 602.7336257714462,
+          "load_position_from_front_bearing_mm": -48.0,
+          "net_force_n": [
+            0.0,
+            0.0,
+            -602.7336257714462
+          ],
+          "net_moment_about_origin_nm": [
+            0.0,
+            9.041004386571693,
+            0.0
+          ]
+        },
+        "result": {
+          "max_displacement_mm": 0.07230042111925264,
+          "max_von_mises_mpa": 30.293982849256626,
+          "max_von_mises_node_id": 382,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 3,
+            "force_n": [
+              -1.4479473e-10,
+              -3.0585654999999995e-10,
+              602.7336999998648
+            ],
+            "moment_about_origin_nm": [
+              7.126519736e-12,
+              -9.0410131,
+              5.992390950000001e-12
+            ],
+            "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+            "torsional_reaction_qualified": true,
+            "measured_root_torque": {
+              "measured_torque_nm": 7.126519736e-12,
+              "applied_torque_nm": 0.0,
+              "residual_nm": 7.126519736e-12,
+              "tolerance_nm": 0.0001,
+              "root_nodes": [
+                78,
+                79,
+                80,
+                81
+              ],
+              "status": "PASS",
+              "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+            },
+            "assembly_load_path_qualified": false
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -1.4479473e-10,
+              -3.0585654999999995e-10,
+              7.422841861171037e-05
+            ],
+            "moment_residual_nm": [
+              7.126519736e-12,
+              -8.713428307771665e-06,
+              5.992390950000001e-12
+            ]
+          },
+          "regional_safety_factor": 5.8592493724989225
+        }
+      }
+    ],
+    "medium_to_fine_delta_percent": 0.23878049744630161,
+    "screening_status": "PASS",
+    "status": "PASS",
+    "representative_shaft": "153",
+    "per_shaft": {
+      "153": {
+        "meshes": [
+          {
+            "mesh": "coarse",
+            "elements": 24,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 258.0,
+                "shaft_y_max_mm": 498.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  348.5,
+                  361.5,
+                  374.5,
+                  387.5,
+                  400.5,
+                  413.5
+                ],
+                "chain_sprocket_y_mm": 273.0
+              },
+              "actual_elements": 16,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 5,
+              "applied_torque_nm": 0.0,
+              "applied_radial_force_n": 602.7336257714462,
+              "load_position_from_front_bearing_mm": -48.0,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -602.7336257714462
+              ],
+              "net_moment_about_origin_nm": [
+                0.0,
+                9.041004386571693,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.07123336703603578,
+              "max_von_mises_mpa": 27.357103622822628,
+              "max_von_mises_node_id": 82,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  -5.5857779e-11,
+                  3.1349666e-11,
+                  602.7336999999635
+                ],
+                "moment_about_origin_nm": [
+                  9.711123496e-13,
+                  -9.0410131,
+                  1.0651447799999978e-13
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": 9.711123496e-13,
+                  "applied_torque_nm": 0.0,
+                  "residual_nm": 9.711123496e-13,
+                  "tolerance_nm": 0.0001,
+                  "root_nodes": [
+                    18,
+                    19,
+                    20,
+                    21
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  -5.5857779e-11,
+                  3.1349666e-11,
+                  7.422851729188551e-05
+                ],
+                "moment_residual_nm": [
+                  9.711123496e-13,
+                  -8.713428307771665e-06,
+                  1.0651447799999978e-13
+                ]
+              },
+              "regional_safety_factor": 6.488259957897037
+            }
+          },
+          {
+            "mesh": "medium",
+            "elements": 48,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 258.0,
+                "shaft_y_max_mm": 498.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  348.5,
+                  361.5,
+                  374.5,
+                  387.5,
+                  400.5,
+                  413.5
+                ],
+                "chain_sprocket_y_mm": 273.0
+              },
+              "actual_elements": 36,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 10,
+              "applied_torque_nm": 0.0,
+              "applied_radial_force_n": 602.7336257714462,
+              "load_position_from_front_bearing_mm": -48.0,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -602.7336257714462
+              ],
+              "net_moment_about_origin_nm": [
+                0.0,
+                9.041004386571693,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.07212778181404832,
+              "max_von_mises_mpa": 29.44402385233452,
+              "max_von_mises_node_id": 182,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  -2.32204317e-10,
+                  -3.490909e-11,
+                  602.7336999998669
+                ],
+                "moment_about_origin_nm": [
+                  2.8191244160000033e-14,
+                  -9.0410131,
+                  1.75601237e-12
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": 2.8191244160000033e-14,
+                  "applied_torque_nm": 0.0,
+                  "residual_nm": 2.8191244160000033e-14,
+                  "tolerance_nm": 0.0001,
+                  "root_nodes": [
+                    38,
+                    39,
+                    40,
+                    41
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  -2.32204317e-10,
+                  -3.490909e-11,
+                  7.422842065807345e-05
+                ],
+                "moment_residual_nm": [
+                  2.8191244160000033e-14,
+                  -8.713428307771665e-06,
+                  1.75601237e-12
+                ]
+              },
+              "regional_safety_factor": 6.028387997856027
+            }
+          },
+          {
+            "mesh": "fine",
+            "elements": 96,
+            "provenance": {
+              "geometry_scope": "CAD-bound shaft extent, support stations and cutter-stack centre",
+              "cad_stations": {
+                "shaft_y_min_mm": 258.0,
+                "shaft_y_max_mm": 498.0,
+                "bearing_y_mm": [
+                  321.0,
+                  461.0
+                ],
+                "gear_y_mm": 480.0,
+                "cutter_y_mm": [
+                  348.5,
+                  361.5,
+                  374.5,
+                  387.5,
+                  400.5,
+                  413.5
+                ],
+                "chain_sprocket_y_mm": 273.0
+              },
+              "actual_elements": 76,
+              "limitations": "Equivalent square section, assumed end torque datum and chain-force magnitude/direction remain unqualified; not keyed/contact assembly validation.",
+              "material": "S45C linear elastic E=205 GPa nu=0.29",
+              "support_condition": "front bearing axial+radial datum, rear bearing radial/floating; drive torsion datum",
+              "load_application_node": 20,
+              "applied_torque_nm": 0.0,
+              "applied_radial_force_n": 602.7336257714462,
+              "load_position_from_front_bearing_mm": -48.0,
+              "net_force_n": [
+                0.0,
+                0.0,
+                -602.7336257714462
+              ],
+              "net_moment_about_origin_nm": [
+                0.0,
+                9.041004386571693,
+                0.0
+              ]
+            },
+            "result": {
+              "max_displacement_mm": 0.07230042111925264,
+              "max_von_mises_mpa": 30.293982849256626,
+              "max_von_mises_node_id": 382,
+              "status": "PASS",
+              "omp_num_threads": 1,
+              "negative_jacobian": false,
+              "reaction": {
+                "node_count": 3,
+                "force_n": [
+                  -1.4479473e-10,
+                  -3.0585654999999995e-10,
+                  602.7336999998648
+                ],
+                "moment_about_origin_nm": [
+                  7.126519736e-12,
+                  -9.0410131,
+                  5.992390950000001e-12
+                ],
+                "reaction_couple_source": "Measured expanded FRD root r-cross-RF; not copied input torque",
+                "torsional_reaction_qualified": true,
+                "measured_root_torque": {
+                  "measured_torque_nm": 7.126519736e-12,
+                  "applied_torque_nm": 0.0,
+                  "residual_nm": 7.126519736e-12,
+                  "tolerance_nm": 0.0001,
+                  "root_nodes": [
+                    78,
+                    79,
+                    80,
+                    81
+                  ],
+                  "status": "PASS",
+                  "scope": "measured RF moment at expanded X-axis RECT B31 drive root"
+                },
+                "assembly_load_path_qualified": false
+              },
+              "equilibrium": {
+                "force_residual_n": [
+                  -1.4479473e-10,
+                  -3.0585654999999995e-10,
+                  7.422841861171037e-05
+                ],
+                "moment_residual_nm": [
+                  7.126519736e-12,
+                  -8.713428307771665e-06,
+                  5.992390950000001e-12
+                ]
+              },
+              "regional_safety_factor": 5.8592493724989225
+            }
+          }
+        ],
+        "medium_to_fine_delta_percent": 0.23878049744630161,
+        "screening_status": "PASS",
+        "status": "HOLD"
+      }
+    },
+    "solid_load_path_evidence": {
+      "path": "analysis/final_validation/results/v0.8/solid_load_path_closure.json",
+      "source_current": true,
+      "status": "PASS"
+    },
+    "qualification_note": "CAD-station beam screen plus current keyed-solid 22 N.m load-path envelope; actual receipt/fatigue remain NOT_RUN."
+  },
+  "LC04": {
+    "case_id": "LC04",
+    "actual_step_sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
+    "provenance": {
+      "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
+      "material": "S275 linear elastic E=205 GPa nu=0.30",
+      "constraint_scope": "all translational DOF on four Ø6.6 frame-hole cylindrical surfaces",
+      "load_application": "cosine-weighted -Y load on lower halves of two Ø42 bearing-seat cylindrical surfaces",
+      "load_node_count": 188,
+      "constraint_node_count": 178,
+      "net_force_n": [
+        0.0,
+        -1736.533695442964,
+        0.0
+      ],
+      "net_moment_about_origin_nm": [
+        10.421362932015548,
+        0.0,
+        -128.74384137339123
+      ],
+      "result_definition": "maximum absolute nodal displacement"
+    },
+    "meshes": [
+      {
+        "mesh": "coarse",
+        "max_size_mm": 6.0,
+        "provenance": {
+          "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
+          "material": "S275 linear elastic E=205 GPa nu=0.30",
+          "constraint_scope": "all translational DOF on four Ø6.6 frame-hole cylindrical surfaces",
+          "load_application": "cosine-weighted -Y load on lower halves of two Ø42 bearing-seat cylindrical surfaces",
+          "load_node_count": 64,
+          "constraint_node_count": 142,
+          "net_force_n": [
+            0.0,
+            -1736.5336954429638,
+            0.0
+          ],
+          "net_moment_about_origin_nm": [
+            10.430146586604945,
+            0.0,
+            -128.99980057544172
+          ],
+          "result_definition": "maximum absolute nodal displacement"
+        },
+        "result": {
+          "max_displacement_mm": 0.0011261229690438118,
+          "max_von_mises_mpa": 5.587266091035027,
+          "max_von_mises_node_id": 420,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 142,
+            "force_n": [
+              -0.00030900000000094394,
+              1736.533814,
+              2.3499999999081547e-05
+            ],
+            "moment_about_origin_nm": [
+              -10.430147832908279,
+              -5.368912651466939e-06,
+              128.9998034083581
+            ]
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              -0.00030900000000094394,
+              0.0001185570361030841,
+              2.3499999999081547e-05
+            ],
+            "force_error_percent": 1.9106836607076028e-05,
+            "moment_residual_nm": [
+              -1.2463033343124152e-06,
+              -5.368912651466939e-06,
+              2.8329163797025103e-06
+            ]
+          }
+        }
+      },
+      {
+        "mesh": "medium",
+        "max_size_mm": 4.5,
+        "provenance": {
+          "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
+          "material": "S275 linear elastic E=205 GPa nu=0.30",
+          "constraint_scope": "all translational DOF on four Ø6.6 frame-hole cylindrical surfaces",
+          "load_application": "cosine-weighted -Y load on lower halves of two Ø42 bearing-seat cylindrical surfaces",
+          "load_node_count": 142,
+          "constraint_node_count": 157,
+          "net_force_n": [
+            0.0,
+            -1736.533695442964,
+            0.0
+          ],
+          "net_moment_about_origin_nm": [
+            10.41544296779664,
+            0.0,
+            -128.2619988688278
+          ],
+          "result_definition": "maximum absolute nodal displacement"
+        },
+        "result": {
+          "max_displacement_mm": 0.0011491728093817092,
+          "max_von_mises_mpa": 5.813230830917452,
+          "max_von_mises_node_id": 292,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 157,
+            "force_n": [
+              0.00020400000000200813,
+              1736.533737,
+              9.19999999934168e-06
+            ],
+            "moment_about_origin_nm": [
+              -10.415445510799026,
+              -2.706486377512807e-07,
+              128.26201406110513
+            ]
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              0.00020400000000200813,
+              4.15570359564299e-05,
+              9.19999999934168e-06
+            ],
+            "force_error_percent": 1.2000513669940046e-05,
+            "moment_residual_nm": [
+              -2.5430023864458917e-06,
+              -2.706486377512807e-07,
+              1.5192277345477123e-05
+            ]
+          }
+        }
+      },
+      {
+        "mesh": "fine",
+        "max_size_mm": 3.5,
+        "provenance": {
+          "geometry_scope": "FreeCAD CUT-03 150x125x12 plate with 2x bearing seats, 6x retainer holes, 4x frame holes",
+          "material": "S275 linear elastic E=205 GPa nu=0.30",
+          "constraint_scope": "all translational DOF on four Ø6.6 frame-hole cylindrical surfaces",
+          "load_application": "cosine-weighted -Y load on lower halves of two Ø42 bearing-seat cylindrical surfaces",
+          "load_node_count": 188,
+          "constraint_node_count": 178,
+          "net_force_n": [
+            0.0,
+            -1736.533695442964,
+            0.0
+          ],
+          "net_moment_about_origin_nm": [
+            10.421362932015548,
+            0.0,
+            -128.74384137339123
+          ],
+          "result_definition": "maximum absolute nodal displacement"
+        },
+        "result": {
+          "max_displacement_mm": 0.0011791710270408191,
+          "max_von_mises_mpa": 6.444061044040605,
+          "max_von_mises_node_id": 631,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false,
+          "reaction": {
+            "node_count": 178,
+            "force_n": [
+              0.00014708999999327697,
+              1736.5335307,
+              -2.0360000000973696e-05
+            ],
+            "moment_about_origin_nm": [
+              -10.421361669315168,
+              6.579377239981921e-06,
+              128.7438412062338
+            ]
+          },
+          "equilibrium": {
+            "force_residual_n": [
+              0.00014708999999327697,
+              -0.0001647429639888287,
+              -2.0360000000973696e-05
+            ],
+            "force_error_percent": 1.2771922198943911e-05,
+            "moment_residual_nm": [
+              1.2627003798115766e-06,
+              6.579377239981921e-06,
+              -1.6715742390260857e-07
+            ]
+          }
+        }
+      }
+    ],
+    "medium_to_fine_delta_percent": 2.544,
+    "legacy_surrogate": {
+      "geometry_scope": "120x100x12 unperforated rectangular cantilever surrogate",
+      "constraint_scope": "entire X=0 edge fixed",
+      "load_application": "total -Z load on narrow opposite-edge strip",
+      "result_definition": "maximum absolute nodal displacement",
+      "meshes": [
+        {
+          "mesh": "coarse",
+          "result": {
+            "max_displacement_mm": 0.3102800988800925,
+            "max_von_mises_mpa": 72.37207738781512,
+            "max_von_mises_node_id": 252,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          }
+        },
+        {
+          "mesh": "medium",
+          "result": {
+            "max_displacement_mm": 0.32898912592515883,
+            "max_von_mises_mpa": 81.45159353237639,
+            "max_von_mises_node_id": 982,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          }
+        },
+        {
+          "mesh": "fine",
+          "result": {
+            "max_displacement_mm": 0.33286475116090314,
+            "max_von_mises_mpa": 84.8717572278853,
+            "max_von_mises_node_id": 2192,
+            "status": "PASS",
+            "omp_num_threads": 1,
+            "negative_jacobian": false
+          }
+        }
+      ]
+    },
+    "resolution": "DIFFERENT_METRIC_OR_MODEL",
+    "release_metric": "actual FreeCAD plate, in-plane bearing-seat displacement",
+    "status": "PASS"
+  },
+  "hot_zone_mount": {
+    "cases": [
+      {
+        "study": "A_FULLY_FIXED",
+        "temperature_c": 270.0,
+        "feed_temperature_c": 270.0,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 prescribed axial field + full pressure thrust; closed-form local ligament/gradient bound",
+        "free_axial_growth_mm": 1.1662,
+        "mount_stress_mpa": 828.2101,
+        "pressure_sensor_bore_local_screen_mpa": 38.21101977897523,
+        "local_gradient_stress_mpa": 46.14285714285714,
+        "combined_regional_stress_mpa": 912.564,
+        "applied_thrust_n": 1239.7748770270393,
+        "deck_sha256": "871014280586056941c7def99f7277e212f35e3ed81c1555e06ec45d0504ea2f",
+        "solver_result": {
+          "max_displacement_mm": 0.712276893179387,
+          "max_von_mises_mpa": 828.2101,
+          "max_von_mises_node_id": 66,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false
+        },
+        "safety_factor": 0.197,
+        "status": "FAIL"
+      },
+      {
+        "study": "B_ONE_AXIAL_DATUM_SLIDING",
+        "temperature_c": 270.0,
+        "feed_temperature_c": 270.0,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 prescribed axial field + full pressure thrust; closed-form local ligament/gradient bound",
+        "free_axial_growth_mm": 1.1662,
+        "mount_stress_mpa": 1.8192,
+        "pressure_sensor_bore_local_screen_mpa": 38.21101977897523,
+        "local_gradient_stress_mpa": 46.14285714285714,
+        "combined_regional_stress_mpa": 86.1731,
+        "applied_thrust_n": 1239.7748770270393,
+        "deck_sha256": "1997e836cb62cc289d6fa0bffb696370ce9fc85bffbce8aaba479432b5d907d5",
+        "solver_result": {
+          "max_displacement_mm": 1.1047664597918332,
+          "max_von_mises_mpa": 1.8192275,
+          "max_von_mises_node_id": 34,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false
+        },
+        "safety_factor": 2.089,
+        "status": "PASS"
+      },
+      {
+        "study": "C_RADIAL_CONTROLLED_AXIAL_EXPANSION",
+        "temperature_c": 270.0,
+        "feed_temperature_c": 270.0,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 prescribed axial field + full pressure thrust; closed-form local ligament/gradient bound",
+        "free_axial_growth_mm": 1.1662,
+        "mount_stress_mpa": 1.8192,
+        "pressure_sensor_bore_local_screen_mpa": 38.21101977897523,
+        "local_gradient_stress_mpa": 46.14285714285714,
+        "combined_regional_stress_mpa": 86.1731,
+        "applied_thrust_n": 1239.7748770270393,
+        "deck_sha256": "f70e7ce13d05e84de005cfc67ccb53b154488038de1badab7f0e9c17e09db59f",
+        "solver_result": {
+          "max_displacement_mm": 1.1047664597918332,
+          "max_von_mises_mpa": 1.8192275,
+          "max_von_mises_node_id": 34,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false
+        },
+        "safety_factor": 2.089,
+        "status": "PASS"
+      },
+      {
+        "study": "D_BOUNDED_FRAME_SPRING",
+        "temperature_c": 270.0,
+        "feed_temperature_c": 270.0,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 1000000.0,
+        "method": "CalculiX B31 prescribed axial field + full pressure thrust; closed-form local ligament/gradient bound",
+        "free_axial_growth_mm": 1.1662,
+        "mount_stress_mpa": 1.7873,
+        "pressure_sensor_bore_local_screen_mpa": 38.21101977897523,
+        "local_gradient_stress_mpa": 46.14285714285714,
+        "combined_regional_stress_mpa": 86.1411,
+        "applied_thrust_n": 1239.7748770270393,
+        "deck_sha256": "271730f80fb562ec51977b06b63be628f6a05e0f1f43597939a03cd9fff52527",
+        "solver_result": {
+          "max_displacement_mm": 1.1044971336227993,
+          "max_von_mises_mpa": 1.7872698,
+          "max_von_mises_node_id": 82,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false
+        },
+        "safety_factor": 2.09,
+        "status": "PASS"
+      },
+      {
+        "study": "E_THERMAL_ONLY",
+        "temperature_c": 270.0,
+        "feed_temperature_c": 245.0,
+        "pressure_mpa": 0.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 prescribed axial field + full pressure thrust; closed-form local ligament/gradient bound",
+        "free_axial_growth_mm": 1.1067,
+        "mount_stress_mpa": 1.7414,
+        "pressure_sensor_bore_local_screen_mpa": 0.0,
+        "local_gradient_stress_mpa": 46.14285714285714,
+        "combined_regional_stress_mpa": 47.8842,
+        "applied_thrust_n": 0.0,
+        "deck_sha256": "38a189ba6aacb191edaf4901b8995d7bf45e444d0c1d4884de8d0c178983a2fa",
+        "solver_result": {
+          "max_displacement_mm": 1.0495634905654923,
+          "max_von_mises_mpa": 1.74135000001045,
+          "max_von_mises_node_id": 147,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false
+        },
+        "safety_factor": 3.759,
+        "status": "PASS"
+      },
+      {
+        "study": "F_PRESSURE_ONLY",
+        "temperature_c": 25.0,
+        "feed_temperature_c": 25.0,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 prescribed axial field + full pressure thrust; closed-form local ligament/gradient bound",
+        "free_axial_growth_mm": 0.0,
+        "mount_stress_mpa": 1.8192,
+        "pressure_sensor_bore_local_screen_mpa": 38.21101977897523,
+        "local_gradient_stress_mpa": 0.0,
+        "combined_regional_stress_mpa": 40.0302,
+        "applied_thrust_n": 1239.7748770270393,
+        "deck_sha256": "b89f4fba58d3607e6c0c6891da891b59e6c225195920047be3d336e7b11d09a2",
+        "solver_result": {
+          "max_displacement_mm": 0.0024512765781380483,
+          "max_von_mises_mpa": 1.8192275,
+          "max_von_mises_node_id": 34,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false
+        },
+        "safety_factor": 4.497,
+        "status": "PASS"
+      },
+      {
+        "study": "G_PET_THERMAL_BLOCKED_DIE_PRESSURE",
+        "temperature_c": 270.0,
+        "feed_temperature_c": 245.0,
+        "pressure_mpa": 6.0,
+        "axial_spring_n_m": 0.0,
+        "method": "CalculiX B31 prescribed axial field + full pressure thrust; closed-form local ligament/gradient bound",
+        "free_axial_growth_mm": 1.1067,
+        "mount_stress_mpa": 2.2915,
+        "pressure_sensor_bore_local_screen_mpa": 38.21101977897523,
+        "local_gradient_stress_mpa": 46.14285714285714,
+        "combined_regional_stress_mpa": 86.6453,
+        "applied_thrust_n": 1239.7748770270393,
+        "deck_sha256": "3826c167fa91efbac3b592613436f7fad97d65ce79c55a794b01b1bdcd7628b7",
+        "solver_result": {
+          "max_displacement_mm": 1.0520028900171712,
+          "max_von_mises_mpa": 2.291452,
+          "max_von_mises_node_id": 42,
+          "status": "PASS",
+          "omp_num_threads": 1,
+          "negative_jacobian": false
+        },
+        "safety_factor": 2.077,
+        "status": "PASS"
+      }
+    ],
+    "selected_mount": "C_RADIAL_CONTROLLED_AXIAL_EXPANSION",
+    "resolution": "BC04_FULL_FIX_WAS_UNREALISTICALLY_OVERCONSTRAINED",
+    "selected_mount_requirement": "CAD-station rear clamp / front radial guide screening; travel from final_v08.json",
+    "support_stations": {
+      "barrel_rear_y_mm": 375.00000000000006,
+      "barrel_die_y_mm": 95.00000000000006,
+      "rear_datum_y_mm": 359.00000000000006,
+      "front_guide_y_mm": 265.00000000000006,
+      "authority": "GGM integrated final native CAD"
+    },
+    "available_cold_axial_travel_mm": 1.5,
+    "beam_scope": "Legacy equivalent rectangular section, prescribed temperature, rear rotational clamp; not detailed support contact/rail capacity or Z1 heat transfer",
+    "local_screen_inputs": {
+      "outer_radius_mm": 16.985,
+      "inner_radius_mm": 8.11,
+      "blind_depth_mm": 5.55,
+      "ligament_mm": 3.325,
+      "young_mpa": 190000.0,
+      "alpha_per_k": 1.7e-05,
+      "poisson": 0.3,
+      "notch_factor_assumption": 1.5,
+      "allowable_mpa": 180.0
+    },
+    "screening_status": "PASS",
+    "qualification_checks": {
+      "scm440_temperature_dependent_material_qualified": true,
+      "sensor_bore_local_stress_qualified": true,
+      "die_joint_qualified": true,
+      "local_temperature_gradient_qualified": true
+    },
+    "sensor_bore_local_evidence": {
+      "source_current": true,
+      "status": "PASS",
+      "checks": {
+        "release_geometry_adopted": true,
+        "four_mesh_levels_solved": true,
+        "medium_to_fine_change_le_5pct": true,
+        "conditional_regional_sf_ge_2": true,
+        "pressure_load_self_equilibrated": true
+      },
+      "required_yield_mpa_for_sf2": 99.86921310824255
+    },
+    "digital_qualification_evidence": {
+      "source_current": true,
+      "status": "PASS",
+      "path": "analysis/final_validation/results/v0.8/hot_zone_digital_qualification.json"
+    },
+    "status": "PASS",
+    "material_provenance": "Digital design contract requires >=360 MPa yield at 270 C and uses 180 MPa analysis allowable; CTE12e-6 reference with 17e-6 upper sensitivity. Received material remains a later physical gate.",
+    "limitations": "Global mount remains a first-order B31 restraint screen. Independent 3D sensor-bore thermoelastic, 48-case thermal-fit and die-joint load-path evidence close the digital envelope; received material, leak-tightness and first thermal cycle remain NOT_RUN."
+  },
+  "raw_directory": "analysis/final_validation/results/v0.8/raw/run-8wy3wacv",
+  "dependencies_sha256": {
+    "analysis/final_validation/beam_torque_recovery.py": "c3034a20180367b0196360a40872f05ca458170a93691b6c9c13e591e9108838",
+    "cad/freecad/compact/geometry.py": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
+    "cad/parameters/baseline.json": "f71d689a445a7a292d371e214a76347e57fea98e4f787262883caea8663e1fc4",
+    "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b",
+    "analysis/load_cases/openmodelica_dynamic_envelope.json": "22e1ec87e052ce5629c82e601c68d18e1c5474821f3859396fae4b924c213073",
+    "analysis/final_validation/input/geometry_manifest.json": "ac3ee95d0f5d1affb325901b4c6a440cb9f5894bb6f9f434e1c2b22e3ca14725",
+    "analysis/structural/run_load_checks.py": "5fd498c9a55ab327f410d95eabf44244cb9c0b44611e8693051d79b34e7f39ba",
+    "analysis/final_validation/results/v0.8/sensor_bore_local_candidate.json": "e48d53eaed0d6a3e6bb4a7a0e323cbabeaaada1262f8b60cfb5c4a59a9900ce2"
+  },
+  "cross_solver_state": "NOT_COMPLETED_BY_SCOPE_DECISION",
+  "fusion_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
+  "inventor_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
+  "physical_validation_state": "NOT_RUN",
+  "status": "PASS"
+}

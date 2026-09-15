@@ -1,0 +1,187 @@
+{
+  "status": "PASS",
+  "scope": "Digital full journal lands and key void axial/clock registration; no fatigue/contact/physical-fit approval",
+  "physical_validation_state": "NOT_RUN",
+  "rows": [
+    {
+      "part_id": "CUT-05",
+      "shaft_id": "105",
+      "journal_checks": [
+        {
+          "centre_y_mm": 321.0,
+          "entire_combined_envelope_local_y_mm": [
+            37.0,
+            49.0
+          ],
+          "missing_volume_mm3": 0.0,
+          "legacy_missing_volume_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "centre_y_mm": 461.0,
+          "entire_combined_envelope_local_y_mm": [
+            177.0,
+            189.0
+          ],
+          "missing_volume_mm3": 0.0,
+          "legacy_missing_volume_mm3": 0.0,
+          "status": "PASS"
+        }
+      ],
+      "key_checks": [
+        {
+          "kind": "cutter",
+          "index": 0,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 1,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 2,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 3,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 4,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 5,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "phase_key_required16mm",
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        }
+      ],
+      "step_sha256": "23c5eb730a36117cdf74685a3f7bd5f6240a91de4a4eaeb3624c391cd2c7a189",
+      "step": "analysis/final_validation/input/CUT-05.step",
+      "step_reimport": {
+        "valid": true,
+        "solids": 1,
+        "volume_relative_error": 3.4583544718934688e-15
+      },
+      "volume_mm3": 113609.43892798504,
+      "legacy_volume_mm3": 113609.43892798504,
+      "status": "PASS",
+      "drawing_notes": {
+        "id": "CUT-05",
+        "name": "25 mm keyed cutter shaft left",
+        "qty": 1,
+        "material": "S45C QT steel",
+        "process": "turn + indexed keyway; black oxide with bearing seats masked",
+        "critical": "continuous \u00d825 h6 =24.987-25.000 across 61905 journals, cutter land and gear/hub land; overall240.0 +/-0.10; TIR<=0.05; 6.005-6.010 keyways at y=0-35 and55-160 with selected key5.995-6.000; 8.005-8.010 keyway at195-240 with selected key7.995-8.000; datum clock0 deg; install slave shaft at Y278"
+      }
+    },
+    {
+      "part_id": "CUT-05R",
+      "shaft_id": "153",
+      "journal_checks": [
+        {
+          "centre_y_mm": 321.0,
+          "entire_combined_envelope_local_y_mm": [
+            57.0,
+            69.0
+          ],
+          "missing_volume_mm3": 0.0,
+          "legacy_missing_volume_mm3": 243.28377028047748,
+          "status": "PASS"
+        },
+        {
+          "centre_y_mm": 461.0,
+          "entire_combined_envelope_local_y_mm": [
+            197.0,
+            209.0
+          ],
+          "missing_volume_mm3": 0.0,
+          "legacy_missing_volume_mm3": 363.19331422914206,
+          "status": "PASS"
+        }
+      ],
+      "key_checks": [
+        {
+          "kind": "cutter",
+          "index": 0,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 1,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 2,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 3,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 4,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "cutter",
+          "index": 5,
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        },
+        {
+          "kind": "phase_key_required16mm",
+          "overlap_mm3": 0.0,
+          "status": "PASS"
+        }
+      ],
+      "step_sha256": "5476789b8bc1fc5fc7c235feddc3b39428aa2b2909e01aa6636bc4f7d1a19303",
+      "step": "analysis/final_validation/input/CUT-05R.step",
+      "step_reimport": {
+        "valid": true,
+        "solids": 1,
+        "volume_relative_error": 2.4373620587928724e-14
+      },
+      "volume_mm3": 114630.80397789468,
+      "legacy_volume_mm3": 113609.43892798574,
+      "status": "PASS",
+      "drawing_notes": {
+        "id": "CUT-05R",
+        "name": "25 mm keyed cutter shaft right",
+        "qty": 1,
+        "material": "S45C QT steel",
+        "process": "turn + indexed keyway; black oxide with bearing seats masked",
+        "critical": "continuous \u00d825 h6 =24.987-25.000 across 61905 journals, cutter land and gear/hub land; overall240.0 +/-0.10; TIR<=0.05; all keyway centreplanes clocked25.714 +/-0.02 deg; 6.005-6.010 keyways at y=0-35 and85-165 with selected key5.995-6.000; 8.005-8.010 keyway at212-240 with selected key7.995-8.000; install driven shaft at Y258"
+      }
+    }
+  ],
+  "source_sha256": {
+    "validation/check_shaft_journal_keyseat_closure.py": "162ec3224e6541c0c898d992e07efe19020d90ad4dd25d06e2d51cdd2d0c9e6d",
+    "cad/freecad/compact/geometry.py": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "analysis/final_validation/input/geometry_manifest.json": "ac3ee95d0f5d1affb325901b4c6a440cb9f5894bb6f9f434e1c2b22e3ca14725"
+  }
+}

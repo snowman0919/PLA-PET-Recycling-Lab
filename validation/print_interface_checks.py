@@ -55,6 +55,22 @@ def perpendicular_edge_distance(shape, axis, start):
 def main():
     rows=[]
     for spec in print_parts():
+        if spec["id"] == "PPR-C01":
+            head_void = Part.makeCylinder(4.0, .1, App.Vector(180, 12, .05))
+            upper_annulus = Part.makeCylinder(4.0, .1, App.Vector(180, 12, 2.1)).cut(
+                Part.makeCylinder(2.5, .1, App.Vector(180, 12, 2.1)))
+            require(spec["shape"].common(head_void).Volume < 1e-4, "PPR-C01 flat-head recess missing")
+            require(spec["shape"].common(upper_annulus).Volume > 2.0, "PPR-C01 countersink removes upper boss")
+            require(spec["insert"] == "none" and "flat-head" in spec["fastener"], "PPR-C01 insert route returned")
+        if spec["id"] == "PPR-C10":
+            require(spec["insert"] == "none" and "nyloc" in spec["fastener"], "PPR-C10 alternate insert route returned")
+        if spec["id"] in {"PPR-C06", "PPR-C11"}:
+            require(spec["insert"] == "none" and "all-metal nuts" in spec["fastener"], f"{spec['id']} heat-set insert route returned")
+            require(all(start[2] == 0 and abs(radius-1.7) < 1e-6 and length == 8
+                        for axis, start, radius, length in spec["interface_bores"] if axis == "z"),
+                    f"{spec['id']} M3 through-bore contract missing")
+        if spec["id"] in {"PPR-C06", "PPR-C11"}:
+            require(spec["insert"] == "none" and "all-metal nuts" in spec["fastener"], f"{spec['id']} insert route returned")
         required_lines=spec["walls"]*spec["nozzle_mm"]
         require(abs(required_lines-spec["minimum_wall_mm"])<1e-6,f"{spec['id']} wall declaration/line count mismatch")
         runs=sampled_solid_runs(spec["shape"],*spec["wall_probe"])

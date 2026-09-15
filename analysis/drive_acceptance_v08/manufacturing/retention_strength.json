@@ -1,0 +1,169 @@
+{
+  "physical_validation": "NOT_RUN",
+  "machine_release": "HOLD",
+  "scope": "Local cold elastic plate comparison only; no bolt preload, hot joint, frame or contact validation",
+  "force_n": 1239.7748770270393,
+  "cases": [
+    {
+      "revision": "before",
+      "size_mm": 1.8,
+      "load_n": 1239.7748770270393,
+      "load_patch_mm2": 396.5987364740442,
+      "nodes": 21780,
+      "elements": 101497,
+      "reaction_n": [
+        -3.2379999994086583e-05,
+        -1239.77487998,
+        -4.0750000008821924e-05
+      ],
+      "reaction_error": 2.3818522540726687e-09,
+      "solver": {
+        "max_displacement_mm": 0.004606365564486279,
+        "max_von_mises_mpa": 16.627123368463348,
+        "max_von_mises_node_id": 630,
+        "status": "SOLVED",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "unit_system": "mm,N,MPa; explicit correction of legacy SI display conversion"
+      },
+      "source_sha256": "27bfc7e3b1ccfe3fb76adb0948d8274a83bdb2b7f8ced5ece269906920bea2c6",
+      "deck_sha256": "f1ae12c50b7fff2aa253f3de97c90898257ba07a15ddfcfa00380b759c723f9e",
+      "frd_sha256": "6e45aa654a7d4bd8fdd5c3ec1ce32474fb216e64ca792ee7e6d0a826ef0068de"
+    },
+    {
+      "revision": "before",
+      "size_mm": 1.2,
+      "load_n": 1239.7748770270393,
+      "load_patch_mm2": 396.6516485530405,
+      "nodes": 61668,
+      "elements": 313510,
+      "reaction_n": [
+        4.232899998538975e-06,
+        -1239.7748906902,
+        3.471999999774336e-05
+      ],
+      "reaction_error": 1.1020678751401382e-08,
+      "solver": {
+        "max_displacement_mm": 0.005104992866239482,
+        "max_von_mises_mpa": 19.813992426762457,
+        "max_von_mises_node_id": 409,
+        "status": "SOLVED",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "unit_system": "mm,N,MPa; explicit correction of legacy SI display conversion"
+      },
+      "source_sha256": "27bfc7e3b1ccfe3fb76adb0948d8274a83bdb2b7f8ced5ece269906920bea2c6",
+      "deck_sha256": "348d698a10d9b32dce9f7d8eef830d24c5ec8928e0bc783957465b8887b8d796",
+      "frd_sha256": "a460564377d8385bd151f6baa146574f2faf0de1768b99483c8779c98001d687"
+    },
+    {
+      "revision": "before",
+      "size_mm": 0.8,
+      "load_n": 1239.7748770270393,
+      "load_patch_mm2": 396.6659393881626,
+      "nodes": 184828,
+      "elements": 1003898,
+      "reaction_n": [
+        -7.5878999999852165e-06,
+        -1239.774867287,
+        2.0886900006215024e-05
+      ],
+      "reaction_error": 7.85629674548238e-09,
+      "solver": {
+        "max_displacement_mm": 0.005449575528859106,
+        "max_von_mises_mpa": 22.969194419373963,
+        "max_von_mises_node_id": 560,
+        "status": "SOLVED",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "unit_system": "mm,N,MPa; explicit correction of legacy SI display conversion"
+      },
+      "source_sha256": "27bfc7e3b1ccfe3fb76adb0948d8274a83bdb2b7f8ced5ece269906920bea2c6",
+      "deck_sha256": "9a19659a634c2bfeaa39f1183767c174369be343a3cb574a0f337ad27441c785",
+      "frd_sha256": "ea6efb41950e8b2b918c5746da1d6c498f97ccdef4582660134e72dc687302a2"
+    },
+    {
+      "revision": "r2",
+      "size_mm": 1.8,
+      "load_n": 1239.7748770270393,
+      "load_patch_mm2": 396.5987364740442,
+      "nodes": 21446,
+      "elements": 99722,
+      "reaction_n": [
+        -1.229999905282865e-07,
+        -1239.774883164,
+        -4.1600000031123685e-05
+      ],
+      "reaction_error": 4.950060433015146e-09,
+      "solver": {
+        "max_displacement_mm": 0.004772168566970431,
+        "max_von_mises_mpa": 16.687569806940136,
+        "max_von_mises_node_id": 266,
+        "status": "SOLVED",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "unit_system": "mm,N,MPa; explicit correction of legacy SI display conversion"
+      },
+      "source_sha256": "7ae327c07cc00a53c1d5895b5d66978446e95d397c82a872e637819e86545dd5",
+      "deck_sha256": "47de0de8fbb0445875c55afb6f34f7f1ef556854d293dba4c329a09e495c7642",
+      "frd_sha256": "a0a97d9439d2afd6e11e31575eefe5e584ead5853ebbf7049b3c011eb9ef4b69"
+    },
+    {
+      "revision": "r2",
+      "size_mm": 1.2,
+      "load_n": 1239.7748770270393,
+      "load_patch_mm2": 396.6516485530405,
+      "nodes": 61262,
+      "elements": 310777,
+      "reaction_n": [
+        5.818999999644171e-06,
+        -1239.774887905,
+        -2.7504599986045682e-05
+      ],
+      "reaction_error": 8.774141884783682e-09,
+      "solver": {
+        "max_displacement_mm": 0.005371361712242902,
+        "max_von_mises_mpa": 20.133413702495115,
+        "max_von_mises_node_id": 1354,
+        "status": "SOLVED",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "unit_system": "mm,N,MPa; explicit correction of legacy SI display conversion"
+      },
+      "source_sha256": "7ae327c07cc00a53c1d5895b5d66978446e95d397c82a872e637819e86545dd5",
+      "deck_sha256": "1c9f2b31e8e31050da4c64349cc3ea90d8d1ebbaa9f079753d55889af4dac48a",
+      "frd_sha256": "9c97deddbaebd5b860712780318e0ae98c9465a5d4ba3eefdb5e5c976dbb43a1"
+    },
+    {
+      "revision": "r2",
+      "size_mm": 0.8,
+      "load_n": 1239.7748770270393,
+      "load_patch_mm2": 396.6659393881626,
+      "nodes": 184662,
+      "elements": 1001955,
+      "reaction_n": [
+        4.9897000017736165e-06,
+        -1239.774886184,
+        1.27799999892304e-05
+      ],
+      "reaction_error": 7.385986646667855e-09,
+      "solver": {
+        "max_displacement_mm": 0.005733714218529732,
+        "max_von_mises_mpa": 23.081041218710215,
+        "max_von_mises_node_id": 729,
+        "status": "SOLVED",
+        "omp_num_threads": 1,
+        "negative_jacobian": false,
+        "unit_system": "mm,N,MPa; explicit correction of legacy SI display conversion"
+      },
+      "source_sha256": "7ae327c07cc00a53c1d5895b5d66978446e95d397c82a872e637819e86545dd5",
+      "deck_sha256": "7bbdd07589db80aa5bf241f87380b7747f1c510d25a11236887ee23446ded5a8",
+      "frd_sha256": "a510684a3169a68eb0bd2cfcc626f7fdacf9bc14d7052e59aa3fface1d85c314"
+    }
+  ],
+  "source_sha256": {
+    "analysis/drive_acceptance_v08/manufacturing/check_retainer_strength.py": "785e56bb15a6ad1abd6184b1cb108b321cffbc6c247f1b6654759b05712ec1d7",
+    "exports/final/drive_ggm_v08/ThrustPlate-GGM.step": "7ae327c07cc00a53c1d5895b5d66978446e95d397c82a872e637819e86545dd5",
+    "analysis/final_validation/run_calculix_v08.py": "7ba609d35acd8ea5a26fa0802f5c3f2b096dc44de051c331913d9d74c51f3e03"
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "revision": "safety-orchestration-closure-v0.6.1",
-  "pair_count": 13203,
+  "revision": "final-design-fabrication-closure-v0.8",
+  "pair_count": 15931,
   "tolerance_mm3": 0.05,
   "overlaps": [
     {
@@ -20,24 +20,6 @@
       "right_class": "purchased_reference_lod",
       "allowed": true,
       "reason": "보수적 chain LOD와 sprocket 맞물림 체적"
-    },
-    {
-      "left": "SealedFeedHopper",
-      "right": "FeedTransferChute",
-      "overlap_mm3": 276.076,
-      "left_class": "manufactured_or_stock",
-      "right_class": "manufactured_or_stock",
-      "allowed": true,
-      "reason": "밀폐 hopper 용접/socket 삽입부"
-    },
-    {
-      "left": "FeedTransferChute",
-      "right": "FeederHousing",
-      "overlap_mm3": 306.535,
-      "left_class": "manufactured_or_stock",
-      "right_class": "manufactured_or_stock",
-      "allowed": true,
-      "reason": "feeder 용접/socket 삽입부"
     },
     {
       "left": "HeaterCableDuctBridgeX",
@@ -110,6 +92,42 @@
       "right_class": "manufactured_or_stock",
       "allowed": true,
       "reason": "실측 전 generic core solid LOD에 표시한 cone 접촉/삽입부"
+    },
+    {
+      "left": "PPR-C11_ControlBezel",
+      "right": "ControlBezelM3Fastener1",
+      "overlap_mm3": 21.206,
+      "left_class": "manufactured_or_stock",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "PPR-C11 blind insert의 의도된 M3 나사산 체결부"
+    },
+    {
+      "left": "PPR-C11_ControlBezel",
+      "right": "ControlBezelM3Fastener2",
+      "overlap_mm3": 21.206,
+      "left_class": "manufactured_or_stock",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "PPR-C11 blind insert의 의도된 M3 나사산 체결부"
+    },
+    {
+      "left": "PPR-C11_ControlBezel",
+      "right": "ControlBezelM3Fastener3",
+      "overlap_mm3": 21.206,
+      "left_class": "manufactured_or_stock",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "PPR-C11 blind insert의 의도된 M3 나사산 체결부"
+    },
+    {
+      "left": "PPR-C11_ControlBezel",
+      "right": "ControlBezelM3Fastener4",
+      "overlap_mm3": 21.206,
+      "left_class": "manufactured_or_stock",
+      "right_class": "manufactured_or_stock",
+      "allowed": true,
+      "reason": "PPR-C11 blind insert의 의도된 M3 나사산 체결부"
     }
   ],
   "unexpected_count": 0,

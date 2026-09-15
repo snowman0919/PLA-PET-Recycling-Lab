@@ -1,0 +1,78 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "authority": "FreeCAD Python controlling geometry",
+  "physical_validation_state": "NOT_RUN",
+  "parts": [
+    {
+      "file": "bearing_plate.step",
+      "sha256": "d625b0e138c28c11b19d31e9402fd3fd12af2871ea3f81fb4d4ea5981ce09af6",
+      "solid_count": 1,
+      "volume_mm3": 188962.09952,
+      "bbox_mm": [
+        150.0,
+        125.0,
+        12.0
+      ],
+      "step_reimport_volume_error_fraction": 0.0,
+      "status": "PASS"
+    },
+    {
+      "file": "extruder_barrel.step",
+      "sha256": "dc21e0c4f542c98bcceb3118b9215ada6cb07c14b0757ce0fc646db69fba7d26",
+      "solid_count": 1,
+      "volume_mm3": 196898.993147,
+      "bbox_mm": [
+        39.0,
+        44.0,
+        280.0
+      ],
+      "step_reimport_volume_error_fraction": 4.365482663775444e-08,
+      "status": "PASS"
+    }
+  ],
+  "shredder_stations": {
+    "105": {
+      "shaft_y_min_mm": 278.0,
+      "shaft_y_max_mm": 518.0,
+      "bearing_y_mm": [
+        321.0,
+        461.0
+      ],
+      "gear_y_mm": 480.0,
+      "cutter_y_mm": [
+        342.0,
+        355.0,
+        368.0,
+        381.0,
+        394.0,
+        407.0
+      ]
+    },
+    "153": {
+      "shaft_y_min_mm": 258.0,
+      "shaft_y_max_mm": 498.0,
+      "bearing_y_mm": [
+        321.0,
+        461.0
+      ],
+      "gear_y_mm": 480.0,
+      "cutter_y_mm": [
+        348.5,
+        361.5,
+        374.5,
+        387.5,
+        400.5,
+        413.5
+      ],
+      "chain_sprocket_y_mm": 273.0
+    }
+  },
+  "hot_zone_stations": {
+    "barrel_rear_y_mm": 375.00000000000006,
+    "barrel_die_y_mm": 95.00000000000006,
+    "rear_datum_y_mm": 359.00000000000006,
+    "front_guide_y_mm": 265.00000000000006,
+    "authority": "GGM integrated final native CAD"
+  },
+  "geometry_source_sha256": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7"
+}

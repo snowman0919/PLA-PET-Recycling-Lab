@@ -6,6 +6,7 @@
 
 #include "src/board_config.h"
 #include "src/calibration_record.h"
+#include "src/feeder_motion_monitor.h"
 #include "src/machine_supervisor.h"
 #include "src/tach_contract_generated.h"
 #include "src/ui_core.h"
@@ -25,6 +26,8 @@ TachEstimate shredder_tach_sample{};
 TachEstimate puller_tach_sample{};
 TachEstimate screw_tach_sample{};
 TachEstimate spooler_tach_sample{};
+FeederMotionMonitor feeder_motion_monitor(Board::FEEDER_TACH_TIMEOUT_MS);
+bool feeder_motion_ok = true;
 volatile uint32_t fan_pulses[2] = {0, 0};
 volatile bool fan_mux_channel = false;
 volatile uint8_t portk_previous = 0;
@@ -89,10 +92,25 @@ class BoardFanCurrentFeedback final : public CoolingFeedbackBackend {
 
 class BoardActuators final : public ActuatorBackend {
  public:
+  void begin() {
+    TCCR5A = _BV(WGM51);
+    TCCR5B = _BV(WGM53) | _BV(WGM52) | _BV(CS51) | _BV(CS50);
+    ICR5 = 0xFFFF;
+    OCR5C = 0;
+  }
+
   void apply(const ActuatorCommands &c) override {
     setMotor(Board::SHREDDER_PWM_PIN, Board::SHREDDER_DIR_PIN, Board::SHREDDER_ENABLE_PIN, c.shredder_pwm);
     digitalWrite(Board::SHREDDER_REVERSE_PIN, c.shredder_pwm < 0 ? HIGH : LOW);
-    digitalWrite(Board::FEEDER_ENABLE_PIN, c.feeder_enable ? HIGH : LOW);
+    const uint16_t requested_hz = c.feeder_enable ? c.feeder_step_hz : 0;
+    if (requested_hz && !feeder_step_hz_) feeder_enabled_us_ = micros();
+    feeder_step_hz_ = requested_hz;
+    digitalWrite(Board::FEEDER_DIR_PIN, HIGH);
+    digitalWrite(Board::FEEDER_ENABLE_PIN, feeder_step_hz_ ? HIGH : LOW);
+    if (!feeder_step_hz_) {
+      TCCR5A &= static_cast<uint8_t>(~_BV(COM5C1));
+      digitalWrite(Board::FEEDER_STEP_PIN, LOW);
+    }
     setMotor(Board::SCREW_PWM_PIN, Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN, c.screw_pwm);
     setMotor(Board::PULLER_PWM_PIN, Board::PULLER_DIR_PIN, Board::PULLER_ENABLE_PIN, c.puller_pwm);
     setMotor(Board::SPOOLER_PWM_PIN, Board::SPOOLER_DIR_PIN, Board::SPOOLER_ENABLE_PIN, c.spooler_pwm);
@@ -101,10 +119,19 @@ class BoardActuators final : public ActuatorBackend {
     digitalWrite(Board::TRAVERSE_ENABLE_PIN, c.traverse_enable ? HIGH : LOW);
     digitalWrite(Board::TRAVERSE_STEP_PIN, c.traverse_step ? HIGH : LOW);
     for (uint8_t zone = 0; zone < 4; ++zone) digitalWrite(Board::HEATER_PINS[zone], c.heater_on[zone] ? HIGH : LOW);
-    digitalWrite(Board::HOPPER_PTC_PIN, c.hopper_ptc_on ? HIGH : LOW);
+  }
+
+  void service(uint32_t now_us) {
+    if (!feeder_step_hz_ || now_us - feeder_enabled_us_ < 200000UL) return;
+    const uint16_t top = static_cast<uint16_t>(F_CPU / 64UL / feeder_step_hz_ - 1UL);
+    ICR5 = top;
+    OCR5C = static_cast<uint16_t>((top + 1U) / 2U);
+    TCCR5A |= _BV(COM5C1);
   }
 
  private:
+  uint16_t feeder_step_hz_ = 0;
+  uint32_t feeder_enabled_us_ = 0;
   static void setMotor(uint8_t pwm, uint8_t direction, uint8_t enable, int16_t value) {
     const uint8_t duty = static_cast<uint8_t>(constrain(abs(value), 0, 255));
     digitalWrite(direction, value >= 0 ? HIGH : LOW);
@@ -128,7 +155,7 @@ ISR(PCINT2_vect) {
 
 bool allDriversHealthy() {
   for (uint8_t pin : Board::DRIVER_FAULT_PINS) if (digitalRead(pin) == LOW) return false;
-  return true;
+  return feeder_motion_ok;
 }
 
 bool temperaturesReady() {
@@ -517,6 +544,11 @@ void sampleTachs(uint32_t now_ms) {
   last_tach_sample_ms = now_ms;
 }
 
+void sampleFeederMotion(uint32_t now_ms) {
+  feeder_motion_ok = feeder_motion_monitor.update(
+      last_commands.feeder_enable, digitalRead(Board::FEEDER_TACH_PIN) == HIGH, now_ms);
+}
+
 void sampleFans(uint32_t now_ms) {
   if (now_ms - last_fan_sample_ms < 250) return;
   const bool completed_channel = fan_mux_channel;
@@ -663,6 +695,7 @@ void logStatus(const SupervisorOutput &output, uint32_t now_ms) {
 
 void setup() {
   Serial.begin(115200);
+  actuators.begin();
   for (uint8_t pin : Board::SAFETY_INPUT_PINS) pinMode(pin, INPUT_PULLUP);
   for (uint8_t pin : Board::DRIVER_FAULT_PINS) pinMode(pin, INPUT_PULLUP);
   for (uint8_t pin : Board::THERMOCOUPLE_CS_PINS) { pinMode(pin, OUTPUT); digitalWrite(pin, HIGH); }
@@ -673,14 +706,15 @@ void setup() {
   const uint8_t inputs[] = {Board::START_PIN, Board::PAUSE_PIN, Board::BACK_PIN, Board::CONFIRM_PIN,
                             Board::ENCODER_BUTTON_PIN, Board::ENCODER_A_PIN, Board::ENCODER_B_PIN,
                             Board::GAUGE_VALID_PIN, Board::LOCKOUT_CONFIRM_PIN,
-                            Board::TRAVERSE_LEFT_LIMIT_PIN, Board::TRAVERSE_RIGHT_LIMIT_PIN,
+                            Board::TRAVERSE_LEFT_LIMIT_PIN, Board::TRAVERSE_RIGHT_LIMIT_PIN, Board::FEEDER_TACH_PIN,
                             Board::SCREW_TACH_PIN, Board::FAN_TACH_MUX_PIN, Board::SPOOLER_TACH_PIN};
   for (uint8_t pin : inputs) pinMode(pin, INPUT_PULLUP);
   const uint8_t outputs[] = {Board::SHREDDER_DIR_PIN, Board::SHREDDER_REVERSE_PIN, Board::SHREDDER_ENABLE_PIN,
-                             Board::FEEDER_ENABLE_PIN, Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN,
+                             Board::FEEDER_STEP_PIN, Board::FEEDER_DIR_PIN, Board::FEEDER_ENABLE_PIN,
+                             Board::SCREW_DIR_PIN, Board::SCREW_ENABLE_PIN,
                              Board::PULLER_DIR_PIN, Board::PULLER_ENABLE_PIN, Board::SPOOLER_DIR_PIN,
                              Board::SPOOLER_ENABLE_PIN, Board::TRAVERSE_STEP_PIN, Board::TRAVERSE_DIR_PIN,
-                             Board::TRAVERSE_ENABLE_PIN, Board::HOPPER_PTC_PIN};
+                             Board::TRAVERSE_ENABLE_PIN};
   for (uint8_t pin : outputs) pinMode(pin, OUTPUT);
   pinMode(Board::FAN_TACH_MUX_SELECT_PIN, OUTPUT);
   digitalWrite(Board::FAN_TACH_MUX_SELECT_PIN, LOW);
@@ -704,6 +738,7 @@ void loop() {
   const uint32_t loop_started_us = micros();
 #endif
   const uint32_t now_ms = millis();
+  sampleFeederMotion(now_ms);
   sampleTachs(now_ms);
   sampleFans(now_ms);
   sampleTemperatures(now_ms);
@@ -713,6 +748,7 @@ void loop() {
   const SupervisorOutput output = supervisor.update(input, now_ms);
   last_commands = output.invariants_ok ? output.actuators : ActuatorCommands{};
   actuators.apply(last_commands);
+  actuators.service(micros());
   logStatus(output, now_ms);
 #ifdef PPR_DEBUG
   const uint32_t loop_us = micros() - loop_started_us;

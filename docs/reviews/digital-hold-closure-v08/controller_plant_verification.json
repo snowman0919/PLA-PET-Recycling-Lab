@@ -1,0 +1,46 @@
+{
+  "basis_commit": "a2747cdf1c8f3ea649ba2dd1da7f350414432ea0",
+  "scope": "HOST_COMPONENT_THERMAL_COUPLING_AND_C_SADDLE_GEOMETRY",
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "machine_release": "HOLD",
+  "remaining_digital_holds": true,
+  "nominal_process_targets": {
+    "passed": 8,
+    "total": 32,
+    "interpretation": "Numerical sensitivity scenarios, not physical performance"
+  },
+  "source_sha256": {
+    "firmware/arduino_mega/Makefile": "848c0ae3116a1139738bc634a704130319fa96c1faf36fc15d964df75f497759",
+    "firmware/arduino_mega/src/heater_control.cpp": "92c8b20af74fb12eb6e9825de593b4d5551c2c63310ebd2d2fcaf68f08b88bed",
+    "firmware/arduino_mega/tests/test_heater_tracking.cpp": "0273f3a8f87f193c7758568d2a7c9c2cc23b46461b21808f6d77f25919185d21",
+    "validation/test_heater_tracking.py": "3e8b0dad9193fffe19c7e52018c966f961d81c661db8cdcc8432315f84ec2016",
+    "validation/test_coupled_heater_replay.py": "561af838d8b90d77fbf39d093e4932b6601b5c63f24f15502837e58f43972c50",
+    "validation/test_thermal_steady_state.py": "73c04f058f50ee55fd2d9c6185edfa3e0bd4f2b0710fda9196eac71ebf130775",
+    "validation/test_package_evidence_closure.py": "b5b2558b4e8ce263752d0c0d7a53322828a7fef808062f68d7ebf3994454d448",
+    "validation/test_radial_capture_geometry.py": "f05a86b4e8c3bfb734ed0a48a09260c9b8873d3f5d0f52d32a9f1da23d4cfd33",
+    "validation/ci_v08.py": "4895c9a3ca7b8bcbe77d3ee8ee1cc6ebbb40bffd6e7fc7a71c5795e3fbab837e",
+    "analysis/thermal_revision_v08/power_loop.py": "61b4c9b3aad9614ef15a4b366bcc4f5769ab565c13383b0b2962db22dd1b791f",
+    "analysis/thermal_revision_v08/power_loop_bridge.cpp": "273ef04c8792b6c34f9305bed4254ece4c8b44411cf5fddce7f75fa1a9dbe859",
+    "analysis/thermal_revision_v08/coupled_replay.py": "565afc1b80631bd44deedab9defe47bbdeb5c0861ec222e9e41823b0fe9bfd8e",
+    "analysis/thermal_revision_v08/run_controller_replay.py": "28a4aedd5a8e262bb74042dab3f707df759908117392ba925a0b0c20b3790ce7",
+    "analysis/thermal_revision_v08/steady_state.py": "a3f74b07910fcee4c3ff30fba3392c131515c62533f3b0db6d15d58047b80e36",
+    "analysis/thermal_revision_v08/results/controller_replay.json": "ccf0af94ba586ea22ecf6d905c017735d707b79aa95cda89ae7bf8f52841652e",
+    "release/evidence_closure.py": "1eec90a1045d158e9a27386690d52d895356a99a43d8b7be5cbf3fb67642434b",
+    "release/package_layout.json": "e88c1852cba9b142e14dfcff23322ff258d28866a5260a40d621056c38205215",
+    "docs/reviews/digital-hold-closure-v08/CONTROLLER_PLANT_REPLAY_KO.md": "65c6860398afa30b68eb8379f2d1379701462b34164b02ea2049f80e67e38989",
+    "validation/test_package_import_closure.py": "b0dfaee91bb4be6555bb267de3f87e7fd57e400e99b069a5d051966e216b563e"
+  },
+  "log_sha256": {
+    "docs/reviews/digital-hold-closure-v08/checks/controller-plant-replay.txt": "653d2c4ae1631b2d702a25977ac1dd4330bdd782748ff67e064cc107b074775b",
+    "docs/reviews/digital-hold-closure-v08/checks/controller-plant-unit-tests.txt": "f326bc4cb6512f44a61bdb1fec5dd9131e4d9e6bd1797c05600e6056d60160c7",
+    "docs/reviews/digital-hold-closure-v08/checks/controller-baseline-failure.txt": "b1e7948f8e5923a6a519936a5fd21fb3b3dc24140361c0ea58b46ee69ed551f5",
+    "docs/reviews/digital-hold-closure-v08/checks/controller-gain-comparison.txt": "8b575ac28bcf0dbd8d059d6e899a979b0a9c9abbba25d1134c094b256844178d",
+    "docs/reviews/digital-hold-closure-v08/checks/radial-capture-geometry.txt": "3552c3d712416f0f9ad78edb36405ac89638b762a19031e843e0e861061bdfcd"
+  },
+  "graph_update": {
+    "AST": "PENDING",
+    "semantic_document_graph": "NOT_COMPLETED"
+  }
+}

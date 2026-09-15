@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -39,10 +40,10 @@ def main():
     compound=Part.makeCompound([i["shape"] for i in items]); bb=compound.BoundBox
     require((bb.XMin,bb.YMin,bb.ZMin)==(0.0,0.0,0.0),"negative envelope")
     require(bb.XLength<=500 and bb.YLength<=750 and bb.ZLength<=1000,"hard envelope")
-    # A blind bore keyway must leave root material outside its 13 mm radial end.
+    # The Ø25 matched keyway must leave root material outside its 15 mm radial end.
     # This catches an accidental radial slot through a hook/tooth.
-    keyway_root_probe=Part.makeBox(2,6,2,App.Vector(-1,0,14))
-    require(overlap(hook_disc(),keyway_root_probe)>20.0,"CUT-01 internal keyway opens through cutter root")
+    keyway_root_probe=Part.makeBox(2,6,1,App.Vector(-1,0,16))
+    require(overlap(hook_disc(),keyway_root_probe)>10.0,"CUT-01 internal keyway opens through cutter root")
     require("DieOrifice" not in by,"process filament must not be a manufactured assembly solid")
     motor_donor_envelope = shape(by, "DriveMotorDonorEnvelope", "DriveMotorGMP60Reference")
     motor_output_interface = shape(by, "DriveMotorOutputInterface", "DriveAdapterGMP60")
@@ -92,10 +93,11 @@ def main():
     for name in ("DownDieBreaker","DownDieInsert","DownDieRelief"):
         require(overlap(by[name],by["DownDieBody"])<0.01,f"die removable part overlaps body: {name}")
     require(abs(by["DownDieInsert"].CenterOfMass.x-74.5)<0.05,"die outlet is off shared forming centreline")
-    require(abs((by["PullerRoll54.5"].BoundBox.XMax+by["PullerRoll94.5"].BoundBox.XMin)/2-74.5)<0.05,"puller nip is off die centreline")
+    require(abs((by["PullerRoll53.6"].BoundBox.XMax+by["PullerRoll95.4"].BoundBox.XMin)/2-74.5)<0.05,"puller nip is off die centreline")
     require(abs(by["FeederHousing"].CenterOfMass.x-354.0)<0.05,"feeder housing not aligned to B+12..30 barrel port")
     require(by["FeederHousing"].distToShape(by["Barrel"])[0]<0.01,"feeder housing is disconnected from barrel port datum")
-    require(0.19 <= by["FeederHousing"].distToShape(by["FeederRotor"])[0] <= 0.21,"feeder rotor radial clearance")
+    auger_tip=max(math.hypot(v.X-354.0,v.Y-347.0) for v in by["FeederAuger"].Vertexes)
+    require(0.19 <= 12.5-auger_tip <= 0.21,"feeder auger radial clearance")
     for rod in ("TraverseRodA","TraverseRodB"):
         require(overlap(by[rod],by["PPR-C10_TraverseCarriage"])<0.01 and by[rod].distToShape(by["PPR-C10_TraverseCarriage"])[0]>=0.19,"traverse rod/carriage bore clearance")
     report={"revision":"safety-orchestration-closure-v0.6.1","envelope_mm":[bb.XLength,bb.YLength,bb.ZLength],"critical_collision_pairs":35,"cutter_pair_checks":36,"screen_min_clearance_mm":round(min(s.distToShape(by["Screen"])[0] for s in hooks_a+hooks_b),3),"forming_centerline_x_mm":74.5,"duct_to_hot_shield_gap_mm":round(by["PPR-C05_CoolingDuctUpper"].distToShape(by["HotShield"])[0],3),"screw_barrel_radial_clearance_mm":round(by["Screw"].distToShape(by["Barrel"])[0],3),"die_connection":"barrel -> C110 gasket -> EX-DIE-01 -> EX-DIE-02/03/04 open discharge","phase_drive":"interchangeable donor envelope + DRV-Axx + motor-side DRV-F01 relief + #35 chain + cutter-side DRV-02 hub + generic M3 Z16 face18 pair","result":"PASS","scope":"nominal CAD only; donor dimensions and dynamics require Gate-1"}

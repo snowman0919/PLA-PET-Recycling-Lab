@@ -1,0 +1,213 @@
+{
+  "revision": "physical-execution-v0.8-r1",
+  "policy": {
+    "physical_action_authorized": false,
+    "procurement_authorized": false,
+    "motor_energization_authorized": false,
+    "heater_energization_authorized": false,
+    "production_certification": false,
+    "mvp_is_final_product": true,
+    "throwaway_prototype_allowed": false,
+    "design_feedback_required_on_smoke_failure": true
+  },
+  "stages": [
+    {
+      "id": "P0",
+      "name": "DIGITAL_TECHNICAL_ENTRY",
+      "state": "RUNTIME_EVALUATED",
+      "doc": "PHYSICAL_BUILD_READINESS_KO.md",
+      "analyzer": "simulation_prerequisite.py",
+      "templates": []
+    },
+    {
+      "id": "P1",
+      "name": "INVENTORY_AND_RECEIPT",
+      "state": "NOT_RUN",
+      "doc": "P1_EXECUTION_KO.md",
+      "analyzer": "analyze_p1_records.py",
+      "templates": [
+        "templates/profile_stock_measurement.csv",
+        "templates/p1_inventory_record.csv",
+        "templates/component_receipt.csv"
+      ],
+      "external_templates": [
+        {
+          "source": "analysis/drive_acceptance_v08/manufacturing/inspection_packet_template.json",
+          "archive_name": "p1_ggm_receipt_packet.json"
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "COLD_FRAME_AND_FIT",
+      "state": "NOT_RUN",
+      "doc": "P2_COLD_FIT_KO.md",
+      "analyzer": "analyze_p2_records.py",
+      "templates": [
+        "templates/p2_fabrication_approval.json",
+        "templates/p2_cold_fit.csv",
+        "templates/p2_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p2_stage_release.py"
+    },
+    {
+      "id": "P3",
+      "name": "GGM_DRIVE_BENCH",
+      "state": "NOT_RUN",
+      "doc": "P3_GGM_BENCH_KO.md",
+      "analyzer": "analyze_p3_records.py",
+      "templates": [
+        "templates/p3_preflight.csv",
+        "templates/p3_current_sensor_calibration.csv",
+        "templates/p3_no_load.csv",
+        "templates/p3_torque_map.csv",
+        "templates/p3_pin_release.csv",
+        "templates/p3_stage_release.json"
+      ],
+      "preflight_analyzer": "analyze_p3_preflight.py",
+      "packet_builder": "build_p3_inspection_packet.py",
+      "stage_release_validator": "validate_p3_stage_release.py",
+      "firmware_profile_builder": "build_p3_firmware_profile.py"
+    },
+    {
+      "id": "P4",
+      "name": "SHREDDER_COUPON",
+      "state": "NOT_RUN",
+      "doc": "P4_SHREDDER_COUPON_KO.md",
+      "analyzer": "analyze_p4_records.py",
+      "templates": [
+        "templates/p4_preflight.csv",
+        "templates/p4_quasistatic.csv",
+        "templates/p4_jam.csv",
+        "templates/p4_chip.csv",
+        "templates/p4_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p4_stage_release.py"
+    },
+    {
+      "id": "P5",
+      "name": "SCREW_BARREL_PROCESS_COUPON",
+      "state": "NOT_RUN",
+      "doc": "P5_PROCESS_COUPON_KO.md",
+      "analyzer": "analyze_p5_records.py",
+      "templates": [
+        "templates/p5_coupon_certificates.csv",
+        "templates/p5_coupon_measurements.csv",
+        "templates/p5_supplier_capability.csv",
+        "templates/p5_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p5_stage_release.py"
+    },
+    {
+      "id": "P6",
+      "name": "COLD_EXTRUDER_ASSEMBLY",
+      "state": "NOT_RUN",
+      "doc": "P6_COLD_EXTRUDER_KO.md",
+      "analyzer": "analyze_p6_records.py",
+      "templates": [
+        "templates/p6_production_receipt.csv",
+        "templates/p6_cold_extruder.csv",
+        "templates/p6_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p6_stage_release.py",
+      "p3_entry_validator": "validate_p3_stage_release.py",
+      "p5_entry_validator": "validate_p5_stage_release.py"
+    },
+    {
+      "id": "P7",
+      "name": "ELECTRICAL_SAFETY_AND_LOGIC",
+      "state": "NOT_RUN",
+      "doc": "P7_ELECTRICAL_SAFETY_KO.md",
+      "analyzer": "analyze_p7_records.py",
+      "templates": [
+        "templates/p7_electrical_safety.csv",
+        "templates/p7_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p7_stage_release.py"
+    },
+    {
+      "id": "P8",
+      "name": "INSTALLED_MOTOR_DRY_RUN",
+      "state": "NOT_RUN",
+      "doc": "P8_INSTALLED_MOTOR_DRY_RUN_KO.md",
+      "analyzer": "analyze_p8_records.py",
+      "templates": [
+        "templates/p8_motor_dry_run.csv",
+        "templates/p8_tach_calibration.csv",
+        "templates/p8_firmware_installation.csv",
+        "templates/p8_stage_release.json"
+      ],
+      "firmware_commissioning_validator": "validate_p8_firmware_commissioning.py",
+      "stage_release_validator": "validate_p8_stage_release.py"
+    },
+    {
+      "id": "P9",
+      "name": "EMPTY_HOT_ZONE",
+      "state": "NOT_RUN",
+      "doc": "P9_EMPTY_HOT_ZONE_KO.md",
+      "analyzer": "analyze_p9_records.py",
+      "templates": [
+        "templates/p9_hot_zone_receipt.csv",
+        "templates/p9_thermal_profile.csv",
+        "templates/p9_hot_safety.csv",
+        "templates/p9_stage_release.json"
+      ],
+      "receipt_analyzer": "analyze_p9_receipt.py",
+      "stage_release_validator": "validate_p9_stage_release.py",
+      "topology_validator": "validate_thermal_cutoff_topology.py"
+    },
+    {
+      "id": "P10",
+      "name": "PLA_LOW_FEED",
+      "state": "NOT_RUN",
+      "doc": "P10_P11_MATERIAL_RUN_KO.md",
+      "analyzer": "analyze_material_run.py",
+      "templates": [
+        "templates/p10_p11_material_run.csv",
+        "templates/p10_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p10_stage_release.py"
+    },
+    {
+      "id": "P11",
+      "name": "PET_LOW_FEED",
+      "state": "NOT_RUN",
+      "doc": "P10_P11_MATERIAL_RUN_KO.md",
+      "analyzer": "analyze_material_run.py",
+      "templates": [
+        "templates/p10_p11_material_run.csv",
+        "templates/p11_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p11_stage_release.py"
+    },
+    {
+      "id": "P12",
+      "name": "FORMING_AND_SPOOL",
+      "state": "NOT_RUN",
+      "doc": "P12_FORMING_SPOOL_KO.md",
+      "analyzer": "analyze_p12_records.py",
+      "templates": [
+        "templates/p12_forming_spool.csv",
+        "templates/p12_stage_release.json"
+      ],
+      "stage_release_validator": "validate_p12_stage_release.py"
+    }
+  ],
+  "smoke_contract": {
+    "contract": "mvp_smoke_contract.json",
+    "doc": "MVP_SMOKE_VALIDATION_KO.md",
+    "checkpoints": [
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5"
+    ],
+    "validator": "validate_mvp_smoke_contract.py",
+    "tape_contract": "../../control/thermal_barrier_tape_contract.json",
+    "tape_validator": "validate_thermal_barrier_tape_contract.py",
+    "s4_analyzer": "analyze_s4_thermal_barrier_tape.py",
+    "s4_template": "templates/s4_thermal_barrier_tape_smoke.csv"
+  }
+}

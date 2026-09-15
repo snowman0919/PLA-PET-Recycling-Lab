@@ -1,0 +1,44 @@
+{
+  "basis_commit": "dada3ffe873f4a7faba555e63016fcd581c7d4aa",
+  "status": "SCOPED_HEATER_NUMERIC_FIX_TESTED",
+  "cases": 10,
+  "full_firmware_make_test": "PASS",
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "remaining_digital_holds": true,
+  "source_sha256": {
+    "firmware/arduino_mega/Makefile": "b228c04ea6604e041aecea09992797b92b1515fe5a9a59ed268c46d0c7f95d8b",
+    "firmware/arduino_mega/src/heater_control.cpp": "d2852b3182b992ae27abdc0dc8a17adf1a673171629557e41f7784e8d10eb460",
+    "firmware/arduino_mega/src/heater_control.h": "8bd5204447641dafa2469a718ca7ce46bb8f07e8a401c1d3b2a8ffc4dc41fbef",
+    "firmware/arduino_mega/tests/test_heater_numeric_safety.cpp": "ffd89c62079296a43956b5abe8801fc92bc8d7983b41494feed595517afc80b5",
+    "validation/test_heater_numeric_safety.py": "942060f371532db155060c24cb6e93d2dbf7ae6a171ffcd2fbee57494e5b88c9",
+    "analysis/thermal_revision_v08/controller_bridge.cpp": "d57c2424a46a9c3a584e4c0c3c15f579b56b5612c1fcf43bc80f5036f3ff8568",
+    "analysis/thermal_revision_v08/controller_bridge.py": "aa6d47c113cce03ca22abdbc3bdec4ffcc64c00c5c26f19b1ed487ceef805e7d"
+  },
+  "log_sha256": {
+    "docs/reviews/digital-hold-closure-v08/checks/numeric-safety.txt": "c80982543a25689cdb58f304fa6bbe22a737cd65bf409ea7cce0c11f96a2ca41",
+    "docs/reviews/digital-hold-closure-v08/checks/firmware-tests.txt": "1feb436992291b4fececc8dfd6338c22579428cec50acb7fc81ef737f5c696d9",
+    "docs/reviews/digital-hold-closure-v08/checks/firmware-release.txt": "135f5abaf7643818ac5eff98b2742074f21184453e4e4c8ad32689c959a84a91",
+    "docs/reviews/digital-hold-closure-v08/checks/ci-light.txt": "b4e2a20c8264070dc72aa3c9df2075dd93271de81ea642acf1511cb11cf83784"
+  },
+  "local_ci_light": {
+    "head": "8a568e867ade42ea1d29fd6a8a1a66bc1499eecf",
+    "status": "PASS",
+    "commands": 63,
+    "test_modules": 59
+  },
+  "avr_release": {
+    "generation_base_commit": "8a568e867ade42ea1d29fd6a8a1a66bc1499eecf",
+    "board": "arduino:avr:mega",
+    "hex_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
+    "flash_bytes": 62278,
+    "sram_bytes": 4779,
+    "clean_rebuild": {
+      "original_source_hex_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
+      "released_source_hex_sha256": "b01f7e9a1f34e44b809240e5727c87fa77052c0f8ea54eb035721f731f69a0d3",
+      "status": "PASS"
+    },
+    "physical_upload_performed": false
+  }
+}

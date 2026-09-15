@@ -1,0 +1,130 @@
+{
+  "status": "CONDITIONAL_ENGINEERING_SCREEN",
+  "physical_validation_state": "NOT_RUN",
+  "compliance_matrix_mm_per_n": [
+    [
+      0.008838270068713967,
+      -3.622313075693106e-05,
+      -3.6233164575993956e-05
+    ],
+    [
+      -3.6223056500291596e-05,
+      0.00884027155400431,
+      -3.621674470240989e-05
+    ],
+    [
+      -3.623333861405179e-05,
+      -3.621651766235993e-05,
+      0.00883975347334718
+    ]
+  ],
+  "symmetry_error": 2.7299542848673643e-08,
+  "sheet_count": 6,
+  "case_count": 6144,
+  "minimum_shoe_normal_force_n": 2.0729136512677853,
+  "maximum_compliance_centre_offset_mm": 0.04422123836519629,
+  "mounting_clearance_and_alignment_budget_mm": 0.04,
+  "conservative_total_centre_budget_mm": 0.0842212383651963,
+  "maximum_total_normal_force_per_carrier_n": 474.11853177197736,
+  "friction_force_per_carrier_at_mu025_n": 118.52963294299434,
+  "maximum_stress_triangle_bound_mpa": 419.52924479080707,
+  "required_service_yield_mpa_for_sf2": 839.0584895816141,
+  "convergence": {
+    "RADIAL": {
+      "displacement_change": 0.0004969835942019581,
+      "peak_stress_change": 0.018071898297063047
+    },
+    "X": {
+      "displacement_change": 0.000530842993255163,
+      "peak_stress_change": 0.030281353129340622
+    },
+    "Y": {
+      "displacement_change": 0.000434439001503227,
+      "peak_stress_change": 0.012099463910918658
+    }
+  },
+  "extremes": {
+    "centre_offset_mm": {
+      "barrel_c": 300,
+      "spring_c": 300,
+      "barrel_cte": 1.7e-05,
+      "spring_cte": 1.71e-05,
+      "E_mpa": 160000.0,
+      "barrel_radius_mm": 17.0,
+      "shoe_radius_errors_mm": [
+        -0.01,
+        -0.01,
+        0.01
+      ],
+      "radial_load_n": [
+        0.0,
+        -25.0
+      ],
+      "centre_offset_mm": 0.04422123836519629,
+      "shoe_forces_n": [
+        70.2577474612671,
+        70.25774746126709,
+        95.25774746126709
+      ],
+      "total_normal_force_n": 235.77324238380126,
+      "stress_upper_bound_mpa": 228.6266817273811
+    },
+    "total_normal_force_n": {
+      "barrel_c": 300,
+      "spring_c": 20,
+      "barrel_cte": 1.7e-05,
+      "spring_cte": 1.15e-05,
+      "E_mpa": 200000.0,
+      "barrel_radius_mm": 17.0,
+      "shoe_radius_errors_mm": [
+        -0.01,
+        -0.01,
+        -0.01
+      ],
+      "radial_load_n": [
+        25.0,
+        0.0
+      ],
+      "centre_offset_mm": 0.024623463637975823,
+      "shoe_forces_n": [
+        172.4732673203998,
+        143.6057538609185,
+        158.0395105906591
+      ],
+      "total_normal_force_n": 474.11853177197736,
+      "stress_upper_bound_mpa": 414.449836441215
+    },
+    "stress_upper_bound_mpa": {
+      "barrel_c": 300,
+      "spring_c": 20,
+      "barrel_cte": 1.7e-05,
+      "spring_cte": 1.15e-05,
+      "E_mpa": 200000.0,
+      "barrel_radius_mm": 17.0,
+      "shoe_radius_errors_mm": [
+        -0.01,
+        -0.01,
+        -0.01
+      ],
+      "radial_load_n": [
+        0.0,
+        25.0
+      ],
+      "centre_offset_mm": 0.024646627792587063,
+      "shoe_forces_n": [
+        166.3720409962561,
+        166.3720409962561,
+        141.37204099625603
+      ],
+      "total_normal_force_n": 474.1161229887682,
+      "stress_upper_bound_mpa": 419.52924479080707
+    }
+  },
+  "limitations": [
+    "Uniform temperature per component; gradients and friction hysteresis not solved.",
+    "Positive force in linear mean-contact model is not actual line-contact proof.",
+    "Spring-temperature E and CTE bounds are assumptions; hot yield and fatigue require supplier/test data.",
+    "Radial25N per carrier is a proposed bench envelope, not certified machine load.",
+    "Fixture slot clearance, mounting alignment and unequal sheet preload require measured acceptance."
+  ]
+}

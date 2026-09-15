@@ -1,0 +1,13 @@
+id,gate_class,requirement,supplier_response,evidence_path,sha256,proposed_deviation,engineering_disposition,notes
+CAP-01,HARD_GATE,SCM440 JIS G4105 MTC with heat/lot ID,,,,,,
+CAP-02,HARD_GATE,Q&T 28-32 HRC with certificate,,,,,,
+CAP-03,HARD_GATE,gas nitriding process and provider identified,,,,,,
+CAP-04,HARD_GATE,post-nitride screw grinding available,,,,,,
+CAP-05,HARD_GATE,post-nitride barrel final honing available,,,,,,
+CAP-06,HARD_GATE,final dimensional/Ra/hardness/case-depth inspection reports available,,,,,,
+CAP-07,HARD_GATE,same certified heat and same process route can be identified/reserved for production parts,,,,,,
+CAP-08,HARD_GATE,subcontractor chain and final inspection responsibility identified,,,,,,
+CAP-09,HARD_GATE,coupon-only price and lead time separated from full parts,,,,,,
+CAP-10,DEVIATION_GATE,all material/process/tolerance deviations explicitly identified,,,,,,
+CAP-11,INFO_BASELINE_REQUIRED_IF_DEVIATION,245-270 C final-condition properties,,,,,,
+CAP-12,INFORMATIONAL,full production price and lead time,,,,,,

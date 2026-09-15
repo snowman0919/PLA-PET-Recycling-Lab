@@ -1,0 +1,66 @@
+part_id,cad_object,quantity,classification,material_note,bbox_mm,local_step,purchasing,status
+ThrustPlate,ThrustPlate,1,manufactured_or_stock,EX-THR-01 12 mm steel,95.000 x 12.000 x 105.000,ThrustPlate-GGM.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+Screw,Screw,1,manufactured_or_stock,"EX-SCR-01-G: drive keyseat 4.05 x20; bearing land Y401..411 uninterrupted, finish after turn",23.000 x 316.000 x 23.000,Screw-GGM.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_Shredder,GGM_Shredder,1,purchased_reference_envelope,GGM K9DG60N2 + K9G75C/150C,90.000 x 241.000 x 90.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_Extruder,GGM_Extruder,1,purchased_reference_envelope,GGM K9DG60N2 + K9G75C/150C,90.000 x 241.000 x 90.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_ShredRail,GGM_ShredRail,1,purchased_reference_lod,2040 profile L430; 40mm vertical,430.000 x 20.000 x 40.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_HotRearRail,GGM_HotRearRail,1,purchased_reference_lod,2020 profile L430; bracketed ends,430.000 x 20.000 x 20.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_ThrustRail,GGM_ThrustRail,1,purchased_reference_lod,2020 profile L430; bracketed ends,430.000 x 20.000 x 20.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_ExMotorRail,GGM_ExMotorRail,1,purchased_reference_lod,2020 profile L430; bracketed ends,430.000 x 20.000 x 20.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_FeederTopRail,GGM_FeederTopRail,1,purchased_reference_lod,2020 profile L430; bracketed ends,430.000 x 20.000 x 20.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_ThrustPost274.5,GGM_ThrustPost274_5,1,purchased_reference_lod,2020 profile L100,20.000 x 20.000 x 100.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_ThrustPost345.5,GGM_ThrustPost345_5,1,purchased_reference_lod,2020 profile L100,20.000 x 20.000 x 100.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_FeederHanger,GGM_FeederHanger,1,purchased_reference_lod,2020 profile L124,20.000 x 20.000 x 124.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Base,GGM_SH_Base,1,manufactured_or_stock,6 mm S275 sheet; fourM6 base holes plus fourM5 end-tap post holes,235.000 x 253.000 x 6.000,GGM_SH_Base.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Spacer_90_100,GGM_SH_Spacer_90_100,1,manufactured_or_stock,steel spacer 12/6.6 x10,12.000 x 12.000 x 10.000,GGM_SH_Spacer_90_100.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Spacer_90_280,GGM_SH_Spacer_90_280,1,manufactured_or_stock,steel spacer 12/6.6 x10,12.000 x 12.000 x 10.000,GGM_SH_Spacer_90_280.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Spacer_220_100,GGM_SH_Spacer_220_100,1,manufactured_or_stock,steel spacer 12/6.6 x10,12.000 x 12.000 x 10.000,GGM_SH_Spacer_220_100.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Spacer_220_280,GGM_SH_Spacer_220_280,1,manufactured_or_stock,steel spacer 12/6.6 x10,12.000 x 12.000 x 10.000,GGM_SH_Spacer_220_280.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Mount,GGM_SH_Mount,1,manufactured_or_stock,6 mm S275 plate; 4x6.6 PCD104; pilot36.5,140.000 x 6.000 x 190.167,GGM_SH_Mount.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Post_45_253,GGM_SH_Post_45_253,1,purchased_reference_lod,2020 profile L180,20.000 x 20.000 x 180.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Post_45_313,GGM_SH_Post_45_313,1,purchased_reference_lod,2020 profile L180,20.000 x 20.000 x 180.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Post_238_253,GGM_SH_Post_238_253,1,purchased_reference_lod,2020 profile L180,20.000 x 20.000 x 180.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Post_238_313,GGM_SH_Post_238_313,1,purchased_reference_lod,2020 profile L180,20.000 x 20.000 x 180.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_BearingPlate273,GGM_SH_BearingPlate273,1,manufactured_or_stock,"216x60x10 plate,32.03 bore,193x40 asymmetric hole grid; rings retained by caps",216.000 x 10.000 x 60.000,GGM_SH_BearingPlate273.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Bearing273,GGM_SH_Bearing273,1,purchased_reference_envelope,6201-2RS 12x32x10,32.000 x 10.000 x 32.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_BearingPlate303,GGM_SH_BearingPlate303,1,manufactured_or_stock,"216x60x10 plate,32.03 bore,193x40 asymmetric hole grid; rings retained by caps",216.000 x 10.000 x 60.000,GGM_SH_BearingPlate303.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Bearing303,GGM_SH_Bearing303,1,purchased_reference_envelope,6201-2RS 12x32x10,32.000 x 10.000 x 32.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Jackshaft,GGM_SH_Jackshaft,1,manufactured_or_stock,S45C 12 h6 x78; two 4 mm keys,12.000 x 78.000 x 12.000,GGM_SH_Jackshaft.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_12T,GGM_SH_12T,1,purchased_reference_envelope,"BUY #35 12T steel, hub15, key4.1",31.722 x 15.000 x 31.722,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_30T,GGM_SH_30T,1,purchased_reference_envelope,"BUY #35 30T steel, hub28, key6.1",86.044 x 30.000 x 86.044,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_FuseInput,GGM_SH_FuseInput,1,manufactured_or_stock,S45C hubs / brass uncalibrated pin blank; release target8.8-9.3Nm,46.000 x 30.000 x 46.000,GGM_SH_FuseInput.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_FuseOutput,GGM_SH_FuseOutput,1,manufactured_or_stock,S45C hubs / brass uncalibrated pin blank; release target8.8-9.3Nm,46.000 x 26.000 x 46.000,GGM_SH_FuseOutput.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_FusePinBlank,GGM_SH_FusePinBlank,1,manufactured_or_stock,S45C hubs / brass uncalibrated pin blank; release target8.8-9.3Nm,4.000 x 12.700 x 4.000,GGM_SH_FusePinBlank.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_FuseInput,GGM_EX_FuseInput,1,manufactured_or_stock,S45C hubs / brass uncalibrated pin blank; release target8.8-9.3Nm,46.000 x 30.000 x 46.000,GGM_EX_FuseInput.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_FuseOutput,GGM_EX_FuseOutput,1,manufactured_or_stock,S45C hubs / brass uncalibrated pin blank; release target8.8-9.3Nm,46.000 x 26.000 x 46.000,GGM_EX_FuseOutput.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_FusePinBlank,GGM_EX_FusePinBlank,1,manufactured_or_stock,S45C hubs / brass uncalibrated pin blank; release target8.8-9.3Nm,4.000 x 12.700 x 4.000,GGM_EX_FusePinBlank.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_Mount,GGM_EX_Mount,1,manufactured_or_stock,6 mm S275 plate; use catalog eccentric output datum,120.000 x 6.000 x 140.000,GGM_EX_Mount.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_BearingCap271,GGM_SH_BearingCap271,1,manufactured_or_stock,2 mm steel; M3 retainer screws,46.000 x 2.000 x 46.000,GGM_SH_BearingCap271.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_BearingCap283,GGM_SH_BearingCap283,1,manufactured_or_stock,2 mm steel; M3 retainer screws,46.000 x 2.000 x 46.000,GGM_SH_BearingCap283.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_BearingCap301,GGM_SH_BearingCap301,1,manufactured_or_stock,2 mm steel; M3 retainer screws,46.000 x 2.000 x 46.000,GGM_SH_BearingCap301.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_BearingCap313,GGM_SH_BearingCap313,1,manufactured_or_stock,2 mm steel; M3 retainer screws,46.000 x 2.000 x 46.000,GGM_SH_BearingCap313.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_MotorKey,GGM_SH_MotorKey,1,manufactured_or_stock,4x4 steel key,4.000 x 25.000 x 4.000,GGM_SH_MotorKey.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_JackInputKey,GGM_SH_JackInputKey,1,manufactured_or_stock,4x4 steel key,4.000 x 22.000 x 4.000,GGM_SH_JackInputKey.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_JackSprocketKey,GGM_SH_JackSprocketKey,1,manufactured_or_stock,4x4 steel key,4.000 x 15.000 x 4.000,GGM_SH_JackSprocketKey.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_MotorKey,GGM_EX_MotorKey,1,manufactured_or_stock,4x4 steel key,4.000 x 25.000 x 4.000,GGM_EX_MotorKey.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_ScrewKey,GGM_EX_ScrewKey,1,manufactured_or_stock,4x4 steel key,4.000 x 17.000 x 4.000,GGM_EX_ScrewKey.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_CutterKey,GGM_SH_CutterKey,1,manufactured_or_stock,6x6x20 steel key,8.009 x 20.000 x 8.009,GGM_SH_CutterKey.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_M5_EX_MountL,GGM_M5_EX_MountL,1,purchased_fastener,M5 class8.8 + matching T-nut,5.000 x 24.000 x 5.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_M5_EX_MountR,GGM_M5_EX_MountR,1,purchased_fastener,M5 class8.8 + matching T-nut,5.000 x 24.000 x 5.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+SpoolTopSegment290,SpoolTopSegment290,1,purchased_reference_lod,recut existing 2020,20.000 x 59.000 x 20.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+SpoolTopSegment369,SpoolTopSegment369,1,purchased_reference_lod,recut existing 2020,20.000 x 32.000 x 20.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+SpoolTopSegment421,SpoolTopSegment421,1,purchased_reference_lod,recut existing 2020,20.000 x 56.000 x 20.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+SpoolTopSegment497,SpoolTopSegment497,1,purchased_reference_lod,recut existing 2020,20.000 x 111.000 x 20.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_CouplingGuard,GGM_SH_CouplingGuard,1,manufactured_or_stock,"split metal cover: 2 formed halves, OD76x2 front flange, fourM3 mounts, 1mm seam",75.993 x 57.000 x 76.000,GGM_SH_CouplingGuard.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_CouplingGuard,GGM_EX_CouplingGuard,1,manufactured_or_stock,"split metal cover: 2 formed halves, OD76x2 front flange, fourM3 mounts, 1mm seam",75.993 x 58.000 x 76.000,GGM_EX_CouplingGuard.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_ChainGuard,GGM_ChainGuard,1,manufactured_or_stock,1mm folded steel plus2x20x20 mounting tabs; twoM3 to front bearing plate; interlock required,118.000 x 33.000 x 173.000,GGM_ChainGuard.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_JackInnerSpacer_front,GGM_JackInnerSpacer_front,1,manufactured_or_stock,steel ID12.1 OD17 shim/spacer; inner ring only,17.000 x 2.600 x 17.000,GGM_JackInnerSpacer_front.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_JackInnerSpacer_pinionfront,GGM_JackInnerSpacer_pinionfront,1,manufactured_or_stock,steel ID12.1 OD17 shim/spacer; inner ring only,17.000 x 2.000 x 17.000,GGM_JackInnerSpacer_pinionfront.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_JackInnerSpacer_pinionrear,GGM_JackInnerSpacer_pinionrear,1,manufactured_or_stock,steel ID12.1 OD17 shim/spacer; inner ring only,17.000 x 3.000 x 17.000,GGM_JackInnerSpacer_pinionrear.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_JackInnerSpacer_rear,GGM_JackInnerSpacer_rear,1,manufactured_or_stock,steel ID12.1 OD17 shim/spacer; inner ring only,17.000 x 1.000 x 17.000,GGM_JackInnerSpacer_rear.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_JackAxialCollar,GGM_JackAxialCollar,1,purchased_reference_envelope,split shaft collar12mm; maxOD24 width8; received clamp verified,24.000 x 8.000 x 24.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_RadialHolder,GGM_EX_RadialHolder,1,manufactured_or_stock,S275 t10; bore32.03; 4x4.5; matching M4 in thrust plate,48.000 x 10.000 x 48.000,GGM_EX_RadialHolder.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_Radial6201,GGM_EX_Radial6201,1,purchased_reference_envelope,6201-2RS 12x32x10,32.000 x 10.000 x 32.000,GGM-FULL-ASM.step component,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_EX_RadialCap,GGM_EX_RadialCap,1,manufactured_or_stock,steel t2; ID27.4 outer-ring-only retainer; M3 screws,46.000 x 2.000 x 46.000,GGM_EX_RadialCap.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Angle83,GGM_SH_Angle83,1,manufactured_or_stock,S275 stock angle; continuous3mm fillet both legs; jig before welding,22.000 x 36.000 x 106.000,GGM_SH_Angle83.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY
+GGM_SH_Angle201,GGM_SH_Angle201,1,manufactured_or_stock,S275 stock angle; continuous3mm fillet both legs; jig before welding,22.000 x 36.000 x 106.000,GGM_SH_Angle201.step,CHECK_EXISTING_STOCK_FIRST,DRIVE_DELTA_REVIEW_ONLY

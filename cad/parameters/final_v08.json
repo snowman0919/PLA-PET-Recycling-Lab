@@ -1,0 +1,94 @@
+{
+  "revision": "final-design-fabrication-closure-v0.8",
+  "architecture": "compact_single_path",
+  "base_geometry_source": "cad/freecad/compact/geometry.py",
+  "hot_zone_mount": {
+    "barrel_axis_global_mm": [
+      null,
+      347.0,
+      382.0
+    ],
+    "rear_fixed_plate_x_mm": 355.0,
+    "front_sliding_plate_x_mm": 261.0,
+    "plate_thickness_mm": 8.0,
+    "fixed_collar_length_mm": 12.0,
+    "fixed_collar_bore_mm": 34.25,
+    "sliding_guide_bore_mm": 34.6,
+    "cold_axial_travel_mm": 1.5,
+    "predicted_pet_growth_mm": 1.1662,
+    "support_rail_section_mm": [
+      20.0,
+      20.0
+    ],
+    "support_rail_length_mm": 390.0,
+    "support_rail_z_mm": 320.0,
+    "support_rail_y_mm": [
+      270.0,
+      400.0
+    ],
+    "front_support": "reuse existing MidRail320 at Y270",
+    "rear_support": "add one 2020 L390 rail at Y400; face-joint to FrameSpoolTopRail"
+  },
+  "rear_axial_retainer": {
+    "barrel_integral_shoulder_od_mm": 44.0,
+    "barrel_shoulder_length_mm": 8.0,
+    "collar_counterbore_mm": 44.25,
+    "retainer_thickness_mm": 4.0,
+    "rear_rib_mm": 8.0,
+    "spacer_length_mm": 4.2,
+    "spacer_od_mm": 8.0,
+    "spacer_id_mm": 4.5,
+    "bolt_centres_yz_mm": [
+      [
+        318.0,
+        382.0
+      ],
+      [
+        376.0,
+        382.0
+      ]
+    ],
+    "fastener": "2x M4x25 class 8.8 SHCS",
+    "torque_nm": 2.9,
+    "cold_endplay_nominal_mm": 0.2,
+    "cold_endplay_limits_mm": [
+      0.12,
+      0.28
+    ],
+    "hot_endplay_limits_mm": [
+      0.07884,
+      0.321846
+    ]
+  },
+  "extruder_thrust_stack": {
+    "bearing": "NSK 51102",
+    "bearing_id_od_width_mm": [
+      15.0,
+      28.0,
+      9.0
+    ],
+    "screw_bearing_seat_mm": [
+      14.982,
+      15.0
+    ],
+    "shaft_washer_abutment_od_mm": [
+      23.0,
+      23.05
+    ],
+    "plate_pocket_diameter_mm": [
+      28.3,
+      28.35
+    ],
+    "plate_pocket_depth_mm": [
+      9.1,
+      9.15
+    ],
+    "plate_global_x_mm": 389.0,
+    "physical_validation_state": "NOT_RUN"
+  },
+  "validation_basis": "OPENMODELICA_CALCULIX_CLOSED_FORM_CAD",
+  "cross_solver_state": "NOT_COMPLETED_BY_SCOPE_DECISION",
+  "fusion_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
+  "inventor_state": "STOPPED_NOT_USED_FOR_FINAL_RELEASE",
+  "physical_validation_state": "NOT_RUN"
+}

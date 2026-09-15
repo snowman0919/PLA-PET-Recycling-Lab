@@ -1,0 +1,481 @@
+{
+  "status": "FAIL",
+  "checks": {
+    "six_solve_cases": true,
+    "all_equilibrium": true,
+    "stiffness_convergence": false,
+    "sources_unchanged": true
+  },
+  "meshes": [
+    {
+      "mesh_mm": 3.0,
+      "direction": -1,
+      "nodes": 2088,
+      "elements": 6623,
+      "applied": {
+        "force_n": [
+          0.0,
+          0.0,
+          -75.0
+        ],
+        "moment_nm": [
+          -9.673725953558014,
+          23.985148744138975,
+          0.0
+        ],
+        "patch_area_mm2": 142.34924635814983,
+        "loaded_nodes": 30,
+        "fixed_nodes": 72,
+        "direction": -1,
+        "load_scope": "area-weighted vertical bore resultant; not contact pressure"
+      },
+      "result": {
+        "max_displacement_mm": 0.0027013585250832326,
+        "max_von_mises_mpa": 6.221325975497345,
+        "max_von_mises_node_id": 210,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "reaction": {
+        "node_count": 72,
+        "force_n": [
+          -1.4469999911558527e-06,
+          4.740000000248105e-07,
+          74.99998795650001
+        ],
+        "moment_about_origin_nm": [
+          9.673724249840308,
+          -23.985145056758682,
+          7.57627380901238e-08
+        ],
+        "reaction_couple_source": "NOT_EXTRACTED; moments above are r cross measured nodal force only, excluding rotational reaction couples",
+        "torsional_reaction_qualified": false
+      },
+      "equilibrium": {
+        "force_residual_n": [
+          -1.4469999911558527e-06,
+          4.740000000248105e-07,
+          -1.2043499992842044e-05
+        ],
+        "moment_residual_nm": [
+          -1.703717705581198e-06,
+          3.6873802926606913e-06,
+          7.57627380901238e-08
+        ],
+        "passed": true
+      },
+      "raw_dir": ".build/pr-digital-continuation-20260915/plate-raw/run-rzswfvgy/mesh-3/load--1",
+      "raw_sha256": {
+        "model.inp": "a59d74b5a049422fb96b5b229ac569c41e8e25cf1716b82849500646b8d21227",
+        "model.dat": "6a5753fe7835319a4b9360a9802f7675d9455e82ef8d51a360da9d6b47cfc500",
+        "model.frd": "eb8eef3d62dd2025e06bab24b417bed5bd99ae05d2f45a8d849beab5772dedbc",
+        "ccx.log": "c48a430755a9097a4df1a4370ab11ae99c57e0196fe53d8cdda8b79f86f322b2"
+      }
+    },
+    {
+      "mesh_mm": 3.0,
+      "direction": 1,
+      "nodes": 2088,
+      "elements": 6623,
+      "applied": {
+        "force_n": [
+          0.0,
+          0.0,
+          75.0
+        ],
+        "moment_nm": [
+          9.674068089647243,
+          -23.99623745244569,
+          0.0
+        ],
+        "patch_area_mm2": 132.34751324322562,
+        "loaded_nodes": 46,
+        "fixed_nodes": 72,
+        "direction": 1,
+        "load_scope": "area-weighted vertical bore resultant; not contact pressure"
+      },
+      "result": {
+        "max_displacement_mm": 0.01708098712154605,
+        "max_von_mises_mpa": 9.412581694238673,
+        "max_von_mises_node_id": 324,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "reaction": {
+        "node_count": 72,
+        "force_n": [
+          1.9341700007466465e-05,
+          4.30799999892725e-06,
+          -75.000005688
+        ],
+        "moment_about_origin_nm": [
+          -9.674070300284468,
+          23.99624540752903,
+          -1.4828245117823324e-06
+        ],
+        "reaction_couple_source": "NOT_EXTRACTED; moments above are r cross measured nodal force only, excluding rotational reaction couples",
+        "torsional_reaction_qualified": false
+      },
+      "equilibrium": {
+        "force_residual_n": [
+          1.9341700007466465e-05,
+          4.30799999892725e-06,
+          -5.688000001669025e-06
+        ],
+        "moment_residual_nm": [
+          -2.210637225275036e-06,
+          7.955083340505098e-06,
+          -1.4828245117823324e-06
+        ],
+        "passed": true
+      },
+      "raw_dir": ".build/pr-digital-continuation-20260915/plate-raw/run-rzswfvgy/mesh-3/load-1",
+      "raw_sha256": {
+        "model.inp": "ed52719075f19720c1808723101e70a6dcd4c10cd3a1dd54ac8295708d8b4e30",
+        "model.dat": "d170b57dd5e0d616e7e99928d8313698114b7c15abc1c942f66858dbcd11e08d",
+        "model.frd": "eb2993f59c19ff207b7b9a8230505bed757eac7c4bb571bb48ba49faeac2ac37",
+        "ccx.log": "b944889b13d76db6e35e92fab3d5c0383aa64c8396502d720f04c5758d5bd8df"
+      }
+    },
+    {
+      "mesh_mm": 2.0,
+      "direction": -1,
+      "nodes": 5480,
+      "elements": 20519,
+      "applied": {
+        "force_n": [
+          0.0,
+          0.0,
+          -75.0
+        ],
+        "moment_nm": [
+          -9.675585231555488,
+          23.987076974854926,
+          0.0
+        ],
+        "patch_area_mm2": 142.1902901087737,
+        "loaded_nodes": 63,
+        "fixed_nodes": 139,
+        "direction": -1,
+        "load_scope": "area-weighted vertical bore resultant; not contact pressure"
+      },
+      "result": {
+        "max_displacement_mm": 0.0031201676118379636,
+        "max_von_mises_mpa": 7.5289819406091025,
+        "max_von_mises_node_id": 314,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "reaction": {
+        "node_count": 139,
+        "force_n": [
+          -7.80016999648557e-06,
+          -2.231490001084541e-06,
+          74.99998530684
+        ],
+        "moment_about_origin_nm": [
+          9.675584109157079,
+          -23.987075431835862,
+          4.287169279859615e-07
+        ],
+        "reaction_couple_source": "NOT_EXTRACTED; moments above are r cross measured nodal force only, excluding rotational reaction couples",
+        "torsional_reaction_qualified": false
+      },
+      "equilibrium": {
+        "force_residual_n": [
+          -7.80016999648557e-06,
+          -2.231490001084541e-06,
+          -1.4693159997136718e-05
+        ],
+        "moment_residual_nm": [
+          -1.1223984088815087e-06,
+          1.5430190636323005e-06,
+          4.287169279859615e-07
+        ],
+        "passed": true
+      },
+      "raw_dir": ".build/pr-digital-continuation-20260915/plate-raw/run-rzswfvgy/mesh-2/load--1",
+      "raw_sha256": {
+        "model.inp": "e54132809204964f3d4efe777fca853f7057cb23a2b122adf68d9c765d84a856",
+        "model.dat": "08aecfbe2089832f5a097c35091e58459f6f40f30ae4eb8fb6d6e6f2aa69dcdc",
+        "model.frd": "22a5e405747e8567162e1f24962d3574fd111ee43e810f534f9ddc7ae5203789",
+        "ccx.log": "fdb04f36103644fa93b473cfbac3a2baf48c1da7be6fb50dbe03630427e25261"
+      }
+    },
+    {
+      "mesh_mm": 2.0,
+      "direction": 1,
+      "nodes": 5480,
+      "elements": 20519,
+      "applied": {
+        "force_n": [
+          0.0,
+          0.0,
+          75.0
+        ],
+        "moment_nm": [
+          9.674593385908377,
+          -23.997674535488148,
+          0.0
+        ],
+        "patch_area_mm2": 142.7849923679923,
+        "loaded_nodes": 80,
+        "fixed_nodes": 139,
+        "direction": 1,
+        "load_scope": "area-weighted vertical bore resultant; not contact pressure"
+      },
+      "result": {
+        "max_displacement_mm": 0.019357377204565717,
+        "max_von_mises_mpa": 11.852018497047515,
+        "max_von_mises_node_id": 3882,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "reaction": {
+        "node_count": 139,
+        "force_n": [
+          -3.291870006552953e-06,
+          -1.3474999996885022e-07,
+          -75.00000839756001
+        ],
+        "moment_about_origin_nm": [
+          -9.674594420534952,
+          23.99767595466067,
+          4.3750478653792335e-07
+        ],
+        "reaction_couple_source": "NOT_EXTRACTED; moments above are r cross measured nodal force only, excluding rotational reaction couples",
+        "torsional_reaction_qualified": false
+      },
+      "equilibrium": {
+        "force_residual_n": [
+          -3.291870006552953e-06,
+          -1.3474999996885022e-07,
+          -8.39756000914349e-06
+        ],
+        "moment_residual_nm": [
+          -1.034626574636377e-06,
+          1.4191725234979913e-06,
+          4.3750478653792335e-07
+        ],
+        "passed": true
+      },
+      "raw_dir": ".build/pr-digital-continuation-20260915/plate-raw/run-rzswfvgy/mesh-2/load-1",
+      "raw_sha256": {
+        "model.inp": "c0b7a1564d6bbc4488a7e4c1e793333846a5d34437a245f38f0a30c541b917ae",
+        "model.dat": "31c0427e9d73ae6cafdc8dbaed1252e3eaff0df992c0e47a34a879a107b82152",
+        "model.frd": "225823ecd4f22e247f1ae12ade18253a4470394b3d0b62370d15d76d4bfd597d",
+        "ccx.log": "6f2bf32a7ebd813c0adfd185a342cc3c33c26261fe2509fb8272d6f1a57a6101"
+      }
+    },
+    {
+      "mesh_mm": 1.25,
+      "direction": -1,
+      "nodes": 17109,
+      "elements": 75092,
+      "applied": {
+        "force_n": [
+          0.0,
+          0.0,
+          -74.99999999999999
+        ],
+        "moment_nm": [
+          -9.674492677397174,
+          24.00102089248495,
+          0.0
+        ],
+        "patch_area_mm2": 144.56991219117108,
+        "loaded_nodes": 136,
+        "fixed_nodes": 319,
+        "direction": -1,
+        "load_scope": "area-weighted vertical bore resultant; not contact pressure"
+      },
+      "result": {
+        "max_displacement_mm": 0.0034140647143798774,
+        "max_von_mises_mpa": 9.206119160141109,
+        "max_von_mises_node_id": 493,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "reaction": {
+        "node_count": 319,
+        "force_n": [
+          5.626400012841661e-07,
+          6.322300005056762e-07,
+          75.00000107312
+        ],
+        "moment_about_origin_nm": [
+          9.674492602502978,
+          -24.001021032883333,
+          2.9271566503698753e-07
+        ],
+        "reaction_couple_source": "NOT_EXTRACTED; moments above are r cross measured nodal force only, excluding rotational reaction couples",
+        "torsional_reaction_qualified": false
+      },
+      "equilibrium": {
+        "force_residual_n": [
+          5.626400012841661e-07,
+          6.322300005056762e-07,
+          1.0731200177360734e-06
+        ],
+        "moment_residual_nm": [
+          -7.489419573403211e-08,
+          -1.403983844738832e-07,
+          2.9271566503698753e-07
+        ],
+        "passed": true
+      },
+      "raw_dir": ".build/pr-digital-continuation-20260915/plate-raw/run-rzswfvgy/mesh-1.25/load--1",
+      "raw_sha256": {
+        "model.inp": "0752f6ba5f50ff6423affeeca60d024ff4bea5c77e01b9f307329f66bfec7f15",
+        "model.dat": "b56b79646e166890da58ec173d6b0100c10819b6d23df0370f7ad2fb42efcc9c",
+        "model.frd": "f3e20299a02e501f91b95f0afd6b6c6d0c8cd32aa6ed808667cc175acbeab4ff",
+        "ccx.log": "85243f91427201038008cb5271a99f1182d0bbaec4c058ce2bf572fa259a59e0"
+      }
+    },
+    {
+      "mesh_mm": 1.25,
+      "direction": 1,
+      "nodes": 17109,
+      "elements": 75092,
+      "applied": {
+        "force_n": [
+          0.0,
+          0.0,
+          75.0
+        ],
+        "moment_nm": [
+          9.67457910595894,
+          -23.997884601645353,
+          0.0
+        ],
+        "patch_area_mm2": 144.67768120909668,
+        "loaded_nodes": 141,
+        "fixed_nodes": 319,
+        "direction": 1,
+        "load_scope": "area-weighted vertical bore resultant; not contact pressure"
+      },
+      "result": {
+        "max_displacement_mm": 0.020614960378774524,
+        "max_von_mises_mpa": 14.188521796912639,
+        "max_von_mises_node_id": 9225,
+        "status": "PASS",
+        "omp_num_threads": 1,
+        "negative_jacobian": false
+      },
+      "reaction": {
+        "node_count": 319,
+        "force_n": [
+          9.763699993123491e-07,
+          -2.007699999894166e-07,
+          -74.9999975134667
+        ],
+        "moment_about_origin_nm": [
+          -9.674578715493322,
+          23.99788416837949,
+          -1.0028617784937823e-07
+        ],
+        "reaction_couple_source": "NOT_EXTRACTED; moments above are r cross measured nodal force only, excluding rotational reaction couples",
+        "torsional_reaction_qualified": false
+      },
+      "equilibrium": {
+        "force_residual_n": [
+          9.763699993123491e-07,
+          -2.007699999894166e-07,
+          2.486533304590921e-06
+        ],
+        "moment_residual_nm": [
+          3.904656189490652e-07,
+          -4.332658640748832e-07,
+          -1.0028617784937823e-07
+        ],
+        "passed": true
+      },
+      "raw_dir": ".build/pr-digital-continuation-20260915/plate-raw/run-rzswfvgy/mesh-1.25/load-1",
+      "raw_sha256": {
+        "model.inp": "1a917235c9ba4c59ca39457ae5d0d82f5bc9f828197109489f02a87796a779b8",
+        "model.dat": "31c9a1cd6a616b81e8b7600a340db9af012de635d5d83cd39682d2dc868c4778",
+        "model.frd": "34d70c3c2022927075e8e47cd62a6aec50f65ef23e757baab316905235fb54f6",
+        "ccx.log": "10a117aa7fd15665c6bdf82b1b7473dc59bab0b77dc199b6dbe15be2f61a645b"
+      }
+    }
+  ],
+  "refinement": [
+    {
+      "direction": -1,
+      "displacement_relative_change": 0.08608422134004468,
+      "peak_stress_relative_change": 0.18217635361416498,
+      "displacement_converged": false
+    },
+    {
+      "direction": 1,
+      "displacement_relative_change": 0.06100342426578872,
+      "peak_stress_relative_change": 0.16467559716992763,
+      "displacement_converged": false
+    }
+  ],
+  "source_sha256": {
+    "cad/freecad/compact/check_shaft_section_v08.py": "888d22e20fb0e2fa9e571020ecfaa0d15df32b9809cfe2097e88e5daafc44e15",
+    "cad/freecad/compact/dancer_revision.py": "59a9557b583174128d85e5bc9e5f34fc9dc0372fc84254ed9d198db1e130bfed",
+    "cad/freecad/compact/export_validation_geometry_v08.py": "3e36986cd3a170c17b19f32bdfa76fb42079dd98e21d4e6265d88b614eb30975",
+    "cad/freecad/compact/generate.py": "71900f37e772c62bbed71e6d9d6dc05630fe2ff2c73ff1dc18b781d51aea51bc",
+    "cad/freecad/compact/generate_fusion_validation.py": "20bf9de8d69498c7771651e1c8d78dd1c30f5ec972e2342c328c035b40f16d4e",
+    "cad/freecad/compact/geometry.py": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
+    "cad/freecad/compact/manufacturing.py": "436f7d63f997fb06442353065320c89726385ab1057540fadaae092057128ceb",
+    "cad/freecad/compact/process_v0621.py": "3c69c8f14e9cdbb185da58acd63eab1412552d640cf6a6059cac309ed2ef6ccf",
+    "cad/freecad/compact/shaft_retention.py": "09089f8bdfe484fe8ed2d9f584f46b5e27af156dad865579b39e4eb77f2f56a3",
+    "cad/freecad/compact/traverse_revision.py": "bdf47c625c378184001ca3061ade07ecb8b3e957f0914da0d1d717b4e5271650",
+    "cad/freecad/drive_v08/assembly.py": "5d80060fc98896f5b42f10d7095f59f7fd4828538e6b4c9e172a210640dc946e",
+    "cad/freecad/drive_v08/cache_source.py": "df713a8725b195cf48258e1c8fec24f80d0645041113f65fec30b0d50328789c",
+    "cad/freecad/drive_v08/detail.py": "fb8d42ccd8dfc6ba7c4c8782e789718e6a3caade6b30d8b9c550755e1ea2783a",
+    "cad/freecad/drive_v08/frame_revision.py": "59d7381e26eab435831d8d08d2d0f1a7c0c159337ed46e46e72d1fe068cb0fe9",
+    "cad/freecad/drive_v08/generate.py": "aa15e6ca82ae9f2120a701994531f4c669531827bf48d475a1eb3ee72c787559",
+    "cad/freecad/drive_v08/guard_details.py": "875ea078ba7aa196491a0c3bd5e79da98216275a3e28164424d67ffa03ed297b",
+    "cad/freecad/drive_v08/layout.py": "12d854fcceba995a03effd2cfd2600c02be96e16f62770e7a90990849418e056",
+    "cad/freecad/drive_v08/parts.py": "0d9aa8336bcb873810ed70e5a94ede103300b446b73812c1d6957eb08b49baf6",
+    "cad/freecad/drive_v08/probe.py": "e1079763fa31e040e92afea02e8fdd94be55e080df190ab0870ec428e4b57819",
+    "cad/freecad/drive_v08/render_geometry.py": "ae8ee1e93f8d80bbe65c9b9dc0c3b2c3818eb3f65bad0326709ae34e06cce481",
+    "cad/freecad/drive_v08/run_generate.py": "42fc38e87ba7619d679ff557f36a6f96cfd7e5ee72b635a4c9b39b283094920c",
+    "cad/freecad/final_v08/audit_thermal_mating_closure.py": "22cfa0c819b618501a65aed252bd711f6ef3b8cb285a491faa134a98864ad14c",
+    "cad/freecad/final_v08/check_axial_shoulder_candidate.py": "7071e224e06937efb48c040ba9332f3246acb5e109aecbdab1b0e8e34ae07a51",
+    "cad/freecad/final_v08/check_cutter_shim_candidate.py": "f0314650ea3398af44ca3ac59f0820f4806084214b120eb4511b02e4a52f6366",
+    "cad/freecad/final_v08/check_die_bolt_spacer_candidate.py": "5042f8a4db450b331fec637cb7fac7e59bb6022595f1362f4e8d49e7d61171c8",
+    "cad/freecad/final_v08/check_die_pilot_candidate.py": "164515e39ead2812400617e86b718a95c87b76164c25f02625e6eb45f651876c",
+    "cad/freecad/final_v08/check_phase_pair_backlash_candidate.py": "2be07a7291166ebe235fb96e0fb6ef28a4cfd824d4c4e3aedf1a10536f6b9480",
+    "cad/freecad/final_v08/check_phase_path_25_candidate.py": "46df68eb60cbc6091511643e856f2f32afc82b942267bedefa5a7f7ae978c76b",
+    "cad/freecad/final_v08/check_retainer_tool_access.py": "88c0831f1ba7b435ba798c5354f6f7785bfc021a7b3c42ea0f1fc2b74e9ffb59",
+    "cad/freecad/final_v08/check_sensor_ligament_candidate.py": "8de6fd315b9f1b34f6857945f08e8842feb92d8a96e2f90087c2372ae196a8f6",
+    "cad/freecad/final_v08/check_short_probe_envelope.py": "1979f8da7afded81ddc3b389ed3938d7fa82aee7bd77055c77bc8fba8acb0736",
+    "cad/freecad/final_v08/check_slave_keyseat_candidate.py": "f8d48ffcecae9d026abd606a6b9133e14f9dc869f1ece9475ac5aa5a0d9ddaaa",
+    "cad/freecad/final_v08/export_torsion_load_path.py": "442cf3bf7235e9df6c08060792e2ffef171fbb5c2c4ef017079427a9ac6a4883",
+    "cad/freecad/final_v08/generate.py": "5e3788761eac33931118c9406edaff4041b8c740a7df364f44c0f8be7737335f",
+    "cad/parameters/baseline.json": "f71d689a445a7a292d371e214a76347e57fea98e4f787262883caea8663e1fc4",
+    "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b",
+    "cad/parameters/ggm_frame_revision.json": "d51cbb6ee6c6075ef67f42c0d388e39c8e79f91777f7c987c726e909246ca0a5",
+    "analysis/radial_support_v08/cad_candidate.py": "9499b629f55bbbe12f0279b2cc7d0d6bfacfd7b9f35d3e1aa5e3134f0e5977c3",
+    "analysis/radial_support_v08/contract.json": "725db0e25612e0405388517dfb0f4dd58f05317c43698012f84dee37c9e7bc08",
+    "validation/integrated_assembly_clearance.py": "91d53b7919647131f709c4c8a0cbbc1ee96358c6b7fd6c43ca14debaf34feb93",
+    "validation/integrated_motion_clearance.py": "85e364181408a03ce538d0a4f3217d343c237fff2916722b7c3b0e3c8d17ab38",
+    "analysis/radial_support_v08/results/geometry.json": "32f32754db4ba17ca7e4a366b543c06c30321f456923be4370c360d634231f5f",
+    "analysis/radial_support_v08/plate_fea.py": "33e32087d20c7dc21cf8a8af8d56514f97c2fd8c690dcee2a39c752a8fe94e7f",
+    "analysis/final_validation/run_calculix_v08.py": "e3e21cd1f82dbc8737657ef82fd0378c5439afd8372196b3a21ad27e15df8e8c",
+    "analysis/structural/run_load_checks.py": "5fd498c9a55ab327f410d95eabf44244cb9c0b44611e8693051d79b34e7f39ba",
+    "exports/review/radial_support_v08/RS-FRONT-GUIDE-CANDIDATE.step": "acc680a2c2d039fb330dd12eb2034e2ceb1786de5f5733e0565ac9ee844ef361"
+  },
+  "conditional_peak_sf": 12.510112225970095,
+  "strength_qualified": false,
+  "contact_qualified": false,
+  "canonical_geometry_promoted": false,
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "limitations": [
+    "Linear C3D4, ideal fixed hole surfaces and imposed distributed bore load.",
+    "Peak nodal stress includes fixed-edge and sharp-corner singularities; not a strength qualification.",
+    "No barrel contact, bolt preload, rail compliance, thermal alignment, fatigue or full machine dynamics."
+  ]
+}

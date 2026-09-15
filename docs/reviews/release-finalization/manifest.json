@@ -1,0 +1,32 @@
+{
+  "scope": "release finalization and upstream shredder export",
+  "nodes": 90,
+  "edges": 165,
+  "source_sha256": {
+    "release/build_complete_release.py": "2d959956e5ba6921b19cf87f56c30b2fbf8dcd34dfc4eacd81a88fb08d968fb9",
+    "release/verify_complete_release.py": "ce0c1ae9bc86a43df48db4d9f9df250a2164ad3f43f63ffb73f86c97bd9994a6",
+    "release/regenerate_release.py": "30590c5b12aa569d9348a9ef401cc0b1086121f58d93b9f29d073ec00470275e",
+    "release/render_handoff.py": "3814c30a55dd4ffce5dccac8cc061298229277ce09ade23520438eefa3c647d2",
+    "release/publication_policy.py": "a5207cc952b91057a0996117fa644c74951514c8b7d441dc7d933016e7e08b24",
+    "release/source_identity.py": "f4b8305e60fe7e3f42c8925aa9784b7f810a60f3c6609ca29e50082bea593387",
+    "validation/ci_v08.py": "967668b1ed77d93862eaa4ad4f90066de21be2bd57f2edfd5412aca46c218ad9",
+    "validation/test_complete_package.py": "3fe1d2d8552eafd5d4b948e324240319163faf854409ed17e241cb2c99ed5a84",
+    "docs/final/COMPLETE_HANDOFF_KO.md": "6c460a16f795faf012d6cce6947442ea10f9142d1f0e354fc7ea57aad4d91bff",
+    "docs/final/product_specification_ko.md": "0de63d02367080d5b012b51b0c183130fe114cbcc40a76dd34860a2239e52436",
+    "docs/final/open_items_ko.md": "a25e227141058924dc3e56c51b5295e6be47b8d24927575c13ec15dc76bc4279",
+    "docs/final/package_replay_ko.md": "eb62e5a303a7e2a791168c9c3fa08077f18598109112ef76976c03f0790a2110",
+    "docs/final/ci_release_audit_ko.md": "eb84efd2c84c5f5da2c50679a3020e024b9a72a0a65bc9592de388408999bf44",
+    "release/build_mechanical_release.py": "fd9c76f3bd1ccdeda0ee54db290e4f04a8e5ab717c24f391c64620c21143f8f3",
+    "cad/freecad/compact/generate.py": "71900f37e772c62bbed71e6d9d6dc05630fe2ff2c73ff1dc18b781d51aea51bc",
+    "validation/test_shredder_manifest_regeneration.py": "6bc075f2b1fc4c7af082e0980a837980c70910dfc3f4b80cfa9d089f10ab44ce"
+  },
+  "incremental_note": "Added direct generation and remote-CI provenance validation; function topology retained. Separate explicit source/log checks were reviewed.",
+  "reviewed_bom_followup": {
+    "retired_alias": "CUT-07=DRV-01",
+    "assembly_installation": {
+      "CUT-09": 4,
+      "CUT-10": 5
+    },
+    "test_source_sha256": "2d7b277be0f911c07d5803f6ade330f3d146831bbe959683116d1e1a7bfe1cd8"
+  }
+}

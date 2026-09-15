@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "revision": "mvp-smoke-v0.8-r1",
+  "identity": {
+    "mvp_is_final_product": true,
+    "same_physical_artifact_required": true,
+    "throwaway_prototype_allowed": false,
+    "meaning": "MVP is the minimum verified operating state of the final PPR machine, not a separate prototype."
+  },
+  "authorization": {
+    "physical_action_authorized": false,
+    "procurement_authorized": false,
+    "motor_energization_authorized": false,
+    "heater_energization_authorized": false,
+    "material_feed_authorized": false
+  },
+  "checkpoints": [
+    {
+      "id": "S0",
+      "name": "RECEIPT_IDENTITY_SMOKE",
+      "before_or_with": [
+        "P1"
+      ],
+      "power": "NONE",
+      "purpose": "Identify received/owned parts, ratings, visible damage and exact evidence before fabrication.",
+      "stop_on": [
+        "unknown identity",
+        "damaged safety-critical part",
+        "rating incompatible with released contract"
+      ]
+    },
+    {
+      "id": "S1",
+      "name": "COLD_GEOMETRY_MOTION_SMOKE",
+      "before_or_with": [
+        "P2",
+        "P6"
+      ],
+      "power": "NONE",
+      "purpose": "Use the final frame/hot-path hardware for fit, travel, hand rotation, TIR/alignment and guard-envelope checks.",
+      "stop_on": [
+        "hard contact",
+        "binding",
+        "insufficient axial travel",
+        "unresolved tolerance excursion"
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "LOGIC_SAFETY_SMOKE",
+      "before_or_with": [
+        "P7"
+      ],
+      "power": "LOGIC_ONLY_CURRENT_LIMITED",
+      "purpose": "Exercise final K0/interlock/PE/logic wiring before hazardous branch power.",
+      "stop_on": [
+        "K0 does not drop on required open",
+        "automatic restart",
+        "PE/insulation failure",
+        "unexpected branch voltage"
+      ]
+    },
+    {
+      "id": "S3",
+      "name": "SINGLE_AXIS_DRIVE_SMOKE",
+      "before_or_with": [
+        "P3",
+        "P8"
+      ],
+      "power": "ONE_MOTOR_BRANCH_AT_A_TIME",
+      "purpose": "Commission the final GGM drive path at bounded speed/current with heaters isolated.",
+      "stop_on": [
+        "unexpected direction",
+        "tach loss response failure",
+        "current/temperature/vibration abnormal trend",
+        "guard contact"
+      ]
+    },
+    {
+      "id": "S4",
+      "name": "THERMAL_BARRIER_TAPE_SMOKE",
+      "before_or_with": [
+        "P9"
+      ],
+      "power": "SEPARATE_COUPON_OR_BOUNDED_HOT_SHIELD_CHECK",
+      "purpose": "Qualify the received TH-INS-01 PI gold finger polyimide tape from the same physical 25 mm x 30 m roll before final hot-shield installation.",
+      "stop_on": [
+        "interface peak+U95 above 190 C",
+        "interface peak-U95 below 180 C during qualification hold",
+        "hot dwell below 600 s",
+        "smoke or charring",
+        "melt or adhesive flow",
+        "delamination beyond project criterion",
+        "coverage of sensor/cutoff/terminal/vent"
+      ],
+      "analyzer": "validation/physical_v08/analyze_s4_thermal_barrier_tape.py",
+      "template": "validation/physical_v08/templates/s4_thermal_barrier_tape_smoke.csv",
+      "design_basis": {
+        "continuous_service_rating_c": 220.0,
+        "max_interface_peak_plus_u95_c": 190.0,
+        "qualification_interface_window_c": [
+          180.0,
+          190.0
+        ],
+        "minimum_hot_dwell_s": 600.0,
+        "short_term_300c_not_used_for_design": true
+      }
+    },
+    {
+      "id": "S5",
+      "name": "EMPTY_HOT_ZONE_SMOKE",
+      "before_or_with": [
+        "P9"
+      ],
+      "power": "HEATER_ONLY_BOUNDED_RUN",
+      "purpose": "Commission the final empty hot zone with motors inhibited, including TH-INS-01 after S4 qualification.",
+      "stop_on": [
+        "temperature runaway",
+        "hard-stop contact",
+        "thermal barrier degradation",
+        "PE/insulation degradation",
+        "cutoff fails to remove K0 energy"
+      ]
+    }
+  ],
+  "feedback_loop": {
+    "on_any_failure": "HOLD_AND_REVISE",
+    "steps": [
+      "preserve raw evidence and exact hardware configuration",
+      "identify earliest affected P-stage and controlling digital sources",
+      "modify CAD/BOM/electrical/firmware only through repository source-of-truth",
+      "regenerate affected release artifacts and rerun digital validators",
+      "invalidate downstream physical stage releases whose source bindings changed",
+      "rework the same final hardware where safe and technically valid, otherwise replace only the affected final component",
+      "repeat the failed smoke checkpoint before proceeding"
+    ],
+    "acceptance_relaxation_allowed": false,
+    "field_rework_without_design_record_allowed": false
+  },
+  "evidence_policy": {
+    "timezone_timestamp_required": true,
+    "operator_and_independent_reviewer_required": true,
+    "raw_evidence_sha256_required": true,
+    "measurement_uncertainty_required_for_numeric_acceptance": true
+  }
+}

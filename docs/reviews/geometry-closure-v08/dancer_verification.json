@@ -1,0 +1,33 @@
+{
+  "status": "DANCER_SCOPED_GEOMETRY_VERIFIED",
+  "basis_commit": "38147e198246ed82c0b4685cfc0e1b3e897840e2",
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "global_release": "HOLD",
+  "source_sha256": {
+    "bom/bom.csv": "2c5de28bcca0f141aa175a07acbac47bf3db9916f030f7a3477aef3dc5148b0a",
+    "cad/freecad/compact/geometry.py": "ca7867a5a50cb0fdb74387e8e8fe7b5b619102e2fed90c52fba5cb227de6fde7",
+    "cad/freecad/compact/dancer_revision.py": "59a9557b583174128d85e5bc9e5f34fc9dc0372fc84254ed9d198db1e130bfed",
+    "cad/parameters/baseline.json": "f71d689a445a7a292d371e214a76347e57fea98e4f787262883caea8663e1fc4",
+    "release/build_mechanical_release.py": "970de914d83cec619ecfb7fce068b129b366d3221cde88f835c46aea1dc18c72",
+    "validation/ci_v08.py": "4f3a5d0f94f95c2387b0b9be8ba8b81c6e3f91bf9d0c2d5c9951860ef06de695",
+    "validation/integrated_motion_clearance.py": "85e364181408a03ce538d0a4f3217d343c237fff2916722b7c3b0e3c8d17ab38",
+    "validation/shaft_retention_clearance.py": "264546484876b001d13a68be0ba0bbe803c3b19dce81c3fffacc1ebe784029ca",
+    "validation/test_shaft_retention_geometry.py": "963a691a6c79b704c4df44ef50474b807eb05e89cb73570b1f76d5e6553ef117",
+    "validation/test_dancer_retention_geometry.py": "c4ab0fdd36902a009c15bbf0dbcef3818c30e759853dccc81bde2bd77de69cb2",
+    "docs/reviews/geometry-closure-v08/DANCER_AXLES_KO.md": "7852d36ff88b9f5764ab8ecd2d3c5346f983a248e8df9590d286bae087a79de9"
+  },
+  "log_sha256": {
+    "docs/reviews/geometry-closure-v08/dancer-checks/integrated_assembly_clearance.log": "8fadc2d6aa13291f5e5f7e94504b1a3df11347b566011c028a66e85b0751fa80",
+    "docs/reviews/geometry-closure-v08/dancer-checks/integrated_motion_clearance.log": "bc7f50b4aa7b84ea6246d096fb029f6706680dcd0b4c073ae988bbb5381dd305",
+    "docs/reviews/geometry-closure-v08/dancer-checks/test_dancer_retention_geometry.log": "adff9a3512fc387b1db8bf4254920fe7ea685dd830716f2226efe8ff676175c0",
+    "docs/reviews/geometry-closure-v08/dancer-checks/test_shaft_retention_geometry.log": "54ca7da5bc0789b00f4b68799a5f202e058c60cd59cf7af709dc61592166df09"
+  },
+  "graph_update": {
+    "AST": "EXECUTED",
+    "semantic_document_graph": "NOT_COMPLETED"
+  },
+  "log_storage": "LOCAL_ONLY: .log files are ignored by Git; the hashes do not imply archived remote logs",
+  "remote_evidence_package_complete": false
+}
