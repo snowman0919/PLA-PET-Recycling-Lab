@@ -22,6 +22,7 @@ CAD_TESTS = {
     "test_thermocouple_fastener_fit.py", "test_integrated_motion_clearance.py",
     "test_shaft_retention_geometry.py", "test_dancer_retention_geometry.py",
     "test_radial_capture_geometry.py", "test_radial_support_candidate.py",
+    "test_compact_layout_review.py",
 }
 HISTORICAL_TESTS = {
     "test_release.py": "v0.6.1 release-state snapshot; superseded by v0.8 technical gates",

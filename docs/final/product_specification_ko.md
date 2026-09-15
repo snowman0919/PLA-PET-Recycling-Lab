@@ -22,9 +22,9 @@
 | 열 관련 테이프 | PI 계열, 사용자 보유 25 mm x 30 m | 판매자 자료만 있음. 접착제/lot/정식 연속 정격 미확정; 220 C는 잠정 보수 설계값이지 인증 정격 아님 |
 | 테이프 사용 범위 | 금속 shield 외측 보조재; 접착면 peak+U95 <=190 C, S4 필요 | 직접 heater/barrel/die 감싸기 금지; 얇은 PI의 내열성을 충분한 단열 효과로 간주하지 않음 |
 | 제어기 / 구동회로 | Arduino Mega 2560 / GGM-BTS7960 variant | base sketch 대신 released GGM source와 HEX 사용 |
-| 배포 HEX SHA-256 | `a47ff06b4236c800af7f70a3b82f218d8c71b42baa6e4eb7f8db8b6f3facf54f` | build_manifest + clean rebuild |
+| 배포 HEX SHA-256 | 해당 패키지의 `exports/final/firmware/build_manifest.json` 안 `binary_sha256` | HEX 및 clean rebuild 로그와 대조; 구형 고정 해시를 최신으로 재사용하지 않음 |
 | 치수 품질 목표 | 평균 오차 <=0.05 mm, ovality <=0.05 mm, U95 <=0.03 mm | P10/P11/P12 실제 안정 표본 필요 |
-| 생산량 / 연속성 | 실제 최대 안정 생산량 미확정; 200 g/h는 stretch target | 달성·장시간 운전·내구 보증 없음 |
+| 생산량 / 연속성 | 현재 feed 제어 명목100 g/h; 최대 안정 생산량 미확정; 200 g/h는 stretch target | `analysis/process_feed/feed_parameters.json`; 실측 달성·장시간 운전·내구 보증 없음 |
 | 가격 / 조달 | 확정 견적 없음 | 미확정 재고와 제조사 회신은 구매 승인품으로 취급하지 않음 |
 | 최종 상태 | FABRICATION_CANDIDATE / physical NOT_RUN / safety NOT_CERTIFIED | 공개 prerelease 게시 승인만 있음 |
 

@@ -1,0 +1,3219 @@
+{
+  "status": "LOSS_BUDGET_NUMERICAL_REVIEW_COMPLETE",
+  "source_sha256": {
+    "analysis/thermal_revision_v08/loss_budget.py": "ace6071162075cee368f9b0247d8feeaa325124e97e01d3c4b9176ce13338624",
+    "cad/parameters/baseline.json": "f71d689a445a7a292d371e214a76347e57fea98e4f787262883caea8663e1fc4",
+    "cad/parameters/final_v08.json": "7e3cbd02c2210634e8bd3ee7c62924d528865fba6bee8f1cc8aeca7bfeb85a3b",
+    "analysis/radial_support_v08/contract.json": "7983887595c587b5c259072244a1f0b3548cc79f9abbf50dafa794be8241cba5",
+    "analysis/thermal_revision_v08/model.py": "4caa72ce9b25740802e9f01b53e2719d6e5db397599a53498e27dea3fcfb5600",
+    "analysis/thermal_revision_v08/steady_state.py": "a3f74b07910fcee4c3ff30fba3392c131515c62533f3b0db6d15d58047b80e36",
+    "analysis/thermal_revision_v08/model_inputs.json": "ffdefd5c4c4f44562deaa4afa4c03d7a164c0ebb02d671e5e7ffa13ef6a64f67"
+  },
+  "cases": [
+    {
+      "required_watts": [
+        73.0794875586207,
+        27.52616674177611,
+        83.0086774602995,
+        48.68050683757967
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        303.4966489825118,
+        252.93606433248289,
+        328.99611978018174
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 285.02716357963817,
+      "local_residual_w": 1.763082735362076e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.1453948900452815e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        127.92464107215646,
+        40.419029036138674,
+        83.00867746030096,
+        48.68050683757967
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        244.99999999999997,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        366.0166356490407,
+        262.27306632894965,
+        328.9961197801823
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 285.0271635796374,
+      "local_residual_w": 5.158540261618327e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 5.7980287238024175e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        95.58579795595877,
+        38.11704825397791,
+        109.74520632375369,
+        66.0907367705474
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        317.5840195319346,
+        254.60661894608842,
+        344.68176790984836
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 289.560014246067,
+      "local_residual_w": 1.5774048733874224e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.8758328224066645e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        152.24586394403948,
+        51.29644531269846,
+        109.74520632374923,
+        66.0907367705474
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        379.2262487003457,
+        263.89009887989135,
+        344.6817679098451
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 289.560014246068,
+      "local_residual_w": 6.679101716144942e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.261923898709938e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        63.26418265408292,
+        29.381954473398586,
+        75.55830892986148,
+        48.680506837580374
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        259.99999999999994,
+        270.00000000000006,
+        265.0
+      ],
+      "heater_c": [
+        259.85145841618146,
+        251.85449054381152,
+        291.1469791048925
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 284.24775759184195,
+      "local_residual_w": 1.7615908731727359e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.5153212845907547e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        106.29770307173006,
+        43.04715832260564,
+        75.55830892985664,
+        48.68050683757967
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        244.99999999999997,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        279.855132613127,
+        252.78205991676973,
+        291.14697910489036
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 284.2477575918408,
+      "local_residual_w": 1.9469773016034253e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 1.1198153515579179e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        81.84973334353137,
+        39.971978434995656,
+        97.84570243622652,
+        66.09073677054457
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        264.07355955924083,
+        252.25131152365097,
+        297.0760939807842
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 288.4419059175139,
+      "local_residual_w": 1.9342305535019477e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 8.981260180007666e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        124.79033210296298,
+        53.60597471648079,
+        97.84570243622403,
+        66.09073677054457
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        283.93153888699334,
+        253.1743193428125,
+        297.07609398078375
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 288.441905917514,
+      "local_residual_w": 2.450518954422165e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.4097167877480388e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        57.20590752377105,
+        20.204009822310066,
+        63.04028808093466,
+        35.879758053119346
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        293.6230930886233,
+        251.90831390266487,
+        317.3568054061149
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 281.659779024675,
+      "local_residual_w": 2.156434752986769e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.9757529773632996e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        109.17243610776697,
+        32.7577315008948,
+        63.04028808093723,
+        35.87975805311989
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        356.87002718333486,
+        261.29336092308614,
+        317.35680540611787
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 281.6597790246759,
+      "local_residual_w": 2.171002960738022e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.0691004465334117e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        73.36176786052414,
+        27.992865652284422,
+        81.86940249424872,
+        48.95925123455472
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        244.99999999999997,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        304.3649422786277,
+        253.08533551960818,
+        329.1570167198692
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 285.07948645054284,
+      "local_residual_w": 1.7089038517603683e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 3.0894398150849156e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        126.54589903649602,
+        40.76115860107305,
+        81.86940249424613,
+        48.95925123455472
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        366.8958053388558,
+        262.4292488548769,
+        329.1570167198672
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 285.079486450543,
+      "local_residual_w": 1.7266327256848513e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.7569058147491887e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        50.314916435586454,
+        21.977187554416254,
+        59.00538232737546,
+        35.87975805311876
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        256.8715634877194,
+        251.62862976743617,
+        286.74506427337735
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 281.1327135353133,
+      "local_residual_w": 1.847969693935525e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 2.5352164811920375e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        93.18798375314427,
+        35.66317390215413,
+        59.00538232736985,
+        35.87975805311895
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        276.99878934692947,
+        252.56033065130939,
+        286.74506427337667
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 281.1327135353136,
+      "local_residual_w": 1.612213834656373e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.1401547201094218e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        64.17453786553399,
+        29.850418646647466,
+        75.3386908451568,
+        48.95925123455486
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        260.0707674178659,
+        251.89696940317194,
+        291.21221965200664
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 284.2966070353249,
+      "local_residual_w": 1.892545148374225e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.086153472191654e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        106.92179892690719,
+        43.51205247624736,
+        75.3386908451661,
+        48.95925123455472
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        280.0822705237858,
+        252.82516863968164,
+        291.2122196520104
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 284.29660703532704,
+      "local_residual_w": 2.3708118801479827e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.2225776774575934e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        42.0882579218588,
+        13.027410911919933,
+        44.413687723459056,
+        23.055303365949054
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        283.57071279019783,
+        250.96293222307537,
+        305.6784638110823
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 278.27880019443785,
+      "local_residual_w": 1.6670553826259038e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 3.176126028847648e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        91.418087637659,
+        25.243010815725484,
+        44.41368772345434,
+        23.055303365949207
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        347.6102869793839,
+        260.39716127324624,
+        305.67846381107813
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 278.27880019443836,
+      "local_residual_w": 2.264285980935199e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.489741746103391e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        52.404031510970604,
+        18.123563411935816,
+        56.199304969917705,
+        31.789911967792573
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        290.8614260993166,
+        251.69595510136242,
+        313.5704039640024
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 280.5641796054615,
+      "local_residual_w": 2.070408081089603e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.1908696251339279e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        102.44858471640143,
+        30.482203305083505,
+        56.19930496991642,
+        31.789911967792573
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        354.37880450999916,
+        261.102076606771,
+        313.5704039640002
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 280.5641796054603,
+      "local_residual_w": 1.8604996016025055e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.5920599000528455e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        37.44850698338899,
+        14.640729909013814,
+        42.86987659230745,
+        23.05530336594874
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        253.85741105053856,
+        251.43454568381128,
+        282.3210753678975
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 277.9977961500747,
+      "local_residual_w": 1.9195200984256644e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.6726175999792758e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        80.23175219049568,
+        28.348575492057456,
+        42.86987659231026,
+        23.055303365949054
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        274.11556521150396,
+        252.37047008162776,
+        282.3210753678973
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 277.99779615007384,
+      "local_residual_w": 2.1885670359322873e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 2.9956481739645824e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        46.64534768737022,
+        19.845395800549944,
+        53.508915153727486,
+        31.789911967793557
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        256.01335930538545,
+        251.593473570264,
+        285.31321958002025
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 280.1196279288724,
+      "local_residual_w": 1.8465784457077916e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.2595258997171186e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        89.30218337394682,
+        33.536361609638455,
+        53.50891515372198,
+        31.789911967793824
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        244.99999999999997,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        276.18950919217536,
+        252.52700805376992,
+        285.31321958001837
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 280.1196279288715,
+      "local_residual_w": 1.8080467678593948e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 1.318767317570746e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        27.67784772932539,
+        5.9866087429150365,
+        27.042052768664377,
+        10.206475021639445
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000006,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        273.3213341194231,
+        250.1016507919251,
+        293.95909482585364
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 274.9419922340273,
+      "local_residual_w": 2.0002333123159133e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.297895207448164e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        74.6165269460355,
+        17.86462794595097,
+        27.04205276867081,
+        10.206475021640328
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        338.22987401663573,
+        259.58623930642904,
+        293.95909482586165
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 274.9419922340289,
+      "local_residual_w": 1.705105674709717e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.191313797084149e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        32.622664369381354,
+        8.489729020122953,
+        32.57405625924931,
+        14.581461313041016
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.00000000000006,
+        265.0
+      ],
+      "heater_c": [
+        277.03859962726835,
+        250.4417812113247,
+        297.91823087149606
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 276.0706300892906,
+      "local_residual_w": 1.663225113190947e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.1998403099132702e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        79.86897913264703,
+        20.439374483649242,
+        32.574056259258924,
+        14.581461313042285
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        341.65965870896036,
+        259.9119610058188,
+        297.91823087150834
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 276.07063008929356,
+      "local_residual_w": 2.83446183191316e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.4414248400717042e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        24.649037886023184,
+        7.369505184061905,
+        27.142005590589037,
+        10.206475021640037
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        250.8068574239573,
+        251.27296850217698,
+        277.8741676347558
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 274.87589717141776,
+      "local_residual_w": 2.06376495753835e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.4082957022765186e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        67.42180820690642,
+        21.10030545508587,
+        27.14200559059314,
+        10.206475021640328
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        271.20424792986796,
+        252.21321153737162,
+        277.8741676347579
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 274.87589717141896,
+      "local_residual_w": 2.143698413226147e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 1.0999201549566351e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        29.231961765361113,
+        9.950803821708204,
+        32.33905050694973,
+        14.581461313042265
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        251.89720266247278,
+        251.34221681210485,
+        279.3775182775525
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 275.92494732402645,
+      "local_residual_w": 1.914919611767374e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.12878603633726e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        71.91707560997689,
+        23.672834766785343,
+        32.339050506950635,
+        14.581461313041364
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        272.2508231467477,
+        252.2812361922022,
+        279.37751827755386
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 275.9249473240277,
+      "local_residual_w": 1.63533075969724e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 1.6399326341343112e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "current",
+      "stations_mm": [
+        16.0,
+        110.0
+      ]
+    },
+    {
+      "required_watts": [
+        72.48484681339836,
+        4.3619209294786945,
+        111.23199582837321,
+        49.08294677872299
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        302.6401738175901,
+        226.85524208521252,
+        360.0778586873603
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 295.2565346147961,
+      "local_residual_w": 1.9435078546514717e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.858779796748422e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        127.33090728286349,
+        -49.42536303781174,
+        202.1404123577931,
+        50.27813799922216
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        365.23913773990705,
+        158.74067727947755,
+        453.1973738213677
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 326.12919462443176,
+      "local_residual_w": 5.7838178690872155e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 1.6257217794191092e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        94.93967885810531,
+        14.001078569143191,
+        139.66603989838885,
+        66.48892029470109
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        316.71526000386547,
+        228.5933629244567,
+        375.7911431248749
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 299.82702405283374,
+      "local_residual_w": 2.0871082639928318e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 1.0231815394945443e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        151.57923568583547,
+        -42.32659763920726,
+        235.98143064127302,
+        67.671485288105
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.00000000000006,
+        265.0
+      ],
+      "heater_c": [
+        378.40660728989366,
+        160.62149266881303,
+        468.99468836596475
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 330.68354701169886,
+      "local_residual_w": 7.474909580196254e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 9.322320693172514e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        62.672554545317716,
+        9.408848071765668,
+        98.17354256810178,
+        49.08294677872303
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        259.37347707225763,
+        242.8233059749974,
+        303.69150014105
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 293.6468056927319,
+      "local_residual_w": 2.047362279711251e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.9753088054130785e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        105.06932439485803,
+        -35.64207948503578,
+        166.76243430803405,
+        50.27813799922005
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        278.91801767591727,
+        216.77677138469878,
+        341.26107571882847
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 321.9205299881393,
+      "local_residual_w": 1.964428619771752e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 7.73070496506989e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        81.2278823328688,
+        19.70049274449657,
+        121.0278742955489,
+        66.48892029470178
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        263.59220752944253,
+        243.2439480174855,
+        309.6222249941647
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 297.8658086848469,
+      "local_residual_w": 2.2611912342540563e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 8.981260180007666e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        123.49023225259141,
+        -26.279775134982742,
+        191.33267188466695,
+        67.67148528810466
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        282.9765182193872,
+        217.26342057168597,
+        347.197115485663
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 326.1272054852768,
+      "local_residual_w": 2.263911280664388e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.0118128557223827e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 1.0,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        56.67929327963551,
+        -1.9704706947110315,
+        89.05590088178863,
+        36.28694732274343
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.00000000000006,
+        265.0
+      ],
+      "heater_c": [
+        292.7968358506836,
+        225.75480880502434,
+        348.39761528800716
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 291.86071413174005,
+      "local_residual_w": 1.7819114239703282e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.7284841053187847e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        108.7148914342991,
+        -53.61956844922002,
+        171.5732867218436,
+        37.49617916143555
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        356.21129594130616,
+        157.46275852249516,
+        441.3841719176883
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 322.7447752185883,
+      "local_residual_w": 2.219929101654472e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 1.1539214028744027e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        72.80010321263288,
+        5.107158589463398,
+        109.05153222092383,
+        49.36316932828646
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        303.5299612918293,
+        226.98297882154836,
+        360.2178538120158
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 295.30899576719423,
+      "local_residual_w": 2.038983565322283e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.2566837287740782e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        126.04493976252907,
+        -48.44166003980712,
+        195.24012521601176,
+        50.562698684054354
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        366.2091638462325,
+        158.79830823714676,
+        453.2653182491078
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 326.1804743163169,
+      "local_residual_w": 1.7613688285678109e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.3590018827235326e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        49.762788350008485,
+        2.3310933718521296,
+        80.91026529598524,
+        36.28694732274385
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        256.4032073244498,
+        242.57103548821203,
+        299.28446507182394
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 290.51261149595234,
+      "local_residual_w": 1.9820256547120607e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.0970779840135947e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        92.06938338838769,
+        -41.79886883360278,
+        147.1463610942936,
+        37.49617916143714
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        244.99999999999997,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        276.10635293951634,
+        216.44637362700024,
+        336.8362434625784
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 318.79353324591233,
+      "local_residual_w": 1.4965251260434798e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.1856294551980682e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        63.600359006888326,
+        9.97992976182566,
+        97.65578986525907,
+        49.36316932828707
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        259.6001260011635,
+        242.85737203993432,
+        303.7525895392744
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 293.6953088395221,
+      "local_residual_w": 1.8603590890009514e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 2.575006874394603e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        105.75324861743809,
+        -34.849800634840456,
+        165.1365289863605,
+        50.56269868405422
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        279.1774090866011,
+        216.7825248868065,
+        341.30764134323914
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 321.96654085923757,
+      "local_residual_w": 2.3062593501599338e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.91562321560923e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.75,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        41.62342314546274,
+        -8.161955458116667,
+        68.4075517135986,
+        23.467361834547955
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        282.7740834252786,
+        224.73639863572112,
+        336.6795907332044
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 288.4427650933765,
+      "local_residual_w": 1.819254816237681e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.0662582755903713e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        91.07524807595404,
+        -57.684914456743584,
+        143.21587546566104,
+        24.69098690348762
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        347.0656150581908,
+        156.26692054222556,
+        429.5369428201251
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 319.33893833327846,
+      "local_residual_w": 1.6346993203519844e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.4637180356658064e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        51.917923982805675,
+        -3.5387119242224143,
+        80.9051270924981,
+        32.19973477095717
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        244.99999999999997,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        290.0592679799542,
+        225.50384064678553,
+        344.5844060736032
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 290.755651865884,
+      "local_residual_w": 1.9205574630642985e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.1856294551980682e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        102.08335293854465,
+        -54.325440941532804,
+        157.92285410838866,
+        33.416729534582025
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        353.818080035704,
+        157.10617456855402,
+        437.4809253024989
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 321.6431069208151,
+      "local_residual_w": 2.192544756862702e-12,
+      "sensor_residual_c": 2.842170943040401e-14,
+      "global_residual_w": 7.105427357601002e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        36.93471925664748,
+        -4.677395793615749,
+        64.08897718806314,
+        23.467361834549347
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        253.3984184217174,
+        242.3504347665538,
+        294.85574907397444
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 287.3584305345522,
+      "local_residual_w": 2.4559243527733088e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.1955770534987096e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        79.21634922510695,
+        -47.88286710876309,
+        128.05275611021682,
+        24.690986903486976
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        273.2667065146685,
+        216.14738915540872,
+        332.39090534976026
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 315.64722080020476,
+      "local_residual_w": 2.0277494960918574e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 1.375610736431554e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        46.11719504761963,
+        0.37720587808032313,
+        74.994407689322,
+        32.19973477095694
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000003,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        255.55300783182207,
+        242.5214489723878,
+        297.84837631763236
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 289.4929090533345,
+      "local_residual_w": 2.1494160618029667e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.4556356947869062e-11,
+      "heating_only_feasible": true,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        88.25590812785376,
+        -43.29680438378077,
+        139.76051398363083,
+        33.416729534582146
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        275.3330627233761,
+        216.3518200061849,
+        335.38522769009813
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 317.7749339451035,
+      "local_residual_w": 2.0212165274813287e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 1.9980461729574017e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.5,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        27.26912637943512,
+        -14.22120261333489,
+        49.1901860735398,
+        10.62352755466867
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        272.55381022334717,
+        223.8017443145549,
+        324.92180805065004
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 285.02610226374884,
+      "local_residual_w": 2.0198686473404948e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.751221472863108e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        74.36911497254472,
+        -61.62772162168807,
+        116.93760901992074,
+        11.861913086128789
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        337.7943448371447,
+        155.1549463073086,
+        417.653777510399
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 315.9109945018052,
+      "local_residual_w": 3.0610245241313727e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 3.2457592169521376e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        32.20421657657092,
+        -11.954154448472371,
+        55.047905278135154,
+        14.997367346264296
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        276.268426687095,
+        224.1592467548575,
+        328.8871384185046
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 286.17861998071487,
+      "local_residual_w": 2.1994940591074652e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.503952600818593e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        79.61320523778797,
+        -59.99171099186979,
+        123.7897013235044,
+        16.23235313157511
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        341.2174263555684,
+        155.54846052374754,
+        421.6379573468826
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 317.07014556378107,
+      "local_residual_w": 1.860539500242453e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 2.290789780090563e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 200.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        24.17257203779731,
+        -11.619546708763115,
+        47.69945897140238,
+        10.623527554669257
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        259.99999999999994,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        250.35696256079126,
+        242.16223433662094,
+        290.4045164690911
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 284.1918613969458,
+      "local_residual_w": 1.8853252292672096e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 7.545963853772264e-12,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        66.50325879179901,
+        -53.89656375919114,
+        109.47000763046535,
+        11.861913086129787
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.00000000000006,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        270.3978191779368,
+        215.88055355553465,
+        327.9242521521363
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 312.48096679955023,
+      "local_residual_w": 1.4910572776472009e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 3.04964942188235e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 8.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        28.7484370641108,
+        -9.113545670566028,
+        53.02560868571636,
+        14.997367346264163
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.0,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        251.4467116189439,
+        242.23757051969744,
+        291.90802493762243
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 285.2581313018255,
+      "local_residual_w": 2.7712138139790454e-12,
+      "sensor_residual_c": 0.0,
+      "global_residual_w": 2.015099198615644e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.05,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": false,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    },
+    {
+      "required_watts": [
+        70.98423448949872,
+        -51.625941469940535,
+        115.18397614619245,
+        16.232353131573433
+      ],
+      "rated_watts": [
+        100.0,
+        100.0,
+        100.0,
+        60.0
+      ],
+      "sensors_c": [
+        245.0,
+        260.00000000000006,
+        270.0,
+        265.0
+      ],
+      "heater_c": [
+        271.4409616307918,
+        215.9727018564781,
+        329.42835820910943
+      ],
+      "die_c": 265.0,
+      "barrel_peak_c": 313.55120613856235,
+      "local_residual_w": 2.000934140600208e-12,
+      "sensor_residual_c": 5.684341886080802e-14,
+      "global_residual_w": 1.4807710613240488e-11,
+      "heating_only_feasible": false,
+      "iterations": 3,
+      "physical_validation_state": "NOT_RUN",
+      "energization_authorized": false,
+      "external_loss_multiplier": 0.25,
+      "contact_w_m2k": 1000.0,
+      "reference_air_w_m2k": 15.0,
+      "support_w_k": 0.2,
+      "comparison_ceiling_c": 300.0,
+      "heater_comparison_exceeded": true,
+      "hardware_solution_defined": false,
+      "supplier_rating_verified": false,
+      "mode": "EMPTY_STEADY_INVERSE_CONSTRAINT_NOT_TRANSIENT_OR_FLOW",
+      "support_layout": "radial_review",
+      "stations_mm": [
+        16.0,
+        246.0
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "support_layout": "current",
+      "external_loss_multiplier": 1.0,
+      "cases": 8,
+      "rated_power_feasible_count": 2,
+      "meets_300C_comparison_and_power_count": 1,
+      "max_heater_c": 379.2262487003457,
+      "max_required_watts": [
+        152.24586394403948,
+        53.60597471648079,
+        109.74520632375369,
+        66.0907367705474
+      ]
+    },
+    {
+      "support_layout": "current",
+      "external_loss_multiplier": 0.75,
+      "cases": 8,
+      "rated_power_feasible_count": 5,
+      "meets_300C_comparison_and_power_count": 3,
+      "max_heater_c": 366.8958053388558,
+      "max_required_watts": [
+        126.54589903649602,
+        43.51205247624736,
+        81.86940249424872,
+        48.95925123455486
+      ]
+    },
+    {
+      "support_layout": "current",
+      "external_loss_multiplier": 0.5,
+      "cases": 8,
+      "rated_power_feasible_count": 7,
+      "meets_300C_comparison_and_power_count": 4,
+      "max_heater_c": 354.37880450999916,
+      "max_required_watts": [
+        102.44858471640143,
+        33.536361609638455,
+        56.199304969917705,
+        31.789911967793824
+      ]
+    },
+    {
+      "support_layout": "current",
+      "external_loss_multiplier": 0.25,
+      "cases": 8,
+      "rated_power_feasible_count": 8,
+      "meets_300C_comparison_and_power_count": 6,
+      "max_heater_c": 341.65965870896036,
+      "max_required_watts": [
+        79.86897913264703,
+        23.672834766785343,
+        32.574056259258924,
+        14.581461313042285
+      ]
+    },
+    {
+      "support_layout": "radial_review",
+      "external_loss_multiplier": 1.0,
+      "cases": 8,
+      "rated_power_feasible_count": 1,
+      "meets_300C_comparison_and_power_count": 0,
+      "max_heater_c": 468.99468836596475,
+      "max_required_watts": [
+        151.57923568583547,
+        19.70049274449657,
+        235.98143064127302,
+        67.671485288105
+      ]
+    },
+    {
+      "support_layout": "radial_review",
+      "external_loss_multiplier": 0.75,
+      "cases": 8,
+      "rated_power_feasible_count": 2,
+      "meets_300C_comparison_and_power_count": 1,
+      "max_heater_c": 453.2653182491078,
+      "max_required_watts": [
+        126.04493976252907,
+        9.97992976182566,
+        195.24012521601176,
+        50.562698684054354
+      ]
+    },
+    {
+      "support_layout": "radial_review",
+      "external_loss_multiplier": 0.5,
+      "cases": 8,
+      "rated_power_feasible_count": 1,
+      "meets_300C_comparison_and_power_count": 1,
+      "max_heater_c": 437.4809253024989,
+      "max_required_watts": [
+        102.08335293854465,
+        0.37720587808032313,
+        157.92285410838866,
+        33.416729534582146
+      ]
+    },
+    {
+      "support_layout": "radial_review",
+      "external_loss_multiplier": 0.25,
+      "cases": 8,
+      "rated_power_feasible_count": 0,
+      "meets_300C_comparison_and_power_count": 0,
+      "max_heater_c": 421.6379573468826,
+      "max_required_watts": [
+        79.61320523778797,
+        -9.113545670566028,
+        123.7897013235044,
+        16.23235313157511
+      ]
+    }
+  ],
+  "rated_watts": [
+    100.0,
+    100.0,
+    100.0,
+    60.0
+  ],
+  "physical_validation_state": "NOT_RUN",
+  "fabrication_authorized": false,
+  "energization_authorized": false,
+  "hardware_solution_defined": false,
+  "canonical_geometry_promoted": false,
+  "limitations": [
+    "Multiplier jointly scales convection and emissivity as a diagnostic, not a realized shield or insulation material.",
+    "Contact conductance and support loss are unchanged within each comparison.",
+    "300 C is an inherited comparison value, not an approved heater sheath rating.",
+    "No PI tape credit, no increased installed power, no assumed qualified thermal material.",
+    "Steady empty-barrel feasibility is necessary only; no transient stability, faults, polymer throughput or assembly authorization.",
+    "Reducing external loss need not solve poor contact or make every zone controllable by heating alone."
+  ]
+}
