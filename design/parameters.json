@@ -1,0 +1,180 @@
+{
+  "revision": "C1",
+  "units": "mm",
+  "body_limit_mm": [
+    650,
+    420,
+    510
+  ],
+  "body_hard_limit_mm": [
+    700,
+    420,
+    520
+  ],
+  "operating_limit_mm": [
+    850,
+    450,
+    510
+  ],
+  "psu": {
+    "V": 24,
+    "rated_W": 800,
+    "body_mm": [
+      240,
+      120,
+      65
+    ],
+    "operational_cap_W": 500
+  },
+  "M1": {
+    "motor": "TRK-60127-2460",
+    "gearbox": "GMP60",
+    "ratio": 77,
+    "rated_rpm": 58,
+    "rated_kgf_cm": 160,
+    "rated_A": 8.2,
+    "motor_can_mm": 127,
+    "gearbox_mm": 59,
+    "shaft_projection_mm": 25.8,
+    "shaft_mm": 12,
+    "OD_mm": 60.5,
+    "status": "MANUFACTURER_REFERENCE_NOT_OWNED"
+  },
+  "M2": {
+    "motor": "TRK-6097-2425",
+    "gearbox": "GMP60",
+    "ratio": 168,
+    "rated_rpm": 12,
+    "rated_kgf_cm": 150,
+    "rated_A": 1.8,
+    "motor_can_mm": 97,
+    "gearbox_mm": 70,
+    "shaft_projection_mm": 25.8,
+    "shaft_mm": 12,
+    "OD_mm": 60.5,
+    "status": "MANUFACTURER_REFERENCE_NOT_OWNED"
+  },
+  "drive": {
+    "normal_module": 2,
+    "helix_deg": 15,
+    "pinion_teeth": 15,
+    "gear_teeth": 40,
+    "half_face_mm": 25,
+    "half_hub_mm": 10,
+    "central_gap_mm": 2,
+    "branch_A_eta_assumed": 0.9,
+    "branch_B_eta_assumed": 0.9,
+    "chain_pitch_mm": 9.525,
+    "chain_A_teeth": [
+      24,
+      24
+    ],
+    "chain_A_links": 94,
+    "chain_B_teeth": [
+      24,
+      12
+    ],
+    "chain_B_links": 84
+  },
+  "S1": {
+    "cutter_tip_mm": 80,
+    "cutter_root_mm": 46,
+    "cutter_thickness_mm": 6.0,
+    "spacer_thickness_mm": 6.4,
+    "spacer_OD_mm": 36,
+    "cutters_per_shaft": 13,
+    "shaft_mm": 25,
+    "shaft_center_mm": 60,
+    "axial_phase_mm": 6.2,
+    "end_gap_mm": 0.6,
+    "hooks": 7,
+    "axial_key_mm": [
+      8,
+      7
+    ]
+  },
+  "S2": {
+    "tip_mm": 110,
+    "root_mm": 86,
+    "active_width_mm": 40,
+    "eccentric_mm": 7.0,
+    "radial_gap_mm": 0.8,
+    "pin_ring_R_mm": 72.0,
+    "fixed_pins": 9,
+    "guide_lobes": 8,
+    "pin_roller_OD_mm": 16.0,
+    "guide_offset_allowance_mm": 0.2,
+    "guide_samples": 2880,
+    "screen_hole_mm": 4.0,
+    "screen_thickness_mm": 2.0,
+    "screen_arc_deg": 100,
+    "orbit_ratio": 2.0,
+    "self_over_orbit": -0.125
+  },
+  "extruder": {
+    "screw_OD_mm": 16,
+    "active_length_mm": 256,
+    "barrel_ID_mm": 16.3,
+    "barrel_OD_mm": 30,
+    "pitch_mm": 16,
+    "flight_thickness_mm": 2,
+    "feed_root_mm": 10,
+    "meter_root_mm": 13,
+    "shaft_thrust_seat_mm": 15,
+    "nominal_target_g_h": 100,
+    "heater_W": [
+      100,
+      100,
+      100,
+      60
+    ]
+  },
+  "cooling": {
+    "working_length_mm": 275,
+    "filament_mm": 1.75,
+    "center_target_C": 50,
+    "status": "CONDITIONAL_THROUGHPUT_NOT_MEASURED"
+  },
+  "safety": {
+    "release": "ENGINEERING_BASELINE_HOLD",
+    "procurement": "HOLD",
+    "energization": "HOLD",
+    "physical_test": "NOT_RUN",
+    "DEM": "NOT_RUN",
+    "3D_stress_FEA": "NOT_RUN"
+  },
+  "datums": {
+    "M1_xz": [
+      80,
+      65
+    ],
+    "jack_xz": [
+      136.94018992255457,
+      65
+    ],
+    "S1_main_xz": [
+      130,
+      398.30275184708404
+    ],
+    "S1_slave_xz": [
+      190,
+      398.30275184708404
+    ],
+    "S2_xz": [
+      308.56946468906176,
+      280
+    ],
+    "extruder_axis_yz": [
+      275,
+      125
+    ],
+    "extruder_start_x": 264,
+    "chamber_S1_y": [
+      162.4,
+      324.6
+    ],
+    "chain_A_center_mm": 333.375,
+    "chain_B_center_mm": 313.7977058364899,
+    "gear_center_mm": 56.940189922554566
+  }
+}

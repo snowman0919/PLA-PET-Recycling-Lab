@@ -1,0 +1,35 @@
+{
+  "revision": "C1",
+  "baseline": "DETAILED_ENGINEERING_BASELINE",
+  "procurement": "HOLD",
+  "fabrication": "HOLD",
+  "energization": "HOLD",
+  "upstream_main": "7de9bf2a6e4c91c7fa6b58da9c729e63dc52e3a0",
+  "archive_branches": {
+    "archive/pre-compact-main-20260920": "7de9bf2a6e4c91c7fa6b58da9c729e63dc52e3a0",
+    "archive/legacy-v08-20260920": "34ae29d7b9ac12927e9b6c1b3c9e1514bfd2d9c1"
+  },
+  "archive_lock_verified": true,
+  "original_dirty_worktree": "NOT_MODIFIED",
+  "part_types": 115,
+  "assembly_objects": 199,
+  "digital_unit_contracts": 14,
+  "static_intersections_in_scoped_audit": 0,
+  "full_motion_collision_validation": "NOT_COMPLETED",
+  "physical_training_samples": 0,
+  "DEM_runs": 0,
+  "FreeCAD_version": [
+    "0",
+    "21",
+    "2",
+    "33771 (Git)",
+    "Unknown",
+    "2023/11/14 02:33:39",
+    "(HEAD detached at 0.21.2)",
+    "b9bfa5c5507506e4515816414cd27f4851d00489"
+  ],
+  "ML_test_clearance_RMSE_mm": 0.005470920112813013,
+  "step_roundtrip_passed": true,
+  "native_max_relative_volume_difference": 4.116879638562644e-09,
+  "screw_geometry": "64 planar segments per turn, chord error <=0.00964mm; checked STEP imported into FreeCAD because native old-kernel fuse is unqualified"
+}

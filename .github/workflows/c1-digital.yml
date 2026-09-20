@@ -1,0 +1,31 @@
+name: C1 digital contracts
+on:
+  push:
+    branches: [main, redesign/compact-detailed-20260920]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  numerical-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install numpy scipy shapely
+      - run: python src/design.py
+      - run: python -m unittest discover -s tests -v
+      - run: python src/analyze.py
+      - name: Keep physical gates separate
+        run: |
+          python - <<'PYCODE'
+          import json
+          r=json.load(open('results/engineering.json'))
+          assert r['power_allocator_exhaustive']['passed']
+          assert r['power']['psu_rated_W']==800
+          assert r['power']['operational_cap_W']==500
+          assert r['power']['actual_current_limit_and_transient_testing']=='NOT_RUN'
+          print('Digital contracts only. Procurement, fabrication and energization: HOLD.')
+          PYCODE

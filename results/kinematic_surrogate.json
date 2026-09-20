@@ -1,0 +1,33 @@
+{
+  "scope": "KINEMATIC_GEOMETRY_ONLY",
+  "physical_training_samples": 0,
+  "DEM_samples": 0,
+  "geometry_samples_valid": 249,
+  "discarded_invalid_profiles": 7,
+  "train": 174,
+  "validation": 37,
+  "test": 38,
+  "seed": 20260920,
+  "target_names": [
+    "min_pin_profile_clearance_mm",
+    "max_profile_radius_mm"
+  ],
+  "test_RMSE_mm": [
+    0.005470920112813013,
+    0.017365334333467517
+  ],
+  "test_MAE_mm": [
+    0.0027777600470304167,
+    0.012679119289841211
+  ],
+  "dataset_sha256": "45d98ddd2101a8a057ac823b7c57a3f4daccca2fd3de490ae0e5bf8abfbccfe5",
+  "coarse_geometry_samples": 720,
+  "coarse_motion_phases": 37,
+  "final_design_acceptance": "Bypass ML: recompute at2880 vertices and721 phases. Coarse labels have discretization error.",
+  "limitations": [
+    "Cannot predict cutting force or particle size",
+    "No extrapolation outside input ranges",
+    "Random holdout is not manufacturing validation",
+    "Do not load pickle-based weights from untrusted sources"
+  ]
+}
