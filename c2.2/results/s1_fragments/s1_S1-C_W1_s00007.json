@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-C",
+  "seed": 7,
+  "class": "W1",
+  "waste_id": "W1-l_bracket-00007",
+  "input_mass_g": 90.717,
+  "peak_proxy": 0.08400261372391116,
+  "work_proxy": 15.981239070867009,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W1-l_bracket-00007:S1-C:F000",
+      "source_waste_id": "W1-l_bracket-00007",
+      "seed": 7,
+      "mass_g": 45.3585,
+      "volume_mm3": 36579.435,
+      "com_mm": [
+        53.89,
+        44.01,
+        6.02
+      ],
+      "principal_dims_mm": [
+        97.982,
+        78.24,
+        8.027
+      ],
+      "equiv_diameter_mm": 41.186,
+      "aspect_ratio": 12.207,
+      "pose_quaternion_xyzw": [
+        0.65051,
+        -0.24048,
+        -0.29221,
+        0.65849
+      ],
+      "velocity_proxy_mm_s": [
+        0.42,
+        0.42,
+        0.42
+      ],
+      "bond_state": {
+        "failed_bonds": 485,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W1",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W1-l_bracket-00007:S1-C:F001",
+      "source_waste_id": "W1-l_bracket-00007",
+      "seed": 7,
+      "mass_g": 45.3585,
+      "volume_mm3": 36579.435,
+      "com_mm": [
+        53.89,
+        44.01,
+        18.06
+      ],
+      "principal_dims_mm": [
+        97.982,
+        78.24,
+        8.027
+      ],
+      "equiv_diameter_mm": 41.186,
+      "aspect_ratio": 12.207,
+      "pose_quaternion_xyzw": [
+        0.42804,
+        0.17333,
+        0.70022,
+        0.54446
+      ],
+      "velocity_proxy_mm_s": [
+        0.42,
+        0.42,
+        0.42
+      ],
+      "bond_state": {
+        "failed_bonds": 485,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W1",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 0.85,
+  "s1_multiplier_note": "buckling-assist under nip compression",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

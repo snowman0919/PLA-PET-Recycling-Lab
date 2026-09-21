@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-C",
+  "seed": 51,
+  "class": "W3",
+  "waste_id": "W3-ribbed-00051",
+  "input_mass_g": 73.141,
+  "peak_proxy": 0.9427102023495708,
+  "work_proxy": 95.45072332964772,
+  "bite_flag": true,
+  "bridge_flag": true,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W3-ribbed-00051:S1-C:F000",
+      "source_waste_id": "W3-ribbed-00051",
+      "seed": 51,
+      "mass_g": 14.6282,
+      "volume_mm3": 11796.935,
+      "com_mm": [
+        56.395,
+        4.597,
+        7.045
+      ],
+      "principal_dims_mm": [
+        102.536,
+        11.742,
+        0.5
+      ],
+      "equiv_diameter_mm": 28.244,
+      "aspect_ratio": 205.073,
+      "pose_quaternion_xyzw": [
+        -0.24406,
+        0.52486,
+        0.77406,
+        0.2565
+      ],
+      "velocity_proxy_mm_s": [
+        4.7136,
+        4.7136,
+        4.7136
+      ],
+      "bond_state": {
+        "failed_bonds": 258,
+        "first_kind": "cross_raster"
+      },
+      "class": "W3",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W3-ribbed-00051:S1-C:F001",
+      "source_waste_id": "W3-ribbed-00051",
+      "seed": 51,
+      "mass_g": 58.5128,
+      "volume_mm3": 47187.742,
+      "com_mm": [
+        56.395,
+        27.582,
+        7.045
+      ],
+      "principal_dims_mm": [
+        102.536,
+        27.582,
+        11.742
+      ],
+      "equiv_diameter_mm": 44.834,
+      "aspect_ratio": 8.733,
+      "pose_quaternion_xyzw": [
+        0.80529,
+        -0.38391,
+        0.44794,
+        0.05893
+      ],
+      "velocity_proxy_mm_s": [
+        4.7136,
+        4.7136,
+        4.7136
+      ],
+      "bond_state": {
+        "failed_bonds": 258,
+        "first_kind": "cross_raster"
+      },
+      "class": "W3",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 0.85,
+  "s1_multiplier_note": "buckling-assist under nip compression",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

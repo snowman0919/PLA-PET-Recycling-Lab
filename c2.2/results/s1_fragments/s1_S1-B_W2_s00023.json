@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 23,
+  "class": "W2",
+  "waste_id": "W2-ribbed-00023",
+  "input_mass_g": 129.34,
+  "peak_proxy": 0.7900962994021613,
+  "work_proxy": 73.90760781322052,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W2-ribbed-00023:S1-B:F000",
+      "source_waste_id": "W2-ribbed-00023",
+      "seed": 23,
+      "mass_g": 107.783333,
+      "volume_mm3": 86922.043,
+      "com_mm": [
+        49.955,
+        24.945,
+        10.35
+      ],
+      "principal_dims_mm": [
+        89.919,
+        39.912,
+        16.56
+      ],
+      "equiv_diameter_mm": 54.96,
+      "aspect_ratio": 5.43,
+      "pose_quaternion_xyzw": [
+        -0.12593,
+        0.53,
+        0.51853,
+        -0.65907
+      ],
+      "velocity_proxy_mm_s": [
+        3.9505,
+        3.9505,
+        3.9505
+      ],
+      "bond_state": {
+        "failed_bonds": 238,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W2-ribbed-00023:S1-B:F001",
+      "source_waste_id": "W2-ribbed-00023",
+      "seed": 23,
+      "mass_g": 21.556667,
+      "volume_mm3": 17384.409,
+      "com_mm": [
+        49.955,
+        24.945,
+        22.77
+      ],
+      "principal_dims_mm": [
+        89.919,
+        39.912,
+        0.5
+      ],
+      "equiv_diameter_mm": 32.141,
+      "aspect_ratio": 179.838,
+      "pose_quaternion_xyzw": [
+        0.74508,
+        -0.13563,
+        -0.03837,
+        -0.65191
+      ],
+      "velocity_proxy_mm_s": [
+        3.9505,
+        3.9505,
+        3.9505
+      ],
+      "bond_state": {
+        "failed_bonds": 238,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}
