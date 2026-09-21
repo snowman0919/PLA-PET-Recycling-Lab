@@ -1,3 +1,16 @@
+# R0.1 checkpoint — Goal R0 §2 revision R1 (draft, reviewer authorization pending)
+
+- Normative draft: `c2.3/revisions/r1/CONTRACT_R1.md`; evidence table
+  `c2.3/revisions/r1/REQUIREMENTS_EVIDENCE.md`; history
+  `c2.3/revisions/r1/AMENDMENT_LOG.md`.
+- `c2.3/CONTRACT.md` is superseded as a normative document; preserved unmodified
+  as a historical record (never edit).
+- R0 status tracked in `c2.3/STATE.json` field `r0_status`; frozen baseline values
+  unchanged. STATE.json is a progress file, never a baseline constant.
+- Legacy equal-steps 12-run ladder (240 steps every dt) is superseded as evidence;
+  MUST NOT be reused for convergence claims. Next implementation step: R1 §5 equal
+  measured 2.4 s ladder (substeps 240/480/960/1920) with typed raw telemetry.
+
 # C2.3-A NEXT — A2 / A3 / A4 only
 
 ## A2 — telemetry + work/impulse/energy accounting implementation
