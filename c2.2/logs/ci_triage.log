@@ -1,0 +1,216 @@
+=== BEFORE STATE ===
+codex/c2.1-s2-transmission-20260921
+ebb518a1bea9adf6d33f208b362ff6d1baf2a91e
+?? c2.2/logs/ci_triage.log
+
+=== STEP: verify_artifacts (fresh checkout state) ===
+C2.1 P0-P6 digital package passed; physical release, ratings and performance remain HOLD.
+EXIT:0
+=== STEP 4: c2/src/run_study.py ===
+{
+  "revision": "C2.0",
+  "base_commit": "0aa312c5be0ce566bc06f63fa4fdd5c9e7f3f47e",
+  "handover_file_count_verified": 41,
+  "candidates": 257,
+  "lhs_new_candidates": 256,
+  "geometrically_feasible": 106,
+  "rejected": 151,
+  "compact_pin_precheck_possible": 5,
+  "alternative_constraint_or_larger_pin_cassette": 101,
+  "diverse_dem_designs": 48,
+  "material_specific_dem_jobs": 144,
+  "actual_dem_runs": 0,
+  "actual_physical_tests": 0,
+  "performance_models_trained": 0,
+  "thermal_scenarios": 108,
+  "thermal_material_properties": "ASSUMED_NOT_GRADE_CALIBRATED",
+  "max_thermal_energy_residual_J": 3.458990249782801e-08,
+  "c1_geometry_role": "SEED_NOT_OPTIMUM",
+  "motor_status": "UNSELECTED",
+  "budget_status": "INCOMPLETE_COSTS_NOT_A_FEASIBLE_QUOTE",
+  "fabrication": "HOLD",
+  "energization": "HOLD",
+  "procurement": "HOLD"
+}
+{
+  "revision": "C2.0",
+  "base_commit": "0aa312c5be0ce566bc06f63fa4fdd5c9e7f3f47e",
+  "handover_file_count_verified": 41,
+  "candidates": 257,
+  "lhs_new_candidates": 256,
+  "geometrically_feasible": 106,
+  "rejected": 151,
+  "compact_pin_precheck_possible": 5,
+  "alternative_constraint_or_larger_pin_cassette": 101,
+  "diverse_dem_designs": 48,
+  "material_specific_dem_jobs": 144,
+  "actual_dem_runs": 0,
+  "actual_physical_tests": 0,
+  "performance_models_trained": 0,
+  "thermal_scenarios": 108,
+  "thermal_material_properties": "ASSUMED_NOT_GRADE_CALIBRATED",
+  "max_thermal_energy_residual_J": 3.458990249782801e-08,
+  "c1_geometry_role": "SEED_NOT_OPTIMUM",
+  "motor_status": "UNSELECTED",
+  "budget_status": "INCOMPLETE_QUOTES",
+  "fabrication": "HOLD",
+  "energization": "HOLD",
+  "procurement": "HOLD",
+  "pin_profiles_checked": 5,
+  "pin_profiles_with_nonnegative_sampled_clearance": 5,
+  "minimum_checked_pin_clearance_mm": 0.17661748773852892,
+  "cost_coverage_lines": 136,
+  "unknown_cost_lines": 125,
+  "total_confirmed_cost_KRW": null,
+  "power_allocation_cases": 1925,
+  "max_admitted_power_W": 500.0,
+  "performance_gate": "BLOCKED_PERFORMANCE_DATA",
+  "evidence_inventory": {
+    "actual_dem_runs": 0,
+    "uncalibrated_dem_runs": 0,
+    "calibrated_dem_runs": 0,
+    "actual_physical_tests": 0,
+    "qualified_records": 0,
+    "synthetic_fixture_records_excluded": 0
+  },
+  "p5_thermal_cases": 9,
+  "p5_control_cases": 7,
+  "p5_status": "DIGITAL_SENSITIVITY_COMPLETE_PHYSICAL_QUALIFICATION_HOLD"
+}
+EXIT:0
+
+=== git status after run_study ===
+ M c2/results/contact_heat_sensitivity.json
+ M c2/results/p5_thermal_control.json
+ M c2/results/pin_constraint_checks.json
+ M c2/results/required_cooling.json
+ M c2/results/s2_candidates.csv
+ M c2/results/s2_candidates.json
+ M c2/results/summary.json
+ M c2/results/thermal_reference_trace.json
+ M c2/results/thermal_sweep.json
+?? c2.2/logs/ci_triage.log
+=== STEP 5: c2 tests ===
+...........................................................
+----------------------------------------------------------------------
+Ran 59 tests in 0.061s
+
+OK
+EXIT:0
+
+=== STEP 6: train gp ===
+    "PET": 0,
+    "TPU": 0
+  },
+  "minimum_policy": 20,
+  "status": "BLOCKED_PERFORMANCE_DATA",
+  "trained": false,
+  "models": []
+}
+EXIT:0
+=== git status ===
+ M c2/results/contact_heat_sensitivity.json
+ M c2/results/p5_thermal_control.json
+ M c2/results/pin_constraint_checks.json
+ M c2/results/required_cooling.json
+ M c2/results/s2_candidates.csv
+ M c2/results/s2_candidates.json
+ M c2/results/summary.json
+ M c2/results/thermal_reference_trace.json
+ M c2/results/thermal_sweep.json
+?? c2.2/logs/ci_triage.log
+=== STEP 7: train mlp ===
+    "PET": 0,
+    "TPU": 0
+  },
+  "minimum_policy": 100,
+  "status": "BLOCKED_PERFORMANCE_DATA",
+  "trained": false,
+  "models": []
+}
+EXIT:0
+=== git status ===
+ M c2/results/contact_heat_sensitivity.json
+ M c2/results/p5_thermal_control.json
+ M c2/results/pin_constraint_checks.json
+ M c2/results/required_cooling.json
+ M c2/results/s2_candidates.csv
+ M c2/results/s2_candidates.json
+ M c2/results/summary.json
+ M c2/results/thermal_reference_trace.json
+ M c2/results/thermal_sweep.json
+?? c2.2/logs/ci_triage.log
+
+=== STEP 8: c2 verify ===
+C2 numerical/CAD artifact contracts passed. Hardware gates remain HOLD.
+EXIT:0
+=== git status ===
+ M c2/results/contact_heat_sensitivity.json
+ M c2/results/p5_thermal_control.json
+ M c2/results/pin_constraint_checks.json
+ M c2/results/required_cooling.json
+ M c2/results/s2_candidates.csv
+ M c2/results/s2_candidates.json
+ M c2/results/summary.json
+ M c2/results/thermal_reference_trace.json
+ M c2/results/thermal_sweep.json
+?? c2.2/logs/ci_triage.log
+=== STEP 9: c2.1 transmission ===
+{
+  "cases": 9,
+  "all_cases_passed": true,
+  "max_fd_error_mm_s": 2.658941151015445e-08
+}
+EXIT:0
+=== git status ===
+ M c2.1/results/kinematic_validation.json
+ M c2.1/results/motion_samples.json
+ M c2/results/contact_heat_sensitivity.json
+ M c2/results/p5_thermal_control.json
+ M c2/results/pin_constraint_checks.json
+ M c2/results/required_cooling.json
+ M c2/results/s2_candidates.csv
+ M c2/results/s2_candidates.json
+ M c2/results/summary.json
+ M c2/results/thermal_reference_trace.json
+ M c2/results/thermal_sweep.json
+?? c2.2/logs/ci_triage.log
+
+=== STEP 10: c2.1 tests ===
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.183s
+
+OK
+EXIT:0
+=== git status ===
+ M c2.1/results/kinematic_validation.json
+ M c2.1/results/motion_samples.json
+ M c2/results/contact_heat_sensitivity.json
+ M c2/results/p5_thermal_control.json
+ M c2/results/pin_constraint_checks.json
+ M c2/results/required_cooling.json
+ M c2/results/s2_candidates.csv
+ M c2/results/s2_candidates.json
+ M c2/results/summary.json
+ M c2/results/thermal_reference_trace.json
+ M c2/results/thermal_sweep.json
+?? c2.2/logs/ci_triage.log
+
+=== STEP 11: c2.1 verify ===
+Traceback (most recent call last):
+  File "/home/monad/develop/PPR-c2.1-codex-20260921/c2.1/src/verify_artifacts.py", line 118, in <module>
+    assert path.stat().st_size == record["bytes"] and digest(path) == record["sha256"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+EXIT:1
+
+=== FIX ===
+Root cause: unpinned numpy/scipy + multi-threaded OpenBLAS in CI runner => last-ulp float repr drift in regenerated c2/c2.1 JSON vs frozen p6_manifest (3 records: c2/results/p5_thermal_control.json, c2.1/results/kinematic_validation.json, c2.1/results/motion_samples.json). Proven: same numpy 2.5.3 gives different bytes multi-thread vs single-thread; single-thread regen byte-matches committed artifacts; np19 (1.26.4/1.11.4) full run_study byte-identical on all 10 compared files; c2.1 transmission under np19 byte-identical.
+Fix: .github/workflows/c2-engineering.yml job env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 (no assert weakened, no hashes hand-edited, no generator changes).
+Validation (CI-sim /tmp/cifull, numpy 2.5.3/scipy 1.18.1, threads=1): run_study 0, c2 tests 59 OK, gp 0, mlp 0, c2 verify PASS, transmission 9/9, c2.1 tests 11 OK, c2.1 verify PASS; 3x rerun hash-stable.
+
+=== FIX UPDATE (post b76b763e still red, run 35583163388) ===
+Thread-pin alone did NOT fix CI: new-fail log shows env vars present but residual still 3.821332938969135e-08 (committed 3.818422555923462e-08). Conclusion: CI wheel BLAS (scipy-openblas 0.3.34, OpenBLAS 0.3.34 Haswell MAX_THREADS=64, numpy 2.5.3) differs in last-ulp from the BLAS that produced committed artifacts, even single-threaded.
+New evidence: npold2 venv (numpy 1.26.4 / scipy 1.11.4 / shapely 2.1.2) full gate: run_study 0, gp 0, mlp 0, c2 verify PASS, transmission 9/9 2.658941151015445e-08, c2.1 verify PASS; 12/13 compared outputs byte-identical incl. all 3 manifest records (p5_thermal_control sha cb2d914d.., kinematic 3dcb924a..); rerun sha-stable. Only drift: s2_candidates.csv CRLF vs committed LF (csv module platform-version behavior; file is NOT in p6_manifest nor asserted by any verifier).
+Fix v2: pin CI install to numpy==1.26.4 scipy==1.11.4 shapely==2.1.2 (proven byte-identical combo) + keep BLAS thread env. No asserts weakened, no hashes hand-edited.
