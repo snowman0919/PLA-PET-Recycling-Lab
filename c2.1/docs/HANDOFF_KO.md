@@ -70,6 +70,14 @@ STEP 재수입은 assembly/exploded 각각 33 solid로 통과했다.
 
 `build_cad.py`는 정적 fail-fast를 먼저 수행하며, 여기서 실패하면 동적 검사를 실행하지 않고 nonzero로 종료한다. 기계 판독 결과와 각 명령 RC는 `results/validation_summary.json`에 있다.
 
+## 독립 검토 종료
+
+부모 검토자는 설계·소스·CAD를 수정하지 않고 커밋 `b7cbdb54670c603a11299881d63de047d3db8d2c`만 독립 재검증했다. `transmission.py`, `build_cad.py`, assembly STEP의 SHA-256은 검토 기록과 일치한다. CAD-kernel 표식 검사는 193자세×3점에서 최대 오차 5.5495161717e-14mm, coupling 독립 FD는 257자세에서 최대 속도 오차 4.5464503273e-9mm/s였다. 재수입 STEP은 33개 valid solid이고 정적 528쌍에서 양의 체적 겹침이 0개였다.
+
+구현 검사는 명목 q8/e7의 q회전에 걸친 **33개 sampled grid 자세·8,800쌍**이고, 부모 검토는 별도의 **15개 nongrid 자세·4,125쌍**에서 겹침 0을 확인했다. 두 표본을 합쳐도 자세 사이의 연속 all-pair 충돌 자유를 인증하지 않는다. 또한 q={6,8,16}, e={7,10,14}의 9개 경우는 수치 궤적 검사일 뿐 9개의 물리적으로 가능한 fixed-ring CAD가 아니다. 조립 CAD 증거는 명목 q8/e7 하나에만 있다.
+
+두 축은 반대 방향이지만 독립 DOF는 하나다. 출력축은 별도 역방향 입력이 아닌 구속된 passive output이고, 공용 M1 한 개·압출 M2·24V 800W PSU/500W cap·100,000KRW 전체 추가비 soft limit·PLA/PET/TPU 및 모든 기존 HOLD를 유지한다. 원본 dirty checkout은 NUL 상태 374개와 binary diff SHA-256 `c8a8bba4ab573345c5767362103b6b5a661b1c1d644d280f4a3e4bad90e30c6a`가 기준과 동일하다. 기계 판독 독립 증거는 `results/independent_review_evidence.json`에 있다.
+
 ## Git 및 승인 경계
 
 작업 브랜치는 `codex/c2.1-s2-transmission-20260921`, 기준은 `8e4b44ed8883b0fe84311c55e2fd4caef7cb60e8`이다. 이 문서를 포함하는 로컬 커밋은 `git rev-parse HEAD`로 식별한다. remote push, merge, main 변경은 하지 않았다. 이 산출물은 구매·가공·통전 승인이 아니다.

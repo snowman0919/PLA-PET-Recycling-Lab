@@ -1,0 +1,99 @@
+{
+  "revision": "C2.1",
+  "review_type": "INDEPENDENT_REVIEW_ONLY_NO_DESIGN_EDITS",
+  "reviewed_commit": "b7cbdb54670c603a11299881d63de047d3db8d2c",
+  "provenance": {
+    "closure": ".codex-run/REVIEW_CLOSURE.md",
+    "geometry": ".codex-run/independent-final-geometry.json",
+    "gates": ".codex-run/independent-current-gates.json",
+    "preservation": ".codex-run/independent-preservation.json"
+  },
+  "reviewed_hashes": {
+    "c2.1/src/transmission.py": {
+      "sha256": "3637dbdc7f64819203010c7cd29ec1af859b9068fc607cb9b065447222540029",
+      "matches_parent_record": true
+    },
+    "c2.1/src/build_cad.py": {
+      "sha256": "9c8cf3936f475b78d9c2de48571508570d646511c8bd50f499f9d0f63dbdd0b3",
+      "matches_parent_record": true
+    },
+    "c2.1/cad/PPR_C2_1_S2_transmission.step": {
+      "sha256": "10f991b68afee8128a9e9c3d6061c5f4a6907a63f76ea857601bc8e6120b37f6",
+      "matches_parent_record": true
+    }
+  },
+  "implementation_sampled_dynamic": {
+    "nominal_case": {"q": 8, "eccentric_mm": 7.0},
+    "input_turns": 8,
+    "phases": 33,
+    "pair_checks": 8800,
+    "unexpected_overlaps": 0,
+    "scope": "SAMPLED_GRID_PHASES_NOT_CONTINUOUS_CERTIFICATION"
+  },
+  "independent_checks": {
+    "cad_vertex": {
+      "poses": 193,
+      "markers_per_pose": 3,
+      "max_error_mm": 5.54951617168815e-14
+    },
+    "coupling_finite_difference": {
+      "poses": 257,
+      "max_speed_error_mm_s": 4.546450327325147e-9
+    },
+    "reimported_step_static": {
+      "valid_solids": 33,
+      "pair_checks": 528,
+      "exact_intersections_after_bbox": 58,
+      "positive_volume_overlaps": 0
+    },
+    "additional_dynamic": {
+      "nongrid_phases": 15,
+      "pair_checks": 4125,
+      "exact_intersections_after_bbox": 589,
+      "positive_volume_overlaps": 0,
+      "scope": "ADDITIONAL_SAMPLED_NONGRID_PHASES_NOT_CONTINUOUS_CERTIFICATION"
+    }
+  },
+  "coverage_limit": "THE_33_IMPLEMENTATION_PHASES_PLUS_15_INDEPENDENT_NONGRID_PHASES_DO_NOT_CERTIFY_CONTINUOUS_ALL_PAIR_COLLISION_FREEDOM",
+  "case_scope": {
+    "numerical_trajectory_cases": 9,
+    "q_values": [6, 8, 16],
+    "eccentric_values_mm": [7.0, 10.0, 14.0],
+    "assembled_cad_evidence": [{"q": 8, "eccentric_mm": 7.0}],
+    "limitation": "THE_NINE_NUMERICAL_CASES_ARE_NOT_NINE_PHYSICALLY_FEASIBLE_FIXED_RING_CAD DESIGNS"
+  },
+  "mechanism_constraints_retained": {
+    "independent_drive_dof": 1,
+    "motor": "ONE_COMMON_M1_FOR_S1_AND_S2; M2_FOR_EXTRUSION",
+    "shafts": "OPPOSITE_DIRECTION_INPUT_AND_PASSIVE_OUTPUT",
+    "output_role": "CONSTRAINED_PASSIVE_OUTPUT_NOT_A_SEPARATELY_POWERED_REVERSE_INPUT",
+    "psu": "OWNED_24V_800W_WITH_500W_OPERATIONAL_CAP",
+    "additional_machine_cost_soft_limit_KRW": 100000,
+    "materials": ["PLA", "PET", "TPU"]
+  },
+  "independent_gate_results": {
+    "c1_unit": {"tests": 14, "return_code": 0},
+    "c2_unit": {"tests": 45, "return_code": 0},
+    "c2_1_unit": {"tests": 10, "return_code": 0},
+    "c1_pre_push": {"return_code": 0},
+    "c2_artifact_verifier": {"return_code": 0},
+    "c2_1_artifact_verifier": {"return_code": 0},
+    "documentation_closure_c2_1_artifact_verifier": {"return_code": 0}
+  },
+  "original_checkout_preservation": {
+    "status_z_equal": true,
+    "status_entries": 374,
+    "binary_diff_equal": true,
+    "diff_sha256": "c8a8bba4ab573345c5767362103b6b5a661b1c1d644d280f4a3e4bad90e30c6a"
+  },
+  "approval": "LIMITED_KINEMATIC_GEOMETRIC_REVIEW_ONLY",
+  "holds": [
+    "loaded_pin_window_torque_engagement",
+    "fits_fasteners_axial_retention_and_hardware_ratings",
+    "actual_screen_sensors_and_thermal_integration",
+    "whole_machine_and_continuous_collision_certification",
+    "motor_selection_and_complete_budget",
+    "calibrated_material_breakage_performance",
+    "procurement_fabrication_energization"
+  ]
+}
