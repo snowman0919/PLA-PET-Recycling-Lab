@@ -97,9 +97,10 @@ def verify_freeze(c23dir=C23):
     expect = man["config_hashes"]
     for rel in FROZEN_FILES:
         got = sha256_file(os.path.join(c23dir, rel))
-        if expect.get(rel) != got:
+        key = os.path.basename(rel)
+        if expect.get(key) != got:
             raise RuntimeError("freeze mismatch for %s: manifest %s != "
-                               "file %s" % (rel, expect.get(rel), got))
+                               "file %s" % (rel, expect.get(key), got))
     return man
 
 
@@ -141,18 +142,13 @@ def build_run_config(case, dt, c23dir=C23):
             "torque_equation": TORQUE_EQUATION}
 
 
-def run(case, dt, c23dir=C23):
-    """Execute ONE frozen case at ONE ladder dt under Isaac headless.
+def prepare(case, dt, c23dir=C23):
+    """Frozen pre-physics prep: config + lattice + fragment plan (isaac-free).
 
-    Writes the per-run directory; returns the summary dict.
+    Writes config.json/environment.json/asset_manifest.json into the
+    per-run dir and returns (paths, cfg, plan). Safe under system python.
     """
-    import numpy as _np  # noqa: F401  (isaac venv provides numpy)
-    logs, errlogs = [], []
-
-    def log(msg):
-        logs.append(msg)
-        print(msg)
-
+    import numpy as _np
     cfg = build_run_config(case, dt, c23dir)
     base, spec = cfg["baseline"], cfg["case_spec"]
     S1 = _import_s1()
@@ -199,9 +195,106 @@ def run(case, dt, c23dir=C23):
     shaft_offset_m = center_mm / 2000.0
     omega = S1.S1_RPM * 2.0 * _np.pi / 60.0
     box_I = (1.0 / 6.0) * mass_per_kg * frag_size ** 2  # solid cube inertia
-
+    gx = _np.array([(k % nx) % _snx for k in keep], dtype=_np.float64)
+    gy = _np.array([((k // nx) % ny) % _sny for k in keep],
+                   dtype=_np.float64)
+    gz = _np.array([((k // (nx * ny)) % nz) % _snz for k in keep],
+                   dtype=_np.float64)
+    _kx = float(gx.max()) if len(gx) else 0.0
+    px = (gx - _kx / 2.0) * sx * 0.9
+    py = ((gy - float(gy.max()) / 2.0) * sy * 0.9 if len(gy) else 0.0)
+    pz = S1.CUTTER_R_M + 0.004 + (gz + 0.5) * sz * 0.9
+    pos0 = _np.stack([px, py, pz], axis=1).astype(_np.float32)
+    ori0 = _np.tile(_np.array([1, 0, 0, 0], dtype=_np.float32), (n, 1))
+    plan = {"meta": meta, "wclass": wclass, "seed": seed, "nx": nx,
+            "ny": ny, "nz": nz, "snx": _snx, "sny": _sny, "snz": _snz,
+            "sx": sx, "sy": sy, "sz": sz, "bonds": bonds, "n": n,
+            "nxyz_hint": nxyz_hint, "mass_total_g": mass_total_g,
+            "mass_per_kg": mass_per_kg, "frag_size": frag_size,
+            "center_mm": center_mm, "shaft_offset_m": shaft_offset_m,
+            "omega": float(omega), "box_I": float(box_I),
+            "pos0": pos0.tolist(), "ori0": ori0.tolist(),
+            "strengths": strengths, "dims": dims}
     paths = run_paths(c23dir, case, dt)
     os.makedirs(paths["dir"], exist_ok=True)
+    env_rec = {"backend": "ISAAC_PHYSX",
+               "isaac_version": base["backend"]["isaac_sim"],
+               "physics_device": base["backend"]["physics_device"],
+               "gpu": base["backend"]["gpu"],
+               "gpu_driver": base["backend"]["gpu_driver"],
+               "venv": base["backend"]["venv"]}
+    asset_rec = {"usd": base["reference_assets"],
+                 "waste_object_id": meta["object_id"],
+                 "waste_dims_mm": meta["dims_mm"],
+                 "waste_mass_g": meta["mass_g"],
+                 "lattice": {"nx": nx, "ny": ny, "nz": nz,
+                             "sub": [_snx, _sny, _snz],
+                             "kept_cells": n, "bonds_total": len(bonds)},
+                 "frag_cube_size_m": frag_size,
+                 "mass_per_fragment_kg": mass_per_kg}
+    with open(paths["config.json"], "w") as fh:
+        json.dump(cfg, fh, indent=2, default=str)
+    with open(paths["environment.json"], "w") as fh:
+        json.dump(env_rec, fh, indent=2)
+    with open(paths["asset_manifest.json"], "w") as fh:
+        json.dump(asset_rec, fh, indent=2)
+    return paths, cfg, plan
+
+
+def finalize(paths, base, summary, tele_rows, events, logs, extra_env=None):
+    """Write the physics-output artifacts (telemetry/events/summary/logs)."""
+    env_rec = {"backend": "ISAAC_PHYSX",
+               "isaac_version": summary.get(
+                   "isaac_version", base["backend"]["isaac_sim"]),
+               "physics_device": base["backend"]["physics_device"],
+               "gpu": base["backend"]["gpu"],
+               "gpu_driver": base["backend"]["gpu_driver"],
+               "venv": base["backend"]["venv"]}
+    env_rec.update(extra_env or {})
+    with open(paths["environment.json"], "w") as fh:
+        json.dump(env_rec, fh, indent=2)
+    with open(paths["telemetry.jsonl"], "w") as fh:
+        for r in tele_rows:
+            fh.write(json.dumps(r) + "\n")
+    with open(paths["events.jsonl"], "w") as fh:
+        for e in events:
+            fh.write(json.dumps(e) + "\n")
+    with open(paths["summary.json"], "w") as fh:
+        json.dump(summary, fh, indent=2)
+        fh.write("\n")
+    with open(paths["stdout.log"], "w") as fh:
+        fh.write("\n".join(logs) + "\n")
+    with open(paths["stderr.log"], "w") as fh:
+        fh.write("\n".join(summary.get("failures", [])) + "\n")
+    return summary
+
+
+def run(case, dt, c23dir=C23):
+    """Execute ONE frozen case at ONE ladder dt under Isaac headless.
+
+    Writes the per-run directory; returns the summary dict.
+    """
+    import numpy as _np  # noqa: F401  (isaac venv provides numpy)
+    logs = []
+
+    def log(msg):
+        logs.append(msg)
+        print(msg, flush=True)
+
+    paths, cfg, plan = prepare(case, dt, c23dir)
+    base = cfg["baseline"]
+    S1 = _import_s1()
+    import math as _math
+    meta, bonds = plan["meta"], plan["bonds"]
+    (nx, ny, nz, _snx, _sny, _snz) = (plan["nx"], plan["ny"], plan["nz"],
+                                      plan["snx"], plan["sny"], plan["snz"])
+    (mass_per_kg, frag_size, n) = (plan["mass_per_kg"], plan["frag_size"],
+                                   plan["n"])
+    (shaft_offset_m, omega, box_I) = (plan["shaft_offset_m"],
+                                      plan["omega"], plan["box_I"])
+    wclass, seed = plan["wclass"], plan["seed"]
+    pos0 = _np.asarray(plan["pos0"], dtype=_np.float32)
+    ori0 = _np.asarray(plan["ori0"], dtype=_np.float32)
 
     failures = []
     tele_rows, events = [], []
@@ -253,20 +346,9 @@ def run(case, dt, c23dir=C23):
                 mapi = UsdPhysics.MassAPI.Apply(xp)
                 mapi.GetMassAttr().Set(float(mass_per_kg))
                 UsdPhysics.CollisionAPI.Apply(bx)
-            gx = _np.array([(k % nx) % _snx for k in keep],
-                           dtype=_np.float64)
-            gy = _np.array([((k // nx) % ny) % _sny for k in keep],
-                           dtype=_np.float64)
-            gz = _np.array([((k // (nx * ny)) % nz) % _snz for k in keep],
-                           dtype=_np.float64)
-            _kx = float(gx.max()) if len(gx) else 0.0
-            px = (gx - _kx / 2.0) * sx * 0.9
-            py = ((gy - float(gy.max()) / 2.0) * sy * 0.9
-                  if len(gy) else 0.0)
-            pz = S1.CUTTER_R_M + 0.004 + (gz + 0.5) * sz * 0.9
-            pos0 = _np.stack([px, py, pz], axis=1).astype(_np.float32)
-            ori0 = _np.tile(_np.array([1, 0, 0, 0], dtype=_np.float32),
-                            (n, 1))
+            # Nip-drop placement mirrors s1_physx.py L196-206; pos0/ori0
+            # arrive precomputed from prepare(), so system-python prep and
+            # the Isaac run share identical initial state by construction.
             frags = RigidPrim(frag_paths, positions=pos0,
                               orientations=ori0,
                               reset_xform_op_properties=True)
@@ -393,6 +475,19 @@ def run(case, dt, c23dir=C23):
                 "status": "RUN_OK" if not failures else "RUN_FAILED",
                 "failures": failures,
             }
+            # NOTE: sim.close() terminates the Kit process, so all run
+            # artifacts MUST be written BEFORE it (post-close code never
+            # runs). The tail finalize() after the try/except is a
+            # fallback for paths where sim never started.
+            log("run %s dt=%s status=%s" % (case, dt, summary.get("status")))
+            try:
+                finalize(paths, base, summary, tele_rows, events, logs,
+                         extra_env={"python": sys.executable})
+            except Exception:
+                print("FINALIZE-FAILED: "
+                      + traceback.format_exc(limit=20).replace("\n", " | "),
+                      flush=True)
+                raise
             sim.close(exit_code=0 if not failures else 1)
         except Exception:
             failures.append("exception: "
@@ -413,43 +508,12 @@ def run(case, dt, c23dir=C23):
                    "case": case, "physics_dt_s": dt,
                    "status": "RUN_FAILED", "failures": failures}
         isaac_version = base["backend"]["isaac_sim"] + " (unqueried)"
-
-    env_rec = {"backend": "ISAAC_PHYSX",
-               "isaac_version": locals().get("isaac_version",
-                                             base["backend"]["isaac_sim"]),
-               "physics_device": base["backend"]["physics_device"],
-               "gpu": base["backend"]["gpu"],
-               "gpu_driver": base["backend"]["gpu_driver"],
-               "venv": base["backend"]["venv"],
-               "python": sys.executable}
-    asset_rec = {"usd": base["reference_assets"],
-                 "waste_object_id": meta["object_id"],
-                 "waste_dims_mm": meta["dims_mm"],
-                 "waste_mass_g": meta["mass_g"],
-                 "lattice": {"nx": nx, "ny": ny, "nz": nz,
-                             "sub": [_snx, _sny, _snz],
-                             "kept_cells": n, "bonds_total": len(bonds)},
-                 "frag_cube_size_m": frag_size,
-                 "mass_per_fragment_kg": mass_per_kg}
-    with open(paths["config.json"], "w") as fh:
-        json.dump(cfg, fh, indent=2, default=str)
-    with open(paths["environment.json"], "w") as fh:
-        json.dump(env_rec, fh, indent=2)
-    with open(paths["asset_manifest.json"], "w") as fh:
-        json.dump(asset_rec, fh, indent=2)
-    with open(paths["telemetry.jsonl"], "w") as fh:
-        for r in tele_rows:
-            fh.write(json.dumps(r) + "\n")
-    with open(paths["events.jsonl"], "w") as fh:
-        for e in events:
-            fh.write(json.dumps(e) + "\n")
-    with open(paths["summary.json"], "w") as fh:
-        json.dump(summary, fh, indent=2)
-        fh.write("\n")
-    with open(paths["stdout.log"], "w") as fh:
-        fh.write("\n".join(logs) + "\n")
-    with open(paths["stderr.log"], "w") as fh:
-        fh.write("\n".join(summary.get("failures", [])) + "\n")
+    summary.setdefault("isaac_version", locals().get(
+        "isaac_version", base["backend"]["isaac_sim"]))
+    summary.setdefault("case", case)
+    summary.setdefault("physics_dt_s", dt)
+    finalize(paths, base, summary, tele_rows, events, logs,
+             extra_env={"python": sys.executable})
     log("run %s dt=%s status=%s" % (case, dt, summary.get("status")))
     return summary
 

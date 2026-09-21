@@ -1,0 +1,31 @@
+{
+  "usd": {
+    "step_file": "c2.1/cad/PPR_C2_1_machine_integration.step",
+    "step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12",
+    "step_verified": "recomputed via sha256sum 2026-09-21, matches SOURCES.md",
+    "usd_file": "c2.2/sim/assets/usd/machine.usda",
+    "usd_sha256": "7a14f96e667cf3cd483d4be1b2c38267de2bb8081cf5d13f450b2ec210617296",
+    "usd_verified": "recomputed via sha256sum 2026-09-21"
+  },
+  "waste_object_id": "P0-purge_bundle-00007",
+  "waste_dims_mm": {
+    "dx": 98.06,
+    "dy": 79.1,
+    "dz": 50.4
+  },
+  "waste_mass_g": 35.816,
+  "lattice": {
+    "nx": 10,
+    "ny": 8,
+    "nz": 6,
+    "sub": [
+      4,
+      3,
+      2
+    ],
+    "kept_cells": 24,
+    "bonds_total": 46
+  },
+  "frag_cube_size_m": 0.024515000000000002,
+  "mass_per_fragment_kg": 0.0014923333333333336
+}

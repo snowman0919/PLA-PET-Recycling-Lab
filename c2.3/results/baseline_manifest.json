@@ -1,1 +1,268 @@
-{"branch": "codex/c2.1-s2-transmission-20260921", "cases": {"FDM": {"material": "PLA", "seed": 7, "waste_class": "W1"}, "PURGE": {"material": "PLA", "seed": 11, "waste_class": "W4"}, "WRAP": {"note": "S1-only, no S2 fracture claim", "seed": 7, "waste_class": "P0"}}, "config_hashes": {"CONTRACT.md": "836ccab58b59eac73ea818dd76edfa3b7ac512481c9f429afb5ecbd39498d17d", "NEXT.md": "522d761ae251572d327dbf8cc4cd875ffddd0297dbbb458b086cb8df260a5b66", "STATE.json": "fe9be0bd7b4cc8795db736df730291d5de2058599890152d4f0676bdbbcee275", "baseline.json": "5b10ae082bc255eb9b9259b7d2712de10c074b26a51c942258f0f0abc9c96b6c", "cases.json": "a44ce3b50624bd48c6d28d38c3277cbce77a976eb74d51ba1f8c8c93395fffe6"}, "evidence_level": "UNCALIBRATED_DIGITAL_DYNAMICS", "head": "5e25032206d34aada2b99ccabb70654fabd15be4", "reference_assets": {"step_file": "c2.1/cad/PPR_C2_1_machine_integration.step", "step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12", "usd_file": "c2.2/sim/assets/usd/machine.usda", "usd_sha256": "7a14f96e667cf3cd483d4be1b2c38267de2bb8081cf5d13f450b2ec210617296"}, "run_hashes": {"note": "appended at A3", "runs": []}}
+{
+  "branch": "codex/c2.1-s2-transmission-20260921",
+  "cases": {
+    "FDM": {
+      "material": "PLA",
+      "seed": 7,
+      "waste_class": "W1"
+    },
+    "PURGE": {
+      "material": "PLA",
+      "seed": 11,
+      "waste_class": "W4"
+    },
+    "WRAP": {
+      "note": "S1-only, no S2 fracture claim",
+      "seed": 7,
+      "waste_class": "P0"
+    }
+  },
+  "config_hashes": {
+    "CONTRACT.md": "836ccab58b59eac73ea818dd76edfa3b7ac512481c9f429afb5ecbd39498d17d",
+    "NEXT.md": "522d761ae251572d327dbf8cc4cd875ffddd0297dbbb458b086cb8df260a5b66",
+    "STATE.json": "fe9be0bd7b4cc8795db736df730291d5de2058599890152d4f0676bdbbcee275",
+    "baseline.json": "5b10ae082bc255eb9b9259b7d2712de10c074b26a51c942258f0f0abc9c96b6c",
+    "cases.json": "a44ce3b50624bd48c6d28d38c3277cbce77a976eb74d51ba1f8c8c93395fffe6"
+  },
+  "evidence_level": "UNCALIBRATED_DIGITAL_DYNAMICS",
+  "head": "5e25032206d34aada2b99ccabb70654fabd15be4",
+  "reference_assets": {
+    "step_file": "c2.1/cad/PPR_C2_1_machine_integration.step",
+    "step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12",
+    "usd_file": "c2.2/sim/assets/usd/machine.usda",
+    "usd_sha256": "7a14f96e667cf3cd483d4be1b2c38267de2bb8081cf5d13f450b2ec210617296"
+  },
+  "run_hashes": {
+    "note": "A3 12-run fixed-state dt ladder; config_hashes untouched",
+    "runs": [
+      {
+        "dir": "c2.3/results/FDM/dt_0.00125",
+        "case": "FDM",
+        "dt_s": 0.00125,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "546cf0441c8a12bf74da5e725a41d37cb42814377a105ac96228ae1c6edce867",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "e5de1248afb83e452b6fcb07841cc498489618c6afe836d612fc01fa4ea286de",
+          "telemetry.jsonl": "de65f4082a0769dc3444d3dc78f1488616f4176af305a7f0f2b481846e05e69f",
+          "events.jsonl": "623ded61b6eebcbd7de3b057d7b300a2b631f203725f84e2f498d1c8b84226e1",
+          "summary.json": "c881117eff7b073fe2dab6c146781f5e84e9e259ec9a5471d92b81f9b1a75259",
+          "stdout.log": "eb425fa40882ba311eba4363a367d8c5bb7eb030649e6c706ae632678987805f",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.04151368560058663,
+        "contact_impulse_Ns": 0.24776656009860745,
+        "bond_breaks": 12
+      },
+      {
+        "dir": "c2.3/results/FDM/dt_0.0025",
+        "case": "FDM",
+        "dt_s": 0.0025,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "5581a7b591bc266759bbb5455c26903b1fdbdefe71f0639e3841721ea4d433b1",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "e5de1248afb83e452b6fcb07841cc498489618c6afe836d612fc01fa4ea286de",
+          "telemetry.jsonl": "612cb953f1fcb107fc854bf3e8ed5435f8ca3d3e342452b9c46f22879bb39409",
+          "events.jsonl": "a1ee6348486646e3b8281aa3c10d448bda4fa0dc693b31c838b61b2d2f108e23",
+          "summary.json": "bc8992e80269a98b25cee5c77e352231e14f3b6a14e10d20f592e4fceed18bbf",
+          "stdout.log": "f8125abe76e9f0fc8312a04b271ac05e47495fb04e770cdff265449c8e6bddee",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.08479704977226979,
+        "contact_impulse_Ns": 0.5060951111574832,
+        "bond_breaks": 43
+      },
+      {
+        "dir": "c2.3/results/FDM/dt_0.005",
+        "case": "FDM",
+        "dt_s": 0.005,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "d35cfc24090f2c11c1f33b46c4374d3161d9b599938cdb663469834c10482d4d",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "e5de1248afb83e452b6fcb07841cc498489618c6afe836d612fc01fa4ea286de",
+          "telemetry.jsonl": "65c5fcdf7c3313b65634b10938749eb15b55fa0917388f8805104d72f122ba27",
+          "events.jsonl": "61276a036253590f6d376877c87b17749407d14c980390335b0967b6db8bb208",
+          "summary.json": "8d50c98ee46fd908dcd86b49c9904f2597fcadc36b16a46aaf242f5b045ae5b1",
+          "stdout.log": "0b4d9c9ac6b481f42e62917564f75c1f9426f268053b08dcb044ba6aafd1da47",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.24564026530185945,
+        "contact_impulse_Ns": 1.466057341694832,
+        "bond_breaks": 46
+      },
+      {
+        "dir": "c2.3/results/FDM/dt_0.01",
+        "case": "FDM",
+        "dt_s": 0.01,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "d13ba7fee028ff8498e2eb100f7a158cc1f1abcd180f773eab8da80061a6470c",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "e5de1248afb83e452b6fcb07841cc498489618c6afe836d612fc01fa4ea286de",
+          "telemetry.jsonl": "95ead6075a66abf534931ce3918b481d526434e1ccb08ccca38b47f34422ec7d",
+          "events.jsonl": "cab52b9d44cc519ffa91c832d8eeda5f82ff92fdc6c7b6569d5e516c2111b732",
+          "summary.json": "f1f63a56c20fb24b5716451e68a96d4412019ba2fa0ad0c1b2c9d4010a0ec7af",
+          "stdout.log": "02760f9e5d8f2da7342901ba8be8db82fe9608d438a3bddfd8bf4da13fc3189e",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.4034857388681007,
+        "contact_impulse_Ns": 2.4081281177978964,
+        "bond_breaks": 46
+      },
+      {
+        "dir": "c2.3/results/PURGE/dt_0.00125",
+        "case": "PURGE",
+        "dt_s": 0.00125,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "25956ae0a53f7928fd6c35ee955234762dd764c62882c426ef4489d0ac160f4e",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "5cc33218f7cb7f945e57a60921f87a779a9015bc5806ac95482cbfea449fafe4",
+          "telemetry.jsonl": "fe26a289b4376205256631ebf75756f123ab13a2768fd3d92e9d775c25cb0d9e",
+          "events.jsonl": "c40fd474cf8dca4e49a676fa71f93cdc0eceb93d71e27edde294c5e861b4d917",
+          "summary.json": "8bf93eefa06470eec7b2170a10de42b5fc1d878382278eea5a3c9f21507edc48",
+          "stdout.log": "a7125f0c78d7a2a1aed9ba8426bc4457628ba3cfbc09c07179286ef4b7e7843e",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.0527956686191628,
+        "contact_impulse_Ns": 0.3151009362968034,
+        "bond_breaks": 5
+      },
+      {
+        "dir": "c2.3/results/PURGE/dt_0.0025",
+        "case": "PURGE",
+        "dt_s": 0.0025,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "a709ee87d7e3ed0238c11aa64dbf973fd253a8be7f6c469975ce7106db03ba17",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "5cc33218f7cb7f945e57a60921f87a779a9015bc5806ac95482cbfea449fafe4",
+          "telemetry.jsonl": "c107ab745c7a7cdfd1f26abfe901c907956bbf4d1b666783631b776c3973854b",
+          "events.jsonl": "eb04d81b49928469c3d69467e31358188f838b812588df640bbd1412525a610f",
+          "summary.json": "87344cb3a0251d8fdbd3a835ec6dcca5a51e3ed2fb4a8caab458ff32b1e655e3",
+          "stdout.log": "90f4b8d05183278a0d257d77b7a19c0d292433f89cf4f22c7c08adeb3448bf76",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.08868089686001801,
+        "contact_impulse_Ns": 0.5292751159910404,
+        "bond_breaks": 46
+      },
+      {
+        "dir": "c2.3/results/PURGE/dt_0.005",
+        "case": "PURGE",
+        "dt_s": 0.005,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "757857d9ec1160e09bf826d0929f0d8ce72e63e551347791931e09ca9c4919c6",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "5cc33218f7cb7f945e57a60921f87a779a9015bc5806ac95482cbfea449fafe4",
+          "telemetry.jsonl": "e9cbd7f35ccd051c770e86776a7d4de0f4d48775fa9fd9cd8147c3450fe3e16a",
+          "events.jsonl": "ae9846d761e2d84dd7c822da9d63479d8bafb647f5fa93ad2cc795639b3c4fc7",
+          "summary.json": "19f161ee24dc3eb3f94c99d8dba94392e2a310c3e7da066670c5fe936f58ef28",
+          "stdout.log": "2ff3ba4af8f656ffabb32e13500207a87f277cdac631c44eebea71bac865858e",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.19052521914766457,
+        "contact_impulse_Ns": 1.1371136404131539,
+        "bond_breaks": 46
+      },
+      {
+        "dir": "c2.3/results/PURGE/dt_0.01",
+        "case": "PURGE",
+        "dt_s": 0.01,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "71d9337ffb32c6b35ab3d485c9464b2f0146b2806f71cc2033588689fb01944f",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "5cc33218f7cb7f945e57a60921f87a779a9015bc5806ac95482cbfea449fafe4",
+          "telemetry.jsonl": "7e35dbe849785db49299fe66f6d6a16532f6db801cfb5c7e361d3ec947ebd367",
+          "events.jsonl": "8f80628a1e8133f7213170937447317f5d5a2f939d9f3cd8eb42a80796a70d07",
+          "summary.json": "642bfa0117d0b8e958432ccedd9112b646efa3fd8affa96efa5c20fe85f79968",
+          "stdout.log": "e3e5022ffb9ab4b470bce41e54bc6314f28ec0010c20ee59c891201f4e9c3b58",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.3972157147263402,
+        "contact_impulse_Ns": 2.3707066677178954,
+        "bond_breaks": 46
+      },
+      {
+        "dir": "c2.3/results/WRAP/dt_0.00125",
+        "case": "WRAP",
+        "dt_s": 0.00125,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "325edf4fb7110a53326f42ec1c849d2f4922f49cf32757398fbfd4f50edb0699",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "d1307698477c27e6040f9270b3e8ee8811a41e7ced77140c87446f30596e63c0",
+          "telemetry.jsonl": "8aaecdc08ef6b4abd894a8ab6aaa7877701ffc8798a4ce08a45cd4d01d8f3a8f",
+          "events.jsonl": "a0ff6416d2bc05826facd51ed58d2285d03f437de98071103b35ac5b1f7646c2",
+          "summary.json": "20aeeb4211e7da30b5b7526b68bf107d44e14ec348abe1b18f4cb39b7e14ab51",
+          "stdout.log": "fb6b77ee60c5ebad038aa83259fd673cd5d01edc20e06223cc139da8c9c1063f",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.014785683660761183,
+        "contact_impulse_Ns": 0.08824554906012054,
+        "bond_breaks": 12
+      },
+      {
+        "dir": "c2.3/results/WRAP/dt_0.0025",
+        "case": "WRAP",
+        "dt_s": 0.0025,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "ae5bd23826b2919961a466bf6208c9345b73e2f1adc4556bf4a02f5d5b4612de",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "d1307698477c27e6040f9270b3e8ee8811a41e7ced77140c87446f30596e63c0",
+          "telemetry.jsonl": "7dea56dfc6f183dde0bbf58970ba992ca4da78d46de1634de11bc426d55d75d9",
+          "events.jsonl": "932dcad8c18d796c81342f37de68f609cf90632df9a258a2b03f2c9c7609c7cc",
+          "summary.json": "8b1d96822e5dd1804e09bb6ade034ce20b193847cf0027017b5f6a598fb8402d",
+          "stdout.log": "287f76f8667aa02313d493b39019113140b775d5283da0860277fbdb6d9721fb",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.03147390756829933,
+        "contact_impulse_Ns": 0.18784604879670952,
+        "bond_breaks": 16
+      },
+      {
+        "dir": "c2.3/results/WRAP/dt_0.005",
+        "case": "WRAP",
+        "dt_s": 0.005,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "9c28f9fe0f022215f139cf74fcb434bb17d3c50bc36002605b1a6fda1fb5a35a",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "d1307698477c27e6040f9270b3e8ee8811a41e7ced77140c87446f30596e63c0",
+          "telemetry.jsonl": "521510c0e246a869e1ad4d51f35821c57a1f7094a1131a32a64e0fc0f66c26bf",
+          "events.jsonl": "2f1128028987c176565655036e82a6e4cd838834ba83e664859e4c1684dd6db9",
+          "summary.json": "05cd82a3b7fa1e23dca50948b4a14326f6f762706ab862133004d310a4988267",
+          "stdout.log": "3c30c2b654957ce2814a4b1c3fa48a965fd0851a1a6de2106c88994780b6fe81",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.07756110796449976,
+        "contact_impulse_Ns": 0.46290876465878683,
+        "bond_breaks": 46
+      },
+      {
+        "dir": "c2.3/results/WRAP/dt_0.01",
+        "case": "WRAP",
+        "dt_s": 0.01,
+        "status": "RUN_OK",
+        "sha256": {
+          "config.json": "5afb9581f07e6d1c332e6925b636b98f2d82c0e61cde3aa08ee85841d28d6578",
+          "environment.json": "f310a6bb1d653d7427e681dd529289da25065ce366e21552278cb5dbd1134305",
+          "asset_manifest.json": "d1307698477c27e6040f9270b3e8ee8811a41e7ced77140c87446f30596e63c0",
+          "telemetry.jsonl": "798553525acba803c1fcb39834c9d84e7a2e7684efbe0649da318146eee6e025",
+          "events.jsonl": "833357b954d2f73748865380612eb72c7fa8da92daf5e3b27c724aaed3fcc9ba",
+          "summary.json": "de0ffda80e711fa710658026fb71a618fe518271070c793d2ef3cf76a8bb9000",
+          "stdout.log": "faca6c49e91e429298e9cabd881ae65749184c81240de919c924c24da5650b39",
+          "stderr.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        "shaft_work_J": 0.13810386266045951,
+        "contact_impulse_Ns": 0.8242467150936136,
+        "bond_breaks": 46
+      }
+    ]
+  }
+}
