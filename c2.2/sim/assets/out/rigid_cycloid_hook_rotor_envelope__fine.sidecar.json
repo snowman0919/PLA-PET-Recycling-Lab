@@ -1,0 +1,29 @@
+{
+  "asset_id": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+  "lod": "fine",
+  "mesh_file": "sim/assets/out/rigid_cycloid_hook_rotor_envelope__fine.stl",
+  "mesh_bytes": 611084,
+  "mesh_format": "STL (OBJ unavailable in installed CadQuery exporters)",
+  "provenance": "step",
+  "source_step": "c2.1/cad/PPR_C2_1_S2_transmission.step",
+  "source_step_sha256": "fbba8932ab7a132d67eeafeba519bd368a78bf564a22e4d8ea59e5df94f5a42b",
+  "source_step_sha_match": true,
+  "source_label_index": 33,
+  "revision": "d42f32f915555f00d5ac97021f97ecfb1a6fbb98",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "e19004d5104b1575c234109912e954a0b5f22f28b0f42a69ba9a6a6fc5de97e7",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "note_tessellation": "tessellation-tolerance LOD, not edge-collapse decimation (no trimesh installed)",
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 607197.5066925014,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY",
+  "fallback_note": null
+}
