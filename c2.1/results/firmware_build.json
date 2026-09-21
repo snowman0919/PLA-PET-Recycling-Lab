@@ -1,0 +1,28 @@
+{
+  "target": "HOST_X86_64_CONTROLLER_CORE_SELF_TEST_NOT_DEPLOYABLE_FIRMWARE",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "compile_command": [
+    "/usr/bin/g++",
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O2",
+    "/home/monad/develop/PPR-c2.1-codex-20260921/c2.1/firmware/controller_core.cpp",
+    "-o",
+    "/home/monad/develop/PPR-c2.1-codex-20260921/.codex-run/ppr_controller_core_selftest"
+  ],
+  "compile_return_code": 0,
+  "compile_stderr": "",
+  "self_test_return_code": 0,
+  "self_test_stdout": "controller_core_self_test: 11 cases passed; no reverse or auto-restart path\n",
+  "source": "c2.1/firmware/controller_core.cpp",
+  "source_sha256": "a5aa21696c6ecb290d0ec0788834294cd441c67f4a80e96f7e85ba72a68fa68e",
+  "binary_sha256": "ab85e61f117aa08f2f25979ae50e1729698adf21c8f6696aed2c52d569bc6c14",
+  "cases": 11,
+  "arduino_cli": "DID_NOT_FIND_EXECUTABLE",
+  "target_cross_compile": "DID_NOT_RUN",
+  "flash": "DID_NOT_RUN",
+  "energization": "HOLD",
+  "qualification_limits": "TEST_VALUES_ONLY_NOT_CERTIFIED"
+}

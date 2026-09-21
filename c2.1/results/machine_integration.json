@@ -1,0 +1,140 @@
+{
+  "revision": "C2.1-P6",
+  "status": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD",
+  "source": {
+    "config": "c2.1/design/machine_integration.json",
+    "config_sha256": "42e094a9d90a1ee03f1f66b068a469e74fc514f9150638b5d0cab850bfc8e82f",
+    "legacy_master": "design/assembly.json",
+    "legacy_master_sha256": "61519b8f37e153f694ba242c49bcb5e6635300f59b0f77ec66356763d485d771",
+    "c21_builder_sha256": "6f1656ce95cab09ea170194e77f97fc8193c1608f7e6c0d85a1e4d75180a8feb",
+    "legacy_role": "C1 interface baseline; motors/gears/screw/electrical/procurement remain unqualified"
+  },
+  "transform": {
+    "rotation_axis": [
+      0,
+      0,
+      1
+    ],
+    "rotation_deg": 180,
+    "translation_mm": [
+      308.56946468906176,
+      299,
+      280
+    ]
+  },
+  "legacy_s2_instances_excluded": 44,
+  "legacy_instances_retained": 155,
+  "c21_instances_inserted": 41,
+  "assembly_objects": 196,
+  "expected_solids": 196,
+  "reimported_solids": 196,
+  "step_reimport_valid": true,
+  "assembly_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "assembly_step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12",
+  "assembly_step_bytes": 66754081,
+  "groups": [
+    "S1",
+    "S2-C2.1",
+    "cooling",
+    "drive",
+    "electrical",
+    "extruder",
+    "feed",
+    "frame",
+    "frame_mount",
+    "puller",
+    "spool"
+  ],
+  "required_groups_present": [
+    "S1",
+    "S2-C2.1",
+    "cooling",
+    "drive",
+    "electrical",
+    "extruder",
+    "feed",
+    "frame",
+    "frame_mount",
+    "puller",
+    "spool"
+  ],
+  "missing_required_groups": [],
+  "body": {
+    "bounds_mm": [
+      0.0,
+      0.0,
+      -3.0,
+      630.0,
+      408.0,
+      505.0
+    ],
+    "size_mm": [
+      630.0,
+      408.0,
+      508.0
+    ],
+    "limit_mm": [
+      700,
+      420,
+      520
+    ],
+    "passed": true
+  },
+  "operating_envelope": {
+    "bounds_mm": [
+      0.0,
+      0.0,
+      -3.0,
+      839.0,
+      408.0,
+      505.0
+    ],
+    "size_mm": [
+      839.0,
+      408.0,
+      508.0
+    ],
+    "target_limit_mm": [
+      850,
+      450,
+      510
+    ],
+    "passed": true
+  },
+  "interface_collision": {
+    "method": "BREP_EXACT_AFTER_BBOX",
+    "pair_checks": 6355,
+    "bbox_candidates": 42,
+    "unexpected": [],
+    "passed": true
+  },
+  "relocated_support_collision": {
+    "method": "BREP_EXACT_AFTER_BBOX",
+    "pair_checks": 604,
+    "bbox_candidates": 0,
+    "unexpected": [],
+    "passed": true
+  },
+  "relocated_supports": {
+    "S2-LEG-L_001": 170,
+    "S2-LEG-R_001": 170,
+    "S2-LEG-L_002": 342,
+    "S2-LEG-R_002": 342
+  },
+  "closed_interfaces": [
+    "S2 process interval Y255..295 mm replaces the legacy S2 chamber interval",
+    "S2 input shaft remains coaxial with the retained ANSI35 12T bore12 reference at X308.569/Z280",
+    "four legacy metal S2 legs are relocated to face-contact the C2.1 support plates",
+    "S1/feed/extruder/cooling/puller/spool/electrical/frame objects are retained in one assembly"
+  ],
+  "holds": [
+    "C1 M1/M2, gears, sprockets, screw and electrical parts are interface references, not final selections",
+    "support fastener grade/preload, weld detail and frame stiffness are not rated",
+    "guards, wiring routes, service sweep and anti-reach are not complete containment geometry",
+    "full unchanged C1 pair audit is inherited; this run checks every new/relocated-to-retained pair",
+    "loaded deflection, tolerance and thermal-growth collision are not proven"
+  ],
+  "procurement": "HOLD",
+  "fabrication": "HOLD",
+  "energization": "HOLD"
+}

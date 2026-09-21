@@ -4,7 +4,7 @@
 
 이 반복은 공용 M1 한 개가 구동하는 고정 링 사이클로이드 입력과 고정축 역회전 출력 후보를 구현했다. 독립 구동 자유도는 1개이고 별도 S2 모터는 없다. 명목 q=8, e=7mm, 입력 +120rpm에서 출력/로터는 -15rpm이다.
 
-현재 통합 결과 상태는 **DIGITAL_INTEGRATION_PASS_RATING_AND_PERFORMANCE_HOLD**다. 구매·가공·통전은 모두 HOLD다. 분쇄 성능 PASS, 정격 coupling, 제조 가능 drivetrain 또는 완성 기계 충돌 PASS를 뜻하지 않는다.
+현재 패키지 상태는 **DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD**다. 구매·가공·통전은 모두 HOLD다. 분쇄 성능 PASS, 정격 coupling 또는 제작 승인이라는 뜻이 아니다.
 
 ## 2026-09-21 후속 통합
 
@@ -15,6 +15,9 @@
 - CalculiX 2.21 coupon을 PLA/PET 선형 탄성, TPU Neo-Hooke 가정으로 소재별 4/8/16요소, 총 9건 실제 실행했다. 8→16 요소 reaction 변화는 PLA 0.836%, PET 1.036%, TPU 7.740%다. 물성은 미보정 가정이며 fracture/tear/viscoelasticity/S2 접촉/입도/처리량 라벨이 아니다.
 - Data 검색으로 확인한 국내 200W BLDC 모터 단품 최저 확인액 중 BL6099-2420은 기본 배송 포함 110,200원으로 전체 100,000원 soft limit를 이미 넘는다. 해외 57BLY110-230의 USD35.50은 배송·세금·driver 없는 base price라 landed quote가 아니다. M1과 전체 원가는 계속 HOLD다.
 - P5는 재료/전단금속/외벽·방열판/모터/감속기 5-node 열망으로 확장했다. C2 CAD 체적 기반 가정 열용량과 PLA/PET/TPU별 clean/clogged/fan-failed 반복 batch 총9건, 전류+rpm+온도+buffer fault matrix7건을 실행했다. 이는 미보정 디지털 민감도이며 fan curve·센서 지연·물리 열시험·firmware build/flash·통전은 미실행이다.
+- P6는 C1의 기존 S2 44개 인스턴스를 제외하고 C2.1 41개 객체를 넣어 전체 기계 STEP 196 solid를 구성했다. 변경부 인터페이스 exact BRep와 재배치 지지대 검사는 양의 체적 관통 0건이며, 본체 630×408×508mm와 운전 envelope 839×408×508mm가 제한 안에 든다. FreeCAD native 문서는 156개 유효 객체다.
+- 시스템 BOM은 135개 고유 행이고 기존 S2 수량을 제거·조정했다. 원가가 확인된 행은 11개, 미상은 124개다. KiCad 장비 배선은 43개 장치, 174핀, 67 net을 pin-to-net ledger와 대조했고 native ERC 0건이지만 MPN/정격/datasheet coverage는 0%여서 제작 회로가 아니다.
+- 휴대 가능한 제어 core는 host g++에서 11개 fail-closed self-test를 통과했다. target cross-compile, flash, 통전은 DID_NOT_RUN이다. 세 개 nominal DXF와 3쪽 RFQ 검토 PDF를 생성했으며 공차·fit·재질·열처리는 HOLD다.
 
 ## 구현물
 
@@ -44,14 +47,14 @@
 3. 전 위상 연속 radial/axial envelope 경계는 보수적 해석식으로 별도 확인했다. hook-shear 0.8mm, hook-screen 0.8mm, hook-thermal 4.2mm, axial compartment 2mm, coupling nominal clearance 0.2mm다.
 4. 사이클로이드 고정 핀은 1공전 721자세×profile 1,440점 표본으로 검사했고 최소 sampled clearance는 0.1426475048mm다. q/lobe 대칭은 접촉 기하만 반복하며 표시 hook 주기를 대신하지 않는다.
 
-정적 전쌍만 exhaustive다. 동적 BRep는 33자세 표본이며 자세 사이 연속 충돌을 증명하지 않는다. 해석 envelope는 전 위상 연속이지만 비방사형 세부 BRep를 대신하지 않는다. full-machine collision도 미검증이다.
+정적 전쌍만 exhaustive다. 동적 BRep는 33자세 표본이며 자세 사이 연속 충돌을 증명하지 않는다. 해석 envelope는 전 위상 연속이지만 비방사형 세부 BRep를 대신하지 않는다. 전체 기계는 C2.1 신규/재배치 부품과 보존 부품 사이를 검사했으며, 변경 없는 C1 부품끼리의 전쌍 검사는 다시 실행하지 않았다.
 
 STEP 재수입은 assembly/exploded 각각 41 solid로 통과했다.
 
 Open CASCADE가 실행 시각을 STEP 헤더에 기록하므로 생성기는 `FILE_NAME` 시각만 고정값으로 정규화한다. 형상 검증 뒤 동일 입력 재실행의 byte SHA-256도 일치해야 한다.
 
-- assembly SHA-256: `9ddfe323c24a46988cef5d43ef3d4c79292f2386ad6002a6780f14d01adec879`
-- exploded SHA-256: `f98f39740ccc477d1f7a8b04905dc333e7f86036049f767fe4a674fbe89b6bd2`
+- assembly SHA-256: `fbba8932ab7a132d67eeafeba519bd368a78bf564a22e4d8ea59e5df94f5a42b`
+- exploded SHA-256: `f05277f3ac60b25e1945cfb12bca37f06f900dc115a073afd4140f39d49470db`
 
 ## 실제로 남은 HOLD
 
@@ -59,7 +62,7 @@ Open CASCADE가 실행 시각을 STEP 헤더에 기록하므로 생성기는 `FI
 - bearing/roller는 envelope이고 MPN·정격·L10이 없다. 축 피로, 접촉압, fastener preload, 실제 rotor 체결, shoulder/circlip 등 axial retention, 윤활·seal도 미설계다.
 - C2 fixed shear sensor bore, perforated screen reference, split wear liners, thermal saddles/caps는 통합했다. screen attachment, sensor mount/wiring/응답, conductive interface, 분리 airflow와 온도 검증은 없다.
 - 가드는 section envelope이며 containment 인증 형상이 아니다. E-stop, interlock, 독립 과온 차단 요구는 유지했지만 C2.1 CAD에 완성 통합하지 않았다.
-- P5 제어 로직은 독립 과온 체인 feedback을 fail-closed로 감시하지만 E-stop/guard contactor, hardware current limit, manual-reset overtemperature chain과 one-shot thermal fuse의 실제 회로·MPN·배선은 P6 HOLD다.
+- P6 KiCad wiring에는 dual-channel E-stop/lid/service interlock, safety relay/contactor, hardware current limit 요구, manual-reset overtemperature와 one-shot thermal fuse의 실제 기능 net을 넣었다. MPN·제조사 terminal 번호·fuse/cable/driver 정격과 물리 배선은 HOLD다.
 - PLA/PET/TPU 처리량·토크 이력·입도·체류·jam·에너지는 보정 DEM/실험이 없어 `BLOCKED_PERFORMANCE_DATA`다.
 - 모터 미선정, 추가비 landed cost 미완성이다. 미상 원가는 0원이 아니며 100,000KRW 전체 추가비 soft limit 적합성을 주장하지 않는다.
 ## 재현 명령과 결과

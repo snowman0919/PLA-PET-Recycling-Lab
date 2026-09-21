@@ -1,0 +1,51 @@
+{
+  "revision": "C2.1-P6",
+  "status": "NOMINAL_RFQ_REVIEW_ONLY_FABRICATION_RELEASE_HOLD",
+  "dxf": {
+    "front_support_plate": {
+      "file": "c2.1/drawings/front_support_plate.dxf",
+      "sha256": "65cd9afc773a63c4a6319c13ada46cc7375e56d59f3e3de6d8a1e486a75d1a39"
+    },
+    "rear_support_plate": {
+      "file": "c2.1/drawings/rear_support_plate.dxf",
+      "sha256": "38a56951f3ec97b0ff386ea7d89cec880ad4017e03e25aeadcf56106c18c4991"
+    },
+    "fixed_ring_plate": {
+      "file": "c2.1/drawings/fixed_ring_plate.dxf",
+      "sha256": "7d05ff6ef25d5d88ee26663dc6b793055e67f4167dfc3bccc59378ff7ed8921d"
+    }
+  },
+  "pdf": {
+    "file": "c2.1/drawings/PPR_C2_1_P6_nominal_plate_review.pdf",
+    "pages": 3,
+    "sha256": "849dfd6c1fa6542021b5f62f259dc60ceaa2c4b7f718e1f20eb3df7f35589fb0"
+  },
+  "nominal_bounds_xyz_mm": {
+    "front_support_plate": [
+      170.0,
+      8.000000000000007,
+      174.0
+    ],
+    "rear_support_plate": [
+      170.0,
+      8.000000000000014,
+      174.0
+    ],
+    "fixed_ring_plate": [
+      176.0,
+      6.0,
+      176.0
+    ]
+  },
+  "unresolved": [
+    "datums",
+    "fits",
+    "GD&T",
+    "tolerances",
+    "material_grade",
+    "heat_treatment",
+    "finish",
+    "fastener_and_reaction_rating"
+  ],
+  "fabrication": "HOLD"
+}

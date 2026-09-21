@@ -40,6 +40,17 @@ def ring(ro, ri, h, at=(0, 0, 0)):
     return cylinder(ro, h, at).cut(cylinder(ri, h+2, (at[0], at[1]-1, at[2]))).clean()
 
 
+def support_plate(y, bore_radius):
+    # Chamfer the machine-left/top corner where the C1 S1 cartridge passes.
+    outline = [(-85, -85), (85, -85), (85, 40), (40, 85), (-85, 85)]
+    boss_web = cq.Solid.makeBox(17, 8, 19, V(45, y, 70))
+    plate = extrude_xz(outline, y, 8).fuse(boss_web).fuse(cylinder(7, 8, (55, y, 82)))
+    plate = plate.cut(cylinder(bore_radius, 10, (0, y-1, 0)))
+    for x in (-77, 77):
+        plate = plate.cut(cylinder(3.3, 10, (x, y-1, -77)))
+    return plate.clean()
+
+
 def c2_process_part(part_id, y=4):
     path=REPO/"c2/cad"/(part_id+".step")
     if not path.is_file():
@@ -103,8 +114,8 @@ def output_rollers(theta, c):
 
 
 def fixed_components(c):
-    front = cq.Solid.makeBox(170, 8, 170, V(-85, -60, -85)).cut(cylinder(16.10, 10, (0, -61, 0)))
-    rear = cq.Solid.makeBox(170, 8, 170, V(-85, 88, -85)).cut(cylinder(21.10, 10, (0, 87, 0)))
+    front = support_plate(-60, 16.10)
+    rear = support_plate(88, 21.10)
     parts = [
         ("FRONT_INPUT_SUPPORT", front.clean()),
         ("REAR_OUTPUT_SUPPORT", rear.clean()),
@@ -128,8 +139,8 @@ def fixed_components(c):
     for i, a in enumerate(np.linspace(0, 2*math.pi, c.q+1, endpoint=False)):
         x, z = 72*np.array([math.cos(a), math.sin(a)])
         parts.append((f"FIXED_RING_PIN_{i+1}", cylinder(8, 22, (x, -28, z))))
-    for i, (x, z) in enumerate([(-80, -80), (-80, 70), (70, -80), (70, 70)]):
-        parts.append((f"SUPPORT_TIE_{i+1}", cq.Solid.makeBox(10, 140, 10, V(x, -52, z))))
+    for i, (x, z) in enumerate([(-75, -55), (-75, 75), (75, -55), (55, 82)]):
+        parts.append((f"SUPPORT_TIE_{i+1}", cylinder(4, 140, (x, -52, z))))
     return parts
 
 

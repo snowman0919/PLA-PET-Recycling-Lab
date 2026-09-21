@@ -24,10 +24,10 @@
     "semantic_hash": "ef2822c66f052f927c3a9b5cebfac083"
   },
   "c2.1/results/cad_validation.json": {
-    "mtime": 1789959461.619438,
-    "seen": 1789959746.6919928,
-    "ast_hash": "5fb990c3e477e7d057aa90a8513b686c",
-    "semantic_hash": "5fb990c3e477e7d057aa90a8513b686c"
+    "mtime": 1789962737.7490275,
+    "seen": 1789965001.6320002,
+    "ast_hash": "6e76dfec9181013f76ef934febdf3b37",
+    "semantic_hash": "6e76dfec9181013f76ef934febdf3b37"
   },
   "c2.1/results/independent_review_evidence.json": {
     "mtime": 1789955180.4196897,
@@ -48,10 +48,10 @@
     "semantic_hash": "5ce8fa899bd056d8e5831f3be5c1a07c"
   },
   "c2.1/results/validation_summary.json": {
-    "mtime": 1789961098.6569102,
-    "seen": 1789961494.2627764,
-    "ast_hash": "930839ca39c3a131458283c95c934223",
-    "semantic_hash": "930839ca39c3a131458283c95c934223"
+    "mtime": 1789964548.2491395,
+    "seen": 1789965001.6320143,
+    "ast_hash": "e3c8675cb9063e79d5227b7c0b532a7d",
+    "semantic_hash": "e3c8675cb9063e79d5227b7c0b532a7d"
   },
   "c2.1/sources/register.json": {
     "mtime": 1789952426.32781,
@@ -60,10 +60,10 @@
     "semantic_hash": "33f04169c28e6373367566c7de2e15a2"
   },
   "c2.1/src/build_cad.py": {
-    "mtime": 1789959166.48018,
-    "seen": 1789959746.6919997,
-    "ast_hash": "ceb6e51610bc6a1c76a381aa0ed3d553",
-    "semantic_hash": "ceb6e51610bc6a1c76a381aa0ed3d553"
+    "mtime": 1789962242.4013197,
+    "seen": 1789965001.6320164,
+    "ast_hash": "587bdf87d8ecde0f878c3df05cec8cc5",
+    "semantic_hash": "587bdf87d8ecde0f878c3df05cec8cc5"
   },
   "c2.1/src/transmission.py": {
     "mtime": 1789960396.2856014,
@@ -72,10 +72,10 @@
     "semantic_hash": "1c721b74ec0741abd7528bbd65c41978"
   },
   "c2.1/src/verify_artifacts.py": {
-    "mtime": 1789958480.157714,
-    "seen": 1789958888.8959801,
-    "ast_hash": "9407ad9df279d00a24a7c23481250450",
-    "semantic_hash": "9407ad9df279d00a24a7c23481250450"
+    "mtime": 1789964242.661956,
+    "seen": 1789965001.632024,
+    "ast_hash": "ff29ee83ab06e6f5e834cb8f9556b516",
+    "semantic_hash": "ff29ee83ab06e6f5e834cb8f9556b516"
   },
   "c2.1/tests/test_transmission.py": {
     "mtime": 1789958492.1603086,
@@ -444,10 +444,10 @@
     "semantic_hash": "5e94d11922734d35ce191cad7d2e0832"
   },
   "c2.1/docs/PLAN_KO.md": {
-    "mtime": 1789961062.717792,
-    "seen": 1789961494.2628193,
-    "ast_hash": "5c3e41a04b91811dedd4550a05c3f5da",
-    "semantic_hash": "5c3e41a04b91811dedd4550a05c3f5da"
+    "mtime": 1789964305.847865,
+    "seen": 1789965001.632087,
+    "ast_hash": "07377b95f007616d37b24a1f7afadc0f",
+    "semantic_hash": "07377b95f007616d37b24a1f7afadc0f"
   },
   "c2/docs/C2_ENGINEERING_NOTES.md": {
     "mtime": 1789961062.717792,
@@ -510,15 +510,153 @@
     "semantic_hash": "18bc40358bcfaffa1802a962e0797978"
   },
   "c2.1/docs/HANDOFF_KO.md": {
-    "mtime": 1789961098.6569102,
-    "seen": 1789961494.2628186,
-    "ast_hash": "e22cfc140b0ffc1bb583e9b829529f91",
-    "semantic_hash": "e22cfc140b0ffc1bb583e9b829529f91"
+    "mtime": 1789964539.174648,
+    "seen": 1789965001.632084,
+    "ast_hash": "f717ffad579ef421c459523d3a1b41cb",
+    "semantic_hash": "f717ffad579ef421c459523d3a1b41cb"
   },
   "c2/results/p5_thermal_control.json": {
     "mtime": 1789961140.3039684,
     "seen": 1789961494.26279,
     "ast_hash": "1c9596eec2b2f4588678e9ebb1e0e243",
     "semantic_hash": "1c9596eec2b2f4588678e9ebb1e0e243"
+  },
+  "c2.1/design/machine_integration.json": {
+    "mtime": 1789962588.371719,
+    "seen": 1789965001.631989,
+    "ast_hash": "7d2282d3ce40f9934747e492cbb49971",
+    "semantic_hash": "7d2282d3ce40f9934747e492cbb49971"
+  },
+  "c2.1/electrical/PPR_C2_1_machine_wiring_erc.json": {
+    "mtime": 1789963763.6943877,
+    "seen": 1789965001.6319973,
+    "ast_hash": "7afec49f28bd21ba786d01f2901acdf8",
+    "semantic_hash": "7afec49f28bd21ba786d01f2901acdf8"
+  },
+  "c2.1/firmware/controller_core.cpp": {
+    "mtime": 1789963831.964597,
+    "seen": 1789965001.6319988,
+    "ast_hash": "75f50c39dfa3972f7602841f862b9661",
+    "semantic_hash": "75f50c39dfa3972f7602841f862b9661"
+  },
+  "c2.1/results/capability_mode.json": {
+    "mtime": 1789963352.5643642,
+    "seen": 1789965001.6320012,
+    "ast_hash": "c868e9b5c379c02d0150eac4384155e9",
+    "semantic_hash": "c868e9b5c379c02d0150eac4384155e9"
+  },
+  "c2.1/results/firmware_build.json": {
+    "mtime": 1789964447.4530864,
+    "seen": 1789965001.6320024,
+    "ast_hash": "5df60af45d1c8bbce06dae6f5d251642",
+    "semantic_hash": "5df60af45d1c8bbce06dae6f5d251642"
+  },
+  "c2.1/results/machine_freecad.json": {
+    "mtime": 1789962828.6298351,
+    "seen": 1789965001.6320066,
+    "ast_hash": "fa8e5fbcae881770e7763fb0b831c404",
+    "semantic_hash": "fa8e5fbcae881770e7763fb0b831c404"
+  },
+  "c2.1/results/machine_integration.json": {
+    "mtime": 1789962773.9532926,
+    "seen": 1789965001.6320074,
+    "ast_hash": "ab0bcf8d3cbb821a4df9c26cb847f2d7",
+    "semantic_hash": "ab0bcf8d3cbb821a4df9c26cb847f2d7"
+  },
+  "c2.1/results/machine_wiring.json": {
+    "mtime": 1789963763.2274358,
+    "seen": 1789965001.6320086,
+    "ast_hash": "340d8b09dab9c9eb1672a30f27440d26",
+    "semantic_hash": "340d8b09dab9c9eb1672a30f27440d26"
+  },
+  "c2.1/results/machine_wiring_analysis.json": {
+    "mtime": 1789963763.8823965,
+    "seen": 1789965001.6320095,
+    "ast_hash": "65d4a1e1b63c02f5536919e36cd0376d",
+    "semantic_hash": "65d4a1e1b63c02f5536919e36cd0376d"
+  },
+  "c2.1/results/p6_drawings.json": {
+    "mtime": 1789964056.0528104,
+    "seen": 1789965001.6320114,
+    "ast_hash": "4d9a242d9e9d14a63c9c1196a58b986e",
+    "semantic_hash": "4d9a242d9e9d14a63c9c1196a58b986e"
+  },
+  "c2.1/results/p6_manifest.json": {
+    "mtime": 1789964548.3242016,
+    "seen": 1789965001.6320126,
+    "ast_hash": "e1ed24196ec77890a8ffd7aca5611ee6",
+    "semantic_hash": "e1ed24196ec77890a8ffd7aca5611ee6"
+  },
+  "c2.1/results/system_bom_summary.json": {
+    "mtime": 1789962997.2490127,
+    "seen": 1789965001.6320133,
+    "ast_hash": "4c09c2cb1bd6a4d21f9e6fde5501c6b6",
+    "semantic_hash": "4c09c2cb1bd6a4d21f9e6fde5501c6b6"
+  },
+  "c2.1/src/build_firmware.py": {
+    "mtime": 1789963831.964597,
+    "seen": 1789965001.6320171,
+    "ast_hash": "5d77d5801517f84bde767f70ebdee35e",
+    "semantic_hash": "5d77d5801517f84bde767f70ebdee35e"
+  },
+  "c2.1/src/build_machine_freecad.py": {
+    "mtime": 1789962588.371719,
+    "seen": 1789965001.6320179,
+    "ast_hash": "9c34dd0ffeb7987cb94b71c1175a2556",
+    "semantic_hash": "9c34dd0ffeb7987cb94b71c1175a2556"
+  },
+  "c2.1/src/build_machine_integration.py": {
+    "mtime": 1789962588.371719,
+    "seen": 1789965001.632019,
+    "ast_hash": "3e0223837107cdc81bb39ffdd18ed85d",
+    "semantic_hash": "3e0223837107cdc81bb39ffdd18ed85d"
+  },
+  "c2.1/src/build_machine_wiring.py": {
+    "mtime": 1789963749.8807442,
+    "seen": 1789965001.6320198,
+    "ast_hash": "a8d6c5a660c2aef9cb688ac8d5c666f1",
+    "semantic_hash": "a8d6c5a660c2aef9cb688ac8d5c666f1"
+  },
+  "c2.1/src/build_p6_drawings.py": {
+    "mtime": 1789964050.6094403,
+    "seen": 1789965001.6320205,
+    "ast_hash": "ccff94b9269874d53c683001334801e3",
+    "semantic_hash": "ccff94b9269874d53c683001334801e3"
+  },
+  "c2.1/src/build_release_manifest.py": {
+    "mtime": 1789964145.4587536,
+    "seen": 1789965001.6320214,
+    "ast_hash": "c534ea956f97ab1d3ad9f4290081ecbb",
+    "semantic_hash": "c534ea956f97ab1d3ad9f4290081ecbb"
+  },
+  "c2.1/src/build_system_bom.py": {
+    "mtime": 1789962990.7821984,
+    "seen": 1789965001.6320224,
+    "ast_hash": "8ce960259e5eaf284f1deb95640cd1ab",
+    "semantic_hash": "8ce960259e5eaf284f1deb95640cd1ab"
+  },
+  "c2.1/docs/ASSEMBLY_SERVICE_KO.md": {
+    "mtime": 1789964287.1797194,
+    "seen": 1789965001.632083,
+    "ast_hash": "9cab1e4e21e5c9823fecac01a588f984",
+    "semantic_hash": "9cab1e4e21e5c9823fecac01a588f984"
+  },
+  "c2.1/docs/OPEN_ACTIONS_KO.md": {
+    "mtime": 1789964287.1797194,
+    "seen": 1789965001.6320853,
+    "ast_hash": "8e2cd78c185bd0fc9cd53764126895ef",
+    "semantic_hash": "8e2cd78c185bd0fc9cd53764126895ef"
+  },
+  "c2.1/drawings/PPR_C2_1_P6_nominal_plate_review.pdf": {
+    "mtime": 1789964056.0518105,
+    "seen": 1789965001.632088,
+    "ast_hash": "ac0d63716e5df5193963775f2ab2a9c3",
+    "semantic_hash": "ac0d63716e5df5193963775f2ab2a9c3"
+  },
+  "c2.1/electrical/PPR_C2_1_machine_wiring.pdf": {
+    "mtime": 1789963763.5123792,
+    "seen": 1789965001.632089,
+    "ast_hash": "1a4a5ce1be47452288cd8e730099f719",
+    "semantic_hash": "1a4a5ce1be47452288cd8e730099f719"
   }
 }

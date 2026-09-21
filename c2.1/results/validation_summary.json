@@ -1,68 +1,46 @@
 {
-  "revision": "C2.1",
+  "revision": "C2.1-P6",
   "date": "2026-09-21",
-  "branch": "codex/c2.1-s2-transmission-20260921",
-  "baseline": "8e4b44ed8883b0fe84311c55e2fd4caef7cb60e8",
-  "overall": "DIGITAL_INTEGRATION_PASS_RATING_AND_PERFORMANCE_HOLD",
-  "mechanism": {
-    "drive_dof": 1,
-    "input_rpm": 120.0,
-    "output_rpm": -15.0,
-    "nominal_q": 8,
-    "eccentric_mm": 7.0,
-    "process_reference_width_mm": 40.0,
-    "coupling_relative_speed_mm_s": 98.96016858807846,
-    "loaded_contact": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD"
+  "overall": "DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD",
+  "stages": {
+    "P0": "DYNAMIC_EVIDENCE_VERIFIER_PASS",
+    "P1": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD",
+    "P2": "KINEMATIC_DIGITAL_PASS_NOT_FABRICATION_RELEASE",
+    "P3": "INCOMPLETE_AND_KNOWN_MOTOR_FLOOR_EXCEEDS_TOTAL_SOFT_BUDGET",
+    "P4": "UNCALIBRATED_COUPON_SOLVER_RUN_NOT_SHREDDING_PERFORMANCE",
+    "P5": "UNCALIBRATED_DIGITAL_SENSITIVITY_AND_CONTROL_LOGIC_ONLY",
+    "P6": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
   },
-  "numerical": {
-    "cases": 9,
-    "q_values": [6, 8, 16],
-    "eccentric_values_mm": [7.0, 10.0, 14.0],
-    "all_cases_passed": true,
-    "max_velocity_fd_error_mm_s": 2.658941151015445e-08,
-    "full_marked_point_turns_checked_per_case": "q",
-    "virtual_work_residual_W": 0.0,
-    "rotor_force_power_residual_W": -4.440892098500626e-16
+  "machine": {
+    "assembly_objects": 196,
+    "reimported_solids": 196,
+    "interface_collision_passed": true,
+    "body_passed": true,
+    "operating_envelope_passed": true,
+    "native_freecad_objects": 156,
+    "native_freecad_valid_objects": 156
   },
-  "cad": {
-    "static_all_pair": {"method": "BREP_EXACT_AFTER_BBOX", "pair_checks": 820, "passed": true},
-    "dynamic": {"method": "BREP_SAMPLED_AFTER_BBOX_NOT_CONTINUOUS_EXHAUSTIVE", "input_turns": 8, "positions": 33, "pair_checks": 11360, "unexpected_collisions": 0},
-    "continuous_bounds": {"method": "CONSERVATIVE_ANALYTICAL_ENVELOPE_ALL_PHASES", "passed": true},
-    "functional_pin": {"method": "SAMPLED_721_ORBIT_POSITIONS_1440_PROFILE_POINTS", "minimum_clearance_mm": 0.14264750478040078, "passed": true},
-    "cad_numeric_frame_error_mm": 4.440892098500626e-16,
-    "assembly_objects": 41,
-    "reimported_solids": 41
+  "package": {
+    "bom_rows": 135,
+    "known_cost_rows": 11,
+    "unknown_cost_rows": 124,
+    "wiring_components": 43,
+    "wiring_pins": 174,
+    "wiring_nets": 67,
+    "firmware_host_cases": 11,
+    "drawing_status": "NOMINAL_RFQ_REVIEW_ONLY_FABRICATION_RELEASE_HOLD"
   },
-  "artifacts": {
-    "assembly_step": {"sha256": "9ddfe323c24a46988cef5d43ef3d4c79292f2386ad6002a6780f14d01adec879", "reimport_valid": true},
-    "exploded_step": {"sha256": "f98f39740ccc477d1f7a8b04905dc333e7f86036049f767fe4a674fbe89b6bd2", "reimport_valid": true},
-    "transmission_py_sha256": "dd832f90ee3d9932fd9598176b19061afb752d01536738576f1bcc5e34e86882",
-    "build_cad_py_sha256": "01f3da45dcadb625cf90772adf1a44e673519f51fadf3367e17f97a7a95b406d",
-    "test_sha256": "e1930bb37c8bb2e1e4baa55aaba329059b42c11136b3e69322e6b26a6b490650"
+  "performance": {
+    "status": "BLOCKED_PERFORMANCE_DATA",
+    "measured_runs": 0,
+    "calibrated_training_records": 0
   },
-  "commands": [
-    {"command": ".codex-run/review-env/bin/python validation/pre_push.py", "return_code": 0, "tests": "14/14"},
-    {"command": ".codex-run/review-env/bin/python c2/src/run_study.py", "return_code": 0},
-    {"command": ".codex-run/review-env/bin/python -m unittest discover -s c2/tests -v", "return_code": 0, "tests": "59/59"},
-    {"command": ".codex-run/review-env/bin/python c2/src/verify_artifacts.py", "return_code": 0},
-    {"command": ".codex-run/review-env/bin/python c2/solver/run_coupon_fe.py", "return_code": 0, "cases": "9/9"},
-    {"command": ".codex-run/review-env/bin/python c2.1/src/transmission.py", "return_code": 0},
-    {"command": ".codex-run/review-env/bin/python -m unittest discover -s c2.1/tests -v", "return_code": 0, "tests": "11/11"},
-    {"command": ".codex-run/cad-env/bin/python c2.1/src/build_cad.py", "return_code": 0},
-    {"command": ".codex-run/review-env/bin/python c2.1/src/verify_artifacts.py", "return_code": 0}
-  ],
-  "holds": [
-    "motor_selection",
-    "elastic_output_contact_sharing_pressure_wear_and_rating",
-    "bearing_shaft_fastener_and_axial_retention_rating",
-    "screen_attachment_size_calibration_and_sensor_response",
-    "thermal_interface_fins_airflow_and_temperature_validation",
-    "full_machine_and_continuous_BRep_collision",
-    "material_breakage_performance_and_calibrated_DEM",
-    "complete_landed_cost",
-    "procurement_fabrication_energization"
-  ],
-  "fabrication": "HOLD",
-  "procurement": "HOLD",
-  "energization": "HOLD"
+  "release_boundary": {
+    "procurement": "HOLD",
+    "fabrication": "HOLD",
+    "energization": "HOLD",
+    "target_firmware_cross_compile": "DID_NOT_RUN",
+    "firmware_flash": "DID_NOT_RUN",
+    "physical_tests": "DID_NOT_RUN"
+  }
 }
