@@ -1,0 +1,50 @@
+{
+  "schema": "r02_d1/1",
+  "backend": "ISAAC_PHYSX",
+  "isaac_version": "6.1.0.0",
+  "isaac_runtime_version": "UNKNOWN",
+  "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+  "python": "/home/monad/env_isaacsim-c22/bin/python",
+  "module_paths": {
+    "contact_sensor": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.sensors.experimental.physics/isaacsim/sensors/experimental/physics/impl/contact_sensor.py",
+    "contact_authoring": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.sensors.experimental.physics/isaacsim/sensors/experimental/physics/impl/contact.py",
+    "sensor_common": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.sensors.experimental.physics/isaacsim/sensors/experimental/physics/impl/common.py",
+    "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py"
+  },
+  "contact_api": {
+    "reading": "ContactSensorReading{value[N scalar], time[s], is_valid, in_contact}",
+    "frame": "get_data(){in_contact, force[N scalar], time, physics_step, number_of_contacts} + raw contacts after add_raw_contact_data_to_frame()",
+    "raw_keys": [
+      "body0",
+      "body1",
+      "position",
+      "normal",
+      "impulse",
+      "time",
+      "dt"
+    ],
+    "impulse_semantics": "vector N s per contact; sum |J| ONCE; F[N]=|J|/dt_contact",
+    "normal": "unit contact normal",
+    "position": "contact position [m]",
+    "bodies": "int handles -> PhysicsSchemaTools.intToSdfPath"
+  },
+  "scene": "/World/DIAGNOSTIC_FIXTURE",
+  "control": "nocontact",
+  "mass_kg": 2.0,
+  "gravity": 9.81,
+  "physics_dt_s": 0.005,
+  "dt_readback_s": 0.005,
+  "dt_source_mapping": "SimulationManager.set_physics_dt(0.005) once pre-play; advance via SimulationManager.step(steps=1)",
+  "substeps": 200,
+  "settle_steps": 0,
+  "support_impulse_Ns": 0.0,
+  "expected_mgT_Ns": 0.0,
+  "relative_error": null,
+  "within_5pct": null,
+  "nophysics_reading_Ns": 0.0,
+  "invalid_samples": 0,
+  "scene_sha256": "fe447c1f1aab2629d081c9ae4b7ed7ba14109a0ec1d35a0b8f28d3edc89267a8",
+  "status": "RUN_OK",
+  "verdict": "IMPLEMENTED",
+  "failures": []
+}

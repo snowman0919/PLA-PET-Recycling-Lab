@@ -1,0 +1,247 @@
+{
+  "schema": "r02_d2_agg/1",
+  "backend": "ISAAC_PHYSX",
+  "runs": {
+    "0.01": {
+      "schema": "r02_d2/1",
+      "backend": "ISAAC_PHYSX",
+      "isaac_version": "6.1.0.0",
+      "isaac_runtime_version": "UNKNOWN",
+      "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+      "python": "/home/monad/env_isaacsim-c22/bin/python",
+      "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py",
+      "scene": "/World/DIAGNOSTIC_FIXTURE",
+      "physics_dt_s": 0.01,
+      "dt_readback_s": 0.01,
+      "dt_source_mapping": "SimulationManager.set_physics_dt(0.01) once pre-play; advance via SimulationManager.step(steps=1)",
+      "torque_definition": "tau_contact = dot(sum(cross(p_i - o, F_on_shaft_i)), a); shaft contacts only; action-reaction signs; counter-rotating shafts separate",
+      "kinematic_boundary": "signed work ON body = dot(J_on_body, v_point); stationary boundary -> 0",
+      "dynamic_shaft": "UNAVAILABLE: no articulation joint/drive/joint-effort readout on the kinematic-pose path; not estimated",
+      "axis_origin": [
+        2.0,
+        0.0,
+        0.5
+      ],
+      "axis_dir": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "cutter_work_J": 0.0,
+      "support_impulse_Ns": 19.619999434798988,
+      "legacy_RsumF_diagnostics_only": 3.162730710804487,
+      "energy_t0t1": {
+        "t0_s": 3.03,
+        "t1_s": 4.03,
+        "shared": true,
+        "mass_kg": 2.0,
+        "inertia_box": 0.0008333333333333335,
+        "pos_t1_m": [
+          5.986082669551251e-07,
+          -7.173356948442233e-07,
+          0.02500000409781933
+        ],
+        "vel_t1_m_s": [
+          0.0001418719912180677,
+          1.2619420886039734e-07,
+          -0.0001650659687584266
+        ],
+        "angvel_t1_rad_s": [
+          0.0009650358115322888,
+          0.005986820440739393,
+          -1.2750530913763214e-05
+        ],
+        "ke_trans_J": 4.73744518593157e-08,
+        "ke_rot_J": 1.532228153468058e-08,
+        "pe_grav_J": 0.4905000803992152
+      },
+      "ledger": "PARTIAL",
+      "residual": "residual_unclassified (never heat/fracture)",
+      "scene_sha256": "250670754926986c39c1f0e726ee91a160a879b5c057e2e73508c83eeda25c4e",
+      "status": "RUN_OK",
+      "verdict": "IMPLEMENTED",
+      "failures": []
+    },
+    "0.005": {
+      "schema": "r02_d2/1",
+      "backend": "ISAAC_PHYSX",
+      "isaac_version": "6.1.0.0",
+      "isaac_runtime_version": "UNKNOWN",
+      "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+      "python": "/home/monad/env_isaacsim-c22/bin/python",
+      "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py",
+      "scene": "/World/DIAGNOSTIC_FIXTURE",
+      "physics_dt_s": 0.005,
+      "dt_readback_s": 0.005,
+      "dt_source_mapping": "SimulationManager.set_physics_dt(0.005) once pre-play; advance via SimulationManager.step(steps=1)",
+      "torque_definition": "tau_contact = dot(sum(cross(p_i - o, F_on_shaft_i)), a); shaft contacts only; action-reaction signs; counter-rotating shafts separate",
+      "kinematic_boundary": "signed work ON body = dot(J_on_body, v_point); stationary boundary -> 0",
+      "dynamic_shaft": "UNAVAILABLE: no articulation joint/drive/joint-effort readout on the kinematic-pose path; not estimated",
+      "axis_origin": [
+        2.0,
+        0.0,
+        0.5
+      ],
+      "axis_dir": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "cutter_work_J": 0.0,
+      "support_impulse_Ns": 19.619999663904327,
+      "legacy_RsumF_diagnostics_only": 1.9816136192530542,
+      "energy_t0t1": {
+        "t0_s": 1.525,
+        "t1_s": 2.525,
+        "shared": true,
+        "mass_kg": 2.0,
+        "inertia_box": 0.0008333333333333335,
+        "pos_t1_m": [
+          1.5234651584705716e-07,
+          -1.7202276580974285e-07,
+          0.02500000223517418
+        ],
+        "vel_t1_m_s": [
+          4.098509452887811e-05,
+          2.6424764655530453e-05,
+          -7.92305072536692e-05
+        ],
+        "angvel_t1_rad_s": [
+          1.7434060282539576e-05,
+          0.0025470966938883066,
+          -6.556991138495505e-06
+        ],
+        "ke_trans_J": 8.655519440314974e-09,
+        "ke_rot_J": 2.703353545253112e-09,
+        "pe_grav_J": 0.49050004385411744
+      },
+      "ledger": "PARTIAL",
+      "residual": "residual_unclassified (never heat/fracture)",
+      "scene_sha256": "250670754926986c39c1f0e726ee91a160a879b5c057e2e73508c83eeda25c4e",
+      "status": "RUN_OK",
+      "verdict": "IMPLEMENTED",
+      "failures": []
+    },
+    "0.0025": {
+      "schema": "r02_d2/1",
+      "backend": "ISAAC_PHYSX",
+      "isaac_version": "6.1.0.0",
+      "isaac_runtime_version": "UNKNOWN",
+      "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+      "python": "/home/monad/env_isaacsim-c22/bin/python",
+      "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py",
+      "scene": "/World/DIAGNOSTIC_FIXTURE",
+      "physics_dt_s": 0.0025,
+      "dt_readback_s": 0.0025,
+      "dt_source_mapping": "SimulationManager.set_physics_dt(0.0025) once pre-play; advance via SimulationManager.step(steps=1)",
+      "torque_definition": "tau_contact = dot(sum(cross(p_i - o, F_on_shaft_i)), a); shaft contacts only; action-reaction signs; counter-rotating shafts separate",
+      "kinematic_boundary": "signed work ON body = dot(J_on_body, v_point); stationary boundary -> 0",
+      "dynamic_shaft": "UNAVAILABLE: no articulation joint/drive/joint-effort readout on the kinematic-pose path; not estimated",
+      "axis_origin": [
+        2.0,
+        0.0,
+        0.5
+      ],
+      "axis_dir": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "cutter_work_J": 0.0,
+      "support_impulse_Ns": 19.619998858310293,
+      "legacy_RsumF_diagnostics_only": 1.3890930065140195,
+      "energy_t0t1": {
+        "t0_s": 0.77,
+        "t1_s": 1.77,
+        "shared": true,
+        "mass_kg": 2.0,
+        "inertia_box": 0.0008333333333333335,
+        "pos_t1_m": [
+          4.155504740310789e-08,
+          -4.080879634216217e-08,
+          0.02499999850988388
+        ],
+        "vel_t1_m_s": [
+          2.851898898370564e-06,
+          2.8579004720086232e-05,
+          -3.690789162646979e-05
+        ],
+        "angvel_t1_rad_s": [
+          -0.00026802843785844743,
+          0.0009894093964248896,
+          -3.4544239042588742e-06
+        ],
+        "ke_trans_J": 2.1870853024284773e-09,
+        "ke_rot_J": 4.3782588761633934e-10,
+        "pe_grav_J": 0.49049997076392177
+      },
+      "ledger": "PARTIAL",
+      "residual": "residual_unclassified (never heat/fracture)",
+      "scene_sha256": "250670754926986c39c1f0e726ee91a160a879b5c057e2e73508c83eeda25c4e",
+      "status": "RUN_OK",
+      "verdict": "IMPLEMENTED",
+      "failures": []
+    },
+    "0.00125": {
+      "schema": "r02_d2/1",
+      "backend": "ISAAC_PHYSX",
+      "isaac_version": "6.1.0.0",
+      "isaac_runtime_version": "UNKNOWN",
+      "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+      "python": "/home/monad/env_isaacsim-c22/bin/python",
+      "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py",
+      "scene": "/World/DIAGNOSTIC_FIXTURE",
+      "physics_dt_s": 0.00125,
+      "dt_readback_s": 0.00125,
+      "dt_source_mapping": "SimulationManager.set_physics_dt(0.00125) once pre-play; advance via SimulationManager.step(steps=1)",
+      "torque_definition": "tau_contact = dot(sum(cross(p_i - o, F_on_shaft_i)), a); shaft contacts only; action-reaction signs; counter-rotating shafts separate",
+      "kinematic_boundary": "signed work ON body = dot(J_on_body, v_point); stationary boundary -> 0",
+      "dynamic_shaft": "UNAVAILABLE: no articulation joint/drive/joint-effort readout on the kinematic-pose path; not estimated",
+      "axis_origin": [
+        2.0,
+        0.0,
+        0.5
+      ],
+      "axis_dir": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "cutter_work_J": 0.0,
+      "support_impulse_Ns": 19.61999863060192,
+      "legacy_RsumF_diagnostics_only": 1.0938133729808073,
+      "energy_t0t1": {
+        "t0_s": 0.39375,
+        "t1_s": 1.39375,
+        "shared": true,
+        "mass_kg": 2.0,
+        "inertia_box": 0.0008333333333333335,
+        "pos_t1_m": [
+          1.3020159173038337e-08,
+          -1.0269073591473443e-08,
+          0.025000007823109627
+        ],
+        "vel_t1_m_s": [
+          5.069566213933285e-06,
+          1.2259672075742856e-05,
+          -1.99289479496656e-05
+        ],
+        "angvel_t1_rad_s": [
+          -8.06857060524635e-05,
+          0.0004951319424435496,
+          -5.319694537320174e-06
+        ],
+        "ke_trans_J": 5.731630273826837e-10,
+        "ke_rot_J": 1.0487255114128232e-10,
+        "pe_grav_J": 0.4905001534894109
+      },
+      "ledger": "PARTIAL",
+      "residual": "residual_unclassified (never heat/fracture)",
+      "scene_sha256": "250670754926986c39c1f0e726ee91a160a879b5c057e2e73508c83eeda25c4e",
+      "status": "RUN_OK",
+      "verdict": "IMPLEMENTED",
+      "failures": []
+    }
+  },
+  "verdict": "IMPLEMENTED"
+}

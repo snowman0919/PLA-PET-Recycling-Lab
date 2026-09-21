@@ -1,0 +1,144 @@
+{
+  "schema": "r02_d0_agg/1",
+  "backend": "ISAAC_PHYSX",
+  "measured_interval_s": 2.4,
+  "runs": {
+    "0.01": {
+      "schema": "r02_d0/1",
+      "backend": "ISAAC_PHYSX",
+      "isaac_version": "6.1.0.0",
+      "isaac_runtime_version": "UNKNOWN",
+      "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+      "python": "/home/monad/env_isaacsim-c22/bin/python",
+      "module_paths": {
+        "contact_sensor": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.sensors.experimental.physics/isaacsim/sensors/experimental/physics/impl/contact_sensor.py",
+        "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py"
+      },
+      "scene": "/World/DIAGNOSTIC_FIXTURE",
+      "physics_dt_s": 0.01,
+      "dt_readback_s": 0.01,
+      "dt_source_mapping": "SimulationManager.set_physics_dt(0.01) once pre-play; advance via SimulationManager.step(steps=1), exactly one physics step per call (sim.update() is render-driven and not used)",
+      "substeps": 240,
+      "warmup_steps": 120,
+      "n0": 123,
+      "t0_s": 1.23,
+      "n1": 363,
+      "t1_s": 3.63,
+      "observed_duration_s": 2.4,
+      "expected_duration_s": 2.4,
+      "duration_within_1e_6": true,
+      "substep_count_demonstrated": true,
+      "callback_dt_values": [
+        0.009999999776
+      ],
+      "dup_fires_ignored": 0,
+      "scene_sha256": "18b1d1ff94ebfcd2a06fe64465ee7ffa37ac68967fcbbf93ea063ae29c31a023",
+      "status": "RUN_OK",
+      "verdict": "IMPLEMENTED",
+      "failures": []
+    },
+    "0.005": {
+      "schema": "r02_d0/1",
+      "backend": "ISAAC_PHYSX",
+      "isaac_version": "6.1.0.0",
+      "isaac_runtime_version": "UNKNOWN",
+      "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+      "python": "/home/monad/env_isaacsim-c22/bin/python",
+      "module_paths": {
+        "contact_sensor": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.sensors.experimental.physics/isaacsim/sensors/experimental/physics/impl/contact_sensor.py",
+        "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py"
+      },
+      "scene": "/World/DIAGNOSTIC_FIXTURE",
+      "physics_dt_s": 0.005,
+      "dt_readback_s": 0.005,
+      "dt_source_mapping": "SimulationManager.set_physics_dt(0.005) once pre-play; advance via SimulationManager.step(steps=1), exactly one physics step per call (sim.update() is render-driven and not used)",
+      "substeps": 480,
+      "warmup_steps": 120,
+      "n0": 125,
+      "t0_s": 0.625,
+      "n1": 605,
+      "t1_s": 3.025,
+      "observed_duration_s": 2.4,
+      "expected_duration_s": 2.4,
+      "duration_within_1e_6": true,
+      "substep_count_demonstrated": true,
+      "callback_dt_values": [
+        0.004999999888
+      ],
+      "dup_fires_ignored": 0,
+      "scene_sha256": "18b1d1ff94ebfcd2a06fe64465ee7ffa37ac68967fcbbf93ea063ae29c31a023",
+      "status": "RUN_OK",
+      "verdict": "IMPLEMENTED",
+      "failures": []
+    },
+    "0.0025": {
+      "schema": "r02_d0/1",
+      "backend": "ISAAC_PHYSX",
+      "isaac_version": "6.1.0.0",
+      "isaac_runtime_version": "UNKNOWN",
+      "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+      "python": "/home/monad/env_isaacsim-c22/bin/python",
+      "module_paths": {
+        "contact_sensor": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.sensors.experimental.physics/isaacsim/sensors/experimental/physics/impl/contact_sensor.py",
+        "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py"
+      },
+      "scene": "/World/DIAGNOSTIC_FIXTURE",
+      "physics_dt_s": 0.0025,
+      "dt_readback_s": 0.0025,
+      "dt_source_mapping": "SimulationManager.set_physics_dt(0.0025) once pre-play; advance via SimulationManager.step(steps=1), exactly one physics step per call (sim.update() is render-driven and not used)",
+      "substeps": 960,
+      "warmup_steps": 120,
+      "n0": 128,
+      "t0_s": 0.32,
+      "n1": 1088,
+      "t1_s": 2.72,
+      "observed_duration_s": 2.4000000000000004,
+      "expected_duration_s": 2.4,
+      "duration_within_1e_6": true,
+      "substep_count_demonstrated": true,
+      "callback_dt_values": [
+        0.002499999944
+      ],
+      "dup_fires_ignored": 0,
+      "scene_sha256": "18b1d1ff94ebfcd2a06fe64465ee7ffa37ac68967fcbbf93ea063ae29c31a023",
+      "status": "RUN_OK",
+      "verdict": "IMPLEMENTED",
+      "failures": []
+    },
+    "0.00125": {
+      "schema": "r02_d0/1",
+      "backend": "ISAAC_PHYSX",
+      "isaac_version": "6.1.0.0",
+      "isaac_runtime_version": "UNKNOWN",
+      "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+      "python": "/home/monad/env_isaacsim-c22/bin/python",
+      "module_paths": {
+        "contact_sensor": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.sensors.experimental.physics/isaacsim/sensors/experimental/physics/impl/contact_sensor.py",
+        "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py"
+      },
+      "scene": "/World/DIAGNOSTIC_FIXTURE",
+      "physics_dt_s": 0.00125,
+      "dt_readback_s": 0.00125,
+      "dt_source_mapping": "SimulationManager.set_physics_dt(0.00125) once pre-play; advance via SimulationManager.step(steps=1), exactly one physics step per call (sim.update() is render-driven and not used)",
+      "substeps": 1920,
+      "warmup_steps": 120,
+      "n0": 135,
+      "t0_s": 0.16875,
+      "n1": 2055,
+      "t1_s": 2.56875,
+      "observed_duration_s": 2.4,
+      "expected_duration_s": 2.4,
+      "duration_within_1e_6": true,
+      "substep_count_demonstrated": true,
+      "callback_dt_values": [
+        0.001249999972
+      ],
+      "dup_fires_ignored": 0,
+      "scene_sha256": "18b1d1ff94ebfcd2a06fe64465ee7ffa37ac68967fcbbf93ea063ae29c31a023",
+      "status": "RUN_OK",
+      "verdict": "IMPLEMENTED",
+      "failures": []
+    }
+  },
+  "verdict": "IMPLEMENTED"
+}
