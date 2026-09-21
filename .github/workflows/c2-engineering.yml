@@ -20,6 +20,9 @@ jobs:
       - run: python c2/src/train_performance.py --backend gp
       - run: python c2/src/train_performance.py --backend mlp --out c2/results/mlp_run
       - run: python c2/src/verify_artifacts.py
+      - run: python c2.1/src/transmission.py
+      - run: python -m unittest discover -s c2.1/tests -v
+      - run: python c2.1/src/verify_artifacts.py
       - name: C2 is not hardware approval
         run: |
           python - <<'PY'

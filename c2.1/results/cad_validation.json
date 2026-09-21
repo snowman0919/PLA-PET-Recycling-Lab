@@ -1,0 +1,178 @@
+{
+  "revision": "C2.1",
+  "status": "KINEMATIC_DIGITAL_PASS_NOT_FABRICATION_RELEASE",
+  "assembly": {
+    "file": "c2.1/cad/PPR_C2_1_S2_transmission.step",
+    "labels": [
+      "FRONT_INPUT_SUPPORT",
+      "REAR_OUTPUT_SUPPORT",
+      "INPUT_BEARING_ENVELOPE_UNRATED",
+      "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "FRONT_FIXED_RING_PLATE",
+      "REAR_FIXED_RING_PLATE",
+      "FIXED_SHEAR_INSERT_HOLD",
+      "SCREEN_SOLID_ENVELOPE_HOLD",
+      "THERMAL_SPREADER_ENVELOPE_HOLD",
+      "GUARD_SECTION_ENVELOPE_HOLD",
+      "FIXED_RING_PIN_1",
+      "FIXED_RING_PIN_2",
+      "FIXED_RING_PIN_3",
+      "FIXED_RING_PIN_4",
+      "FIXED_RING_PIN_5",
+      "FIXED_RING_PIN_6",
+      "FIXED_RING_PIN_7",
+      "FIXED_RING_PIN_8",
+      "FIXED_RING_PIN_9",
+      "SUPPORT_TIE_1",
+      "SUPPORT_TIE_2",
+      "SUPPORT_TIE_3",
+      "SUPPORT_TIE_4",
+      "INPUT_ECCENTRIC_SHAFT",
+      "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "OUTPUT_ROLLER_1",
+      "OUTPUT_ROLLER_2",
+      "OUTPUT_ROLLER_3",
+      "OUTPUT_ROLLER_4",
+      "OUTPUT_ROLLER_5",
+      "OUTPUT_ROLLER_6"
+    ],
+    "object_count": 33,
+    "reimported_solid_count": 33,
+    "sha256": "10f991b68afee8128a9e9c3d6061c5f4a6907a63f76ea857601bc8e6120b37f6",
+    "step_reimport_valid": true
+  },
+  "exploded": {
+    "file": "c2.1/cad/PPR_C2_1_S2_transmission_exploded.step",
+    "labels": [
+      "FRONT_INPUT_SUPPORT",
+      "REAR_OUTPUT_SUPPORT",
+      "INPUT_BEARING_ENVELOPE_UNRATED",
+      "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "FRONT_FIXED_RING_PLATE",
+      "REAR_FIXED_RING_PLATE",
+      "FIXED_SHEAR_INSERT_HOLD",
+      "SCREEN_SOLID_ENVELOPE_HOLD",
+      "THERMAL_SPREADER_ENVELOPE_HOLD",
+      "GUARD_SECTION_ENVELOPE_HOLD",
+      "FIXED_RING_PIN_1",
+      "FIXED_RING_PIN_2",
+      "FIXED_RING_PIN_3",
+      "FIXED_RING_PIN_4",
+      "FIXED_RING_PIN_5",
+      "FIXED_RING_PIN_6",
+      "FIXED_RING_PIN_7",
+      "FIXED_RING_PIN_8",
+      "FIXED_RING_PIN_9",
+      "SUPPORT_TIE_1",
+      "SUPPORT_TIE_2",
+      "SUPPORT_TIE_3",
+      "SUPPORT_TIE_4",
+      "INPUT_ECCENTRIC_SHAFT",
+      "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "OUTPUT_ROLLER_1",
+      "OUTPUT_ROLLER_2",
+      "OUTPUT_ROLLER_3",
+      "OUTPUT_ROLLER_4",
+      "OUTPUT_ROLLER_5",
+      "OUTPUT_ROLLER_6"
+    ],
+    "object_count": 33,
+    "reimported_solid_count": 33,
+    "sha256": "016840469b97459e7457157cdb87e2a439fe73c91c133aa56685d886a451a10d",
+    "step_reimport_valid": true
+  },
+  "cad_numeric_frame_check": {
+    "theta_rad": 1.5707963267948966,
+    "local_point_xz_mm": [
+      50,
+      0
+    ],
+    "cad_center_xz_mm": [
+      49.039264020161525,
+      -2.7545161008064123
+    ],
+    "numerical_xz_mm": [
+      49.039264020161525,
+      -2.7545161008064127
+    ],
+    "error_mm": 4.440892098500626e-16,
+    "passed": true
+  },
+  "process_reference_width_mm": 40,
+  "sampled_input_turns": 8,
+  "static_all_pair": {
+    "method": "BREP_EXACT_AFTER_BBOX",
+    "pair_checks": 528,
+    "passed": true
+  },
+  "dynamic_collision": {
+    "method": "BREP_SAMPLED_AFTER_BBOX_NOT_CONTINUOUS_EXHAUSTIVE",
+    "executed": true,
+    "positions_over_q_turns": 33,
+    "pair_checks": 8800
+  },
+  "continuous_analytical_bounds": {
+    "method": "CONSERVATIVE_ANALYTICAL_ENVELOPE_CONTINUOUS_ALL_PHASES",
+    "checks": {
+      "hook_to_shear_radial_mm": 0.7999999999999972,
+      "hook_to_screen_inner_radius_mm": 0.7999999999999972,
+      "hook_to_thermal_inner_radius_mm": 4.200000000000003,
+      "rear_ring_to_process_axial_mm": 2.0,
+      "process_to_coupling_axial_mm": 2.0,
+      "nominal_roller_window_clearance_mm": 0.2
+    },
+    "passed": true,
+    "limitations": [
+      "does_not_prove_loaded_contact",
+      "does_not_replace_BRep_for_non_radial_parts"
+    ]
+  },
+  "functional_pin_clearance": {
+    "candidate_id": "C1-SEED",
+    "valid_profile": true,
+    "passed": true,
+    "minimum_sampled_pin_clearance_mm": 0.14264750478040078,
+    "pin_R_mm": 72.0,
+    "fixed_pins": 9,
+    "lobes": 8,
+    "profile_samples": 1440,
+    "orbit_positions": 721,
+    "evidence": "KINEMATIC_CLEARANCE_NOT_CONTACT_STRESS_OR_WEAR",
+    "pin_plate_od_mm": 170.0,
+    "backlash_and_contact_capacity": "NOT_QUALIFIED",
+    "coverage_note": "721 positions over one orbit; q/lobe symmetry repeats contact geometry, not marked hook geometry"
+  },
+  "unexpected_collision_count": 0,
+  "collision_details": [],
+  "interfaces": {
+    "cad_rotor": "single fused envelope; physical bolts, axial retention and fits are absent/HOLD",
+    "output_carrier": "unpowered reverse-rotation witness/load-extraction candidate",
+    "nominal_clearance": "non-interference only; loaded phase take-up/contact sharing HOLD",
+    "process_elements": "40mm transmission-fixture solid envelopes only; actual perforated screen, sensor bores/mounts and thermal interfaces are not integrated/HOLD"
+  },
+  "not_checked": [
+    "full_machine_collision",
+    "continuous_BRep_collision_between_samples",
+    "loaded_output_contact_transfer",
+    "gear_contact_stress",
+    "bearing_L10_life",
+    "roller_contact_pressure",
+    "shaft_fatigue",
+    "fastener_preload",
+    "axial_retention",
+    "seal_and_lubrication",
+    "actual_screen_perforations_and_mounts",
+    "sensor_integration",
+    "thermal_interface_and_airflow",
+    "guard_containment_strength",
+    "manufacturing_tolerance_stack",
+    "thermal_growth"
+  ],
+  "procurement": "HOLD",
+  "fabrication": "HOLD",
+  "energization": "HOLD"
+}

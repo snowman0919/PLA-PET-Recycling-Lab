@@ -1,0 +1,43 @@
+{
+  "revision": "C2.1",
+  "baseline": "c2/design/requirements.json",
+  "status": "ENGINEERING_ITERATION_NOT_FABRICATION_RELEASE",
+  "power": {"psu_V": 24, "psu_rated_W": 800, "operational_cap_W": 500},
+  "motors": {"shared_shredder_M1": 1, "extruder_M2": 1, "M1_selected": false},
+  "materials": ["PLA", "PET", "TPU"],
+  "body_limit_mm": [700, 420, 520],
+  "budget_soft_limit_KRW": 100000,
+  "budget_scope": "ALL_REMAINING_MACHINE_COST_NOT_MOTOR_ONLY; UNKNOWN_COST_IS_NOT_ZERO",
+  "mechanism": {
+    "selected": "ONE_DOF_FIXED_RING_CYCLOID_WITH_OUTPUT_PIN_ROLLERS",
+    "input": "M1 common-drive input shaft; +theta maps +X toward +Z and is physical rotation about -Y",
+    "output": "unpowered fixed-axis output witness/load-extraction candidate; phi=-theta/q, physically opposite input",
+    "carrier": "output pin carrier centered at F0 origin",
+    "fixed_reaction": "q+1 ring pins and metal front/rear support plates",
+    "rotor_connection": "single fused CAD envelope at E; required physical bolts, fits and axial retention are not modeled and remain HOLD",
+    "independent_drive_dof": 1,
+    "separate_S2_motor": false
+  },
+  "nominal_geometry": {
+    "q": 8,
+    "eccentric_mm": 7.0,
+    "rotor_tip_diameter_mm": 110.0,
+    "process_reference_width_mm": 40.0,
+    "axial_compartments_mm": {"cycloid_reaction": [-34, 2], "process": [4, 44], "coupling": [46, 60], "output_support_start": 64},
+    "chamber_diameter_mm": 125.6,
+    "output_pins": 6,
+    "output_pin_pitch_radius_mm": 38.0,
+    "output_roller_diameter_mm": 10.0,
+    "output_window_radius_mm": 12.2,
+    "coupling_diametral_stroke_mm": 14.0,
+    "coupling_radial_clearance_mm": 0.2,
+    "clearance_meaning": "NON_INTERFERENCE_ONLY_NOT_LOADED_ENGAGEMENT",
+    "relative_center_speed_at_120rpm_mm_s": 98.96016858807846,
+    "evidence": "E2_DETERMINISTIC_CAD_AND_KINEMATICS_NOT_LOAD_RATING",
+    "source": "c2.1/docs/ADR-001-S2-TRANSMISSION.md"
+  },
+  "ratings": {"coupling": "HOLD", "loaded_contact_transfer": "HOLD", "bearings": "HOLD", "shafts": "HOLD", "fasteners_and_axial_retention": "HOLD", "perforated_screen_sensor_thermal_integration": "HOLD"},
+  "performance_gate": "BLOCKED_PERFORMANCE_DATA",
+  "safety_retained": ["metal_load_support", "guard", "E-stop", "interlocks", "independent_overtemperature_cutoff"],
+  "deployment": {"procurement": "HOLD", "fabrication": "HOLD", "energization": "HOLD"}
+}

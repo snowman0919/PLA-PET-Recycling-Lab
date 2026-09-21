@@ -1,0 +1,20 @@
+item_id,description,qty,nominal_dimensions_mm,material_or_type,evidence,source,status,landed_cost_KRW,notes
+S2-IN-SHAFT,input shaft with eccentric crank,1,OD12; journal OD20; e7; overall95,C45 candidate,E2,C2.1-CAD,LOAD_RATING_HOLD,,Key/spline/fatigue/fit not released
+S2-IN-BEARING,input support bearing envelope,1,ID12; OD32; W12,MPN unselected,E0,C2.1-ADR,BEARING_RATING_HOLD,,Boundary only; speed/load/life/seal unknown
+S2-ECC-BEARING,eccentric rotor bearing envelope,1,ID20; OD32; W16,MPN unselected,E0,C2.1-ADR,BEARING_RATING_HOLD,,Boundary only; oscillating combined load unknown
+S2-CYC-ROTOR,fused CAD envelope for cycloid disc hook rotor and web,1,OD110 hook envelope; activeW40; overall envelopeW84,C45/tool insert concept,E2,C2.1-CAD,DFM_AND_STRESS_HOLD,,Physical bolts fits axial retention heat treatment tolerance and load are unmodeled
+S2-FIXED-PIN,fixed reaction ring pin,9,OD16; L24,hardened steel candidate,E2,C2.1-CAD,CONTACT_RATING_HOLD,,Pin/roller contact stress lubrication and retention unknown
+S2-RING-PLATE,fixed reaction plate,2,OD176; ID127; T6,steel candidate,E2,C2.1-CAD,STRESS_AND_DFM_HOLD,,6mm is a CAD assumption not an approved plate
+S2-OUT-CARRIER,output pin carrier and shaft,1,plate OD96 T8; shaft OD20,steel candidate,E2,C2.1-CAD,FATIGUE_AND_FIT_HOLD,,Fixed-axis output rotates -1/q
+S2-OUT-ROLLER,offset-accommodation roller envelope,6,ID6.2; OD10; L14,MPN unselected,E0,C2.1-ADR,COUPLING_RATING_HOLD,,Window R12.2 gives e7 plus0.2 nominal clearance only; loaded phase/contact sharing HOLD
+S2-OUT-BEARING,output shaft bearing envelope,1,ID20; OD42; W12,MPN unselected,E0,C2.1-ADR,BEARING_RATING_HOLD,,Boundary only; radial/axial load and life unknown
+S2-SUPPORT-PLATE,front/rear shaft support plate,2,170x170x8,steel candidate,E2,C2.1-CAD,FRAME_INTEGRATION_HOLD,,Whole-machine frame interfaces not checked
+S2-SUPPORT-TIE,metal support tie,4,10x10x136,steel candidate,E2,C2.1-CAD,FRAME_INTEGRATION_HOLD,,Weld/bolt details and buckling not checked
+S2-SHEAR,fixed shear insert reference,1,8x40x10,tool steel candidate,E1,C2-REQ,LOAD_THERMAL_HOLD,,Retention thermal path and edge treatment remain C2 requirements
+S2-SCREEN,screen section reference,1,R62.8-66; arc80deg; W40 solid envelope,steel candidate,E1,C2-REQ,SCREEN_CALIBRATION_HOLD,,Particle maximum size is not guaranteed
+S2-THERMAL,external thermal spreader section,1,R66.2-73; arc110deg; W40 solid envelope,aluminium candidate,E1,C2-REQ,THERMAL_CALIBRATION_HOLD,,No measured UA or material temperature claim
+S2-GUARD,guard section envelope,1,R90-94; arc140deg; L124,metal containment required,E0,C2-REQ,SAFETY_DESIGN_HOLD,,Envelope is not a complete or certified guard
+S2-FASTENERS,rotor/ring/support fasteners axial stops and retainers,1,unresolved,certified steel hardware required,E0,C2.1-ADR,HARDWARE_SCHEDULE_HOLD,,Not modeled; quantity grade preload fit retention and cost unknown
+S2-SCREEN-PERF,actual perforated screen and attachment,1,unresolved40mm active width,metal screen required,E0,C2-REQ,NOT_MODELED_HOLD,,CAD contains solid transmission-fixture envelope only
+S2-SENSORS,actual shear screen motor gear ambient sensors and mounts,1,unresolved,qualified sensors required,E0,C2-REQ,NOT_MODELED_HOLD,,No C2.1 sensor bores mounts wiring or response validation
+S2-THERMAL-IF,actual spreader interface fins and segregated airflow,1,unresolved,metal thermal path required,E0,C2-REQ,NOT_MODELED_HOLD,,CAD contains solid envelope; no measured UA or airflow integration
