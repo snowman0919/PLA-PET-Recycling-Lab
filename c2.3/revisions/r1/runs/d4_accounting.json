@@ -1,0 +1,31 @@
+{
+  "schema": "r03_d4_agg/1",
+  "backend": "ISAAC_PHYSX",
+  "verdict": "IMPLEMENTED",
+  "fault_injection": {
+    "actor_disappearance": {
+      "injected": "disabled body C",
+      "enabled_ids": [
+        "A",
+        "B"
+      ],
+      "detected": true
+    },
+    "duplicate_entry": {
+      "injected": "body B counted twice",
+      "trial_total": 5.5,
+      "instantiated_total": 3.5,
+      "detected": true
+    },
+    "altered_mass": {
+      "injected": "body B mass 2.0 -> 2.5 kg",
+      "readback_kg": {
+        "A": 1.0,
+        "B": 2.5,
+        "C": 0.5
+      },
+      "detected": true
+    }
+  },
+  "failures": []
+}

@@ -1,0 +1,54 @@
+name: C2.3 CPU contracts (analytic suites only)
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  c2-3-analytic:
+    runs-on: ubuntu-latest
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install "numpy==1.26.4"
+      - name: System-python analytic suites (no Isaac, no GPU)
+        run: |
+          python -m unittest discover -s c2.3/tests -v
+          python -m unittest discover -s c2.3/revisions/r1/diag -p "test_*.py" -v
+      - name: CONTRACT_R1 threshold freeze check
+        run: |
+          python - <<'PY'
+          import re
+          text = open('c2.3/revisions/r1/CONTRACT_R1.md').read()
+          frozen = {
+              'Shaft work: 5%.': 'shaft work 5%',
+              'Contact impulse: 5%.': 'contact impulse 5%',
+              'Residence time: 10%.': 'residence 10%',
+              'relative error <= 1e-6': 'mass 1e-6',
+              'Fragment / bond-break count: 10%': 'fragment/bond 10%',
+          }
+          for needle, label in frozen.items():
+              assert needle in text, 'threshold text changed: %s' % label
+          assert 'Thresholds frozen at R1' in text
+          print('CONTRACT_R1 thresholds frozen: 5/5/10/10/1e-6 present.')
+          PY
+      - name: Banned terminal-language grep (new R1 + C2.3 sources)
+        run: |
+          ! grep -rn -E "(^|[^_A-Za-z])(PASS|VALIDATED|COMPLETE|PRODUCTION_READY|FABRICATION_READY)([^_A-Za-z]|$)" c2.3/revisions/r1/diag/ c2.3/revisions/r1/DIAGNOSTIC_SUMMARY.md c2.3/revisions/r1/REVIEW_HANDOFF_KO.md c2.3/verify/ c2.3/sim/ c2.3/analysis/ --exclude-dir=__pycache__ || (echo 'banned terminal language found'; exit 1)
+          echo 'No banned terminal language in CPU-checked sources.'
+      - name: A4 verifier over existing artifacts (reads only, never runs Isaac)
+        run: |
+          python c2.3/verify/verify_contract.py
+      - name: GPU/Isaac runs are NOT in CI
+        run: |
+          echo 'GPU/Isaac diagnostics require authorized GPU execution evidence.'
+          echo 'Their absence here is a coverage boundary, never a success signal.'
+          echo 'No skip-as-success: this job asserts nothing about Isaac runs.'
