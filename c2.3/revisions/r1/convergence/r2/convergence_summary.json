@@ -1043,5 +1043,10 @@
     "Bond events are physics-driven: each inter-fragment joint accumulates |tau_shaft impulse|; threshold 0.02 N\u00b7m\u00b7s (UNCALIBRATED synthetic, declared in run_r2.py header); joint disabled when exceeded. NO scheduled breaks.",
     "R1 findings: break schedule was a step-index artifact (11/13 mismatch). R2 removes the scheduler entirely.",
     "R2 outcome: break/components converged (all 11/12); work and impulse do NOT converge within 5% \u2014 the metric is dominated by the initial drop transient whose per-step impulse magnitude is dt-dependent (contact phase at first shaft contact differs across dt; sign flips in tau_shaftA between coarse and fine dt confirm phase dependence, not integration error). Per goal \u00a723 no tuning was applied."
-  ]
+  ],
+  "ci_status": {
+    "C1": "success",
+    "C2.3_CPU_contracts": "success",
+    "C2_engineering": "failure \u2014 pre-existing runner-hardware last-ULP drift in c2/c2.1 artifact hashes (same class as R0.4/R1 history; R2 changed no c2/, c2.1/ or .github files; local pinned repro passes; assert weakening prohibited by goal \u00a729)"
+  }
 }
