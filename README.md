@@ -1,87 +1,36 @@
-# PPR C1 - Compact Detailed Engineering Baseline
+# PPR - C2 진행 중
 
-현재 기준은 **C1 상세설계**다. 분쇄용 공용 M1 한 개, 압출용 M2 한 개, 보유 24V 800W PSU와 500W 운전 전력 제한을 유지한다. **main 승격은 설계 기준의 변경이며 제작·구매·통전 승인이 아니다.** 구형 V0A의 400W 산업용 모터/1.2kW 전원 확장안을 사용하지 않는다.
+현재 개발 기준은 **C2.0**이다. 모터·최종 S2 형상·전체 원가·전체 제작도는 아직 미확정이다. **구매, 가공, 통전은 HOLD**다.
 
-## 산출물과 재현
+고정 제약: 보유24V800W PSU(240x120x65mm),500W 운전 cap, 공용 분쇄M1 한 개와 압출M2, PLA/PET/TPU, 전체 추가 구매/가공/배송/안전부품100,000원 soft limit, 본체700x420x520mm 상한.
 
-- `design/assembly.json`: 구멍·키홈·베어링 좌·금속 지지대·커터·실제 나선 스크루를 포함한 공통 형상 정의.
-- `src/design.py`, `src/supports.py`, `src/geometry.py`: 치수와 조립 좌표 원본.
-- `cad/PPR_C1_assembly.FCStd`: native FreeCAD 조립체. 구형 OCCT의 스크루 fuse 체적 불일치는 회전당64분할 평면 BRep로 만든 재가져오기 검증 STEP을 읽어 해결했고, 모든 부품의 체적 정합성을 검사한다. 스크루는 독립 native sweep 검증이라고 표시하지 않는다. 객체별 PartID/출처/승인 상태를 기록한다.
-- `cad/PPR_C1_assembly.step`, `cad/parts/`: 중립 조립체 및 개별 부품. 기어/스프로킷 치형은 공급사 도면 대조용이며 그대로 NC 가공하지 않는다.
-- `drawings/PPR_C1_dimensioned_review.pdf`, `drawings/*.dxf`: A3 치수 검토도와 명목 2D 형상. **RFQ ONLY / NOT RELEASED**.
-- `bom/BOM.csv`, `bom/part_dimensions.csv`, `bom/profile_cut_plan.csv`: 수량, 형상 치수, 재료, 출처, 보유품 절단 계획. 가격 미확인 항목은 견적 0원으로 간주하지 않는다.
-- `results/engineering.json`, `results/cad_intersections.json`, `results/freecad_build.json`: 계산 범위와 생성 결과. 검사에서 제외한 COTS 경계 및 전체 동작/접촉 문제까지 합격했다는 뜻이 아니다.
+## 현재 산출물
+
+- `c2/docs/C2_ENGINEERING_NOTES.md`: 실제 변경, 가정, 결과, 미종결 항목.
+- `c2/design/requirements.json`: 최신 요구조건 원본. 특정 모터를 고정하지 않는다.
+- `c2/src/`: S2 매개변수 탐색, 결합 운동학, 핀 프로파일 검사, 열회로, 제어 참조, 비용 검토, 성능 학습 경로.
+- `c2/results/`: 257개 형상 후보,108개 기본 열 민감도,5개 소형 핀 구속기구 프로파일 검사, 전력 배분1925건.
+- `c2/cad/PPR_C2_S2_thermal_development.step`: 고정 전단날·센서 blind bore·금속 방열 새들/캡을 포함한 **S2 개발 모듈**. 전체 기계가 아니다.
+- `c2/bom/`: 모터 후보 및136행 비용 검토 목록.125행 미견적이므로10만원 충족을 주장하지 않는다.
+- `c2/experiments/`: 48개 형상 x3개 소재 =144개 미실행 성능 job manifest. 실제 DEM0건, 실물시험0건이다.
+
+C2 성능 모델은 간극 수식의 학습으로 대체하지 않는다. GP/MLP 학습 경로는 실제 분쇄 응답과 보정/검증/원자료가 없는 현재 상태에서 **BLOCKED_PERFORMANCE_DATA**를 반환한다.
+
+## 재현
 
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-.venv/bin/python src/design.py
-.venv/bin/python src/analyze.py
-.venv/bin/python -m unittest discover -s tests -v
-.venv/bin/python src/build_cad.py
-.venv/bin/python src/validate_step.py
-.venv/bin/python src/make_drawings.py
-# Native FreeCAD: FreeCAD Python console에서 src/build_freecad.py의 run(repo_path) 실행.
-# Ubuntu 배포판의 headless 예: PYTHONPATH=/usr/lib/freecad-python3/lib:src python3 src/build_freecad.py
+python c2/src/run_study.py
+python -m unittest discover -s c2/tests -v
+python c2/src/build_cad.py
+python c2/src/train_performance.py --backend gp
+python c2/src/train_performance.py --backend mlp --out c2/results/mlp_run
+python c2/src/verify_artifacts.py
 ```
 
-## 고정 제약과 크기
+수치 계산은numpy/scipy/shapely, CAD는CadQuery2.8.0이다. GP/MLP 선택 의존성은 `c2/requirements-research.txt`를 참고한다. 기본 데이터는 비어 있으므로 성능 모델 가중치는 생성하지 않는다.
 
-보유 PSU는 **24V / 800W / 약33.33A, 실물240x120x65mm**이다. 정격과 운전 cap500W를 구분한다. 프레임 바닥630x400mm, 본체 목표650x420x510mm, 기존 절대 상한700x420x520mm이다. 냉각/인출부까지 포함한 명목 조립체의 실제 측정 경계는 약839x408x508mm다. 커버 두께·체인 가드·배선 굽힘/정비 공간이 모두 확정된 최종 외형이 아니므로 운용 상한850x450x510mm는 계속 검증한다.
+## C1 보존
 
-투입물 기준은 160x120x80mm 안의 비충실 폐출력물, 플라스틱 부피 약50cm3이다. 호퍼 개구180x140mm, 경사 기준35도, 뚜껑이 닫힌 배치 투입 방식이다. 재료 혼합 금지, 세척·선별·적합한 건조는 선행 공정이다.
+기존 루트의 `src/`, `design/assembly.json`, `design/parameters.json`, `cad/`, `bom/`, `results/`는 C1 기준SHA `0aa312c5be0ce566bc06f63fa4fdd5c9e7f3f47e`의 참고 설계다. 이 파일에 남아 있는 TT Motor 선정값/8:9 기구를 C2 확정값으로 읽지 않는다. C1 생성/검증 명령은 회귀검사용으로만 유지한다. 이전 pre-push 검사와 C1 CI는 제거하지 않았다.
 
-## 공용 분쇄 구동과 실제 부품 선정
-
-M1: **TT Motor GMP60 + TRK-60127-2460, 감속77:1**. 제조사 표의 24V/8.2A, 기어 출력58rpm/160kgfcm(15.69064Nm)을 사용했다. 모터 통127mm+기어부59mm+출력축25.8mm=211.8mm, 외경60.5mm, 출력축12mm(D면10.9), 파일럿32mm, 4-M5 PCD45다. 실제 구매된 모터가 아니라 정확한 권선/기어 옵션을 공급사에 확인할 선정 기준이다. [TT60]
-
-M1 공통축에서 A/B를 분기한다. A는 KHK SH2의 정상 모듈2, 헬릭스15도, 15:40 감속 후 ANSI35 24T:24T 체인으로 S1을 **21.75rpm**에 구동한다. B는 ANSI35 24T:12T로 S2 공전을 **116rpm**으로 만든다. S2의 8로브/9핀 기구가 상대 자전을 -1/8, 즉 **-14.5rpm**으로 구속한다. [KHK_SH, DESIGN]
-
-헬리컬은 두 반쪽의 치폭25+허브10mm를 실제로 반영했다. 중앙 간극2mm를 포함해 조립 폭72mm이며, 맞물림 반대 손잡이(RH/LH), 하단 뒤집기와 키홈 방향을 함께 처리했다. SS2-30HJ25 동기 기어 두 개는 S1 축간60mm를 만든다. 열처리형과 40T 보어18→20 가공을 공급사에 확인해야 한다. [KHK_SH, KHK_SS]
-
-A 체인은94링크/895.35mm/축간333.375mm, B는84링크/800.10mm/축간313.798mm의 명목 해다. 장력 조정, 연결 링크, 체인 작업하중과 차폐 설계는 발주 전 별도 확정한다.
-
-가정 부하 S1 14Nm + S2 공전2Nm, 각 분기 총효율0.90에서는 M1 요구10.278Nm다. 상단 민감도20+3Nm에서는15Nm로 여유가 매우 작다. 막힘30+5Nm에서는23.611Nm로 정격을 초과하므로 허용 운전점이 아니다. 재료 절삭력을 측정한 결과가 아니며 과부하 검출/기계 토크 제한/정지 시험이 필요하다.
-
-## 분쇄부 상세 치수
-
-S1은 25mm 축 두 개, 6205(25x52x15) 네 개, OD80/root46/두께6mm의 7-hook 커터26개를 사용한다. 스페이서 OD36/두께6.4mm, 한 축 스택154.8mm, 양축 합성 활성 길이161mm다. 명목 축방향 간극0.2mm는 독립 두께 공차만으로 보장되지 않으므로 정렬 연삭·짝맞춤·금속 shim 검사가 필수다. 커터를 통째로 회전하지 않고 키홈0도를 유지한26개 날 위상 변형으로 생성했다. [NSK6205, DESIGN]
-
-160x100x18mm 베어링 캐리어, 금속 관12OD/6.6IDx175 네 개와 M6 스터드 네 개, 금속 상부 브래킷을 통해 하중을 프레임에 전달한다. 출력물은 고하중 지지대로 쓰지 않는다. 커터 재료/열처리·축 키 피로·체결 증명은 미완료다.
-
-S2 로터 OD110/root86, 편심7mm, 활성 폭40mm, 챔버ID125.6mm, 최소 명목 간극0.8mm다. 편심 슬리브는 OD35/보어12/길이80mm로 분리해 베어링과 로터를 조립할 수 있도록 했다. 가이드8로브/고정핀9개(PCD144, 롤러OD16), 6007 로터 베어링2개, 6001 축 베어링2개를 배치했다. 6007/625 등 최종 공급사 suffix/하중 등급은 RFQ 상태다.
-
-하부100도 원호 스크린은 두께2mm, 구멍4mm 78개다. K=0.5 가정의 전개 폭111.353mm/축방향40mm를 생성했으나 실제 굽힘 공정에서 K-factor를 교정해야 한다. 스크린4mm는 입도4mm 보증이 아니다. S1→S2 이송 슈트/밀폐 서비스 커버는 아직 상세 체결 종료 전이다.
-
-## 수평 압출 / 냉각
-
-M2는 **GMP60 + TRK-6097-2425,168:1**, 24V/1.8A,12rpm/150kgfcm(14.710Nm)다. 통97+기어70+축25.8=192.8mm를 반영했고 스크루와 동축으로 배치해 직각 기어박스를 제거했다. [TT60]
-
-스크루 OD16x256mm, 피치16mm, flight2mm, root10→13mm의 실제 나선의 평면 BRep 근사 솔리드다. 회전당64분할로 OD16의 현 오차 상한은0.00964mm이며 NC 공구 경로가 아니다. 배럴ID16.3/OD30, 상온 반경 간극0.15mm다. 51102(15x28x9) 추력 베어링을 모터와 별도로 배치했다. 가정5/10MPa의 추력은1.01/2.01kN이며 압력/재료/다이 연결·씰·공급사 DFM은 검증 전이다. [NSK51102, DESIGN]
-
-버퍼 기하 용적322.691mL,75% 운용 충전량242.018mL다. 냉각 길이275mm, 팬9RA0824H1001 두 개(80x80x38,24V,7.92W)를 배치했다. 이 팬은3선 tach 형식이며 4선 PWM 핀을 있다고 가정하지 않는다. [FAN, FAN_DK]
-
-PLA 열물성을 가정한 반경방향 열전도 모델에서 h=80W/m2K, 중심50도, 길이25% 여유 기준 냉각 한계는 약82g/h다. h=40이면45g/h,120이면113g/h다. **팬 풍량만으로 h를 확정하지 않는다.** 100g/h는 목표이며 보장값이 아니다. 실제 냉각/직경 품질 시험으로 처리량을 정하고, 책상형 크기를 지키기 위해 본체를 1.2m로 확대하지 않는다.
-
-## 전력 / 안전 / 시뮬레이션
-
-정격 입력 합계는 M1 196.8 + M2 43.2 + 히터360 + 팬15.84 + 제어/인출/스풀 배정32 = **647.84W**다. M1/M2 전류 제한 제안12A/3A에서는 24V 기준 상한767.84W다. 전류 제한의 실제 구현, PSU 전압 변화, 회생 에너지와 과도응답은 아직 검증되지 않았다.
-
-500W 기준 부하 배분 참조 계산20,800건에서 최대499.84W를 확인했다. 히터 duty와 분쇄 요구를 우선순위에 따라 조정하는 계산 모델이며 생산 펌웨어/하드웨어 fault 시험이 아니다. 비상정지·뚜껑/서비스 인터록·독립 과온 차단·접촉기·퓨즈·토크 제한기와 가드는 반드시 하드웨어 경로를 포함한다. 보유 BTS7960의 광고 전류를 연속 허용 전류로 쓰지 않는다.
-
-축 보 모델에서 S1(지지147.5/338.5mm, 2kN 절삭/체인 반력 가정)의 최대 처짐은20mm축0.2004mm,25mm축0.0821mm,30mm축0.0396mm다. 25mm를 초기 기준으로 택했다. S2 12mm축 민감도 처짐0.1744mm는 여유가 작아 지지 강성/실측 확인 항목이다. 보 모델은 하우징 포함3D 응력/피로 인증이 아니다.
-
-S2 형상2880점과 공전721위치, 위치당9핀에서 명목 최소 간극0.1851mm를 계산했다. 실제 접촉력/마모/구속 강성 해석은 수행하지 않았다. geometric surrogate는249개의 유효 형상 데이터를 train174/validation37/test38로 분리해 학습했으며, 테스트 간극 RMSE0.00547mm다. 실물/DEM 학습 데이터는0개다. 최종 치수 채택에는 신경망 대신 고해상도 직접 계산을 사용한다. `src/train_kinematic_surrogate.py`는 별도 PyTorch 환경에서 재현한다.
-
-## 제작 전 남은 gate
-
-전체 제조/조립 종료는 **HOLD**다. (1) 공급사 모터·기어·체인·히터 도면/가격/용량 확인, (2) 커터 연삭과 열처리, 스크루/배럴 DFM 및 압력 체결, (3) 가드/슈트/씰/전체 체결·축방향 고정·인출 구동 상세, (4) 하우징/프레임3D 응력과 접촉·막힘 시험, (5) hard-cut 회로와 센서 교정, (6) 단계별 비통전 조립 및 승인된 시운전이 필요하다. 부품 주문과 가공, 히터 통전은 별도 사용자 승인 전 금지한다.
-
-## 동결 보존과 출처
-
-- `archive/pre-compact-main-20260920`:7de9bf2a6e4c91c7fa6b58da9c729e63dc52e3a0
-- `archive/legacy-v08-20260920`:34ae29d7b9ac12927e9b6c1b3c9e1514bfd2d9c1
-
-두 archive는 기존에 존재했고, 이번 작업에서 branch lock/force-push 금지/삭제 금지를 확인했다. 원래 `/home/monad/develop/PPR`의 미커밋 변경은 수정·삭제·커밋하지 않았다. 기존 release와 tag를 바꾸지 않는다. 원본 핸드오버 채팅은 공개 저장소에 올리지 않는다.
-
-제조사 원문 URL은 `sources/register.json`에 ID별로 기록한다. TT60=TT Motor 공개 치수/정격 표, KHK_SH/SS=KHK 카탈로그, NSK*=NSK 베어링 규격, FAN=Sanyo Denki, FAN_DK=DigiKey 유통 경로다. DESIGN은 자체 가정/계산, RFQ는 미확인이다. 출처 등록이 구매 승인이나 재고 확보를 의미하지 않는다.
+자세한 보존 상태와 최종 커밋은 Git 기록이 기준이다. 원래 dirty worktree는 건드리지 않는다.

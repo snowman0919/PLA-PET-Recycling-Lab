@@ -1,0 +1,208 @@
+{
+  "status": "DEVELOPMENT_GEOMETRY_NOT_FABRICATION_RELEASE",
+  "part_types": 12,
+  "module_instances": 12,
+  "module_bounds_mm": [
+    -85.75989977863779,
+    -15.0,
+    -64.8,
+    84.86711493671683,
+    55.0,
+    78.36508794689261
+  ],
+  "records": [
+    {
+      "part_id": "C1_ROTOR_REFERENCE",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 322129.4256810229,
+      "size_mm": [
+        107.88602814515806,
+        70.0,
+        107.88602814515806
+      ],
+      "step_relative_volume_error": 1.9804336789875126e-13,
+      "sha256": "4e672e89301f53501ef34332f397c845e7ec69ae31e8b58c2a4cb8b98d545691",
+      "notes": "C1 dimensional reference, not C2 optimum. Bearings and full drive frame omitted."
+    },
+    {
+      "part_id": "C1_SCREEN_REFERENCE",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 6947.157490593486,
+      "size_mm": [
+        99.27935982821953,
+        40.0,
+        24.43293811168533
+      ],
+      "step_relative_volume_error": 9.216492801769532e-14,
+      "sha256": "c80767415ea66f164528120b9c69b6a1eecc2250851282fea4b5d088d82f1457",
+      "notes": "C1 4mm perforation reference. Particle size and screen attachment are not qualified."
+    },
+    {
+      "part_id": "C1_LEFT_WEAR_SHELL",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 8080.0737486543985,
+      "size_mm": [
+        17.692408972128177,
+        40.0,
+        64.8003501482033
+      ],
+      "step_relative_volume_error": 2.5055900096007055e-13,
+      "sha256": "671fc949405e271748a68b015e63f575da73e9b6053e81a0a1473cbd0a7cd347",
+      "notes": "C1 3mm steel wear shell reference; original feed/screen sectors remain open."
+    },
+    {
+      "part_id": "C2_RIGHT_WEAR_SHELL_1",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 4894.185247795944,
+      "size_mm": [
+        17.562091693505153,
+        40.0,
+        38.1954247173743
+      ],
+      "step_relative_volume_error": 1.954949348711315e-13,
+      "sha256": "0fe67b52f00f1f507983ddc6ccc0a410a745dce10b63b070bfc7b3b64fae28af",
+      "notes": "Separate steel liner arc adjoining fixed-shear cartridge. Captured by metal caps; corner radii and seal HOLD."
+    },
+    {
+      "part_id": "C2_RIGHT_WEAR_SHELL_2",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 10280.695970599128,
+      "size_mm": [
+        54.76457716389374,
+        40.0,
+        60.70035014820328
+      ],
+      "step_relative_volume_error": 7.360392662511331e-14,
+      "sha256": "c4ca2c83c36796d3420c24f23f2a3710be2fe08a5cc166e70b897008cd7f54c3",
+      "notes": "Separate steel liner arc adjoining fixed-shear cartridge. Captured by metal caps; corner radii and seal HOLD."
+    },
+    {
+      "part_id": "C2_FIXED_SHEAR",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 2074.874455829252,
+      "size_mm": [
+        8.200000000000003,
+        40.0,
+        8.0
+      ],
+      "step_relative_volume_error": 4.361455343583133e-14,
+      "sha256": "266cb9c851e0fd0ef8cc76e73979481b6d248d9da30f7ce710c034805194107d",
+      "notes": "Steel/tool-steel coupon: 40mm width; nominal tip x62.8; two M4 pilot bores depth4.5; sensor blind bore3.2mm at y20, depth3.5. Tip radius/heat treat/tapped thread/retention loads HOLD."
+    },
+    {
+      "part_id": "C2_THERMAL_SADDLE_L",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 20032.66333825389,
+      "size_mm": [
+        33.04995611551646,
+        40.0,
+        65.27563113485931
+      ],
+      "step_relative_volume_error": 4.6671804823734655e-14,
+      "sha256": "4d7892cfdd5552837b7f6bb842bd574e12e1db8c8bc084b96e9e3c7eb2d69abf",
+      "notes": "Aluminium development part: nominal Ri66/Ro73, 40mm width, fins toR86; 0.2mm nominal interface to steel OD65.8 needs qualified conductive interface. Axial4.5mm holes onR69.5. Not a measured UA or a certified blade restraint."
+    },
+    {
+      "part_id": "C2_SADDLE_CAP_L",
+      "quantity": 2,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 2792.3166123566753,
+      "size_mm": [
+        24.109216426568402,
+        4.0,
+        68.40528468242105
+      ],
+      "step_relative_volume_error": 6.514266310261484e-15,
+      "sha256": "fba61fc24ec1fcd95c151909d675ac4abed394595604ea8c838d7c0aeb1af4b4",
+      "notes": "4mm metal end cap. Paired caps bear on steel arc end faces; bolt lengths/locking and frame reaction HOLD."
+    },
+    {
+      "part_id": "C2_THERMAL_SADDLE_R",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 41584.42285157642,
+      "size_mm": [
+        70.02034535002171,
+        40.0,
+        122.29758463699214
+      ],
+      "step_relative_volume_error": 1.8634128665829486e-13,
+      "sha256": "d7f230cd348bdba0aa7b7abfaf28a3ffa06effaa83ee13e7eaf9d2e13c595355",
+      "notes": "Aluminium development part: nominal Ri66/Ro73, 40mm width, fins toR86; 0.2mm nominal interface to steel OD65.8 needs qualified conductive interface. Axial4.5mm holes onR69.5. Not a measured UA or a certified blade restraint."
+    },
+    {
+      "part_id": "C2_SADDLE_CAP_R",
+      "quantity": 2,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 6036.263073803763,
+      "size_mm": [
+        61.74290128019048,
+        4.0,
+        120.57815922720218
+      ],
+      "step_relative_volume_error": 6.659694139710767e-14,
+      "sha256": "a7c39437ec0588ce0151dd78c848b87cfdd6d905514138cf5593b8ef15faf886",
+      "notes": "4mm metal end cap. Paired caps bear on steel arc end faces; bolt lengths/locking and frame reaction HOLD."
+    },
+    {
+      "part_id": "GUIDE_STUDY_C1-SEED",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 115679.49685048267,
+      "size_mm": [
+        133.87968440620386,
+        10.0,
+        133.87968440620386
+      ],
+      "step_relative_volume_error": 1.007618844762741e-13,
+      "sha256": "eec46cc7ec7ca7c1a40ddee85871811b0f3de17b05ad940838d531820aa97b0d",
+      "notes": "Interchangeable constraint study only. 46mm central bore, 8x5.5PCD70,10mm thick. Rotary bearing seat/root integrity and contact fatigue need design-specific DFM."
+    },
+    {
+      "part_id": "GUIDE_STUDY_C2-046",
+      "quantity": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 101924.86007952204,
+      "size_mm": [
+        130.9242519684517,
+        10.0,
+        133.19473161417926
+      ],
+      "step_relative_volume_error": 9.579934778047277e-14,
+      "sha256": "84d770ef24080bad8b0899fc3429023ddbfaf48beaa99cc445554cee81e27e7d",
+      "notes": "Interchangeable constraint study only. 46mm central bore, 8x5.5PCD70,10mm thick. Rotary bearing seat/root integrity and contact fatigue need design-specific DFM."
+    }
+  ],
+  "static_overlaps_in_module": [],
+  "assembly_scope": "S2 cutting/cooling coupon module only; no complete C2 machine or motor integration",
+  "not_checked": [
+    "full_machine_interference",
+    "shaft_bearing_seal_assembly",
+    "blade_bolt_strength",
+    "all_rotor_phases_with_shear",
+    "finned_cooling_performance",
+    "pin_contact_stress"
+  ],
+  "procurement": "HOLD",
+  "fabrication": "HOLD",
+  "energization": "HOLD"
+}

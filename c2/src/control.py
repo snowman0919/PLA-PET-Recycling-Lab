@@ -1,0 +1,84 @@
+"""Fail-closed control reference. NOT deployable motor/heater firmware."""
+from __future__ import annotations
+from dataclasses import dataclass
+import math
+
+MATERIALS = {
+    'PLA': {'derate_C': 40., 'stop_C': 50., 'restart_C': 35.},
+    'PET': {'derate_C': 45., 'stop_C': 55., 'restart_C': 40.},
+    'TPU': {'derate_C': 40., 'stop_C': 50., 'restart_C': 35.},
+}
+# Provisional commissioning policies, NOT material-certified safety temperatures.
+# Motor/gearbox limits must be populated from the selected drive's qualification.
+REQUIRED_SENSORS = ('ambient', 's1_wall', 's2_shear', 's2_screen', 'motor_case', 'gear_case')
+
+@dataclass
+class Controller:
+    qualified: bool = False
+    run_latched: bool = False
+    latched_fault: str | None = None
+    motor_limit_C: float | None = None
+    gear_limit_C: float | None = None
+
+    def evaluate(self, *, material: str, temperatures: dict[str,float], sensor_age_s: float,
+                 estop_closed: bool, guards_closed: bool, fan_ok: bool,
+                 jam_detected: bool, start_edge: bool = False, reset_edge: bool = False,
+                 run_request: bool = False, buffer_full: bool = False):
+        fault = None
+        if not estop_closed or not guards_closed:
+            fault = 'SAFETY_CHAIN_OPEN'
+        elif material not in MATERIALS:
+            fault = 'UNKNOWN_MATERIAL'
+        elif not math.isfinite(sensor_age_s) or not 0 <= sensor_age_s <= 1.0:
+            fault = 'STALE_SENSOR'
+        elif any(k not in temperatures or not math.isfinite(temperatures[k]) or
+                 not -20 <= temperatures[k] <= 150 for k in REQUIRED_SENSORS):
+            fault = 'INVALID_SENSOR'
+        elif not fan_ok:
+            fault = 'COOLING_FAULT'
+        elif jam_detected:
+            fault = 'JAM_NO_AUTOMATIC_REVERSE'
+        elif self.motor_limit_C is not None and temperatures['motor_case'] >= self.motor_limit_C:
+            fault = 'MOTOR_OVERTEMP'
+        elif self.gear_limit_C is not None and temperatures['gear_case'] >= self.gear_limit_C:
+            fault = 'GEAR_OVERTEMP'
+        elif max(temperatures[k] for k in ('s1_wall','s2_shear','s2_screen')) >= MATERIALS[material]['stop_C']:
+            fault = 'CHAMBER_OVERTEMP'
+        if fault:
+            self.latched_fault = fault
+            self.run_latched = False
+        cold = material in MATERIALS and all(k in temperatures and math.isfinite(temperatures[k])
+                   and temperatures[k] < MATERIALS[material]['restart_C']
+                   for k in ('s1_wall','s2_shear','s2_screen'))
+        if reset_edge and not fault and cold:
+            self.latched_fault = None
+            self.run_latched = False
+            # A reset never starts either shredder or heater.
+            return dict(state='RESET_WAIT_START',m1_fraction=0.,fan_request=True,heat_enable=False)
+        if self.latched_fault:
+            return dict(state='FAULT',reason=self.latched_fault,m1_fraction=0.,fan_request=True,heat_enable=False)
+        if not self.qualified or self.motor_limit_C is None or self.gear_limit_C is None:
+            return dict(state='QUALIFICATION_HOLD',m1_fraction=0.,fan_request=True,heat_enable=False)
+        if not run_request:
+            self.run_latched = False
+        elif start_edge:
+            self.run_latched = True
+        if not self.run_latched or buffer_full:
+            return dict(state='BUFFER_HOLD' if self.run_latched and buffer_full else 'IDLE',m1_fraction=0.,fan_request=True,heat_enable=False)
+        t = max(temperatures[k] for k in ('s1_wall','s2_shear','s2_screen'))
+        lim=MATERIALS[material]
+        f=min(1.,max(0.,(lim['stop_C']-t)/(lim['stop_C']-lim['derate_C'])))
+        return dict(state='RUN' if f==1 else 'DERATE',m1_fraction=f,fan_request=True,heat_enable=True,
+                    coupled_axes='S1_AND_S2_COMMON_SPEED_ONLY')
+
+
+def allocate_power(m1_bus_W: float, m2_bus_W: float, auxiliaries_W: float, heater_request_W: float,
+                   cap_W: float = 500.0):
+    vals=[m1_bus_W,m2_bus_W,auxiliaries_W,heater_request_W,cap_W]
+    if not all(math.isfinite(v) and v >= 0 for v in vals) or cap_W > 800:
+        raise ValueError('Invalid DC bus power; phase current cannot substitute for bus power')
+    reserved=m1_bus_W+m2_bus_W+auxiliaries_W
+    if reserved > cap_W:
+        return dict(admitted=False,heater_W=0.,total_W=0.,reason='SCHEDULE_OR_REDUCE_M1')
+    h=min(heater_request_W,cap_W-reserved)
+    return dict(admitted=True,heater_W=h,total_W=reserved+h,reason='REFERENCE_ALLOCATION_ONLY')

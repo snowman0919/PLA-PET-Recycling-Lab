@@ -1,0 +1,84 @@
+{
+  "revision": "C2.0",
+  "status": "ENGINEERING_ITERATION_NOT_FABRICATION_RELEASE",
+  "user_constraints": {
+    "psu_V": 24,
+    "psu_rated_W": 800,
+    "operational_cap_W": 500,
+    "psu_body_mm": [
+      240,
+      120,
+      65
+    ],
+    "body_limit_mm": [
+      700,
+      420,
+      520
+    ],
+    "operating_target_mm": [
+      850,
+      450,
+      510
+    ],
+    "budget_soft_limit_KRW": 100000,
+    "budget_scope": "ALL_REMAINING_PURCHASES_AND_FABRICATION_INCLUDING_SAFETY_AND_SHIPPING",
+    "materials": [
+      "PLA",
+      "PET",
+      "TPU"
+    ],
+    "shredder_motor_count": 1,
+    "extruder_motor_count": 1,
+    "motor_M1_frozen": false,
+    "independent_S1_S2_software_speed": false,
+    "hopper_angle_deg": 35,
+    "material_mixing": false
+  },
+  "provenance": {
+    "handover": "PPR_project_handover_2026-09-20.zip",
+    "handover_sha256": "60354646317076a1e7d7bb107250360e9daaad19482563ca053e0b1b8fc33799",
+    "checked_manifest_entries": 41,
+    "base_commit": "0aa312c5be0ce566bc06f63fa4fdd5c9e7f3f47e",
+    "precedence": "Latest explicit user constraints > handover decisions > C1 tentative choices"
+  },
+  "s2_design_policy": {
+    "c1_seed_not_optimum": true,
+    "hook_count_independent_of_ratio": true,
+    "geometry_data_never_breakage_labels": true,
+    "materials_need_separate_grade_and_lot": true,
+    "training_targets": [
+      "yield_2.5_to_5mm_mass",
+      "throughput",
+      "peak_and_rms_torque",
+      "jam",
+      "residence",
+      "specific_energy",
+      "temperature"
+    ],
+    "screen_not_max_length_guarantee": true,
+    "TPU_gap_not_automatically_increased": true,
+    "cryogenic_system_not_in_scope": true
+  },
+  "thermal_policy": {
+    "cooling": "Filtered external air over metal heat spreader; not air blown into dusty chamber",
+    "sensors": [
+      "S1_wall",
+      "S2_fixed_shear",
+      "S2_screen",
+      "motor_case",
+      "gear_case",
+      "ambient"
+    ],
+    "air_segregation": "Shredder/motor/hotend segregated; fan is not dust-explosion protection",
+    "limits": "Provisional commissioning values, not certified safe material limits",
+    "PET_TPU_tg_or_HDT_not_generalized": true
+  },
+  "deployment": {
+    "procurement": "HOLD",
+    "fabrication": "HOLD",
+    "energization": "HOLD",
+    "qualified_motor_and_material": false,
+    "automatic_reverse": false,
+    "manual_reset_never_restart": true
+  }
+}

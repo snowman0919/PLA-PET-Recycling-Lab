@@ -1,0 +1,3998 @@
+[
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 42.38265530964986,
+    "final_metal_C": 41.13585744082092,
+    "final_shell_C": 40.18015548520918,
+    "steady_C": [
+      46.96988776348199,
+      45.76913495756904,
+      44.6564467560908
+    ],
+    "energy_balance_residual_J": 1.123407855629921e-08,
+    "max_step_power_residual_W": 1.3352874361771683e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 64.94370190662876,
+    "final_metal_C": 64.3381453209388,
+    "final_shell_C": 63.731429161644435,
+    "steady_C": [
+      73.29906542056077,
+      72.75654205607478,
+      71.80841121495328
+    ],
+    "energy_balance_residual_J": -1.4770193956792355e-08,
+    "max_step_power_residual_W": 2.113598185360388e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 33.00944604922419,
+    "final_metal_C": 31.46161101057836,
+    "final_shell_C": 30.266714363848003,
+    "steady_C": [
+      33.04663174204971,
+      31.497797535600956,
+      30.29808898398877
+    ],
+    "energy_balance_residual_J": -6.2418621382676065e-09,
+    "max_step_power_residual_W": 7.353229136697337e-12,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 41.53616809478802,
+    "final_metal_C": 40.20352444978608,
+    "final_shell_C": 39.06719055830216,
+    "steady_C": [
+      41.60930888575459,
+      40.27454160789845,
+      39.12834978843441
+    ],
+    "energy_balance_residual_J": -1.7469574231654406e-08,
+    "max_step_power_residual_W": 1.4580336937797256e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 30.511385688379036,
+    "final_metal_C": 28.899204908209168,
+    "final_shell_C": 27.68373800306328,
+    "steady_C": [
+      30.511755690950544,
+      28.899549583224303,
+      27.683998056292744
+    ],
+    "energy_balance_residual_J": 5.855326890014112e-09,
+    "max_step_power_residual_W": 7.506884003305458e-12,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 35.003672348124475,
+    "final_metal_C": 33.50383180902496,
+    "final_shell_C": 32.316524558685366,
+    "steady_C": [
+      35.004382761139524,
+      33.504492330168006,
+      32.31701972242513
+    ],
+    "energy_balance_residual_J": -8.287315722554922e-09,
+    "max_step_power_residual_W": 1.1890044504525576e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 74.38568063331802,
+    "final_metal_C": 70.56382187303993,
+    "final_shell_C": 67.64588861290088,
+    "steady_C": [
+      87.3180947166711,
+      83.62604708458787,
+      80.26553517656706
+    ],
+    "energy_balance_residual_J": 1.6210833564400673e-08,
+    "max_step_power_residual_W": 2.3169022256297467e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 94.61075462238682,
+    "final_metal_C": 91.345023386691,
+    "final_shell_C": 88.6886199219428,
+    "steady_C": [
+      108.58878504672899,
+      105.4285046728972,
+      102.20093457943926
+    ],
+    "energy_balance_residual_J": -1.9033905118703842e-08,
+    "max_step_power_residual_W": 2.3717916519672144e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 48.06630334726883,
+    "final_metal_C": 43.3984352845927,
+    "final_shell_C": 39.80691646907752,
+    "steady_C": [
+      48.1718438722054,
+      43.50113996901053,
+      39.895963993211815
+    ],
+    "energy_balance_residual_J": -1.6771082300692797e-09,
+    "max_step_power_residual_W": 1.0592415833343694e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 56.19660089921441,
+    "final_metal_C": 51.73334534631491,
+    "final_shell_C": 48.19614879575744,
+    "steady_C": [
+      56.32299012693935,
+      51.85606488011283,
+      48.30183356840621
+    ],
+    "energy_balance_residual_J": -2.166052581742406e-08,
+    "max_step_power_residual_W": 1.822364481540717e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 41.0437966566403,
+    "final_metal_C": 36.1949904574489,
+    "final_shell_C": 32.54551279954174,
+    "steady_C": [
+      41.04485478264119,
+      36.195976152207216,
+      32.54625649459873
+    ],
+    "energy_balance_residual_J": 1.3267708709463477e-08,
+    "max_step_power_residual_W": 1.4775736190131283e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 45.42823121405117,
+    "final_metal_C": 40.68905882875163,
+    "final_shell_C": 37.06704106089216,
+    "steady_C": [
+      45.42951059167276,
+      40.69024835646457,
+      37.06793279766253
+    ],
+    "energy_balance_residual_J": -9.116774890571833e-09,
+    "max_step_power_residual_W": 1.1642242725429242e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 122.39021861881983,
+    "final_metal_C": 114.70576852136797,
+    "final_shell_C": 108.844488304438,
+    "steady_C": [
+      147.8404051464547,
+      140.41141527511607,
+      133.6791678072814
+    ],
+    "energy_balance_residual_J": 2.1784217096865177e-08,
+    "max_step_power_residual_W": 3.107558654846798e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 139.11133369602393,
+    "final_metal_C": 131.8553404853192,
+    "final_shell_C": 126.12440606239025,
+    "steady_C": [
+      161.52336448598135,
+      154.43644859813088,
+      147.78971962616825
+    ],
+    "energy_balance_residual_J": -2.6106135919690132e-08,
+    "max_step_power_residual_W": 4.035172196381609e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 70.65158929433458,
+    "final_metal_C": 61.303671695613026,
+    "final_shell_C": 54.11721962692067,
+    "steady_C": [
+      70.85966206743892,
+      61.50615361912488,
+      54.292776507046376
+    ],
+    "energy_balance_residual_J": -3.856257535517216e-09,
+    "max_step_power_residual_W": 1.3145040611561853e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 78.18725010585429,
+    "final_metal_C": 69.02807669110844,
+    "final_shell_C": 61.889586151940534,
+    "steady_C": [
+      78.39351198871651,
+      69.22834978843441,
+      62.062059238363894
+    ],
+    "energy_balance_residual_J": -2.7277565095573664e-08,
+    "max_step_power_residual_W": 2.644995333866973e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 56.842413109031675,
+    "final_metal_C": 47.138668781307985,
+    "final_shell_C": 39.838174994258814,
+    "steady_C": [
+      56.84450342017717,
+      47.14061600568159,
+      39.8396441520577
+    ],
+    "energy_balance_residual_J": 1.741500454954803e-08,
+    "max_step_power_residual_W": 1.7191581491715624e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 61.065069512941136,
+    "final_metal_C": 51.466899358341614,
+    "final_shell_C": 44.19281581420237,
+    "steady_C": [
+      61.067202337472615,
+      51.468882395909425,
+      44.19430241051863
+    ],
+    "energy_balance_residual_J": -1.1004885891452432e-08,
+    "max_step_power_residual_W": 1.5702994460298214e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 52.31528249756283,
+    "final_metal_C": 51.066497673763415,
+    "final_shell_C": 50.109556025631996,
+    "steady_C": [
+      56.88228852997526,
+      55.67934574322464,
+      54.566110046536984
+    ],
+    "energy_balance_residual_J": 1.5319528756663203e-08,
+    "max_step_power_residual_W": 1.574829155970292e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 73.71881529449367,
+    "final_metal_C": 73.07791574591029,
+    "final_shell_C": 72.45080312352171,
+    "steady_C": [
+      81.80373831775702,
+      81.22383177570094,
+      80.26635514018693
+    ],
+    "energy_balance_residual_J": -1.6771082300692797e-08,
+    "max_step_power_residual_W": 2.4291679778798425e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 42.985981785800135,
+    "final_metal_C": 41.43755252894109,
+    "final_shell_C": 40.24248932427601,
+    "steady_C": [
+      43.023020733416935,
+      41.473596251752355,
+      40.27374013133621
+    ],
+    "energy_balance_residual_J": -1.9081198843196034e-09,
+    "max_step_power_residual_W": 9.906742093335197e-12,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 51.08709728051544,
+    "final_metal_C": 49.743104254589156,
+    "final_shell_C": 48.60364365881005,
+    "steady_C": [
+      51.15796897038082,
+      49.811918194640334,
+      48.662905500705214
+    ],
+    "energy_balance_residual_J": -2.214801497757435e-08,
+    "max_step_power_residual_W": 1.8102852550327952e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 40.49942567841646,
+    "final_metal_C": 38.886945779742064,
+    "final_shell_C": 37.6714038272188,
+    "steady_C": [
+      40.49979441557956,
+      38.887289275969046,
+      37.67166299106642
+    ],
+    "energy_balance_residual_J": 1.4694705896545202e-08,
+    "max_step_power_residual_W": 1.2748024857955897e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 44.76994586445789,
+    "final_metal_C": 43.2642601846754,
+    "final_shell_C": 42.07548717782752,
+    "steady_C": [
+      44.77063550036524,
+      43.26490138787437,
+      42.07596785975165
+    ],
+    "energy_balance_residual_J": -1.0770236258395016e-08,
+    "max_step_power_residual_W": 1.2806644633656106e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 84.31830782123055,
+    "final_metal_C": 80.49446210598198,
+    "final_shell_C": 77.57528915332325,
+    "steady_C": [
+      97.23049548316436,
+      93.53625787024346,
+      90.17519846701323
+    ],
+    "energy_balance_residual_J": 1.8786522559821606e-08,
+    "max_step_power_residual_W": 2.353850447889272e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 103.38586801025161,
+    "final_metal_C": 100.08479381166237,
+    "final_shell_C": 97.4079938838199,
+    "steady_C": [
+      117.09345794392526,
+      113.89579439252338,
+      110.65887850467291
+    ],
+    "energy_balance_residual_J": -2.195884007960558e-08,
+    "max_step_power_residual_W": 2.8549607122840825e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 58.04283908384404,
+    "final_metal_C": 53.37437680295467,
+    "final_shell_C": 49.78269142950485,
+    "steady_C": [
+      58.14823286357262,
+      53.47693868516193,
+      49.871615140559264
+    ],
+    "energy_balance_residual_J": -2.979504643008113e-09,
+    "max_step_power_residual_W": 1.1992185022791091e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 65.74753008494191,
+    "final_metal_C": 61.27292515111815,
+    "final_shell_C": 57.732601896265436,
+    "steady_C": [
+      65.8716502115656,
+      61.393441466854725,
+      57.83638928067701
+    ],
+    "energy_balance_residual_J": -2.5938788894563913e-08,
+    "max_step_power_residual_W": 1.7887913372760522e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 51.031836646677405,
+    "final_metal_C": 46.18273132898151,
+    "final_shell_C": 42.53317862369685,
+    "steady_C": [
+      51.032893507270195,
+      46.18371584495195,
+      42.53392142937239
+    ],
+    "energy_balance_residual_J": 1.6922058421187103e-08,
+    "max_step_power_residual_W": 1.595523713149305e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 55.19450473038445,
+    "final_metal_C": 50.44948720440201,
+    "final_shell_C": 46.82600368003428,
+    "steady_C": [
+      55.19576333089847,
+      50.45065741417093,
+      46.82688093498904
+    ],
+    "energy_balance_residual_J": -1.1768861440941691e-08,
+    "max_step_power_residual_W": 1.5143442055887135e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 132.32284580673246,
+    "final_metal_C": 124.6364087543102,
+    "final_shell_C": 118.77388884486045,
+    "steady_C": [
+      157.752805912948,
+      150.32162606077168,
+      143.5888310977276
+    ],
+    "energy_balance_residual_J": 2.5160261429846287e-08,
+    "max_step_power_residual_W": 3.227285105822375e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 147.88644708388898,
+    "final_metal_C": 140.5951109102907,
+    "final_shell_C": 134.84378002426766,
+    "steady_C": [
+      170.0280373831776,
+      162.90373831775702,
+      156.24766355140187
+    ],
+    "energy_balance_residual_J": -2.8172507882118225e-08,
+    "max_step_power_residual_W": 4.772005013364833e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 80.62812503090997,
+    "final_metal_C": 71.2796132139752,
+    "final_shell_C": 64.0929945873481,
+    "steady_C": [
+      80.83605105880615,
+      71.48195233527629,
+      64.26842765439382
+    ],
+    "energy_balance_residual_J": -4.831235855817795e-09,
+    "max_step_power_residual_W": 1.8676615809454233e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 87.73817929158186,
+    "final_metal_C": 78.56765649591168,
+    "final_shell_C": 71.42603925244855,
+    "steady_C": [
+      87.94217207334273,
+      78.7657263751763,
+      71.59661495063469
+    ],
+    "energy_balance_residual_J": -3.1570380087941885e-08,
+    "max_step_power_residual_W": 2.710009994189022e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 66.83045309906879,
+    "final_metal_C": 57.126409652840486,
+    "final_shell_C": 49.82584081841389,
+    "steady_C": [
+      66.83254214480618,
+      57.12835569842633,
+      49.82730908683137
+    ],
+    "energy_balance_residual_J": 1.9714207155629992e-08,
+    "max_step_power_residual_W": 1.710276364974561e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PLA",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1800
+    },
+    "final_polymer_C": 70.83134302927446,
+    "final_metal_C": 61.227327733991956,
+    "final_shell_C": 53.95177843334447,
+    "steady_C": [
+      70.83345507669831,
+      61.22929145361577,
+      53.95325054784514
+    ],
+    "energy_balance_residual_J": -1.3907992979511619e-08,
+    "max_step_power_residual_W": 1.659472559367714e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 43.00341701413892,
+    "final_metal_C": 41.60118266060494,
+    "final_shell_C": 40.61324793760726,
+    "steady_C": [
+      47.84759916492691,
+      46.47839248434236,
+      45.323590814196216
+    ],
+    "energy_balance_residual_J": -5.769834388047457e-09,
+    "max_step_power_residual_W": 1.0439649145155272e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 66.28183538402767,
+    "final_metal_C": 65.32063577026678,
+    "final_shell_C": 64.6371086768533,
+    "steady_C": [
+      75.01290322580657,
+      74.09645161290334,
+      73.05483870967753
+    ],
+    "energy_balance_residual_J": -2.038723323494196e-08,
+    "max_step_power_residual_W": 2.2660096021809295e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 33.156851012091224,
+    "final_metal_C": 31.544024063713177,
+    "final_shell_C": 30.332703645989504,
+    "steady_C": [
+      33.191897441033596,
+      31.578429065050827,
+      30.362561971055133
+    ],
+    "energy_balance_residual_J": -1.642729330342263e-08,
+    "max_step_power_residual_W": 1.0343725875827658e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 41.83469278180939,
+    "final_metal_C": 40.367773331284354,
+    "final_shell_C": 39.19748611055927,
+    "steady_C": [
+      41.903349282296666,
+      40.43507177033494,
+      39.25550239234451
+    ],
+    "energy_balance_residual_J": -1.7760612536221743e-08,
+    "max_step_power_residual_W": 1.4714451879171975e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 30.589526327049285,
+    "final_metal_C": 28.93270439793023,
+    "final_shell_C": 27.706065983147017,
+    "steady_C": [
+      30.589830422805736,
+      28.93299426318583,
+      27.70628522328085
+    ],
+    "energy_balance_residual_J": -1.0378244041930884e-08,
+    "max_step_power_residual_W": 8.670397733112623e-12,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 35.14460169380044,
+    "final_metal_C": 33.56371613220905,
+    "final_shell_C": 32.35612574063979,
+    "steady_C": [
+      35.1451851851852,
+      33.564271604938284,
+      32.35654320987655
+    ],
+    "energy_balance_residual_J": -1.4348188415169716e-08,
+    "max_step_power_residual_W": 1.497113544246531e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 76.14977399412217,
+    "final_metal_C": 71.88678290534034,
+    "final_shell_C": 68.87728956311264,
+    "steady_C": [
+      89.80774340482063,
+      85.63787246156762,
+      82.15790472575438
+    ],
+    "energy_balance_residual_J": -8.767528925091028e-09,
+    "max_step_power_residual_W": 2.1730173216383264e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 96.94400245509776,
+    "final_metal_C": 93.06170042552823,
+    "final_shell_C": 90.27157734484264,
+    "steady_C": [
+      111.55483870967758,
+      107.74741935483887,
+      104.35806451612919
+    ],
+    "energy_balance_residual_J": -2.8070644475519657e-08,
+    "max_step_power_residual_W": 2.9192648298703716e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 48.49071710531128,
+    "final_metal_C": 43.635706631101755,
+    "final_shell_C": 39.9969006202925,
+    "steady_C": [
+      48.59016475537082,
+      43.73333416796034,
+      40.08162652110771
+    ],
+    "energy_balance_residual_J": -1.586522557772696e-08,
+    "max_step_power_residual_W": 1.4390266755981429e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 56.75901152630224,
+    "final_metal_C": 52.042647392832244,
+    "final_shell_C": 48.44149127024778,
+    "steady_C": [
+      56.87751196172252,
+      52.15880382775123,
+      48.5416267942584
+    ],
+    "energy_balance_residual_J": -2.0547304302453995e-08,
+    "max_step_power_residual_W": 1.738165167353145e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 41.271263008905564,
+    "final_metal_C": 36.29250588857665,
+    "final_shell_C": 32.61050831169186,
+    "steady_C": [
+      41.27213222472138,
+      36.293334428466736,
+      32.61113497940307
+    ],
+    "energy_balance_residual_J": -6.3810148276388645e-09,
+    "max_step_power_residual_W": 1.198152688175469e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 45.715989345215,
+    "final_metal_C": 40.81132360491473,
+    "final_shell_C": 37.14789238565452,
+    "steady_C": [
+      45.717037037037045,
+      40.81232098765433,
+      37.14864197530865
+    ],
+    "energy_balance_residual_J": -1.5195837477222085e-08,
+    "max_step_power_residual_W": 1.3635315099236323e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 125.86930946409524,
+    "final_metal_C": 117.31518327244187,
+    "final_shell_C": 111.27335200136922,
+    "steady_C": [
+      152.74795976466118,
+      144.37709242740553,
+      137.4093755930916
+    ],
+    "energy_balance_residual_J": -1.6385456547141075e-08,
+    "max_step_power_residual_W": 2.808064891723916e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 142.937253061703,
+    "final_metal_C": 134.67329740842007,
+    "final_shell_C": 128.72328034682624,
+    "steady_C": [
+      166.36774193548408,
+      158.22387096774216,
+      151.31290322580665
+    ],
+    "energy_balance_residual_J": -3.961031325161457e-08,
+    "max_step_power_residual_W": 4.9478643404654576e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 71.49151624514036,
+    "final_metal_C": 61.77323048218385,
+    "final_shell_C": 54.49319608174615,
+    "steady_C": [
+      71.68756572687667,
+      61.9656918223246,
+      54.660223346186584
+    ],
+    "energy_balance_residual_J": -2.2570020519196987e-08,
+    "max_step_power_residual_W": 1.8495427411835408e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 79.14548964304103,
+    "final_metal_C": 69.55495848515383,
+    "final_shell_C": 62.30749900978041,
+    "steady_C": [
+      79.3387559808613,
+      69.74440191387563,
+      62.47081339712921
+    ],
+    "energy_balance_residual_J": -2.6491761673241854e-08,
+    "max_step_power_residual_W": 2.807709620356036e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 57.29386803168961,
+    "final_metal_C": 47.332208124545794,
+    "final_shell_C": 39.96717180450853,
+    "steady_C": [
+      57.295584927594845,
+      47.33384467638809,
+      39.968409613586395
+    ],
+    "energy_balance_residual_J": -7.334165275096893e-09,
+    "max_step_power_residual_W": 1.2359890888546943e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 61.573070822336426,
+    "final_metal_C": 51.68273481397307,
+    "final_shell_C": 44.33554235317645,
+    "steady_C": [
+      61.57481481481483,
+      51.68439506172841,
+      44.3367901234568
+    ],
+    "energy_balance_residual_J": -1.8739228835329413e-08,
+    "max_step_power_residual_W": 1.6047607687141863e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 52.933649281252755,
+    "final_metal_C": 51.53004204898283,
+    "final_shell_C": 50.54099295590628,
+    "steady_C": [
+      57.75650028468398,
+      56.38577528942871,
+      55.23059404061489
+    ],
+    "energy_balance_residual_J": -6.686605047434568e-09,
+    "max_step_power_residual_W": 1.2899903367724619e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 75.01594504995265,
+    "final_metal_C": 74.03038682184338,
+    "final_shell_C": 73.32882212354097,
+    "steady_C": [
+      83.46451612903238,
+      82.52225806451625,
+      81.47419354838722
+    ],
+    "energy_balance_residual_J": -2.525484887883067e-08,
+    "max_step_power_residual_W": 2.8402169505170605e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 43.132952574750135,
+    "final_metal_C": 41.51972246468738,
+    "final_shell_C": 40.30828388214345,
+    "steady_C": [
+      43.1678601832841,
+      41.55399118633883,
+      40.338023937102506
+    ],
+    "energy_balance_residual_J": -1.5953446563798934e-08,
+    "max_step_power_residual_W": 1.3860912417840154e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 51.377496030122536,
+    "final_metal_C": 49.902878877600095,
+    "final_shell_C": 48.73038935296265,
+    "steady_C": [
+      51.44401913875601,
+      49.96808612440194,
+      48.78660287081342
+    ],
+    "energy_balance_residual_J": -2.1889718482270837e-08,
+    "max_step_power_residual_W": 1.7763568394002505e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 40.57739666919,
+    "final_metal_C": 38.92037251243744,
+    "final_shell_C": 37.693683309055814,
+    "steady_C": [
+      40.57769971442291,
+      38.92066137632996,
+      37.69390179180672
+    ],
+    "energy_balance_residual_J": -6.581103662028909e-09,
+    "max_step_power_residual_W": 1.2446044195257855e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 44.90758179779538,
+    "final_metal_C": 43.32274479582539,
+    "final_shell_C": 42.114162695852464,
+    "steady_C": [
+      44.90814814814817,
+      43.3232839506173,
+      42.11456790123458
+    ],
+    "energy_balance_residual_J": -1.9068465917371213e-08,
+    "max_step_power_residual_W": 1.4849454998966394e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 86.08000626123554,
+    "final_metal_C": 81.81564229371753,
+    "final_shell_C": 78.80503458141096,
+    "steady_C": [
+      99.71664452457767,
+      95.54525526665397,
+      92.06490795217304
+    ],
+    "energy_balance_residual_J": -1.1896190699189901e-08,
+    "max_step_power_residual_W": 2.48245868306185e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 105.67811212102363,
+    "final_metal_C": 101.7714514771053,
+    "final_shell_C": 98.96329079153082,
+    "steady_C": [
+      120.00645161290338,
+      116.17322580645177,
+      112.77741935483887
+    ],
+    "energy_balance_residual_J": -3.175227902829647e-08,
+    "max_step_power_residual_W": 3.376676716015936e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 58.466818667969584,
+    "final_metal_C": 53.61140503207547,
+    "final_shell_C": 49.97248085644592,
+    "steady_C": [
+      58.566127497621316,
+      53.70889628924833,
+      50.057088487155085
+    ],
+    "energy_balance_residual_J": -2.057640813291073e-08,
+    "max_step_power_residual_W": 1.722355591482483e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 66.30181477461507,
+    "final_metal_C": 61.57775293914782,
+    "final_shell_C": 57.97439451265107,
+    "steady_C": [
+      66.41818181818185,
+      61.69181818181821,
+      58.0727272727273
+    ],
+    "energy_balance_residual_J": -2.616798155941069e-08,
+    "max_step_power_residual_W": 1.929123527588672e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 51.25913335104575,
+    "final_metal_C": 46.2801740030834,
+    "final_shell_C": 42.598125637600184,
+    "steady_C": [
+      51.260001516338555,
+      46.281001541610856,
+      42.59875154792893
+    ],
+    "energy_balance_residual_J": -8.885763236321509e-09,
+    "max_step_power_residual_W": 1.3093526263219246e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 55.478969449209785,
+    "final_metal_C": 50.57035226853101,
+    "final_shell_C": 46.90592934086715,
+    "steady_C": [
+      55.48000000000001,
+      50.57133333333334,
+      46.90666666666667
+    ],
+    "energy_balance_residual_J": -2.0972947822883725e-08,
+    "max_step_power_residual_W": 1.7053025658242404e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 135.79954173120973,
+    "final_metal_C": 127.24404266081994,
+    "final_shell_C": 121.20109701966831,
+    "steady_C": [
+      162.65686088441825,
+      154.28447523249187,
+      147.31637881951028
+    ],
+    "energy_balance_residual_J": -1.8611899577081203e-08,
+    "max_step_power_residual_W": 3.1947777756613505e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 151.67136272762968,
+    "final_metal_C": 143.38304845999815,
+    "final_shell_C": 137.41499379351538,
+    "steady_C": [
+      174.81935483870996,
+      166.6496774193551,
+      159.73225806451637
+    ],
+    "energy_balance_residual_J": -4.2171450331807137e-08,
+    "max_step_power_residual_W": 5.240252676230739e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 81.46761780779839,
+    "final_metal_C": 71.74892888315729,
+    "final_shell_C": 64.46877631789931,
+    "steady_C": [
+      81.66352846912716,
+      71.94125394361261,
+      64.63568531223396
+    ],
+    "energy_balance_residual_J": -2.9001967050135136e-08,
+    "max_step_power_residual_W": 3.0606628342866316e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 88.68829289135415,
+    "final_metal_C": 79.09006403146951,
+    "final_shell_C": 71.8404022521838,
+    "steady_C": [
+      88.87942583732061,
+      79.27741626794263,
+      72.00191387559812
+    ],
+    "energy_balance_residual_J": -3.1868694350123405e-08,
+    "max_step_power_residual_W": 2.998490344907623e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 67.2817383738295,
+    "final_metal_C": 57.3198762390524,
+    "final_shell_C": 49.954789130416735,
+    "steady_C": [
+      67.28345421921202,
+      57.32151178953222,
+      49.95602618211226
+    ],
+    "energy_balance_residual_J": -1.0975782060995698e-08,
+    "max_step_power_residual_W": 1.4036771744940779e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "PET",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1200
+    },
+    "final_polymer_C": 71.33605092633134,
+    "final_metal_C": 61.44176347758943,
+    "final_shell_C": 54.09357930838917,
+    "steady_C": [
+      71.33777777777779,
+      61.44340740740742,
+      54.094814814814825
+    ],
+    "energy_balance_residual_J": -2.3475877242162824e-08,
+    "max_step_power_residual_W": 1.7767121107681305e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 42.48310249422483,
+    "final_metal_C": 41.211166300687246,
+    "final_shell_C": 40.250249494338014,
+    "steady_C": [
+      47.11145975234563,
+      45.88353588538712,
+      44.76405491864749
+    ],
+    "energy_balance_residual_J": 1.2842065189033747e-08,
+    "max_step_power_residual_W": 1.3775647289548942e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 65.16062824558519,
+    "final_metal_C": 64.49742392767216,
+    "final_shell_C": 63.878256111713384,
+    "steady_C": [
+      73.57650130548308,
+      72.97344647519587,
+      72.01018276762407
+    ],
+    "energy_balance_residual_J": -1.6443664208054543e-08,
+    "max_step_power_residual_W": 1.7276846620006836e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 33.033657614439086,
+    "final_metal_C": 31.475148589231114,
+    "final_shell_C": 30.27755424960521,
+    "steady_C": [
+      33.07048385704242,
+      31.511036948111474,
+      30.308675220878737
+    ],
+    "energy_balance_residual_J": -8.742972568143159e-09,
+    "max_step_power_residual_W": 7.929656931082718e-12,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 41.585217502670126,
+    "final_metal_C": 40.23051413808143,
+    "final_shell_C": 39.08860135898034,
+    "steady_C": [
+      41.65760314341847,
+      40.300907662082516,
+      39.14923379174853
+    ],
+    "energy_balance_residual_J": -5.864421837031841e-09,
+    "max_step_power_residual_W": 1.1309175818041695e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 30.524258152440723,
+    "final_metal_C": 28.90472373689713,
+    "final_shell_C": 27.687416444886882,
+    "steady_C": [
+      30.52461633568052,
+      28.90505866582853,
+      27.687669248365534
+    ],
+    "energy_balance_residual_J": 4.1245584725402296e-09,
+    "max_step_power_residual_W": 6.449063505442609e-12,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 35.02689015354018,
+    "final_metal_C": 33.51369821071615,
+    "final_shell_C": 32.32304925084253,
+    "steady_C": [
+      35.02757779133619,
+      33.51434004474274,
+      32.32353060809437
+    ],
+    "energy_balance_residual_J": -3.839886630885303e-09,
+    "max_step_power_residual_W": 1.2160938922534115e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 74.67113180049415,
+    "final_metal_C": 70.77793070343004,
+    "final_shell_C": 67.84518430277714,
+    "steady_C": [
+      87.71966693707613,
+      83.95054796197931,
+      80.5707682182051
+    ],
+    "energy_balance_residual_J": 1.860462361946702e-08,
+    "max_step_power_residual_W": 2.4199309223149612e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 94.98899538407233,
+    "final_metal_C": 91.62332485108459,
+    "final_shell_C": 88.94524478449421,
+    "steady_C": [
+      109.06892950391652,
+      105.80389033942566,
+      102.55013054830295
+    ],
+    "energy_balance_residual_J": -2.1784217096865177e-08,
+    "max_step_power_residual_W": 2.7197799568057235e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 48.13601401693179,
+    "final_metal_C": 43.437410579764084,
+    "final_shell_C": 39.83812460464647,
+    "steady_C": [
+      48.24053068456994,
+      43.5392654368445,
+      39.92644912491314
+    ],
+    "energy_balance_residual_J": -5.158653948456049e-09,
+    "max_step_power_residual_W": 1.0825118579305126e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 56.289006783185606,
+    "final_metal_C": 51.78416956681792,
+    "final_shell_C": 48.23646397093969,
+    "steady_C": [
+      56.41406679764245,
+      51.90578781925345,
+      48.3412180746562
+    ],
+    "energy_balance_residual_J": -6.890331860631704e-09,
+    "max_step_power_residual_W": 1.4280132631938613e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 41.08126819053993,
+    "final_metal_C": 36.2110554808416,
+    "final_shell_C": 32.55622052074569,
+    "steady_C": [
+      41.082292432035274,
+      36.212013225569436,
+      32.55694342395297
+    ],
+    "energy_balance_residual_J": 1.1063093552365899e-08,
+    "max_step_power_residual_W": 1.3589129821411916e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 45.475638390721855,
+    "final_metal_C": 40.709202635699825,
+    "final_shell_C": 37.08036194457731,
+    "steady_C": [
+      45.47687614399025,
+      40.71035794183446,
+      37.08122839129551
+    ],
+    "energy_balance_residual_J": -4.1509338188916445e-09,
+    "max_step_power_residual_W": 1.141486904998601e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 122.95317575989748,
+    "final_metal_C": 115.12807730754398,
+    "final_shell_C": 109.23758651543562,
+    "steady_C": [
+      148.63197771417185,
+      141.05106607686758,
+      134.2808381675415
+    ],
+    "energy_balance_residual_J": 2.6309862732887268e-08,
+    "max_step_power_residual_W": 3.285549610154703e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 139.73154609180187,
+    "final_metal_C": 132.3121762362025,
+    "final_shell_C": 126.54572779366475,
+    "steady_C": [
+      162.3075718015667,
+      155.04955613577036,
+      148.36005221932126
+    ],
+    "energy_balance_residual_J": -3.1170202419161797e-08,
+    "max_step_power_residual_W": 4.32720526077901e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 70.78954862066979,
+    "final_metal_C": 61.380803565562424,
+    "final_shell_C": 54.17898013720727,
+    "steady_C": [
+      70.99560092586121,
+      61.58160816994403,
+      54.35310998096474
+    ],
+    "energy_balance_residual_J": -8.229108061641455e-09,
+    "max_step_power_residual_W": 1.4026113603904378e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 78.34469070395889,
+    "final_metal_C": 69.1146527099227,
+    "final_shell_C": 61.95825788887879,
+    "steady_C": [
+      78.54876227897842,
+      69.31310805500983,
+      62.12919449901769
+    ],
+    "energy_balance_residual_J": -9.014911483973265e-09,
+    "max_step_power_residual_W": 2.1685764295398258e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 56.916783247688265,
+    "final_metal_C": 47.170553096757864,
+    "final_shell_C": 39.85942663453338,
+    "steady_C": [
+      56.91880657656739,
+      47.17244506518078,
+      39.860854687334125
+    ],
+    "energy_balance_residual_J": 1.3751559890806675e-08,
+    "max_step_power_residual_W": 1.5340617665060563e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 25,
+      "inlet_C": 25,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 61.1487607464944,
+    "final_metal_C": 51.50245927317546,
+    "final_shell_C": 44.21633098517958,
+    "steady_C": [
+      61.150823672971335,
+      51.50438478747204,
+      44.21777506609722
+    ],
+    "energy_balance_residual_J": -4.343746695667505e-09,
+    "max_step_power_residual_W": 1.3201884030422661e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 52.41534211173389,
+    "final_metal_C": 51.141518295843866,
+    "final_shell_C": 50.17938207530908,
+    "steady_C": [
+      57.02329603722461,
+      55.793290526992415,
+      54.67328914943437
+    ],
+    "energy_balance_residual_J": 1.6254489310085773e-08,
+    "max_step_power_residual_W": 1.6332712959865603e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 73.92909435893249,
+    "final_metal_C": 73.23232766103791,
+    "final_shell_C": 72.59314578120814,
+    "steady_C": [
+      82.07258485639693,
+      81.43402088772852,
+      80.46187989556141
+    ],
+    "energy_balance_residual_J": -2.0459992811083794e-08,
+    "max_step_power_residual_W": 2.8776092619864357e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 43.01012203330792,
+    "final_metal_C": 41.45105017001353,
+    "final_shell_C": 40.2532972216989,
+    "steady_C": [
+      43.046802859809304,
+      41.48679681622147,
+      40.28429530532451
+    ],
+    "energy_balance_residual_J": -5.148649506736547e-09,
+    "max_step_power_residual_W": 1.134381477641e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 51.134811509381436,
+    "final_metal_C": 49.76935870277802,
+    "final_shell_C": 48.62447111249223,
+    "steady_C": [
+      51.20495088408645,
+      49.837567779960715,
+      48.68322200392928
+    ],
+    "energy_balance_residual_J": -7.617927622050047e-09,
+    "max_step_power_residual_W": 1.3980816504499671e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 40.512270194714986,
+    "final_metal_C": 38.89245262153557,
+    "final_shell_C": 37.67507427869436,
+    "steady_C": [
+      40.51262715092426,
+      38.89278640309886,
+      37.675326216142516
+    ],
+    "energy_balance_residual_J": 1.2105374480597675e-08,
+    "max_step_power_residual_W": 1.3059775483270641e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 10,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 44.79262107866451,
+    "final_metal_C": 43.27389596690018,
+    "final_shell_C": 42.08185935308751,
+    "steady_C": [
+      44.79328859060403,
+      43.274519015659955,
+      42.08232662192394
+    ],
+    "energy_balance_residual_J": -5.198671715334058e-09,
+    "max_step_power_residual_W": 1.0597744903861894e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 84.6033714180023,
+    "final_metal_C": 80.708282698586,
+    "final_shell_C": 77.77431688374747,
+    "steady_C": [
+      97.63150322195511,
+      93.8603026035846,
+      90.48000244899197
+    ],
+    "energy_balance_residual_J": 2.0052539184689522e-08,
+    "max_step_power_residual_W": 2.8123281481384765e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 103.7574614974192,
+    "final_metal_C": 100.35822858444996,
+    "final_shell_C": 97.66013445398856,
+    "steady_C": [
+      117.56501305483037,
+      114.2644647519583,
+      111.00182767624028
+    ],
+    "energy_balance_residual_J": -2.6731868274509907e-08,
+    "max_step_power_residual_W": 2.8899549420202675e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 58.112478435799964,
+    "final_metal_C": 53.41331216054579,
+    "final_shell_C": 49.81386757673947,
+    "steady_C": [
+      58.21684968733682,
+      53.51502530495449,
+      49.90206920935891
+    ],
+    "energy_balance_residual_J": -7.4323907028883696e-09,
+    "max_step_power_residual_W": 1.3850254276803753e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 65.83860078989642,
+    "final_metal_C": 61.32301413151429,
+    "final_shell_C": 57.77233372445142,
+    "steady_C": [
+      65.96141453831044,
+      61.44244793713164,
+      57.87520628683695
+    ],
+    "energy_balance_residual_J": -9.93895810097456e-09,
+    "max_step_power_residual_W": 1.453415165997285e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 51.06928023281381,
+    "final_metal_C": 46.19878436547971,
+    "final_shell_C": 42.543878354552795,
+    "steady_C": [
+      51.070303247279014,
+      46.19974096283977,
+      42.54460039172996
+    ],
+    "energy_balance_residual_J": 1.3487806427292526e-08,
+    "max_step_power_residual_W": 1.3912426766182762e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 30,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 55.24136931584619,
+    "final_metal_C": 50.4694003918839,
+    "final_shell_C": 46.83917204682231,
+    "steady_C": [
+      55.24258694325809,
+      50.47053691275168,
+      46.840024405125085
+    ],
+    "energy_balance_residual_J": -5.667970981448889e-09,
+    "max_step_power_residual_W": 1.2926548720315623e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 132.88541537740574,
+    "final_metal_C": 125.05842930269964,
+    "final_shell_C": 119.16671909640567,
+    "steady_C": [
+      158.54381399905085,
+      150.9608207184729,
+      144.1900723983284
+    ],
+    "energy_balance_residual_J": 2.62953108176589e-08,
+    "max_step_power_residual_W": 3.253575187045499e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 0.5,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 148.50001220514963,
+    "final_metal_C": 141.04707996956844,
+    "final_shell_C": 135.26061746315952,
+    "steady_C": [
+      170.80365535248055,
+      163.51013054830298,
+      156.8117493472586
+    ],
+    "energy_balance_residual_J": -3.5477569326758385e-08,
+    "max_step_power_residual_W": 4.7919002099661157e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 80.76601303953736,
+    "final_metal_C": 71.35670514634387,
+    "final_shell_C": 64.15472310930008,
+    "steady_C": [
+      80.9719199286281,
+      71.55736803805404,
+      64.32873006541053
+    ],
+    "energy_balance_residual_J": -1.2776581570506096e-08,
+    "max_step_power_residual_W": 2.369304752392054e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 2,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 87.89428471066968,
+    "final_metal_C": 78.65349727461901,
+    "final_shell_C": 71.49412764239041,
+    "steady_C": [
+      88.09611001964639,
+      78.84976817288803,
+      71.66318271119844
+    ],
+    "energy_balance_residual_J": -1.2390955816954374e-08,
+    "max_step_power_residual_W": 2.313171876267006e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.005,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 66.90479528996158,
+    "final_metal_C": 57.15828198139567,
+    "final_shell_C": 49.84708446834029,
+    "steady_C": [
+      66.90681739181115,
+      57.16017280245112,
+      49.84851165511112
+    ],
+    "energy_balance_residual_J": 1.4071702025830746e-08,
+    "max_step_power_residual_W": 1.5074164139150525e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  },
+  {
+    "parameters": {
+      "material": "TPU",
+      "ambient_C": 35,
+      "inlet_C": 35,
+      "chamber_heat_W": 60,
+      "heat_to_polymer_fraction": 0.35,
+      "chamber_UA_W_K": 4,
+      "polymer_metal_G_W_K": 2,
+      "metal_shell_G_W_K": 8,
+      "hotend_G_W_K": 0.1,
+      "hotend_C": 230,
+      "polymer_mass_kg": 0.04,
+      "metal_heat_capacity_J_K": 700,
+      "shell_heat_capacity_J_K": 540,
+      "mass_flow_g_h": 100,
+      "cp_J_kg_K": 1700
+    },
+    "final_polymer_C": 70.91449167161834,
+    "final_metal_C": 61.26265702935934,
+    "final_shell_C": 53.97514108742446,
+    "steady_C": [
+      70.91653447223918,
+      61.264563758389265,
+      53.97657107992679
+    ],
+    "energy_balance_residual_J": -7.745256880298257e-09,
+    "max_step_power_residual_W": 1.3848477919964353e-11,
+    "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
+    "excluded": [
+      "local_flash_temperature",
+      "fracture_heat_partition_calibration",
+      "dust_flow",
+      "nonlinear_temperature_dependent_properties",
+      "motor_thermal_network"
+    ]
+  }
+]

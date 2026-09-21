@@ -1,0 +1,35 @@
+{
+  "status": "UNCALIBRATED_SENSITIVITY",
+  "cp_J_kg_K": {
+    "PLA": 1800,
+    "PET": 1200,
+    "TPU": 1700
+  },
+  "retained_polymer_kg": 0.04,
+  "metal_heat_capacity_J_K": 700,
+  "shell_heat_capacity_J_K": 540,
+  "polymer_metal_G_W_K": 2,
+  "metal_shell_G_W_K": 8,
+  "heat_to_polymer_fraction": 0.35,
+  "hotend_C": 230,
+  "hotend_coupling_W_K": [
+    0.005,
+    0.1
+  ],
+  "chamber_UA_W_K": [
+    0.5,
+    2,
+    4
+  ],
+  "ambient_C": [
+    25,
+    35
+  ],
+  "chamber_heat_W": [
+    10,
+    30,
+    60
+  ],
+  "mass_flow_g_h": 100,
+  "notes": "No values are grade-calibrated measurements. Heat input is dissipated chamber work, not motor electrical input."
+}

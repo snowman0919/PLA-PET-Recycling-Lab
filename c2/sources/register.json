@@ -1,0 +1,51 @@
+[
+  {
+    "id": "USER",
+    "type": "user_requirement",
+    "url": null,
+    "checked_on": "2026-09-21",
+    "notes": "Conversation: PSU800W,sharedM1,budget100000,PLA/PET/TPU."
+  },
+  {
+    "id": "HANDOVER",
+    "type": "user_uploaded_archive",
+    "url": null,
+    "checked_on": "2026-09-21",
+    "notes": "41 manifest hashes verified; read numbered sections and latest transcript context."
+  },
+  {
+    "id": "JSS57",
+    "type": "manufacturer_page_and_drawing",
+    "url": "https://www.jssmotor.com/57bly-series-bldc-motor",
+    "checked_on": "2026-09-21",
+    "notes": "125/188/251W,24V,3000rpm; current convention and exact price not confirmed."
+  },
+  {
+    "id": "TT60",
+    "type": "manufacturer_pdf",
+    "url": "https://www.ttmotor.com/uploads/GMP60-609760127.pdf",
+    "checked_on": "2026-09-21",
+    "notes": "PDF and dimensional table visually inspected. Duty/thermal rating and exact option price not established."
+  },
+  {
+    "id": "POLY_TDS",
+    "type": "manufacturer_documentation",
+    "url": "https://wiki.polymaker.com/polymaker-products/more-about-our-products/documents/technical-data-sheets",
+    "checked_on": "2026-09-21",
+    "notes": "Separates Tg/Tm/HDT; numeric examples concern HT-PLA, not all PLA waste."
+  },
+  {
+    "id": "LAMMPS_BPM",
+    "type": "official_solver_documentation",
+    "url": "https://docs.lammps.org/bond_bpm_rotational.html",
+    "checked_on": "2026-09-21",
+    "notes": "Candidate bonded-particle fracture solver; NOT run for C2 performance. TPU needs separate model validation."
+  },
+  {
+    "id": "DESIGN",
+    "type": "engineering_assumption_or_calculation",
+    "url": null,
+    "checked_on": "2026-09-21",
+    "notes": "Thermal coefficients, loads and packaging margins are uncalibrated assumptions."
+  }
+]
