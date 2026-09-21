@@ -42,3 +42,14 @@ Worktree: `/home/monad/develop/PPR-c2.1-codex-20260921`, branch `codex/c2.1-s2-t
 - I6: `sim/optimization/i6_surrogate.py`, `results/i6_surrogate.json` + `results/pareto_candidates.json` (front 11, 81-sample robustness ×5 picks), tests `tests/test_surrogate.py` (10).
 - Handoff: `docs/HANDOFF_KO.md` (Korean), `results/validation_summary.json` (I0–I6 gates), `results/architecture_comparison.json` (per-arch means), `results/open_actions.json` (7 blockers), `results/run_manifest.json` (file+SHA inventory).
 - SOURCES.md itself extended by this section; no C2.1 file modified.
+
+## C2.2b real headless PhysX dynamics Gates A–F (this workstream, UNCALIBRATED real-physics sensitivity)
+
+- Gate A USD: `sim/assets/emit_usd.py` → `sim/assets/usd/machine.usda` + `machine.sidecar.json` (`dyn_usd_manifest/1` PASS, mm/F0); `sim/bootstrap/load_machine.py` → `results/dyn_usd_load.json` PASS (24 prims, 8 meshes, 584 verts, 10 steps). pxr confirmed present in `$HOME/env_isaacsim-c22` (Isaac 6.1.0.0).
+- Gate B S1 PhysX: `sim/dynamics/s1_physx.py` (S1-A twin-shaft + per-fragment `IsaacContactSensor` + in-loop bond-break, impulse_scale 0.02 N·s ASSUMPTION_UNCALIBRATED) → `results/dyn_s1/` (14 runs JSONL + summary: W1/W4/P0, contacts >230 steps, breaks 42–46, mass error 0).
+- Gate C transfer: `sim/dynamics/transfer.py` → `results/dyn_transfer.json` PASS (DERIVED S1_DISCHARGE/CHUTE/S2_ENTRY/S2_EXIT boxes; C2.1 CAD unmutated; identical S1 states to S2-A/B).
+- Gate D screen: `sim/dynamics/s2_screen.py` (real hole geometry, proxy-free) → `results/dyn_s2/` (17 runs: S2-A pass 0.42–0.50 vs S2-B 0.17–0.29 across holes 3.0/4.0/5.5; 45° yaw ≥ 0°).
+- Gate E dt sweep: `sim/dynamics/dt_sweep.py` → `results/dyn_dt_sweep.json` PASS (W1s7 + W4s11 × dt 0.0025/0.005/0.01; breaks stable, torque-impulse scales with dt — flagged).
+- Gate F sweep + refit: `sim/dynamics/gap_screen_sweep.py` → `results/dyn_gap_screen_sweep.json` PASS (gap axis = shaft-center engagement 59.2/60.0/60.8 mm, NOT literal 0.4–1.2 mm clearance — unrepresentable with rigid r=40 mm cylinders at 60 mm centers; 6 S1 + 12 S2 all PASS); `sim/dynamics/retrain_surrogate.py` → `results/dyn_surrogate.json` PASS (additive; `i6_surrogate.py` untouched, `i5_benchmark.py` proxy intact).
+- Contract tests: `tests/test_dynamics.py` (8 tests, manifest/schema evidence-level only, no SimulationApp).
+- SOURCES.md itself extended by this section; no C2.1 file modified.
