@@ -48,6 +48,18 @@ class TestVerifier(unittest.TestCase):
             problems = VC.verify(dst)
             self.assertTrue(any("config_hash baseline.json" in p
                                 for p in problems))
+    def test_tampered_r1_hash(self):
+        with tempfile.TemporaryDirectory() as td:
+            dst = _copy_tree(td)
+            man_p = os.path.join(dst, "revisions", "r1",
+                                 "run_manifest.json")
+            man = json.load(open(man_p))
+            man["files"]["CONTRACT_R1.md"] = "0" * 64
+            json.dump(man, open(man_p, "w"))
+            problems = VC.verify(dst)
+            self.assertTrue(any("r1_hash CONTRACT_R1.md" in p
+                                for p in problems))
+
 
     def test_tampered_backend_label(self):
         with tempfile.TemporaryDirectory() as td:

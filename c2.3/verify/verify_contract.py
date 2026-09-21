@@ -1,7 +1,12 @@
 """A4 independent verifier: reads ONLY artifacts, never regenerates.
 
 Checks:
-  1. config_hashes in baseline_manifest.json match the five A1 files.
+  1. config_hashes in baseline_manifest.json match the three A1-frozen files
+     (CONTRACT.md, configs/baseline.json, configs/cases.json); the A1 file
+     itself is history and is never edited. R1-normative files (STATE.json,
+     NEXT.md, revisions/r1/CONTRACT_R1.md) are checked against
+     revisions/r1/run_manifest.json instead (stale-scope fix: the R0.1
+     authorized progress update legitimately changed STATE.json/NEXT.md).
   2. run_hashes match the 8 files in each of the 12 run dirs.
   3. per-run summary: backend == ISAAC_PHYSX, dt in the frozen ladder
      (ladder itself checked unshrunk against CONTRACT), seed/class match
@@ -36,10 +41,11 @@ sys.path.insert(0, os.path.join(C23, "analysis"))
 import convergence as CONV
 
 CONFIG_FILES = {"CONTRACT.md": "CONTRACT.md",
-                "STATE.json": "STATE.json",
-                "NEXT.md": "NEXT.md",
                 "baseline.json": "configs/baseline.json",
                 "cases.json": "configs/cases.json"}
+R1_NORMATIVE_FILES = {"STATE.json": "STATE.json",
+                      "NEXT.md": "NEXT.md",
+                      "CONTRACT_R1.md": "revisions/r1/CONTRACT_R1.md"}
 RUN_FILES = ("config.json", "environment.json", "asset_manifest.json",
              "telemetry.jsonl", "events.jsonl", "summary.json",
              "stdout.log", "stderr.log")
@@ -66,6 +72,18 @@ def check_config_hashes(c23dir=C23):
         if man["config_hashes"].get(key) != got:
             bad.append("config_hash %s: manifest %s != file %s"
                        % (key, man["config_hashes"].get(key), got))
+    r1man = json.load(open(os.path.join(
+        c23dir, "revisions", "r1", "run_manifest.json")))
+    # run_manifest keys are relative to revisions/r1/; STATE.json/NEXT.md
+    # live one level up (c2.3/), so their r1-relative keys carry "../".
+    r1_keys = {"STATE.json": "../STATE.json",
+               "NEXT.md": "../NEXT.md",
+               "CONTRACT_R1.md": "CONTRACT_R1.md"}
+    for key, rel in R1_NORMATIVE_FILES.items():
+        got = sha256_file(os.path.join(c23dir, rel))
+        if r1man["files"].get(r1_keys[key]) != got:
+            bad.append("r1_hash %s: manifest %s != file %s"
+                       % (key, r1man["files"].get(r1_keys[key]), got))
     return bad
 
 

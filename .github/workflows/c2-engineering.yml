@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OPENBLAS_NUM_THREADS: "1"
+      # Pin OpenBLAS microarch kernels: DYNAMIC_ARCH otherwise selects
+      # different kernels per host CPU (last-ulp drift vs frozen manifests).
+      # Artifact-era selection is Cooperlake (numpy 1.26.4 wheel OpenBLAS).
+      OPENBLAS_CORETYPE: "Cooperlake"
       OMP_NUM_THREADS: "1"
       MKL_NUM_THREADS: "1"
     steps:
