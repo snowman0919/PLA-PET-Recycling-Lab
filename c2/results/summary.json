@@ -18,7 +18,7 @@
   "max_thermal_energy_residual_J": 4.2171450331807137e-08,
   "c1_geometry_role": "SEED_NOT_OPTIMUM",
   "motor_status": "UNSELECTED",
-  "budget_status": "INCOMPLETE_COSTS_NOT_A_FEASIBLE_QUOTE",
+  "budget_status": "INCOMPLETE_QUOTES",
   "fabrication": "HOLD",
   "energization": "HOLD",
   "procurement": "HOLD",
@@ -30,5 +30,13 @@
   "total_confirmed_cost_KRW": null,
   "power_allocation_cases": 1925,
   "max_admitted_power_W": 500.0,
-  "performance_gate": "BLOCKED_PERFORMANCE_DATA"
+  "performance_gate": "BLOCKED_PERFORMANCE_DATA",
+  "evidence_inventory": {
+    "actual_dem_runs": 0,
+    "uncalibrated_dem_runs": 0,
+    "calibrated_dem_runs": 0,
+    "actual_physical_tests": 0,
+    "qualified_records": 0,
+    "synthetic_fixture_records_excluded": 0
+  }
 }

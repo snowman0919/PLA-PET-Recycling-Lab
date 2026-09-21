@@ -9,6 +9,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import re
 import sys
 
 import cadquery as cq
@@ -39,6 +40,13 @@ def ring(ro, ri, h, at=(0, 0, 0)):
     return cylinder(ro, h, at).cut(cylinder(ri, h+2, (at[0], at[1]-1, at[2]))).clean()
 
 
+def c2_process_part(part_id, y=4):
+    path=REPO/"c2/cad"/(part_id+".step")
+    if not path.is_file():
+        raise FileNotFoundError(f"Run c2/src/build_cad.py first: {path}")
+    return cq.importers.importStep(str(path)).val().translate((0,y,0)).clean()
+
+
 def sector(r0, r1, a0, a1, y0, depth):
     a = np.linspace(math.radians(a0), math.radians(a1), max(30, int(a1-a0)+1))
     points = np.c_[r1*np.cos(a), r1*np.sin(a)].tolist()
@@ -58,13 +66,13 @@ def local_rotor(c):
     hooks = extrude_xz(hook_polygon(S2("C2.1-NOMINAL", tip_mm=c.rotor_tip_diameter_mm,
                                       eccentric_mm=c.eccentric_mm, ratio_denominator=c.q)), 4, 40)
     hub = cylinder(20, 84, (0, -24, 0))
-    coupling_web = cylinder(54.5, 14, (0, 46, 0))
+    coupling_web = cylinder(54.5, 14, (0, 50, 0))
     stack = cycloid.fuse(hub).fuse(hooks).fuse(coupling_web)
     stack = stack.cut(cylinder(16.10, 18, (0, -25, 0)))
     stack = stack.cut(cylinder(10.10, 8, (0, -7, 0)))
     for a in np.linspace(0, 2*math.pi, c.output_pin_count, endpoint=False):
         x, z = c.output_pin_pitch_radius_mm*np.array([math.cos(a), math.sin(a)])
-        stack = stack.cut(cylinder(c.output_window_radius_mm, 17, (x, 45, z)))
+        stack = stack.cut(cylinder(c.output_window_radius_mm, 17, (x, 49, z)))
     return stack.clean()
 
 
@@ -78,10 +86,10 @@ def input_eccentric(theta, c):
 
 def output_carrier(theta, c):
     phi = -theta/c.q
-    carrier = cylinder(48, 8, (0, 64, 0)).fuse(cylinder(10, 43, (0, 72, 0)))
+    carrier = cylinder(48, 8, (0, 68, 0)).fuse(cylinder(10, 43, (0, 76, 0)))
     for a in np.linspace(0, 2*math.pi, c.output_pin_count, endpoint=False)+phi:
         x, z = c.output_pin_pitch_radius_mm*np.array([math.cos(a), math.sin(a)])
-        carrier = carrier.fuse(cylinder(3, 20, (x, 44, z)))
+        carrier = carrier.fuse(cylinder(3, 20, (x, 48, z)))
     return carrier.clean()
 
 
@@ -90,30 +98,38 @@ def output_rollers(theta, c):
     out = []
     for i, a in enumerate(np.linspace(0, 2*math.pi, c.output_pin_count, endpoint=False)+phi):
         x, z = c.output_pin_pitch_radius_mm*np.array([math.cos(a), math.sin(a)])
-        out.append((f"OUTPUT_ROLLER_{i+1}", ring(c.output_roller_radius_mm, 3.10, 14, (x, 46, z))))
+        out.append((f"OUTPUT_ROLLER_{i+1}", ring(c.output_roller_radius_mm, 3.10, 14, (x, 50, z))))
     return out
 
 
 def fixed_components(c):
     front = cq.Solid.makeBox(170, 8, 170, V(-85, -60, -85)).cut(cylinder(16.10, 10, (0, -61, 0)))
-    rear = cq.Solid.makeBox(170, 8, 170, V(-85, 84, -85)).cut(cylinder(21.10, 10, (0, 83, 0)))
+    rear = cq.Solid.makeBox(170, 8, 170, V(-85, 88, -85)).cut(cylinder(21.10, 10, (0, 87, 0)))
     parts = [
         ("FRONT_INPUT_SUPPORT", front.clean()),
         ("REAR_OUTPUT_SUPPORT", rear.clean()),
         ("INPUT_BEARING_ENVELOPE_UNRATED", ring(16, 6.10, 12, (0, -60, 0))),
-        ("OUTPUT_BEARING_ENVELOPE_UNRATED", ring(21, 10.10, 12, (0, 80, 0))),
+        ("OUTPUT_BEARING_ENVELOPE_UNRATED", ring(21, 10.10, 12, (0, 84, 0))),
         ("FRONT_FIXED_RING_PLATE", ring(88, 63.5, 6, (0, -34, 0))),
-        ("REAR_FIXED_RING_PLATE", ring(88, 63.5, 6, (0, -4, 0))),
-        ("FIXED_SHEAR_INSERT_HOLD", cq.Solid.makeBox(8, 40, 10, V(62.8, 4, -5))),
-        ("SCREEN_SOLID_ENVELOPE_HOLD", sector(62.8, 66.0, -130, -50, 4, 40)),
-        ("THERMAL_SPREADER_ENVELOPE_HOLD", sector(66.2, 73.0, -145, -35, 4, 40)),
+        ("REAR_FIXED_RING_PLATE", ring(88, 63.5, 6, (0, -6, 0))),
+        ("C2_FIXED_SHEAR_SENSOR_BORE", c2_process_part("C2_FIXED_SHEAR")),
+        ("C2_PERFORATED_SCREEN_REFERENCE", c2_process_part("C1_SCREEN_REFERENCE")),
+        ("C2_LEFT_WEAR_SHELL", c2_process_part("C1_LEFT_WEAR_SHELL")),
+        ("C2_RIGHT_WEAR_SHELL_1", c2_process_part("C2_RIGHT_WEAR_SHELL_1")),
+        ("C2_RIGHT_WEAR_SHELL_2", c2_process_part("C2_RIGHT_WEAR_SHELL_2")),
+        ("C2_THERMAL_SADDLE_L", c2_process_part("C2_THERMAL_SADDLE_L")),
+        ("C2_THERMAL_SADDLE_R_SENSOR_BORE", c2_process_part("C2_THERMAL_SADDLE_R")),
+        ("C2_SADDLE_CAP_L_FRONT", c2_process_part("C2_SADDLE_CAP_L",0)),
+        ("C2_SADDLE_CAP_L_REAR", c2_process_part("C2_SADDLE_CAP_L",44)),
+        ("C2_SADDLE_CAP_R_FRONT", c2_process_part("C2_SADDLE_CAP_R",0)),
+        ("C2_SADDLE_CAP_R_REAR", c2_process_part("C2_SADDLE_CAP_R",44)),
         ("GUARD_SECTION_ENVELOPE_HOLD", sector(90, 94, 20, 160, -42, 124)),
     ]
     for i, a in enumerate(np.linspace(0, 2*math.pi, c.q+1, endpoint=False)):
         x, z = 72*np.array([math.cos(a), math.sin(a)])
-        parts.append((f"FIXED_RING_PIN_{i+1}", cylinder(8, 24, (x, -28, z))))
+        parts.append((f"FIXED_RING_PIN_{i+1}", cylinder(8, 22, (x, -28, z))))
     for i, (x, z) in enumerate([(-80, -80), (-80, 70), (70, -80), (70, 70)]):
-        parts.append((f"SUPPORT_TIE_{i+1}", cq.Solid.makeBox(10, 136, 10, V(x, -52, z))))
+        parts.append((f"SUPPORT_TIE_{i+1}", cq.Solid.makeBox(10, 140, 10, V(x, -52, z))))
     return parts
 
 
@@ -141,6 +157,12 @@ def export_assembly(path, parts, exploded=False):
         assembly.add(shape, name=name)
         labels.append(name)
     assembly.save(str(path))
+    text = path.read_text(encoding="utf-8")
+    text, replacements = re.subn(r"(FILE_NAME\('[^']*',')[^']*(')",
+                                 r"\g<1>2000-01-01T00:00:00\2", text, count=1)
+    if replacements != 1:
+        raise RuntimeError(f"Could not normalize STEP timestamp: {path}")
+    path.write_text(text, encoding="utf-8")
     imported = cq.importers.importStep(str(path))
     solids = len(imported.solids().vals())
     return {"file": str(path.relative_to(REPO)), "labels": labels, "object_count": len(parts),
@@ -225,8 +247,8 @@ def analytical_bounds(c):
         "hook_to_shear_radial_mm": 62.8-hook_envelope,
         "hook_to_screen_inner_radius_mm": 62.8-hook_envelope,
         "hook_to_thermal_inner_radius_mm": 66.2-hook_envelope,
-        "rear_ring_to_process_axial_mm": 4.0-2.0,
-        "process_to_coupling_axial_mm": 46.0-44.0,
+        "rear_ring_to_process_axial_mm": 4.0-0.0,
+        "process_to_coupling_axial_mm": 50.0-48.0,
         "nominal_roller_window_clearance_mm": c.coupling_radial_clearance_mm,
     }
     return {"method": "CONSERVATIVE_ANALYTICAL_ENVELOPE_CONTINUOUS_ALL_PHASES",
@@ -261,7 +283,7 @@ def write_schematic_svg(path):
 <rect class="move" x="605" y="205" width="115" height="110"/><text x="590" y="195">output pins/rollers</text>
 <rect class="move" x="710" y="248" width="145" height="24"/><text x="720" y="240">output shaft −ω/q</text>
 <text x="260" y="455">positive XZ angle maps +X toward +Z and is a physical -Y rotation; output XZ angle is -theta/q</text>
-<text x="260" y="482">window extra0.20mm is nominal clearance only; loaded transfer, all ratings and fabrication remain HOLD</text>
+<text x="260" y="482">window extra0.20mm: rigid first-contact equilibrium PASS; elastic sharing, ratings and fabrication HOLD</text>
 </svg>\n""", encoding="utf-8")
 
 
@@ -300,13 +322,15 @@ def main():
         "collision_details": failures,
         "interfaces": {"cad_rotor": "single fused envelope; physical bolts, axial retention and fits are absent/HOLD",
                        "output_carrier": "unpowered reverse-rotation witness/load-extraction candidate",
-                       "nominal_clearance": "non-interference only; loaded phase take-up/contact sharing HOLD",
-                       "process_elements": "40mm transmission-fixture solid envelopes only; actual perforated screen, sensor bores/mounts and thermal interfaces are not integrated/HOLD"},
+                       "nominal_clearance": "rigid first-contact phase take-up is calculated; elastic sharing/rating HOLD",
+                       "process_elements": "C2 generated shear sensor bore, perforated screen reference, split wear liners, thermal saddles/caps integrated; screen attachment, sensor wiring and measured UA HOLD",
+                       "process_source_sha256": {p:hashlib.sha256((REPO/'c2/cad'/(p+'.step')).read_bytes()).hexdigest() for p in
+                          ["C2_FIXED_SHEAR","C1_SCREEN_REFERENCE","C1_LEFT_WEAR_SHELL","C2_RIGHT_WEAR_SHELL_1","C2_RIGHT_WEAR_SHELL_2","C2_THERMAL_SADDLE_L","C2_THERMAL_SADDLE_R","C2_SADDLE_CAP_L","C2_SADDLE_CAP_R"]}},
         "not_checked": ["full_machine_collision", "continuous_BRep_collision_between_samples",
                         "loaded_output_contact_transfer", "gear_contact_stress", "bearing_L10_life",
                         "roller_contact_pressure", "shaft_fatigue", "fastener_preload", "axial_retention",
-                        "seal_and_lubrication", "actual_screen_perforations_and_mounts", "sensor_integration",
-                        "thermal_interface_and_airflow", "guard_containment_strength",
+                        "seal_and_lubrication", "screen_attachment_and_size_calibration", "sensor_mount_wiring_and_response",
+                        "measured_thermal_interface_and_airflow", "guard_containment_strength",
                         "manufacturing_tolerance_stack", "thermal_growth"],
         "procurement": "HOLD", "fabrication": "HOLD", "energization": "HOLD",
     }

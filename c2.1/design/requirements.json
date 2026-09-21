@@ -23,7 +23,7 @@
     "eccentric_mm": 7.0,
     "rotor_tip_diameter_mm": 110.0,
     "process_reference_width_mm": 40.0,
-    "axial_compartments_mm": {"cycloid_reaction": [-34, 2], "process": [4, 44], "coupling": [46, 60], "output_support_start": 64},
+    "axial_compartments_mm": {"cycloid_reaction": [-34, 0], "process": [4, 44], "process_end_caps": [0, 48], "coupling": [50, 64], "output_support_start": 68},
     "chamber_diameter_mm": 125.6,
     "output_pins": 6,
     "output_pin_pitch_radius_mm": 38.0,
@@ -36,7 +36,7 @@
     "evidence": "E2_DETERMINISTIC_CAD_AND_KINEMATICS_NOT_LOAD_RATING",
     "source": "c2.1/docs/ADR-001-S2-TRANSMISSION.md"
   },
-  "ratings": {"coupling": "HOLD", "loaded_contact_transfer": "HOLD", "bearings": "HOLD", "shafts": "HOLD", "fasteners_and_axial_retention": "HOLD", "perforated_screen_sensor_thermal_integration": "HOLD"},
+  "ratings": {"coupling": "HOLD", "loaded_contact_transfer": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD", "bearings": "HOLD", "shafts": "HOLD", "fasteners_and_axial_retention": "HOLD", "perforated_screen_sensor_thermal_integration": "HOLD"},
   "performance_gate": "BLOCKED_PERFORMANCE_DATA",
   "safety_retained": ["metal_load_support", "guard", "E-stop", "interlocks", "independent_overtemperature_cutoff"],
   "deployment": {"procurement": "HOLD", "fabrication": "HOLD", "energization": "HOLD"}

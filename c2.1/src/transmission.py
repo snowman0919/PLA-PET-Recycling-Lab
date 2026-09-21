@@ -103,7 +103,8 @@ def coupling(theta: float, c: Transmission) -> dict:
 
     Rotor and carrier share phi=-theta/q, so the relative vector turns at
     omega*(1+1/q), not omega. Positive clearance proves non-interference only;
-    loaded phase take-up, contact sharing and torque transfer remain HOLD.
+    Rigid first-contact take-up is calculated separately; elastic sharing,
+    contact stress, wear and component rating remain HOLD.
     """
     relative_world = -c.eccentric_mm*np.array([math.cos(theta), math.sin(theta)])
     relative_rotor = rotation(theta/c.q) @ relative_world
@@ -121,8 +122,90 @@ def coupling(theta: float, c: Transmission) -> dict:
         "ideal_roller_spin_relative_carrier_rpm": relative_spin_rpm,
         "ideal_roller_absolute_spin_rpm": carrier_rpm+relative_spin_rpm,
         "ideal_spin_assumption": "NO_SLIP_SINGLE_CONTACT_ONLY_NOT_MEASURED_OR_RATED",
-        "loaded_contact_transfer_status": "HOLD_BACKLASH_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+        "loaded_contact_transfer_status": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_ELASTIC_SHARING_RATING_HOLD",
         "rating_status": "HOLD_UNVERIFIED_ROLLER_BEARING_AND_CONTACT_PRESSURE",
+    }
+
+
+def loaded_contact_takeup(theta: float, c: Transmission, direction: int = 1,
+                          output_torque_Nm: float = 8.0) -> dict:
+    """Rigid-clearance first contact and single-normal output equilibrium.
+
+    The carrier is rotated relative to the rotor until one roller reaches its
+    window. This closes the kinematic backlash question, but elastic sharing,
+    Hertz stress, friction, wear and rating remain unverified.
+    """
+    if direction not in (-1,1) or output_torque_Nm <= 0:
+        raise ValueError("signed direction and positive torque required")
+    pitch=c.output_pin_pitch_radius_mm
+    pins=np.array([[pitch*math.cos(2*math.pi*j/c.output_pin_count),
+                    pitch*math.sin(2*math.pi*j/c.output_pin_count)]
+                   for j in range(c.output_pin_count)])
+    phi=-theta/c.q
+    eccentric=c.eccentric_mm*np.array([math.cos(theta),math.sin(theta)])
+    offset=rotation(-phi)@eccentric
+    limit=c.output_window_radius_mm-c.output_roller_radius_mm
+
+    def vectors(delta):
+        return pins@rotation(delta).T-pins-offset
+
+    def residual(magnitude):
+        return float(np.linalg.norm(vectors(direction*magnitude),axis=1).max()-limit)
+
+    lo,hi=0.0,1e-6
+    while residual(hi)<0 and hi<math.pi:
+        hi*=2
+    if hi>=math.pi:
+        raise ValueError("No pin/window contact found within half a turn")
+    for _ in range(64):
+        mid=(lo+hi)/2
+        if residual(mid)<0:lo=mid
+        else:hi=mid
+    delta=direction*hi
+    d=vectors(delta)
+    distances=np.linalg.norm(d,axis=1)
+    pin_index=int(np.argmax(distances))
+    normal=d[pin_index]/distances[pin_index]
+    carrier_pin=rotation(delta)@pins[pin_index]
+    force_direction=-normal
+    signed_lever_mm=float(np.cross(carrier_pin,force_direction))
+    force_N=output_torque_Nm/(abs(signed_lever_mm)/1000)
+    return {
+        "theta_rad":theta,"direction":direction,
+        "relative_phase_takeup_rad":delta,
+        "relative_phase_takeup_deg":math.degrees(delta),
+        "first_contact_pin_index":pin_index,
+        "pin_center_distances_mm":distances.tolist(),
+        "contact_center_limit_mm":limit,
+        "contact_normal_rotor_frame":normal.tolist(),
+        "signed_unit_force_lever_mm":signed_lever_mm,
+        "output_torque_Nm":output_torque_Nm,
+        "single_contact_normal_force_N":force_N,
+        "torque_equilibrium_residual_Nm":force_N*abs(signed_lever_mm)/1000-output_torque_Nm,
+        "contact_model":"RIGID_FIRST_CONTACT_SINGLE_NORMAL_NO_FRICTION",
+        "rating_status":"HOLD_ELASTIC_SHARING_HERTZ_STRESS_FRICTION_WEAR_AND_ROLLER_RATING",
+    }
+
+
+def loaded_contact_sweep(c: Transmission, output_torques_Nm=(1.0,3.0,8.0), positions: int=193) -> dict:
+    if positions<3:
+        raise ValueError("at least three positions required")
+    samples=[loaded_contact_takeup(float(theta),c,direction,1.0)
+             for theta in np.linspace(0,2*math.pi*c.q,positions) for direction in (-1,1)]
+    force_per_Nm=[r['single_contact_normal_force_N'] for r in samples]
+    phase=[abs(r['relative_phase_takeup_deg']) for r in samples]
+    return {
+        "input_turns":c.q,"positions":positions,"directions_per_position":2,
+        "samples":len(samples),"clearance_mm":c.coupling_radial_clearance_mm,
+        "phase_takeup_deg":{"min":min(phase),"max":max(phase)},
+        "single_contact_force_per_output_Nm_N":{"min":min(force_per_Nm),"max":max(force_per_Nm)},
+        "torque_sensitivity":[{"output_torque_Nm":t,
+                                "single_contact_force_range_N":[t*min(force_per_Nm),t*max(force_per_Nm)]}
+                               for t in output_torques_Nm],
+        "maximum_equilibrium_residual_Nm":max(abs(r['torque_equilibrium_residual_Nm']) for r in samples),
+        "result":"RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD",
+        "not_verified":["elastic_pin_load_sharing","contact_pressure","friction_and_slip",
+                        "roller_bearing_rating","window_edge_stress","manufacturing_tolerance_and_wear"],
     }
 
 
@@ -233,12 +316,13 @@ def main():
         "gear_mesh_parity": {"one_external_mesh": external_mesh_sign(1),
                              "one_idler_two_external_meshes": external_mesh_sign(2)},
         "nominal_coupling": coupling(0.0, nominal),
+        "loaded_contact_takeup": loaded_contact_sweep(nominal),
         "ideal_virtual_work": ideal_virtual_work(nominal),
         "rotor_force_virtual_work": rotor_force_virtual_work([-120.0, 35.0], [55.0, 0.0], 0.71, nominal, 2.0),
         "cases": cases,
         "all_cases_passed": all(x["passed"] for x in cases),
         "performance_gate": "BLOCKED_PERFORMANCE_DATA",
-        "loaded_output_contact": "HOLD",
+        "loaded_output_contact": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD",
         "bearing_and_coupling_rating": "HOLD",
         "procurement": "HOLD", "fabrication": "HOLD", "energization": "HOLD",
     }

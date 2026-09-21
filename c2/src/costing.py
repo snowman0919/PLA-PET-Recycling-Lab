@@ -14,9 +14,11 @@ def evaluate(rows: list[dict], soft_limit_KRW: float=100000):
         price=r.get('landed_line_KRW')
         if price is None:
             missing.append(r['item_id'])
-        elif price<0:
+        elif isinstance(price,bool) or not isinstance(price,(int,float)) or price<0:
             raise ValueError('Negative cost')
         else:
+            if r.get('quote_status') in (None,'UNKNOWN') or not r.get('source'):
+                raise ValueError('Priced unowned item needs quote status and source')
             known+=price
     return dict(soft_limit_KRW=soft_limit_KRW,known_incremental_KRW=known,
                 unknown_cost_lines=missing,complete=not missing,

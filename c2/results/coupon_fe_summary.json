@@ -1,0 +1,138 @@
+{
+  "status": "UNCALIBRATED_COUPON_SOLVER_RUN_NOT_SHREDDING_PERFORMANCE",
+  "solver": "CalculiX",
+  "solver_version": "This is Version 2.21",
+  "cases": {
+    "PLA": {
+      "model": "ELASTIC",
+      "parameters": [
+        3000.0,
+        0.36
+      ],
+      "displacement_mm": 0.2
+    },
+    "PET": {
+      "model": "ELASTIC",
+      "parameters": [
+        2500.0,
+        0.38
+      ],
+      "displacement_mm": 0.2
+    },
+    "TPU": {
+      "model": "NEO_HOOKE",
+      "parameters": [
+        3.333,
+        0.006
+      ],
+      "displacement_mm": 2.0
+    }
+  },
+  "geometry_mm": {
+    "length": 20,
+    "width": 5,
+    "height": 1
+  },
+  "runs": [
+    {
+      "material": "PLA",
+      "elements": 4,
+      "return_code": 0,
+      "reaction_force_N": 158.4852,
+      "input_sha256": "4fbcdc0df049716994d995ddc0cf79a1924bf0f03e7f9a5b70e2fd0049fe3035",
+      "dat_sha256": "381035de427ba433bd43e9d5f45eb606b5ae21db32cb203546a41bad12b39079",
+      "frd_sha256": "5d52a25c3e562869d369085ae7b6c04842d4cd676015dcaef6a1657bbd3fbe92"
+    },
+    {
+      "material": "PLA",
+      "elements": 8,
+      "return_code": 0,
+      "reaction_force_N": 155.584,
+      "input_sha256": "315ea6a9a4b0d232e0b679f0ee0df9a5f9c000792bee6940ee04bda5ed4ffa1c",
+      "dat_sha256": "6a8a643589b3f3b8dbb18e89d112e0f087d3734402d9aecc7f2560dca43b1f87",
+      "frd_sha256": "3b69aeddd81324e20b87e7be5607f5851e8d8d65d96f3936cd90e396e20a5d8c"
+    },
+    {
+      "material": "PLA",
+      "elements": 16,
+      "return_code": 0,
+      "reaction_force_N": 154.29396,
+      "input_sha256": "5a6e234d94bf110caa1316eb21cc6c70a0ac7e8fcbd69481f1ddf38775670ae4",
+      "dat_sha256": "ff75f50033129541ef039bb42a32a545f0c4122ea64333f69cbfafa333d4ad73",
+      "frd_sha256": "cbbf3369161f012d9a2cd07f4a47777914c388fdde0e907a2cef2bdbf9cc2e46"
+    },
+    {
+      "material": "PET",
+      "elements": 4,
+      "return_code": 0,
+      "reaction_force_N": 133.2068,
+      "input_sha256": "5c119d23a98bb0972b38f16ded14f2238c0e84f88d584db4cc05fcac9a089567",
+      "dat_sha256": "766e4fc29e427178d46e561da92d88a3a3859409aa1e5d656746b79ec8417d86",
+      "frd_sha256": "eafda9a4e48396359bcd857cd990c315ef485a2297b9ea4d31f760e66dcb9a1d"
+    },
+    {
+      "material": "PET",
+      "elements": 8,
+      "return_code": 0,
+      "reaction_force_N": 130.212,
+      "input_sha256": "edc4d81c939bc5f8b96a4a24f724c0903ff4745ee416930654fde54eac28801f",
+      "dat_sha256": "b0fadf663c1d02368a9021f3b602fd61348cbc8deb9a006fefa038c2b445b283",
+      "frd_sha256": "d3366912aaa8dc72b3f1f0da8b0847d4f80c49fc40355b274740cc0017390e8c"
+    },
+    {
+      "material": "PET",
+      "elements": 16,
+      "return_code": 0,
+      "reaction_force_N": 128.87728,
+      "input_sha256": "d811f20dab15a670d0f6cff7b2ad772ce42591a137380b6d3a8af0be5048a91f",
+      "dat_sha256": "70ea5c09545cbbc2a4d928947ae9c64b8dfb5cd81a134f7f10a61a56bc172e2a",
+      "frd_sha256": "ce0897b4b414579a35002427be7f94fb0fa1b42312e0d99852b8c5b02ed0cb37"
+    },
+    {
+      "material": "TPU",
+      "elements": 4,
+      "return_code": 0,
+      "reaction_force_N": 12.453632,
+      "input_sha256": "3768c478dac17728d0fa963a6f08b8ec1630a39e91028a63844cbe12b935c050",
+      "dat_sha256": "4c13ee74e5dc230d2f12b9962e2fbc31ca378b3dd75c3905bf08444adec6d866",
+      "frd_sha256": "f82728ba9c1f4ffb61778d4caa1c46ad802282784bccf3b1aa65812c22c805fc"
+    },
+    {
+      "material": "TPU",
+      "elements": 8,
+      "return_code": 0,
+      "reaction_force_N": 10.482532,
+      "input_sha256": "0db889e819681e70fd24a8f8b2f71932f4f960d7a220ff5fea45b371d0f06ca1",
+      "dat_sha256": "45dba72ab785e08a8bbb7ad2153c859c924646fa15fdffbd8e9d99910e49c64a",
+      "frd_sha256": "f7f5d2e2d6f8b5a9394678aedbc860da5d534241aae8485ab8a037f20efc9b77"
+    },
+    {
+      "material": "TPU",
+      "elements": 16,
+      "return_code": 0,
+      "reaction_force_N": 9.729476,
+      "input_sha256": "d418bf8d3c2a838087014aed17b1ec730e3c7aef99d082782764368088a42fe4",
+      "dat_sha256": "7c1bcb4900d9ffdb15d0e392255906f406486e89b475b51ee6f56d01bc82d80c",
+      "frd_sha256": "c0fce00d6f1bd870cbfbbcb82d79614316675275e3b033e54363b4ab800e4fd4"
+    }
+  ],
+  "relative_force_change_8_to_16": {
+    "PLA": 0.008360923525457541,
+    "PET": 0.01035651900784976,
+    "TPU": 0.07739944062763512
+  },
+  "assumptions": "ASSUMED_MATERIAL_PARAMETERS_NOT_GRADE_LOT_TEMPERATURE_OR_RATE_CALIBRATED",
+  "exclusions": [
+    "fracture",
+    "tear",
+    "viscoelasticity",
+    "anisotropy",
+    "printed_layer_direction",
+    "S2_contact",
+    "particle_size",
+    "throughput",
+    "torque_history",
+    "jam"
+  ],
+  "qualification": "DID_RUN_SOLVER; DID_NOT_RUN_DEM_OR_PHYSICAL_TEST; NOT_A_PERFORMANCE_LABEL"
+}

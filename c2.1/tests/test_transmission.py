@@ -10,7 +10,8 @@ R = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(R/"src"))
 from transmission import (Transmission, cad_positive_y_rotation_xz,
                           cad_y_degrees_for_xz, coupling, external_mesh_sign,
-                          ideal_virtual_work, pose, rotation, rotor_force_virtual_work,
+                          ideal_virtual_work, loaded_contact_sweep, loaded_contact_takeup,
+                          pose, rotation, rotor_force_virtual_work,
                           rotor_point, rotor_point_velocity, validate_case)
 
 
@@ -26,6 +27,7 @@ class TransmissionContracts(unittest.TestCase):
         self.assertEqual(compartments["process"], [4, 44])
         self.assertGreater(compartments["process"][0]-compartments["cycloid_reaction"][1], 0)
         self.assertGreater(compartments["coupling"][0]-compartments["process"][1], 0)
+        self.assertEqual(compartments["coupling"],[50,64])
 
     def test_signed_speeds_and_full_labeled_repeat(self):
         for e in (7, 10, 14):
@@ -52,7 +54,8 @@ class TransmissionContracts(unittest.TestCase):
             self.assertAlmostEqual(r["center_excursion_mm"], c.eccentric_mm)
             self.assertAlmostEqual(r["diametral_stroke_mm"], 2*c.eccentric_mm)
             self.assertGreaterEqual(r["nominal_radial_clearance_mm"], c.coupling_radial_clearance_mm-1e-12)
-            self.assertTrue(r["loaded_contact_transfer_status"].startswith("HOLD"))
+        self.assertEqual(r["loaded_contact_transfer_status"],
+                         "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_ELASTIC_SHARING_RATING_HOLD")
 
     def test_coupling_relative_speed_finite_difference(self):
         c = Transmission()
@@ -68,6 +71,19 @@ class TransmissionContracts(unittest.TestCase):
         self.assertAlmostEqual(abs(coupling(theta, c)["ideal_roller_spin_relative_carrier_rpm"]), 189.0)
         self.assertNotEqual(coupling(theta, c)["ideal_roller_spin_relative_carrier_rpm"],
                             coupling(theta, c)["ideal_roller_absolute_spin_rpm"])
+
+    def test_loaded_contact_takeup_and_torque_equilibrium(self):
+        c=Transmission()
+        for direction in (-1,1):
+            r=loaded_contact_takeup(.731,c,direction,8.0)
+            self.assertAlmostEqual(max(r['pin_center_distances_mm']),r['contact_center_limit_mm'],places=10)
+            self.assertLess(abs(r['relative_phase_takeup_deg']),.4)
+            self.assertAlmostEqual(r['torque_equilibrium_residual_Nm'],0,places=12)
+            self.assertGreater(r['single_contact_normal_force_N'],200)
+        sweep=loaded_contact_sweep(c,positions=49)
+        self.assertEqual(sweep['samples'],98)
+        self.assertEqual(sweep['result'],'RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD')
+        self.assertLess(sweep['phase_takeup_deg']['max'],.4)
 
     def test_cad_xz_sign_and_quarter_orbit(self):
         c = Transmission()

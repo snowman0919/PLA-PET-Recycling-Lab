@@ -11,7 +11,8 @@ R=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(R/'src'))
 from engineering import S2,Thermal,design_set,packaging,hook_polygon,transform,kinematics,thermal_run,equivalent_motor_load,generalized_torque,point_jacobian
 from control import Controller,allocate_power,REQUIRED_SENSORS
-from performance import validate_record,training_gate,EvidenceError,nondominated,TARGETS
+from performance import (candidate_hashes,evidence_inventory,validate_evidence_record,
+                         validate_record,training_gate,EvidenceError,nondominated,TARGETS)
 from costing import evaluate
 from pin_constraint import verify
 
@@ -152,6 +153,19 @@ class ControllerTests(unittest.TestCase):
         with self.assertRaises(ValueError):allocate_power(-1,10,10,50)
 
 class EvidenceTests(unittest.TestCase):
+    def setUp(self):
+        self.design={'candidate_id':'TEST-ONLY','tip_mm':100}
+        self.hashes=candidate_hashes([{'design':self.design}])
+
+    def record(self,root,evidence_type='UNCALIBRATED_DEM'):
+        raw=root/'raw.csv';raw.write_text('t,torque\n0,0\n')
+        deck=root/'input.in';deck.write_text('run 1\n')
+        return dict(evidence_type=evidence_type,candidate_id='TEST-ONLY',material='PLA',material_grade='test',material_lot='test',
+                    feed_distribution_id='test',cad_revision='C2.0',geometry_sha256=self.hashes['TEST-ONLY'],
+                    raw_data_path='raw.csv',raw_data_sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),
+                    solver='test-solver',solver_version='1',input_deck_path='input.in',
+                    input_deck_sha256=hashlib.sha256(deck.read_bytes()).hexdigest(),outputs={k:0 for k in TARGETS})
+
     def test_empty_records_do_not_train(self):
         self.assertFalse(training_gate([],R)['trained'])
         self.assertEqual(training_gate([],R)['status'],'BLOCKED_PERFORMANCE_DATA')
@@ -161,21 +175,56 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaises(EvidenceError):validate_record({'evidence_type':'UNCALIBRATED_DEM'},R)
     def test_verified_experimental_fixture(self):
         with tempfile.TemporaryDirectory() as td:
-            p=Path(td)/'raw.csv';p.write_text('t,torque\n0,0\n')
-            r=dict(evidence_type='PHYSICAL_EXPERIMENT',candidate_id='TEST-ONLY',material='PLA',material_grade='test',material_lot='test',
-                   feed_distribution_id='test',calibration_id='test',cad_revision='test',raw_data_path='raw.csv',
-                   raw_data_sha256=hashlib.sha256(p.read_bytes()).hexdigest(),outputs={k:0 for k in TARGETS})
-            self.assertEqual(validate_record(r,Path(td)),r)
+            root=Path(td);r=self.record(root,'PHYSICAL_EXPERIMENT')
+            r.update(physical_test_id='run-1',specimen_id='coupon-1',procedure_revision='p1',instrument_ids=['loadcell-1'])
+            self.assertEqual(validate_record(r,root,self.hashes,'C2.0'),r)
             r['raw_data_sha256']='bad'
-            with self.assertRaises(EvidenceError):validate_record(r,Path(td))
+            with self.assertRaises(EvidenceError):validate_record(r,root,self.hashes,'C2.0')
+    def test_legitimate_uncalibrated_simulation_is_counted_but_not_qualified(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);r=self.record(root)
+            self.assertEqual(evidence_inventory([r],root,self.hashes,'C2.0')['actual_dem_runs'],1)
+            with self.assertRaises(EvidenceError):validate_record(r,root,self.hashes,'C2.0')
+    def test_calibration_promotes_dem_only_with_validation(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);r=self.record(root,'CALIBRATED_DEM');r['calibration_id']='cal-1'
+            with self.assertRaises(EvidenceError):validate_record(r,root,self.hashes,'C2.0')
+            r['calibration_validation_id']='held-out-1'
+            self.assertEqual(validate_record(r,root,self.hashes,'C2.0'),r)
+    def test_fake_physical_label_is_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            with self.assertRaises(EvidenceError):validate_record(self.record(Path(td),'PHYSICAL_EXPERIMENT'),Path(td),self.hashes,'C2.0')
+    def test_missing_raw_and_hash_tamper_are_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);r=self.record(root);(root/'raw.csv').unlink()
+            with self.assertRaises(EvidenceError):validate_evidence_record(r,root,self.hashes,'C2.0')
+            r=self.record(root);r['input_deck_sha256']='bad'
+            with self.assertRaises(EvidenceError):validate_evidence_record(r,root,self.hashes,'C2.0')
+    def test_old_cad_or_geometry_result_is_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);r=self.record(root);r['cad_revision']='C1'
+            with self.assertRaises(EvidenceError):validate_evidence_record(r,root,self.hashes,'C2.0')
+            r=self.record(root);r['geometry_sha256']='bad'
+            with self.assertRaises(EvidenceError):validate_evidence_record(r,root,self.hashes,'C2.0')
+    def test_synthetic_fixture_is_not_an_actual_run(self):
+        r={'fixture_scope':'SYNTHETIC_TEST_ONLY'}
+        self.assertEqual(evidence_inventory([r],R,self.hashes,'C2.0')['actual_dem_runs'],0)
     def test_pareto_preserves_tradeoff(self):
         self.assertEqual(nondominated(np.array([[1,3],[2,2],[3,3]])).tolist(),[True,True,False])
     def test_unknown_cost_not_zero_total(self):
         r=evaluate([dict(item_id='motor',owned_verified=False,landed_line_KRW=None)])
         self.assertIsNone(r['total_KRW']);self.assertIsNone(r['within_budget'])
     def test_soft_limit_accounting(self):
-        r=evaluate([dict(item_id='motor',owned_verified=False,landed_line_KRW=100001)])
+        r=evaluate([dict(item_id='motor',owned_verified=False,landed_line_KRW=100001,
+                         quote_status='QUOTED_LANDED',source='seller quote')])
         self.assertEqual(r['status'],'OVER_SOFT_LIMIT')
+    def test_valid_quote_reduces_unknown_coverage(self):
+        r=evaluate([dict(item_id='motor',owned_verified=False,landed_line_KRW=12345,
+                         quote_status='QUOTED_LANDED',source='seller quote')])
+        self.assertEqual((r['unknown_cost_lines'],r['total_KRW']),([],12345.0))
+        with self.assertRaises(ValueError):
+            evaluate([dict(item_id='bad',owned_verified=False,landed_line_KRW=True,
+                           quote_status='QUOTED_LANDED',source='seller quote')])
     def test_owned_only_does_not_imply_unowned_free(self):
         rows=json.loads((R/'bom/cost_ledger.json').read_text())
         self.assertGreater(len(rows),130)

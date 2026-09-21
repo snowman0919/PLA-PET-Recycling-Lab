@@ -2,6 +2,8 @@
 
 현재 활성 요구조건은 `c2/design/requirements.json`이며, `c2.1/`은 단일 M1 고정 링 사이클로이드 입력/출력 전동계의 제한된 디지털 반복이다. 모터·정격 coupling/bearing·최종 S2 형상·전체 원가·전체 제작도는 미확정이고 **구매, 가공, 통전은 HOLD**다. C2.1 재현과 미종결 항목은 `c2.1/docs/HANDOFF_KO.md`를 따른다.
 
+후속 통합은 같은 C2.1 소스에서 진행한다. P0 증거 verifier, rigid first-contact 평형, C2 전단·타공 스크린·마모 라이너·방열 saddle/cap 통합, 실제 CalculiX coupon 실행은 `c2.1/docs/PLAN_KO.md`와 `c2.1/docs/HANDOFF_KO.md`에 연결한다. 이는 물리 시험 또는 제작 승인으로 승격되지 않는다.
+
 고정 제약: 보유24V800W PSU(240x120x65mm),500W 운전 cap, 공용 분쇄M1 한 개와 압출M2, PLA/PET/TPU, 전체 추가 구매/가공/배송/안전부품100,000원 soft limit, 본체700x420x520mm 상한.
 
 ## 현재 산출물
@@ -25,6 +27,7 @@ python c2/src/build_cad.py
 python c2/src/train_performance.py --backend gp
 python c2/src/train_performance.py --backend mlp --out c2/results/mlp_run
 python c2/src/verify_artifacts.py
+python c2/solver/run_coupon_fe.py
 ```
 
 수치 계산은numpy/scipy/shapely, CAD는CadQuery2.8.0이다. GP/MLP 선택 의존성은 `c2/requirements-research.txt`를 참고한다. 기본 데이터는 비어 있으므로 성능 모델 가중치는 생성하지 않는다.

@@ -27,8 +27,56 @@
     "ideal_roller_spin_relative_carrier_rpm": -188.99999999999994,
     "ideal_roller_absolute_spin_rpm": -203.99999999999994,
     "ideal_spin_assumption": "NO_SLIP_SINGLE_CONTACT_ONLY_NOT_MEASURED_OR_RATED",
-    "loaded_contact_transfer_status": "HOLD_BACKLASH_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+    "loaded_contact_transfer_status": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_ELASTIC_SHARING_RATING_HOLD",
     "rating_status": "HOLD_UNVERIFIED_ROLLER_BEARING_AND_CONTACT_PRESSURE"
+  },
+  "loaded_contact_takeup": {
+    "input_turns": 8,
+    "positions": 193,
+    "directions_per_position": 2,
+    "samples": 386,
+    "clearance_mm": 0.2,
+    "phase_takeup_deg": {
+      "min": 0.3015580975198661,
+      "max": 0.3460310991994333
+    },
+    "single_contact_force_per_output_Nm_N": {
+      "min": 26.3161439112003,
+      "max": 30.014681708099424
+    },
+    "torque_sensitivity": [
+      {
+        "output_torque_Nm": 1.0,
+        "single_contact_force_range_N": [
+          26.3161439112003,
+          30.014681708099424
+        ]
+      },
+      {
+        "output_torque_Nm": 3.0,
+        "single_contact_force_range_N": [
+          78.9484317336009,
+          90.04404512429826
+        ]
+      },
+      {
+        "output_torque_Nm": 8.0,
+        "single_contact_force_range_N": [
+          210.5291512896024,
+          240.1174536647954
+        ]
+      }
+    ],
+    "maximum_equilibrium_residual_Nm": 2.220446049250313e-16,
+    "result": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD",
+    "not_verified": [
+      "elastic_pin_load_sharing",
+      "contact_pressure",
+      "friction_and_slip",
+      "roller_bearing_rating",
+      "window_edge_stress",
+      "manufacturing_tolerance_and_wear"
+    ]
   },
   "ideal_virtual_work": {
     "omega_rad_s": {
@@ -366,7 +414,7 @@
   ],
   "all_cases_passed": true,
   "performance_gate": "BLOCKED_PERFORMANCE_DATA",
-  "loaded_output_contact": "HOLD",
+  "loaded_output_contact": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD",
   "bearing_and_coupling_rating": "HOLD",
   "procurement": "HOLD",
   "fabrication": "HOLD",

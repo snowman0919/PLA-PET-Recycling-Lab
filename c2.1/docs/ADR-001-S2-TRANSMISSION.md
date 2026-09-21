@@ -10,9 +10,11 @@
 
 `E_F0 = e[cosθ, sinθ]`, `φ_rotor = φ_output = -θ/q`, `ω_output = -ω_input/q`, `ω_ring=0`이다. 따라서 입력축과 출력축은 서로 반대 방향이다. 표시한 로터 재료점은 입력 `q`회전 뒤 반복한다. 한 번의 공전만으로 전체 표시점 주기를 주장하지 않는다.
 
-출력 핀 중심은 `O` 기준 피치원 위에서 `φ`로 회전하고, 로터 출력 창도 같은 `φ`를 가지되 중심만 `E`만큼 이동한다. 핀-창 중심 편차는 항상 `e`, 필요한 diametral stroke는 `2e`다. 명목 e7, roller R5, 추가 방사 clearance0.20에서 창 반경은 `5+7+0.20=12.20mm`다. 로터/캐리어 공통 회전좌표에서 상대 벡터는 `R(θ/q)(-E)`이므로 속도는 `e|ω_input|(1+1/q)`다. q8,120rpm에서98.9602mm/s, 단일 무미끄럼 접촉을 가정한 롤러의 캐리어 상대 회전은 약-189rpm, 절대 회전은 carrier -15rpm을 더한 약-204rpm이다. 이는 정격이나 실측이 아니다. 0.20mm는 무간섭 명목 clearance라 정렬 위상에서 하중 접촉을 증명하지 않는다. backlash/phase take-up, 핀별 하중분담, 실제 잔류 미끄럼과 접촉압은 HOLD다.
+출력 핀 중심은 `O` 기준 피치원 위에서 `φ`로 회전하고, 로터 출력 창도 같은 `φ`를 가지되 중심만 `E`만큼 이동한다. 핀-창 중심 편차는 항상 `e`, 필요한 diametral stroke는 `2e`다. 명목 e7, roller R5, 추가 방사 clearance0.20에서 창 반경은 `5+7+0.20=12.20mm`다. 로터/캐리어 공통 회전좌표에서 상대 벡터는 `R(θ/q)(-E)`이므로 속도는 `e|ω_input|(1+1/q)`다. q8,120rpm에서98.9602mm/s, 단일 무미끄럼 접촉을 가정한 롤러의 캐리어 상대 회전은 약-189rpm, 절대 회전은 carrier -15rpm을 더한 약-204rpm이다. 이는 정격이나 실측이 아니다.
 
-축방향 구획은 `Y=-34..2mm` cycloid 반력, `4..44mm` 40mm 절삭/스크린/열 reference, `46..60mm` offset coupling, `64mm` 이후 output carrier/support로 나눴다. 구획 사이2mm nominal gap을 정적 all-pair BRep로 검사한다. 40mm 폭은 C2 reference 범위35~45mm 안이다. 다만 C2.1의 shear/screen/thermal CAD는 전동계 간섭을 보기 위한 solid envelope다. 실제 screen perforation/attachment, shear와 screen 센서 bore/mount, spreader interface/fins/분리 airflow는 통합하지 않았고 모두 HOLD다.
+후속 rigid first-contact 계산에서 0.20mm clearance 소진에 필요한 carrier 상대 위상은 전 주기·양방향 표본에서 0.301558~0.346031도였다. 최초 한 핀의 frictionless normal만으로 평형을 잡으면 출력 1N·m당 26.316~30.015N, 8N·m에서 210.53~240.12N이다. 이는 접촉 가능성과 정적 토크 평형을 보이지만 강성에 따른 다핀 분담, 충격, Hertz 응력, 마찰, edge stress와 정격을 제공하지 않으므로 제작 정격은 HOLD다.
+
+축방향 구획은 `Y=-34..0mm` cycloid 반력, `0..48mm` end cap을 포함한 `4..44mm` 40mm 절삭/스크린/열 부품, `50..64mm` offset coupling, `68mm` 이후 output carrier/support로 나눴다. C2 생성물의 fixed shear sensor bore, 4mm perforated screen reference, split wear liners, thermal saddles와 caps를 통합했다. screen attachment, sensor wiring/응답, conductive interface와 분리 airflow의 실측은 HOLD다.
 
 ## 비교
 
