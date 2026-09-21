@@ -1,60 +1,54 @@
 # Graph Report - PPR-c2.1-codex-20260921  (2026-09-21)
 
 ## Corpus Check
-- 1 files · ~105,948 words
+- 78 files · ~105,949 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 395 nodes · 643 edges · 33 communities (18 shown, 15 thin omitted)
-- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 79 edges (avg confidence: 0.87)
+- 363 nodes · 712 edges · 22 communities (16 shown, 6 thin omitted)
+- Extraction: 80% EXTRACTED · 20% INFERRED · 0% AMBIGUOUS · INFERRED: 142 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
+## Graph Freshness
+- Built from commit: `ee5d9688`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
+
 ## Community Hubs (Navigation)
-- S2 Transmission Mechanics
-- C2.1 Integration Decisions
-- C2 Engineering Pipeline
-- Design Analysis Utilities
-- Evidence Validation Logic
-- Evidence and Cost Tests
-- C2.1 CAD Assembly
-- C2 Geometry Tests
-- C1 Design Contracts
-- Transmission Schematic
-- Fail-Closed Controller Tests
-- C2 CAD Generation
-- Actuation and Forming
-- Dimensioned Drawing Generator
-- C1 S2 Review Package
-- C2 Thermal Tests
-- Controller IO Map
-- C1 CAD Inspection
-- CAD Primitive Builders
-- C2 Constraints and Safety
-- Budget and Procurement
-- CalculiX Coupon Solver
-- CAD Rendering Evidence
-- C2.1 Artifact Verification
-- Thermal Control Model
-- STEP Topology Validation
-- C1 Pre-Push Gate
-- Actuation Tach Package
-- Cooling Feedback Assembly
-- Thermal Protection System
-- Mandatory Safety Parts
-- Extruder Load Path
-- Cooling Fault Scenarios
+- Transmission
+- DIGITAL_INTEGRATION_PASS_RATING_AND_PERFORMANCE_HOLD
+- S2
+- design.py
+- ValueError
+- EvidenceTests
+- c2.1/src/build_cad.py
+- DesignContracts
+- C2.1 S2 Transmission Schematic
+- ControllerTests
+- c2/src/build_cad.py
+- make_drawings.py
+- PPR C1 Dimensioned Engineering Review Package
+- run_study.py
+- PPR C1 CAD Inspection Image
+- Active C2 Baseline
+- run_coupon_fe.py
+- render_cad.py
+- c2.1/src/verify_artifacts.py
+- Fail-Closed Control Reference
+- validate_step.py
+- pre_push.py
 
 ## God Nodes (most connected - your core abstractions)
-1. `Transmission` - 23 edges
-2. `EvidenceTests` - 19 edges
-3. `GeometryTests` - 18 edges
-4. `S2` - 16 edges
-5. `DesignContracts` - 16 edges
-6. `TransmissionContracts` - 13 edges
-7. `ControllerTests` - 13 edges
-8. `main()` - 12 edges
-9. `C2.1 S2 Transmission Schematic` - 12 edges
-10. `main()` - 10 edges
+1. `S2` - 31 edges
+2. `Transmission` - 26 edges
+3. `EvidenceTests` - 20 edges
+4. `GeometryTests` - 19 edges
+5. `Thermal` - 16 edges
+6. `DesignContracts` - 16 edges
+7. `thermal_run()` - 14 edges
+8. `ControllerTests` - 14 edges
+9. `TransmissionContracts` - 13 edges
+10. `validate_record()` - 13 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `S2 Cycloidal Guide, Sleeve, and Pin Rings` --semantically_similar_to--> `Small Pin-Ring Feasibility Screen`  [INFERRED] [semantically similar]
@@ -77,99 +71,91 @@
 - **C2.1 Remaining Rating Performance and Release Holds** — c2_1_docs_handoff_ko_unverified_mechanical_rating, c2_1_docs_handoff_ko_blocked_performance_data, c2_1_docs_handoff_ko_motor_and_cost_hold, c2_1_docs_handoff_ko_external_action_hold [EXTRACTED 1.00]
 - **Digital Evidence Without Hardware Release** — _github_workflows_c1_digital_physical_gate_separation, _github_workflows_c2_engineering_no_hardware_approval_gate, c2_1_docs_adr_001_s2_transmission_unverified_rating_limits, c2_1_docs_handoff_ko_digital_integration_pass_rating_and_performance_hold, c2_1_docs_plan_ko_external_action_hold [INFERRED 0.95]
 
-## Communities (33 total, 15 thin omitted)
+## Communities (22 total, 6 thin omitted)
 
-### Community 0 - "S2 Transmission Mechanics"
-Cohesion: 0.11
-Nodes (27): cad_positive_y_rotation_xz(), cad_y_degrees_for_xz(), coupling(), external_mesh_sign(), ideal_virtual_work(), loaded_contact_sweep(), loaded_contact_takeup(), main() (+19 more)
+### Community 0 - "Transmission"
+Cohesion: 0.12
+Nodes (23): cad_positive_y_rotation_xz(), coupling(), external_mesh_sign(), ideal_virtual_work(), loaded_contact_sweep(), loaded_contact_takeup(), main(), ndarray (+15 more)
 
-### Community 1 - "C2.1 Integration Decisions"
+### Community 1 - "DIGITAL_INTEGRATION_PASS_RATING_AND_PERFORMANCE_HOLD"
 Cohesion: 0.07
 Nodes (36): C1 Digital Contracts, C1 Physical Gate Separation, C2 Engineering Contracts, C2 No-Hardware-Approval Gate, Fixed-Ring Cycloid Selection Rationale, Pin-Window Offset Coupling, Single-Input Reverse-Output S2 Drivetrain, Split Dual-Path Alternative (+28 more)
 
-### Community 2 - "C2 Engineering Pipeline"
-Cohesion: 0.14
-Nodes (28): Any, allocate_power(), Controller, Fail-closed control reference. NOT deployable motor/heater firmware., design_set(), diverse_selection(), equivalent_motor_load(), generalized_torque() (+20 more)
+### Community 2 - "S2"
+Cohesion: 0.12
+Nodes (19): Any, design_set(), diverse_selection(), equivalent_motor_load(), generalized_torque(), hook_polygon(), kinematics(), main() (+11 more)
 
-### Community 3 - "Design Analysis Utilities"
+### Community 3 - "design.py"
 Cohesion: 0.10
 Nodes (26): allocate(), clearance_metric(), cooling(), main(), Reproducible C1 engineering screens. No empirical cutting/thermal data is…, Euler-Bernoulli beam with free rotation/simple-support translations; SI…, shaft_beam(), box() (+18 more)
 
-### Community 4 - "Evidence Validation Logic"
-Cohesion: 0.12
-Nodes (24): candidate_hashes(), canonical_sha256(), evidence_inventory(), EvidenceError, main(), nondominated(), ndarray, Path (+16 more)
-
-### Community 5 - "Evidence and Cost Tests"
+### Community 4 - "ValueError"
 Cohesion: 0.13
-Nodes (4): evaluate(), main(), Full incremental procurement coverage. A missing quotation is not zero cost., EvidenceTests
+Nodes (17): fit_gp(), fit_mlp(), grouped_split(), main(), Material-specific GP or deep-ensemble training on verified S2 PERFORMANCE only.…, bbox(), build(), main() (+9 more)
 
-### Community 6 - "C2.1 CAD Assembly"
-Cohesion: 0.24
-Nodes (21): analytical_bounds(), c2_process_part(), cad_frame_check(), collision_checks(), components(), cylinder(), export_assembly(), extrude_xz() (+13 more)
+### Community 5 - "EvidenceTests"
+Cohesion: 0.12
+Nodes (14): candidate_hashes(), canonical_sha256(), evidence_inventory(), EvidenceError, main(), nondominated(), ndarray, Path (+6 more)
 
-### Community 9 - "Transmission Schematic"
+### Community 6 - "c2.1/src/build_cad.py"
+Cohesion: 0.20
+Nodes (25): analytical_bounds(), c2_process_part(), cad_frame_check(), collision_checks(), components(), cylinder(), export_assembly(), extrude_xz() (+17 more)
+
+### Community 9 - "C2.1 S2 Transmission Schematic"
 Cohesion: 0.15
 Nodes (15): F0 Coordinate Frame: +X Right, +Y Shaft Axis, +Z Up, C2.1 S2 Transmission Schematic, Elastic Sharing, Ratings, and Fabrication HOLD, Fixed q+1 Ring Pins and Reaction, Front Input Support, M1 Input Shaft +ω, Nominal Window Clearance extra0.20mm, Not a Generated CAD Section (+7 more)
 
-### Community 11 - "C2 CAD Generation"
-Cohesion: 0.40
-Nodes (10): box(), cylinder(), from_c1(), main(), primitive(), C2 S2 thermal/fixed-shear development module. Not an assembly release. C1…, sector(), wire() (+2 more)
-
-### Community 12 - "Actuation and Forming"
+### Community 10 - "ControllerTests"
 Cohesion: 0.18
-Nodes (11): Forming Requalification Scenarios, Heater Allocator Scenarios, Puller Fault Scenarios, Screw and Purge Scenarios, Spool and Traverse Scenarios, V062ShadowScenarios, ActuationShadowSystem, Forming Fault Cascade (+3 more)
+Nodes (4): allocate_power(), Controller, Fail-closed control reference. NOT deployable motor/heater firmware., ControllerTests
 
-### Community 13 - "Dimensioned Drawing Generator"
+### Community 11 - "c2/src/build_cad.py"
+Cohesion: 0.32
+Nodes (11): box(), cylinder(), from_c1(), main(), primitive(), C2 S2 thermal/fixed-shear development module. Not an assembly release. C1…, sector(), wire() (+3 more)
+
+### Community 13 - "make_drawings.py"
 Cohesion: 0.40
 Nodes (10): dim(), drawshape(), header(), hole_table(), main(), paragraph(), Nominal dimensioned RFQ drawings from the same CSG master; not NC toolpaths., section() (+2 more)
 
-### Community 14 - "C1 S2 Review Package"
+### Community 14 - "PPR C1 Dimensioned Engineering Review Package"
 Cohesion: 0.25
 Nodes (9): C2 Engineering Baseline, S2 Parameter Search, Small Pin-Ring Feasibility Screen, PPR C1 Dimensioned Engineering Review Package, Drive and Bearing Plate Drawings, Shaft, Screen, Phase, and Fit Schedules, S1 Cutter System Drawings, S2 Cycloidal Guide, Sleeve, and Pin Rings (+1 more)
 
-### Community 16 - "Controller IO Map"
-Cohesion: 0.28
-Nodes (9): Cooling Feedback Signals, Controller IO Schedule, Motion Feedback Signals, De-Energized Safe Outputs, Fail-Safe Safety Inputs, No Timer Conflicts, Runtime Resource Constraints, Tach Interrupt Map (+1 more)
+### Community 15 - "run_study.py"
+Cohesion: 0.23
+Nodes (10): evaluate(), main(), Full incremental procurement coverage. A missing quotation is not zero cost., Thermal, thermal_matrix(), thermal_run(), verify(), main() (+2 more)
 
-### Community 17 - "C1 CAD Inspection"
+### Community 17 - "PPR C1 CAD Inspection Image"
 Cohesion: 0.36
 Nodes (8): BRep Mesh Inspection View, Cutting Mechanism, Drive Components, Filament Spools, Hopper and Lid Hidden for Visibility, PPR C1 CAD Inspection Image, PPR C1, Structural Frame
 
-### Community 18 - "CAD Primitive Builders"
-Cohesion: 0.48
-Nodes (6): bbox(), build(), main(), primitive(), CadQuery/OCP verification backend for the shared constructive-solid master. The…, wire3()
-
-### Community 19 - "C2 Constraints and Safety"
+### Community 19 - "Active C2 Baseline"
 Cohesion: 0.33
 Nodes (6): Active C2 Baseline, Evidence and Safety Boundaries, Fixed System Constraints, Motor Selection Evaluation, Safety-Preserving Cost Reduction Order, Motor and Driver RFQ Evidence
 
-### Community 20 - "Budget and Procurement"
-Cohesion: 0.33
-Nodes (6): Absolute Cash Cap With Reserve, Blocked Procurement Allowances, Conditional Cash Target, Conditional Planning Budget, Optional Empirical Validation Cost, Verified Procurement Not Established
-
-### Community 21 - "CalculiX Coupon Solver"
+### Community 21 - "run_coupon_fe.py"
 Cohesion: 0.47
 Nodes (5): deck(), main(), Path, Run small uncalibrated CalculiX coupon sensitivities; never performance labels., reaction_force()
 
 ## Knowledge Gaps
-- **38 isolated node(s):** `V062ShadowScenarios`, `Heater Allocator Scenarios`, `Puller Fault Scenarios`, `Screw and Purge Scenarios`, `Spool and Traverse Scenarios` (+33 more)
+- **23 isolated node(s):** `C1 Digital Contracts`, `Split Dual-Path Alternative`, `Torque and Reaction Path`, `Previous 33-Object Independent Review`, `STEP Reproducibility Contract` (+18 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `main()` connect `C2 CAD Generation` to `C2 Engineering Pipeline`, `Design Analysis Utilities`?**
-  _High betweenness centrality (0.137) - this node is a cross-community bridge._
-- **Why does `add()` connect `Design Analysis Utilities` to `C2 CAD Generation`?**
-  _High betweenness centrality (0.135) - this node is a cross-community bridge._
-- **Why does `GeometryTests` connect `C2 Geometry Tests` to `C2 Engineering Pipeline`?**
-  _High betweenness centrality (0.055) - this node is a cross-community bridge._
+- **Why does `main()` connect `c2/src/build_cad.py` to `S2`, `design.py`?**
+  _High betweenness centrality (0.163) - this node is a cross-community bridge._
+- **Why does `add()` connect `design.py` to `c2/src/build_cad.py`?**
+  _High betweenness centrality (0.160) - this node is a cross-community bridge._
+- **Why does `S2` connect `S2` to `c2/src/build_cad.py`, `ValueError`, `c2.1/src/build_cad.py`, `run_study.py`?**
+  _High betweenness centrality (0.123) - this node is a cross-community bridge._
+- **Are the 16 inferred relationships involving `S2` (e.g. with `local_rotor()` and `main()`) actually correct?**
+  _`S2` has 16 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 9 inferred relationships involving `Transmission` (e.g. with `TransmissionContracts` and `.test_cad_xz_sign_and_quarter_orbit()`) actually correct?**
   _`Transmission` has 9 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 16 inferred relationships involving `ValueError` (e.g. with `external_mesh_sign()` and `ideal_virtual_work()`) actually correct?**
-  _`ValueError` has 16 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `V062ShadowScenarios`, `Heater Allocator Scenarios`, `Puller Fault Scenarios` to the rest of the system?**
-  _38 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `S2 Transmission Mechanics` be split into smaller, more focused modules?**
-  _Cohesion score 0.11033681765389082 - nodes in this community are weakly interconnected._
+- **Are the 17 inferred relationships involving `ValueError` (e.g. with `external_mesh_sign()` and `ideal_virtual_work()`) actually correct?**
+  _`ValueError` has 17 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `C1 Digital Contracts`, `Split Dual-Path Alternative`, `Torque and Reaction Path` to the rest of the system?**
+  _23 weakly-connected nodes found - possible documentation gaps or missing edges._

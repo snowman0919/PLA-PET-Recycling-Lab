@@ -168,7 +168,8 @@ def loaded_contact_takeup(theta: float, c: Transmission, direction: int = 1,
     normal=d[pin_index]/distances[pin_index]
     carrier_pin=rotation(delta)@pins[pin_index]
     force_direction=-normal
-    signed_lever_mm=float(np.cross(carrier_pin,force_direction))
+    signed_lever_mm=float(carrier_pin[0]*force_direction[1]
+                          -carrier_pin[1]*force_direction[0])
     force_N=output_torque_Nm/(abs(signed_lever_mm)/1000)
     return {
         "theta_rad":theta,"direction":direction,
