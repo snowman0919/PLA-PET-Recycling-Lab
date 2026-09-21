@@ -1,0 +1,90 @@
+{
+  "schema": "dyn_dt_sweep/1",
+  "dts": [
+    0.0025,
+    0.005,
+    0.01
+  ],
+  "rows": [
+    {
+      "class": "W1",
+      "seed": 7,
+      "dt": 0.0025,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 43,
+      "bonds_alive": 3,
+      "torque_impulse_Nms": 0.02024380444629933,
+      "jam": false,
+      "mass_error_kg": 0.0,
+      "contact_steps": 239
+    },
+    {
+      "class": "W1",
+      "seed": 7,
+      "dt": 0.005,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "bonds_alive": 0,
+      "torque_impulse_Nms": 0.05864229366779327,
+      "jam": false,
+      "mass_error_kg": 0.0,
+      "contact_steps": 239
+    },
+    {
+      "class": "W1",
+      "seed": 7,
+      "dt": 0.01,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "bonds_alive": 0,
+      "torque_impulse_Nms": 0.09632512471191587,
+      "jam": false,
+      "mass_error_kg": 0.0,
+      "contact_steps": 239
+    },
+    {
+      "class": "W4",
+      "seed": 11,
+      "dt": 0.0025,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "bonds_alive": 0,
+      "torque_impulse_Nms": 0.021171004639641625,
+      "jam": false,
+      "mass_error_kg": 0.0,
+      "contact_steps": 231
+    },
+    {
+      "class": "W4",
+      "seed": 11,
+      "dt": 0.005,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "bonds_alive": 0,
+      "torque_impulse_Nms": 0.04548454561652613,
+      "jam": false,
+      "mass_error_kg": 0.0,
+      "contact_steps": 233
+    },
+    {
+      "class": "W4",
+      "seed": 11,
+      "dt": 0.01,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "bonds_alive": 0,
+      "torque_impulse_Nms": 0.09482826670871582,
+      "jam": false,
+      "mass_error_kg": 0.0,
+      "contact_steps": 238
+    }
+  ],
+  "status": "PASS",
+  "failures": []
+}
