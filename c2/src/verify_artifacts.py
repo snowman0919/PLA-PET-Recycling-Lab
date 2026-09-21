@@ -50,4 +50,20 @@ for run in coupon['runs']:
   path=R/'experiments/raw/coupon_fe'/(name+suffix)
   assert path.is_file(),str(path)
   assert hashlib.sha256(path.read_bytes()).hexdigest()==run[key],str(path)
+p5=json.loads((R/'results/p5_thermal_control.json').read_text())
+assert p5['status']=='UNCALIBRATED_DIGITAL_SENSITIVITY_AND_CONTROL_LOGIC_ONLY'
+assert p5['cad_capacity_basis']['status']=='CAD_VOLUME_DERIVED_ASSUMED_DENSITY_CP_NOT_MEASURED_MASS'
+assert len(p5['thermal_cases'])==s['p5_thermal_cases']==9
+assert len(p5['control_cases'])==s['p5_control_cases']==7
+assert all(abs(x['energy_balance_residual_J']) < 1e-5 for x in p5['thermal_cases'])
+thermal={(x['material'],x['airflow']):x for x in p5['thermal_cases']}
+for material in ('PLA','PET','TPU'):
+ assert thermal[(material,'FAN_FAILED_NATURAL_ONLY')]['peak_node_C'][2] > thermal[(material,'CLEAN_FILTER_ASSUMED')]['peak_node_C'][2]
+states={x['name']:(x['state'],x['reason']) for x in p5['control_cases']}
+assert states['normal_reference']==('RUN',None)
+assert states['buffer_full']==('BUFFER_HOLD',None)
+assert states['high_current_low_rpm']==('FAULT','JAM_NO_AUTOMATIC_REVERSE')
+assert states['hardware_overtemp_open']==('FAULT','HARDWARE_OVERTEMP_CHAIN_OPEN')
+assert set(p5['did_not_run']) >= {'physical_thermal_test','firmware_flash','energization'}
+assert s['p5_status']=='DIGITAL_SENSITIVITY_COMPLETE_PHYSICAL_QUALIFICATION_HOLD'
 print('C2 numerical/CAD artifact contracts passed. Hardware gates remain HOLD.')

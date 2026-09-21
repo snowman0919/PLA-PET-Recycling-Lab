@@ -1,0 +1,1179 @@
+{
+  "status": "UNCALIBRATED_DIGITAL_SENSITIVITY_AND_CONTROL_LOGIC_ONLY",
+  "cad_capacity_basis": {
+    "shear_metal_J_K": 126.6871736353784,
+    "shell_spreader_J_K": 192.63641671602738,
+    "steel_volume_mm3": 32276.98691347221,
+    "aluminium_volume_mm3": 79274.24556215119,
+    "steel_part_ids": [
+      "C1_SCREEN_REFERENCE",
+      "C1_LEFT_WEAR_SHELL",
+      "C2_RIGHT_WEAR_SHELL_1",
+      "C2_RIGHT_WEAR_SHELL_2",
+      "C2_FIXED_SHEAR"
+    ],
+    "aluminium_part_ids": [
+      "C2_THERMAL_SADDLE_L",
+      "C2_SADDLE_CAP_L",
+      "C2_THERMAL_SADDLE_R",
+      "C2_SADDLE_CAP_R"
+    ],
+    "assumptions": {
+      "steel_density_kg_mm3": 7.85e-06,
+      "steel_cp_J_kg_K": 500,
+      "aluminium_density_kg_mm3": 2.7e-06,
+      "aluminium_cp_J_kg_K": 900
+    },
+    "status": "CAD_VOLUME_DERIVED_ASSUMED_DENSITY_CP_NOT_MEASURED_MASS"
+  },
+  "thermal_cases": [
+    {
+      "material": "PLA",
+      "airflow": "CLEAN_FILTER_ASSUMED",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            50.9125913597738,
+            46.098952616082336,
+            42.47139436179178,
+            48.37255485966985,
+            42.890829469836916
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.65719260721327,
+            36.95916140828008,
+            36.513603019174795,
+            39.43659248855001,
+            39.87546428747539
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            50.98184847224668,
+            46.16024616122413,
+            42.52712973599532,
+            48.94362227150264,
+            43.885404674547736
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.683858519366375,
+            36.98296036858535,
+            36.535573341213116,
+            39.67306153011818,
+            40.303917998297905
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            50.9863465799585,
+            46.16439586970633,
+            42.53100550589751,
+            48.98628215927507,
+            43.96401015257864
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.6858783173269,
+            36.984777439247814,
+            36.5372592035564,
+            39.69128726690805,
+            40.337545500110444
+          ]
+        }
+      ],
+      "peak_node_C": [
+        50.9863465799585,
+        46.16439586970633,
+        42.53100550589751,
+        48.98628215927507,
+        43.96401015257864
+      ],
+      "final_state_C": [
+        37.6858783173269,
+        36.984777439247814,
+        36.5372592035564,
+        39.69128726690805,
+        40.337545500110444
+      ],
+      "energy_balance_residual_J": -1.7844286048784852e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    },
+    {
+      "material": "PLA",
+      "airflow": "CLOGGED_FILTER_SENSITIVITY",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            61.50080519878008,
+            57.38395182196174,
+            54.10550526940595,
+            48.49250094697194,
+            43.53354718939138
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            46.51785570485206,
+            45.210468070253185,
+            44.34780557118764,
+            39.64599196587269,
+            40.68964055693519
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            63.16814655338578,
+            58.90507636752112,
+            55.514844900134555,
+            49.204131036832905,
+            44.89453762708347
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            47.22000290279137,
+            45.83860921822387,
+            44.92836686749575,
+            39.965693405249276,
+            41.31613031536454
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            63.27953725938839,
+            59.00723732026398,
+            55.60986089678477,
+            49.269969854206344,
+            45.02327171206769
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            47.26871428516221,
+            45.88239456899179,
+            44.968974671163785,
+            39.99540597970066,
+            41.373983898826985
+          ]
+        }
+      ],
+      "peak_node_C": [
+        63.27953725938839,
+        59.00723732026398,
+        55.60986089678477,
+        49.269969854206344,
+        45.02327171206769
+      ],
+      "final_state_C": [
+        47.26871428516221,
+        45.88239456899179,
+        44.968974671163785,
+        39.99540597970066,
+        41.373983898826985
+      ],
+      "energy_balance_residual_J": -5.29871613252908e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    },
+    {
+      "material": "PLA",
+      "airflow": "FAN_FAILED_NATURAL_ONLY",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            73.08049881480355,
+            70.25003453935494,
+            67.73924966382661,
+            48.596205497152795,
+            44.15539508276873
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            63.59585050270244,
+            62.46490943067831,
+            61.68853990334683,
+            39.90083156088742,
+            41.86651960656546
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            86.81194701944918,
+            83.73242753196811,
+            80.90333649126995,
+            49.691286043559565,
+            46.825019101270996
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            73.75481489670081,
+            72.23292596824896,
+            71.193319641123,
+            40.56455262078716,
+            43.591343862644706
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            91.64161581860324,
+            88.47213442611192,
+            85.5295810105459,
+            49.976972752368646,
+            47.60501660433582
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            77.31668675716108,
+            75.65669888313766,
+            74.52415353100187,
+            40.758650454133246,
+            44.128522838723995
+          ]
+        }
+      ],
+      "peak_node_C": [
+        91.64161581860324,
+        88.47213442611192,
+        85.5295810105459,
+        49.976972752368646,
+        47.60501660433582
+      ],
+      "final_state_C": [
+        77.31668675716108,
+        75.65669888313766,
+        74.52415353100187,
+        40.758650454133246,
+        44.128522838723995
+      ],
+      "energy_balance_residual_J": -7.66522134654224e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    },
+    {
+      "material": "PET",
+      "airflow": "CLEAN_FILTER_ASSUMED",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            51.18735732356181,
+            46.224854432666206,
+            42.55681899996011,
+            48.37613488262599,
+            42.90317411000173
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.27411748764808,
+            36.74766798157697,
+            36.36246374324777,
+            39.43738700246641,
+            39.87062905533629
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            51.24595643954205,
+            46.27959079309119,
+            42.60769771558488,
+            48.94597648468443,
+            43.89458071310782
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.29816432875825,
+            36.77005345949749,
+            36.38341690382604,
+            39.67318946979367,
+            40.29766150632311
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            51.25018381782612,
+            46.28360085286727,
+            42.61147335121307,
+            48.988494415820576,
+            43.97291347228281
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.30003325224748,
+            36.77179625058988,
+            36.38505044409291,
+            39.69135245136006,
+            40.33116942879075
+          ]
+        }
+      ],
+      "peak_node_C": [
+        51.25018381782612,
+        46.28360085286727,
+        42.61147335121307,
+        48.988494415820576,
+        43.97291347228281
+      ],
+      "final_state_C": [
+        37.30003325224748,
+        36.77179625058988,
+        36.38505044409291,
+        39.69135245136006,
+        40.33116942879075
+      ],
+      "energy_balance_residual_J": -6.863956514280289e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    },
+    {
+      "material": "PET",
+      "airflow": "CLOGGED_FILTER_SENSITIVITY",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            62.67021263640204,
+            58.17137970430196,
+            54.78809287808824,
+            48.50450595351198,
+            43.586944212200486
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            45.88819865966647,
+            44.898823032232876,
+            44.10170704041655,
+            39.656991167613725,
+            40.71289334763356
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            64.08224020752051,
+            59.495775785638344,
+            56.021931211945336,
+            49.21315994692993,
+            44.932490292625936
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            46.44817630786233,
+            45.417124410655745,
+            44.584181854480164,
+            39.972771629343974,
+            41.32607315658986
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            64.16653089473662,
+            59.575268424821544,
+            56.0963716778164,
+            49.27689371176702,
+            45.05582668827371
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            46.48369023293236,
+            45.450158018590855,
+            44.61507488035674,
+            40.001240411219264,
+            41.380933203430985
+          ]
+        }
+      ],
+      "peak_node_C": [
+        64.16653089473662,
+        59.575268424821544,
+        56.0963716778164,
+        49.27689371176702,
+        45.05582668827371
+      ],
+      "final_state_C": [
+        46.48369023293236,
+        45.450158018590855,
+        44.61507488035674,
+        40.001240411219264,
+        41.380933203430985
+      ],
+      "energy_balance_residual_J": -2.333763404749334e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    },
+    {
+      "material": "PET",
+      "airflow": "FAN_FAILED_NATURAL_ONLY",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            75.92182834072165,
+            72.37038114193436,
+            69.70740301086609,
+            48.618301453685305,
+            44.26892503629877
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            64.39525331896668,
+            63.46467881646638,
+            62.69637491615845,
+            39.935015245945415,
+            41.99095954599029
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            89.76579890366766,
+            86.03546342574407,
+            83.06084079119083,
+            49.73356846729925,
+            46.99072070853952
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            74.36618485365133,
+            73.16183543024492,
+            72.14932337016577,
+            40.61013904435064,
+            43.73985843349144
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            94.43048384397991,
+            90.63839350255996,
+            87.55749588084518,
+            50.019395464298256,
+            47.76547627515591
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            77.71545222397828,
+            76.41850201463764,
+            75.32341904544121,
+            40.80222465134949,
+            44.26685696486188
+          ]
+        }
+      ],
+      "peak_node_C": [
+        94.43048384397991,
+        90.63839350255996,
+        87.55749588084518,
+        50.019395464298256,
+        47.76547627515591
+      ],
+      "final_state_C": [
+        77.71545222397828,
+        76.41850201463764,
+        75.32341904544121,
+        40.80222465134949,
+        44.26685696486188
+      ],
+      "energy_balance_residual_J": -1.8526407075114548e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    },
+    {
+      "material": "TPU",
+      "airflow": "CLEAN_FILTER_ASSUMED",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            50.95958723241902,
+            46.12063208413229,
+            42.48613500196197,
+            48.3731391892105,
+            42.89288500282048
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.58817002617752,
+            36.92239913313769,
+            36.48760296173192,
+            39.43675290061146,
+            39.87477447931815
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            51.026646571767515,
+            46.180589157951694,
+            42.54088425260726,
+            48.943999647648134,
+            43.88691104521487
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.614324463980275,
+            36.945919218052325,
+            36.50937227282526,
+            39.67310669460791,
+            40.30297899430568
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            51.031096406862105,
+            46.18471385281959,
+            42.54474206877554,
+            48.98663461873262,
+            43.96546852145789
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 1,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            37.616317760301996,
+            36.94772325890826,
+            36.51104896001597,
+            39.6913213981463,
+            40.33658545453886
+          ]
+        }
+      ],
+      "peak_node_C": [
+        51.031096406862105,
+        46.18471385281959,
+        42.54474206877554,
+        48.98663461873262,
+        43.96546852145789
+      ],
+      "final_state_C": [
+        37.616317760301996,
+        36.94772325890826,
+        36.51104896001597,
+        39.6913213981463,
+        40.33658545453886
+      ],
+      "energy_balance_residual_J": -9.947143553290516e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    },
+    {
+      "material": "TPU",
+      "airflow": "CLOGGED_FILTER_SENSITIVITY",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            61.693261136753875,
+            57.51276568762107,
+            54.21700878549799,
+            48.494392887362366,
+            43.54207251044622
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            46.420938820442196,
+            45.16530325021916,
+            44.312926157907576,
+            39.64781276479005,
+            40.69373131672901
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            63.31740514456841,
+            59.00101971595367,
+            55.59709994187752,
+            49.205586728209504,
+            44.900641276016486
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            47.09816105039636,
+            45.7744370869421,
+            44.876559299347235,
+            39.96688880494929,
+            41.31804340379322
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            63.42380993061391,
+            59.09904888618491,
+            55.68837247989353,
+            49.271069507091944,
+            45.0284481790679
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 0.25,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            47.14438495802356,
+            45.81621654533515,
+            44.915358433877536,
+            39.99638704257597,
+            41.37537382954459
+          ]
+        }
+      ],
+      "peak_node_C": [
+        63.42380993061391,
+        59.09904888618491,
+        55.68837247989353,
+        49.271069507091944,
+        45.0284481790679
+      ],
+      "final_state_C": [
+        47.14438495802356,
+        45.81621654533515,
+        44.915358433877536,
+        39.99638704257597,
+        41.37537382954459
+      ],
+      "energy_balance_residual_J": -2.2100721253082156e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    },
+    {
+      "material": "TPU",
+      "airflow": "FAN_FAILED_NATURAL_ONLY",
+      "node_order": [
+        "polymer",
+        "shear_metal",
+        "shell_spreader",
+        "motor_case",
+        "gear_case"
+      ],
+      "segments": [
+        {
+          "name": "batch_1",
+          "end_time_s": 600.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            73.52868766130224,
+            70.583294106749,
+            68.04835384470258,
+            48.599616964413364,
+            44.17305105478091
+          ]
+        },
+        {
+          "name": "idle_1",
+          "end_time_s": 900.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            63.73178727262648,
+            62.630715074575924,
+            61.855180341591115,
+            39.90623200503361,
+            41.88641947507169
+          ]
+        },
+        {
+          "name": "batch_2",
+          "end_time_s": 1500.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            87.28244268339381,
+            84.09888168063618,
+            81.24656443954396,
+            49.69801290889876,
+            46.85136986332855
+          ]
+        },
+        {
+          "name": "idle_2",
+          "end_time_s": 1800.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            73.86453252782493,
+            72.39106676852579,
+            71.35522977198578,
+            40.5718762518961,
+            43.61545109108441
+          ]
+        },
+        {
+          "name": "batch_3",
+          "end_time_s": 2400.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 30,
+          "motor_loss_W": 25,
+          "gear_loss_W": 8,
+          "final_state_C": [
+            92.08708803595098,
+            88.8181161453743,
+            85.8534619533335,
+            49.983794720883594,
+            47.63074207188902
+          ]
+        },
+        {
+          "name": "idle_3",
+          "end_time_s": 2700.0,
+          "fan_factor": 0,
+          "chamber_heat_W": 2,
+          "motor_loss_W": 2,
+          "gear_loss_W": 1,
+          "final_state_C": [
+            77.39310152741143,
+            75.78899540663333,
+            74.66188510979939,
+            40.765705467178684,
+            44.15115345289686
+          ]
+        }
+      ],
+      "peak_node_C": [
+        92.08708803595098,
+        88.8181161453743,
+        85.8534619533335,
+        49.983794720883594,
+        47.63074207188902
+      ],
+      "final_state_C": [
+        77.39310152741143,
+        75.78899540663333,
+        74.66188510979939,
+        40.765705467178684,
+        44.15115345289686
+      ],
+      "energy_balance_residual_J": -5.229594535194337e-09,
+      "evidence": "UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST"
+    }
+  ],
+  "control_cases": [
+    {
+      "name": "normal_reference",
+      "state": "RUN",
+      "reason": null,
+      "m1_fraction": 1.0,
+      "heat_enable": true
+    },
+    {
+      "name": "fan_failed",
+      "state": "FAULT",
+      "reason": "COOLING_FAULT",
+      "m1_fraction": 0.0,
+      "heat_enable": false
+    },
+    {
+      "name": "stale_temperature",
+      "state": "FAULT",
+      "reason": "STALE_SENSOR",
+      "m1_fraction": 0.0,
+      "heat_enable": false
+    },
+    {
+      "name": "stale_drive",
+      "state": "FAULT",
+      "reason": "STALE_DRIVE_FEEDBACK",
+      "m1_fraction": 0.0,
+      "heat_enable": false
+    },
+    {
+      "name": "hardware_overtemp_open",
+      "state": "FAULT",
+      "reason": "HARDWARE_OVERTEMP_CHAIN_OPEN",
+      "m1_fraction": 0.0,
+      "heat_enable": false
+    },
+    {
+      "name": "high_current_low_rpm",
+      "state": "FAULT",
+      "reason": "JAM_NO_AUTOMATIC_REVERSE",
+      "m1_fraction": 0.0,
+      "heat_enable": false
+    },
+    {
+      "name": "buffer_full",
+      "state": "BUFFER_HOLD",
+      "reason": null,
+      "m1_fraction": 0.0,
+      "heat_enable": false
+    }
+  ],
+  "assumptions": {
+    "ambient_C": 35,
+    "clean_installed_UA_W_K": 4,
+    "natural_UA_W_K": 0.3,
+    "active_chamber_loss_W": 30,
+    "active_motor_loss_W": 25,
+    "active_gear_loss_W": 8,
+    "losses_are_assumed_not_motor_electrical_input": true,
+    "fan_failed_case": "FAULT_ENVELOPE_IF_STOP_OR_DETECTION_FAILS_NOT_A_RUN_COMMAND",
+    "fan_curve_and_filter_pressure_drop": "NOT_MEASURED",
+    "motor_and_gear_parameters": "UNSELECTED_ASSUMPTIONS"
+  },
+  "did_not_run": [
+    "physical_thermal_test",
+    "fan_curve_test",
+    "sensor_delay_test",
+    "firmware_build",
+    "firmware_flash",
+    "energization"
+  ],
+  "hardware_safety_boundary": [
+    "independent_estop_and_guard_contactor_chain",
+    "hardware_current_limit",
+    "manual_reset_overtemperature_chain",
+    "one_shot_thermal_fuse"
+  ]
+}

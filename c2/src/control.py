@@ -19,14 +19,21 @@ class Controller:
     latched_fault: str | None = None
     motor_limit_C: float | None = None
     gear_limit_C: float | None = None
+    current_limit_A: float | None = None
+    minimum_running_rpm: float | None = None
 
     def evaluate(self, *, material: str, temperatures: dict[str,float], sensor_age_s: float,
                  estop_closed: bool, guards_closed: bool, fan_ok: bool,
                  jam_detected: bool, start_edge: bool = False, reset_edge: bool = False,
-                 run_request: bool = False, buffer_full: bool = False):
+                 run_request: bool = False, buffer_full: bool = False,
+                 hardware_overtemp_closed: bool = True,
+                 drive_current_A: float | None = None, drive_rpm: float | None = None,
+                 drive_sample_age_s: float = 0):
         fault = None
         if not estop_closed or not guards_closed:
             fault = 'SAFETY_CHAIN_OPEN'
+        elif not hardware_overtemp_closed:
+            fault = 'HARDWARE_OVERTEMP_CHAIN_OPEN'
         elif material not in MATERIALS:
             fault = 'UNKNOWN_MATERIAL'
         elif not math.isfinite(sensor_age_s) or not 0 <= sensor_age_s <= 1.0:
@@ -37,6 +44,22 @@ class Controller:
         elif not fan_ok:
             fault = 'COOLING_FAULT'
         elif jam_detected:
+            fault = 'JAM_NO_AUTOMATIC_REVERSE'
+        elif run_request and (drive_current_A is None or drive_rpm is None
+                              or not math.isfinite(drive_current_A) or drive_current_A < 0
+                              or not math.isfinite(drive_rpm) or drive_rpm < 0):
+            fault = 'INVALID_DRIVE_FEEDBACK'
+        elif run_request and (not math.isfinite(drive_sample_age_s)
+                              or not 0 <= drive_sample_age_s <= 1.0):
+            fault = 'STALE_DRIVE_FEEDBACK'
+        elif (run_request and self.current_limit_A is not None
+              and drive_current_A is not None and drive_current_A >= self.current_limit_A):
+            fault = 'OVERCURRENT_HARDWARE_LIMIT_REQUIRED'
+        elif (run_request and (self.run_latched or start_edge)
+              and self.current_limit_A is not None and self.minimum_running_rpm is not None
+              and drive_current_A is not None and drive_rpm is not None
+              and drive_current_A >= .8*self.current_limit_A
+              and drive_rpm < self.minimum_running_rpm):
             fault = 'JAM_NO_AUTOMATIC_REVERSE'
         elif self.motor_limit_C is not None and temperatures['motor_case'] >= self.motor_limit_C:
             fault = 'MOTOR_OVERTEMP'
@@ -57,7 +80,8 @@ class Controller:
             return dict(state='RESET_WAIT_START',m1_fraction=0.,fan_request=True,heat_enable=False)
         if self.latched_fault:
             return dict(state='FAULT',reason=self.latched_fault,m1_fraction=0.,fan_request=True,heat_enable=False)
-        if not self.qualified or self.motor_limit_C is None or self.gear_limit_C is None:
+        if (not self.qualified or self.motor_limit_C is None or self.gear_limit_C is None
+                or self.current_limit_A is None or self.minimum_running_rpm is None):
             return dict(state='QUALIFICATION_HOLD',m1_fraction=0.,fan_request=True,heat_enable=False)
         if not run_request:
             self.run_latched = False

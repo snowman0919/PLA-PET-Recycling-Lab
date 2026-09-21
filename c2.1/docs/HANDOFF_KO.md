@@ -14,6 +14,7 @@
 - 통합 STEP은 41 solids로 재수입했고 정적 820쌍, q=8 전 주기의 33개 표본 자세 11,360쌍에서 양의 체적 관통 0건이다. 표본 사이 연속 BRep 및 전체 기계 충돌 인증은 아니다.
 - CalculiX 2.21 coupon을 PLA/PET 선형 탄성, TPU Neo-Hooke 가정으로 소재별 4/8/16요소, 총 9건 실제 실행했다. 8→16 요소 reaction 변화는 PLA 0.836%, PET 1.036%, TPU 7.740%다. 물성은 미보정 가정이며 fracture/tear/viscoelasticity/S2 접촉/입도/처리량 라벨이 아니다.
 - Data 검색으로 확인한 국내 200W BLDC 모터 단품 최저 확인액 중 BL6099-2420은 기본 배송 포함 110,200원으로 전체 100,000원 soft limit를 이미 넘는다. 해외 57BLY110-230의 USD35.50은 배송·세금·driver 없는 base price라 landed quote가 아니다. M1과 전체 원가는 계속 HOLD다.
+- P5는 재료/전단금속/외벽·방열판/모터/감속기 5-node 열망으로 확장했다. C2 CAD 체적 기반 가정 열용량과 PLA/PET/TPU별 clean/clogged/fan-failed 반복 batch 총9건, 전류+rpm+온도+buffer fault matrix7건을 실행했다. 이는 미보정 디지털 민감도이며 fan curve·센서 지연·물리 열시험·firmware build/flash·통전은 미실행이다.
 
 ## 구현물
 
@@ -58,6 +59,7 @@ Open CASCADE가 실행 시각을 STEP 헤더에 기록하므로 생성기는 `FI
 - bearing/roller는 envelope이고 MPN·정격·L10이 없다. 축 피로, 접촉압, fastener preload, 실제 rotor 체결, shoulder/circlip 등 axial retention, 윤활·seal도 미설계다.
 - C2 fixed shear sensor bore, perforated screen reference, split wear liners, thermal saddles/caps는 통합했다. screen attachment, sensor mount/wiring/응답, conductive interface, 분리 airflow와 온도 검증은 없다.
 - 가드는 section envelope이며 containment 인증 형상이 아니다. E-stop, interlock, 독립 과온 차단 요구는 유지했지만 C2.1 CAD에 완성 통합하지 않았다.
+- P5 제어 로직은 독립 과온 체인 feedback을 fail-closed로 감시하지만 E-stop/guard contactor, hardware current limit, manual-reset overtemperature chain과 one-shot thermal fuse의 실제 회로·MPN·배선은 P6 HOLD다.
 - PLA/PET/TPU 처리량·토크 이력·입도·체류·jam·에너지는 보정 DEM/실험이 없어 `BLOCKED_PERFORMANCE_DATA`다.
 - 모터 미선정, 추가비 landed cost 미완성이다. 미상 원가는 0원이 아니며 100,000KRW 전체 추가비 soft limit 적합성을 주장하지 않는다.
 ## 재현 명령과 결과
@@ -69,7 +71,7 @@ Open CASCADE가 실행 시각을 STEP 헤더에 기록하므로 생성기는 `FI
 # C1: 14/14
 .codex-run/review-env/bin/python c2/src/run_study.py
 .codex-run/review-env/bin/python -m unittest discover -s c2/tests -v
-# C2: 52/52
+# C2: 59/59
 .codex-run/review-env/bin/python c2/src/verify_artifacts.py
 .codex-run/review-env/bin/python c2/solver/run_coupon_fe.py
 # CalculiX coupon: 9/9

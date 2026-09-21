@@ -9,7 +9,9 @@ import unittest
 import numpy as np
 R=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(R/'src'))
-from engineering import S2,Thermal,design_set,packaging,hook_polygon,transform,kinematics,thermal_run,equivalent_motor_load,generalized_torque,point_jacobian
+from engineering import (S2,Thermal,design_set,packaging,hook_polygon,transform,kinematics,
+                         thermal_run,thermal_duty_run,thermal_capacities_from_cad,
+                         equivalent_motor_load,generalized_torque,point_jacobian)
 from control import Controller,allocate_power,REQUIRED_SENSORS
 from performance import (candidate_hashes,evidence_inventory,validate_evidence_record,
                          validate_record,training_gate,EvidenceError,nondominated,TARGETS)
@@ -95,8 +97,8 @@ class ThermalTests(unittest.TestCase):
         r=thermal_run(Thermal(),300)
         self.assertGreater(r['final_polymer_C'],r['final_shell_C'])
     def test_fan_failure_sensitivity(self):
-        a=thermal_run(Thermal(chamber_UA_W_K=.5),1000)
-        b=thermal_run(Thermal(chamber_UA_W_K=4),1000)
+        a=thermal_run(Thermal(chamber_UA_W_K=4,fan_factor=0),1000)
+        b=thermal_run(Thermal(chamber_UA_W_K=4,fan_factor=1),1000)
         self.assertGreater(a['final_shell_C'],b['final_shell_C'])
     def test_hotend_bridge(self):
         a=thermal_run(Thermal(hotend_G_W_K=.005),300)
@@ -104,11 +106,34 @@ class ThermalTests(unittest.TestCase):
         self.assertGreater(b['final_shell_C'],a['final_shell_C'])
     def test_not_PETG(self):
         with self.assertRaises(ValueError):Thermal(material='PETG')
+    def test_drive_heat_is_separate_from_chamber_heat(self):
+        a=thermal_run(Thermal(motor_loss_W=0,gear_loss_W=0),300)
+        b=thermal_run(Thermal(motor_loss_W=25,gear_loss_W=10),300)
+        self.assertGreater(b['final_motor_C'],a['final_motor_C'])
+        self.assertGreater(b['final_gear_C'],a['final_gear_C'])
+    def test_repeated_batch_carries_heat_and_fan_fault_is_worse(self):
+        segments=[dict(name='run1',duration_s=300,chamber_heat_W=30,motor_loss_W=25,gear_loss_W=10),
+                  dict(name='idle',duration_s=120,chamber_heat_W=2,mass_flow_g_h=0),
+                  dict(name='run2',duration_s=300,chamber_heat_W=30,motor_loss_W=25,gear_loss_W=10)]
+        clean=thermal_duty_run(Thermal(ambient_C=35,inlet_C=35,chamber_UA_W_K=4),segments)
+        failed=thermal_duty_run(Thermal(ambient_C=35,inlet_C=35,chamber_UA_W_K=4),
+                                [{**x,'fan_factor':0} for x in segments])
+        self.assertGreater(clean['segments'][2]['final_state_C'][0],clean['segments'][0]['final_state_C'][0])
+        self.assertGreater(failed['peak_node_C'][2],clean['peak_node_C'][2])
+    def test_cad_volume_capacity_basis(self):
+        r=thermal_capacities_from_cad(json.loads((R/'results/cad_validation.json').read_text()))
+        self.assertGreater(r['shear_metal_J_K'],0)
+        self.assertGreater(r['shell_spreader_J_K'],0)
+        self.assertEqual(r['status'],'CAD_VOLUME_DERIVED_ASSUMED_DENSITY_CP_NOT_MEASURED_MASS')
 
 class ControllerTests(unittest.TestCase):
     def setUp(self):
         self.args=dict(material='PLA',temperatures={k:25. for k in REQUIRED_SENSORS},sensor_age_s=0,
-                       estop_closed=True,guards_closed=True,fan_ok=True,jam_detected=False)
+                       estop_closed=True,guards_closed=True,fan_ok=True,jam_detected=False,
+                       drive_current_A=1,drive_rpm=120,drive_sample_age_s=0)
+    def controller(self):
+        return Controller(qualified=True,motor_limit_C=60,gear_limit_C=60,
+                          current_limit_A=10,minimum_running_rpm=10)
     def test_default_qualification_hold(self):
         self.assertEqual(Controller().evaluate(**self.args)['state'],'QUALIFICATION_HOLD')
     def test_estop_disables_heat_and_motor(self):
@@ -123,7 +148,7 @@ class ControllerTests(unittest.TestCase):
     def test_stale_sensor(self):
         self.assertEqual(Controller().evaluate(**{**self.args,'sensor_age_s':2})['state'],'FAULT')
     def test_hot_requires_reset(self):
-        c=Controller(qualified=True,motor_limit_C=60,gear_limit_C=60)
+        c=self.controller()
         a=dict(self.args);a['temperatures']=dict(self.args['temperatures'],s2_shear=51)
         self.assertEqual(c.evaluate(**a)['state'],'FAULT')
         self.assertEqual(c.evaluate(**self.args)['state'],'FAULT')
@@ -133,16 +158,31 @@ class ControllerTests(unittest.TestCase):
         r=Controller().evaluate(**{**self.args,'jam_detected':True})
         self.assertEqual(r['reason'],'JAM_NO_AUTOMATIC_REVERSE')
     def test_derate_changes_common_drive(self):
-        c=Controller(qualified=True,motor_limit_C=60,gear_limit_C=60)
+        c=self.controller()
         a=dict(self.args);a['temperatures']=dict(self.args['temperatures'],s2_shear=45)
         r=c.evaluate(**a,start_edge=True,run_request=True)
         self.assertEqual(r['m1_fraction'],.5)
         self.assertEqual(r['coupled_axes'],'S1_AND_S2_COMMON_SPEED_ONLY')
     def test_run_continues_without_repeated_start_edge(self):
-        c=Controller(qualified=True,motor_limit_C=60,gear_limit_C=60)
+        c=self.controller()
         self.assertEqual(c.evaluate(**self.args,start_edge=True,run_request=True)['state'],'RUN')
         self.assertEqual(c.evaluate(**self.args,run_request=True)['state'],'RUN')
         self.assertEqual(c.evaluate(**self.args,run_request=False)['state'],'IDLE')
+    def test_hardware_overtemp_chain_is_fail_closed(self):
+        r=self.controller().evaluate(**self.args,hardware_overtemp_closed=False)
+        self.assertEqual(r['reason'],'HARDWARE_OVERTEMP_CHAIN_OPEN')
+    def test_drive_feedback_required_to_run(self):
+        a=dict(self.args);a['drive_current_A']=None
+        self.assertEqual(self.controller().evaluate(**a,start_edge=True,run_request=True)['reason'],
+                         'INVALID_DRIVE_FEEDBACK')
+    def test_stale_drive_feedback(self):
+        r=self.controller().evaluate(**{**self.args,'drive_sample_age_s':2},start_edge=True,run_request=True)
+        self.assertEqual(r['reason'],'STALE_DRIVE_FEEDBACK')
+    def test_current_and_rpm_detect_jam_without_reverse(self):
+        r=self.controller().evaluate(**{**self.args,'drive_current_A':8.5,'drive_rpm':2},
+                                     start_edge=True,run_request=True)
+        self.assertEqual(r['reason'],'JAM_NO_AUTOMATIC_REVERSE')
+        self.assertEqual(r['m1_fraction'],0)
     def test_power_cap_many_cases(self):
         for a in range(0,601,25):
             for b in range(0,121,20):

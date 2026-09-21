@@ -7,6 +7,7 @@
 3. P2 절삭·냉각 통합: C2 생성 부품 9종을 C2.1 assembly에 통합 완료. screen attachment, sensor wiring/응답, measured UA는 HOLD.
 4. P3 조달·원가: 국내/해외 M1 후보 검색 진행. 전체 landed cost와 driver/reduction가 닫히지 않아 모터 선정·예산 적합은 HOLD.
 5. P4 solver: CalculiX coupon 9건 실행 완료. DEM·절삭/파단·실물 보정·성능학습은 미실행.
-6. P5/P6: 전체 열관리·제어·전체 기계 제작 검토 패키지는 이후 비의존 작업으로 계속한다.
+6. P5 열관리·제어: 5-node 열망, CAD 체적 기반 열용량, summer/filter/fan/repeated-batch 9건과 fail-closed 제어 7건 완료. 물리 열시험·fan curve·firmware/통전은 HOLD.
+7. P6 전체 기계: C1 전체 조립체를 C2.1 전달계·P5 전장/열 요구와 재통합하고 제작 검토 패키지의 열린 인터페이스를 닫는 작업을 계속한다.
 
 구매·외주·통전·가공·main 병합은 사용자 별도 승인 전 수행하지 않는다.

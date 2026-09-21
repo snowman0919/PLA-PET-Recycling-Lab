@@ -28,9 +28,10 @@ jobs:
           python - <<'PY'
           import json
           r=json.load(open('c2/results/summary.json'))
-          assert r['actual_dem_runs']==0
-          assert r['total_confirmed_cost_KRW'] is None
+          assert r['actual_dem_runs']==r['evidence_inventory']['actual_dem_runs']
+          assert r['actual_physical_tests']==r['evidence_inventory']['actual_physical_tests']
           assert r['motor_status']=='UNSELECTED'
+          assert r['p5_status']=='DIGITAL_SENSITIVITY_COMPLETE_PHYSICAL_QUALIFICATION_HOLD'
           assert r['procurement']==r['fabrication']==r['energization']=='HOLD'
           print('Numerical/CAD evidence only. No fabrication or energization release.')
           PY

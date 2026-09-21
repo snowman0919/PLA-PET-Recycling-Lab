@@ -71,7 +71,15 @@
     ],
     "air_segregation": "Shredder/motor/hotend segregated; fan is not dust-explosion protection",
     "limits": "Provisional commissioning values, not certified safe material limits",
-    "PET_TPU_tg_or_HDT_not_generalized": true
+    "PET_TPU_tg_or_HDT_not_generalized": true,
+    "loss_paths": "Chamber work, motor loss, gearbox loss and extruder heat bridge are separate uncalibrated inputs",
+    "fault_sensitivities": [
+      "summer_ambient",
+      "clogged_filter",
+      "fan_failure",
+      "repeated_batch_heat_soak",
+      "stale_sensor"
+    ]
   },
   "deployment": {
     "procurement": "HOLD",
@@ -79,6 +87,18 @@
     "energization": "HOLD",
     "qualified_motor_and_material": false,
     "automatic_reverse": false,
-    "manual_reset_never_restart": true
+    "manual_reset_never_restart": true,
+    "software_inputs": [
+      "current",
+      "rpm",
+      "temperature",
+      "buffer"
+    ],
+    "independent_hardware_safety_required": [
+      "estop_and_guard_contactor_chain",
+      "hardware_current_limit",
+      "manual_reset_overtemperature_chain",
+      "one_shot_thermal_fuse"
+    ]
   }
 }

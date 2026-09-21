@@ -43,7 +43,7 @@
   "commands": [
     {"command": ".codex-run/review-env/bin/python validation/pre_push.py", "return_code": 0, "tests": "14/14"},
     {"command": ".codex-run/review-env/bin/python c2/src/run_study.py", "return_code": 0},
-    {"command": ".codex-run/review-env/bin/python -m unittest discover -s c2/tests -v", "return_code": 0, "tests": "52/52"},
+    {"command": ".codex-run/review-env/bin/python -m unittest discover -s c2/tests -v", "return_code": 0, "tests": "59/59"},
     {"command": ".codex-run/review-env/bin/python c2/src/verify_artifacts.py", "return_code": 0},
     {"command": ".codex-run/review-env/bin/python c2/solver/run_coupon_fe.py", "return_code": 0, "cases": "9/9"},
     {"command": ".codex-run/review-env/bin/python c2.1/src/transmission.py", "return_code": 0},
