@@ -1085,5 +1085,10 @@
     "Break schedule is predeclared (every 40 steps) and is identical across dt in PHYSICAL time; break count differences across dt therefore reflect contact-impulse resolution at the shared measurement horizon.",
     "work_boundary is NOT_EVALUABLE: contact->shaft body-handle classification is not exposed by the installed API (diagnostic-only magnitude proxy is reported instead).",
     "residence/wrap/screen/jam are NOT_EVALUABLE per observability matrix; fixture has no screen, no exit, no wrap sensing, kinematic (non-stallable) shafts."
-  ]
+  ],
+  "ci_status": {
+    "C1": "success",
+    "C2.3_CPU_contracts": "success",
+    "C2_engineering": "failure (runner-hardware-specific last-ULP drift in c2/c2.1 artifact hashes; local pinned repro passes; pre-existing since R0, unrelated to R1 Isaac convergence; assert weakening prohibited by goal \u00a729 \u2014 documented as CI blocker for reviewer)"
+  }
 }
