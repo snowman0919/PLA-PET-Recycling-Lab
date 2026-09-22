@@ -87,4 +87,16 @@ PhysX joint break API 사용)이 필요. 현재 도구로는 T2 수렴 판정
   c2.1/, .github/ 무변경 (git diff HEAD~1 확인). 로컬 pin 재현은
   green. assert 완화 금지 준수.
 
+## 8. R4-T2b 추가 반복 (리뷰어 승인 fixture 변경 실행 결과)
+
+- guide walls at crown level + gravity + preload 2N: 0 window rows
+  (spec이 equilibrium에서 crown 위로 균형 — contact marginal).
+- overlap 5mm: 여전히 0 rows (spec bottom이 crown 위로 밀려남).
+- 진단: 볼록 crown 위의 자유 box 체인은 본질적으로 불안정.
+  지속 접촉에는 groove 형상의 specimen이 필요하나 이는 실제 설계
+  변경 범위를 초과한다.
+
+R3 BLOCKED 판정 유지. T2/T3 수렴은 groove 픽스처 설계 후 재시도
+필요 (리뷰어 승인 시).
+
 REVIEWER DECISION REQUIRED.
