@@ -1,0 +1,78 @@
+{
+  "revision": "VP1-STAGE1",
+  "checkpoints": [
+    {
+      "checkpoint": "S1_opening_to_pan",
+      "aperture_mm": 4.300000000000011,
+      "probe_sphere_mm": 4.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "S1 bottom 352.3 minus pan floor top 348.0"
+    },
+    {
+      "checkpoint": "trough_fin_gap",
+      "aperture_mm": 4.0,
+      "probe_sphere_mm": 4.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "115deg saddle fin bypassed: the route runs south of the chamber (y 213..251) and turns north over the mouth at x 350..360.5; path x fin intersection volume 0.000 mm3"
+    },
+    {
+      "checkpoint": "bypass_channel_outlet",
+      "aperture_mm": 10.5,
+      "probe_sphere_mm": 4.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "bend block spans x to 360.5 (10 mm wide spill edge over the open mouth arc, global 20..99.5deg), spill line at y=294"
+    },
+    {
+      "checkpoint": "outlet_drop_into_mouth",
+      "aperture_mm": 7.0,
+      "probe_sphere_mm": 4.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "min distance from the x=355 drop column to the S2 solids along z 344..348 (above the rotor envelope); open mouth arc verified"
+    },
+    {
+      "checkpoint": "s2_screen_holes",
+      "aperture_mm": 3.340178604084614,
+      "probe_sphere_mm": 3.3,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "15 open arcs measured at r63.8, y24; 4mm drilled holes, chord aperture at the liner radius"
+    },
+    {
+      "checkpoint": "buffer_throat",
+      "aperture_mm": 40.0,
+      "probe_sphere_mm": 8.0,
+      "passed": true,
+      "evidence": "NAMEPLATE",
+      "note": "FEED-BUF loft 190x48 top / 50x40 throat, height 73 (throat limits)"
+    },
+    {
+      "checkpoint": "extruder_die_exit",
+      "aperture_mm": 2.0,
+      "probe_sphere_mm": 1.9,
+      "passed": true,
+      "evidence": "NAMEPLATE",
+      "note": "EX-DIE 36 OD x 20 with 2 mm exit"
+    },
+    {
+      "checkpoint": "puller_nip",
+      "aperture_mm": 2.5,
+      "probe_sphere_mm": 2.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "VP1 Stage 2 puller: dia-20 rollers at z 113.75/136.25 (line z 125) with a positive stop -> nip 2.5 mm >= 2.5 mm design minimum; the 2.0 mm extrudate clears"
+    },
+    {
+      "checkpoint": "spool_winder",
+      "aperture_mm": 58.0,
+      "probe_sphere_mm": 8.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "VP1 Stage 2 winder: driven dia-70 drum between dia-200 flanges at (700, y 100..170, z 220); filament span puller nip (829, 264, 125) -> traverse eyelet (742, 128, 245): midpoint probe sphere blocked by nothing"
+    }
+  ],
+  "all_material_path_clear": true
+}

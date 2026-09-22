@@ -1,0 +1,31 @@
+item_id,description,qty,material_or_type,status,source,evidence,landed_cost_KRW,notes
+DRV-CHAIN-A,#35 roller chain cut to 896 mm (94 links; chain A: jackshaft 24T -> S1 shaft A 24T),1,ANSI35 steel roller chain p=9.525,PROCUREMENT_HOLD,VP1-ADR-002,VP1-STAGE1,,Cut length from tangent+pitch-arc geometry (drive_geometry.json chain_lengths.A=896.0). UNQUOTED: not 0 - the 100000 KRW soft limit applies to quoted lines only
+DRV-CHAIN-B,#35 roller chain cut to 801 mm (84 links; chain B: input shaft 24T -> S2 12T),1,ANSI35 steel roller chain p=9.525,PROCUREMENT_HOLD,VP1-ADR-002,VP1-STAGE1,,Cut length from tangent+pitch-arc geometry (chain_lengths.B=801.07). UNQUOTED: not 0
+CHUTE_BODY,welded S1->S2 transfer chute (pan + 45deg intake lip + sealed walls + fin-bypass channel),1,steel sheet 3 mm + 45deg lips,GEOMETRY_PASS_SLOPE_DEFECT_DOCUMENTED,VP1-ADR-002,VP1-STAGE2,,BREP collision-audited; trough floor slope ~1 deg (batch accumulation transport) - UNQUOTED
+CHUTE_TROUGH_FLOOR_E,bolted trough ledge section over the S2 mouth,1,steel sheet 3 mm,GEOMETRY_PASS,VP1-ADR-002,VP1-STAGE2,,Clearance-cut for the frozen saddle jacket - UNQUOTED
+GUARD_S2_RING,S2 rotor ring guard (annular sector r 90..94 over 20..114 deg),1,steel plate 3 mm,CONTAINMENT_UNRATED,VP1-STAGE2,VP1-STAGE3,,Guard plate thickness unrated; service sweep verified - UNQUOTED
+GUARD_CHAIN_A,chain A top-run lid plate,1,steel plate 3 mm,CONTAINMENT_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+GUARD_CHAIN_B,chain B outer guard plate set (4 segments; jackshaft crossing gap),1,steel plate 3 mm,CONTAINMENT_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+GUARD_LID_INTERLOCK_SEAT,hopper-lid interlock switch seat,1,steel plate 3 mm,CONTAINMENT_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+PULL_FRAME,puller side plates + base (adjustable nip carrier),1,steel plate 5 mm + 3 mm,NIP_RATING_HOLD,VP1-STAGE2,VP1-STAGE3,,Nip 2.5..5.5 mm with positive stop - UNQUOTED
+PULL_ROLLER_FIXED,puller drive roller dia 20 x 22,1,steel; knurl or rubber per TPU grip,NIP_RATING_HOLD,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+PULL_ROLLER_ADJ,puller adjustable roller dia 20 x 22 + screw carriage,1,steel; M5 screw,NIP_RATING_HOLD,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+PULL_NIP_STOP,nip positive-stop block (2.5 mm minimum),1,steel,NIP_RATING_HOLD,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+PULL_MOTOR_REF,puller gearmotor reference (not selected),1,24 V gearmotor MPN unselected,MOTOR_UNSELECTED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED; known motor floors exceed the 100000 KRW soft limit - not 0
+WIND_SPOOL_SHAFT,spool shaft dia 16 x 95,1,C45 candidate,WINDER_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+WIND_SPOOL_DRUM,spool drum dia 70 x 58,1,steel tube or printed polymer,WINDER_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+WIND_FLANGE_L,spool flange dia 200,1,steel plate 6 mm,WINDER_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+WIND_FLANGE_R,spool flange dia 200,1,steel plate 6 mm,WINDER_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+WIND_MOTOR_REF,spool gearmotor reference (not selected),1,24 V gearmotor MPN unselected,MOTOR_UNSELECTED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED; known motor floors exceed the 100000 KRW soft limit - not 0
+WIND_TRAVERSE_SCREW,traverse lead screw dia 8 x 80,1,steel rod,WINDER_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+WIND_TRAVERSE_RIDER,traverse rider block + guide eyelet,1,steel + printed guide,WINDER_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+WIND_TENSIONER,slip tensioner post + wrap arm,1,steel,WINDER_UNRATED,VP1-STAGE2,VP1-STAGE3,,UNQUOTED
+EL_DIN_RAIL,DIN rail 35 mm top-hat x 210,1,steel rail,PROCUREMENT_HOLD,VP1-STAGE3,VP1-STAGE3,,UNQUOTED
+EL_DRIVER_1,stepper/BLDC driver (M1 branch),1,24 V driver MPN unselected,MOTOR_UNSELECTED,VP1-STAGE3,VP1-STAGE3,,UNQUOTED
+EL_DRIVER_2,stepper/BLDC driver (M2 branch),1,24 V driver MPN unselected,MOTOR_UNSELECTED,VP1-STAGE3,VP1-STAGE3,,UNQUOTED
+EL_DRIVER_3,stepper/BLDC driver (winder/puller accessory),1,24 V driver MPN unselected,MOTOR_UNSELECTED,VP1-STAGE3,VP1-STAGE3,,UNQUOTED
+EL_CONTACTOR,safety contactor,1,24 V coil contactor MPN unselected,SAFETY_HARDWARE_REQUIRED,VP1-STAGE3,VP1-STAGE3,,UNQUOTED
+EL_CURRENT_LIMITER,heater sequencer / current-limit relay bank,1,relay bank MPN unselected,CONTROL_UNIMPLEMENTED_IN_FIRMWARE,VP1-STAGE3,VP1-STAGE3,,Staged heater control hardware: firmware logic UNIMPLEMENTED; interlock required so a firmware fault cannot energize two bands - UNQUOTED
+EL_ESTOP_BOX,dual-channel E-stop / lid / service interlock relay box,1,relay box MPN unselected,SAFETY_HARDWARE_REQUIRED,VP1-STAGE3,VP1-STAGE3,,UNQUOTED
+EL_OVERTEMP_BOX,manual-reset independent overtemperature relay box,1,relay box MPN unselected,SAFETY_HARDWARE_REQUIRED,VP1-STAGE3,VP1-STAGE3,,UNQUOTED
+EL_WIRE_DUCT,slotted wiring duct x 210,1,PVC duct,PROCUREMENT_HOLD,VP1-STAGE3,VP1-STAGE3,,UNQUOTED

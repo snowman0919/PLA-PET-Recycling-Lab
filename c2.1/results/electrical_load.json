@@ -1,0 +1,188 @@
+{
+  "parts": [
+    {
+      "name": "EL_DIN_RAIL",
+      "solids": 1,
+      "bounds": [
+        385.0,
+        42.0,
+        100.0,
+        595.0,
+        53.0,
+        103.0
+      ]
+    },
+    {
+      "name": "EL_DRIVER_1",
+      "solids": 1,
+      "bounds": [
+        390.0,
+        42.0,
+        103.0,
+        435.0,
+        82.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_DRIVER_2",
+      "solids": 1,
+      "bounds": [
+        445.0,
+        42.0,
+        103.0,
+        490.0,
+        82.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_DRIVER_3",
+      "solids": 1,
+      "bounds": [
+        500.0,
+        42.0,
+        103.0,
+        545.0,
+        82.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_CONTACTOR",
+      "solids": 1,
+      "bounds": [
+        550.0,
+        42.0,
+        103.0,
+        595.0,
+        87.0,
+        173.0
+      ]
+    },
+    {
+      "name": "EL_ESTOP_BOX",
+      "solids": 1,
+      "bounds": [
+        390.0,
+        100.0,
+        95.0,
+        430.0,
+        140.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_OVERTEMP_BOX",
+      "solids": 1,
+      "bounds": [
+        440.0,
+        100.0,
+        95.0,
+        480.0,
+        140.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_CURRENT_LIMITER",
+      "solids": 1,
+      "bounds": [
+        490.0,
+        100.0,
+        95.0,
+        530.0,
+        140.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_WIRE_DUCT",
+      "solids": 1,
+      "bounds": [
+        385.0,
+        140.0,
+        95.0,
+        595.0,
+        145.0,
+        125.0
+      ]
+    }
+  ],
+  "electrical_load": {
+    "psu": {
+      "V": 24,
+      "rated_W": 800,
+      "operational_cap_W": 500,
+      "body_mm": [
+        240,
+        120,
+        65
+      ],
+      "owned": true
+    },
+    "devices": [
+      {
+        "device": "M1 shredder drive (TRK-60127-2460 + GMP60)",
+        "nameplate": "8.2 A @ 24 V (parameters.json M1.rated_A)",
+        "W": 196.79999999999998,
+        "count": 1,
+        "owned": false,
+        "grade": "UNRATED_ESTIMATE",
+        "subtotal_W": 196.79999999999998
+      },
+      {
+        "device": "M2 extruder drive (TRK-6097-2425 + GMP60)",
+        "nameplate": "1.8 A @ 24 V (parameters.json M2.rated_A)",
+        "W": 43.2,
+        "count": 1,
+        "owned": false,
+        "grade": "UNRATED_ESTIMATE",
+        "subtotal_W": 43.2
+      },
+      {
+        "device": "EX-H100 band heater",
+        "nameplate": "24 V 100 W (design/assembly.json part name)",
+        "W": 100.0,
+        "count": 3,
+        "owned": true,
+        "grade": "NAMEPLATE_SOURCE",
+        "subtotal_W": 300.0
+      },
+      {
+        "device": "EX-H60 cartridge heater",
+        "nameplate": "24 V 60 W (design/assembly.json part name)",
+        "W": 60.0,
+        "count": 1,
+        "owned": true,
+        "grade": "NAMEPLATE_SOURCE",
+        "subtotal_W": 60.0
+      },
+      {
+        "device": "COOL-FAN (Sanyo 9RA0824H1001)",
+        "nameplate": "model only; current not in repo",
+        "W": 8.0,
+        "count": 2,
+        "owned": true,
+        "grade": "UNRATED_ESTIMATE",
+        "subtotal_W": 16.0
+      }
+    ],
+    "total_peak_W": 616.0,
+    "staged_peak_W": 416.0,
+    "staged_schedule": {
+      "policy": "at most 1x EX-H100 band + EX-H60 cartridge at any instant; bands rotate on controller timing",
+      "heater_W_staged": 160.0,
+      "continuous_W": 256.0,
+      "control_implementation": "UNIMPLEMENTED_IN_FIRMWARE",
+      "hardware_interlock": "EL_CURRENT_LIMITER relay bank required so a firmware fault cannot energize two bands (documented requirement)"
+    },
+    "operational_cap_W": 500,
+    "headroom_W": -116.0,
+    "staged_headroom_W": 84.0,
+    "cap_exceeded": true,
+    "staged_cap_exceeded": false,
+    "note": "PEAK simultaneous nameplate sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. Heater duty cycling lowers the MEAN load but not the peak; the peak exceeds the 500 W operating cap - documented defect, mitigation: two-band operation or PSU/cap revision."
+  },
+  "passed": true
+}

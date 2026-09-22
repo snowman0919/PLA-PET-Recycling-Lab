@@ -60,11 +60,18 @@ def write_xlsx(path, table):
 
 def main():
     master = json.loads((REPO/"design/assembly.json").read_text())
-    retained = Counter(item["part"] for item in master["instances"] if item["group"] != "S2")
-    removed = Counter(item["part"] for item in master["instances"] if item["group"] == "S2")
+    integration = json.loads((C21/"results/machine_integration.json").read_text())
+    # VP1 Stage 2: envelope instances replaced by real winder/puller/guard
+    # geometry are excluded from the retained-quantity roll-up
+    excluded = set(integration.get("vp1_stage1", {}).get(
+        "excluded_legacy_instances", []))
+    retained = Counter(item["part"] for item in master["instances"]
+                       if item["group"] != "S2" and item["name"] not in excluded)
+    removed = Counter(item["part"] for item in master["instances"]
+                      if item["group"] == "S2" or item["name"] in excluded)
     groups = defaultdict(set)
     for item in master["instances"]:
-        if item["group"] != "S2":
+        if item["group"] != "S2" and item["name"] not in excluded:
             groups[item["part"]].add(item["group"])
     costs = {item["item_id"]: item for item in rows(REPO/"c2/bom/cost_ledger.csv")}
 
@@ -101,6 +108,23 @@ def main():
             "notes": item["notes"]
         })
 
+    # VP1 Stage 1-3 delta rows: new parts, all costs explicitly UNQUOTED
+    delta_fields = ["item_id", "description", "qty", "material_or_type",
+                    "status", "source", "evidence", "landed_cost_KRW", "notes"]
+    for item in rows(C21/"bom/vp1_bom_delta.csv"):
+        landed = item["landed_cost_KRW"]
+        if landed:
+            raise RuntimeError("vp1 delta rows must not carry invented quotes: "
+                               + item["item_id"])
+        active.append({
+            "scope": "vp1_stage1_3", "part_id": item["item_id"],
+            "description": item["description"], "quantity": item["qty"],
+            "material": item["material_or_type"], "status": item["status"],
+            "source": item["source"], "evidence": item["evidence"],
+            "landed_line_KRW": "",
+            "cost_state": "UNQUOTED_NOT_ZERO",
+            "notes": item["notes"]})
+
     ids = [item["part_id"] for item in active]
     if len(ids) != len(set(ids)):
         duplicates = sorted(part_id for part_id, count in Counter(ids).items() if count > 1)
@@ -123,13 +147,15 @@ def main():
                     for item in research["procurement"]["candidates"]
                     if item.get("known_motor_landed_floor_KRW") is not None]
     summary = {
-        "revision": "C2.1-P6",
+        "revision": "C2.1-P6+VP1-STAGE3",
         "active_rows": len(active),
         "unique_part_ids": len(set(ids)),
         "legacy_s2_instances_removed": sum(removed.values()),
         "legacy_s2_part_quantities_removed": dict(sorted(removed.items())),
         "adjusted_shared_quantities": {part_id: retained[part_id] for part_id in removed if retained[part_id]},
         "c21_rows_added": len(rows(C21/"bom/transmission_bom.csv")),
+        "vp1_delta_rows": len(rows(C21/"bom/vp1_bom_delta.csv")),
+        "vp1_delta_source": "c2.1/bom/vp1_bom_delta.csv",
         "known_cost_rows": len(known),
         "unknown_cost_rows": len(active)-len(known),
         "known_landed_total_KRW": sum(float(item["landed_line_KRW"]) for item in known),

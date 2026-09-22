@@ -22,10 +22,10 @@
     "diametral_stroke_mm": 14.0,
     "window_radius_mm": 12.2,
     "roller_radius_mm": 5.0,
-    "nominal_radial_clearance_mm": 0.1999999999999993,
-    "relative_center_speed_mm_s": 98.96016858807846,
-    "ideal_roller_spin_relative_carrier_rpm": -188.99999999999994,
-    "ideal_roller_absolute_spin_rpm": -203.99999999999994,
+    "nominal_radial_clearance_mm": 0.2,
+    "relative_center_speed_mm_s": 98.9601685881,
+    "ideal_roller_spin_relative_carrier_rpm": -189.0,
+    "ideal_roller_absolute_spin_rpm": -204.0,
     "ideal_spin_assumption": "NO_SLIP_SINGLE_CONTACT_ONLY_NOT_MEASURED_OR_RATED",
     "loaded_contact_transfer_status": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_ELASTIC_SHARING_RATING_HOLD",
     "rating_status": "HOLD_UNVERIFIED_ROLLER_BEARING_AND_CONTACT_PRESSURE"
@@ -37,37 +37,37 @@
     "samples": 386,
     "clearance_mm": 0.2,
     "phase_takeup_deg": {
-      "min": 0.3015580975198661,
-      "max": 0.3460310991994333
+      "min": 0.30155809752,
+      "max": 0.346031099199
     },
     "single_contact_force_per_output_Nm_N": {
-      "min": 26.3161439112003,
-      "max": 30.014681708099424
+      "min": 26.3161439112,
+      "max": 30.0146817081
     },
     "torque_sensitivity": [
       {
         "output_torque_Nm": 1.0,
         "single_contact_force_range_N": [
-          26.3161439112003,
-          30.014681708099424
+          26.3161439112,
+          30.0146817081
         ]
       },
       {
         "output_torque_Nm": 3.0,
         "single_contact_force_range_N": [
-          78.9484317336009,
-          90.04404512429826
+          78.9484317336,
+          90.0440451243
         ]
       },
       {
         "output_torque_Nm": 8.0,
         "single_contact_force_range_N": [
-          210.5291512896024,
-          240.1174536647954
+          210.52915129,
+          240.117453665
         ]
       }
     ],
-    "maximum_equilibrium_residual_Nm": 2.220446049250313e-16,
+    "maximum_equilibrium_residual_Nm": 2.22044604925e-16,
     "result": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD",
     "not_verified": [
       "elastic_pin_load_sharing",
@@ -80,8 +80,8 @@
   },
   "ideal_virtual_work": {
     "omega_rad_s": {
-      "input": 12.56637061435917,
-      "output_carrier": -1.5707963267948963,
+      "input": 12.5663706144,
+      "output_carrier": -1.57079632679,
       "fixed_ring": 0.0
     },
     "torque_on_mechanism_Nm": {
@@ -90,8 +90,8 @@
       "fixed_ring_reaction": -9.0
     },
     "power_on_mechanism_W": {
-      "input_W": 12.56637061435917,
-      "output_load_on_mechanism_W": -12.56637061435917,
+      "input_W": 12.5663706144,
+      "output_load_on_mechanism_W": -12.5663706144,
       "fixed_ring_W": -0.0
     },
     "power_residual_W": 0.0,
@@ -110,16 +110,16 @@
     "theta_rad": 0.71,
     "external_moment_Nm": 2.0,
     "contact_velocity_xz_mm_s": [
-      -64.99568122850205,
-      -19.344783414754247
+      -64.9956812285,
+      -19.3447834148
     ],
-    "force_power_W": 7.122414327903847,
-    "moment_power_W": -3.1415926535897927,
-    "load_power_W": 3.9808216743140545,
-    "generalized_load_torque_at_input_Nm": 0.3167837235172185,
-    "balancing_input_torque_Nm": -0.3167837235172185,
-    "input_power_W": -3.980821674314055,
-    "power_residual_W": -4.440892098500626e-16,
+    "force_power_W": 7.1224143279,
+    "moment_power_W": -3.14159265359,
+    "load_power_W": 3.98082167431,
+    "generalized_load_torque_at_input_Nm": 0.316783723517,
+    "balancing_input_torque_Nm": -0.316783723517,
+    "input_power_W": -3.98082167431,
+    "power_residual_W": -4.4408920985e-16,
     "evidence": "POINT_FORCE_JACOBIAN_AND_EXTERNAL_MOMENT_NOT_LOAD_SIZING"
   },
   "cases": [
@@ -144,13 +144,13 @@
       },
       "full_labeled_cycle_input_turns": 6,
       "sampled_positions": 577,
-      "full_cycle_closure_error_mm": 3.1840816777831186e-15,
-      "one_orbit_labeled_point_displacement_mm": 54.99999999999999,
-      "minimum_nominal_coupling_clearance_mm": 0.1999999999999975,
+      "full_cycle_closure_error_mm": 3.18408167778e-15,
+      "one_orbit_labeled_point_displacement_mm": 55.0,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 2.1430868841386857e-08,
-      "maximum_relative_coupling_center_speed_mm_s": 102.62536001726656,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 2.14308688414e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 102.625360017,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
@@ -176,13 +176,13 @@
       },
       "full_labeled_cycle_input_turns": 8,
       "sampled_positions": 769,
-      "full_cycle_closure_error_mm": 2.449293598294703e-16,
-      "one_orbit_labeled_point_displacement_mm": 42.09517756015987,
-      "minimum_nominal_coupling_clearance_mm": 0.1999999999999975,
+      "full_cycle_closure_error_mm": 2.44929359829e-16,
+      "one_orbit_labeled_point_displacement_mm": 42.0951775602,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 9.378561010926399e-09,
-      "maximum_relative_coupling_center_speed_mm_s": 98.96016858807846,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 9.37856101093e-09,
+      "maximum_relative_coupling_center_speed_mm_s": 98.9601685881,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
@@ -208,13 +208,13 @@
       },
       "full_labeled_cycle_input_turns": 16,
       "sampled_positions": 1537,
-      "full_cycle_closure_error_mm": 1.3960973510279826e-14,
-      "one_orbit_labeled_point_displacement_mm": 21.45993542177411,
-      "minimum_nominal_coupling_clearance_mm": 0.1999999999999975,
+      "full_cycle_closure_error_mm": 1.39609735103e-14,
+      "one_orbit_labeled_point_displacement_mm": 21.4599354218,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 1.0019185113663543e-08,
-      "maximum_relative_coupling_center_speed_mm_s": 93.46238144429633,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 1.00191851137e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 93.4623814443,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
@@ -240,13 +240,13 @@
       },
       "full_labeled_cycle_input_turns": 6,
       "sampled_positions": 577,
-      "full_cycle_closure_error_mm": 1.2246467991473515e-15,
-      "one_orbit_labeled_point_displacement_mm": 54.99999999999999,
-      "minimum_nominal_coupling_clearance_mm": 0.1999999999999975,
+      "full_cycle_closure_error_mm": 1.22464679915e-15,
+      "one_orbit_labeled_point_displacement_mm": 55.0,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 2.3208227018094217e-08,
-      "maximum_relative_coupling_center_speed_mm_s": 146.60765716752368,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 2.32082270181e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 146.607657168,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
@@ -272,13 +272,13 @@
       },
       "full_labeled_cycle_input_turns": 8,
       "sampled_positions": 769,
-      "full_cycle_closure_error_mm": 6.123233995736767e-15,
-      "one_orbit_labeled_point_displacement_mm": 42.09517756015987,
-      "minimum_nominal_coupling_clearance_mm": 0.19999999999999574,
+      "full_cycle_closure_error_mm": 6.12323399574e-15,
+      "one_orbit_labeled_point_displacement_mm": 42.0951775602,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 1.1123698493482651e-08,
-      "maximum_relative_coupling_center_speed_mm_s": 141.37166941154067,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 1.11236984935e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 141.371669412,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
@@ -304,13 +304,13 @@
       },
       "full_labeled_cycle_input_turns": 16,
       "sampled_positions": 1537,
-      "full_cycle_closure_error_mm": 2.571758278209442e-14,
-      "one_orbit_labeled_point_displacement_mm": 21.459935421774112,
-      "minimum_nominal_coupling_clearance_mm": 0.19999999999999574,
+      "full_cycle_closure_error_mm": 2.57175827821e-14,
+      "one_orbit_labeled_point_displacement_mm": 21.4599354218,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 1.1490851800734526e-08,
-      "maximum_relative_coupling_center_speed_mm_s": 133.51768777756618,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 1.14908518007e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 133.517687778,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
@@ -336,13 +336,13 @@
       },
       "full_labeled_cycle_input_turns": 6,
       "sampled_positions": 577,
-      "full_cycle_closure_error_mm": 7.102951435054648e-15,
-      "one_orbit_labeled_point_displacement_mm": 54.99999999999999,
-      "minimum_nominal_coupling_clearance_mm": 0.19999999999999574,
+      "full_cycle_closure_error_mm": 7.10295143505e-15,
+      "one_orbit_labeled_point_displacement_mm": 55.0,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 2.658941151015445e-08,
-      "maximum_relative_coupling_center_speed_mm_s": 205.25072003453312,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 2.65894115102e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 205.250720035,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
@@ -368,13 +368,13 @@
       },
       "full_labeled_cycle_input_turns": 8,
       "sampled_positions": 769,
-      "full_cycle_closure_error_mm": 1.3960973510279826e-14,
-      "one_orbit_labeled_point_displacement_mm": 42.09517756015987,
-      "minimum_nominal_coupling_clearance_mm": 0.19999999999999574,
+      "full_cycle_closure_error_mm": 1.39609735103e-14,
+      "one_orbit_labeled_point_displacement_mm": 42.0951775602,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 1.2239659020186059e-08,
-      "maximum_relative_coupling_center_speed_mm_s": 197.92033717615692,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 1.22396590202e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 197.920337176,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
@@ -400,13 +400,13 @@
       },
       "full_labeled_cycle_input_turns": 16,
       "sampled_positions": 1537,
-      "full_cycle_closure_error_mm": 4.139306181118054e-14,
-      "one_orbit_labeled_point_displacement_mm": 21.459935421774112,
-      "minimum_nominal_coupling_clearance_mm": 0.19999999999999574,
+      "full_cycle_closure_error_mm": 4.13930618112e-14,
+      "one_orbit_labeled_point_displacement_mm": 21.4599354218,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
       "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
-      "maximum_velocity_fd_error_mm_s": 1.1783556898118072e-08,
-      "maximum_relative_coupling_center_speed_mm_s": 186.92476288859265,
-      "rotor_to_chamber_radial_gap_mm": 0.7999999999999972,
+      "maximum_velocity_fd_error_mm_s": 1.17835568981e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 186.924762889,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
       "kinematic_clearance_passed": true,
       "passed": true,
       "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"

@@ -4,6 +4,17 @@ import json,hashlib
 from costing import evaluate
 from performance import ALLOWED_EVIDENCE,candidate_hashes,evidence_inventory,training_gate
 R=Path(__file__).resolve().parents[1]
+
+# Canonical float rounding matching run_study.py serialization (STATUS.md
+# defect 8: runner last-ULP drift broke frozen-hash equality asserts).
+def _canon(v):
+    if isinstance(v, float):
+        return float(f"{v:.12g}")
+    if isinstance(v, dict):
+        return {k: _canon(x) for k, x in v.items()}
+    if isinstance(v, (list, tuple)):
+        return [_canon(x) for x in v]
+    return v
 req=json.loads((R/'design/requirements.json').read_text())
 s=json.loads((R/'results/summary.json').read_text())
 cad=json.loads((R/'results/cad_validation.json').read_text())
@@ -23,8 +34,8 @@ assert s['candidates']==257 and s['geometrically_feasible']==106
 assert s['diverse_dem_designs']==48 and s['material_specific_dem_jobs']==144
 assert s['unknown_cost_lines']==len(cost['unknown_cost_lines'])
 assert s['total_confirmed_cost_KRW']==cost['total_KRW']
-assert json.loads((R/'results/cost_status.json').read_text())==cost
-assert json.loads((R/'results/performance_gate.json').read_text())==gate
+assert json.loads((R/'results/cost_status.json').read_text())==_canon(cost)
+assert json.loads((R/'results/performance_gate.json').read_text())==_canon(gate)
 assert len(cad['records'])==12 and cad['module_instances']==12
 assert not cad['static_overlaps_in_module']
 for rec in cad['records']:

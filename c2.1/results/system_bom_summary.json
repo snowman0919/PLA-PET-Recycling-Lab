@@ -1,14 +1,15 @@
 {
-  "revision": "C2.1-P6",
-  "active_rows": 135,
-  "unique_part_ids": 135,
-  "legacy_s2_instances_removed": 44,
+  "revision": "C2.1-P6+VP1-STAGE3",
+  "active_rows": 163,
+  "unique_part_ids": 163,
+  "legacy_s2_instances_removed": 47,
   "legacy_s2_part_quantities_removed": {
     "BR-6001": 2,
     "BR-6007": 2,
     "BR-625": 18,
     "KEY-4-16": 1,
     "KEY-4-78": 1,
+    "PULL-ROLLER": 2,
     "S2-CASE-L": 1,
     "S2-CASE-R": 1,
     "S2-ECC": 1,
@@ -19,15 +20,18 @@
     "S2-ROTOR": 1,
     "S2-SCREEN": 1,
     "S2-SHAFT": 1,
-    "S2-SUP": 2
+    "S2-SUP": 2,
+    "SPOOL-ENV": 1
   },
   "adjusted_shared_quantities": {
     "BR-6001": 2,
     "KEY-4-16": 1
   },
   "c21_rows_added": 19,
+  "vp1_delta_rows": 30,
+  "vp1_delta_source": "c2.1/bom/vp1_bom_delta.csv",
   "known_cost_rows": 11,
-  "unknown_cost_rows": 124,
+  "unknown_cost_rows": 152,
   "known_landed_total_KRW": 0.0,
   "unselected_motor_landed_floor_KRW": 110200,
   "soft_total_budget_KRW": 100000,
@@ -39,11 +43,11 @@
   },
   "csv": {
     "file": "c2.1/bom/system_bom.csv",
-    "sha256": "26b1c2f8e5042dd8ee40fb477e850b4e095363b6cf16a1295febb4475ce32624"
+    "sha256": "16b9fcf298e4020750f8f874defc3a49fe4cd56bb7eb38d815e1433fa5e9c14b"
   },
   "xlsx": {
     "file": "c2.1/bom/system_bom.xlsx",
-    "sha256": "4a59e323a3867dd596f3c4ae72139c195e35f5b7e0a988082a63418dffde4da4",
+    "sha256": "32c91d4ba12978d34475bb7829a1579d3086a7b7a1fe5c70fb1130a162731b2b",
     "zip_test": null
   },
   "procurement": "HOLD",

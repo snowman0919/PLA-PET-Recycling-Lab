@@ -1,0 +1,35 @@
+{
+  "exported_step": [
+    "c2.1/cad/parts_stage1/GUARD_S2_RING.step",
+    "c2.1/cad/parts_stage1/GUARD_CHAIN_A.step",
+    "c2.1/cad/parts_stage1/GUARD_CHAIN_B.step",
+    "c2.1/cad/parts_stage1/GUARD_LID_INTERLOCK_SEAT.step"
+  ],
+  "service_sweep": [
+    {
+      "guard": "GUARD_S2_RING",
+      "lift_mm": 150.0,
+      "sweep_clear": true,
+      "contacts": []
+    },
+    {
+      "guard": "GUARD_CHAIN_A",
+      "lift_mm": 150.0,
+      "sweep_clear": true,
+      "contacts": []
+    },
+    {
+      "guard": "GUARD_CHAIN_B",
+      "lift_mm": 150.0,
+      "sweep_clear": true,
+      "contacts": []
+    },
+    {
+      "guard": "GUARD_LID_INTERLOCK_SEAT",
+      "lift_mm": 150.0,
+      "sweep_clear": true,
+      "contacts": []
+    }
+  ],
+  "passed": true
+}

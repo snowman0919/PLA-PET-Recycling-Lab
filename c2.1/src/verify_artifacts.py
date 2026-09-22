@@ -55,14 +55,20 @@ for record in (cad["assembly"], cad["exploded"]):
 # Complete-machine integration, native CAD and envelope checks.
 machine_step = REPO/machine["assembly_step"]
 assert machine["status"] == "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
-assert machine["assembly_objects"] == machine["expected_solids"] == machine["reimported_solids"] == 196
+# VP1 Stage 3: 191 legacy instances (S2/guard/puller/spool envelope
+# instances excluded; the severed jackshaft counts its 2 solids as one
+# record) + 41 S2 solids + 2 chains + 2 chute + 4 guards + 13 winder
+# + 8 electrical = 222 objects; GUARD_CHAIN_B (4 segments) and the severed
+# jackshaft (+1) bring the total to 225 solids
+assert machine["assembly_objects"] == 222
+assert machine["expected_solids"] == machine["reimported_solids"] == 225
 assert machine["step_reimport_valid"] and digest(machine_step) == machine["assembly_step_sha256"]
 assert not machine["missing_required_groups"]
 assert machine["interface_collision"]["passed"] and not machine["interface_collision"]["unexpected"]
 assert machine["relocated_support_collision"]["passed"]
 assert machine["body"]["passed"] and machine["operating_envelope"]["passed"]
 native_path = REPO/native["file"]
-assert native["objects"] == native["valid_objects"] == 156
+assert native["objects"] == native["valid_objects"] == 185
 assert digest(native_path) == native["sha256"]
 assert digest(R/"src/build_machine_freecad.py") == native["source_sha256"]
 
@@ -71,8 +77,9 @@ for key in ("csv", "xlsx"):
     path = REPO/bom[key]["file"]
     assert digest(path) == bom[key]["sha256"]
 assert zipfile.ZipFile(REPO/bom["xlsx"]["file"]).testzip() is None
-assert bom["active_rows"] == bom["unique_part_ids"] == 135
-assert bom["unknown_cost_rows"] == 124 and bom["procurement"] == "HOLD"
+assert bom["active_rows"] == bom["unique_part_ids"] == 163
+assert bom["unknown_cost_rows"] == 152 and bom["procurement"] == "HOLD"
+assert bom["vp1_delta_rows"] == 30 and bom["revision"] == "C2.1-P6+VP1-STAGE3"
 assert bom["unselected_motor_landed_floor_KRW"] > bom["soft_total_budget_KRW"]
 assert drawings["status"] == "NOMINAL_RFQ_REVIEW_ONLY_FABRICATION_RELEASE_HOLD"
 for item in drawings["dxf"].values():

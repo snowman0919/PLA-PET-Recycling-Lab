@@ -1,0 +1,124 @@
+{
+  "revision": "VP1-STAGE1",
+  "module": "c2.1/src/drive_teeth.py",
+  "center_distance_mm": {
+    "computed": 56.940189922554566,
+    "instance_datum": 56.940189922554566
+  },
+  "sprocket_pitch_radii": {
+    "12": 18.400886990806754,
+    "24": 36.48692970351111
+  },
+  "chain_lengths": {
+    "A": {
+      "computed": 896.0041406171954,
+      "links": 94,
+      "nominal": 895.35
+    },
+    "B": {
+      "computed": 801.0732692749809,
+      "links": 84,
+      "nominal": 800.1
+    }
+  },
+  "ratio_chain": {
+    "input_rpm": 58.0,
+    "jackshaft_rpm": 21.75,
+    "s1_shaft_A_rpm": 21.75,
+    "s1_shaft_B_rpm": -21.75,
+    "s2_input_rpm": 116.0,
+    "s2_output_rpm": -14.5,
+    "s2_output_vs_adr_nominal_120rpm_delta_rpm": -4.0
+  },
+  "mesh_samples": [
+    {
+      "pinion_deg": 0.0,
+      "overlap_mm3": 0.009323446944602659
+    },
+    {
+      "pinion_deg": 2.0,
+      "overlap_mm3": 0.009739264876757157
+    },
+    {
+      "pinion_deg": 4.0,
+      "overlap_mm3": 0.010391267588363017
+    },
+    {
+      "pinion_deg": 6.0,
+      "overlap_mm3": 0.009458321311644854
+    }
+  ],
+  "replacements": {
+    "DRV-SH15R_001": {
+      "solids": 1,
+      "valid": true,
+      "teeth_counted": 15,
+      "teeth_expected": 15
+    },
+    "DRV-SH15L_001": {
+      "solids": 1,
+      "valid": true,
+      "teeth_counted": 15,
+      "teeth_expected": 15
+    },
+    "DRV_SH40L_lower": {
+      "solids": 1,
+      "valid": true,
+      "teeth_counted": 40,
+      "teeth_expected": 40
+    },
+    "DRV_SH40R_upper": {
+      "solids": 1,
+      "valid": true,
+      "teeth_counted": 40,
+      "teeth_expected": 40
+    },
+    "DRV-SP24-B20_001": {
+      "solids": 1,
+      "valid": true,
+      "teeth_counted": 24,
+      "teeth_expected": 24
+    },
+    "DRV-SP24-B25_001": {
+      "solids": 1,
+      "valid": true,
+      "teeth_counted": 24,
+      "teeth_expected": 24
+    },
+    "DRV-SP24-B12_001": {
+      "solids": 1,
+      "valid": true,
+      "teeth_counted": 24,
+      "teeth_expected": 24
+    },
+    "DRV-SP12-B12_001": {
+      "solids": 1,
+      "valid": true,
+      "teeth_counted": 12,
+      "teeth_expected": 12
+    }
+  },
+  "chains": {
+    "DRV-CHAIN-A": {
+      "solids": 1,
+      "valid": true
+    },
+    "DRV-CHAIN-B": {
+      "solids": 1,
+      "valid": true
+    }
+  },
+  "passed": true,
+  "exported_step": [
+    "c2.1/cad/parts_stage1/DRV-SH15R.step",
+    "c2.1/cad/parts_stage1/DRV-SH15L.step",
+    "c2.1/cad/parts_stage1/DRV-SH40L.step",
+    "c2.1/cad/parts_stage1/DRV-SH40R.step",
+    "c2.1/cad/parts_stage1/DRV-SP24-B20.step",
+    "c2.1/cad/parts_stage1/DRV-SP24-B25.step",
+    "c2.1/cad/parts_stage1/DRV-SP24-B12.step",
+    "c2.1/cad/parts_stage1/DRV-SP12-B12.step",
+    "c2.1/cad/parts_stage1/DRV-CHAIN-A.step",
+    "c2.1/cad/parts_stage1/DRV-CHAIN-B.step"
+  ]
+}

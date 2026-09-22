@@ -1,0 +1,36 @@
+{
+  "parts": [
+    {
+      "name": "CHUTE_BODY",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        80.0,
+        157.4,
+        344.5,
+        361.0,
+        329.6,
+        352.3
+      ]
+    },
+    {
+      "name": "CHUTE_TROUGH_FLOOR_E",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        278.5,
+        255.0,
+        347.5,
+        310.0,
+        295.0,
+        351.8
+      ]
+    }
+  ],
+  "cutter_sweep_intersections": [],
+  "passed": true,
+  "exported_step": [
+    "c2.1/cad/parts_stage1/CHUTE_BODY.step",
+    "c2.1/cad/parts_stage1/CHUTE_TROUGH_FLOOR_E.step"
+  ]
+}
