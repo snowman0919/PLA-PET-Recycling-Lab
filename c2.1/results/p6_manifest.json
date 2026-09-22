@@ -1,7 +1,7 @@
 {
   "revision": "C2.1-P6",
   "scope": "P0-P6 digital review package",
-  "artifact_count": 127,
+  "artifact_count": 128,
   "artifacts": [
     {
       "file": "c2/experiments/performance_records.json",
@@ -594,9 +594,14 @@
       "sha256": "f10f2c4434b1086008c72a5444a79f363de0a2b61c011e06c9db73866e63f2b0"
     },
     {
+      "file": "c2.1/src/drive_kinematics.py",
+      "bytes": 3264,
+      "sha256": "555858493832036ca551ad7c807b81d7b146847166fce2ffb836d24fb494fd1f"
+    },
+    {
       "file": "c2.1/src/drive_teeth.py",
-      "bytes": 21546,
-      "sha256": "8efb86511e651713acf04ab22d162087420ad376fd42dc8b353c85105d30d007"
+      "bytes": 17661,
+      "sha256": "038aaf6b889af1c18e704e1ac56f91de8e9ec015c46e9b62068597c6ceb27eab"
     },
     {
       "file": "c2.1/src/electrical_bay.py",
@@ -635,8 +640,8 @@
     },
     {
       "file": "c2.1/tests/test_vp1_stage1.py",
-      "bytes": 8560,
-      "sha256": "fb27117cbad4bd420fb44caeea6973edac00bd8b5720c2b0b404546549c0b2f8"
+      "bytes": 8628,
+      "sha256": "955a88461f0c5acbc88b20f73ebadea78172b5613b75f10c3cba765a393b98a2"
     }
   ],
   "status": "DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD",
