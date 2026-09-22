@@ -12,6 +12,8 @@ from pathlib import Path
 R = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(R / "src"))
 
+import drive_kinematics as dk  # pure math: no cadquery dependency
+
 try:
     import cadquery  # noqa: F401
     HAVE_CQ = True
@@ -38,7 +40,7 @@ class GearRatioKinematics(unittest.TestCase):
         self.assertAlmostEqual(c, 136.94018992255457 - 80.0, places=9)
 
     def test_chain_ratios_and_s1_counter_rotation(self):
-        r = dt.ratio_chain(58.0)
+        r = dk.ratio_chain(58.0)
         self.assertAlmostEqual(r["jackshaft_rpm"], 58.0 * 15.0 / 40.0)
         self.assertAlmostEqual(r["s1_shaft_A_rpm"], 58.0 * 15.0 / 40.0)
         # S1-SYNC is a 30T/30T external mesh at center distance 60 mm
@@ -51,7 +53,7 @@ class GearRatioKinematics(unittest.TestCase):
         self.assertAlmostEqual(r["s2_output_rpm"], -116.0 / 8.0)
 
     def test_s2_input_delta_vs_adr_nominal_recorded(self):
-        r = dt.ratio_chain(58.0)
+        r = dk.ratio_chain(58.0)
         # documented finding (not a failure): frozen C1 chain B gives 116 rpm
         # against the 120 rpm ADR-001 nominal used by transmission.py
         self.assertAlmostEqual(

@@ -40,20 +40,12 @@ REPO = HERE.parents[2]
 
 V = cq.Vector
 
-MODULE_N = 2.0
-HELIX_DEG = 15.0
-PRESSURE_DEG = 20.0
-BACKLASH_MM = 0.08   # tangential backlash (j), typical stock-gear value for mn=2
-CHAIN_PITCH = 9.525
-ROLLER_R = 2.54
-CHAIN_RADIAL_ENV = 5.5
-CHAIN_AXIAL = 5.0
-
-# Sprocket placement datums (XZ, from design/assembly.json instances)
-CHAIN_A = dict(p1=(136.94018992255457, 65.0), p2=(130.0, 398.30275184708404),
-               z1=24, z2=24, links=94, y0=354.0)
-CHAIN_B = dict(p1=(80.0, 65.0), p2=(308.56946468906176, 280.0),
-               z1=24, z2=12, links=84, y0=374.0)
+from drive_kinematics import (BACKLASH_MM, CHAIN_A, CHAIN_AXIAL,
+                              CHAIN_B, CHAIN_PITCH, CHAIN_RADIAL_ENV,
+                              HELIX_DEG, MODULE_N, PRESSURE_DEG, ROLLER_R,
+                              chain_length_mm, gear_center_distance,
+                              gear_pitch_radius, ratio_chain,
+                              sprocket_pitch_radius, _tangent_data)
 
 GEAR_PARTS = ("DRV-SH15R", "DRV-SH15L", "DRV-SH40R", "DRV-SH40L")
 SPROCKET_PARTS = ("DRV-SP24-B20", "DRV-SP24-B25", "DRV-SP24-B12", "DRV-SP12-B12")
@@ -95,15 +87,6 @@ REPLACED_PART_IDS = set(INSTANCE_PART.values())
 
 def _inv(a):
     return math.tan(a) - a
-
-
-def gear_pitch_radius(z):
-    """Transverse pitch radius of a helical gear (normal module mn)."""
-    return MODULE_N * z / (2.0 * math.cos(math.radians(HELIX_DEG)))
-
-
-def gear_center_distance(z1, z2):
-    return gear_pitch_radius(z1) + gear_pitch_radius(z2)
 
 
 def _gear_flank_pts(z, n=7):
@@ -186,10 +169,6 @@ def _gear_local_solid(part_id):
     return solid.clean()
 
 
-def sprocket_pitch_radius(z):
-    return CHAIN_PITCH / (2.0 * math.sin(math.pi / z))
-
-
 def _sprocket_profile_xz(z, r_od, n_root=5, n_flank=4, n_tip=3):
     """Closed sprocket profile in XZ (part-local, axis +Y).
 
@@ -233,25 +212,6 @@ def _sprocket_local_solid(part_id):
     solid = solid.cut(cq.Solid.makeCylinder(SPROCKET_BORE[part_id], 20.0,
                                             V(0, -1, 0), V(0, 1, 0)))
     return solid.clean()
-
-
-def _tangent_data(c1, r1, c2, r2):
-    """External tangent construction in XZ. Returns touch points and the two
-    unit normals; asserts the tangent lines really are tangent."""
-    ux, uz = c2[0] - c1[0], c2[1] - c1[1]
-    d = math.hypot(ux, uz)
-    ux, uz = ux / d, uz / d
-    px, pz = -uz, ux
-    cos_phi = (r1 - r2) / d
-    sin_phi = math.sqrt(max(0.0, 1.0 - cos_phi * cos_phi))
-    normals = [(cos_phi * ux + sin_phi * px, cos_phi * uz + sin_phi * pz),
-               (cos_phi * ux - sin_phi * px, cos_phi * uz - sin_phi * pz)]
-    t = []
-    for n in normals:
-        t.append((c1[0] + r1 * n[0], c1[1] + r1 * n[1],
-                  c2[0] + r2 * n[0], c2[1] + r2 * n[1]))
-    phi = math.acos(cos_phi)
-    return t, phi, d
 
 
 def _rect_prism(t1, t2, normal, y0):
@@ -329,15 +289,6 @@ def chain_components():
             ("DRV-CHAIN-B", _chain_loop(CHAIN_B))]
 
 
-def chain_length_mm(chain):
-    p1, p2 = chain["p1"], chain["p2"]
-    r1 = sprocket_pitch_radius(chain["z1"])
-    r2 = sprocket_pitch_radius(chain["z2"])
-    lines, phi, dist = _tangent_data(p1, r1, p2, r2)
-    straight = math.hypot(lines[0][2] - lines[0][0], lines[0][3] - lines[0][1])
-    return 2.0 * straight + r1 * (2.0 * math.pi - 2.0 * phi) + r2 * 2.0 * phi
-
-
 def replacement_local_solid(instance_name):
     """Part-local replacement solid for a replaced legacy instance."""
     part_id = INSTANCE_PART[instance_name]
@@ -364,54 +315,6 @@ def count_teeth(shape, sample_radius, center=(0.0, 0.0), y=12.5, samples=2880):
         if inside[i] and not inside[i - 1]:
             runs += 1
     return runs
-
-
-def ratio_chain(input_rpm=58.0):
-    """Kinematic chain from the frozen C1 drive layout (teeth counts only).
-    M1 -> DRV-CPL12 (1:1) -> 15T/40T helical mesh -> jackshaft; chain A 24/24
-    -> S1 shaft A; S1-SYNC 30T/30T external mesh -> shaft B counter-rotates;
-    chain B 24T(input) -> 12T -> S2 input; S2 cycloid q=8 -> phi=-theta/8."""
-    gear_ratio = 15.0 / 40.0
-    chain_a = 24.0 / 24.0
-    chain_b = 24.0 / 12.0
-    jack = input_rpm * gear_ratio
-    s1a = jack * chain_a
-    return {
-        "input_rpm": input_rpm,
-        "jackshaft_rpm": jack,
-        "s1_shaft_A_rpm": s1a,
-        "s1_shaft_B_rpm": -s1a,
-        "s2_input_rpm": input_rpm * chain_b,
-        "s2_output_rpm": -input_rpm * chain_b / 8.0,
-        "s2_output_vs_adr_nominal_120rpm_delta_rpm": input_rpm * chain_b - 120.0,
-    }
-
-
-# Chain wraps its own sprockets; keys sit inside shaft/gear/sprocket bore
-# interfaces (the KEY-* references are oversized square keys inherited from
-# the C1 master - their contact with the replaced discs is functional mating,
-# volume unchanged vs the original stand-in envelopes).
-_FUNCTIONAL_KEY_PAIRS = [
-    {"DRV-SH15R_001", "KEY-4-70_001"}, {"DRV-SH15L_001", "KEY-4-70_001"},
-    {"DRV_SH40L_lower", "KEY-6-70_001"}, {"DRV_SH40R_upper", "KEY-6-70_001"},
-    {"DRV-SP24-B20_001", "KEY-6-16_001"}, {"DRV-SP24-B25_001", "KEY-8-16_001"},
-    {"DRV-SP24-B12_001", "KEY-4-16_001"},
-]
-FUNCTIONAL_PAIRS = [
-    {"DRV-CHAIN-A", "DRV-SP24-B20_001"}, {"DRV-CHAIN-A", "DRV-SP24-B25_001"},
-    {"DRV-CHAIN-B", "DRV-SP24-B12_001"}, {"DRV-CHAIN-B", "DRV-SP12-B12_001"},
-    {"DRV-SH15R_001", "DRV-IN-SHAFT_001"}, {"DRV-SH15L_001", "DRV-IN-SHAFT_001"},
-    {"DRV_SH40L_lower", "DRV-JACK_001"}, {"DRV_SH40R_upper", "DRV-JACK_001"},
-    {"DRV-SP24-B20_001", "DRV-JACK_001"}, {"DRV-SP24-B25_001", "S1-SHAFT-A_001"},
-    {"DRV-SP24-B12_001", "DRV-IN-SHAFT_001"},
-    {"DRV-SP12-B12_001", "DRV-IN-SHAFT_001"},
-    # Stage 2 welded/coupled interfaces (axle seats, stop weldment,
-    # shaft-nose coupling, rider-on-screw, guard riding the chain envelope)
-    {"PULL_FRAME", "PULL_ROLLER_FIXED"}, {"PULL_ROLLER_ADJ", "PULL_NIP_STOP"},
-    {"WIND_SPOOL_SHAFT", "WIND_MOTOR_REF"},
-    {"WIND_TRAVERSE_SCREW", "WIND_TRAVERSE_RIDER"},
-    {"DRV-CHAIN-B", "GUARD_CHAIN_B"}, {"DRV-CHAIN-A", "GUARD_CHAIN_A"},
-] + _FUNCTIONAL_KEY_PAIRS
 
 
 def _mesh_check(samples=4):
