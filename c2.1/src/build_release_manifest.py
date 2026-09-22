@@ -76,9 +76,12 @@ def main():
         json.dumps(summary, indent=2)+"\n")
 
     excluded = {C21/"results/p6_manifest.json"}
+    # FreeCAD .FCBak backups are transient editor artifacts, untracked and
+    # machine-local: never pin them (a pinned FCBak breaks CI checkouts).
     files = [path for path in C21.rglob("*")
              if path.is_file() and path not in excluded
-             and "__pycache__" not in path.parts and path.suffix != ".pyc"]
+             and "__pycache__" not in path.parts and path.suffix != ".pyc"
+             and path.suffix != ".FCBak"]
     cross_stage = [
         REPO/"c2/experiments/performance_records.json",
         REPO/"c2/results/repository_verification.json",
