@@ -78,4 +78,13 @@ PhysX joint break API 사용)이 필요. 현재 도구로는 T2 수렴 판정
 
 - T1 수렴의 수용, T2/T3 BLOCKED의 처리 방향, B 진입 여부.
 
+## 7. CI 상태 (정확 커밋 a431df75)
+
+- C1: 성공 (run 35673485274)
+- C2.3 CPU contracts: 성공 (run 35673485317)
+- C2 engineering: 실패 — goal §29에 기록된 기존 runner-hardware
+  last-ULP 드리프트 (c2.1 artifact hash assert). R3 커밋은 c2/,
+  c2.1/, .github/ 무변경 (git diff HEAD~1 확인). 로컬 pin 재현은
+  green. assert 완화 금지 준수.
+
 REVIEWER DECISION REQUIRED.
