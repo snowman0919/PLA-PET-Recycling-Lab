@@ -122,7 +122,11 @@ assert firmware["energization"] == "HOLD"
 assert manifest["artifact_count"] == len(manifest["artifacts"])
 for record in manifest["artifacts"]:
     path = REPO/record["file"]
-    assert path.stat().st_size == record["bytes"] and digest(path) == record["sha256"]
+    if path.stat().st_size != record["bytes"] or digest(path) != record["sha256"]:
+        raise AssertionError("manifest artifact mismatch: %s pinned_size=%s "
+                             "actual_size=%s pinned_sha=%s" % (
+                             record["file"], record["bytes"],
+                             path.stat().st_size, digest(path)[:16]))
 
 assert req["performance_gate"] == "BLOCKED_PERFORMANCE_DATA"
 assert req["motors"]["shared_shredder_M1"] == 1 and req["motors"]["M1_selected"] is False
