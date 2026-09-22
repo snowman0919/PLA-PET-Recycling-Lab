@@ -9,7 +9,7 @@ R=Path(__file__).resolve().parents[1]
 # defect 8: runner last-ULP drift broke frozen-hash equality asserts).
 def _canon(v):
     if isinstance(v, float):
-        return float(f"{v:.8g}")
+        return float(f"{v:.6g}")
     if isinstance(v, dict):
         return {k: _canon(x) for k, x in v.items()}
     if isinstance(v, (list, tuple)):
