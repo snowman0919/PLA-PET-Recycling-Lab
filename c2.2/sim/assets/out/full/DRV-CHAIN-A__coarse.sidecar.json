@@ -1,0 +1,39 @@
+{
+  "asset_id": "DRV-CHAIN-A",
+  "group": "drive",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 192,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.192",
+  "mesh_file": "sim/assets/out/full/DRV-CHAIN-A__coarse.stl",
+  "mesh_bytes": 40084,
+  "mesh_sha256": "9a6685578975830d2031fae467387fb9d2c1ac01d0c9f61b1d269504dd6e429a",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    87.95971554086468,
+    353.99999985,
+    23.02216944342985,
+    178.9804743816899,
+    359.00000015,
+    440.2805824036542
+  ],
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 49274.229924355684,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

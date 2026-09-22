@@ -1,0 +1,39 @@
+{
+  "asset_id": "S1-CUT-A-P03_001",
+  "group": "S1",
+  "kinematic_body": "S1A",
+  "lod": "fine",
+  "step_index": 43,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.43",
+  "mesh_file": "sim/assets/out/full/S1-CUT-A-P03_001__fine.stl",
+  "mesh_bytes": 46484,
+  "mesh_sha256": "2fa0c6b2be44ab0479f99d5a7847b4a8636cea888d10415419c6ab6b6abdc486",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    92.58149907448,
+    200.1999999,
+    359.465326371284,
+    169.99378637655198,
+    206.20000009999998,
+    437.75308107205205
+  ],
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 16219.349102194996,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

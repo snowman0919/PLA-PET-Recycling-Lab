@@ -1,0 +1,39 @@
+{
+  "asset_id": "DRV-SH15L_001",
+  "group": "drive",
+  "kinematic_body": "IN_SHAFT",
+  "lod": "fine",
+  "step_index": 30,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.30",
+  "mesh_file": "sim/assets/out/full/DRV-SH15L_001__fine.stl",
+  "mesh_bytes": 169484,
+  "mesh_sha256": "b2967cfb9ddce65d1a9dd7feb15b2449f0bd3dd72d83a4fec68a5fe625768e1d",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    62.333720931435195,
+    312.99999985,
+    47.36623895209547,
+    97.6016736751733,
+    348.00000015,
+    82.63071332575142
+  ],
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 18709.056827956756,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

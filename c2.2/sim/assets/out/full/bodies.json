@@ -1,0 +1,5654 @@
+{
+  "schema": "full_machine_bodies/1",
+  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "solids": [
+    {
+      "name": "FR-2040-630_001",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 0,
+      "part_bbox": [
+        -1e-07,
+        -1e-07,
+        -1e-07,
+        630.0000001,
+        40.0000001,
+        20.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
+      "mesh_sha256": "76e43e4fedae61dbc9e4eaf5c50cdbb0fa11a05e59a0788b8b49590135e1c946"
+    },
+    {
+      "name": "FR-2040-630_002",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 1,
+      "part_bbox": [
+        -1e-07,
+        359.9999999,
+        -1e-07,
+        630.0000001,
+        400.0000001,
+        20.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2040-630_002__coarse.stl",
+      "mesh_sha256": "eff86f13e759734edcfb5b59a359b3374149f2317cf7cf0c3a339dbe9183e468"
+    },
+    {
+      "name": "FR-2040-320_001",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 2,
+      "part_bbox": [
+        -1e-07,
+        39.9999999,
+        -1e-07,
+        40.00000010000004,
+        360.0000001,
+        20.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2040-320_001__coarse.stl",
+      "mesh_sha256": "708d8fe6c6a0c2729f5ef97046139e224a3102630cbb47e078114fcae5e46944"
+    },
+    {
+      "name": "FR-2040-320_002",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 3,
+      "part_bbox": [
+        219.9999999,
+        39.9999999,
+        -1e-07,
+        260.0000001000001,
+        360.0000001,
+        20.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2040-320_002__coarse.stl",
+      "mesh_sha256": "0689167a499b516a9f8116470eae52c695eb73ef6ed602d31c811f20f768e545"
+    },
+    {
+      "name": "FR-2040-400_001",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 4,
+      "part_bbox": [
+        -1e-07,
+        39.9999999,
+        19.9999999,
+        20.000000100000044,
+        80.0000001,
+        420.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2040-400_001__coarse.stl",
+      "mesh_sha256": "41b05aa299c52bb4fcadb41aa005874e5939fa36f397c1fa2e06cc397eb35ef1"
+    },
+    {
+      "name": "FR-2040-400_002",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 5,
+      "part_bbox": [
+        609.9999999,
+        359.9999999,
+        19.9999999,
+        630.0000001,
+        400.0000001,
+        420.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2040-400_002__coarse.stl",
+      "mesh_sha256": "d234f1faee12e619f01a90f191de2fb82e0a5362f74f427035c3efc4945aafbb"
+    },
+    {
+      "name": "FR-2020-400_001",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 6,
+      "part_bbox": [
+        609.9999999,
+        39.9999999,
+        19.9999999,
+        630.0000001,
+        60.0000001,
+        420.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2020-400_001__coarse.stl",
+      "mesh_sha256": "89e7ece04d5cd0699ce11cbc63d9c0a2c8bcff3d641e1d19aae63f9ffe8f186c"
+    },
+    {
+      "name": "FR-2020-400_002",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 7,
+      "part_bbox": [
+        -1e-07,
+        379.9999999,
+        19.9999999,
+        20.000000100000044,
+        400.0000001,
+        420.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2020-400_002__coarse.stl",
+      "mesh_sha256": "b35e81de7079f2aaff9141bffe75d452e9ac3336e934dab96cc1ba9d37002cf5"
+    },
+    {
+      "name": "FR-2020-590_001",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 8,
+      "part_bbox": [
+        19.9999999,
+        39.9999999,
+        419.9999999,
+        610.0000001,
+        60.0000001,
+        440.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2020-590_001__coarse.stl",
+      "mesh_sha256": "bc7f3fc17ca89722d8d64a0b5fa7912379e1a7be5a17668e2a854c6d74f8da56"
+    },
+    {
+      "name": "FR-2020-590_002",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 9,
+      "part_bbox": [
+        19.9999999,
+        379.9999999,
+        419.9999999,
+        610.0000001,
+        400.0000001,
+        440.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2020-590_002__coarse.stl",
+      "mesh_sha256": "233fdf17c528257156ff5c5bf98ebc2fe435847a60b8bacf5b63b1ac12d7c60d"
+    },
+    {
+      "name": "FR-2020-360_001",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 10,
+      "part_bbox": [
+        -1e-07,
+        39.9999999,
+        419.9999999,
+        20.00000010000004,
+        400.0000001,
+        440.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2020-360_001__coarse.stl",
+      "mesh_sha256": "76880b5639fab487a0da7d2f0523ed74bde4f0904aa7a1c672eb36713af93527"
+    },
+    {
+      "name": "FR-2020-360_002",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 11,
+      "part_bbox": [
+        609.9999999,
+        39.9999999,
+        419.9999999,
+        630.0000001,
+        400.0000001,
+        440.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2020-360_002__coarse.stl",
+      "mesh_sha256": "4c939dedc14b23b1ae85701010b05fffdfb2cebe2ad816e205b9c4b8d65a1bcf"
+    },
+    {
+      "name": "FR-2020-360_003",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 12,
+      "part_bbox": [
+        419.9999999,
+        39.9999999,
+        439.9999999,
+        440.0000001000001,
+        400.0000001,
+        460.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2020-360_003__coarse.stl",
+      "mesh_sha256": "035281dd10a9d1edf796ba78e96e27a3b5f92fecbd1df4a876483af13b58796b"
+    },
+    {
+      "name": "FR-2020-320_001",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 13,
+      "part_bbox": [
+        374.9999999,
+        39.9999999,
+        -1e-07,
+        395.0000001000001,
+        360.0000001,
+        20.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-2020-320_001__coarse.stl",
+      "mesh_sha256": "cb0c50c1a5cb35a0d9e1cd4a5a122ba5c480452087e572bdeedeb46dd2297fc1"
+    },
+    {
+      "name": "FR-BASE_001",
+      "group": "frame",
+      "body": "STATIC",
+      "step_index": 14,
+      "part_bbox": [
+        -1e-07,
+        -1e-07,
+        -3.0000001,
+        630.0000001,
+        400.0000001,
+        1e-07
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FR-BASE_001__coarse.stl",
+      "mesh_sha256": "db44515ec2815a301af9c94ad2d445ce8bc6d7e8fd0b09d58c2613c4469696b3"
+    },
+    {
+      "name": "EL-PSU_001",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 15,
+      "part_bbox": [
+        369.9999999,
+        39.9999999,
+        29.9999999,
+        610.0000001,
+        160.0000001,
+        95.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL-PSU_001__coarse.stl",
+      "mesh_sha256": "7842b914898b5186fd6d9ff5ac35934b37a1454a644b5a5cd6f88f8c1bae512b"
+    },
+    {
+      "name": "DRV-M1_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 16,
+      "part_bbox": [
+        49.7499999,
+        24.9999999,
+        34.7499999,
+        110.2500001,
+        236.8000001,
+        95.2500001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-M1_001__coarse.stl",
+      "mesh_sha256": "550be0994a9db998b5b3a09676289c721f91a93b50b1f380806390b47cc715cd"
+    },
+    {
+      "name": "DRV-M2_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 17,
+      "part_bbox": [
+        9.999999849999996,
+        244.74999985,
+        94.74999985,
+        202.80000015000002,
+        305.25000015,
+        155.25000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-M2_001__coarse.stl",
+      "mesh_sha256": "38c4b14d3f785a5f868f8cd962efdd92c54c327e2d66326d10e6db3ee735c230"
+    },
+    {
+      "name": "DRV-M1-PL_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 18,
+      "part_bbox": [
+        44.9999999,
+        210.9999999,
+        32.4999999,
+        115.0000001,
+        217.0000001,
+        97.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-M1-PL_001__coarse.stl",
+      "mesh_sha256": "3da46d20fb4b240d37a966b3e090e4bb31fee4a753de5d3e96ddcb7f066ceb9b"
+    },
+    {
+      "name": "DRV-CPL12_001",
+      "group": "drive",
+      "body": "IN_SHAFT",
+      "step_index": 19,
+      "part_bbox": [
+        63.9999999,
+        220.9999999,
+        48.9999999,
+        96.0000001,
+        249.0000001,
+        81.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-CPL12_001__fine.stl",
+      "mesh_sha256": "30eb87cb2d6064632e25271a68849c057cd037c8e4b76ff60967a20b22b42096"
+    },
+    {
+      "name": "DRV-IN-SHAFT_001",
+      "group": "drive",
+      "body": "IN_SHAFT",
+      "step_index": 20,
+      "part_bbox": [
+        73.9999999,
+        236.9999999,
+        58.9999999,
+        86.0000001,
+        394.0000001,
+        71.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-IN-SHAFT_001__fine.stl",
+      "mesh_sha256": "8e98da209ac3a03e3737199d397aed6b91ecc38023866c36a307e78ce242420f"
+    },
+    {
+      "name": "DRV-JACK_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 21,
+      "part_bbox": [
+        126.94018982255457,
+        239.9999999,
+        54.9999999,
+        146.94019002255456,
+        408.0000001,
+        75.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-JACK_001__coarse.stl",
+      "mesh_sha256": "6867129d93e2500a0b385a38e95029196da6162500560dc1378820b2732ab6b7"
+    },
+    {
+      "name": "BR-6001_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 22,
+      "part_bbox": [
+        65.9999999,
+        252.9999999,
+        50.9999999,
+        94.0000001,
+        261.0000001,
+        79.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6001_001__coarse.stl",
+      "mesh_sha256": "14c78f855e66f44d7b4f5257ad5da5ca55f2c79d96f9c0a30309107b1bbcd7ed"
+    },
+    {
+      "name": "BR-6001_002",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 23,
+      "part_bbox": [
+        65.9999999,
+        359.9999999,
+        50.9999999,
+        94.0000001,
+        368.0000001,
+        79.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6001_002__coarse.stl",
+      "mesh_sha256": "bc874105ae45223c1eb74d720b1772afc477dedecebfd06fde6ba99ab2bdad19"
+    },
+    {
+      "name": "BR-6204_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 24,
+      "part_bbox": [
+        113.44018982255457,
+        253.9999999,
+        41.4999999,
+        160.44019002255456,
+        268.0000001,
+        88.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6204_001__coarse.stl",
+      "mesh_sha256": "d09ee2be0b46f10a7a7cc5afa113804d981c169337ee81c032ce959f94d2a849"
+    },
+    {
+      "name": "BR-6204_002",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 25,
+      "part_bbox": [
+        113.44018982255457,
+        387.9999999,
+        41.4999999,
+        160.44019002255456,
+        402.0000001,
+        88.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6204_002__coarse.stl",
+      "mesh_sha256": "c7804aa502931c9ebe903684ebe8645e2f785a21bd954dc2c125957f667c2110"
+    },
+    {
+      "name": "DRV-BFRONT_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 26,
+      "part_bbox": [
+        44.9999999,
+        249.9999999,
+        24.9999999,
+        185.0000001,
+        268.0000001,
+        92.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-BFRONT_001__coarse.stl",
+      "mesh_sha256": "44fbd7b3537912f88f3fc8bbe62e4bc0d646d76348dec7e867bf7f6ff3aec6c6"
+    },
+    {
+      "name": "DRV-B12_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 27,
+      "part_bbox": [
+        62.99999985,
+        357.99999985,
+        34.99999985,
+        97.00000015,
+        370.00000015,
+        95.00000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-B12_001__coarse.stl",
+      "mesh_sha256": "c42d1fdd3f5501e904d42285bb7fa3158c84bb041abb5e1f5402e76a5f0b68e8"
+    },
+    {
+      "name": "DRV-B20_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 28,
+      "part_bbox": [
+        101.94018982255457,
+        385.9999999,
+        27.4999999,
+        171.94019002255456,
+        404.0000001,
+        102.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-B20_001__coarse.stl",
+      "mesh_sha256": "4aaadc93700394be6ee8abf386238d0a2f245030004d9976a822db04b81b0075"
+    },
+    {
+      "name": "DRV-SH15R_001",
+      "group": "drive",
+      "body": "IN_SHAFT",
+      "step_index": 29,
+      "part_bbox": [
+        62.333720931435195,
+        275.99999985,
+        47.36928667424859,
+        97.6016736751733,
+        311.00000015,
+        82.63376104790453
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-SH15R_001__fine.stl",
+      "mesh_sha256": "749ef3dff1cc25ff4e2d4674eac9e9c6797a308ddc417338bf3950d92c661a86"
+    },
+    {
+      "name": "DRV-SH15L_001",
+      "group": "drive",
+      "body": "IN_SHAFT",
+      "step_index": 30,
+      "part_bbox": [
+        62.333720931435195,
+        312.99999985,
+        47.36623895209547,
+        97.6016736751733,
+        348.00000015,
+        82.63071332575142
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-SH15L_001__fine.stl",
+      "mesh_sha256": "b2967cfb9ddce65d1a9dd7feb15b2449f0bd3dd72d83a4fec68a5fe625768e1d"
+    },
+    {
+      "name": "DRV_SH40L_lower",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 31,
+      "part_bbox": [
+        93.46722686133859,
+        275.99999985,
+        21.527036938784025,
+        180.41315298377054,
+        311.00000015,
+        108.47296306121596
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV_SH40L_lower__coarse.stl",
+      "mesh_sha256": "9d919e45d2b4fec758748036da8b0fef045c67b554fb6c05f20a2ea18816ac3c"
+    },
+    {
+      "name": "DRV_SH40R_upper",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 32,
+      "part_bbox": [
+        93.46722686133859,
+        312.99999985,
+        21.52703693878404,
+        180.41315298377054,
+        348.00000015,
+        108.47296306121598
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV_SH40R_upper__coarse.stl",
+      "mesh_sha256": "1d397e57d435079cd066724b73b303112a62aacbb3c98beb84b99ab4f1af8317"
+    },
+    {
+      "name": "DRV-SP24-B20_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 33,
+      "part_bbox": [
+        97.97997128683488,
+        353.9999999,
+        26.0397813642803,
+        175.90040855827425,
+        372.0000001,
+        103.96021863571968
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B20_001__coarse.stl",
+      "mesh_sha256": "45a77496cbb12fe7fa770070639d15dd1d6d7b260ec64fc846995e63fd808564"
+    },
+    {
+      "name": "DRV-SP24-B25_001",
+      "group": "drive",
+      "body": "S1A",
+      "step_index": 34,
+      "part_bbox": [
+        91.03978136428032,
+        353.9999999,
+        359.3425332113643,
+        168.96021863571968,
+        372.0000001,
+        437.2629704828038
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B25_001__fine.stl",
+      "mesh_sha256": "7aa9b896c5eaf285b60ccdd73824f05a098383bb45f427607f12f407cefd6ab6"
+    },
+    {
+      "name": "DRV-SP24-B12_001",
+      "group": "drive",
+      "body": "IN_SHAFT",
+      "step_index": 35,
+      "part_bbox": [
+        41.0397813642803,
+        373.9999999,
+        26.0397813642803,
+        118.96021863571968,
+        392.0000001,
+        103.96021863571968
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B12_001__fine.stl",
+      "mesh_sha256": "e5f17adabb431cf4eb56cd5c2c3d456a016fc6c7ddbee14da5799a6317f32058"
+    },
+    {
+      "name": "DRV-SP12-B12_001",
+      "group": "drive",
+      "body": "S2_ECC",
+      "step_index": 36,
+      "part_bbox": [
+        288.0892024104188,
+        373.9999999,
+        259.51973772135705,
+        329.0497269677047,
+        392.0000001,
+        300.48026227864295
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-SP12-B12_001__fine.stl",
+      "mesh_sha256": "1ce5120a5be9aca52e19616a892a0b2cb65fb4451fb70cddf770967c12dfc1e6"
+    },
+    {
+      "name": "S1-CUT-A-P00_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 37,
+      "part_bbox": [
+        90.65918478114,
+        162.9999999,
+        361.103384341854,
+        168.996868250681,
+        169.0000001,
+        438.3024972240546
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P00_001__fine.stl",
+      "mesh_sha256": "0fb3c65c060ae011d7a0eb8d57ba489fab33227ba1ec9f58f6be62f228d75871"
+    },
+    {
+      "name": "S1-SPACER-A_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 38,
+      "part_bbox": [
+        111.9999999,
+        168.9999999,
+        380.302751747084,
+        148.0000001,
+        175.4000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_001__fine.stl",
+      "mesh_sha256": "f973c8c25a1aaec01336768a6e5b8d066a4ad18cd6e9710b3eaed2af8815ede9"
+    },
+    {
+      "name": "S1-CUT-A-P01_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 39,
+      "part_bbox": [
+        91.21407889801446,
+        175.3999999,
+        361.15273871768056,
+        169.518024377776,
+        181.4000001,
+        438.2071887230401
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P01_001__fine.stl",
+      "mesh_sha256": "ab4a7e88f2867cf20ef0227ee5e9aa8cc2c65b2516906a69686cf8aa194eb7fc"
+    },
+    {
+      "name": "S1-SPACER-A_002",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 40,
+      "part_bbox": [
+        111.9999999,
+        181.3999999,
+        380.302751747084,
+        148.0000001,
+        187.8000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_002__fine.stl",
+      "mesh_sha256": "c6d059314e07d7814a8c1dc0b6a814c63595155ad74d112c37d57899555046b5"
+    },
+    {
+      "name": "S1-CUT-A-P02_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 41,
+      "part_bbox": [
+        91.81705750917001,
+        187.79999990000002,
+        360.218287636954,
+        169.85085912277623,
+        193.8000001,
+        438.07332036927556
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P02_001__fine.stl",
+      "mesh_sha256": "6d537e1cdef3c9d2cd700f860e65c1a518a0c6f8c387a401b2dd743d29582af4"
+    },
+    {
+      "name": "S1-SPACER-A_003",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 42,
+      "part_bbox": [
+        111.9999999,
+        193.79999990000002,
+        380.302751747084,
+        148.0000001,
+        200.2000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_003__fine.stl",
+      "mesh_sha256": "8ec84e6b9b583948935a7c1fe6a18713f4b5b4e9e045920d966759c2fcf6313d"
+    },
+    {
+      "name": "S1-CUT-A-P03_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 43,
+      "part_bbox": [
+        92.58149907448,
+        200.1999999,
+        359.465326371284,
+        169.99378637655198,
+        206.20000009999998,
+        437.75308107205205
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P03_001__fine.stl",
+      "mesh_sha256": "2fa0c6b2be44ab0479f99d5a7847b4a8636cea888d10415419c6ab6b6abdc486"
+    },
+    {
+      "name": "S1-SPACER-A_004",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 44,
+      "part_bbox": [
+        111.9999999,
+        206.1999999,
+        380.302751747084,
+        148.0000001,
+        212.6000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_004__fine.stl",
+      "mesh_sha256": "4499e1304ddf342507ee6aa58b2153b2586d2f939b310b6fa863ebc6f572fedb"
+    },
+    {
+      "name": "S1-CUT-A-P04_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 45,
+      "part_bbox": [
+        93.11145429608001,
+        212.5999999,
+        358.89744312400404,
+        169.946125025649,
+        218.6000001,
+        437.24484299096804
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P04_001__fine.stl",
+      "mesh_sha256": "309c01af913766511c0ac3a6059cda66a2fa5574f8353540d797de1fb9341b8e"
+    },
+    {
+      "name": "S1-SPACER-A_005",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 46,
+      "part_bbox": [
+        111.9999999,
+        218.5999999,
+        380.302751747084,
+        148.0000001,
+        225.0000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_005__fine.stl",
+      "mesh_sha256": "ab8793f731cb507abea6411300e2ffa9de66c6bf764b2068b39b39512d377dd5"
+    },
+    {
+      "name": "S1-CUT-A-P05_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 47,
+      "part_bbox": [
+        92.13229320665,
+        224.9999999,
+        358.51734411738215,
+        169.821054891248,
+        231.0000001,
+        436.6484969832606
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P05_001__fine.stl",
+      "mesh_sha256": "10be95913dff9dcb49f69cba69af5bd79a65fbede2684ca4b00dfa0ef581286d"
+    },
+    {
+      "name": "S1-SPACER-A_006",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 48,
+      "part_bbox": [
+        111.9999999,
+        230.9999999,
+        380.302751747084,
+        148.0000001,
+        237.4000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_006__fine.stl",
+      "mesh_sha256": "52ff2846f6c143efff8f391154773f331fd7a975f295726a683550417132d86d"
+    },
+    {
+      "name": "S1-CUT-A-P06_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 49,
+      "part_bbox": [
+        91.33358898447325,
+        237.3999999,
+        358.326840696294,
+        169.5480889298364,
+        243.4000001,
+        435.9292372787921
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P06_001__fine.stl",
+      "mesh_sha256": "5c9016b615e155db249037613fffd3a2e4073146cfadfda282cd2f1387863807"
+    },
+    {
+      "name": "S1-SPACER-A_007",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 50,
+      "part_bbox": [
+        111.9999999,
+        243.3999999,
+        380.302751747084,
+        148.0000001,
+        249.8000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_007__fine.stl",
+      "mesh_sha256": "333ffa48313fecd72c320e2b41e4e7e6bae7edd7303cb8cd7a2554c6b47b7913"
+    },
+    {
+      "name": "S1-CUT-A-P07_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 51,
+      "part_bbox": [
+        90.71914781890001,
+        249.79999990000002,
+        358.326840696294,
+        169.08665831504922,
+        255.8000001,
+        435.0306702367122
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P07_001__fine.stl",
+      "mesh_sha256": "70139177a57ce42c81d2fbe822090b055692bb5aa1229d05067bbe0e17603eca"
+    },
+    {
+      "name": "S1-SPACER-A_008",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 52,
+      "part_bbox": [
+        111.9999999,
+        255.79999990000002,
+        380.302751747084,
+        148.0000001,
+        262.2000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_008__fine.stl",
+      "mesh_sha256": "540c2357c3c72e583603f6e7564e2b21e6fd32bcb01d725694a43e20f52a1e79"
+    },
+    {
+      "name": "S1-CUT-A-P08_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 53,
+      "part_bbox": [
+        90.29189780188965,
+        262.19999989999997,
+        358.443075346444,
+        168.497122593227,
+        268.2000001,
+        435.94241846780557
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P08_001__fine.stl",
+      "mesh_sha256": "851f8d2d7a923f3a9dbcf3065a9e2eb36c95f180d8db8e479a09149cdfb50a23"
+    },
+    {
+      "name": "S1-SPACER-A_009",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 54,
+      "part_bbox": [
+        111.9999999,
+        268.19999989999997,
+        380.302751747084,
+        148.0000001,
+        274.6000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_009__fine.stl",
+      "mesh_sha256": "816b0d2e190aad2129a495c993d30f084febf7bd175e0c9188f9f283ca78daf3"
+    },
+    {
+      "name": "S1-CUT-A-P09_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 55,
+      "part_bbox": [
+        90.05387497435231,
+        274.5999999,
+        358.668686641314,
+        167.823259054414,
+        280.60000010000005,
+        436.7866276710321
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P09_001__fine.stl",
+      "mesh_sha256": "b0e6a6d20f2abd8095d8eeb85c34ea633382bcbbc8e59a60b288cc3652d2c087"
+    },
+    {
+      "name": "S1-SPACER-A_010",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 56,
+      "part_bbox": [
+        111.9999999,
+        280.5999999,
+        380.302751747084,
+        148.0000001,
+        287.0000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_010__fine.stl",
+      "mesh_sha256": "905e49bd91513087071f711d92bdad26f9a9f396d8a941340791ad945c87b480"
+    },
+    {
+      "name": "S1-CUT-A-P10_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 57,
+      "part_bbox": [
+        90.00621362345001,
+        286.9999999,
+        359.083172305673,
+        166.969150462064,
+        293.0000001,
+        437.44744368097304
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P10_001__fine.stl",
+      "mesh_sha256": "2aa151da41544b2c23a25abff884df1518a43660822456a6b616add07b8c6d89"
+    },
+    {
+      "name": "S1-SPACER-A_011",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 58,
+      "part_bbox": [
+        111.9999999,
+        292.9999999,
+        380.302751747084,
+        148.0000001,
+        299.4000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_011__fine.stl",
+      "mesh_sha256": "646dc68c64056c233090de14c3d5f6ddf6891182ef93b8868f8eef3111407676"
+    },
+    {
+      "name": "S1-CUT-A-P11_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 59,
+      "part_bbox": [
+        90.11357815701801,
+        299.39999989999995,
+        359.665722088304,
+        167.40041163724598,
+        305.4000001,
+        437.92171740840774
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P11_001__fine.stl",
+      "mesh_sha256": "936cf1ad7c8e9bc8d3830ae7bd94606f3961661a30d6dd41191873a00b8b66b5"
+    },
+    {
+      "name": "S1-SPACER-A_012",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 60,
+      "part_bbox": [
+        111.9999999,
+        305.39999989999995,
+        380.302751747084,
+        148.0000001,
+        311.8000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-A_012__fine.stl",
+      "mesh_sha256": "78862ea91be400166af03f49ab75ddc100219d6eb0f3532929fc39f8c26baedd"
+    },
+    {
+      "name": "S1-CUT-A-P12_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 61,
+      "part_bbox": [
+        90.29176756402,
+        311.7999999,
+        360.29398868253196,
+        168.289874287773,
+        317.80000010000003,
+        438.2071887230401
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-A-P12_001__fine.stl",
+      "mesh_sha256": "d883f8b1c095ac43841ec8658bc136ea417788b0f855c6cb4c688243ad7a345a"
+    },
+    {
+      "name": "S1-SHAFT-A_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 62,
+      "part_bbox": [
+        117.4999999,
+        99.9999999,
+        385.802751747084,
+        142.5000001,
+        382.0000001,
+        410.80275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SHAFT-A_001__fine.stl",
+      "mesh_sha256": "0cd902ef66a2f77eef893676d71f347509fc798208a8f0361bc9650bd3fad8c3"
+    },
+    {
+      "name": "BR-6205_001",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 63,
+      "part_bbox": [
+        103.9999999,
+        139.9999999,
+        372.302751747084,
+        156.0000001,
+        155.0000001,
+        424.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6205_001__coarse.stl",
+      "mesh_sha256": "a78b8c8a8b0f7d89b7abc256f3c7d7ba88f362823f010629bc9db1cdd6c3b70c"
+    },
+    {
+      "name": "BR-6205_002",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 64,
+      "part_bbox": [
+        103.9999999,
+        330.9999999,
+        372.302751747084,
+        156.0000001,
+        346.0000001,
+        424.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6205_002__coarse.stl",
+      "mesh_sha256": "8df524ecf4bc6fee4ccd4d58fb7d24b1f799459367991819144422c360d5c52d"
+    },
+    {
+      "name": "S1-CUT-B-P00_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 65,
+      "part_bbox": [
+        150.65918478114,
+        169.1999999,
+        358.303006470114,
+        228.9968682506821,
+        175.20000009999998,
+        435.50211935231505
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P00_001__fine.stl",
+      "mesh_sha256": "c57a590d53989f9cd858a45dbe5109b6069c4c0357b2fa205394e5b7395c1ce5"
+    },
+    {
+      "name": "S1-SPACER-B_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 66,
+      "part_bbox": [
+        171.9999999,
+        175.1999999,
+        380.302751747084,
+        208.0000001,
+        181.6000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_001__fine.stl",
+      "mesh_sha256": "dba980a54128818bd75909c806a548d00d63c52cb711fa4fee37a4b3664d94e1"
+    },
+    {
+      "name": "S1-CUT-B-P01_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 67,
+      "part_bbox": [
+        150.29176756402,
+        181.5999999,
+        358.398314971134,
+        228.2898742877741,
+        187.6000001,
+        436.31151501164004
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P01_001__fine.stl",
+      "mesh_sha256": "7ca1ad6ae65b067c1dd1306c5b5530cbcea6e3e77f3e9b3beaa5da590679a79c"
+    },
+    {
+      "name": "S1-SPACER-B_002",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 68,
+      "part_bbox": [
+        171.9999999,
+        187.5999999,
+        380.302751747084,
+        208.0000001,
+        194.0000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_002__fine.stl",
+      "mesh_sha256": "09a2774027d754134fdf12fd1c21b58646406ccb58d547523130a11cdb820cf9"
+    },
+    {
+      "name": "S1-CUT-B-P02_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 69,
+      "part_bbox": [
+        150.11357815701783,
+        193.9999999,
+        358.68378628576403,
+        227.40041163724638,
+        200.0000001,
+        436.9397816058662
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P02_001__fine.stl",
+      "mesh_sha256": "7d46d0751607cd3ee9225b80ba03fdbf7fb69ee422ba6899c3a1f1235b82ebd7"
+    },
+    {
+      "name": "S1-SPACER-B_003",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 70,
+      "part_bbox": [
+        171.9999999,
+        199.9999999,
+        380.302751747084,
+        208.0000001,
+        206.4000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_003__fine.stl",
+      "mesh_sha256": "4885d2a36f737a23ea6cf9bbdbbd8bca46d3040357737cc919b737abb972d543"
+    },
+    {
+      "name": "S1-CUT-B-P03_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 71,
+      "part_bbox": [
+        150.00621362345,
+        206.39999989999998,
+        359.1580600132033,
+        226.969150462064,
+        212.40000009999997,
+        437.5223313885032
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P03_001__fine.stl",
+      "mesh_sha256": "a24b47dd88046a3c4278563d325148f0d324eda8f492d832d56c88936fb89905"
+    },
+    {
+      "name": "S1-SPACER-B_004",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 72,
+      "part_bbox": [
+        171.9999999,
+        212.39999989999998,
+        380.302751747084,
+        208.0000001,
+        218.80000009999998,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_004__fine.stl",
+      "mesh_sha256": "6bd9bd8054b3920e11b75d64e72a5b9bc780658b6c14cd327038f57f231dfe4a"
+    },
+    {
+      "name": "S1-CUT-B-P04_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 73,
+      "part_bbox": [
+        150.05387497435646,
+        218.7999999,
+        359.8188760231424,
+        227.82325905441309,
+        224.80000009999998,
+        437.93681705285604
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P04_001__fine.stl",
+      "mesh_sha256": "e6896e066cb72ed6ac18895c5a3529f1d5e342eaa8b548ee4b74b4e0afecde68"
+    },
+    {
+      "name": "S1-SPACER-B_005",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 74,
+      "part_bbox": [
+        171.9999999,
+        224.7999999,
+        380.302751747084,
+        208.0000001,
+        231.20000009999998,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_005__fine.stl",
+      "mesh_sha256": "01a3d8bf0c09522625a0dd0ab36d956653ad0c9e0cdfdd2b3a2444cc5b448afd"
+    },
+    {
+      "name": "S1-CUT-B-P05_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 75,
+      "part_bbox": [
+        150.29189780189,
+        231.1999999,
+        360.663085226364,
+        228.497122593227,
+        237.20000009999998,
+        438.16242834772527
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P05_001__fine.stl",
+      "mesh_sha256": "45aec409c809e3dc64ce2463b2df53f500887114d327da121ddffaa49aa2f9a7"
+    },
+    {
+      "name": "S1-SPACER-B_006",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 76,
+      "part_bbox": [
+        171.9999999,
+        237.1999999,
+        380.302751747084,
+        208.0000001,
+        243.6000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_006__fine.stl",
+      "mesh_sha256": "0b992871f9eb092e0b13d434993dd078aacc91b3128122e872bf39b8f98bd92d"
+    },
+    {
+      "name": "S1-CUT-B-P06_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 77,
+      "part_bbox": [
+        150.7191478189,
+        243.5999999,
+        361.5748334574535,
+        229.086658315049,
+        249.6000001,
+        438.27866299787604
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P06_001__fine.stl",
+      "mesh_sha256": "c0110d08de7a0fcdd4fc9bcf9cb2ccd330f1416987c1952928b28a844bfd2d71"
+    },
+    {
+      "name": "S1-SPACER-B_007",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 78,
+      "part_bbox": [
+        171.9999999,
+        249.5999999,
+        380.302751747084,
+        208.0000001,
+        256.0000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_007__fine.stl",
+      "mesh_sha256": "cabd6f9c770e47a890bd51bb8a1e5cace2ee9a3c1af94d241d27627faaa53f29"
+    },
+    {
+      "name": "S1-CUT-B-P07_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 79,
+      "part_bbox": [
+        151.33358898448,
+        255.9999999,
+        360.67626641537436,
+        229.54808892983624,
+        262.0000001,
+        438.27866299787604
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P07_001__fine.stl",
+      "mesh_sha256": "f851535bc5734cfeaf35e81785b92e3db5ce363754941639e06f04ac36a1a3fe"
+    },
+    {
+      "name": "S1-SPACER-B_008",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 80,
+      "part_bbox": [
+        171.9999999,
+        261.9999999,
+        380.302751747084,
+        208.0000001,
+        268.4000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_008__fine.stl",
+      "mesh_sha256": "4b267620a1bf2319c07a573e9ce7f268d1566ce13725c35968c1ba4bdd430715"
+    },
+    {
+      "name": "S1-CUT-B-P08_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 81,
+      "part_bbox": [
+        152.13229320665002,
+        268.39999989999995,
+        359.9570067109135,
+        229.821054891248,
+        274.4000001,
+        438.08815957678905
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P08_001__fine.stl",
+      "mesh_sha256": "a6bf8cdc395e8e73fb6e123dc74bb7bf24b01557e47161af2a4bf5faa6adc30d"
+    },
+    {
+      "name": "S1-SPACER-B_009",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 82,
+      "part_bbox": [
+        171.9999999,
+        274.39999989999995,
+        380.302751747084,
+        208.0000001,
+        280.8000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_009__fine.stl",
+      "mesh_sha256": "39d6e9faec00dc53b737ff30c88171a05dbcc466e48efea1d7a81251f79f027b"
+    },
+    {
+      "name": "S1-CUT-B-P09_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 83,
+      "part_bbox": [
+        153.11145429608,
+        280.7999999,
+        359.360660703204,
+        229.946125025649,
+        286.80000010000003,
+        437.7080605701712
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P09_001__fine.stl",
+      "mesh_sha256": "ce3801c2b9f34f8b49f52604827a8fb84df3bde20afdcf56d4072bc37347ef79"
+    },
+    {
+      "name": "S1-SPACER-B_010",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 84,
+      "part_bbox": [
+        171.9999999,
+        286.7999999,
+        380.302751747084,
+        208.0000001,
+        293.2000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_010__fine.stl",
+      "mesh_sha256": "38d19db46cb8c5fc5a95ac1039c5999149fd85068936cfb13455145b7df9f836"
+    },
+    {
+      "name": "S1-CUT-B-P10_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 85,
+      "part_bbox": [
+        152.58149907448,
+        293.19999989999997,
+        358.85242262212404,
+        229.99378637655198,
+        299.2000001,
+        437.1401773228851
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P10_001__fine.stl",
+      "mesh_sha256": "05898f184f3c44561a691e6b566a50342ec27bdbec65780fc4ced571fb116643"
+    },
+    {
+      "name": "S1-SPACER-B_011",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 86,
+      "part_bbox": [
+        171.9999999,
+        299.19999989999997,
+        380.302751747084,
+        208.0000001,
+        305.6000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_011__fine.stl",
+      "mesh_sha256": "62a5cf38986e6db6cd7fda6c547ffb26808be1dc1e2ad990c010c957b8da4df0"
+    },
+    {
+      "name": "S1-CUT-B-P11_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 87,
+      "part_bbox": [
+        151.81705750917,
+        305.5999999,
+        358.532183324894,
+        229.850859122776,
+        311.60000010000005,
+        436.38721605721605
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P11_001__fine.stl",
+      "mesh_sha256": "f30cec6bc2d00f7a476012647e02cbd0086839ad25e24e431cd575f13bb294ff"
+    },
+    {
+      "name": "S1-SPACER-B_012",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 88,
+      "part_bbox": [
+        171.9999999,
+        311.5999999,
+        380.302751747084,
+        208.0000001,
+        318.0000001,
+        416.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SPACER-B_012__fine.stl",
+      "mesh_sha256": "1a5f9447891471e1bac31e1b266fbc6f9498bb018e7304c2a7f08e913943a354"
+    },
+    {
+      "name": "S1-CUT-B-P12_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 89,
+      "part_bbox": [
+        151.21407889801344,
+        317.9999999,
+        358.398314971134,
+        229.51802437777667,
+        324.0000001,
+        435.4527649764931
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-CUT-B-P12_001__fine.stl",
+      "mesh_sha256": "9078cb69ba1e39671b6a926c22d03f3dbc992d237d1874a02d410de682ce33ac"
+    },
+    {
+      "name": "S1-SHAFT-B_001",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 90,
+      "part_bbox": [
+        177.4999999,
+        99.9999999,
+        385.802751747084,
+        202.5000001,
+        350.0000001,
+        410.80275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SHAFT-B_001__fine.stl",
+      "mesh_sha256": "b4a554c2e13446574be1af1fbe7f771838059e0ce0a6f3047fed6d196bec7149"
+    },
+    {
+      "name": "BR-6205_003",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 91,
+      "part_bbox": [
+        163.9999999,
+        139.9999999,
+        372.302751747084,
+        216.0000001,
+        155.0000001,
+        424.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6205_003__coarse.stl",
+      "mesh_sha256": "a392e4915c1c32c95d1fe2466a243cefb5e50f35537f4f3036dbd858449a7ec8"
+    },
+    {
+      "name": "BR-6205_004",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 92,
+      "part_bbox": [
+        163.9999999,
+        330.9999999,
+        372.302751747084,
+        216.0000001,
+        346.0000001,
+        424.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6205_004__coarse.stl",
+      "mesh_sha256": "4efa6cd37572e943890d49cc2e459d9dd8e2bd66a35a6e127de046e666a8297a"
+    },
+    {
+      "name": "S1-SYNC_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 93,
+      "part_bbox": [
+        98.00849575369963,
+        107.9999999,
+        366.40942794491605,
+        161.99150424630437,
+        138.0000001,
+        430.1960757492531
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SYNC_001__fine.stl",
+      "mesh_sha256": "751aa8474258b04931ce5f025e7d6c8fb1a9fa02582467b445f816cdf77a6be3"
+    },
+    {
+      "name": "S1-SYNC_002",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 94,
+      "part_bbox": [
+        158.10667609783604,
+        107.9999999,
+        366.31124760078046,
+        221.89332390216862,
+        138.0000001,
+        430.2942560933886
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SYNC_002__fine.stl",
+      "mesh_sha256": "df9ee500aa5459805c15f9e0baad8a25d57503be4cf33bdc2be6be0fc66d5ba4"
+    },
+    {
+      "name": "S1-BPL_001",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 95,
+      "part_bbox": [
+        79.9999999,
+        137.9999999,
+        348.302751747084,
+        240.0000001,
+        156.0000001,
+        448.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-BPL_001__coarse.stl",
+      "mesh_sha256": "fd94a9079740df670de7eb9db09dfc6964b63b185df0abecef6e17cc4c66fdd8"
+    },
+    {
+      "name": "S1-BPL_002",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 96,
+      "part_bbox": [
+        79.9999999,
+        330.9999999,
+        348.302751747084,
+        240.0000001,
+        349.0000001,
+        448.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-BPL_002__coarse.stl",
+      "mesh_sha256": "3783d206304784057863a301c9148a05cfab6c9090451d8c496302070bcefff7"
+    },
+    {
+      "name": "S1-WALL_001",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 97,
+      "part_bbox": [
+        79.9999999,
+        157.3999999,
+        352.30275174708316,
+        240.0000001,
+        162.4000001,
+        444.30275194708463
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-WALL_001__coarse.stl",
+      "mesh_sha256": "63a8a8c01af755ec8156abc05b70300ad04b4a27970399a274a7dad72ed288b1"
+    },
+    {
+      "name": "S1-WALL_002",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 98,
+      "part_bbox": [
+        79.9999999,
+        324.5999999,
+        352.30275174708316,
+        240.0000001,
+        329.60000010000005,
+        444.30275194708463
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-WALL_002__coarse.stl",
+      "mesh_sha256": "c600d91db61ae62ab6dd0265a4c55863cd1f115d09041f130309996ee1de48f0"
+    },
+    {
+      "name": "S1-SIDE_001",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 99,
+      "part_bbox": [
+        79.9999999,
+        162.3999999,
+        352.302751747084,
+        83.0000001,
+        324.60000010000005,
+        444.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SIDE_001__coarse.stl",
+      "mesh_sha256": "43a00d10e90659fe62d1e7e25470f5470daa6a70ebb6cea4681cbb2a73766dbc"
+    },
+    {
+      "name": "S1-SIDE_002",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 100,
+      "part_bbox": [
+        236.9999999,
+        162.3999999,
+        352.302751747084,
+        240.0000001,
+        324.60000010000005,
+        444.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-SIDE_002__coarse.stl",
+      "mesh_sha256": "56f5ff71177827d7f45dbfd2bf859301a5b6ba7dca1fa7d1fc3562fb53409061"
+    },
+    {
+      "name": "S1-BR-CAP_001",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 101,
+      "part_bbox": [
+        79.9999999,
+        134.9999999,
+        348.302751747084,
+        240.0000001,
+        138.0000001,
+        448.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-BR-CAP_001__coarse.stl",
+      "mesh_sha256": "c4a673ed9d7b483e1306ffcb453e12e85ab83b6aececebd97729d99230043b36"
+    },
+    {
+      "name": "S1-BR-CAP_002",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 102,
+      "part_bbox": [
+        79.9999999,
+        348.9999999,
+        348.302751747084,
+        240.0000001,
+        352.0000001,
+        448.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-BR-CAP_002__coarse.stl",
+      "mesh_sha256": "43c17e996617ce772a2047f08d5cdc708d88cc35dc888591d3d4707aba0caa33"
+    },
+    {
+      "name": "FEED-BUF_001",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 103,
+      "part_bbox": [
+        213.56946458906177,
+        250.9999999,
+        143.9999999,
+        403.5694647890618,
+        299.0000001,
+        219.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FEED-BUF_001__coarse.stl",
+      "mesh_sha256": "96dfec8704e1bd445a539d976f2af9dcedfe863ba70db1ca9c90ac5d092af27f"
+    },
+    {
+      "name": "EX-SCREW_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 104,
+      "part_bbox": [
+        263.99999989999975,
+        266.9999998999995,
+        116.99999989999955,
+        520.0000001000003,
+        283.0000001000005,
+        133.00000010000048
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-SCREW_001__coarse.stl",
+      "mesh_sha256": "66e763494d8fb443d401626a181ee03a2a524a551ade53dd47acd460afe09e3c"
+    },
+    {
+      "name": "EX-BARREL_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 105,
+      "part_bbox": [
+        263.9999999,
+        259.9999999,
+        109.9999999,
+        520.0000001,
+        290.0000001,
+        140.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-BARREL_001__coarse.stl",
+      "mesh_sha256": "76be26346f402fd464914ac14ee112119f5e68b6ea64c73aa32543e35ee7bcd6"
+    },
+    {
+      "name": "EX-REAR_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 106,
+      "part_bbox": [
+        202.9999999,
+        261.9999999,
+        111.9999999,
+        264.0000001,
+        288.0000001,
+        138.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-REAR_001__coarse.stl",
+      "mesh_sha256": "7b2ea68a89f661eed4f90d9332fe498eb5d40e550afaa29b21443bda22f56bef"
+    },
+    {
+      "name": "EX-CPL_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 107,
+      "part_bbox": [
+        186.9999999,
+        258.9999999,
+        108.9999999,
+        219.0000001,
+        291.0000001,
+        141.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-CPL_001__coarse.stl",
+      "mesh_sha256": "6f381d88c4a32737d3adad5ee01c4bd55ba6a2f31bee53e96bfc340f9731147e"
+    },
+    {
+      "name": "BR-6202_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 108,
+      "part_bbox": [
+        224.9999999,
+        257.4999999,
+        107.4999999,
+        236.0000001,
+        292.5000001,
+        142.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-6202_001__coarse.stl",
+      "mesh_sha256": "210267cc4d06273a3c135dce272fc2eca90cd203ead784f60c6aa7ee760fe11e"
+    },
+    {
+      "name": "BR-51102_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 109,
+      "part_bbox": [
+        238.9999999,
+        260.9999999,
+        110.9999999,
+        248.0000001,
+        289.0000001,
+        139.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/BR-51102_001__coarse.stl",
+      "mesh_sha256": "689911762516c3c601480837740e633260a1631a31bc6a2c0d85327a7cfbf9a7"
+    },
+    {
+      "name": "EX-THRUST_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 110,
+      "part_bbox": [
+        221.9999999,
+        244.9999999,
+        89.9999999,
+        261.0000001,
+        305.0000001,
+        160.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-THRUST_001__coarse.stl",
+      "mesh_sha256": "6419ace46fb014ff83de471cfa9f222162e0810d09e95f515eeffb7230c6e77d"
+    },
+    {
+      "name": "EX-DIE_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 111,
+      "part_bbox": [
+        519.9999999,
+        256.9999999,
+        106.9999999,
+        540.0000001,
+        293.0000001,
+        143.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-DIE_001__coarse.stl",
+      "mesh_sha256": "64748c142b4874e715b826f167933eabd9fb3ac193e96cd35c0832fde5172f91"
+    },
+    {
+      "name": "EX-H100_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 112,
+      "part_bbox": [
+        327.9999999,
+        254.9999999,
+        104.9999999,
+        368.0000001,
+        295.0000001,
+        145.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-H100_001__coarse.stl",
+      "mesh_sha256": "dbaf7e10f567b14e7e8ffd081c565ff7e088f83400fde81bef99d9f69ef3847b"
+    },
+    {
+      "name": "EX-H100_002",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 113,
+      "part_bbox": [
+        387.9999999,
+        254.9999999,
+        104.9999999,
+        428.0000001,
+        295.0000001,
+        145.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-H100_002__coarse.stl",
+      "mesh_sha256": "aaa02d98dd2182f935820b79907d25d749ae87a00436f4ef6431cc6d6b3a8886"
+    },
+    {
+      "name": "EX-H100_003",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 114,
+      "part_bbox": [
+        447.9999999,
+        254.9999999,
+        104.9999999,
+        488.0000001,
+        295.0000001,
+        145.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-H100_003__coarse.stl",
+      "mesh_sha256": "c41bd2e2bd59a43e1f3c602d8a451c17bb48a88f23d64409d12d641ed7afb9cd"
+    },
+    {
+      "name": "EX-H60_001",
+      "group": "extruder",
+      "body": "STATIC",
+      "step_index": 115,
+      "part_bbox": [
+        528.9999999,
+        255.9999999,
+        129.9999999,
+        535.0000001,
+        276.0000001,
+        136.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-H60_001__coarse.stl",
+      "mesh_sha256": "c92d1593c01ba171c0afbf6e2474aac062981c3fcbcd4ccad286665c4d456bdc"
+    },
+    {
+      "name": "COOL-TRAY_001",
+      "group": "cooling",
+      "body": "STATIC",
+      "step_index": 116,
+      "part_bbox": [
+        544.9999999,
+        234.9999999,
+        102.9999999,
+        820.0000001,
+        315.0000001,
+        133.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/COOL-TRAY_001__coarse.stl",
+      "mesh_sha256": "048d25496f8d31a5d78f90cc0e919ca7cfaf4157cbeab07da105031fc78f8981"
+    },
+    {
+      "name": "COOL-FAN_001",
+      "group": "cooling",
+      "body": "STATIC",
+      "step_index": 117,
+      "part_bbox": [
+        559.9999999,
+        186.9999999,
+        84.9999999,
+        640.0000001,
+        225.0000001,
+        165.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/COOL-FAN_001__coarse.stl",
+      "mesh_sha256": "4ccc161d12c85958791c6abea87bf0e4834e584195a489acc7a2205b838ad49c"
+    },
+    {
+      "name": "COOL-FAN_002",
+      "group": "cooling",
+      "body": "STATIC",
+      "step_index": 118,
+      "part_bbox": [
+        699.9999999,
+        186.9999999,
+        84.9999999,
+        780.0000001,
+        225.0000001,
+        165.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/COOL-FAN_002__coarse.stl",
+      "mesh_sha256": "cf1eef70a750c48f4695f4f56bec0cb9857bacdfa7d06ec2edd6c13044a9613a"
+    },
+    {
+      "name": "HOPPER_001",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 119,
+      "part_bbox": [
+        0.741715570741,
+        162.3999999,
+        443.50275174707997,
+        237.0000001,
+        324.60000010000005,
+        501.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/HOPPER_001__coarse.stl",
+      "mesh_sha256": "d194185b009736cbda4c5fedbfb34aa473872b145603f7cfc436045ca17c371a"
+    },
+    {
+      "name": "HOP-LID_001",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 120,
+      "part_bbox": [
+        0.7417155707405468,
+        174.9999999,
+        499.9999999,
+        180.74171577074054,
+        315.0000001,
+        505.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/HOP-LID_001__coarse.stl",
+      "mesh_sha256": "d1e44776b2e0bde40c1b7906caaf1fb2754edbcf734e9a94c9ee369057173fbe"
+    },
+    {
+      "name": "S1-ROOF-F_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 121,
+      "part_bbox": [
+        74.9999999,
+        39.9999999,
+        424.9999999,
+        105.0000001,
+        135.0000001,
+        450.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-ROOF-F_001__coarse.stl",
+      "mesh_sha256": "3149686714b2ee26c34217ddcaf377a7f8324d30c043004d7231413a55215612"
+    },
+    {
+      "name": "S1-ROOF-R_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 122,
+      "part_bbox": [
+        74.99999985,
+        351.99999985,
+        424.99999985,
+        105.00000015,
+        400.00000015,
+        450.00000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-ROOF-R_001__coarse.stl",
+      "mesh_sha256": "237bac21087ce7641362c453e441021c53018efe1453d56729d836994b17f829"
+    },
+    {
+      "name": "S1-TIE-TUBE_001",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 123,
+      "part_bbox": [
+        83.9999999,
+        155.9999999,
+        352.302751747084,
+        96.0000001,
+        331.0000001,
+        364.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-TIE-TUBE_001__coarse.stl",
+      "mesh_sha256": "e212392880d919ce975e8d7483a6c4d8d58b6da0dfaa3d0dae8a6f2ccfdc49a2"
+    },
+    {
+      "name": "S1-STUD_001",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 124,
+      "part_bbox": [
+        86.9999999,
+        107.9999999,
+        355.302751747084,
+        93.0000001,
+        378.0000001,
+        361.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-STUD_001__coarse.stl",
+      "mesh_sha256": "0712ff532fefbdc323a8759e5c7a15788342703c10e83ad9ab2882d52b955da3"
+    },
+    {
+      "name": "S1-TIE-TUBE_002",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 125,
+      "part_bbox": [
+        83.9999999,
+        155.9999999,
+        432.302751747084,
+        96.0000001,
+        331.0000001,
+        444.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-TIE-TUBE_002__coarse.stl",
+      "mesh_sha256": "13b098252c13df03f886eed643dfca92e3a384f3034eb950a04f3994d4366f6d"
+    },
+    {
+      "name": "S1-STUD_002",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 126,
+      "part_bbox": [
+        86.9999999,
+        107.9999999,
+        435.302751747084,
+        93.0000001,
+        378.0000001,
+        441.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-STUD_002__coarse.stl",
+      "mesh_sha256": "2cb58fc59b26387b4560965ebc0928e0d95fba446f72f6d62295cccef8de6c2e"
+    },
+    {
+      "name": "S1-ROOF-F_002",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 127,
+      "part_bbox": [
+        214.9999999,
+        39.9999999,
+        424.9999999,
+        245.0000001,
+        135.0000001,
+        450.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-ROOF-F_002__coarse.stl",
+      "mesh_sha256": "44599d53ab8871e7aa2e6ac7c664bb305d7de379542abdb4268bf7ca677dd5bd"
+    },
+    {
+      "name": "S1-ROOF-R_002",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 128,
+      "part_bbox": [
+        214.9999999,
+        351.9999999,
+        424.9999999,
+        245.0000001,
+        400.0000001,
+        450.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-ROOF-R_002__coarse.stl",
+      "mesh_sha256": "f6309a2fcf59427c4018a074450bd95d6f7078c9bcd7386d087fa41425c34b53"
+    },
+    {
+      "name": "S1-TIE-TUBE_003",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 129,
+      "part_bbox": [
+        223.9999999,
+        155.9999999,
+        352.302751747084,
+        236.0000001,
+        331.0000001,
+        364.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-TIE-TUBE_003__coarse.stl",
+      "mesh_sha256": "b71c6bae84e3b213c639c152f4099091cf9fabd924bcec654a2d40b719d5a1b2"
+    },
+    {
+      "name": "S1-STUD_003",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 130,
+      "part_bbox": [
+        226.9999999,
+        107.9999999,
+        355.302751747084,
+        233.0000001,
+        378.0000001,
+        361.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-STUD_003__coarse.stl",
+      "mesh_sha256": "3e7a1dfbd36047decf48329fc502565875ae04c7728ec75a950b9e2fa3c4e955"
+    },
+    {
+      "name": "S1-TIE-TUBE_004",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 131,
+      "part_bbox": [
+        223.9999999,
+        155.9999999,
+        432.302751747084,
+        236.0000001,
+        331.0000001,
+        444.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-TIE-TUBE_004__coarse.stl",
+      "mesh_sha256": "551059e98dbbdace4dc3779d827ac0a678e0d79cb41ac5ed39ce3b87e643194f"
+    },
+    {
+      "name": "S1-STUD_004",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 132,
+      "part_bbox": [
+        226.9999999,
+        107.9999999,
+        435.302751747084,
+        233.0000001,
+        378.0000001,
+        441.30275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1-STUD_004__coarse.stl",
+      "mesh_sha256": "f6e8c89a7c715a2d9f29a4e557ed2079eabaafff6241fd48f93cbda6c749303c"
+    },
+    {
+      "name": "DRV-DECK_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 133,
+      "part_bbox": [
+        19.99999985,
+        209.99999985,
+        19.99999985,
+        260.00000015,
+        404.00000015,
+        25.00000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-DECK_001__coarse.stl",
+      "mesh_sha256": "fa32e8abbe7a1e7fa6507fe2420c5f71ae0661e3ee735806ccd96148a5f0d935"
+    },
+    {
+      "name": "DRV-M1-FOOT_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 134,
+      "part_bbox": [
+        44.9999999,
+        216.9999999,
+        24.9999999,
+        115.0000001,
+        247.0000001,
+        44.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-M1-FOOT_001__coarse.stl",
+      "mesh_sha256": "8c6ec2d482dc95723dbd67a232074288a638711242e42b0e46b512c929b78687"
+    },
+    {
+      "name": "DRV-RISER12_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 135,
+      "part_bbox": [
+        62.9999999,
+        357.9999999,
+        24.9999999,
+        97.0000001,
+        370.0000001,
+        35.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-RISER12_001__coarse.stl",
+      "mesh_sha256": "43078ad85cbc62c18acc61ef84055a94edd0dce728fc0a06602a6429ea4ff213"
+    },
+    {
+      "name": "DRV-RISER20_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 136,
+      "part_bbox": [
+        101.94018982255457,
+        385.9999999,
+        24.9999999,
+        171.94019002255456,
+        404.0000001,
+        27.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-RISER20_001__coarse.stl",
+      "mesh_sha256": "8885f855985ad6bddc37794b7c9f50f73b265b0cf26abd6ebdf423cb7fe4cd6e"
+    },
+    {
+      "name": "S2-LEG-L_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 137,
+      "part_bbox": [
+        206.56946458906177,
+        169.9999999,
+        24.9999999,
+        256.5694647890618,
+        220.0000001,
+        210.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S2-LEG-L_001__coarse.stl",
+      "mesh_sha256": "8d261f9a1b9fd3d9ffa3a1a5c1a650452898c63541f3b2ab2cf34adc4ece7a7e"
+    },
+    {
+      "name": "S2-LEG-L_002",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 138,
+      "part_bbox": [
+        206.56946458906177,
+        341.9999999,
+        24.9999999,
+        256.5694647890618,
+        392.0000001,
+        210.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S2-LEG-L_002__coarse.stl",
+      "mesh_sha256": "cd1a890aee91178a5ca7f702aa884cf4b604c44d26f9944217f9d682f896e9ec"
+    },
+    {
+      "name": "S2-LEG-R_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 139,
+      "part_bbox": [
+        360.56946458906174,
+        169.9999999,
+        19.9999999,
+        410.5694647890618,
+        220.0000001,
+        210.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S2-LEG-R_001__coarse.stl",
+      "mesh_sha256": "a4f5f89a40f5182db669ced8775a546bd48d850a8c5a988b9268b4a784282772"
+    },
+    {
+      "name": "S2-LEG-R_002",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 140,
+      "part_bbox": [
+        360.56946458906174,
+        341.9999999,
+        19.9999999,
+        410.5694647890618,
+        392.0000001,
+        210.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S2-LEG-R_002__coarse.stl",
+      "mesh_sha256": "669c2b9166fb97fe080bc278f675a0c4a23d6cf39ec4f5005e42a32b42891e4b"
+    },
+    {
+      "name": "EX-STAND_001",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 141,
+      "part_bbox": [
+        176.9999999,
+        239.9999999,
+        24.9999999,
+        265.0000001,
+        310.0000001,
+        104.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EX-STAND_001__coarse.stl",
+      "mesh_sha256": "e89e92829c47ec96c4f50104bda898e1637c9d3d7e96dfec225afb01d6b13ce2"
+    },
+    {
+      "name": "DRV_M2_FACE_PLATE",
+      "group": "frame_mount",
+      "body": "STATIC",
+      "step_index": 142,
+      "part_bbox": [
+        176.9999999,
+        239.9999999,
+        92.4999999,
+        183.0000001,
+        310.0000001,
+        157.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV_M2_FACE_PLATE__coarse.stl",
+      "mesh_sha256": "cd6db70a9fd56863349b8909e0dc4efc3fa389af0f8be56ba1eb1d32c9e70283"
+    },
+    {
+      "name": "KEY-8-154_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 143,
+      "part_bbox": [
+        125.9999999,
+        163.3999999,
+        406.802751747084,
+        134.0000001,
+        317.4000001,
+        413.80275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-8-154_001__fine.stl",
+      "mesh_sha256": "0416c466a8ab83f46ae7c0fd6b18939bdd82028352bc9573baac48f3d888f626"
+    },
+    {
+      "name": "KEY-8-154_002",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 144,
+      "part_bbox": [
+        185.9999999,
+        169.5999999,
+        406.802751747084,
+        194.0000001,
+        323.60000010000005,
+        413.80275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-8-154_002__fine.stl",
+      "mesh_sha256": "98bd35ea419c21dfc47b743e0381938dc194ec6fe20fb9fabd78dd53294e08c9"
+    },
+    {
+      "name": "KEY-8-25_001",
+      "group": "S1",
+      "body": "S1A",
+      "step_index": 145,
+      "part_bbox": [
+        125.9999999,
+        109.9999999,
+        406.802751747084,
+        134.0000001,
+        135.0000001,
+        413.80275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-8-25_001__fine.stl",
+      "mesh_sha256": "00774ef12b923cb9f794de540a3bd4dc6619792fc38a441fe18e4ff92de44e54"
+    },
+    {
+      "name": "KEY-8-25_002",
+      "group": "S1",
+      "body": "S1B",
+      "step_index": 146,
+      "part_bbox": [
+        186.91040425630197,
+        109.9999999,
+        406.3380740046437,
+        195.5982788621217,
+        135.0000001,
+        414.1359551783629
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-8-25_002__fine.stl",
+      "mesh_sha256": "6203a910a535af2e4c2c4c8a969ac5b08e1fa5fe0e06c48005e8fe8034cc35f4"
+    },
+    {
+      "name": "KEY-8-16_001",
+      "group": "S1",
+      "body": "STATIC",
+      "step_index": 147,
+      "part_bbox": [
+        125.9999999,
+        354.9999999,
+        406.802751747084,
+        134.0000001,
+        371.0000001,
+        413.80275194708406
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-8-16_001__coarse.stl",
+      "mesh_sha256": "362fcd78c254ebbb54ac33caf138972c3cce27b2233af29f61f8412526b7e9f8"
+    },
+    {
+      "name": "KEY-4-70_001",
+      "group": "drive",
+      "body": "IN_SHAFT",
+      "step_index": 148,
+      "part_bbox": [
+        77.9999999,
+        276.9999999,
+        68.9999999,
+        82.0000001,
+        347.0000001,
+        73.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-4-70_001__fine.stl",
+      "mesh_sha256": "6824248b77d711a0a870f51c636129dd257aafff3b2a34b699e6c1b056b24e0f"
+    },
+    {
+      "name": "KEY-4-16_001",
+      "group": "drive",
+      "body": "IN_SHAFT",
+      "step_index": 149,
+      "part_bbox": [
+        77.9999999,
+        374.9999999,
+        68.9999999,
+        82.0000001,
+        391.0000001,
+        73.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-4-16_001__fine.stl",
+      "mesh_sha256": "b620ce646072aa442e9109cdae90fdbf0152a7fa5b0ccb111612d4d12d045f1f"
+    },
+    {
+      "name": "KEY-6-70_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 150,
+      "part_bbox": [
+        133.94018982255457,
+        276.9999999,
+        71.4999999,
+        139.94019002255456,
+        347.0000001,
+        77.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-6-70_001__coarse.stl",
+      "mesh_sha256": "4f7df78de35367fdceb43479b257d684ea72df4187046d84ce1260fe54554896"
+    },
+    {
+      "name": "KEY-6-16_001",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 151,
+      "part_bbox": [
+        133.94018982255457,
+        354.9999999,
+        71.4999999,
+        139.94019002255456,
+        371.0000001,
+        77.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-6-16_001__coarse.stl",
+      "mesh_sha256": "246cbb15a814f9bc576b32ee71b381d205a5624ba1635f1cc6f4a76b9fb68391"
+    },
+    {
+      "name": "FRONT_INPUT_SUPPORT",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 152,
+      "part_bbox": [
+        223.56946453906176,
+        350.99999985,
+        194.99999985,
+        393.56946483906177,
+        359.00000015,
+        369.00000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FRONT_INPUT_SUPPORT__coarse.stl",
+      "mesh_sha256": "77cd211d89d5a9b66aea28a7858031e5015fb92a72a999f7626b028ae7df8e39"
+    },
+    {
+      "name": "REAR_OUTPUT_SUPPORT",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 153,
+      "part_bbox": [
+        223.56946453906176,
+        202.99999984999997,
+        194.99999985,
+        393.56946483906177,
+        211.00000015000003,
+        369.00000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/REAR_OUTPUT_SUPPORT__coarse.stl",
+      "mesh_sha256": "fc7a4da67c44b14b78bc9c70cebae74a7d151e4e53b2d67666cc919695301a3f"
+    },
+    {
+      "name": "INPUT_BEARING_ENVELOPE_UNRATED",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 154,
+      "part_bbox": [
+        292.56946458906174,
+        346.9999999,
+        263.9999999,
+        324.5694647890618,
+        359.0000001,
+        296.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/INPUT_BEARING_ENVELOPE_UNRATED__coarse.stl",
+      "mesh_sha256": "4917806a4902f1500c9f107fca8efed3c0a6f5692daba32400085ac672adbc64"
+    },
+    {
+      "name": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 155,
+      "part_bbox": [
+        287.56946458906174,
+        202.9999999,
+        258.9999999,
+        329.5694647890618,
+        215.0000001,
+        301.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/OUTPUT_BEARING_ENVELOPE_UNRATED__coarse.stl",
+      "mesh_sha256": "07a737a9f652832a3bbb6e185055d58e9ee3de1fc6b1fc855f39cf8e92449a18"
+    },
+    {
+      "name": "FRONT_FIXED_RING_PLATE",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 156,
+      "part_bbox": [
+        220.56946458906177,
+        326.9999999,
+        191.9999999,
+        396.5694647890618,
+        333.0000001,
+        368.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FRONT_FIXED_RING_PLATE__coarse.stl",
+      "mesh_sha256": "88dccd6ea70e3ef6e067a2dd03eebd6a7116c5b549f2a44fec91e6f0de7319e4"
+    },
+    {
+      "name": "REAR_FIXED_RING_PLATE",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 157,
+      "part_bbox": [
+        220.56946458906177,
+        298.9999999,
+        191.9999999,
+        396.5694647890618,
+        305.0000001,
+        368.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/REAR_FIXED_RING_PLATE__coarse.stl",
+      "mesh_sha256": "b232cf2d23f6e90681c3ce34eae03610b095b94af1d1595f2c3af0469d092d7a"
+    },
+    {
+      "name": "C2_FIXED_SHEAR_SENSOR_BORE",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 158,
+      "part_bbox": [
+        237.56946458906177,
+        254.9999999,
+        275.9999998999985,
+        245.76946478906174,
+        295.0000001,
+        284.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_FIXED_SHEAR_SENSOR_BORE__coarse.stl",
+      "mesh_sha256": "55d180facd547230da896cb0e8c2861d52da42c939724c01a20d9e05656c6d33"
+    },
+    {
+      "name": "C2_PERFORATED_SCREEN_REFERENCE",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 159,
+      "part_bbox": [
+        258.9297846749503,
+        254.9999999,
+        215.1999999,
+        358.2091447031718,
+        295.0000001,
+        239.63293821169236
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_PERFORATED_SCREEN_REFERENCE__coarse.stl",
+      "mesh_sha256": "c20e03595990e7c88f50e6094bf6a6ffd4e7a96c969a49c94d8944eaf2753e9b"
+    },
+    {
+      "name": "C2_LEFT_WEAR_SHELL",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 160,
+      "part_bbox": [
+        356.6770556169293,
+        254.9999999,
+        237.70457518262796,
+        374.3694647890618,
+        295.0000001,
+        302.5049255308306
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_LEFT_WEAR_SHELL__coarse.stl",
+      "mesh_sha256": "6b0209c15f3f352ebe276adba09a6ef732c4f09721fc6f3cb3cbdbe214796bdf"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_1",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 161,
+      "part_bbox": [
+        242.89978186768477,
+        254.9999999,
+        237.70457518262944,
+        260.4618737611898,
+        295.0000001,
+        275.9000001000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_RIGHT_WEAR_SHELL_1__coarse.stl",
+      "mesh_sha256": "42d59d542beec760538fd8f71fcc69a708c5e095ab21ea7de6a2bacc14f1d311"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_2",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 162,
+      "part_bbox": [
+        242.89978186768474,
+        254.9999999,
+        284.09999989999994,
+        297.66435923157877,
+        295.0000001,
+        344.800350248203
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_RIGHT_WEAR_SHELL_2__coarse.stl",
+      "mesh_sha256": "bfd4f02669a0bc79d5d8f2bbe144fb5ae0a6b8acb173263fe2737bc5d1dcca4f"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_L",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 163,
+      "part_bbox": [
+        361.2794082521792,
+        254.9999999,
+        236.0675032099,
+        394.329364567697,
+        295.0000001,
+        301.3431345447616
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_THERMAL_SADDLE_L__coarse.stl",
+      "mesh_sha256": "cb2ffc5ee9186791121b12f90d870e05f5862b0fb081d13b41ba4a7345acd3bb"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 164,
+      "part_bbox": [
+        223.70234965234476,
+        254.9999999,
+        236.0675032099,
+        293.72269520236796,
+        295.0000001,
+        358.36508804689305
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_THERMAL_SADDLE_R_SENSOR_BORE__coarse.stl",
+      "mesh_sha256": "ea8601c4209a1349a80b57f482647f447658a2fd7400a29fdf409f6df326da30"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_FRONT",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 165,
+      "part_bbox": [
+        360.9599540481593,
+        294.9999999,
+        233.96115062886983,
+        385.06917067473177,
+        299.0000001,
+        302.3664355112933
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_SADDLE_CAP_L_FRONT__coarse.stl",
+      "mesh_sha256": "a4bdd7292cf728e6505e31be5eaf9e76707ad9c50a1b751d3fac2546e5e583f4"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_REAR",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 166,
+      "part_bbox": [
+        360.9599540481593,
+        250.9999999,
+        233.96115062886983,
+        385.06917067473177,
+        255.0000001,
+        302.3664355112933
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_SADDLE_CAP_L_REAR__coarse.stl",
+      "mesh_sha256": "87d36a1c0ad96addbffba6c6d74361a61e5623b3d5bed0c9f4affad7c0cc2ad4"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_FRONT",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 167,
+      "part_bbox": [
+        232.06977414391375,
+        294.9999999,
+        233.96115062887,
+        293.8126756241058,
+        299.0000001,
+        354.5393100560704
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_SADDLE_CAP_R_FRONT__coarse.stl",
+      "mesh_sha256": "f89178b48bb8a2f73a252442b9b2c1581218ce9d6a422648ab95fa9c6851af1c"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_REAR",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 168,
+      "part_bbox": [
+        232.06977414391375,
+        250.9999999,
+        233.96115062887,
+        293.8126756241058,
+        255.0000001,
+        354.5393100560704
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/C2_SADDLE_CAP_R_REAR__coarse.stl",
+      "mesh_sha256": "90dac1d6c520bde2fcc55aaaf0ea2e1723bdb9668a20d85c76615ec3a701169f"
+    },
+    {
+      "name": "FIXED_RING_PIN_1",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 169,
+      "part_bbox": [
+        228.56946458906177,
+        304.9999999,
+        271.9999999,
+        244.56946478906175,
+        327.0000001,
+        288.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_1__coarse.stl",
+      "mesh_sha256": "c58ec53e3f828b280c23a95d1ca55a4f95d843ca549969026977ba88b59d9df5"
+    },
+    {
+      "name": "FIXED_RING_PIN_2",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 170,
+      "part_bbox": [
+        245.41426468449535,
+        304.9999999,
+        318.2807077974308,
+        261.41426488449537,
+        327.0000001,
+        334.28070799743085
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_2__coarse.stl",
+      "mesh_sha256": "e138abbb5d9299fd81164cad7b79ade1d160a4a954cbc1ce24fa4e80e595b885"
+    },
+    {
+      "name": "FIXED_RING_PIN_3",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 171,
+      "part_bbox": [
+        288.06679579704274,
+        304.9999999,
+        342.90615811687894,
+        304.0667959970428,
+        327.0000001,
+        358.906158316879
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_3__coarse.stl",
+      "mesh_sha256": "698ad01c6af1943ff0ab3d5ee9811ad5f809b0b0662ee129eaad832ca455c6cc"
+    },
+    {
+      "name": "FIXED_RING_PIN_4",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 172,
+      "part_bbox": [
+        336.56946458906174,
+        304.9999999,
+        334.35382897247956,
+        352.5694647890618,
+        327.0000001,
+        350.3538291724796
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_4__coarse.stl",
+      "mesh_sha256": "247df488b8428ad140af24a91dd6b2c84e75d92ce06646a9380d6a5342b29db3"
+    },
+    {
+      "name": "FIXED_RING_PIN_5",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 173,
+      "part_bbox": [
+        368.22733328564715,
+        304.9999999,
+        296.6254502194481,
+        384.2273334856472,
+        327.0000001,
+        312.62545041944816
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_5__coarse.stl",
+      "mesh_sha256": "fb74abe035cfd7be6a991fba0283e0f75c4ddddcf5e0278caf4299134ecf1a29"
+    },
+    {
+      "name": "FIXED_RING_PIN_6",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 174,
+      "part_bbox": [
+        368.22733328564715,
+        304.9999999,
+        247.37454958055187,
+        384.2273334856472,
+        327.0000001,
+        263.3745497805519
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_6__coarse.stl",
+      "mesh_sha256": "d1ba548a12aaa477934687f421b6dda460387d0bae67c9b97ed15aef7fc57825"
+    },
+    {
+      "name": "FIXED_RING_PIN_7",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 175,
+      "part_bbox": [
+        336.56946458906174,
+        304.9999999,
+        209.64617082752045,
+        352.5694647890618,
+        327.0000001,
+        225.64617102752044
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_7__coarse.stl",
+      "mesh_sha256": "2dd3134f21fab30c121d1e4557ed5361a8be434927570e40ba60ac7eacaa6ce1"
+    },
+    {
+      "name": "FIXED_RING_PIN_8",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 176,
+      "part_bbox": [
+        288.0667957970428,
+        304.9999999,
+        201.093841683121,
+        304.06679599704285,
+        327.0000001,
+        217.093841883121
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_8__coarse.stl",
+      "mesh_sha256": "0862b62998850eddea5908f0b66f19e7b8d06dd4b7fca83a480816e84fec8019"
+    },
+    {
+      "name": "FIXED_RING_PIN_9",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 177,
+      "part_bbox": [
+        245.41426468449535,
+        304.9999999,
+        225.71929200256915,
+        261.41426488449537,
+        327.0000001,
+        241.71929220256914
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/FIXED_RING_PIN_9__coarse.stl",
+      "mesh_sha256": "c8149fed74d18cda1d5e55aa1e785ab9ddd99482cafe0b0a7bb45238c06a0a96"
+    },
+    {
+      "name": "SUPPORT_TIE_1",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 178,
+      "part_bbox": [
+        379.56946458906174,
+        210.9999999,
+        220.9999999,
+        387.5694647890618,
+        351.0000001,
+        229.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/SUPPORT_TIE_1__coarse.stl",
+      "mesh_sha256": "3483e86ac6ffe90a0e508edca36d8f401083377f2db4c84cd8185a97c9c28fcb"
+    },
+    {
+      "name": "SUPPORT_TIE_2",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 179,
+      "part_bbox": [
+        379.56946458906174,
+        210.9999999,
+        350.9999999,
+        387.5694647890618,
+        351.0000001,
+        359.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/SUPPORT_TIE_2__coarse.stl",
+      "mesh_sha256": "007b1afacb7b312d21111e67505b0f35a00b604e76825f8d56a85be44a305774"
+    },
+    {
+      "name": "SUPPORT_TIE_3",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 180,
+      "part_bbox": [
+        229.56946458906174,
+        210.9999999,
+        220.9999999,
+        237.56946478906175,
+        351.0000001,
+        229.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/SUPPORT_TIE_3__coarse.stl",
+      "mesh_sha256": "39fd6acb1cee9d3dbfa5d81446c2fa7eb633f7e96285020a36589e3f62fde14c"
+    },
+    {
+      "name": "SUPPORT_TIE_4",
+      "group": "S2-C2.1",
+      "body": "STATIC",
+      "step_index": 181,
+      "part_bbox": [
+        249.56946458906174,
+        210.9999999,
+        357.9999999,
+        257.5694647890618,
+        351.0000001,
+        366.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/SUPPORT_TIE_4__coarse.stl",
+      "mesh_sha256": "0c48794825324229a86d5fd4afcc231caff268fde2c07edeed35a3353ae05168"
+    },
+    {
+      "name": "INPUT_ECCENTRIC_SHAFT",
+      "group": "S2-C2.1",
+      "body": "S2_ECC",
+      "step_index": 182,
+      "part_bbox": [
+        291.56946458906174,
+        300.9999999,
+        262.9999999,
+        325.5694647890618,
+        394.0000001,
+        297.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/INPUT_ECCENTRIC_SHAFT__fine.stl",
+      "mesh_sha256": "63642766c97cbce4f4709cf878182d7a59bf7248da51154aa15715ee904942fc"
+    },
+    {
+      "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "group": "S2-C2.1",
+      "body": "S2_ECC",
+      "step_index": 183,
+      "part_bbox": [
+        285.56946458906174,
+        306.9999999,
+        263.9999999,
+        317.5694647890618,
+        323.0000001,
+        296.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/ECCENTRIC_BEARING_ENVELOPE_UNRATED__fine.stl",
+      "mesh_sha256": "e7921948f3a85e563d6c4846b633e76bae080ed0d7c74b3da0241e99111979de"
+    },
+    {
+      "name": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "group": "S2-C2.1",
+      "body": "S2_ROTOR",
+      "step_index": 184,
+      "part_bbox": [
+        234.6296223859598,
+        234.9999999,
+        213.06015769689807,
+        368.5093069921638,
+        323.0000001,
+        346.939842303102
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE__fine.stl",
+      "mesh_sha256": "bed3cd7611bb37594d73e5b995098053f3bece89b4bcc55d659cc8d48e1eb1d0"
+    },
+    {
+      "name": "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "group": "S2-C2.1",
+      "body": "S2_CARRIER",
+      "step_index": 185,
+      "part_bbox": [
+        260.56946458906174,
+        179.9999999,
+        231.9999999,
+        356.5694647890618,
+        251.0000001,
+        328.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/OUTPUT_PIN_CARRIER_AND_SHAFT__fine.stl",
+      "mesh_sha256": "f9bae02f88d2187faf446b16d38bb9ecff0622d4292495db72a4bdcd2af3db7c"
+    },
+    {
+      "name": "OUTPUT_ROLLER_1",
+      "group": "S2-C2.1",
+      "body": "S2_ROLLER_1",
+      "step_index": 186,
+      "part_bbox": [
+        265.56946458906174,
+        234.9999999,
+        274.9999999,
+        275.5694647890618,
+        249.0000001,
+        285.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/OUTPUT_ROLLER_1__fine.stl",
+      "mesh_sha256": "b188d7f1857905695629637e84d98bac91b5adb5867f50a9e5c02fc3eb79da97"
+    },
+    {
+      "name": "OUTPUT_ROLLER_2",
+      "group": "S2-C2.1",
+      "body": "S2_ROLLER_2",
+      "step_index": 187,
+      "part_bbox": [
+        284.56946458906174,
+        234.9999999,
+        307.90896524380867,
+        294.5694647890618,
+        249.0000001,
+        317.9089654438087
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/OUTPUT_ROLLER_2__fine.stl",
+      "mesh_sha256": "17ba3f059f90b5a148e30ed03419e06b541f4c6f283f8bba2a6ab7ba1135a8d3"
+    },
+    {
+      "name": "OUTPUT_ROLLER_3",
+      "group": "S2-C2.1",
+      "body": "S2_ROLLER_3",
+      "step_index": 188,
+      "part_bbox": [
+        322.56946458906174,
+        234.9999999,
+        307.90896524380867,
+        332.5694647890618,
+        249.0000001,
+        317.9089654438087
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/OUTPUT_ROLLER_3__fine.stl",
+      "mesh_sha256": "c3f640488106b92e38c865a630efb13fbc7c7c5acb892d3787ab520d568f85af"
+    },
+    {
+      "name": "OUTPUT_ROLLER_4",
+      "group": "S2-C2.1",
+      "body": "S2_ROLLER_4",
+      "step_index": 189,
+      "part_bbox": [
+        341.56946458906174,
+        234.9999999,
+        274.9999999,
+        351.5694647890618,
+        249.0000001,
+        285.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/OUTPUT_ROLLER_4__fine.stl",
+      "mesh_sha256": "9baad55c1d87cb9178a04330a67e84e0dab6edfba01b181b2743acd5313a7495"
+    },
+    {
+      "name": "OUTPUT_ROLLER_5",
+      "group": "S2-C2.1",
+      "body": "S2_ROLLER_5",
+      "step_index": 190,
+      "part_bbox": [
+        322.56946458906174,
+        234.9999999,
+        242.09103455619135,
+        332.5694647890618,
+        249.0000001,
+        252.09103475619133
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/OUTPUT_ROLLER_5__fine.stl",
+      "mesh_sha256": "e21760b6b1539db0b4284080cbf763235d1b3ef6b9b043b1fa49430236ce01a3"
+    },
+    {
+      "name": "OUTPUT_ROLLER_6",
+      "group": "S2-C2.1",
+      "body": "S2_ROLLER_6",
+      "step_index": 191,
+      "part_bbox": [
+        284.56946458906174,
+        234.9999999,
+        242.09103455619132,
+        294.5694647890618,
+        249.0000001,
+        252.0910347561913
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/OUTPUT_ROLLER_6__fine.stl",
+      "mesh_sha256": "4e8beb47b025685e16988bf285e147f0295631029071b6ea35e472c59a889289"
+    },
+    {
+      "name": "DRV-CHAIN-A",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 192,
+      "part_bbox": [
+        87.95971554086468,
+        353.99999985,
+        23.02216944342985,
+        178.9804743816899,
+        359.00000015,
+        440.2805824036542
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-CHAIN-A__coarse.stl",
+      "mesh_sha256": "9a6685578975830d2031fae467387fb9d2c1ac01d0c9f61b1d269504dd6e429a"
+    },
+    {
+      "name": "DRV-CHAIN-B",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 193,
+      "part_bbox": [
+        38.01333657083327,
+        373.99999985,
+        23.015770718908225,
+        332.4677208020498,
+        379.00000015,
+        303.89709581684093
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-CHAIN-B__coarse.stl",
+      "mesh_sha256": "8f7eb019a0dcd88dfbedfcb7e6ee46ae11bc18a41a3c73452c4b0ca26df1c0c1"
+    },
+    {
+      "name": "CHUTE_BODY",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 194,
+      "part_bbox": [
+        79.99999985,
+        157.39999985,
+        344.49999985,
+        361.00000015,
+        329.60000015,
+        352.30000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
+      "mesh_sha256": "c9ba1886862d2380dd2380095f6910da3fd59eed9f14a4a58ffc368b71adc05c"
+    },
+    {
+      "name": "CHUTE_TROUGH_FLOOR_E",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 195,
+      "part_bbox": [
+        278.49999985,
+        254.99999985,
+        347.49999985,
+        310.00000015,
+        295.00000015,
+        351.80000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CHUTE_TROUGH_FLOOR_E__coarse.stl",
+      "mesh_sha256": "6e68c652cabf292e66d9fde92ccd09587ea0f77bed53a56fdf35e9b765d3e7e4"
+    },
+    {
+      "name": "GUARD_S2_RING",
+      "group": "guard",
+      "body": "STATIC",
+      "step_index": 196,
+      "part_bbox": [
+        270.3362201399365,
+        248.99999989999995,
+        310.7818127993101,
+        396.9005711429372,
+        301.0000001000001,
+        373.9964208680322
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/GUARD_S2_RING__coarse.stl",
+      "mesh_sha256": "da3f0cc9904120279ae6eaa63ad1d2eee54cd8b419066e2ccd3db8d84f7e27c0"
+    },
+    {
+      "name": "GUARD_CHAIN_A",
+      "group": "guard",
+      "body": "STATIC",
+      "step_index": 197,
+      "part_bbox": [
+        104.9999999,
+        351.9999999,
+        450.4999999,
+        215.0000001,
+        364.0000001,
+        453.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_A__coarse.stl",
+      "mesh_sha256": "62e517df250697179deb1e1e711e36681f80c8eeadd5f48af41b100d8052c924"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "group": "guard",
+      "body": "STATIC",
+      "step_index": 198,
+      "part_bbox": [
+        50.474831342207544,
+        376.99999985,
+        33.374922458285106,
+        336.4703518298685,
+        380.00000015,
+        307.90088714080673
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
+      "mesh_sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "group": "guard",
+      "body": "STATIC",
+      "step_index": 199,
+      "part_bbox": [
+        50.474831342207544,
+        376.99999985,
+        33.374922458285106,
+        336.4703518298685,
+        380.00000015,
+        307.90088714080673
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
+      "mesh_sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "group": "guard",
+      "body": "STATIC",
+      "step_index": 200,
+      "part_bbox": [
+        50.474831342207544,
+        376.99999985,
+        33.374922458285106,
+        336.4703518298685,
+        380.00000015,
+        307.90088714080673
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
+      "mesh_sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "group": "guard",
+      "body": "STATIC",
+      "step_index": 201,
+      "part_bbox": [
+        50.474831342207544,
+        376.99999985,
+        33.374922458285106,
+        336.4703518298685,
+        380.00000015,
+        307.90088714080673
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
+      "mesh_sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+    },
+    {
+      "name": "GUARD_LID_INTERLOCK_SEAT",
+      "group": "guard",
+      "body": "STATIC",
+      "step_index": 202,
+      "part_bbox": [
+        19.9999999,
+        234.9999999,
+        504.9999999,
+        60.0000001,
+        275.0000001,
+        507.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/GUARD_LID_INTERLOCK_SEAT__coarse.stl",
+      "mesh_sha256": "a9d29dcc21876079c4b2f7c50a6406d2e62d7ce140ea18251151418ca18461f4"
+    },
+    {
+      "name": "PULL_FRAME",
+      "group": "puller",
+      "body": "STATIC",
+      "step_index": 203,
+      "part_bbox": [
+        823.99999985,
+        249.99999985,
+        99.99999985,
+        846.00000015,
+        278.00000015,
+        150.00000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
+      "mesh_sha256": "5aaade1cbbd9562a1963f71fc511ef33ad9705951eea960afab6ca785b591dd9"
+    },
+    {
+      "name": "PULL_ROLLER_FIXED",
+      "group": "puller",
+      "body": "STATIC",
+      "step_index": 204,
+      "part_bbox": [
+        818.9999999,
+        248.9999999,
+        103.7499999,
+        839.0000001,
+        279.0000001,
+        123.7500001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
+      "mesh_sha256": "04a146945e0aeb18489b5fee077d11ed7536c7c1f21b48dc1ac5dc01d04c2e13"
+    },
+    {
+      "name": "PULL_ROLLER_ADJ",
+      "group": "puller",
+      "body": "STATIC",
+      "step_index": 205,
+      "part_bbox": [
+        816.99999985,
+        252.99999985,
+        126.24999985,
+        841.00000015,
+        281.50000015,
+        158.25000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_ADJ__coarse.stl",
+      "mesh_sha256": "c7993840cffebab4367d601a35293df3d70a825df2d3806476edcc09508772fb"
+    },
+    {
+      "name": "PULL_NIP_STOP",
+      "group": "puller",
+      "body": "STATIC",
+      "step_index": 206,
+      "part_bbox": [
+        819.9999999,
+        275.9999999,
+        143.9999999,
+        838.0000001,
+        280.0000001,
+        146.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP__coarse.stl",
+      "mesh_sha256": "064d5f996284c1038296c9e8aedfc6bd3ea0e033240db65ceb632b5db35b5b56"
+    },
+    {
+      "name": "PULL_MOTOR_REF",
+      "group": "puller",
+      "body": "STATIC",
+      "step_index": 207,
+      "part_bbox": [
+        820.99999985,
+        199.99999985,
+        109.99999985,
+        847.00000015,
+        246.00000015,
+        140.00000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PULL_MOTOR_REF__coarse.stl",
+      "mesh_sha256": "f2c7c0571db3a0d81f001982e88816e731ae08e06ada342ca368c582d097a09d"
+    },
+    {
+      "name": "WIND_SPOOL_SHAFT",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 208,
+      "part_bbox": [
+        691.9999999,
+        91.9999999,
+        211.9999999,
+        708.0000001,
+        187.0000001,
+        228.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_SHAFT__coarse.stl",
+      "mesh_sha256": "0e2e4aa3f546b34a51a2c5ea4ca4dfe541c22b35529794628e885d6971b52011"
+    },
+    {
+      "name": "WIND_SPOOL_DRUM",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 209,
+      "part_bbox": [
+        664.9999999,
+        105.9999999,
+        184.9999999,
+        735.0000001,
+        164.0000001,
+        255.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_DRUM__coarse.stl",
+      "mesh_sha256": "c1fe0339284d6962494b74820c6f18908313f079088121f86967abf9378a9ca6"
+    },
+    {
+      "name": "WIND_FLANGE_L",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 210,
+      "part_bbox": [
+        599.9999999,
+        99.9999999,
+        119.9999999,
+        800.0000001,
+        106.0000001,
+        320.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_FLANGE_L__coarse.stl",
+      "mesh_sha256": "7ea9bb63a35f3788db210f2745075abbfa79680ea21aafe7db15a7df217aaed4"
+    },
+    {
+      "name": "WIND_FLANGE_R",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 211,
+      "part_bbox": [
+        599.9999999,
+        163.9999999,
+        119.9999999,
+        800.0000001,
+        170.0000001,
+        320.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_FLANGE_R__coarse.stl",
+      "mesh_sha256": "2a689fe04cd73f2b5a2d8184969155d133e12abc785ea89bc8b355d2c7c4b684"
+    },
+    {
+      "name": "WIND_MOTOR_REF",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 212,
+      "part_bbox": [
+        679.9999999,
+        181.9999999,
+        199.9999999,
+        720.0000001,
+        212.0000001,
+        240.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_MOTOR_REF__coarse.stl",
+      "mesh_sha256": "d627c3b9555bb84372e1fb1b185cec4e842f63c3f317594ed47e279fcd350d08"
+    },
+    {
+      "name": "WIND_TRAVERSE_SCREW",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 213,
+      "part_bbox": [
+        737.9999999,
+        94.9999999,
+        320.9999999,
+        746.0000001,
+        175.0000001,
+        329.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_TRAVERSE_SCREW__coarse.stl",
+      "mesh_sha256": "c3273cb8b80cafe5d1de28d6b0d036d88686c4b3eff5426a362d2b849bd185a2"
+    },
+    {
+      "name": "WIND_TRAVERSE_RIDER",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 214,
+      "part_bbox": [
+        733.99999985,
+        109.99999985,
+        236.99999985,
+        750.00000015,
+        160.00000015,
+        333.00000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_TRAVERSE_RIDER__coarse.stl",
+      "mesh_sha256": "5388dcc7323b77c75c3e3532fa761f2f87312b7cee4e377a8f93eca210e07b54"
+    },
+    {
+      "name": "WIND_TENSIONER",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 215,
+      "part_bbox": [
+        743.9999999,
+        192.9999999,
+        174.9999999,
+        784.0000001,
+        203.0000001,
+        215.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_TENSIONER__coarse.stl",
+      "mesh_sha256": "0036cbe121ac0c942ba0653d730876f8b38dbf050fb00e868defde9d75c627dd"
+    },
+    {
+      "name": "EL_DIN_RAIL",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 216,
+      "part_bbox": [
+        384.9999999,
+        41.9999999,
+        99.9999999,
+        595.0000001,
+        53.0000001,
+        103.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_DIN_RAIL__coarse.stl",
+      "mesh_sha256": "1dd7fc18a3fde2fec741227876da5c7101d9bb4b7b080bf3b12e268f8f4bd970"
+    },
+    {
+      "name": "EL_DRIVER_1",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 217,
+      "part_bbox": [
+        389.9999999,
+        41.9999999,
+        102.9999999,
+        435.0000001,
+        82.0000001,
+        135.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_DRIVER_1__coarse.stl",
+      "mesh_sha256": "12b92e7c8d74a993828128d3e709d7a78cd028895ebf77f2fb1bee3c85eb0ad1"
+    },
+    {
+      "name": "EL_DRIVER_2",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 218,
+      "part_bbox": [
+        444.9999999,
+        41.9999999,
+        102.9999999,
+        490.0000001,
+        82.0000001,
+        135.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_DRIVER_2__coarse.stl",
+      "mesh_sha256": "3efa2b40f9dd20783a24691e9383756e07a273b164e8b1c4a59147c18e4347b0"
+    },
+    {
+      "name": "EL_DRIVER_3",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 219,
+      "part_bbox": [
+        499.9999999,
+        41.9999999,
+        102.9999999,
+        545.0000001,
+        82.0000001,
+        135.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_DRIVER_3__coarse.stl",
+      "mesh_sha256": "52993a49a539210b5d9d617ba1e850bf578e17920e0b4e808becafe8c06a3c35"
+    },
+    {
+      "name": "EL_CONTACTOR",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 220,
+      "part_bbox": [
+        549.9999999,
+        41.9999999,
+        102.9999999,
+        595.0000001,
+        87.0000001,
+        173.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_CONTACTOR__coarse.stl",
+      "mesh_sha256": "67599bf329552f83842eeac43c8668c06ac4bcb0a73fa5aabb09e8a47c2e5410"
+    },
+    {
+      "name": "EL_ESTOP_BOX",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 221,
+      "part_bbox": [
+        389.9999999,
+        99.9999999,
+        94.9999999,
+        430.0000001,
+        140.0000001,
+        135.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_ESTOP_BOX__coarse.stl",
+      "mesh_sha256": "612289018770537ea034a02d013d813ba27d3522922c23ccd155e08da2c08f32"
+    },
+    {
+      "name": "EL_OVERTEMP_BOX",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 222,
+      "part_bbox": [
+        439.9999999,
+        99.9999999,
+        94.9999999,
+        480.0000001,
+        140.0000001,
+        135.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_OVERTEMP_BOX__coarse.stl",
+      "mesh_sha256": "0f42565ddd5f25946ddc84cdc5c2890da70c5d1b9f910edfc55f0a13c2d08e1d"
+    },
+    {
+      "name": "EL_CURRENT_LIMITER",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 223,
+      "part_bbox": [
+        489.9999999,
+        99.9999999,
+        94.9999999,
+        530.0000001,
+        140.0000001,
+        135.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_CURRENT_LIMITER__coarse.stl",
+      "mesh_sha256": "a017a3d7ca259e78a53835a92042e7f45aab1bd7effcb9afcc2ca10ebd7c9800"
+    },
+    {
+      "name": "EL_WIRE_DUCT",
+      "group": "electrical",
+      "body": "STATIC",
+      "step_index": 224,
+      "part_bbox": [
+        384.9999999,
+        139.9999999,
+        94.9999999,
+        595.0000001,
+        145.0000001,
+        125.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/EL_WIRE_DUCT__coarse.stl",
+      "mesh_sha256": "e08f31bd441a3f05870e92527e1516471ea1c93baa9bd3671affaf8b1ad55704"
+    }
+  ],
+  "count_adjustments": [],
+  "moving_bodies": [
+    "IN_SHAFT",
+    "S1A",
+    "S1B",
+    "S2_CARRIER",
+    "S2_ECC",
+    "S2_ROLLER_1",
+    "S2_ROLLER_2",
+    "S2_ROLLER_3",
+    "S2_ROLLER_4",
+    "S2_ROLLER_5",
+    "S2_ROLLER_6",
+    "S2_ROTOR"
+  ],
+  "static_body": "STATIC",
+  "emitted": [
+    {
+      "name": "FR-2040-630_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2040-630_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "76e43e4fedae61dbc9e4eaf5c50cdbb0fa11a05e59a0788b8b49590135e1c946"
+    },
+    {
+      "name": "FR-2040-630_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2040-630_002__coarse.stl",
+      "bytes": 1684,
+      "sha256": "eff86f13e759734edcfb5b59a359b3374149f2317cf7cf0c3a339dbe9183e468"
+    },
+    {
+      "name": "FR-2040-320_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2040-320_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "708d8fe6c6a0c2729f5ef97046139e224a3102630cbb47e078114fcae5e46944"
+    },
+    {
+      "name": "FR-2040-320_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2040-320_002__coarse.stl",
+      "bytes": 1684,
+      "sha256": "0689167a499b516a9f8116470eae52c695eb73ef6ed602d31c811f20f768e545"
+    },
+    {
+      "name": "FR-2040-400_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2040-400_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "41b05aa299c52bb4fcadb41aa005874e5939fa36f397c1fa2e06cc397eb35ef1"
+    },
+    {
+      "name": "FR-2040-400_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2040-400_002__coarse.stl",
+      "bytes": 1684,
+      "sha256": "d234f1faee12e619f01a90f191de2fb82e0a5362f74f427035c3efc4945aafbb"
+    },
+    {
+      "name": "FR-2020-400_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2020-400_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "89e7ece04d5cd0699ce11cbc63d9c0a2c8bcff3d641e1d19aae63f9ffe8f186c"
+    },
+    {
+      "name": "FR-2020-400_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2020-400_002__coarse.stl",
+      "bytes": 1684,
+      "sha256": "b35e81de7079f2aaff9141bffe75d452e9ac3336e934dab96cc1ba9d37002cf5"
+    },
+    {
+      "name": "FR-2020-590_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2020-590_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "bc7f3fc17ca89722d8d64a0b5fa7912379e1a7be5a17668e2a854c6d74f8da56"
+    },
+    {
+      "name": "FR-2020-590_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2020-590_002__coarse.stl",
+      "bytes": 1684,
+      "sha256": "233fdf17c528257156ff5c5bf98ebc2fe435847a60b8bacf5b63b1ac12d7c60d"
+    },
+    {
+      "name": "FR-2020-360_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2020-360_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "76880b5639fab487a0da7d2f0523ed74bde4f0904aa7a1c672eb36713af93527"
+    },
+    {
+      "name": "FR-2020-360_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2020-360_002__coarse.stl",
+      "bytes": 1684,
+      "sha256": "4c939dedc14b23b1ae85701010b05fffdfb2cebe2ad816e205b9c4b8d65a1bcf"
+    },
+    {
+      "name": "FR-2020-360_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2020-360_003__coarse.stl",
+      "bytes": 1684,
+      "sha256": "035281dd10a9d1edf796ba78e96e27a3b5f92fecbd1df4a876483af13b58796b"
+    },
+    {
+      "name": "FR-2020-320_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-2020-320_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "cb0c50c1a5cb35a0d9e1cd4a5a122ba5c480452087e572bdeedeb46dd2297fc1"
+    },
+    {
+      "name": "FR-BASE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FR-BASE_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "db44515ec2815a301af9c94ad2d445ce8bc6d7e8fd0b09d58c2613c4469696b3"
+    },
+    {
+      "name": "EL-PSU_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL-PSU_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "7842b914898b5186fd6d9ff5ac35934b37a1454a644b5a5cd6f88f8c1bae512b"
+    },
+    {
+      "name": "DRV-M1_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-M1_001__coarse.stl",
+      "bytes": 41784,
+      "sha256": "550be0994a9db998b5b3a09676289c721f91a93b50b1f380806390b47cc715cd"
+    },
+    {
+      "name": "DRV-M2_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-M2_001__coarse.stl",
+      "bytes": 42384,
+      "sha256": "38c4b14d3f785a5f868f8cd962efdd92c54c327e2d66326d10e6db3ee735c230"
+    },
+    {
+      "name": "DRV-M1-PL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-M1-PL_001__coarse.stl",
+      "bytes": 49284,
+      "sha256": "3da46d20fb4b240d37a966b3e090e4bb31fee4a753de5d3e96ddcb7f066ceb9b"
+    },
+    {
+      "name": "DRV-CPL12_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/DRV-CPL12_001__fine.stl",
+      "bytes": 163084,
+      "sha256": "30eb87cb2d6064632e25271a68849c057cd037c8e4b76ff60967a20b22b42096"
+    },
+    {
+      "name": "DRV-IN-SHAFT_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/DRV-IN-SHAFT_001__fine.stl",
+      "bytes": 31884,
+      "sha256": "8e98da209ac3a03e3737199d397aed6b91ecc38023866c36a307e78ce242420f"
+    },
+    {
+      "name": "DRV-JACK_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-JACK_001__coarse.stl",
+      "bytes": 13084,
+      "sha256": "6867129d93e2500a0b385a38e95029196da6162500560dc1378820b2732ab6b7"
+    },
+    {
+      "name": "BR-6001_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6001_001__coarse.stl",
+      "bytes": 10484,
+      "sha256": "14c78f855e66f44d7b4f5257ad5da5ca55f2c79d96f9c0a30309107b1bbcd7ed"
+    },
+    {
+      "name": "BR-6001_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6001_002__coarse.stl",
+      "bytes": 10484,
+      "sha256": "bc874105ae45223c1eb74d720b1772afc477dedecebfd06fde6ba99ab2bdad19"
+    },
+    {
+      "name": "BR-6204_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6204_001__coarse.stl",
+      "bytes": 10484,
+      "sha256": "d09ee2be0b46f10a7a7cc5afa113804d981c169337ee81c032ce959f94d2a849"
+    },
+    {
+      "name": "BR-6204_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6204_002__coarse.stl",
+      "bytes": 10484,
+      "sha256": "c7804aa502931c9ebe903684ebe8645e2f785a21bd954dc2c125957f667c2110"
+    },
+    {
+      "name": "DRV-BFRONT_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-BFRONT_001__coarse.stl",
+      "bytes": 33484,
+      "sha256": "44fbd7b3537912f88f3fc8bbe62e4bc0d646d76348dec7e867bf7f6ff3aec6c6"
+    },
+    {
+      "name": "DRV-B12_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-B12_001__coarse.stl",
+      "bytes": 28584,
+      "sha256": "c42d1fdd3f5501e904d42285bb7fa3158c84bb041abb5e1f5402e76a5f0b68e8"
+    },
+    {
+      "name": "DRV-B20_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-B20_001__coarse.stl",
+      "bytes": 27684,
+      "sha256": "4aaadc93700394be6ee8abf386238d0a2f245030004d9976a822db04b81b0075"
+    },
+    {
+      "name": "DRV-SH15R_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/DRV-SH15R_001__fine.stl",
+      "bytes": 169484,
+      "sha256": "749ef3dff1cc25ff4e2d4674eac9e9c6797a308ddc417338bf3950d92c661a86"
+    },
+    {
+      "name": "DRV-SH15L_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/DRV-SH15L_001__fine.stl",
+      "bytes": 169484,
+      "sha256": "b2967cfb9ddce65d1a9dd7feb15b2449f0bd3dd72d83a4fec68a5fe625768e1d"
+    },
+    {
+      "name": "DRV_SH40L_lower",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV_SH40L_lower__coarse.stl",
+      "bytes": 171084,
+      "sha256": "9d919e45d2b4fec758748036da8b0fef045c67b554fb6c05f20a2ea18816ac3c"
+    },
+    {
+      "name": "DRV_SH40R_upper",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV_SH40R_upper__coarse.stl",
+      "bytes": 171084,
+      "sha256": "1d397e57d435079cd066724b73b303112a62aacbb3c98beb84b99ab4f1af8317"
+    },
+    {
+      "name": "DRV-SP24-B20_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-SP24-B20_001__coarse.stl",
+      "bytes": 72884,
+      "sha256": "45a77496cbb12fe7fa770070639d15dd1d6d7b260ec64fc846995e63fd808564"
+    },
+    {
+      "name": "DRV-SP24-B25_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/DRV-SP24-B25_001__fine.stl",
+      "bytes": 112884,
+      "sha256": "7aa9b896c5eaf285b60ccdd73824f05a098383bb45f427607f12f407cefd6ab6"
+    },
+    {
+      "name": "DRV-SP24-B12_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/DRV-SP24-B12_001__fine.stl",
+      "bytes": 112884,
+      "sha256": "e5f17adabb431cf4eb56cd5c2c3d456a016fc6c7ddbee14da5799a6317f32058"
+    },
+    {
+      "name": "DRV-SP12-B12_001",
+      "body": "S2_ECC",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/DRV-SP12-B12_001__fine.stl",
+      "bytes": 81684,
+      "sha256": "1ce5120a5be9aca52e19616a892a0b2cb65fb4451fb70cddf770967c12dfc1e6"
+    },
+    {
+      "name": "S1-CUT-A-P00_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P00_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "0fb3c65c060ae011d7a0eb8d57ba489fab33227ba1ec9f58f6be62f228d75871"
+    },
+    {
+      "name": "S1-SPACER-A_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_001__fine.stl",
+      "bytes": 48484,
+      "sha256": "f973c8c25a1aaec01336768a6e5b8d066a4ad18cd6e9710b3eaed2af8815ede9"
+    },
+    {
+      "name": "S1-CUT-A-P01_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P01_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "ab4a7e88f2867cf20ef0227ee5e9aa8cc2c65b2516906a69686cf8aa194eb7fc"
+    },
+    {
+      "name": "S1-SPACER-A_002",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_002__fine.stl",
+      "bytes": 48484,
+      "sha256": "c6d059314e07d7814a8c1dc0b6a814c63595155ad74d112c37d57899555046b5"
+    },
+    {
+      "name": "S1-CUT-A-P02_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P02_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "6d537e1cdef3c9d2cd700f860e65c1a518a0c6f8c387a401b2dd743d29582af4"
+    },
+    {
+      "name": "S1-SPACER-A_003",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_003__fine.stl",
+      "bytes": 48484,
+      "sha256": "8ec84e6b9b583948935a7c1fe6a18713f4b5b4e9e045920d966759c2fcf6313d"
+    },
+    {
+      "name": "S1-CUT-A-P03_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P03_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "2fa0c6b2be44ab0479f99d5a7847b4a8636cea888d10415419c6ab6b6abdc486"
+    },
+    {
+      "name": "S1-SPACER-A_004",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_004__fine.stl",
+      "bytes": 48484,
+      "sha256": "4499e1304ddf342507ee6aa58b2153b2586d2f939b310b6fa863ebc6f572fedb"
+    },
+    {
+      "name": "S1-CUT-A-P04_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P04_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "309c01af913766511c0ac3a6059cda66a2fa5574f8353540d797de1fb9341b8e"
+    },
+    {
+      "name": "S1-SPACER-A_005",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_005__fine.stl",
+      "bytes": 48484,
+      "sha256": "ab8793f731cb507abea6411300e2ffa9de66c6bf764b2068b39b39512d377dd5"
+    },
+    {
+      "name": "S1-CUT-A-P05_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P05_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "10be95913dff9dcb49f69cba69af5bd79a65fbede2684ca4b00dfa0ef581286d"
+    },
+    {
+      "name": "S1-SPACER-A_006",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_006__fine.stl",
+      "bytes": 48484,
+      "sha256": "52ff2846f6c143efff8f391154773f331fd7a975f295726a683550417132d86d"
+    },
+    {
+      "name": "S1-CUT-A-P06_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P06_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "5c9016b615e155db249037613fffd3a2e4073146cfadfda282cd2f1387863807"
+    },
+    {
+      "name": "S1-SPACER-A_007",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_007__fine.stl",
+      "bytes": 48484,
+      "sha256": "333ffa48313fecd72c320e2b41e4e7e6bae7edd7303cb8cd7a2554c6b47b7913"
+    },
+    {
+      "name": "S1-CUT-A-P07_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P07_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "70139177a57ce42c81d2fbe822090b055692bb5aa1229d05067bbe0e17603eca"
+    },
+    {
+      "name": "S1-SPACER-A_008",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_008__fine.stl",
+      "bytes": 48484,
+      "sha256": "540c2357c3c72e583603f6e7564e2b21e6fd32bcb01d725694a43e20f52a1e79"
+    },
+    {
+      "name": "S1-CUT-A-P08_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P08_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "851f8d2d7a923f3a9dbcf3065a9e2eb36c95f180d8db8e479a09149cdfb50a23"
+    },
+    {
+      "name": "S1-SPACER-A_009",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_009__fine.stl",
+      "bytes": 48484,
+      "sha256": "816b0d2e190aad2129a495c993d30f084febf7bd175e0c9188f9f283ca78daf3"
+    },
+    {
+      "name": "S1-CUT-A-P09_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P09_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "b0e6a6d20f2abd8095d8eeb85c34ea633382bcbbc8e59a60b288cc3652d2c087"
+    },
+    {
+      "name": "S1-SPACER-A_010",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_010__fine.stl",
+      "bytes": 48484,
+      "sha256": "905e49bd91513087071f711d92bdad26f9a9f396d8a941340791ad945c87b480"
+    },
+    {
+      "name": "S1-CUT-A-P10_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P10_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "2aa151da41544b2c23a25abff884df1518a43660822456a6b616add07b8c6d89"
+    },
+    {
+      "name": "S1-SPACER-A_011",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_011__fine.stl",
+      "bytes": 48484,
+      "sha256": "646dc68c64056c233090de14c3d5f6ddf6891182ef93b8868f8eef3111407676"
+    },
+    {
+      "name": "S1-CUT-A-P11_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P11_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "936cf1ad7c8e9bc8d3830ae7bd94606f3961661a30d6dd41191873a00b8b66b5"
+    },
+    {
+      "name": "S1-SPACER-A_012",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-A_012__fine.stl",
+      "bytes": 48484,
+      "sha256": "78862ea91be400166af03f49ab75ddc100219d6eb0f3532929fc39f8c26baedd"
+    },
+    {
+      "name": "S1-CUT-A-P12_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-A-P12_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "d883f8b1c095ac43841ec8658bc136ea417788b0f855c6cb4c688243ad7a345a"
+    },
+    {
+      "name": "S1-SHAFT-A_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SHAFT-A_001__fine.stl",
+      "bytes": 35284,
+      "sha256": "0cd902ef66a2f77eef893676d71f347509fc798208a8f0361bc9650bd3fad8c3"
+    },
+    {
+      "name": "BR-6205_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6205_001__coarse.stl",
+      "bytes": 10484,
+      "sha256": "a78b8c8a8b0f7d89b7abc256f3c7d7ba88f362823f010629bc9db1cdd6c3b70c"
+    },
+    {
+      "name": "BR-6205_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6205_002__coarse.stl",
+      "bytes": 10484,
+      "sha256": "8df524ecf4bc6fee4ccd4d58fb7d24b1f799459367991819144422c360d5c52d"
+    },
+    {
+      "name": "S1-CUT-B-P00_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P00_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "c57a590d53989f9cd858a45dbe5109b6069c4c0357b2fa205394e5b7395c1ce5"
+    },
+    {
+      "name": "S1-SPACER-B_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_001__fine.stl",
+      "bytes": 48484,
+      "sha256": "dba980a54128818bd75909c806a548d00d63c52cb711fa4fee37a4b3664d94e1"
+    },
+    {
+      "name": "S1-CUT-B-P01_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P01_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "7ca1ad6ae65b067c1dd1306c5b5530cbcea6e3e77f3e9b3beaa5da590679a79c"
+    },
+    {
+      "name": "S1-SPACER-B_002",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_002__fine.stl",
+      "bytes": 48484,
+      "sha256": "09a2774027d754134fdf12fd1c21b58646406ccb58d547523130a11cdb820cf9"
+    },
+    {
+      "name": "S1-CUT-B-P02_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P02_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "7d46d0751607cd3ee9225b80ba03fdbf7fb69ee422ba6899c3a1f1235b82ebd7"
+    },
+    {
+      "name": "S1-SPACER-B_003",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_003__fine.stl",
+      "bytes": 48484,
+      "sha256": "4885d2a36f737a23ea6cf9bbdbbd8bca46d3040357737cc919b737abb972d543"
+    },
+    {
+      "name": "S1-CUT-B-P03_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P03_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "a24b47dd88046a3c4278563d325148f0d324eda8f492d832d56c88936fb89905"
+    },
+    {
+      "name": "S1-SPACER-B_004",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_004__fine.stl",
+      "bytes": 48484,
+      "sha256": "6bd9bd8054b3920e11b75d64e72a5b9bc780658b6c14cd327038f57f231dfe4a"
+    },
+    {
+      "name": "S1-CUT-B-P04_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P04_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "e6896e066cb72ed6ac18895c5a3529f1d5e342eaa8b548ee4b74b4e0afecde68"
+    },
+    {
+      "name": "S1-SPACER-B_005",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_005__fine.stl",
+      "bytes": 48484,
+      "sha256": "01a3d8bf0c09522625a0dd0ab36d956653ad0c9e0cdfdd2b3a2444cc5b448afd"
+    },
+    {
+      "name": "S1-CUT-B-P05_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P05_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "45aec409c809e3dc64ce2463b2df53f500887114d327da121ddffaa49aa2f9a7"
+    },
+    {
+      "name": "S1-SPACER-B_006",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_006__fine.stl",
+      "bytes": 48484,
+      "sha256": "0b992871f9eb092e0b13d434993dd078aacc91b3128122e872bf39b8f98bd92d"
+    },
+    {
+      "name": "S1-CUT-B-P06_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P06_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "c0110d08de7a0fcdd4fc9bcf9cb2ccd330f1416987c1952928b28a844bfd2d71"
+    },
+    {
+      "name": "S1-SPACER-B_007",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_007__fine.stl",
+      "bytes": 48484,
+      "sha256": "cabd6f9c770e47a890bd51bb8a1e5cace2ee9a3c1af94d241d27627faaa53f29"
+    },
+    {
+      "name": "S1-CUT-B-P07_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P07_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "f851535bc5734cfeaf35e81785b92e3db5ce363754941639e06f04ac36a1a3fe"
+    },
+    {
+      "name": "S1-SPACER-B_008",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_008__fine.stl",
+      "bytes": 48484,
+      "sha256": "4b267620a1bf2319c07a573e9ce7f268d1566ce13725c35968c1ba4bdd430715"
+    },
+    {
+      "name": "S1-CUT-B-P08_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P08_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "a6bf8cdc395e8e73fb6e123dc74bb7bf24b01557e47161af2a4bf5faa6adc30d"
+    },
+    {
+      "name": "S1-SPACER-B_009",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_009__fine.stl",
+      "bytes": 48484,
+      "sha256": "39d6e9faec00dc53b737ff30c88171a05dbcc466e48efea1d7a81251f79f027b"
+    },
+    {
+      "name": "S1-CUT-B-P09_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P09_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "ce3801c2b9f34f8b49f52604827a8fb84df3bde20afdcf56d4072bc37347ef79"
+    },
+    {
+      "name": "S1-SPACER-B_010",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_010__fine.stl",
+      "bytes": 48484,
+      "sha256": "38d19db46cb8c5fc5a95ac1039c5999149fd85068936cfb13455145b7df9f836"
+    },
+    {
+      "name": "S1-CUT-B-P10_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P10_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "05898f184f3c44561a691e6b566a50342ec27bdbec65780fc4ced571fb116643"
+    },
+    {
+      "name": "S1-SPACER-B_011",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_011__fine.stl",
+      "bytes": 48484,
+      "sha256": "62a5cf38986e6db6cd7fda6c547ffb26808be1dc1e2ad990c010c957b8da4df0"
+    },
+    {
+      "name": "S1-CUT-B-P11_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P11_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "f30cec6bc2d00f7a476012647e02cbd0086839ad25e24e431cd575f13bb294ff"
+    },
+    {
+      "name": "S1-SPACER-B_012",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SPACER-B_012__fine.stl",
+      "bytes": 48484,
+      "sha256": "1a5f9447891471e1bac31e1b266fbc6f9498bb018e7304c2a7f08e913943a354"
+    },
+    {
+      "name": "S1-CUT-B-P12_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-CUT-B-P12_001__fine.stl",
+      "bytes": 46484,
+      "sha256": "9078cb69ba1e39671b6a926c22d03f3dbc992d237d1874a02d410de682ce33ac"
+    },
+    {
+      "name": "S1-SHAFT-B_001",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SHAFT-B_001__fine.stl",
+      "bytes": 31884,
+      "sha256": "b4a554c2e13446574be1af1fbe7f771838059e0ce0a6f3047fed6d196bec7149"
+    },
+    {
+      "name": "BR-6205_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6205_003__coarse.stl",
+      "bytes": 10484,
+      "sha256": "a392e4915c1c32c95d1fe2466a243cefb5e50f35537f4f3036dbd858449a7ec8"
+    },
+    {
+      "name": "BR-6205_004",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6205_004__coarse.stl",
+      "bytes": 10484,
+      "sha256": "4efa6cd37572e943890d49cc2e459d9dd8e2bd66a35a6e127de046e666a8297a"
+    },
+    {
+      "name": "S1-SYNC_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SYNC_001__fine.stl",
+      "bytes": 145284,
+      "sha256": "751aa8474258b04931ce5f025e7d6c8fb1a9fa02582467b445f816cdf77a6be3"
+    },
+    {
+      "name": "S1-SYNC_002",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1-SYNC_002__fine.stl",
+      "bytes": 145284,
+      "sha256": "df9ee500aa5459805c15f9e0baad8a25d57503be4cf33bdc2be6be0fc66d5ba4"
+    },
+    {
+      "name": "S1-BPL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-BPL_001__coarse.stl",
+      "bytes": 33084,
+      "sha256": "fd94a9079740df670de7eb9db09dfc6964b63b185df0abecef6e17cc4c66fdd8"
+    },
+    {
+      "name": "S1-BPL_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-BPL_002__coarse.stl",
+      "bytes": 33084,
+      "sha256": "3783d206304784057863a301c9148a05cfab6c9090451d8c496302070bcefff7"
+    },
+    {
+      "name": "S1-WALL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-WALL_001__coarse.stl",
+      "bytes": 31484,
+      "sha256": "63a8a8c01af755ec8156abc05b70300ad04b4a27970399a274a7dad72ed288b1"
+    },
+    {
+      "name": "S1-WALL_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-WALL_002__coarse.stl",
+      "bytes": 31484,
+      "sha256": "c600d91db61ae62ab6dd0265a4c55863cd1f115d09041f130309996ee1de48f0"
+    },
+    {
+      "name": "S1-SIDE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-SIDE_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "43a00d10e90659fe62d1e7e25470f5470daa6a70ebb6cea4681cbb2a73766dbc"
+    },
+    {
+      "name": "S1-SIDE_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-SIDE_002__coarse.stl",
+      "bytes": 684,
+      "sha256": "56f5ff71177827d7f45dbfd2bf859301a5b6ba7dca1fa7d1fc3562fb53409061"
+    },
+    {
+      "name": "S1-BR-CAP_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-BR-CAP_001__coarse.stl",
+      "bytes": 33084,
+      "sha256": "c4a673ed9d7b483e1306ffcb453e12e85ab83b6aececebd97729d99230043b36"
+    },
+    {
+      "name": "S1-BR-CAP_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-BR-CAP_002__coarse.stl",
+      "bytes": 33084,
+      "sha256": "43c17e996617ce772a2047f08d5cdc708d88cc35dc888591d3d4707aba0caa33"
+    },
+    {
+      "name": "FEED-BUF_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FEED-BUF_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "96dfec8704e1bd445a539d976f2af9dcedfe863ba70db1ca9c90ac5d092af27f"
+    },
+    {
+      "name": "EX-SCREW_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-SCREW_001__coarse.stl",
+      "bytes": 1786984,
+      "sha256": "66e763494d8fb443d401626a181ee03a2a524a551ade53dd47acd460afe09e3c"
+    },
+    {
+      "name": "EX-BARREL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-BARREL_001__coarse.stl",
+      "bytes": 19484,
+      "sha256": "76be26346f402fd464914ac14ee112119f5e68b6ea64c73aa32543e35ee7bcd6"
+    },
+    {
+      "name": "EX-REAR_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-REAR_001__coarse.stl",
+      "bytes": 15484,
+      "sha256": "7b2ea68a89f661eed4f90d9332fe498eb5d40e550afaa29b21443bda22f56bef"
+    },
+    {
+      "name": "EX-CPL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-CPL_001__coarse.stl",
+      "bytes": 15684,
+      "sha256": "6f381d88c4a32737d3adad5ee01c4bd55ba6a2f31bee53e96bfc340f9731147e"
+    },
+    {
+      "name": "BR-6202_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-6202_001__coarse.stl",
+      "bytes": 10484,
+      "sha256": "210267cc4d06273a3c135dce272fc2eca90cd203ead784f60c6aa7ee760fe11e"
+    },
+    {
+      "name": "BR-51102_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/BR-51102_001__coarse.stl",
+      "bytes": 10484,
+      "sha256": "689911762516c3c601480837740e633260a1631a31bc6a2c0d85327a7cfbf9a7"
+    },
+    {
+      "name": "EX-THRUST_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-THRUST_001__coarse.stl",
+      "bytes": 53284,
+      "sha256": "6419ace46fb014ff83de471cfa9f222162e0810d09e95f515eeffb7230c6e77d"
+    },
+    {
+      "name": "EX-DIE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-DIE_001__coarse.stl",
+      "bytes": 22484,
+      "sha256": "64748c142b4874e715b826f167933eabd9fb3ac193e96cd35c0832fde5172f91"
+    },
+    {
+      "name": "EX-H100_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-H100_001__coarse.stl",
+      "bytes": 10484,
+      "sha256": "dbaf7e10f567b14e7e8ffd081c565ff7e088f83400fde81bef99d9f69ef3847b"
+    },
+    {
+      "name": "EX-H100_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-H100_002__coarse.stl",
+      "bytes": 10484,
+      "sha256": "aaa02d98dd2182f935820b79907d25d749ae87a00436f4ef6431cc6d6b3a8886"
+    },
+    {
+      "name": "EX-H100_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-H100_003__coarse.stl",
+      "bytes": 10484,
+      "sha256": "c41bd2e2bd59a43e1f3c602d8a451c17bb48a88f23d64409d12d641ed7afb9cd"
+    },
+    {
+      "name": "EX-H60_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-H60_001__coarse.stl",
+      "bytes": 5084,
+      "sha256": "c92d1593c01ba171c0afbf6e2474aac062981c3fcbcd4ccad286665c4d456bdc"
+    },
+    {
+      "name": "COOL-TRAY_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/COOL-TRAY_001__coarse.stl",
+      "bytes": 1484,
+      "sha256": "048d25496f8d31a5d78f90cc0e919ca7cfaf4157cbeab07da105031fc78f8981"
+    },
+    {
+      "name": "COOL-FAN_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/COOL-FAN_001__coarse.stl",
+      "bytes": 27684,
+      "sha256": "4ccc161d12c85958791c6abea87bf0e4834e584195a489acc7a2205b838ad49c"
+    },
+    {
+      "name": "COOL-FAN_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/COOL-FAN_002__coarse.stl",
+      "bytes": 27684,
+      "sha256": "cf1eef70a750c48f4695f4f56bec0cb9857bacdfa7d06ec2edd6c13044a9613a"
+    },
+    {
+      "name": "HOPPER_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/HOPPER_001__coarse.stl",
+      "bytes": 1684,
+      "sha256": "d194185b009736cbda4c5fedbfb34aa473872b145603f7cfc436045ca17c371a"
+    },
+    {
+      "name": "HOP-LID_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/HOP-LID_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "d1e44776b2e0bde40c1b7906caaf1fb2754edbcf734e9a94c9ee369057173fbe"
+    },
+    {
+      "name": "S1-ROOF-F_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-ROOF-F_001__coarse.stl",
+      "bytes": 12984,
+      "sha256": "3149686714b2ee26c34217ddcaf377a7f8324d30c043004d7231413a55215612"
+    },
+    {
+      "name": "S1-ROOF-R_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-ROOF-R_001__coarse.stl",
+      "bytes": 14584,
+      "sha256": "237bac21087ce7641362c453e441021c53018efe1453d56729d836994b17f829"
+    },
+    {
+      "name": "S1-TIE-TUBE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-TIE-TUBE_001__coarse.stl",
+      "bytes": 10484,
+      "sha256": "e212392880d919ce975e8d7483a6c4d8d58b6da0dfaa3d0dae8a6f2ccfdc49a2"
+    },
+    {
+      "name": "S1-STUD_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-STUD_001__coarse.stl",
+      "bytes": 5384,
+      "sha256": "0712ff532fefbdc323a8759e5c7a15788342703c10e83ad9ab2882d52b955da3"
+    },
+    {
+      "name": "S1-TIE-TUBE_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-TIE-TUBE_002__coarse.stl",
+      "bytes": 10484,
+      "sha256": "13b098252c13df03f886eed643dfca92e3a384f3034eb950a04f3994d4366f6d"
+    },
+    {
+      "name": "S1-STUD_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-STUD_002__coarse.stl",
+      "bytes": 5084,
+      "sha256": "2cb58fc59b26387b4560965ebc0928e0d95fba446f72f6d62295cccef8de6c2e"
+    },
+    {
+      "name": "S1-ROOF-F_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-ROOF-F_002__coarse.stl",
+      "bytes": 12984,
+      "sha256": "44599d53ab8871e7aa2e6ac7c664bb305d7de379542abdb4268bf7ca677dd5bd"
+    },
+    {
+      "name": "S1-ROOF-R_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-ROOF-R_002__coarse.stl",
+      "bytes": 13384,
+      "sha256": "f6309a2fcf59427c4018a074450bd95d6f7078c9bcd7386d087fa41425c34b53"
+    },
+    {
+      "name": "S1-TIE-TUBE_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-TIE-TUBE_003__coarse.stl",
+      "bytes": 10484,
+      "sha256": "b71c6bae84e3b213c639c152f4099091cf9fabd924bcec654a2d40b719d5a1b2"
+    },
+    {
+      "name": "S1-STUD_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-STUD_003__coarse.stl",
+      "bytes": 5084,
+      "sha256": "3e7a1dfbd36047decf48329fc502565875ae04c7728ec75a950b9e2fa3c4e955"
+    },
+    {
+      "name": "S1-TIE-TUBE_004",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-TIE-TUBE_004__coarse.stl",
+      "bytes": 10484,
+      "sha256": "551059e98dbbdace4dc3779d827ac0a678e0d79cb41ac5ed39ce3b87e643194f"
+    },
+    {
+      "name": "S1-STUD_004",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1-STUD_004__coarse.stl",
+      "bytes": 5084,
+      "sha256": "f6e8c89a7c715a2d9f29a4e557ed2079eabaafff6241fd48f93cbda6c749303c"
+    },
+    {
+      "name": "DRV-DECK_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-DECK_001__coarse.stl",
+      "bytes": 36184,
+      "sha256": "fa32e8abbe7a1e7fa6507fe2420c5f71ae0661e3ee735806ccd96148a5f0d935"
+    },
+    {
+      "name": "DRV-M1-FOOT_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-M1-FOOT_001__coarse.stl",
+      "bytes": 22684,
+      "sha256": "8c6ec2d482dc95723dbd67a232074288a638711242e42b0e46b512c929b78687"
+    },
+    {
+      "name": "DRV-RISER12_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-RISER12_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "43078ad85cbc62c18acc61ef84055a94edd0dce728fc0a06602a6429ea4ff213"
+    },
+    {
+      "name": "DRV-RISER20_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-RISER20_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "8885f855985ad6bddc37794b7c9f50f73b265b0cf26abd6ebdf423cb7fe4cd6e"
+    },
+    {
+      "name": "S2-LEG-L_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S2-LEG-L_001__coarse.stl",
+      "bytes": 17684,
+      "sha256": "8d261f9a1b9fd3d9ffa3a1a5c1a650452898c63541f3b2ab2cf34adc4ece7a7e"
+    },
+    {
+      "name": "S2-LEG-L_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S2-LEG-L_002__coarse.stl",
+      "bytes": 17684,
+      "sha256": "cd1a890aee91178a5ca7f702aa884cf4b604c44d26f9944217f9d682f896e9ec"
+    },
+    {
+      "name": "S2-LEG-R_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S2-LEG-R_001__coarse.stl",
+      "bytes": 17684,
+      "sha256": "a4f5f89a40f5182db669ced8775a546bd48d850a8c5a988b9268b4a784282772"
+    },
+    {
+      "name": "S2-LEG-R_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S2-LEG-R_002__coarse.stl",
+      "bytes": 17684,
+      "sha256": "669c2b9166fb97fe080bc278f675a0c4a23d6cf39ec4f5005e42a32b42891e4b"
+    },
+    {
+      "name": "EX-STAND_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EX-STAND_001__coarse.stl",
+      "bytes": 46884,
+      "sha256": "e89e92829c47ec96c4f50104bda898e1637c9d3d7e96dfec225afb01d6b13ce2"
+    },
+    {
+      "name": "DRV_M2_FACE_PLATE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV_M2_FACE_PLATE__coarse.stl",
+      "bytes": 49284,
+      "sha256": "cd6db70a9fd56863349b8909e0dc4efc3fa389af0f8be56ba1eb1d32c9e70283"
+    },
+    {
+      "name": "KEY-8-154_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/KEY-8-154_001__fine.stl",
+      "bytes": 684,
+      "sha256": "0416c466a8ab83f46ae7c0fd6b18939bdd82028352bc9573baac48f3d888f626"
+    },
+    {
+      "name": "KEY-8-154_002",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/KEY-8-154_002__fine.stl",
+      "bytes": 684,
+      "sha256": "98bd35ea419c21dfc47b743e0381938dc194ec6fe20fb9fabd78dd53294e08c9"
+    },
+    {
+      "name": "KEY-8-25_001",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/KEY-8-25_001__fine.stl",
+      "bytes": 684,
+      "sha256": "00774ef12b923cb9f794de540a3bd4dc6619792fc38a441fe18e4ff92de44e54"
+    },
+    {
+      "name": "KEY-8-25_002",
+      "body": "S1B",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/KEY-8-25_002__fine.stl",
+      "bytes": 684,
+      "sha256": "6203a910a535af2e4c2c4c8a969ac5b08e1fa5fe0e06c48005e8fe8034cc35f4"
+    },
+    {
+      "name": "KEY-8-16_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/KEY-8-16_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "362fcd78c254ebbb54ac33caf138972c3cce27b2233af29f61f8412526b7e9f8"
+    },
+    {
+      "name": "KEY-4-70_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/KEY-4-70_001__fine.stl",
+      "bytes": 684,
+      "sha256": "6824248b77d711a0a870f51c636129dd257aafff3b2a34b699e6c1b056b24e0f"
+    },
+    {
+      "name": "KEY-4-16_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/KEY-4-16_001__fine.stl",
+      "bytes": 684,
+      "sha256": "b620ce646072aa442e9109cdae90fdbf0152a7fa5b0ccb111612d4d12d045f1f"
+    },
+    {
+      "name": "KEY-6-70_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/KEY-6-70_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "4f7df78de35367fdceb43479b257d684ea72df4187046d84ce1260fe54554896"
+    },
+    {
+      "name": "KEY-6-16_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/KEY-6-16_001__coarse.stl",
+      "bytes": 684,
+      "sha256": "246cbb15a814f9bc576b32ee71b381d205a5624ba1635f1cc6f4a76b9fb68391"
+    },
+    {
+      "name": "FRONT_INPUT_SUPPORT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FRONT_INPUT_SUPPORT__coarse.stl",
+      "bytes": 18084,
+      "sha256": "77cd211d89d5a9b66aea28a7858031e5015fb92a72a999f7626b028ae7df8e39"
+    },
+    {
+      "name": "REAR_OUTPUT_SUPPORT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/REAR_OUTPUT_SUPPORT__coarse.stl",
+      "bytes": 18084,
+      "sha256": "fc7a4da67c44b14b78bc9c70cebae74a7d151e4e53b2d67666cc919695301a3f"
+    },
+    {
+      "name": "INPUT_BEARING_ENVELOPE_UNRATED",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/INPUT_BEARING_ENVELOPE_UNRATED__coarse.stl",
+      "bytes": 10484,
+      "sha256": "4917806a4902f1500c9f107fca8efed3c0a6f5692daba32400085ac672adbc64"
+    },
+    {
+      "name": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/OUTPUT_BEARING_ENVELOPE_UNRATED__coarse.stl",
+      "bytes": 10484,
+      "sha256": "07a737a9f652832a3bbb6e185055d58e9ee3de1fc6b1fc855f39cf8e92449a18"
+    },
+    {
+      "name": "FRONT_FIXED_RING_PLATE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FRONT_FIXED_RING_PLATE__coarse.stl",
+      "bytes": 10484,
+      "sha256": "88dccd6ea70e3ef6e067a2dd03eebd6a7116c5b549f2a44fec91e6f0de7319e4"
+    },
+    {
+      "name": "REAR_FIXED_RING_PLATE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/REAR_FIXED_RING_PLATE__coarse.stl",
+      "bytes": 10484,
+      "sha256": "b232cf2d23f6e90681c3ce34eae03610b095b94af1d1595f2c3af0469d092d7a"
+    },
+    {
+      "name": "C2_FIXED_SHEAR_SENSOR_BORE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_FIXED_SHEAR_SENSOR_BORE__coarse.stl",
+      "bytes": 16684,
+      "sha256": "55d180facd547230da896cb0e8c2861d52da42c939724c01a20d9e05656c6d33"
+    },
+    {
+      "name": "C2_PERFORATED_SCREEN_REFERENCE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_PERFORATED_SCREEN_REFERENCE__coarse.stl",
+      "bytes": 539484,
+      "sha256": "c20e03595990e7c88f50e6094bf6a6ffd4e7a96c969a49c94d8944eaf2753e9b"
+    },
+    {
+      "name": "C2_LEFT_WEAR_SHELL",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_LEFT_WEAR_SHELL__coarse.stl",
+      "bytes": 48284,
+      "sha256": "6b0209c15f3f352ebe276adba09a6ef732c4f09721fc6f3cb3cbdbe214796bdf"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_1",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_RIGHT_WEAR_SHELL_1__coarse.stl",
+      "bytes": 15084,
+      "sha256": "42d59d542beec760538fd8f71fcc69a708c5e095ab21ea7de6a2bacc14f1d311"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_2",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_RIGHT_WEAR_SHELL_2__coarse.stl",
+      "bytes": 31084,
+      "sha256": "bfd4f02669a0bc79d5d8f2bbe144fb5ae0a6b8acb173263fe2737bc5d1dcca4f"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_L",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_THERMAL_SADDLE_L__coarse.stl",
+      "bytes": 58284,
+      "sha256": "cb2ffc5ee9186791121b12f90d870e05f5862b0fb081d13b41ba4a7345acd3bb"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_THERMAL_SADDLE_R_SENSOR_BORE__coarse.stl",
+      "bytes": 131284,
+      "sha256": "ea8601c4209a1349a80b57f482647f447658a2fd7400a29fdf409f6df326da30"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_FRONT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_SADDLE_CAP_L_FRONT__coarse.stl",
+      "bytes": 53884,
+      "sha256": "a4bdd7292cf728e6505e31be5eaf9e76707ad9c50a1b751d3fac2546e5e583f4"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_REAR",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_SADDLE_CAP_L_REAR__coarse.stl",
+      "bytes": 53884,
+      "sha256": "87d36a1c0ad96addbffba6c6d74361a61e5623b3d5bed0c9f4affad7c0cc2ad4"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_FRONT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_SADDLE_CAP_R_FRONT__coarse.stl",
+      "bytes": 101884,
+      "sha256": "f89178b48bb8a2f73a252442b9b2c1581218ce9d6a422648ab95fa9c6851af1c"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_REAR",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/C2_SADDLE_CAP_R_REAR__coarse.stl",
+      "bytes": 101884,
+      "sha256": "90dac1d6c520bde2fcc55aaaf0ea2e1723bdb9668a20d85c76615ec3a701169f"
+    },
+    {
+      "name": "FIXED_RING_PIN_1",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_1__coarse.stl",
+      "bytes": 5084,
+      "sha256": "c58ec53e3f828b280c23a95d1ca55a4f95d843ca549969026977ba88b59d9df5"
+    },
+    {
+      "name": "FIXED_RING_PIN_2",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_2__coarse.stl",
+      "bytes": 5084,
+      "sha256": "e138abbb5d9299fd81164cad7b79ade1d160a4a954cbc1ce24fa4e80e595b885"
+    },
+    {
+      "name": "FIXED_RING_PIN_3",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_3__coarse.stl",
+      "bytes": 5084,
+      "sha256": "698ad01c6af1943ff0ab3d5ee9811ad5f809b0b0662ee129eaad832ca455c6cc"
+    },
+    {
+      "name": "FIXED_RING_PIN_4",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_4__coarse.stl",
+      "bytes": 5084,
+      "sha256": "247df488b8428ad140af24a91dd6b2c84e75d92ce06646a9380d6a5342b29db3"
+    },
+    {
+      "name": "FIXED_RING_PIN_5",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_5__coarse.stl",
+      "bytes": 5084,
+      "sha256": "fb74abe035cfd7be6a991fba0283e0f75c4ddddcf5e0278caf4299134ecf1a29"
+    },
+    {
+      "name": "FIXED_RING_PIN_6",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_6__coarse.stl",
+      "bytes": 5084,
+      "sha256": "d1ba548a12aaa477934687f421b6dda460387d0bae67c9b97ed15aef7fc57825"
+    },
+    {
+      "name": "FIXED_RING_PIN_7",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_7__coarse.stl",
+      "bytes": 5084,
+      "sha256": "2dd3134f21fab30c121d1e4557ed5361a8be434927570e40ba60ac7eacaa6ce1"
+    },
+    {
+      "name": "FIXED_RING_PIN_8",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_8__coarse.stl",
+      "bytes": 5084,
+      "sha256": "0862b62998850eddea5908f0b66f19e7b8d06dd4b7fca83a480816e84fec8019"
+    },
+    {
+      "name": "FIXED_RING_PIN_9",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FIXED_RING_PIN_9__coarse.stl",
+      "bytes": 5084,
+      "sha256": "c8149fed74d18cda1d5e55aa1e785ab9ddd99482cafe0b0a7bb45238c06a0a96"
+    },
+    {
+      "name": "SUPPORT_TIE_1",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/SUPPORT_TIE_1__coarse.stl",
+      "bytes": 5084,
+      "sha256": "3483e86ac6ffe90a0e508edca36d8f401083377f2db4c84cd8185a97c9c28fcb"
+    },
+    {
+      "name": "SUPPORT_TIE_2",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/SUPPORT_TIE_2__coarse.stl",
+      "bytes": 5084,
+      "sha256": "007b1afacb7b312d21111e67505b0f35a00b604e76825f8d56a85be44a305774"
+    },
+    {
+      "name": "SUPPORT_TIE_3",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/SUPPORT_TIE_3__coarse.stl",
+      "bytes": 5084,
+      "sha256": "39fd6acb1cee9d3dbfa5d81446c2fa7eb633f7e96285020a36589e3f62fde14c"
+    },
+    {
+      "name": "SUPPORT_TIE_4",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/SUPPORT_TIE_4__coarse.stl",
+      "bytes": 5084,
+      "sha256": "0c48794825324229a86d5fd4afcc231caff268fde2c07edeed35a3353ae05168"
+    },
+    {
+      "name": "INPUT_ECCENTRIC_SHAFT",
+      "body": "S2_ECC",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/INPUT_ECCENTRIC_SHAFT__fine.stl",
+      "bytes": 75484,
+      "sha256": "63642766c97cbce4f4709cf878182d7a59bf7248da51154aa15715ee904942fc"
+    },
+    {
+      "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "body": "S2_ECC",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/ECCENTRIC_BEARING_ENVELOPE_UNRATED__fine.stl",
+      "bytes": 50484,
+      "sha256": "e7921948f3a85e563d6c4846b633e76bae080ed0d7c74b3da0241e99111979de"
+    },
+    {
+      "name": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "body": "S2_ROTOR",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE__fine.stl",
+      "bytes": 611084,
+      "sha256": "bed3cd7611bb37594d73e5b995098053f3bece89b4bcc55d659cc8d48e1eb1d0"
+    },
+    {
+      "name": "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "body": "S2_CARRIER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/OUTPUT_PIN_CARRIER_AND_SHAFT__fine.stl",
+      "bytes": 201484,
+      "sha256": "f9bae02f88d2187faf446b16d38bb9ecff0622d4292495db72a4bdcd2af3db7c"
+    },
+    {
+      "name": "OUTPUT_ROLLER_1",
+      "body": "S2_ROLLER_1",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/OUTPUT_ROLLER_1__fine.stl",
+      "bytes": 50484,
+      "sha256": "b188d7f1857905695629637e84d98bac91b5adb5867f50a9e5c02fc3eb79da97"
+    },
+    {
+      "name": "OUTPUT_ROLLER_2",
+      "body": "S2_ROLLER_2",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/OUTPUT_ROLLER_2__fine.stl",
+      "bytes": 50484,
+      "sha256": "17ba3f059f90b5a148e30ed03419e06b541f4c6f283f8bba2a6ab7ba1135a8d3"
+    },
+    {
+      "name": "OUTPUT_ROLLER_3",
+      "body": "S2_ROLLER_3",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/OUTPUT_ROLLER_3__fine.stl",
+      "bytes": 50484,
+      "sha256": "c3f640488106b92e38c865a630efb13fbc7c7c5acb892d3787ab520d568f85af"
+    },
+    {
+      "name": "OUTPUT_ROLLER_4",
+      "body": "S2_ROLLER_4",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/OUTPUT_ROLLER_4__fine.stl",
+      "bytes": 50484,
+      "sha256": "9baad55c1d87cb9178a04330a67e84e0dab6edfba01b181b2743acd5313a7495"
+    },
+    {
+      "name": "OUTPUT_ROLLER_5",
+      "body": "S2_ROLLER_5",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/OUTPUT_ROLLER_5__fine.stl",
+      "bytes": 50484,
+      "sha256": "e21760b6b1539db0b4284080cbf763235d1b3ef6b9b043b1fa49430236ce01a3"
+    },
+    {
+      "name": "OUTPUT_ROLLER_6",
+      "body": "S2_ROLLER_6",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/OUTPUT_ROLLER_6__fine.stl",
+      "bytes": 50484,
+      "sha256": "4e8beb47b025685e16988bf285e147f0295631029071b6ea35e472c59a889289"
+    },
+    {
+      "name": "DRV-CHAIN-A",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-CHAIN-A__coarse.stl",
+      "bytes": 40084,
+      "sha256": "9a6685578975830d2031fae467387fb9d2c1ac01d0c9f61b1d269504dd6e429a"
+    },
+    {
+      "name": "DRV-CHAIN-B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-CHAIN-B__coarse.stl",
+      "bytes": 39684,
+      "sha256": "8f7eb019a0dcd88dfbedfcb7e6ee46ae11bc18a41a3c73452c4b0ca26df1c0c1"
+    },
+    {
+      "name": "CHUTE_BODY",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CHUTE_BODY__coarse.stl",
+      "bytes": 14784,
+      "sha256": "c9ba1886862d2380dd2380095f6910da3fd59eed9f14a4a58ffc368b71adc05c"
+    },
+    {
+      "name": "CHUTE_TROUGH_FLOOR_E",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CHUTE_TROUGH_FLOOR_E__coarse.stl",
+      "bytes": 4884,
+      "sha256": "6e68c652cabf292e66d9fde92ccd09587ea0f77bed53a56fdf35e9b765d3e7e4"
+    },
+    {
+      "name": "GUARD_S2_RING",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GUARD_S2_RING__coarse.stl",
+      "bytes": 9884,
+      "sha256": "da3f0cc9904120279ae6eaa63ad1d2eee54cd8b419066e2ccd3db8d84f7e27c0"
+    },
+    {
+      "name": "GUARD_CHAIN_A",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GUARD_CHAIN_A__coarse.stl",
+      "bytes": 684,
+      "sha256": "62e517df250697179deb1e1e711e36681f80c8eeadd5f48af41b100d8052c924"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
+      "bytes": 684,
+      "sha256": "0d89248417cd8c96b2671ae167621166aeaeaa9f8fbe3df6cf5e9be660a20af4"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
+      "bytes": 684,
+      "sha256": "0fcc151bb308ee37dedbf031159fe78868accdf7e65fee85553d48df72793b6b"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
+      "bytes": 684,
+      "sha256": "ae25d10b47bacdbe978ba13f80c9e3a43ce5aa1de65a9f17b35dd33a32039155"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
+      "bytes": 5484,
+      "sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+    },
+    {
+      "name": "GUARD_LID_INTERLOCK_SEAT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GUARD_LID_INTERLOCK_SEAT__coarse.stl",
+      "bytes": 684,
+      "sha256": "a9d29dcc21876079c4b2f7c50a6406d2e62d7ce140ea18251151418ca18461f4"
+    },
+    {
+      "name": "PULL_FRAME",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PULL_FRAME__coarse.stl",
+      "bytes": 1884,
+      "sha256": "5aaade1cbbd9562a1963f71fc511ef33ad9705951eea960afab6ca785b591dd9"
+    },
+    {
+      "name": "PULL_ROLLER_FIXED",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
+      "bytes": 15484,
+      "sha256": "04a146945e0aeb18489b5fee077d11ed7536c7c1f21b48dc1ac5dc01d04c2e13"
+    },
+    {
+      "name": "PULL_ROLLER_ADJ",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PULL_ROLLER_ADJ__coarse.stl",
+      "bytes": 11384,
+      "sha256": "c7993840cffebab4367d601a35293df3d70a825df2d3806476edcc09508772fb"
+    },
+    {
+      "name": "PULL_NIP_STOP",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PULL_NIP_STOP__coarse.stl",
+      "bytes": 684,
+      "sha256": "064d5f996284c1038296c9e8aedfc6bd3ea0e033240db65ceb632b5db35b5b56"
+    },
+    {
+      "name": "PULL_MOTOR_REF",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PULL_MOTOR_REF__coarse.stl",
+      "bytes": 6184,
+      "sha256": "f2c7c0571db3a0d81f001982e88816e731ae08e06ada342ca368c582d097a09d"
+    },
+    {
+      "name": "WIND_SPOOL_SHAFT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_SPOOL_SHAFT__coarse.stl",
+      "bytes": 5084,
+      "sha256": "0e2e4aa3f546b34a51a2c5ea4ca4dfe541c22b35529794628e885d6971b52011"
+    },
+    {
+      "name": "WIND_SPOOL_DRUM",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_SPOOL_DRUM__coarse.stl",
+      "bytes": 10484,
+      "sha256": "c1fe0339284d6962494b74820c6f18908313f079088121f86967abf9378a9ca6"
+    },
+    {
+      "name": "WIND_FLANGE_L",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_FLANGE_L__coarse.stl",
+      "bytes": 10484,
+      "sha256": "7ea9bb63a35f3788db210f2745075abbfa79680ea21aafe7db15a7df217aaed4"
+    },
+    {
+      "name": "WIND_FLANGE_R",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_FLANGE_R__coarse.stl",
+      "bytes": 10484,
+      "sha256": "2a689fe04cd73f2b5a2d8184969155d133e12abc785ea89bc8b355d2c7c4b684"
+    },
+    {
+      "name": "WIND_MOTOR_REF",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_MOTOR_REF__coarse.stl",
+      "bytes": 5884,
+      "sha256": "d627c3b9555bb84372e1fb1b185cec4e842f63c3f317594ed47e279fcd350d08"
+    },
+    {
+      "name": "WIND_TRAVERSE_SCREW",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_TRAVERSE_SCREW__coarse.stl",
+      "bytes": 5084,
+      "sha256": "c3273cb8b80cafe5d1de28d6b0d036d88686c4b3eff5426a362d2b849bd185a2"
+    },
+    {
+      "name": "WIND_TRAVERSE_RIDER",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_TRAVERSE_RIDER__coarse.stl",
+      "bytes": 10984,
+      "sha256": "5388dcc7323b77c75c3e3532fa761f2f87312b7cee4e377a8f93eca210e07b54"
+    },
+    {
+      "name": "WIND_TENSIONER",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_TENSIONER__coarse.stl",
+      "bytes": 9484,
+      "sha256": "0036cbe121ac0c942ba0653d730876f8b38dbf050fb00e868defde9d75c627dd"
+    },
+    {
+      "name": "EL_DIN_RAIL",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_DIN_RAIL__coarse.stl",
+      "bytes": 1484,
+      "sha256": "1dd7fc18a3fde2fec741227876da5c7101d9bb4b7b080bf3b12e268f8f4bd970"
+    },
+    {
+      "name": "EL_DRIVER_1",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_DRIVER_1__coarse.stl",
+      "bytes": 684,
+      "sha256": "12b92e7c8d74a993828128d3e709d7a78cd028895ebf77f2fb1bee3c85eb0ad1"
+    },
+    {
+      "name": "EL_DRIVER_2",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_DRIVER_2__coarse.stl",
+      "bytes": 684,
+      "sha256": "3efa2b40f9dd20783a24691e9383756e07a273b164e8b1c4a59147c18e4347b0"
+    },
+    {
+      "name": "EL_DRIVER_3",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_DRIVER_3__coarse.stl",
+      "bytes": 684,
+      "sha256": "52993a49a539210b5d9d617ba1e850bf578e17920e0b4e808becafe8c06a3c35"
+    },
+    {
+      "name": "EL_CONTACTOR",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_CONTACTOR__coarse.stl",
+      "bytes": 684,
+      "sha256": "67599bf329552f83842eeac43c8668c06ac4bcb0a73fa5aabb09e8a47c2e5410"
+    },
+    {
+      "name": "EL_ESTOP_BOX",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_ESTOP_BOX__coarse.stl",
+      "bytes": 684,
+      "sha256": "612289018770537ea034a02d013d813ba27d3522922c23ccd155e08da2c08f32"
+    },
+    {
+      "name": "EL_OVERTEMP_BOX",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_OVERTEMP_BOX__coarse.stl",
+      "bytes": 684,
+      "sha256": "0f42565ddd5f25946ddc84cdc5c2890da70c5d1b9f910edfc55f0a13c2d08e1d"
+    },
+    {
+      "name": "EL_CURRENT_LIMITER",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_CURRENT_LIMITER__coarse.stl",
+      "bytes": 684,
+      "sha256": "a017a3d7ca259e78a53835a92042e7f45aab1bd7effcb9afcc2ca10ebd7c9800"
+    },
+    {
+      "name": "EL_WIRE_DUCT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/EL_WIRE_DUCT__coarse.stl",
+      "bytes": 684,
+      "sha256": "e08f31bd441a3f05870e92527e1516471ea1c93baa9bd3671affaf8b1ad55704"
+    }
+  ],
+  "failures": [],
+  "wall_time_s": 45.69764804840088
+}

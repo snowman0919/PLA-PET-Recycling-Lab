@@ -1,0 +1,39 @@
+{
+  "asset_id": "S1-SPACER-B_008",
+  "group": "S1",
+  "kinematic_body": "S1B",
+  "lod": "fine",
+  "step_index": 80,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.80",
+  "mesh_file": "sim/assets/out/full/S1-SPACER-B_008__fine.stl",
+  "mesh_bytes": 48484,
+  "mesh_sha256": "4b267620a1bf2319c07a573e9ce7f268d1566ce13725c35968c1ba4bdd430715",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    171.9999999,
+    261.9999999,
+    380.302751747084,
+    208.0000001,
+    268.4000001,
+    416.30275194708406
+  ],
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 3192.756973816168,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

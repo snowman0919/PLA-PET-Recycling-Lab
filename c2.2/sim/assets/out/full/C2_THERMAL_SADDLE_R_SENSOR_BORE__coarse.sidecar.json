@@ -1,0 +1,39 @@
+{
+  "asset_id": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+  "group": "S2-C2.1",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 164,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.164",
+  "mesh_file": "sim/assets/out/full/C2_THERMAL_SADDLE_R_SENSOR_BORE__coarse.stl",
+  "mesh_bytes": 131284,
+  "mesh_sha256": "ea8601c4209a1349a80b57f482647f447658a2fd7400a29fdf409f6df326da30",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    223.70234965234476,
+    254.9999999,
+    236.0675032099,
+    293.72269520236796,
+    295.0000001,
+    358.36508804689305
+  ],
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 41584.42285157852,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

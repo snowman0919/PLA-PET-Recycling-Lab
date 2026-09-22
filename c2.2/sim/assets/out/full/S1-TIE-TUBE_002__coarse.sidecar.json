@@ -1,0 +1,39 @@
+{
+  "asset_id": "S1-TIE-TUBE_002",
+  "group": "S1",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 125,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.125",
+  "mesh_file": "sim/assets/out/full/S1-TIE-TUBE_002__coarse.stl",
+  "mesh_bytes": 10484,
+  "mesh_sha256": "13b098252c13df03f886eed643dfca92e3a384f3034eb950a04f3994d4366f6d",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    83.9999999,
+    155.9999999,
+    432.302751747084,
+    96.0000001,
+    331.0000001,
+    444.30275194708406
+  ],
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 13804.943518037233,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

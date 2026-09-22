@@ -1,0 +1,39 @@
+{
+  "asset_id": "EL_DRIVER_2",
+  "group": "electrical",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 218,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.218",
+  "mesh_file": "sim/assets/out/full/EL_DRIVER_2__coarse.stl",
+  "mesh_bytes": 684,
+  "mesh_sha256": "3efa2b40f9dd20783a24691e9383756e07a273b164e8b1c4a59147c18e4347b0",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
+  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    444.9999999,
+    41.9999999,
+    102.9999999,
+    490.0000001,
+    82.0000001,
+    135.0000001
+  ],
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 57600.0,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}
