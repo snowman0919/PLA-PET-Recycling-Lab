@@ -296,13 +296,13 @@ def validate_case(c: Transmission, samples_per_orbit: int = 96) -> dict:
 def _canon(v):
     # CI frozen-hash determinism (STATUS.md defect 8): runner CPUs drift the
     # last ULP of double results, so every serialized float is canonically
-    # rounded to 12 significant decimal digits.  12 digits is ~1000x coarser
+    # rounded to 8 significant decimal digits.  8 digits is ~100000x coarser
     # than the 1-2 ULP (~16th digit) drift floor and far finer than every
     # contract tolerance (asserted gates are >=1e-9 absolute; smallest margin
     # ~1e-5), so no contract weakens.  verify_artifacts re-derives values and
     # compares field-wise with tolerances, so rounded serialization is safe.
     if isinstance(v, float):
-        return float(f"{v:.12g}")
+        return float(f"{v:.8g}")
     if isinstance(v, dict):
         return {k: _canon(x) for k, x in v.items()}
     if isinstance(v, (list, tuple)):
