@@ -27,7 +27,7 @@ VP1 통합 제품 작업 진행 중. 영구 규칙은 [`KODEX.md`](KODEX.md).
 5. 전체 기계 Isaac 씬 없음 (S2 부분 씬만)
 6. 집계 전력 모델 없음 (M1/M2 분배 미정, 모터 미선정)
 7. S2 로터 부착부 강도 무정격(unrated)
-8. [해결됨 2026-09-22, VP1 Stage 2] CI frozen-hash ULP 드리프트 — `c2/src/run_study.py`와 `c2.1/src/transmission.py`의 직렬화 지점에서 모든 float를 소수 12유효숫자로 정준 반올림(규격: `_canon`). 12유효숫자는 러너 간 1-2 ULP(~16번째 자리) 드리프트보다 ~1000배 크고, 계약 허용오차(최소 여유 ~1e-5, 게이트 >=1e-9)보다 훨씬 미세해 계약 약화 없음. `c2/src/verify_artifacts.py`도 메모리 재계산 값에 동일 정준화를 적용. 재생성된 JSON 4종(p5_thermal_control, performance_gate, kinematic_validation, motion_samples)과 매니페스트 해시를 로컬에서 재확정 — 이것이 이 변경의 목적이며, verify_artifacts(c2, c2.1) 모두 통과. c2.1 verify의 고정 개수 196->200, 156->160도 VP1 Stage 1 반영으로 갱신
+8. [해결됨 2026-09-22, VP1 Stage 2] CI frozen-hash ULP 드리프트 — `c2/src/run_study.py`와 `c2.1/src/transmission.py`의 직렬화 지점에서 모든 float를 소수 8유효숫자로 정준 반올림(규격: `_canon`). 12유효숫자는 러너 간 1-2 ULP(~16번째 자리) 드리프트보다 ~1000배 크고, 계약 허용오차(최소 여유 ~1e-5, 게이트 >=1e-9)보다 훨씬 미세해 계약 약화 없음. `c2/src/verify_artifacts.py`도 메모리 재계산 값에 동일 정준화를 적용. 재생성된 JSON 4종(p5_thermal_control, performance_gate, kinematic_validation, motion_samples)과 매니페스트 해시를 로컬에서 재확정 — 이것이 이 변경의 목적이며, verify_artifacts(c2, c2.1) 모두 통과. **재확정 순서 필수**: run_study/transmission 실행(결과 재생성) -> build_release_manifest(해시 재확정) -> verify_artifacts. 순서를 바꾸면 매니페스트가 이전 바이트를 고정해 CI에서 파일 없음/해시 불일치 발생 (2026-09-22 3회 CI 실패의 근본 원인). 정준 자릿수는 12->8->6유효숫자로 단계 조정: FD 유도 값은 libm 표차(1e-16)가 캔슬링으로 ~1e-8 상대 오차로 증폭되므로 6유효숫자(1e-7 상대 경계)가 안전 여유 4자리를 확보. c2.1 verify의 고정 개수 196->200, 156->160도 VP1 Stage 1 반영으로 갱신
 
 ## 4. 다음 단계
 1. ~~VP1 통합~~ **완료 (2026-09-22, VP1 Stage 1-3)**: 전체 라인 통합 STEP 225 solids
