@@ -18,13 +18,15 @@
   ],
   "psu": {
     "V": 24,
-    "rated_W": 800,
+    "current_A": 33,
+    "nameplate_W": 800,
+    "current_derived_ceiling_W": 792,
     "body_mm": [
       240,
       120,
       65
     ],
-    "operational_cap_W": 500
+    "power_target_W": 500
   },
   "M1": {
     "motor": "TRK-60127-2460",

@@ -9,8 +9,8 @@
   "mesh_bytes": 684,
   "mesh_sha256": "db44515ec2815a301af9c94ad2d445ce8bc6d7e8fd0b09d58c2613c4469696b3",
   "mesh_format": "STL",
-  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
-  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
@@ -21,9 +21,9 @@
     400.0000001,
     1e-07
   ],
-  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "conversion_script_sha256": "a9e71d96195ff56b62cb3427ccc870e8e1d2d8417c6ba904ca8a64e82de96247",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5

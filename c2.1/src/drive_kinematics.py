@@ -18,11 +18,31 @@ ROLLER_R = 2.54
 CHAIN_RADIAL_ENV = 5.5
 CHAIN_AXIAL = 5.0
 
-# Sprocket placement datums (XZ, from design/assembly.json instances)
+# Sprocket placement datums (XZ). ADR-002 rev B (VP1 Stage 4 layout fix):
+# chain B is driven from the JACKSHAFT 24T (new instance DRV-SP24-B20_002 at
+# jack y373..381, XZ datum 136.94018992255457/65) instead of the input-shaft
+# sprocket, so the strand no longer crosses the jackshaft core; the S2 12T
+# sprocket sits at (308.569..., 280) in the same y-plane (376..381 band).
+# Chain B doubles the already-reduced jackshaft speed (58 -> 21.75 -> 43.5 rpm);
+# 76 links = 723.9 mm nominal.
 CHAIN_A = dict(p1=(136.94018992255457, 65.0), p2=(130.0, 398.30275184708404),
                z1=24, z2=24, links=94, y0=354.0)
-CHAIN_B = dict(p1=(80.0, 65.0), p2=(308.56946468906176, 280.0),
-               z1=24, z2=12, links=84, y0=374.0)
+CHAIN_B = dict(p1=(136.94018992255457, 65.0), p2=(308.56946468906176, 280.0),
+               z1=24, z2=12, links=76, y0=374.0)
+# The PDL transfer chain drives the WORM SHAFT at x362,z374.5 from the S2
+# 12T sprocket, 1:1 12T/12T. A 34-link chain is 8.884 mm shorter than this
+# centre path and cannot assemble; 35 links require an offset link and leave
+# ~0.64 mm length surplus. Offset-link strength and tension are UNRATED/HOLD.
+# Power path: M1 -> 15T/40T -> jackshaft -> chain B -> S2Ecc 12T ->
+# chain P -> worm shaft 12T -> RH 2-start worm -> AUG_WHEEL 16T -> AUG_SHAFT.
+# Rotation signs: one external helical mesh reverses the M1 input, while
+# open chains preserve it. At the 58 rpm reference, the S2 eccentric and
+# worm shaft run at -43.5 rpm; the 8:1 worm/wheel drives the RH auger at
+# -5.4375 rpm about +X, conveying +x.
+CHAIN_P = dict(p1=(308.56946468906176, 280.0), p2=(362.0, 374.5),
+               z1=12, z2=12, links=35, y0=381.0)
+WORM_WHEEL_RATIO = WORM_STARTS_RATIO = 2.0 / 16.0   # worm starts / wheel teeth
+AUGER_REDUCED_RPM = -58.0 * (15.0 / 40.0) * (24.0 / 12.0) * WORM_WHEEL_RATIO
 
 
 def gear_pitch_radius(z):
@@ -68,21 +88,26 @@ def chain_length_mm(chain):
 
 
 def ratio_chain(input_rpm=58.0):
-    """Kinematic chain from the frozen C1 drive layout (teeth counts only).
+    """Kinematic chain from the VP1 Stage 4 layout (teeth counts only).
     M1 -> DRV-CPL12 (1:1) -> 15T/40T helical mesh -> jackshaft; chain A 24/24
     -> S1 shaft A; S1-SYNC 30T/30T external mesh -> shaft B counter-rotates;
-    chain B 24T(input) -> 12T -> S2 input; S2 cycloid q=8 -> phi=-theta/8."""
+    jackshaft 24T -> chain B -> 12T -> S2 input; S2 cycloid q=8 -> phi=-theta/8."""
     gear_ratio = 15.0 / 40.0
     chain_a = 24.0 / 24.0
     chain_b = 24.0 / 12.0
-    jack = input_rpm * gear_ratio
+    jack = -input_rpm * gear_ratio
     s1a = jack * chain_a
+    s2_ecc = jack * chain_b
+    auger = s2_ecc * WORM_WHEEL_RATIO
     return {
         "input_rpm": input_rpm,
         "jackshaft_rpm": jack,
         "s1_shaft_A_rpm": s1a,
         "s1_shaft_B_rpm": -s1a,
-        "s2_input_rpm": input_rpm * chain_b,
-        "s2_output_rpm": -input_rpm * chain_b / 8.0,
-        "s2_output_vs_adr_nominal_120rpm_delta_rpm": input_rpm * chain_b - 120.0,
+        "s2_input_rpm": s2_ecc,
+        "s2_output_rpm": -s2_ecc / 8.0,
+        "s2_ecc_rpm": s2_ecc,
+        "worm_shaft_rpm": s2_ecc,
+        "auger_rpm": auger,
+        "auger_conveying_pitch_mm": 28.5,
     }

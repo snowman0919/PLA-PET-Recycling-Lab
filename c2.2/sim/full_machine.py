@@ -1,6 +1,6 @@
-"""Full-machine USD emission for the integrated 196-solid assembly.
+"""Full-machine USD emission for the CAD-derived integrated assembly.
 
-Reads c2.2/sim/assets/out/full/ (convert.py --full output: 196 per-solid
+Reads c2.2/sim/assets/out/full/ (convert.py --full output: per-solid
 STLs + bodies.json) and emits c2.2/sim/assets/usd/full_machine.usda:
 
   - stage metersPerUnit=0.001 (mm authored), F0 identity frame;
@@ -9,18 +9,29 @@ STLs + bodies.json) and emits c2.2/sim/assets/usd/full_machine.usda:
       M1 input shaft 15T -> jack 40T (gear, counter-rotating, 15/40)
       chain A 24/24 (1:1, same direction) -> S1 main shaft
       S1-A/B sync gears 1:1 (counter-rotating)
-      chain B 24/12 (same direction)      -> S2 input eccentric shaft
+      chain B 24/12 jackshaft -> S2 input eccentric shaft (PPR_VP1:
+      DRV-SP24-B20_002 at jack y372 -> DRV-SP12-B12_001 at S2 y374)
       S2 output carrier = -theta_S2/q, q=8 (fixed-ring cycloid, reverse);
-  - S2 rotor is a pose-driven KINEMATIC rigid body outside the articulation
-    (orbit + spin cannot be one revolute joint; exact transmission.rotor
-    kinematics applied per step in verify_full.py);
+  - S2 rotor, six output rollers, PADDLE, AUGER, CROSS_FEED and the
+    CROSS_FEED_IDLER are pose-driven KINEMATIC bodies outside the
+    articulation; motion uses measured S2Ecc, not extra authored inputs;
   - static shell solids as concave triangle-mesh collision; moving solids
-    as convex-hull collision (emit_usd.py convention); all contact offsets
-    authored small (0.2mm) so near-touching designed surfaces do not flood
-    the contact report;
-  - DERIVED transfer boxes (S1 discharge, chute, S2 entry/exit) reused from
-    emit_usd.py DERIVED (missing from C2.1 CAD, PARAM_TRACE items 5/6/12);
+    as convex-hull collision, EXCEPT the material-engagement solids flagged
+    by c2.2/sim/audit_hulls.py (cycloid rotor, output pin carrier) which
+    are authored as full fine meshes with
+    physics:collisionApproximation = "convexDecomposition" so the lobe /
+    carrier windows stay open (FIX B1; the S1 cutter discs use tight
+    per-solid decimated hulls — decomposition pieces protruded and locked
+    the joints — see manifest); all contact offsets authored small
+    (0.2mm) so near-touching designed surfaces do not flood the contact
+    report;
+  - the four DERIVED transfer boxes of the emit_usd.py era are REMOVED
+    (FIX B2): real C2.1 CAD now covers the transfer path (CHUTE_BODY,
+    CHUTE_TROUGH_FLOOR_E, S1-SIDE, screen).  The old DERIVED_S1_DISCHARGE
+    slab (z 413..443) sat inside the S1 chamber and sealed the hopper->S1
+    drop — the 0/200 probe-reach blocker identified by flow_localization;
   - PhysX articulation DOF order in dof_names matches JOINTS order below.
+    Eleven kinematic rigid bodies are driven by the runtime views.
 
 Drive ratios (documented basis, from design/parameters.json drive block and
 the C1 drive layout in design/assembly.json + src/design.py):
@@ -28,13 +39,14 @@ the C1 drive layout in design/assembly.json + src/design.py):
                             shaft x=80 z=65, DRV-SH40L/R on jack x=136.940)
   S1A/jack     = 24/24 = 1  chain A, same direction
   S1B/S1A      = -1         S1-SYNC sync gears, counter-rotating
-  S2ecc/input  = 24/12 = 2  chain B (24T on input shaft, 12T on S2 shaft),
-                            same direction
+  S2ecc/input  = -(15/40)*(24/12) = -0.75 (jack-driven chain B)
   carrier/S2ecc= -1/8       cycloid fixed-ring ratio q=8
+  cross/S2ecc = 1          two equal-12T external spur meshes via idler
+  idler/S2ecc = -1         first external spur mesh
 
-No mass/inertia invention: links use the PhysX default density path
-(UsdPhysics default 1000 kg/m^3 MKS equivalent); recorded as ASSUMPTION in
-the sidecar. Evidence GEOMETRIC_ONLY + PHYSX_KINEMATIC_VERIFICATION.
+Mass uses STEP sidecar volumes and a documented box-diagonal inertia
+approximation at 1000 kg/m^3; geometry and ideal kinematic stepping do
+not demonstrate a closed upstream chain-P torque path or product flow.
 
 Usage (no SimulationApp needed):
   $HOME/env_isaacsim-c22/bin/python c2.2/sim/full_machine.py \
@@ -74,7 +86,40 @@ PIVOTS_MM = {
     # 280 + e sin t) with spin about +Y by +theta/q (theta=0 STEP pose is
     # preserved by the authored child-mesh translate of -pivot).
     "S2_ROTOR": (308.56946468906176, 299.0, 280.0),
+    # Paddle/worm-shaft kinematic body origin = worm shaft axis (chute.py
+    # rev 6 final: the worm shaft MOVED to (362, z374.5), r5 along Y,
+    # y204..392; carries PDL_WORM + the chain-B sprocket).  Pose-driven
+    # 1:1 from the measured S2Ecc angle (open chain preserves sign).
+    "PADDLE": (362.0, 298.0, 374.5),
+    # Auger shaft r3 along +X at y232,z347.1. Four 28.5 mm turns of the
+    # 3 mm swept flight occupy x237.343..354.681; the matching U-shell's
+    # exact BRep radial gap is 0.032 mm in the reconstructed CAD.
+    # Pose-driven at measured S2Ecc/8 about +X (worm 2-start : wheel 16T).
+    "AUGER": (298.75, 232.0, 347.1),
+    # The orthogonal +Y cross-feed screw bridges the auger east outlet to
+    # the near S2 mouth. A pair of external gear meshes from PDL_SHAFT
+    # makes its angle the same signed measured S2Ecc angle at 1:1.
+    "CROSS_FEED": (357.0, 252.0, 328.0),
 }
+# Exact CAD construction: three equal 12T spur gears on parallel +Y axes,
+# each external center spacing 2 * (12 / cos 15°) mm. The idler is placed
+# on the positive perpendicular of the PDL-to-cross-feed center chord.
+_feed_dx = PIVOTS_MM["CROSS_FEED"][0] - PIVOTS_MM["PADDLE"][0]
+_feed_dz = PIVOTS_MM["CROSS_FEED"][2] - PIVOTS_MM["PADDLE"][2]
+_feed_span = math.hypot(_feed_dx, _feed_dz)
+_feed_idler_offset = math.sqrt(
+    (24.0 / math.cos(math.radians(15.0))) ** 2 -
+    (_feed_span / 2.0) ** 2)
+PIVOTS_MM["CROSS_FEED_IDLER"] = (
+    (PIVOTS_MM["CROSS_FEED"][0] + PIVOTS_MM["PADDLE"][0]) / 2.0 -
+    _feed_dz / _feed_span * _feed_idler_offset,
+    216.0,
+    (PIVOTS_MM["CROSS_FEED"][2] + PIVOTS_MM["PADDLE"][2]) / 2.0 +
+    _feed_dx / _feed_span * _feed_idler_offset)
+# Collision partition follows the four actual helical turns at one eighth
+# turn per hull. A whole-turn convex hull fills its flight valley like a
+# cylinder and is not a screw conveyor contact surface.
+AUG_PITCH_MM = 28.5
 JOINTS = [  # (joint path, body path, pivot) — order == PhysX dof order
     ("MachineJointIn", "IN_SHAFT", PIVOTS_MM["IN_SHAFT"]),
     ("MachineJointS1A", "S1A", PIVOTS_MM["S1A"]),
@@ -95,6 +140,28 @@ REST_OFFSET_MM = 0.0
 # (361 deg/s · 50 / 50000 ≈ 0.36 deg ≪ 0.05 rad tol), ζ≈0.11.
 DRIVE_STIFFNESS = 5.0e4
 DRIVE_DAMPING = 5.0e1
+
+# FIX B1: solids authored with physics:collisionApproximation =
+# "convexDecomposition" (full fine mesh, PhysX-cooked V-HACD) instead of a
+# decimated convex hull.  The cycloid rotor lobe windows (occlusion 1.81x)
+# and the output-pin carrier windows (4.08x) are material channels a single
+# hull would weld shut.  The S1 cutter discs STARTED here too but were
+# switched back to tight decimated hulls: decomposition pieces protrude
+# outside the true cutter surface and locked the S1A/S1B joints against
+# the chamber (per-joint isolation evidence); a 0.05 mm-snapped hull
+# protrudes <=0.05 mm and keeps every inter-solid channel open because
+# each disc is its own collider.
+# The auger shaft/flight is partitioned into eighth-turn convex hulls;
+# whole-turn hulls seal each valley into a false cylinder. Narrow hulls
+# expose the true axial flight face but remain approximations, not proof
+# of material passage; the downstream gate and world loss are measured.
+DECOMPOSE_PREFIXES = ("RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+                      "OUTPUT_PIN_CARRIER_AND_SHAFT")
+
+# S2 eccentric orbit radius (mm) — rotor rest pose = axis - e·x̂ (the CAD
+# θ=0 pose has the crank at angle π; must match verify_full.py ECC_MM and
+# rotor_pose's -cos/+sin convention)
+ECC_MM_EMIT = 7.0
 
 
 def sha256_file(path: Path) -> str:
@@ -182,6 +249,12 @@ def add_mesh(stage, UsdGeom, path: str, verts, faces, translate_mm,
     from pxr import Sdf
     prim.CreateAttribute("physics:contactOffset", Sdf.ValueTypeNames.Float).Set(CONTACT_OFFSET_MM)
     prim.CreateAttribute("physics:restOffset", Sdf.ValueTypeNames.Float).Set(REST_OFFSET_MM)
+    if collision_approx == "convexDecomposition":
+        # FIX B1: PhysX cooks a convex decomposition (V-HACD) of the full
+        # mesh at attach time, keeping hook pockets / lobe windows open.
+        prim.CreateAttribute(
+            "physics:collisionApproximation",
+            Sdf.ValueTypeNames.Token).Set("convexDecomposition")
     prim.SetCustomDataByKey("ppr:collision", collision_approx)
     prim.SetCustomDataByKey("ppr:kind", kind)
     return prim
@@ -239,6 +312,21 @@ def main() -> int:
     base = stage.DefinePrim("/World/F0/Machine", "Xform")
     UsdPhysics.ArticulationRootAPI.Apply(base)
     UsdPhysics.RigidBodyAPI.Apply(base)
+    # Self-collision MUST be disabled through the PhysxArticulationAPI
+    # schema (registered by name — PhysxSchema is not importable outside
+    # the kit runtime); a bare custom attribute without the API schema is
+    # ignored by the PhysX USD parser (observed: interleaved S1A/S1B hulls
+    # locked both stacks and wobbled the drivetrain).
+    from pxr import Sdf as _Sdf
+    api_op = base.GetMetadata("apiSchemas")
+    api_list = list(api_op.explicitItems) if api_op is not None else []
+    for api_name in ("PhysxArticulationAPI",):
+        if api_name not in api_list:
+            api_list.append(api_name)
+    base.SetMetadata("apiSchemas", _Sdf.TokenListOp.CreateExplicit(
+        api_list))
+    base.CreateAttribute("physxArticulation:enabledSelfCollisions",
+                         Sdf.ValueTypeNames.Bool, True).Set(False)
     # Root link has no collision of its own: without explicit mass props
     # PhysX assigns zero inertia at the articulation root and the solver
     # diverges to NaN on step 1 (observed). 1 kg / 1e4 kg·mm² is inert
@@ -260,6 +348,20 @@ def main() -> int:
     by_body: dict[str, list[dict]] = {}
     for s in solids:
         by_body.setdefault(s["body"], []).append(s)
+    # This scene cannot represent the new drive by leaving an unclassified
+    # STEP solid in Static. Require convert.py's explicit body assignment.
+    expected_cross_feed = {
+        "PDL_FEED_GEAR": "PADDLE",
+        "CROSS_FEED_SHAFT": "CROSS_FEED",
+        "CROSS_FEED_GEAR": "CROSS_FEED",
+        "CROSS_FEED_IDLER": "CROSS_FEED_IDLER",
+        "CROSS_FEED_BEARINGS": STATIC_BODY,
+        "CROSS_FEED_SHELL": STATIC_BODY,
+    }
+    for name, body in expected_cross_feed.items():
+        if not any(s["name"] == name and s["body"] == body for s in solids):
+            raise ValueError(f"missing or misclassified STEP part {name}: "
+                             f"expected body {body}")
 
     def body_mass_props(body: str, recs: list[dict]):
         """Explicit mass + box-approximation diagonal inertia (kg, kg·mm²).
@@ -310,7 +412,9 @@ def main() -> int:
         lx.AddOrientOp().Set(Gf.Quatf(1.0, 0.0, 0.0, 0.0))
         lr = UsdPhysics.RigidBodyAPI.Apply(xp)
         lr.GetKinematicEnabledAttr().Set(
-            body == "S2_ROTOR" or body.startswith("S2_ROLLER"))
+            body == "S2_ROTOR" or body.startswith("S2_ROLLER")
+            or body in ("PADDLE", "AUGER", "CROSS_FEED",
+                        "CROSS_FEED_IDLER"))
         # articulation links with COM-on-axis rotation have near-zero
         # linear velocity and hit the sleep threshold mid-run (observed:
         # all joints freeze after ~0.5 s of gentle ramp targets)
@@ -328,6 +432,33 @@ def main() -> int:
         # prim; without it get/subscribe contact reports stay empty)
         _enable_contact_report(xp)
 
+    def authoring_pivot(body, rec):
+        """Body-origin (rest pose) for mesh recentering.
+
+        USD composition: world = body_pose + R * points (child translate
+        must be ZERO).  Points are therefore authored as v - origin so the
+        θ=0 pose exactly reproduces the world-frame STL.  The previous
+        convention (raw world-frame points + child translate
+        bbox_center - pivot) DOUBLE-DISPLACED every moving solid by
+        (mesh center - pivot) — the root cause of the historic zero
+        contact counts and of stuck-probe artifacts.
+        """
+        if body == "S2_ROTOR":
+            # rotor rest pose = orbit position at θ=0 (crank at -e·x̂):
+            # body pose pos(θ) = (axis.x - e·cosθ, 299, axis.z + e·sinθ),
+            # spin -θ/q about +Y through the body origin
+            ax = PIVOTS_MM["S2_CARRIER"]
+            return (ax[0] - ECC_MM_EMIT, ax[1], ax[2])
+        if body.startswith("S2_ROLLER"):
+            # rollers: body pose = rotated roller centre, spin about own
+            # origin -> points recentered on the roller's own bbox centre
+            b = rec["part_bbox"]
+            return ((b[0] + b[3]) / 2.0, (b[1] + b[4]) / 2.0,
+                    (b[2] + b[5]) / 2.0)
+        return PIVOTS_MM[body]
+
+    name_used: dict[str, int] = {}
+
     def emit_mesh(rec, body_path, pivot):
         import numpy as np
         stl = REPO / rec["mesh"]
@@ -336,32 +467,103 @@ def main() -> int:
         # USD prim names: [A-Za-z0-9_]; instance suffix 'FR-2040-630_001'
         # -> 'FR_2040_630_001'
         name = raw.replace("-", "_")
+        # compound parts expand to multiple same-name solids (convert.py);
+        # prim paths MUST be unique — a repeated path silently overwrites
+        # the earlier collider (last-wins), which dropped 2 of 3 scraper
+        # bars, 2 of 3 paddle blades, 3 bearing posts, guard-chain and
+        # winder solids
+        n_used = name_used.get(name, 0) + 1
+        name_used[name] = n_used
+        if n_used > 1:
+            name = f"{name}_{n_used:03d}"
         mesh_path = f"{body_path}/mesh_{name}"
+        decompose = any(raw.startswith(p) for p in DECOMPOSE_PREFIXES)
         if pivot is None:
             translate = (0.0, 0.0, 0.0)
-            approx = "triangleMesh" if rec["body"] == STATIC_BODY else "convexHull"
-        else:
-            cx = sum(rec["part_bbox"][i] for i in (0, 3)) / 2.0
-            cy = sum(rec["part_bbox"][i] for i in (1, 4)) / 2.0
-            cz = sum(rec["part_bbox"][i] for i in (2, 5)) / 2.0
-            translate = (cx - pivot[0], cy - pivot[1], cz - pivot[2])
-            approx = "convexHull"
-        if approx == "convexHull":
-            hv, hf = decimated_hull(verts)
-        else:
+            if rec["body"] == STATIC_BODY:
+                approx = "triangleMesh"
+            elif decompose:
+                approx = "convexDecomposition"
+            else:
+                approx = "convexHull"
             hv, hf = verts, faces
+        else:
+            translate = (0.0, 0.0, 0.0)
+            approx = ("convexDecomposition" if decompose
+                      else "convexHull")
+            if approx == "convexHull":
+                hv, hf = decimated_hull(verts)
+            else:
+                hv, hf = verts, faces
+            hv = np.asarray(hv, dtype=np.float64) - np.asarray(
+                pivot, dtype=np.float64)
         add_mesh(stage, UsdGeom, mesh_path, hv, hf, translate, approx,
                  rec["body"], stl)
         emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
                         "approx": approx,
                         "verts": int(len(hv)), "faces": int(len(hf))})
 
+    def emit_axial_segment_hulls(rec, body_path, pivot, axis, bounds,
+                                 overlap):
+        """Hull short axial slices of the STEP-derived helical flight.
+
+        A single convex hull seals a screw valley into a false cylinder.
+        These slices use only vertices of the actual fine STEP STL, keeping
+        moving flight faces available for fragment contact; they are still
+        approximations, not a measured passage result.
+        """
+        import numpy as np
+        stl = REPO / rec["mesh"]
+        verts, _ = load_stl_verts_faces(stl)
+        v = np.asarray(verts, dtype=np.float64)
+        raw = Path(rec["mesh"]).stem.replace("__fine", "") \
+            .replace("__coarse", "")
+        base = raw.replace("-", "_")
+        for i, (lo, hi) in enumerate(zip(bounds, bounds[1:])):
+            sel = v[(v[:, axis] >= lo - overlap)
+                    & (v[:, axis] <= hi + overlap)]
+            if len(sel) < 8:
+                continue
+            hv, hf = decimated_hull(sel)
+            hv = np.asarray(hv, dtype=np.float64) - np.asarray(
+                pivot, dtype=np.float64)
+            n_used = name_used.get(base, 0) + 1
+            name_used[base] = n_used
+            nm = base if n_used == 1 else f"{base}_{n_used:03d}"
+            mesh_path = f"{body_path}/mesh_{nm}_seg{i:02d}"
+            add_mesh(stage, UsdGeom, mesh_path, hv, hf, (0.0, 0.0, 0.0),
+                     "convexHull", rec["body"], stl)
+            emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
+                            "approx": "convexHull_segment",
+                            "axial_range_mm": [lo, hi],
+                            "verts": int(len(hv)), "faces": int(len(hf))})
+
     for rec in solids:
         body = rec["body"]
         if body == STATIC_BODY:
             emit_mesh(rec, "/World/F0/Static", None)
         else:
-            pivot = PIVOTS_MM.get(body, PIVOTS_MM["S2_CARRIER"])
+            pivot = authoring_pivot(body, rec)
+            if rec["name"] == "AUG_SHAFT":
+                bounds = [236.0, 238.5] + [
+                    238.5 + i * AUG_PITCH_MM / 8.0
+                    for i in range(1, 33)] + [370.0]
+                emit_axial_segment_hulls(
+                    rec, f"/World/F0/{body}", pivot, 0, bounds, 0.25)
+                continue
+            if rec["name"] == "CROSS_FEED_SHAFT":
+                # CAD: LH flight centreline y226..249, swept profile
+                # half-thickness 1.25; pitch 9 mm, end y250.25. Journal
+                # sections use STEP vertices as well; no derived paddle.
+                flight_lo, flight_hi = 224.75, 250.25
+                nseg = math.ceil((flight_hi - flight_lo) / (9.0 / 8.0))
+                bounds = ([rec["part_bbox"][1], flight_lo]
+                          + [flight_lo + (flight_hi - flight_lo) * i / nseg
+                             for i in range(1, nseg + 1)]
+                          + [rec["part_bbox"][4]])
+                emit_axial_segment_hulls(
+                    rec, f"/World/F0/{body}", pivot, 1, bounds, 0.5)
+                continue
             emit_mesh(rec, f"/World/F0/{body}", pivot)
 
     # --- revolute joints (order == PhysX dof order) ------------------
@@ -385,26 +587,26 @@ def main() -> int:
         drive.CreateMaxForceAttr().Set(1.0e12)
         # gains scaled by the child link's Y-axis inertia so every joint
         # gets the same response: omega_n = 40 rad/s, zeta = 1
-        # (k = I*omega_n^2/57.3 per degree, d = 2*zeta*I*omega_n/57.3)
+        # (k = I*omega_n^2/57.3 per degree, d = 2*zeta*I*omega_n/57.3).
+        # ACTIVE since FIX C: the runner drives the INPUT joint with a
+        # position-target ramp and computes dependent targets from the
+        # measured input per step — the PD drives are the ideal gear/
+        # chain constraint (no tooth-contact FEM).
         iy = body_inertia_y.get(body, 1.0e4)
-        # PD gains zeroed: the runner drives DOF positions kinematically
-        # (set_dof_positions per step); a stiff drive with target 0 would
-        # fight the kinematic integration and diverge to NaN (observed).
-        # The non-zero calibrated gains (1600*I / 80*I per-radian,
-        # omega_n = 40 rad/s) are kept documented for future dynamic runs.
-        drive.CreateStiffnessAttr().Set(0.0)
-        drive.CreateDampingAttr().Set(0.0)
+        drive.CreateStiffnessAttr().Set(1600.0 * iy / 57.3)
+        drive.CreateDampingAttr().Set(80.0 * iy / 57.3)
         drive.CreateTargetPositionAttr().Set(0.0)
 
     # --- collision groups: by-design contacts are filtered -----------
-    # Journal fits, the 15T/40T hull mesh, the fixed-ring cycloid
-    # interface and kinematic-kinematic S2 pairs overlap BY DESIGN in a
-    # rigid rig (hulls fill bores/windows); unfiltered they jam the
-    # drivetrain. Everything else — cutters vs chamber walls, rotor vs
-    # screen/shells, probes vs machine — remains fully collidable and is
-    # classified in verify_full.py.
+    # Journal fits, legacy gear meshes and cycloid couplings may overlap in
+    # the rigid rig. The new drive filters only named shaft-bearing and
+    # gear-tooth partners; cross-feed screw/receiver and fragments stay live.
     group_prims = {
-        "Art": [], "KinRotor": [], "KinRoller": [], "Fit": []}
+        "Art": [], "KinRotor": [], "KinRoller": [], "KinPaddle": [],
+        "KinAuger": [], "Fit": [],
+        "KinCrossFeedFlight": [], "KinCrossFeedJournal": [],
+        "CrossFeedBearing": [], "FeedIdler": [],
+        "PaddleFeedGear": [], "CrossFeedGear": []}
     FIT_NAMES = set()
     for pat in (
             "BR-", "DRV-B12", "DRV-B20", "DRV-BFRONT", "S1-BPL",
@@ -412,20 +614,58 @@ def main() -> int:
             "INPUT_BEARING_ENVELOPE_UNRATED",
             "OUTPUT_BEARING_ENVELOPE_UNRATED",
             "FRONT_FIXED_RING_PLATE", "REAR_FIXED_RING_PLATE",
-            "FIXED_RING_PIN_", "DRV_SH40", "DRV_CHAIN"):
+            "FIXED_RING_PIN_", "DRV_SH40", "DRV_CHAIN",
+            # M1 motor body: its stub shaft is inserted into the moving
+            # DRV-CPL12 coupling (keyed/journal mate by design)
+            "DRV-M1",
+            # stationary shaft bores and seats: the S1 shafts pass through
+            # S1-WALL bores (journal fit), KEY-8-16 is the wall-side key
+            # seat, S1-ROOF/S1-STUD are stationary structure with designed
+            # clearance to the rotating stacks (< contactOffset), the
+            # chain guards wrap the chain/sprocket runs and DRV-RISER20
+            # carries the B12 sprocket hub
+            "S1-WALL", "KEY-8-16", "S1-ROOF", "S1-STUD",
+            "GUARD-CHAIN", "DRV-RISER20",
+            # VP1 transfer drivetrain: the paddle chain wraps the S2 12T
+            # face and worm-shaft sprocket. AUG_BEARINGS seat the auger
+            # journals (west bore r5.5, east boss bore r4.7).
+            "PDL-CHAIN", "AUG-BEARINGS"):
         FIT_NAMES.add(pat.replace("-", "_"))
     for e in emitted:
         base = e["prim"].rsplit("/mesh_", 1)[-1]
         if base.startswith("mesh_"):
             base = base[5:]
-        if any(base.startswith(f) for f in FIT_NAMES):
+        if base.startswith("CROSS_FEED_BEARINGS"):
+            group_prims["CrossFeedBearing"].append(e["prim"])
+        elif base.startswith("PDL_FEED_GEAR"):
+            group_prims["PaddleFeedGear"].append(e["prim"])
+        elif base.startswith("CROSS_FEED_GEAR"):
+            group_prims["CrossFeedGear"].append(e["prim"])
+        elif base.startswith("CROSS_FEED_IDLER"):
+            group_prims["FeedIdler"].append(e["prim"])
+        elif base.startswith("CROSS_FEED_SHAFT"):
+            lo, hi = e["axial_range_mm"]
+            group = ("KinCrossFeedJournal"
+                     if hi <= 224.75 or lo >= 250.25
+                     else "KinCrossFeedFlight")
+            group_prims[group].append(e["prim"])
+        elif any(base.startswith(f) for f in FIT_NAMES):
             group_prims["Fit"].append(e["prim"])
         elif "/S2_ROTOR/" in e["prim"]:
             group_prims["KinRotor"].append(e["prim"])
         elif "/S2_ROLLER_" in e["prim"]:
             group_prims["KinRoller"].append(e["prim"])
+        elif "/PADDLE/" in e["prim"]:
+            group_prims["KinPaddle"].append(e["prim"])
+        elif "/AUGER/" in e["prim"]:
+            group_prims["KinAuger"].append(e["prim"])
         elif "/Static/" not in e["prim"]:
             group_prims["Art"].append(e["prim"])
+    for required in ("KinCrossFeedFlight", "KinCrossFeedJournal",
+                     "CrossFeedBearing", "FeedIdler",
+                     "PaddleFeedGear", "CrossFeedGear"):
+        if not group_prims[required]:
+            raise ValueError(f"CAD-derived collision group {required} empty")
     for gname, targets in group_prims.items():
         if not targets:
             continue
@@ -435,9 +675,18 @@ def main() -> int:
         cg.GetCollidersCollectionAPI().CreateIncludesRel().SetTargets(
             targets)
     for gname, filters in (
-            ("Art", ["Fit", "KinRotor", "KinRoller"]),
+            ("Art", ["Fit", "KinRotor", "KinRoller", "KinPaddle",
+                     "KinAuger"]),
             ("KinRotor", ["Art", "Fit", "KinRoller"]),
-            ("KinRoller", ["Art", "Fit", "KinRotor"])):
+            ("KinRoller", ["Art", "Fit", "KinRotor"]),
+            ("KinPaddle", ["Art", "Fit", "KinAuger"]),
+            ("KinAuger", ["Art", "Fit", "KinPaddle"]),
+            ("KinCrossFeedJournal", ["CrossFeedBearing"]),
+            ("CrossFeedBearing", ["KinCrossFeedJournal", "FeedIdler"]),
+            ("FeedIdler", ["CrossFeedBearing", "PaddleFeedGear",
+                           "CrossFeedGear"]),
+            ("PaddleFeedGear", ["FeedIdler"]),
+            ("CrossFeedGear", ["FeedIdler"])):
         gp = stage.GetPrimAtPath(f"/World/F0/CollisionGroups/{gname}")
         cg = UsdPhysics.CollisionGroup(gp)
         cg.CreateFilteredGroupsRel().SetTargets(
@@ -448,33 +697,25 @@ def main() -> int:
         "physxArticulation:enabledSelfCollisions",
         Sdf.ValueTypeNames.Bool, True).Set(False)
 
-    # --- DERIVED transfer boxes (reuse emit_usd.py spec) -------------
-    from emit_usd import DERIVED  # noqa: E402 - staged transfer geometry
-
-    def box_mesh(center, dims):
-        import numpy as np
-        cx, cy, cz = center
-        dx, dy, dz = (d / 2.0 for d in dims)
-        v = np.array([
-            [cx - dx, cy - dy, cz - dz], [cx + dx, cy - dy, cz - dz],
-            [cx + dx, cy + dy, cz - dz], [cx - dx, cy + dy, cz - dz],
-            [cx - dx, cy - dy, cz + dz], [cx + dx, cy - dy, cz + dz],
-            [cx + dx, cy + dy, cz + dz], [cx - dx, cy + dy, cz + dz],
-        ], dtype=np.float64)
-        f = np.array([[0, 1, 2], [0, 2, 3], [4, 6, 5], [4, 7, 6],
-                      [0, 4, 5], [0, 5, 1], [2, 6, 7], [2, 7, 3],
-                      [0, 3, 7], [0, 7, 4], [1, 5, 6], [1, 6, 2]])
-        return v, f
-
-    derived = []
-    for name, spec in DERIVED.items():
-        v, f = box_mesh(spec["center"], (spec["dx"], spec["dy"], spec["dz"]))
-        add_mesh(stage, UsdGeom, f"/World/F0/Static/mesh_DERIVED_{name}",
-                 v, f, (0.0, 0.0, 0.0), "triangleMesh", "static-derived",
-                 None)
-        derived.append({"name": name, "center_mm": spec["center"],
-                        "dims_mm": [spec["dx"], spec["dy"], spec["dz"]],
-                        "note": spec["note"]})
+# --- DERIVED transfer boxes: REMOVED (FIX B2) --------------------
+    # The emit_usd.py-era DERIVED boxes (S1_DISCHARGE, CHUTE, S2_ENTRY,
+    # S2_EXIT) are parametric placeholders.  flow_localization measured
+    # them as the 0/200 blocker: mesh_DERIVED_S1_DISCHARGE is a closed
+    # slab at z 413..443 / x 60..180 / y 193.5..293.5 sitting INSIDE the
+    # S1 chamber — probes piled on it, tunneled through its top face and
+    # jammed on its bottom face at z=414.5 with 0 legitimate contacts.
+    # mesh_DERIVED_CHUTE (z 290..410) likewise sealed the real
+    # CHUTE_BODY trough and DERIVED_S2_ENTRY/S2_EXIT intruded on the S2
+    # bay. The real C2.1 CAD replaces those phantom solids; path_check.json
+    # measures apertures only; the new cross-feed and complete upstream
+    # material transport require dynamic evidence, not this static check.
+    derived = {
+        "removed": ["S1_DISCHARGE", "CHUTE", "S2_ENTRY", "S2_EXIT"],
+        "note": ("emit_usd.py-era DERIVED boxes removed — phantom solids "
+                 "sealing the S1 chamber and chute; actual CAD includes "
+                 "CHUTE_BODY + CHUTE_TROUGH_FLOOR_E. path_check.json "
+                 "measures apertures, not connected transport."),
+    }
 
     # --- probe spawn point: hopper mouth -----------------------------
     hopper_mesh = next((r for r in solids if r["name"] == "HOPPER_001"), None)
@@ -496,6 +737,7 @@ def main() -> int:
         "schema": "full_machine_usd/1",
         "usd_file": str(usd_path),
         "usd_bytes": usd_path.stat().st_size,
+        "usd_sha256": sha256_file(usd_path),
         "stage_meters_per_unit": 0.001,
         "gravity_mm_s2": 9810.0,
         "articulation_root": "/World/F0/Machine",
@@ -504,19 +746,116 @@ def main() -> int:
         "ratios_from_input": {
             "S1A": -15.0 / 40.0 * (24 / 24),
             "S1B": +15.0 / 40.0,
-            "S2_ECC": 24.0 / 12.0,
-            "S2_CARRIER": -(24.0 / 12.0) / 8.0,
+            "S2_ECC": -15.0 / 40.0 * (24.0 / 12.0),
+            "S2_CARRIER": +15.0 / 40.0 * (24.0 / 12.0) / 8.0,
+            "CROSS_FEED": -15.0 / 40.0 * (24.0 / 12.0),
+            "CROSS_FEED_IDLER": +15.0 / 40.0 * (24.0 / 12.0),
         },
         "ratio_sources": ["design/parameters.json drive block",
                           "c2.1/src/transmission.py pose() q=8",
-                          "design/assembly.json drive instances"],
+                          "design/assembly.json drive instances",
+                          "c2.1/src/chute.py three equal 12T feed gears"],
         "pivot_mm": {k: list(v) for k, v in PIVOTS_MM.items()},
         "contact_offset_mm": CONTACT_OFFSET_MM,
         "rest_offset_mm": REST_OFFSET_MM,
-        "collision_note": ("moving solids = convexHull (emit_usd.py "
-                           "convention); static solids = triangleMesh; "
-                           "convex-hull overestimation of non-convex moving "
-                           "solids is reported, not hidden"),
+        "collision_note": ("static solids = concave triangleMesh; moving "
+                           "solids = decimated convexHull except the "
+                           "cycloid rotor/output carrier authored as "
+                           "convexDecomposition. AUG_SHAFT and "
+                           "CROSS_FEED_SHAFT use short axial convex hulls "
+                           "of actual STEP-derived fine STL vertices, "
+                           "rather than full-flight hulls that close screw "
+                           "valleys. Fragment contacts remain collidable; "
+                           "hull contact is not proof of transfer."),
+        "hull_audit": {
+            "source": "c2.2/sim/audit_hulls.py",
+            "results": "c2.2/results/full_machine/hull_audit.json",
+            "convexDecomposition_solids": sorted(
+                e["mesh"].rsplit("/", 1)[-1].replace("__fine", "")
+                .replace("__coarse", "")
+                for e in emitted if e["approx"] == "convexDecomposition"),
+        },
+        "contact_filter_table": {
+            "collision_groups": {
+                "Art": "all articulation links (IN_SHAFT, S1A, S1B, "
+                       "S2_ECC, S2_CARRIER)",
+                "Fit": "journal fits / keyed sprockets / gear-mesh "
+                       "partners (BR-, DRV-B*, DRV_SH40, DRV_CHAIN, "
+                       "S1-BPL, S1-BR-CAP, FRONT/REAR supports, bearing "
+                       "envelopes, fixed-ring plates, ring pins)",
+                "KinRotor": "S2_ROTOR (pose-driven kinematic body)",
+                "KinRoller": "S2_ROLLER_1..6 (kinematic coupling "
+                             "rollers)",
+                "KinPaddle": "PADDLE (pose-driven kinematic worm shaft, "
+                             "VP1 rev 6 chain-driven transfer)",
+                "KinAuger": "AUGER (pose-driven kinematic screw "
+                            "conveyor at S2Ecc/8, worm:wheel 8:1)",
+                "KinCrossFeedFlight": "CROSS_FEED_SHAFT LH flight axial "
+                                      "hulls, no filtering; fragments live",
+                "KinCrossFeedJournal": "CROSS_FEED_SHAFT y208..224.75 and "
+                                       "y250.25..250.7 journal slices",
+                "CrossFeedBearing": "only CROSS_FEED_BEARINGS journals",
+                "FeedIdler": "only CROSS_FEED_IDLER gear and journal",
+                "PaddleFeedGear": "only PDL_FEED_GEAR teeth",
+                "CrossFeedGear": "only CROSS_FEED_GEAR teeth",
+            },
+            "filtered_pairs": {
+                "Art_x_Fit": ("journal fits, keyed sprockets and the "
+                              "helical 15T/40T gear mesh: by-design "
+                              "overlap at zero-to-interference clearance "
+                              "in a rigid rig; kinematically driven so "
+                              "contact forces must not act"),
+                "Art_x_KinRotor": "rotor orbits/spins inside the "
+                                  "articulation envelope by design",
+                "Art_x_KinRoller": "output rollers ride in keyed "
+                                   "carrier pins by design",
+                "Art_x_KinPaddle": ("worm shaft/sprocket pass inside the "
+                                    "articulation envelope by design "
+                                    "(chain-driven transfer, ideal "
+                                    "constraint)"),
+                "KinPaddle_x_Fit": ("paddle chain loop wraps the widened "
+                                    "S2 12T face and the worm-shaft "
+                                    "sprocket by design (12T/12T band)"),
+                "Art_x_KinAuger": ("auger shaft/flight pass inside the "
+                                   "articulation envelope by design "
+                                   "(worm-driven conveyor, ideal "
+                                   "constraint)"),
+                "KinPaddle_x_KinAuger": ("PDL_WORM 2-start worm engages "
+                                         "the AUG_WHEEL 16T conjugate "
+                                         "teeth by design (8:1 worm "
+                                         "wheel, ideal constraint)"),
+                "KinAuger_x_Fit": ("auger journal seats: west bore r5.5 "
+                                   "and east boss bore r4.7 vs the "
+                                   "flight hull (r5) and shaft - journal "
+                                   "fits by design"),
+                "KinRotor_x_KinRoller": "cycloid output coupling "
+                                        "(rollers ride in rotor windows)",
+                "KinRotor_x_Fit": "rotor vs fixed-ring pins: fixed-ring "
+                                  "cycloid engagement by design",
+                "KinRoller_x_Fit": "rollers vs ring plates by design",
+                "KinCrossFeedJournal_x_CrossFeedBearing": (
+                    "only cross-feed journal slices in the named bearing "
+                    "bores; LH flight vs shell and fragments stays live"),
+                "FeedIdler_x_CrossFeedBearing": (
+                    "idler journal inside named bearing bore"),
+                "FeedIdler_x_PaddleFeedGear": (
+                    "first 12T external gear mesh; ideal opposite-angle "
+                    "kinematics, no tooth-force solver"),
+                "FeedIdler_x_CrossFeedGear": (
+                    "second 12T external gear mesh; ideal same signed "
+                    "cross-feed ratio after two reversals"),
+                "articulation_self_collision": ("disabled: S1A/S1B "
+                                                "cutter hulls interleave "
+                                                "by design; hulls cannot "
+                                                "represent the hook "
+                                                "interleave"),
+            },
+            "not_filtered": ("every probe/fragment vs every collider, "
+                             "including cross-feed screw; cross-feed flight "
+                             "vs static shell and mouth; all other static "
+                             "clearance contacts except named journal "
+                             "bores; no downstream loss suppressed"),
+        },
         "mass_material_status": "ASSUMPTION_UNCHOSEN",
         "density_assumption": "PhysX default 1000 kg/m^3 (no material chosen)",
         "derived_transfer_spec": derived,
@@ -527,7 +866,8 @@ def main() -> int:
         "revision": git_head(),
         "emitted": emitted,
         "failures": failures,
-        "status": "PASS" if not failures else "FAIL",
+        "status": "GEOMETRY_EMITTED" if not failures else "FAIL",
+        "material_flow_status": "UNVERIFIED",
     }
     (out / "full_machine.sidecar.json").write_text(
         json.dumps(manifest, indent=2) + "\n")

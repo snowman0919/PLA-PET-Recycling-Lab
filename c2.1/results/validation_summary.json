@@ -1,6 +1,6 @@
 {
-  "revision": "C2.1-P6",
-  "date": "2026-09-21",
+  "revision": "C2.1-P6+VP1-STAGE5",
+  "date": "2026-09-23",
   "overall": "DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD",
   "stages": {
     "P0": "DYNAMIC_EVIDENCE_VERIFIER_PASS",
@@ -12,23 +12,99 @@
     "P6": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
   },
   "machine": {
-    "assembly_objects": 222,
-    "reimported_solids": 225,
+    "assembly_objects": 235,
+    "reimported_solids": 253,
     "interface_collision_passed": true,
     "body_passed": true,
     "operating_envelope_passed": true,
-    "native_freecad_objects": 185,
-    "native_freecad_valid_objects": 185
+    "native_freecad_objects": 194,
+    "native_freecad_valid_objects": 194
   },
   "package": {
-    "bom_rows": 163,
+    "bom_rows": 174,
     "known_cost_rows": 11,
-    "unknown_cost_rows": 152,
+    "unknown_cost_rows": 163,
     "wiring_components": 43,
     "wiring_pins": 174,
     "wiring_nets": 67,
-    "firmware_host_cases": 11,
+    "firmware_host_cases": 19,
     "drawing_status": "NOMINAL_RFQ_REVIEW_ONLY_FABRICATION_RELEASE_HOLD"
+  },
+  "material_flow": {
+    "status": "HOLD",
+    "geometry_apertures_clear": false,
+    "localization_scene_current": true,
+    "localization_verdicts": {
+      "hopper_mouth": {
+        "pass_rate": 1.0,
+        "in_path_passed": 22,
+        "in_path_pass_rate": 1.0,
+        "stuck": 0,
+        "crossed_screen": 0,
+        "reached_s2_mouth": 0,
+        "reached_auger_pickup": 0,
+        "lost_through_world": 6,
+        "lost_after_s2_mouth": 0,
+        "lost_after_x335_before_mouth": 0,
+        "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
+        "verdict": "BLOCKED",
+        "top_blocker_solids": []
+      },
+      "s1_discharge": {
+        "pass_rate": 1.0,
+        "in_path_passed": 22,
+        "in_path_pass_rate": 1.0,
+        "stuck": 0,
+        "crossed_screen": 0,
+        "reached_s2_mouth": 0,
+        "reached_auger_pickup": 5,
+        "lost_through_world": 0,
+        "lost_after_s2_mouth": 0,
+        "lost_after_x335_before_mouth": 0,
+        "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
+        "verdict": "BLOCKED",
+        "top_blocker_solids": []
+      },
+      "chute_inlet": {
+        "pass_rate": 0.955,
+        "in_path_passed": 21,
+        "in_path_pass_rate": 0.955,
+        "stuck": 5,
+        "crossed_screen": 0,
+        "reached_s2_mouth": 0,
+        "reached_auger_pickup": 0,
+        "lost_through_world": 13,
+        "lost_after_s2_mouth": 0,
+        "lost_after_x335_before_mouth": 13,
+        "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
+        "verdict": "BLOCKED",
+        "top_blocker_solids": [
+          "STATIC:FR-2040-320_002",
+          "STATIC:FR-BASE_001",
+          "STATIC:FR-2040-630_001",
+          "STATIC:FR-2040-630_002"
+        ]
+      },
+      "s2_inlet": {
+        "pass_rate": 1.0,
+        "in_path_passed": 22,
+        "in_path_pass_rate": 1.0,
+        "stuck": 0,
+        "crossed_screen": 21,
+        "reached_s2_mouth": 0,
+        "reached_auger_pickup": 0,
+        "lost_through_world": 9,
+        "lost_after_s2_mouth": 0,
+        "lost_after_x335_before_mouth": 0,
+        "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
+        "verdict": "BLOCKED",
+        "top_blocker_solids": []
+      }
+    },
+    "connected_result": "c2.2/results/full_machine/run_vp1_final16/results.json",
+    "connected_verdict": "LOCALIZED_BLOCKED",
+    "connected_product_flow_verified": false,
+    "connected_reached": 0
   },
   "performance": {
     "status": "BLOCKED_PERFORMANCE_DATA",

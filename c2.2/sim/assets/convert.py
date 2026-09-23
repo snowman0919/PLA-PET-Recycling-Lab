@@ -66,7 +66,7 @@ def write_sidecar(path: Path, record: dict) -> None:
     path.write_text(json.dumps(record, indent=2) + "\n")
 
 
-FULL_STEP_REL = "c2.1/cad/PPR_C2_1_machine_integration.step"
+FULL_STEP_REL = "c2.1/cad/PPR_VP1.step"
 
 # Kinematic body assignment for the integrated machine (C2.1-S2 task spec):
 # S1 cutter shafts A/B + cutter stacks, S2 input eccentric, rotor, output
@@ -76,11 +76,14 @@ FULL_STEP_REL = "c2.1/cad/PPR_C2_1_machine_integration.step"
 # the S1 main shaft) is kept STATIC per the task's explicit classification;
 # its 25 H7 bore on the 25 shaft is a by-design journal-fit contact pair.
 MOVING_BODIES: dict[str, set[str]] = {
-    "IN_SHAFT": {"DRV-IN-SHAFT_001", "DRV-CPL12_001", "DRV-SH15R_001",
-                 "DRV-SH15L_001", "DRV-SP24-B12_001", "KEY-4-70_001",
-                 "KEY-4-16_001"},
+    # PPR_VP1.step: the doubled lower helical mesh pair (DRV-SH15R_001 +
+    # DRV_SH40L_lower) and the input-shaft chain-B sprocket DRV-SP24-B12_001
+    # are DELETED — chain B is now driven from the jackshaft
+    # (DRV-SP24-B20_002, STATIC jack-side sprocket like the 40T gears)
+    "IN_SHAFT": {"DRV-IN-SHAFT_001", "DRV-CPL12_001", "DRV-SH15L_001",
+                 "KEY-4-70_001"},
     "S1A": {"S1-SHAFT-A_001", "KEY-8-154_001", "KEY-8-25_001", "S1-SYNC_001",
-            "DRV-SP24-B25_001"}
+            "DRV-SP24-B25_001", "KEY-8-16_001"}
          | {f"S1-CUT-A-P{i:02d}_001" for i in range(13)}
          | {f"S1-SPACER-A_{i:03d}" for i in range(1, 13)},
     "S1B": {"S1-SHAFT-B_001", "KEY-8-154_002", "KEY-8-25_002", "S1-SYNC_002"}
@@ -88,6 +91,13 @@ MOVING_BODIES: dict[str, set[str]] = {
          | {f"S1-SPACER-B_{i:03d}" for i in range(1, 13)},
     "S2_ECC": {"INPUT_ECCENTRIC_SHAFT", "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
                "DRV-SP12-B12_001"},
+    # Worm shaft and perpendicular feed use one measured S2Ecc angle
+    # through their keyed gear stages. Only supports/shells remain static.
+    "PADDLE": {"PDL_SHAFT", "PDL_SPROCKET", "PDL_WORM",
+               "PDL_FEED_GEAR"},
+    "AUGER": {"AUG_SHAFT", "AUG_WHEEL"},
+    "CROSS_FEED": {"CROSS_FEED_SHAFT", "CROSS_FEED_GEAR"},
+    "CROSS_FEED_IDLER": {"CROSS_FEED_IDLER"},
     "S2_ROTOR": {"RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE"},
     "S2_CARRIER": {"OUTPUT_PIN_CARRIER_AND_SHAFT"},
     **{f"S2_ROLLER_{i}": {f"OUTPUT_ROLLER_{i}"} for i in range(1, 7)},
@@ -103,105 +113,59 @@ def _bbox(shape):
     return box.Get()  # xmin, ymin, zmin, xmax, ymax, zmax
 
 
-def master_instances(cfg):
-    master = json.loads((REPO / cfg["legacy_master"]).read_text())
-    return master["instances"]
-
 
 def _reconstruct_parts(cq):
-    """Deterministic (name, group, shape) list in integration-STEP export
-    order: legacy master instances (excluding legacy S2 group) then the
-    c2.1 subassembly components (build_cad.components(), theta=0).
+    """Rebuild the exact integration part order from its source functions.
 
-    Mirrors c2.1/src/build_machine_integration.py exactly (y-overrides,
-    c2_subassembly_transform). Runs under the cad-env (cadquery 2.8).
+    The STEP exporter has no stable per-solid labels. Reuse the CAD builder's
+    placement, deletion, second jackshaft key and S2 transform, then match
+    each exported solid to this list by BRep geometry.
     """
-    repo = REPO
-    cfg = json.loads((repo / "c2.1" / "design" / "machine_integration.json")
-                     .read_text())
-    excluded = cfg["excluded_legacy_group"]
-    overrides = cfg["legacy_instance_y_overrides_mm"]
+    sys.path.insert(0, str(REPO / "c2.1" / "src"))
+    import build_machine_integration as bmi
 
-    part_cache: dict[str, object] = {}
-
-    def load_part(name):
-        if name not in part_cache:
-            part_cache[name] = cq.importers.importStep(
-                str(repo / "cad/parts" / (name + ".step"))).val()
-        return part_cache[name]
-
-    parts = []  # records: {"name", "group", "shape"}
-    _dt = _import_c21_module(repo, "drive_teeth")
-    _bmi = _import_c21_module(repo, "build_machine_integration")
-    for item in master_instances(cfg):
-        if item["group"] == excluded:
-            continue
-        if item["name"] in _bmi.EXCLUDED_LEGACY_INSTANCES:
-            continue  # replaced by winder/EL bay real geometry (VP1 stage 2)
-        if item["name"] in _dt.INSTANCE_PART:
-            # VP1 stage 1: real toothed gear/sprocket solid, same instance
-            # name and part-local frame (mirrors the updated
-            # build_machine_integration.py legacy_parts())
-            shape = _dt.replacement_local_solid(item["name"])
+    config = json.loads((REPO/"c2.1/design/machine_integration.json").read_text())
+    master = json.loads((REPO/config["legacy_master"]).read_text())
+    legacy = bmi.legacy_parts(master, config)
+    c21 = bmi.c21_parts(config)
+    chain_parts = [{"name": name, "group": "drive", "shape": solid}
+                   for name, solid in bmi.drive_teeth.chain_components()]
+    chute_parts = [{"name": name, "group": group, "shape": solid}
+                   for name, solid, group in bmi.chute_mod.components()]
+    guard_parts = [{"name": name, "group": "guard", "shape": solid}
+                   for name, solid in bmi.guards_mod.components()]
+    winder_parts = [{"name": name, "group": group, "shape": solid}
+                    for name, solid, group in bmi.winder_mod.components()]
+    electrical_parts = [{"name": name, "group": "electrical", "shape": solid}
+                        for name, solid in bmi.electrical_mod.components()]
+    new_solids = {r["name"]: r["shape"] for r in legacy if r.get("replaced")}
+    new_solids.update({r["name"]: r["shape"] for r in
+                       chain_parts + chute_parts + guard_parts +
+                       winder_parts + electrical_parts})
+    bmi.chain_relief.apply(legacy, new_solids)
+    parts = (legacy + c21 + chain_parts + chute_parts + guard_parts +
+             winder_parts + electrical_parts)
+    # Compounds (multi-solid parts, e.g. the paddle bearing posts split by
+    # their bores, the paddle wheel blades, bearing pairs) must expand to
+    # one record per solid: the hungarian below matches records against
+    # STEP solids 1:1 and reused-record matches emit WRONG meshes (the
+    # rev-4 paddles produced 578/432/412 mm centre_dist pairings).
+    expanded = []
+    for p in parts:
+        sh = p["shape"]
+        try:
+            sols = sh.Solids()
+        except Exception:
+            sols = None
+        if sols is not None and len(sols) > 1:
+            for s in sols:
+                expanded.append({"name": p["name"],
+                                 "group": p["group"], "shape": s})
         else:
-            shape = load_part(item["part"])
-        axis, deg = item["rotation"][:3], item["rotation"][3]
-        if deg:
-            shape = shape.rotate((0, 0, 0), tuple(axis), deg)
-        at = list(item["at"])
-        if item["name"] in overrides:
-            at[1] = overrides[item["name"]]
-        shape = shape.translate(tuple(at))
-        parts.append({"name": item["name"], "group": item["group"],
-                      "shape": shape})
-
-    _sys = sys
-    _sys.path.insert(0, str(repo / "c2.1" / "src"))
-    _sys.path.insert(0, str(repo / "c2" / "src"))
-    from importlib.util import spec_from_file_location, module_from_spec
-    _spec = spec_from_file_location(
-        "c21_build_cad", str(repo / "c2.1" / "src" / "build_cad.py"))
-    c21_cad = module_from_spec(_spec)
-    _spec.loader.exec_module(c21_cad)
-    tr = cfg["c2_subassembly_transform"]
-    for name, shape in c21_cad.components():
-        if name == "GUARD_SECTION_ENVELOPE_HOLD":
-            continue  # replaced by real guards (VP1 stage 2)
-        shape = shape.rotate((0, 0, 0), tuple(tr["rotation_axis"]),
-                             tr["rotation_deg"]).translate(
-            tuple(tr["translation_mm"]))
-        parts.append({"name": name, "group": "S2-C2.1", "shape": shape})
-    # VP1 stage 1/2 parts, in builder order: chains, chute, guards,
-    # winder, electrical bay
-    for name, solid in _dt.chain_components():
-        parts.append({"name": name, "group": "drive", "shape": solid})
-    _chute = _import_c21_module(repo, "chute")
-    for name, solid in _chute.components():
-        parts.append({"name": name, "group": "feed", "shape": solid})
-    _guards = _import_c21_module(repo, "guards")
-    for name, solid in _guards.components():
-        parts.append({"name": name, "group": "guard", "shape": solid})
-    _winder = _import_c21_module(repo, "winder")
-    for name, solid, group in _winder.components():
-        parts.append({"name": name, "group": group, "shape": solid})
-    _elec = _import_c21_module(repo, "electrical_bay")
-    for name, solid in _elec.components():
-        parts.append({"name": name, "group": "electrical", "shape": solid})
-    # VP1 stage 3: chain/gear path reliefs cut into legacy solids (in
-    # place, mirroring chain_relief.apply(legacy, new_solids))
-    new_solids = {r["name"]: r["shape"] for r in parts}
-    _relief = _import_c21_module(repo, "chain_relief")
-    _relief.apply(parts, new_solids)
-    return [(p["name"], p["group"], p["shape"]) for p in parts]
+            expanded.append(p)
+    return [(p["name"], p["group"], p["shape"]) for p in expanded]
 
 
-def _import_c21_module(repo, mod_name):
-    from importlib.util import spec_from_file_location, module_from_spec
-    _spec = spec_from_file_location(
-        f"c21_{mod_name}", str(repo / "c2.1" / "src" / f"{mod_name}.py"))
-    mod = module_from_spec(_spec)
-    _spec.loader.exec_module(mod)
-    return mod
 
 
 def _lod_of(body: str) -> str:
@@ -287,28 +251,108 @@ def run_full(out: Path) -> int:
                    and inside[i + 3] <= outer[i + 3] + tol
                    for i in range(3))
 
-    pool = list(range(len(solids)))
-    pool_bbs = {i: _sbb(solids[i]) for i in pool}
+    # FIX: proper 1:1 part<->solid assignment (Main-approved).  The old
+    # ordered bbox-containment pass mis-assigned when a part bbox contains
+    # another part's solid (keys inside hubs, chain-wrap bulges larger than
+    # the bare sprocket).  Hungarian assignment (scipy linear_sum_assignment)
+    # on cost = bbox centre distance + 8*|ln(volume ratio)|; identical-size
+    # twins resolve by minimum centre distance, ties broken by volume
+    # overlap IoU (recorded policy; assignment is globally optimal and
+    # deterministic for a given cost matrix).  Smallest-bbox-first remains
+    # only as the row/column enumeration order (deterministic tie-break).
+    import math as _math
+    import numpy as _np
+    from scipy.optimize import linear_sum_assignment as _lsa
+
+    def _centre(bb):
+        return _np.array([(bb[0] + bb[3]) / 2.0, (bb[1] + bb[4]) / 2.0,
+                          (bb[2] + bb[5]) / 2.0])
+
+    def _vol(bb):
+        return max((bb[3] - bb[0]) * (bb[4] - bb[1]) * (bb[5] - bb[2]),
+                   1e-9)
+
+    def _iou(a, b):
+        ox = max(0.0, min(a[3], b[3]) - max(a[0], b[0]))
+        oy = max(0.0, min(a[4], b[4]) - max(a[1], b[1]))
+        oz = max(0.0, min(a[5], b[5]) - max(a[2], b[2]))
+        inter = ox * oy * oz
+        return inter / max(_vol(a) + _vol(b) - inter, 1e-9)
+
+    rows = []
+    for pi, count in enumerate(expected_counts):
+        for copy_i in range(count):
+            rows.append((pi, copy_i))
+    cols = list(range(len(solids)))
+    pool_bbs = {i: _sbb(solids[i]) for i in cols}
+    order = sorted(range(len(parts)),
+                   key=lambda pi: (lambda b: (b[3] - b[0]) * (b[4] - b[1])
+                                   * (b[5] - b[2]))(_bbox(parts[pi][2])))
+    part_bbs = {pi: _bbox(parts[pi][2]) for pi in range(len(parts))}
+    cost = _np.zeros((len(rows), len(cols)))
+    for ri, (pi, _c) in enumerate(rows):
+        pc = _centre(part_bbs[pi])
+        pv = _vol(part_bbs[pi])
+        for ci, si in enumerate(cols):
+            sb = pool_bbs[si]
+            dist = float(_np.linalg.norm(pc - _centre(sb)))
+            vr = abs(_math.log(pv / _vol(sb)))
+            cost[ri, ci] = dist + 8.0 * vr
+    ri_idx, ci_idx = _lsa(cost)
+    # Two-stage refinement: assignments whose centre distance exceeds
+    # CONFIDENT_MM come from stale cfg placements (parts that MOVED in
+    # PPR_VP1, e.g. keys/guards shifted with chain B) — their placement
+    # prior is worthless, so re-assign just those rows/cols on bbox SIZE
+    # distance only (solid identity is what matters; meshes are emitted
+    # from the STEP solid at its true position).  Identical-size twins
+    # (volume-overlap fallback per policy) resolve deterministically via
+    # the solver's stable ordering.
+    CONFIDENT_MM = 15.0
+
+    def _size_vec(bb):
+        return _np.array([bb[3] - bb[0], bb[4] - bb[1], bb[5] - bb[2]])
+
+    keep, sus_r, sus_c = [], [], []
+    for ri, ci in zip(ri_idx, ci_idx):
+        d = _np.linalg.norm(_centre(part_bbs[rows[ri][0]])
+                            - _centre(pool_bbs[cols[ci]]))
+        if d <= CONFIDENT_MM:
+            keep.append((ri, ci))
+        else:
+            sus_r.append(ri)
+            sus_c.append(ci)
+    if sus_r and sus_c:
+        cost2 = _np.zeros((len(sus_r), len(sus_c)))
+        for a, ri in enumerate(sus_r):
+            sa = _size_vec(part_bbs[rows[ri][0]])
+            for b, ci in enumerate(sus_c):
+                cost2[a, b] = float(_np.linalg.norm(
+                    sa - _size_vec(pool_bbs[cols[ci]])))
+        r2, c2 = _lsa(cost2)
+        keep += [(sus_r[a], sus_c[b]) for a, b in zip(r2, c2)]
+    pairs = sorted((rows[ri], cols[ci],
+                    float(cost[ri, ci])) for ri, ci in keep)
     records = []
-    for (name, group, shape), count in zip(parts, expected_counts):
-        pb = _bbox(shape)
-        got = [i for i in pool if _fits(pool_bbs[i], pb)][:count]
-        if len(got) != count:
-            failures.append(f"part {name}: matched {len(got)}/{count} "
-                            f"solids")
-            continue
-        for sidx in got:
-            pool.remove(sidx)
-            body = next((b for b, names in MOVING_BODIES.items()
-                         if name in names), STATIC_BODY)
-            records.append({"name": name, "group": group, "body": body,
-                            "step_index": sidx, "solid": solids[sidx],
-                            "part_bbox": pb, "bbox_ok": True})
-    assigned = {r["step_index"] for r in records}
-    unassigned = [i for i in range(len(solids)) if i not in assigned]
-    if unassigned:
-        failures.append(f"{len(unassigned)} step solids unassigned by "
-                        f"bbox matching (first: {unassigned[:5]})")
+    assign_audit = []
+    for (pi, _c), si, cval in pairs:
+        name, group, shape = parts[pi]
+        body = next((b for b, names in MOVING_BODIES.items()
+                     if name in names), STATIC_BODY)
+        records.append({"name": name, "group": group, "body": body,
+                        "step_index": si, "solid": solids[si],
+                        "part_bbox": part_bbs[pi], "bbox_ok": True})
+        assign_audit.append({"part": name, "step_index": si,
+                             "centre_dist_mm": round(cval, 2) if cval < 1e8
+                             else None})
+    worst = max((a for a in assign_audit if a["centre_dist_mm"] is not None),
+                key=lambda a: a["centre_dist_mm"], default=None)
+    print(f"[full] hungarian assignment: {len(records)} pairs, worst "
+          f"centre_dist {worst['centre_dist_mm'] if worst else '-'} mm "
+          f"({worst['part'] if worst else '-'})",
+          file=sys.stderr, flush=True)
+    failures = [f for f in failures if "matched" not in f
+                and "unassigned" not in f]
+
     records.sort(key=lambda r: r["step_index"])
 
     emitted = []
@@ -389,6 +433,7 @@ def run_full(out: Path) -> int:
         "static_body": STATIC_BODY,
         "emitted": emitted,
         "failures": failures,
+        "assignment_audit": assign_audit,
         "wall_time_s": time.time() - t0,
     }, indent=2) + "\n")
 

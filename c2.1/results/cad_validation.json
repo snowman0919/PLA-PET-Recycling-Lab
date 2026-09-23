@@ -48,7 +48,7 @@
     ],
     "object_count": 41,
     "reimported_solid_count": 41,
-    "sha256": "fbba8932ab7a132d67eeafeba519bd368a78bf564a22e4d8ea59e5df94f5a42b",
+    "sha256": "ec0e40e81b81a4b357621655a347150305ebbcb943bbac6785d673362b01e0b9",
     "step_reimport_valid": true
   },
   "exploded": {
@@ -98,24 +98,24 @@
     ],
     "object_count": 41,
     "reimported_solid_count": 41,
-    "sha256": "f05277f3ac60b25e1945cfb12bca37f06f900dc115a073afd4140f39d49470db",
+    "sha256": "ef9ec2830a76760f7b02a250cf85a091cd2c8d6e587ca8ae5749ca19222dea7e",
     "step_reimport_valid": true
   },
   "cad_numeric_frame_check": {
-    "theta_rad": 1.5707963267948966,
+    "theta_rad": 1.5708,
     "local_point_xz_mm": [
       50,
       0
     ],
     "cad_center_xz_mm": [
-      49.039264020161525,
-      -2.7545161008064123
+      49.0393,
+      -2.75452
     ],
     "numerical_xz_mm": [
-      49.039264020161525,
-      -2.7545161008064127
+      49.0393,
+      -2.75452
     ],
-    "error_mm": 4.440892098500626e-16,
+    "error_mm": 4.44089e-16,
     "passed": true
   },
   "process_reference_width_mm": 40,
@@ -134,9 +134,9 @@
   "continuous_analytical_bounds": {
     "method": "CONSERVATIVE_ANALYTICAL_ENVELOPE_CONTINUOUS_ALL_PHASES",
     "checks": {
-      "hook_to_shear_radial_mm": 0.7999999999999972,
-      "hook_to_screen_inner_radius_mm": 0.7999999999999972,
-      "hook_to_thermal_inner_radius_mm": 4.200000000000003,
+      "hook_to_shear_radial_mm": 0.8,
+      "hook_to_screen_inner_radius_mm": 0.8,
+      "hook_to_thermal_inner_radius_mm": 4.2,
       "rear_ring_to_process_axial_mm": 4.0,
       "process_to_coupling_axial_mm": 2.0,
       "nominal_roller_window_clearance_mm": 0.2
@@ -151,7 +151,7 @@
     "candidate_id": "C1-SEED",
     "valid_profile": true,
     "passed": true,
-    "minimum_sampled_pin_clearance_mm": 0.14264750478040078,
+    "minimum_sampled_pin_clearance_mm": 0.142648,
     "pin_R_mm": 72.0,
     "fixed_pins": 9,
     "lobes": 8,

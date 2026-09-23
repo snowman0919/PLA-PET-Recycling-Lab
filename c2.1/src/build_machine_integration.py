@@ -54,13 +54,16 @@ def normalize_step_timestamp(path):
 def legacy_parts(master, config):
     excluded = config["excluded_legacy_group"]
     overrides = config["legacy_instance_y_overrides_mm"]
+    y_moves = drive_teeth.INSTANCE_Y_MOVES
+    deleted = drive_teeth.DELETED_INSTANCES
     placed = []
     for item in master["instances"]:
         if item["group"] == excluded or item["name"] in EXCLUDED_LEGACY_INSTANCES:
             continue
+        if item["name"] in deleted:
+            continue
         if item["name"] in drive_teeth.INSTANCE_PART:
-            # VP1 Stage 1: real toothed gear/sprocket solid, same part id and
-            # instance name (part-local frame, same rotate/translate path).
+            # Real toothed gears/sprockets retain the part-local placement path.
             shape = drive_teeth.replacement_local_solid(item["name"])
             replaced = True
         else:
@@ -72,13 +75,39 @@ def legacy_parts(master, config):
         at = list(item["at"])
         if item["name"] in overrides:
             at[1] = overrides[item["name"]]
+        # Stage 4: relocated chain-B planes and lower mesh removal.
+        if item["name"] in y_moves:
+            at[1] = y_moves[item["name"]]
         shape = shape.translate(tuple(at))
+        keyseat_removed = 0.0
+        if item["name"] == "DRV-JACK_001":
+            # The added chain-B 24T driver has a second +Z key at y373..387.8.
+            # Preserve the continuous shaft core and its existing first key.
+            seat = cq.Solid.makeBox(
+                6.2, 15.0, 3.7,
+                cq.Vector(at[0] - 3.1, 372.9, at[2] + 6.5))
+            original_volume = shape.Volume()
+            shape = shape.cut(seat).clean()
+            keyseat_removed = original_volume - shape.Volume()
+            if len(shape.Solids()) != 1:
+                raise RuntimeError("jackshaft split by second keyseat")
         placed.append({"name": item["name"], "part": item["part"],
                        "group": item["group"], "shape": shape,
-                       "relocated": item["name"] in overrides,
-                       "replaced": replaced})
+                       "relocated": item["name"] in overrides or item["name"] in y_moves,
+                       "replaced": replaced,
+                       "keyseat_removed_mm3": round(keyseat_removed, 3)})
+    name, at = drive_teeth.CHAIN_B_DRIVER_INSTANCE
+    shape = drive_teeth.replacement_local_solid(name).translate(tuple(at))
+    placed.append({"name": name, "part": "DRV-SP24-B20", "group": "drive",
+                   "shape": shape, "relocated": True, "replaced": True})
+    key_at = (at[0], 373.0, at[2])
+    key = cq.importers.importStep(str(REPO/"cad/parts/KEY-6-16.step")).val()
+    key = key.intersect(cq.Solid.makeBox(
+        6.2, 14.8, 6.2, cq.Vector(-3.1, 0.0, 6.4))).clean()
+    placed.append({"name": "KEY-6-16_002", "part": "KEY-6-16",
+                   "group": "drive", "shape": key.translate(key_at),
+                   "relocated": True, "replaced": False})
     return placed
-
 
 def c21_parts(config):
     transform = config["c2_subassembly_transform"]
@@ -132,6 +161,52 @@ def extent(records):
     return {"bounds_mm": b, "size_mm": [b[i+3]-b[i] for i in range(3)]}
 
 
+def assembly_geometry_checks(chute_parts, imported_solids):
+    """Verify that the exported STEP retains the active chute and auger.
+
+    This is deliberately measured on reimported solids rather than only on
+    the construction shapes: a successful export call alone proves little.
+    """
+    from OCP.BRepExtrema import BRepExtrema_DistShapeShape
+
+    shapes = {item["name"]: item["shape"] for item in chute_parts}
+
+    def matches(name, tolerance=0.25):
+        expected = bounds(shapes[name])
+        return any(all(abs(a-b) < tolerance for a, b in
+                       zip(bounds(solid), expected)) for solid in imported_solids)
+
+    chute_matched = matches("CHUTE_BODY")
+    auger_matched = matches("AUG_SHAFT")
+    auger = next((solid for solid in imported_solids
+                  if all(abs(a-b) < 0.25 for a, b in
+                         zip(bounds(solid), bounds(shapes["AUG_SHAFT"])))), None)
+    old_ribs = any(
+        any(lo - 0.3 <= b.xmin and b.xmax <= hi + 0.3
+            and zlo - 0.3 <= b.zmin and b.zmax <= zhi + 0.3
+            for b in (solid.BoundingBox(),))
+        for lo, hi, zlo, zhi in ((172.0, 188.0, 335.0, 341.6),
+                                (202.0, 210.0, 331.5, 338.2))
+        for solid in imported_solids)
+    floor_band = chute_mod.bypass_channel_floor().intersect(
+        cq.Solid.makeBox(102.0, 30.0, 11.0, cq.Vector(260.0, 213.0, 334.0)))
+    clearance = (BRepExtrema_DistShapeShape(auger.wrapped, floor_band.wrapped).Value()
+                 if auger is not None else None)
+    auger_zmin = bounds(auger)[2] if auger is not None else None
+    checks = {
+        "chute_body_matched": chute_matched,
+        "aug_shaft_matched": auger_matched,
+        "old_rib_solids_present": old_ribs,
+        "aug_shaft_zmin": round(auger_zmin, 3) if auger_zmin is not None else None,
+        "exact_min_distance_mm": round(clearance, 3) if clearance is not None else None,
+        "passed": (chute_matched and auger_matched and not old_ribs
+                   and auger_zmin is not None
+                   and abs(auger_zmin - (chute_mod.AUG_AX_Z - chute_mod.AUG_FLIGHT_RO)) < 0.5
+                   and clearance is not None and 0.01 <= clearance <= 0.3),
+    }
+    return checks
+
+
 def main():
     config_path = C21/"design/machine_integration.json"
     config = json.loads(config_path.read_text())
@@ -143,7 +218,9 @@ def main():
     stable = [item for item in legacy if not item["relocated"]]
 
     interface = collision_audit(c21, legacy)
-    relocated = collision_audit(relocated_legs, stable)
+    relocated = collision_audit(
+        relocated_legs, stable,
+        allowed={frozenset(p) for p in drive_teeth._FUNCTIONAL_KEY_PAIRS})
     # --- VP1 Stage 1: real drivetrain + chute --------------------------------
     replaced = [item for item in legacy if item.get("replaced")]
     chain_parts = [{"name": name, "part": name, "group": "drive",
@@ -151,7 +228,7 @@ def main():
                    for name, solid in drive_teeth.chain_components()]
     chute_parts = [{"name": name, "part": name, "group": "feed",
                     "shape": solid, "relocated": False, "replaced": True}
-                   for name, solid in chute_mod.components()]
+                   for name, solid, group in chute_mod.components()]
     guard_parts = [{"name": name, "part": name, "group": "guard",
                     "shape": solid, "relocated": False, "replaced": True}
                    for name, solid in guards_mod.components()]
@@ -168,6 +245,19 @@ def main():
                        chain_parts + chute_parts + guard_parts + winder_parts
                        + electrical_parts})
     relief_records, relieved = chain_relief.apply(legacy, new_solids)
+    relieved.add("KEY-6-16_002")
+    relief_records.append({
+        "legacy": "KEY-6-16_002", "new": "BR-6204_002",
+        "kind": "trim", "applied": True,
+        "note": "second jack driver key cut to 14.8 mm; 0.2 mm axial clearance "
+                "before bearing at y388"})
+    relieved.add("DRV-JACK_001")
+    relief_records.append({
+        "legacy": "DRV-JACK_001", "new": "KEY-6-16_002",
+        "kind": "keyseat", "applied": True,
+        "removed_mm3": next(x["keyseat_removed_mm3"] for x in legacy
+                            if x["name"] == "DRV-JACK_001"),
+        "note": "second chain-B keyseat y372.9..387.9, continuous metal core"})
     allowed_pairs = {frozenset(p) for p in drive_teeth.FUNCTIONAL_PAIRS}
     known_pairs = set()  # Stage 3 reliefs resolved the former layout contacts
     vp1_parts = (replaced + chain_parts + chute_parts + guard_parts
@@ -186,11 +276,12 @@ def main():
         path.parent.mkdir(parents=True, exist_ok=True)
         cq.exporters.export(cq.Compound.makeCompound([item["shape"]]), str(path))
     compound = cq.Compound.makeCompound([item["shape"] for item in all_parts])
-    out = C21/"cad/PPR_C2_1_machine_integration.step"
+    out = C21/"cad/PPR_VP1.step"
     cq.exporters.export(compound, str(out))
     normalize_step_timestamp(out)
     imported = cq.importers.importStep(str(out))
     imported_solids = imported.solids().vals()
+    geometry_checks = assembly_geometry_checks(chute_parts, imported_solids)
 
     body = [item for item in all_parts if item["group"] not in config["body_excluded_groups"]]
     body_extent = extent(body)
@@ -205,12 +296,14 @@ def main():
     groups = sorted({item["group"] for item in all_parts})
     required = {"S1", "S2-C2.1", "feed", "extruder", "cooling", "puller",
                 "spool", "electrical", "frame", "frame_mount", "drive"}
+    ratio = drive_teeth.ratio_chain()
     result = {
         "revision": config["revision"] + "+VP1-STAGE1",
         "status": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
                   if interface["passed"] and relocated["passed"]
                   and body_extent["passed"] and operating_extent["passed"]
                   and vp1_against["passed"] and vp1_internal["passed"]
+                  and geometry_checks["passed"]
                   else "DIGITAL_MACHINE_INTEGRATION_HOLD",
         "source": {
             "config": str(config_path.relative_to(REPO)),
@@ -230,6 +323,7 @@ def main():
         "reimported_solids": len(imported_solids),
         "step_reimport_valid": all(shape.isValid() for shape in imported_solids),
         "assembly_step": str(out.relative_to(REPO)),
+        "assembly_geometry_checks": geometry_checks,
         "assembly_step_sha256": hashlib.sha256(out.read_bytes()).hexdigest(),
         "assembly_step_bytes": out.stat().st_size,
         "groups": groups,
@@ -248,6 +342,7 @@ def main():
             "winder_parts": [it["name"] for it in winder_parts],
             "electrical_parts": [it["name"] for it in electrical_parts],
             "excluded_legacy_instances": sorted(EXCLUDED_LEGACY_INSTANCES),
+            "deleted_drive_instances": sorted(drive_teeth.DELETED_INSTANCES),
             "chain_relief_adr": "c2.1/docs/ADR-002-CHAIN-ROUTING.md",
             "electrical_load": electrical_mod.load_inventory(),
             "vp1_stage3": {
@@ -255,28 +350,31 @@ def main():
                 "relief_records": relief_records,
                 "relieved_instances": sorted(relieved),
             },
-            "kinematic_chain": drive_teeth.ratio_chain(),
+            "kinematic_chain": ratio,
             "vp1_against_retained": vp1_against,
             "vp1_internal": vp1_internal,
             "notes": [
                 "gear mesh phase: pinion tooth centre on the line of centres, "
                 "40T space centre at 180deg; helix hands opposed per mesh pair",
-                "chain A vs S1-ROOF-R_001 collision inherited from the frozen "
-                "C1 layout (bracket blocks the chain wrap) - recorded as "
-                "known contact, layout fix required",
-                "S2 input from chain B is 116 rpm, not the 120 rpm ADR-001 "
-                "nominal (58 rpm M1 * 24/12); S2 q=8 model unchanged",
-                "chute slope defect: frozen datums leave only ~6.5 mm between "
-                "the S1 bottom and the S2 shell outer apex; a >=45deg sliding "
-                "path is impossible, floor is near-flat (batch accumulation "
-                "transport); the 115deg saddle fin is BYPASSED (route south "
-                "of the chamber, path_check trough_fin_gap PASS)",
-                "puller nip opened to 2.5 mm minimum with a positive stop "
-                "(frozen envelope pair gave 1.8 mm); spool winder + traverse "
-                "+ slip tensioner replace the SPOOL-ENV envelope",
-                "electrical peak load 616 W EXCEEDS the 500 W operating cap "
-                "(-116 W headroom) with all three band heaters at nameplate; "
-                "M1/M2 loads are UNRATED estimates (motors not owned)",
+                "ADR-002 rev B (VP1 Stage 4): chain B is driven from the "
+                "jackshaft 24T bore-10 sprocket DRV-SP24-B20_002 (y373) "
+                "to S2 12T (y374), 76 links; the jackshaft is one solid, "
+                "the duplicate lower helical mesh is removed, and the "
+                "DRV-M2 reference motor body is intact",
+                f"At the {ratio['input_rpm']:g} rpm M1 reference the 15T/40T "
+                f"mesh and 24T/12T chain B give S2 eccentric "
+                f"{ratio['s2_ecc_rpm']:g} rpm; the 2-start/16T worm wheel "
+                f"drives the auger at {ratio['auger_rpm']:g} rpm",
+                "The fin-bypass feed uses a driven four-turn auger in an "
+                "open U cradle with a measured positive flight/floor gap; "
+                "the flat structural slab is not a passive transport claim",
+                "puller nip: spring-loaded 1.75 mm filament grip; spool "
+                "winder, traverse and slip tensioner replace SPOOL-ENV",
+                "power policy: 500 W soft scheduler target; normal virtual "
+                "peak 416 W, >500 W WARN+logged, absolute hard ceiling "
+                "792 W; M1/M2 loads remain UNRATED estimates",
+                "retained-internal S1-SYNC_001/002 vs S1-BR-CAP_001 contacts "
+                "are inherited from C1 and not audited by this build",
             ],
         },
         "closed_interfaces": [

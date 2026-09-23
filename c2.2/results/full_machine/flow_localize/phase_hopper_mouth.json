@@ -1,0 +1,4436 @@
+{
+  "schema": "full_machine_flow_localize_phase/2",
+  "phase": "hopper_mouth",
+  "spawn_box_mm": [
+    83.9,
+    153.9,
+    203.5,
+    283.5,
+    488.0,
+    497.0
+  ],
+  "pass_predicate": "z < 438.5 (below hopper into S1 chamber)",
+  "receiver_predicate": "x80..240,y162.4..324.6,z352.3..438.5",
+  "s2_mouth_transition_predicate": "first +Y crossing of y=255 with x340..360,z320..345; x335 flight gate alone does not establish transfer",
+  "auger_pickup_predicate": "s1_discharge only: after z352.3 gate, ever inside x237..270,y223.3..240.9,z338..356",
+  "step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+  "usda_sha256": "594b77e44c46e166f55dcbf0182e21aa5935e7b590f4935599b3115defef5f61",
+  "dt_s": 0.0025,
+  "steps": 2400,
+  "input_cycles": 1,
+  "input_rpm": 79.99999999999999,
+  "ideal_auger_travel_mm": 21.375,
+  "fragments": [
+    {
+      "i": 0,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        153.3,
+        263.5,
+        490.8
+      ],
+      "final_mm": [
+        242.5,
+        269.5,
+        346.1
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        153.3,
+        263.5,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 1.5,
+          "position": [
+            242.5,
+            269.5,
+            344.6
+          ],
+          "normal": [
+            0.02,
+            0.0,
+            1.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 1.5,
+          "position": [
+            244.0,
+            269.5,
+            346.1
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "CHUTE_BODY",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 1,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        144.7,
+        209.2,
+        494.5
+      ],
+      "final_mm": [
+        216.0,
+        231.5,
+        26.5
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        144.7,
+        209.2,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_DRV_DECK_001",
+          "distance_mm": 1.5,
+          "position": [
+            216.0,
+            231.5,
+            25.0
+          ],
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "DRV-DECK_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 2,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        107.9,
+        278.6,
+        490.0
+      ],
+      "final_mm": [
+        84.5,
+        278.6,
+        363.3
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        107.9,
+        278.6,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.7,
+          "position": [
+            84.5,
+            278.6,
+            360.6
+          ],
+          "normal": [
+            -0.89,
+            0.0,
+            0.46
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 1.5,
+          "position": [
+            83.0,
+            278.6,
+            363.3
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.31,
+          "position": [
+            86.8,
+            278.6,
+            363.3
+          ],
+          "normal": [
+            -0.57,
+            0.0,
+            0.82
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 3,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        129.8,
+        217.1,
+        488.1
+      ],
+      "final_mm": [
+        84.5,
+        217.0,
+        363.3
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        129.8,
+        217.1,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.7,
+          "position": [
+            84.5,
+            217.0,
+            360.6
+          ],
+          "normal": [
+            -0.89,
+            0.0,
+            0.46
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 1.5,
+          "position": [
+            83.0,
+            217.0,
+            363.3
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.31,
+          "position": [
+            86.8,
+            217.0,
+            363.3
+          ],
+          "normal": [
+            -0.57,
+            0.0,
+            0.82
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 4,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        127.7,
+        265.9,
+        496.9
+      ],
+      "final_mm": [
+        84.5,
+        265.7,
+        363.3
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        127.7,
+        265.9,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.7,
+          "position": [
+            84.5,
+            265.7,
+            360.6
+          ],
+          "normal": [
+            -0.89,
+            0.0,
+            0.46
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 1.5,
+          "position": [
+            83.0,
+            265.7,
+            363.3
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.31,
+          "position": [
+            86.8,
+            265.7,
+            363.3
+          ],
+          "normal": [
+            -0.57,
+            0.0,
+            0.82
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 5,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        144.5,
+        209.8,
+        488.4
+      ],
+      "final_mm": [
+        242.5,
+        256.3,
+        346.1
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        144.5,
+        209.8,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 1.5,
+          "position": [
+            242.5,
+            256.3,
+            344.6
+          ],
+          "normal": [
+            0.02,
+            0.0,
+            1.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 1.5,
+          "position": [
+            244.0,
+            256.3,
+            346.1
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 5.26,
+          "position": [
+            242.5,
+            251.0,
+            346.1
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "CHUTE_BODY",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 6,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        135.3,
+        250.2,
+        491.8
+      ],
+      "final_mm": [
+        84.5,
+        250.1,
+        363.3
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        135.3,
+        250.2,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.7,
+          "position": [
+            84.5,
+            250.1,
+            360.6
+          ],
+          "normal": [
+            -0.89,
+            0.0,
+            0.46
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 1.5,
+          "position": [
+            83.0,
+            250.1,
+            363.3
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.31,
+          "position": [
+            86.8,
+            250.1,
+            363.3
+          ],
+          "normal": [
+            -0.57,
+            0.0,
+            0.82
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 7,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        116.9,
+        269.3,
+        492.6
+      ],
+      "final_mm": [
+        84.5,
+        269.6,
+        363.3
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        116.9,
+        269.3,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.7,
+          "position": [
+            84.5,
+            269.6,
+            360.6
+          ],
+          "normal": [
+            -0.89,
+            0.0,
+            0.46
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 1.5,
+          "position": [
+            83.0,
+            269.6,
+            363.3
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 2.31,
+          "position": [
+            86.8,
+            269.6,
+            363.3
+          ],
+          "normal": [
+            -0.57,
+            0.0,
+            0.82
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 8,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        124.5,
+        234.6,
+        493.1
+      ],
+      "final_mm": [
+        116.5,
+        248.5,
+        26.5
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        124.5,
+        234.6,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_DRV_DECK_001",
+          "distance_mm": 1.5,
+          "position": [
+            116.5,
+            248.5,
+            25.0
+          ],
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "pos_y": {
+          "path": "/World/F0/Static/mesh_DRV_BFRONT_001",
+          "distance_mm": 1.5,
+          "position": [
+            116.5,
+            250.0,
+            26.5
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "DRV-BFRONT_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "DRV-DECK_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 9,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        103.3,
+        271.5,
+        489.1
+      ],
+      "final_mm": [
+        242.5,
+        259.5,
+        346.1
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        103.3,
+        271.5,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 1.5,
+          "position": [
+            242.5,
+            259.5,
+            344.6
+          ],
+          "normal": [
+            0.02,
+            0.0,
+            1.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 1.5,
+          "position": [
+            244.0,
+            259.5,
+            346.1
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "CHUTE_BODY",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 10,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        141.8,
+        214.7,
+        493.2
+      ],
+      "final_mm": [
+        83.6,
+        213.6,
+        360.4
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        141.8,
+        214.7,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 8.1,
+          "position": [
+            83.6,
+            213.6,
+            352.3
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 0.61,
+          "position": [
+            83.0,
+            213.6,
+            360.4
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 0.77,
+          "position": [
+            84.4,
+            213.6,
+            360.4
+          ],
+          "normal": [
+            -0.97,
+            0.0,
+            0.24
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "CHUTE_BODY",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 11,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        96.6,
+        280.5,
+        489.7
+      ],
+      "final_mm": [
+        83.7,
+        280.4,
+        360.8
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        96.9,
+        280.5,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 8.52,
+          "position": [
+            83.7,
+            280.4,
+            352.3
+          ],
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 0.75,
+          "position": [
+            83.0,
+            280.4,
+            360.8
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 0.85,
+          "position": [
+            84.6,
+            280.4,
+            360.8
+          ],
+          "normal": [
+            -0.89,
+            0.0,
+            0.46
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "CHUTE_BODY",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 12,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        142.0,
+        273.6,
+        489.7
+      ],
+      "final_mm": [
+        154.0,
+        -903.5,
+        -145582.6
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        142.0,
+        273.6,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": true,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {},
+      "touching_solids": []
+    },
+    {
+      "i": 13,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        107.6,
+        271.5,
+        496.7
+      ],
+      "final_mm": [
+        243.3,
+        275.8,
+        345.3
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        107.6,
+        271.5,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 0.75,
+          "position": [
+            243.3,
+            275.8,
+            344.5
+          ],
+          "normal": [
+            0.02,
+            0.0,
+            1.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 0.75,
+          "position": [
+            244.0,
+            275.8,
+            345.3
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "CHUTE_BODY",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 14,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        110.9,
+        268.3,
+        488.1
+      ],
+      "final_mm": [
+        93.6,
+        269.0,
+        -176277.1
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        110.9,
+        268.3,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": true,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {},
+      "touching_solids": []
+    },
+    {
+      "i": 15,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        114.2,
+        245.4,
+        493.8
+      ],
+      "final_mm": [
+        -1663.0,
+        -4002.1,
+        -167674.5
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        114.2,
+        245.4,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": true,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {},
+      "touching_solids": []
+    },
+    {
+      "i": 16,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        88.4,
+        224.6,
+        489.3
+      ],
+      "final_mm": [
+        83.7,
+        224.6,
+        438.3
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        83.9,
+        224.6,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "up": {
+          "path": "/World/F0/Static/mesh_HOPPER_001",
+          "distance_mm": 6.21,
+          "position": [
+            83.7,
+            224.6,
+            444.5
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 0.75,
+          "position": [
+            83.0,
+            224.6,
+            438.3
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            -0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_002",
+          "distance_mm": 0.29,
+          "position": [
+            84.0,
+            224.6,
+            438.3
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "HOPPER_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_002",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 17,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        140.3,
+        259.1,
+        490.2
+      ],
+      "final_mm": [
+        421.8,
+        -3956.1,
+        -157335.8
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        140.3,
+        259.1,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": true,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {},
+      "touching_solids": []
+    },
+    {
+      "i": 18,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        152.0,
+        230.7,
+        489.2
+      ],
+      "final_mm": [
+        603.7,
+        293.7,
+        -170658.8
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        152.0,
+        230.7,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": true,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {},
+      "touching_solids": []
+    },
+    {
+      "i": 19,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        107.6,
+        251.9,
+        491.5
+      ],
+      "final_mm": [
+        83.6,
+        251.9,
+        360.4
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        107.6,
+        251.9,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_CHUTE_BODY",
+          "distance_mm": 8.09,
+          "position": [
+            83.6,
+            251.9,
+            352.3
+          ],
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_S1_SIDE_001",
+          "distance_mm": 0.61,
+          "position": [
+            83.0,
+            251.9,
+            360.4
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_S1_TIE_TUBE_001",
+          "distance_mm": 0.77,
+          "position": [
+            84.4,
+            251.9,
+            360.4
+          ],
+          "normal": [
+            -0.97,
+            0.0,
+            0.24
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "CHUTE_BODY",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-SIDE_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "S1-TIE-TUBE_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 20,
+      "kind": "slab",
+      "size_mm": [
+        6.0,
+        6.0,
+        2.0
+      ],
+      "spawn_mm": [
+        153.5,
+        245.3,
+        496.5
+      ],
+      "final_mm": [
+        515.8,
+        -8048.6,
+        -164032.6
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        153.5,
+        245.3,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": true,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {},
+      "touching_solids": []
+    },
+    {
+      "i": 21,
+      "kind": "slab",
+      "size_mm": [
+        5.0,
+        4.0,
+        2.0
+      ],
+      "spawn_mm": [
+        140.6,
+        278.3,
+        489.8
+      ],
+      "final_mm": [
+        142.1,
+        279.4,
+        0.5
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        140.6,
+        278.3,
+        438.5
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": false,
+      "reached_screen_band": false,
+      "crossed_screen": false,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_FR_BASE_001",
+          "distance_mm": 0.5,
+          "position": [
+            142.1,
+            279.4,
+            0.0
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "FR-BASE_001",
+          "body": "STATIC"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 22,
+    "entered": 22,
+    "passed_through": 22,
+    "in_path_passed": 22,
+    "reached_auger_pickup": 0,
+    "stuck": 0,
+    "lost_through_world": 6,
+    "reached_s2_mouth": 0,
+    "lost_after_s2_mouth": 0,
+    "lost_after_x335_before_mouth": 0,
+    "crossed_screen": 0,
+    "reached_screen_band": 0,
+    "blocker_solids": {}
+  },
+  "zone_breakdown": {
+    "applies": false,
+    "note": "zone split defined for chute_inlet only (flight corridor x237..354)"
+  },
+  "contact_report_stream_events": 0,
+  "contact_report_stream_note": "event stream verified non-functional in this build under SimulationView stepping; final nearby collider shapes identified by scene-query rays, not measured impulse contacts",
+  "trajectory_rows": [
+    {
+      "step": 1,
+      "pos_mm": [
+        [
+          153.3,
+          263.5,
+          490.5
+        ],
+        [
+          144.7,
+          209.2,
+          494.1
+        ],
+        [
+          107.9,
+          278.6,
+          489.7
+        ],
+        [
+          129.8,
+          217.1,
+          487.7
+        ],
+        [
+          127.7,
+          265.9,
+          496.5
+        ],
+        [
+          144.5,
+          209.8,
+          488.0
+        ],
+        [
+          135.3,
+          250.2,
+          491.5
+        ],
+        [
+          116.9,
+          269.3,
+          492.2
+        ],
+        [
+          124.5,
+          234.6,
+          492.8
+        ],
+        [
+          103.3,
+          271.5,
+          488.8
+        ],
+        [
+          141.8,
+          214.7,
+          492.9
+        ],
+        [
+          96.6,
+          280.5,
+          489.4
+        ],
+        [
+          142.0,
+          273.6,
+          489.3
+        ],
+        [
+          107.6,
+          271.5,
+          496.3
+        ],
+        [
+          110.9,
+          268.3,
+          487.7
+        ],
+        [
+          114.2,
+          245.4,
+          493.5
+        ],
+        [
+          88.4,
+          224.6,
+          488.9
+        ],
+        [
+          140.3,
+          259.1,
+          489.8
+        ],
+        [
+          152.0,
+          230.7,
+          488.8
+        ],
+        [
+          107.6,
+          251.9,
+          491.1
+        ],
+        [
+          153.5,
+          245.3,
+          496.1
+        ],
+        [
+          140.6,
+          278.3,
+          489.4
+        ]
+      ]
+    },
+    {
+      "step": 101,
+      "pos_mm": [
+        [
+          170.9,
+          263.8,
+          402.3
+        ],
+        [
+          156.5,
+          200.4,
+          347.9
+        ],
+        [
+          84.5,
+          278.5,
+          363.3
+        ],
+        [
+          124.4,
+          217.1,
+          437.7
+        ],
+        [
+          88.7,
+          265.8,
+          411.2
+        ],
+        [
+          152.1,
+          211.7,
+          348.0
+        ],
+        [
+          99.4,
+          250.2,
+          423.2
+        ],
+        [
+          84.5,
+          269.7,
+          363.3
+        ],
+        [
+          98.5,
+          235.5,
+          359.3
+        ],
+        [
+          106.2,
+          271.5,
+          349.0
+        ],
+        [
+          131.7,
+          214.5,
+          438.9
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          149.6,
+          273.6,
+          340.3
+        ],
+        [
+          110.3,
+          271.5,
+          348.2
+        ],
+        [
+          110.4,
+          269.0,
+          164.4
+        ],
+        [
+          64.4,
+          245.8,
+          227.7
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          152.5,
+          259.1,
+          353.4
+        ],
+        [
+          157.7,
+          233.1,
+          285.8
+        ],
+        [
+          83.5,
+          251.9,
+          360.0
+        ],
+        [
+          157.6,
+          244.5,
+          280.1
+        ],
+        [
+          173.1,
+          280.3,
+          406.6
+        ]
+      ]
+    },
+    {
+      "step": 201,
+      "pos_mm": [
+        [
+          166.3,
+          264.7,
+          347.7
+        ],
+        [
+          176.1,
+          168.3,
+          347.5
+        ],
+        [
+          84.5,
+          278.5,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          156.2,
+          220.3,
+          347.9
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          136.8,
+          236.6,
+          348.3
+        ],
+        [
+          120.6,
+          271.5,
+          348.7
+        ],
+        [
+          118.1,
+          213.9,
+          433.8
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          151.8,
+          259.9,
+          151.7
+        ],
+        [
+          124.8,
+          271.5,
+          347.9
+        ],
+        [
+          109.7,
+          269.0,
+          -769.0
+        ],
+        [
+          -14.3,
+          90.2,
+          -374.5
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          163.7,
+          167.0,
+          21.3
+        ],
+        [
+          177.1,
+          235.7,
+          -408.6
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          174.6,
+          -8.6,
+          -217.4
+        ],
+        [
+          144.1,
+          279.5,
+          48.2
+        ]
+      ]
+    },
+    {
+      "step": 301,
+      "pos_mm": [
+        [
+          170.9,
+          265.8,
+          347.6
+        ],
+        [
+          197.7,
+          163.9,
+          347.0
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          169.8,
+          228.9,
+          347.6
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          174.6,
+          237.4,
+          347.5
+        ],
+        [
+          142.3,
+          271.5,
+          348.2
+        ],
+        [
+          83.5,
+          213.5,
+          360.1
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          151.9,
+          211.7,
+          -57.2
+        ],
+        [
+          144.4,
+          271.6,
+          347.4
+        ],
+        [
+          109.0,
+          269.0,
+          -2315.6
+        ],
+        [
+          -89.3,
+          -96.0,
+          -1547.8
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          175.4,
+          -20.5,
+          -699.8
+        ],
+        [
+          196.5,
+          238.4,
+          -1716.1
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          190.1,
+          -374.2,
+          -1232.2
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 401,
+      "pos_mm": [
+        [
+          184.9,
+          266.9,
+          347.3
+        ],
+        [
+          211.7,
+          173.3,
+          346.7
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          192.8,
+          237.4,
+          347.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          212.5,
+          238.0,
+          346.7
+        ],
+        [
+          162.8,
+          270.7,
+          347.8
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.0,
+          158.5,
+          -862.1
+        ],
+        [
+          163.8,
+          272.6,
+          347.0
+        ],
+        [
+          108.2,
+          269.0,
+          -4475.4
+        ],
+        [
+          -164.2,
+          -282.1,
+          -3334.3
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          187.2,
+          -208.0,
+          -2034.0
+        ],
+        [
+          215.8,
+          241.0,
+          -3636.7
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          205.6,
+          -739.8,
+          -2860.1
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 501,
+      "pos_mm": [
+        [
+          208.2,
+          267.9,
+          346.8
+        ],
+        [
+          219.3,
+          189.4,
+          346.6
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          225.1,
+          246.0,
+          346.4
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          241.3,
+          235.3,
+          341.0
+        ],
+        [
+          190.8,
+          269.5,
+          347.2
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.1,
+          105.4,
+          -2280.2
+        ],
+        [
+          182.8,
+          274.0,
+          346.6
+        ],
+        [
+          107.5,
+          269.0,
+          -7248.2
+        ],
+        [
+          -239.1,
+          -468.4,
+          -5733.8
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          199.0,
+          -395.5,
+          -3981.3
+        ],
+        [
+          235.2,
+          243.7,
+          -6170.4
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          221.1,
+          -1105.4,
+          -5101.1
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 601,
+      "pos_mm": [
+        [
+          240.9,
+          269.0,
+          346.1
+        ],
+        [
+          228.0,
+          208.2,
+          346.4
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          235.6,
+          251.7,
+          346.2
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          223.6,
+          227.1,
+          201.6
+        ],
+        [
+          227.2,
+          268.2,
+          346.4
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.2,
+          52.3,
+          -4311.3
+        ],
+        [
+          201.8,
+          274.8,
+          346.2
+        ],
+        [
+          106.8,
+          269.0,
+          -10634.2
+        ],
+        [
+          -314.0,
+          -654.5,
+          -8746.5
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          210.7,
+          -583.0,
+          -6541.8
+        ],
+        [
+          254.6,
+          246.3,
+          -9317.2
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          236.5,
+          -1471.1,
+          -7955.3
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 701,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          234.6,
+          226.5,
+          346.2
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          241.6,
+          256.4,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          205.4,
+          225.8,
+          26.5
+        ],
+        [
+          242.5,
+          259.3,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.3,
+          -0.9,
+          -6955.6
+        ],
+        [
+          220.9,
+          275.3,
+          345.8
+        ],
+        [
+          106.0,
+          269.0,
+          -14633.3
+        ],
+        [
+          -388.9,
+          -840.7,
+          -12372.3
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          222.5,
+          -770.5,
+          -9715.4
+        ],
+        [
+          274.0,
+          248.9,
+          -13077.3
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          252.0,
+          -1836.7,
+          -11422.7
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 801,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          235.5,
+          234.9,
+          282.7
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.2,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          187.7,
+          225.5,
+          26.5
+        ],
+        [
+          242.5,
+          259.4,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.4,
+          -54.0,
+          -10213.2
+        ],
+        [
+          240.0,
+          275.6,
+          345.4
+        ],
+        [
+          105.3,
+          269.0,
+          -19245.7
+        ],
+        [
+          -463.8,
+          -1026.8,
+          -16611.3
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          234.3,
+          -958.0,
+          -13502.1
+        ],
+        [
+          293.5,
+          251.6,
+          -17450.4
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          267.5,
+          -2202.3,
+          -15503.1
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 901,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          235.2,
+          243.3,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          170.2,
+          225.2,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.5,
+          -107.1,
+          -14083.7
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          104.6,
+          269.0,
+          -24471.0
+        ],
+        [
+          -538.7,
+          -1213.1,
+          -21463.4
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          246.0,
+          -1145.5,
+          -17902.3
+        ],
+        [
+          312.9,
+          254.2,
+          -22436.8
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          283.1,
+          -2567.9,
+          -20197.0
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1001,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          233.9,
+          242.5,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          152.7,
+          224.9,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.6,
+          -160.2,
+          -18567.4
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          103.8,
+          269.0,
+          -30309.4
+        ],
+        [
+          -613.7,
+          -1399.5,
+          -26928.6
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          257.8,
+          -1333.0,
+          -22915.1
+        ],
+        [
+          332.3,
+          256.8,
+          -28036.4
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          298.6,
+          -2933.6,
+          -25503.6
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1101,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          232.6,
+          241.7,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          135.3,
+          224.6,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.7,
+          -213.4,
+          -23664.2
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          103.1,
+          269.0,
+          -36760.7
+        ],
+        [
+          -688.7,
+          -1585.8,
+          -33007.1
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          269.5,
+          -1520.5,
+          -28541.2
+        ],
+        [
+          351.8,
+          259.5,
+          -34248.1
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          314.1,
+          -3299.2,
+          -31423.3
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1201,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          231.3,
+          240.9,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          117.9,
+          224.3,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.8,
+          -266.5,
+          -29374.2
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          102.4,
+          269.0,
+          -43825.7
+        ],
+        [
+          -763.7,
+          -1772.1,
+          -39698.4
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          281.2,
+          -1708.0,
+          -34780.7
+        ],
+        [
+          371.2,
+          262.1,
+          -41073.9
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          329.6,
+          -3664.8,
+          -37956.6
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1301,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          230.0,
+          240.1,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          227.9,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          152.9,
+          -319.6,
+          -35697.1
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          101.6,
+          269.0,
+          -51503.7
+        ],
+        [
+          -838.7,
+          -1958.4,
+          -47003.1
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          293.0,
+          -1895.5,
+          -41633.2
+        ],
+        [
+          390.6,
+          264.7,
+          -48512.8
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          345.2,
+          -4030.4,
+          -45102.8
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1401,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          228.7,
+          239.4,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          231.9,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.0,
+          -372.7,
+          -42633.4
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          100.9,
+          269.0,
+          -59794.6
+        ],
+        [
+          -913.7,
+          -2144.6,
+          -54920.7
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          304.7,
+          -2083.0,
+          -49098.9
+        ],
+        [
+          410.1,
+          267.4,
+          -56564.8
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          360.7,
+          -4396.1,
+          -52862.1
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1501,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          227.5,
+          238.6,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          235.8,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.1,
+          -425.9,
+          -50182.6
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          100.2,
+          269.0,
+          -68698.6
+        ],
+        [
+          -988.7,
+          -2330.5,
+          -63451.6
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          316.4,
+          -2270.5,
+          -57177.5
+        ],
+        [
+          429.5,
+          270.0,
+          -65230.0
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          376.2,
+          -4761.7,
+          -61234.3
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1601,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          226.2,
+          237.8,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          239.7,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.2,
+          -479.0,
+          -58345.1
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          99.4,
+          269.0,
+          -78215.9
+        ],
+        [
+          -1063.7,
+          -2516.4,
+          -72595.7
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          328.1,
+          -2458.0,
+          -65869.1
+        ],
+        [
+          448.9,
+          272.7,
+          -74508.1
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          391.7,
+          -5127.3,
+          -70219.8
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1701,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          224.9,
+          237.0,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          243.7,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.3,
+          -532.1,
+          -67120.8
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          98.7,
+          269.0,
+          -88346.1
+        ],
+        [
+          -1138.7,
+          -2702.4,
+          -82352.5
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          339.8,
+          -2645.5,
+          -75173.9
+        ],
+        [
+          468.4,
+          275.3,
+          -84399.3
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          407.3,
+          -5492.9,
+          -79818.3
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1801,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          223.6,
+          236.2,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          247.6,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.4,
+          -585.2,
+          -76509.5
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          98.0,
+          269.0,
+          -99089.6
+        ],
+        [
+          -1213.7,
+          -2888.3,
+          -92722.7
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          351.6,
+          -2833.0,
+          -85091.9
+        ],
+        [
+          487.8,
+          277.9,
+          -94903.6
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          422.8,
+          -5858.6,
+          -90029.8
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 1901,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          222.4,
+          235.4,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          248.5,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.5,
+          -638.4,
+          -86511.3
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          97.2,
+          269.0,
+          -110445.9
+        ],
+        [
+          -1288.7,
+          -3074.3,
+          -103706.0
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          363.3,
+          -3020.5,
+          -95622.6
+        ],
+        [
+          507.2,
+          280.6,
+          -106020.8
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          438.3,
+          -6224.2,
+          -100854.6
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 2001,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          221.1,
+          234.7,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          248.5,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.6,
+          -691.5,
+          -97126.3
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          96.5,
+          269.0,
+          -122415.6
+        ],
+        [
+          -1363.7,
+          -3260.2,
+          -115302.7
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          375.0,
+          -3208.0,
+          -106766.9
+        ],
+        [
+          526.6,
+          283.2,
+          -117751.1
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          453.9,
+          -6589.8,
+          -112292.6
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 2101,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          219.8,
+          233.9,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          248.5,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.7,
+          -744.6,
+          -108354.3
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          95.8,
+          269.0,
+          -134998.1
+        ],
+        [
+          -1438.7,
+          -3446.1,
+          -127512.0
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          386.7,
+          -3395.5,
+          -118524.1
+        ],
+        [
+          545.9,
+          285.8,
+          -130094.8
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          469.4,
+          -6955.4,
+          -124343.3
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 2201,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          218.5,
+          233.1,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          248.5,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.8,
+          -797.7,
+          -120195.3
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          95.1,
+          269.0,
+          -148194.1
+        ],
+        [
+          -1513.7,
+          -3632.1,
+          -140334.0
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          398.4,
+          -3583.0,
+          -130894.6
+        ],
+        [
+          565.3,
+          288.5,
+          -143051.3
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          484.9,
+          -7321.1,
+          -137007.1
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 2301,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          217.3,
+          232.3,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          248.5,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          153.9,
+          -850.9,
+          -132649.1
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          94.3,
+          269.0,
+          -162003.1
+        ],
+        [
+          -1588.7,
+          -3818.0,
+          -153769.5
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          410.1,
+          -3770.5,
+          -143878.3
+        ],
+        [
+          584.6,
+          291.1,
+          -156620.8
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          500.4,
+          -7686.7,
+          -150284.1
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "step": 2400,
+      "pos_mm": [
+        [
+          242.5,
+          269.5,
+          346.1
+        ],
+        [
+          216.0,
+          231.5,
+          26.5
+        ],
+        [
+          84.5,
+          278.6,
+          363.3
+        ],
+        [
+          84.5,
+          217.0,
+          363.3
+        ],
+        [
+          84.5,
+          265.7,
+          363.3
+        ],
+        [
+          242.5,
+          256.3,
+          346.1
+        ],
+        [
+          84.5,
+          250.1,
+          363.3
+        ],
+        [
+          84.5,
+          269.6,
+          363.3
+        ],
+        [
+          116.5,
+          248.5,
+          26.5
+        ],
+        [
+          242.5,
+          259.5,
+          346.1
+        ],
+        [
+          83.6,
+          213.6,
+          360.4
+        ],
+        [
+          83.7,
+          280.4,
+          360.8
+        ],
+        [
+          154.0,
+          -903.5,
+          -145582.6
+        ],
+        [
+          243.3,
+          275.8,
+          345.3
+        ],
+        [
+          93.6,
+          269.0,
+          -176277.1
+        ],
+        [
+          -1663.0,
+          -4002.1,
+          -167674.5
+        ],
+        [
+          83.7,
+          224.6,
+          438.3
+        ],
+        [
+          421.8,
+          -3956.1,
+          -157335.8
+        ],
+        [
+          603.7,
+          293.7,
+          -170658.8
+        ],
+        [
+          83.6,
+          251.9,
+          360.4
+        ],
+        [
+          515.8,
+          -8048.6,
+          -164032.6
+        ],
+        [
+          142.1,
+          279.4,
+          0.5
+        ]
+      ]
+    }
+  ],
+  "runner": "c2.2/sim/flow_localize.py"
+}

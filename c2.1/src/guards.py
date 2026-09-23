@@ -93,7 +93,10 @@ def guard_chain_a():
 def guard_chain_b():
     """Outer guard tube over chain B: same tangent+arc path as the chain
     loop but the radial band rp+5.5..rp+9.5 (4 mm plate line), 3 mm wide at
-    y 377..380 - keeps hands out of the chain B run."""
+    y 379..382 - keeps hands out of the chain B run.  VP1 Stage 4: chain B
+    now runs jackshaft(136.94,65) -> S2(308.57,280) in the y376..381 plane;
+    the rev A jackshaft-crossing split of the plate is gone (the strand no
+    longer crosses the jack core)."""
     import drive_teeth as dt
     parts = []
     for chain in (dt.CHAIN_B,):
@@ -105,19 +108,16 @@ def guard_chain_b():
         ang2 = ang1 - 2.0 * phi
         y0 = 377.0
         # plates on the side away from the sprocket discs at each strand's
-        # ends: line A outward = +p_hat, line B outward = -p_hat.  Line B's
-        # plate is SPLIT (t 0..0.15 / 0.29..1) on that side: the frozen
-        # DRV-JACK_001 jackshaft crosses the guard band mid-run (documented).
+        # ends: line A outward = +p_hat, line B outward = -p_hat.
         for line_idx, (x1, z1, x2, z2) in enumerate(lines):
             sgn = -1.0 if line_idx == 0 else 1.0
             L = math.hypot(x2 - x1, z2 - z1)
             ux, uz = (x2 - x1) / L, (z2 - z1) / L
-            t_ranges = ([(0.0, 1.0)] if line_idx == 0
-                        else [(0.0, 0.07), (0.17, 1.0)])
+            t_ranges = [(0.0, 1.0)]
             for t0, t1 in t_ranges:
                 pts = []
                 for t in (t0, t1):
-                    for sr in (5.5, 9.5):
+                    for sr in (6.0, 9.5):
                         px = x1 + (x2 - x1) * t + sgn * uz * sr
                         pz = z1 + (z2 - z1) * t - sgn * ux * sr
                         pts.append((px, pz))
@@ -132,7 +132,7 @@ def guard_chain_b():
         for center, r, a0, a1 in ((p2, r2, ang2 - ext, ang1 + ext),):
             tube = cq.Solid.makeCylinder(r + 9.5, 3.0, V(center[0], y0, center[1]),
                                          V(0, 1, 0))
-            tube = tube.cut(cq.Solid.makeCylinder(r + 5.5, 5.0,
+            tube = tube.cut(cq.Solid.makeCylinder(r + 6.0, 5.0,
                                                   V(center[0], y0 - 1, center[1]),
                                                   V(0, 1, 0)))
             for angle_deg, side in ((math.degrees(a0), "cw"),

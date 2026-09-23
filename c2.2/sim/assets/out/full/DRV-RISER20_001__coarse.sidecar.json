@@ -3,14 +3,14 @@
   "group": "frame_mount",
   "kinematic_body": "STATIC",
   "lod": "coarse",
-  "step_index": 136,
-  "step_product_name": "Open CASCADE STEP translator 7.9 1.136",
+  "step_index": 133,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.133",
   "mesh_file": "sim/assets/out/full/DRV-RISER20_001__coarse.stl",
   "mesh_bytes": 684,
   "mesh_sha256": "8885f855985ad6bddc37794b7c9f50f73b265b0cf26abd6ebdf423cb7fe4cd6e",
   "mesh_format": "STL",
-  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
-  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
@@ -21,9 +21,9 @@
     404.0000001,
     27.5000001
   ],
-  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "conversion_script_sha256": "a9e71d96195ff56b62cb3427ccc870e8e1d2d8417c6ba904ca8a64e82de96247",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5

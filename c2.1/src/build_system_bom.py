@@ -65,8 +65,16 @@ def main():
     # geometry are excluded from the retained-quantity roll-up
     excluded = set(integration.get("vp1_stage1", {}).get(
         "excluded_legacy_instances", []))
+    excluded.update(integration["vp1_stage1"]["deleted_drive_instances"])
     retained = Counter(item["part"] for item in master["instances"]
                        if item["group"] != "S2" and item["name"] not in excluded)
+    # The added jackshaft chain-B driver uses a second physical 6x6x16 key,
+    # not a second part ID or a zero-cost phantom.
+    if not any(r.get("legacy") == "DRV-JACK_001"
+               and r.get("kind") == "keyseat"
+               for r in integration["vp1_stage1"]["vp1_stage3"]["relief_records"]):
+        raise RuntimeError("BOM requires the second jackshaft keyseat")
+    retained["KEY-6-16"] += 1
     removed = Counter(item["part"] for item in master["instances"]
                       if item["group"] == "S2" or item["name"] in excluded)
     groups = defaultdict(set)
@@ -94,7 +102,10 @@ def main():
             "scope": scope, "part_id": part_id, "description": item["description"],
             "quantity": quantity, "material": item["material"], "status": item["status"],
             "source": item["source"], "evidence": "C1_INTERFACE_BASELINE",
-            "landed_line_KRW": landed, "cost_state": cost_state, "notes": item["notes"]
+            "landed_line_KRW": landed, "cost_state": cost_state,
+            "notes": (item["notes"] + (" VP1 second jackshaft key cut to "
+                      "14.8 mm before y388 bearing; fit/strength HOLD."
+                      if part_id == "KEY-6-16" else "")),
         })
 
     for item in rows(C21/"bom/transmission_bom.csv"):
@@ -147,11 +158,11 @@ def main():
                     for item in research["procurement"]["candidates"]
                     if item.get("known_motor_landed_floor_KRW") is not None]
     summary = {
-        "revision": "C2.1-P6+VP1-STAGE3",
+        "revision": "C2.1-P6+VP1-STAGE5",
         "active_rows": len(active),
         "unique_part_ids": len(set(ids)),
-        "legacy_s2_instances_removed": sum(removed.values()),
-        "legacy_s2_part_quantities_removed": dict(sorted(removed.items())),
+        "legacy_instances_removed": sum(removed.values()),
+        "legacy_part_quantities_removed": dict(sorted(removed.items())),
         "adjusted_shared_quantities": {part_id: retained[part_id] for part_id in removed if retained[part_id]},
         "c21_rows_added": len(rows(C21/"bom/transmission_bom.csv")),
         "vp1_delta_rows": len(rows(C21/"bom/vp1_bom_delta.csv")),

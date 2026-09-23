@@ -33,7 +33,19 @@ def main():
         "source": str(SOURCE.relative_to(REPO)),
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         "binary_sha256": None if executed is None else hashlib.sha256(BUILD.read_bytes()).hexdigest(),
-        "cases": 11,
+        "cases": 19,
+        "power_allocator": {
+            "power_target_W": 500.0,
+            "power_target_semantics": "SOFT scheduler target: draws above it "
+                                      "are admitted and flagged WARN+logged",
+            "psu_hard_ceiling_W": 792.0,
+            "psu_nameplate_W": 800.0,
+            "band_mutual_exclusion": "structural allocator invariant; hardware "
+                                     "EL_CURRENT_LIMITER interlock requirement stands",
+            "unrated_devices": ["M1 shredder drive 196.8 W", "M2 extruder drive 43.2 W",
+                                "COOL-FAN pair 16 W"],
+            "nameplate_source": ["EX-H100 3 x 100 W", "EX-H60 60 W"],
+        },
         "arduino_cli": "DID_NOT_FIND_EXECUTABLE",
         "target_cross_compile": "DID_NOT_RUN",
         "flash": "DID_NOT_RUN",

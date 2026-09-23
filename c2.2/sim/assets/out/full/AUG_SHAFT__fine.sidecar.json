@@ -1,0 +1,39 @@
+{
+  "asset_id": "AUG_SHAFT",
+  "group": "feed",
+  "kinematic_body": "AUGER",
+  "lod": "fine",
+  "step_index": 200,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.200",
+  "mesh_file": "sim/assets/out/full/AUG_SHAFT__fine.stl",
+  "mesh_bytes": 254484,
+  "mesh_sha256": "e340cf20f925161723532932cba71a80dbff2240514da99edc685262d9996013",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    235.9999999,
+    222.17098536740815,
+    338.76499660648,
+    370.0000001,
+    241.8297420375674,
+    355.3540472290724
+  ],
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "a9e71d96195ff56b62cb3427ccc870e8e1d2d8417c6ba904ca8a64e82de96247",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 6472.302978736298,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

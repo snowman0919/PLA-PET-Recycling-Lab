@@ -1,0 +1,689 @@
+{
+  "schema": "full_machine_flow_localize/2",
+  "step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+  "usda_sha256": "594b77e44c46e166f55dcbf0182e21aa5935e7b590f4935599b3115defef5f61",
+  "scene_consistent": true,
+  "usd_source_linked": true,
+  "current_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+  "current_usda_sha256": "594b77e44c46e166f55dcbf0182e21aa5935e7b590f4935599b3115defef5f61",
+  "generated_by": "c2.2/sim/flow_localize.py",
+  "child_exit_codes": {
+    "hopper_mouth": 0,
+    "s1_discharge": 0,
+    "chute_inlet": 0,
+    "s2_inlet": 0
+  },
+  "verdicts": {
+    "hopper_mouth": {
+      "pass_rate": 1.0,
+      "in_path_passed": 22,
+      "in_path_pass_rate": 1.0,
+      "stuck": 0,
+      "crossed_screen": 0,
+      "reached_s2_mouth": 0,
+      "reached_auger_pickup": 0,
+      "lost_through_world": 6,
+      "lost_after_s2_mouth": 0,
+      "lost_after_x335_before_mouth": 0,
+      "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
+      "verdict": "BLOCKED",
+      "top_blocker_solids": []
+    },
+    "s1_discharge": {
+      "pass_rate": 1.0,
+      "in_path_passed": 22,
+      "in_path_pass_rate": 1.0,
+      "stuck": 0,
+      "crossed_screen": 0,
+      "reached_s2_mouth": 0,
+      "reached_auger_pickup": 5,
+      "lost_through_world": 0,
+      "lost_after_s2_mouth": 0,
+      "lost_after_x335_before_mouth": 0,
+      "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
+      "verdict": "BLOCKED",
+      "top_blocker_solids": []
+    },
+    "chute_inlet": {
+      "pass_rate": 0.955,
+      "in_path_passed": 21,
+      "in_path_pass_rate": 0.955,
+      "stuck": 5,
+      "crossed_screen": 0,
+      "reached_s2_mouth": 0,
+      "reached_auger_pickup": 0,
+      "lost_through_world": 13,
+      "lost_after_s2_mouth": 0,
+      "lost_after_x335_before_mouth": 13,
+      "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
+      "verdict": "BLOCKED",
+      "top_blocker_solids": [
+        "STATIC:FR-2040-320_002",
+        "STATIC:FR-BASE_001",
+        "STATIC:FR-2040-630_001",
+        "STATIC:FR-2040-630_002"
+      ]
+    },
+    "s2_inlet": {
+      "pass_rate": 1.0,
+      "in_path_passed": 22,
+      "in_path_pass_rate": 1.0,
+      "stuck": 0,
+      "crossed_screen": 21,
+      "reached_s2_mouth": 0,
+      "reached_auger_pickup": 0,
+      "lost_through_world": 9,
+      "lost_after_s2_mouth": 0,
+      "lost_after_x335_before_mouth": 0,
+      "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
+      "verdict": "BLOCKED",
+      "top_blocker_solids": []
+    }
+  },
+  "phases": {
+    "hopper_mouth": {
+      "spawn_box_mm": [
+        83.9,
+        153.9,
+        203.5,
+        283.5,
+        488.0,
+        497.0
+      ],
+      "pass_predicate": "z < 438.5 (below hopper into S1 chamber)",
+      "receiver_predicate": "x80..240,y162.4..324.6,z352.3..438.5",
+      "auger_pickup_predicate": "s1_discharge only: after z352.3 gate, ever inside x237..270,y223.3..240.9,z338..356",
+      "s2_mouth_transition_predicate": "first +Y crossing of y=255 with x340..360,z320..345; x335 flight gate alone does not establish transfer",
+      "input_rpm": 79.99999999999999,
+      "summary": {
+        "total": 22,
+        "entered": 22,
+        "passed_through": 22,
+        "in_path_passed": 22,
+        "reached_auger_pickup": 0,
+        "stuck": 0,
+        "lost_through_world": 6,
+        "reached_s2_mouth": 0,
+        "lost_after_s2_mouth": 0,
+        "lost_after_x335_before_mouth": 0,
+        "crossed_screen": 0,
+        "reached_screen_band": 0,
+        "blocker_solids": {}
+      },
+      "zone_breakdown": {
+        "applies": false,
+        "note": "zone split defined for chute_inlet only (flight corridor x237..354)"
+      },
+      "stuck_fragments": []
+    },
+    "s1_discharge": {
+      "spawn_box_mm": [
+        100.0,
+        220.0,
+        190.0,
+        290.0,
+        353.0,
+        356.0
+      ],
+      "pass_predicate": "z < 352.3 (through 4.3mm S1 opening to pan)",
+      "receiver_predicate": "x80..248,y157.4..329.6,z344.5..352.3",
+      "auger_pickup_predicate": "s1_discharge only: after z352.3 gate, ever inside x237..270,y223.3..240.9,z338..356",
+      "s2_mouth_transition_predicate": "first +Y crossing of y=255 with x340..360,z320..345; x335 flight gate alone does not establish transfer",
+      "input_rpm": 79.99999999999999,
+      "summary": {
+        "total": 22,
+        "entered": 22,
+        "passed_through": 22,
+        "in_path_passed": 22,
+        "reached_auger_pickup": 5,
+        "stuck": 0,
+        "lost_through_world": 0,
+        "reached_s2_mouth": 0,
+        "lost_after_s2_mouth": 0,
+        "lost_after_x335_before_mouth": 0,
+        "crossed_screen": 0,
+        "reached_screen_band": 0,
+        "blocker_solids": {}
+      },
+      "zone_breakdown": {
+        "applies": false,
+        "note": "zone split defined for chute_inlet only (flight corridor x237..354)"
+      },
+      "stuck_fragments": []
+    },
+    "chute_inlet": {
+      "spawn_box_mm": [
+        252.0,
+        270.0,
+        226.0,
+        238.0,
+        357.5,
+        359.5
+      ],
+      "pass_predicate": "x >= 335 (downstream flight gate, before x354 edge)",
+      "receiver_predicate": "x335..354,y223.3..240.9,z338.6..356.3",
+      "auger_pickup_predicate": "s1_discharge only: after z352.3 gate, ever inside x237..270,y223.3..240.9,z338..356",
+      "s2_mouth_transition_predicate": "first +Y crossing of y=255 with x340..360,z320..345; x335 flight gate alone does not establish transfer",
+      "input_rpm": 39.99999999999999,
+      "summary": {
+        "total": 22,
+        "entered": 22,
+        "passed_through": 21,
+        "in_path_passed": 21,
+        "reached_auger_pickup": 0,
+        "stuck": 5,
+        "lost_through_world": 13,
+        "reached_s2_mouth": 0,
+        "lost_after_s2_mouth": 0,
+        "lost_after_x335_before_mouth": 13,
+        "crossed_screen": 0,
+        "reached_screen_band": 0,
+        "blocker_solids": {
+          "STATIC:FR-2040-320_002": 5,
+          "STATIC:FR-BASE_001": 5,
+          "STATIC:FR-2040-630_001": 1,
+          "STATIC:FR-2040-630_002": 1
+        }
+      },
+      "zone_breakdown": {
+        "applies": true,
+        "pickup_window_x_mm": [
+          237.0,
+          354.0
+        ],
+        "flight_x_range_mm": [
+          237.0,
+          354.0
+        ],
+        "zones": {
+          "upstream_entry": {
+            "x_range": [
+              237.0,
+              270.0
+            ],
+            "note": "isolated spawn band inside the active flight x237..354",
+            "total": 22,
+            "entered": 22,
+            "passed_through": 21,
+            "true_passed": 21,
+            "reached_s2_mouth": 0,
+            "stuck": 5,
+            "lost_through_world": 13,
+            "lost_after_x335_before_mouth": 13,
+            "crossed_screen": 0,
+            "pass_rate": 0.955,
+            "true_pass_rate": 0.955
+          },
+          "downstream_exit": {
+            "x_range": [
+              354.0,
+              null
+            ],
+            "note": "east fallaway / spill edge (x>=335 predicate may trigger past the flight east edge)",
+            "total": 0,
+            "entered": 0,
+            "passed_through": 0,
+            "true_passed": 0,
+            "reached_s2_mouth": 0,
+            "stuck": 0,
+            "lost_through_world": 0,
+            "lost_after_x335_before_mouth": 0,
+            "crossed_screen": 0,
+            "pass_rate": null,
+            "true_pass_rate": null
+          }
+        },
+        "true_pass_note": "in-trough at first x>=335 sample; S2 mouth requires a separate +Y entrance-plane crossing; final world loss is separate"
+      },
+      "stuck_fragments": [
+        {
+          "i": 3,
+          "kind": "sphere",
+          "size_mm": 3.0,
+          "spawn_mm": [
+            263.8,
+            228.0,
+            357.5
+          ],
+          "final_mm": [
+            261.8,
+            247.6,
+            1.5
+          ],
+          "entered": true,
+          "first_pass_mm": [
+            335.0,
+            231.6,
+            340.2
+          ],
+          "in_path_passed": true,
+          "passed_through": true,
+          "settled_stuck_at_step": 12901,
+          "stuck": true,
+          "lost_through_world": false,
+          "reached_screen_band": false,
+          "crossed_screen": false,
+          "reached_s2_mouth": false,
+          "first_s2_mouth_crossing_mm": null,
+          "reached_auger_pickup": false,
+          "first_auger_pickup_mm": null,
+          "lost_after_s2_mouth": false,
+          "lost_after_x335_before_mouth": false,
+          "touch_probe": {
+            "down": {
+              "path": "/World/F0/Static/mesh_FR_BASE_001",
+              "distance_mm": 1.5,
+              "position": [
+                261.8,
+                247.6,
+                0.0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "neg_x": {
+              "path": "/World/F0/Static/mesh_FR_2040_320_002",
+              "distance_mm": 1.83,
+              "position": [
+                260.0,
+                247.6,
+                1.5
+              ],
+              "normal": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "touching_solids": [
+            {
+              "solid": "FR-2040-320_002",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-BASE_001",
+              "body": "STATIC"
+            }
+          ]
+        },
+        {
+          "i": 4,
+          "kind": "sphere",
+          "size_mm": 3.0,
+          "spawn_mm": [
+            263.3,
+            235.4,
+            359.5
+          ],
+          "final_mm": [
+            261.5,
+            41.7,
+            1.5
+          ],
+          "entered": true,
+          "first_pass_mm": [
+            335.0,
+            232.8,
+            340.2
+          ],
+          "in_path_passed": true,
+          "passed_through": true,
+          "settled_stuck_at_step": 17357,
+          "stuck": true,
+          "lost_through_world": false,
+          "reached_screen_band": false,
+          "crossed_screen": false,
+          "reached_s2_mouth": false,
+          "first_s2_mouth_crossing_mm": null,
+          "reached_auger_pickup": false,
+          "first_auger_pickup_mm": null,
+          "lost_after_s2_mouth": false,
+          "lost_after_x335_before_mouth": false,
+          "touch_probe": {
+            "down": {
+              "path": "/World/F0/Static/mesh_FR_BASE_001",
+              "distance_mm": 1.5,
+              "position": [
+                261.5,
+                41.7,
+                0.0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "neg_x": {
+              "path": "/World/F0/Static/mesh_FR_2040_320_002",
+              "distance_mm": 1.53,
+              "position": [
+                260.0,
+                41.7,
+                1.5
+              ],
+              "normal": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            "neg_y": {
+              "path": "/World/F0/Static/mesh_FR_2040_630_001",
+              "distance_mm": 1.67,
+              "position": [
+                261.5,
+                40.0,
+                1.5
+              ],
+              "normal": [
+                -0.0,
+                1.0,
+                0.0
+              ]
+            }
+          },
+          "touching_solids": [
+            {
+              "solid": "FR-2040-320_002",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-2040-630_001",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-BASE_001",
+              "body": "STATIC"
+            }
+          ]
+        },
+        {
+          "i": 5,
+          "kind": "sphere",
+          "size_mm": 3.0,
+          "spawn_mm": [
+            267.6,
+            226.9,
+            357.6
+          ],
+          "final_mm": [
+            261.6,
+            49.2,
+            1.5
+          ],
+          "entered": true,
+          "first_pass_mm": [
+            335.0,
+            232.8,
+            340.2
+          ],
+          "in_path_passed": true,
+          "passed_through": true,
+          "settled_stuck_at_step": 12481,
+          "stuck": true,
+          "lost_through_world": false,
+          "reached_screen_band": false,
+          "crossed_screen": false,
+          "reached_s2_mouth": false,
+          "first_s2_mouth_crossing_mm": null,
+          "reached_auger_pickup": false,
+          "first_auger_pickup_mm": null,
+          "lost_after_s2_mouth": false,
+          "lost_after_x335_before_mouth": false,
+          "touch_probe": {
+            "down": {
+              "path": "/World/F0/Static/mesh_FR_BASE_001",
+              "distance_mm": 1.5,
+              "position": [
+                261.6,
+                49.2,
+                0.0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "neg_x": {
+              "path": "/World/F0/Static/mesh_FR_2040_320_002",
+              "distance_mm": 1.6,
+              "position": [
+                260.0,
+                49.2,
+                1.5
+              ],
+              "normal": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "touching_solids": [
+            {
+              "solid": "FR-2040-320_002",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-BASE_001",
+              "body": "STATIC"
+            }
+          ]
+        },
+        {
+          "i": 8,
+          "kind": "sphere",
+          "size_mm": 3.0,
+          "spawn_mm": [
+            262.5,
+            230.7,
+            358.6
+          ],
+          "final_mm": [
+            261.5,
+            358.4,
+            1.5
+          ],
+          "entered": true,
+          "first_pass_mm": [
+            335.0,
+            233.0,
+            340.2
+          ],
+          "in_path_passed": true,
+          "passed_through": true,
+          "settled_stuck_at_step": 19321,
+          "stuck": true,
+          "lost_through_world": false,
+          "reached_screen_band": false,
+          "crossed_screen": false,
+          "reached_s2_mouth": false,
+          "first_s2_mouth_crossing_mm": null,
+          "reached_auger_pickup": false,
+          "first_auger_pickup_mm": null,
+          "lost_after_s2_mouth": false,
+          "lost_after_x335_before_mouth": false,
+          "touch_probe": {
+            "down": {
+              "path": "/World/F0/Static/mesh_FR_BASE_001",
+              "distance_mm": 1.5,
+              "position": [
+                261.5,
+                358.4,
+                0.0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "neg_x": {
+              "path": "/World/F0/Static/mesh_FR_2040_320_002",
+              "distance_mm": 1.5,
+              "position": [
+                260.0,
+                358.4,
+                1.5
+              ],
+              "normal": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            "pos_y": {
+              "path": "/World/F0/Static/mesh_FR_2040_630_002",
+              "distance_mm": 1.55,
+              "position": [
+                261.5,
+                360.0,
+                1.5
+              ],
+              "normal": [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            }
+          },
+          "touching_solids": [
+            {
+              "solid": "FR-2040-320_002",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-2040-630_002",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-BASE_001",
+              "body": "STATIC"
+            }
+          ]
+        },
+        {
+          "i": 14,
+          "kind": "sphere",
+          "size_mm": 1.5,
+          "spawn_mm": [
+            258.9,
+            235.7,
+            357.5
+          ],
+          "final_mm": [
+            260.8,
+            51.4,
+            0.7
+          ],
+          "entered": true,
+          "first_pass_mm": [
+            335.0,
+            226.6,
+            341.7
+          ],
+          "in_path_passed": true,
+          "passed_through": true,
+          "settled_stuck_at_step": 21061,
+          "stuck": true,
+          "lost_through_world": false,
+          "reached_screen_band": false,
+          "crossed_screen": false,
+          "reached_s2_mouth": false,
+          "first_s2_mouth_crossing_mm": null,
+          "reached_auger_pickup": false,
+          "first_auger_pickup_mm": null,
+          "lost_after_s2_mouth": false,
+          "lost_after_x335_before_mouth": false,
+          "touch_probe": {
+            "down": {
+              "path": "/World/F0/Static/mesh_FR_BASE_001",
+              "distance_mm": 0.75,
+              "position": [
+                260.8,
+                51.4,
+                0.0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "neg_x": {
+              "path": "/World/F0/Static/mesh_FR_2040_320_002",
+              "distance_mm": 0.75,
+              "position": [
+                260.0,
+                51.4,
+                0.7
+              ],
+              "normal": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "touching_solids": [
+            {
+              "solid": "FR-2040-320_002",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-BASE_001",
+              "body": "STATIC"
+            }
+          ]
+        }
+      ]
+    },
+    "s2_inlet": {
+      "spawn_box_mm": [
+        342.0,
+        348.0,
+        266.0,
+        284.0,
+        344.0,
+        346.0
+      ],
+      "pass_predicate": "z < 300 (drop into S2 bay)",
+      "receiver_predicate": "x340..360,y255..295,z239.63..300",
+      "auger_pickup_predicate": "s1_discharge only: after z352.3 gate, ever inside x237..270,y223.3..240.9,z338..356",
+      "s2_mouth_transition_predicate": "first +Y crossing of y=255 with x340..360,z320..345; x335 flight gate alone does not establish transfer",
+      "input_rpm": 79.99999999999999,
+      "summary": {
+        "total": 22,
+        "entered": 22,
+        "passed_through": 22,
+        "in_path_passed": 22,
+        "reached_auger_pickup": 0,
+        "stuck": 0,
+        "lost_through_world": 9,
+        "reached_s2_mouth": 0,
+        "lost_after_s2_mouth": 0,
+        "lost_after_x335_before_mouth": 0,
+        "crossed_screen": 21,
+        "reached_screen_band": 1,
+        "blocker_solids": {}
+      },
+      "zone_breakdown": {
+        "applies": false,
+        "note": "zone split defined for chute_inlet only (flight corridor x237..354)"
+      },
+      "stuck_fragments": []
+    }
+  },
+  "blockers_across_phases": {
+    "chute_inlet:STATIC:FR-2040-320_002": 5,
+    "chute_inlet:STATIC:FR-BASE_001": 5,
+    "chute_inlet:STATIC:FR-2040-630_001": 1,
+    "chute_inlet:STATIC:FR-2040-630_002": 1
+  }
+}

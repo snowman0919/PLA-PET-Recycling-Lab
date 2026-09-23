@@ -15,11 +15,27 @@
   "compile_return_code": 0,
   "compile_stderr": "",
   "self_test_return_code": 0,
-  "self_test_stdout": "controller_core_self_test: 11 cases passed; no reverse or auto-restart path\n",
+  "self_test_stdout": "controller_core_self_test: 19 cases passed; no reverse or auto-restart path; band mutual exclusion; soft target 500 W (WARN above), hard ceiling 792 W (PSU 24 V x 33 A; nameplate 800 W) enforced\n",
   "source": "c2.1/firmware/controller_core.cpp",
-  "source_sha256": "a5aa21696c6ecb290d0ec0788834294cd441c67f4a80e96f7e85ba72a68fa68e",
-  "binary_sha256": "ab85e61f117aa08f2f25979ae50e1729698adf21c8f6696aed2c52d569bc6c14",
-  "cases": 11,
+  "source_sha256": "53f30515832e401a10d20eae558bfc8a5b0ec3a3779b5c988742d93673a84e3a",
+  "binary_sha256": "8646c8f34a30cd73dec2d6897fb34bef9df916b9f6b075848141fd08867bdecc",
+  "cases": 19,
+  "power_allocator": {
+    "power_target_W": 500.0,
+    "power_target_semantics": "SOFT scheduler target: draws above it are admitted and flagged WARN+logged",
+    "psu_hard_ceiling_W": 792.0,
+    "psu_nameplate_W": 800.0,
+    "band_mutual_exclusion": "structural allocator invariant; hardware EL_CURRENT_LIMITER interlock requirement stands",
+    "unrated_devices": [
+      "M1 shredder drive 196.8 W",
+      "M2 extruder drive 43.2 W",
+      "COOL-FAN pair 16 W"
+    ],
+    "nameplate_source": [
+      "EX-H100 3 x 100 W",
+      "EX-H60 60 W"
+    ]
+  },
   "arduino_cli": "DID_NOT_FIND_EXECUTABLE",
   "target_cross_compile": "DID_NOT_RUN",
   "flash": "DID_NOT_RUN",

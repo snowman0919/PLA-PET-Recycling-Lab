@@ -1,4 +1,4 @@
-"""Build deterministic P0-P6 status and artifact manifests."""
+"""Build deterministic P0-P6 + VP1 digital status and artifact manifests."""
 from __future__ import annotations
 
 import hashlib
@@ -15,7 +15,11 @@ def load(path):
 
 
 def sha256(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    h = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1 << 20), b""):
+            h.update(block)
+    return h.hexdigest()
 
 
 def main():
@@ -29,12 +33,53 @@ def main():
     drawings = load(C21/"results/p6_drawings.json")
     coupon = load(REPO/"c2/results/coupon_fe_summary.json")
     thermal = load(REPO/"c2/results/p5_thermal_control.json")
+    path_result = load(C21/"results/path_check.json")
+    usd_path = REPO/"c2.2/sim/assets/usd/full_machine.usda"
+    flow_path = REPO/"c2.2/results/full_machine/flow_localize/results.json"
+    current_step = machine["assembly_step_sha256"]
+    current_usd = sha256(usd_path) if usd_path.is_file() else None
+    flow = load(flow_path) if flow_path.is_file() else {}
+    flow_current = (flow.get("scene_consistent") is True
+                    and flow.get("step_sha256") == current_step
+                    and flow.get("usda_sha256") == current_usd)
+    connected = None
+    for p in sorted((REPO/"c2.2/results/full_machine").glob("run_*/results.json"),
+                    key=lambda p: p.stat().st_mtime, reverse=True):
+        record = load(p)
+        if (record.get("step_sha256") == current_step
+                and record.get("usd_sha256") == current_usd):
+            connected = (p, record)
+            break
+    local_clear = (flow_current and len(flow.get("verdicts", {})) == 4
+                   and all(v["verdict"] == "CLEAR"
+                           for v in flow["verdicts"].values()))
+    connected_pass = (connected is not None
+                      and connected[1].get("product_flow_verified") is True)
+    material_flow = {
+        "status": ("DIGITAL_FLOW_PASS" if path_result["all_material_path_clear"]
+                   and local_clear and connected_pass else "HOLD"),
+        "geometry_apertures_clear": path_result["all_material_path_clear"],
+        "localization_scene_current": flow_current,
+        "localization_verdicts": (flow.get("verdicts") if flow_current else None),
+        "connected_result": (str(connected[0].relative_to(REPO))
+                             if connected else None),
+        "connected_verdict": (connected[1].get("verdict")
+                              if connected else None),
+        "connected_product_flow_verified": connected_pass,
+        "connected_reached": (connected[1].get("probe_test", {})
+                              .get("reached_screen_total")
+                              if connected else None),
+    }
     gate = load(REPO/"c2/results/performance_gate.json")
 
     summary = {
-        "revision": "C2.1-P6",
-        "date": "2026-09-21",
-        "overall": "DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD",
+        "revision": "C2.1-P6+VP1-STAGE5",
+        "date": "2026-09-23",
+        "overall": ("DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD"
+                    if machine["status"] == "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
+                    and native["objects"] == native["valid_objects"]
+                    and machine["step_reimport_valid"]
+                    else "DIGITAL_P0_P6_PACKAGE_HOLD"),
         "stages": {
             "P0": "DYNAMIC_EVIDENCE_VERIFIER_PASS",
             "P1": kin["loaded_output_contact"],
@@ -63,6 +108,7 @@ def main():
             "firmware_host_cases": firmware["cases"],
             "drawing_status": drawings["status"],
         },
+        "material_flow": material_flow,
         "performance": {"status": gate["status"], "measured_runs": 0,
                         "calibrated_training_records": 0},
         "release_boundary": {
@@ -93,8 +139,8 @@ def main():
     records = [{"file": str(path.relative_to(REPO)), "bytes": path.stat().st_size,
                 "sha256": sha256(path)} for path in sorted(set(files+cross_stage))]
     manifest = {
-        "revision": "C2.1-P6",
-        "scope": "P0-P6 digital review package",
+        "revision": "C2.1-P6+VP1-STAGE5",
+        "scope": "P0-P6 + VP1 integrated digital review package",
         "artifact_count": len(records),
         "artifacts": records,
         "status": summary["overall"],

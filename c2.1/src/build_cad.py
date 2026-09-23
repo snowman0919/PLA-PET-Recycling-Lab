@@ -92,7 +92,11 @@ def input_eccentric(theta, c):
     shaft = cylinder(6, 67, (0, -95, 0))
     crank = cylinder(17, 8, (0, -34, 0))
     journal = cylinder(10, 30, (x, -32, z))
-    return shaft.fuse(crank).fuse(journal).clean()
+    # World +X key at the 12T drive band y374..386 (local -87..-75).
+    key = cq.Solid.makeBox(1.2, 12.0, 1.8, V(-7.0, -87.0, -0.9))
+    key = key.rotate((0, 0, 0), (0, 1, 0),
+                     cad_y_degrees_for_xz(theta))
+    return shaft.fuse(crank).fuse(journal).fuse(key).clean()
 
 
 def output_carrier(theta, c):
@@ -113,9 +117,44 @@ def output_rollers(theta, c):
     return out
 
 
+def rear_feed_mount_clearance(plate):
+    """Face pockets for the VP1 cross-feed journals and bearing rails.
+
+    The plate retains its rear web and remains one metal load-bearing solid.
+    Cut only each intersecting subsolid's footprint rather than a bounding
+    box around the entire cantilever assembly.
+    """
+    import chute
+    transform = json.loads((ROOT/"design/machine_integration.json").read_text())["c2_subassembly_transform"]
+    assert transform["rotation_axis"] == [0, 0, 1] and transform["rotation_deg"] == 180
+    offset = tuple(transform["translation_mm"])
+    original_volume = plate.Volume()
+    pockets = 0
+    for feed in (chute.cross_feed_shaft(), chute.cross_feed_idler(),
+                 chute.cross_feed_bearings()):
+        local = feed.translate(tuple(-x for x in offset)).rotate(
+            (0, 0, 0), (0, 0, 1), -180)
+        for solid in local.Solids():
+            inter = plate.intersect(solid)
+            if inter.Volume() <= 0.05:
+                continue
+            b = inter.BoundingBox()
+            margin = 0.4
+            pocket = cq.Solid.makeBox(
+                b.xmax - b.xmin + 2*margin,
+                b.ymax - b.ymin + 2*margin,
+                b.zmax - b.zmin + 2*margin,
+                V(b.xmin-margin, b.ymin-margin, b.zmin-margin))
+            plate = plate.cut(pocket).clean()
+            pockets += 1
+    if pockets < 3 or len(plate.Solids()) != 1 or plate.Volume() < 0.95*original_volume:
+        raise RuntimeError("rear output support feed relief compromised load path")
+    return plate
+
+
 def fixed_components(c):
     front = support_plate(-60, 16.10)
-    rear = support_plate(88, 21.10)
+    rear = rear_feed_mount_clearance(support_plate(88, 21.10))
     parts = [
         ("FRONT_INPUT_SUPPORT", front.clean()),
         ("REAR_OUTPUT_SUPPORT", rear.clean()),
@@ -139,7 +178,7 @@ def fixed_components(c):
     for i, a in enumerate(np.linspace(0, 2*math.pi, c.q+1, endpoint=False)):
         x, z = 72*np.array([math.cos(a), math.sin(a)])
         parts.append((f"FIXED_RING_PIN_{i+1}", cylinder(8, 22, (x, -28, z))))
-    for i, (x, z) in enumerate([(-75, -55), (-75, 75), (75, -55), (55, 82)]):
+    for i, (x, z) in enumerate([(-75, -55), (-80, 80), (75, -55), (55, 82)]):
         parts.append((f"SUPPORT_TIE_{i+1}", cylinder(4, 140, (x, -52, z))))
     return parts
 

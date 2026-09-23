@@ -1,0 +1,39 @@
+{
+  "asset_id": "PDL_FEED_GEAR",
+  "group": "feed",
+  "kinematic_body": "PADDLE",
+  "lod": "fine",
+  "step_index": 205,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.205",
+  "mesh_file": "sim/assets/out/full/PDL_FEED_GEAR__fine.stl",
+  "mesh_bytes": 72084,
+  "mesh_sha256": "f404144077ebeded6b7805fef37cacd71d914d718911b743601b1574abb9e385",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    347.84869441517463,
+    212.9999998499999,
+    360.34869441517463,
+    376.15130558482537,
+    219.00000015,
+    388.65130558482537
+  ],
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "a9e71d96195ff56b62cb3427ccc870e8e1d2d8417c6ba904ca8a64e82de96247",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 2335.420044536885,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

@@ -1,8 +1,9 @@
-"""VP1 Stage 1: real tooth geometry for the C1 common-drive layout.
+"""VP1 Stage 1/4: real tooth geometry for the VP1 common-drive layout.
 
 Replaces the toothless DRV-SH15/SH40 gear discs and DRV-SP24/SP12 sprocket
-discs with real toothed solids under the SAME part ids and instance names as
-design/assembly.json, so the C1 master instance contract stays untouched.
+discs with real toothed solids under the SAME part ids.  ADR-002 rev B (VP1
+Stage 4) supersedes the rev-A frozen-layout reading: legacy instances may be
+MOVED/REPLACED at integration time (C1 root sources stay untouched).
 
 Basis (recomputed from design/parameters.json + design/assembly.json):
 - Helical gears: drive block (normal_module=2, helix_deg=15, 15T/40T,
@@ -11,7 +12,9 @@ Basis (recomputed from design/parameters.json + design/assembly.json):
   OD/2 17.529142706151248 (15T) / 43.41104721640332 (40T) are exactly the
   helical tip radii rp=mn*z/(2cos15deg)+mn, and the instance center distance
   |136.94018992255457-80| = 56.94018992255457 equals rp15+rp40, so the meshing
-  center distance is preserved by construction.
+  center distance is preserved by construction.  Stage 4: ONE mesh (SH15L +
+  SH40R at y313); the doubled lower pair (SH15R + SH40L, flipped, y286..311)
+  is deleted with the M2-contacting 8336 mm3 pocket it forced.
 - Sprockets: ANSI35 roller chain, pitch p=9.525, roller dia 5.08. Existing
   stand-in cylinders are the ANSI max-OD envelopes r=p/2*(0.6+cot(pi/z))
   (39.032 for 24T, 20.631 for 12T); the existing r2.54 pitch-circle holes mark
@@ -19,9 +22,14 @@ Basis (recomputed from design/parameters.json + design/assembly.json):
   the shaft/key datum is unchanged.
 - Chain loop solids DRV-CHAIN-A / DRV-CHAIN-B (new parts): tangent-line +
   pitch-arc envelope of a #35 chain, radial +/-5.5 mm, 5 mm wide.
-- Chain A vs S1-ROOF-R_001 collides in the frozen C1 layout; this module only
-  reports it (build_machine_integration known_contacts), it moves no legacy
-  part.
+- Stage 4 chain B: driven from the jackshaft 24T bore-10 sprocket
+  (DRV-SP24-B20_002 at jack y372) -> S2 12T; the 15T/40T helical
+  reduction precedes the 24/12 speed-up (58 -> -21.75 -> -43.5 rpm);
+  76 links. The jackshaft is ONE SOLID (rev A's sever + coupling
+  sleeve are gone) and the DRV-M2 reference motor needs NO relief.
+- Stage 5 final: the S2 12T sprocket carries a second chain band to the
+  worm shaft at x362.  That shaft drives the full-span auger through an
+  8:1 reference worm/wheel pair; the paddle wheel and scrapers are removed.
 
 Angles are computed in part-local XZ (the frame the assembly.json instance
 transforms act on). Positive local angle maps +X toward +Z.
@@ -41,7 +49,7 @@ REPO = HERE.parents[2]
 V = cq.Vector
 
 from drive_kinematics import (BACKLASH_MM, CHAIN_A, CHAIN_AXIAL,
-                              CHAIN_B, CHAIN_PITCH, CHAIN_RADIAL_ENV,
+                              CHAIN_B, CHAIN_P, CHAIN_PITCH, CHAIN_RADIAL_ENV,
                               HELIX_DEG, MODULE_N, PRESSURE_DEG, ROLLER_R,
                               chain_length_mm, gear_center_distance,
                               gear_pitch_radius, ratio_chain,
@@ -56,7 +64,7 @@ SPROCKET_OD = {"DRV-SP24-B20": 39.032278961853535, "DRV-SP24-B25": 39.0322789618
 SPROCKET_BORE = {"DRV-SP24-B20": 10.0, "DRV-SP24-B25": 12.5,
                  "DRV-SP24-B12": 6.0, "DRV-SP12-B12": 6.0}
 SPROCKET_FACE = {"DRV-SP24-B20": 8.0, "DRV-SP24-B25": 8.0,
-                 "DRV-SP24-B12": 8.0, "DRV-SP12-B12": 8.0}
+                 "DRV-SP24-B12": 8.0, "DRV-SP12-B12": 12.0}
 HUB_R = {"DRV-SH15R": 12.0, "DRV-SH15L": 12.0, "DRV-SH40R": 30.0, "DRV-SH40L": 30.0,
          "DRV-SP24-B20": 20.0, "DRV-SP24-B25": 20.0, "DRV-SP24-B12": 20.0,
          "DRV-SP12-B12": 12.880620893564727}
@@ -74,13 +82,28 @@ GEAR_SPECS = {
                       keyway=(6.0, 3.0, -12.8)),
 }
 
-# Instance -> part id (assembly.json names; 8 replaced instances)
+# Instance -> part id (assembly.json instance names). VP1 Stage 4: the
+# doubled lower helical mesh (DRV-SH15R_001 flipped + DRV_SH40L_lower flipped,
+# y 286..311) is DELETED - it was the only contact with the DRV-M2 reference
+# motor body (the 8336 mm3 pocket in ADR-002 rev A).  The 24T bore-6 sprocket
+# DRV-SP24-B12_001 (input shaft) is replaced by a SECOND instance of the
+# bore-10 24T sprocket DRV-SP24-B20_002 as the chain B driver on the
+# jackshaft.  DRV-SP12-B12_001 keeps its XZ datum; its y-instance moves so
+# the chain B plane (374..379) sits within its widened face (374..386).
 INSTANCE_PART = {
-    "DRV-SH15R_001": "DRV-SH15R", "DRV-SH15L_001": "DRV-SH15L",
-    "DRV_SH40L_lower": "DRV-SH40L", "DRV_SH40R_upper": "DRV-SH40R",
-    "DRV-SP24-B20_001": "DRV-SP24-B20", "DRV-SP24-B25_001": "DRV-SP24-B25",
-    "DRV-SP24-B12_001": "DRV-SP24-B12", "DRV-SP12-B12_001": "DRV-SP12-B12",
+    "DRV-SH15L_001": "DRV-SH15L",
+    "DRV_SH40R_upper": "DRV-SH40R",
+    "DRV-SP24-B20_001": "DRV-SP24-B20", "DRV-SP24-B20_002": "DRV-SP24-B20",
+    "DRV-SP24-B25_001": "DRV-SP24-B25", "DRV-SP12-B12_001": "DRV-SP12-B12",
 }
+CHAIN_B_DRIVER_INSTANCE = ("DRV-SP24-B20_002", (136.94018992255457, 372.0, 65.0))
+INSTANCE_Y_MOVES = {
+    "DRV-SP24-B20_001": 352.0,
+    "DRV-SP24-B25_001": 352.0,
+    "DRV-SP12-B12_001": 374.0,
+}
+DELETED_INSTANCES = ("DRV-SH15R_001", "DRV_SH40L_lower",
+                     "DRV-SP24-B12_001", "KEY-4-16_001")
 
 REPLACED_PART_IDS = set(INSTANCE_PART.values())
 
@@ -201,16 +224,29 @@ def _sprocket_profile_xz(z, r_od, n_root=5, n_flank=4, n_tip=3):
     return pts
 
 
-def _sprocket_local_solid(part_id):
+SPROCKET_HUB_LEN = {"DRV-SP24-B20": 11.0, "DRV-SP12-B12": 7.0}
+
+
+def _sprocket_local_solid(part_id, hub_len=None):
     s = SPROCKET_TEETH[part_id]
     pts = _sprocket_profile_xz(s, SPROCKET_OD[part_id])
     wire = cq.Wire.makePolygon([V(x, 0.0, z) for x, z in pts], close=True)
     blank = cq.Solid.extrudeLinear(wire, [], V(0, SPROCKET_FACE[part_id], 0))
     face_h = SPROCKET_FACE[part_id]
-    hub = cq.Solid.makeCylinder(HUB_R[part_id], 11.0, V(0, face_h - 1.0, 0), V(0, 1, 0))
+    hl = SPROCKET_HUB_LEN.get(part_id, 11.0) if hub_len is None else hub_len
+    hub = cq.Solid.makeCylinder(HUB_R[part_id], hl, V(0, face_h - 1.0, 0), V(0, 1, 0))
     solid = blank.fuse(hub)
     solid = solid.cut(cq.Solid.makeCylinder(SPROCKET_BORE[part_id], 20.0,
                                             V(0, -1, 0), V(0, 1, 0)))
+    if part_id == "DRV-SP12-B12":
+        # Shared S2 eccentric / PDL worm-shaft 12T bore: matched +X key.
+        solid = solid.cut(cq.Solid.makeBox(
+            1.3, 19.0, 2.2, V(5.8, -0.1, -1.1)))
+    elif part_id == "DRV-SP24-B20":
+        # Preserve the existing jackshaft key seat at +Z, including the
+        # added chain-B driver; the second shaft key is an integration part.
+        solid = solid.cut(cq.Solid.makeBox(
+            6.2, 19.0, 3.1, V(-3.1, -0.1, 9.5)))
     return solid.clean()
 
 
@@ -289,12 +325,50 @@ def chain_components():
             ("DRV-CHAIN-B", _chain_loop(CHAIN_B))]
 
 
-def replacement_local_solid(instance_name):
+def replacement_local_solid(instance_name, hub_len=None):
     """Part-local replacement solid for a replaced legacy instance."""
     part_id = INSTANCE_PART[instance_name]
     if part_id in GEAR_PARTS:
         return _gear_local_solid(part_id)
-    return _sprocket_local_solid(part_id)
+    hl = DRIVER_HUB_LEN if instance_name == "DRV-SP24-B20_002" else None
+    return _sprocket_local_solid(part_id, hub_len=hl)
+
+
+DRIVER_HUB_LEN = 8.0
+
+
+_FUNCTIONAL_KEY_PAIRS = [
+    {"DRV-SH15L_001", "KEY-4-70_001"},
+    {"DRV_SH40R_upper", "KEY-6-70_001"},
+    {"DRV-SP24-B20_001", "KEY-6-16_001"},
+    {"DRV-SP24-B20_002", "KEY-6-16_002"},
+    {"DRV-SP24-B25_001", "KEY-8-16_001"},
+]
+FUNCTIONAL_PAIRS = [
+    {"DRV-CHAIN-A", "DRV-SP24-B20_001"}, {"DRV-CHAIN-A", "DRV-SP24-B25_001"},
+    {"DRV-CHAIN-B", "DRV-SP24-B20_002"}, {"DRV-CHAIN-B", "DRV-SP12-B12_001"},
+    {"DRV-CHAIN-P", "DRV-SP12-B12_001"}, {"DRV-CHAIN-P", "PDL_SPROCKET"},
+    {"PDL_CHAIN", "DRV-SP12-B12_001"}, {"PDL_CHAIN", "PDL_SPROCKET"},
+    {"PDL_WORM", "AUG_WHEEL"}, {"AUG_SHAFT", "AUG_WHEEL"},
+    {"DRV-SH15L_001", "DRV-IN-SHAFT_001"},
+    {"DRV_SH40R_upper", "DRV-JACK_001"},
+    {"DRV-SP24-B20_001", "DRV-JACK_001"}, {"DRV-SP24-B20_002", "DRV-JACK_001"},
+    {"DRV-SP24-B20_002", "BR-6204_002"},
+    {"DRV-SP24-B25_001", "S1-SHAFT-A_001"},
+    {"PULL_FRAME", "PULL_ROLLER_FIXED"}, {"PULL_ROLLER_ADJ", "PULL_NIP_STOP"},
+    {"PULL_FRAME", "PULL_ROLLER_ADJ"},
+    {"WIND_SPOOL_SHAFT", "WIND_MOTOR_REF"},
+    {"WIND_SPOOL_SHAFT", "WIND_SPOOL_BEARINGS"},
+    {"WIND_SPOOL_SHAFT", "WIND_SPOOL_DRUM"},
+    {"WIND_SPOOL_SHAFT", "WIND_FLANGE_L"}, {"WIND_SPOOL_SHAFT", "WIND_FLANGE_R"},
+    {"WIND_TRAVERSE_SCREW", "WIND_TRAVERSE_RIDER"},
+    {"PDL_SHAFT", "PDL_BEARINGS"}, {"PDL_SHAFT", "PDL_WORM"},
+    {"PDL_SHAFT", "PDL_SPROCKET"}, {"PDL_BEARINGS", "CHUTE_BODY"},
+    {"DRV-SP12-B12_001", "INPUT_ECCENTRIC_SHAFT"},
+    {"AUG_SHAFT", "AUG_WHEEL"}, {"AUG_SHAFT", "AUG_BEARINGS"},
+    {"AUG_BEARINGS", "CHUTE_BODY"}, {"AUG_WHEEL", "AUG_BEARINGS"},
+    {"DRV-CHAIN-B", "GUARD_CHAIN_B"}, {"DRV-CHAIN-A", "GUARD_CHAIN_A"},
+] + _FUNCTIONAL_KEY_PAIRS
 
 
 def count_teeth(shape, sample_radius, center=(0.0, 0.0), y=12.5, samples=2880):
@@ -347,7 +421,16 @@ def main():
               "nominal": CHAIN_A["links"] * CHAIN_PITCH},
         "B": {"computed": chain_length_mm(CHAIN_B), "links": CHAIN_B["links"],
               "nominal": CHAIN_B["links"] * CHAIN_PITCH},
+        "P": {"computed": chain_length_mm(CHAIN_P), "links": CHAIN_P["links"],
+              "nominal": CHAIN_P["links"] * CHAIN_PITCH},
     }
+    for name, data in result["chain_lengths"].items():
+        data["nominal_minus_geometric_mm"] = round(
+            data["nominal"] - data["computed"], 6)
+        data["nominal_fit_within_1mm"] = (
+            abs(data["nominal_minus_geometric_mm"]) <= 1.0)
+    result["chain_lengths"]["P"]["offset_link_required"] = True
+    result["chain_lengths"]["P"]["tension_and_strength"] = "UNRATED_HOLD"
     result["ratio_chain"] = ratio_chain()
     result["mesh_samples"] = _mesh_check()
     parts = {}
@@ -372,6 +455,8 @@ def main():
           and all(v["teeth_counted"] == v["teeth_expected"] and v["valid"]
                   and v["solids"] == 1 for v in parts.values())
           and all(v["solids"] == 1 and v["valid"] for v in chains.values())
+          and all(v["nominal_fit_within_1mm"]
+                  for v in result["chain_lengths"].values())
           and all(s["overlap_mm3"] < 0.05 for s in result["mesh_samples"]))
     result["passed"] = ok
     out_dir = ROOT / "cad" / "parts_stage1"

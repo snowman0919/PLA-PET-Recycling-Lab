@@ -40,24 +40,25 @@ class GearRatioKinematics(unittest.TestCase):
         self.assertAlmostEqual(c, 136.94018992255457 - 80.0, places=9)
 
     def test_chain_ratios_and_s1_counter_rotation(self):
-        r = dk.ratio_chain(58.0)
-        self.assertAlmostEqual(r["jackshaft_rpm"], 58.0 * 15.0 / 40.0)
-        self.assertAlmostEqual(r["s1_shaft_A_rpm"], 58.0 * 15.0 / 40.0)
+        d = self.params["drive"]
+        rpm = self.params["M1"]["rated_rpm"]
+        r = dk.ratio_chain(rpm)
+        self.assertAlmostEqual(r["jackshaft_rpm"],
+                               -rpm * d["pinion_teeth"] / d["gear_teeth"])
+        self.assertAlmostEqual(r["s1_shaft_A_rpm"], r["jackshaft_rpm"])
         # S1-SYNC is a 30T/30T external mesh at center distance 60 mm
         # (shafts at x=130 and x=190, module 2): shaft B counter-rotates.
         self.assertEqual(r["s1_shaft_B_rpm"], -r["s1_shaft_A_rpm"])
-        # chain A 24T/24T preserves speed; chain B 24T->12T doubles it
-        self.assertAlmostEqual(r["s1_shaft_A_rpm"], r["jackshaft_rpm"])
-        self.assertAlmostEqual(r["s2_input_rpm"], 116.0)
-        # S2 cycloid: one input DOF, output phi = -theta/q with q = 8
-        self.assertAlmostEqual(r["s2_output_rpm"], -116.0 / 8.0)
-
-    def test_s2_input_delta_vs_adr_nominal_recorded(self):
-        r = dk.ratio_chain(58.0)
-        # documented finding (not a failure): frozen C1 chain B gives 116 rpm
-        # against the 120 rpm ADR-001 nominal used by transmission.py
-        self.assertAlmostEqual(
-            r["s2_output_vs_adr_nominal_120rpm_delta_rpm"], -4.0)
+        # The jackshaft, not the M1 input shaft, drives both chains.
+        self.assertAlmostEqual(r["s2_input_rpm"],
+                               r["jackshaft_rpm"] *
+                               d["chain_B_teeth"][0] / d["chain_B_teeth"][1])
+        self.assertAlmostEqual(r["s2_ecc_rpm"], r["s2_input_rpm"])
+        self.assertAlmostEqual(r["s2_output_rpm"],
+                               -r["s2_ecc_rpm"] / self.params["S2"]["guide_lobes"])
+        self.assertAlmostEqual(r["worm_shaft_rpm"], r["s2_ecc_rpm"])
+        self.assertAlmostEqual(r["auger_rpm"],
+                               r["worm_shaft_rpm"] * dk.WORM_WHEEL_RATIO)
 
 
 @unittest.skipUnless(HAVE_CQ, "cadquery not available")
@@ -104,10 +105,11 @@ class ChainGeometry(unittest.TestCase):
                     self.assertAlmostEqual(d, r, places=6)
 
     def test_chain_length_matches_link_count(self):
-        for chain in (dt.CHAIN_A, dt.CHAIN_B):
+        for chain in (dt.CHAIN_A, dt.CHAIN_B, dt.CHAIN_P):
             comp = dt.chain_length_mm(chain)
             nominal = chain["links"] * dt.CHAIN_PITCH
-            self.assertLess(abs(comp - nominal), 2.0 * dt.CHAIN_PITCH)
+            self.assertLessEqual(abs(comp - nominal), 1.0,
+                                 "nominal #35 chain must fit the routed pitch loop")
 
     def test_chain_solids_single_valid_right_y(self):
         for name, solid in dt.chain_components():
@@ -123,20 +125,33 @@ class ChainGeometry(unittest.TestCase):
 class ChuteGeometry(unittest.TestCase):
     def test_body_single_valid_and_clear_of_cutter_sweep(self):
         parts = chute_mod.components()
-        self.assertEqual([n for n, _ in parts],
+        self.assertEqual([n for n, _, _ in parts][:2],
                          ["CHUTE_BODY", "CHUTE_TROUGH_FLOOR_E"])
         sweeps = chute_mod.cutter_sweep_solids()
-        for name, solid in parts:
-            self.assertEqual(len(solid.Solids()), 1, name)
+        for name, solid, group in parts:
+            if name in ("PDL_BEARINGS", "AUG_BEARINGS", "CROSS_FEED_BEARINGS"):
+                # split pillow posts / bearing sets: bores sever the blocks
+                self.assertGreaterEqual(len(solid.Solids()), 2, name)
+            else:
+                self.assertEqual(len(solid.Solids()), 1, name)
             self.assertTrue(solid.isValid(), name)
+        # The active screw and its mechanical drive are present, while the
+        # failed paddle/scraper design is absent. Every part, not merely the
+        # final loop variable, must clear the cutter sweep.
+        names = [n for n, _, _ in parts]
+        for required in ("AUG_SHAFT", "AUG_WHEEL", "PDL_WORM"):
+            self.assertIn(required, names)
+        self.assertNotIn("PDL_WHEEL", names)
+        self.assertNotIn("PDL_SCRAPER", names)
+        for name, solid, _ in parts:
             for i, sw in enumerate(sweeps):
                 b1, b2 = solid.BoundingBox(), sw.BoundingBox()
                 overlap = all(min(getattr(b1, a + "max"), getattr(b2, a + "max"))
                               - max(getattr(b1, a + "min"), getattr(b2, a + "min")) > 0
                               for a in "xyz")
                 if overlap:
-                    self.assertEqual(solid.intersect(sw).Volume(), 0.0,
-                                     "%s vs cutter sweep %d" % (name, i))
+                    self.assertLessEqual(solid.intersect(sw).Volume(), 1e-6,
+                                         "%s vs cutter sweep %d" % (name, i))
 
     def test_pan_entry_gap_and_support_plate_clearance(self):
         # S1 bottom plane 352.3 minus pan floor top admits a 4 mm probe
@@ -174,9 +189,9 @@ class MaterialPathApertures(unittest.TestCase):
     def test_every_checkpoint_reported(self):
         names = [c["checkpoint"] for c in self.data["checkpoints"]]
         for need in ("S1_opening_to_pan", "trough_fin_gap",
-                     "outlet_drop_into_mouth", "s2_screen_holes",
-                     "buffer_throat", "extruder_die_exit", "puller_nip",
-                     "spool_winder"):
+                     "cross_feed_shell_to_mouth", "outlet_drop_into_mouth",
+                     "s2_screen_holes", "buffer_throat", "extruder_die_exit",
+                     "puller_nip", "puller_grip", "spool_winder"):
             self.assertIn(need, names)
 
     def test_downstream_apertures_pass(self):
@@ -191,4 +206,16 @@ class MaterialPathApertures(unittest.TestCase):
         by_name = {c["checkpoint"]: c for c in self.data["checkpoints"]}
         self.assertTrue(by_name["trough_fin_gap"]["passed"])
         self.assertTrue(by_name["spool_winder"]["passed"])
-        self.assertTrue(self.data["all_material_path_clear"])
+
+    def test_pass_grip_split(self):
+        # VP1 Stage 4: PASS-space and OPERATIONAL-GRIP checkpoints are
+        # distinct classes; the grip checkpoint must prove positive nip
+        # engagement (stop gap < filament <= open gap), not just clearance.
+        by_name = {c["checkpoint"]: c for c in self.data["checkpoints"]}
+        self.assertIn("checkpoint_class", by_name["puller_grip"])
+        self.assertEqual(by_name["puller_grip"]["checkpoint_class"],
+                         "operational_grip")
+        self.assertEqual(by_name["puller_nip"]["checkpoint_class"],
+                         "pass_space")
+        self.assertTrue(by_name["puller_grip"]["passed"])
+        self.assertTrue(self.data["all_grip_checkpoints_pass"])

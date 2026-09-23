@@ -1,19 +1,9 @@
-"""VP1 material-path aperture continuity checker (Stage 1).
+"""VP1 material-path geometry checkpoints; not a product-flow certificate.
 
-Checks the material path hopper -> S1 -> chute -> S2 mouth -> screen ->
-buffer -> extruder die -> puller nip -> spool with probe spheres sized to the
-process apertures.  Emits c2.1/results/path_check.json.
-
-Evidence levels:
-- MEASURED: aperture derived from actual built solids (classifier/distance).
-- NAMEPLATE: aperture from the part definition in design/assembly.json.
-- DEFECT: measured blockage in the Stage 1 chute (frozen datums).
-
-Probe sizes: S2 screen holes are 4 mm drilled at r~63 (chord aperture ~3.4 mm
-at the liner radius) -> probe 3.4; buffer throat 50x40 -> probe 8; die exit
-2 mm -> probe 1.9; puller nip (rollers 20 dia at z 114.1/135.9) -> gap 1.8 ->
-probe 1.8 (a 2 mm filament does NOT clear - finding); chute stage uses probe
-4 (S1 discharge fragment budget).
+Measures S1 opening, driven screw/shell, S2 mouth and screen apertures,
+downstream throat, 1.75 mm filament nip grip, and winding geometry.
+Actual fragment transfers are established only by the hash-matched Isaac
+localization and connected runs. Emits c2.1/results/path_check.json.
 """
 from __future__ import annotations
 
@@ -79,23 +69,33 @@ def chute_checks():
          "(y 213..251) and turns north over the mouth at x 350..360.5; "
          "path x fin intersection volume %.3f mm3" % (sum(vols) if vols else 0.0))
 
-    bb = path.BoundingBox()
-    _add("bypass_channel_outlet", bb.xmax - 350.0, 4.0, bb.xmax >= 360.0,
+    shell = ch.cross_feed_shell().BoundingBox()
+    shell_span = shell.ymax - ch.TROUGH_Y0
+    bridge = ch.cross_feed_shell().intersect(ch._box(
+        350.0, 359.7, ch.TROUGH_Y0, 258.0, 315.8, 317.3))
+    _add("cross_feed_shell_to_mouth", shell_span, 3.0,
+         shell_span >= 3.0 and bridge.Volume() > 1.0,
          "MEASURED",
-         "bend block spans x to %.1f (10 mm wide spill edge over the open "
-         "mouth arc, global 20..99.5deg), spill line at y=294" % bb.xmax)
+         "fixed under-shaft bridge extends %.1f mm past the S2 mouth "
+         "south plane; passage is only an envelope, not powered transfer"
+         % shell_span)
 
-    # drop column from the spill edge into the chamber: sphere r=4 clearance
-    ok = True
-    worst = None
-    for z in (348, 346, 344):
-        d = _dist_to_s2((355.0, 292.0, z))
-        worst = d if worst is None else min(worst, d)
-        if d < 4.0:
-            ok = False
-    _add("outlet_drop_into_mouth", worst, 4.0, ok, "MEASURED",
-         "min distance from the x=355 drop column to the S2 solids along "
-         "z 344..348 (above the rotor envelope); open mouth arc verified")
+    # The orthogonal screw now drives north to the frozen S2 south cap,
+    # rather than ending at y240. The cap's inner-bore bridge y250.3..258
+    # is static: its aperture is real, but neither CAD span nor a first
+    # x335 crossing proves a fragment can bridge into the mouth.
+    shaft_ymax = ch.cross_feed_shaft().BoundingBox().ymax
+    shell = ch.cross_feed_shell().BoundingBox()
+    mouth_ymin = ch.TROUGH_Y0
+    powered_overlap = max(0.0, shaft_ymax - mouth_ymin)
+    _add("outlet_drop_into_mouth", powered_overlap, 4.0,
+         powered_overlap >= 4.0, "MEASURED",
+         "orthogonal driven flight reaches y%.2f; S2 mouth starts y%.1f "
+         "(%.2f mm unpowered axial gap). Cap-bore shell x%.1f..%.1f "
+         "extends to y%.1f, but its bridge needs measured fragment "
+         "delivery; static aperture alone does not prove flow"
+         % (shaft_ymax, mouth_ymin, mouth_ymin - shaft_ymax,
+            shell.xmin, shell.xmax, shell.ymax))
 
 
 def _screen_aperture():
@@ -134,13 +134,61 @@ def downstream_checks():
          "FEED-BUF loft 190x48 top / 50x40 throat, height 73 (throat limits)")
     _add("extruder_die_exit", 2.0, 1.9, True, "NAMEPLATE",
          "EX-DIE 36 OD x 20 with 2 mm exit")
+    # trough auger transfer (VP1 Stage 4 rev 5: the paddle + static scrapers
+    # are SUPERSEDED by a screw conveyor; sim disagreement recorded in ADR-002)
+    import chute as chm
+    import drive_teeth as dt
+    import drive_kinematics as dk
+    parts = dict((n, s) for n, s, _ in chm.components())
+    aug = parts["AUG_SHAFT"]
+    # BRep-exact minimum distance between the emitted flight and the U-shell.
+    # This is an aperture/clearance measurement, not a material-flow proof.
+    # In particular, neither the broad S1 pan nor the outlet's transverse
+    # turn is driven by this gate.
+    from OCP.BRepExtrema import BRepExtrema_DistShapeShape
+    floor_band = chm.bypass_channel_floor().intersect(chm._box(
+        235.0, 360.0, 213.0, 251.0, 334.0, 340.0))
+    dist = BRepExtrema_DistShapeShape(aug.wrapped, floor_band.wrapped)
+    worst = dist.Value()
+    ab = aug.BoundingBox()
+    covered_x0 = max(ab.xmin, chm.AUG_FLIGHT_X0)
+    covered_x1 = min(ab.xmax, chm.AUG_FLIGHT_X1)
+    full_span = (covered_x0 <= chm.AUG_FLIGHT_X0 + 0.1
+                 and covered_x1 >= chm.AUG_FLIGHT_X1 - 0.1)
+    ok = 0.0 <= worst <= 0.1 and full_span
+    _add("trough_auger", worst, 1.5, ok, "MEASURED",
+         "geometric clearance only (not connected-flow proof): RH flight "
+         "root r3/OD r8, pitch %.2f mm, four turns x%.1f..%.1f in an "
+         "open U shell; BRep-exact flight/shell gap %.3f mm. S1 pan "
+         "pickup and the northward S2 outlet are NOT proven by this "
+         "clearance. Drive: S2Ecc 12T -> PDL_CHAIN (%d links) -> "
+         "PDL_SPROCKET/PDL_SHAFT x362 -> RH 2-start PDL_WORM (lead "
+         "%.1f deg) -> AUG_WHEEL 16T -> AUG_SHAFT at %.3f rpm "
+         "reference, conveying +x"
+         % (chm.AUG_FLIGHT_PITCH, chm.AUG_FLIGHT_X0, chm.AUG_FLIGHT_X1,
+            worst, dt.CHAIN_P["links"], chm.WORM_LEAD_DEG,
+            dk.AUGER_REDUCED_RPM))
     import winder as wd
-    nip = wd.nip_opening_mm()
-    _add("puller_nip", nip, 2.0, nip >= 2.0, "MEASURED",
-         "VP1 Stage 2 puller: dia-20 rollers at z %.2f/%.2f (line z 125) "
-         "with a positive stop -> nip %.1f mm >= 2.5 mm design minimum; "
-         "the 2.0 mm extrudate clears" % (wd.PULL_ROLLER_Z[0],
-                                          wd.PULL_ROLLER_Z[1], nip))
+    lo, hi = wd.nip_range_mm()
+    # PASS space: does the nominal filament clear the nip aperture?
+    _add("puller_nip", lo, 1.5, lo <= wd.FILAMENT_MM <= hi, "MEASURED",
+         "VP1 Stage 4 puller: dia-20 rollers at z %.2f/%.2f (line z 125), "
+         "cam positive-stop range %.1f..%.1f mm; the %.2f mm filament "
+         "(design/parameters.json filament_mm) is gripped: seated nip %.1f mm "
+         "< filament, spring compliance opens the contact to ~1.9 mm"
+         % (wd.PULL_ROLLER_Z[0], wd.PULL_ROLLER_Z[1], lo, hi,
+            wd.FILAMENT_MM, lo))
+    # OPERATIONAL grip checkpoint: does the nip actually GRIP the filament?
+    # The stop gap (1.5 mm) is BELOW the filament (1.75): the rollers press
+    # into the filament under spring compliance -> positive grip pressure.
+    grip = (lo < wd.FILAMENT_MM <= hi)
+    _add("puller_grip", wd.FILAMENT_MM, 1.5, grip, "MEASURED",
+         "OPERATIONAL GRIP: minimum stop nip %.1f mm < filament %.2f mm <= "
+         "open nip %.1f mm -> rollers compress onto the filament (spring "
+         "rate %.0f N/mm, ~%.1f mm compression at 1.75 mm); tension "
+         "transfers roller->filament->spool" % (lo, wd.FILAMENT_MM, hi,
+                                                wd.PULL["spring_rate_N_mm"],
+                                                wd.FILAMENT_MM - lo))
     import winder as w
     nip = (PULL_X, 264.0, 125.0)
     eye = (742.0, 128.0, 245.0)
@@ -158,19 +206,75 @@ def downstream_checks():
             blocked.append("%s(%.1f)" % (name, vol))
     span_ok = not blocked
     _add("spool_winder", 58.0, 8.0, span_ok, "MEASURED",
-         "VP1 Stage 2 winder: driven dia-70 drum between dia-200 flanges at "
-         "(700, y 100..170, z 220); filament span puller nip (829, 264, 125) "
-         "-> traverse eyelet (742, 128, 245): midpoint probe sphere "
-         "blocked by %s" % (blocked or "nothing"))
+         "VP1 Stage 4 winder: driven dia-70 drum between dia-200 flanges at "
+         "(700, y 100..170, z 220), shaft in bearing blocks BOTH ends "
+         "(WIND_SPOOL_BEARINGS), motor reference positively coupled to the "
+         "drum shaft; filament span puller nip (829, 264, 125) -> traverse "
+         "eyelet (742, 128, 245): midpoint probe sphere blocked by %s"
+         % (blocked or "nothing"))
+    return worst
 
 
 def main():
     chute_checks()
-    downstream_checks()
+    auger_clearance = downstream_checks()
+    import chute as chm
+    import drive_kinematics as dk
+    # Checkpoint classes: PASS_SPACE checkpoints verify the material can
+    # physically pass each aperture; OPERATIONAL_GRIP checkpoints verify the
+    # machine actually grips/drives the filament at that station.
+    PASS_SPACE = {"S1_opening_to_pan", "trough_fin_gap",
+                  "cross_feed_shell_to_mouth", "outlet_drop_into_mouth",
+                  "s2_screen_holes", "buffer_throat", "extruder_die_exit",
+                  "puller_nip", "spool_winder", "trough_auger"}
+    OPERATIONAL_GRIP = {"puller_grip"}
+    for r in RESULTS:
+        r["checkpoint_class"] = ("operational_grip" if r["checkpoint"] in OPERATIONAL_GRIP
+                                 else "pass_space")
+    # Failed passive/paddle attempts are negative history. This checker
+    # measures apertures and flight clearance, not pan pickup, outlet turn,
+    # or completed material conveyance; that needs the Isaac runs.
+    RESULT_CONST = {
+        "conveyance": {
+            "claim": "ACTIVE_FULL_SPAN_AUGER_GEOMETRY_MEASURED",
+            "passive_transfer": "SUPERSEDED as a design claim; the S1 pan "
+                                "still has an unpowered pickup span",
+            "jacket_boundary": "measured jacket dome top z=334.5 mm; "
+                               "open U-shell base is clearance-cut around "
+                               "the jacket, not a complete receiver",
+            "resolution": "RH screw conveyor, root r3/OD r8, pitch %.2f "
+                          "mm, four turns x%.1f..%.1f; BRep flight/shell "
+                          "gap %.3f mm" % (chm.AUG_FLIGHT_PITCH,
+                                           chm.AUG_FLIGHT_X0,
+                                           chm.AUG_FLIGHT_X1,
+                                           auger_clearance),
+            "implementation": "S2Ecc 12T -> PDL_CHAIN %d links (offset "
+                              "link strength/tension UNRATED) -> "
+                              "PDL_SPROCKET/PDL_SHAFT at x362,z374.5 -> "
+                              "RH 2-start PDL_WORM -> AUG_WHEEL 16T (8:1) "
+                              "-> AUG_SHAFT at %.3f rpm reference; no "
+                              "claim of S1 pickup or S2 mouth delivery"
+                              % (dk.CHAIN_P["links"], dk.AUGER_REDUCED_RPM),
+            "simulation_history": "paddle+scraper and shallow r4/r5 auger "
+                                  "were measured non-conveying; they are "
+                                  "superseded, not counted as final evidence",
+            "final_simulation_evidence": "c2.2/results/full_machine/"
+                                         "flow_localize/results.json",
+        }
+    }
     result = {
-        "revision": "VP1-STAGE1",
+        "revision": "VP1-STAGE5-AUGER",
+        "checkpoint_classes": {
+            "pass_space": sorted(PASS_SPACE),
+            "operational_grip": sorted(OPERATIONAL_GRIP),
+        },
+        "conveyance": RESULT_CONST["conveyance"],
         "checkpoints": RESULTS,
         "all_material_path_clear": all(r["passed"] for r in RESULTS),
+        "all_pass_space_clear": all(r["passed"] for r in RESULTS
+                                    if r["checkpoint_class"] == "pass_space"),
+        "all_grip_checkpoints_pass": all(r["passed"] for r in RESULTS
+                                         if r["checkpoint_class"] == "operational_grip"),
     }
     (ROOT / "results" / "path_check.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))

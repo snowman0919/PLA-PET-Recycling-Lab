@@ -3,10 +3,10 @@
     {
       "name": "PULL_FRAME",
       "group": "puller",
-      "solids": 1,
+      "solids": 2,
       "valid": true,
       "bounds": [
-        824.0,
+        822.0,
         250.0,
         100.0,
         846.0,
@@ -21,11 +21,11 @@
       "valid": true,
       "bounds": [
         819.0,
-        249.0,
-        103.75,
+        245.0,
+        104.25,
         839.0,
-        279.0,
-        123.75
+        283.0,
+        124.25
       ]
     },
     {
@@ -34,12 +34,12 @@
       "solids": 1,
       "valid": true,
       "bounds": [
-        817.0,
+        812.8781555332702,
         253.0,
-        126.25,
-        841.0,
-        281.5,
-        158.25
+        125.75,
+        845.1250876070734,
+        307.0000001,
+        149.75
       ]
     },
     {
@@ -50,10 +50,10 @@
       "bounds": [
         820.0,
         276.0,
-        144.0,
+        140.75,
         838.0,
         280.0,
-        146.5
+        143.25
       ]
     },
     {
@@ -63,11 +63,11 @@
       "valid": true,
       "bounds": [
         821.0,
-        200.0,
-        110.0,
+        202.0,
+        112.0,
         847.0,
-        246.0,
-        140.0
+        248.0,
+        142.0
       ]
     },
     {
@@ -77,11 +77,25 @@
       "valid": true,
       "bounds": [
         692.0,
-        92.0,
+        87.0,
         212.0,
         708.0,
-        187.0,
+        185.0,
         228.0
+      ]
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "group": "spool",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        688.0,
+        88.0,
+        208.0,
+        712.0,
+        178.0,
+        232.0
       ]
     },
     {
@@ -190,6 +204,7 @@
     "c2.1/cad/parts_stage1/PULL_NIP_STOP.step",
     "c2.1/cad/parts_stage1/PULL_MOTOR_REF.step",
     "c2.1/cad/parts_stage1/WIND_SPOOL_SHAFT.step",
+    "c2.1/cad/parts_stage1/WIND_SPOOL_BEARINGS.step",
     "c2.1/cad/parts_stage1/WIND_SPOOL_DRUM.step",
     "c2.1/cad/parts_stage1/WIND_FLANGE_L.step",
     "c2.1/cad/parts_stage1/WIND_FLANGE_R.step",
@@ -198,7 +213,18 @@
     "c2.1/cad/parts_stage1/WIND_TRAVERSE_RIDER.step",
     "c2.1/cad/parts_stage1/WIND_TENSIONER.step"
   ],
-  "nip_min_mm": 2.5,
-  "nip_ge_2_5": true,
+  "filament_spec_mm": 1.75,
+  "filament_spec_source": "design/parameters.json filament_mm (c2/src/design.py:34); c2.1/bom/system_bom.csv EX-DIE note",
+  "nip_min_mm": 1.5,
+  "nip_max_mm": 3.0,
+  "grip_window_mm": [
+    1.5,
+    2.0
+  ],
+  "compressed_nip_mm": [
+    1.55,
+    1.9
+  ],
+  "grip_ok": true,
   "passed": true
 }

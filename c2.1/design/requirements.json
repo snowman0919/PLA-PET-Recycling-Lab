@@ -2,7 +2,7 @@
   "revision": "C2.1",
   "baseline": "c2/design/requirements.json",
   "status": "ENGINEERING_ITERATION_NOT_FABRICATION_RELEASE",
-  "power": {"psu_V": 24, "psu_rated_W": 800, "operational_cap_W": 500},
+  "power": {"psu_V": 24, "psu_current_A": 33, "psu_nameplate_W": 800, "power_target_W": 500, "psu_current_derived_ceiling_W": 792},
   "motors": {"shared_shredder_M1": 1, "extruder_M2": 1, "M1_selected": false},
   "materials": ["PLA", "PET", "TPU"],
   "body_limit_mm": [700, 420, 520],

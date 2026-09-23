@@ -1,7 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 4251420,
+  "usd_bytes": 6031330,
+  "usd_sha256": "594b77e44c46e166f55dcbf0182e21aa5935e7b590f4935599b3115defef5f61",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -60,13 +61,16 @@
   "ratios_from_input": {
     "S1A": -0.375,
     "S1B": 0.375,
-    "S2_ECC": 2.0,
-    "S2_CARRIER": -0.25
+    "S2_ECC": -0.75,
+    "S2_CARRIER": 0.09375,
+    "CROSS_FEED": -0.75,
+    "CROSS_FEED_IDLER": 0.75
   },
   "ratio_sources": [
     "design/parameters.json drive block",
     "c2.1/src/transmission.py pose() q=8",
-    "design/assembly.json drive instances"
+    "design/assembly.json drive instances",
+    "c2.1/src/chute.py three equal 12T feed gears"
   ],
   "pivot_mm": {
     "IN_SHAFT": [
@@ -98,71 +102,85 @@
       308.56946468906176,
       299.0,
       280.0
+    ],
+    "PADDLE": [
+      362.0,
+      298.0,
+      374.5
+    ],
+    "AUGER": [
+      298.75,
+      232.0,
+      347.1
+    ],
+    "CROSS_FEED": [
+      357.0,
+      252.0,
+      328.0
+    ],
+    "CROSS_FEED_IDLER": [
+      367.8508171999347,
+      216.0,
+      350.3520626666737
     ]
   },
   "contact_offset_mm": 0.2,
   "rest_offset_mm": 0.0,
-  "collision_note": "moving solids = convexHull (emit_usd.py convention); static solids = triangleMesh; convex-hull overestimation of non-convex moving solids is reported, not hidden",
+  "collision_note": "static solids = concave triangleMesh; moving solids = decimated convexHull except the cycloid rotor/output carrier authored as convexDecomposition. AUG_SHAFT and CROSS_FEED_SHAFT use short axial convex hulls of actual STEP-derived fine STL vertices, rather than full-flight hulls that close screw valleys. Fragment contacts remain collidable; hull contact is not proof of transfer.",
+  "hull_audit": {
+    "source": "c2.2/sim/audit_hulls.py",
+    "results": "c2.2/results/full_machine/hull_audit.json",
+    "convexDecomposition_solids": [
+      "OUTPUT_PIN_CARRIER_AND_SHAFT.stl",
+      "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE.stl"
+    ]
+  },
+  "contact_filter_table": {
+    "collision_groups": {
+      "Art": "all articulation links (IN_SHAFT, S1A, S1B, S2_ECC, S2_CARRIER)",
+      "Fit": "journal fits / keyed sprockets / gear-mesh partners (BR-, DRV-B*, DRV_SH40, DRV_CHAIN, S1-BPL, S1-BR-CAP, FRONT/REAR supports, bearing envelopes, fixed-ring plates, ring pins)",
+      "KinRotor": "S2_ROTOR (pose-driven kinematic body)",
+      "KinRoller": "S2_ROLLER_1..6 (kinematic coupling rollers)",
+      "KinPaddle": "PADDLE (pose-driven kinematic worm shaft, VP1 rev 6 chain-driven transfer)",
+      "KinAuger": "AUGER (pose-driven kinematic screw conveyor at S2Ecc/8, worm:wheel 8:1)",
+      "KinCrossFeedFlight": "CROSS_FEED_SHAFT LH flight axial hulls, no filtering; fragments live",
+      "KinCrossFeedJournal": "CROSS_FEED_SHAFT y208..224.75 and y250.25..250.7 journal slices",
+      "CrossFeedBearing": "only CROSS_FEED_BEARINGS journals",
+      "FeedIdler": "only CROSS_FEED_IDLER gear and journal",
+      "PaddleFeedGear": "only PDL_FEED_GEAR teeth",
+      "CrossFeedGear": "only CROSS_FEED_GEAR teeth"
+    },
+    "filtered_pairs": {
+      "Art_x_Fit": "journal fits, keyed sprockets and the helical 15T/40T gear mesh: by-design overlap at zero-to-interference clearance in a rigid rig; kinematically driven so contact forces must not act",
+      "Art_x_KinRotor": "rotor orbits/spins inside the articulation envelope by design",
+      "Art_x_KinRoller": "output rollers ride in keyed carrier pins by design",
+      "Art_x_KinPaddle": "worm shaft/sprocket pass inside the articulation envelope by design (chain-driven transfer, ideal constraint)",
+      "KinPaddle_x_Fit": "paddle chain loop wraps the widened S2 12T face and the worm-shaft sprocket by design (12T/12T band)",
+      "Art_x_KinAuger": "auger shaft/flight pass inside the articulation envelope by design (worm-driven conveyor, ideal constraint)",
+      "KinPaddle_x_KinAuger": "PDL_WORM 2-start worm engages the AUG_WHEEL 16T conjugate teeth by design (8:1 worm wheel, ideal constraint)",
+      "KinAuger_x_Fit": "auger journal seats: west bore r5.5 and east boss bore r4.7 vs the flight hull (r5) and shaft - journal fits by design",
+      "KinRotor_x_KinRoller": "cycloid output coupling (rollers ride in rotor windows)",
+      "KinRotor_x_Fit": "rotor vs fixed-ring pins: fixed-ring cycloid engagement by design",
+      "KinRoller_x_Fit": "rollers vs ring plates by design",
+      "KinCrossFeedJournal_x_CrossFeedBearing": "only cross-feed journal slices in the named bearing bores; LH flight vs shell and fragments stays live",
+      "FeedIdler_x_CrossFeedBearing": "idler journal inside named bearing bore",
+      "FeedIdler_x_PaddleFeedGear": "first 12T external gear mesh; ideal opposite-angle kinematics, no tooth-force solver",
+      "FeedIdler_x_CrossFeedGear": "second 12T external gear mesh; ideal same signed cross-feed ratio after two reversals",
+      "articulation_self_collision": "disabled: S1A/S1B cutter hulls interleave by design; hulls cannot represent the hook interleave"
+    },
+    "not_filtered": "every probe/fragment vs every collider, including cross-feed screw; cross-feed flight vs static shell and mouth; all other static clearance contacts except named journal bores; no downstream loss suppressed"
+  },
   "mass_material_status": "ASSUMPTION_UNCHOSEN",
   "density_assumption": "PhysX default 1000 kg/m^3 (no material chosen)",
-  "derived_transfer_spec": [
-    {
-      "name": "S1_DISCHARGE",
-      "center_mm": [
-        120.0,
-        243.5,
-        428.0
-      ],
-      "dims_mm": [
-        120.0,
-        100.0,
-        30.0
-      ],
-      "note": "outlet under S1 chamber datum Y162.4..324.6"
-    },
-    {
-      "name": "CHUTE",
-      "center_mm": [
-        200.0,
-        243.5,
-        350.0
-      ],
-      "dims_mm": [
-        110.0,
-        90.0,
-        120.0
-      ],
-      "note": "45deg-class gravity slide S1 outlet -> S2 entry"
-    },
-    {
-      "name": "S2_ENTRY",
-      "center_mm": [
-        308.6,
-        275.0,
-        330.0
-      ],
-      "dims_mm": [
-        90.0,
-        45.0,
-        25.0
-      ],
-      "note": "throat above S2 bay"
-    },
-    {
-      "name": "S2_EXIT",
-      "center_mm": [
-        308.6,
-        275.0,
-        200.0
-      ],
-      "dims_mm": [
-        90.0,
-        45.0,
-        40.0
-      ],
-      "note": "duct below screen arc"
-    }
-  ],
+  "derived_transfer_spec": {
+    "removed": [
+      "S1_DISCHARGE",
+      "CHUTE",
+      "S2_ENTRY",
+      "S2_EXIT"
+    ],
+    "note": "emit_usd.py-era DERIVED boxes removed \u2014 phantom solids sealing the S1 chamber and chute; actual CAD includes CHUTE_BODY + CHUTE_TROUGH_FLOOR_E. path_check.json measures apertures, not connected transport."
+  },
   "probe_spawn": {
     "hopper_bbox_mm": [
       0.741715570741,
@@ -181,10 +199,14 @@
     "note": "2mm below hopper solid top; lateral spread set by verify_full.py across the mouth cross-section"
   },
   "source_bodies": {
-    "step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
-    "solids": 225,
+    "step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+    "solids": 253,
     "moving_bodies": [
+      "AUGER",
+      "CROSS_FEED",
+      "CROSS_FEED_IDLER",
       "IN_SHAFT",
+      "PADDLE",
       "S1A",
       "S1B",
       "S2_CARRIER",
@@ -198,7 +220,7 @@
       "S2_ROTOR"
     ]
   },
-  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
@@ -323,8 +345,8 @@
       "mesh": "c2.2/sim/assets/out/full/DRV-M2_001__coarse.stl",
       "prim": "/World/F0/Static/mesh_DRV_M2_001",
       "approx": "triangleMesh",
-      "verts": 425,
-      "faces": 846
+      "verts": 419,
+      "faces": 834
     },
     {
       "mesh": "c2.2/sim/assets/out/full/DRV-M1-PL_001__coarse.stl",
@@ -351,8 +373,8 @@
       "mesh": "c2.2/sim/assets/out/full/DRV-JACK_001__coarse.stl",
       "prim": "/World/F0/Static/mesh_DRV_JACK_001",
       "approx": "triangleMesh",
-      "verts": 130,
-      "faces": 260
+      "verts": 106,
+      "faces": 208
     },
     {
       "mesh": "c2.2/sim/assets/out/full/BR-6001_001__coarse.stl",
@@ -404,25 +426,11 @@
       "faces": 552
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/DRV-SH15R_001__fine.stl",
-      "prim": "/World/F0/IN_SHAFT/mesh_DRV_SH15R_001",
-      "approx": "convexHull",
-      "verts": 221,
-      "faces": 438
-    },
-    {
       "mesh": "c2.2/sim/assets/out/full/DRV-SH15L_001__fine.stl",
       "prim": "/World/F0/IN_SHAFT/mesh_DRV_SH15L_001",
       "approx": "convexHull",
       "verts": 220,
       "faces": 436
-    },
-    {
-      "mesh": "c2.2/sim/assets/out/full/DRV_SH40L_lower__coarse.stl",
-      "prim": "/World/F0/Static/mesh_DRV_SH40L_lower",
-      "approx": "triangleMesh",
-      "verts": 1710,
-      "faces": 3420
     },
     {
       "mesh": "c2.2/sim/assets/out/full/DRV_SH40R_upper__coarse.stl",
@@ -441,13 +449,6 @@
     {
       "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B25_001__fine.stl",
       "prim": "/World/F0/S1A/mesh_DRV_SP24_B25_001",
-      "approx": "convexHull",
-      "verts": 249,
-      "faces": 494
-    },
-    {
-      "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B12_001__fine.stl",
-      "prim": "/World/F0/IN_SHAFT/mesh_DRV_SP24_B12_001",
       "approx": "convexHull",
       "verts": 249,
       "faces": 494
@@ -1135,8 +1136,8 @@
       "mesh": "c2.2/sim/assets/out/full/DRV-DECK_001__coarse.stl",
       "prim": "/World/F0/Static/mesh_DRV_DECK_001",
       "approx": "triangleMesh",
-      "verts": 348,
-      "faces": 722
+      "verts": 344,
+      "faces": 708
     },
     {
       "mesh": "c2.2/sim/assets/out/full/DRV-M1-FOOT_001__coarse.stl",
@@ -1230,22 +1231,15 @@
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/KEY-8-16_001__coarse.stl",
-      "prim": "/World/F0/Static/mesh_KEY_8_16_001",
-      "approx": "triangleMesh",
+      "mesh": "c2.2/sim/assets/out/full/KEY-8-16_001__fine.stl",
+      "prim": "/World/F0/S1A/mesh_KEY_8_16_001",
+      "approx": "convexHull",
       "verts": 8,
       "faces": 12
     },
     {
       "mesh": "c2.2/sim/assets/out/full/KEY-4-70_001__fine.stl",
       "prim": "/World/F0/IN_SHAFT/mesh_KEY_4_70_001",
-      "approx": "convexHull",
-      "verts": 8,
-      "faces": 12
-    },
-    {
-      "mesh": "c2.2/sim/assets/out/full/KEY-4-16_001__fine.stl",
-      "prim": "/World/F0/IN_SHAFT/mesh_KEY_4_16_001",
       "approx": "convexHull",
       "verts": 8,
       "faces": 12
@@ -1265,6 +1259,20 @@
       "faces": 12
     },
     {
+      "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B20_002__coarse.stl",
+      "prim": "/World/F0/Static/mesh_DRV_SP24_B20_002",
+      "approx": "triangleMesh",
+      "verts": 728,
+      "faces": 1456
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/KEY-6-16_002__coarse.stl",
+      "prim": "/World/F0/Static/mesh_KEY_6_16_002",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
       "mesh": "c2.2/sim/assets/out/full/FRONT_INPUT_SUPPORT__coarse.stl",
       "prim": "/World/F0/Static/mesh_FRONT_INPUT_SUPPORT",
       "approx": "triangleMesh",
@@ -1275,8 +1283,8 @@
       "mesh": "c2.2/sim/assets/out/full/REAR_OUTPUT_SUPPORT__coarse.stl",
       "prim": "/World/F0/Static/mesh_REAR_OUTPUT_SUPPORT",
       "approx": "triangleMesh",
-      "verts": 176,
-      "faces": 360
+      "verts": 216,
+      "faces": 440
     },
     {
       "mesh": "c2.2/sim/assets/out/full/INPUT_BEARING_ENVELOPE_UNRATED__coarse.stl",
@@ -1491,16 +1499,16 @@
     {
       "mesh": "c2.2/sim/assets/out/full/RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE__fine.stl",
       "prim": "/World/F0/S2_ROTOR/mesh_RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
-      "approx": "convexHull",
-      "verts": 180,
-      "faces": 356
+      "approx": "convexDecomposition",
+      "verts": 6100,
+      "faces": 12220
     },
     {
       "mesh": "c2.2/sim/assets/out/full/OUTPUT_PIN_CARRIER_AND_SHAFT__fine.stl",
       "prim": "/World/F0/S2_CARRIER/mesh_OUTPUT_PIN_CARRIER_AND_SHAFT",
-      "approx": "convexHull",
-      "verts": 199,
-      "faces": 394
+      "approx": "convexDecomposition",
+      "verts": 2016,
+      "faces": 4028
     },
     {
       "mesh": "c2.2/sim/assets/out/full/OUTPUT_ROLLER_1__fine.stl",
@@ -1562,8 +1570,8 @@
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
       "prim": "/World/F0/Static/mesh_CHUTE_BODY",
       "approx": "triangleMesh",
-      "verts": 148,
-      "faces": 294
+      "verts": 229,
+      "faces": 460
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CHUTE_TROUGH_FLOOR_E__coarse.stl",
@@ -1571,6 +1579,837 @@
       "approx": "triangleMesh",
       "verts": 50,
       "faces": 96
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PDL_SHAFT__fine.stl",
+      "prim": "/World/F0/PADDLE/mesh_PDL_SHAFT",
+      "approx": "convexHull",
+      "verts": 165,
+      "faces": 326
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PDL_BEARINGS",
+      "approx": "triangleMesh",
+      "verts": 44,
+      "faces": 84
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PDL_BEARINGS_002",
+      "approx": "triangleMesh",
+      "verts": 44,
+      "faces": 84
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PDL_SPROCKET__fine.stl",
+      "prim": "/World/F0/PADDLE/mesh_PDL_SPROCKET",
+      "approx": "convexHull",
+      "verts": 246,
+      "faces": 488
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PDL_CHAIN__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PDL_CHAIN",
+      "approx": "triangleMesh",
+      "verts": 392,
+      "faces": 784
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PDL_WORM__fine.stl",
+      "prim": "/World/F0/PADDLE/mesh_PDL_WORM",
+      "approx": "convexHull",
+      "verts": 253,
+      "faces": 502
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_seg00",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        236.0,
+        238.5
+      ],
+      "verts": 134,
+      "faces": 264
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_002_seg01",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        238.5,
+        242.0625
+      ],
+      "verts": 43,
+      "faces": 82
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_003_seg02",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        242.0625,
+        245.625
+      ],
+      "verts": 44,
+      "faces": 84
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_004_seg03",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        245.625,
+        249.1875
+      ],
+      "verts": 47,
+      "faces": 90
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_005_seg04",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        249.1875,
+        252.75
+      ],
+      "verts": 50,
+      "faces": 96
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_006_seg05",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        252.75,
+        256.3125
+      ],
+      "verts": 44,
+      "faces": 84
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_007_seg06",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        256.3125,
+        259.875
+      ],
+      "verts": 46,
+      "faces": 88
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_008_seg07",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        259.875,
+        263.4375
+      ],
+      "verts": 49,
+      "faces": 94
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_009_seg08",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        263.4375,
+        267.0
+      ],
+      "verts": 43,
+      "faces": 82
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_010_seg09",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        267.0,
+        270.5625
+      ],
+      "verts": 42,
+      "faces": 80
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_011_seg10",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        270.5625,
+        274.125
+      ],
+      "verts": 50,
+      "faces": 96
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_012_seg11",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        274.125,
+        277.6875
+      ],
+      "verts": 42,
+      "faces": 80
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_013_seg12",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        277.6875,
+        281.25
+      ],
+      "verts": 46,
+      "faces": 88
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_014_seg13",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        281.25,
+        284.8125
+      ],
+      "verts": 51,
+      "faces": 98
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_015_seg14",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        284.8125,
+        288.375
+      ],
+      "verts": 43,
+      "faces": 82
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_016_seg15",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        288.375,
+        291.9375
+      ],
+      "verts": 41,
+      "faces": 78
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_017_seg16",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        291.9375,
+        295.5
+      ],
+      "verts": 51,
+      "faces": 98
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_018_seg17",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        295.5,
+        299.0625
+      ],
+      "verts": 42,
+      "faces": 80
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_019_seg18",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        299.0625,
+        302.625
+      ],
+      "verts": 46,
+      "faces": 88
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_020_seg19",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        302.625,
+        306.1875
+      ],
+      "verts": 55,
+      "faces": 106
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_021_seg20",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        306.1875,
+        309.75
+      ],
+      "verts": 41,
+      "faces": 78
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_022_seg21",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        309.75,
+        313.3125
+      ],
+      "verts": 42,
+      "faces": 80
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_023_seg22",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        313.3125,
+        316.875
+      ],
+      "verts": 55,
+      "faces": 106
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_024_seg23",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        316.875,
+        320.4375
+      ],
+      "verts": 43,
+      "faces": 82
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_025_seg24",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        320.4375,
+        324.0
+      ],
+      "verts": 44,
+      "faces": 84
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_026_seg25",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        324.0,
+        327.5625
+      ],
+      "verts": 52,
+      "faces": 100
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_027_seg26",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        327.5625,
+        331.125
+      ],
+      "verts": 41,
+      "faces": 78
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_028_seg27",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        331.125,
+        334.6875
+      ],
+      "verts": 42,
+      "faces": 80
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_029_seg28",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        334.6875,
+        338.25
+      ],
+      "verts": 55,
+      "faces": 106
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_030_seg29",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        338.25,
+        341.8125
+      ],
+      "verts": 41,
+      "faces": 78
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_031_seg30",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        341.8125,
+        345.375
+      ],
+      "verts": 43,
+      "faces": 82
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_032_seg31",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        345.375,
+        348.9375
+      ],
+      "verts": 53,
+      "faces": 102
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_033_seg32",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        348.9375,
+        352.5
+      ],
+      "verts": 35,
+      "faces": 66
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_SHAFT_034_seg33",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        352.5,
+        370.0
+      ],
+      "verts": 136,
+      "faces": 268
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_AUG_BEARINGS",
+      "approx": "triangleMesh",
+      "verts": 52,
+      "faces": 100
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_AUG_BEARINGS_002",
+      "approx": "triangleMesh",
+      "verts": 52,
+      "faces": 100
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_AUG_BEARINGS_003",
+      "approx": "triangleMesh",
+      "verts": 52,
+      "faces": 100
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/AUG_WHEEL__fine.stl",
+      "prim": "/World/F0/AUGER/mesh_AUG_WHEEL",
+      "approx": "convexHull",
+      "verts": 128,
+      "faces": 252
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PDL_FEED_GEAR__fine.stl",
+      "prim": "/World/F0/PADDLE/mesh_PDL_FEED_GEAR",
+      "approx": "convexHull",
+      "verts": 120,
+      "faces": 236
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_IDLER__fine.stl",
+      "prim": "/World/F0/CROSS_FEED_IDLER/mesh_CROSS_FEED_IDLER",
+      "approx": "convexHull",
+      "verts": 166,
+      "faces": 328
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_GEAR__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_GEAR",
+      "approx": "convexHull",
+      "verts": 120,
+      "faces": 236
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_seg00",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        207.9999999,
+        224.75
+      ],
+      "verts": 135,
+      "faces": 266
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_002_seg01",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        224.75,
+        225.8586956521739
+      ],
+      "verts": 68,
+      "faces": 132
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_003_seg02",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        225.8586956521739,
+        226.9673913043478
+      ],
+      "verts": 77,
+      "faces": 150
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_004_seg03",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        226.9673913043478,
+        228.07608695652175
+      ],
+      "verts": 79,
+      "faces": 154
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_005_seg04",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        228.07608695652175,
+        229.18478260869566
+      ],
+      "verts": 84,
+      "faces": 164
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_006_seg05",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        229.18478260869566,
+        230.29347826086956
+      ],
+      "verts": 96,
+      "faces": 188
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_007_seg06",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        230.29347826086956,
+        231.40217391304347
+      ],
+      "verts": 110,
+      "faces": 216
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_008_seg07",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        231.40217391304347,
+        232.5108695652174
+      ],
+      "verts": 72,
+      "faces": 140
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_009_seg08",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        232.5108695652174,
+        233.6195652173913
+      ],
+      "verts": 73,
+      "faces": 142
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_010_seg09",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        233.6195652173913,
+        234.72826086956522
+      ],
+      "verts": 71,
+      "faces": 138
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_011_seg10",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        234.72826086956522,
+        235.83695652173913
+      ],
+      "verts": 63,
+      "faces": 122
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_012_seg11",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        235.83695652173913,
+        236.94565217391303
+      ],
+      "verts": 60,
+      "faces": 116
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_013_seg12",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        236.94565217391303,
+        238.05434782608697
+      ],
+      "verts": 73,
+      "faces": 142
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_014_seg13",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        238.05434782608697,
+        239.16304347826087
+      ],
+      "verts": 72,
+      "faces": 140
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_015_seg14",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        239.16304347826087,
+        240.27173913043478
+      ],
+      "verts": 72,
+      "faces": 140
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_016_seg15",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        240.27173913043478,
+        241.3804347826087
+      ],
+      "verts": 107,
+      "faces": 210
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_017_seg16",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        241.3804347826087,
+        242.48913043478262
+      ],
+      "verts": 98,
+      "faces": 192
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_018_seg17",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        242.48913043478262,
+        243.59782608695653
+      ],
+      "verts": 86,
+      "faces": 168
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_019_seg18",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        243.59782608695653,
+        244.70652173913044
+      ],
+      "verts": 85,
+      "faces": 166
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_020_seg19",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        244.70652173913044,
+        245.81521739130434
+      ],
+      "verts": 100,
+      "faces": 196
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_021_seg20",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        245.81521739130434,
+        246.92391304347825
+      ],
+      "verts": 111,
+      "faces": 218
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_022_seg21",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        246.92391304347825,
+        248.0326086956522
+      ],
+      "verts": 60,
+      "faces": 116
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_023_seg22",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        248.0326086956522,
+        249.1413043478261
+      ],
+      "verts": 59,
+      "faces": 114
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_024_seg23",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        249.1413043478261,
+        250.25
+      ],
+      "verts": 108,
+      "faces": 212
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_025_seg24",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        250.25,
+        251.7154154117732
+      ],
+      "verts": 99,
+      "faces": 194
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_002",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_003",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_004",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_005",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_006",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_007",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_008",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_009",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_010",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_011",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_012",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_SHELL",
+      "approx": "triangleMesh",
+      "verts": 85,
+      "faces": 170
     },
     {
       "mesh": "c2.2/sim/assets/out/full/GUARD_S2_RING__coarse.stl",
@@ -1595,21 +2434,14 @@
     },
     {
       "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B",
+      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B_002",
       "approx": "triangleMesh",
       "verts": 56,
       "faces": 108
     },
     {
       "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B",
-      "approx": "triangleMesh",
-      "verts": 56,
-      "faces": 108
-    },
-    {
-      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B",
+      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B_003",
       "approx": "triangleMesh",
       "verts": 56,
       "faces": 108
@@ -1625,8 +2457,15 @@
       "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
       "prim": "/World/F0/Static/mesh_PULL_FRAME",
       "approx": "triangleMesh",
-      "verts": 20,
-      "faces": 36
+      "verts": 52,
+      "faces": 100
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_FRAME_002",
+      "approx": "triangleMesh",
+      "verts": 52,
+      "faces": 100
     },
     {
       "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
@@ -1639,8 +2478,8 @@
       "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_ADJ__coarse.stl",
       "prim": "/World/F0/Static/mesh_PULL_ROLLER_ADJ",
       "approx": "triangleMesh",
-      "verts": 115,
-      "faces": 226
+      "verts": 11245,
+      "faces": 22506
     },
     {
       "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP__coarse.stl",
@@ -1662,6 +2501,20 @@
       "approx": "triangleMesh",
       "verts": 52,
       "faces": 100
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS",
+      "approx": "triangleMesh",
+      "verts": 60,
+      "faces": 120
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_002",
+      "approx": "triangleMesh",
+      "verts": 60,
+      "faces": 120
     },
     {
       "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_DRUM__coarse.stl",
@@ -1777,5 +2630,6 @@
     }
   ],
   "failures": [],
-  "status": "PASS"
+  "status": "GEOMETRY_EMITTED",
+  "material_flow_status": "UNVERIFIED"
 }

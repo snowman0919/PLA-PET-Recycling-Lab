@@ -60,7 +60,7 @@ def allocate(ia,ib,requests,priority):
     fixed=47.84;used=fixed+24*(max(0,ia)+max(0,ib));on=[False]*4
     for i in priority:
         w=[100,100,100,60][i]
-        if requests[i] and used+w<=500+1e-9:on[i]=True;used+=w
+        if requests[i] and used+w<=792+1e-9:on[i]=True;used+=w
     return on,used
 
 def main():
@@ -78,18 +78,18 @@ def main():
     intervalsA=[(163+12.4*i,169+12.4*i) for i in range(13)]
     intervalsB=[(169.2+12.4*i,175.2+12.4*i) for i in range(13)]
     clearax=min(max(a[0]-b[1],b[0]-a[1]) for a in intervalsA for b in intervalsB)
-    budget={'psu_rated_W':800,'PSU_current_at24V_A':800/24,'M1_rated_electrical_W':24*8.2,'M2_rated_electrical_W':24*1.8,'heater_installed_W':360,'fans_W':2*7.92,'controls_pull_spool_allowance_W':32,'nominal_all_on_W':24*(8.2+1.8)+360+47.84,'hardware_limit_proposal_A':[12,3],'bounded_all_on_at24V_W':24*(12+3)+360+47.84,'operational_cap_W':500,'actual_current_limit_and_transient_testing':'NOT_RUN'}
+    budget={'psu_nameplate_W':800,'psu_current_A':33,'psu_current_derived_ceiling_W':792,'M1_rated_electrical_W':24*8.2,'M2_rated_electrical_W':24*1.8,'heater_installed_W':360,'fans_W':2*7.92,'controls_pull_spool_allowance_W':32,'nominal_all_on_W':24*(8.2+1.8)+360+47.84,'hardware_limit_proposal_A':[12,3],'bounded_all_on_at24V_W':24*(12+3)+360+47.84,'power_target_W':500,'power_target_semantics':'SOFT_WARN_AND_LOG','actual_current_limit_and_transient_testing':'NOT_RUN'}
     tests=0;maxallowed=0
     for ia in np.linspace(0,12,25):
       for ib in np.linspace(0,3,13):
        for mask in itertools.product([False,True],repeat=4):
         for shift in range(4):
          _,used=allocate(ia,ib,mask,list(np.roll(np.arange(4),shift)));tests+=1
-         assert used<=500+1e-7;maxallowed=max(maxallowed,used)
+         assert used<=792+1e-7;maxallowed=max(maxallowed,used)
     # The installed inner buffer volume is integrated from exact loft endpoint rectangles.
     z=np.linspace(0,73,10001);wi=44+(184-44)*(z+1)/75;di=34+(42-34)*(z+1)/75
     buf=float(np.trapezoid(wi*di,z))/1000
-    results={'revision':'C1','drive':drive,'speeds_rpm':{'M1':58,'S1':58*15/40,'S2_orbit':116,'S2_self':-14.5,'M2_screw':12},'shaft_beam_screens':beams,'cooling_sensitivity':cool,'cooling_mesh_check':conv,'stage1':{'cutters_total':26,'axial_gap_nominal_mm':clearax,'individual_stack_mm':13*6+12*6.4,'combined_stack_mm':13*6+12*6.4+6.2,'radial_tip_spacer_clearance_mm':60-40-18,'note':'Stack grinding/tolerance accumulation and shim inspection required.'},'stage2':{'ideal_orbit_self_ratio':-.125,'e_mm':7,'chamber_ID_mm':125.6,'tip_OD_mm':110,'tip_chamber_nominal_gap_mm':.8,'guide_profile_valid':valid,'profile_vertices':S['guide_samples'],'full_revolution_phases':721,'fixed_pins_per_phase':9,'minimum_pin_profile_clearance_mm':clear,'profile_max_radius_mm':rr,'tolerance_screen':'Nominal CAD only; loaded contacts/backlash/wear are not simulated.'},'power':budget,'power_allocator_exhaustive':{'cases':tests,'max_admitted_W':maxallowed,'passed':True,'scope':'Exact arithmetic reference; no firmware timing or hardware fault validation'},'buffer':{'internal_geometric_mL':buf,'usable_at75pct_mL':.75*buf,'needs_resize':buf<300},'extrusion_pressure_sensitivity':{'assumed_MPa':[5,10],'thrust_N':[p*math.pi*16**2/4 for p in [5,10]],'actual_pressure':'NOT_MEASURED'},'limitations':['DEM/breakage/particle size NOT_RUN','3D structural/thermal stress solve NOT_RUN','Hardware material and load validation NOT_RUN','Kinematic clearance is not contact fatigue or a machine safety certificate']}
+    results={'revision':'C1','drive':drive,'speeds_rpm':{'M1':58,'S1':58*15/40,'S2_orbit':116,'S2_self':-14.5,'M2_screw':12},'shaft_beam_screens':beams,'cooling_sensitivity':cool,'cooling_mesh_check':conv,'stage1':{'cutters_total':26,'axial_gap_nominal_mm':clearax,'individual_stack_mm':13*6+12*6.4,'combined_stack_mm':13*6+12*6.4+6.2,'radial_tip_spacer_clearance_mm':60-40-18,'note':'Stack grinding/tolerance accumulation and shim inspection required.'},'stage2':{'ideal_orbit_self_ratio':-.125,'e_mm':7,'chamber_ID_mm':125.6,'tip_OD_mm':110,'tip_chamber_nominal_gap_mm':.8,'guide_profile_valid':valid,'profile_vertices':S['guide_samples'],'full_revolution_phases':721,'fixed_pins_per_phase':9,'minimum_pin_profile_clearance_mm':clear,'profile_max_radius_mm':rr,'tolerance_screen':'Nominal CAD only; loaded contacts/backlash/wear are not simulated.'},'power':budget,'power_allocator_exhaustive':{'cases':tests,'max_admitted_W':float(maxallowed),'soft_target_W':500,'hard_ceiling_W':792,'over_target_admitted':bool(maxallowed>500),'passed':bool(maxallowed<=792+1e-7),'scope':'Exact arithmetic reference; 500 W is a soft target, 792 W is the current-derived ceiling; no firmware timing or hardware fault validation'},'buffer':{'internal_geometric_mL':buf,'usable_at75pct_mL':.75*buf,'needs_resize':buf<300},'extrusion_pressure_sensitivity':{'assumed_MPa':[5,10],'thrust_N':[p*math.pi*16**2/4 for p in [5,10]],'actual_pressure':'NOT_MEASURED'},'limitations':['DEM/breakage/particle size NOT_RUN','3D structural/thermal stress solve NOT_RUN','Hardware material and load validation NOT_RUN','Kinematic clearance is not contact fatigue or a machine safety certificate']}
     (OUT/'engineering.json').write_text(json.dumps(results,indent=2))
     with (OUT/'power_trace.csv').open('w',newline='') as f:
         w=csv.writer(f,lineterminator='\n');w.writerow(['t_s','M1_A','M2_A','heater100a','heater100b','heater100c','heater60','admitted_W'])

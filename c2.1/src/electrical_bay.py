@@ -140,20 +140,28 @@ def load_inventory():
     for d in devices:
         d["subtotal_W"] = d["W"] * d["count"]
     total = sum(d["subtotal_W"] for d in devices)
-    # Staged heater power control (design decision, VP1 Stage 3): the
-    # controller sequences the heater bands so at most ONE EX-H100 band plus
-    # the EX-H60 cartridge draw at any instant (160 W of heater load); motors
-    # and fans are continuous.  Control logic is UNIMPLEMENTED_IN_FIRMWARE;
-    # a hardware interlock (EL_CURRENT_LIMITER relay bank) is required so a
-    # firmware fault cannot energize two bands.
+    # Staged heater power control (VP1 Stage 5): the host-tested controller
+    # sequences the heater bands so at most ONE EX-H100 band plus the EX-H60
+    # cartridge draw at any instant (160 W heater load); motors and fans are
+    # continuous.  This keeps the modeled cycle below the 500 W soft target.
+    # The independent EL_CURRENT_LIMITER hardware interlock remains required;
+    # no target build, flash, or physical energization has been performed.
     staged_heaters = 100.0 + 60.0
     continuous = total - 100.0 * 3 - 60.0  # motors + fans
     staged_peak = continuous + staged_heaters
-    cap = params["psu"]["operational_cap_W"]
+    psu = params["psu"]
+    target = psu["power_target_W"]
+    ceiling = psu["current_derived_ceiling_W"]
     return {
-        "psu": {"V": params["psu"]["V"], "rated_W": params["psu"]["rated_W"],
-                "operational_cap_W": cap,
-                "body_mm": params["psu"]["body_mm"], "owned": True},
+        "psu": {
+            "V": psu["V"],
+            "current_A": psu["current_A"],
+            "nameplate_W": psu["nameplate_W"],
+            "current_derived_ceiling_W": ceiling,
+            "power_target_W": target,
+            "body_mm": psu["body_mm"],
+            "owned": True,
+        },
         "devices": devices,
         "total_peak_W": total,
         "staged_peak_W": staged_peak,
@@ -162,21 +170,24 @@ def load_inventory():
                       "instant; bands rotate on controller timing",
             "heater_W_staged": staged_heaters,
             "continuous_W": continuous,
-            "control_implementation": "UNIMPLEMENTED_IN_FIRMWARE",
+            "control_implementation": "HOST_CONTROLLER_CORE_SELF_TESTED_NOT_DEPLOYED",
             "hardware_interlock": "EL_CURRENT_LIMITER relay bank required "
-                                  "so a firmware fault cannot energize two "
-                                  "bands (documented requirement)",
+                                  "independently of firmware behavior",
         },
-        "operational_cap_W": cap,
-        "headroom_W": cap - total,
-        "staged_headroom_W": cap - staged_peak,
-        "cap_exceeded": total > cap,
-        "staged_cap_exceeded": staged_peak > cap,
-        "note": ("PEAK simultaneous nameplate sum. M1/M2 are not-owned "
-                 "references -> UNRATED estimates, not ratings. Heater duty "
-                 "cycling lowers the MEAN load but not the peak; the peak "
-                 "exceeds the 500 W operating cap - documented defect, "
-                 "mitigation: two-band operation or PSU/cap revision."),
+        "power_target_W": target,
+        "total_vs_target_headroom_W": target - total,
+        "staged_vs_target_headroom_W": target - staged_peak,
+        "total_above_target": total > target,
+        "staged_above_target": staged_peak > target,
+        "current_derived_ceiling_W": ceiling,
+        "hard_ceiling_headroom_W": ceiling - total,
+        "hard_ceiling_exceeded": total > ceiling,
+        "note": ("PEAK simultaneous modeled sum. M1/M2 are not-owned "
+                 "references -> UNRATED estimates, not ratings. The 500 W "
+                 "value is a soft operating target: an admitted draw above "
+                 "it is WARN+logged, not hard-tripped. Demands above the "
+                 "24 V x 33 A = 792 W ceiling are rejected; hardware current "
+                 "limiting and heater interlocks remain required."),
     }
 
 

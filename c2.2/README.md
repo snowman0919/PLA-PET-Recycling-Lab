@@ -1,20 +1,22 @@
-# C2.2 — Headless Isaac Sim Multi-Shredder Fracture Benchmark (foundation scaffold)
+# C2.2 — VP1 전체 기계 Isaac Sim 검증
 
-Status: `SCAFFOLD_ONLY_NO_RESULTS`. No simulation run, no USD conversion, no fabrication/purchase/energize/merge authorization.
+`c2.1/cad/PPR_VP1.step`을 전체 솔리드 단위로 변환해
+`sim/assets/usd/full_machine.usda`에서 실제 조립 운동과 소재 경로를 검사한다.
+현재 STEP/USD SHA와 최종 실행 결과는 루트 `STATUS.md`가 기준이다.
 
-## Layout
+## 주요 경로
 
-- `docs/SOURCES.md` — inherited C2.1 design citations, STEP SHAs, envelope + S2 params, evidence caveats.
-- `results/environment_manifest.json` — machine-readable host/toolchain snapshot (retrieved 2026-09-21).
-- `sim/` — future pipeline packages: `bootstrap` (env/isaac checks), `assets` (STEP→USD conversion inputs/outputs), `generators` (parametric S1/S2 geometry variants), `fracture` (fracture/DEM models), `mechanisms` (cycloid/transmission kinematics), `experiments` (S1/S2 architecture search runs), `metrics` (yield/throughput/torque/jam/energy), `optimization` (search policy), `thermal` (5-node model port).
-- `configs/` — run configs (I1 asset pipeline first).
-- `tests/` — c2.2 regression tests (none yet; existing C2.1 suite stays in `c2.1/tests` unmodified).
-- `scripts/` — operator scripts. `logs/` — run logs (git-ignored content expected).
+- `sim/assets/convert.py`: STEP 솔리드와 조립 이름을 STL/sidecar로 대응시킨다.
+- `sim/full_machine.py`: S1/S2/오거/풀러/와인더의 종속 운동과 접촉을 실행한다.
+- `sim/flow_localize.py`: 호퍼, S1 배출, 슈트, S2 입구를 단계별로 주입해
+  실제 통과·정체·world 이탈을 구분한다.
+- `sim/verify_full.py`: 전체 운동 추적, 접촉, 소재 경로 결과를 판정한다.
+- `sim/render_reviewer_scenes.py`: 동일 USD/STEP에 묶인 검토 이미지 4장을 만든다.
+- `results/full_machine/`: 최종 기계 판독 JSON, runner log, 이미지 증거.
 
-## Inheritance (summary)
+## 검증 경계
 
-C2.1 package state `DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD`. Whole-machine STEP 196 solids (reimported 196), FreeCAD 156 valid objects, body 630×408×508 mm, operating 839×408×508 mm. S2 nominal q=8, e=7 mm, input +120 rpm / output −15 rpm, 1 independent DOF, shared M1 (UNSELECTED), separate M2. PSU 24 V 800 W / 500 W cap. BOM 135 rows, 124 cost-unknown. All material/fracture params are ASSUMPTION / UNCALIBRATED_DIGITAL_SENSITIVITY. Zero physical shredding tests. Details in `docs/SOURCES.md`.
-
-## Gates
-
-Physical release HOLD. Budget 100,000 KRW soft limit (known 200 W motor floor 110,200 KRW already exceeds it). M1 NOT SELECTED. I1 = USD asset pipeline from parametric Python + STEP sources; blocked on USD tooling (`pxr` absent — see manifest).
+이 시뮬레이션은 결함 발견과 디지털 운동/경로 검증이다. 파괴 물성, 처리량,
+토크, 열, 마모, 수명과 안전 containment의 물리 적합성을 인증하지 않는다.
+PSU는 24V 33A/명판 800W이며 500W는 소프트 목표, 792W는 강제 상한이다.
+구매·제작·통전·물리 운전·main 병합은 명시적 승인 전 **HOLD**다.

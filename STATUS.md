@@ -1,75 +1,88 @@
-# PPR STATUS (2026-09-22 기준)
+# PPR VP1 현재 상태 (2026-09-23)
 
-VP1 통합 제품 작업 진행 중. 영구 규칙은 [`KODEX.md`](KODEX.md).
+현재 설계 규칙은 `KODEX.md`, 기계 판독 원본은 `c2.1/results/`와
+`c2.2/results/full_machine/`이다. 이 문서는 과거 196/225 솔리드 수치와
+미구현 목록을 현재 사실로 승계하지 않는다.
 
-## 1. 현재 제품 파일 (C2.1)
-- `c2.1/cad/PPR_C2_1_machine_integration.FCStd` — 네이티브 FreeCAD 편집 가능 본체 조립 (156 객체, 전부 valid — `c2.1/results/machine_freecad.json`)
-- `c2.1/cad/PPR_C2_1_machine_integration.step` — 전체 기계 STEP (196 솔리드 재가져오기 검증 — `machine_integration.json`)
-- `c2.1/cad/PPR_C2_1_S2_transmission.step` / `..._exploded.step` / `..._schematic.svg` — S2 구동계 (41 객체 — `cad_validation.json`)
-- `c2.1/results/p6_manifest.json` — 56 아티팩트 해시 동결 (self-excluding)
-- 진행 중(VP1, **IN_PROGRESS**): 전체 라인 통합 — 호퍼→S1→슈트→S2→버퍼→압출→냉각→풀러→스풀 단일 STEP/CAD/Isaac 씬/BOM. `c2.1/src`, `c2.2/sim` 동시 편집 중.
+## 통합 제품
 
-## 2. 실제 수행된 검증 범위
-| 검증 | 근거 |
-|---|---|
-| STEP 재가져오기 (topology/volume) | `results/step_roundtrip.json` (C1 파트), `c2.1/results/cad_validation.json`, `machine_integration.json` |
-| CAD↔BOM 대응 / 인터페이스 간섭 | `c2.1/results/machine_integration.json`, `system_bom_summary.json` |
-| 실제 메커니즘 운동 (S2 구동계, 9 케이스) | `c2.1/results/kinematic_validation.json`, `motion_samples.json` |
-| 배선/펌웨어 디지털 증거 (컴파일만, 플래시/통전 미실행) | `machine_wiring.json`, `firmware_build.json` |
-| 운동 단위 테스트 등 로컬 72 테스트 통과 | `tests` 14, `c2.1/tests` 11, `c2.3/tests` 47 OK |
-**범위 밖(미검증)**: 실분쇄 성능, 열, 수명, 소재 경로 실측, Isaac 전체 기계 씬. 전체 판정: 디지털 패키지 PASS, 물리 해제 **HOLD** (`validation_summary.json`).
+- `c2.1/cad/PPR_VP1.step`: 호퍼→S1→능동 슈트→S2→버퍼→압출→냉각→
+  1.75 mm 풀러→스풀을 포함한 전체 조립. 편집 가능한 원본은
+  `c2.1/cad/PPR_C2_1_machine_integration.FCStd`와 `c2.1/src/`의
+  FreeCAD/CadQuery 파라미터 생성기다.
+- `c2.2/sim/assets/usd/full_machine.usda`: 동일 STEP의 솔리드별 메시,
+  구동 관절, 기능 보존 collider를 가진 실행 씬. `sim/assets/out/full/bodies.json`
+  및 sidecar가 STEP/메시 해시를 연결한다.
+- `c2.1/bom/system_bom.csv`/`.xlsx`: 활성 시스템 BOM. 미견적 항목을 0원으로
+  취급하지 않는다.
+- `c2.2/results/full_machine/reviewer_scenes/`: 전체 조립, 구동계 중간 회전,
+  이송 슈트와 프로브, 풀러·권취 장면 4장과 `index.json`.
 
-## 3. 주요 미해결 결함 (Gap Analysis)
-1. 무치(toothless) 기어/체인 — 링크만 존재, 실동력 전달 기하 미완
-2. 슈트(chute) 누락 — S1→S2 연결 경로 없음
-3. 스풀/풀러가 엔벨로프 표현만 — 실기구 없음
-4. 가드가 애니메이션 전용 — 실체 가드 부품/체결 미완
-5. 전체 기계 Isaac 씬 없음 (S2 부분 씬만)
-6. 집계 전력 모델 없음 (M1/M2 분배 미정, 모터 미선정)
-7. S2 로터 부착부 강도 무정격(unrated)
-8. [해결됨 2026-09-22, VP1 Stage 2] CI frozen-hash ULP 드리프트 — `c2/src/run_study.py`와 `c2.1/src/transmission.py`의 직렬화 지점에서 모든 float를 소수 8유효숫자로 정준 반올림(규격: `_canon`). 12유효숫자는 러너 간 1-2 ULP(~16번째 자리) 드리프트보다 ~1000배 크고, 계약 허용오차(최소 여유 ~1e-5, 게이트 >=1e-9)보다 훨씬 미세해 계약 약화 없음. `c2/src/verify_artifacts.py`도 메모리 재계산 값에 동일 정준화를 적용. 재생성된 JSON 4종(p5_thermal_control, performance_gate, kinematic_validation, motion_samples)과 매니페스트 해시를 로컬에서 재확정 — 이것이 이 변경의 목적이며, verify_artifacts(c2, c2.1) 모두 통과. **재확정 순서 필수**: run_study/transmission 실행(결과 재생성) -> build_release_manifest(해시 재확정) -> verify_artifacts. 순서를 바꾸면 매니페스트가 이전 바이트를 고정해 CI에서 파일 없음/해시 불일치 발생 (2026-09-22 3회 CI 실패의 근본 원인). 정준 자릿수는 12->8->6유효숫자로 단계 조정: FD 유도 값은 libm 표차(1e-16)가 캔슬링으로 ~1e-8 상대 오차로 증폭되므로 6유효숫자(1e-7 상대 경계)가 안전 여유 4자리를 확보. c2.1 verify의 고정 개수 196->200, 156->160도 VP1 Stage 1 반영으로 갱신
+## 수정된 구조와 디지털 증거
 
-## 4. 다음 단계
-1. ~~VP1 통합~~ **완료 (2026-09-22, VP1 Stage 1-3)**: 전체 라인 통합 STEP 225 solids
-   (sha256 1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8),
-   재수입 유효, 예상/재수입 일치, BREP 충돌 0 (vp1_against_retained/vp1_internal),
-   본체 630x408x512.5 <= 700x420x520, 운전 847x408x512.5 <= 850x450x510.
-   ADR-002 체인 경로 릴리프 9건 적용 (제거 23,853 mm3, 기록:
-   vp1_stage3.chain_relief_records). FCStd 185 objects/valid.
-2. Isaac 전체 기계 씬 + 실기하 구동/간섭 시험 -> 결함 수정 -> 재생성 (KODEX §3) — 진행 중 (c2.2/c2.3 워크스트림)
-3. BOM 집계: 시스템 BOM 163행 (VP1 델타 30행, 전부 UNQUOTED_NOT_ZERO — 견적 없음, 미견적 != 0);
-   알려진 비용 11행; 100,000 KRW 소프트 리밋 대비 견적 대기
-4. ~~CI frozen-hash ULP 정책~~ **해결됨 (2026-09-22)**: 직렬화 지점 정준 반올림(소수 12유효숫자) — 결함 8 참조
+- DRV-JACK은 절단 없는 연속 축이고 체인 B는 잭샤프트에서 S2로 간다.
+  M2 참조 외형을 파내던 중복 헬리컬 물림을 제거했다. S1/S2는 공용 M1
+  단일 입력에서 종속되고 S2에 제2 모터가 없다. 구동비·무간섭은 디지털
+  검증 대상이며 토크·베어링 반력·치형 하중의 실물 정격은 아니다.
+- 풀러는 1.75 mm 필라멘트에 대해 1.5–3.0 mm 스프링 가압 니프와
+  통과 공간/그립 별도 게이트를 갖는다. 양단 스풀 베어링, 모터-드럼
+  토크 결합, 트래버스·가이드 눈을 조립 형상으로 포함한다.
+- 수동 계단/패들/얕은 오거는 이전 이송 시험에서 폐기했다. 현재 형상은
+  x237..354의 4회전 능동 오거, 35링크 오프셋 체인, 2-start/16T 웜,
+  y축 횡이송 스크루와 12T 기어 3개를 포함한다. 잭샤프트 제2 24T도
+  별도 키/키시트로 결합한다. BRep 재가져오기 **235 객체/253 솔리드**,
+  예상 밖 통합 간섭 0건, FreeCAD **194/194 유효 객체**다. 본체
+  630×408×510 mm 제한을 충족한다.
+- **소재 이송은 HOLD**: 현재 STEP `0753f249…`/USD `594b77e4…`에서
+  8-cycle 국부 시험은 호퍼 입구 22/22, S1 배출 판정면 22/22지만
+  S1에서 오거 픽업 5/22, 슈트 x335 도달 21/22에서 S2 입구
+  +Y 횡단 0/22, x335 이후 월드 유실 13/22다. S2 국부 주입
+  22/22는 입구부터 별도 주입한 결과이며 연결 성공이 아니다.
+  19,200 step(96 s, 8 입력 회전) 연결 실행의 S2 스크린 근접은
+  **0/200**, 제품 흐름 검증은 false다. 구동 추적 PASS와
+  무예상 접촉은 물질 경로/스크린 구멍 통과/압출 제품의 증거가 아니다.
+  `path_check.json`도 플라이트-입구 수동 간극 3.28 mm 때문에
+  `all_material_path_clear=false`다.
+- 전력: 보유 PSU 24 V×33 A, 명판 800 W, 전류 정격 강제 상한 792 W,
+  소프트 운전 목표 500 W. host-tested 제어 core 19건에서 히터 밴드
+  동시 점등 배제, 500 W 초과 경고·허용, 792 W 초과 거부를 확인했다.
+  가상 운전 1800 s의 모델 피크는 416 W(목표 여유 84 W)이며
+  566 W 요구는 경고 허용, 816 W 요구는 거부한다. M1/M2/팬 전력은
+  **UNRATED_ESTIMATE**이지 실측 소비전력이 아니다.
 
-## 4a. VP1 전력 설계 결정 (Stage 3)
-- 원수치: 기기 명판 동시 합계 **616 W > 500 W 운전 상한** (초과 116 W) — M1/M2는
-  미소유 참조라 UNRATED 추정치(evidence grade UNRATED_ESTIMATE), 히터 3x100 W +
-  60 W는 NAMEPLATE_SOURCE (design/assembly.json 명판).
-- 설계 결정 (채택): **단계적 히터 전력 제어** — 컨트롤러가 밴드를 순차 점등하여
-  임시 순간 부하를 EX-H100 1개 + EX-H60 (160 W)로 제한 -> **staged_peak_W 416 W
-  <= 500 W (여유 84 W)**. 원수치 616 W는 electrical_load.json에 그대로 노출.
-- 하드웨어: EL_CURRENT_LIMITER 릴레이 뱅크 CAD 배치 완료. 펌웨어 제어 로직은
-  **UNIMPLEMENTED_IN_FIRMWARE** — 펌웨어 고장 시에도 두 밴드가 동시 점등되지
-  않도록 하는 하드웨어 인터락 요구를 문서화.
+## 미완료 기능과 물리 HOLD
 
-## 4b. 남은 결함 (정직 목록)
-- 가드 판 두께/구조 미검증 (containment unrated; service sweep만 검증)
-- ADR-002 릴리프 포켓 적용 부품의 구조적 강도 미검증 (ROOF-R 코너, DECK 절삭,
-  JACK 절단, STUD 트림 — FEA 없음)
-- 스테이지 히터 제어 펌웨어 로직 UNIMPLEMENTED_IN_FIRMWARE (하드웨어 배치만 존재)
-- Isaac 런의 토크는 0/운동학 값 (pose-driven kinematic rigid bodies — 실측 토크 불가,
-  c2.3 TORQUE_SOURCE 판정 유지)
-- 체인 B 스트랜드가 DRV-JACK을 관던하는 근본 설계 충돌은 절단+스페이서로 디지털
-  해결 — 실물 제작 전 재배치/커플링 재설계 필요 (ADR-002)
+- S1 배출은 주 오거 픽업이 5/22에 그치고, 오거의 x354 끝에서
+  횡이송 스크루/입구까지 연속 포집되지 않아 0/22만 S2 입구를
+  횡단한다. 1.5/3 mm 파편의 포집·낙하·횡이송 경로를 실제 CAD와
+  충돌 형상에서 다시 설계하고 STEP→USD→국부/연결 시험을 재실행해야
+  한다. 스크린 *근접*도 구멍 통과나 완성 필라멘트가 아니다.
+- 모터, 웜/휠, 축·베어링·coupling, 체인, 가드 containment,
+  E-stop/lid/service interlock, thermal fuse/branch fuse의 물리 정격과
+  작동 시험은 없다. 소재별 파쇄 성능·실제 처리량·열·마모·수명도 미검증이다.
+- 구매·가공·통전·실물 운전·main 병합은 명시적 사용자 승인 전 **HOLD**.
+  개발 브랜치의 커밋/푸시와 Draft PR 갱신은 별개다.
 
-## 5. 역사 문서 분류 (파일은 수정하지 않음)
-아래 문서들은 **역사적/실험 기록**이다. 현재 승인 상태가 아니며, 과거 PASS 값은 현재 승인으로 **상속되지 않는다**. 현재 유효한 것은 KODEX.md와 이 문서(STATUS.md), 그리고 `c2.1/results/` 실제 증거 파일뿐이다.
+## 재현 순서
 
-| 디렉터리 | 문서 | 분류 |
-|---|---|---|
-| `c2/` | `docs/CALIBRATION_AND_RFQ.md`, `docs/C2_ENGINEERING_NOTES.md` | 역사적 실험/계획 기록 |
-| `c2.1/` | `docs/PLAN_KO.md`, `docs/OPEN_ACTIONS_KO.md`, `docs/HANDOFF_KO.md`, `docs/ADR-001-S2-TRANSMISSION.md`, `docs/ASSEMBLY_SERVICE_KO.md` | 역사적 계획/인수인계 기록 (P0–P6 패키지 시점) |
-| `c2.2/` | `README.md`, `docs/SOURCES.md`, `docs/HANDOFF_KO.md` | 역사적 실험 기록 (sim 시도) |
-| `c2.3/` | `CONTRACT.md`, `NEXT.md`, `docs/REVIEW_HANDOFF_KO.md`, `revisions/r1/CONTRACT_R1.md`, `revisions/r1/AMENDMENT_LOG.md`, `revisions/r1/DIAGNOSTIC_SUMMARY.md`, `revisions/r1/REQUIREMENTS_EVIDENCE.md`, `revisions/r1/REVIEW_HANDOFF_KO.md` | 역사적 계약/실험 기록 — **C2.3 확장은 중단됨** (KODEX §3) |
+`c2.1/src/build_machine_integration.py` → `build_machine_freecad.py` →
+`path_check.py`/`build_system_bom.py`/`build_machine_wiring.py`/
+`build_firmware.py`/`power_sim.py` → `c2.2/sim/assets/convert.py --full` →
+`c2.2/sim/full_machine.py` → `c2.2/sim/flow_localize.py` →
+`c2.2/sim/verify_full.py` → `c2.2/sim/render_reviewer_scenes.py` 순서다.
+최종 결과 생성 후 `c2.1/src/build_release_manifest.py`를 마지막에 실행하고
+`c2.1/src/verify_artifacts.py`로 해시·계약을 검사한다. 실제 실행 명령의
+세부 인자는 각 스크립트 `--help`와 PR 검증 기록을 따른다.
 
-이 문서들에 기록된 "PASS/VALIDATED/COMPLETE" 표기는 당시 실험 범위에서만 유효하며, 현재 VP1 통합 제품의 승인 상태와 무관하다.
+## 지식 그래프 갱신 경계
+
+`graphify update .`로 코드 AST를 갱신하고 이번 변경 문서 8건을
+호스트 시맨틱 추출(44 노드/34 간선/1 하이퍼간선)해 캐시 8/8을
+확인했다. 병합 그래프는 1730 노드/3109 간선이다.
+`graphify-out/GRAPH_REPORT.md`의 God Nodes, Surprising Connections,
+Suggested Questions를 검토했다. Ollama 전체 코퍼스 증분 실행은
+`gemma4:e2b`에서 72/86 파일 누락·69개 응답 불완전,
+`Qwythos-v2-9B:Q4`의 작은 청크 재시도는 20개 중 14개에서 시간
+초과했다. **변경 문서 8건은 갱신 완료**, 그 외 코퍼스의 시맨틱
+미완료·추출 품질은 완전한 그래프라고 주장하지 않는다. 외부 유료
+API 호출은 없었다.

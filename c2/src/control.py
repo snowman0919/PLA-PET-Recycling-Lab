@@ -96,13 +96,20 @@ class Controller:
                     coupled_axes='S1_AND_S2_COMMON_SPEED_ONLY')
 
 
-def allocate_power(m1_bus_W: float, m2_bus_W: float, auxiliaries_W: float, heater_request_W: float,
-                   cap_W: float = 500.0):
-    vals=[m1_bus_W,m2_bus_W,auxiliaries_W,heater_request_W,cap_W]
-    if not all(math.isfinite(v) and v >= 0 for v in vals) or cap_W > 800:
+def allocate_power(m1_bus_W: float, m2_bus_W: float, auxiliaries_W: float,
+                   heater_request_W: float, target_W: float = 500.0,
+                   hard_ceiling_W: float = 792.0):
+    vals=[m1_bus_W,m2_bus_W,auxiliaries_W,heater_request_W,target_W,hard_ceiling_W]
+    if (not all(math.isfinite(v) and v >= 0 for v in vals)
+            or target_W > hard_ceiling_W or hard_ceiling_W > 792):
         raise ValueError('Invalid DC bus power; phase current cannot substitute for bus power')
     reserved=m1_bus_W+m2_bus_W+auxiliaries_W
-    if reserved > cap_W:
-        return dict(admitted=False,heater_W=0.,total_W=0.,reason='SCHEDULE_OR_REDUCE_M1')
-    h=min(heater_request_W,cap_W-reserved)
-    return dict(admitted=True,heater_W=h,total_W=reserved+h,reason='REFERENCE_ALLOCATION_ONLY')
+    if reserved > hard_ceiling_W:
+        return dict(admitted=False,heater_W=0.,total_W=0.,over_target=False,
+                    reason='HARD_CEILING_REJECT')
+    h=min(heater_request_W,hard_ceiling_W-reserved)
+    total=reserved+h
+    return dict(admitted=True,heater_W=h,total_W=total,
+                over_target=total>target_W,
+                reason=('WARN_ABOVE_SOFT_TARGET' if total>target_W
+                        else 'REFERENCE_ALLOCATION_ONLY'))

@@ -1,0 +1,3796 @@
+{
+  "schema": "full_machine_hull_audit/1",
+  "bodies_json": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/out/full/bodies.json",
+  "step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "method": "closed-mesh volume (divergence theorem) of the converted STL vs scipy ConvexHull volume; occlusion ratio = hull/mesh; ratio 1.0 = convex solid, >1.05 flagged as an occluded pocket/aperture",
+  "summary": {
+    "solids": 225,
+    "moving_solids": 77,
+    "flagged": 174,
+    "flagged_names": [
+      "FR-2040-630_001",
+      "FR-2040-630_002",
+      "FR-2040-320_001",
+      "FR-2040-320_002",
+      "FR-2040-400_001",
+      "FR-2040-400_002",
+      "FR-2020-400_001",
+      "FR-2020-400_002",
+      "FR-2020-590_001",
+      "FR-2020-590_002",
+      "FR-2020-360_001",
+      "FR-2020-360_002",
+      "FR-2020-360_003",
+      "FR-2020-320_001",
+      "DRV-M1_001",
+      "DRV-M2_001",
+      "DRV-M1-PL_001",
+      "DRV-CPL12_001",
+      "DRV-JACK_001",
+      "BR-6001_001",
+      "BR-6001_002",
+      "BR-6204_001",
+      "BR-6204_002",
+      "DRV-BFRONT_001",
+      "DRV-B12_001",
+      "DRV-B20_001",
+      "DRV-SH15R_001",
+      "DRV-SH15L_001",
+      "DRV_SH40L_lower",
+      "DRV_SH40R_upper",
+      "DRV-SP24-B20_001",
+      "DRV-SP24-B25_001",
+      "DRV-SP24-B12_001",
+      "DRV-SP12-B12_001",
+      "S1-CUT-A-P00_001",
+      "S1-SPACER-A_001",
+      "S1-CUT-A-P01_001",
+      "S1-SPACER-A_002",
+      "S1-CUT-A-P02_001",
+      "S1-SPACER-A_003",
+      "S1-CUT-A-P03_001",
+      "S1-SPACER-A_004",
+      "S1-CUT-A-P04_001",
+      "S1-SPACER-A_005",
+      "S1-CUT-A-P05_001",
+      "S1-SPACER-A_006",
+      "S1-CUT-A-P06_001",
+      "S1-SPACER-A_007",
+      "S1-CUT-A-P07_001",
+      "S1-SPACER-A_008",
+      "S1-CUT-A-P08_001",
+      "S1-SPACER-A_009",
+      "S1-CUT-A-P09_001",
+      "S1-SPACER-A_010",
+      "S1-CUT-A-P10_001",
+      "S1-SPACER-A_011",
+      "S1-CUT-A-P11_001",
+      "S1-SPACER-A_012",
+      "S1-CUT-A-P12_001",
+      "BR-6205_001",
+      "BR-6205_002",
+      "S1-CUT-B-P00_001",
+      "S1-SPACER-B_001",
+      "S1-CUT-B-P01_001",
+      "S1-SPACER-B_002",
+      "S1-CUT-B-P02_001",
+      "S1-SPACER-B_003",
+      "S1-CUT-B-P03_001",
+      "S1-SPACER-B_004",
+      "S1-CUT-B-P04_001",
+      "S1-SPACER-B_005",
+      "S1-CUT-B-P05_001",
+      "S1-SPACER-B_006",
+      "S1-CUT-B-P06_001",
+      "S1-SPACER-B_007",
+      "S1-CUT-B-P07_001",
+      "S1-SPACER-B_008",
+      "S1-CUT-B-P08_001",
+      "S1-SPACER-B_009",
+      "S1-CUT-B-P09_001",
+      "S1-SPACER-B_010",
+      "S1-CUT-B-P10_001",
+      "S1-SPACER-B_011",
+      "S1-CUT-B-P11_001",
+      "S1-SPACER-B_012",
+      "S1-CUT-B-P12_001",
+      "BR-6205_003",
+      "BR-6205_004",
+      "S1-SYNC_001",
+      "S1-SYNC_002",
+      "S1-BPL_001",
+      "S1-BPL_002",
+      "S1-WALL_001",
+      "S1-WALL_002",
+      "S1-BR-CAP_001",
+      "S1-BR-CAP_002",
+      "FEED-BUF_001",
+      "EX-SCREW_001",
+      "EX-BARREL_001",
+      "EX-REAR_001",
+      "EX-CPL_001",
+      "BR-6202_001",
+      "BR-51102_001",
+      "EX-THRUST_001",
+      "EX-DIE_001",
+      "EX-H100_001",
+      "EX-H100_002",
+      "EX-H100_003",
+      "COOL-TRAY_001",
+      "COOL-FAN_001",
+      "COOL-FAN_002",
+      "HOPPER_001",
+      "S1-ROOF-F_001",
+      "S1-ROOF-R_001",
+      "S1-TIE-TUBE_001",
+      "S1-STUD_001",
+      "S1-TIE-TUBE_002",
+      "S1-ROOF-F_002",
+      "S1-ROOF-R_002",
+      "S1-TIE-TUBE_003",
+      "S1-TIE-TUBE_004",
+      "DRV-DECK_001",
+      "DRV-M1-FOOT_001",
+      "S2-LEG-L_001",
+      "S2-LEG-L_002",
+      "S2-LEG-R_001",
+      "S2-LEG-R_002",
+      "EX-STAND_001",
+      "DRV_M2_FACE_PLATE",
+      "FRONT_INPUT_SUPPORT",
+      "REAR_OUTPUT_SUPPORT",
+      "INPUT_BEARING_ENVELOPE_UNRATED",
+      "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "FRONT_FIXED_RING_PLATE",
+      "REAR_FIXED_RING_PLATE",
+      "C2_FIXED_SHEAR_SENSOR_BORE",
+      "C2_PERFORATED_SCREEN_REFERENCE",
+      "C2_LEFT_WEAR_SHELL",
+      "C2_RIGHT_WEAR_SHELL_1",
+      "C2_RIGHT_WEAR_SHELL_2",
+      "C2_THERMAL_SADDLE_L",
+      "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+      "C2_SADDLE_CAP_L_FRONT",
+      "C2_SADDLE_CAP_L_REAR",
+      "C2_SADDLE_CAP_R_FRONT",
+      "C2_SADDLE_CAP_R_REAR",
+      "INPUT_ECCENTRIC_SHAFT",
+      "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "OUTPUT_ROLLER_1",
+      "OUTPUT_ROLLER_2",
+      "OUTPUT_ROLLER_3",
+      "OUTPUT_ROLLER_4",
+      "OUTPUT_ROLLER_5",
+      "OUTPUT_ROLLER_6",
+      "DRV-CHAIN-A",
+      "DRV-CHAIN-B",
+      "CHUTE_BODY",
+      "CHUTE_TROUGH_FLOOR_E",
+      "GUARD_S2_RING",
+      "GUARD_CHAIN_B",
+      "GUARD_CHAIN_B",
+      "GUARD_CHAIN_B",
+      "GUARD_CHAIN_B",
+      "PULL_FRAME",
+      "PULL_ROLLER_FIXED",
+      "PULL_ROLLER_ADJ",
+      "PULL_MOTOR_REF",
+      "WIND_SPOOL_DRUM",
+      "WIND_MOTOR_REF",
+      "WIND_TRAVERSE_RIDER",
+      "WIND_TENSIONER",
+      "EL_DIN_RAIL"
+    ],
+    "convex_decomposition_applied": [
+      "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "OUTPUT_PIN_CARRIER_AND_SHAFT"
+    ],
+    "max_occlusion_ratio": 14.18799,
+    "by_body": {
+      "STATIC": {
+        "solids": 148,
+        "max_occlusion": 14.18799,
+        "flagged": 106
+      },
+      "IN_SHAFT": {
+        "solids": 7,
+        "max_occlusion": 1.65822,
+        "flagged": 4
+      },
+      "S1A": {
+        "solids": 30,
+        "max_occlusion": 2.0405,
+        "flagged": 27
+      },
+      "S2_ECC": {
+        "solids": 3,
+        "max_occlusion": 2.23881,
+        "flagged": 3
+      },
+      "S1B": {
+        "solids": 29,
+        "max_occlusion": 2.04051,
+        "flagged": 26
+      },
+      "S2_ROTOR": {
+        "solids": 1,
+        "max_occlusion": 1.81275,
+        "flagged": 1
+      },
+      "S2_CARRIER": {
+        "solids": 1,
+        "max_occlusion": 4.08125,
+        "flagged": 1
+      },
+      "S2_ROLLER_1": {
+        "solids": 1,
+        "max_occlusion": 1.62443,
+        "flagged": 1
+      },
+      "S2_ROLLER_2": {
+        "solids": 1,
+        "max_occlusion": 1.62443,
+        "flagged": 1
+      },
+      "S2_ROLLER_3": {
+        "solids": 1,
+        "max_occlusion": 1.62443,
+        "flagged": 1
+      },
+      "S2_ROLLER_4": {
+        "solids": 1,
+        "max_occlusion": 1.62443,
+        "flagged": 1
+      },
+      "S2_ROLLER_5": {
+        "solids": 1,
+        "max_occlusion": 1.62443,
+        "flagged": 1
+      },
+      "S2_ROLLER_6": {
+        "solids": 1,
+        "max_occlusion": 1.62443,
+        "flagged": 1
+      }
+    }
+  },
+  "aperture_assessment": {
+    "S1_cutter_stacks": {
+      "collision": "per-solid (each cutter disc, spacer, shaft segment its own collider)",
+      "inter_solid_channels": "OPEN by construction \u2014 no hull spans multiple solids; disc pitch 6.4 mm with spacer-filled hubs, A/B interleave gap is between bodies (articulation self-collision off)",
+      "in_solid_occlusion": "hook pockets on cutter rims \u2014 handled by convexDecomposition"
+    },
+    "S2_rotor": {
+      "collision": "single solid RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE \u2014 convex hull would fill the lobe windows and weld the rotor to an effective full cylinder",
+      "fix": "convexDecomposition approximation (PhysX cooked V-HACD) authored in full_machine.py"
+    }
+  },
+  "flagged_above_threshold": [
+    {
+      "name": "FR-2040-630_001",
+      "body": "STATIC",
+      "occlusion_ratio": 3.57143,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-630_002",
+      "body": "STATIC",
+      "occlusion_ratio": 3.57143,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-320_001",
+      "body": "STATIC",
+      "occlusion_ratio": 3.57143,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-320_002",
+      "body": "STATIC",
+      "occlusion_ratio": 3.57143,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-400_001",
+      "body": "STATIC",
+      "occlusion_ratio": 3.57143,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-400_002",
+      "body": "STATIC",
+      "occlusion_ratio": 3.57143,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-400_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.77778,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-400_002",
+      "body": "STATIC",
+      "occlusion_ratio": 2.77778,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-590_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.77778,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-590_002",
+      "body": "STATIC",
+      "occlusion_ratio": 2.77778,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-360_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.77778,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-360_002",
+      "body": "STATIC",
+      "occlusion_ratio": 2.77778,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-360_003",
+      "body": "STATIC",
+      "occlusion_ratio": 2.77778,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-320_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.77778,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-M1_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.05168,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-M2_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.07695,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-M1-PL_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.29484,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-CPL12_001",
+      "body": "IN_SHAFT",
+      "occlusion_ratio": 1.25492,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-JACK_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.08866,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6001_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.225,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6001_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.225,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6204_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.22112,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6204_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.22112,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-BFRONT_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.39284,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-B12_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.56621,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-B20_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.54577,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-SH15R_001",
+      "body": "IN_SHAFT",
+      "occlusion_ratio": 1.65813,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-SH15L_001",
+      "body": "IN_SHAFT",
+      "occlusion_ratio": 1.65822,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV_SH40L_lower",
+      "body": "STATIC",
+      "occlusion_ratio": 1.27571,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV_SH40R_upper",
+      "body": "STATIC",
+      "occlusion_ratio": 1.27578,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-SP24-B20_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.67806,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-SP24-B25_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.82315,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-SP24-B12_001",
+      "body": "IN_SHAFT",
+      "occlusion_ratio": 1.53646,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-SP12-B12_001",
+      "body": "S2_ECC",
+      "occlusion_ratio": 1.72854,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P00_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_001",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P01_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_002",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P02_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_003",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P03_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_004",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P04_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_005",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P05_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_006",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P06_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_007",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P07_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_008",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P08_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_009",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P09_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_010",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P10_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_011",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P11_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_012",
+      "body": "S1A",
+      "occlusion_ratio": 2.0405,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P12_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "BR-6205_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.30063,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6205_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.30063,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-CUT-B-P00_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_001",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P01_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_002",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P02_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_003",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P03_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_004",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P04_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_005",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P05_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_006",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P06_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_007",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P07_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_008",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P08_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_009",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P09_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_010",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P10_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_011",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P11_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_012",
+      "body": "S1B",
+      "occlusion_ratio": 2.04051,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P12_001",
+      "body": "S1B",
+      "occlusion_ratio": 1.6732,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "BR-6205_003",
+      "body": "STATIC",
+      "occlusion_ratio": 1.30062,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6205_004",
+      "body": "STATIC",
+      "occlusion_ratio": 1.30062,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-SYNC_001",
+      "body": "S1A",
+      "occlusion_ratio": 1.50001,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SYNC_002",
+      "body": "S1B",
+      "occlusion_ratio": 1.50001,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-BPL_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.37242,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-BPL_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.37242,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-WALL_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.11588,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-WALL_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.11588,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-BR-CAP_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.28739,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-BR-CAP_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.28739,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FEED-BUF_001",
+      "body": "STATIC",
+      "occlusion_ratio": 5.63886,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-SCREW_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.725,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-BARREL_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.44854,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-REAR_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.68732,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-CPL_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.22346,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6202_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.225,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-51102_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.4025,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-THRUST_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.25115,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-DIE_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.10765,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-H100_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.28571,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-H100_002",
+      "body": "STATIC",
+      "occlusion_ratio": 2.28571,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-H100_003",
+      "body": "STATIC",
+      "occlusion_ratio": 2.28571,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "COOL-TRAY_001",
+      "body": "STATIC",
+      "occlusion_ratio": 8.82353,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "COOL-FAN_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.53375,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "COOL-FAN_002",
+      "body": "STATIC",
+      "occlusion_ratio": 2.53375,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "HOPPER_001",
+      "body": "STATIC",
+      "occlusion_ratio": 14.18799,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-ROOF-F_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.63811,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-ROOF-R_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.56898,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-TIE-TUBE_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.43369,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-STUD_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.08862,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-TIE-TUBE_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.43369,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-ROOF-F_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.63811,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-ROOF-R_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.52698,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-TIE-TUBE_003",
+      "body": "STATIC",
+      "occlusion_ratio": 1.43369,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-TIE-TUBE_004",
+      "body": "STATIC",
+      "occlusion_ratio": 1.43369,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-DECK_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.05684,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-M1-FOOT_001",
+      "body": "STATIC",
+      "occlusion_ratio": 1.6803,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S2-LEG-L_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.61498,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S2-LEG-L_002",
+      "body": "STATIC",
+      "occlusion_ratio": 2.61498,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S2-LEG-R_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.62092,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S2-LEG-R_002",
+      "body": "STATIC",
+      "occlusion_ratio": 2.62092,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-STAND_001",
+      "body": "STATIC",
+      "occlusion_ratio": 2.98961,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV_M2_FACE_PLATE",
+      "body": "STATIC",
+      "occlusion_ratio": 1.29484,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FRONT_INPUT_SUPPORT",
+      "body": "STATIC",
+      "occlusion_ratio": 1.05388,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "REAR_OUTPUT_SUPPORT",
+      "body": "STATIC",
+      "occlusion_ratio": 1.07671,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "INPUT_BEARING_ENVELOPE_UNRATED",
+      "body": "STATIC",
+      "occlusion_ratio": 1.17007,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "body": "STATIC",
+      "occlusion_ratio": 1.30092,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FRONT_FIXED_RING_PLATE",
+      "body": "STATIC",
+      "occlusion_ratio": 2.08635,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "REAR_FIXED_RING_PLATE",
+      "body": "STATIC",
+      "occlusion_ratio": 2.08635,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_FIXED_SHEAR_SENSOR_BORE",
+      "body": "STATIC",
+      "occlusion_ratio": 1.05015,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_PERFORATED_SCREEN_REFERENCE",
+      "body": "STATIC",
+      "occlusion_ratio": 9.89771,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_LEFT_WEAR_SHELL",
+      "body": "STATIC",
+      "occlusion_ratio": 2.76845,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_1",
+      "body": "STATIC",
+      "occlusion_ratio": 1.66689,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_2",
+      "body": "STATIC",
+      "occlusion_ratio": 3.75835,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_L",
+      "body": "STATIC",
+      "occlusion_ratio": 2.91471,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+      "body": "STATIC",
+      "occlusion_ratio": 4.82386,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_FRONT",
+      "body": "STATIC",
+      "occlusion_ratio": 1.45625,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_REAR",
+      "body": "STATIC",
+      "occlusion_ratio": 1.45625,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_FRONT",
+      "body": "STATIC",
+      "occlusion_ratio": 2.5549,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_REAR",
+      "body": "STATIC",
+      "occlusion_ratio": 2.5549,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "INPUT_ECCENTRIC_SHAFT",
+      "body": "S2_ECC",
+      "occlusion_ratio": 2.23881,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "body": "S2_ECC",
+      "occlusion_ratio": 1.66245,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "body": "S2_ROTOR",
+      "occlusion_ratio": 1.81275,
+      "decision": "convexDecomposition"
+    },
+    {
+      "name": "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "body": "S2_CARRIER",
+      "occlusion_ratio": 4.08125,
+      "decision": "convexDecomposition"
+    },
+    {
+      "name": "OUTPUT_ROLLER_1",
+      "body": "S2_ROLLER_1",
+      "occlusion_ratio": 1.62443,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_2",
+      "body": "S2_ROLLER_2",
+      "occlusion_ratio": 1.62443,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_3",
+      "body": "S2_ROLLER_3",
+      "occlusion_ratio": 1.62443,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_4",
+      "body": "S2_ROLLER_4",
+      "occlusion_ratio": 1.62443,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_5",
+      "body": "S2_ROLLER_5",
+      "occlusion_ratio": 1.62443,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_6",
+      "body": "S2_ROLLER_6",
+      "occlusion_ratio": 1.62443,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-CHAIN-A",
+      "body": "STATIC",
+      "occlusion_ratio": 3.40241,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-CHAIN-B",
+      "body": "STATIC",
+      "occlusion_ratio": 2.76637,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CHUTE_BODY",
+      "body": "STATIC",
+      "occlusion_ratio": 2.44369,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CHUTE_TROUGH_FLOOR_E",
+      "body": "STATIC",
+      "occlusion_ratio": 1.2165,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_S2_RING",
+      "body": "STATIC",
+      "occlusion_ratio": 5.30842,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "occlusion_ratio": 3.74748,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "occlusion_ratio": 3.74748,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "occlusion_ratio": 3.74748,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "occlusion_ratio": 3.74748,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_FRAME",
+      "body": "STATIC",
+      "occlusion_ratio": 7.14358,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_ROLLER_FIXED",
+      "body": "STATIC",
+      "occlusion_ratio": 1.13146,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_ROLLER_ADJ",
+      "body": "STATIC",
+      "occlusion_ratio": 1.44077,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_MOTOR_REF",
+      "body": "STATIC",
+      "occlusion_ratio": 1.43093,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_SPOOL_DRUM",
+      "body": "STATIC",
+      "occlusion_ratio": 1.06268,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_MOTOR_REF",
+      "body": "STATIC",
+      "occlusion_ratio": 1.07325,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_TRAVERSE_RIDER",
+      "body": "STATIC",
+      "occlusion_ratio": 3.03602,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_TENSIONER",
+      "body": "STATIC",
+      "occlusion_ratio": 1.97596,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_DIN_RAIL",
+      "body": "STATIC",
+      "occlusion_ratio": 1.16,
+      "decision": "triangleMesh_concave"
+    }
+  ],
+  "per_solid": [
+    {
+      "name": "FR-2040-630_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 141120.0,
+      "hull_volume_mm3": 504000.0,
+      "occlusion_ratio": 3.57143,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-630_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 141120.0,
+      "hull_volume_mm3": 504000.0,
+      "occlusion_ratio": 3.57143,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-320_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 71680.0,
+      "hull_volume_mm3": 256000.0,
+      "occlusion_ratio": 3.57143,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-320_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 71680.0,
+      "hull_volume_mm3": 256000.0,
+      "occlusion_ratio": 3.57143,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-400_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 89600.0,
+      "hull_volume_mm3": 320000.0,
+      "occlusion_ratio": 3.57143,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2040-400_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 89600.0,
+      "hull_volume_mm3": 320000.0,
+      "occlusion_ratio": 3.57143,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-400_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 57600.0,
+      "hull_volume_mm3": 160000.0,
+      "occlusion_ratio": 2.77778,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-400_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 57600.0,
+      "hull_volume_mm3": 160000.0,
+      "occlusion_ratio": 2.77778,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-590_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 84960.0,
+      "hull_volume_mm3": 236000.0,
+      "occlusion_ratio": 2.77778,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-590_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 84960.0,
+      "hull_volume_mm3": 236000.0,
+      "occlusion_ratio": 2.77778,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-360_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 51840.0,
+      "hull_volume_mm3": 144000.0,
+      "occlusion_ratio": 2.77778,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-360_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 51840.0,
+      "hull_volume_mm3": 144000.0,
+      "occlusion_ratio": 2.77778,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-360_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 51840.0,
+      "hull_volume_mm3": 144000.0,
+      "occlusion_ratio": 2.77778,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-2020-320_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 46080.0,
+      "hull_volume_mm3": 128000.0,
+      "occlusion_ratio": 2.77778,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FR-BASE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 756000.0,
+      "hull_volume_mm3": 756000.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL-PSU_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 1872000.0,
+      "hull_volume_mm3": 1872000.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-M1_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 530509.2,
+      "hull_volume_mm3": 557925.8,
+      "occlusion_ratio": 1.05168,
+      "occlusion_flag": true,
+      "hull_vertices": 100,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-M2_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 468305.5,
+      "hull_volume_mm3": 504342.3,
+      "occlusion_ratio": 1.07695,
+      "occlusion_flag": true,
+      "hull_vertices": 106,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-M1-PL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 21083.6,
+      "hull_volume_mm3": 27300.0,
+      "occlusion_ratio": 1.29484,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-CPL12_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "mesh_volume_mm3": 17937.9,
+      "hull_volume_mm3": 22510.8,
+      "occlusion_ratio": 1.25492,
+      "occlusion_flag": true,
+      "hull_vertices": 838,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-IN-SHAFT_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "mesh_volume_mm3": 17070.1,
+      "hull_volume_mm3": 17749.1,
+      "occlusion_ratio": 1.03978,
+      "occlusion_flag": false,
+      "hull_vertices": 280,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-JACK_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 48172.1,
+      "hull_volume_mm3": 52443.2,
+      "occlusion_ratio": 1.08866,
+      "occlusion_flag": true,
+      "hull_vertices": 104,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6001_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 3982.2,
+      "hull_volume_mm3": 4878.2,
+      "occlusion_ratio": 1.225,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6001_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 3982.2,
+      "hull_volume_mm3": 4878.2,
+      "occlusion_ratio": 1.225,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6204_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 19698.0,
+      "hull_volume_mm3": 24053.5,
+      "occlusion_ratio": 1.22112,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6204_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 19698.0,
+      "hull_volume_mm3": 24053.5,
+      "occlusion_ratio": 1.22112,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-BFRONT_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 120088.7,
+      "hull_volume_mm3": 167265.0,
+      "occlusion_ratio": 1.39284,
+      "occlusion_flag": true,
+      "hull_vertices": 10,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-B12_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 15580.7,
+      "hull_volume_mm3": 24402.7,
+      "occlusion_ratio": 1.56621,
+      "occlusion_flag": true,
+      "hull_vertices": 10,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-B20_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 61134.7,
+      "hull_volume_mm3": 94500.0,
+      "occlusion_ratio": 1.54577,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-SH15R_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "mesh_volume_mm3": 18614.6,
+      "hull_volume_mm3": 30865.4,
+      "occlusion_ratio": 1.65813,
+      "occlusion_flag": true,
+      "hull_vertices": 426,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-SH15L_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "mesh_volume_mm3": 18613.6,
+      "hull_volume_mm3": 30865.4,
+      "occlusion_ratio": 1.65822,
+      "occlusion_flag": true,
+      "hull_vertices": 426,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV_SH40L_lower",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 149219.2,
+      "hull_volume_mm3": 190361.2,
+      "occlusion_ratio": 1.27571,
+      "occlusion_flag": true,
+      "hull_vertices": 426,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV_SH40R_upper",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 149211.6,
+      "hull_volume_mm3": 190361.2,
+      "occlusion_ratio": 1.27578,
+      "occlusion_flag": true,
+      "hull_vertices": 426,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-SP24-B20_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 39543.4,
+      "hull_volume_mm3": 66356.0,
+      "occlusion_ratio": 1.67806,
+      "occlusion_flag": true,
+      "hull_vertices": 266,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-SP24-B25_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 36428.0,
+      "hull_volume_mm3": 66413.8,
+      "occlusion_ratio": 1.82315,
+      "occlusion_flag": true,
+      "hull_vertices": 366,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-SP24-B12_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "mesh_volume_mm3": 43225.2,
+      "hull_volume_mm3": 66413.8,
+      "occlusion_ratio": 1.53646,
+      "occlusion_flag": true,
+      "hull_vertices": 366,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-SP12-B12_001",
+      "body": "S2_ECC",
+      "lod": "fine",
+      "mesh_volume_mm3": 11257.8,
+      "hull_volume_mm3": 19459.5,
+      "occlusion_ratio": 1.72854,
+      "occlusion_flag": true,
+      "hull_vertices": 246,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P00_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P01_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_002",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P02_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_003",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P03_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_004",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P04_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_005",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P05_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_006",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P06_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_007",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P07_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.4,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_008",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P08_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_009",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P09_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_010",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P10_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_011",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P11_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-A_012",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.0405,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-A-P12_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SHAFT-A_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 131985.2,
+      "hull_volume_mm3": 138372.4,
+      "occlusion_ratio": 1.04839,
+      "occlusion_flag": false,
+      "hull_vertices": 280,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "BR-6205_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 24255.0,
+      "hull_volume_mm3": 31546.6,
+      "occlusion_ratio": 1.30063,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6205_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 24255.0,
+      "hull_volume_mm3": 31546.6,
+      "occlusion_ratio": 1.30063,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-CUT-B-P00_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P01_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_002",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P02_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_003",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P03_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_004",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P04_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_005",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P05_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.4,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_006",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P06_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_007",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P07_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_008",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P08_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_009",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P09_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_010",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P10_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_011",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P11_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SPACER-B_012",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 3191.2,
+      "hull_volume_mm3": 6511.7,
+      "occlusion_ratio": 2.04051,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-CUT-B-P12_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 16220.5,
+      "hull_volume_mm3": 27140.0,
+      "occlusion_ratio": 1.6732,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SHAFT-B_001",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 116830.1,
+      "hull_volume_mm3": 122671.1,
+      "occlusion_ratio": 1.05,
+      "occlusion_flag": false,
+      "hull_vertices": 308,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "BR-6205_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 24255.0,
+      "hull_volume_mm3": 31546.6,
+      "occlusion_ratio": 1.30062,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6205_004",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 24255.0,
+      "hull_volume_mm3": 31546.6,
+      "occlusion_ratio": 1.30062,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-SYNC_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 59805.5,
+      "hull_volume_mm3": 89708.8,
+      "occlusion_ratio": 1.50001,
+      "occlusion_flag": true,
+      "hull_vertices": 246,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-SYNC_002",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 59805.5,
+      "hull_volume_mm3": 89708.8,
+      "occlusion_ratio": 1.50001,
+      "occlusion_flag": true,
+      "hull_vertices": 246,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1-BPL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 209848.8,
+      "hull_volume_mm3": 288000.0,
+      "occlusion_ratio": 1.37242,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-BPL_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 209848.8,
+      "hull_volume_mm3": 288000.0,
+      "occlusion_ratio": 1.37242,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-WALL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 65956.7,
+      "hull_volume_mm3": 73600.0,
+      "occlusion_ratio": 1.11588,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-WALL_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 65956.7,
+      "hull_volume_mm3": 73600.0,
+      "occlusion_ratio": 1.11588,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-SIDE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 44767.2,
+      "hull_volume_mm3": 44767.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-SIDE_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 44767.2,
+      "hull_volume_mm3": 44767.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-BR-CAP_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 37284.8,
+      "hull_volume_mm3": 48000.0,
+      "occlusion_ratio": 1.28739,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-BR-CAP_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 37284.8,
+      "hull_volume_mm3": 48000.0,
+      "occlusion_ratio": 1.28739,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FEED-BUF_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 69562.5,
+      "hull_volume_mm3": 392253.3,
+      "occlusion_ratio": 5.63886,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-SCREW_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 29409.2,
+      "hull_volume_mm3": 50730.8,
+      "occlusion_ratio": 1.725,
+      "occlusion_flag": true,
+      "hull_vertices": 167,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-BARREL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 123868.7,
+      "hull_volume_mm3": 179428.1,
+      "occlusion_ratio": 1.44854,
+      "occlusion_flag": true,
+      "hull_vertices": 86,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-REAR_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 12779.6,
+      "hull_volume_mm3": 21563.3,
+      "occlusion_ratio": 1.68732,
+      "occlusion_flag": true,
+      "hull_vertices": 104,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-CPL_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 20831.2,
+      "hull_volume_mm3": 25486.2,
+      "occlusion_ratio": 1.22346,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-6202_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 8555.5,
+      "hull_volume_mm3": 10480.5,
+      "occlusion_ratio": 1.225,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "BR-51102_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 3913.0,
+      "hull_volume_mm3": 5488.0,
+      "occlusion_ratio": 1.4025,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-THRUST_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 124685.8,
+      "hull_volume_mm3": 156000.0,
+      "occlusion_ratio": 1.25115,
+      "occlusion_flag": true,
+      "hull_vertices": 10,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-DIE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 18221.4,
+      "hull_volume_mm3": 20183.0,
+      "occlusion_ratio": 1.10765,
+      "occlusion_flag": true,
+      "hull_vertices": 118,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-H100_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 21777.7,
+      "hull_volume_mm3": 49777.7,
+      "occlusion_ratio": 2.28571,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-H100_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 21777.7,
+      "hull_volume_mm3": 49777.7,
+      "occlusion_ratio": 2.28571,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-H100_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 21777.7,
+      "hull_volume_mm3": 49777.7,
+      "occlusion_ratio": 2.28571,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-H60_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 560.0,
+      "hull_volume_mm3": 560.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "COOL-TRAY_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 74800.0,
+      "hull_volume_mm3": 660000.0,
+      "occlusion_ratio": 8.82353,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "COOL-FAN_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 95984.1,
+      "hull_volume_mm3": 243200.0,
+      "occlusion_ratio": 2.53375,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "COOL-FAN_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 95984.1,
+      "hull_volume_mm3": 243200.0,
+      "occlusion_ratio": 2.53375,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "HOPPER_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 98515.1,
+      "hull_volume_mm3": 1397731.7,
+      "occlusion_ratio": 14.18799,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "HOP-LID_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 126000.0,
+      "hull_volume_mm3": 126000.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-ROOF-F_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 31820.2,
+      "hull_volume_mm3": 52125.0,
+      "occlusion_ratio": 1.63811,
+      "occlusion_flag": true,
+      "hull_vertices": 10,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-ROOF-R_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 17379.9,
+      "hull_volume_mm3": 27268.7,
+      "occlusion_ratio": 1.56898,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-TIE-TUBE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 13671.0,
+      "hull_volume_mm3": 19600.0,
+      "occlusion_ratio": 1.43369,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-STUD_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 6258.1,
+      "hull_volume_mm3": 6812.7,
+      "occlusion_ratio": 1.08862,
+      "occlusion_flag": true,
+      "hull_vertices": 55,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-TIE-TUBE_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 13671.0,
+      "hull_volume_mm3": 19600.0,
+      "occlusion_ratio": 1.43369,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-STUD_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 7560.0,
+      "hull_volume_mm3": 7560.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-ROOF-F_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 31820.2,
+      "hull_volume_mm3": 52125.0,
+      "occlusion_ratio": 1.63811,
+      "occlusion_flag": true,
+      "hull_vertices": 10,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-ROOF-R_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 17857.9,
+      "hull_volume_mm3": 27268.7,
+      "occlusion_ratio": 1.52698,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-TIE-TUBE_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 13671.0,
+      "hull_volume_mm3": 19600.0,
+      "occlusion_ratio": 1.43369,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-STUD_003",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 7560.0,
+      "hull_volume_mm3": 7560.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-TIE-TUBE_004",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 13671.0,
+      "hull_volume_mm3": 19600.0,
+      "occlusion_ratio": 1.43369,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1-STUD_004",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 7560.0,
+      "hull_volume_mm3": 7560.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-DECK_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 220278.7,
+      "hull_volume_mm3": 232800.0,
+      "occlusion_ratio": 1.05684,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-M1-FOOT_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 17246.9,
+      "hull_volume_mm3": 28980.0,
+      "occlusion_ratio": 1.6803,
+      "occlusion_flag": true,
+      "hull_vertices": 10,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-RISER12_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4080.0,
+      "hull_volume_mm3": 4080.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-RISER20_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 3150.0,
+      "hull_volume_mm3": 3150.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S2-LEG-L_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 99971.4,
+      "hull_volume_mm3": 261423.3,
+      "occlusion_ratio": 2.61498,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S2-LEG-L_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 99971.4,
+      "hull_volume_mm3": 261423.3,
+      "occlusion_ratio": 2.61498,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S2-LEG-R_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 102371.4,
+      "hull_volume_mm3": 268306.7,
+      "occlusion_ratio": 2.62092,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S2-LEG-R_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 102371.4,
+      "hull_volume_mm3": 268306.7,
+      "occlusion_ratio": 2.62092,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EX-STAND_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 113662.7,
+      "hull_volume_mm3": 339806.7,
+      "occlusion_ratio": 2.98961,
+      "occlusion_flag": true,
+      "hull_vertices": 18,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV_M2_FACE_PLATE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 21083.6,
+      "hull_volume_mm3": 27300.0,
+      "occlusion_ratio": 1.29484,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "KEY-8-154_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 8624.0,
+      "hull_volume_mm3": 8624.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "KEY-8-154_002",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 8624.0,
+      "hull_volume_mm3": 8624.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "KEY-8-25_001",
+      "body": "S1A",
+      "lod": "fine",
+      "mesh_volume_mm3": 1400.0,
+      "hull_volume_mm3": 1400.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "KEY-8-25_002",
+      "body": "S1B",
+      "lod": "fine",
+      "mesh_volume_mm3": 1400.0,
+      "hull_volume_mm3": 1400.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "KEY-8-16_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 896.0,
+      "hull_volume_mm3": 896.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "KEY-4-70_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "mesh_volume_mm3": 1120.0,
+      "hull_volume_mm3": 1120.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "KEY-4-16_001",
+      "body": "IN_SHAFT",
+      "lod": "fine",
+      "mesh_volume_mm3": 256.0,
+      "hull_volume_mm3": 256.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "KEY-6-70_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 2520.0,
+      "hull_volume_mm3": 2520.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "KEY-6-16_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 576.0,
+      "hull_volume_mm3": 576.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FRONT_INPUT_SUPPORT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 218290.5,
+      "hull_volume_mm3": 230052.0,
+      "occlusion_ratio": 1.05388,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "REAR_OUTPUT_SUPPORT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 213661.2,
+      "hull_volume_mm3": 230052.0,
+      "occlusion_ratio": 1.07671,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "INPUT_BEARING_ENVELOPE_UNRATED",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 8168.1,
+      "hull_volume_mm3": 9557.3,
+      "occlusion_ratio": 1.17007,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 12655.6,
+      "hull_volume_mm3": 16464.0,
+      "occlusion_ratio": 1.30092,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FRONT_FIXED_RING_PLATE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 69285.8,
+      "hull_volume_mm3": 144554.3,
+      "occlusion_ratio": 2.08635,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "REAR_FIXED_RING_PLATE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 69285.8,
+      "hull_volume_mm3": 144554.3,
+      "occlusion_ratio": 2.08635,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_FIXED_SHEAR_SENSOR_BORE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 2075.9,
+      "hull_volume_mm3": 2180.0,
+      "occlusion_ratio": 1.05015,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_PERFORATED_SCREEN_REFERENCE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 6960.0,
+      "hull_volume_mm3": 68888.2,
+      "occlusion_ratio": 9.89771,
+      "occlusion_flag": true,
+      "hull_vertices": 351,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_LEFT_WEAR_SHELL",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 8080.1,
+      "hull_volume_mm3": 22369.3,
+      "occlusion_ratio": 2.76845,
+      "occlusion_flag": true,
+      "hull_vertices": 246,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_1",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4894.2,
+      "hull_volume_mm3": 8158.1,
+      "occlusion_ratio": 1.66689,
+      "occlusion_flag": true,
+      "hull_vertices": 80,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_2",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 10280.7,
+      "hull_volume_mm3": 38638.5,
+      "occlusion_ratio": 3.75835,
+      "occlusion_flag": true,
+      "hull_vertices": 160,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_L",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 20045.0,
+      "hull_volume_mm3": 58425.3,
+      "occlusion_ratio": 2.91471,
+      "occlusion_flag": true,
+      "hull_vertices": 232,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 41597.2,
+      "hull_volume_mm3": 200659.0,
+      "occlusion_ratio": 4.82386,
+      "occlusion_flag": true,
+      "hull_vertices": 484,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_FRONT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 2793.6,
+      "hull_volume_mm3": 4068.1,
+      "occlusion_ratio": 1.45625,
+      "occlusion_flag": true,
+      "hull_vertices": 220,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_REAR",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 2793.6,
+      "hull_volume_mm3": 4068.1,
+      "occlusion_ratio": 1.45625,
+      "occlusion_flag": true,
+      "hull_vertices": 220,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_FRONT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 6037.5,
+      "hull_volume_mm3": 15425.2,
+      "occlusion_ratio": 2.5549,
+      "occlusion_flag": true,
+      "hull_vertices": 460,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_REAR",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 6037.5,
+      "hull_volume_mm3": 15425.2,
+      "occlusion_ratio": 2.5549,
+      "occlusion_flag": true,
+      "hull_vertices": 460,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_1",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_2",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_3",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_4",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_5",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_6",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_7",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_8",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "FIXED_RING_PIN_9",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4380.4,
+      "hull_volume_mm3": 4380.4,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "SUPPORT_TIE_1",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 6968.9,
+      "hull_volume_mm3": 6968.9,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "SUPPORT_TIE_2",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 6968.9,
+      "hull_volume_mm3": 6968.9,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "SUPPORT_TIE_3",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 6968.9,
+      "hull_volume_mm3": 6968.9,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "SUPPORT_TIE_4",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 6968.9,
+      "hull_volume_mm3": 6968.9,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "INPUT_ECCENTRIC_SHAFT",
+      "body": "S2_ECC",
+      "lod": "fine",
+      "mesh_volume_mm3": 21694.7,
+      "hull_volume_mm3": 48570.3,
+      "occlusion_ratio": 2.23881,
+      "occlusion_flag": true,
+      "hull_vertices": 505,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "body": "S2_ECC",
+      "lod": "fine",
+      "mesh_volume_mm3": 7737.2,
+      "hull_volume_mm3": 12862.6,
+      "occlusion_ratio": 1.66245,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "body": "S2_ROTOR",
+      "lod": "fine",
+      "mesh_volume_mm3": 607157.1,
+      "hull_volume_mm3": 1100623.2,
+      "occlusion_ratio": 1.81275,
+      "occlusion_flag": true,
+      "hull_vertices": 750,
+      "decision": "convexDecomposition"
+    },
+    {
+      "name": "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "body": "S2_CARRIER",
+      "lod": "fine",
+      "mesh_volume_mm3": 74776.6,
+      "hull_volume_mm3": 305181.9,
+      "occlusion_ratio": 4.08125,
+      "occlusion_flag": true,
+      "hull_vertices": 510,
+      "decision": "convexDecomposition"
+    },
+    {
+      "name": "OUTPUT_ROLLER_1",
+      "body": "S2_ROLLER_1",
+      "lod": "fine",
+      "mesh_volume_mm3": 676.6,
+      "hull_volume_mm3": 1099.1,
+      "occlusion_ratio": 1.62443,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_2",
+      "body": "S2_ROLLER_2",
+      "lod": "fine",
+      "mesh_volume_mm3": 676.6,
+      "hull_volume_mm3": 1099.1,
+      "occlusion_ratio": 1.62443,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_3",
+      "body": "S2_ROLLER_3",
+      "lod": "fine",
+      "mesh_volume_mm3": 676.6,
+      "hull_volume_mm3": 1099.1,
+      "occlusion_ratio": 1.62443,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_4",
+      "body": "S2_ROLLER_4",
+      "lod": "fine",
+      "mesh_volume_mm3": 676.6,
+      "hull_volume_mm3": 1099.1,
+      "occlusion_ratio": 1.62443,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_5",
+      "body": "S2_ROLLER_5",
+      "lod": "fine",
+      "mesh_volume_mm3": 676.6,
+      "hull_volume_mm3": 1099.1,
+      "occlusion_ratio": 1.62443,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "OUTPUT_ROLLER_6",
+      "body": "S2_ROLLER_6",
+      "lod": "fine",
+      "mesh_volume_mm3": 676.6,
+      "hull_volume_mm3": 1099.1,
+      "occlusion_ratio": 1.62443,
+      "occlusion_flag": true,
+      "hull_vertices": 252,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "DRV-CHAIN-A",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 49274.2,
+      "hull_volume_mm3": 167650.9,
+      "occlusion_ratio": 3.40241,
+      "occlusion_flag": true,
+      "hull_vertices": 180,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "DRV-CHAIN-B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 44055.6,
+      "hull_volume_mm3": 121874.0,
+      "occlusion_ratio": 2.76637,
+      "occlusion_flag": true,
+      "hull_vertices": 176,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CHUTE_BODY",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 139077.5,
+      "hull_volume_mm3": 339861.9,
+      "occlusion_ratio": 2.44369,
+      "occlusion_flag": true,
+      "hull_vertices": 20,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CHUTE_TROUGH_FLOOR_E",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4453.7,
+      "hull_volume_mm3": 5418.0,
+      "occlusion_ratio": 1.2165,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_S2_RING",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 31370.3,
+      "hull_volume_mm3": 166526.6,
+      "occlusion_ratio": 5.30842,
+      "occlusion_flag": true,
+      "hull_vertices": 54,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_A",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 3960.0,
+      "hull_volume_mm3": 3960.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 963.8,
+      "hull_volume_mm3": 3611.7,
+      "occlusion_ratio": 3.74748,
+      "occlusion_flag": true,
+      "hull_vertices": 32,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 963.8,
+      "hull_volume_mm3": 3611.7,
+      "occlusion_ratio": 3.74748,
+      "occlusion_flag": true,
+      "hull_vertices": 32,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 963.8,
+      "hull_volume_mm3": 3611.7,
+      "occlusion_ratio": 3.74748,
+      "occlusion_flag": true,
+      "hull_vertices": 32,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 963.8,
+      "hull_volume_mm3": 3611.7,
+      "occlusion_ratio": 3.74748,
+      "occlusion_flag": true,
+      "hull_vertices": 32,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "GUARD_LID_INTERLOCK_SEAT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 3200.0,
+      "hull_volume_mm3": 3200.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_FRAME",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 3292.0,
+      "hull_volume_mm3": 23516.7,
+      "occlusion_ratio": 7.14358,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_ROLLER_FIXED",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 7068.4,
+      "hull_volume_mm3": 7997.6,
+      "occlusion_ratio": 1.13146,
+      "occlusion_flag": true,
+      "hull_vertices": 104,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_ROLLER_ADJ",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 9603.9,
+      "hull_volume_mm3": 13837.0,
+      "occlusion_ratio": 1.44077,
+      "occlusion_flag": true,
+      "hull_vertices": 68,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_NIP_STOP",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 180.0,
+      "hull_volume_mm3": 180.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_MOTOR_REF",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 16347.8,
+      "hull_volume_mm3": 23392.5,
+      "occlusion_ratio": 1.43093,
+      "occlusion_flag": true,
+      "hull_vertices": 42,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_SPOOL_SHAFT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 18915.5,
+      "hull_volume_mm3": 18915.5,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_SPOOL_DRUM",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 208006.9,
+      "hull_volume_mm3": 221044.0,
+      "occlusion_ratio": 1.06268,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_FLANGE_L",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 185317.6,
+      "hull_volume_mm3": 186666.2,
+      "occlusion_ratio": 1.00728,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_FLANGE_R",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 185317.6,
+      "hull_volume_mm3": 186666.2,
+      "occlusion_ratio": 1.00728,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_MOTOR_REF",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 41260.0,
+      "hull_volume_mm3": 44282.3,
+      "occlusion_ratio": 1.07325,
+      "occlusion_flag": true,
+      "hull_vertices": 34,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_TRAVERSE_SCREW",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 3982.2,
+      "hull_volume_mm3": 3982.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_TRAVERSE_RIDER",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 15411.5,
+      "hull_volume_mm3": 46789.7,
+      "occlusion_ratio": 3.03602,
+      "occlusion_flag": true,
+      "hull_vertices": 36,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_TENSIONER",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 5111.9,
+      "hull_volume_mm3": 10100.9,
+      "occlusion_ratio": 1.97596,
+      "occlusion_flag": true,
+      "hull_vertices": 60,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_DIN_RAIL",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 5250.0,
+      "hull_volume_mm3": 6090.0,
+      "occlusion_ratio": 1.16,
+      "occlusion_flag": true,
+      "hull_vertices": 12,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_DRIVER_1",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 57600.0,
+      "hull_volume_mm3": 57600.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_DRIVER_2",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 57600.0,
+      "hull_volume_mm3": 57600.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_DRIVER_3",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 57600.0,
+      "hull_volume_mm3": 57600.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_CONTACTOR",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 141750.0,
+      "hull_volume_mm3": 141750.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_ESTOP_BOX",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 64000.0,
+      "hull_volume_mm3": 64000.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_OVERTEMP_BOX",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 64000.0,
+      "hull_volume_mm3": 64000.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_CURRENT_LIMITER",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 64000.0,
+      "hull_volume_mm3": 64000.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "EL_WIRE_DUCT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 31500.0,
+      "hull_volume_mm3": 31500.0,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    }
+  ],
+  "step_sha_source": "bodies.json:source_step_sha256",
+  "runner": "c2.2/sim/audit_hulls.py"
+}

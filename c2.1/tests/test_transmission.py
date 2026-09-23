@@ -18,7 +18,7 @@ from transmission import (Transmission, cad_positive_y_rotation_xz,
 class TransmissionContracts(unittest.TestCase):
     def test_inherited_machine_constraints(self):
         r = json.loads((R/"design/requirements.json").read_text())
-        self.assertEqual(r["power"], {"psu_V": 24, "psu_rated_W": 800, "operational_cap_W": 500})
+        self.assertEqual(r["power"], {"psu_V": 24, "psu_current_A": 33, "psu_nameplate_W": 800, "power_target_W": 500, "psu_current_derived_ceiling_W": 792})
         self.assertEqual(r["motors"], {"shared_shredder_M1": 1, "extruder_M2": 1, "M1_selected": False})
         self.assertEqual(r["materials"], ["PLA", "PET", "TPU"])
         self.assertEqual(r["body_limit_mm"], [700, 420, 520])

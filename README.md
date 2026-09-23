@@ -1,39 +1,44 @@
-# PPR - C2.1 전동계 반복 진행 중
+# PPR VP1 통합 가상제품
 
-현재 활성 요구조건은 `c2/design/requirements.json`이며, `c2.1/`은 단일 M1 고정 링 사이클로이드 입력/출력 전동계의 제한된 디지털 반복이다. 모터·정격 coupling/bearing·최종 S2 형상·전체 원가·전체 제작도는 미확정이고 **구매, 가공, 통전은 HOLD**다. C2.1 재현과 미종결 항목은 `c2.1/docs/HANDOFF_KO.md`를 따른다.
+현재 기준은 `KODEX.md`의 경성 목표와 `STATUS.md`의 실행 증거다. VP1은
+`호퍼 → S1 → 능동 이송 슈트 → S2 → 버퍼 → 압출 → 냉각 → 풀러 → 스풀`
+전 구간을 하나의 CAD/Isaac/BOM 패키지로 통합한다.
 
-후속 통합은 같은 C2.1 소스에서 진행한다. P0 증거 verifier, rigid first-contact 평형, C2 전단·타공 스크린·마모 라이너·방열 saddle/cap 통합, 실제 CalculiX coupon 실행은 `c2.1/docs/PLAN_KO.md`와 `c2.1/docs/HANDOFF_KO.md`에 연결한다. 이는 물리 시험 또는 제작 승인으로 승격되지 않는다.
+## 고정 조건
 
-고정 제약: 보유24V800W PSU(240x120x65mm),500W 운전 cap, 공용 분쇄M1 한 개와 압출M2, PLA/PET/TPU, 전체 추가 구매/가공/배송/안전부품100,000원 soft limit, 본체700x420x520mm 상한.
+- S1/S2는 공용 M1 한 개에 종속된 1-DOF 구동계다. 압출기는 별도 M2를 쓴다.
+- M1/M2와 웜/휠/베어링은 미선정 또는 미정격이다.
+- PSU는 24V 33A, 명판 800W다. 500W는 소프트 운전 목표, 792W는
+  전류 정격에서 유도한 강제 상한이다.
+- 본체 상한 700×420×520 mm, 추가비 soft limit 100,000 KRW.
+- PLA/PET/TPU 물성·파쇄 성능·토크·열·수명은 물리 시험 전 미보정이다.
 
 ## 현재 산출물
 
-- `c2/docs/C2_ENGINEERING_NOTES.md`: 실제 변경, 가정, 결과, 미종결 항목.
-- `c2/design/requirements.json`: 최신 요구조건 원본. 특정 모터를 고정하지 않는다.
-- `c2/src/`: S2 매개변수 탐색, 결합 운동학, 핀 프로파일 검사, 열회로, 제어 참조, 비용 검토, 성능 학습 경로.
-- `c2/results/`: 257개 형상 후보,108개 기본 열 민감도,5개 소형 핀 구속기구 프로파일 검사, 전력 배분1925건.
-- `c2/cad/PPR_C2_S2_thermal_development.step`: 고정 전단날·센서 blind bore·금속 방열 새들/캡을 포함한 **S2 개발 모듈**. 전체 기계가 아니다.
-- `c2/bom/`: 모터 후보 및136행 비용 검토 목록.125행 미견적이므로10만원 충족을 주장하지 않는다.
-- `c2/experiments/`: 48개 형상 x3개 소재 =144개 미실행 성능 job manifest. 실제 DEM0건, 실물시험0건이다.
+- `c2.1/cad/PPR_VP1.step`: 전체 기계 조립 STEP.
+- `c2.1/cad/PPR_C2_1_machine_integration.FCStd`: 편집 가능한 FreeCAD 조립.
+- `c2.1/bom/system_bom.csv` / `.xlsx`: 활성 시스템 BOM.
+- `c2.1/electrical/`, `c2.1/firmware/`: 배선과 host-tested 제어 core.
+- `c2.2/sim/assets/usd/full_machine.usda`: STEP 대응 전체 기계 Isaac 씬.
+- `c2.2/results/full_machine/`: 운동 추적, 소재 경로, 검토 이미지 증거.
 
-C2 성능 모델은 간극 수식의 학습으로 대체하지 않는다. GP/MLP 학습 경로는 실제 분쇄 응답과 보정/검증/원자료가 없는 현재 상태에서 **BLOCKED_PERFORMANCE_DATA**를 반환한다.
+정확한 SHA-256, 객체/솔리드 수, 실행 결과와 남은 결함은 `STATUS.md`에만
+기록한다. 과거 C1/C2/C2.2 문서의 PASS는 해당 당시 범위의 역사 기록이다.
 
-## 재현
+## 재현 진입점
 
-```bash
+```sh
 python c2/src/run_study.py
 python -m unittest discover -s c2/tests -v
-python c2/src/build_cad.py
-python c2/src/train_performance.py --backend gp
-python c2/src/train_performance.py --backend mlp --out c2/results/mlp_run
-python c2/src/verify_artifacts.py
-python c2/solver/run_coupon_fe.py
+python -m unittest discover -s c2.1/tests -v
+python c2.1/src/build_machine_integration.py
+python c2.1/src/build_machine_freecad.py
+python c2.1/src/build_system_bom.py
+python c2.1/src/build_machine_wiring.py
+python c2.1/src/build_firmware.py
+python c2.1/src/build_release_manifest.py
+python c2.1/src/verify_artifacts.py
 ```
 
-수치 계산은numpy/scipy/shapely, CAD는CadQuery2.8.0이다. GP/MLP 선택 의존성은 `c2/requirements-research.txt`를 참고한다. 기본 데이터는 비어 있으므로 성능 모델 가중치는 생성하지 않는다.
-
-## C1 보존
-
-기존 루트의 `src/`, `design/assembly.json`, `design/parameters.json`, `cad/`, `bom/`, `results/`는 C1 기준SHA `0aa312c5be0ce566bc06f63fa4fdd5c9e7f3f47e`의 참고 설계다. 이 파일에 남아 있는 TT Motor 선정값/8:9 기구를 C2 확정값으로 읽지 않는다. C1 생성/검증 명령은 회귀검사용으로만 유지한다. 이전 pre-push 검사와 C1 CI는 제거하지 않았다.
-
-자세한 보존 상태와 최종 커밋은 Git 기록이 기준이다. 원래 dirty worktree는 건드리지 않는다.
+디지털 검증은 구매·제작·통전·물리 성능 승인 또는 main 병합 승인이 아니다.
+해당 단계는 명시적 사용자 승인 전 **HOLD**다.

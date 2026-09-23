@@ -112,8 +112,10 @@
   "electrical_load": {
     "psu": {
       "V": 24,
-      "rated_W": 800,
-      "operational_cap_W": 500,
+      "current_A": 33,
+      "nameplate_W": 800,
+      "current_derived_ceiling_W": 792,
+      "power_target_W": 500,
       "body_mm": [
         240,
         120,
@@ -174,15 +176,18 @@
       "policy": "at most 1x EX-H100 band + EX-H60 cartridge at any instant; bands rotate on controller timing",
       "heater_W_staged": 160.0,
       "continuous_W": 256.0,
-      "control_implementation": "UNIMPLEMENTED_IN_FIRMWARE",
-      "hardware_interlock": "EL_CURRENT_LIMITER relay bank required so a firmware fault cannot energize two bands (documented requirement)"
+      "control_implementation": "HOST_CONTROLLER_CORE_SELF_TESTED_NOT_DEPLOYED",
+      "hardware_interlock": "EL_CURRENT_LIMITER relay bank required independently of firmware behavior"
     },
-    "operational_cap_W": 500,
-    "headroom_W": -116.0,
-    "staged_headroom_W": 84.0,
-    "cap_exceeded": true,
-    "staged_cap_exceeded": false,
-    "note": "PEAK simultaneous nameplate sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. Heater duty cycling lowers the MEAN load but not the peak; the peak exceeds the 500 W operating cap - documented defect, mitigation: two-band operation or PSU/cap revision."
+    "power_target_W": 500,
+    "total_vs_target_headroom_W": -116.0,
+    "staged_vs_target_headroom_W": 84.0,
+    "total_above_target": true,
+    "staged_above_target": false,
+    "current_derived_ceiling_W": 792,
+    "hard_ceiling_headroom_W": 176.0,
+    "hard_ceiling_exceeded": false,
+    "note": "PEAK simultaneous modeled sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. The 500 W value is a soft operating target: an admitted draw above it is WARN+logged, not hard-tripped. Demands above the 24 V x 33 A = 792 W ceiling are rejected; hardware current limiting and heater interlocks remain required."
   },
   "passed": true
 }

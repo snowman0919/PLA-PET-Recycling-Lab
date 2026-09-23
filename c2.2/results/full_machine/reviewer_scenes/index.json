@@ -1,0 +1,50 @@
+{
+  "schema": "reviewer_scenes/1",
+  "machine_usd": "c2.2/sim/assets/usd/full_machine.usda",
+  "usd_sha256": "594b77e44c46e166f55dcbf0182e21aa5935e7b590f4935599b3115defef5f61",
+  "source_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+  "resolution": "640x480",
+  "scene_list": [
+    "a_full_assembly",
+    "b_drivetrain_mid_rotation",
+    "c_transfer_chute_probes",
+    "d_puller_winder"
+  ],
+  "scenes": [
+    {
+      "id": "a_full_assembly",
+      "title": "PPR VP1 full machine - assembly 3/4 view",
+      "image": "a_full_assembly.png",
+      "producing_tool": "deterministic software render (painter's algorithm, numpy+PIL, 640x480) of the USDA collision meshes, produced by c2.2/sim/render_reviewer_scenes.py",
+      "status": "ok"
+    },
+    {
+      "id": "b_drivetrain_mid_rotation",
+      "title": "Drivetrain close-up - mid-rotation (input theta=pi)",
+      "image": "b_drivetrain_mid_rotation.png",
+      "producing_tool": "deterministic software render (painter's algorithm, numpy+PIL, 640x480) of the USDA collision meshes, produced by c2.2/sim/render_reviewer_scenes.py",
+      "status": "ok"
+    },
+    {
+      "id": "c_transfer_chute_probes",
+      "title": "Transfer/chute - probe spheres at recorded final positions",
+      "image": "c_transfer_chute_probes.png",
+      "producing_tool": "deterministic software render (painter's algorithm, numpy+PIL, 640x480) of the USDA collision meshes, produced by c2.2/sim/render_reviewer_scenes.py",
+      "status": "ok"
+    },
+    {
+      "id": "d_puller_winder",
+      "title": "Puller/winder end of the line",
+      "image": "d_puller_winder.png",
+      "producing_tool": "deterministic software render (painter's algorithm, numpy+PIL, 640x480) of the USDA collision meshes, produced by c2.2/sim/render_reviewer_scenes.py",
+      "status": "ok"
+    }
+  ],
+  "note": "Isaac RTX capture skipped (PPR_FORCE_SOFTWARE_SCENES); GPU memory is committed to the ollama llama-server, ~7.6/10.2 GB, never killed.",
+  "probe_spheres": {
+    "count_rendered": 4,
+    "of_total_dropped": 200,
+    "positions_source": "c2.2/results/full_machine/run_vp1_final16/results.json probe_test.sample_final_positions",
+    "render_mode": "projected always-visible overlay discs (white rim) at the exact recorded final positions; occlusion against near geometry disabled so the 3mm/1.5mm fragments stay visible at 640x480"
+  }
+}

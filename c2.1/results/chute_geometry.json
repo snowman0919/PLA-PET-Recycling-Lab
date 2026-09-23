@@ -7,10 +7,10 @@
       "bounds": [
         80.0,
         157.4,
-        344.5,
-        361.0,
+        334.5,
+        360.0,
         329.6,
-        352.3
+        356.3
       ]
     },
     {
@@ -25,12 +25,208 @@
         295.0,
         351.8
       ]
+    },
+    {
+      "name": "PDL_SHAFT",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        357.0,
+        204.0,
+        369.5,
+        368.0,
+        392.0,
+        379.5
+      ]
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        353.0,
+        204.0,
+        365.0,
+        365.00000000000216,
+        358.0,
+        388.0
+      ]
+    },
+    {
+      "name": "PDL_SPROCKET",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        341.51973782135707,
+        376.0,
+        354.01973782135707,
+        382.48026217864293,
+        394.0,
+        394.98026217864293
+      ]
+    },
+    {
+      "name": "PDL_CHAIN",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        284.66943019754774,
+        381.0,
+        256.1028711935656,
+        385.900034491514,
+        386.0,
+        398.3971288064344
+      ]
+    },
+    {
+      "name": "PDL_WORM",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        354.2107379373881,
+        219.9999999,
+        366.1603467267863,
+        371.25000010000014,
+        242.35643567861328,
+        382.3235620771908
+      ]
+    },
+    {
+      "name": "AUG_SHAFT",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        235.9999999,
+        223.70926041888757,
+        338.77046592460215,
+        370.0000001,
+        240.29136788980287,
+        355.3464093528197
+      ]
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "solids": 3,
+      "valid": true,
+      "bounds": [
+        233.0,
+        220.0,
+        335.6,
+        369.0,
+        244.0,
+        352.0
+      ]
+    },
+    {
+      "name": "AUG_WHEEL",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        357.9999999,
+        223.1672782296194,
+        349.81892326111,
+        366.0000001000001,
+        240.8327217703806,
+        368.0000001
+      ]
+    },
+    {
+      "name": "PDL_FEED_GEAR",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        347.84869456517464,
+        212.99999999999991,
+        360.34869456517464,
+        376.15130543482536,
+        219.0,
+        388.65130543482536
+      ]
+    },
+    {
+      "name": "CROSS_FEED_IDLER",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        353.42754788001065,
+        207.0,
+        335.92879334674967,
+        382.2740865198587,
+        224.0,
+        364.77533198659773
+      ]
+    },
+    {
+      "name": "CROSS_FEED_GEAR",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        342.5955870818481,
+        213.0,
+        313.5955870818481,
+        371.4044129181519,
+        219.00000000000003,
+        342.4044129181519
+      ]
+    },
+    {
+      "name": "CROSS_FEED_SHAFT",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        346.79538130423117,
+        207.9999999,
+        317.95312655671063,
+        367.211269225791,
+        251.7154154117732,
+        338.21618789097886
+      ]
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "solids": 12,
+      "valid": true,
+      "bounds": [
+        351.8,
+        207.0,
+        318.0,
+        384.5,
+        227.0,
+        355.5520626666737
+      ]
+    },
+    {
+      "name": "CROSS_FEED_SHELL",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        344.3,
+        223.5,
+        315.8,
+        369.2,
+        258.0,
+        342.5
+      ]
     }
   ],
   "cutter_sweep_intersections": [],
   "passed": true,
   "exported_step": [
     "c2.1/cad/parts_stage1/CHUTE_BODY.step",
-    "c2.1/cad/parts_stage1/CHUTE_TROUGH_FLOOR_E.step"
+    "c2.1/cad/parts_stage1/CHUTE_TROUGH_FLOOR_E.step",
+    "c2.1/cad/parts_stage1/PDL_SHAFT.step",
+    "c2.1/cad/parts_stage1/PDL_BEARINGS.step",
+    "c2.1/cad/parts_stage1/PDL_SPROCKET.step",
+    "c2.1/cad/parts_stage1/PDL_CHAIN.step",
+    "c2.1/cad/parts_stage1/PDL_WORM.step",
+    "c2.1/cad/parts_stage1/AUG_SHAFT.step",
+    "c2.1/cad/parts_stage1/AUG_BEARINGS.step",
+    "c2.1/cad/parts_stage1/AUG_WHEEL.step",
+    "c2.1/cad/parts_stage1/PDL_FEED_GEAR.step",
+    "c2.1/cad/parts_stage1/CROSS_FEED_IDLER.step",
+    "c2.1/cad/parts_stage1/CROSS_FEED_GEAR.step",
+    "c2.1/cad/parts_stage1/CROSS_FEED_SHAFT.step",
+    "c2.1/cad/parts_stage1/CROSS_FEED_BEARINGS.step",
+    "c2.1/cad/parts_stage1/CROSS_FEED_SHELL.step"
   ]
 }

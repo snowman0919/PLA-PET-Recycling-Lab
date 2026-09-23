@@ -1,5 +1,31 @@
 {
-  "revision": "VP1-STAGE1",
+  "revision": "VP1-STAGE5-AUGER",
+  "checkpoint_classes": {
+    "pass_space": [
+      "S1_opening_to_pan",
+      "buffer_throat",
+      "cross_feed_shell_to_mouth",
+      "extruder_die_exit",
+      "outlet_drop_into_mouth",
+      "puller_nip",
+      "s2_screen_holes",
+      "spool_winder",
+      "trough_auger",
+      "trough_fin_gap"
+    ],
+    "operational_grip": [
+      "puller_grip"
+    ]
+  },
+  "conveyance": {
+    "claim": "ACTIVE_FULL_SPAN_AUGER_GEOMETRY_MEASURED",
+    "passive_transfer": "SUPERSEDED as a design claim; the S1 pan still has an unpowered pickup span",
+    "jacket_boundary": "measured jacket dome top z=334.5 mm; open U-shell base is clearance-cut around the jacket, not a complete receiver",
+    "resolution": "RH screw conveyor, root r3/OD r8, pitch 28.50 mm, four turns x237.0..354.0; BRep flight/shell gap 0.032 mm",
+    "implementation": "S2Ecc 12T -> PDL_CHAIN 35 links (offset link strength/tension UNRATED) -> PDL_SPROCKET/PDL_SHAFT at x362,z374.5 -> RH 2-start PDL_WORM -> AUG_WHEEL 16T (8:1) -> AUG_SHAFT at -5.438 rpm reference; no claim of S1 pickup or S2 mouth delivery",
+    "simulation_history": "paddle+scraper and shallow r4/r5 auger were measured non-conveying; they are superseded, not counted as final evidence",
+    "final_simulation_evidence": "c2.2/results/full_machine/flow_localize/results.json"
+  },
   "checkpoints": [
     {
       "checkpoint": "S1_opening_to_pan",
@@ -7,7 +33,8 @@
       "probe_sphere_mm": 4.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "S1 bottom 352.3 minus pan floor top 348.0"
+      "note": "S1 bottom 352.3 minus pan floor top 348.0",
+      "checkpoint_class": "pass_space"
     },
     {
       "checkpoint": "trough_fin_gap",
@@ -15,23 +42,26 @@
       "probe_sphere_mm": 4.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "115deg saddle fin bypassed: the route runs south of the chamber (y 213..251) and turns north over the mouth at x 350..360.5; path x fin intersection volume 0.000 mm3"
+      "note": "115deg saddle fin bypassed: the route runs south of the chamber (y 213..251) and turns north over the mouth at x 350..360.5; path x fin intersection volume 0.000 mm3",
+      "checkpoint_class": "pass_space"
     },
     {
-      "checkpoint": "bypass_channel_outlet",
-      "aperture_mm": 10.5,
-      "probe_sphere_mm": 4.0,
+      "checkpoint": "cross_feed_shell_to_mouth",
+      "aperture_mm": 3.0,
+      "probe_sphere_mm": 3.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "bend block spans x to 360.5 (10 mm wide spill edge over the open mouth arc, global 20..99.5deg), spill line at y=294"
+      "note": "fixed under-shaft bridge extends 3.0 mm past the S2 mouth south plane; passage is only an envelope, not powered transfer",
+      "checkpoint_class": "pass_space"
     },
     {
       "checkpoint": "outlet_drop_into_mouth",
-      "aperture_mm": 7.0,
+      "aperture_mm": 0.0,
       "probe_sphere_mm": 4.0,
-      "passed": true,
+      "passed": false,
       "evidence": "MEASURED",
-      "note": "min distance from the x=355 drop column to the S2 solids along z 344..348 (above the rotor envelope); open mouth arc verified"
+      "note": "orthogonal driven flight reaches y251.72; S2 mouth starts y255.0 (3.28 mm unpowered axial gap). Cap-bore shell x344.3..369.2 extends to y258.0, but its bridge needs measured fragment delivery; static aperture alone does not prove flow",
+      "checkpoint_class": "pass_space"
     },
     {
       "checkpoint": "s2_screen_holes",
@@ -39,7 +69,8 @@
       "probe_sphere_mm": 3.3,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "15 open arcs measured at r63.8, y24; 4mm drilled holes, chord aperture at the liner radius"
+      "note": "15 open arcs measured at r63.8, y24; 4mm drilled holes, chord aperture at the liner radius",
+      "checkpoint_class": "pass_space"
     },
     {
       "checkpoint": "buffer_throat",
@@ -47,7 +78,8 @@
       "probe_sphere_mm": 8.0,
       "passed": true,
       "evidence": "NAMEPLATE",
-      "note": "FEED-BUF loft 190x48 top / 50x40 throat, height 73 (throat limits)"
+      "note": "FEED-BUF loft 190x48 top / 50x40 throat, height 73 (throat limits)",
+      "checkpoint_class": "pass_space"
     },
     {
       "checkpoint": "extruder_die_exit",
@@ -55,15 +87,35 @@
       "probe_sphere_mm": 1.9,
       "passed": true,
       "evidence": "NAMEPLATE",
-      "note": "EX-DIE 36 OD x 20 with 2 mm exit"
+      "note": "EX-DIE 36 OD x 20 with 2 mm exit",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "trough_auger",
+      "aperture_mm": 0.032016967169251745,
+      "probe_sphere_mm": 1.5,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "geometric clearance only (not connected-flow proof): RH flight root r3/OD r8, pitch 28.50 mm, four turns x237.0..354.0 in an open U shell; BRep-exact flight/shell gap 0.032 mm. S1 pan pickup and the northward S2 outlet are NOT proven by this clearance. Drive: S2Ecc 12T -> PDL_CHAIN (35 links) -> PDL_SPROCKET/PDL_SHAFT x362 -> RH 2-start PDL_WORM (lead 23.3 deg) -> AUG_WHEEL 16T -> AUG_SHAFT at -5.438 rpm reference, conveying +x",
+      "checkpoint_class": "pass_space"
     },
     {
       "checkpoint": "puller_nip",
-      "aperture_mm": 2.5,
-      "probe_sphere_mm": 2.0,
+      "aperture_mm": 1.5,
+      "probe_sphere_mm": 1.5,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "VP1 Stage 2 puller: dia-20 rollers at z 113.75/136.25 (line z 125) with a positive stop -> nip 2.5 mm >= 2.5 mm design minimum; the 2.0 mm extrudate clears"
+      "note": "VP1 Stage 4 puller: dia-20 rollers at z 114.25/135.75 (line z 125), cam positive-stop range 1.5..3.0 mm; the 1.75 mm filament (design/parameters.json filament_mm) is gripped: seated nip 1.5 mm < filament, spring compliance opens the contact to ~1.9 mm",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "puller_grip",
+      "aperture_mm": 1.75,
+      "probe_sphere_mm": 1.5,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "OPERATIONAL GRIP: minimum stop nip 1.5 mm < filament 1.75 mm <= open nip 3.0 mm -> rollers compress onto the filament (spring rate 8 N/mm, ~0.2 mm compression at 1.75 mm); tension transfers roller->filament->spool",
+      "checkpoint_class": "operational_grip"
     },
     {
       "checkpoint": "spool_winder",
@@ -71,8 +123,11 @@
       "probe_sphere_mm": 8.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "VP1 Stage 2 winder: driven dia-70 drum between dia-200 flanges at (700, y 100..170, z 220); filament span puller nip (829, 264, 125) -> traverse eyelet (742, 128, 245): midpoint probe sphere blocked by nothing"
+      "note": "VP1 Stage 4 winder: driven dia-70 drum between dia-200 flanges at (700, y 100..170, z 220), shaft in bearing blocks BOTH ends (WIND_SPOOL_BEARINGS), motor reference positively coupled to the drum shaft; filament span puller nip (829, 264, 125) -> traverse eyelet (742, 128, 245): midpoint probe sphere blocked by nothing",
+      "checkpoint_class": "pass_space"
     }
   ],
-  "all_material_path_clear": true
+  "all_material_path_clear": false,
+  "all_pass_space_clear": false,
+  "all_grip_checkpoints_pass": true
 }

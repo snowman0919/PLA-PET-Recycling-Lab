@@ -1,9 +1,9 @@
 {
   "schema": "full_machine_bodies/1",
-  "source_step": "c2.1/cad/PPR_C2_1_machine_integration.step",
-  "source_step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
-  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
-  "conversion_script_sha256": "f5cdc7e51907cf46a84b86dda470ce4ada66ee0b14ca31ab06b449d472b4ceb5",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
+  "conversion_script_sha256": "a9e71d96195ff56b62cb3427ccc870e8e1d2d8417c6ba904ca8a64e82de96247",
   "solids": [
     {
       "name": "FR-2040-630_001",
@@ -300,16 +300,16 @@
       "body": "STATIC",
       "step_index": 17,
       "part_bbox": [
-        9.999999849999996,
-        244.74999985,
-        94.74999985,
-        202.80000015000002,
-        305.25000015,
-        155.25000015
+        9.999999899999997,
+        244.7499999,
+        94.7499999,
+        202.8000001,
+        305.2500001,
+        155.2500001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/DRV-M2_001__coarse.stl",
-      "mesh_sha256": "38c4b14d3f785a5f868f8cd962efdd92c54c327e2d66326d10e6db3ee735c230"
+      "mesh_sha256": "37fc6f9e267ce6faa1c99c9742aba57daf1a07707f0030b5701d9b1dab0cfc82"
     },
     {
       "name": "DRV-M1-PL_001",
@@ -377,7 +377,7 @@
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/DRV-JACK_001__coarse.stl",
-      "mesh_sha256": "6867129d93e2500a0b385a38e95029196da6162500560dc1378820b2732ab6b7"
+      "mesh_sha256": "feff34571ca273f4e4afadfe519c3de36bd08b8ebd18b82220a27ddc9695a81c"
     },
     {
       "name": "BR-6001_001",
@@ -499,27 +499,10 @@
       "mesh_sha256": "4aaadc93700394be6ee8abf386238d0a2f245030004d9976a822db04b81b0075"
     },
     {
-      "name": "DRV-SH15R_001",
-      "group": "drive",
-      "body": "IN_SHAFT",
-      "step_index": 29,
-      "part_bbox": [
-        62.333720931435195,
-        275.99999985,
-        47.36928667424859,
-        97.6016736751733,
-        311.00000015,
-        82.63376104790453
-      ],
-      "bbox_ok": true,
-      "mesh": "c2.2/sim/assets/out/full/DRV-SH15R_001__fine.stl",
-      "mesh_sha256": "749ef3dff1cc25ff4e2d4674eac9e9c6797a308ddc417338bf3950d92c661a86"
-    },
-    {
       "name": "DRV-SH15L_001",
       "group": "drive",
       "body": "IN_SHAFT",
-      "step_index": 30,
+      "step_index": 29,
       "part_bbox": [
         62.333720931435195,
         312.99999985,
@@ -533,27 +516,10 @@
       "mesh_sha256": "b2967cfb9ddce65d1a9dd7feb15b2449f0bd3dd72d83a4fec68a5fe625768e1d"
     },
     {
-      "name": "DRV_SH40L_lower",
-      "group": "drive",
-      "body": "STATIC",
-      "step_index": 31,
-      "part_bbox": [
-        93.46722686133859,
-        275.99999985,
-        21.527036938784025,
-        180.41315298377054,
-        311.00000015,
-        108.47296306121596
-      ],
-      "bbox_ok": true,
-      "mesh": "c2.2/sim/assets/out/full/DRV_SH40L_lower__coarse.stl",
-      "mesh_sha256": "9d919e45d2b4fec758748036da8b0fef045c67b554fb6c05f20a2ea18816ac3c"
-    },
-    {
       "name": "DRV_SH40R_upper",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 32,
+      "step_index": 30,
       "part_bbox": [
         93.46722686133859,
         312.99999985,
@@ -570,75 +536,58 @@
       "name": "DRV-SP24-B20_001",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 33,
+      "step_index": 31,
       "part_bbox": [
-        97.97997128683488,
-        353.9999999,
-        26.0397813642803,
-        175.90040855827425,
-        372.0000001,
-        103.96021863571968
+        97.97997123683487,
+        351.99999985,
+        26.0397813142803,
+        175.90040860827426,
+        370.00000015,
+        103.9602186857197
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B20_001__coarse.stl",
-      "mesh_sha256": "45a77496cbb12fe7fa770070639d15dd1d6d7b260ec64fc846995e63fd808564"
+      "mesh_sha256": "c31a2676235ffc81db2e046a4b45bce2c88b1bb4fbe735f2e139b36adc750ad8"
     },
     {
       "name": "DRV-SP24-B25_001",
       "group": "drive",
       "body": "S1A",
-      "step_index": 34,
+      "step_index": 32,
       "part_bbox": [
         91.03978136428032,
-        353.9999999,
+        351.9999999,
         359.3425332113643,
         168.96021863571968,
-        372.0000001,
+        370.0000001,
         437.2629704828038
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B25_001__fine.stl",
-      "mesh_sha256": "7aa9b896c5eaf285b60ccdd73824f05a098383bb45f427607f12f407cefd6ab6"
-    },
-    {
-      "name": "DRV-SP24-B12_001",
-      "group": "drive",
-      "body": "IN_SHAFT",
-      "step_index": 35,
-      "part_bbox": [
-        41.0397813642803,
-        373.9999999,
-        26.0397813642803,
-        118.96021863571968,
-        392.0000001,
-        103.96021863571968
-      ],
-      "bbox_ok": true,
-      "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B12_001__fine.stl",
-      "mesh_sha256": "e5f17adabb431cf4eb56cd5c2c3d456a016fc6c7ddbee14da5799a6317f32058"
+      "mesh_sha256": "69fc3b3fa8108193c8872cd80c76896421dde43e10e1bb6a82c1c40afaa092ac"
     },
     {
       "name": "DRV-SP12-B12_001",
       "group": "drive",
       "body": "S2_ECC",
-      "step_index": 36,
+      "step_index": 33,
       "part_bbox": [
-        288.0892024104188,
-        373.9999999,
-        259.51973772135705,
-        329.0497269677047,
-        392.0000001,
-        300.48026227864295
+        288.0892023604188,
+        373.99999985,
+        259.51973767135706,
+        329.0497270177047,
+        392.00000015,
+        300.48026232864294
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/DRV-SP12-B12_001__fine.stl",
-      "mesh_sha256": "1ce5120a5be9aca52e19616a892a0b2cb65fb4451fb70cddf770967c12dfc1e6"
+      "mesh_sha256": "0378233ed1478d184518109ed680cef0a06cf8665ce936dcbdac85e011eb8f78"
     },
     {
       "name": "S1-CUT-A-P00_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 37,
+      "step_index": 34,
       "part_bbox": [
         90.65918478114,
         162.9999999,
@@ -655,7 +604,7 @@
       "name": "S1-SPACER-A_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 38,
+      "step_index": 35,
       "part_bbox": [
         111.9999999,
         168.9999999,
@@ -672,7 +621,7 @@
       "name": "S1-CUT-A-P01_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 39,
+      "step_index": 36,
       "part_bbox": [
         91.21407889801446,
         175.3999999,
@@ -689,7 +638,7 @@
       "name": "S1-SPACER-A_002",
       "group": "S1",
       "body": "S1A",
-      "step_index": 40,
+      "step_index": 37,
       "part_bbox": [
         111.9999999,
         181.3999999,
@@ -706,7 +655,7 @@
       "name": "S1-CUT-A-P02_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 41,
+      "step_index": 38,
       "part_bbox": [
         91.81705750917001,
         187.79999990000002,
@@ -723,7 +672,7 @@
       "name": "S1-SPACER-A_003",
       "group": "S1",
       "body": "S1A",
-      "step_index": 42,
+      "step_index": 39,
       "part_bbox": [
         111.9999999,
         193.79999990000002,
@@ -740,7 +689,7 @@
       "name": "S1-CUT-A-P03_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 43,
+      "step_index": 40,
       "part_bbox": [
         92.58149907448,
         200.1999999,
@@ -757,7 +706,7 @@
       "name": "S1-SPACER-A_004",
       "group": "S1",
       "body": "S1A",
-      "step_index": 44,
+      "step_index": 41,
       "part_bbox": [
         111.9999999,
         206.1999999,
@@ -774,7 +723,7 @@
       "name": "S1-CUT-A-P04_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 45,
+      "step_index": 42,
       "part_bbox": [
         93.11145429608001,
         212.5999999,
@@ -791,7 +740,7 @@
       "name": "S1-SPACER-A_005",
       "group": "S1",
       "body": "S1A",
-      "step_index": 46,
+      "step_index": 43,
       "part_bbox": [
         111.9999999,
         218.5999999,
@@ -808,7 +757,7 @@
       "name": "S1-CUT-A-P05_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 47,
+      "step_index": 44,
       "part_bbox": [
         92.13229320665,
         224.9999999,
@@ -825,7 +774,7 @@
       "name": "S1-SPACER-A_006",
       "group": "S1",
       "body": "S1A",
-      "step_index": 48,
+      "step_index": 45,
       "part_bbox": [
         111.9999999,
         230.9999999,
@@ -842,7 +791,7 @@
       "name": "S1-CUT-A-P06_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 49,
+      "step_index": 46,
       "part_bbox": [
         91.33358898447325,
         237.3999999,
@@ -859,7 +808,7 @@
       "name": "S1-SPACER-A_007",
       "group": "S1",
       "body": "S1A",
-      "step_index": 50,
+      "step_index": 47,
       "part_bbox": [
         111.9999999,
         243.3999999,
@@ -876,7 +825,7 @@
       "name": "S1-CUT-A-P07_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 51,
+      "step_index": 48,
       "part_bbox": [
         90.71914781890001,
         249.79999990000002,
@@ -893,7 +842,7 @@
       "name": "S1-SPACER-A_008",
       "group": "S1",
       "body": "S1A",
-      "step_index": 52,
+      "step_index": 49,
       "part_bbox": [
         111.9999999,
         255.79999990000002,
@@ -910,7 +859,7 @@
       "name": "S1-CUT-A-P08_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 53,
+      "step_index": 50,
       "part_bbox": [
         90.29189780188965,
         262.19999989999997,
@@ -927,7 +876,7 @@
       "name": "S1-SPACER-A_009",
       "group": "S1",
       "body": "S1A",
-      "step_index": 54,
+      "step_index": 51,
       "part_bbox": [
         111.9999999,
         268.19999989999997,
@@ -944,7 +893,7 @@
       "name": "S1-CUT-A-P09_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 55,
+      "step_index": 52,
       "part_bbox": [
         90.05387497435231,
         274.5999999,
@@ -961,7 +910,7 @@
       "name": "S1-SPACER-A_010",
       "group": "S1",
       "body": "S1A",
-      "step_index": 56,
+      "step_index": 53,
       "part_bbox": [
         111.9999999,
         280.5999999,
@@ -978,7 +927,7 @@
       "name": "S1-CUT-A-P10_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 57,
+      "step_index": 54,
       "part_bbox": [
         90.00621362345001,
         286.9999999,
@@ -995,7 +944,7 @@
       "name": "S1-SPACER-A_011",
       "group": "S1",
       "body": "S1A",
-      "step_index": 58,
+      "step_index": 55,
       "part_bbox": [
         111.9999999,
         292.9999999,
@@ -1012,7 +961,7 @@
       "name": "S1-CUT-A-P11_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 59,
+      "step_index": 56,
       "part_bbox": [
         90.11357815701801,
         299.39999989999995,
@@ -1029,7 +978,7 @@
       "name": "S1-SPACER-A_012",
       "group": "S1",
       "body": "S1A",
-      "step_index": 60,
+      "step_index": 57,
       "part_bbox": [
         111.9999999,
         305.39999989999995,
@@ -1046,7 +995,7 @@
       "name": "S1-CUT-A-P12_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 61,
+      "step_index": 58,
       "part_bbox": [
         90.29176756402,
         311.7999999,
@@ -1063,7 +1012,7 @@
       "name": "S1-SHAFT-A_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 62,
+      "step_index": 59,
       "part_bbox": [
         117.4999999,
         99.9999999,
@@ -1080,7 +1029,7 @@
       "name": "BR-6205_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 63,
+      "step_index": 60,
       "part_bbox": [
         103.9999999,
         139.9999999,
@@ -1097,7 +1046,7 @@
       "name": "BR-6205_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 64,
+      "step_index": 61,
       "part_bbox": [
         103.9999999,
         330.9999999,
@@ -1114,7 +1063,7 @@
       "name": "S1-CUT-B-P00_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 65,
+      "step_index": 62,
       "part_bbox": [
         150.65918478114,
         169.1999999,
@@ -1131,7 +1080,7 @@
       "name": "S1-SPACER-B_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 66,
+      "step_index": 63,
       "part_bbox": [
         171.9999999,
         175.1999999,
@@ -1148,7 +1097,7 @@
       "name": "S1-CUT-B-P01_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 67,
+      "step_index": 64,
       "part_bbox": [
         150.29176756402,
         181.5999999,
@@ -1165,7 +1114,7 @@
       "name": "S1-SPACER-B_002",
       "group": "S1",
       "body": "S1B",
-      "step_index": 68,
+      "step_index": 65,
       "part_bbox": [
         171.9999999,
         187.5999999,
@@ -1182,7 +1131,7 @@
       "name": "S1-CUT-B-P02_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 69,
+      "step_index": 66,
       "part_bbox": [
         150.11357815701783,
         193.9999999,
@@ -1199,7 +1148,7 @@
       "name": "S1-SPACER-B_003",
       "group": "S1",
       "body": "S1B",
-      "step_index": 70,
+      "step_index": 67,
       "part_bbox": [
         171.9999999,
         199.9999999,
@@ -1216,7 +1165,7 @@
       "name": "S1-CUT-B-P03_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 71,
+      "step_index": 68,
       "part_bbox": [
         150.00621362345,
         206.39999989999998,
@@ -1233,7 +1182,7 @@
       "name": "S1-SPACER-B_004",
       "group": "S1",
       "body": "S1B",
-      "step_index": 72,
+      "step_index": 69,
       "part_bbox": [
         171.9999999,
         212.39999989999998,
@@ -1250,7 +1199,7 @@
       "name": "S1-CUT-B-P04_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 73,
+      "step_index": 70,
       "part_bbox": [
         150.05387497435646,
         218.7999999,
@@ -1267,7 +1216,7 @@
       "name": "S1-SPACER-B_005",
       "group": "S1",
       "body": "S1B",
-      "step_index": 74,
+      "step_index": 71,
       "part_bbox": [
         171.9999999,
         224.7999999,
@@ -1284,7 +1233,7 @@
       "name": "S1-CUT-B-P05_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 75,
+      "step_index": 72,
       "part_bbox": [
         150.29189780189,
         231.1999999,
@@ -1301,7 +1250,7 @@
       "name": "S1-SPACER-B_006",
       "group": "S1",
       "body": "S1B",
-      "step_index": 76,
+      "step_index": 73,
       "part_bbox": [
         171.9999999,
         237.1999999,
@@ -1318,7 +1267,7 @@
       "name": "S1-CUT-B-P06_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 77,
+      "step_index": 74,
       "part_bbox": [
         150.7191478189,
         243.5999999,
@@ -1335,7 +1284,7 @@
       "name": "S1-SPACER-B_007",
       "group": "S1",
       "body": "S1B",
-      "step_index": 78,
+      "step_index": 75,
       "part_bbox": [
         171.9999999,
         249.5999999,
@@ -1352,7 +1301,7 @@
       "name": "S1-CUT-B-P07_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 79,
+      "step_index": 76,
       "part_bbox": [
         151.33358898448,
         255.9999999,
@@ -1369,7 +1318,7 @@
       "name": "S1-SPACER-B_008",
       "group": "S1",
       "body": "S1B",
-      "step_index": 80,
+      "step_index": 77,
       "part_bbox": [
         171.9999999,
         261.9999999,
@@ -1386,7 +1335,7 @@
       "name": "S1-CUT-B-P08_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 81,
+      "step_index": 78,
       "part_bbox": [
         152.13229320665002,
         268.39999989999995,
@@ -1403,7 +1352,7 @@
       "name": "S1-SPACER-B_009",
       "group": "S1",
       "body": "S1B",
-      "step_index": 82,
+      "step_index": 79,
       "part_bbox": [
         171.9999999,
         274.39999989999995,
@@ -1420,7 +1369,7 @@
       "name": "S1-CUT-B-P09_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 83,
+      "step_index": 80,
       "part_bbox": [
         153.11145429608,
         280.7999999,
@@ -1437,7 +1386,7 @@
       "name": "S1-SPACER-B_010",
       "group": "S1",
       "body": "S1B",
-      "step_index": 84,
+      "step_index": 81,
       "part_bbox": [
         171.9999999,
         286.7999999,
@@ -1454,7 +1403,7 @@
       "name": "S1-CUT-B-P10_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 85,
+      "step_index": 82,
       "part_bbox": [
         152.58149907448,
         293.19999989999997,
@@ -1471,7 +1420,7 @@
       "name": "S1-SPACER-B_011",
       "group": "S1",
       "body": "S1B",
-      "step_index": 86,
+      "step_index": 83,
       "part_bbox": [
         171.9999999,
         299.19999989999997,
@@ -1488,7 +1437,7 @@
       "name": "S1-CUT-B-P11_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 87,
+      "step_index": 84,
       "part_bbox": [
         151.81705750917,
         305.5999999,
@@ -1505,7 +1454,7 @@
       "name": "S1-SPACER-B_012",
       "group": "S1",
       "body": "S1B",
-      "step_index": 88,
+      "step_index": 85,
       "part_bbox": [
         171.9999999,
         311.5999999,
@@ -1522,7 +1471,7 @@
       "name": "S1-CUT-B-P12_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 89,
+      "step_index": 86,
       "part_bbox": [
         151.21407889801344,
         317.9999999,
@@ -1539,7 +1488,7 @@
       "name": "S1-SHAFT-B_001",
       "group": "S1",
       "body": "S1B",
-      "step_index": 90,
+      "step_index": 87,
       "part_bbox": [
         177.4999999,
         99.9999999,
@@ -1556,7 +1505,7 @@
       "name": "BR-6205_003",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 91,
+      "step_index": 88,
       "part_bbox": [
         163.9999999,
         139.9999999,
@@ -1573,7 +1522,7 @@
       "name": "BR-6205_004",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 92,
+      "step_index": 89,
       "part_bbox": [
         163.9999999,
         330.9999999,
@@ -1590,7 +1539,7 @@
       "name": "S1-SYNC_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 93,
+      "step_index": 90,
       "part_bbox": [
         98.00849575369963,
         107.9999999,
@@ -1607,7 +1556,7 @@
       "name": "S1-SYNC_002",
       "group": "S1",
       "body": "S1B",
-      "step_index": 94,
+      "step_index": 91,
       "part_bbox": [
         158.10667609783604,
         107.9999999,
@@ -1624,7 +1573,7 @@
       "name": "S1-BPL_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 95,
+      "step_index": 92,
       "part_bbox": [
         79.9999999,
         137.9999999,
@@ -1641,7 +1590,7 @@
       "name": "S1-BPL_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 96,
+      "step_index": 93,
       "part_bbox": [
         79.9999999,
         330.9999999,
@@ -1658,7 +1607,7 @@
       "name": "S1-WALL_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 97,
+      "step_index": 94,
       "part_bbox": [
         79.9999999,
         157.3999999,
@@ -1675,7 +1624,7 @@
       "name": "S1-WALL_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 98,
+      "step_index": 95,
       "part_bbox": [
         79.9999999,
         324.5999999,
@@ -1692,7 +1641,7 @@
       "name": "S1-SIDE_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 99,
+      "step_index": 96,
       "part_bbox": [
         79.9999999,
         162.3999999,
@@ -1709,7 +1658,7 @@
       "name": "S1-SIDE_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 100,
+      "step_index": 97,
       "part_bbox": [
         236.9999999,
         162.3999999,
@@ -1726,7 +1675,7 @@
       "name": "S1-BR-CAP_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 101,
+      "step_index": 98,
       "part_bbox": [
         79.9999999,
         134.9999999,
@@ -1743,7 +1692,7 @@
       "name": "S1-BR-CAP_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 102,
+      "step_index": 99,
       "part_bbox": [
         79.9999999,
         348.9999999,
@@ -1760,7 +1709,7 @@
       "name": "FEED-BUF_001",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 103,
+      "step_index": 100,
       "part_bbox": [
         213.56946458906177,
         250.9999999,
@@ -1777,7 +1726,7 @@
       "name": "EX-SCREW_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 104,
+      "step_index": 101,
       "part_bbox": [
         263.99999989999975,
         266.9999998999995,
@@ -1794,7 +1743,7 @@
       "name": "EX-BARREL_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 105,
+      "step_index": 102,
       "part_bbox": [
         263.9999999,
         259.9999999,
@@ -1811,7 +1760,7 @@
       "name": "EX-REAR_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 106,
+      "step_index": 103,
       "part_bbox": [
         202.9999999,
         261.9999999,
@@ -1828,7 +1777,7 @@
       "name": "EX-CPL_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 107,
+      "step_index": 104,
       "part_bbox": [
         186.9999999,
         258.9999999,
@@ -1845,7 +1794,7 @@
       "name": "BR-6202_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 108,
+      "step_index": 105,
       "part_bbox": [
         224.9999999,
         257.4999999,
@@ -1862,7 +1811,7 @@
       "name": "BR-51102_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 109,
+      "step_index": 106,
       "part_bbox": [
         238.9999999,
         260.9999999,
@@ -1879,7 +1828,7 @@
       "name": "EX-THRUST_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 110,
+      "step_index": 107,
       "part_bbox": [
         221.9999999,
         244.9999999,
@@ -1896,7 +1845,7 @@
       "name": "EX-DIE_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 111,
+      "step_index": 108,
       "part_bbox": [
         519.9999999,
         256.9999999,
@@ -1913,7 +1862,7 @@
       "name": "EX-H100_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 112,
+      "step_index": 109,
       "part_bbox": [
         327.9999999,
         254.9999999,
@@ -1930,7 +1879,7 @@
       "name": "EX-H100_002",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 113,
+      "step_index": 110,
       "part_bbox": [
         387.9999999,
         254.9999999,
@@ -1947,7 +1896,7 @@
       "name": "EX-H100_003",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 114,
+      "step_index": 111,
       "part_bbox": [
         447.9999999,
         254.9999999,
@@ -1964,7 +1913,7 @@
       "name": "EX-H60_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 115,
+      "step_index": 112,
       "part_bbox": [
         528.9999999,
         255.9999999,
@@ -1981,7 +1930,7 @@
       "name": "COOL-TRAY_001",
       "group": "cooling",
       "body": "STATIC",
-      "step_index": 116,
+      "step_index": 113,
       "part_bbox": [
         544.9999999,
         234.9999999,
@@ -1998,7 +1947,7 @@
       "name": "COOL-FAN_001",
       "group": "cooling",
       "body": "STATIC",
-      "step_index": 117,
+      "step_index": 114,
       "part_bbox": [
         559.9999999,
         186.9999999,
@@ -2015,7 +1964,7 @@
       "name": "COOL-FAN_002",
       "group": "cooling",
       "body": "STATIC",
-      "step_index": 118,
+      "step_index": 115,
       "part_bbox": [
         699.9999999,
         186.9999999,
@@ -2032,7 +1981,7 @@
       "name": "HOPPER_001",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 119,
+      "step_index": 116,
       "part_bbox": [
         0.741715570741,
         162.3999999,
@@ -2049,7 +1998,7 @@
       "name": "HOP-LID_001",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 120,
+      "step_index": 117,
       "part_bbox": [
         0.7417155707405468,
         174.9999999,
@@ -2066,7 +2015,7 @@
       "name": "S1-ROOF-F_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 121,
+      "step_index": 118,
       "part_bbox": [
         74.9999999,
         39.9999999,
@@ -2083,7 +2032,7 @@
       "name": "S1-ROOF-R_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 122,
+      "step_index": 119,
       "part_bbox": [
         74.99999985,
         351.99999985,
@@ -2100,7 +2049,7 @@
       "name": "S1-TIE-TUBE_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 123,
+      "step_index": 120,
       "part_bbox": [
         83.9999999,
         155.9999999,
@@ -2117,7 +2066,7 @@
       "name": "S1-STUD_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 124,
+      "step_index": 121,
       "part_bbox": [
         86.9999999,
         107.9999999,
@@ -2134,7 +2083,7 @@
       "name": "S1-TIE-TUBE_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 125,
+      "step_index": 122,
       "part_bbox": [
         83.9999999,
         155.9999999,
@@ -2151,7 +2100,7 @@
       "name": "S1-STUD_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 126,
+      "step_index": 123,
       "part_bbox": [
         86.9999999,
         107.9999999,
@@ -2168,7 +2117,7 @@
       "name": "S1-ROOF-F_002",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 127,
+      "step_index": 124,
       "part_bbox": [
         214.9999999,
         39.9999999,
@@ -2185,7 +2134,7 @@
       "name": "S1-ROOF-R_002",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 128,
+      "step_index": 125,
       "part_bbox": [
         214.9999999,
         351.9999999,
@@ -2202,7 +2151,7 @@
       "name": "S1-TIE-TUBE_003",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 129,
+      "step_index": 126,
       "part_bbox": [
         223.9999999,
         155.9999999,
@@ -2219,7 +2168,7 @@
       "name": "S1-STUD_003",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 130,
+      "step_index": 127,
       "part_bbox": [
         226.9999999,
         107.9999999,
@@ -2236,7 +2185,7 @@
       "name": "S1-TIE-TUBE_004",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 131,
+      "step_index": 128,
       "part_bbox": [
         223.9999999,
         155.9999999,
@@ -2253,7 +2202,7 @@
       "name": "S1-STUD_004",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 132,
+      "step_index": 129,
       "part_bbox": [
         226.9999999,
         107.9999999,
@@ -2270,7 +2219,7 @@
       "name": "DRV-DECK_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 133,
+      "step_index": 130,
       "part_bbox": [
         19.99999985,
         209.99999985,
@@ -2281,13 +2230,13 @@
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/DRV-DECK_001__coarse.stl",
-      "mesh_sha256": "fa32e8abbe7a1e7fa6507fe2420c5f71ae0661e3ee735806ccd96148a5f0d935"
+      "mesh_sha256": "180c9c048f685f1b19f54f704fc6bf37d64fbc225cdae5041d393b60c5bcd133"
     },
     {
       "name": "DRV-M1-FOOT_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 134,
+      "step_index": 131,
       "part_bbox": [
         44.9999999,
         216.9999999,
@@ -2304,7 +2253,7 @@
       "name": "DRV-RISER12_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 135,
+      "step_index": 132,
       "part_bbox": [
         62.9999999,
         357.9999999,
@@ -2321,7 +2270,7 @@
       "name": "DRV-RISER20_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 136,
+      "step_index": 133,
       "part_bbox": [
         101.94018982255457,
         385.9999999,
@@ -2338,7 +2287,7 @@
       "name": "S2-LEG-L_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 137,
+      "step_index": 134,
       "part_bbox": [
         206.56946458906177,
         169.9999999,
@@ -2355,7 +2304,7 @@
       "name": "S2-LEG-L_002",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 138,
+      "step_index": 135,
       "part_bbox": [
         206.56946458906177,
         341.9999999,
@@ -2372,7 +2321,7 @@
       "name": "S2-LEG-R_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 139,
+      "step_index": 136,
       "part_bbox": [
         360.56946458906174,
         169.9999999,
@@ -2389,7 +2338,7 @@
       "name": "S2-LEG-R_002",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 140,
+      "step_index": 137,
       "part_bbox": [
         360.56946458906174,
         341.9999999,
@@ -2406,7 +2355,7 @@
       "name": "EX-STAND_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 141,
+      "step_index": 138,
       "part_bbox": [
         176.9999999,
         239.9999999,
@@ -2423,7 +2372,7 @@
       "name": "DRV_M2_FACE_PLATE",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 142,
+      "step_index": 139,
       "part_bbox": [
         176.9999999,
         239.9999999,
@@ -2440,7 +2389,7 @@
       "name": "KEY-8-154_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 143,
+      "step_index": 140,
       "part_bbox": [
         125.9999999,
         163.3999999,
@@ -2457,7 +2406,7 @@
       "name": "KEY-8-154_002",
       "group": "S1",
       "body": "S1B",
-      "step_index": 144,
+      "step_index": 141,
       "part_bbox": [
         185.9999999,
         169.5999999,
@@ -2474,7 +2423,7 @@
       "name": "KEY-8-25_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 145,
+      "step_index": 142,
       "part_bbox": [
         125.9999999,
         109.9999999,
@@ -2491,7 +2440,7 @@
       "name": "KEY-8-25_002",
       "group": "S1",
       "body": "S1B",
-      "step_index": 146,
+      "step_index": 143,
       "part_bbox": [
         186.91040425630197,
         109.9999999,
@@ -2507,8 +2456,8 @@
     {
       "name": "KEY-8-16_001",
       "group": "S1",
-      "body": "STATIC",
-      "step_index": 147,
+      "body": "S1A",
+      "step_index": 144,
       "part_bbox": [
         125.9999999,
         354.9999999,
@@ -2518,14 +2467,14 @@
         413.80275194708406
       ],
       "bbox_ok": true,
-      "mesh": "c2.2/sim/assets/out/full/KEY-8-16_001__coarse.stl",
+      "mesh": "c2.2/sim/assets/out/full/KEY-8-16_001__fine.stl",
       "mesh_sha256": "362fcd78c254ebbb54ac33caf138972c3cce27b2233af29f61f8412526b7e9f8"
     },
     {
       "name": "KEY-4-70_001",
       "group": "drive",
       "body": "IN_SHAFT",
-      "step_index": 148,
+      "step_index": 145,
       "part_bbox": [
         77.9999999,
         276.9999999,
@@ -2539,27 +2488,10 @@
       "mesh_sha256": "6824248b77d711a0a870f51c636129dd257aafff3b2a34b699e6c1b056b24e0f"
     },
     {
-      "name": "KEY-4-16_001",
-      "group": "drive",
-      "body": "IN_SHAFT",
-      "step_index": 149,
-      "part_bbox": [
-        77.9999999,
-        374.9999999,
-        68.9999999,
-        82.0000001,
-        391.0000001,
-        73.0000001
-      ],
-      "bbox_ok": true,
-      "mesh": "c2.2/sim/assets/out/full/KEY-4-16_001__fine.stl",
-      "mesh_sha256": "b620ce646072aa442e9109cdae90fdbf0152a7fa5b0ccb111612d4d12d045f1f"
-    },
-    {
       "name": "KEY-6-70_001",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 150,
+      "step_index": 146,
       "part_bbox": [
         133.94018982255457,
         276.9999999,
@@ -2576,7 +2508,7 @@
       "name": "KEY-6-16_001",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 151,
+      "step_index": 147,
       "part_bbox": [
         133.94018982255457,
         354.9999999,
@@ -2590,10 +2522,44 @@
       "mesh_sha256": "246cbb15a814f9bc576b32ee71b381d205a5624ba1635f1cc6f4a76b9fb68391"
     },
     {
+      "name": "DRV-SP24-B20_002",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 148,
+      "part_bbox": [
+        97.97997123683487,
+        371.99999985,
+        26.0397813142803,
+        175.90040860827426,
+        387.00000015,
+        103.9602186857197
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/DRV-SP24-B20_002__coarse.stl",
+      "mesh_sha256": "49abbc58211bfdcf5aa60cdfff54ef3b444c5e26418a74ca308e1a8fc2f06d99"
+    },
+    {
+      "name": "KEY-6-16_002",
+      "group": "drive",
+      "body": "STATIC",
+      "step_index": 149,
+      "part_bbox": [
+        133.94018977255456,
+        372.99999985,
+        71.49999985,
+        139.94019007255457,
+        387.80000015,
+        77.50000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/KEY-6-16_002__coarse.stl",
+      "mesh_sha256": "7b86d61aad93dc62330cab7cf6ed89993fd997915ef3b9a856ce222affc3c417"
+    },
+    {
       "name": "FRONT_INPUT_SUPPORT",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 152,
+      "step_index": 150,
       "part_bbox": [
         223.56946453906176,
         350.99999985,
@@ -2610,7 +2576,7 @@
       "name": "REAR_OUTPUT_SUPPORT",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 153,
+      "step_index": 151,
       "part_bbox": [
         223.56946453906176,
         202.99999984999997,
@@ -2621,13 +2587,13 @@
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/REAR_OUTPUT_SUPPORT__coarse.stl",
-      "mesh_sha256": "fc7a4da67c44b14b78bc9c70cebae74a7d151e4e53b2d67666cc919695301a3f"
+      "mesh_sha256": "4648555a2e31479c608aaa5707552fb3fc79f6ccb4654d69cfbaef3365424a27"
     },
     {
       "name": "INPUT_BEARING_ENVELOPE_UNRATED",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 154,
+      "step_index": 152,
       "part_bbox": [
         292.56946458906174,
         346.9999999,
@@ -2644,7 +2610,7 @@
       "name": "OUTPUT_BEARING_ENVELOPE_UNRATED",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 155,
+      "step_index": 153,
       "part_bbox": [
         287.56946458906174,
         202.9999999,
@@ -2661,7 +2627,7 @@
       "name": "FRONT_FIXED_RING_PLATE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 156,
+      "step_index": 154,
       "part_bbox": [
         220.56946458906177,
         326.9999999,
@@ -2678,7 +2644,7 @@
       "name": "REAR_FIXED_RING_PLATE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 157,
+      "step_index": 155,
       "part_bbox": [
         220.56946458906177,
         298.9999999,
@@ -2695,7 +2661,7 @@
       "name": "C2_FIXED_SHEAR_SENSOR_BORE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 158,
+      "step_index": 156,
       "part_bbox": [
         237.56946458906177,
         254.9999999,
@@ -2712,7 +2678,7 @@
       "name": "C2_PERFORATED_SCREEN_REFERENCE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 159,
+      "step_index": 157,
       "part_bbox": [
         258.9297846749503,
         254.9999999,
@@ -2729,7 +2695,7 @@
       "name": "C2_LEFT_WEAR_SHELL",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 160,
+      "step_index": 158,
       "part_bbox": [
         356.6770556169293,
         254.9999999,
@@ -2746,7 +2712,7 @@
       "name": "C2_RIGHT_WEAR_SHELL_1",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 161,
+      "step_index": 159,
       "part_bbox": [
         242.89978186768477,
         254.9999999,
@@ -2763,7 +2729,7 @@
       "name": "C2_RIGHT_WEAR_SHELL_2",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 162,
+      "step_index": 160,
       "part_bbox": [
         242.89978186768474,
         254.9999999,
@@ -2780,7 +2746,7 @@
       "name": "C2_THERMAL_SADDLE_L",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 163,
+      "step_index": 161,
       "part_bbox": [
         361.2794082521792,
         254.9999999,
@@ -2797,7 +2763,7 @@
       "name": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 164,
+      "step_index": 162,
       "part_bbox": [
         223.70234965234476,
         254.9999999,
@@ -2814,7 +2780,7 @@
       "name": "C2_SADDLE_CAP_L_FRONT",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 165,
+      "step_index": 163,
       "part_bbox": [
         360.9599540481593,
         294.9999999,
@@ -2831,7 +2797,7 @@
       "name": "C2_SADDLE_CAP_L_REAR",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 166,
+      "step_index": 164,
       "part_bbox": [
         360.9599540481593,
         250.9999999,
@@ -2848,7 +2814,7 @@
       "name": "C2_SADDLE_CAP_R_FRONT",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 167,
+      "step_index": 165,
       "part_bbox": [
         232.06977414391375,
         294.9999999,
@@ -2865,7 +2831,7 @@
       "name": "C2_SADDLE_CAP_R_REAR",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 168,
+      "step_index": 166,
       "part_bbox": [
         232.06977414391375,
         250.9999999,
@@ -2882,7 +2848,7 @@
       "name": "FIXED_RING_PIN_1",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 169,
+      "step_index": 167,
       "part_bbox": [
         228.56946458906177,
         304.9999999,
@@ -2899,7 +2865,7 @@
       "name": "FIXED_RING_PIN_2",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 170,
+      "step_index": 168,
       "part_bbox": [
         245.41426468449535,
         304.9999999,
@@ -2916,7 +2882,7 @@
       "name": "FIXED_RING_PIN_3",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 171,
+      "step_index": 169,
       "part_bbox": [
         288.06679579704274,
         304.9999999,
@@ -2933,7 +2899,7 @@
       "name": "FIXED_RING_PIN_4",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 172,
+      "step_index": 170,
       "part_bbox": [
         336.56946458906174,
         304.9999999,
@@ -2950,7 +2916,7 @@
       "name": "FIXED_RING_PIN_5",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 173,
+      "step_index": 171,
       "part_bbox": [
         368.22733328564715,
         304.9999999,
@@ -2967,7 +2933,7 @@
       "name": "FIXED_RING_PIN_6",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 174,
+      "step_index": 172,
       "part_bbox": [
         368.22733328564715,
         304.9999999,
@@ -2984,7 +2950,7 @@
       "name": "FIXED_RING_PIN_7",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 175,
+      "step_index": 173,
       "part_bbox": [
         336.56946458906174,
         304.9999999,
@@ -3001,7 +2967,7 @@
       "name": "FIXED_RING_PIN_8",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 176,
+      "step_index": 174,
       "part_bbox": [
         288.0667957970428,
         304.9999999,
@@ -3018,7 +2984,7 @@
       "name": "FIXED_RING_PIN_9",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 177,
+      "step_index": 175,
       "part_bbox": [
         245.41426468449535,
         304.9999999,
@@ -3035,7 +3001,7 @@
       "name": "SUPPORT_TIE_1",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 178,
+      "step_index": 176,
       "part_bbox": [
         379.56946458906174,
         210.9999999,
@@ -3052,24 +3018,24 @@
       "name": "SUPPORT_TIE_2",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 179,
+      "step_index": 177,
       "part_bbox": [
-        379.56946458906174,
+        384.56946458906174,
         210.9999999,
-        350.9999999,
-        387.5694647890618,
+        355.9999999,
+        392.5694647890618,
         351.0000001,
-        359.0000001
+        364.0000001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/SUPPORT_TIE_2__coarse.stl",
-      "mesh_sha256": "007b1afacb7b312d21111e67505b0f35a00b604e76825f8d56a85be44a305774"
+      "mesh_sha256": "2a50126db4786f2283a466f3da2f23251f2bb3427a431fe4b8153eb66d463465"
     },
     {
       "name": "SUPPORT_TIE_3",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 180,
+      "step_index": 178,
       "part_bbox": [
         229.56946458906174,
         210.9999999,
@@ -3086,7 +3052,7 @@
       "name": "SUPPORT_TIE_4",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 181,
+      "step_index": 179,
       "part_bbox": [
         249.56946458906174,
         210.9999999,
@@ -3103,7 +3069,7 @@
       "name": "INPUT_ECCENTRIC_SHAFT",
       "group": "S2-C2.1",
       "body": "S2_ECC",
-      "step_index": 182,
+      "step_index": 180,
       "part_bbox": [
         291.56946458906174,
         300.9999999,
@@ -3114,13 +3080,13 @@
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/INPUT_ECCENTRIC_SHAFT__fine.stl",
-      "mesh_sha256": "63642766c97cbce4f4709cf878182d7a59bf7248da51154aa15715ee904942fc"
+      "mesh_sha256": "7f6395d37e490b4e5145ffddf683f99ea04cb968f2b781bf5a4808cc5147c2c7"
     },
     {
       "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
       "group": "S2-C2.1",
       "body": "S2_ECC",
-      "step_index": 183,
+      "step_index": 181,
       "part_bbox": [
         285.56946458906174,
         306.9999999,
@@ -3137,7 +3103,7 @@
       "name": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
       "group": "S2-C2.1",
       "body": "S2_ROTOR",
-      "step_index": 184,
+      "step_index": 182,
       "part_bbox": [
         234.6296223859598,
         234.9999999,
@@ -3154,7 +3120,7 @@
       "name": "OUTPUT_PIN_CARRIER_AND_SHAFT",
       "group": "S2-C2.1",
       "body": "S2_CARRIER",
-      "step_index": 185,
+      "step_index": 183,
       "part_bbox": [
         260.56946458906174,
         179.9999999,
@@ -3171,7 +3137,7 @@
       "name": "OUTPUT_ROLLER_1",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_1",
-      "step_index": 186,
+      "step_index": 184,
       "part_bbox": [
         265.56946458906174,
         234.9999999,
@@ -3188,7 +3154,7 @@
       "name": "OUTPUT_ROLLER_2",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_2",
-      "step_index": 187,
+      "step_index": 185,
       "part_bbox": [
         284.56946458906174,
         234.9999999,
@@ -3205,7 +3171,7 @@
       "name": "OUTPUT_ROLLER_3",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_3",
-      "step_index": 188,
+      "step_index": 186,
       "part_bbox": [
         322.56946458906174,
         234.9999999,
@@ -3222,7 +3188,7 @@
       "name": "OUTPUT_ROLLER_4",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_4",
-      "step_index": 189,
+      "step_index": 187,
       "part_bbox": [
         341.56946458906174,
         234.9999999,
@@ -3239,7 +3205,7 @@
       "name": "OUTPUT_ROLLER_5",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_5",
-      "step_index": 190,
+      "step_index": 188,
       "part_bbox": [
         322.56946458906174,
         234.9999999,
@@ -3256,7 +3222,7 @@
       "name": "OUTPUT_ROLLER_6",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_6",
-      "step_index": 191,
+      "step_index": 189,
       "part_bbox": [
         284.56946458906174,
         234.9999999,
@@ -3273,7 +3239,7 @@
       "name": "DRV-CHAIN-A",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 192,
+      "step_index": 190,
       "part_bbox": [
         87.95971554086468,
         353.99999985,
@@ -3290,41 +3256,41 @@
       "name": "DRV-CHAIN-B",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 193,
+      "step_index": 191,
       "part_bbox": [
-        38.01333657083327,
+        94.95352576352941,
         373.99999985,
-        23.015770718908225,
-        332.4677208020498,
+        23.020753209883903,
+        332.4701685836538,
         379.00000015,
-        303.89709581684093
+        303.8914482645798
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/DRV-CHAIN-B__coarse.stl",
-      "mesh_sha256": "8f7eb019a0dcd88dfbedfcb7e6ee46ae11bc18a41a3c73452c4b0ca26df1c0c1"
+      "mesh_sha256": "ff0db7d997bcb8bca3871864ab003750190343b5b0031656a557d56cf129378e"
     },
     {
       "name": "CHUTE_BODY",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 194,
+      "step_index": 192,
       "part_bbox": [
         79.99999985,
         157.39999985,
-        344.49999985,
-        361.00000015,
+        334.49999985,
+        360.00000015,
         329.60000015,
-        352.30000015
+        356.30000015
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "mesh_sha256": "c9ba1886862d2380dd2380095f6910da3fd59eed9f14a4a58ffc368b71adc05c"
+      "mesh_sha256": "f0182f41cd19a788d9aead331aaa1fdafb689549e10b0902a4535be6a6273c1d"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 195,
+      "step_index": 193,
       "part_bbox": [
         278.49999985,
         254.99999985,
@@ -3338,10 +3304,486 @@
       "mesh_sha256": "6e68c652cabf292e66d9fde92ccd09587ea0f77bed53a56fdf35e9b765d3e7e4"
     },
     {
+      "name": "PDL_SHAFT",
+      "group": "feed",
+      "body": "PADDLE",
+      "step_index": 194,
+      "part_bbox": [
+        355.9999999,
+        203.9999999,
+        368.4999999,
+        369.0000001,
+        392.0000001,
+        380.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PDL_SHAFT__fine.stl",
+      "mesh_sha256": "1423544df944d5e523cdea8838de7fd800fbe40a3d6da9254a8d8355b89b5d1e"
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 195,
+      "part_bbox": [
+        352.9999999,
+        203.9999999,
+        364.9999999,
+        365.0000001000022,
+        210.0000001,
+        388.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS__coarse.stl",
+      "mesh_sha256": "f18400cf4728f12108ca40187ec43616fe5341b83d16e20da08aecb4343c74d6"
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 196,
+      "part_bbox": [
+        352.9999999,
+        351.9999999,
+        364.9999999,
+        365.0000001000022,
+        358.0000001,
+        388.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS__coarse.stl",
+      "mesh_sha256": "f18400cf4728f12108ca40187ec43616fe5341b83d16e20da08aecb4343c74d6"
+    },
+    {
+      "name": "PDL_SPROCKET",
+      "group": "feed",
+      "body": "PADDLE",
+      "step_index": 197,
+      "part_bbox": [
+        341.51973767135706,
+        375.99999985,
+        354.01973767135706,
+        382.48026232864294,
+        394.00000015,
+        394.98026232864294
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PDL_SPROCKET__fine.stl",
+      "mesh_sha256": "7d196c05a657f37c8b860c71a4a3379bb1c12395230ae2445634f2f5330c70bb"
+    },
+    {
+      "name": "PDL_CHAIN",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 198,
+      "part_bbox": [
+        284.66943004754773,
+        380.99999985,
+        256.1028710435656,
+        385.900034641514,
+        386.00000015,
+        398.3971289564344
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PDL_CHAIN__coarse.stl",
+      "mesh_sha256": "a7385a2eb934d77d2e9be2886bbb8ecc4f9176737ecf2639666d94581a4a4537"
+    },
+    {
+      "name": "PDL_WORM",
+      "group": "feed",
+      "body": "PADDLE",
+      "step_index": 199,
+      "part_bbox": [
+        349.81250104980865,
+        219.999995,
+        362.7300869429806,
+        371.2500050000001,
+        242.35644057861327,
+        384.7482107169982
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PDL_WORM__fine.stl",
+      "mesh_sha256": "dcdea3e556d8948cdba59268886e566f3e8704397276588d78b5b31c903d0a0b"
+    },
+    {
+      "name": "AUG_SHAFT",
+      "group": "feed",
+      "body": "AUGER",
+      "step_index": 200,
+      "part_bbox": [
+        235.9999999,
+        222.17098536740815,
+        338.76499660648,
+        370.0000001,
+        241.8297420375674,
+        355.3540472290724
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "mesh_sha256": "e340cf20f925161723532932cba71a80dbff2240514da99edc685262d9996013"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 201,
+      "part_bbox": [
+        232.9999999,
+        219.9999999,
+        335.5999999,
+        239.0000001,
+        244.0000001,
+        350.10000010000005
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "mesh_sha256": "c1d810a2efe0ad6ca876222d897c305c23f4e8ddc50047c2b6d27901384567ac"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 202,
+      "part_bbox": [
+        232.9999999,
+        219.9999999,
+        350.0999999,
+        239.0000001,
+        244.0000001,
+        352.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "mesh_sha256": "c1d810a2efe0ad6ca876222d897c305c23f4e8ddc50047c2b6d27901384567ac"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 203,
+      "part_bbox": [
+        365.9999999,
+        225.9999999,
+        335.5999999,
+        369.0000001,
+        238.0000001,
+        350.10000010000005
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "mesh_sha256": "c1d810a2efe0ad6ca876222d897c305c23f4e8ddc50047c2b6d27901384567ac"
+    },
+    {
+      "name": "AUG_WHEEL",
+      "group": "feed",
+      "body": "AUGER",
+      "step_index": 204,
+      "part_bbox": [
+        349.81250104980865,
+        222.1808784178705,
+        349.81891836111,
+        371.2500050000001,
+        242.35644057861327,
+        384.7482107169982
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/AUG_WHEEL__fine.stl",
+      "mesh_sha256": "3a355729dafa0f43000af12b05bfa8cbefe2113a7a43cfc3ca87af3458e792b8"
+    },
+    {
+      "name": "PDL_FEED_GEAR",
+      "group": "feed",
+      "body": "PADDLE",
+      "step_index": 205,
+      "part_bbox": [
+        347.84869441517463,
+        212.9999998499999,
+        360.34869441517463,
+        376.15130558482537,
+        219.00000015,
+        388.65130558482537
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PDL_FEED_GEAR__fine.stl",
+      "mesh_sha256": "f404144077ebeded6b7805fef37cacd71d914d718911b743601b1574abb9e385"
+    },
+    {
+      "name": "CROSS_FEED_IDLER",
+      "group": "feed",
+      "body": "CROSS_FEED_IDLER",
+      "step_index": 206,
+      "part_bbox": [
+        353.42754773001064,
+        206.99999985,
+        335.92879319674967,
+        382.2740866698587,
+        224.00000015,
+        364.77533213659774
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_IDLER__fine.stl",
+      "mesh_sha256": "9d1c20a78df0122b1f992ae0f7d1e6b52039f65d1e3bd7fbd35c15178192133e"
+    },
+    {
+      "name": "CROSS_FEED_GEAR",
+      "group": "feed",
+      "body": "CROSS_FEED",
+      "step_index": 207,
+      "part_bbox": [
+        342.5955869318481,
+        212.99999985,
+        313.5955869318481,
+        371.4044130681519,
+        219.00000015000003,
+        342.4044130681519
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_GEAR__fine.stl",
+      "mesh_sha256": "29dd2cad2e0a29043c225a4bead606b4de289f4c866ca109cffa8641627b2a00"
+    },
+    {
+      "name": "CROSS_FEED_SHAFT",
+      "group": "feed",
+      "body": "CROSS_FEED",
+      "step_index": 208,
+      "part_bbox": [
+        345.2733161746613,
+        207.9999999,
+        315.8569246005293,
+        368.4025288283189,
+        251.7154154117732,
+        340.98234935830726
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "mesh_sha256": "7b052c4e5ad20bfb89f61657dae7ba600a6e1b56746c276d568acd7ed2d1f1d8"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 209,
+      "part_bbox": [
+        351.7999999,
+        207.9999999,
+        322.7999999,
+        362.2000001,
+        211.0000001,
+        333.2000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 210,
+      "part_bbox": [
+        351.7999999,
+        219.9999999,
+        322.7999999,
+        362.2000001,
+        223.0000001,
+        333.2000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 211,
+      "part_bbox": [
+        362.65081709993467,
+        206.9999999,
+        345.1520625666737,
+        373.0508172999347,
+        211.0000001,
+        355.5520627666737
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 212,
+      "part_bbox": [
+        362.65081709993467,
+        219.9999999,
+        345.1520625666737,
+        373.0508172999347,
+        224.0000001,
+        355.5520627666737
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 213,
+      "part_bbox": [
+        360.9999999,
+        207.9999999,
+        320.9999999,
+        373.0000001,
+        211.0000001,
+        325.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 214,
+      "part_bbox": [
+        360.9999999,
+        219.9999999,
+        320.9999999,
+        373.0000001,
+        223.0000001,
+        325.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 215,
+      "part_bbox": [
+        371.69999989999997,
+        207.9999999,
+        320.4999999,
+        373.0000001,
+        224.0000001,
+        324.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 216,
+      "part_bbox": [
+        369.19999989999997,
+        222.9999999,
+        317.9999999,
+        373.0000001,
+        227.0000001,
+        321.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 217,
+      "part_bbox": [
+        371.85081709993466,
+        206.9999999,
+        348.3520625666737,
+        383.5000001,
+        211.0000001,
+        352.3520627666737
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 218,
+      "part_bbox": [
+        371.85081709993466,
+        219.9999999,
+        348.3520625666737,
+        383.5000001,
+        224.0000001,
+        352.3520627666737
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 219,
+      "part_bbox": [
+        382.9999999,
+        206.9999999,
+        321.9999999,
+        384.5000001,
+        224.0000001,
+        352.3520627666737
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 220,
+      "part_bbox": [
+        369.19999989999997,
+        222.9999999,
+        318.9999999,
+        384.5000001,
+        227.0000001,
+        325.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "mesh_sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_SHELL",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 221,
+      "part_bbox": [
+        344.29999985,
+        223.49999985,
+        315.79999985,
+        369.20000015,
+        258.00000015,
+        342.50000015
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
+      "mesh_sha256": "befd7981f9ed526f12ebb085fad01b2f7c5d68ca7ad171edf0891b4b66d2aab0"
+    },
+    {
       "name": "GUARD_S2_RING",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 196,
+      "step_index": 222,
       "part_bbox": [
         270.3362201399365,
         248.99999989999995,
@@ -3358,7 +3800,7 @@
       "name": "GUARD_CHAIN_A",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 197,
+      "step_index": 223,
       "part_bbox": [
         104.9999999,
         351.9999999,
@@ -3375,75 +3817,58 @@
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 198,
+      "step_index": 224,
       "part_bbox": [
-        50.474831342207544,
-        376.99999985,
-        33.374922458285106,
-        336.4703518298685,
-        380.00000015,
-        307.90088714080673
+        102.96413519176322,
+        376.9999999,
+        93.63207042517504,
+        290.54160611738104,
+        380.0000001,
+        298.80249229255077
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "mesh_sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+      "mesh_sha256": "564389f5eb92d099e2e1ce4d6a8996ded4b65d9774fd559e39c792164464aa4b"
     },
     {
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 199,
+      "step_index": 225,
       "part_bbox": [
-        50.474831342207544,
-        376.99999985,
-        33.374922458285106,
-        336.4703518298685,
-        380.00000015,
-        307.90088714080673
+        171.8155928345213,
+        376.9999999,
+        38.73485914368916,
+        331.47191231789117,
+        380.0000001,
+        266.06358956934787
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "mesh_sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+      "mesh_sha256": "564389f5eb92d099e2e1ce4d6a8996ded4b65d9774fd559e39c792164464aa4b"
     },
     {
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 200,
+      "step_index": 226,
       "part_bbox": [
-        50.474831342207544,
+        286.9999405242236,
         376.99999985,
-        33.374922458285106,
+        262.88780414437895,
         336.4703518298685,
         380.00000015,
-        307.90088714080673
+        307.9008871408068
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "mesh_sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
-    },
-    {
-      "name": "GUARD_CHAIN_B",
-      "group": "guard",
-      "body": "STATIC",
-      "step_index": 201,
-      "part_bbox": [
-        50.474831342207544,
-        376.99999985,
-        33.374922458285106,
-        336.4703518298685,
-        380.00000015,
-        307.90088714080673
-      ],
-      "bbox_ok": true,
-      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "mesh_sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+      "mesh_sha256": "564389f5eb92d099e2e1ce4d6a8996ded4b65d9774fd559e39c792164464aa4b"
     },
     {
       "name": "GUARD_LID_INTERLOCK_SEAT",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 202,
+      "step_index": 227,
       "part_bbox": [
         19.9999999,
         234.9999999,
@@ -3460,9 +3885,9 @@
       "name": "PULL_FRAME",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 203,
+      "step_index": 228,
       "part_bbox": [
-        823.99999985,
+        821.99999985,
         249.99999985,
         99.99999985,
         846.00000015,
@@ -3471,98 +3896,149 @@
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
-      "mesh_sha256": "5aaade1cbbd9562a1963f71fc511ef33ad9705951eea960afab6ca785b591dd9"
+      "mesh_sha256": "4cda7873d4f9621bae0c92ca9da10d01183ce9a6b5d37a6e03f7391daba9b295"
+    },
+    {
+      "name": "PULL_FRAME",
+      "group": "puller",
+      "body": "STATIC",
+      "step_index": 229,
+      "part_bbox": [
+        821.9999999,
+        274.9999999,
+        107.2499999,
+        836.0000001,
+        278.0000001,
+        121.2500001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
+      "mesh_sha256": "4cda7873d4f9621bae0c92ca9da10d01183ce9a6b5d37a6e03f7391daba9b295"
     },
     {
       "name": "PULL_ROLLER_FIXED",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 204,
+      "step_index": 230,
       "part_bbox": [
         818.9999999,
-        248.9999999,
-        103.7499999,
+        244.9999999,
+        104.2499999,
         839.0000001,
-        279.0000001,
-        123.7500001
+        283.0000001,
+        124.2500001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
-      "mesh_sha256": "04a146945e0aeb18489b5fee077d11ed7536c7c1f21b48dc1ac5dc01d04c2e13"
+      "mesh_sha256": "59976e13b0a89e948e9a1d6783f08f2f7943698be214a9eff62978304228725d"
     },
     {
       "name": "PULL_ROLLER_ADJ",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 205,
+      "step_index": 231,
       "part_bbox": [
-        816.99999985,
-        252.99999985,
-        126.24999985,
-        841.00000015,
-        281.50000015,
-        158.25000015
+        810.0215456210208,
+        252.9999999,
+        123.11836935490096,
+        849.0990793619184,
+        307.0000001,
+        149.7500001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_ADJ__coarse.stl",
-      "mesh_sha256": "c7993840cffebab4367d601a35293df3d70a825df2d3806476edcc09508772fb"
+      "mesh_sha256": "0571be17644c5c14bf5269f8865cd9c938c4006125f037b68b52bca7593207b4"
     },
     {
       "name": "PULL_NIP_STOP",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 206,
+      "step_index": 232,
       "part_bbox": [
         819.9999999,
         275.9999999,
-        143.9999999,
+        140.7499999,
         838.0000001,
         280.0000001,
-        146.5000001
+        143.2500001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP__coarse.stl",
-      "mesh_sha256": "064d5f996284c1038296c9e8aedfc6bd3ea0e033240db65ceb632b5db35b5b56"
+      "mesh_sha256": "5b92275c7e5ac05749cbaba31384f20645ae441da104c942d4554dc661e8032a"
     },
     {
       "name": "PULL_MOTOR_REF",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 207,
+      "step_index": 233,
       "part_bbox": [
         820.99999985,
-        199.99999985,
-        109.99999985,
+        201.99999985,
+        111.99999985,
         847.00000015,
-        246.00000015,
-        140.00000015
+        248.00000015,
+        142.00000015
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/PULL_MOTOR_REF__coarse.stl",
-      "mesh_sha256": "f2c7c0571db3a0d81f001982e88816e731ae08e06ada342ca368c582d097a09d"
+      "mesh_sha256": "7a3acb6d6fbf0ab28ef9d5440627bda94c51dff4b462da0162ea38f2c7a46778"
     },
     {
       "name": "WIND_SPOOL_SHAFT",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 208,
+      "step_index": 234,
       "part_bbox": [
         691.9999999,
-        91.9999999,
+        86.9999999,
         211.9999999,
         708.0000001,
-        187.0000001,
+        185.0000001,
         228.0000001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_SHAFT__coarse.stl",
-      "mesh_sha256": "0e2e4aa3f546b34a51a2c5ea4ca4dfe541c22b35529794628e885d6971b52011"
+      "mesh_sha256": "c2cdeea4127726c243c2c1ff542634457053ea45dbffaa32048e81de7a0499a0"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 235,
+      "part_bbox": [
+        687.9999999,
+        87.9999999,
+        207.9999999,
+        712.0000001,
+        96.0000001,
+        232.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS__coarse.stl",
+      "mesh_sha256": "dd7bc8bba58c15a1037a5803d1c0466987b4e4d00a8494b09deccb654df4dc19"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 236,
+      "part_bbox": [
+        687.9999999,
+        169.9999999,
+        207.9999999,
+        712.0000001,
+        178.0000001,
+        232.0000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS__coarse.stl",
+      "mesh_sha256": "dd7bc8bba58c15a1037a5803d1c0466987b4e4d00a8494b09deccb654df4dc19"
     },
     {
       "name": "WIND_SPOOL_DRUM",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 209,
+      "step_index": 237,
       "part_bbox": [
         664.9999999,
         105.9999999,
@@ -3579,7 +4055,7 @@
       "name": "WIND_FLANGE_L",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 210,
+      "step_index": 238,
       "part_bbox": [
         599.9999999,
         99.9999999,
@@ -3596,7 +4072,7 @@
       "name": "WIND_FLANGE_R",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 211,
+      "step_index": 239,
       "part_bbox": [
         599.9999999,
         163.9999999,
@@ -3613,7 +4089,7 @@
       "name": "WIND_MOTOR_REF",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 212,
+      "step_index": 240,
       "part_bbox": [
         679.9999999,
         181.9999999,
@@ -3630,7 +4106,7 @@
       "name": "WIND_TRAVERSE_SCREW",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 213,
+      "step_index": 241,
       "part_bbox": [
         737.9999999,
         94.9999999,
@@ -3647,7 +4123,7 @@
       "name": "WIND_TRAVERSE_RIDER",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 214,
+      "step_index": 242,
       "part_bbox": [
         733.99999985,
         109.99999985,
@@ -3664,7 +4140,7 @@
       "name": "WIND_TENSIONER",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 215,
+      "step_index": 243,
       "part_bbox": [
         743.9999999,
         192.9999999,
@@ -3681,7 +4157,7 @@
       "name": "EL_DIN_RAIL",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 216,
+      "step_index": 244,
       "part_bbox": [
         384.9999999,
         41.9999999,
@@ -3698,7 +4174,7 @@
       "name": "EL_DRIVER_1",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 217,
+      "step_index": 245,
       "part_bbox": [
         389.9999999,
         41.9999999,
@@ -3715,7 +4191,7 @@
       "name": "EL_DRIVER_2",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 218,
+      "step_index": 246,
       "part_bbox": [
         444.9999999,
         41.9999999,
@@ -3732,7 +4208,7 @@
       "name": "EL_DRIVER_3",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 219,
+      "step_index": 247,
       "part_bbox": [
         499.9999999,
         41.9999999,
@@ -3749,7 +4225,7 @@
       "name": "EL_CONTACTOR",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 220,
+      "step_index": 248,
       "part_bbox": [
         549.9999999,
         41.9999999,
@@ -3766,7 +4242,7 @@
       "name": "EL_ESTOP_BOX",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 221,
+      "step_index": 249,
       "part_bbox": [
         389.9999999,
         99.9999999,
@@ -3783,7 +4259,7 @@
       "name": "EL_OVERTEMP_BOX",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 222,
+      "step_index": 250,
       "part_bbox": [
         439.9999999,
         99.9999999,
@@ -3800,7 +4276,7 @@
       "name": "EL_CURRENT_LIMITER",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 223,
+      "step_index": 251,
       "part_bbox": [
         489.9999999,
         99.9999999,
@@ -3817,7 +4293,7 @@
       "name": "EL_WIRE_DUCT",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 224,
+      "step_index": 252,
       "part_bbox": [
         384.9999999,
         139.9999999,
@@ -3833,7 +4309,11 @@
   ],
   "count_adjustments": [],
   "moving_bodies": [
+    "AUGER",
+    "CROSS_FEED",
+    "CROSS_FEED_IDLER",
     "IN_SHAFT",
+    "PADDLE",
     "S1A",
     "S1B",
     "S2_CARRIER",
@@ -3989,8 +4469,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/DRV-M2_001__coarse.stl",
-      "bytes": 42384,
-      "sha256": "38c4b14d3f785a5f868f8cd962efdd92c54c327e2d66326d10e6db3ee735c230"
+      "bytes": 41784,
+      "sha256": "37fc6f9e267ce6faa1c99c9742aba57daf1a07707f0030b5701d9b1dab0cfc82"
     },
     {
       "name": "DRV-M1-PL_001",
@@ -4021,8 +4501,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/DRV-JACK_001__coarse.stl",
-      "bytes": 13084,
-      "sha256": "6867129d93e2500a0b385a38e95029196da6162500560dc1378820b2732ab6b7"
+      "bytes": 10484,
+      "sha256": "feff34571ca273f4e4afadfe519c3de36bd08b8ebd18b82220a27ddc9695a81c"
     },
     {
       "name": "BR-6001_001",
@@ -4081,28 +4561,12 @@
       "sha256": "4aaadc93700394be6ee8abf386238d0a2f245030004d9976a822db04b81b0075"
     },
     {
-      "name": "DRV-SH15R_001",
-      "body": "IN_SHAFT",
-      "lod": "fine",
-      "stl": "sim/assets/out/full/DRV-SH15R_001__fine.stl",
-      "bytes": 169484,
-      "sha256": "749ef3dff1cc25ff4e2d4674eac9e9c6797a308ddc417338bf3950d92c661a86"
-    },
-    {
       "name": "DRV-SH15L_001",
       "body": "IN_SHAFT",
       "lod": "fine",
       "stl": "sim/assets/out/full/DRV-SH15L_001__fine.stl",
       "bytes": 169484,
       "sha256": "b2967cfb9ddce65d1a9dd7feb15b2449f0bd3dd72d83a4fec68a5fe625768e1d"
-    },
-    {
-      "name": "DRV_SH40L_lower",
-      "body": "STATIC",
-      "lod": "coarse",
-      "stl": "sim/assets/out/full/DRV_SH40L_lower__coarse.stl",
-      "bytes": 171084,
-      "sha256": "9d919e45d2b4fec758748036da8b0fef045c67b554fb6c05f20a2ea18816ac3c"
     },
     {
       "name": "DRV_SH40R_upper",
@@ -4118,7 +4582,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/DRV-SP24-B20_001__coarse.stl",
       "bytes": 72884,
-      "sha256": "45a77496cbb12fe7fa770070639d15dd1d6d7b260ec64fc846995e63fd808564"
+      "sha256": "c31a2676235ffc81db2e046a4b45bce2c88b1bb4fbe735f2e139b36adc750ad8"
     },
     {
       "name": "DRV-SP24-B25_001",
@@ -4126,23 +4590,15 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/DRV-SP24-B25_001__fine.stl",
       "bytes": 112884,
-      "sha256": "7aa9b896c5eaf285b60ccdd73824f05a098383bb45f427607f12f407cefd6ab6"
-    },
-    {
-      "name": "DRV-SP24-B12_001",
-      "body": "IN_SHAFT",
-      "lod": "fine",
-      "stl": "sim/assets/out/full/DRV-SP24-B12_001__fine.stl",
-      "bytes": 112884,
-      "sha256": "e5f17adabb431cf4eb56cd5c2c3d456a016fc6c7ddbee14da5799a6317f32058"
+      "sha256": "69fc3b3fa8108193c8872cd80c76896421dde43e10e1bb6a82c1c40afaa092ac"
     },
     {
       "name": "DRV-SP12-B12_001",
       "body": "S2_ECC",
       "lod": "fine",
       "stl": "sim/assets/out/full/DRV-SP12-B12_001__fine.stl",
-      "bytes": 81684,
-      "sha256": "1ce5120a5be9aca52e19616a892a0b2cb65fb4451fb70cddf770967c12dfc1e6"
+      "bytes": 80884,
+      "sha256": "0378233ed1478d184518109ed680cef0a06cf8665ce936dcbdac85e011eb8f78"
     },
     {
       "name": "S1-CUT-A-P00_001",
@@ -4917,8 +5373,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/DRV-DECK_001__coarse.stl",
-      "bytes": 36184,
-      "sha256": "fa32e8abbe7a1e7fa6507fe2420c5f71ae0661e3ee735806ccd96148a5f0d935"
+      "bytes": 35484,
+      "sha256": "180c9c048f685f1b19f54f704fc6bf37d64fbc225cdae5041d393b60c5bcd133"
     },
     {
       "name": "DRV-M1-FOOT_001",
@@ -5026,9 +5482,9 @@
     },
     {
       "name": "KEY-8-16_001",
-      "body": "STATIC",
-      "lod": "coarse",
-      "stl": "sim/assets/out/full/KEY-8-16_001__coarse.stl",
+      "body": "S1A",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/KEY-8-16_001__fine.stl",
       "bytes": 684,
       "sha256": "362fcd78c254ebbb54ac33caf138972c3cce27b2233af29f61f8412526b7e9f8"
     },
@@ -5039,14 +5495,6 @@
       "stl": "sim/assets/out/full/KEY-4-70_001__fine.stl",
       "bytes": 684,
       "sha256": "6824248b77d711a0a870f51c636129dd257aafff3b2a34b699e6c1b056b24e0f"
-    },
-    {
-      "name": "KEY-4-16_001",
-      "body": "IN_SHAFT",
-      "lod": "fine",
-      "stl": "sim/assets/out/full/KEY-4-16_001__fine.stl",
-      "bytes": 684,
-      "sha256": "b620ce646072aa442e9109cdae90fdbf0152a7fa5b0ccb111612d4d12d045f1f"
     },
     {
       "name": "KEY-6-70_001",
@@ -5065,6 +5513,22 @@
       "sha256": "246cbb15a814f9bc576b32ee71b381d205a5624ba1635f1cc6f4a76b9fb68391"
     },
     {
+      "name": "DRV-SP24-B20_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/DRV-SP24-B20_002__coarse.stl",
+      "bytes": 72884,
+      "sha256": "49abbc58211bfdcf5aa60cdfff54ef3b444c5e26418a74ca308e1a8fc2f06d99"
+    },
+    {
+      "name": "KEY-6-16_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/KEY-6-16_002__coarse.stl",
+      "bytes": 684,
+      "sha256": "7b86d61aad93dc62330cab7cf6ed89993fd997915ef3b9a856ce222affc3c417"
+    },
+    {
       "name": "FRONT_INPUT_SUPPORT",
       "body": "STATIC",
       "lod": "coarse",
@@ -5077,8 +5541,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/REAR_OUTPUT_SUPPORT__coarse.stl",
-      "bytes": 18084,
-      "sha256": "fc7a4da67c44b14b78bc9c70cebae74a7d151e4e53b2d67666cc919695301a3f"
+      "bytes": 22084,
+      "sha256": "4648555a2e31479c608aaa5707552fb3fc79f6ccb4654d69cfbaef3365424a27"
     },
     {
       "name": "INPUT_BEARING_ENVELOPE_UNRATED",
@@ -5286,7 +5750,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/SUPPORT_TIE_2__coarse.stl",
       "bytes": 5084,
-      "sha256": "007b1afacb7b312d21111e67505b0f35a00b604e76825f8d56a85be44a305774"
+      "sha256": "2a50126db4786f2283a466f3da2f23251f2bb3427a431fe4b8153eb66d463465"
     },
     {
       "name": "SUPPORT_TIE_3",
@@ -5309,8 +5773,8 @@
       "body": "S2_ECC",
       "lod": "fine",
       "stl": "sim/assets/out/full/INPUT_ECCENTRIC_SHAFT__fine.stl",
-      "bytes": 75484,
-      "sha256": "63642766c97cbce4f4709cf878182d7a59bf7248da51154aa15715ee904942fc"
+      "bytes": 77484,
+      "sha256": "7f6395d37e490b4e5145ffddf683f99ea04cb968f2b781bf5a4808cc5147c2c7"
     },
     {
       "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
@@ -5398,15 +5862,15 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/DRV-CHAIN-B__coarse.stl",
       "bytes": 39684,
-      "sha256": "8f7eb019a0dcd88dfbedfcb7e6ee46ae11bc18a41a3c73452c4b0ca26df1c0c1"
+      "sha256": "ff0db7d997bcb8bca3871864ab003750190343b5b0031656a557d56cf129378e"
     },
     {
       "name": "CHUTE_BODY",
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "bytes": 14784,
-      "sha256": "c9ba1886862d2380dd2380095f6910da3fd59eed9f14a4a58ffc368b71adc05c"
+      "bytes": 23084,
+      "sha256": "f0182f41cd19a788d9aead331aaa1fdafb689549e10b0902a4535be6a6273c1d"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -5415,6 +5879,230 @@
       "stl": "sim/assets/out/full/CHUTE_TROUGH_FLOOR_E__coarse.stl",
       "bytes": 4884,
       "sha256": "6e68c652cabf292e66d9fde92ccd09587ea0f77bed53a56fdf35e9b765d3e7e4"
+    },
+    {
+      "name": "PDL_SHAFT",
+      "body": "PADDLE",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/PDL_SHAFT__fine.stl",
+      "bytes": 55684,
+      "sha256": "1423544df944d5e523cdea8838de7fd800fbe40a3d6da9254a8d8355b89b5d1e"
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PDL_BEARINGS__coarse.stl",
+      "bytes": 4284,
+      "sha256": "bcde84db6929194b0cb1aab6518c4f9b87ca414bc3a22d2ea1df398c5266570f"
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PDL_BEARINGS__coarse.stl",
+      "bytes": 4284,
+      "sha256": "f18400cf4728f12108ca40187ec43616fe5341b83d16e20da08aecb4343c74d6"
+    },
+    {
+      "name": "PDL_SPROCKET",
+      "body": "PADDLE",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/PDL_SPROCKET__fine.stl",
+      "bytes": 80884,
+      "sha256": "7d196c05a657f37c8b860c71a4a3379bb1c12395230ae2445634f2f5330c70bb"
+    },
+    {
+      "name": "PDL_CHAIN",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PDL_CHAIN__coarse.stl",
+      "bytes": 39284,
+      "sha256": "a7385a2eb934d77d2e9be2886bbb8ecc4f9176737ecf2639666d94581a4a4537"
+    },
+    {
+      "name": "PDL_WORM",
+      "body": "PADDLE",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/PDL_WORM__fine.stl",
+      "bytes": 137284,
+      "sha256": "dcdea3e556d8948cdba59268886e566f3e8704397276588d78b5b31c903d0a0b"
+    },
+    {
+      "name": "AUG_SHAFT",
+      "body": "AUGER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/AUG_SHAFT__fine.stl",
+      "bytes": 254484,
+      "sha256": "e340cf20f925161723532932cba71a80dbff2240514da99edc685262d9996013"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "bytes": 5084,
+      "sha256": "22f1b8ecc8d127ec81786c75c2ec7370be0ea2abce4c9a54ea4641b31209dd31"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "bytes": 1884,
+      "sha256": "c2430d51210f72b988f028343eff75d7307972196a4b94f50c3f93bb6427cab2"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/AUG_BEARINGS__coarse.stl",
+      "bytes": 5084,
+      "sha256": "c1d810a2efe0ad6ca876222d897c305c23f4e8ddc50047c2b6d27901384567ac"
+    },
+    {
+      "name": "AUG_WHEEL",
+      "body": "AUGER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/AUG_WHEEL__fine.stl",
+      "bytes": 25684,
+      "sha256": "3a355729dafa0f43000af12b05bfa8cbefe2113a7a43cfc3ca87af3458e792b8"
+    },
+    {
+      "name": "PDL_FEED_GEAR",
+      "body": "PADDLE",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/PDL_FEED_GEAR__fine.stl",
+      "bytes": 72084,
+      "sha256": "f404144077ebeded6b7805fef37cacd71d914d718911b743601b1574abb9e385"
+    },
+    {
+      "name": "CROSS_FEED_IDLER",
+      "body": "CROSS_FEED_IDLER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/CROSS_FEED_IDLER__fine.stl",
+      "bytes": 99684,
+      "sha256": "9d1c20a78df0122b1f992ae0f7d1e6b52039f65d1e3bd7fbd35c15178192133e"
+    },
+    {
+      "name": "CROSS_FEED_GEAR",
+      "body": "CROSS_FEED",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/CROSS_FEED_GEAR__fine.stl",
+      "bytes": 71284,
+      "sha256": "29dd2cad2e0a29043c225a4bead606b4de289f4c866ca109cffa8641627b2a00"
+    },
+    {
+      "name": "CROSS_FEED_SHAFT",
+      "body": "CROSS_FEED",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "bytes": 187484,
+      "sha256": "7b052c4e5ad20bfb89f61657dae7ba600a6e1b56746c276d568acd7ed2d1f1d8"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "d99d0a54040265d51a0628714e27dfbb1a95d8102e08656a6f56280ae04cf9d7"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "b0e49367e3b5f057fe52386e0944664f13ce763a0d21e3e1963db55fb94524cd"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "525a8a4371c341dcc9cac5d380af86d51fb567af025ba6009a8eb9435c7b2f84"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "3fb8c82f49903194c6efc4d4bbd682efdc2f78f2586ba4346338c310cf60d56c"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 684,
+      "sha256": "4d6d0ac4f7e9e70b6b74616520d82f3e4147823390f8a6af8172d2dfa7d10a9f"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 684,
+      "sha256": "f31eb9a7cb41d30c9d633b15db2010c28686140719ad900d624051eb6da04669"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 684,
+      "sha256": "98c5047ef30f20e78b2ef1277864876706bcba6fa12108848cdb6bd02a85b22e"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 684,
+      "sha256": "3a392f23b74b93105747965cac5ded1c0b71cd463618d366750ef7a8b2e344e4"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 684,
+      "sha256": "dbf58d608731f79b36d1ae979104e7af675eeb8bc19c7b9245a320e4e56d95fd"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 684,
+      "sha256": "a04840eb7536d45b1049008b9895120bd111c5274d835b3865ddcc2b11c4e1d4"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 684,
+      "sha256": "0262a0a22fe73e0d4fe4f7f9961daf0feef70cfb4eb36639d2f60bbb8156ccf2"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
+      "bytes": 684,
+      "sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
+    },
+    {
+      "name": "CROSS_FEED_SHELL",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
+      "bytes": 8584,
+      "sha256": "befd7981f9ed526f12ebb085fad01b2f7c5d68ca7ad171edf0891b4b66d2aab0"
     },
     {
       "name": "GUARD_S2_RING",
@@ -5438,7 +6126,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
       "bytes": 684,
-      "sha256": "0d89248417cd8c96b2671ae167621166aeaeaa9f8fbe3df6cf5e9be660a20af4"
+      "sha256": "78e1f58737b6c1d2f880536a13fb14287a5a50ee5f1b951406b5dbe63b4f54db"
     },
     {
       "name": "GUARD_CHAIN_B",
@@ -5446,15 +6134,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
       "bytes": 684,
-      "sha256": "0fcc151bb308ee37dedbf031159fe78868accdf7e65fee85553d48df72793b6b"
-    },
-    {
-      "name": "GUARD_CHAIN_B",
-      "body": "STATIC",
-      "lod": "coarse",
-      "stl": "sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "bytes": 684,
-      "sha256": "ae25d10b47bacdbe978ba13f80c9e3a43ce5aa1de65a9f17b35dd33a32039155"
+      "sha256": "952849dc27bb723f544191393b12d99353be140ec3767289a03afc30a62d1b2b"
     },
     {
       "name": "GUARD_CHAIN_B",
@@ -5462,7 +6142,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
       "bytes": 5484,
-      "sha256": "974b3c985aeafad49ad3667d92fd36c59f583d6c752d617e6eb2ffdcdb32ecbc"
+      "sha256": "564389f5eb92d099e2e1ce4d6a8996ded4b65d9774fd559e39c792164464aa4b"
     },
     {
       "name": "GUARD_LID_INTERLOCK_SEAT",
@@ -5477,8 +6157,16 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_FRAME__coarse.stl",
-      "bytes": 1884,
-      "sha256": "5aaade1cbbd9562a1963f71fc511ef33ad9705951eea960afab6ca785b591dd9"
+      "bytes": 6684,
+      "sha256": "41626e987179d426fccc7ad6ba85de5288a367205d5eb87ea0e5475e80e6b390"
+    },
+    {
+      "name": "PULL_FRAME",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PULL_FRAME__coarse.stl",
+      "bytes": 5084,
+      "sha256": "4cda7873d4f9621bae0c92ca9da10d01183ce9a6b5d37a6e03f7391daba9b295"
     },
     {
       "name": "PULL_ROLLER_FIXED",
@@ -5486,15 +6174,15 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
       "bytes": 15484,
-      "sha256": "04a146945e0aeb18489b5fee077d11ed7536c7c1f21b48dc1ac5dc01d04c2e13"
+      "sha256": "59976e13b0a89e948e9a1d6783f08f2f7943698be214a9eff62978304228725d"
     },
     {
       "name": "PULL_ROLLER_ADJ",
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_ROLLER_ADJ__coarse.stl",
-      "bytes": 11384,
-      "sha256": "c7993840cffebab4367d601a35293df3d70a825df2d3806476edcc09508772fb"
+      "bytes": 1125384,
+      "sha256": "0571be17644c5c14bf5269f8865cd9c938c4006125f037b68b52bca7593207b4"
     },
     {
       "name": "PULL_NIP_STOP",
@@ -5502,7 +6190,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_NIP_STOP__coarse.stl",
       "bytes": 684,
-      "sha256": "064d5f996284c1038296c9e8aedfc6bd3ea0e033240db65ceb632b5db35b5b56"
+      "sha256": "5b92275c7e5ac05749cbaba31384f20645ae441da104c942d4554dc661e8032a"
     },
     {
       "name": "PULL_MOTOR_REF",
@@ -5510,7 +6198,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_MOTOR_REF__coarse.stl",
       "bytes": 6184,
-      "sha256": "f2c7c0571db3a0d81f001982e88816e731ae08e06ada342ca368c582d097a09d"
+      "sha256": "7a3acb6d6fbf0ab28ef9d5440627bda94c51dff4b462da0162ea38f2c7a46778"
     },
     {
       "name": "WIND_SPOOL_SHAFT",
@@ -5518,7 +6206,23 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/WIND_SPOOL_SHAFT__coarse.stl",
       "bytes": 5084,
-      "sha256": "0e2e4aa3f546b34a51a2c5ea4ca4dfe541c22b35529794628e885d6971b52011"
+      "sha256": "c2cdeea4127726c243c2c1ff542634457053ea45dbffaa32048e81de7a0499a0"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS__coarse.stl",
+      "bytes": 6084,
+      "sha256": "12b8e8640d7a37a427248de4332821f2faeea8aaf01ecc5938950b52ae364188"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS__coarse.stl",
+      "bytes": 6084,
+      "sha256": "dd7bc8bba58c15a1037a5803d1c0466987b4e4d00a8494b09deccb654df4dc19"
     },
     {
       "name": "WIND_SPOOL_DRUM",
@@ -5650,5 +6354,1272 @@
     }
   ],
   "failures": [],
-  "wall_time_s": 45.69764804840088
+  "assignment_audit": [
+    {
+      "part": "FR-2040-630_001",
+      "step_index": 0,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2040-630_002",
+      "step_index": 1,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2040-320_001",
+      "step_index": 2,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2040-320_002",
+      "step_index": 3,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2040-400_001",
+      "step_index": 4,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2040-400_002",
+      "step_index": 5,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2020-400_001",
+      "step_index": 6,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2020-400_002",
+      "step_index": 7,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2020-590_001",
+      "step_index": 8,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2020-590_002",
+      "step_index": 9,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2020-360_001",
+      "step_index": 10,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2020-360_002",
+      "step_index": 11,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2020-360_003",
+      "step_index": 12,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-2020-320_001",
+      "step_index": 13,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FR-BASE_001",
+      "step_index": 14,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL-PSU_001",
+      "step_index": 15,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-M1_001",
+      "step_index": 16,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-M2_001",
+      "step_index": 17,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-M1-PL_001",
+      "step_index": 18,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-CPL12_001",
+      "step_index": 19,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-IN-SHAFT_001",
+      "step_index": 20,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-JACK_001",
+      "step_index": 21,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6001_001",
+      "step_index": 22,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6001_002",
+      "step_index": 23,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6204_001",
+      "step_index": 24,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6204_002",
+      "step_index": 25,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-BFRONT_001",
+      "step_index": 26,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-B12_001",
+      "step_index": 27,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-B20_001",
+      "step_index": 28,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-SH15L_001",
+      "step_index": 29,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV_SH40R_upper",
+      "step_index": 30,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-SP24-B20_001",
+      "step_index": 31,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-SP24-B25_001",
+      "step_index": 32,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-SP12-B12_001",
+      "step_index": 33,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P00_001",
+      "step_index": 34,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_001",
+      "step_index": 35,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P01_001",
+      "step_index": 36,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_002",
+      "step_index": 37,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P02_001",
+      "step_index": 38,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_003",
+      "step_index": 39,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P03_001",
+      "step_index": 40,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_004",
+      "step_index": 41,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P04_001",
+      "step_index": 42,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_005",
+      "step_index": 43,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P05_001",
+      "step_index": 44,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_006",
+      "step_index": 45,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P06_001",
+      "step_index": 46,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_007",
+      "step_index": 47,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P07_001",
+      "step_index": 48,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_008",
+      "step_index": 49,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P08_001",
+      "step_index": 50,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_009",
+      "step_index": 51,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P09_001",
+      "step_index": 52,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_010",
+      "step_index": 53,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P10_001",
+      "step_index": 54,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_011",
+      "step_index": 55,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P11_001",
+      "step_index": 56,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-A_012",
+      "step_index": 57,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-A-P12_001",
+      "step_index": 58,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SHAFT-A_001",
+      "step_index": 59,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6205_001",
+      "step_index": 60,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6205_002",
+      "step_index": 61,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P00_001",
+      "step_index": 62,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_001",
+      "step_index": 63,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P01_001",
+      "step_index": 64,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_002",
+      "step_index": 65,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P02_001",
+      "step_index": 66,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_003",
+      "step_index": 67,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P03_001",
+      "step_index": 68,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_004",
+      "step_index": 69,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P04_001",
+      "step_index": 70,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_005",
+      "step_index": 71,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P05_001",
+      "step_index": 72,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_006",
+      "step_index": 73,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P06_001",
+      "step_index": 74,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_007",
+      "step_index": 75,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P07_001",
+      "step_index": 76,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_008",
+      "step_index": 77,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P08_001",
+      "step_index": 78,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_009",
+      "step_index": 79,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P09_001",
+      "step_index": 80,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_010",
+      "step_index": 81,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P10_001",
+      "step_index": 82,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_011",
+      "step_index": 83,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P11_001",
+      "step_index": 84,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SPACER-B_012",
+      "step_index": 85,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-CUT-B-P12_001",
+      "step_index": 86,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SHAFT-B_001",
+      "step_index": 87,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6205_003",
+      "step_index": 88,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6205_004",
+      "step_index": 89,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SYNC_001",
+      "step_index": 90,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SYNC_002",
+      "step_index": 91,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-BPL_001",
+      "step_index": 92,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-BPL_002",
+      "step_index": 93,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-WALL_001",
+      "step_index": 94,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-WALL_002",
+      "step_index": 95,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SIDE_001",
+      "step_index": 96,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-SIDE_002",
+      "step_index": 97,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-BR-CAP_001",
+      "step_index": 98,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-BR-CAP_002",
+      "step_index": 99,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FEED-BUF_001",
+      "step_index": 100,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-SCREW_001",
+      "step_index": 101,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-BARREL_001",
+      "step_index": 102,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-REAR_001",
+      "step_index": 103,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-CPL_001",
+      "step_index": 104,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-6202_001",
+      "step_index": 105,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "BR-51102_001",
+      "step_index": 106,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-THRUST_001",
+      "step_index": 107,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-DIE_001",
+      "step_index": 108,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-H100_001",
+      "step_index": 109,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-H100_002",
+      "step_index": 110,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-H100_003",
+      "step_index": 111,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-H60_001",
+      "step_index": 112,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "COOL-TRAY_001",
+      "step_index": 113,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "COOL-FAN_001",
+      "step_index": 114,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "COOL-FAN_002",
+      "step_index": 115,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "HOPPER_001",
+      "step_index": 116,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "HOP-LID_001",
+      "step_index": 117,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-ROOF-F_001",
+      "step_index": 118,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-ROOF-R_001",
+      "step_index": 119,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-TIE-TUBE_001",
+      "step_index": 120,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-STUD_001",
+      "step_index": 121,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-TIE-TUBE_002",
+      "step_index": 122,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-STUD_002",
+      "step_index": 123,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-ROOF-F_002",
+      "step_index": 124,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-ROOF-R_002",
+      "step_index": 125,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-TIE-TUBE_003",
+      "step_index": 126,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-STUD_003",
+      "step_index": 127,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-TIE-TUBE_004",
+      "step_index": 128,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S1-STUD_004",
+      "step_index": 129,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-DECK_001",
+      "step_index": 130,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-M1-FOOT_001",
+      "step_index": 131,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-RISER12_001",
+      "step_index": 132,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-RISER20_001",
+      "step_index": 133,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S2-LEG-L_001",
+      "step_index": 134,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S2-LEG-L_002",
+      "step_index": 135,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S2-LEG-R_001",
+      "step_index": 136,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "S2-LEG-R_002",
+      "step_index": 137,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EX-STAND_001",
+      "step_index": 138,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV_M2_FACE_PLATE",
+      "step_index": 139,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-8-154_001",
+      "step_index": 140,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-8-154_002",
+      "step_index": 141,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-8-25_001",
+      "step_index": 142,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-8-25_002",
+      "step_index": 143,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-8-16_001",
+      "step_index": 144,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-4-70_001",
+      "step_index": 145,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-6-70_001",
+      "step_index": 146,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-6-16_001",
+      "step_index": 147,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-SP24-B20_002",
+      "step_index": 148,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "KEY-6-16_002",
+      "step_index": 149,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FRONT_INPUT_SUPPORT",
+      "step_index": 150,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "REAR_OUTPUT_SUPPORT",
+      "step_index": 151,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "INPUT_BEARING_ENVELOPE_UNRATED",
+      "step_index": 152,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "step_index": 153,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FRONT_FIXED_RING_PLATE",
+      "step_index": 154,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "REAR_FIXED_RING_PLATE",
+      "step_index": 155,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_FIXED_SHEAR_SENSOR_BORE",
+      "step_index": 156,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_PERFORATED_SCREEN_REFERENCE",
+      "step_index": 157,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_LEFT_WEAR_SHELL",
+      "step_index": 158,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_RIGHT_WEAR_SHELL_1",
+      "step_index": 159,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_RIGHT_WEAR_SHELL_2",
+      "step_index": 160,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_THERMAL_SADDLE_L",
+      "step_index": 161,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+      "step_index": 162,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_SADDLE_CAP_L_FRONT",
+      "step_index": 163,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_SADDLE_CAP_L_REAR",
+      "step_index": 164,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_SADDLE_CAP_R_FRONT",
+      "step_index": 165,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "C2_SADDLE_CAP_R_REAR",
+      "step_index": 166,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_1",
+      "step_index": 167,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_2",
+      "step_index": 168,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_3",
+      "step_index": 169,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_4",
+      "step_index": 170,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_5",
+      "step_index": 171,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_6",
+      "step_index": 172,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_7",
+      "step_index": 173,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_8",
+      "step_index": 174,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "FIXED_RING_PIN_9",
+      "step_index": 175,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "SUPPORT_TIE_1",
+      "step_index": 176,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "SUPPORT_TIE_2",
+      "step_index": 177,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "SUPPORT_TIE_3",
+      "step_index": 178,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "SUPPORT_TIE_4",
+      "step_index": 179,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "INPUT_ECCENTRIC_SHAFT",
+      "step_index": 180,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "step_index": 181,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "step_index": 182,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "step_index": 183,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "OUTPUT_ROLLER_1",
+      "step_index": 184,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "OUTPUT_ROLLER_2",
+      "step_index": 185,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "OUTPUT_ROLLER_3",
+      "step_index": 186,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "OUTPUT_ROLLER_4",
+      "step_index": 187,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "OUTPUT_ROLLER_5",
+      "step_index": 188,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "OUTPUT_ROLLER_6",
+      "step_index": 189,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-CHAIN-A",
+      "step_index": 190,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "DRV-CHAIN-B",
+      "step_index": 191,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CHUTE_BODY",
+      "step_index": 192,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CHUTE_TROUGH_FLOOR_E",
+      "step_index": 193,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PDL_SHAFT",
+      "step_index": 194,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PDL_BEARINGS",
+      "step_index": 195,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PDL_BEARINGS",
+      "step_index": 196,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PDL_SPROCKET",
+      "step_index": 197,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PDL_CHAIN",
+      "step_index": 198,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PDL_WORM",
+      "step_index": 199,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "AUG_SHAFT",
+      "step_index": 200,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "AUG_BEARINGS",
+      "step_index": 201,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "AUG_BEARINGS",
+      "step_index": 202,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "AUG_BEARINGS",
+      "step_index": 203,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "AUG_WHEEL",
+      "step_index": 204,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PDL_FEED_GEAR",
+      "step_index": 205,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_IDLER",
+      "step_index": 206,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_GEAR",
+      "step_index": 207,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_SHAFT",
+      "step_index": 208,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 209,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 210,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 211,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 212,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 213,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 214,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 215,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 216,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 217,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 218,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 219,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_BEARINGS",
+      "step_index": 220,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "CROSS_FEED_SHELL",
+      "step_index": 221,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GUARD_S2_RING",
+      "step_index": 222,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GUARD_CHAIN_A",
+      "step_index": 223,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GUARD_CHAIN_B",
+      "step_index": 224,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GUARD_CHAIN_B",
+      "step_index": 225,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GUARD_CHAIN_B",
+      "step_index": 226,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GUARD_LID_INTERLOCK_SEAT",
+      "step_index": 227,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_FRAME",
+      "step_index": 228,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_FRAME",
+      "step_index": 229,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_ROLLER_FIXED",
+      "step_index": 230,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_ROLLER_ADJ",
+      "step_index": 231,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_NIP_STOP",
+      "step_index": 232,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_MOTOR_REF",
+      "step_index": 233,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_SPOOL_SHAFT",
+      "step_index": 234,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_SPOOL_BEARINGS",
+      "step_index": 235,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_SPOOL_BEARINGS",
+      "step_index": 236,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_SPOOL_DRUM",
+      "step_index": 237,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_FLANGE_L",
+      "step_index": 238,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_FLANGE_R",
+      "step_index": 239,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_MOTOR_REF",
+      "step_index": 240,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_TRAVERSE_SCREW",
+      "step_index": 241,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_TRAVERSE_RIDER",
+      "step_index": 242,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_TENSIONER",
+      "step_index": 243,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_DIN_RAIL",
+      "step_index": 244,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_DRIVER_1",
+      "step_index": 245,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_DRIVER_2",
+      "step_index": 246,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_DRIVER_3",
+      "step_index": 247,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_CONTACTOR",
+      "step_index": 248,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_ESTOP_BOX",
+      "step_index": 249,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_OVERTEMP_BOX",
+      "step_index": 250,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_CURRENT_LIMITER",
+      "step_index": 251,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_WIRE_DUCT",
+      "step_index": 252,
+      "centre_dist_mm": 0.0
+    }
+  ],
+  "wall_time_s": 45.85477900505066
 }
