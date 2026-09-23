@@ -1,0 +1,39 @@
+{
+  "asset_id": "S1_SWEEP_SOUTH",
+  "group": "feed",
+  "kinematic_body": "SWEEP_SOUTH",
+  "lod": "fine",
+  "step_index": 232,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.232",
+  "mesh_file": "sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
+  "mesh_bytes": 259384,
+  "mesh_sha256": "53f15240f1bfb3126b2c63a6c5fafeb460f7a447afc85dd747cee461b1dbb9e4",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "d44b8c2fd874e71a49fe8ccadfa4a2e9a60cf8c38058097619b67205c7c9e233",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    219.26054981820062,
+    126.9999999,
+    332.7224854601077,
+    237.29439499707877,
+    228.0000001,
+    350.3553171975637
+  ],
+  "revision": "eba6cbbcd20403b60611982d776d108d26e027b0",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "bef465506f91f0a5ba57d8ab56592c758a16f352c4986c8e73fa9f2ac7e36049",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 2143.845788646546,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

@@ -101,6 +101,19 @@ PIVOTS_MM = {
     # makes its angle the same signed measured S2Ecc angle at 1:1.
     "CROSS_FEED": (357.0, 252.0, 328.0),
 }
+PIVOTS_MM.update({
+    "BELT": (149.5, 243.5, 331.4),
+    "BELT_DRIVE": (80.0, 243.5, 331.4),
+    "BELT_IDLER": (219.0, 243.5, 331.4),
+})
+PIVOTS_MM.update({
+    "SWEEP_SOUTH": (228.2, 186.0, 342.0),
+    "SWEEP_NORTH": (228.2, 289.5, 342.0),
+})
+PIVOTS_MM.update({
+    "TRANSFER_BELT": (159.5, 232.0, 333.3),
+    "TRANSFER_IDLER": (239.0, 232.0, 335.2),
+})
 # Exact CAD construction: three equal 12T spur gears on parallel +Y axes,
 # each external center spacing 2 * (12 / cos 15°) mm. The idler is placed
 # on the positive perpendicular of the PDL-to-cross-feed center chord.
@@ -228,7 +241,7 @@ def decimated_hull(verts):
 
 
 def add_mesh(stage, UsdGeom, path: str, verts, faces, translate_mm,
-             collision_approx: str, kind: str, source: str):
+             collision_approx: str, kind: str, source: str, collide=True):
     import numpy as np
     from pxr import UsdPhysics
     verts = np.asarray(verts, dtype=np.float32)
@@ -243,14 +256,14 @@ def add_mesh(stage, UsdGeom, path: str, verts, faces, translate_mm,
     x = UsdGeom.Xformable(prim)
     x.ClearXformOpOrder()
     x.AddTranslateOp().Set(tuple(float(t) for t in translate_mm))
-    UsdPhysics.CollisionAPI.Apply(prim)
-    UsdPhysics.MeshCollisionAPI.Apply(prim).CreateApproximationAttr().Set(
-        collision_approx if collision_approx != "triangleMesh" else "none")
-    # Sub-mm contact window so the report reflects real interference, not
-    # the 2cm default contact offset (stage units are millimetres).
-    from pxr import Sdf
-    prim.CreateAttribute("physics:contactOffset", Sdf.ValueTypeNames.Float).Set(CONTACT_OFFSET_MM)
-    prim.CreateAttribute("physics:restOffset", Sdf.ValueTypeNames.Float).Set(REST_OFFSET_MM)
+    if collide:
+        UsdPhysics.CollisionAPI.Apply(prim)
+        UsdPhysics.MeshCollisionAPI.Apply(prim).CreateApproximationAttr().Set(
+            collision_approx if collision_approx != "triangleMesh" else "none")
+        # Stage units are mm; do not accept the 20 mm default contact offset.
+        from pxr import Sdf
+        prim.CreateAttribute("physics:contactOffset", Sdf.ValueTypeNames.Float).Set(CONTACT_OFFSET_MM)
+        prim.CreateAttribute("physics:restOffset", Sdf.ValueTypeNames.Float).Set(REST_OFFSET_MM)
     prim.SetCustomDataByKey("ppr:collision", collision_approx)
     prim.SetCustomDataByKey("ppr:kind", kind)
     return prim
@@ -262,6 +275,7 @@ def main() -> int:
     ap.add_argument("--out", default=str(C22 / "sim" / "assets" / "usd"))
     args = ap.parse_args()
 
+    import numpy as np
     from pxr import Gf, Sdf, Usd, UsdGeom, UsdPhysics
 
     def _enable_contact_report(prim):
@@ -354,6 +368,20 @@ def main() -> int:
         "CROSS_FEED_BEARINGS": STATIC_BODY,
         "CROSS_FEED_SHELL": STATIC_BODY,
     }
+    expected_cross_feed.update({
+        "S1_SWEEP_SOUTH": "SWEEP_SOUTH",
+        "S1_SWEEP_NORTH": "SWEEP_NORTH",
+        "S1_SWEEP_GEAR_S": "SWEEP_SOUTH",
+        "S1_SWEEP_GEAR_N": "SWEEP_NORTH",
+        "S1_SWEEP_GEAR_DRUM_S": "BELT_IDLER",
+        "S1_SWEEP_GEAR_DRUM_N": "BELT_IDLER",
+        "S1_SWEEP_BEARINGS": STATIC_BODY,
+    })
+    expected_cross_feed.update({
+        "S1_TRANSFER_BELT": "TRANSFER_BELT",
+        "S1_TRANSFER_IDLER": "TRANSFER_IDLER",
+        "S1_TRANSFER_BEARINGS": STATIC_BODY,
+    })
     for name, body in expected_cross_feed.items():
         if not any(s["name"] == name and s["body"] == body for s in solids):
             raise ValueError(f"missing or misclassified STEP part {name}: "
@@ -410,7 +438,9 @@ def main() -> int:
         lr.GetKinematicEnabledAttr().Set(
             body == "S2_ROTOR" or body.startswith("S2_ROLLER")
             or body in ("PADDLE", "AUGER", "CROSS_FEED",
-                        "CROSS_FEED_IDLER"))
+                        "CROSS_FEED_IDLER", "BELT", "BELT_DRIVE",
+                        "BELT_IDLER", "SWEEP_SOUTH", "SWEEP_NORTH",
+                        "TRANSFER_BELT", "TRANSFER_IDLER"))
         # articulation links with COM-on-axis rotation have near-zero
         # linear velocity and hit the sleep threshold mid-run (observed:
         # all joints freeze after ~0.5 s of gentle ramp targets)
@@ -473,7 +503,8 @@ def main() -> int:
         if n_used > 1:
             name = f"{name}_{n_used:03d}"
         mesh_path = f"{body_path}/mesh_{name}"
-        decompose = any(raw.startswith(p) for p in DECOMPOSE_PREFIXES)
+        decompose = raw == "S1_BELT" or any(
+            raw.startswith(p) for p in DECOMPOSE_PREFIXES)
         if pivot is None:
             translate = (0.0, 0.0, 0.0)
             if rec["body"] == STATIC_BODY:
@@ -534,12 +565,79 @@ def main() -> int:
                             "axial_range_mm": [lo, hi],
                             "verts": int(len(hv)), "faces": int(len(hf))})
 
+    def emit_bounded_hulls(rec, body_path, pivot, regions, visual=False):
+        """Partition one STEP solid's collider without filling its voids."""
+        import numpy as np
+        stl = REPO / rec["mesh"]
+        verts, faces = load_stl_verts_faces(stl)
+        v = np.asarray(verts, dtype=np.float64)
+        base = rec["name"].replace("-", "_")
+        if visual:
+            mesh_path = f"{body_path}/mesh_{base}_visual"
+            add_mesh(stage, UsdGeom, mesh_path, v - pivot, faces,
+                     (0.0, 0.0, 0.0), "visualOnly", rec["body"], stl,
+                     collide=False)
+            emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
+                            "approx": "visualOnly", "verts": len(v),
+                            "faces": len(faces)})
+        for suffix, mask in regions:
+            sel = v[mask(v)]
+            if len(sel) < 8:
+                raise ValueError(f"{rec['name']} {suffix}: too few STEP vertices")
+            hv, hf = decimated_hull(sel)
+            mesh_path = f"{body_path}/mesh_{base}_{suffix}"
+            add_mesh(stage, UsdGeom, mesh_path, hv - pivot, hf,
+                     (0.0, 0.0, 0.0), "convexHull", rec["body"], stl)
+            emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
+                            "approx": "convexHull_partition",
+                            "verts": len(hv), "faces": len(hf)})
+
     for rec in solids:
         body = rec["body"]
         if body == STATIC_BODY:
             emit_mesh(rec, "/World/F0/Static", None)
         else:
             pivot = authoring_pivot(body, rec)
+            if rec["name"] == "S1-SHAFT-B_001":
+                # The integral rear 24T crown spans r39 at y401..409.
+                # One hull of the long shaft and crown forms a false cone
+                # through the S1 chamber and stalls both cutter axes.
+                emit_bounded_hulls(rec, f"/World/F0/{body}", pivot, [
+                    ("original", lambda v: v[:, 1] <= 326.01),
+                    ("core", lambda v: (v[:, 1] >= 325.99) &
+                     (np.hypot(v[:, 0] - 190.0, v[:, 2] - 398.30275)
+                      <= 12.71)),
+                    ("crown", lambda v: v[:, 1] >= 400.99),
+                ])
+                continue
+            if rec["name"] in ("S1_BELT", "S1_TRANSFER_BELT"):
+                # Each shell is partitioned along the actual axle line.
+                # The central belt rises from its west axle to the AUG lane.
+                if rec["name"] == "S1_BELT":
+                    west_x = PIVOTS_MM["BELT_DRIVE"][0]
+                    east_x = PIVOTS_MM["BELT_IDLER"][0]
+                    west_z = PIVOTS_MM["BELT"][2]
+                    slope, inner_z = 0.0, 3.8
+                else:
+                    west_x = PIVOTS_MM["BELT_DRIVE"][0]
+                    east_x = PIVOTS_MM["TRANSFER_IDLER"][0]
+                    west_z = PIVOTS_MM["BELT_DRIVE"][2]
+                    slope = ((PIVOTS_MM["TRANSFER_IDLER"][2]-west_z) /
+                             (east_x-west_x))
+                    inner_z = 2.3 / math.sqrt(1.0+slope*slope)
+                emit_bounded_hulls(rec, f"/World/F0/{body}", pivot, [
+                    ("top", lambda v: (v[:, 0] >= west_x - 4.0) &
+                     (v[:, 0] <= east_x + 4.0) &
+                     (v[:, 2] >= west_z + (v[:, 0]-west_x)*slope
+                      + inner_z - 0.01)),
+                    ("bottom", lambda v: (v[:, 0] >= west_x - 4.0) &
+                     (v[:, 0] <= east_x + 4.0) &
+                     (v[:, 2] <= west_z + (v[:, 0]-west_x)*slope
+                      - inner_z + 0.01)),
+                    ("west", lambda v: v[:, 0] <= west_x + 0.01),
+                    ("east", lambda v: v[:, 0] >= east_x - 0.01),
+                ], visual=True)
+                continue
             if rec["name"] == "AUG_SHAFT":
                 bounds = [236.0, 238.5] + [
                     238.5 + i * AUG_PITCH_MM / 8.0
@@ -559,6 +657,16 @@ def main() -> int:
                           + [rec["part_bbox"][4]])
                 emit_axial_segment_hulls(
                     rec, f"/World/F0/{body}", pivot, 1, bounds, 0.5)
+                continue
+            if rec["name"] in ("S1_SWEEP_SOUTH", "S1_SWEEP_NORTH"):
+                lo, hi = ((163.7, 223.1) if rec["name"].endswith("SOUTH")
+                          else (240.9, 322.3))
+                flight_bounds = [lo + i * (hi-lo) / math.ceil((hi-lo)/2.0)
+                                 for i in range(math.ceil((hi-lo)/2.0)+1)]
+                bounds = [rec["part_bbox"][1], *flight_bounds,
+                          rec["part_bbox"][4]]
+                emit_axial_segment_hulls(
+                    rec, f"/World/F0/{body}", pivot, 1, bounds, 0.35)
                 continue
             emit_mesh(rec, f"/World/F0/{body}", pivot)
 
@@ -602,7 +710,9 @@ def main() -> int:
         "KinAuger": [], "Fit": [],
         "KinCrossFeedFlight": [], "KinCrossFeedJournal": [],
         "CrossFeedBearing": [], "FeedIdler": [],
-        "PaddleFeedGear": [], "CrossFeedGear": []}
+        "PaddleFeedGear": [], "CrossFeedGear": [],
+        "Belt": [], "BeltDrive": [], "BeltIdler": [],
+        "TransferBelt": [], "TransferIdler": [], "TransferBearing": []}
     FIT_NAMES = set()
     for pat in (
             "BR-", "DRV-B12", "DRV-B20", "DRV-BFRONT", "S1-BPL",
@@ -625,12 +735,33 @@ def main() -> int:
             # VP1 transfer drivetrain: the paddle chain wraps the S2 12T
             # face and worm-shaft sprocket. AUG_BEARINGS seat the auger
             # journals (west bore r5.5, east boss bore r4.7).
-            "PDL-CHAIN", "AUG-BEARINGS"):
+            "PDL-CHAIN", "AUG-BEARINGS",
+            "S1-BELT-CHAIN", "S1-BELT-BEARINGS"):
         FIT_NAMES.add(pat.replace("-", "_"))
     for e in emitted:
+        if e["approx"] == "visualOnly":
+            continue
         base = e["prim"].rsplit("/mesh_", 1)[-1]
         if base.startswith("mesh_"):
             base = base[5:]
+        if e["prim"].startswith("/World/F0/BELT/"):
+            group_prims["Belt"].append(e["prim"])
+            continue
+        if "/BELT_DRIVE/" in e["prim"]:
+            group_prims["BeltDrive"].append(e["prim"])
+            continue
+        if "/BELT_IDLER/" in e["prim"]:
+            group_prims["BeltIdler"].append(e["prim"])
+            continue
+        if "/TRANSFER_BELT/" in e["prim"]:
+            group_prims["TransferBelt"].append(e["prim"])
+            continue
+        if "/TRANSFER_IDLER/" in e["prim"]:
+            group_prims["TransferIdler"].append(e["prim"])
+            continue
+        if base.startswith("S1_TRANSFER_BEARINGS"):
+            group_prims["TransferBearing"].append(e["prim"])
+            continue
         if base.startswith("CROSS_FEED_BEARINGS"):
             group_prims["CrossFeedBearing"].append(e["prim"])
         elif base.startswith("PDL_FEED_GEAR"):
@@ -659,7 +790,9 @@ def main() -> int:
             group_prims["Art"].append(e["prim"])
     for required in ("KinCrossFeedFlight", "KinCrossFeedJournal",
                      "CrossFeedBearing", "FeedIdler",
-                     "PaddleFeedGear", "CrossFeedGear"):
+                     "PaddleFeedGear", "CrossFeedGear",
+                     "Belt", "BeltDrive", "BeltIdler", "TransferBelt",
+                     "TransferIdler", "TransferBearing"):
         if not group_prims[required]:
             raise ValueError(f"CAD-derived collision group {required} empty")
     for gname, targets in group_prims.items():
@@ -682,7 +815,12 @@ def main() -> int:
             ("FeedIdler", ["CrossFeedBearing", "PaddleFeedGear",
                            "CrossFeedGear"]),
             ("PaddleFeedGear", ["FeedIdler"]),
-            ("CrossFeedGear", ["FeedIdler"])):
+            ("CrossFeedGear", ["FeedIdler"]),
+            ("Belt", ["BeltDrive", "BeltIdler"]),
+            ("BeltDrive", ["Belt", "Fit", "TransferBelt"]),
+            ("BeltIdler", ["Belt", "Fit"]),
+            ("TransferBelt", ["BeltDrive", "TransferIdler"]),
+            ("TransferIdler", ["TransferBelt", "TransferBearing"])):
         gp = stage.GetPrimAtPath(f"/World/F0/CollisionGroups/{gname}")
         cg = UsdPhysics.CollisionGroup(gp)
         cg.CreateFilteredGroupsRel().SetTargets(
@@ -794,6 +932,12 @@ def main() -> int:
                 "FeedIdler": "only CROSS_FEED_IDLER gear and journal",
                 "PaddleFeedGear": "only PDL_FEED_GEAR teeth",
                 "CrossFeedGear": "only CROSS_FEED_GEAR teeth",
+                "Belt": "two side loops on a common drive/idler shaft",
+                "BeltDrive": "waisted common drive for the centre lane",
+                "BeltIdler": "two side loops' waisted east follower",
+                "TransferBelt": "continuous centre lane rising into AUG",
+                "TransferIdler": "centre lane's east follower drum",
+                "TransferBearing": "two centre idler journal rings",
             },
             "filtered_pairs": {
                 "Art_x_Fit": ("journal fits, keyed sprockets and the "
@@ -840,6 +984,15 @@ def main() -> int:
                 "FeedIdler_x_CrossFeedGear": (
                     "second 12T external gear mesh; ideal same signed "
                     "cross-feed ratio after two reversals"),
+                "Belt_x_BeltDrive_BeltIdler": (
+                    "stationary belt shell intersects rolling drums at "
+                    "the contact arc, driven by measured S1B kinematics"),
+                "BeltDrive_x_TransferBelt": (
+                    "centre loop wraps the waisted common source drum"),
+                "TransferBelt_x_TransferIdler": (
+                    "centre belt shell wraps its east follower"),
+                "TransferIdler_x_TransferBearing": (
+                    "east centre drum's seated journals"),
                 "articulation_self_collision": ("disabled: S1A/S1B "
                                                 "cutter hulls interleave "
                                                 "by design; hulls cannot "

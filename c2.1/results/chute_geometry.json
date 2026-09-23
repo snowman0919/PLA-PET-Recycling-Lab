@@ -5,9 +5,9 @@
       "solids": 1,
       "valid": true,
       "bounds": [
-        80.0,
+        74.0,
         157.4,
-        334.5,
+        320.0,
         360.0,
         329.6,
         356.3
@@ -31,12 +31,12 @@
       "solids": 1,
       "valid": true,
       "bounds": [
-        357.0,
+        356.0,
         204.0,
-        369.5,
-        368.0,
+        368.5,
+        369.0,
         392.0,
-        379.5
+        380.5
       ]
     },
     {
@@ -96,7 +96,7 @@
       "solids": 1,
       "valid": true,
       "bounds": [
-        235.9999999,
+        207.9999999,
         223.70926041888757,
         338.77046592460215,
         370.0000001,
@@ -106,15 +106,15 @@
     },
     {
       "name": "AUG_BEARINGS",
-      "solids": 3,
+      "solids": 2,
       "valid": true,
       "bounds": [
-        233.0,
-        220.0,
+        208.0,
+        162.4,
         335.6,
         369.0,
-        244.0,
-        352.0
+        324.6,
+        355.3
       ]
     },
     {
@@ -125,7 +125,7 @@
         357.9999999,
         223.1672782296194,
         349.81892326111,
-        366.0000001000001,
+        366.0000001,
         240.8327217703806,
         368.0000001
       ]
@@ -174,12 +174,12 @@
       "solids": 1,
       "valid": true,
       "bounds": [
-        346.79538130423117,
+        346.7953780498378,
         207.9999999,
-        317.95312655671063,
-        367.211269225791,
-        251.7154154117732,
-        338.21618789097886
+        317.7838121090211,
+        367.2112713880224,
+        251.71538903498737,
+        338.0468612553024
       ]
     },
     {
@@ -202,10 +202,218 @@
       "bounds": [
         344.3,
         223.5,
-        315.8,
+        311.8,
         369.2,
         258.0,
         342.5
+      ]
+    },
+    {
+      "name": "S1_BELT",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        75.4,
+        163.5,
+        326.79999999999995,
+        223.6,
+        323.5,
+        336.0
+      ]
+    },
+    {
+      "name": "S1_BELT_DRIVE",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        74.0,
+        127.0,
+        325.4,
+        87.0,
+        413.0,
+        337.4
+      ]
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        215.2,
+        127.0,
+        327.59999999999997,
+        222.8,
+        359.0,
+        335.2
+      ]
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "solids": 4,
+      "valid": true,
+      "bounds": [
+        75.0,
+        157.4,
+        326.4,
+        224.0,
+        329.6,
+        336.4
+      ]
+    },
+    {
+      "name": "S1_BELT_FOLLOWER",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        59.5197378213571,
+        401.0,
+        310.91973782135705,
+        100.4802621786429,
+        413.0,
+        351.8802621786429
+      ]
+    },
+    {
+      "name": "S1_BELT_CHAIN",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        56.09911511256536,
+        402.0,
+        307.4996973797765,
+        231.96424376921752,
+        407.0,
+        440.28733247029214
+      ]
+    },
+    {
+      "name": "S1_SWEEP_SOUTH",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        221.60192692522384,
+        126.9999999,
+        335.49420220487167,
+        235.0202283071419,
+        228.0000001,
+        348.82880371650606
+      ]
+    },
+    {
+      "name": "S1_SWEEP_NORTH",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        221.4047863415403,
+        235.9999999,
+        335.16786617761414,
+        235.02230268998426,
+        359.0000001,
+        348.50847705901106
+      ]
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_S",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        210.94147220533503,
+        128.0,
+        323.34147220533504,
+        227.05852779466497,
+        134.0,
+        339.4585277946649
+      ]
+    },
+    {
+      "name": "S1_SWEEP_GEAR_S",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        220.05543868971645,
+        128.0,
+        333.85543868971644,
+        236.34456131028352,
+        134.0,
+        350.1445613102835
+      ]
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_N",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        210.94147220533503,
+        352.0999999999999,
+        323.34147220533504,
+        227.05852779466497,
+        358.1,
+        339.4585277946649
+      ]
+    },
+    {
+      "name": "S1_SWEEP_GEAR_N",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        220.05543868971645,
+        352.09999999999957,
+        333.85543868971644,
+        236.34456131028352,
+        358.1,
+        350.1445613102835
+      ]
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        225.85,
+        157.4,
+        339.65,
+        230.54999999999998,
+        329.6,
+        344.35
+      ]
+    },
+    {
+      "name": "S1_TRANSFER_BELT",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        77.00085640305353,
+        223.5,
+        328.4008564030535,
+        241.99914359694648,
+        240.5,
+        338.19914359694644
+      ]
+    },
+    {
+      "name": "S1_TRANSFER_IDLER",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        236.7,
+        214.0,
+        332.9,
+        241.3,
+        250.0,
+        337.5
+      ]
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        237.45,
+        218.0,
+        333.65,
+        240.55,
+        246.0,
+        336.75
       ]
     }
   ],
@@ -227,6 +435,22 @@
     "c2.1/cad/parts_stage1/CROSS_FEED_GEAR.step",
     "c2.1/cad/parts_stage1/CROSS_FEED_SHAFT.step",
     "c2.1/cad/parts_stage1/CROSS_FEED_BEARINGS.step",
-    "c2.1/cad/parts_stage1/CROSS_FEED_SHELL.step"
+    "c2.1/cad/parts_stage1/CROSS_FEED_SHELL.step",
+    "c2.1/cad/parts_stage1/S1_BELT.step",
+    "c2.1/cad/parts_stage1/S1_BELT_DRIVE.step",
+    "c2.1/cad/parts_stage1/S1_BELT_IDLER.step",
+    "c2.1/cad/parts_stage1/S1_BELT_BEARINGS.step",
+    "c2.1/cad/parts_stage1/S1_BELT_FOLLOWER.step",
+    "c2.1/cad/parts_stage1/S1_BELT_CHAIN.step",
+    "c2.1/cad/parts_stage1/S1_SWEEP_SOUTH.step",
+    "c2.1/cad/parts_stage1/S1_SWEEP_NORTH.step",
+    "c2.1/cad/parts_stage1/S1_SWEEP_GEAR_DRUM_S.step",
+    "c2.1/cad/parts_stage1/S1_SWEEP_GEAR_S.step",
+    "c2.1/cad/parts_stage1/S1_SWEEP_GEAR_DRUM_N.step",
+    "c2.1/cad/parts_stage1/S1_SWEEP_GEAR_N.step",
+    "c2.1/cad/parts_stage1/S1_SWEEP_BEARINGS.step",
+    "c2.1/cad/parts_stage1/S1_TRANSFER_BELT.step",
+    "c2.1/cad/parts_stage1/S1_TRANSFER_IDLER.step",
+    "c2.1/cad/parts_stage1/S1_TRANSFER_BEARINGS.step"
   ]
 }

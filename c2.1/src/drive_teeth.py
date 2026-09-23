@@ -349,6 +349,10 @@ FUNCTIONAL_PAIRS = [
     {"DRV-CHAIN-B", "DRV-SP24-B20_002"}, {"DRV-CHAIN-B", "DRV-SP12-B12_001"},
     {"DRV-CHAIN-P", "DRV-SP12-B12_001"}, {"DRV-CHAIN-P", "PDL_SPROCKET"},
     {"PDL_CHAIN", "DRV-SP12-B12_001"}, {"PDL_CHAIN", "PDL_SPROCKET"},
+    # The third #35 loop wraps the integral S1B driver and west follower;
+    # their solid chain envelope intentionally contains the toothed crowns.
+    {"S1_BELT_CHAIN", "S1-SHAFT-B_001"},
+    {"S1_BELT_CHAIN", "S1_BELT_FOLLOWER"},
     {"PDL_WORM", "AUG_WHEEL"}, {"AUG_SHAFT", "AUG_WHEEL"},
     {"DRV-SH15L_001", "DRV-IN-SHAFT_001"},
     {"DRV_SH40R_upper", "DRV-JACK_001"},

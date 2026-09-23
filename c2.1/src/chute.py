@@ -60,7 +60,7 @@ AUG_FLIGHT_X0, AUG_FLIGHT_X1 = 237.0, 354.0
 AUG_FLOOR_TOP, AUG_FLOOR_BASE = 335.6, 334.5
 AUG_SEAT_TOP = 335.6
 WORM_CX, WORM_CZ = 362.0, 374.5
-WORM_SHAFT_X0, WORM_SHAFT_X1 = 236.0, 370.0
+WORM_SHAFT_X0, WORM_SHAFT_X1 = 208.0, 370.0
 WORM_ROOT_R, WORM_PITCH_R, WORM_OD_R = 6.0, 6.75, 7.5
 WORM_STARTS, WHEEL_TEETH = 2, 16
 WHEEL_CD = WORM_CZ - AUG_AX_Z
@@ -95,6 +95,32 @@ _gear_span = math.hypot(_gear_dx, _gear_dz)
 _gear_offset = math.sqrt((2.0 * FEED_GEAR_RP)**2 - (_gear_span / 2.0)**2)
 IDLER_X = (CROSS_X + WORM_CX) / 2.0 - _gear_dz / _gear_span * _gear_offset
 IDLER_Z = (CROSS_Z + WORM_CZ) / 2.0 + _gear_dx / _gear_span * _gear_offset
+
+
+# S1-wide pickup: a thin endless belt and two bearing-supported drums under
+# the cutter envelope. S1B's extended rear shaft drives a 24T:12T #35
+# chain at y402..407 behind the rear frame beam; the upper run travels
+# +X at 2*|omega_S1B|*3.8 mm/s. Tread friction and ratings remain HOLD.
+BELT_WEST_X, BELT_EAST_X, BELT_AX_Z = 80.0, 219.0, 331.4
+BELT_INNER_R, BELT_OUTER_R = 3.8, 4.6
+
+# Opposed transverse screw flights catch fragments before the belt east
+# tangent and feed the central 20 mm auger lane. Both are geared from the
+# east drum; the split shafts leave the longitudinal auger journal clear.
+SWEEP_X, SWEEP_Z = 228.2, 342.0
+SWEEP_SHAFT_R, SWEEP_FLIGHT_R, SWEEP_PITCH = 2.0, 6.7, 16.0
+SWEEP_GEAR_Y = ((128.0, 134.0), (352.1, 358.1))
+SWEEP_GEAR_SCALE = math.hypot(SWEEP_X-BELT_EAST_X,
+                              SWEEP_Z-BELT_AX_Z) / (2.0 * FEED_GEAR_RP)
+BELT_Y0, BELT_Y1 = 163.5, 323.5
+
+# The central 17 mm lane is its own belt on a waisted common west drum.
+# Two side loops remain on the 160 mm wide drive/idler. A finished wide
+# belt's vertical east end cannot feed a separate belt across its gap.
+TRANSFER_WEST_X, TRANSFER_EAST_X = BELT_WEST_X, 239.0
+TRANSFER_WEST_Z, TRANSFER_AX_Z = BELT_AX_Z, 335.2
+TRANSFER_INNER_R, TRANSFER_OUTER_R = 2.3, 3.0
+TRANSFER_Y0, TRANSFER_Y1 = 223.5, 240.5
 
 
 def _c21_transform(shape):
@@ -138,7 +164,7 @@ def _prism_xy(points, z0, height):
 
 
 def pan_floor():
-    """Sloping S1 basin and clearance notches around the west journal."""
+    """S1 discharge basin with a recessed, supported belt pocket."""
     pts = [(S1["x0"], PAN_Z0), (245.5, PAN_Z0),
            (245.5, 344.5), (S1["x0"], PAN_Z1)]
     full = _prism_xz(pts, S1["wall_y0"] + 2.0,
@@ -151,8 +177,6 @@ def pan_floor():
                  PAN_Z0, PAN_Z1)
     north_a = _box(244.0, 271.5, 213.0, 297.5, PAN_Z0, PAN_Z1)
     north_b = _box(244.0, 271.5, 307.5, 326.5, PAN_Z0, PAN_Z1)
-    # The entire south channel is lower; leaving a north slab here creates
-    # a collision with the flight and a shelf on which fragments can park.
     north_a = north_a.cut(_box(244.0, 271.5, 213.0, 248.5,
                                PAN_Z0 - 0.5, PAN_Z1 + 0.5))
     north_a = north_a.cut(_obstruction_solid())
@@ -161,7 +185,53 @@ def pan_floor():
     solids = [s for s in north_a.Solids() if s.Volume() > 10.0]
     if len(solids) not in (1, 2, 3):
         raise RuntimeError("pan floor north slab split: %d solids" % len(solids))
-    return full.fuse(south).fuse(*solids).fuse(north_b).clean()
+    full = full.fuse(south).fuse(*solids).fuse(north_b)
+    # A recessed catch floor starts beyond the rounded side-belt tangency.
+    # It must sit below the flake underside, not form a vertical stop at
+    # the belt exit.
+    full = full.cut(_box(75.3, 223.7, 163.4, 323.6, 320.0, 349.0))
+    full = full.cut(_box(223.7, 237.0, 163.4, 323.6, 334.0, 349.0))
+    full = full.cut(_box(237.0, 245.5, 222.0, 242.0, 334.0, 349.0))
+    for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
+        full = full.fuse(_box(74.0, 225.0, y0, y1, 320.0, 352.3))
+    for x in (BELT_WEST_X, BELT_EAST_X):
+        for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
+            full = full.cut(_cyl(5.15, y1-y0, x, y0, BELT_AX_Z))
+    for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
+        full = full.cut(_cyl(2.35, y1-y0, SWEEP_X, y0, SWEEP_Z))
+    full = full.fuse(_box(76.0, 223.5, 163.4, 323.6, 321.0, 323.0))
+    full = full.fuse(_box(223.7, 237.0, 163.4, 323.6,
+                          332.8, 334.0))
+    # Raise the outgoing flakes into the transverse flight's lower
+    # quadrant without obscuring the side-belt tangent.
+    for y0, y1 in ((163.4, 223.2), (240.8, 323.6)):
+        full = full.fuse(_prism_xz(
+            [(223.7, 334.0), (233.5, 335.4),
+             (237.0, 335.4), (237.0, 334.0)], y0, y1-y0))
+    # Preserve the rear support's metal volume below the south shelf.
+    full = full.cut(_box(236.0, 237.0, 203.0, 211.0, 332.7, 334.1))
+    # Keep side-lane flakes under the transverse flights until they reach
+    # the central opening; otherwise the belt leaves them east of the screw.
+    for y0, y1 in ((163.4, 220.5), (243.5, 323.6)):
+        full = full.fuse(_box(235.3, 236.0, y0, y1, 334.0, 340.0))
+    for y0, y1 in ((163.4, 222.0), (242.0, 323.6)):
+        full = full.fuse(_box(236.0, 237.4, y0, y1,
+                              334.0, WALL_TOP))
+    # Recess the central second-stage belt while the metal cheeks and
+    # underside bridge carry its bearings back into the pan side slabs.
+    full = full.cut(_box(222.5, 240.0, 223.2, 240.8, 328.5, 340.0))
+    full = full.fuse(_box(224.0, 240.0, 221.0, 223.2, 327.0, 334.2))
+    full = full.fuse(_box(224.0, 240.0, 240.8, 243.0, 327.0, 334.2))
+    full = full.fuse(_box(224.0, 240.0, 223.2, 240.8, 326.0, 327.5))
+    # Two narrow underside webs tie the lowered idler cheeks to the
+    # existing full-width bottom plate without a wall above the treads.
+    for y0, y1 in ((221.0, 223.2), (240.8, 243.0)):
+        full = full.fuse(_box(222.5, 224.1, y0, y1, 322.0, 327.2))
+    x, z = TRANSFER_EAST_X, TRANSFER_AX_Z
+    full = full.cut(_cyl(1.15, 36.0, x, 214.0, z))
+    for y0, y1 in ((218.0, 223.2), (240.8, 246.0)):
+        full = full.cut(_cyl(1.65, y1-y0, x, y0, z))
+    return full.clean()
 
 def _wedge_rib(x, y0, y1, zbase=PAN_Z1, height=4.0, half=8.0):
     """Historical ratchet rib retained for inspection, not installed."""
@@ -206,8 +276,15 @@ def bypass_channel_floor():
                  AUG_FLIGHT_X0, AUG_AX_Y, AUG_AX_Z, axis=(1, 0, 0))
     shell = shell.cut(inner)
     cross_clearance = _cyl(10.55, 27.5, CROSS_X, 223.5, CROSS_Z)
-    return slab.fuse(shell).cut(cross_clearance).clean()
-
+    # The centre tread reaches the first flight through a five-millimetre
+    # clearance pocket. Downstream, a shallow ramp returns it to the U
+    # cradle rather than leaving a vertical x242 stop against the flakes.
+    entrance = _box(237.0, 242.0, 223.2, 240.8, 331.0, 351.0)
+    exit_ramp = _prism_xz(
+        [(242.0, 335.6), (250.0, 338.2),
+         (250.0, 351.0), (242.0, 351.0)], 223.2, 17.6)
+    return slab.fuse(shell).cut(cross_clearance).cut(entrance).cut(
+        exit_ramp).clean()
 
 def bypass_wall_south():
     """South containment, relieved only at the low-y spur-gear face."""
@@ -230,22 +307,187 @@ def intake_lip():
 
 
 def _guide(p0, p1):
-    """Vertical in-plan guide wall, 3 mm thick, sealed to the S1 bottom."""
+    """Stationary funnel wall clears the moving belt tread by 0.2 mm."""
     dx, dy = p1[0] - p0[0], p1[1] - p0[1]
     L = math.hypot(dx, dy)
     nx, ny = -dy / L * 1.5, dx / L * 1.5
     pts = [p0, p1, (p1[0] + nx, p1[1] + ny), (p0[0] + nx, p0[1] + ny)]
-    return _prism_xy(pts, PAN_Z0, WALL_TOP - PAN_Z0)
+    return _prism_xy(pts, 336.2, WALL_TOP - 336.2)
 
 
 def guide_left():
-    """S1 south funnel starts upstream and joins the screw's south wall."""
-    return _guide((100.0, S1["y0"]), (237.2, 222.0))
+    """Central lane wall; transverse screw supplies lateral transport."""
+    return _box(237.0, 245.0, 221.5, 223.5, 336.2, WALL_TOP)
 
 
 def guide_right():
-    """S1 north funnel converges into the screw's north wall, not y306."""
-    return _guide((100.0, S1["y1"]), (237.2, 241.0))
+    return _box(237.0, 245.0, 240.9, 242.5, 336.2, WALL_TOP)
+
+def belt_loop():
+    """Two side loops leave a continuous, separately driven central lane."""
+    def capsule(r, y0, y1):
+        pts = [(BELT_WEST_X, BELT_AX_Z + r),
+               (BELT_EAST_X, BELT_AX_Z + r)]
+        pts += [(BELT_EAST_X + r * math.cos(math.pi/2 - math.pi*i/32),
+                 BELT_AX_Z + r * math.sin(math.pi/2 - math.pi*i/32))
+                for i in range(1, 33)]
+        pts.append((BELT_WEST_X, BELT_AX_Z - r))
+        pts += [(BELT_WEST_X + r * math.cos(-math.pi/2 - math.pi*i/32),
+                 BELT_AX_Z + r * math.sin(-math.pi/2 - math.pi*i/32))
+                for i in range(1, 33)]
+        return _prism_xz(pts, y0, y1-y0)
+    parts = []
+    for y0, y1 in ((BELT_Y0, 223.2), (240.8, BELT_Y1)):
+        parts.append(capsule(BELT_OUTER_R, y0, y1).cut(
+            capsule(BELT_INNER_R + 0.03, y0, y1)).clean())
+    return cq.Compound.makeCompound(parts)
+
+
+def transfer_belt():
+    """Central lane on the common M1 drive drum, rising into AUG."""
+    dx = TRANSFER_EAST_X - TRANSFER_WEST_X
+    dz = TRANSFER_AX_Z - TRANSFER_WEST_Z
+    length = math.hypot(dx, dz)
+    nx, nz = -dz/length, dx/length
+    angle = math.atan2(nz, nx)
+
+    def capsule(r):
+        pts = [(TRANSFER_WEST_X + r*nx, TRANSFER_WEST_Z + r*nz),
+               (TRANSFER_EAST_X + r*nx, TRANSFER_AX_Z + r*nz)]
+        pts += [(TRANSFER_EAST_X + r*math.cos(angle - math.pi*i/32),
+                 TRANSFER_AX_Z + r*math.sin(angle - math.pi*i/32))
+                for i in range(1, 33)]
+        pts.append((TRANSFER_WEST_X - r*nx, TRANSFER_WEST_Z - r*nz))
+        pts += [(TRANSFER_WEST_X + r*math.cos(angle - math.pi - math.pi*i/32),
+                 TRANSFER_WEST_Z + r*math.sin(angle - math.pi - math.pi*i/32))
+                for i in range(1, 33)]
+        return _prism_xz(pts, TRANSFER_Y0, TRANSFER_Y1 - TRANSFER_Y0)
+    return capsule(TRANSFER_OUTER_R).cut(
+        capsule(TRANSFER_INNER_R + 0.03)).clean()
+
+
+def transfer_idler():
+    """Captured east drum; the west driver is the waisted S1_BELT_DRIVE."""
+    x, z = TRANSFER_EAST_X, TRANSFER_AX_Z
+    drum = _cyl(TRANSFER_INNER_R, TRANSFER_Y1-TRANSFER_Y0,
+                x, TRANSFER_Y0, z)
+    return drum.fuse(_cyl(1.0, 36.0, x, 214.0, z)).clean()
+
+
+def transfer_bearings():
+    parts = []
+    x, z = TRANSFER_EAST_X, TRANSFER_AX_Z
+    for y0, y1 in ((218.0, 223.2), (240.8, 246.0)):
+        ring = _cyl(1.55, y1-y0, x, y0, z)
+        parts.append(ring.cut(_cyl(1.15, y1-y0+0.2, x, y0-0.1,
+                                   z)))
+    return cq.Compound.makeCompound(parts)
+
+def belt_drum(x, driven=False):
+    """Common waisted west driver; two independent east side followers."""
+    if x == BELT_EAST_X:
+        halves = []
+        for (drum_y0, drum_y1), (shaft_y0, shaft_y1), gy in zip(
+                ((BELT_Y0, 223.2), (240.8, BELT_Y1)),
+                ((127.0, 223.2), (240.8, 359.0)), SWEEP_GEAR_Y):
+            half = _cyl(BELT_INNER_R, drum_y1-drum_y0,
+                        x, drum_y0, BELT_AX_Z)
+            half = half.fuse(_cyl(2.0, shaft_y1-shaft_y0, x,
+                                  shaft_y0, BELT_AX_Z))
+            half = half.fuse(_box(x+1.9, x+2.45, gy[0], gy[1],
+                                   BELT_AX_Z-0.5, BELT_AX_Z+0.5))
+            halves.append(half.clean())
+        return cq.Compound.makeCompound(halves)
+    drum = _cyl(BELT_INNER_R, BELT_Y1-BELT_Y0, x, BELT_Y0, BELT_AX_Z)
+    # The central 17 mm loop seats on a smaller common drive waist.
+    drum = drum.cut(_cyl(BELT_INNER_R+0.1, 17.6, x, 223.2,
+                         BELT_AX_Z))
+    drum = drum.fuse(_cyl(TRANSFER_INNER_R, 17.6, x, 223.2,
+                          BELT_AX_Z))
+    drum = drum.fuse(_cyl(2.0, 359.0-127.0, x, 127.0, BELT_AX_Z))
+    if driven:
+        drum = drum.fuse(_cyl(6.0, 82.0, x, 331.0, BELT_AX_Z))
+        drum = drum.fuse(_box(x+5.8, x+7.0, 401.0, 409.0,
+                              BELT_AX_Z-1.0, BELT_AX_Z+1.0))
+    return drum.clean()
+
+
+def belt_bearings():
+    """Four separable bearings seated in the pan's metal side rails."""
+    parts = []
+    for x in (BELT_WEST_X, BELT_EAST_X):
+        for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
+            ring = _cyl(5.0, y1-y0, x, y0, BELT_AX_Z)
+            parts.append(ring.cut(_cyl(2.2, y1-y0+0.2, x, y0-0.1,
+                                       BELT_AX_Z)))
+    return cq.Compound.makeCompound(parts)
+
+def sweep_shaft(south):
+    """Split shaft with a swept, opposite-hand screw and keyed spur."""
+    y0, y1 = (127.0, 228.0) if south else (236.0, 359.0)
+    flight0, flight1 = (164.5, 223.1) if south else (240.9, 321.5)
+    shaft = _cyl(SWEEP_SHAFT_R, y1-y0, SWEEP_X, y0, SWEEP_Z)
+    gy0, gy1 = SWEEP_GEAR_Y[0 if south else 1]
+    shaft = shaft.fuse(_box(SWEEP_X+1.9, SWEEP_X+2.45,
+                            gy0, gy1, SWEEP_Z-0.5, SWEEP_Z+0.5))
+    # East drum rotates +Y to convey +X; an external gear reverses the
+    # feeder. RH under -Y advances +Y, LH advances -Y.
+    path = _helix_z((SWEEP_SHAFT_R+SWEEP_FLIGHT_R)/2,
+                    SWEEP_PITCH, flight1-flight0,
+                    (0, 0, flight0), lefthand=not south)
+    path = path.rotate(V(0, 0, 0), V(1, 0, 0), -90).translate(
+        V(SWEEP_X, 0, SWEEP_Z))
+    p0, tangent = _path_frame(path)
+    radial = V(p0.x-SWEEP_X, 0, p0.z-SWEEP_Z).normalized()
+    axial = tangent.cross(radial).normalized()
+    if axial.dot(V(0, 1, 0)) < 0:
+        axial *= -1
+    half_rad = (SWEEP_FLIGHT_R-SWEEP_SHAFT_R)/2
+    profile = [p0+radial*-half_rad+axial*-0.8,
+               p0+radial*half_rad+axial*-0.8,
+               p0+radial*half_rad+axial*0.8,
+               p0+radial*-half_rad+axial*0.8]
+    return shaft.fuse(_sweep_profile(path, profile)).clean()
+
+
+def sweep_gear(south, on_drum):
+    """One small-module 12T spur keyed to the east drum or feeder axle."""
+    import drive_teeth as dt
+    y0, y1 = SWEEP_GEAR_Y[0 if south else 1]
+    cx, cz = ((BELT_EAST_X, BELT_AX_Z) if on_drum
+              else (SWEEP_X, SWEEP_Z))
+    mesh_angle = math.degrees(math.atan2(SWEEP_Z-BELT_AX_Z,
+                                          SWEEP_X-BELT_EAST_X))
+    phase = (mesh_angle + (0.0 if on_drum else 15.0)) % 30.0
+    pts = [(cx + x*SWEEP_GEAR_SCALE, cz + z*SWEEP_GEAR_SCALE)
+           for x, z in dt._gear_profile_xy(12, phase_deg=phase)]
+    face = _prism_xz(pts, y0, y1-y0)
+    bore = 2.0
+    gear = face.cut(_cyl(bore, y1-y0+0.2, cx, y0-0.1, cz))
+    return gear.cut(_box(cx+1.9, cx+2.55, y0-0.1, y1+0.1,
+                         cz-0.55, cz+0.55)).clean()
+
+
+def sweep_bearings():
+    rings = []
+    for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
+        ring = _cyl(2.35, y1-y0, SWEEP_X, y0, SWEEP_Z)
+        rings.append(ring.cut(_cyl(2.15, y1-y0+0.2,
+                                   SWEEP_X, y0-0.1, SWEEP_Z)))
+    return cq.Compound.makeCompound(rings)
+
+
+def belt_follower_sprocket():
+    import drive_teeth as dt
+    return dt._sprocket_local_solid("DRV-SP12-B12", hub_len=1.0).translate(
+        (BELT_WEST_X, 401.0, BELT_AX_Z)).clean()
+
+
+def belt_chain():
+    import drive_teeth as dt
+    return dt._chain_loop(dict(p1=(190.0, 398.30275184708404),
+                               p2=(BELT_WEST_X, BELT_AX_Z),
+                               z1=24, z2=12, y0=402.0))
 
 
 def wall_front():
@@ -400,20 +642,23 @@ def auger_shaft():
 
 
 def auger_bearings():
-    """West split journal and east support clear the rotating flight."""
-    west_bore = _cyl(3.5, 16.0, 231.0, AUG_AX_Y,
-                     AUG_AX_Z, axis=(1, 0, 0))
-    west_lower = _box(233.0, 239.0, 220.0, 244.0,
-                      AUG_FLOOR_TOP, AUG_AX_Z + AUG_SHAFT_R)
-    west_lower = west_lower.cut(west_bore).clean()
-    west_upper = _box(233.0, 239.0, 220.0, 244.0,
-                      AUG_AX_Z + AUG_SHAFT_R, 352.0)
-    west_upper = west_upper.cut(west_bore).clean()
+    """West journal hangs above the belt, leaving its +X discharge open."""
+    west_ring = _cyl(5.2, 6.0, 208.0, AUG_AX_Y, AUG_AX_Z,
+                     axis=(1, 0, 0))
+    west_ring = west_ring.cut(_cyl(3.5, 6.2, 207.9, AUG_AX_Y,
+                                   AUG_AX_Z, axis=(1, 0, 0))).clean()
+    # Two overhead steel arms tie the ring into both S1 metal side rails;
+    # their z355.3 top stays below the cutter sweep bottom z357.3.
+    bridge_s = _box(208.0, 214.0, 162.4, 226.8, 352.1, 355.3)
+    bridge_n = _box(208.0, 214.0, 237.2, 324.6, 352.1, 355.3)
+    post_s = _box(208.0, 214.0, 225.5, 228.5, 350.7, 353.0)
+    post_n = _box(208.0, 214.0, 235.5, 238.5, 350.7, 353.0)
+    west = west_ring.fuse(bridge_s).fuse(bridge_n).fuse(post_s).fuse(post_n).clean()
     east = _box(366.0, 369.0, 226.0, 238.0,
                 AUG_FLOOR_TOP, AUG_AX_Z + AUG_SHAFT_R)
     east = east.cut(_cyl(3.7, 8.0, 364.0, AUG_AX_Y,
                           AUG_AX_Z, axis=(1, 0, 0))).clean()
-    return cq.Compound.makeCompound([west_lower, west_upper, east]).clean()
+    return cq.Compound.makeCompound([west, east]).clean()
 
 
 def auger_wheel():
@@ -597,6 +842,16 @@ def components():
     # The S1 east liner remains in place; notch only chute wall upper lips.
     body = body.cut(_box(237.0, 240.05, S1["y0"], S1["y1"],
                          S1["bottom"], 356.4))
+    # Re-bore the side-wall union after fusing front/rear walls and rails.
+    # Bearings seat at this cylindrical interface and retain a 0.15 mm
+    # radial journal clearance.
+    for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
+        body = body.cut(_cyl(2.35, y1-y0, SWEEP_X, y0, SWEEP_Z))
+    body = body.cut(_cyl(1.15, 36.0, TRANSFER_EAST_X, 214.0,
+                         TRANSFER_AX_Z))
+    for y0, y1 in ((218.0, 223.2), (240.8, 246.0)):
+        body = body.cut(_cyl(1.65, y1-y0, TRANSFER_EAST_X, y0,
+                             TRANSFER_AX_Z))
     # The original north lip and slab must not obstruct the new U cradle's
     # fixed west guard over y241..251.
     body = body.cut(_box(344.0, 355.0, 240.9, 251.01, 334.0, 353.6))
@@ -619,7 +874,23 @@ def components():
               ("CROSS_FEED_GEAR", cross_feed_gear(), "feed"),
               ("CROSS_FEED_SHAFT", cross_feed_shaft(), "feed"),
               ("CROSS_FEED_BEARINGS", cross_feed_bearings(), "feed"),
-              ("CROSS_FEED_SHELL", cross_feed_shell(), "feed")]
+              ("CROSS_FEED_SHELL", cross_feed_shell(), "feed"),
+              ("S1_BELT", belt_loop(), "feed"),
+              ("S1_BELT_DRIVE", belt_drum(BELT_WEST_X, driven=True), "feed"),
+              ("S1_BELT_IDLER", belt_drum(BELT_EAST_X), "feed"),
+              ("S1_BELT_BEARINGS", belt_bearings(), "feed"),
+              ("S1_BELT_FOLLOWER", belt_follower_sprocket(), "feed"),
+              ("S1_BELT_CHAIN", belt_chain(), "feed")]
+    driven += [("S1_SWEEP_SOUTH", sweep_shaft(True), "feed"),
+               ("S1_SWEEP_NORTH", sweep_shaft(False), "feed"),
+               ("S1_SWEEP_GEAR_DRUM_S", sweep_gear(True, True), "feed"),
+               ("S1_SWEEP_GEAR_S", sweep_gear(True, False), "feed"),
+               ("S1_SWEEP_GEAR_DRUM_N", sweep_gear(False, True), "feed"),
+               ("S1_SWEEP_GEAR_N", sweep_gear(False, False), "feed"),
+               ("S1_SWEEP_BEARINGS", sweep_bearings(), "feed")]
+    driven += [("S1_TRANSFER_BELT", transfer_belt(), "feed"),
+               ("S1_TRANSFER_IDLER", transfer_idler(), "feed"),
+               ("S1_TRANSFER_BEARINGS", transfer_bearings(), "feed")]
     return [("CHUTE_BODY", solids[0].clean(), "feed"),
             ("CHUTE_TROUGH_FLOOR_E", trough_floor(), "feed")] + driven
 
@@ -639,11 +910,14 @@ if __name__ == "__main__":
     parts = components()
     recs = []
     fails = []
+    separated = {"PDL_BEARINGS": 2, "AUG_BEARINGS": 2,
+                 "CROSS_FEED_BEARINGS": 12,
+                 "S1_BELT": 2, "S1_BELT_IDLER": 2,
+                 "S1_BELT_BEARINGS": 4,
+                 "S1_SWEEP_BEARINGS": 2,
+                 "S1_TRANSFER_BEARINGS": 2}
     for name, solid, group in parts:
-        ok = solid.isValid() and (
-            len(solid.Solids()) >= 2 if name in ("PDL_BEARINGS", "AUG_BEARINGS",
-                                                "CROSS_FEED_BEARINGS")
-            else len(solid.Solids()) == 1)
+        ok = solid.isValid() and len(solid.Solids()) == separated.get(name, 1)
         recs.append({"name": name, "solids": len(solid.Solids()),
                      "valid": solid.isValid(), "bounds": bounds(solid)})
         if not ok:

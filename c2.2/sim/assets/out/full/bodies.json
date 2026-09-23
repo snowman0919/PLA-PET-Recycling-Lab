@@ -1,9 +1,9 @@
 {
   "schema": "full_machine_bodies/1",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "e6793f06a8c7dcd31576b8e86135b91c0338d47f0fe844149db1832ffa80eaf5",
-  "revision": "1c046a551f70f91b6c7c814b8123c5445b4ddd7f",
-  "conversion_script_sha256": "a9e71d96195ff56b62cb3427ccc870e8e1d2d8417c6ba904ca8a64e82de96247",
+  "source_step_sha256": "d44b8c2fd874e71a49fe8ccadfa4a2e9a60cf8c38058097619b67205c7c9e233",
+  "revision": "eba6cbbcd20403b60611982d776d108d26e027b0",
+  "conversion_script_sha256": "bef465506f91f0a5ba57d8ab56592c758a16f352c4986c8e73fa9f2ac7e36049",
   "solids": [
     {
       "name": "FR-2040-630_001",
@@ -1490,16 +1490,16 @@
       "body": "S1B",
       "step_index": 87,
       "part_bbox": [
-        177.4999999,
+        151.0397813642803,
         99.9999999,
-        385.802751747084,
-        202.5000001,
-        350.0000001,
-        410.80275194708406
+        359.3425332113643,
+        228.96021863571968,
+        414.0000001,
+        437.2629704828038
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1-SHAFT-B_001__fine.stl",
-      "mesh_sha256": "b4a554c2e13446574be1af1fbe7f771838059e0ce0a6f3047fed6d196bec7149"
+      "mesh_sha256": "32807254f779ecff25c16e55032c403bd39b95f0dfc3447c2fbc8b7cc235f612"
     },
     {
       "name": "BR-6205_003",
@@ -3275,16 +3275,16 @@
       "body": "STATIC",
       "step_index": 192,
       "part_bbox": [
-        79.99999985,
+        73.99999985,
         157.39999985,
-        334.49999985,
+        319.99999985,
         360.00000015,
         329.60000015,
         356.30000015
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "mesh_sha256": "8fa897fc70b61acaa2c5a4786ebeb5c2909e5ce4c9b0ccea4eec7c4d34c55799"
+      "mesh_sha256": "b2939ef1c177b65728410c345e85b268b92f6f2fe3bdf340bfd4be4740f9cdc9"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -3411,7 +3411,7 @@
       "body": "AUGER",
       "step_index": 200,
       "part_bbox": [
-        235.9999999,
+        207.9999999,
         222.17098536740815,
         338.76499660648,
         370.0000001,
@@ -3420,7 +3420,7 @@
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/AUG_SHAFT__fine.stl",
-      "mesh_sha256": "e340cf20f925161723532932cba71a80dbff2240514da99edc685262d9996013"
+      "mesh_sha256": "279b6aab732d1e223b43a41c370b23b72ca3d479ab38a1364e2c3441607e9e88"
     },
     {
       "name": "AUG_BEARINGS",
@@ -3428,12 +3428,12 @@
       "body": "STATIC",
       "step_index": 201,
       "part_bbox": [
-        232.9999999,
-        219.9999999,
-        335.5999999,
-        239.0000001,
-        244.0000001,
-        350.10000010000005
+        207.99999985,
+        162.39999985,
+        341.89999985000003,
+        214.00000015,
+        324.60000015,
+        355.30000015
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
@@ -3444,23 +3444,6 @@
       "group": "feed",
       "body": "STATIC",
       "step_index": 202,
-      "part_bbox": [
-        232.9999999,
-        219.9999999,
-        350.0999999,
-        239.0000001,
-        244.0000001,
-        352.0000001
-      ],
-      "bbox_ok": true,
-      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
-      "mesh_sha256": "c1d810a2efe0ad6ca876222d897c305c23f4e8ddc50047c2b6d27901384567ac"
-    },
-    {
-      "name": "AUG_BEARINGS",
-      "group": "feed",
-      "body": "STATIC",
-      "step_index": 203,
       "part_bbox": [
         365.9999999,
         225.9999999,
@@ -3477,7 +3460,7 @@
       "name": "AUG_WHEEL",
       "group": "feed",
       "body": "AUGER",
-      "step_index": 204,
+      "step_index": 203,
       "part_bbox": [
         349.81250104980865,
         222.1808784178705,
@@ -3494,7 +3477,7 @@
       "name": "PDL_FEED_GEAR",
       "group": "feed",
       "body": "PADDLE",
-      "step_index": 205,
+      "step_index": 204,
       "part_bbox": [
         347.84869441517463,
         212.9999998499999,
@@ -3511,7 +3494,7 @@
       "name": "CROSS_FEED_IDLER",
       "group": "feed",
       "body": "CROSS_FEED_IDLER",
-      "step_index": 206,
+      "step_index": 205,
       "part_bbox": [
         353.42754773001064,
         206.99999985,
@@ -3528,7 +3511,7 @@
       "name": "CROSS_FEED_GEAR",
       "group": "feed",
       "body": "CROSS_FEED",
-      "step_index": 207,
+      "step_index": 206,
       "part_bbox": [
         342.5955869318481,
         212.99999985,
@@ -3545,7 +3528,7 @@
       "name": "CROSS_FEED_SHAFT",
       "group": "feed",
       "body": "CROSS_FEED",
-      "step_index": 208,
+      "step_index": 207,
       "part_bbox": [
         345.27331617466,
         207.9999999,
@@ -3562,7 +3545,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 209,
+      "step_index": 208,
       "part_bbox": [
         351.7999999,
         207.9999999,
@@ -3579,7 +3562,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 210,
+      "step_index": 209,
       "part_bbox": [
         351.7999999,
         219.9999999,
@@ -3596,7 +3579,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 211,
+      "step_index": 210,
       "part_bbox": [
         362.65081709993467,
         206.9999999,
@@ -3613,7 +3596,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 212,
+      "step_index": 211,
       "part_bbox": [
         362.65081709993467,
         219.9999999,
@@ -3630,7 +3613,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 213,
+      "step_index": 212,
       "part_bbox": [
         360.9999999,
         207.9999999,
@@ -3647,7 +3630,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 214,
+      "step_index": 213,
       "part_bbox": [
         360.9999999,
         219.9999999,
@@ -3664,7 +3647,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 215,
+      "step_index": 214,
       "part_bbox": [
         371.69999989999997,
         207.9999999,
@@ -3681,7 +3664,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 216,
+      "step_index": 215,
       "part_bbox": [
         369.19999989999997,
         222.9999999,
@@ -3698,7 +3681,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 217,
+      "step_index": 216,
       "part_bbox": [
         371.85081709993466,
         206.9999999,
@@ -3715,7 +3698,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 218,
+      "step_index": 217,
       "part_bbox": [
         371.85081709993466,
         219.9999999,
@@ -3732,7 +3715,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 219,
+      "step_index": 218,
       "part_bbox": [
         382.9999999,
         206.9999999,
@@ -3749,7 +3732,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 220,
+      "step_index": 219,
       "part_bbox": [
         369.19999989999997,
         222.9999999,
@@ -3766,7 +3749,7 @@
       "name": "CROSS_FEED_SHELL",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 221,
+      "step_index": 220,
       "part_bbox": [
         344.29999985,
         223.49999985,
@@ -3780,10 +3763,401 @@
       "mesh_sha256": "e50dc29920067e0dec97b4535bdea5597804aadfe8ee3544d425d6f717ff591b"
     },
     {
+      "name": "S1_BELT",
+      "group": "feed",
+      "body": "BELT",
+      "step_index": 221,
+      "part_bbox": [
+        75.39999989999981,
+        163.4999998999998,
+        326.79999989999976,
+        223.6000001000002,
+        223.20000010000018,
+        336.0000001000002
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
+      "mesh_sha256": "0f317c245717840216507392ca1a6db5ca9b6bc7e581de556cbb4787ada5f660"
+    },
+    {
+      "name": "S1_BELT",
+      "group": "feed",
+      "body": "BELT",
+      "step_index": 222,
+      "part_bbox": [
+        75.39999989999964,
+        240.79999989999965,
+        326.7999998999996,
+        223.60000010000036,
+        323.50000010000036,
+        336.00000010000036
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
+      "mesh_sha256": "0f317c245717840216507392ca1a6db5ca9b6bc7e581de556cbb4787ada5f660"
+    },
+    {
+      "name": "S1_BELT_DRIVE",
+      "group": "feed",
+      "body": "BELT_DRIVE",
+      "step_index": 223,
+      "part_bbox": [
+        73.9999999,
+        126.9999999,
+        325.39999989999995,
+        87.0000001,
+        413.0000001,
+        337.4000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_DRIVE__fine.stl",
+      "mesh_sha256": "db2241cf44de2098060d758004d1f00b00a8a6643a10e26f0c5470640f07e749"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "group": "feed",
+      "body": "BELT_IDLER",
+      "step_index": 224,
+      "part_bbox": [
+        215.1999999,
+        126.9999999,
+        327.59999989999994,
+        222.8000001,
+        223.20000009999998,
+        335.2000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER__fine.stl",
+      "mesh_sha256": "7114e1d0a273e8a7e4fad1a0c963a559e14c24a3f99489d59817d1a38a4d768d"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "group": "feed",
+      "body": "BELT_IDLER",
+      "step_index": 225,
+      "part_bbox": [
+        215.1999999,
+        240.79999990000002,
+        327.59999989999994,
+        222.8000001,
+        359.0000001,
+        335.2000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER__fine.stl",
+      "mesh_sha256": "7114e1d0a273e8a7e4fad1a0c963a559e14c24a3f99489d59817d1a38a4d768d"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 226,
+      "part_bbox": [
+        74.9999999,
+        157.3999999,
+        326.39999989999995,
+        85.0000001,
+        163.4000001,
+        336.4000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
+      "mesh_sha256": "32a04b7672de2ef7054a359d9c1347f2f0072d707132a95856852aac82f5daff"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 227,
+      "part_bbox": [
+        74.9999999,
+        323.5999999,
+        326.39999989999995,
+        85.0000001,
+        329.60000010000005,
+        336.4000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
+      "mesh_sha256": "32a04b7672de2ef7054a359d9c1347f2f0072d707132a95856852aac82f5daff"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 228,
+      "part_bbox": [
+        213.9999999,
+        157.3999999,
+        326.39999989999995,
+        224.0000001,
+        163.4000001,
+        336.4000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
+      "mesh_sha256": "32a04b7672de2ef7054a359d9c1347f2f0072d707132a95856852aac82f5daff"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 229,
+      "part_bbox": [
+        213.9999999,
+        323.5999999,
+        326.39999989999995,
+        224.0000001,
+        329.60000010000005,
+        336.4000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
+      "mesh_sha256": "32a04b7672de2ef7054a359d9c1347f2f0072d707132a95856852aac82f5daff"
+    },
+    {
+      "name": "S1_BELT_FOLLOWER",
+      "group": "feed",
+      "body": "BELT_DRIVE",
+      "step_index": 230,
+      "part_bbox": [
+        59.5197376713571,
+        400.99999985,
+        310.91973767135704,
+        100.48026232864291,
+        413.00000015,
+        351.8802623286429
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_FOLLOWER__fine.stl",
+      "mesh_sha256": "f572b70cccb2d6bf91f0332fd7398444ea2084dad406bb31c82b688e0129b9a5"
+    },
+    {
+      "name": "S1_BELT_CHAIN",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 231,
+      "part_bbox": [
+        56.09911496256536,
+        401.99999985,
+        307.4996972297765,
+        231.96424391921752,
+        407.00000015,
+        440.28733262029215
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_CHAIN__coarse.stl",
+      "mesh_sha256": "d415b848b1258fbb0c5a82d538d58e476debde7fdc7836ce4ab37b4967bcea19"
+    },
+    {
+      "name": "S1_SWEEP_SOUTH",
+      "group": "feed",
+      "body": "SWEEP_SOUTH",
+      "step_index": 232,
+      "part_bbox": [
+        219.26054981820062,
+        126.9999999,
+        332.7224854601077,
+        237.29439499707877,
+        228.0000001,
+        350.3553171975637
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
+      "mesh_sha256": "53f15240f1bfb3126b2c63a6c5fafeb460f7a447afc85dd747cee461b1dbb9e4"
+    },
+    {
+      "name": "S1_SWEEP_NORTH",
+      "group": "feed",
+      "body": "SWEEP_NORTH",
+      "step_index": 233,
+      "part_bbox": [
+        219.69527316850892,
+        235.9999999,
+        333.287827953147,
+        236.87294772826664,
+        359.0000001,
+        350.1733126367754
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
+      "mesh_sha256": "4d93490b6acd05a2ac5f69e3010968aadde333fb6ed473b57acc531c0c30fb14"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_S",
+      "group": "feed",
+      "body": "BELT_IDLER",
+      "step_index": 234,
+      "part_bbox": [
+        210.94147205533503,
+        127.99999985,
+        323.34147205533503,
+        227.05852794466497,
+        134.00000015,
+        339.4585279446649
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_DRUM_S__fine.stl",
+      "mesh_sha256": "d4b0715c85929309bc1e91cb919abf1bbc482c2a31ba86615f642909a6f7acb1"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_S",
+      "group": "feed",
+      "body": "SWEEP_SOUTH",
+      "step_index": 235,
+      "part_bbox": [
+        220.05543853971645,
+        127.99999985,
+        333.85543853971643,
+        236.34456146028353,
+        134.00000015,
+        350.1445614602835
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_S__fine.stl",
+      "mesh_sha256": "d1708f044d6b0f4ec846bc4bcaed91f87a425e19c1d50ef3cc263116e71b5020"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_N",
+      "group": "feed",
+      "body": "BELT_IDLER",
+      "step_index": 236,
+      "part_bbox": [
+        210.94147205533503,
+        352.0999998499999,
+        323.34147205533503,
+        227.05852794466497,
+        358.10000015,
+        339.4585279446649
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_DRUM_N__fine.stl",
+      "mesh_sha256": "e934ac189db2d55472b1a83ea319b583bb2117d19552af13d72c27c221a8d5c5"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_N",
+      "group": "feed",
+      "body": "SWEEP_NORTH",
+      "step_index": 237,
+      "part_bbox": [
+        220.05543853971645,
+        352.09999984999956,
+        333.85543853971643,
+        236.34456146028353,
+        358.10000015,
+        350.1445614602835
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_N__fine.stl",
+      "mesh_sha256": "ae28882f15f260bfb590b15b14d626644839c085058a4dad1dc65fb713bee6aa"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 238,
+      "part_bbox": [
+        225.8499999,
+        157.3999999,
+        339.64999989999995,
+        230.55000009999998,
+        163.4000001,
+        344.35000010000005
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
+      "mesh_sha256": "00874902ffefddd96882d140be57984291183f7c67d4549a21eed0a5f7cc7668"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 239,
+      "part_bbox": [
+        225.8499999,
+        323.5999999,
+        339.64999989999995,
+        230.55000009999998,
+        329.60000010000005,
+        344.35000010000005
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
+      "mesh_sha256": "00874902ffefddd96882d140be57984291183f7c67d4549a21eed0a5f7cc7668"
+    },
+    {
+      "name": "S1_TRANSFER_BELT",
+      "group": "feed",
+      "body": "TRANSFER_BELT",
+      "step_index": 240,
+      "part_bbox": [
+        77.00085630305331,
+        223.49999989999978,
+        328.4008563030533,
+        241.9991436969467,
+        240.50000010000022,
+        338.1991436969467
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BELT__fine.stl",
+      "mesh_sha256": "7cdf094849046fccbd88c5065d423402986e2b3f0b9910625aa38340059590ec"
+    },
+    {
+      "name": "S1_TRANSFER_IDLER",
+      "group": "feed",
+      "body": "TRANSFER_IDLER",
+      "step_index": 241,
+      "part_bbox": [
+        236.6999999,
+        213.9999999,
+        332.89999989999995,
+        241.3000001,
+        250.0000001,
+        337.5000001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_IDLER__fine.stl",
+      "mesh_sha256": "e7b417c038bc43574a346f09920b87375dbc35c9f710d45af1ada7712e0f11d8"
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 242,
+      "part_bbox": [
+        237.4499999,
+        217.9999999,
+        333.64999989999995,
+        240.5500001,
+        223.20000009999998,
+        336.7500001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
+      "mesh_sha256": "d76bd4e96a5cb4c0ddc9e82a022ea54ac7cc3366f4e5d561b6e766c7b0fe3c2c"
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 243,
+      "part_bbox": [
+        237.4499999,
+        240.79999990000002,
+        333.64999989999995,
+        240.5500001,
+        246.0000001,
+        336.7500001
+      ],
+      "bbox_ok": true,
+      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
+      "mesh_sha256": "d76bd4e96a5cb4c0ddc9e82a022ea54ac7cc3366f4e5d561b6e766c7b0fe3c2c"
+    },
+    {
       "name": "GUARD_S2_RING",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 222,
+      "step_index": 244,
       "part_bbox": [
         270.3362201399365,
         248.99999989999995,
@@ -3800,7 +4174,7 @@
       "name": "GUARD_CHAIN_A",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 223,
+      "step_index": 245,
       "part_bbox": [
         104.9999999,
         351.9999999,
@@ -3817,7 +4191,7 @@
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 224,
+      "step_index": 246,
       "part_bbox": [
         102.96413519176322,
         376.9999999,
@@ -3834,7 +4208,7 @@
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 225,
+      "step_index": 247,
       "part_bbox": [
         171.8155928345213,
         376.9999999,
@@ -3851,7 +4225,7 @@
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 226,
+      "step_index": 248,
       "part_bbox": [
         286.9999405242236,
         376.99999985,
@@ -3868,7 +4242,7 @@
       "name": "GUARD_LID_INTERLOCK_SEAT",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 227,
+      "step_index": 249,
       "part_bbox": [
         19.9999999,
         234.9999999,
@@ -3885,7 +4259,7 @@
       "name": "PULL_FRAME",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 228,
+      "step_index": 250,
       "part_bbox": [
         821.99999985,
         249.99999985,
@@ -3902,7 +4276,7 @@
       "name": "PULL_FRAME",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 229,
+      "step_index": 251,
       "part_bbox": [
         821.9999999,
         274.9999999,
@@ -3919,7 +4293,7 @@
       "name": "PULL_ROLLER_FIXED",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 230,
+      "step_index": 252,
       "part_bbox": [
         818.9999999,
         244.9999999,
@@ -3936,7 +4310,7 @@
       "name": "PULL_ROLLER_ADJ",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 231,
+      "step_index": 253,
       "part_bbox": [
         810.0215456210208,
         252.9999999,
@@ -3953,7 +4327,7 @@
       "name": "PULL_NIP_STOP",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 232,
+      "step_index": 254,
       "part_bbox": [
         819.9999999,
         275.9999999,
@@ -3970,7 +4344,7 @@
       "name": "PULL_MOTOR_REF",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 233,
+      "step_index": 255,
       "part_bbox": [
         820.99999985,
         201.99999985,
@@ -3987,7 +4361,7 @@
       "name": "WIND_SPOOL_SHAFT",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 234,
+      "step_index": 256,
       "part_bbox": [
         691.9999999,
         86.9999999,
@@ -4004,7 +4378,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 235,
+      "step_index": 257,
       "part_bbox": [
         687.9999999,
         87.9999999,
@@ -4021,7 +4395,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 236,
+      "step_index": 258,
       "part_bbox": [
         687.9999999,
         169.9999999,
@@ -4038,7 +4412,7 @@
       "name": "WIND_SPOOL_DRUM",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 237,
+      "step_index": 259,
       "part_bbox": [
         664.9999999,
         105.9999999,
@@ -4055,7 +4429,7 @@
       "name": "WIND_FLANGE_L",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 238,
+      "step_index": 260,
       "part_bbox": [
         599.9999999,
         99.9999999,
@@ -4072,7 +4446,7 @@
       "name": "WIND_FLANGE_R",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 239,
+      "step_index": 261,
       "part_bbox": [
         599.9999999,
         163.9999999,
@@ -4089,7 +4463,7 @@
       "name": "WIND_MOTOR_REF",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 240,
+      "step_index": 262,
       "part_bbox": [
         679.9999999,
         181.9999999,
@@ -4106,7 +4480,7 @@
       "name": "WIND_TRAVERSE_SCREW",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 241,
+      "step_index": 263,
       "part_bbox": [
         737.9999999,
         94.9999999,
@@ -4123,7 +4497,7 @@
       "name": "WIND_TRAVERSE_RIDER",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 242,
+      "step_index": 264,
       "part_bbox": [
         733.99999985,
         109.99999985,
@@ -4140,7 +4514,7 @@
       "name": "WIND_TENSIONER",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 243,
+      "step_index": 265,
       "part_bbox": [
         743.9999999,
         192.9999999,
@@ -4157,7 +4531,7 @@
       "name": "EL_DIN_RAIL",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 244,
+      "step_index": 266,
       "part_bbox": [
         384.9999999,
         41.9999999,
@@ -4174,7 +4548,7 @@
       "name": "EL_DRIVER_1",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 245,
+      "step_index": 267,
       "part_bbox": [
         389.9999999,
         41.9999999,
@@ -4191,7 +4565,7 @@
       "name": "EL_DRIVER_2",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 246,
+      "step_index": 268,
       "part_bbox": [
         444.9999999,
         41.9999999,
@@ -4208,7 +4582,7 @@
       "name": "EL_DRIVER_3",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 247,
+      "step_index": 269,
       "part_bbox": [
         499.9999999,
         41.9999999,
@@ -4225,7 +4599,7 @@
       "name": "EL_CONTACTOR",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 248,
+      "step_index": 270,
       "part_bbox": [
         549.9999999,
         41.9999999,
@@ -4242,7 +4616,7 @@
       "name": "EL_ESTOP_BOX",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 249,
+      "step_index": 271,
       "part_bbox": [
         389.9999999,
         99.9999999,
@@ -4259,7 +4633,7 @@
       "name": "EL_OVERTEMP_BOX",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 250,
+      "step_index": 272,
       "part_bbox": [
         439.9999999,
         99.9999999,
@@ -4276,7 +4650,7 @@
       "name": "EL_CURRENT_LIMITER",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 251,
+      "step_index": 273,
       "part_bbox": [
         489.9999999,
         99.9999999,
@@ -4293,7 +4667,7 @@
       "name": "EL_WIRE_DUCT",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 252,
+      "step_index": 274,
       "part_bbox": [
         384.9999999,
         139.9999999,
@@ -4310,6 +4684,9 @@
   "count_adjustments": [],
   "moving_bodies": [
     "AUGER",
+    "BELT",
+    "BELT_DRIVE",
+    "BELT_IDLER",
     "CROSS_FEED",
     "CROSS_FEED_IDLER",
     "IN_SHAFT",
@@ -4324,7 +4701,11 @@
     "S2_ROLLER_4",
     "S2_ROLLER_5",
     "S2_ROLLER_6",
-    "S2_ROTOR"
+    "S2_ROTOR",
+    "SWEEP_NORTH",
+    "SWEEP_SOUTH",
+    "TRANSFER_BELT",
+    "TRANSFER_IDLER"
   ],
   "static_body": "STATIC",
   "emitted": [
@@ -5029,8 +5410,8 @@
       "body": "S1B",
       "lod": "fine",
       "stl": "sim/assets/out/full/S1-SHAFT-B_001__fine.stl",
-      "bytes": 31884,
-      "sha256": "b4a554c2e13446574be1af1fbe7f771838059e0ce0a6f3047fed6d196bec7149"
+      "bytes": 119484,
+      "sha256": "32807254f779ecff25c16e55032c403bd39b95f0dfc3447c2fbc8b7cc235f612"
     },
     {
       "name": "BR-6205_003",
@@ -5869,8 +6250,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "bytes": 22284,
-      "sha256": "8fa897fc70b61acaa2c5a4786ebeb5c2909e5ce4c9b0ccea4eec7c4d34c55799"
+      "bytes": 80984,
+      "sha256": "b2939ef1c177b65728410c345e85b268b92f6f2fe3bdf340bfd4be4740f9cdc9"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -5933,24 +6314,16 @@
       "body": "AUGER",
       "lod": "fine",
       "stl": "sim/assets/out/full/AUG_SHAFT__fine.stl",
-      "bytes": 254484,
-      "sha256": "e340cf20f925161723532932cba71a80dbff2240514da99edc685262d9996013"
+      "bytes": 249784,
+      "sha256": "279b6aab732d1e223b43a41c370b23b72ca3d479ab38a1364e2c3441607e9e88"
     },
     {
       "name": "AUG_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/AUG_BEARINGS__coarse.stl",
-      "bytes": 5084,
-      "sha256": "22f1b8ecc8d127ec81786c75c2ec7370be0ea2abce4c9a54ea4641b31209dd31"
-    },
-    {
-      "name": "AUG_BEARINGS",
-      "body": "STATIC",
-      "lod": "coarse",
-      "stl": "sim/assets/out/full/AUG_BEARINGS__coarse.stl",
-      "bytes": 1884,
-      "sha256": "c2430d51210f72b988f028343eff75d7307972196a4b94f50c3f93bb6427cab2"
+      "bytes": 13484,
+      "sha256": "f4c1c097c694b710f332269a22b67d6e3de6b8cdd64da4080811456b36e371cc"
     },
     {
       "name": "AUG_BEARINGS",
@@ -6103,6 +6476,190 @@
       "stl": "sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
       "bytes": 9384,
       "sha256": "e50dc29920067e0dec97b4535bdea5597804aadfe8ee3544d425d6f717ff591b"
+    },
+    {
+      "name": "S1_BELT",
+      "body": "BELT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_BELT__fine.stl",
+      "bytes": 26484,
+      "sha256": "54e2ecf02f5d24e5dd2ea88783773284daa753ae2f0cfd996190f2b5c02d9622"
+    },
+    {
+      "name": "S1_BELT",
+      "body": "BELT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_BELT__fine.stl",
+      "bytes": 26484,
+      "sha256": "0f317c245717840216507392ca1a6db5ca9b6bc7e581de556cbb4787ada5f660"
+    },
+    {
+      "name": "S1_BELT_DRIVE",
+      "body": "BELT_DRIVE",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_BELT_DRIVE__fine.stl",
+      "bytes": 153084,
+      "sha256": "db2241cf44de2098060d758004d1f00b00a8a6643a10e26f0c5470640f07e749"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "body": "BELT_IDLER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_BELT_IDLER__fine.stl",
+      "bytes": 53084,
+      "sha256": "184546d214d38d0f5744d9878a5522db73c9ad1e490421514f8c79126456cd8d"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "body": "BELT_IDLER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_BELT_IDLER__fine.stl",
+      "bytes": 53084,
+      "sha256": "7114e1d0a273e8a7e4fad1a0c963a559e14c24a3f99489d59817d1a38a4d768d"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "bb33cfb471b69de78377ea03f157f2ba9679db5afc92577eb67e13f6c4049e19"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "e953e4f3746ba78b403ef8086c533ef342f8c4f19d89c0a0ae418e7b0901e1f3"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "b27cb136da56c694d09ea6a7fad0beda9b7dbf2e6d26f7ec9d21825c62aec291"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "32a04b7672de2ef7054a359d9c1347f2f0072d707132a95856852aac82f5daff"
+    },
+    {
+      "name": "S1_BELT_FOLLOWER",
+      "body": "BELT_DRIVE",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_BELT_FOLLOWER__fine.stl",
+      "bytes": 55684,
+      "sha256": "f572b70cccb2d6bf91f0332fd7398444ea2084dad406bb31c82b688e0129b9a5"
+    },
+    {
+      "name": "S1_BELT_CHAIN",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_BELT_CHAIN__coarse.stl",
+      "bytes": 39684,
+      "sha256": "d415b848b1258fbb0c5a82d538d58e476debde7fdc7836ce4ab37b4967bcea19"
+    },
+    {
+      "name": "S1_SWEEP_SOUTH",
+      "body": "SWEEP_SOUTH",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
+      "bytes": 259384,
+      "sha256": "53f15240f1bfb3126b2c63a6c5fafeb460f7a447afc85dd747cee461b1dbb9e4"
+    },
+    {
+      "name": "S1_SWEEP_NORTH",
+      "body": "SWEEP_NORTH",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
+      "bytes": 330584,
+      "sha256": "4d93490b6acd05a2ac5f69e3010968aadde333fb6ed473b57acc531c0c30fb14"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_S",
+      "body": "BELT_IDLER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_SWEEP_GEAR_DRUM_S__fine.stl",
+      "bytes": 71684,
+      "sha256": "d4b0715c85929309bc1e91cb919abf1bbc482c2a31ba86615f642909a6f7acb1"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_S",
+      "body": "SWEEP_SOUTH",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_SWEEP_GEAR_S__fine.stl",
+      "bytes": 71684,
+      "sha256": "d1708f044d6b0f4ec846bc4bcaed91f87a425e19c1d50ef3cc263116e71b5020"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_N",
+      "body": "BELT_IDLER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_SWEEP_GEAR_DRUM_N__fine.stl",
+      "bytes": 71684,
+      "sha256": "e934ac189db2d55472b1a83ea319b583bb2117d19552af13d72c27c221a8d5c5"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_N",
+      "body": "SWEEP_NORTH",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_SWEEP_GEAR_N__fine.stl",
+      "bytes": 71684,
+      "sha256": "ae28882f15f260bfb590b15b14d626644839c085058a4dad1dc65fb713bee6aa"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "de064800084f319ce224275d875a6b4216672529e7dece83720ebb5ca321b6b2"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "00874902ffefddd96882d140be57984291183f7c67d4549a21eed0a5f7cc7668"
+    },
+    {
+      "name": "S1_TRANSFER_BELT",
+      "body": "TRANSFER_BELT",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_TRANSFER_BELT__fine.stl",
+      "bytes": 26484,
+      "sha256": "7cdf094849046fccbd88c5065d423402986e2b3f0b9910625aa38340059590ec"
+    },
+    {
+      "name": "S1_TRANSFER_IDLER",
+      "body": "TRANSFER_IDLER",
+      "lod": "fine",
+      "stl": "sim/assets/out/full/S1_TRANSFER_IDLER__fine.stl",
+      "bytes": 75484,
+      "sha256": "e7b417c038bc43574a346f09920b87375dbc35c9f710d45af1ada7712e0f11d8"
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "08c8efa62a1c36b96c6d91d00ddc760241e3ac2e0ef7b60009b23b60249c3fb8"
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
+      "bytes": 10484,
+      "sha256": "d76bd4e96a5cb4c0ddc9e82a022ea54ac7cc3366f4e5d561b6e766c7b0fe3c2c"
     },
     {
       "name": "GUARD_S2_RING",
@@ -7371,32 +7928,32 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "AUG_BEARINGS",
+      "part": "AUG_WHEEL",
       "step_index": 203,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "AUG_WHEEL",
+      "part": "PDL_FEED_GEAR",
       "step_index": 204,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PDL_FEED_GEAR",
+      "part": "CROSS_FEED_IDLER",
       "step_index": 205,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_IDLER",
+      "part": "CROSS_FEED_GEAR",
       "step_index": 206,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_GEAR",
+      "part": "CROSS_FEED_SHAFT",
       "step_index": 207,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_SHAFT",
+      "part": "CROSS_FEED_BEARINGS",
       "step_index": 208,
       "centre_dist_mm": 0.0
     },
@@ -7456,170 +8013,280 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_BEARINGS",
+      "part": "CROSS_FEED_SHELL",
       "step_index": 220,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_SHELL",
+      "part": "S1_BELT",
       "step_index": 221,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_S2_RING",
+      "part": "S1_BELT",
       "step_index": 222,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_CHAIN_A",
+      "part": "S1_BELT_DRIVE",
       "step_index": 223,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_CHAIN_B",
+      "part": "S1_BELT_IDLER",
       "step_index": 224,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_CHAIN_B",
+      "part": "S1_BELT_IDLER",
       "step_index": 225,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_CHAIN_B",
+      "part": "S1_BELT_BEARINGS",
       "step_index": 226,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_LID_INTERLOCK_SEAT",
+      "part": "S1_BELT_BEARINGS",
       "step_index": 227,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_FRAME",
+      "part": "S1_BELT_BEARINGS",
       "step_index": 228,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_FRAME",
+      "part": "S1_BELT_BEARINGS",
       "step_index": 229,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_ROLLER_FIXED",
+      "part": "S1_BELT_FOLLOWER",
       "step_index": 230,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_ROLLER_ADJ",
+      "part": "S1_BELT_CHAIN",
       "step_index": 231,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_NIP_STOP",
+      "part": "S1_SWEEP_SOUTH",
       "step_index": 232,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_MOTOR_REF",
+      "part": "S1_SWEEP_NORTH",
       "step_index": 233,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_SHAFT",
+      "part": "S1_SWEEP_GEAR_DRUM_S",
       "step_index": 234,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_BEARINGS",
+      "part": "S1_SWEEP_GEAR_S",
       "step_index": 235,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_BEARINGS",
+      "part": "S1_SWEEP_GEAR_DRUM_N",
       "step_index": 236,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_DRUM",
+      "part": "S1_SWEEP_GEAR_N",
       "step_index": 237,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_FLANGE_L",
+      "part": "S1_SWEEP_BEARINGS",
       "step_index": 238,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_FLANGE_R",
+      "part": "S1_SWEEP_BEARINGS",
       "step_index": 239,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_MOTOR_REF",
+      "part": "S1_TRANSFER_BELT",
       "step_index": 240,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TRAVERSE_SCREW",
+      "part": "S1_TRANSFER_IDLER",
       "step_index": 241,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TRAVERSE_RIDER",
+      "part": "S1_TRANSFER_BEARINGS",
       "step_index": 242,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TENSIONER",
+      "part": "S1_TRANSFER_BEARINGS",
       "step_index": 243,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DIN_RAIL",
+      "part": "GUARD_S2_RING",
       "step_index": 244,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_1",
+      "part": "GUARD_CHAIN_A",
       "step_index": 245,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_2",
+      "part": "GUARD_CHAIN_B",
       "step_index": 246,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_3",
+      "part": "GUARD_CHAIN_B",
       "step_index": 247,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_CONTACTOR",
+      "part": "GUARD_CHAIN_B",
       "step_index": 248,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_ESTOP_BOX",
+      "part": "GUARD_LID_INTERLOCK_SEAT",
       "step_index": 249,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_OVERTEMP_BOX",
+      "part": "PULL_FRAME",
       "step_index": 250,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_CURRENT_LIMITER",
+      "part": "PULL_FRAME",
       "step_index": 251,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_WIRE_DUCT",
+      "part": "PULL_ROLLER_FIXED",
       "step_index": 252,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_ROLLER_ADJ",
+      "step_index": 253,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_NIP_STOP",
+      "step_index": 254,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "PULL_MOTOR_REF",
+      "step_index": 255,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_SPOOL_SHAFT",
+      "step_index": 256,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_SPOOL_BEARINGS",
+      "step_index": 257,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_SPOOL_BEARINGS",
+      "step_index": 258,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_SPOOL_DRUM",
+      "step_index": 259,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_FLANGE_L",
+      "step_index": 260,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_FLANGE_R",
+      "step_index": 261,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_MOTOR_REF",
+      "step_index": 262,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_TRAVERSE_SCREW",
+      "step_index": 263,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_TRAVERSE_RIDER",
+      "step_index": 264,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "WIND_TENSIONER",
+      "step_index": 265,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_DIN_RAIL",
+      "step_index": 266,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_DRIVER_1",
+      "step_index": 267,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_DRIVER_2",
+      "step_index": 268,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_DRIVER_3",
+      "step_index": 269,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_CONTACTOR",
+      "step_index": 270,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_ESTOP_BOX",
+      "step_index": 271,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_OVERTEMP_BOX",
+      "step_index": 272,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_CURRENT_LIMITER",
+      "step_index": 273,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "EL_WIRE_DUCT",
+      "step_index": 274,
       "centre_dist_mm": 0.0
     }
   ],
-  "wall_time_s": 47.92360591888428
+  "wall_time_s": 50.332574129104614
 }

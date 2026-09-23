@@ -99,6 +99,14 @@ MOVING_BODIES: dict[str, set[str]] = {
     "CROSS_FEED": {"CROSS_FEED_SHAFT", "CROSS_FEED_GEAR"},
     "CROSS_FEED_IDLER": {"CROSS_FEED_IDLER"},
     "S2_ROTOR": {"RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE"},
+    "BELT": {"S1_BELT"},
+    "BELT_DRIVE": {"S1_BELT_DRIVE", "S1_BELT_FOLLOWER"},
+    "BELT_IDLER": {"S1_BELT_IDLER", "S1_SWEEP_GEAR_DRUM_S",
+                   "S1_SWEEP_GEAR_DRUM_N"},
+    "SWEEP_SOUTH": {"S1_SWEEP_SOUTH", "S1_SWEEP_GEAR_S"},
+    "SWEEP_NORTH": {"S1_SWEEP_NORTH", "S1_SWEEP_GEAR_N"},
+    "TRANSFER_BELT": {"S1_TRANSFER_BELT"},
+    "TRANSFER_IDLER": {"S1_TRANSFER_IDLER"},
     "S2_CARRIER": {"OUTPUT_PIN_CARRIER_AND_SHAFT"},
     **{f"S2_ROLLER_{i}": {f"OUTPUT_ROLLER_{i}"} for i in range(1, 7)},
 }
@@ -448,18 +456,19 @@ def main() -> int:
     ap.add_argument("--assets", nargs="*", default=["RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE"],
                     choices=sorted(TARGETS))
     ap.add_argument("--lods", nargs="*", default=["fine", "coarse"], choices=sorted(LODS))
-    ap.add_argument("--out", default=str(C22 / "sim" / "assets" / "out"))
+    ap.add_argument("--out", default=None)
     ap.add_argument("--fallback-only", action="store_true",
                     help="skip STEP import; emit parametric hook-profile mesh only")
     ap.add_argument("--full", action="store_true",
                     help="convert ALL solids of the machine-integration STEP")
     args = ap.parse_args()
     if args.full:
-        return run_full(Path(args.out))
+        return run_full(Path(args.out) if args.out else
+                        C22 / "sim" / "assets" / "out" / "full")
 
     import cadquery as cq
 
-    out = Path(args.out)
+    out = Path(args.out) if args.out else C22 / "sim" / "assets" / "out"
     out.mkdir(parents=True, exist_ok=True)
     head = git_head()
     script_sha = sha256_file(HERE)

@@ -1,26 +1,26 @@
 # Graph Report - PPR-c2.1-codex-20260921  (2026-09-23)
 
 ## Corpus Check
-- 997 files · ~4,115,308 words
+- 796 files · ~4,827,339 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 1296 file(s) not represented in the graph (top: .stl 551, .log 204, .step 202)
+- Unclassified: 1112 file(s) not represented in the graph (top: .stl 348, .step 221, .log 204)
 
 ## Summary
-- 1730 nodes · 3109 edges · 192 communities (95 shown, 97 thin omitted)
+- 1750 nodes · 3162 edges · 195 communities (101 shown, 94 thin omitted)
 - Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 273 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1c046a55`
+- Built from commit: `eba6cbbc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - c2.1/src/build_cad.py
 - chute.py
-- S2
+- engineering.py
 - bonds.py
-- build_machine_integration.py
+- electrical_bay.py
 - TestVerifier
 - BondManager
 - analyze.py
@@ -34,7 +34,7 @@
 - s1_event
 - Inputs
 - performance.py
-- math
+- components
 - d4_accounting.py
 - run_case.py
 - run_full
@@ -44,17 +44,17 @@
 - C2 Engineering Contracts
 - generate
 - full_machine.py
-- build_freecad.py
+- flow_localize.py
 - PPR C1 Dimensioned Engineering Review Package
 - run_study.py
 - ControllerTests
 - Thermal
-- flow_localize.py
+- verify_full.py
 - bond_manager.py
 - C2.1 S2 Transmission Schematic
 - screen_open_area
 - d1_contact.py
-- test_vp1_stage1.py
+- ChainGeometry
 - run_r1.py
 - Material-flow HOLD despite localized S2 cap-bore transfer
 - Open Physical Actions Register
@@ -87,7 +87,7 @@
 - run_r3.py
 - C2.3-A-R1 수렴 재실행 핸드오프 (판정 요청)
 - json
-- build_release_manifest.py
+- guards.py
 - GearRatioKinematics
 - Fixed C2 System Constraints
 - Active C2 Baseline
@@ -171,23 +171,23 @@
 - Simulation Setup Details
 - Simulation Views
 - C2.2 — VP1 전체 기계 Isaac Sim 검증
-- _rect_prism
+- _prism_xz
 - verify_contract.py
 - aggregate_r1.py
-- drive_kinematics.py
-- main
+- _chain_loop
+- _box
 - sys
-- pathlib
+- auger_shaft
 - unittest
 - os
 - aggregate_r2.py
-- convergence.py
-- TestD4Ledger
-- TestNullStatus
+- test_verify.py
+- pan_floor
+- _feed_gear
 - gap_screen_sweep.py
-- render_cad.py
+- math
 - argparse
-- TestD4Faults
+- audit_hulls.py
 - REFERENCE/UNRATED worm, wheel, shafts, bearings and motor
 - Stage 5 active chute auger
 - Function-preserving integration reliefs
@@ -196,18 +196,21 @@
 - Conservative cycloidal pin-ring screen
 - C2.3 tribometer, crown and joint expansion stopped
 - AST graph update does not complete semantic extraction
+- worm_sleeve
+- train_performance.py
+- nondominated
 
 ## God Nodes (most connected - your core abstractions)
-1. `S2` - 32 edges
-2. `components()` - 29 edges
+1. `components()` - 41 edges
+2. `S2` - 32 edges
 3. `Transmission` - 28 edges
 4. `Inputs` - 26 edges
 5. `BondManager` - 26 edges
-6. `s1_event()` - 22 edges
-7. `generate()` - 22 edges
-8. `_box()` - 20 edges
-9. `EvidenceTests` - 20 edges
-10. `Thermal` - 19 edges
+6. `_box()` - 25 edges
+7. `_cyl()` - 22 edges
+8. `s1_event()` - 22 edges
+9. `generate()` - 22 edges
+10. `EvidenceTests` - 20 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `S2 Cycloidal Guide, Sleeve, and Pin Rings` --semantically_similar_to--> `Small Pin-Ring Feasibility Screen`  [INFERRED] [semantically similar]
@@ -234,47 +237,47 @@
 - **Diagnostic Outcomes relate to Requirements** — c2_3_revisions_r1_diagnostic_summary [INFERRED 0.85]
 - **Digital Evidence Without External Hardware Release** — _github_workflows_c2_engineering_no_hardware_approval_gate, _github_workflows_c2_engineering_dynamic_evidence_count_contract, _github_workflows_c2_engineering_procurement_fabrication_energization_hold_contract [INFERRED 0.95]
 
-## Communities (192 total, 97 thin omitted)
+## Communities (195 total, 94 thin omitted)
 
 ### Community 0 - "c2.1/src/build_cad.py"
 Cohesion: 0.06
 Nodes (66): analytical_bounds(), c2_process_part(), cad_frame_check(), collision_checks(), components(), cylinder(), export_assembly(), extrude_xz() (+58 more)
 
 ### Community 1 - "chute.py"
-Cohesion: 0.05
-Nodes (76): auger_bearings(), auger_shaft(), auger_wheel(), _box(), bypass_channel_floor(), bypass_wall_north_lower(), bypass_wall_south(), _c21_transform() (+68 more)
+Cohesion: 0.14
+Nodes (14): cutter_sweep_solids(), _guide(), _prism_xy(), VP1 Stage 1: real transfer chute from the S1 discharge opening to the C2.1 S2…, Historical ratchet rib retained for inspection, not installed., No stationary ribs in the screw pickup or flight zone., Historical pan-only ribs, superseded by the active transfer design., Stationary funnel wall clears the moving belt tread by 0.2 mm. (+6 more)
 
-### Community 2 - "S2"
-Cohesion: 0.16
-Nodes (12): generalized_torque(), hook_polygon(), kinematics(), packaging(), point_jacobian(), polygon_area(), ndarray, Six polar controls per hook; linear interpolation is manufacturable, not… (+4 more)
+### Community 2 - "engineering.py"
+Cohesion: 0.12
+Nodes (19): Any, design_set(), diverse_selection(), equivalent_motor_load(), generalized_torque(), hook_polygon(), kinematics(), main() (+11 more)
 
 ### Community 3 - "bonds.py"
 Cohesion: 0.15
 Nodes (13): graph_from_meta(), Rebuild the exact I2 lattice from waste_gen metadata. Mirrors…, Bond, BondGraph, Cell, lattice_graph(), I2 bond-graph: cells/chunks + directional bonds (nominal strengths only).…, 6-neighbourhood lattice; x->in_raster, y->cross_raster, z->inter_layer_z. Cell… (+5 more)
 
-### Community 4 - "build_machine_integration.py"
-Cohesion: 0.06
-Nodes (56): assembly_geometry_checks(), matches(), bbox_overlap(), bounds(), c21_parts(), collision_audit(), extent(), legacy_parts() (+48 more)
+### Community 4 - "electrical_bay.py"
+Cohesion: 0.15
+Nodes (24): _box(), components(), contactor(), current_limiter(), din_rail(), driver(), driver_1(), driver_2() (+16 more)
 
 ### Community 6 - "BondManager"
 Cohesion: 0.19
 Nodes (11): BondManager, Deterministic fallback fracture over a BondGraph., fixed_lattice(), I3 fracture regressions: determinism, conservation, orderings, gaps. Evidence:…, TestDeterminism, TestInvalidInput, TestMassConservation, TestOrientationDependence (+3 more)
 
 ### Community 7 - "analyze.py"
-Cohesion: 0.18
-Nodes (13): csv, scipy_linalg, scipy_optimize, allocate(), clearance_metric(), cooling(), main(), Reproducible C1 engineering screens. No empirical cutting/thermal data is… (+5 more)
+Cohesion: 0.16
+Nodes (15): csv, scipy_linalg, scipy_optimize, shapely_geometry, allocate(), clearance_metric(), cooling(), main() (+7 more)
 
 ### Community 8 - "drive_teeth.py"
-Cohesion: 0.16
-Nodes (17): _gear_flank_pts(), _gear_local_solid(), _gear_profile_xy(), _inv(), _mesh_check(), VP1 Stage 1/4: real tooth geometry for the VP1 common-drive layout. Replaces…, Right-flank involute points (r, angle-from-tooth-center) in profile XY.…, Closed tooth profile polygon in profile-XY, tooth center at local 0deg.… (+9 more)
+Cohesion: 0.12
+Nodes (27): gear_center_distance(), gear_pitch_radius(), ratio_chain(), Transverse pitch radius of a helical gear (normal module mn)., Kinematic chain from the VP1 Stage 4 layout (teeth counts only). M1 -> DRV-…, chain_components(), count_teeth(), _gear_flank_pts() (+19 more)
 
 ### Community 9 - "design.py"
 Cohesion: 0.18
 Nodes (9): box(), cyl(), part(), plate(), PPR C1 dimensional master. Generates a backend-neutral constructive-solid model., ring(), write_all(), add() (+1 more)
 
 ### Community 10 - "winder.py"
-Cohesion: 0.11
-Nodes (37): _box(), components(), _cyl(), _flange(), nip_opening_mm(), nip_range_mm(), pull_frame(), pull_motor_ref() (+29 more)
+Cohesion: 0.07
+Nodes (53): assembly_geometry_checks(), matches(), bbox_overlap(), bounds(), c21_parts(), collision_audit(), extent(), legacy_parts() (+45 more)
 
 ### Community 11 - "test_telemetry.py"
 Cohesion: 0.09
@@ -301,12 +304,12 @@ Cohesion: 0.09
 Nodes (22): Inputs, aux_demand_W, band_rotation_ms, buffer_full, estop_closed, fan_required, fan_tach_ok, guard_closed (+14 more)
 
 ### Community 17 - "performance.py"
-Cohesion: 0.10
-Nodes (19): candidate_hashes(), canonical_sha256(), evidence_inventory(), EvidenceError, main(), nondominated(), ndarray, Path (+11 more)
+Cohesion: 0.12
+Nodes (14): candidate_hashes(), canonical_sha256(), evidence_inventory(), EvidenceError, main(), Path, ValueError, Verified performance ingestion and model gate. Geometry is never a breakage… (+6 more)
 
-### Community 18 - "math"
-Cohesion: 0.18
-Nodes (11): design_set(), diverse_selection(), equivalent_motor_load(), main(), C2 deterministic engineering study. Numerical assumptions are not test evidence., Profile validity and full-orbit roller clearance for a compact cycloid…, math, numpy (+3 more)
+### Community 18 - "components"
+Cohesion: 0.12
+Nodes (24): auger_bearings(), belt_bearings(), belt_chain(), belt_drum(), belt_follower_sprocket(), components(), cross_feed_bearings(), cross_feed_shell() (+16 more)
 
 ### Community 19 - "d4_accounting.py"
 Cohesion: 0.16
@@ -341,28 +344,32 @@ Cohesion: 0.14
 Nodes (12): check_admissible(), generate(), main(), OversizeError, ValueError, random_quaternion(), I2 deterministic waste taxonomy generator (stdlib + numpy only). Classes: W1…, I2 waste generator regressions (read-only vs C2.1; stdlib+unittest+numpy).… (+4 more)
 
 ### Community 27 - "full_machine.py"
-Cohesion: 0.07
-Nodes (35): main(), mesh_volume(), Path, FIX B(1): convex-hull fidelity audit for the integrated machine. For every…, Signed volume of a closed triangle mesh via the divergence theorem (mm^3). CAD-…, sha256_file(), add_mesh(), convex_hull_of_verts() (+27 more)
+Cohesion: 0.10
+Nodes (30): add_mesh(), convex_hull_of_verts(), decimated_hull(), git_head(), load_stl_verts_faces(), main(), emit_axial_segment_hulls(), emit_bounded_hulls() (+22 more)
 
-### Community 28 - "build_freecad.py"
-Cohesion: 0.23
-Nodes (11): main(), Create the native FreeCAD C2.1 machine assembly from checked STEP parts., read_shape(), freecad, part, build(), face(), primitive() (+3 more)
+### Community 28 - "flow_localize.py"
+Cohesion: 0.14
+Nodes (11): main(), Path, FIX A: material-flow localization for the integrated PPR VP1 machine. The last…, Separate chute gate reach, in-trough reach, and subsequent loss. A final pose…, Runs one injection phase in its own Isaac process. Returns exit code., # NOTE: the contact-report event stream (subscribe_contact_report_, run_one_phase(), _ray() (+3 more)
 
 ### Community 29 - "PPR C1 Dimensioned Engineering Review Package"
 Cohesion: 0.12
 Nodes (17): BLOCKED_PERFORMANCE_DATA, C1-SEED Comparison Point, Coupled Kinematic Work Model, Eccentric Sleeve Wall Constraint, Geometry and Assembly Screen, PLA PET and TPU Calibration Plan, 144-Job Performance Manifest, Qualified GP and MLP Performance Learning Pipeline (+9 more)
 
 ### Community 30 - "run_study.py"
+Cohesion: 0.18
+Nodes (13): Fail-closed control reference. NOT deployable motor/heater firmware., evaluate(), main(), Full incremental procurement coverage. A missing quotation is not zero cost., profile(), Profile validity and full-orbit roller clearance for a compact cycloid…, verify(), _canon() (+5 more)
+
+### Community 31 - "ControllerTests"
 Cohesion: 0.16
-Nodes (12): allocate_power(), Fail-closed control reference. NOT deployable motor/heater firmware., Lower-bound heat capacities from generated C2 metal volumes, not measured…, thermal_capacities_from_cad(), thermal_matrix(), _canon(), main(), controller() (+4 more)
+Nodes (4): allocate_power(), Controller, controller(), ControllerTests
 
 ### Community 32 - "Thermal"
-Cohesion: 0.29
-Nodes (5): Carry thermal state through batch/fan-fault segments; still uncalibrated., Thermal, thermal_duty_run(), thermal_run(), ThermalTests
+Cohesion: 0.19
+Nodes (10): Carry thermal state through batch/fan-fault segments; still uncalibrated., Lower-bound heat capacities from generated C2 metal volumes, not measured…, Thermal, thermal_capacities_from_cad(), thermal_duty_run(), thermal_matrix(), thermal_run(), main() (+2 more)
 
-### Community 33 - "flow_localize.py"
-Cohesion: 0.06
-Nodes (27): main(), Path, FIX A: material-flow localization for the integrated PPR VP1 machine. The last…, Separate chute gate reach, in-trough reach, and subsequent loss. A final pose…, Runs one injection phase in its own Isaac process. Returns exit code., # NOTE: the contact-report event stream (subscribe_contact_report_, run_one_phase(), _ray() (+19 more)
+### Community 33 - "verify_full.py"
+Cohesion: 0.07
+Nodes (27): main(), Create the native FreeCAD C2.1 machine assembly from checked STEP parts., read_shape(), body_of(), is_by_design(), main(), Path, Full-machine motion verification under Isaac Sim 6.1 headless PhysX. Loads the… (+19 more)
 
 ### Community 34 - "bond_manager.py"
 Cohesion: 0.14
@@ -380,9 +387,9 @@ Nodes (3): Open-area fraction proxy: hole pitch ~ 2x diameter triangular grid. R
 Cohesion: 0.36
 Nodes (6): _isaac_child(), main(), D1 contact units + isolation diagnostic (Goal R0 section 4, D1). Exact…, run_one(), run_paths(), sha256_file()
 
-### Community 38 - "test_vp1_stage1.py"
-Cohesion: 0.14
-Nodes (6): ChainGeometry, ChuteGeometry, GearGeometry, VP1 Stage 1: real drivetrain geometry + S1->S2 chute tests. CAD-dependent tests…, cadquery, skipUnless
+### Community 38 - "ChainGeometry"
+Cohesion: 0.15
+Nodes (4): ChainGeometry, ChuteGeometry, GearGeometry, skipUnless
 
 ### Community 39 - "run_r1.py"
 Cohesion: 0.23
@@ -429,16 +436,16 @@ Cohesion: 0.29
 Nodes (8): R2 Review Handoff Summary, build_case_geometry(), _isaac_child(), main(), R2 runner: per-physics-step contact stream + signed shaft load + boundary work…, run_case_dt(), run_paths(), sha256_file()
 
 ### Community 50 - "test_r03_causality.py"
-Cohesion: 0.13
-Nodes (5): R0.3 causality/accounting unit tests (system python3, isaac-free). >= 10 tests:…, TestAtomicVsComponent, TestD3Distinguishability, TestDiagConstants, TestTimedDisable
+Cohesion: 0.06
+Nodes (8): R0.3 causality/accounting unit tests (system python3, isaac-free). >= 10 tests:…, TestAtomicVsComponent, TestD3Distinguishability, TestD4Faults, TestD4Ledger, TestDiagConstants, TestNullStatus, TestTimedDisable
 
 ### Community 51 - "Fail-Closed Thermal and Jam Control Reference"
 Cohesion: 0.25
 Nodes (11): CAD-Derived Heat-Capacity Lower Bounds, Clean-Air Cooling Path, Clean Filter, Clogged Filter, and Fan-Failure Sensitivity, Fail-Closed Thermal and Jam Control Reference, Five-Node Chamber and Drivetrain Thermal Circuit, Fixed-Shear Sensor Path, Independent Hardware Safety Chain, P5 Digital Thermal and Control Boundary (+3 more)
 
 ### Community 53 - "make_drawings.py"
-Cohesion: 0.19
-Nodes (17): ezdxf, reportlab_lib_pagesizes, reportlab_pdfbase, reportlab_pdfbase_ttfonts, reportlab_pdfgen, shapely_geometry, shapely_ops, dim() (+9 more)
+Cohesion: 0.21
+Nodes (16): ezdxf, reportlab_lib_pagesizes, reportlab_pdfbase, reportlab_pdfbase_ttfonts, reportlab_pdfgen, shapely_ops, dim(), drawshape() (+8 more)
 
 ### Community 54 - "emit_usd.py"
 Cohesion: 0.36
@@ -481,8 +488,8 @@ Cohesion: 0.33
 Nodes (6): Fixed-Ring Cycloid Selection Rationale, Pin-Window Offset Coupling, Single-Input Reverse-Output S2 Drivetrain, Split Dual-Path Alternative, Torque and Reaction Path, Unverified Rating and Fabrication Limits
 
 ### Community 65 - "c2/src/build_cad.py"
-Cohesion: 0.26
-Nodes (13): Any, box(), cylinder(), from_c1(), main(), primitive(), C2 S2 thermal/fixed-shear development module. Not an assembly release. C1…, sector() (+5 more)
+Cohesion: 0.31
+Nodes (11): box(), cylinder(), from_c1(), main(), primitive(), C2 S2 thermal/fixed-shear development module. Not an assembly release. C1…, sector(), wire() (+3 more)
 
 ### Community 66 - "C2.3-A-R3 리뷰 핸드오프 (판정 요청)"
 Cohesion: 0.20
@@ -501,12 +508,12 @@ Cohesion: 0.22
 Nodes (8): 1. 구현, 2. 실행, 3. 수렴 (주 쌍 0.0025 vs 0.00125), 4. 수렴하지 않은 항목 (정직 기록), 5. overall_numerically_converged = True의 의미, 6. 미해결 (리뷰어 승인 필요), 7. 실행자 결론 불가, C2.3-A-R1 수렴 재실행 핸드오프 (판정 요청)
 
 ### Community 70 - "json"
-Cohesion: 0.17
-Nodes (11): Host-build the portable controller core; no target flash or energization., Gate E: 3-level dt sweep on one W1 + one W4 case (thin driver over s1_physx).…, deck(), main(), Path, Run small uncalibrated CalculiX coupon sensitivities; never performance labels., reaction_force(), hashlib (+3 more)
+Cohesion: 0.12
+Nodes (18): Host-build the portable controller core; no target flash or energization., load(), main(), Build deterministic P0-P6 + VP1 digital status and artifact manifests., sha256(), Gate C: DERIVED transfer assets (S1 discharge + chute + S2 entry/exit). C2.1…, deck(), main() (+10 more)
 
-### Community 71 - "build_release_manifest.py"
-Cohesion: 0.60
-Nodes (4): load(), main(), Build deterministic P0-P6 + VP1 digital status and artifact manifests., sha256()
+### Community 71 - "guards.py"
+Cohesion: 0.18
+Nodes (16): _box(), components(), guard_chain_a(), guard_chain_b(), guard_lid_interlock_seat(), guard_s2_ring(), VP1 Stage 2: real containment guards, E-stop mounts and interlock seats.…, Named guard parts in absolute machine coordinates (group 'guard'). (+8 more)
 
 ### Community 73 - "Fixed C2 System Constraints"
 Cohesion: 0.40
@@ -560,72 +567,92 @@ Nodes (4): C2.2 VP1 실행 씬 출처와 증거 경계, 디지털 검증과 물�
 Cohesion: 0.50
 Nodes (3): C2.2 — VP1 전체 기계 Isaac Sim 검증, 검증 경계, 주요 경로
 
-### Community 167 - "_rect_prism"
-Cohesion: 0.67
-Nodes (3): run(), Straight chain run: 11 mm radial x 5 mm axial prism from t1 to t2., _rect_prism()
+### Community 167 - "_prism_xz"
+Cohesion: 0.15
+Nodes (13): belt_loop(), capsule(), bypass_channel_floor(), intake_lip(), _prism_xz(), Longitudinal U cradle, opened locally into the powered cross pickup. The old…, 45deg intake lip under the S1 -X side strip (the opening's west edge); all…, Two side loops leave a continuous, separately driven central lane. (+5 more)
 
 ### Community 168 - "verify_contract.py"
 Cohesion: 0.32
 Nodes (11): check_config_hashes(), check_convergence(), check_ladder(), check_mass(), check_runs(), check_work_impulse(), main(), A4 independent verifier: reads ONLY artifacts, never regenerates. Checks: 1.… (+3 more)
 
 ### Community 169 - "aggregate_r1.py"
-Cohesion: 0.25
-Nodes (8): Gate F follow-on: refit surrogate anchors on REAL dynamics data (additive).…, aggregate_run(), load_thresholds(), main(), eval_metric(), R1.4 aggregation + convergence evaluation (reads runs, never reruns).…, rel_change(), glob
+Cohesion: 0.48
+Nodes (6): aggregate_run(), load_thresholds(), main(), eval_metric(), R1.4 aggregation + convergence evaluation (reads runs, never reruns).…, rel_change()
 
-### Community 170 - "drive_kinematics.py"
-Cohesion: 0.27
-Nodes (9): chain_length_mm(), Pure kinematics/math for the VP1 common drive — NO cadquery dependency. Split…, External tangent construction in XZ. Returns the two touch-point 4-tuples, the…, sprocket_pitch_radius(), _tangent_data(), _chain_loop(), Wrap tube: extrusion of an annular sector (XZ) along +Y., Closed #35 chain envelope around two sprockets (single fused solid). (+1 more)
+### Community 170 - "_chain_loop"
+Cohesion: 0.20
+Nodes (11): chain_length_mm(), External tangent construction in XZ. Returns the two touch-point 4-tuples, the…, sprocket_pitch_radius(), _tangent_data(), _chain_loop(), run(), Straight chain run: 11 mm radial x 5 mm axial prism from t1 to t2., Wrap tube: extrusion of an annular sector (XZ) along +Y. (+3 more)
 
-### Community 171 - "main"
-Cohesion: 0.22
-Nodes (10): gear_center_distance(), gear_pitch_radius(), ratio_chain(), Transverse pitch radius of a helical gear (normal module mn)., Kinematic chain from the VP1 Stage 4 layout (teeth counts only). M1 -> DRV-…, chain_components(), count_teeth(), main() (+2 more)
+### Community 171 - "_box"
+Cohesion: 0.17
+Nodes (12): _box(), bypass_wall_north_lower(), bypass_wall_south(), guide_left(), guide_right(), South containment, relieved only at the low-y spur-gear face., North containment ends before the orthogonal screw's west cheek., Central lane wall; transverse screw supplies lateral transport. (+4 more)
 
 ### Community 172 - "sys"
 Cohesion: 0.22
 Nodes (8): build_bond_list(), cell_lattice(), main(), Gate B: PhysX S1 twin-shaft (S1-A) + waste fragment clusters + breaking bonds.…, # NOTE: NO use_backend("tensor") scope: the ContactSensor, Recover lattice (nx,ny,nz,dx,dy,dz) by regenerating the specimen., Rebuild 6-neighbourhood lattice bonds matching bonds.lattice_graph., sys
 
-### Community 173 - "pathlib"
-Cohesion: 0.27
-Nodes (7): evaluate(), main(), Full incremental procurement coverage. A missing quotation is not zero cost., _canon(), Check active C2 evidence and CAD integrity without authorizing hardware., pathlib, Validate exported STEP topology and volume, not physical performance.
+### Community 173 - "auger_shaft"
+Cohesion: 0.29
+Nodes (10): auger_shaft(), cross_feed_shaft(), _helix_z(), _path_frame(), Split shaft with a swept, opposite-hand screw and keyed spur., Point and unit tangent at the initial vertex of a swept helix., Single right-hand helicoid with a 3 mm swept flight face., Right-hand helicoid: negative +Y shaft angle advances material +Y. (+2 more)
 
 ### Community 174 - "unittest"
-Cohesion: 0.20
-Nodes (7): chain_center(), cycloid_profile(), gear_section(), hooks(), Deterministic section geometry. Units: millimetres, radians., Reference involute section; root fillets/tolerances NOT a manufacturing profile., unittest
+Cohesion: 0.22
+Nodes (6): chain_center(), gear_section(), hooks(), Deterministic section geometry. Units: millimetres, radians., Reference involute section; root fillets/tolerances NOT a manufacturing profile., unittest
 
 ### Community 175 - "os"
-Cohesion: 0.22
-Nodes (6): Gate C: DERIVED transfer assets (S1 discharge + chute + S2 entry/exit). C2.1…, A4 verifier tests (>=8): tamper detection, recompute checks. Forbidden terminal…, copy, os, shutil, tempfile
+Cohesion: 0.25
+Nodes (4): Gate E: 3-level dt sweep on one W1 + one W4 case (thin driver over s1_physx).…, Gate F follow-on: refit surrogate anchors on REAL dynamics data (additive).…, glob, os
 
 ### Community 176 - "aggregate_r2.py"
 Cohesion: 0.36
 Nodes (7): aggregate_run(), load_thresholds(), main(), eval_metric(), R2 aggregate + convergence evaluation (reads runs, never reruns). Primary pair:…, rel_change(), re
 
-### Community 177 - "convergence.py"
-Cohesion: 0.53
-Nodes (5): epsilon(), evaluate(), _frag_count(), load_thresholds(), A2 convergence evaluator. Thresholds are parsed, NEVER hardcoded. Sources:…
+### Community 177 - "test_verify.py"
+Cohesion: 0.27
+Nodes (8): epsilon(), evaluate(), _frag_count(), load_thresholds(), A2 convergence evaluator. Thresholds are parsed, NEVER hardcoded. Sources:…, A4 verifier tests (>=8): tamper detection, recompute checks. Forbidden terminal…, copy, tempfile
+
+### Community 178 - "pan_floor"
+Cohesion: 0.25
+Nodes (8): _c21_transform(), _obstruction_solid(), pan_floor(), Apply the frozen c2_subassembly_transform to a c2 local-frame part., Frozen S2 jacket solids that pierce the chute floor plane: the…, S1 discharge basin with a recessed, supported belt pocket., Landing ledge over the mouth (x 278.5..310, y 255..295); cut where the frozen…, trough_floor()
+
+### Community 179 - "_feed_gear"
+Cohesion: 0.25
+Nodes (8): cross_feed_gear(), cross_feed_idler(), _feed_gear(), pdl_feed_gear(), Six-mm, 12T involute spur face, keyed on its +X bore flank., 12T keyed output gear sharing the existing PDL shaft., 12T integral intermediate wheel on its own two supported journals., Equal 12T keyed output wheel; two external meshes restore PDL sign.
 
 ### Community 180 - "gap_screen_sweep.py"
 Cohesion: 0.50
 Nodes (4): main(), Gate F: real gap x screen sweep on survivors (thin driver). S1 gap sweep: shaft…, run(), itertools
 
-### Community 181 - "render_cad.py"
-Cohesion: 0.40
-Nodes (3): pil, Orthographic mesh render of actual BRep parts, not an image-generated concept., trimesh
+### Community 181 - "math"
+Cohesion: 0.22
+Nodes (7): Pure kinematics/math for the VP1 common drive — NO cadquery dependency. Split…, VP1 Stage 1: real drivetrain geometry + S1->S2 chute tests. CAD-dependent tests…, cadquery, math, pil, Orthographic mesh render of actual BRep parts, not an image-generated concept., trimesh
+
+### Community 183 - "audit_hulls.py"
+Cohesion: 0.33
+Nodes (6): main(), mesh_volume(), Path, FIX B(1): convex-hull fidelity audit for the integrated machine. For every…, Signed volume of a closed triangle mesh via the divergence theorem (mm^3). CAD-…, sha256_file()
 
 ### Community 184 - "REFERENCE/UNRATED worm, wheel, shafts, bearings and motor"
 Cohesion: 0.67
 Nodes (3): Keyed PDL, auger, S2 and jackshaft torque paths, REFERENCE/UNRATED worm, wheel, shafts, bearings and motor, Single 15T/40T helical mesh
 
+### Community 192 - "worm_sleeve"
+Cohesion: 0.33
+Nodes (6): auger_wheel(), _helix_about_y(), Right-hand helix advancing along +Y with a specified bottom phase., PDL_WORM: right-hand two-start swept threads keyed to the shaft., Sector gear at the auger end, generated against the actual worm. The swept worm…, worm_sleeve()
+
+### Community 193 - "train_performance.py"
+Cohesion: 0.53
+Nodes (5): fit_gp(), fit_mlp(), grouped_split(), main(), Material-specific GP or deep-ensemble training on verified S2 PERFORMANCE only.…
+
 ## Knowledge Gaps
 - **221 isolated node(s):** `$schema`, `coordinate_units`, `date`, `included_severities`, `kicad_version` (+216 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 733 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **97 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 739 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **94 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `EvidenceTests` connect `performance.py` to `math`?**
-  _High betweenness centrality (0.017) - this node is a cross-community bridge._
+- **Why does `ControllerTests` connect `ControllerTests` to `run_study.py`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
 - **Why does `DesignContracts` connect `DesignContracts` to `unittest`?**
   _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `$schema`, `coordinate_units`, `date` to the rest of the system?**
@@ -633,8 +660,8 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `c2.1/src/build_cad.py` be split into smaller, more focused modules?**
   _Cohesion score 0.057703081232493 - nodes in this community are weakly interconnected._
 - **Should `chute.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.052614052614052616 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.14166666666666666 - nodes in this community are weakly interconnected._
+- **Should `engineering.py` be split into smaller, more focused modules?**
+  _Cohesion score 0.11605937921727395 - nodes in this community are weakly interconnected._
 - **Should `bonds.py` be split into smaller, more focused modules?**
   _Cohesion score 0.14624505928853754 - nodes in this community are weakly interconnected._
-- **Should `build_machine_integration.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.05819209039548023 - nodes in this community are weakly interconnected._

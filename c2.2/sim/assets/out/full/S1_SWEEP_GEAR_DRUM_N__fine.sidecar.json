@@ -1,0 +1,39 @@
+{
+  "asset_id": "S1_SWEEP_GEAR_DRUM_N",
+  "group": "feed",
+  "kinematic_body": "BELT_IDLER",
+  "lod": "fine",
+  "step_index": 236,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.236",
+  "mesh_file": "sim/assets/out/full/S1_SWEEP_GEAR_DRUM_N__fine.stl",
+  "mesh_bytes": 71684,
+  "mesh_sha256": "e934ac189db2d55472b1a83ea319b583bb2117d19552af13d72c27c221a8d5c5",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "d44b8c2fd874e71a49fe8ccadfa4a2e9a60cf8c38058097619b67205c7c9e233",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    210.94147205533503,
+    352.0999998499999,
+    323.34147205533503,
+    227.05852794466497,
+    358.10000015,
+    339.4585279446649
+  ],
+  "revision": "eba6cbbcd20403b60611982d776d108d26e027b0",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "bef465506f91f0a5ba57d8ab56592c758a16f352c4986c8e73fa9f2ac7e36049",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 821.2221245849547,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

@@ -12,18 +12,18 @@
     "P6": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
   },
   "machine": {
-    "assembly_objects": 235,
-    "reimported_solids": 253,
+    "assembly_objects": 251,
+    "reimported_solids": 275,
     "interface_collision_passed": true,
     "body_passed": true,
     "operating_envelope_passed": true,
-    "native_freecad_objects": 194,
-    "native_freecad_valid_objects": 194
+    "native_freecad_objects": 210,
+    "native_freecad_valid_objects": 210
   },
   "package": {
-    "bom_rows": 174,
+    "bom_rows": 190,
     "known_cost_rows": 11,
-    "unknown_cost_rows": 163,
+    "unknown_cost_rows": 179,
     "wiring_components": 43,
     "wiring_pins": 174,
     "wiring_nets": 67,
@@ -43,7 +43,7 @@
         "crossed_screen": 0,
         "reached_s2_mouth": 0,
         "reached_auger_pickup": 0,
-        "lost_through_world": 9,
+        "lost_through_world": 6,
         "lost_after_s2_mouth": 0,
         "lost_after_x335_before_mouth": 0,
         "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
@@ -57,8 +57,8 @@
         "stuck": 0,
         "crossed_screen": 0,
         "reached_s2_mouth": 0,
-        "reached_auger_pickup": 12,
-        "lost_through_world": 5,
+        "reached_auger_pickup": 0,
+        "lost_through_world": 6,
         "lost_after_s2_mouth": 0,
         "lost_after_x335_before_mouth": 0,
         "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
@@ -66,24 +66,24 @@
         "top_blocker_solids": []
       },
       "chute_inlet": {
-        "pass_rate": 1.0,
-        "in_path_passed": 22,
-        "in_path_pass_rate": 1.0,
-        "stuck": 7,
-        "crossed_screen": 13,
-        "reached_s2_mouth": 12,
+        "pass_rate": 0.682,
+        "in_path_passed": 15,
+        "in_path_pass_rate": 0.682,
+        "stuck": 9,
+        "crossed_screen": 8,
+        "reached_s2_mouth": 8,
         "reached_auger_pickup": 0,
-        "lost_through_world": 11,
-        "lost_after_s2_mouth": 5,
-        "lost_after_x335_before_mouth": 6,
+        "lost_through_world": 4,
+        "lost_after_s2_mouth": 3,
+        "lost_after_x335_before_mouth": 1,
         "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
         "verdict": "BLOCKED",
         "top_blocker_solids": [
+          "STATIC:CHUTE_BODY",
           "STATIC:FR-BASE_001",
-          "STATIC:FR-2040-320_002",
-          "STATIC:FR-2040-630_001",
-          "STATIC:C2_THERMAL_SADDLE_L",
-          "STATIC:EX-BARREL_001"
+          "TRANSFER_BELT:S1_TRANSFER_BELT",
+          "AUGER:AUG_SHAFT",
+          "STATIC:FR-2020-320_001"
         ]
       },
       "s2_inlet": {
@@ -91,10 +91,10 @@
         "in_path_passed": 21,
         "in_path_pass_rate": 0.955,
         "stuck": 0,
-        "crossed_screen": 20,
+        "crossed_screen": 19,
         "reached_s2_mouth": 0,
         "reached_auger_pickup": 0,
-        "lost_through_world": 15,
+        "lost_through_world": 13,
         "lost_after_s2_mouth": 0,
         "lost_after_x335_before_mouth": 0,
         "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
@@ -102,10 +102,10 @@
         "top_blocker_solids": []
       }
     },
-    "connected_result": "c2.2/results/full_machine/run_vp1_final18/results.json",
-    "connected_verdict": "PARTIAL_PROBE_REACH",
+    "connected_result": "c2.2/results/full_machine/run_vp1_final19/results.json",
+    "connected_verdict": "LOCALIZED_BLOCKED",
     "connected_product_flow_verified": false,
-    "connected_reached": 5
+    "connected_reached": 0
   },
   "performance": {
     "status": "BLOCKED_PERFORMANCE_DATA",

@@ -18,8 +18,8 @@
     ]
   },
   "conveyance": {
-    "claim": "ACTIVE_FULL_SPAN_AUGER_GEOMETRY_MEASURED",
-    "passive_transfer": "SUPERSEDED as a design claim; the S1 pan still has an unpowered pickup span",
+    "claim": "ACTIVE_BELT_AND_AUGER_GEOMETRY_MEASURED",
+    "passive_transfer": "SUPERSEDED: the S1-wide 160 mm belt is shaft-driven; its contact pickup awaits measured PhysX flow, not a CAD assertion",
     "jacket_boundary": "measured jacket dome top z=334.5 mm; open U-shell base is clearance-cut around the jacket, not a complete receiver",
     "resolution": "RH screw conveyor, root r3/OD r8, pitch 28.50 mm, four turns x237.0..354.0; BRep flight/shell gap 0.032 mm",
     "implementation": "S2Ecc 12T -> PDL_CHAIN 35 links (offset link strength/tension UNRATED) -> PDL_SPROCKET/PDL_SHAFT at x362,z374.5 -> RH 2-start PDL_WORM -> AUG_WHEEL 16T (8:1) -> AUG_SHAFT at -5.438 rpm reference; no claim of S1 pickup or S2 mouth delivery",
@@ -29,11 +29,11 @@
   "checkpoints": [
     {
       "checkpoint": "S1_opening_to_pan",
-      "aperture_mm": 4.300000000000011,
+      "aperture_mm": 16.30000000000001,
       "probe_sphere_mm": 4.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "S1 bottom 352.3 minus pan floor top 348.0",
+      "note": "central cutter opening (160,232): bottom z352.3 to belt top z336.0; stationary pan intersection 0.000 mm3",
       "checkpoint_class": "pass_space"
     },
     {

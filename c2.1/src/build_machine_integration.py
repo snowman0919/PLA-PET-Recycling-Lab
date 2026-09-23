@@ -79,6 +79,21 @@ def legacy_parts(master, config):
         if item["name"] in y_moves:
             at[1] = y_moves[item["name"]]
         shape = shape.translate(tuple(at))
+        if item["name"] == "S1-SHAFT-B_001":
+            # Extend S1B beyond the rear cap and frame beam; the integral
+            # 24T driver at y401..409 clears the S1A chain-A sprocket.
+            extension = cq.Solid.makeCylinder(
+                12.5, 65.0, cq.Vector(190.0, 349.0, 398.30275184708404),
+                cq.Vector(0, 1, 0))
+            blank = drive_teeth._sprocket_local_solid(
+                "DRV-SP24-B25", hub_len=1.0).translate(
+                    (190.0, 401.0, 398.30275184708404))
+            core = cq.Solid.makeCylinder(
+                12.7, 8.0, cq.Vector(190.0, 401.0, 398.30275184708404),
+                cq.Vector(0, 1, 0))
+            shape = shape.fuse(extension).fuse(blank).fuse(core).clean()
+            if len(shape.Solids()) != 1:
+                raise RuntimeError("S1B integral belt sprocket split")
         keyseat_removed = 0.0
         if item["name"] == "DRV-JACK_001":
             # The added chain-B 24T driver has a second +Z key at y373..387.8.

@@ -206,6 +206,16 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         stage_utils.open_stage(str(USDA))
         stage = stage_utils.get_current_stage(backend="usd")
         stage_id = stage_utils.get_stage_id(stage)
+        belt_api = PhysxSchema.PhysxSurfaceVelocityAPI.Apply(
+            stage.GetPrimAtPath("/World/F0/BELT"))
+        belt_velocity = belt_api.CreateSurfaceVelocityAttr()
+        belt_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
+        belt_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
+        transfer_api = PhysxSchema.PhysxSurfaceVelocityAPI.Apply(
+            stage.GetPrimAtPath("/World/F0/TRANSFER_BELT"))
+        transfer_velocity = transfer_api.CreateSurfaceVelocityAttr()
+        transfer_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
+        transfer_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
 
         # --- fragments: 10 x d3 spheres, 10 x d1.5 spheres, 2 slabs ----
         rng = np.random.default_rng(20260922)
@@ -292,7 +302,11 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         kin_paths = ["/World/F0/S2_ROTOR"] + [
             f"/World/F0/S2_ROLLER_{k}" for k in range(1, 7)] + \
             ["/World/F0/PADDLE", "/World/F0/AUGER",
-             "/World/F0/CROSS_FEED", "/World/F0/CROSS_FEED_IDLER"]
+             "/World/F0/CROSS_FEED", "/World/F0/CROSS_FEED_IDLER",
+             "/World/F0/BELT", "/World/F0/BELT_DRIVE",
+             "/World/F0/BELT_IDLER", "/World/F0/SWEEP_SOUTH",
+             "/World/F0/SWEEP_NORTH", "/World/F0/TRANSFER_BELT",
+             "/World/F0/TRANSFER_IDLER"]
         kv = sv.create_rigid_body_view(kin_paths)
         art_paths = ["/World/F0/IN_SHAFT", "/World/F0/S1A", "/World/F0/S1B",
                      "/World/F0/S2_ECC", "/World/F0/S2_CARRIER"]
@@ -365,6 +379,16 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         s2ecc_prev = 0.0   # measured S2 eccentric angle (unwrapped)
         prev_ecc = 0.0
         vel_prev = 0.0
+        s1b_prev = 0.0
+        prev_s1b = 0.0
+        s1b_vel_prev = 0.0
+        transfer_dx = (_PIVOTS_MM["TRANSFER_IDLER"][0]
+                       - _PIVOTS_MM["BELT_DRIVE"][0])
+        transfer_dz = (_PIVOTS_MM["TRANSFER_IDLER"][2]
+                       - _PIVOTS_MM["BELT_DRIVE"][2])
+        transfer_norm = math.hypot(transfer_dx, transfer_dz)
+        transfer_vx = 2.0 * 2.3 * transfer_dx / transfer_norm
+        transfer_vz = 2.0 * 2.3 * transfer_dz / transfer_norm
 
         def passes(phase_name, x, y, z):
             if phase_name == "hopper_mouth":
@@ -389,8 +413,8 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 return 80.0 <= x <= 240.0 and 162.4 <= y <= 324.6 \
                     and 352.3 <= z <= 438.5
             if phase_name == "s1_discharge":
-                return 80.0 <= x <= 248.0 and 157.4 <= y <= 329.6 \
-                    and 344.5 <= z <= 352.3
+                return 75.4 <= x <= 225.0 and 163.5 <= y <= 323.5 \
+                    and 336.0 <= z <= 352.3
             if phase_name == "chute_inlet":
                 return 335.0 <= x <= FLIGHT_X1 and 223.3 <= y <= 240.9 \
                     and 338.6 <= z <= 356.3
@@ -527,6 +551,27 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             kin[10, :3] = CROSS_FEED_IDLER_PIVOT
             kin[10, 3:] = (0.0, -math.sin(theta_s2 / 2), 0.0,
                            math.cos(theta_s2 / 2))
+            drum_angle = 2.0 * s1b_prev
+            kin[11, :3] = _PIVOTS_MM["BELT"]
+            kin[11, 3:] = (0.0, 0.0, 0.0, 1.0)
+            for idx, body in ((12, "BELT_DRIVE"), (13, "BELT_IDLER")):
+                kin[idx, :3] = _PIVOTS_MM[body]
+                kin[idx, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
+                               math.cos(drum_angle / 2))
+            for idx, body in ((14, "SWEEP_SOUTH"), (15, "SWEEP_NORTH")):
+                kin[idx, :3] = _PIVOTS_MM[body]
+                kin[idx, 3:] = (0.0, -math.sin(drum_angle / 2), 0.0,
+                               math.cos(drum_angle / 2))
+            kin[16, :3] = _PIVOTS_MM["TRANSFER_BELT"]
+            kin[16, 3:] = (0.0, 0.0, 0.0, 1.0)
+            kin[17, :3] = _PIVOTS_MM["TRANSFER_IDLER"]
+            kin[17, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
+                           math.cos(drum_angle / 2))
+            belt_velocity.Set(Gf.Vec3f(2.0 * 3.8 * s1b_vel_prev,
+                                       0.0, 0.0))
+            transfer_velocity.Set(Gf.Vec3f(
+                transfer_vx * s1b_vel_prev, 0.0,
+                transfer_vz * s1b_vel_prev))
             kv.set_kinematic_targets(kin, np.arange(len(kin_paths),
                                                      dtype=np.int32))
             for lp in art_paths:
@@ -549,6 +594,10 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                                      math.cos(float(pos_np[3]) - prev_ecc))
             prev_ecc = float(pos_np[3])
             vel_prev = float(vel_np[0])
+            s1b_prev += math.atan2(math.sin(float(pos_np[2]) - prev_s1b),
+                                   math.cos(float(pos_np[2]) - prev_s1b))
+            prev_s1b = float(pos_np[2])
+            s1b_vel_prev = float(vel_np[2])
 
             T = fv.get_transforms()
             P = (T.numpy() if hasattr(T, "numpy")
@@ -731,13 +780,13 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             "spawn_box_mm": list(SPAWN[phase]),
             "pass_predicate": {
                 "hopper_mouth": "z < 438.5 (below hopper into S1 chamber)",
-                "s1_discharge": "z < 352.3 (through 4.3mm S1 opening to pan)",
+                "s1_discharge": "z < 352.3 (S1 opening; NOT auger pickup)",
                 "chute_inlet": "x >= 335 (downstream flight gate, before x354 edge)",
                 "s2_inlet": "z < 300 (drop into S2 bay)",
             }[phase],
             "receiver_predicate": {
                 "hopper_mouth": "x80..240,y162.4..324.6,z352.3..438.5",
-                "s1_discharge": "x80..248,y157.4..329.6,z344.5..352.3",
+                "s1_discharge": "x75.4..225,y163.5..323.5,z336..352.3 belt corridor",
                 "chute_inlet": "x335..354,y223.3..240.9,z338.6..356.3",
                 "s2_inlet": "x340..360,y255..295,z239.63..300",
             }[phase],
@@ -756,6 +805,9 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             "input_cycles": cycles,
             "input_rpm": omega * 60.0 / (2.0 * math.pi),
             "ideal_auger_travel_mm": cycles * 0.75 * AUGER_PITCH_MM,
+            "measured_s1b_angle_rad": s1b_prev,
+            "measured_s1b_velocity_rad_s": s1b_vel_prev,
+            "belt_surface_velocity_command_mm_s": 7.6 * s1b_vel_prev,
             "fragments": fragments,
             "summary": {
                 "total": n,
@@ -814,20 +866,23 @@ def main() -> int:
     ap.add_argument("--steps-per-phase", type=int, default=2400)
     ap.add_argument("--dt", type=float, default=0.0025)
     ap.add_argument("--cycles", type=int, default=DEFAULT_CHUTE_CYCLES,
-                    help="q=8 input cycles in chute phase (default 5; "
+                    help="q=8 input cycles for chute/S1 phases (default 5; "
                          "40rpm over the default 60s chute run)")
     ap.add_argument("--merge-only", action="store_true",
                     help="merge existing phase_*.json results without "
                          "running phases")
     ap.add_argument("--chute-steps", type=int, default=24000,
                     help="chute phase steps (default 24000 at dt=.0025)")
+    ap.add_argument("--s1-steps", type=int, default=24000,
+                    help="S1 discharge steps (default 24000 at dt=.0025)")
     args = ap.parse_args()
     out_root = OUTDIR
     run_phases = not args.merge_only
     if args.phase is not None:
         p = out_root / f"phase_{args.phase}.json"
-        cyc = args.cycles if args.phase == "chute_inlet" else 1
+        cyc = args.cycles if args.phase in ("chute_inlet", "s1_discharge") else 1
         steps_ph = (args.chute_steps if args.phase == "chute_inlet"
+                    else args.s1_steps if args.phase == "s1_discharge"
                     else args.steps_per_phase)
         rc = run_one_phase(args.phase, steps_ph, args.dt, p, cycles=cyc)
         return rc
@@ -836,16 +891,19 @@ def main() -> int:
     child_codes = {}
     for ph in (PHASES if run_phases else []):
         t0 = time.time()
-        # Non-chute phases use one input cycle. The chute default spans
-        # 60s, five cycles at 40rpm, close to the rated 58rpm M1.
-        cyc = args.cycles if ph == "chute_inlet" else 1
-        steps_ph = (args.chute_steps or args.steps_per_phase) \
-            if ph == "chute_inlet" else args.steps_per_phase
+        # Chute and S1 pickup need sustained rotation; the chute default
+        # spans 60 s and five cycles at 40 rpm, near the 58 rpm reference.
+        cyc = args.cycles if ph in ("chute_inlet", "s1_discharge") else 1
+        steps_ph = (args.chute_steps if ph == "chute_inlet"
+                    else args.s1_steps if ph == "s1_discharge"
+                    else args.steps_per_phase)
         child_args = [sys.executable, str(Path(__file__).resolve()),
                       "--phase", ph, "--steps-per-phase", str(steps_ph),
                       "--dt", str(args.dt), "--cycles", str(cyc)]
         if ph == "chute_inlet":
             child_args.extend(["--chute-steps", str(steps_ph)])
+        if ph == "s1_discharge":
+            child_args.extend(["--s1-steps", str(steps_ph)])
         r = subprocess.run(child_args,
             capture_output=True, text=True,
             env={**os.environ, "OMNI_KIT_ACCEPT_EULA": "YES"})

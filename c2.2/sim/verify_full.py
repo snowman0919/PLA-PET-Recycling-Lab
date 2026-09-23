@@ -326,6 +326,20 @@ def main() -> int:
         stage = stage_utils.get_current_stage(backend="usd")
         stage_id = stage_utils.get_stage_id(stage)
         log(f"stage_id={stage_id}")
+        # The modeled #35 loop is driven by S1B. PhysX's surface-velocity
+        # API moves contact points on the stationary belt mesh; each value
+        # below is derived from the measured S1B angular velocity.
+        from pxr import Gf, PhysxSchema
+        belt_api = PhysxSchema.PhysxSurfaceVelocityAPI.Apply(
+            stage.GetPrimAtPath("/World/F0/BELT"))
+        belt_velocity = belt_api.CreateSurfaceVelocityAttr()
+        belt_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
+        belt_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
+        transfer_api = PhysxSchema.PhysxSurfaceVelocityAPI.Apply(
+            stage.GetPrimAtPath("/World/F0/TRANSFER_BELT"))
+        transfer_velocity = transfer_api.CreateSurfaceVelocityAttr()
+        transfer_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
+        transfer_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
 
         # DOF discovery: traverse revolute joints under the articulation
         # root in stage order (the impl helper only walks joints whose
@@ -502,7 +516,11 @@ def main() -> int:
         kin_paths = ["/World/F0/S2_ROTOR"] + [
             f"/World/F0/S2_ROLLER_{k}" for k in range(1, 7)] + \
             ["/World/F0/PADDLE", "/World/F0/AUGER",
-             "/World/F0/CROSS_FEED", "/World/F0/CROSS_FEED_IDLER"]
+             "/World/F0/CROSS_FEED", "/World/F0/CROSS_FEED_IDLER",
+             "/World/F0/BELT", "/World/F0/BELT_DRIVE",
+             "/World/F0/BELT_IDLER", "/World/F0/SWEEP_SOUTH",
+             "/World/F0/SWEEP_NORTH", "/World/F0/TRANSFER_BELT",
+             "/World/F0/TRANSFER_IDLER"]
         kv = sim_view.create_rigid_body_view(kin_paths)
         pv = sim_view.create_rigid_body_view(probe_paths)
         log(f"rigid body views: kin={kv.count}, probes={pv.count}")
@@ -556,6 +574,13 @@ def main() -> int:
                         continue
                     contact_log.append((a, b))
 
+        transfer_dx = (PIVOTS_MM["TRANSFER_IDLER"][0]
+                       - PIVOTS_MM["BELT_DRIVE"][0])
+        transfer_dz = (PIVOTS_MM["TRANSFER_IDLER"][2]
+                       - PIVOTS_MM["BELT_DRIVE"][2])
+        transfer_norm = math.hypot(transfer_dx, transfer_dz)
+        transfer_vx = 2.0 * 2.3 * transfer_dx / transfer_norm
+        transfer_vz = 2.0 * 2.3 * transfer_dz / transfer_norm
         for step in range(args.steps):
             theta_cmd = omega * (step + 1) * args.dt   # authored INPUT ramp
             import os as _os
@@ -616,6 +641,32 @@ def main() -> int:
             kin[10, :3] = CROSS_FEED_IDLER_PIVOT
             kin[10, 3:] = (0.0, -math.sin(theta_s2 / 2), 0.0,
                            math.cos(theta_s2 / 2))
+            # The drive/follower both roll about +Y; chain 24T:12T gives
+            # two drum turns per measured S1B turn. The belt collider does
+            # not rotate: its contact surface carries the tangential speed.
+            drum_angle = 2.0 * float(pos_unw[2])
+            kin[11, :3] = PIVOTS_MM["BELT"]
+            kin[11, 3:] = (0.0, 0.0, 0.0, 1.0)
+            for idx, body in ((12, "BELT_DRIVE"), (13, "BELT_IDLER")):
+                kin[idx, :3] = PIVOTS_MM[body]
+                kin[idx, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
+                               math.cos(drum_angle / 2))
+            for idx, body in ((14, "SWEEP_SOUTH"), (15, "SWEEP_NORTH")):
+                kin[idx, :3] = PIVOTS_MM[body]
+                kin[idx, 3:] = (0.0, -math.sin(drum_angle / 2), 0.0,
+                               math.cos(drum_angle / 2))
+            kin[16, :3] = PIVOTS_MM["TRANSFER_BELT"]
+            kin[16, 3:] = (0.0, 0.0, 0.0, 1.0)
+            kin[17, :3] = PIVOTS_MM["TRANSFER_IDLER"]
+            kin[17, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
+                           math.cos(drum_angle / 2))
+            belt_speed = 2.0 * 3.8 * (
+                float(vel_np[2]) if step > 0 else 0.0)
+            belt_velocity.Set(Gf.Vec3f(belt_speed, 0.0, 0.0))
+            s1b_speed = float(vel_np[2]) if step > 0 else 0.0
+            transfer_velocity.Set(Gf.Vec3f(
+                transfer_vx * s1b_speed, 0.0,
+                transfer_vz * s1b_speed))
             if not _os.environ.get("PPR_NO_KIN"):
                 kv.set_kinematic_targets(kin, np.arange(len(kin_paths),
                                                          dtype=np.int32))

@@ -1,8 +1,8 @@
 {
   "schema": "reviewer_scenes/1",
   "machine_usd": "c2.2/sim/assets/usd/full_machine.usda",
-  "usd_sha256": "41ef9593f5f08f7e1e6c2ac920eb4b80a0c77d2f8448fbbbd1ab46167965fa4a",
-  "source_step_sha256": "e6793f06a8c7dcd31576b8e86135b91c0338d47f0fe844149db1832ffa80eaf5",
+  "usd_sha256": "0a1e8eecedfafcc18d0ec85cba217a93a9e6c25ada580977416fb6070084ca5e",
+  "source_step_sha256": "d44b8c2fd874e71a49fe8ccadfa4a2e9a60cf8c38058097619b67205c7c9e233",
   "resolution": "640x480",
   "scene_list": [
     "a_full_assembly",
@@ -44,7 +44,7 @@
   "probe_spheres": {
     "count_rendered": 5,
     "of_total_dropped": 200,
-    "positions_source": "c2.2/results/full_machine/run_vp1_final18/results.json probe_test.sample_final_positions",
+    "positions_source": "c2.2/results/full_machine/run_vp1_final19/results.json probe_test.sample_final_positions",
     "render_mode": "projected always-visible overlay discs (white rim) at the exact recorded final positions; occlusion against near geometry disabled so the 3mm/1.5mm fragments stay visible at 640x480"
   }
 }

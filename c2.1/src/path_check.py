@@ -52,11 +52,17 @@ def chute_checks():
     """Chute apertures from the built solids; the fin must be OFF the path."""
     import chute as ch
     floor_w = ch.pan_floor()
-    fw = floor_w.BoundingBox()
+    belt_top = ch.belt_loop().BoundingBox().zmax
     s1_bottom = 352.3
-    entry = s1_bottom - fw.zmax
-    _add("S1_opening_to_pan", entry, 4.0, entry >= 4.0, "MEASURED",
-         "S1 bottom 352.3 minus pan floor top %.1f" % fw.zmax)
+    entry = s1_bottom - belt_top
+    column = ch._cyl(1.5, entry, 160.0, 232.0, belt_top,
+                     axis=(0, 0, 1))
+    blocked = floor_w.intersect(column).Volume()
+    _add("S1_opening_to_pan", entry, 4.0,
+         entry >= 4.0 and blocked < 0.05, "MEASURED",
+         "central cutter opening (160,232): bottom z352.3 to belt top "
+         "z%.1f; stationary pan intersection %.3f mm3"
+         % (belt_top, blocked))
 
     # fin-bypass: the material path (south channel + bend, y 213..294) must
     # not touch the frozen 115deg saddle fin (x 272..278, y 256..294)
@@ -236,9 +242,10 @@ def main():
     # or completed material conveyance; that needs the Isaac runs.
     RESULT_CONST = {
         "conveyance": {
-            "claim": "ACTIVE_FULL_SPAN_AUGER_GEOMETRY_MEASURED",
-            "passive_transfer": "SUPERSEDED as a design claim; the S1 pan "
-                                "still has an unpowered pickup span",
+            "claim": "ACTIVE_BELT_AND_AUGER_GEOMETRY_MEASURED",
+            "passive_transfer": "SUPERSEDED: the S1-wide 160 mm belt is "
+                                "shaft-driven; its contact pickup awaits "
+                                "measured PhysX flow, not a CAD assertion",
             "jacket_boundary": "measured jacket dome top z=334.5 mm; "
                                "open U-shell base is clearance-cut around "
                                "the jacket, not a complete receiver",
