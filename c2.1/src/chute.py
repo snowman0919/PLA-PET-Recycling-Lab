@@ -466,19 +466,19 @@ def auger_wheel():
 
 
 def cross_feed_shaft():
-    """Left-hand helicoid: positive +Y shaft angle advances material +Y."""
+    """Right-hand helicoid: negative +Y shaft angle advances material +Y."""
     shaft = _cyl(CROSS_SHAFT_R, CROSS_SHAFT_Y1 - CROSS_SHAFT_Y0,
                  CROSS_X, CROSS_SHAFT_Y0, CROSS_Z)
     key = _box(CROSS_X + 2.8, CROSS_X + 4.0,
                CROSS_GEAR_Y0, CROSS_GEAR_Y1,
                CROSS_Z - 1.0, CROSS_Z + 1.0)
     shaft = shaft.fuse(key)
-    # A flat radial web sweeps from the shaft to the outer flight. The
-    # left-handed helix is the opposite hand to _helix_about_y: with the
-    # 1:1 same-signed PDL angle, a stationary flake moves north.
+    # Both external 12T meshes restore the S2Ecc signed angle. S2Ecc is
+    # negative for positive M1 rotation; the RH flight therefore advances
+    # a stationary flake north, while the former LH flight expelled it south.
     helix = _helix_z((CROSS_SHAFT_R + CROSS_FLIGHT_RO) / 2.0,
                      CROSS_PITCH, CROSS_FLIGHT_Y1 - CROSS_FLIGHT_Y0,
-                     (0, 0, CROSS_FLIGHT_Y0), lefthand=True)
+                     (0, 0, CROSS_FLIGHT_Y0), lefthand=False)
     helix = helix.rotate(V(0, 0, 0), V(1, 0, 0), -90).translate(
         V(CROSS_X, 0, CROSS_Z))
     p0, tangent = _path_frame(helix)
@@ -553,8 +553,10 @@ def cross_feed_shell():
     roof = _box(345.0, 369.2, 240.9, 250.8, 341.0, 342.5)
     # The under-shaft continuation stays inside r<65.6 at y251..255, so
     # flakes on the bottom of the screw can pass through the cap bore.
-    # Its 5-mm unpowered span is a measured transfer risk, not a PASS.
-    outlet = _box(350.0, 359.7, 250.3, 258.0, 315.8, 317.3)
+    # A 1.5 mm bridge let simulated fragments tunnel below the floor at
+    # y255; retain its z317.3 top and thicken below the transport surface.
+    # This changes collision support, not the aperture or powered reach.
+    outlet = _box(350.0, 359.7, 250.3, 258.0, 311.8, 317.3)
     lip_w = _box(349.0, 350.0, 250.3, 258.0, 315.8, 322.0)
     lip_e = _box(359.7, 360.1, 250.3, 258.0, 315.8, 319.0)
     return cradle.fuse(east).fuse(west).fuse(roof).fuse(outlet).fuse(lip_w).fuse(lip_e).clean()

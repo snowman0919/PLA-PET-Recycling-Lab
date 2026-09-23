@@ -552,7 +552,7 @@ def main() -> int:
                     rec, f"/World/F0/{body}", pivot, 0, bounds, 0.25)
                 continue
             if rec["name"] == "CROSS_FEED_SHAFT":
-                # CAD: LH flight centreline y226..249, swept profile
+                # CAD: RH flight centreline y226..249, swept profile
                 # half-thickness 1.25; pitch 9 mm, end y250.25. Journal
                 # sections use STEP vertices as well; no derived paddle.
                 flight_lo, flight_hi = 224.75, 250.25
@@ -790,7 +790,7 @@ def main() -> int:
                              "VP1 rev 6 chain-driven transfer)",
                 "KinAuger": "AUGER (pose-driven kinematic screw "
                             "conveyor at S2Ecc/8, worm:wheel 8:1)",
-                "KinCrossFeedFlight": "CROSS_FEED_SHAFT LH flight axial "
+                "KinCrossFeedFlight": "CROSS_FEED_SHAFT RH flight axial "
                                       "hulls, no filtering; fragments live",
                 "KinCrossFeedJournal": "CROSS_FEED_SHAFT y208..224.75 and "
                                        "y250.25..250.7 journal slices",
@@ -835,7 +835,7 @@ def main() -> int:
                 "KinRoller_x_Fit": "rollers vs ring plates by design",
                 "KinCrossFeedJournal_x_CrossFeedBearing": (
                     "only cross-feed journal slices in the named bearing "
-                    "bores; LH flight vs shell and fragments stays live"),
+                    "bores; RH flight vs shell and fragments stays live"),
                 "FeedIdler_x_CrossFeedBearing": (
                     "idler journal inside named bearing bore"),
                 "FeedIdler_x_PaddleFeedGear": (

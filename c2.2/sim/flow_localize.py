@@ -22,8 +22,8 @@ bodies.json bboxes and c2.1/results/path_check.json):
   P3 chute_inlet    isolated spawn above the U trough near x252..270
                     broad gate = x >= 335; in-trough gate checks y/z at
                     crossing before the x354 east edge; S2 mouth transfer
-                    separately requires a +Y crossing of y255 in its
-                    x340..360,z320..345 open arc
+                    separately requires a +Y crossing of y255 with the
+                    full fragment envelope inside the cap bore/outlet lips
   P4 s2_inlet       spawn above the real S2 open arc (x342..348,
                     y266..284,z344..346), not over the screw bearing;
                     broad gate = z < 300, with mouth-column arrival
@@ -90,12 +90,14 @@ SPAWN = {
 FLIGHT_X0, FLIGHT_X1 = 237.0, 354.0
 AUGER_PITCH_MM = 28.5
 DEFAULT_CHUTE_CYCLES = 5
-# Geometric entrance plane at the near edge of the S2 open arc. A fragment
-# merely reaching x335 or falling off the east end is not transferred: it
-# must move from y<255 to y>=255 *through* this x/z aperture.
+# The cap occupies y251..255 outside r65.6. The screw's under-shaft
+# outlet floor extends through y258 at z315.8..317.3, between side lips
+# x350..359.7. Test the fragment envelope at the actual cap-bore plane,
+# not an arbitrary z320 lower bound that rejected valid under-shaft entry.
 S2_MOUTH_Y_MM = 255.0
-S2_MOUTH_X_MM = (340.0, 360.0)
-S2_MOUTH_Z_MM = (320.0, 345.0)
+S2_MOUTH_X_MM = (350.0, 359.7)
+S2_CAP_INNER_R_MM = 65.6
+S2_OUTLET_FLOOR_Z_MM = 317.3
 
 # drivetrain ratios per unit input rotation (must match verify_full.py)
 Q = 8
@@ -355,6 +357,7 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         previous_pos = spawn_pos.copy()
         reached_mouth = [False] * n
         first_mouth_mm = [None] * n
+        first_mouth_plane_mm = [None] * n
         reached_auger_pickup = [False] * n
         first_auger_pickup_mm = [None] * n
         theta_prev = 0.0   # measured input angle (unwrapped)
@@ -614,8 +617,19 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                          (float(y) - float(prior[1])))
                     mx = float(prior[0] + t * (x - prior[0]))
                     mz = float(prior[2] + t * (z - prior[2]))
-                    if (S2_MOUTH_X_MM[0] <= mx <= S2_MOUTH_X_MM[1]
-                            and S2_MOUTH_Z_MM[0] <= mz <= S2_MOUTH_Z_MM[1]):
+                    if first_mouth_plane_mm[i] is None:
+                        first_mouth_plane_mm[i] = [
+                            round(mx, 6), S2_MOUTH_Y_MM, round(mz, 6)]
+                    radius = (float(fr[i][1]) if fr[i][0] == "sphere"
+                              else max(fr[i][1][0], fr[i][1][1]) / 2.0)
+                    half_height = (float(fr[i][1]) if fr[i][0] == "sphere"
+                                   else fr[i][1][2] / 2.0)
+                    if (S2_MOUTH_X_MM[0] + radius <= mx
+                            <= S2_MOUTH_X_MM[1] - radius
+                            and math.hypot(mx - 308.56946468906176,
+                                           mz - 280.0) + radius
+                            <= S2_CAP_INNER_R_MM
+                            and mz - half_height + 1e-4 >= S2_OUTLET_FLOOR_Z_MM):
                         reached_mouth[i] = True
                         first_mouth_mm[i] = [round(mx, 1), S2_MOUTH_Y_MM,
                                              round(mz, 1)]
@@ -685,6 +699,7 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "crossed_screen": bool(crossed_screen[i]),
                 "reached_s2_mouth": bool(reached_mouth[i]),
                 "first_s2_mouth_crossing_mm": first_mouth_mm[i],
+                "first_s2_mouth_plane_crossing_mm": first_mouth_plane_mm[i],
                 "reached_auger_pickup": bool(reached_auger_pickup[i]),
                 "first_auger_pickup_mm": first_auger_pickup_mm[i],
                 "lost_after_s2_mouth": bool(lost and reached_mouth[i]),
@@ -727,8 +742,10 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "s2_inlet": "x340..360,y255..295,z239.63..300",
             }[phase],
             "s2_mouth_transition_predicate": (
-                "first +Y crossing of y=255 with x340..360,z320..345; "
-                "x335 flight gate alone does not establish transfer"),
+                "first +Y crossing of y=255 with full fragment envelope "
+                "inside x350..359.7 outlet lips, r<=65.6 cap bore, and "
+                "z>=317.3 outlet floor; x335 flight gate alone is not "
+                "transfer"),
             "auger_pickup_predicate": (
                 "s1_discharge only: after z352.3 gate, ever inside "
                 "x237..270,y223.3..240.9,z338..356"),

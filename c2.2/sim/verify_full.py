@@ -208,7 +208,7 @@ CONTACTS_REMOVED_FROM_REPORTING = [
      "why": "journal fits by design; the flight hull fills the helix "
             "valleys to r5 and the east boss bore is r4.7"},
     {"filter": "CollisionGroup KinCrossFeedJournal x CrossFeedBearing",
-     "pairs": "CROSS_FEED_SHAFT journal axial slices (not its LH flight) "
+     "pairs": "CROSS_FEED_SHAFT journal axial slices (not its RH flight) "
               "vs CROSS_FEED_BEARINGS bores only",
      "why": "zero-clearance rotating journal fit; flight remains collidable "
             "with CROSS_FEED_SHELL, S2 mouth and every fragment"},

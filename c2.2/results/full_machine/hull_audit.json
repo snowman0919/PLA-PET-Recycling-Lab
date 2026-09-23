@@ -1,13 +1,13 @@
 {
   "schema": "full_machine_hull_audit/1",
   "bodies_json": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/out/full/bodies.json",
-  "step_sha256": "1734ab0a487f60188c5e85e63f90f6df777ee3ec1ac03253de5ed48a94303cd8",
-  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
+  "revision": "6f029e2a2f27e5272b001e1a051b25a0471f9330",
   "method": "closed-mesh volume (divergence theorem) of the converted STL vs scipy ConvexHull volume; occlusion ratio = hull/mesh; ratio 1.0 = convex solid, >1.05 flagged as an occluded pocket/aperture",
   "summary": {
-    "solids": 225,
-    "moving_solids": 77,
-    "flagged": 174,
+    "solids": 253,
+    "moving_solids": 84,
+    "flagged": 186,
     "flagged_names": [
       "FR-2040-630_001",
       "FR-2040-630_002",
@@ -27,7 +27,6 @@
       "DRV-M2_001",
       "DRV-M1-PL_001",
       "DRV-CPL12_001",
-      "DRV-JACK_001",
       "BR-6001_001",
       "BR-6001_002",
       "BR-6204_001",
@@ -35,13 +34,10 @@
       "DRV-BFRONT_001",
       "DRV-B12_001",
       "DRV-B20_001",
-      "DRV-SH15R_001",
       "DRV-SH15L_001",
-      "DRV_SH40L_lower",
       "DRV_SH40R_upper",
       "DRV-SP24-B20_001",
       "DRV-SP24-B25_001",
-      "DRV-SP24-B12_001",
       "DRV-SP12-B12_001",
       "S1-CUT-A-P00_001",
       "S1-SPACER-A_001",
@@ -130,7 +126,6 @@
       "S1-ROOF-R_002",
       "S1-TIE-TUBE_003",
       "S1-TIE-TUBE_004",
-      "DRV-DECK_001",
       "DRV-M1-FOOT_001",
       "S2-LEG-L_001",
       "S2-LEG-L_002",
@@ -138,6 +133,7 @@
       "S2-LEG-R_002",
       "EX-STAND_001",
       "DRV_M2_FACE_PLATE",
+      "DRV-SP24-B20_002",
       "FRONT_INPUT_SUPPORT",
       "REAR_OUTPUT_SUPPORT",
       "INPUT_BEARING_ENVELOPE_UNRATED",
@@ -169,15 +165,31 @@
       "DRV-CHAIN-B",
       "CHUTE_BODY",
       "CHUTE_TROUGH_FLOOR_E",
+      "PDL_SHAFT",
+      "PDL_BEARINGS",
+      "PDL_BEARINGS",
+      "PDL_SPROCKET",
+      "PDL_CHAIN",
+      "PDL_WORM",
+      "AUG_SHAFT",
+      "AUG_BEARINGS",
+      "AUG_BEARINGS",
+      "AUG_BEARINGS",
+      "AUG_WHEEL",
+      "PDL_FEED_GEAR",
+      "CROSS_FEED_IDLER",
+      "CROSS_FEED_GEAR",
+      "CROSS_FEED_SHAFT",
+      "CROSS_FEED_SHELL",
       "GUARD_S2_RING",
       "GUARD_CHAIN_B",
       "GUARD_CHAIN_B",
       "GUARD_CHAIN_B",
-      "GUARD_CHAIN_B",
-      "PULL_FRAME",
       "PULL_ROLLER_FIXED",
       "PULL_ROLLER_ADJ",
       "PULL_MOTOR_REF",
+      "WIND_SPOOL_BEARINGS",
+      "WIND_SPOOL_BEARINGS",
       "WIND_SPOOL_DRUM",
       "WIND_MOTOR_REF",
       "WIND_TRAVERSE_RIDER",
@@ -191,23 +203,23 @@
     "max_occlusion_ratio": 14.18799,
     "by_body": {
       "STATIC": {
-        "solids": 148,
+        "solids": 169,
         "max_occlusion": 14.18799,
-        "flagged": 106
+        "flagged": 111
       },
       "IN_SHAFT": {
-        "solids": 7,
+        "solids": 4,
         "max_occlusion": 1.65822,
-        "flagged": 4
+        "flagged": 2
       },
       "S1A": {
-        "solids": 30,
+        "solids": 31,
         "max_occlusion": 2.0405,
         "flagged": 27
       },
       "S2_ECC": {
         "solids": 3,
-        "max_occlusion": 2.23881,
+        "max_occlusion": 2.23654,
         "flagged": 3
       },
       "S1B": {
@@ -254,6 +266,26 @@
         "solids": 1,
         "max_occlusion": 1.62443,
         "flagged": 1
+      },
+      "PADDLE": {
+        "solids": 4,
+        "max_occlusion": 3.92707,
+        "flagged": 4
+      },
+      "AUGER": {
+        "solids": 2,
+        "max_occlusion": 3.64868,
+        "flagged": 2
+      },
+      "CROSS_FEED_IDLER": {
+        "solids": 1,
+        "max_occlusion": 2.1531,
+        "flagged": 1
+      },
+      "CROSS_FEED": {
+        "solids": 2,
+        "max_occlusion": 2.79517,
+        "flagged": 2
       }
     }
   },
@@ -362,7 +394,7 @@
     {
       "name": "DRV-M2_001",
       "body": "STATIC",
-      "occlusion_ratio": 1.07695,
+      "occlusion_ratio": 1.05815,
       "decision": "triangleMesh_concave"
     },
     {
@@ -376,12 +408,6 @@
       "body": "IN_SHAFT",
       "occlusion_ratio": 1.25492,
       "decision": "keep_hull"
-    },
-    {
-      "name": "DRV-JACK_001",
-      "body": "STATIC",
-      "occlusion_ratio": 1.08866,
-      "decision": "triangleMesh_concave"
     },
     {
       "name": "BR-6001_001",
@@ -426,22 +452,10 @@
       "decision": "triangleMesh_concave"
     },
     {
-      "name": "DRV-SH15R_001",
-      "body": "IN_SHAFT",
-      "occlusion_ratio": 1.65813,
-      "decision": "keep_hull"
-    },
-    {
       "name": "DRV-SH15L_001",
       "body": "IN_SHAFT",
       "occlusion_ratio": 1.65822,
       "decision": "keep_hull"
-    },
-    {
-      "name": "DRV_SH40L_lower",
-      "body": "STATIC",
-      "occlusion_ratio": 1.27571,
-      "decision": "triangleMesh_concave"
     },
     {
       "name": "DRV_SH40R_upper",
@@ -452,7 +466,7 @@
     {
       "name": "DRV-SP24-B20_001",
       "body": "STATIC",
-      "occlusion_ratio": 1.67806,
+      "occlusion_ratio": 1.69141,
       "decision": "triangleMesh_concave"
     },
     {
@@ -462,15 +476,9 @@
       "decision": "keep_hull"
     },
     {
-      "name": "DRV-SP24-B12_001",
-      "body": "IN_SHAFT",
-      "occlusion_ratio": 1.53646,
-      "decision": "keep_hull"
-    },
-    {
       "name": "DRV-SP12-B12_001",
       "body": "S2_ECC",
-      "occlusion_ratio": 1.72854,
+      "occlusion_ratio": 1.60767,
       "decision": "keep_hull"
     },
     {
@@ -996,12 +1004,6 @@
       "decision": "triangleMesh_concave"
     },
     {
-      "name": "DRV-DECK_001",
-      "body": "STATIC",
-      "occlusion_ratio": 1.05684,
-      "decision": "triangleMesh_concave"
-    },
-    {
       "name": "DRV-M1-FOOT_001",
       "body": "STATIC",
       "occlusion_ratio": 1.6803,
@@ -1044,6 +1046,12 @@
       "decision": "triangleMesh_concave"
     },
     {
+      "name": "DRV-SP24-B20_002",
+      "body": "STATIC",
+      "occlusion_ratio": 1.58695,
+      "decision": "triangleMesh_concave"
+    },
+    {
       "name": "FRONT_INPUT_SUPPORT",
       "body": "STATIC",
       "occlusion_ratio": 1.05388,
@@ -1052,7 +1060,7 @@
     {
       "name": "REAR_OUTPUT_SUPPORT",
       "body": "STATIC",
-      "occlusion_ratio": 1.07671,
+      "occlusion_ratio": 1.08524,
       "decision": "triangleMesh_concave"
     },
     {
@@ -1148,7 +1156,7 @@
     {
       "name": "INPUT_ECCENTRIC_SHAFT",
       "body": "S2_ECC",
-      "occlusion_ratio": 2.23881,
+      "occlusion_ratio": 2.23654,
       "decision": "keep_hull"
     },
     {
@@ -1214,19 +1222,115 @@
     {
       "name": "DRV-CHAIN-B",
       "body": "STATIC",
-      "occlusion_ratio": 2.76637,
+      "occlusion_ratio": 2.74198,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "CHUTE_BODY",
       "body": "STATIC",
-      "occlusion_ratio": 2.44369,
+      "occlusion_ratio": 4.42898,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
       "body": "STATIC",
       "occlusion_ratio": 1.2165,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PDL_SHAFT",
+      "body": "PADDLE",
+      "occlusion_ratio": 1.23104,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.52725,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.52725,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PDL_SPROCKET",
+      "body": "PADDLE",
+      "occlusion_ratio": 1.60767,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "PDL_CHAIN",
+      "body": "STATIC",
+      "occlusion_ratio": 1.90828,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PDL_WORM",
+      "body": "PADDLE",
+      "occlusion_ratio": 3.92707,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "AUG_SHAFT",
+      "body": "AUGER",
+      "occlusion_ratio": 3.64868,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.30451,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.30451,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.30451,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "AUG_WHEEL",
+      "body": "AUGER",
+      "occlusion_ratio": 1.52363,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "PDL_FEED_GEAR",
+      "body": "PADDLE",
+      "occlusion_ratio": 1.63467,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "CROSS_FEED_IDLER",
+      "body": "CROSS_FEED_IDLER",
+      "occlusion_ratio": 2.1531,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "CROSS_FEED_GEAR",
+      "body": "CROSS_FEED",
+      "occlusion_ratio": 1.44799,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "CROSS_FEED_SHAFT",
+      "body": "CROSS_FEED",
+      "occlusion_ratio": 2.79517,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "CROSS_FEED_SHELL",
+      "body": "STATIC",
+      "occlusion_ratio": 4.6311,
       "decision": "triangleMesh_concave"
     },
     {
@@ -1238,49 +1342,49 @@
     {
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
-      "occlusion_ratio": 3.74748,
+      "occlusion_ratio": 4.22426,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
-      "occlusion_ratio": 3.74748,
+      "occlusion_ratio": 4.22426,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
-      "occlusion_ratio": 3.74748,
-      "decision": "triangleMesh_concave"
-    },
-    {
-      "name": "GUARD_CHAIN_B",
-      "body": "STATIC",
-      "occlusion_ratio": 3.74748,
-      "decision": "triangleMesh_concave"
-    },
-    {
-      "name": "PULL_FRAME",
-      "body": "STATIC",
-      "occlusion_ratio": 7.14358,
+      "occlusion_ratio": 4.22426,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "PULL_ROLLER_FIXED",
       "body": "STATIC",
-      "occlusion_ratio": 1.13146,
+      "occlusion_ratio": 1.23453,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "PULL_ROLLER_ADJ",
       "body": "STATIC",
-      "occlusion_ratio": 1.44077,
+      "occlusion_ratio": 2.47903,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "PULL_MOTOR_REF",
       "body": "STATIC",
       "occlusion_ratio": 1.43093,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.63999,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.63999,
       "decision": "triangleMesh_concave"
     },
     {
@@ -1506,11 +1610,11 @@
       "name": "DRV-M2_001",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 468305.5,
-      "hull_volume_mm3": 504342.3,
-      "occlusion_ratio": 1.07695,
+      "mesh_volume_mm3": 475903.5,
+      "hull_volume_mm3": 503577.5,
+      "occlusion_ratio": 1.05815,
       "occlusion_flag": true,
-      "hull_vertices": 106,
+      "hull_vertices": 100,
       "decision": "triangleMesh_concave"
     },
     {
@@ -1550,11 +1654,11 @@
       "name": "DRV-JACK_001",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 48172.1,
-      "hull_volume_mm3": 52443.2,
-      "occlusion_ratio": 1.08866,
-      "occlusion_flag": true,
-      "hull_vertices": 104,
+      "mesh_volume_mm3": 50201.9,
+      "hull_volume_mm3": 52317.7,
+      "occlusion_ratio": 1.04215,
+      "occlusion_flag": false,
+      "hull_vertices": 76,
       "decision": "triangleMesh_concave"
     },
     {
@@ -1635,17 +1739,6 @@
       "decision": "triangleMesh_concave"
     },
     {
-      "name": "DRV-SH15R_001",
-      "body": "IN_SHAFT",
-      "lod": "fine",
-      "mesh_volume_mm3": 18614.6,
-      "hull_volume_mm3": 30865.4,
-      "occlusion_ratio": 1.65813,
-      "occlusion_flag": true,
-      "hull_vertices": 426,
-      "decision": "keep_hull"
-    },
-    {
       "name": "DRV-SH15L_001",
       "body": "IN_SHAFT",
       "lod": "fine",
@@ -1655,17 +1748,6 @@
       "occlusion_flag": true,
       "hull_vertices": 426,
       "decision": "keep_hull"
-    },
-    {
-      "name": "DRV_SH40L_lower",
-      "body": "STATIC",
-      "lod": "coarse",
-      "mesh_volume_mm3": 149219.2,
-      "hull_volume_mm3": 190361.2,
-      "occlusion_ratio": 1.27571,
-      "occlusion_flag": true,
-      "hull_vertices": 426,
-      "decision": "triangleMesh_concave"
     },
     {
       "name": "DRV_SH40R_upper",
@@ -1682,9 +1764,9 @@
       "name": "DRV-SP24-B20_001",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 39543.4,
+      "mesh_volume_mm3": 39231.2,
       "hull_volume_mm3": 66356.0,
-      "occlusion_ratio": 1.67806,
+      "occlusion_ratio": 1.69141,
       "occlusion_flag": true,
       "hull_vertices": 266,
       "decision": "triangleMesh_concave"
@@ -1701,23 +1783,12 @@
       "decision": "keep_hull"
     },
     {
-      "name": "DRV-SP24-B12_001",
-      "body": "IN_SHAFT",
-      "lod": "fine",
-      "mesh_volume_mm3": 43225.2,
-      "hull_volume_mm3": 66413.8,
-      "occlusion_ratio": 1.53646,
-      "occlusion_flag": true,
-      "hull_vertices": 366,
-      "decision": "keep_hull"
-    },
-    {
       "name": "DRV-SP12-B12_001",
       "body": "S2_ECC",
       "lod": "fine",
-      "mesh_volume_mm3": 11257.8,
-      "hull_volume_mm3": 19459.5,
-      "occlusion_ratio": 1.72854,
+      "mesh_volume_mm3": 13170.1,
+      "hull_volume_mm3": 21173.2,
+      "occlusion_ratio": 1.60767,
       "occlusion_flag": true,
       "hull_vertices": 246,
       "decision": "keep_hull"
@@ -2782,10 +2853,10 @@
       "name": "DRV-DECK_001",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 220278.7,
+      "mesh_volume_mm3": 225149.9,
       "hull_volume_mm3": 232800.0,
-      "occlusion_ratio": 1.05684,
-      "occlusion_flag": true,
+      "occlusion_ratio": 1.03398,
+      "occlusion_flag": false,
       "hull_vertices": 8,
       "decision": "triangleMesh_concave"
     },
@@ -2934,14 +3005,14 @@
     },
     {
       "name": "KEY-8-16_001",
-      "body": "STATIC",
-      "lod": "coarse",
+      "body": "S1A",
+      "lod": "fine",
       "mesh_volume_mm3": 896.0,
       "hull_volume_mm3": 896.0,
       "occlusion_ratio": 1.0,
       "occlusion_flag": false,
       "hull_vertices": 8,
-      "decision": "triangleMesh_concave"
+      "decision": "keep_hull"
     },
     {
       "name": "KEY-4-70_001",
@@ -2949,17 +3020,6 @@
       "lod": "fine",
       "mesh_volume_mm3": 1120.0,
       "hull_volume_mm3": 1120.0,
-      "occlusion_ratio": 1.0,
-      "occlusion_flag": false,
-      "hull_vertices": 8,
-      "decision": "keep_hull"
-    },
-    {
-      "name": "KEY-4-16_001",
-      "body": "IN_SHAFT",
-      "lod": "fine",
-      "mesh_volume_mm3": 256.0,
-      "hull_volume_mm3": 256.0,
       "occlusion_ratio": 1.0,
       "occlusion_flag": false,
       "hull_vertices": 8,
@@ -2988,6 +3048,28 @@
       "decision": "triangleMesh_concave"
     },
     {
+      "name": "DRV-SP24-B20_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 36483.3,
+      "hull_volume_mm3": 57897.1,
+      "occlusion_ratio": 1.58695,
+      "occlusion_flag": true,
+      "hull_vertices": 266,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "KEY-6-16_002",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 532.8,
+      "hull_volume_mm3": 532.8,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
       "name": "FRONT_INPUT_SUPPORT",
       "body": "STATIC",
       "lod": "coarse",
@@ -3002,9 +3084,9 @@
       "name": "REAR_OUTPUT_SUPPORT",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 213661.2,
+      "mesh_volume_mm3": 211982.2,
       "hull_volume_mm3": 230052.0,
-      "occlusion_ratio": 1.07671,
+      "occlusion_ratio": 1.08524,
       "occlusion_flag": true,
       "hull_vertices": 12,
       "decision": "triangleMesh_concave"
@@ -3321,9 +3403,9 @@
       "name": "INPUT_ECCENTRIC_SHAFT",
       "body": "S2_ECC",
       "lod": "fine",
-      "mesh_volume_mm3": 21694.7,
+      "mesh_volume_mm3": 21716.7,
       "hull_volume_mm3": 48570.3,
-      "occlusion_ratio": 2.23881,
+      "occlusion_ratio": 2.23654,
       "occlusion_flag": true,
       "hull_vertices": 505,
       "decision": "keep_hull"
@@ -3442,9 +3524,9 @@
       "name": "DRV-CHAIN-B",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 44055.6,
-      "hull_volume_mm3": 121874.0,
-      "occlusion_ratio": 2.76637,
+      "mesh_volume_mm3": 39807.2,
+      "hull_volume_mm3": 109150.5,
+      "occlusion_ratio": 2.74198,
       "occlusion_flag": true,
       "hull_vertices": 176,
       "decision": "triangleMesh_concave"
@@ -3453,11 +3535,11 @@
       "name": "CHUTE_BODY",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 139077.5,
-      "hull_volume_mm3": 339861.9,
-      "occlusion_ratio": 2.44369,
+      "mesh_volume_mm3": 132117.8,
+      "hull_volume_mm3": 585146.4,
+      "occlusion_ratio": 4.42898,
       "occlusion_flag": true,
-      "hull_vertices": 20,
+      "hull_vertices": 28,
       "decision": "triangleMesh_concave"
     },
     {
@@ -3469,6 +3551,314 @@
       "occlusion_ratio": 1.2165,
       "occlusion_flag": true,
       "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PDL_SHAFT",
+      "body": "PADDLE",
+      "lod": "fine",
+      "mesh_volume_mm3": 15387.5,
+      "hull_volume_mm3": 18942.7,
+      "occlusion_ratio": 1.23104,
+      "occlusion_flag": true,
+      "hull_vertices": 358,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 1084.3,
+      "hull_volume_mm3": 1656.0,
+      "occlusion_ratio": 1.52725,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PDL_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 1084.3,
+      "hull_volume_mm3": 1656.0,
+      "occlusion_ratio": 1.52725,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PDL_SPROCKET",
+      "body": "PADDLE",
+      "lod": "fine",
+      "mesh_volume_mm3": 13170.1,
+      "hull_volume_mm3": 21173.2,
+      "occlusion_ratio": 1.60767,
+      "occlusion_flag": true,
+      "hull_vertices": 246,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "PDL_CHAIN",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 18300.0,
+      "hull_volume_mm3": 34921.6,
+      "occlusion_ratio": 1.90828,
+      "occlusion_flag": true,
+      "hull_vertices": 172,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PDL_WORM",
+      "body": "PADDLE",
+      "lod": "fine",
+      "mesh_volume_mm3": 933.8,
+      "hull_volume_mm3": 3667.1,
+      "occlusion_ratio": 3.92707,
+      "occlusion_flag": true,
+      "hull_vertices": 446,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "AUG_SHAFT",
+      "body": "AUGER",
+      "lod": "fine",
+      "mesh_volume_mm3": 6471.6,
+      "hull_volume_mm3": 23613.0,
+      "occlusion_ratio": 3.64868,
+      "occlusion_flag": true,
+      "hull_vertices": 602,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 400.1,
+      "hull_volume_mm3": 522.0,
+      "occlusion_ratio": 1.30451,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 400.1,
+      "hull_volume_mm3": 522.0,
+      "occlusion_ratio": 1.30451,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "AUG_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 400.1,
+      "hull_volume_mm3": 522.0,
+      "occlusion_ratio": 1.30451,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "AUG_WHEEL",
+      "body": "AUGER",
+      "lod": "fine",
+      "mesh_volume_mm3": 849.7,
+      "hull_volume_mm3": 1294.6,
+      "occlusion_ratio": 1.52363,
+      "occlusion_flag": true,
+      "hull_vertices": 128,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "PDL_FEED_GEAR",
+      "body": "PADDLE",
+      "lod": "fine",
+      "mesh_volume_mm3": 2335.6,
+      "hull_volume_mm3": 3817.9,
+      "occlusion_ratio": 1.63467,
+      "occlusion_flag": true,
+      "hull_vertices": 120,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "CROSS_FEED_IDLER",
+      "body": "CROSS_FEED_IDLER",
+      "lod": "fine",
+      "mesh_volume_mm3": 3140.4,
+      "hull_volume_mm3": 6761.6,
+      "occlusion_ratio": 2.1531,
+      "occlusion_flag": true,
+      "hull_vertices": 372,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "CROSS_FEED_GEAR",
+      "body": "CROSS_FEED",
+      "lod": "fine",
+      "mesh_volume_mm3": 2636.7,
+      "hull_volume_mm3": 3817.9,
+      "occlusion_ratio": 1.44799,
+      "occlusion_flag": true,
+      "hull_vertices": 120,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "CROSS_FEED_SHAFT",
+      "body": "CROSS_FEED",
+      "lod": "fine",
+      "mesh_volume_mm3": 3087.9,
+      "hull_volume_mm3": 8631.1,
+      "occlusion_ratio": 2.79517,
+      "occlusion_flag": true,
+      "hull_vertices": 480,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 367.2,
+      "hull_volume_mm3": 367.2,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "CROSS_FEED_SHELL",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 4166.9,
+      "hull_volume_mm3": 19297.3,
+      "occlusion_ratio": 4.6311,
+      "occlusion_flag": true,
+      "hull_vertices": 25,
       "decision": "triangleMesh_concave"
     },
     {
@@ -3497,9 +3887,9 @@
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 963.8,
-      "hull_volume_mm3": 3611.7,
-      "occlusion_ratio": 3.74748,
+      "mesh_volume_mm3": 847.1,
+      "hull_volume_mm3": 3578.4,
+      "occlusion_ratio": 4.22426,
       "occlusion_flag": true,
       "hull_vertices": 32,
       "decision": "triangleMesh_concave"
@@ -3508,9 +3898,9 @@
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 963.8,
-      "hull_volume_mm3": 3611.7,
-      "occlusion_ratio": 3.74748,
+      "mesh_volume_mm3": 847.1,
+      "hull_volume_mm3": 3578.4,
+      "occlusion_ratio": 4.22426,
       "occlusion_flag": true,
       "hull_vertices": 32,
       "decision": "triangleMesh_concave"
@@ -3519,20 +3909,9 @@
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 963.8,
-      "hull_volume_mm3": 3611.7,
-      "occlusion_ratio": 3.74748,
-      "occlusion_flag": true,
-      "hull_vertices": 32,
-      "decision": "triangleMesh_concave"
-    },
-    {
-      "name": "GUARD_CHAIN_B",
-      "body": "STATIC",
-      "lod": "coarse",
-      "mesh_volume_mm3": 963.8,
-      "hull_volume_mm3": 3611.7,
-      "occlusion_ratio": 3.74748,
+      "mesh_volume_mm3": 847.1,
+      "hull_volume_mm3": 3578.4,
+      "occlusion_ratio": 4.22426,
       "occlusion_flag": true,
       "hull_vertices": 32,
       "decision": "triangleMesh_concave"
@@ -3552,20 +3931,31 @@
       "name": "PULL_FRAME",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 3292.0,
-      "hull_volume_mm3": 23516.7,
-      "occlusion_ratio": 7.14358,
-      "occlusion_flag": true,
-      "hull_vertices": 12,
+      "mesh_volume_mm3": 457.3,
+      "hull_volume_mm3": 457.3,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "PULL_FRAME",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 457.3,
+      "hull_volume_mm3": 457.3,
+      "occlusion_ratio": 1.0,
+      "occlusion_flag": false,
+      "hull_vertices": 52,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "PULL_ROLLER_FIXED",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 7068.4,
-      "hull_volume_mm3": 7997.6,
-      "occlusion_ratio": 1.13146,
+      "mesh_volume_mm3": 7640.9,
+      "hull_volume_mm3": 9432.9,
+      "occlusion_ratio": 1.23453,
       "occlusion_flag": true,
       "hull_vertices": 104,
       "decision": "triangleMesh_concave"
@@ -3574,11 +3964,11 @@
       "name": "PULL_ROLLER_ADJ",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 9603.9,
-      "hull_volume_mm3": 13837.0,
-      "occlusion_ratio": 1.44077,
+      "mesh_volume_mm3": 10650.9,
+      "hull_volume_mm3": 26403.8,
+      "occlusion_ratio": 2.47903,
       "occlusion_flag": true,
-      "hull_vertices": 68,
+      "hull_vertices": 320,
       "decision": "triangleMesh_concave"
     },
     {
@@ -3607,11 +3997,33 @@
       "name": "WIND_SPOOL_SHAFT",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 18915.5,
-      "hull_volume_mm3": 18915.5,
+      "mesh_volume_mm3": 19512.8,
+      "hull_volume_mm3": 19512.8,
       "occlusion_ratio": 1.0,
       "occlusion_flag": false,
       "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 2809.8,
+      "hull_volume_mm3": 4608.0,
+      "occlusion_ratio": 1.63999,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 2809.8,
+      "hull_volume_mm3": 4608.0,
+      "occlusion_ratio": 1.63999,
+      "occlusion_flag": true,
+      "hull_vertices": 8,
       "decision": "triangleMesh_concave"
     },
     {

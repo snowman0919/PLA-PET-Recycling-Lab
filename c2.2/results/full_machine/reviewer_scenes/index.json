@@ -1,8 +1,8 @@
 {
   "schema": "reviewer_scenes/1",
   "machine_usd": "c2.2/sim/assets/usd/full_machine.usda",
-  "usd_sha256": "594b77e44c46e166f55dcbf0182e21aa5935e7b590f4935599b3115defef5f61",
-  "source_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+  "usd_sha256": "e484708cff2e515f497901694b8eb6566882719138c5eb3bf8967ba9690ae39d",
+  "source_step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
   "resolution": "640x480",
   "scene_list": [
     "a_full_assembly",
@@ -42,9 +42,9 @@
   ],
   "note": "Isaac RTX capture skipped (PPR_FORCE_SOFTWARE_SCENES); GPU memory is committed to the ollama llama-server, ~7.6/10.2 GB, never killed.",
   "probe_spheres": {
-    "count_rendered": 4,
+    "count_rendered": 5,
     "of_total_dropped": 200,
-    "positions_source": "c2.2/results/full_machine/run_vp1_final16/results.json probe_test.sample_final_positions",
+    "positions_source": "c2.2/results/full_machine/run_vp1_final17/results.json probe_test.sample_final_positions",
     "render_mode": "projected always-visible overlay discs (white rim) at the exact recorded final positions; occlusion against near geometry disabled so the 3mm/1.5mm fragments stay visible at 640x480"
   }
 }

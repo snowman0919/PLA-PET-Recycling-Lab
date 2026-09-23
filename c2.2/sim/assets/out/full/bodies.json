@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_bodies/1",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
-  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
+  "source_step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
+  "revision": "6f029e2a2f27e5272b001e1a051b25a0471f9330",
   "conversion_script_sha256": "a9e71d96195ff56b62cb3427ccc870e8e1d2d8417c6ba904ca8a64e82de96247",
   "solids": [
     {
@@ -3547,16 +3547,16 @@
       "body": "CROSS_FEED",
       "step_index": 208,
       "part_bbox": [
-        345.2733161746613,
+        345.27331617466,
         207.9999999,
-        315.8569246005293,
-        368.4025288283189,
-        251.7154154117732,
-        340.98234935830726
+        315.01765064163965,
+        368.4025315997742,
+        251.71538903498737,
+        340.143024028117
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
-      "mesh_sha256": "7b052c4e5ad20bfb89f61657dae7ba600a6e1b56746c276d568acd7ed2d1f1d8"
+      "mesh_sha256": "63774a23e38da33e4f44ca7c4b167606cec42b735b1396112264d5e1c70864b0"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
@@ -3770,14 +3770,14 @@
       "part_bbox": [
         344.29999985,
         223.49999985,
-        315.79999985,
+        311.79999985,
         369.20000015,
         258.00000015,
         342.50000015
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
-      "mesh_sha256": "befd7981f9ed526f12ebb085fad01b2f7c5d68ca7ad171edf0891b4b66d2aab0"
+      "mesh_sha256": "e50dc29920067e0dec97b4535bdea5597804aadfe8ee3544d425d6f717ff591b"
     },
     {
       "name": "GUARD_S2_RING",
@@ -5997,8 +5997,8 @@
       "body": "CROSS_FEED",
       "lod": "fine",
       "stl": "sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
-      "bytes": 187484,
-      "sha256": "7b052c4e5ad20bfb89f61657dae7ba600a6e1b56746c276d568acd7ed2d1f1d8"
+      "bytes": 185184,
+      "sha256": "63774a23e38da33e4f44ca7c4b167606cec42b735b1396112264d5e1c70864b0"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
@@ -6101,8 +6101,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
-      "bytes": 8584,
-      "sha256": "befd7981f9ed526f12ebb085fad01b2f7c5d68ca7ad171edf0891b4b66d2aab0"
+      "bytes": 9384,
+      "sha256": "e50dc29920067e0dec97b4535bdea5597804aadfe8ee3544d425d6f717ff591b"
     },
     {
       "name": "GUARD_S2_RING",
@@ -7621,5 +7621,5 @@
       "centre_dist_mm": 0.0
     }
   ],
-  "wall_time_s": 45.85477900505066
+  "wall_time_s": 46.69688582420349
 }

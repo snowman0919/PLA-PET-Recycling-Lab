@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 6031330,
-  "usd_sha256": "594b77e44c46e166f55dcbf0182e21aa5935e7b590f4935599b3115defef5f61",
+  "usd_bytes": 6031173,
+  "usd_sha256": "e484708cff2e515f497901694b8eb6566882719138c5eb3bf8967ba9690ae39d",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -143,7 +143,7 @@
       "KinRoller": "S2_ROLLER_1..6 (kinematic coupling rollers)",
       "KinPaddle": "PADDLE (pose-driven kinematic worm shaft, VP1 rev 6 chain-driven transfer)",
       "KinAuger": "AUGER (pose-driven kinematic screw conveyor at S2Ecc/8, worm:wheel 8:1)",
-      "KinCrossFeedFlight": "CROSS_FEED_SHAFT LH flight axial hulls, no filtering; fragments live",
+      "KinCrossFeedFlight": "CROSS_FEED_SHAFT RH flight axial hulls, no filtering; fragments live",
       "KinCrossFeedJournal": "CROSS_FEED_SHAFT y208..224.75 and y250.25..250.7 journal slices",
       "CrossFeedBearing": "only CROSS_FEED_BEARINGS journals",
       "FeedIdler": "only CROSS_FEED_IDLER gear and journal",
@@ -162,7 +162,7 @@
       "KinRotor_x_KinRoller": "cycloid output coupling (rollers ride in rotor windows)",
       "KinRotor_x_Fit": "rotor vs fixed-ring pins: fixed-ring cycloid engagement by design",
       "KinRoller_x_Fit": "rollers vs ring plates by design",
-      "KinCrossFeedJournal_x_CrossFeedBearing": "only cross-feed journal slices in the named bearing bores; LH flight vs shell and fragments stays live",
+      "KinCrossFeedJournal_x_CrossFeedBearing": "only cross-feed journal slices in the named bearing bores; RH flight vs shell and fragments stays live",
       "FeedIdler_x_CrossFeedBearing": "idler journal inside named bearing bore",
       "FeedIdler_x_PaddleFeedGear": "first 12T external gear mesh; ideal opposite-angle kinematics, no tooth-force solver",
       "FeedIdler_x_CrossFeedGear": "second 12T external gear mesh; ideal same signed cross-feed ratio after two reversals",
@@ -199,7 +199,7 @@
     "note": "2mm below hopper solid top; lateral spread set by verify_full.py across the mouth cross-section"
   },
   "source_bodies": {
-    "step_sha256": "0753f249e0acc93f04a81af4cc5732462ccea2ba8fe27863551f02b58c33e156",
+    "step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
     "solids": 253,
     "moving_bodies": [
       "AUGER",
@@ -220,7 +220,7 @@
       "S2_ROTOR"
     ]
   },
-  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
+  "revision": "6f029e2a2f27e5272b001e1a051b25a0471f9330",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
@@ -2075,8 +2075,8 @@
         225.8586956521739,
         226.9673913043478
       ],
-      "verts": 77,
-      "faces": 150
+      "verts": 76,
+      "faces": 148
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
@@ -2086,8 +2086,8 @@
         226.9673913043478,
         228.07608695652175
       ],
-      "verts": 79,
-      "faces": 154
+      "verts": 78,
+      "faces": 152
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
@@ -2108,8 +2108,8 @@
         229.18478260869566,
         230.29347826086956
       ],
-      "verts": 96,
-      "faces": 188
+      "verts": 97,
+      "faces": 190
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
@@ -2240,8 +2240,8 @@
         242.48913043478262,
         243.59782608695653
       ],
-      "verts": 86,
-      "faces": 168
+      "verts": 85,
+      "faces": 166
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
@@ -2251,8 +2251,8 @@
         243.59782608695653,
         244.70652173913044
       ],
-      "verts": 85,
-      "faces": 166
+      "verts": 84,
+      "faces": 164
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
@@ -2262,8 +2262,8 @@
         244.70652173913044,
         245.81521739130434
       ],
-      "verts": 100,
-      "faces": 196
+      "verts": 99,
+      "faces": 194
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
@@ -2284,8 +2284,8 @@
         246.92391304347825,
         248.0326086956522
       ],
-      "verts": 60,
-      "faces": 116
+      "verts": 57,
+      "faces": 110
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
@@ -2295,8 +2295,8 @@
         248.0326086956522,
         249.1413043478261
       ],
-      "verts": 59,
-      "faces": 114
+      "verts": 56,
+      "faces": 108
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
@@ -2315,7 +2315,7 @@
       "approx": "convexHull_segment",
       "axial_range_mm": [
         250.25,
-        251.7154154117732
+        251.71538903498737
       ],
       "verts": 99,
       "faces": 194
@@ -2408,8 +2408,8 @@
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
       "prim": "/World/F0/Static/mesh_CROSS_FEED_SHELL",
       "approx": "triangleMesh",
-      "verts": 85,
-      "faces": 170
+      "verts": 93,
+      "faces": 186
     },
     {
       "mesh": "c2.2/sim/assets/out/full/GUARD_S2_RING__coarse.stl",

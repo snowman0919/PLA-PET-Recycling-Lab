@@ -43,7 +43,7 @@
         "crossed_screen": 0,
         "reached_s2_mouth": 0,
         "reached_auger_pickup": 0,
-        "lost_through_world": 6,
+        "lost_through_world": 7,
         "lost_after_s2_mouth": 0,
         "lost_after_x335_before_mouth": 0,
         "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
@@ -66,23 +66,24 @@
         "top_blocker_solids": []
       },
       "chute_inlet": {
-        "pass_rate": 0.955,
-        "in_path_passed": 21,
-        "in_path_pass_rate": 0.955,
+        "pass_rate": 1.0,
+        "in_path_passed": 22,
+        "in_path_pass_rate": 1.0,
         "stuck": 5,
-        "crossed_screen": 0,
-        "reached_s2_mouth": 0,
+        "crossed_screen": 18,
+        "reached_s2_mouth": 18,
         "reached_auger_pickup": 0,
-        "lost_through_world": 13,
-        "lost_after_s2_mouth": 0,
-        "lost_after_x335_before_mouth": 13,
+        "lost_through_world": 8,
+        "lost_after_s2_mouth": 6,
+        "lost_after_x335_before_mouth": 2,
         "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
         "verdict": "BLOCKED",
         "top_blocker_solids": [
-          "STATIC:FR-2040-320_002",
           "STATIC:FR-BASE_001",
-          "STATIC:FR-2040-630_001",
-          "STATIC:FR-2040-630_002"
+          "STATIC:FEED-BUF_001",
+          "STATIC:FR-2040-320_002",
+          "STATIC:FR-2040-630_002",
+          "STATIC:FR-2040-320_001"
         ]
       },
       "s2_inlet": {
@@ -101,10 +102,10 @@
         "top_blocker_solids": []
       }
     },
-    "connected_result": "c2.2/results/full_machine/run_vp1_final16/results.json",
-    "connected_verdict": "LOCALIZED_BLOCKED",
+    "connected_result": "c2.2/results/full_machine/run_vp1_final17/results.json",
+    "connected_verdict": "PARTIAL_PROBE_REACH",
     "connected_product_flow_verified": false,
-    "connected_reached": 0
+    "connected_reached": 1
   },
   "performance": {
     "status": "BLOCKED_PERFORMANCE_DATA",
