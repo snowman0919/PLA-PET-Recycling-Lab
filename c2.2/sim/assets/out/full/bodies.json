@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_bodies/1",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
-  "revision": "6f029e2a2f27e5272b001e1a051b25a0471f9330",
+  "source_step_sha256": "e6793f06a8c7dcd31576b8e86135b91c0338d47f0fe844149db1832ffa80eaf5",
+  "revision": "1c046a551f70f91b6c7c814b8123c5445b4ddd7f",
   "conversion_script_sha256": "a9e71d96195ff56b62cb3427ccc870e8e1d2d8417c6ba904ca8a64e82de96247",
   "solids": [
     {
@@ -3284,7 +3284,7 @@
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "mesh_sha256": "f0182f41cd19a788d9aead331aaa1fdafb689549e10b0902a4535be6a6273c1d"
+      "mesh_sha256": "8fa897fc70b61acaa2c5a4786ebeb5c2909e5ce4c9b0ccea4eec7c4d34c55799"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -5869,8 +5869,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "bytes": 23084,
-      "sha256": "f0182f41cd19a788d9aead331aaa1fdafb689549e10b0902a4535be6a6273c1d"
+      "bytes": 22284,
+      "sha256": "8fa897fc70b61acaa2c5a4786ebeb5c2909e5ce4c9b0ccea4eec7c4d34c55799"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -7621,5 +7621,5 @@
       "centre_dist_mm": 0.0
     }
   ],
-  "wall_time_s": 46.69688582420349
+  "wall_time_s": 47.92360591888428
 }

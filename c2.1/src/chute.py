@@ -239,13 +239,13 @@ def _guide(p0, p1):
 
 
 def guide_left():
-    """S1 south-side guide terminates inside the screw's south wall."""
-    return _guide((210.0, S1["y0"]), (237.2, 220.8))
+    """S1 south funnel starts upstream and joins the screw's south wall."""
+    return _guide((100.0, S1["y0"]), (237.2, 222.0))
 
 
 def guide_right():
-    """45deg in-plan guide from the S1 rear wall toward the pan throat."""
-    return _guide((210.0, S1["y1"]), (248.0, 306.0))
+    """S1 north funnel converges into the screw's north wall, not y306."""
+    return _guide((100.0, S1["y1"]), (237.2, 241.0))
 
 
 def wall_front():

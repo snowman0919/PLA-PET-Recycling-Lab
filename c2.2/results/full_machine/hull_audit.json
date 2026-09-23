@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_hull_audit/1",
   "bodies_json": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/out/full/bodies.json",
-  "step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
-  "revision": "6f029e2a2f27e5272b001e1a051b25a0471f9330",
+  "step_sha256": "e6793f06a8c7dcd31576b8e86135b91c0338d47f0fe844149db1832ffa80eaf5",
+  "revision": "1c046a551f70f91b6c7c814b8123c5445b4ddd7f",
   "method": "closed-mesh volume (divergence theorem) of the converted STL vs scipy ConvexHull volume; occlusion ratio = hull/mesh; ratio 1.0 = convex solid, >1.05 flagged as an occluded pocket/aperture",
   "summary": {
     "solids": 253,
@@ -1228,7 +1228,7 @@
     {
       "name": "CHUTE_BODY",
       "body": "STATIC",
-      "occlusion_ratio": 4.42898,
+      "occlusion_ratio": 4.37286,
       "decision": "triangleMesh_concave"
     },
     {
@@ -3535,9 +3535,9 @@
       "name": "CHUTE_BODY",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 132117.8,
+      "mesh_volume_mm3": 133813.0,
       "hull_volume_mm3": 585146.4,
-      "occlusion_ratio": 4.42898,
+      "occlusion_ratio": 4.37286,
       "occlusion_flag": true,
       "hull_vertices": 28,
       "decision": "triangleMesh_concave"

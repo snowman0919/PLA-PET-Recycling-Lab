@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 6031173,
-  "usd_sha256": "e484708cff2e515f497901694b8eb6566882719138c5eb3bf8967ba9690ae39d",
+  "usd_bytes": 6058654,
+  "usd_sha256": "41ef9593f5f08f7e1e6c2ac920eb4b80a0c77d2f8448fbbbd1ab46167965fa4a",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -199,7 +199,7 @@
     "note": "2mm below hopper solid top; lateral spread set by verify_full.py across the mouth cross-section"
   },
   "source_bodies": {
-    "step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
+    "step_sha256": "e6793f06a8c7dcd31576b8e86135b91c0338d47f0fe844149db1832ffa80eaf5",
     "solids": 253,
     "moving_bodies": [
       "AUGER",
@@ -220,7 +220,7 @@
       "S2_ROTOR"
     ]
   },
-  "revision": "6f029e2a2f27e5272b001e1a051b25a0471f9330",
+  "revision": "1c046a551f70f91b6c7c814b8123c5445b4ddd7f",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
@@ -1570,8 +1570,8 @@
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
       "prim": "/World/F0/Static/mesh_CHUTE_BODY",
       "approx": "triangleMesh",
-      "verts": 229,
-      "faces": 460
+      "verts": 221,
+      "faces": 444
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CHUTE_TROUGH_FLOOR_E__coarse.stl",

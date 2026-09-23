@@ -1,7 +1,7 @@
 # Graph Report - PPR-c2.1-codex-20260921  (2026-09-23)
 
 ## Corpus Check
-- 996 files · ~3,419,136 words
+- 997 files · ~4,115,308 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 1296 file(s) not represented in the graph (top: .stl 551, .log 204, .step 202)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `45094a4c`
+- Built from commit: `1c046a55`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

@@ -1,11 +1,11 @@
 {
   "schema": "full_machine_flow_localize/2",
-  "step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
-  "usda_sha256": "e484708cff2e515f497901694b8eb6566882719138c5eb3bf8967ba9690ae39d",
+  "step_sha256": "e6793f06a8c7dcd31576b8e86135b91c0338d47f0fe844149db1832ffa80eaf5",
+  "usda_sha256": "41ef9593f5f08f7e1e6c2ac920eb4b80a0c77d2f8448fbbbd1ab46167965fa4a",
   "scene_consistent": true,
   "usd_source_linked": true,
-  "current_step_sha256": "b4acee8c1c2ade90bb17b232ac4ff5e167ab21b2e5bcd563ad39c34ac0f73846",
-  "current_usda_sha256": "e484708cff2e515f497901694b8eb6566882719138c5eb3bf8967ba9690ae39d",
+  "current_step_sha256": "e6793f06a8c7dcd31576b8e86135b91c0338d47f0fe844149db1832ffa80eaf5",
+  "current_usda_sha256": "41ef9593f5f08f7e1e6c2ac920eb4b80a0c77d2f8448fbbbd1ab46167965fa4a",
   "generated_by": "c2.2/sim/flow_localize.py",
   "child_exit_codes": {
     "hopper_mouth": 0,
@@ -22,7 +22,7 @@
       "crossed_screen": 0,
       "reached_s2_mouth": 0,
       "reached_auger_pickup": 0,
-      "lost_through_world": 7,
+      "lost_through_world": 9,
       "lost_after_s2_mouth": 0,
       "lost_after_x335_before_mouth": 0,
       "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
@@ -36,8 +36,8 @@
       "stuck": 0,
       "crossed_screen": 0,
       "reached_s2_mouth": 0,
-      "reached_auger_pickup": 5,
-      "lost_through_world": 0,
+      "reached_auger_pickup": 12,
+      "lost_through_world": 5,
       "lost_after_s2_mouth": 0,
       "lost_after_x335_before_mouth": 0,
       "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
@@ -48,32 +48,32 @@
       "pass_rate": 1.0,
       "in_path_passed": 22,
       "in_path_pass_rate": 1.0,
-      "stuck": 5,
-      "crossed_screen": 18,
-      "reached_s2_mouth": 18,
+      "stuck": 7,
+      "crossed_screen": 13,
+      "reached_s2_mouth": 12,
       "reached_auger_pickup": 0,
-      "lost_through_world": 8,
-      "lost_after_s2_mouth": 6,
-      "lost_after_x335_before_mouth": 2,
+      "lost_through_world": 11,
+      "lost_after_s2_mouth": 5,
+      "lost_after_x335_before_mouth": 6,
       "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
       "verdict": "BLOCKED",
       "top_blocker_solids": [
         "STATIC:FR-BASE_001",
-        "STATIC:FEED-BUF_001",
         "STATIC:FR-2040-320_002",
-        "STATIC:FR-2040-630_002",
-        "STATIC:FR-2040-320_001"
+        "STATIC:FR-2040-630_001",
+        "STATIC:C2_THERMAL_SADDLE_L",
+        "STATIC:EX-BARREL_001"
       ]
     },
     "s2_inlet": {
       "pass_rate": 1.0,
-      "in_path_passed": 22,
-      "in_path_pass_rate": 1.0,
+      "in_path_passed": 21,
+      "in_path_pass_rate": 0.955,
       "stuck": 0,
-      "crossed_screen": 21,
+      "crossed_screen": 20,
       "reached_s2_mouth": 0,
       "reached_auger_pickup": 0,
-      "lost_through_world": 9,
+      "lost_through_world": 15,
       "lost_after_s2_mouth": 0,
       "lost_after_x335_before_mouth": 0,
       "scope": "local receiver crossing; S1 discharge separately requires main-screw pickup, chute separately requires +Y S2 mouth crossing; neither proves connected screen-hole passage or product throughput",
@@ -103,7 +103,7 @@
         "in_path_passed": 22,
         "reached_auger_pickup": 0,
         "stuck": 0,
-        "lost_through_world": 7,
+        "lost_through_world": 9,
         "reached_s2_mouth": 0,
         "lost_after_s2_mouth": 0,
         "lost_after_x335_before_mouth": 0,
@@ -136,9 +136,9 @@
         "entered": 22,
         "passed_through": 22,
         "in_path_passed": 22,
-        "reached_auger_pickup": 5,
+        "reached_auger_pickup": 12,
         "stuck": 0,
-        "lost_through_world": 0,
+        "lost_through_world": 5,
         "reached_s2_mouth": 0,
         "lost_after_s2_mouth": 0,
         "lost_after_x335_before_mouth": 0,
@@ -172,22 +172,21 @@
         "passed_through": 22,
         "in_path_passed": 22,
         "reached_auger_pickup": 0,
-        "stuck": 5,
-        "lost_through_world": 8,
-        "reached_s2_mouth": 18,
-        "lost_after_s2_mouth": 6,
-        "lost_after_x335_before_mouth": 2,
-        "crossed_screen": 18,
-        "reached_screen_band": 2,
+        "stuck": 7,
+        "lost_through_world": 11,
+        "reached_s2_mouth": 12,
+        "lost_after_s2_mouth": 5,
+        "lost_after_x335_before_mouth": 6,
+        "crossed_screen": 13,
+        "reached_screen_band": 0,
         "blocker_solids": {
-          "STATIC:FR-2040-320_002": 1,
-          "STATIC:FR-2040-630_002": 1,
-          "STATIC:FR-BASE_001": 2,
-          "STATIC:FR-2040-320_001": 1,
-          "STATIC:FR-2040-630_001": 1,
-          "STATIC:FEED-BUF_001": 2,
+          "STATIC:C2_THERMAL_SADDLE_L": 1,
+          "STATIC:FR-2040-320_002": 3,
+          "STATIC:FR-BASE_001": 5,
+          "STATIC:FR-2040-630_001": 2,
           "STATIC:EX-BARREL_001": 1,
-          "STATIC:EX-SCREW_001": 1
+          "STATIC:EX-SCREW_001": 1,
+          "STATIC:FR-2020-320_001": 1
         }
       },
       "zone_breakdown": {
@@ -211,11 +210,11 @@
             "entered": 22,
             "passed_through": 22,
             "true_passed": 22,
-            "reached_s2_mouth": 18,
-            "stuck": 5,
-            "lost_through_world": 8,
-            "lost_after_x335_before_mouth": 2,
-            "crossed_screen": 18,
+            "reached_s2_mouth": 12,
+            "stuck": 7,
+            "lost_through_world": 11,
+            "lost_after_x335_before_mouth": 6,
+            "crossed_screen": 13,
             "pass_rate": 1.0,
             "true_pass_rate": 1.0
           },
@@ -242,17 +241,96 @@
       },
       "stuck_fragments": [
         {
-          "i": 1,
+          "i": 3,
+          "kind": "sphere",
+          "size_mm": 3.0,
+          "spawn_mm": [
+            263.8,
+            228.0,
+            357.5
+          ],
+          "final_mm": [
+            382.5,
+            283.0,
+            289.0
+          ],
+          "entered": true,
+          "first_pass_mm": [
+            335.0,
+            232.8,
+            340.2
+          ],
+          "in_path_passed": true,
+          "passed_through": true,
+          "settled_stuck_at_step": 8693,
+          "stuck": true,
+          "lost_through_world": false,
+          "reached_screen_band": false,
+          "crossed_screen": false,
+          "reached_s2_mouth": true,
+          "first_s2_mouth_crossing_mm": [
+            356.6,
+            255.0,
+            318.8
+          ],
+          "first_s2_mouth_plane_crossing_mm": [
+            356.637527,
+            255.0,
+            318.799988
+          ],
+          "reached_auger_pickup": false,
+          "first_auger_pickup_mm": null,
+          "lost_after_s2_mouth": false,
+          "lost_after_x335_before_mouth": false,
+          "touch_probe": {
+            "down": {
+              "path": "/World/F0/Static/mesh_C2_THERMAL_SADDLE_L",
+              "distance_mm": 1.51,
+              "position": [
+                382.5,
+                283.0,
+                287.5
+              ],
+              "normal": [
+                -0.09,
+                0.0,
+                1.0
+              ]
+            },
+            "neg_x": {
+              "path": "/World/F0/Static/mesh_C2_THERMAL_SADDLE_L",
+              "distance_mm": 1.51,
+              "position": [
+                381.0,
+                283.0,
+                289.0
+              ],
+              "normal": [
+                0.99,
+                -0.0,
+                0.12
+              ]
+            }
+          },
+          "touching_solids": [
+            {
+              "solid": "C2_THERMAL_SADDLE_L",
+              "body": "STATIC"
+            }
+          ]
+        },
+        {
+          "i": 5,
           "kind": "sphere",
           "size_mm": 3.0,
           "spawn_mm": [
             267.6,
-            226.8,
-            358.9
+            226.9,
+            357.6
           ],
           "final_mm": [
-            261.7,
-            358.5,
+            261.9,
+            204.7,
             1.5
           ],
           "entered": true,
@@ -263,19 +341,19 @@
           ],
           "in_path_passed": true,
           "passed_through": true,
-          "settled_stuck_at_step": 11889,
+          "settled_stuck_at_step": 12753,
           "stuck": true,
           "lost_through_world": false,
           "reached_screen_band": false,
           "crossed_screen": true,
           "reached_s2_mouth": true,
           "first_s2_mouth_crossing_mm": [
-            357.6,
+            357.2,
             255.0,
             318.8
           ],
           "first_s2_mouth_plane_crossing_mm": [
-            357.552673,
+            357.189652,
             255.0,
             318.799988
           ],
@@ -288,8 +366,8 @@
               "path": "/World/F0/Static/mesh_FR_BASE_001",
               "distance_mm": 1.5,
               "position": [
-                261.7,
-                358.5,
+                261.9,
+                204.7,
                 0.0
               ],
               "normal": [
@@ -300,29 +378,15 @@
             },
             "neg_x": {
               "path": "/World/F0/Static/mesh_FR_2040_320_002",
-              "distance_mm": 1.66,
+              "distance_mm": 1.87,
               "position": [
                 260.0,
-                358.5,
+                204.7,
                 1.5
               ],
               "normal": [
                 1.0,
                 0.0,
-                0.0
-              ]
-            },
-            "pos_y": {
-              "path": "/World/F0/Static/mesh_FR_2040_630_002",
-              "distance_mm": 1.5,
-              "position": [
-                261.7,
-                360.0,
-                1.5
-              ],
-              "normal": [
-                0.0,
-                -1.0,
                 0.0
               ]
             }
@@ -333,53 +397,41 @@
               "body": "STATIC"
             },
             {
-              "solid": "FR-2040-630_002",
-              "body": "STATIC"
-            },
-            {
               "solid": "FR-BASE_001",
               "body": "STATIC"
             }
           ]
         },
         {
-          "i": 9,
+          "i": 6,
           "kind": "sphere",
           "size_mm": 3.0,
           "spawn_mm": [
-            257.0,
-            236.2,
-            357.8
+            265.2,
+            233.0,
+            358.4
           ],
           "final_mm": [
-            41.5,
-            41.5,
+            265.1,
+            42.1,
             1.5
           ],
           "entered": true,
           "first_pass_mm": [
             335.0,
-            227.9,
-            341.6
+            231.2,
+            340.2
           ],
           "in_path_passed": true,
           "passed_through": true,
-          "settled_stuck_at_step": 20553,
+          "settled_stuck_at_step": 20301,
           "stuck": true,
           "lost_through_world": false,
           "reached_screen_band": false,
-          "crossed_screen": true,
-          "reached_s2_mouth": true,
-          "first_s2_mouth_crossing_mm": [
-            357.0,
-            255.0,
-            318.8
-          ],
-          "first_s2_mouth_plane_crossing_mm": [
-            356.954992,
-            255.0,
-            318.799988
-          ],
+          "crossed_screen": false,
+          "reached_s2_mouth": false,
+          "first_s2_mouth_crossing_mm": null,
+          "first_s2_mouth_plane_crossing_mm": null,
           "reached_auger_pickup": false,
           "first_auger_pickup_mm": null,
           "lost_after_s2_mouth": false,
@@ -389,8 +441,8 @@
               "path": "/World/F0/Static/mesh_FR_BASE_001",
               "distance_mm": 1.5,
               "position": [
-                41.5,
-                41.5,
+                265.1,
+                42.1,
                 0.0
               ],
               "normal": [
@@ -400,11 +452,11 @@
               ]
             },
             "neg_x": {
-              "path": "/World/F0/Static/mesh_FR_2040_320_001",
-              "distance_mm": 1.5,
+              "path": "/World/F0/Static/mesh_FR_2040_320_002",
+              "distance_mm": 5.14,
               "position": [
-                40.0,
-                41.5,
+                260.0,
+                42.1,
                 1.5
               ],
               "normal": [
@@ -415,9 +467,9 @@
             },
             "neg_y": {
               "path": "/World/F0/Static/mesh_FR_2040_630_001",
-              "distance_mm": 1.5,
+              "distance_mm": 2.09,
               "position": [
-                41.5,
+                265.1,
                 40.0,
                 1.5
               ],
@@ -430,13 +482,78 @@
           },
           "touching_solids": [
             {
-              "solid": "FR-2040-320_001",
+              "solid": "FR-2040-320_002",
               "body": "STATIC"
             },
             {
               "solid": "FR-2040-630_001",
               "body": "STATIC"
             },
+            {
+              "solid": "FR-BASE_001",
+              "body": "STATIC"
+            }
+          ]
+        },
+        {
+          "i": 10,
+          "kind": "sphere",
+          "size_mm": 1.5,
+          "spawn_mm": [
+            266.9,
+            227.7,
+            358.7
+          ],
+          "final_mm": [
+            181.4,
+            251.2,
+            0.8
+          ],
+          "entered": true,
+          "first_pass_mm": [
+            335.0,
+            229.8,
+            339.8
+          ],
+          "in_path_passed": true,
+          "passed_through": true,
+          "settled_stuck_at_step": 13161,
+          "stuck": true,
+          "lost_through_world": false,
+          "reached_screen_band": false,
+          "crossed_screen": true,
+          "reached_s2_mouth": true,
+          "first_s2_mouth_crossing_mm": [
+            357.0,
+            255.0,
+            318.0
+          ],
+          "first_s2_mouth_plane_crossing_mm": [
+            357.003655,
+            255.0,
+            318.049988
+          ],
+          "reached_auger_pickup": false,
+          "first_auger_pickup_mm": null,
+          "lost_after_s2_mouth": false,
+          "lost_after_x335_before_mouth": false,
+          "touch_probe": {
+            "down": {
+              "path": "/World/F0/Static/mesh_FR_BASE_001",
+              "distance_mm": 0.75,
+              "position": [
+                181.4,
+                251.2,
+                0.0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            }
+          },
+          "touching_solids": [
             {
               "solid": "FR-BASE_001",
               "body": "STATIC"
@@ -453,57 +570,85 @@
             357.9
           ],
           "final_mm": [
-            307.2,
-            254.8,
-            217.9
+            260.8,
+            43.1,
+            0.7
           ],
           "entered": true,
           "first_pass_mm": [
             335.0,
-            231.1,
-            339.5
+            229.6,
+            339.8
           ],
           "in_path_passed": true,
           "passed_through": true,
-          "settled_stuck_at_step": 16137,
+          "settled_stuck_at_step": 20997,
           "stuck": true,
           "lost_through_world": false,
-          "reached_screen_band": true,
-          "crossed_screen": true,
-          "reached_s2_mouth": true,
-          "first_s2_mouth_crossing_mm": [
-            357.3,
-            255.0,
-            318.0
-          ],
-          "first_s2_mouth_plane_crossing_mm": [
-            357.317251,
-            255.0,
-            318.049988
-          ],
+          "reached_screen_band": false,
+          "crossed_screen": false,
+          "reached_s2_mouth": false,
+          "first_s2_mouth_crossing_mm": null,
+          "first_s2_mouth_plane_crossing_mm": null,
           "reached_auger_pickup": false,
           "first_auger_pickup_mm": null,
           "lost_after_s2_mouth": false,
           "lost_after_x335_before_mouth": false,
           "touch_probe": {
-            "neg_y": {
-              "path": "/World/F0/Static/mesh_FEED_BUF_001",
+            "down": {
+              "path": "/World/F0/Static/mesh_FR_BASE_001",
               "distance_mm": 0.75,
               "position": [
-                307.2,
-                254.1,
-                217.9
+                260.8,
+                43.1,
+                0.0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "neg_x": {
+              "path": "/World/F0/Static/mesh_FR_2040_320_002",
+              "distance_mm": 0.75,
+              "position": [
+                260.0,
+                43.1,
+                0.7
+              ],
+              "normal": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            "neg_y": {
+              "path": "/World/F0/Static/mesh_FR_2040_630_001",
+              "distance_mm": 3.06,
+              "position": [
+                260.8,
+                40.0,
+                0.7
               ],
               "normal": [
                 -0.0,
                 1.0,
-                0.05
+                0.0
               ]
             }
           },
           "touching_solids": [
             {
-              "solid": "FEED-BUF_001",
+              "solid": "FR-2040-320_002",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-2040-630_001",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-BASE_001",
               "body": "STATIC"
             }
           ]
@@ -518,19 +663,19 @@
             357.5
           ],
           "final_mm": [
-            282.8,
+            284.6,
             275.0,
             117.6
           ],
           "entered": true,
           "first_pass_mm": [
             335.0,
-            226.0,
-            342.3
+            228.3,
+            340.4
           ],
           "in_path_passed": true,
           "passed_through": true,
-          "settled_stuck_at_step": 20729,
+          "settled_stuck_at_step": 20629,
           "stuck": true,
           "lost_through_world": false,
           "reached_screen_band": false,
@@ -542,9 +687,9 @@
             318.0
           ],
           "first_s2_mouth_plane_crossing_mm": [
-            357.206899,
+            357.189571,
             255.0,
-            318.049988
+            318.049957
           ],
           "reached_auger_pickup": false,
           "first_auger_pickup_mm": null,
@@ -555,9 +700,9 @@
               "path": "/World/F0/Static/mesh_EX_BARREL_001",
               "distance_mm": 0.76,
               "position": [
-                282.8,
+                284.6,
                 275.0,
-                116.8
+                116.9
               ],
               "normal": [
                 0.0,
@@ -569,7 +714,7 @@
               "path": "/World/F0/Static/mesh_EX_SCREW_001",
               "distance_mm": 2.39,
               "position": [
-                282.8,
+                284.6,
                 275.0,
                 120.0
               ],
@@ -581,7 +726,7 @@
             },
             "neg_x": {
               "path": "/World/F0/Static/mesh_EX_SCREW_001",
-              "distance_mm": 0.81,
+              "distance_mm": 2.62,
               "position": [
                 282.0,
                 275.0,
@@ -597,7 +742,7 @@
               "path": "/World/F0/Static/mesh_EX_BARREL_001",
               "distance_mm": 3.32,
               "position": [
-                282.8,
+                284.6,
                 271.7,
                 117.6
               ],
@@ -608,17 +753,17 @@
               ]
             },
             "pos_y": {
-              "path": "/World/F0/Static/mesh_EX_SCREW_001",
-              "distance_mm": 2.4,
+              "path": "/World/F0/Static/mesh_EX_BARREL_001",
+              "distance_mm": 3.32,
               "position": [
-                282.8,
-                277.4,
+                284.6,
+                278.3,
                 117.6
               ],
               "normal": [
-                0.95,
-                -0.28,
-                -0.12
+                0.0,
+                -0.35,
+                0.94
               ]
             }
           },
@@ -634,66 +779,80 @@
           ]
         },
         {
-          "i": 15,
+          "i": 17,
           "kind": "sphere",
           "size_mm": 1.5,
           "spawn_mm": [
-            259.8,
-            232.3,
-            358.8
+            266.5,
+            234.3,
+            358.0
           ],
           "final_mm": [
-            308.7,
-            254.8,
-            217.9
+            374.2,
+            156.5,
+            0.8
           ],
           "entered": true,
           "first_pass_mm": [
             335.0,
-            229.4,
-            339.9
+            231.8,
+            339.5
           ],
           "in_path_passed": true,
           "passed_through": true,
-          "settled_stuck_at_step": 19493,
+          "settled_stuck_at_step": 14765,
           "stuck": true,
           "lost_through_world": false,
-          "reached_screen_band": true,
+          "reached_screen_band": false,
           "crossed_screen": true,
-          "reached_s2_mouth": true,
-          "first_s2_mouth_crossing_mm": [
-            357.1,
-            255.0,
-            318.0
-          ],
+          "reached_s2_mouth": false,
+          "first_s2_mouth_crossing_mm": null,
           "first_s2_mouth_plane_crossing_mm": [
-            357.083763,
+            358.95147,
             255.0,
-            318.049988
+            318.054284
           ],
           "reached_auger_pickup": false,
           "first_auger_pickup_mm": null,
           "lost_after_s2_mouth": false,
           "lost_after_x335_before_mouth": false,
           "touch_probe": {
-            "neg_y": {
-              "path": "/World/F0/Static/mesh_FEED_BUF_001",
+            "down": {
+              "path": "/World/F0/Static/mesh_FR_BASE_001",
               "distance_mm": 0.75,
               "position": [
-                308.7,
-                254.1,
-                217.9
+                374.2,
+                156.5,
+                0.0
               ],
               "normal": [
-                -0.0,
-                1.0,
-                0.05
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "pos_x": {
+              "path": "/World/F0/Static/mesh_FR_2020_320_001",
+              "distance_mm": 0.75,
+              "position": [
+                375.0,
+                156.5,
+                0.8
+              ],
+              "normal": [
+                -1.0,
+                0.0,
+                0.0
               ]
             }
           },
           "touching_solids": [
             {
-              "solid": "FEED-BUF_001",
+              "solid": "FR-2020-320_001",
+              "body": "STATIC"
+            },
+            {
+              "solid": "FR-BASE_001",
               "body": "STATIC"
             }
           ]
@@ -718,15 +877,15 @@
         "total": 22,
         "entered": 22,
         "passed_through": 22,
-        "in_path_passed": 22,
+        "in_path_passed": 21,
         "reached_auger_pickup": 0,
         "stuck": 0,
-        "lost_through_world": 9,
+        "lost_through_world": 15,
         "reached_s2_mouth": 0,
         "lost_after_s2_mouth": 0,
         "lost_after_x335_before_mouth": 0,
-        "crossed_screen": 21,
-        "reached_screen_band": 1,
+        "crossed_screen": 20,
+        "reached_screen_band": 0,
         "blocker_solids": {}
       },
       "zone_breakdown": {
@@ -737,13 +896,12 @@
     }
   },
   "blockers_across_phases": {
-    "chute_inlet:STATIC:FR-2040-320_002": 1,
-    "chute_inlet:STATIC:FR-2040-630_002": 1,
-    "chute_inlet:STATIC:FR-BASE_001": 2,
-    "chute_inlet:STATIC:FR-2040-320_001": 1,
-    "chute_inlet:STATIC:FR-2040-630_001": 1,
-    "chute_inlet:STATIC:FEED-BUF_001": 2,
+    "chute_inlet:STATIC:C2_THERMAL_SADDLE_L": 1,
+    "chute_inlet:STATIC:FR-2040-320_002": 3,
+    "chute_inlet:STATIC:FR-BASE_001": 5,
+    "chute_inlet:STATIC:FR-2040-630_001": 2,
     "chute_inlet:STATIC:EX-BARREL_001": 1,
-    "chute_inlet:STATIC:EX-SCREW_001": 1
+    "chute_inlet:STATIC:EX-SCREW_001": 1,
+    "chute_inlet:STATIC:FR-2020-320_001": 1
   }
 }

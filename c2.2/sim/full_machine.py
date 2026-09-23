@@ -244,17 +244,13 @@ def add_mesh(stage, UsdGeom, path: str, verts, faces, translate_mm,
     x.ClearXformOpOrder()
     x.AddTranslateOp().Set(tuple(float(t) for t in translate_mm))
     UsdPhysics.CollisionAPI.Apply(prim)
+    UsdPhysics.MeshCollisionAPI.Apply(prim).CreateApproximationAttr().Set(
+        collision_approx if collision_approx != "triangleMesh" else "none")
     # Sub-mm contact window so the report reflects real interference, not
     # the 2cm default contact offset (stage units are millimetres).
     from pxr import Sdf
     prim.CreateAttribute("physics:contactOffset", Sdf.ValueTypeNames.Float).Set(CONTACT_OFFSET_MM)
     prim.CreateAttribute("physics:restOffset", Sdf.ValueTypeNames.Float).Set(REST_OFFSET_MM)
-    if collision_approx == "convexDecomposition":
-        # FIX B1: PhysX cooks a convex decomposition (V-HACD) of the full
-        # mesh at attach time, keeping hook pockets / lobe windows open.
-        prim.CreateAttribute(
-            "physics:collisionApproximation",
-            Sdf.ValueTypeNames.Token).Set("convexDecomposition")
     prim.SetCustomDataByKey("ppr:collision", collision_approx)
     prim.SetCustomDataByKey("ppr:kind", kind)
     return prim
