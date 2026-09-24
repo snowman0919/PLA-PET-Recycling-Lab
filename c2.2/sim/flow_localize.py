@@ -225,7 +225,6 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
     """Runs one injection phase in its own Isaac process. Returns exit code."""
     bodies = json.loads(BODIES.read_text())
     solids = bodies["solids"]
-    hopper = next(r for r in solids if r["name"] == "HOPPER_001")
     screen = next(r for r in solids
                   if r["name"] == "C2_VERTICAL_DISCHARGE_SCREEN")
     sb = screen["part_bbox"]
@@ -267,6 +266,10 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         transfer_velocity = transfer_api.CreateSurfaceVelocityAttr()
         transfer_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
         transfer_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
+        log(f"belt surface API: enabled="
+            f"{belt_api.GetSurfaceVelocityEnabledAttr().Get()}, "
+            f"local={belt_api.GetSurfaceVelocityLocalSpaceAttr().Get()}, "
+            f"rigid={stage.GetPrimAtPath('/World/F0/BELT').HasAPI(UsdPhysics.RigidBodyAPI)}")
 
         # --- fragments: 10 x d3 spheres, 10 x d1.5 spheres, 2 slabs ----
         rng = np.random.default_rng(20260922)
@@ -328,8 +331,11 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 except Exception as exc:
                     log(f"report apply failed {prim.GetPath()}: {exc}")
 
-        omni.physx.get_physx_simulation_interface().attach_stage(stage_id)
         SimulationManager.set_physics_sim_device("cpu")
+        PhysxSchema.PhysxSceneAPI.Apply(
+            stage.GetPrimAtPath("/World/F0/PhysicsScene")
+        ).CreateEnableGPUDynamicsAttr().Set(False)
+        omni.physx.get_physx_simulation_interface().attach_stage(stage_id)
         SimulationManager.set_physics_dt(dt)
         omni.timeline.get_timeline_interface().play()
         for _ in range(5):
@@ -446,6 +452,10 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         transfer_norm = math.hypot(transfer_dx, transfer_dz)
         transfer_vx = 2.0 * 2.3 * transfer_dx / transfer_norm
         transfer_vz = 2.0 * 2.3 * transfer_dz / transfer_norm
+        belt_slope = ((_PIVOTS_MM["BELT_IDLER"][2]
+                       - _PIVOTS_MM["BELT_DRIVE"][2])
+                      / (_PIVOTS_MM["BELT_IDLER"][0]
+                         - _PIVOTS_MM["BELT_DRIVE"][0]))
 
         def passes(phase_name, x, y, z):
             if phase_name == "hopper_mouth":
@@ -624,8 +634,13 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             kin[17, :3] = _PIVOTS_MM["TRANSFER_IDLER"]
             kin[17, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
                            math.cos(drum_angle / 2))
-            belt_velocity.Set(Gf.Vec3f(2.0 * 3.8 * s1b_vel_prev,
-                                       0.0, 0.0))
+            belt_speed = 2.0 * 3.8 * s1b_vel_prev
+            # This stage is authored in millimetres. The isolated flat
+            # conveyor probe moved a sphere 3.96 mm in 1 s at a command
+            # of 12 stage-units/s (zero command: 0 mm); scaling by 0.001
+            # erroneously removed all useful belt traction.
+            belt_velocity.Set(Gf.Vec3f(
+                belt_speed, 0.0, belt_speed * belt_slope))
             transfer_velocity.Set(Gf.Vec3f(
                 transfer_vx * s1b_vel_prev, 0.0,
                 transfer_vz * s1b_vel_prev))
@@ -668,15 +683,14 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                     if not entered[i] and np.linalg.norm(
                             np.array([x, y, z]) - spawn_pos[i]) > 5.0:
                         entered[i] = True
-                    if not passed[i]:
-                        sp = np.linalg.norm(VS[i])
-                        if sp < 5.0:
-                            settle_count[i] += 1
-                            if settle_count[i] >= 20 and settled_at[i] is None:
-                                settled_at[i] = step + 1
-                        else:
-                            settle_count[i] = 0
-                            settled_at[i] = None
+                    sp = np.linalg.norm(VS[i])
+                    if sp < 5.0:
+                        settle_count[i] += 1
+                        if settle_count[i] >= 20 and settled_at[i] is None:
+                            settled_at[i] = step + 1
+                    else:
+                        settle_count[i] = 0
+                        settled_at[i] = None
             # Capture the FIRST gate crossing at every physics step.
             # Interpolate to the threshold plane so a fast fragment cannot
             # skip the receiver's shallow z band between samples.
@@ -824,6 +838,18 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                             for p in touch_paths]
             lost = z < -50.0 or z > 900.0 or y < -100.0 or y > 800.0 \
                 or x < -100.0 or x > 900.0
+            destination_reached = {
+                "hopper_mouth": passed[i],
+                "s1_discharge": reached_auger_pickup[i],
+                "chute_inlet": reached_mouth[i],
+                "s2_inlet": (passed_screen_hole[i]
+                             and entered_buffer_mouth[i]
+                             and reached_buffer_throat[i]),
+            }[phase]
+            # Ground or below the catch pan is process loss, even if still
+            # inside the much larger simulation-world bounds.
+            lost_from_process = lost or (
+                phase == "s1_discharge" and z < 320.0)
             frag = {
                 "i": i,
                 "kind": kind,
@@ -835,8 +861,14 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "in_path_passed": bool(in_path_passed[i]),
                 "passed_through": bool(passed[i]),
                 "settled_stuck_at_step": settled_at[i],
-                "stuck": bool(settled_at[i] is not None and not lost),
+                "stuck": bool(settled_at[i] is not None
+                              and not lost_from_process
+                              and not destination_reached),
                 "lost_through_world": bool(lost),
+                "lost_from_process": bool(lost_from_process),
+                "unaccepted_residue": bool(passed[i]
+                                            and not destination_reached
+                                            and not lost_from_process),
                 "reached_screen_band": bool(in_screen_band(x, y, z)),
                 "crossed_screen": bool(crossed_screen[i]),
                 "reached_s2_mouth": bool(reached_mouth[i]),
@@ -923,6 +955,10 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "reached_auger_pickup": sum(reached_auger_pickup),
                 "stuck": n_stuck,
                 "lost_through_world": n_lost,
+                "lost_from_process": sum(
+                    f["lost_from_process"] for f in fragments),
+                "unaccepted_residue": sum(
+                    f["unaccepted_residue"] for f in fragments),
                 "reached_s2_mouth": sum(reached_mouth),
                 "passed_screen_hole": sum(passed_screen_hole),
                 "entered_buffer_mouth": sum(entered_buffer_mouth),
@@ -1065,6 +1101,8 @@ def main() -> int:
         broad = s.get("passed_through", 0)
         in_path = s.get("in_path_passed")
         lost = s.get("lost_through_world", 0)
+        process_loss = s.get("lost_from_process")
+        residue = s.get("unaccepted_residue")
         top = sorted((s.get("blocker_solids") or {}).items(),
                      key=lambda kv: -kv[1])
         verdicts[ph] = {
@@ -1082,6 +1120,8 @@ def main() -> int:
             "reached_s2_mouth": s.get("reached_s2_mouth"),
             "reached_auger_pickup": s.get("reached_auger_pickup"),
             "lost_through_world": lost,
+            "lost_from_process": process_loss,
+            "unaccepted_residue": residue,
             "lost_after_s2_mouth": s.get("lost_after_s2_mouth"),
             "lost_after_x335_before_mouth": s.get(
                 "lost_after_x335_before_mouth"),
@@ -1094,17 +1134,21 @@ def main() -> int:
                      "flow or filament output",
             "verdict": (
                 "UNVERIFIED" if not scene_consistent or in_path is None
-                or not total
+                or process_loss is None or residue is None or not total
                 or (ph == "chute_inlet" and
                     s.get("reached_s2_mouth") is None)
                 or (ph == "s1_discharge" and
                     s.get("reached_auger_pickup") is None)
-                else "CLEAR" if in_path == total and not lost
-                and s.get("stuck", 0) == 0
+                or (ph == "s2_inlet" and
+                    s.get("screen_to_buffer") is None)
+                else "CLEAR" if in_path == total and not process_loss
+                and not residue and s.get("stuck", 0) == 0
                 and (ph != "chute_inlet" or
                      s["reached_s2_mouth"] == total)
                 and (ph != "s1_discharge" or
                      s["reached_auger_pickup"] == total)
+                and (ph != "s2_inlet" or
+                     s["screen_to_buffer"] == total)
                 else "BLOCKED"),
             "top_blocker_solids": [k for k, _ in top[:5]],
         }

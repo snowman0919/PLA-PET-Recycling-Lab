@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 6875457,
-  "usd_sha256": "5a96d3e7d06f8297e07803dfdd108b2e1ec04fff0f259c9e40f53841e938d97c",
+  "usd_bytes": 7139670,
+  "usd_sha256": "9af6e71123a0fcd88dc982f042f5ea07966143479c2adffa19cd7f0fbd1d7a07",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -121,32 +121,32 @@
     "BELT": [
       149.5,
       243.5,
-      331.4
+      332.9
     ],
     "BELT_DRIVE": [
       80.0,
       243.5,
-      331.4
+      332.9
     ],
     "BELT_IDLER": [
       219.0,
       243.5,
-      331.4
+      332.9
     ],
     "SWEEP_SOUTH": [
       224.0,
       186.0,
-      341.8
+      344.7
     ],
     "SWEEP_NORTH": [
       224.0,
       289.5,
-      341.8
+      344.7
     ],
     "TRANSFER_BELT": [
       170.0,
       232.0,
-      333.3
+      334.05
     ],
     "TRANSFER_IDLER": [
       260.0,
@@ -215,8 +215,754 @@
     },
     "not_filtered": "every probe/fragment vs every collider, including cross-feed screw; cross-feed flight vs static shell and mouth; all other static clearance contacts except named journal bores; no downstream loss suppressed"
   },
-  "mass_material_status": "ASSUMPTION_UNCHOSEN",
-  "density_assumption": "PhysX default 1000 kg/m^3 (no material chosen)",
+  "mass_material_status": "PART_SPECIFIC_DESIGN_ASSUMPTIONS_UNRATED",
+  "material_model": "c2.2/sim/assets/materials.py",
+  "material_model_sha256": "30c63d006451d527f7e1b24021fb0b81bc74542277fba5de5946776d75fd0100",
+  "material_scope": {
+    "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
+    "selected": "HOPPER_PANEL_L/R nominal ~3 mm FDM PC shell segments; HOPPER_SEAM_FRONT/REAR 1.5 mm steel upper-wall rails are NOT a full steel lower liner or qualified containment. HOP-LID_001 PC cut sheet and FEED-BUF_001 formed PC shell are process candidates with separate unmodeled metal strike/throat. ABS FDM cold WIND_SPOOL_DRUM plus small traverse eyelet candidate; load paths/shafts/guards in steel, owned profiles in aluminium.",
+    "excluded": "PLA (Tg about 55-65 C) excluded from hot zone, load path and permanent guards due to creep/softening; ABS (Tg about 100-110 C) excluded from heater/barrel, cutter/load path, guards and feed throat due to creep, anisotropy and unknown peak temperatures; PC (Tg about 145-150 C) excluded from heater/barrel and high-impact structural interfaces pending measured temperatures, grade and process qualification. No printed keys or bearing seats.",
+    "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation, six walls and 100% effective CAD wall density; ~3 mm CAD wall already excludes hollow volume, so no second infill factor. Bed fit is bounded by the split design, not proof of printability, seam sealing, layer adhesion or impact containment. ABS drum assumes dry filament, enclosed printer, drum axis normal to build plate, four walls, six skins, 50% infill and effective 65% density; actual slicer mass, residual stress and warm creep must be checked. ABS printed eyelet/guide on WIND_TRAVERSE_RIDER is not separable in the fused STEP; its contribution is folded into a bounded steel/polymer proxy, not double-counted.",
+    "boundary": "All densities/grades and effective fill factors are screening choices; mass is not a weighed value. Profile mass uses 0.5..1.5 x nominal CAD hollow-box volume because owned T-slot metal area is unmeasured; this is NOT a material-density bound or a section-I measurement. PC-panel printed mass uses 0.85..1.10 x nominal CAD-wall mass, ABS drum 0.50..0.85 x resin-density CAD volume; slicer/print mass is unmeasured. Purchase boundaries and mixed parts use explicit ranges; static structure mass is inventory only, not a PhysX rigid body. No strength, safety or fabrication release."
+  },
+  "mass_kg_by_body": {
+    "STATIC": {
+      "mass_kg": 44.57277983459198,
+      "mass_bounds_kg": [
+        37.04185824309822,
+        57.57431176324284
+      ],
+      "center_of_mass_mm": [
+        283.5264276414182,
+        241.70237375919038,
+        190.8843119510616
+      ],
+      "inertia_kg_mm2": [
+        1417867.1823632156,
+        2472485.803804881,
+        1982973.8574784738
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        3041700.45059295,
+        5721678.972554988,
+        5193596.295468979
+      ],
+      "mass_status": "BOUNDED_PROXY_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 180
+    },
+    "IN_SHAFT": {
+      "mass_kg": 0.43057552236117447,
+      "mass_bounds_kg": [
+        0.43057552236117447,
+        0.43057552236117447
+      ],
+      "center_of_mass_mm": [
+        79.98898179132149,
+        294.2092748395214,
+        65.12199531497882
+      ],
+      "inertia_kg_mm2": [
+        1083.118514144757,
+        58.03463582370548,
+        1082.811513626268
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        2627.843065034495,
+        175.2541209256845,
+        2626.1274949238195
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 4
+    },
+    "S1A": {
+      "mass_kg": 3.8231034422295593,
+      "mass_bounds_kg": [
+        3.8231034422295593,
+        3.8231034422295593
+      ],
+      "center_of_mass_mm": [
+        130.00110723040203,
+        235.0530935086042,
+        398.56827682440417
+      ],
+      "inertia_kg_mm2": [
+        23157.333362374207,
+        2456.6787095639447,
+        23146.46867688563
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        44378.960519855595,
+        7585.820868476727,
+        44337.34807612157
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 31
+    },
+    "S2_ECC": {
+      "mass_kg": 0.3095300176719718,
+      "mass_bounds_kg": [
+        0.28785694906983345,
+        0.3342992389315585
+      ],
+      "center_of_mass_mm": [
+        307.7642429829406,
+        355.61918058451903,
+        279.99999999999835
+      ],
+      "inertia_kg_mm2": [
+        307.88631270913936,
+        69.38758391013282,
+        309.43030104092827
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        896.4139364592129,
+        238.75429363933935,
+        918.9556019200353
+      ],
+      "mass_status": "BOUNDED_PROXY_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 3
+    },
+    "S1B": {
+      "mass_kg": 3.8835415432271883,
+      "mass_bounds_kg": [
+        3.8835415432271883,
+        3.8835415432271883
+      ],
+      "center_of_mass_mm": [
+        190.0046396491168,
+        235.0286907936804,
+        398.5491951726141
+      ],
+      "inertia_kg_mm2": [
+        24397.6886729351,
+        3464.845255140424,
+        24385.86537766216
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        62988.83331105359,
+        10625.070228284838,
+        62931.02486288185
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 29
+    },
+    "S2_ROTOR": {
+      "mass_kg": 4.766500427536666,
+      "mass_bounds_kg": [
+        4.766500427536666,
+        4.766500427536666
+      ],
+      "center_of_mass_mm": [
+        301.5694646890562,
+        279.0,
+        279.999999999995
+      ],
+      "inertia_kg_mm2": [
+        10195.453050799972,
+        14238.942855162224,
+        10195.453050799715
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        30586.359152399928,
+        42716.8285654867,
+        30586.359152399164
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "S2_CARRIER": {
+      "mass_kg": 0.5872396934981632,
+      "mass_bounds_kg": [
+        0.5872396934981632,
+        0.5872396934981632
+      ],
+      "center_of_mass_mm": [
+        308.56946468906,
+        215.5,
+        280.0
+      ],
+      "inertia_kg_mm2": [
+        697.6896957859104,
+        902.0001729715132,
+        697.6896957859107
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        2093.069087357732,
+        2706.0005189145404,
+        2093.069087357732
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "S2_ROLLER_1": {
+      "mass_kg": 0.0031136827444553615,
+      "mass_bounds_kg": [
+        0.0012183975956564458,
+        0.005279722914511266
+      ],
+      "center_of_mass_mm": [
+        270.56946468906,
+        242.0,
+        280.0
+      ],
+      "inertia_kg_mm2": [
+        0.0768041768541786,
+        0.051894714483378346,
+        0.0768041768541786
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.3906995083451695,
+        0.2639861562850116,
+        0.3906995083451695
+      ],
+      "mass_status": "BOUNDED_PROXY_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "S2_ROLLER_2": {
+      "mass_kg": 0.0031136827444553606,
+      "mass_bounds_kg": [
+        0.0012183975956564454,
+        0.005279722914511263
+      ],
+      "center_of_mass_mm": [
+        289.56946468906,
+        242.0,
+        312.9089653438
+      ],
+      "inertia_kg_mm2": [
+        0.07680417685417859,
+        0.051894714483378325,
+        0.07680417685417859
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.3906995083451693,
+        0.2639861562850115,
+        0.3906995083451693
+      ],
+      "mass_status": "BOUNDED_PROXY_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "S2_ROLLER_3": {
+      "mass_kg": 0.0031136827444553606,
+      "mass_bounds_kg": [
+        0.0012183975956564454,
+        0.005279722914511263
+      ],
+      "center_of_mass_mm": [
+        327.56946468906,
+        242.0,
+        312.9089653438
+      ],
+      "inertia_kg_mm2": [
+        0.07680417685417859,
+        0.051894714483378325,
+        0.07680417685417859
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.3906995083451693,
+        0.2639861562850115,
+        0.3906995083451693
+      ],
+      "mass_status": "BOUNDED_PROXY_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "S2_ROLLER_4": {
+      "mass_kg": 0.0031136827444553615,
+      "mass_bounds_kg": [
+        0.0012183975956564458,
+        0.005279722914511266
+      ],
+      "center_of_mass_mm": [
+        346.56946468906,
+        242.0,
+        280.0
+      ],
+      "inertia_kg_mm2": [
+        0.0768041768541786,
+        0.051894714483378346,
+        0.0768041768541786
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.3906995083451695,
+        0.2639861562850116,
+        0.3906995083451695
+      ],
+      "mass_status": "BOUNDED_PROXY_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "S2_ROLLER_5": {
+      "mass_kg": 0.0031136827444553762,
+      "mass_bounds_kg": [
+        0.0012183975956564516,
+        0.00527972291451129
+      ],
+      "center_of_mass_mm": [
+        327.56946468906,
+        242.0,
+        247.09103465619
+      ],
+      "inertia_kg_mm2": [
+        0.07680417685417867,
+        0.05189471448337829,
+        0.07680417685417897
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.3906995083451698,
+        0.2639861562850113,
+        0.3906995083451713
+      ],
+      "mass_status": "BOUNDED_PROXY_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "S2_ROLLER_6": {
+      "mass_kg": 0.003113682744455376,
+      "mass_bounds_kg": [
+        0.0012183975956564514,
+        0.0052797229145112885
+      ],
+      "center_of_mass_mm": [
+        289.56946468906,
+        242.0,
+        247.09103465619
+      ],
+      "inertia_kg_mm2": [
+        0.07680417685417866,
+        0.05189471448337829,
+        0.07680417685417897
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.39069950834516964,
+        0.26398615628501126,
+        0.39069950834517114
+      ],
+      "mass_status": "BOUNDED_PROXY_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "PADDLE": {
+      "mass_kg": 0.24984759165164028,
+      "mass_bounds_kg": [
+        0.24984759165164028,
+        0.24984759165164028
+      ],
+      "center_of_mass_mm": [
+        362.1989953597343,
+        326.03586387991163,
+        374.47781244001607
+      ],
+      "inertia_kg_mm2": [
+        1118.464357510633,
+        35.12344106565222,
+        1118.7327255177995
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        2645.8927726627153,
+        107.22552678358305,
+        2648.0571676220998
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 4
+    },
+    "AUGER": {
+      "mass_kg": 0.0636925080467073,
+      "mass_bounds_kg": [
+        0.0636925080467073,
+        0.0636925080467073
+      ],
+      "center_of_mass_mm": [
+        296.491147162581,
+        232.02846111730426,
+        349.1774951545297
+      ],
+      "inertia_kg_mm2": [
+        6.491482063519214,
+        159.9469811845853,
+        157.58175033717416
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        20.8743803577634,
+        498.4245875423019,
+        490.05488475579
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 2
+    },
+    "CROSS_FEED_IDLER": {
+      "mass_kg": 0.024652946017963386,
+      "mass_bounds_kg": [
+        0.024652946017963386,
+        0.024652946017963386
+      ],
+      "center_of_mass_mm": [
+        367.8508171999301,
+        215.5,
+        350.35206266667
+      ],
+      "inertia_kg_mm2": [
+        2.3032483425380943,
+        3.419046423937614,
+        2.3032483425380943
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        6.909745027614302,
+        10.257139271812925,
+        6.909745027614343
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "CROSS_FEED": {
+      "mass_kg": 0.03904648778282277,
+      "mass_bounds_kg": [
+        0.03904648778282277,
+        0.03904648778282277
+      ],
+      "center_of_mass_mm": [
+        356.69229356334876,
+        224.69356931174516,
+        326.83990628076157
+      ],
+      "inertia_kg_mm2": [
+        9.819812843226831,
+        4.263920074583655,
+        9.816255923392514
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        34.483597659836995,
+        14.168184970862182,
+        33.71824157250736
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 2
+    },
+    "BELT": {
+      "mass_kg": 0.03838856186879069,
+      "mass_bounds_kg": [
+        0.03838856186879069,
+        0.03838856186879069
+      ],
+      "center_of_mass_mm": [
+        149.49999999999994,
+        244.92134831460686,
+        332.89999999999617
+      ],
+      "inertia_kg_mm2": [
+        91.46078445967734,
+        70.53220065605191,
+        161.45145044608762
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        245.1665839058529,
+        211.59660196815577,
+        455.1385818650838
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 2
+    },
+    "BELT_DRIVE": {
+      "mass_kg": 0.21456071500321483,
+      "mass_bounds_kg": [
+        0.21456071500321483,
+        0.21456071500321483
+      ],
+      "center_of_mass_mm": [
+        80.30358942807845,
+        323.8164967064426,
+        332.899999999998
+      ],
+      "inertia_kg_mm2": [
+        1862.8804952130015,
+        26.978959474292548,
+        1863.1646989339645
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        5756.906380876382,
+        82.29201786958936,
+        5759.114131485956
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 2
+    },
+    "BELT_IDLER": {
+      "mass_kg": 0.06839960032815685,
+      "mass_bounds_kg": [
+        0.06839960032815685,
+        0.06839960032815685
+      ],
+      "center_of_mass_mm": [
+        218.99999999999926,
+        245.73757198769854,
+        332.89999999999924
+      ],
+      "inertia_kg_mm2": [
+        411.4112044198017,
+        0.9434861642604366,
+        411.4112044198017
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        914.8566586639793,
+        2.830458492783289,
+        914.8566586639793
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 4
+    },
+    "SWEEP_SOUTH": {
+      "mass_kg": 0.022488441696728336,
+      "mass_bounds_kg": [
+        0.022488441696728336,
+        0.022488441696728336
+      ],
+      "center_of_mass_mm": [
+        223.99682593588145,
+        166.7920362286314,
+        344.7933125841785
+      ],
+      "inertia_kg_mm2": [
+        24.06087101106636,
+        0.8591619955706224,
+        24.032965493880216
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        74.83875507285995,
+        2.5927987618955854,
+        74.740720225493
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 2
+    },
+    "SWEEP_NORTH": {
+      "mass_kg": 0.02746426006394051,
+      "mass_bounds_kg": [
+        0.02746426006394051,
+        0.02746426006394051
+      ],
+      "center_of_mass_mm": [
+        224.05055130927926,
+        308.27614052635727,
+        344.6478057571524
+      ],
+      "inertia_kg_mm2": [
+        43.17120908387814,
+        1.1173121026627457,
+        43.17126606606209
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        132.9280891436725,
+        3.3684513007653805,
+        132.92799738006363
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 2
+    },
+    "TRANSFER_BELT": {
+      "mass_kg": 0.00493482308320298,
+      "mass_bounds_kg": [
+        0.00493482308320298,
+        0.00493482308320298
+      ],
+      "center_of_mass_mm": [
+        169.99999999999574,
+        232.0,
+        334.049999999995
+      ],
+      "inertia_kg_mm2": [
+        0.14717364705015684,
+        14.255346712108675,
+        14.345867049158928
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.4415209411504705,
+        42.766040136326026,
+        43.037601147476785
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    },
+    "TRANSFER_IDLER": {
+      "mass_kg": 0.0026863774488809986,
+      "mass_bounds_kg": [
+        0.0026863774488809986,
+        0.0026863774488809986
+      ],
+      "center_of_mass_mm": [
+        260.0,
+        232.00000000000003,
+        335.2
+      ],
+      "inertia_kg_mm2": [
+        0.29486574701623874,
+        0.00947395862687637,
+        0.29486574701623874
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.8845972410487191,
+        0.02842187588062911,
+        0.8845972410487191
+      ],
+      "mass_status": "DESIGN_ASSUMPTION_UNRATED",
+      "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+      "solid_count": 1
+    }
+  },
+  "mass_kg_by_material": {
+    "AL_PROFILE": {
+      "solid_count": 14,
+      "mass_kg": 2.9471039999999986,
+      "mass_bounds_kg": [
+        1.4735519999999993,
+        4.420655999999999
+      ]
+    },
+    "AL_5052": {
+      "solid_count": 7,
+      "mass_kg": 2.238534978106572,
+      "mass_bounds_kg": [
+        2.238534978106572,
+        2.238534978106572
+      ]
+    },
+    "PURCHASED_ELECTRICAL": {
+      "solid_count": 8,
+      "mass_kg": 4.28139,
+      "mass_bounds_kg": [
+        0.9514199999999997,
+        11.892750000000003
+      ]
+    },
+    "PURCHASED_MOTOR": {
+      "solid_count": 4,
+      "mass_kg": 2.6847693392145424,
+      "mass_bounds_kg": [
+        0.8591261885486534,
+        5.369538678429085
+      ]
+    },
+    "STEEL": {
+      "solid_count": 182,
+      "mass_kg": 41.68419572756234,
+      "mass_bounds_kg": [
+        41.68419572756234,
+        41.68419572756234
+      ]
+    },
+    "PURCHASED_BEARING": {
+      "solid_count": 19,
+      "mass_kg": 0.8795902300010423,
+      "mass_bounds_kg": [
+        0.34418748130475585,
+        1.4914790856539417
+      ]
+    },
+    "TOOL_STEEL": {
+      "solid_count": 27,
+      "mass_kg": 3.3054680186805845,
+      "mass_bounds_kg": [
+        3.3054680186805845,
+        3.3054680186805845
+      ]
+    },
+    "PC_SHEET": {
+      "solid_count": 2,
+      "mass_kg": 0.2346750392889341,
+      "mass_bounds_kg": [
+        0.2346750392889341,
+        0.2346750392889341
+      ]
+    },
+    "PURCHASED_HEATER": {
+      "solid_count": 4,
+      "mass_kg": 0.1863090107284931,
+      "mass_bounds_kg": [
+        0.06653893240303325,
+        0.3992335944181995
+      ]
+    },
+    "PURCHASED_FAN": {
+      "solid_count": 2,
+      "mass_kg": 0.22689937542828567,
+      "mass_bounds_kg": [
+        0.0756331251427619,
+        0.5672484385707143
+      ]
+    },
+    "ELASTOMER_BELT": {
+      "solid_count": 3,
+      "mass_kg": 0.043323384951993664,
+      "mass_bounds_kg": [
+        0.043323384951993664,
+        0.043323384951993664
+      ]
+    },
+    "TPU_METAL_PROXY": {
+      "solid_count": 1,
+      "mass_kg": 0.024690404983093318,
+      "mass_bounds_kg": [
+        0.008487326712938328,
+        0.0605686497241508
+      ]
+    },
+    "ABS_FDM": {
+      "solid_count": 1,
+      "mass_kg": 0.14199063227933942,
+      "mass_bounds_kg": [
+        0.10922356329179955,
+        0.18568005759605924
+      ]
+    },
+    "STEEL_PRINTED_GUIDE_PROXY": {
+      "solid_count": 1,
+      "mass_kg": 0.10805219779222452,
+      "mass_bounds_kg": [
+        0.04630808476809622,
+        0.12117282180985177
+      ]
+    },
+    "PVC_DUCT": {
+      "solid_count": 1,
+      "mass_kg": 0.04347,
+      "mass_bounds_kg": [
+        0.04347,
+        0.04347
+      ]
+    },
+    "PC_FDM": {
+      "solid_count": 2,
+      "mass_kg": 0.1176525515580609,
+      "mass_bounds_kg": [
+        0.10000466882435176,
+        0.129417806713867
+      ]
+    }
+  },
+  "modeled_inventory_mass_kg": 59.14811489057548,
+  "modeled_inventory_mass_bounds_kg": [
+    51.58414851958679,
+    72.18741228150627
+  ],
+  "mass_provenance": "per-solid STEP BRep volume and actual solid bbox in bodies.json; effective density by named part. Static mass is inventory only; Machine root 1 kg / 10000 kg.mm2 is a solver anchor, not a manufactured part. Purchased boundaries are bounded proxies, not solid steel or measured.",
   "derived_transfer_spec": {
     "removed": [
       "S1_DISCHARGE",
@@ -227,25 +973,29 @@
     "note": "emit_usd.py-era DERIVED boxes removed \u2014 phantom solids sealing the S1 chamber and chute; actual CAD includes CHUTE_BODY + CHUTE_TROUGH_FLOOR_E. path_check.json measures apertures, not connected transport."
   },
   "probe_spawn": {
-    "hopper_bbox_mm": [
-      0.741715570741,
-      162.3999999,
-      443.50275174707997,
-      237.0000001,
-      324.60000010000005,
-      501.0000001
+    "source_panels": [
+      "HOPPER_PANEL_L",
+      "HOPPER_PANEL_R"
     ],
-    "spawn_z_mm": 499.0000001,
+    "hopper_bbox_mm": [
+      0.7417155449937297,
+      162.3999998742527,
+      443.50275172133274,
+      237.00000012574728,
+      324.6000001257473,
+      501.00000012574725
+    ],
+    "spawn_z_mm": 499.00000012574725,
     "spawn_center_mm": [
       118.8708578353705,
-      243.50000000000003,
-      499.0000001
+      243.5,
+      499.00000012574725
     ],
-    "note": "2mm below hopper solid top; lateral spread set by verify_full.py across the mouth cross-section"
+    "note": "2mm below split hopper shell top; lateral spread set by verify_full.py across the mouth cross-section, not flow proof"
   },
   "source_bodies": {
-    "step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
-    "solids": 275,
+    "step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
+    "solids": 278,
     "moving_bodies": [
       "AUGER",
       "BELT",
@@ -272,7 +1022,7 @@
       "TRANSFER_IDLER"
     ]
   },
-  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
@@ -1101,13 +1851,6 @@
       "faces": 552
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/HOPPER_001__coarse.stl",
-      "prim": "/World/F0/Static/mesh_HOPPER_001",
-      "approx": "triangleMesh",
-      "verts": 16,
-      "faces": 32
-    },
-    {
       "mesh": "c2.2/sim/assets/out/full/HOP-LID_001__coarse.stl",
       "prim": "/World/F0/Static/mesh_HOP_LID_001",
       "approx": "triangleMesh",
@@ -1636,8 +2379,8 @@
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
       "prim": "/World/F0/Static/mesh_CHUTE_BODY",
       "approx": "triangleMesh",
-      "verts": 849,
-      "faces": 1746
+      "verts": 836,
+      "faces": 1720
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CHUTE_TROUGH_FLOOR_E__coarse.stl",
@@ -1654,15 +2397,15 @@
       "faces": 326
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_PDL_BEARINGS",
+      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS_step194__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PDL_BEARINGS_step194",
       "approx": "triangleMesh",
       "verts": 44,
       "faces": 84
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_PDL_BEARINGS_002",
+      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS_step195__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PDL_BEARINGS_step195",
       "approx": "triangleMesh",
       "verts": 44,
       "faces": 84
@@ -2063,15 +2806,15 @@
       "faces": 268
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_AUG_BEARINGS",
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS_step200__coarse.stl",
+      "prim": "/World/F0/Static/mesh_AUG_BEARINGS_step200",
       "approx": "triangleMesh",
-      "verts": 52,
-      "faces": 100
+      "verts": 134,
+      "faces": 268
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_AUG_BEARINGS_002",
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS_step201__coarse.stl",
+      "prim": "/World/F0/Static/mesh_AUG_BEARINGS_step201",
       "approx": "triangleMesh",
       "verts": 52,
       "faces": 100
@@ -2479,85 +3222,85 @@
       "faces": 290
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS",
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step207__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step207",
+      "approx": "triangleMesh",
+      "verts": 104,
+      "faces": 208
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step208__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step208",
+      "approx": "triangleMesh",
+      "verts": 104,
+      "faces": 208
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step209__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step209",
+      "approx": "triangleMesh",
+      "verts": 104,
+      "faces": 208
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step210__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step210",
+      "approx": "triangleMesh",
+      "verts": 104,
+      "faces": 208
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step211__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step211",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_002",
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step212__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step212",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_003",
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step213__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step213",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_004",
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step214__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step214",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_005",
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step215__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step215",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_006",
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step216__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step216",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_007",
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step217__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step217",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_008",
-      "approx": "triangleMesh",
-      "verts": 8,
-      "faces": 12
-    },
-    {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_009",
-      "approx": "triangleMesh",
-      "verts": 8,
-      "faces": 12
-    },
-    {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_010",
-      "approx": "triangleMesh",
-      "verts": 8,
-      "faces": 12
-    },
-    {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_011",
-      "approx": "triangleMesh",
-      "verts": 8,
-      "faces": 12
-    },
-    {
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_012",
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step218__coarse.stl",
+      "prim": "/World/F0/Static/mesh_CROSS_FEED_BEARINGS_step218",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
@@ -2570,71 +3313,71 @@
       "faces": 222
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_visual",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step220__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step220_visual",
       "approx": "visualOnly",
       "verts": 264,
       "faces": 528
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_top",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step220__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step220_top",
       "approx": "convexHull_partition",
       "verts": 32,
       "faces": 60
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_bottom",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step220__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step220_bottom",
       "approx": "convexHull_partition",
       "verts": 32,
       "faces": 60
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_west",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step220__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step220_west",
       "approx": "convexHull_partition",
       "verts": 66,
       "faces": 128
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_east",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step220__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step220_east",
       "approx": "convexHull_partition",
       "verts": 66,
       "faces": 128
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_visual",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step221_visual",
       "approx": "visualOnly",
       "verts": 264,
       "faces": 528
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_top",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step221_top",
       "approx": "convexHull_partition",
       "verts": 32,
       "faces": 60
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_bottom",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step221_bottom",
       "approx": "convexHull_partition",
       "verts": 32,
       "faces": 60
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_west",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step221_west",
       "approx": "convexHull_partition",
       "verts": 66,
       "faces": 128
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
-      "prim": "/World/F0/BELT/mesh_S1_BELT_east",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl",
+      "prim": "/World/F0/BELT/mesh_S1_BELT_step221_east",
       "approx": "convexHull_partition",
       "verts": 66,
       "faces": 128
@@ -2647,43 +3390,43 @@
       "faces": 396
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER__fine.stl",
-      "prim": "/World/F0/BELT_IDLER/mesh_S1_BELT_IDLER",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER_step223__fine.stl",
+      "prim": "/World/F0/BELT_IDLER/mesh_S1_BELT_IDLER_step223",
       "approx": "convexHull",
       "verts": 141,
       "faces": 278
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER__fine.stl",
-      "prim": "/World/F0/BELT_IDLER/mesh_S1_BELT_IDLER_002",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER_step224__fine.stl",
+      "prim": "/World/F0/BELT_IDLER/mesh_S1_BELT_IDLER_step224",
       "approx": "convexHull",
       "verts": 141,
       "faces": 278
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_S1_BELT_BEARINGS",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step225__coarse.stl",
+      "prim": "/World/F0/Static/mesh_S1_BELT_BEARINGS_step225",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_S1_BELT_BEARINGS_002",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step226__coarse.stl",
+      "prim": "/World/F0/Static/mesh_S1_BELT_BEARINGS_step226",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_S1_BELT_BEARINGS_003",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step227__coarse.stl",
+      "prim": "/World/F0/Static/mesh_S1_BELT_BEARINGS_step227",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_S1_BELT_BEARINGS_004",
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step228__coarse.stl",
+      "prim": "/World/F0/Static/mesh_S1_BELT_BEARINGS_step228",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
@@ -2721,8 +3464,8 @@
         163.7,
         165.67999999999998
       ],
-      "verts": 52,
-      "faces": 100
+      "verts": 53,
+      "faces": 102
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -3556,15 +4299,15 @@
       "faces": 236
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_S1_SWEEP_BEARINGS",
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS_step237__coarse.stl",
+      "prim": "/World/F0/Static/mesh_S1_SWEEP_BEARINGS_step237",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_S1_SWEEP_BEARINGS_002",
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS_step238__coarse.stl",
+      "prim": "/World/F0/Static/mesh_S1_SWEEP_BEARINGS_step238",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
@@ -3612,15 +4355,15 @@
       "faces": 248
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_S1_TRANSFER_BEARINGS",
+      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS_step241__coarse.stl",
+      "prim": "/World/F0/Static/mesh_S1_TRANSFER_BEARINGS_step241",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_S1_TRANSFER_BEARINGS_002",
+      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS_step242__coarse.stl",
+      "prim": "/World/F0/Static/mesh_S1_TRANSFER_BEARINGS_step242",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
@@ -3640,22 +4383,22 @@
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B",
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step245__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B_step245",
       "approx": "triangleMesh",
-      "verts": 56,
-      "faces": 108
+      "verts": 8,
+      "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B_002",
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step246__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B_step246",
       "approx": "triangleMesh",
-      "verts": 56,
-      "faces": 108
+      "verts": 8,
+      "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B_003",
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step247__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GUARD_CHAIN_B_step247",
       "approx": "triangleMesh",
       "verts": 56,
       "faces": 108
@@ -3668,15 +4411,15 @@
       "faces": 12
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
-      "prim": "/World/F0/Static/mesh_PULL_FRAME",
+      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME_step249__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_FRAME_step249",
       "approx": "triangleMesh",
-      "verts": 52,
-      "faces": 100
+      "verts": 68,
+      "faces": 132
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
-      "prim": "/World/F0/Static/mesh_PULL_FRAME_002",
+      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME_step250__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_FRAME_step250",
       "approx": "triangleMesh",
       "verts": 52,
       "faces": 100
@@ -3717,15 +4460,15 @@
       "faces": 100
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS",
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step256__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step256",
       "approx": "triangleMesh",
       "verts": 60,
       "faces": 120
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS__coarse.stl",
-      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_002",
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step257__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step257",
       "approx": "triangleMesh",
       "verts": 60,
       "faces": 120
@@ -3841,6 +4584,34 @@
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/HOPPER_PANEL_L__coarse.stl",
+      "prim": "/World/F0/Static/mesh_HOPPER_PANEL_L",
+      "approx": "triangleMesh",
+      "verts": 301,
+      "faces": 614
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/HOPPER_PANEL_R__coarse.stl",
+      "prim": "/World/F0/Static/mesh_HOPPER_PANEL_R",
+      "approx": "triangleMesh",
+      "verts": 300,
+      "faces": 612
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/HOPPER_SEAM_FRONT__coarse.stl",
+      "prim": "/World/F0/Static/mesh_HOPPER_SEAM_FRONT",
+      "approx": "triangleMesh",
+      "verts": 276,
+      "faces": 564
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/HOPPER_SEAM_REAR__coarse.stl",
+      "prim": "/World/F0/Static/mesh_HOPPER_SEAM_REAR",
+      "approx": "triangleMesh",
+      "verts": 276,
+      "faces": 564
     }
   ],
   "failures": [],

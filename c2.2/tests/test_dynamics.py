@@ -2,6 +2,7 @@
 import glob
 import json
 import os
+import struct
 
 import pytest
 
@@ -12,6 +13,28 @@ def _load(p):
     with open(p) as f:
         return json.load(f)
 
+
+def test_full_machine_compound_solids_have_distinct_contact_meshes():
+    """A reused STL path erased the south S1 tread in the executable scene."""
+    manifest = _load(os.path.join(C22, "sim", "assets", "out", "full",
+                                  "bodies.json"))
+    solids = manifest["solids"]
+    paths = [s["mesh"] for s in solids]
+    assert len(paths) == len(set(paths)), "one mesh per STEP solid"
+    belts = sorted((s for s in solids if s["name"] == "S1_BELT"),
+                   key=lambda s: s["part_bbox"][1])
+    assert len(belts) == 2
+    for belt in belts:
+        path = os.path.join(os.path.dirname(C22), belt["mesh"])
+        with open(path, "rb") as handle:
+            stl = handle.read()
+        n = struct.unpack_from("<I", stl, 80)[0]
+        assert len(stl) == 84 + 50 * n
+        y = [v[i] for v in struct.iter_unpack("<12fH", stl[84:])
+             for i in (4, 7, 10)]
+        assert abs(min(y) - belt["part_bbox"][1]) < 0.1
+        assert abs(max(y) - belt["part_bbox"][4]) < 0.1
+    assert belts[0]["part_bbox"][4] < belts[1]["part_bbox"][1]
 
 def test_usd_manifest_pass():
     m = _load(os.path.join(C22, "sim", "assets", "usd",

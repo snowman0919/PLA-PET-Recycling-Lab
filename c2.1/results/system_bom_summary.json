@@ -1,8 +1,8 @@
 {
   "revision": "C2.1-P6+VP1-STAGE5",
-  "active_rows": 190,
-  "unique_part_ids": 190,
-  "legacy_instances_removed": 51,
+  "active_rows": 194,
+  "unique_part_ids": 194,
+  "legacy_instances_removed": 52,
   "legacy_part_quantities_removed": {
     "BR-6001": 2,
     "BR-6007": 2,
@@ -10,6 +10,7 @@
     "DRV-SH15R": 1,
     "DRV-SH40L": 1,
     "DRV-SP24-B12": 1,
+    "HOPPER": 1,
     "KEY-4-16": 2,
     "KEY-4-78": 1,
     "PULL-ROLLER": 2,
@@ -30,10 +31,10 @@
     "BR-6001": 2
   },
   "c21_rows_added": 19,
-  "vp1_delta_rows": 61,
+  "vp1_delta_rows": 66,
   "vp1_delta_source": "c2.1/bom/vp1_bom_delta.csv",
   "known_cost_rows": 11,
-  "unknown_cost_rows": 179,
+  "unknown_cost_rows": 183,
   "known_landed_total_KRW": 0.0,
   "unselected_motor_landed_floor_KRW": 110200,
   "soft_total_budget_KRW": 100000,
@@ -45,11 +46,11 @@
   },
   "csv": {
     "file": "c2.1/bom/system_bom.csv",
-    "sha256": "d3625e66f5869d8c1db998355be5eb752d97688cdaed5e69b41f63789f2f6d3f"
+    "sha256": "e108b2c6b4c134dff90a3f6b90044222e1622be45ca937a5a2229d1cecacb686"
   },
   "xlsx": {
     "file": "c2.1/bom/system_bom.xlsx",
-    "sha256": "b231d71863d615f0bea58257a87a9d07189e6067ab5b454957aff77c395ff689",
+    "sha256": "9677960414f98c947895044665c2433c9fd661d9be2352c3aaf476702c165016",
     "zip_test": null
   },
   "procurement": "HOLD",

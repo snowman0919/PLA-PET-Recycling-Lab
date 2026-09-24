@@ -1,0 +1,39 @@
+{
+  "asset_id": "WIND_SPOOL_BEARINGS",
+  "group": "spool",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 258,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.258",
+  "mesh_file": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl",
+  "mesh_bytes": 6084,
+  "mesh_sha256": "dd7bc8bba58c15a1037a5803d1c0466987b4e4d00a8494b09deccb654df4dc19",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "560ff46a2dadae2cb7f260e8868c22e4f587880e3239ad4063343f7085bc7e03",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    687.9999999,
+    169.9999999,
+    207.9999999,
+    712.0000001,
+    178.0000001,
+    232.0000001
+  ],
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "4e49a0badb00d6aceec496e5894854b00b6d9c76299889100e8b78d42966d63b",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 2792.159446225035,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

@@ -44,9 +44,10 @@ the C1 drive layout in design/assembly.json + src/design.py):
   cross/S2ecc = 1          two equal-12T external spur meshes via idler
   idler/S2ecc = -1         first external spur mesh
 
-Mass uses STEP sidecar volumes and a documented box-diagonal inertia
-approximation at 1000 kg/m^3; geometry and ideal kinematic stepping do
-not demonstrate a closed upstream chain-P torque path or product flow.
+Mass uses per-solid imported STEP BRep volume x selected effective density,
+with bbox-based diagonal inertia estimates and conservative upper bounds.
+These choices are not weighed masses, certified grades or load ratings;
+geometry and ideal stepping do not demonstrate product flow.
 
 Usage (no SimulationApp needed):
   $HOME/env_isaacsim-c22/bin/python c2.2/sim/full_machine.py \
@@ -69,6 +70,7 @@ REPO = C22.parent
 
 sys.path.insert(0, str(C22 / "sim" / "assets"))
 from convert import STATIC_BODY  # noqa: E402 - shared body vocabulary
+from materials import MATERIAL_SCOPE, SOURCE as MATERIAL_SOURCE
 
 FULL_ASSETS = C22 / "sim" / "assets" / "out" / "full"
 USDA_OUT = C22 / "sim" / "assets" / "usd"
@@ -103,16 +105,16 @@ PIVOTS_MM = {
     "CROSS_FEED": (357.0, 252.0, 328.0),
 }
 PIVOTS_MM.update({
-    "BELT": (149.5, 243.5, 331.4),
-    "BELT_DRIVE": (80.0, 243.5, 331.4),
-    "BELT_IDLER": (219.0, 243.5, 331.4),
+    "BELT": (149.5, 243.5, 332.9),
+    "BELT_DRIVE": (80.0, 243.5, 332.9),
+    "BELT_IDLER": (219.0, 243.5, 332.9),
 })
 PIVOTS_MM.update({
-    "SWEEP_SOUTH": (224.0, 186.0, 341.8),
-    "SWEEP_NORTH": (224.0, 289.5, 341.8),
+    "SWEEP_SOUTH": (224.0, 186.0, 344.7),
+    "SWEEP_NORTH": (224.0, 289.5, 344.7),
 })
 PIVOTS_MM.update({
-    "TRANSFER_BELT": (170.0, 232.0, 333.3),
+    "TRANSFER_BELT": (170.0, 232.0, 334.05),
     "TRANSFER_IDLER": (260.0, 232.0, 335.2),
 })
 # Exact CAD construction: three equal 12T spur gears on parallel +Y axes,
@@ -242,7 +244,8 @@ def decimated_hull(verts):
 
 
 def add_mesh(stage, UsdGeom, path: str, verts, faces, translate_mm,
-             collision_approx: str, kind: str, source: str, collide=True):
+             collision_approx: str, kind: str, source: str, part: dict,
+             collide=True):
     import numpy as np
     from pxr import UsdPhysics
     verts = np.asarray(verts, dtype=np.float32)
@@ -267,7 +270,54 @@ def add_mesh(stage, UsdGeom, path: str, verts, faces, translate_mm,
         prim.CreateAttribute("physics:restOffset", Sdf.ValueTypeNames.Float).Set(REST_OFFSET_MM)
     prim.SetCustomDataByKey("ppr:collision", collision_approx)
     prim.SetCustomDataByKey("ppr:kind", kind)
+    prim.SetCustomDataByKey("ppr:material", part["material"])
+    prim.SetCustomDataByKey("ppr:massStatus", part["mass_material_status"])
+    prim.SetCustomDataByKey("ppr:stepIndex", part["step_index"])
+    prim.SetCustomDataByKey("ppr:meshSha256", part["mesh_sha256"])
     return prim
+
+
+def aggregate_body_mass(recs: list[dict]) -> dict:
+    """Aggregate volume-derived solid estimates about assumed body COM.
+
+    Bbox-center and box inertia are estimates. Upper bounds about this
+    assumed COM use each solid's bbox extrema plus parallel-axis distance;
+    an actual COM/tensor needs a measured part or per-solid BRep integration.
+    """
+    if not recs or any("mass_kg" not in r for r in recs):
+        raise ValueError("body requires sidecar-backed per-solid mass properties")
+    mass = sum(r["mass_kg"] for r in recs)
+    if mass <= 0:
+        raise ValueError("body mass must be positive")
+    center = [sum(r["mass_kg"] * r["center_of_mass_mm"][i]
+                  for r in recs) / mass for i in range(3)]
+    diag = [0.0, 0.0, 0.0]
+    upper = [0.0, 0.0, 0.0]
+    for r in recs:
+        m = r["mass_kg"]
+        mu = r["mass_bounds_kg"][1]
+        c = r["center_of_mass_mm"]
+        b = r["solid_bbox_mm"]
+        for i, (j, k) in enumerate(((1, 2), (0, 2), (0, 1))):
+            diag[i] += (r["inertia_kg_mm2"][i] +
+                        m * ((c[j] - center[j]) ** 2 +
+                             (c[k] - center[k]) ** 2))
+            upper[i] += mu * (
+                max(abs(b[j] - center[j]), abs(b[j+3] - center[j])) ** 2 +
+                max(abs(b[k] - center[k]), abs(b[k+3] - center[k])) ** 2)
+    return {
+        "mass_kg": mass,
+        "mass_bounds_kg": [sum(r["mass_bounds_kg"][n] for r in recs)
+                           for n in (0, 1)],
+        "center_of_mass_mm": center,
+        "inertia_kg_mm2": diag,
+        "inertia_upper_bound_kg_mm2": upper,
+        "mass_status": ("BOUNDED_PROXY_UNRATED" if any(
+            r["mass_material_status"] == "BOUNDED_PROXY_UNRATED" for r in recs)
+            else "DESIGN_ASSUMPTION_UNRATED"),
+        "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
+        "solid_count": len(recs),
+    }
 
 
 def main() -> int:
@@ -277,7 +327,7 @@ def main() -> int:
     args = ap.parse_args()
 
     import numpy as np
-    from pxr import Gf, Sdf, Usd, UsdGeom, UsdPhysics
+    from pxr import Gf, Sdf, Usd, UsdGeom, UsdPhysics, Vt
 
     def _enable_contact_report(prim):
         pass  # PhysxContactReportAPI is applied at runtime in verify_full
@@ -289,6 +339,26 @@ def main() -> int:
     bodies = json.loads((assets / "bodies.json").read_text())
     solids = bodies["solids"]
     failures = list(bodies["failures"])
+    count = bodies.get("source_step_solid_count")
+    if (count != len(solids) or count != len(bodies["emitted"]) or
+            {s["step_index"] for s in solids} != set(range(count)) or
+            len({s["mesh"] for s in solids}) != count):
+        raise ValueError("STEP solids, emitted meshes and manifest indices must match 1:1")
+    source_step = REPO / bodies["source_step"]
+    if sha256_file(source_step) != bodies["source_step_sha256"]:
+        raise ValueError("source STEP changed since full-asset conversion")
+    if bodies.get("material_model") != MATERIAL_SOURCE:
+        raise ValueError("reconvert full assets with part-specific material model")
+    if sha256_file(C22 / "sim/assets/materials.py") != bodies["material_model_sha256"]:
+        raise ValueError("material assumptions changed since full-asset conversion")
+    if any(r["name"] == "HOPPER_001" for r in solids):
+        raise ValueError("legacy one-piece hopper must be replaced by split panels")
+    for rec in solids:
+        if any(k not in rec for k in ("mass_kg", "mass_bounds_kg",
+                                      "inertia_kg_mm2", "solid_bbox_mm",
+                                      "center_of_mass_mm", "material",
+                                      "mass_material_status")):
+            raise ValueError(f"{rec['name']}: missing mass provenance")
 
     out = Path(args.out)
     if not out.is_absolute():
@@ -302,6 +372,10 @@ def main() -> int:
     f0 = stage.DefinePrim("/World/F0", "Xform")
     f0.SetCustomDataByKey("ppr:frame",
                           "F0 identity (+Y width, +X shear, +Z up)")
+    f0.SetCustomDataByKey("ppr:sourceStepSha256",
+                          bodies["source_step_sha256"])
+    f0.SetCustomDataByKey("ppr:materialModelSha256",
+                          bodies["material_model_sha256"])
     scene_prim = stage.DefinePrim("/World/F0/PhysicsScene", "PhysicsScene")
     scene = UsdPhysics.Scene(scene_prim)
     scene.CreateGravityDirectionAttr((0.0, 0.0, -1.0))
@@ -383,6 +457,12 @@ def main() -> int:
         "S1_TRANSFER_IDLER": "TRANSFER_IDLER",
         "S1_TRANSFER_BEARINGS": STATIC_BODY,
     })
+    expected_cross_feed.update({
+        "HOPPER_PANEL_L": STATIC_BODY,
+        "HOPPER_PANEL_R": STATIC_BODY,
+        "HOPPER_SEAM_FRONT": STATIC_BODY,
+        "HOPPER_SEAM_REAR": STATIC_BODY,
+    })
     for name, body in expected_cross_feed.items():
         if not any(s["name"] == name and s["body"] == body for s in solids):
             raise ValueError(f"missing or misclassified STEP part {name}: "
@@ -397,41 +477,26 @@ def main() -> int:
     if abs(belt["part_bbox"][3] - (PIVOTS_MM["TRANSFER_IDLER"][0] + 3.0)) > 0.25:
         raise ValueError("transfer belt east tangent disagrees with STEP")
 
-    def body_mass_props(body: str, recs: list[dict]):
-        """Explicit mass + box-approximation diagonal inertia (kg, kg·mm²).
-
-        PhysX density-based mass computation at metersPerUnit=0.001 is the
-        pinpointed NaN source; volumes come from the per-solid sidecars
-        (BREP-exact), inertia from each solid's bbox box approximation
-        summed with parallel-axis to the body pivot. COM is placed at the
-        pivot (documented approximation; joints are about +Y through it).
-        """
-        mass = 0.0
-        ix = iy = iz = 0.0
-        for rec in recs:
-            lod = "fine" if rec["body"] != STATIC_BODY else "coarse"
-            side = (assets / f"{rec['name']}__{lod}.sidecar.json")
-            vol = json.loads(side.read_text()).get("volume_mm3", 0.0)
-            m = vol * 1e-6  # 1000 kg/m^3 -> 1e-6 kg per mm^3
-            b = rec["part_bbox"]
-            dx, dy, dz = (max(b[3] - b[0], 1.0), max(b[4] - b[1], 1.0),
-                          max(b[5] - b[2], 1.0))
-            mass += m
-            ix += m / 12 * (dy * dy + dz * dz)
-            iy += m / 12 * (dx * dx + dz * dz)
-            iz += m / 12 * (dx * dx + dy * dy)
-        # floor to keep the solver away from degenerate values; COM is
-        # placed at the pivot (documented approximation — off-axis mass
-        # distribution of cranks/journals is folded into the diagonal)
-        return max(mass, 0.01), (max(ix, 1.0), max(iy, 1.0),
-                                 max(iz, 1.0))
+    mass_by_body = {body: aggregate_body_mass(recs)
+                    for body, recs in by_body.items()}
+    mass_by_material: dict[str, dict] = {}
+    for s in solids:
+        row = mass_by_material.setdefault(s["material"], {
+            "solid_count": 0, "mass_kg": 0.0,
+            "mass_bounds_kg": [0.0, 0.0]})
+        row["solid_count"] += 1
+        row["mass_kg"] += s["mass_kg"]
+        row["mass_bounds_kg"][0] += s["mass_bounds_kg"][0]
+        row["mass_bounds_kg"][1] += s["mass_bounds_kg"][1]
 
     emitted = []
     body_inertia_y: dict[str, float] = {}
     for body, recs in sorted(by_body.items()):
+        props = mass_by_body[body]
         if body == STATIC_BODY:
-            body_path = "/World/F0/Static"
-            xp = stage.DefinePrim(body_path, "Xform")
+            xp = stage.DefinePrim("/World/F0/Static", "Xform")
+            xp.SetCustomDataByKey("ppr:inventoryMassKg", props["mass_kg"])
+            xp.SetCustomDataByKey("ppr:massStatus", props["mass_status"])
             _enable_contact_report(xp)
             continue
         if body.startswith("S2_ROLLER"):
@@ -451,19 +516,25 @@ def main() -> int:
                         "CROSS_FEED_IDLER", "BELT", "BELT_DRIVE",
                         "BELT_IDLER", "SWEEP_SOUTH", "SWEEP_NORTH",
                         "TRANSFER_BELT", "TRANSFER_IDLER"))
-        # articulation links with COM-on-axis rotation have near-zero
-        # linear velocity and hit the sleep threshold mid-run (observed:
-        # all joints freeze after ~0.5 s of gentle ramp targets)
+        # Articulation links near the sleep threshold freeze during a
+        # position ramp; keep this existing solver setting independent of
+        # the mass model.
         xp.CreateAttribute("physxRigidBody:disableSleep",
                            Sdf.ValueTypeNames.Bool, True).Set(True)
-        UsdPhysics.MassAPI.Apply(xp).GetDensityAttr().Set(1000.0)
-        mass, inertia = body_mass_props(body, recs)
-        body_inertia_y[body] = inertia[1]
+        center = props["center_of_mass_mm"]
+        inertia = props["inertia_kg_mm2"]
+        body_inertia_y[body] = inertia[1] + props["mass_kg"] * (
+            (center[0] - px) ** 2 + (center[2] - pz) ** 2)
         mp = UsdPhysics.MassAPI.Apply(xp)
-        mp.GetMassAttr().Set(mass)
-        mp.CreateDiagonalInertiaAttr().Set(inertia)
+        mp.GetMassAttr().Set(props["mass_kg"])
+        mp.CreateDiagonalInertiaAttr().Set(tuple(inertia))
         mp.CreateCenterOfMassAttr().Set(
-            (px - px, py - py, pz - pz))  # COM at pivot (documented)
+            (center[0] - px, center[1] - py, center[2] - pz))
+        xp.SetCustomDataByKey("ppr:massStatus", props["mass_status"])
+        xp.SetCustomDataByKey("ppr:massBoundsKg",
+                              Vt.DoubleArray(props["mass_bounds_kg"]))
+        xp.SetCustomDataByKey("ppr:inertiaUpperBoundKgMm2",
+                              Vt.DoubleArray(props["inertia_upper_bound_kg_mm2"]))
         # opt-in contact reporting (PhysxContactReportAPI is required per
         # prim; without it get/subscribe contact reports stay empty)
         _enable_contact_report(xp)
@@ -535,7 +606,7 @@ def main() -> int:
             hv = np.asarray(hv, dtype=np.float64) - np.asarray(
                 pivot, dtype=np.float64)
         add_mesh(stage, UsdGeom, mesh_path, hv, hf, translate, approx,
-                 rec["body"], stl)
+                 rec["body"], stl, rec)
         emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
                         "approx": approx,
                         "verts": int(len(hv)), "faces": int(len(hf))})
@@ -569,7 +640,7 @@ def main() -> int:
             nm = base if n_used == 1 else f"{base}_{n_used:03d}"
             mesh_path = f"{body_path}/mesh_{nm}_seg{i:02d}"
             add_mesh(stage, UsdGeom, mesh_path, hv, hf, (0.0, 0.0, 0.0),
-                     "convexHull", rec["body"], stl)
+                     "convexHull", rec["body"], stl, rec)
             emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
                             "approx": "convexHull_segment",
                             "axial_range_mm": [lo, hi],
@@ -581,12 +652,13 @@ def main() -> int:
         stl = REPO / rec["mesh"]
         verts, faces = load_stl_verts_faces(stl)
         v = np.asarray(verts, dtype=np.float64)
-        base = rec["name"].replace("-", "_")
+        base = Path(rec["mesh"]).stem.replace("__fine", "").replace(
+            "__coarse", "").replace("-", "_")
         if visual:
             mesh_path = f"{body_path}/mesh_{base}_visual"
             add_mesh(stage, UsdGeom, mesh_path, v - pivot, faces,
                      (0.0, 0.0, 0.0), "visualOnly", rec["body"], stl,
-                     collide=False)
+                     rec, collide=False)
             emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
                             "approx": "visualOnly", "verts": len(v),
                             "faces": len(faces)})
@@ -597,7 +669,7 @@ def main() -> int:
             hv, hf = decimated_hull(sel)
             mesh_path = f"{body_path}/mesh_{base}_{suffix}"
             add_mesh(stage, UsdGeom, mesh_path, hv - pivot, hf,
-                     (0.0, 0.0, 0.0), "convexHull", rec["body"], stl)
+                     (0.0, 0.0, 0.0), "convexHull", rec["body"], stl, rec)
             emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
                             "approx": "convexHull_partition",
                             "verts": len(hv), "faces": len(hf)})
@@ -626,8 +698,10 @@ def main() -> int:
                 if rec["name"] == "S1_BELT":
                     west_x = PIVOTS_MM["BELT_DRIVE"][0]
                     east_x = PIVOTS_MM["BELT_IDLER"][0]
-                    west_z = PIVOTS_MM["BELT"][2]
-                    slope, inner_z = 0.0, 3.8
+                    west_z = PIVOTS_MM["BELT_DRIVE"][2]
+                    slope = ((PIVOTS_MM["BELT_IDLER"][2] - west_z)
+                             / (east_x - west_x))
+                    inner_z = 3.8 / math.sqrt(1.0 + slope*slope)
                 else:
                     west_x = PIVOTS_MM["BELT_DRIVE"][0]
                     east_x = PIVOTS_MM["TRANSFER_IDLER"][0]
@@ -861,18 +935,20 @@ def main() -> int:
     }
 
     # --- probe spawn point: hopper mouth -----------------------------
-    hopper_mesh = next((r for r in solids if r["name"] == "HOPPER_001"), None)
-    probe_spawn = None
-    if hopper_mesh is not None:
-        b = hopper_mesh["part_bbox"]
-        probe_spawn = {
-            "hopper_bbox_mm": list(hopper_mesh["part_bbox"]),
-            "spawn_z_mm": b[5] - 2.0,
-            "spawn_center_mm": [(b[0] + b[3]) / 2.0, (b[1] + b[4]) / 2.0,
-                                b[5] - 2.0],
-            "note": "2mm below hopper solid top; lateral spread set by "
-                    "verify_full.py across the mouth cross-section",
-        }
+    panels = [r for r in solids if r["name"] in
+              ("HOPPER_PANEL_L", "HOPPER_PANEL_R")]
+    b = [min(p["solid_bbox_mm"][axis] for p in panels) for axis in range(3)]
+    b += [max(p["solid_bbox_mm"][axis] for p in panels)
+          for axis in range(3, 6)]
+    probe_spawn = {
+        "source_panels": [p["name"] for p in panels],
+        "hopper_bbox_mm": b,
+        "spawn_z_mm": b[5] - 2.0,
+        "spawn_center_mm": [(b[0] + b[3]) / 2.0, (b[1] + b[4]) / 2.0,
+                            b[5] - 2.0],
+        "note": "2mm below split hopper shell top; lateral spread set by "
+                "verify_full.py across the mouth cross-section, not flow proof",
+    }
 
     stage.GetRootLayer().Save()
 
@@ -1015,8 +1091,23 @@ def main() -> int:
                              "clearance contacts except named journal "
                              "bores; no downstream loss suppressed"),
         },
-        "mass_material_status": "ASSUMPTION_UNCHOSEN",
-        "density_assumption": "PhysX default 1000 kg/m^3 (no material chosen)",
+        "mass_material_status": "PART_SPECIFIC_DESIGN_ASSUMPTIONS_UNRATED",
+        "material_model": MATERIAL_SOURCE,
+        "material_model_sha256": bodies["material_model_sha256"],
+        "material_scope": MATERIAL_SCOPE,
+        "mass_kg_by_body": mass_by_body,
+        "mass_kg_by_material": mass_by_material,
+        "modeled_inventory_mass_kg": sum(p["mass_kg"]
+                                          for p in mass_by_body.values()),
+        "modeled_inventory_mass_bounds_kg": [
+            sum(p["mass_bounds_kg"][i] for p in mass_by_body.values())
+            for i in (0, 1)],
+        "mass_provenance": ("per-solid STEP BRep volume and actual solid bbox "
+                            "in bodies.json; effective density by named part. "
+                            "Static mass is inventory only; Machine root "
+                            "1 kg / 10000 kg.mm2 is a solver anchor, not a "
+                            "manufactured part. Purchased boundaries are "
+                            "bounded proxies, not solid steel or measured."),
         "derived_transfer_spec": derived,
         "probe_spawn": probe_spawn,
         "source_bodies": {"step_sha256": bodies["source_step_sha256"],

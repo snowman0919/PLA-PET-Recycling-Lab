@@ -3,14 +3,14 @@
   "group": "drive",
   "kinematic_body": "STATIC",
   "lod": "coarse",
-  "step_index": 147,
-  "step_product_name": "Open CASCADE STEP translator 7.9 1.147",
+  "step_index": 146,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.146",
   "mesh_file": "sim/assets/out/full/KEY-6-16_001__coarse.stl",
   "mesh_bytes": 684,
   "mesh_sha256": "246cbb15a814f9bc576b32ee71b381d205a5624ba1635f1cc6f4a76b9fb68391",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
@@ -21,19 +21,78 @@
     371.0000001,
     77.5000001
   ],
-  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "fb751573960d25bbf2a6fc0d1c6399ef77d200a2eef85ed172eebd9ded053cab",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5
   },
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
+  "material": "STEEL",
+  "source_material_label": "C45 ground key stock",
+  "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+  "thermal_condition": "hot-zone grade and measured temperature HOLD",
+  "material_source": "design/assembly.json parts.KEY-6-16.material",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 7850.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 7850.0,
+  "effective_density_bounds_kg_m3": [
+    7850.0,
+    7850.0
+  ],
+  "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+  "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
   "volume_mm3": 576.0,
-  "mass_kg": null,
-  "inertia": null,
-  "material": null,
-  "mass_material_status": "ASSUMPTION_UNCHOSEN",
-  "evidence_level": "GEOMETRIC_ONLY"
+  "solid_bbox_mm": [
+    133.94018982255,
+    354.9999999,
+    71.4999999,
+    139.94019002254998,
+    371.0000001,
+    77.5000001
+  ],
+  "mass_kg": 0.004521600000000001,
+  "mass_bounds_kg": [
+    0.004521600000000001,
+    0.004521600000000001
+  ],
+  "center_of_mass_mm": [
+    136.94018992255,
+    363.0,
+    74.5
+  ],
+  "inertia_kg_mm2": [
+    0.11002560331584055,
+    0.027129601808639926,
+    0.11002560331584055
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    0.33007680994752164,
+    0.08138880542591978,
+    0.33007680994752164
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      0.11002560331584055,
+      0.027129601808639926,
+      0.11002560331584055
+    ],
+    "upper_bound_kg_mm2": [
+      0.33007680994752164,
+      0.08138880542591978,
+      0.33007680994752164
+    ],
+    "center_of_mass_mm": [
+      136.94018992255,
+      363.0,
+      74.5
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
 }

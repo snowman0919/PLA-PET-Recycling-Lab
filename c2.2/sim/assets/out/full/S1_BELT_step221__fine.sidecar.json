@@ -1,0 +1,98 @@
+{
+  "asset_id": "S1_BELT",
+  "group": "feed",
+  "kinematic_body": "BELT",
+  "lod": "fine",
+  "step_index": 221,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.221",
+  "mesh_file": "sim/assets/out/full/S1_BELT_step221__fine.stl",
+  "mesh_bytes": 26484,
+  "mesh_sha256": "7c71f33963c580ec1e097de41ac11f09d51176e0c026e09a30ddfbbff5ab08c1",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    75.39999989999964,
+    240.79999989999965,
+    328.2999998999996,
+    223.60000010000036,
+    323.50000010000036,
+    337.50000010000036
+  ],
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "ELASTOMER_BELT",
+  "source_material_label": "polymer belt with steel-supported drums",
+  "manufacturing_process": "commercial polymer tread/belt geometry proxy, not a rigid printed load member",
+  "thermal_condition": "compound, tension and temperature rating HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 1150.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 1150.0,
+  "effective_density_bounds_kg_m3": [
+    1150.0,
+    1150.0
+  ],
+  "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+  "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+  "volume_mm3": 19386.505047319217,
+  "solid_bbox_mm": [
+    75.39999989999993,
+    240.79999990000002,
+    328.2999998999923,
+    223.6000001,
+    323.5000001,
+    337.5000001
+  ],
+  "mass_kg": 0.0222944808044171,
+  "mass_bounds_kg": [
+    0.0222944808044171,
+    0.0222944808044171
+  ],
+  "center_of_mass_mm": [
+    149.49999999999994,
+    282.15000000000003,
+    332.89999999999617
+  ],
+  "inertia_kg_mm2": [
+    12.863785441306334,
+    40.962169903479655,
+    53.5114545218972
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    38.591356323919,
+    122.88650971043896,
+    160.5343635656916
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      12.863785441306334,
+      40.962169903479655,
+      53.5114545218972
+    ],
+    "upper_bound_kg_mm2": [
+      38.591356323919,
+      122.88650971043896,
+      160.5343635656916
+    ],
+    "center_of_mass_mm": [
+      149.49999999999994,
+      282.15000000000003,
+      332.89999999999617
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

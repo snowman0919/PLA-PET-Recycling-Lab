@@ -23,19 +23,19 @@
     ]
   },
   "legacy_s2_instances_excluded": 44,
-  "legacy_instances_retained": 150,
+  "legacy_instances_retained": 149,
   "c21_instances_inserted": 40,
-  "assembly_objects": 251,
-  "expected_solids": 275,
-  "reimported_solids": 275,
+  "assembly_objects": 254,
+  "expected_solids": 278,
+  "reimported_solids": 278,
   "step_reimport_valid": true,
   "assembly_step": "c2.1/cad/PPR_VP1.step",
   "assembly_geometry_checks": {
     "chute_body_matched": true,
     "aug_shaft_matched": true,
     "transfer_belt_matched": true,
-    "transfer_belt_flight_overlap_mm": 25.999,
-    "transfer_belt_auger_gap_mm": 1.328,
+    "transfer_belt_flight_overlap_mm": 26.0,
+    "transfer_belt_auger_gap_mm": 1.159,
     "cross_feed_matched": true,
     "cross_shell_matched": true,
     "cross_feed_powered_mouth_overlap_mm": 5.502,
@@ -60,8 +60,8 @@
     "tail_radial_margin_mm": 0.59,
     "shell_radial_margin_mm": 1.5
   },
-  "assembly_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
-  "assembly_step_bytes": 98312862,
+  "assembly_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
+  "assembly_step_bytes": 99256073,
   "groups": [
     "S1",
     "S2-C2.1",
@@ -134,7 +134,7 @@
   },
   "interface_collision": {
     "method": "BREP_EXACT_AFTER_BBOX",
-    "pair_checks": 6000,
+    "pair_checks": 5960,
     "bbox_candidates": 32,
     "unexpected": [],
     "functional_allowed": [],
@@ -143,7 +143,7 @@
   },
   "relocated_support_collision": {
     "method": "BREP_EXACT_AFTER_BBOX",
-    "pair_checks": 1269,
+    "pair_checks": 1260,
     "bbox_candidates": 13,
     "unexpected": [],
     "functional_allowed": [
@@ -242,8 +242,28 @@
       "EL_CURRENT_LIMITER",
       "EL_WIRE_DUCT"
     ],
+    "hopper_parts": [
+      "HOPPER_PANEL_L",
+      "HOPPER_PANEL_R",
+      "HOPPER_SEAM_FRONT",
+      "HOPPER_SEAM_REAR"
+    ],
+    "hopper_print_bounds_mm": {
+      "HOPPER_PANEL_L": [
+        119.258,
+        162.2,
+        55.497
+      ],
+      "HOPPER_PANEL_R": [
+        117.0,
+        162.2,
+        55.497
+      ]
+    },
+    "hopper_liner": "HOLD: C1 HOPPER.step has only the PC shell; the modeled steel seam straps do not constitute a lower safety liner",
     "excluded_legacy_instances": [
       "GUARD_SECTION_ENVELOPE_HOLD",
+      "HOPPER_001",
       "PULL-ROLLER_001",
       "PULL-ROLLER_002",
       "SPOOL-ENV_001"
@@ -437,8 +457,8 @@
     },
     "vp1_against_retained": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 12125,
-      "bbox_candidates": 122,
+      "pair_checks": 12778,
+      "bbox_candidates": 124,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",
@@ -489,8 +509,8 @@
     },
     "vp1_internal": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 4422,
-      "bbox_candidates": 254,
+      "pair_checks": 4970,
+      "bbox_candidates": 250,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",
@@ -560,6 +580,7 @@
     "support fastener grade/preload, weld detail and frame stiffness are not rated",
     "guards, wiring routes, service sweep and anti-reach are not complete containment geometry",
     "full unchanged C1 pair audit is inherited; this run checks every new/relocated-to-retained pair",
+    "C1 hopper lower steel safety liner has no BRep geometry; seam straps are not a liner, so liner fit/retention and anti-reach remain HOLD",
     "loaded deflection, tolerance and thermal-growth collision are not proven"
   ],
   "procurement": "HOLD",

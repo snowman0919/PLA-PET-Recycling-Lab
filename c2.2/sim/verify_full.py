@@ -26,11 +26,11 @@ Loads the CAD-derived full-machine assembly with 5-DOF articulation and
       filtering are published as an explicit list (FIX B3);
   (d) logs per-step DOF torques (now meaningful: PD drives are active);
   (e) drops 200 probe spheres (100 x 3mm, 100 x 1.5mm) from the hopper
-      mouth and counts how many reach the S2 screen *band*;
-  (f) reports partial probe reach separately from complete product flow.
-      Screen-band reach alone never proves screen-hole passage or product
-      throughput. Stale flow-localization results cannot explain blockage:
-      their STEP and USD hashes must match this exact scene.
+      mouth and samples the same IDs through S1 exit, auger pickup,
+      S2 mouth, one exact screen bore, buffer upper mouth and lower throat;
+  (f) reports screen-bbox proximity separately. A connected buffer passage
+      does not prove extrusion or 1.75 mm filament production. Stale local
+      phase runs cannot explain this run without exact STEP/USD hashes.
 
 API notes (evidence from /tmp probes on this venv):
   - the isaacsim experimental Articulation wrapper crashes silently on
@@ -69,6 +69,7 @@ USDA = C22 / "sim" / "assets" / "usd" / "full_machine.usda"
 BODIES = C22 / "sim" / "assets" / "out" / "full" / "bodies.json"
 USD_MANIFEST = USDA.with_suffix(".sidecar.json")
 from full_machine import PIVOTS_MM  # noqa: E402 - emitter owns body origins
+from flow_localize import hole_transition  # same-bore screen predicate
 OUTDIR = C22 / "results" / "full_machine"
 
 # --- drive model (ratios per unit input-shaft rotation, rad) ------------
@@ -355,12 +356,16 @@ def main() -> int:
             raise RuntimeError(f"expected 5 DOFs, got {dof_paths}")
 
         # --- probe spheres (created in the live stage) -----------------
-        if os.environ.get("PPR_NO_PROBES"):
-            n_each = 0
-        hopper = next(r for r in bodies["solids"]
-                      if r["name"] == "HOPPER_001")
-        hb = hopper["part_bbox"]
-        n_each = args.probes // 2
+        hopper_panels = [
+            r for r in bodies["solids"]
+            if r["name"] in ("HOPPER_PANEL_L", "HOPPER_PANEL_R")]
+        if len(hopper_panels) != 2:
+            raise RuntimeError("integrated STEP must contain both PC hopper panels")
+        hb = [min(r["part_bbox"][i] for r in hopper_panels)
+              for i in range(3)] + [
+                  max(r["part_bbox"][i] for r in hopper_panels)
+                  for i in range(3, 6)]
+        n_each = 0 if os.environ.get("PPR_NO_PROBES") else args.probes // 2
         rng = np.random.default_rng(20260921)
         spawn_x = (hb[0] + hb[3]) / 2 + rng.uniform(-50, 50, 2 * n_each)
         spawn_y = (hb[1] + hb[4]) / 2 + rng.uniform(-60, 60, 2 * n_each)
@@ -505,6 +510,18 @@ def main() -> int:
         max_torque = {n: 0.0 for n in names}
         rows = []
         torque_available = True
+        # Same physical probe ID must traverse every gate in temporal
+        # order. A screen bbox or an independently spawned S2 piece is
+        # never a connected product-flow pass.
+        n_probes = 2 * n_each
+        s1_exit = [False] * n_probes
+        auger_pickup = [False] * n_probes
+        s2_mouth = [False] * n_probes
+        bore_candidate = [None] * n_probes
+        screen_hole = [False] * n_probes
+        buffer_upper = [False] * n_probes
+        buffer_throat = [False] * n_probes
+        previous_probe = np.stack((spawn_x, spawn_y, spawn_z), axis=1)
         torque_rows = []
         probe_band = [False] * (2 * n_each)  # EVER in screen band
         screen = next(r for r in bodies["solids"]
@@ -581,6 +598,10 @@ def main() -> int:
         transfer_norm = math.hypot(transfer_dx, transfer_dz)
         transfer_vx = 2.0 * 2.3 * transfer_dx / transfer_norm
         transfer_vz = 2.0 * 2.3 * transfer_dz / transfer_norm
+        belt_slope = ((PIVOTS_MM["BELT_IDLER"][2]
+                       - PIVOTS_MM["BELT_DRIVE"][2])
+                      / (PIVOTS_MM["BELT_IDLER"][0]
+                         - PIVOTS_MM["BELT_DRIVE"][0]))
         for step in range(args.steps):
             theta_cmd = omega * (step + 1) * args.dt   # authored INPUT ramp
             import os as _os
@@ -662,7 +683,9 @@ def main() -> int:
                            math.cos(drum_angle / 2))
             belt_speed = 2.0 * 3.8 * (
                 float(vel_np[2]) if step > 0 else 0.0)
-            belt_velocity.Set(Gf.Vec3f(belt_speed, 0.0, 0.0))
+            # Surface velocity is in stage distance/s (millimetres here).
+            belt_velocity.Set(Gf.Vec3f(
+                belt_speed, 0.0, belt_speed * belt_slope))
             s1b_speed = float(vel_np[2]) if step > 0 else 0.0
             transfer_velocity.Set(Gf.Vec3f(
                 transfer_vx * s1b_speed, 0.0,
@@ -745,6 +768,51 @@ def main() -> int:
                             and sb[1] - 5 <= y <= sb[4] + 5
                             and sb[2] - 5 <= z <= sb[5] + 5):
                         probe_band[i] = True
+                    prior = previous_probe[i]
+                    now = PP[i, :3]
+                    radius = float(radii_mm[i])
+                    if not s1_exit[i] and prior[2] >= 352.3 > z:
+                        t = (prior[2] - 352.3) / (prior[2] - z)
+                        gx = prior[0] + t * (x - prior[0])
+                        gy = prior[1] + t * (y - prior[1])
+                        s1_exit[i] = (83.0 + radius <= gx <= 237.0 - radius
+                                      and 162.4 + radius <= gy <= 324.6 - radius)
+                    if (s1_exit[i] and not auger_pickup[i]
+                            and 237.0 <= x <= 270.0
+                            and 223.3 <= y <= 240.9
+                            and 338.0 <= z <= 356.0):
+                        auger_pickup[i] = True
+                    if (auger_pickup[i] and not s2_mouth[i]
+                            and prior[1] < 255.0 <= y):
+                        t = (255.0 - prior[1]) / (y - prior[1])
+                        mx = prior[0] + t * (x - prior[0])
+                        mz = prior[2] + t * (z - prior[2])
+                        s2_mouth[i] = (
+                            350.0 + radius <= mx <= 359.7 - radius
+                            and math.hypot(mx - 308.56946468906176,
+                                           mz - 280.0) + radius <= 65.6
+                            and mz - radius >= 317.3 - 1e-4)
+                    if s2_mouth[i] and not screen_hole[i]:
+                        bore_candidate[i], completed = hole_transition(
+                            prior, now, radius, bore_candidate[i])
+                        screen_hole[i] = completed is not None
+                    if (screen_hole[i] and not buffer_upper[i]
+                            and prior[2] >= 218.0 > z):
+                        t = (prior[2] - 218.0) / (prior[2] - z)
+                        bx = prior[0] + t * (x - prior[0])
+                        by = prior[1] + t * (y - prior[1])
+                        buffer_upper[i] = (
+                            216.57 + radius <= bx <= 400.57 - radius
+                            and 254.0 + radius <= by <= 296.0 - radius)
+                    if (buffer_upper[i] and not buffer_throat[i]
+                            and prior[2] >= 145.0 > z):
+                        t = (prior[2] - 145.0) / (prior[2] - z)
+                        bx = prior[0] + t * (x - prior[0])
+                        by = prior[1] + t * (y - prior[1])
+                        buffer_throat[i] = (
+                            267.0 + radius <= bx <= 311.0 - radius
+                            and 258.0 + radius <= by <= 292.0 - radius)
+                    previous_probe[i] = now
             if step % 40 == 0 or step == args.steps - 1:
                 rows.append({
                     "step": step + 1, "t_s": round((step + 1) * args.dt, 4),
@@ -850,10 +918,16 @@ def main() -> int:
                                   for i in range(len(names)))
                              and not err_nan)
         total_probes = 2 * n_each
+        connected_ids = [
+            i for i in range(total_probes)
+            if (s1_exit[i] and auger_pickup[i] and s2_mouth[i]
+                and screen_hole[i] and buffer_upper[i] and buffer_throat[i])]
         if not source_scene_linked:
             verdict = "FAIL_SCENE_PROVENANCE"
         elif not tracking_pass_val or not total_probes:
             verdict = "FAIL"
+        elif connected_ids:
+            verdict = "CONNECTED_BUFFER_REACHED"
         elif reached == 0 and flow_explains and flow_explains[
                 "localizes_obstruction"]:
             verdict = "LOCALIZED_BLOCKED"
@@ -863,8 +937,8 @@ def main() -> int:
             verdict = "PARTIAL_PROBE_REACH"
         else:
             verdict = "PROBE_BAND_REACHED"
-        # Even a complete band count is not product flow: this run has
-        # neither a fracture model nor a measured screen-hole/outlet path.
+        # Connected material-to-buffer is measured below; filament output
+        # still requires an extrusion/diameter path not exercised here.
         product_flow_verified = False
         results = {
             "schema": "full_machine_verify/4",
@@ -955,6 +1029,17 @@ def main() -> int:
                 "d15mm": {"reached": per_class["d15"][0],
                           "total": per_class["d15"][1]},
                 "reached_screen_total": reached,
+                "connected_stage_counts": {
+                    "s1_exit": int(sum(s1_exit)),
+                    "auger_pickup": int(sum(auger_pickup)),
+                    "s2_mouth": int(sum(s2_mouth)),
+                    "same_screen_bore": int(sum(screen_hole)),
+                    "buffer_upper": int(sum(buffer_upper)),
+                    "buffer_throat": int(sum(buffer_throat)),
+                },
+                "same_probe_ids_screen_to_buffer": connected_ids,
+                "connected_buffer_verified": bool(
+                    source_scene_linked and tracking_pass_val and connected_ids),
                 "screen_bbox_mm": list(sb),
                 "spawn_z_mm": round(float(spawn_z[0]), 2),
                 "sample_final_positions": probe_final,
@@ -973,18 +1058,20 @@ def main() -> int:
                 "explains": flow_explains,
             },
             "product_flow_verified": product_flow_verified,
-            "product_flow_note": ("not established: probe screen-band reach "
-                                  "is neither screen-hole crossing nor "
-                                  "complete product throughput"),
+            "product_flow_note": ("connected S1-to-screen-bore-to-buffer "
+                                  "measured by same probe IDs separately; "
+                                  "extrusion, 1.75 mm filament and winding "
+                                  "product remain untested"),
             "verdict": verdict,
             "verdict_rule": ("No PASS from screen-band probes alone. "
-                             "Mismatched STEP/USD emission provenance = "
-                             "FAIL_SCENE_PROVENANCE; tracking failure = "
-                             "FAIL; zero reach with exact-hash localized "
-                             "obstruction = LOCALIZED_BLOCKED, otherwise "
-                             "BLOCKED_UNLOCALIZED; proper-subset reach = "
-                             "PARTIAL_PROBE_REACH; all reach = "
-                             "PROBE_BAND_REACHED (not product flow)."),
+                             "Mismatched STEP/USD = FAIL_SCENE_PROVENANCE; "
+                             "tracking failure = FAIL; at least one same-ID "
+                             "S1 exit, auger pickup, S2 mouth, exact screen "
+                             "bore, buffer upper and lower throat = "
+                             "CONNECTED_BUFFER_REACHED (not filament). "
+                             "Otherwise zero band reach = BLOCKED, partial "
+                             "band reach = PARTIAL_PROBE_REACH, all band "
+                             "reach = PROBE_BAND_REACHED."),
             "telemetry_rows": rows,
             "per_step_angles": steps_angle_rows,
             "runner": "c2.2/sim/verify_full.py",

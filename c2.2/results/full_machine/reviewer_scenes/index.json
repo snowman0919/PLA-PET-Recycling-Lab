@@ -1,8 +1,8 @@
 {
   "schema": "reviewer_scenes/1",
   "machine_usd": "c2.2/sim/assets/usd/full_machine.usda",
-  "usd_sha256": "5a96d3e7d06f8297e07803dfdd108b2e1ec04fff0f259c9e40f53841e938d97c",
-  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "usd_sha256": "9af6e71123a0fcd88dc982f042f5ea07966143479c2adffa19cd7f0fbd1d7a07",
+  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
   "resolution": "640x480",
   "scene_list": [
     "a_full_assembly",
@@ -42,9 +42,9 @@
   ],
   "note": "Isaac RTX capture skipped (PPR_FORCE_SOFTWARE_SCENES); software rendering only, not a physics run.",
   "probe_spheres": {
-    "count_rendered": 3,
+    "count_rendered": 5,
     "of_total_dropped": 200,
-    "positions_source": "c2.2/results/full_machine/run_current_8cycles/results.json probe_test.sample_final_positions",
+    "positions_source": "c2.2/results/full_machine/run_20260924_203014/results.json probe_test.sample_final_positions",
     "render_mode": "projected recorded final positions, always visible"
   }
 }

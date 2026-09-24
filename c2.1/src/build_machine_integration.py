@@ -24,12 +24,14 @@ import chute as chute_mod
 import guards as guards_mod
 import winder as winder_mod
 import electrical_bay as electrical_mod
+import hopper_panels
 import chain_relief
 from transmission import Transmission
 
-# VP1 Stage 2: legacy envelope instances replaced by real geometry.
+# VP1: legacy envelope instances replaced by real geometry.
 EXCLUDED_LEGACY_INSTANCES = {"SPOOL-ENV_001", "PULL-ROLLER_001",
-                             "PULL-ROLLER_002", "GUARD_SECTION_ENVELOPE_HOLD"}
+                             "PULL-ROLLER_002", "GUARD_SECTION_ENVELOPE_HOLD",
+                             "HOPPER_001"}
 
 
 def bounds(shape):
@@ -351,12 +353,15 @@ def main():
     electrical_parts = [{"name": name, "part": name, "group": "electrical",
                          "shape": solid, "relocated": False, "replaced": True}
                         for name, solid in electrical_mod.components()]
+    hopper_parts = [{"name": name, "part": name, "group": "feed",
+                     "shape": solid, "relocated": False, "replaced": True}
+                    for name, solid in hopper_panels.components()]
     # --- VP1 Stage 3: chain/gear path reliefs into frozen legacy structure --
     new_solids = {r["name"]: r["shape"] for r in
                   legacy if r.get("replaced")}
     new_solids.update({r["name"]: r["shape"] for r in
                        chain_parts + chute_parts + guard_parts + winder_parts
-                       + electrical_parts})
+                       + electrical_parts + hopper_parts})
     relief_records, relieved = chain_relief.apply(legacy, new_solids)
     relieved.add("KEY-6-16_002")
     relief_records.append({
@@ -374,13 +379,13 @@ def main():
     allowed_pairs = {frozenset(p) for p in drive_teeth.FUNCTIONAL_PAIRS}
     known_pairs = set()  # Stage 3 reliefs resolved the former layout contacts
     vp1_parts = (replaced + chain_parts + chute_parts + guard_parts
-                 + winder_parts + electrical_parts)
+                 + winder_parts + electrical_parts + hopper_parts)
     vp1_against = collision_audit(vp1_parts, stable + c21,
                                   allowed=allowed_pairs, known=known_pairs)
     vp1_internal = collision_audit(vp1_parts, vp1_parts,
                                    allowed=allowed_pairs, known=known_pairs)
     all_parts = (legacy + c21 + chain_parts + chute_parts + guard_parts
-                 + winder_parts + electrical_parts)
+                 + winder_parts + electrical_parts + hopper_parts)
     # export relieved legacy solids so the native FreeCAD build consumes the
     # same geometry
     for name in sorted(relieved):
@@ -388,6 +393,10 @@ def main():
         path = C21 / "cad/parts_stage1" / (name + ".step")
         path.parent.mkdir(parents=True, exist_ok=True)
         cq.exporters.export(cq.Compound.makeCompound([item["shape"]]), str(path))
+    for item in hopper_parts:
+        path = C21 / "cad/parts_stage1" / (item["name"] + ".step")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        cq.exporters.export(item["shape"], str(path))
     compound = cq.Compound.makeCompound([item["shape"] for item in all_parts])
     out = C21/"cad/PPR_VP1.step"
     cq.exporters.export(compound, str(out))
@@ -456,6 +465,12 @@ def main():
             "guard_parts": [it["name"] for it in guard_parts],
             "winder_parts": [it["name"] for it in winder_parts],
             "electrical_parts": [it["name"] for it in electrical_parts],
+            "hopper_parts": [it["name"] for it in hopper_parts],
+            "hopper_print_bounds_mm": {
+                it["name"]: [round(getattr(it["shape"].BoundingBox(), axis+"len"), 3)
+                             for axis in "xyz"]
+                for it in hopper_parts if it["name"].startswith("HOPPER_PANEL_")},
+            "hopper_liner": "HOLD: C1 HOPPER.step has only the PC shell; the modeled steel seam straps do not constitute a lower safety liner",
             "excluded_legacy_instances": sorted(EXCLUDED_LEGACY_INSTANCES),
             "deleted_drive_instances": sorted(drive_teeth.DELETED_INSTANCES),
             "chain_relief_adr": "c2.1/docs/ADR-002-CHAIN-ROUTING.md",
@@ -504,6 +519,7 @@ def main():
             "support fastener grade/preload, weld detail and frame stiffness are not rated",
             "guards, wiring routes, service sweep and anti-reach are not complete containment geometry",
             "full unchanged C1 pair audit is inherited; this run checks every new/relocated-to-retained pair",
+            "C1 hopper lower steel safety liner has no BRep geometry; seam straps are not a liner, so liner fit/retention and anti-reach remain HOLD",
             "loaded deflection, tolerance and thermal-growth collision are not proven"
         ],
         **config["release"]

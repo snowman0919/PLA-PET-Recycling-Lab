@@ -1,0 +1,39 @@
+{
+  "asset_id": "S1_SWEEP_BEARINGS",
+  "group": "feed",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 239,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.239",
+  "mesh_file": "sim/assets/out/full/S1_SWEEP_BEARINGS_step239__coarse.stl",
+  "mesh_bytes": 10484,
+  "mesh_sha256": "c71f7943a799ad1066bbe3903d71b71d8814450310983aa36c337143ba730421",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "560ff46a2dadae2cb7f260e8868c22e4f587880e3239ad4063343f7085bc7e03",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    221.6499999,
+    323.5999999,
+    342.34999989999994,
+    226.3500001,
+    329.60000010000005,
+    347.05000010000003
+  ],
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "4e49a0badb00d6aceec496e5894854b00b6d9c76299889100e8b78d42966d63b",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 16.96460032938667,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

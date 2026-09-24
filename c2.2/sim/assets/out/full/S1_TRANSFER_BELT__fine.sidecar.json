@@ -3,37 +3,96 @@
   "group": "feed",
   "kinematic_body": "TRANSFER_BELT",
   "lod": "fine",
-  "step_index": 240,
-  "step_product_name": "Open CASCADE STEP translator 7.9 1.240",
+  "step_index": 239,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.239",
   "mesh_file": "sim/assets/out/full/S1_TRANSFER_BELT__fine.stl",
   "mesh_bytes": 26484,
-  "mesh_sha256": "8aa4e74a4ec0256a11bc42b9163c91851c9e4b516187d444f3b8ead0e71cf5f7",
+  "mesh_sha256": "bb54ebe91fb350be94176f3781dc654af04e60b531e50c669566312be6f731bb",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
-    77.00066819514284,
-    223.49999989999986,
-    328.4006681951428,
-    262.99933180485715,
-    240.50000010000014,
-    338.19933180485714
+    77.00024477742122,
+    223.49999989999955,
+    329.90024477742116,
+    262.9997552225788,
+    240.50000010000045,
+    338.1997552225788
   ],
-  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "fb751573960d25bbf2a6fc0d1c6399ef77d200a2eef85ed172eebd9ded053cab",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
     "linear_tolerance_mm": 0.1,
     "angular_tolerance_rad": 0.1
   },
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
-  "volume_mm3": 4291.729410681121,
-  "mass_kg": null,
-  "inertia": null,
-  "material": null,
-  "mass_material_status": "ASSUMPTION_UNCHOSEN",
-  "evidence_level": "GEOMETRIC_ONLY"
+  "material": "ELASTOMER_BELT",
+  "source_material_label": "polymer belt",
+  "manufacturing_process": "commercial polymer tread/belt geometry proxy, not a rigid printed load member",
+  "thermal_condition": "compound, tension and temperature rating HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 1150.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 1150.0,
+  "effective_density_bounds_kg_m3": [
+    1150.0,
+    1150.0
+  ],
+  "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+  "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+  "volume_mm3": 4291.150507133026,
+  "solid_bbox_mm": [
+    77.00024477742149,
+    223.4999999,
+    329.90024477741997,
+    262.99975522257,
+    240.5000001,
+    338.19975522257005
+  ],
+  "mass_kg": 0.00493482308320298,
+  "mass_bounds_kg": [
+    0.00493482308320298,
+    0.00493482308320298
+  ],
+  "center_of_mass_mm": [
+    169.99999999999574,
+    232.0,
+    334.049999999995
+  ],
+  "inertia_kg_mm2": [
+    0.14717364705015684,
+    14.255346712108675,
+    14.345867049158928
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    0.4415209411504705,
+    42.766040136326026,
+    43.037601147476785
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      0.14717364705015684,
+      14.255346712108675,
+      14.345867049158928
+    ],
+    "upper_bound_kg_mm2": [
+      0.4415209411504705,
+      42.766040136326026,
+      43.037601147476785
+    ],
+    "center_of_mass_mm": [
+      169.99999999999574,
+      232.0,
+      334.049999999995
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
 }

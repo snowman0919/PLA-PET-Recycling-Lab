@@ -3,14 +3,14 @@
   "group": "spool",
   "kinematic_body": "STATIC",
   "lod": "coarse",
-  "step_index": 259,
-  "step_product_name": "Open CASCADE STEP translator 7.9 1.259",
+  "step_index": 258,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.258",
   "mesh_file": "sim/assets/out/full/WIND_SPOOL_DRUM__coarse.stl",
   "mesh_bytes": 10484,
   "mesh_sha256": "c1fe0339284d6962494b74820c6f18908313f079088121f86967abf9378a9ca6",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
@@ -21,19 +21,78 @@
     164.0000001,
     255.0000001
   ],
-  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "fb751573960d25bbf2a6fc0d1c6399ef77d200a2eef85ed172eebd9ded053cab",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5
   },
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
+  "material": "ABS_FDM",
+  "source_material_label": "steel tube or printed polymer",
+  "manufacturing_process": "unfilled ABS FDM cold-zone candidate; drum axis normal to build plate, 4 perimeters, 6 top/bottom layers, 50% gyroid infill; assumed effective 65% of CAD volume",
+  "thermal_condition": "assume part remains below 60 C; chamber/adhesion and creep at tension HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 1040.0,
+  "effective_fraction": 0.65,
+  "effective_density_kg_m3": 676.0,
+  "effective_density_bounds_kg_m3": [
+    520.0,
+    884.0
+  ],
+  "bounds_basis": "0.50..0.85 x nominal ABS density per CAD drum volume: slicer wall/infill and process sensitivity, not bulk resin range",
+  "mass_material_status": "BOUNDED_PROXY_UNRATED",
   "volume_mm3": 210045.31402269143,
-  "mass_kg": null,
-  "inertia": null,
-  "material": null,
-  "mass_material_status": "ASSUMPTION_UNCHOSEN",
-  "evidence_level": "GEOMETRIC_ONLY"
+  "solid_bbox_mm": [
+    664.9999999,
+    105.9999999,
+    184.9999999,
+    735.0000001,
+    164.0000001,
+    255.0000001
+  ],
+  "mass_kg": 0.14199063227933942,
+  "mass_bounds_kg": [
+    0.10922356329179955,
+    0.18568005759605924
+  ],
+  "center_of_mass_mm": [
+    700.0,
+    135.0,
+    220.0
+  ],
+  "inertia_kg_mm2": [
+    97.78421603553174,
+    115.95901702408337,
+    97.78421603553166
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    383.615001370163,
+    454.9161437098655,
+    383.61500137016264
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      97.78421603553174,
+      115.95901702408337,
+      97.78421603553166
+    ],
+    "upper_bound_kg_mm2": [
+      383.615001370163,
+      454.9161437098655,
+      383.61500137016264
+    ],
+    "center_of_mass_mm": [
+      700.0,
+      135.0,
+      220.0
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
 }

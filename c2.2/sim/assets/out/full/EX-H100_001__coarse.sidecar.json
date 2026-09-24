@@ -10,7 +10,7 @@
   "mesh_sha256": "dbaf7e10f567b14e7e8ffd081c565ff7e088f83400fde81bef99d9f69ef3847b",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
@@ -21,19 +21,78 @@
     295.0000001,
     145.0000001
   ],
-  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "fb751573960d25bbf2a6fc0d1c6399ef77d200a2eef85ed172eebd9ded053cab",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5
   },
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
+  "material": "PURCHASED_HEATER",
+  "source_material_label": "Purchased custom",
+  "manufacturing_process": "heater geometry envelope proxy (ceramic/steel/resistance element), not solid steel",
+  "thermal_condition": "rated heater attachment and control HOLD",
+  "material_source": "design/assembly.json parts.EX-H100.material",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 2800.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 2800.0,
+  "effective_density_bounds_kg_m3": [
+    1000.0,
+    6000.0
+  ],
+  "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+  "mass_material_status": "BOUNDED_PROXY_UNRATED",
   "volume_mm3": 21991.148575129027,
-  "mass_kg": null,
-  "inertia": null,
-  "material": null,
-  "mass_material_status": "ASSUMPTION_UNCHOSEN",
-  "evidence_level": "GEOMETRIC_ONLY"
+  "solid_bbox_mm": [
+    327.9999999,
+    254.9999999,
+    104.9999999,
+    368.0000001,
+    295.0000001,
+    145.0000001
+  ],
+  "mass_kg": 0.06157521601036128,
+  "mass_bounds_kg": [
+    0.02199114857512903,
+    0.13194689145077418
+  ],
+  "center_of_mass_mm": [
+    348.0,
+    275.0,
+    125.0
+  ],
+  "inertia_kg_mm2": [
+    16.420057766963588,
+    16.4200577669636,
+    16.420057766963613
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    105.55751421619449,
+    105.55751421619456,
+    105.55751421619463
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      16.420057766963588,
+      16.4200577669636,
+      16.420057766963613
+    ],
+    "upper_bound_kg_mm2": [
+      105.55751421619449,
+      105.55751421619456,
+      105.55751421619463
+    ],
+    "center_of_mass_mm": [
+      348.0,
+      275.0,
+      125.0
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
 }

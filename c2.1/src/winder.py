@@ -173,13 +173,17 @@ def spool_drum():
 
 
 def _flange(y):
-    f = _cyl(WIND["flange_r"], 6.0, WIND["x"], y, WIND["z"])
-    bore = _cyl(WIND["shaft_r"] + 0.5, 8.0, WIND["x"], y - 1.0, WIND["z"])
+    # 3 mm steel, not a 6 mm solid disc. Radial cantilever screening at
+    # assumed 20 N gives 43 MPa / 0.194 mm; hub bolts and balance remain HOLD.
+    thickness = 3.0
+    f = _cyl(WIND["flange_r"], thickness, WIND["x"], y, WIND["z"])
+    bore = _cyl(WIND["shaft_r"] + 0.5, thickness + 2.0,
+                WIND["x"], y - 1.0, WIND["z"])
     return f.cut(bore).clean()
 
 
 def spool_flange_l():
-    return _flange(WIND["y0"])
+    return _flange(WIND["y0"] + 3.0)
 
 
 def spool_flange_r():

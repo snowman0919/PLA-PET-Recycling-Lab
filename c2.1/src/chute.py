@@ -106,21 +106,22 @@ IDLER_Z = (CROSS_Z + WORM_CZ) / 2.0 + _gear_dx / _gear_span * _gear_offset
 # the cutter envelope. S1B's extended rear shaft drives a 24T:12T #35
 # chain at y402..407 behind the rear frame beam; the upper run travels
 # +X at 2*|omega_S1B|*3.8 mm/s. Tread friction and ratings remain HOLD.
-BELT_WEST_X, BELT_EAST_X, BELT_AX_Z = 80.0, 219.0, 331.4
+BELT_WEST_X, BELT_EAST_X, BELT_AX_Z = 80.0, 219.0, 332.9
+BELT_EAST_Z = 332.9
 BELT_INNER_R, BELT_OUTER_R = 3.8, 4.6
 
 # The transverse flights meet the side belts' east arcs and run into the
 # powered central lane before fragments park against the east drum.
-SWEEP_X, SWEEP_Z = 224.0, 341.8
+SWEEP_X, SWEEP_Z = 224.0, 344.7
 SWEEP_SHAFT_R, SWEEP_FLIGHT_R, SWEEP_PITCH = 2.0, 6.7, 16.0
 SWEEP_GEAR_Y = ((128.0, 134.0), (352.1, 358.1))
 SWEEP_GEAR_SCALE = math.hypot(SWEEP_X-BELT_EAST_X,
-                              SWEEP_Z-BELT_AX_Z) / (2.0 * FEED_GEAR_RP)
+                              SWEEP_Z-BELT_EAST_Z) / (2.0 * FEED_GEAR_RP)
 BELT_Y0, BELT_Y1 = 163.5, 323.5
 
-# The central 17 mm lane is its own belt on a waisted common west drum.
-# Two side loops remain on the 160 mm wide drive/idler. A finished wide
-# belt's vertical east end cannot feed a separate belt across its gap.
+# Raise the shared west axle so both full-width upper runs are level
+# at z337.5; the central lane rises only 2.3 mm over 180 mm, meeting
+# the side treads within 0.2 mm at their east tangency.
 TRANSFER_WEST_X, TRANSFER_EAST_X = BELT_WEST_X, 260.0
 TRANSFER_WEST_Z, TRANSFER_AX_Z = BELT_AX_Z, 335.2
 TRANSFER_INNER_R, TRANSFER_OUTER_R = 2.3, 3.0
@@ -198,19 +199,19 @@ def pan_floor():
     full = full.cut(_box(237.0, 245.5, 222.0, 242.0, 334.0, 349.0))
     for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
         full = full.fuse(_box(74.0, 229.5, y0, y1, 320.0, 352.3))
-    for x in (BELT_WEST_X, BELT_EAST_X):
+    for x, z in ((BELT_WEST_X, BELT_AX_Z),
+                 (BELT_EAST_X, BELT_EAST_Z)):
         for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
-            full = full.cut(_cyl(5.15, y1-y0, x, y0, BELT_AX_Z))
+            full = full.cut(_cyl(5.15, y1-y0, x, y0, z))
     for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
         full = full.cut(_cyl(2.35, y1-y0, SWEEP_X, y0, SWEEP_Z))
     full = full.fuse(_box(76.0, 223.5, 163.4, 323.6, 321.0, 323.0))
-    # A recessed catch shelf downstream of the belt tangency; transfer
-    # must occur over the powered upper run, not by relying on this incline.
-    full = full.fuse(_box(223.7, 237.0, 163.4, 323.6, 332.8, 334.0))
-    for y0, y1 in ((163.4, 223.2), (240.8, 323.6)):
-        full = full.fuse(_prism_xz(
-            [(223.7, 334.0), (233.5, 335.4),
-             (237.0, 335.4), (237.0, 334.0)], y0, y1-y0))
+    # Side-belt top is z337.5. A 3.4 mm drop to the former z334 catch
+    # shelf stranded even Ø3 pieces below the transverse screw's z338
+    # reach. Keep the side-lane landing within 0.1 mm of the tread and
+    # 0.6 mm below the metal flight tip; the central powered lane is
+    # relieved separately below.
+    full = full.fuse(_box(223.7, 237.0, 163.4, 323.6, 332.8, 337.4))
     # Preserve the rear support's metal volume below the south shelf.
     full = full.cut(_box(236.0, 237.0, 203.0, 211.0, 332.7, 334.1))
     # Keep side-lane flakes under the transverse flights until they reach
@@ -287,13 +288,13 @@ def bypass_channel_floor():
     # is the intended transfer. The floor resumes after the east drum.
     entrance = _box(237.0, TRANSFER_EAST_X + TRANSFER_OUTER_R,
                     223.2, 240.8, 331.0, 351.0)
-    exit_ramp = _prism_xz(
-        [(TRANSFER_EAST_X + TRANSFER_OUTER_R, 335.6),
-         (TRANSFER_EAST_X + TRANSFER_OUTER_R + 8.0, 338.2),
-         (TRANSFER_EAST_X + TRANSFER_OUTER_R + 8.0, 351.0),
-         (TRANSFER_EAST_X + TRANSFER_OUTER_R, 351.0)], 223.2, 17.6)
+    # Receive fragments within one particle radius of the tread. The
+    # former 335.6 mm ramp left a 2.6 mm drop before the screw flight.
+    exit_recess = _box(TRANSFER_EAST_X + TRANSFER_OUTER_R,
+                       TRANSFER_EAST_X + TRANSFER_OUTER_R + 8.0,
+                       223.2, 240.8, 337.5, 351.0)
     return slab.fuse(shell).cut(cross_clearance).cut(entrance).cut(
-        exit_ramp).clean()
+        exit_recess).clean()
 
 def bypass_wall_south():
     """South containment, relieved only at the low-y spur-gear face."""
@@ -334,15 +335,21 @@ def guide_right():
 
 def belt_loop():
     """Two side loops leave a continuous, separately driven central lane."""
+    dx = BELT_EAST_X - BELT_WEST_X
+    dz = BELT_EAST_Z - BELT_AX_Z
+    length = math.hypot(dx, dz)
+    nx, nz = -dz / length, dx / length
+    angle = math.atan2(nz, nx)
+
     def capsule(r, y0, y1):
-        pts = [(BELT_WEST_X, BELT_AX_Z + r),
-               (BELT_EAST_X, BELT_AX_Z + r)]
-        pts += [(BELT_EAST_X + r * math.cos(math.pi/2 - math.pi*i/32),
-                 BELT_AX_Z + r * math.sin(math.pi/2 - math.pi*i/32))
+        pts = [(BELT_WEST_X + r*nx, BELT_AX_Z + r*nz),
+               (BELT_EAST_X + r*nx, BELT_EAST_Z + r*nz)]
+        pts += [(BELT_EAST_X + r*math.cos(angle - math.pi*i/32),
+                 BELT_EAST_Z + r*math.sin(angle - math.pi*i/32))
                 for i in range(1, 33)]
-        pts.append((BELT_WEST_X, BELT_AX_Z - r))
-        pts += [(BELT_WEST_X + r * math.cos(-math.pi/2 - math.pi*i/32),
-                 BELT_AX_Z + r * math.sin(-math.pi/2 - math.pi*i/32))
+        pts.append((BELT_WEST_X - r*nx, BELT_AX_Z - r*nz))
+        pts += [(BELT_WEST_X + r*math.cos(angle - math.pi - math.pi*i/32),
+                 BELT_AX_Z + r*math.sin(angle - math.pi - math.pi*i/32))
                 for i in range(1, 33)]
         return _prism_xz(pts, y0, y1-y0)
     parts = []
@@ -400,11 +407,11 @@ def belt_drum(x, driven=False):
                 ((BELT_Y0, 223.2), (240.8, BELT_Y1)),
                 ((127.0, 223.2), (240.8, 359.0)), SWEEP_GEAR_Y):
             half = _cyl(BELT_INNER_R, drum_y1-drum_y0,
-                        x, drum_y0, BELT_AX_Z)
+                        x, drum_y0, BELT_EAST_Z)
             half = half.fuse(_cyl(2.0, shaft_y1-shaft_y0, x,
-                                  shaft_y0, BELT_AX_Z))
+                                  shaft_y0, BELT_EAST_Z))
             half = half.fuse(_box(x+1.9, x+2.45, gy[0], gy[1],
-                                   BELT_AX_Z-0.5, BELT_AX_Z+0.5))
+                                  BELT_EAST_Z-0.5, BELT_EAST_Z+0.5))
             halves.append(half.clean())
         return cq.Compound.makeCompound(halves)
     drum = _cyl(BELT_INNER_R, BELT_Y1-BELT_Y0, x, BELT_Y0, BELT_AX_Z)
@@ -424,11 +431,12 @@ def belt_drum(x, driven=False):
 def belt_bearings():
     """Four separable bearings seated in the pan's metal side rails."""
     parts = []
-    for x in (BELT_WEST_X, BELT_EAST_X):
+    for x, z in ((BELT_WEST_X, BELT_AX_Z),
+                 (BELT_EAST_X, BELT_EAST_Z)):
         for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
-            ring = _cyl(5.0, y1-y0, x, y0, BELT_AX_Z)
+            ring = _cyl(5.0, y1-y0, x, y0, z)
             parts.append(ring.cut(_cyl(2.2, y1-y0+0.2, x, y0-0.1,
-                                       BELT_AX_Z)))
+                                       z)))
     return cq.Compound.makeCompound(parts)
 
 def sweep_shaft(south):
@@ -463,9 +471,9 @@ def sweep_gear(south, on_drum):
     """One small-module 12T spur keyed to the east drum or feeder axle."""
     import drive_teeth as dt
     y0, y1 = SWEEP_GEAR_Y[0 if south else 1]
-    cx, cz = ((BELT_EAST_X, BELT_AX_Z) if on_drum
+    cx, cz = ((BELT_EAST_X, BELT_EAST_Z) if on_drum
               else (SWEEP_X, SWEEP_Z))
-    mesh_angle = math.degrees(math.atan2(SWEEP_Z-BELT_AX_Z,
+    mesh_angle = math.degrees(math.atan2(SWEEP_Z-BELT_EAST_Z,
                                           SWEEP_X-BELT_EAST_X))
     phase = (mesh_angle + (0.0 if on_drum else 15.0)) % 30.0
     pts = [(cx + x*SWEEP_GEAR_SCALE, cz + z*SWEEP_GEAR_SCALE)

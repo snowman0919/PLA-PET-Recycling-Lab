@@ -3,37 +3,96 @@
   "group": "feed",
   "kinematic_body": "SWEEP_SOUTH",
   "lod": "fine",
-  "step_index": 232,
-  "step_product_name": "Open CASCADE STEP translator 7.9 1.232",
+  "step_index": 231,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.231",
   "mesh_file": "sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
   "mesh_bytes": 270084,
-  "mesh_sha256": "13a0b985ee657f6fadf58685a033def241250be7999d678b9b9cf5ba98a52c92",
+  "mesh_sha256": "eb67526c6fd9e281ab5640416f21b11e02f35892faeb83e37a2e71828190038f",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
-    216.53719750712511,
+    216.5371975071275,
     126.9999999,
-    334.1447678703388,
+    337.0447678703408,
     231.4545108440681,
     228.5000001,
-    349.69899380237956
+    352.59899380237425
   ],
-  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "fb751573960d25bbf2a6fc0d1c6399ef77d200a2eef85ed172eebd9ded053cab",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
     "linear_tolerance_mm": 0.1,
     "angular_tolerance_rad": 0.1
   },
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
-  "volume_mm3": 2193.282114447688,
-  "mass_kg": null,
-  "inertia": null,
-  "material": null,
-  "mass_material_status": "ASSUMPTION_UNCHOSEN",
-  "evidence_level": "GEOMETRIC_ONLY"
+  "material": "STEEL",
+  "source_material_label": "steel shaft and flight",
+  "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+  "thermal_condition": "hot-zone grade and measured temperature HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=S1_SWEEP_SOUTH",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 7850.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 7850.0,
+  "effective_density_bounds_kg_m3": [
+    7850.0,
+    7850.0
+  ],
+  "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+  "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+  "volume_mm3": 2193.2821143356787,
+  "solid_bbox_mm": [
+    216.53719707017808,
+    126.9999994630581,
+    337.0447674333981,
+    231.4545112810019,
+    228.5000005369419,
+    352.59899423931193
+  ],
+  "mass_kg": 0.01721726459753508,
+  "mass_bounds_kg": [
+    0.01721726459753508,
+    0.01721726459753508
+  ],
+  "center_of_mass_mm": [
+    223.99585417559,
+    177.75,
+    344.82188083635504
+  ],
+  "inertia_kg_mm2": [
+    15.128500763021115,
+    0.6663945631238309,
+    15.100655125651407
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    45.385502289063346,
+    1.999183689371493,
+    45.30196537695422
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      15.128500763021115,
+      0.6663945631238309,
+      15.100655125651407
+    ],
+    "upper_bound_kg_mm2": [
+      45.385502289063346,
+      1.999183689371493,
+      45.30196537695422
+    ],
+    "center_of_mass_mm": [
+      223.99585417559,
+      177.75,
+      344.82188083635504
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
 }

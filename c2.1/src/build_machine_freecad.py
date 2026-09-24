@@ -119,7 +119,8 @@ def main():
     c2.addProperty("App::PropertyString", "Qualification")
     c2.Qualification = "DIGITAL_KINEMATIC_PASS_RATING_HOLD"
     new_parts = list(STAGE1_NEW_PARTS)
-    for name in stage3["vp1_stage1"]["chute_parts"]:
+    for name in (stage3["vp1_stage1"]["chute_parts"]
+                 + stage3["vp1_stage1"]["hopper_parts"]):
         if name not in new_parts:
             new_parts.append(name)
     for name in new_parts:

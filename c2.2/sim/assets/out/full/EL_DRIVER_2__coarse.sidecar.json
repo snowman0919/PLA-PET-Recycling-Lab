@@ -3,14 +3,14 @@
   "group": "electrical",
   "kinematic_body": "STATIC",
   "lod": "coarse",
-  "step_index": 268,
-  "step_product_name": "Open CASCADE STEP translator 7.9 1.268",
+  "step_index": 267,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.267",
   "mesh_file": "sim/assets/out/full/EL_DRIVER_2__coarse.stl",
   "mesh_bytes": 684,
   "mesh_sha256": "3efa2b40f9dd20783a24691e9383756e07a273b164e8b1c4a59147c18e4347b0",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
@@ -21,19 +21,78 @@
     82.0000001,
     135.0000001
   ],
-  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "fb751573960d25bbf2a6fc0d1c6399ef77d200a2eef85ed172eebd9ded053cab",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5
   },
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
+  "material": "PURCHASED_ELECTRICAL",
+  "source_material_label": "24 V driver MPN unselected",
+  "manufacturing_process": "unselected electrical enclosure/component effective-density proxy; no BOM mass",
+  "thermal_condition": "electrical/thermal rating HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=EL_DRIVER_2",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 1800.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 1800.0,
+  "effective_density_bounds_kg_m3": [
+    400.0,
+    5000.0
+  ],
+  "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+  "mass_material_status": "BOUNDED_PROXY_UNRATED",
   "volume_mm3": 57600.0,
-  "mass_kg": null,
-  "inertia": null,
-  "material": null,
-  "mass_material_status": "ASSUMPTION_UNCHOSEN",
-  "evidence_level": "GEOMETRIC_ONLY"
+  "solid_bbox_mm": [
+    444.9999999,
+    41.9999999,
+    102.9999999,
+    490.0000001,
+    82.0000001,
+    135.0000001
+  ],
+  "mass_kg": 0.10368000000000001,
+  "mass_bounds_kg": [
+    0.02304,
+    0.28800000000000003
+  ],
+  "center_of_mass_mm": [
+    467.5,
+    62.0,
+    119.0
+  ],
+  "inertia_kg_mm2": [
+    22.67136024883199,
+    26.343360266112033,
+    31.320000293760035
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    188.92800207359997,
+    219.5280022176003,
+    261.0000024480003
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      22.67136024883199,
+      26.343360266112033,
+      31.320000293760035
+    ],
+    "upper_bound_kg_mm2": [
+      188.92800207359997,
+      219.5280022176003,
+      261.0000024480003
+    ],
+    "center_of_mass_mm": [
+      467.5,
+      62.0,
+      119.0
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
 }

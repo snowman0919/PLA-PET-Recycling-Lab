@@ -32,11 +32,11 @@
   "checkpoints": [
     {
       "checkpoint": "S1_opening_to_pan",
-      "aperture_mm": 16.30000000000001,
+      "aperture_mm": 14.800000000000011,
       "probe_sphere_mm": 4.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "central cutter opening (160,232): bottom z352.3 to belt top z336.0; stationary pan intersection 0.000 mm3",
+      "note": "central cutter opening (160,232): bottom z352.3 to belt top z337.5; stationary pan intersection 0.000 mm3",
       "checkpoint_class": "pass_space"
     },
     {
@@ -144,6 +144,66 @@
       "checkpoint_class": "pass_space"
     }
   ],
+  "layout_comparison": {
+    "source": "current S1/S2 datums and STEP-part bbox nominal envelopes",
+    "active_drive": "one M1 powers wide belt, central belt, auger and cross screw; added drive torque and loss not rated",
+    "gravity_candidate": "could remove active transfer hardware only after wide-to-40mm lateral convergence, rear support/pan clearance, new chain length and entire buffer/extruder/cooling/puller realignment; power saving and price are UNQUOTED, not zero",
+    "cost": "active components and relocation hardware unquoted; 100000 KRW soft limit cannot rank total purchase cost",
+    "options": [
+      {
+        "name": "active_same_axes",
+        "axis_xz_mm": [
+          308.569,
+          280.0
+        ],
+        "inlet_run_mm": 60.97,
+        "inlet_drop_mm": 6.5,
+        "nominal_slope_deg": 6.09,
+        "rear_support_pan_bbox_overlap": true,
+        "buffer_throat_z_mm": 145.0,
+        "unchanged_extruder_feed_z_mm": 125.0,
+        "required_downstream_shift_mm": 0.0,
+        "jack_to_s2_center_mm": 275.1,
+        "width_contraction_mm": 122.19999999999999,
+        "status": "BUILT_GEOMETRY_FLOW_HOLD"
+      },
+      {
+        "name": "west30_down35_gravity_candidate",
+        "axis_xz_mm": [
+          278.569,
+          245.0
+        ],
+        "inlet_run_mm": 30.97,
+        "inlet_drop_mm": 41.5,
+        "nominal_slope_deg": 53.27,
+        "rear_support_pan_bbox_overlap": true,
+        "buffer_throat_z_mm": 110.0,
+        "unchanged_extruder_feed_z_mm": 125.0,
+        "required_downstream_shift_mm": -35.0,
+        "jack_to_s2_center_mm": 229.04,
+        "width_contraction_mm": 122.19999999999999,
+        "status": "UNBUILT_CONCEPT_INTERFACES_HOLD"
+      },
+      {
+        "name": "under_s1_west120_down30_candidate",
+        "axis_xz_mm": [
+          188.569,
+          250.0
+        ],
+        "inlet_run_mm": -59.03,
+        "inlet_drop_mm": 36.5,
+        "nominal_slope_deg": null,
+        "rear_support_pan_bbox_overlap": true,
+        "buffer_throat_z_mm": 115.0,
+        "unchanged_extruder_feed_z_mm": 125.0,
+        "required_downstream_shift_mm": -30.0,
+        "jack_to_s2_center_mm": 192.07,
+        "width_contraction_mm": 122.19999999999999,
+        "status": "UNBUILT_CONCEPT_INTERFACES_HOLD"
+      }
+    ],
+    "decision": "Neither gravity nor active transport has connected-flow proof; nominal 53-degree ramp does not prove PLA/PET/TPU flow or replace interface redesign."
+  },
   "auger_clearance_assumption": {
     "nominal_brep_mm": 1.085,
     "illustrative_adverse_stack_mm": {

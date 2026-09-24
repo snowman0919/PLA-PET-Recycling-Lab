@@ -1,17 +1,17 @@
 {
   "revision": "C2.1-P6+VP1-STAGE5",
   "scope": "P0-P6 + VP1 integrated digital review package",
-  "artifact_count": 160,
+  "artifact_count": 167,
   "artifacts": [
     {
       "file": "c2.1/bom/system_bom.csv",
-      "bytes": 53592,
-      "sha256": "d3625e66f5869d8c1db998355be5eb752d97688cdaed5e69b41f63789f2f6d3f"
+      "bytes": 55544,
+      "sha256": "e108b2c6b4c134dff90a3f6b90044222e1622be45ca937a5a2229d1cecacb686"
     },
     {
       "file": "c2.1/bom/system_bom.xlsx",
-      "bytes": 22321,
-      "sha256": "b231d71863d615f0bea58257a87a9d07189e6067ab5b454957aff77c395ff689"
+      "bytes": 22976,
+      "sha256": "9677960414f98c947895044665c2433c9fd661d9be2352c3aaf476702c165016"
     },
     {
       "file": "c2.1/bom/transmission_bom.csv",
@@ -20,8 +20,8 @@
     },
     {
       "file": "c2.1/bom/vp1_bom_delta.csv",
-      "bytes": 11620,
-      "sha256": "4bcfbe66f0c1357aed4adba275d6fe59a8acf27fa061050ca775da24134eb13a"
+      "bytes": 13794,
+      "sha256": "33947e8d361e7e85855a36d4a5f1656bd709ed30b5ea48ed2055af76c834e20a"
     },
     {
       "file": "c2.1/cad/PPR_C2_1_S2_transmission.step",
@@ -40,33 +40,33 @@
     },
     {
       "file": "c2.1/cad/PPR_C2_1_machine_integration.FCStd",
-      "bytes": 5850638,
-      "sha256": "59bfcaea0b811ac244bcc6ec933d8a4fd8fd31cedbaf4ee998641fe216a199b7"
+      "bytes": 6430733,
+      "sha256": "eb9dadead59c0091f7cc9794d364e42973f57c378d53327cd2e490ad5237c425"
     },
     {
       "file": "c2.1/cad/PPR_VP1.step",
-      "bytes": 98312862,
-      "sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504"
+      "bytes": 99256073,
+      "sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4"
     },
     {
       "file": "c2.1/cad/parts_stage1/AUG_BEARINGS.step",
       "bytes": 97634,
-      "sha256": "942f92cc31a01f3b2d3378b7e89aec7e8a573d992e52ec781ba007698ba4c484"
+      "sha256": "4a7957a1c2e46d4ec66d4afe967def6e054e23b2c3009d7fd3b8fe8c1f2633e1"
     },
     {
       "file": "c2.1/cad/parts_stage1/AUG_SHAFT.step",
       "bytes": 562588,
-      "sha256": "da68b43e6fd6932c9c0d744d3adb9de42408134db326ea1b2b90dbf62a211dda"
+      "sha256": "3c785357701a3accf83f55363bc936cfeb3196188ba548c0918cf2932e88d4a9"
     },
     {
       "file": "c2.1/cad/parts_stage1/AUG_WHEEL.step",
       "bytes": 126666,
-      "sha256": "ed8459b89b21b20ce4892176bdde4b7d5d82a99a3431d715f5660b62de08a6d3"
+      "sha256": "b85b5a537a9db2383c05b54f25ca3803a9420e8902717e59299c70b5492413b3"
     },
     {
       "file": "c2.1/cad/parts_stage1/CHUTE_BODY.step",
-      "bytes": 717167,
-      "sha256": "4d34154670eeb32da867f3bf69b7d311a2ac802471a3c12c03e7f6bd48dabc93"
+      "bytes": 669639,
+      "sha256": "429715e9bd407775fb428d2e2c4107074d8917075c7c3e8ec939427896a1545b"
     },
     {
       "file": "c2.1/cad/parts_stage1/CHUTE_GUIDE_L.step",
@@ -96,7 +96,7 @@
     {
       "file": "c2.1/cad/parts_stage1/CHUTE_TROUGH_FLOOR_E.step",
       "bytes": 97733,
-      "sha256": "8fdb2b848b0572a668cd74649da2cf4ae9c76a593b3ce4342fe075fca591104d"
+      "sha256": "3c4894b20eb104ed312391c953f7a5f78681ace641f52ffee15c4f831699432a"
     },
     {
       "file": "c2.1/cad/parts_stage1/CHUTE_TROUGH_WALL_L.step",
@@ -126,32 +126,32 @@
     {
       "file": "c2.1/cad/parts_stage1/CROSS_FEED_BEARINGS.step",
       "bytes": 173882,
-      "sha256": "954d9263727df13500a66a83189f3361674800fdcca8652e3318adf1dd23bf8c"
+      "sha256": "1470c9a087770205ba9cc5a87d4dc3053310d54d4a5c81df7e16ba30ce52b4f4"
     },
     {
       "file": "c2.1/cad/parts_stage1/CROSS_FEED_GEAR.step",
       "bytes": 970157,
-      "sha256": "326b108857334c811f58e3fc697168e20760ef78c266cb7626487d84cd27f47b"
+      "sha256": "8764b7a1482da81359ef099b24c9c9d52dcf8d7403af7f343cfc4dfd01011f49"
     },
     {
       "file": "c2.1/cad/parts_stage1/CROSS_FEED_IDLER.step",
       "bytes": 989018,
-      "sha256": "3757acbcc6dda5550832d7439dda2f7d9f7b199e01b0439487c294b68117f428"
+      "sha256": "a4a798fbdd68463f2b5643adbfa734a0de15c5d069420ec3f3a00d6a6be45117"
     },
     {
       "file": "c2.1/cad/parts_stage1/CROSS_FEED_SHAFT.step",
-      "bytes": 192776,
-      "sha256": "4c0bb3dd826a38cefd2f6979270aaf016fa814ffdc7e523c76b7749754c99fda"
+      "bytes": 437071,
+      "sha256": "8aa950a7ffd0356a8dd73b6a531d568dd0d1fea7d464929016371fcc690c7330"
     },
     {
       "file": "c2.1/cad/parts_stage1/CROSS_FEED_SHELL.step",
-      "bytes": 121555,
-      "sha256": "2af85b74edfb24944ec089f451abb861f0f47ae01e634266a0be57a9b822db75"
+      "bytes": 131277,
+      "sha256": "e1f4a8c7bc35c83dced5a2f1bd4e89688d682245d28604891e6371df0c4d4921"
     },
     {
       "file": "c2.1/cad/parts_stage1/DRV-B12_001.step",
       "bytes": 53000,
-      "sha256": "e9e33915e5ab27ac5dfe3e7c158e5ba7565e64bce4561e511dd08c0d94bfff4a"
+      "sha256": "ab64f090727c4d167e9bd23afaefe97d6bf14eda7d15378256ebbdc97b4946ec"
     },
     {
       "file": "c2.1/cad/parts_stage1/DRV-CHAIN-A.step",
@@ -166,12 +166,12 @@
     {
       "file": "c2.1/cad/parts_stage1/DRV-DECK_001.step",
       "bytes": 84865,
-      "sha256": "34756fb9cbc21e841f5f8533ad5ed6f0e4f0aa4f97bfa77429878e35aa12a255"
+      "sha256": "b74d3dfb11e58a309dac245e38a2e2a2cee073932a03ea1cd78411037510c284"
     },
     {
       "file": "c2.1/cad/parts_stage1/DRV-JACK_001.step",
       "bytes": 59595,
-      "sha256": "a46a351c6d7081ac770d2c4cca2aa20587571abbcbb390c08548beed335b6962"
+      "sha256": "59340ee0faa9d12127ec58b9c49154f4d55010a22d325ac91cc0abe85311ccb5"
     },
     {
       "file": "c2.1/cad/parts_stage1/DRV-M2_001.step",
@@ -284,39 +284,59 @@
       "sha256": "4123d7311955c3e9a89f1cb6199f0b96fdfc1dcf96f3af20f6d949e9e1319e93"
     },
     {
+      "file": "c2.1/cad/parts_stage1/HOPPER_PANEL_L.step",
+      "bytes": 305240,
+      "sha256": "ed9f8fbcba96937f86bdebe09a9e2e3a00401b998c4f4f90a6cebc7b4a4c0bfa"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/HOPPER_PANEL_R.step",
+      "bytes": 290224,
+      "sha256": "0b03d3ff1ecb33e8083ea55ffcbe66dd124dcf2799ea2a3cd27bb8ced2b0daab"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/HOPPER_SEAM_FRONT.step",
+      "bytes": 151110,
+      "sha256": "a48a99876be068822c7a82b810295c1d71ee35807dd1d7078a94f36f965d2e21"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/HOPPER_SEAM_REAR.step",
+      "bytes": 151152,
+      "sha256": "b35664be22b99fe946754b35f1cb05a5df90a843b28f255a7d4d7fb67fee404b"
+    },
+    {
       "file": "c2.1/cad/parts_stage1/KEY-6-16_002.step",
       "bytes": 15962,
-      "sha256": "d62d4fdf99ba7ad0558325ebd4a03e2a98bb4a9bb80129310aa6aab45482db02"
+      "sha256": "efbec9bede15af839265fba6ea7b0d1f8d637b5509e34872c43016ef18978d64"
     },
     {
       "file": "c2.1/cad/parts_stage1/PDL_BEARINGS.step",
       "bytes": 50645,
-      "sha256": "a4968e0338bb3b384d1c42548000faf6057c2549d6706d15f91d8e154add8c9f"
+      "sha256": "2a034df048ddb8ba0df5676c4dd8891439e786fcc9e65899b1d2d0fa7b0807fb"
     },
     {
       "file": "c2.1/cad/parts_stage1/PDL_CHAIN.step",
       "bytes": 769588,
-      "sha256": "d1c68c7a5cc6209f529d41593c528fdd4249dad44ef3db71e13fd04913e379bc"
+      "sha256": "6086fcdf1e03ca8f04bf54aa620b86ecf8f1bd847f2ab2878519882c883c4321"
     },
     {
       "file": "c2.1/cad/parts_stage1/PDL_FEED_GEAR.step",
       "bytes": 962086,
-      "sha256": "2732b88a33b245cb7886e427c61a1a8fa207e2d637727afcf26f959abeddc70d"
+      "sha256": "0f3744356eecea32ecd3976ffad202e0db81a7687904e9c0b048cfef9d98ab99"
     },
     {
       "file": "c2.1/cad/parts_stage1/PDL_SHAFT.step",
       "bytes": 52785,
-      "sha256": "5939cce464789b285ff2a5c21badd8b7db1ad1d9737a3ef55254a034fa7a9ece"
+      "sha256": "5815788031bd78fc706dcf2cf84773b20622355423fbdd899d7fba9276443cf9"
     },
     {
       "file": "c2.1/cad/parts_stage1/PDL_SPROCKET.step",
       "bytes": 627681,
-      "sha256": "daf1fca1ebf15358bf97e901f4589dd1cb1798485d7e177c458957455442aeb1"
+      "sha256": "0a02cf9df5c3dedaf8318d3db75b66df439a4421523851f8a9941c7f35c85930"
     },
     {
       "file": "c2.1/cad/parts_stage1/PDL_WORM.step",
       "bytes": 220114,
-      "sha256": "bc987ae399834cc83861f5d94c0bd711316752315d84c1db70ce11aa6c4b3e45"
+      "sha256": "85b56659ef6724d542e53e3e893e9d627441e5d7f56a670c3c6b624baa06dc14"
     },
     {
       "file": "c2.1/cad/parts_stage1/PULL_FRAME.step",
@@ -346,12 +366,12 @@
     {
       "file": "c2.1/cad/parts_stage1/S1-ROOF-R_001.step",
       "bytes": 80257,
-      "sha256": "79f28c1434679eb49e96e8089281e7f9066e7b59d079fa245ca69d28b9996ccb"
+      "sha256": "acaaec3dc8730f18e741675c40ea6305609e2b1f1e1f22a5ef4bc80102ec6403"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1-STUD_001.step",
       "bytes": 13298,
-      "sha256": "c6b84db1b43edde1a80a6fceeffe9e0e0a6be3bb697dc0d6f7e0c55a37b89afa"
+      "sha256": "75ebc0a30eed7373d364cec9bf79c084d3256be3a57842a69ddec9d848ee788d"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1-TIE-TUBE_003.step",
@@ -360,38 +380,38 @@
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_BELT.step",
-      "bytes": 1046485,
-      "sha256": "d4283cf561b9bd25bc777a759f63d74de4e531b349019d8da43b8e96f3e9ef6b"
+      "bytes": 1046501,
+      "sha256": "027f759c51ca03958daab6a8f5fe48c2f43b2ede76395bceab995e2d4db7b92d"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_BELT_BEARINGS.step",
       "bytes": 40828,
-      "sha256": "c5613fe9f228e6bc1b3cc144311334005cad7870bc4a2806377a6fcff74e97e1"
+      "sha256": "0701a351edfda04dfb8a8b0655ad5c50a091ba3f0d4b0c47609bbc8b858bf5b7"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_BELT_CHAIN.step",
-      "bytes": 777785,
-      "sha256": "c891bda905d5bd5b05076f9a4ae434c675035be9b36e414aea62bdf0853c097d"
+      "bytes": 777808,
+      "sha256": "dc929c98014d82f6600bf0f20d203f3d69d7e9d32c03e3acd867b7f1705bcb51"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_BELT_DRIVE.step",
       "bytes": 39328,
-      "sha256": "a6ef89920e344f9c8527a14e9395820b1213ad8aadfb083af07e48c380bd4e71"
+      "sha256": "ba1f55f660a9bd826b230b316c8c948cd542efac0bd990f5e7a85598b057c286"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_BELT_FOLLOWER.step",
-      "bytes": 622728,
-      "sha256": "726fe391d3f90a593cda99e7aed7a816214e7c8de53b6c31b9f4f3693c09ecb2"
+      "bytes": 622719,
+      "sha256": "0f87a7b52ef153457a24086289a690fb22a6992deeff16391a00b5bc3e977011"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_BELT_IDLER.step",
-      "bytes": 51497,
-      "sha256": "bf51477b17bdec07f5522710f2ae28a1394c83fef964d98d75ab171351fe98c3"
+      "bytes": 51493,
+      "sha256": "aaa89769e31af792cf3ef408ce85959b739e039fdd4854d15dbdff18819b1907"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_SWEEP_BEARINGS.step",
-      "bytes": 22029,
-      "sha256": "648c6ac01ad15398ac0c589e080eb0348018fba6899ed8a383d470991df3c09c"
+      "bytes": 22017,
+      "sha256": "d8c3a15e05ff42e10d725cf7308b29ace52d177173af588690e82d6787a1da4f"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_SWEEP_GEARS_N.step",
@@ -405,48 +425,48 @@
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_SWEEP_GEAR_DRUM_N.step",
-      "bytes": 963390,
-      "sha256": "17158178e7a635887e246f89f11542857bc2abc6f16d049168b2a761f50e13b6"
+      "bytes": 963730,
+      "sha256": "18518c74f57f99e60e6dbd434aafe40f09d86b5fae72ea97ac030442fe386256"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_SWEEP_GEAR_DRUM_S.step",
-      "bytes": 961940,
-      "sha256": "40b9c59b364f03fead30b157d36ebc02ab9cd73baf15febb654046d10790a86e"
+      "bytes": 962445,
+      "sha256": "dd95da5859183cd6410957e7b0e35787d8bab7f3798d68623c8567779ee82d1b"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_SWEEP_GEAR_N.step",
-      "bytes": 963837,
-      "sha256": "875118d9973da8859574275a4c55f8f0b6047f5289583ecf9bc3db1ceac65db3"
+      "bytes": 963491,
+      "sha256": "27881a1e5d0c9fc70971431bc01071ad9f1df1611203e820fa596b841a50b0f9"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_SWEEP_GEAR_S.step",
-      "bytes": 962387,
-      "sha256": "984863bfd5a5e127ffc05035cf35693a5bd07e70d04998255156ad48e93c2a16"
+      "bytes": 962206,
+      "sha256": "dff91acbf1526b2aa6e637fabc87725cb510cddfc6dc6da3a6faadd73951a85b"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_SWEEP_NORTH.step",
-      "bytes": 529474,
-      "sha256": "be112de69ce5bc621c8dd2363c31479fda7406d75fd71d1741848273b0af93c1"
+      "bytes": 652842,
+      "sha256": "613d575914e732e1d66af8d1ab84cae09309db81655a6b0d6b67ebf2fd06b706"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_SWEEP_SOUTH.step",
-      "bytes": 371144,
-      "sha256": "d48cff5cf1d2d84d23f9f737d159f1f5f5034f1c386b682c3c20e98015e5167e"
+      "bytes": 459706,
+      "sha256": "cd6af1e82ec73f96830d93c4c42b87c678705cf87bff0f4a19660caa35cdfbcc"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_TRANSFER_BEARINGS.step",
       "bytes": 22022,
-      "sha256": "7034a35d9140152b4c0c3152144e050039fbd88200a07ec54c2f16ad0c04947f"
+      "sha256": "0ff58516c1f2b123e8abc267d855c1b1e61dd5b48181a6c77faf5f049c1cd2e5"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_TRANSFER_BELT.step",
-      "bytes": 511439,
-      "sha256": "e4f74e786eab6fd1a157294197f04cc21cdbc89b95eaa42c68ea7909723c7822"
+      "bytes": 511577,
+      "sha256": "988df382bfd1292a639d867a57ddb1384d4c8fe0fe4c3c0a92b0afbf75e7cd40"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1_TRANSFER_IDLER.step",
       "bytes": 13399,
-      "sha256": "bbb3aba7357337ff55adff4ac7092c12d0d6a2e0520ae5a3e6da3bc67844d1e5"
+      "sha256": "43d0c4aabc1f4291a10efa8b664bca1beef520d334a91a67c0c0ee33a6c3a86a"
     },
     {
       "file": "c2.1/cad/parts_stage1/WIND_FLANGE_L.step",
@@ -595,8 +615,8 @@
     },
     {
       "file": "c2.1/results/chute_geometry.json",
-      "bytes": 9170,
-      "sha256": "54060c51e389abf0e24aaa5c597c8f3d9ef8859db1945cf736860021eba5cb61"
+      "bytes": 9159,
+      "sha256": "a1b7d3ad343853fa5c0d76e08c8be3f77d5cf7fc156e44c14e16e3794bb1dcaf"
     },
     {
       "file": "c2.1/results/drive_geometry.json",
@@ -631,12 +651,12 @@
     {
       "file": "c2.1/results/machine_freecad.json",
       "bytes": 565,
-      "sha256": "a5405f89530cddbc542a525fd10eea491283f5b977aaec4a9498cd8550886494"
+      "sha256": "4d7956ba05bd7bc636e64da773e504a2ad5d114e38288f7c9809aa557ad12dac"
     },
     {
       "file": "c2.1/results/machine_integration.json",
-      "bytes": 18086,
-      "sha256": "9bb8ff5848293b5ed5bfbcf5e8c6a95e26b61f8941dc9da89aa00f9f6d5ece49"
+      "bytes": 18712,
+      "sha256": "a84f201bdcac1726b7ee3179e3f91bed85ff37e4c5d6269f3f2042c5f265edf0"
     },
     {
       "file": "c2.1/results/machine_wiring.json",
@@ -660,8 +680,8 @@
     },
     {
       "file": "c2.1/results/path_check.json",
-      "bytes": 7315,
-      "sha256": "077299b8f6b50868c3d42845d7a5d5642fb95c59d61dee6c0f4f79056f49c116"
+      "bytes": 9761,
+      "sha256": "f015d9c31650f0b55cda10da488a6a05d940cebe579381def7165422e458d37b"
     },
     {
       "file": "c2.1/results/power_sim.json",
@@ -674,14 +694,19 @@
       "sha256": "cd5c7ec46522cc0f8c8ad9a14c85ec12e0e476715fdc7d2dae46daa5b238bcb8"
     },
     {
+      "file": "c2.1/results/structural_screen.json",
+      "bytes": 42488,
+      "sha256": "45ae3c794c9f09b929c9ed7f222cc57f371546e3a083536baa16268e6c4a5dfd"
+    },
+    {
       "file": "c2.1/results/system_bom_summary.json",
-      "bytes": 1444,
-      "sha256": "cac40b56b0f1ca7d7b6887443618461406bb735ebe5b477f2b3ee02d42402692"
+      "bytes": 1461,
+      "sha256": "6c9c3629659e8b7278da5f366c763452471135501421aabf4a87287ab11a7325"
     },
     {
       "file": "c2.1/results/validation_summary.json",
-      "bytes": 5624,
-      "sha256": "4dea4ceb63a1a913a558568345349cbaa4ea8d446f8b68ef6edbfc0a93957612"
+      "bytes": 6329,
+      "sha256": "476007a2170c27c662ddb2ae492980b17f0bc063c0ea8639a89f0b84b6a85783"
     },
     {
       "file": "c2.1/results/winder_geometry.json",
@@ -705,13 +730,13 @@
     },
     {
       "file": "c2.1/src/build_machine_freecad.py",
-      "bytes": 7115,
-      "sha256": "5f633c1db246e945bd53201f6b97e523244622810f8bb3bf1e7ebb0095a821c7"
+      "bytes": 7173,
+      "sha256": "b8ddb37d601fa1c94d9139b463724c2e6ef080eb50a0f5e5e6c020db537f727a"
     },
     {
       "file": "c2.1/src/build_machine_integration.py",
-      "bytes": 27099,
-      "sha256": "3033c3f2cd697166eec939e33746d42de91b15afcb515913f5fe34a37c977c40"
+      "bytes": 28231,
+      "sha256": "30487a41a7738bfc116688d776e4d04bf25753bcf7a8d8062440bd47fc920292"
     },
     {
       "file": "c2.1/src/build_machine_wiring.py",
@@ -740,8 +765,8 @@
     },
     {
       "file": "c2.1/src/chute.py",
-      "bytes": 45214,
-      "sha256": "ffd64c9d108af6227fa76933de0420ecadf7732c821082a8b144d8d57075e824"
+      "bytes": 45520,
+      "sha256": "2504bc631ea4bc62bc48e55b95584af58ceb7f083cd95760a5e742f9b91b3691"
     },
     {
       "file": "c2.1/src/drive_kinematics.py",
@@ -764,9 +789,14 @@
       "sha256": "b42942b19c002acf3fb05973858ce7ac49e14d4be73a9d1af46bf1d0213f3987"
     },
     {
+      "file": "c2.1/src/hopper_panels.py",
+      "bytes": 5116,
+      "sha256": "60b62f82e24e3a63d0d0bfe2a734799ac748c84bada28241e3fc9a5ec8c18a01"
+    },
+    {
       "file": "c2.1/src/path_check.py",
-      "bytes": 16943,
-      "sha256": "ade706e45a0cdfe1939627e7f3937665d9eb3d4a52912573eb7937ad7d51beaf"
+      "bytes": 19484,
+      "sha256": "0d25a2a69de3fa3879934f9273f8dde0446d565d0d076903c5febfd89b4be236"
     },
     {
       "file": "c2.1/src/power_sim.py",
@@ -777,6 +807,11 @@
       "file": "c2.1/src/s2_direction_audit.py",
       "bytes": 3145,
       "sha256": "619ad3258f44ecfe4df9968f9534bc1025695959692572e523105b06032e1593"
+    },
+    {
+      "file": "c2.1/src/structural_screen.py",
+      "bytes": 36377,
+      "sha256": "2376c04fb34fbc8e44e2691f5ffe32117a728848ca15c7ae98bac15e58caa94b"
     },
     {
       "file": "c2.1/src/transmission.py",
@@ -790,8 +825,8 @@
     },
     {
       "file": "c2.1/src/winder.py",
-      "bytes": 12644,
-      "sha256": "122e2ace8ee7e951c09e8e90ea2e09567b918ba81bd59fac83c8e6a3b515eafa"
+      "bytes": 12855,
+      "sha256": "95c004a8247e6a0fb6ea2797b98813c95aecee00567dafe86f5c08a584650218"
     },
     {
       "file": "c2.1/tests/test_transmission.py",

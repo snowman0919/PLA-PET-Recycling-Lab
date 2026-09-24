@@ -260,6 +260,54 @@ def downstream_checks():
     return worst
 
 
+
+def layout_options():
+    """Compare interface consequences, without treating a bbox as a flow test."""
+    s1_x, s1_z = 237.0, 352.3
+    axis_x, axis_z = S2_AXIS
+    jack_x, jack_z = 136.9402, 65.0
+    options = []
+    for name, dx, dz in (
+        ("active_same_axes", 0.0, 0.0),
+        ("west30_down35_gravity_candidate", -30.0, -35.0),
+        ("under_s1_west120_down30_candidate", -120.0, -30.0),
+    ):
+        x, z = axis_x + dx, axis_z + dz
+        # Current S2 inlet upper bound: axis x-10.6 at z+65.8.
+        run = x - 10.6 - s1_x
+        drop = s1_z - (z + 65.8)
+        rear_plate = (223.57 + dx, 203.0, 195.0 + dz,
+                      393.57 + dx, 211.0, 369.0 + dz)
+        pan = (83.0, 159.4, 320.0, 245.5, 326.5, 356.3)
+        bbox_overlap = all(
+            min(rear_plate[i+3], pan[i+3]) >
+            max(rear_plate[i], pan[i]) for i in range(3))
+        options.append({
+            "name": name, "axis_xz_mm": [round(x, 3), round(z, 3)],
+            "inlet_run_mm": round(run, 2),
+            "inlet_drop_mm": round(drop, 2),
+            "nominal_slope_deg": (round(math.degrees(math.atan2(drop, run)), 2)
+                                  if run > 0 else None),
+            "rear_support_pan_bbox_overlap": bbox_overlap,
+            "buffer_throat_z_mm": 145.0 + dz,
+            "unchanged_extruder_feed_z_mm": 125.0,
+            "required_downstream_shift_mm": dz,
+            "jack_to_s2_center_mm": round(math.hypot(
+                x-jack_x, z-jack_z), 2),
+            "width_contraction_mm": 162.2 - 40.0,
+            "status": ("BUILT_GEOMETRY_FLOW_HOLD" if dx == dz == 0
+                       else "UNBUILT_CONCEPT_INTERFACES_HOLD"),
+        })
+    return {
+        "source": "current S1/S2 datums and STEP-part bbox nominal envelopes",
+        "active_drive": "one M1 powers wide belt, central belt, auger and cross screw; added drive torque and loss not rated",
+        "gravity_candidate": "could remove active transfer hardware only after wide-to-40mm lateral convergence, rear support/pan clearance, new chain length and entire buffer/extruder/cooling/puller realignment; power saving and price are UNQUOTED, not zero",
+        "cost": "active components and relocation hardware unquoted; 100000 KRW soft limit cannot rank total purchase cost",
+        "options": options,
+        "decision": "Neither gravity nor active transport has connected-flow proof; nominal 53-degree ramp does not prove PLA/PET/TPU flow or replace interface redesign.",
+    }
+
+
 def main():
     chute_checks()
     auger_clearance = downstream_checks()
@@ -318,6 +366,7 @@ def main():
         },
         "conveyance": RESULT_CONST["conveyance"],
         "checkpoints": RESULTS,
+        "layout_comparison": layout_options(),
         "auger_clearance_assumption": {
             "nominal_brep_mm": round(auger_clearance, 3),
             "illustrative_adverse_stack_mm": {

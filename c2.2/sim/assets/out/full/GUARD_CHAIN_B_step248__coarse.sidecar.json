@@ -1,0 +1,39 @@
+{
+  "asset_id": "GUARD_CHAIN_B",
+  "group": "guard",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 248,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.248",
+  "mesh_file": "sim/assets/out/full/GUARD_CHAIN_B_step248__coarse.stl",
+  "mesh_bytes": 5484,
+  "mesh_sha256": "564389f5eb92d099e2e1ce4d6a8996ded4b65d9774fd559e39c792164464aa4b",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "560ff46a2dadae2cb7f260e8868c22e4f587880e3239ad4063343f7085bc7e03",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    286.9999405242236,
+    376.99999985,
+    262.88780414437895,
+    336.4703518298685,
+    380.00000015,
+    307.9008871408068
+  ],
+  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "4e49a0badb00d6aceec496e5894854b00b6d9c76299889100e8b78d42966d63b",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 855.2565074038467,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

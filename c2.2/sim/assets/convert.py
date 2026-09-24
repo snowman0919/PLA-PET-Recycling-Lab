@@ -9,8 +9,8 @@ profile mesh (hook_polygon extruded over the 40 mm process width) with an
 explicit fallback note. Exits nonzero iff any requested asset is invalid
 or missing (empty file, invalid solid, unwritten sidecar).
 
-Evidence: GEOMETRIC_ONLY. Mass/inertia/material are recorded as
-ASSUMPTION (null) — never invented. Units mm, frame F0, identity transform.
+Mass/material are screening assumptions from materials.py, with imported BRep
+volume, actual STEP-solid bbox and explicit source/proxy limits. No measured mass.
 """
 from __future__ import annotations
 
@@ -19,6 +19,7 @@ import hashlib
 import json
 import sys
 from pathlib import Path
+from materials import MATERIAL_SCOPE, SOURCE as MATERIAL_SOURCE, mass_properties
 
 HERE = Path(__file__).resolve()
 C22 = HERE.parents[2]
@@ -146,13 +147,15 @@ def _reconstruct_parts(cq):
                     for name, solid, group in bmi.winder_mod.components()]
     electrical_parts = [{"name": name, "group": "electrical", "shape": solid}
                         for name, solid in bmi.electrical_mod.components()]
+    hopper_parts = [{"name": name, "group": "feed", "shape": solid}
+                    for name, solid in bmi.hopper_panels.components()]
     new_solids = {r["name"]: r["shape"] for r in legacy if r.get("replaced")}
     new_solids.update({r["name"]: r["shape"] for r in
                        chain_parts + chute_parts + guard_parts +
-                       winder_parts + electrical_parts})
+                       winder_parts + electrical_parts + hopper_parts})
     bmi.chain_relief.apply(legacy, new_solids)
     parts = (legacy + c21 + chain_parts + chute_parts + guard_parts +
-             winder_parts + electrical_parts)
+             winder_parts + electrical_parts + hopper_parts)
     # Compounds (multi-solid parts, e.g. the paddle bearing posts split by
     # their bores, the paddle wheel blades, bearing pairs) must expand to
     # one record per solid: the hungarian below matches records against
@@ -348,7 +351,8 @@ def run_full(out: Path) -> int:
                      if name in names), STATIC_BODY)
         records.append({"name": name, "group": group, "body": body,
                         "step_index": si, "solid": solids[si],
-                        "part_bbox": part_bbs[pi], "bbox_ok": True})
+                        "part_bbox": part_bbs[pi],
+                        "solid_bbox": pool_bbs[si], "bbox_ok": True})
         assign_audit.append({"part": name, "step_index": si,
                              "centre_dist_mm": round(cval, 2) if cval < 1e8
                              else None})
@@ -362,12 +366,21 @@ def run_full(out: Path) -> int:
                 and "unassigned" not in f]
 
     records.sort(key=lambda r: r["step_index"])
+    # Compound parts contain distinct STEP solids under one part name.
+    # Never let the second solid overwrite the first one's STL/sidecar:
+    # that silently removed the south S1 belt and duplicated bearing posts.
+    from collections import Counter
+    multiplicity = Counter(rec["name"] for rec in records)
+    for rec in records:
+        rec["mesh_stem"] = (rec["name"] if multiplicity[rec["name"]] == 1
+                            else f"{rec['name']}_step{rec['step_index']:03d}")
+
 
     emitted = []
     for rec in records:
         lod = _lod_of(rec["body"])
         tol = LODS[lod]
-        stem = f"{rec['name']}__{lod}"
+        stem = f"{rec['mesh_stem']}__{lod}"
         stl = out / f"{stem}.stl"
         sidecar = out / f"{stem}.sidecar.json"
         try:
@@ -375,12 +388,16 @@ def run_full(out: Path) -> int:
                 failures.append(f"{stem}: solid invalid")
                 continue
             volume = rec["solid"].Volume()
+            props = mass_properties(rec["name"], volume, rec["solid_bbox"])
+            rec["mass_props"] = props
             cq.exporters.export(rec["solid"], str(stl), "STL",
                                 tolerance=tol["linear_tolerance_mm"],
                                 angularTolerance=tol["angular_tolerance_rad"])
             if not stl.is_file() or stl.stat().st_size == 0:
                 failures.append(f"{stem}: empty STL")
                 continue
+            mesh_sha = sha256_file(stl)
+            rec["mesh_sha256"] = mesh_sha
             write_sidecar(sidecar, {
                 "asset_id": rec["name"], "group": rec["group"],
                 "kinematic_body": rec["body"], "lod": lod,
@@ -389,7 +406,7 @@ def run_full(out: Path) -> int:
                                       % rec["step_index"]),
                 "mesh_file": str(stl.relative_to(C22)),
                 "mesh_bytes": stl.stat().st_size,
-                "mesh_sha256": sha256_file(stl),
+                "mesh_sha256": mesh_sha,
                 "mesh_format": "STL",
                 "source_step": FULL_STEP_REL,
                 "source_step_sha256": step_sha,
@@ -405,15 +422,17 @@ def run_full(out: Path) -> int:
                 "tessellation": tol,
                 "coords": "F0 identity (no transform applied)",
                 "units": "mm",
-                "volume_mm3": volume,
-                "mass_kg": None, "inertia": None, "material": None,
-                "mass_material_status": "ASSUMPTION_UNCHOSEN",
-                "evidence_level": "GEOMETRIC_ONLY",
+                **props,
+                "inertia": {"diagonal_kg_mm2": props["inertia_kg_mm2"],
+                            "upper_bound_kg_mm2": props["inertia_upper_bound_kg_mm2"],
+                            "center_of_mass_mm": props["center_of_mass_mm"],
+                            "basis": props["inertia_basis"]},
+                "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION",
             })
             emitted.append({"name": rec["name"], "body": rec["body"],
                             "lod": lod, "stl": str(stl.relative_to(C22)),
                             "bytes": stl.stat().st_size,
-                            "sha256": sha256_file(stl)})
+                            "sha256": mesh_sha})
             print(f"[full] {rec['step_index']+1}/{len(records)} {stem} "
                   f"({stl.stat().st_size} B)", file=sys.stderr, flush=True)
         except Exception as exc:  # noqa: BLE001 - fail loudly, keep going
@@ -422,20 +441,31 @@ def run_full(out: Path) -> int:
     solids_manifest = []
     for r in records:
         lod = _lod_of(r["body"])
-        stl = out / f"{r['name']}__{lod}.stl"
-        entry = {k: v for k, v in r.items() if k != "solid"}
+        stl = out / f"{r['mesh_stem']}__{lod}.stl"
+        entry = {k: v for k, v in r.items()
+                 if k not in ("solid", "mesh_stem", "mass_props")}
+        if "mass_props" in r:
+            entry.update(r["mass_props"])
+        else:
+            failures.append(f"{r['name']}: no emitted mass properties")
         entry["mesh"] = str(stl.relative_to(REPO))
-        if stl.is_file():
-            entry["mesh_sha256"] = sha256_file(stl)
         solids_manifest.append(entry)
+    mesh_paths = [entry["mesh"] for entry in solids_manifest]
+    if len(mesh_paths) != len(set(mesh_paths)):
+        failures.append("distinct STEP solids share an STL path")
 
     (out / "bodies.json").write_text(json.dumps({
         "schema": "full_machine_bodies/1",
         "source_step": FULL_STEP_REL,
         "source_step_sha256": step_sha,
+        "source_step_solid_count": len(solids),
+        "reconstructed_solid_count": n_expected,
         "revision": head,
         "conversion_script_sha256": script_sha,
         "solids": solids_manifest,
+        "material_model": MATERIAL_SOURCE,
+        "material_model_sha256": sha256_file(HERE.with_name("materials.py")),
+        "material_scope": MATERIAL_SCOPE,
         "count_adjustments": adjustments,
         "moving_bodies": sorted(MOVING_BODIES),
         "static_body": STATIC_BODY,
@@ -521,6 +551,7 @@ def main() -> int:
                     failures.append(f"{label}/{lod}: solid invalid")
                     continue
                 volume = shape.Volume()
+                props = mass_properties(label, volume, _bbox(shape))
                 cq.exporters.export(
                     shape, str(stl), "STL",
                     tolerance=tol["linear_tolerance_mm"],
@@ -546,12 +577,12 @@ def main() -> int:
                     "note_tessellation": "tessellation-tolerance LOD, not edge-collapse decimation (no trimesh installed)",
                     "coords": "F0 identity (no transform applied)",
                     "units": "mm",
-                    "volume_mm3": volume,
-                    "mass_kg": None,
-                    "inertia": None,
-                    "material": None,
-                    "mass_material_status": "ASSUMPTION_UNCHOSEN",
-                    "evidence_level": "GEOMETRIC_ONLY",
+                    **props,
+                    "inertia": {"diagonal_kg_mm2": props["inertia_kg_mm2"],
+                                "upper_bound_kg_mm2": props["inertia_upper_bound_kg_mm2"],
+                                "center_of_mass_mm": props["center_of_mass_mm"],
+                                "basis": props["inertia_basis"]},
+                    "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION",
                     "fallback_note": fallback_note,
                 }
                 write_sidecar(sidecar, record)
