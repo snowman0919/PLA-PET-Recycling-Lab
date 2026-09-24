@@ -64,6 +64,24 @@ def sector(r0, r1, a0, a1, y0, depth):
     points += np.c_[r0*np.cos(a[::-1]), r0*np.sin(a[::-1])].tolist()
     return extrude_xz(points, y0, depth)
 
+def vertical_discharge_screen():
+    """VP1 curved steel screen with gravity-aligned Ø4 through bores.
+
+    The historical C1 screen drilled radially. At the outer rows its
+    oblique passage obstructs a straight Ø3 fragment's drop into the
+    buffer even though the radial aperture is nominally 4 mm. Keep the
+    same 100° shell, 2 mm wall and 78-hole grid; change only the bore
+    axes. Actual fragment transport and screen strength remain unproven.
+    """
+    screen = sector(62.8, 64.8, 220, 320, 4, 40)
+    for angle in range(228, 313, 7):
+        x = 63.8 * math.cos(math.radians(angle))
+        for y in (9, 15, 21, 27, 33, 39):
+            bore = cq.Solid.makeCylinder(2.0, 42,
+                                         V(x, y, -70), V(0, 0, 1))
+            screen = screen.cut(bore)
+    return screen.clean()
+
 
 def moved(shape, theta, c):
     p = pose(theta, c)
@@ -163,7 +181,7 @@ def fixed_components(c):
         ("FRONT_FIXED_RING_PLATE", ring(88, 63.5, 6, (0, -34, 0))),
         ("REAR_FIXED_RING_PLATE", ring(88, 63.5, 6, (0, -6, 0))),
         ("C2_FIXED_SHEAR_SENSOR_BORE", c2_process_part("C2_FIXED_SHEAR")),
-        ("C2_PERFORATED_SCREEN_REFERENCE", c2_process_part("C1_SCREEN_REFERENCE")),
+        ("C2_VERTICAL_DISCHARGE_SCREEN", vertical_discharge_screen()),
         ("C2_LEFT_WEAR_SHELL", c2_process_part("C1_LEFT_WEAR_SHELL")),
         ("C2_RIGHT_WEAR_SHELL_1", c2_process_part("C2_RIGHT_WEAR_SHELL_1")),
         ("C2_RIGHT_WEAR_SHELL_2", c2_process_part("C2_RIGHT_WEAR_SHELL_2")),
@@ -373,9 +391,10 @@ def main():
         "interfaces": {"cad_rotor": "single fused envelope; physical bolts, axial retention and fits are absent/HOLD",
                        "output_carrier": "unpowered reverse-rotation witness/load-extraction candidate",
                        "nominal_clearance": "rigid first-contact phase take-up is calculated; elastic sharing/rating HOLD",
-                       "process_elements": "C2 generated shear sensor bore, perforated screen reference, split wear liners, thermal saddles/caps integrated; screen attachment, sensor wiring and measured UA HOLD",
+                       "process_elements": "C2 shear sensor bore, VP1 gravity-aligned Ø4 screen, split wear liners, thermal saddles/caps integrated; screen attachment, strength, sensor wiring and measured UA HOLD",
+                       "screen_geometry": "VP1 100deg curved 2mm steel, 78 vertical Ø4 bores; C1 radial-screen STEP retained only as historical reference",
                        "process_source_sha256": {p:hashlib.sha256((REPO/'c2/cad'/(p+'.step')).read_bytes()).hexdigest() for p in
-                          ["C2_FIXED_SHEAR","C1_SCREEN_REFERENCE","C1_LEFT_WEAR_SHELL","C2_RIGHT_WEAR_SHELL_1","C2_RIGHT_WEAR_SHELL_2","C2_THERMAL_SADDLE_L","C2_THERMAL_SADDLE_R","C2_SADDLE_CAP_L","C2_SADDLE_CAP_R"]}},
+                          ["C2_FIXED_SHEAR","C1_LEFT_WEAR_SHELL","C2_RIGHT_WEAR_SHELL_1","C2_RIGHT_WEAR_SHELL_2","C2_THERMAL_SADDLE_L","C2_THERMAL_SADDLE_R","C2_SADDLE_CAP_L","C2_SADDLE_CAP_R"]}},
         "not_checked": ["full_machine_collision", "continuous_BRep_collision_between_samples",
                         "loaded_output_contact_transfer", "gear_contact_stress", "bearing_L10_life",
                         "roller_contact_pressure", "shaft_fatigue", "fastener_preload", "axial_retention",

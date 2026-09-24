@@ -24,7 +24,7 @@ SOURCES={
 PARAMS={
  'revision':'C1','units':'mm','body_limit_mm':[650,420,510],
  'body_hard_limit_mm':[700,420,520],'operating_limit_mm':[850,450,510],
- 'psu':{'V':24,'current_A':33,'nameplate_W':800,'current_derived_ceiling_W':792,'body_mm':[240,120,65],'power_target_W':500},
+ 'psu':{'V':24,'current_A':33,'nameplate_W':800,'current_derived_ceiling_W':792,'body_mm':[240,120,65],'operational_cap_W':500},
  'M1':{'motor':'TRK-60127-2460','gearbox':'GMP60','ratio':77,'rated_rpm':58,'rated_kgf_cm':160,'rated_A':8.2,'motor_can_mm':127,'gearbox_mm':59,'shaft_projection_mm':25.8,'shaft_mm':12,'OD_mm':60.5,'status':'MANUFACTURER_REFERENCE_NOT_OWNED'},
  'M2':{'motor':'TRK-6097-2425','gearbox':'GMP60','ratio':168,'rated_rpm':12,'rated_kgf_cm':150,'rated_A':1.8,'motor_can_mm':97,'gearbox_mm':70,'shaft_projection_mm':25.8,'shaft_mm':12,'OD_mm':60.5,'status':'MANUFACTURER_REFERENCE_NOT_OWNED'},
  'drive':{'normal_module':2,'helix_deg':15,'pinion_teeth':15,'gear_teeth':40,'half_face_mm':25,'half_hub_mm':10,'central_gap_mm':2,'branch_A_eta_assumed':.90,'branch_B_eta_assumed':.90,'chain_pitch_mm':9.525,'chain_A_teeth':[24,24],'chain_A_links':94,'chain_B_teeth':[24,12],'chain_B_links':84},

@@ -23,7 +23,7 @@ engineering=json.loads((R/'results/engineering.json').read_text())
 assert engineering['power_allocator_exhaustive']['passed']
 assert engineering['power']['psu_nameplate_W']==800
 assert engineering['power']['psu_current_A']==33
-assert engineering['power']['power_target_W']==500
+assert engineering['power']['operational_cap_W']==500
 assert engineering['power']['psu_current_derived_ceiling_W']==792
 assert json.loads((R/'results/cad_intersections.json').read_text())['contacts']==[]
 print('C1 digital pre-push gate passed. Procurement, fabrication and energization remain HOLD.')

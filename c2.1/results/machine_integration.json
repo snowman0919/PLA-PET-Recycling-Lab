@@ -6,7 +6,7 @@
     "config_sha256": "42e094a9d90a1ee03f1f66b068a469e74fc514f9150638b5d0cab850bfc8e82f",
     "legacy_master": "design/assembly.json",
     "legacy_master_sha256": "61519b8f37e153f694ba242c49bcb5e6635300f59b0f77ec66356763d485d771",
-    "c21_builder_sha256": "575a9a6a09c665809658573e19626871a3945bfd741b50d5b604a6e60bbbefb5",
+    "c21_builder_sha256": "101c733a5f0112605a7fed10b46c1a4dd45e725174f1e8499dcbc3741bb1366a",
     "legacy_role": "C1 interface baseline; motors/gears/screw/electrical/procurement remain unqualified"
   },
   "transform": {
@@ -33,13 +33,35 @@
   "assembly_geometry_checks": {
     "chute_body_matched": true,
     "aug_shaft_matched": true,
+    "transfer_belt_matched": true,
+    "transfer_belt_flight_overlap_mm": 25.999,
+    "transfer_belt_auger_gap_mm": 1.328,
+    "cross_feed_matched": true,
+    "cross_shell_matched": true,
+    "cross_feed_powered_mouth_overlap_mm": 5.502,
+    "cross_feed_outer_support_mm3": 142.417,
+    "cross_feed_shell_clearance_mm": 0.433,
     "old_rib_solids_present": false,
     "aug_shaft_zmin": 338.77,
-    "exact_min_distance_mm": 0.032,
+    "exact_min_distance_mm": 1.085,
     "passed": true
   },
-  "assembly_step_sha256": "d44b8c2fd874e71a49fe8ccadfa4a2e9a60cf8c38058097619b67205c7c9e233",
-  "assembly_step_bytes": 97005128,
+  "rotor_feed_phase_collision": {
+    "method": "BREP_EXACT_SAMPLED_5_DEG_PLUS_AXIAL_RADIAL_BOUND",
+    "samples": 576,
+    "checked_feed_parts": [
+      "CROSS_FEED_SHAFT",
+      "CROSS_FEED_SHELL"
+    ],
+    "unexpected": [],
+    "passed": true,
+    "continuous_clearance_proven": true,
+    "receiving_flight_ymax_mm": 234.671,
+    "tail_radial_margin_mm": 0.59,
+    "shell_radial_margin_mm": 1.5
+  },
+  "assembly_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "assembly_step_bytes": 98312862,
   "groups": [
     "S1",
     "S2-C2.1",
@@ -239,7 +261,7 @@
         "current_A": 33,
         "nameplate_W": 800,
         "current_derived_ceiling_W": 792,
-        "power_target_W": 500,
+        "operational_cap_W": 500,
         "body_mm": [
           240,
           120,
@@ -303,15 +325,15 @@
         "control_implementation": "HOST_CONTROLLER_CORE_SELF_TESTED_NOT_DEPLOYED",
         "hardware_interlock": "EL_CURRENT_LIMITER relay bank required independently of firmware behavior"
       },
-      "power_target_W": 500,
-      "total_vs_target_headroom_W": -116.0,
-      "staged_vs_target_headroom_W": 84.0,
-      "total_above_target": true,
-      "staged_above_target": false,
+      "operational_cap_W": 500,
+      "total_vs_budget_headroom_W": -116.0,
+      "staged_vs_budget_headroom_W": 84.0,
+      "total_above_budget": true,
+      "staged_above_budget": false,
       "current_derived_ceiling_W": 792,
-      "hard_ceiling_headroom_W": 176.0,
-      "hard_ceiling_exceeded": false,
-      "note": "PEAK simultaneous modeled sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. The 500 W value is a soft operating target: an admitted draw above it is WARN+logged, not hard-tripped. Demands above the 24 V x 33 A = 792 W ceiling are rejected; hardware current limiting and heater interlocks remain required."
+      "psu_current_headroom_W": 176.0,
+      "psu_current_ceiling_exceeded": false,
+      "note": "PEAK simultaneous modeled sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. The 500 W hard operating budget refuses any next demand that would exceed it. 24 V x 33 A = 792 W is the PSU current-derived hardware maximum, not operating permission; hardware current limiting and heater interlocks remain required."
     },
     "vp1_stage3": {
       "adr": "c2.1/docs/ADR-002-CHAIN-ROUTING.md",
@@ -416,7 +438,7 @@
     "vp1_against_retained": {
       "method": "BREP_EXACT_AFTER_BBOX",
       "pair_checks": 12125,
-      "bbox_candidates": 127,
+      "bbox_candidates": 122,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",
@@ -468,7 +490,7 @@
     "vp1_internal": {
       "method": "BREP_EXACT_AFTER_BBOX",
       "pair_checks": 4422,
-      "bbox_candidates": 258,
+      "bbox_candidates": 254,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",
@@ -523,7 +545,7 @@
       "At the 58 rpm M1 reference the 15T/40T mesh and 24T/12T chain B give S2 eccentric -43.5 rpm; the 2-start/16T worm wheel drives the auger at -5.4375 rpm",
       "The fin-bypass feed uses a driven four-turn auger in an open U cradle with a measured positive flight/floor gap; the flat structural slab is not a passive transport claim",
       "puller nip: spring-loaded 1.75 mm filament grip; spool winder, traverse and slip tensioner replace SPOOL-ENV",
-      "power policy: 500 W soft scheduler target; normal virtual peak 416 W, >500 W WARN+logged, absolute hard ceiling 792 W; M1/M2 loads remain UNRATED estimates",
+      "power policy: 500 W hard modeled operational budget; normal virtual peak 416 W, above-500 W demands rejected; 792 W is the separate PSU current-derived ceiling, not an operating allowance; M1/M2 loads remain UNRATED estimates",
       "retained-internal S1-SYNC_001/002 vs S1-BR-CAP_001 contacts are inherited from C1 and not audited by this build"
     ]
   },

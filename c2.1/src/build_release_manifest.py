@@ -74,7 +74,7 @@ def main():
 
     summary = {
         "revision": "C2.1-P6+VP1-STAGE5",
-        "date": "2026-09-23",
+        "date": "2026-09-24",
         "overall": ("DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD"
                     if machine["status"] == "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
                     and native["objects"] == native["valid_objects"]

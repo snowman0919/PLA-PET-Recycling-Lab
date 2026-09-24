@@ -11,7 +11,7 @@
       "FRONT_FIXED_RING_PLATE",
       "REAR_FIXED_RING_PLATE",
       "C2_FIXED_SHEAR_SENSOR_BORE",
-      "C2_PERFORATED_SCREEN_REFERENCE",
+      "C2_VERTICAL_DISCHARGE_SCREEN",
       "C2_LEFT_WEAR_SHELL",
       "C2_RIGHT_WEAR_SHELL_1",
       "C2_RIGHT_WEAR_SHELL_2",
@@ -48,7 +48,7 @@
     ],
     "object_count": 41,
     "reimported_solid_count": 41,
-    "sha256": "ec0e40e81b81a4b357621655a347150305ebbcb943bbac6785d673362b01e0b9",
+    "sha256": "06398eaa1e277f393289b1e005c7745070e169a98708c06ffaec1436b59407c0",
     "step_reimport_valid": true
   },
   "exploded": {
@@ -61,7 +61,7 @@
       "FRONT_FIXED_RING_PLATE",
       "REAR_FIXED_RING_PLATE",
       "C2_FIXED_SHEAR_SENSOR_BORE",
-      "C2_PERFORATED_SCREEN_REFERENCE",
+      "C2_VERTICAL_DISCHARGE_SCREEN",
       "C2_LEFT_WEAR_SHELL",
       "C2_RIGHT_WEAR_SHELL_1",
       "C2_RIGHT_WEAR_SHELL_2",
@@ -98,7 +98,7 @@
     ],
     "object_count": 41,
     "reimported_solid_count": 41,
-    "sha256": "ef9ec2830a76760f7b02a250cf85a091cd2c8d6e587ca8ae5749ca19222dea7e",
+    "sha256": "f312d09c1035baf098e3c05037ac9cd8c2cd1d94159bc2da4069e53532e670e3",
     "step_reimport_valid": true
   },
   "cad_numeric_frame_check": {
@@ -168,10 +168,10 @@
     "cad_rotor": "single fused envelope; physical bolts, axial retention and fits are absent/HOLD",
     "output_carrier": "unpowered reverse-rotation witness/load-extraction candidate",
     "nominal_clearance": "rigid first-contact phase take-up is calculated; elastic sharing/rating HOLD",
-    "process_elements": "C2 generated shear sensor bore, perforated screen reference, split wear liners, thermal saddles/caps integrated; screen attachment, sensor wiring and measured UA HOLD",
+    "process_elements": "C2 shear sensor bore, VP1 gravity-aligned Ø4 screen, split wear liners, thermal saddles/caps integrated; screen attachment, strength, sensor wiring and measured UA HOLD",
+    "screen_geometry": "VP1 100deg curved 2mm steel, 78 vertical Ø4 bores; C1 radial-screen STEP retained only as historical reference",
     "process_source_sha256": {
       "C2_FIXED_SHEAR": "266cb9c851e0fd0ef8cc76e73979481b6d248d9da30f7ce710c034805194107d",
-      "C1_SCREEN_REFERENCE": "c80767415ea66f164528120b9c69b6a1eecc2250851282fea4b5d088d82f1457",
       "C1_LEFT_WEAR_SHELL": "671fc949405e271748a68b015e63f575da73e9b6053e81a0a1473cbd0a7cd347",
       "C2_RIGHT_WEAR_SHELL_1": "0fe67b52f00f1f507983ddc6ccc0a410a745dce10b63b070bfc7b3b64fae28af",
       "C2_RIGHT_WEAR_SHELL_2": "c4ca2c83c36796d3420c24f23f2a3710be2fe08a5cc166e70b897008cd7f54c3",

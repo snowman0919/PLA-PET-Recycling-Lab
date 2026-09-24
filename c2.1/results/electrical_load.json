@@ -115,7 +115,7 @@
       "current_A": 33,
       "nameplate_W": 800,
       "current_derived_ceiling_W": 792,
-      "power_target_W": 500,
+      "operational_cap_W": 500,
       "body_mm": [
         240,
         120,
@@ -179,15 +179,15 @@
       "control_implementation": "HOST_CONTROLLER_CORE_SELF_TESTED_NOT_DEPLOYED",
       "hardware_interlock": "EL_CURRENT_LIMITER relay bank required independently of firmware behavior"
     },
-    "power_target_W": 500,
-    "total_vs_target_headroom_W": -116.0,
-    "staged_vs_target_headroom_W": 84.0,
-    "total_above_target": true,
-    "staged_above_target": false,
+    "operational_cap_W": 500,
+    "total_vs_budget_headroom_W": -116.0,
+    "staged_vs_budget_headroom_W": 84.0,
+    "total_above_budget": true,
+    "staged_above_budget": false,
     "current_derived_ceiling_W": 792,
-    "hard_ceiling_headroom_W": 176.0,
-    "hard_ceiling_exceeded": false,
-    "note": "PEAK simultaneous modeled sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. The 500 W value is a soft operating target: an admitted draw above it is WARN+logged, not hard-tripped. Demands above the 24 V x 33 A = 792 W ceiling are rejected; hardware current limiting and heater interlocks remain required."
+    "psu_current_headroom_W": 176.0,
+    "psu_current_ceiling_exceeded": false,
+    "note": "PEAK simultaneous modeled sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. The 500 W hard operating budget refuses any next demand that would exceed it. 24 V x 33 A = 792 W is the PSU current-derived hardware maximum, not operating permission; hardware current limiting and heater interlocks remain required."
   },
   "passed": true
 }

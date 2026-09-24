@@ -508,7 +508,7 @@ def main() -> int:
         torque_rows = []
         probe_band = [False] * (2 * n_each)  # EVER in screen band
         screen = next(r for r in bodies["solids"]
-                      if r["name"] == "C2_PERFORATED_SCREEN_REFERENCE")
+                      if r["name"] == "C2_VERTICAL_DISCHARGE_SCREEN")
         sb = screen["part_bbox"]
         # per-step telemetry: input angle + every dependent joint angle
         steps_angle_rows = []

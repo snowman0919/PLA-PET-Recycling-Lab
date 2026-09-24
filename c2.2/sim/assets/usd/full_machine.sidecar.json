@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 6739157,
-  "usd_sha256": "0a1e8eecedfafcc18d0ec85cba217a93a9e6c25ada580977416fb6070084ca5e",
+  "usd_bytes": 6875457,
+  "usd_sha256": "5a96d3e7d06f8297e07803dfdd108b2e1ec04fff0f259c9e40f53841e938d97c",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -134,22 +134,22 @@
       331.4
     ],
     "SWEEP_SOUTH": [
-      228.2,
+      224.0,
       186.0,
-      342.0
+      341.8
     ],
     "SWEEP_NORTH": [
-      228.2,
+      224.0,
       289.5,
-      342.0
+      341.8
     ],
     "TRANSFER_BELT": [
-      159.5,
+      170.0,
       232.0,
       333.3
     ],
     "TRANSFER_IDLER": [
-      239.0,
+      260.0,
       232.0,
       335.2
     ],
@@ -179,7 +179,7 @@
       "KinPaddle": "PADDLE (pose-driven kinematic worm shaft, VP1 rev 6 chain-driven transfer)",
       "KinAuger": "AUGER (pose-driven kinematic screw conveyor at S2Ecc/8, worm:wheel 8:1)",
       "KinCrossFeedFlight": "CROSS_FEED_SHAFT RH flight axial hulls, no filtering; fragments live",
-      "KinCrossFeedJournal": "CROSS_FEED_SHAFT y208..224.75 and y250.25..250.7 journal slices",
+      "KinCrossFeedJournal": "CROSS_FEED_SHAFT y208..224.75 journal slices; mouth flight and terminal shaft stay fragment-live",
       "CrossFeedBearing": "only CROSS_FEED_BEARINGS journals",
       "FeedIdler": "only CROSS_FEED_IDLER gear and journal",
       "PaddleFeedGear": "only PDL_FEED_GEAR teeth",
@@ -244,7 +244,7 @@
     "note": "2mm below hopper solid top; lateral spread set by verify_full.py across the mouth cross-section"
   },
   "source_bodies": {
-    "step_sha256": "d44b8c2fd874e71a49fe8ccadfa4a2e9a60cf8c38058097619b67205c7c9e233",
+    "step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
     "solids": 275,
     "moving_bodies": [
       "AUGER",
@@ -272,7 +272,7 @@
       "TRANSFER_IDLER"
     ]
   },
-  "revision": "eba6cbbcd20403b60611982d776d108d26e027b0",
+  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
@@ -1388,11 +1388,11 @@
       "faces": 332
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/C2_PERFORATED_SCREEN_REFERENCE__coarse.stl",
-      "prim": "/World/F0/Static/mesh_C2_PERFORATED_SCREEN_REFERENCE",
+      "mesh": "c2.2/sim/assets/out/full/C2_VERTICAL_DISCHARGE_SCREEN__coarse.stl",
+      "prim": "/World/F0/Static/mesh_C2_VERTICAL_DISCHARGE_SCREEN",
       "approx": "triangleMesh",
-      "verts": 5240,
-      "faces": 10788
+      "verts": 5756,
+      "faces": 11820
     },
     {
       "mesh": "c2.2/sim/assets/out/full/C2_LEFT_WEAR_SHELL__coarse.stl",
@@ -1636,8 +1636,8 @@
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
       "prim": "/World/F0/Static/mesh_CHUTE_BODY",
       "approx": "triangleMesh",
-      "verts": 789,
-      "faces": 1618
+      "verts": 849,
+      "faces": 1746
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CHUTE_TROUGH_FLOOR_E__coarse.stl",
@@ -2109,7 +2109,7 @@
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_seg00",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        207.9999999,
+        207.999995,
         224.75
       ],
       "verts": 135,
@@ -2121,263 +2121,362 @@
       "approx": "convexHull_segment",
       "axial_range_mm": [
         224.75,
-        225.8586956521739
+        225.848485
       ],
-      "verts": 68,
-      "faces": 132
+      "verts": 77,
+      "faces": 150
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_003_seg02",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        225.8586956521739,
-        226.9673913043478
+        225.848485,
+        226.94697
       ],
-      "verts": 76,
-      "faces": 148
+      "verts": 88,
+      "faces": 172
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_004_seg03",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        226.9673913043478,
-        228.07608695652175
+        226.94697,
+        228.045455
       ],
-      "verts": 78,
-      "faces": 152
+      "verts": 77,
+      "faces": 150
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_005_seg04",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        228.07608695652175,
-        229.18478260869566
+        228.045455,
+        229.14394
       ],
-      "verts": 84,
-      "faces": 164
+      "verts": 55,
+      "faces": 106
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_006_seg05",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        229.18478260869566,
-        230.29347826086956
+        229.14394,
+        230.242425
       ],
-      "verts": 97,
-      "faces": 190
+      "verts": 62,
+      "faces": 120
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_007_seg06",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        230.29347826086956,
-        231.40217391304347
+        230.242425,
+        231.34091
       ],
-      "verts": 110,
-      "faces": 216
+      "verts": 95,
+      "faces": 186
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_008_seg07",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        231.40217391304347,
-        232.5108695652174
+        231.34091,
+        232.439395
       ],
-      "verts": 72,
-      "faces": 140
+      "verts": 103,
+      "faces": 202
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_009_seg08",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        232.5108695652174,
-        233.6195652173913
+        232.439395,
+        233.53788
       ],
-      "verts": 73,
-      "faces": 142
+      "verts": 96,
+      "faces": 188
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_010_seg09",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        233.6195652173913,
-        234.72826086956522
+        233.53788,
+        234.63636499999998
       ],
-      "verts": 71,
-      "faces": 138
+      "verts": 102,
+      "faces": 200
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_011_seg10",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        234.72826086956522,
-        235.83695652173913
+        234.63636499999998,
+        235.73485
       ],
-      "verts": 63,
-      "faces": 122
+      "verts": 89,
+      "faces": 174
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_012_seg11",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        235.83695652173913,
-        236.94565217391303
+        235.73485,
+        236.833335
       ],
-      "verts": 60,
-      "faces": 116
+      "verts": 80,
+      "faces": 156
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_013_seg12",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        236.94565217391303,
-        238.05434782608697
+        236.833335,
+        237.93182
       ],
-      "verts": 73,
-      "faces": 142
+      "verts": 112,
+      "faces": 220
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_014_seg13",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        238.05434782608697,
-        239.16304347826087
+        237.93182,
+        239.030305
       ],
-      "verts": 72,
-      "faces": 140
+      "verts": 100,
+      "faces": 196
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_015_seg14",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        239.16304347826087,
-        240.27173913043478
+        239.030305,
+        240.12878999999998
       ],
-      "verts": 72,
-      "faces": 140
+      "verts": 83,
+      "faces": 162
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_016_seg15",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        240.27173913043478,
-        241.3804347826087
+        240.12878999999998,
+        241.227275
       ],
-      "verts": 107,
-      "faces": 210
+      "verts": 82,
+      "faces": 160
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_017_seg16",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        241.3804347826087,
-        242.48913043478262
+        241.227275,
+        242.32576
       ],
-      "verts": 98,
-      "faces": 192
+      "verts": 82,
+      "faces": 160
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_018_seg17",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        242.48913043478262,
-        243.59782608695653
+        242.32576,
+        243.42424499999998
       ],
-      "verts": 85,
-      "faces": 166
+      "verts": 91,
+      "faces": 178
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_019_seg18",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        243.59782608695653,
-        244.70652173913044
+        243.42424499999998,
+        244.52273
       ],
-      "verts": 84,
-      "faces": 164
+      "verts": 123,
+      "faces": 242
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_020_seg19",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        244.70652173913044,
-        245.81521739130434
+        244.52273,
+        245.621215
       ],
-      "verts": 99,
-      "faces": 194
+      "verts": 105,
+      "faces": 206
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_021_seg20",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        245.81521739130434,
-        246.92391304347825
+        245.621215,
+        246.7197
       ],
-      "verts": 111,
-      "faces": 218
+      "verts": 88,
+      "faces": 172
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_022_seg21",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        246.92391304347825,
-        248.0326086956522
+        246.7197,
+        247.818185
       ],
-      "verts": 57,
-      "faces": 110
+      "verts": 87,
+      "faces": 170
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_023_seg22",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        248.0326086956522,
-        249.1413043478261
+        247.818185,
+        248.91666999999998
       ],
-      "verts": 56,
-      "faces": 108
+      "verts": 90,
+      "faces": 176
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_024_seg23",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        249.1413043478261,
-        250.25
+        248.91666999999998,
+        250.015155
       ],
-      "verts": 108,
-      "faces": 212
+      "verts": 103,
+      "faces": 202
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
       "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_025_seg24",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        250.25,
-        251.71538903498737
+        250.015155,
+        251.11363999999998
       ],
-      "verts": 99,
-      "faces": 194
+      "verts": 130,
+      "faces": 256
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_026_seg25",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        251.11363999999998,
+        252.212125
+      ],
+      "verts": 94,
+      "faces": 184
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_027_seg26",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        252.212125,
+        253.31061
+      ],
+      "verts": 91,
+      "faces": 178
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_028_seg27",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        253.31061,
+        254.40909499999998
+      ],
+      "verts": 90,
+      "faces": 176
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_029_seg28",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        254.40909499999998,
+        255.50758
+      ],
+      "verts": 91,
+      "faces": 178
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_030_seg29",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        255.50758,
+        256.606065
+      ],
+      "verts": 114,
+      "faces": 224
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_031_seg30",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        256.606065,
+        257.70455
+      ],
+      "verts": 109,
+      "faces": 214
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_032_seg31",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        257.70455,
+        258.803035
+      ],
+      "verts": 60,
+      "faces": 116
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_033_seg32",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        258.803035,
+        259.90152
+      ],
+      "verts": 42,
+      "faces": 80
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
+      "prim": "/World/F0/CROSS_FEED/mesh_CROSS_FEED_SHAFT_034_seg33",
+      "approx": "convexHull_segment",
+      "axial_range_mm": [
+        259.90152,
+        261.000005
+      ],
+      "verts": 147,
+      "faces": 290
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS__coarse.stl",
@@ -2467,8 +2566,8 @@
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
       "prim": "/World/F0/Static/mesh_CROSS_FEED_SHELL",
       "approx": "triangleMesh",
-      "verts": 93,
-      "faces": 186
+      "verts": 113,
+      "faces": 222
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_BELT__fine.stl",
@@ -2633,8 +2732,8 @@
         165.67999999999998,
         167.66
       ],
-      "verts": 60,
-      "faces": 116
+      "verts": 59,
+      "faces": 114
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2666,8 +2765,8 @@
         171.61999999999998,
         173.6
       ],
-      "verts": 76,
-      "faces": 148
+      "verts": 78,
+      "faces": 152
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2688,8 +2787,8 @@
         175.57999999999998,
         177.56
       ],
-      "verts": 63,
-      "faces": 122
+      "verts": 62,
+      "faces": 120
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2699,8 +2798,8 @@
         177.56,
         179.54
       ],
-      "verts": 75,
-      "faces": 146
+      "verts": 76,
+      "faces": 148
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2710,8 +2809,8 @@
         179.54,
         181.51999999999998
       ],
-      "verts": 70,
-      "faces": 136
+      "verts": 69,
+      "faces": 134
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2721,8 +2820,8 @@
         181.51999999999998,
         183.5
       ],
-      "verts": 63,
-      "faces": 122
+      "verts": 62,
+      "faces": 120
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2732,8 +2831,8 @@
         183.5,
         185.48
       ],
-      "verts": 61,
-      "faces": 118
+      "verts": 63,
+      "faces": 122
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2743,8 +2842,8 @@
         185.48,
         187.45999999999998
       ],
-      "verts": 84,
-      "faces": 164
+      "verts": 82,
+      "faces": 160
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2776,8 +2875,8 @@
         191.42,
         193.39999999999998
       ],
-      "verts": 65,
-      "faces": 126
+      "verts": 67,
+      "faces": 130
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2787,8 +2886,8 @@
         193.39999999999998,
         195.38
       ],
-      "verts": 83,
-      "faces": 162
+      "verts": 84,
+      "faces": 164
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2798,8 +2897,8 @@
         195.38,
         197.35999999999999
       ],
-      "verts": 67,
-      "faces": 130
+      "verts": 65,
+      "faces": 126
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2809,8 +2908,8 @@
         197.35999999999999,
         199.33999999999997
       ],
-      "verts": 61,
-      "faces": 118
+      "verts": 60,
+      "faces": 116
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2820,8 +2919,8 @@
         199.33999999999997,
         201.32
       ],
-      "verts": 74,
-      "faces": 144
+      "verts": 77,
+      "faces": 150
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2842,8 +2941,8 @@
         203.29999999999998,
         205.28
       ],
-      "verts": 59,
-      "faces": 114
+      "verts": 61,
+      "faces": 118
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2853,8 +2952,8 @@
         205.28,
         207.26
       ],
-      "verts": 65,
-      "faces": 126
+      "verts": 64,
+      "faces": 124
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2864,8 +2963,8 @@
         207.26,
         209.23999999999998
       ],
-      "verts": 71,
-      "faces": 138
+      "verts": 75,
+      "faces": 146
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2875,8 +2974,8 @@
         209.23999999999998,
         211.22
       ],
-      "verts": 65,
-      "faces": 126
+      "verts": 63,
+      "faces": 122
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2886,8 +2985,8 @@
         211.22,
         213.2
       ],
-      "verts": 56,
-      "faces": 108
+      "verts": 57,
+      "faces": 110
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2908,8 +3007,8 @@
         215.18,
         217.16
       ],
-      "verts": 78,
-      "faces": 152
+      "verts": 74,
+      "faces": 144
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2919,8 +3018,8 @@
         217.16,
         219.14
       ],
-      "verts": 68,
-      "faces": 132
+      "verts": 63,
+      "faces": 122
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2930,8 +3029,8 @@
         219.14,
         221.12
       ],
-      "verts": 56,
-      "faces": 108
+      "verts": 52,
+      "faces": 100
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2941,8 +3040,8 @@
         221.12,
         223.1
       ],
-      "verts": 54,
-      "faces": 104
+      "verts": 57,
+      "faces": 110
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
@@ -2950,21 +3049,21 @@
       "approx": "convexHull_segment",
       "axial_range_mm": [
         223.1,
-        228.0000001
+        228.5000001
       ],
-      "verts": 132,
-      "faces": 260
+      "verts": 181,
+      "faces": 358
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
       "prim": "/World/F0/SWEEP_NORTH/mesh_S1_SWEEP_NORTH_seg00",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        235.9999999,
+        235.3095978477783,
         240.9
       ],
-      "verts": 138,
-      "faces": 272
+      "verts": 163,
+      "faces": 322
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -2974,8 +3073,8 @@
         240.9,
         242.88536585365856
       ],
-      "verts": 60,
-      "faces": 116
+      "verts": 66,
+      "faces": 128
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -2985,8 +3084,8 @@
         242.88536585365856,
         244.87073170731708
       ],
-      "verts": 58,
-      "faces": 112
+      "verts": 75,
+      "faces": 146
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -2996,8 +3095,8 @@
         244.87073170731708,
         246.85609756097563
       ],
-      "verts": 54,
-      "faces": 104
+      "verts": 57,
+      "faces": 110
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3007,8 +3106,8 @@
         246.85609756097563,
         248.84146341463415
       ],
-      "verts": 74,
-      "faces": 144
+      "verts": 59,
+      "faces": 114
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3018,8 +3117,8 @@
         248.84146341463415,
         250.8268292682927
       ],
-      "verts": 67,
-      "faces": 130
+      "verts": 68,
+      "faces": 132
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3029,8 +3128,8 @@
         250.8268292682927,
         252.81219512195122
       ],
-      "verts": 58,
-      "faces": 112
+      "verts": 70,
+      "faces": 136
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3040,8 +3139,8 @@
         252.81219512195122,
         254.79756097560977
       ],
-      "verts": 63,
-      "faces": 122
+      "verts": 60,
+      "faces": 116
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3051,8 +3150,8 @@
         254.79756097560977,
         256.7829268292683
       ],
-      "verts": 80,
-      "faces": 156
+      "verts": 55,
+      "faces": 106
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3062,8 +3161,8 @@
         256.7829268292683,
         258.7682926829268
       ],
-      "verts": 62,
-      "faces": 120
+      "verts": 74,
+      "faces": 144
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3073,8 +3172,8 @@
         258.7682926829268,
         260.75365853658536
       ],
-      "verts": 57,
-      "faces": 110
+      "verts": 75,
+      "faces": 146
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3084,8 +3183,8 @@
         260.75365853658536,
         262.7390243902439
       ],
-      "verts": 70,
-      "faces": 136
+      "verts": 62,
+      "faces": 120
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3095,8 +3194,8 @@
         262.7390243902439,
         264.72439024390246
       ],
-      "verts": 78,
-      "faces": 152
+      "verts": 65,
+      "faces": 126
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3106,8 +3205,8 @@
         264.72439024390246,
         266.709756097561
       ],
-      "verts": 57,
-      "faces": 110
+      "verts": 84,
+      "faces": 164
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3117,8 +3216,8 @@
         266.709756097561,
         268.6951219512195
       ],
-      "verts": 60,
-      "faces": 116
+      "verts": 59,
+      "faces": 114
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3128,8 +3227,8 @@
         268.6951219512195,
         270.68048780487806
       ],
-      "verts": 70,
-      "faces": 136
+      "verts": 54,
+      "faces": 104
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3139,8 +3238,8 @@
         270.68048780487806,
         272.6658536585366
       ],
-      "verts": 67,
-      "faces": 130
+      "verts": 64,
+      "faces": 124
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3150,8 +3249,8 @@
         272.6658536585366,
         274.65121951219515
       ],
-      "verts": 61,
-      "faces": 118
+      "verts": 74,
+      "faces": 144
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3161,8 +3260,8 @@
         274.65121951219515,
         276.63658536585365
       ],
-      "verts": 57,
-      "faces": 110
+      "verts": 54,
+      "faces": 104
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3172,8 +3271,8 @@
         276.63658536585365,
         278.6219512195122
       ],
-      "verts": 79,
-      "faces": 154
+      "verts": 57,
+      "faces": 110
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3183,8 +3282,8 @@
         278.6219512195122,
         280.60731707317075
       ],
-      "verts": 68,
-      "faces": 132
+      "verts": 60,
+      "faces": 116
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3194,8 +3293,8 @@
         280.60731707317075,
         282.5926829268293
       ],
-      "verts": 57,
-      "faces": 110
+      "verts": 73,
+      "faces": 142
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3205,8 +3304,8 @@
         282.5926829268293,
         284.5780487804878
       ],
-      "verts": 63,
-      "faces": 122
+      "verts": 59,
+      "faces": 114
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3216,8 +3315,8 @@
         284.5780487804878,
         286.56341463414634
       ],
-      "verts": 77,
-      "faces": 150
+      "verts": 56,
+      "faces": 108
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3227,8 +3326,8 @@
         286.56341463414634,
         288.5487804878049
       ],
-      "verts": 63,
-      "faces": 122
+      "verts": 80,
+      "faces": 156
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3238,8 +3337,8 @@
         288.5487804878049,
         290.53414634146344
       ],
-      "verts": 58,
-      "faces": 112
+      "verts": 71,
+      "faces": 138
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3249,8 +3348,8 @@
         290.53414634146344,
         292.51951219512193
       ],
-      "verts": 69,
-      "faces": 134
+      "verts": 58,
+      "faces": 112
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3260,8 +3359,8 @@
         292.51951219512193,
         294.5048780487805
       ],
-      "verts": 79,
-      "faces": 154
+      "verts": 63,
+      "faces": 122
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3271,8 +3370,8 @@
         294.5048780487805,
         296.49024390243903
       ],
-      "verts": 57,
-      "faces": 110
+      "verts": 78,
+      "faces": 152
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3282,8 +3381,8 @@
         296.49024390243903,
         298.4756097560976
       ],
-      "verts": 59,
-      "faces": 114
+      "verts": 63,
+      "faces": 122
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3293,8 +3392,8 @@
         298.4756097560976,
         300.46097560975613
       ],
-      "verts": 69,
-      "faces": 134
+      "verts": 56,
+      "faces": 108
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3304,8 +3403,8 @@
         300.46097560975613,
         302.4463414634146
       ],
-      "verts": 61,
-      "faces": 118
+      "verts": 65,
+      "faces": 126
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3315,8 +3414,8 @@
         302.4463414634146,
         304.4317073170732
       ],
-      "verts": 55,
-      "faces": 106
+      "verts": 77,
+      "faces": 150
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3326,8 +3425,8 @@
         304.4317073170732,
         306.4170731707317
       ],
-      "verts": 52,
-      "faces": 100
+      "verts": 57,
+      "faces": 110
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3337,8 +3436,8 @@
         306.4170731707317,
         308.4024390243903
       ],
-      "verts": 73,
-      "faces": 142
+      "verts": 59,
+      "faces": 114
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3348,8 +3447,8 @@
         308.4024390243903,
         310.38780487804877
       ],
-      "verts": 62,
-      "faces": 120
+      "verts": 64,
+      "faces": 124
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3359,8 +3458,8 @@
         310.38780487804877,
         312.3731707317073
       ],
-      "verts": 53,
-      "faces": 102
+      "verts": 75,
+      "faces": 146
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3370,8 +3469,8 @@
         312.3731707317073,
         314.35853658536587
       ],
-      "verts": 57,
-      "faces": 110
+      "verts": 59,
+      "faces": 114
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3381,8 +3480,8 @@
         314.35853658536587,
         316.3439024390244
       ],
-      "verts": 72,
-      "faces": 140
+      "verts": 57,
+      "faces": 110
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3392,8 +3491,8 @@
         316.3439024390244,
         318.32926829268297
       ],
-      "verts": 53,
-      "faces": 102
+      "verts": 74,
+      "faces": 144
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3403,8 +3502,8 @@
         318.32926829268297,
         320.31463414634146
       ],
-      "verts": 41,
-      "faces": 78
+      "verts": 61,
+      "faces": 118
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3414,8 +3513,8 @@
         320.31463414634146,
         322.3
       ],
-      "verts": 31,
-      "faces": 58
+      "verts": 29,
+      "faces": 54
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
@@ -3425,8 +3524,8 @@
         322.3,
         359.0000001
       ],
-      "verts": 138,
-      "faces": 272
+      "verts": 154,
+      "faces": 304
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_DRUM_S__fine.stl",

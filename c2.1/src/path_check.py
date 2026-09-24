@@ -77,42 +77,41 @@ def chute_checks():
 
     shell = ch.cross_feed_shell().BoundingBox()
     shell_span = shell.ymax - ch.TROUGH_Y0
-    bridge = ch.cross_feed_shell().intersect(ch._box(
-        350.0, 359.7, ch.TROUGH_Y0, 258.0, 315.8, 317.3))
+    outer_lip = ch.cross_feed_shell().intersect(ch._box(
+        359.0, 369.2, ch.TROUGH_Y0, 258.0, 315.0, 335.0))
     _add("cross_feed_shell_to_mouth", shell_span, 3.0,
-         shell_span >= 3.0 and bridge.Volume() > 1.0,
+         shell_span >= 3.0 and outer_lip.Volume() >= 30.0,
          "MEASURED",
-         "fixed under-shaft bridge extends %.1f mm past the S2 mouth "
-         "south plane; passage is only an envelope, not powered transfer"
-         % shell_span)
+         "outer metal shelf volume %.3f mm3 extends %.1f mm past the S2 mouth; "
+         "former inner bridge removed from the rotor swept sector. This "
+         "is supporting geometry, not proven fragment delivery"
+         % (outer_lip.Volume(), shell_span))
 
-    # The orthogonal screw now drives north to the frozen S2 south cap,
-    # rather than ending at y240. The cap's inner-bore bridge y250.3..258
-    # is static: its aperture is real, but neither CAD span nor a first
-    # x335 crossing proves a fragment can bridge into the mouth.
-    shaft_ymax = ch.cross_feed_shaft().BoundingBox().ymax
-    shell = ch.cross_feed_shell().BoundingBox()
+    # Measure the powered flight rather than the longer shaft journal.
+    tail = ch._cross_feed_flight(ch.CROSS_FLIGHT_Y1,
+                                 ch.CROSS_TAIL_Y1, ch.CROSS_TAIL_RO)
+    flight_ymax = tail.BoundingBox().ymax
     mouth_ymin = ch.TROUGH_Y0
-    powered_overlap = max(0.0, shaft_ymax - mouth_ymin)
+    powered_overlap = max(0.0, flight_ymax - mouth_ymin)
     _add("outlet_drop_into_mouth", powered_overlap, 4.0,
          powered_overlap >= 4.0, "MEASURED",
-         "orthogonal driven flight reaches y%.2f; S2 mouth starts y%.1f "
-         "(%.2f mm unpowered axial gap). Cap-bore shell x%.1f..%.1f "
-         "extends to y%.1f, but its bridge needs measured fragment "
-         "delivery; static aperture alone does not prove flow"
-         % (shaft_ymax, mouth_ymin, mouth_ymin - shaft_ymax,
-            shell.xmin, shell.xmax, shell.ymax))
+         "orthogonal driven flight (not the shaft journal) reaches y%.2f; "
+         "S2 mouth starts y%.1f (%.2f mm powered axial overlap). "
+         "The reduced-OD tail and rotor-relieved outer U lip are CAD-only; "
+         "fragment transfer remains unverified"
+         % (flight_ymax, mouth_ymin, powered_overlap))
 
 
 def _screen_aperture():
-    """Measure the open-arc aperture of the S2 screen at the liner radius."""
+    """Measure the exported VP1 S2 screen, not the historical C1 radial screen."""
     from OCP.BRepClass3d import BRepClass3d_SolidClassifier
     from OCP.gp import gp_Pnt
     from OCP.TopAbs import TopAbs_IN, TopAbs_ON
-    s = cq.importers.importStep(str(REPO / "c2/cad/C1_SCREEN_REFERENCE.step")).val()
-    cls = BRepClass3d_SolidClassifier(s.wrapped)
+    screen = cq.importers.importStep(
+        str(ROOT / "cad/PPR_C2_1_S2_transmission.step")).solids().vals()[7]
+    cls = BRepClass3d_SolidClassifier(screen.wrapped)
     open_angles = []
-    r, y = 63.8, 24.0
+    r, y = 63.8, 21.0
     for i in range(1440):
         a = 2 * math.pi * i / 1440
         cls.Perform(gp_Pnt(r * math.cos(a), y, r * math.sin(a)), 1e-6)
@@ -128,14 +127,54 @@ def _screen_aperture():
             prev = a
         runs.append((start, prev))
     chords = [2 * r * math.sin(math.radians((b - a) / 2)) for a, b in runs]
-    return runs, min(chords) if chords else 0.0
+    return screen, runs, min(chords) if chords else 0.0
+
+def _screen_vertical_clearance(screen):
+    """Count Ø1.5/3 straight gravity exits and their buffer-lip margin."""
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
+    from OCP.BRepExtrema import BRepExtrema_DistShapeShape
+    from OCP.gp import gp_Pnt
+    buffer = cq.importers.importStep(
+        str(REPO / "cad/parts/FEED-BUF.step")).val().translate(
+            (S2_AXIS[0], 275.0, 145.0))
+    clear = {1.5: 0, 3.0: 0}
+    receiver_margin = float("inf")
+    for angle in range(228, 313, 7):
+        x = 63.8 * math.cos(math.radians(angle))
+        for y in (9, 15, 21, 27, 33, 39):
+            # Bores are vertical through the exported metal, not a 2-D
+            # aperture proxy. A sphere can choose another trajectory, so
+            # this is a sufficient straight-drop path, not a flow result.
+            for diameter in clear:
+                column = cq.Solid.makeCylinder(
+                    diameter / 2.0, 42.0, cq.Vector(x, y, -70.0),
+                    cq.Vector(0, 0, 1))
+                if screen.intersect(column).Volume() < 1e-5:
+                    clear[diameter] += 1
+            point = BRepBuilderAPI_MakeVertex(gp_Pnt(
+                S2_AXIS[0] - x, 299.0 - y, 218.0)).Vertex()
+            receiver_margin = min(
+                receiver_margin,
+                BRepExtrema_DistShapeShape(point, buffer.wrapped).Value())
+    return clear, receiver_margin
 
 
 def downstream_checks():
-    runs, min_chord = _screen_aperture()
+    screen, runs, min_chord = _screen_aperture()
     _add("s2_screen_holes", min_chord, 3.3, min_chord >= 3.3, "MEASURED",
-         "%d open arcs measured at r63.8, y24; 4mm drilled holes, chord "
-         "aperture at the liner radius" % len(runs))
+         "%d open arcs measured at r63.8, y21 on exported VP1 screen; "
+         "liner-radius chord only, not a straight gravity passage" % len(runs))
+    clear, lip_margin = _screen_vertical_clearance(screen)
+    _add("screen_to_buffer_gravity_exit", lip_margin, 3.0,
+         clear[1.5] == clear[3.0] == 78 and lip_margin >= 2.0, "MEASURED",
+         "exported S2 screen has %d/78 Ø1.5 and %d/78 Ø3 unobstructed "
+         "vertical cylindrical paths; minimum actual FEED-BUF metal "
+         "distance at the upper receiver plane z218 is %.3f mm. "
+         "This is not a contact, capture or flow test"
+         % (clear[1.5], clear[3.0], lip_margin))
+    RESULTS[-1]["clear_paths_by_probe_mm"] = {
+        "1.5": clear[1.5], "3.0": clear[3.0]}
+    RESULTS[-1]["hole_centres_checked"] = 78
     _add("buffer_throat", 40.0, 8.0, True, "NAMEPLATE",
          "FEED-BUF loft 190x48 top / 50x40 throat, height 73 (throat limits)")
     _add("extruder_die_exit", 2.0, 1.9, True, "NAMEPLATE",
@@ -161,7 +200,7 @@ def downstream_checks():
     covered_x1 = min(ab.xmax, chm.AUG_FLIGHT_X1)
     full_span = (covered_x0 <= chm.AUG_FLIGHT_X0 + 0.1
                  and covered_x1 >= chm.AUG_FLIGHT_X1 - 0.1)
-    ok = 0.0 <= worst <= 0.1 and full_span
+    ok = 1.0 <= worst <= 2.0 and full_span
     _add("trough_auger", worst, 1.5, ok, "MEASURED",
          "geometric clearance only (not connected-flow proof): RH flight "
          "root r3/OD r8, pitch %.2f mm, four turns x%.1f..%.1f in an "
@@ -226,16 +265,17 @@ def main():
     auger_clearance = downstream_checks()
     import chute as chm
     import drive_kinematics as dk
-    # Checkpoint classes: PASS_SPACE checkpoints verify the material can
-    # physically pass each aperture; OPERATIONAL_GRIP checkpoints verify the
-    # machine actually grips/drives the filament at that station.
+    # Geometry classifications are not transport or physical tolerance proof.
     PASS_SPACE = {"S1_opening_to_pan", "trough_fin_gap",
                   "cross_feed_shell_to_mouth", "outlet_drop_into_mouth",
-                  "s2_screen_holes", "buffer_throat", "extruder_die_exit",
-                  "puller_nip", "spool_winder", "trough_auger"}
+                  "s2_screen_holes", "screen_to_buffer_gravity_exit",
+                  "buffer_throat", "extruder_die_exit",
+                  "puller_nip", "spool_winder"}
     OPERATIONAL_GRIP = {"puller_grip"}
+    MECHANICAL_CLEARANCE = {"trough_auger"}
     for r in RESULTS:
         r["checkpoint_class"] = ("operational_grip" if r["checkpoint"] in OPERATIONAL_GRIP
+                                 else "mechanical_clearance" if r["checkpoint"] in MECHANICAL_CLEARANCE
                                  else "pass_space")
     # Failed passive/paddle attempts are negative history. This checker
     # measures apertures and flight clearance, not pan pickup, outlet turn,
@@ -274,9 +314,24 @@ def main():
         "checkpoint_classes": {
             "pass_space": sorted(PASS_SPACE),
             "operational_grip": sorted(OPERATIONAL_GRIP),
+            "mechanical_clearance": sorted(MECHANICAL_CLEARANCE),
         },
         "conveyance": RESULT_CONST["conveyance"],
         "checkpoints": RESULTS,
+        "auger_clearance_assumption": {
+            "nominal_brep_mm": round(auger_clearance, 3),
+            "illustrative_adverse_stack_mm": {
+                "flight_profile_and_runout": 0.15,
+                "shell_bore": 0.15,
+                "bearing_radial_play": 0.15,
+                "axis_mount_misalignment": 0.20,
+                "thermal_differential": 0.10,
+            },
+            "stack_total_mm": 0.75,
+            "illustrative_remaining_mm": round(auger_clearance - 0.75, 3),
+            "status": "ASSUMED_NOT_TOLERANCED_OR_LOAD_TESTED",
+            "note": "Positive BRep gap and an assumed stack do not approve machining, shaft runout, thermal expansion, jamming or physical operation.",
+        },
         "all_material_path_clear": all(r["passed"] for r in RESULTS),
         "all_pass_space_clear": all(r["passed"] for r in RESULTS
                                     if r["checkpoint_class"] == "pass_space"),

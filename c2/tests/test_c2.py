@@ -21,7 +21,7 @@ from pin_constraint import verify
 class GeometryTests(unittest.TestCase):
     def test_psu_and_total_budget(self):
         c=json.loads((R/'design/requirements.json').read_text())['user_constraints']
-        self.assertEqual((c['psu_V'],c['psu_current_A'],c['psu_nameplate_W'],c['power_target_W'],c['psu_current_derived_ceiling_W']),(24,33,800,500,792))
+        self.assertEqual((c['psu_V'],c['psu_current_A'],c['psu_nameplate_W'],c['operational_cap_W'],c['psu_current_derived_ceiling_W']),(24,33,800,500,792))
         self.assertEqual(c['psu_body_mm'],[240,120,65])
         self.assertEqual(c['budget_soft_limit_KRW'],100000)
         self.assertFalse(c['motor_M1_frozen'])
@@ -183,17 +183,21 @@ class ControllerTests(unittest.TestCase):
                                      start_edge=True,run_request=True)
         self.assertEqual(r['reason'],'JAM_NO_AUTOMATIC_REVERSE')
         self.assertEqual(r['m1_fraction'],0)
-    def test_power_target_and_hard_ceiling_many_cases(self):
-        saw_over_target=False
+    def test_operating_budget_derates_heater_without_exceeding_cap(self):
         for a in range(0,601,25):
             for b in range(0,121,20):
                 for c in range(0,401,40):
                     r=allocate_power(a,b,30,c)
-                    self.assertLessEqual(r['total_W'],792)
-                    saw_over_target = saw_over_target or r['over_target']
-        self.assertTrue(saw_over_target)
-        self.assertEqual(allocate_power(450,40,30,46)['reason'],'WARN_ABOVE_SOFT_TARGET')
+                    self.assertLessEqual(r['total_W'],500)
+                    self.assertLessEqual(r['heater_W'],c)
+        self.assertEqual(allocate_power(450,40,0,10)['total_W'],500)
+        r=allocate_power(450,40,0,11)
+        self.assertEqual((r['heater_W'],r['total_W'],r['reason']),
+                         (10,500,'HEATER_DERATED_AT_OPERATING_CAP'))
+        self.assertFalse(allocate_power(450,40,30,46)['admitted'])
         self.assertFalse(allocate_power(760,20,20,0)['admitted'])
+        with self.assertRaises(ValueError):
+            allocate_power(316,0,150,100,budget_W=792)
     def test_reject_phase_current_as_negative_power(self):
         with self.assertRaises(ValueError):allocate_power(-1,10,10,50)
 

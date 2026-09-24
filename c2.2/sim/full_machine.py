@@ -92,8 +92,9 @@ PIVOTS_MM = {
     # 1:1 from the measured S2Ecc angle (open chain preserves sign).
     "PADDLE": (362.0, 298.0, 374.5),
     # Auger shaft r3 along +X at y232,z347.1. Four 28.5 mm turns of the
-    # 3 mm swept flight occupy x237.343..354.681; the matching U-shell's
-    # exact BRep radial gap is 0.032 mm in the reconstructed CAD.
+    # 3 mm swept flight occupy x237.343..354.681. U-shell clearance is
+    # measured from the rebuilt STEP; nominal cutter/shaft eccentricity,
+    # bearing play and thermal growth are not proven by static BRep distance.
     # Pose-driven at measured S2Ecc/8 about +X (worm 2-start : wheel 16T).
     "AUGER": (298.75, 232.0, 347.1),
     # The orthogonal +Y cross-feed screw bridges the auger east outlet to
@@ -107,12 +108,12 @@ PIVOTS_MM.update({
     "BELT_IDLER": (219.0, 243.5, 331.4),
 })
 PIVOTS_MM.update({
-    "SWEEP_SOUTH": (228.2, 186.0, 342.0),
-    "SWEEP_NORTH": (228.2, 289.5, 342.0),
+    "SWEEP_SOUTH": (224.0, 186.0, 341.8),
+    "SWEEP_NORTH": (224.0, 289.5, 341.8),
 })
 PIVOTS_MM.update({
-    "TRANSFER_BELT": (159.5, 232.0, 333.3),
-    "TRANSFER_IDLER": (239.0, 232.0, 335.2),
+    "TRANSFER_BELT": (170.0, 232.0, 333.3),
+    "TRANSFER_IDLER": (260.0, 232.0, 335.2),
 })
 # Exact CAD construction: three equal 12T spur gears on parallel +Y axes,
 # each external center spacing 2 * (12 / cos 15°) mm. The idler is placed
@@ -386,6 +387,15 @@ def main() -> int:
         if not any(s["name"] == name and s["body"] == body for s in solids):
             raise ValueError(f"missing or misclassified STEP part {name}: "
                              f"expected body {body}")
+    idler = next(s for s in solids if s["name"] == "S1_TRANSFER_IDLER")
+    ib = idler["part_bbox"]
+    for axis, actual in ((0, (ib[0] + ib[3]) / 2),
+                         (2, (ib[2] + ib[5]) / 2)):
+        if abs(actual - PIVOTS_MM["TRANSFER_IDLER"][axis]) > 0.25:
+            raise ValueError("transfer idler pivot disagrees with STEP")
+    belt = next(s for s in solids if s["name"] == "S1_TRANSFER_BELT")
+    if abs(belt["part_bbox"][3] - (PIVOTS_MM["TRANSFER_IDLER"][0] + 3.0)) > 0.25:
+        raise ValueError("transfer belt east tangent disagrees with STEP")
 
     def body_mass_props(body: str, recs: list[dict]):
         """Explicit mass + box-approximation diagonal inertia (kg, kg·mm²).
@@ -646,15 +656,15 @@ def main() -> int:
                     rec, f"/World/F0/{body}", pivot, 0, bounds, 0.25)
                 continue
             if rec["name"] == "CROSS_FEED_SHAFT":
-                # CAD: RH flight centreline y226..249, swept profile
-                # half-thickness 1.25; pitch 9 mm, end y250.25. Journal
-                # sections use STEP vertices as well; no derived paddle.
-                flight_lo, flight_hi = 224.75, 250.25
+                # CAD: receiving flight y226..231.35 and rotor-clear
+                # powered tail y231.35..259. Its swept face crosses the
+                # y255 mouth; its terminal shaft slice stays fragment-live.
+                flight_lo = 224.75
+                flight_hi = rec["part_bbox"][4]
                 nseg = math.ceil((flight_hi - flight_lo) / (9.0 / 8.0))
                 bounds = ([rec["part_bbox"][1], flight_lo]
                           + [flight_lo + (flight_hi - flight_lo) * i / nseg
-                             for i in range(1, nseg + 1)]
-                          + [rec["part_bbox"][4]])
+                             for i in range(1, nseg + 1)])
                 emit_axial_segment_hulls(
                     rec, f"/World/F0/{body}", pivot, 1, bounds, 0.5)
                 continue
@@ -773,8 +783,7 @@ def main() -> int:
         elif base.startswith("CROSS_FEED_SHAFT"):
             lo, hi = e["axial_range_mm"]
             group = ("KinCrossFeedJournal"
-                     if hi <= 224.75 or lo >= 250.25
-                     else "KinCrossFeedFlight")
+                     if hi <= 224.75 else "KinCrossFeedFlight")
             group_prims[group].append(e["prim"])
         elif any(base.startswith(f) for f in FIT_NAMES):
             group_prims["Fit"].append(e["prim"])
@@ -926,8 +935,9 @@ def main() -> int:
                             "conveyor at S2Ecc/8, worm:wheel 8:1)",
                 "KinCrossFeedFlight": "CROSS_FEED_SHAFT RH flight axial "
                                       "hulls, no filtering; fragments live",
-                "KinCrossFeedJournal": "CROSS_FEED_SHAFT y208..224.75 and "
-                                       "y250.25..250.7 journal slices",
+                "KinCrossFeedJournal": "CROSS_FEED_SHAFT y208..224.75 "
+                                       "journal slices; mouth flight and "
+                                       "terminal shaft stay fragment-live",
                 "CrossFeedBearing": "only CROSS_FEED_BEARINGS journals",
                 "FeedIdler": "only CROSS_FEED_IDLER gear and journal",
                 "PaddleFeedGear": "only PDL_FEED_GEAR teeth",

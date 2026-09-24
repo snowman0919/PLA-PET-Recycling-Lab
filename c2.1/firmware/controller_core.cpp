@@ -3,13 +3,11 @@
 // (build_firmware.py records target_cross_compile/flash/energization as
 // DID_NOT_RUN/HOLD).
 //
-// VP1 Stage 5 (power-policy correction): the PSU is 24 V / 33 A = 792 W
-// current-derived (800 W nameplate recorded alongside).  500 W is a SOFT
-// scheduler target, NOT a hard cap: the staged allocator admits demands up
-// to the hard ceiling; a modeled draw above the soft target is admitted and
-// flagged WARN+logged (no immediate hard trip), and a demand that would
-// exceed the hard ceiling is rejected and logged.  Hardware current
-// limiting / the EL interlock requirements are unchanged.  The device
+// VP1 Stage 5 (power policy): 500 W is the HARD modeled operating budget;
+// the staged allocator refuses any demand that would exceed it. The PSU's
+// 24 V / 33 A = 792 W current-derived maximum (800 W nameplate) is hardware
+// information, not permission to operate above 500 W. Hardware current
+// limiting / the EL interlock requirements are unchanged. The device
 // table mirrors c2.1/results/electrical_load.json; M1/M2/fan values are
 // UNRATED estimates (motors are not owned references), heaters are
 // NAMEPLATE_SOURCE.  Mutual exclusion of the EX-H100 band heaters is a
@@ -28,8 +26,7 @@ struct Limits {
   double jam_current_A;
   double jam_minimum_rpm;
   std::uint32_t stale_feedback_ms;
-  double power_target_W;   // SOFT scheduler target (WARN when exceeded)
-  double power_ceiling_W;  // absolute hard ceiling (demands above rejected)
+  double operational_cap_W;  // hard modeled operating admission limit
 };
 
 // Nameplate device table (c2.1/results/electrical_load.json).  M1/M2/fans are
@@ -47,8 +44,8 @@ enum DeviceIdx {
   DEV_BAND_A, DEV_BAND_B, DEV_BAND_C, DEV_COUNT
 };
 
-constexpr double POWER_TARGET_W = 500.0;      // SOFT scheduler target
-constexpr double PSU_HARD_CEILING_W = 792.0;  // 24 V x 33 A current-derived
+constexpr double OPERATIONAL_CAP_W = 500.0;  // hard modeled operating limit
+constexpr double PSU_CURRENT_DERIVED_W = 792.0;  // 24 V x 33 A hardware maximum
 constexpr double PSU_NAMEPLATE_W = 800.0;     // PSU nameplate (informational)
 
 constexpr std::array<PowerDevice, DEV_COUNT> POWER_DEVICES{{
@@ -62,14 +59,13 @@ constexpr std::array<PowerDevice, DEV_COUNT> POWER_DEVICES{{
 }};
 static_assert(POWER_DEVICES[DEV_FANS].W + POWER_DEVICES[DEV_H60].W +
                   POWER_DEVICES[DEV_M1].W + POWER_DEVICES[DEV_M2].W +
-                  POWER_DEVICES[DEV_BAND_A].W <= POWER_TARGET_W,
-              "staged schedule must fit inside the soft scheduler target");
+                  POWER_DEVICES[DEV_BAND_A].W <= OPERATIONAL_CAP_W,
+              "staged schedule must fit inside the hard operating budget");
 static_assert(POWER_DEVICES[DEV_FANS].W + POWER_DEVICES[DEV_H60].W +
                   POWER_DEVICES[DEV_M1].W + POWER_DEVICES[DEV_M2].W +
                   POWER_DEVICES[DEV_BAND_A].W + POWER_DEVICES[DEV_BAND_B].W >
-              POWER_TARGET_W,
-              "two simultaneous bands exceed the soft target (mutual exclusion "
-              "keeps the draw inside it or flags WARN)");
+              OPERATIONAL_CAP_W,
+              "two simultaneous bands exceed the hard operating budget");
 
 struct Inputs {
   std::uint32_t now_ms{};
@@ -104,8 +100,7 @@ struct Outputs {
   bool fans_enable{};
   bool aux_enable{};
   double admitted_W{};
-  bool over_target{};      // admitted draw above the SOFT target: WARN+logged
-  int rejected_demands{};  // demands refused at the hard ceiling
+  int rejected_demands{};  // demands refused at the operating budget
 };
 
 class Controller {
@@ -131,20 +126,19 @@ class Controller {
 
     Outputs out{State::running, false, false, {}, false, false};
     double load_W = 0.0;
-    // Staged concurrency allocator: admit demands in priority order while the
-    // instantaneous modeled draw stays inside the hard ceiling.  A draw above
-    // the SOFT target is admitted and flagged (WARN+logged, no hard trip);
-    // only the absolute ceiling rejects.
+    // Staged concurrency allocator: refuse each demand that would exceed the
+    // hard modeled operating budget, without tripping the safety latch.
+    const double budget_W = limits_.operational_cap_W < OPERATIONAL_CAP_W
+                                ? limits_.operational_cap_W : OPERATIONAL_CAP_W;
     const auto try_admit = [&](bool demanded, const PowerDevice& device,
                                bool* enable) {
       if (!demanded || *enable) return false;
-      if (load_W + device.W > limits_.power_ceiling_W) {
-        out.rejected_demands += 1;  // logged refusal at the hard ceiling
+      if (!(device.W >= 0.0) || !(load_W + device.W <= budget_W)) {
+        out.rejected_demands += 1;  // logged operating-budget refusal
         return false;
       }
       *enable = true;
       load_W += device.W;
-      if (load_W > limits_.power_target_W) out.over_target = true;
       return true;
     };
     try_admit(in.fan_required, POWER_DEVICES[DEV_FANS], &out.fans_enable);
@@ -152,7 +146,7 @@ class Controller {
     try_admit(in.m1_run && !in.buffer_full, POWER_DEVICES[DEV_M1], &out.m1_enable);
     try_admit(in.m2_run, POWER_DEVICES[DEV_M2], &out.m2_enable);
     // Modeled auxiliary load (UNRATED, e.g. a future accessory): admitted
-    // under the same semantics, lowest motor-side priority.
+    // under the same hard budget, lowest motor-side priority.
     try_admit(in.aux_demand_W > 0.0,
               PowerDevice{"modeled auxiliary load", in.aux_demand_W},
               &out.aux_enable);
@@ -171,11 +165,11 @@ class Controller {
     out.admitted_W = load_W;
 
     // Structural safety invariant: never more than one 100 W band, and the
-    // admitted modeled draw never exceeds the current-derived hard ceiling.
+    // admitted modeled draw never exceeds the hard operating budget.
     int bands = 0;
     for (bool b : out.h100_enable) bands += b ? 1 : 0;
     assert(bands <= 1);
-    assert(load_W <= limits_.power_ceiling_W);
+    assert(load_W <= budget_W);
     (void)bands;
     return out;
   }
@@ -206,7 +200,7 @@ static int band_count(const Outputs& out) {
 }
 
 int main() {
-  const Limits limits{60.0, 10.0, 5.0, 500, POWER_TARGET_W, PSU_HARD_CEILING_W};  // Test values, not certified limits.
+  const Limits limits{60.0, 10.0, 5.0, 500, OPERATIONAL_CAP_W};  // Test values, not certified limits.
   Controller controller(limits);
 
   // 1: boots latched
@@ -220,7 +214,7 @@ int main() {
   in.fan_required = true;
   auto out = controller.step(in, false);
   assert(out.state == State::running && out.m1_enable && out.fans_enable);
-  assert(out.admitted_W <= POWER_TARGET_W);
+  assert(out.admitted_W <= OPERATIONAL_CAP_W);
   // 4: independent overtemp opens -> fault latched, everything off
   in.independent_overtemp_closed = false;
   out = controller.step(in, false);
@@ -285,7 +279,7 @@ int main() {
   assert(band_count(out) == 1);
   assert(out.h100_enable[0]);
   assert(out.admitted_W == 16.0 + 60.0 + 196.8 + 43.2 + 100.0);
-  assert(out.admitted_W <= POWER_TARGET_W && !out.over_target);
+  assert(out.admitted_W <= OPERATIONAL_CAP_W);
   // 15: band rotation moves the admitted band, still never two
   in.band_rotation_ms = 30000;
   out = power.step(in, false);
@@ -302,25 +296,24 @@ int main() {
   out = power.step(in, false);
   assert(out.state == State::fault_latched && band_count(out) == 0 &&
          !out.h60_enable);
-  // 17: soft target 400 W -> band ADMITTED and flagged WARN (no hard trip)
-  const Limits tight{60.0, 10.0, 5.0, 500, 400.0, PSU_HARD_CEILING_W};
-  Controller target_limited(tight);
+  // 17: reduced 400 W hard budget refuses the band, preserving base loads
+  const Limits tight{60.0, 10.0, 5.0, 500, 400.0};
+  Controller budget_limited(tight);
   in = safe_inputs();
-  assert(target_limited.step(in, true).state == State::ready);  // manual reset unlatches
+  assert(budget_limited.step(in, true).state == State::ready);
   in.run_command = true;
   in.h60_demand = true;
   in.m1_run = in.m2_run = true;
   in.fan_required = true;
   in.h100_demand = {true, true, true};
-  out = target_limited.step(in, false);
-  assert(band_count(out) == 1);  // admitted: 416 W above the 400 W soft target
+  out = budget_limited.step(in, false);
+  assert(band_count(out) == 0);
   assert(out.m1_enable && out.m2_enable && out.h60_enable && out.fans_enable);
-  assert(out.admitted_W == 416.0);
-  assert(out.over_target && out.rejected_demands == 0);  // WARN+logged, running
+  assert(out.admitted_W == 316.0 && out.rejected_demands == 3);
 
-  // 18: modeled >500 W demand admitted under WARN (draw 566 W <= 792 W)
-  const Limits soft{60.0, 10.0, 5.0, 500, POWER_TARGET_W, PSU_HARD_CEILING_W};
-  Controller overload(soft);
+  // 18: 566 W requested (316 W base + 150 W aux + 100 W band);
+  //     accept the aux first and refuse every band at the 500 W budget
+  Controller overload(limits);
   in = safe_inputs();
   assert(overload.step(in, true).state == State::ready);
   in.run_command = true;
@@ -331,27 +324,31 @@ int main() {
   in.aux_demand_W = 150.0;
   out = overload.step(in, false);
   assert(out.state == State::running);
-  assert(out.aux_enable && band_count(out) == 1);
-  assert(out.admitted_W == 566.0);          // > 500 W soft target
-  assert(out.over_target);                  // flagged WARN+logged, NOT tripped
-  assert(out.rejected_demands == 0);        // inside the 792 W hard ceiling
-  // 19: modeled >792 W demand rejected at the hard ceiling
-  Controller hard{Limits{60.0, 10.0, 5.0, 500, POWER_TARGET_W, 792.0}};
-  in.aux_demand_W = 500.0;  // 316 + 500 = 816 W > 792 W ceiling
+  assert(out.aux_enable && band_count(out) == 0);
+  assert(out.admitted_W == 466.0 && out.rejected_demands == 3);
+  // The PSU's 792 W hardware figure cannot override the operating cap.
+  Controller psu_not_budget{Limits{60.0, 10.0, 5.0, 500, PSU_CURRENT_DERIVED_W}};
   in.run_command = false;
-  assert(hard.step(in, true).state == State::ready);  // manual reset unlatches
+  assert(psu_not_budget.step(in, true).state == State::ready);
   in.run_command = true;
-  out = hard.step(in, false);
-  assert(out.state == State::running);
-  assert(!out.aux_enable);                  // auxiliary demand refused
-  assert(out.rejected_demands == 1);        // logged
-  assert(out.admitted_W == 416.0);          // base 316 W + one band, hard ceiling held
-  assert(out.admitted_W <= PSU_HARD_CEILING_W);
+  const auto capped = psu_not_budget.step(in, false);
+  assert(capped.admitted_W == 466.0 && band_count(capped) == 0);
+  // 19: exact 500 W admission is permitted (316 W base + 184 W aux).
+  in.aux_demand_W = 184.0;
+  out = overload.step(in, false);
+  assert(out.aux_enable && band_count(out) == 0);
+  assert(out.admitted_W == OPERATIONAL_CAP_W);
+  // 20: 816 W request cannot admit the auxiliary, but a band still fits.
+  in.aux_demand_W = 500.0;
+  out = overload.step(in, false);
+  assert(!out.aux_enable && band_count(out) == 1);
+  assert(out.rejected_demands == 1 && out.admitted_W == 416.0);
+  assert(out.admitted_W <= OPERATIONAL_CAP_W);
 
-  std::cout << "controller_core_self_test: 19 cases passed; no reverse or "
-               "auto-restart path; band mutual exclusion; soft target "
-               << static_cast<int>(POWER_TARGET_W) << " W (WARN above), hard "
-               "ceiling " << static_cast<int>(PSU_HARD_CEILING_W)
-               << " W (PSU 24 V x 33 A; nameplate "
-               << static_cast<int>(PSU_NAMEPLATE_W) << " W) enforced\n";
+  std::cout << "controller_core_self_test: 20 cases passed; no reverse or "
+               "auto-restart path; band mutual exclusion; hard operating budget "
+               << static_cast<int>(OPERATIONAL_CAP_W) << " W; PSU "
+               "current-derived maximum " << static_cast<int>(PSU_CURRENT_DERIVED_W)
+               << " W (24 V x 33 A; nameplate "
+               << static_cast<int>(PSU_NAMEPLATE_W) << " W) is not operating permission\n";
 }

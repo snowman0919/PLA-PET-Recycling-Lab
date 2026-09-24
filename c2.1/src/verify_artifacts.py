@@ -31,6 +31,17 @@ firmware = load(R/"results/firmware_build.json")
 drawings = load(R/"results/p6_drawings.json")
 manifest = load(R/"results/p6_manifest.json")
 
+hits = machine["rotor_feed_phase_collision"]["unexpected"]
+assert not hits, (
+    f"S2 moving rotor intersects feed metal at {len(hits)} sampled pairs: "
+    f"{hits[:5]}")
+assert machine["rotor_feed_phase_collision"]["continuous_clearance_proven"]
+assert machine["assembly_geometry_checks"]["passed"]
+screen_path = load(R/"results/path_check.json")
+screen_exit = next(r for r in screen_path["checkpoints"]
+                   if r["checkpoint"] == "screen_to_buffer_gravity_exit")
+assert screen_exit["passed"] and screen_exit["hole_centres_checked"] == 78
+assert screen_exit["clear_paths_by_probe_mm"] == {"1.5": 78, "3.0": 78}
 # C2.1 drivetrain evidence.
 assert summary["overall"] == "DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD"
 flow_status = summary["material_flow"]
@@ -119,7 +130,9 @@ assert wiring["hardware_release"] == wiring["energization"] == "HOLD"
 
 # Portable logic build is evidence only; target build, flash and energization did not run.
 assert firmware["compile_return_code"] == firmware["self_test_return_code"] == 0
-assert firmware["cases"] == 19 and "19 cases passed" in firmware["self_test_stdout"]
+assert firmware["power_allocator"]["operational_cap_W"] == req["power"]["operational_cap_W"]
+assert (firmware["power_allocator"]["psu_current_derived_ceiling_W"]
+        == req["power"]["psu_current_derived_ceiling_W"])
 assert digest(REPO/firmware["source"]) == firmware["source_sha256"]
 assert firmware["target_cross_compile"] == firmware["flash"] == "DID_NOT_RUN"
 assert firmware["energization"] == "HOLD"

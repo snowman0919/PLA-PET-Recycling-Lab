@@ -1,13 +1,13 @@
 {
   "schema": "full_machine_hull_audit/1",
   "bodies_json": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/out/full/bodies.json",
-  "step_sha256": "e6793f06a8c7dcd31576b8e86135b91c0338d47f0fe844149db1832ffa80eaf5",
-  "revision": "1c046a551f70f91b6c7c814b8123c5445b4ddd7f",
+  "step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
   "method": "closed-mesh volume (divergence theorem) of the converted STL vs scipy ConvexHull volume; occlusion ratio = hull/mesh; ratio 1.0 = convex solid, >1.05 flagged as an occluded pocket/aperture",
   "summary": {
-    "solids": 253,
-    "moving_solids": 84,
-    "flagged": 186,
+    "solids": 275,
+    "moving_solids": 98,
+    "flagged": 209,
     "flagged_names": [
       "FR-2040-630_001",
       "FR-2040-630_002",
@@ -91,6 +91,7 @@
       "S1-CUT-B-P11_001",
       "S1-SPACER-B_012",
       "S1-CUT-B-P12_001",
+      "S1-SHAFT-B_001",
       "BR-6205_003",
       "BR-6205_004",
       "S1-SYNC_001",
@@ -141,7 +142,7 @@
       "FRONT_FIXED_RING_PLATE",
       "REAR_FIXED_RING_PLATE",
       "C2_FIXED_SHEAR_SENSOR_BORE",
-      "C2_PERFORATED_SCREEN_REFERENCE",
+      "C2_VERTICAL_DISCHARGE_SCREEN",
       "C2_LEFT_WEAR_SHELL",
       "C2_RIGHT_WEAR_SHELL_1",
       "C2_RIGHT_WEAR_SHELL_2",
@@ -174,13 +175,35 @@
       "AUG_SHAFT",
       "AUG_BEARINGS",
       "AUG_BEARINGS",
-      "AUG_BEARINGS",
       "AUG_WHEEL",
       "PDL_FEED_GEAR",
       "CROSS_FEED_IDLER",
       "CROSS_FEED_GEAR",
       "CROSS_FEED_SHAFT",
       "CROSS_FEED_SHELL",
+      "S1_BELT",
+      "S1_BELT",
+      "S1_BELT_DRIVE",
+      "S1_BELT_IDLER",
+      "S1_BELT_IDLER",
+      "S1_BELT_BEARINGS",
+      "S1_BELT_BEARINGS",
+      "S1_BELT_BEARINGS",
+      "S1_BELT_BEARINGS",
+      "S1_BELT_FOLLOWER",
+      "S1_BELT_CHAIN",
+      "S1_SWEEP_SOUTH",
+      "S1_SWEEP_NORTH",
+      "S1_SWEEP_GEAR_DRUM_S",
+      "S1_SWEEP_GEAR_S",
+      "S1_SWEEP_GEAR_DRUM_N",
+      "S1_SWEEP_GEAR_N",
+      "S1_SWEEP_BEARINGS",
+      "S1_SWEEP_BEARINGS",
+      "S1_TRANSFER_BELT",
+      "S1_TRANSFER_IDLER",
+      "S1_TRANSFER_BEARINGS",
+      "S1_TRANSFER_BEARINGS",
       "GUARD_S2_RING",
       "GUARD_CHAIN_B",
       "GUARD_CHAIN_B",
@@ -203,9 +226,9 @@
     "max_occlusion_ratio": 14.18799,
     "by_body": {
       "STATIC": {
-        "solids": 169,
+        "solids": 177,
         "max_occlusion": 14.18799,
-        "flagged": 111
+        "flagged": 119
       },
       "IN_SHAFT": {
         "solids": 4,
@@ -224,8 +247,8 @@
       },
       "S1B": {
         "solids": 29,
-        "max_occlusion": 2.04051,
-        "flagged": 26
+        "max_occlusion": 4.12944,
+        "flagged": 27
       },
       "S2_ROTOR": {
         "solids": 1,
@@ -274,7 +297,7 @@
       },
       "AUGER": {
         "solids": 2,
-        "max_occlusion": 3.64868,
+        "max_occlusion": 3.63451,
         "flagged": 2
       },
       "CROSS_FEED_IDLER": {
@@ -284,8 +307,43 @@
       },
       "CROSS_FEED": {
         "solids": 2,
-        "max_occlusion": 2.79517,
+        "max_occlusion": 3.05805,
         "flagged": 2
+      },
+      "BELT": {
+        "solids": 2,
+        "max_occlusion": 5.73827,
+        "flagged": 2
+      },
+      "BELT_DRIVE": {
+        "solids": 2,
+        "max_occlusion": 1.47422,
+        "flagged": 2
+      },
+      "BELT_IDLER": {
+        "solids": 4,
+        "max_occlusion": 1.55537,
+        "flagged": 4
+      },
+      "SWEEP_SOUTH": {
+        "solids": 2,
+        "max_occlusion": 4.30149,
+        "flagged": 2
+      },
+      "SWEEP_NORTH": {
+        "solids": 2,
+        "max_occlusion": 4.43911,
+        "flagged": 2
+      },
+      "TRANSFER_BELT": {
+        "solids": 1,
+        "max_occlusion": 4.39076,
+        "flagged": 1
+      },
+      "TRANSFER_IDLER": {
+        "solids": 1,
+        "max_occlusion": 1.32501,
+        "flagged": 1
       }
     }
   },
@@ -293,11 +351,19 @@
     "S1_cutter_stacks": {
       "collision": "per-solid (each cutter disc, spacer, shaft segment its own collider)",
       "inter_solid_channels": "OPEN by construction \u2014 no hull spans multiple solids; disc pitch 6.4 mm with spacer-filled hubs, A/B interleave gap is between bodies (articulation self-collision off)",
-      "in_solid_occlusion": "hook pockets on cutter rims \u2014 handled by convexDecomposition"
+      "in_solid_occlusion": "hook pockets on cutter rims are approximated by tight per-solid hulls; cutting contact is not proven"
     },
     "S2_rotor": {
       "collision": "single solid RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE \u2014 convex hull would fill the lobe windows and weld the rotor to an effective full cylinder",
       "fix": "convexDecomposition approximation (PhysX cooked V-HACD) authored in full_machine.py"
+    },
+    "S2_screen": {
+      "method": "17_SAMPLED_VERTICAL_RAYS_PER_3MM_HOLE_ON_STATIC_TRIANGLE_MESH",
+      "holes": 78,
+      "sampled_rays": 1326,
+      "blocked_holes": [],
+      "passed": true,
+      "limitation": "sampled mesh rays do not prove dynamic passage or PhysX cooking"
     }
   },
   "flagged_above_threshold": [
@@ -794,6 +860,12 @@
       "decision": "keep_hull"
     },
     {
+      "name": "S1-SHAFT-B_001",
+      "body": "S1B",
+      "occlusion_ratio": 4.12944,
+      "decision": "keep_hull"
+    },
+    {
       "name": "BR-6205_003",
       "body": "STATIC",
       "occlusion_ratio": 1.30062,
@@ -1094,9 +1166,9 @@
       "decision": "triangleMesh_concave"
     },
     {
-      "name": "C2_PERFORATED_SCREEN_REFERENCE",
+      "name": "C2_VERTICAL_DISCHARGE_SCREEN",
       "body": "STATIC",
-      "occlusion_ratio": 9.89771,
+      "occlusion_ratio": 10.25948,
       "decision": "triangleMesh_concave"
     },
     {
@@ -1228,7 +1300,7 @@
     {
       "name": "CHUTE_BODY",
       "body": "STATIC",
-      "occlusion_ratio": 4.37286,
+      "occlusion_ratio": 7.25801,
       "decision": "triangleMesh_concave"
     },
     {
@@ -1276,14 +1348,8 @@
     {
       "name": "AUG_SHAFT",
       "body": "AUGER",
-      "occlusion_ratio": 3.64868,
+      "occlusion_ratio": 3.63451,
       "decision": "keep_hull"
-    },
-    {
-      "name": "AUG_BEARINGS",
-      "body": "STATIC",
-      "occlusion_ratio": 1.30451,
-      "decision": "triangleMesh_concave"
     },
     {
       "name": "AUG_BEARINGS",
@@ -1324,13 +1390,151 @@
     {
       "name": "CROSS_FEED_SHAFT",
       "body": "CROSS_FEED",
-      "occlusion_ratio": 2.79517,
+      "occlusion_ratio": 3.05805,
       "decision": "keep_hull"
     },
     {
       "name": "CROSS_FEED_SHELL",
       "body": "STATIC",
-      "occlusion_ratio": 4.6311,
+      "occlusion_ratio": 5.37082,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT",
+      "body": "BELT",
+      "occlusion_ratio": 5.73827,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT",
+      "body": "BELT",
+      "occlusion_ratio": 5.73827,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_DRIVE",
+      "body": "BELT_DRIVE",
+      "occlusion_ratio": 1.40774,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "body": "BELT_IDLER",
+      "occlusion_ratio": 1.12862,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "body": "BELT_IDLER",
+      "occlusion_ratio": 1.12862,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.24008,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.24008,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.24008,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 1.24008,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT_FOLLOWER",
+      "body": "BELT_DRIVE",
+      "occlusion_ratio": 1.47422,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_CHAIN",
+      "body": "STATIC",
+      "occlusion_ratio": 2.57156,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_SWEEP_SOUTH",
+      "body": "SWEEP_SOUTH",
+      "occlusion_ratio": 4.30149,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_NORTH",
+      "body": "SWEEP_NORTH",
+      "occlusion_ratio": 4.43911,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_S",
+      "body": "BELT_IDLER",
+      "occlusion_ratio": 1.55537,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_S",
+      "body": "SWEEP_SOUTH",
+      "occlusion_ratio": 1.55537,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_N",
+      "body": "BELT_IDLER",
+      "occlusion_ratio": 1.55537,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_N",
+      "body": "SWEEP_NORTH",
+      "occlusion_ratio": 1.55537,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 6.13612,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 6.13612,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_TRANSFER_BELT",
+      "body": "TRANSFER_BELT",
+      "occlusion_ratio": 4.39076,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_TRANSFER_IDLER",
+      "body": "TRANSFER_IDLER",
+      "occlusion_ratio": 1.32501,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 2.22453,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "body": "STATIC",
+      "occlusion_ratio": 2.22453,
       "decision": "triangleMesh_concave"
     },
     {
@@ -2380,11 +2584,11 @@
       "name": "S1-SHAFT-B_001",
       "body": "S1B",
       "lod": "fine",
-      "mesh_volume_mm3": 116830.1,
-      "hull_volume_mm3": 122671.1,
-      "occlusion_ratio": 1.05,
-      "occlusion_flag": false,
-      "hull_vertices": 308,
+      "mesh_volume_mm3": 177007.1,
+      "hull_volume_mm3": 730940.5,
+      "occlusion_ratio": 4.12944,
+      "occlusion_flag": true,
+      "hull_vertices": 492,
       "decision": "keep_hull"
     },
     {
@@ -3147,12 +3351,12 @@
       "decision": "triangleMesh_concave"
     },
     {
-      "name": "C2_PERFORATED_SCREEN_REFERENCE",
+      "name": "C2_VERTICAL_DISCHARGE_SCREEN",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 6960.0,
+      "mesh_volume_mm3": 6714.6,
       "hull_volume_mm3": 68888.2,
-      "occlusion_ratio": 9.89771,
+      "occlusion_ratio": 10.25948,
       "occlusion_flag": true,
       "hull_vertices": 351,
       "decision": "triangleMesh_concave"
@@ -3535,11 +3739,11 @@
       "name": "CHUTE_BODY",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 133813.0,
-      "hull_volume_mm3": 585146.4,
-      "occlusion_ratio": 4.37286,
+      "mesh_volume_mm3": 182454.1,
+      "hull_volume_mm3": 1324253.1,
+      "occlusion_ratio": 7.25801,
       "occlusion_flag": true,
-      "hull_vertices": 28,
+      "hull_vertices": 25,
       "decision": "triangleMesh_concave"
     },
     {
@@ -3623,23 +3827,12 @@
       "name": "AUG_SHAFT",
       "body": "AUGER",
       "lod": "fine",
-      "mesh_volume_mm3": 6471.6,
-      "hull_volume_mm3": 23613.0,
-      "occlusion_ratio": 3.64868,
+      "mesh_volume_mm3": 7262.7,
+      "hull_volume_mm3": 26396.3,
+      "occlusion_ratio": 3.63451,
       "occlusion_flag": true,
-      "hull_vertices": 602,
+      "hull_vertices": 578,
       "decision": "keep_hull"
-    },
-    {
-      "name": "AUG_BEARINGS",
-      "body": "STATIC",
-      "lod": "coarse",
-      "mesh_volume_mm3": 400.1,
-      "hull_volume_mm3": 522.0,
-      "occlusion_ratio": 1.30451,
-      "occlusion_flag": true,
-      "hull_vertices": 8,
-      "decision": "triangleMesh_concave"
     },
     {
       "name": "AUG_BEARINGS",
@@ -3711,11 +3904,11 @@
       "name": "CROSS_FEED_SHAFT",
       "body": "CROSS_FEED",
       "lod": "fine",
-      "mesh_volume_mm3": 3087.9,
-      "hull_volume_mm3": 8631.1,
-      "occlusion_ratio": 2.79517,
+      "mesh_volume_mm3": 2338.1,
+      "hull_volume_mm3": 7150.1,
+      "occlusion_ratio": 3.05805,
       "occlusion_flag": true,
-      "hull_vertices": 480,
+      "hull_vertices": 552,
       "decision": "keep_hull"
     },
     {
@@ -3854,11 +4047,264 @@
       "name": "CROSS_FEED_SHELL",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 4166.9,
-      "hull_volume_mm3": 19297.3,
-      "occlusion_ratio": 4.6311,
+      "mesh_volume_mm3": 3393.3,
+      "hull_volume_mm3": 18224.7,
+      "occlusion_ratio": 5.37082,
       "occlusion_flag": true,
       "hull_vertices": 25,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT",
+      "body": "BELT",
+      "lod": "fine",
+      "mesh_volume_mm3": 19386.6,
+      "hull_volume_mm3": 111245.6,
+      "occlusion_ratio": 5.73827,
+      "occlusion_flag": true,
+      "hull_vertices": 132,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT",
+      "body": "BELT",
+      "lod": "fine",
+      "mesh_volume_mm3": 19386.6,
+      "hull_volume_mm3": 111245.6,
+      "occlusion_ratio": 5.73827,
+      "occlusion_flag": true,
+      "hull_vertices": 132,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_DRIVE",
+      "body": "BELT_DRIVE",
+      "lod": "fine",
+      "mesh_volume_mm3": 16588.9,
+      "hull_volume_mm3": 23352.9,
+      "occlusion_ratio": 1.40774,
+      "occlusion_flag": true,
+      "hull_vertices": 494,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "body": "BELT_IDLER",
+      "lod": "fine",
+      "mesh_volume_mm3": 4198.8,
+      "hull_volume_mm3": 4738.9,
+      "occlusion_ratio": 1.12862,
+      "occlusion_flag": true,
+      "hull_vertices": 380,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "body": "BELT_IDLER",
+      "lod": "fine",
+      "mesh_volume_mm3": 4198.8,
+      "hull_volume_mm3": 4738.9,
+      "occlusion_ratio": 1.12862,
+      "occlusion_flag": true,
+      "hull_vertices": 380,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 376.3,
+      "hull_volume_mm3": 466.7,
+      "occlusion_ratio": 1.24008,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 376.3,
+      "hull_volume_mm3": 466.7,
+      "occlusion_ratio": 1.24008,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 376.3,
+      "hull_volume_mm3": 466.7,
+      "occlusion_ratio": 1.24008,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 376.3,
+      "hull_volume_mm3": 466.7,
+      "occlusion_ratio": 1.24008,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_BELT_FOLLOWER",
+      "body": "BELT_DRIVE",
+      "lod": "fine",
+      "mesh_volume_mm3": 10737.3,
+      "hull_volume_mm3": 15829.2,
+      "occlusion_ratio": 1.47422,
+      "occlusion_flag": true,
+      "hull_vertices": 120,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_BELT_CHAIN",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 23782.2,
+      "hull_volume_mm3": 61157.4,
+      "occlusion_ratio": 2.57156,
+      "occlusion_flag": true,
+      "hull_vertices": 176,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_SWEEP_SOUTH",
+      "body": "SWEEP_SOUTH",
+      "lod": "fine",
+      "mesh_volume_mm3": 2192.5,
+      "hull_volume_mm3": 9430.8,
+      "occlusion_ratio": 4.30149,
+      "occlusion_flag": true,
+      "hull_vertices": 739,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_NORTH",
+      "body": "SWEEP_NORTH",
+      "lod": "fine",
+      "mesh_volume_mm3": 2825.9,
+      "hull_volume_mm3": 12544.4,
+      "occlusion_ratio": 4.43911,
+      "occlusion_flag": true,
+      "hull_vertices": 769,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_S",
+      "body": "BELT_IDLER",
+      "lod": "fine",
+      "mesh_volume_mm3": 529.5,
+      "hull_volume_mm3": 823.5,
+      "occlusion_ratio": 1.55537,
+      "occlusion_flag": true,
+      "hull_vertices": 120,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_S",
+      "body": "SWEEP_SOUTH",
+      "lod": "fine",
+      "mesh_volume_mm3": 529.5,
+      "hull_volume_mm3": 823.5,
+      "occlusion_ratio": 1.55537,
+      "occlusion_flag": true,
+      "hull_vertices": 120,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_N",
+      "body": "BELT_IDLER",
+      "lod": "fine",
+      "mesh_volume_mm3": 529.5,
+      "hull_volume_mm3": 823.5,
+      "occlusion_ratio": 1.55537,
+      "occlusion_flag": true,
+      "hull_vertices": 120,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_N",
+      "body": "SWEEP_NORTH",
+      "lod": "fine",
+      "mesh_volume_mm3": 529.5,
+      "hull_volume_mm3": 823.5,
+      "occlusion_ratio": 1.55537,
+      "occlusion_flag": true,
+      "hull_vertices": 120,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 16.8,
+      "hull_volume_mm3": 103.1,
+      "occlusion_ratio": 6.13612,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 16.8,
+      "hull_volume_mm3": 103.1,
+      "occlusion_ratio": 6.13612,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_TRANSFER_BELT",
+      "body": "TRANSFER_BELT",
+      "lod": "fine",
+      "mesh_volume_mm3": 4291.7,
+      "hull_volume_mm3": 18844.0,
+      "occlusion_ratio": 4.39076,
+      "occlusion_flag": true,
+      "hull_vertices": 132,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_TRANSFER_IDLER",
+      "body": "TRANSFER_IDLER",
+      "lod": "fine",
+      "mesh_volume_mm3": 342.1,
+      "hull_volume_mm3": 453.2,
+      "occlusion_ratio": 1.32501,
+      "occlusion_flag": true,
+      "hull_vertices": 504,
+      "decision": "keep_hull"
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 17.5,
+      "hull_volume_mm3": 38.9,
+      "occlusion_ratio": 2.22453,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
+      "decision": "triangleMesh_concave"
+    },
+    {
+      "name": "S1_TRANSFER_BEARINGS",
+      "body": "STATIC",
+      "lod": "coarse",
+      "mesh_volume_mm3": 17.5,
+      "hull_volume_mm3": 38.9,
+      "occlusion_ratio": 2.22453,
+      "occlusion_flag": true,
+      "hull_vertices": 52,
       "decision": "triangleMesh_concave"
     },
     {

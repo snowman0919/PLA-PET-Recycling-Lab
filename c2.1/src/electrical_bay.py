@@ -143,14 +143,14 @@ def load_inventory():
     # Staged heater power control (VP1 Stage 5): the host-tested controller
     # sequences the heater bands so at most ONE EX-H100 band plus the EX-H60
     # cartridge draw at any instant (160 W heater load); motors and fans are
-    # continuous.  This keeps the modeled cycle below the 500 W soft target.
+    # continuous. The normal modeled cycle fits the 500 W hard operating budget.
     # The independent EL_CURRENT_LIMITER hardware interlock remains required;
     # no target build, flash, or physical energization has been performed.
     staged_heaters = 100.0 + 60.0
     continuous = total - 100.0 * 3 - 60.0  # motors + fans
     staged_peak = continuous + staged_heaters
     psu = params["psu"]
-    target = psu["power_target_W"]
+    budget = psu["operational_cap_W"]
     ceiling = psu["current_derived_ceiling_W"]
     return {
         "psu": {
@@ -158,7 +158,7 @@ def load_inventory():
             "current_A": psu["current_A"],
             "nameplate_W": psu["nameplate_W"],
             "current_derived_ceiling_W": ceiling,
-            "power_target_W": target,
+            "operational_cap_W": budget,
             "body_mm": psu["body_mm"],
             "owned": True,
         },
@@ -174,20 +174,20 @@ def load_inventory():
             "hardware_interlock": "EL_CURRENT_LIMITER relay bank required "
                                   "independently of firmware behavior",
         },
-        "power_target_W": target,
-        "total_vs_target_headroom_W": target - total,
-        "staged_vs_target_headroom_W": target - staged_peak,
-        "total_above_target": total > target,
-        "staged_above_target": staged_peak > target,
+        "operational_cap_W": budget,
+        "total_vs_budget_headroom_W": budget - total,
+        "staged_vs_budget_headroom_W": budget - staged_peak,
+        "total_above_budget": total > budget,
+        "staged_above_budget": staged_peak > budget,
         "current_derived_ceiling_W": ceiling,
-        "hard_ceiling_headroom_W": ceiling - total,
-        "hard_ceiling_exceeded": total > ceiling,
+        "psu_current_headroom_W": ceiling - total,
+        "psu_current_ceiling_exceeded": total > ceiling,
         "note": ("PEAK simultaneous modeled sum. M1/M2 are not-owned "
                  "references -> UNRATED estimates, not ratings. The 500 W "
-                 "value is a soft operating target: an admitted draw above "
-                 "it is WARN+logged, not hard-tripped. Demands above the "
-                 "24 V x 33 A = 792 W ceiling are rejected; hardware current "
-                 "limiting and heater interlocks remain required."),
+                 "hard operating budget refuses any next demand that would "
+                 "exceed it. 24 V x 33 A = 792 W is the PSU current-derived "
+                 "hardware maximum, not operating permission; hardware "
+                 "current limiting and heater interlocks remain required."),
     }
 
 

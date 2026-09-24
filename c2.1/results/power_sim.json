@@ -1,7 +1,7 @@
 {
   "revision": "C2.1-P6+VP1-STAGE5",
   "module": "c2.1/src/power_sim.py",
-  "controller": "c2.1/firmware/controller_core.cpp staged concurrency allocator (500 W soft scheduler target; 792 W current-derived hard ceiling; single-band EX-H100 mutual exclusion)",
+  "controller": "c2.1/firmware/controller_core.cpp staged concurrency allocator (500 W hard modeled operating budget; 792 W PSU current-derived hardware maximum; single-band EX-H100 mutual exclusion)",
   "duty_cycle": {
     "heat_up_s": [
       0,
@@ -89,23 +89,24 @@
     }
   },
   "peak_W": 416.0,
-  "power_policy": "PSU 24 V / 33 A = 792 W current-derived hard ceiling (800 W nameplate recorded); 500 W is a SOFT scheduler target: draws above it are flagged WARN+logged, not hard-tripped; demands above 792 W are rejected. Hardware current limiting / EL interlocks stand.",
-  "power_target_W": 500.0,
-  "psu_hard_ceiling_W": 792.0,
+  "power_policy": "500 W HARD modeled operating budget: refuse each next demand above it. PSU 24 V / 33 A = 792 W current-derived hardware maximum (800 W nameplate), not operating permission. Hardware current limiting and EL interlocks stand.",
+  "operational_cap_W": 500.0,
+  "psu_current_derived_ceiling_W": 792.0,
   "psu_nameplate_W": 800.0,
-  "peak_vs_target_headroom_W": 84.0,
-  "peak_within_soft_target": true,
+  "peak_vs_budget_headroom_W": 84.0,
+  "peak_within_operational_budget": true,
   "modeled_scenarios": [
     {
-      "scenario": "modeled >500 W demand (aux 150 W added)",
-      "draw_W": 566.0,
-      "outcome": "ADMITTED under WARN+logged; no hard trip; inside the 792 W hard ceiling"
+      "scenario": "566 W requested (316 W base + 150 W aux + 100 W band)",
+      "requested_W": 566.0,
+      "admitted_W": 465.99999999999994,
+      "outcome": "aux admitted first; band refused at 500 W"
     },
     {
-      "draw_W": 816.0,
-      "modeled_aux_W": 500.0,
-      "scenario": "modeled >792 W demand",
-      "result": "REJECTED at the hard ceiling (316 W base + 500 W aux > 792 W); base 316 W held"
+      "scenario": "816 W requested (316 W base + 500 W aux + 100 W band)",
+      "requested_W": 816.0,
+      "admitted_W": 415.99999999999994,
+      "outcome": "aux refused; one band admitted below 500 W"
     }
   ],
   "instantaneous_draw_timeline": [

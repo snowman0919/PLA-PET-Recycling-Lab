@@ -68,10 +68,10 @@ SCENES = [
      "target": (230.0, 383.0, 200.0),
      "half_span_mm": 260.0},
     {"id": "c_transfer_chute_probes",
-     "title": "Transfer/chute - probe spheres at recorded final positions",
-     "eye": (700.0, 880.0, 700.0),
-     "target": (190.0, 250.0, 330.0),
-     "half_span_mm": 260.0},
+     "title": "Transfer and discharge - cutaway (walls/supports hidden)",
+     "eye": (540.0, 640.0, 500.0),
+     "target": (282.0, 264.0, 292.0),
+     "half_span_mm": 215.0},
     {"id": "d_puller_winder",
      "title": "Puller/winder end of the line",
      "eye": (1450.0, 1000.0, 560.0),
@@ -110,11 +110,11 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def probe_positions():
+def probe_positions(allow_absent=False):
     """Use only a connected probe run for this exact STEP and USD."""
     step_sha = json.loads(BODIES.read_text())["source_step_sha256"]
     usd_sha = sha256_file(USDA)
-    candidates = sorted(RUNS.glob("run_vp1_final*/results.json"),
+    candidates = sorted(RUNS.glob("run_*/results.json"),
                         key=lambda p: p.stat().st_mtime, reverse=True)
     for path in candidates:
         result = json.loads(path.read_text())
@@ -126,6 +126,8 @@ def probe_positions():
         pts = [(tuple(s["final_pos_mm"]), s["class"])
                for s in probes["sample_final_positions"]]
         return pts, probes["total"], str(path.relative_to(REPO))
+    if allow_absent:
+        return [], None, None
     raise RuntimeError("no connected >=3200-step probe result matches "
                        "the current STEP and USD hashes")
 
@@ -145,13 +147,12 @@ def write_index(scenes_meta, tool, note, probe_pts, probe_total, probe_source):
             "count_rendered": sum(
                 1 for p, _c in probe_pts if p[2] > -50.0),
             "of_total_dropped": probe_total,
-            "positions_source": (probe_source + " probe_test."
-                                 "sample_final_positions"),
+            "positions_source": (probe_source + " probe_test.sample_final_positions"
+                                 if probe_source else None),
             "render_mode": (
-                "projected always-visible overlay discs (white rim) at "
-                "the exact recorded final positions; occlusion against "
-                "near geometry disabled so the 3mm/1.5mm fragments stay "
-                "visible at 640x480"),
+                "projected recorded final positions, always visible"
+                if probe_source else
+                "not rendered: no connected run matches this STEP/USD"),
         },
     }
     (OUTDIR / "index.json").write_text(json.dumps(index, indent=2) + "\n")
@@ -159,7 +160,8 @@ def write_index(scenes_meta, tool, note, probe_pts, probe_total, probe_source):
 
 def main() -> int:
     OUTDIR.mkdir(parents=True, exist_ok=True)
-    probe_pts, probe_total, probe_source = probe_positions()
+    probe_pts, probe_total, probe_source = probe_positions(
+        allow_absent=bool(os.environ.get("PPR_FORCE_SOFTWARE_SCENES")))
 
     tool = ""
     note = ""
@@ -168,8 +170,9 @@ def main() -> int:
     if os.environ.get("PPR_FORCE_SOFTWARE_SCENES"):
         scenes_meta, tool = software_capture(probe_pts, probe_total)
         note = ("Isaac RTX capture skipped (PPR_FORCE_SOFTWARE_SCENES); "
-                "GPU memory is committed to the ollama llama-server, "
-                "~7.6/10.2 GB, never killed.")
+                "software rendering only, not a physics run."
+                + (" No hash-matched connected probe run exists."
+                   if probe_source is None else ""))
     else:
         try:
             scenes_meta, tool, rtx_ok, note = isaac_capture(
@@ -550,12 +553,30 @@ def render_all(meshes, probe_pts, tool):
 
         tris = []
         for path, verts, idx, cnt in meshes:
+            if sc["id"] == "c_transfer_chute_probes":
+                body = path.split("/")[3] if path.startswith("/World/F0/") else ""
+                if body == "Static":
+                    if not any(part in path for part in (
+                            "CHUTE_TROUGH_FLOOR", "AUG_BEARINGS", "CROSS_FEED_SHELL",
+                            "CROSS_FEED_BEARINGS", "S1_TRANSFER_BEARINGS",
+                            "C2_VERTICAL_DISCHARGE_SCREEN", "FEED_BUF")):
+                        continue
+                elif body not in {
+                        "AUGER", "CROSS_FEED", "CROSS_FEED_IDLER",
+                        "BELT", "BELT_DRIVE", "BELT_IDLER",
+                        "TRANSFER_BELT", "TRANSFER_IDLER",
+                        "SWEEP_SOUTH", "SWEEP_NORTH", "S2_ROTOR"}:
+                    continue
             if len(verts) == 0 or not idx or not cnt:
                 continue  # degenerate authored prim
             if path.startswith("/Probe"):
                 color = (204, 92, 58)
             elif "CHUTE_" in path or "AUG_" in path or "CROSS_FEED" in path:
                 color = (211, 152, 70)
+            elif "C2_VERTICAL_DISCHARGE_SCREEN" in path:
+                color = (65, 157, 105)
+            elif "FEED_BUF" in path:
+                color = (178, 116, 182)
             elif "/Static/" in path:
                 color = (174, 182, 190)
             elif "S2_ROTOR" in path or "S2_ROLLER" in path:

@@ -6,11 +6,11 @@ steady filament production duty cycle at 1 s resolution, applying the staged
 concurrency policy implemented in c2.1/firmware/controller_core.cpp:
 
 - devices are admitted in priority order (fans -> EX-H60 -> M1 -> M2 ->
-  one rotating EX-H100 band);
-- 500 W is a soft scheduler target: draws above it remain admissible with a
-  WARN+log indication;
-- 792 W (= 24 V x 33 A) is the enforceable current-derived ceiling; demands
-  above it are rejected;
+  auxiliary demand -> one rotating EX-H100 band);
+- 500 W is the hard modeled operating budget: the next demand exceeding it
+  is refused, including an over-budget band;
+- 792 W (= 24 V x 33 A) is the separate PSU current-derived hardware
+  maximum, not permission to operate above 500 W;
 - at most ONE EX-H100 band at any instant (firmware structural invariant;
   the EL_CURRENT_LIMITER hardware interlock requirement stands anyway).
 
@@ -22,7 +22,7 @@ EVIDENCE GRADES (kept explicit per device, from electrical_load.json):
   be read as a rating of the unselected motors.
 
 Output: c2.1/results/power_sim.json with the instantaneous draw timeline and
-peak vs 500 W.
+peak vs the 500 W operating budget.
 """
 from __future__ import annotations
 
@@ -34,8 +34,8 @@ C21 = HERE.parents[1]
 REPO = HERE.parents[2]
 
 PSU = json.loads((REPO / "design/parameters.json").read_text())["psu"]
-POWER_TARGET_W = float(PSU["power_target_W"])
-PSU_HARD_CEILING_W = float(PSU["current_derived_ceiling_W"])
+OPERATIONAL_CAP_W = float(PSU["operational_cap_W"])
+PSU_CURRENT_DERIVED_W = float(PSU["current_derived_ceiling_W"])
 PSU_NAMEPLATE_W = float(PSU["nameplate_W"])
 
 # Stage schedule of the virtual duty cycle (seconds).
@@ -57,21 +57,35 @@ def demand_at(t_s, loads):
     return ({"fans": fans, "h60": h60, "m1": m1, "m2": m2}, stage)
 
 
-def admitted_load(t_s, loads, demands):
-    """Apply the controller allocator policy at 1 s resolution."""
+def admitted_load(t_s, loads, demands, aux_demand_W=0.0,
+                  budget_W=OPERATIONAL_CAP_W):
+    """Apply the controller's priority allocator and hard modeled budget."""
+    budget_W = min(budget_W, OPERATIONAL_CAP_W)
     load = 0.0
-    admitted = {}
+    admitted = {"rejected_demands": 0}
     for key in ("fans", "h60", "m1", "m2"):
         if demands[key]:
-            admitted[key] = True
-            load += loads[key]
-    # at most one EX-H100 band, rotating with the controller period
-    band = (t_s // BAND_ROTATION_S) % 3
-    if load + loads["h100"] <= PSU_HARD_CEILING_W:
-        admitted["h100_band"] = band
-        load += loads["h100"]
-        if load > POWER_TARGET_W:
-            admitted["over_target"] = True  # WARN+logged, not a hard trip
+            if load + loads[key] <= budget_W:
+                admitted[key] = True
+                load += loads[key]
+            else:
+                admitted["rejected_demands"] += 1
+    if aux_demand_W > 0:
+        if load + aux_demand_W <= budget_W:
+            admitted["aux"] = True
+            load += aux_demand_W
+        else:
+            admitted["rejected_demands"] += 1
+    # At most one EX-H100 band; rotate priorities, trying the next candidate
+    # only if the current candidate cannot fit the operating budget.
+    first = (t_s // BAND_ROTATION_S) % 3
+    for offset in range(3):
+        band = (first + offset) % 3
+        if load + loads["h100"] <= budget_W:
+            admitted["h100_band"] = band
+            load += loads["h100"]
+            break
+        admitted["rejected_demands"] += 1
     return load, admitted
 
 
@@ -122,9 +136,9 @@ def main():
         "revision": "C2.1-P6+VP1-STAGE5",
         "module": "c2.1/src/power_sim.py",
         "controller": "c2.1/firmware/controller_core.cpp staged concurrency "
-                      "allocator (500 W soft scheduler target; 792 W "
-                      "current-derived hard ceiling; single-band EX-H100 "
-                      "mutual exclusion)",
+                      "allocator (500 W hard modeled operating budget; 792 W "
+                      "PSU current-derived hardware maximum; single-band "
+                      "EX-H100 mutual exclusion)",
         "duty_cycle": {
             "heat_up_s": [0, HEAT_UP_END_S],
             "shredding_s": [HEAT_UP_END_S, SHREDDING_END_S],
@@ -154,26 +168,27 @@ def main():
         },
         "per_stage": stages,
         "peak_W": round(peak, 3),
-        "power_policy": "PSU 24 V / 33 A = 792 W current-derived hard ceiling "
-                        "(800 W nameplate recorded); 500 W is a SOFT scheduler "
-                        "target: draws above it are flagged WARN+logged, not "
-                        "hard-tripped; demands above 792 W are rejected. "
-                        "Hardware current limiting / EL interlocks stand.",
-        "power_target_W": POWER_TARGET_W,
-        "psu_hard_ceiling_W": PSU_HARD_CEILING_W,
+        "power_policy": "500 W HARD modeled operating budget: refuse each "
+                        "next demand above it. PSU 24 V / 33 A = 792 W "
+                        "current-derived hardware maximum (800 W nameplate), "
+                        "not operating permission. Hardware current limiting "
+                        "and EL interlocks stand.",
+        "operational_cap_W": OPERATIONAL_CAP_W,
+        "psu_current_derived_ceiling_W": PSU_CURRENT_DERIVED_W,
         "psu_nameplate_W": PSU_NAMEPLATE_W,
-        "peak_vs_target_headroom_W": round(POWER_TARGET_W - peak, 3),
-        "peak_within_soft_target": peak <= POWER_TARGET_W + 1e-9,
+        "peak_vs_budget_headroom_W": round(OPERATIONAL_CAP_W - peak, 3),
+        "peak_within_operational_budget": peak <= OPERATIONAL_CAP_W,
         "modeled_scenarios": [
-            {"scenario": "modeled >500 W demand (aux 150 W added)",
-             "draw_W": 566.0,
-             "outcome": "ADMITTED under WARN+logged; no hard trip; inside "
-                        "the 792 W hard ceiling"},
-            {"draw_W": 816.0,
-             "modeled_aux_W": 500.0,
-             "scenario": "modeled >792 W demand",
-             "result": "REJECTED at the hard ceiling (316 W base + 500 W aux "
-                       "> 792 W); base 316 W held"}],
+            {"scenario": "566 W requested (316 W base + 150 W aux + 100 W band)",
+             "requested_W": 566.0,
+             "admitted_W": admitted_load(600, loads, {"fans": True, "h60": True,
+                                  "m1": True, "m2": True}, 150.0)[0],
+             "outcome": "aux admitted first; band refused at 500 W"},
+            {"scenario": "816 W requested (316 W base + 500 W aux + 100 W band)",
+             "requested_W": 816.0,
+             "admitted_W": admitted_load(600, loads, {"fans": True, "h60": True,
+                                  "m1": True, "m2": True}, 500.0)[0],
+             "outcome": "aux refused; one band admitted below 500 W"}],
         "instantaneous_draw_timeline": timeline,
         "timeline_note": "per-second admitted nameplate draw under the "
                          "controller allocator; heater duty cycling limits the "
@@ -188,8 +203,8 @@ def main():
         ],
         "passed": None,
     }
-    ok = (result["peak_within_soft_target"]
-          and all(rec["peak_W"] <= POWER_TARGET_W + 1e-9
+    ok = (result["peak_within_operational_budget"]
+          and all(rec["peak_W"] <= OPERATIONAL_CAP_W
                   for rec in per_stage.values()))
     result["passed"] = ok
     (C21 / "results/power_sim.json").write_text(json.dumps(result, indent=2) + "\n")

@@ -1,9 +1,9 @@
 {
   "schema": "full_machine_bodies/1",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "d44b8c2fd874e71a49fe8ccadfa4a2e9a60cf8c38058097619b67205c7c9e233",
-  "revision": "eba6cbbcd20403b60611982d776d108d26e027b0",
-  "conversion_script_sha256": "bef465506f91f0a5ba57d8ab56592c758a16f352c4986c8e73fa9f2ac7e36049",
+  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "conversion_script_sha256": "fb751573960d25bbf2a6fc0d1c6399ef77d200a2eef85ed172eebd9ded053cab",
   "solids": [
     {
       "name": "FR-2040-630_001",
@@ -2675,21 +2675,21 @@
       "mesh_sha256": "55d180facd547230da896cb0e8c2861d52da42c939724c01a20d9e05656c6d33"
     },
     {
-      "name": "C2_PERFORATED_SCREEN_REFERENCE",
+      "name": "C2_VERTICAL_DISCHARGE_SCREEN",
       "group": "S2-C2.1",
       "body": "STATIC",
       "step_index": 157,
       "part_bbox": [
-        258.9297846749503,
-        254.9999999,
-        215.1999999,
-        358.2091447031718,
-        295.0000001,
-        239.63293821169236
+        258.9297846646491,
+        254.9999998896971,
+        215.1999998896971,
+        358.2091447134744,
+        295.0000001103029,
+        239.63293822198824
       ],
       "bbox_ok": true,
-      "mesh": "c2.2/sim/assets/out/full/C2_PERFORATED_SCREEN_REFERENCE__coarse.stl",
-      "mesh_sha256": "c20e03595990e7c88f50e6094bf6a6ffd4e7a96c969a49c94d8944eaf2753e9b"
+      "mesh": "c2.2/sim/assets/out/full/C2_VERTICAL_DISCHARGE_SCREEN__coarse.stl",
+      "mesh_sha256": "056838b43b0978f08d4d6abafd75dd9ce8ff34e73005f8552dc29cad99f6a680"
     },
     {
       "name": "C2_LEFT_WEAR_SHELL",
@@ -3284,7 +3284,7 @@
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "mesh_sha256": "b2939ef1c177b65728410c345e85b268b92f6f2fe3bdf340bfd4be4740f9cdc9"
+      "mesh_sha256": "d4785bbe6aef443d4b8aff22454e88e8e9d20869b3c573280ef2914a70d68a9d"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -3530,16 +3530,16 @@
       "body": "CROSS_FEED",
       "step_index": 207,
       "part_bbox": [
-        345.27331617466,
-        207.9999999,
-        315.01765064163965,
-        368.4025315997742,
-        251.71538903498737,
-        340.143024028117
+        345.6891411930279,
+        207.999995,
+        315.2783408785962,
+        367.0012542305736,
+        261.000005,
+        335.7842776992924
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
-      "mesh_sha256": "63774a23e38da33e4f44ca7c4b167606cec42b735b1396112264d5e1c70864b0"
+      "mesh_sha256": "9503733026a957c2a2d6f6b75ae2ead2e48b2ad9c98a36ebbbd059e6ff623b8c"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
@@ -3753,14 +3753,14 @@
       "part_bbox": [
         344.29999985,
         223.49999985,
-        311.79999985,
+        315.79999985,
         369.20000015,
-        258.00000015,
+        260.00000015,
         342.50000015
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
-      "mesh_sha256": "e50dc29920067e0dec97b4535bdea5597804aadfe8ee3544d425d6f717ff591b"
+      "mesh_sha256": "dec5b7e62ad323503c416a141647acf13bfae0d1d4b13a64d719ca83c24e422d"
     },
     {
       "name": "S1_BELT",
@@ -3955,16 +3955,16 @@
       "body": "SWEEP_SOUTH",
       "step_index": 232,
       "part_bbox": [
-        219.26054981820062,
+        216.53719750712511,
         126.9999999,
-        332.7224854601077,
-        237.29439499707877,
-        228.0000001,
-        350.3553171975637
+        334.1447678703388,
+        231.4545108440681,
+        228.5000001,
+        349.69899380237956
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
-      "mesh_sha256": "53f15240f1bfb3126b2c63a6c5fafeb460f7a447afc85dd747cee461b1dbb9e4"
+      "mesh_sha256": "13a0b985ee657f6fadf58685a033def241250be7999d678b9b9cf5ba98a52c92"
     },
     {
       "name": "S1_SWEEP_NORTH",
@@ -3972,16 +3972,16 @@
       "body": "SWEEP_NORTH",
       "step_index": 233,
       "part_bbox": [
-        219.69527316850892,
-        235.9999999,
-        333.287827953147,
-        236.87294772826664,
+        216.15722126235286,
+        235.3095978477783,
+        333.8305687738483,
+        231.96789468542332,
         359.0000001,
-        350.1733126367754
+        349.64024897047784
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
-      "mesh_sha256": "4d93490b6acd05a2ac5f69e3010968aadde333fb6ed473b57acc531c0c30fb14"
+      "mesh_sha256": "5a7bbeae5abe794662a28ecf8fa617193006042b9ad3d0f4a50050039132cb64"
     },
     {
       "name": "S1_SWEEP_GEAR_DRUM_S",
@@ -3989,16 +3989,16 @@
       "body": "BELT_IDLER",
       "step_index": 234,
       "part_bbox": [
-        210.94147205533503,
+        212.3048786511991,
         127.99999985,
-        323.34147205533503,
-        227.05852794466497,
+        324.70487865119907,
+        225.6951213488009,
         134.00000015,
-        339.4585279446649
+        338.0951213488009
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_DRUM_S__fine.stl",
-      "mesh_sha256": "d4b0715c85929309bc1e91cb919abf1bbc482c2a31ba86615f642909a6f7acb1"
+      "mesh_sha256": "008836dfc2b7a31acb487656d51c544229500996bdd4d36ae5e39759add01838"
     },
     {
       "name": "S1_SWEEP_GEAR_S",
@@ -4006,16 +4006,16 @@
       "body": "SWEEP_SOUTH",
       "step_index": 235,
       "part_bbox": [
-        220.05543853971645,
+        217.3699128093132,
         127.99999985,
-        333.85543853971643,
-        236.34456146028353,
+        335.1699128093132,
+        230.6300871906868,
         134.00000015,
-        350.1445614602835
+        348.43008719068683
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_S__fine.stl",
-      "mesh_sha256": "d1708f044d6b0f4ec846bc4bcaed91f87a425e19c1d50ef3cc263116e71b5020"
+      "mesh_sha256": "7ff31a78811d942ba8386274eefe6672e21d49c8cebd519430d6128550ab1b0b"
     },
     {
       "name": "S1_SWEEP_GEAR_DRUM_N",
@@ -4023,16 +4023,16 @@
       "body": "BELT_IDLER",
       "step_index": 236,
       "part_bbox": [
-        210.94147205533503,
-        352.0999998499999,
-        323.34147205533503,
-        227.05852794466497,
-        358.10000015,
-        339.4585279446649
+        212.3048786511991,
+        352.09999985,
+        324.70487865119907,
+        225.6951213488009,
+        358.1000001500006,
+        338.0951213488009
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_DRUM_N__fine.stl",
-      "mesh_sha256": "e934ac189db2d55472b1a83ea319b583bb2117d19552af13d72c27c221a8d5c5"
+      "mesh_sha256": "e03df46cc6582269d487dee925a28ac340e4678770b41cc6d2c2de5336d9ab95"
     },
     {
       "name": "S1_SWEEP_GEAR_N",
@@ -4040,16 +4040,16 @@
       "body": "SWEEP_NORTH",
       "step_index": 237,
       "part_bbox": [
-        220.05543853971645,
-        352.09999984999956,
-        333.85543853971643,
-        236.34456146028353,
+        217.3699128093132,
+        352.09999985,
+        335.1699128093132,
+        230.6300871906868,
         358.10000015,
-        350.1445614602835
+        348.43008719068683
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_GEAR_N__fine.stl",
-      "mesh_sha256": "ae28882f15f260bfb590b15b14d626644839c085058a4dad1dc65fb713bee6aa"
+      "mesh_sha256": "14e92121d03c38cffadd81c147fb3b80af59effcc9d177acb203c1980b588e49"
     },
     {
       "name": "S1_SWEEP_BEARINGS",
@@ -4057,16 +4057,16 @@
       "body": "STATIC",
       "step_index": 238,
       "part_bbox": [
-        225.8499999,
+        221.6499999,
         157.3999999,
-        339.64999989999995,
-        230.55000009999998,
+        339.44999989999997,
+        226.3500001,
         163.4000001,
-        344.35000010000005
+        344.15000010000006
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
-      "mesh_sha256": "00874902ffefddd96882d140be57984291183f7c67d4549a21eed0a5f7cc7668"
+      "mesh_sha256": "f2d45988dbf5c506dcad411aa937e830b71f84c09a6fad41526c5c1873e89b47"
     },
     {
       "name": "S1_SWEEP_BEARINGS",
@@ -4074,16 +4074,16 @@
       "body": "STATIC",
       "step_index": 239,
       "part_bbox": [
-        225.8499999,
+        221.6499999,
         323.5999999,
-        339.64999989999995,
-        230.55000009999998,
+        339.44999989999997,
+        226.3500001,
         329.60000010000005,
-        344.35000010000005
+        344.15000010000006
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
-      "mesh_sha256": "00874902ffefddd96882d140be57984291183f7c67d4549a21eed0a5f7cc7668"
+      "mesh_sha256": "f2d45988dbf5c506dcad411aa937e830b71f84c09a6fad41526c5c1873e89b47"
     },
     {
       "name": "S1_TRANSFER_BELT",
@@ -4091,16 +4091,16 @@
       "body": "TRANSFER_BELT",
       "step_index": 240,
       "part_bbox": [
-        77.00085630305331,
-        223.49999989999978,
-        328.4008563030533,
-        241.9991436969467,
-        240.50000010000022,
-        338.1991436969467
+        77.00066819514284,
+        223.49999989999986,
+        328.4006681951428,
+        262.99933180485715,
+        240.50000010000014,
+        338.19933180485714
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BELT__fine.stl",
-      "mesh_sha256": "7cdf094849046fccbd88c5065d423402986e2b3f0b9910625aa38340059590ec"
+      "mesh_sha256": "8aa4e74a4ec0256a11bc42b9163c91851c9e4b516187d444f3b8ead0e71cf5f7"
     },
     {
       "name": "S1_TRANSFER_IDLER",
@@ -4108,16 +4108,16 @@
       "body": "TRANSFER_IDLER",
       "step_index": 241,
       "part_bbox": [
-        236.6999999,
+        257.69999989999997,
         213.9999999,
         332.89999989999995,
-        241.3000001,
+        262.30000010000003,
         250.0000001,
         337.5000001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_IDLER__fine.stl",
-      "mesh_sha256": "e7b417c038bc43574a346f09920b87375dbc35c9f710d45af1ada7712e0f11d8"
+      "mesh_sha256": "99d3bede85a9df87c196d5bf5f8e67a950a9d34ce90c547e18b2e6e9054f7845"
     },
     {
       "name": "S1_TRANSFER_BEARINGS",
@@ -4125,16 +4125,16 @@
       "body": "STATIC",
       "step_index": 242,
       "part_bbox": [
-        237.4499999,
+        258.44999989999997,
         217.9999999,
         333.64999989999995,
-        240.5500001,
+        261.55000010000003,
         223.20000009999998,
         336.7500001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
-      "mesh_sha256": "d76bd4e96a5cb4c0ddc9e82a022ea54ac7cc3366f4e5d561b6e766c7b0fe3c2c"
+      "mesh_sha256": "378faf0ee18825c1b3e8bab8cb51a9cf4c1f0c9757b58c299e2042514512accd"
     },
     {
       "name": "S1_TRANSFER_BEARINGS",
@@ -4142,16 +4142,16 @@
       "body": "STATIC",
       "step_index": 243,
       "part_bbox": [
-        237.4499999,
+        258.44999989999997,
         240.79999990000002,
         333.64999989999995,
-        240.5500001,
+        261.55000010000003,
         246.0000001,
         336.7500001
       ],
       "bbox_ok": true,
       "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
-      "mesh_sha256": "d76bd4e96a5cb4c0ddc9e82a022ea54ac7cc3366f4e5d561b6e766c7b0fe3c2c"
+      "mesh_sha256": "378faf0ee18825c1b3e8bab8cb51a9cf4c1f0c9757b58c299e2042514512accd"
     },
     {
       "name": "GUARD_S2_RING",
@@ -5966,12 +5966,12 @@
       "sha256": "55d180facd547230da896cb0e8c2861d52da42c939724c01a20d9e05656c6d33"
     },
     {
-      "name": "C2_PERFORATED_SCREEN_REFERENCE",
+      "name": "C2_VERTICAL_DISCHARGE_SCREEN",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/C2_PERFORATED_SCREEN_REFERENCE__coarse.stl",
-      "bytes": 539484,
-      "sha256": "c20e03595990e7c88f50e6094bf6a6ffd4e7a96c969a49c94d8944eaf2753e9b"
+      "stl": "sim/assets/out/full/C2_VERTICAL_DISCHARGE_SCREEN__coarse.stl",
+      "bytes": 591084,
+      "sha256": "056838b43b0978f08d4d6abafd75dd9ce8ff34e73005f8552dc29cad99f6a680"
     },
     {
       "name": "C2_LEFT_WEAR_SHELL",
@@ -6250,8 +6250,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "bytes": 80984,
-      "sha256": "b2939ef1c177b65728410c345e85b268b92f6f2fe3bdf340bfd4be4740f9cdc9"
+      "bytes": 87384,
+      "sha256": "d4785bbe6aef443d4b8aff22454e88e8e9d20869b3c573280ef2914a70d68a9d"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -6370,8 +6370,8 @@
       "body": "CROSS_FEED",
       "lod": "fine",
       "stl": "sim/assets/out/full/CROSS_FEED_SHAFT__fine.stl",
-      "bytes": 185184,
-      "sha256": "63774a23e38da33e4f44ca7c4b167606cec42b735b1396112264d5e1c70864b0"
+      "bytes": 298884,
+      "sha256": "9503733026a957c2a2d6f6b75ae2ead2e48b2ad9c98a36ebbbd059e6ff623b8c"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
@@ -6474,8 +6474,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/CROSS_FEED_SHELL__coarse.stl",
-      "bytes": 9384,
-      "sha256": "e50dc29920067e0dec97b4535bdea5597804aadfe8ee3544d425d6f717ff591b"
+      "bytes": 11184,
+      "sha256": "dec5b7e62ad323503c416a141647acf13bfae0d1d4b13a64d719ca83c24e422d"
     },
     {
       "name": "S1_BELT",
@@ -6570,16 +6570,16 @@
       "body": "SWEEP_SOUTH",
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
-      "bytes": 259384,
-      "sha256": "53f15240f1bfb3126b2c63a6c5fafeb460f7a447afc85dd747cee461b1dbb9e4"
+      "bytes": 270084,
+      "sha256": "13a0b985ee657f6fadf58685a033def241250be7999d678b9b9cf5ba98a52c92"
     },
     {
       "name": "S1_SWEEP_NORTH",
       "body": "SWEEP_NORTH",
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
-      "bytes": 330584,
-      "sha256": "4d93490b6acd05a2ac5f69e3010968aadde333fb6ed473b57acc531c0c30fb14"
+      "bytes": 352184,
+      "sha256": "5a7bbeae5abe794662a28ecf8fa617193006042b9ad3d0f4a50050039132cb64"
     },
     {
       "name": "S1_SWEEP_GEAR_DRUM_S",
@@ -6587,7 +6587,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_GEAR_DRUM_S__fine.stl",
       "bytes": 71684,
-      "sha256": "d4b0715c85929309bc1e91cb919abf1bbc482c2a31ba86615f642909a6f7acb1"
+      "sha256": "008836dfc2b7a31acb487656d51c544229500996bdd4d36ae5e39759add01838"
     },
     {
       "name": "S1_SWEEP_GEAR_S",
@@ -6595,7 +6595,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_GEAR_S__fine.stl",
       "bytes": 71684,
-      "sha256": "d1708f044d6b0f4ec846bc4bcaed91f87a425e19c1d50ef3cc263116e71b5020"
+      "sha256": "7ff31a78811d942ba8386274eefe6672e21d49c8cebd519430d6128550ab1b0b"
     },
     {
       "name": "S1_SWEEP_GEAR_DRUM_N",
@@ -6603,7 +6603,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_GEAR_DRUM_N__fine.stl",
       "bytes": 71684,
-      "sha256": "e934ac189db2d55472b1a83ea319b583bb2117d19552af13d72c27c221a8d5c5"
+      "sha256": "e03df46cc6582269d487dee925a28ac340e4678770b41cc6d2c2de5336d9ab95"
     },
     {
       "name": "S1_SWEEP_GEAR_N",
@@ -6611,7 +6611,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_GEAR_N__fine.stl",
       "bytes": 71684,
-      "sha256": "ae28882f15f260bfb590b15b14d626644839c085058a4dad1dc65fb713bee6aa"
+      "sha256": "14e92121d03c38cffadd81c147fb3b80af59effcc9d177acb203c1980b588e49"
     },
     {
       "name": "S1_SWEEP_BEARINGS",
@@ -6619,7 +6619,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
       "bytes": 10484,
-      "sha256": "de064800084f319ce224275d875a6b4216672529e7dece83720ebb5ca321b6b2"
+      "sha256": "ef3a17b66f1eec3fdb4ccfefbf10d40a461283a039a2b5604f0e94cdc9aef5f1"
     },
     {
       "name": "S1_SWEEP_BEARINGS",
@@ -6627,7 +6627,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/S1_SWEEP_BEARINGS__coarse.stl",
       "bytes": 10484,
-      "sha256": "00874902ffefddd96882d140be57984291183f7c67d4549a21eed0a5f7cc7668"
+      "sha256": "f2d45988dbf5c506dcad411aa937e830b71f84c09a6fad41526c5c1873e89b47"
     },
     {
       "name": "S1_TRANSFER_BELT",
@@ -6635,7 +6635,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_TRANSFER_BELT__fine.stl",
       "bytes": 26484,
-      "sha256": "7cdf094849046fccbd88c5065d423402986e2b3f0b9910625aa38340059590ec"
+      "sha256": "8aa4e74a4ec0256a11bc42b9163c91851c9e4b516187d444f3b8ead0e71cf5f7"
     },
     {
       "name": "S1_TRANSFER_IDLER",
@@ -6643,7 +6643,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_TRANSFER_IDLER__fine.stl",
       "bytes": 75484,
-      "sha256": "e7b417c038bc43574a346f09920b87375dbc35c9f710d45af1ada7712e0f11d8"
+      "sha256": "99d3bede85a9df87c196d5bf5f8e67a950a9d34ce90c547e18b2e6e9054f7845"
     },
     {
       "name": "S1_TRANSFER_BEARINGS",
@@ -6651,7 +6651,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
       "bytes": 10484,
-      "sha256": "08c8efa62a1c36b96c6d91d00ddc760241e3ac2e0ef7b60009b23b60249c3fb8"
+      "sha256": "1a2117ef3d62ebdd9f939467b394764b462e8f2c89ea5ba39f7d4baf30f97f37"
     },
     {
       "name": "S1_TRANSFER_BEARINGS",
@@ -6659,7 +6659,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/S1_TRANSFER_BEARINGS__coarse.stl",
       "bytes": 10484,
-      "sha256": "d76bd4e96a5cb4c0ddc9e82a022ea54ac7cc3366f4e5d561b6e766c7b0fe3c2c"
+      "sha256": "378faf0ee18825c1b3e8bab8cb51a9cf4c1f0c9757b58c299e2042514512accd"
     },
     {
       "name": "GUARD_S2_RING",
@@ -7698,7 +7698,7 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_PERFORATED_SCREEN_REFERENCE",
+      "part": "C2_VERTICAL_DISCHARGE_SCREEN",
       "step_index": 157,
       "centre_dist_mm": 0.0
     },
@@ -8288,5 +8288,5 @@
       "centre_dist_mm": 0.0
     }
   ],
-  "wall_time_s": 50.332574129104614
+  "wall_time_s": 50.29877996444702
 }

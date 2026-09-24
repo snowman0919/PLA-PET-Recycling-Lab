@@ -99,6 +99,57 @@ S2_MOUTH_X_MM = (350.0, 359.7)
 S2_CAP_INNER_R_MM = 65.6
 S2_OUTLET_FLOOR_Z_MM = 317.3
 
+# A screen bounding-box crossing is not a hole passage. The active Ø4
+# bores are vertical in world Z; for a sphere, its centre must remain
+# inside one bore by its own radius while crossing BOTH curved metal faces.
+# At fixed X the actual inner/outer shell heights use sqrt(r²-x²), not
+# r*sin(angle), because the same vertical ray intersects both radii.
+SCREEN_HOLES = [
+    (angle, local_y,
+     308.56946468906176 - 63.8 * math.cos(math.radians(angle)),
+     299.0 - local_y,
+     280.0 - math.sqrt(62.8**2 -
+                       (63.8 * math.cos(math.radians(angle)))**2),
+     280.0 - math.sqrt(64.8**2 -
+                       (63.8 * math.cos(math.radians(angle)))**2))
+    for angle in range(228, 313, 7)
+    for local_y in (9, 15, 21, 27, 33, 39)
+]
+
+
+def hole_transition(prior, current, radius, candidate):
+    """Return (candidate, completed_hole) for one descending physics step.
+
+    The candidate survives only while the sphere's XY path stays within
+    the SAME bore. Interpolation handles a step crossing both faces.
+    """
+    if radius >= 2.0 or current[2] >= prior[2]:
+        return None, None
+    holes = ([(candidate, SCREEN_HOLES[candidate])]
+             if candidate is not None else enumerate(SCREEN_HOLES))
+    for idx, (angle, local_y, hx, hy, top, bottom) in holes:
+        entry, exit_ = top + radius, bottom - radius
+        margin2 = (2.0 - radius - 1e-3) ** 2
+        if candidate is None:
+            if not (prior[2] >= entry > current[2]):
+                continue
+            t = (prior[2] - entry) / (prior[2] - current[2])
+            ex = prior[0] + t * (current[0] - prior[0])
+            ey = prior[1] + t * (current[1] - prior[1])
+            if (ex - hx) ** 2 + (ey - hy) ** 2 > margin2:
+                continue
+        if current[2] <= exit_:
+            t = (prior[2] - exit_) / (prior[2] - current[2])
+            xx = prior[0] + t * (current[0] - prior[0])
+            yy = prior[1] + t * (current[1] - prior[1])
+            if (xx - hx) ** 2 + (yy - hy) ** 2 <= margin2:
+                return None, (angle, local_y, xx, yy, exit_)
+            return None, None
+        if (current[0] - hx) ** 2 + (current[1] - hy) ** 2 <= margin2:
+            return idx, None
+        return None, None
+    return candidate, None
+
 # drivetrain ratios per unit input rotation (must match verify_full.py)
 Q = 8
 GEAR_RATIO = -15.0 / 40.0
@@ -176,7 +227,7 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
     solids = bodies["solids"]
     hopper = next(r for r in solids if r["name"] == "HOPPER_001")
     screen = next(r for r in solids
-                  if r["name"] == "C2_PERFORATED_SCREEN_REFERENCE")
+                  if r["name"] == "C2_VERTICAL_DISCHARGE_SCREEN")
     sb = screen["part_bbox"]
     sb_mid = (sb[2] + sb[5]) / 2.0
     hx0, hx1, hy0, hy1, hz0, hz1 = SPAWN[phase]
@@ -374,6 +425,12 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         first_mouth_plane_mm = [None] * n
         reached_auger_pickup = [False] * n
         first_auger_pickup_mm = [None] * n
+        screen_candidate = [None] * n
+        passed_screen_hole = [False] * n
+        first_screen_hole_mm = [None] * n
+        entered_buffer_mouth = [False] * n
+        reached_buffer_throat = [False] * n
+        first_buffer_throat_plane_mm = [None] * n
         theta_prev = 0.0   # measured input angle (unwrapped)
         prev_in = 0.0
         s2ecc_prev = 0.0   # measured S2 eccentric angle (unwrapped)
@@ -657,6 +714,42 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                     cy = float(prior[1] + t * (y - prior[1]))
                     crossed_screen[i] = bool(sb[0] <= cx <= sb[3]
                                              and sb[1] <= cy <= sb[4])
+                if (phase == "s2_inlet" and fr[i][0] == "sphere"
+                        and not passed_screen_hole[i]):
+                    screen_candidate[i], completed = hole_transition(
+                        prior, P[i][:3], float(fr[i][1]),
+                        screen_candidate[i])
+                    if completed is not None:
+                        angle, local_y, hx, hy, hz = completed
+                        passed_screen_hole[i] = True
+                        first_screen_hole_mm[i] = {
+                            "angle_deg": angle, "local_y_mm": local_y,
+                            "xyz_mm": [round(float(hx), 3),
+                                       round(float(hy), 3),
+                                       round(float(hz), 3)]}
+                if (phase == "s2_inlet" and not entered_buffer_mouth[i]
+                        and prior[2] >= 218.0 > z):
+                    t = (prior[2] - 218.0) / (prior[2] - z)
+                    bx = prior[0] + t * (x - prior[0])
+                    by = prior[1] + t * (y - prior[1])
+                    radius = float(fr[i][1]) if fr[i][0] == "sphere" else 2.0
+                    entered_buffer_mouth[i] = bool(
+                        216.57 + radius <= bx <= 400.57 - radius
+                        and 254.0 + radius <= by <= 296.0 - radius)
+                if (phase == "s2_inlet" and not reached_buffer_throat[i]
+                        and prior[2] >= 145.0 > z):
+                    t = (prior[2] - 145.0) / (prior[2] - z)
+                    bx = prior[0] + t * (x - prior[0])
+                    by = prior[1] + t * (y - prior[1])
+                    if first_buffer_throat_plane_mm[i] is None:
+                        first_buffer_throat_plane_mm[i] = [
+                            round(float(bx), 3), round(float(by), 3), 145.0]
+                    radius = float(fr[i][1]) if fr[i][0] == "sphere" else 2.0
+                    # FEED-BUF's lower loft is offset to world x289,
+                    # not the S2 axis x308.57. Check its inner throat.
+                    reached_buffer_throat[i] = bool(
+                        267.0 + radius <= bx <= 311.0 - radius
+                        and 258.0 + radius <= by <= 292.0 - radius)
                 # A point inside an S2-looking box is not handoff. Require
                 # forward crossing of the near y=255 mouth plane, then
                 # interpolate x/z at that instant (no skipped-plane credit).
@@ -751,6 +844,19 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "first_s2_mouth_plane_crossing_mm": first_mouth_plane_mm[i],
                 "reached_auger_pickup": bool(reached_auger_pickup[i]),
                 "first_auger_pickup_mm": first_auger_pickup_mm[i],
+                "passed_screen_hole": bool(passed_screen_hole[i]),
+                "first_screen_hole_mm": first_screen_hole_mm[i],
+                "entered_buffer_mouth": bool(entered_buffer_mouth[i]),
+                "reached_buffer_throat": bool(reached_buffer_throat[i]),
+                "first_buffer_throat_plane_mm":
+                    first_buffer_throat_plane_mm[i],
+                "screen_to_buffer": bool(passed_screen_hole[i]
+                                         and entered_buffer_mouth[i]
+                                         and reached_buffer_throat[i]),
+                "missed_buffer_throat": bool(
+                    phase == "s2_inlet"
+                    and first_buffer_throat_plane_mm[i] is not None
+                    and not reached_buffer_throat[i]),
                 "lost_after_s2_mouth": bool(lost and reached_mouth[i]),
                 "lost_after_x335_before_mouth": bool(
                     phase == "chute_inlet" and lost and passed[i]
@@ -818,6 +924,13 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "stuck": n_stuck,
                 "lost_through_world": n_lost,
                 "reached_s2_mouth": sum(reached_mouth),
+                "passed_screen_hole": sum(passed_screen_hole),
+                "entered_buffer_mouth": sum(entered_buffer_mouth),
+                "reached_buffer_throat": sum(reached_buffer_throat),
+                "screen_to_buffer": sum(
+                    f["screen_to_buffer"] for f in fragments),
+                "missed_buffer_throat": sum(
+                    f["missed_buffer_throat"] for f in fragments),
                 "lost_after_s2_mouth": sum(
                     f["lost_after_s2_mouth"] for f in fragments),
                 "lost_after_x335_before_mouth": sum(
@@ -961,6 +1074,11 @@ def main() -> int:
                                   if total and in_path is not None else None),
             "stuck": s.get("stuck", 0),
             "crossed_screen": s.get("crossed_screen"),
+            "passed_screen_hole": s.get("passed_screen_hole"),
+            "entered_buffer_mouth": s.get("entered_buffer_mouth"),
+            "reached_buffer_throat": s.get("reached_buffer_throat"),
+            "screen_to_buffer": s.get("screen_to_buffer"),
+            "missed_buffer_throat": s.get("missed_buffer_throat", 0),
             "reached_s2_mouth": s.get("reached_s2_mouth"),
             "reached_auger_pickup": s.get("reached_auger_pickup"),
             "lost_through_world": lost,
@@ -969,8 +1087,11 @@ def main() -> int:
                 "lost_after_x335_before_mouth"),
             "scope": "local receiver crossing; S1 discharge separately "
                      "requires main-screw pickup, chute separately "
-                     "requires +Y S2 mouth crossing; neither proves "
-                     "connected screen-hole passage or product throughput",
+                     "requires +Y S2 mouth crossing. The S2 phase reports "
+                     "same-bore Ø4 sphere passage, buffer-mouth entry, "
+                     "lower-throat crossing or miss and world escape "
+                     "separately; no local phase proves connected product "
+                     "flow or filament output",
             "verdict": (
                 "UNVERIFIED" if not scene_consistent or in_path is None
                 or not total

@@ -33,12 +33,11 @@ def main():
         "source": str(SOURCE.relative_to(REPO)),
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         "binary_sha256": None if executed is None else hashlib.sha256(BUILD.read_bytes()).hexdigest(),
-        "cases": 19,
+        "cases": 20,
         "power_allocator": {
-            "power_target_W": 500.0,
-            "power_target_semantics": "SOFT scheduler target: draws above it "
-                                      "are admitted and flagged WARN+logged",
-            "psu_hard_ceiling_W": 792.0,
+            "operational_cap_W": 500.0,
+            "operational_cap_semantics": "HARD: reject next demand above 500 W",
+            "psu_current_derived_ceiling_W": 792.0,
             "psu_nameplate_W": 800.0,
             "band_mutual_exclusion": "structural allocator invariant; hardware "
                                      "EL_CURRENT_LIMITER interlock requirement stands",

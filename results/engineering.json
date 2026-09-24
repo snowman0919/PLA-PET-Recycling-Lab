@@ -298,18 +298,17 @@
       3
     ],
     "bounded_all_on_at24V_W": 767.84,
-    "power_target_W": 500,
-    "power_target_semantics": "SOFT_WARN_AND_LOG",
+    "operational_cap_W": 500,
+    "operational_cap_semantics": "HARD_REJECT_NEXT_DEMAND",
     "actual_current_limit_and_transient_testing": "NOT_RUN"
   },
   "power_allocator_exhaustive": {
     "cases": 20800,
-    "max_admitted_W": 767.84,
-    "soft_target_W": 500,
-    "hard_ceiling_W": 792,
-    "over_target_admitted": true,
+    "max_admitted_W": 499.84000000000003,
+    "operational_cap_W": 500,
+    "psu_current_derived_ceiling_W": 792,
     "passed": true,
-    "scope": "Exact arithmetic reference; 500 W is a soft target, 792 W is the current-derived ceiling; no firmware timing or hardware fault validation"
+    "scope": "Exact arithmetic reference; 500 W is the hard modeled operating budget; 792 W is PSU hardware maximum, not operating permission; no firmware timing or hardware fault validation"
   },
   "buffer": {
     "internal_geometric_mL": 322.6908007216886,

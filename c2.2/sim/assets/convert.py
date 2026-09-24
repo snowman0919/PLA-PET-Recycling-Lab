@@ -25,7 +25,7 @@ C22 = HERE.parents[2]
 REPO = HERE.parents[3]
 sys.path.insert(0, str(REPO / "c2" / "src"))
 
-EXPECTED_STEP_SHA = "fbba8932ab7a132d67eeafeba519bd368a78bf564a22e4d8ea59e5df94f5a42b"
+EXPECTED_STEP_SHA = "06398eaa1e277f393289b1e005c7745070e169a98708c06ffaec1436b59407c0"
 STEP_REL = "c2.1/cad/PPR_C2_1_S2_transmission.step"
 
 # Zero-based solid index in export order (c2.1/src/build_cad.py
@@ -33,7 +33,7 @@ STEP_REL = "c2.1/cad/PPR_C2_1_S2_transmission.step"
 TARGETS = {
     "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE": 33,
     "C2_FIXED_SHEAR_SENSOR_BORE": 6,
-    "C2_PERFORATED_SCREEN_REFERENCE": 7,
+    "C2_VERTICAL_DISCHARGE_SCREEN": 7,
     "INPUT_ECCENTRIC_SHAFT": 31,
     "OUTPUT_PIN_CARRIER_AND_SHAFT": 34,
     "OUTPUT_ROLLER_1": 35,

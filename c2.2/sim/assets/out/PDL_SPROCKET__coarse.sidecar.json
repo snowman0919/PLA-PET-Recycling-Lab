@@ -1,0 +1,39 @@
+{
+  "asset_id": "PDL_SPROCKET",
+  "group": "feed",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 202,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.202",
+  "mesh_file": "sim/assets/out/PDL_SPROCKET__coarse.stl",
+  "mesh_bytes": 41684,
+  "mesh_sha256": "f3a9f2ae65d6096791c510734c8521054cc9dc1d042b9388ac9b168fa682eb07",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "9ac7e1bc4a18d0788f218301e829ab1294ff5bb5cd7b2244a263410b1aa52d16",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    318.51973772135705,
+    375.9999999,
+    354.01973772135705,
+    359.48026227864295,
+    394.0000001,
+    394.98026227864295
+  ],
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "5f38d7fee23c5b44b8267f361e7b897f7215512aa1c929587cbf41f625b949bd",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 13215.498547816118,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

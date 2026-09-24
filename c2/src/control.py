@@ -97,19 +97,17 @@ class Controller:
 
 
 def allocate_power(m1_bus_W: float, m2_bus_W: float, auxiliaries_W: float,
-                   heater_request_W: float, target_W: float = 500.0,
-                   hard_ceiling_W: float = 792.0):
-    vals=[m1_bus_W,m2_bus_W,auxiliaries_W,heater_request_W,target_W,hard_ceiling_W]
-    if (not all(math.isfinite(v) and v >= 0 for v in vals)
-            or target_W > hard_ceiling_W or hard_ceiling_W > 792):
-        raise ValueError('Invalid DC bus power; phase current cannot substitute for bus power')
-    reserved=m1_bus_W+m2_bus_W+auxiliaries_W
-    if reserved > hard_ceiling_W:
-        return dict(admitted=False,heater_W=0.,total_W=0.,over_target=False,
-                    reason='HARD_CEILING_REJECT')
-    h=min(heater_request_W,hard_ceiling_W-reserved)
-    total=reserved+h
-    return dict(admitted=True,heater_W=h,total_W=total,
-                over_target=total>target_W,
-                reason=('WARN_ABOVE_SOFT_TARGET' if total>target_W
+                   heater_request_W: float, budget_W: float = 500.0):
+    """Reference admission only; PSU 792 W rating does not raise this budget."""
+    vals = [m1_bus_W, m2_bus_W, auxiliaries_W, heater_request_W, budget_W]
+    if not all(math.isfinite(v) and v >= 0 for v in vals) or budget_W > 500.0:
+        raise ValueError('Invalid DC bus power or operating budget; phase current cannot substitute for bus power')
+    reserved = m1_bus_W + m2_bus_W + auxiliaries_W
+    if reserved > budget_W:
+        return dict(admitted=False, heater_W=0., total_W=0.,
+                    reason='OPERATING_BUDGET_REJECT')
+    heater_W = min(heater_request_W, budget_W - reserved)
+    return dict(admitted=True, heater_W=heater_W, total_W=reserved + heater_W,
+                reason=('HEATER_DERATED_AT_OPERATING_CAP'
+                        if heater_W < heater_request_W
                         else 'REFERENCE_ALLOCATION_ONLY'))

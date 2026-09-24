@@ -136,7 +136,7 @@ def write_schematic(path):
              "\t(title_block", '\t\t(title "PPR C2.1 machine wiring - REVIEW ONLY / RELEASE HOLD")',
              '\t\t(date "2026-09-21")', '\t\t(rev "C2.1-P6")', '\t\t(company "PPR")',
              '\t\t(comment 1 "Actual functional nets; all TBD ratings/MPNs must be resolved before energization")',
-             '\t\t(comment 2 "24V 33A PSU, 800W nameplate; 500W soft operating target; 792W current-derived ceiling; no automatic restart/reverse")',
+             '\t\t(comment 2 "24V 33A PSU, 800W nameplate; 500W hard operating budget; 792W PSU current-derived hardware maximum; no automatic restart/reverse")',
              '\t\t(comment 3 "Independent safety relay/contactor/overtemp chain; MCU monitoring only")',
              '\t\t(comment 4 "Machine harness review schematic; no PCB or energization approval")', "\t)",
              "\t(lib_symbols", *embedded, "\t)"]

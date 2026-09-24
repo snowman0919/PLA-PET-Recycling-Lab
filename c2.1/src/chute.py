@@ -1,7 +1,7 @@
 """VP1 Stage 1: real transfer chute from the S1 discharge opening to the
 C2.1 S2 feed mouth, in absolute machine coordinates (new parts, group "feed").
 
-Frozen datums (all measured from the existing geometry, none moved):
+Current interface datums (measured from the assembled geometry):
 - S1 containment interior: x 83..237, y 162.4..324.6, bottom plane z=352.3
   (S1-WALL 160x5x92 at (80,157.4/324.6,352.3); S1-SIDE strips x 80..83 and
   237..240; shafts z=398.30275184708404, cutter sweep bottom z=358.3).
@@ -15,9 +15,10 @@ Frozen datums (all measured from the existing geometry, none moved):
   295..299, so the chute throat must run inside y 255..295.
 - The small S1-to-S2 elevation drop cannot supply a continuous passive
   gravity slide. The longitudinal auger delivers to a powered orthogonal
-  cross-feed screw. Its outlet remains inside the frozen south cap's inner
-  radius; the short unpowered bridge into the mouth is a measured risk, not
-  a guaranteed transfer. The S1 pan still needs positive pickup delivery.
+  cross-feed screw; its reduced-radius flight overlaps the S2 mouth axially
+  without crossing the rotor coupling envelope. This is a geometric handoff
+  opportunity, not proof of fragment transfer. S1 pickup also remains
+  unverified.
 
 Parts (group "feed"): CHUTE_BODY, CHUTE_TROUGH_FLOOR_E, the PDL worm drive,
 AUG_SHAFT/BEARINGS/WHEEL, and CROSS_FEED_SHAFT/IDLER/gears/bearings/shell.
@@ -76,14 +77,18 @@ WORM_LEAD_DEG = math.degrees(math.atan(WORM_LEAD / (2.0 * math.pi * WORM_PITCH_R
 # connected-flow guarantee or a motor torque rating.
 AUG_RPM_ABS = 58.0 * (15.0 / 40.0) * (24.0 / 12.0) * WORM_STARTS / WHEEL_TEETH
 
-# Orthogonal screw: fixed pose datum on the +Y axis. The south S2 end cap
-# occupies y251..255 at radii 65.6..76.5 from the S2 axis. At (357,328)
-# the shaft axis is radius 68.3, so neither shaft nor flight may enter it.
+# Orthogonal screw remains driven from the PDL shaft. Its 10 mm-radius
+# receiving flight narrows before the swept S2 coupling web, then a 5 mm
+# flight continues across the south mouth. The fixed cradle keeps only metal
+# outside the rotor's radial envelope; neither a rotor contact nor an
+# unpowered axial bridge is a substitute for the powered tail.
 CROSS_X, CROSS_Z = 357.0, 328.0
 CROSS_PIVOT_Y = 252.0
-CROSS_SHAFT_Y0, CROSS_SHAFT_Y1 = 208.0, 250.7
+CROSS_SHAFT_Y0, CROSS_SHAFT_Y1 = 208.0, 261.0
 CROSS_SHAFT_R, CROSS_FLIGHT_RO = 3.0, 10.0
-CROSS_FLIGHT_Y0, CROSS_FLIGHT_Y1 = 226.0, 249.0
+CROSS_FLIGHT_Y0, CROSS_FLIGHT_Y1 = 226.0, 231.35
+CROSS_TAIL_RO, CROSS_TAIL_Y1 = 5.0, 259.0
+ROTOR_RADIAL_RELIEF_R = 63.5
 CROSS_PITCH = 9.0
 CROSS_GEAR_Y0, CROSS_GEAR_Y1 = 213.0, 219.0
 # Equal 12T spur gears; the middle idler reverses twice in all, so the
@@ -104,10 +109,9 @@ IDLER_Z = (CROSS_Z + WORM_CZ) / 2.0 + _gear_dx / _gear_span * _gear_offset
 BELT_WEST_X, BELT_EAST_X, BELT_AX_Z = 80.0, 219.0, 331.4
 BELT_INNER_R, BELT_OUTER_R = 3.8, 4.6
 
-# Opposed transverse screw flights catch fragments before the belt east
-# tangent and feed the central 20 mm auger lane. Both are geared from the
-# east drum; the split shafts leave the longitudinal auger journal clear.
-SWEEP_X, SWEEP_Z = 228.2, 342.0
+# The transverse flights meet the side belts' east arcs and run into the
+# powered central lane before fragments park against the east drum.
+SWEEP_X, SWEEP_Z = 224.0, 341.8
 SWEEP_SHAFT_R, SWEEP_FLIGHT_R, SWEEP_PITCH = 2.0, 6.7, 16.0
 SWEEP_GEAR_Y = ((128.0, 134.0), (352.1, 358.1))
 SWEEP_GEAR_SCALE = math.hypot(SWEEP_X-BELT_EAST_X,
@@ -117,7 +121,7 @@ BELT_Y0, BELT_Y1 = 163.5, 323.5
 # The central 17 mm lane is its own belt on a waisted common west drum.
 # Two side loops remain on the 160 mm wide drive/idler. A finished wide
 # belt's vertical east end cannot feed a separate belt across its gap.
-TRANSFER_WEST_X, TRANSFER_EAST_X = BELT_WEST_X, 239.0
+TRANSFER_WEST_X, TRANSFER_EAST_X = BELT_WEST_X, 260.0
 TRANSFER_WEST_Z, TRANSFER_AX_Z = BELT_AX_Z, 335.2
 TRANSFER_INNER_R, TRANSFER_OUTER_R = 2.3, 3.0
 TRANSFER_Y0, TRANSFER_Y1 = 223.5, 240.5
@@ -193,17 +197,16 @@ def pan_floor():
     full = full.cut(_box(223.7, 237.0, 163.4, 323.6, 334.0, 349.0))
     full = full.cut(_box(237.0, 245.5, 222.0, 242.0, 334.0, 349.0))
     for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
-        full = full.fuse(_box(74.0, 225.0, y0, y1, 320.0, 352.3))
+        full = full.fuse(_box(74.0, 229.5, y0, y1, 320.0, 352.3))
     for x in (BELT_WEST_X, BELT_EAST_X):
         for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
             full = full.cut(_cyl(5.15, y1-y0, x, y0, BELT_AX_Z))
     for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
         full = full.cut(_cyl(2.35, y1-y0, SWEEP_X, y0, SWEEP_Z))
     full = full.fuse(_box(76.0, 223.5, 163.4, 323.6, 321.0, 323.0))
-    full = full.fuse(_box(223.7, 237.0, 163.4, 323.6,
-                          332.8, 334.0))
-    # Raise the outgoing flakes into the transverse flight's lower
-    # quadrant without obscuring the side-belt tangent.
+    # A recessed catch shelf downstream of the belt tangency; transfer
+    # must occur over the powered upper run, not by relying on this incline.
+    full = full.fuse(_box(223.7, 237.0, 163.4, 323.6, 332.8, 334.0))
     for y0, y1 in ((163.4, 223.2), (240.8, 323.6)):
         full = full.fuse(_prism_xz(
             [(223.7, 334.0), (233.5, 335.4),
@@ -217,11 +220,12 @@ def pan_floor():
     for y0, y1 in ((163.4, 222.0), (242.0, 323.6)):
         full = full.fuse(_box(236.0, 237.4, y0, y1,
                               334.0, WALL_TOP))
-    # Recess the central second-stage belt while the metal cheeks and
-    # underside bridge carry its bearings back into the pan side slabs.
+    # Keep these bearing-support cheeks below the underside of even a
+    # Ø1.5 flake on the side drum; a z334.2 cheek trapped flakes at y243.
+    # The x222.5 web below them still connects the metal support to the pan.
     full = full.cut(_box(222.5, 240.0, 223.2, 240.8, 328.5, 340.0))
-    full = full.fuse(_box(224.0, 240.0, 221.0, 223.2, 327.0, 334.2))
-    full = full.fuse(_box(224.0, 240.0, 240.8, 243.0, 327.0, 334.2))
+    full = full.fuse(_box(224.0, 240.0, 221.0, 223.2, 327.0, 333.0))
+    full = full.fuse(_box(224.0, 240.0, 240.8, 243.0, 327.0, 333.0))
     full = full.fuse(_box(224.0, 240.0, 223.2, 240.8, 326.0, 327.5))
     # Two narrow underside webs tie the lowered idler cheeks to the
     # existing full-width bottom plate without a wall above the treads.
@@ -272,17 +276,22 @@ def bypass_channel_floor():
                 AUG_FLOOR_BASE, AUG_FLOOR_TOP)
     shell = _box(AUG_FLIGHT_X0, 354.0, 223.3, 240.9,
                  AUG_FLOOR_TOP, AUG_AX_Z)
-    inner = _cyl(8.4475, AUG_FLIGHT_X1 - AUG_FLIGHT_X0,
+    inner = _cyl(9.5, AUG_FLIGHT_X1 - AUG_FLIGHT_X0,
                  AUG_FLIGHT_X0, AUG_AX_Y, AUG_AX_Z, axis=(1, 0, 0))
     shell = shell.cut(inner)
     cross_clearance = _cyl(10.55, 27.5, CROSS_X, 223.5, CROSS_Z)
-    # The centre tread reaches the first flight through a five-millimetre
-    # clearance pocket. Downstream, a shallow ramp returns it to the U
-    # cradle rather than leaving a vertical x242 stop against the flakes.
-    entrance = _box(237.0, 242.0, 223.2, 240.8, 331.0, 351.0)
+    # Carry the center tread under most of one screw pitch. A short belt
+    # ending at x242 let small fragments fall to z336 before the flight
+    # could catch them. The metal flight stays above the raised tread;
+    # contact with a transported fragment, not belt-to-flight contact,
+    # is the intended transfer. The floor resumes after the east drum.
+    entrance = _box(237.0, TRANSFER_EAST_X + TRANSFER_OUTER_R,
+                    223.2, 240.8, 331.0, 351.0)
     exit_ramp = _prism_xz(
-        [(242.0, 335.6), (250.0, 338.2),
-         (250.0, 351.0), (242.0, 351.0)], 223.2, 17.6)
+        [(TRANSFER_EAST_X + TRANSFER_OUTER_R, 335.6),
+         (TRANSFER_EAST_X + TRANSFER_OUTER_R + 8.0, 338.2),
+         (TRANSFER_EAST_X + TRANSFER_OUTER_R + 8.0, 351.0),
+         (TRANSFER_EAST_X + TRANSFER_OUTER_R, 351.0)], 223.2, 17.6)
     return slab.fuse(shell).cut(cross_clearance).cut(entrance).cut(
         exit_ramp).clean()
 
@@ -424,8 +433,8 @@ def belt_bearings():
 
 def sweep_shaft(south):
     """Split shaft with a swept, opposite-hand screw and keyed spur."""
-    y0, y1 = (127.0, 228.0) if south else (236.0, 359.0)
-    flight0, flight1 = (164.5, 223.1) if south else (240.9, 321.5)
+    y0, y1 = (127.0, 228.5) if south else (235.5, 359.0)
+    flight0, flight1 = (164.5, 226.0) if south else (236.0, 321.5)
     shaft = _cyl(SWEEP_SHAFT_R, y1-y0, SWEEP_X, y0, SWEEP_Z)
     gy0, gy1 = SWEEP_GEAR_Y[0 if south else 1]
     shaft = shaft.fuse(_box(SWEEP_X+1.9, SWEEP_X+2.45,
@@ -710,20 +719,9 @@ def auger_wheel():
         AUG_AX_Z + 2.8, AUG_AX_Z + 4.1)).clean()
 
 
-def cross_feed_shaft():
-    """Right-hand helicoid: negative +Y shaft angle advances material +Y."""
-    shaft = _cyl(CROSS_SHAFT_R, CROSS_SHAFT_Y1 - CROSS_SHAFT_Y0,
-                 CROSS_X, CROSS_SHAFT_Y0, CROSS_Z)
-    key = _box(CROSS_X + 2.8, CROSS_X + 4.0,
-               CROSS_GEAR_Y0, CROSS_GEAR_Y1,
-               CROSS_Z - 1.0, CROSS_Z + 1.0)
-    shaft = shaft.fuse(key)
-    # Both external 12T meshes restore the S2Ecc signed angle. S2Ecc is
-    # negative for positive M1 rotation; the RH flight therefore advances
-    # a stationary flake north, while the former LH flight expelled it south.
-    helix = _helix_z((CROSS_SHAFT_R + CROSS_FLIGHT_RO) / 2.0,
-                     CROSS_PITCH, CROSS_FLIGHT_Y1 - CROSS_FLIGHT_Y0,
-                     (0, 0, CROSS_FLIGHT_Y0), lefthand=False)
+def _cross_feed_flight(y0, y1, outer_radius, phase_deg=0.0):
+    helix = _helix_z((CROSS_SHAFT_R + outer_radius) / 2.0,
+                     CROSS_PITCH, y1 - y0, (0, 0, y0), lefthand=False)
     helix = helix.rotate(V(0, 0, 0), V(1, 0, 0), -90).translate(
         V(CROSS_X, 0, CROSS_Z))
     p0, tangent = _path_frame(helix)
@@ -731,13 +729,29 @@ def cross_feed_shaft():
     axial = tangent.cross(radial).normalized()
     if axial.dot(V(0, 1, 0)) < 0:
         axial *= -1.0
-    half_rad = (CROSS_FLIGHT_RO - CROSS_SHAFT_R) / 2.0
+    half_rad = (outer_radius - CROSS_SHAFT_R) / 2.0
     half_web = 1.25
     profile = [p0 + radial * -half_rad + axial * -half_web,
                p0 + radial * half_rad + axial * -half_web,
                p0 + radial * half_rad + axial * half_web,
                p0 + radial * -half_rad + axial * half_web]
-    return shaft.fuse(_sweep_profile(helix, profile)).clean()
+    return _sweep_profile(helix, profile).rotate(
+        V(CROSS_X, 0, CROSS_Z), V(CROSS_X, 1, CROSS_Z), phase_deg)
+
+def cross_feed_shaft():
+    """RH receiving flight and rotor-clear powered tail advance material +Y."""
+    shaft = _cyl(CROSS_SHAFT_R, CROSS_SHAFT_Y1 - CROSS_SHAFT_Y0,
+                 CROSS_X, CROSS_SHAFT_Y0, CROSS_Z)
+    key = _box(CROSS_X + 2.8, CROSS_X + 4.0,
+               CROSS_GEAR_Y0, CROSS_GEAR_Y1,
+               CROSS_Z - 1.0, CROSS_Z + 1.0)
+    return (shaft.fuse(key)
+            .fuse(_cross_feed_flight(CROSS_FLIGHT_Y0, CROSS_FLIGHT_Y1,
+                                     CROSS_FLIGHT_RO))
+            .fuse(_cross_feed_flight(
+                CROSS_FLIGHT_Y1, CROSS_TAIL_Y1, CROSS_TAIL_RO,
+                phase_deg=360.0 * (CROSS_FLIGHT_Y1 - CROSS_FLIGHT_Y0) /
+                CROSS_PITCH)).clean())
 
 
 def _feed_gear(cx, cz, bore, phase=0.0):
@@ -788,23 +802,32 @@ def cross_feed_gear():
 
 
 def cross_feed_shell():
-    """Rotor-clear U cradle and cap-inner-radius outlet, no cap subtraction."""
+    """U cradle relieved for the swept S2 rotor, with an open inner outlet."""
     cradle = _box(345.8, 368.2, 223.5, 250.8, 315.8, CROSS_Z)
     bore = _cyl(10.65, 28.0, CROSS_X, 223.3, CROSS_Z)
     cradle = cradle.cut(bore)
-    east = _box(368.2, 369.2, 223.5, 250.8, 320.0, 334.5)
+    east = _box(368.2, 369.2, 223.5, 260.0, 320.0, 334.5)
     east = east.fuse(_box(368.2, 369.2, 238.1, 250.8, 334.5, 342.5))
     west = _box(344.3, 345.8, 240.9, 250.8, 326.0, 342.5)
     roof = _box(345.0, 369.2, 240.9, 250.8, 341.0, 342.5)
-    # The under-shaft continuation stays inside r<65.6 at y251..255, so
-    # flakes on the bottom of the screw can pass through the cap bore.
-    # A 1.5 mm bridge let simulated fragments tunnel below the floor at
-    # y255; retain its z317.3 top and thicken below the transport surface.
-    # This changes collision support, not the aperture or powered reach.
     outlet = _box(350.0, 359.7, 250.3, 258.0, 311.8, 317.3)
     lip_w = _box(349.0, 350.0, 250.3, 258.0, 315.8, 322.0)
     lip_e = _box(359.7, 360.1, 250.3, 258.0, 315.8, 319.0)
-    return cradle.fuse(east).fuse(west).fuse(roof).fuse(outlet).fuse(lip_w).fuse(lip_e).clean()
+    # A 3.4 mm metal shelf is integral with the outer cheek. It supports
+    # the narrow flight through the mouth while the inner side stays open
+    # to the S2 rotor; the former inner bridge struck the moving hooks.
+    shelf = _box(359.0, 369.0, 235.0, 260.0, 317.8, 321.2)
+    shell = (cradle.fuse(east).fuse(west).fuse(roof)
+             .fuse(outlet).fuse(lip_w).fuse(lip_e).fuse(shelf))
+    # The former under-shaft bridge occupied the rotor's swept volume.
+    # Remove only the inner sector; the remaining outer U wall and mounting
+    # cheek stay one solid while the powered flight reaches past y255.
+    rotor_clearance = _cyl(ROTOR_RADIAL_RELIEF_R, 26.0,
+                           S2_AX, 234.0, S2_AZ)
+    shell = shell.cut(rotor_clearance).clean()
+    if len(shell.Solids()) != 1:
+        raise RuntimeError("cross-feed shell rotor relief split its support")
+    return shell
 
 
 def cross_feed_bearings():

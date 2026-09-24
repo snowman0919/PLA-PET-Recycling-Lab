@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from pathlib import Path
 import re
 import sys
@@ -17,13 +18,14 @@ HERE = Path(__file__).resolve()
 C21 = HERE.parents[1]
 REPO = HERE.parents[2]
 sys.path.insert(0, str(C21/"src"))
-from build_cad import components
+from build_cad import components, local_rotor, moved
 import drive_teeth
 import chute as chute_mod
 import guards as guards_mod
 import winder as winder_mod
 import electrical_bay as electrical_mod
 import chain_relief
+from transmission import Transmission
 
 # VP1 Stage 2: legacy envelope instances replaced by real geometry.
 EXCLUDED_LEGACY_INSTANCES = {"SPOOL-ENV_001", "PULL-ROLLER_001",
@@ -170,6 +172,64 @@ def collision_audit(changed, stable, allowed=None, known=None):
             "passed": not failures}
 
 
+def rotor_feed_phase_collision(chute_parts, transform):
+    """Check the moving S2 rotor against fixed feed metal, not just theta=0.
+
+    Five-degree samples cover q input turns; a separate axial/radial bound
+    covers the entire rotor phase for these two feed parts. Neither proves
+    material transport, loaded deflection, or the rest of the machine.
+    """
+    c = Transmission()
+    rotor = local_rotor(c)
+    feed = {item["name"]: item["shape"] for item in chute_parts}
+    axis = tuple(transform["rotation_axis"])
+    offset = tuple(transform["translation_mm"])
+    # Axial separation of the wide receiving flight from the coupling web
+    # plus radial separation of the narrow tail and outer shell from both
+    # orbiting web and hooks gives a continuous conservative bound. The
+    # cycloid slab starts only at global y307, beyond the feed.
+    receiving_end = chute_mod._cross_feed_flight(
+        chute_mod.CROSS_FLIGHT_Y0, chute_mod.CROSS_FLIGHT_Y1,
+        chute_mod.CROSS_FLIGHT_RO).BoundingBox().ymax
+    rotor_reach = max(c.rotor_tip_diameter_mm / 2.0, 54.5) + c.eccentric_mm
+    from OCP.BRepExtrema import BRepExtrema_DistShapeShape
+    tail = chute_mod._cross_feed_flight(
+        chute_mod.CROSS_FLIGHT_Y1, chute_mod.CROSS_TAIL_Y1,
+        chute_mod.CROSS_TAIL_RO,
+        phase_deg=360.0 * (chute_mod.CROSS_FLIGHT_Y1 -
+                           chute_mod.CROSS_FLIGHT_Y0) / chute_mod.CROSS_PITCH)
+    tb = tail.BoundingBox()
+    radial_envelope = cq.Solid.makeCylinder(
+        rotor_reach, tb.ymax - tb.ymin + 2.0,
+        cq.Vector(offset[0], tb.ymin - 1.0, offset[2]), cq.Vector(0, 1, 0))
+    tail_margin = BRepExtrema_DistShapeShape(
+        tail.wrapped, radial_envelope.wrapped).Value()
+    shell_margin = chute_mod.ROTOR_RADIAL_RELIEF_R - rotor_reach
+    envelope_passed = (receiving_end < 235.0
+                       and tail_margin >= 0.5 and shell_margin >= 1.0
+                       and feed["CROSS_FEED_SHELL"].BoundingBox().ymax <= 260.01)
+    hits = []
+    for degrees in range(0, c.q * 360, 5):
+        shape = moved(rotor, math.radians(degrees), c)
+        shape = shape.rotate((0, 0, 0), axis, transform["rotation_deg"]).translate(offset)
+        for name in ("CROSS_FEED_SHAFT", "CROSS_FEED_SHELL"):
+            fixed = feed[name]
+            if not bbox_overlap(shape, fixed):
+                continue
+            volume = shape.intersect(fixed).Volume()
+            if volume > 1e-5:
+                hits.append({"input_deg": degrees, "fixed": name,
+                             "overlap_mm3": round(volume, 6)})
+    return {"method": "BREP_EXACT_SAMPLED_5_DEG_PLUS_AXIAL_RADIAL_BOUND",
+            "samples": c.q * 72,
+            "checked_feed_parts": ["CROSS_FEED_SHAFT", "CROSS_FEED_SHELL"],
+            "unexpected": hits, "passed": not hits and envelope_passed,
+            "continuous_clearance_proven": envelope_passed,
+            "receiving_flight_ymax_mm": round(receiving_end, 3),
+            "tail_radial_margin_mm": round(tail_margin, 3),
+            "shell_radial_margin_mm": round(shell_margin, 3)}
+
+
 def extent(records):
     compound = cq.Compound.makeCompound([item["shape"] for item in records])
     b = bounds(compound)
@@ -186,16 +246,16 @@ def assembly_geometry_checks(chute_parts, imported_solids):
 
     shapes = {item["name"]: item["shape"] for item in chute_parts}
 
-    def matches(name, tolerance=0.25):
+    def imported(name, tolerance=0.25):
         expected = bounds(shapes[name])
-        return any(all(abs(a-b) < tolerance for a, b in
-                       zip(bounds(solid), expected)) for solid in imported_solids)
+        return next((solid for solid in imported_solids
+                     if all(abs(a-b) < tolerance for a, b in
+                            zip(bounds(solid), expected))), None)
 
-    chute_matched = matches("CHUTE_BODY")
-    auger_matched = matches("AUG_SHAFT")
-    auger = next((solid for solid in imported_solids
-                  if all(abs(a-b) < 0.25 for a, b in
-                         zip(bounds(solid), bounds(shapes["AUG_SHAFT"])))), None)
+    chute_matched = imported("CHUTE_BODY") is not None
+    auger = imported("AUG_SHAFT")
+    auger_matched = auger is not None
+    belt = imported("S1_TRANSFER_BELT")
     old_ribs = any(
         any(lo - 0.3 <= b.xmin and b.xmax <= hi + 0.3
             and zlo - 0.3 <= b.zmin and b.zmax <= zhi + 0.3
@@ -208,16 +268,54 @@ def assembly_geometry_checks(chute_parts, imported_solids):
     clearance = (BRepExtrema_DistShapeShape(auger.wrapped, floor_band.wrapped).Value()
                  if auger is not None else None)
     auger_zmin = bounds(auger)[2] if auger is not None else None
+    # At the original east drum x239, the raised center belt shared only
+    # 5 mm of screw-flight length; flakes fell below the flight at x242.
+    # A longer powered coincidence is a necessary geometric opportunity,
+    # not evidence of pickup under load or a substitute for a flow run.
+    belt_overlap = (max(0.0, min(belt.BoundingBox().xmax, chute_mod.AUG_FLIGHT_X1)
+                        - max(belt.BoundingBox().xmin, chute_mod.AUG_FLIGHT_X0))
+                    if belt is not None else None)
+    belt_gap = (BRepExtrema_DistShapeShape(belt.wrapped, auger.wrapped).Value()
+                if belt is not None and auger is not None else None)
+    cross_feed = imported("CROSS_FEED_SHAFT")
+    cross_shell = imported("CROSS_FEED_SHELL")
+    tail = chute_mod._cross_feed_flight(
+        chute_mod.CROSS_FLIGHT_Y1, chute_mod.CROSS_TAIL_Y1,
+        chute_mod.CROSS_TAIL_RO)
+    powered_overlap = max(0.0, tail.BoundingBox().ymax - chute_mod.TROUGH_Y0)
+    outer_support = (cross_shell.intersect(chute_mod._box(
+        359.0, 369.2, 255.0, 258.0, 315.0, 335.0)).Volume()
+        if cross_shell is not None else None)
+    cross_gap = (BRepExtrema_DistShapeShape(
+        cross_feed.wrapped, cross_shell.wrapped).Value()
+        if cross_feed is not None and cross_shell is not None else None)
     checks = {
         "chute_body_matched": chute_matched,
         "aug_shaft_matched": auger_matched,
+        "transfer_belt_matched": belt is not None,
+        "transfer_belt_flight_overlap_mm": round(belt_overlap, 3) if belt_overlap is not None else None,
+        "transfer_belt_auger_gap_mm": round(belt_gap, 3) if belt_gap is not None else None,
+        "cross_feed_matched": cross_feed is not None,
+        "cross_shell_matched": cross_shell is not None,
+        "cross_feed_powered_mouth_overlap_mm": round(powered_overlap, 3),
+        "cross_feed_outer_support_mm3": (
+            round(outer_support, 3) if outer_support is not None else None),
+        "cross_feed_shell_clearance_mm": (
+            round(cross_gap, 3) if cross_gap is not None else None),
         "old_rib_solids_present": old_ribs,
         "aug_shaft_zmin": round(auger_zmin, 3) if auger_zmin is not None else None,
         "exact_min_distance_mm": round(clearance, 3) if clearance is not None else None,
-        "passed": (chute_matched and auger_matched and not old_ribs
+        "passed": (chute_matched and auger_matched and belt is not None and not old_ribs
                    and auger_zmin is not None
                    and abs(auger_zmin - (chute_mod.AUG_AX_Z - chute_mod.AUG_FLIGHT_RO)) < 0.5
-                   and clearance is not None and 0.01 <= clearance <= 0.3),
+                   and clearance is not None and 1.0 <= clearance <= 2.0
+                   and belt_overlap is not None
+                   and belt_overlap >= 0.75 * chute_mod.AUG_FLIGHT_PITCH
+                   and belt_gap is not None and 0.1 <= belt_gap <= 1.5
+                   and cross_feed is not None and cross_shell is not None
+                   and powered_overlap >= 4.0
+                   and outer_support is not None and outer_support >= 30.0
+                   and cross_gap is not None and 0.15 <= cross_gap <= 1.0),
     }
     return checks
 
@@ -297,6 +395,7 @@ def main():
     imported = cq.importers.importStep(str(out))
     imported_solids = imported.solids().vals()
     geometry_checks = assembly_geometry_checks(chute_parts, imported_solids)
+    rotor_feed_audit = rotor_feed_phase_collision(chute_parts, config["c2_subassembly_transform"])
 
     body = [item for item in all_parts if item["group"] not in config["body_excluded_groups"]]
     body_extent = extent(body)
@@ -318,7 +417,7 @@ def main():
                   if interface["passed"] and relocated["passed"]
                   and body_extent["passed"] and operating_extent["passed"]
                   and vp1_against["passed"] and vp1_internal["passed"]
-                  and geometry_checks["passed"]
+                  and geometry_checks["passed"] and rotor_feed_audit["passed"]
                   else "DIGITAL_MACHINE_INTEGRATION_HOLD",
         "source": {
             "config": str(config_path.relative_to(REPO)),
@@ -339,6 +438,7 @@ def main():
         "step_reimport_valid": all(shape.isValid() for shape in imported_solids),
         "assembly_step": str(out.relative_to(REPO)),
         "assembly_geometry_checks": geometry_checks,
+        "rotor_feed_phase_collision": rotor_feed_audit,
         "assembly_step_sha256": hashlib.sha256(out.read_bytes()).hexdigest(),
         "assembly_step_bytes": out.stat().st_size,
         "groups": groups,
@@ -385,9 +485,10 @@ def main():
                 "the flat structural slab is not a passive transport claim",
                 "puller nip: spring-loaded 1.75 mm filament grip; spool "
                 "winder, traverse and slip tensioner replace SPOOL-ENV",
-                "power policy: 500 W soft scheduler target; normal virtual "
-                "peak 416 W, >500 W WARN+logged, absolute hard ceiling "
-                "792 W; M1/M2 loads remain UNRATED estimates",
+                "power policy: 500 W hard modeled operational budget; "
+                "normal virtual peak 416 W, above-500 W demands rejected; "
+                "792 W is the separate PSU current-derived ceiling, not an "
+                "operating allowance; M1/M2 loads remain UNRATED estimates",
                 "retained-internal S1-SYNC_001/002 vs S1-BR-CAP_001 contacts "
                 "are inherited from C1 and not audited by this build",
             ],
