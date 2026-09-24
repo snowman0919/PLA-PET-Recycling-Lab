@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 7139670,
-  "usd_sha256": "9af6e71123a0fcd88dc982f042f5ea07966143479c2adffa19cd7f0fbd1d7a07",
+  "usd_bytes": 7144307,
+  "usd_sha256": "b62544c09d1f44a89b397d9c904993ee719a216d0633150da633d798e5a10ad4",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -121,12 +121,12 @@
     "BELT": [
       149.5,
       243.5,
-      332.9
+      334.05
     ],
     "BELT_DRIVE": [
       80.0,
       243.5,
-      332.9
+      335.2
     ],
     "BELT_IDLER": [
       219.0,
@@ -134,22 +134,22 @@
       332.9
     ],
     "SWEEP_SOUTH": [
-      224.0,
+      200.0,
       186.0,
       344.7
     ],
     "SWEEP_NORTH": [
-      224.0,
+      200.0,
       289.5,
       344.7
     ],
     "TRANSFER_BELT": [
       170.0,
       232.0,
-      334.05
+      335.2
     ],
     "TRANSFER_IDLER": [
-      260.0,
+      270.0,
       232.0,
       335.2
     ],
@@ -187,7 +187,7 @@
       "Belt": "two side loops on a common drive/idler shaft",
       "BeltDrive": "waisted common drive for the centre lane",
       "BeltIdler": "two side loops' waisted east follower",
-      "TransferBelt": "continuous centre lane rising into AUG",
+      "TransferBelt": "level centre lane ending beneath the first AUG turn",
       "TransferIdler": "centre lane's east follower drum",
       "TransferBearing": "two centre idler journal rings"
     },
@@ -227,25 +227,25 @@
   },
   "mass_kg_by_body": {
     "STATIC": {
-      "mass_kg": 44.57277983459198,
+      "mass_kg": 44.57099335389805,
       "mass_bounds_kg": [
-        37.04185824309822,
-        57.57431176324284
+        37.04007176240429,
+        57.572525282548916
       ],
       "center_of_mass_mm": [
-        283.5264276414182,
-        241.70237375919038,
-        190.8843119510616
+        283.4734903223417,
+        241.6790470529706,
+        190.9811109469365
       ],
       "inertia_kg_mm2": [
-        1417867.1823632156,
-        2472485.803804881,
-        1982973.8574784738
+        1418481.6042124676,
+        2473276.989317958,
+        1983159.4089146203
       ],
       "inertia_upper_bound_kg_mm2": [
-        3041700.45059295,
-        5721678.972554988,
-        5193596.295468979
+        3042501.935368388,
+        5723542.509670578,
+        5194644.765453862
       ],
       "mass_status": "BOUNDED_PROXY_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
@@ -652,150 +652,150 @@
       "solid_count": 2
     },
     "BELT": {
-      "mass_kg": 0.03838856186879069,
+      "mass_kg": 0.038393360415192285,
       "mass_bounds_kg": [
-        0.03838856186879069,
-        0.03838856186879069
+        0.038393360415192285,
+        0.038393360415192285
       ],
       "center_of_mass_mm": [
-        149.49999999999994,
-        244.92134831460686,
-        332.89999999999617
+        149.49999999999838,
+        244.9213483146067,
+        334.049999999995
       ],
       "inertia_kg_mm2": [
-        91.46078445967734,
-        70.53220065605191,
-        161.45145044608762
+        91.62445000531754,
+        70.69205602721678,
+        161.4704376626703
       ],
       "inertia_upper_bound_kg_mm2": [
-        245.1665839058529,
-        211.59660196815577,
-        455.1385818650838
+        245.65392858972677,
+        212.0761680816505,
+        455.1918915617852
       ],
       "mass_status": "DESIGN_ASSUMPTION_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
       "solid_count": 2
     },
     "BELT_DRIVE": {
-      "mass_kg": 0.21456071500321483,
+      "mass_kg": 0.2145607150032151,
       "mass_bounds_kg": [
-        0.21456071500321483,
-        0.21456071500321483
+        0.2145607150032151,
+        0.2145607150032151
       ],
       "center_of_mass_mm": [
         80.30358942807845,
-        323.8164967064426,
-        332.899999999998
+        323.8164967064427,
+        335.199999999998
       ],
       "inertia_kg_mm2": [
-        1862.8804952130015,
-        26.978959474292548,
-        1863.1646989339645
+        1862.8804952130035,
+        26.978959474292623,
+        1863.1646989339665
       ],
       "inertia_upper_bound_kg_mm2": [
-        5756.906380876382,
-        82.29201786958936,
-        5759.114131485956
+        5756.906380876389,
+        82.2920178695896,
+        5759.114131485962
       ],
       "mass_status": "DESIGN_ASSUMPTION_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
       "solid_count": 2
     },
     "BELT_IDLER": {
-      "mass_kg": 0.06839960032815685,
+      "mass_kg": 0.09349716973006615,
       "mass_bounds_kg": [
-        0.06839960032815685,
-        0.06839960032815685
+        0.09349716973006615,
+        0.09349716973006615
       ],
       "center_of_mass_mm": [
-        218.99999999999926,
-        245.73757198769854,
-        332.89999999999924
+        218.99999999999812,
+        249.08143674293729,
+        332.8999999999981
       ],
       "inertia_kg_mm2": [
-        411.4112044198017,
-        0.9434861642604366,
-        411.4112044198017
+        780.4509420726384,
+        4.460330914211411,
+        780.4509420726384
       ],
       "inertia_upper_bound_kg_mm2": [
-        914.8566586639793,
-        2.830458492783289,
-        914.8566586639793
+        1360.860922943722,
+        13.380992742641517,
+        1360.860922943722
       ],
       "mass_status": "DESIGN_ASSUMPTION_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
       "solid_count": 4
     },
     "SWEEP_SOUTH": {
-      "mass_kg": 0.022488441696728336,
+      "mass_kg": 0.03454399636122764,
       "mass_bounds_kg": [
-        0.022488441696728336,
-        0.022488441696728336
+        0.03454399636122764,
+        0.03454399636122764
       ],
       "center_of_mass_mm": [
-        223.99682593588145,
-        166.7920362286314,
-        344.7933125841785
+        199.9979336566849,
+        154.30092650524705,
+        344.76074730288894
       ],
       "inertia_kg_mm2": [
-        24.06087101106636,
-        0.8591619955706224,
-        24.032965493880216
+        34.99505500055391,
+        2.546761885273125,
+        34.96708122517163
       ],
       "inertia_upper_bound_kg_mm2": [
-        74.83875507285995,
-        2.5927987618955854,
-        74.740720225493
+        110.68034294768442,
+        7.684705696180509,
+        110.55489630063836
       ],
       "mass_status": "DESIGN_ASSUMPTION_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
       "solid_count": 2
     },
     "SWEEP_NORTH": {
-      "mass_kg": 0.02746426006394051,
+      "mass_kg": 0.04050627024196106,
       "mass_bounds_kg": [
-        0.02746426006394051,
-        0.02746426006394051
+        0.04050627024196106,
+        0.04050627024196106
       ],
       "center_of_mass_mm": [
-        224.05055130927926,
-        308.27614052635727,
-        344.6478057571524
+        200.03579853080956,
+        328.6093503808855,
+        344.66303800559075
       ],
       "inertia_kg_mm2": [
-        43.17120908387814,
-        1.1173121026627457,
-        43.17126606606209
+        73.9229162639403,
+        2.845985139529967,
+        73.9229743657857
       ],
       "inertia_upper_bound_kg_mm2": [
-        132.9280891436725,
-        3.3684513007653805,
-        132.92799738006363
+        231.60640163608667,
+        8.589895899407821,
+        231.60574858553213
       ],
       "mass_status": "DESIGN_ASSUMPTION_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
       "solid_count": 2
     },
     "TRANSFER_BELT": {
-      "mass_kg": 0.00493482308320298,
+      "mass_kg": 0.005196408148545436,
       "mass_bounds_kg": [
-        0.00493482308320298,
-        0.00493482308320298
+        0.005196408148545436,
+        0.005196408148545436
       ],
       "center_of_mass_mm": [
-        169.99999999999574,
-        232.0,
-        334.049999999995
+        174.99999999999977,
+        231.99999999999997,
+        335.19999999999857
       ],
       "inertia_kg_mm2": [
-        0.14717364705015684,
-        14.255346712108675,
-        14.345867049158928
+        0.14073605800703365,
+        16.65102387897834,
+        16.760581486015507
       ],
       "inertia_upper_bound_kg_mm2": [
-        0.4415209411504705,
-        42.766040136326026,
-        43.037601147476785
+        0.42220817402110433,
+        49.95307163693502,
+        50.281744458046525
       ],
       "mass_status": "DESIGN_ASSUMPTION_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
@@ -808,7 +808,7 @@
         0.0026863774488809986
       ],
       "center_of_mass_mm": [
-        260.0,
+        270.0,
         232.00000000000003,
         335.2
       ],
@@ -862,10 +862,10 @@
     },
     "STEEL": {
       "solid_count": 182,
-      "mass_kg": 41.68419572756234,
+      "mass_kg": 41.760440407300834,
       "mass_bounds_kg": [
-        41.68419572756234,
-        41.68419572756234
+        41.760440407300834,
+        41.760440407300834
       ]
     },
     "PURCHASED_BEARING": {
@@ -886,10 +886,10 @@
     },
     "PC_SHEET": {
       "solid_count": 2,
-      "mass_kg": 0.2346750392889341,
+      "mass_kg": 0.20683901310092315,
       "mass_bounds_kg": [
-        0.2346750392889341,
-        0.2346750392889341
+        0.20683901310092315,
+        0.20683901310092315
       ]
     },
     "PURCHASED_HEATER": {
@@ -910,10 +910,10 @@
     },
     "ELASTOMER_BELT": {
       "solid_count": 3,
-      "mass_kg": 0.043323384951993664,
+      "mass_kg": 0.043589768563737724,
       "mass_bounds_kg": [
-        0.043323384951993664,
-        0.043323384951993664
+        0.043589768563737724,
+        0.043589768563737724
       ]
     },
     "TPU_METAL_PROXY": {
@@ -957,10 +957,10 @@
       ]
     }
   },
-  "modeled_inventory_mass_kg": 59.14811489057548,
+  "modeled_inventory_mass_kg": 59.196789927737726,
   "modeled_inventory_mass_bounds_kg": [
-    51.58414851958679,
-    72.18741228150627
+    51.63282355674903,
+    72.23608731866851
   ],
   "mass_provenance": "per-solid STEP BRep volume and actual solid bbox in bodies.json; effective density by named part. Static mass is inventory only; Machine root 1 kg / 10000 kg.mm2 is a solver anchor, not a manufactured part. Purchased boundaries are bounded proxies, not solid steel or measured.",
   "derived_transfer_spec": {
@@ -994,7 +994,7 @@
     "note": "2mm below split hopper shell top; lateral spread set by verify_full.py across the mouth cross-section, not flow proof"
   },
   "source_bodies": {
-    "step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
+    "step_sha256": "1d45ad9aa8f404310df5ec6821c524d00ab518d67468598b0e13e860d83f1fe0",
     "solids": 278,
     "moving_bodies": [
       "AUGER",
@@ -1022,7 +1022,7 @@
       "TRANSFER_IDLER"
     ]
   },
-  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
+  "revision": "a0f3f6cc1e215118cf990b7993015cdbc0757448",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
@@ -1742,8 +1742,8 @@
       "mesh": "c2.2/sim/assets/out/full/FEED-BUF_001__coarse.stl",
       "prim": "/World/F0/Static/mesh_FEED_BUF_001",
       "approx": "triangleMesh",
-      "verts": 16,
-      "faces": 32
+      "verts": 48,
+      "faces": 96
     },
     {
       "mesh": "c2.2/sim/assets/out/full/EX-SCREW_001__coarse.stl",
@@ -2379,8 +2379,8 @@
       "mesh": "c2.2/sim/assets/out/full/CHUTE_BODY__coarse.stl",
       "prim": "/World/F0/Static/mesh_CHUTE_BODY",
       "approx": "triangleMesh",
-      "verts": 836,
-      "faces": 1720
+      "verts": 900,
+      "faces": 1848
     },
     {
       "mesh": "c2.2/sim/assets/out/full/CHUTE_TROUGH_FLOOR_E__coarse.stl",
@@ -3337,15 +3337,15 @@
       "mesh": "c2.2/sim/assets/out/full/S1_BELT_step220__fine.stl",
       "prim": "/World/F0/BELT/mesh_S1_BELT_step220_west",
       "approx": "convexHull_partition",
-      "verts": 66,
-      "faces": 128
+      "verts": 68,
+      "faces": 132
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_BELT_step220__fine.stl",
       "prim": "/World/F0/BELT/mesh_S1_BELT_step220_east",
       "approx": "convexHull_partition",
-      "verts": 66,
-      "faces": 128
+      "verts": 68,
+      "faces": 132
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl",
@@ -3372,22 +3372,22 @@
       "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl",
       "prim": "/World/F0/BELT/mesh_S1_BELT_step221_west",
       "approx": "convexHull_partition",
-      "verts": 66,
-      "faces": 128
+      "verts": 68,
+      "faces": 132
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl",
       "prim": "/World/F0/BELT/mesh_S1_BELT_step221_east",
       "approx": "convexHull_partition",
-      "verts": 66,
-      "faces": 128
+      "verts": 68,
+      "faces": 132
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_BELT_DRIVE__fine.stl",
       "prim": "/World/F0/BELT_DRIVE/mesh_S1_BELT_DRIVE",
       "approx": "convexHull",
-      "verts": 200,
-      "faces": 396
+      "verts": 201,
+      "faces": 398
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER_step223__fine.stl",
@@ -3802,7 +3802,7 @@
       "prim": "/World/F0/SWEEP_NORTH/mesh_S1_SWEEP_NORTH_seg00",
       "approx": "convexHull_segment",
       "axial_range_mm": [
-        235.3095978477783,
+        235.30959784777832,
         240.9
       ],
       "verts": 163,
@@ -4265,7 +4265,7 @@
       "approx": "convexHull_segment",
       "axial_range_mm": [
         322.3,
-        359.0000001
+        369.0000001
       ],
       "verts": 154,
       "faces": 304
@@ -4337,15 +4337,15 @@
       "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BELT__fine.stl",
       "prim": "/World/F0/TRANSFER_BELT/mesh_S1_TRANSFER_BELT_west",
       "approx": "convexHull_partition",
-      "verts": 68,
-      "faces": 132
+      "verts": 66,
+      "faces": 128
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BELT__fine.stl",
       "prim": "/World/F0/TRANSFER_BELT/mesh_S1_TRANSFER_BELT_east",
       "approx": "convexHull_partition",
-      "verts": 68,
-      "faces": 132
+      "verts": 66,
+      "faces": 128
     },
     {
       "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_IDLER__fine.stl",

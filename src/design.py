@@ -218,14 +218,21 @@ for theta in np.linspace(228,312,13):
 part('S2-SCREEN','Curved screen4mm x78 holes','2mm steel',a,b,notes='4 mm round holes, pitch6 axial. Bent radius inner62.8. Hole size is not a guaranteed maximum particle length. Flat DXF generated separately.')
 inst('S2-SCREEN',(X2,255,280),group='S2')
 
-# Buffer CAD is a true hollow frustum. Lower discharge throat and material-specific drying are held.
-def rectloop(w,d,z):return [[-w/2,-d/2,z],[w/2,-d/2,z],[w/2,d/2,z],[-w/2,d/2,z]]
-bottom=rectloop(50,40,0);top=rectloop(190,48,73)
-ib=rectloop(44,34,-1);it=rectloop(184,42,74)
-# Offset throat to extruder feed atX289; upper buffer remains under screen.
-for loop in [bottom,ib]:
- for pt in loop:pt[0]+=289-X2
-part('FEED-BUF','Buffer190x48 top /50x40 throat /height73','PC outer shell plus metal throat',[{'kind':'loft','loops':[bottom,top]}],[{'kind':'loft','loops':[ib,it]}],notes='Internal geometric volume calculated; usable75pct separately stated. Top fits between Y251..299, ahead of pin rings. Cold throat offset to barrel feed X289.')
+# The Ø20 barrel feed bore is centred at x299,y275. A 15 mm vertical
+# octagonal neck keeps fragments within the clear throat before the
+# barrel handoff; the Ø18 outer octagon leaves 1 mm nominal radial room
+# inside the bore. Upper mouth spans the S2 screen discharge.
+def octloop(r,z):
+ return [[r*math.cos(math.radians(a)),r*math.sin(math.radians(a)),z]
+         for a in (225,270,315,0,45,90,135,180)]
+def rectloop(w,d,z):
+ return [[x,y,z] for x,y in ((-w/2,-d/2),(0,-d/2),(w/2,-d/2),
+          (w/2,0),(w/2,d/2),(0,d/2),(-w/2,d/2),(-w/2,0))]
+bottom=octloop(9.0,0);neck=octloop(9.0,15);top=rectloop(190,48,73)
+ib=octloop(6.5,-1);inck=octloop(6.5,15);it=rectloop(184,42,74)
+for loop in (bottom,neck,ib,inck):
+ for pt in loop:pt[0]+=299-X2
+part('FEED-BUF','Buffer190x48 top /Ø18 octagonal neck15 /height73','PC outer shell plus metal throat',[{'kind':'loft','loops':[bottom,neck,top]}],[{'kind':'loft','loops':[ib,inck,it]}],notes='Lower Ø13 clear octagon and Ø18 outer vertical neck centred on the Ø20 barrel feed bore at x299,y275. 15 mm neck precedes barrel handoff; 1 mm nominal radial room is not a manufacturing tolerance. Upper mouth fits Y251..299. Cold shell-to-barrel support, seal and independent metal throat liner remain manufacturing HOLD.')
 inst('FEED-BUF',(X2,275,145),group='feed')
 # Screw: genuine helical flight swept about local Z plus a tapered root, rotated Z to X at instance.
 a=[cone(5,5,96,axis=(0,0,1)),cone(5,6.5,80,(0,0,96),(0,0,1)),cyl(6.5,80,(0,0,176),(0,0,1)),{'kind':'screw_flight','pitch':16,'height':256,'outer_r':8,'root_r':4.9,'thickness':2}]

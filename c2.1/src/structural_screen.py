@@ -105,7 +105,9 @@ def screen():
     lid = assembly["HOP-LID"]["adds"][0]["size"]
     deck = assembly["DRV-DECK"]["adds"][0]["size"]
     foot = assembly["DRV-M1-FOOT"]["adds"][0]["size"]
-    buf = assembly["FEED-BUF"]["adds"][0]["loops"]
+    # The lower 15 mm octagonal neck is straight; screen the separate
+    # inclined neck-to-mouth span, not the full three-loop loft as one taper.
+    buf = assembly["FEED-BUF"]["adds"][0]["loops"][-2:]
     hopper = assembly["HOPPER"]["adds"][0]["loops"]
     zbuf = buf[1][0][2] - buf[0][0][2]
     zhop = hopper[1][0][2] - hopper[0][0][2]
@@ -127,13 +129,13 @@ def screen():
 
     # Bulk pressure is a deliberately bounded process assumption, not a
     # measured arching/impact pressure. p = 0.5 kPa; 5 kPa upset sensitivity.
-    buf_wall = 3.0  # nominal differences of outer/inner loft endpoint widths
-    inner_buf = assembly["FEED-BUF"]["cuts"][0]["loops"]
+    buf_wall = 3.0  # mouth width difference; neck radius wall is 9-6.5=2.5
+    inner_buf = assembly["FEED-BUF"]["cuts"][0]["loops"][-2:]
     if abs((top_buffer - (max(p[0] for p in inner_buf[1]) -
                                min(p[0] for p in inner_buf[1]))) / 2 - buf_wall) > 1e-6:
         raise ValueError("Buffer nominal wall thickness changed")
-    # The long +/-Y panels incline slightly. Cut over-run z=-1..74 makes
-    # same-z throat thickness a little less than nominal.
+    # The long +/-Y panels incline slightly. The inner mouth extends 1 mm
+    # above the outer mouth, reducing the same-z throat wall thickness.
     y_outer_bottom, y_outer_top = max(p[1] for p in buf[0]), max(p[1] for p in buf[1])
     y_inner_bottom, y_inner_top = max(p[1] for p in inner_buf[0]), max(p[1] for p in inner_buf[1])
     y_inner_slope = (y_inner_top-y_inner_bottom)/(inner_buf[1][0][2]-inner_buf[0][0][2])
@@ -156,10 +158,9 @@ def screen():
             ["actual feed mass/bridging/impact", "metal throat joint and wall fixture", "PC grade/process/temperature"],
             decision="REJECT_ASSUMED_DEFLECTION" if v["deflection_mm"] > y_slant/100 else "HOLD",
             note="Strip ignores corner restraint and is not a containment or burst calculation.")
-    # The x-facing frustum panels are inclined. The cut loft deliberately
-    # over-runs z=-1..74, so the throat offset is LESS than the 3-mm nominal
-    # top/bottom loop difference at corresponding loop endpoints. Convert the
-    # actual same-z projected offset to thickness normal to the outer panel.
+    # The x-facing frustum panels incline from neck to mouth. The cut loft
+    # over-runs the upper plane by 1 mm, so compare wall offsets at the
+    # same z before projecting thickness normal to the outer panel.
     x_outer_bottom, x_outer_top = max(p[0] for p in buf[0]), max(p[0] for p in buf[1])
     x_inner_bottom, x_inner_top = max(p[0] for p in inner_buf[0]), max(p[0] for p in inner_buf[1])
     inner_slope = (x_inner_top-x_inner_bottom)/(inner_buf[1][0][2]-inner_buf[0][0][2])
@@ -182,7 +183,7 @@ def screen():
              "x_run_mm":slope_run, "nominal_panel_width_mm":48.,
              "horizontal_offset_at_throat_mm":projected_throat, "horizontal_offset_at_top_mm":projected_top,
              "normal_thickness_throat_mm":t_throat, "normal_thickness_top_mm":t_top,
-             "source":"design/assembly.json FEED-BUF outer loft z0..73 and cut loft z-1..74"},
+             "source":"design/assembly.json FEED-BUF inclined outer neck z15..73 and cut z15..74"},
             {"pressure_kPa":p_kPa, "type":"assumed uniform normal bulk pressure, corner/membrane action omitted"},
             {"stress_MPa":allowable["PC"], "deflection_mm":slant/100}, v,
             ["real tapered-shell stiffness and corner joints", "bulk force/impact",
@@ -490,6 +491,7 @@ def screen():
            "feedstocks_not_construction": "PLA/PET/TPU are incoming waste feedstocks; this screening's PLA/ABS/PC are candidate construction polymers, TPU only as possible puller tread after friction/wear proof"},
         "explicit_exclusions": ["no measured forces, impact energy, vibration or fatigue", "no bearing, chain, gear, weld, layer-bond, screw or slot-nut certification",
              "no local buckling, notch, fracture, thermal gradients, pressure vessel or guard containment rating",
+             "no FEED-BUF straight-neck joint or metal-liner anchorage strength calculation",
              "no raw feedstock coupon or digital geometry used as printed-part proof", "no fabrication, procurement or energization authorization"],
         "decision": "HOLD; all cases provisional and unmeasured dependencies must be closed before physical release"
     }

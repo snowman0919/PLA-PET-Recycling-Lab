@@ -32,11 +32,11 @@
   "checkpoints": [
     {
       "checkpoint": "S1_opening_to_pan",
-      "aperture_mm": 14.800000000000011,
+      "aperture_mm": 12.500629600026855,
       "probe_sphere_mm": 4.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "central cutter opening (160,232): bottom z352.3 to belt top z337.5; stationary pan intersection 0.000 mm3",
+      "note": "central cutter opening (160,232): bottom z352.3 to belt top z339.8; stationary pan intersection 0.000 mm3",
       "checkpoint_class": "pass_space"
     },
     {
@@ -77,11 +77,11 @@
     },
     {
       "checkpoint": "screen_to_buffer_gravity_exit",
-      "aperture_mm": 5.938227185150817,
+      "aperture_mm": 5.551855941219673,
       "probe_sphere_mm": 3.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "exported S2 screen has 78/78 \u00d81.5 and 78/78 \u00d83 unobstructed vertical cylindrical paths; minimum actual FEED-BUF metal distance at the upper receiver plane z218 is 5.938 mm. This is not a contact, capture or flow test",
+      "note": "exported S2 screen has 78/78 \u00d81.5 and 78/78 \u00d83 unobstructed vertical cylindrical paths; minimum actual FEED-BUF metal distance at the upper receiver plane z218 is 5.552 mm. This is not a contact, capture or flow test",
       "clear_paths_by_probe_mm": {
         "1.5": 78,
         "3.0": 78
@@ -91,11 +91,11 @@
     },
     {
       "checkpoint": "buffer_throat",
-      "aperture_mm": 40.0,
+      "aperture_mm": 12.010433922646728,
       "probe_sphere_mm": 8.0,
       "passed": true,
       "evidence": "NAMEPLATE",
-      "note": "FEED-BUF loft 190x48 top / 50x40 throat, height 73 (throat limits)",
+      "note": "FEED-BUF loft 190x48 top / \u00d818 outer and \u00d813 clear octagonal neck for 15 mm, height 73; lower outlet x299,y275 is coaxial with the \u00d820 barrel feed bore; nominal outer radial room 1 mm is not a manufacturing tolerance",
       "checkpoint_class": "pass_space"
     },
     {

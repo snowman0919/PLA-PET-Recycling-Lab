@@ -7,21 +7,21 @@
   "step_product_name": "Open CASCADE STEP translator 7.9 1.240",
   "mesh_file": "sim/assets/out/full/S1_TRANSFER_IDLER__fine.stl",
   "mesh_bytes": 75484,
-  "mesh_sha256": "99d3bede85a9df87c196d5bf5f8e67a950a9d34ce90c547e18b2e6e9054f7845",
+  "mesh_sha256": "104dbf0c06ca7171ee75ed86a7ceb39ed72649e12b960a46b646d2a93fe4eaa7",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
+  "source_step_sha256": "1d45ad9aa8f404310df5ec6821c524d00ab518d67468598b0e13e860d83f1fe0",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
-    257.69999989999997,
+    267.69999989999997,
     213.9999999,
     332.89999989999995,
-    262.30000010000003,
+    272.30000010000003,
     250.0000001,
     337.5000001
   ],
-  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
+  "revision": "a0f3f6cc1e215118cf990b7993015cdbc0757448",
   "conversion_script": "c2.2/sim/assets/convert.py",
   "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
@@ -47,10 +47,10 @@
   "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
   "volume_mm3": 342.2136877555412,
   "solid_bbox_mm": [
-    257.69999989999997,
+    267.69999989999997,
     213.9999999,
     332.89999989999995,
-    262.30000010000003,
+    272.30000010000003,
     250.0000001,
     337.5000001
   ],
@@ -60,7 +60,7 @@
     0.0026863774488809986
   ],
   "center_of_mass_mm": [
-    260.0,
+    270.0,
     232.0,
     335.2
   ],
@@ -88,7 +88,7 @@
       0.8845972410487163
     ],
     "center_of_mass_mm": [
-      260.0,
+      270.0,
       232.0,
       335.2
     ],

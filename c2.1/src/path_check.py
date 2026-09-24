@@ -175,8 +175,8 @@ def downstream_checks():
     RESULTS[-1]["clear_paths_by_probe_mm"] = {
         "1.5": clear[1.5], "3.0": clear[3.0]}
     RESULTS[-1]["hole_centres_checked"] = 78
-    _add("buffer_throat", 40.0, 8.0, True, "NAMEPLATE",
-         "FEED-BUF loft 190x48 top / 50x40 throat, height 73 (throat limits)")
+    _add("buffer_throat", 13.0 * math.cos(math.pi / 8), 8.0, True, "NAMEPLATE",
+         "FEED-BUF loft 190x48 top / Ø18 outer and Ø13 clear octagonal neck for 15 mm, height 73; lower outlet x299,y275 is coaxial with the Ø20 barrel feed bore; nominal outer radial room 1 mm is not a manufacturing tolerance")
     _add("extruder_die_exit", 2.0, 1.9, True, "NAMEPLATE",
          "EX-DIE 36 OD x 20 with 2 mm exit")
     # trough auger transfer (VP1 Stage 4 rev 5: the paddle + static scrapers

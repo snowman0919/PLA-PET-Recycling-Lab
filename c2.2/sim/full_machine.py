@@ -105,17 +105,15 @@ PIVOTS_MM = {
     "CROSS_FEED": (357.0, 252.0, 328.0),
 }
 PIVOTS_MM.update({
-    "BELT": (149.5, 243.5, 332.9),
-    "BELT_DRIVE": (80.0, 243.5, 332.9),
+    "BELT": (149.5, 243.5, 334.05),
+    "BELT_DRIVE": (80.0, 243.5, 335.2),
     "BELT_IDLER": (219.0, 243.5, 332.9),
 })
 PIVOTS_MM.update({
-    "SWEEP_SOUTH": (224.0, 186.0, 344.7),
-    "SWEEP_NORTH": (224.0, 289.5, 344.7),
-})
-PIVOTS_MM.update({
-    "TRANSFER_BELT": (170.0, 232.0, 334.05),
-    "TRANSFER_IDLER": (260.0, 232.0, 335.2),
+    "SWEEP_SOUTH": (200.0, 186.0, 344.7),
+    "SWEEP_NORTH": (200.0, 289.5, 344.7),
+    "TRANSFER_BELT": (170.0, 232.0, 335.2),
+    "TRANSFER_IDLER": (270.0, 232.0, 335.2),
 })
 # Exact CAD construction: three equal 12T spur gears on parallel +Y axes,
 # each external center spacing 2 * (12 / cos 15°) mm. The idler is placed
@@ -1021,7 +1019,7 @@ def main() -> int:
                 "Belt": "two side loops on a common drive/idler shaft",
                 "BeltDrive": "waisted common drive for the centre lane",
                 "BeltIdler": "two side loops' waisted east follower",
-                "TransferBelt": "continuous centre lane rising into AUG",
+                "TransferBelt": "level centre lane ending beneath the first AUG turn",
                 "TransferIdler": "centre lane's east follower drum",
                 "TransferBearing": "two centre idler journal rings",
             },

@@ -7,21 +7,21 @@
   "step_product_name": "Open CASCADE STEP translator 7.9 1.237",
   "mesh_file": "sim/assets/out/full/S1_SWEEP_BEARINGS_step237__coarse.stl",
   "mesh_bytes": 10484,
-  "mesh_sha256": "d6ce1315b187aead01dccf233f07bc9b1d9bb87421e15efce59f78bb2e6a4c98",
+  "mesh_sha256": "f64896fe282484978a5630d7c3ed35c9a438f5e55f53349aa1eddeec816291fc",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
+  "source_step_sha256": "1d45ad9aa8f404310df5ec6821c524d00ab518d67468598b0e13e860d83f1fe0",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
-    221.6499999,
+    197.6499999,
     157.3999999,
     342.34999989999994,
-    226.3500001,
+    202.3500001,
     163.4000001,
     347.05000010000003
   ],
-  "revision": "fb6e7bfd73864318e76bd148e14c7d6fad6d7352",
+  "revision": "a0f3f6cc1e215118cf990b7993015cdbc0757448",
   "conversion_script": "c2.2/sim/assets/convert.py",
   "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
@@ -47,10 +47,10 @@
   "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
   "volume_mm3": 16.96460032938667,
   "solid_bbox_mm": [
-    221.6499999,
+    197.6499999,
     157.3999999,
     342.34999989999994,
-    226.3500001,
+    202.3500001,
     163.4000001,
     347.05000010000003
   ],
@@ -60,7 +60,7 @@
     0.00013317211258568538
   ],
   "center_of_mass_mm": [
-    224.0,
+    200.0,
     160.4,
     344.7
   ],
@@ -88,7 +88,7 @@
       0.001933992147519767
     ],
     "center_of_mass_mm": [
-      224.0,
+      200.0,
       160.4,
       344.7
     ],

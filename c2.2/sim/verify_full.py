@@ -69,7 +69,7 @@ USDA = C22 / "sim" / "assets" / "usd" / "full_machine.usda"
 BODIES = C22 / "sim" / "assets" / "out" / "full" / "bodies.json"
 USD_MANIFEST = USDA.with_suffix(".sidecar.json")
 from full_machine import PIVOTS_MM  # noqa: E402 - emitter owns body origins
-from flow_localize import hole_transition  # same-bore screen predicate
+from flow_localize import hole_transition, buffer_throat_contains  # shared exact gates
 OUTDIR = C22 / "results" / "full_machine"
 
 # --- drive model (ratios per unit input-shaft rotation, rad) ------------
@@ -809,9 +809,8 @@ def main() -> int:
                         t = (prior[2] - 145.0) / (prior[2] - z)
                         bx = prior[0] + t * (x - prior[0])
                         by = prior[1] + t * (y - prior[1])
-                        buffer_throat[i] = (
-                            267.0 + radius <= bx <= 311.0 - radius
-                            and 258.0 + radius <= by <= 292.0 - radius)
+                        buffer_throat[i] = buffer_throat_contains(
+                            float(bx), float(by), radius)
                     previous_probe[i] = now
             if step % 40 == 0 or step == args.steps - 1:
                 rows.append({

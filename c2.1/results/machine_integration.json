@@ -5,7 +5,7 @@
     "config": "c2.1/design/machine_integration.json",
     "config_sha256": "42e094a9d90a1ee03f1f66b068a469e74fc514f9150638b5d0cab850bfc8e82f",
     "legacy_master": "design/assembly.json",
-    "legacy_master_sha256": "61519b8f37e153f694ba242c49bcb5e6635300f59b0f77ec66356763d485d771",
+    "legacy_master_sha256": "2fd59afadcd86beefb46a478b95f805724537884d6372a8cea405afda6a1e2e5",
     "c21_builder_sha256": "101c733a5f0112605a7fed10b46c1a4dd45e725174f1e8499dcbc3741bb1366a",
     "legacy_role": "C1 interface baseline; motors/gears/screw/electrical/procurement remain unqualified"
   },
@@ -34,8 +34,8 @@
     "chute_body_matched": true,
     "aug_shaft_matched": true,
     "transfer_belt_matched": true,
-    "transfer_belt_flight_overlap_mm": 26.0,
-    "transfer_belt_auger_gap_mm": 1.159,
+    "transfer_belt_flight_overlap_mm": 36.0,
+    "transfer_belt_auger_gap_mm": 0.763,
     "cross_feed_matched": true,
     "cross_shell_matched": true,
     "cross_feed_powered_mouth_overlap_mm": 5.502,
@@ -60,8 +60,8 @@
     "tail_radial_margin_mm": 0.59,
     "shell_radial_margin_mm": 1.5
   },
-  "assembly_step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
-  "assembly_step_bytes": 99256073,
+  "assembly_step_sha256": "1d45ad9aa8f404310df5ec6821c524d00ab518d67468598b0e13e860d83f1fe0",
+  "assembly_step_bytes": 99480146,
   "groups": [
     "S1",
     "S2-C2.1",
@@ -458,7 +458,7 @@
     "vp1_against_retained": {
       "method": "BREP_EXACT_AFTER_BBOX",
       "pair_checks": 12778,
-      "bbox_candidates": 124,
+      "bbox_candidates": 113,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",

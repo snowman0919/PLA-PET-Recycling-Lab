@@ -13,8 +13,9 @@
   "receiver_predicate": "x340..360,y255..295,z239.63..300",
   "s2_mouth_transition_predicate": "first +Y crossing of y=255 with full fragment envelope inside x350..359.7 outlet lips, r<=65.6 cap bore, and z>=317.3 outlet floor; x335 flight gate alone is not transfer",
   "auger_pickup_predicate": "s1_discharge only: after z352.3 gate, ever inside x237..270,y223.3..240.9,z338..356",
-  "step_sha256": "e7fd5908ea7607b7846f6cc5a7ecbc76effb50193b5b794956235b2127f439b4",
-  "usda_sha256": "9af6e71123a0fcd88dc982f042f5ea07966143479c2adffa19cd7f0fbd1d7a07",
+  "auger_advance_predicate": "s1_discharge only: after pickup, x285..354 in the actual trough beyond the centre belt x273 east tangent",
+  "step_sha256": "1d45ad9aa8f404310df5ec6821c524d00ab518d67468598b0e13e860d83f1fe0",
+  "usda_sha256": "b62544c09d1f44a89b397d9c904993ee719a216d0633150da633d798e5a10ad4",
   "dt_s": 0.0025,
   "steps": 2400,
   "input_cycles": 1,
@@ -34,9 +35,9 @@
         344.6
       ],
       "final_mm": [
-        289.3,
-        275.0,
-        118.4
+        455.4,
+        -631.7,
+        -113004.3
       ],
       "entered": true,
       "first_pass_mm": [
@@ -46,8 +47,60 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": 805,
-      "stuck": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
+      "lost_through_world": true,
+      "lost_from_process": true,
+      "unaccepted_residue": false,
+      "reached_screen_band": false,
+      "crossed_screen": true,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "first_s2_mouth_plane_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
+      "passed_screen_hole": false,
+      "first_screen_hole_mm": null,
+      "entered_buffer_mouth": true,
+      "reached_buffer_throat": false,
+      "first_buffer_throat_plane_mm": [
+        300.461,
+        270.729,
+        145.0
+      ],
+      "screen_to_buffer": false,
+      "missed_buffer_throat": true,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {},
+      "touching_solids": []
+    },
+    {
+      "i": 1,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        347.2,
+        267.3,
+        345.4
+      ],
+      "final_mm": [
+        286.5,
+        275.4,
+        118.4
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        351.9,
+        264.5,
+        300.0
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": null,
+      "stuck": false,
       "lost_through_world": false,
       "lost_from_process": false,
       "unaccepted_residue": true,
@@ -58,13 +111,15 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
       "reached_buffer_throat": true,
       "first_buffer_throat_plane_mm": [
-        291.276,
-        279.915,
+        298.628,
+        279.722,
         145.0
       ],
       "screen_to_buffer": false,
@@ -76,36 +131,50 @@
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
           "distance_mm": 1.51,
           "position": [
-            289.3,
-            275.0,
+            286.5,
+            275.4,
             116.9
           ],
           "normal": [
-            -0.0,
-            0.12,
+            0.0,
+            -0.12,
             0.99
           ]
         },
         "up": {
           "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 1.64,
+          "distance_mm": 1.61,
           "position": [
-            289.3,
-            275.0,
+            286.5,
+            275.4,
             120.0
           ],
           "normal": [
-            0.0,
             -0.0,
+            0.08,
             -1.0
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 4.34,
+          "position": [
+            282.2,
+            275.4,
+            118.4
+          ],
+          "normal": [
+            0.95,
+            -0.3,
+            -0.03
           ]
         },
         "neg_y": {
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
-          "distance_mm": 4.62,
+          "distance_mm": 5.09,
           "position": [
-            289.3,
-            270.4,
+            286.5,
+            270.3,
             118.4
           ],
           "normal": [
@@ -116,10 +185,10 @@
         },
         "pos_y": {
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
-          "distance_mm": 4.62,
+          "distance_mm": 4.3,
           "position": [
-            289.3,
-            279.6,
+            286.5,
+            279.7,
             118.4
           ],
           "normal": [
@@ -141,56 +210,6 @@
       ]
     },
     {
-      "i": 1,
-      "kind": "sphere",
-      "size_mm": 3.0,
-      "spawn_mm": [
-        347.2,
-        267.3,
-        345.4
-      ],
-      "final_mm": [
-        261.5,
-        -606.9,
-        -105690.1
-      ],
-      "entered": true,
-      "first_pass_mm": [
-        351.9,
-        264.5,
-        300.0
-      ],
-      "in_path_passed": true,
-      "passed_through": true,
-      "settled_stuck_at_step": 797,
-      "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
-      "reached_screen_band": false,
-      "crossed_screen": true,
-      "reached_s2_mouth": false,
-      "first_s2_mouth_crossing_mm": null,
-      "first_s2_mouth_plane_crossing_mm": null,
-      "reached_auger_pickup": false,
-      "first_auger_pickup_mm": null,
-      "passed_screen_hole": false,
-      "first_screen_hole_mm": null,
-      "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
-      "first_buffer_throat_plane_mm": [
-        309.95,
-        259.918,
-        145.0
-      ],
-      "screen_to_buffer": false,
-      "missed_buffer_throat": true,
-      "lost_after_s2_mouth": false,
-      "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
-    },
-    {
       "i": 2,
       "kind": "sphere",
       "size_mm": 3.0,
@@ -200,9 +219,9 @@
         344.5
       ],
       "final_mm": [
-        261.5,
-        606.4,
-        -137777.2
+        487.4,
+        -2258.2,
+        -133583.2
       ],
       "entered": true,
       "first_pass_mm": [
@@ -212,7 +231,7 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": null,
+      "settled_stuck_at_step": 685,
       "stuck": false,
       "lost_through_world": true,
       "lost_from_process": true,
@@ -224,17 +243,19 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
-      "entered_buffer_mouth": false,
-      "reached_buffer_throat": false,
+      "entered_buffer_mouth": true,
+      "reached_buffer_throat": true,
       "first_buffer_throat_plane_mm": [
-        273.108,
-        315.537,
+        300.035,
+        271.953,
         145.0
       ],
       "screen_to_buffer": false,
-      "missed_buffer_throat": true,
+      "missed_buffer_throat": false,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
       "touch_probe": {},
@@ -250,7 +271,7 @@
         344.0
       ],
       "final_mm": [
-        286.2,
+        293.2,
         275.0,
         118.4
       ],
@@ -262,8 +283,8 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": null,
-      "stuck": false,
+      "settled_stuck_at_step": 697,
+      "stuck": true,
       "lost_through_world": false,
       "lost_from_process": false,
       "unaccepted_residue": true,
@@ -274,17 +295,19 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
+      "reached_buffer_throat": true,
       "first_buffer_throat_plane_mm": [
-        309.898,
-        274.896,
+        294.169,
+        275.108,
         145.0
       ],
       "screen_to_buffer": false,
-      "missed_buffer_throat": true,
+      "missed_buffer_throat": false,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
       "touch_probe": {
@@ -292,13 +315,13 @@
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
           "distance_mm": 1.51,
           "position": [
-            286.2,
+            293.2,
             275.0,
             116.9
           ],
           "normal": [
-            0.0,
-            -0.12,
+            -0.0,
+            0.12,
             0.99
           ]
         },
@@ -306,27 +329,27 @@
           "path": "/World/F0/Static/mesh_EX_SCREW_001",
           "distance_mm": 1.64,
           "position": [
-            286.2,
+            293.2,
             275.0,
             120.0
           ],
           "normal": [
             0.0,
-            0.0,
+            -0.0,
             -1.0
           ]
         },
-        "neg_x": {
+        "pos_x": {
           "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 4.25,
+          "distance_mm": 2.78,
           "position": [
-            282.0,
+            296.0,
             275.0,
             118.4
           ],
           "normal": [
-            0.89,
-            -0.46,
+            -0.89,
+            0.46,
             0.0
           ]
         },
@@ -334,7 +357,7 @@
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
           "distance_mm": 4.62,
           "position": [
-            286.2,
+            293.2,
             270.4,
             118.4
           ],
@@ -346,9 +369,9 @@
         },
         "pos_y": {
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
-          "distance_mm": 4.62,
+          "distance_mm": 4.63,
           "position": [
-            286.2,
+            293.2,
             279.6,
             118.4
           ],
@@ -404,6 +427,8 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": false,
@@ -464,9 +489,9 @@
         344.1
       ],
       "final_mm": [
-        153.8,
-        -1695.0,
-        -124203.2
+        290.7,
+        276.6,
+        118.6
       ],
       "entered": true,
       "first_pass_mm": [
@@ -478,156 +503,6 @@
       "passed_through": true,
       "settled_stuck_at_step": null,
       "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
-      "reached_screen_band": false,
-      "crossed_screen": true,
-      "reached_s2_mouth": false,
-      "first_s2_mouth_crossing_mm": null,
-      "first_s2_mouth_plane_crossing_mm": null,
-      "reached_auger_pickup": false,
-      "first_auger_pickup_mm": null,
-      "passed_screen_hole": false,
-      "first_screen_hole_mm": null,
-      "entered_buffer_mouth": true,
-      "reached_buffer_throat": true,
-      "first_buffer_throat_plane_mm": [
-        302.949,
-        261.263,
-        145.0
-      ],
-      "screen_to_buffer": false,
-      "missed_buffer_throat": false,
-      "lost_after_s2_mouth": false,
-      "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
-    },
-    {
-      "i": 6,
-      "kind": "sphere",
-      "size_mm": 3.0,
-      "spawn_mm": [
-        346.4,
-        276.5,
-        344.9
-      ],
-      "final_mm": [
-        184.9,
-        1438.9,
-        -148465.9
-      ],
-      "entered": true,
-      "first_pass_mm": [
-        352.8,
-        277.2,
-        300.0
-      ],
-      "in_path_passed": true,
-      "passed_through": true,
-      "settled_stuck_at_step": 849,
-      "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
-      "reached_screen_band": false,
-      "crossed_screen": true,
-      "reached_s2_mouth": false,
-      "first_s2_mouth_crossing_mm": null,
-      "first_s2_mouth_plane_crossing_mm": null,
-      "reached_auger_pickup": false,
-      "first_auger_pickup_mm": null,
-      "passed_screen_hole": false,
-      "first_screen_hole_mm": null,
-      "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
-      "first_buffer_throat_plane_mm": [
-        309.903,
-        281.215,
-        145.0
-      ],
-      "screen_to_buffer": false,
-      "missed_buffer_throat": true,
-      "lost_after_s2_mouth": false,
-      "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
-    },
-    {
-      "i": 7,
-      "kind": "sphere",
-      "size_mm": 3.0,
-      "spawn_mm": [
-        344.8,
-        280.8,
-        345.0
-      ],
-      "final_mm": [
-        261.5,
-        1198.6,
-        -123804.5
-      ],
-      "entered": true,
-      "first_pass_mm": [
-        356.6,
-        281.7,
-        300.0
-      ],
-      "in_path_passed": true,
-      "passed_through": true,
-      "settled_stuck_at_step": 745,
-      "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
-      "reached_screen_band": false,
-      "crossed_screen": true,
-      "reached_s2_mouth": false,
-      "first_s2_mouth_crossing_mm": null,
-      "first_s2_mouth_plane_crossing_mm": null,
-      "reached_auger_pickup": false,
-      "first_auger_pickup_mm": null,
-      "passed_screen_hole": false,
-      "first_screen_hole_mm": null,
-      "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
-      "first_buffer_throat_plane_mm": [
-        309.927,
-        290.289,
-        145.0
-      ],
-      "screen_to_buffer": false,
-      "missed_buffer_throat": true,
-      "lost_after_s2_mouth": false,
-      "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
-    },
-    {
-      "i": 8,
-      "kind": "sphere",
-      "size_mm": 3.0,
-      "spawn_mm": [
-        345.5,
-        273.0,
-        345.1
-      ],
-      "final_mm": [
-        292.3,
-        275.0,
-        118.4
-      ],
-      "entered": true,
-      "first_pass_mm": [
-        352.1,
-        273.0,
-        300.0
-      ],
-      "in_path_passed": true,
-      "passed_through": true,
-      "settled_stuck_at_step": 2129,
-      "stuck": true,
       "lost_through_world": false,
       "lost_from_process": false,
       "unaccepted_residue": true,
@@ -638,13 +513,15 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
       "reached_buffer_throat": false,
       "first_buffer_throat_plane_mm": [
-        309.882,
-        273.133,
+        297.785,
+        279.374,
         145.0
       ],
       "screen_to_buffer": false,
@@ -656,8 +533,334 @@
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
           "distance_mm": 1.51,
           "position": [
-            292.3,
-            275.0,
+            290.7,
+            276.6,
+            117.0
+          ],
+          "normal": [
+            0.0,
+            -0.12,
+            0.99
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 1.7,
+          "position": [
+            290.7,
+            276.6,
+            120.3
+          ],
+          "normal": [
+            0.0,
+            0.31,
+            -0.95
+          ]
+        },
+        "pos_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 3.33,
+          "position": [
+            290.7,
+            279.9,
+            118.6
+          ],
+          "normal": [
+            0.0,
+            -0.57,
+            0.82
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "EX-BARREL_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "EX-SCREW_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 6,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        346.4,
+        276.5,
+        344.9
+      ],
+      "final_mm": [
+        284.3,
+        273.4,
+        118.6
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        352.8,
+        277.2,
+        300.0
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": 717,
+      "stuck": true,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": true,
+      "reached_screen_band": false,
+      "crossed_screen": true,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "first_s2_mouth_plane_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
+      "passed_screen_hole": false,
+      "first_screen_hole_mm": null,
+      "entered_buffer_mouth": true,
+      "reached_buffer_throat": false,
+      "first_buffer_throat_plane_mm": [
+        294.229,
+        274.746,
+        145.0
+      ],
+      "screen_to_buffer": false,
+      "missed_buffer_throat": true,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 1.51,
+          "position": [
+            284.3,
+            273.4,
+            117.0
+          ],
+          "normal": [
+            -0.0,
+            0.12,
+            0.99
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 1.71,
+          "position": [
+            284.3,
+            273.4,
+            120.3
+          ],
+          "normal": [
+            0.0,
+            -0.32,
+            -0.95
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.86,
+          "position": [
+            281.4,
+            273.4,
+            118.6
+          ],
+          "normal": [
+            0.95,
+            -0.3,
+            0.06
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 3.32,
+          "position": [
+            284.3,
+            270.1,
+            118.6
+          ],
+          "normal": [
+            -0.0,
+            0.57,
+            0.82
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "EX-BARREL_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "EX-SCREW_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 7,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        344.8,
+        280.8,
+        345.0
+      ],
+      "final_mm": [
+        289.2,
+        274.0,
+        118.5
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        356.6,
+        281.7,
+        300.0
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": 717,
+      "stuck": true,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": true,
+      "reached_screen_band": false,
+      "crossed_screen": true,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "first_s2_mouth_plane_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
+      "passed_screen_hole": false,
+      "first_screen_hole_mm": null,
+      "entered_buffer_mouth": true,
+      "reached_buffer_throat": true,
+      "first_buffer_throat_plane_mm": [
+        294.717,
+        273.569,
+        145.0
+      ],
+      "screen_to_buffer": false,
+      "missed_buffer_throat": false,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 1.51,
+          "position": [
+            289.2,
+            274.0,
+            117.0
+          ],
+          "normal": [
+            -0.0,
+            0.12,
+            0.99
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 1.62,
+          "position": [
+            289.2,
+            274.0,
+            120.1
+          ],
+          "normal": [
+            0.0,
+            -0.21,
+            -0.98
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 3.78,
+          "position": [
+            289.2,
+            270.2,
+            118.5
+          ],
+          "normal": [
+            -0.0,
+            0.57,
+            0.82
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "EX-BARREL_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "EX-SCREW_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 8,
+      "kind": "sphere",
+      "size_mm": 3.0,
+      "spawn_mm": [
+        345.5,
+        273.0,
+        345.1
+      ],
+      "final_mm": [
+        299.4,
+        274.4,
+        118.4
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        352.1,
+        273.0,
+        300.0
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": 2133,
+      "stuck": true,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": true,
+      "reached_screen_band": false,
+      "crossed_screen": true,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "first_s2_mouth_plane_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
+      "passed_screen_hole": false,
+      "first_screen_hole_mm": null,
+      "entered_buffer_mouth": true,
+      "reached_buffer_throat": false,
+      "first_buffer_throat_plane_mm": [
+        294.151,
+        275.066,
+        145.0
+      ],
+      "screen_to_buffer": false,
+      "missed_buffer_throat": true,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 1.51,
+          "position": [
+            299.4,
+            274.4,
             116.9
           ],
           "normal": [
@@ -668,38 +871,38 @@
         },
         "up": {
           "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 1.64,
+          "distance_mm": 1.6,
           "position": [
-            292.3,
-            275.0,
+            299.4,
+            274.4,
             120.0
           ],
           "normal": [
-            0.0,
             -0.0,
-            -1.0
+            -0.11,
+            -0.99
           ]
         },
-        "pos_x": {
+        "neg_x": {
           "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 3.67,
+          "distance_mm": 1.61,
           "position": [
-            296.0,
-            275.0,
+            297.8,
+            274.4,
             118.4
           ],
           "normal": [
-            -0.89,
-            0.46,
-            0.0
+            0.89,
+            -0.46,
+            0.05
           ]
         },
         "neg_y": {
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
-          "distance_mm": 4.62,
+          "distance_mm": 4.13,
           "position": [
-            292.3,
-            270.4,
+            299.4,
+            270.3,
             118.4
           ],
           "normal": [
@@ -709,17 +912,17 @@
           ]
         },
         "pos_y": {
-          "path": "/World/F0/Static/mesh_EX_BARREL_001",
-          "distance_mm": 4.62,
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 4.55,
           "position": [
-            292.3,
-            279.6,
+            299.4,
+            278.9,
             118.4
           ],
           "normal": [
-            0.0,
-            -0.57,
-            0.82
+            0.95,
+            -0.25,
+            -0.17
           ]
         }
       },
@@ -744,9 +947,9 @@
         344.3
       ],
       "final_mm": [
-        256.5,
-        358.5,
-        3.5
+        310.0,
+        275.0,
+        118.4
       ],
       "entered": true,
       "first_pass_mm": [
@@ -756,7 +959,7 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": 2129,
+      "settled_stuck_at_step": 2133,
       "stuck": true,
       "lost_through_world": false,
       "lost_from_process": false,
@@ -768,70 +971,100 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
+      "reached_buffer_throat": true,
       "first_buffer_throat_plane_mm": [
-        309.912,
-        290.551,
+        294.145,
+        275.018,
         145.0
       ],
       "screen_to_buffer": false,
-      "missed_buffer_throat": true,
+      "missed_buffer_throat": false,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
       "touch_probe": {
         "down": {
-          "path": "/World/F0/Static/mesh_FR_2040_320_002",
-          "distance_mm": 1.5,
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 1.51,
           "position": [
-            256.5,
-            358.5,
-            2.0
+            310.0,
+            275.0,
+            116.8
           ],
           "normal": [
             0.0,
+            -0.12,
+            0.99
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 1.64,
+          "position": [
+            310.0,
+            275.0,
+            120.0
+          ],
+          "normal": [
             0.0,
-            1.0
+            -0.0,
+            -1.0
           ]
         },
         "pos_x": {
-          "path": "/World/F0/Static/mesh_FR_2040_320_002",
-          "distance_mm": 1.5,
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 1.97,
           "position": [
-            258.0,
-            358.5,
-            3.5
+            312.0,
+            275.0,
+            118.4
           ],
           "normal": [
-            -1.0,
-            0.0,
+            -0.89,
+            0.46,
             0.0
           ]
         },
-        "pos_y": {
-          "path": "/World/F0/Static/mesh_FR_2040_630_002",
-          "distance_mm": 1.5,
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 4.62,
           "position": [
-            256.5,
-            360.0,
-            3.5
+            310.0,
+            270.4,
+            118.4
+          ],
+          "normal": [
+            -0.0,
+            0.57,
+            0.82
+          ]
+        },
+        "pos_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 4.62,
+          "position": [
+            310.0,
+            279.6,
+            118.4
           ],
           "normal": [
             0.0,
-            -1.0,
-            0.0
+            -0.57,
+            0.82
           ]
         }
       },
       "touching_solids": [
         {
-          "solid": "FR-2040-320_002",
+          "solid": "EX-BARREL_001",
           "body": "STATIC"
         },
         {
-          "solid": "FR-2040-630_002",
+          "solid": "EX-SCREW_001",
           "body": "STATIC"
         }
       ]
@@ -846,9 +1079,9 @@
         345.2
       ],
       "final_mm": [
-        -1363.2,
-        -1207.4,
-        -169892.5
+        -1363.0,
+        -1207.2,
+        -169892.1
       ],
       "entered": true,
       "first_pass_mm": [
@@ -858,7 +1091,7 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": null,
+      "settled_stuck_at_step": 717,
       "stuck": false,
       "lost_through_world": true,
       "lost_from_process": true,
@@ -870,6 +1103,8 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": false,
@@ -896,9 +1131,9 @@
         344.4
       ],
       "final_mm": [
-        260.7,
-        1258.4,
-        -134980.6
+        298.0,
+        272.7,
+        118.0
       ],
       "entered": true,
       "first_pass_mm": [
@@ -908,11 +1143,11 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": null,
-      "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
+      "settled_stuck_at_step": 717,
+      "stuck": true,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": true,
       "reached_screen_band": false,
       "crossed_screen": true,
       "reached_s2_mouth": false,
@@ -920,29 +1155,111 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": true,
       "first_screen_hole_mm": {
         "angle_deg": 228,
         "local_y_mm": 15,
         "xyz_mm": [
           350.354,
-          284.042,
+          284.037,
           230.5
         ]
       },
       "entered_buffer_mouth": true,
       "reached_buffer_throat": false,
       "first_buffer_throat_plane_mm": [
-        311.059,
-        283.568,
+        294.322,
+        272.561,
         145.0
       ],
       "screen_to_buffer": false,
       "missed_buffer_throat": true,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 0.8,
+          "position": [
+            298.0,
+            272.7,
+            117.2
+          ],
+          "normal": [
+            -0.0,
+            0.35,
+            0.94
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.54,
+          "position": [
+            298.0,
+            272.7,
+            120.6
+          ],
+          "normal": [
+            -0.0,
+            -0.46,
+            -0.89
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 0.8,
+          "position": [
+            297.2,
+            272.7,
+            118.0
+          ],
+          "normal": [
+            0.95,
+            -0.29,
+            0.09
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 1.82,
+          "position": [
+            298.0,
+            270.9,
+            118.0
+          ],
+          "normal": [
+            -0.0,
+            0.57,
+            0.82
+          ]
+        },
+        "pos_y": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.29,
+          "position": [
+            298.0,
+            275.0,
+            118.0
+          ],
+          "normal": [
+            0.95,
+            -0.3,
+            -0.0
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "EX-BARREL_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "EX-SCREW_001",
+          "body": "STATIC"
+        }
+      ]
     },
     {
       "i": 12,
@@ -954,9 +1271,9 @@
         344.4
       ],
       "final_mm": [
-        260.7,
-        1236.7,
-        -144120.0
+        282.9,
+        275.0,
+        117.6
       ],
       "entered": true,
       "first_pass_mm": [
@@ -966,11 +1283,11 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": null,
-      "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
+      "settled_stuck_at_step": 685,
+      "stuck": true,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": true,
       "reached_screen_band": false,
       "crossed_screen": true,
       "reached_s2_mouth": false,
@@ -978,21 +1295,103 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
+      "reached_buffer_throat": true,
       "first_buffer_throat_plane_mm": [
-        311.07,
-        290.67,
+        293.914,
+        273.547,
         145.0
       ],
       "screen_to_buffer": false,
-      "missed_buffer_throat": true,
+      "missed_buffer_throat": false,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 0.76,
+          "position": [
+            282.9,
+            275.0,
+            116.9
+          ],
+          "normal": [
+            0.0,
+            -0.12,
+            0.99
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.39,
+          "position": [
+            282.9,
+            275.0,
+            120.0
+          ],
+          "normal": [
+            -0.0,
+            0.01,
+            -1.0
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 0.92,
+          "position": [
+            282.0,
+            275.0,
+            117.6
+          ],
+          "normal": [
+            0.89,
+            -0.46,
+            0.0
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 3.32,
+          "position": [
+            282.9,
+            271.7,
+            117.6
+          ],
+          "normal": [
+            -0.0,
+            0.35,
+            0.94
+          ]
+        },
+        "pos_y": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.79,
+          "position": [
+            282.9,
+            277.8,
+            117.6
+          ],
+          "normal": [
+            0.95,
+            -0.28,
+            -0.12
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "EX-BARREL_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "EX-SCREW_001",
+          "body": "STATIC"
+        }
+      ]
     },
     {
       "i": 13,
@@ -1004,9 +1403,9 @@
         345.9
       ],
       "final_mm": [
-        237.8,
-        318.8,
-        20.8
+        295.3,
+        275.3,
+        117.6
       ],
       "entered": true,
       "first_pass_mm": [
@@ -1016,8 +1415,8 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": null,
-      "stuck": false,
+      "settled_stuck_at_step": 693,
+      "stuck": true,
       "lost_through_world": false,
       "lost_from_process": false,
       "unaccepted_residue": true,
@@ -1028,6 +1427,8 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": true,
       "first_screen_hole_mm": {
         "angle_deg": 228,
@@ -1041,8 +1442,8 @@
       "entered_buffer_mouth": true,
       "reached_buffer_throat": false,
       "first_buffer_throat_plane_mm": [
-        311.035,
-        284.469,
+        294.221,
+        272.805,
         145.0
       ],
       "screen_to_buffer": false,
@@ -1051,69 +1452,83 @@
       "lost_after_x335_before_mouth": false,
       "touch_probe": {
         "down": {
-          "path": "/World/F0/Static/mesh_FR_2040_320_002",
-          "distance_mm": 0.75,
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 0.76,
           "position": [
-            237.8,
-            318.8,
-            20.0
+            295.3,
+            275.3,
+            116.9
           ],
           "normal": [
             0.0,
-            -0.0,
-            1.0
+            -0.12,
+            0.99
           ]
         },
-        "neg_x": {
-          "path": "/World/F0/Static/mesh_DRV_DECK_001",
-          "distance_mm": 0.82,
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.37,
           "position": [
-            237.0,
-            318.8,
-            20.8
+            295.3,
+            275.3,
+            120.0
           ],
           "normal": [
-            0.94,
-            0.35,
+            0.0,
+            0.06,
+            -1.0
+          ]
+        },
+        "pos_x": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 0.79,
+          "position": [
+            296.1,
+            275.3,
+            117.6
+          ],
+          "normal": [
+            -0.95,
+            0.3,
             -0.0
           ]
         },
         "neg_y": {
-          "path": "/World/F0/Static/mesh_DRV_DECK_001",
-          "distance_mm": 1.18,
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.34,
           "position": [
-            237.8,
-            317.6,
-            20.8
+            295.3,
+            273.0,
+            117.6
           ],
           "normal": [
-            0.66,
-            0.75,
-            -0.0
+            -0.95,
+            0.29,
+            -0.09
           ]
         },
         "pos_y": {
-          "path": "/World/F0/Static/mesh_DRV_DECK_001",
-          "distance_mm": 3.64,
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 3.09,
           "position": [
-            237.8,
-            322.4,
-            20.8
+            295.3,
+            278.4,
+            117.6
           ],
           "normal": [
-            0.66,
-            -0.75,
-            0.0
+            0.0,
+            -0.35,
+            0.94
           ]
         }
       },
       "touching_solids": [
         {
-          "solid": "DRV-DECK_001",
+          "solid": "EX-BARREL_001",
           "body": "STATIC"
         },
         {
-          "solid": "FR-2040-320_002",
+          "solid": "EX-SCREW_001",
           "body": "STATIC"
         }
       ]
@@ -1128,9 +1543,9 @@
         344.0
       ],
       "final_mm": [
-        359.8,
-        359.3,
-        0.8
+        301.4,
+        275.0,
+        117.6
       ],
       "entered": true,
       "first_pass_mm": [
@@ -1140,8 +1555,8 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": null,
-      "stuck": false,
+      "settled_stuck_at_step": 689,
+      "stuck": true,
       "lost_through_world": false,
       "lost_from_process": false,
       "unaccepted_residue": true,
@@ -1152,56 +1567,100 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
+      "reached_buffer_throat": true,
       "first_buffer_throat_plane_mm": [
-        311.028,
-        290.752,
+        295.566,
+        271.505,
         145.0
       ],
       "screen_to_buffer": false,
-      "missed_buffer_throat": true,
+      "missed_buffer_throat": false,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
       "touch_probe": {
         "down": {
-          "path": "/World/F0/Static/mesh_FR_BASE_001",
-          "distance_mm": 0.75,
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 0.76,
           "position": [
-            359.8,
-            359.2,
-            0.0
+            301.4,
+            275.0,
+            116.9
+          ],
+          "normal": [
+            0.0,
+            -0.12,
+            0.99
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.39,
+          "position": [
+            301.4,
+            275.0,
+            120.0
           ],
           "normal": [
             0.0,
             0.0,
-            1.0
+            -1.0
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 3.39,
+          "position": [
+            298.0,
+            275.0,
+            117.6
+          ],
+          "normal": [
+            0.89,
+            -0.46,
+            0.0
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 3.32,
+          "position": [
+            301.4,
+            271.7,
+            117.6
+          ],
+          "normal": [
+            -0.0,
+            0.35,
+            0.94
           ]
         },
         "pos_y": {
-          "path": "/World/F0/Static/mesh_FR_2040_630_002",
-          "distance_mm": 0.75,
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 3.32,
           "position": [
-            359.8,
-            360.0,
-            0.8
+            301.4,
+            278.3,
+            117.6
           ],
           "normal": [
             0.0,
-            -1.0,
-            0.0
+            -0.35,
+            0.94
           ]
         }
       },
       "touching_solids": [
         {
-          "solid": "FR-2040-630_002",
+          "solid": "EX-BARREL_001",
           "body": "STATIC"
         },
         {
-          "solid": "FR-BASE_001",
+          "solid": "EX-SCREW_001",
           "body": "STATIC"
         }
       ]
@@ -1216,9 +1675,9 @@
         345.3
       ],
       "final_mm": [
-        -679.1,
-        1266.0,
-        -141300.6
+        282.1,
+        273.1,
+        117.9
       ],
       "entered": true,
       "first_pass_mm": [
@@ -1228,57 +1687,7 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": null,
-      "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
-      "reached_screen_band": false,
-      "crossed_screen": true,
-      "reached_s2_mouth": false,
-      "first_s2_mouth_crossing_mm": null,
-      "first_s2_mouth_plane_crossing_mm": null,
-      "reached_auger_pickup": false,
-      "first_auger_pickup_mm": null,
-      "passed_screen_hole": false,
-      "first_screen_hole_mm": null,
-      "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
-      "first_buffer_throat_plane_mm": [
-        311.071,
-        283.018,
-        145.0
-      ],
-      "screen_to_buffer": false,
-      "missed_buffer_throat": true,
-      "lost_after_s2_mouth": false,
-      "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
-    },
-    {
-      "i": 16,
-      "kind": "sphere",
-      "size_mm": 1.5,
-      "spawn_mm": [
-        342.4,
-        270.8,
-        344.3
-      ],
-      "final_mm": [
-        295.1,
-        275.0,
-        117.6
-      ],
-      "entered": true,
-      "first_pass_mm": [
-        348.7,
-        272.7,
-        300.0
-      ],
-      "in_path_passed": true,
-      "passed_through": true,
-      "settled_stuck_at_step": 653,
+      "settled_stuck_at_step": 693,
       "stuck": true,
       "lost_through_world": false,
       "lost_from_process": false,
@@ -1290,25 +1699,159 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
+      "passed_screen_hole": false,
+      "first_screen_hole_mm": null,
+      "entered_buffer_mouth": true,
+      "reached_buffer_throat": true,
+      "first_buffer_throat_plane_mm": [
+        294.292,
+        272.639,
+        145.0
+      ],
+      "screen_to_buffer": false,
+      "missed_buffer_throat": false,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 0.78,
+          "position": [
+            282.1,
+            273.1,
+            117.1
+          ],
+          "normal": [
+            0.0,
+            0.12,
+            0.99
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.5,
+          "position": [
+            282.1,
+            273.1,
+            120.4
+          ],
+          "normal": [
+            -0.0,
+            -0.37,
+            -0.93
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 0.79,
+          "position": [
+            281.4,
+            273.1,
+            117.9
+          ],
+          "normal": [
+            0.95,
+            -0.3,
+            0.06
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 2.03,
+          "position": [
+            282.1,
+            271.1,
+            117.9
+          ],
+          "normal": [
+            -0.0,
+            0.57,
+            0.82
+          ]
+        },
+        "pos_y": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.25,
+          "position": [
+            282.1,
+            275.4,
+            117.9
+          ],
+          "normal": [
+            0.95,
+            -0.3,
+            -0.03
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "EX-BARREL_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "EX-SCREW_001",
+          "body": "STATIC"
+        }
+      ]
+    },
+    {
+      "i": 16,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        342.4,
+        270.8,
+        344.3
+      ],
+      "final_mm": [
+        291.3,
+        274.1,
+        117.7
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        348.7,
+        272.7,
+        300.0
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": 361,
+      "stuck": false,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": false,
+      "reached_screen_band": false,
+      "crossed_screen": true,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "first_s2_mouth_plane_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": true,
       "first_screen_hole_mm": {
         "angle_deg": 228,
         "local_y_mm": 27,
         "xyz_mm": [
-          352.2,
-          272.813,
+          352.219,
+          272.79,
           230.5
         ]
       },
       "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
+      "reached_buffer_throat": true,
       "first_buffer_throat_plane_mm": [
-        311.026,
-        274.682,
+        294.122,
+        273.044,
         145.0
       ],
-      "screen_to_buffer": false,
-      "missed_buffer_throat": true,
+      "screen_to_buffer": true,
+      "missed_buffer_throat": false,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
       "touch_probe": {
@@ -1316,65 +1859,65 @@
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
           "distance_mm": 0.76,
           "position": [
-            295.1,
-            275.0,
-            116.9
+            291.3,
+            274.1,
+            117.0
           ],
           "normal": [
-            0.0,
-            -0.12,
+            -0.0,
+            0.12,
             0.99
           ]
         },
         "up": {
           "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 2.39,
+          "distance_mm": 2.37,
           "position": [
-            295.1,
-            275.0,
-            120.0
+            291.3,
+            274.1,
+            120.1
           ],
           "normal": [
-            0.0,
-            0.0,
-            -1.0
+            -0.0,
+            -0.19,
+            -0.98
           ]
         },
         "pos_x": {
           "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 0.9,
+          "distance_mm": 4.39,
           "position": [
-            296.0,
-            275.0,
-            117.6
+            295.7,
+            274.1,
+            117.7
           ],
           "normal": [
             -0.95,
             0.3,
-            0.0
+            -0.06
           ]
         },
         "neg_y": {
-          "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 2.71,
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 2.69,
           "position": [
-            295.1,
-            272.3,
-            117.6
+            291.3,
+            271.4,
+            117.7
           ],
           "normal": [
-            -0.95,
-            0.28,
-            -0.12
+            -0.0,
+            0.35,
+            0.94
           ]
         },
         "pos_y": {
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
-          "distance_mm": 3.32,
+          "distance_mm": 4.54,
           "position": [
-            295.1,
-            278.3,
-            117.6
+            291.3,
+            278.6,
+            117.7
           ],
           "normal": [
             0.0,
@@ -1404,9 +1947,9 @@
         344.5
       ],
       "final_mm": [
-        313.0,
-        295.1,
-        216.1
+        306.4,
+        314.8,
+        -45.3
       ],
       "entered": true,
       "first_pass_mm": [
@@ -1416,91 +1959,7 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": 649,
-      "stuck": true,
-      "lost_through_world": false,
-      "lost_from_process": false,
-      "unaccepted_residue": true,
-      "reached_screen_band": true,
-      "crossed_screen": true,
-      "reached_s2_mouth": false,
-      "first_s2_mouth_crossing_mm": null,
-      "first_s2_mouth_plane_crossing_mm": null,
-      "reached_auger_pickup": false,
-      "first_auger_pickup_mm": null,
-      "passed_screen_hole": false,
-      "first_screen_hole_mm": null,
-      "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
-      "first_buffer_throat_plane_mm": null,
-      "screen_to_buffer": false,
-      "missed_buffer_throat": false,
-      "lost_after_s2_mouth": false,
-      "lost_after_x335_before_mouth": false,
-      "touch_probe": {
-        "neg_y": {
-          "path": "/World/F0/Static/mesh_C2_VERTICAL_DISCHARGE_SCREEN",
-          "distance_mm": 0.09,
-          "position": [
-            313.0,
-            295.0,
-            216.1
-          ],
-          "normal": [
-            0.0,
-            1.0,
-            0.0
-          ]
-        },
-        "pos_y": {
-          "path": "/World/F0/Static/mesh_FEED_BUF_001",
-          "distance_mm": 0.75,
-          "position": [
-            313.0,
-            295.8,
-            216.1
-          ],
-          "normal": [
-            0.0,
-            -1.0,
-            0.05
-          ]
-        }
-      },
-      "touching_solids": [
-        {
-          "solid": "C2_VERTICAL_DISCHARGE_SCREEN",
-          "body": "STATIC"
-        },
-        {
-          "solid": "FEED-BUF_001",
-          "body": "STATIC"
-        }
-      ]
-    },
-    {
-      "i": 18,
-      "kind": "sphere",
-      "size_mm": 1.5,
-      "spawn_mm": [
-        347.8,
-        272.1,
-        344.3
-      ],
-      "final_mm": [
-        324.3,
-        275.0,
-        117.6
-      ],
-      "entered": true,
-      "first_pass_mm": [
-        351.4,
-        272.1,
-        300.0
-      ],
-      "in_path_passed": true,
-      "passed_through": true,
-      "settled_stuck_at_step": 2201,
+      "settled_stuck_at_step": 361,
       "stuck": true,
       "lost_through_world": false,
       "lost_from_process": false,
@@ -1512,17 +1971,71 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
-      "entered_buffer_mouth": true,
+      "entered_buffer_mouth": false,
       "reached_buffer_throat": false,
       "first_buffer_throat_plane_mm": [
-        325.451,
-        280.369,
+        307.313,
+        310.354,
         145.0
       ],
       "screen_to_buffer": false,
       "missed_buffer_throat": true,
+      "lost_after_s2_mouth": false,
+      "lost_after_x335_before_mouth": false,
+      "touch_probe": {},
+      "touching_solids": []
+    },
+    {
+      "i": 18,
+      "kind": "sphere",
+      "size_mm": 1.5,
+      "spawn_mm": [
+        347.8,
+        272.1,
+        344.3
+      ],
+      "final_mm": [
+        286.4,
+        273.2,
+        117.8
+      ],
+      "entered": true,
+      "first_pass_mm": [
+        351.4,
+        272.1,
+        300.0
+      ],
+      "in_path_passed": true,
+      "passed_through": true,
+      "settled_stuck_at_step": 445,
+      "stuck": true,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": true,
+      "reached_screen_band": false,
+      "crossed_screen": true,
+      "reached_s2_mouth": false,
+      "first_s2_mouth_crossing_mm": null,
+      "first_s2_mouth_plane_crossing_mm": null,
+      "reached_auger_pickup": false,
+      "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
+      "passed_screen_hole": false,
+      "first_screen_hole_mm": null,
+      "entered_buffer_mouth": true,
+      "reached_buffer_throat": true,
+      "first_buffer_throat_plane_mm": [
+        293.369,
+        275.085,
+        145.0
+      ],
+      "screen_to_buffer": false,
+      "missed_buffer_throat": false,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
       "touch_probe": {
@@ -1530,9 +2043,9 @@
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
           "distance_mm": 0.76,
           "position": [
-            324.3,
-            275.0,
-            116.9
+            286.4,
+            273.2,
+            117.1
           ],
           "normal": [
             -0.0,
@@ -1542,58 +2055,30 @@
         },
         "up": {
           "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 2.39,
+          "distance_mm": 2.5,
           "position": [
-            324.3,
-            275.0,
-            120.0
+            286.4,
+            273.2,
+            120.3
           ],
           "normal": [
-            0.0,
             -0.0,
-            -1.0
-          ]
-        },
-        "pos_x": {
-          "path": "/World/F0/Static/mesh_EX_SCREW_001",
-          "distance_mm": 3.67,
-          "position": [
-            328.0,
-            275.0,
-            117.6
-          ],
-          "normal": [
-            -0.89,
-            0.46,
-            0.0
+            -0.35,
+            -0.94
           ]
         },
         "neg_y": {
           "path": "/World/F0/Static/mesh_EX_BARREL_001",
-          "distance_mm": 3.32,
+          "distance_mm": 2.07,
           "position": [
-            324.3,
-            271.7,
-            117.6
+            286.4,
+            271.2,
+            117.8
           ],
           "normal": [
             -0.0,
-            0.35,
-            0.94
-          ]
-        },
-        "pos_y": {
-          "path": "/World/F0/Static/mesh_EX_BARREL_001",
-          "distance_mm": 3.32,
-          "position": [
-            324.3,
-            278.3,
-            117.6
-          ],
-          "normal": [
-            0.0,
-            -0.35,
-            0.94
+            0.57,
+            0.82
           ]
         }
       },
@@ -1618,9 +2103,9 @@
         344.8
       ],
       "final_mm": [
-        -358.5,
-        -603.6,
-        -111688.0
+        286.0,
+        283.7,
+        125.7
       ],
       "entered": true,
       "first_pass_mm": [
@@ -1630,11 +2115,11 @@
       ],
       "in_path_passed": true,
       "passed_through": true,
-      "settled_stuck_at_step": 1065,
-      "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
+      "settled_stuck_at_step": 449,
+      "stuck": true,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": true,
       "reached_screen_band": false,
       "crossed_screen": true,
       "reached_s2_mouth": false,
@@ -1642,21 +2127,89 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
-      "reached_buffer_throat": false,
+      "reached_buffer_throat": true,
       "first_buffer_throat_plane_mm": [
-        311.026,
-        270.178,
+        293.356,
+        274.898,
         145.0
       ],
       "screen_to_buffer": false,
-      "missed_buffer_throat": true,
+      "missed_buffer_throat": false,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 0.75,
+          "position": [
+            286.0,
+            283.7,
+            125.0
+          ],
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 1.76,
+          "position": [
+            284.3,
+            283.7,
+            125.8
+          ],
+          "normal": [
+            0.48,
+            -0.88,
+            0.01
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 0.75,
+          "position": [
+            286.0,
+            283.0,
+            125.8
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0.05
+          ]
+        },
+        "pos_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 0.77,
+          "position": [
+            286.0,
+            284.5,
+            125.8
+          ],
+          "normal": [
+            0.24,
+            -0.97,
+            0.01
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "EX-BARREL_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "EX-SCREW_001",
+          "body": "STATIC"
+        }
+      ]
     },
     {
       "i": 20,
@@ -1672,9 +2225,9 @@
         345.9
       ],
       "final_mm": [
-        -990.3,
-        -1312.6,
-        -152273.2
+        300.2,
+        276.2,
+        117.5
       ],
       "entered": true,
       "first_pass_mm": [
@@ -1686,9 +2239,9 @@
       "passed_through": true,
       "settled_stuck_at_step": null,
       "stuck": false,
-      "lost_through_world": true,
-      "lost_from_process": true,
-      "unaccepted_residue": false,
+      "lost_through_world": false,
+      "lost_from_process": false,
+      "unaccepted_residue": true,
       "reached_screen_band": false,
       "crossed_screen": true,
       "reached_s2_mouth": false,
@@ -1696,21 +2249,103 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
       "reached_buffer_throat": false,
       "first_buffer_throat_plane_mm": [
-        311.413,
-        258.531,
+        293.728,
+        274.156,
         145.0
       ],
       "screen_to_buffer": false,
       "missed_buffer_throat": true,
       "lost_after_s2_mouth": false,
       "lost_after_x335_before_mouth": false,
-      "touch_probe": {},
-      "touching_solids": []
+      "touch_probe": {
+        "down": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 0.51,
+          "position": [
+            300.2,
+            276.2,
+            117.0
+          ],
+          "normal": [
+            0.0,
+            -0.12,
+            0.99
+          ]
+        },
+        "up": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 2.65,
+          "position": [
+            300.2,
+            276.2,
+            120.2
+          ],
+          "normal": [
+            -0.0,
+            0.25,
+            -0.97
+          ]
+        },
+        "neg_x": {
+          "path": "/World/F0/Static/mesh_EX_SCREW_001",
+          "distance_mm": 1.74,
+          "position": [
+            298.4,
+            276.2,
+            117.5
+          ],
+          "normal": [
+            0.95,
+            -0.3,
+            -0.06
+          ]
+        },
+        "neg_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 4.3,
+          "position": [
+            300.2,
+            271.9,
+            117.5
+          ],
+          "normal": [
+            -0.0,
+            0.35,
+            0.94
+          ]
+        },
+        "pos_y": {
+          "path": "/World/F0/Static/mesh_EX_BARREL_001",
+          "distance_mm": 1.83,
+          "position": [
+            300.2,
+            278.1,
+            117.5
+          ],
+          "normal": [
+            0.0,
+            -0.35,
+            0.94
+          ]
+        }
+      },
+      "touching_solids": [
+        {
+          "solid": "EX-BARREL_001",
+          "body": "STATIC"
+        },
+        {
+          "solid": "EX-SCREW_001",
+          "body": "STATIC"
+        }
+      ]
     },
     {
       "i": 21,
@@ -1726,9 +2361,9 @@
         344.4
       ],
       "final_mm": [
-        -869.2,
-        1309.5,
-        -148471.9
+        184.9,
+        1269.1,
+        -150846.4
       ],
       "entered": true,
       "first_pass_mm": [
@@ -1750,13 +2385,15 @@
       "first_s2_mouth_plane_crossing_mm": null,
       "reached_auger_pickup": false,
       "first_auger_pickup_mm": null,
+      "reached_auger_advance": false,
+      "first_auger_advance_mm": null,
       "passed_screen_hole": false,
       "first_screen_hole_mm": null,
       "entered_buffer_mouth": true,
       "reached_buffer_throat": false,
       "first_buffer_throat_plane_mm": [
-        311.422,
-        286.044,
+        348.443,
+        281.34,
         145.0
       ],
       "screen_to_buffer": false,
@@ -1773,27 +2410,24 @@
     "passed_through": 22,
     "in_path_passed": 22,
     "reached_auger_pickup": 0,
-    "stuck": 6,
-    "lost_through_world": 12,
-    "lost_from_process": 12,
-    "unaccepted_residue": 10,
+    "stuck": 13,
+    "reached_auger_advance": 0,
+    "lost_through_world": 4,
+    "lost_from_process": 4,
+    "unaccepted_residue": 17,
     "reached_s2_mouth": 0,
     "passed_screen_hole": 3,
     "entered_buffer_mouth": 19,
-    "reached_buffer_throat": 2,
-    "screen_to_buffer": 0,
-    "missed_buffer_throat": 18,
+    "reached_buffer_throat": 11,
+    "screen_to_buffer": 1,
+    "missed_buffer_throat": 10,
     "lost_after_s2_mouth": 0,
     "lost_after_x335_before_mouth": 0,
     "crossed_screen": 20,
-    "reached_screen_band": 1,
+    "reached_screen_band": 0,
     "blocker_solids": {
-      "STATIC:EX-BARREL_001": 4,
-      "STATIC:EX-SCREW_001": 4,
-      "STATIC:FR-2040-320_002": 1,
-      "STATIC:FR-2040-630_002": 1,
-      "STATIC:C2_VERTICAL_DISCHARGE_SCREEN": 1,
-      "STATIC:FEED-BUF_001": 1
+      "STATIC:EX-BARREL_001": 12,
+      "STATIC:EX-SCREW_001": 12
     }
   },
   "zone_breakdown": {
@@ -2042,13 +2676,13 @@
           244.6
         ],
         [
-          358.4,
+          358.3,
           258.6,
           243.9
         ],
         [
-          308.5,
-          297.5,
+          312.8,
+          296.0,
           219.5
         ],
         [
@@ -2067,24 +2701,24 @@
           219.6
         ],
         [
-          291.1,
-          287.9,
-          135.2
+          302.8,
+          276.3,
+          160.4
         ],
         [
           309.8,
-          286.9,
+          286.8,
           218.7
         ],
         [
-          316.9,
-          273.0,
-          150.9
+          321.5,
+          275.0,
+          171.7
         ],
         [
-          352.4,
-          290.6,
-          180.6
+          352.6,
+          282.8,
+          191.0
         ],
         [
           265.8,
@@ -2097,19 +2731,19 @@
           238.5
         ],
         [
-          316.1,
-          293.3,
-          194.1
+          316.2,
+          289.3,
+          197.8
         ],
         [
-          275.1,
-          301.6,
-          102.4
+          294.1,
+          273.1,
+          141.5
         ],
         [
-          314.0,
-          287.9,
-          184.0
+          314.1,
+          286.0,
+          185.7
         ],
         [
           316.5,
@@ -2117,19 +2751,19 @@
           211.4
         ],
         [
-          318.5,
-          274.5,
-          151.3
+          343.7,
+          277.9,
+          184.6
         ],
         [
-          310.0,
-          295.2,
-          217.9
+          311.4,
+          297.7,
+          218.8
         ],
         [
-          323.2,
-          272.7,
-          118.0
+          293.6,
+          274.3,
+          140.5
         ],
         [
           322.1,
@@ -2137,14 +2771,14 @@
           219.4
         ],
         [
-          290.6,
-          250.4,
-          110.1
+          299.3,
+          277.4,
+          156.7
         ],
         [
-          300.5,
-          287.8,
-          134.2
+          346.0,
+          299.0,
+          123.2
         ]
       ]
     },
@@ -2157,14 +2791,14 @@
           219.8
         ],
         [
-          316.1,
+          323.6,
           255.3,
-          219.2
+          220.6
         ],
         [
-          281.6,
-          312.2,
-          196.3
+          299.4,
+          283.3,
+          173.7
         ],
         [
           320.4,
@@ -2182,9 +2816,9 @@
           220.1
         ],
         [
-          263.9,
-          340.2,
-          -198.8
+          292.6,
+          275.1,
+          118.4
         ],
         [
           301.5,
@@ -2192,14 +2826,14 @@
           219.1
         ],
         [
-          286.8,
-          278.2,
-          119.2
+          299.4,
+          274.3,
+          118.4
         ],
         [
-          242.8,
-          319.1,
-          3.5
+          297.7,
+          269.7,
+          128.8
         ],
         [
           191.7,
@@ -2207,44 +2841,44 @@
           -1754.5
         ],
         [
-          298.7,
-          286.4,
-          135.8
+          306.1,
+          275.9,
+          161.4
         ],
         [
-          260.7,
-          318.4,
-          -36.8
+          291.6,
+          277.1,
+          117.9
         ],
         [
-          239.2,
-          317.6,
-          20.8
-        ],
-        [
-          267.1,
-          300.6,
-          0.7
-        ],
-        [
-          280.3,
-          306.3,
-          63.0
-        ],
-        [
-          287.8,
-          275.1,
-          117.6
-        ],
-        [
-          303.7,
-          295.2,
-          218.1
-        ],
-        [
-          317.4,
-          276.1,
+          294.7,
+          274.4,
           117.7
+        ],
+        [
+          301.3,
+          273.2,
+          117.8
+        ],
+        [
+          291.2,
+          276.9,
+          130.4
+        ],
+        [
+          293.8,
+          273.8,
+          127.9
+        ],
+        [
+          299.4,
+          304.3,
+          218.4
+        ],
+        [
+          293.5,
+          273.1,
+          117.9
         ],
         [
           303.1,
@@ -2252,14 +2886,14 @@
           218.2
         ],
         [
-          232.4,
-          179.4,
-          -384.9
+          300.2,
+          276.2,
+          117.5
         ],
         [
-          247.3,
-          334.2,
-          -189.0
+          338.7,
+          343.0,
+          -307.5
         ]
       ]
     },
@@ -2267,24 +2901,24 @@
       "step": 401,
       "pos_mm": [
         [
-          292.6,
-          283.9,
-          215.6
+          292.5,
+          284.0,
+          215.2
         ],
         [
-          296.9,
-          257.4,
-          219.8
+          298.8,
+          263.4,
+          219.5
         ],
         [
-          261.5,
-          326.6,
-          -258.4
+          307.8,
+          168.3,
+          -104.2
         ],
         [
-          288.0,
-          271.1,
-          133.6
+          294.7,
+          275.6,
+          131.5
         ],
         [
           333.5,
@@ -2292,29 +2926,29 @@
           219.5
         ],
         [
-          304.3,
-          260.8,
-          171.6
+          306.9,
+          257.0,
+          218.7
         ],
         [
-          260.1,
-          392.5,
-          -1134.3
-        ],
-        [
-          296.8,
-          291.5,
-          128.6
-        ],
-        [
-          292.1,
-          274.8,
+          285.6,
+          275.0,
           118.4
         ],
         [
-          224.0,
-          337.0,
-          3.5
+          300.1,
+          270.6,
+          158.7
+        ],
+        [
+          299.4,
+          274.4,
+          118.4
+        ],
+        [
+          310.3,
+          275.0,
+          118.4
         ],
         [
           117.6,
@@ -2322,59 +2956,59 @@
           -3636.7
         ],
         [
-          260.7,
-          334.4,
-          -191.5
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          362.1,
-          -773.0
+          283.0,
+          275.2,
+          117.6
         ],
         [
-          240.0,
-          322.5,
-          20.7
+          295.1,
+          275.2,
+          117.6
         ],
         [
-          272.5,
-          309.2,
-          0.7
+          306.7,
+          275.0,
+          117.6
         ],
         [
-          234.6,
-          352.1,
-          -543.7
+          283.5,
+          273.8,
+          117.8
         ],
         [
-          295.5,
-          275.9,
-          117.7
+          292.3,
+          274.7,
+          117.6
         ],
         [
-          312.6,
-          295.2,
-          218.1
-        ],
-        [
-          315.3,
-          275.5,
-          117.7
-        ],
-        [
-          315.2,
-          264.0,
+          299.4,
+          305.2,
           218.3
         ],
         [
-          174.1,
-          108.4,
-          -1492.9
+          289.7,
+          273.8,
+          117.8
         ],
         [
-          194.1,
-          380.6,
-          -1125.2
+          315.3,
+          263.8,
+          218.3
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          331.3,
+          387.0,
+          -1351.2
         ]
       ]
     },
@@ -2382,24 +3016,24 @@
       "step": 501,
       "pos_mm": [
         [
-          289.5,
-          274.0,
-          118.5
+          305.2,
+          255.3,
+          121.9
         ],
         [
-          316.0,
-          259.6,
-          210.6
+          288.1,
+          282.7,
+          126.4
         ],
         [
-          261.5,
-          340.5,
-          -1316.1
+          316.8,
+          46.9,
+          -959.8
         ],
         [
-          286.3,
-          272.6,
-          118.9
+          293.0,
+          275.0,
+          118.4
         ],
         [
           336.5,
@@ -2407,29 +3041,29 @@
           219.5
         ],
         [
-          296.0,
-          176.0,
-          -247.3
+          303.4,
+          263.3,
+          190.7
         ],
         [
-          256.3,
-          444.9,
-          -2682.9
-        ],
-        [
-          261.5,
-          338.1,
-          -266.3
-        ],
-        [
-          293.1,
-          275.3,
+          285.0,
+          275.0,
           118.4
         ],
         [
-          224.9,
-          350.3,
-          3.5
+          289.1,
+          275.0,
+          118.4
+        ],
+        [
+          299.4,
+          274.4,
+          118.4
+        ],
+        [
+          310.2,
+          275.0,
+          118.4
         ],
         [
           43.6,
@@ -2437,59 +3071,59 @@
           -6132.1
         ],
         [
-          260.7,
-          380.6,
-          -1112.7
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          405.9,
-          -2122.4
-        ],
-        [
-          238.4,
-          318.0,
-          20.8
-        ],
-        [
-          277.8,
-          317.7,
-          0.7
-        ],
-        [
-          188.9,
-          397.9,
-          -1763.5
-        ],
-        [
-          295.2,
-          275.1,
+          282.9,
+          275.2,
           117.6
         ],
         [
-          315.7,
-          295.2,
-          217.9
+          294.8,
+          273.9,
+          117.7
         ],
         [
-          320.6,
-          275.0,
+          307.0,
+          275.3,
           117.6
         ],
         [
-          290.7,
-          261.1,
-          132.8
+          283.2,
+          273.8,
+          117.8
         ],
         [
-          115.8,
-          37.3,
-          -3214.1
+          291.1,
+          273.8,
+          117.7
         ],
         [
-          140.9,
-          427.0,
-          -2674.6
+          308.0,
+          305.2,
+          217.3
+        ],
+        [
+          286.4,
+          273.4,
+          117.8
+        ],
+        [
+          292.8,
+          276.3,
+          139.4
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          324.0,
+          431.1,
+          -3008.1
         ]
       ]
     },
@@ -2497,23 +3131,23 @@
       "step": 601,
       "pos_mm": [
         [
-          286.1,
-          275.5,
-          118.4
+          313.1,
+          208.6,
+          -320.2
         ],
         [
-          261.5,
-          234.9,
-          9.3
+          286.7,
+          275.8,
+          118.5
         ],
         [
-          261.5,
-          354.5,
-          -2987.0
+          325.7,
+          -74.4,
+          -2428.6
         ],
         [
-          283.4,
-          274.3,
+          292.9,
+          275.0,
           118.4
         ],
         [
@@ -2522,29 +3156,29 @@
           219.5
         ],
         [
-          288.4,
-          77.5,
-          -1259.7
+          290.4,
+          277.0,
+          118.7
         ],
         [
-          252.6,
-          497.2,
-          -4844.7
+          284.5,
+          273.6,
+          118.5
         ],
         [
-          261.5,
-          383.5,
-          -1256.6
+          289.3,
+          274.2,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          227.2,
-          358.5,
-          3.5
+          310.1,
+          275.0,
+          118.4
         ],
         [
           -30.5,
@@ -2552,59 +3186,59 @@
           -9240.6
         ],
         [
-          260.7,
-          426.8,
-          -2647.0
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          449.6,
-          -4084.8
-        ],
-        [
-          242.4,
-          319.3,
-          20.7
-        ],
-        [
-          283.0,
-          326.2,
-          0.7
-        ],
-        [
-          143.2,
-          443.7,
-          -3596.4
-        ],
-        [
-          295.1,
-          275.0,
+          282.7,
+          274.7,
           117.6
         ],
         [
-          313.5,
-          295.2,
-          218.1
+          294.9,
+          274.2,
+          117.7
         ],
         [
-          325.8,
-          275.0,
+          304.9,
+          274.8,
           117.6
         ],
         [
-          256.6,
-          215.6,
-          -240.6
+          282.3,
+          273.3,
+          117.8
         ],
         [
-          57.6,
-          -33.8,
-          -5548.4
+          291.3,
+          273.5,
+          117.8
         ],
         [
-          87.6,
-          473.3,
-          -4837.1
+          307.2,
+          305.2,
+          217.4
+        ],
+        [
+          286.8,
+          273.3,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          316.7,
+          475.1,
+          -5278.1
         ]
       ]
     },
@@ -2612,22 +3246,22 @@
       "step": 701,
       "pos_mm": [
         [
-          288.8,
-          274.9,
+          321.0,
+          161.9,
+          -1375.4
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          188.1,
-          -657.6
+          334.7,
+          -195.8,
+          -4510.5
         ],
         [
-          261.5,
-          368.4,
-          -5271.0
-        ],
-        [
-          285.0,
+          293.2,
           275.0,
           118.4
         ],
@@ -2637,29 +3271,29 @@
           219.5
         ],
         [
-          280.9,
-          -21.1,
-          -2885.2
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          248.8,
-          549.6,
-          -7619.6
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          428.8,
-          -2860.1
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          291.8,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          231.1,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -104.5,
@@ -2667,59 +3301,59 @@
           -12962.2
         ],
         [
-          260.7,
-          473.0,
-          -4794.5
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          493.4,
-          -6660.4
-        ],
-        [
-          240.5,
-          322.5,
-          20.8
-        ],
-        [
-          288.3,
-          334.7,
-          0.7
-        ],
-        [
-          97.5,
-          489.5,
-          -6042.4
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          303.4,
-          295.2,
-          218.1
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          326.6,
+          302.7,
           275.0,
           117.6
         ],
         [
-          222.4,
-          170.0,
-          -1227.0
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -0.7,
-          -104.8,
-          -8495.8
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          34.4,
-          519.7,
-          -7612.7
+          308.3,
+          305.2,
+          217.3
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          309.4,
+          519.2,
+          -8161.3
         ]
       ]
     },
@@ -2727,22 +3361,22 @@
       "step": 801,
       "pos_mm": [
         [
-          289.1,
-          275.0,
+          328.9,
+          115.2,
+          -3043.7
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          141.3,
-          -1937.7
+          343.7,
+          -317.1,
+          -7205.5
         ],
         [
-          261.5,
-          382.4,
-          -8168.1
-        ],
-        [
-          286.1,
+          293.2,
           275.0,
           118.4
         ],
@@ -2752,29 +3386,29 @@
           219.5
         ],
         [
+          290.7,
+          276.6,
+          118.6
+        ],
+        [
+          284.3,
           273.4,
-          -119.6,
-          -5123.8
+          118.6
         ],
         [
-          245.0,
-          601.9,
-          -11007.6
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          261.5,
-          474.1,
-          -5076.7
-        ],
-        [
-          292.2,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          234.0,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -178.6,
@@ -2782,59 +3416,59 @@
           -17296.6
         ],
         [
-          260.7,
-          519.2,
-          -7555.1
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          537.1,
-          -9849.1
-        ],
-        [
-          237.6,
-          320.9,
-          20.8
-        ],
-        [
-          293.6,
-          343.1,
-          0.7
-        ],
-        [
-          51.8,
-          535.2,
-          -9101.6
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          310.1,
-          295.2,
-          217.9
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          325.7,
+          301.4,
           275.0,
           117.6
         ],
         [
-          188.2,
-          124.5,
-          -2826.6
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -59.0,
-          -175.8,
-          -12056.4
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -18.8,
-          566.2,
-          -11001.5
+          306.7,
+          305.2,
+          217.4
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          302.0,
+          563.3,
+          -11657.6
         ]
       ]
     },
@@ -2842,22 +3476,22 @@
       "step": 901,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          336.8,
+          68.4,
+          -5325.2
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          94.6,
-          -3830.9
+          352.7,
+          -438.5,
+          -10513.6
         ],
         [
-          261.5,
-          396.4,
-          -11678.5
-        ],
-        [
-          286.3,
+          293.2,
           275.0,
           118.4
         ],
@@ -2867,29 +3501,29 @@
           219.5
         ],
         [
-          265.9,
-          -218.2,
-          -7975.6
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          241.3,
-          654.3,
-          -15008.8
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          519.4,
-          -7906.4
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          236.1,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -252.7,
@@ -2897,59 +3531,59 @@
           -22244.5
         ],
         [
-          260.7,
-          565.5,
-          -10928.9
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          580.9,
-          -13650.9
-        ],
-        [
-          237.8,
-          318.8,
-          20.7
-        ],
-        [
-          298.9,
-          351.5,
-          0.7
-        ],
-        [
-          6.1,
-          580.9,
-          -12774.0
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          216.1
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.9,
+          301.4,
           275.0,
           117.6
         ],
         [
-          154.0,
-          78.9,
-          -5039.3
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -117.3,
-          -246.9,
-          -16230.1
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -72.0,
-          612.7,
-          -15003.3
+          308.6,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          294.7,
+          607.5,
+          -15767.0
         ]
       ]
     },
@@ -2957,22 +3591,22 @@
       "step": 1001,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          344.8,
+          21.7,
+          -8219.8
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          47.8,
-          -6337.1
+          361.7,
+          -559.9,
+          -14434.9
         ],
         [
-          261.5,
-          410.3,
-          -15801.9
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -2982,29 +3616,29 @@
           219.5
         ],
         [
-          258.4,
-          -316.7,
-          -11440.5
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          237.5,
-          706.6,
-          -19623.1
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          564.7,
-          -11349.2
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          237.8,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -326.7,
@@ -3012,59 +3646,59 @@
           -27805.6
         ],
         [
-          260.7,
-          611.8,
-          -14915.7
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          624.6,
-          -18065.7
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          304.0,
-          359.3,
-          0.8
-        ],
-        [
-          -39.7,
-          626.6,
-          -17059.1
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          215.7
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.5,
+          301.4,
           275.0,
           117.6
         ],
         [
-          119.8,
-          33.4,
-          -7865.1
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -175.5,
-          -318.0,
-          -21017.1
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -125.2,
-          659.2,
-          -19618.3
+          308.6,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          287.4,
+          651.6,
+          -20489.6
         ]
       ]
     },
@@ -3072,22 +3706,22 @@
       "step": 1101,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          352.7,
+          -25.0,
+          -11727.6
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          1.0,
-          -9456.6
+          370.7,
+          -681.1,
+          -18969.3
         ],
         [
-          261.5,
-          424.3,
-          -20538.6
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -3097,29 +3731,29 @@
           219.5
         ],
         [
-          250.9,
-          -415.2,
-          -15518.5
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          233.8,
-          759.0,
-          -24850.5
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          610.0,
-          -15405.2
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          239.5,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -400.7,
@@ -3127,59 +3761,59 @@
           -33979.6
         ],
         [
-          260.7,
-          658.1,
-          -19516.1
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          668.4,
-          -23093.8
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          308.1,
-          359.3,
-          0.8
-        ],
-        [
-          -85.4,
-          672.4,
-          -21957.7
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          215.7
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          85.6,
-          -12.2,
-          -11304.2
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -233.8,
-          -389.1,
-          -26417.1
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -178.5,
-          705.7,
-          -24846.5
+          308.5,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          280.1,
+          695.7,
+          -25825.3
         ]
       ]
     },
@@ -3187,22 +3821,22 @@
       "step": 1201,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          360.6,
+          -71.8,
+          -15848.4
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -45.8,
-          -13189.2
+          379.7,
+          -802.4,
+          -24116.9
         ],
         [
-          261.5,
-          438.3,
-          -25888.4
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -3212,29 +3846,29 @@
           219.5
         ],
         [
-          243.4,
-          -513.8,
-          -20209.6
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          230.0,
-          811.3,
-          -30691.1
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          655.3,
-          -20074.6
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          241.1,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -474.7,
@@ -3242,59 +3876,59 @@
           -40766.8
         ],
         [
-          260.7,
-          704.4,
-          -24729.1
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          712.1,
-          -28735.1
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          312.2,
-          359.3,
-          0.8
-        ],
-        [
-          -131.1,
-          718.1,
-          -27469.6
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          215.7
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          51.4,
-          -57.7,
-          -15356.2
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -292.0,
-          -460.2,
-          -32430.1
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -231.7,
-          752.2,
-          -30687.8
+          306.9,
+          305.2,
+          217.4
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          272.7,
+          739.9,
+          -31774.3
         ]
       ]
     },
@@ -3302,22 +3936,22 @@
       "step": 1301,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          368.5,
+          -118.5,
+          -20582.2
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -92.6,
-          -17534.7
+          388.6,
+          -923.7,
+          -29877.7
         ],
         [
-          261.5,
-          452.2,
-          -31851.1
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -3327,29 +3961,29 @@
           219.5
         ],
         [
-          235.9,
-          -612.4,
-          -25514.0
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          226.2,
-          863.6,
-          -37145.3
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          700.6,
-          -25356.8
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          242.8,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -548.8,
@@ -3357,59 +3991,59 @@
           -48167.3
         ],
         [
-          260.7,
-          750.6,
-          -30555.3
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          755.9,
-          -34989.3
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          316.2,
-          359.3,
-          0.7
-        ],
-        [
-          -176.8,
-          763.8,
-          -33594.1
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          215.8
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          17.2,
-          -103.3,
-          -20021.1
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -350.3,
-          -531.3,
-          -39056.5
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -284.9,
-          798.6,
-          -37142.7
+          308.6,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          265.4,
+          784.0,
+          -38335.8
         ]
       ]
     },
@@ -3417,22 +4051,22 @@
       "step": 1401,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          376.4,
+          -165.2,
+          -25929.4
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -139.4,
-          -22493.5
+          397.6,
+          -1045.0,
+          -36251.6
         ],
         [
-          261.5,
-          466.2,
-          -38426.9
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -3442,29 +4076,29 @@
           219.5
         ],
         [
-          228.5,
-          -711.0,
-          -31431.5
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          222.5,
-          916.0,
-          -44212.1
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          746.0,
-          -31252.1
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          244.5,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -622.8,
@@ -3472,59 +4106,59 @@
           -56180.9
         ],
         [
-          260.7,
-          796.9,
-          -36994.4
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          799.6,
-          -41856.7
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          320.2,
-          359.3,
-          0.7
-        ],
-        [
-          -222.5,
-          809.5,
-          -40332.1
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          215.9
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -16.9,
-          -148.8,
-          -25299.5
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -408.6,
-          -602.4,
-          -46296.0
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -338.1,
-          845.1,
-          -44210.2
+          308.6,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          258.1,
+          828.2,
+          -45510.8
         ]
       ]
     },
@@ -3532,22 +4166,22 @@
       "step": 1501,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          384.3,
+          -211.9,
+          -31889.7
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -186.2,
-          -28065.5
+          406.6,
+          -1166.5,
+          -43238.6
         ],
         [
-          261.5,
-          480.2,
-          -45616.2
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -3557,29 +4191,29 @@
           219.5
         ],
         [
-          221.0,
-          -809.7,
-          -37961.7
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          218.7,
-          968.3,
-          -51892.0
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          791.3,
-          -37761.0
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          246.1,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -696.8,
@@ -3587,59 +4221,59 @@
           -64807.7
         ],
         [
-          260.7,
-          843.2,
-          -44047.2
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          843.4,
-          -49337.3
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          324.2,
-          359.3,
-          0.8
-        ],
-        [
-          -268.2,
-          855.2,
-          -47683.3
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          215.9
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -51.1,
-          -194.4,
-          -31191.0
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -466.9,
-          -673.4,
-          -54148.7
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -391.3,
-          891.6,
-          -51890.8
+          308.5,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          250.8,
+          872.3,
+          -53299.0
         ]
       ]
     },
@@ -3647,22 +4281,22 @@
       "step": 1601,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          392.2,
+          -258.7,
+          -38462.8
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -233.0,
-          -34251.0
+          415.6,
+          -1288.0,
+          -50838.6
         ],
         [
-          261.5,
-          494.1,
-          -53418.4
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -3672,29 +4306,29 @@
           219.5
         ],
         [
-          213.5,
-          -908.3,
-          -45105.3
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          215.0,
-          1020.7,
-          -60185.1
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          836.6,
-          -44882.8
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          247.8,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -770.8,
@@ -3702,59 +4336,59 @@
           -74047.7
         ],
         [
-          260.7,
-          889.5,
-          -51712.9
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          887.1,
-          -57431.2
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          328.2,
-          359.3,
-          0.8
-        ],
-        [
-          -313.9,
-          900.9,
-          -55647.6
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          215.9
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -85.3,
-          -239.9,
-          -37695.8
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -525.2,
-          -744.5,
-          -62614.4
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -444.6,
-          938.1,
-          -60184.7
+          306.8,
+          305.2,
+          217.4
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          243.4,
+          916.4,
+          -61700.5
         ]
       ]
     },
@@ -3762,22 +4396,22 @@
       "step": 1701,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          400.1,
+          -305.3,
+          -45649.3
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -279.8,
-          -41049.2
+          424.6,
+          -1409.5,
+          -59051.8
         ],
         [
-          261.5,
-          508.1,
-          -61833.9
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -3787,29 +4421,29 @@
           219.5
         ],
         [
-          206.0,
-          -1006.9,
-          -52862.2
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          211.2,
-          1073.0,
-          -69091.2
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          881.9,
-          -52617.5
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          249.5,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -844.9,
@@ -3817,59 +4451,59 @@
           -83900.7
         ],
         [
-          260.7,
-          935.8,
-          -59991.6
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          930.9,
-          -66137.9
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          332.2,
-          359.3,
-          0.8
-        ],
-        [
-          -359.6,
-          946.6,
-          -64225.1
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          215.9
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -119.5,
-          -285.5,
-          -44813.4
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -583.4,
-          -815.6,
-          -71692.7
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -497.8,
-          984.6,
-          -69091.4
+          308.6,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          236.1,
+          960.6,
+          -70715.0
         ]
       ]
     },
@@ -3877,54 +4511,54 @@
       "step": 1801,
       "pos_mm": [
         [
-          289.3,
+          408.0,
+          -352.0,
+          -53449.0
+        ],
+        [
+          286.5,
+          275.4,
+          118.4
+        ],
+        [
+          433.6,
+          -1531.0,
+          -67878.2
+        ],
+        [
+          293.2,
           275.0,
           118.4
         ],
         [
-          261.5,
-          -326.5,
-          -48460.5
-        ],
-        [
-          261.5,
-          522.1,
-          -70862.2
-        ],
-        [
-          286.2,
-          275.0,
-          118.4
-        ],
-        [
-          376.0,
+          375.9,
           251.9,
           219.5
         ],
         [
-          198.6,
-          -1105.4,
-          -61232.3
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          207.4,
-          1125.4,
-          -78610.5
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          927.2,
-          -60965.3
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          251.2,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -918.9,
@@ -3932,59 +4566,59 @@
           -94366.5
         ],
         [
-          260.7,
-          982.1,
-          -68883.4
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          974.6,
-          -75458.2
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          336.2,
-          359.3,
-          0.8
-        ],
-        [
-          -405.3,
-          992.3,
-          -73415.6
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          216.0
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -153.7,
-          -331.0,
-          -52544.3
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -641.6,
-          -886.7,
-          -81384.5
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -550.9,
-          1031.1,
-          -78611.7
+          308.6,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          228.8,
+          1004.7,
+          -80342.8
         ]
       ]
     },
@@ -3992,54 +4626,54 @@
       "step": 1901,
       "pos_mm": [
         [
-          289.3,
+          415.9,
+          -398.7,
+          -61861.8
+        ],
+        [
+          286.5,
+          275.4,
+          118.4
+        ],
+        [
+          442.5,
+          -1652.5,
+          -77317.7
+        ],
+        [
+          293.2,
           275.0,
           118.4
         ],
         [
-          261.5,
-          -373.3,
-          -56485.0
-        ],
-        [
-          261.5,
-          536.2,
-          -80503.7
-        ],
-        [
-          286.2,
-          275.0,
-          118.4
-        ],
-        [
-          379.0,
+          378.9,
           251.8,
           219.5
         ],
         [
-          191.1,
-          -1203.8,
-          -70215.2
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          203.7,
-          1177.7,
-          -88742.7
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          972.5,
-          -69926.3
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          252.8,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -992.9,
@@ -4047,59 +4681,59 @@
           -105445.2
         ],
         [
-          260.7,
-          1028.4,
-          -78388.2
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          1018.4,
-          -85391.2
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          340.3,
-          359.3,
-          0.8
-        ],
-        [
-          -451.0,
-          1038.0,
-          -83218.8
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          216.0
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -187.9,
-          -376.5,
-          -60888.4
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -699.8,
-          -957.8,
-          -91689.2
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -604.1,
-          1077.6,
-          -88744.9
+          308.5,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          221.5,
+          1048.9,
+          -90583.5
         ]
       ]
     },
@@ -4107,54 +4741,54 @@
       "step": 2001,
       "pos_mm": [
         [
-          289.3,
+          423.9,
+          -445.4,
+          -70887.7
+        ],
+        [
+          286.5,
+          275.4,
+          118.4
+        ],
+        [
+          451.5,
+          -1774.0,
+          -87370.5
+        ],
+        [
+          293.2,
           275.0,
           118.4
         ],
         [
-          261.5,
-          -420.1,
-          -65122.6
-        ],
-        [
-          261.5,
-          550.3,
-          -90758.0
-        ],
-        [
-          286.2,
-          275.0,
-          118.4
-        ],
-        [
-          382.1,
+          382.0,
           251.7,
           219.5
         ],
         [
-          183.6,
-          -1302.3,
-          -79811.4
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          199.9,
-          1230.0,
-          -99488.5
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          1017.8,
-          -79500.5
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          254.5,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -1067.0,
@@ -4162,59 +4796,59 @@
           -117137.5
         ],
         [
-          260.7,
-          1074.5,
-          -88506.4
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          1062.1,
-          -95937.4
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          344.2,
-          359.3,
-          0.8
-        ],
-        [
-          -496.7,
-          1083.7,
-          -93635.6
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          216.0
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -222.1,
-          -422.0,
-          -69845.5
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -758.0,
-          -1028.9,
-          -102607.5
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -657.2,
-          1124.0,
-          -99491.2
+          306.9,
+          305.2,
+          217.4
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          214.1,
+          1093.0,
+          -101436.8
         ]
       ]
     },
@@ -4222,22 +4856,22 @@
       "step": 2101,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          431.8,
+          -492.1,
+          -80526.7
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -466.9,
-          -74373.4
+          460.5,
+          -1895.4,
+          -98036.2
         ],
         [
-          261.5,
-          564.3,
-          -101625.7
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -4247,29 +4881,29 @@
           219.5
         ],
         [
-          176.2,
-          -1400.7,
-          -90020.7
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          196.2,
-          1282.4,
-          -110847.0
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          1063.1,
-          -89687.5
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          256.2,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -1141.3,
@@ -4277,59 +4911,59 @@
           -129442.5
         ],
         [
-          260.7,
-          1120.6,
-          -99237.4
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          1105.9,
-          -107096.7
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          348.1,
-          359.3,
-          0.8
-        ],
-        [
-          -542.4,
-          1129.4,
-          -104665.1
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          216.0
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -256.3,
-          -467.5,
-          -79415.8
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -816.2,
-          -1100.0,
-          -114138.2
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -710.3,
-          1170.5,
-          -110850.4
+          308.6,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          206.8,
+          1137.2,
+          -112903.5
         ]
       ]
     },
@@ -4337,22 +4971,22 @@
       "step": 2201,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          439.7,
+          -538.7,
+          -90778.9
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -513.6,
-          -84237.4
+          469.5,
+          -2016.9,
+          -109314.5
         ],
         [
-          261.5,
-          578.4,
-          -113106.5
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -4362,29 +4996,29 @@
           219.5
         ],
         [
-          168.7,
-          -1499.1,
-          -100842.9
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          192.4,
-          1334.7,
-          -122818.7
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          1108.5,
-          -100487.8
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          256.5,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -1215.5,
@@ -4392,59 +5026,59 @@
           -142360.5
         ],
         [
-          260.7,
-          1166.6,
-          -110581.7
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          1149.6,
-          -118868.9
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          352.0,
-          359.3,
-          0.8
-        ],
-        [
-          -588.1,
-          1175.1,
-          -116307.8
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          216.1
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -290.4,
-          -513.0,
-          -89599.0
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -874.4,
-          -1171.1,
-          -126282.5
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -763.4,
-          1217.0,
-          -122822.7
+          308.6,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          199.5,
+          1181.3,
+          -124983.3
         ]
       ]
     },
@@ -4452,22 +5086,22 @@
       "step": 2301,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          447.6,
+          -585.4,
+          -101644.2
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -560.5,
-          -94714.1
+          478.5,
+          -2138.1,
+          -121206.2
         ],
         [
-          261.5,
-          592.4,
-          -125200.5
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -4477,29 +5111,29 @@
           219.5
         ],
         [
-          161.2,
-          -1597.6,
-          -112278.4
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          188.6,
-          1387.1,
-          -135403.4
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          1153.8,
-          -111901.3
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
-          275.0,
+          299.4,
+          274.4,
           118.4
         ],
         [
-          256.5,
-          358.5,
-          3.5
+          310.0,
+          275.0,
+          118.4
         ],
         [
           -1289.7,
@@ -4507,59 +5141,59 @@
           -155892.5
         ],
         [
-          260.7,
-          1212.7,
-          -122538.9
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          1193.4,
-          -131254.5
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          355.9,
-          359.3,
-          0.8
-        ],
-        [
-          -633.8,
-          1220.8,
-          -128563.6
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          216.1
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -324.6,
-          -558.5,
-          -100395.8
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -932.6,
-          -1242.2,
-          -139039.7
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -816.6,
-          1263.5,
-          -135408.4
+          308.5,
+          305.2,
+          217.2
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          192.2,
+          1225.4,
+          -137676.4
         ]
       ]
     },
@@ -4567,22 +5201,22 @@
       "step": 2400,
       "pos_mm": [
         [
-          289.3,
-          275.0,
+          455.4,
+          -631.7,
+          -113004.3
+        ],
+        [
+          286.5,
+          275.4,
           118.4
         ],
         [
-          261.5,
-          -606.9,
-          -105690.1
+          487.4,
+          -2258.2,
+          -133583.2
         ],
         [
-          261.5,
-          606.4,
-          -137777.2
-        ],
-        [
-          286.2,
+          293.2,
           275.0,
           118.4
         ],
@@ -4592,89 +5226,89 @@
           219.5
         ],
         [
-          153.8,
-          -1695.0,
-          -124203.2
+          290.7,
+          276.6,
+          118.6
         ],
         [
-          184.9,
-          1438.9,
-          -148465.9
+          284.3,
+          273.4,
+          118.6
         ],
         [
-          261.5,
-          1198.6,
-          -123804.5
+          289.2,
+          274.0,
+          118.5
         ],
         [
-          292.3,
+          299.4,
+          274.4,
+          118.4
+        ],
+        [
+          310.0,
           275.0,
           118.4
         ],
         [
-          256.5,
-          358.5,
-          3.5
+          -1363.0,
+          -1207.2,
+          -169892.1
         ],
         [
-          -1363.2,
-          -1207.4,
-          -169892.5
+          298.0,
+          272.7,
+          118.0
         ],
         [
-          260.7,
-          1258.4,
-          -134980.6
-        ],
-        [
-          260.7,
-          1236.7,
-          -144120.0
-        ],
-        [
-          237.8,
-          318.8,
-          20.8
-        ],
-        [
-          359.8,
-          359.3,
-          0.8
-        ],
-        [
-          -679.1,
-          1266.0,
-          -141300.6
-        ],
-        [
-          295.1,
+          282.9,
           275.0,
           117.6
         ],
         [
-          313.0,
-          295.1,
-          216.1
+          295.3,
+          275.3,
+          117.6
         ],
         [
-          324.3,
+          301.4,
           275.0,
           117.6
         ],
         [
-          -358.5,
-          -603.6,
-          -111688.0
+          282.1,
+          273.1,
+          117.9
         ],
         [
-          -990.3,
-          -1312.6,
-          -152273.2
+          291.3,
+          274.1,
+          117.7
         ],
         [
-          -869.2,
-          1309.5,
-          -148471.9
+          306.4,
+          314.8,
+          -45.3
+        ],
+        [
+          286.4,
+          273.2,
+          117.8
+        ],
+        [
+          286.0,
+          283.7,
+          125.7
+        ],
+        [
+          300.2,
+          276.2,
+          117.5
+        ],
+        [
+          184.9,
+          1269.1,
+          -150846.4
         ]
       ]
     }

@@ -150,6 +150,16 @@ def hole_transition(prior, current, radius, candidate):
         return None, None
     return candidate, None
 
+def buffer_throat_contains(x, y, radius):
+    """Sphere envelope inside the actual octagonal Ø13 lower clear throat."""
+    apothem = 6.5 * math.cos(math.pi / 8.0)
+    return all(
+        (x - 299.0) * math.cos(a) + (y - 275.0) * math.sin(a)
+        <= apothem - radius
+        for a in (math.radians(247.5 + 45.0 * i) for i in range(8))
+    )
+
+
 # drivetrain ratios per unit input rotation (must match verify_full.py)
 Q = 8
 GEAR_RATIO = -15.0 / 40.0
@@ -431,6 +441,8 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         first_mouth_plane_mm = [None] * n
         reached_auger_pickup = [False] * n
         first_auger_pickup_mm = [None] * n
+        reached_auger_advance = [False] * n
+        first_auger_advance_mm = [None] * n
         screen_candidate = [None] * n
         passed_screen_hole = [False] * n
         first_screen_hole_mm = [None] * n
@@ -719,6 +731,18 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                     first_auger_pickup_mm[i] = [
                         round(float(x), 1), round(float(y), 1),
                         round(float(z), 1)]
+                # x285 is beyond the belt's x273 east tangent. A crossing
+                # here in the trough is evidence of post-belt transport,
+                # unlike the x237 pickup predicate alone.
+                if (phase == "s1_discharge" and reached_auger_pickup[i]
+                        and not reached_auger_advance[i]
+                        and 285.0 <= x <= 354.0
+                        and 223.3 <= y <= 240.9
+                        and 338.0 <= z <= 356.0):
+                    reached_auger_advance[i] = True
+                    first_auger_advance_mm[i] = [
+                        round(float(x), 1), round(float(y), 1),
+                        round(float(z), 1)]
                 # A screen-plane crossing is not screen-hole passage.
                 # Evaluate XY at the descending crossing of the exact
                 # measured screen bbox, not after a fast fragment overshot.
@@ -759,11 +783,8 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                         first_buffer_throat_plane_mm[i] = [
                             round(float(bx), 3), round(float(by), 3), 145.0]
                     radius = float(fr[i][1]) if fr[i][0] == "sphere" else 2.0
-                    # FEED-BUF's lower loft is offset to world x289,
-                    # not the S2 axis x308.57. Check its inner throat.
-                    reached_buffer_throat[i] = bool(
-                        267.0 + radius <= bx <= 311.0 - radius
-                        and 258.0 + radius <= by <= 292.0 - radius)
+                    reached_buffer_throat[i] = buffer_throat_contains(
+                        float(bx), float(by), radius)
                 # A point inside an S2-looking box is not handoff. Require
                 # forward crossing of the near y=255 mouth plane, then
                 # interpolate x/z at that instant (no skipped-plane credit).
@@ -876,6 +897,8 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "first_s2_mouth_plane_crossing_mm": first_mouth_plane_mm[i],
                 "reached_auger_pickup": bool(reached_auger_pickup[i]),
                 "first_auger_pickup_mm": first_auger_pickup_mm[i],
+                "reached_auger_advance": bool(reached_auger_advance[i]),
+                "first_auger_advance_mm": first_auger_advance_mm[i],
                 "passed_screen_hole": bool(passed_screen_hole[i]),
                 "first_screen_hole_mm": first_screen_hole_mm[i],
                 "entered_buffer_mouth": bool(entered_buffer_mouth[i]),
@@ -936,6 +959,9 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             "auger_pickup_predicate": (
                 "s1_discharge only: after z352.3 gate, ever inside "
                 "x237..270,y223.3..240.9,z338..356"),
+            "auger_advance_predicate": (
+                "s1_discharge only: after pickup, x285..354 in the actual "
+                "trough beyond the centre belt x273 east tangent"),
             "step_sha256": bodies["source_step_sha256"],
             "usda_sha256": sha256_file(USDA),
             "dt_s": dt,
@@ -954,6 +980,7 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "in_path_passed": sum(in_path_passed),
                 "reached_auger_pickup": sum(reached_auger_pickup),
                 "stuck": n_stuck,
+                "reached_auger_advance": sum(reached_auger_advance),
                 "lost_through_world": n_lost,
                 "lost_from_process": sum(
                     f["lost_from_process"] for f in fragments),
@@ -1119,6 +1146,7 @@ def main() -> int:
             "missed_buffer_throat": s.get("missed_buffer_throat", 0),
             "reached_s2_mouth": s.get("reached_s2_mouth"),
             "reached_auger_pickup": s.get("reached_auger_pickup"),
+            "reached_auger_advance": s.get("reached_auger_advance"),
             "lost_through_world": lost,
             "lost_from_process": process_loss,
             "unaccepted_residue": residue,
@@ -1138,7 +1166,8 @@ def main() -> int:
                 or (ph == "chute_inlet" and
                     s.get("reached_s2_mouth") is None)
                 or (ph == "s1_discharge" and
-                    s.get("reached_auger_pickup") is None)
+                    (s.get("reached_auger_pickup") is None or
+                     s.get("reached_auger_advance") is None))
                 or (ph == "s2_inlet" and
                     s.get("screen_to_buffer") is None)
                 else "CLEAR" if in_path == total and not process_loss
@@ -1146,7 +1175,8 @@ def main() -> int:
                 and (ph != "chute_inlet" or
                      s["reached_s2_mouth"] == total)
                 and (ph != "s1_discharge" or
-                     s["reached_auger_pickup"] == total)
+                     (s["reached_auger_pickup"] == total and
+                      s["reached_auger_advance"] == total))
                 and (ph != "s2_inlet" or
                      s["screen_to_buffer"] == total)
                 else "BLOCKED"),
