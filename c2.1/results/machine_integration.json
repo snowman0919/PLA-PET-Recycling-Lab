@@ -1,0 +1,589 @@
+{
+  "revision": "C2.1-P6+VP1-STAGE1",
+  "status": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD",
+  "source": {
+    "config": "c2.1/design/machine_integration.json",
+    "config_sha256": "42e094a9d90a1ee03f1f66b068a469e74fc514f9150638b5d0cab850bfc8e82f",
+    "legacy_master": "design/assembly.json",
+    "legacy_master_sha256": "1c8fde1ba2265a1c8e32d7cf55bfe2d5a21704fc0480215d54cee4c260a42cc9",
+    "c21_builder_sha256": "101c733a5f0112605a7fed10b46c1a4dd45e725174f1e8499dcbc3741bb1366a",
+    "legacy_role": "C1 interface baseline; motors/gears/screw/electrical/procurement remain unqualified"
+  },
+  "transform": {
+    "rotation_axis": [
+      0,
+      0,
+      1
+    ],
+    "rotation_deg": 180,
+    "translation_mm": [
+      308.56946468906176,
+      299,
+      280
+    ]
+  },
+  "legacy_s2_instances_excluded": 44,
+  "legacy_instances_retained": 151,
+  "c21_instances_inserted": 40,
+  "assembly_objects": 256,
+  "expected_solids": 280,
+  "reimported_solids": 280,
+  "step_reimport_valid": true,
+  "assembly_step": "c2.1/cad/PPR_VP1.step",
+  "assembly_geometry_checks": {
+    "chute_body_matched": true,
+    "aug_shaft_matched": true,
+    "transfer_belt_matched": true,
+    "transfer_belt_flight_overlap_mm": 35.45,
+    "transfer_belt_auger_gap_mm": 1.313,
+    "cross_feed_matched": true,
+    "cross_shell_matched": true,
+    "cross_feed_powered_mouth_overlap_mm": 5.502,
+    "cross_feed_outer_support_mm3": 142.417,
+    "cross_feed_shell_clearance_mm": 0.433,
+    "old_rib_solids_present": false,
+    "aug_shaft_zmin": 338.77,
+    "exact_min_distance_mm": 1.085,
+    "passed": true
+  },
+  "rotor_feed_phase_collision": {
+    "method": "BREP_EXACT_SAMPLED_5_DEG_PLUS_AXIAL_RADIAL_BOUND",
+    "samples": 576,
+    "checked_feed_parts": [
+      "CROSS_FEED_SHAFT",
+      "CROSS_FEED_SHELL"
+    ],
+    "unexpected": [],
+    "passed": true,
+    "continuous_clearance_proven": true,
+    "receiving_flight_ymax_mm": 234.671,
+    "tail_radial_margin_mm": 0.59,
+    "shell_radial_margin_mm": 1.5
+  },
+  "assembly_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "assembly_step_bytes": 99885305,
+  "groups": [
+    "S1",
+    "S2-C2.1",
+    "cooling",
+    "drive",
+    "electrical",
+    "extruder",
+    "feed",
+    "frame",
+    "frame_mount",
+    "guard",
+    "puller",
+    "spool"
+  ],
+  "required_groups_present": [
+    "S1",
+    "S2-C2.1",
+    "cooling",
+    "drive",
+    "electrical",
+    "extruder",
+    "feed",
+    "frame",
+    "frame_mount",
+    "puller",
+    "spool"
+  ],
+  "missing_required_groups": [],
+  "body": {
+    "bounds_mm": [
+      0.0,
+      0.0,
+      -3.0,
+      630.0,
+      414.0,
+      507.0
+    ],
+    "size_mm": [
+      630.0,
+      414.0,
+      510.0
+    ],
+    "limit_mm": [
+      700,
+      420,
+      520
+    ],
+    "passed": true
+  },
+  "operating_envelope": {
+    "bounds_mm": [
+      0.0,
+      0.0,
+      -3.0,
+      847.0,
+      414.0,
+      507.0
+    ],
+    "size_mm": [
+      847.0,
+      414.0,
+      510.0
+    ],
+    "target_limit_mm": [
+      850,
+      450,
+      510
+    ],
+    "passed": true
+  },
+  "interface_collision": {
+    "method": "BREP_EXACT_AFTER_BBOX",
+    "pair_checks": 6040,
+    "bbox_candidates": 32,
+    "unexpected": [],
+    "functional_allowed": [],
+    "known_contacts": [],
+    "passed": true
+  },
+  "relocated_support_collision": {
+    "method": "BREP_EXACT_AFTER_BBOX",
+    "pair_checks": 1278,
+    "bbox_candidates": 13,
+    "unexpected": [],
+    "functional_allowed": [
+      "DRV-SH15L_001/KEY-4-70_001",
+      "DRV-SP24-B20_001/KEY-6-16_001",
+      "DRV-SP24-B20_002/KEY-6-16_002",
+      "DRV-SP24-B25_001/KEY-8-16_001",
+      "DRV_SH40R_upper/KEY-6-70_001"
+    ],
+    "known_contacts": [],
+    "passed": true
+  },
+  "relocated_supports": {
+    "S2-LEG-L_001": 170,
+    "S2-LEG-R_001": 170,
+    "S2-LEG-L_002": 342,
+    "S2-LEG-R_002": 342
+  },
+  "vp1_stage1": {
+    "drive_replacements": [
+      "DRV-SH15L_001",
+      "DRV-SP12-B12_001",
+      "DRV-SP24-B20_001",
+      "DRV-SP24-B20_002",
+      "DRV-SP24-B25_001",
+      "DRV_SH40R_upper"
+    ],
+    "chain_parts": [
+      "DRV-CHAIN-A",
+      "DRV-CHAIN-B"
+    ],
+    "chute_parts": [
+      "CHUTE_BODY",
+      "CHUTE_TROUGH_FLOOR_E",
+      "PDL_SHAFT",
+      "PDL_BEARINGS",
+      "PDL_SPROCKET",
+      "PDL_CHAIN",
+      "PDL_WORM",
+      "AUG_SHAFT",
+      "AUG_BEARINGS",
+      "AUG_WHEEL",
+      "PDL_FEED_GEAR",
+      "CROSS_FEED_IDLER",
+      "CROSS_FEED_GEAR",
+      "CROSS_FEED_SHAFT",
+      "CROSS_FEED_BEARINGS",
+      "CROSS_FEED_SHELL",
+      "S1_BELT",
+      "S1_BELT_DRIVE",
+      "S1_BELT_IDLER",
+      "S1_BELT_BEARINGS",
+      "S1_BELT_FOLLOWER",
+      "S1_BELT_CHAIN",
+      "S1_SWEEP_SOUTH",
+      "S1_SWEEP_NORTH",
+      "S1_SWEEP_GEAR_DRUM_S",
+      "S1_SWEEP_GEAR_S",
+      "S1_SWEEP_GEAR_DRUM_N",
+      "S1_SWEEP_GEAR_N",
+      "S1_SWEEP_BEARINGS",
+      "S1_TRANSFER_BELT",
+      "S1_TRANSFER_IDLER",
+      "S1_TRANSFER_BEARINGS"
+    ],
+    "guard_parts": [
+      "GUARD_S2_RING",
+      "GUARD_CHAIN_A",
+      "GUARD_CHAIN_B",
+      "GUARD_LID_INTERLOCK_SEAT"
+    ],
+    "winder_parts": [
+      "PULL_FRAME",
+      "PULL_ROLLER_FIXED",
+      "PULL_ROLLER_ADJ",
+      "PULL_NIP_STOP",
+      "PULL_MOTOR_REF",
+      "WIND_SPOOL_SHAFT",
+      "WIND_SPOOL_BEARINGS",
+      "WIND_SPOOL_DRUM",
+      "WIND_FLANGE_L",
+      "WIND_FLANGE_R",
+      "WIND_MOTOR_REF",
+      "WIND_TRAVERSE_SCREW",
+      "WIND_TRAVERSE_RIDER",
+      "WIND_TENSIONER"
+    ],
+    "electrical_parts": [
+      "EL_DIN_RAIL",
+      "EL_DRIVER_1",
+      "EL_DRIVER_2",
+      "EL_DRIVER_3",
+      "EL_CONTACTOR",
+      "EL_ESTOP_BOX",
+      "EL_OVERTEMP_BOX",
+      "EL_CURRENT_LIMITER",
+      "EL_WIRE_DUCT"
+    ],
+    "hopper_parts": [
+      "HOPPER_PANEL_L",
+      "HOPPER_PANEL_R",
+      "HOPPER_SEAM_FRONT",
+      "HOPPER_SEAM_REAR"
+    ],
+    "hopper_print_bounds_mm": {
+      "HOPPER_PANEL_L": [
+        119.258,
+        162.2,
+        55.497
+      ],
+      "HOPPER_PANEL_R": [
+        117.0,
+        162.2,
+        55.497
+      ]
+    },
+    "hopper_liner": "HOLD: C1 HOPPER.step has only the PC shell; the modeled steel seam straps do not constitute a lower safety liner",
+    "excluded_legacy_instances": [
+      "GUARD_SECTION_ENVELOPE_HOLD",
+      "HOPPER_001",
+      "PULL-ROLLER_001",
+      "PULL-ROLLER_002",
+      "SPOOL-ENV_001"
+    ],
+    "deleted_drive_instances": [
+      "DRV-SH15R_001",
+      "DRV-SP24-B12_001",
+      "DRV_SH40L_lower",
+      "KEY-4-16_001"
+    ],
+    "chain_relief_adr": "c2.1/docs/ADR-002-CHAIN-ROUTING.md",
+    "electrical_load": {
+      "psu": {
+        "V": 24,
+        "current_A": 33,
+        "nameplate_W": 800,
+        "current_derived_ceiling_W": 792,
+        "operational_cap_W": 500,
+        "body_mm": [
+          240,
+          120,
+          65
+        ],
+        "owned": true
+      },
+      "devices": [
+        {
+          "device": "M1 shredder drive (TRK-60127-2460 + GMP60)",
+          "nameplate": "8.2 A @ 24 V (parameters.json M1.rated_A)",
+          "W": 196.79999999999998,
+          "count": 1,
+          "owned": false,
+          "grade": "UNRATED_ESTIMATE",
+          "subtotal_W": 196.79999999999998
+        },
+        {
+          "device": "M2 extruder drive (TRK-6097-2425 + GMP60)",
+          "nameplate": "1.8 A @ 24 V (parameters.json M2.rated_A)",
+          "W": 43.2,
+          "count": 1,
+          "owned": false,
+          "grade": "UNRATED_ESTIMATE",
+          "subtotal_W": 43.2
+        },
+        {
+          "device": "EX-H100 band heater",
+          "nameplate": "24 V 100 W (design/assembly.json part name)",
+          "W": 100.0,
+          "count": 3,
+          "owned": true,
+          "grade": "NAMEPLATE_SOURCE",
+          "subtotal_W": 300.0
+        },
+        {
+          "device": "EX-H60 cartridge heater",
+          "nameplate": "24 V 60 W (design/assembly.json part name)",
+          "W": 60.0,
+          "count": 1,
+          "owned": true,
+          "grade": "NAMEPLATE_SOURCE",
+          "subtotal_W": 60.0
+        },
+        {
+          "device": "COOL-FAN (Sanyo 9RA0824H1001)",
+          "nameplate": "model only; current not in repo",
+          "W": 8.0,
+          "count": 2,
+          "owned": true,
+          "grade": "UNRATED_ESTIMATE",
+          "subtotal_W": 16.0
+        }
+      ],
+      "total_peak_W": 616.0,
+      "staged_peak_W": 416.0,
+      "staged_schedule": {
+        "policy": "at most 1x EX-H100 band + EX-H60 cartridge at any instant; bands rotate on controller timing",
+        "heater_W_staged": 160.0,
+        "continuous_W": 256.0,
+        "control_implementation": "HOST_CONTROLLER_CORE_SELF_TESTED_NOT_DEPLOYED",
+        "hardware_interlock": "EL_CURRENT_LIMITER relay bank required independently of firmware behavior"
+      },
+      "operational_cap_W": 500,
+      "total_vs_budget_headroom_W": -116.0,
+      "staged_vs_budget_headroom_W": 84.0,
+      "total_above_budget": true,
+      "staged_above_budget": false,
+      "current_derived_ceiling_W": 792,
+      "psu_current_headroom_W": 176.0,
+      "psu_current_ceiling_exceeded": false,
+      "note": "PEAK simultaneous modeled sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. The 500 W hard operating budget refuses any next demand that would exceed it. 24 V x 33 A = 792 W is the PSU current-derived hardware maximum, not operating permission; hardware current limiting and heater interlocks remain required."
+    },
+    "vp1_stage3": {
+      "adr": "c2.1/docs/ADR-002-CHAIN-ROUTING.md",
+      "relief_records": [
+        {
+          "legacy": "S1-ROOF-R_001",
+          "new": "DRV-CHAIN-A",
+          "kind": "pocket",
+          "applied": true,
+          "overlap_before_mm3": 60.37709043814786,
+          "removed_mm3": 478.009,
+          "pocket_solids": 1,
+          "note": "chain A top-wrap channel notch in the roof bracket corner (bracket load path and bolt seats preserved)"
+        },
+        {
+          "legacy": "S1-STUD_001",
+          "new": "DRV-CHAIN-A",
+          "kind": "trim",
+          "applied": true,
+          "overlap_before_mm3": 104.6777555895405,
+          "removed_mm3": 1320.394,
+          "pocket_solids": 1,
+          "note": "stud tail trimmed beyond the wall face (y>330.5): wall-to-wall span y 108..329.6 preserved; the chain A strand owns the freed volume"
+        },
+        {
+          "legacy": "DRV-B12_001",
+          "new": "DRV-CHAIN-A",
+          "kind": "pocket",
+          "applied": true,
+          "overlap_before_mm3": 88.76412532289609,
+          "removed_mm3": 441.665,
+          "pocket_solids": 1,
+          "note": "corner relief on the input-shaft rear bearing plate (bearing seat at x 74..86 untouched)"
+        },
+        {
+          "legacy": "DRV-DECK_001",
+          "new": "DRV-CHAIN-A",
+          "kind": "pocket",
+          "applied": true,
+          "overlap_before_mm3": 167.8845737187142,
+          "removed_mm3": 791.467,
+          "pocket_solids": 1,
+          "note": "deck relief for strand A"
+        },
+        {
+          "legacy": "DRV-DECK_001",
+          "new": "DRV-CHAIN-B",
+          "kind": "pocket",
+          "applied": true,
+          "overlap_before_mm3": 167.7101953069602,
+          "removed_mm3": 790.828,
+          "pocket_solids": 1,
+          "note": "deck relief for strand B"
+        },
+        {
+          "legacy": "DRV-DECK_001",
+          "new": "DRV_SH40R_upper",
+          "kind": "pocket",
+          "applied": true,
+          "overlap_before_mm3": 774.3029570052223,
+          "removed_mm3": 5051.387,
+          "pocket_solids": 1,
+          "note": "deck relief for the 40T gear tip circle"
+        },
+        {
+          "legacy": "KEY-6-16_002",
+          "new": "BR-6204_002",
+          "kind": "trim",
+          "applied": true,
+          "note": "second jack driver key cut to 14.8 mm; 0.2 mm axial clearance before bearing at y388"
+        },
+        {
+          "legacy": "DRV-JACK_001",
+          "new": "KEY-6-16_002",
+          "kind": "keyseat",
+          "applied": true,
+          "removed_mm3": 310.382,
+          "note": "second chain-B keyseat y372.9..387.9, continuous metal core"
+        }
+      ],
+      "relieved_instances": [
+        "DRV-B12_001",
+        "DRV-DECK_001",
+        "DRV-JACK_001",
+        "KEY-6-16_002",
+        "S1-ROOF-R_001",
+        "S1-STUD_001"
+      ]
+    },
+    "kinematic_chain": {
+      "input_rpm": 58.0,
+      "jackshaft_rpm": -21.75,
+      "s1_shaft_A_rpm": -21.75,
+      "s1_shaft_B_rpm": 21.75,
+      "s2_input_rpm": -43.5,
+      "s2_output_rpm": 5.4375,
+      "s2_ecc_rpm": -43.5,
+      "worm_shaft_rpm": -43.5,
+      "auger_rpm": -5.4375,
+      "auger_conveying_pitch_mm": 28.5
+    },
+    "vp1_against_retained": {
+      "method": "BREP_EXACT_AFTER_BBOX",
+      "pair_checks": 12920,
+      "bbox_candidates": 122,
+      "unexpected": [],
+      "functional_allowed": [
+        "AUG_BEARINGS/AUG_SHAFT",
+        "AUG_BEARINGS/AUG_WHEEL",
+        "AUG_BEARINGS/CHUTE_BODY",
+        "AUG_SHAFT/AUG_WHEEL",
+        "AUG_WHEEL/PDL_WORM",
+        "BR-6204_002/DRV-SP24-B20_002",
+        "CHUTE_BODY/PDL_BEARINGS",
+        "DRV-CHAIN-A/DRV-SP24-B20_001",
+        "DRV-CHAIN-A/DRV-SP24-B25_001",
+        "DRV-CHAIN-A/GUARD_CHAIN_A",
+        "DRV-CHAIN-B/DRV-SP12-B12_001",
+        "DRV-CHAIN-B/DRV-SP24-B20_002",
+        "DRV-CHAIN-B/GUARD_CHAIN_B",
+        "DRV-CHAIN-P/DRV-SP12-B12_001",
+        "DRV-CHAIN-P/PDL_SPROCKET",
+        "DRV-IN-SHAFT_001/DRV-SH15L_001",
+        "DRV-JACK_001/DRV-SP24-B20_001",
+        "DRV-JACK_001/DRV-SP24-B20_002",
+        "DRV-JACK_001/DRV_SH40R_upper",
+        "DRV-SH15L_001/KEY-4-70_001",
+        "DRV-SP12-B12_001/INPUT_ECCENTRIC_SHAFT",
+        "DRV-SP12-B12_001/PDL_CHAIN",
+        "DRV-SP24-B20_001/KEY-6-16_001",
+        "DRV-SP24-B20_002/KEY-6-16_002",
+        "DRV-SP24-B25_001/KEY-8-16_001",
+        "DRV-SP24-B25_001/S1-SHAFT-A_001",
+        "DRV_SH40R_upper/KEY-6-70_001",
+        "PDL_BEARINGS/PDL_SHAFT",
+        "PDL_CHAIN/PDL_SPROCKET",
+        "PDL_SHAFT/PDL_SPROCKET",
+        "PDL_SHAFT/PDL_WORM",
+        "PULL_FRAME/PULL_ROLLER_ADJ",
+        "PULL_FRAME/PULL_ROLLER_FIXED",
+        "PULL_NIP_STOP/PULL_ROLLER_ADJ",
+        "S1-SHAFT-B_001/S1_BELT_CHAIN",
+        "S1_BELT_CHAIN/S1_BELT_FOLLOWER",
+        "WIND_FLANGE_L/WIND_SPOOL_SHAFT",
+        "WIND_FLANGE_R/WIND_SPOOL_SHAFT",
+        "WIND_MOTOR_REF/WIND_SPOOL_SHAFT",
+        "WIND_SPOOL_BEARINGS/WIND_SPOOL_SHAFT",
+        "WIND_SPOOL_DRUM/WIND_SPOOL_SHAFT",
+        "WIND_TRAVERSE_RIDER/WIND_TRAVERSE_SCREW"
+      ],
+      "known_contacts": [],
+      "passed": true
+    },
+    "vp1_internal": {
+      "method": "BREP_EXACT_AFTER_BBOX",
+      "pair_checks": 4970,
+      "bbox_candidates": 260,
+      "unexpected": [],
+      "functional_allowed": [
+        "AUG_BEARINGS/AUG_SHAFT",
+        "AUG_BEARINGS/AUG_WHEEL",
+        "AUG_BEARINGS/CHUTE_BODY",
+        "AUG_SHAFT/AUG_WHEEL",
+        "AUG_WHEEL/PDL_WORM",
+        "BR-6204_002/DRV-SP24-B20_002",
+        "CHUTE_BODY/PDL_BEARINGS",
+        "DRV-CHAIN-A/DRV-SP24-B20_001",
+        "DRV-CHAIN-A/DRV-SP24-B25_001",
+        "DRV-CHAIN-A/GUARD_CHAIN_A",
+        "DRV-CHAIN-B/DRV-SP12-B12_001",
+        "DRV-CHAIN-B/DRV-SP24-B20_002",
+        "DRV-CHAIN-B/GUARD_CHAIN_B",
+        "DRV-CHAIN-P/DRV-SP12-B12_001",
+        "DRV-CHAIN-P/PDL_SPROCKET",
+        "DRV-IN-SHAFT_001/DRV-SH15L_001",
+        "DRV-JACK_001/DRV-SP24-B20_001",
+        "DRV-JACK_001/DRV-SP24-B20_002",
+        "DRV-JACK_001/DRV_SH40R_upper",
+        "DRV-SH15L_001/KEY-4-70_001",
+        "DRV-SP12-B12_001/INPUT_ECCENTRIC_SHAFT",
+        "DRV-SP12-B12_001/PDL_CHAIN",
+        "DRV-SP24-B20_001/KEY-6-16_001",
+        "DRV-SP24-B20_002/KEY-6-16_002",
+        "DRV-SP24-B25_001/KEY-8-16_001",
+        "DRV-SP24-B25_001/S1-SHAFT-A_001",
+        "DRV_SH40R_upper/KEY-6-70_001",
+        "PDL_BEARINGS/PDL_SHAFT",
+        "PDL_CHAIN/PDL_SPROCKET",
+        "PDL_SHAFT/PDL_SPROCKET",
+        "PDL_SHAFT/PDL_WORM",
+        "PULL_FRAME/PULL_ROLLER_ADJ",
+        "PULL_FRAME/PULL_ROLLER_FIXED",
+        "PULL_NIP_STOP/PULL_ROLLER_ADJ",
+        "S1-SHAFT-B_001/S1_BELT_CHAIN",
+        "S1_BELT_CHAIN/S1_BELT_FOLLOWER",
+        "WIND_FLANGE_L/WIND_SPOOL_SHAFT",
+        "WIND_FLANGE_R/WIND_SPOOL_SHAFT",
+        "WIND_MOTOR_REF/WIND_SPOOL_SHAFT",
+        "WIND_SPOOL_BEARINGS/WIND_SPOOL_SHAFT",
+        "WIND_SPOOL_DRUM/WIND_SPOOL_SHAFT",
+        "WIND_TRAVERSE_RIDER/WIND_TRAVERSE_SCREW"
+      ],
+      "known_contacts": [],
+      "passed": true
+    },
+    "notes": [
+      "gear mesh phase: pinion tooth centre on the line of centres, 40T space centre at 180deg; helix hands opposed per mesh pair",
+      "ADR-002 rev B (VP1 Stage 4): chain B is driven from the jackshaft 24T bore-10 sprocket DRV-SP24-B20_002 (y373) to S2 12T (y374), 76 links; the jackshaft is one solid, the duplicate lower helical mesh is removed, and the DRV-M2 reference motor body is intact",
+      "At the 58 rpm M1 reference the 15T/40T mesh and 24T/12T chain B give S2 eccentric -43.5 rpm; the 2-start/16T worm wheel drives the auger at -5.4375 rpm",
+      "The fin-bypass feed uses a driven four-turn auger in an open U cradle with a measured positive flight/floor gap; the flat structural slab is not a passive transport claim",
+      "puller nip: spring-loaded 1.75 mm filament grip; spool winder, traverse and slip tensioner replace SPOOL-ENV",
+      "power policy: 500 W hard modeled operational budget; normal virtual peak 416 W, above-500 W demands rejected; 792 W is the separate PSU current-derived ceiling, not an operating allowance; M1/M2 loads remain UNRATED estimates",
+      "retained-internal S1-SYNC_001/002 vs S1-BR-CAP_001 contacts are inherited from C1 and not audited by this build"
+    ]
+  },
+  "closed_interfaces": [
+    "S2 process interval Y255..295 mm replaces the legacy S2 chamber interval",
+    "S2 input shaft remains coaxial with the retained ANSI35 12T bore12 reference at X308.569/Z280",
+    "four legacy metal S2 legs are relocated to face-contact the C2.1 support plates",
+    "S1/feed/extruder/cooling/puller/spool/electrical/frame objects are retained in one assembly"
+  ],
+  "holds": [
+    "C1 M1/M2, gears, sprockets, screw and electrical parts are interface references, not final selections",
+    "support fastener grade/preload, weld detail and frame stiffness are not rated",
+    "guards, wiring routes, service sweep and anti-reach are not complete containment geometry",
+    "full unchanged C1 pair audit is inherited; this run checks every new/relocated-to-retained pair",
+    "C1 hopper lower steel safety liner has no BRep geometry; seam straps are not a liner, so liner fit/retention and anti-reach remain HOLD",
+    "loaded deflection, tolerance and thermal-growth collision are not proven"
+  ],
+  "procurement": "HOLD",
+  "fabrication": "HOLD",
+  "energization": "HOLD"
+}

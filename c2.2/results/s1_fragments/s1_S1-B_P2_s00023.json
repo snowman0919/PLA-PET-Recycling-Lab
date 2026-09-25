@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 23,
+  "class": "P2",
+  "waste_id": "P2-failed_print_mass-00023",
+  "input_mass_g": 365.265,
+  "peak_proxy": 1.4896300193609064,
+  "work_proxy": 195.24453071647824,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "P2-failed_print_mass-00023:S1-B:F000",
+      "source_waste_id": "P2-failed_print_mass-00023",
+      "seed": 23,
+      "mass_g": 182.6325,
+      "volume_mm3": 147284.274,
+      "com_mm": [
+        50.79,
+        34.345,
+        10.63
+      ],
+      "principal_dims_mm": [
+        91.422,
+        58.877,
+        14.173
+      ],
+      "equiv_diameter_mm": 65.522,
+      "aspect_ratio": 6.45,
+      "pose_quaternion_xyzw": [
+        -0.12593,
+        0.53,
+        0.51853,
+        -0.65907
+      ],
+      "velocity_proxy_mm_s": [
+        7.4482,
+        7.4482,
+        7.4482
+      ],
+      "bond_state": {
+        "failed_bonds": 334,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "P2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "P2-failed_print_mass-00023:S1-B:F001",
+      "source_waste_id": "P2-failed_print_mass-00023",
+      "seed": 23,
+      "mass_g": 182.6325,
+      "volume_mm3": 147284.274,
+      "com_mm": [
+        50.79,
+        34.345,
+        31.89
+      ],
+      "principal_dims_mm": [
+        91.422,
+        58.877,
+        14.173
+      ],
+      "equiv_diameter_mm": 65.522,
+      "aspect_ratio": 6.45,
+      "pose_quaternion_xyzw": [
+        0.74508,
+        -0.13563,
+        -0.03837,
+        -0.65191
+      ],
+      "velocity_proxy_mm_s": [
+        7.4482,
+        7.4482,
+        7.4482
+      ],
+      "bond_state": {
+        "failed_bonds": 334,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "P2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

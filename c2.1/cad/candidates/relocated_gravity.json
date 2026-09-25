@@ -1,0 +1,7086 @@
+{
+  "revision": "C2.1-ALT-RELOCATED-GRAVITY",
+  "geometry_passed": true,
+  "status": "GEOMETRY_PASS_FLOW_HOLD",
+  "source_sha256": "4c24c927555c79f510e1021ef8e278274c9e4e334bce2cffc313704494849fee",
+  "selected_reference_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "transform": {
+    "s2_rotation_axis": [
+      0,
+      0,
+      1
+    ],
+    "s2_rotation_deg": 180,
+    "s2_translation_mm": [
+      308.0746286057215,
+      299.0,
+      215.0
+    ],
+    "m1_motor_jack_deck_shift_mm": [
+      0,
+      0,
+      95.60611928920366
+    ],
+    "downstream_shift_mm": [
+      -0.4948360833402603,
+      0,
+      -65.0
+    ]
+  },
+  "chain_A": {
+    "driver_center_xz_mm": [
+      136.94018992255457,
+      160.60611928920366
+    ],
+    "driven_center_xz_mm": [
+      130.0,
+      398.30275184708404
+    ],
+    "teeth": [
+      24,
+      24
+    ],
+    "plane_y0_mm": 354.0,
+    "computed_pitch_length_mm": 704.85,
+    "links": 74,
+    "nominal_mm": 704.85
+  },
+  "chain_B": {
+    "driver_center_xz_mm": [
+      136.94018992255457,
+      160.60611928920366
+    ],
+    "driven_center_xz_mm": [
+      308.0746286057215,
+      215.0
+    ],
+    "teeth": [
+      24,
+      12
+    ],
+    "plane_y0_mm": 374.0,
+    "computed_pitch_length_mm": 533.4,
+    "links": 56,
+    "nominal_mm": 533.4,
+    "pitch_difference_mm": -0.0,
+    "rating_and_tension": "HOLD"
+  },
+  "object_count": 246,
+  "solid_count": 256,
+  "body": {
+    "bounds_mm": [
+      0.0,
+      0.0,
+      -3.0,
+      630.0,
+      414.0,
+      507.0
+    ],
+    "size_mm": [
+      630.0,
+      414.0,
+      510.0
+    ],
+    "limit_mm": [
+      700,
+      420,
+      520
+    ],
+    "passed": true
+  },
+  "operating_envelope": {
+    "bounds_mm": [
+      0.0,
+      0.0,
+      -3.0,
+      846.5051639166597,
+      414.0,
+      507.0
+    ],
+    "size_mm": [
+      846.5051639166597,
+      414.0,
+      510.0
+    ]
+  },
+  "diagnostics": {
+    "stationary_vs_changed": {
+      "checked_pairs": 15093,
+      "bbox_candidates": 15,
+      "exact_hits": [
+        {
+          "a": "DRV-CHAIN-A",
+          "b": "DRV-SP24-B25_001",
+          "volume_mm3": 3358.8084,
+          "intentional_existing_drive_fit": true
+        }
+      ]
+    },
+    "changed_internal": {
+      "checked_pairs": 6786,
+      "bbox_candidates": 177,
+      "exact_hits": [
+        {
+          "a": "DRV-SH15L_001",
+          "b": "KEY-4-70_001",
+          "volume_mm3": 2.1491,
+          "intentional_existing_drive_fit": true
+        },
+        {
+          "a": "DRV_SH40R_upper",
+          "b": "KEY-6-70_001",
+          "volume_mm3": 8.3058,
+          "intentional_existing_drive_fit": true
+        },
+        {
+          "a": "DRV-SP24-B20_001",
+          "b": "DRV-CHAIN-A",
+          "volume_mm3": 3358.8084,
+          "intentional_existing_drive_fit": true
+        },
+        {
+          "a": "DRV-SP12-B12_001",
+          "b": "DRV-CHAIN-B",
+          "volume_mm3": 1622.9928,
+          "intentional_existing_drive_fit": true
+        },
+        {
+          "a": "DRV-SP24-B20_002",
+          "b": "DRV-CHAIN-B",
+          "volume_mm3": 3546.6339,
+          "intentional_existing_drive_fit": true
+        },
+        {
+          "a": "PULL_FRAME",
+          "b": "PULL_ROLLER_FIXED",
+          "volume_mm3": 301.5929,
+          "intentional_existing_drive_fit": true
+        },
+        {
+          "a": "PULL_ROLLER_ADJ",
+          "b": "PULL_NIP_STOP",
+          "volume_mm3": 180.0,
+          "intentional_existing_drive_fit": true
+        },
+        {
+          "a": "WIND_SPOOL_SHAFT",
+          "b": "WIND_MOTOR_REF",
+          "volume_mm3": 603.1858,
+          "intentional_existing_drive_fit": true
+        },
+        {
+          "a": "WIND_TRAVERSE_SCREW",
+          "b": "WIND_TRAVERSE_RIDER",
+          "volume_mm3": 2513.2741,
+          "intentional_existing_drive_fit": true
+        }
+      ]
+    },
+    "support_plate_to_stanchion_gaps_mm": {
+      "ALT_S2_STANCHION_OUTPUT_L": 0.0,
+      "ALT_S2_STANCHION_OUTPUT_R": 0.0,
+      "ALT_S2_STANCHION_INPUT_L": 0.0,
+      "ALT_S2_STANCHION_INPUT_R": 0.0
+    },
+    "floor_to_s2_fixed_shell_gap_mm": 15.5217,
+    "mouth_lip_r_mm": 68.927,
+    "mouth_clearance_to_shell_ro_mm": 3.127,
+    "funnel_drop_mm": 57.0,
+    "gravity_path": "S1 belt/sweep delivery to ruled floor, then free fall through upper-right S2 shell gap",
+    "same_input_flow_qualified": false,
+    "chain_pitch_delta_mm": -0.0,
+    "chain_A_pitch_delta_mm": 0.0,
+    "m1_deck_to_post_gaps_mm": {
+      "ALT_M1_POST_L_F": 0.0,
+      "ALT_M1_POST_L_B": 0.0,
+      "ALT_M1_POST_R_F": 0.0,
+      "ALT_M1_POST_R_B": 0.0
+    },
+    "extruder_thrust_to_new_foot_gap_mm": 0.0,
+    "extruder_barrel_to_new_rest_gap_mm": 0.2,
+    "feed_buffer_to_saddle_gap_mm": 0.0,
+    "feed_saddle_to_cold_barrel_gap_mm": 0.1,
+    "feed_throat_world_mm": [
+      298.5052,
+      275,
+      80
+    ],
+    "barrel_feed_hole_world_mm": [
+      298.5052,
+      275,
+      80
+    ]
+  },
+  "parts": [
+    {
+      "name": "FR-2040-630_001",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.0,
+        0.0,
+        0.0,
+        630.0,
+        40.0,
+        20.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2040-630_002",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.0,
+        360.0,
+        0.0,
+        630.0,
+        400.0,
+        20.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2040-320_001",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.0,
+        40.0,
+        0.0,
+        40.0,
+        360.0,
+        20.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2040-320_002",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        220.0,
+        40.0,
+        0.0,
+        260.0,
+        360.0,
+        20.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2040-400_001",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.0,
+        40.0,
+        20.0,
+        20.0,
+        80.0,
+        420.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2040-400_002",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        610.0,
+        360.0,
+        20.0,
+        630.0,
+        400.0,
+        420.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2020-400_001",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        610.0,
+        40.0,
+        20.0,
+        630.0,
+        60.0,
+        420.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2020-400_002",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.0,
+        380.0,
+        20.0,
+        20.0,
+        400.0,
+        420.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2020-590_001",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        20.0,
+        40.0,
+        420.0,
+        610.0,
+        60.0,
+        440.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2020-590_002",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        20.0,
+        380.0,
+        420.0,
+        610.0,
+        400.0,
+        440.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2020-360_001",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.0,
+        40.0,
+        420.0,
+        20.0,
+        400.0,
+        440.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2020-360_002",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        610.0,
+        40.0,
+        420.0,
+        630.0,
+        400.0,
+        440.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2020-360_003",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        420.0,
+        40.0,
+        440.0,
+        440.0,
+        400.0,
+        460.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-2020-320_001",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        375.0,
+        40.0,
+        0.0,
+        395.0,
+        360.0,
+        20.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FR-BASE_001",
+      "group": "frame",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.0,
+        0.0,
+        -3.0,
+        630.0,
+        400.0,
+        0.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EL-PSU_001",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        370.0,
+        40.0,
+        30.0,
+        610.0,
+        160.0,
+        95.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-M1_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        49.75,
+        25.0,
+        130.356,
+        110.25,
+        236.8,
+        190.856
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-M2_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        9.505,
+        244.75,
+        29.75,
+        202.305,
+        305.25,
+        90.25
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-M1-PL_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        45.0,
+        211.0,
+        128.106,
+        115.0,
+        217.0,
+        193.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-CPL12_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        64.0,
+        221.0,
+        144.606,
+        96.0,
+        249.0,
+        176.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-IN-SHAFT_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        74.0,
+        237.0,
+        154.606,
+        86.0,
+        394.0,
+        166.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-JACK_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        126.94,
+        240.0,
+        150.606,
+        146.94,
+        408.0,
+        170.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6001_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        66.0,
+        253.0,
+        146.606,
+        94.0,
+        261.0,
+        174.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6001_002",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        66.0,
+        360.0,
+        146.606,
+        94.0,
+        368.0,
+        174.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6204_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        113.44,
+        254.0,
+        137.106,
+        160.44,
+        268.0,
+        184.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6204_002",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        113.44,
+        388.0,
+        137.106,
+        160.44,
+        402.0,
+        184.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-BFRONT_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        45.0,
+        250.0,
+        120.606,
+        185.0,
+        268.0,
+        188.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-B12_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        63.0,
+        358.0,
+        130.606,
+        97.0,
+        370.0,
+        190.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-B20_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        101.94,
+        386.0,
+        123.106,
+        171.94,
+        404.0,
+        198.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-SH15L_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        62.471,
+        313.0,
+        143.077,
+        97.529,
+        348.0,
+        178.135
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV_SH40R_upper",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        93.529,
+        313.0,
+        117.195,
+        180.351,
+        348.0,
+        204.017
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-SP24-B20_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        97.98,
+        352.0,
+        121.646,
+        175.9,
+        370.0,
+        199.566
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-SP24-B25_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        91.04,
+        352.0,
+        359.343,
+        168.96,
+        370.0,
+        437.263
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-SP12-B12_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        287.594,
+        374.0,
+        194.52,
+        328.555,
+        392.0,
+        235.48
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P00_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        90.659,
+        163.0,
+        361.103,
+        168.997,
+        169.0,
+        438.302
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        169.0,
+        380.303,
+        148.0,
+        175.4,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P01_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        91.214,
+        175.4,
+        361.153,
+        169.518,
+        181.4,
+        438.207
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        181.4,
+        380.303,
+        148.0,
+        187.8,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P02_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        91.817,
+        187.8,
+        360.218,
+        169.851,
+        193.8,
+        438.073
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_003",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        193.8,
+        380.303,
+        148.0,
+        200.2,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P03_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        92.581,
+        200.2,
+        359.465,
+        169.994,
+        206.2,
+        437.753
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_004",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        206.2,
+        380.303,
+        148.0,
+        212.6,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P04_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        93.111,
+        212.6,
+        358.897,
+        169.946,
+        218.6,
+        437.245
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_005",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        218.6,
+        380.303,
+        148.0,
+        225.0,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P05_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        92.132,
+        225.0,
+        358.517,
+        169.821,
+        231.0,
+        436.648
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_006",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        231.0,
+        380.303,
+        148.0,
+        237.4,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P06_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        91.334,
+        237.4,
+        358.327,
+        169.548,
+        243.4,
+        435.929
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_007",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        243.4,
+        380.303,
+        148.0,
+        249.8,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P07_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        90.719,
+        249.8,
+        358.327,
+        169.087,
+        255.8,
+        435.031
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_008",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        255.8,
+        380.303,
+        148.0,
+        262.2,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P08_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        90.292,
+        262.2,
+        358.443,
+        168.497,
+        268.2,
+        435.942
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_009",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        268.2,
+        380.303,
+        148.0,
+        274.6,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P09_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        90.054,
+        274.6,
+        358.669,
+        167.823,
+        280.6,
+        436.787
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_010",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        280.6,
+        380.303,
+        148.0,
+        287.0,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P10_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        90.006,
+        287.0,
+        359.083,
+        166.969,
+        293.0,
+        437.447
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_011",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        293.0,
+        380.303,
+        148.0,
+        299.4,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P11_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        90.114,
+        299.4,
+        359.666,
+        167.4,
+        305.4,
+        437.922
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-A_012",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        112.0,
+        305.4,
+        380.303,
+        148.0,
+        311.8,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-A-P12_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        90.292,
+        311.8,
+        360.294,
+        168.29,
+        317.8,
+        438.207
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SHAFT-A_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        117.5,
+        100.0,
+        385.803,
+        142.5,
+        382.0,
+        410.803
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6205_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        104.0,
+        140.0,
+        372.303,
+        156.0,
+        155.0,
+        424.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6205_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        104.0,
+        331.0,
+        372.303,
+        156.0,
+        346.0,
+        424.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P00_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        150.659,
+        169.2,
+        358.303,
+        228.997,
+        175.2,
+        435.502
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        175.2,
+        380.303,
+        208.0,
+        181.6,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P01_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        150.292,
+        181.6,
+        358.398,
+        228.29,
+        187.6,
+        436.312
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        187.6,
+        380.303,
+        208.0,
+        194.0,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P02_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        150.114,
+        194.0,
+        358.684,
+        227.4,
+        200.0,
+        436.94
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_003",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        200.0,
+        380.303,
+        208.0,
+        206.4,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P03_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        150.006,
+        206.4,
+        359.158,
+        226.969,
+        212.4,
+        437.522
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_004",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        212.4,
+        380.303,
+        208.0,
+        218.8,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P04_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        150.054,
+        218.8,
+        359.819,
+        227.823,
+        224.8,
+        437.937
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_005",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        224.8,
+        380.303,
+        208.0,
+        231.2,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P05_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        150.292,
+        231.2,
+        360.663,
+        228.497,
+        237.2,
+        438.162
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_006",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        237.2,
+        380.303,
+        208.0,
+        243.6,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P06_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        150.719,
+        243.6,
+        361.575,
+        229.087,
+        249.6,
+        438.279
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_007",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        249.6,
+        380.303,
+        208.0,
+        256.0,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P07_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        151.334,
+        256.0,
+        360.676,
+        229.548,
+        262.0,
+        438.279
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_008",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        262.0,
+        380.303,
+        208.0,
+        268.4,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P08_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        152.132,
+        268.4,
+        359.957,
+        229.821,
+        274.4,
+        438.088
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_009",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        274.4,
+        380.303,
+        208.0,
+        280.8,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P09_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        153.111,
+        280.8,
+        359.361,
+        229.946,
+        286.8,
+        437.708
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_010",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        286.8,
+        380.303,
+        208.0,
+        293.2,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P10_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        152.581,
+        293.2,
+        358.852,
+        229.994,
+        299.2,
+        437.14
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_011",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        299.2,
+        380.303,
+        208.0,
+        305.6,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P11_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        151.817,
+        305.6,
+        358.532,
+        229.851,
+        311.6,
+        436.387
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SPACER-B_012",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        172.0,
+        311.6,
+        380.303,
+        208.0,
+        318.0,
+        416.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-CUT-B-P12_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        151.214,
+        318.0,
+        358.398,
+        229.518,
+        324.0,
+        435.453
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SHAFT-B_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        151.04,
+        100.0,
+        359.343,
+        228.96,
+        414.0,
+        437.263
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6205_003",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        164.0,
+        140.0,
+        372.303,
+        216.0,
+        155.0,
+        424.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6205_004",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        164.0,
+        331.0,
+        372.303,
+        216.0,
+        346.0,
+        424.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SYNC_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        98.008,
+        108.0,
+        366.409,
+        161.992,
+        138.0,
+        430.196
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SYNC_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        158.107,
+        108.0,
+        366.311,
+        221.893,
+        138.0,
+        430.294
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-BPL_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        80.0,
+        138.0,
+        348.303,
+        240.0,
+        156.0,
+        448.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-BPL_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        80.0,
+        331.0,
+        348.303,
+        240.0,
+        349.0,
+        448.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-WALL_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        80.0,
+        157.4,
+        352.303,
+        240.0,
+        162.4,
+        444.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-WALL_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        80.0,
+        324.6,
+        352.303,
+        240.0,
+        329.6,
+        444.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SIDE_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        80.0,
+        162.4,
+        352.303,
+        83.0,
+        324.6,
+        444.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-SIDE_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        237.0,
+        162.4,
+        352.303,
+        240.0,
+        324.6,
+        444.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-BR-CAP_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        80.0,
+        135.0,
+        348.303,
+        240.0,
+        138.0,
+        448.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-BR-CAP_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        80.0,
+        349.0,
+        348.303,
+        240.0,
+        352.0,
+        448.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FEED-BUF_001",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        213.075,
+        251.0,
+        80.0,
+        403.075,
+        299.0,
+        153.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FEED-BUF-SADDLE_001",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        281.505,
+        251.0,
+        60.2,
+        315.505,
+        299.0,
+        80.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FEED-BUF-CLAMP_001",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        281.505,
+        251.0,
+        42.0,
+        315.505,
+        299.0,
+        59.8
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-SCREW_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        263.505,
+        267.0,
+        52.0,
+        519.505,
+        283.0,
+        68.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-BARREL_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        263.505,
+        260.0,
+        45.0,
+        519.505,
+        290.0,
+        75.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-REAR_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        202.505,
+        262.0,
+        47.0,
+        263.505,
+        288.0,
+        73.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-CPL_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        186.505,
+        259.0,
+        44.0,
+        218.505,
+        291.0,
+        76.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-6202_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        224.505,
+        257.5,
+        42.5,
+        235.505,
+        292.5,
+        77.5
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "BR-51102_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        238.505,
+        261.0,
+        46.0,
+        247.505,
+        289.0,
+        74.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-THRUST_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        221.505,
+        245.0,
+        25.0,
+        260.505,
+        305.0,
+        95.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-DIE_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        519.505,
+        257.0,
+        42.0,
+        539.505,
+        293.0,
+        78.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-H100_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        327.505,
+        255.0,
+        40.0,
+        367.505,
+        295.0,
+        80.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-H100_002",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        387.505,
+        255.0,
+        40.0,
+        427.505,
+        295.0,
+        80.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-H100_003",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        447.505,
+        255.0,
+        40.0,
+        487.505,
+        295.0,
+        80.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "EX-H60_001",
+      "group": "extruder",
+      "solid_count": 1,
+      "bounds_mm": [
+        528.505,
+        256.0,
+        65.0,
+        534.505,
+        276.0,
+        71.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "COOL-TRAY_001",
+      "group": "cooling",
+      "solid_count": 1,
+      "bounds_mm": [
+        544.505,
+        235.0,
+        38.0,
+        819.505,
+        315.0,
+        68.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "COOL-FAN_001",
+      "group": "cooling",
+      "solid_count": 1,
+      "bounds_mm": [
+        559.505,
+        187.0,
+        20.0,
+        639.505,
+        225.0,
+        100.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "COOL-FAN_002",
+      "group": "cooling",
+      "solid_count": 1,
+      "bounds_mm": [
+        699.505,
+        187.0,
+        20.0,
+        779.505,
+        225.0,
+        100.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "HOP-LID_001",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.742,
+        175.0,
+        500.0,
+        180.742,
+        315.0,
+        505.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-ROOF-F_001",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        75.0,
+        40.0,
+        425.0,
+        105.0,
+        135.0,
+        450.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-ROOF-R_001",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        75.0,
+        352.0,
+        425.0,
+        105.0,
+        400.0,
+        450.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-TIE-TUBE_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        84.0,
+        156.0,
+        352.303,
+        96.0,
+        331.0,
+        364.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-STUD_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        87.0,
+        108.0,
+        355.303,
+        93.0,
+        378.0,
+        361.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-TIE-TUBE_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        84.0,
+        156.0,
+        432.303,
+        96.0,
+        331.0,
+        444.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-STUD_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        87.0,
+        108.0,
+        435.303,
+        93.0,
+        378.0,
+        441.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-ROOF-F_002",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        215.0,
+        40.0,
+        425.0,
+        245.0,
+        135.0,
+        450.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-ROOF-R_002",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        215.0,
+        352.0,
+        425.0,
+        245.0,
+        400.0,
+        450.0
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-TIE-TUBE_003",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        224.0,
+        156.0,
+        352.303,
+        236.0,
+        331.0,
+        364.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-STUD_003",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        227.0,
+        108.0,
+        355.303,
+        233.0,
+        378.0,
+        361.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-TIE-TUBE_004",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        224.0,
+        156.0,
+        432.303,
+        236.0,
+        331.0,
+        444.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "S1-STUD_004",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        227.0,
+        108.0,
+        435.303,
+        233.0,
+        378.0,
+        441.303
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-DECK_001",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        20.0,
+        210.0,
+        115.606,
+        260.0,
+        404.0,
+        120.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-M1-FOOT_001",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        45.0,
+        217.0,
+        120.606,
+        115.0,
+        247.0,
+        139.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-RISER12_001",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        63.0,
+        358.0,
+        120.606,
+        97.0,
+        370.0,
+        130.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-RISER20_001",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        101.94,
+        386.0,
+        120.606,
+        171.94,
+        404.0,
+        123.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV_M2_FACE_PLATE",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        176.505,
+        240.0,
+        27.5,
+        182.505,
+        310.0,
+        92.5
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-8-154_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        126.0,
+        163.4,
+        406.803,
+        134.0,
+        317.4,
+        413.803
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-8-154_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        186.0,
+        169.6,
+        406.803,
+        194.0,
+        323.6,
+        413.803
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-8-25_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        126.0,
+        110.0,
+        406.803,
+        134.0,
+        135.0,
+        413.803
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-8-25_002",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        186.91,
+        110.0,
+        406.338,
+        195.598,
+        135.0,
+        414.136
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-8-16_001",
+      "group": "S1",
+      "solid_count": 1,
+      "bounds_mm": [
+        126.0,
+        355.0,
+        406.803,
+        134.0,
+        371.0,
+        413.803
+      ],
+      "transform": {
+        "translate_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-4-70_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        78.0,
+        277.0,
+        164.606,
+        82.0,
+        347.0,
+        168.606
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-6-70_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        133.94,
+        277.0,
+        167.106,
+        139.94,
+        347.0,
+        173.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-6-16_001",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        133.94,
+        355.0,
+        167.106,
+        139.94,
+        371.0,
+        173.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "DRV-SP24-B20_002",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        97.98,
+        372.0,
+        121.646,
+        175.9,
+        387.0,
+        199.566
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "KEY-6-16_002",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        133.94,
+        373.0,
+        167.106,
+        139.94,
+        387.8,
+        173.106
+      ],
+      "transform": {
+        "translate_mm": [
+          0,
+          0,
+          95.60611928920366
+        ]
+      },
+      "source": "master source, selected integration replacement/relief where present"
+    },
+    {
+      "name": "FRONT_INPUT_SUPPORT",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        223.075,
+        351.0,
+        130.0,
+        393.075,
+        359.0,
+        304.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "REAR_OUTPUT_SUPPORT",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        223.075,
+        203.0,
+        130.0,
+        393.075,
+        211.0,
+        304.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "INPUT_BEARING_ENVELOPE_UNRATED",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        292.075,
+        347.0,
+        199.0,
+        324.075,
+        359.0,
+        231.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        287.075,
+        203.0,
+        194.0,
+        329.075,
+        215.0,
+        236.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FRONT_FIXED_RING_PLATE",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        220.075,
+        327.0,
+        127.0,
+        396.075,
+        333.0,
+        303.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "REAR_FIXED_RING_PLATE",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        220.075,
+        299.0,
+        127.0,
+        396.075,
+        305.0,
+        303.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_FIXED_SHEAR_SENSOR_BORE",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        237.075,
+        255.0,
+        211.0,
+        245.275,
+        295.0,
+        219.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_VERTICAL_DISCHARGE_SCREEN",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        258.435,
+        255.0,
+        150.2,
+        357.714,
+        295.0,
+        174.633
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_LEFT_WEAR_SHELL",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        356.182,
+        255.0,
+        172.705,
+        373.875,
+        295.0,
+        237.505
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_1",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        242.405,
+        255.0,
+        172.705,
+        259.967,
+        295.0,
+        210.9
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_RIGHT_WEAR_SHELL_2",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        242.405,
+        255.0,
+        219.1,
+        297.17,
+        295.0,
+        279.8
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_L",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        360.785,
+        255.0,
+        171.068,
+        393.835,
+        295.0,
+        236.343
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        223.208,
+        255.0,
+        171.068,
+        293.228,
+        295.0,
+        293.365
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_FRONT",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        360.465,
+        295.0,
+        168.961,
+        384.574,
+        299.0,
+        237.366
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_SADDLE_CAP_L_REAR",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        360.465,
+        251.0,
+        168.961,
+        384.574,
+        255.0,
+        237.366
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_FRONT",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        231.575,
+        295.0,
+        168.961,
+        293.318,
+        299.0,
+        289.539
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "C2_SADDLE_CAP_R_REAR",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        231.575,
+        251.0,
+        168.961,
+        293.318,
+        255.0,
+        289.539
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_1",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        228.075,
+        305.0,
+        207.0,
+        244.075,
+        327.0,
+        223.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_2",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        244.919,
+        305.0,
+        253.281,
+        260.919,
+        327.0,
+        269.281
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_3",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        287.572,
+        305.0,
+        277.906,
+        303.572,
+        327.0,
+        293.906
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_4",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        336.075,
+        305.0,
+        269.354,
+        352.075,
+        327.0,
+        285.354
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_5",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        367.732,
+        305.0,
+        231.625,
+        383.732,
+        327.0,
+        247.625
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_6",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        367.732,
+        305.0,
+        182.375,
+        383.732,
+        327.0,
+        198.375
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_7",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        336.075,
+        305.0,
+        144.646,
+        352.075,
+        327.0,
+        160.646
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_8",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        287.572,
+        305.0,
+        136.094,
+        303.572,
+        327.0,
+        152.094
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "FIXED_RING_PIN_9",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        244.919,
+        305.0,
+        160.719,
+        260.919,
+        327.0,
+        176.719
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "SUPPORT_TIE_1",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        379.075,
+        211.0,
+        156.0,
+        387.075,
+        351.0,
+        164.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "SUPPORT_TIE_2",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        384.075,
+        211.0,
+        291.0,
+        392.075,
+        351.0,
+        299.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "SUPPORT_TIE_3",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        229.075,
+        211.0,
+        156.0,
+        237.075,
+        351.0,
+        164.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "SUPPORT_TIE_4",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        249.075,
+        211.0,
+        293.0,
+        257.075,
+        351.0,
+        301.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "INPUT_ECCENTRIC_SHAFT",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        291.075,
+        301.0,
+        198.0,
+        325.075,
+        394.0,
+        232.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        285.075,
+        307.0,
+        199.0,
+        317.075,
+        323.0,
+        231.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        234.135,
+        235.0,
+        148.06,
+        368.014,
+        323.0,
+        281.94
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        260.075,
+        180.0,
+        167.0,
+        356.075,
+        251.0,
+        263.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "OUTPUT_ROLLER_1",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        265.075,
+        235.0,
+        210.0,
+        275.075,
+        249.0,
+        220.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "OUTPUT_ROLLER_2",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        284.075,
+        235.0,
+        242.909,
+        294.075,
+        249.0,
+        252.909
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "OUTPUT_ROLLER_3",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        322.075,
+        235.0,
+        242.909,
+        332.075,
+        249.0,
+        252.909
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "OUTPUT_ROLLER_4",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        341.075,
+        235.0,
+        210.0,
+        351.075,
+        249.0,
+        220.0
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "OUTPUT_ROLLER_5",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        322.075,
+        235.0,
+        177.091,
+        332.075,
+        249.0,
+        187.091
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "OUTPUT_ROLLER_6",
+      "group": "S2-C2.1",
+      "solid_count": 1,
+      "bounds_mm": [
+        284.075,
+        235.0,
+        177.091,
+        294.075,
+        249.0,
+        187.091
+      ],
+      "transform": {
+        "rotation_axis": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": 180,
+        "translation_mm": [
+          308.0746286057215,
+          299.0,
+          215.0
+        ]
+      },
+      "source": "active 40-part cycloid/shell/screen/saddle geometry"
+    },
+    {
+      "name": "S1_BELT",
+      "group": "feed",
+      "solid_count": 2,
+      "bounds_mm": [
+        75.401,
+        163.5,
+        328.301,
+        223.599,
+        323.5,
+        339.799
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_BELT_DRIVE",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        74.0,
+        127.0,
+        329.2,
+        87.0,
+        413.0,
+        341.2
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_BELT_IDLER",
+      "group": "feed",
+      "solid_count": 2,
+      "bounds_mm": [
+        215.2,
+        127.0,
+        329.1,
+        222.8,
+        369.0,
+        336.7
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_BELT_BEARINGS",
+      "group": "feed",
+      "solid_count": 4,
+      "bounds_mm": [
+        75.0,
+        157.4,
+        327.9,
+        224.0,
+        329.6,
+        340.2
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_BELT_FOLLOWER",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        59.52,
+        401.0,
+        314.72,
+        100.48,
+        413.0,
+        355.68
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_BELT_CHAIN",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        56.106,
+        402.0,
+        311.304,
+        231.983,
+        407.0,
+        440.264
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_SWEEP_SOUTH",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        193.377,
+        127.0,
+        338.195,
+        206.822,
+        228.5,
+        351.53
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_SWEEP_NORTH",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        193.221,
+        235.31,
+        337.868,
+        206.823,
+        369.0,
+        351.209
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_S",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        206.017,
+        128.0,
+        319.917,
+        231.983,
+        134.0,
+        345.883
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_S",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        187.242,
+        128.0,
+        331.942,
+        212.758,
+        134.0,
+        357.458
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_DRUM_N",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        206.017,
+        361.0,
+        319.917,
+        231.983,
+        367.0,
+        345.883
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_SWEEP_GEAR_N",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        187.242,
+        361.0,
+        331.942,
+        212.758,
+        367.0,
+        357.458
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "S1_SWEEP_BEARINGS",
+      "group": "feed",
+      "solid_count": 2,
+      "bounds_mm": [
+        197.65,
+        157.4,
+        342.35,
+        202.35,
+        329.6,
+        347.05
+      ],
+      "transform": {},
+      "source": "selected actual S1 belt/sweep/chain STEP"
+    },
+    {
+      "name": "DRV-CHAIN-A",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        87.943,
+        354.0,
+        118.637,
+        178.997,
+        359.0,
+        440.272
+      ],
+      "transform": {},
+      "source": "new #35 74-link chain A, raised jack to unchanged S1 shaft"
+    },
+    {
+      "name": "DRV-CHAIN-B",
+      "group": "drive",
+      "solid_count": 1,
+      "bounds_mm": [
+        94.966,
+        374.0,
+        118.621,
+        331.975,
+        379.0,
+        239.008
+      ],
+      "transform": {},
+      "source": "new #35 56-link chain B, raised jack to lowered S2 input"
+    },
+    {
+      "name": "GUARD_S2_RING",
+      "group": "guard",
+      "solid_count": 1,
+      "bounds_mm": [
+        269.841,
+        249.0,
+        245.782,
+        396.406,
+        301.0,
+        308.996
+      ],
+      "transform": {},
+      "source": "active guard; S2 ring window follows welded receiver"
+    },
+    {
+      "name": "GUARD_CHAIN_A",
+      "group": "guard",
+      "solid_count": 1,
+      "bounds_mm": [
+        105.0,
+        352.0,
+        450.5,
+        215.0,
+        364.0,
+        453.5
+      ],
+      "transform": {},
+      "source": "active guard; S2 ring window follows welded receiver"
+    },
+    {
+      "name": "GUARD_CHAIN_B",
+      "group": "guard",
+      "solid_count": 3,
+      "bounds_mm": [
+        127.495,
+        377.0,
+        121.406,
+        335.976,
+        380.0,
+        245.901
+      ],
+      "transform": {},
+      "source": "active guard; S2 ring window follows welded receiver"
+    },
+    {
+      "name": "GUARD_LID_INTERLOCK_SEAT",
+      "group": "guard",
+      "solid_count": 1,
+      "bounds_mm": [
+        20.0,
+        235.0,
+        505.0,
+        60.0,
+        275.0,
+        507.0
+      ],
+      "transform": {},
+      "source": "active guard; S2 ring window follows welded receiver"
+    },
+    {
+      "name": "PULL_FRAME",
+      "group": "puller",
+      "solid_count": 2,
+      "bounds_mm": [
+        821.505,
+        250.0,
+        35.0,
+        845.505,
+        278.0,
+        85.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "PULL_ROLLER_FIXED",
+      "group": "puller",
+      "solid_count": 1,
+      "bounds_mm": [
+        818.505,
+        245.0,
+        39.25,
+        838.505,
+        283.0,
+        59.25
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "PULL_ROLLER_ADJ",
+      "group": "puller",
+      "solid_count": 1,
+      "bounds_mm": [
+        812.383,
+        253.0,
+        60.75,
+        844.63,
+        307.0,
+        84.75
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "PULL_NIP_STOP",
+      "group": "puller",
+      "solid_count": 1,
+      "bounds_mm": [
+        819.505,
+        276.0,
+        75.75,
+        837.505,
+        280.0,
+        78.25
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "PULL_MOTOR_REF",
+      "group": "puller",
+      "solid_count": 1,
+      "bounds_mm": [
+        820.505,
+        202.0,
+        47.0,
+        846.505,
+        248.0,
+        77.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_SPOOL_SHAFT",
+      "group": "spool",
+      "solid_count": 1,
+      "bounds_mm": [
+        691.505,
+        87.0,
+        147.0,
+        707.505,
+        185.0,
+        163.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "group": "spool",
+      "solid_count": 2,
+      "bounds_mm": [
+        687.505,
+        88.0,
+        143.0,
+        711.505,
+        178.0,
+        167.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_SPOOL_DRUM",
+      "group": "spool",
+      "solid_count": 1,
+      "bounds_mm": [
+        664.505,
+        106.0,
+        120.0,
+        734.505,
+        164.0,
+        190.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_FLANGE_L",
+      "group": "spool",
+      "solid_count": 1,
+      "bounds_mm": [
+        599.505,
+        103.0,
+        55.0,
+        799.505,
+        106.0,
+        255.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_FLANGE_R",
+      "group": "spool",
+      "solid_count": 1,
+      "bounds_mm": [
+        599.505,
+        164.0,
+        55.0,
+        799.505,
+        167.0,
+        255.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_MOTOR_REF",
+      "group": "spool",
+      "solid_count": 1,
+      "bounds_mm": [
+        679.505,
+        182.0,
+        135.0,
+        719.505,
+        212.0,
+        175.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_TRAVERSE_SCREW",
+      "group": "spool",
+      "solid_count": 1,
+      "bounds_mm": [
+        737.505,
+        95.0,
+        256.0,
+        745.505,
+        175.0,
+        264.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_TRAVERSE_RIDER",
+      "group": "spool",
+      "solid_count": 1,
+      "bounds_mm": [
+        733.505,
+        110.0,
+        172.0,
+        749.505,
+        160.0,
+        268.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "WIND_TENSIONER",
+      "group": "spool",
+      "solid_count": 1,
+      "bounds_mm": [
+        743.505,
+        193.0,
+        110.0,
+        783.505,
+        203.0,
+        150.0
+      ],
+      "transform": {
+        "translate_mm": [
+          -0.4948360833402603,
+          0,
+          -65.0
+        ]
+      },
+      "source": "active actual puller/spool, shifted with extrudate line"
+    },
+    {
+      "name": "EL_DIN_RAIL",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        385.0,
+        42.0,
+        100.0,
+        595.0,
+        53.0,
+        103.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "EL_DRIVER_1",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        390.0,
+        42.0,
+        103.0,
+        435.0,
+        82.0,
+        135.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "EL_DRIVER_2",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        445.0,
+        42.0,
+        103.0,
+        490.0,
+        82.0,
+        135.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "EL_DRIVER_3",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        500.0,
+        42.0,
+        103.0,
+        545.0,
+        82.0,
+        135.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "EL_CONTACTOR",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        550.0,
+        42.0,
+        103.0,
+        595.0,
+        87.0,
+        173.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "EL_ESTOP_BOX",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        390.0,
+        100.0,
+        95.0,
+        430.0,
+        140.0,
+        135.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "EL_OVERTEMP_BOX",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        440.0,
+        100.0,
+        95.0,
+        480.0,
+        140.0,
+        135.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "EL_CURRENT_LIMITER",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        490.0,
+        100.0,
+        95.0,
+        530.0,
+        140.0,
+        135.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "EL_WIRE_DUCT",
+      "group": "electrical",
+      "solid_count": 1,
+      "bounds_mm": [
+        385.0,
+        140.0,
+        95.0,
+        595.0,
+        145.0,
+        125.0
+      ],
+      "transform": {},
+      "source": "active selected electrical envelope"
+    },
+    {
+      "name": "HOPPER_PANEL_L",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        0.742,
+        162.4,
+        444.503,
+        120.0,
+        324.6,
+        500.0
+      ],
+      "transform": {},
+      "source": "active split hopper shell/steel seam"
+    },
+    {
+      "name": "HOPPER_PANEL_R",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        120.0,
+        162.4,
+        444.503,
+        237.0,
+        324.6,
+        500.0
+      ],
+      "transform": {},
+      "source": "active split hopper shell/steel seam"
+    },
+    {
+      "name": "HOPPER_SEAM_FRONT",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        100.0,
+        168.139,
+        456.0,
+        140.0,
+        178.713,
+        495.0
+      ],
+      "transform": {},
+      "source": "active split hopper shell/steel seam"
+    },
+    {
+      "name": "HOPPER_SEAM_REAR",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        100.0,
+        310.818,
+        456.0,
+        140.0,
+        320.453,
+        495.0
+      ],
+      "transform": {},
+      "source": "active split hopper shell/steel seam"
+    },
+    {
+      "name": "ALT_S1_S2_RECEIVER",
+      "group": "feed",
+      "solid_count": 1,
+      "bounds_mm": [
+        74.0,
+        157.4,
+        275.0,
+        342.0,
+        329.6,
+        352.3
+      ],
+      "transform": {},
+      "source": "active c2.1/cad/parts_stage1/CHUTE_BODY.step trimmed at x239 + ruled steel floor and two welded side guides"
+    },
+    {
+      "name": "ALT_S2_FOOT_RAIL_OUTPUT",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        266.0,
+        199.0,
+        0.0,
+        371.0,
+        211.0,
+        16.0
+      ],
+      "transform": {},
+      "source": "new S355 foot rail face-mounted to frame base"
+    },
+    {
+      "name": "ALT_S2_STANCHION_OUTPUT_L",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        270.0,
+        203.0,
+        16.0,
+        286.0,
+        211.0,
+        130.0
+      ],
+      "transform": {},
+      "source": "new S355 stanchion to plate lower face"
+    },
+    {
+      "name": "ALT_S2_STANCHION_OUTPUT_R",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        350.0,
+        203.0,
+        16.0,
+        366.0,
+        211.0,
+        130.0
+      ],
+      "transform": {},
+      "source": "new S355 stanchion to plate lower face"
+    },
+    {
+      "name": "ALT_S2_FOOT_RAIL_INPUT",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        266.0,
+        347.0,
+        0.0,
+        371.0,
+        359.0,
+        16.0
+      ],
+      "transform": {},
+      "source": "new S355 foot rail face-mounted to frame base"
+    },
+    {
+      "name": "ALT_S2_STANCHION_INPUT_L",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        270.0,
+        351.0,
+        16.0,
+        286.0,
+        359.0,
+        130.0
+      ],
+      "transform": {},
+      "source": "new S355 stanchion to plate lower face"
+    },
+    {
+      "name": "ALT_S2_STANCHION_INPUT_R",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        350.0,
+        351.0,
+        16.0,
+        366.0,
+        359.0,
+        130.0
+      ],
+      "transform": {},
+      "source": "new S355 stanchion to plate lower face"
+    },
+    {
+      "name": "ALT_M1_POST_L_F",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        30.0,
+        210.0,
+        20.0,
+        46.0,
+        226.0,
+        115.606
+      ],
+      "transform": {},
+      "source": "new S355 deck stanchion, frame top to relocated deck"
+    },
+    {
+      "name": "ALT_M1_POST_L_B",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        30.0,
+        380.0,
+        20.0,
+        46.0,
+        396.0,
+        115.606
+      ],
+      "transform": {},
+      "source": "new S355 deck stanchion, frame top to relocated deck"
+    },
+    {
+      "name": "ALT_M1_POST_R_F",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        190.0,
+        210.0,
+        20.0,
+        206.0,
+        226.0,
+        115.606
+      ],
+      "transform": {},
+      "source": "new S355 deck stanchion, frame top to relocated deck"
+    },
+    {
+      "name": "ALT_M1_POST_R_B",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        190.0,
+        380.0,
+        20.0,
+        206.0,
+        396.0,
+        115.606
+      ],
+      "transform": {},
+      "source": "new S355 deck stanchion, frame top to relocated deck"
+    },
+    {
+      "name": "ALT_M1_FRONT_CROSS_RAIL",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        40.0,
+        210.0,
+        16.0,
+        220.0,
+        226.0,
+        20.0
+      ],
+      "transform": {},
+      "source": "S355 cross rail bearing front posts, end faces on existing frame"
+    },
+    {
+      "name": "ALT_EX_THRUST_FOOT",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        221.0,
+        245.0,
+        20.0,
+        260.0,
+        305.0,
+        25.0
+      ],
+      "transform": {},
+      "source": "new steel thrust support face-to-face at z25"
+    },
+    {
+      "name": "ALT_EX_BARREL_REST",
+      "group": "frame_mount",
+      "solid_count": 1,
+      "bounds_mm": [
+        432.0,
+        257.0,
+        0.0,
+        442.0,
+        293.0,
+        60.0
+      ],
+      "transform": {},
+      "source": "new open S355 cold-barrel rest with 0.2mm nominal radial gap"
+    }
+  ],
+  "mass_estimate": {
+    "basis": "BRep volumes x nominal proxy density; motors/bearings and polymer compound not measured",
+    "parts": [
+      {
+        "name": "FR-2040-630_001",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 381.02,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2040-630_002",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 381.02,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2040-320_001",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 193.54,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2040-320_002",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 193.54,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2040-400_001",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 241.92,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2040-400_002",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 241.92,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2020-400_001",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 155.52,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2020-400_002",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 155.52,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2020-590_001",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 229.39,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2020-590_002",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 229.39,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2020-360_001",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 139.97,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2020-360_002",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 139.97,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2020-360_003",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 139.97,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-2020-320_001",
+        "material_label": "Al extrusion - existing",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 124.42,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FR-BASE_001",
+        "material_label": "Al 5052",
+        "density_g_cm3": 2.7,
+        "nominal_mass_g": 2041.2,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL-PSU_001",
+        "material_label": "Purchased",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 14695.2,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-M1_001",
+        "material_label": "Purchased",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 4205.26,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-M2_001",
+        "material_label": "Purchased",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 3772.4,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-M1-PL_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 165.03,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-CPL12_001",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 140.86,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-IN-SHAFT_001",
+        "material_label": "C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 134.05,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-JACK_001",
+        "material_label": "C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 397.68,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6001_001",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 31.57,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6001_002",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 31.57,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6204_001",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 156.14,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6204_002",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 156.14,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-BFRONT_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 939.29,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-B12_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 121.74,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-B20_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 477.34,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-SH15L_001",
+        "material_label": "S45C hardened",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 146.87,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV_SH40R_upper",
+        "material_label": "S45C hardened",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1176.58,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-SP24-B20_001",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 308.52,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-SP24-B25_001",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 285.97,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-SP12-B12_001",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 103.39,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P00_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_001",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P01_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_002",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P02_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_003",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P03_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_004",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P04_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_005",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P05_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_006",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P06_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_007",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P07_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_008",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P08_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_009",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P09_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_010",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P10_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_011",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P11_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-A_012",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-A-P12_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SHAFT-A_001",
+        "material_label": "C45 or SCM440 certified",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1036.52,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6205_001",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 192.27,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6205_002",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 192.27,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P00_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_001",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P01_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_002",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P02_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_003",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P03_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_004",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P04_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_005",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P05_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_006",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P06_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_007",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P07_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_008",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P08_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_009",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P09_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_010",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P10_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_011",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P11_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SPACER-B_012",
+        "material_label": "Ground C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.06,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-CUT-B-P12_001",
+        "material_label": "Tool steel, heat treatment RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 127.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SHAFT-B_001",
+        "material_label": "C45 or SCM440 certified",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1389.96,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6205_003",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 192.27,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6205_004",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 192.27,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SYNC_001",
+        "material_label": "S45C hardened",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 469.49,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SYNC_002",
+        "material_label": "S45C hardened",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 469.49,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-BPL_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1641.3,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-BPL_002",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1641.3,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-WALL_001",
+        "material_label": "S355 wear liner",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 517.19,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-WALL_002",
+        "material_label": "S355 wear liner",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 517.19,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SIDE_001",
+        "material_label": "3mm steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 351.42,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-SIDE_002",
+        "material_label": "3mm steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 351.42,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-BR-CAP_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 291.86,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-BR-CAP_002",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 291.86,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FEED-BUF_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 311.11,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FEED-BUF-SADDLE_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 50.87,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FEED-BUF-CLAMP_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 49.89,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-SCREW_001",
+        "material_label": "SCM440 QT/nitriding RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 232.67,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-BARREL_001",
+        "material_label": "SCM440 nitrided RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 981.23,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-REAR_001",
+        "material_label": "SCM440",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 101.3,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-CPL_001",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 165.13,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-6202_001",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 67.82,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "BR-51102_001",
+        "material_label": "Bearing steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 31.02,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-THRUST_001",
+        "material_label": "C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 976.97,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-DIE_001",
+        "material_label": "SCM440 or stainless RFQ",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 144.17,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-H100_001",
+        "material_label": "Purchased custom",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 172.63,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-H100_002",
+        "material_label": "Purchased custom",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 172.63,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-H100_003",
+        "material_label": "Purchased custom",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 172.63,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EX-H60_001",
+        "material_label": "Purchased custom",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 4.44,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "COOL-TRAY_001",
+        "material_label": "Sheet metal",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 587.18,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "COOL-FAN_001",
+        "material_label": "Purchased",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 742.15,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "COOL-FAN_002",
+        "material_label": "Purchased",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 742.15,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "HOP-LID_001",
+        "material_label": "PC with metal strike",
+        "density_g_cm3": 1.2,
+        "nominal_mass_g": 151.2,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-ROOF-F_001",
+        "material_label": "10mm steel welded/folded",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 249.7,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-ROOF-R_001",
+        "material_label": "10mm steel welded/folded",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 136.37,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-TIE-TUBE_001",
+        "material_label": "C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 108.37,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-STUD_001",
+        "material_label": "Steel fastener",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 49.56,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-TIE-TUBE_002",
+        "material_label": "C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 108.37,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-STUD_002",
+        "material_label": "Steel fastener",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 59.93,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-ROOF-F_002",
+        "material_label": "10mm steel welded/folded",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 249.7,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-ROOF-R_002",
+        "material_label": "10mm steel welded/folded",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 140.13,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-TIE-TUBE_003",
+        "material_label": "C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 108.37,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-STUD_003",
+        "material_label": "Steel fastener",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 59.93,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-TIE-TUBE_004",
+        "material_label": "C45",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 108.37,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1-STUD_004",
+        "material_label": "Steel fastener",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 59.93,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-DECK_001",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1767.35,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-M1-FOOT_001",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 135.33,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-RISER12_001",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 32.03,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-RISER20_001",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 24.73,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV_M2_FACE_PLATE",
+        "material_label": "S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 165.03,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-8-154_001",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 67.7,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-8-154_002",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 67.7,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-8-25_001",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 10.99,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-8-25_002",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 10.99,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-8-16_001",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 7.03,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-4-70_001",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 8.79,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-6-70_001",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 19.78,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-6-16_001",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 4.52,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-SP24-B20_002",
+        "material_label": "Steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 286.73,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "KEY-6-16_002",
+        "material_label": "C45 ground key stock",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 4.18,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FRONT_INPUT_SUPPORT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1713.04,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "REAR_OUTPUT_SUPPORT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1663.17,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "INPUT_BEARING_ENVELOPE_UNRATED",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 64.75,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 100.32,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FRONT_FIXED_RING_PLATE",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 549.22,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "REAR_FIXED_RING_PLATE",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 549.22,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_FIXED_SHEAR_SENSOR_BORE",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 16.29,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_VERTICAL_DISCHARGE_SCREEN",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 52.62,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_LEFT_WEAR_SHELL",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 63.43,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_RIGHT_WEAR_SHELL_1",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 38.42,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_RIGHT_WEAR_SHELL_2",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 80.7,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_THERMAL_SADDLE_L",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 157.26,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 326.44,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_SADDLE_CAP_L_FRONT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 21.92,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_SADDLE_CAP_L_REAR",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 21.92,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_SADDLE_CAP_R_FRONT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 47.38,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "C2_SADDLE_CAP_R_REAR",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 47.38,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_1",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_2",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_3",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_4",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_5",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_6",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_7",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_8",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "FIXED_RING_PIN_9",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 34.72,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "SUPPORT_TIE_1",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 55.24,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "SUPPORT_TIE_2",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 55.24,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "SUPPORT_TIE_3",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 55.24,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "SUPPORT_TIE_4",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 55.24,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "INPUT_ECCENTRIC_SHAFT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 170.54,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 60.76,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 4766.5,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "OUTPUT_PIN_CARRIER_AND_SHAFT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 587.24,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "OUTPUT_ROLLER_1",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 5.31,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "OUTPUT_ROLLER_2",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 5.31,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "OUTPUT_ROLLER_3",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 5.31,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "OUTPUT_ROLLER_4",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 5.31,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "OUTPUT_ROLLER_5",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 5.31,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "OUTPUT_ROLLER_6",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 5.31,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_BELT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 262.08,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_BELT_DRIVE",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 130.28,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_BELT_IDLER",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 58.84,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_BELT_BEARINGS",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 11.93,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_BELT_FOLLOWER",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 84.28,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_BELT_CHAIN",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 185.04,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_SWEEP_SOUTH",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 17.22,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_SWEEP_NORTH",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 23.18,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_SWEEP_GEAR_DRUM_S",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 17.33,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_SWEEP_GEAR_S",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 17.33,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_SWEEP_GEAR_DRUM_N",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 17.33,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_SWEEP_GEAR_N",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 17.33,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "S1_SWEEP_BEARINGS",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 0.27,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-CHAIN-A",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 304.27,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "DRV-CHAIN-B",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 230.27,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "GUARD_S2_RING",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 241.76,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "GUARD_CHAIN_A",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 31.09,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "GUARD_CHAIN_B",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 36.01,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "GUARD_LID_INTERLOCK_SEAT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 25.12,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "PULL_FRAME",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 32.25,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "PULL_ROLLER_FIXED",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 60.57,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "PULL_ROLLER_ADJ",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 84.26,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "PULL_NIP_STOP",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1.41,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "PULL_MOTOR_REF",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 128.52,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_SPOOL_SHAFT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 154.68,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_SPOOL_BEARINGS",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 43.84,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_SPOOL_DRUM",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1648.86,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_FLANGE_L",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 734.5,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_FLANGE_R",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 734.5,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_MOTOR_REF",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 323.99,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_TRAVERSE_SCREW",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 31.57,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_TRAVERSE_RIDER",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 121.17,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "WIND_TENSIONER",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 40.34,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_DIN_RAIL",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 41.21,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_DRIVER_1",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 452.16,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_DRIVER_2",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 452.16,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_DRIVER_3",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 452.16,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_CONTACTOR",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1112.74,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_ESTOP_BOX",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 502.4,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_OVERTEMP_BOX",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 502.4,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_CURRENT_LIMITER",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 502.4,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "EL_WIRE_DUCT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 247.28,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "HOPPER_PANEL_L",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 372.26,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "HOPPER_PANEL_R",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 397.38,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "HOPPER_SEAM_FRONT",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 19.29,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "HOPPER_SEAM_REAR",
+        "material_label": "candidate/model envelope",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 19.29,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_S1_S2_RECEIVER",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 1131.39,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_S2_FOOT_RAIL_OUTPUT",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 158.26,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_S2_STANCHION_OUTPUT_L",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 114.55,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_S2_STANCHION_OUTPUT_R",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 114.55,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_S2_FOOT_RAIL_INPUT",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 158.26,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_S2_STANCHION_INPUT_L",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 114.55,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_S2_STANCHION_INPUT_R",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 114.55,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_M1_POST_L_F",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 192.13,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_M1_POST_L_B",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 192.13,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_M1_POST_R_F",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 192.13,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_M1_POST_R_B",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 192.13,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_M1_FRONT_CROSS_RAIL",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 90.43,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_EX_THRUST_FOOT",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 91.84,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      },
+      {
+        "name": "ALT_EX_BARREL_REST",
+        "material_label": "new S355 steel",
+        "density_g_cm3": 7.85,
+        "nominal_mass_g": 141.07,
+        "assumption": "nominal Al 2.70, polymer 1.20, steel/equipment proxy 7.85 g/cm3; not weighed"
+      }
+    ],
+    "total_nominal_kg": 81.579
+  },
+  "holds": [
+    "No same-input PhysX connected-flow claim; passive fragment bridging, rebound and pickup unqualified",
+    "Both 74/56-link chains require real tension/tolerance/chain load verification",
+    "Guard cutouts, welded mounts, fasteners and material credentials unqualified",
+    "Power 500W cap and 100k KRW target not re-qualified by this CAD export"
+  ],
+  "step": {
+    "path": "c2.1/cad/candidates/relocated_gravity.step",
+    "sha256": "607015bbd1e070c880a549737bdfcbf27fdbc3d1e640c17bc2928d2607075e85",
+    "reimported_solids": 256,
+    "all_valid": true
+  }
+}

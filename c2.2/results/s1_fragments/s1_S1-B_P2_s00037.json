@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 37,
+  "class": "P2",
+  "waste_id": "P2-failed_print_mass-00037",
+  "input_mass_g": 171.899,
+  "peak_proxy": 1.1033367502700622,
+  "work_proxy": 60.29559902609373,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "P2-failed_print_mass-00037:S1-B:F000",
+      "source_waste_id": "P2-failed_print_mass-00037",
+      "seed": 37,
+      "mass_g": 143.249167,
+      "volume_mm3": 115523.522,
+      "com_mm": [
+        30.465,
+        26.365,
+        18.304
+      ],
+      "principal_dims_mm": [
+        50.775,
+        42.184,
+        29.287
+      ],
+      "equiv_diameter_mm": 60.426,
+      "aspect_ratio": 1.734,
+      "pose_quaternion_xyzw": [
+        -0.40802,
+        0.16854,
+        -0.08851,
+        -0.89291
+      ],
+      "velocity_proxy_mm_s": [
+        5.5167,
+        5.5167,
+        5.5167
+      ],
+      "bond_state": {
+        "failed_bonds": 139,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "P2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "P2-failed_print_mass-00037:S1-B:F001",
+      "source_waste_id": "P2-failed_print_mass-00037",
+      "seed": 37,
+      "mass_g": 28.649833,
+      "volume_mm3": 23104.704,
+      "com_mm": [
+        30.465,
+        26.365,
+        40.269
+      ],
+      "principal_dims_mm": [
+        50.775,
+        42.184,
+        0.5
+      ],
+      "equiv_diameter_mm": 35.337,
+      "aspect_ratio": 101.55,
+      "pose_quaternion_xyzw": [
+        -0.81306,
+        -0.14548,
+        0.33467,
+        0.45361
+      ],
+      "velocity_proxy_mm_s": [
+        5.5167,
+        5.5167,
+        5.5167
+      ],
+      "bond_state": {
+        "failed_bonds": 139,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "P2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

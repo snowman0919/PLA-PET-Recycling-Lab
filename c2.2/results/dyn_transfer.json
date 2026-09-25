@@ -1,0 +1,115 @@
+{
+  "schema": "dyn_transfer/1",
+  "derived_assets": {
+    "S1_DISCHARGE": {
+      "dims_mm": [
+        120.0,
+        100.0,
+        30.0
+      ],
+      "center_mm": [
+        120.0,
+        243.5,
+        428.0
+      ]
+    },
+    "CHUTE": {
+      "dims_mm": [
+        110.0,
+        90.0,
+        120.0
+      ],
+      "center_mm": [
+        200.0,
+        243.5,
+        350.0
+      ]
+    },
+    "S2_ENTRY": {
+      "dims_mm": [
+        90.0,
+        45.0,
+        25.0
+      ],
+      "center_mm": [
+        308.6,
+        275.0,
+        330.0
+      ]
+    },
+    "S2_EXIT": {
+      "dims_mm": [
+        90.0,
+        45.0,
+        40.0
+      ],
+      "center_mm": [
+        308.6,
+        275.0,
+        200.0
+      ]
+    }
+  },
+  "derived_note": "PARAM_TRACE items 5/6/12 MISSING in C2.1; dims are DERIVED engineering assumptions, C2.1 CAD unmutated.",
+  "c21_mutated": false,
+  "handoff": {
+    "s1_P0_7_dt0.005_n240.summary.json": {
+      "final_positions_source": "dyn_s1 jsonl last-step frag0 + summary lattice (identical states fed to S2-A and S2-B)",
+      "frag0_pos_m": [
+        -0.11009924858808517,
+        -0.10709258168935776,
+        0.012257508933544159
+      ],
+      "bonds_alive": 0,
+      "bond_breaks": 46,
+      "s2_configs": [
+        "S2-A",
+        "S2-B"
+      ]
+    },
+    "s1_W1_11_dt0.005_n240.summary.json": {
+      "final_positions_source": "dyn_s1 jsonl last-step frag0 + summary lattice (identical states fed to S2-A and S2-B)",
+      "frag0_pos_m": [
+        -0.06971177458763123,
+        -0.13942527770996094,
+        0.006740017328411341
+      ],
+      "bonds_alive": 4,
+      "bond_breaks": 42,
+      "s2_configs": [
+        "S2-A",
+        "S2-B"
+      ]
+    },
+    "s1_W1_7_dt0.005_n240.summary.json": {
+      "final_positions_source": "dyn_s1 jsonl last-step frag0 + summary lattice (identical states fed to S2-A and S2-B)",
+      "frag0_pos_m": [
+        -0.03479324281215668,
+        -0.07121001929044724,
+        0.006020010448992252
+      ],
+      "bonds_alive": 0,
+      "bond_breaks": 46,
+      "s2_configs": [
+        "S2-A",
+        "S2-B"
+      ]
+    },
+    "s1_W4_11_dt0.005_n240.summary.json": {
+      "final_positions_source": "dyn_s1 jsonl last-step frag0 + summary lattice (identical states fed to S2-A and S2-B)",
+      "frag0_pos_m": [
+        -0.43855586647987366,
+        -0.5562190413475037,
+        0.005063775461167097
+      ],
+      "bonds_alive": 0,
+      "bond_breaks": 46,
+      "s2_configs": [
+        "S2-A",
+        "S2-B"
+      ]
+    }
+  },
+  "status": "PASS",
+  "failures": []
+}

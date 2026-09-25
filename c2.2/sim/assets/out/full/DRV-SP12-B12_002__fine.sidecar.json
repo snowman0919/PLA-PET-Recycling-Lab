@@ -1,0 +1,39 @@
+{
+  "asset_id": "DRV-SP12-B12_002",
+  "group": "feed",
+  "kinematic_body": "PADDLE",
+  "lod": "fine",
+  "step_index": 197,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.197",
+  "mesh_file": "sim/assets/out/full/DRV-SP12-B12_002__fine.stl",
+  "mesh_bytes": 81684,
+  "mesh_sha256": "2222992d9034adbb8455ed0bb68c2062382d3ddbac7cab0ae17c0a82169765f8",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "a3584b810b7524e64e0990184e7a6b0385fdf6999a89a8e15b1ecee786ff0a92",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    341.51973772135705,
+    375.9999999,
+    354.01973772135705,
+    382.48026227864295,
+    394.0000001,
+    394.98026227864295
+  ],
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "ccc80c26b446ccd53a787d574a32ddf3f7de660389160ad45bca29607c72fd1d",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 13215.498547816109,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

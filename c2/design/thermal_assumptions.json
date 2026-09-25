@@ -31,5 +31,26 @@
     60
   ],
   "mass_flow_g_h": 100,
-  "notes": "No values are grade-calibrated measurements. Heat input is dissipated chamber work, not motor electrical input."
+  "fan_factor": [
+    0,
+    0.25,
+    1
+  ],
+  "natural_UA_W_K": 0.3,
+  "motor_loss_W": [
+    0,
+    25
+  ],
+  "gear_loss_W": [
+    0,
+    8
+  ],
+  "motor_heat_capacity_J_K": 350,
+  "gear_heat_capacity_J_K": 500,
+  "motor_UA_W_K": 1.5,
+  "gear_UA_W_K": 1,
+  "motor_gear_G_W_K": 0.6,
+  "gear_shell_G_W_K": 0.15,
+  "cad_capacity_basis": "C2 cad_validation part volumes with assumed steel/aluminium density and cp; not measured mass",
+  "notes": "No values are grade-calibrated measurements. Chamber, motor and gearbox heat inputs are separate assumed losses, never total motor electrical input. Fan factor is a sensitivity because the duct/filter fan curve is unmeasured."
 }

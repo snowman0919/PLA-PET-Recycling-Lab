@@ -1,0 +1,1052 @@
+{
+  "schema": "r2_convergence/1",
+  "evidence_level": "UNCALIBRATED_DIGITAL_DYNAMICS",
+  "experiment_valid": true,
+  "thresholds_source": "CONTRACT_R1.md section 8 (parsed)",
+  "thresholds": {
+    "work": 0.05,
+    "impulse": 0.05,
+    "residence": 0.1,
+    "mass": 1e-06,
+    "discrete": 0.1
+  },
+  "runs": {
+    "FDM@0.01": {
+      "case": "FDM",
+      "dt_s": 0.01,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 240,
+      "scene_sha256": "1161c87322ed2cc2b5e5725a7a747fd8129119dfac3074d8bf27aace00e8cfb7",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": 0.05981487506368554,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.007077337400123219,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 240,
+      "break_events": 11
+    },
+    "FDM@0.005": {
+      "case": "FDM",
+      "dt_s": 0.005,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 480,
+      "scene_sha256": "1161c87322ed2cc2b5e5725a7a747fd8129119dfac3074d8bf27aace00e8cfb7",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": 0.1531566389269017,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.03841689753773699,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 480,
+      "break_events": 11
+    },
+    "FDM@0.0025": {
+      "case": "FDM",
+      "dt_s": 0.0025,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4000000000000004,
+      "duration_ok": true,
+      "substeps": 960,
+      "scene_sha256": "1161c87322ed2cc2b5e5725a7a747fd8129119dfac3074d8bf27aace00e8cfb7",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": 0.23524591285993873,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.05871124595019917,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 960,
+      "break_events": 11
+    },
+    "FDM@0.00125": {
+      "case": "FDM",
+      "dt_s": 0.00125,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 1920,
+      "scene_sha256": "1161c87322ed2cc2b5e5725a7a747fd8129119dfac3074d8bf27aace00e8cfb7",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": 0.4545182843514966,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.08219894238915382,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 1920,
+      "break_events": 11
+    },
+    "PURGE@0.01": {
+      "case": "PURGE",
+      "dt_s": 0.01,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 240,
+      "scene_sha256": "410e8ed2d7d39fe67a66087d87c23c0ea5124c94959239ee3dee364bb3ecad30",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": -0.47181492684934173,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.02361207011696363,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 240,
+      "break_events": 11
+    },
+    "PURGE@0.005": {
+      "case": "PURGE",
+      "dt_s": 0.005,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 480,
+      "scene_sha256": "410e8ed2d7d39fe67a66087d87c23c0ea5124c94959239ee3dee364bb3ecad30",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": -0.7280201795332729,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.05165240110485742,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 480,
+      "break_events": 11
+    },
+    "PURGE@0.0025": {
+      "case": "PURGE",
+      "dt_s": 0.0025,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4000000000000004,
+      "duration_ok": true,
+      "substeps": 960,
+      "scene_sha256": "410e8ed2d7d39fe67a66087d87c23c0ea5124c94959239ee3dee364bb3ecad30",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 2.16994496400349e-06,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 2.16994496400349e-06,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": -1.0889406096477239,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.058257699057410385,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 960,
+      "break_events": 11
+    },
+    "PURGE@0.00125": {
+      "case": "PURGE",
+      "dt_s": 0.00125,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 1920,
+      "scene_sha256": "410e8ed2d7d39fe67a66087d87c23c0ea5124c94959239ee3dee364bb3ecad30",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": -6.449357951608042e-05,
+        "signed_tau_shaftB_Nms": 1.6062138436716136e-06,
+        "abs_sum_Nms": 6.609979335975203e-05,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": -2.0211328218330653,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.03644876801387519,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 1920,
+      "break_events": 11
+    },
+    "WRAP@0.01": {
+      "case": "WRAP",
+      "dt_s": 0.01,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 240,
+      "scene_sha256": "de75d6d0382aa357c6dc0a97e36858154f080571f1341ab660d1d7085793a1ac",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": -0.03216016266985215,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.011955831584356941,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 240,
+      "break_events": 11
+    },
+    "WRAP@0.005": {
+      "case": "WRAP",
+      "dt_s": 0.005,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 480,
+      "scene_sha256": "de75d6d0382aa357c6dc0a97e36858154f080571f1341ab660d1d7085793a1ac",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": 0.001300621169190578,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.01102009053796639,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 480,
+      "break_events": 11
+    },
+    "WRAP@0.0025": {
+      "case": "WRAP",
+      "dt_s": 0.0025,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4000000000000004,
+      "duration_ok": true,
+      "substeps": 960,
+      "scene_sha256": "de75d6d0382aa357c6dc0a97e36858154f080571f1341ab660d1d7085793a1ac",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": 0.027314748375682624,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.011531778755738428,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 960,
+      "break_events": 11
+    },
+    "WRAP@0.00125": {
+      "case": "WRAP",
+      "dt_s": 0.00125,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 1920,
+      "scene_sha256": "de75d6d0382aa357c6dc0a97e36858154f080571f1341ab660d1d7085793a1ac",
+      "mass": {
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0,
+        "abs_sum_Nms": 0.0,
+        "observable": true,
+        "comparable": true,
+        "source": "subscribe_contact_report_events (per-physics-step, typed impulse)"
+      },
+      "work": {
+        "boundary_work_J": 0.0337760855128613,
+        "observable": true,
+        "comparable": true,
+        "source": "typed impulse x kinematic boundary velocity (NOT R*sum|F|)"
+      },
+      "bonds": {
+        "breaks": 11,
+        "break_schedule": "physics-driven load threshold (NO scheduled breaks)",
+        "connected_components_final": 12,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_rot_delta_J": -0.02811232100196872,
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "ke_rot_source": "rotational KE at t1 (R1 bug fixed)"
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 1920,
+      "break_events": 11
+    }
+  },
+  "convergence": {
+    "FDM": {
+      "primary_pair": {
+        "coarse_dt": 0.0025,
+        "fine_dt": 0.00125
+      },
+      "metrics": {
+        "boundary_work_J": {
+          "fine": 0.4545182843514966,
+          "coarse": 0.23524591285993873,
+          "epsilon": 0.48242805414179124,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": false
+        },
+        "impulse_abs_sum_Nms": {
+          "fine": 0.0,
+          "coarse": 0.0,
+          "epsilon": 0.0,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "break_count": {
+          "fine": 11,
+          "coarse": 11,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "connected_components_final": {
+          "fine": 12.0,
+          "coarse": 12.0,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "residence": {
+          "verdict": "NOT_EVALUABLE (no measured exit: RIGHT_CENSORED)",
+          "observable": false,
+          "comparable": false
+        },
+        "mass": {
+          "fine_rel": 0.0,
+          "coarse_rel": 0.0,
+          "threshold": 1e-06,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "wrap": {
+          "verdict": "NOT_EVALUABLE (NOT_IMPLEMENTED)",
+          "observable": false,
+          "comparable": false
+        },
+        "screen_passage": {
+          "verdict": "NOT_EVALUABLE (NOT_APPLICABLE)",
+          "observable": false,
+          "comparable": false
+        },
+        "jam": {
+          "verdict": "NOT_EVALUABLE (NOT_OBSERVABLE)",
+          "observable": false,
+          "comparable": false
+        }
+      },
+      "numerically_converged": false
+    },
+    "PURGE": {
+      "primary_pair": {
+        "coarse_dt": 0.0025,
+        "fine_dt": 0.00125
+      },
+      "metrics": {
+        "boundary_work_J": {
+          "fine": -2.0211328218330653,
+          "coarse": -1.0889406096477239,
+          "epsilon": 0.46122263817371995,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": false
+        },
+        "impulse_abs_sum_Nms": {
+          "fine": 6.609979335975203e-05,
+          "coarse": 2.16994496400349e-06,
+          "epsilon": 0.9671716830914519,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": false
+        },
+        "break_count": {
+          "fine": 11,
+          "coarse": 11,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "connected_components_final": {
+          "fine": 12.0,
+          "coarse": 12.0,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "residence": {
+          "verdict": "NOT_EVALUABLE (no measured exit: RIGHT_CENSORED)",
+          "observable": false,
+          "comparable": false
+        },
+        "mass": {
+          "fine_rel": 0.0,
+          "coarse_rel": 0.0,
+          "threshold": 1e-06,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "wrap": {
+          "verdict": "NOT_EVALUABLE (NOT_IMPLEMENTED)",
+          "observable": false,
+          "comparable": false
+        },
+        "screen_passage": {
+          "verdict": "NOT_EVALUABLE (NOT_APPLICABLE)",
+          "observable": false,
+          "comparable": false
+        },
+        "jam": {
+          "verdict": "NOT_EVALUABLE (NOT_OBSERVABLE)",
+          "observable": false,
+          "comparable": false
+        }
+      },
+      "numerically_converged": false
+    },
+    "WRAP": {
+      "primary_pair": {
+        "coarse_dt": 0.0025,
+        "fine_dt": 0.00125
+      },
+      "metrics": {
+        "boundary_work_J": {
+          "fine": 0.0337760855128613,
+          "coarse": 0.027314748375682624,
+          "epsilon": 0.19129917037657665,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": false
+        },
+        "impulse_abs_sum_Nms": {
+          "fine": 0.0,
+          "coarse": 0.0,
+          "epsilon": 0.0,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "break_count": {
+          "fine": 11,
+          "coarse": 11,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "connected_components_final": {
+          "fine": 12.0,
+          "coarse": 12.0,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "residence": {
+          "verdict": "NOT_EVALUABLE (no measured exit: RIGHT_CENSORED)",
+          "observable": false,
+          "comparable": false
+        },
+        "mass": {
+          "fine_rel": 0.0,
+          "coarse_rel": 0.0,
+          "threshold": 1e-06,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "wrap": {
+          "verdict": "NOT_EVALUABLE (NOT_IMPLEMENTED)",
+          "observable": false,
+          "comparable": false
+        },
+        "screen_passage": {
+          "verdict": "NOT_EVALUABLE (NOT_APPLICABLE)",
+          "observable": false,
+          "comparable": false
+        },
+        "jam": {
+          "verdict": "NOT_EVALUABLE (NOT_OBSERVABLE)",
+          "observable": false,
+          "comparable": false
+        }
+      },
+      "numerically_converged": false
+    }
+  },
+  "overall_numerically_converged": false,
+  "notes": [
+    "Per-physics-step contact stream (subscribe_contact_report_events + PhysxContactReportAPI threshold 0) replaces the R1 cadence-gated sensor path. Body identity via PhysicsSchemaTools.intToSdfPath; shaft contacts classified ShaftA/ShaftB; signed tau = a_hat . ((p-o) x J).",
+    "Bond events are physics-driven: each inter-fragment joint accumulates |tau_shaft impulse|; threshold 0.02 N\u00b7m\u00b7s (UNCALIBRATED synthetic, declared in run_r2.py header); joint disabled when exceeded. NO scheduled breaks.",
+    "R1 findings: break schedule was a step-index artifact (11/13 mismatch). R2 removes the scheduler entirely.",
+    "R2 outcome: break/components converged (all 11/12); work and impulse do NOT converge within 5% \u2014 the metric is dominated by the initial drop transient whose per-step impulse magnitude is dt-dependent (contact phase at first shaft contact differs across dt; sign flips in tau_shaftA between coarse and fine dt confirm phase dependence, not integration error). Per goal \u00a723 no tuning was applied."
+  ],
+  "ci_status": {
+    "C1": "success",
+    "C2.3_CPU_contracts": "success",
+    "C2_engineering": "failure \u2014 pre-existing runner-hardware last-ULP drift in c2/c2.1 artifact hashes (same class as R0.4/R1 history; R2 changed no c2/, c2.1/ or .github files; local pinned repro passes; assert weakening prohibited by goal \u00a729)"
+  }
+}

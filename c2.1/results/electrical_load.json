@@ -1,0 +1,193 @@
+{
+  "parts": [
+    {
+      "name": "EL_DIN_RAIL",
+      "solids": 1,
+      "bounds": [
+        385.0,
+        42.0,
+        100.0,
+        595.0,
+        53.0,
+        103.0
+      ]
+    },
+    {
+      "name": "EL_DRIVER_1",
+      "solids": 1,
+      "bounds": [
+        390.0,
+        42.0,
+        103.0,
+        435.0,
+        82.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_DRIVER_2",
+      "solids": 1,
+      "bounds": [
+        445.0,
+        42.0,
+        103.0,
+        490.0,
+        82.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_DRIVER_3",
+      "solids": 1,
+      "bounds": [
+        500.0,
+        42.0,
+        103.0,
+        545.0,
+        82.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_CONTACTOR",
+      "solids": 1,
+      "bounds": [
+        550.0,
+        42.0,
+        103.0,
+        595.0,
+        87.0,
+        173.0
+      ]
+    },
+    {
+      "name": "EL_ESTOP_BOX",
+      "solids": 1,
+      "bounds": [
+        390.0,
+        100.0,
+        95.0,
+        430.0,
+        140.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_OVERTEMP_BOX",
+      "solids": 1,
+      "bounds": [
+        440.0,
+        100.0,
+        95.0,
+        480.0,
+        140.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_CURRENT_LIMITER",
+      "solids": 1,
+      "bounds": [
+        490.0,
+        100.0,
+        95.0,
+        530.0,
+        140.0,
+        135.0
+      ]
+    },
+    {
+      "name": "EL_WIRE_DUCT",
+      "solids": 1,
+      "bounds": [
+        385.0,
+        140.0,
+        95.0,
+        595.0,
+        145.0,
+        125.0
+      ]
+    }
+  ],
+  "electrical_load": {
+    "psu": {
+      "V": 24,
+      "current_A": 33,
+      "nameplate_W": 800,
+      "current_derived_ceiling_W": 792,
+      "operational_cap_W": 500,
+      "body_mm": [
+        240,
+        120,
+        65
+      ],
+      "owned": true
+    },
+    "devices": [
+      {
+        "device": "M1 shredder drive (TRK-60127-2460 + GMP60)",
+        "nameplate": "8.2 A @ 24 V (parameters.json M1.rated_A)",
+        "W": 196.79999999999998,
+        "count": 1,
+        "owned": false,
+        "grade": "UNRATED_ESTIMATE",
+        "subtotal_W": 196.79999999999998
+      },
+      {
+        "device": "M2 extruder drive (TRK-6097-2425 + GMP60)",
+        "nameplate": "1.8 A @ 24 V (parameters.json M2.rated_A)",
+        "W": 43.2,
+        "count": 1,
+        "owned": false,
+        "grade": "UNRATED_ESTIMATE",
+        "subtotal_W": 43.2
+      },
+      {
+        "device": "EX-H100 band heater",
+        "nameplate": "24 V 100 W (design/assembly.json part name)",
+        "W": 100.0,
+        "count": 3,
+        "owned": true,
+        "grade": "NAMEPLATE_SOURCE",
+        "subtotal_W": 300.0
+      },
+      {
+        "device": "EX-H60 cartridge heater",
+        "nameplate": "24 V 60 W (design/assembly.json part name)",
+        "W": 60.0,
+        "count": 1,
+        "owned": true,
+        "grade": "NAMEPLATE_SOURCE",
+        "subtotal_W": 60.0
+      },
+      {
+        "device": "COOL-FAN (Sanyo 9RA0824H1001)",
+        "nameplate": "model only; current not in repo",
+        "W": 8.0,
+        "count": 2,
+        "owned": true,
+        "grade": "UNRATED_ESTIMATE",
+        "subtotal_W": 16.0
+      }
+    ],
+    "total_peak_W": 616.0,
+    "staged_peak_W": 416.0,
+    "staged_schedule": {
+      "policy": "at most 1x EX-H100 band + EX-H60 cartridge at any instant; bands rotate on controller timing",
+      "heater_W_staged": 160.0,
+      "continuous_W": 256.0,
+      "control_implementation": "HOST_CONTROLLER_CORE_SELF_TESTED_NOT_DEPLOYED",
+      "hardware_interlock": "EL_CURRENT_LIMITER relay bank required independently of firmware behavior"
+    },
+    "operational_cap_W": 500,
+    "total_vs_budget_headroom_W": -116.0,
+    "staged_vs_budget_headroom_W": 84.0,
+    "total_above_budget": true,
+    "staged_above_budget": false,
+    "current_derived_ceiling_W": 792,
+    "psu_current_headroom_W": 176.0,
+    "psu_current_ceiling_exceeded": false,
+    "note": "PEAK simultaneous modeled sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. The 500 W hard operating budget refuses any next demand that would exceed it. 24 V x 33 A = 792 W is the PSU current-derived hardware maximum, not operating permission; hardware current limiting and heater interlocks remain required."
+  },
+  "passed": true
+}

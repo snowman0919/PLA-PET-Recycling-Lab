@@ -1,0 +1,214 @@
+{
+  "schema": "full_machine_verify/2",
+  "usd": "full_machine.usda",
+  "usd_sha256": "4ffff9fcb3da897ec86b07813a5a5b19fc82319c537014425e3265c8635b9ff4",
+  "step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12",
+  "dt_s": 0.05,
+  "steps": 10,
+  "omega_rad_s": 100.53096491487338,
+  "theta_total_rad": 50.26548245743669,
+  "ratios_commanded_per_input": {
+    "S1A": -0.375,
+    "S1B": 0.375,
+    "S2Ecc": 2.0,
+    "S2Carrier": -0.25
+  },
+  "ratio_tolerance_rad": 0.05,
+  "max_tracking_err_rad": {
+    "MachineJointIn": 0.0,
+    "MachineJointS1A": 0.0,
+    "MachineJointS1B": 0.0,
+    "MachineJointS2Ecc": 0.0,
+    "MachineJointS2Carrier": 0.0
+  },
+  "tracking_pass": true,
+  "torque_source": "get_dof_actuation_forces (raw tensor API)",
+  "torque_available": true,
+  "max_abs_torque_Nm": {
+    "MachineJointIn": 0.0,
+    "MachineJointS1A": 0.0,
+    "MachineJointS1B": 0.0,
+    "MachineJointS2Ecc": 0.0,
+    "MachineJointS2Carrier": 0.0
+  },
+  "torque_rows": [
+    {
+      "step": 1,
+      "torque_Nm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "step": 10,
+      "torque_Nm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "contact_events_total": 0,
+  "contact_pairs_by_design": [],
+  "unexpected_contact_count": 0,
+  "unexpected_contact_pairs": [],
+  "probe_test": {
+    "total": 200,
+    "d3mm": {
+      "reached": 0,
+      "total": 100
+    },
+    "d15mm": {
+      "reached": 0,
+      "total": 100
+    },
+    "reached_screen_total": 0,
+    "screen_bbox_mm": [
+      258.9297846749503,
+      254.9999999,
+      215.1999999,
+      358.2091447031718,
+      295.0000001,
+      239.63293821169236
+    ],
+    "spawn_z_mm": 499.0,
+    "sample_final_positions": [
+      {
+        "i": 0,
+        "class": "d3",
+        "pos_mm": [
+          136.3,
+          231.0,
+          425.4
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 1,
+        "class": "d3",
+        "pos_mm": [
+          104.4,
+          211.5,
+          440.8
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 2,
+        "class": "d3",
+        "pos_mm": [
+          118.3,
+          234.0,
+          426.3
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 3,
+        "class": "d3",
+        "pos_mm": [
+          106.7,
+          268.2,
+          438.9
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 4,
+        "class": "d3",
+        "pos_mm": [
+          122.9,
+          216.2,
+          428.8
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 5,
+        "class": "d3",
+        "pos_mm": [
+          149.1,
+          272.2,
+          430.9
+        ],
+        "reached_screen": false
+      }
+    ],
+    "note": "material-path smoke check, NOT grinding performance"
+  },
+  "telemetry_rows": [
+    {
+      "step": 1,
+      "t_s": 0.05,
+      "theta_cmd_rad": 5.026548245743669,
+      "cmd_rad": [
+        5.02655,
+        -1.88496,
+        1.88496,
+        10.0531,
+        -1.25664
+      ],
+      "pos_rad": [
+        NaN,
+        NaN,
+        NaN,
+        NaN,
+        NaN
+      ],
+      "vel_rad_s": [
+        NaN,
+        NaN,
+        NaN,
+        NaN,
+        NaN
+      ],
+      "err_rad": [
+        NaN,
+        NaN,
+        NaN,
+        NaN,
+        NaN
+      ]
+    },
+    {
+      "step": 10,
+      "t_s": 0.5,
+      "theta_cmd_rad": 50.26548245743669,
+      "cmd_rad": [
+        50.26548,
+        -18.84956,
+        18.84956,
+        100.53096,
+        -12.56637
+      ],
+      "pos_rad": [
+        NaN,
+        NaN,
+        NaN,
+        NaN,
+        NaN
+      ],
+      "vel_rad_s": [
+        NaN,
+        NaN,
+        NaN,
+        NaN,
+        NaN
+      ],
+      "err_rad": [
+        NaN,
+        NaN,
+        NaN,
+        NaN,
+        NaN
+      ]
+    }
+  ],
+  "runner": "c2.2/sim/verify_full.py",
+  "api_path": "raw omni.physics.tensors after explicit physx_simulation_interface.attach_stage"
+}

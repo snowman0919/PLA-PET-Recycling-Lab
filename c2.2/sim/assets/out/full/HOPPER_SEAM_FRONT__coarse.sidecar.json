@@ -1,0 +1,98 @@
+{
+  "asset_id": "HOPPER_SEAM_FRONT",
+  "group": "feed",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 278,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.278",
+  "mesh_file": "sim/assets/out/full/HOPPER_SEAM_FRONT__coarse.stl",
+  "mesh_bytes": 28284,
+  "mesh_sha256": "1aa01f5d8cf7b3032715ff0e8e0527f93f0e8568d2c4780dbf590d47347b701a",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    99.99999985,
+    168.13865833862812,
+    455.99999985,
+    140.00000015,
+    178.71288631287604,
+    495.00000015
+  ],
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "STEEL",
+  "source_material_label": "1.5 mm steel seam rail candidate",
+  "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+  "thermal_condition": "hot-zone grade and measured temperature HOLD",
+  "material_source": "c2.1/src/hopper_panels.py seam rail; c2.2/sim/assets/materials.py",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 7850.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 7850.0,
+  "effective_density_bounds_kg_m3": [
+    7850.0,
+    7850.0
+  ],
+  "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+  "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+  "volume_mm3": 2457.131910613208,
+  "solid_bbox_mm": [
+    99.9999999,
+    168.13865838862,
+    455.9999999,
+    140.0000001,
+    178.712886262876,
+    495.0000001
+  ],
+  "mass_kg": 0.019288485498313687,
+  "mass_bounds_kg": [
+    0.019288485498313687,
+    0.019288485498313687
+  ],
+  "center_of_mass_mm": [
+    120.0,
+    173.425772325748,
+    475.5
+  ],
+  "inertia_kg_mm2": [
+    2.6245429295069846,
+    5.0166136541461,
+    2.751525459680492
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    7.873628788520954,
+    15.049840962438301,
+    8.254576379041476
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      2.6245429295069846,
+      5.0166136541461,
+      2.751525459680492
+    ],
+    "upper_bound_kg_mm2": [
+      7.873628788520954,
+      15.049840962438301,
+      8.254576379041476
+    ],
+    "center_of_mass_mm": [
+      120.0,
+      173.425772325748,
+      475.5
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

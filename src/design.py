@@ -24,7 +24,7 @@ SOURCES={
 PARAMS={
  'revision':'C1','units':'mm','body_limit_mm':[650,420,510],
  'body_hard_limit_mm':[700,420,520],'operating_limit_mm':[850,450,510],
- 'psu':{'V':24,'rated_W':800,'body_mm':[240,120,65],'operational_cap_W':500},
+ 'psu':{'V':24,'current_A':33,'nameplate_W':800,'current_derived_ceiling_W':792,'body_mm':[240,120,65],'operational_cap_W':500},
  'M1':{'motor':'TRK-60127-2460','gearbox':'GMP60','ratio':77,'rated_rpm':58,'rated_kgf_cm':160,'rated_A':8.2,'motor_can_mm':127,'gearbox_mm':59,'shaft_projection_mm':25.8,'shaft_mm':12,'OD_mm':60.5,'status':'MANUFACTURER_REFERENCE_NOT_OWNED'},
  'M2':{'motor':'TRK-6097-2425','gearbox':'GMP60','ratio':168,'rated_rpm':12,'rated_kgf_cm':150,'rated_A':1.8,'motor_can_mm':97,'gearbox_mm':70,'shaft_projection_mm':25.8,'shaft_mm':12,'OD_mm':60.5,'status':'MANUFACTURER_REFERENCE_NOT_OWNED'},
  'drive':{'normal_module':2,'helix_deg':15,'pinion_teeth':15,'gear_teeth':40,'half_face_mm':25,'half_hub_mm':10,'central_gap_mm':2,'branch_A_eta_assumed':.90,'branch_B_eta_assumed':.90,'chain_pitch_mm':9.525,'chain_A_teeth':[24,24],'chain_A_links':94,'chain_B_teeth':[24,12],'chain_B_links':84},
@@ -218,15 +218,59 @@ for theta in np.linspace(228,312,13):
 part('S2-SCREEN','Curved screen4mm x78 holes','2mm steel',a,b,notes='4 mm round holes, pitch6 axial. Bent radius inner62.8. Hole size is not a guaranteed maximum particle length. Flat DXF generated separately.')
 inst('S2-SCREEN',(X2,255,280),group='S2')
 
-# Buffer CAD is a true hollow frustum. Lower discharge throat and material-specific drying are held.
-def rectloop(w,d,z):return [[-w/2,-d/2,z],[w/2,-d/2,z],[w/2,d/2,z],[-w/2,d/2,z]]
-bottom=rectloop(50,40,0);top=rectloop(190,48,73)
-ib=rectloop(44,34,-1);it=rectloop(184,42,74)
-# Offset throat to extruder feed atX289; upper buffer remains under screen.
-for loop in [bottom,ib]:
- for pt in loop:pt[0]+=289-X2
-part('FEED-BUF','Buffer190x48 top /50x40 throat /height73','PC outer shell plus metal throat',[{'kind':'loft','loops':[bottom,top]}],[{'kind':'loft','loops':[ib,it]}],notes='Internal geometric volume calculated; usable75pct separately stated. Top fits between Y251..299, ahead of pin rings. Cold throat offset to barrel feed X289.')
+# The active screen bores discharge at x~266..351, y260..290. Keep the
+# receiver's original z145..218 outer envelope, but inset its shoulder
+# below the screen so the lower wall steers fragments toward x299,y275.
+# A separate steel split saddle bridges the original lower face to the
+# cold barrel without changing FEED-BUF's named part or outlet datum.
+def octloop(r,z):
+ return [[r*math.cos(math.radians(a)),r*math.sin(math.radians(a)),z]
+         for a in (225,270,315,0,45,90,135,180)]
+def rectloop(w,d,z):
+ return [[x,y,z] for x,y in ((-w/2,-d/2),(0,-d/2),(w/2,-d/2),
+          (w/2,0),(w/2,d/2),(0,d/2),(-w/2,d/2),(-w/2,0))]
+throat_x=299-X2
+shoulder_x=302.5-X2
+bottom=octloop(10.0,0);neck=octloop(10.0,15)
+shoulder=rectloop(121,43,65);top=rectloop(190,48,73)
+ib=octloop(6.5,-1);inck=octloop(6.5,15)
+ishoulder=rectloop(111,39,65);it=rectloop(184,42,74)
+for loop in (bottom,neck,ib,inck):
+ for pt in loop:pt[0]+=throat_x
+for loop in (shoulder,ishoulder):
+ for pt in loop:pt[0]+=shoulder_x
+# The split clamp has a 0.4 mm open seam and 0.1 mm nominal radial
+# clearance to the Ø30 barrel before M5 preload. Neither fit nor joint
+# strength is qualified by this ideal CAD solid.
+collar_at=(throat_x-17,0,-20)
+collar_bore=cyl(15.1,36,(throat_x-18,0,-20),(1,0,0))
+bolt_holes=[cyl(2.6,10,(throat_x+x,y,-25),(0,0,1))
+            for x in (-12,12) for y in (-20,20)]
+upper_ears=[box([34,8,4],(throat_x-17,y,-20)) for y in (-24,16)]
+lower_ears=[box([34,8,4],(throat_x-17,y,-24)) for y in (-24,16)]
+part('FEED-BUF','Steel receiver190x48 top /Ø20 neck','S355 steel',
+     [{'kind':'loft','loops':[bottom,neck,shoulder,top]}],
+     [{'kind':'loft','loops':[ib,inck,ishoulder,it]}],
+     notes='Original 190x48 mouth at z218, outer envelope z145..218; inset at z210 has inner x247..358,y255.5..294.5, enclosing nominal screen bores. Lower Ø13 clear octagonal throat at x299,y275,z145 with Ø20 outer neck z145..160 and steel saddle; fasteners, weld, sealing, thermal fit and fabrication DFM remain HOLD. No material-flow or physical-release claim.')
 inst('FEED-BUF',(X2,275,145),group='feed')
+# The butt-welded upper sleeve seats on the existing outlet face and
+# overlaps the upper barrel saddle; the lower semicollar is detachable.
+saddle_bottom=octloop(10.0,-7);saddle_top=octloop(10.0,0)
+saddle_ib=octloop(6.5,-8);saddle_it=octloop(6.5,1)
+for loop in (saddle_bottom,saddle_top,saddle_ib,saddle_it):
+ for pt in loop:pt[0]+=throat_x
+part('FEED-BUF-SADDLE','Upper cold-barrel saddle and feed sleeve','S355 steel',
+     [{'kind':'loft','loops':[saddle_bottom,saddle_top]},
+      cyl(18,34,collar_at,(1,0,0))]+upper_ears,
+     [{'kind':'loft','loops':[saddle_ib,saddle_it]},collar_bore,
+      box([36,48,20.2],(throat_x-18,-24,-40))]+bolt_holes,
+     notes='Sleeve joins FEED-BUF lower steel face at z145 by qualified weld; upper half of Ø36/Ø30.2 x34 cold-barrel split clamp, 0.4 mm open seam and four M5 through-holes. Bolt preload, weld, seal and thermal fit remain DFM HOLD.')
+inst('FEED-BUF-SADDLE',(X2,275,145),group='feed')
+part('FEED-BUF-CLAMP','Lower cold-barrel saddle half','S355 steel',
+     [cyl(18,34,collar_at,(1,0,0))]+lower_ears,
+     [collar_bore,box([36,48,22.2],(throat_x-18,-24,-20.2))]+bolt_holes,
+     notes='Lower half of FEED-BUF-SADDLE; four M5 holes pair upper ears. Ø30.2 nominal bore on Ø30 barrel has 0.1 mm cold radial clearance, with 0.4 mm seam available for preload; torque and metal-to-barrel seal remain DFM HOLD.')
+inst('FEED-BUF-CLAMP',(X2,275,145),group='feed')
 # Screw: genuine helical flight swept about local Z plus a tapered root, rotated Z to X at instance.
 a=[cone(5,5,96,axis=(0,0,1)),cone(5,6.5,80,(0,0,96),(0,0,1)),cyl(6.5,80,(0,0,176),(0,0,1)),{'kind':'screw_flight','pitch':16,'height':256,'outer_r':8,'root_r':4.9,'thickness':2}]
 part('EX-SCREW','16mm x256mm compression screw','SCM440 QT/nitriding RFQ',a,notes='Pitch16, flight2, root10 feed /13 meter, L/D16. CAD flight has square flanks; fillets/tip geometry/finish and nitriding supplier confirmation required.')

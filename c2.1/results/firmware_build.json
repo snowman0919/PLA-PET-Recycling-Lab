@@ -1,0 +1,44 @@
+{
+  "target": "HOST_X86_64_CONTROLLER_CORE_SELF_TEST_NOT_DEPLOYABLE_FIRMWARE",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "compile_command": [
+    "/usr/bin/g++",
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O2",
+    "/home/monad/develop/PPR-c2.1-codex-20260921/c2.1/firmware/controller_core.cpp",
+    "-o",
+    "/home/monad/develop/PPR-c2.1-codex-20260921/.codex-run/ppr_controller_core_selftest"
+  ],
+  "compile_return_code": 0,
+  "compile_stderr": "",
+  "self_test_return_code": 0,
+  "self_test_stdout": "controller_core_self_test: 20 cases passed; no reverse or auto-restart path; band mutual exclusion; hard operating budget 500 W; PSU current-derived maximum 792 W (24 V x 33 A; nameplate 800 W) is not operating permission\n",
+  "source": "c2.1/firmware/controller_core.cpp",
+  "source_sha256": "634425952b449458a6d292319217aa1ca11f1068c58dae5a5459668349e81956",
+  "binary_sha256": "368c1af74c4692e9c9beea89a004d0557be3c669a0d5b4fc1436d4e17c4997d8",
+  "cases": 20,
+  "power_allocator": {
+    "operational_cap_W": 500.0,
+    "operational_cap_semantics": "HARD: reject next demand above 500 W",
+    "psu_current_derived_ceiling_W": 792.0,
+    "psu_nameplate_W": 800.0,
+    "band_mutual_exclusion": "structural allocator invariant; hardware EL_CURRENT_LIMITER interlock requirement stands",
+    "unrated_devices": [
+      "M1 shredder drive 196.8 W",
+      "M2 extruder drive 43.2 W",
+      "COOL-FAN pair 16 W"
+    ],
+    "nameplate_source": [
+      "EX-H100 3 x 100 W",
+      "EX-H60 60 W"
+    ]
+  },
+  "arduino_cli": "DID_NOT_FIND_EXECUTABLE",
+  "target_cross_compile": "DID_NOT_RUN",
+  "flash": "DID_NOT_RUN",
+  "energization": "HOLD",
+  "qualification_limits": "TEST_VALUES_ONLY_NOT_CERTIFIED"
+}

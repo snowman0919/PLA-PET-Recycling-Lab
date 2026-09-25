@@ -1,0 +1,98 @@
+{
+  "asset_id": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+  "group": "S2-C2.1",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 154,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.154",
+  "mesh_file": "sim/assets/out/full/OUTPUT_BEARING_ENVELOPE_UNRATED__coarse.stl",
+  "mesh_bytes": 10484,
+  "mesh_sha256": "07a737a9f652832a3bbb6e185055d58e9ee3de1fc6b1fc855f39cf8e92449a18",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    287.56946458906174,
+    202.9999999,
+    258.9999999,
+    329.5694647890618,
+    215.0000001,
+    301.0000001
+  ],
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "PURCHASED_BEARING",
+  "source_material_label": "PURCHASED_BEARING",
+  "manufacturing_process": "bearing envelope proxy; rings/balls/cage/air/seals not a solid steel body",
+  "thermal_condition": "MPN, clearance, grease and temperature HOLD",
+  "material_source": "c2.1/bom/transmission_bom.csv; c2.2/sim/assets/materials.py",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 4600.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 4600.0,
+  "effective_density_bounds_kg_m3": [
+    1800.0,
+    7800.0
+  ],
+  "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+  "mass_material_status": "BOUNDED_PROXY_UNRATED",
+  "volume_mm3": 12779.621923685121,
+  "solid_bbox_mm": [
+    287.56946458906,
+    202.9999999,
+    258.9999999,
+    329.56946478906,
+    215.0000001,
+    301.0000001
+  ],
+  "mass_kg": 0.05878626084895156,
+  "mass_bounds_kg": [
+    0.02300331946263322,
+    0.09968105100474395
+  ],
+  "center_of_mass_mm": [
+    308.56946468906,
+    209.0,
+    280.0
+  ],
+  "inertia_kg_mm2": [
+    9.347015580798585,
+    17.283160854193326,
+    9.347015580798585
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    47.547861867540625,
+    87.91868782350518,
+    47.547861867540625
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      9.347015580798585,
+      17.283160854193326,
+      9.347015580798585
+    ],
+    "upper_bound_kg_mm2": [
+      47.547861867540625,
+      87.91868782350518,
+      47.547861867540625
+    ],
+    "center_of_mass_mm": [
+      308.56946468906,
+      209.0,
+      280.0
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

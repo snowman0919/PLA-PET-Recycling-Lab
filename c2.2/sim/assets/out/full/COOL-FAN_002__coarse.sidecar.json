@@ -1,0 +1,98 @@
+{
+  "asset_id": "COOL-FAN_002",
+  "group": "cooling",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 117,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.117",
+  "mesh_file": "sim/assets/out/full/COOL-FAN_002__coarse.stl",
+  "mesh_bytes": 27684,
+  "mesh_sha256": "cf1eef70a750c48f4695f4f56bec0cb9857bacdfa7d06ec2edd6c13044a9613a",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    699.9999999,
+    186.9999999,
+    84.9999999,
+    780.0000001,
+    225.0000001,
+    165.0000001
+  ],
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "PURCHASED_FAN",
+  "source_material_label": "Purchased",
+  "manufacturing_process": "fan assembly envelope proxy; housing/impeller/motor/air",
+  "thermal_condition": "manufacturer mass and airflow curve HOLD",
+  "material_source": "design/assembly.json parts.COOL-FAN.material",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 1200.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 1200.0,
+  "effective_density_bounds_kg_m3": [
+    400.0,
+    3000.0
+  ],
+  "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+  "mass_material_status": "BOUNDED_PROXY_UNRATED",
+  "volume_mm3": 94541.40642845236,
+  "solid_bbox_mm": [
+    699.9999999,
+    186.9999999,
+    84.9999999,
+    780.0000001,
+    225.0000001,
+    165.0000001
+  ],
+  "mass_kg": 0.11344968771414284,
+  "mass_bounds_kg": [
+    0.03781656257138095,
+    0.28362421928535714
+  ],
+  "center_of_mass_mm": [
+    740.0,
+    206.0,
+    125.0
+  ],
+  "inertia_kg_mm2": [
+    74.15827964871345,
+    121.0130008334839,
+    74.15827964871336
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    556.187097365351,
+    907.5975062511294,
+    556.1870973653503
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      74.15827964871345,
+      121.0130008334839,
+      74.15827964871336
+    ],
+    "upper_bound_kg_mm2": [
+      556.187097365351,
+      907.5975062511294,
+      556.1870973653503
+    ],
+    "center_of_mass_mm": [
+      740.0,
+      206.0,
+      125.0
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

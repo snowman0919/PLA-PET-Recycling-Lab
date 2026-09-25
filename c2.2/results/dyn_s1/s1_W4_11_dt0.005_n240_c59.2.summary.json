@@ -1,0 +1,46 @@
+{
+  "schema": "dyn_s1/1",
+  "arch": "S1-A",
+  "waste_class": "W4",
+  "seed": 11,
+  "family": "purge_bundle",
+  "dims_mm": {
+    "dx": 40.51,
+    "dy": 53.78,
+    "dz": 40.27
+  },
+  "mass_total_g": 107.209,
+  "lattice": {
+    "nx": 4,
+    "ny": 5,
+    "nz": 6,
+    "sub": [
+      4,
+      3,
+      2
+    ],
+    "kept_cells": 24,
+    "stride": 5.0,
+    "bonds_total": 46
+  },
+  "frag_cube_size_m": 0.0101275,
+  "params": {
+    "rpm": 40.0,
+    "dt": 0.005,
+    "steps": 240,
+    "center_mm": 59.2,
+    "impulse_scale_Ns": 0.02,
+    "impulse_scale_status": "ASSUMPTION_UNCALIBRATED"
+  },
+  "evidence": "REAL_PHYSX_HEADLESS",
+  "contact_steps": 235,
+  "bond_breaks": 46,
+  "bonds_alive": 0,
+  "torque_impulse_Nms": 0.04493760896167947,
+  "max_frag_displacement_m": 4.212497283649515,
+  "mass_initial_kg": 0.107209,
+  "mass_final_kg": 0.107209,
+  "mass_error_kg": 0.0,
+  "status": "PASS",
+  "failures": []
+}

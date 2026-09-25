@@ -9,25 +9,33 @@ permissions:
 jobs:
   c2-numerical-contracts:
     runs-on: ubuntu-latest
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install numpy scipy shapely
+      - run: python -m pip install "numpy==1.26.4" "scipy==1.11.4" "shapely==2.1.2"
       - run: python c2/src/run_study.py
       - run: python -m unittest discover -s c2/tests -v
       - run: python c2/src/train_performance.py --backend gp
       - run: python c2/src/train_performance.py --backend mlp --out c2/results/mlp_run
       - run: python c2/src/verify_artifacts.py
+      - run: python c2.1/src/transmission.py
+      - run: python -m unittest discover -s c2.1/tests -v
+      - run: python c2.1/src/verify_artifacts.py
       - name: C2 is not hardware approval
         run: |
           python - <<'PY'
           import json
           r=json.load(open('c2/results/summary.json'))
-          assert r['actual_dem_runs']==0
-          assert r['total_confirmed_cost_KRW'] is None
+          assert r['actual_dem_runs']==r['evidence_inventory']['actual_dem_runs']
+          assert r['actual_physical_tests']==r['evidence_inventory']['actual_physical_tests']
           assert r['motor_status']=='UNSELECTED'
+          assert r['p5_status']=='DIGITAL_SENSITIVITY_COMPLETE_PHYSICAL_QUALIFICATION_HOLD'
           assert r['procurement']==r['fabrication']==r['energization']=='HOLD'
           print('Numerical/CAD evidence only. No fabrication or energization release.')
           PY

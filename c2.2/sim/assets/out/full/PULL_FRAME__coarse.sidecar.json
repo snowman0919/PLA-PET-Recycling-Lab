@@ -1,0 +1,39 @@
+{
+  "asset_id": "PULL_FRAME",
+  "group": "puller",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 251,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.251",
+  "mesh_file": "sim/assets/out/full/PULL_FRAME__coarse.stl",
+  "mesh_bytes": 5084,
+  "mesh_sha256": "4cda7873d4f9621bae0c92ca9da10d01183ce9a6b5d37a6e03f7391daba9b295",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "36e85bc7aa4df3c9cf3dc7f3bfc57616d3847e1c53009476c7e7de3220b6e504",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    821.9999999,
+    274.9999999,
+    107.2499999,
+    836.0000001,
+    278.0000001,
+    121.2500001
+  ],
+  "revision": "5c4218d0428cead1eecf08e050a7cf44399804e3",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "fb751573960d25bbf2a6fc0d1c6399ef77d200a2eef85ed172eebd9ded053cab",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 461.8141200776997,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

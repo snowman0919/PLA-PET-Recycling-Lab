@@ -1,0 +1,58 @@
+{
+  "revision": "C2.1-P6+VP1-STAGE5",
+  "active_rows": 196,
+  "unique_part_ids": 196,
+  "legacy_instances_removed": 52,
+  "legacy_part_quantities_removed": {
+    "BR-6001": 2,
+    "BR-6007": 2,
+    "BR-625": 18,
+    "DRV-SH15R": 1,
+    "DRV-SH40L": 1,
+    "DRV-SP24-B12": 1,
+    "HOPPER": 1,
+    "KEY-4-16": 2,
+    "KEY-4-78": 1,
+    "PULL-ROLLER": 2,
+    "S2-CASE-L": 1,
+    "S2-CASE-R": 1,
+    "S2-ECC": 1,
+    "S2-GUIDE": 1,
+    "S2-PIN": 9,
+    "S2-PIN-F": 1,
+    "S2-PIN-R": 1,
+    "S2-ROTOR": 1,
+    "S2-SCREEN": 1,
+    "S2-SHAFT": 1,
+    "S2-SUP": 2,
+    "SPOOL-ENV": 1
+  },
+  "adjusted_shared_quantities": {
+    "BR-6001": 2
+  },
+  "c21_rows_added": 19,
+  "vp1_delta_rows": 66,
+  "vp1_delta_source": "c2.1/bom/vp1_bom_delta.csv",
+  "known_cost_rows": 11,
+  "unknown_cost_rows": 185,
+  "known_landed_total_KRW": 0.0,
+  "unselected_motor_landed_floor_KRW": 110200,
+  "soft_total_budget_KRW": 100000,
+  "cost_conclusion": "INCOMPLETE_AND_KNOWN_MOTOR_FLOOR_EXCEEDS_TOTAL_SOFT_BUDGET",
+  "profile_cut_plan": {
+    "rows": 14,
+    "stock_conservation_passed": true,
+    "source": "bom/profile_cut_plan.csv"
+  },
+  "csv": {
+    "file": "c2.1/bom/system_bom.csv",
+    "sha256": "c2a1b99aa8a27bb1d1ecd46e83a938b4413abf06a67c760ce628eee002175fd2"
+  },
+  "xlsx": {
+    "file": "c2.1/bom/system_bom.xlsx",
+    "sha256": "82c10e84ffa9f88b4d061db418d01bf94abec50a3f2d8788088d2604e0e4c2cd",
+    "zip_test": null
+  },
+  "procurement": "HOLD",
+  "fabrication": "HOLD"
+}

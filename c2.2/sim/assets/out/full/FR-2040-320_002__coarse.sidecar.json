@@ -1,0 +1,98 @@
+{
+  "asset_id": "FR-2040-320_002",
+  "group": "frame",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 3,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.3",
+  "mesh_file": "sim/assets/out/full/FR-2040-320_002__coarse.stl",
+  "mesh_bytes": 1684,
+  "mesh_sha256": "0689167a499b516a9f8116470eae52c695eb73ef6ed602d31c811f20f768e545",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    219.9999999,
+    39.9999999,
+    -1e-07,
+    260.0000001000001,
+    360.0000001,
+    20.0000001
+  ],
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "AL_PROFILE",
+  "source_material_label": "Al extrusion - existing",
+  "manufacturing_process": "owned Al T-slot extrusion; STEP nominal hollow section is mass proxy, slot/web dimensions must be measured",
+  "thermal_condition": "profile alloy/temper and joint stiffness unknown",
+  "material_source": "design/assembly.json parts.FR-2040-320.material",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 2700.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 2700.0,
+  "effective_density_bounds_kg_m3": [
+    1350.0,
+    4050.0
+  ],
+  "bounds_basis": "0.5..1.5 x nominal Al mass per CAD hollow-box volume: unknown owned T-slot web/slot area, NOT Al alloy density bounds; section second moment remains unmeasured",
+  "mass_material_status": "BOUNDED_PROXY_UNRATED",
+  "volume_mm3": 71679.99999999996,
+  "solid_bbox_mm": [
+    219.9999999,
+    39.9999999,
+    -1e-07,
+    260.0000001000001,
+    360.0000001,
+    20.0000001
+  ],
+  "mass_kg": 0.1935359999999999,
+  "mass_bounds_kg": [
+    0.09676799999999995,
+    0.29030399999999984
+  ],
+  "center_of_mass_mm": [
+    240.00000000000006,
+    200.0,
+    10.0
+  ],
+  "inertia_kg_mm2": [
+    1657.9584021934077,
+    32.256000387072085,
+    1677.3120023224317
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    7460.812809870335,
+    145.15200174182436,
+    7547.904010450942
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      1657.9584021934077,
+      32.256000387072085,
+      1677.3120023224317
+    ],
+    "upper_bound_kg_mm2": [
+      7460.812809870335,
+      145.15200174182436,
+      7547.904010450942
+    ],
+    "center_of_mass_mm": [
+      240.00000000000006,
+      200.0,
+      10.0
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

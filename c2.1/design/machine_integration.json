@@ -1,0 +1,24 @@
+{
+  "revision": "C2.1-P6",
+  "legacy_master": "design/assembly.json",
+  "excluded_legacy_group": "S2",
+  "c2_subassembly_transform": {
+    "rotation_axis": [0, 0, 1],
+    "rotation_deg": 180,
+    "translation_mm": [308.56946468906176, 299, 280]
+  },
+  "legacy_instance_y_overrides_mm": {
+    "S2-LEG-L_001": 170,
+    "S2-LEG-R_001": 170,
+    "S2-LEG-L_002": 342,
+    "S2-LEG-R_002": 342
+  },
+  "body_excluded_groups": ["cooling", "puller", "spool"],
+  "body_limit_mm": [700, 420, 520],
+  "operating_envelope_limit_mm": [850, 450, 510],
+  "release": {
+    "procurement": "HOLD",
+    "fabrication": "HOLD",
+    "energization": "HOLD"
+  }
+}

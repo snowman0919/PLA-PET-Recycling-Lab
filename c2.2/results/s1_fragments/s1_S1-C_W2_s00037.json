@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-C",
+  "seed": 37,
+  "class": "W2",
+  "waste_id": "W2-hollow_box-00037",
+  "input_mass_g": 333.914,
+  "peak_proxy": 0.5861193633403186,
+  "work_proxy": 83.639650770617,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W2-hollow_box-00037:S1-C:F000",
+      "source_waste_id": "W2-hollow_box-00037",
+      "seed": 37,
+      "mass_g": 83.4785,
+      "volume_mm3": 67321.371,
+      "com_mm": [
+        42.69,
+        10.28,
+        27.36
+      ],
+      "principal_dims_mm": [
+        75.893,
+        45.6,
+        10.28
+      ],
+      "equiv_diameter_mm": 50.472,
+      "aspect_ratio": 7.383,
+      "pose_quaternion_xyzw": [
+        -0.40802,
+        0.16854,
+        -0.08851,
+        -0.89291
+      ],
+      "velocity_proxy_mm_s": [
+        2.9306,
+        2.9306,
+        2.9306
+      ],
+      "bond_state": {
+        "failed_bonds": 364,
+        "first_kind": "cross_raster"
+      },
+      "class": "W2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W2-hollow_box-00037:S1-C:F001",
+      "source_waste_id": "W2-hollow_box-00037",
+      "seed": 37,
+      "mass_g": 250.4355,
+      "volume_mm3": 201964.113,
+      "com_mm": [
+        42.69,
+        51.4,
+        27.36
+      ],
+      "principal_dims_mm": [
+        75.893,
+        51.4,
+        45.6
+      ],
+      "equiv_diameter_mm": 72.793,
+      "aspect_ratio": 1.664,
+      "pose_quaternion_xyzw": [
+        -0.81306,
+        -0.14548,
+        0.33467,
+        0.45361
+      ],
+      "velocity_proxy_mm_s": [
+        2.9306,
+        2.9306,
+        2.9306
+      ],
+      "bond_state": {
+        "failed_bonds": 364,
+        "first_kind": "cross_raster"
+      },
+      "class": "W2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 0.85,
+  "s1_multiplier_note": "buckling-assist under nip compression",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

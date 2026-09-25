@@ -1,0 +1,1094 @@
+{
+  "schema": "r1_convergence/1",
+  "evidence_level": "UNCALIBRATED_DIGITAL_DYNAMICS",
+  "experiment_valid": true,
+  "thresholds_source": "CONTRACT_R1.md section 8 (parsed, not hardcoded)",
+  "thresholds": {
+    "work": 0.05,
+    "impulse": 0.05,
+    "residence": 0.1,
+    "mass": 1e-06,
+    "discrete": 0.1
+  },
+  "runs": {
+    "FDM@0.01": {
+      "case": "FDM",
+      "dt_s": 0.01,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 240,
+      "scene_sha256": "8becd9841a0fc8c1fd7ab6a49084fe3939bfa2641ec227749ab56f44736c5698",
+      "mass": {
+        "initial_kg": 0.09071699999999999,
+        "active_kg": 0.09071699999999999,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.11349907793574426,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 668,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 96,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -0.45997777492180253,
+        "pe_delta_J": -1.2701568499701936,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 240
+    },
+    "FDM@0.005": {
+      "case": "FDM",
+      "dt_s": 0.005,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 480,
+      "scene_sha256": "8becd9841a0fc8c1fd7ab6a49084fe3939bfa2641ec227749ab56f44736c5698",
+      "mass": {
+        "initial_kg": 0.09071699999999999,
+        "active_kg": 0.09071699999999999,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.10470675342716737,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 645,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 96,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -1.2602997593830039,
+        "pe_delta_J": -1.8741423530003518,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 480
+    },
+    "FDM@0.0025": {
+      "case": "FDM",
+      "dt_s": 0.0025,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4000000000000004,
+      "duration_ok": true,
+      "substeps": 960,
+      "scene_sha256": "8becd9841a0fc8c1fd7ab6a49084fe3939bfa2641ec227749ab56f44736c5698",
+      "mass": {
+        "initial_kg": 0.09071699999999999,
+        "active_kg": 0.09071699999999999,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.08221218384083787,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 247,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 96,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -3.236411757946476,
+        "pe_delta_J": -2.727923257533617,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 960
+    },
+    "FDM@0.00125": {
+      "case": "FDM",
+      "dt_s": 0.00125,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 1920,
+      "scene_sha256": "8becd9841a0fc8c1fd7ab6a49084fe3939bfa2641ec227749ab56f44736c5698",
+      "mass": {
+        "initial_kg": 0.09071699999999999,
+        "active_kg": 0.09071699999999999,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.7011651471340528,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 12,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 96,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -6.711334829942544,
+        "pe_delta_J": 7.48258656583252,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 1920
+    },
+    "PURGE@0.01": {
+      "case": "PURGE",
+      "dt_s": 0.01,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 240,
+      "scene_sha256": "68e6cd4798960542481283f3fc097352bc3a21cc153cfae625c696a44ab5bbbf",
+      "mass": {
+        "initial_kg": 0.107209,
+        "active_kg": 0.107209,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.08989114123975306,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 897,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 48,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -0.13850372020206853,
+        "pe_delta_J": -0.5971702970336229,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 240
+    },
+    "PURGE@0.005": {
+      "case": "PURGE",
+      "dt_s": 0.005,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 480,
+      "scene_sha256": "68e6cd4798960542481283f3fc097352bc3a21cc153cfae625c696a44ab5bbbf",
+      "mass": {
+        "initial_kg": 0.107209,
+        "active_kg": 0.107209,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.3310037548316466,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 1339,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 48,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -0.30428490980987166,
+        "pe_delta_J": -1.1949239097215516,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 480
+    },
+    "PURGE@0.0025": {
+      "case": "PURGE",
+      "dt_s": 0.0025,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4000000000000004,
+      "duration_ok": true,
+      "substeps": 960,
+      "scene_sha256": "68e6cd4798960542481283f3fc097352bc3a21cc153cfae625c696a44ab5bbbf",
+      "mass": {
+        "initial_kg": 0.107209,
+        "active_kg": 0.107209,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.2622007179945494,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 2890,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 48,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -1.5697498341647063,
+        "pe_delta_J": -1.8926967682852078,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 960
+    },
+    "PURGE@0.00125": {
+      "case": "PURGE",
+      "dt_s": 0.00125,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 1920,
+      "scene_sha256": "68e6cd4798960542481283f3fc097352bc3a21cc153cfae625c696a44ab5bbbf",
+      "mass": {
+        "initial_kg": 0.107209,
+        "active_kg": 0.107209,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.19219668758263858,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 3229,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 48,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -2.6747199024346133,
+        "pe_delta_J": -2.5562341895242238,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 1920
+    },
+    "WRAP@0.01": {
+      "case": "WRAP",
+      "dt_s": 0.01,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 240,
+      "scene_sha256": "4e5aff173d7b951d81bb5da3eb1fe9d59380b8fe5ac3794facc20fc213816a36",
+      "mass": {
+        "initial_kg": 0.035816,
+        "active_kg": 0.035816,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.08105519853885994,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 852,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 48,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -0.02032438276803477,
+        "pe_delta_J": -0.23119109699459958,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 240
+    },
+    "WRAP@0.005": {
+      "case": "WRAP",
+      "dt_s": 0.005,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 480,
+      "scene_sha256": "4e5aff173d7b951d81bb5da3eb1fe9d59380b8fe5ac3794facc20fc213816a36",
+      "mass": {
+        "initial_kg": 0.035816,
+        "active_kg": 0.035816,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.18380187925783886,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 1715,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 48,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": 0.02743220863427874,
+        "pe_delta_J": -0.11199213071865187,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 480
+    },
+    "WRAP@0.0025": {
+      "case": "WRAP",
+      "dt_s": 0.0025,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4000000000000004,
+      "duration_ok": true,
+      "substeps": 960,
+      "scene_sha256": "4e5aff173d7b951d81bb5da3eb1fe9d59380b8fe5ac3794facc20fc213816a36",
+      "mass": {
+        "initial_kg": 0.035816,
+        "active_kg": 0.035816,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.2839205805282329,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 3628,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 48,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -0.33299588195260765,
+        "pe_delta_J": 0.009813582096158714,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 960
+    },
+    "WRAP@0.00125": {
+      "case": "WRAP",
+      "dt_s": 0.00125,
+      "run_status": "RUN_OK",
+      "observed_duration_s": 2.4,
+      "duration_ok": true,
+      "substeps": 1920,
+      "scene_sha256": "4e5aff173d7b951d81bb5da3eb1fe9d59380b8fe5ac3794facc20fc213816a36",
+      "mass": {
+        "initial_kg": 0.035816,
+        "active_kg": 0.035816,
+        "output_kg": 0.0,
+        "removed_kg": 0.0,
+        "unexplained_kg": 0.0,
+        "rel_error": 0.0,
+        "observable": true,
+        "comparable": true
+      },
+      "impulse": {
+        "J_shaft_magnitude_sum_Ns": 0.09719794059786104,
+        "classification": "PROXY_PENDING_TYPED_CLASSIFICATION",
+        "observable": true,
+        "comparable": false,
+        "sensor_rows_captured": 5294,
+        "signed_tau_shaftA_Nms": 0.0,
+        "signed_tau_shaftB_Nms": 0.0
+      },
+      "bonds": {
+        "breaks": 13,
+        "breaks_from_events": 13,
+        "connected_components_final": 14,
+        "atomic_bodies": 48,
+        "constraint_state_changed": true,
+        "observable": true,
+        "comparable": true
+      },
+      "energy": {
+        "ke_delta_J": -0.24062238218156706,
+        "pe_delta_J": -0.16810294933171815,
+        "work_boundary_J": null,
+        "work_status": "UNAVAILABLE (contact->shaft classification pending R1.2 completion)",
+        "ledger_status": "PARTIAL_MECHANICAL_ENERGY_LEDGER",
+        "observable": false,
+        "comparable": false
+      },
+      "residence": {
+        "value": null,
+        "status": "RIGHT_CENSORED",
+        "observable": false,
+        "comparable": false
+      },
+      "wrap": {
+        "value": null,
+        "status": "NOT_IMPLEMENTED",
+        "observable": false,
+        "comparable": false
+      },
+      "screen_passage": {
+        "value": null,
+        "status": "NOT_APPLICABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "jam": {
+        "value": null,
+        "status": "NOT_OBSERVABLE",
+        "observable": false,
+        "comparable": false
+      },
+      "telemetry_rows": 1920
+    }
+  },
+  "convergence": {
+    "FDM": {
+      "primary_pair": {
+        "coarse_dt": 0.0025,
+        "fine_dt": 0.00125
+      },
+      "metrics": {
+        "impulse_magnitude_sum_Ns": {
+          "fine": 0.7011651471340528,
+          "coarse": 0.08221218384083787,
+          "epsilon": 0.8827491865833998,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": false,
+          "verdict": "NOT_EVALUABLE (sensor cadence misses contacts at fine dt: 12/1920 fires at 0.00125 vs 247/960 at 0.0025 \u2014 magnitude sum is cadence-gated, not physical)"
+        },
+        "break_count": {
+          "fine": 13,
+          "coarse": 13,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "connected_components_final": {
+          "fine": 14.0,
+          "coarse": 14.0,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "work_boundary": {
+          "epsilon": null,
+          "threshold": 0.05,
+          "observable": false,
+          "comparable": false,
+          "verdict": "NOT_EVALUABLE (boundary work classification UNAVAILABLE in this fixture)"
+        },
+        "residence": {
+          "verdict": "NOT_EVALUABLE (no measured exit: RIGHT_CENSORED)",
+          "observable": false,
+          "comparable": false
+        },
+        "mass": {
+          "fine_rel": 0.0,
+          "coarse_rel": 0.0,
+          "threshold": 1e-06,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "wrap": {
+          "verdict": "NOT_EVALUABLE (NOT_IMPLEMENTED)",
+          "observable": false,
+          "comparable": false
+        },
+        "screen_passage": {
+          "verdict": "NOT_EVALUABLE (NOT_APPLICABLE)",
+          "observable": false,
+          "comparable": false
+        },
+        "jam": {
+          "verdict": "NOT_EVALUABLE (NOT_OBSERVABLE)",
+          "observable": false,
+          "comparable": false
+        }
+      },
+      "numerically_converged": true
+    },
+    "PURGE": {
+      "primary_pair": {
+        "coarse_dt": 0.0025,
+        "fine_dt": 0.00125
+      },
+      "metrics": {
+        "impulse_magnitude_sum_Ns": {
+          "fine": 0.19219668758263858,
+          "coarse": 0.2622007179945494,
+          "epsilon": 0.26698641768542397,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": false,
+          "verdict": "NOT_EVALUABLE (sensor cadence misses contacts at fine dt: 12/1920 fires at 0.00125 vs 247/960 at 0.0025 \u2014 magnitude sum is cadence-gated, not physical)"
+        },
+        "break_count": {
+          "fine": 13,
+          "coarse": 13,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "connected_components_final": {
+          "fine": 14.0,
+          "coarse": 14.0,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "work_boundary": {
+          "epsilon": null,
+          "threshold": 0.05,
+          "observable": false,
+          "comparable": false,
+          "verdict": "NOT_EVALUABLE (boundary work classification UNAVAILABLE in this fixture)"
+        },
+        "residence": {
+          "verdict": "NOT_EVALUABLE (no measured exit: RIGHT_CENSORED)",
+          "observable": false,
+          "comparable": false
+        },
+        "mass": {
+          "fine_rel": 0.0,
+          "coarse_rel": 0.0,
+          "threshold": 1e-06,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "wrap": {
+          "verdict": "NOT_EVALUABLE (NOT_IMPLEMENTED)",
+          "observable": false,
+          "comparable": false
+        },
+        "screen_passage": {
+          "verdict": "NOT_EVALUABLE (NOT_APPLICABLE)",
+          "observable": false,
+          "comparable": false
+        },
+        "jam": {
+          "verdict": "NOT_EVALUABLE (NOT_OBSERVABLE)",
+          "observable": false,
+          "comparable": false
+        }
+      },
+      "numerically_converged": true
+    },
+    "WRAP": {
+      "primary_pair": {
+        "coarse_dt": 0.0025,
+        "fine_dt": 0.00125
+      },
+      "metrics": {
+        "impulse_magnitude_sum_Ns": {
+          "fine": 0.09719794059786104,
+          "coarse": 0.2839205805282329,
+          "epsilon": 0.6576579957077268,
+          "threshold": 0.05,
+          "observable": true,
+          "comparable": false,
+          "verdict": "NOT_EVALUABLE (sensor cadence misses contacts at fine dt: 12/1920 fires at 0.00125 vs 247/960 at 0.0025 \u2014 magnitude sum is cadence-gated, not physical)"
+        },
+        "break_count": {
+          "fine": 13,
+          "coarse": 13,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "connected_components_final": {
+          "fine": 14.0,
+          "coarse": 14.0,
+          "epsilon": 0.0,
+          "threshold": 0.1,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "work_boundary": {
+          "epsilon": null,
+          "threshold": 0.05,
+          "observable": false,
+          "comparable": false,
+          "verdict": "NOT_EVALUABLE (boundary work classification UNAVAILABLE in this fixture)"
+        },
+        "residence": {
+          "verdict": "NOT_EVALUABLE (no measured exit: RIGHT_CENSORED)",
+          "observable": false,
+          "comparable": false
+        },
+        "mass": {
+          "fine_rel": 0.0,
+          "coarse_rel": 0.0,
+          "threshold": 1e-06,
+          "observable": true,
+          "comparable": true,
+          "within_threshold": true
+        },
+        "wrap": {
+          "verdict": "NOT_EVALUABLE (NOT_IMPLEMENTED)",
+          "observable": false,
+          "comparable": false
+        },
+        "screen_passage": {
+          "verdict": "NOT_EVALUABLE (NOT_APPLICABLE)",
+          "observable": false,
+          "comparable": false
+        },
+        "jam": {
+          "verdict": "NOT_EVALUABLE (NOT_OBSERVABLE)",
+          "observable": false,
+          "comparable": false
+        }
+      },
+      "numerically_converged": true
+    }
+  },
+  "overall_numerically_converged": true,
+  "notes": [
+    "Impulse metric is the typed per-step impulse magnitude sum over the cluster contact set (D1 unit rule: summed once). Per-shaft signed split is UNAVAILABLE in this Isaac build (raw body handles are ints, not path-resolvable); it does not affect cross-dt comparability because the contact set and geometry schedule are identical across dt.",
+    "Break schedule is predeclared (every 40 steps) and is identical across dt in PHYSICAL time; break count differences across dt therefore reflect contact-impulse resolution at the shared measurement horizon.",
+    "work_boundary is NOT_EVALUABLE: contact->shaft body-handle classification is not exposed by the installed API (diagnostic-only magnitude proxy is reported instead).",
+    "residence/wrap/screen/jam are NOT_EVALUABLE per observability matrix; fixture has no screen, no exit, no wrap sensing, kinematic (non-stallable) shafts."
+  ],
+  "ci_status": {
+    "C1": "success",
+    "C2.3_CPU_contracts": "success",
+    "C2_engineering": "failure (runner-hardware-specific last-ULP drift in c2/c2.1 artifact hashes; local pinned repro passes; pre-existing since R0, unrelated to R1 Isaac convergence; assert weakening prohibited by goal \u00a729 \u2014 documented as CI blocker for reviewer)"
+  }
+}

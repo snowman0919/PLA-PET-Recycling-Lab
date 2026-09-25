@@ -1,0 +1,98 @@
+{
+  "asset_id": "S1-CUT-B-P02_001",
+  "group": "S1",
+  "kinematic_body": "S1B",
+  "lod": "fine",
+  "step_index": 66,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.66",
+  "mesh_file": "sim/assets/out/full/S1-CUT-B-P02_001__fine.stl",
+  "mesh_bytes": 46484,
+  "mesh_sha256": "7d46d0751607cd3ee9225b80ba03fdbf7fb69ee422ba6899c3a1f1235b82ebd7",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    150.11357815701783,
+    193.9999999,
+    358.68378628576403,
+    227.40041163724638,
+    200.0000001,
+    436.9397816058662
+  ],
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "TOOL_STEEL",
+  "source_material_label": "Tool steel, heat treatment RFQ",
+  "manufacturing_process": "machined tool steel candidate; heat treatment/grinding and edge qualification HOLD",
+  "thermal_condition": "wear and fatigue qualification HOLD",
+  "material_source": "design/assembly.json parts.S1-CUT-B-P02.material",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 7800.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 7800.0,
+  "effective_density_bounds_kg_m3": [
+    7800.0,
+    7800.0
+  ],
+  "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+  "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+  "volume_mm3": 16219.34910219428,
+  "solid_bbox_mm": [
+    150.1135781570179,
+    193.9999999,
+    358.68378628575874,
+    227.40041163724123,
+    200.0000001,
+    436.9397816058632
+  ],
+  "mass_kg": 0.1265109229971154,
+  "mass_bounds_kg": [
+    0.1265109229971154,
+    0.1265109229971154
+  ],
+  "center_of_mass_mm": [
+    188.75699489712957,
+    197.0,
+    397.81178394581093
+  ],
+  "inertia_kg_mm2": [
+    64.94228230187252,
+    127.53624587942541,
+    63.353029166139954
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    194.82684690561757,
+    382.60873763827624,
+    190.05908749841987
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      64.94228230187252,
+      127.53624587942541,
+      63.353029166139954
+    ],
+    "upper_bound_kg_mm2": [
+      194.82684690561757,
+      382.60873763827624,
+      190.05908749841987
+    ],
+    "center_of_mass_mm": [
+      188.75699489712957,
+      197.0,
+      397.81178394581093
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

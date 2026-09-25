@@ -1,0 +1,548 @@
+{
+  "FDM": {
+    "0.01->0.005": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.3912045912924838,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.4034857388681006,
+          "fine": 0.24564026530185945
+        },
+        "impulse": {
+          "epsilon": 0.39120459129248386,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 2.4081281177978964,
+          "fine": 1.466057341694832
+        },
+        "fragment": {
+          "epsilon": 0.0,
+          "tol": 0.1,
+          "within_tol": true,
+          "coarse": 46.0,
+          "fine": 46.0
+        },
+        "residence": {
+          "epsilon": 0.4978991596638655,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 2.38,
+          "fine": 1.195
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    },
+    "0.005->0.0025": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.6547917351087964,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.24564026530185945,
+          "fine": 0.0847970497722698
+        },
+        "impulse": {
+          "epsilon": 0.6547917351087965,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 1.466057341694832,
+          "fine": 0.5060951111574832
+        },
+        "fragment": {
+          "epsilon": 0.06521739130434782,
+          "tol": 0.1,
+          "within_tol": true,
+          "coarse": 46.0,
+          "fine": 43.0
+        },
+        "residence": {
+          "epsilon": 0.5,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 1.195,
+          "fine": 0.5975
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    },
+    "0.0025->0.00125": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.510434788567817,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.0847970497722698,
+          "fine": 0.04151368560058662
+        },
+        "impulse": {
+          "epsilon": 0.510434788567817,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.5060951111574832,
+          "fine": 0.24776656009860745
+        },
+        "fragment": {
+          "epsilon": 0.7209302325581395,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 43.0,
+          "fine": 12.0
+        },
+        "residence": {
+          "epsilon": 0.5062761506276151,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 0.5975,
+          "fine": 0.295
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    }
+  },
+  "PURGE": {
+    "0.01->0.005": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.5203482337577557,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.3972157147263402,
+          "fine": 0.19052521914766452
+        },
+        "impulse": {
+          "epsilon": 0.5203482337577557,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 2.3707066677178954,
+          "fine": 1.1371136404131539
+        },
+        "fragment": {
+          "epsilon": 0.0,
+          "tol": 0.1,
+          "within_tol": true,
+          "coarse": 46.0,
+          "fine": 46.0
+        },
+        "residence": {
+          "epsilon": 0.5084388185654009,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 2.37,
+          "fine": 1.165
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    },
+    "0.005->0.0025": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.5345450998206864,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.19052521914766452,
+          "fine": 0.08868089686001802
+        },
+        "impulse": {
+          "epsilon": 0.5345450998206864,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 1.1371136404131539,
+          "fine": 0.5292751159910404
+        },
+        "fragment": {
+          "epsilon": 0.0,
+          "tol": 0.1,
+          "within_tol": true,
+          "coarse": 46.0,
+          "fine": 46.0
+        },
+        "residence": {
+          "epsilon": 0.5064377682403434,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 1.165,
+          "fine": 0.575
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    },
+    "0.0025->0.00125": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.4046556757031867,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.08868089686001802,
+          "fine": 0.05279566861916282
+        },
+        "impulse": {
+          "epsilon": 0.4046556757031867,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.5292751159910404,
+          "fine": 0.3151009362968034
+        },
+        "fragment": {
+          "epsilon": 0.8913043478260869,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 46.0,
+          "fine": 5.0
+        },
+        "residence": {
+          "epsilon": 0.4804347826086956,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 0.575,
+          "fine": 0.29875
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    }
+  },
+  "WRAP": {
+    "0.01->0.005": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.4383856724182248,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.1381038626604595,
+          "fine": 0.07756110796449979
+        },
+        "impulse": {
+          "epsilon": 0.4383856724182248,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.8242467150936136,
+          "fine": 0.46290876465878683
+        },
+        "fragment": {
+          "epsilon": 0.0,
+          "tol": 0.1,
+          "within_tol": true,
+          "coarse": 46.0,
+          "fine": 46.0
+        },
+        "residence": {
+          "epsilon": 0.4978991596638655,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 2.38,
+          "fine": 1.195
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    },
+    "0.005->0.0025": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.5942050288566645,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.07756110796449979,
+          "fine": 0.03147390756829933
+        },
+        "impulse": {
+          "epsilon": 0.5942050288566644,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.46290876465878683,
+          "fine": 0.18784604879670952
+        },
+        "fragment": {
+          "epsilon": 0.6521739130434783,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 46.0,
+          "fine": 16.0
+        },
+        "residence": {
+          "epsilon": 0.5062761506276151,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 1.195,
+          "fine": 0.59
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    },
+    "0.0025->0.00125": {
+      "thresholds_source": "baseline.json + CONTRACT.md \u00a77",
+      "thresholds": {
+        "work": 0.05,
+        "impulse": 0.05,
+        "residence": 0.1,
+        "mass_rel": 1e-06,
+        "fragment": 0.1,
+        "jam_wrap_rule": "identical across primary pair."
+      },
+      "metrics": {
+        "work": {
+          "epsilon": 0.5302240870894149,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.03147390756829933,
+          "fine": 0.014785683660761191
+        },
+        "impulse": {
+          "epsilon": 0.5302240870894148,
+          "tol": 0.05,
+          "within_tol": false,
+          "coarse": 0.18784604879670952,
+          "fine": 0.08824554906012054
+        },
+        "fragment": {
+          "epsilon": 0.25,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 16.0,
+          "fine": 12.0
+        },
+        "residence": {
+          "epsilon": 0.49788135593220334,
+          "tol": 0.1,
+          "within_tol": false,
+          "coarse": 0.59,
+          "fine": 0.29625
+        },
+        "mass": {
+          "coarse_rel_error": 0.0,
+          "fine_rel_error": 0.0,
+          "cap": 1e-06,
+          "within_tol": true
+        },
+        "jam": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        },
+        "wrap": {
+          "coarse": false,
+          "fine": false,
+          "identical": true,
+          "within_tol": true
+        }
+      },
+      "converged": false
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-A",
+  "seed": 37,
+  "class": "W3",
+  "waste_id": "W3-ribbed-00037",
+  "input_mass_g": 116.313,
+  "peak_proxy": 0.6816731579518779,
+  "work_proxy": 156.58303883677937,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W3-ribbed-00037:S1-A:F000",
+      "source_waste_id": "W3-ribbed-00037",
+      "seed": 37,
+      "mass_g": 38.771,
+      "volume_mm3": 31266.935,
+      "com_mm": [
+        58.96,
+        29.365,
+        3.725
+      ],
+      "principal_dims_mm": [
+        108.093,
+        48.942,
+        3.725
+      ],
+      "equiv_diameter_mm": 39.087,
+      "aspect_ratio": 29.018,
+      "pose_quaternion_xyzw": [
+        -0.40802,
+        0.16854,
+        -0.08851,
+        -0.89291
+      ],
+      "velocity_proxy_mm_s": [
+        3.4084,
+        3.4084,
+        3.4084
+      ],
+      "bond_state": {
+        "failed_bonds": 584,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W3",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W3-ribbed-00037:S1-A:F001",
+      "source_waste_id": "W3-ribbed-00037",
+      "seed": 37,
+      "mass_g": 77.542,
+      "volume_mm3": 62533.871,
+      "com_mm": [
+        58.96,
+        29.365,
+        14.9
+      ],
+      "principal_dims_mm": [
+        108.093,
+        48.942,
+        11.175
+      ],
+      "equiv_diameter_mm": 49.246,
+      "aspect_ratio": 9.673,
+      "pose_quaternion_xyzw": [
+        -0.81306,
+        -0.14548,
+        0.33467,
+        0.45361
+      ],
+      "velocity_proxy_mm_s": [
+        3.4084,
+        3.4084,
+        3.4084
+      ],
+      "bond_state": {
+        "failed_bonds": 584,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W3",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.0,
+  "s1_multiplier_note": "inherited twin-shaft baseline",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

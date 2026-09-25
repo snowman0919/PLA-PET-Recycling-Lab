@@ -1,0 +1,194 @@
+{
+  "schema": "dyn_usd_manifest/1",
+  "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/machine.usda",
+  "usd_bytes": 40299,
+  "stage_meters_per_unit": 0.001,
+  "frame": "F0 identity",
+  "units": "mm authored",
+  "revision": "ebb518a1bea9adf6d33f208b362ff6d1baf2a91e",
+  "emission_script_sha256": "a44a2b5b80f32173fa9337080ef5ced5047e1cee765c3c164bf23d21ab62034c",
+  "hull_vertex_cap": 256,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "material_density_assumption_g_cc": {
+    "PLA": 1.24,
+    "PET": 1.38,
+    "TPU": 1.21
+  },
+  "evidence_level": "GEOMETRIC_ONLY",
+  "derived_transfer_spec": {
+    "S1_DISCHARGE": {
+      "dx": 120.0,
+      "dy": 100.0,
+      "dz": 30.0,
+      "center": [
+        120.0,
+        243.5,
+        428.0
+      ],
+      "note": "outlet under S1 chamber datum Y162.4..324.6"
+    },
+    "CHUTE": {
+      "dx": 110.0,
+      "dy": 90.0,
+      "dz": 120.0,
+      "center": [
+        200.0,
+        243.5,
+        350.0
+      ],
+      "note": "45deg-class gravity slide S1 outlet -> S2 entry"
+    },
+    "S2_ENTRY": {
+      "dx": 90.0,
+      "dy": 45.0,
+      "dz": 25.0,
+      "center": [
+        308.6,
+        275.0,
+        330.0
+      ],
+      "note": "throat above S2 bay"
+    },
+    "S2_EXIT": {
+      "dx": 90.0,
+      "dy": 45.0,
+      "dz": 40.0,
+      "center": [
+        308.6,
+        275.0,
+        200.0
+      ],
+      "note": "duct below screen arc"
+    }
+  },
+  "derived_note": "S1 discharge/chute/S2 entry/exit are DERIVED parametric boxes; C2.1 CAD unmutated (PARAM_TRACE items 5/6/12 MISSING inputs).",
+  "assets": [
+    {
+      "source": "cad/parts/HOPPER.stl",
+      "prim": "/World/F0/Hopper",
+      "role": "static",
+      "status": "EMITTED",
+      "sha256": "9211600d692510f2ce0dab31d78c3d72f41aabab0f92b5629c76ca3d262f81ba",
+      "collision": "concaveMesh(16v/32f)"
+    },
+    {
+      "source": "cad/parts/S1-SHAFT-A.stl",
+      "prim": "/World/F0/S1/ShaftA",
+      "role": "kinematic-shaft",
+      "status": "EMITTED",
+      "sha256": "587a171430deca1ab2d107ffabc3534ab22ac11685c1a810829883a8c8ff7423",
+      "collision": "concaveMesh(246v/488f)"
+    },
+    {
+      "source": "cad/parts/S1-CUT-A-P00.stl",
+      "prim": "/World/F0/S1/CutterA00",
+      "role": "kinematic-cutter",
+      "status": "EMITTED",
+      "sha256": "546fae98cdba1a2348b6920d0f382e12f679cb0e81d2e30b2d63e86ef3fa18bd",
+      "src_verts": 388,
+      "src_faces": 776,
+      "collision": "convexHull(42v/80f)"
+    },
+    {
+      "source": "cad/parts/S2-ROTOR.stl",
+      "prim": "/World/F0/S2/Rotor",
+      "role": "kinematic-rotor",
+      "status": "EMITTED",
+      "sha256": "a17b85386d59aae415b8b2429698ddde46c647ba4f233fa69491bba25b62f95c",
+      "src_verts": 2608,
+      "src_faces": 5216,
+      "collision": "convexHull(248v/492f)"
+    },
+    {
+      "source": "cad/parts/S1-SHAFT-B.stl",
+      "prim": null,
+      "role": "kinematic-shaft",
+      "status": "STAGED_NOT_EMITTED",
+      "sha256": "802313981bf80b866b476b2e5ca28eb5b80a74c0e77e100b23fede8047b5c1a4"
+    },
+    {
+      "source": "cad/parts/S1-CUT-B-P00.stl",
+      "prim": null,
+      "role": "kinematic-cutter",
+      "status": "STAGED_NOT_EMITTED",
+      "sha256": "c47b61a631e47e8759a0793f8c527bf29a0c4d54c68347c11012fc7ea3b3faa1"
+    },
+    {
+      "source": "c2.2/sim/assets/out/rigid_cycloid_hook_rotor_envelope__fine.stl",
+      "prim": null,
+      "role": "reference",
+      "status": "STAGED_NOT_EMITTED",
+      "sha256": "1c1d3a93888cbad7e88e76e6f06817f382b7ff5e163aaa7e21200d00ce8e6929"
+    },
+    {
+      "source": "DERIVED:S1_DISCHARGE",
+      "prim": "/World/F0/Transfer/S1_DISCHARGE",
+      "role": "static-derived",
+      "status": "EMITTED",
+      "dims_mm": [
+        120.0,
+        100.0,
+        30.0
+      ],
+      "center_mm": [
+        120.0,
+        243.5,
+        428.0
+      ],
+      "note": "outlet under S1 chamber datum Y162.4..324.6"
+    },
+    {
+      "source": "DERIVED:CHUTE",
+      "prim": "/World/F0/Transfer/CHUTE",
+      "role": "static-derived",
+      "status": "EMITTED",
+      "dims_mm": [
+        110.0,
+        90.0,
+        120.0
+      ],
+      "center_mm": [
+        200.0,
+        243.5,
+        350.0
+      ],
+      "note": "45deg-class gravity slide S1 outlet -> S2 entry"
+    },
+    {
+      "source": "DERIVED:S2_ENTRY",
+      "prim": "/World/F0/Transfer/S2_ENTRY",
+      "role": "static-derived",
+      "status": "EMITTED",
+      "dims_mm": [
+        90.0,
+        45.0,
+        25.0
+      ],
+      "center_mm": [
+        308.6,
+        275.0,
+        330.0
+      ],
+      "note": "throat above S2 bay"
+    },
+    {
+      "source": "DERIVED:S2_EXIT",
+      "prim": "/World/F0/Transfer/S2_EXIT",
+      "role": "static-derived",
+      "status": "EMITTED",
+      "dims_mm": [
+        90.0,
+        45.0,
+        40.0
+      ],
+      "center_mm": [
+        308.6,
+        275.0,
+        200.0
+      ],
+      "note": "duct below screen arc"
+    }
+  ],
+  "failures": [],
+  "status": "PASS"
+}

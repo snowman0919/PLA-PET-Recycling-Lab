@@ -1,0 +1,224 @@
+{
+  "revision": "VP1-STAGE5-AUGER",
+  "checkpoint_classes": {
+    "pass_space": [
+      "S1_opening_to_pan",
+      "buffer_throat",
+      "cross_feed_shell_to_mouth",
+      "extruder_die_exit",
+      "outlet_drop_into_mouth",
+      "puller_nip",
+      "s2_screen_holes",
+      "screen_to_buffer_gravity_exit",
+      "spool_winder",
+      "trough_fin_gap"
+    ],
+    "operational_grip": [
+      "puller_grip"
+    ],
+    "mechanical_clearance": [
+      "trough_auger"
+    ]
+  },
+  "conveyance": {
+    "claim": "ACTIVE_BELT_AND_AUGER_GEOMETRY_MEASURED",
+    "passive_transfer": "SUPERSEDED: the S1-wide 160 mm belt is shaft-driven; its contact pickup awaits measured PhysX flow, not a CAD assertion",
+    "jacket_boundary": "measured jacket dome top z=334.5 mm; open U-shell base is clearance-cut around the jacket, not a complete receiver",
+    "resolution": "RH screw conveyor, root r3/OD r8, pitch 28.50 mm, four turns x237.0..354.0; BRep flight/shell gap 1.085 mm",
+    "implementation": "S2Ecc 12T -> PDL_CHAIN 35 links (offset link strength/tension UNRATED) -> PDL_SPROCKET/PDL_SHAFT at x362,z374.5 -> RH 2-start PDL_WORM -> AUG_WHEEL 16T (8:1) -> AUG_SHAFT at -5.438 rpm reference; no claim of S1 pickup or S2 mouth delivery",
+    "simulation_history": "paddle+scraper and shallow r4/r5 auger were measured non-conveying; they are superseded, not counted as final evidence",
+    "final_simulation_evidence": "c2.2/results/full_machine/flow_localize/results.json"
+  },
+  "checkpoints": [
+    {
+      "checkpoint": "S1_opening_to_pan",
+      "aperture_mm": 12.500629600026855,
+      "probe_sphere_mm": 4.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "central cutter opening (160,232): bottom z352.3 to belt top z339.8; stationary pan intersection 0.000 mm3",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "trough_fin_gap",
+      "aperture_mm": 4.0,
+      "probe_sphere_mm": 4.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "115deg saddle fin bypassed: the route runs south of the chamber (y 213..251) and turns north over the mouth at x 350..360.5; path x fin intersection volume 0.000 mm3",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "cross_feed_shell_to_mouth",
+      "aperture_mm": 5.0,
+      "probe_sphere_mm": 3.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "outer metal shelf volume 142.417 mm3 extends 5.0 mm past the S2 mouth; former inner bridge removed from the rotor swept sector. This is supporting geometry, not proven fragment delivery",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "outlet_drop_into_mouth",
+      "aperture_mm": 5.501969671591837,
+      "probe_sphere_mm": 4.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "orthogonal driven flight (not the shaft journal) reaches y260.50; S2 mouth starts y255.0 (5.50 mm powered axial overlap). The reduced-OD tail and rotor-relieved outer U lip are CAD-only; fragment transfer remains unverified",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "s2_screen_holes",
+      "aperture_mm": 3.896714285573371,
+      "probe_sphere_mm": 3.3,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "15 open arcs measured at r63.8, y21 on exported VP1 screen; liner-radius chord only, not a straight gravity passage",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "screen_to_buffer_gravity_exit",
+      "aperture_mm": 5.753964555686645,
+      "probe_sphere_mm": 3.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "exported S2 screen has 78/78 \u00d81.5 and 78/78 \u00d83 unobstructed vertical cylindrical paths; minimum actual FEED-BUF metal distance at the upper receiver plane z218 is 5.754 mm. This is not a contact, capture or flow test",
+      "clear_paths_by_probe_mm": {
+        "1.5": 78,
+        "3.0": 78
+      },
+      "hole_centres_checked": 78,
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "buffer_throat",
+      "aperture_mm": 12.010433922646728,
+      "probe_sphere_mm": 8.0,
+      "passed": true,
+      "evidence": "NAMEPLATE",
+      "note": "FEED-BUF steel loft 190x48 top, inset shoulder at z210 and \u00d818 outer/\u00d813 clear octagonal neck for 15 mm; lower outlet x299,y275 and split metal saddle are coaxial with the \u00d820 barrel feed bore. \u00d813 throat is only an aperture: weld, clamping, thermal fit, and flow remain HOLD",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "extruder_die_exit",
+      "aperture_mm": 2.0,
+      "probe_sphere_mm": 1.9,
+      "passed": true,
+      "evidence": "NAMEPLATE",
+      "note": "EX-DIE 36 OD x 20 with 2 mm exit",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "trough_auger",
+      "aperture_mm": 1.0845169671692543,
+      "probe_sphere_mm": 1.5,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "geometric clearance only (not connected-flow proof): RH flight root r3/OD r8, pitch 28.50 mm, four turns x237.0..354.0 in an open U shell; BRep-exact flight/shell gap 1.085 mm. S1 pan pickup and the northward S2 outlet are NOT proven by this clearance. Drive: S2Ecc 12T -> PDL_CHAIN (35 links) -> PDL_SPROCKET/PDL_SHAFT x362 -> RH 2-start PDL_WORM (lead 23.3 deg) -> AUG_WHEEL 16T -> AUG_SHAFT at -5.438 rpm reference, conveying +x",
+      "checkpoint_class": "mechanical_clearance"
+    },
+    {
+      "checkpoint": "puller_nip",
+      "aperture_mm": 1.5,
+      "probe_sphere_mm": 1.5,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "VP1 Stage 4 puller: dia-20 rollers at z 114.25/135.75 (line z 125), cam positive-stop range 1.5..3.0 mm; the 1.75 mm filament (design/parameters.json filament_mm) is gripped: seated nip 1.5 mm < filament, spring compliance opens the contact to ~1.9 mm",
+      "checkpoint_class": "pass_space"
+    },
+    {
+      "checkpoint": "puller_grip",
+      "aperture_mm": 1.75,
+      "probe_sphere_mm": 1.5,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "OPERATIONAL GRIP: minimum stop nip 1.5 mm < filament 1.75 mm <= open nip 3.0 mm -> rollers compress onto the filament (spring rate 8 N/mm, ~0.2 mm compression at 1.75 mm); tension transfers roller->filament->spool",
+      "checkpoint_class": "operational_grip"
+    },
+    {
+      "checkpoint": "spool_winder",
+      "aperture_mm": 58.0,
+      "probe_sphere_mm": 8.0,
+      "passed": true,
+      "evidence": "MEASURED",
+      "note": "VP1 Stage 4 winder: driven dia-70 drum between dia-200 flanges at (700, y 100..170, z 220), shaft in bearing blocks BOTH ends (WIND_SPOOL_BEARINGS), motor reference positively coupled to the drum shaft; filament span puller nip (829, 264, 125) -> traverse eyelet (742, 128, 245): midpoint probe sphere blocked by nothing",
+      "checkpoint_class": "pass_space"
+    }
+  ],
+  "layout_comparison": {
+    "source": "current S1/S2 datums and STEP-part bbox nominal envelopes",
+    "active_drive": "one M1 powers wide belt, central belt, auger and cross screw; added drive torque and loss not rated",
+    "gravity_candidate": "could remove active transfer hardware only after wide-to-40mm lateral convergence, rear support/pan clearance, new chain length and entire buffer/extruder/cooling/puller realignment; power saving and price are UNQUOTED, not zero",
+    "cost": "active components and relocation hardware unquoted; 100000 KRW soft limit cannot rank total purchase cost",
+    "options": [
+      {
+        "name": "active_same_axes",
+        "axis_xz_mm": [
+          308.569,
+          280.0
+        ],
+        "inlet_run_mm": 60.97,
+        "inlet_drop_mm": 6.5,
+        "nominal_slope_deg": 6.09,
+        "rear_support_pan_bbox_overlap": true,
+        "buffer_throat_z_mm": 145.0,
+        "unchanged_extruder_feed_z_mm": 125.0,
+        "required_downstream_shift_mm": 0.0,
+        "jack_to_s2_center_mm": 275.1,
+        "width_contraction_mm": 122.19999999999999,
+        "status": "BUILT_GEOMETRY_FLOW_HOLD"
+      },
+      {
+        "name": "west30_down35_gravity_candidate",
+        "axis_xz_mm": [
+          278.569,
+          245.0
+        ],
+        "inlet_run_mm": 30.97,
+        "inlet_drop_mm": 41.5,
+        "nominal_slope_deg": 53.27,
+        "rear_support_pan_bbox_overlap": true,
+        "buffer_throat_z_mm": 110.0,
+        "unchanged_extruder_feed_z_mm": 125.0,
+        "required_downstream_shift_mm": -35.0,
+        "jack_to_s2_center_mm": 229.04,
+        "width_contraction_mm": 122.19999999999999,
+        "status": "UNBUILT_CONCEPT_INTERFACES_HOLD"
+      },
+      {
+        "name": "under_s1_west120_down30_candidate",
+        "axis_xz_mm": [
+          188.569,
+          250.0
+        ],
+        "inlet_run_mm": -59.03,
+        "inlet_drop_mm": 36.5,
+        "nominal_slope_deg": null,
+        "rear_support_pan_bbox_overlap": true,
+        "buffer_throat_z_mm": 115.0,
+        "unchanged_extruder_feed_z_mm": 125.0,
+        "required_downstream_shift_mm": -30.0,
+        "jack_to_s2_center_mm": 192.07,
+        "width_contraction_mm": 122.19999999999999,
+        "status": "UNBUILT_CONCEPT_INTERFACES_HOLD"
+      }
+    ],
+    "decision": "Neither gravity nor active transport has connected-flow proof; nominal 53-degree ramp does not prove PLA/PET/TPU flow or replace interface redesign."
+  },
+  "auger_clearance_assumption": {
+    "nominal_brep_mm": 1.085,
+    "illustrative_adverse_stack_mm": {
+      "flight_profile_and_runout": 0.15,
+      "shell_bore": 0.15,
+      "bearing_radial_play": 0.15,
+      "axis_mount_misalignment": 0.2,
+      "thermal_differential": 0.1
+    },
+    "stack_total_mm": 0.75,
+    "illustrative_remaining_mm": 0.335,
+    "status": "ASSUMED_NOT_TOLERANCED_OR_LOAD_TESTED",
+    "note": "Positive BRep gap and an assumed stack do not approve machining, shaft runout, thermal expansion, jamming or physical operation."
+  },
+  "all_material_path_clear": true,
+  "all_pass_space_clear": true,
+  "all_grip_checkpoints_pass": true
+}

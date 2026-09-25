@@ -1,0 +1,15 @@
+{
+  "evidence_scale": {
+    "E0": "unverified placeholder or open requirement",
+    "E1": "inherited project constraint or internal reference",
+    "E2": "deterministic equation/CAD/test reproduced in this repository",
+    "E3": "verified supplier or physical calibration evidence; none added in C2.1"
+  },
+  "sources": [
+    {"id": "C2-REQ", "path": "c2/design/requirements.json", "grade": "E1"},
+    {"id": "C2-KIN", "path": "c2/src/engineering.py", "grade": "E2"},
+    {"id": "C2-PIN", "path": "c2/src/pin_constraint.py", "grade": "E2"},
+    {"id": "C2.1-ADR", "path": "c2.1/docs/ADR-001-S2-TRANSMISSION.md", "grade": "E2"},
+    {"id": "C2.1-CAD", "path": "c2.1/src/build_cad.py", "grade": "E2"}
+  ]
+}

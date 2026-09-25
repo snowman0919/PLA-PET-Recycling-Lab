@@ -1,0 +1,39 @@
+{
+  "asset_id": "S1_TRANSFER_SOURCE",
+  "group": "feed",
+  "kinematic_body": "BELT_DRIVE",
+  "lod": "fine",
+  "step_index": 245,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.245",
+  "mesh_file": "sim/assets/out/full/S1_TRANSFER_SOURCE__fine.stl",
+  "mesh_bytes": 55684,
+  "mesh_sha256": "119a4e758d527331513198cd6177eb1665bcfbde6ec2e320e8813f1f7457e705",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "9f78ba46207d0c5f31b4b4922b21b47bf6331e98e554bb387b10163ec5b8694d",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    59.5197376713571,
+    387.99999985,
+    310.91973767135704,
+    100.48026232864291,
+    400.00000015,
+    351.8802623286429
+  ],
+  "revision": "eba6cbbcd20403b60611982d776d108d26e027b0",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "27f633620d5ca6401f197b16a7f2933aa660b279256b812993f5c94e251515e6",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 10736.813438376937,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

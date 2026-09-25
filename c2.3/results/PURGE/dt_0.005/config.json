@@ -1,0 +1,171 @@
+{
+  "case": "PURGE",
+  "dt_s": 0.005,
+  "case_spec": {
+    "bond_nominal_strengths": {
+      "cross_raster": 0.97,
+      "in_raster": 1.0,
+      "inter_layer_z": 0.95
+    },
+    "bonds_total": 286,
+    "case_note": "dense purge fracture case",
+    "cells": 120,
+    "dims_mm": {
+      "dx": 40.51,
+      "dy": 53.78,
+      "dz": 40.27
+    },
+    "family": "purge_bundle",
+    "flags": [
+      "worst_case_torque_jam"
+    ],
+    "friction": 0.425,
+    "friction_status": "ASSUMPTION",
+    "generator": "c2.2/sim/generators/waste_gen.py",
+    "infill_fraction": 0.985,
+    "infill_kind": "near-bulk",
+    "mass_g": 107.209,
+    "material": "PLA",
+    "object_id": "W4-purge_bundle-00011",
+    "seed": 11,
+    "solid_fraction": 0.985,
+    "volume_cm3": 87.736,
+    "waste_class": "W4"
+  },
+  "baseline": {
+    "backend": {
+      "backend_name": "Isaac Sim / PhysX",
+      "cuda_driver": "13.2",
+      "gpu": "RTX 3080 10GB cc8.6",
+      "gpu_driver": "595.84",
+      "isaac_sim": "6.1.0.0",
+      "physics_device": "cpu (per c2.2/sim/dynamics/s1_physx.py SimulationManager.set_physics_sim_device)",
+      "physics_engine": "PhysX",
+      "venv": "$HOME/env_isaacsim-c22"
+    },
+    "evidence_level": "UNCALIBRATED_DIGITAL_DYNAMICS",
+    "frozen_geometry": {
+      "S1-A": {
+        "center_distance_mm": 60.0,
+        "counter_rotating": true,
+        "cutter_radius_m": 0.04,
+        "shaft_speed_rpm": 40.0,
+        "type": "twin-shaft hook shear"
+      },
+      "S2-A": {
+        "eccentricity_mm": 7,
+        "input_rpm": 120.0,
+        "orbit_rpm": 120.0,
+        "output_rpm": -15.0,
+        "ratio": "-1/8",
+        "rotor_phase_law": "phi=-theta/q",
+        "teeth_q": 8,
+        "type": "cycloid-pin screen rotor"
+      }
+    },
+    "frozen_physics": {
+      "friction_note": "waste_gen live-run values: FDM 0.395 (seed 7 W1), PURGE 0.425 (seed 11 W4), WRAP 0.516 (seed 7 P0); no explicit PhysX material override in c2.2b scripts (PhysX defaults)",
+      "friction_status": "ASSUMPTION",
+      "gravity_m_s2": 9.81,
+      "gravity_note": "PhysX scene default; no explicit override in c2.2b dynamics scripts",
+      "impulse_scale_Ns": 0.02,
+      "impulse_scale_status": "UNCALIBRATED",
+      "restitution_note": "no explicit override in c2.2b dynamics scripts (PhysX defaults)",
+      "solver_iterations_note": "no explicit position/velocity iteration override in c2.2b dynamics scripts (PhysX defaults via SimulationManager.set_physics_dt only)"
+    },
+    "frozen_process": {
+      "cutter_gap_mm": 0.8,
+      "cutter_gap_note": "BASELINE ONLY, never optimal; C2.2b sweep centers 59.2/60.0/60.8, freeze = 60.0 center",
+      "screen_aperture_mm": 4.0,
+      "screen_bar_mm": 2.0,
+      "screen_grid": "5x5 real hole geometry",
+      "screen_note": "BASELINE ONLY, never optimal; C2.2b sweep holes 3.0/4.0/5.5, freeze = 4.0"
+    },
+    "frozen_run": {
+      "dt_ladder_s": [
+        0.01,
+        0.005,
+        0.0025,
+        0.00125
+      ],
+      "primary_pair_s": [
+        0.0025,
+        0.00125
+      ],
+      "steps_per_run": 240
+    },
+    "initial_poses": {
+      "note": "S1: nip-drop patch above shaft-center plane; S2: drop above screen plane; identical handoff states feed S2-A/S2-B",
+      "status": "frozen per-case"
+    },
+    "materials": {
+      "PLA_density_g_cc": 1.24,
+      "density_status": "ASSUMPTION"
+    },
+    "reference_assets": {
+      "step_file": "c2.1/cad/PPR_C2_1_machine_integration.step",
+      "step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12",
+      "step_verified": "recomputed via sha256sum 2026-09-21, matches SOURCES.md",
+      "usd_file": "c2.2/sim/assets/usd/machine.usda",
+      "usd_sha256": "7a14f96e667cf3cd483d4be1b2c38267de2bb8081cf5d13f450b2ec210617296",
+      "usd_verified": "recomputed via sha256sum 2026-09-21"
+    },
+    "thresholds": {
+      "contact_impulse_pct": 5,
+      "fragment_bond_count_pct": 10,
+      "jam_wrap": "identical",
+      "mass_conservation_relative_error_max": 1e-06,
+      "mass_conservation_rule": "goal \u00a713: relative mass_error <= 1e-6; if fracture representation makes this mathematically impossible, STOP + BLOCKED",
+      "residence_time_pct": 10,
+      "shaft_work_pct": 5
+    }
+  },
+  "manifest": {
+    "branch": "codex/c2.1-s2-transmission-20260921",
+    "cases": {
+      "FDM": {
+        "material": "PLA",
+        "seed": 7,
+        "waste_class": "W1"
+      },
+      "PURGE": {
+        "material": "PLA",
+        "seed": 11,
+        "waste_class": "W4"
+      },
+      "WRAP": {
+        "note": "S1-only, no S2 fracture claim",
+        "seed": 7,
+        "waste_class": "P0"
+      }
+    },
+    "config_hashes": {
+      "CONTRACT.md": "836ccab58b59eac73ea818dd76edfa3b7ac512481c9f429afb5ecbd39498d17d",
+      "NEXT.md": "522d761ae251572d327dbf8cc4cd875ffddd0297dbbb458b086cb8df260a5b66",
+      "STATE.json": "fe9be0bd7b4cc8795db736df730291d5de2058599890152d4f0676bdbbcee275",
+      "baseline.json": "5b10ae082bc255eb9b9259b7d2712de10c074b26a51c942258f0f0abc9c96b6c",
+      "cases.json": "a44ce3b50624bd48c6d28d38c3277cbce77a976eb74d51ba1f8c8c93395fffe6"
+    },
+    "evidence_level": "UNCALIBRATED_DIGITAL_DYNAMICS",
+    "head": "5e25032206d34aada2b99ccabb70654fabd15be4",
+    "reference_assets": {
+      "step_file": "c2.1/cad/PPR_C2_1_machine_integration.step",
+      "step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12",
+      "usd_file": "c2.2/sim/assets/usd/machine.usda",
+      "usd_sha256": "7a14f96e667cf3cd483d4be1b2c38267de2bb8081cf5d13f450b2ec210617296"
+    },
+    "run_hashes": {
+      "note": "appended at A3",
+      "runs": []
+    }
+  },
+  "dt_mapping": {
+    "physics_dt_s": 0.005,
+    "set_call": "SimulationManager.set_physics_dt(0.005) once pre-play",
+    "updates": 240,
+    "sim_time_s": 1.2,
+    "advance_rule": "each sim.update() advances physics_dt_s; telemetry t=(step+1)*dt"
+  },
+  "torque_source": "CONTACT_DERIVED_MOMENT_ARM",
+  "torque_equation": "tau(t) = CUTTER_R_M * sum_i |F_contact,i(t)|; W = sum_t tau(t)*omega*dt"
+}

@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 37,
+  "class": "W2",
+  "waste_id": "W2-hollow_box-00037",
+  "input_mass_g": 333.914,
+  "peak_proxy": 0.4940550056360311,
+  "work_proxy": 67.75134863150836,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W2-hollow_box-00037:S1-B:F000",
+      "source_waste_id": "W2-hollow_box-00037",
+      "seed": 37,
+      "mass_g": 111.304667,
+      "volume_mm3": 89761.828,
+      "com_mm": [
+        42.69,
+        41.12,
+        9.12
+      ],
+      "principal_dims_mm": [
+        75.893,
+        71.96,
+        9.12
+      ],
+      "equiv_diameter_mm": 55.552,
+      "aspect_ratio": 8.322,
+      "pose_quaternion_xyzw": [
+        -0.40802,
+        0.16854,
+        -0.08851,
+        -0.89291
+      ],
+      "velocity_proxy_mm_s": [
+        2.4703,
+        2.4703,
+        2.4703
+      ],
+      "bond_state": {
+        "failed_bonds": 349,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W2-hollow_box-00037:S1-B:F001",
+      "source_waste_id": "W2-hollow_box-00037",
+      "seed": 37,
+      "mass_g": 222.609333,
+      "volume_mm3": 179523.656,
+      "com_mm": [
+        42.69,
+        41.12,
+        36.48
+      ],
+      "principal_dims_mm": [
+        75.893,
+        71.96,
+        27.36
+      ],
+      "equiv_diameter_mm": 69.991,
+      "aspect_ratio": 2.774,
+      "pose_quaternion_xyzw": [
+        -0.81306,
+        -0.14548,
+        0.33467,
+        0.45361
+      ],
+      "velocity_proxy_mm_s": [
+        2.4703,
+        2.4703,
+        2.4703
+      ],
+      "bond_state": {
+        "failed_bonds": 349,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

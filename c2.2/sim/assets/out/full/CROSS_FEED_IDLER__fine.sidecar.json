@@ -1,0 +1,98 @@
+{
+  "asset_id": "CROSS_FEED_IDLER",
+  "group": "feed",
+  "kinematic_body": "CROSS_FEED_IDLER",
+  "lod": "fine",
+  "step_index": 206,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.206",
+  "mesh_file": "sim/assets/out/full/CROSS_FEED_IDLER__fine.stl",
+  "mesh_bytes": 99684,
+  "mesh_sha256": "9d1c20a78df0122b1f992ae0f7d1e6b52039f65d1e3bd7fbd35c15178192133e",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    353.42754773001064,
+    206.99999985,
+    335.92879319674967,
+    382.2740866698587,
+    224.00000015,
+    364.77533213659774
+  ],
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "tessellation": {
+    "linear_tolerance_mm": 0.1,
+    "angular_tolerance_rad": 0.1
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "STEEL",
+  "source_material_label": "steel reference gear and shaft",
+  "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+  "thermal_condition": "hot-zone grade and measured temperature HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=CROSS_FEED_IDLER",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 7850.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 7850.0,
+  "effective_density_bounds_kg_m3": [
+    7850.0,
+    7850.0
+  ],
+  "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+  "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+  "volume_mm3": 3140.5026774475646,
+  "solid_bbox_mm": [
+    353.4275477800087,
+    206.9999999,
+    335.9287932467487,
+    382.2740866198513,
+    224.0000001,
+    364.7753320865913
+  ],
+  "mass_kg": 0.024652946017963386,
+  "mass_bounds_kg": [
+    0.024652946017963386,
+    0.024652946017963386
+  ],
+  "center_of_mass_mm": [
+    367.85081719993,
+    215.5,
+    350.35206266667
+  ],
+  "inertia_kg_mm2": [
+    2.3032483425380943,
+    3.419046423937614,
+    2.3032483425380943
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    6.909745027614282,
+    10.257139271812843,
+    6.909745027614282
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      2.3032483425380943,
+      3.419046423937614,
+      2.3032483425380943
+    ],
+    "upper_bound_kg_mm2": [
+      6.909745027614282,
+      10.257139271812843,
+      6.909745027614282
+    ],
+    "center_of_mass_mm": [
+      367.85081719993,
+      215.5,
+      350.35206266667
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

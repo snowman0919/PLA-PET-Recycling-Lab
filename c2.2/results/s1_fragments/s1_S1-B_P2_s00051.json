@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 51,
+  "class": "P2",
+  "waste_id": "P2-failed_print_mass-00051",
+  "input_mass_g": 133.361,
+  "peak_proxy": 1.3435315747586793,
+  "work_proxy": 92.38490057301166,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "P2-failed_print_mass-00051:S1-B:F000",
+      "source_waste_id": "P2-failed_print_mass-00051",
+      "seed": 51,
+      "mass_g": 74.089444,
+      "volume_mm3": 59749.552,
+      "com_mm": [
+        25.653,
+        19.89,
+        15.025
+      ],
+      "principal_dims_mm": [
+        41.044,
+        29.835,
+        25.042
+      ],
+      "equiv_diameter_mm": 48.504,
+      "aspect_ratio": 1.639,
+      "pose_quaternion_xyzw": [
+        -0.24406,
+        0.52486,
+        0.77406,
+        0.2565
+      ],
+      "velocity_proxy_mm_s": [
+        6.7177,
+        6.7177,
+        6.7177
+      ],
+      "bond_state": {
+        "failed_bonds": 175,
+        "first_kind": "in_raster"
+      },
+      "class": "P2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "P2-failed_print_mass-00051:S1-B:F001",
+      "source_waste_id": "P2-failed_print_mass-00051",
+      "seed": 51,
+      "mass_g": 59.271556,
+      "volume_mm3": 47799.642,
+      "com_mm": [
+        71.828,
+        19.89,
+        15.025
+      ],
+      "principal_dims_mm": [
+        30.783,
+        29.835,
+        25.042
+      ],
+      "equiv_diameter_mm": 45.027,
+      "aspect_ratio": 1.229,
+      "pose_quaternion_xyzw": [
+        0.80529,
+        -0.38391,
+        0.44794,
+        0.05893
+      ],
+      "velocity_proxy_mm_s": [
+        6.7177,
+        6.7177,
+        6.7177
+      ],
+      "bond_state": {
+        "failed_bonds": 175,
+        "first_kind": "in_raster"
+      },
+      "class": "P2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

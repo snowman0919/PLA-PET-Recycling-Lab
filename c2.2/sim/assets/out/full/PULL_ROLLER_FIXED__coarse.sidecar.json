@@ -1,0 +1,98 @@
+{
+  "asset_id": "PULL_ROLLER_FIXED",
+  "group": "puller",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 253,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.253",
+  "mesh_file": "sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
+  "mesh_bytes": 15484,
+  "mesh_sha256": "59976e13b0a89e948e9a1d6783f08f2f7943698be214a9eff62978304228725d",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    818.9999999,
+    244.9999999,
+    104.2499999,
+    839.0000001,
+    283.0000001,
+    124.2500001
+  ],
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "TPU_METAL_PROXY",
+  "source_material_label": "steel; knurl or rubber per TPU grip",
+  "manufacturing_process": "single CAD solid represents TPU tread and metal hub; split thickness unmodeled",
+  "thermal_condition": "tread compound/adhesion/grip and working temperature HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 3200.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 3200.0,
+  "effective_density_bounds_kg_m3": [
+    1100.0,
+    7850.0
+  ],
+  "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+  "mass_material_status": "BOUNDED_PROXY_UNRATED",
+  "volume_mm3": 7715.751557216661,
+  "solid_bbox_mm": [
+    818.9999999,
+    244.9999999,
+    104.2499999,
+    839.0000001,
+    283.0000001,
+    124.2500001
+  ],
+  "mass_kg": 0.024690404983093318,
+  "mass_bounds_kg": [
+    0.008487326712938328,
+    0.0605686497241508
+  ],
+  "center_of_mass_mm": [
+    829.0,
+    264.0,
+    114.25
+  ],
+  "inertia_kg_mm2": [
+    3.794092280136791,
+    1.6460270317934214,
+    3.7940922801367862
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    27.9221478741317,
+    12.11373018710471,
+    27.922147874131664
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      3.794092280136791,
+      1.6460270317934214,
+      3.7940922801367862
+    ],
+    "upper_bound_kg_mm2": [
+      27.9221478741317,
+      12.11373018710471,
+      27.922147874131664
+    ],
+    "center_of_mass_mm": [
+      829.0,
+      264.0,
+      114.25
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

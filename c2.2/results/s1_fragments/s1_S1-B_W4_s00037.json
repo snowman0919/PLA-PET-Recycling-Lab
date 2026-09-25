@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 37,
+  "class": "W4",
+  "waste_id": "W4-purge_bundle-00037",
+  "input_mass_g": 150.625,
+  "peak_proxy": 1.0616049528794893,
+  "work_proxy": 113.8167165739683,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W4-purge_bundle-00037:S1-B:F000",
+      "source_waste_id": "W4-purge_bundle-00037",
+      "seed": 37,
+      "mass_g": 50.208333,
+      "volume_mm3": 40490.591,
+      "com_mm": [
+        40.255,
+        34.08,
+        3.88
+      ],
+      "principal_dims_mm": [
+        70.446,
+        58.423,
+        3.88
+      ],
+      "equiv_diameter_mm": 42.604,
+      "aspect_ratio": 18.156,
+      "pose_quaternion_xyzw": [
+        -0.40802,
+        0.16854,
+        -0.08851,
+        -0.89291
+      ],
+      "velocity_proxy_mm_s": [
+        5.308,
+        5.308,
+        5.308
+      ],
+      "bond_state": {
+        "failed_bonds": 273,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W4",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W4-purge_bundle-00037:S1-B:F001",
+      "source_waste_id": "W4-purge_bundle-00037",
+      "seed": 37,
+      "mass_g": 100.416667,
+      "volume_mm3": 80981.183,
+      "com_mm": [
+        40.255,
+        34.08,
+        15.52
+      ],
+      "principal_dims_mm": [
+        70.446,
+        58.423,
+        11.64
+      ],
+      "equiv_diameter_mm": 53.678,
+      "aspect_ratio": 6.052,
+      "pose_quaternion_xyzw": [
+        -0.81306,
+        -0.14548,
+        0.33467,
+        0.45361
+      ],
+      "velocity_proxy_mm_s": [
+        5.308,
+        5.308,
+        5.308
+      ],
+      "bond_state": {
+        "failed_bonds": 273,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W4",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}
