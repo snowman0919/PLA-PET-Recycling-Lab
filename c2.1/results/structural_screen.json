@@ -2,110 +2,6 @@
   "PC_creep_orientation_screen": [
     {
       "long_term_retention_assumption": 0.65,
-      "part_scenario": "FEED-BUF wall 0.5 kPa",
-      "screen_decision": "HOLD unmeasured duration/grade/layer data",
-      "screen_limit_MPa": {
-        "XY": 8.341666666666667,
-        "Z": 5.362500000000001
-      },
-      "stress_margin_XY": 9.077,
-      "stress_margin_Z": 5.835,
-      "stress_proxy_MPa": 0.9189717717003568,
-      "temperature_C": 60.0
-    },
-    {
-      "long_term_retention_assumption": 0.35,
-      "part_scenario": "FEED-BUF wall 0.5 kPa",
-      "screen_decision": "HOLD unmeasured duration/grade/layer data",
-      "screen_limit_MPa": {
-        "XY": 4.491666666666666,
-        "Z": 2.8874999999999997
-      },
-      "stress_margin_XY": 4.888,
-      "stress_margin_Z": 3.142,
-      "stress_proxy_MPa": 0.9189717717003568,
-      "temperature_C": 80.0
-    },
-    {
-      "long_term_retention_assumption": 0.65,
-      "part_scenario": "FEED-BUF wall 5 kPa",
-      "screen_decision": "REJECT assumed load/temperature/axis combination",
-      "screen_limit_MPa": {
-        "XY": 8.341666666666667,
-        "Z": 5.362500000000001
-      },
-      "stress_margin_XY": 0.908,
-      "stress_margin_Z": 0.584,
-      "stress_proxy_MPa": 9.189717717003566,
-      "temperature_C": 60.0
-    },
-    {
-      "long_term_retention_assumption": 0.35,
-      "part_scenario": "FEED-BUF wall 5 kPa",
-      "screen_decision": "REJECT assumed load/temperature/axis combination",
-      "screen_limit_MPa": {
-        "XY": 4.491666666666666,
-        "Z": 2.8874999999999997
-      },
-      "stress_margin_XY": 0.489,
-      "stress_margin_Z": 0.314,
-      "stress_proxy_MPa": 9.189717717003566,
-      "temperature_C": 80.0
-    },
-    {
-      "long_term_retention_assumption": 0.65,
-      "part_scenario": "FEED-BUF inclined x-wall 0.5 kPa",
-      "screen_decision": "REJECT assumed load/temperature/axis combination",
-      "screen_limit_MPa": {
-        "XY": 8.341666666666667,
-        "Z": 5.362500000000001
-      },
-      "stress_margin_XY": 0.749,
-      "stress_margin_Z": 0.481,
-      "stress_proxy_MPa": 11.143025255275914,
-      "temperature_C": 60.0
-    },
-    {
-      "long_term_retention_assumption": 0.35,
-      "part_scenario": "FEED-BUF inclined x-wall 0.5 kPa",
-      "screen_decision": "REJECT assumed load/temperature/axis combination",
-      "screen_limit_MPa": {
-        "XY": 4.491666666666666,
-        "Z": 2.8874999999999997
-      },
-      "stress_margin_XY": 0.403,
-      "stress_margin_Z": 0.259,
-      "stress_proxy_MPa": 11.143025255275914,
-      "temperature_C": 80.0
-    },
-    {
-      "long_term_retention_assumption": 0.65,
-      "part_scenario": "FEED-BUF inclined x-wall 5 kPa",
-      "screen_decision": "REJECT assumed load/temperature/axis combination",
-      "screen_limit_MPa": {
-        "XY": 8.341666666666667,
-        "Z": 5.362500000000001
-      },
-      "stress_margin_XY": 0.075,
-      "stress_margin_Z": 0.048,
-      "stress_proxy_MPa": 111.43025255275916,
-      "temperature_C": 60.0
-    },
-    {
-      "long_term_retention_assumption": 0.35,
-      "part_scenario": "FEED-BUF inclined x-wall 5 kPa",
-      "screen_decision": "REJECT assumed load/temperature/axis combination",
-      "screen_limit_MPa": {
-        "XY": 4.491666666666666,
-        "Z": 2.8874999999999997
-      },
-      "stress_margin_XY": 0.04,
-      "stress_margin_Z": 0.026,
-      "stress_proxy_MPa": 111.43025255275916,
-      "temperature_C": 80.0
-    },
-    {
-      "long_term_retention_assumption": 0.65,
       "part_scenario": "HOPPER broad wall",
       "screen_decision": "HOLD unmeasured duration/grade/layer data",
       "screen_limit_MPa": {
@@ -184,227 +80,844 @@
     }
   ],
   "buffer_reinforcement_sizing": {
-    "80C_Z_stress_limit_MPa": 2.8874999999999997,
-    "alternative_continuous_2mm_steel_load_bearing_liner": {
-      "computed": {
-        "I_mm4": 32.0,
-        "deflection_margin_to_slant_over_100": 1.603,
-        "deflection_mm": 0.6972681725957621,
-        "force_N": 26.830156553082958,
-        "moment_Nmm": 1499.702709714459,
-        "stress_MPa": 46.86570967857684,
-        "stress_margin_to_assumed_120MPa": 2.561
+    "basis": "Existing four-station S355 receiver; 5 kPa uniform pressure. One uninterrupted base-fixed/free-mouth cantilever, piecewise minimum normal thickness and constant maximum strip width; no shoulder/ring fixity or membrane/corner stiffness credited.",
+    "decision": "HOLD: sizing proxy is not a weld, saddle, fastener, buckling, impact, thermal or pressure-containment qualification",
+    "face_sizing_at_5kPa": {
+      "+X": {
+        "continuous_span_mm": 129.94419096643892,
+        "current_minimum_normal_thickness_by_segment_mm": [
+          3.2335783637895035,
+          2.3779281102440675,
+          0.9673351945655494
+        ],
+        "interpretation": "If every segment thickness scales equally: stress scales as 1/t^2 and tip deflection as 1/t^3. Does not size a local rib/ring or qualify joints.",
+        "minimum_uniform_thickness_scale_both": 0.8090027413884926,
+        "minimum_uniform_thickness_scale_for_assumed_stress": 0.5404348085890919,
+        "minimum_uniform_thickness_scale_for_span_over_100": 0.8090027413884926,
+        "peak_stress_MPa": 35.048373880167404,
+        "tip_deflection_mm": 0.688029167095365
       },
-      "decision": "HOLD metal-throat attachment, corrosion/thermal and enclosure joint qualification",
-      "pressure_kPa": 5.0,
-      "source": "proposed, NOT present in current CAD/BOM",
-      "strip_span_mm": 111.79231897117897,
-      "thickness_mm": 2.0
+      "+Y": {
+        "continuous_span_mm": 74.68698510646149,
+        "current_minimum_normal_thickness_by_segment_mm": [
+          3.2335783637895035,
+          1.949110373229799,
+          1.9089599560700594
+        ],
+        "interpretation": "If every segment thickness scales equally: stress scales as 1/t^2 and tip deflection as 1/t^3. Does not size a local rib/ring or qualify joints.",
+        "minimum_uniform_thickness_scale_both": 0.476250186773954,
+        "minimum_uniform_thickness_scale_for_assumed_stress": 0.34237198134887276,
+        "minimum_uniform_thickness_scale_for_span_over_100": 0.476250186773954,
+        "peak_stress_MPa": 14.066228833530344,
+        "tip_deflection_mm": 0.08067712356263611
+      },
+      "-X": {
+        "continuous_span_mm": 113.15680025877349,
+        "current_minimum_normal_thickness_by_segment_mm": [
+          3.2335783637895035,
+          2.5501968411570255,
+          1.354341591096782
+        ],
+        "interpretation": "If every segment thickness scales equally: stress scales as 1/t^2 and tip deflection as 1/t^3. Does not size a local rib/ring or qualify joints.",
+        "minimum_uniform_thickness_scale_both": 0.631023712652314,
+        "minimum_uniform_thickness_scale_for_assumed_stress": 0.4303300715659774,
+        "minimum_uniform_thickness_scale_for_span_over_100": 0.631023712652314,
+        "peak_stress_MPa": 22.22207645927751,
+        "tip_deflection_mm": 0.28432673430285577
+      },
+      "-Y": {
+        "continuous_span_mm": 74.68698510646149,
+        "current_minimum_normal_thickness_by_segment_mm": [
+          3.2335783637895035,
+          1.949110373229799,
+          1.9089599560700594
+        ],
+        "interpretation": "If every segment thickness scales equally: stress scales as 1/t^2 and tip deflection as 1/t^3. Does not size a local rib/ring or qualify joints.",
+        "minimum_uniform_thickness_scale_both": 0.476250186773954,
+        "minimum_uniform_thickness_scale_for_assumed_stress": 0.34237198134887276,
+        "minimum_uniform_thickness_scale_for_span_over_100": 0.476250186773954,
+        "peak_stress_MPa": 14.066228833530344,
+        "tip_deflection_mm": 0.08067712356263611
+      }
     },
-    "basis": "5 kPa pressure, E_PC=2300 MPa, deflection <= EACH unsupported span/100, illustrative 80C long-term PC Z screen limit; every ring must be radially anchored to metal frame and restore a fully fixed boundary, not a floating hoop",
-    "caveat": "Real taper, perforation/metal rim, support stiffness, attachment pullout, thermal gradient and impact require physical coupons/structural validation. Thickening x faces reduces inner throat width and may block flow; 210-mm printer XY only bounds outer 190-mm mouth, not joint adequacy.",
-    "inclined_x_face_required_horizontal_offset_at_all_heights_mm": 15.530325909055163,
-    "inclined_x_face_uniform_minimum_throat_thickness_bound": {
-      "max_anchored_cantilever_span_mm_for_80C_Z_stress": 17.99581020157423,
-      "max_anchored_cantilever_span_mm_for_deflection": 18.84422269927898,
-      "minimum_thickness_mm_for_80C_Z_stress": 8.057431056219729,
-      "minimum_thickness_mm_for_deflection": 7.694666015889739,
-      "required_equal_spans_at_80C_Z": 7
-    },
-    "inclined_x_face_uniform_nominal_3mm_horizontal_offset": {
-      "max_anchored_cantilever_span_mm_for_80C_Z_stress": 21.594972241889074,
-      "max_anchored_cantilever_span_mm_for_deflection": 22.61306723913478,
-      "minimum_thickness_mm_for_80C_Z_stress": 8.057431056219727,
-      "minimum_thickness_mm_for_deflection": 7.694666015889739,
-      "required_equal_spans_at_80C_Z": 6
-    },
-    "near_vertical_long_y_face": {
-      "max_anchored_cantilever_span_mm_for_80C_Z_stress": 33.58123314946006,
-      "max_anchored_cantilever_span_mm_for_deflection": 35.16442043434522,
-      "minimum_thickness_mm_for_80C_Z_stress": 4.317887891568729,
-      "minimum_thickness_mm_for_deflection": 4.123486131976114,
-      "required_equal_spans_at_80C_Z": 2
-    },
-    "worst_bound_ideal_intermediate_ring_z_mm": [
-      8.285714285714286,
-      16.571428571428573,
-      24.857142857142858,
-      33.142857142857146,
-      41.42857142857143,
-      49.714285714285715
-    ]
+    "steel_assumed_stress_limit_MPa": 120.0,
+    "steel_room_screen_E_MPa": 210000.0
   },
   "cases": [
     {
       "computed": {
-        "I_mm4": 224.49991148651227,
-        "deflection_margin_to_span_over_100": 2.022,
-        "deflection_mm": 0.2962351063868416,
-        "force_N": 5.691285004285061,
-        "moment_Nmm": 170.47750000000002,
-        "stress_MPa": 0.9189717717003568,
-        "stress_margin_to_room_assumption": 19.587
+        "deflection_margin_to_span_over_100": 92.575,
+        "deflection_mm": 0.008067712356263608,
+        "segment_results": [
+          {
+            "I_mm4": 535.33116325134,
+            "root_moment_Nmm": 264.961922853908,
+            "root_stress_MPa": 0.8002290916195004,
+            "tip_deflection_contribution_mm": 0.00194615220731449
+          },
+          {
+            "I_mm4": 117.24157752039184,
+            "root_moment_Nmm": 169.22046907720042,
+            "root_stress_MPa": 1.4066228833530343,
+            "tip_deflection_contribution_mm": 0.006119026513243812
+          },
+          {
+            "I_mm4": 110.14449853291539,
+            "root_moment_Nmm": 3.3368749999999974,
+            "root_stress_MPa": 0.02891638183593748,
+            "tip_deflection_contribution_mm": 2.533635705307555e-06
+          }
+        ],
+        "stress_MPa": 1.4066228833530343,
+        "stress_margin_to_room_assumption": 85.311
       },
       "decision": "HOLD",
       "geometry": {
-        "nominal_wall_mm": 3.0,
-        "normal_thickness_throat_mm": 2.420367279029003,
-        "normal_thickness_top_mm": 3.1423751453156226,
+        "material": "S355 steel",
         "part": "FEED-BUF",
-        "slant_span_mm": 59.90826320300064,
-        "source": "design/assembly.json FEED-BUF outer/inner lofts",
-        "strip_width_mm": 190.0,
-        "vertical_height_mm": 58
+        "segments": [
+          {
+            "axis_run_mm": 0.0,
+            "minimum_normal_thickness_mm": 3.2335783637895035,
+            "outer_z_mm": [
+              0,
+              15
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              3.5
+            ],
+            "slant_span_mm": 15.0,
+            "strip_width_mm": 190.0
+          },
+          {
+            "axis_run_mm": 11.5,
+            "minimum_normal_thickness_mm": 1.949110373229799,
+            "outer_z_mm": [
+              15,
+              65
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              2.0
+            ],
+            "slant_span_mm": 51.30545779934139,
+            "strip_width_mm": 190.0
+          },
+          {
+            "axis_run_mm": 2.5,
+            "minimum_normal_thickness_mm": 1.9089599560700594,
+            "outer_z_mm": [
+              65,
+              73
+            ],
+            "same_z_offsets_mm": [
+              2.0,
+              3.166666666666668
+            ],
+            "slant_span_mm": 8.381527307120106,
+            "strip_width_mm": 190.0
+          }
+        ],
+        "slant_span_mm": 74.68698510646149,
+        "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)",
+        "strip_width_mm": 190.0
       },
       "limits": {
-        "deflection_mm": 0.5990826320300063,
-        "stress_MPa": 18.0
+        "deflection_mm": 0.7468698510646149,
+        "stress_MPa": 120.0
       },
       "load": {
         "pressure_kPa": 0.5,
-        "type": "assumed bulk static/upset envelope, excludes bridging and impacts"
+        "type": "assumed normal bulk pressure envelope, no bridging or impact"
       },
-      "model": "long near-vertical panel cantilever at uniform minimum throat normal thickness; top free/bottom fully fixed",
-      "name": "FEED-BUF wall 0.5 kPa",
-      "note": "Strip ignores corner restraint and is not a containment or burst calculation.",
+      "model": "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+      "name": "FEED-BUF +Y wall 0.5 kPa",
+      "note": "Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.",
       "unmeasured_dependencies": [
-        "actual feed mass/bridging/impact",
-        "metal throat joint and wall fixture",
-        "PC grade/process/temperature"
+        "actual feed mass, arching and impact",
+        "neck-to-saddle weld and saddle M5 fastener/preload strength",
+        "shell local buckling/corners and as-fabricated thickness",
+        "temperature gradients and cold-barrel interface"
       ]
     },
     {
       "computed": {
-        "I_mm4": 224.49991148651227,
-        "deflection_margin_to_span_over_100": 0.202,
-        "deflection_mm": 2.9623510638684154,
-        "force_N": 56.9128500428506,
-        "moment_Nmm": 1704.7749999999999,
-        "stress_MPa": 9.189717717003566,
-        "stress_margin_to_room_assumption": 1.959
+        "deflection_margin_to_span_over_100": 9.258,
+        "deflection_mm": 0.08067712356263611,
+        "segment_results": [
+          {
+            "I_mm4": 535.33116325134,
+            "root_moment_Nmm": 2649.6192285390803,
+            "root_stress_MPa": 8.002290916195005,
+            "tip_deflection_contribution_mm": 0.019461522073144902
+          },
+          {
+            "I_mm4": 117.24157752039184,
+            "root_moment_Nmm": 1692.2046907720041,
+            "root_stress_MPa": 14.066228833530344,
+            "tip_deflection_contribution_mm": 0.061190265132438124
+          },
+          {
+            "I_mm4": 110.14449853291539,
+            "root_moment_Nmm": 33.36874999999998,
+            "root_stress_MPa": 0.2891638183593748,
+            "tip_deflection_contribution_mm": 2.533635705307555e-05
+          }
+        ],
+        "stress_MPa": 14.066228833530344,
+        "stress_margin_to_room_assumption": 8.531
       },
-      "decision": "REJECT_ASSUMED_DEFLECTION",
+      "decision": "HOLD",
       "geometry": {
-        "nominal_wall_mm": 3.0,
-        "normal_thickness_throat_mm": 2.420367279029003,
-        "normal_thickness_top_mm": 3.1423751453156226,
+        "material": "S355 steel",
         "part": "FEED-BUF",
-        "slant_span_mm": 59.90826320300064,
-        "source": "design/assembly.json FEED-BUF outer/inner lofts",
-        "strip_width_mm": 190.0,
-        "vertical_height_mm": 58
+        "segments": [
+          {
+            "axis_run_mm": 0.0,
+            "minimum_normal_thickness_mm": 3.2335783637895035,
+            "outer_z_mm": [
+              0,
+              15
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              3.5
+            ],
+            "slant_span_mm": 15.0,
+            "strip_width_mm": 190.0
+          },
+          {
+            "axis_run_mm": 11.5,
+            "minimum_normal_thickness_mm": 1.949110373229799,
+            "outer_z_mm": [
+              15,
+              65
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              2.0
+            ],
+            "slant_span_mm": 51.30545779934139,
+            "strip_width_mm": 190.0
+          },
+          {
+            "axis_run_mm": 2.5,
+            "minimum_normal_thickness_mm": 1.9089599560700594,
+            "outer_z_mm": [
+              65,
+              73
+            ],
+            "same_z_offsets_mm": [
+              2.0,
+              3.166666666666668
+            ],
+            "slant_span_mm": 8.381527307120106,
+            "strip_width_mm": 190.0
+          }
+        ],
+        "slant_span_mm": 74.68698510646149,
+        "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)",
+        "strip_width_mm": 190.0
       },
       "limits": {
-        "deflection_mm": 0.5990826320300063,
-        "stress_MPa": 18.0
+        "deflection_mm": 0.7468698510646149,
+        "stress_MPa": 120.0
       },
       "load": {
         "pressure_kPa": 5.0,
-        "type": "assumed bulk static/upset envelope, excludes bridging and impacts"
+        "type": "assumed normal bulk pressure envelope, no bridging or impact"
       },
-      "model": "long near-vertical panel cantilever at uniform minimum throat normal thickness; top free/bottom fully fixed",
-      "name": "FEED-BUF wall 5 kPa",
-      "note": "Strip ignores corner restraint and is not a containment or burst calculation.",
+      "model": "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+      "name": "FEED-BUF +Y wall 5 kPa",
+      "note": "Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.",
       "unmeasured_dependencies": [
-        "actual feed mass/bridging/impact",
-        "metal throat joint and wall fixture",
-        "PC grade/process/temperature"
+        "actual feed mass, arching and impact",
+        "neck-to-saddle weld and saddle M5 fastener/preload strength",
+        "shell local buckling/corners and as-fabricated thickness",
+        "temperature gradients and cold-barrel interface"
       ]
     },
     {
       "computed": {
-        "I_mm4": 8.728268605410914,
-        "deflection_margin_to_slant_over_100": 0.048,
-        "deflection_mm": 23.340662351028566,
-        "force_N": 2.6830156553082953,
-        "moment_Nmm": 149.97027097144587,
-        "nominal_3mm_projected_proxy": {
-          "I_mm4": 15.082448150150064,
-          "deflection_mm": 13.507327749437824,
-          "force_N": 2.6830156553082953,
-          "moment_Nmm": 149.97027097144587,
-          "stress_MPa": 7.738211982830494
-        },
-        "stress_MPa": 11.143025255275914,
-        "stress_margin_to_room_assumption": 1.615
+        "deflection_margin_to_span_over_100": 92.575,
+        "deflection_mm": 0.008067712356263608,
+        "segment_results": [
+          {
+            "I_mm4": 535.33116325134,
+            "root_moment_Nmm": 264.961922853908,
+            "root_stress_MPa": 0.8002290916195004,
+            "tip_deflection_contribution_mm": 0.00194615220731449
+          },
+          {
+            "I_mm4": 117.24157752039184,
+            "root_moment_Nmm": 169.22046907720042,
+            "root_stress_MPa": 1.4066228833530343,
+            "tip_deflection_contribution_mm": 0.006119026513243812
+          },
+          {
+            "I_mm4": 110.14449853291539,
+            "root_moment_Nmm": 3.3368749999999974,
+            "root_stress_MPa": 0.02891638183593748,
+            "tip_deflection_contribution_mm": 2.533635705307555e-06
+          }
+        ],
+        "stress_MPa": 1.4066228833530343,
+        "stress_margin_to_room_assumption": 85.311
       },
-      "decision": "REJECT_ASSUMED_PRESSURE_WITHOUT_STIFFENING",
+      "decision": "HOLD",
       "geometry": {
-        "horizontal_offset_at_throat_mm": 2.5,
-        "horizontal_offset_at_top_mm": 4.6113468591366455,
-        "nominal_panel_width_mm": 48.0,
-        "normal_thickness_throat_mm": 1.2970479665725714,
-        "normal_thickness_top_mm": 2.3924552267216,
+        "material": "S355 steel",
         "part": "FEED-BUF",
-        "slant_span_mm": 111.79231897117897,
-        "source": "design/assembly.json FEED-BUF inclined outer neck z15..73 and cut z15..74",
-        "vertical_height_mm": 58,
-        "x_run_mm": 95.56946468906176
+        "segments": [
+          {
+            "axis_run_mm": 0.0,
+            "minimum_normal_thickness_mm": 3.2335783637895035,
+            "outer_z_mm": [
+              0,
+              15
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              3.5
+            ],
+            "slant_span_mm": 15.0,
+            "strip_width_mm": 190.0
+          },
+          {
+            "axis_run_mm": -11.5,
+            "minimum_normal_thickness_mm": 1.949110373229799,
+            "outer_z_mm": [
+              15,
+              65
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              2.0
+            ],
+            "slant_span_mm": 51.30545779934139,
+            "strip_width_mm": 190.0
+          },
+          {
+            "axis_run_mm": -2.5,
+            "minimum_normal_thickness_mm": 1.9089599560700594,
+            "outer_z_mm": [
+              65,
+              73
+            ],
+            "same_z_offsets_mm": [
+              2.0,
+              3.166666666666668
+            ],
+            "slant_span_mm": 8.381527307120106,
+            "strip_width_mm": 190.0
+          }
+        ],
+        "slant_span_mm": 74.68698510646149,
+        "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)",
+        "strip_width_mm": 190.0
       },
       "limits": {
-        "deflection_mm": 1.1179231897117896,
-        "stress_MPa": 18.0
+        "deflection_mm": 0.7468698510646149,
+        "stress_MPa": 120.0
       },
       "load": {
         "pressure_kPa": 0.5,
-        "type": "assumed uniform normal bulk pressure, corner/membrane action omitted"
+        "type": "assumed normal bulk pressure envelope, no bridging or impact"
       },
-      "model": "inclined-panel generator cantilever, worst throat normal thickness applied uniformly; deliberately pessimistic strip, no corner/membrane stiffness",
-      "name": "FEED-BUF inclined x-wall 0.5 kPa",
-      "note": "Uniform minimum thickness is a conservative geometry bound, NOT an exact variable-section shell solution.",
+      "model": "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+      "name": "FEED-BUF -Y wall 0.5 kPa",
+      "note": "Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.",
       "unmeasured_dependencies": [
-        "real tapered-shell stiffness and corner joints",
-        "bulk force/impact",
-        "metal throat and any external rib anchors",
-        "PC process/print direction"
+        "actual feed mass, arching and impact",
+        "neck-to-saddle weld and saddle M5 fastener/preload strength",
+        "shell local buckling/corners and as-fabricated thickness",
+        "temperature gradients and cold-barrel interface"
       ]
     },
     {
       "computed": {
-        "I_mm4": 8.728268605410914,
-        "deflection_margin_to_slant_over_100": 0.005,
-        "deflection_mm": 233.40662351028573,
-        "force_N": 26.830156553082958,
-        "moment_Nmm": 1499.702709714459,
-        "nominal_3mm_projected_proxy": {
-          "I_mm4": 15.082448150150064,
-          "deflection_mm": 135.0732774943783,
-          "force_N": 26.830156553082958,
-          "moment_Nmm": 1499.702709714459,
-          "stress_MPa": 77.38211982830495
-        },
-        "stress_MPa": 111.43025255275916,
-        "stress_margin_to_room_assumption": 0.162
+        "deflection_margin_to_span_over_100": 9.258,
+        "deflection_mm": 0.08067712356263611,
+        "segment_results": [
+          {
+            "I_mm4": 535.33116325134,
+            "root_moment_Nmm": 2649.6192285390803,
+            "root_stress_MPa": 8.002290916195005,
+            "tip_deflection_contribution_mm": 0.019461522073144902
+          },
+          {
+            "I_mm4": 117.24157752039184,
+            "root_moment_Nmm": 1692.2046907720041,
+            "root_stress_MPa": 14.066228833530344,
+            "tip_deflection_contribution_mm": 0.061190265132438124
+          },
+          {
+            "I_mm4": 110.14449853291539,
+            "root_moment_Nmm": 33.36874999999998,
+            "root_stress_MPa": 0.2891638183593748,
+            "tip_deflection_contribution_mm": 2.533635705307555e-05
+          }
+        ],
+        "stress_MPa": 14.066228833530344,
+        "stress_margin_to_room_assumption": 8.531
       },
-      "decision": "REJECT_ASSUMED_PRESSURE_WITHOUT_STIFFENING",
+      "decision": "HOLD",
       "geometry": {
-        "horizontal_offset_at_throat_mm": 2.5,
-        "horizontal_offset_at_top_mm": 4.6113468591366455,
-        "nominal_panel_width_mm": 48.0,
-        "normal_thickness_throat_mm": 1.2970479665725714,
-        "normal_thickness_top_mm": 2.3924552267216,
+        "material": "S355 steel",
         "part": "FEED-BUF",
-        "slant_span_mm": 111.79231897117897,
-        "source": "design/assembly.json FEED-BUF inclined outer neck z15..73 and cut z15..74",
-        "vertical_height_mm": 58,
-        "x_run_mm": 95.56946468906176
+        "segments": [
+          {
+            "axis_run_mm": 0.0,
+            "minimum_normal_thickness_mm": 3.2335783637895035,
+            "outer_z_mm": [
+              0,
+              15
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              3.5
+            ],
+            "slant_span_mm": 15.0,
+            "strip_width_mm": 190.0
+          },
+          {
+            "axis_run_mm": -11.5,
+            "minimum_normal_thickness_mm": 1.949110373229799,
+            "outer_z_mm": [
+              15,
+              65
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              2.0
+            ],
+            "slant_span_mm": 51.30545779934139,
+            "strip_width_mm": 190.0
+          },
+          {
+            "axis_run_mm": -2.5,
+            "minimum_normal_thickness_mm": 1.9089599560700594,
+            "outer_z_mm": [
+              65,
+              73
+            ],
+            "same_z_offsets_mm": [
+              2.0,
+              3.166666666666668
+            ],
+            "slant_span_mm": 8.381527307120106,
+            "strip_width_mm": 190.0
+          }
+        ],
+        "slant_span_mm": 74.68698510646149,
+        "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)",
+        "strip_width_mm": 190.0
       },
       "limits": {
-        "deflection_mm": 1.1179231897117896,
-        "stress_MPa": 18.0
+        "deflection_mm": 0.7468698510646149,
+        "stress_MPa": 120.0
       },
       "load": {
         "pressure_kPa": 5.0,
-        "type": "assumed uniform normal bulk pressure, corner/membrane action omitted"
+        "type": "assumed normal bulk pressure envelope, no bridging or impact"
       },
-      "model": "inclined-panel generator cantilever, worst throat normal thickness applied uniformly; deliberately pessimistic strip, no corner/membrane stiffness",
-      "name": "FEED-BUF inclined x-wall 5 kPa",
-      "note": "Uniform minimum thickness is a conservative geometry bound, NOT an exact variable-section shell solution.",
+      "model": "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+      "name": "FEED-BUF -Y wall 5 kPa",
+      "note": "Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.",
       "unmeasured_dependencies": [
-        "real tapered-shell stiffness and corner joints",
-        "bulk force/impact",
-        "metal throat and any external rib anchors",
-        "PC process/print direction"
+        "actual feed mass, arching and impact",
+        "neck-to-saddle weld and saddle M5 fastener/preload strength",
+        "shell local buckling/corners and as-fabricated thickness",
+        "temperature gradients and cold-barrel interface"
+      ]
+    },
+    {
+      "computed": {
+        "deflection_margin_to_span_over_100": 18.886,
+        "deflection_mm": 0.0688029167095365,
+        "segment_results": [
+          {
+            "I_mm4": 135.24155703191747,
+            "root_moment_Nmm": 202.62591319106818,
+            "root_stress_MPa": 2.422357384879476,
+            "tip_deflection_contribution_mm": 0.011678416706761407
+          },
+          {
+            "I_mm4": 53.78437841670942,
+            "root_moment_Nmm": 158.54600444315014,
+            "root_stress_MPa": 3.5048373880167394,
+            "tip_deflection_contribution_mm": 0.04558882502940589
+          },
+          {
+            "I_mm4": 3.620686796935928,
+            "root_moment_Nmm": 20.518577581884344,
+            "root_stress_MPa": 2.740963710832076,
+            "tip_deflection_contribution_mm": 0.011535674973369209
+          }
+        ],
+        "stress_MPa": 3.5048373880167394,
+        "stress_margin_to_room_assumption": 34.238
+      },
+      "decision": "HOLD",
+      "geometry": {
+        "material": "S355 steel",
+        "part": "FEED-BUF",
+        "segments": [
+          {
+            "axis_run_mm": 0.0,
+            "minimum_normal_thickness_mm": 3.2335783637895035,
+            "outer_z_mm": [
+              0,
+              15
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              3.5
+            ],
+            "slant_span_mm": 15.0,
+            "strip_width_mm": 48.0
+          },
+          {
+            "axis_run_mm": 54.0,
+            "minimum_normal_thickness_mm": 2.3779281102440675,
+            "outer_z_mm": [
+              15,
+              65
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              5.0
+            ],
+            "slant_span_mm": 73.59347797189639,
+            "strip_width_mm": 48.0
+          },
+          {
+            "axis_run_mm": 40.56946468906176,
+            "minimum_normal_thickness_mm": 0.9673351945655494,
+            "outer_z_mm": [
+              65,
+              73
+            ],
+            "same_z_offsets_mm": [
+              5.0,
+              7.729940521006867
+            ],
+            "slant_span_mm": 41.35071299454254,
+            "strip_width_mm": 48.0
+          }
+        ],
+        "slant_span_mm": 129.94419096643892,
+        "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)",
+        "strip_width_mm": 48.0
+      },
+      "limits": {
+        "deflection_mm": 1.2994419096643892,
+        "stress_MPa": 120.0
+      },
+      "load": {
+        "pressure_kPa": 0.5,
+        "type": "assumed normal bulk pressure envelope, no bridging or impact"
+      },
+      "model": "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+      "name": "FEED-BUF +X wall 0.5 kPa",
+      "note": "Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.",
+      "unmeasured_dependencies": [
+        "actual feed mass, arching and impact",
+        "neck-to-saddle weld and saddle M5 fastener/preload strength",
+        "shell local buckling/corners and as-fabricated thickness",
+        "temperature gradients and cold-barrel interface"
+      ]
+    },
+    {
+      "computed": {
+        "deflection_margin_to_span_over_100": 1.889,
+        "deflection_mm": 0.688029167095365,
+        "segment_results": [
+          {
+            "I_mm4": 135.24155703191747,
+            "root_moment_Nmm": 2026.2591319106816,
+            "root_stress_MPa": 24.223573848794757,
+            "tip_deflection_contribution_mm": 0.11678416706761406
+          },
+          {
+            "I_mm4": 53.78437841670942,
+            "root_moment_Nmm": 1585.4600444315015,
+            "root_stress_MPa": 35.048373880167404,
+            "tip_deflection_contribution_mm": 0.4558882502940589
+          },
+          {
+            "I_mm4": 3.620686796935928,
+            "root_moment_Nmm": 205.18577581884344,
+            "root_stress_MPa": 27.409637108320766,
+            "tip_deflection_contribution_mm": 0.11535674973369207
+          }
+        ],
+        "stress_MPa": 35.048373880167404,
+        "stress_margin_to_room_assumption": 3.424
+      },
+      "decision": "HOLD",
+      "geometry": {
+        "material": "S355 steel",
+        "part": "FEED-BUF",
+        "segments": [
+          {
+            "axis_run_mm": 0.0,
+            "minimum_normal_thickness_mm": 3.2335783637895035,
+            "outer_z_mm": [
+              0,
+              15
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              3.5
+            ],
+            "slant_span_mm": 15.0,
+            "strip_width_mm": 48.0
+          },
+          {
+            "axis_run_mm": 54.0,
+            "minimum_normal_thickness_mm": 2.3779281102440675,
+            "outer_z_mm": [
+              15,
+              65
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              5.0
+            ],
+            "slant_span_mm": 73.59347797189639,
+            "strip_width_mm": 48.0
+          },
+          {
+            "axis_run_mm": 40.56946468906176,
+            "minimum_normal_thickness_mm": 0.9673351945655494,
+            "outer_z_mm": [
+              65,
+              73
+            ],
+            "same_z_offsets_mm": [
+              5.0,
+              7.729940521006867
+            ],
+            "slant_span_mm": 41.35071299454254,
+            "strip_width_mm": 48.0
+          }
+        ],
+        "slant_span_mm": 129.94419096643892,
+        "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)",
+        "strip_width_mm": 48.0
+      },
+      "limits": {
+        "deflection_mm": 1.2994419096643892,
+        "stress_MPa": 120.0
+      },
+      "load": {
+        "pressure_kPa": 5.0,
+        "type": "assumed normal bulk pressure envelope, no bridging or impact"
+      },
+      "model": "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+      "name": "FEED-BUF +X wall 5 kPa",
+      "note": "Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.",
+      "unmeasured_dependencies": [
+        "actual feed mass, arching and impact",
+        "neck-to-saddle weld and saddle M5 fastener/preload strength",
+        "shell local buckling/corners and as-fabricated thickness",
+        "temperature gradients and cold-barrel interface"
+      ]
+    },
+    {
+      "computed": {
+        "deflection_margin_to_span_over_100": 39.798,
+        "deflection_mm": 0.02843267343028558,
+        "segment_results": [
+          {
+            "I_mm4": 135.24155703191747,
+            "root_moment_Nmm": 153.65353733764752,
+            "root_stress_MPa": 1.83690118909782,
+            "tip_deflection_contribution_mm": 0.00751308395160489
+          },
+          {
+            "I_mm4": 66.3408607011543,
+            "root_moment_Nmm": 115.61708924448907,
+            "root_stress_MPa": 2.2222076459277513,
+            "tip_deflection_contribution_mm": 0.019825672344903858
+          },
+          {
+            "I_mm4": 9.936756285127078,
+            "root_moment_Nmm": 10.467544056798076,
+            "root_stress_MPa": 0.7133429595117754,
+            "tip_deflection_contribution_mm": 0.0010939171337768336
+          }
+        ],
+        "stress_MPa": 2.2222076459277513,
+        "stress_margin_to_room_assumption": 54.0
+      },
+      "decision": "HOLD",
+      "geometry": {
+        "material": "S355 steel",
+        "part": "FEED-BUF",
+        "segments": [
+          {
+            "axis_run_mm": 0.0,
+            "minimum_normal_thickness_mm": 3.2335783637895035,
+            "outer_z_mm": [
+              0,
+              15
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              3.5
+            ],
+            "slant_span_mm": 15.0,
+            "strip_width_mm": 48.0
+          },
+          {
+            "axis_run_mm": -47.0,
+            "minimum_normal_thickness_mm": 2.5501968411570255,
+            "outer_z_mm": [
+              15,
+              65
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              5.0
+            ],
+            "slant_span_mm": 68.62215385719105,
+            "strip_width_mm": 48.0
+          },
+          {
+            "axis_run_mm": -28.43053531093824,
+            "minimum_normal_thickness_mm": 1.354341591096782,
+            "outer_z_mm": [
+              65,
+              73
+            ],
+            "same_z_offsets_mm": [
+              5.0,
+              6.381170590104247
+            ],
+            "slant_span_mm": 29.53464640158243,
+            "strip_width_mm": 48.0
+          }
+        ],
+        "slant_span_mm": 113.15680025877349,
+        "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)",
+        "strip_width_mm": 48.0
+      },
+      "limits": {
+        "deflection_mm": 1.1315680025877348,
+        "stress_MPa": 120.0
+      },
+      "load": {
+        "pressure_kPa": 0.5,
+        "type": "assumed normal bulk pressure envelope, no bridging or impact"
+      },
+      "model": "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+      "name": "FEED-BUF -X wall 0.5 kPa",
+      "note": "Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.",
+      "unmeasured_dependencies": [
+        "actual feed mass, arching and impact",
+        "neck-to-saddle weld and saddle M5 fastener/preload strength",
+        "shell local buckling/corners and as-fabricated thickness",
+        "temperature gradients and cold-barrel interface"
+      ]
+    },
+    {
+      "computed": {
+        "deflection_margin_to_span_over_100": 3.98,
+        "deflection_mm": 0.28432673430285577,
+        "segment_results": [
+          {
+            "I_mm4": 135.24155703191747,
+            "root_moment_Nmm": 1536.535373376475,
+            "root_stress_MPa": 18.369011890978197,
+            "tip_deflection_contribution_mm": 0.07513083951604889
+          },
+          {
+            "I_mm4": 66.3408607011543,
+            "root_moment_Nmm": 1156.1708924448906,
+            "root_stress_MPa": 22.22207645927751,
+            "tip_deflection_contribution_mm": 0.19825672344903855
+          },
+          {
+            "I_mm4": 9.936756285127078,
+            "root_moment_Nmm": 104.67544056798074,
+            "root_stress_MPa": 7.133429595117753,
+            "tip_deflection_contribution_mm": 0.010939171337768335
+          }
+        ],
+        "stress_MPa": 22.22207645927751,
+        "stress_margin_to_room_assumption": 5.4
+      },
+      "decision": "HOLD",
+      "geometry": {
+        "material": "S355 steel",
+        "part": "FEED-BUF",
+        "segments": [
+          {
+            "axis_run_mm": 0.0,
+            "minimum_normal_thickness_mm": 3.2335783637895035,
+            "outer_z_mm": [
+              0,
+              15
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              3.5
+            ],
+            "slant_span_mm": 15.0,
+            "strip_width_mm": 48.0
+          },
+          {
+            "axis_run_mm": -47.0,
+            "minimum_normal_thickness_mm": 2.5501968411570255,
+            "outer_z_mm": [
+              15,
+              65
+            ],
+            "same_z_offsets_mm": [
+              3.5,
+              5.0
+            ],
+            "slant_span_mm": 68.62215385719105,
+            "strip_width_mm": 48.0
+          },
+          {
+            "axis_run_mm": -28.43053531093824,
+            "minimum_normal_thickness_mm": 1.354341591096782,
+            "outer_z_mm": [
+              65,
+              73
+            ],
+            "same_z_offsets_mm": [
+              5.0,
+              6.381170590104247
+            ],
+            "slant_span_mm": 29.53464640158243,
+            "strip_width_mm": 48.0
+          }
+        ],
+        "slant_span_mm": 113.15680025877349,
+        "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)",
+        "strip_width_mm": 48.0
+      },
+      "limits": {
+        "deflection_mm": 1.1315680025877348,
+        "stress_MPa": 120.0
+      },
+      "load": {
+        "pressure_kPa": 5.0,
+        "type": "assumed normal bulk pressure envelope, no bridging or impact"
+      },
+      "model": "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+      "name": "FEED-BUF -X wall 5 kPa",
+      "note": "Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.",
+      "unmeasured_dependencies": [
+        "actual feed mass, arching and impact",
+        "neck-to-saddle weld and saddle M5 fastener/preload strength",
+        "shell local buckling/corners and as-fabricated thickness",
+        "temperature gradients and cold-barrel interface"
       ]
     },
     {
@@ -939,19 +1452,20 @@
     "no measured forces, impact energy, vibration or fatigue",
     "no bearing, chain, gear, weld, layer-bond, screw or slot-nut certification",
     "no local buckling, notch, fracture, thermal gradients, pressure vessel or guard containment rating",
-    "no FEED-BUF straight-neck joint or metal-liner anchorage strength calculation",
+    "no FEED-BUF neck-to-saddle weld, saddle clamp M5 preload/pullout, barrel seal or thermal-fit strength calculation",
     "no raw feedstock coupon or digital geometry used as printed-part proof",
     "no fabrication, procurement or energization authorization"
   ],
   "manufacturing": {
     "ABS": "HOLD as cold outer panel option; no hot-zone or safety retainers without grade/temperature/creep proof",
-    "PC_enclosure": "PC CANDIDATE for cold hopper/lid and redesigned buffer; CURRENT buffer inclined wall REJECTS assumed pressure strip, requiring metal load path or proven stiffening. Split hopper seams, metal throat/interlock strike, creep and guard signoffs HOLD",
+    "PC_enclosure": "PC CANDIDATE for cold hopper/lid only; split hopper seams, metal interlock strike, creep and guard signoffs HOLD",
     "PLA": "REJECT for hot enclosure or load-bearing supports; only cold non-safety prototypes",
     "feedstocks_not_construction": "PLA/PET/TPU are incoming waste feedstocks; this screening's PLA/ABS/PC are candidate construction polymers, TPU only as possible puller tread after friction/wear proof",
     "motor_bearing_and_fastener_load_paths": "steel candidate; never substitute FDM for support columns, bearings, shafts, bolts, guard anchors",
     "owned_aluminum_profile": "HOLD actual T-slot moment of inertia, alloy, slot nut/bolt pullout and measured hole/slot pattern",
-    "panel_note": "180-mm lid and 190-mm buffer mouth fit XY <=210; hopper wall >210 tall, so split into <=210-mm pieces and screen joint; orient primary flexural tension in XY, Z weak and creep-sensitive",
-    "print_envelope_mm": 210
+    "panel_note": "180-mm PC lid fits XY <=210; hopper wall >210 tall, so split into <=210-mm pieces and screen joint. FEED-BUF steel receiver is not a printable PC panel; orient printed hopper/lid primary flexural tension in XY, Z weak and creep-sensitive",
+    "print_envelope_mm": 210,
+    "steel_receiver": "FEED-BUF four-station S355 steel receiver, with inset shoulder at z210 and mouth at z218, plus separate welded upper saddle and bolted lower clamp. HOLD weld procedure/inspection, wall fabrication thickness, seal, four M5 preload/fit, impact, buckling and thermal-gradient evidence; strip screen is not a pressure/guard rating"
   },
   "material_screen_assumptions": {
     "E_MPa": {
@@ -1042,7 +1556,7 @@
   "source_inputs": [
     {
       "path": "design/assembly.json",
-      "sha256": "2fd59afadcd86beefb46a478b95f805724537884d6372a8cea405afda6a1e2e5"
+      "sha256": "1c8fde1ba2265a1c8e32d7cf55bfe2d5a21704fc0480215d54cee4c260a42cc9"
     },
     {
       "path": "design/parameters.json",
@@ -1058,7 +1572,7 @@
     },
     {
       "path": "src/design.py",
-      "sha256": "d7fe07fd499e16d407e730f9567a47a8f6d1e3a8b4288025094a8bc2189edb3d"
+      "sha256": "4d75e3a084cd39f8793b5ed89747b91a5edb7b95ee5d4651ed350c3643a08e2f"
     },
     {
       "path": "src/supports.py",
@@ -1112,23 +1626,6 @@
         "PC": 6.5e-05,
         "steel": 1.2e-05
       },
-      "assumed_max_C": 60.0,
-      "decision": "HOLD",
-      "differential_mm": 0.40279999999999994,
-      "free_growth_mm": {
-        "PC": 0.49399999999999994,
-        "steel": 0.0912
-      },
-      "joint": "buffer-to-steel",
-      "length_mm": 190.0,
-      "reference_C": 20,
-      "required": "slotted/isolated interface and measured local service temperature; no rigid fully constrained expansion"
-    },
-    {
-      "alpha_1_per_K": {
-        "PC": 6.5e-05,
-        "steel": 1.2e-05
-      },
       "assumed_max_C": 80.0,
       "decision": "HOLD",
       "differential_mm": 0.5724,
@@ -1157,6 +1654,23 @@
       "length_mm": 240,
       "reference_C": 20,
       "required": "slotted/isolated interface and measured local service temperature; no rigid fully constrained expansion"
+    },
+    {
+      "alpha_1_per_K": {
+        "receiver": 1.2e-05,
+        "saddle": 1.2e-05
+      },
+      "assumed_max_C": 60.0,
+      "decision": "HOLD",
+      "differential_mm": 0.0,
+      "free_growth_mm": {
+        "receiver": 0.0912,
+        "saddle": 0.0912
+      },
+      "joint": "steel-receiver-to-steel-saddle",
+      "length_mm": 190.0,
+      "reference_C": 20,
+      "required": "measure actual receiver/barrel temperature gradients and qualify weld, seal and split-clamp thermal fit; equal-coefficient free growth is not a joint assessment"
     }
   ],
   "units": "mm, N, MPa=N/mm2, kg, C; deflection and free thermal expansion in mm"

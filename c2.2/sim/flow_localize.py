@@ -56,19 +56,29 @@ C22 = SIM.parent
 REPO = C22.parent
 sys.path.insert(0, str(SIM))
 
-USDA = C22 / "sim" / "assets" / "usd" / "full_machine.usda"
-BODIES = C22 / "sim" / "assets" / "out" / "full" / "bodies.json"
+LAYOUT = os.environ.get("PPR_LAYOUT", "selected")
+if LAYOUT not in ("selected", "relocated_gravity"):
+    raise ValueError(f"unsupported PPR_LAYOUT={LAYOUT!r}")
+CANDIDATE = LAYOUT == "relocated_gravity"
+CAD_MANIFEST = REPO / "c2.1/cad/candidates/relocated_gravity.json"
+SHIFT = (json.loads(CAD_MANIFEST.read_text())["transform"]["downstream_shift_mm"]
+         if CANDIDATE else (0.0, 0.0, 0.0))
+USDA = (C22 / "sim/assets/usd/candidates/relocated_gravity/full_machine.usda"
+        if CANDIDATE else C22 / "sim/assets/usd/full_machine.usda")
+BODIES = (C22 / "sim/assets/out/candidates/relocated_gravity/bodies.json"
+          if CANDIDATE else C22 / "sim/assets/out/full/bodies.json")
 USD_MANIFEST = USDA.with_suffix(".sidecar.json")
 
 # single-sourced kinematic pivots (full_machine.py is the origin of truth;
 # the stale x262 hardcode caused an invalid-pivot flow run — excluded from
 # final evidence)
 from full_machine import PIVOTS_MM as _PIVOTS_MM  # noqa: E402
-PADDLE_PIVOT = _PIVOTS_MM["PADDLE"]
-AUGER_PIVOT = _PIVOTS_MM["AUGER"]
-CROSS_FEED_PIVOT = _PIVOTS_MM["CROSS_FEED"]
-CROSS_FEED_IDLER_PIVOT = _PIVOTS_MM["CROSS_FEED_IDLER"]
-OUTDIR = C22 / "results" / "full_machine" / "flow_localize"
+PADDLE_PIVOT = _PIVOTS_MM.get("PADDLE")
+AUGER_PIVOT = _PIVOTS_MM.get("AUGER")
+CROSS_FEED_PIVOT = _PIVOTS_MM.get("CROSS_FEED")
+CROSS_FEED_IDLER_PIVOT = _PIVOTS_MM.get("CROSS_FEED_IDLER")
+OUTDIR = (C22 / "results/full_machine/candidates/relocated_gravity/flow_localize"
+          if CANDIDATE else C22 / "results/full_machine/flow_localize")
 
 # --- stage definitions ---------------------------------------------------
 # Each phase: (name, spawn box (x0,x1, y0,y1, z0,z1), pass predicate name).
@@ -85,6 +95,9 @@ SPAWN = {
     # the S2 mouth, so its plane crossings were not delivery.
     "s2_inlet": (342.0, 348.0, 266.0, 284.0, 344.0, 346.0),
 }
+if CANDIDATE:
+    SPAWN["chute_inlet"] = (239.0, 259.0, 224.0, 242.0, 335.0, 342.0)
+    SPAWN["s2_inlet"] = (325.0, 335.0, 267.0, 283.0, 260.0, 265.0)
 
 # Flight axial window after VP1 raised-axis reconstruction (mm).
 FLIGHT_X0, FLIGHT_X1 = 237.0, 354.0
@@ -106,11 +119,11 @@ S2_OUTLET_FLOOR_Z_MM = 317.3
 # r*sin(angle), because the same vertical ray intersects both radii.
 SCREEN_HOLES = [
     (angle, local_y,
-     308.56946468906176 - 63.8 * math.cos(math.radians(angle)),
-     299.0 - local_y,
-     280.0 - math.sqrt(62.8**2 -
+     308.56946468906176 + SHIFT[0] - 63.8 * math.cos(math.radians(angle)),
+     299.0 + SHIFT[1] - local_y,
+     280.0 + SHIFT[2] - math.sqrt(62.8**2 -
                        (63.8 * math.cos(math.radians(angle)))**2),
-     280.0 - math.sqrt(64.8**2 -
+     280.0 + SHIFT[2] - math.sqrt(64.8**2 -
                        (63.8 * math.cos(math.radians(angle)))**2))
     for angle in range(228, 313, 7)
     for local_y in (9, 15, 21, 27, 33, 39)
@@ -154,10 +167,39 @@ def buffer_throat_contains(x, y, radius):
     """Sphere envelope inside the actual octagonal Ø13 lower clear throat."""
     apothem = 6.5 * math.cos(math.pi / 8.0)
     return all(
-        (x - 299.0) * math.cos(a) + (y - 275.0) * math.sin(a)
+        (x - (299.0 + SHIFT[0])) * math.cos(a)
+        + (y - (275.0 + SHIFT[1])) * math.sin(a)
         <= apothem - radius
         for a in (math.radians(247.5 + 45.0 * i) for i in range(8))
     )
+
+# Candidate CAD: one welded catch/ruled floor with an open upper edge.
+RECEIVER_STATIONS = ((237.4, 163.4, 323.6, 332.0),
+                     (260.0, 190.0, 298.0, 319.0),
+                     (310.0, 244.0, 287.0, 290.0),
+                     (342.0, 263.0, 287.0, 275.0))
+GRAVITY_MOUTH_Z_MM = 263.0  # first descending plane within the S2 open arc
+
+
+def gravity_receiver_contains(x, y, z, radius):
+    """Centre above the candidate ruled floor and between its welded guides."""
+    for a, b in zip(RECEIVER_STATIONS[:-1], RECEIVER_STATIONS[1:]):
+        if a[0] <= x <= b[0]:
+            t = (x - a[0]) / (b[0] - a[0])
+            south, north, floor = (a[j] + t * (b[j] - a[j])
+                                    for j in (1, 2, 3))
+            return (south + 1.5 + radius <= y <= north - radius
+                    and floor + 2.0 + radius <= z <= floor + 17.0 - radius)
+    return False
+
+
+def gravity_mouth_contains(x, y, radius):
+    """Actual upper-right S2 bore below the receiver lip, not old +Y outlet."""
+    return (335.0 + SHIFT[0] + radius <= x <= 350.0 - radius
+            and 263.0 + radius <= y <= 287.0 - radius
+            and math.hypot(x - (308.56946468906176 + SHIFT[0]),
+                           GRAVITY_MOUTH_Z_MM - (280.0 + SHIFT[2])) + radius
+            <= 65.6)
 
 
 # drivetrain ratios per unit input rotation (must match verify_full.py)
@@ -177,6 +219,20 @@ def zone_analysis(phase, fragments):
     x-plane while already falling outside the trough.  in_path_passed is
     recorded at the crossing, independently of the final loss flag.
     """
+    if CANDIDATE:
+        if phase != "chute_inlet":
+            return {"applies": False, "note": "candidate receiver zone is "
+                    "reported in s1_discharge and chute_inlet phase summaries"}
+        return {"applies": True, "zone": "welded gravity receiver",
+                "x_range_mm": [237.4, 350.0],
+                "total": len(fragments),
+                "reached_receiver": sum(f["reached_gravity_receiver"]
+                                        for f in fragments),
+                "reached_s2_mouth": sum(f["reached_s2_mouth"]
+                                        for f in fragments),
+                "stuck": sum(f["stuck"] for f in fragments),
+                "lost_from_process": sum(f["lost_from_process"]
+                                         for f in fragments)}
     if phase != "chute_inlet":
         return {"applies": False, "note": "zone split defined for "
                 "chute_inlet only (flight corridor x237..354)"}
@@ -271,11 +327,13 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         belt_velocity = belt_api.CreateSurfaceVelocityAttr()
         belt_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
         belt_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
-        transfer_api = PhysxSchema.PhysxSurfaceVelocityAPI.Apply(
-            stage.GetPrimAtPath("/World/F0/TRANSFER_BELT"))
-        transfer_velocity = transfer_api.CreateSurfaceVelocityAttr()
-        transfer_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
-        transfer_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
+        transfer_velocity = None
+        if not CANDIDATE:
+            transfer_api = PhysxSchema.PhysxSurfaceVelocityAPI.Apply(
+                stage.GetPrimAtPath("/World/F0/TRANSFER_BELT"))
+            transfer_velocity = transfer_api.CreateSurfaceVelocityAttr()
+            transfer_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
+            transfer_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
         log(f"belt surface API: enabled="
             f"{belt_api.GetSurfaceVelocityEnabledAttr().Get()}, "
             f"local={belt_api.GetSurfaceVelocityLocalSpaceAttr().Get()}, "
@@ -364,16 +422,17 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 roller_offsets[s["body"]] = ((b[0] + b[3]) / 2,
                                              (b[1] + b[4]) / 2,
                                              (b[2] + b[5]) / 2)
-        S2_PIVOT = (308.56946468906176, 299.0, 280.0)
+        S2_PIVOT = _PIVOTS_MM["S2_ECC"]
         ECC_MM = 7.0
-        kin_paths = ["/World/F0/S2_ROTOR"] + [
-            f"/World/F0/S2_ROLLER_{k}" for k in range(1, 7)] + \
-            ["/World/F0/PADDLE", "/World/F0/AUGER",
-             "/World/F0/CROSS_FEED", "/World/F0/CROSS_FEED_IDLER",
-             "/World/F0/BELT", "/World/F0/BELT_DRIVE",
-             "/World/F0/BELT_IDLER", "/World/F0/SWEEP_SOUTH",
-             "/World/F0/SWEEP_NORTH", "/World/F0/TRANSFER_BELT",
-             "/World/F0/TRANSFER_IDLER"]
+        kin_bodies = (["S2_ROTOR"] + [f"S2_ROLLER_{k}" for k in range(1, 7)]
+                      + ([] if CANDIDATE else
+                         ["PADDLE", "AUGER", "CROSS_FEED", "CROSS_FEED_IDLER"])
+                      + ["BELT", "BELT_DRIVE", "BELT_IDLER",
+                         "SWEEP_SOUTH", "SWEEP_NORTH"]
+                      + ([] if CANDIDATE else
+                         ["TRANSFER_BELT", "TRANSFER_IDLER"]))
+        kin_paths = [f"/World/F0/{body}" for body in kin_bodies]
+        ki = {body: idx for idx, body in enumerate(kin_bodies)}
         kv = sv.create_rigid_body_view(kin_paths)
         art_paths = ["/World/F0/IN_SHAFT", "/World/F0/S1A", "/World/F0/S1B",
                      "/World/F0/S2_ECC", "/World/F0/S2_CARRIER"]
@@ -422,9 +481,13 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         # overspeed artifact. At dt=.0025, 24000 steps take 60s and
         # five cycles drive the input at 40rpm (rated 58rpm).
         omega = (cycles * THETA_TOTAL) / (steps * dt)
-        log(f"omega={omega:.4f} rad/s; steps={steps}; dt={dt}; "
-            f"input cycles={cycles}; auger revs={cycles * 0.75:.2f}; "
-            f"ideal axial feed={cycles * 0.75 * AUGER_PITCH_MM:.1f} mm")
+        if CANDIDATE:
+            log(f"omega={omega:.4f} rad/s; steps={steps}; dt={dt}; "
+                f"input cycles={cycles}; gravity receiver (no auger)")
+        else:
+            log(f"omega={omega:.4f} rad/s; steps={steps}; dt={dt}; "
+                f"input cycles={cycles}; auger revs={cycles * 0.75:.2f}; "
+                f"ideal axial feed={cycles * 0.75 * AUGER_PITCH_MM:.1f} mm")
 
         kin_every = 4
         settle_count = [0] * n
@@ -438,6 +501,8 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         previous_pos = spawn_pos.copy()
         reached_mouth = [False] * n
         first_mouth_mm = [None] * n
+        reached_gravity_receiver = [False] * n
+        first_gravity_receiver_mm = [None] * n
         first_mouth_plane_mm = [None] * n
         reached_auger_pickup = [False] * n
         first_auger_pickup_mm = [None] * n
@@ -457,13 +522,14 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
         s1b_prev = 0.0
         prev_s1b = 0.0
         s1b_vel_prev = 0.0
-        transfer_dx = (_PIVOTS_MM["TRANSFER_IDLER"][0]
-                       - _PIVOTS_MM["BELT_DRIVE"][0])
-        transfer_dz = (_PIVOTS_MM["TRANSFER_IDLER"][2]
-                       - _PIVOTS_MM["BELT_DRIVE"][2])
-        transfer_norm = math.hypot(transfer_dx, transfer_dz)
-        transfer_vx = 2.0 * 2.3 * transfer_dx / transfer_norm
-        transfer_vz = 2.0 * 2.3 * transfer_dz / transfer_norm
+        if not CANDIDATE:
+            transfer_dx = (_PIVOTS_MM["TRANSFER_IDLER"][0]
+                           - _PIVOTS_MM["BELT_DRIVE"][0])
+            transfer_dz = (_PIVOTS_MM["TRANSFER_IDLER"][2]
+                           - _PIVOTS_MM["BELT_DRIVE"][2])
+            transfer_norm = math.hypot(transfer_dx, transfer_dz)
+            transfer_vx = 2.0 * 2.05 * transfer_dx / transfer_norm
+            transfer_vz = 2.0 * 2.05 * transfer_dz / transfer_norm
         belt_slope = ((_PIVOTS_MM["BELT_IDLER"][2]
                        - _PIVOTS_MM["BELT_DRIVE"][2])
                       / (_PIVOTS_MM["BELT_IDLER"][0]
@@ -477,17 +543,10 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             if phase_name == "chute_inlet":
                 return x >= 335.0
             if phase_name == "s2_inlet":
-                return z < 300.0
+                return z < 300.0 + SHIFT[2]
             return False
-        def in_receiver(phase_name, x, y, z):
-            """Geometric receiver at the *first* broad-predicate crossing.
 
-            Hopper/S1 bounds are the chamber and pan; chute bounds are the
-            active U trough before its east edge; S2 is the screen-side
-            mouth column, not the unsupported fall outside y=255.
-            These are strict point-centre regions, not a success criterion
-            for the connected B4 run.
-            """
+        def in_receiver(phase_name, x, y, z):
             if phase_name == "hopper_mouth":
                 return 80.0 <= x <= 240.0 and 162.4 <= y <= 324.6 \
                     and 352.3 <= z <= 438.5
@@ -495,18 +554,26 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 return 75.4 <= x <= 225.0 and 163.5 <= y <= 323.5 \
                     and 336.0 <= z <= 352.3
             if phase_name == "chute_inlet":
-                return 335.0 <= x <= FLIGHT_X1 and 223.3 <= y <= 240.9 \
-                    and 338.6 <= z <= 356.3
+                return (gravity_receiver_contains(x, y, z, 0.0)
+                        if CANDIDATE else
+                        335.0 <= x <= FLIGHT_X1 and 223.3 <= y <= 240.9
+                        and 338.6 <= z <= 356.3)
             if phase_name == "s2_inlet":
-                return 340.0 <= x <= 360.0 and 255.0 <= y <= 295.0 \
-                    and 239.63 <= z <= 300.0
+                if CANDIDATE:
+                    return (255.0 <= y <= 295.0 and 174.63 <= z <= 235.0
+                            and math.hypot(
+                                x - (308.56946468906176 + SHIFT[0]),
+                                z - (280.0 + SHIFT[2])) <= 65.6)
+                return (340.0 <= x <= 360.0 and 255.0 <= y <= 295.0
+                        and 239.63 <= z <= 300.0)
             return False
+
         gate_axis = 0 if phase == "chute_inlet" else 2
         gate_value = {
             "hopper_mouth": 438.5,
             "s1_discharge": 352.3,
             "chute_inlet": 335.0,
-            "s2_inlet": 300.0,
+            "s2_inlet": 300.0 + SHIFT[2],
         }[phase]
 
         sqi = None
@@ -608,44 +675,42 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             # (chain P 12T/12T from the S2 12T sprocket); pivots are
             # single-sourced from full_machine.PIVOTS_MM — the rev-6
             # x262 stale hardcode caused an invalid-pivot flow run
-            kin[7, 0] = PADDLE_PIVOT[0]
-            kin[7, 1] = PADDLE_PIVOT[1]
-            kin[7, 2] = PADDLE_PIVOT[2]
-            kin[7, 3:] = (0.0, math.sin(theta_s2 / 2), 0.0,
-                          math.cos(theta_s2 / 2))
-            # auger conveyor: worm 2-start : wheel 16T = 8:1, same sign ->
-            # measured S2Ecc / 8 about +X (RH flight conveys +x)
-            theta_auger = theta_s2 / 8.0
-            kin[8, 0] = AUGER_PIVOT[0]
-            kin[8, 1] = AUGER_PIVOT[1]
-            kin[8, 2] = AUGER_PIVOT[2]
-            kin[8, 3:] = (math.sin(theta_auger / 2), 0.0, 0.0,
-                          math.cos(theta_auger / 2))
-            # Two external 12T spur meshes from PDL_SHAFT: cross-feed
-            # turns with the measured S2Ecc angle, idler against it.
-            # Screw flight remains collidable with fragments and shell.
-            kin[9, :3] = CROSS_FEED_PIVOT
-            kin[9, 3:] = (0.0, math.sin(theta_s2 / 2), 0.0,
-                          math.cos(theta_s2 / 2))
-            kin[10, :3] = CROSS_FEED_IDLER_PIVOT
-            kin[10, 3:] = (0.0, -math.sin(theta_s2 / 2), 0.0,
-                           math.cos(theta_s2 / 2))
+            if not CANDIDATE:
+                kin[ki["PADDLE"], :3] = PADDLE_PIVOT
+                kin[ki["PADDLE"], 3:] = (
+                    0.0, math.sin(theta_s2 / 2), 0.0, math.cos(theta_s2 / 2))
+                theta_auger = theta_s2 / 8.0
+                kin[ki["AUGER"], :3] = AUGER_PIVOT
+                kin[ki["AUGER"], 3:] = (
+                    math.sin(theta_auger / 2), 0.0, 0.0,
+                    math.cos(theta_auger / 2))
+                kin[ki["CROSS_FEED"], :3] = CROSS_FEED_PIVOT
+                kin[ki["CROSS_FEED"], 3:] = (
+                    0.0, math.sin(theta_s2 / 2), 0.0, math.cos(theta_s2 / 2))
+                kin[ki["CROSS_FEED_IDLER"], :3] = CROSS_FEED_IDLER_PIVOT
+                kin[ki["CROSS_FEED_IDLER"], 3:] = (
+                    0.0, -math.sin(theta_s2 / 2), 0.0,
+                    math.cos(theta_s2 / 2))
             drum_angle = 2.0 * s1b_prev
-            kin[11, :3] = _PIVOTS_MM["BELT"]
-            kin[11, 3:] = (0.0, 0.0, 0.0, 1.0)
-            for idx, body in ((12, "BELT_DRIVE"), (13, "BELT_IDLER")):
+            kin[ki["BELT"], :3] = _PIVOTS_MM["BELT"]
+            kin[ki["BELT"], 3:] = (0.0, 0.0, 0.0, 1.0)
+            for body in ("BELT_DRIVE", "BELT_IDLER"):
+                idx = ki[body]
                 kin[idx, :3] = _PIVOTS_MM[body]
                 kin[idx, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
                                math.cos(drum_angle / 2))
-            for idx, body in ((14, "SWEEP_SOUTH"), (15, "SWEEP_NORTH")):
+            for body in ("SWEEP_SOUTH", "SWEEP_NORTH"):
+                idx = ki[body]
                 kin[idx, :3] = _PIVOTS_MM[body]
                 kin[idx, 3:] = (0.0, -math.sin(drum_angle / 2), 0.0,
                                math.cos(drum_angle / 2))
-            kin[16, :3] = _PIVOTS_MM["TRANSFER_BELT"]
-            kin[16, 3:] = (0.0, 0.0, 0.0, 1.0)
-            kin[17, :3] = _PIVOTS_MM["TRANSFER_IDLER"]
-            kin[17, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
-                           math.cos(drum_angle / 2))
+            if not CANDIDATE:
+                kin[ki["TRANSFER_BELT"], :3] = _PIVOTS_MM["TRANSFER_BELT"]
+                kin[ki["TRANSFER_BELT"], 3:] = (0.0, 0.0, 0.0, 1.0)
+                kin[ki["TRANSFER_IDLER"], :3] = _PIVOTS_MM["TRANSFER_IDLER"]
+                kin[ki["TRANSFER_IDLER"], 3:] = (
+                    0.0, math.sin(drum_angle / 2), 0.0,
+                    math.cos(drum_angle / 2))
             belt_speed = 2.0 * 3.8 * s1b_vel_prev
             # This stage is authored in millimetres. The isolated flat
             # conveyor probe moved a sphere 3.96 mm in 1 s at a command
@@ -653,9 +718,10 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             # erroneously removed all useful belt traction.
             belt_velocity.Set(Gf.Vec3f(
                 belt_speed, 0.0, belt_speed * belt_slope))
-            transfer_velocity.Set(Gf.Vec3f(
-                transfer_vx * s1b_vel_prev, 0.0,
-                transfer_vz * s1b_vel_prev))
+            if transfer_velocity is not None:
+                transfer_velocity.Set(Gf.Vec3f(
+                    transfer_vx * s1b_vel_prev, 0.0,
+                    transfer_vz * s1b_vel_prev))
             kv.set_kinematic_targets(kin, np.arange(len(kin_paths),
                                                      dtype=np.int32))
             for lp in art_paths:
@@ -722,7 +788,7 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                         phase, *(float(v) for v in crossing)))
                 # The pan gate is not the screw pickup. Record the first
                 # later sample inside the upstream flight corridor.
-                if (phase == "s1_discharge" and passed[i]
+                if (not CANDIDATE and phase == "s1_discharge" and passed[i]
                         and not reached_auger_pickup[i]
                         and 237.0 <= x <= 270.0
                         and 223.3 <= y <= 240.9
@@ -734,7 +800,8 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 # x285 is beyond the belt's x273 east tangent. A crossing
                 # here in the trough is evidence of post-belt transport,
                 # unlike the x237 pickup predicate alone.
-                if (phase == "s1_discharge" and reached_auger_pickup[i]
+                if (not CANDIDATE and phase == "s1_discharge"
+                        and reached_auger_pickup[i]
                         and not reached_auger_advance[i]
                         and 285.0 <= x <= 354.0
                         and 223.3 <= y <= 240.9
@@ -743,6 +810,31 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                     first_auger_advance_mm[i] = [
                         round(float(x), 1), round(float(y), 1),
                         round(float(z), 1)]
+                radius = (float(fr[i][1]) if fr[i][0] == "sphere"
+                          else max(fr[i][1][0], fr[i][1][1]) / 2.0)
+                if (CANDIDATE and phase in ("s1_discharge", "chute_inlet")
+                        and (phase != "s1_discharge" or passed[i])
+                        and not reached_gravity_receiver[i]
+                        and gravity_receiver_contains(x, y, z, radius)):
+                    reached_gravity_receiver[i] = True
+                    first_gravity_receiver_mm[i] = [
+                        round(float(x), 1), round(float(y), 1),
+                        round(float(z), 1)]
+                if (CANDIDATE and phase in ("s1_discharge", "chute_inlet")
+                        and reached_gravity_receiver[i]
+                        and not reached_mouth[i]
+                        and prior[2] >= GRAVITY_MOUTH_Z_MM > z):
+                    t = ((prior[2] - GRAVITY_MOUTH_Z_MM) /
+                         (prior[2] - z))
+                    mx = float(prior[0] + t * (x - prior[0]))
+                    my = float(prior[1] + t * (y - prior[1]))
+                    if first_mouth_plane_mm[i] is None:
+                        first_mouth_plane_mm[i] = [
+                            round(mx, 6), round(my, 6), GRAVITY_MOUTH_Z_MM]
+                    if gravity_mouth_contains(mx, my, radius):
+                        reached_mouth[i] = True
+                        first_mouth_mm[i] = [
+                            round(mx, 1), round(my, 1), GRAVITY_MOUTH_Z_MM]
                 # A screen-plane crossing is not screen-hole passage.
                 # Evaluate XY at the descending crossing of the exact
                 # measured screen bbox, not after a fast fragment overshot.
@@ -766,29 +858,33 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                                        round(float(hy), 3),
                                        round(float(hz), 3)]}
                 if (phase == "s2_inlet" and not entered_buffer_mouth[i]
-                        and prior[2] >= 218.0 > z):
-                    t = (prior[2] - 218.0) / (prior[2] - z)
+                        and prior[2] >= 218.0 + SHIFT[2] > z):
+                    plane = 218.0 + SHIFT[2]
+                    t = (prior[2] - plane) / (prior[2] - z)
                     bx = prior[0] + t * (x - prior[0])
                     by = prior[1] + t * (y - prior[1])
                     radius = float(fr[i][1]) if fr[i][0] == "sphere" else 2.0
                     entered_buffer_mouth[i] = bool(
-                        216.57 + radius <= bx <= 400.57 - radius
+                        216.57 + SHIFT[0] + radius <= bx
+                        <= 400.57 + SHIFT[0] - radius
                         and 254.0 + radius <= by <= 296.0 - radius)
                 if (phase == "s2_inlet" and not reached_buffer_throat[i]
-                        and prior[2] >= 145.0 > z):
-                    t = (prior[2] - 145.0) / (prior[2] - z)
+                        and prior[2] >= 145.0 + SHIFT[2] > z):
+                    plane = 145.0 + SHIFT[2]
+                    t = (prior[2] - plane) / (prior[2] - z)
                     bx = prior[0] + t * (x - prior[0])
                     by = prior[1] + t * (y - prior[1])
                     if first_buffer_throat_plane_mm[i] is None:
                         first_buffer_throat_plane_mm[i] = [
-                            round(float(bx), 3), round(float(by), 3), 145.0]
+                            round(float(bx), 3), round(float(by), 3), plane]
                     radius = float(fr[i][1]) if fr[i][0] == "sphere" else 2.0
                     reached_buffer_throat[i] = buffer_throat_contains(
                         float(bx), float(by), radius)
                 # A point inside an S2-looking box is not handoff. Require
                 # forward crossing of the near y=255 mouth plane, then
                 # interpolate x/z at that instant (no skipped-plane credit).
-                if (phase == "chute_inlet" and not reached_mouth[i]
+                if (not CANDIDATE and phase == "chute_inlet"
+                        and not reached_mouth[i]
                         and prior[1] < S2_MOUTH_Y_MM <= y):
                     t = ((S2_MOUTH_Y_MM - float(prior[1])) /
                          (float(y) - float(prior[1])))
@@ -861,7 +957,9 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 or x < -100.0 or x > 900.0
             destination_reached = {
                 "hopper_mouth": passed[i],
-                "s1_discharge": reached_auger_pickup[i],
+                "s1_discharge": (
+                    reached_gravity_receiver[i] and reached_mouth[i]
+                    if CANDIDATE else reached_auger_pickup[i]),
                 "chute_inlet": reached_mouth[i],
                 "s2_inlet": (passed_screen_hole[i]
                              and entered_buffer_mouth[i]
@@ -870,7 +968,9 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             # Ground or below the catch pan is process loss, even if still
             # inside the much larger simulation-world bounds.
             lost_from_process = lost or (
-                phase == "s1_discharge" and z < 320.0)
+                phase == "s1_discharge" and
+                (z < 200.0 and not destination_reached if CANDIDATE
+                 else z < 320.0))
             frag = {
                 "i": i,
                 "kind": kind,
@@ -895,6 +995,8 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "reached_s2_mouth": bool(reached_mouth[i]),
                 "first_s2_mouth_crossing_mm": first_mouth_mm[i],
                 "first_s2_mouth_plane_crossing_mm": first_mouth_plane_mm[i],
+                "reached_gravity_receiver": bool(reached_gravity_receiver[i]),
+                "first_gravity_receiver_mm": first_gravity_receiver_mm[i],
                 "reached_auger_pickup": bool(reached_auger_pickup[i]),
                 "first_auger_pickup_mm": first_auger_pickup_mm[i],
                 "reached_auger_advance": bool(reached_auger_advance[i]),
@@ -937,29 +1039,46 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                     blocker_tally[key] = blocker_tally.get(key, 0) + 1
         result = {
             "schema": "full_machine_flow_localize_phase/2",
+            "layout": LAYOUT,
             "phase": phase,
             "spawn_box_mm": list(SPAWN[phase]),
-            "pass_predicate": {
+            "pass_predicate": ({
+                "hopper_mouth": "z < 438.5 (below hopper into S1 chamber)",
+                "s1_discharge": "z < 352.3 (S1 opening; receiver is separate)",
+                "chute_inlet": "x >= 335 (broad plane; receiver/mouth separate)",
+                "s2_inlet": "z < 235 (drop into relocated S2 bay)",
+            } if CANDIDATE else {
                 "hopper_mouth": "z < 438.5 (below hopper into S1 chamber)",
                 "s1_discharge": "z < 352.3 (S1 opening; NOT auger pickup)",
                 "chute_inlet": "x >= 335 (downstream flight gate, before x354 edge)",
                 "s2_inlet": "z < 300 (drop into S2 bay)",
-            }[phase],
-            "receiver_predicate": {
+            })[phase],
+            "receiver_predicate": ({
+                "hopper_mouth": "x80..240,y162.4..324.6,z352.3..438.5",
+                "s1_discharge": "x75.4..225,y163.5..323.5,z336..352.3",
+                "chute_inlet": "candidate ruled receiver x237.4..350",
+                "s2_inlet": "translated S2 bore y255..295,z174.63..235,r<=65.6",
+            } if CANDIDATE else {
                 "hopper_mouth": "x80..240,y162.4..324.6,z352.3..438.5",
                 "s1_discharge": "x75.4..225,y163.5..323.5,z336..352.3 belt corridor",
                 "chute_inlet": "x335..354,y223.3..240.9,z338.6..356.3",
                 "s2_inlet": "x340..360,y255..295,z239.63..300",
-            }[phase],
+            })[phase],
             "s2_mouth_transition_predicate": (
+                "candidate: after ruled receiver, first descending z=263 "
+                "plane inside upper-right S2 bore x335+DX..350, "
+                "y263..287, r<=65.6" if CANDIDATE else
                 "first +Y crossing of y=255 with full fragment envelope "
                 "inside x350..359.7 outlet lips, r<=65.6 cap bore, and "
                 "z>=317.3 outlet floor; x335 flight gate alone is not "
                 "transfer"),
-            "auger_pickup_predicate": (
+            "gravity_receiver_predicate": (
+                "after S1 exit: inside welded ruled x237.4..350 receiver "
+                "between guides, above floor; no auger" if CANDIDATE else None),
+            "auger_pickup_predicate": (None if CANDIDATE else
                 "s1_discharge only: after z352.3 gate, ever inside "
                 "x237..270,y223.3..240.9,z338..356"),
-            "auger_advance_predicate": (
+            "auger_advance_predicate": (None if CANDIDATE else
                 "s1_discharge only: after pickup, x285..354 in the actual "
                 "trough beyond the centre belt x273 east tangent"),
             "step_sha256": bodies["source_step_sha256"],
@@ -968,7 +1087,8 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
             "steps": steps,
             "input_cycles": cycles,
             "input_rpm": omega * 60.0 / (2.0 * math.pi),
-            "ideal_auger_travel_mm": cycles * 0.75 * AUGER_PITCH_MM,
+            "ideal_auger_travel_mm": (None if CANDIDATE else
+                                       cycles * 0.75 * AUGER_PITCH_MM),
             "measured_s1b_angle_rad": s1b_prev,
             "measured_s1b_velocity_rad_s": s1b_vel_prev,
             "belt_surface_velocity_command_mm_s": 7.6 * s1b_vel_prev,
@@ -978,6 +1098,7 @@ def run_one_phase(phase: str, steps: int, dt: float, out_path: Path,
                 "entered": sum(entered),
                 "passed_through": n_passed,
                 "in_path_passed": sum(in_path_passed),
+                "reached_gravity_receiver": sum(reached_gravity_receiver),
                 "reached_auger_pickup": sum(reached_auger_pickup),
                 "stuck": n_stuck,
                 "reached_auger_advance": sum(reached_auger_advance),
@@ -1080,9 +1201,10 @@ def main() -> int:
             child_args.extend(["--chute-steps", str(steps_ph)])
         if ph == "s1_discharge":
             child_args.extend(["--s1-steps", str(steps_ph)])
-        r = subprocess.run(child_args,
-            capture_output=True, text=True,
-            env={**os.environ, "OMNI_KIT_ACCEPT_EULA": "YES"})
+        child_env = (os.environ if CANDIDATE else
+                     {**os.environ, "OMNI_KIT_ACCEPT_EULA": "YES"})
+        r = subprocess.run(child_args, capture_output=True, text=True,
+                           env=child_env)
         child_codes[ph] = r.returncode
         (out_root / f"phase_{ph}_runner_log.txt").write_text(r.stdout)
         print(f"phase {ph}: rc={r.returncode} "
@@ -1106,12 +1228,16 @@ def main() -> int:
         scene_manifest.get("source_bodies", {}).get("step_sha256") ==
         current_step_sha and scene_manifest.get("usd_sha256") ==
         current_usda_sha and current_step_sha is not None
-        and current_usda_sha is not None)
+        and current_usda_sha is not None
+        and (not CANDIDATE or current_step_sha ==
+             json.loads(CAD_MANIFEST.read_text())["step"]["sha256"]))
     # Merge-only must not launder an old set of phase artifacts as current.
     # Every phase must have been run on exactly the STEP and USD now selected.
     scene_consistent = (set(phases) == set(PHASES)
                         and all(r.get("schema") ==
                                 "full_machine_flow_localize_phase/2"
+                                and (not CANDIDATE or
+                                     r.get("layout") == LAYOUT)
                                 for r in phases.values())
                         and step_shas == {current_step_sha}
                         and usd_shas == {current_usda_sha}
@@ -1145,6 +1271,7 @@ def main() -> int:
             "screen_to_buffer": s.get("screen_to_buffer"),
             "missed_buffer_throat": s.get("missed_buffer_throat", 0),
             "reached_s2_mouth": s.get("reached_s2_mouth"),
+            "reached_gravity_receiver": s.get("reached_gravity_receiver"),
             "reached_auger_pickup": s.get("reached_auger_pickup"),
             "reached_auger_advance": s.get("reached_auger_advance"),
             "lost_through_world": lost,
@@ -1153,20 +1280,27 @@ def main() -> int:
             "lost_after_s2_mouth": s.get("lost_after_s2_mouth"),
             "lost_after_x335_before_mouth": s.get(
                 "lost_after_x335_before_mouth"),
-            "scope": "local receiver crossing; S1 discharge separately "
-                     "requires main-screw pickup, chute separately "
-                     "requires +Y S2 mouth crossing. The S2 phase reports "
-                     "same-bore Ø4 sphere passage, buffer-mouth entry, "
-                     "lower-throat crossing or miss and world escape "
-                     "separately; no local phase proves connected product "
-                     "flow or filament output",
+            "scope": ("candidate: same fragment traverses S1 exit, welded "
+                      "gravity receiver, upper-right S2 mouth; S2-local "
+                      "injection separately tests one screen bore and buffer "
+                      "throat. Local phases do not prove connected flow."
+                      if CANDIDATE else
+                      "local receiver crossing; S1 discharge separately "
+                      "requires main-screw pickup, chute separately "
+                      "requires +Y S2 mouth crossing. The S2 phase reports "
+                      "same-bore Ø4 sphere passage, buffer-mouth entry, "
+                      "lower-throat crossing or miss and world escape "
+                      "separately; no local phase proves connected product "
+                      "flow or filament output"),
             "verdict": (
                 "UNVERIFIED" if not scene_consistent or in_path is None
                 or process_loss is None or residue is None or not total
                 or (ph == "chute_inlet" and
                     s.get("reached_s2_mouth") is None)
                 or (ph == "s1_discharge" and
-                    (s.get("reached_auger_pickup") is None or
+                    (s.get("reached_gravity_receiver") is None or
+                     s.get("reached_s2_mouth") is None if CANDIDATE else
+                     s.get("reached_auger_pickup") is None or
                      s.get("reached_auger_advance") is None))
                 or (ph == "s2_inlet" and
                     s.get("screen_to_buffer") is None)
@@ -1175,8 +1309,10 @@ def main() -> int:
                 and (ph != "chute_inlet" or
                      s["reached_s2_mouth"] == total)
                 and (ph != "s1_discharge" or
-                     (s["reached_auger_pickup"] == total and
-                      s["reached_auger_advance"] == total))
+                     (s["reached_gravity_receiver"] == total and
+                      s["reached_s2_mouth"] == total if CANDIDATE
+                      else s["reached_auger_pickup"] == total and
+                           s["reached_auger_advance"] == total))
                 and (ph != "s2_inlet" or
                      s["screen_to_buffer"] == total)
                 else "BLOCKED"),
@@ -1191,6 +1327,7 @@ def main() -> int:
             all_blockers[f"{ph}:{bd}"] = c
     merged = {
         "schema": "full_machine_flow_localize/2",
+        "layout": LAYOUT,
         "step_sha256": current_step_sha if scene_consistent else None,
         "usda_sha256": current_usda_sha if scene_consistent else None,
         "scene_consistent": scene_consistent,
@@ -1204,6 +1341,7 @@ def main() -> int:
             "spawn_box_mm": r.get("spawn_box_mm"),
             "pass_predicate": r.get("pass_predicate"),
             "receiver_predicate": r.get("receiver_predicate"),
+            "gravity_receiver_predicate": r.get("gravity_receiver_predicate"),
             "auger_pickup_predicate": r.get("auger_pickup_predicate"),
             "s2_mouth_transition_predicate": r.get(
                 "s2_mouth_transition_predicate"),

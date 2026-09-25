@@ -110,23 +110,23 @@ BELT_WEST_X, BELT_EAST_X, BELT_AX_Z = 80.0, 219.0, 335.2
 BELT_EAST_Z = 332.9
 BELT_INNER_R, BELT_OUTER_R = 3.8, 4.6
 
-# The cross-screws engage flakes near the east side of the descending
-# side treads. Their x200 flights end before the x208 auger-bearing bridge;
-# gears remain keyed to the east-drum axle outside the pan rails. The north
-# pair sits outboard of both the S1 bearing caps and S2 input support plate.
-SWEEP_X, SWEEP_Z = 200.0, 344.7
+# Put the cross-screws at the side belt's east handoff, beyond the x208..214
+# auger-bearing bridge. Their swept lower quadrant meets a flake as it leaves
+# the rounded east drum rather than letting the belt strand it at x222.
+# The external gear pair remains keyed outside the pan rails.
+SWEEP_X, SWEEP_Z = 224.0, 344.7
 SWEEP_SHAFT_R, SWEEP_FLIGHT_R, SWEEP_PITCH = 2.0, 6.7, 16.0
 SWEEP_GEAR_Y = ((128.0, 134.0), (361.0, 367.0))
 SWEEP_GEAR_SCALE = math.hypot(SWEEP_X-BELT_EAST_X,
                               SWEEP_Z-BELT_EAST_Z) / (2.0 * FEED_GEAR_RP)
 BELT_Y0, BELT_Y1 = 163.5, 323.5
 
-# The shared west axle is raised to the centre lane's east axis. Its
-# Ø4.6 side treads descend 2.3 mm to x219, while the Ø3 central tread
-# remains level at z338.2 instead of shedding fragments westward.
+# The shared west axle stays fixed; the central waist is smaller than
+# the side drums so a cross-fed flake can pass onto its top run rather than
+# striking the raised side face and falling inside the return loop.
 TRANSFER_WEST_X, TRANSFER_EAST_X = BELT_WEST_X, 270.0
 TRANSFER_WEST_Z, TRANSFER_AX_Z = BELT_AX_Z, 335.2
-TRANSFER_INNER_R, TRANSFER_OUTER_R = 2.3, 3.0
+TRANSFER_INNER_R, TRANSFER_OUTER_R = 2.05, 2.45
 TRANSFER_Y0, TRANSFER_Y1 = 223.5, 240.5
 
 
@@ -208,21 +208,19 @@ def pan_floor():
     for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
         full = full.cut(_cyl(2.35, y1-y0, SWEEP_X, y0, SWEEP_Z))
     full = full.fuse(_box(76.0, 223.5, 163.4, 323.6, 321.0, 323.0))
-    # The side tread falls from z339.8 at the west drum to about z337.8
-    # beneath the x200 sweep. Its east landing remains 0.1 mm below the
-    # z337.5 end tread and the central powered lane is relieved separately.
+    # The side tread descends toward the rounded east drum. Its underside
+    # drops below the top run before a fragment clears the tangent; keep
+    # the downstream steel catch below the tread.
     full = full.fuse(_box(223.7, 237.0, 163.4, 323.6, 332.8, 337.4))
-    # Curve the side-lane stop around the screw's swept circle. A straight
-    # x207.5 gate left a Ø1.5 flake centre at x206.8,z338.2, 9.4 mm
-    # from the x200,z344.7 axis and outside the 6.7-mm flight. At tread
-    # height the stop now presents the flake to the flight; its upper edge
-    # retreats with positive clearance from the rotating envelope.
-    stop_profile = [(202.5, 338.1), (202.9, 338.2),
-                    (204.2, 339.0), (205.4, 340.0),
-                    (206.2, 341.0), (206.7, 342.0),
-                    (207.0, 343.0), (207.3, 344.7),
-                    (207.5, 352.0), (209.0, 352.0),
-                    (209.0, 338.1)]
+    # The side stop follows the swept screw's +X envelope with at least
+    # 0.9 mm nominal clearance. Its toe catches flakes immediately beyond
+    # the belt end, while the rotating flight can engage them at tread level.
+    stop_profile = [(226.1, 338.1), (227.1, 338.3),
+                    (228.4, 339.0), (229.7, 340.0),
+                    (230.5, 341.0), (231.1, 342.0),
+                    (231.4, 343.0), (231.7, 344.7),
+                    (231.8, 352.0), (233.5, 352.0),
+                    (233.5, 338.1)]
     for y0, y1 in ((163.3, 222.0), (242.0, 323.8)):
         full = full.fuse(_prism_xz(stop_profile, y0, y1-y0))
     # Preserve the rear support's metal volume below the south shelf.
@@ -300,16 +298,15 @@ def bypass_channel_floor():
                        223.2, 240.8, 337.5, 351.0)
     cradle = slab.fuse(shell).cut(cross_clearance).cut(entrance).cut(
         exit_recess)
-    # Carry the tread's z338.2 landing onto a steel wear shelf at z337.7.
-    # The previous z337.5 recess dropped small flakes below the auger's
-    # lowest flight; the original slab beyond x281 was lower still (335.6).
-    # Keep the shelf south of y235 where the S2 coupling web sweeps.
+    # Carry the central tread's z337.6 landing onto a steel wear shelf
+    # without a raised step at the east idler. Keep it south of y235
+    # where the S2 coupling web sweeps.
     cradle = cradle.fuse(_box(TRANSFER_EAST_X + TRANSFER_OUTER_R,
                               340.0, 223.2, 234.8,
-                              AUG_FLOOR_BASE, 337.7))
+                              AUG_FLOOR_BASE, 337.5))
     # Descend from the auger shelf into the orthogonal flight's receiving
     # quadrant. Cut the 10.55 mm swept envelope out of the fixed ramp.
-    ramp = _prism_xz([(340.0, AUG_FLOOR_BASE), (340.0, 337.7),
+    ramp = _prism_xz([(340.0, AUG_FLOOR_BASE), (340.0, 337.5),
                       (347.0, 333.0), (347.0, 331.0)],
                      223.2, 11.6).cut(cross_clearance)
     cradle = cradle.fuse(ramp)
@@ -322,6 +319,18 @@ def bypass_channel_floor():
     cradle = cradle.cut(_cyl(1.15, 36.0, x, 214.0, z))
     for y0, y1 in ((218.0, 223.2), (240.8, 246.0)):
         cradle = cradle.cut(_cyl(1.65, y1-y0, x, y0, z))
+    # Side screws stop before the perpendicular AUG shaft. Two steel guide
+    # faces above (not through) the central tread use its +X traction to
+    # bias flakes from the outer belt edges into the auger receiving arc.
+    # The outside strips are fused to the existing metal U walls; the
+    # narrow inner noses remain outside the flight's nominal R8 sweep.
+    south_guide = _prism_xy([(237.0, 223.2), (270.0, 223.2),
+                             (270.0, 226.0), (237.0, 223.4)],
+                            338.3, 1.7)
+    north_guide = _prism_xy([(237.0, 240.6), (270.0, 238.0),
+                             (270.0, 241.0), (237.0, 241.0)],
+                            338.3, 1.7)
+    cradle = cradle.fuse(south_guide).fuse(north_guide)
     return cradle.clean()
 
 def bypass_wall_south():
@@ -469,6 +478,8 @@ def belt_bearings():
 
 def sweep_shaft(south):
     """Split shaft with a swept, opposite-hand screw and keyed spur."""
+    # Both screws stop short of the perpendicular auger shaft at y232;
+    # their trailing flakes enter the narrowed passive guide on the belt.
     y0, y1 = (127.0, 228.5) if south else (235.5, 369.0)
     flight0, flight1 = (164.5, 226.0) if south else (236.0, 321.5)
     shaft = _cyl(SWEEP_SHAFT_R, y1-y0, SWEEP_X, y0, SWEEP_Z)

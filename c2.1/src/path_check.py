@@ -176,7 +176,7 @@ def downstream_checks():
         "1.5": clear[1.5], "3.0": clear[3.0]}
     RESULTS[-1]["hole_centres_checked"] = 78
     _add("buffer_throat", 13.0 * math.cos(math.pi / 8), 8.0, True, "NAMEPLATE",
-         "FEED-BUF loft 190x48 top / Ø18 outer and Ø13 clear octagonal neck for 15 mm, height 73; lower outlet x299,y275 is coaxial with the Ø20 barrel feed bore; nominal outer radial room 1 mm is not a manufacturing tolerance")
+         "FEED-BUF steel loft 190x48 top, inset shoulder at z210 and Ø20 outer/Ø13 clear octagonal neck for 15 mm; lower outlet x299,y275 and split metal saddle are coaxial with the Ø20 barrel feed bore. Ø13 throat is only an aperture: weld, clamping, thermal fit, and flow remain HOLD")
     _add("extruder_die_exit", 2.0, 1.9, True, "NAMEPLATE",
          "EX-DIE 36 OD x 20 with 2 mm exit")
     # trough auger transfer (VP1 Stage 4 rev 5: the paddle + static scrapers

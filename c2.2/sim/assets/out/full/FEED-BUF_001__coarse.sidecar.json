@@ -6,11 +6,11 @@
   "step_index": 100,
   "step_product_name": "Open CASCADE STEP translator 7.9 1.100",
   "mesh_file": "sim/assets/out/full/FEED-BUF_001__coarse.stl",
-  "mesh_bytes": 4884,
-  "mesh_sha256": "c427c0879167e9b065a0d01485b4c886be31e8a7535b81bf203487d10e474635",
+  "mesh_bytes": 5884,
+  "mesh_sha256": "186c6a3f410e1a134dcc352355f5cc1216304cd801909822065316034f78cb5f",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "1d45ad9aa8f404310df5ec6821c524d00ab518d67468598b0e13e860d83f1fe0",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
@@ -21,7 +21,7 @@
     299.0000001,
     219.0000001
   ],
-  "revision": "a0f3f6cc1e215118cf990b7993015cdbc0757448",
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
   "conversion_script": "c2.2/sim/assets/convert.py",
   "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "tessellation": {
@@ -30,22 +30,22 @@
   },
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
-  "material": "PC_SHEET",
-  "source_material_label": "PC outer shell plus metal throat",
-  "manufacturing_process": "unfilled PC sheet candidate cut/formed; separate metal throat/strike unmodeled",
-  "thermal_condition": "PC only with measured cold-zone temperature and independent metal throat; grade, forming, impact qualification HOLD",
+  "material": "STEEL",
+  "source_material_label": "S355 steel",
+  "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+  "thermal_condition": "hot-zone grade and measured temperature HOLD",
   "material_source": "design/assembly.json parts.FEED-BUF.material",
   "model_source": "c2.2/sim/assets/materials.py",
-  "nominal_density_kg_m3": 1200.0,
+  "nominal_density_kg_m3": 7850.0,
   "effective_fraction": 1.0,
-  "effective_density_kg_m3": 1200.0,
+  "effective_density_kg_m3": 7850.0,
   "effective_density_bounds_kg_m3": [
-    1200.0,
-    1200.0
+    7850.0,
+    7850.0
   ],
   "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
   "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-  "volume_mm3": 46365.84425076999,
+  "volume_mm3": 39631.270751340475,
   "solid_bbox_mm": [
     213.56946458906,
     250.9999999,
@@ -54,10 +54,10 @@
     299.0000001,
     219.0000001
   ],
-  "mass_kg": 0.055639013100923985,
+  "mass_kg": 0.31110547539802275,
   "mass_bounds_kg": [
-    0.055639013100923985,
-    0.055639013100923985
+    0.31110547539802275,
+    0.31110547539802275
   ],
   "center_of_mass_mm": [
     308.56946468906,
@@ -65,27 +65,27 @@
     182.0
   ],
   "inertia_kg_mm2": [
-    36.072627053364364,
-    192.77063454662462,
-    178.0633887020599
+    201.70005114821367,
+    1077.8767731667444,
+    995.6412255669089
   ],
   "inertia_upper_bound_kg_mm2": [
-    108.2178811600931,
-    578.3119036398739,
-    534.1901661061797
+    605.100153444641,
+    3233.6303195002333,
+    2986.923676700727
   ],
   "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
   "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
   "inertia": {
     "diagonal_kg_mm2": [
-      36.072627053364364,
-      192.77063454662462,
-      178.0633887020599
+      201.70005114821367,
+      1077.8767731667444,
+      995.6412255669089
     ],
     "upper_bound_kg_mm2": [
-      108.2178811600931,
-      578.3119036398739,
-      534.1901661061797
+      605.100153444641,
+      3233.6303195002333,
+      2986.923676700727
     ],
     "center_of_mass_mm": [
       308.56946468906,

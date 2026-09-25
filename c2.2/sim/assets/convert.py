@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 from materials import MATERIAL_SCOPE, SOURCE as MATERIAL_SOURCE, mass_properties
@@ -69,6 +70,49 @@ def write_sidecar(path: Path, record: dict) -> None:
 
 FULL_STEP_REL = "c2.1/cad/PPR_VP1.step"
 
+CANDIDATE_REL = "c2.1/cad/candidates/relocated_gravity.json"
+CANDIDATE_OUT = C22 / "sim/assets/out/candidates/relocated_gravity"
+
+
+def candidate_manifest() -> dict:
+    manifest = json.loads((REPO / CANDIDATE_REL).read_text())
+    step = manifest["step"]
+    path = REPO / step["path"]
+    if (manifest["geometry_passed"] is not True or
+            step["path"] != "c2.1/cad/candidates/relocated_gravity.step" or
+            step["all_valid"] is not True or
+            manifest["solid_count"] != step["reimported_solids"] or
+            sha256_file(REPO / "c2.1/cad/candidates/relocated_gravity.py")
+            != manifest["source_sha256"] or
+            sha256_file(path) != step["sha256"]):
+        raise ValueError("relocated-gravity CAD manifest/STEP qualification mismatch")
+    return manifest
+
+
+def _candidate_mass_properties(name: str, volume: float, bbox, manifest: dict) -> dict:
+    if not name.startswith("ALT_"):
+        return mass_properties(name, volume, bbox)
+    source = next((p for p in manifest["mass_estimate"]["parts"]
+                   if p["name"] == name), None)
+    if source is None or source["material_label"] != "new S355 steel":
+        raise ValueError(f"{name}: no qualified candidate material assumption")
+    # Use the existing STEEL density/inertia convention, not the candidate's
+    # rounded aggregate mass estimate. The source label remains traceable.
+    props = mass_properties("FEED-BUF_001", volume, bbox)
+    props.update(source_material_label=source["material_label"],
+                 material_source=f"{CANDIDATE_REL} mass_estimate.parts.{name}",
+                 manufacturing_process="fabricated/welded S355 candidate; seam, bolt and clearance detail unqualified",
+                 thermal_condition="part-specific temperature and thermal bridge unmeasured")
+    return props
+
+def _candidate_parts():
+    sys.path.insert(0, str(REPO / "c2.1/cad/candidates"))
+    import relocated_gravity as candidate
+
+    kept, _ = candidate.translated_selected()
+    additions, _ = candidate.other_parts()
+    return kept + additions + candidate.gravity_parts() + candidate.supports()
+
 # Kinematic body assignment for the integrated machine (C2.1-S2 task spec):
 # S1 cutter shafts A/B + cutter stacks, S2 input eccentric, rotor, output
 # carrier/rollers are MOVING; everything else STATIC. The M1 input shaft
@@ -110,6 +154,13 @@ MOVING_BODIES: dict[str, set[str]] = {
     "TRANSFER_IDLER": {"S1_TRANSFER_IDLER"},
     "S2_CARRIER": {"OUTPUT_PIN_CARRIER_AND_SHAFT"},
     **{f"S2_ROLLER_{i}": {f"OUTPUT_ROLLER_{i}"} for i in range(1, 7)},
+}
+
+# Only mechanisms retained by the candidate CAD are eligible to move.
+CANDIDATE_MOVING_BODIES = {
+    body: names for body, names in MOVING_BODIES.items()
+    if body not in ("PADDLE", "AUGER", "CROSS_FEED", "CROSS_FEED_IDLER",
+                    "TRANSFER_BELT", "TRANSFER_IDLER")
 }
 STATIC_BODY = "STATIC"
 
@@ -183,7 +234,7 @@ def _lod_of(body: str) -> str:
     return "coarse" if body == STATIC_BODY else "fine"
 
 
-def run_full(out: Path) -> int:
+def run_full(out: Path, candidate: bool = False) -> int:
     """Convert ALL solids of the integration STEP to collision meshes.
 
     Moving solids at fine LOD (0.1mm), static shell solids at coarse LOD
@@ -194,22 +245,49 @@ def run_full(out: Path) -> int:
 
     t0 = time.time()
     out = Path(out).resolve()
-    full_step = REPO / FULL_STEP_REL
+    cad_manifest = candidate_manifest() if candidate else None
+    source_step_rel = cad_manifest["step"]["path"] if candidate else FULL_STEP_REL
+    full_step = REPO / source_step_rel
     if not full_step.is_file():
-        print(json.dumps({"failures": [f"{FULL_STEP_REL} missing"]}))
+        print(json.dumps({"failures": [f"{source_step_rel} missing"]}))
         return 1
     step_sha = sha256_file(full_step)
     head = git_head()
     script_sha = sha256_file(HERE)
+    if candidate and out != CANDIDATE_OUT.resolve():
+        raise ValueError("candidate conversion must use separate candidate assets path")
     out.mkdir(parents=True, exist_ok=True)
 
     import cadquery as cq
 
     print("[full] reconstructing placements from assembly sources ...",
           file=sys.stderr, flush=True)
-    parts = _reconstruct_parts(cq)
+    if candidate:
+        source_parts = _candidate_parts()
+        declared = cad_manifest["parts"]
+        if (len(source_parts) != cad_manifest["object_count"] or
+                len(declared) != len(source_parts) or
+                len({p["name"] for p in source_parts}) != len(source_parts)):
+            raise ValueError("candidate object count or unique labels mismatch")
+        for source, record in zip(source_parts, declared):
+            # Candidate manifest uses CadQuery BoundingBox (not OCP's
+            # tessellated BRepBndLib.Add_s, which can differ by ~0.1 mm).
+            bb = source["shape"].BoundingBox()
+            bounds = (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax)
+            if (source["name"] != record["name"] or
+                    source["group"] != record["group"] or
+                    len(source["shape"].Solids()) != record["solid_count"] or
+                    any(abs(a - b) > 0.01 for a, b in
+                        zip(bounds, record["bounds_mm"]))):
+                raise ValueError(f"candidate part order/shape changed: {source['name']}")
+        parts = [(p["name"], p["group"], solid)
+                 for p in source_parts for solid in p["shape"].Solids()]
+    else:
+        parts = _reconstruct_parts(cq)
     expected_counts = [len(p[2].Solids()) for p in parts]
     n_expected = sum(expected_counts)
+    if candidate and n_expected != cad_manifest["solid_count"]:
+        raise ValueError("candidate reconstructed solid count mismatch")
     print(f"[full] reconstruction: {len(parts)} parts, "
           f"{n_expected} expected solids ({time.time()-t0:.0f}s)",
           file=sys.stderr, flush=True)
@@ -223,6 +301,8 @@ def run_full(out: Path) -> int:
           file=sys.stderr, flush=True)
     failures: list[str] = []
     adjustments = []
+    if candidate and len(solids) != n_expected:
+        raise ValueError("candidate STEP/reconstruction count mismatch")
     if len(solids) != n_expected:
         surplus = n_expected - len(solids)
         # multi-solid reconstructed parts: reduce their expected counts by
@@ -343,11 +423,24 @@ def run_full(out: Path) -> int:
         keep += [(sus_r[a], sus_c[b]) for a, b in zip(r2, c2)]
     pairs = sorted((rows[ri], cols[ci],
                     float(cost[ri, ci])) for ri, ci in keep)
+    if candidate:
+        # The candidate exporter writes the compound in this exact order;
+        # never relabel a STEP solid by a nearest-neighbour guess.
+        pairs = [(rows[i], i, float(cost[i, i]))
+                 for i in range(n_expected)]
     records = []
     assign_audit = []
     for (pi, _c), si, cval in pairs:
         name, group, shape = parts[pi]
-        body = next((b for b, names in MOVING_BODIES.items()
+        if candidate and (pi != si or
+                          any(abs(a - b) > 0.5 for a, b in
+                              zip(part_bbs[pi], pool_bbs[si])) or
+                          abs(shape.Volume() - solids[si].Volume()) >
+                          max(0.01, shape.Volume() * 0.01)):
+            raise ValueError(f"candidate STEP export-order assignment mismatch: "
+                             f"{name} index {si}")
+        body_map = CANDIDATE_MOVING_BODIES if candidate else MOVING_BODIES
+        body = next((b for b, names in body_map.items()
                      if name in names), STATIC_BODY)
         records.append({"name": name, "group": group, "body": body,
                         "step_index": si, "solid": solids[si],
@@ -388,7 +481,10 @@ def run_full(out: Path) -> int:
                 failures.append(f"{stem}: solid invalid")
                 continue
             volume = rec["solid"].Volume()
-            props = mass_properties(rec["name"], volume, rec["solid_bbox"])
+            props = (_candidate_mass_properties(rec["name"], volume,
+                                                 rec["solid_bbox"], cad_manifest)
+                     if candidate else
+                     mass_properties(rec["name"], volume, rec["solid_bbox"]))
             rec["mass_props"] = props
             cq.exporters.export(rec["solid"], str(stl), "STL",
                                 tolerance=tol["linear_tolerance_mm"],
@@ -408,9 +504,11 @@ def run_full(out: Path) -> int:
                 "mesh_bytes": stl.stat().st_size,
                 "mesh_sha256": mesh_sha,
                 "mesh_format": "STL",
-                "source_step": FULL_STEP_REL,
+                "source_step": source_step_rel,
                 "source_step_sha256": step_sha,
-                "naming_basis": ("deterministic reconstruction order "
+                "naming_basis": ("candidate manifest export order and BRep "
+                                 "bbox/volume assignment" if candidate else
+                                 "deterministic reconstruction order "
                                  "(design/assembly.json instances + "
                                  "build_cad.components); STEP product names "
                                  "are generic"),
@@ -456,7 +554,7 @@ def run_full(out: Path) -> int:
 
     (out / "bodies.json").write_text(json.dumps({
         "schema": "full_machine_bodies/1",
-        "source_step": FULL_STEP_REL,
+        "source_step": source_step_rel,
         "source_step_sha256": step_sha,
         "source_step_solid_count": len(solids),
         "reconstructed_solid_count": n_expected,
@@ -467,7 +565,11 @@ def run_full(out: Path) -> int:
         "material_model_sha256": sha256_file(HERE.with_name("materials.py")),
         "material_scope": MATERIAL_SCOPE,
         "count_adjustments": adjustments,
-        "moving_bodies": sorted(MOVING_BODIES),
+        "moving_bodies": sorted(CANDIDATE_MOVING_BODIES if candidate
+                                else MOVING_BODIES),
+        **({"candidate_manifest": CANDIDATE_REL,
+            "candidate_manifest_sha256": sha256_file(REPO / CANDIDATE_REL)}
+           if candidate else {}),
         "static_body": STATIC_BODY,
         "emitted": emitted,
         "failures": failures,
@@ -493,8 +595,12 @@ def main() -> int:
                     help="convert ALL solids of the machine-integration STEP")
     args = ap.parse_args()
     if args.full:
+        candidate = os.environ.get("PPR_LAYOUT") == "relocated_gravity"
         return run_full(Path(args.out) if args.out else
-                        C22 / "sim" / "assets" / "out" / "full")
+                        CANDIDATE_OUT if candidate else
+                        C22 / "sim" / "assets" / "out" / "full", candidate)
+    if os.environ.get("PPR_LAYOUT") == "relocated_gravity":
+        raise ValueError("relocated-gravity conversion requires --full")
 
     import cadquery as cq
 

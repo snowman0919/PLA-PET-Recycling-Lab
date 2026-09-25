@@ -218,22 +218,59 @@ for theta in np.linspace(228,312,13):
 part('S2-SCREEN','Curved screen4mm x78 holes','2mm steel',a,b,notes='4 mm round holes, pitch6 axial. Bent radius inner62.8. Hole size is not a guaranteed maximum particle length. Flat DXF generated separately.')
 inst('S2-SCREEN',(X2,255,280),group='S2')
 
-# The Ø20 barrel feed bore is centred at x299,y275. A 15 mm vertical
-# octagonal neck keeps fragments within the clear throat before the
-# barrel handoff; the Ø18 outer octagon leaves 1 mm nominal radial room
-# inside the bore. Upper mouth spans the S2 screen discharge.
+# The active screen bores discharge at x~266..351, y260..290. Keep the
+# receiver's original z145..218 outer envelope, but inset its shoulder
+# below the screen so the lower wall steers fragments toward x299,y275.
+# A separate steel split saddle bridges the original lower face to the
+# cold barrel without changing FEED-BUF's named part or outlet datum.
 def octloop(r,z):
  return [[r*math.cos(math.radians(a)),r*math.sin(math.radians(a)),z]
          for a in (225,270,315,0,45,90,135,180)]
 def rectloop(w,d,z):
  return [[x,y,z] for x,y in ((-w/2,-d/2),(0,-d/2),(w/2,-d/2),
           (w/2,0),(w/2,d/2),(0,d/2),(-w/2,d/2),(-w/2,0))]
-bottom=octloop(9.0,0);neck=octloop(9.0,15);top=rectloop(190,48,73)
-ib=octloop(6.5,-1);inck=octloop(6.5,15);it=rectloop(184,42,74)
+throat_x=299-X2
+shoulder_x=302.5-X2
+bottom=octloop(10.0,0);neck=octloop(10.0,15)
+shoulder=rectloop(121,43,65);top=rectloop(190,48,73)
+ib=octloop(6.5,-1);inck=octloop(6.5,15)
+ishoulder=rectloop(111,39,65);it=rectloop(184,42,74)
 for loop in (bottom,neck,ib,inck):
- for pt in loop:pt[0]+=299-X2
-part('FEED-BUF','Buffer190x48 top /Ø18 octagonal neck15 /height73','PC outer shell plus metal throat',[{'kind':'loft','loops':[bottom,neck,top]}],[{'kind':'loft','loops':[ib,inck,it]}],notes='Lower Ø13 clear octagon and Ø18 outer vertical neck centred on the Ø20 barrel feed bore at x299,y275. 15 mm neck precedes barrel handoff; 1 mm nominal radial room is not a manufacturing tolerance. Upper mouth fits Y251..299. Cold shell-to-barrel support, seal and independent metal throat liner remain manufacturing HOLD.')
+ for pt in loop:pt[0]+=throat_x
+for loop in (shoulder,ishoulder):
+ for pt in loop:pt[0]+=shoulder_x
+# The split clamp has a 0.4 mm open seam and 0.1 mm nominal radial
+# clearance to the Ø30 barrel before M5 preload. Neither fit nor joint
+# strength is qualified by this ideal CAD solid.
+collar_at=(throat_x-17,0,-20)
+collar_bore=cyl(15.1,36,(throat_x-18,0,-20),(1,0,0))
+bolt_holes=[cyl(2.6,10,(throat_x+x,y,-25),(0,0,1))
+            for x in (-12,12) for y in (-20,20)]
+upper_ears=[box([34,8,4],(throat_x-17,y,-20)) for y in (-24,16)]
+lower_ears=[box([34,8,4],(throat_x-17,y,-24)) for y in (-24,16)]
+part('FEED-BUF','Steel receiver190x48 top /Ø20 neck','S355 steel',
+     [{'kind':'loft','loops':[bottom,neck,shoulder,top]}],
+     [{'kind':'loft','loops':[ib,inck,ishoulder,it]}],
+     notes='Original 190x48 mouth at z218, outer envelope z145..218; inset at z210 has inner x247..358,y255.5..294.5, enclosing nominal screen bores. Lower Ø13 clear octagonal throat at x299,y275,z145 with Ø20 outer neck z145..160 and steel saddle; fasteners, weld, sealing, thermal fit and fabrication DFM remain HOLD. No material-flow or physical-release claim.')
 inst('FEED-BUF',(X2,275,145),group='feed')
+# The butt-welded upper sleeve seats on the existing outlet face and
+# overlaps the upper barrel saddle; the lower semicollar is detachable.
+saddle_bottom=octloop(10.0,-7);saddle_top=octloop(10.0,0)
+saddle_ib=octloop(6.5,-8);saddle_it=octloop(6.5,1)
+for loop in (saddle_bottom,saddle_top,saddle_ib,saddle_it):
+ for pt in loop:pt[0]+=throat_x
+part('FEED-BUF-SADDLE','Upper cold-barrel saddle and feed sleeve','S355 steel',
+     [{'kind':'loft','loops':[saddle_bottom,saddle_top]},
+      cyl(18,34,collar_at,(1,0,0))]+upper_ears,
+     [{'kind':'loft','loops':[saddle_ib,saddle_it]},collar_bore,
+      box([36,48,20.2],(throat_x-18,-24,-40))]+bolt_holes,
+     notes='Sleeve joins FEED-BUF lower steel face at z145 by qualified weld; upper half of Ø36/Ø30.2 x34 cold-barrel split clamp, 0.4 mm open seam and four M5 through-holes. Bolt preload, weld, seal and thermal fit remain DFM HOLD.')
+inst('FEED-BUF-SADDLE',(X2,275,145),group='feed')
+part('FEED-BUF-CLAMP','Lower cold-barrel saddle half','S355 steel',
+     [cyl(18,34,collar_at,(1,0,0))]+lower_ears,
+     [collar_bore,box([36,48,22.2],(throat_x-18,-24,-20.2))]+bolt_holes,
+     notes='Lower half of FEED-BUF-SADDLE; four M5 holes pair upper ears. Ø30.2 nominal bore on Ø30 barrel has 0.1 mm cold radial clearance, with 0.4 mm seam available for preload; torque and metal-to-barrel seal remain DFM HOLD.')
+inst('FEED-BUF-CLAMP',(X2,275,145),group='feed')
 # Screw: genuine helical flight swept about local Z plus a tapered root, rotated Z to X at instance.
 a=[cone(5,5,96,axis=(0,0,1)),cone(5,6.5,80,(0,0,96),(0,0,1)),cyl(6.5,80,(0,0,176),(0,0,1)),{'kind':'screw_flight','pitch':16,'height':256,'outer_r':8,'root_r':4.9,'thickness':2}]
 part('EX-SCREW','16mm x256mm compression screw','SCM440 QT/nitriding RFQ',a,notes='Pitch16, flight2, root10 feed /13 meter, L/D16. CAD flight has square flanks; fillets/tip geometry/finish and nitriding supplier confirmation required.')

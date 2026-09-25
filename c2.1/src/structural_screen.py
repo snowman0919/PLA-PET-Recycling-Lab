@@ -105,17 +105,27 @@ def screen():
     lid = assembly["HOP-LID"]["adds"][0]["size"]
     deck = assembly["DRV-DECK"]["adds"][0]["size"]
     foot = assembly["DRV-M1-FOOT"]["adds"][0]["size"]
-    # The lower 15 mm octagonal neck is straight; screen the separate
-    # inclined neck-to-mouth span, not the full three-loop loft as one taper.
-    buf = assembly["FEED-BUF"]["adds"][0]["loops"][-2:]
+    buffer_part = assembly["FEED-BUF"]
+    outer = buffer_part["adds"][0]["loops"]
+    inner = buffer_part["cuts"][0]["loops"]
     hopper = assembly["HOPPER"]["adds"][0]["loops"]
-    zbuf = buf[1][0][2] - buf[0][0][2]
+    if buffer_part["material"] != "S355 steel" or len(outer) != 4 or len(inner) != 4:
+        raise ValueError("FEED-BUF must be the four-station S355 receiver loft; revise the screen")
+    outer_z = [loop[0][2] for loop in outer]
+    inner_z = [loop[0][2] for loop in inner]
+    if (not all(len(loop) == 8 and all(p[2] == loop[0][2] for p in loop)
+                for loop in outer + inner)
+            or not all(a < b for a, b in zip(outer_z, outer_z[1:]))
+            or not all(a < b for a, b in zip(inner_z, inner_z[1:]))
+            or inner_z[0] >= outer_z[0] or inner_z[-1] <= outer_z[-1]
+            or inner_z[1:3] != outer_z[1:3]):
+        raise ValueError("FEED-BUF loft stations/topology changed; revise the screen")
     zhop = hopper[1][0][2] - hopper[0][0][2]
-    top_buffer = max(p[0] for p in buf[1]) - min(p[0] for p in buf[1])
+    top_buffer = max(p[0] for p in outer[-1]) - min(p[0] for p in outer[-1])
     hopper_top = max(p[0] for p in hopper[1]) - min(p[0] for p in hopper[1])
     if lid != [180, 140, 5] or deck != [240, 194, 5] or foot[0] != 70 or wind["flange_r"] != 100:
         raise ValueError("Structural model datums changed: revise load paths before screening")
-    if zbuf <= 0 or zhop <= 0 or top_buffer <= 0:
+    if zhop <= 0 or top_buffer <= 0:
         raise ValueError("Enclosure loops have invalid dimensions")
 
     # Screening values are assumptions at room temperature, NOT supplier
@@ -127,105 +137,104 @@ def screen():
     def add(*args, **kw):
         cases.append(case(*args, **kw))
 
-    # Bulk pressure is a deliberately bounded process assumption, not a
-    # measured arching/impact pressure. p = 0.5 kPa; 5 kPa upset sensitivity.
-    buf_wall = 3.0  # mouth width difference; neck radius wall is 9-6.5=2.5
-    inner_buf = assembly["FEED-BUF"]["cuts"][0]["loops"][-2:]
-    if abs((top_buffer - (max(p[0] for p in inner_buf[1]) -
-                               min(p[0] for p in inner_buf[1]))) / 2 - buf_wall) > 1e-6:
-        raise ValueError("Buffer nominal wall thickness changed")
-    # The long +/-Y panels incline slightly. The inner mouth extends 1 mm
-    # above the outer mouth, reducing the same-z throat wall thickness.
-    y_outer_bottom, y_outer_top = max(p[1] for p in buf[0]), max(p[1] for p in buf[1])
-    y_inner_bottom, y_inner_top = max(p[1] for p in inner_buf[0]), max(p[1] for p in inner_buf[1])
-    y_inner_slope = (y_inner_top-y_inner_bottom)/(inner_buf[1][0][2]-inner_buf[0][0][2])
-    y_run = y_outer_top-y_outer_bottom
-    y_slant = math.hypot(zbuf,y_run)
-    y_projected_throat = y_outer_bottom - (y_inner_bottom+(buf[0][0][2]-inner_buf[0][0][2])*y_inner_slope)
-    y_projected_top = y_outer_top - (y_inner_bottom+(buf[1][0][2]-inner_buf[0][0][2])*y_inner_slope)
-    y_t_throat, y_t_top = (d*zbuf/y_slant for d in (y_projected_throat,y_projected_top))
-    for p_kPa in (0.5, 5.0):
-        v = strip_pressure(p_kPa / 1000, y_slant, top_buffer, y_t_throat, E["PC"], "cantilever")
-        v["stress_margin_to_room_assumption"] = margin(allowable["PC"], v["stress_MPa"])
-        v["deflection_margin_to_span_over_100"] = margin(y_slant / 100, v["deflection_mm"])
-        add(f"FEED-BUF wall {p_kPa:g} kPa", "long near-vertical panel cantilever at uniform minimum throat normal thickness; top free/bottom fully fixed",
-            {"part": "FEED-BUF", "vertical_height_mm":zbuf, "slant_span_mm":y_slant,
-             "strip_width_mm":top_buffer, "nominal_wall_mm":buf_wall,
-             "normal_thickness_throat_mm":y_t_throat, "normal_thickness_top_mm":y_t_top,
-             "source": "design/assembly.json FEED-BUF outer/inner lofts"},
-            {"pressure_kPa": p_kPa, "type": "assumed bulk static/upset envelope, excludes bridging and impacts"},
-            {"stress_MPa": allowable["PC"], "deflection_mm": y_slant / 100}, v,
-            ["actual feed mass/bridging/impact", "metal throat joint and wall fixture", "PC grade/process/temperature"],
-            decision="REJECT_ASSUMED_DEFLECTION" if v["deflection_mm"] > y_slant/100 else "HOLD",
-            note="Strip ignores corner restraint and is not a containment or burst calculation.")
-    # The x-facing frustum panels incline from neck to mouth. The cut loft
-    # over-runs the upper plane by 1 mm, so compare wall offsets at the
-    # same z before projecting thickness normal to the outer panel.
-    x_outer_bottom, x_outer_top = max(p[0] for p in buf[0]), max(p[0] for p in buf[1])
-    x_inner_bottom, x_inner_top = max(p[0] for p in inner_buf[0]), max(p[0] for p in inner_buf[1])
-    inner_slope = (x_inner_top-x_inner_bottom)/(inner_buf[1][0][2]-inner_buf[0][0][2])
-    projected_throat = x_outer_bottom - (x_inner_bottom + (buf[0][0][2]-inner_buf[0][0][2])*inner_slope)
-    projected_top = x_outer_top - (x_inner_bottom + (buf[1][0][2]-inner_buf[0][0][2])*inner_slope)
-    slope_run = x_outer_top-x_outer_bottom
-    slant = math.hypot(zbuf, slope_run)
-    normal_factor = zbuf/slant
-    t_throat, t_top, t_nominal = (v*normal_factor for v in (projected_throat, projected_top, buf_wall))
-    if min(t_throat, t_top) <= 0:
-        raise ValueError("Buffer inclined panel has no positive wall")
-    for p_kPa in (0.5, 5.0):
-        v = strip_pressure(p_kPa/1000, slant, 48., t_throat, E["PC"], "cantilever")
-        nominal = strip_pressure(p_kPa/1000, slant, 48., t_nominal, E["PC"], "cantilever")
-        v["nominal_3mm_projected_proxy"] = nominal
-        v["stress_margin_to_room_assumption"] = margin(allowable["PC"], v["stress_MPa"])
-        v["deflection_margin_to_slant_over_100"] = margin(slant/100, v["deflection_mm"])
-        add(f"FEED-BUF inclined x-wall {p_kPa:g} kPa", "inclined-panel generator cantilever, worst throat normal thickness applied uniformly; deliberately pessimistic strip, no corner/membrane stiffness",
-            {"part":"FEED-BUF", "slant_span_mm":slant, "vertical_height_mm":zbuf,
-             "x_run_mm":slope_run, "nominal_panel_width_mm":48.,
-             "horizontal_offset_at_throat_mm":projected_throat, "horizontal_offset_at_top_mm":projected_top,
-             "normal_thickness_throat_mm":t_throat, "normal_thickness_top_mm":t_top,
-             "source":"design/assembly.json FEED-BUF inclined outer neck z15..73 and cut z15..74"},
-            {"pressure_kPa":p_kPa, "type":"assumed uniform normal bulk pressure, corner/membrane action omitted"},
-            {"stress_MPa":allowable["PC"], "deflection_mm":slant/100}, v,
-            ["real tapered-shell stiffness and corner joints", "bulk force/impact",
-             "metal throat and any external rib anchors", "PC process/print direction"],
-            decision="REJECT_ASSUMED_PRESSURE_WITHOUT_STIFFENING" if v["deflection_mm"] > slant/100 else "HOLD",
-            note="Uniform minimum thickness is a conservative geometry bound, NOT an exact variable-section shell solution.")
-    z80_limit = 55*.45*.35/3  # illustrative printed PC Z-axis at 80 C
-    pressure_case = next(c for c in cases if c["name"] == "FEED-BUF inclined x-wall 5 kPa")
-    worst = pressure_case["computed"]
-    long_case = next(c for c in cases if c["name"] == "FEED-BUF wall 5 kPa")["computed"]
-    def sizes(delta, stress, span, thickness):
-        deflection_limit = span/100
-        max_deflection_span = span*(deflection_limit/delta)**(1/3)
-        max_creep_span = span*math.sqrt(z80_limit/stress)
-        max_span = min(max_deflection_span, max_creep_span)
-        return {"minimum_thickness_mm_for_deflection":thickness*(delta/deflection_limit)**(1/3),
-                "minimum_thickness_mm_for_80C_Z_stress":thickness*math.sqrt(stress/z80_limit),
-                "max_anchored_cantilever_span_mm_for_deflection":max_deflection_span,
-                "max_anchored_cantilever_span_mm_for_80C_Z_stress":max_creep_span,
-                "required_equal_spans_at_80C_Z":math.ceil(span/max_span)}
-    x_worst_sizing = sizes(worst["deflection_mm"],worst["stress_MPa"],slant,t_throat)
-    x_segments = x_worst_sizing["required_equal_spans_at_80C_Z"]
-    steel_liner = strip_pressure(5/1000, slant, 48., 2., E["steel"], "cantilever")
-    steel_liner["stress_margin_to_assumed_120MPa"] = margin(allowable["steel"],steel_liner["stress_MPa"])
-    steel_liner["deflection_margin_to_slant_over_100"] = margin(slant/100,steel_liner["deflection_mm"])
+    # FEED-BUF is one continuous steel load path from neck to free mouth.
+    # Do not treat the shoulder as a fixed ring. Eight matching vertices
+    # define its octagon-to-rectangle loft; bound each +/- X/Y generator
+    # using the thinnest same-z offset in its own station interval. The
+    # inner cut extends 1 mm past each end, so direct endpoint subtraction
+    # at the mouth would overstate its thickness.
+    def inner_face_at(axis, sign, z):
+        k = next(k for k in range(3) if inner_z[k] <= z <= inner_z[k+1])
+        face = lambda loop: sign * max(sign * p[axis] for p in loop)
+        ratio = (z - inner_z[k]) / (inner_z[k+1] - inner_z[k])
+        return face(inner[k]) + ratio * (face(inner[k+1]) - face(inner[k]))
+
+    buffer_profiles = {}
+    for axis, label in ((1, "Y"), (0, "X")):
+        cross = 1 - axis
+        # A constant maximum width across the full height overestimates
+        # pressure on the narrow neck; it cancels from beam stress/deflection.
+        width = max(max(p[cross] for p in loop) - min(p[cross] for p in loop)
+                    for loop in outer)
+        for sign, side in ((1, "+"), (-1, "-")):
+            segments = []
+            for k in range(3):
+                a, b = outer[k:k+2]
+                z0, z1 = outer_z[k:k+2]
+                face = lambda loop: sign * max(sign * p[axis] for p in loop)
+                run = face(b) - face(a)
+                span = math.hypot(z1-z0, run)
+                offsets = [sign * (face(loop) - inner_face_at(axis, sign, z))
+                           for loop, z in ((a, z0), (b, z1))]
+                if min(offsets) <= 0:
+                    raise ValueError(f"FEED-BUF {side}{label} segment {k} has no positive wall")
+                # On the straight octagonal neck the physical flat-to-flat
+                # thickness is the radial offset times cos(22.5 degrees).
+                factor = math.cos(math.pi/8) if k == 0 else (z1-z0)/span
+                segments.append({
+                    "outer_z_mm": [z0, z1], "slant_span_mm": span,
+                    "axis_run_mm": run, "same_z_offsets_mm": offsets,
+                    "minimum_normal_thickness_mm": min(offsets)*factor,
+                    "strip_width_mm": width})
+            buffer_profiles[side+label] = segments
+
     reinforcement = {
-        "basis":"5 kPa pressure, E_PC=2300 MPa, deflection <= EACH unsupported span/100, illustrative 80C long-term PC Z screen limit; every ring must be radially anchored to metal frame and restore a fully fixed boundary, not a floating hoop",
-        "80C_Z_stress_limit_MPa":z80_limit,
-        "near_vertical_long_y_face":sizes(long_case["deflection_mm"],long_case["stress_MPa"],y_slant,y_t_throat),
-        "inclined_x_face_uniform_nominal_3mm_horizontal_offset":sizes(
-            worst["nominal_3mm_projected_proxy"]["deflection_mm"],
-            worst["nominal_3mm_projected_proxy"]["stress_MPa"],slant,t_nominal),
-        "inclined_x_face_uniform_minimum_throat_thickness_bound":x_worst_sizing,
-        "inclined_x_face_required_horizontal_offset_at_all_heights_mm":
-            max(x_worst_sizing["minimum_thickness_mm_for_deflection"],
-                x_worst_sizing["minimum_thickness_mm_for_80C_Z_stress"])/normal_factor,
-        "worst_bound_ideal_intermediate_ring_z_mm":[i*zbuf/x_segments for i in range(1,x_segments)],
-        "alternative_continuous_2mm_steel_load_bearing_liner":{
-            "source":"proposed, NOT present in current CAD/BOM",
-            "strip_span_mm":slant, "thickness_mm":2., "pressure_kPa":5.,
-            "computed":steel_liner, "decision":"HOLD metal-throat attachment, corrosion/thermal and enclosure joint qualification"},
-        "caveat":"Real taper, perforation/metal rim, support stiffness, attachment pullout, thermal gradient and impact require physical coupons/structural validation. Thickening x faces reduces inner throat width and may block flow; 210-mm printer XY only bounds outer 190-mm mouth, not joint adequacy."}
+        "basis": "Existing four-station S355 receiver; 5 kPa uniform pressure. One uninterrupted base-fixed/free-mouth cantilever, piecewise minimum normal thickness and constant maximum strip width; no shoulder/ring fixity or membrane/corner stiffness credited.",
+        "steel_room_screen_E_MPa": E["steel"],
+        "steel_assumed_stress_limit_MPa": allowable["steel"],
+        "face_sizing_at_5kPa": {},
+        "decision": "HOLD: sizing proxy is not a weld, saddle, fastener, buckling, impact, thermal or pressure-containment qualification",
+    }
+    for side, segments in buffer_profiles.items():
+        total_span = sum(s["slant_span_mm"] for s in segments)
+        width = segments[0]["strip_width_mm"]
+        for p_kPa in (0.5, 5.0):
+            q = p_kPa / 1000 * width  # N/mm along the bent generator
+            remaining = total_span
+            tip_deflection = 0.
+            section_results = []
+            for s in segments:
+                span, t = s["slant_span_mm"], s["minimum_normal_thickness_mm"]
+                I = width * t**3 / 12
+                root_moment = q * remaining**2 / 2
+                stress = root_moment * t / (2*I)
+                # Unit-load integration of M(x)*(tip-x)/EI on this segment.
+                # The upper pressure continues to bend every lower segment.
+                contribution = q * (remaining**4 - (remaining-span)**4) / (8*E["steel"]*I)
+                tip_deflection += contribution
+                section_results.append({
+                    "root_moment_Nmm": root_moment, "root_stress_MPa": stress,
+                    "tip_deflection_contribution_mm": contribution, "I_mm4": I})
+                remaining -= span
+            peak_stress = max(s["root_stress_MPa"] for s in section_results)
+            v = {"stress_MPa": peak_stress, "deflection_mm": tip_deflection,
+                 "segment_results": section_results,
+                 "stress_margin_to_room_assumption": margin(allowable["steel"], peak_stress),
+                 "deflection_margin_to_span_over_100": margin(total_span/100, tip_deflection)}
+            add(f"FEED-BUF {side} wall {p_kPa:g} kPa",
+                "uninterrupted steel generator cantilever, base fully fixed/free mouth; uniform pressure, three minimum-thickness segments in series",
+                {"part": "FEED-BUF", "material": buffer_part["material"],
+                 "slant_span_mm": total_span, "strip_width_mm": width,
+                 "segments": segments, "source": "design/assembly.json FEED-BUF outer/inner four-station lofts (src/design.py)"},
+                {"pressure_kPa": p_kPa, "type": "assumed normal bulk pressure envelope, no bridging or impact"},
+                {"stress_MPa": allowable["steel"], "deflection_mm": total_span/100}, v,
+                ["actual feed mass, arching and impact", "neck-to-saddle weld and saddle M5 fastener/preload strength",
+                 "shell local buckling/corners and as-fabricated thickness", "temperature gradients and cold-barrel interface"],
+                decision="REJECT_ASSUMED_DEFLECTION" if tip_deflection > total_span/100 else "HOLD",
+                note="Constant widest strip load and minimum thickness per segment are screening bounds, not a tapered-shell solution. Fully fixed base is unverified; HOLD regardless of proxy margin.")
+            if p_kPa == 5.0:
+                stress_factor = math.sqrt(peak_stress/allowable["steel"])
+                deflection_factor = (tip_deflection/(total_span/100))**(1/3)
+                reinforcement["face_sizing_at_5kPa"][side] = {
+                    "current_minimum_normal_thickness_by_segment_mm":
+                        [s["minimum_normal_thickness_mm"] for s in segments],
+                    "continuous_span_mm": total_span, "peak_stress_MPa": peak_stress,
+                    "tip_deflection_mm": tip_deflection,
+                    "minimum_uniform_thickness_scale_for_assumed_stress": stress_factor,
+                    "minimum_uniform_thickness_scale_for_span_over_100": deflection_factor,
+                    "minimum_uniform_thickness_scale_both": max(stress_factor, deflection_factor),
+                    "interpretation": "If every segment thickness scales equally: stress scales as 1/t^2 and tip deflection as 1/t^3. Does not size a local rib/ring or qualify joints.",
+                }
 
     hopper_wall = 3.0  # outer/inset lofts, nominal 3 mm; inclined section not plate-supported
     v = strip_pressure(0.5 / 1000, hopper_top, zhop, hopper_wall, E["PC"], "simple")
@@ -363,15 +372,25 @@ def screen():
 
     alpha = {"PC": 65e-6, "steel": 12e-6, "aluminum": 23e-6}
     thermal = []
-    for length, T, label in ((top_buffer, 60., "buffer-to-steel"), (lid[0], 80., "lid-to-steel"),
-                             (deck[0], 90., "steel-deck-to-aluminum-frame")):
-        a, b = ("steel", "aluminum") if label.startswith("steel-") else ("PC", "steel")
+    for length, T, label, a, b in (
+        (lid[0], 80., "lid-to-steel", "PC", "steel"),
+        (deck[0], 90., "steel-deck-to-aluminum-frame", "steel", "aluminum"),
+    ):
         deltaT = T - 20
         growth_a, growth_b = length*alpha[a]*deltaT, length*alpha[b]*deltaT
         thermal.append({"joint": label, "length_mm": length, "reference_C": 20, "assumed_max_C": T,
                         "alpha_1_per_K": {a: alpha[a], b: alpha[b]}, "free_growth_mm": {a: growth_a,b:growth_b},
                         "differential_mm": abs(growth_a-growth_b),
                         "decision": "HOLD", "required": "slotted/isolated interface and measured local service temperature; no rigid fully constrained expansion"})
+    # Equal free-expansion coefficients for the steel receiver and saddle
+    # do not prove a sound weld or absence of differential thermal gradients.
+    receiver_growth = top_buffer*alpha["steel"]*(60.-20.)
+    thermal.append({"joint": "steel-receiver-to-steel-saddle", "length_mm": top_buffer,
+                    "reference_C": 20, "assumed_max_C": 60.,
+                    "alpha_1_per_K": {"receiver": alpha["steel"], "saddle": alpha["steel"]},
+                    "free_growth_mm": {"receiver": receiver_growth, "saddle": receiver_growth},
+                    "differential_mm": 0., "decision": "HOLD",
+                    "required": "measure actual receiver/barrel temperature gradients and qualify weld, seal and split-clamp thermal fit; equal-coefficient free growth is not a joint assessment"})
 
     # Illustrative base strengths reduced by assumed print-axis and
     # long-term retention multipliers. No tested coupon or safety allowable.
@@ -394,12 +413,12 @@ def screen():
                          "HOLD; PC conditional enclosure candidate" if name == "PC" else
                          "HOLD; cold outer panel candidate only",
                          "reason": "Layer-normal strength, elevated-temperature creep and process coupon data not measured; do not load printed support or safety retention."})
-    # Compare the actual plate/beam stress proxies to assumed long-term PC
-    # print-axis strengths; there is NO service-duration constitutive model.
+    # Only the remaining PC hopper/lid pressure/point-load proxies enter
+    # this print-orientation/creep comparison, never the steel receiver.
     pc = next(p for p in polymers if p["material"] == "PC")
     creep = []
     for c in cases:
-        if not c["name"].startswith(("FEED-BUF", "HOPPER", "HOP-LID")):
+        if not c["name"].startswith(("HOPPER", "HOP-LID")):
             continue
         stress = c["computed"]["stress_MPa"]
         for temp_C, retention in ((60., .65), (80., .35)):
@@ -482,16 +501,17 @@ def screen():
             "rim_model": "one 20-mm-wide radial cantilever from drum radius35 to rim100 with 20 N point load; 20N and rigidity threshold are assumptions",
             "flanges": flanges, "two_flange_mass_saved_6mm_to_3mm_kg":abs(flanges[0]["two_flange_mass_kg"]-flanges[1]["two_flange_mass_kg"]),
             "decision": "HOLD: verify hub attachment, flange bend/rotating balance, guards and axial shaft retention; CAD and BOM must agree"},
-        "manufacturing": {"PC_enclosure": "PC CANDIDATE for cold hopper/lid and redesigned buffer; CURRENT buffer inclined wall REJECTS assumed pressure strip, requiring metal load path or proven stiffening. Split hopper seams, metal throat/interlock strike, creep and guard signoffs HOLD",
+        "manufacturing": {"PC_enclosure": "PC CANDIDATE for cold hopper/lid only; split hopper seams, metal interlock strike, creep and guard signoffs HOLD",
+           "steel_receiver": "FEED-BUF four-station S355 steel receiver, with inset shoulder at z210 and mouth at z218, plus separate welded upper saddle and bolted lower clamp. HOLD weld procedure/inspection, wall fabrication thickness, seal, four M5 preload/fit, impact, buckling and thermal-gradient evidence; strip screen is not a pressure/guard rating",
            "PLA": "REJECT for hot enclosure or load-bearing supports; only cold non-safety prototypes",
            "ABS": "HOLD as cold outer panel option; no hot-zone or safety retainers without grade/temperature/creep proof",
            "motor_bearing_and_fastener_load_paths": "steel candidate; never substitute FDM for support columns, bearings, shafts, bolts, guard anchors",
            "owned_aluminum_profile": "HOLD actual T-slot moment of inertia, alloy, slot nut/bolt pullout and measured hole/slot pattern",
-           "print_envelope_mm":210, "panel_note":"180-mm lid and 190-mm buffer mouth fit XY <=210; hopper wall >210 tall, so split into <=210-mm pieces and screen joint; orient primary flexural tension in XY, Z weak and creep-sensitive",
+           "print_envelope_mm":210, "panel_note":"180-mm PC lid fits XY <=210; hopper wall >210 tall, so split into <=210-mm pieces and screen joint. FEED-BUF steel receiver is not a printable PC panel; orient printed hopper/lid primary flexural tension in XY, Z weak and creep-sensitive",
            "feedstocks_not_construction": "PLA/PET/TPU are incoming waste feedstocks; this screening's PLA/ABS/PC are candidate construction polymers, TPU only as possible puller tread after friction/wear proof"},
         "explicit_exclusions": ["no measured forces, impact energy, vibration or fatigue", "no bearing, chain, gear, weld, layer-bond, screw or slot-nut certification",
              "no local buckling, notch, fracture, thermal gradients, pressure vessel or guard containment rating",
-             "no FEED-BUF straight-neck joint or metal-liner anchorage strength calculation",
+             "no FEED-BUF neck-to-saddle weld, saddle clamp M5 preload/pullout, barrel seal or thermal-fit strength calculation",
              "no raw feedstock coupon or digital geometry used as printed-part proof", "no fabrication, procurement or energization authorization"],
         "decision": "HOLD; all cases provisional and unmeasured dependencies must be closed before physical release"
     }

@@ -1,10 +1,10 @@
 {
   "schema": "full_machine_bodies/1",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "1d45ad9aa8f404310df5ec6821c524d00ab518d67468598b0e13e860d83f1fe0",
-  "source_step_solid_count": 278,
-  "reconstructed_solid_count": 278,
-  "revision": "a0f3f6cc1e215118cf990b7993015cdbc0757448",
+  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "source_step_solid_count": 280,
+  "reconstructed_solid_count": 280,
+  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
   "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
   "solids": [
     {
@@ -7129,23 +7129,23 @@
         219.0000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "c427c0879167e9b065a0d01485b4c886be31e8a7535b81bf203487d10e474635",
-      "material": "PC_SHEET",
-      "source_material_label": "PC outer shell plus metal throat",
-      "manufacturing_process": "unfilled PC sheet candidate cut/formed; separate metal throat/strike unmodeled",
-      "thermal_condition": "PC only with measured cold-zone temperature and independent metal throat; grade, forming, impact qualification HOLD",
+      "mesh_sha256": "186c6a3f410e1a134dcc352355f5cc1216304cd801909822065316034f78cb5f",
+      "material": "STEEL",
+      "source_material_label": "S355 steel",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
       "material_source": "design/assembly.json parts.FEED-BUF.material",
       "model_source": "c2.2/sim/assets/materials.py",
-      "nominal_density_kg_m3": 1200.0,
+      "nominal_density_kg_m3": 7850.0,
       "effective_fraction": 1.0,
-      "effective_density_kg_m3": 1200.0,
+      "effective_density_kg_m3": 7850.0,
       "effective_density_bounds_kg_m3": [
-        1200.0,
-        1200.0
+        7850.0,
+        7850.0
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 46365.84425076999,
+      "volume_mm3": 39631.270751340475,
       "solid_bbox_mm": [
         213.56946458906,
         250.9999999,
@@ -7154,10 +7154,10 @@
         299.0000001,
         219.0000001
       ],
-      "mass_kg": 0.055639013100923985,
+      "mass_kg": 0.31110547539802275,
       "mass_bounds_kg": [
-        0.055639013100923985,
-        0.055639013100923985
+        0.31110547539802275,
+        0.31110547539802275
       ],
       "center_of_mass_mm": [
         308.56946468906,
@@ -7165,24 +7165,166 @@
         182.0
       ],
       "inertia_kg_mm2": [
-        36.072627053364364,
-        192.77063454662462,
-        178.0633887020599
+        201.70005114821367,
+        1077.8767731667444,
+        995.6412255669089
       ],
       "inertia_upper_bound_kg_mm2": [
-        108.2178811600931,
-        578.3119036398739,
-        534.1901661061797
+        605.100153444641,
+        3233.6303195002333,
+        2986.923676700727
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
       "mesh": "c2.2/sim/assets/out/full/FEED-BUF_001__coarse.stl"
     },
     {
+      "name": "FEED-BUF-SADDLE_001",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 101,
+      "part_bbox": [
+        281.99999990000174,
+        250.99999989999998,
+        125.19999989999287,
+        316.0000001000018,
+        299.0000001,
+        145.0000001
+      ],
+      "solid_bbox": [
+        281.9999999,
+        250.9999999,
+        125.19999989999897,
+        316.0000001,
+        299.0000001,
+        145.00000010000002
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "a708c28adb3d4b61c62ba7e8fcaf5fa9f6c5a347454b1761a3d9963e7c8aa2f2",
+      "material": "STEEL",
+      "source_material_label": "S355 steel",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "design/assembly.json parts.FEED-BUF-SADDLE.material",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 6480.746882610446,
+      "solid_bbox_mm": [
+        281.9999999,
+        250.9999999,
+        125.19999989999897,
+        316.0000001,
+        299.0000001,
+        145.00000010000002
+      ],
+      "mass_kg": 0.050873863028492006,
+      "mass_bounds_kg": [
+        0.050873863028492006,
+        0.050873863028492006
+      ],
+      "center_of_mass_mm": [
+        299.0,
+        275.0,
+        135.0999999999995
+      ],
+      "inertia_kg_mm2": [
+        11.429830921586413,
+        6.562898001452882,
+        14.668630645603775
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        34.28949276475924,
+        19.688694004358645,
+        44.005891936811324
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/FEED-BUF-SADDLE_001__coarse.stl"
+    },
+    {
+      "name": "FEED-BUF-CLAMP_001",
+      "group": "feed",
+      "body": "STATIC",
+      "step_index": 102,
+      "part_bbox": [
+        281.99999990000174,
+        250.9999999,
+        106.9999999,
+        316.0000001000018,
+        299.0000001,
+        124.80000010000231
+      ],
+      "solid_bbox": [
+        281.9999999,
+        250.9999999,
+        106.9999999,
+        316.0000001,
+        299.0000001,
+        124.80000010000231
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "8c18a64e1a273027ca6655ad385e2b799da907ba99b210d5fe336440257cdef2",
+      "material": "STEEL",
+      "source_material_label": "S355 steel",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "design/assembly.json parts.FEED-BUF-CLAMP.material",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 6355.121449649702,
+      "solid_bbox_mm": [
+        281.9999999,
+        250.9999999,
+        106.9999999,
+        316.0000001,
+        299.0000001,
+        124.80000010000231
+      ],
+      "mass_kg": 0.04988770337975017,
+      "mass_bounds_kg": [
+        0.04988770337975017,
+        0.04988770337975017
+      ],
+      "center_of_mass_mm": [
+        299.0,
+        275.0,
+        115.90000000000116
+      ],
+      "inertia_kg_mm2": [
+        10.895640819902747,
+        6.123050506625725,
+        14.384287944187706
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        32.68692245970824,
+        18.369151519877175,
+        43.15286383256312
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/FEED-BUF-CLAMP_001__coarse.stl"
+    },
+    {
       "name": "EX-SCREW_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 101,
+      "step_index": 103,
       "part_bbox": [
         263.99999989999975,
         266.9999998999995,
@@ -7253,7 +7395,7 @@
       "name": "EX-BARREL_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 102,
+      "step_index": 104,
       "part_bbox": [
         263.9999999,
         259.9999999,
@@ -7324,7 +7466,7 @@
       "name": "EX-REAR_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 103,
+      "step_index": 105,
       "part_bbox": [
         202.9999999,
         261.9999999,
@@ -7395,7 +7537,7 @@
       "name": "EX-CPL_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 104,
+      "step_index": 106,
       "part_bbox": [
         186.9999999,
         258.9999999,
@@ -7466,7 +7608,7 @@
       "name": "BR-6202_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 105,
+      "step_index": 107,
       "part_bbox": [
         224.9999999,
         257.4999999,
@@ -7537,7 +7679,7 @@
       "name": "BR-51102_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 106,
+      "step_index": 108,
       "part_bbox": [
         238.9999999,
         260.9999999,
@@ -7608,7 +7750,7 @@
       "name": "EX-THRUST_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 107,
+      "step_index": 109,
       "part_bbox": [
         221.9999999,
         244.9999999,
@@ -7679,7 +7821,7 @@
       "name": "EX-DIE_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 108,
+      "step_index": 110,
       "part_bbox": [
         519.9999999,
         256.9999999,
@@ -7750,7 +7892,7 @@
       "name": "EX-H100_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 109,
+      "step_index": 111,
       "part_bbox": [
         327.9999999,
         254.9999999,
@@ -7821,7 +7963,7 @@
       "name": "EX-H100_002",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 110,
+      "step_index": 112,
       "part_bbox": [
         387.9999999,
         254.9999999,
@@ -7892,7 +8034,7 @@
       "name": "EX-H100_003",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 111,
+      "step_index": 113,
       "part_bbox": [
         447.9999999,
         254.9999999,
@@ -7963,7 +8105,7 @@
       "name": "EX-H60_001",
       "group": "extruder",
       "body": "STATIC",
-      "step_index": 112,
+      "step_index": 114,
       "part_bbox": [
         528.9999999,
         255.9999999,
@@ -8034,7 +8176,7 @@
       "name": "COOL-TRAY_001",
       "group": "cooling",
       "body": "STATIC",
-      "step_index": 113,
+      "step_index": 115,
       "part_bbox": [
         544.9999999,
         234.9999999,
@@ -8105,7 +8247,7 @@
       "name": "COOL-FAN_001",
       "group": "cooling",
       "body": "STATIC",
-      "step_index": 114,
+      "step_index": 116,
       "part_bbox": [
         559.9999999,
         186.9999999,
@@ -8176,7 +8318,7 @@
       "name": "COOL-FAN_002",
       "group": "cooling",
       "body": "STATIC",
-      "step_index": 115,
+      "step_index": 117,
       "part_bbox": [
         699.9999999,
         186.9999999,
@@ -8247,7 +8389,7 @@
       "name": "HOP-LID_001",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 116,
+      "step_index": 118,
       "part_bbox": [
         0.7417155707405468,
         174.9999999,
@@ -8268,8 +8410,8 @@
       "mesh_sha256": "d1e44776b2e0bde40c1b7906caaf1fb2754edbcf734e9a94c9ee369057173fbe",
       "material": "PC_SHEET",
       "source_material_label": "PC with metal strike",
-      "manufacturing_process": "unfilled PC sheet candidate cut/formed; separate metal throat/strike unmodeled",
-      "thermal_condition": "PC only with measured cold-zone temperature and independent metal throat; grade, forming, impact qualification HOLD",
+      "manufacturing_process": "unfilled PC sheet candidate cut/formed; separate metal strike unmodeled",
+      "thermal_condition": "PC only with measured cold-zone temperature and independent metal safety retention; grade, forming, impact qualification HOLD",
       "material_source": "design/assembly.json parts.HOP-LID.material",
       "model_source": "c2.2/sim/assets/materials.py",
       "nominal_density_kg_m3": 1200.0,
@@ -8318,7 +8460,7 @@
       "name": "S1-ROOF-F_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 117,
+      "step_index": 119,
       "part_bbox": [
         74.9999999,
         39.9999999,
@@ -8389,7 +8531,7 @@
       "name": "S1-ROOF-R_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 118,
+      "step_index": 120,
       "part_bbox": [
         74.99999985,
         351.99999985,
@@ -8460,7 +8602,7 @@
       "name": "S1-TIE-TUBE_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 119,
+      "step_index": 121,
       "part_bbox": [
         83.9999999,
         155.9999999,
@@ -8531,7 +8673,7 @@
       "name": "S1-STUD_001",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 120,
+      "step_index": 122,
       "part_bbox": [
         86.9999999,
         107.9999999,
@@ -8602,7 +8744,7 @@
       "name": "S1-TIE-TUBE_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 121,
+      "step_index": 123,
       "part_bbox": [
         83.9999999,
         155.9999999,
@@ -8673,7 +8815,7 @@
       "name": "S1-STUD_002",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 122,
+      "step_index": 124,
       "part_bbox": [
         86.9999999,
         107.9999999,
@@ -8744,7 +8886,7 @@
       "name": "S1-ROOF-F_002",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 123,
+      "step_index": 125,
       "part_bbox": [
         214.9999999,
         39.9999999,
@@ -8815,7 +8957,7 @@
       "name": "S1-ROOF-R_002",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 124,
+      "step_index": 126,
       "part_bbox": [
         214.9999999,
         351.9999999,
@@ -8886,7 +9028,7 @@
       "name": "S1-TIE-TUBE_003",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 125,
+      "step_index": 127,
       "part_bbox": [
         223.9999999,
         155.9999999,
@@ -8957,7 +9099,7 @@
       "name": "S1-STUD_003",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 126,
+      "step_index": 128,
       "part_bbox": [
         226.9999999,
         107.9999999,
@@ -9028,7 +9170,7 @@
       "name": "S1-TIE-TUBE_004",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 127,
+      "step_index": 129,
       "part_bbox": [
         223.9999999,
         155.9999999,
@@ -9099,7 +9241,7 @@
       "name": "S1-STUD_004",
       "group": "S1",
       "body": "STATIC",
-      "step_index": 128,
+      "step_index": 130,
       "part_bbox": [
         226.9999999,
         107.9999999,
@@ -9170,7 +9312,7 @@
       "name": "DRV-DECK_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 129,
+      "step_index": 131,
       "part_bbox": [
         19.99999985,
         209.99999985,
@@ -9241,7 +9383,7 @@
       "name": "DRV-M1-FOOT_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 130,
+      "step_index": 132,
       "part_bbox": [
         44.9999999,
         216.9999999,
@@ -9312,7 +9454,7 @@
       "name": "DRV-RISER12_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 131,
+      "step_index": 133,
       "part_bbox": [
         62.9999999,
         357.9999999,
@@ -9383,7 +9525,7 @@
       "name": "DRV-RISER20_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 132,
+      "step_index": 134,
       "part_bbox": [
         101.94018982255457,
         385.9999999,
@@ -9454,7 +9596,7 @@
       "name": "S2-LEG-L_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 133,
+      "step_index": 135,
       "part_bbox": [
         206.56946458906177,
         169.9999999,
@@ -9525,7 +9667,7 @@
       "name": "S2-LEG-L_002",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 134,
+      "step_index": 136,
       "part_bbox": [
         206.56946458906177,
         341.9999999,
@@ -9596,7 +9738,7 @@
       "name": "S2-LEG-R_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 135,
+      "step_index": 137,
       "part_bbox": [
         360.56946458906174,
         169.9999999,
@@ -9667,7 +9809,7 @@
       "name": "S2-LEG-R_002",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 136,
+      "step_index": 138,
       "part_bbox": [
         360.56946458906174,
         341.9999999,
@@ -9738,7 +9880,7 @@
       "name": "EX-STAND_001",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 137,
+      "step_index": 139,
       "part_bbox": [
         176.9999999,
         239.9999999,
@@ -9809,7 +9951,7 @@
       "name": "DRV_M2_FACE_PLATE",
       "group": "frame_mount",
       "body": "STATIC",
-      "step_index": 138,
+      "step_index": 140,
       "part_bbox": [
         176.9999999,
         239.9999999,
@@ -9880,7 +10022,7 @@
       "name": "KEY-8-154_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 139,
+      "step_index": 141,
       "part_bbox": [
         125.9999999,
         163.3999999,
@@ -9951,7 +10093,7 @@
       "name": "KEY-8-154_002",
       "group": "S1",
       "body": "S1B",
-      "step_index": 140,
+      "step_index": 142,
       "part_bbox": [
         185.9999999,
         169.5999999,
@@ -10022,7 +10164,7 @@
       "name": "KEY-8-25_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 141,
+      "step_index": 143,
       "part_bbox": [
         125.9999999,
         109.9999999,
@@ -10093,7 +10235,7 @@
       "name": "KEY-8-25_002",
       "group": "S1",
       "body": "S1B",
-      "step_index": 142,
+      "step_index": 144,
       "part_bbox": [
         186.91040425630197,
         109.9999999,
@@ -10164,7 +10306,7 @@
       "name": "KEY-8-16_001",
       "group": "S1",
       "body": "S1A",
-      "step_index": 143,
+      "step_index": 145,
       "part_bbox": [
         125.9999999,
         354.9999999,
@@ -10235,7 +10377,7 @@
       "name": "KEY-4-70_001",
       "group": "drive",
       "body": "IN_SHAFT",
-      "step_index": 144,
+      "step_index": 146,
       "part_bbox": [
         77.9999999,
         276.9999999,
@@ -10306,7 +10448,7 @@
       "name": "KEY-6-70_001",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 145,
+      "step_index": 147,
       "part_bbox": [
         133.94018982255457,
         276.9999999,
@@ -10377,7 +10519,7 @@
       "name": "KEY-6-16_001",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 146,
+      "step_index": 148,
       "part_bbox": [
         133.94018982255457,
         354.9999999,
@@ -10448,7 +10590,7 @@
       "name": "DRV-SP24-B20_002",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 147,
+      "step_index": 149,
       "part_bbox": [
         97.97997123683487,
         371.99999985,
@@ -10519,7 +10661,7 @@
       "name": "KEY-6-16_002",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 148,
+      "step_index": 150,
       "part_bbox": [
         133.94018977255456,
         372.99999985,
@@ -10590,7 +10732,7 @@
       "name": "FRONT_INPUT_SUPPORT",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 149,
+      "step_index": 151,
       "part_bbox": [
         223.56946453906176,
         350.99999985,
@@ -10661,7 +10803,7 @@
       "name": "REAR_OUTPUT_SUPPORT",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 150,
+      "step_index": 152,
       "part_bbox": [
         223.56946453906176,
         202.99999984999997,
@@ -10732,7 +10874,7 @@
       "name": "INPUT_BEARING_ENVELOPE_UNRATED",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 151,
+      "step_index": 153,
       "part_bbox": [
         292.56946458906174,
         346.9999999,
@@ -10803,7 +10945,7 @@
       "name": "OUTPUT_BEARING_ENVELOPE_UNRATED",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 152,
+      "step_index": 154,
       "part_bbox": [
         287.56946458906174,
         202.9999999,
@@ -10874,7 +11016,7 @@
       "name": "FRONT_FIXED_RING_PLATE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 153,
+      "step_index": 155,
       "part_bbox": [
         220.56946458906177,
         326.9999999,
@@ -10945,7 +11087,7 @@
       "name": "REAR_FIXED_RING_PLATE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 154,
+      "step_index": 156,
       "part_bbox": [
         220.56946458906177,
         298.9999999,
@@ -11016,7 +11158,7 @@
       "name": "C2_FIXED_SHEAR_SENSOR_BORE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 155,
+      "step_index": 157,
       "part_bbox": [
         237.56946458906177,
         254.9999999,
@@ -11087,7 +11229,7 @@
       "name": "C2_VERTICAL_DISCHARGE_SCREEN",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 156,
+      "step_index": 158,
       "part_bbox": [
         258.9297846646491,
         254.9999998896971,
@@ -11158,7 +11300,7 @@
       "name": "C2_LEFT_WEAR_SHELL",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 157,
+      "step_index": 159,
       "part_bbox": [
         356.6770556169293,
         254.9999999,
@@ -11229,7 +11371,7 @@
       "name": "C2_RIGHT_WEAR_SHELL_1",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 158,
+      "step_index": 160,
       "part_bbox": [
         242.89978186768477,
         254.9999999,
@@ -11300,7 +11442,7 @@
       "name": "C2_RIGHT_WEAR_SHELL_2",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 159,
+      "step_index": 161,
       "part_bbox": [
         242.89978186768474,
         254.9999999,
@@ -11371,7 +11513,7 @@
       "name": "C2_THERMAL_SADDLE_L",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 160,
+      "step_index": 162,
       "part_bbox": [
         361.2794082521792,
         254.9999999,
@@ -11442,7 +11584,7 @@
       "name": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 161,
+      "step_index": 163,
       "part_bbox": [
         223.70234965234476,
         254.9999999,
@@ -11513,7 +11655,7 @@
       "name": "C2_SADDLE_CAP_L_FRONT",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 162,
+      "step_index": 164,
       "part_bbox": [
         360.9599540481593,
         294.9999999,
@@ -11584,7 +11726,7 @@
       "name": "C2_SADDLE_CAP_L_REAR",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 163,
+      "step_index": 165,
       "part_bbox": [
         360.9599540481593,
         250.9999999,
@@ -11655,7 +11797,7 @@
       "name": "C2_SADDLE_CAP_R_FRONT",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 164,
+      "step_index": 166,
       "part_bbox": [
         232.06977414391375,
         294.9999999,
@@ -11726,7 +11868,7 @@
       "name": "C2_SADDLE_CAP_R_REAR",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 165,
+      "step_index": 167,
       "part_bbox": [
         232.06977414391375,
         250.9999999,
@@ -11797,7 +11939,7 @@
       "name": "FIXED_RING_PIN_1",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 166,
+      "step_index": 168,
       "part_bbox": [
         228.56946458906177,
         304.9999999,
@@ -11868,7 +12010,7 @@
       "name": "FIXED_RING_PIN_2",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 167,
+      "step_index": 169,
       "part_bbox": [
         245.41426468449535,
         304.9999999,
@@ -11939,7 +12081,7 @@
       "name": "FIXED_RING_PIN_3",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 168,
+      "step_index": 170,
       "part_bbox": [
         288.06679579704274,
         304.9999999,
@@ -12010,7 +12152,7 @@
       "name": "FIXED_RING_PIN_4",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 169,
+      "step_index": 171,
       "part_bbox": [
         336.56946458906174,
         304.9999999,
@@ -12081,7 +12223,7 @@
       "name": "FIXED_RING_PIN_5",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 170,
+      "step_index": 172,
       "part_bbox": [
         368.22733328564715,
         304.9999999,
@@ -12152,7 +12294,7 @@
       "name": "FIXED_RING_PIN_6",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 171,
+      "step_index": 173,
       "part_bbox": [
         368.22733328564715,
         304.9999999,
@@ -12223,7 +12365,7 @@
       "name": "FIXED_RING_PIN_7",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 172,
+      "step_index": 174,
       "part_bbox": [
         336.56946458906174,
         304.9999999,
@@ -12294,7 +12436,7 @@
       "name": "FIXED_RING_PIN_8",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 173,
+      "step_index": 175,
       "part_bbox": [
         288.0667957970428,
         304.9999999,
@@ -12365,7 +12507,7 @@
       "name": "FIXED_RING_PIN_9",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 174,
+      "step_index": 176,
       "part_bbox": [
         245.41426468449535,
         304.9999999,
@@ -12436,7 +12578,7 @@
       "name": "SUPPORT_TIE_1",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 175,
+      "step_index": 177,
       "part_bbox": [
         379.56946458906174,
         210.9999999,
@@ -12507,7 +12649,7 @@
       "name": "SUPPORT_TIE_2",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 176,
+      "step_index": 178,
       "part_bbox": [
         384.56946458906174,
         210.9999999,
@@ -12578,7 +12720,7 @@
       "name": "SUPPORT_TIE_3",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 177,
+      "step_index": 179,
       "part_bbox": [
         229.56946458906174,
         210.9999999,
@@ -12649,7 +12791,7 @@
       "name": "SUPPORT_TIE_4",
       "group": "S2-C2.1",
       "body": "STATIC",
-      "step_index": 178,
+      "step_index": 180,
       "part_bbox": [
         249.56946458906174,
         210.9999999,
@@ -12720,7 +12862,7 @@
       "name": "INPUT_ECCENTRIC_SHAFT",
       "group": "S2-C2.1",
       "body": "S2_ECC",
-      "step_index": 179,
+      "step_index": 181,
       "part_bbox": [
         291.56946458906174,
         300.9999999,
@@ -12791,7 +12933,7 @@
       "name": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
       "group": "S2-C2.1",
       "body": "S2_ECC",
-      "step_index": 180,
+      "step_index": 182,
       "part_bbox": [
         285.56946458906174,
         306.9999999,
@@ -12862,7 +13004,7 @@
       "name": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
       "group": "S2-C2.1",
       "body": "S2_ROTOR",
-      "step_index": 181,
+      "step_index": 183,
       "part_bbox": [
         234.6296223859598,
         234.9999999,
@@ -12933,7 +13075,7 @@
       "name": "OUTPUT_PIN_CARRIER_AND_SHAFT",
       "group": "S2-C2.1",
       "body": "S2_CARRIER",
-      "step_index": 182,
+      "step_index": 184,
       "part_bbox": [
         260.56946458906174,
         179.9999999,
@@ -13004,7 +13146,7 @@
       "name": "OUTPUT_ROLLER_1",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_1",
-      "step_index": 183,
+      "step_index": 185,
       "part_bbox": [
         265.56946458906174,
         234.9999999,
@@ -13075,7 +13217,7 @@
       "name": "OUTPUT_ROLLER_2",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_2",
-      "step_index": 184,
+      "step_index": 186,
       "part_bbox": [
         284.56946458906174,
         234.9999999,
@@ -13146,7 +13288,7 @@
       "name": "OUTPUT_ROLLER_3",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_3",
-      "step_index": 185,
+      "step_index": 187,
       "part_bbox": [
         322.56946458906174,
         234.9999999,
@@ -13217,7 +13359,7 @@
       "name": "OUTPUT_ROLLER_4",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_4",
-      "step_index": 186,
+      "step_index": 188,
       "part_bbox": [
         341.56946458906174,
         234.9999999,
@@ -13288,7 +13430,7 @@
       "name": "OUTPUT_ROLLER_5",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_5",
-      "step_index": 187,
+      "step_index": 189,
       "part_bbox": [
         322.56946458906174,
         234.9999999,
@@ -13359,7 +13501,7 @@
       "name": "OUTPUT_ROLLER_6",
       "group": "S2-C2.1",
       "body": "S2_ROLLER_6",
-      "step_index": 188,
+      "step_index": 190,
       "part_bbox": [
         284.56946458906174,
         234.9999999,
@@ -13430,7 +13572,7 @@
       "name": "DRV-CHAIN-A",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 189,
+      "step_index": 191,
       "part_bbox": [
         87.95971554086468,
         353.99999985,
@@ -13501,7 +13643,7 @@
       "name": "DRV-CHAIN-B",
       "group": "drive",
       "body": "STATIC",
-      "step_index": 190,
+      "step_index": 192,
       "part_bbox": [
         94.95352576352941,
         373.99999985,
@@ -13572,7 +13714,7 @@
       "name": "CHUTE_BODY",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 191,
+      "step_index": 193,
       "part_bbox": [
         73.99999985,
         157.39999985,
@@ -13590,7 +13732,7 @@
         356.30000010000003
       ],
       "bbox_ok": true,
-      "mesh_sha256": "db8bed75f0372cac060e103166901b09237b7ad071c49e982a2a910f026eb1d4",
+      "mesh_sha256": "03ed26f7216d1576369f30f74b450dd7f61d6790c84ab1081e5b68a8bd4d298d",
       "material": "STEEL",
       "source_material_label": "steel sheet 3 mm + formed trough",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -13606,7 +13748,7 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 190211.74836451357,
+      "volume_mm3": 190730.21676874594,
       "solid_bbox_mm": [
         73.9999999,
         157.3999999,
@@ -13615,10 +13757,10 @@
         329.60000010000005,
         356.30000010000003
       ],
-      "mass_kg": 1.4931622246614316,
+      "mass_kg": 1.4972322016346558,
       "mass_bounds_kg": [
-        1.4931622246614316,
-        1.4931622246614316
+        1.4972322016346558,
+        1.4972322016346558
       ],
       "center_of_mass_mm": [
         217.0,
@@ -13626,14 +13768,14 @@
         338.15
       ],
       "inertia_kg_mm2": [
-        3853.6687998561133,
-        10341.851871059926,
-        13867.599845333563
+        3864.172911880112,
+        10370.041104808624,
+        13905.399363103437
       ],
       "inertia_upper_bound_kg_mm2": [
-        11561.00639956834,
-        31025.555613179775,
-        41602.79953600069
+        11592.518735640337,
+        31110.123314425873,
+        41716.19808931031
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -13643,7 +13785,7 @@
       "name": "CHUTE_TROUGH_FLOOR_E",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 192,
+      "step_index": 194,
       "part_bbox": [
         278.49999985,
         254.99999985,
@@ -13714,7 +13856,7 @@
       "name": "PDL_SHAFT",
       "group": "feed",
       "body": "PADDLE",
-      "step_index": 193,
+      "step_index": 195,
       "part_bbox": [
         355.9999999,
         203.9999999,
@@ -13785,7 +13927,7 @@
       "name": "PDL_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 194,
+      "step_index": 196,
       "part_bbox": [
         352.9999999,
         203.9999999,
@@ -13850,13 +13992,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS_step194__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS_step196__coarse.stl"
     },
     {
       "name": "PDL_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 195,
+      "step_index": 197,
       "part_bbox": [
         352.9999999,
         351.9999999,
@@ -13921,13 +14063,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS_step195__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/PDL_BEARINGS_step197__coarse.stl"
     },
     {
       "name": "PDL_SPROCKET",
       "group": "feed",
       "body": "PADDLE",
-      "step_index": 196,
+      "step_index": 198,
       "part_bbox": [
         341.51973767135706,
         375.99999985,
@@ -13998,7 +14140,7 @@
       "name": "PDL_CHAIN",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 197,
+      "step_index": 199,
       "part_bbox": [
         284.66943004754773,
         380.99999985,
@@ -14069,7 +14211,7 @@
       "name": "PDL_WORM",
       "group": "feed",
       "body": "PADDLE",
-      "step_index": 198,
+      "step_index": 200,
       "part_bbox": [
         349.81250104980865,
         219.999995,
@@ -14140,7 +14282,7 @@
       "name": "AUG_SHAFT",
       "group": "feed",
       "body": "AUGER",
-      "step_index": 199,
+      "step_index": 201,
       "part_bbox": [
         207.9999999,
         222.17098536740815,
@@ -14211,7 +14353,7 @@
       "name": "AUG_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 200,
+      "step_index": 202,
       "part_bbox": [
         207.99999985,
         162.39999985,
@@ -14276,13 +14418,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS_step200__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS_step202__coarse.stl"
     },
     {
       "name": "AUG_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 201,
+      "step_index": 203,
       "part_bbox": [
         365.9999999,
         225.9999999,
@@ -14347,13 +14489,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS_step201__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/AUG_BEARINGS_step203__coarse.stl"
     },
     {
       "name": "AUG_WHEEL",
       "group": "feed",
       "body": "AUGER",
-      "step_index": 202,
+      "step_index": 204,
       "part_bbox": [
         349.81250104980865,
         222.1808784178705,
@@ -14424,7 +14566,7 @@
       "name": "PDL_FEED_GEAR",
       "group": "feed",
       "body": "PADDLE",
-      "step_index": 203,
+      "step_index": 205,
       "part_bbox": [
         347.84869441517463,
         212.9999998499999,
@@ -14495,7 +14637,7 @@
       "name": "CROSS_FEED_IDLER",
       "group": "feed",
       "body": "CROSS_FEED_IDLER",
-      "step_index": 204,
+      "step_index": 206,
       "part_bbox": [
         353.42754773001064,
         206.99999985,
@@ -14566,7 +14708,7 @@
       "name": "CROSS_FEED_GEAR",
       "group": "feed",
       "body": "CROSS_FEED",
-      "step_index": 205,
+      "step_index": 207,
       "part_bbox": [
         342.5955869318481,
         212.99999985,
@@ -14637,7 +14779,7 @@
       "name": "CROSS_FEED_SHAFT",
       "group": "feed",
       "body": "CROSS_FEED",
-      "step_index": 206,
+      "step_index": 208,
       "part_bbox": [
         345.6891411930279,
         207.999995,
@@ -14708,7 +14850,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 207,
+      "step_index": 209,
       "part_bbox": [
         351.7999999,
         207.9999999,
@@ -14773,13 +14915,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step207__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step209__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 208,
+      "step_index": 210,
       "part_bbox": [
         351.7999999,
         219.9999999,
@@ -14844,13 +14986,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step208__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step210__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 209,
+      "step_index": 211,
       "part_bbox": [
         362.65081709993467,
         206.9999999,
@@ -14915,13 +15057,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step209__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step211__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 210,
+      "step_index": 212,
       "part_bbox": [
         362.65081709993467,
         219.9999999,
@@ -14986,13 +15128,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step210__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step212__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 211,
+      "step_index": 213,
       "part_bbox": [
         360.9999999,
         207.9999999,
@@ -15057,13 +15199,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step211__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step213__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 212,
+      "step_index": 214,
       "part_bbox": [
         360.9999999,
         219.9999999,
@@ -15128,13 +15270,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step212__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step214__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 213,
+      "step_index": 215,
       "part_bbox": [
         371.69999989999997,
         207.9999999,
@@ -15199,13 +15341,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step213__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step215__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 214,
+      "step_index": 216,
       "part_bbox": [
         369.19999989999997,
         222.9999999,
@@ -15270,13 +15412,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step214__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step216__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 215,
+      "step_index": 217,
       "part_bbox": [
         371.85081709993466,
         206.9999999,
@@ -15341,13 +15483,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step215__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step217__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 216,
+      "step_index": 218,
       "part_bbox": [
         371.85081709993466,
         219.9999999,
@@ -15412,13 +15554,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step216__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step218__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 217,
+      "step_index": 219,
       "part_bbox": [
         382.9999999,
         206.9999999,
@@ -15483,13 +15625,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step217__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step219__coarse.stl"
     },
     {
       "name": "CROSS_FEED_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 218,
+      "step_index": 220,
       "part_bbox": [
         369.19999989999997,
         222.9999999,
@@ -15554,13 +15696,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step218__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/CROSS_FEED_BEARINGS_step220__coarse.stl"
     },
     {
       "name": "CROSS_FEED_SHELL",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 219,
+      "step_index": 221,
       "part_bbox": [
         344.29999985,
         223.49999985,
@@ -15631,7 +15773,7 @@
       "name": "S1_BELT",
       "group": "feed",
       "body": "BELT",
-      "step_index": 220,
+      "step_index": 222,
       "part_bbox": [
         75.40062950002655,
         163.4999998999997,
@@ -15696,13 +15838,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step220__fine.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step222__fine.stl"
     },
     {
       "name": "S1_BELT",
       "group": "feed",
       "body": "BELT",
-      "step_index": 221,
+      "step_index": 223,
       "part_bbox": [
         75.40062950002658,
         240.79999989999973,
@@ -15767,13 +15909,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step221__fine.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_step223__fine.stl"
     },
     {
       "name": "S1_BELT_DRIVE",
       "group": "feed",
       "body": "BELT_DRIVE",
-      "step_index": 222,
+      "step_index": 224,
       "part_bbox": [
         73.9999999,
         126.9999999,
@@ -15791,7 +15933,7 @@
         341.2000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "99d05849fd78568f3a0ef609a0c026b72fd44db006f06b284b47e2f0b7fa3bb5",
+      "mesh_sha256": "9980c8ce799964537d6e4136050d30ee98dfec9d1553208ba0f10698552813d6",
       "material": "STEEL",
       "source_material_label": "steel shaft and drums",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -15807,7 +15949,7 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 16595.761721268263,
+      "volume_mm3": 16535.63163787855,
       "solid_bbox_mm": [
         73.9999999,
         126.9999999,
@@ -15816,10 +15958,10 @@
         413.0000001,
         341.2000001
       ],
-      "mass_kg": 0.13027672951195587,
+      "mass_kg": 0.12980470835734662,
       "mass_bounds_kg": [
-        0.13027672951195587,
-        0.13027672951195587
+        0.12980470835734662,
+        0.12980470835734662
       ],
       "center_of_mass_mm": [
         80.5,
@@ -15827,14 +15969,14 @@
         335.2
       ],
       "inertia_kg_mm2": [
-        889.5729359782213,
-        3.3980514700007993,
-        889.8443458357136
+        886.3498181894756,
+        3.38573958449139,
+        886.6202446695469
       ],
       "inertia_upper_bound_kg_mm2": [
-        2668.718807934664,
-        10.194154410002398,
-        2669.5330375071408
+        2659.049454568427,
+        10.15721875347417,
+        2659.8607340086405
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -15844,7 +15986,7 @@
       "name": "S1_BELT_IDLER",
       "group": "feed",
       "body": "BELT_IDLER",
-      "step_index": 223,
+      "step_index": 225,
       "part_bbox": [
         215.1999999,
         126.9999999,
@@ -15909,13 +16051,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER_step223__fine.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER_step225__fine.stl"
     },
     {
       "name": "S1_BELT_IDLER",
       "group": "feed",
       "body": "BELT_IDLER",
-      "step_index": 224,
+      "step_index": 226,
       "part_bbox": [
         215.1999999,
         240.79999990000002,
@@ -15980,13 +16122,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER_step224__fine.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_IDLER_step226__fine.stl"
     },
     {
       "name": "S1_BELT_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 225,
+      "step_index": 227,
       "part_bbox": [
         74.9999999,
         157.3999999,
@@ -16051,13 +16193,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step225__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step227__coarse.stl"
     },
     {
       "name": "S1_BELT_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 226,
+      "step_index": 228,
       "part_bbox": [
         74.9999999,
         323.5999999,
@@ -16122,13 +16264,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step226__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step228__coarse.stl"
     },
     {
       "name": "S1_BELT_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 227,
+      "step_index": 229,
       "part_bbox": [
         213.9999999,
         157.3999999,
@@ -16193,13 +16335,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step227__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step229__coarse.stl"
     },
     {
       "name": "S1_BELT_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 228,
+      "step_index": 230,
       "part_bbox": [
         213.9999999,
         323.5999999,
@@ -16264,13 +16406,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step228__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_BELT_BEARINGS_step230__coarse.stl"
     },
     {
       "name": "S1_BELT_FOLLOWER",
       "group": "feed",
       "body": "BELT_DRIVE",
-      "step_index": 229,
+      "step_index": 231,
       "part_bbox": [
         59.5197376713571,
         400.99999985,
@@ -16341,7 +16483,7 @@
       "name": "S1_BELT_CHAIN",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 230,
+      "step_index": 232,
       "part_bbox": [
         56.10621199897202,
         401.99999985,
@@ -16412,25 +16554,25 @@
       "name": "S1_SWEEP_SOUTH",
       "group": "feed",
       "body": "SWEEP_SOUTH",
-      "step_index": 231,
+      "step_index": 233,
       "part_bbox": [
-        192.53719750712796,
+        216.5371975071275,
         126.9999999,
-        337.0447678703366,
-        207.45451084406918,
+        337.0447678703408,
+        231.4545108440681,
         228.5000001,
         352.59899380237425
       ],
       "solid_bbox": [
-        192.53719693793428,
-        126.9999993308143,
-        337.0447673011443,
-        207.4545114132457,
-        228.5000006691857,
-        352.5989943715557
+        216.53719707017808,
+        126.9999994630581,
+        337.0447674333981,
+        231.4545112810019,
+        228.5000005369419,
+        352.59899423931193
       ],
       "bbox_ok": true,
-      "mesh_sha256": "9bbfa6d13dfd0ee0e495101a0bbc0f687d41a1132fd12e3299e2ed67e67c8856",
+      "mesh_sha256": "eb67526c6fd9e281ab5640416f21b11e02f35892faeb83e37a2e71828190038f",
       "material": "STEEL",
       "source_material_label": "steel shaft and flight",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16446,34 +16588,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 2193.282115631966,
+      "volume_mm3": 2193.2821143356787,
       "solid_bbox_mm": [
-        192.53719693793428,
-        126.9999993308143,
-        337.0447673011443,
-        207.4545114132457,
-        228.5000006691857,
-        352.5989943715557
+        216.53719707017808,
+        126.9999994630581,
+        337.0447674333981,
+        231.4545112810019,
+        228.5000005369419,
+        352.59899423931193
       ],
-      "mass_kg": 0.017217264607710933,
+      "mass_kg": 0.01721726459753508,
       "mass_bounds_kg": [
-        0.017217264607710933,
-        0.017217264607710933
+        0.01721726459753508,
+        0.01721726459753508
       ],
       "center_of_mass_mm": [
-        199.99585417559,
+        223.99585417559,
         177.75,
-        344.82188083635003
+        344.82188083635504
       ],
       "inertia_kg_mm2": [
-        15.12850086080224,
-        0.6663945866447766,
-        15.100655222932238
+        15.128500763021115,
+        0.6663945631238309,
+        15.100655125651407
       ],
       "inertia_upper_bound_kg_mm2": [
-        45.38550258240672,
-        1.9991837599343298,
-        45.30196566879671
+        45.385502289063346,
+        1.999183689371493,
+        45.30196537695422
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -16483,25 +16625,25 @@
       "name": "S1_SWEEP_NORTH",
       "group": "feed",
       "body": "SWEEP_NORTH",
-      "step_index": 232,
+      "step_index": 234,
       "part_bbox": [
-        192.15722126234562,
-        235.30959784777832,
-        336.73056877383726,
-        207.9678946854249,
+        216.1572212623647,
+        235.3095978477783,
+        336.73056877384533,
+        231.96789468542332,
         369.0000001,
-        352.54024897045963
+        352.54024897044906
       ],
       "solid_bbox": [
-        192.15722126234002,
-        235.30959784777,
-        336.73056877383,
-        207.96789468542,
-        369.0000001,
-        352.54024897046
+        216.15722058889148,
+        235.30959717430147,
+        336.7305681003715,
+        231.9678953588885,
+        369.0000007734685,
+        352.5402496439085
       ],
       "bbox_ok": true,
-      "mesh_sha256": "b7b6c656772b72b003fa70207e5c10625e16bd6d63ca5f5d6bca94a31ecaa07c",
+      "mesh_sha256": "394862dd3d620b642e6a732f24fdd4ccac3608371f9bb846aaa4563ea2f0977b",
       "material": "STEEL",
       "source_material_label": "steel shaft and flight",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16517,34 +16659,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 2952.807450757243,
+      "volume_mm3": 2952.8073220882584,
       "solid_bbox_mm": [
-        192.15722126234002,
-        235.30959784777,
-        336.73056877383,
-        207.96789468542,
-        369.0000001,
-        352.54024897046
+        216.15722058889148,
+        235.30959717430147,
+        336.7305681003715,
+        231.9678953588885,
+        369.0000007734685,
+        352.5402496439085
       ],
-      "mass_kg": 0.023179538488444357,
+      "mass_kg": 0.02317953747839283,
       "mass_bounds_kg": [
-        0.023179538488444357,
-        0.023179538488444357
+        0.02317953747839283,
+        0.02317953747839283
       ],
       "center_of_mass_mm": [
-        200.06255797388002,
+        224.06255797389,
         302.154798973885,
-        344.63540887214504
+        344.63540887214003
       ],
       "inertia_kg_mm2": [
-        35.00703252517095,
-        0.9656661062164441,
-        35.00709319021785
+        35.00703177766601,
+        0.9656662286728627,
+        35.00709244271604
       ],
       "inertia_upper_bound_kg_mm2": [
-        105.02109757551285,
-        2.896998318649332,
-        105.02127957065355
+        105.02109533299803,
+        2.896998686018588,
+        105.02127732814813
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -16554,25 +16696,25 @@
       "name": "S1_SWEEP_GEAR_DRUM_S",
       "group": "feed",
       "body": "BELT_IDLER",
-      "step_index": 233,
+      "step_index": 235,
       "part_bbox": [
-        206.01737259763723,
+        211.58417822770397,
         127.99999985,
-        319.9173725976372,
-        231.98262740236277,
+        325.4841782277039,
+        226.41582177229603,
         134.00000015,
-        345.88262740236274
+        340.31582177229603
       ],
       "solid_bbox": [
-        206.01737264763,
+        211.5841782777,
         127.9999999,
-        319.91737264763,
-        231.98262735236,
+        325.4841782777,
+        226.41582172229,
         134.0000001,
-        345.88262735236003
+        340.31582172229
       ],
       "bbox_ok": true,
-      "mesh_sha256": "21f546296e0066242b5e9ac5ddda3a0239ab81a5d15ab2e261a1042df0112baf",
+      "mesh_sha256": "d31a6b700e5613c76c849acac9b29f7981995596572926890d6c7f82a5af4d25",
       "material": "STEEL",
       "source_material_label": "steel gear",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16588,19 +16730,19 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 2207.2269749724583,
+      "volume_mm3": 671.4875285595843,
       "solid_bbox_mm": [
-        206.01737264763,
+        211.5841782777,
         127.9999999,
-        319.91737264763,
-        231.98262735236,
+        325.4841782777,
+        226.41582172229,
         134.0000001,
-        345.88262735236003
+        340.31582172229
       ],
-      "mass_kg": 0.0173267317535338,
+      "mass_kg": 0.005271177099192737,
       "mass_bounds_kg": [
-        0.0173267317535338,
-        0.0173267317535338
+        0.005271177099192737,
+        0.005271177099192737
       ],
       "center_of_mass_mm": [
         218.999999999995,
@@ -16608,14 +16750,14 @@
         332.899999999995
       ],
       "inertia_kg_mm2": [
-        1.0254457335152485,
-        1.9469310695785975,
-        1.0254457335152443
+        0.11244196040268728,
+        0.19325685610174662,
+        0.11244196040268652
       ],
       "inertia_upper_bound_kg_mm2": [
-        3.0763372005457454,
-        5.840793208735793,
-        3.0763372005457326
+        0.33732588120806184,
+        0.5797705683052399,
+        0.33732588120805956
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -16625,25 +16767,25 @@
       "name": "S1_SWEEP_GEAR_S",
       "group": "feed",
       "body": "SWEEP_SOUTH",
-      "step_index": 234,
+      "step_index": 236,
       "part_bbox": [
-        187.24167038950532,
+        216.5947275703526,
         127.99999985,
-        331.9416703895053,
-        212.75832961049468,
+        337.2947275703526,
+        231.4052724296474,
         134.00000015,
-        357.4583296104947
+        352.10527242964736
       ],
       "solid_bbox": [
-        187.2416704395,
+        216.59472762034588,
         127.9999999,
-        331.94167043949864,
-        212.75832956049138,
+        337.2947276203469,
+        231.40527237964307,
         134.0000001,
-        357.45832956049003
+        352.1052723796442
       ],
       "bbox_ok": true,
-      "mesh_sha256": "064cf44a97b8d55cd7d29ba60514b365d2cfe0dad626626d0f91378d08b55f23",
+      "mesh_sha256": "d3d452da7e98b91ac8913521e40018b7f7ef653517d680db154060cbc0008800",
       "material": "STEEL",
       "source_material_label": "steel gear",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16659,34 +16801,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 2207.226974970281,
+      "volume_mm3": 671.4875285596504,
       "solid_bbox_mm": [
-        187.2416704395,
+        216.59472762034588,
         127.9999999,
-        331.94167043949864,
-        212.75832956049138,
+        337.2947276203469,
+        231.40527237964307,
         134.0000001,
-        357.45832956049003
+        352.1052723796442
       ],
-      "mass_kg": 0.017326731753516705,
+      "mass_kg": 0.005271177099193255,
       "mass_bounds_kg": [
-        0.017326731753516705,
-        0.017326731753516705
+        0.005271177099193255,
+        0.005271177099193255
       ],
       "center_of_mass_mm": [
-        199.99999999999568,
+        223.9999999999945,
         131.0,
-        344.69999999999436
+        344.69999999999555
       ],
       "inertia_kg_mm2": [
-        0.9920996308510822,
-        1.8802388642503702,
-        0.9920996308510802
+        0.11216723930298038,
+        0.19270741390232937,
+        0.11216723930297928
       ],
       "inertia_upper_bound_kg_mm2": [
-        2.9762988925532468,
-        5.640716592751111,
-        2.9762988925532405
+        0.3365017179089411,
+        0.5781222417069881,
+        0.33650171790893785
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -16696,25 +16838,25 @@
       "name": "S1_SWEEP_GEAR_DRUM_N",
       "group": "feed",
       "body": "BELT_IDLER",
-      "step_index": 235,
+      "step_index": 237,
       "part_bbox": [
-        206.01737259763723,
+        211.58417822770397,
         360.99999985,
-        319.9173725976372,
-        231.98262740236277,
-        367.0000001500003,
-        345.88262740236274
+        325.4841782277039,
+        226.41582177229603,
+        367.00000015000023,
+        340.31582177229603
       ],
       "solid_bbox": [
-        206.01737264763,
+        211.5841782777,
         360.9999999,
-        319.91737264763,
-        231.98262735236,
+        325.4841782777,
+        226.41582172229,
         367.0000001,
-        345.88262735236003
+        340.31582172229
       ],
       "bbox_ok": true,
-      "mesh_sha256": "56667034144ebba4cf6c44db4168f552911302851eed677262742611cafab84b",
+      "mesh_sha256": "d2de05acbc43ef8373389134d823112bf53586cc7af0422140e2a94b5b51424b",
       "material": "STEEL",
       "source_material_label": "steel gear",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16730,19 +16872,19 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 2207.2269749724583,
+      "volume_mm3": 671.4875285595843,
       "solid_bbox_mm": [
-        206.01737264763,
+        211.5841782777,
         360.9999999,
-        319.91737264763,
-        231.98262735236,
+        325.4841782777,
+        226.41582172229,
         367.0000001,
-        345.88262735236003
+        340.31582172229
       ],
-      "mass_kg": 0.0173267317535338,
+      "mass_kg": 0.005271177099192737,
       "mass_bounds_kg": [
-        0.0173267317535338,
-        0.0173267317535338
+        0.005271177099192737,
+        0.005271177099192737
       ],
       "center_of_mass_mm": [
         218.999999999995,
@@ -16750,14 +16892,14 @@
         332.899999999995
       ],
       "inertia_kg_mm2": [
-        1.0254457335152494,
-        1.9469310695785975,
-        1.0254457335152452
+        0.11244196040268757,
+        0.19325685610174662,
+        0.11244196040268684
       ],
       "inertia_upper_bound_kg_mm2": [
-        3.076337200545748,
-        5.840793208735793,
-        3.0763372005457357
+        0.33732588120806273,
+        0.5797705683052399,
+        0.3373258812080605
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -16767,25 +16909,25 @@
       "name": "S1_SWEEP_GEAR_N",
       "group": "feed",
       "body": "SWEEP_NORTH",
-      "step_index": 236,
+      "step_index": 238,
       "part_bbox": [
-        187.24167038950532,
+        216.5947275703526,
         360.99999985,
-        331.9416703895053,
-        212.75832961049468,
-        367.00000015000023,
-        357.4583296104947
+        337.2947275703526,
+        231.4052724296474,
+        367.00000015000046,
+        352.10527242964736
       ],
       "solid_bbox": [
-        187.2416704395,
+        216.59472762034588,
         360.9999999,
-        331.94167043949864,
-        212.75832956049138,
+        337.2947276203469,
+        231.40527237964307,
         367.0000001,
-        357.45832956049003
+        352.1052723796442
       ],
       "bbox_ok": true,
-      "mesh_sha256": "30b2fa62b0f549b5077be5c6f98c290a59f73207a4754c2cb1b7073a2f403bc9",
+      "mesh_sha256": "d2edd64a9c08c2ee0471381cd8cb347dee505976322fb9984ecb3a401ce8c51e",
       "material": "STEEL",
       "source_material_label": "steel gear",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16801,34 +16943,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 2207.226974970281,
+      "volume_mm3": 671.4875285596504,
       "solid_bbox_mm": [
-        187.2416704395,
+        216.59472762034588,
         360.9999999,
-        331.94167043949864,
-        212.75832956049138,
+        337.2947276203469,
+        231.40527237964307,
         367.0000001,
-        357.45832956049003
+        352.1052723796442
       ],
-      "mass_kg": 0.017326731753516705,
+      "mass_kg": 0.005271177099193255,
       "mass_bounds_kg": [
-        0.017326731753516705,
-        0.017326731753516705
+        0.005271177099193255,
+        0.005271177099193255
       ],
       "center_of_mass_mm": [
-        199.99999999999568,
+        223.9999999999945,
         364.0,
-        344.69999999999436
+        344.69999999999555
       ],
       "inertia_kg_mm2": [
-        0.9920996308510833,
-        1.8802388642503702,
-        0.9920996308510812
+        0.11216723930298067,
+        0.19270741390232937,
+        0.11216723930297957
       ],
       "inertia_upper_bound_kg_mm2": [
-        2.97629889255325,
-        5.640716592751111,
-        2.9762988925532436
+        0.336501717908942,
+        0.5781222417069881,
+        0.33650171790893874
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -16838,25 +16980,25 @@
       "name": "S1_SWEEP_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 237,
+      "step_index": 239,
       "part_bbox": [
-        197.6499999,
+        221.6499999,
         157.3999999,
         342.34999989999994,
-        202.3500001,
+        226.3500001,
         163.4000001,
         347.05000010000003
       ],
       "solid_bbox": [
-        197.6499999,
+        221.6499999,
         157.3999999,
         342.34999989999994,
-        202.3500001,
+        226.3500001,
         163.4000001,
         347.05000010000003
       ],
       "bbox_ok": true,
-      "mesh_sha256": "f64896fe282484978a5630d7c3ed35c9a438f5e55f53349aa1eddeec816291fc",
+      "mesh_sha256": "d6ce1315b187aead01dccf233f07bc9b1d9bb87421e15efce59f78bb2e6a4c98",
       "material": "STEEL",
       "source_material_label": "steel bearing seats",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16874,10 +17016,10 @@
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
       "volume_mm3": 16.96460032938667,
       "solid_bbox_mm": [
-        197.6499999,
+        221.6499999,
         157.3999999,
         342.34999989999994,
-        202.3500001,
+        226.3500001,
         163.4000001,
         347.05000010000003
       ],
@@ -16887,7 +17029,7 @@
         0.00013317211258568538
       ],
       "center_of_mass_mm": [
-        200.0,
+        224.0,
         160.4,
         344.7
       ],
@@ -16903,31 +17045,31 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS_step237__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS_step239__coarse.stl"
     },
     {
       "name": "S1_SWEEP_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 238,
+      "step_index": 240,
       "part_bbox": [
-        197.6499999,
+        221.6499999,
         323.5999999,
         342.34999989999994,
-        202.3500001,
+        226.3500001,
         329.60000010000005,
         347.05000010000003
       ],
       "solid_bbox": [
-        197.6499999,
+        221.6499999,
         323.5999999,
         342.34999989999994,
-        202.3500001,
+        226.3500001,
         329.60000010000005,
         347.05000010000003
       ],
       "bbox_ok": true,
-      "mesh_sha256": "01e22c29fac029fa9147d65ce61d5da8787b7be8c07aedb05420dd3e1a8ed4a2",
+      "mesh_sha256": "c71f7943a799ad1066bbe3903d71b71d8814450310983aa36c337143ba730421",
       "material": "STEEL",
       "source_material_label": "steel bearing seats",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16945,10 +17087,10 @@
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
       "volume_mm3": 16.96460032938667,
       "solid_bbox_mm": [
-        197.6499999,
+        221.6499999,
         323.5999999,
         342.34999989999994,
-        202.3500001,
+        226.3500001,
         329.60000010000005,
         347.05000010000003
       ],
@@ -16958,7 +17100,7 @@
         0.00013317211258568538
       ],
       "center_of_mass_mm": [
-        200.0,
+        224.0,
         326.6,
         344.7
       ],
@@ -16974,31 +17116,31 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS_step238__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_SWEEP_BEARINGS_step240__coarse.stl"
     },
     {
       "name": "S1_TRANSFER_BELT",
       "group": "feed",
       "body": "TRANSFER_BELT",
-      "step_index": 239,
+      "step_index": 241,
       "part_bbox": [
-        76.99999989999995,
-        223.49999989999995,
-        332.1999998999999,
-        273.0000001000001,
-        240.50000010000005,
-        338.20000010000007
+        77.54999989999898,
+        223.49999989999898,
+        332.74999989999895,
+        272.45000010000103,
+        240.50000010000102,
+        337.650000100001
       ],
       "solid_bbox": [
-        76.99999989999952,
+        77.54999989999976,
         223.4999999,
-        332.19999989999707,
-        273.0000001,
+        332.74999989999725,
+        272.4500001,
         240.5000001,
-        338.2000001
+        337.6500001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "ba0651845f54901a6ae9da62cffdf09b3128191e45bef0e756729e8bdeb57b9b",
+      "mesh_sha256": "d7e9c883c42495cf23bf05e27e82a82060570a0dbc0f08d69c02bf8f1d128000",
       "material": "ELASTOMER_BELT",
       "source_material_label": "polymer belt",
       "manufacturing_process": "commercial polymer tread/belt geometry proxy, not a rigid printed load member",
@@ -17014,34 +17156,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 4518.615781343857,
+      "volume_mm3": 2479.5718717271075,
       "solid_bbox_mm": [
-        76.99999989999952,
+        77.54999989999976,
         223.4999999,
-        332.19999989999707,
-        273.0000001,
+        332.74999989999725,
+        272.4500001,
         240.5000001,
-        338.2000001
+        337.6500001
       ],
-      "mass_kg": 0.005196408148545436,
+      "mass_kg": 0.0028515076524861737,
       "mass_bounds_kg": [
-        0.005196408148545436,
-        0.005196408148545436
+        0.0028515076524861737,
+        0.0028515076524861737
       ],
       "center_of_mass_mm": [
-        174.99999999999977,
+        174.9999999999999,
         232.0,
-        335.19999999999857
+        335.1999999999986
       ],
       "inertia_kg_mm2": [
-        0.14073605800703365,
-        16.65102387897834,
-        16.760581486015507
+        0.07437920294033169,
+        9.03215526075378,
+        9.095123679639908
       ],
       "inertia_upper_bound_kg_mm2": [
-        0.42220817402110095,
-        49.95307163693502,
-        50.281744458046525
+        0.22313760882099506,
+        27.09646578226134,
+        27.285371038919724
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -17051,25 +17193,25 @@
       "name": "S1_TRANSFER_IDLER",
       "group": "feed",
       "body": "TRANSFER_IDLER",
-      "step_index": 240,
+      "step_index": 242,
       "part_bbox": [
-        267.69999989999997,
+        267.94999989999997,
         213.9999999,
-        332.89999989999995,
-        272.30000010000003,
+        333.14999989999995,
+        272.05000010000003,
         250.0000001,
-        337.5000001
+        337.2500001
       ],
       "solid_bbox": [
-        267.69999989999997,
+        267.94999989999997,
         213.9999999,
-        332.89999989999995,
-        272.30000010000003,
+        333.14999989999995,
+        272.05000010000003,
         250.0000001,
-        337.5000001
+        337.2500001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "104dbf0c06ca7171ee75ed86a7ceb39ed72649e12b960a46b646d2a93fe4eaa7",
+      "mesh_sha256": "7276317adb7548ac28e43a31ade0dfee5409c4abccb96ddaa18c6602c2d439f3",
       "material": "STEEL",
       "source_material_label": "steel drum",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -17085,19 +17227,19 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 342.2136877555412,
+      "volume_mm3": 284.1334935722987,
       "solid_bbox_mm": [
-        267.69999989999997,
+        267.94999989999997,
         213.9999999,
-        332.89999989999995,
-        272.30000010000003,
+        333.14999989999995,
+        272.05000010000003,
         250.0000001,
-        337.5000001
+        337.2500001
       ],
-      "mass_kg": 0.0026863774488809986,
+      "mass_kg": 0.0022304479245425445,
       "mass_bounds_kg": [
-        0.0026863774488809986,
-        0.0026863774488809986
+        0.0022304479245425445,
+        0.0022304479245425445
       ],
       "center_of_mass_mm": [
         270.0,
@@ -17105,14 +17247,14 @@
         335.2
       ],
       "inertia_kg_mm2": [
-        0.29486574701623874,
-        0.00947395862687637,
-        0.29486574701623874
+        0.2440128646329235,
+        0.006248972211582683,
+        0.2440128646329235
       ],
       "inertia_upper_bound_kg_mm2": [
-        0.8845972410487163,
-        0.02842187588062911,
-        0.8845972410487163
+        0.7320385938987705,
+        0.018746916634748048,
+        0.7320385938987705
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -17122,7 +17264,7 @@
       "name": "S1_TRANSFER_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 241,
+      "step_index": 243,
       "part_bbox": [
         268.44999989999997,
         217.9999999,
@@ -17187,13 +17329,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS_step241__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS_step243__coarse.stl"
     },
     {
       "name": "S1_TRANSFER_BEARINGS",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 242,
+      "step_index": 244,
       "part_bbox": [
         268.44999989999997,
         240.79999990000002,
@@ -17258,13 +17400,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS_step242__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/S1_TRANSFER_BEARINGS_step244__coarse.stl"
     },
     {
       "name": "GUARD_S2_RING",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 243,
+      "step_index": 245,
       "part_bbox": [
         270.3362201399365,
         248.99999989999995,
@@ -17335,7 +17477,7 @@
       "name": "GUARD_CHAIN_A",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 244,
+      "step_index": 246,
       "part_bbox": [
         104.9999999,
         351.9999999,
@@ -17406,7 +17548,7 @@
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 245,
+      "step_index": 247,
       "part_bbox": [
         102.96413519176322,
         376.9999999,
@@ -17471,13 +17613,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step245__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step247__coarse.stl"
     },
     {
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 246,
+      "step_index": 248,
       "part_bbox": [
         171.8155928345213,
         376.9999999,
@@ -17542,13 +17684,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step246__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step248__coarse.stl"
     },
     {
       "name": "GUARD_CHAIN_B",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 247,
+      "step_index": 249,
       "part_bbox": [
         286.9999405242236,
         376.99999985,
@@ -17613,13 +17755,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step247__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/GUARD_CHAIN_B_step249__coarse.stl"
     },
     {
       "name": "GUARD_LID_INTERLOCK_SEAT",
       "group": "guard",
       "body": "STATIC",
-      "step_index": 248,
+      "step_index": 250,
       "part_bbox": [
         19.9999999,
         234.9999999,
@@ -17690,7 +17832,7 @@
       "name": "PULL_FRAME",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 249,
+      "step_index": 251,
       "part_bbox": [
         821.99999985,
         249.99999985,
@@ -17755,13 +17897,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME_step249__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME_step251__coarse.stl"
     },
     {
       "name": "PULL_FRAME",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 250,
+      "step_index": 252,
       "part_bbox": [
         821.9999999,
         274.9999999,
@@ -17826,13 +17968,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME_step250__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME_step252__coarse.stl"
     },
     {
       "name": "PULL_ROLLER_FIXED",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 251,
+      "step_index": 253,
       "part_bbox": [
         818.9999999,
         244.9999999,
@@ -17903,7 +18045,7 @@
       "name": "PULL_ROLLER_ADJ",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 252,
+      "step_index": 254,
       "part_bbox": [
         810.0215456210208,
         252.9999999,
@@ -17974,7 +18116,7 @@
       "name": "PULL_NIP_STOP",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 253,
+      "step_index": 255,
       "part_bbox": [
         819.9999999,
         275.9999999,
@@ -18045,7 +18187,7 @@
       "name": "PULL_MOTOR_REF",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 254,
+      "step_index": 256,
       "part_bbox": [
         820.99999985,
         201.99999985,
@@ -18116,7 +18258,7 @@
       "name": "WIND_SPOOL_SHAFT",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 255,
+      "step_index": 257,
       "part_bbox": [
         691.9999999,
         86.9999999,
@@ -18187,7 +18329,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 256,
+      "step_index": 258,
       "part_bbox": [
         687.9999999,
         87.9999999,
@@ -18252,13 +18394,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step256__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl"
     },
     {
       "name": "WIND_SPOOL_BEARINGS",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 257,
+      "step_index": 259,
       "part_bbox": [
         687.9999999,
         169.9999999,
@@ -18323,13 +18465,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step257__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step259__coarse.stl"
     },
     {
       "name": "WIND_SPOOL_DRUM",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 258,
+      "step_index": 260,
       "part_bbox": [
         664.9999999,
         105.9999999,
@@ -18400,7 +18542,7 @@
       "name": "WIND_FLANGE_L",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 259,
+      "step_index": 261,
       "part_bbox": [
         599.9999999,
         102.9999999,
@@ -18471,7 +18613,7 @@
       "name": "WIND_FLANGE_R",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 260,
+      "step_index": 262,
       "part_bbox": [
         599.9999999,
         163.9999999,
@@ -18542,7 +18684,7 @@
       "name": "WIND_MOTOR_REF",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 261,
+      "step_index": 263,
       "part_bbox": [
         679.9999999,
         181.9999999,
@@ -18613,7 +18755,7 @@
       "name": "WIND_TRAVERSE_SCREW",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 262,
+      "step_index": 264,
       "part_bbox": [
         737.9999999,
         94.9999999,
@@ -18684,7 +18826,7 @@
       "name": "WIND_TRAVERSE_RIDER",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 263,
+      "step_index": 265,
       "part_bbox": [
         733.99999985,
         109.99999985,
@@ -18755,7 +18897,7 @@
       "name": "WIND_TENSIONER",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 264,
+      "step_index": 266,
       "part_bbox": [
         743.9999999,
         192.9999999,
@@ -18826,7 +18968,7 @@
       "name": "EL_DIN_RAIL",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 265,
+      "step_index": 267,
       "part_bbox": [
         384.9999999,
         41.9999999,
@@ -18897,7 +19039,7 @@
       "name": "EL_DRIVER_1",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 266,
+      "step_index": 268,
       "part_bbox": [
         389.9999999,
         41.9999999,
@@ -18968,7 +19110,7 @@
       "name": "EL_DRIVER_2",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 267,
+      "step_index": 269,
       "part_bbox": [
         444.9999999,
         41.9999999,
@@ -19039,7 +19181,7 @@
       "name": "EL_DRIVER_3",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 268,
+      "step_index": 270,
       "part_bbox": [
         499.9999999,
         41.9999999,
@@ -19110,7 +19252,7 @@
       "name": "EL_CONTACTOR",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 269,
+      "step_index": 271,
       "part_bbox": [
         549.9999999,
         41.9999999,
@@ -19181,7 +19323,7 @@
       "name": "EL_ESTOP_BOX",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 270,
+      "step_index": 272,
       "part_bbox": [
         389.9999999,
         99.9999999,
@@ -19252,7 +19394,7 @@
       "name": "EL_OVERTEMP_BOX",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 271,
+      "step_index": 273,
       "part_bbox": [
         439.9999999,
         99.9999999,
@@ -19323,7 +19465,7 @@
       "name": "EL_CURRENT_LIMITER",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 272,
+      "step_index": 274,
       "part_bbox": [
         489.9999999,
         99.9999999,
@@ -19394,7 +19536,7 @@
       "name": "EL_WIRE_DUCT",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 273,
+      "step_index": 275,
       "part_bbox": [
         384.9999999,
         139.9999999,
@@ -19465,7 +19607,7 @@
       "name": "HOPPER_PANEL_L",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 274,
+      "step_index": 276,
       "part_bbox": [
         0.7417106707409999,
         162.399995,
@@ -19536,7 +19678,7 @@
       "name": "HOPPER_PANEL_R",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 275,
+      "step_index": 277,
       "part_bbox": [
         0.7417106707409999,
         162.399995,
@@ -19607,7 +19749,7 @@
       "name": "HOPPER_SEAM_FRONT",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 276,
+      "step_index": 278,
       "part_bbox": [
         99.99999985,
         168.13865833862812,
@@ -19678,7 +19820,7 @@
       "name": "HOPPER_SEAM_REAR",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 277,
+      "step_index": 279,
       "part_bbox": [
         99.99999985,
         310.81752599610627,
@@ -19747,10 +19889,10 @@
     }
   ],
   "material_model": "c2.2/sim/assets/materials.py",
-  "material_model_sha256": "30c63d006451d527f7e1b24021fb0b81bc74542277fba5de5946776d75fd0100",
+  "material_model_sha256": "d4e4e1fb2a8e5a4c40627fab02b4864b79fabd32deed960acd9e44dc7082bb5c",
   "material_scope": {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R nominal ~3 mm FDM PC shell segments; HOPPER_SEAM_FRONT/REAR 1.5 mm steel upper-wall rails are NOT a full steel lower liner or qualified containment. HOP-LID_001 PC cut sheet and FEED-BUF_001 formed PC shell are process candidates with separate unmodeled metal strike/throat. ABS FDM cold WIND_SPOOL_DRUM plus small traverse eyelet candidate; load paths/shafts/guards in steel, owned profiles in aluminium.",
+    "selected": "HOPPER_PANEL_L/R nominal ~3 mm FDM PC shell segments; HOPPER_SEAM_FRONT/REAR 1.5 mm steel upper-wall rails are NOT a full steel lower liner or qualified containment. HOP-LID_001 PC cut sheet has a separate unmodeled metal strike. FEED-BUF_001 and split FEED-BUF-SADDLE/CLAMP are S355 steel design candidates; weld, bolts, cold barrel fit, thermal interface and flow remain HOLD. ABS FDM cold WIND_SPOOL_DRUM plus small traverse eyelet candidate; load paths/shafts/guards in steel, owned profiles in aluminium.",
     "excluded": "PLA (Tg about 55-65 C) excluded from hot zone, load path and permanent guards due to creep/softening; ABS (Tg about 100-110 C) excluded from heater/barrel, cutter/load path, guards and feed throat due to creep, anisotropy and unknown peak temperatures; PC (Tg about 145-150 C) excluded from heater/barrel and high-impact structural interfaces pending measured temperatures, grade and process qualification. No printed keys or bearing seats.",
     "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation, six walls and 100% effective CAD wall density; ~3 mm CAD wall already excludes hollow volume, so no second infill factor. Bed fit is bounded by the split design, not proof of printability, seam sealing, layer adhesion or impact containment. ABS drum assumes dry filament, enclosed printer, drum axis normal to build plate, four walls, six skins, 50% infill and effective 65% density; actual slicer mass, residual stress and warm creep must be checked. ABS printed eyelet/guide on WIND_TRAVERSE_RIDER is not separable in the fused STEP; its contribution is folded into a bounded steel/polymer proxy, not double-counted.",
     "boundary": "All densities/grades and effective fill factors are screening choices; mass is not a weighed value. Profile mass uses 0.5..1.5 x nominal CAD hollow-box volume because owned T-slot metal area is unmeasured; this is NOT a material-density bound or a section-I measurement. PC-panel printed mass uses 0.85..1.10 x nominal CAD-wall mass, ABS drum 0.50..0.85 x resin-density CAD volume; slicer/print mass is unmeasured. Purchase boundaries and mixed parts use explicit ranges; static structure mass is inventory only, not a PhysX rigid body. No strength, safety or fabrication release."
@@ -20588,8 +20730,24 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/FEED-BUF_001__coarse.stl",
-      "bytes": 4884,
-      "sha256": "c427c0879167e9b065a0d01485b4c886be31e8a7535b81bf203487d10e474635"
+      "bytes": 5884,
+      "sha256": "186c6a3f410e1a134dcc352355f5cc1216304cd801909822065316034f78cb5f"
+    },
+    {
+      "name": "FEED-BUF-SADDLE_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FEED-BUF-SADDLE_001__coarse.stl",
+      "bytes": 38484,
+      "sha256": "a708c28adb3d4b61c62ba7e8fcaf5fa9f6c5a347454b1761a3d9963e7c8aa2f2"
+    },
+    {
+      "name": "FEED-BUF-CLAMP_001",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/FEED-BUF-CLAMP_001__coarse.stl",
+      "bytes": 30684,
+      "sha256": "8c18a64e1a273027ca6655ad385e2b799da907ba99b210d5fe336440257cdef2"
     },
     {
       "name": "EX-SCREW_001",
@@ -21316,8 +21474,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "bytes": 92484,
-      "sha256": "db8bed75f0372cac060e103166901b09237b7ad071c49e982a2a910f026eb1d4"
+      "bytes": 96184,
+      "sha256": "03ed26f7216d1576369f30f74b450dd7f61d6790c84ab1081e5b68a8bd4d298d"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -21339,7 +21497,7 @@
       "name": "PDL_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/PDL_BEARINGS_step194__coarse.stl",
+      "stl": "sim/assets/out/full/PDL_BEARINGS_step196__coarse.stl",
       "bytes": 4284,
       "sha256": "bcde84db6929194b0cb1aab6518c4f9b87ca414bc3a22d2ea1df398c5266570f"
     },
@@ -21347,7 +21505,7 @@
       "name": "PDL_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/PDL_BEARINGS_step195__coarse.stl",
+      "stl": "sim/assets/out/full/PDL_BEARINGS_step197__coarse.stl",
       "bytes": 4284,
       "sha256": "f18400cf4728f12108ca40187ec43616fe5341b83d16e20da08aecb4343c74d6"
     },
@@ -21387,7 +21545,7 @@
       "name": "AUG_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/AUG_BEARINGS_step200__coarse.stl",
+      "stl": "sim/assets/out/full/AUG_BEARINGS_step202__coarse.stl",
       "bytes": 13484,
       "sha256": "f4c1c097c694b710f332269a22b67d6e3de6b8cdd64da4080811456b36e371cc"
     },
@@ -21395,7 +21553,7 @@
       "name": "AUG_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/AUG_BEARINGS_step201__coarse.stl",
+      "stl": "sim/assets/out/full/AUG_BEARINGS_step203__coarse.stl",
       "bytes": 5084,
       "sha256": "c1d810a2efe0ad6ca876222d897c305c23f4e8ddc50047c2b6d27901384567ac"
     },
@@ -21443,7 +21601,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step207__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step209__coarse.stl",
       "bytes": 10484,
       "sha256": "d99d0a54040265d51a0628714e27dfbb1a95d8102e08656a6f56280ae04cf9d7"
     },
@@ -21451,7 +21609,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step208__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step210__coarse.stl",
       "bytes": 10484,
       "sha256": "b0e49367e3b5f057fe52386e0944664f13ce763a0d21e3e1963db55fb94524cd"
     },
@@ -21459,7 +21617,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step209__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step211__coarse.stl",
       "bytes": 10484,
       "sha256": "525a8a4371c341dcc9cac5d380af86d51fb567af025ba6009a8eb9435c7b2f84"
     },
@@ -21467,7 +21625,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step210__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step212__coarse.stl",
       "bytes": 10484,
       "sha256": "3fb8c82f49903194c6efc4d4bbd682efdc2f78f2586ba4346338c310cf60d56c"
     },
@@ -21475,7 +21633,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step211__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step213__coarse.stl",
       "bytes": 684,
       "sha256": "4d6d0ac4f7e9e70b6b74616520d82f3e4147823390f8a6af8172d2dfa7d10a9f"
     },
@@ -21483,7 +21641,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step212__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step214__coarse.stl",
       "bytes": 684,
       "sha256": "f31eb9a7cb41d30c9d633b15db2010c28686140719ad900d624051eb6da04669"
     },
@@ -21491,7 +21649,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step213__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step215__coarse.stl",
       "bytes": 684,
       "sha256": "98c5047ef30f20e78b2ef1277864876706bcba6fa12108848cdb6bd02a85b22e"
     },
@@ -21499,7 +21657,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step214__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step216__coarse.stl",
       "bytes": 684,
       "sha256": "3a392f23b74b93105747965cac5ded1c0b71cd463618d366750ef7a8b2e344e4"
     },
@@ -21507,7 +21665,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step215__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step217__coarse.stl",
       "bytes": 684,
       "sha256": "dbf58d608731f79b36d1ae979104e7af675eeb8bc19c7b9245a320e4e56d95fd"
     },
@@ -21515,7 +21673,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step216__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step218__coarse.stl",
       "bytes": 684,
       "sha256": "a04840eb7536d45b1049008b9895120bd111c5274d835b3865ddcc2b11c4e1d4"
     },
@@ -21523,7 +21681,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step217__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step219__coarse.stl",
       "bytes": 684,
       "sha256": "0262a0a22fe73e0d4fe4f7f9961daf0feef70cfb4eb36639d2f60bbb8156ccf2"
     },
@@ -21531,7 +21689,7 @@
       "name": "CROSS_FEED_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step218__coarse.stl",
+      "stl": "sim/assets/out/full/CROSS_FEED_BEARINGS_step220__coarse.stl",
       "bytes": 684,
       "sha256": "65be758129fc92fafeba764da93818c1864d44aa6fe6f5e5127ce6e5c2c67a3e"
     },
@@ -21547,7 +21705,7 @@
       "name": "S1_BELT",
       "body": "BELT",
       "lod": "fine",
-      "stl": "sim/assets/out/full/S1_BELT_step220__fine.stl",
+      "stl": "sim/assets/out/full/S1_BELT_step222__fine.stl",
       "bytes": 26484,
       "sha256": "16ddda63dbd70f7e64ca56780f516e35886041789bc6d329d7181721bb5f0964"
     },
@@ -21555,7 +21713,7 @@
       "name": "S1_BELT",
       "body": "BELT",
       "lod": "fine",
-      "stl": "sim/assets/out/full/S1_BELT_step221__fine.stl",
+      "stl": "sim/assets/out/full/S1_BELT_step223__fine.stl",
       "bytes": 26484,
       "sha256": "696908d4e5353dc4ad715e9f5e574b891040691a60d17e09fe853095d84355b6"
     },
@@ -21565,13 +21723,13 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_BELT_DRIVE__fine.stl",
       "bytes": 153084,
-      "sha256": "99d05849fd78568f3a0ef609a0c026b72fd44db006f06b284b47e2f0b7fa3bb5"
+      "sha256": "9980c8ce799964537d6e4136050d30ee98dfec9d1553208ba0f10698552813d6"
     },
     {
       "name": "S1_BELT_IDLER",
       "body": "BELT_IDLER",
       "lod": "fine",
-      "stl": "sim/assets/out/full/S1_BELT_IDLER_step223__fine.stl",
+      "stl": "sim/assets/out/full/S1_BELT_IDLER_step225__fine.stl",
       "bytes": 53084,
       "sha256": "32ccf248b76ca7910c75677de87a51bb85f270de3bf28d2d9a6fbbd4378e68af"
     },
@@ -21579,7 +21737,7 @@
       "name": "S1_BELT_IDLER",
       "body": "BELT_IDLER",
       "lod": "fine",
-      "stl": "sim/assets/out/full/S1_BELT_IDLER_step224__fine.stl",
+      "stl": "sim/assets/out/full/S1_BELT_IDLER_step226__fine.stl",
       "bytes": 53084,
       "sha256": "71b02aec6453bcd89c279ed5e75c79617ccdb93dbb22ce02be8ffb5fe4f3b0b1"
     },
@@ -21587,7 +21745,7 @@
       "name": "S1_BELT_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/S1_BELT_BEARINGS_step225__coarse.stl",
+      "stl": "sim/assets/out/full/S1_BELT_BEARINGS_step227__coarse.stl",
       "bytes": 10484,
       "sha256": "2a58f1dbe9cc815401138165b12a4d411b80f0ec2b30667f531da99d5f4ba958"
     },
@@ -21595,7 +21753,7 @@
       "name": "S1_BELT_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/S1_BELT_BEARINGS_step226__coarse.stl",
+      "stl": "sim/assets/out/full/S1_BELT_BEARINGS_step228__coarse.stl",
       "bytes": 10484,
       "sha256": "107a1191a2cfe8a965a5ed4d2704781d613ab4342871aa7c1fb118065f413112"
     },
@@ -21603,7 +21761,7 @@
       "name": "S1_BELT_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/S1_BELT_BEARINGS_step227__coarse.stl",
+      "stl": "sim/assets/out/full/S1_BELT_BEARINGS_step229__coarse.stl",
       "bytes": 10484,
       "sha256": "cbe6b0a892509b7bba5c2f5c622df2f897c835100e995a1e60089c3a15374a4b"
     },
@@ -21611,7 +21769,7 @@
       "name": "S1_BELT_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/S1_BELT_BEARINGS_step228__coarse.stl",
+      "stl": "sim/assets/out/full/S1_BELT_BEARINGS_step230__coarse.stl",
       "bytes": 10484,
       "sha256": "d92cc17adb6a30a97fbf05a7a36c282618d00c1afdd8df7f61b149166af6cd67"
     },
@@ -21637,7 +21795,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
       "bytes": 270084,
-      "sha256": "9bbfa6d13dfd0ee0e495101a0bbc0f687d41a1132fd12e3299e2ed67e67c8856"
+      "sha256": "eb67526c6fd9e281ab5640416f21b11e02f35892faeb83e37a2e71828190038f"
     },
     {
       "name": "S1_SWEEP_NORTH",
@@ -21645,7 +21803,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
       "bytes": 352184,
-      "sha256": "b7b6c656772b72b003fa70207e5c10625e16bd6d63ca5f5d6bca94a31ecaa07c"
+      "sha256": "394862dd3d620b642e6a732f24fdd4ccac3608371f9bb846aaa4563ea2f0977b"
     },
     {
       "name": "S1_SWEEP_GEAR_DRUM_S",
@@ -21653,7 +21811,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_GEAR_DRUM_S__fine.stl",
       "bytes": 71684,
-      "sha256": "21f546296e0066242b5e9ac5ddda3a0239ab81a5d15ab2e261a1042df0112baf"
+      "sha256": "d31a6b700e5613c76c849acac9b29f7981995596572926890d6c7f82a5af4d25"
     },
     {
       "name": "S1_SWEEP_GEAR_S",
@@ -21661,7 +21819,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_GEAR_S__fine.stl",
       "bytes": 71684,
-      "sha256": "064cf44a97b8d55cd7d29ba60514b365d2cfe0dad626626d0f91378d08b55f23"
+      "sha256": "d3d452da7e98b91ac8913521e40018b7f7ef653517d680db154060cbc0008800"
     },
     {
       "name": "S1_SWEEP_GEAR_DRUM_N",
@@ -21669,7 +21827,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_GEAR_DRUM_N__fine.stl",
       "bytes": 71684,
-      "sha256": "56667034144ebba4cf6c44db4168f552911302851eed677262742611cafab84b"
+      "sha256": "d2de05acbc43ef8373389134d823112bf53586cc7af0422140e2a94b5b51424b"
     },
     {
       "name": "S1_SWEEP_GEAR_N",
@@ -21677,23 +21835,23 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_GEAR_N__fine.stl",
       "bytes": 71684,
-      "sha256": "30b2fa62b0f549b5077be5c6f98c290a59f73207a4754c2cb1b7073a2f403bc9"
+      "sha256": "d2edd64a9c08c2ee0471381cd8cb347dee505976322fb9984ecb3a401ce8c51e"
     },
     {
       "name": "S1_SWEEP_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/S1_SWEEP_BEARINGS_step237__coarse.stl",
+      "stl": "sim/assets/out/full/S1_SWEEP_BEARINGS_step239__coarse.stl",
       "bytes": 10484,
-      "sha256": "f64896fe282484978a5630d7c3ed35c9a438f5e55f53349aa1eddeec816291fc"
+      "sha256": "d6ce1315b187aead01dccf233f07bc9b1d9bb87421e15efce59f78bb2e6a4c98"
     },
     {
       "name": "S1_SWEEP_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/S1_SWEEP_BEARINGS_step238__coarse.stl",
+      "stl": "sim/assets/out/full/S1_SWEEP_BEARINGS_step240__coarse.stl",
       "bytes": 10484,
-      "sha256": "01e22c29fac029fa9147d65ce61d5da8787b7be8c07aedb05420dd3e1a8ed4a2"
+      "sha256": "c71f7943a799ad1066bbe3903d71b71d8814450310983aa36c337143ba730421"
     },
     {
       "name": "S1_TRANSFER_BELT",
@@ -21701,7 +21859,7 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_TRANSFER_BELT__fine.stl",
       "bytes": 26484,
-      "sha256": "ba0651845f54901a6ae9da62cffdf09b3128191e45bef0e756729e8bdeb57b9b"
+      "sha256": "d7e9c883c42495cf23bf05e27e82a82060570a0dbc0f08d69c02bf8f1d128000"
     },
     {
       "name": "S1_TRANSFER_IDLER",
@@ -21709,13 +21867,13 @@
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_TRANSFER_IDLER__fine.stl",
       "bytes": 75484,
-      "sha256": "104dbf0c06ca7171ee75ed86a7ceb39ed72649e12b960a46b646d2a93fe4eaa7"
+      "sha256": "7276317adb7548ac28e43a31ade0dfee5409c4abccb96ddaa18c6602c2d439f3"
     },
     {
       "name": "S1_TRANSFER_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/S1_TRANSFER_BEARINGS_step241__coarse.stl",
+      "stl": "sim/assets/out/full/S1_TRANSFER_BEARINGS_step243__coarse.stl",
       "bytes": 10484,
       "sha256": "235f1bb1491e6a668b73ef18edf6f7127a90cc03c8a0efd44cce2e96dee640f2"
     },
@@ -21723,7 +21881,7 @@
       "name": "S1_TRANSFER_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/S1_TRANSFER_BEARINGS_step242__coarse.stl",
+      "stl": "sim/assets/out/full/S1_TRANSFER_BEARINGS_step244__coarse.stl",
       "bytes": 10484,
       "sha256": "b2517e649919e1b2511f471ccce6aa010459478b203aea998c4dd2abc69aaeb8"
     },
@@ -21747,7 +21905,7 @@
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/GUARD_CHAIN_B_step245__coarse.stl",
+      "stl": "sim/assets/out/full/GUARD_CHAIN_B_step247__coarse.stl",
       "bytes": 684,
       "sha256": "78e1f58737b6c1d2f880536a13fb14287a5a50ee5f1b951406b5dbe63b4f54db"
     },
@@ -21755,7 +21913,7 @@
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/GUARD_CHAIN_B_step246__coarse.stl",
+      "stl": "sim/assets/out/full/GUARD_CHAIN_B_step248__coarse.stl",
       "bytes": 684,
       "sha256": "952849dc27bb723f544191393b12d99353be140ec3767289a03afc30a62d1b2b"
     },
@@ -21763,7 +21921,7 @@
       "name": "GUARD_CHAIN_B",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/GUARD_CHAIN_B_step247__coarse.stl",
+      "stl": "sim/assets/out/full/GUARD_CHAIN_B_step249__coarse.stl",
       "bytes": 5484,
       "sha256": "564389f5eb92d099e2e1ce4d6a8996ded4b65d9774fd559e39c792164464aa4b"
     },
@@ -21779,7 +21937,7 @@
       "name": "PULL_FRAME",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/PULL_FRAME_step249__coarse.stl",
+      "stl": "sim/assets/out/full/PULL_FRAME_step251__coarse.stl",
       "bytes": 6684,
       "sha256": "41626e987179d426fccc7ad6ba85de5288a367205d5eb87ea0e5475e80e6b390"
     },
@@ -21787,7 +21945,7 @@
       "name": "PULL_FRAME",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/PULL_FRAME_step250__coarse.stl",
+      "stl": "sim/assets/out/full/PULL_FRAME_step252__coarse.stl",
       "bytes": 5084,
       "sha256": "4cda7873d4f9621bae0c92ca9da10d01183ce9a6b5d37a6e03f7391daba9b295"
     },
@@ -21835,7 +21993,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step256__coarse.stl",
+      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl",
       "bytes": 6084,
       "sha256": "12b8e8640d7a37a427248de4332821f2faeea8aaf01ecc5938950b52ae364188"
     },
@@ -21843,7 +22001,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step257__coarse.stl",
+      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step259__coarse.stl",
       "bytes": 6084,
       "sha256": "dd7bc8bba58c15a1037a5803d1c0466987b4e4d00a8494b09deccb654df4dc19"
     },
@@ -22516,542 +22674,542 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-SCREW_001",
+      "part": "FEED-BUF-SADDLE_001",
       "step_index": 101,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-BARREL_001",
+      "part": "FEED-BUF-CLAMP_001",
       "step_index": 102,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-REAR_001",
+      "part": "EX-SCREW_001",
       "step_index": 103,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-CPL_001",
+      "part": "EX-BARREL_001",
       "step_index": 104,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "BR-6202_001",
+      "part": "EX-REAR_001",
       "step_index": 105,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "BR-51102_001",
+      "part": "EX-CPL_001",
       "step_index": 106,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-THRUST_001",
+      "part": "BR-6202_001",
       "step_index": 107,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-DIE_001",
+      "part": "BR-51102_001",
       "step_index": 108,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-H100_001",
+      "part": "EX-THRUST_001",
       "step_index": 109,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-H100_002",
+      "part": "EX-DIE_001",
       "step_index": 110,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-H100_003",
+      "part": "EX-H100_001",
       "step_index": 111,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-H60_001",
+      "part": "EX-H100_002",
       "step_index": 112,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "COOL-TRAY_001",
+      "part": "EX-H100_003",
       "step_index": 113,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "COOL-FAN_001",
+      "part": "EX-H60_001",
       "step_index": 114,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "COOL-FAN_002",
+      "part": "COOL-TRAY_001",
       "step_index": 115,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOP-LID_001",
+      "part": "COOL-FAN_001",
       "step_index": 116,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-ROOF-F_001",
+      "part": "COOL-FAN_002",
       "step_index": 117,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-ROOF-R_001",
+      "part": "HOP-LID_001",
       "step_index": 118,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-TIE-TUBE_001",
+      "part": "S1-ROOF-F_001",
       "step_index": 119,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-STUD_001",
+      "part": "S1-ROOF-R_001",
       "step_index": 120,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-TIE-TUBE_002",
+      "part": "S1-TIE-TUBE_001",
       "step_index": 121,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-STUD_002",
+      "part": "S1-STUD_001",
       "step_index": 122,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-ROOF-F_002",
+      "part": "S1-TIE-TUBE_002",
       "step_index": 123,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-ROOF-R_002",
+      "part": "S1-STUD_002",
       "step_index": 124,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-TIE-TUBE_003",
+      "part": "S1-ROOF-F_002",
       "step_index": 125,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-STUD_003",
+      "part": "S1-ROOF-R_002",
       "step_index": 126,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-TIE-TUBE_004",
+      "part": "S1-TIE-TUBE_003",
       "step_index": 127,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1-STUD_004",
+      "part": "S1-STUD_003",
       "step_index": 128,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "DRV-DECK_001",
+      "part": "S1-TIE-TUBE_004",
       "step_index": 129,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "DRV-M1-FOOT_001",
+      "part": "S1-STUD_004",
       "step_index": 130,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "DRV-RISER12_001",
+      "part": "DRV-DECK_001",
       "step_index": 131,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "DRV-RISER20_001",
+      "part": "DRV-M1-FOOT_001",
       "step_index": 132,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S2-LEG-L_001",
+      "part": "DRV-RISER12_001",
       "step_index": 133,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S2-LEG-L_002",
+      "part": "DRV-RISER20_001",
       "step_index": 134,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S2-LEG-R_001",
+      "part": "S2-LEG-L_001",
       "step_index": 135,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S2-LEG-R_002",
+      "part": "S2-LEG-L_002",
       "step_index": 136,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EX-STAND_001",
+      "part": "S2-LEG-R_001",
       "step_index": 137,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "DRV_M2_FACE_PLATE",
+      "part": "S2-LEG-R_002",
       "step_index": 138,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-8-154_001",
+      "part": "EX-STAND_001",
       "step_index": 139,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-8-154_002",
+      "part": "DRV_M2_FACE_PLATE",
       "step_index": 140,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-8-25_001",
+      "part": "KEY-8-154_001",
       "step_index": 141,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-8-25_002",
+      "part": "KEY-8-154_002",
       "step_index": 142,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-8-16_001",
+      "part": "KEY-8-25_001",
       "step_index": 143,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-4-70_001",
+      "part": "KEY-8-25_002",
       "step_index": 144,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-6-70_001",
+      "part": "KEY-8-16_001",
       "step_index": 145,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-6-16_001",
+      "part": "KEY-4-70_001",
       "step_index": 146,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "DRV-SP24-B20_002",
+      "part": "KEY-6-70_001",
       "step_index": 147,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "KEY-6-16_002",
+      "part": "KEY-6-16_001",
       "step_index": 148,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FRONT_INPUT_SUPPORT",
+      "part": "DRV-SP24-B20_002",
       "step_index": 149,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "REAR_OUTPUT_SUPPORT",
+      "part": "KEY-6-16_002",
       "step_index": 150,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "INPUT_BEARING_ENVELOPE_UNRATED",
+      "part": "FRONT_INPUT_SUPPORT",
       "step_index": 151,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "OUTPUT_BEARING_ENVELOPE_UNRATED",
+      "part": "REAR_OUTPUT_SUPPORT",
       "step_index": 152,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FRONT_FIXED_RING_PLATE",
+      "part": "INPUT_BEARING_ENVELOPE_UNRATED",
       "step_index": 153,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "REAR_FIXED_RING_PLATE",
+      "part": "OUTPUT_BEARING_ENVELOPE_UNRATED",
       "step_index": 154,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_FIXED_SHEAR_SENSOR_BORE",
+      "part": "FRONT_FIXED_RING_PLATE",
       "step_index": 155,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_VERTICAL_DISCHARGE_SCREEN",
+      "part": "REAR_FIXED_RING_PLATE",
       "step_index": 156,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_LEFT_WEAR_SHELL",
+      "part": "C2_FIXED_SHEAR_SENSOR_BORE",
       "step_index": 157,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_RIGHT_WEAR_SHELL_1",
+      "part": "C2_VERTICAL_DISCHARGE_SCREEN",
       "step_index": 158,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_RIGHT_WEAR_SHELL_2",
+      "part": "C2_LEFT_WEAR_SHELL",
       "step_index": 159,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_THERMAL_SADDLE_L",
+      "part": "C2_RIGHT_WEAR_SHELL_1",
       "step_index": 160,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
+      "part": "C2_RIGHT_WEAR_SHELL_2",
       "step_index": 161,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_SADDLE_CAP_L_FRONT",
+      "part": "C2_THERMAL_SADDLE_L",
       "step_index": 162,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_SADDLE_CAP_L_REAR",
+      "part": "C2_THERMAL_SADDLE_R_SENSOR_BORE",
       "step_index": 163,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_SADDLE_CAP_R_FRONT",
+      "part": "C2_SADDLE_CAP_L_FRONT",
       "step_index": 164,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "C2_SADDLE_CAP_R_REAR",
+      "part": "C2_SADDLE_CAP_L_REAR",
       "step_index": 165,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_1",
+      "part": "C2_SADDLE_CAP_R_FRONT",
       "step_index": 166,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_2",
+      "part": "C2_SADDLE_CAP_R_REAR",
       "step_index": 167,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_3",
+      "part": "FIXED_RING_PIN_1",
       "step_index": 168,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_4",
+      "part": "FIXED_RING_PIN_2",
       "step_index": 169,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_5",
+      "part": "FIXED_RING_PIN_3",
       "step_index": 170,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_6",
+      "part": "FIXED_RING_PIN_4",
       "step_index": 171,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_7",
+      "part": "FIXED_RING_PIN_5",
       "step_index": 172,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_8",
+      "part": "FIXED_RING_PIN_6",
       "step_index": 173,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "FIXED_RING_PIN_9",
+      "part": "FIXED_RING_PIN_7",
       "step_index": 174,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "SUPPORT_TIE_1",
+      "part": "FIXED_RING_PIN_8",
       "step_index": 175,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "SUPPORT_TIE_2",
+      "part": "FIXED_RING_PIN_9",
       "step_index": 176,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "SUPPORT_TIE_3",
+      "part": "SUPPORT_TIE_1",
       "step_index": 177,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "SUPPORT_TIE_4",
+      "part": "SUPPORT_TIE_2",
       "step_index": 178,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "INPUT_ECCENTRIC_SHAFT",
+      "part": "SUPPORT_TIE_3",
       "step_index": 179,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
+      "part": "SUPPORT_TIE_4",
       "step_index": 180,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
+      "part": "INPUT_ECCENTRIC_SHAFT",
       "step_index": 181,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "OUTPUT_PIN_CARRIER_AND_SHAFT",
+      "part": "ECCENTRIC_BEARING_ENVELOPE_UNRATED",
       "step_index": 182,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "OUTPUT_ROLLER_1",
+      "part": "RIGID_CYCLOID_HOOK_ROTOR_ENVELOPE",
       "step_index": 183,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "OUTPUT_ROLLER_2",
+      "part": "OUTPUT_PIN_CARRIER_AND_SHAFT",
       "step_index": 184,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "OUTPUT_ROLLER_3",
+      "part": "OUTPUT_ROLLER_1",
       "step_index": 185,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "OUTPUT_ROLLER_4",
+      "part": "OUTPUT_ROLLER_2",
       "step_index": 186,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "OUTPUT_ROLLER_5",
+      "part": "OUTPUT_ROLLER_3",
       "step_index": 187,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "OUTPUT_ROLLER_6",
+      "part": "OUTPUT_ROLLER_4",
       "step_index": 188,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "DRV-CHAIN-A",
+      "part": "OUTPUT_ROLLER_5",
       "step_index": 189,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "DRV-CHAIN-B",
+      "part": "OUTPUT_ROLLER_6",
       "step_index": 190,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CHUTE_BODY",
+      "part": "DRV-CHAIN-A",
       "step_index": 191,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CHUTE_TROUGH_FLOOR_E",
+      "part": "DRV-CHAIN-B",
       "step_index": 192,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PDL_SHAFT",
+      "part": "CHUTE_BODY",
       "step_index": 193,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PDL_BEARINGS",
+      "part": "CHUTE_TROUGH_FLOOR_E",
       "step_index": 194,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PDL_BEARINGS",
+      "part": "PDL_SHAFT",
       "step_index": 195,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PDL_SPROCKET",
+      "part": "PDL_BEARINGS",
       "step_index": 196,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PDL_CHAIN",
+      "part": "PDL_BEARINGS",
       "step_index": 197,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PDL_WORM",
+      "part": "PDL_SPROCKET",
       "step_index": 198,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "AUG_SHAFT",
+      "part": "PDL_CHAIN",
       "step_index": 199,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "AUG_BEARINGS",
+      "part": "PDL_WORM",
       "step_index": 200,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "AUG_BEARINGS",
+      "part": "AUG_SHAFT",
       "step_index": 201,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "AUG_WHEEL",
+      "part": "AUG_BEARINGS",
       "step_index": 202,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PDL_FEED_GEAR",
+      "part": "AUG_BEARINGS",
       "step_index": 203,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_IDLER",
+      "part": "AUG_WHEEL",
       "step_index": 204,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_GEAR",
+      "part": "PDL_FEED_GEAR",
       "step_index": 205,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_SHAFT",
+      "part": "CROSS_FEED_IDLER",
       "step_index": 206,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_BEARINGS",
+      "part": "CROSS_FEED_GEAR",
       "step_index": 207,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_BEARINGS",
+      "part": "CROSS_FEED_SHAFT",
       "step_index": 208,
       "centre_dist_mm": 0.0
     },
@@ -23106,42 +23264,42 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "CROSS_FEED_SHELL",
+      "part": "CROSS_FEED_BEARINGS",
       "step_index": 219,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT",
+      "part": "CROSS_FEED_BEARINGS",
       "step_index": 220,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT",
+      "part": "CROSS_FEED_SHELL",
       "step_index": 221,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT_DRIVE",
+      "part": "S1_BELT",
       "step_index": 222,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT_IDLER",
+      "part": "S1_BELT",
       "step_index": 223,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT_IDLER",
+      "part": "S1_BELT_DRIVE",
       "step_index": 224,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT_BEARINGS",
+      "part": "S1_BELT_IDLER",
       "step_index": 225,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT_BEARINGS",
+      "part": "S1_BELT_IDLER",
       "step_index": 226,
       "centre_dist_mm": 0.0
     },
@@ -23156,92 +23314,92 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT_FOLLOWER",
+      "part": "S1_BELT_BEARINGS",
       "step_index": 229,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_BELT_CHAIN",
+      "part": "S1_BELT_BEARINGS",
       "step_index": 230,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_SWEEP_SOUTH",
+      "part": "S1_BELT_FOLLOWER",
       "step_index": 231,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_SWEEP_NORTH",
+      "part": "S1_BELT_CHAIN",
       "step_index": 232,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_SWEEP_GEAR_DRUM_S",
+      "part": "S1_SWEEP_SOUTH",
       "step_index": 233,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_SWEEP_GEAR_S",
+      "part": "S1_SWEEP_NORTH",
       "step_index": 234,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_SWEEP_GEAR_DRUM_N",
+      "part": "S1_SWEEP_GEAR_DRUM_S",
       "step_index": 235,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_SWEEP_GEAR_N",
+      "part": "S1_SWEEP_GEAR_S",
       "step_index": 236,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_SWEEP_BEARINGS",
+      "part": "S1_SWEEP_GEAR_DRUM_N",
       "step_index": 237,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_SWEEP_BEARINGS",
+      "part": "S1_SWEEP_GEAR_N",
       "step_index": 238,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_TRANSFER_BELT",
+      "part": "S1_SWEEP_BEARINGS",
       "step_index": 239,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_TRANSFER_IDLER",
+      "part": "S1_SWEEP_BEARINGS",
       "step_index": 240,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_TRANSFER_BEARINGS",
+      "part": "S1_TRANSFER_BELT",
       "step_index": 241,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "S1_TRANSFER_BEARINGS",
+      "part": "S1_TRANSFER_IDLER",
       "step_index": 242,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_S2_RING",
+      "part": "S1_TRANSFER_BEARINGS",
       "step_index": 243,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_CHAIN_A",
+      "part": "S1_TRANSFER_BEARINGS",
       "step_index": 244,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_CHAIN_B",
+      "part": "GUARD_S2_RING",
       "step_index": 245,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_CHAIN_B",
+      "part": "GUARD_CHAIN_A",
       "step_index": 246,
       "centre_dist_mm": 0.0
     },
@@ -23251,155 +23409,165 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GUARD_LID_INTERLOCK_SEAT",
+      "part": "GUARD_CHAIN_B",
       "step_index": 248,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_FRAME",
+      "part": "GUARD_CHAIN_B",
       "step_index": 249,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_FRAME",
+      "part": "GUARD_LID_INTERLOCK_SEAT",
       "step_index": 250,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_ROLLER_FIXED",
+      "part": "PULL_FRAME",
       "step_index": 251,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_ROLLER_ADJ",
+      "part": "PULL_FRAME",
       "step_index": 252,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_NIP_STOP",
+      "part": "PULL_ROLLER_FIXED",
       "step_index": 253,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_MOTOR_REF",
+      "part": "PULL_ROLLER_ADJ",
       "step_index": 254,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_SHAFT",
+      "part": "PULL_NIP_STOP",
       "step_index": 255,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_BEARINGS",
+      "part": "PULL_MOTOR_REF",
       "step_index": 256,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_BEARINGS",
+      "part": "WIND_SPOOL_SHAFT",
       "step_index": 257,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_DRUM",
+      "part": "WIND_SPOOL_BEARINGS",
       "step_index": 258,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_FLANGE_L",
+      "part": "WIND_SPOOL_BEARINGS",
       "step_index": 259,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_FLANGE_R",
+      "part": "WIND_SPOOL_DRUM",
       "step_index": 260,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_MOTOR_REF",
+      "part": "WIND_FLANGE_L",
       "step_index": 261,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TRAVERSE_SCREW",
+      "part": "WIND_FLANGE_R",
       "step_index": 262,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TRAVERSE_RIDER",
+      "part": "WIND_MOTOR_REF",
       "step_index": 263,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TENSIONER",
+      "part": "WIND_TRAVERSE_SCREW",
       "step_index": 264,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DIN_RAIL",
+      "part": "WIND_TRAVERSE_RIDER",
       "step_index": 265,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_1",
+      "part": "WIND_TENSIONER",
       "step_index": 266,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_2",
+      "part": "EL_DIN_RAIL",
       "step_index": 267,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_3",
+      "part": "EL_DRIVER_1",
       "step_index": 268,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_CONTACTOR",
+      "part": "EL_DRIVER_2",
       "step_index": 269,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_ESTOP_BOX",
+      "part": "EL_DRIVER_3",
       "step_index": 270,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_OVERTEMP_BOX",
+      "part": "EL_CONTACTOR",
       "step_index": 271,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_CURRENT_LIMITER",
+      "part": "EL_ESTOP_BOX",
       "step_index": 272,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_WIRE_DUCT",
+      "part": "EL_OVERTEMP_BOX",
       "step_index": 273,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOPPER_PANEL_L",
+      "part": "EL_CURRENT_LIMITER",
       "step_index": 274,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOPPER_PANEL_R",
+      "part": "EL_WIRE_DUCT",
       "step_index": 275,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOPPER_SEAM_FRONT",
+      "part": "HOPPER_PANEL_L",
       "step_index": 276,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOPPER_SEAM_REAR",
+      "part": "HOPPER_PANEL_R",
       "step_index": 277,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "HOPPER_SEAM_FRONT",
+      "step_index": 278,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "HOPPER_SEAM_REAR",
+      "step_index": 279,
       "centre_dist_mm": 0.0
     }
   ],
-  "wall_time_s": 56.86484146118164
+  "wall_time_s": 56.53863000869751
 }

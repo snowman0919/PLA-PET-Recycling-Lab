@@ -58,6 +58,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import math
 import subprocess
 import sys
@@ -69,11 +70,16 @@ C22 = HERE.parents[1]
 REPO = C22.parent
 
 sys.path.insert(0, str(C22 / "sim" / "assets"))
-from convert import STATIC_BODY  # noqa: E402 - shared body vocabulary
+from convert import STATIC_BODY, CANDIDATE_OUT, CANDIDATE_REL, candidate_manifest
 from materials import MATERIAL_SCOPE, SOURCE as MATERIAL_SOURCE
 
-FULL_ASSETS = C22 / "sim" / "assets" / "out" / "full"
-USDA_OUT = C22 / "sim" / "assets" / "usd"
+LAYOUT = os.environ.get("PPR_LAYOUT", "selected")
+CANDIDATE = LAYOUT == "relocated_gravity"
+CAD_MANIFEST = candidate_manifest() if CANDIDATE else None
+FULL_ASSETS = (CANDIDATE_OUT if CANDIDATE else
+               C22 / "sim" / "assets" / "out" / "full")
+USDA_OUT = (C22 / "sim/assets/usd/candidates/relocated_gravity" if CANDIDATE
+            else C22 / "sim" / "assets" / "usd")
 
 # Kinematic pivots (mm, world F0). Body origins sit ON the rotation axis;
 # every joint is a revolute about +Y.
@@ -110,8 +116,8 @@ PIVOTS_MM.update({
     "BELT_IDLER": (219.0, 243.5, 332.9),
 })
 PIVOTS_MM.update({
-    "SWEEP_SOUTH": (200.0, 186.0, 344.7),
-    "SWEEP_NORTH": (200.0, 289.5, 344.7),
+    "SWEEP_SOUTH": (224.0, 186.0, 344.7),
+    "SWEEP_NORTH": (224.0, 289.5, 344.7),
     "TRANSFER_BELT": (170.0, 232.0, 335.2),
     "TRANSFER_IDLER": (270.0, 232.0, 335.2),
 })
@@ -130,6 +136,17 @@ PIVOTS_MM["CROSS_FEED_IDLER"] = (
     216.0,
     (PIVOTS_MM["CROSS_FEED"][2] + PIVOTS_MM["PADDLE"][2]) / 2.0 +
     _feed_dx / _feed_span * _feed_idler_offset)
+if CANDIDATE:
+    transform = CAD_MANIFEST["transform"]
+    s2 = tuple(transform["s2_translation_mm"])
+    m1_shift = transform["m1_motor_jack_deck_shift_mm"]
+    PIVOTS_MM["IN_SHAFT"] = (80.0 + m1_shift[0],
+                             300.0 + m1_shift[1], 65.0 + m1_shift[2])
+    for body in ("S2_ECC", "S2_CARRIER", "S2_ROTOR"):
+        PIVOTS_MM[body] = s2
+    for body in ("PADDLE", "AUGER", "CROSS_FEED", "CROSS_FEED_IDLER",
+                 "TRANSFER_BELT", "TRANSFER_IDLER"):
+        del PIVOTS_MM[body]
 # Collision partition follows the four actual helical turns at one eighth
 # turn per hull. A whole-turn convex hull fills its flight valley like a
 # cylinder and is not a screw conveyor contact surface.
@@ -321,7 +338,7 @@ def aggregate_body_mass(recs: list[dict]) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--assets", default=str(FULL_ASSETS))
-    ap.add_argument("--out", default=str(C22 / "sim" / "assets" / "usd"))
+    ap.add_argument("--out", default=str(USDA_OUT))
     args = ap.parse_args()
 
     import numpy as np
@@ -336,6 +353,28 @@ def main() -> int:
     assets = Path(args.assets)
     bodies = json.loads((assets / "bodies.json").read_text())
     solids = bodies["solids"]
+    if CANDIDATE:
+        if Path(args.assets).resolve() != CANDIDATE_OUT.resolve():
+            raise ValueError("candidate must read its isolated converted assets")
+        if (bodies["source_step"] != CAD_MANIFEST["step"]["path"] or
+                bodies["source_step_sha256"] != CAD_MANIFEST["step"]["sha256"] or
+                bodies.get("candidate_manifest") != CANDIDATE_REL or
+                bodies.get("candidate_manifest_sha256") !=
+                sha256_file(REPO / CANDIDATE_REL) or
+                bodies["source_step_solid_count"] != CAD_MANIFEST["solid_count"] or
+                bodies["reconstructed_solid_count"] != CAD_MANIFEST["solid_count"] or
+                bodies["failures"]):
+            raise ValueError("candidate assets do not match qualified CAD manifest")
+        if any(s["body"] not in PIVOTS_MM and s["body"] != STATIC_BODY
+               and not s["body"].startswith("S2_ROLLER_") for s in solids):
+            raise ValueError("candidate asset contains a phantom moving body")
+        required = {"IN_SHAFT", "S1A", "S1B", "S2_ECC", "S2_CARRIER",
+                    "S2_ROTOR", "BELT", "BELT_DRIVE", "BELT_IDLER",
+                    "SWEEP_SOUTH", "SWEEP_NORTH"} | {
+                        f"S2_ROLLER_{i}" for i in range(1, 7)}
+        actual = {s["body"] for s in solids if s["body"] != STATIC_BODY}
+        if actual != required or sorted(actual) != bodies["moving_bodies"]:
+            raise ValueError(f"candidate moving-body inventory mismatch: {actual ^ required}")
     failures = list(bodies["failures"])
     count = bodies.get("source_step_solid_count")
     if (count != len(solids) or count != len(bodies["emitted"]) or
@@ -361,6 +400,8 @@ def main() -> int:
     out = Path(args.out)
     if not out.is_absolute():
         out = (Path.cwd() / out).resolve()
+    if CANDIDATE and out != USDA_OUT.resolve():
+        raise ValueError("candidate USD must use its isolated output directory")
     out.mkdir(parents=True, exist_ok=True)
     usd_path = out / "full_machine.usda"
 
@@ -461,19 +502,25 @@ def main() -> int:
         "HOPPER_SEAM_FRONT": STATIC_BODY,
         "HOPPER_SEAM_REAR": STATIC_BODY,
     })
+    if CANDIDATE:
+        expected_cross_feed = {
+            name: body for name, body in expected_cross_feed.items()
+            if not name.startswith(("PDL_", "CROSS_FEED", "S1_TRANSFER"))}
+        expected_cross_feed["ALT_S1_S2_RECEIVER"] = STATIC_BODY
     for name, body in expected_cross_feed.items():
         if not any(s["name"] == name and s["body"] == body for s in solids):
             raise ValueError(f"missing or misclassified STEP part {name}: "
                              f"expected body {body}")
-    idler = next(s for s in solids if s["name"] == "S1_TRANSFER_IDLER")
-    ib = idler["part_bbox"]
-    for axis, actual in ((0, (ib[0] + ib[3]) / 2),
-                         (2, (ib[2] + ib[5]) / 2)):
-        if abs(actual - PIVOTS_MM["TRANSFER_IDLER"][axis]) > 0.25:
-            raise ValueError("transfer idler pivot disagrees with STEP")
-    belt = next(s for s in solids if s["name"] == "S1_TRANSFER_BELT")
-    if abs(belt["part_bbox"][3] - (PIVOTS_MM["TRANSFER_IDLER"][0] + 3.0)) > 0.25:
-        raise ValueError("transfer belt east tangent disagrees with STEP")
+    if not CANDIDATE:
+        idler = next(s for s in solids if s["name"] == "S1_TRANSFER_IDLER")
+        ib = idler["part_bbox"]
+        for axis, actual in ((0, (ib[0] + ib[3]) / 2),
+                             (2, (ib[2] + ib[5]) / 2)):
+            if abs(actual - PIVOTS_MM["TRANSFER_IDLER"][axis]) > 0.25:
+                raise ValueError("transfer idler pivot disagrees with STEP")
+        belt = next(s for s in solids if s["name"] == "S1_TRANSFER_BELT")
+        if abs(belt["part_bbox"][3] - (PIVOTS_MM["TRANSFER_IDLER"][0] + 2.45)) > 0.25:
+            raise ValueError("transfer belt east tangent disagrees with STEP")
 
     mass_by_body = {body: aggregate_body_mass(recs)
                     for body, recs in by_body.items()}
@@ -706,7 +753,7 @@ def main() -> int:
                     west_z = PIVOTS_MM["BELT_DRIVE"][2]
                     slope = ((PIVOTS_MM["TRANSFER_IDLER"][2]-west_z) /
                              (east_x-west_x))
-                    inner_z = 2.3 / math.sqrt(1.0+slope*slope)
+                    inner_z = 2.05 / math.sqrt(1.0+slope*slope)
                 emit_bounded_hulls(rec, f"/World/F0/{body}", pivot, [
                     ("top", lambda v: (v[:, 0] >= west_x - 4.0) &
                      (v[:, 0] <= east_x + 4.0) &
@@ -789,7 +836,7 @@ def main() -> int:
     # gear-tooth partners; cross-feed screw/receiver and fragments stay live.
     group_prims = {
         "Art": [], "KinRotor": [], "KinRoller": [], "KinPaddle": [],
-        "KinAuger": [], "Fit": [],
+        "KinAuger": [], "KinSweep": [], "Fit": [],
         "KinCrossFeedFlight": [], "KinCrossFeedJournal": [],
         "CrossFeedBearing": [], "FeedIdler": [],
         "PaddleFeedGear": [], "CrossFeedGear": [],
@@ -867,13 +914,21 @@ def main() -> int:
             group_prims["KinPaddle"].append(e["prim"])
         elif "/AUGER/" in e["prim"]:
             group_prims["KinAuger"].append(e["prim"])
+        elif CANDIDATE and any(
+                f"/{body}/" in e["prim"] for body in
+                ("SWEEP_SOUTH", "SWEEP_NORTH")):
+            group_prims["KinSweep"].append(e["prim"])
         elif "/Static/" not in e["prim"]:
             group_prims["Art"].append(e["prim"])
-    for required in ("KinCrossFeedFlight", "KinCrossFeedJournal",
-                     "CrossFeedBearing", "FeedIdler",
-                     "PaddleFeedGear", "CrossFeedGear",
-                     "Belt", "BeltDrive", "BeltIdler", "TransferBelt",
-                     "TransferIdler", "TransferBearing"):
+    required_groups = (("Art", "Fit", "KinRotor", "KinRoller", "KinSweep",
+                        "Belt", "BeltDrive", "BeltIdler")
+                       if CANDIDATE else
+                       ("KinCrossFeedFlight", "KinCrossFeedJournal",
+                        "CrossFeedBearing", "FeedIdler",
+                        "PaddleFeedGear", "CrossFeedGear",
+                        "Belt", "BeltDrive", "BeltIdler", "TransferBelt",
+                        "TransferIdler", "TransferBearing"))
+    for required in required_groups:
         if not group_prims[required]:
             raise ValueError(f"CAD-derived collision group {required} empty")
     for gname, targets in group_prims.items():
@@ -902,10 +957,14 @@ def main() -> int:
             ("BeltIdler", ["Belt", "Fit"]),
             ("TransferBelt", ["BeltDrive", "TransferIdler"]),
             ("TransferIdler", ["TransferBelt", "TransferBearing"])):
+        if CANDIDATE and not group_prims[gname]:
+            continue
+        targets = ([f"/World/F0/CollisionGroups/{f}" for f in filters
+                    if group_prims[f]] if CANDIDATE else
+                   [f"/World/F0/CollisionGroups/{f}" for f in filters])
         gp = stage.GetPrimAtPath(f"/World/F0/CollisionGroups/{gname}")
         cg = UsdPhysics.CollisionGroup(gp)
-        cg.CreateFilteredGroupsRel().SetTargets(
-            [f"/World/F0/CollisionGroups/{f}" for f in filters])
+        cg.CreateFilteredGroupsRel().SetTargets(targets)
     # articulation links must not self-collide (S1A/S1B cutter hulls
     # interleave by design; hulls cannot represent the hook interleave)
     stage.GetPrimAtPath("/World/F0/Machine").CreateAttribute(
@@ -1117,6 +1176,41 @@ def main() -> int:
         "status": "GEOMETRY_EMITTED" if not failures else "FAIL",
         "material_flow_status": "UNVERIFIED",
     }
+    if CANDIDATE:
+        manifest["layout"] = LAYOUT
+        manifest["candidate_manifest"] = CANDIDATE_REL
+        manifest["candidate_manifest_sha256"] = bodies["candidate_manifest_sha256"]
+        manifest["candidate_source_sha256"] = CAD_MANIFEST["source_sha256"]
+        manifest["ratios_from_input"] = {
+            key: value for key, value in manifest["ratios_from_input"].items()
+            if key not in ("CROSS_FEED", "CROSS_FEED_IDLER")}
+        manifest["ratio_sources"] = manifest["ratio_sources"][:-1]
+        manifest["hull_audit"]["results"] = (
+            "c2.2/results/full_machine/candidates/relocated_gravity/hull_audit.json")
+        manifest["collision_note"] = (
+            "Static STEP solids use triangle meshes; moving STEP solids use "
+            "decimated convex hulls, with S1 belt loop partitioning and "
+            "cycloid rotor/carrier convex decomposition. No transfer screw "
+            "or transfer belt is present. Fragment collision remains enabled.")
+        manifest["derived_transfer_spec"] = {
+            "removed": derived["removed"],
+            "note": "No derived transfer collider; actual ALT_S1_S2_RECEIVER and "
+                    "gravity chute are candidate STEP solids; flow unverified."}
+        manifest["contact_filter_table"] = {
+            "collision_groups": {
+                name: ("candidate S1 sweep flight/gears; collision enabled"
+                       if name == "KinSweep" else
+                       manifest["contact_filter_table"]["collision_groups"][name])
+                for name, paths in group_prims.items() if paths},
+            "filtered_pairs": {
+                key: value for key, value in
+                manifest["contact_filter_table"]["filtered_pairs"].items()
+                if not any(word in key for word in
+                           ("Paddle", "Auger", "CrossFeed", "FeedIdler",
+                            "Transfer"))},
+            "not_filtered": "All fragment contacts, static gravity receiver "
+                            "and chute contacts remain enabled; only retained "
+                            "journal/drive/cycloid/belt designed mates filtered."}
     (out / "full_machine.sidecar.json").write_text(
         json.dumps(manifest, indent=2) + "\n")
     print(json.dumps({k: v for k, v in manifest.items()

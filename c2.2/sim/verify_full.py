@@ -65,12 +65,15 @@ C22 = SIM.parent
 REPO = C22.parent
 sys.path.insert(0, str(SIM))
 
-USDA = C22 / "sim" / "assets" / "usd" / "full_machine.usda"
-BODIES = C22 / "sim" / "assets" / "out" / "full" / "bodies.json"
-USD_MANIFEST = USDA.with_suffix(".sidecar.json")
 from full_machine import PIVOTS_MM  # noqa: E402 - emitter owns body origins
-from flow_localize import hole_transition, buffer_throat_contains  # shared exact gates
-OUTDIR = C22 / "results" / "full_machine"
+from flow_localize import (  # noqa: E402 - same layout and exact bore gates
+    CANDIDATE, LAYOUT, SHIFT, CAD_MANIFEST, USDA, BODIES,
+    hole_transition, buffer_throat_contains, gravity_receiver_contains,
+    gravity_mouth_contains, GRAVITY_MOUTH_Z_MM,
+)
+USD_MANIFEST = USDA.with_suffix(".sidecar.json")
+OUTDIR = (C22 / "results/full_machine/candidates/relocated_gravity"
+          if CANDIDATE else C22 / "results/full_machine")
 
 # --- drive model (ratios per unit input-shaft rotation, rad) ------------
 Q = 8
@@ -94,18 +97,13 @@ THETA_TOTAL = 2 * math.pi * Q  # one full q=8 input cycle
 
 # S2 rotor kinematics (world, mm): orbit center + spin about +Y.
 ECC_MM = 7.0
-S2_PIVOT = (308.56946468906176, 299.0, 280.0)
-S2_ROTOR_PIVOT = (308.56946468906176 - ECC_MM, 299.0, 280.0)
-# paddle transfer shaft axis (chute.py rev 6 final): the worm shaft MOVED
-# to (362, z374.5); rotation about +Y through the body origin
-PADDLE_PIVOT = (362.0, 298.0, 374.5)
-# auger conveyor axis (chute.py rev 6 raised design): rotation about +X
-# through (y232, z347.1 — measured: shaft-only mesh band x356..362 spans
-# z 344.10..350.10 = r3 centered 347.1; flight-floor clearance 3.31 mm);
-# any x on the axis works as origin
-AUGER_PIVOT = (298.75, 232.0, 347.1)
-CROSS_FEED_PIVOT = PIVOTS_MM["CROSS_FEED"]
-CROSS_FEED_IDLER_PIVOT = PIVOTS_MM["CROSS_FEED_IDLER"]
+S2_PIVOT = PIVOTS_MM["S2_ECC"]
+S2_ROTOR_PIVOT = PIVOTS_MM["S2_ROTOR"]
+# Legacy selected auxiliaries are absent from the candidate welded receiver.
+PADDLE_PIVOT = PIVOTS_MM.get("PADDLE")
+AUGER_PIVOT = PIVOTS_MM.get("AUGER")
+CROSS_FEED_PIVOT = PIVOTS_MM.get("CROSS_FEED")
+CROSS_FEED_IDLER_PIVOT = PIVOTS_MM.get("CROSS_FEED_IDLER")
 
 # By-design contact pairs (substring pairs, order-insensitive) WITH WHY.
 # These pairs are EXPECTED to touch and are classified as by-design in the
@@ -336,11 +334,13 @@ def main() -> int:
         belt_velocity = belt_api.CreateSurfaceVelocityAttr()
         belt_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
         belt_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
-        transfer_api = PhysxSchema.PhysxSurfaceVelocityAPI.Apply(
-            stage.GetPrimAtPath("/World/F0/TRANSFER_BELT"))
-        transfer_velocity = transfer_api.CreateSurfaceVelocityAttr()
-        transfer_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
-        transfer_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
+        transfer_velocity = None
+        if not CANDIDATE:
+            transfer_api = PhysxSchema.PhysxSurfaceVelocityAPI.Apply(
+                stage.GetPrimAtPath("/World/F0/TRANSFER_BELT"))
+            transfer_velocity = transfer_api.CreateSurfaceVelocityAttr()
+            transfer_velocity.Set(Gf.Vec3f(0.0, 0.0, 0.0))
+            transfer_api.CreateSurfaceVelocityLocalSpaceAttr().Set(False)
 
         # DOF discovery: traverse revolute joints under the articulation
         # root in stage order (the impl helper only walks joints whose
@@ -516,6 +516,7 @@ def main() -> int:
         n_probes = 2 * n_each
         s1_exit = [False] * n_probes
         auger_pickup = [False] * n_probes
+        gravity_receiver = [False] * n_probes
         s2_mouth = [False] * n_probes
         bore_candidate = [None] * n_probes
         screen_hole = [False] * n_probes
@@ -530,14 +531,15 @@ def main() -> int:
         # per-step telemetry: input angle + every dependent joint angle
         steps_angle_rows = []
 
-        kin_paths = ["/World/F0/S2_ROTOR"] + [
-            f"/World/F0/S2_ROLLER_{k}" for k in range(1, 7)] + \
-            ["/World/F0/PADDLE", "/World/F0/AUGER",
-             "/World/F0/CROSS_FEED", "/World/F0/CROSS_FEED_IDLER",
-             "/World/F0/BELT", "/World/F0/BELT_DRIVE",
-             "/World/F0/BELT_IDLER", "/World/F0/SWEEP_SOUTH",
-             "/World/F0/SWEEP_NORTH", "/World/F0/TRANSFER_BELT",
-             "/World/F0/TRANSFER_IDLER"]
+        kin_bodies = (["S2_ROTOR"] + [f"S2_ROLLER_{k}" for k in range(1, 7)]
+                      + ([] if CANDIDATE else
+                         ["PADDLE", "AUGER", "CROSS_FEED", "CROSS_FEED_IDLER"])
+                      + ["BELT", "BELT_DRIVE", "BELT_IDLER",
+                         "SWEEP_SOUTH", "SWEEP_NORTH"]
+                      + ([] if CANDIDATE else
+                         ["TRANSFER_BELT", "TRANSFER_IDLER"]))
+        kin_paths = [f"/World/F0/{body}" for body in kin_bodies]
+        ki = {body: idx for idx, body in enumerate(kin_bodies)}
         kv = sim_view.create_rigid_body_view(kin_paths)
         pv = sim_view.create_rigid_body_view(probe_paths)
         log(f"rigid body views: kin={kv.count}, probes={pv.count}")
@@ -591,13 +593,14 @@ def main() -> int:
                         continue
                     contact_log.append((a, b))
 
-        transfer_dx = (PIVOTS_MM["TRANSFER_IDLER"][0]
-                       - PIVOTS_MM["BELT_DRIVE"][0])
-        transfer_dz = (PIVOTS_MM["TRANSFER_IDLER"][2]
-                       - PIVOTS_MM["BELT_DRIVE"][2])
-        transfer_norm = math.hypot(transfer_dx, transfer_dz)
-        transfer_vx = 2.0 * 2.3 * transfer_dx / transfer_norm
-        transfer_vz = 2.0 * 2.3 * transfer_dz / transfer_norm
+        if not CANDIDATE:
+            transfer_dx = (PIVOTS_MM["TRANSFER_IDLER"][0]
+                           - PIVOTS_MM["BELT_DRIVE"][0])
+            transfer_dz = (PIVOTS_MM["TRANSFER_IDLER"][2]
+                           - PIVOTS_MM["BELT_DRIVE"][2])
+            transfer_norm = math.hypot(transfer_dx, transfer_dz)
+            transfer_vx = 2.0 * 2.3 * transfer_dx / transfer_norm
+            transfer_vz = 2.0 * 2.3 * transfer_dz / transfer_norm
         belt_slope = ((PIVOTS_MM["BELT_IDLER"][2]
                        - PIVOTS_MM["BELT_DRIVE"][2])
                       / (PIVOTS_MM["BELT_IDLER"][0]
@@ -638,58 +641,55 @@ def main() -> int:
                 kin[k, 3:] = qa
             # paddle transfer (VP1 rev 6): the worm shaft rotates at the SAME
             # signed angle as the measured S2Ecc DOF (open chain)
-            kin[7, 0] = PADDLE_PIVOT[0]
-            kin[7, 1] = PADDLE_PIVOT[1]
-            kin[7, 2] = PADDLE_PIVOT[2]
-            kin[7, 3:] = (0.0, math.sin(theta_s2 / 2), 0.0,
-                          math.cos(theta_s2 / 2))
-            # auger conveyor (VP1 rev 6): worm 2-start : wheel 16T = 8:1,
-            # same sign -> auger angle = measured S2Ecc / 8 about +X
-            # (RH flight at omega_x < 0 conveys +x)
-            theta_auger = theta_s2 / 8.0
-            kin[8, 0] = AUGER_PIVOT[0]
-            kin[8, 1] = AUGER_PIVOT[1]
-            kin[8, 2] = AUGER_PIVOT[2]
-            kin[8, 3:] = (math.sin(theta_auger / 2), 0.0, 0.0,
-                          math.cos(theta_auger / 2))
-            # CAD drive: two external 12T/12T meshes, so cross-feed turns
-            # with the measured S2Ecc/PDL angle and the idler opposes it.
-            # Upstream chain-P closure is a separate physical check; these
-            # are pose-driven ideal constraints, not proof of torque.
-            kin[9, :3] = CROSS_FEED_PIVOT
-            kin[9, 3:] = (0.0, math.sin(theta_s2 / 2), 0.0,
-                          math.cos(theta_s2 / 2))
-            kin[10, :3] = CROSS_FEED_IDLER_PIVOT
-            kin[10, 3:] = (0.0, -math.sin(theta_s2 / 2), 0.0,
-                           math.cos(theta_s2 / 2))
+            if not CANDIDATE:
+                kin[ki["PADDLE"], :3] = PADDLE_PIVOT
+                kin[ki["PADDLE"], 3:] = (
+                    0.0, math.sin(theta_s2 / 2), 0.0, math.cos(theta_s2 / 2))
+                theta_auger = theta_s2 / 8.0
+                kin[ki["AUGER"], :3] = AUGER_PIVOT
+                kin[ki["AUGER"], 3:] = (
+                    math.sin(theta_auger / 2), 0.0, 0.0,
+                    math.cos(theta_auger / 2))
+                kin[ki["CROSS_FEED"], :3] = CROSS_FEED_PIVOT
+                kin[ki["CROSS_FEED"], 3:] = (
+                    0.0, math.sin(theta_s2 / 2), 0.0, math.cos(theta_s2 / 2))
+                kin[ki["CROSS_FEED_IDLER"], :3] = CROSS_FEED_IDLER_PIVOT
+                kin[ki["CROSS_FEED_IDLER"], 3:] = (
+                    0.0, -math.sin(theta_s2 / 2), 0.0,
+                    math.cos(theta_s2 / 2))
             # The drive/follower both roll about +Y; chain 24T:12T gives
             # two drum turns per measured S1B turn. The belt collider does
             # not rotate: its contact surface carries the tangential speed.
             drum_angle = 2.0 * float(pos_unw[2])
-            kin[11, :3] = PIVOTS_MM["BELT"]
-            kin[11, 3:] = (0.0, 0.0, 0.0, 1.0)
-            for idx, body in ((12, "BELT_DRIVE"), (13, "BELT_IDLER")):
+            kin[ki["BELT"], :3] = PIVOTS_MM["BELT"]
+            kin[ki["BELT"], 3:] = (0.0, 0.0, 0.0, 1.0)
+            for body in ("BELT_DRIVE", "BELT_IDLER"):
+                idx = ki[body]
                 kin[idx, :3] = PIVOTS_MM[body]
                 kin[idx, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
                                math.cos(drum_angle / 2))
-            for idx, body in ((14, "SWEEP_SOUTH"), (15, "SWEEP_NORTH")):
+            for body in ("SWEEP_SOUTH", "SWEEP_NORTH"):
+                idx = ki[body]
                 kin[idx, :3] = PIVOTS_MM[body]
                 kin[idx, 3:] = (0.0, -math.sin(drum_angle / 2), 0.0,
                                math.cos(drum_angle / 2))
-            kin[16, :3] = PIVOTS_MM["TRANSFER_BELT"]
-            kin[16, 3:] = (0.0, 0.0, 0.0, 1.0)
-            kin[17, :3] = PIVOTS_MM["TRANSFER_IDLER"]
-            kin[17, 3:] = (0.0, math.sin(drum_angle / 2), 0.0,
-                           math.cos(drum_angle / 2))
+            if not CANDIDATE:
+                kin[ki["TRANSFER_BELT"], :3] = PIVOTS_MM["TRANSFER_BELT"]
+                kin[ki["TRANSFER_BELT"], 3:] = (0.0, 0.0, 0.0, 1.0)
+                kin[ki["TRANSFER_IDLER"], :3] = PIVOTS_MM["TRANSFER_IDLER"]
+                kin[ki["TRANSFER_IDLER"], 3:] = (
+                    0.0, math.sin(drum_angle / 2), 0.0,
+                    math.cos(drum_angle / 2))
             belt_speed = 2.0 * 3.8 * (
                 float(vel_np[2]) if step > 0 else 0.0)
             # Surface velocity is in stage distance/s (millimetres here).
             belt_velocity.Set(Gf.Vec3f(
                 belt_speed, 0.0, belt_speed * belt_slope))
-            s1b_speed = float(vel_np[2]) if step > 0 else 0.0
-            transfer_velocity.Set(Gf.Vec3f(
-                transfer_vx * s1b_speed, 0.0,
-                transfer_vz * s1b_speed))
+            if transfer_velocity is not None:
+                s1b_speed = float(vel_np[2]) if step > 0 else 0.0
+                transfer_velocity.Set(Gf.Vec3f(
+                    transfer_vx * s1b_speed, 0.0,
+                    transfer_vz * s1b_speed))
             if not _os.environ.get("PPR_NO_KIN"):
                 kv.set_kinematic_targets(kin, np.arange(len(kin_paths),
                                                          dtype=np.int32))
@@ -748,8 +748,9 @@ def main() -> int:
                 "t_s": round((step + 1) * args.dt, 5),
                 "input_target_rad": round(theta_cmd, 5),
                 "input_angle_rad": round(float(pos_unw[0]), 5),
-                "auger_angle_rad": round(theta_s2 / 8.0, 5),
-                "cross_feed_angle_rad": round(theta_s2, 5),
+                **({} if CANDIDATE else {
+                    "auger_angle_rad": round(theta_s2 / 8.0, 5),
+                    "cross_feed_angle_rad": round(theta_s2, 5)}),
                 "dep_angles_rad": [round(float(pos_unw[i]), 5)
                                    for i in range(1, 5)],
                 "dep_targets_rad": [round(float(t), 5) for t in dep_targets],
@@ -757,7 +758,7 @@ def main() -> int:
                     round(abs(vel_ratios[i] * pos_unw[0] - pos_unw[i]), 5)
                     for i in range(1, 5)],
             })
-            if step % 4 == 0:
+            if CANDIDATE or step % 4 == 0:
                 pt_p = pv.get_transforms()
                 PP = (pt_p.numpy() if hasattr(pt_p, 'numpy')
                       else np.asarray(pt_p)).reshape(-1, 7)
@@ -777,36 +778,52 @@ def main() -> int:
                         gy = prior[1] + t * (y - prior[1])
                         s1_exit[i] = (83.0 + radius <= gx <= 237.0 - radius
                                       and 162.4 + radius <= gy <= 324.6 - radius)
-                    if (s1_exit[i] and not auger_pickup[i]
-                            and 237.0 <= x <= 270.0
-                            and 223.3 <= y <= 240.9
-                            and 338.0 <= z <= 356.0):
-                        auger_pickup[i] = True
-                    if (auger_pickup[i] and not s2_mouth[i]
-                            and prior[1] < 255.0 <= y):
-                        t = (255.0 - prior[1]) / (y - prior[1])
-                        mx = prior[0] + t * (x - prior[0])
-                        mz = prior[2] + t * (z - prior[2])
-                        s2_mouth[i] = (
-                            350.0 + radius <= mx <= 359.7 - radius
-                            and math.hypot(mx - 308.56946468906176,
-                                           mz - 280.0) + radius <= 65.6
-                            and mz - radius >= 317.3 - 1e-4)
+                    if CANDIDATE:
+                        if (s1_exit[i] and not gravity_receiver[i]
+                                and gravity_receiver_contains(x, y, z, radius)):
+                            gravity_receiver[i] = True
+                        if (gravity_receiver[i] and not s2_mouth[i]
+                                and prior[2] >= GRAVITY_MOUTH_Z_MM > z):
+                            t = ((prior[2] - GRAVITY_MOUTH_Z_MM) /
+                                 (prior[2] - z))
+                            mx = float(prior[0] + t * (x - prior[0]))
+                            my = float(prior[1] + t * (y - prior[1]))
+                            s2_mouth[i] = gravity_mouth_contains(
+                                mx, my, radius)
+                    else:
+                        if (s1_exit[i] and not auger_pickup[i]
+                                and 237.0 <= x <= 270.0
+                                and 223.3 <= y <= 240.9
+                                and 338.0 <= z <= 356.0):
+                            auger_pickup[i] = True
+                        if (auger_pickup[i] and not s2_mouth[i]
+                                and prior[1] < 255.0 <= y):
+                            t = (255.0 - prior[1]) / (y - prior[1])
+                            mx = prior[0] + t * (x - prior[0])
+                            mz = prior[2] + t * (z - prior[2])
+                            s2_mouth[i] = (
+                                350.0 + radius <= mx <= 359.7 - radius
+                                and math.hypot(mx - 308.56946468906176,
+                                               mz - 280.0) + radius <= 65.6
+                                and mz - radius >= 317.3 - 1e-4)
                     if s2_mouth[i] and not screen_hole[i]:
                         bore_candidate[i], completed = hole_transition(
                             prior, now, radius, bore_candidate[i])
                         screen_hole[i] = completed is not None
                     if (screen_hole[i] and not buffer_upper[i]
-                            and prior[2] >= 218.0 > z):
-                        t = (prior[2] - 218.0) / (prior[2] - z)
+                            and prior[2] >= 218.0 + SHIFT[2] > z):
+                        plane = 218.0 + SHIFT[2]
+                        t = (prior[2] - plane) / (prior[2] - z)
                         bx = prior[0] + t * (x - prior[0])
                         by = prior[1] + t * (y - prior[1])
                         buffer_upper[i] = (
-                            216.57 + radius <= bx <= 400.57 - radius
+                            216.57 + SHIFT[0] + radius <= bx
+                            <= 400.57 + SHIFT[0] - radius
                             and 254.0 + radius <= by <= 296.0 - radius)
                     if (buffer_upper[i] and not buffer_throat[i]
-                            and prior[2] >= 145.0 > z):
-                        t = (prior[2] - 145.0) / (prior[2] - z)
+                            and prior[2] >= 145.0 + SHIFT[2] > z):
+                        plane = 145.0 + SHIFT[2]
+                        t = (prior[2] - plane) / (prior[2] - z)
                         bx = prior[0] + t * (x - prior[0])
                         by = prior[1] + t * (y - prior[1])
                         buffer_throat[i] = buffer_throat_contains(
@@ -838,6 +855,12 @@ def main() -> int:
         reached = sum(probe_band)
         per_class = {"d3": [0, 0], "d15": [0, 0]}  # [reached, total]
         probe_final = []
+        probe_outcomes = []
+        final_vel = None
+        if CANDIDATE:
+            raw_vel = pv.get_velocities()
+            final_vel = (raw_vel.numpy() if hasattr(raw_vel, "numpy")
+                         else np.asarray(raw_vel)).reshape(-1, 3)
         for i in range(2 * n_each):
             x, y, z = (float(P[i][0]), float(P[i][1]), float(P[i][2]))
             cls = "d3" if i < n_each else "d15"
@@ -850,6 +873,24 @@ def main() -> int:
                                                      round(y, 1),
                                                      round(z, 1)],
                                     "reached_screen": probe_band[i]})
+            if CANDIDATE:
+                arrived = bool(buffer_throat[i])
+                lost = (z < -50 or z > 900 or y < -100 or y > 800
+                        or x < -100 or x > 900)
+                slow = bool(np.linalg.norm(final_vel[i]) < 5.0)
+                probe_outcomes.append({
+                    "i": i, "class": cls,
+                    "s1_exit": bool(s1_exit[i]),
+                    "gravity_receiver": bool(gravity_receiver[i]),
+                    "s2_mouth": bool(s2_mouth[i]),
+                    "same_screen_bore": bool(screen_hole[i]),
+                    "buffer_upper": bool(buffer_upper[i]),
+                    "buffer_throat": arrived,
+                    "lost_through_world": lost,
+                    "stuck_at_final": slow and not lost and not arrived,
+                    "unaccepted_residue": not lost and not arrived,
+                    "final_pos_mm": [round(x, 1), round(y, 1), round(z, 1)],
+                })
 
         # --- contact classification ------------------------------------
         pairs: dict[tuple, int] = {}
@@ -886,10 +927,11 @@ def main() -> int:
             usd_sha == usd_sha_before
             and scene_manifest.get("source_bodies", {}).get(
                 "step_sha256") == step_sha
-            and scene_manifest.get("usd_sha256") == usd_sha)
+            and scene_manifest.get("usd_sha256") == usd_sha
+            and (not CANDIDATE or step_sha ==
+                 json.loads(CAD_MANIFEST.read_text())["step"]["sha256"]))
         flow_localized = None
-        flow_path = (C22 / "results" / "full_machine" / "flow_localize"
-                     / "results.json")
+        flow_path = OUTDIR / "flow_localize/results.json"
         if flow_path.is_file():
             try:
                 flow_localized = json.loads(flow_path.read_text())
@@ -900,7 +942,8 @@ def main() -> int:
             and flow_localized.get("schema") == "full_machine_flow_localize/2"
             and flow_localized.get("scene_consistent") is True
             and flow_localized.get("step_sha256") == step_sha
-            and flow_localized.get("usda_sha256") == usd_sha)
+            and flow_localized.get("usda_sha256") == usd_sha
+            and (not CANDIDATE or flow_localized.get("layout") == LAYOUT))
         flow_explains = None
         if flow_scene_matches and flow_localized.get("verdicts"):
             v = flow_localized["verdicts"]
@@ -919,14 +962,16 @@ def main() -> int:
         total_probes = 2 * n_each
         connected_ids = [
             i for i in range(total_probes)
-            if (s1_exit[i] and auger_pickup[i] and s2_mouth[i]
+            if (s1_exit[i] and (gravity_receiver[i] if CANDIDATE
+                                else auger_pickup[i]) and s2_mouth[i]
                 and screen_hole[i] and buffer_upper[i] and buffer_throat[i])]
         if not source_scene_linked:
             verdict = "FAIL_SCENE_PROVENANCE"
         elif not tracking_pass_val or not total_probes:
             verdict = "FAIL"
         elif connected_ids:
-            verdict = "CONNECTED_BUFFER_REACHED"
+            verdict = ("CONNECTED_BUFFER_REACHED_HOLD" if CANDIDATE else
+                       "CONNECTED_BUFFER_REACHED")
         elif reached == 0 and flow_explains and flow_explains[
                 "localizes_obstruction"]:
             verdict = "LOCALIZED_BLOCKED"
@@ -940,6 +985,7 @@ def main() -> int:
         # still requires an extrusion/diameter path not exercised here.
         product_flow_verified = False
         results = {
+            "layout": LAYOUT,
             "schema": "full_machine_verify/4",
             "usd": str(USDA.name),
             "usd_sha256": usd_sha,
@@ -967,17 +1013,23 @@ def main() -> int:
                 "S2Ecc": CHAIN_B,
                 "S2Carrier": -CHAIN_B / Q,
             },
-            "chain_topology": ("IDEAL KINEMATIC MODEL: M1 -> 15T/40T jack; "
-                               "chain A 24/24 jack->S1A; chain B 24/12 "
-                               "jack->S2Ecc (-0.75/input); chain P 12/12 "
-                               "-> PDL_SHAFT (measured S2Ecc 1:1); "
-                               "PDL_WORM 2-start -> AUG_WHEEL 16T -> "
-                               "AUGER (S2Ecc/8 about +X); PDL_FEED_GEAR "
-                               "-> CROSS_FEED_IDLER -> CROSS_FEED_GEAR, "
-                               "two external 12T meshes yielding positive "
-                               "1:1 CROSS_FEED_SHAFT about +Y. Upstream "
-                               "chain-P assembly length and actual torque "
-                               "continuity require a separate CAD check."),
+            "chain_topology": (
+                "IDEAL KINEMATIC MODEL: M1 -> 15T/40T jack; chain A "
+                "24/24 jack->S1A; chain B 24/12 jack->S2Ecc "
+                "(-0.75/input); gravity receiver without PDL/auger/"
+                "cross-feed or transfer belt. Chain B tension and torque "
+                "continuity remain unqualified." if CANDIDATE else
+                "IDEAL KINEMATIC MODEL: M1 -> 15T/40T jack; "
+                "chain A 24/24 jack->S1A; chain B 24/12 "
+                "jack->S2Ecc (-0.75/input); chain P 12/12 "
+                "-> PDL_SHAFT (measured S2Ecc 1:1); "
+                "PDL_WORM 2-start -> AUG_WHEEL 16T -> "
+                "AUGER (S2Ecc/8 about +X); PDL_FEED_GEAR "
+                "-> CROSS_FEED_IDLER -> CROSS_FEED_GEAR, "
+                "two external 12T meshes yielding positive "
+                "1:1 CROSS_FEED_SHAFT about +Y. Upstream "
+                "chain-P assembly length and actual torque "
+                "continuity require a separate CAD check."),
             "ratio_sources": ["design/parameters.json drive block",
                               "c2.1/src/drive_kinematics.py ratio_chain",
                               "c2.1/src/transmission.py pose() q=8"],
@@ -1001,7 +1053,10 @@ def main() -> int:
             "contact_filter_table": {
                 "by_design_pairs": BY_DESIGN,
                 "removed_from_reporting": CONTACTS_REMOVED_FROM_REPORTING,
-                "not_filtered": NOT_FILTERED,
+                "not_filtered": (
+                    "probes/fragments vs every retained collider including "
+                    "ALT_S1_S2_RECEIVER and S2; no candidate feed actuators"
+                    if CANDIDATE else NOT_FILTERED),
                 "observed_by_design_pairs": [
                     {"a": k[0], "b": k[1], "count": v,
                      "why": is_by_design(k[0], k[1])["why"]
@@ -1030,7 +1085,9 @@ def main() -> int:
                 "reached_screen_total": reached,
                 "connected_stage_counts": {
                     "s1_exit": int(sum(s1_exit)),
-                    "auger_pickup": int(sum(auger_pickup)),
+                    **({"gravity_receiver": int(sum(gravity_receiver))}
+                       if CANDIDATE else
+                       {"auger_pickup": int(sum(auger_pickup))}),
                     "s2_mouth": int(sum(s2_mouth)),
                     "same_screen_bore": int(sum(screen_hole)),
                     "buffer_upper": int(sum(buffer_upper)),
@@ -1042,6 +1099,14 @@ def main() -> int:
                 "screen_bbox_mm": list(sb),
                 "spawn_z_mm": round(float(spawn_z[0]), 2),
                 "sample_final_positions": probe_final,
+                **({"candidate_probe_outcomes": probe_outcomes,
+                    "stuck_at_final": sum(p["stuck_at_final"]
+                                          for p in probe_outcomes),
+                    "lost_through_world": sum(p["lost_through_world"]
+                                               for p in probe_outcomes),
+                    "unaccepted_residue": sum(p["unaccepted_residue"]
+                                               for p in probe_outcomes)}
+                   if CANDIDATE else {}),
                 "note": "probe screen-bbox proximity only, not measured "
                         "screen-hole passage, outlet delivery or complete "
                         "product flow",
@@ -1054,23 +1119,35 @@ def main() -> int:
                                 if flow_localized else None),
                 "usda_sha256": (flow_localized.get("usda_sha256")
                                 if flow_localized else None),
+                "phase_reference_sha256": (sha256_file(flow_path)
+                                            if flow_scene_matches else None),
                 "explains": flow_explains,
             },
             "product_flow_verified": product_flow_verified,
-            "product_flow_note": ("connected S1-to-screen-bore-to-buffer "
-                                  "measured by same probe IDs separately; "
-                                  "extrusion, 1.75 mm filament and winding "
-                                  "product remain untested"),
+            "product_flow_note": (
+                "candidate same-ID S1 exit to welded gravity receiver, "
+                "upper-right S2 mouth, exact bore and buffer throat measured; "
+                "physical qualification remains HOLD (chain B rating, "
+                "extrusion, filament/winding untested)" if CANDIDATE else
+                "connected S1-to-screen-bore-to-buffer measured by same "
+                "probe IDs separately; extrusion, 1.75 mm filament and "
+                "winding product remain untested"),
             "verdict": verdict,
-            "verdict_rule": ("No PASS from screen-band probes alone. "
-                             "Mismatched STEP/USD = FAIL_SCENE_PROVENANCE; "
-                             "tracking failure = FAIL; at least one same-ID "
-                             "S1 exit, auger pickup, S2 mouth, exact screen "
-                             "bore, buffer upper and lower throat = "
-                             "CONNECTED_BUFFER_REACHED (not filament). "
-                             "Otherwise zero band reach = BLOCKED, partial "
-                             "band reach = PARTIAL_PROBE_REACH, all band "
-                             "reach = PROBE_BAND_REACHED."),
+            "verdict_rule": (
+                "Candidate: same-ID S1 exit, gravity receiver, S2 upper "
+                "mouth, exact screen bore and buffer upper/lower throat "
+                "required; screen-band and selected auger gates never pass "
+                "candidate. Physical qualification HOLD." if CANDIDATE else
+                "No PASS from screen-band probes alone. "
+                "Mismatched STEP/USD = FAIL_SCENE_PROVENANCE; "
+                "tracking failure = FAIL; at least one same-ID "
+                "S1 exit, auger pickup, S2 mouth, exact screen "
+                "bore, buffer upper and lower throat = "
+                "CONNECTED_BUFFER_REACHED (not filament). "
+                "Otherwise zero band reach = BLOCKED, partial "
+                "band reach = PARTIAL_PROBE_REACH, all band "
+                "reach = PROBE_BAND_REACHED."),
+            "physical_qualification": "HOLD" if CANDIDATE else None,
             "telemetry_rows": rows,
             "per_step_angles": steps_angle_rows,
             "runner": "c2.2/sim/verify_full.py",

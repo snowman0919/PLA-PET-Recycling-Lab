@@ -77,11 +77,11 @@
     },
     {
       "checkpoint": "screen_to_buffer_gravity_exit",
-      "aperture_mm": 5.551855941219673,
+      "aperture_mm": 5.753964555686645,
       "probe_sphere_mm": 3.0,
       "passed": true,
       "evidence": "MEASURED",
-      "note": "exported S2 screen has 78/78 \u00d81.5 and 78/78 \u00d83 unobstructed vertical cylindrical paths; minimum actual FEED-BUF metal distance at the upper receiver plane z218 is 5.552 mm. This is not a contact, capture or flow test",
+      "note": "exported S2 screen has 78/78 \u00d81.5 and 78/78 \u00d83 unobstructed vertical cylindrical paths; minimum actual FEED-BUF metal distance at the upper receiver plane z218 is 5.754 mm. This is not a contact, capture or flow test",
       "clear_paths_by_probe_mm": {
         "1.5": 78,
         "3.0": 78
@@ -95,7 +95,7 @@
       "probe_sphere_mm": 8.0,
       "passed": true,
       "evidence": "NAMEPLATE",
-      "note": "FEED-BUF loft 190x48 top / \u00d818 outer and \u00d813 clear octagonal neck for 15 mm, height 73; lower outlet x299,y275 is coaxial with the \u00d820 barrel feed bore; nominal outer radial room 1 mm is not a manufacturing tolerance",
+      "note": "FEED-BUF steel loft 190x48 top, inset shoulder at z210 and \u00d818 outer/\u00d813 clear octagonal neck for 15 mm; lower outlet x299,y275 and split metal saddle are coaxial with the \u00d820 barrel feed bore. \u00d813 throat is only an aperture: weld, clamping, thermal fit, and flow remain HOLD",
       "checkpoint_class": "pass_space"
     },
     {
