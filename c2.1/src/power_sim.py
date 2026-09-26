@@ -133,7 +133,7 @@ def main():
 
     peak = max(rec["peak_W"] for rec in per_stage.values())
     result = {
-        "revision": "C2.1-P6+VP1-STAGE5",
+        "revision": "C2.1-P6+VP1-STAGE6",
         "module": "c2.1/src/power_sim.py",
         "controller": "c2.1/firmware/controller_core.cpp staged concurrency "
                       "allocator (500 W hard modeled operating budget; 792 W "
@@ -159,8 +159,8 @@ def main():
             for key in ("m1", "m2", "fans", "h60", "h100")
         ],
         "unrated_assumptions": {
-            "statement": "M1 (196.8 W) and M2 (43.2 W) and the fan pair "
-                         "(16 W) are UNRATED_ESTIMATE values: the motors are "
+            "statement": "M1 (196.8 W) and M2 (43.2 W) and the fan triple "
+                         "(24 W) are UNRATED_ESTIMATE values: the motors are "
                          "not-owned references and the fan current is not in "
                          "the repo. They bound the modeled draw but are not "
                          "measured ratings.",
@@ -179,13 +179,13 @@ def main():
         "peak_vs_budget_headroom_W": round(OPERATIONAL_CAP_W - peak, 3),
         "peak_within_operational_budget": peak <= OPERATIONAL_CAP_W,
         "modeled_scenarios": [
-            {"scenario": "566 W requested (316 W base + 150 W aux + 100 W band)",
-             "requested_W": 566.0,
+            {"scenario": "574 W requested (324 W base + 150 W aux + 100 W band)",
+             "requested_W": 574.0,
              "admitted_W": admitted_load(600, loads, {"fans": True, "h60": True,
                                   "m1": True, "m2": True}, 150.0)[0],
              "outcome": "aux admitted first; band refused at 500 W"},
-            {"scenario": "816 W requested (316 W base + 500 W aux + 100 W band)",
-             "requested_W": 816.0,
+            {"scenario": "824 W requested (324 W base + 500 W aux + 100 W band)",
+             "requested_W": 824.0,
              "admitted_W": admitted_load(600, loads, {"fans": True, "h60": True,
                                   "m1": True, "m2": True}, 500.0)[0],
              "outcome": "aux refused; one band admitted below 500 W"}],

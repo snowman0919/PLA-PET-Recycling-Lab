@@ -158,7 +158,7 @@ def main():
                     for item in research["procurement"]["candidates"]
                     if item.get("known_motor_landed_floor_KRW") is not None]
     summary = {
-        "revision": "C2.1-P6+VP1-STAGE5",
+        "revision": "C2.1-P6+VP1-STAGE6",
         "active_rows": len(active),
         "unique_part_ids": len(set(ids)),
         "legacy_instances_removed": sum(removed.values()),

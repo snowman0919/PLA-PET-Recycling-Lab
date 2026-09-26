@@ -485,6 +485,47 @@ def screen():
         ["actual nip/tension forces", "cam fastener and welded joint", "mount to frame and bearing seats"],
         note="Only the base strip, not 3-mm upright side sheets, is screened; whole frame remains HOLD.")
 
+    # --- VP1 Stage 6: downstream gauge/duct/hopper screening ----------------
+    gauge_lever = bending_point(0.5, 12., 2.2, 2., E["steel"])
+    gauge_lever["stress_margin_to_room_assumption"] = margin(
+        allowable["steel"], gauge_lever["stress_MPa"])
+    add("GAUGE contact lever", "2.2x2-mm steel lever strip over 12 mm pivot-to-anvil span under assumed 0.5 N contact spring force",
+        {"part": "GAUGE_CONTACT_A", "span_mm": 12, "strip_width_mm": 2.2,
+         "strip_thickness_mm": 2,
+         "source": "c2.1/src/downstream.py gauge_contact_a lever/pivot/anvil"},
+        {"contact_force_N": 0.5,
+         "type": "ASSUMED spring contact force; actual force is set by spring selection, not modeled"},
+        {"stress_MPa": allowable["steel"]}, gauge_lever,
+        ["spring rate/preload selection", "lever fatigue at the pivot hole",
+         "anvil wear", "Hall probe mounting"],
+        note="Screen only: measurement-chain stiffness (lever + pivot + contact compliance) is the accuracy driver and is UNRATED.")
+    baffle = bending_point(9.8, 76., 100., 3., E["steel"], mode="simple_midspan")
+    baffle["stress_margin_to_room_assumption"] = margin(
+        allowable["steel"], baffle["stress_MPa"])
+    add("COOL-DUCT baffle", "100x3-mm baffle strip over 76 mm rail span with assumed 1 kg fan reference at centre",
+        {"part": "COOL-DUCT", "span_mm": 76, "strip_width_mm": 100,
+         "strip_thickness_mm": 3,
+         "source": "c2.1/src/downstream.py cool_duct baffle/fan"},
+        {"fan_mass_kg": 1.0,
+         "type": "ASSUMED fan mass; 9RA0824H1001-class 80 mm fan is lighter but mount/vibration unqualified"},
+        {"stress_MPa": allowable["steel"]}, baffle,
+        ["fan MPN and mass", "vibration", "rail friction and slide stops",
+         "skirt/tray clearance under deflection"],
+        note="Static centre-load screen; slide rails and baffle skirts are not screened.")
+    funnel = bending_point(5., 73., 60., 3., E["steel"])
+    funnel["stress_margin_to_room_assumption"] = margin(
+        allowable["steel"], funnel["stress_MPa"])
+    add("SERVICE-HOPPER funnel wall", "60x3-mm funnel wall strip over 73 mm under assumed 5 N side load",
+        {"part": "SERVICE-HOPPER", "span_mm": 73, "strip_width_mm": 60,
+         "strip_thickness_mm": 3,
+         "source": "c2.1/src/downstream.py service_hopper loft"},
+        {"side_force_N": 5.0,
+         "type": "ASSUMED leaning-feedstock side load; impact and bolt preload unqualified"},
+        {"stress_MPa": allowable["steel"]}, funnel,
+        ["flange bolt pattern and preload", "impact from feedstock drop",
+         "weld/fastener detail at the saddle interface", "swap procedure"],
+        note="Static screen; the hopper is a manual swap part with no interlock credit.")
+
     report = {
         "schema": "VP1-structural-screen-1", "units": "mm, N, MPa=N/mm2, kg, C; deflection and free thermal expansion in mm",
         "status": "HOLD_NOT_STRUCTURALLY_QUALIFIED",

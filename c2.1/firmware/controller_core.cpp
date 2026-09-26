@@ -49,7 +49,7 @@ constexpr double PSU_CURRENT_DERIVED_W = 792.0;  // 24 V x 33 A hardware maximum
 constexpr double PSU_NAMEPLATE_W = 800.0;     // PSU nameplate (informational)
 
 constexpr std::array<PowerDevice, DEV_COUNT> POWER_DEVICES{{
-    {"COOL-FAN pair", 16.0},          // 2 x 8 W, UNRATED_ESTIMATE
+    {"COOL-FAN triple", 24.0},        // 3 x 8 W (2 tray + 1 duct), UNRATED_ESTIMATE
     {"EX-H60 cartridge", 60.0},       // NAMEPLATE_SOURCE
     {"M1 shredder drive", 196.8},     // UNRATED_ESTIMATE (8.2 A @ 24 V)
     {"M2 extruder drive", 43.2},      // UNRATED_ESTIMATE (1.8 A @ 24 V)
@@ -89,6 +89,25 @@ struct Inputs {
   bool m1_run{};
   bool m2_run{};
   std::uint32_t band_rotation_ms{};  // elapsed time driving band rotation
+  // VP1 Stage 6: downstream diameter feedback (GAUGE station, x=809 inside
+  // the cooling tray exit section; REAL transport delay to the puller
+  // nip at x=829 is 20 mm / v_line, handled by the host line controller, NOT by
+  // this safety core).  The core only validates measurement freshness and
+  // sanity; a missing/implausible gauge NEVER silently continues as good
+  // product — it drops the extrusion run enable (fault_latched path is for
+  // safety faults; gauge loss is an operating-quality gate, run refused).
+  bool gauge_valid{};              // gauge sample present this cycle
+  std::uint32_t last_gauge_ms{};   // timestamp of the last gauge sample
+  double gauge_diameter_mm{};      // measured equivalent diameter
+  double gauge_puller_speed_mm_s{};  // measured puller surface speed
+};
+
+struct DiameterGate {
+  // Quality-gate limits (operating, not safety): outside this window the
+  // line cannot be producing verifiable in-spec filament.
+  double min_plausible_mm{0.8};    // below: broken strand / sensor fault
+  double max_plausible_mm{4.0};    // above: die drool / sensor fault
+  double stale_ms{1000};           // gauge sample age limit
 };
 
 struct Outputs {
@@ -123,6 +142,22 @@ class Controller {
     if (manual_reset && !unsafe && !in.run_command) latched_ = false;
     if (latched_) return off(State::fault_latched);
     if (!in.run_command) return off(State::ready);
+
+    // VP1 Stage 6 diameter quality gate: the extrusion line runs only
+    // while the gauge reports fresh, physically plausible diameters.
+    // Missing/stale/implausible measurement REFUSES the run state (the
+    // line reverts to ready, M2/puller not enabled) — it never degrades
+    // to "assume good".  This is an operating-quality gate, NOT a safety
+    // latch: no fault is latched, so the run can restart when the gauge
+    // recovers; safety faults remain on the latched_ path above.
+    const bool gauge_fresh = in.gauge_valid &&
+        (in.now_ms - in.last_gauge_ms <= gauge_gate_.stale_ms);
+    const bool gauge_plausible =
+        in.gauge_diameter_mm >= gauge_gate_.min_plausible_mm &&
+        in.gauge_diameter_mm <= gauge_gate_.max_plausible_mm;
+    if (in.m2_run && (!gauge_fresh || !gauge_plausible)) {
+      return off(State::ready);  // run refused: unmeasured product is scrap
+    }
 
     Outputs out{State::running, false, false, {}, false, false};
     double load_W = 0.0;
@@ -180,6 +215,7 @@ class Controller {
     return {state, false, false, {}, false, false};
   }
   Limits limits_;
+  DiameterGate gauge_gate_{};
   bool latched_{true};
 };
 
@@ -190,6 +226,10 @@ static Inputs safe_inputs() {
   in.estop_closed = in.guard_closed = in.independent_overtemp_closed = true;
   in.fan_required = in.fan_tach_ok = true;
   in.motor_rpm = 120.0;
+  // gauge streaming valid, plausible filament at t=0
+  in.gauge_valid = true;
+  in.gauge_diameter_mm = 1.75;
+  in.gauge_puller_speed_mm_s = 12.0;
   return in;
 }
 
@@ -278,7 +318,7 @@ int main() {
   assert(out.fans_enable && out.h60_enable && out.m1_enable && out.m2_enable);
   assert(band_count(out) == 1);
   assert(out.h100_enable[0]);
-  assert(out.admitted_W == 16.0 + 60.0 + 196.8 + 43.2 + 100.0);
+  assert(out.admitted_W == 24.0 + 60.0 + 196.8 + 43.2 + 100.0);
   assert(out.admitted_W <= OPERATIONAL_CAP_W);
   // 15: band rotation moves the admitted band, still never two
   in.band_rotation_ms = 30000;
@@ -309,9 +349,9 @@ int main() {
   out = budget_limited.step(in, false);
   assert(band_count(out) == 0);
   assert(out.m1_enable && out.m2_enable && out.h60_enable && out.fans_enable);
-  assert(out.admitted_W == 316.0 && out.rejected_demands == 3);
+  assert(out.admitted_W == 324.0 && out.rejected_demands == 3);
 
-  // 18: 566 W requested (316 W base + 150 W aux + 100 W band);
+  // 18: 574 W requested (324 W base + 150 W aux + 100 W band);
   //     accept the aux first and refuse every band at the 500 W budget
   Controller overload(limits);
   in = safe_inputs();
@@ -325,27 +365,65 @@ int main() {
   out = overload.step(in, false);
   assert(out.state == State::running);
   assert(out.aux_enable && band_count(out) == 0);
-  assert(out.admitted_W == 466.0 && out.rejected_demands == 3);
+  assert(out.admitted_W == 474.0 && out.rejected_demands == 3);
   // The PSU's 792 W hardware figure cannot override the operating cap.
   Controller psu_not_budget{Limits{60.0, 10.0, 5.0, 500, PSU_CURRENT_DERIVED_W}};
   in.run_command = false;
   assert(psu_not_budget.step(in, true).state == State::ready);
   in.run_command = true;
   const auto capped = psu_not_budget.step(in, false);
-  assert(capped.admitted_W == 466.0 && band_count(capped) == 0);
-  // 19: exact 500 W admission is permitted (316 W base + 184 W aux).
-  in.aux_demand_W = 184.0;
+  assert(capped.admitted_W == 474.0 && band_count(capped) == 0);
+  // 19: exact 500 W admission is permitted (324 W base + 176 W aux).
+  in.aux_demand_W = 176.0;
   out = overload.step(in, false);
   assert(out.aux_enable && band_count(out) == 0);
   assert(out.admitted_W == OPERATIONAL_CAP_W);
-  // 20: 816 W request cannot admit the auxiliary, but a band still fits.
+  // 20: 824 W request cannot admit the auxiliary, but a band still fits.
   in.aux_demand_W = 500.0;
   out = overload.step(in, false);
   assert(!out.aux_enable && band_count(out) == 1);
-  assert(out.rejected_demands == 1 && out.admitted_W == 416.0);
+  assert(out.rejected_demands == 1 && out.admitted_W == 424.0);
   assert(out.admitted_W <= OPERATIONAL_CAP_W);
 
-  std::cout << "controller_core_self_test: 20 cases passed; no reverse or "
+  // 21: gauge stream lost -> M2 run refused to ready (NOT latched; the
+  // line restarts when the gauge recovers — quality gate, not a fault).
+  Controller gauge(limits);
+  in = safe_inputs();
+  assert(gauge.step(in, true).state == State::ready);
+  in.run_command = true;
+  in.m2_run = true;
+  assert(gauge.step(in, false).state == State::running);
+  in.gauge_valid = false;                       // sample stream drops
+  out = gauge.step(in, false);
+  assert(out.state == State::ready && !out.m2_enable);
+  in.gauge_valid = true;                        // recovery: run resumes
+  assert(gauge.step(in, false).state == State::running);
+  // 22: stale gauge sample -> run refused (safety feedback stays fresh so
+  // this isolates the quality gate; a fully stale loop is case 9's latch).
+  in.now_ms = 2000;
+  in.last_feedback_ms = 2000;
+  in.last_gauge_ms = 500;                       // 1500 ms old > 1000 ms
+  out = gauge.step(in, false);
+  assert(out.state == State::ready && !out.m2_enable);
+  in.last_gauge_ms = 2000;                      // fresh again (age 0)
+  assert(gauge.step(in, false).state == State::running);
+  // 23: implausibly thin reading (broken strand / sensor fault) -> refused.
+  in.gauge_diameter_mm = 0.4;
+  out = gauge.step(in, false);
+  assert(out.state == State::ready && !out.m2_enable);
+  // 24: implausibly thick reading (die drool / sensor fault) -> refused.
+  in.gauge_diameter_mm = 5.0;
+  out = gauge.step(in, false);
+  assert(out.state == State::ready && !out.m2_enable);
+  // 25: gauge faults never touch the safety latch: after recovery the
+  // controller is still in the ready/running cycle, not fault_latched.
+  in.gauge_diameter_mm = 1.75;
+  assert(gauge.step(in, false).state == State::running);
+  in.run_command = false;
+  assert(gauge.step(in, false).state == State::ready);
+
+
+  std::cout << "controller_core_self_test: 25 cases passed; no reverse or "
                "auto-restart path; band mutual exclusion; hard operating budget "
                << static_cast<int>(OPERATIONAL_CAP_W) << " W; PSU "
                "current-derived maximum " << static_cast<int>(PSU_CURRENT_DERIVED_W)

@@ -133,8 +133,10 @@ def load_inventory():
          "W": 60.0, "count": 1, "owned": True,
          "grade": "NAMEPLATE_SOURCE"},
         {"device": "COOL-FAN (Sanyo 9RA0824H1001)",
-         "nameplate": "model only; current not in repo",
-         "W": 8.0, "count": 2, "owned": True,
+         "nameplate": "model only; current not in repo; VP1 Stage 6 adds a "
+                     "third fan on the cooling duct baffle (UNSELECTED, "
+                     "UNRATED estimate class of the owned pair)",
+         "W": 8.0, "count": 3, "owned": False,
          "grade": "UNRATED_ESTIMATE"},
     ]
     for d in devices:

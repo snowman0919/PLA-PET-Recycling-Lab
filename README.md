@@ -1,45 +1,19 @@
-# PPR VP1 통합 가상제품
+# PPR — 균일 직경 필라멘트를 위한 통합 재활용기
+목표와 경계는 [KODEX.md](KODEX.md), 현재 증거·작업은 [STATUS.md](STATUS.md), 압출 방법 비교는 [품질 경로 결정 기록](docs/decisions/filament-quality-route.md)을 따른다.
 
-현재 기준은 `KODEX.md`의 경성 목표와 `STATUS.md`의 실행 증거다. VP1은
-`호퍼 → S1 → 능동 이송 슈트 → S2 → 버퍼 → 압출 → 냉각 → 풀러 → 스풀`
-전 구간을 하나의 CAD/Isaac/BOM 패키지로 통합한다.
+제품 범위: 호퍼 → S1 2축 파쇄 → 선택 이송부 → S2 편심/역자전 분쇄 → 버퍼 → 수평 압출 → 냉각/직경 계측 → 가압 인출 → 장력 분리 권취.
+최종 목표는 냉각 후 일정한 1.75mm 필라멘트를 경제적으로 만드는 것이다. 현재 연결 이송과 실제 필라멘트 생산 모두 미완료다.
+상류 실패와 별개로 최종 제품의 같은 압출 모듈에 건조 기준 원료를 넣는 설계/디지털 시험을 진행할 수 있다. 전체 제품 성공과는 구분한다.
 
-## 고정 조건
+## 작업 자산
+- c2.1/cad/PPR_VP1.step: 전체 기계 STEP
+- c2.1/cad/PPR_C2_1_machine_integration.FCStd 및 c2.1/src/: 편집 원본/생성기
+- c2.1/bom/system_bom.csv, .xlsx: 활성 BOM
+- c2.1/firmware/, electrical/: 제어/전장 자산
+- c2.2/sim/assets/usd/full_machine.usda: 대응 Isaac 장면
+- c2.2/results/full_machine/layout_comparison.json: 기준안/재배치안 비교
+- tests/, c2/tests/, c2.1/tests/, c2.3/tests/: 범위별 회귀 자산
 
-- S1/S2는 공용 M1 한 개에 종속된 1-DOF 구동계다. 압출기는 별도 M2를 쓴다.
-- M1/M2와 웜/휠/베어링은 미선정 또는 미정격이다.
-- PSU는 24V 33A, 명판 800W다. 500W는 초과 수요를 거부하는 경성
-  운전 예산이며, 792W는 전류 정격에서 유도한 별도 하드웨어 최대값이지
-  500W 초과 운전 허용치가 아니다.
-- 본체 상한 700×420×520 mm, 추가비 soft limit 100,000 KRW.
-- PLA/PET/TPU 물성·파쇄 성능·토크·열·수명은 물리 시험 전 미보정이다.
-
-## 현재 산출물
-
-- `c2.1/cad/PPR_VP1.step`: 전체 기계 조립 STEP.
-- `c2.1/cad/PPR_C2_1_machine_integration.FCStd`: 편집 가능한 FreeCAD 조립.
-- `c2.1/bom/system_bom.csv` / `.xlsx`: 활성 시스템 BOM.
-- `c2.1/electrical/`, `c2.1/firmware/`: 배선과 host-tested 제어 core.
-- `c2.2/sim/assets/usd/full_machine.usda`: STEP 대응 전체 기계 Isaac 씬.
-- `c2.2/results/full_machine/`: 운동 추적, 소재 경로, 검토 이미지 증거.
-
-정확한 SHA-256, 객체/솔리드 수, 실행 결과와 남은 결함은 `STATUS.md`에만
-기록한다. 과거 C1/C2/C2.2 문서의 PASS는 해당 당시 범위의 역사 기록이다.
-
-## 재현 진입점
-
-```sh
-python c2/src/run_study.py
-python -m unittest discover -s c2/tests -v
-python -m unittest discover -s c2.1/tests -v
-python c2.1/src/build_machine_integration.py
-python c2.1/src/build_machine_freecad.py
-python c2.1/src/build_system_bom.py
-python c2.1/src/build_machine_wiring.py
-python c2.1/src/build_firmware.py
-python c2.1/src/build_release_manifest.py
-python c2.1/src/verify_artifacts.py
-```
-
-디지털 검증은 구매·제작·통전·물리 성능 승인 또는 main 병합 승인이 아니다.
-해당 단계는 명시적 사용자 승인 전 **HOLD**다.
+재현은 해당 생성기/실행기의 --help와 결과의 원본 해시·설정을 사용한다. CAD/STEP, 충돌 메시/USD, BOM, 시험 결과를 같은 후보로 맞춘 후 해당 verify_artifacts를 수행한다.
+역사 실험의 재실행이나 Graphify 완료를 새 제품 작업의 선행조건으로 만들지 않는다. 숫자·PASS 명칭은 당시 범위에서만 유효하다.
+물리 제작·구매·통전·실물시험·main 병합은 사용자 승인 전 HOLD다. MIT 및 LICENSE-HARDWARE를 유지한다.

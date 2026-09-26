@@ -1445,6 +1445,105 @@
         "cam fastener and welded joint",
         "mount to frame and bearing seats"
       ]
+    },
+    {
+      "computed": {
+        "I_mm4": 1.4666666666666668,
+        "deflection_mm": 0.000935064935064935,
+        "moment_Nmm": 6.0,
+        "stress_MPa": 4.090909090909091,
+        "stress_margin_to_room_assumption": 29.333
+      },
+      "decision": "HOLD",
+      "geometry": {
+        "part": "GAUGE_CONTACT_A",
+        "source": "c2.1/src/downstream.py gauge_contact_a lever/pivot/anvil",
+        "span_mm": 12,
+        "strip_thickness_mm": 2,
+        "strip_width_mm": 2.2
+      },
+      "limits": {
+        "stress_MPa": 120.0
+      },
+      "load": {
+        "contact_force_N": 0.5,
+        "type": "ASSUMED spring contact force; actual force is set by spring selection, not modeled"
+      },
+      "model": "2.2x2-mm steel lever strip over 12 mm pivot-to-anvil span under assumed 0.5 N contact spring force",
+      "name": "GAUGE contact lever",
+      "note": "Screen only: measurement-chain stiffness (lever + pivot + contact compliance) is the accuracy driver and is UNRATED.",
+      "unmeasured_dependencies": [
+        "spring rate/preload selection",
+        "lever fatigue at the pivot hole",
+        "anvil wear",
+        "Hall probe mounting"
+      ]
+    },
+    {
+      "computed": {
+        "I_mm4": 225.0,
+        "deflection_mm": 0.0018968098765432101,
+        "moment_Nmm": 186.20000000000002,
+        "stress_MPa": 1.2413333333333334,
+        "stress_margin_to_room_assumption": 96.67
+      },
+      "decision": "HOLD",
+      "geometry": {
+        "part": "COOL-DUCT",
+        "source": "c2.1/src/downstream.py cool_duct baffle/fan",
+        "span_mm": 76,
+        "strip_thickness_mm": 3,
+        "strip_width_mm": 100
+      },
+      "limits": {
+        "stress_MPa": 120.0
+      },
+      "load": {
+        "fan_mass_kg": 1.0,
+        "type": "ASSUMED fan mass; 9RA0824H1001-class 80 mm fan is lighter but mount/vibration unqualified"
+      },
+      "model": "100x3-mm baffle strip over 76 mm rail span with assumed 1 kg fan reference at centre",
+      "name": "COOL-DUCT baffle",
+      "note": "Static centre-load screen; slide rails and baffle skirts are not screened.",
+      "unmeasured_dependencies": [
+        "fan MPN and mass",
+        "vibration",
+        "rail friction and slide stops",
+        "skirt/tray clearance under deflection"
+      ]
+    },
+    {
+      "computed": {
+        "I_mm4": 135.0,
+        "deflection_mm": 0.022869900058788948,
+        "moment_Nmm": 365.0,
+        "stress_MPa": 4.055555555555555,
+        "stress_margin_to_room_assumption": 29.589
+      },
+      "decision": "HOLD",
+      "geometry": {
+        "part": "SERVICE-HOPPER",
+        "source": "c2.1/src/downstream.py service_hopper loft",
+        "span_mm": 73,
+        "strip_thickness_mm": 3,
+        "strip_width_mm": 60
+      },
+      "limits": {
+        "stress_MPa": 120.0
+      },
+      "load": {
+        "side_force_N": 5.0,
+        "type": "ASSUMED leaning-feedstock side load; impact and bolt preload unqualified"
+      },
+      "model": "60x3-mm funnel wall strip over 73 mm under assumed 5 N side load",
+      "name": "SERVICE-HOPPER funnel wall",
+      "note": "Static screen; the hopper is a manual swap part with no interlock credit.",
+      "unmeasured_dependencies": [
+        "flange bolt pattern and preload",
+        "impact from feedstock drop",
+        "weld/fastener detail at the saddle interface",
+        "swap procedure"
+      ]
     }
   ],
   "decision": "HOLD; all cases provisional and unmeasured dependencies must be closed before physical release",
@@ -1568,7 +1667,7 @@
     },
     {
       "path": "c2.1/bom/vp1_bom_delta.csv",
-      "sha256": "33947e8d361e7e85855a36d4a5f1656bd709ed30b5ea48ed2055af76c834e20a"
+      "sha256": "19b73defbe8aacf563ffc3f56bc44ce04315e0ea7b39c2ad59f825c7e257bc63"
     },
     {
       "path": "src/design.py",

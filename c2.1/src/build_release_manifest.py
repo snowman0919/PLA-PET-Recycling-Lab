@@ -73,7 +73,7 @@ def main():
     gate = load(REPO/"c2/results/performance_gate.json")
 
     summary = {
-        "revision": "C2.1-P6+VP1-STAGE5",
+        "revision": "C2.1-P6+VP1-STAGE6",
         "date": "2026-09-24",
         "overall": ("DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD"
                     if machine["status"] == "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
@@ -136,7 +136,7 @@ def main():
     records = [{"file": str(path.relative_to(REPO)), "bytes": path.stat().st_size,
                 "sha256": sha256(path)} for path in sorted(set(files))]
     manifest = {
-        "revision": "C2.1-P6+VP1-STAGE5",
+        "revision": "C2.1-P6+VP1-STAGE6",
         "scope": "P0-P6 + VP1 integrated digital review package",
         "artifact_count": len(records),
         "artifacts": records,

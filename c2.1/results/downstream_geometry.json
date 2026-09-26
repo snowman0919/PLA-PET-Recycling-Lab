@@ -1,0 +1,172 @@
+{
+  "revision": "VP1-STAGE6",
+  "status": "DIGITAL_GEOMETRY_PASS_INTERFACE_HOLD",
+  "parts": [
+    {
+      "name": "GAUGE_FRAME",
+      "group": "gauge",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        801.0,
+        237.0,
+        118.0,
+        807.0,
+        313.0,
+        131.7
+      ]
+    },
+    {
+      "name": "GAUGE_GUIDES",
+      "group": "gauge",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        802.3,
+        237.0,
+        114.25,
+        815.7,
+        313.0,
+        125.25
+      ]
+    },
+    {
+      "name": "GAUGE_CONTACT_A",
+      "group": "gauge",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        805.0,
+        265.0,
+        125.5,
+        811.0,
+        285.0,
+        131.0
+      ]
+    },
+    {
+      "name": "GAUGE_OPTICAL_B",
+      "group": "gauge",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        805.0,
+        241.0,
+        121.0,
+        809.5,
+        303.0,
+        129.0
+      ]
+    },
+    {
+      "name": "GAUGE_REF_STANDARD",
+      "group": "gauge",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        807.0,
+        315.0,
+        118.0,
+        819.0,
+        321.0,
+        124.0
+      ]
+    },
+    {
+      "name": "COOL-DUCT",
+      "group": "cooling",
+      "solids": 3,
+      "valid": true,
+      "bounds": [
+        545.0,
+        235.0,
+        110.0,
+        820.0,
+        315.0,
+        162.0
+      ]
+    },
+    {
+      "name": "SERVICE-HOPPER",
+      "group": "feed (SWAP)",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        266.0,
+        242.0,
+        142.0,
+        332.0,
+        308.0,
+        221.0
+      ]
+    }
+  ],
+  "exported_step": [
+    "c2.1/cad/parts_stage1/GAUGE_FRAME.step",
+    "c2.1/cad/parts_stage1/GAUGE_GUIDES.step",
+    "c2.1/cad/parts_stage1/GAUGE_CONTACT_A.step",
+    "c2.1/cad/parts_stage1/GAUGE_OPTICAL_B.step",
+    "c2.1/cad/parts_stage1/GAUGE_REF_STANDARD.step",
+    "c2.1/cad/parts_stage1/COOL-DUCT.step",
+    "c2.1/cad/parts_stage1/SERVICE-HOPPER.step"
+  ],
+  "interfaces": {
+    "filament_line": {
+      "axis": "+X",
+      "y_mm": 275.0,
+      "z_mm": 125.0,
+      "die_exit_x_mm": 540.0,
+      "tray_exit_x_mm": 820.0,
+      "gauge_x_mm": 809.0,
+      "puller_nip_x_mm": 829.0
+    },
+    "gauge_to_puller_delay": {
+      "distance_mm": 20.0,
+      "meaning": "measurement-to-actuation transport delay at line speed v: delay_s = 20.0 / v_mm_s; the process model uses the REAL distance, not a tunable"
+    },
+    "cooling": {
+      "tray_length_mm": 275.0,
+      "duct_air_length_range_mm": [
+        50.0,
+        250.0
+      ],
+      "baffle_travel_mm": 100.0,
+      "fans": "2 owned + 1 reference (UNRATED 8 W estimate)"
+    },
+    "service_input": {
+      "configuration": "SWAP: SERVICE-HOPPER bolts onto the FEED-BUF saddle interface (x 282..316, y 251..299, z 145..218) after the buffer stack is unbolted; reference run = main assembly minus FEED-BUF stack plus SERVICE-HOPPER",
+      "reason_not_in_assembly": "the FEED-BUF top zone is occupied by S2 discharge metal (rotor envelope to z347, ring plate, screen); a coexisting chute intersected production metal",
+      "feedstock": "dried, screened reference material only",
+      "interlock": "NONE \u2014 the hopper is not a guard"
+    },
+    "reference_pins_mm": [
+      1.5,
+      1.75,
+      2.0
+    ],
+    "calibration": "pins + micrometer round-trip; U95 <= 0.01 mm is the design assumption, not a measured claim",
+    "sensor_axes": {
+      "A_lever_hall": "vertical diameter (contact compliance UNRATED)",
+      "B_optical": "horizontal shadow width (transparent/TPU UNRATED)"
+    },
+    "wiring_harness": {
+      "J5_diameter_gauge": {
+        "axis_A_raw": "analog/Hall input",
+        "axis_B_raw": "shadow ADC input",
+        "supply": "+5V_CTRL / 0V"
+      },
+      "J6_aux_and_service": {
+        "fan3_cmd": "24V 8W ducted cooling fan PWM",
+        "service_hopper_detect": "microswitch dry contact to 0V"
+      },
+      "controller_core_interface": "quality-gate signals (gauge_valid, gauge_diameter_mm, gauge_puller_speed_mm_s); non-safety operating interlock"
+    }
+  },
+  "holds": [
+    "sensor accuracy U95 <= 0.01 mm is a design assumption; pin + micrometer round-trip is physical-test work",
+    "lever contact force / TPU deformation and optical-axis transparent-stock accuracy are UNRATED",
+    "third fan is an UNRATED 8 W power estimate; allocator admission is not a supply qualification",
+    "SERVICE-HOPPER is a manual swap part with NO interlock credit; it is not a guard and not in the production assembly"
+  ],
+  "passed": true
+}

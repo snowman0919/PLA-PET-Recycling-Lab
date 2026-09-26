@@ -210,3 +210,7 @@ class MaterialPathApertures(unittest.TestCase):
                          "pass_space")
         self.assertTrue(by_name["puller_grip"]["passed"])
         self.assertTrue(self.data["all_grip_checkpoints_pass"])
+
+
+if __name__ == "__main__":
+    unittest.main()

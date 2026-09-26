@@ -26,6 +26,7 @@ import winder as winder_mod
 import electrical_bay as electrical_mod
 import hopper_panels
 import chain_relief
+import downstream as downstream_mod
 from transmission import Transmission
 
 # VP1: legacy envelope instances replaced by real geometry.
@@ -356,12 +357,16 @@ def main():
     hopper_parts = [{"name": name, "part": name, "group": "feed",
                      "shape": solid, "relocated": False, "replaced": True}
                     for name, solid in hopper_panels.components()]
+    # --- VP1 Stage 6: downstream filament-quality modules -------------------
+    downstream_parts = [{"name": name, "part": name, "group": group,
+                         "shape": solid, "relocated": False, "replaced": True}
+                        for name, solid, group in downstream_mod.components()]
     # --- VP1 Stage 3: chain/gear path reliefs into frozen legacy structure --
     new_solids = {r["name"]: r["shape"] for r in
                   legacy if r.get("replaced")}
     new_solids.update({r["name"]: r["shape"] for r in
                        chain_parts + chute_parts + guard_parts + winder_parts
-                       + electrical_parts + hopper_parts})
+                       + electrical_parts + hopper_parts + downstream_parts})
     relief_records, relieved = chain_relief.apply(legacy, new_solids)
     relieved.add("KEY-6-16_002")
     relief_records.append({
@@ -379,13 +384,15 @@ def main():
     allowed_pairs = {frozenset(p) for p in drive_teeth.FUNCTIONAL_PAIRS}
     known_pairs = set()  # Stage 3 reliefs resolved the former layout contacts
     vp1_parts = (replaced + chain_parts + chute_parts + guard_parts
-                 + winder_parts + electrical_parts + hopper_parts)
+                 + winder_parts + electrical_parts + hopper_parts
+                 + downstream_parts)
     vp1_against = collision_audit(vp1_parts, stable + c21,
                                   allowed=allowed_pairs, known=known_pairs)
     vp1_internal = collision_audit(vp1_parts, vp1_parts,
                                    allowed=allowed_pairs, known=known_pairs)
     all_parts = (legacy + c21 + chain_parts + chute_parts + guard_parts
-                 + winder_parts + electrical_parts + hopper_parts)
+                 + winder_parts + electrical_parts + hopper_parts
+                 + downstream_parts)
     # export relieved legacy solids so the native FreeCAD build consumes the
     # same geometry
     for name in sorted(relieved):
@@ -394,6 +401,10 @@ def main():
         path.parent.mkdir(parents=True, exist_ok=True)
         cq.exporters.export(cq.Compound.makeCompound([item["shape"]]), str(path))
     for item in hopper_parts:
+        path = C21 / "cad/parts_stage1" / (item["name"] + ".step")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        cq.exporters.export(item["shape"], str(path))
+    for item in downstream_parts:
         path = C21 / "cad/parts_stage1" / (item["name"] + ".step")
         path.parent.mkdir(parents=True, exist_ok=True)
         cq.exporters.export(item["shape"], str(path))
@@ -418,10 +429,11 @@ def main():
 
     groups = sorted({item["group"] for item in all_parts})
     required = {"S1", "S2-C2.1", "feed", "extruder", "cooling", "puller",
-                "spool", "electrical", "frame", "frame_mount", "drive"}
+                "spool", "electrical", "frame", "frame_mount", "drive",
+                "gauge"}
     ratio = drive_teeth.ratio_chain()
     result = {
-        "revision": config["revision"] + "+VP1-STAGE1",
+        "revision": config["revision"] + "+VP1-STAGE1+VP1-STAGE6",
         "status": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
                   if interface["passed"] and relocated["passed"]
                   and body_extent["passed"] and operating_extent["passed"]
@@ -475,6 +487,19 @@ def main():
             "deleted_drive_instances": sorted(drive_teeth.DELETED_INSTANCES),
             "chain_relief_adr": "c2.1/docs/ADR-002-CHAIN-ROUTING.md",
             "electrical_load": electrical_mod.load_inventory(),
+            "vp1_stage6": {
+                "downstream_parts": [it["name"] for it in downstream_parts],
+                "interfaces": downstream_mod.station_interfaces(),
+                "geometry_result": "c2.1/results/downstream_geometry.json",
+                "holds": [
+                    "gauge sensor accuracy U95 <= 0.01 mm is a design "
+                    "assumption pending pin/micrometer physical calibration",
+                    "lever contact force / TPU deformation and optical-axis "
+                    "transparent-stock accuracy are UNRATED",
+                    "service chute latch is a digital input, not a safety "
+                    "interlock channel",
+                ],
+            },
             "vp1_stage3": {
                 "adr": "c2.1/docs/ADR-002-CHAIN-ROUTING.md",
                 "relief_records": relief_records,

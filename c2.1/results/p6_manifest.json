@@ -1,17 +1,17 @@
 {
-  "revision": "C2.1-P6+VP1-STAGE5",
+  "revision": "C2.1-P6+VP1-STAGE6",
   "scope": "P0-P6 + VP1 integrated digital review package",
-  "artifact_count": 170,
+  "artifact_count": 183,
   "artifacts": [
     {
       "file": "c2.1/bom/system_bom.csv",
-      "bytes": 56645,
-      "sha256": "c2a1b99aa8a27bb1d1ecd46e83a938b4413abf06a67c760ce628eee002175fd2"
+      "bytes": 58842,
+      "sha256": "748f936f731cbc1004d6ff3dedb67d90893df3fcabb8c9a7d02d2056be504af4"
     },
     {
       "file": "c2.1/bom/system_bom.xlsx",
-      "bytes": 23509,
-      "sha256": "82c10e84ffa9f88b4d061db418d01bf94abec50a3f2d8788088d2604e0e4c2cd"
+      "bytes": 24695,
+      "sha256": "4cf4b3b071870109b8fbadc3bb43f4b32561e5c76dd2529de8595adf0fca964c"
     },
     {
       "file": "c2.1/bom/transmission_bom.csv",
@@ -20,8 +20,8 @@
     },
     {
       "file": "c2.1/bom/vp1_bom_delta.csv",
-      "bytes": 13794,
-      "sha256": "33947e8d361e7e85855a36d4a5f1656bd709ed30b5ea48ed2055af76c834e20a"
+      "bytes": 15858,
+      "sha256": "19b73defbe8aacf563ffc3f56bc44ce04315e0ea7b39c2ad59f825c7e257bc63"
     },
     {
       "file": "c2.1/cad/PPR_C2_1_S2_transmission.step",
@@ -45,8 +45,8 @@
     },
     {
       "file": "c2.1/cad/PPR_VP1.step",
-      "bytes": 99885305,
-      "sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730"
+      "bytes": 100801114,
+      "sha256": "8f30a4092ddd4e438de482d03369ebc6e4bccdfd98579a41a88556ee0b26ed6c"
     },
     {
       "file": "c2.1/cad/candidates/relocated_gravity.json",
@@ -139,6 +139,11 @@
       "sha256": "4ae914b80fe5d0be059010aa78fb5ba55414c227b07a19446a5cd89948a9613e"
     },
     {
+      "file": "c2.1/cad/parts_stage1/COOL-DUCT.step",
+      "bytes": 130696,
+      "sha256": "df99cbc403e2e48a97012dfad2058321fdd645cfcee37b825232527051722186"
+    },
+    {
       "file": "c2.1/cad/parts_stage1/CROSS_FEED_BEARINGS.step",
       "bytes": 173882,
       "sha256": "4cd7f57f4fcee889998dd2cd6122f361d61b0f02d40dec00e2b49b29f88422f4"
@@ -166,7 +171,7 @@
     {
       "file": "c2.1/cad/parts_stage1/DRV-B12_001.step",
       "bytes": 53000,
-      "sha256": "0aae110e68397525d0cefbf6009b33c3f9118a988b3021d6d90059c896569c4d"
+      "sha256": "3d5d811ac0212388ccce284618c0671bfe0725675ee95a03bacf4d0e8129bdf3"
     },
     {
       "file": "c2.1/cad/parts_stage1/DRV-CHAIN-A.step",
@@ -181,12 +186,12 @@
     {
       "file": "c2.1/cad/parts_stage1/DRV-DECK_001.step",
       "bytes": 84865,
-      "sha256": "fde1a3e58cb540cf521239bfe060920b5aa51fa2fc3c380668adbfcc7172e2a3"
+      "sha256": "bbbbd6f332ebcd44a88d3c64564b7119bef812d11e763476db932bff2285ab03"
     },
     {
       "file": "c2.1/cad/parts_stage1/DRV-JACK_001.step",
       "bytes": 59595,
-      "sha256": "d06c4af132cb3ac61d7fe2041ad25827f17965637d951e4c1c4b1523da7f97c2"
+      "sha256": "b7d49ac5f3d2f77b5da105b2530a95a879e4c4c0bf8c077674b6948090d15526"
     },
     {
       "file": "c2.1/cad/parts_stage1/DRV-M2_001.step",
@@ -236,47 +241,72 @@
     {
       "file": "c2.1/cad/parts_stage1/EL_CONTACTOR.step",
       "bytes": 15519,
-      "sha256": "29fb5c5aa241e4eef071707cc8570f679b5fc7c4b93e1e5b628e5942843c1982"
+      "sha256": "ccfcbb3ab152a20b8a3a983d51979e956ddaaf4cf05c610a276a5a24b7cce449"
     },
     {
       "file": "c2.1/cad/parts_stage1/EL_CURRENT_LIMITER.step",
       "bytes": 15528,
-      "sha256": "23d6704cc75750f565fd3da65b7867c500472b5233cfda95aa254dfbc20c4ab2"
+      "sha256": "d417fab09f87bba47802201fb2218c94dd338c9015fb2fe9c8d5c0bbf7b0736f"
     },
     {
       "file": "c2.1/cad/parts_stage1/EL_DIN_RAIL.step",
       "bytes": 28903,
-      "sha256": "8e2b7e0e717934e97fcdd4c2c3af33b27a5a85eeab14834f5bf50f308ecd43e7"
+      "sha256": "11397a7618512164397e9fec617d51a8fdda822a5432b6b40c4f06ed02175800"
     },
     {
       "file": "c2.1/cad/parts_stage1/EL_DRIVER_1.step",
       "bytes": 15519,
-      "sha256": "7fa6cb92a76e6fd06dd87158c19236ecd8d33581962f2f11225e927ede8c79ea"
+      "sha256": "aed3d446d7ee5dca3f91d88a0f388d81ba2d21e70bc14d189e8b68b4e4ad4ed6"
     },
     {
       "file": "c2.1/cad/parts_stage1/EL_DRIVER_2.step",
       "bytes": 15519,
-      "sha256": "a14ecf5516d8cf7b5030bd84c923a119085a063b780c74dd06b65362981d2f7f"
+      "sha256": "7b23e6026fd68bfca144543d86542148f7f0c4c5008611ae7535e84f6b003406"
     },
     {
       "file": "c2.1/cad/parts_stage1/EL_DRIVER_3.step",
       "bytes": 15519,
-      "sha256": "fac09a2fe3da3850af325558337c7c68e5b5f657349353ba904ffd96f5acbc2d"
+      "sha256": "69bc7871b594eb54e7b513804283e8dea8e28c74be47ed198d2e11f890b3c82e"
     },
     {
       "file": "c2.1/cad/parts_stage1/EL_ESTOP_BOX.step",
       "bytes": 15528,
-      "sha256": "5a768eb6415d2053e30907f072d0a6e4fafe4883e287840fac01d4872c1a4fbd"
+      "sha256": "3935524c81b15f307a9d6e46e1a5f66954a47ce932098d99cdf89b4638478f69"
     },
     {
       "file": "c2.1/cad/parts_stage1/EL_OVERTEMP_BOX.step",
       "bytes": 15528,
-      "sha256": "cff9be7ce31ea675862998cd41a15db2b9889e39567e8e1ac21532f12ab1f87b"
+      "sha256": "f66db734b64c71a81b0b12127360bd0c7e9e4a2786d5525750517edb57527e59"
     },
     {
       "file": "c2.1/cad/parts_stage1/EL_WIRE_DUCT.step",
       "bytes": 15528,
-      "sha256": "2d5cf2fd7eee5c46437a44110b86d77045b7ee2be6a7a1e5402c863837dadea5"
+      "sha256": "d089dcd19323f753accbc8a2ec0da968f035353ecca1302ef20468d5b204f19a"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/GAUGE_CONTACT_A.step",
+      "bytes": 83599,
+      "sha256": "c4a7f7009925cc2e473e309f6d9ad8b4f943b45b8cbe0e81b637c0c4b82cbab7"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/GAUGE_FRAME.step",
+      "bytes": 51523,
+      "sha256": "4478cf6c8bcd9a42c74d1fb4719bf9fa07d106e2ade4baa07769555d23ec5592"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/GAUGE_GUIDES.step",
+      "bytes": 57680,
+      "sha256": "acd1989fe79dafd3b823d09b5062568c1c1568b4061ae408fe626a18f9821769"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/GAUGE_OPTICAL_B.step",
+      "bytes": 71746,
+      "sha256": "c6d6a4a40628bc1e488802dbee0520a9dd681eabff9eebc49010d1d2f94e5670"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/GAUGE_REF_STANDARD.step",
+      "bytes": 15537,
+      "sha256": "0fdff019183749b7434986e270329eda59ebd5be99e83a99d58116787f273d4a"
     },
     {
       "file": "c2.1/cad/parts_stage1/GUARD_CHAIN_A.step",
@@ -301,27 +331,27 @@
     {
       "file": "c2.1/cad/parts_stage1/HOPPER_PANEL_L.step",
       "bytes": 305240,
-      "sha256": "bdd47ced1f6f35bd05902668db5dd72c6c8cfd442f87ec44fce538bd17f4d6c8"
+      "sha256": "a5ced790c936f8017ea614bb028181370cc4450e0813933c634e9efd899076d0"
     },
     {
       "file": "c2.1/cad/parts_stage1/HOPPER_PANEL_R.step",
       "bytes": 290224,
-      "sha256": "a840d5cc824432a73f840461c2c1c3b151857f83cdf4912b1e8806228efcaec4"
+      "sha256": "a9f2cd873c943b915e314eea3b25c62b6375927c91b7eea9bb0f74090ee309f0"
     },
     {
       "file": "c2.1/cad/parts_stage1/HOPPER_SEAM_FRONT.step",
       "bytes": 151110,
-      "sha256": "3605281c0c77564eeb10c276d12195ff79bc7944a94d6dba7ffacc8361a6c045"
+      "sha256": "979a928a34ea2149ff09d5626c9696abf740d6e6461be36568968b35f2d24193"
     },
     {
       "file": "c2.1/cad/parts_stage1/HOPPER_SEAM_REAR.step",
       "bytes": 151152,
-      "sha256": "3b693bd14fa068e76624d050691e73fd3eddccc5bebd670b66eba85990156e18"
+      "sha256": "7779a5971d90851624187fa0e7e14ea9b5ea705c44e372b194a36be596e6b37c"
     },
     {
       "file": "c2.1/cad/parts_stage1/KEY-6-16_002.step",
       "bytes": 15962,
-      "sha256": "e6bbfa13355cd8ef4642e5dd0b7dfc425e12b125f6dc78114c176bdd91f78dc3"
+      "sha256": "8b897632170952f7c52c1d531e049f7ba56dab1699fa3f6ca681606bf03f8329"
     },
     {
       "file": "c2.1/cad/parts_stage1/PDL_BEARINGS.step",
@@ -381,12 +411,12 @@
     {
       "file": "c2.1/cad/parts_stage1/S1-ROOF-R_001.step",
       "bytes": 80257,
-      "sha256": "3b085a36d47014bb739d477700e007032398fb81031e0c11bb4649e34326669b"
+      "sha256": "558370b07f65cd365888cfcee4dbb409b15b81ea8e7562f201d9c7e3872c7436"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1-STUD_001.step",
       "bytes": 13298,
-      "sha256": "14c0c93364370da018e15a04081bef5ff0c7ffbaf0e158659524011e90b9496f"
+      "sha256": "58c050eb5536269f29a2b41eae9f3e4b1f82642d5776dab7cd758fb302404a35"
     },
     {
       "file": "c2.1/cad/parts_stage1/S1-TIE-TUBE_003.step",
@@ -484,6 +514,11 @@
       "sha256": "82839bdcc639a62d5c83e83f5fae97e637bdd8b91001c5f836e9a44994ea12be"
     },
     {
+      "file": "c2.1/cad/parts_stage1/SERVICE-HOPPER.step",
+      "bytes": 44288,
+      "sha256": "358f1dc23235bd57453ab10ca082f954c7d50a6bd76543e7f7c79b44f311b663"
+    },
+    {
       "file": "c2.1/cad/parts_stage1/WIND_FLANGE_L.step",
       "bytes": 9293,
       "sha256": "1b45088acf608989ec29207fc55d37e2b16625d72a3d13e2a90c7e74f40d4709"
@@ -530,8 +565,8 @@
     },
     {
       "file": "c2.1/design/machine_integration.json",
-      "bytes": 638,
-      "sha256": "42e094a9d90a1ee03f1f66b068a469e74fc514f9150638b5d0cab850bfc8e82f"
+      "bytes": 746,
+      "sha256": "a1eb995e0a2e16cccf76d33b4b5ce2d9229438a3e5401b3af36f84b6bf2f16e8"
     },
     {
       "file": "c2.1/design/requirements.json",
@@ -615,8 +650,8 @@
     },
     {
       "file": "c2.1/firmware/controller_core.cpp",
-      "bytes": 14959,
-      "sha256": "634425952b449458a6d292319217aa1ca11f1068c58dae5a5459668349e81956"
+      "bytes": 19067,
+      "sha256": "72b63a402c45873763757a5a8377bf5bc5b775923dc096cd8e4feb65fbad3413"
     },
     {
       "file": "c2.1/results/cad_validation.json",
@@ -634,19 +669,29 @@
       "sha256": "e14ac5ec6459b0a4ac4075eb52020850b8612c493741ccc0a00d5fe639138550"
     },
     {
+      "file": "c2.1/results/downstream_geometry.json",
+      "bytes": 4601,
+      "sha256": "e8d16cf4047a0bb155d93093ba1743f3ded60039a45a85509c65d45871603b42"
+    },
+    {
+      "file": "c2.1/results/downstream_route_comparison.json",
+      "bytes": 12477,
+      "sha256": "b0298aaba28d463aaa83234d86e9bdbd914cb4caa64e9b84a1647239d2c1cfb6"
+    },
+    {
       "file": "c2.1/results/drive_geometry.json",
       "bytes": 2920,
       "sha256": "65f01a7d28c3cd47ba1c7ea868009134c4a91cfe8bba7813710dd8face15f301"
     },
     {
       "file": "c2.1/results/electrical_load.json",
-      "bytes": 4334,
-      "sha256": "07688fcc3b61a8f345ee8f681690357e0299fd883bf4b3d5e57f4f61c25e63a7"
+      "bytes": 4447,
+      "sha256": "226aedc17f39000206cf28456d62021e722f9992ed5d2175929879287c8379ce"
     },
     {
       "file": "c2.1/results/firmware_build.json",
-      "bytes": 1747,
-      "sha256": "7cc47a1946cbda07f30042b3e56292c7fd25c33b338aa56e83d44e8f224f4619"
+      "bytes": 1749,
+      "sha256": "37df5c0c73e3932f0067969aa1ce1c0bbe11dd9372e0ce583ed0a480253051ba"
     },
     {
       "file": "c2.1/results/guard_geometry.json",
@@ -670,8 +715,8 @@
     },
     {
       "file": "c2.1/results/machine_integration.json",
-      "bytes": 18713,
-      "sha256": "c2f4398b8900cf68bd63e352434edaf75d6d21e57936199790523524a3782fc4"
+      "bytes": 21229,
+      "sha256": "2a611e58179f494d2a30d0b2e212e582cae36ee0785aa31105c1cb9dfa58a0bd"
     },
     {
       "file": "c2.1/results/machine_wiring.json",
@@ -700,8 +745,8 @@
     },
     {
       "file": "c2.1/results/power_sim.json",
-      "bytes": 209822,
-      "sha256": "c113fd1dc5c8d5a24cece6f30faf6590d406ca956ccbc526d2e6c98817b1401c"
+      "bytes": 209824,
+      "sha256": "972b13dec760f1491079747d7638c0d62597b4da521ea59861f4d9e39017cf9e"
     },
     {
       "file": "c2.1/results/s2_negative_sweep.json",
@@ -710,18 +755,18 @@
     },
     {
       "file": "c2.1/results/structural_screen.json",
-      "bytes": 59990,
-      "sha256": "e71ab6d10425b0314af7f47fd15f456bb443730c4d1691da3eba6548f34c3721"
+      "bytes": 63373,
+      "sha256": "cb72cf34c605401bbe1f090b29ed162f490fbf8f27890f0ccdbdc46d633fe77f"
     },
     {
       "file": "c2.1/results/system_bom_summary.json",
       "bytes": 1461,
-      "sha256": "e3eb9dae0186aee8112a092cfcc7dd4bfd798d55a2d1e06588d6e38640519aa6"
+      "sha256": "272d38fee75a76add29f3febf54240cd46e24246e687ed6fee2ea4436c3b0f58"
     },
     {
       "file": "c2.1/results/validation_summary.json",
-      "bytes": 6494,
-      "sha256": "d480302ff042180e0730198619ccc87ea3b0ad9532d7a2b14f80c101afdc4351"
+      "bytes": 1780,
+      "sha256": "391ba813b679fc48bbaf1338e0668999e8f1544241cc38be6b541beab49e8aa9"
     },
     {
       "file": "c2.1/results/winder_geometry.json",
@@ -740,8 +785,8 @@
     },
     {
       "file": "c2.1/src/build_firmware.py",
-      "bytes": 2715,
-      "sha256": "abfaf84f6b9f54cfc54062df80dae0251e6eda6e3ee39f932065cd9c244e2f67"
+      "bytes": 2717,
+      "sha256": "597ae1af4e6faf6bf26fd27d146869650e099c923aacf5144fbd305170f12ecf"
     },
     {
       "file": "c2.1/src/build_machine_freecad.py",
@@ -750,8 +795,8 @@
     },
     {
       "file": "c2.1/src/build_machine_integration.py",
-      "bytes": 28231,
-      "sha256": "30487a41a7738bfc116688d776e4d04bf25753bcf7a8d8062440bd47fc920292"
+      "bytes": 29626,
+      "sha256": "9cfdcd36badfcf26a01c91162e55d6c91443355fba2399c85ffcf0ae281e4a71"
     },
     {
       "file": "c2.1/src/build_machine_wiring.py",
@@ -766,12 +811,12 @@
     {
       "file": "c2.1/src/build_release_manifest.py",
       "bytes": 7007,
-      "sha256": "a69254112d547e7f5b58102ee4b264cd057d94d1a0e69d31e9ed373bbb094ed1"
+      "sha256": "8d0fd424b52c29e5af5d4cd7dc79216f60666d819365afec4b57f1b47420b95b"
     },
     {
       "file": "c2.1/src/build_system_bom.py",
       "bytes": 10608,
-      "sha256": "1590c03fc8e6016a508966c6aada4e55aa6963a52caef7479a55ff5685bb7137"
+      "sha256": "0722ea88611013f58eba59088acf373d13d5478d39a27ed6657910ac29dbdb27"
     },
     {
       "file": "c2.1/src/chain_relief.py",
@@ -780,8 +825,13 @@
     },
     {
       "file": "c2.1/src/chute.py",
-      "bytes": 47861,
-      "sha256": "b5e7e51ae596427753268a08b7da0305793c5a25964c7a608a375acf9d5ddc4c"
+      "bytes": 49580,
+      "sha256": "80eef34d09724b95e460c855e136bebabb72f825af967e22c76f4e1a66532ec9"
+    },
+    {
+      "file": "c2.1/src/downstream.py",
+      "bytes": 18216,
+      "sha256": "659ce4724580d1bc36b314f65404b0e8e5af648f5870c3f56d662c3f420ee1dc"
     },
     {
       "file": "c2.1/src/drive_kinematics.py",
@@ -795,8 +845,8 @@
     },
     {
       "file": "c2.1/src/electrical_bay.py",
-      "bytes": 8456,
-      "sha256": "dbdfc04cbf50e53914f0952edc124926586393e16031ea689c07a7e23737ba63"
+      "bytes": 8617,
+      "sha256": "9a7f9311df9362ef872b4d9b62a09d8479d68be9c304bd84072d2a33cedaa40d"
     },
     {
       "file": "c2.1/src/guards.py",
@@ -815,8 +865,18 @@
     },
     {
       "file": "c2.1/src/power_sim.py",
-      "bytes": 10289,
-      "sha256": "2bc5829e94312f51860ab3fe4ede0a66518f6fa39b8f1643a82834a329339f3e"
+      "bytes": 10291,
+      "sha256": "89287e4cb8769616ca573664f3f2ef28b7c844bf1a1436d58fb0a8101fff4f66"
+    },
+    {
+      "file": "c2.1/src/process_model.py",
+      "bytes": 12540,
+      "sha256": "e62d5377216acf8e51b87b0706af02acc9fe40c8280f9e7420f51d40678376dc"
+    },
+    {
+      "file": "c2.1/src/route_comparison.py",
+      "bytes": 8444,
+      "sha256": "ed3c7f3817a6552e08d7c074f94fa3165b449c741bdecb90928b449d777168fc"
     },
     {
       "file": "c2.1/src/s2_direction_audit.py",
@@ -825,8 +885,8 @@
     },
     {
       "file": "c2.1/src/structural_screen.py",
-      "bytes": 36402,
-      "sha256": "94228fc01e73d49bd3e3a9c78bf050103ea5a61833456385ef1d77abc30af97a"
+      "bytes": 39175,
+      "sha256": "73728e78798d80ca4558824f55360ec7abd19d24e4e2a8199ef4fd5914aa60bf"
     },
     {
       "file": "c2.1/src/transmission.py",
@@ -844,14 +904,19 @@
       "sha256": "95c004a8247e6a0fb6ea2797b98813c95aecee00567dafe86f5c08a584650218"
     },
     {
+      "file": "c2.1/tests/test_downstream.py",
+      "bytes": 6329,
+      "sha256": "7b4725112e24d7086bf38036254806adca8e41af0f2300df46b4e865a70a0f3d"
+    },
+    {
       "file": "c2.1/tests/test_transmission.py",
       "bytes": 7262,
       "sha256": "d4d41ebc25aadf586f2fdfb2e625f1da13fe1b6ff059b27ad089420c107d43c1"
     },
     {
       "file": "c2.1/tests/test_vp1_stage1.py",
-      "bytes": 9691,
-      "sha256": "85ab347ecc7d79261d735ac49adbd67e991a11b013c53e5cba89b704b1112b22"
+      "bytes": 9740,
+      "sha256": "9ee9ece23bcfeb3bcaa0133661419cc4d02591589b74c49956a1193c4722a585"
     }
   ],
   "status": "DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD",

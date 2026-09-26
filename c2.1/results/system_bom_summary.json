@@ -1,7 +1,7 @@
 {
-  "revision": "C2.1-P6+VP1-STAGE5",
-  "active_rows": 196,
-  "unique_part_ids": 196,
+  "revision": "C2.1-P6+VP1-STAGE6",
+  "active_rows": 204,
+  "unique_part_ids": 204,
   "legacy_instances_removed": 52,
   "legacy_part_quantities_removed": {
     "BR-6001": 2,
@@ -31,10 +31,10 @@
     "BR-6001": 2
   },
   "c21_rows_added": 19,
-  "vp1_delta_rows": 66,
+  "vp1_delta_rows": 74,
   "vp1_delta_source": "c2.1/bom/vp1_bom_delta.csv",
   "known_cost_rows": 11,
-  "unknown_cost_rows": 185,
+  "unknown_cost_rows": 193,
   "known_landed_total_KRW": 0.0,
   "unselected_motor_landed_floor_KRW": 110200,
   "soft_total_budget_KRW": 100000,
@@ -46,11 +46,11 @@
   },
   "csv": {
     "file": "c2.1/bom/system_bom.csv",
-    "sha256": "c2a1b99aa8a27bb1d1ecd46e83a938b4413abf06a67c760ce628eee002175fd2"
+    "sha256": "748f936f731cbc1004d6ff3dedb67d90893df3fcabb8c9a7d02d2056be504af4"
   },
   "xlsx": {
     "file": "c2.1/bom/system_bom.xlsx",
-    "sha256": "82c10e84ffa9f88b4d061db418d01bf94abec50a3f2d8788088d2604e0e4c2cd",
+    "sha256": "4cf4b3b071870109b8fbadc3bb43f4b32561e5c76dd2529de8595adf0fca964c",
     "zip_test": null
   },
   "procurement": "HOLD",

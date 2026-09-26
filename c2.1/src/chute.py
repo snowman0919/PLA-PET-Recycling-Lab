@@ -208,10 +208,19 @@ def pan_floor():
     for y0, y1 in ((157.4, 163.4), (323.6, 329.6)):
         full = full.cut(_cyl(2.35, y1-y0, SWEEP_X, y0, SWEEP_Z))
     full = full.fuse(_box(76.0, 223.5, 163.4, 323.6, 321.0, 323.0))
-    # The side tread descends toward the rounded east drum. Its underside
-    # drops below the top run before a fragment clears the tangent; keep
-    # the downstream steel catch below the tread.
-    full = full.fuse(_box(223.7, 237.0, 163.4, 323.6, 332.8, 337.4))
+    # Wrap the east drum with a fixed steel catch at a nominal 0.5 mm
+    # radial gap. A flat x223.7 face left a flake-sized pocket between the
+    # descending belt arc and the catch, especially for the small fraction.
+    # The catch remains below the transverse flight and is open for inspection
+    # from above; the existing underside webs carry it into the pan.
+    catch_r = BELT_OUTER_R + 0.5
+    catch_z = [BELT_EAST_Z - 0.1 + 0.2*i for i in range(24)]
+    catch_z[-1] = 337.4
+    catch_arc = [(BELT_EAST_X + math.sqrt(catch_r**2 - (z - BELT_EAST_Z)**2), z)
+                 for z in catch_z]
+    catch_profile = catch_arc + [(237.0, 337.4), (237.0, 332.8)]
+    for y0, y1 in ((163.4, 222.0), (242.0, 323.6)):
+        full = full.fuse(_prism_xz(catch_profile, y0, y1 - y0))
     # The side stop follows the swept screw's +X envelope with at least
     # 0.9 mm nominal clearance. Its toe catches flakes immediately beyond
     # the belt end, while the rotating flight can engage them at tread level.
@@ -243,6 +252,14 @@ def pan_floor():
     # existing full-width bottom plate without a wall above the treads.
     for y0, y1 in ((221.0, 223.2), (240.8, 243.0)):
         full = full.fuse(_box(222.5, 224.1, y0, y1, 322.0, 327.2))
+    # A thin steel deck between the central belt runs excludes the open
+    # return-loop pocket. It stays 0.58 mm below the upper tread's inner
+    # face, 0.88 mm above the lower tread's inner face, and ends 0.55 mm
+    # before the rounded east belt arc. Side cheeks carry it from the pan
+    # webs into the auger containment walls; none touches either belt run.
+    for y0, y1 in ((221.0, 223.2), (240.8, 243.0)):
+        full = full.fuse(_box(224.0, 267.0, y0, y1, 332.9, 336.7))
+    full = full.fuse(_box(224.0, 267.0, 223.2, 240.8, 334.0, 336.7))
     return full.clean()
 
 def _wedge_rib(x, y0, y1, zbase=PAN_Z1, height=4.0, half=8.0):
@@ -288,21 +305,32 @@ def bypass_channel_floor():
                  AUG_FLIGHT_X0, AUG_AX_Y, AUG_AX_Z, axis=(1, 0, 0))
     shell = shell.cut(inner)
     cross_clearance = _cyl(10.55, 27.5, CROSS_X, 223.5, CROSS_Z)
-    # The central tread continues into the first auger turn without entering
-    # the S2 rotor's moving coupling-web envelope. Its exit recess begins
-    # beyond the drum so fragments can enter the screw flight.
+    # A rectangular pocket stops abruptly at x280.5 against the normal U
+    # section. The receiving flake then rests on z337.5 while the south and
+    # north flanks of the auger trough rise several millimetres in one step.
+    # Loft the clearance pocket back to the actual R9.5 U section instead:
+    # the material left underneath forms a supported, shallow wear ramp.
+    # The cutter-side walls outside the moving centre lane remain intact.
     entrance = _box(237.0, TRANSFER_EAST_X + TRANSFER_OUTER_R,
                     223.2, 240.8, 331.0, 351.0)
-    exit_recess = _box(TRANSFER_EAST_X + TRANSFER_OUTER_R,
-                       TRANSFER_EAST_X + TRANSFER_OUTER_R + 8.0,
-                       223.2, 240.8, 337.5, 351.0)
+    ramp_x0 = TRANSFER_EAST_X + TRANSFER_OUTER_R
+    ramp_x1 = 300.0
+    ramp_y = (223.2, 223.5, 224.0, 225.0, 226.0, 228.0, 230.0,
+              232.0, 234.0, 236.0, 238.0, 239.0, 240.0, 240.5, 240.8)
+    def ramp_section(x, at_exit):
+        floor = [AUG_AX_Z - math.sqrt(9.5**2 - (y - AUG_AX_Y)**2) + 0.15
+                 if at_exit else 337.5 for y in ramp_y]
+        points = [V(x, y, z) for y, z in zip(ramp_y, floor)]
+        points += [V(x, ramp_y[-1], 351.0), V(x, ramp_y[0], 351.0)]
+        return cq.Wire.makePolygon(points, close=True)
+    ramp_pocket = cq.Solid.makeLoft(
+        [ramp_section(ramp_x0, False), ramp_section(ramp_x1, True)],
+        ruled=True)
     cradle = slab.fuse(shell).cut(cross_clearance).cut(entrance).cut(
-        exit_recess)
-    # Carry the central tread's z337.6 landing onto a steel wear shelf
-    # without a raised step at the east idler. Keep it south of y235
-    # where the S2 coupling web sweeps.
-    cradle = cradle.fuse(_box(TRANSFER_EAST_X + TRANSFER_OUTER_R,
-                              340.0, 223.2, 234.8,
+        ramp_pocket)
+    # The central tread's steel landing continues south of the auger axis;
+    # it ends flush with the starting pocket and stays below the U floor.
+    cradle = cradle.fuse(_box(ramp_x0, 340.0, 223.2, 234.8,
                               AUG_FLOOR_BASE, 337.5))
     # Descend from the auger shelf into the orthogonal flight's receiving
     # quadrant. Cut the 10.55 mm swept envelope out of the fixed ramp.

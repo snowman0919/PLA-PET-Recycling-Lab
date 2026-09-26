@@ -1,9 +1,9 @@
 {
-  "revision": "C2.1-P6+VP1-STAGE1",
+  "revision": "C2.1-P6+VP1-STAGE1+VP1-STAGE6",
   "status": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD",
   "source": {
     "config": "c2.1/design/machine_integration.json",
-    "config_sha256": "42e094a9d90a1ee03f1f66b068a469e74fc514f9150638b5d0cab850bfc8e82f",
+    "config_sha256": "a1eb995e0a2e16cccf76d33b4b5ce2d9229438a3e5401b3af36f84b6bf2f16e8",
     "legacy_master": "design/assembly.json",
     "legacy_master_sha256": "1c8fde1ba2265a1c8e32d7cf55bfe2d5a21704fc0480215d54cee4c260a42cc9",
     "c21_builder_sha256": "101c733a5f0112605a7fed10b46c1a4dd45e725174f1e8499dcbc3741bb1366a",
@@ -25,9 +25,9 @@
   "legacy_s2_instances_excluded": 44,
   "legacy_instances_retained": 151,
   "c21_instances_inserted": 40,
-  "assembly_objects": 256,
-  "expected_solids": 280,
-  "reimported_solids": 280,
+  "assembly_objects": 262,
+  "expected_solids": 290,
+  "reimported_solids": 290,
   "step_reimport_valid": true,
   "assembly_step": "c2.1/cad/PPR_VP1.step",
   "assembly_geometry_checks": {
@@ -60,8 +60,8 @@
     "tail_radial_margin_mm": 0.59,
     "shell_radial_margin_mm": 1.5
   },
-  "assembly_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
-  "assembly_step_bytes": 99885305,
+  "assembly_step_sha256": "8f30a4092ddd4e438de482d03369ebc6e4bccdfd98579a41a88556ee0b26ed6c",
+  "assembly_step_bytes": 100801114,
   "groups": [
     "S1",
     "S2-C2.1",
@@ -72,6 +72,7 @@
     "feed",
     "frame",
     "frame_mount",
+    "gauge",
     "guard",
     "puller",
     "spool"
@@ -86,6 +87,7 @@
     "feed",
     "frame",
     "frame_mount",
+    "gauge",
     "puller",
     "spool"
   ],
@@ -328,32 +330,88 @@
         },
         {
           "device": "COOL-FAN (Sanyo 9RA0824H1001)",
-          "nameplate": "model only; current not in repo",
+          "nameplate": "model only; current not in repo; VP1 Stage 6 adds a third fan on the cooling duct baffle (UNSELECTED, UNRATED estimate class of the owned pair)",
           "W": 8.0,
-          "count": 2,
-          "owned": true,
+          "count": 3,
+          "owned": false,
           "grade": "UNRATED_ESTIMATE",
-          "subtotal_W": 16.0
+          "subtotal_W": 24.0
         }
       ],
-      "total_peak_W": 616.0,
-      "staged_peak_W": 416.0,
+      "total_peak_W": 624.0,
+      "staged_peak_W": 424.0,
       "staged_schedule": {
         "policy": "at most 1x EX-H100 band + EX-H60 cartridge at any instant; bands rotate on controller timing",
         "heater_W_staged": 160.0,
-        "continuous_W": 256.0,
+        "continuous_W": 264.0,
         "control_implementation": "HOST_CONTROLLER_CORE_SELF_TESTED_NOT_DEPLOYED",
         "hardware_interlock": "EL_CURRENT_LIMITER relay bank required independently of firmware behavior"
       },
       "operational_cap_W": 500,
-      "total_vs_budget_headroom_W": -116.0,
-      "staged_vs_budget_headroom_W": 84.0,
+      "total_vs_budget_headroom_W": -124.0,
+      "staged_vs_budget_headroom_W": 76.0,
       "total_above_budget": true,
       "staged_above_budget": false,
       "current_derived_ceiling_W": 792,
-      "psu_current_headroom_W": 176.0,
+      "psu_current_headroom_W": 168.0,
       "psu_current_ceiling_exceeded": false,
       "note": "PEAK simultaneous modeled sum. M1/M2 are not-owned references -> UNRATED estimates, not ratings. The 500 W hard operating budget refuses any next demand that would exceed it. 24 V x 33 A = 792 W is the PSU current-derived hardware maximum, not operating permission; hardware current limiting and heater interlocks remain required."
+    },
+    "vp1_stage6": {
+      "downstream_parts": [
+        "GAUGE_FRAME",
+        "GAUGE_GUIDES",
+        "GAUGE_CONTACT_A",
+        "GAUGE_OPTICAL_B",
+        "GAUGE_REF_STANDARD",
+        "COOL-DUCT"
+      ],
+      "interfaces": {
+        "filament_line": {
+          "axis": "+X",
+          "y_mm": 275.0,
+          "z_mm": 125.0,
+          "die_exit_x_mm": 540.0,
+          "tray_exit_x_mm": 820.0,
+          "gauge_x_mm": 809.0,
+          "puller_nip_x_mm": 829.0
+        },
+        "gauge_to_puller_delay": {
+          "distance_mm": 20.0,
+          "meaning": "measurement-to-actuation transport delay at line speed v: delay_s = 20.0 / v_mm_s; the process model uses the REAL distance, not a tunable"
+        },
+        "cooling": {
+          "tray_length_mm": 275.0,
+          "duct_air_length_range_mm": [
+            50.0,
+            250.0
+          ],
+          "baffle_travel_mm": 100.0,
+          "fans": "2 owned + 1 reference (UNRATED 8 W estimate)"
+        },
+        "service_input": {
+          "configuration": "SWAP: SERVICE-HOPPER bolts onto the FEED-BUF saddle interface (x 282..316, y 251..299, z 145..218) after the buffer stack is unbolted; reference run = main assembly minus FEED-BUF stack plus SERVICE-HOPPER",
+          "reason_not_in_assembly": "the FEED-BUF top zone is occupied by S2 discharge metal (rotor envelope to z347, ring plate, screen); a coexisting chute intersected production metal",
+          "feedstock": "dried, screened reference material only",
+          "interlock": "NONE \u2014 the hopper is not a guard"
+        },
+        "reference_pins_mm": [
+          1.5,
+          1.75,
+          2.0
+        ],
+        "calibration": "pins + micrometer round-trip; U95 <= 0.01 mm is the design assumption, not a measured claim",
+        "sensor_axes": {
+          "A_lever_hall": "vertical diameter (contact compliance UNRATED)",
+          "B_optical": "horizontal shadow width (transparent/TPU UNRATED)"
+        }
+      },
+      "geometry_result": "c2.1/results/downstream_geometry.json",
+      "holds": [
+        "gauge sensor accuracy U95 <= 0.01 mm is a design assumption pending pin/micrometer physical calibration",
+        "lever contact force / TPU deformation and optical-axis transparent-stock accuracy are UNRATED",
+        "service chute latch is a digital input, not a safety interlock channel"
+      ]
     },
     "vp1_stage3": {
       "adr": "c2.1/docs/ADR-002-CHAIN-ROUTING.md",
@@ -457,8 +515,8 @@
     },
     "vp1_against_retained": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 12920,
-      "bbox_candidates": 122,
+      "pair_checks": 14012,
+      "bbox_candidates": 127,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",
@@ -509,8 +567,8 @@
     },
     "vp1_internal": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 4970,
-      "bbox_candidates": 260,
+      "pair_checks": 5852,
+      "bbox_candidates": 282,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",

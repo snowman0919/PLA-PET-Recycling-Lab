@@ -810,7 +810,10 @@ def main() -> int:
                         bore_candidate[i], completed = hole_transition(
                             prior, now, radius, bore_candidate[i])
                         screen_hole[i] = completed is not None
-                    if (screen_hole[i] and not buffer_upper[i]
+                    # The receiver lip (z218) can lie above the *bottom*
+                    # of a curved screen bore. Record its crossing before
+                    # bore completion, then require both events for reporting.
+                    if (not buffer_upper[i]
                             and prior[2] >= 218.0 + SHIFT[2] > z):
                         plane = 218.0 + SHIFT[2]
                         t = (prior[2] - plane) / (prior[2] - z)
@@ -820,7 +823,8 @@ def main() -> int:
                             216.57 + SHIFT[0] + radius <= bx
                             <= 400.57 + SHIFT[0] - radius
                             and 254.0 + radius <= by <= 296.0 - radius)
-                    if (buffer_upper[i] and not buffer_throat[i]
+                    if (screen_hole[i] and buffer_upper[i]
+                            and not buffer_throat[i]
                             and prior[2] >= 145.0 + SHIFT[2] > z):
                         plane = 145.0 + SHIFT[2]
                         t = (prior[2] - plane) / (prior[2] - z)
@@ -884,7 +888,7 @@ def main() -> int:
                     "gravity_receiver": bool(gravity_receiver[i]),
                     "s2_mouth": bool(s2_mouth[i]),
                     "same_screen_bore": bool(screen_hole[i]),
-                    "buffer_upper": bool(buffer_upper[i]),
+                    "buffer_upper": bool(screen_hole[i] and buffer_upper[i]),
                     "buffer_throat": arrived,
                     "lost_through_world": lost,
                     "stuck_at_final": slow and not lost and not arrived,
@@ -1090,7 +1094,8 @@ def main() -> int:
                        {"auger_pickup": int(sum(auger_pickup))}),
                     "s2_mouth": int(sum(s2_mouth)),
                     "same_screen_bore": int(sum(screen_hole)),
-                    "buffer_upper": int(sum(buffer_upper)),
+                    "buffer_upper": int(sum(screen_hole[i] and buffer_upper[i]
+                                            for i in range(total_probes))),
                     "buffer_throat": int(sum(buffer_throat)),
                 },
                 "same_probe_ids_screen_to_buffer": connected_ids,

@@ -15,11 +15,11 @@
   "compile_return_code": 0,
   "compile_stderr": "",
   "self_test_return_code": 0,
-  "self_test_stdout": "controller_core_self_test: 20 cases passed; no reverse or auto-restart path; band mutual exclusion; hard operating budget 500 W; PSU current-derived maximum 792 W (24 V x 33 A; nameplate 800 W) is not operating permission\n",
+  "self_test_stdout": "controller_core_self_test: 25 cases passed; no reverse or auto-restart path; band mutual exclusion; hard operating budget 500 W; PSU current-derived maximum 792 W (24 V x 33 A; nameplate 800 W) is not operating permission\n",
   "source": "c2.1/firmware/controller_core.cpp",
-  "source_sha256": "634425952b449458a6d292319217aa1ca11f1068c58dae5a5459668349e81956",
-  "binary_sha256": "368c1af74c4692e9c9beea89a004d0557be3c669a0d5b4fc1436d4e17c4997d8",
-  "cases": 20,
+  "source_sha256": "72b63a402c45873763757a5a8377bf5bc5b775923dc096cd8e4feb65fbad3413",
+  "binary_sha256": "ceceb2ed9a1f1246b4815c217d946626ffc289ff64b8d9f8777b3efbb1814f4a",
+  "cases": 25,
   "power_allocator": {
     "operational_cap_W": 500.0,
     "operational_cap_semantics": "HARD: reject next demand above 500 W",
@@ -29,7 +29,7 @@
     "unrated_devices": [
       "M1 shredder drive 196.8 W",
       "M2 extruder drive 43.2 W",
-      "COOL-FAN pair 16 W"
+      "COOL-FAN triple 24 W"
     ],
     "nameplate_source": [
       "EX-H100 3 x 100 W",

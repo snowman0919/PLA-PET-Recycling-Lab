@@ -33,7 +33,7 @@ def main():
         "source": str(SOURCE.relative_to(REPO)),
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         "binary_sha256": None if executed is None else hashlib.sha256(BUILD.read_bytes()).hexdigest(),
-        "cases": 20,
+        "cases": 25,
         "power_allocator": {
             "operational_cap_W": 500.0,
             "operational_cap_semantics": "HARD: reject next demand above 500 W",
@@ -42,7 +42,7 @@ def main():
             "band_mutual_exclusion": "structural allocator invariant; hardware "
                                      "EL_CURRENT_LIMITER interlock requirement stands",
             "unrated_devices": ["M1 shredder drive 196.8 W", "M2 extruder drive 43.2 W",
-                                "COOL-FAN pair 16 W"],
+                                "COOL-FAN triple 24 W"],
             "nameplate_source": ["EX-H100 3 x 100 W", "EX-H60 60 W"],
         },
         "arduino_cli": "DID_NOT_FIND_EXECUTABLE",
