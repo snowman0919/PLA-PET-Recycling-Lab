@@ -115,7 +115,7 @@ BELT_INNER_R, BELT_OUTER_R = 3.8, 4.6
 # the rounded east drum rather than letting the belt strand it at x222.
 # The external gear pair remains keyed outside the pan rails.
 SWEEP_X, SWEEP_Z = 224.0, 344.7
-SWEEP_SHAFT_R, SWEEP_FLIGHT_R, SWEEP_PITCH = 2.0, 6.7, 16.0
+SWEEP_SHAFT_R, SWEEP_FLIGHT_R, SWEEP_PITCH = 2.0, 7.2, 16.0
 SWEEP_GEAR_Y = ((128.0, 134.0), (361.0, 367.0))
 SWEEP_GEAR_SCALE = math.hypot(SWEEP_X-BELT_EAST_X,
                               SWEEP_Z-BELT_EAST_Z) / (2.0 * FEED_GEAR_RP)
@@ -260,6 +260,15 @@ def pan_floor():
     for y0, y1 in ((221.0, 223.2), (240.8, 243.0)):
         full = full.fuse(_box(224.0, 267.0, y0, y1, 332.9, 336.7))
     full = full.fuse(_box(224.0, 267.0, 223.2, 240.8, 334.0, 336.7))
+    # At the side-belt exit a 3 mm flake can settle at x223/z336.5,
+    # tangent to the old R6.7 flight. Scallop the fixed stop locally for
+    # the deeper flight; the belt catch and the rear support remain intact.
+    for y0, y1 in ((163.4, 228.5), (235.5, 323.6)):
+        relief = _cyl(SWEEP_FLIGHT_R + 0.35, y1-y0,
+                      SWEEP_X, y0, SWEEP_Z)
+        relief = relief.intersect(
+            _box(223.2, 233.5, y0, y1, 337.0, WALL_TOP))
+        full = full.cut(relief)
     return full.clean()
 
 def _wedge_rib(x, y0, y1, zbase=PAN_Z1, height=4.0, half=8.0):
@@ -509,7 +518,7 @@ def sweep_shaft(south):
     # Both screws stop short of the perpendicular auger shaft at y232;
     # their trailing flakes enter the narrowed passive guide on the belt.
     y0, y1 = (127.0, 228.5) if south else (235.5, 369.0)
-    flight0, flight1 = (164.5, 226.0) if south else (236.0, 321.5)
+    flight0, flight1 = (164.5, 226.0) if south else (236.0, 320.9)
     shaft = _cyl(SWEEP_SHAFT_R, y1-y0, SWEEP_X, y0, SWEEP_Z)
     gy0, gy1 = SWEEP_GEAR_Y[0 if south else 1]
     shaft = shaft.fuse(_box(SWEEP_X+1.9, SWEEP_X+2.45,

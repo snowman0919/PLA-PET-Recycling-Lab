@@ -16,10 +16,15 @@
 // requirement stands independently (defense in depth).
 #include <array>
 #include <cassert>
+#include <algorithm>
+#include <cmath>
+#include <limits>
 #include <cstdint>
 #include <iostream>
 
-enum class State { qualification_hold, fault_latched, ready, running };
+enum class State {
+  qualification_hold, fault_latched, ready, startup_reject, quality_hold, running
+};
 
 struct Limits {
   double maximum_temperature_C;
@@ -89,17 +94,15 @@ struct Inputs {
   bool m1_run{};
   bool m2_run{};
   std::uint32_t band_rotation_ms{};  // elapsed time driving band rotation
-  // VP1 Stage 6: downstream diameter feedback (GAUGE station, x=809 inside
-  // the cooling tray exit section; REAL transport delay to the puller
-  // nip at x=829 is 20 mm / v_line, handled by the host line controller, NOT by
-  // this safety core).  The core only validates measurement freshness and
-  // sanity; a missing/implausible gauge NEVER silently continues as good
-  // product — it drops the extrusion run enable (fault_latched path is for
-  // safety faults; gauge loss is an operating-quality gate, run refused).
-  bool gauge_valid{};              // gauge sample present this cycle
-  std::uint32_t last_gauge_ms{};   // timestamp of the last gauge sample
-  double gauge_diameter_mm{};      // measured equivalent diameter
-  double gauge_puller_speed_mm_s{};  // measured puller surface speed
+  // Two orthogonal gauge axes, calibrated outside this host-only core.
+  // Die->gauge (269mm) is the feedback dead time; gauge->nip (20mm) is
+  // material already committed to the puller. Both are tracked by the line
+  // model, never replaced by an artificial 20mm control delay.
+  bool gauge_valid{};
+  std::uint32_t last_gauge_ms{};
+  double gauge_major_mm{};
+  double gauge_minor_mm{};
+  double nominal_puller_speed_mm_s{9.3134338726879};  // PLA 100g/h design target
 };
 
 struct DiameterGate {
@@ -107,8 +110,33 @@ struct DiameterGate {
   // line cannot be producing verifiable in-spec filament.
   double min_plausible_mm{0.8};    // below: broken strand / sensor fault
   double max_plausible_mm{4.0};    // above: die drool / sensor fault
-  double stale_ms{1000};           // gauge sample age limit
+  std::uint32_t stale_ms{1000};
 };
+
+// Identical PI step is used by the host runtime and by the reference-feed
+// process-model shared library. The state lives in the caller, not a heap.
+static double diameter_pi_step(double nominal, double measured, double dt_s,
+                               double& integral, double& command) {
+  constexpr double target_mm = 1.75, kp = 2.0, ki = 0.15;
+  const double error = measured - target_mm;
+  const double candidate = integral + error * std::max(0.0, dt_s);
+  const double lower = 0.6 * nominal, upper = 1.5 * nominal;
+  const double raw = nominal + kp * error + ki * candidate;
+  if ((raw > lower && raw < upper) ||
+      (raw >= upper && error < 0) ||
+      (raw <= lower && error > 0)) integral = candidate;
+  command = std::clamp(nominal + kp * error + ki * integral, lower, upper);
+  return command;
+}
+
+extern "C" double ppr_diameter_pi_step(double nominal, double measured,
+                                        double dt_s, double* integral,
+                                        double* command) {
+  if (!integral || !command || !std::isfinite(nominal) ||
+      !std::isfinite(measured) || nominal <= 0)
+    return std::numeric_limits<double>::quiet_NaN();
+  return diameter_pi_step(nominal, measured, dt_s, *integral, *command);
+}
 
 struct Outputs {
   State state{State::qualification_hold};
@@ -118,6 +146,9 @@ struct Outputs {
   bool h60_enable{};
   bool fans_enable{};
   bool aux_enable{};
+  bool puller_enable{};
+  double puller_speed_cmd_mm_s{};
+  bool gauge_in_tolerance{};  // gauge location only; not proof of nip/spool quality
   double admitted_W{};
   int rejected_demands{};  // demands refused at the operating budget
 };
@@ -141,25 +172,58 @@ class Controller {
     if (unsafe) latched_ = true;
     if (manual_reset && !unsafe && !in.run_command) latched_ = false;
     if (latched_) return off(State::fault_latched);
-    if (!in.run_command) return off(State::ready);
-
-    // VP1 Stage 6 diameter quality gate: the extrusion line runs only
-    // while the gauge reports fresh, physically plausible diameters.
-    // Missing/stale/implausible measurement REFUSES the run state (the
-    // line reverts to ready, M2/puller not enabled) — it never degrades
-    // to "assume good".  This is an operating-quality gate, NOT a safety
-    // latch: no fault is latched, so the run can restart when the gauge
-    // recovers; safety faults remain on the latched_ path above.
     const bool gauge_fresh = in.gauge_valid &&
         (in.now_ms - in.last_gauge_ms <= gauge_gate_.stale_ms);
     const bool gauge_plausible =
-        in.gauge_diameter_mm >= gauge_gate_.min_plausible_mm &&
-        in.gauge_diameter_mm <= gauge_gate_.max_plausible_mm;
-    if (in.m2_run && (!gauge_fresh || !gauge_plausible)) {
-      return off(State::ready);  // run refused: unmeasured product is scrap
+        std::isfinite(in.gauge_major_mm) && std::isfinite(in.gauge_minor_mm) &&
+        in.gauge_major_mm >= gauge_gate_.min_plausible_mm &&
+        in.gauge_major_mm <= gauge_gate_.max_plausible_mm &&
+        in.gauge_minor_mm >= gauge_gate_.min_plausible_mm &&
+        in.gauge_minor_mm <= gauge_gate_.max_plausible_mm;
+    if (quality_hold_ && manual_reset && !in.run_command &&
+        gauge_fresh && gauge_plausible) {
+      quality_hold_ = false;
+      startup_started_ = gauge_seen_ = pi_seen_ = false;
+      integral_ = 0.0;
     }
-
-    Outputs out{State::running, false, false, {}, false, false};
+    if (quality_hold_) return off(State::quality_hold);
+    if (!in.run_command || !in.m2_run) {
+      // Any stopped/restarted strand needs a new die-to-gauge transit.
+      startup_started_ = gauge_seen_ = pi_seen_ = false;
+      integral_ = 0.0;
+      if (!in.run_command) return off(State::ready);
+    }
+    if (in.m2_run && (!std::isfinite(in.nominal_puller_speed_mm_s) ||
+                      in.nominal_puller_speed_mm_s <= 0)) {
+      quality_hold_ = true;
+      return off(State::quality_hold);
+    }
+    // Puller and winder motor demand must be supplied by the selected
+    // hardware budget. Unknown is not zero and cannot run M2.
+    if (in.m2_run && !(std::isfinite(in.aux_demand_W) &&
+                       in.aux_demand_W > 0))
+      return off(State::qualification_hold);
+    if (in.m2_run && !startup_started_) {
+      startup_started_ = true;
+      start_ms_ = in.now_ms;
+      command_ = in.nominal_puller_speed_mm_s;
+    }
+    // Without strand at the gauge, refusing M2 creates a startup deadlock.
+    // Run at fixed speed while marking ALL startup strand as reject. Only a
+    // new sample after a full die->gauge transit can arm feedback. Once armed,
+    // a lost or implausible axis latches quality_hold until operator reset.
+    if (in.m2_run && !gauge_seen_) {
+      const auto minimum_transit_ms = static_cast<std::uint32_t>(
+          269000.0 / in.nominal_puller_speed_mm_s);
+      if (in.now_ms - start_ms_ >= minimum_transit_ms &&
+          in.last_gauge_ms > start_ms_ && gauge_fresh && gauge_plausible)
+        gauge_seen_ = true;
+    } else if (in.m2_run && (!gauge_fresh || !gauge_plausible)) {
+      quality_hold_ = true;
+      return off(State::quality_hold);
+    }
+    Outputs out;
+    out.state = in.m2_run && !gauge_seen_ ? State::startup_reject : State::running;
     double load_W = 0.0;
     // Staged concurrency allocator: refuse each demand that would exceed the
     // hard modeled operating budget, without tripping the safety latch.
@@ -180,11 +244,15 @@ class Controller {
     try_admit(in.h60_demand, POWER_DEVICES[DEV_H60], &out.h60_enable);
     try_admit(in.m1_run && !in.buffer_full, POWER_DEVICES[DEV_M1], &out.m1_enable);
     try_admit(in.m2_run, POWER_DEVICES[DEV_M2], &out.m2_enable);
-    // Modeled auxiliary load (UNRATED, e.g. a future accessory): admitted
-    // under the same hard budget, lowest motor-side priority.
+    // aux_demand_W covers the unselected puller+winder drives (and any
+    // other named auxiliary). Refusing it must also refuse M2.
     try_admit(in.aux_demand_W > 0.0,
               PowerDevice{"modeled auxiliary load", in.aux_demand_W},
               &out.aux_enable);
+    if (in.m2_run && (!out.m2_enable || !out.aux_enable)) {
+      startup_started_ = false;
+      return off(State::qualification_hold);
+    }
     // EX-H100 bands are mutually exclusive: the first admitted band ends the
     // band loop, so no later band is even considered.  Bands rotate so heat-up
     // duty and wear share across A/B/C; only bands with thermostat demand are
@@ -198,6 +266,26 @@ class Controller {
         break;
     }
     out.admitted_W = load_W;
+    if (out.m2_enable) {
+      out.puller_enable = true;
+      out.puller_speed_cmd_mm_s = command_;
+      if (gauge_seen_ && gauge_fresh && gauge_plausible) {
+        if (!pi_seen_ || in.last_gauge_ms != pi_last_ms_) {
+          const double dt_s = pi_seen_ ?
+              (in.last_gauge_ms - pi_last_ms_) / 1000.0 : 0.0;
+          diameter_pi_step(in.nominal_puller_speed_mm_s,
+                           std::sqrt(in.gauge_major_mm * in.gauge_minor_mm),
+                           dt_s, integral_, command_);
+          pi_last_ms_ = in.last_gauge_ms;
+          pi_seen_ = true;
+        }
+        out.puller_speed_cmd_mm_s = command_;
+        out.gauge_in_tolerance =
+            in.gauge_minor_mm >= 1.70 && in.gauge_major_mm <= 1.80 &&
+            in.gauge_major_mm >= in.gauge_minor_mm &&
+            in.gauge_major_mm - in.gauge_minor_mm <= 0.05;
+      }
+    }
 
     // Structural safety invariant: never more than one 100 W band, and the
     // admitted modeled draw never exceeds the hard operating budget.
@@ -212,13 +300,24 @@ class Controller {
  private:
   static constexpr std::uint32_t BAND_ROTATION_PERIOD_MS = 30000;
   static Outputs off(State state) {
-    return {state, false, false, {}, false, false};
+    Outputs out;
+    out.state = state;
+    return out;
   }
   Limits limits_;
   DiameterGate gauge_gate_{};
   bool latched_{true};
+  bool quality_hold_{};
+  bool startup_started_{};
+  bool gauge_seen_{};
+  bool pi_seen_{};
+  std::uint32_t start_ms_{};
+  std::uint32_t pi_last_ms_{};
+  double integral_{};
+  double command_{};
 };
 
+#ifndef PPR_CONTROLLER_LIBRARY
 static Inputs safe_inputs() {
   Inputs in;
   in.temperature_C.fill(30.0);
@@ -226,10 +325,9 @@ static Inputs safe_inputs() {
   in.estop_closed = in.guard_closed = in.independent_overtemp_closed = true;
   in.fan_required = in.fan_tach_ok = true;
   in.motor_rpm = 120.0;
-  // gauge streaming valid, plausible filament at t=0
-  in.gauge_valid = true;
-  in.gauge_diameter_mm = 1.75;
-  in.gauge_puller_speed_mm_s = 12.0;
+  // Gauge is unobserved until a new strand reaches x809.
+  in.gauge_valid = false;
+  in.gauge_major_mm = in.gauge_minor_mm = 1.75;
   return in;
 }
 
@@ -271,8 +369,10 @@ int main() {
   in.run_command = true;
   in.buffer_full = true;
   in.m2_run = true;
+  in.aux_demand_W = 20.0;  // screening-only combined puller/winder budget
   out = controller.step(in, false);
-  assert(out.state == State::running && !out.m1_enable && out.m2_enable);
+  assert(out.state == State::startup_reject && !out.m1_enable &&
+         out.m2_enable && out.puller_enable && !out.gauge_in_tolerance);
   in.buffer_full = false;
   // 8: jam
   in.motor_current_A = 11.0;
@@ -313,12 +413,13 @@ int main() {
   in.h60_demand = true;
   in.m1_run = in.m2_run = true;
   in.h100_demand = {true, true, true};
+  in.aux_demand_W = 20.0;
   out = power.step(in, false);
-  assert(out.state == State::running);
+  assert(out.state == State::startup_reject && out.puller_enable);
   assert(out.fans_enable && out.h60_enable && out.m1_enable && out.m2_enable);
   assert(band_count(out) == 1);
   assert(out.h100_enable[0]);
-  assert(out.admitted_W == 24.0 + 60.0 + 196.8 + 43.2 + 100.0);
+  assert(out.admitted_W == 24.0 + 60.0 + 196.8 + 43.2 + 20.0 + 100.0);
   assert(out.admitted_W <= OPERATIONAL_CAP_W);
   // 15: band rotation moves the admitted band, still never two
   in.band_rotation_ms = 30000;
@@ -346,10 +447,11 @@ int main() {
   in.m1_run = in.m2_run = true;
   in.fan_required = true;
   in.h100_demand = {true, true, true};
+  in.aux_demand_W = 20.0;
   out = budget_limited.step(in, false);
   assert(band_count(out) == 0);
   assert(out.m1_enable && out.m2_enable && out.h60_enable && out.fans_enable);
-  assert(out.admitted_W == 324.0 && out.rejected_demands == 3);
+  assert(out.admitted_W == 344.0 && out.rejected_demands == 3);
 
   // 18: 574 W requested (324 W base + 150 W aux + 100 W band);
   //     accept the aux first and refuse every band at the 500 W budget
@@ -363,7 +465,7 @@ int main() {
   in.h100_demand = {true, true, true};
   in.aux_demand_W = 150.0;
   out = overload.step(in, false);
-  assert(out.state == State::running);
+  assert(out.state == State::startup_reject);
   assert(out.aux_enable && band_count(out) == 0);
   assert(out.admitted_W == 474.0 && out.rejected_demands == 3);
   // The PSU's 792 W hardware figure cannot override the operating cap.
@@ -378,55 +480,100 @@ int main() {
   out = overload.step(in, false);
   assert(out.aux_enable && band_count(out) == 0);
   assert(out.admitted_W == OPERATIONAL_CAP_W);
-  // 20: 824 W request cannot admit the auxiliary, but a band still fits.
+  // 20: an unaffordable puller/winder demand cannot run M2 alone.
   in.aux_demand_W = 500.0;
   out = overload.step(in, false);
-  assert(!out.aux_enable && band_count(out) == 1);
-  assert(out.rejected_demands == 1 && out.admitted_W == 424.0);
-  assert(out.admitted_W <= OPERATIONAL_CAP_W);
+  assert(out.state == State::qualification_hold && !out.m2_enable &&
+         !out.puller_enable && out.admitted_W == 0.0);
 
-  // 21: gauge stream lost -> M2 run refused to ready (NOT latched; the
-  // line restarts when the gauge recovers — quality gate, not a fault).
+  // 21: no initial strand at the gauge: M2 and puller run at fixed speed,
+  // but all startup filament is explicitly unverified, not sold as good.
   Controller gauge(limits);
   in = safe_inputs();
   assert(gauge.step(in, true).state == State::ready);
-  in.run_command = true;
-  in.m2_run = true;
-  assert(gauge.step(in, false).state == State::running);
-  in.gauge_valid = false;                       // sample stream drops
+  in.run_command = in.m2_run = true;
+  in.aux_demand_W = 20.0;
   out = gauge.step(in, false);
-  assert(out.state == State::ready && !out.m2_enable);
-  in.gauge_valid = true;                        // recovery: run resumes
-  assert(gauge.step(in, false).state == State::running);
-  // 22: stale gauge sample -> run refused (safety feedback stays fresh so
-  // this isolates the quality gate; a fully stale loop is case 9's latch).
-  in.now_ms = 2000;
-  in.last_feedback_ms = 2000;
-  in.last_gauge_ms = 500;                       // 1500 ms old > 1000 ms
+  assert(out.state == State::startup_reject && out.puller_enable &&
+         !out.gauge_in_tolerance &&
+         out.puller_speed_cmd_mm_s == in.nominal_puller_speed_mm_s);
+  // 22: a NEW plausible sample after the 269mm die->gauge transit arms PI.
+  in.now_ms = in.last_feedback_ms = in.last_gauge_ms = 30000;
+  in.gauge_valid = true;
   out = gauge.step(in, false);
-  assert(out.state == State::ready && !out.m2_enable);
-  in.last_gauge_ms = 2000;                      // fresh again (age 0)
-  assert(gauge.step(in, false).state == State::running);
-  // 23: implausibly thin reading (broken strand / sensor fault) -> refused.
-  in.gauge_diameter_mm = 0.4;
+  assert(out.state == State::running && out.gauge_in_tolerance);
+  // 23: thick strand speeds the puller; repeated identical sample does NOT
+  // integrate repeatedly; both axes must be within tolerance for gauge_ok.
+  in.now_ms = in.last_feedback_ms = in.last_gauge_ms = 31000;
+  in.gauge_major_mm = in.gauge_minor_mm = 1.90;
   out = gauge.step(in, false);
-  assert(out.state == State::ready && !out.m2_enable);
-  // 24: implausibly thick reading (die drool / sensor fault) -> refused.
-  in.gauge_diameter_mm = 5.0;
+  assert(out.puller_speed_cmd_mm_s > in.nominal_puller_speed_mm_s &&
+         !out.gauge_in_tolerance);
+  const double previous_command = out.puller_speed_cmd_mm_s;
+  in.now_ms = in.last_feedback_ms = 31050;
+  assert(gauge.step(in, false).puller_speed_cmd_mm_s == previous_command);
+  in.now_ms = in.last_feedback_ms = in.last_gauge_ms = 31100;
+  in.gauge_major_mm = 1.84;
+  in.gauge_minor_mm = 1.66;
+  assert(!gauge.step(in, false).gauge_in_tolerance); // ovality not hidden by mean
+  // 24: a dropout after feedback is armed LATCHES quality hold. Restoring a
+  // sample while run_command stays high never auto-restarts M2 or puller.
+  in.now_ms = in.last_feedback_ms = 32000;
+  in.gauge_valid = false;
   out = gauge.step(in, false);
-  assert(out.state == State::ready && !out.m2_enable);
-  // 25: gauge faults never touch the safety latch: after recovery the
-  // controller is still in the ready/running cycle, not fault_latched.
-  in.gauge_diameter_mm = 1.75;
-  assert(gauge.step(in, false).state == State::running);
+  assert(out.state == State::quality_hold && !out.m2_enable &&
+         !out.puller_enable && !out.h60_enable);
+  in.gauge_valid = true;
+  in.gauge_major_mm = in.gauge_minor_mm = 1.75;
+  in.last_gauge_ms = in.last_feedback_ms = in.now_ms = 32100;
+  assert(gauge.step(in, false).state == State::quality_hold);
   in.run_command = false;
-  assert(gauge.step(in, false).state == State::ready);
+  assert(gauge.step(in, true).state == State::ready);
+  in.run_command = true;
+  in.now_ms = in.last_feedback_ms = 32200;
+  assert(gauge.step(in, false).state == State::startup_reject);
+  in.now_ms = in.last_feedback_ms = in.last_gauge_ms = 61200;
+  assert(gauge.step(in, false).state == State::running);
+  // 25: stale sample triggers another hold, not an implicit good diameter.
+  in.now_ms = in.last_feedback_ms = 62500;
+  out = gauge.step(in, false);
+  assert(out.state == State::quality_hold && !out.puller_enable);
+  // 26: M2 cannot run if the unselected auxiliary motor budget is missing.
+  Controller missing_aux(limits);
+  in = safe_inputs();
+  assert(missing_aux.step(in, true).state == State::ready);
+  in.run_command = in.m2_run = true;
+  out = missing_aux.step(in, false);
+  assert(out.state == State::qualification_hold && !out.m2_enable);
+  // 27: voluntary stop and restart re-rejects the entire new transit;
+  // retained old gauge readings must not arm a freshly formed strand.
+  Controller restart(limits);
+  in = safe_inputs();
+  assert(restart.step(in, true).state == State::ready);
+  in.run_command = in.m2_run = true;
+  in.aux_demand_W = 20.0;
+  assert(restart.step(in, false).state == State::startup_reject);
+  in.last_feedback_ms = in.last_gauge_ms = in.now_ms = 30000;
+  in.gauge_valid = true;
+  assert(restart.step(in, false).state == State::running);
+  in.run_command = false;
+  assert(restart.step(in, false).state == State::ready);
+  in.run_command = true;
+  in.last_feedback_ms = in.now_ms = 30100;
+  assert(restart.step(in, false).state == State::startup_reject);
+  // 28: shared PI kernel bounds persistent error and preserves finite output.
+  double integral = 0.0, command = 9.3134338726879;
+  for (int i = 0; i < 500; ++i)
+    ppr_diameter_pi_step(9.3134338726879, 3.5, 0.1,
+                         &integral, &command);
+  assert(command <= 1.5 * 9.3134338726879 && command > 9.3134338726879);
 
 
-  std::cout << "controller_core_self_test: 25 cases passed; no reverse or "
-               "auto-restart path; band mutual exclusion; hard operating budget "
+  std::cout << "controller_core_self_test: 28 cases passed; quality hold "
+               "has no auto-restart path; band mutual exclusion; hard operating budget "
                << static_cast<int>(OPERATIONAL_CAP_W) << " W; PSU "
                "current-derived maximum " << static_cast<int>(PSU_CURRENT_DERIVED_W)
                << " W (24 V x 33 A; nameplate "
                << static_cast<int>(PSU_NAMEPLATE_W) << " W) is not operating permission\n";
 }
+#endif  // PPR_CONTROLLER_LIBRARY

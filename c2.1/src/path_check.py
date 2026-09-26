@@ -12,6 +12,7 @@ import math
 from pathlib import Path
 
 import cadquery as cq
+import process_model as pm
 
 HERE = Path(__file__).resolve()
 ROOT = HERE.parents[1]
@@ -215,27 +216,27 @@ def downstream_checks():
             dk.AUGER_REDUCED_RPM))
     import winder as wd
     lo, hi = wd.nip_range_mm()
-    # PASS space: does the nominal filament clear the nip aperture?
-    _add("puller_nip", lo, 1.5, lo <= wd.FILAMENT_MM <= hi, "MEASURED",
-         "VP1 Stage 4 puller: dia-20 rollers at z %.2f/%.2f (line z 125), "
-         "cam positive-stop range %.1f..%.1f mm; the %.2f mm filament "
-         "(design/parameters.json filament_mm) is gripped: seated nip %.1f mm "
-         "< filament, spring compliance opens the contact to ~1.9 mm"
-         % (wd.PULL_ROLLER_Z[0], wd.PULL_ROLLER_Z[1], lo, hi,
-            wd.FILAMENT_MM, lo))
-    # OPERATIONAL grip checkpoint: does the nip actually GRIP the filament?
-    # The stop gap (1.5 mm) is BELOW the filament (1.75): the rollers press
-    # into the filament under spring compliance -> positive grip pressure.
-    grip = (lo < wd.FILAMENT_MM <= hi)
-    _add("puller_grip", wd.FILAMENT_MM, 1.5, grip, "MEASURED",
-         "OPERATIONAL GRIP: minimum stop nip %.1f mm < filament %.2f mm <= "
-         "open nip %.1f mm -> rollers compress onto the filament (spring "
-         "rate %.0f N/mm, ~%.1f mm compression at 1.75 mm); tension "
-         "transfers roller->filament->spool" % (lo, wd.FILAMENT_MM, hi,
-                                                wd.PULL["spring_rate_N_mm"],
-                                                wd.FILAMENT_MM - lo))
+    # Open-setting aperture and actual working cross-section are different.
+    _add("puller_nip", hi, wd.FILAMENT_MM, hi >= wd.FILAMENT_MM, "GEOMETRY",
+         "Open nip %.2f mm can be threaded with nominal %.2f mm filament; "
+         "the CAD assembly depicts the 1.5 mm seated stop, not the open "
+         "position; motor, spring travel and contact force are unqualified"
+         % (hi, wd.FILAMENT_MM))
+    strand = cq.Solid.makeCylinder(
+        wd.FILAMENT_MM / 2, 10.0,
+        cq.Vector(PULL_X - 5.0, 275.0, 125.0), cq.Vector(1, 0, 0))
+    drive_contact = wd.pull_roller_fixed().intersect(strand).Volume()
+    idler_contact = wd.pull_roller_adj().intersect(strand).Volume()
+    frame_blockage = wd.pull_frame().intersect(strand).Volume()
+    grip = (lo < wd.FILAMENT_MM <= hi and drive_contact > 0.1
+            and idler_contact > 0.1 and frame_blockage < 0.001)
+    _add("puller_grip", wd.FILAMENT_MM, wd.FILAMENT_MM, grip, "BREP_GEOMETRY",
+         "1.75mm strand at y275 penetrates each nominal rigid roller envelope "
+         "(%.3f/%.3f mm3), not frame (%.3f mm3); this shows geometric "
+         "engagement, NOT actual spring/contact grip or torque"
+         % (drive_contact, idler_contact, frame_blockage))
     import winder as w
-    nip = (PULL_X, 264.0, 125.0)
+    nip = (PULL_X, 275.0, 125.0)
     eye = (742.0, 128.0, 245.0)
     mid = tuple((nip[i] + eye[i]) / 2.0 for i in range(3))
     probe = cq.Solid.makeSphere(8.0, cq.Vector(*mid))
@@ -250,13 +251,12 @@ def downstream_checks():
         if vol > 0.05:
             blocked.append("%s(%.1f)" % (name, vol))
     span_ok = not blocked
-    _add("spool_winder", 58.0, 8.0, span_ok, "MEASURED",
-         "VP1 Stage 4 winder: driven dia-70 drum between dia-200 flanges at "
-         "(700, y 100..170, z 220), shaft in bearing blocks BOTH ends "
-         "(WIND_SPOOL_BEARINGS), motor reference positively coupled to the "
-         "drum shaft; filament span puller nip (829, 264, 125) -> traverse "
-         "eyelet (742, 128, 245): midpoint probe sphere blocked by %s"
-         % (blocked or "nothing"))
+    _add("spool_winder", 58.0, 8.0, span_ok, "BREP_GEOMETRY",
+         "A midpoint route probe from (829,275,125) to eyelet "
+         "(742,128,245) avoids listed metal: %s. The drum rides freely "
+         "on its shaft; WIND_CLUTCH_REF contacts its steel flange, but "
+         "unselected motor, axial preload, joining and torque remain HOLD"
+         % (blocked or "no blockage"))
     return worst
 
 
@@ -353,11 +353,23 @@ def main():
             "simulation_history": "paddle+scraper and shallow r4/r5 auger "
                                   "were measured non-conveying; they are "
                                   "superseded, not counted as final evidence",
-            "final_simulation_evidence": "c2.2/results/full_machine/"
-                                         "flow_localize/results.json",
+            "final_simulation_evidence": "Historical flow_localize results on a prior STEP; current STEP requires a new hash-matched native run (HOLD)",
         }
     }
     result = {
+        "upstream_acceptance_screen": {
+            "design_feed_rate_g_h": pm.NOMINAL_MDOT_G_S * 3600,
+            "nominal_PLA_line_speed_mm_s": pm.nominal_speed_mm_s("PLA"),
+            "fixed_speed_flow_window_fraction": [
+                (1.70 / 1.75) ** 2 - 1, (1.80 / 1.75) ** 2 - 1],
+            "meaning": "Ideal 1.75±0.05 mm PLA mass balance at CONSTANT puller speed only; feedback, porosity, diameter ovality and die transients tighten this unqualified feed screen",
+            "mass_during_die_to_gauge_delay_g": (
+                pm.NOMINAL_MDOT_G_S * (pm.GAUGE_X - pm.DIE_EXIT_X)
+                / pm.nominal_speed_mm_s("PLA")),
+            "maximum_flake_mm": None,
+            "moisture_limit_ppm": None,
+            "gates": "S1→real S2 mouth→screen→buffer same-particle transfer and stable extruder rate unverified; measure bulk density, size distribution, drying and die pressure per material grade",
+        },
         "revision": "VP1-STAGE5-AUGER",
         "checkpoint_classes": {
             "pass_space": sorted(PASS_SPACE),

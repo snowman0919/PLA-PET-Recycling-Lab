@@ -6,24 +6,24 @@
   "step_index": 193,
   "step_product_name": "Open CASCADE STEP translator 7.9 1.193",
   "mesh_file": "sim/assets/out/full/CHUTE_BODY__coarse.stl",
-  "mesh_bytes": 96184,
-  "mesh_sha256": "03ed26f7216d1576369f30f74b450dd7f61d6790c84ab1081e5b68a8bd4d298d",
+  "mesh_bytes": 119784,
+  "mesh_sha256": "d4b9600fa033c2cd2cea57ba131cda15f2e38884506a835c2ff7fb2a4ae0fee6",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "source_step_sha256": "762909f469e517dcfe39a87536a3b701119b6e2eaa86825d59a147c229a92a2d",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
-    73.99999985,
-    157.39999985,
-    319.99999985,
-    360.00000015,
-    329.60000015,
-    356.30000015
+    73.999995,
+    157.39999500000002,
+    319.999995,
+    360.000005,
+    329.600005,
+    356.300005
   ],
-  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "revision": "92e4470163e946b619a0baa74b3a4a428cce72a6",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5
@@ -45,7 +45,7 @@
   ],
   "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
   "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-  "volume_mm3": 190730.21676874594,
+  "volume_mm3": 192779.7202228517,
   "solid_bbox_mm": [
     73.9999999,
     157.3999999,
@@ -54,10 +54,10 @@
     329.60000010000005,
     356.30000010000003
   ],
-  "mass_kg": 1.4972322016346558,
+  "mass_kg": 1.513320803749386,
   "mass_bounds_kg": [
-    1.4972322016346558,
-    1.4972322016346558
+    1.513320803749386,
+    1.513320803749386
   ],
   "center_of_mass_mm": [
     217.0,
@@ -65,27 +65,27 @@
     338.15
   ],
   "inertia_kg_mm2": [
-    3864.172911880112,
-    10370.041104808624,
-    13905.399363103437
+    3905.695623196287,
+    10481.473029039555,
+    14054.820700258184
   ],
   "inertia_upper_bound_kg_mm2": [
-    11592.518735640337,
-    31110.123314425873,
-    41716.19808931031
+    11717.086869588862,
+    31444.419087118666,
+    42164.46210077455
   ],
   "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
   "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
   "inertia": {
     "diagonal_kg_mm2": [
-      3864.172911880112,
-      10370.041104808624,
-      13905.399363103437
+      3905.695623196287,
+      10481.473029039555,
+      14054.820700258184
     ],
     "upper_bound_kg_mm2": [
-      11592.518735640337,
-      31110.123314425873,
-      41716.19808931031
+      11717.086869588862,
+      31444.419087118666,
+      42164.46210077455
     ],
     "center_of_mass_mm": [
       217.0,

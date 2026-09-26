@@ -1,11 +1,11 @@
 {
   "schema": "full_machine_bodies/1",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
-  "source_step_solid_count": 280,
-  "reconstructed_solid_count": 280,
-  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
-  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "source_step_sha256": "762909f469e517dcfe39a87536a3b701119b6e2eaa86825d59a147c229a92a2d",
+  "source_step_solid_count": 289,
+  "reconstructed_solid_count": 289,
+  "revision": "92e4470163e946b619a0baa74b3a4a428cce72a6",
+  "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
   "solids": [
     {
       "name": "FR-2040-630_001",
@@ -8178,12 +8178,12 @@
       "body": "STATIC",
       "step_index": 115,
       "part_bbox": [
-        544.9999999,
-        234.9999999,
-        102.9999999,
-        820.0000001,
-        315.0000001,
-        133.0000001
+        544.99999985,
+        234.99999985,
+        102.99999985,
+        820.00000015,
+        315.00000015,
+        133.00000015
       ],
       "solid_bbox": [
         544.9999999,
@@ -8194,7 +8194,7 @@
         133.0000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "048d25496f8d31a5d78f90cc0e919ca7cfaf4157cbeab07da105031fc78f8981",
+      "mesh_sha256": "95b64b5607e53eafbdfef48263ffae855cbf2adbae90b3abc9227f83f06d15e6",
       "material": "STEEL",
       "source_material_label": "Sheet metal",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -8210,7 +8210,7 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 74800.00000000003,
+      "volume_mm3": 68247.99999999999,
       "solid_bbox_mm": [
         544.9999999,
         234.9999999,
@@ -8219,10 +8219,10 @@
         315.0000001,
         133.0000001
       ],
-      "mass_kg": 0.5871800000000003,
+      "mass_kg": 0.5357468,
       "mass_bounds_kg": [
-        0.5871800000000003,
-        0.5871800000000003
+        0.5357468,
+        0.5357468
       ],
       "center_of_mass_mm": [
         682.5,
@@ -8230,14 +8230,14 @@
         118.0
       ],
       "inertia_kg_mm2": [
-        357.20116881966027,
-        3744.49579763633,
-        4013.61996528163
+        325.9126386310717,
+        3416.501994613424,
+        3662.0526121730018
       ],
       "inertia_upper_bound_kg_mm2": [
-        1071.6035064589807,
-        11233.48739290899,
-        12040.85989584489
+        977.737915893215,
+        10249.505983840272,
+        10986.157836519005
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -13716,12 +13716,12 @@
       "body": "STATIC",
       "step_index": 193,
       "part_bbox": [
-        73.99999985,
-        157.39999985,
-        319.99999985,
-        360.00000015,
-        329.60000015,
-        356.30000015
+        73.999995,
+        157.39999500000002,
+        319.999995,
+        360.000005,
+        329.600005,
+        356.300005
       ],
       "solid_bbox": [
         73.9999999,
@@ -13732,7 +13732,7 @@
         356.30000010000003
       ],
       "bbox_ok": true,
-      "mesh_sha256": "03ed26f7216d1576369f30f74b450dd7f61d6790c84ab1081e5b68a8bd4d298d",
+      "mesh_sha256": "d4b9600fa033c2cd2cea57ba131cda15f2e38884506a835c2ff7fb2a4ae0fee6",
       "material": "STEEL",
       "source_material_label": "steel sheet 3 mm + formed trough",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -13748,7 +13748,7 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 190730.21676874594,
+      "volume_mm3": 192779.7202228517,
       "solid_bbox_mm": [
         73.9999999,
         157.3999999,
@@ -13757,10 +13757,10 @@
         329.60000010000005,
         356.30000010000003
       ],
-      "mass_kg": 1.4972322016346558,
+      "mass_kg": 1.513320803749386,
       "mass_bounds_kg": [
-        1.4972322016346558,
-        1.4972322016346558
+        1.513320803749386,
+        1.513320803749386
       ],
       "center_of_mass_mm": [
         217.0,
@@ -13768,14 +13768,14 @@
         338.15
       ],
       "inertia_kg_mm2": [
-        3864.172911880112,
-        10370.041104808624,
-        13905.399363103437
+        3905.695623196287,
+        10481.473029039555,
+        14054.820700258184
       ],
       "inertia_upper_bound_kg_mm2": [
-        11592.518735640337,
-        31110.123314425873,
-        41716.19808931031
+        11717.086869588862,
+        31444.419087118666,
+        42164.46210077455
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -16556,23 +16556,23 @@
       "body": "SWEEP_SOUTH",
       "step_index": 233,
       "part_bbox": [
-        216.5371975071275,
+        216.78218470208637,
         126.9999999,
-        337.0447678703408,
-        231.4545108440681,
+        336.50286031616815,
+        232.175029247247,
         228.5000001,
-        352.59899380237425
+        353.05960191360975
       ],
       "solid_bbox": [
-        216.53719707017808,
-        126.9999994630581,
-        337.0447674333981,
-        231.4545112810019,
-        228.5000005369419,
-        352.59899423931193
+        216.78218418962396,
+        126.99999938754398,
+        336.502859803704,
+        232.17502975969603,
+        228.50000061245603,
+        353.059602426066
       ],
       "bbox_ok": true,
-      "mesh_sha256": "eb67526c6fd9e281ab5640416f21b11e02f35892faeb83e37a2e71828190038f",
+      "mesh_sha256": "a30d901acd08826331a08508b171afa6d5535b817b84ddbf3d5e072282edb6f7",
       "material": "STEEL",
       "source_material_label": "steel shaft and flight",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16588,34 +16588,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 2193.2821143356787,
+      "volume_mm3": 2334.382514373199,
       "solid_bbox_mm": [
-        216.53719707017808,
-        126.9999994630581,
-        337.0447674333981,
-        231.4545112810019,
-        228.5000005369419,
-        352.59899423931193
+        216.78218418962396,
+        126.99999938754398,
+        336.502859803704,
+        232.17502975969603,
+        228.50000061245603,
+        353.059602426066
       ],
-      "mass_kg": 0.01721726459753508,
+      "mass_kg": 0.01832490273782961,
       "mass_bounds_kg": [
-        0.01721726459753508,
-        0.01721726459753508
+        0.01832490273782961,
+        0.01832490273782961
       ],
       "center_of_mass_mm": [
-        223.99585417559,
+        224.47860697466,
         177.75,
-        344.82188083635504
+        344.78123111488503
       ],
       "inertia_kg_mm2": [
-        15.128500763021115,
-        0.6663945631238309,
-        15.100655125651407
+        16.150921754927676,
+        0.7804353443854483,
+        16.094135887361634
       ],
       "inertia_upper_bound_kg_mm2": [
-        45.385502289063346,
-        1.999183689371493,
-        45.30196537695422
+        48.452765264783025,
+        2.3413060331563447,
+        48.2824076620849
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -16627,23 +16627,23 @@
       "body": "SWEEP_NORTH",
       "step_index": 234,
       "part_bbox": [
-        216.1572212623647,
-        235.3095978477783,
-        336.73056877384533,
-        231.96789468542332,
+        216.01642060410867,
+        235.30008859057952,
+        335.54092713860985,
+        233.50978059791777,
         369.0000001,
-        352.54024897044906
+        353.5048075349793
       ],
       "solid_bbox": [
-        216.15722058889148,
-        235.30959717430147,
-        336.7305681003715,
-        231.9678953588885,
-        369.0000007734685,
-        352.5402496439085
+        216.01641978663778,
+        235.30008777311778,
+        335.54092632114777,
+        233.5097814153722,
+        369.0000009174622,
+        353.50480835243224
       ],
       "bbox_ok": true,
-      "mesh_sha256": "394862dd3d620b642e6a732f24fdd4ccac3608371f9bb846aaa4563ea2f0977b",
+      "mesh_sha256": "b0b84044e9dd088305a3075779e22302926b39cb434c42fa102a1997ab121702",
       "material": "STEEL",
       "source_material_label": "steel shaft and flight",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -16659,34 +16659,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 2952.8073220882584,
+      "volume_mm3": 3138.479002936874,
       "solid_bbox_mm": [
-        216.15722058889148,
-        235.30959717430147,
-        336.7305681003715,
-        231.9678953588885,
-        369.0000007734685,
-        352.5402496439085
+        216.01641978663778,
+        235.30008777311778,
+        335.54092632114777,
+        233.5097814153722,
+        369.0000009174622,
+        353.50480835243224
       ],
-      "mass_kg": 0.02317953747839283,
+      "mass_kg": 0.024637060173054462,
       "mass_bounds_kg": [
-        0.02317953747839283,
-        0.02317953747839283
+        0.024637060173054462,
+        0.024637060173054462
       ],
       "center_of_mass_mm": [
-        224.06255797389,
-        302.154798973885,
-        344.63540887214003
+        224.763100601005,
+        302.15004434529,
+        344.52286733679
       ],
       "inertia_kg_mm2": [
-        35.00703177766601,
-        0.9656662286728627,
-        35.00709244271604
+        37.36285694493184,
+        1.2908151575172355,
+        37.3286045399766
       ],
       "inertia_upper_bound_kg_mm2": [
-        105.02109533299803,
-        2.896998686018588,
-        105.02127732814813
+        112.08857083479552,
+        3.8724454725517066,
+        111.9858136199298
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -17835,22 +17835,22 @@
       "step_index": 251,
       "part_bbox": [
         821.99999985,
-        249.99999985,
+        260.99999985,
         99.99999985,
         846.00000015,
-        278.00000015,
+        289.00000015,
         150.00000015
       ],
       "solid_bbox": [
         821.9999999,
-        249.9999999,
+        260.9999999,
         99.9999999,
         846.0000001,
-        278.0000001,
+        289.0000001,
         150.0000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "41626e987179d426fccc7ad6ba85de5288a367205d5eb87ea0e5475e80e6b390",
+      "mesh_sha256": "7a8aaf90358aa9b7b426f14f86fb787228a03f9b31f665daef3405ecf5b5c8c4",
       "material": "STEEL",
       "source_material_label": "steel plate 5 mm + 3 mm",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -17866,133 +17866,62 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 3646.218517338224,
+      "volume_mm3": 4063.5745767603853,
       "solid_bbox_mm": [
         821.9999999,
-        249.9999999,
+        260.9999999,
         99.9999999,
         846.0000001,
-        278.0000001,
+        289.0000001,
         150.0000001
       ],
-      "mass_kg": 0.02862281536110506,
+      "mass_kg": 0.03189906042756903,
       "mass_bounds_kg": [
-        0.02862281536110506,
-        0.02862281536110506
+        0.03189906042756903,
+        0.03189906042756903
       ],
       "center_of_mass_mm": [
         834.0,
-        264.0,
+        275.0,
         125.0
       ],
       "inertia_kg_mm2": [
-        7.833110544908404,
-        7.336981741499531,
-        3.2439191238714478
+        8.729709619948952,
+        8.176792568284531,
+        3.615226903749526
       ],
       "inertia_upper_bound_kg_mm2": [
-        23.499331634725213,
-        22.01094522449859,
-        9.731757371614343
+        26.189128859846857,
+        24.530377704853596,
+        10.845680711248578
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME_step251__coarse.stl"
-    },
-    {
-      "name": "PULL_FRAME",
-      "group": "puller",
-      "body": "STATIC",
-      "step_index": 252,
-      "part_bbox": [
-        821.9999999,
-        274.9999999,
-        107.2499999,
-        836.0000001,
-        278.0000001,
-        121.2500001
-      ],
-      "solid_bbox": [
-        821.9999999,
-        274.9999999,
-        107.2499999,
-        836.0000001,
-        278.0000001,
-        121.2500001
-      ],
-      "bbox_ok": true,
-      "mesh_sha256": "4cda7873d4f9621bae0c92ca9da10d01183ce9a6b5d37a6e03f7391daba9b295",
-      "material": "STEEL",
-      "source_material_label": "steel plate 5 mm + 3 mm",
-      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
-      "thermal_condition": "hot-zone grade and measured temperature HOLD",
-      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=PULL_FRAME",
-      "model_source": "c2.2/sim/assets/materials.py",
-      "nominal_density_kg_m3": 7850.0,
-      "effective_fraction": 1.0,
-      "effective_density_kg_m3": 7850.0,
-      "effective_density_bounds_kg_m3": [
-        7850.0,
-        7850.0
-      ],
-      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
-      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 461.8141200776997,
-      "solid_bbox_mm": [
-        821.9999999,
-        274.9999999,
-        107.2499999,
-        836.0000001,
-        278.0000001,
-        121.2500001
-      ],
-      "mass_kg": 0.0036252408426099433,
-      "mass_bounds_kg": [
-        0.0036252408426099433,
-        0.0036252408426099433
-      ],
-      "center_of_mass_mm": [
-        829.0,
-        276.5,
-        114.25
-      ],
-      "inertia_kg_mm2": [
-        0.06193119978222301,
-        0.11842453757548227,
-        0.06193119978222253
-      ],
-      "inertia_upper_bound_kg_mm2": [
-        0.18579359934666903,
-        0.3552736127264468,
-        0.1857935993466676
-      ],
-      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
-      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME_step252__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl"
     },
     {
       "name": "PULL_ROLLER_FIXED",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 253,
+      "step_index": 252,
       "part_bbox": [
         818.9999999,
-        244.9999999,
+        255.9999999,
         104.2499999,
         839.0000001,
-        283.0000001,
+        294.0000001,
         124.2500001
       ],
       "solid_bbox": [
         818.9999999,
-        244.9999999,
+        255.9999999,
         104.2499999,
         839.0000001,
-        283.0000001,
+        294.0000001,
         124.2500001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "59976e13b0a89e948e9a1d6783f08f2f7943698be214a9eff62978304228725d",
+      "mesh_sha256": "9f660a6897a43b31579b36f8d468e58568e14373711977aa745dc5ccc018af64",
       "material": "TPU_METAL_PROXY",
       "source_material_label": "steel; knurl or rubber per TPU grip",
       "manufacturing_process": "single CAD solid represents TPU tread and metal hub; split thickness unmodeled",
@@ -18011,10 +17940,10 @@
       "volume_mm3": 7715.751557216661,
       "solid_bbox_mm": [
         818.9999999,
-        244.9999999,
+        255.9999999,
         104.2499999,
         839.0000001,
-        283.0000001,
+        294.0000001,
         124.2500001
       ],
       "mass_kg": 0.024690404983093318,
@@ -18024,7 +17953,7 @@
       ],
       "center_of_mass_mm": [
         829.0,
-        264.0,
+        275.0,
         114.25
       ],
       "inertia_kg_mm2": [
@@ -18045,27 +17974,27 @@
       "name": "PULL_ROLLER_ADJ",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 254,
+      "step_index": 253,
       "part_bbox": [
-        810.0215456210208,
-        252.9999999,
-        123.11836935490096,
-        849.0990793619184,
-        307.0000001,
+        810.0215456219574,
+        263.9999999,
+        123.11836935366401,
+        849.0990793619916,
+        318.0000001,
         149.7500001
       ],
       "solid_bbox": [
-        810.02154562102,
-        252.9999999,
-        123.11836935490001,
-        849.09907936191,
-        307.0000001,
+        810.02154562195,
+        263.9999999,
+        123.11836935366,
+        849.09907936199,
+        318.0000001,
         149.7500001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "0571be17644c5c14bf5269f8865cd9c938c4006125f037b68b52bca7593207b4",
+      "mesh_sha256": "3cc5716f410b50e4fbed44b43ae3eb3ae9c44c35089486b3bf9d99796a6f4a5e",
       "material": "STEEL",
-      "source_material_label": "steel; M5 screw",
+      "source_material_label": "steel + springs unselected",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
       "thermal_condition": "hot-zone grade and measured temperature HOLD",
       "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
@@ -18079,34 +18008,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 10733.4850948708,
+      "volume_mm3": 10733.485095443679,
       "solid_bbox_mm": [
-        810.02154562102,
-        252.9999999,
-        123.11836935490001,
-        849.09907936191,
-        307.0000001,
+        810.02154562195,
+        263.9999999,
+        123.11836935366,
+        849.09907936199,
+        318.0000001,
         149.7500001
       ],
-      "mass_kg": 0.0842578579947358,
+      "mass_kg": 0.08425785799923288,
       "mass_bounds_kg": [
-        0.0842578579947358,
-        0.0842578579947358
+        0.08425785799923288,
+        0.08425785799923288
       ],
       "center_of_mass_mm": [
-        829.560312491465,
-        280.0,
-        136.43418472745
+        829.5603124919701,
+        291.0,
+        136.43418472682998
       ],
       "inertia_kg_mm2": [
-        25.4546062851166,
-        15.702135726150054,
-        31.19684872980336
+        25.454606286938958,
+        15.702135726985402,
+        31.196848731001978
       ],
       "inertia_upper_bound_kg_mm2": [
-        76.3638188553498,
-        47.10640717845016,
-        93.59054618941008
+        76.36381886081688,
+        47.106407180956204,
+        93.59054619300593
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -18116,25 +18045,25 @@
       "name": "PULL_NIP_STOP",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 255,
+      "step_index": 254,
       "part_bbox": [
-        819.9999999,
-        275.9999999,
-        140.7499999,
-        838.0000001,
-        280.0000001,
-        143.2500001
+        822.9999999,
+        288.9999999,
+        127.9999999,
+        846.0000001,
+        292.0000001,
+        131.7500001
       ],
       "solid_bbox": [
-        819.9999999,
-        275.9999999,
-        140.7499999,
-        838.0000001,
-        280.0000001,
-        143.2500001
+        822.9999999,
+        288.9999999,
+        127.9999999,
+        846.0000001,
+        292.0000001,
+        131.7500001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "5b92275c7e5ac05749cbaba31384f20645ae441da104c942d4554dc661e8032a",
+      "mesh_sha256": "5bb9fc3793871021bf31ce58643b4f4b220fe7777d25fb9764b2d6429836d156",
       "material": "STEEL",
       "source_material_label": "steel",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -18150,34 +18079,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 180.0,
+      "volume_mm3": 258.75,
       "solid_bbox_mm": [
-        819.9999999,
-        275.9999999,
-        140.7499999,
-        838.0000001,
-        280.0000001,
-        143.2500001
+        822.9999999,
+        288.9999999,
+        127.9999999,
+        846.0000001,
+        292.0000001,
+        131.7500001
       ],
-      "mass_kg": 0.0014130000000000002,
+      "mass_kg": 0.0020311875,
       "mass_bounds_kg": [
-        0.0014130000000000002,
-        0.0014130000000000002
+        0.0020311875,
+        0.0020311875
       ],
       "center_of_mass_mm": [
-        829.0,
-        278.0,
-        142.0
+        834.5,
+        290.5,
+        129.875
       ],
       "inertia_kg_mm2": [
-        0.002619937806150045,
-        0.03888693846554972,
-        0.04003500103619977
+        0.003903688933579732,
+        0.09192181528770414,
+        0.091064908010362
       ],
       "inertia_upper_bound_kg_mm2": [
-        0.007859813418450134,
-        0.11666081539664916,
-        0.12010500310859931
+        0.011711066800739196,
+        0.2757654458631124,
+        0.273194724031086
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -18187,7 +18116,7 @@
       "name": "PULL_MOTOR_REF",
       "group": "puller",
       "body": "STATIC",
-      "step_index": 256,
+      "step_index": 255,
       "part_bbox": [
         820.99999985,
         201.99999985,
@@ -18258,14 +18187,14 @@
       "name": "WIND_SPOOL_SHAFT",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 257,
+      "step_index": 256,
       "part_bbox": [
         691.9999999,
         86.9999999,
         211.9999999,
         708.0000001,
         185.0000001,
-        228.0000001
+        229.5000001
       ],
       "solid_bbox": [
         691.9999999,
@@ -18273,10 +18202,10 @@
         211.9999999,
         708.0000001,
         185.0000001,
-        228.0000001
+        229.5000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "c2cdeea4127726c243c2c1ff542634457053ea45dbffaa32048e81de7a0499a0",
+      "mesh_sha256": "97f891afc8e7807be0e51a1285215e6c20fdd07d4427416766abb1b26abe1c73",
       "material": "STEEL",
       "source_material_label": "C45 candidate",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -18292,34 +18221,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 19704.069123315196,
+      "volume_mm3": 19717.993251467156,
       "solid_bbox_mm": [
         691.9999999,
         86.9999999,
         211.9999999,
         708.0000001,
         185.0000001,
-        228.0000001
+        229.5000001
       ],
-      "mass_kg": 0.1546769426180243,
+      "mass_kg": 0.1547862470240172,
       "mass_bounds_kg": [
-        0.1546769426180243,
-        0.1546769426180243
+        0.1547862470240172,
+        0.1547862470240172
       ],
       "center_of_mass_mm": [
         700.0,
         136.0,
-        220.0
+        220.75
       ],
       "inertia_kg_mm2": [
-        127.09288843891567,
-        6.599549716691077,
-        127.09288843891564
+        127.83086764340756,
+        7.252380788615748,
+        127.18270022625514
       ],
       "inertia_upper_bound_kg_mm2": [
-        381.278665316747,
-        19.79864915007323,
-        381.2786653167469
+        383.4926029302227,
+        21.757142365847244,
+        381.5481006787654
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -18329,7 +18258,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 258,
+      "step_index": 257,
       "part_bbox": [
         687.9999999,
         87.9999999,
@@ -18394,13 +18323,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step257__coarse.stl"
     },
     {
       "name": "WIND_SPOOL_BEARINGS",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 259,
+      "step_index": 258,
       "part_bbox": [
         687.9999999,
         169.9999999,
@@ -18465,13 +18394,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step259__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl"
     },
     {
       "name": "WIND_SPOOL_DRUM",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 260,
+      "step_index": 259,
       "part_bbox": [
         664.9999999,
         105.9999999,
@@ -18490,21 +18419,21 @@
       ],
       "bbox_ok": true,
       "mesh_sha256": "c1fe0339284d6962494b74820c6f18908313f079088121f86967abf9378a9ca6",
-      "material": "ABS_FDM",
-      "source_material_label": "steel tube or printed polymer",
-      "manufacturing_process": "unfilled ABS FDM cold-zone candidate; drum axis normal to build plate, 4 perimeters, 6 top/bottom layers, 50% gyroid infill; assumed effective 65% of CAD volume",
-      "thermal_condition": "assume part remains below 60 C; chamber/adhesion and creep at tension HOLD",
+      "material": "STEEL",
+      "source_material_label": "steel tube candidate",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
       "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
       "model_source": "c2.2/sim/assets/materials.py",
-      "nominal_density_kg_m3": 1040.0,
-      "effective_fraction": 0.65,
-      "effective_density_kg_m3": 676.0,
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
       "effective_density_bounds_kg_m3": [
-        520.0,
-        884.0
+        7850.0,
+        7850.0
       ],
-      "bounds_basis": "0.50..0.85 x nominal ABS density per CAD drum volume: slicer wall/infill and process sensitivity, not bulk resin range",
-      "mass_material_status": "BOUNDED_PROXY_UNRATED",
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
       "volume_mm3": 210045.31402269143,
       "solid_bbox_mm": [
         664.9999999,
@@ -18514,10 +18443,10 @@
         164.0000001,
         255.0000001
       ],
-      "mass_kg": 0.14199063227933942,
+      "mass_kg": 1.6488557150781278,
       "mass_bounds_kg": [
-        0.10922356329179955,
-        0.18568005759605924
+        1.6488557150781278,
+        1.6488557150781278
       ],
       "center_of_mass_mm": [
         700.0,
@@ -18525,18 +18454,89 @@
         220.0
       ],
       "inertia_kg_mm2": [
-        97.78421603553174,
-        115.95901702408337,
-        97.78421603553166
+        1135.5119761522546,
+        1346.5655083417962,
+        1135.5119761522535
       ],
       "inertia_upper_bound_kg_mm2": [
-        383.615001370163,
-        454.9161437098655,
-        383.61500137016264
+        3406.535928456764,
+        4039.696525025389,
+        3406.5359284567608
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
       "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_DRUM__coarse.stl"
+    },
+    {
+      "name": "WIND_CLUTCH_REF",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 260,
+      "part_bbox": [
+        669.99999985,
+        96.99999985,
+        189.99999985,
+        730.00000015,
+        103.00000015,
+        250.00000015
+      ],
+      "solid_bbox": [
+        669.9999999,
+        96.9999999,
+        189.9999999,
+        730.0000001,
+        103.0000001,
+        250.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "e8fee7c7f282b04df2da086433f7072f5b72870f27d29489fc9e81dea7af0512",
+      "material": "MIXED_CLUTCH_PROXY",
+      "source_material_label": "steel collar + friction pad + spring reference",
+      "manufacturing_process": "steel keyed collar with unresolved friction pad and spring stack; no qualified preload, torque or material split",
+      "thermal_condition": "slip heating, wear and guard qualification HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 5000.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 5000.0,
+      "effective_density_bounds_kg_m3": [
+        800.0,
+        7850.0
+      ],
+      "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+      "mass_material_status": "BOUNDED_PROXY_UNRATED",
+      "volume_mm3": 7050.902931403022,
+      "solid_bbox_mm": [
+        669.9999999,
+        96.9999999,
+        189.9999999,
+        730.0000001,
+        103.0000001,
+        250.0000001
+      ],
+      "mass_kg": 0.03525451465701511,
+      "mass_bounds_kg": [
+        0.0056407223451224175,
+        0.055349588011513726
+      ],
+      "center_of_mass_mm": [
+        700.0,
+        100.0,
+        220.0
+      ],
+      "inertia_kg_mm2": [
+        10.682118018635506,
+        21.152708935227096,
+        10.682118018635487
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        50.31277586777324,
+        99.62925908491964,
+        50.31277586777315
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/WIND_CLUTCH_REF__coarse.stl"
     },
     {
       "name": "WIND_FLANGE_L",
@@ -19886,16 +19886,655 @@
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
       "mesh": "c2.2/sim/assets/out/full/HOPPER_SEAM_REAR__coarse.stl"
+    },
+    {
+      "name": "GAUGE_FRAME",
+      "group": "gauge",
+      "body": "STATIC",
+      "step_index": 280,
+      "part_bbox": [
+        804.9999999,
+        236.9999999,
+        117.9999999,
+        807.0000001,
+        313.0000001,
+        131.70000009999998
+      ],
+      "solid_bbox": [
+        804.9999999,
+        236.9999999,
+        117.9999999,
+        807.0000001,
+        313.0000001,
+        131.70000009999998
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "1688d83fa8c4d42dd8ea9544003c794887a2f0a4eec8f3e41aade6b0ee5467d2",
+      "material": "STEEL",
+      "source_material_label": "steel sheet 3 mm",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=GAUGE_FRAME",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 459.8999999999983,
+      "solid_bbox_mm": [
+        804.9999999,
+        236.9999999,
+        117.9999999,
+        807.0000001,
+        313.0000001,
+        131.70000009999998
+      ],
+      "mass_kg": 0.0036102149999999865,
+      "mass_bounds_kg": [
+        0.0036102149999999865,
+        0.0036102149999999865
+      ],
+      "center_of_mass_mm": [
+        806.0,
+        275.0,
+        124.85
+      ],
+      "inertia_kg_mm2": [
+        1.7941836019070365,
+        0.05767017800184538,
+        1.738920234386553
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        5.3825508057211096,
+        0.17301053400553615,
+        5.216760703159659
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step280__coarse.stl"
+    },
+    {
+      "name": "GAUGE_FRAME",
+      "group": "gauge",
+      "body": "STATIC",
+      "step_index": 281,
+      "part_bbox": [
+        800.9999999,
+        236.9999999,
+        117.9999999,
+        803.0000001,
+        313.0000001,
+        131.70000009999998
+      ],
+      "solid_bbox": [
+        800.9999999,
+        236.9999999,
+        117.9999999,
+        803.0000001,
+        313.0000001,
+        131.70000009999998
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "8135bbe45a9cb5fe9f5bc59a3663bf3740e9a69cb26a3689678c1a0198c0d47f",
+      "material": "STEEL",
+      "source_material_label": "steel sheet 3 mm",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=GAUGE_FRAME",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 476.3999999999983,
+      "solid_bbox_mm": [
+        800.9999999,
+        236.9999999,
+        117.9999999,
+        803.0000001,
+        313.0000001,
+        131.70000009999998
+      ],
+      "mass_kg": 0.0037397399999999866,
+      "mass_bounds_kg": [
+        0.0037397399999999866,
+        0.0037397399999999866
+      ],
+      "center_of_mass_mm": [
+        802.0,
+        275.0,
+        124.85
+      ],
+      "inertia_kg_mm2": [
+        1.8585541812318163,
+        0.059739232007130126,
+        1.8013081097233181
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        5.575662543695449,
+        0.17921769602139037,
+        5.403924329169954
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step281__coarse.stl"
+    },
+    {
+      "name": "GAUGE_GUIDES",
+      "group": "gauge",
+      "body": "STATIC",
+      "step_index": 282,
+      "part_bbox": [
+        802.2999999,
+        236.9999993,
+        114.2499999,
+        815.7000001,
+        313.00000070000004,
+        125.2500001
+      ],
+      "solid_bbox": [
+        802.2999999,
+        236.9999999,
+        114.2499999,
+        815.7000001,
+        313.0000001,
+        125.2500001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "23be31db74617f848418936714b5548af3c4d20814bc7a28549a5a40a741729f",
+      "material": "STEEL",
+      "source_material_label": "steel rollers dia 8/11 + axles dia 2.4",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=GAUGE_GUIDES",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 1173.3028321562867,
+      "solid_bbox_mm": [
+        802.2999999,
+        236.9999999,
+        114.2499999,
+        815.7000001,
+        313.0000001,
+        125.2500001
+      ],
+      "mass_kg": 0.00921042723242685,
+      "mass_bounds_kg": [
+        0.00921042723242685,
+        0.00921042723242685
+      ],
+      "center_of_mass_mm": [
+        809.0,
+        275.0,
+        119.75
+      ],
+      "inertia_kg_mm2": [
+        4.526157475845335,
+        0.23069050823933232,
+        4.571104361476413
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        13.578472427536006,
+        0.6920715247179969,
+        13.71331308442924
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_GUIDES__coarse.stl"
+    },
+    {
+      "name": "GAUGE_CONTACT_A",
+      "group": "gauge",
+      "body": "STATIC",
+      "step_index": 283,
+      "part_bbox": [
+        804.9999999,
+        264.9999999,
+        125.4999999,
+        811.0000001,
+        285.0000001,
+        131.0000001
+      ],
+      "solid_bbox": [
+        804.9999999,
+        264.9999999,
+        125.4999999,
+        811.0000001,
+        285.0000001,
+        131.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "1ee8fc5bec72ca970c4e4cf77b3efc80a256cc5d32415e2a6320201159137620",
+      "material": "MIXED_SENSOR_PROXY",
+      "source_material_label": "lever steel + Hall probe + magnet + spring",
+      "manufacturing_process": "single CAD body represents steel lever, magnet, Hall head and spring; not a purchased mass",
+      "thermal_condition": "sensor/lever operating temperature and calibration HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 2500.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 2500.0,
+      "effective_density_bounds_kg_m3": [
+        800.0,
+        7850.0
+      ],
+      "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+      "mass_material_status": "BOUNDED_PROXY_UNRATED",
+      "volume_mm3": 295.27188479214607,
+      "solid_bbox_mm": [
+        804.9999999,
+        264.9999999,
+        125.4999999,
+        811.0000001,
+        285.0000001,
+        131.0000001
+      ],
+      "mass_kg": 0.0007381797119803652,
+      "mass_bounds_kg": [
+        0.00023621750783371688,
+        0.0023178842956183467
+      ],
+      "center_of_mass_mm": [
+        808.0,
+        275.0,
+        128.25
+      ],
+      "inertia_kg_mm2": [
+        0.026466819050748876,
+        0.004075367442860436,
+        0.02682053017504242
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.2493174354580544,
+        0.0383899613117453,
+        0.2526493942488996
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_CONTACT_A__coarse.stl"
+    },
+    {
+      "name": "GAUGE_OPTICAL_B",
+      "group": "gauge",
+      "body": "STATIC",
+      "step_index": 284,
+      "part_bbox": [
+        804.9999999,
+        294.9999999,
+        120.9999999,
+        809.5000001,
+        303.0000001,
+        129.0000001
+      ],
+      "solid_bbox": [
+        804.9999999,
+        294.9999999,
+        120.9999999,
+        809.5000001,
+        303.0000001,
+        129.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "258eff4b8e288a0d9546a80d162ab0b1c2c6b8e6d40f30c8fb7d79ff4c401850",
+      "material": "PURCHASED_ELECTRICAL",
+      "source_material_label": "LED emitter + line sensor + apertures",
+      "manufacturing_process": "unselected electrical enclosure/component effective-density proxy; no BOM mass",
+      "thermal_condition": "electrical/thermal rating HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 1800.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 1800.0,
+      "effective_density_bounds_kg_m3": [
+        400.0,
+        5000.0
+      ],
+      "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+      "mass_material_status": "BOUNDED_PROXY_UNRATED",
+      "volume_mm3": 196.0,
+      "solid_bbox_mm": [
+        804.9999999,
+        294.9999999,
+        120.9999999,
+        809.5000001,
+        303.0000001,
+        129.0000001
+      ],
+      "mass_kg": 0.0003528,
+      "mass_bounds_kg": [
+        7.840000000000001e-05,
+        0.00098
+      ],
+      "center_of_mass_mm": [
+        807.25,
+        299.0,
+        125.0
+      ],
+      "inertia_kg_mm2": [
+        0.0037632001881600183,
+        0.002476950146999979,
+        0.002476950147000006
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.03136000156800015,
+        0.020641251224999824,
+        0.020641251225000046
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step284__coarse.stl"
+    },
+    {
+      "name": "GAUGE_OPTICAL_B",
+      "group": "gauge",
+      "body": "STATIC",
+      "step_index": 285,
+      "part_bbox": [
+        804.9999999,
+        240.9999999,
+        120.9999999,
+        809.5000001,
+        249.0000001,
+        129.0000001
+      ],
+      "solid_bbox": [
+        804.9999999,
+        240.9999999,
+        120.9999999,
+        809.5000001,
+        249.0000001,
+        129.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "64376d36678dc437aa52831cc5f763168fab45fc63c6e7ed9d66dd2ea1fdb153",
+      "material": "PURCHASED_ELECTRICAL",
+      "source_material_label": "LED emitter + line sensor + apertures",
+      "manufacturing_process": "unselected electrical enclosure/component effective-density proxy; no BOM mass",
+      "thermal_condition": "electrical/thermal rating HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 1800.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 1800.0,
+      "effective_density_bounds_kg_m3": [
+        400.0,
+        5000.0
+      ],
+      "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+      "mass_material_status": "BOUNDED_PROXY_UNRATED",
+      "volume_mm3": 195.99999999999997,
+      "solid_bbox_mm": [
+        804.9999999,
+        240.9999999,
+        120.9999999,
+        809.5000001,
+        249.0000001,
+        129.0000001
+      ],
+      "mass_kg": 0.00035279999999999996,
+      "mass_bounds_kg": [
+        7.84e-05,
+        0.00098
+      ],
+      "center_of_mass_mm": [
+        807.25,
+        245.0,
+        125.0
+      ],
+      "inertia_kg_mm2": [
+        0.0037632001881599906,
+        0.0024769501469999785,
+        0.0024769501469999785
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.03136000156799992,
+        0.020641251224999824,
+        0.020641251224999824
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step285__coarse.stl"
+    },
+    {
+      "name": "GAUGE_REF_STANDARD",
+      "group": "gauge",
+      "body": "STATIC",
+      "step_index": 286,
+      "part_bbox": [
+        806.9999999,
+        314.9999999,
+        117.9999999,
+        819.0000001,
+        321.0000001,
+        124.0000001
+      ],
+      "solid_bbox": [
+        806.9999999,
+        314.9999999,
+        117.9999999,
+        819.0000001,
+        321.0000001,
+        124.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "5ba0f21e978821ab78fc9cfb624980495c783954f46a5531a0dd704fd83edf35",
+      "material": "STEEL",
+      "source_material_label": "precision ground pins + steel holder",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=GAUGE_REF_STANDARD",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 432.0,
+      "solid_bbox_mm": [
+        806.9999999,
+        314.9999999,
+        117.9999999,
+        819.0000001,
+        321.0000001,
+        124.0000001
+      ],
+      "mass_kg": 0.0033912,
+      "mass_bounds_kg": [
+        0.0033912,
+        0.0033912
+      ],
+      "center_of_mass_mm": [
+        813.0,
+        318.0,
+        121.0
+      ],
+      "inertia_kg_mm2": [
+        0.020347201356480136,
+        0.05086800203471951,
+        0.0508680020347197
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        0.06104160406944041,
+        0.15260400610415853,
+        0.1526040061041591
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_REF_STANDARD__coarse.stl"
+    },
+    {
+      "name": "COOL-DUCT",
+      "group": "cooling",
+      "body": "STATIC",
+      "step_index": 287,
+      "part_bbox": [
+        544.9999999,
+        234.9999999,
+        109.9999999,
+        820.0000001,
+        315.0000001,
+        139.0000001
+      ],
+      "solid_bbox": [
+        544.9999999,
+        234.9999999,
+        109.9999999,
+        820.0000001,
+        315.0000001,
+        139.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "46ce6aa86c5f17b7792738da1b1712acff0209b67b0905a74c9b05185e8ee6c1",
+      "material": "STEEL",
+      "source_material_label": "steel sheet 3 mm rails + hood",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=COOL-DUCT",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 26410.646998056975,
+      "solid_bbox_mm": [
+        544.9999999,
+        234.9999999,
+        109.9999999,
+        820.0000001,
+        315.0000001,
+        139.0000001
+      ],
+      "mass_kg": 0.20732357893474726,
+      "mass_bounds_kg": [
+        0.20732357893474726,
+        0.20732357893474726
+      ],
+      "center_of_mass_mm": [
+        682.5,
+        275.0,
+        124.5
+      ],
+      "inertia_kg_mm2": [
+        125.10250367548444,
+        1321.1004010029103,
+        1417.143049296882
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        375.3075110264533,
+        3963.301203008731,
+        4251.429147890646
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/COOL-DUCT__coarse.stl"
+    },
+    {
+      "name": "COOL-FAN-3_REF",
+      "group": "cooling",
+      "body": "STATIC",
+      "step_index": 288,
+      "part_bbox": [
+        629.9999999,
+        234.9999999,
+        138.9999999,
+        710.0000001,
+        315.0000001,
+        177.0000001
+      ],
+      "solid_bbox": [
+        629.9999999,
+        234.9999999,
+        138.9999999,
+        710.0000001,
+        315.0000001,
+        177.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "112fac2da07c6d70e9b0a5ec03bf3d0337a40f628cb05833110bf4f5757fcaa4",
+      "material": "PURCHASED_FAN",
+      "source_material_label": "80 mm 24 V fan MPN unselected",
+      "manufacturing_process": "fan assembly envelope proxy; housing/impeller/motor/air",
+      "thermal_condition": "manufacturer mass and airflow curve HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=COOL-FAN-3_REF",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 1200.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 1200.0,
+      "effective_density_bounds_kg_m3": [
+        400.0,
+        3000.0
+      ],
+      "bounds_basis": "effective-density range over simplified purchased/mixed CAD boundary, not measured material density",
+      "mass_material_status": "BOUNDED_PROXY_UNRATED",
+      "volume_mm3": 97987.37137440646,
+      "solid_bbox_mm": [
+        629.9999999,
+        234.9999999,
+        138.9999999,
+        710.0000001,
+        315.0000001,
+        177.0000001
+      ],
+      "mass_kg": 0.11758484564928776,
+      "mass_bounds_kg": [
+        0.03919494854976259,
+        0.2939621141232194
+      ],
+      "center_of_mass_mm": [
+        670.0,
+        275.0,
+        158.0
+      ],
+      "inertia_kg_mm2": [
+        76.86129456858484,
+        76.86129456858471,
+        125.42383598635938
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        576.4597092643863,
+        576.4597092643853,
+        940.6787698976952
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/COOL-FAN-3_REF__coarse.stl"
     }
   ],
   "material_model": "c2.2/sim/assets/materials.py",
-  "material_model_sha256": "d4e4e1fb2a8e5a4c40627fab02b4864b79fabd32deed960acd9e44dc7082bb5c",
+  "material_model_sha256": "f74f15d9569692d8783f1e2bc58a83103ab06368d7b3439cca07aa96b84a0068",
   "material_scope": {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R nominal ~3 mm FDM PC shell segments; HOPPER_SEAM_FRONT/REAR 1.5 mm steel upper-wall rails are NOT a full steel lower liner or qualified containment. HOP-LID_001 PC cut sheet has a separate unmodeled metal strike. FEED-BUF_001 and split FEED-BUF-SADDLE/CLAMP are S355 steel design candidates; weld, bolts, cold barrel fit, thermal interface and flow remain HOLD. ABS FDM cold WIND_SPOOL_DRUM plus small traverse eyelet candidate; load paths/shafts/guards in steel, owned profiles in aluminium.",
-    "excluded": "PLA (Tg about 55-65 C) excluded from hot zone, load path and permanent guards due to creep/softening; ABS (Tg about 100-110 C) excluded from heater/barrel, cutter/load path, guards and feed throat due to creep, anisotropy and unknown peak temperatures; PC (Tg about 145-150 C) excluded from heater/barrel and high-impact structural interfaces pending measured temperatures, grade and process qualification. No printed keys or bearing seats.",
-    "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation, six walls and 100% effective CAD wall density; ~3 mm CAD wall already excludes hollow volume, so no second infill factor. Bed fit is bounded by the split design, not proof of printability, seam sealing, layer adhesion or impact containment. ABS drum assumes dry filament, enclosed printer, drum axis normal to build plate, four walls, six skins, 50% infill and effective 65% density; actual slicer mass, residual stress and warm creep must be checked. ABS printed eyelet/guide on WIND_TRAVERSE_RIDER is not separable in the fused STEP; its contribution is folded into a bounded steel/polymer proxy, not double-counted.",
-    "boundary": "All densities/grades and effective fill factors are screening choices; mass is not a weighed value. Profile mass uses 0.5..1.5 x nominal CAD hollow-box volume because owned T-slot metal area is unmeasured; this is NOT a material-density bound or a section-I measurement. PC-panel printed mass uses 0.85..1.10 x nominal CAD-wall mass, ABS drum 0.50..0.85 x resin-density CAD volume; slicer/print mass is unmeasured. Purchase boundaries and mixed parts use explicit ranges; static structure mass is inventory only, not a PhysX rigid body. No strength, safety or fabrication release."
+    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. The VP1 WIND_SPOOL_DRUM is now a weldable steel tube candidate, not the former ABS print; flange seam, loose shaft bore, friction-clutch preload and balance remain HOLD.",
+    "excluded": "PLA excluded from hot/load paths and permanent guards; ABS excluded from heater/cutter/feed throat. PC lower containment and thermal exposure require material and process qualification. No printed keys or bearing seats.",
+    "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation and six walls; bed fit is not impact, layer or seam qualification. Printed ABS eyelet on WIND_TRAVERSE_RIDER is folded into a bounded steel/polymer proxy, not counted twice. No ABS spool drum remains in this VP1 candidate.",
+    "boundary": "All materials are screening choices; profile web/slot metal area, mixed sensor/clutch mass, printed wall mass and real motor/fan internals require measured or vendor inputs. No strength, safety or fabrication release."
   },
   "count_adjustments": [],
   "moving_bodies": [
@@ -20850,8 +21489,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/COOL-TRAY_001__coarse.stl",
-      "bytes": 1484,
-      "sha256": "048d25496f8d31a5d78f90cc0e919ca7cfaf4157cbeab07da105031fc78f8981"
+      "bytes": 3484,
+      "sha256": "95b64b5607e53eafbdfef48263ffae855cbf2adbae90b3abc9227f83f06d15e6"
     },
     {
       "name": "COOL-FAN_001",
@@ -21474,8 +22113,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/CHUTE_BODY__coarse.stl",
-      "bytes": 96184,
-      "sha256": "03ed26f7216d1576369f30f74b450dd7f61d6790c84ab1081e5b68a8bd4d298d"
+      "bytes": 119784,
+      "sha256": "d4b9600fa033c2cd2cea57ba131cda15f2e38884506a835c2ff7fb2a4ae0fee6"
     },
     {
       "name": "CHUTE_TROUGH_FLOOR_E",
@@ -21794,16 +22433,16 @@
       "body": "SWEEP_SOUTH",
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_SOUTH__fine.stl",
-      "bytes": 270084,
-      "sha256": "eb67526c6fd9e281ab5640416f21b11e02f35892faeb83e37a2e71828190038f"
+      "bytes": 263584,
+      "sha256": "a30d901acd08826331a08508b171afa6d5535b817b84ddbf3d5e072282edb6f7"
     },
     {
       "name": "S1_SWEEP_NORTH",
       "body": "SWEEP_NORTH",
       "lod": "fine",
       "stl": "sim/assets/out/full/S1_SWEEP_NORTH__fine.stl",
-      "bytes": 352184,
-      "sha256": "394862dd3d620b642e6a732f24fdd4ccac3608371f9bb846aaa4563ea2f0977b"
+      "bytes": 344684,
+      "sha256": "b0b84044e9dd088305a3075779e22302926b39cb434c42fa102a1997ab121702"
     },
     {
       "name": "S1_SWEEP_GEAR_DRUM_S",
@@ -21937,17 +22576,9 @@
       "name": "PULL_FRAME",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/PULL_FRAME_step251__coarse.stl",
-      "bytes": 6684,
-      "sha256": "41626e987179d426fccc7ad6ba85de5288a367205d5eb87ea0e5475e80e6b390"
-    },
-    {
-      "name": "PULL_FRAME",
-      "body": "STATIC",
-      "lod": "coarse",
-      "stl": "sim/assets/out/full/PULL_FRAME_step252__coarse.stl",
-      "bytes": 5084,
-      "sha256": "4cda7873d4f9621bae0c92ca9da10d01183ce9a6b5d37a6e03f7391daba9b295"
+      "stl": "sim/assets/out/full/PULL_FRAME__coarse.stl",
+      "bytes": 21484,
+      "sha256": "7a8aaf90358aa9b7b426f14f86fb787228a03f9b31f665daef3405ecf5b5c8c4"
     },
     {
       "name": "PULL_ROLLER_FIXED",
@@ -21955,15 +22586,15 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
       "bytes": 15484,
-      "sha256": "59976e13b0a89e948e9a1d6783f08f2f7943698be214a9eff62978304228725d"
+      "sha256": "9f660a6897a43b31579b36f8d468e58568e14373711977aa745dc5ccc018af64"
     },
     {
       "name": "PULL_ROLLER_ADJ",
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_ROLLER_ADJ__coarse.stl",
-      "bytes": 1125384,
-      "sha256": "0571be17644c5c14bf5269f8865cd9c938c4006125f037b68b52bca7593207b4"
+      "bytes": 1129984,
+      "sha256": "3cc5716f410b50e4fbed44b43ae3eb3ae9c44c35089486b3bf9d99796a6f4a5e"
     },
     {
       "name": "PULL_NIP_STOP",
@@ -21971,7 +22602,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_NIP_STOP__coarse.stl",
       "bytes": 684,
-      "sha256": "5b92275c7e5ac05749cbaba31384f20645ae441da104c942d4554dc661e8032a"
+      "sha256": "5bb9fc3793871021bf31ce58643b4f4b220fe7777d25fb9764b2d6429836d156"
     },
     {
       "name": "PULL_MOTOR_REF",
@@ -21986,14 +22617,14 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/WIND_SPOOL_SHAFT__coarse.stl",
-      "bytes": 5084,
-      "sha256": "c2cdeea4127726c243c2c1ff542634457053ea45dbffaa32048e81de7a0499a0"
+      "bytes": 6884,
+      "sha256": "97f891afc8e7807be0e51a1285215e6c20fdd07d4427416766abb1b26abe1c73"
     },
     {
       "name": "WIND_SPOOL_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl",
+      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step257__coarse.stl",
       "bytes": 6084,
       "sha256": "12b8e8640d7a37a427248de4332821f2faeea8aaf01ecc5938950b52ae364188"
     },
@@ -22001,7 +22632,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step259__coarse.stl",
+      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl",
       "bytes": 6084,
       "sha256": "dd7bc8bba58c15a1037a5803d1c0466987b4e4d00a8494b09deccb654df4dc19"
     },
@@ -22012,6 +22643,14 @@
       "stl": "sim/assets/out/full/WIND_SPOOL_DRUM__coarse.stl",
       "bytes": 10484,
       "sha256": "c1fe0339284d6962494b74820c6f18908313f079088121f86967abf9378a9ca6"
+    },
+    {
+      "name": "WIND_CLUTCH_REF",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_CLUTCH_REF__coarse.stl",
+      "bytes": 21884,
+      "sha256": "e8fee7c7f282b04df2da086433f7072f5b72870f27d29489fc9e81dea7af0512"
     },
     {
       "name": "WIND_FLANGE_L",
@@ -22164,6 +22803,78 @@
       "stl": "sim/assets/out/full/HOPPER_SEAM_REAR__coarse.stl",
       "bytes": 28284,
       "sha256": "d8885a2e656bcb81e6b727b276c84b2870a9c76844b902b40761073fa9fd7205"
+    },
+    {
+      "name": "GAUGE_FRAME",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GAUGE_FRAME_step280__coarse.stl",
+      "bytes": 1284,
+      "sha256": "1688d83fa8c4d42dd8ea9544003c794887a2f0a4eec8f3e41aade6b0ee5467d2"
+    },
+    {
+      "name": "GAUGE_FRAME",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GAUGE_FRAME_step281__coarse.stl",
+      "bytes": 1084,
+      "sha256": "8135bbe45a9cb5fe9f5bc59a3663bf3740e9a69cb26a3689678c1a0198c0d47f"
+    },
+    {
+      "name": "GAUGE_GUIDES",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GAUGE_GUIDES__coarse.stl",
+      "bytes": 39084,
+      "sha256": "23be31db74617f848418936714b5548af3c4d20814bc7a28549a5a40a741729f"
+    },
+    {
+      "name": "GAUGE_CONTACT_A",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GAUGE_CONTACT_A__coarse.stl",
+      "bytes": 15584,
+      "sha256": "1ee8fc5bec72ca970c4e4cf77b3efc80a256cc5d32415e2a6320201159137620"
+    },
+    {
+      "name": "GAUGE_OPTICAL_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GAUGE_OPTICAL_B_step284__coarse.stl",
+      "bytes": 1684,
+      "sha256": "258eff4b8e288a0d9546a80d162ab0b1c2c6b8e6d40f30c8fb7d79ff4c401850"
+    },
+    {
+      "name": "GAUGE_OPTICAL_B",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GAUGE_OPTICAL_B_step285__coarse.stl",
+      "bytes": 1684,
+      "sha256": "64376d36678dc437aa52831cc5f763168fab45fc63c6e7ed9d66dd2ea1fdb153"
+    },
+    {
+      "name": "GAUGE_REF_STANDARD",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/GAUGE_REF_STANDARD__coarse.stl",
+      "bytes": 684,
+      "sha256": "5ba0f21e978821ab78fc9cfb624980495c783954f46a5531a0dd704fd83edf35"
+    },
+    {
+      "name": "COOL-DUCT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/COOL-DUCT__coarse.stl",
+      "bytes": 10084,
+      "sha256": "46ce6aa86c5f17b7792738da1b1712acff0209b67b0905a74c9b05185e8ee6c1"
+    },
+    {
+      "name": "COOL-FAN-3_REF",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/COOL-FAN-3_REF__coarse.stl",
+      "bytes": 16084,
+      "sha256": "112fac2da07c6d70e9b0a5ec03bf3d0337a40f628cb05833110bf4f5757fcaa4"
     }
   ],
   "failures": [],
@@ -23429,32 +24140,32 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_FRAME",
+      "part": "PULL_ROLLER_FIXED",
       "step_index": 252,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_ROLLER_FIXED",
+      "part": "PULL_ROLLER_ADJ",
       "step_index": 253,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_ROLLER_ADJ",
+      "part": "PULL_NIP_STOP",
       "step_index": 254,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_NIP_STOP",
+      "part": "PULL_MOTOR_REF",
       "step_index": 255,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_MOTOR_REF",
+      "part": "WIND_SPOOL_SHAFT",
       "step_index": 256,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_SHAFT",
+      "part": "WIND_SPOOL_BEARINGS",
       "step_index": 257,
       "centre_dist_mm": 0.0
     },
@@ -23464,12 +24175,12 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_BEARINGS",
+      "part": "WIND_SPOOL_DRUM",
       "step_index": 259,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_DRUM",
+      "part": "WIND_CLUTCH_REF",
       "step_index": 260,
       "centre_dist_mm": 0.0
     },
@@ -23567,7 +24278,52 @@
       "part": "HOPPER_SEAM_REAR",
       "step_index": 279,
       "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GAUGE_FRAME",
+      "step_index": 280,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GAUGE_FRAME",
+      "step_index": 281,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GAUGE_GUIDES",
+      "step_index": 282,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GAUGE_CONTACT_A",
+      "step_index": 283,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GAUGE_OPTICAL_B",
+      "step_index": 284,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GAUGE_OPTICAL_B",
+      "step_index": 285,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "GAUGE_REF_STANDARD",
+      "step_index": 286,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "COOL-DUCT",
+      "step_index": 287,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "COOL-FAN-3_REF",
+      "step_index": 288,
+      "centre_dist_mm": 0.0
     }
   ],
-  "wall_time_s": 56.53863000869751
+  "wall_time_s": 59.36503601074219
 }

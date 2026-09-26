@@ -35,6 +35,8 @@ MATERIALS = {
     "SPOOL_REFERENCE": dict(density=800., bounds=(350., 1400.), process="user spool envelope, empty polymer candidate; not an owned or selected spool", temperature="supplier mass/geometry and tension HOLD"),
     "TPU_METAL_PROXY": dict(density=3200., bounds=(1100., 7850.), process="single CAD solid represents TPU tread and metal hub; split thickness unmodeled", temperature="tread compound/adhesion/grip and working temperature HOLD"),
     "STEEL_PRINTED_GUIDE_PROXY": dict(density=7000., bounds=(3000., 7850.), process="single CAD solid approximates steel rider plus small cold-zone printed ABS guide; allocation/steel insert unmodeled", temperature="guide below 60 C; load-bearing steel and fasteners required"),
+    "MIXED_CLUTCH_PROXY": dict(density=5000., bounds=(800., 7850.), process="steel keyed collar with unresolved friction pad and spring stack; no qualified preload, torque or material split", temperature="slip heating, wear and guard qualification HOLD"),
+    "MIXED_SENSOR_PROXY": dict(density=2500., bounds=(800., 7850.), process="single CAD body represents steel lever, magnet, Hall head and spring; not a purchased mass", temperature="sensor/lever operating temperature and calibration HOLD"),
 }
 
 # C2.1 and VP1 parts not present in the C1 instance inventory. Every other
@@ -53,7 +55,10 @@ C21 = {
 
 # Manufacturing decision where the source BOM explicitly offers two options.
 DECISIONS = {
-    "WIND_SPOOL_DRUM": "ABS_FDM",  # steel tube OR printed polymer in VP1 BOM
+    "WIND_SPOOL_DRUM": "STEEL",  # chosen weldable tube/flanges; joint HOLD
+    "WIND_CLUTCH_REF": "MIXED_CLUTCH_PROXY",
+    "GAUGE_CONTACT_A": "MIXED_SENSOR_PROXY",
+    "GAUGE_OPTICAL_B": "PURCHASED_ELECTRICAL",
     "WIND_TRAVERSE_RIDER": "STEEL_PRINTED_GUIDE_PROXY",
     "PULL_ROLLER_FIXED": "TPU_METAL_PROXY",
     "PULL_ROLLER_ADJ": "STEEL",  # integral spring carriage; hub/tread split unmodeled
@@ -189,8 +194,8 @@ def mass_properties(name: str, volume_mm3: float, bbox_mm) -> dict:
 
 MATERIAL_SCOPE = {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R nominal ~3 mm FDM PC shell segments; HOPPER_SEAM_FRONT/REAR 1.5 mm steel upper-wall rails are NOT a full steel lower liner or qualified containment. HOP-LID_001 PC cut sheet has a separate unmodeled metal strike. FEED-BUF_001 and split FEED-BUF-SADDLE/CLAMP are S355 steel design candidates; weld, bolts, cold barrel fit, thermal interface and flow remain HOLD. ABS FDM cold WIND_SPOOL_DRUM plus small traverse eyelet candidate; load paths/shafts/guards in steel, owned profiles in aluminium.",
-    "excluded": "PLA (Tg about 55-65 C) excluded from hot zone, load path and permanent guards due to creep/softening; ABS (Tg about 100-110 C) excluded from heater/barrel, cutter/load path, guards and feed throat due to creep, anisotropy and unknown peak temperatures; PC (Tg about 145-150 C) excluded from heater/barrel and high-impact structural interfaces pending measured temperatures, grade and process qualification. No printed keys or bearing seats.",
-    "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation, six walls and 100% effective CAD wall density; ~3 mm CAD wall already excludes hollow volume, so no second infill factor. Bed fit is bounded by the split design, not proof of printability, seam sealing, layer adhesion or impact containment. ABS drum assumes dry filament, enclosed printer, drum axis normal to build plate, four walls, six skins, 50% infill and effective 65% density; actual slicer mass, residual stress and warm creep must be checked. ABS printed eyelet/guide on WIND_TRAVERSE_RIDER is not separable in the fused STEP; its contribution is folded into a bounded steel/polymer proxy, not double-counted.",
-    "boundary": "All densities/grades and effective fill factors are screening choices; mass is not a weighed value. Profile mass uses 0.5..1.5 x nominal CAD hollow-box volume because owned T-slot metal area is unmeasured; this is NOT a material-density bound or a section-I measurement. PC-panel printed mass uses 0.85..1.10 x nominal CAD-wall mass, ABS drum 0.50..0.85 x resin-density CAD volume; slicer/print mass is unmeasured. Purchase boundaries and mixed parts use explicit ranges; static structure mass is inventory only, not a PhysX rigid body. No strength, safety or fabrication release.",
+    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. The VP1 WIND_SPOOL_DRUM is now a weldable steel tube candidate, not the former ABS print; flange seam, loose shaft bore, friction-clutch preload and balance remain HOLD.",
+    "excluded": "PLA excluded from hot/load paths and permanent guards; ABS excluded from heater/cutter/feed throat. PC lower containment and thermal exposure require material and process qualification. No printed keys or bearing seats.",
+    "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation and six walls; bed fit is not impact, layer or seam qualification. Printed ABS eyelet on WIND_TRAVERSE_RIDER is folded into a bounded steel/polymer proxy, not counted twice. No ABS spool drum remains in this VP1 candidate.",
+    "boundary": "All materials are screening choices; profile web/slot metal area, mixed sensor/clutch mass, printed wall mass and real motor/fan internals require measured or vendor inputs. No strength, safety or fabrication release.",
 }

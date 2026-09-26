@@ -3,27 +3,27 @@
   "group": "puller",
   "kinematic_body": "STATIC",
   "lod": "coarse",
-  "step_index": 253,
-  "step_product_name": "Open CASCADE STEP translator 7.9 1.253",
+  "step_index": 252,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.252",
   "mesh_file": "sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
   "mesh_bytes": 15484,
-  "mesh_sha256": "59976e13b0a89e948e9a1d6783f08f2f7943698be214a9eff62978304228725d",
+  "mesh_sha256": "9f660a6897a43b31579b36f8d468e58568e14373711977aa745dc5ccc018af64",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "source_step_sha256": "762909f469e517dcfe39a87536a3b701119b6e2eaa86825d59a147c229a92a2d",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
     818.9999999,
-    244.9999999,
+    255.9999999,
     104.2499999,
     839.0000001,
-    283.0000001,
+    294.0000001,
     124.2500001
   ],
-  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "revision": "92e4470163e946b619a0baa74b3a4a428cce72a6",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5
@@ -48,10 +48,10 @@
   "volume_mm3": 7715.751557216661,
   "solid_bbox_mm": [
     818.9999999,
-    244.9999999,
+    255.9999999,
     104.2499999,
     839.0000001,
-    283.0000001,
+    294.0000001,
     124.2500001
   ],
   "mass_kg": 0.024690404983093318,
@@ -61,7 +61,7 @@
   ],
   "center_of_mass_mm": [
     829.0,
-    264.0,
+    275.0,
     114.25
   ],
   "inertia_kg_mm2": [
@@ -89,7 +89,7 @@
     ],
     "center_of_mass_mm": [
       829.0,
-      264.0,
+      275.0,
       114.25
     ],
     "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"

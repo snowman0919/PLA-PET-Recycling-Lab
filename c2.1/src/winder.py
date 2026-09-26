@@ -28,14 +28,15 @@ Puller (x 815..845, y 240..278, z 100..150):
 
 Winder (axis Y at x=700, z=220; north of the cooling fans, clear of
 COOL-FAN_001/002 and COOL-TRAY):
-- WIND_SPOOL_SHAFT (supported in bearings BOTH ends) / WIND_SPOOL_DRUM
-  (dia 70) / WIND_FLANGE_L/R (dia 200).
-- WIND_MOTOR_REF at the shaft end: the DRIVEN DRUM SHAFT is the winder motor
-  reference drive train (positive torque coupling drum <-> spool).
-- WIND_TRAVERSE_SCREW + WIND_TRAVERSE_RIDER with guide eyelet: real lead
-  screw geometry laying the filament.
-- WIND_TENSIONER: slip tensioner on the filament path puller -> winder.
-All within the operating envelope.
+- WIND_SPOOL_SHAFT supported in bearings BOTH ends; WIND_SPOOL_DRUM
+  floats on it and is joined to the flanges (weld/joint rating HOLD).
+- WIND_CLUTCH_REF: shaft key -> keyed collar -> wave-spring envelope ->
+  friction pad against the left flange. Axial preload/retention, torque
+  and wear are NOT specified; 70 Nmm in the model is only a sensitivity.
+- WIND_MOTOR_REF drives the shaft; winding is through the friction clutch,
+  not through a fictitious rigid bond from the loose drum bore to the shaft.
+- WIND_TRAVERSE_SCREW + rider eyelet lays the filament.
+- WIND_TENSIONER adds a path buffer; spring and torque setting remain HOLD.
 """
 from __future__ import annotations
 
@@ -67,7 +68,7 @@ FILAMENT_MM = 1.75
 # floor), NIP_OPEN_MAX = 3.0 (cam-adjustable upper limit).
 # Compressed nip on 1.75 filament: stop face at 1.5 + spring compliance gives
 # a working contact band ~1.55..1.9 mm.
-PULL = dict(x=829.0, y0=253.0, y1=275.0, roller_r=10.0, line_z=125.0,
+PULL = dict(x=829.0, y0=264.0, y1=286.0, roller_r=10.0, line_z=125.0,
             nip_stop_min=1.5, nip_open_max=3.0, spring_rate_N_mm=8.0,
             spring_free_len=18.0, spring_solid_len=12.0)
 PULL_ROLLER_Z = (PULL["line_z"] - (PULL["roller_r"] + PULL["nip_stop_min"] / 2.0),
@@ -77,16 +78,22 @@ WIND = dict(x=700.0, z=220.0, drum_r=35.0, flange_r=100.0, shaft_r=8.0,
 
 
 def pull_frame():
-    """Side plates + base; the movable carriage rides vertical guide slots in
-    the north plate; the south plate carries the fixed-roller bearings."""
+    """Fixed-roller seats at both axle ends, braced to the base.
+
+    The +Y bearing boss has a web to its east plate; both bores clear the
+    Ø8 axle. These are interface shapes, not selected bearing hardware.
+    """
     y0, y1 = PULL["y0"] - 3.0, PULL["y1"] + 3.0
     side_a = _box(824.0, 827.0, y0, y0 + 3.0, 100.0, 150.0)
     side_b = _box(843.0, 846.0, y1 - 3.0, y1, 100.0, 150.0)
     base = _box(824.0, 846.0, y0, y1, 100.0, 104.0)
-    # lower axle seat bores are modeled as bearing bosses on both side plates
+    bridge = _box(829.0, 846.0, y1 - 3.0, y1, 108.0, 120.0)
     seat_a = _cyl(7.0, 3.0, PULL["x"], y0, PULL_ROLLER_Z[0])
     seat_b = _cyl(7.0, 3.0, PULL["x"], y1 - 3.0, PULL_ROLLER_Z[0])
-    return side_a.fuse(side_b).fuse(base).fuse(seat_a).fuse(seat_b).clean()
+    frame = side_a.fuse(side_b).fuse(base).fuse(bridge).fuse(seat_a).fuse(seat_b)
+    for y in (y0, y1 - 3.0):
+        frame = frame.cut(_cyl(4.2, 3.0, PULL["x"], y, PULL_ROLLER_Z[0]))
+    return frame.clean()
 
 
 def pull_roller_fixed():
@@ -132,13 +139,15 @@ def pull_roller_adj():
 
 
 def pull_nip_stop():
-    """Positive-stop cam block: with the carriage seated on the stop the
-    roller-center gap is exactly roller_r*2 + nip_stop_min -> nip gap
-    1.5 mm (1.5-2.0 mm stock compresses the springs; the cam screw opens the
-    nip to 3.0 mm for threading)."""
+    """Fixed underside seat at the minimum 1.5 mm nip.
+
+    The seat touches the carriage bottom at z=roller_center-4 and the
+    frame's +Y plate at y=y1+3; neither solid penetrates the other.
+    A different cam/guide setting can lift the roller for threading.
+    """
     z = PULL_ROLLER_Z[1]
-    return _box(PULL["x"] - 9.0, PULL["x"] + 9.0, PULL["y1"] + 1.0,
-                PULL["y1"] + 5.0, z + 5.0, z + 7.5)
+    return _box(823.0, 846.0, PULL["y1"] + 3.0, PULL["y1"] + 6.0,
+                z - 7.75, z - 4.0)
 
 
 def pull_motor_ref():
@@ -151,9 +160,10 @@ def pull_motor_ref():
 
 
 def spool_shaft():
-    """Spool shaft in bearing seats BOTH ends (frames at y 92 and y 182)."""
-    return _cyl(WIND["shaft_r"], 98.0, WIND["x"], 87.0, WIND["z"])
-
+    """Supported driven shaft, with a positive key at the clutch collar."""
+    shaft = _cyl(WIND["shaft_r"], 98.0, WIND["x"], 87.0, WIND["z"])
+    key = _box(698.5, 701.5, 97.0, 100.0, 227.0, 229.5)
+    return shaft.fuse(key).clean()
 
 def spool_bearing_blocks():
     """Two bearing blocks supporting the spool shaft at both ends (the east
@@ -190,9 +200,24 @@ def spool_flange_r():
     return _flange(WIND["y0"] + 64.0)
 
 
+def spool_clutch_ref():
+    """Reference friction path from keyed shaft to freely riding spool.
+
+    3 mm keyed collar, 1 mm spring envelope, 2 mm friction washer;
+    no axial preload/retention or torque limit has been established.
+    The collar's radial keyslot clears the separate shaft key.
+    """
+    bore = _cyl(8.1, 7.0, WIND["x"], 96.5, WIND["z"])
+    slot = _box(698.4, 701.6, 96.5, 100.1, 227.0, 230.0)
+    collar = _cyl(15.0, 3.0, WIND["x"], 97.0, WIND["z"]).cut(bore).cut(slot)
+    spring = _cyl(13.0, 1.0, WIND["x"], 100.0, WIND["z"]).cut(bore)
+    pad = _cyl(30.0, 2.0, WIND["x"], 101.0, WIND["z"]).cut(bore)
+    return collar.fuse(spring).fuse(pad).clean()
+
+
 def winder_motor_ref():
-    """Gearmotor reference (not-owned) positively coupled to the driven drum
-    shaft (spool torque coupling: motor -> shaft -> drum -> spool)."""
+    """Unselected motor envelope drives the shaft. A friction washer between
+    the keyed collar and loose spool flange is the intended torque path."""
     body = _box(680.0, 720.0, 187.0, 212.0, 200.0, 240.0)
     nose = _cyl(9.0, 12.0, WIND["x"], 182.0, WIND["z"])
     return body.fuse(nose).clean()
@@ -230,6 +255,7 @@ def components():
             ("WIND_SPOOL_SHAFT", spool_shaft(), "spool"),
             ("WIND_SPOOL_BEARINGS", spool_bearing_blocks(), "spool"),
             ("WIND_SPOOL_DRUM", spool_drum(), "spool"),
+            ("WIND_CLUTCH_REF", spool_clutch_ref(), "spool"),
             ("WIND_FLANGE_L", spool_flange_l(), "spool"),
             ("WIND_FLANGE_R", spool_flange_r(), "spool"),
             ("WIND_MOTOR_REF", winder_motor_ref(), "spool"),

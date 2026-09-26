@@ -25,9 +25,9 @@
   "legacy_s2_instances_excluded": 44,
   "legacy_instances_retained": 151,
   "c21_instances_inserted": 40,
-  "assembly_objects": 262,
-  "expected_solids": 290,
-  "reimported_solids": 290,
+  "assembly_objects": 264,
+  "expected_solids": 289,
+  "reimported_solids": 289,
   "step_reimport_valid": true,
   "assembly_step": "c2.1/cad/PPR_VP1.step",
   "assembly_geometry_checks": {
@@ -60,8 +60,8 @@
     "tail_radial_margin_mm": 0.59,
     "shell_radial_margin_mm": 1.5
   },
-  "assembly_step_sha256": "8f30a4092ddd4e438de482d03369ebc6e4bccdfd98579a41a88556ee0b26ed6c",
-  "assembly_step_bytes": 100801114,
+  "assembly_step_sha256": "762909f469e517dcfe39a87536a3b701119b6e2eaa86825d59a147c229a92a2d",
+  "assembly_step_bytes": 100799205,
   "groups": [
     "S1",
     "S2-C2.1",
@@ -226,6 +226,7 @@
       "WIND_SPOOL_SHAFT",
       "WIND_SPOOL_BEARINGS",
       "WIND_SPOOL_DRUM",
+      "WIND_CLUTCH_REF",
       "WIND_FLANGE_L",
       "WIND_FLANGE_R",
       "WIND_MOTOR_REF",
@@ -364,7 +365,8 @@
         "GAUGE_CONTACT_A",
         "GAUGE_OPTICAL_B",
         "GAUGE_REF_STANDARD",
-        "COOL-DUCT"
+        "COOL-DUCT",
+        "COOL-FAN-3_REF"
       ],
       "interfaces": {
         "filament_line": {
@@ -378,20 +380,22 @@
         },
         "gauge_to_puller_delay": {
           "distance_mm": 20.0,
-          "meaning": "measurement-to-actuation transport delay at line speed v: delay_s = 20.0 / v_mm_s; the process model uses the REAL distance, not a tunable"
+          "meaning": "gauge-to-nip travel of already formed strand: 20.0 / v_mm_s. Feedback dead distance is die exit x540 to gauge x809 = 269 mm, not this distance."
         },
         "cooling": {
           "tray_length_mm": 275.0,
-          "duct_air_length_range_mm": [
+          "modeled_ducted_length_mm": [
             50.0,
             250.0
           ],
-          "baffle_travel_mm": 100.0,
-          "fans": "2 owned + 1 reference (UNRATED 8 W estimate)"
+          "effective_length_status": "ASSUMED_NOT_CALIBRATED_BY_CAD",
+          "hood_travel_mm": 100.0,
+          "ports": "two 78x21 mm windows through south tray wall",
+          "fans": "2 legacy references + 1 separate 80x80x38 reference; all UNRATED"
         },
         "service_input": {
-          "configuration": "SWAP: SERVICE-HOPPER bolts onto the FEED-BUF saddle interface (x 282..316, y 251..299, z 145..218) after the buffer stack is unbolted; reference run = main assembly minus FEED-BUF stack plus SERVICE-HOPPER",
-          "reason_not_in_assembly": "the FEED-BUF top zone is occupied by S2 discharge metal (rotor envelope to z347, ring plate, screen); a coexisting chute intersected production metal",
+          "configuration": "SWAP: remove FEED-BUF only, retain its cold barrel saddle and clamp. SERVICE-HOPPER mates the x299,y275,z145 \u00d813 through-hole and opens outboard at y225,z220; M1/S2 off during reference operation. Joint sealing, lid guard and feed delivery remain HOLD.",
+          "reason_not_in_assembly": "production FEED-BUF occupies the same \u00d820/\u00d813 barrel throat; the alternate is mutually exclusive",
           "feedstock": "dried, screened reference material only",
           "interlock": "NONE \u2014 the hopper is not a guard"
         },
@@ -404,6 +408,18 @@
         "sensor_axes": {
           "A_lever_hall": "vertical diameter (contact compliance UNRATED)",
           "B_optical": "horizontal shadow width (transparent/TPU UNRATED)"
+        },
+        "wiring_harness": {
+          "J5_diameter_gauge": {
+            "axis_A_raw": "analog/Hall input",
+            "axis_B_raw": "shadow ADC input",
+            "supply": "+5V_CTRL / 0V"
+          },
+          "J6_aux_and_service": {
+            "fan3_cmd": "24V fan switching circuit TBD; no PWM pin assumed",
+            "service_hopper_detect": "microswitch dry contact to 0V"
+          },
+          "controller_core_interface": "gauge_valid, gauge_major_mm, gauge_minor_mm, nominal_puller_speed_mm_s; operating-only quality gate"
         }
       },
       "geometry_result": "c2.1/results/downstream_geometry.json",
@@ -477,6 +493,14 @@
           "note": "deck relief for the 40T gear tip circle"
         },
         {
+          "legacy": "COOL-TRAY_001",
+          "new": "COOL-FAN_001/002",
+          "kind": "two_side_air_ports",
+          "applied": true,
+          "removed_mm3": 6552.0,
+          "note": "two 78x21 mm clear windows in the south wall; fan output and duct heat transfer remain unmeasured"
+        },
+        {
           "legacy": "KEY-6-16_002",
           "new": "BR-6204_002",
           "kind": "trim",
@@ -493,6 +517,7 @@
         }
       ],
       "relieved_instances": [
+        "COOL-TRAY_001",
         "DRV-B12_001",
         "DRV-DECK_001",
         "DRV-JACK_001",
@@ -515,7 +540,7 @@
     },
     "vp1_against_retained": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 14012,
+      "pair_checks": 14376,
       "bbox_candidates": 127,
       "unexpected": [],
       "functional_allowed": [
@@ -550,16 +575,9 @@
         "PDL_CHAIN/PDL_SPROCKET",
         "PDL_SHAFT/PDL_SPROCKET",
         "PDL_SHAFT/PDL_WORM",
-        "PULL_FRAME/PULL_ROLLER_ADJ",
-        "PULL_FRAME/PULL_ROLLER_FIXED",
-        "PULL_NIP_STOP/PULL_ROLLER_ADJ",
         "S1-SHAFT-B_001/S1_BELT_CHAIN",
         "S1_BELT_CHAIN/S1_BELT_FOLLOWER",
-        "WIND_FLANGE_L/WIND_SPOOL_SHAFT",
-        "WIND_FLANGE_R/WIND_SPOOL_SHAFT",
         "WIND_MOTOR_REF/WIND_SPOOL_SHAFT",
-        "WIND_SPOOL_BEARINGS/WIND_SPOOL_SHAFT",
-        "WIND_SPOOL_DRUM/WIND_SPOOL_SHAFT",
         "WIND_TRAVERSE_RIDER/WIND_TRAVERSE_SCREW"
       ],
       "known_contacts": [],
@@ -567,8 +585,8 @@
     },
     "vp1_internal": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 5852,
-      "bbox_candidates": 282,
+      "pair_checks": 6162,
+      "bbox_candidates": 284,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",
@@ -602,16 +620,9 @@
         "PDL_CHAIN/PDL_SPROCKET",
         "PDL_SHAFT/PDL_SPROCKET",
         "PDL_SHAFT/PDL_WORM",
-        "PULL_FRAME/PULL_ROLLER_ADJ",
-        "PULL_FRAME/PULL_ROLLER_FIXED",
-        "PULL_NIP_STOP/PULL_ROLLER_ADJ",
         "S1-SHAFT-B_001/S1_BELT_CHAIN",
         "S1_BELT_CHAIN/S1_BELT_FOLLOWER",
-        "WIND_FLANGE_L/WIND_SPOOL_SHAFT",
-        "WIND_FLANGE_R/WIND_SPOOL_SHAFT",
         "WIND_MOTOR_REF/WIND_SPOOL_SHAFT",
-        "WIND_SPOOL_BEARINGS/WIND_SPOOL_SHAFT",
-        "WIND_SPOOL_DRUM/WIND_SPOOL_SHAFT",
         "WIND_TRAVERSE_RIDER/WIND_TRAVERSE_SCREW"
       ],
       "known_contacts": [],
@@ -623,7 +634,7 @@
       "At the 58 rpm M1 reference the 15T/40T mesh and 24T/12T chain B give S2 eccentric -43.5 rpm; the 2-start/16T worm wheel drives the auger at -5.4375 rpm",
       "The fin-bypass feed uses a driven four-turn auger in an open U cradle with a measured positive flight/floor gap; the flat structural slab is not a passive transport claim",
       "puller nip: spring-loaded 1.75 mm filament grip; spool winder, traverse and slip tensioner replace SPOOL-ENV",
-      "power policy: 500 W hard modeled operational budget; normal virtual peak 416 W, above-500 W demands rejected; 792 W is the separate PSU current-derived ceiling, not an operating allowance; M1/M2 loads remain UNRATED estimates",
+      "power policy: modeled base staged peak 424 W excludes unselected puller/winder auxiliary drives; hypothetical 20 W aux gives 444 W and 56 W margin to the 500 W cap. Ratings and independent interlocks remain HOLD; 792 W PSU current-derived ceiling is not an operating allowance",
       "retained-internal S1-SYNC_001/002 vs S1-BR-CAP_001 contacts are inherited from C1 and not audited by this build"
     ]
   },

@@ -10,6 +10,32 @@ C21 = HERE.parents[1]
 REPO = HERE.parents[2]
 SOURCE = C21/"firmware/controller_core.cpp"
 BUILD = REPO/".codex-run/ppr_controller_core_selftest"
+LIBRARY = REPO/".codex-run/libppr_controller_core.so"
+
+
+def build_library():
+    """Build the same C++ PI kernel used by the host controller self-test."""
+    LIBRARY.parent.mkdir(exist_ok=True)
+    compiler = shutil.which("g++")
+    if not compiler:
+        raise RuntimeError("g++ not found")
+    command = [compiler, "-std=c++17", "-Wall", "-Wextra", "-Werror", "-O2",
+               "-fPIC", "-shared", "-DPPR_CONTROLLER_LIBRARY",
+               str(SOURCE), "-o", str(LIBRARY)]
+    subprocess.run(command, check=True)
+    return command
+
+
+def library_for_source():
+    """Avoid stale shared code in process-model calculations."""
+    stamp = LIBRARY.with_suffix(".source.sha256")
+    digest = hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+    if not LIBRARY.exists() or not stamp.exists() or stamp.read_text() != digest:
+        build_library()
+        stamp.write_text(digest)
+    return LIBRARY
+
+
 
 
 def main():
@@ -20,6 +46,10 @@ def main():
     command = [compiler, "-std=c++17", "-Wall", "-Wextra", "-Werror", "-O2",
                str(SOURCE), "-o", str(BUILD)]
     compiled = subprocess.run(command, capture_output=True, text=True)
+    library_command = build_library() if compiled.returncode == 0 else None
+    if library_command is not None:
+        LIBRARY.with_suffix(".source.sha256").write_text(
+            hashlib.sha256(SOURCE.read_bytes()).hexdigest())
     executed = subprocess.run([str(BUILD)], capture_output=True, text=True) if compiled.returncode == 0 else None
     version = subprocess.run([compiler, "--version"], capture_output=True, text=True, check=True).stdout.splitlines()[0]
     result = {
@@ -33,7 +63,10 @@ def main():
         "source": str(SOURCE.relative_to(REPO)),
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         "binary_sha256": None if executed is None else hashlib.sha256(BUILD.read_bytes()).hexdigest(),
-        "cases": 25,
+        "cases": 28,
+        "shared_library_command": library_command,
+        "shared_library_sha256": None if library_command is None else hashlib.sha256(
+            LIBRARY.read_bytes()).hexdigest(),
         "power_allocator": {
             "operational_cap_W": 500.0,
             "operational_cap_semantics": "HARD: reject next demand above 500 W",

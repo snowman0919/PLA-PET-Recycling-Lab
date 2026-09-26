@@ -1,188 +1,188 @@
-"""VP1 Stage 6: route comparison harness — fixed-speed vs diameter feedback
-vs rehearse-forming pass, under flow/temperature/sensor/slip/tension/power
-disturbances.
+"""Same-hardware fixed-speed vs measured-diameter feedback screening.
 
-Decision route (docs/decisions/filament-quality-route.md):
-  A. single-pass extrusion + adjustable cooling + cheap diameter feedback
-     puller + tension-isolated winder   (current leading baseline)
-  B. added rehearse-forming die/nozzle    (unverified hypothesis; modeled
-     here ONLY as an additional sizing uncertainty reducer — NOT a bore-
-     equals-diameter claim, NOT an auto-fix for thin sections/bubbles)
-  C. fixed-speed / manual-measurement operation of the SAME hardware
-     (baseline mode, not a separate throwaway MVP)
-
-The harness runs IDENTICAL disturbance scripts through A/B/C and reports
-length-weighted quality.  Results are model evidence for the DECISION, not
-production claims (uncalibrated parameters are marked in process_model).
+An extra reheated forming pass has no calibrated pressure/flow/temperature or
+geometry model and cannot be assigned a fictitious diameter gain. It remains
+an explicit unranked alternative until a real test and costing exist.
 """
 from __future__ import annotations
 
+import ctypes
 import json
 from pathlib import Path
 
 import process_model as pm
+from build_firmware import library_for_source
+
+_native_pi = None
+_native_library = None
+
+
+def native_pi():
+    global _native_pi, _native_library
+    if _native_pi is None:
+        _native_library = ctypes.CDLL(str(library_for_source()))
+        function = _native_library.ppr_diameter_pi_step
+        function.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double,
+                             ctypes.POINTER(ctypes.c_double),
+                             ctypes.POINTER(ctypes.c_double)]
+        function.restype = ctypes.c_double
+        _native_pi = function
+    return _native_pi
+
+
 
 HERE = Path(__file__).resolve()
 ROOT = HERE.parents[1]
-
 TARGET_MM = 1.75
 TOL_MM = 0.05
 
 
 def fixed_speed_controller(p):
-    """Route C: no feedback; commanded speed is the nominal line speed."""
-    def ctrl(meas_d, t):
-        return p.v_line_mm_s
-    return ctrl
+    return lambda measured_mm, t_s: p.v_line_mm_s
 
 
 class PIController:
-    """Route A: PI on the (delayed, biased, dropout-prone) measured
-    diameter; anti-windup clamps the command; the REAL 7 mm transport
-    delay comes from the measurement buffer, not a tuned constant.
+    """Host model runs the C++ controller's PI kernel, not a Python replica.
 
-    Sign convention: thicker filament (err>0) => FASTER puller (more
-    draw-down), thinner => slower.  Gains are first-pass tuning against
-    the model; physical tuning is calibration work."""
-    def __init__(self, v_nominal, kp=0.45, ki=0.02,
-                 v_min=4.0, v_max=30.0):
+    The C++ controller also latches quality_hold if feedback goes stale.
+    This simplified parcel model stops at >1s missing observations after the
+    first crossing. It does not claim to emulate the entire safety allocator.
+    """
+    def __init__(self, v_nominal):
         self.v_nominal = v_nominal
-        self.kp, self.ki = kp, ki
-        self.v_min, self.v_max = v_min, v_max
-        self.integral = 0.0
+        self.integral = ctypes.c_double(0.0)
+        self.command = ctypes.c_double(v_nominal)
+        self.last_time = None
+        self.halted_at_s = None
 
-    def __call__(self, meas_d, t):
-        if meas_d is None:
-            return self.v_nominal        # hold last-known (no hallucinated data)
-        err = meas_d - TARGET_MM
-        self.integral += err * 0.02
-        self.integral = max(-4.0, min(4.0, self.integral))   # anti-windup
-        v = self.v_nominal + (self.kp * err * 10.0 + self.ki * self.integral)
-        return max(self.v_min, min(self.v_max, v))
-
-
-class FormingPassController(PIController):
-    """Route B: same feedback, but the 'forming' pass is modeled ONLY as a
-    reduced disturbance gain on the true diameter (sizing pass hypothesis).
-    It never restores bubbles or thin sections: the disturbance script's
-    defect events pass through at full strength below the die."""
-    pass
+    def __call__(self, measured_mm, t_s):
+        if self.halted_at_s is not None:
+            return 0.0
+        if measured_mm is None:
+            if self.last_time is not None and t_s - self.last_time > 1.0:
+                self.halted_at_s = t_s
+                return 0.0
+            return self.command.value
+        dt = 0.0 if self.last_time is None else max(0.0, t_s - self.last_time)
+        self.last_time = t_s
+        return native_pi()(self.v_nominal, measured_mm, dt,
+                           ctypes.byref(self.integral),
+                           ctypes.byref(self.command))
 
 
 def disturbance_script(step):
-    """Shared disturbance script: flow surge, sensor bias, dropout window,
-    tension spike, cold-snap (heater scheduler unchanged — 500 W budget
-    is structural, not scripted)."""
     t = step["t_s"]
     env = dict(step)
-    env["mdot_g_s"] = 0.0358
-    if 15.0 <= t < 25.0:
-        env["mdot_g_s"] = 0.0483                  # flow surge (+35%)
-    if 30.0 <= t < 40.0:
-        env["mdot_g_s"] = 0.0254                  # starvation (-29%)
-    if 10.0 <= t < 50.0:
-        env["sensor_bias_mm"] = 0.015             # +15 um sensor bias
-    if 45.0 <= t < 50.0:
-        env["sensor_dropout"] = True              # 5 s measurement gap
-    if 55.0 <= t < 58.0:
-        env["tension_N"] = 10.0                   # tension spike -> slip
+    if 75 <= t < 90:
+        env["mdot_factor"] = 1.35
+    if 110 <= t < 125:
+        env["mdot_factor"] = 0.71
+    if 45 <= t < 155:
+        env["sensor_bias_mm"] = 0.015  # uncalibrated sensor offset
+    if 145 <= t < 153:
+        env["sensor_dropout"] = True
+    if 170 <= t < 178:
+        env["clutch_failed"] = True
+        env["tension_N"] = 10.0  # fault injection; working clutch caps at 6 N
+    if 90 <= t < 110:
+        env["ambient_shift_C"] = 8.0
+        env["barrel_loss_extra_W"] = 25.0
     return env
 
+
 def sustained_offset_script(step):
-    """Second scenario: the extruder's sustained operating point sits at
-    +20% throughput (wrong nominal — die wear, temperature drift, material
-    change).  This is where closed-loop feedback earns its sensor: the
-    fixed-speed line has NO way back to target."""
-    env = dict(step)
-    env["mdot_g_s"] = 0.043
-    return env
-def run_route(name, controller_factory, forming=False, scenario="transient"):
-    p = pm.LineParams(material="PLA")
-    ctrl = controller_factory(p)
+    return {**step, "mdot_factor": 1.2}
+
+
+def run_route(name, controller_factory, scenario="transient", **overrides):
+    p = pm.LineParams(material="PLA", **overrides)
+    controller = controller_factory(p)
     script = {"transient": disturbance_script,
-              "sustained_offset": sustained_offset_script}[scenario]
-    t_total = 70.0 if scenario == "transient" else 60.0
-    samples = pm.simulate(p, t_total_s=t_total, controller=ctrl,
-                          disturbance=script)
-    if forming:
-        # Route B hypothesis: a sizing pass reduces the EFFECTIVE diameter
-        # error gain seen by the winder — but bubbles/thin sections pass
-        # through.  Modelled as 30% reduction of |d-1.75| deviations, NOT
-        # as exact bore control.
-        for s in samples:
-            dev = s["d_true_mm"] - TARGET_MM
-            s["d_true_mm"] = TARGET_MM + 0.7 * dev
-            s["d_major_mm"] = TARGET_MM + 0.7 * (s["d_major_mm"] - TARGET_MM)
-            s["d_minor_mm"] = TARGET_MM + 0.7 * (s["d_minor_mm"] - TARGET_MM)
-            s["ovality_mm"] = 0.7 * s["ovality_mm"]
-    q = pm.quality_summary(samples, TARGET_MM, TOL_MM)
-    q["route"] = name
-    q["heater_budget_W"] = 500.0
-    q["max_simultaneous_heater_W"] = 160.0
-    q["samples"] = len(samples)
-    return q, samples
+              "sustained_offset": sustained_offset_script,
+              "nominal": None}[scenario]
+    duration = 240.0 if scenario != "nominal" else 90.0
+    samples, pending = pm.simulate(
+        p, t_total_s=duration, controller=controller, disturbance=script,
+        return_pending=True)
+    summary = pm.quality_summary(samples, TARGET_MM, TOL_MM)
+    summary.update(route=name, scenario=scenario, samples=len(samples),
+                   controller_halted_at_s=getattr(controller, "halted_at_s", None),
+                   requested_duration_s=duration,
+                   nominal_mdot_g_h=round(p.mdot_g_s * 3600, 2),
+                   nominal_speed_mm_s=round(p.v_line_mm_s, 4),
+                   pending_unqualified_length_mm=round(pending, 2),
+                   produced_length_mm=round(summary["total_length_mm"] + pending, 2),
+                   qualified_fraction_of_produced=round(
+                       summary["in_spec_length_mm"] /
+                       (summary["total_length_mm"] + pending), 4),
+                   die_to_gauge_mm=pm.GAUGE_X - pm.DIE_EXIT_X,
+                   gauge_to_nip_mm=pm.PULLER_NIP_X - pm.GAUGE_X,
+                   max_admitted_heater_W=max((s["heater_W"] for s in samples),
+                                              default=0.0),
+                   max_barrel_C=max((s["barrel_C"] for s in samples),
+                                    default=None),
+                   maximum_nip_center_C=max((s["core_C"] for s in samples),
+                                            default=None))
+    return summary, samples
+
+
+def thermal_case(material, fans):
+    p = pm.LineParams(material=material, fans_on=fans)
+    profile = pm.cooling_profile(p, p.v_line_mm_s)
+    return {
+        "material": material, "fans_on": fans,
+        "reference_mdot_g_h": pm.NOMINAL_MDOT_G_S * 3600,
+        "reference_speed_mm_s": round(p.v_line_mm_s, 3),
+        "gauge_core_C": round(profile["gauge_core_C"], 2),
+        "gauge_ready": profile["gauge_ready"],
+        "thermal_only_speed_limit_mm_s": round(pm.max_cooling_speed_mm_s(p), 2),
+        "status": "UNCALIBRATED_CONVECTION_AND_MATERIAL_ESTIMATE",
+    }
 
 
 def compare():
     results = []
-    details = {}
-    offset_results = []
-    for name, factory, forming in (
-            ("C_fixed_speed", fixed_speed_controller, False),
-            ("A_diameter_feedback",
-             lambda p: PIController(p.v_line_mm_s, kp=1.2, ki=0.06), False),
-            ("B_feedback_plus_forming_pass",
-             lambda p: FormingPassController(p.v_line_mm_s, kp=1.2, ki=0.06),
-             True)):
-        q, samples = run_route(name, factory, forming)
-        q["scenario"] = "transient"
-        results.append(q)
-        details[name] = samples[-5:]      # tail trace for audit
-        q2, _ = run_route(name, factory, forming,
-                          scenario="sustained_offset")
-        q2["scenario"] = "sustained_offset"
-        offset_results.append(q2)
-    # The comparison verdict is evidence-scoped: model says feedback should
-    # help under scripted disturbances; calibration runs decide purchase.
+    traces = {}
+    for scenario in ("nominal", "transient", "sustained_offset"):
+        for name, factory in (("C_fixed_speed", fixed_speed_controller),
+                              ("A_diameter_feedback",
+                               lambda p: PIController(p.v_line_mm_s))):
+            summary, samples = run_route(name, factory, scenario)
+            results.append(summary)
+            traces[f"{scenario}/{name}"] = [
+                {key: s[key] for key in ("t_s", "t_created_s", "d_true_mm",
+                    "d_meas_mm", "core_C", "barrel_birth_C", "barrel_C",
+                    "v_cmd_mm_s", "birth_speed_mm_s",
+                    "die_to_gauge_delay_s", "gauge_to_nip_delay_s")}
+                for s in samples[::max(1, len(samples) // 12)]]
     verdict = {
+        "model": "UNCALIBRATED_2_NODE_STRAND_AND_HEATER_SENSITIVITY",
         "routes": results,
-        "routes_sustained_offset": offset_results,
-        "sample_tail": details,
-        "disturbances": {
-            "flow_surge_pct": "+35 (15-25 s)", "starvation_pct": "-29 (30-40 s)",
-            "sensor_bias_mm": "+0.015 (10-50 s)", "sensor_dropout": "45-50 s",
-            "tension_spike_N": "10 (55-58 s)",
-            "sustained_offset": "+20% throughput for the full run",
-            "power": "hard 500 W allocator; heaters <=160 W simultaneous"},
-        "interpretation": (
-            "UNCALIBRATED model comparison for the sensor/route DECISION "
-            "only.  In-spec fractions are not production claims; reference-"
-            "material calibration runs are required before any quality "
-            "statement.  Route B's 30% deviation reduction is a hypothesis, "
-            "not a mechanism; the original user video is unverified.  "
-            "FINDING 1 (transient script): with the REAL 20 mm sensor->"
-            "puller delay and a +15 um sensor bias, fixed-speed beats "
-            "feedback (the biased loop steers off-target and the delay "
-            "rings) — feedback is NOT free.  FINDING 2 (sustained +20% "
-            "offset): fixed-speed can never return to target while PI "
-            "feedback recovers most in-spec length — feedback is the only "
-            "route that tolerates a wrong operating point.  The decision "
-            "hinges on calibration quality (pin/micrometer round-trip), "
-            "not on buying a sensor."),
-        "holds": [
-            "sensor accuracy U95 <= 0.01 mm unverified (pins + micrometer)",
-            "contact-axis TPU deformation, optical-axis transparent stock",
-            "melt filter pressure, screw/barrel pressure and thrust UNRATED",
+        "sample_traces": traces,
+        "thermal_screen": [thermal_case(material, fans)
+                           for material in pm.MATERIALS for fans in (2, 3)],
+        "forming_pass": {
+            "status": "UNRANKED_NO_PHYSICAL_FORMING_MODEL_OR_COST",
+            "in_spec_fraction": None,
+            "reason": "No calibrated melt pressure, reheat, draw/shape mechanism, thermal history or additional power/cost estimate; bore diameter cannot repair underfill or bubbles.",
+        },
+        "limitations": [
+            "Reference-feed 100 g/h is a design target; screw throughput unmeasured.",
+            "Solid density, conductivity, convection, grip, clutch and temperature-flow sensitivity are assumed, not measured on PPR.",
+            "The puller's influence on the molten draw point is instantaneous here; strand elasticity, melt swelling, pressure and contact deformation are omitted.",
+            "PI arithmetic uses the host-built C++ firmware kernel; a >1s post-start missing gauge sample stops this model. Other firmware safety, power and motor I/O are NOT exercised in the parcel simulation.",
+            "Fixed-speed baseline uses the same diagnostic gauge for after-the-fact scoring, not as a live motor interlock.",
+            "Two-axis sensor accuracy and native continuous production remain unverified.",
+            "In-spec fractions are scenario sensitivity, not physical yield or economic acceptance.",
         ],
     }
-    out = ROOT / "results" / "downstream_route_comparison.json"
-    out.write_text(json.dumps(verdict, indent=2) + "\n")
-    print(json.dumps({r["route"]: {k: r[k] for k in
-                                   ("in_spec_fraction", "in_spec_length_mm",
-                                    "unmeasured_length_mm", "mean_diameter_mm",
-                                    "ovality_max_mm", "d_major_max_mm",
-                                    "d_minor_min_mm")}
-                      for r in results}, indent=2))
+    output = ROOT / "results/downstream_route_comparison.json"
+    output.write_text(json.dumps(verdict, indent=2) + "\n")
+    print(json.dumps([{"scenario": r["scenario"], "route": r["route"],
+                       "in_spec_fraction": r["in_spec_fraction"],
+                       "unmeasured_length_mm": r["unmeasured_length_mm"],
+                       "thermally_unready_length_mm": r["thermally_unready_length_mm"]}
+                      for r in results], indent=2))
     return verdict
 
 

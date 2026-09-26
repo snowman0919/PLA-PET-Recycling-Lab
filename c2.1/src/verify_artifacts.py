@@ -87,6 +87,15 @@ native_path = REPO/native["file"]
 assert native["objects"] == native["valid_objects"]
 assert digest(native_path) == native["sha256"]
 assert digest(R/"src/build_machine_freecad.py") == native["source_sha256"]
+assert native["source_step_matches_current"]
+assert native["source_step_sha256"] == machine["assembly_step_sha256"]
+converted_path = REPO/"c2.2/sim/assets/out/full/bodies.json"
+usd_meta_path = REPO/"c2.2/sim/assets/usd/full_machine.sidecar.json"
+if converted_path.is_file() and usd_meta_path.is_file():
+    converted, usd_meta = load(converted_path), load(usd_meta_path)
+    assert converted["source_step_sha256"] == machine["assembly_step_sha256"]
+    assert usd_meta["source_bodies"]["step_sha256"] == machine["assembly_step_sha256"]
+    assert digest(REPO/"c2.2/sim/assets/usd/full_machine.usda") == usd_meta["usd_sha256"]
 
 # Active BOM and review drawings.
 for key in ("csv", "xlsx"):

@@ -120,7 +120,9 @@ def main():
     c2.Qualification = "DIGITAL_KINEMATIC_PASS_RATING_HOLD"
     new_parts = list(STAGE1_NEW_PARTS)
     for name in (stage3["vp1_stage1"]["chute_parts"]
-                 + stage3["vp1_stage1"]["hopper_parts"]):
+                 + stage3["vp1_stage1"]["hopper_parts"]
+                 + stage3["vp1_stage1"]["winder_parts"]
+                 + stage3["vp1_stage1"]["vp1_stage6"]["downstream_parts"]):
         if name not in new_parts:
             new_parts.append(name)
     for name in new_parts:
@@ -142,12 +144,17 @@ def main():
         "sha256": hashlib.sha256(out.read_bytes()).hexdigest(),
         "bytes": out.stat().st_size,
         "source": str(HERE.relative_to(REPO)),
+        "source_step_sha256": stage3["assembly_step_sha256"],
+        "source_step_file": stage3["assembly_step"],
+        "source_step_matches_current": (
+            hashlib.sha256((REPO/stage3["assembly_step"]).read_bytes()).hexdigest()
+            == stage3["assembly_step_sha256"]),
         "source_sha256": hashlib.sha256(HERE.read_bytes()).hexdigest(),
         "physical_release": "HOLD"
     }
     (C21/"results/machine_freecad.json").write_text(json.dumps(result, indent=2)+"\n")
     print(json.dumps(result, indent=2))
-    if result["objects"] != result["valid_objects"]:
+    if result["objects"] != result["valid_objects"] or not result["source_step_matches_current"]:
         raise SystemExit(1)
 
 

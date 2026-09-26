@@ -1,283 +1,360 @@
-"""VP1 Stage 6: downstream filament process model — mass balance, cooling,
-transport delay, puller/winder dynamics and the hard 500 W heater schedule.
+"""Reference-feedstock downstream screening model (not a production qualification).
 
-Scope (docs/decisions/filament-quality-route.md section 4): a SIMPLE
-physically-consistent model connecting die -> cooling -> gauge -> puller ->
-winder.  It is NOT a melt FEM/CFD, NOT a materials test, and its
-in-spec predictions are NOT production claims: parameters marked CALIBRATION
-are estimates pending reference-material runs.
-
-Model equations (cooled, solid cross-section):
-    mdot = rho_s * A_final * v_line            (mass balance, steady state)
-    d_final = sqrt(4 * mdot / (pi * rho_s * v_line))     (round strand)
-    A_final = pi * dx * dy / 4                 (elliptical ovality)
-The die bore does NOT set the final diameter; the model proves it by
-integrating draw-down under mass balance.
-
-Cooling: lumped-capacitance strand with convection to tray air:
-    dT/dt = -h_eff * perimeter / (rho * cp * A) * (T - T_air)
-h_eff scales with the adjustable duct air length (50..250 mm) and the fan
-schedule: h_eff = h0 * (1 + alpha * ducted_fraction * fans_on/3).
-CALIBRATION: h0, alpha are first-order estimates, not measured UA.
-
-Measurement: the gauge sits at x=822, the puller nip at x=829 (real frozen
-datums from downstream.py station_interfaces).  Sensor->actuation transport
-delay = 7 mm / v_line; the controller uses a delayed measurement buffer.
-
-Puller: commanded surface speed with a first-order motor response
-(tau_motor) and Coulomb slip: effective strand speed v_pull = v_cmd *
-(1 - slip(tension, nip_force)).  Slip is zero below the grip envelope and
-rises linearly above it (CALIBRATION envelope).
-
-Winder: independent tension isolation — spool surface speed follows the
-puller with a slip-tensioner clutch (tensioner torque limit); spool radius
-grows with wound length; winder speed command never feeds back into the
-puller (tension-decoupled, per decision route A).
-
-Power: the 500 W hard operating budget schedules the 3x100 W bands + 60 W
-cartridge through the controller allocator (one band at a time, rotating);
-heat input to the barrel model is the ADMITTED schedule, not the demand.
-M2/M1/fan loads are UNRATED estimates and only affect admission order.
+Each die-exit strand element carries its own area, length, temperature and
+measurement status through die -> gauge -> nip. Puller speed is assumed to
+propagate through the molten draw zone without elastic delay; neither screw
+pressure nor melt rheology is calibrated. The die-to-gauge residence time,
+not gauge-to-nip distance, is the feedback dead time. Thermal parameters are
+explicit sensitivity assumptions; physical temperatures and gauge accuracy
+must be measured before accepting any in-spec prediction.
 """
 from __future__ import annotations
 
 import json
 import math
-from dataclasses import dataclass, field
+from collections import deque
+from dataclasses import dataclass
 from pathlib import Path
 
-HERE = Path(__file__).resolve()
-ROOT = HERE.parents[1]
-
-# --- frozen geometry (c2.1/src/downstream.py station_interfaces) -----------
+DIE_EXIT_X = 540.0
+TRAY_START_X = 545.0
 GAUGE_X = 809.0
 PULLER_NIP_X = 829.0
-SENSOR_TO_PULLER_MM = PULLER_NIP_X - GAUGE_X          # 20.0 mm
-DIE_EXIT_X = 540.0
-TRAY_EXIT_X = 820.0
-TRAY_LENGTH_MM = TRAY_EXIT_X - 545.0                  # 275 mm
-DUCT_AIR_LENGTH_RANGE = (50.0, 250.0)
+TRAY_END_X = 820.0
 NOMINAL_FILAMENT_MM = 1.75
+DESIGN = json.loads((Path(__file__).resolve().parents[2] /
+                     "design/parameters.json").read_text())
+NOMINAL_MDOT_G_S = DESIGN["extruder"]["nominal_target_g_h"] / 3600.0
 
-# --- material table (solid-state values; melt handled only via mdot) -------
-# rho_s = solid density after cooling.  cp = specific heat.  T_die = die
-# exit temperature planning point, T_air = tray air, T_set = puller-ready
-# target.  ALL are engineering planning values (datasheet-class), NOT
-# measured on this machine.
+# Planning inputs, not material certificates; PET means PET, not PETG.
+# k is the assumed solid thermal conductivity. T_ready is a conservative
+# assumed center-temperature gate for contact with the gauge/nip.
 MATERIALS = {
-    "PLA": {"rho_s": 1240.0, "cp": 1800.0, "T_die": 185.0, "T_set": 55.0,
-            "T_air": 35.0},
-    "PET": {"rho_s": 1330.0, "cp": 1250.0, "T_die": 255.0, "T_set": 60.0,
-            "T_air": 35.0},
-    "TPU": {"rho_s": 1210.0, "cp": 1900.0, "T_die": 215.0, "T_set": 50.0,
-            "T_air": 35.0},
+    "PLA": dict(rho_s=1240.0, cp=1800.0, k=0.20, T_die=185.0,
+                T_ready=55.0, T_air=35.0),
+    "PET": dict(rho_s=1330.0, cp=1250.0, k=0.20, T_die=255.0,
+                T_ready=60.0, T_air=35.0),
+    "TPU": dict(rho_s=1210.0, cp=1900.0, k=0.18, T_die=215.0,
+                T_ready=50.0, T_air=35.0),
 }
-
-# CALIBRATION: first-order convection estimates, not measured UA.
-H0_W_M2K = 25.0          # free/weak forced convection baseline
-DUCT_ALPHA = 3.0         # extra convection multiplier at full duct + 3 fans
 
 
 def area_mm2(d_mm):
-    return math.pi * (d_mm / 2.0) ** 2
+    return math.pi * d_mm * d_mm / 4.0
+
+
+def nominal_speed_mm_s(material="PLA", mdot_g_s=NOMINAL_MDOT_G_S):
+    return mdot_g_s * 1e6 / (MATERIALS[material]["rho_s"] * area_mm2(1.75))
 
 
 def steady_diameter_mm(mdot_g_s, rho_s_kg_m3, v_line_mm_s):
-    """Final cooled diameter from mass balance (round strand)."""
-    rho = rho_s_kg_m3 / 1e9        # kg/mm3
-    A = (mdot_g_s / 1000.0) / (rho * v_line_mm_s)   # mm2
-    return math.sqrt(4.0 * A / math.pi)
+    if mdot_g_s <= 0 or rho_s_kg_m3 <= 0 or v_line_mm_s <= 0:
+        raise ValueError("mass flow, solid density and line speed must be positive")
+    return math.sqrt(4.0e6 * mdot_g_s / (math.pi * rho_s_kg_m3 * v_line_mm_s))
 
 
 def ovality(d_major_mm, d_minor_mm):
-    A = math.pi * d_major_mm * d_minor_mm / 4.0
-    d_eq = math.sqrt(4.0 * A / math.pi)
-    return {"d_equiv_mm": d_eq, "ovality_mm": d_major_mm - d_minor_mm,
+    return {"d_equiv_mm": math.sqrt(d_major_mm * d_minor_mm),
+            "ovality_mm": d_major_mm - d_minor_mm,
             "ovality_ratio": d_major_mm / d_minor_mm}
-
-
-@dataclass
-class HeaterSchedule:
-    """Hard-budget band scheduler mirroring controller_core.cpp: one 100 W
-    band admitted at a time (rotating), the 60 W cartridge admitted first;
-    total heater draw <= 160 W.  Power above 500 W total is never admitted
-    (allocator invariant)."""
-    bands_W: tuple = (100.0, 100.0, 100.0)
-    cartridge_W: float = 60.0
-    period_s: float = 30.0
-
-    def admitted_W(self, t_s):
-        band = int(t_s // self.period_s) % len(self.bands_W)
-        return self.cartridge_W + self.bands_W[band]
 
 
 @dataclass
 class LineParams:
     material: str = "PLA"
-    # nominal: 0.0358 g/s at 12 mm/s gives d=1.75 mm for PLA
-    # (A=2.405mm2, rho_s=1.24e-6 kg/mm3 => mdot=rho*A*v=0.0358 g/s = 129 g/h)
-    mdot_g_s: float = 0.0358
-    v_line_mm_s: float = 12.0      # commanded puller surface speed
-    tau_motor_s: float = 0.15      # first-order puller response
-    grip_envelope_N: float = 8.0   # CALIBRATION: slip onset tension
-    tension_nominal_N: float = 2.0
+    mdot_g_s: float = NOMINAL_MDOT_G_S
+    v_line_mm_s: float | None = None
+    dt_s: float = 0.1
+    tau_motor_s: float = 0.5
+    ducted_mm: float = 250.0  # length starting at x545, not a global multiplier
+    fans_on: int = 3
+    h0_W_m2K: float = 25.0  # ASSUMED natural/weak convection
+    duct_alpha: float = 3.0  # ASSUMED forced enhancement at 3 fans
+    spool_core_radius_mm: float = 35.0
+    spool_width_mm: float = 55.0
+    spool_fill_fraction: float = 0.8
+    clutch_torque_Nmm: float = 70.0  # ASSUMED; ~2 N at empty spool
     tensioner_limit_N: float = 6.0
-    h0: float = H0_W_M2K
-    duct_alpha: float = DUCT_ALPHA
-    ducted_mm: float = 250.0       # current baffle setting
-    fans_on: int = 2
-    dt_s: float = 0.02
-    ovality_bias: float = 0.0      # major-minor offset applied at die (defect)
+    grip_envelope_N: float = 8.0
+    ovality_bias_mm: float = 0.0  # half difference; area remains mass-conserving
+    heater_slot_s: float = 30.0  # matches controller_core.cpp; switching device unselected
+    barrel_heat_capacity_J_K: float = 180.0  # per third, steel+polymer estimate
+    barrel_loss_W_K: float = 0.10  # per zone, insulation-dependent
+    die_heat_capacity_J_K: float = 90.0
+    die_loss_W_K: float = 0.15
+    ambient_C: float = 25.0
+    flow_temp_sensitivity_per_C: float = 0.005  # ASSUMED; varies with screw/pressure
+
+    def __post_init__(self):
+        if self.material not in MATERIALS:
+            raise ValueError(f"unsupported material: {self.material}")
+        if self.v_line_mm_s is None:
+            self.v_line_mm_s = nominal_speed_mm_s(self.material, self.mdot_g_s)
+        if (self.dt_s <= 0 or self.v_line_mm_s <= 0 or self.mdot_g_s <= 0
+                or self.tau_motor_s < self.dt_s or not 0 <= self.ducted_mm <= 275
+                or not 0 <= self.fans_on <= 3 or self.heater_slot_s < self.dt_s
+                or self.spool_fill_fraction <= 0):
+            raise ValueError("invalid process geometry, power or time step")
 
 
 @dataclass
-class LineState:
-    T_C: float = field(init=False)
-    v_pull_mm_s: float = field(init=False)
-    spool_radius_mm: float = 35.0  # empty drum radius
-    spool_angle_turns: float = 0.0
-    meas_buffer: list = field(default_factory=list)   # (t_due, d_meas)
-    t_s: float = 0.0
+class Element:
+    birth_s: float
+    birth_distance_mm: float
+    length_mm: float
+    d_major_mm: float
+    d_minor_mm: float
+    core_C: float
+    skin_C: float
+    gauge_s: float | None = None
+    measured_mm: float | None = None
+    gauge_ready: bool = False
+    ready_x_mm: float | None = None
+    source_mdot_g_s: float = 0.0
+    birth_speed_mm_s: float = 0.0
+    barrel_birth_C: float = 0.0
 
-    def __post_init__(self):
-        self.T_C = 25.0
-        self.v_pull_mm_s = 0.0
-        self.meas_buffer = []
 
-
-def h_effective(p: LineParams):
-    frac = p.ducted_mm / DUCT_AIR_LENGTH_RANGE[1]
-    return p.h0 * (1.0 + p.duct_alpha * frac * (p.fans_on / 3.0))
+def h_effective(p: LineParams, x_mm=TRAY_START_X):
+    """Air coefficient at position; only the ducted section gets fan credit."""
+    if TRAY_START_X <= x_mm < min(TRAY_END_X, TRAY_START_X + p.ducted_mm):
+        return p.h0_W_m2K * (1 + p.duct_alpha * p.fans_on / 3)
+    return p.h0_W_m2K
 
 
 def cooling_rate_C_s(T_C, p: LineParams, mat):
-    """Lumped strand cooling rate (convection to tray air)."""
-    d = NOMINAL_FILAMENT_MM / 1000.0          # m
-    A = math.pi * (d / 2.0) ** 2              # m2
-    perimeter = math.pi * d                   # m
-    h = h_effective(p)
-    mass_per_m = mat["rho_s"] * A             # kg/m
-    return -h * perimeter * (T_C - mat["T_air"]) / (mass_per_m * mat["cp"])
+    """Lumped reference rate for comparisons; simulation uses two radial nodes."""
+    return (-4 * h_effective(p) * (T_C - mat["T_air"])
+            / (mat["rho_s"] * mat["cp"] * NOMINAL_FILAMENT_MM / 1000))
+
+
+def cool_element(e: Element, p: LineParams, mat: dict, x_mm: float,
+                 air_C: float):
+    """Core (r<r/2) ↔ outer annulus ↔ air, per unit strand length.
+
+    Cylindrical resistance ln(2)/(2πk) is an approximate radial partition,
+    not a CFD solution. Apply convection only at x>=545; ambient applies
+    outside the tray. Explicit step is stable for the stated dt and radii.
+    """
+    d_m = math.sqrt(e.d_major_mm * e.d_minor_mm) / 1000
+    heat_capacity = mat["rho_s"] * mat["cp"] * math.pi * d_m * d_m / 4
+    conductance = 2 * math.pi * mat["k"] / math.log(2)
+    convection = math.pi * d_m * h_effective(p, x_mm)
+    transfer = conductance * (e.core_C - e.skin_C)
+    e.core_C -= p.dt_s * transfer / (0.25 * heat_capacity)
+    e.skin_C += p.dt_s * (transfer - convection * (e.skin_C - air_C)) / (0.75 * heat_capacity)
+    if e.ready_x_mm is None and e.core_C <= mat["T_ready"]:
+        e.ready_x_mm = x_mm
+
+
+def cooling_profile(p: LineParams, speed_mm_s: float):
+    """Steady 1.75mm reference strand at a specified line speed.
+
+    Thermal-only calculation; matching mass flow would have to be supplied
+    by an as-yet unqualified screw. The gauge is the readiness constraint.
+    """
+    if speed_mm_s <= 0:
+        raise ValueError("line speed must be positive")
+    mat = MATERIALS[p.material]
+    e = Element(0.0, 0.0, 0.0, NOMINAL_FILAMENT_MM,
+                NOMINAL_FILAMENT_MM, mat["T_die"], mat["T_die"])
+    gauge_core = gauge_skin = None
+    steps = math.ceil((PULLER_NIP_X - DIE_EXIT_X) / (speed_mm_s * p.dt_s))
+    for step in range(steps + 1):
+        x = DIE_EXIT_X + step * speed_mm_s * p.dt_s
+        cool_element(e, p, mat, x, mat["T_air"])
+        if gauge_core is None and x >= GAUGE_X:
+            gauge_core, gauge_skin = e.core_C, e.skin_C
+    return {"gauge_core_C": gauge_core, "gauge_skin_C": gauge_skin,
+            "nip_core_C": e.core_C, "nip_skin_C": e.skin_C,
+            "first_ready_x_mm": e.ready_x_mm,
+            "gauge_ready": gauge_core <= mat["T_ready"]}
+
+
+def max_cooling_speed_mm_s(p: LineParams):
+    """Upper thermal-only speed at which the *gauge* sees a ready core.
+
+    The bounded search returns 0 if even 0.5mm/s is insufficient; a
+    value of 40 denotes a search boundary, not proven hardware capacity.
+    """
+    lower, upper = 0.5, 40.0
+    if not cooling_profile(p, lower)["gauge_ready"]:
+        return 0.0
+    if cooling_profile(p, upper)["gauge_ready"]:
+        return upper
+    for _ in range(20):
+        mid = (lower + upper) / 2
+        if cooling_profile(p, mid)["gauge_ready"]:
+            lower = mid
+        else:
+            upper = mid
+    return lower
 
 
 def slip_fraction(tension_N, p: LineParams):
-    if tension_N <= p.grip_envelope_N:
-        return 0.0
-    return min(0.5, 0.05 * (tension_N - p.grip_envelope_N))
+    return min(0.5, max(0.0, tension_N - p.grip_envelope_N) * 0.05)
 
 
-def simulate(p: LineParams, t_total_s=60.0, controller=None,
-             disturbance=None):
-    """Integrate the line; return per-step samples.
+def heater_step(temperatures_C: list[float], p: LineParams, t_s: float,
+                mat: dict, mdot_g_s: float, loss_extra_W: float = 0.0):
+    """3 thermostatic 100 W barrel bands; at most one on in each slot.
 
-    controller: optional callable(meas_d_mm or None, t_s) -> commanded
-    puller speed mm/s.  None => fixed-speed (open loop) baseline.
+    The 60 W die cartridge has its own thermostat. Start from preheated
+    setpoints; qualification warmup, sensor faults and thermal fuses are not
+    emulated. Available power is the admitted load, not requested load.
+    """
+    setpoints = (mat["T_die"] - 30, mat["T_die"] - 15,
+                 mat["T_die"], mat["T_die"])
+    first = int(t_s / p.heater_slot_s) % 3
+    selected = next((idx for idx in ((first + k) % 3 for k in range(3))
+                     if temperatures_C[idx] < setpoints[idx] + 0.25), None)
+    watts = [0.0, 0.0, 0.0, 0.0]
+    if selected is not None:
+        watts[selected] = 100.0
+    if temperatures_C[3] < setpoints[3] + 0.25:
+        watts[3] = 60.0
+    for idx in range(4):
+        loss = p.barrel_loss_W_K if idx < 3 else p.die_loss_W_K
+        capacity = (p.barrel_heat_capacity_J_K if idx < 3
+                    else p.die_heat_capacity_J_K)
+        inlet_C = p.ambient_C if idx == 0 else setpoints[idx - 1]
+        polymer_W = (mdot_g_s / 1000 * mat["cp"] *
+                     max(0.0, setpoints[idx] - inlet_C))
+        temperatures_C[idx] += p.dt_s * (
+            watts[idx] - loss * (temperatures_C[idx] - p.ambient_C)
+            - polymer_W - loss_extra_W / 4) / capacity
+    return watts
 
-    disturbance: optional callable(state_dict) applied per step (flow
-    variation, sensor bias/dropout, slip events, tension events)."""
+
+def simulate(p: LineParams, t_total_s=180.0, controller=None,
+             disturbance=None, return_pending=False):
+    """Return elements at the nip, including residence/quality trace.
+
+    Disturbance callable receives {t_s, heater_W, barrel_C, spool_radius_mm,
+    tension_N, v_pull}; can return mdot_factor, ambient_shift_C,
+    sensor_bias_mm, sensor_dropout, clutch_failed, tension_N and
+    barrel_loss_extra_W. Unmeasured/uncooled elements are NEVER credited.
+    """
     mat = MATERIALS[p.material]
-    sched = HeaterSchedule()
-    st = LineState()
+    barrel = [mat["T_die"] - 30, mat["T_die"] - 15,
+              mat["T_die"], mat["T_die"]]
+    elements = deque()
     samples = []
+    distance_mm = wound_mm = 0.0
+    v_surface = p.v_line_mm_s
+    measured = None
+    loss_extra_W = 0.0
+    last_mdot = p.mdot_g_s
     n = int(t_total_s / p.dt_s)
-    st.v_pull_mm_s = p.v_line_mm_s  # start at nominal; the controller acts from t=0 — startup rejection is a separate physical-test phase, not modeled as free warmup
     for k in range(n):
         t = k * p.dt_s
-        st.t_s = t
-        # --- heater schedule (admitted, hard budget) ----------------------
-        heater_W = sched.admitted_W(t)
-        # --- cooling -------------------------------------------------------
-        st.T_C += cooling_rate_C_s(st.T_C, p, mat) * p.dt_s
-        # --- puller actuation ----------------------------------------------
-        meas_d = None
-        due = [m for m in st.meas_buffer if m[0] <= t]
-        st.meas_buffer = [m for m in st.meas_buffer if m[0] > t]
-        if due:
-            meas_d = due[-1][1]
-        v_cmd = controller(meas_d, t) if controller else p.v_line_mm_s
-        st.v_pull_mm_s += (v_cmd - st.v_pull_mm_s) * (p.dt_s / p.tau_motor_s)
-        # --- strand state at the puller ------------------------------------
-        tension = p.tension_nominal_N
-        env = {"t_s": t, "T_C": st.T_C, "v_pull": st.v_pull_mm_s,
-               "heater_W": heater_W, "tension_N": tension}
+        watts = heater_step(barrel, p, t, mat, last_mdot, loss_extra_W)
+        radius = math.sqrt(p.spool_core_radius_mm ** 2 +
+                           area_mm2(NOMINAL_FILAMENT_MM) * wound_mm /
+                           (math.pi * p.spool_width_mm * p.spool_fill_fraction))
+        env = {"t_s": t, "heater_W": sum(watts), "barrel_C": barrel[2],
+               "spool_radius_mm": radius, "v_pull": v_surface,
+               "tension_N": min(p.clutch_torque_Nmm / radius, p.tensioner_limit_N)}
         if disturbance:
             env = disturbance(env)
-            tension = env.get("tension_N", tension)
+        loss_extra_W = env.get("barrel_loss_extra_W", 0.0)
+        tension = env.get("tension_N", 0.0)
+        if not env.get("clutch_failed", False):
+            tension = min(tension, p.clutch_torque_Nmm / radius,
+                          p.tensioner_limit_N)
+        v_cmd = controller(measured, t) if controller else p.v_line_mm_s
+        if getattr(controller, "halted_at_s", None) is not None:
+            # A latched gauge loss stops the process. The strand still between
+            # die and nip cannot be credited without a restart/purge.
+            break
+        measured = None  # one fresh gauge observation per element, not a held echo
+        v_surface += (v_cmd - v_surface) * min(1.0, p.dt_s / p.tau_motor_s)
         slip = slip_fraction(tension, p)
-        v_eff = st.v_pull_mm_s * (1.0 - slip)  # broken-strand case: v_eff->0 makes mass-balance diameter diverge; in-spec accounting REJECTS those samples (too thick) — scrap is reported, never smoothed
-        # --- mass balance at the cooled section ----------------------------
-        mdot = env.get("mdot_g_s", p.mdot_g_s)
-        d_true = steady_diameter_mm(mdot, mat["rho_s"], max(v_eff, 0.01))
-        d_major = d_true + max(0.0, p.ovality_bias)
-        d_minor = d_true - max(0.0, p.ovality_bias)
-        oval = ovality(d_major, d_minor)
-        # --- gauge: delayed measurement with optional bias/dropout ---------
-        bias = env.get("sensor_bias_mm", 0.0)
-        dropout = env.get("sensor_dropout", False)
-        d_meas = oval["d_equiv_mm"] + bias
-        delay_s = SENSOR_TO_PULLER_MM / max(v_eff, 0.01)
-        if not dropout:
-            st.meas_buffer.append((t + delay_s, d_meas))
-        # --- winder (tension-isolated) -------------------------------------
-        wound_mm = v_eff * p.dt_s
-        st.spool_angle_turns += wound_mm / (2.0 * math.pi * st.spool_radius_mm)
-        # radius growth: area of one layer / circumference (1.75 filament)
-        layer_mm2 = area_mm2(NOMINAL_FILAMENT_MM)
-        st.spool_radius_mm = 35.0 + (
-            st.spool_angle_turns * layer_mm2 / 55.0)   # 55 mm traverse width
-        samples.append({
-            "t_s": round(t, 4), "T_C": round(st.T_C, 3),
-            "heater_W": heater_W, "v_cmd_mm_s": round(v_cmd, 4),
-            "v_pull_mm_s": round(st.v_pull_mm_s, 4),
-            "slip": round(slip, 4), "v_eff_mm_s": round(v_eff, 4),
-            "mdot_g_s": round(mdot, 4),
-            "d_true_mm": round(d_true, 5),
-            "d_major_mm": round(d_major, 5), "d_minor_mm": round(d_minor, 5),
-            "ovality_mm": round(oval["ovality_mm"], 5),
-            "d_meas_mm": (round(d_meas, 5) if not dropout else None),
-            "meas_delay_s": round(delay_s, 4),
-            "tension_N": round(tension, 3),
-            "spool_radius_mm": round(st.spool_radius_mm, 3),
-        })
+        v_eff = v_surface * (1 - slip)
+        distance_mm += v_eff * p.dt_s
+        wound_mm += v_eff * p.dt_s
+        # Mass conservation at the assumed instantaneous draw point. Temperature
+        # influence is an uncalibrated flow sensitivity; no hidden throughput gain.
+        base_flow = p.mdot_g_s * env.get("mdot_factor", 1.0)
+        mdot = base_flow * max(0.05, 1 + p.flow_temp_sensitivity_per_C *
+                               (barrel[2] - mat["T_die"]))
+        last_mdot = mdot
+        d_eq = steady_diameter_mm(mdot, mat["rho_s"], max(v_eff, 0.01))
+        bias = p.ovality_bias_mm
+        major = math.sqrt(d_eq * d_eq + bias * bias) + bias
+        minor = math.sqrt(d_eq * d_eq + bias * bias) - bias
+        elements.append(Element(t, distance_mm, v_eff * p.dt_s, major,
+                                minor, barrel[3], barrel[3],
+                                source_mdot_g_s=mdot, birth_speed_mm_s=v_eff,
+                                barrel_birth_C=barrel[2]))
+        air_C = mat["T_air"] + env.get("ambient_shift_C", 0.0)
+        for e in elements:
+            x = DIE_EXIT_X + distance_mm - e.birth_distance_mm
+            cool_element(e, p, mat, x, air_C)
+            if e.gauge_s is None and x >= GAUGE_X:
+                e.gauge_s = t
+                e.gauge_ready = e.core_C <= mat["T_ready"]
+                if not env.get("sensor_dropout", False):
+                    e.measured_mm = math.sqrt(e.d_major_mm * e.d_minor_mm) + env.get(
+                        "sensor_bias_mm", 0.0)
+                    measured = e.measured_mm
+        while elements and DIE_EXIT_X + distance_mm - elements[0].birth_distance_mm >= PULLER_NIP_X:
+            e = elements.popleft()
+            ready = e.core_C <= mat["T_ready"] and e.gauge_ready
+            samples.append({
+                "t_s": t, "t_created_s": e.birth_s, "t_gauge_s": e.gauge_s,
+                "die_to_gauge_delay_s": round(e.gauge_s - e.birth_s, 3),
+                "gauge_to_nip_delay_s": round(t - e.gauge_s, 3),
+                "length_mm": e.length_mm,
+                "d_major_mm": e.d_major_mm, "d_minor_mm": e.d_minor_mm,
+                "d_true_mm": math.sqrt(e.d_major_mm * e.d_minor_mm),
+                "ovality_mm": e.d_major_mm - e.d_minor_mm,
+                "d_meas_mm": e.measured_mm,
+                "core_C": e.core_C, "skin_C": e.skin_C,
+                "ready_x_mm": e.ready_x_mm, "thermal_ready": ready,
+                "heater_W": sum(watts), "barrel_C": barrel[2],
+                "v_cmd_mm_s": v_cmd, "v_eff_mm_s": v_eff,
+                "mdot_g_s": e.source_mdot_g_s, "slip": slip,
+                "birth_speed_mm_s": e.birth_speed_mm_s,
+                "barrel_birth_C": e.barrel_birth_C,
+                "tension_N": tension, "spool_radius_mm": radius,
+                "winder_rpm": 60 * v_eff / (2 * math.pi * radius),
+            })
+    if return_pending:
+        return samples, sum(e.length_mm for e in elements)
     return samples
 
 
 def quality_summary(samples, target_mm=1.75, tol_mm=0.05):
-    """Length-weighted in-spec accounting: per-axis max/min, ovality, and
-    the in-spec LENGTH (mm), not just the mean.  Unmeasured (dropout)
-    length is reported separately and NEVER counted as in-spec."""
-    dt = samples[1]["t_s"] - samples[0]["t_s"]
-    total_mm = in_spec_mm = unmeasured_mm = 0.0
-    majors, minors = [], []
-    worst = {"d_major_max": 0.0, "d_minor_min": 99.0, "ovality_max": 0.0}
+    """Length at nip; reject both missing gauge and thermally unready strand."""
+    total = good = missing = unready = 0.0
+    min_d, max_d, max_oval = math.inf, -math.inf, 0.0
+    weighted_d = 0.0
     for s in samples:
-        length = s["v_eff_mm_s"] * dt
-        total_mm += length
-        majors.append(s["d_major_mm"])
-        minors.append(s["d_minor_mm"])
-        worst["d_major_max"] = max(worst["d_major_max"], s["d_major_mm"])
-        worst["d_minor_min"] = min(worst["d_minor_min"], s["d_minor_mm"])
-        worst["ovality_max"] = max(worst["ovality_max"], s["ovality_mm"])
-        ok = (abs(s["d_major_mm"] - target_mm) <= tol_mm
-              and abs(s["d_minor_mm"] - target_mm) <= tol_mm
-              and s["ovality_mm"] <= tol_mm)
-        if ok:
-            in_spec_mm += length
+        length = s["length_mm"]
+        total += length
+        major, minor = s["d_major_mm"], s["d_minor_mm"]
+        min_d, max_d = min(min_d, minor), max(max_d, major)
+        max_oval = max(max_oval, major - minor)
+        weighted_d += length * (major + minor) / 2
         if s["d_meas_mm"] is None:
-            unmeasured_mm += length
-    mean_d = (sum(majors) + sum(minors)) / (len(majors) + len(minors))
+            missing += length
+        if not s["thermal_ready"]:
+            unready += length
+        if (s["d_meas_mm"] is not None and s["thermal_ready"]
+                and target_mm - tol_mm <= minor <= major <= target_mm + tol_mm
+                and major - minor <= tol_mm):
+            good += length
     return {
         "target_mm": target_mm, "tol_mm": tol_mm,
-        "total_length_mm": round(total_mm, 1),
-        "in_spec_length_mm": round(in_spec_mm, 1),
-        "in_spec_fraction": (round(in_spec_mm / total_mm, 4)
-                             if total_mm else 0.0),
-        "unmeasured_length_mm": round(unmeasured_mm, 1),
-        "mean_diameter_mm": round(mean_d, 5),
-        "d_major_max_mm": round(worst["d_major_max"], 5),
-        "d_minor_min_mm": round(worst["d_minor_min"], 5),
-        "ovality_max_mm": round(worst["ovality_max"], 5),
-        "in_spec_meaning": ("length-weighted, BOTH axes within tolerance "
-                            "plus ovality within tolerance; unmeasured "
-                            "length is excluded, never credited"),
+        "total_length_mm": round(total, 2),
+        "in_spec_length_mm": round(good, 2),
+        "in_spec_fraction": round(good / total, 4) if total else 0.0,
+        "unmeasured_length_mm": round(missing, 2),
+        "thermally_unready_length_mm": round(unready, 2),
+        "mean_diameter_mm": round(weighted_d / total, 5) if total else None,
+        "d_major_max_mm": round(max_d, 5) if total else None,
+        "d_minor_min_mm": round(min_d, 5) if total else None,
+        "ovality_max_mm": round(max_oval, 5),
+        "in_spec_meaning": "modeled, measured, thermally ready nip length; not physical yield",
     }

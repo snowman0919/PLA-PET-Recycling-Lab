@@ -200,13 +200,16 @@ def _reconstruct_parts(cq):
                         for name, solid in bmi.electrical_mod.components()]
     hopper_parts = [{"name": name, "group": "feed", "shape": solid}
                     for name, solid in bmi.hopper_panels.components()]
+    downstream_parts = [{"name": name, "group": group, "shape": solid}
+                        for name, solid, group in bmi.downstream_mod.components()]
     new_solids = {r["name"]: r["shape"] for r in legacy if r.get("replaced")}
     new_solids.update({r["name"]: r["shape"] for r in
                        chain_parts + chute_parts + guard_parts +
-                       winder_parts + electrical_parts + hopper_parts})
+                       winder_parts + electrical_parts + hopper_parts +
+                       downstream_parts})
     bmi.chain_relief.apply(legacy, new_solids)
     parts = (legacy + c21 + chain_parts + chute_parts + guard_parts +
-             winder_parts + electrical_parts + hopper_parts)
+             winder_parts + electrical_parts + hopper_parts + downstream_parts)
     # Compounds (multi-solid parts, e.g. the paddle bearing posts split by
     # their bores, the paddle wheel blades, bearing pairs) must expand to
     # one record per solid: the hungarian below matches records against

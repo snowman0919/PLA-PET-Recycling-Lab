@@ -1,6 +1,6 @@
 {
   "revision": "C2.1-P6+VP1-STAGE6",
-  "date": "2026-09-24",
+  "date": "2026-09-27",
   "overall": "DIGITAL_P0_P6_PACKAGE_PASS_PHYSICAL_RELEASE_HOLD",
   "stages": {
     "P0": "DYNAMIC_EVIDENCE_VERIFIER_PASS",
@@ -12,22 +12,22 @@
     "P6": "DIGITAL_MACHINE_INTEGRATION_PASS_RELEASE_HOLD"
   },
   "machine": {
-    "assembly_objects": 262,
-    "reimported_solids": 290,
+    "assembly_objects": 264,
+    "reimported_solids": 289,
     "interface_collision_passed": true,
     "body_passed": true,
     "operating_envelope_passed": true,
-    "native_freecad_objects": 213,
-    "native_freecad_valid_objects": 213
+    "native_freecad_objects": 223,
+    "native_freecad_valid_objects": 223
   },
   "package": {
-    "bom_rows": 204,
+    "bom_rows": 205,
     "known_cost_rows": 11,
-    "unknown_cost_rows": 193,
+    "unknown_cost_rows": 194,
     "wiring_components": 43,
     "wiring_pins": 174,
     "wiring_nets": 67,
-    "firmware_host_cases": 25,
+    "firmware_host_cases": 28,
     "drawing_status": "NOMINAL_RFQ_REVIEW_ONLY_FABRICATION_RELEASE_HOLD"
   },
   "material_flow": {

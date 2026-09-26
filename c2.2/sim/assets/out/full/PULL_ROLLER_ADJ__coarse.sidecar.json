@@ -3,27 +3,27 @@
   "group": "puller",
   "kinematic_body": "STATIC",
   "lod": "coarse",
-  "step_index": 254,
-  "step_product_name": "Open CASCADE STEP translator 7.9 1.254",
+  "step_index": 253,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.253",
   "mesh_file": "sim/assets/out/full/PULL_ROLLER_ADJ__coarse.stl",
-  "mesh_bytes": 1125384,
-  "mesh_sha256": "0571be17644c5c14bf5269f8865cd9c938c4006125f037b68b52bca7593207b4",
+  "mesh_bytes": 1129984,
+  "mesh_sha256": "3cc5716f410b50e4fbed44b43ae3eb3ae9c44c35089486b3bf9d99796a6f4a5e",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+  "source_step_sha256": "762909f469e517dcfe39a87536a3b701119b6e2eaa86825d59a147c229a92a2d",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
-    810.0215456210208,
-    252.9999999,
-    123.11836935490096,
-    849.0990793619184,
-    307.0000001,
+    810.0215456219574,
+    263.9999999,
+    123.11836935366401,
+    849.0990793619916,
+    318.0000001,
     149.7500001
   ],
-  "revision": "6072ac0090be9af763cdca789f8fa95bd2f4227b",
+  "revision": "92e4470163e946b619a0baa74b3a4a428cce72a6",
   "conversion_script": "c2.2/sim/assets/convert.py",
-  "conversion_script_sha256": "7ea788c951c8448a98b5efb00e5afb75d02d038d5c76b85927bb1dd90fc9c646",
+  "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
   "tessellation": {
     "linear_tolerance_mm": 0.5,
     "angular_tolerance_rad": 0.5
@@ -31,7 +31,7 @@
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
   "material": "STEEL",
-  "source_material_label": "steel; M5 screw",
+  "source_material_label": "steel + springs unselected",
   "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
   "thermal_condition": "hot-zone grade and measured temperature HOLD",
   "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
@@ -45,52 +45,52 @@
   ],
   "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
   "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-  "volume_mm3": 10733.4850948708,
+  "volume_mm3": 10733.485095443679,
   "solid_bbox_mm": [
-    810.02154562102,
-    252.9999999,
-    123.11836935490001,
-    849.09907936191,
-    307.0000001,
+    810.02154562195,
+    263.9999999,
+    123.11836935366,
+    849.09907936199,
+    318.0000001,
     149.7500001
   ],
-  "mass_kg": 0.0842578579947358,
+  "mass_kg": 0.08425785799923288,
   "mass_bounds_kg": [
-    0.0842578579947358,
-    0.0842578579947358
+    0.08425785799923288,
+    0.08425785799923288
   ],
   "center_of_mass_mm": [
-    829.560312491465,
-    280.0,
-    136.43418472745
+    829.5603124919701,
+    291.0,
+    136.43418472682998
   ],
   "inertia_kg_mm2": [
-    25.4546062851166,
-    15.702135726150054,
-    31.19684872980336
+    25.454606286938958,
+    15.702135726985402,
+    31.196848731001978
   ],
   "inertia_upper_bound_kg_mm2": [
-    76.3638188553498,
-    47.10640717845016,
-    93.59054618941008
+    76.36381886081688,
+    47.106407180956204,
+    93.59054619300593
   ],
   "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
   "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
   "inertia": {
     "diagonal_kg_mm2": [
-      25.4546062851166,
-      15.702135726150054,
-      31.19684872980336
+      25.454606286938958,
+      15.702135726985402,
+      31.196848731001978
     ],
     "upper_bound_kg_mm2": [
-      76.3638188553498,
-      47.10640717845016,
-      93.59054618941008
+      76.36381886081688,
+      47.106407180956204,
+      93.59054619300593
     ],
     "center_of_mass_mm": [
-      829.560312491465,
-      280.0,
-      136.43418472745
+      829.5603124919701,
+      291.0,
+      136.43418472682998
     ],
     "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
   },

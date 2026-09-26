@@ -1,4 +1,17 @@
 {
+  "upstream_acceptance_screen": {
+    "design_feed_rate_g_h": 100.0,
+    "nominal_PLA_line_speed_mm_s": 9.3134338726879,
+    "fixed_speed_flow_window_fraction": [
+      -0.05632653061224491,
+      0.05795918367346964
+    ],
+    "meaning": "Ideal 1.75\u00b10.05 mm PLA mass balance at CONSTANT puller speed only; feedback, porosity, diameter ovality and die transients tighten this unqualified feed screen",
+    "mass_during_die_to_gauge_delay_g": 0.8023058223599867,
+    "maximum_flake_mm": null,
+    "moisture_limit_ppm": null,
+    "gates": "S1\u2192real S2 mouth\u2192screen\u2192buffer same-particle transfer and stable extruder rate unverified; measure bulk density, size distribution, drying and die pressure per material grade"
+  },
   "revision": "VP1-STAGE5-AUGER",
   "checkpoint_classes": {
     "pass_space": [
@@ -27,7 +40,7 @@
     "resolution": "RH screw conveyor, root r3/OD r8, pitch 28.50 mm, four turns x237.0..354.0; BRep flight/shell gap 1.085 mm",
     "implementation": "S2Ecc 12T -> PDL_CHAIN 35 links (offset link strength/tension UNRATED) -> PDL_SPROCKET/PDL_SHAFT at x362,z374.5 -> RH 2-start PDL_WORM -> AUG_WHEEL 16T (8:1) -> AUG_SHAFT at -5.438 rpm reference; no claim of S1 pickup or S2 mouth delivery",
     "simulation_history": "paddle+scraper and shallow r4/r5 auger were measured non-conveying; they are superseded, not counted as final evidence",
-    "final_simulation_evidence": "c2.2/results/full_machine/flow_localize/results.json"
+    "final_simulation_evidence": "Historical flow_localize results on a prior STEP; current STEP requires a new hash-matched native run (HOLD)"
   },
   "checkpoints": [
     {
@@ -95,7 +108,7 @@
       "probe_sphere_mm": 8.0,
       "passed": true,
       "evidence": "NAMEPLATE",
-      "note": "FEED-BUF steel loft 190x48 top, inset shoulder at z210 and \u00d818 outer/\u00d813 clear octagonal neck for 15 mm; lower outlet x299,y275 and split metal saddle are coaxial with the \u00d820 barrel feed bore. \u00d813 throat is only an aperture: weld, clamping, thermal fit, and flow remain HOLD",
+      "note": "FEED-BUF steel loft 190x48 top, inset shoulder at z210 and \u00d820 outer/\u00d813 clear octagonal neck for 15 mm; lower outlet x299,y275 and split metal saddle are coaxial with the \u00d820 barrel feed bore. \u00d813 throat is only an aperture: weld, clamping, thermal fit, and flow remain HOLD",
       "checkpoint_class": "pass_space"
     },
     {
@@ -118,20 +131,20 @@
     },
     {
       "checkpoint": "puller_nip",
-      "aperture_mm": 1.5,
-      "probe_sphere_mm": 1.5,
+      "aperture_mm": 3.0,
+      "probe_sphere_mm": 1.75,
       "passed": true,
-      "evidence": "MEASURED",
-      "note": "VP1 Stage 4 puller: dia-20 rollers at z 114.25/135.75 (line z 125), cam positive-stop range 1.5..3.0 mm; the 1.75 mm filament (design/parameters.json filament_mm) is gripped: seated nip 1.5 mm < filament, spring compliance opens the contact to ~1.9 mm",
+      "evidence": "GEOMETRY",
+      "note": "Open nip 3.00 mm can be threaded with nominal 1.75 mm filament; the CAD assembly depicts the 1.5 mm seated stop, not the open position; motor, spring travel and contact force are unqualified",
       "checkpoint_class": "pass_space"
     },
     {
       "checkpoint": "puller_grip",
       "aperture_mm": 1.75,
-      "probe_sphere_mm": 1.5,
+      "probe_sphere_mm": 1.75,
       "passed": true,
-      "evidence": "MEASURED",
-      "note": "OPERATIONAL GRIP: minimum stop nip 1.5 mm < filament 1.75 mm <= open nip 3.0 mm -> rollers compress onto the filament (spring rate 8 N/mm, ~0.2 mm compression at 1.75 mm); tension transfers roller->filament->spool",
+      "evidence": "BREP_GEOMETRY",
+      "note": "1.75mm strand at y275 penetrates each nominal rigid roller envelope (0.142/0.142 mm3), not frame (0.000 mm3); this shows geometric engagement, NOT actual spring/contact grip or torque",
       "checkpoint_class": "operational_grip"
     },
     {
@@ -139,8 +152,8 @@
       "aperture_mm": 58.0,
       "probe_sphere_mm": 8.0,
       "passed": true,
-      "evidence": "MEASURED",
-      "note": "VP1 Stage 4 winder: driven dia-70 drum between dia-200 flanges at (700, y 100..170, z 220), shaft in bearing blocks BOTH ends (WIND_SPOOL_BEARINGS), motor reference positively coupled to the drum shaft; filament span puller nip (829, 264, 125) -> traverse eyelet (742, 128, 245): midpoint probe sphere blocked by nothing",
+      "evidence": "BREP_GEOMETRY",
+      "note": "A midpoint route probe from (829,275,125) to eyelet (742,128,245) avoids listed metal: no blockage. The drum rides freely on its shaft; WIND_CLUTCH_REF contacts its steel flange, but unselected motor, axial preload, joining and torque remain HOLD",
       "checkpoint_class": "pass_space"
     }
   ],

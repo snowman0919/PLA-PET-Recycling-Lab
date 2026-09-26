@@ -21,8 +21,6 @@ STEPS = 240
 
 
 def main() -> int:
-    env = dict(os.environ)
-    env["OMNI_KIT_ACCEPT_EULA"] = "YES"
     rows = []
     failures: list[str] = []
     for wc, seed in CASES:
@@ -31,7 +29,8 @@ def main() -> int:
             cmd = [PY, os.path.join(C22, "sim", "dynamics", "s1_physx.py"),
                    "--class", wc, "--seed", str(seed), "--steps",
                    str(nsteps), "--dt", str(dt)]
-            r = subprocess.run(cmd, capture_output=True, text=True, env=env)
+            r = subprocess.run(cmd, capture_output=True, text=True,
+                               env=os.environ)
             tag = f"s1_{wc}_{seed}_dt{dt}_n{nsteps}"
             spath = os.path.join(C22, "results", "dyn_s1", tag
                                  + ".summary.json")

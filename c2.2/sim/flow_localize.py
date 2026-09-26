@@ -1201,10 +1201,10 @@ def main() -> int:
             child_args.extend(["--chute-steps", str(steps_ph)])
         if ph == "s1_discharge":
             child_args.extend(["--s1-steps", str(steps_ph)])
-        child_env = (os.environ if CANDIDATE else
-                     {**os.environ, "OMNI_KIT_ACCEPT_EULA": "YES"})
+        # Never inject license acceptance into a child process. The caller
+        # must obtain explicit approval and configure the runtime externally.
         r = subprocess.run(child_args, capture_output=True, text=True,
-                           env=child_env)
+                           env=os.environ)
         child_codes[ph] = r.returncode
         (out_root / f"phase_{ph}_runner_log.txt").write_text(r.stdout)
         print(f"phase {ph}: rc={r.returncode} "

@@ -42,7 +42,9 @@ PSU_NAMEPLATE_W = float(PSU["nameplate_W"])
 HEAT_UP_END_S = 300
 SHREDDING_END_S = 600
 STEADY_END_S = 1800
-BAND_ROTATION_S = 30  # matches firmware BAND_ROTATION_PERIOD_MS
+BAND_ROTATION_S = 30  # nominal model slot; relay/controller selection unverified
+SCREENING_AUX_W = 20.0  # explicit hypothetical puller+winder budget, NOT a rating
+
 
 
 def demand_at(t_s, loads):
@@ -57,9 +59,13 @@ def demand_at(t_s, loads):
     return ({"fans": fans, "h60": h60, "m1": m1, "m2": m2}, stage)
 
 
-def admitted_load(t_s, loads, demands, aux_demand_W=0.0,
+def admitted_load(t_s, loads, demands, aux_demand_W=None,
                   budget_W=OPERATIONAL_CAP_W):
-    """Apply the controller's priority allocator and hard modeled budget."""
+    """Mirror firmware admission; unknown/denied aux holds the entire line."""
+    if demands["m2"] and (aux_demand_W is None or aux_demand_W <= 0):
+        return 0.0, {"state": "qualification_hold", "rejected_demands": 0}
+    if aux_demand_W is None:
+        aux_demand_W = 0.0
     budget_W = min(budget_W, OPERATIONAL_CAP_W)
     load = 0.0
     admitted = {"rejected_demands": 0}
@@ -76,6 +82,9 @@ def admitted_load(t_s, loads, demands, aux_demand_W=0.0,
             load += aux_demand_W
         else:
             admitted["rejected_demands"] += 1
+    if demands["m2"] and (not admitted.get("m2") or not admitted.get("aux")):
+        return 0.0, {"state": "qualification_hold",
+                     "rejected_demands": admitted["rejected_demands"]}
     # At most one EX-H100 band; rotate priorities, trying the next candidate
     # only if the current candidate cannot fit the operating budget.
     first = (t_s // BAND_ROTATION_S) % 3
@@ -114,8 +123,10 @@ def main():
     per_stage = {}
     for t_s in range(0, STEADY_END_S):
         demands, stage = demand_at(t_s, loads)
-        load, admitted = admitted_load(t_s, loads, demands)
+        load, admitted = admitted_load(
+            t_s, loads, demands, SCREENING_AUX_W if demands["m2"] else None)
         timeline.append({"t_s": t_s, "stage": stage, "draw_W": round(load, 3),
+                         "assumed_aux_W": SCREENING_AUX_W if demands["m2"] else None,
                          "h100_band": admitted.get("h100_band")})
         rec = per_stage.setdefault(stage, {"samples": 0, "peak_W": 0.0,
                                            "sum_W": 0.0})
@@ -133,7 +144,7 @@ def main():
 
     peak = max(rec["peak_W"] for rec in per_stage.values())
     result = {
-        "revision": "C2.1-P6+VP1-STAGE6",
+        "revision": "VP1-REFERENCE-FEED-SCREEN",
         "module": "c2.1/src/power_sim.py",
         "controller": "c2.1/firmware/controller_core.cpp staged concurrency "
                       "allocator (500 W hard modeled operating budget; 792 W "
@@ -145,6 +156,7 @@ def main():
             "steady_filament_production_s": [SHREDDING_END_S, STEADY_END_S],
             "resolution_s": 1,
             "band_rotation_period_s": BAND_ROTATION_S,
+            "slot_selection": "30s modeled; thermal transient/rated relay endurance unverified",
         },
         "modeled_devices": [
             {"key": key, "device": next(k for k in devices if
@@ -167,6 +179,17 @@ def main():
             "modeled_consumption_only": True,
         },
         "per_stage": stages,
+        "auxiliary_budget": {
+            "screening_input_W": SCREENING_AUX_W,
+            "grade": "HYPOTHETICAL_NOT_SELECTED_NOT_RATED",
+            "max_aux_with_band_and_M1_W": round(
+                OPERATIONAL_CAP_W - sum(loads.values()), 3),
+            "max_aux_without_band_and_M1_W": round(
+                OPERATIONAL_CAP_W - sum(v for k, v in loads.items()
+                                        if k != "h100"), 3),
+            "actual_puller_winder_W": None,
+            "production_power_qualified": False,
+        },
         "peak_W": round(peak, 3),
         "power_policy": "500 W HARD modeled operating budget: refuse each "
                         "next demand above it. PSU 24 V / 33 A = 792 W "
@@ -188,17 +211,24 @@ def main():
              "requested_W": 824.0,
              "admitted_W": admitted_load(600, loads, {"fans": True, "h60": True,
                                   "m1": True, "m2": True}, 500.0)[0],
-             "outcome": "aux refused; one band admitted below 500 W"}],
+             "outcome": "aux refused; M2/line qualification hold, all off"},
+            {"scenario": "unknown puller/winder demand",
+             "requested_W": None,
+             "admitted_W": admitted_load(600, loads, {"fans": True, "h60": True,
+                                  "m1": True, "m2": True})[0],
+             "outcome": "M2/line qualification hold, all off"}],
         "instantaneous_draw_timeline": timeline,
-        "timeline_note": "per-second admitted nameplate draw under the "
-                         "controller allocator; heater duty cycling limits the "
-                         "simulated demand to one EX-H100 band + EX-H60",
+        "timeline_note": "per-second hypothetical draw with 20 W assumed aux, "
+                         "not a selected motor; at most one EX-H100 band. "
+                         "Without a rated auxiliary demand the firmware holds.",
         "limitations": [
             "virtual duty cycle over NAMEPLATE/UNRATED device values; no "
             "measured load, thermal lag or duty modulation of thermostat "
             "bands is modeled",
             "UNRATED motor values are consumption estimates for margin "
             "sizing, not nameplates of owned devices",
+            "20 W puller+winder is a sensitivity input, not a component choice; "
+            "500 W budget and 30s relay-slot adequacy remain unqualified",
             "no target firmware build, flash, or energization (all HOLD)",
         ],
         "passed": None,

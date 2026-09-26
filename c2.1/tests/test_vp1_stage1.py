@@ -146,6 +146,27 @@ class ChuteGeometry(unittest.TestCase):
                     self.assertLessEqual(solid.intersect(sw).Volume(), 1e-6,
                                          "%s vs cutter sweep %d" % (name, i))
 
+    def test_side_belt_exit_flight_can_reach_stranded_small_flake(self):
+        from OCP.BRepExtrema import BRepExtrema_DistShapeShape
+
+        # The localized flow run stranded a 3 mm sphere at x223/z336.5.
+        # A rotating flight must intersect that envelope without cutting
+        # its fixed catch or touching the side-belt drive.
+        flake = chute_mod.cq.Solid.makeSphere(
+            1.5, chute_mod.V(223.0, 260.0, 336.5), angleDegrees1=-90)
+        swept = chute_mod._cyl(chute_mod.SWEEP_FLIGHT_R, 6.0,
+                               chute_mod.SWEEP_X, 257.0, chute_mod.SWEEP_Z)
+        self.assertGreater(swept.intersect(flake).Volume(), 0.2)
+        floor = chute_mod.pan_floor()
+        belt = chute_mod.belt_loop()
+        self.assertTrue(floor.isValid())
+        self.assertEqual(len(floor.Solids()), 1)
+        for south in (True, False):
+            flight = chute_mod.sweep_shaft(south)
+            self.assertLessEqual(flight.intersect(floor).Volume(), 1e-6)
+            self.assertGreater(BRepExtrema_DistShapeShape(
+                flight.wrapped, belt.wrapped).Value(), 0.5)
+
     def test_support_plate_clearance(self):
         floor = chute_mod.pan_floor()
         # no floor material in the support-plate band beyond the chamfer

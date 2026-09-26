@@ -25,9 +25,8 @@ DT = 0.005
 
 
 def run(cmd):
-    env = dict(os.environ)
-    env["OMNI_KIT_ACCEPT_EULA"] = "YES"
-    return subprocess.run(cmd, capture_output=True, text=True, env=env)
+    # Preserve the caller's explicit license state; never auto-accept EULA.
+    return subprocess.run(cmd, capture_output=True, text=True, env=os.environ)
 
 
 def main() -> int:

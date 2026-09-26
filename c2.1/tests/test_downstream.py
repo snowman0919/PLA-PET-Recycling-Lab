@@ -1,11 +1,5 @@
-"""VP1 Stage 6: unit tests for downstream modules and process model.
-
-Verifies:
-1. downstream CAD parts validity and mutual non-interference
-2. station interface datums (filament line y=275, z=125, delay=20mm)
-3. process model mass-balance invariants and cooling monotonicity
-4. quality accounting excluding unmeasured length
-"""
+"""Behavioral regressions for reference-feed extrusion and gauge geometry."""
+import json
 import math
 import sys
 import unittest
@@ -13,146 +7,222 @@ from pathlib import Path
 
 R = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(R / "src"))
-
 try:
     import cadquery  # noqa: F401
     HAVE_CQ = True
 except ImportError:
     HAVE_CQ = False
-
 if HAVE_CQ:
     import downstream as dd
     import winder as w
-
 import process_model as pm
 import route_comparison as rc
+import power_sim as ps
+
+
+class PowerGateTests(unittest.TestCase):
+    def test_unknown_or_unaffordable_puller_winder_stops_line(self):
+        loads = {"fans": 24, "h60": 60, "m1": 196.8, "m2": 43.2, "h100": 100}
+        demanded = dict.fromkeys(("fans", "h60", "m1", "m2"), True)
+        for aux in (None, 500):
+            watts, outcome = ps.admitted_load(600, loads, demanded, aux)
+            self.assertEqual(watts, 0)
+            self.assertEqual(outcome["state"], "qualification_hold")
+        watts, outcome = ps.admitted_load(600, loads, demanded, 76)
+        self.assertAlmostEqual(watts, 500)
+        self.assertIn("h100_band", outcome)
+        watts, outcome = ps.admitted_load(600, loads, demanded, 150)
+        self.assertAlmostEqual(watts, 474)
+        self.assertNotIn("h100_band", outcome)
 
 
 class DownstreamGeometryTests(unittest.TestCase):
-    """BRep validity and non-interference for downstream modules."""
+    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
+    def test_gauge_does_not_intersect_neighboring_metal(self):
+        parts = [dd.gauge_frame(), dd.gauge_guides(),
+                 dd.gauge_contact_a(), dd.gauge_optical_b(),
+                 dd.gauge_ref_standard()]
+        for i, left in enumerate(parts):
+            for right in parts[i + 1:]:
+                self.assertLess(left.intersect(right).Volume(), 0.001)
+        for neighbor in (w.pull_roller_adj(), w.pull_roller_fixed(),
+                         w.pull_frame()):
+            self.assertLess(parts[0].intersect(neighbor).Volume(), 0.001)
+    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
+    def test_cooling_fans_have_open_air_paths_through_baffle_and_tray(self):
+        import build_machine_integration as machine
+        cfg = json.loads((R / "design/machine_integration.json").read_text())
+        master = json.loads((R.parent / "design/assembly.json").read_text())
+        tray = next(p["shape"] for p in machine.legacy_parts(master, cfg)
+                    if p["name"] == "COOL-TRAY_001")
+        for x in (610, 750):
+            air = cadquery.Solid.makeCylinder(
+                1.5, 14, cadquery.Vector(x, 227, 120),
+                cadquery.Vector(0, 1, 0))
+            self.assertLess(air.intersect(tray).Volume(), 0.001)
+        duct, fan = dd.cool_duct(), dd.cool_fan_3_ref()
+        self.assertEqual(fan.BoundingBox().xlen, 80)
+        self.assertEqual(fan.BoundingBox().ylen, 80)
+        self.assertEqual(fan.BoundingBox().zlen, 38)
+        self.assertLess(duct.intersect(fan).Volume(), 0.001)
+        air = cadquery.Solid.makeCylinder(
+            1.5, 47, cadquery.Vector(655, 270, 131),
+            cadquery.Vector(0, 0, 1))
+        self.assertLess(air.intersect(duct).Volume(), 0.001)
+        self.assertLess(air.intersect(fan).Volume(), 0.001)
+        # A third air passage does not prove convection or cooling capacity.
+    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
+    def test_nominal_filament_contacts_both_nip_rollers_not_their_frame(self):
+        strand = cadquery.Solid.makeCylinder(
+            0.875, 10, cadquery.Vector(824, 275, 125),
+            cadquery.Vector(1, 0, 0))
+        for roller in (w.pull_roller_fixed(), w.pull_roller_adj()):
+            self.assertGreater(roller.intersect(strand).Volume(), 0.1)
+            self.assertLess(roller.intersect(w.pull_frame()).Volume(), 0.001)
+        self.assertLess(w.pull_frame().intersect(strand).Volume(), 0.001)
+        stop = w.pull_nip_stop()
+        self.assertLess(stop.intersect(w.pull_roller_adj()).Volume(), 0.001)
+        self.assertLess(stop.intersect(w.pull_frame()).Volume(), 0.001)
 
     @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
-    def test_production_components_valid_and_single(self):
-        parts = dd.components()
-        self.assertEqual(len(parts), 6)
-        names = [name for name, solid, group in parts]
-        self.assertIn("GAUGE_FRAME", names)
-        self.assertIn("GAUGE_GUIDES", names)
-        self.assertIn("GAUGE_CONTACT_A", names)
-        self.assertIn("GAUGE_OPTICAL_B", names)
-        self.assertIn("GAUGE_REF_STANDARD", names)
-        self.assertIn("COOL-DUCT", names)
-        for name, solid, group in parts:
-            self.assertTrue(solid.isValid(), f"{name} is invalid")
-            self.assertGreaterEqual(len(solid.Solids()), 1, f"{name} has no solids")
+    def test_winder_loose_bore_and_friction_faces_do_not_interfere(self):
+        shaft, spool, clutch = (w.spool_shaft(), w.spool_drum(),
+                                w.spool_clutch_ref())
+        self.assertTrue(shaft.isValid() and spool.isValid() and clutch.isValid())
+        self.assertLess(shaft.intersect(spool).Volume(), 0.001)
+        self.assertLess(shaft.intersect(clutch).Volume(), 0.001)
+        self.assertLess(clutch.intersect(w.spool_flange_l()).Volume(), 0.001)
+        self.assertAlmostEqual(clutch.BoundingBox().ymax,
+                               w.spool_flange_l().BoundingBox().ymin)
 
     @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
-    def test_swap_parts_valid(self):
-        swaps = dd.swap_parts()
-        self.assertEqual(len(swaps), 1)
-        name, solid, group = swaps[0]
-        self.assertEqual(name, "SERVICE-HOPPER")
-        self.assertTrue(solid.isValid())
-        bb = solid.BoundingBox()
-        # mounts onto FEED-BUF saddle interface at z=145
-        self.assertAlmostEqual(bb.zmin, 142.0, delta=1.0)
-        self.assertAlmostEqual(bb.zmax, 221.0, delta=1.0)
-
-    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
-    def test_gauge_internal_clearances(self):
-        parts = {
-            "frame": dd.gauge_frame(),
-            "guides": dd.gauge_guides(),
-            "contact": dd.gauge_contact_a(),
-            "optical": dd.gauge_optical_b(),
-            "refstd": dd.gauge_ref_standard(),
-        }
-        names = list(parts)
-        for i, a in enumerate(names):
-            for b in names[i + 1 :]:
-                overlap = parts[a].intersect(parts[b]).Volume()
-                self.assertLess(
-                    overlap, 0.001,
-                    f"Gauge internal interference between {a} and {b}: {overlap:.4f} mm3",
-                )
-
-    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
-    def test_gauge_vs_puller_clearances(self):
-        frame = dd.gauge_frame()
-        adj = w.pull_roller_adj()
-        fixed = w.pull_roller_fixed()
-        pull_frame = w.pull_frame()
-        self.assertLess(frame.intersect(adj).Volume(), 0.001)
-        self.assertLess(frame.intersect(fixed).Volume(), 0.001)
-        self.assertLess(frame.intersect(pull_frame).Volume(), 0.001)
-
-    def test_station_interfaces_datums(self):
-        ifaces = dd.station_interfaces()
-        self.assertEqual(ifaces["filament_line"]["y_mm"], 275.0)
-        self.assertEqual(ifaces["filament_line"]["z_mm"], 125.0)
-        self.assertEqual(ifaces["filament_line"]["gauge_x_mm"], 809.0)
-        self.assertEqual(ifaces["filament_line"]["puller_nip_x_mm"], 829.0)
-        self.assertAlmostEqual(
-            ifaces["gauge_to_puller_delay"]["distance_mm"], 20.0, places=3
-        )
-        self.assertEqual(ifaces["reference_pins_mm"], [1.50, 1.75, 2.00])
+    def test_reference_hopper_has_open_throat_and_clears_retained_machine(self):
+        import build_machine_integration as machine
+        hopper = dd.service_hopper()
+        cfg = json.loads((R / "design/machine_integration.json").read_text())
+        master = json.loads((R.parent / "design/assembly.json").read_text())
+        # A Ø4 reference pellet must see a real channel, not a solid loft.
+        for z in range(146, 220, 5):
+            y = 275 - 50 * (z - 145) / 75
+            pellet = cadquery.Solid.makeSphere(2, cadquery.Vector(299, y, z))
+            self.assertLess(pellet.intersect(hopper).Volume(), 0.01, z)
+        # Remove only the buffer shell. The saddle and S2 supports remain.
+        adjacent = machine.c21_parts(cfg) + machine.legacy_parts(master, cfg)
+        for item in adjacent:
+            if item["name"] == "FEED-BUF_001":
+                continue
+            if machine.bbox_overlap(hopper, item["shape"]):
+                overlap = hopper.intersect(item["shape"]).Volume()
+                self.assertLess(overlap, 0.05, item["name"])
 
 
 class ProcessModelPhysicsTests(unittest.TestCase):
-    """Mass balance, delay, cooling and quality accounting invariants."""
+    def test_mass_balance_for_planned_rate_and_other_materials(self):
+        for material, props in pm.MATERIALS.items():
+            v = pm.nominal_speed_mm_s(material)
+            d = pm.steady_diameter_mm(pm.NOMINAL_MDOT_G_S, props["rho_s"], v)
+            self.assertAlmostEqual(d, 1.75, places=8)
+        self.assertAlmostEqual(pm.nominal_speed_mm_s("PLA"), 9.31, delta=0.02)
+        d1 = pm.steady_diameter_mm(pm.NOMINAL_MDOT_G_S, 1240, 10)
+        d2 = pm.steady_diameter_mm(pm.NOMINAL_MDOT_G_S, 1240, 20)
+        self.assertAlmostEqual(d1 / d2, math.sqrt(2), places=7)
 
-    def test_mass_balance_pla_nominal(self):
-        # 1.75 mm strand at 12 mm/s in PLA (1240 kg/m3) requires ~0.0358 g/s
-        d = pm.steady_diameter_mm(0.0358, 1240.0, 12.0)
-        self.assertAlmostEqual(d, 1.75, delta=0.01)
+    def test_step_flow_cannot_be_measured_before_die_to_gauge_transit(self):
+        p = pm.LineParams(fans_on=3)
+        def step(e):
+            return {**e, "mdot_factor": 1.2 if e["t_s"] >= 10 else 1.0}
+        samples = pm.simulate(p, t_total_s=70, disturbance=step)
+        before = [s for s in samples if s["t_created_s"] < 10]
+        after = [s for s in samples if s["t_created_s"] >= 10]
+        self.assertTrue(before and after)
+        self.assertLess(before[-1]["d_true_mm"], 1.78)
+        self.assertGreater(after[0]["d_true_mm"], 1.90)
+        self.assertGreater(after[0]["t_gauge_s"], 10 + 25)
+        self.assertLess(after[0]["t_gauge_s"], 10 + 33)
+        self.assertGreater(after[0]["t_s"] - after[0]["t_gauge_s"], 1.5)
+        self.assertLess(after[0]["t_s"] - after[0]["t_gauge_s"], 3.0)
 
-    def test_mass_balance_speed_drawdown(self):
-        # Doubling line speed quarters cross section -> halves diameter by sqrt(2)
-        d1 = pm.steady_diameter_mm(0.0358, 1240.0, 12.0)
-        d2 = pm.steady_diameter_mm(0.0358, 1240.0, 24.0)
-        self.assertAlmostEqual(d1 / d2, math.sqrt(2.0), places=3)
+    def test_duct_length_and_fans_change_actual_gauge_readiness(self):
+        long_duct = pm.simulate(pm.LineParams(ducted_mm=250, fans_on=3), 70)
+        short_duct = pm.simulate(pm.LineParams(ducted_mm=50, fans_on=3), 70)
+        passive = pm.simulate(pm.LineParams(ducted_mm=250, fans_on=0), 70)
+        self.assertLess(long_duct[0]["core_C"], short_duct[0]["core_C"])
+        self.assertLess(short_duct[0]["core_C"], passive[0]["core_C"])
+        self.assertTrue(long_duct[0]["thermal_ready"])
+        self.assertFalse(short_duct[0]["thermal_ready"])
+        self.assertEqual(pm.quality_summary(short_duct)["in_spec_length_mm"], 0)
 
-    def test_cooling_convection_monotonicity(self):
-        p1 = pm.LineParams(material="PLA", ducted_mm=50.0, fans_on=1)
-        p2 = pm.LineParams(material="PLA", ducted_mm=250.0, fans_on=3)
-        h1 = pm.h_effective(p1)
-        h2 = pm.h_effective(p2)
-        self.assertGreater(h2, h1)
-        # Cooling rate should be more negative with stronger convection
-        rate1 = pm.cooling_rate_C_s(180.0, p1, pm.MATERIALS["PLA"])
-        rate2 = pm.cooling_rate_C_s(180.0, p2, pm.MATERIALS["PLA"])
-        self.assertLess(rate2, rate1)
+    def test_unmeasured_and_unready_lengths_never_receive_credit(self):
+        p = pm.LineParams()
+        def dropout(e):
+            return {**e, "sensor_dropout": 40 <= e["t_s"] < 45}
+        samples = pm.simulate(p, 75, disturbance=dropout)
+        quality = pm.quality_summary(samples)
+        self.assertGreater(quality["unmeasured_length_mm"], 40)
+        self.assertLess(quality["in_spec_length_mm"], quality["total_length_mm"])
+        poor_cooling = pm.quality_summary(pm.simulate(
+            pm.LineParams(ducted_mm=50), 75))
+        self.assertGreater(poor_cooling["thermally_unready_length_mm"], 0)
+        self.assertEqual(poor_cooling["in_spec_length_mm"], 0)
 
-    def test_quality_summary_unmeasured_exclusion(self):
-        # Synthetic samples with a 2-sample dropout
-        samples = [
-            {"t_s": 0.0, "v_eff_mm_s": 12.0, "d_major_mm": 1.75,
-             "d_minor_mm": 1.75, "ovality_mm": 0.0, "d_meas_mm": 1.75},
-            {"t_s": 0.1, "v_eff_mm_s": 12.0, "d_major_mm": 1.75,
-             "d_minor_mm": 1.75, "ovality_mm": 0.0, "d_meas_mm": None},
-            {"t_s": 0.2, "v_eff_mm_s": 12.0, "d_major_mm": 1.75,
-             "d_minor_mm": 1.75, "ovality_mm": 0.0, "d_meas_mm": 1.75},
-        ]
-        q = pm.quality_summary(samples, target_mm=1.75, tol_mm=0.05)
-        self.assertGreater(q["unmeasured_length_mm"], 0.0)
-        self.assertEqual(q["in_spec_length_mm"], q["total_length_mm"])
+    def test_barrel_loss_changes_heat_and_mass_flow_under_staging(self):
+        p = pm.LineParams()
+        def heat_loss(e):
+            return {**e, "barrel_loss_extra_W": 150 if e["t_s"] >= 10 else 0}
+        base = pm.simulate(p, 110)
+        disturbed = pm.simulate(p, 110, disturbance=heat_loss)
+        at_60 = lambda xs: min(xs, key=lambda s: abs(s["t_created_s"] - 60))
+        self.assertLess(at_60(disturbed)["barrel_birth_C"],
+                        at_60(base)["barrel_birth_C"])
+        self.assertLess(at_60(disturbed)["mdot_g_s"], at_60(base)["mdot_g_s"])
+        self.assertLessEqual(max(s["heater_W"] for s in disturbed), 160)
+
+    def test_clutch_limits_tension_as_spool_grows_and_fault_slips(self):
+        p = pm.LineParams()
+        def commanded_overrun(e):
+            return {**e, "tension_N": 10.0}
+        safe = pm.simulate(p, 80, disturbance=commanded_overrun)
+        self.assertGreater(safe[-1]["spool_radius_mm"], safe[0]["spool_radius_mm"])
+        self.assertLess(safe[-1]["tension_N"], safe[0]["tension_N"])
+        self.assertTrue(all(s["slip"] == 0 for s in safe))
+        def failed_clutch(e):
+            return {**e, "clutch_failed": True, "tension_N": 10.0}
+        failed = pm.simulate(p, 80, disturbance=failed_clutch)
+        self.assertGreater(failed[-1]["slip"], 0)
+        self.assertGreater(failed[-1]["d_true_mm"], safe[-1]["d_true_mm"])
 
 
-class ControllerSafetyTests(unittest.TestCase):
-    """Controller safety bounds and robust dropout handling."""
+class FeedbackTests(unittest.TestCase):
+    def test_missing_gauge_holds_last_command(self):
+        ctrl = rc.PIController(v_nominal=9.3)
+        updated = ctrl(1.90, 10.0)
+        self.assertGreater(updated, 9.3)
+        self.assertEqual(ctrl(None, 10.1), updated)
+        self.assertEqual(ctrl(None, 11.0), updated)
 
-    def test_controller_handles_none_without_exception(self):
-        ctrl = rc.PIController(v_nominal=12.0, kp=1.2, ki=0.06)
-        v = ctrl(None, 10.0)
-        self.assertEqual(v, 12.0)
+    def test_sensor_dropout_latches_feedback_and_cuts_product_length(self):
+        fixed, _ = rc.run_route("fixed", rc.fixed_speed_controller, "transient")
+        feedback, samples = rc.run_route(
+            "feedback", lambda p: rc.PIController(p.v_line_mm_s), "transient")
+        self.assertGreaterEqual(feedback["controller_halted_at_s"], 145.9)
+        self.assertLessEqual(feedback["controller_halted_at_s"], 146.1)
+        self.assertLess(feedback["in_spec_length_mm"], fixed["in_spec_length_mm"])
+        self.assertGreater(feedback["pending_unqualified_length_mm"], 269)
+        self.assertTrue(all(s["t_s"] < 146 for s in samples))
+        ctrl = rc.PIController(9.3)
+        ctrl(1.9, 10)
+        self.assertEqual(ctrl(None, 11.1), 0.0)
+        self.assertEqual(ctrl(1.75, 11.2), 0.0)
 
-    def test_controller_clamps_anti_windup(self):
-        ctrl = rc.PIController(v_nominal=12.0, v_min=4.0, v_max=30.0)
-        # Massive persistent error
-        for _ in range(500):
-            v = ctrl(3.5, 0.0)
-        self.assertLessEqual(v, 30.0)
-        self.assertGreaterEqual(v, 4.0)
+    def test_sustained_flow_offset_improves_qualified_length(self):
+        fixed, _ = rc.run_route("C", rc.fixed_speed_controller,
+                                "sustained_offset")
+        feedback, samples = rc.run_route(
+            "A", lambda p: rc.PIController(p.v_line_mm_s),
+            "sustained_offset")
+        self.assertEqual(fixed["in_spec_length_mm"], 0)
+        self.assertGreater(feedback["in_spec_fraction"], 0.5)
+        self.assertLess(abs(samples[-1]["d_true_mm"] - 1.75), 0.02)
 
 
 if __name__ == "__main__":

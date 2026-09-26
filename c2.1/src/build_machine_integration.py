@@ -84,6 +84,21 @@ def legacy_parts(master, config):
         if item["name"] in y_moves:
             at[1] = y_moves[item["name"]]
         shape = shape.translate(tuple(at))
+        if item["name"] == "COOL-TRAY_001":
+            # The two retained side fans face an otherwise solid wall.
+            # Keep the 4 mm bottom lip and 3 mm upper rail support; these
+            # ports provide an actual air path, not a measured h coefficient.
+            original = shape.Volume()
+            for x in (571.0, 711.0):
+                port = cq.Solid.makeBox(
+                    78.0, 4.0, 21.0, cq.Vector(x, 234.0, 109.0))
+                shape = shape.cut(port)
+            shape = shape.clean()
+            if not shape.isValid() or len(shape.Solids()) != 1:
+                raise RuntimeError("COOL-TRAY side-port cut split the tray")
+            cool_port_removed = original - shape.Volume()
+            if cool_port_removed < 6000.0:
+                raise RuntimeError("COOL-TRAY ports did not open the side wall")
         if item["name"] == "S1-SHAFT-B_001":
             # Extend S1B beyond the rear cap and frame beam; the integral
             # 24T driver at y401..409 clears the S1A chain-A sprocket.
@@ -115,7 +130,10 @@ def legacy_parts(master, config):
                        "group": item["group"], "shape": shape,
                        "relocated": item["name"] in overrides or item["name"] in y_moves,
                        "replaced": replaced,
-                       "keyseat_removed_mm3": round(keyseat_removed, 3)})
+                       "keyseat_removed_mm3": round(keyseat_removed, 3),
+                       "cool_port_removed_mm3": round(
+                           cool_port_removed if item["name"] == "COOL-TRAY_001"
+                           else 0.0, 3)})
     name, at = drive_teeth.CHAIN_B_DRIVER_INSTANCE
     shape = drive_teeth.replacement_local_solid(name).translate(tuple(at))
     placed.append({"name": name, "part": "DRV-SP24-B20", "group": "drive",
@@ -368,6 +386,15 @@ def main():
                        chain_parts + chute_parts + guard_parts + winder_parts
                        + electrical_parts + hopper_parts + downstream_parts})
     relief_records, relieved = chain_relief.apply(legacy, new_solids)
+    relieved.add("COOL-TRAY_001")
+    relief_records.append({
+        "legacy": "COOL-TRAY_001", "new": "COOL-FAN_001/002",
+        "kind": "two_side_air_ports", "applied": True,
+        "removed_mm3": round(next(
+            x["cool_port_removed_mm3"] for x in legacy
+            if x["name"] == "COOL-TRAY_001"), 3),
+        "note": "two 78x21 mm clear windows in the south wall; fan output "
+                "and duct heat transfer remain unmeasured"})
     relieved.add("KEY-6-16_002")
     relief_records.append({
         "legacy": "KEY-6-16_002", "new": "BR-6204_002",
@@ -525,10 +552,11 @@ def main():
                 "the flat structural slab is not a passive transport claim",
                 "puller nip: spring-loaded 1.75 mm filament grip; spool "
                 "winder, traverse and slip tensioner replace SPOOL-ENV",
-                "power policy: 500 W hard modeled operational budget; "
-                "normal virtual peak 416 W, above-500 W demands rejected; "
-                "792 W is the separate PSU current-derived ceiling, not an "
-                "operating allowance; M1/M2 loads remain UNRATED estimates",
+                "power policy: modeled base staged peak 424 W excludes "
+                "unselected puller/winder auxiliary drives; hypothetical "
+                "20 W aux gives 444 W and 56 W margin to the 500 W cap. "
+                "Ratings and independent interlocks remain HOLD; 792 W "
+                "PSU current-derived ceiling is not an operating allowance",
                 "retained-internal S1-SYNC_001/002 vs S1-BR-CAP_001 contacts "
                 "are inherited from C1 and not audited by this build",
             ],

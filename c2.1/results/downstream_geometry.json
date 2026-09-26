@@ -75,7 +75,7 @@
     {
       "name": "COOL-DUCT",
       "group": "cooling",
-      "solids": 3,
+      "solids": 1,
       "valid": true,
       "bounds": [
         545.0,
@@ -83,7 +83,21 @@
         110.0,
         820.0,
         315.0,
-        162.0
+        139.0
+      ]
+    },
+    {
+      "name": "COOL-FAN-3_REF",
+      "group": "cooling",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        630.0,
+        235.0,
+        139.0,
+        710.0,
+        315.0,
+        177.0
       ]
     },
     {
@@ -92,12 +106,12 @@
       "solids": 1,
       "valid": true,
       "bounds": [
-        266.0,
-        242.0,
-        142.0,
-        332.0,
-        308.0,
-        221.0
+        274.0,
+        213.0,
+        145.0,
+        324.0,
+        289.0,
+        220.0
       ]
     }
   ],
@@ -108,6 +122,7 @@
     "c2.1/cad/parts_stage1/GAUGE_OPTICAL_B.step",
     "c2.1/cad/parts_stage1/GAUGE_REF_STANDARD.step",
     "c2.1/cad/parts_stage1/COOL-DUCT.step",
+    "c2.1/cad/parts_stage1/COOL-FAN-3_REF.step",
     "c2.1/cad/parts_stage1/SERVICE-HOPPER.step"
   ],
   "interfaces": {
@@ -122,20 +137,22 @@
     },
     "gauge_to_puller_delay": {
       "distance_mm": 20.0,
-      "meaning": "measurement-to-actuation transport delay at line speed v: delay_s = 20.0 / v_mm_s; the process model uses the REAL distance, not a tunable"
+      "meaning": "gauge-to-nip travel of already formed strand: 20.0 / v_mm_s. Feedback dead distance is die exit x540 to gauge x809 = 269 mm, not this distance."
     },
     "cooling": {
       "tray_length_mm": 275.0,
-      "duct_air_length_range_mm": [
+      "modeled_ducted_length_mm": [
         50.0,
         250.0
       ],
-      "baffle_travel_mm": 100.0,
-      "fans": "2 owned + 1 reference (UNRATED 8 W estimate)"
+      "effective_length_status": "ASSUMED_NOT_CALIBRATED_BY_CAD",
+      "hood_travel_mm": 100.0,
+      "ports": "two 78x21 mm windows through south tray wall",
+      "fans": "2 legacy references + 1 separate 80x80x38 reference; all UNRATED"
     },
     "service_input": {
-      "configuration": "SWAP: SERVICE-HOPPER bolts onto the FEED-BUF saddle interface (x 282..316, y 251..299, z 145..218) after the buffer stack is unbolted; reference run = main assembly minus FEED-BUF stack plus SERVICE-HOPPER",
-      "reason_not_in_assembly": "the FEED-BUF top zone is occupied by S2 discharge metal (rotor envelope to z347, ring plate, screen); a coexisting chute intersected production metal",
+      "configuration": "SWAP: remove FEED-BUF only, retain its cold barrel saddle and clamp. SERVICE-HOPPER mates the x299,y275,z145 \u00d813 through-hole and opens outboard at y225,z220; M1/S2 off during reference operation. Joint sealing, lid guard and feed delivery remain HOLD.",
+      "reason_not_in_assembly": "production FEED-BUF occupies the same \u00d820/\u00d813 barrel throat; the alternate is mutually exclusive",
       "feedstock": "dried, screened reference material only",
       "interlock": "NONE \u2014 the hopper is not a guard"
     },
@@ -156,10 +173,10 @@
         "supply": "+5V_CTRL / 0V"
       },
       "J6_aux_and_service": {
-        "fan3_cmd": "24V 8W ducted cooling fan PWM",
+        "fan3_cmd": "24V fan switching circuit TBD; no PWM pin assumed",
         "service_hopper_detect": "microswitch dry contact to 0V"
       },
-      "controller_core_interface": "quality-gate signals (gauge_valid, gauge_diameter_mm, gauge_puller_speed_mm_s); non-safety operating interlock"
+      "controller_core_interface": "gauge_valid, gauge_major_mm, gauge_minor_mm, nominal_puller_speed_mm_s; operating-only quality gate"
     }
   },
   "holds": [

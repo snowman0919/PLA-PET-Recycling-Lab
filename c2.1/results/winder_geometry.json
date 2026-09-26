@@ -3,14 +3,14 @@
     {
       "name": "PULL_FRAME",
       "group": "puller",
-      "solids": 2,
+      "solids": 1,
       "valid": true,
       "bounds": [
         822.0,
-        250.0,
+        261.0,
         100.0,
         846.0,
-        278.0,
+        289.0,
         150.0
       ]
     },
@@ -21,10 +21,10 @@
       "valid": true,
       "bounds": [
         819.0,
-        245.0,
+        256.0,
         104.25,
         839.0,
-        283.0,
+        294.0,
         124.25
       ]
     },
@@ -34,11 +34,11 @@
       "solids": 1,
       "valid": true,
       "bounds": [
-        812.8781555332702,
-        253.0,
+        812.878155532825,
+        264.0,
         125.75,
-        845.1250876070734,
-        307.0000001,
+        845.1250876066331,
+        318.0000001,
         149.75
       ]
     },
@@ -48,12 +48,12 @@
       "solids": 1,
       "valid": true,
       "bounds": [
-        820.0,
-        276.0,
-        140.75,
-        838.0,
-        280.0,
-        143.25
+        823.0,
+        289.0,
+        128.0,
+        846.0,
+        292.0,
+        131.75
       ]
     },
     {
@@ -81,7 +81,7 @@
         212.0,
         708.0,
         185.0,
-        228.0
+        229.5
       ]
     },
     {
@@ -113,13 +113,27 @@
       ]
     },
     {
+      "name": "WIND_CLUTCH_REF",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        670.0,
+        97.0,
+        190.0,
+        730.0,
+        103.0,
+        250.0
+      ]
+    },
+    {
       "name": "WIND_FLANGE_L",
       "group": "spool",
       "solids": 1,
       "valid": true,
       "bounds": [
         600.0,
-        100.0,
+        103.0,
         120.0,
         800.0,
         106.0,
@@ -136,7 +150,7 @@
         164.0,
         120.0,
         800.0,
-        170.0,
+        167.0,
         320.0
       ]
     },
@@ -206,6 +220,7 @@
     "c2.1/cad/parts_stage1/WIND_SPOOL_SHAFT.step",
     "c2.1/cad/parts_stage1/WIND_SPOOL_BEARINGS.step",
     "c2.1/cad/parts_stage1/WIND_SPOOL_DRUM.step",
+    "c2.1/cad/parts_stage1/WIND_CLUTCH_REF.step",
     "c2.1/cad/parts_stage1/WIND_FLANGE_L.step",
     "c2.1/cad/parts_stage1/WIND_FLANGE_R.step",
     "c2.1/cad/parts_stage1/WIND_MOTOR_REF.step",

@@ -32,29 +32,27 @@ This module adds, as REAL geometry integrated into PPR_VP1.step:
      north wall outside face, with three precision pins (1.50 / 1.75 /
      2.00 mm) for on-machine calibration checks.
 
-2. SERVICE-HOPPER — a SWAP part (NOT in the production assembly): the
-   FEED-BUF top zone is permanently occupied by S2 discharge metal (rotor
-   envelope to z347, ring plate, screen), so the reference-feedstock input
-   is a 3 mm steel hopper that bolts onto the FEED-BUF saddle interface
-   (x 282..316, y 251..299, z 145..218) after the buffer stack is
-   unbolted.  Reference-run configuration = main assembly minus FEED-BUF
-   stack plus SERVICE-HOPPER.  Exported as a standalone STEP.
+2. SERVICE-HOPPER — a SWAP part (NOT in the production assembly): remove
+   only FEED-BUF while retaining its barrel saddle/clamp. A hollow side-inlet
+   chute reaches the common Ø13 throat at x299,y275,z145; its fill mouth is
+   outboard at y225,z220, below and clear of S2 metal. The upstream M1/S2
+   remains disabled during reference-feed operation. Exported separately.
+   Joint sealing, fasteners, service guard and gravity delivery remain HOLD.
 
-3. COOL-DUCT — the adjustable-cooling duct over the tray: rails on the
-   tray wall tops carrying a sliding sheet-metal baffle (x window 100 mm)
-   with a THIRD 80 mm fan reference (COOL-FAN-3_REF, UNRATED power
-   estimate class of the existing 9RA0824H1001 pair) that varies the
-   effective air-cooling length from 50 mm to 250 mm without moving the
-   tray or the gauge.
+3. COOL-DUCT — rails on the tray wall tops and a 100 mm sliding hood with a
+   third 80 mm fan envelope and a real through-opening to the strand. The
+   two retained side fans also need ports through the tray wall; the VP1
+   assembly cuts these into the retained COOL-TRAY. No duct convection
+   coefficient or effective cooling length is established by the geometry.
 
-None of these parts is rated: sensor accuracy, nip force, spring loads
-and all structural/thermal capacity remain HOLD.  Power for the third
-fan is an UNRATED 8 W estimate admitted through the same hard 500 W
-allocator.
+None of these parts is rated: sensor accuracy, nip force, spring loads,
+fan airflow and all structural/thermal capacity remain HOLD. The third fan
+is an UNRATED 8 W estimate in the modeled 500 W allocator.
 """
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 
 import cadquery as cq
@@ -178,66 +176,70 @@ def gauge_ref_standard():
         pins = pin if pins is None else pins.fuse(pin)
     return holder.fuse(pins).clean()
 # ------------------------------------------------------- service input ----
-# REV 2 STRATEGY: the service input is a SWAP hopper, not a coexisting
-# chute.  The FEED-BUF top zone (x 213..403, y 251..299, z 145..218) is
-# permanently occupied by the S2 discharge hardware (rotor envelope reaches
-# z347, ring plate y299..305, screen z215..240), so any chute added over the
-# buffer mouth intersects production metal.  During reference-feedstock
-# runs the FEED-BUF receiver stack (FEED-BUF + saddle + clamp) is unbolted
-# from the barrel saddle interface (x 282..316, y 251..299, z 145) and this
-# hopper bolts onto the SAME interface.  It is therefore NOT part of the
-# production assembly (PPR_VP1.step) — it is exported as a standalone STEP
-# with this interface record, and the reference-run configuration is
-# documented as "main assembly minus FEED-BUF stack plus SERVICE-HOPPER".
+# Manual reference-feed inlet must remain OUTBOARD of the S2 screen and
+# moving rotor. Only FEED-BUF is removed; its split saddle/clamp on the cold
+# barrel remains. This inlet is not a safety guard or a powered conveyor.
 def service_hopper():
-    """Reference-feedstock hopper on the FEED-BUF saddle interface:
-    3 mm steel, a 60x60 mm mouth funnelling to the barrel feed throat at
-    x 282..316, y 251..299, z 145..218 (the exact FEED-BUF mounting
-    volume).  Dried, screened reference feedstock runs the full downstream
-    (screw -> die -> cooling -> gauge -> puller -> winder) without the
-    upstream shredder train; the swap itself is manual, bolted, and the
-    hopper has NO interlock credit (it is not a guard)."""
-    # mounting flange matching the saddle top face (z 145, x 282..316)
-    flange = _box(280.0, 318.0, 249.0, 301.0, 142.0, 145.0)
-    # funnel: square loft 60x60 at z 218 down to 30x30 throat at z 145
-    cx, cy = 299.0, 275.0
-    top = cq.Wire.makePolygon([V(cx-30, cy-30, 218), V(cx+30, cy-30, 218),
-                               V(cx+30, cy+30, 218), V(cx-30, cy+30, 218)],
-                              close=True)
-    bottom = cq.Wire.makePolygon([V(cx-15, cy-15, 145), V(cx+15, cy-15, 145),
-                                  V(cx+15, cy+15, 145), V(cx-15, cy+15, 145)],
-                                 close=True)
-    funnel = cq.Solid.makeLoft([bottom, top], True)
-    # mouth rim
-    rim = _box(266.0, 332.0, 242.0, 308.0, 218.0, 221.0)
-    return flange.fuse(funnel).fuse(rim).clean()
+    """Hollow steel side chute from y225,z220 to Ø13 barrel throat.
+
+    3.5 mm nominal radial neck wall, 3 mm upper walls, 56° nominal
+    centerline slope. The Ø20 receiver neck and Ø13 through-hole share
+    x299,y275,z145 with FEED-BUF. A bolted/sealed saddle joint needs
+    actual fastener detail and physical gravity-flow qualification.
+    """
+    def ring(radius, y, z):
+        return cq.Wire.makePolygon(
+            [V(299.0 + radius * math.cos(i * math.pi / 4),
+               y + radius * math.sin(i * math.pi / 4), z)
+             for i in range(8)], close=True)
+
+    def rectangle(half_x, half_y, y, z):
+        points = [(-half_x, -half_y), (0, -half_y),
+                  (half_x, -half_y), (half_x, 0),
+                  (half_x, half_y), (0, half_y),
+                  (-half_x, half_y), (-half_x, 0)]
+        return cq.Wire.makePolygon(
+            [V(299.0 + x, y + dy, z) for x, dy in points], close=True)
+
+    outer = cq.Solid.makeLoft(
+        [ring(10.0, 275.0, 145.0), rectangle(25.0, 12.0, 225.0, 220.0)], True)
+    inner = cq.Solid.makeLoft(
+        [ring(6.5, 275.0, 143.0), rectangle(22.0, 9.0, 225.0, 222.0)], True)
+    # The flange is part of the existing cold barrel saddle joint, not an
+    # unsupported wedge extending below it.
+    flange = _cyl(14.0, 3.0, 299.0, 275.0, 145.0, axis=(0, 0, 1))
+    return outer.fuse(flange).cut(inner).clean()
 
 
 # ------------------------------------------------------------ cooling -----
 def cool_duct():
-    """Adjustable cooling duct over the tray: a sliding sheet-metal baffle
-    (3 mm, x window 100 mm wide) riding two rails over the COOL-TRAY side
-    walls, plus a third 80 mm fan reference (COOL-FAN-3_REF) mounted on the
-    baffle plate.  Sliding the baffle from x560 to x710 varies the
-    ducted air length from 250 mm to 50 mm; fan power is the same UNRATED
-    8 W class as the existing pair (allocator admission, not a rating)."""
-    # rails ride ON TOP of the tray side walls (walls y235..237/313..315,
-    # top z133): rails sit at z133..136, fully clear of the wall metal
+    """Sliding hood with a genuine top fan aperture over the filament.
+
+    The depicted x610..710 hood can move +/-50 mm on the tray rails without
+    touching the gauge at x801. Air volume/heat transfer require measurement.
+    The top fan is separately removable; this function is sheet-metal only.
+    """
     rail_a = _box(545.0, 820.0, 235.0, 237.0, 133.0, 136.0)
     rail_b = _box(545.0, 820.0, 313.0, 315.0, 133.0, 136.0)
-    # sliding baffle shown at the middle position (x 610..710); the baffle
-    # plate spans the tray interior width only (y 237..313) so the skirts
-    # hang INSIDE the tray, never straddling the walls
-    baffle = _box(610.0, 710.0, 237.0, 313.0, 136.0, 139.0)
+    aperture = _cyl(35.0, 44.0, 670.0, 275.0, 135.0, axis=(0, 0, 1))
+    baffle = _box(610.0, 710.0, 237.0, 313.0, 136.0, 139.0).cut(aperture)
     skirt_a = _box(610.0, 613.0, 237.0, 313.0, 110.0, 136.0)
     skirt_b = _box(707.0, 710.0, 237.0, 313.0, 110.0, 136.0)
-    # fan reference on the baffle (80x80x25, 9RA0824H1001 class): a central
-    # pocket exposes the baffle opening; the hub boss sits below the rim
-    fan = (_box(635.0, 715.0, 262.5, 287.5, 137.0, 162.0)
-           .cut(_cyl(38.0, 26.0, 675.0, 275.0, 136.0, axis=(0, 0, 1))))
-    fan_hub = _cyl(20.0, 4.0, 675.0, 273.0, 149.5, axis=(0, 0, 1))
     return (rail_a.fuse(rail_b).fuse(baffle).fuse(skirt_a).fuse(skirt_b)
-            .fuse(fan).fuse(fan_hub).clean())
+            .clean())
+
+
+def cool_fan_3_ref():
+    """80x80x38 fan envelope with open flow ring and supported hub.
+
+    No blade curve, pressure/flow curve, fastener pattern or rating inferred.
+    """
+    aperture = _cyl(35.0, 40.0, 670.0, 275.0, 138.0, axis=(0, 0, 1))
+    frame = _box(630.0, 710.0, 235.0, 315.0, 139.0, 177.0).cut(aperture)
+    spokes = (_box(635.0, 705.0, 274.0, 276.0, 157.0, 159.0)
+              .fuse(_box(669.0, 671.0, 240.0, 310.0, 157.0, 159.0)))
+    hub = _cyl(10.0, 2.0, 670.0, 275.0, 157.0, axis=(0, 0, 1))
+    return frame.fuse(spokes).fuse(hub).clean()
 
 
 def components():
@@ -249,7 +251,8 @@ def components():
             ("GAUGE_CONTACT_A", gauge_contact_a(), "gauge"),
             ("GAUGE_OPTICAL_B", gauge_optical_b(), "gauge"),
             ("GAUGE_REF_STANDARD", gauge_ref_standard(), "gauge"),
-            ("COOL-DUCT", cool_duct(), "cooling")]
+            ("COOL-DUCT", cool_duct(), "cooling"),
+            ("COOL-FAN-3_REF", cool_fan_3_ref(), "cooling")]
 
 
 def swap_parts():
@@ -270,24 +273,25 @@ def station_interfaces():
                           "gauge_x_mm": GAUGE_X, "puller_nip_x_mm": 829.0},
         "gauge_to_puller_delay": {
             "distance_mm": SENSOR_TO_PULLER_MM,
-            "meaning": ("measurement-to-actuation transport delay at line "
-                        "speed v: delay_s = 20.0 / v_mm_s; the process model "
-                        "uses the REAL distance, not a tunable")},
+            "meaning": ("gauge-to-nip travel of already formed strand: "
+                        "20.0 / v_mm_s. Feedback dead distance is die exit "
+                        "x540 to gauge x809 = 269 mm, not this distance.")},
         "cooling": {"tray_length_mm": 275.0,
-                    "duct_air_length_range_mm": [50.0, 250.0],
-                    "baffle_travel_mm": 100.0,
-                    "fans": "2 owned + 1 reference (UNRATED 8 W estimate)"},
+                    "modeled_ducted_length_mm": [50.0, 250.0],
+                    "effective_length_status": "ASSUMED_NOT_CALIBRATED_BY_CAD",
+                    "hood_travel_mm": 100.0,
+                    "ports": "two 78x21 mm windows through south tray wall",
+                    "fans": "2 legacy references + 1 separate 80x80x38 reference; all UNRATED"},
         "service_input": {
-            "configuration": ("SWAP: SERVICE-HOPPER bolts onto the FEED-BUF "
-                              "saddle interface (x 282..316, y 251..299, "
-                              "z 145..218) after the buffer stack is "
-                              "unbolted; reference run = main assembly "
-                              "minus FEED-BUF stack plus SERVICE-HOPPER"),
-            "reason_not_in_assembly": ("the FEED-BUF top zone is occupied "
-                                       "by S2 discharge metal (rotor "
-                                       "envelope to z347, ring plate, "
-                                       "screen); a coexisting chute "
-                                       "intersected production metal"),
+            "configuration": ("SWAP: remove FEED-BUF only, retain its cold "
+                              "barrel saddle and clamp. SERVICE-HOPPER "
+                              "mates the x299,y275,z145 Ø13 through-hole "
+                              "and opens outboard at y225,z220; M1/S2 off "
+                              "during reference operation. Joint sealing, "
+                              "lid guard and feed delivery remain HOLD."),
+            "reason_not_in_assembly": ("production FEED-BUF occupies the "
+                                       "same Ø20/Ø13 barrel throat; the "
+                                       "alternate is mutually exclusive"),
             "feedstock": "dried, screened reference material only",
             "interlock": "NONE — the hopper is not a guard"},
         "reference_pins_mm": list(REF_PINS_MM),
@@ -298,8 +302,8 @@ def station_interfaces():
             "B_optical": "horizontal shadow width (transparent/TPU UNRATED)"},
         "wiring_harness": {
             "J5_diameter_gauge": {"axis_A_raw": "analog/Hall input", "axis_B_raw": "shadow ADC input", "supply": "+5V_CTRL / 0V"},
-            "J6_aux_and_service": {"fan3_cmd": "24V 8W ducted cooling fan PWM", "service_hopper_detect": "microswitch dry contact to 0V"},
-            "controller_core_interface": "quality-gate signals (gauge_valid, gauge_diameter_mm, gauge_puller_speed_mm_s); non-safety operating interlock"},
+            "J6_aux_and_service": {"fan3_cmd": "24V fan switching circuit TBD; no PWM pin assumed", "service_hopper_detect": "microswitch dry contact to 0V"},
+            "controller_core_interface": "gauge_valid, gauge_major_mm, gauge_minor_mm, nominal_puller_speed_mm_s; operating-only quality gate"},
     }
 
 
