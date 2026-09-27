@@ -39,33 +39,48 @@
   "queried_motor_candidate_price_plus_base_shipping_KRW": 110200,
   "soft_total_budget_KRW": 100000,
   "current_inventory": {
-    "status": "USER_REPORTED_NO_OWNED_PARTS",
-    "available_stock_rows": 0,
-    "historical_owned_rows_reclassified": 11,
-    "feedstock": "NONE_REPORTED"
+    "status": "USER_REPORTED_2NC_BUTTON_AND_CHIRON_PSU_DONOR_UNQUALIFIED",
+    "reported_owned_button_rows": 1,
+    "reported_owned_psu_rows": 1,
+    "qualified_stock_rows": 0,
+    "historical_owned_rows_reclassified": 9,
+    "donor_printer": {
+      "model": "Anycubic Chiron",
+      "availability": "USER_REPORTED",
+      "other_subparts": "UNALLOCATED_PENDING_LABEL_AND_DIMENSIONS",
+      "profile_lengths": "UNMEASURED",
+      "motor_driver_interfaces": "UNVERIFIED"
+    },
+    "feedstock": "NO_REFERENCE_PELLETS_REPORTED"
   },
   "candidate_motor_budget_gap_KRW": 10200,
   "minimum_functional_route": {
     "same_product": "reference_feed_same_extrusion_cooling_gauge_puller_winder",
     "staging": "upstream S1/S2 held during reference-feed qualification; not a substitute finished product",
-    "cost_status": "UNPRICED_NO_OWNED_STOCK_NO_BUDGET_COMPLIANCE_PROVEN",
+    "cost_status": "UNPRICED_TWO_REPORTED_PARTS_UNQUALIFIED_NO_BUDGET_COMPLIANCE_PROVEN",
     "safety": "independent interlocks, fuses and lockout cannot be omitted"
   },
-  "cost_conclusion": "NO_STOCK_ALL_ACTIVE_ROWS_UNQUOTED_MOTOR_CANDIDATE_EXCEEDS_SOFT_BUDGET",
+  "cost_conclusion": "BUTTON_AND_DONOR_PSU_REPORTED_OTHER_ACTIVE_ROWS_UNQUOTED_MOTOR_CANDIDATE_EXCEEDS_SOFT_BUDGET",
   "profile_cut_plan": {
     "rows": 14,
     "stock_conservation_passed": true,
-    "stock_available": false,
-    "basis": "unquoted purchase-cut layout only",
+    "stock_available": null,
+    "stock_confirmation_status": "DONOR_PROFILE_LENGTHS_UNMEASURED",
+    "scheduled_stock_mm_by_profile": {
+      "2020": 4530,
+      "2040": 3680
+    },
+    "source_owned_flags": "HISTORICAL_C1_NOT_CURRENT_DONOR_STOCK",
+    "basis": "cut layout conserves nominal stock; donor extrusion stock unmeasured",
     "source": "bom/profile_cut_plan.csv"
   },
   "csv": {
     "file": "c2.1/bom/system_bom.csv",
-    "sha256": "6a5ed8e3d43014c0219adb3fefc35ccb80f6f2b8fcdf546cf8b875635a7527d9"
+    "sha256": "62c8b1c3762a47c8eebe044bce0490ff35c7f02580a81d1a9cb6cafc57240bd5"
   },
   "xlsx": {
     "file": "c2.1/bom/system_bom.xlsx",
-    "sha256": "2507d6748e8710bcbff95379780b49b1727f7adc4948b8b9993ff62f7add555f",
+    "sha256": "29f6709f501545f471e69e2534845829f68fa086414a636c79ebb1834cda81e6",
     "zip_test": null
   },
   "procurement": "HOLD",

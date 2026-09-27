@@ -4,12 +4,12 @@
 - cluster-only mode — file stats not available
 
 ## Summary
-- 2010 nodes · 3705 edges · 186 communities (97 shown, 89 thin omitted)
+- 2010 nodes · 3705 edges · 187 communities (98 shown, 89 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 298 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `58008f4d`
+- Built from commit: `a658a7e5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -131,6 +131,7 @@
 - Stage 5 active chute auger
 - Function-preserving integration reliefs
 - Four-turn auger and transverse screw active chute
+- _idler_z
 - 24V 33A PSU, 500W soft target and 792W current ceiling
 - Digital verification is not physical approval
 - VP1 integrated product hard goal
@@ -197,21 +198,21 @@
 5. `BondManager` - 26 edges
 6. `_box()` - 26 edges
 7. `components()` - 23 edges
-8. `generate()` - 22 edges
-9. `_cyl()` - 22 edges
-10. `s1_event()` - 22 edges
+8. `s1_event()` - 22 edges
+9. `generate()` - 22 edges
+10. `_cyl()` - 22 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Small Pin-Ring Feasibility Screen` --semantically_similar_to--> `S2 Cycloidal Guide, Sleeve, and Pin Rings`  [INFERRED] [semantically similar]
   c2/docs/C2_ENGINEERING_NOTES.md → drawings/PPR_C1_dimensioned_review.pdf
-- `Frozen C1 Baseline` --conceptually_related_to--> `PPR C1 Dimensioned Engineering Review Package`  [INFERRED]
-  README.md → drawings/PPR_C1_dimensioned_review.pdf
-- `Evidence and Safety Boundaries` --semantically_similar_to--> `Safety-Preserving Cost Reduction Order`  [INFERRED] [semantically similar]
-  AGENTS.md → c2/docs/CALIBRATION_AND_RFQ.md
 - `Short clutch fault is not rescued by feedback` --semantically_similar_to--> `Isolated modeled winding-clutch fault`  [INFERRED] [semantically similar]
   STATUS.md → docs/decisions/filament-quality-route.md
-- `Separate puller idler rotation and vertical compliance` --semantically_similar_to--> `Corrected vertical puller idler and motor clearance`  [INFERRED] [semantically similar]
-  STATUS.md → docs/decisions/filament-quality-route.md
+- `Frozen C1 Baseline` --conceptually_related_to--> `PPR C1 Dimensioned Engineering Review Package`  [INFERRED]
+  README.md → drawings/PPR_C1_dimensioned_review.pdf
+- `WIND_MOUNT bearing and motor frame load path` --references--> `winder_mount()`  [EXTRACTED]
+  STATUS.md → c2.1/src/winder.py
+- `Evidence and Safety Boundaries` --semantically_similar_to--> `Safety-Preserving Cost Reduction Order`  [INFERRED] [semantically similar]
+  AGENTS.md → c2/docs/CALIBRATION_AND_RFQ.md
 
 ## Import Cycles
 - None detected.
@@ -226,7 +227,7 @@
 - **Diagnostic Outcomes relate to Requirements** — c2_3_revisions_r1_diagnostic_summary [INFERRED 0.85]
 - **Digital Evidence Without External Hardware Release** — _github_workflows_c2_engineering_no_hardware_approval_gate, _github_workflows_c2_engineering_dynamic_evidence_count_contract, _github_workflows_c2_engineering_procurement_fabrication_energization_hold_contract [INFERRED 0.95]
 
-## Communities (186 total, 89 thin omitted)
+## Communities (187 total, 89 thin omitted)
 
 ### Community 0 - "architectures.py"
 Cohesion: 0.06
@@ -237,8 +238,8 @@ Cohesion: 0.06
 Nodes (55): build_library(), library_for_source(), main(), Build the same C++ PI kernel used by the host controller self-test., Avoid stale shared code in process-model calculations., _add(), chute_checks(), _dist_to_s2() (+47 more)
 
 ### Community 2 - "pull_cool_mount"
-Cohesion: 0.11
-Nodes (21): pull_cool_mount(), Rear-profile rack carries the thin cooling tray and puller separately. Face…, Steel bearing/motor load path to the front 20 mm Al upright. The flange sweeps…, Ø70×58 steel tube, 2 mm wall, with two 3 mm internal steel webs. The Ø17 web…, spool_drum(), winder_mount(), Isolated modeled winding-clutch fault, Corrected vertical puller idler and motor clearance (+13 more)
+Cohesion: 0.17
+Nodes (15): pull_cool_mount(), Rear-profile rack carries the thin cooling tray and puller separately. Face…, Ø70×58 steel tube, 2 mm wall, with two 3 mm internal steel webs. The Ø17 web…, spool_drum(), Isolated modeled winding-clutch fault, Corrected vertical puller idler and motor clearance, Direct steel puller and cooling tray rack, 7. 같은 제품의 기준 원료 모델·제어·비용 비교 (VP1) (+7 more)
 
 ### Community 3 - "verify_contract.py"
 Cohesion: 0.06
@@ -257,8 +258,8 @@ Cohesion: 0.09
 Nodes (39): chain_length_mm(), gear_center_distance(), gear_pitch_radius(), ratio_chain(), Pure kinematics/math for the VP1 common drive — NO cadquery dependency. Split…, Transverse pitch radius of a helical gear (normal module mn)., External tangent construction in XZ. Returns the two touch-point 4-tuples, the…, Kinematic chain from the VP1 Stage 4 layout (teeth counts only). M1 -> DRV-… (+31 more)
 
 ### Community 7 - "winder.py"
-Cohesion: 0.09
-Nodes (46): _box(), components(), _cyl(), _flange(), _idler_z(), nip_opening_mm(), nip_range_mm(), pull_frame() (+38 more)
+Cohesion: 0.12
+Nodes (37): _box(), components(), _cyl(), _flange(), pull_frame(), pull_idler_carriage(), pull_motor_ref(), pull_nip_stop() (+29 more)
 
 ### Community 8 - "c2.1/src/build_cad.py"
 Cohesion: 0.06
@@ -301,8 +302,8 @@ Cohesion: 0.09
 Nodes (13): check_executor_label(), _forbidden_labels(), A1 contract tests (stdlib unittest, goal section 22). Banned terminal labels…, Accept only the Isaac Sim / PhysX backend descriptor., Proxy records (analytic diagnostic only) are inadmissible., reject_proxy(), rel_change(), rel_mass_error() (+5 more)
 
 ### Community 18 - "filament-quality-route.md"
-Cohesion: 0.09
-Nodes (30): Three-fan cooling thermal sensitivity and geometric apertures, No-stock procurement and unquoted landed system cost, 269 mm formation-to-gauge feedback dead time, NVIDIA EULA refusal prevents new Isaac native contact-flow test, No-stock staged route remains unpriced and physically blocked, 500 W operating cap leaves 76 W before unselected auxiliary motors, Two unselected seller listings and alternative procurement gate, Two-axis uncalibrated gauge and missing-readout reject gate (+22 more)
+Cohesion: 0.07
+Nodes (34): Three-fan cooling thermal sensitivity and geometric apertures, 269 mm formation-to-gauge feedback dead time, Donor PSU and stop button reported, system cost still unquoted, Chiron donor reuse is conditional on interface and condition, NVIDIA EULA refusal prevents new Isaac native contact-flow test, 500 W operating cap leaves 76 W before unselected auxiliary motors, Two-axis uncalibrated gauge and missing-readout reject gate, PSU and stop button listings are fallback purchases only (+26 more)
 
 ### Community 19 - "ChuteGeometry"
 Cohesion: 0.14
@@ -470,7 +471,7 @@ Nodes (9): R4-T2b: chain suspended via end posts (FixedJoint), NO pin, gravity +
 
 ### Community 64 - "PPR KODEX — 쓸 수 있는 필라멘트를 만드는 가상제품"
 Cohesion: 0.18
-Nodes (10): PPR KODEX — 쓸 수 있는 필라멘트를 만드는 가상제품, Hard Rules, 현재 상태와 방법, 목표, 산출과 인수, 품질·가성비 방향, Current no-stock and no-feedstock procurement constraint, C2.1 Active Digital Iteration (+2 more)
+Nodes (10): PPR KODEX — 쓸 수 있는 필라멘트를 만드는 가상제품, Hard Rules, 현재 상태와 방법, 목표, 산출과 인수, 품질·가성비 방향, Chiron donor reuse and reference pellet procurement boundary, C2.1 Active Digital Iteration (+2 more)
 
 ### Community 65 - "auger_shaft"
 Cohesion: 0.25
@@ -518,7 +519,7 @@ Nodes (7): coordinate_units, date, included_severities, kicad_version, $schema, 
 
 ### Community 79 - "test_bom_inventory.py"
 Cohesion: 0.50
-Nodes (3): csv_rows(), InventoryCostTests, Current no-stock procurement gate; historical C1 handover is not inventory.
+Nodes (3): csv_rows(), InventoryCostTests, Reported donor and stop-button inventory is not qualified stock.
 
 ### Community 80 - "pan_floor"
 Cohesion: 0.25
@@ -616,6 +617,10 @@ Nodes (3): Keyed PDL, auger, S2 and jackshaft torque paths, REFERENCE/UNRATED wo
 Cohesion: 0.67
 Nodes (3): S2 single-input reference kinematics, Shared M1 one-degree-of-freedom S1/S2 drive, VP1 fixed electrical, envelope, budget and material constraints
 
+### Community 117 - "_idler_z"
+Cohesion: 0.15
+Nodes (11): _idler_z(), nip_opening_mm(), nip_range_mm(), pull_idler_springs(), pull_roller_adj(), Freely rotating Ø20 idler on a Ø6 axle, separate from its carrier., Two *unselected* axial spring space envelopes, not rated springs. At full…, Catalog dimensional screen, not a ring load or clutch torque rating. (+3 more)
+
 ## Knowledge Gaps
 - **239 isolated node(s):** `검증 경계`, `주요 경로`, `runs`, `schema`, `runs` (+234 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 833 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
@@ -627,14 +632,14 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `pull_cool_mount()` connect `pull_cool_mount` to `winder.py`?**
   _High betweenness centrality (0.025) - this node is a cross-community bridge._
 - **Why does `7. 같은 제품의 기준 원료 모델·제어·비용 비교 (VP1)` connect `pull_cool_mount` to `filament-quality-route.md`?**
-  _High betweenness centrality (0.019) - this node is a cross-community bridge._
-- **Why does `동일 제품의 현재 디지털 후보` connect `pull_cool_mount` to `filament-quality-route.md`?**
-  _High betweenness centrality (0.017) - this node is a cross-community bridge._
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
+- **Why does `EvidenceTests` connect `EvidenceTests` to `run_study.py`, `json`?**
+  _High betweenness centrality (0.020) - this node is a cross-community bridge._
 - **What connects `검증 경계`, `주요 경로`, `runs` to the rest of the system?**
   _239 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `architectures.py` be split into smaller, more focused modules?**
   _Cohesion score 0.06041986687147977 - nodes in this community are weakly interconnected._
 - **Should `process_model.py` be split into smaller, more focused modules?**
   _Cohesion score 0.055299539170506916 - nodes in this community are weakly interconnected._
-- **Should `pull_cool_mount` be split into smaller, more focused modules?**
-  _Cohesion score 0.11428571428571428 - nodes in this community are weakly interconnected._
+- **Should `verify_contract.py` be split into smaller, more focused modules?**
+  _Cohesion score 0.06259426847662142 - nodes in this community are weakly interconnected._

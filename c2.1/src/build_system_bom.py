@@ -103,18 +103,48 @@ def main():
                  "14.8 mm before y388 bearing; fit/strength HOLD."
                  if part_id == "KEY-6-16" else ""))
         evidence = "C1_INTERFACE_BASELINE"
-        if cost.get("owned_verified") == "True" or status.startswith("OWNED"):
-            # Historical handover inventory is not current stock: the user
-            # reports no owned parts. A past zero-purchase line is not a quote.
+        if part_id == "SAFE-STOP":
+            # The user reports one 2NC stop button, not the C1 handover
+            # model. No part/rating identification or circuit qualification.
+            description = "User-reported 2NC emergency stop button"
+            status = "OWNED_REPORTED_RATING_HOLD"
+            landed, cost_state = "", "OWNED_BUTTON_NO_NEW_PURCHASE_UNQUALIFIED"
+            evidence = "USER_REPORTED_2NC_BUTTON_MODEL_UNVERIFIED"
+            notes = (notes + " One 2NC button reported owned; model, contact "
+                     "rating, positive opening, wiring and hard-cut contactor "
+                     "unverified. No additional button purchase assumed; "
+                     "full safety circuit still unquoted.")
+        elif part_id == "EL-PSU":
+            # The Chiron donor PSU exists; the historical rating and modeled
+            # envelope are not label measurements or a qualified power circuit.
+            description = "User-reported Anycubic Chiron donor PSU, 24V 800W (label unverified)"
+            material = "Donor PSU (unverified)"
+            status = "OWNED_REPORTED_RATING_HOLD"
+            landed, cost_state = "", "OWNED_DONOR_PSU_NO_NEW_PURCHASE_UNQUALIFIED"
+            evidence = "USER_REPORTED_CHIRON_PSU_LABEL_UNVERIFIED"
+            notes = (notes.replace("120x240x65 user measurement",
+                                   "120x240x65 historical modeled envelope")
+                     + " Chiron donor PSU reported owned; 24V 800W is "
+                     "historical user report and 240x120x65 mm is a modeled "
+                     "envelope, not a measured nameplate or fit. Check label, "
+                     "dimensions, condition, protection and 500W staged duty; "
+                     "no replacement PSU purchase assumed.")
+        elif cost.get("owned_verified") == "True" or status.startswith("OWNED"):
+            # Historical handover inventory is not current qualified stock.
+            # Other donor subparts require an individual interface check.
             description = description.replace("Owned ", "").replace("Existing ", "")
             material = material.replace(" - existing", " candidate")
-            status = "PROCUREMENT_HOLD"
+            status = ("DONOR_CUT_FIT_OR_PROCUREMENT_HOLD"
+                      if part_id.startswith("FR-") else "PROCUREMENT_HOLD")
             landed, cost_state = "", "UNQUOTED_NOT_ZERO"
-            evidence = "C1_GEOMETRY_REFERENCE_USER_REPORTS_NO_STOCK"
+            evidence = "C1_GEOMETRY_REFERENCE_CURRENT_STOCK_UNCONFIRMED"
             notes = (notes.replace("120x240x65 user measurement",
                                    "120x240x65 historical reference envelope")
                      .replace("Existing BTS7960", "BTS7960 candidate")
-                     + " Historical handover assumed stock; current user reports none. Obtain landed quote; not zero.")
+                     + " Historical handover is not current qualified stock; "
+                     "confirm donor part identity/interface or obtain landed quote.")
+        elif part_id == "EL-DRV":
+            notes = notes.replace("Existing BTS7960", "BTS7960 candidate")
         active.append({
             "scope": scope, "part_id": part_id, "description": description,
             "quantity": quantity, "material": material, "status": status,
@@ -167,6 +197,9 @@ def main():
     cut_rows = rows(REPO/"bom/profile_cut_plan.csv")
     cut_ok = all(int(item["stock_mm"]) == int(item["cut_mm"])
                  + int(item["kerf_mm"])+int(item["remaining_mm"]) for item in cut_rows)
+    scheduled_stock_mm = defaultdict(int)
+    for item in cut_rows:
+        scheduled_stock_mm[item["profile"]] += int(item["stock_mm"])
     known = [item for item in active if item["landed_line_KRW"] != ""]
     research = json.loads((REPO/"c2/results/continuation_research.json").read_text())
     motor_candidates = [item["known_motor_landed_floor_KRW"]
@@ -190,25 +223,42 @@ def main():
         "queried_motor_candidate_price_plus_base_shipping_KRW": cheapest_queried_motor,
         "soft_total_budget_KRW": research["procurement"]["budget_soft_limit_KRW"],
         "current_inventory": {
-            "status": "USER_REPORTED_NO_OWNED_PARTS",
-            "available_stock_rows": 0,
-            "historical_owned_rows_reclassified": sum(
-                item["evidence"] == "C1_GEOMETRY_REFERENCE_USER_REPORTS_NO_STOCK"
+            "status": "USER_REPORTED_2NC_BUTTON_AND_CHIRON_PSU_DONOR_UNQUALIFIED",
+            "reported_owned_button_rows": sum(
+                item["evidence"] == "USER_REPORTED_2NC_BUTTON_MODEL_UNVERIFIED"
                 for item in active),
-            "feedstock": "NONE_REPORTED",
+            "reported_owned_psu_rows": sum(
+                item["evidence"] == "USER_REPORTED_CHIRON_PSU_LABEL_UNVERIFIED"
+                for item in active),
+            "qualified_stock_rows": 0,
+            "historical_owned_rows_reclassified": sum(
+                item["evidence"] == "C1_GEOMETRY_REFERENCE_CURRENT_STOCK_UNCONFIRMED"
+                for item in active),
+            "donor_printer": {
+                "model": "Anycubic Chiron",
+                "availability": "USER_REPORTED",
+                "other_subparts": "UNALLOCATED_PENDING_LABEL_AND_DIMENSIONS",
+                "profile_lengths": "UNMEASURED",
+                "motor_driver_interfaces": "UNVERIFIED",
+            },
+            "feedstock": "NO_REFERENCE_PELLETS_REPORTED",
         },
         "candidate_motor_budget_gap_KRW": max(
             0, cheapest_queried_motor - research["procurement"]["budget_soft_limit_KRW"]),
         "minimum_functional_route": {
             "same_product": "reference_feed_same_extrusion_cooling_gauge_puller_winder",
             "staging": "upstream S1/S2 held during reference-feed qualification; not a substitute finished product",
-            "cost_status": "UNPRICED_NO_OWNED_STOCK_NO_BUDGET_COMPLIANCE_PROVEN",
+            "cost_status": "UNPRICED_TWO_REPORTED_PARTS_UNQUALIFIED_NO_BUDGET_COMPLIANCE_PROVEN",
             "safety": "independent interlocks, fuses and lockout cannot be omitted",
         },
-        "cost_conclusion": "NO_STOCK_ALL_ACTIVE_ROWS_UNQUOTED_MOTOR_CANDIDATE_EXCEEDS_SOFT_BUDGET",
+        "cost_conclusion": "BUTTON_AND_DONOR_PSU_REPORTED_OTHER_ACTIVE_ROWS_UNQUOTED_MOTOR_CANDIDATE_EXCEEDS_SOFT_BUDGET",
         "profile_cut_plan": {
             "rows": len(cut_rows), "stock_conservation_passed": cut_ok,
-            "stock_available": False, "basis": "unquoted purchase-cut layout only",
+            "stock_available": None,
+            "stock_confirmation_status": "DONOR_PROFILE_LENGTHS_UNMEASURED",
+            "scheduled_stock_mm_by_profile": dict(sorted(scheduled_stock_mm.items())),
+            "source_owned_flags": "HISTORICAL_C1_NOT_CURRENT_DONOR_STOCK",
+            "basis": "cut layout conserves nominal stock; donor extrusion stock unmeasured",
             "source": "bom/profile_cut_plan.csv"},
         "csv": {"file": str(csv_path.relative_to(REPO)),
                 "sha256": hashlib.sha256(csv_path.read_bytes()).hexdigest()},
