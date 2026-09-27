@@ -352,6 +352,25 @@ class ProcessModelPhysicsTests(unittest.TestCase):
         self.assertLess(at_60(disturbed)["mdot_g_s"], at_60(base)["mdot_g_s"])
         self.assertLessEqual(max(s["heater_W"] for s in disturbed), 160)
 
+    def test_spool_radius_stays_at_core_until_strand_reaches_nip(self):
+        p = pm.LineParams()
+        observed = []
+
+        def capture(env):
+            observed.append((env["t_s"], env["spool_radius_mm"],
+                             env["tension_N"]))
+            return env
+
+        samples = pm.simulate(p, 45, disturbance=capture)
+        self.assertTrue(samples)
+        self.assertGreater(samples[0]["t_s"], 25)
+        before = [row for row in observed if row[0] < samples[0]["t_s"]]
+        self.assertTrue(before)
+        self.assertTrue(all(radius == p.spool_core_radius_mm
+                            for _, radius, _ in before))
+        self.assertGreater(observed[-1][1], p.spool_core_radius_mm)
+        self.assertLess(observed[-1][2], observed[0][2])
+
     def test_clutch_limits_tension_as_spool_grows_and_fault_slips(self):
         p = pm.LineParams()
         def commanded_overrun(e):

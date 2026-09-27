@@ -1163,6 +1163,39 @@ def main() -> int:
         out_path = run_dir / "results.json"
         out_path.write_text(json.dumps(results, indent=2) + "\n")
         (run_dir / "runner_log.txt").write_text("\n".join(log_lines) + "\n")
+        if not CANDIDATE:
+            # Keep a reviewable current-scene record without tracking the
+            # multi-megabyte per-step native output. The hash identifies the
+            # local full result; runner arguments permit a new trial.
+            summary = {
+                "schema": "selected_connected_flow_summary/1",
+                "runner": results["runner"],
+                "run_args": {"steps": args.steps, "dt_s": args.dt,
+                             "cycles": args.cycles, "probes": args.probes},
+                "full_result": (str(out_path.resolve().relative_to(REPO))
+                                if out_path.resolve().is_relative_to(REPO) else None),
+                "full_result_sha256": sha256_file(out_path),
+                "step_sha256": results["step_sha256"],
+                "usd_sha256": results["usd_sha256"],
+                "usd_source_linked": source_scene_linked,
+                "tracking_pass": tracking_pass_val,
+                "flow_localization_reference": {
+                    **results["flow_localization_reference"],
+                    "path": str(flow_path.relative_to(REPO)),
+                },
+                "probe_test": {
+                    "total": total_probes,
+                    "reached_screen_total": reached,
+                    "connected_stage_counts": results["probe_test"]["connected_stage_counts"],
+                    "same_probe_ids_screen_to_buffer": connected_ids,
+                    "connected_buffer_verified": results["probe_test"]["connected_buffer_verified"],
+                },
+                "product_flow_verified": product_flow_verified,
+                "verdict": verdict,
+                "physical_qualification": "HOLD",
+            }
+            (OUTDIR / "selected_connected_flow_summary.json").write_text(
+                json.dumps(summary, indent=2) + "\n")
         log(f"RESULTS={out_path}")
         log(f"verdict={verdict} tracking_pass={results['tracking_pass']} "
             f"unexpected_contacts={results['unexpected_contact_count']} "

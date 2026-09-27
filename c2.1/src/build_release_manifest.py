@@ -43,14 +43,17 @@ def main():
     flow_current = (flow.get("scene_consistent") is True
                     and flow.get("step_sha256") == current_step
                     and flow.get("usda_sha256") == current_usd)
+    # Pin the lightweight selected-run evidence, never an untracked local
+    # run_*/results.json that clean CI cannot reproduce from a checkout.
+    connected_path = REPO/"c2.2/results/full_machine/selected_connected_flow_summary.json"
     connected = None
-    for p in sorted((REPO/"c2.2/results/full_machine").glob("run_*/results.json"),
-                    key=lambda p: p.stat().st_mtime, reverse=True):
-        record = load(p)
-        if (record.get("step_sha256") == current_step
-                and record.get("usd_sha256") == current_usd):
-            connected = (p, record)
-            break
+    if connected_path.is_file():
+        record = load(connected_path)
+        if (record.get("schema") == "selected_connected_flow_summary/1"
+                and record.get("step_sha256") == current_step
+                and record.get("usd_sha256") == current_usd
+                and record.get("usd_source_linked") is True):
+            connected = (connected_path, record)
     local_clear = (flow_current and len(flow.get("verdicts", {})) == 4
                    and all(v["verdict"] == "CLEAR"
                            for v in flow["verdicts"].values()))

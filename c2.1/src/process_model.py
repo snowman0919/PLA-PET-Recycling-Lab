@@ -278,7 +278,6 @@ def simulate(p: LineParams, t_total_s=180.0, controller=None,
         slip = slip_fraction(tension, p)
         v_eff = v_surface * (1 - slip)
         distance_mm += v_eff * p.dt_s
-        wound_mm += v_eff * p.dt_s
         # Mass conservation at the assumed instantaneous draw point. Temperature
         # influence is an uncalibrated flow sensitivity; no hidden throughput gain.
         base_flow = p.mdot_g_s * env.get("mdot_factor", 1.0)
@@ -315,6 +314,8 @@ def simulate(p: LineParams, t_total_s=180.0, controller=None,
                         measured = e.measured_mm
         while elements and DIE_EXIT_X + distance_mm - elements[0].birth_distance_mm >= PULLER_NIP_X:
             e = elements.popleft()
+            # Nip arrival proxies take-up; die-side material has not wound yet.
+            wound_mm += e.length_mm
             ready = e.core_C <= mat["T_ready"] and e.gauge_ready
             samples.append({
                 "t_s": t, "t_created_s": e.birth_s, "t_gauge_s": e.gauge_s,

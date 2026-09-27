@@ -26,6 +26,8 @@
       "qualified_fraction_of_produced": 0.6544,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.1359,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.29615347965736,
       "maximum_nip_center_C": 44.13224645818255
@@ -55,6 +57,8 @@
       "qualified_fraction_of_produced": 0.6543,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.1359,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.29615347965736,
       "maximum_nip_center_C": 44.13245551311448
@@ -84,6 +88,8 @@
       "qualified_fraction_of_produced": 0.7145,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.4783,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.29621578417039,
       "maximum_nip_center_C": 54.913042305114715
@@ -113,6 +119,8 @@
       "qualified_fraction_of_produced": 0.6014,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.2722,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.29609853054262,
       "maximum_nip_center_C": 55.79897338452323
@@ -142,6 +150,8 @@
       "qualified_fraction_of_produced": 0.0,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.4801,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.2961370933736,
       "maximum_nip_center_C": 46.75622433797353
@@ -171,6 +181,8 @@
       "qualified_fraction_of_produced": 0.5523,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.5541,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.2961370933736,
       "maximum_nip_center_C": 49.50882187559432
@@ -200,6 +212,8 @@
       "qualified_fraction_of_produced": 0.8399,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.4783,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.29621303257784,
       "maximum_nip_center_C": 45.5933863017892
@@ -229,6 +243,8 @@
       "qualified_fraction_of_produced": 0.8403,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.4798,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.29621303257784,
       "maximum_nip_center_C": 45.726144208031805
@@ -258,6 +274,8 @@
       "qualified_fraction_of_produced": 0.8371,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.4801,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.29621303257784,
       "maximum_nip_center_C": 44.13247523787944
@@ -287,6 +305,8 @@
       "qualified_fraction_of_produced": 0.7861,
       "die_to_gauge_mm": 269.0,
       "gauge_to_nip_mm": 20.0,
+      "spool_radius_first_nip_mm": 35.0,
+      "spool_radius_last_nip_mm": 35.2629,
       "max_admitted_heater_W": 160.0,
       "max_barrel_C": 185.29615347965736,
       "maximum_nip_center_C": 44.14363461533788
@@ -2577,7 +2597,7 @@
   "limitations": [
     "Reference-feed 100 g/h is a design target; screw throughput unmeasured.",
     "Solid density, conductivity, convection, grip, clutch and temperature-flow sensitivity are assumed, not measured on PPR.",
-    "Spool torque/radius gives quasistatic tension only; the lighter CAD drum does not validate acceleration, inertia, welds, bearing load or clutch transient torque.",
+    "Spool radius grows from strand length arriving at the nip, used as a take-up proxy; die-to-nip pending material is not wound. Torque/radius gives quasistatic tension only; the lighter CAD drum does not validate acceleration, inertia, welds, bearing load or clutch transient torque.",
     "The puller's influence on the molten draw point is instantaneous here; strand elasticity, melt swelling, pressure and contact deformation are omitted.",
     "PI arithmetic uses the host-built C++ firmware kernel; a >1s post-start absence of new gauge samples or an explicitly invalid axis after arming stops this model. Other firmware safety, power and motor I/O are NOT exercised in the parcel simulation.",
     "The composite transient's clutch fault at 170..178 s occurs after the feedback route halts on missing gauge at 146 s; the isolated clutch_fault scenario exposes both routes to that fault without bypassing the HOLD.",

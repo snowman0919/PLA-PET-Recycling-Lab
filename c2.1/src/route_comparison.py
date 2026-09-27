@@ -136,6 +136,10 @@ def run_route(name, controller_factory, scenario="transient", **overrides):
                        (summary["total_length_mm"] + pending), 4),
                    die_to_gauge_mm=pm.GAUGE_X - pm.DIE_EXIT_X,
                    gauge_to_nip_mm=pm.PULLER_NIP_X - pm.GAUGE_X,
+                   spool_radius_first_nip_mm=(
+                       round(samples[0]["spool_radius_mm"], 4) if samples else None),
+                   spool_radius_last_nip_mm=(
+                       round(samples[-1]["spool_radius_mm"], 4) if samples else None),
                    max_admitted_heater_W=max((s["heater_W"] for s in samples),
                                               default=0.0),
                    max_barrel_C=max((s["barrel_C"] for s in samples),
@@ -191,7 +195,7 @@ def compare():
         "limitations": [
             "Reference-feed 100 g/h is a design target; screw throughput unmeasured.",
             "Solid density, conductivity, convection, grip, clutch and temperature-flow sensitivity are assumed, not measured on PPR.",
-            "Spool torque/radius gives quasistatic tension only; the lighter CAD drum does not validate acceleration, inertia, welds, bearing load or clutch transient torque.",
+            "Spool radius grows from strand length arriving at the nip, used as a take-up proxy; die-to-nip pending material is not wound. Torque/radius gives quasistatic tension only; the lighter CAD drum does not validate acceleration, inertia, welds, bearing load or clutch transient torque.",
             "The puller's influence on the molten draw point is instantaneous here; strand elasticity, melt swelling, pressure and contact deformation are omitted.",
             "PI arithmetic uses the host-built C++ firmware kernel; a >1s post-start absence of new gauge samples or an explicitly invalid axis after arming stops this model. Other firmware safety, power and motor I/O are NOT exercised in the parcel simulation.",
             "The composite transient's clutch fault at 170..178 s occurs after the feedback route halts on missing gauge at 146 s; the isolated clutch_fault scenario exposes both routes to that fault without bypassing the HOLD.",
