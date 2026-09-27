@@ -1,0 +1,98 @@
+{
+  "asset_id": "PULL_IDLER_SPRINGS",
+  "group": "puller",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 256,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.256",
+  "mesh_file": "sim/assets/out/full/PULL_IDLER_SPRINGS_step256__coarse.stl",
+  "mesh_bytes": 10484,
+  "mesh_sha256": "f87c408592ba0d692da6aca1278bfb5fcbd85ae50c3b8571427a821d0ddcb2f6",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "c3620578d5959b521daf76649fd6f6dd88610f5f3c3d7eda7b4e637ea6fcc48d",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    834.4999999,
+    291.9999999,
+    140.9999999,
+    843.5000001,
+    301.0000001,
+    149.5000001
+  ],
+  "revision": "a61bc7bf051b10635134e67dcd5629c396de135c",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "SPRING_SPACE",
+  "source_material_label": "springs unselected",
+  "manufacturing_process": "unselected compression-spring SPACE envelope only, not a solid ring; no nominal hardware mass assigned",
+  "thermal_condition": "cold-zone spring material, operating temperature and fatigue HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 0.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 0.0,
+  "effective_density_bounds_kg_m3": [
+    0.0,
+    7850.0
+  ],
+  "bounds_basis": "0..solid-steel mass of the reserved annular volume; actual selected spring mass and fit unknown, zero is NOT a purchase or hardware mass estimate",
+  "mass_material_status": "BOUNDED_PROXY_UNRATED",
+  "volume_mm3": 360.2307216238812,
+  "solid_bbox_mm": [
+    834.4999999,
+    291.9999999,
+    140.9999999,
+    843.5000001,
+    301.0000001,
+    149.5000001
+  ],
+  "mass_kg": 0.0,
+  "mass_bounds_kg": [
+    0.0,
+    0.0028278111647474674
+  ],
+  "center_of_mass_mm": [
+    839.0,
+    296.5,
+    145.25
+  ],
+  "inertia_kg_mm2": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    0.10834052019805737,
+    0.10834052019805593,
+    0.11452635726233228
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "upper_bound_kg_mm2": [
+      0.10834052019805737,
+      0.10834052019805593,
+      0.11452635726233228
+    ],
+    "center_of_mass_mm": [
+      839.0,
+      296.5,
+      145.25
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

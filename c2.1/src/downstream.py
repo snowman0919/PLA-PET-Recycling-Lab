@@ -62,13 +62,13 @@ HERE = Path(__file__).resolve()
 ROOT = HERE.parents[1]
 REPO = HERE.parents[2]
 # Filament line: +X at y=275, z=125 (winder.py frozen datum).
-# VP1 Stage 6 rev 2: the gauge station lives INSIDE the COOL-TRAY exit
-# section (x 806..820, tray interior y 237..313, z 105..133) — the 4 mm gap
-# between the tray exit (x820) and the puller frame seats (x822) is real
-# metal (PULL_FRAME bearing seats reach x822, PULL_ROLLER_FIXED to x819,
-# PULL_ROLLER_ADJ carriage to x812.9), so an external station there was
-# geometry fraud.  Inside the tray the strand is at the gauge with ~100 mm
-# of remaining ducted cooling behind it; the tray interior is free air.
+# VP1 Stage 6: the gauge station lives inside the COOL-TRAY exit
+# (x806..820, tray interior y237..313, z105..133). The free external gap
+# after x820 is too short for a separate station: the driven roller already
+# reaches x819 and the idler carrier reaches x823. The 250 mm nominal
+# *modeled* forced-cooling run ends at x795, 14 mm upstream of the gauge.
+# Tray location and assumed cooling must not be confused with measured
+# strand temperature, airflow or dimensional stability.
 LINE_Y = 275.0
 LINE_Z = 125.0
 GAUGE_X = 809.0          # station plane; x>811 above z126 is puller metal

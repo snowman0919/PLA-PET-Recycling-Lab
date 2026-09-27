@@ -550,8 +550,9 @@ def main():
                 "The fin-bypass feed uses a driven four-turn auger in an "
                 "open U cradle with a measured positive flight/floor gap; "
                 "the flat structural slab is not a passive transport claim",
-                "puller nip: spring-loaded 1.75 mm filament grip; spool "
-                "winder, traverse and slip tensioner replace SPOOL-ENV",
+                "puller nip: independent idler/axle and vertical carrier, "
+                "1.5..3 mm hard stops, unselected spring/traction HOLD; "
+                "spool winder, traverse and slip tensioner replace SPOOL-ENV",
                 "power policy: modeled base staged peak 424 W excludes "
                 "unselected puller/winder auxiliary drives; hypothetical "
                 "20 W aux gives 444 W and 56 W margin to the 500 W cap. "

@@ -37,6 +37,11 @@ MATERIALS = {
     "STEEL_PRINTED_GUIDE_PROXY": dict(density=7000., bounds=(3000., 7850.), process="single CAD solid approximates steel rider plus small cold-zone printed ABS guide; allocation/steel insert unmodeled", temperature="guide below 60 C; load-bearing steel and fasteners required"),
     "MIXED_CLUTCH_PROXY": dict(density=5000., bounds=(800., 7850.), process="steel keyed collar with unresolved friction pad and spring stack; no qualified preload, torque or material split", temperature="slip heating, wear and guard qualification HOLD"),
     "MIXED_SENSOR_PROXY": dict(density=2500., bounds=(800., 7850.), process="single CAD body represents steel lever, magnet, Hall head and spring; not a purchased mass", temperature="sensor/lever operating temperature and calibration HOLD"),
+    "SPRING_SPACE": dict(
+        density=0., bounds=(0., 7850.),
+        bounds_basis="0..solid-steel mass of the reserved annular volume; actual selected spring mass and fit unknown, zero is NOT a purchase or hardware mass estimate",
+        process="unselected compression-spring SPACE envelope only, not a solid ring; no nominal hardware mass assigned",
+        temperature="cold-zone spring material, operating temperature and fatigue HOLD"),
 }
 
 # C2.1 and VP1 parts not present in the C1 instance inventory. Every other
@@ -61,7 +66,8 @@ DECISIONS = {
     "GAUGE_OPTICAL_B": "PURCHASED_ELECTRICAL",
     "WIND_TRAVERSE_RIDER": "STEEL_PRINTED_GUIDE_PROXY",
     "PULL_ROLLER_FIXED": "TPU_METAL_PROXY",
-    "PULL_ROLLER_ADJ": "STEEL",  # integral spring carriage; hub/tread split unmodeled
+    "PULL_ROLLER_ADJ": "STEEL",  # separate rotating roller/axle; tread/bearing HOLD
+    "PULL_IDLER_SPRINGS": "SPRING_SPACE",
     "S1_BELT": "ELASTOMER_BELT",
     "S1_TRANSFER_BELT": "ELASTOMER_BELT",
     "EL_WIRE_DUCT": "PVC_DUCT",
@@ -194,7 +200,7 @@ def mass_properties(name: str, volume_mm3: float, bbox_mm) -> dict:
 
 MATERIAL_SCOPE = {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. WIND_SPOOL_RETENTION is an ES-16 two-turn spring-steel dimensional envelope and steel thrust washer with two shaft grooves, not selected hardware or a rated preload; the catalog spiral detail is unmodeled. Profile joints, tray attachment, flange seams, ring/groove fatigue, spring preload, bearing thrust and balance remain HOLD.",
+    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; the separate PULL_ROLLER_ADJ idler and PULL_IDLER_CARRIAGE follow Ø5 vertical guides and PULL_IDLER_SPRINGS are zero-nominal-mass SPACE envelopes, bounded above by a full steel envelope (not free hardware or cost). WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. WIND_SPOOL_RETENTION is an ES-16 two-turn spring-steel dimensional envelope and steel thrust washer with two shaft grooves, not selected hardware or a rated preload; the catalog spiral detail is unmodeled. Profile joints, tray attachment, flange seams, ring/groove fatigue, spring preload, bearing thrust and balance remain HOLD.",
     "excluded": "PLA excluded from hot/load paths and permanent guards; ABS excluded from heater/cutter/feed throat. PC lower containment and thermal exposure require material and process qualification. No printed keys or bearing seats.",
     "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation and six walls; bed fit is not impact, layer or seam qualification. Printed ABS eyelet on WIND_TRAVERSE_RIDER is folded into a bounded steel/polymer proxy, not counted twice. No ABS spool drum remains in this VP1 candidate.",
     "boundary": "All materials are screening choices; profile web/slot metal area, mixed sensor/clutch mass, printed wall mass and real motor/fan internals require measured or vendor inputs. No strength, safety or fabrication release.",

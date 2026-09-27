@@ -5,25 +5,23 @@ build_machine_integration.py).  Frozen datums kept: the extrudate line runs
 +X at z=125, y=275 from the die (x=520) through the cooling tray to the
 puller at x~829.  NEW geometry (positions chosen here):
 
-FIX (VP1 Stage 4): the rev-A fixed 2.5 mm nip cannot grip 1.75 mm filament
-(spec: design/parameters.json "filament_mm": 1.75, status
-CONDITIONAL_THROUGHPUT_NOT_MEASURED; corroborated by src/design.py:34 and
-c2.1/bom/system_bom.csv EX-DIE notes "drawdown candidate for 1.75 filament").
-The puller is redesigned as a spring-loaded movable-carrier nip:
+The old 2.5 mm fixed nip could not engage a 1.75 mm strand. A later
+"adjustable roller" BRep fused roller, carriage, springs and lateral posts
+into one rigid solid; it could not both spin and translate. This candidate
+separates those kinematic roles without assigning unselected spring force.
 
-Puller (x 815..845, y 240..278, z 100..150):
-- PULL_FRAME: two side plates + base, with a lower axle seat pair (bearings)
-  for the FIXED drive roller and vertical guide slots for the movable one.
+Puller (x 819..847, y 202..303, z 100..153.5):
+- PULL_FRAME: two side plates and base, with Ø8 driven-axle seats and
+  vertical clearance slots for the idler axle; fixed guide rods and caps.
 - PULL_ROLLER_FIXED: dia-20 driven roller, axle in frame bearings BOTH ends.
-- PULL_ROLLER_ADJ: dia-20 roller in a SPRING-LOADED carriage: two coil-spring
-  seats (k nominally 8 N/mm, PRELOAD_ADJ travel) press the roller down onto
-  the filament; the carriage rides vertical guide posts and is bounded by a
-  CAM STOP: a slotted cam plate with a positive stop range that sets the
-  MINIMUM nip (roller-to-roller gap at zero filament) to 1.5 mm and allows
-  opening to 3.0 mm.  With 1.75 mm filament between the rollers the spring
-  compresses ~0.6 mm, giving a contact nip of ~1.55-1.9 mm under compliance
-  - real contact, adjustable pressure, rotation and tension transfer.
-  Stock window: 1.5-2.0 mm filament gripped; 1.75 mm nominal.
+- PULL_ROLLER_ADJ: dia-20 freely rotating idler and Ø6 axle. Separate
+  PULL_IDLER_CARRIAGE has two end bearing seats sliding 1.5 mm vertically
+  on fixed Ø5 guides; separate PULL_IDLER_SPRINGS are axial space envelopes
+  between the carrier and frame caps. PULL_NIP_STOP defines lower/upper
+  positive travel limits (1.5..3.0 mm roller gap). Bearings, spring rate,
+  preload, axle retention and traction remain unselected/unrated.
+  The reference position is the 1.5 mm minimum opening; a 1.75 mm strand
+  displaces the carrier, so contact force cannot be inferred from this pose.
 - PULL_MOTOR_REF: small gearmotor reference belt-driving the fixed roller.
 - PULL_COOL_MOUNT: welded steel tube rack fixed to the rear Al upright.
   It carries the puller frame directly, with a separate underside ledge for
@@ -68,18 +66,15 @@ def _cyl(r, h, x, y, z, axis=(0, 1, 0)):
     return cq.Solid.makeCylinder(r, h, V(x, y, z), V(*axis))
 
 
-# FILAMENT SPEC: 1.75 mm nominal (design/parameters.json "filament_mm": 1.75,
-# status CONDITIONAL_THROUGHPUT_NOT_MEASURED; src/design.py:34; BOM EX-DIE
-# note).  Grip window sized for 1.5..2.0 mm stock, 1.75 nominal.
+# FILAMENT SPEC: 1.75 mm nominal (design/parameters.json "filament_mm").
+# Nip 1.5..3.0 mm is a travel envelope, not an achieved grip force or
+# a qualified stock/diameter range.
 FILAMENT_MM = 1.75
-# Nip geometry: roller centers at line_z -/+ (roller_r + nip/2).
-# NIP_STOP_MIN = 1.5 (hard stop at full spring compression, 1.5 mm stock
-# floor), NIP_OPEN_MAX = 3.0 (cam-adjustable upper limit).
-# Compressed nip on 1.75 filament: stop face at 1.5 + spring compliance gives
-# a working contact band ~1.55..1.9 mm.
+# Nip geometry: fixed drive roller below the line; idler rises by up to
+# 1.5 mm between the minimum stop and the fully open stop. Spring force and
+# filament contact deformation are unqualified, not assigned by the CAD.
 PULL = dict(x=829.0, y0=264.0, y1=286.0, roller_r=10.0, line_z=125.0,
-            nip_stop_min=1.5, nip_open_max=3.0, spring_rate_N_mm=8.0,
-            spring_free_len=18.0, spring_solid_len=12.0)
+            nip_stop_min=1.5, nip_open_max=3.0)
 PULL_ROLLER_Z = (PULL["line_z"] - (PULL["roller_r"] + PULL["nip_stop_min"] / 2.0),
                  PULL["line_z"] + (PULL["roller_r"] + PULL["nip_stop_min"] / 2.0))
 WIND = dict(x=700.0, z=220.0, drum_r=35.0, flange_r=100.0, shaft_r=8.0,
@@ -95,21 +90,26 @@ CLUTCH_SPRING_SEAT_MM = 1.0
 
 
 def pull_frame():
-    """Fixed-roller seats at both axle ends, braced to the base.
+    """Two metal side plates carry the driven axle and a slotted idler axle.
 
-    The +Y bearing boss has a web to its east plate; both bores clear the
-    Ø8 axle. These are interface shapes, not selected bearing hardware.
+    The Ø5 vertical guide rods are fixed between the frame cap and a
+    separate positive stop. Sliding carrier bores, not the idler roller,
+    constrain the translation. Plate slots clear the full 1.5 mm stroke.
+    Bearing inserts, side-plate joints and guide alignment remain HOLD.
     """
-    y0, y1 = PULL["y0"] - 3.0, PULL["y1"] + 3.0
-    side_a = _box(824.0, 827.0, y0, y0 + 3.0, 100.0, 150.0)
-    side_b = _box(843.0, 846.0, y1 - 3.0, y1, 100.0, 150.0)
-    base = _box(824.0, 846.0, y0, y1, 100.0, 104.0)
-    bridge = _box(829.0, 846.0, y1 - 3.0, y1, 108.0, 120.0)
-    seat_a = _cyl(7.0, 3.0, PULL["x"], y0, PULL_ROLLER_Z[0])
-    seat_b = _cyl(7.0, 3.0, PULL["x"], y1 - 3.0, PULL_ROLLER_Z[0])
-    frame = side_a.fuse(side_b).fuse(base).fuse(bridge).fuse(seat_a).fuse(seat_b)
-    for y in (y0, y1 - 3.0):
-        frame = frame.cut(_cyl(4.2, 3.0, PULL["x"], y, PULL_ROLLER_Z[0]))
+    y0, y1 = 259.0, 287.0
+    base = _box(824, 846, y0, y1 + 4, 100, 104)
+    frame = base
+    for y in (y0, y1):
+        plate = _box(824, 836, y, y + 4, 100, 150)
+        plate = plate.cut(_cyl(4.2, 4, PULL["x"], y, PULL_ROLLER_Z[0]))
+        plate = plate.cut(_box(825.8, 832.2, y, y + 4, 132.5, 140.5))
+        frame = frame.fuse(plate)
+    for y, cap_y in ((253.5, 249.0), (296.5, 287.0)):
+        frame = frame.fuse(_box(823, 846, cap_y,
+                                cap_y + 15, 149.5, 153.5))
+        frame = frame.fuse(_cyl(2.5, 18.5, 839, y, 131,
+                                axis=(0, 0, 1)))
     for y in (268.0, 282.0):
         frame = frame.cut(_cyl(2.25, 6.0, 833, y, 99, axis=(0, 0, 1)))
     return frame.clean()
@@ -140,63 +140,78 @@ def pull_cool_mount():
     return rack.clean()
 
 def pull_roller_fixed():
-    """Dia-20 drive roller on a supported axle (bearing seats BOTH ends),
-    center z 113.75 (line z 125 - 10 - 0.75)."""
+    """Ø20 driven roller and Ø8 axle supported at both frame side plates."""
     z = PULL_ROLLER_Z[0]
-    r = _cyl(PULL["roller_r"], PULL["y1"] - PULL["y0"], PULL["x"],
-             PULL["y0"], z)
-    axle = _cyl(4.0, PULL["y1"] - PULL["y0"] + 16.0, PULL["x"],
-                PULL["y0"] - 8.0, z)
-    return r.fuse(axle).clean()
+    roller = _cyl(PULL["roller_r"], PULL["y1"] - PULL["y0"],
+                  PULL["x"], PULL["y0"], z)
+    axle = _cyl(4.0, 38.0, PULL["x"], 256.0, z)
+    return roller.fuse(axle).clean()
 
 
-def _spring(r_out=4.0, r_in=3.2, pitch=2.4, turns=6, x=829.0, y0=265.0, z0=0.0):
-    """Coil spring (helical sweep) between the carriage and the frame cap."""
-    helix = cq.Wire.makeHelix(pitch, turns * pitch, r_in,
-                              cq.Vector(x, y0, z0), cq.Vector(0, 1, 0))
-    wire = cq.Wire.makeCircle(r_out - r_in, cq.Vector(x, y0, z0), cq.Vector(0, 1, 0))
-    solid = cq.Solid.sweep(cq.Face.makeFromWires(wire).outerWire(), [], helix, True)
-    return solid
+def _idler_z(opening_mm):
+    lo, hi = nip_range_mm()
+    if not lo <= opening_mm <= hi:
+        raise ValueError("idler opening must stay between both positive stops")
+    return PULL_ROLLER_Z[1] + opening_mm - lo
 
 
-def pull_roller_adj():
-    """Dia-20 SPRING-LOADED adjustable roller at the hard-stop position
-    (minimum nip 1.5 mm): roller + carriage plate riding two guide posts +
-    two compression springs + cam stop plate (pressure adjustment)."""
-    z = PULL_ROLLER_Z[1]
-    r = _cyl(PULL["roller_r"], PULL["y1"] - PULL["y0"], PULL["x"],
-             PULL["y0"], z)
-    carriage = _box(PULL["x"] - 12.0, PULL["x"] + 12.0,
-                    PULL["y1"], PULL["y1"] + 6.0, z - 4.0, z + 14.0)
-    # guide posts (both sides of the carriage, north plate slots)
-    posts = (_cyl(2.5, 26.0, PULL["x"] - 9.0, PULL["y1"] + 6.0, z + 6.0)
-             .fuse(_cyl(2.5, 26.0, PULL["x"] + 9.0, PULL["y1"] + 6.0, z + 6.0)))
-    # compression springs around the posts (compliance: real contact pressure)
-    springs = (_spring(x=PULL["x"] - 9.0, y0=PULL["y1"] + 9.0, z0=z + 6.0 - 8.0)
-               .fuse(_spring(x=PULL["x"] + 9.0, y0=PULL["y1"] + 9.0, z0=z + 6.0 - 8.0)))
-    # cam stop plate: slotted pressure-adjustment cam above the carriage; the
-    # positive stop fixes the minimum nip at 1.5 mm (rollers at line_z +/-5.75)
-    cam = _box(PULL["x"] - 10.0, PULL["x"] + 10.0, PULL["y1"] + 7.0,
-               PULL["y1"] + 10.0, z + 8.0, z + 10.5)
-    return r.fuse(carriage).fuse(posts).fuse(springs).fuse(cam).clean()
+def pull_roller_adj(opening_mm=1.5):
+    """Freely rotating Ø20 idler on a Ø6 axle, separate from its carrier."""
+    z = _idler_z(opening_mm)
+    roller = _cyl(PULL["roller_r"], 22, PULL["x"], PULL["y0"], z)
+    axle = _cyl(3.0, 52, PULL["x"], 249, z)
+    return roller.fuse(axle).clean()
+
+
+def pull_idler_carriage(opening_mm=1.5):
+    """Two translating axle seats joined behind the roller, on Ø5 guides.
+
+    Nominal Ø6.04 axle bores are bearing-envelope dimensions only;
+    inserts, running clearance, tolerance and end retention remain HOLD.
+    """
+    z = _idler_z(opening_mm)
+    carrier = _box(823, 846, 249, 259, z - 4.75, z + 5.25)
+    carrier = carrier.fuse(_box(823, 846, 291, 301, z - 4.75, z + 5.25))
+    carrier = carrier.fuse(_box(842, 846, 259, 291, z - 4.75, z + 5.25))
+    for y in (249, 291):
+        carrier = carrier.cut(_cyl(3.02, 10, PULL["x"], y, z))
+    for y in (253.5, 296.5):
+        carrier = carrier.cut(_cyl(2.6, 12, 839, y, z - 5,
+                                    axis=(0, 0, 1)))
+    return carrier.clean()
+
+
+def pull_idler_springs(opening_mm=1.5):
+    """Two *unselected* axial spring space envelopes, not rated springs.
+
+    At full opening the available installed height falls from 8.5 to 7 mm;
+    neither a free length nor a spring force follows from this envelope.
+    """
+    seat_z = _idler_z(opening_mm) + 5.25
+    springs = []
+    for y in (253.5, 296.5):
+        height = 149.5 - seat_z
+        spring = _cyl(4.5, height, 839, y, seat_z, axis=(0, 0, 1))
+        springs.append(spring.cut(
+            _cyl(2.6, height, 839, y, seat_z, axis=(0, 0, 1))))
+    return cq.Compound.makeCompound(springs)
 
 
 def pull_nip_stop():
-    """Fixed underside seat at the minimum 1.5 mm nip.
-
-    The seat touches the carriage bottom at z=roller_center-4 and the
-    frame's +Y plate at y=y1+3; neither solid penetrates the other.
-    A different cam/guide setting can lift the roller for threading.
-    """
-    z = PULL_ROLLER_Z[1]
-    return _box(823.0, 846.0, PULL["y1"] + 3.0, PULL["y1"] + 6.0,
-                z - 7.75, z - 4.0)
+    """Separate metal lower and upper seats at the 1.5/3.0 mm nip limits."""
+    stops = []
+    for y in (249, 291):
+        stops.append(_box(823, 841, y, y + 10, 127, 131))
+        stops.append(_box(823, 834, y, y + 10, 142.5, 146))
+    return cq.Compound.makeCompound(stops)
 
 
 def pull_motor_ref():
-    """Small gearmotor reference (not-owned) belt-driving the fixed roller
-    from the north side of the frame (nose axis z 127, 13.25 mm from the
-    roller axle: nose r8 + axle r4 = 12 < 13.25, no contact)."""
+    """Unselected motor envelope driving the fixed roller by a belt.
+
+    Its Ø16 nose ends at y248, leaving only 1 mm nominal axial clearance
+    to the movable idler axle/carrier. Selected motor and tolerances HOLD.
+    """
     body = _box(834.0, 847.0, 202.0, 236.0, 112.0, 142.0)
     nose = _cyl(8.0, 16.0, PULL["x"], 232.0, 127.0)
     return body.fuse(nose).clean()
@@ -394,6 +409,8 @@ def components():
     return [("PULL_FRAME", pull_frame(), "puller"),
             ("PULL_ROLLER_FIXED", pull_roller_fixed(), "puller"),
             ("PULL_ROLLER_ADJ", pull_roller_adj(), "puller"),
+            ("PULL_IDLER_CARRIAGE", pull_idler_carriage(), "puller"),
+            ("PULL_IDLER_SPRINGS", pull_idler_springs(), "puller"),
             ("PULL_NIP_STOP", pull_nip_stop(), "puller"),
             ("PULL_COOL_MOUNT", pull_cool_mount(), "puller"),
             ("PULL_MOTOR_REF", pull_motor_ref(), "puller"),
@@ -412,14 +429,12 @@ def components():
 
 
 def nip_opening_mm():
-    """Minimum nip gap with the carriage seated on the cam positive stop:
-    roller centers at line_z +/- (roller_r + nip/2) -> gap = nip_stop_min.
-    1.75 mm filament compresses the springs: working nip ~1.55..1.9 mm."""
+    """Minimum roller gap with the carrier against the lower hard stop."""
     return PULL["nip_stop_min"]
 
 
 def nip_range_mm():
-    """(minimum at the hard stop, maximum with the cam screw fully open)."""
+    """(minimum and maximum openings at the two positive stops)."""
     return PULL["nip_stop_min"], PULL["nip_open_max"]
 
 
@@ -458,9 +473,14 @@ if __name__ == "__main__":
                                       "(c2/src/design.py:34); c2.1/bom/"
                                       "system_bom.csv EX-DIE note",
               "nip_min_mm": lo, "nip_max_mm": hi,
-              "grip_window_mm": [1.5, 2.0],
-              "compressed_nip_mm": [1.55, 1.9],
-              "grip_ok": lo <= FILAMENT_MM and hi >= FILAMENT_MM,
+              "nominal_diameter_within_travel": lo < FILAMENT_MM <= hi,
+              "idler_stroke_mm": hi - lo,
+              "motor_to_moving_idler_nominal_y_gap_mm": round(
+                  min(by_name["PULL_ROLLER_ADJ"].BoundingBox().ymin,
+                      by_name["PULL_IDLER_CARRIAGE"].BoundingBox().ymin)
+                  - by_name["PULL_MOTOR_REF"].BoundingBox().ymax, 3),
+              "spring_installed_height_mm": [7.0, 8.5],
+              "grip_qualified": False,
               "steel_mass_screen_g": {
                   "density_g_mm3": density_g_mm3,
                   "old_solid_annulus_and_flange_g": round(old_rotating_g, 2),
@@ -473,7 +493,8 @@ if __name__ == "__main__":
                       by_name["WIND_SPOOL_RETENTION"].Volume() * density_g_mm3, 2),
                   "cost_and_weld_rating": "HOLD: no quotes or measured joints"},
               "retention_fit_screen": retention_fit_screen(),
-              "passed": not fails and nip_opening_mm() <= FILAMENT_MM}
+              "status": "GEOMETRY_ONLY_NIP_FORCE_HOLD",
+              "geometry_passed": not fails and lo < FILAMENT_MM <= hi}
     (ROOT / "results" / "winder_geometry.json").write_text(
         json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))

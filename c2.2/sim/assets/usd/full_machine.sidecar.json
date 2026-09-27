@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 7377424,
-  "usd_sha256": "b82e116cfa3a60730f0bf0ba2cfaba257cce3bd6a15e9a78271f21d72b2d833b",
+  "usd_bytes": 6566715,
+  "usd_sha256": "d528db253c81e3bfb41a016f1bbb5e0dceba97830dca9b3a5076b3bd3216d5e7",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -217,39 +217,39 @@
   },
   "mass_material_status": "PART_SPECIFIC_DESIGN_ASSUMPTIONS_UNRATED",
   "material_model": "c2.2/sim/assets/materials.py",
-  "material_model_sha256": "0ac129aba9246dc518ccea53d463a8648c36e38b24b0e09d2a439f1cba953210",
+  "material_model_sha256": "f21d623fef4e9da1f3b6b42301531242b3585439de6aa5ff107c55fa7da9e595",
   "material_scope": {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. WIND_SPOOL_RETENTION is an ES-16 two-turn spring-steel dimensional envelope and steel thrust washer with two shaft grooves, not selected hardware or a rated preload; the catalog spiral detail is unmodeled. Profile joints, tray attachment, flange seams, ring/groove fatigue, spring preload, bearing thrust and balance remain HOLD.",
+    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; the separate PULL_ROLLER_ADJ idler and PULL_IDLER_CARRIAGE follow \u00d85 vertical guides and PULL_IDLER_SPRINGS are zero-nominal-mass SPACE envelopes, bounded above by a full steel envelope (not free hardware or cost). WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. WIND_SPOOL_RETENTION is an ES-16 two-turn spring-steel dimensional envelope and steel thrust washer with two shaft grooves, not selected hardware or a rated preload; the catalog spiral detail is unmodeled. Profile joints, tray attachment, flange seams, ring/groove fatigue, spring preload, bearing thrust and balance remain HOLD.",
     "excluded": "PLA excluded from hot/load paths and permanent guards; ABS excluded from heater/cutter/feed throat. PC lower containment and thermal exposure require material and process qualification. No printed keys or bearing seats.",
     "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation and six walls; bed fit is not impact, layer or seam qualification. Printed ABS eyelet on WIND_TRAVERSE_RIDER is folded into a bounded steel/polymer proxy, not counted twice. No ABS spool drum remains in this VP1 candidate.",
     "boundary": "All materials are screening choices; profile web/slot metal area, mixed sensor/clutch mass, printed wall mass and real motor/fan internals require measured or vendor inputs. No strength, safety or fabrication release."
   },
   "mass_kg_by_body": {
     "STATIC": {
-      "mass_kg": 46.48675101700533,
+      "mass_kg": 46.56221841260813,
       "mass_bounds_kg": [
-        38.87954204288355,
-        59.64389996675155
+        38.95500943848635,
+        59.72502298468384
       ],
       "center_of_mass_mm": [
-        296.9383862182013,
-        242.2363358673853,
-        189.22775107221648
+        297.810348089146,
+        242.26062624275818,
+        189.132194483664
       ],
       "inertia_kg_mm2": [
-        1441553.5077019099,
-        2731358.3262578226,
-        2246898.032624728
+        1441822.1695410563,
+        2753432.8113790466,
+        2268696.8627875117
       ],
       "inertia_upper_bound_kg_mm2": [
-        3089618.2271037004,
-        6070519.24364994,
-        5568133.994931741
+        3090053.957665711,
+        6088875.351079181,
+        5586453.726515967
       ],
       "mass_status": "BOUNDED_PROXY_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
-      "solid_count": 196
+      "solid_count": 202
     },
     "IN_SHAFT": {
       "mass_kg": 0.43057552236117447,
@@ -861,11 +861,11 @@
       ]
     },
     "STEEL": {
-      "solid_count": 195,
-      "mass_kg": 43.672959566288576,
+      "solid_count": 199,
+      "mass_kg": 43.748426961891376,
       "mass_bounds_kg": [
-        43.672959566288576,
-        43.672959566288576
+        43.748426961891376,
+        43.748426961891376
       ]
     },
     "PURCHASED_BEARING": {
@@ -924,6 +924,14 @@
         0.0605686497241508
       ]
     },
+    "SPRING_SPACE": {
+      "solid_count": 2,
+      "mass_kg": 0.0,
+      "mass_bounds_kg": [
+        0.0,
+        0.0056556223294949364
+      ]
+    },
     "MIXED_CLUTCH_PROXY": {
       "solid_count": 1,
       "mass_kg": 0.03525451465701511,
@@ -965,10 +973,10 @@
       ]
     }
   },
-  "modeled_inventory_mass_kg": 61.0636176808674,
+  "modeled_inventory_mass_kg": 61.1390850764702,
   "modeled_inventory_mass_bounds_kg": [
-    53.42336392725069,
-    74.25853209289355
+    53.49883132285349,
+    74.33965511082583
   ],
   "mass_provenance": "per-solid STEP BRep volume and actual solid bbox in bodies.json; effective density by named part. Static mass is inventory only; Machine root 1 kg / 10000 kg.mm2 is a solver anchor, not a manufactured part. Purchased boundaries are bounded proxies, not solid steel or measured.",
   "derived_transfer_spec": {
@@ -1002,8 +1010,8 @@
     "note": "2mm below split hopper shell top; lateral spread set by verify_full.py across the mouth cross-section, not flow proof"
   },
   "source_bodies": {
-    "step_sha256": "069526490adaf17397491c91e29b4ef5d546f059e48e417fcd9486a379671b8f",
-    "solids": 294,
+    "step_sha256": "c3620578d5959b521daf76649fd6f6dd88610f5f3c3d7eda7b4e637ea6fcc48d",
+    "solids": 300,
     "moving_bodies": [
       "AUGER",
       "BELT",
@@ -1030,7 +1038,7 @@
       "TRANSFER_IDLER"
     ]
   },
-  "revision": "f958f28f7d1b20500a35606f3e1a57fdf801381b",
+  "revision": "a61bc7bf051b10635134e67dcd5629c396de135c",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
@@ -4436,8 +4444,8 @@
       "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
       "prim": "/World/F0/Static/mesh_PULL_FRAME",
       "approx": "triangleMesh",
-      "verts": 316,
-      "faces": 644
+      "verts": 364,
+      "faces": 748
     },
     {
       "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
@@ -4450,12 +4458,54 @@
       "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_ADJ__coarse.stl",
       "prim": "/World/F0/Static/mesh_PULL_ROLLER_ADJ",
       "approx": "triangleMesh",
-      "verts": 11291,
-      "faces": 22598
+      "verts": 156,
+      "faces": 308
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP__coarse.stl",
-      "prim": "/World/F0/Static/mesh_PULL_NIP_STOP",
+      "mesh": "c2.2/sim/assets/out/full/PULL_IDLER_CARRIAGE__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_IDLER_CARRIAGE",
+      "approx": "triangleMesh",
+      "verts": 224,
+      "faces": 460
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PULL_IDLER_SPRINGS_step255__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_IDLER_SPRINGS_step255",
+      "approx": "visualOnly",
+      "verts": 104,
+      "faces": 208
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PULL_IDLER_SPRINGS_step256__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_IDLER_SPRINGS_step256",
+      "approx": "visualOnly",
+      "verts": 104,
+      "faces": 208
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP_step257__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_NIP_STOP_step257",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP_step258__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_NIP_STOP_step258",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP_step259__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_NIP_STOP_step259",
+      "approx": "triangleMesh",
+      "verts": 8,
+      "faces": 12
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP_step260__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_NIP_STOP_step260",
       "approx": "triangleMesh",
       "verts": 8,
       "faces": 12
@@ -4482,15 +4532,15 @@
       "faces": 536
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl",
-      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step258",
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step264__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step264",
       "approx": "triangleMesh",
       "verts": 60,
       "faces": 120
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step259__coarse.stl",
-      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step259",
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step265__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step265",
       "approx": "triangleMesh",
       "verts": 60,
       "faces": 120
@@ -4517,22 +4567,22 @@
       "faces": 436
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_RETENTION_step263__coarse.stl",
-      "prim": "/World/F0/Static/mesh_WIND_SPOOL_RETENTION_step263",
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_RETENTION_step269__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_RETENTION_step269",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 204
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_RETENTION_step264__coarse.stl",
-      "prim": "/World/F0/Static/mesh_WIND_SPOOL_RETENTION_step264",
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_RETENTION_step270__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_RETENTION_step270",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 204
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_RETENTION_step265__coarse.stl",
-      "prim": "/World/F0/Static/mesh_WIND_SPOOL_RETENTION_step265",
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_RETENTION_step271__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_RETENTION_step271",
       "approx": "triangleMesh",
       "verts": 104,
       "faces": 208
@@ -4671,15 +4721,15 @@
       "faces": 564
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step285__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GAUGE_FRAME_step285",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step291__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GAUGE_FRAME_step291",
       "approx": "triangleMesh",
       "verts": 14,
       "faces": 24
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step286__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GAUGE_FRAME_step286",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step292__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GAUGE_FRAME_step292",
       "approx": "triangleMesh",
       "verts": 12,
       "faces": 20
@@ -4699,15 +4749,15 @@
       "faces": 310
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step289__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GAUGE_OPTICAL_B_step289",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step295__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GAUGE_OPTICAL_B_step295",
       "approx": "triangleMesh",
       "verts": 18,
       "faces": 32
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step290__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GAUGE_OPTICAL_B_step290",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step296__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GAUGE_OPTICAL_B_step296",
       "approx": "triangleMesh",
       "verts": 18,
       "faces": 32

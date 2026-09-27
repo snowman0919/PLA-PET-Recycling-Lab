@@ -216,24 +216,40 @@ def downstream_checks():
             dk.AUGER_REDUCED_RPM))
     import winder as wd
     lo, hi = wd.nip_range_mm()
-    # Open-setting aperture and actual working cross-section are different.
+    # The 1.5 mm hard stop is a clearance pose, not a force/rate proof.
     _add("puller_nip", hi, wd.FILAMENT_MM, hi >= wd.FILAMENT_MM, "GEOMETRY",
-         "Open nip %.2f mm can be threaded with nominal %.2f mm filament; "
-         "the CAD assembly depicts the 1.5 mm seated stop, not the open "
-         "position; motor, spring travel and contact force are unqualified"
+         "Open nip %.2f mm admits nominal %.2f mm filament; carrier motion "
+         "requires selected vertical springs, bearings and guide tolerances"
          % (hi, wd.FILAMENT_MM))
+    fixed_parts = (wd.pull_frame(), wd.pull_nip_stop(),
+                   wd.pull_roller_fixed(), wd.pull_motor_ref())
+    travel_clear = True
+    for gap in (lo, wd.FILAMENT_MM, hi):
+        moving = (wd.pull_roller_adj(gap), wd.pull_idler_carriage(gap),
+                  wd.pull_idler_springs(gap))
+        travel_clear &= all(a.intersect(b).Volume() < 0.001
+                            for a in moving for b in fixed_parts)
+        travel_clear &= all(moving[i].intersect(moving[j]).Volume() < 0.001
+                            for i in range(3) for j in range(i + 1, 3))
+    _add("puller_idler_stroke", hi - lo, hi - lo, travel_clear,
+         "BREP_GEOMETRY",
+         "independent rotating axle/carrier and axial spring envelopes at "
+         "minimum, nominal filament and open stops including motor envelope; "
+         "finite poses only, not a spring, bearing or nip-force qualification")
     strand = cq.Solid.makeCylinder(
         wd.FILAMENT_MM / 2, 10.0,
         cq.Vector(PULL_X - 5.0, 275.0, 125.0), cq.Vector(1, 0, 0))
     drive_contact = wd.pull_roller_fixed().intersect(strand).Volume()
     idler_contact = wd.pull_roller_adj().intersect(strand).Volume()
     frame_blockage = wd.pull_frame().intersect(strand).Volume()
-    grip = (lo < wd.FILAMENT_MM <= hi and drive_contact > 0.1
-            and idler_contact > 0.1 and frame_blockage < 0.001)
-    _add("puller_grip", wd.FILAMENT_MM, wd.FILAMENT_MM, grip, "BREP_GEOMETRY",
-         "1.75mm strand at y275 penetrates each nominal rigid roller envelope "
-         "(%.3f/%.3f mm3), not frame (%.3f mm3); this shows geometric "
-         "engagement, NOT actual spring/contact grip or torque"
+    envelope_contact = (lo < wd.FILAMENT_MM <= hi
+                        and drive_contact > 0.1 and idler_contact > 0.1
+                        and frame_blockage < 0.001)
+    _add("puller_nip_envelope", wd.FILAMENT_MM, wd.FILAMENT_MM,
+         envelope_contact, "BREP_GEOMETRY",
+         "1.75 mm strand at y275 intersects both rigid roller envelopes "
+         "(%.3f/%.3f mm3), not frame (%.3f mm3), at minimum stop only; "
+         "not a contact-force, spring, TPU deformation or traction proof"
          % (drive_contact, idler_contact, frame_blockage))
     import winder as w
     nip = (PULL_X, 275.0, 125.0)
@@ -320,10 +336,10 @@ def main():
                   "s2_screen_holes", "screen_to_buffer_gravity_exit",
                   "buffer_throat", "extruder_die_exit",
                   "puller_nip", "spool_winder"}
-    OPERATIONAL_GRIP = {"puller_grip"}
+    NIP_GEOMETRY = {"puller_nip_envelope", "puller_idler_stroke"}
     MECHANICAL_CLEARANCE = {"trough_auger"}
     for r in RESULTS:
-        r["checkpoint_class"] = ("operational_grip" if r["checkpoint"] in OPERATIONAL_GRIP
+        r["checkpoint_class"] = ("nip_geometry" if r["checkpoint"] in NIP_GEOMETRY
                                  else "mechanical_clearance" if r["checkpoint"] in MECHANICAL_CLEARANCE
                                  else "pass_space")
     # Failed passive/paddle attempts are negative history. This checker
@@ -374,7 +390,7 @@ def main():
         "revision": "VP1-STAGE5-AUGER",
         "checkpoint_classes": {
             "pass_space": sorted(PASS_SPACE),
-            "operational_grip": sorted(OPERATIONAL_GRIP),
+            "nip_geometry": sorted(NIP_GEOMETRY),
             "mechanical_clearance": sorted(MECHANICAL_CLEARANCE),
         },
         "conveyance": RESULT_CONST["conveyance"],
@@ -397,8 +413,9 @@ def main():
         "all_material_path_clear": all(r["passed"] for r in RESULTS),
         "all_pass_space_clear": all(r["passed"] for r in RESULTS
                                     if r["checkpoint_class"] == "pass_space"),
-        "all_grip_checkpoints_pass": all(r["passed"] for r in RESULTS
-                                         if r["checkpoint_class"] == "operational_grip"),
+        "all_nip_geometry_clear": all(r["passed"] for r in RESULTS
+                                      if r["checkpoint_class"] == "nip_geometry"),
+        "nip_force_status": "HOLD_UNSELECTED_SPRING_BEARING_AND_GRIP",
     }
     (ROOT / "results" / "path_check.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))

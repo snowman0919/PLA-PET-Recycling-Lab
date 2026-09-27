@@ -25,9 +25,9 @@
   "legacy_s2_instances_excluded": 44,
   "legacy_instances_retained": 151,
   "c21_instances_inserted": 40,
-  "assembly_objects": 267,
-  "expected_solids": 294,
-  "reimported_solids": 294,
+  "assembly_objects": 269,
+  "expected_solids": 300,
+  "reimported_solids": 300,
   "step_reimport_valid": true,
   "assembly_step": "c2.1/cad/PPR_VP1.step",
   "assembly_geometry_checks": {
@@ -60,8 +60,8 @@
     "tail_radial_margin_mm": 0.59,
     "shell_radial_margin_mm": 1.5
   },
-  "assembly_step_sha256": "069526490adaf17397491c91e29b4ef5d546f059e48e417fcd9486a379671b8f",
-  "assembly_step_bytes": 101197487,
+  "assembly_step_sha256": "c3620578d5959b521daf76649fd6f6dd88610f5f3c3d7eda7b4e637ea6fcc48d",
+  "assembly_step_bytes": 100700978,
   "groups": [
     "S1",
     "S2-C2.1",
@@ -221,6 +221,8 @@
       "PULL_FRAME",
       "PULL_ROLLER_FIXED",
       "PULL_ROLLER_ADJ",
+      "PULL_IDLER_CARRIAGE",
+      "PULL_IDLER_SPRINGS",
       "PULL_NIP_STOP",
       "PULL_COOL_MOUNT",
       "PULL_MOTOR_REF",
@@ -543,7 +545,7 @@
     },
     "vp1_against_retained": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 14922,
+      "pair_checks": 15286,
       "bbox_candidates": 129,
       "unexpected": [],
       "functional_allowed": [
@@ -588,8 +590,8 @@
     },
     "vp1_internal": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 6642,
-      "bbox_candidates": 316,
+      "pair_checks": 6972,
+      "bbox_candidates": 330,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",
@@ -636,7 +638,7 @@
       "ADR-002 rev B (VP1 Stage 4): chain B is driven from the jackshaft 24T bore-10 sprocket DRV-SP24-B20_002 (y373) to S2 12T (y374), 76 links; the jackshaft is one solid, the duplicate lower helical mesh is removed, and the DRV-M2 reference motor body is intact",
       "At the 58 rpm M1 reference the 15T/40T mesh and 24T/12T chain B give S2 eccentric -43.5 rpm; the 2-start/16T worm wheel drives the auger at -5.4375 rpm",
       "The fin-bypass feed uses a driven four-turn auger in an open U cradle with a measured positive flight/floor gap; the flat structural slab is not a passive transport claim",
-      "puller nip: spring-loaded 1.75 mm filament grip; spool winder, traverse and slip tensioner replace SPOOL-ENV",
+      "puller nip: independent idler/axle and vertical carrier, 1.5..3 mm hard stops, unselected spring/traction HOLD; spool winder, traverse and slip tensioner replace SPOOL-ENV",
       "power policy: modeled base staged peak 424 W excludes unselected puller/winder auxiliary drives; hypothetical 20 W aux gives 444 W and 56 W margin to the 500 W cap. Ratings and independent interlocks remain HOLD; 792 W PSU current-derived ceiling is not an operating allowance",
       "retained-internal S1-SYNC_001/002 vs S1-BR-CAP_001 contacts are inherited from C1 and not audited by this build"
     ]

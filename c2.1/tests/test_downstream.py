@@ -72,7 +72,7 @@ class DownstreamGeometryTests(unittest.TestCase):
         self.assertLess(air.intersect(fan).Volume(), 0.001)
         # A third air passage does not prove convection or cooling capacity.
     @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
-    def test_nominal_filament_contacts_both_nip_rollers_not_their_frame(self):
+    def test_minimum_nip_envelopes_engage_nominal_strand_without_frame_blockage(self):
         strand = cadquery.Solid.makeCylinder(
             0.875, 10, cadquery.Vector(824, 275, 125),
             cadquery.Vector(1, 0, 0))
@@ -83,6 +83,45 @@ class DownstreamGeometryTests(unittest.TestCase):
         stop = w.pull_nip_stop()
         self.assertLess(stop.intersect(w.pull_roller_adj()).Volume(), 0.001)
         self.assertLess(stop.intersect(w.pull_frame()).Volume(), 0.001)
+    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
+    def test_idler_rotates_independently_and_translates_between_nip_stops(self):
+        fixed = w.pull_roller_fixed()
+        frame, stops, motor = w.pull_frame(), w.pull_nip_stop(), w.pull_motor_ref()
+        lo, hi = w.nip_range_mm()
+        z0 = w.pull_roller_adj(lo).Center().z
+        for opening in (lo, 1.75, hi):
+            roller = w.pull_roller_adj(opening)
+            carrier = w.pull_idler_carriage(opening)
+            springs = w.pull_idler_springs(opening)
+            self.assertGreaterEqual(roller.BoundingBox().ymin -
+                                    motor.BoundingBox().ymax, 1.0 - 1e-6)
+            self.assertGreaterEqual(carrier.BoundingBox().ymin -
+                                    motor.BoundingBox().ymax, 1.0 - 1e-6)
+            self.assertAlmostEqual(roller.Center().z - z0, opening - lo, places=5)
+            self.assertEqual(len(roller.Solids()), 1)
+            self.assertEqual(len(carrier.Solids()), 1)
+            self.assertEqual(len(springs.Solids()), 2)
+            for spring, (y0, y1) in zip(
+                    sorted(springs.Solids(), key=lambda s: s.BoundingBox().ymin),
+                    ((249, 259), (291, 301))):
+                self.assertGreaterEqual(spring.BoundingBox().ymin, y0 - 1e-6)
+                self.assertLessEqual(spring.BoundingBox().ymax, y1 + 1e-6)
+            self.assertAlmostEqual(springs.BoundingBox().zmin,
+                                   carrier.BoundingBox().zmax, places=5)
+            self.assertAlmostEqual(springs.BoundingBox().zmax, 149.5, places=5)
+            for a, b in ((roller, carrier), (roller, frame),
+                         (roller, stops), (roller, fixed), (roller, motor),
+                         (carrier, frame), (carrier, stops), (carrier, motor),
+                         (springs, carrier), (springs, frame),
+                         (springs, stops), (stops, motor)):
+                self.assertLess(a.intersect(b).Volume(), 0.001)
+        self.assertAlmostEqual(
+            w.pull_idler_springs(lo).BoundingBox().zlen, 8.5, places=5)
+        self.assertAlmostEqual(
+            w.pull_idler_springs(hi).BoundingBox().zlen, 7.0, places=5)
+        with self.assertRaises(ValueError):
+            w.pull_roller_adj(hi + 0.01)
+
 
     @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
     def test_winder_loose_bore_and_friction_faces_do_not_interfere(self):

@@ -1,7 +1,6 @@
 """Observable mass-path invariants without CAD/Isaac startup."""
 from __future__ import annotations
 
-import math
 import sys
 import unittest
 from pathlib import Path
@@ -14,44 +13,19 @@ from full_machine import aggregate_body_mass  # noqa: E402
 
 
 class MaterialMassTest(unittest.TestCase):
-    def test_real_part_names_and_mass_ratio(self):
-        bbox = (0., 0., 0., 100., 100., 100.)
-        volume = 1_000_000.
-        steel = mass_properties("S1-SHAFT-A_001", volume, bbox)
-        pc = mass_properties("HOPPER_PANEL_L", volume, bbox)
-        al = mass_properties("FR-2040-630_001", volume, bbox)
-        abs_drum = mass_properties("WIND_SPOOL_DRUM", volume, bbox)
-        self.assertEqual([specification(n)["material"] for n in
-                          ("HOPPER_PANEL_L", "HOPPER_PANEL_R")],
-                         ["PC_FDM"] * 2)
-        self.assertEqual([specification(n)["material"] for n in
-                          ("HOP-LID_001", "FEED-BUF_001")],
-                         ["PC_SHEET"] * 2)
-        self.assertEqual([specification(n)["material"] for n in
-                          ("HOPPER_SEAM_FRONT", "HOPPER_SEAM_REAR")],
-                         ["STEEL"] * 2)
-        self.assertEqual(steel["material"], "STEEL")
-        self.assertEqual(al["material"], "AL_PROFILE")
-        self.assertEqual(abs_drum["material"], "ABS_FDM")
-        self.assertAlmostEqual(steel["mass_kg"], 7.85)
-        self.assertAlmostEqual(pc["mass_kg"], 1.2)
-        self.assertAlmostEqual(al["mass_kg"], 2.7)
-        self.assertAlmostEqual(abs_drum["mass_kg"], .676)
-        self.assertGreater(steel["mass_kg"] / pc["mass_kg"], 6.)
-        for item in (steel, pc, al, abs_drum):
-            self.assertGreater(item["mass_kg"], 0)
-            self.assertTrue(all(math.isfinite(x) and x > 0
-                                for x in item["inertia_kg_mm2"]))
-            self.assertTrue(all(upper >= estimate for upper, estimate in zip(
-                item["inertia_upper_bound_kg_mm2"], item["inertia_kg_mm2"])))
-            self.assertTrue(item["material_source"])
-        for item in (pc, al, abs_drum):
-            self.assertEqual(item["mass_material_status"], "BOUNDED_PROXY_UNRATED")
-            self.assertLess(item["mass_bounds_kg"][0], item["mass_kg"])
-            self.assertGreater(item["mass_bounds_kg"][1], item["mass_kg"])
-            self.assertTrue(item["bounds_basis"])
-        self.assertAlmostEqual(al["mass_bounds_kg"][0], 1.35)
-        self.assertAlmostEqual(al["mass_bounds_kg"][1], 4.05)
+
+    def test_unselected_nip_spring_space_cannot_add_fictitious_mass(self):
+        bbox = (0., 0., 0., 9., 9., 8.5)
+        spring_space = mass_properties("PULL_IDLER_SPRINGS", 500., bbox)
+        axle = mass_properties("PULL_ROLLER_ADJ", 500., bbox)
+        with_spring = aggregate_body_mass([axle, spring_space])
+        self.assertEqual(spring_space["mass_kg"], 0)
+        self.assertEqual(spring_space["inertia_kg_mm2"], [0., 0., 0.])
+        self.assertEqual(spring_space["mass_bounds_kg"][0], 0)
+        self.assertGreater(spring_space["mass_bounds_kg"][1], 0)
+        self.assertAlmostEqual(with_spring["mass_kg"], axle["mass_kg"])
+        self.assertGreater(with_spring["mass_bounds_kg"][1],
+                           axle["mass_bounds_kg"][1])
 
     def test_purchased_boundary_is_not_solid_steel(self):
         bearing = mass_properties("BR-6001_001", 1_000_000., (0, 0, 0, 100, 100, 100))

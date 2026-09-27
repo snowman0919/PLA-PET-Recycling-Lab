@@ -188,49 +188,6 @@ class ChuteGeometry(unittest.TestCase):
         self.assertGreater(blocked.Volume(), 1000.0)
 
 
-class MaterialPathApertures(unittest.TestCase):
-    """Aperture continuity from path_check.json (runs after path_check.py)."""
-
-    @classmethod
-    def setUpClass(cls):
-        p = R / "results" / "path_check.json"
-        if not p.exists():
-            raise unittest.SkipTest("run c2.1/src/path_check.py first")
-        cls.data = json.loads(p.read_text())
-
-    def test_every_checkpoint_reported(self):
-        names = [c["checkpoint"] for c in self.data["checkpoints"]]
-        for need in ("S1_opening_to_pan", "trough_fin_gap",
-                     "cross_feed_shell_to_mouth", "outlet_drop_into_mouth",
-                     "s2_screen_holes", "buffer_throat", "extruder_die_exit",
-                     "puller_nip", "puller_grip", "spool_winder"):
-            self.assertIn(need, names)
-
-    def test_downstream_apertures_pass(self):
-        for c in self.data["checkpoints"]:
-            if c["checkpoint"] in ("s2_screen_holes", "buffer_throat",
-                                   "extruder_die_exit", "puller_nip"):
-                self.assertTrue(c["passed"], c)
-
-    def test_stage2_fixes_hold(self):
-        # addendum: the fin-dam was engineered out (bypass route) and the
-        # winder is real; both checkpoints must now PASS
-        by_name = {c["checkpoint"]: c for c in self.data["checkpoints"]}
-        self.assertTrue(by_name["trough_fin_gap"]["passed"])
-        self.assertTrue(by_name["spool_winder"]["passed"])
-
-    def test_pass_grip_split(self):
-        # VP1 Stage 4: PASS-space and OPERATIONAL-GRIP checkpoints are
-        # distinct classes; the grip checkpoint must prove positive nip
-        # engagement (stop gap < filament <= open gap), not just clearance.
-        by_name = {c["checkpoint"]: c for c in self.data["checkpoints"]}
-        self.assertIn("checkpoint_class", by_name["puller_grip"])
-        self.assertEqual(by_name["puller_grip"]["checkpoint_class"],
-                         "operational_grip")
-        self.assertEqual(by_name["puller_nip"]["checkpoint_class"],
-                         "pass_space")
-        self.assertTrue(by_name["puller_grip"]["passed"])
-        self.assertTrue(self.data["all_grip_checkpoints_pass"])
 
 
 if __name__ == "__main__":

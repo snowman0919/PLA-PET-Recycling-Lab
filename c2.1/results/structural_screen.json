@@ -1384,34 +1384,34 @@
     },
     {
       "computed": {
-        "I_mm4": 30.679615757712824,
-        "deflection_mm": 0.004364864997330207,
-        "moment_Nmm": 124.8,
-        "stress_MPa": 10.16961889170869,
-        "stress_margin": 11.8
+        "I_mm4": 63.61725123519331,
+        "deflection_margin": 60.588,
+        "deflection_mm": 0.003466040982890165,
+        "stress_MPa": 14.854461355243567,
+        "stress_margin": 8.078
       },
       "decision": "HOLD",
       "geometry": {
+        "carrier_centerline_span_mm": 42.0,
+        "diameter_mm": 6,
         "part": "PULL_ROLLER_ADJ",
-        "post_diameter_mm": 5,
-        "post_length_mm": 26,
-        "source": "c2.1/src/winder.py guide posts and PULL spring rate"
+        "source": "c2.1/src/winder.py pull_roller_adj and pull_idler_carriage"
       },
       "limits": {
+        "deflection_mm": 0.21,
         "stress_MPa": 120.0
       },
       "load": {
-        "post_force_N": 4.8,
-        "spring_force_total_N": 9.6,
-        "type": "assumed .6-mm compression, not measured nip normal force"
+        "normal_force_N": 30.0,
+        "type": "unselected spring and friction: sensitivity load only, not a rated nip force"
       },
-      "model": "one 5-mm circular steel post cantilever under half of two 8 N/mm springs at 0.6-mm deflection",
-      "name": "PULL guide-post screening",
-      "note": "Real post loading and carriage contact can dominate this ideal beam.",
+      "model": "simply supported \u00d86 shaft over two separate translating carrier seats; central assumed normal force",
+      "name": "PULL idler axle screening",
+      "note": "Ideal beam only. The old y-axis spring/post cantilever was not a vertical nip mechanism.",
       "unmeasured_dependencies": [
-        "guide seat and post fatigue",
-        "spring preload and cam load",
-        "actual traction and tension"
+        "shaft retention and fatigue",
+        "selected bearing/bushing and running clearance",
+        "actual spring force and soft-filament traction"
       ]
     },
     {
@@ -1439,11 +1439,11 @@
       },
       "model": "22x4-mm base strip with assumed 10-mm cantilever lever under transverse guide force",
       "name": "PULL frame base",
-      "note": "Only the base strip, not 3-mm upright side sheets, is screened; whole frame remains HOLD.",
+      "note": "Only the base strip, not the 4-mm side plates or guide/cap load path, is screened; whole frame remains HOLD.",
       "unmeasured_dependencies": [
         "actual nip/tension forces",
-        "cam fastener and welded joint",
-        "mount to frame and bearing seats"
+        "guide/cap/stop joints and selected springs",
+        "frame/rack mounting and bearing seats"
       ]
     },
     {
@@ -1663,11 +1663,11 @@
     },
     {
       "path": "c2.1/src/winder.py",
-      "sha256": "95c004a8247e6a0fb6ea2797b98813c95aecee00567dafe86f5c08a584650218"
+      "sha256": "e5c782ffaa32ec09d65417e5220591cf5f109cb18848679dd8d295c273238e0c"
     },
     {
       "path": "c2.1/bom/vp1_bom_delta.csv",
-      "sha256": "19b73defbe8aacf563ffc3f56bc44ce04315e0ea7b39c2ad59f825c7e257bc63"
+      "sha256": "53f8f37c2ec365ab69234e5b7ef438ede775b6674b13bf60696a892ae6ddb0a8"
     },
     {
       "path": "src/design.py",

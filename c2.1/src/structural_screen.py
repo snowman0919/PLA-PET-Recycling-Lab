@@ -461,20 +461,27 @@ def screen():
          "deflection_margin":margin(shaft_span/200,shaft_delta)},
         ["actual wound mass/tension and selected motor torque", "block attachment to frame", "bearing rating and shaft retention"],
         note="No grip, traversing, rotating balance or axle fatigue proof.")
-    guide_force = pull["spring_rate_N_mm"] * .6
-    guide_I = math.pi * 5.**4 / 64
-    guide_stress = guide_force * 26 * 2.5 / guide_I
-    guide = {"I_mm4":guide_I, "moment_Nmm":guide_force*26,
-             "stress_MPa":guide_stress, "deflection_mm":guide_force*26**3/(3*E["steel"]*guide_I),
-             "stress_margin":margin(allowable["steel"],guide_stress)}
-    add("PULL guide-post screening", "one 5-mm circular steel post cantilever under half of two 8 N/mm springs at 0.6-mm deflection",
-        {"part":"PULL_ROLLER_ADJ", "post_diameter_mm":5, "post_length_mm":26,
-         "source":"c2.1/src/winder.py guide posts and PULL spring rate"},
-        {"spring_force_total_N": 2*guide_force, "post_force_N":guide_force,
-         "type":"assumed .6-mm compression, not measured nip normal force"},
-        {"stress_MPa":allowable["steel"]}, guide,
-        ["guide seat and post fatigue", "spring preload and cam load", "actual traction and tension"],
-        note="Real post loading and carriage contact can dominate this ideal beam.")
+    # A chosen contact force is not encoded by the unselected spring envelope.
+    # Screen the Ø6 idler shaft at an explicit hypothetical 30 N resultant.
+    idler_force = 30.0
+    idler_span = 296.0 - 254.0  # centers of the two carrier bores in winder.py
+    idler_I = math.pi * 3.0**4 / 4
+    idler_stress = (idler_force * idler_span / 4) * 3.0 / idler_I
+    idler_delta = idler_force * idler_span**3 / (48 * E["steel"] * idler_I)
+    add("PULL idler axle screening", "simply supported Ø6 shaft over two separate translating carrier seats; central assumed normal force",
+        {"part": "PULL_ROLLER_ADJ", "diameter_mm": 6,
+         "carrier_centerline_span_mm": idler_span,
+         "source": "c2.1/src/winder.py pull_roller_adj and pull_idler_carriage"},
+        {"normal_force_N": idler_force,
+         "type": "unselected spring and friction: sensitivity load only, not a rated nip force"},
+        {"stress_MPa": allowable["steel"], "deflection_mm": idler_span / 200},
+        {"I_mm4": idler_I, "stress_MPa": idler_stress,
+         "deflection_mm": idler_delta,
+         "stress_margin": margin(allowable["steel"], idler_stress),
+         "deflection_margin": margin(idler_span / 200, idler_delta)},
+        ["shaft retention and fatigue", "selected bearing/bushing and running clearance",
+         "actual spring force and soft-filament traction"],
+        note="Ideal beam only. The old y-axis spring/post cantilever was not a vertical nip mechanism.")
     frame = bending_point(30., 10., 22., 4., E["steel"])
     frame["stress_margin_to_room_assumption"] = margin(allowable["steel"],frame["stress_MPa"])
     add("PULL frame base", "22x4-mm base strip with assumed 10-mm cantilever lever under transverse guide force",
@@ -482,8 +489,9 @@ def screen():
          "source":"c2.1/src/winder.py pull_frame base x824..846, z100..104"},
         {"lateral_force_N":30, "type":"assumed lateral nip/actuator reaction"},
         {"stress_MPa":allowable["steel"]}, frame,
-        ["actual nip/tension forces", "cam fastener and welded joint", "mount to frame and bearing seats"],
-        note="Only the base strip, not 3-mm upright side sheets, is screened; whole frame remains HOLD.")
+        ["actual nip/tension forces", "guide/cap/stop joints and selected springs",
+         "frame/rack mounting and bearing seats"],
+        note="Only the base strip, not the 4-mm side plates or guide/cap load path, is screened; whole frame remains HOLD.")
 
     # --- VP1 Stage 6: downstream gauge/duct/hopper screening ----------------
     gauge_lever = bending_point(0.5, 12., 2.2, 2., E["steel"])

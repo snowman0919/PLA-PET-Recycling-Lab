@@ -26,8 +26,9 @@
       "spool_winder",
       "trough_fin_gap"
     ],
-    "operational_grip": [
-      "puller_grip"
+    "nip_geometry": [
+      "puller_idler_stroke",
+      "puller_nip_envelope"
     ],
     "mechanical_clearance": [
       "trough_auger"
@@ -135,17 +136,26 @@
       "probe_sphere_mm": 1.75,
       "passed": true,
       "evidence": "GEOMETRY",
-      "note": "Open nip 3.00 mm can be threaded with nominal 1.75 mm filament; the CAD assembly depicts the 1.5 mm seated stop, not the open position; motor, spring travel and contact force are unqualified",
+      "note": "Open nip 3.00 mm admits nominal 1.75 mm filament; carrier motion requires selected vertical springs, bearings and guide tolerances",
       "checkpoint_class": "pass_space"
     },
     {
-      "checkpoint": "puller_grip",
+      "checkpoint": "puller_idler_stroke",
+      "aperture_mm": 1.5,
+      "probe_sphere_mm": 1.5,
+      "passed": true,
+      "evidence": "BREP_GEOMETRY",
+      "note": "independent rotating axle/carrier and axial spring envelopes at minimum, nominal filament and open stops including motor envelope; finite poses only, not a spring, bearing or nip-force qualification",
+      "checkpoint_class": "nip_geometry"
+    },
+    {
+      "checkpoint": "puller_nip_envelope",
       "aperture_mm": 1.75,
       "probe_sphere_mm": 1.75,
       "passed": true,
       "evidence": "BREP_GEOMETRY",
-      "note": "1.75mm strand at y275 penetrates each nominal rigid roller envelope (0.142/0.142 mm3), not frame (0.000 mm3); this shows geometric engagement, NOT actual spring/contact grip or torque",
-      "checkpoint_class": "operational_grip"
+      "note": "1.75 mm strand at y275 intersects both rigid roller envelopes (0.142/0.142 mm3), not frame (0.000 mm3), at minimum stop only; not a contact-force, spring, TPU deformation or traction proof",
+      "checkpoint_class": "nip_geometry"
     },
     {
       "checkpoint": "spool_winder",
@@ -233,5 +243,6 @@
   },
   "all_material_path_clear": true,
   "all_pass_space_clear": true,
-  "all_grip_checkpoints_pass": true
+  "all_nip_geometry_clear": true,
+  "nip_force_status": "HOLD_UNSELECTED_SPRING_BEARING_AND_GRIP"
 }

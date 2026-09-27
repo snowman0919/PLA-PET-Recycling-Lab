@@ -420,12 +420,10 @@ def main() -> int:
     scene.CreateGravityDirectionAttr((0.0, 0.0, -1.0))
     scene.CreateGravityMagnitudeAttr(9810.0)  # mm/s^2 in stage units
 
-    # NOTE on by-design contacts: journal fits, keyed sprockets, the sync
-    # gear mesh and the cycloid rotor/ring engagement all overlap by design
-    # at zero clearance-to-interference in this rigid rig. The USD stage
-    # keeps ALL collision enabled (no silent filtering); verify_full.py
-    # classifies every contact pair against the by-design list and reports
-    # the rest as unexpected. Nothing is hidden.
+    # Functional geometry keeps collision enabled (including by-design
+    # fits, audited in verify_full.py). An unselected spring-space envelope
+    # is visual-only: its annular volume is not a real spring collider.
+    # No rotor/fragment contacts are suppressed by this distinction.
 
     # --- fixed articulation base ------------------------------------
     # PhysX REJECTS ArticulationRootAPI on a kinematic rigid body ("root
@@ -650,8 +648,11 @@ def main() -> int:
                 hv, hf = verts, faces
             hv = np.asarray(hv, dtype=np.float64) - np.asarray(
                 pivot, dtype=np.float64)
+        visual_space = rec["material"] == "SPRING_SPACE"
+        if visual_space:
+            approx = "visualOnly"
         add_mesh(stage, UsdGeom, mesh_path, hv, hf, translate, approx,
-                 rec["body"], stl, rec)
+                 rec["body"], stl, rec, collide=not visual_space)
         emitted.append({"mesh": rec["mesh"], "prim": mesh_path,
                         "approx": approx,
                         "verts": int(len(hv)), "faces": int(len(hf))})
