@@ -86,6 +86,13 @@ def disturbance_script(step):
         env["barrel_loss_extra_W"] = 25.0
     return env
 
+def minor_axis_dropout_script(step):
+    """Fault only one orthogonal gauge axis after feedback is armed."""
+    env = dict(step)
+    if 145 <= step["t_s"] < 153:
+        env["sensor_minor_dropout"] = True
+    return env
+
 
 def sustained_offset_script(step):
     return {**step, "mdot_factor": 1.2}
@@ -106,6 +113,7 @@ def run_route(name, controller_factory, scenario="transient", **overrides):
     script = {"transient": disturbance_script,
               "sustained_offset": sustained_offset_script,
               "clutch_fault": clutch_fault_script,
+              "minor_axis_dropout": minor_axis_dropout_script,
               "nominal": None}[scenario]
     duration = 240.0 if scenario != "nominal" else 90.0
     samples, pending = pm.simulate(
@@ -150,17 +158,20 @@ def thermal_case(material, fans):
 def compare():
     results = []
     traces = {}
-    for scenario in ("nominal", "transient", "sustained_offset", "clutch_fault"):
+    for scenario in ("nominal", "transient", "sustained_offset",
+                     "clutch_fault", "minor_axis_dropout"):
         for name, factory in (("C_fixed_speed", fixed_speed_controller),
                               ("A_diameter_feedback",
                                lambda p: PIController(p.v_line_mm_s))):
             summary, samples = run_route(name, factory, scenario)
             results.append(summary)
             traces[f"{scenario}/{name}"] = [
-                {key: s[key] for key in ("t_s", "t_created_s", "d_true_mm",
-                    "d_meas_mm", "core_C", "barrel_birth_C", "barrel_C",
-                    "v_cmd_mm_s", "birth_speed_mm_s",
-                    "die_to_gauge_delay_s", "gauge_to_nip_delay_s")}
+                {key: s[key] for key in ("t_s", "t_created_s",
+                    "d_major_mm", "d_minor_mm", "d_true_mm",
+                    "d_meas_major_mm", "d_meas_minor_mm", "d_meas_mm",
+                    "core_C", "barrel_birth_C", "barrel_C", "v_cmd_mm_s",
+                    "birth_speed_mm_s", "die_to_gauge_delay_s",
+                    "gauge_to_nip_delay_s")}
                 for s in samples[::max(1, len(samples) // 12)]]
     verdict = {
         "model": "UNCALIBRATED_2_NODE_STRAND_AND_HEATER_SENSITIVITY",
@@ -181,6 +192,7 @@ def compare():
             "PI arithmetic uses the host-built C++ firmware kernel; a >1s post-start missing gauge sample stops this model. Other firmware safety, power and motor I/O are NOT exercised in the parcel simulation.",
             "The composite transient's clutch fault at 170..178 s occurs after the feedback route halts on missing gauge at 146 s; the isolated clutch_fault scenario exposes both routes to that fault without bypassing the HOLD.",
             "Fixed-speed baseline uses the same diagnostic gauge for after-the-fact scoring, not as a live motor interlock.",
+            "The modeled nip quality gate checks both true axes and both biased gauge axes; a missing axis disqualifies length and halts feedback after >1s. The PI arithmetic uses their area-equivalent diameter, matching the C++ reference controller but not proving physical calibration.",
             "Two-axis sensor accuracy and native continuous production remain unverified.",
             "In-spec fractions are scenario sensitivity, not physical yield or economic acceptance.",
         ],

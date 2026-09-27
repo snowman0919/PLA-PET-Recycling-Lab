@@ -107,7 +107,9 @@ class Element:
     core_C: float
     skin_C: float
     gauge_s: float | None = None
-    measured_mm: float | None = None
+    measured_mm: float | None = None  # area-equivalent feedback scalar
+    measured_major_mm: float | None = None
+    measured_minor_mm: float | None = None
     gauge_ready: bool = False
     ready_x_mm: float | None = None
     source_mdot_g_s: float = 0.0
@@ -232,8 +234,9 @@ def simulate(p: LineParams, t_total_s=180.0, controller=None,
 
     Disturbance callable receives {t_s, heater_W, barrel_C, spool_radius_mm,
     tension_N, v_pull}; can return mdot_factor, ambient_shift_C,
-    sensor_bias_mm, sensor_dropout, clutch_failed, tension_N and
-    barrel_loss_extra_W. Unmeasured/uncooled elements are NEVER credited.
+    sensor_bias_mm, sensor_dropout, sensor_major_dropout,
+    sensor_minor_dropout, clutch_failed, tension_N and barrel_loss_extra_W.
+    Unmeasured/uncooled elements are NEVER credited.
     """
     mat = MATERIALS[p.material]
     barrel = [mat["T_die"] - 30, mat["T_die"] - 15,
@@ -295,9 +298,18 @@ def simulate(p: LineParams, t_total_s=180.0, controller=None,
                 e.gauge_s = t
                 e.gauge_ready = e.core_C <= mat["T_ready"]
                 if not env.get("sensor_dropout", False):
-                    e.measured_mm = math.sqrt(e.d_major_mm * e.d_minor_mm) + env.get(
-                        "sensor_bias_mm", 0.0)
-                    measured = e.measured_mm
+                    bias = env.get("sensor_bias_mm", 0.0)
+                    if not env.get("sensor_major_dropout", False):
+                        e.measured_major_mm = e.d_major_mm + bias
+                    if not env.get("sensor_minor_dropout", False):
+                        e.measured_minor_mm = e.d_minor_mm + bias
+                    if (e.measured_major_mm is not None
+                            and e.measured_minor_mm is not None
+                            and e.measured_major_mm > 0
+                            and e.measured_minor_mm > 0):
+                        e.measured_mm = math.sqrt(
+                            e.measured_major_mm * e.measured_minor_mm)
+                        measured = e.measured_mm
         while elements and DIE_EXIT_X + distance_mm - elements[0].birth_distance_mm >= PULLER_NIP_X:
             e = elements.popleft()
             ready = e.core_C <= mat["T_ready"] and e.gauge_ready
@@ -310,6 +322,8 @@ def simulate(p: LineParams, t_total_s=180.0, controller=None,
                 "d_true_mm": math.sqrt(e.d_major_mm * e.d_minor_mm),
                 "ovality_mm": e.d_major_mm - e.d_minor_mm,
                 "d_meas_mm": e.measured_mm,
+                "d_meas_major_mm": e.measured_major_mm,
+                "d_meas_minor_mm": e.measured_minor_mm,
                 "core_C": e.core_C, "skin_C": e.skin_C,
                 "ready_x_mm": e.ready_x_mm, "thermal_ready": ready,
                 "heater_W": sum(watts), "barrel_C": barrel[2],
@@ -326,7 +340,7 @@ def simulate(p: LineParams, t_total_s=180.0, controller=None,
 
 
 def quality_summary(samples, target_mm=1.75, tol_mm=0.05):
-    """Length at nip; reject both missing gauge and thermally unready strand."""
+    """Length at nip; both modeled axes and both gauge axes must meet spec."""
     total = good = missing = unready = 0.0
     min_d, max_d, max_oval = math.inf, -math.inf, 0.0
     weighted_d = 0.0
@@ -337,13 +351,17 @@ def quality_summary(samples, target_mm=1.75, tol_mm=0.05):
         min_d, max_d = min(min_d, minor), max(max_d, major)
         max_oval = max(max_oval, major - minor)
         weighted_d += length * (major + minor) / 2
-        if s["d_meas_mm"] is None:
+        meas_major, meas_minor = s["d_meas_major_mm"], s["d_meas_minor_mm"]
+        if meas_major is None or meas_minor is None or s["d_meas_mm"] is None:
             missing += length
         if not s["thermal_ready"]:
             unready += length
-        if (s["d_meas_mm"] is not None and s["thermal_ready"]
+        if (meas_major is not None and meas_minor is not None
+                and s["d_meas_mm"] is not None and s["thermal_ready"]
                 and target_mm - tol_mm <= minor <= major <= target_mm + tol_mm
-                and major - minor <= tol_mm):
+                and major - minor <= tol_mm
+                and target_mm - tol_mm <= meas_minor <= meas_major <= target_mm + tol_mm
+                and meas_major - meas_minor <= tol_mm):
             good += length
     return {
         "target_mm": target_mm, "tol_mm": tol_mm,
@@ -356,5 +374,5 @@ def quality_summary(samples, target_mm=1.75, tol_mm=0.05):
         "d_major_max_mm": round(max_d, 5) if total else None,
         "d_minor_min_mm": round(min_d, 5) if total else None,
         "ovality_max_mm": round(max_oval, 5),
-        "in_spec_meaning": "modeled, measured, thermally ready nip length; not physical yield",
+        "in_spec_meaning": "modeled true and measured two-axis, thermally ready nip length; not physical yield",
     }

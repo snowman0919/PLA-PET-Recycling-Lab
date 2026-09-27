@@ -309,6 +309,37 @@ class ProcessModelPhysicsTests(unittest.TestCase):
         self.assertGreater(poor_cooling["thermally_unready_length_mm"], 0)
         self.assertEqual(poor_cooling["in_spec_length_mm"], 0)
 
+    def test_biased_gauge_cannot_certify_true_nominal_strand(self):
+        p = pm.LineParams()
+        samples = pm.simulate(
+            p, 70, disturbance=lambda env: {**env, "sensor_bias_mm": 0.10})
+        self.assertTrue(all(1.70 <= s["d_minor_mm"] <= s["d_major_mm"] <= 1.80
+                            for s in samples))
+        self.assertTrue(all(s["d_meas_major_mm"] > 1.80
+                            and s["d_meas_minor_mm"] > 1.80 for s in samples))
+        quality = pm.quality_summary(samples)
+        self.assertGreater(quality["total_length_mm"], 300)
+        self.assertEqual(quality["in_spec_length_mm"], 0)
+        self.assertEqual(quality["unmeasured_length_mm"], 0)
+
+    def test_single_axis_dropout_rejects_length_and_feedback(self):
+        p = pm.LineParams()
+        def minor_dropout(env):
+            return {**env, "sensor_minor_dropout": 40 <= env["t_s"] < 45}
+        fixed = pm.simulate(p, 75, disturbance=minor_dropout)
+        missing = [s for s in fixed if s["d_meas_minor_mm"] is None]
+        self.assertTrue(missing)
+        self.assertTrue(all(s["d_meas_major_mm"] is not None
+                            and s["d_meas_mm"] is None for s in missing))
+        quality = pm.quality_summary(fixed)
+        self.assertGreater(quality["unmeasured_length_mm"], 40)
+        self.assertLess(quality["in_spec_length_mm"], quality["total_length_mm"])
+        controller = rc.PIController(p.v_line_mm_s)
+        samples = pm.simulate(p, 75, controller=controller,
+                              disturbance=minor_dropout)
+        self.assertIsNotNone(controller.halted_at_s)
+        self.assertTrue(all(s["t_s"] < controller.halted_at_s for s in samples))
+
     def test_barrel_loss_changes_heat_and_mass_flow_under_staging(self):
         p = pm.LineParams()
         def heat_loss(e):
@@ -357,6 +388,18 @@ class FeedbackTests(unittest.TestCase):
         ctrl(1.9, 10)
         self.assertEqual(ctrl(None, 11.1), 0.0)
         self.assertEqual(ctrl(1.75, 11.2), 0.0)
+
+    def test_single_axis_fault_pending_material_is_not_qualified(self):
+        fixed, _ = rc.run_route("fixed", rc.fixed_speed_controller,
+                                "minor_axis_dropout")
+        feedback, _ = rc.run_route(
+            "feedback", lambda p: rc.PIController(p.v_line_mm_s),
+            "minor_axis_dropout")
+        self.assertGreater(fixed["unmeasured_length_mm"], 70)
+        self.assertGreater(feedback["controller_halted_at_s"], 146)
+        self.assertGreater(feedback["pending_unqualified_length_mm"], 280)
+        self.assertLess(feedback["qualified_fraction_of_produced"], 0.80)
+        self.assertLess(feedback["in_spec_length_mm"], fixed["in_spec_length_mm"])
 
     def test_sustained_flow_offset_improves_qualified_length(self):
         fixed, _ = rc.run_route("C", rc.fixed_speed_controller,
