@@ -1,0 +1,55 @@
+{
+  "schema": "selected_chute_residence_summary/1",
+  "scene": "selected",
+  "step_sha256": "c3620578d5959b521daf76649fd6f6dd88610f5f3c3d7eda7b4e637ea6fcc48d",
+  "usda_sha256": "d528db253c81e3bfb41a016f1bbb5e0dceba97830dca9b3a5076b3bd3216d5e7",
+  "baseline": {
+    "tracked_result": "c2.2/results/full_machine/flow_localize/phase_chute_inlet.json",
+    "dt_s": 0.0025,
+    "steps": 24000,
+    "input_cycles": 5,
+    "sphere_count": 22,
+    "passed_x335": 4,
+    "reached_actual_s2_mouth": 0
+  },
+  "extended_native_trial": {
+    "runner": "c2.2/sim/flow_localize.py:run_one_phase",
+    "phase": "chute_inlet",
+    "dt_s": 0.0025,
+    "steps": 38400,
+    "input_cycles": 8,
+    "sphere_count": 22,
+    "passed_x335": 6,
+    "lost_after_x335_before_mouth": 5,
+    "reached_actual_s2_mouth": 0,
+    "screen_bore_to_buffer": 0,
+    "raw_result_sha256": "94bde2064cbd31ab8fef45e406a491558fc0fec92720db7ec0bce7d798854574",
+    "sampled_trajectory_mm": {
+      "fragment_8": [
+        {"step": 23401, "xyz": [345.0, 231.9, 339.2]},
+        {"step": 24001, "xyz": [359.1, 232.5, 319.1]}
+      ]
+    },
+    "invalid_first_positive_y255_crossings_mm": [
+      [393.91882, 255.0, 21.5],
+      [395.986204, 255.0, -13.547814],
+      [391.585815, 255.0, 1.5]
+    ],
+    "reproduction": "PYTHONPATH=c2.2/sim OMNI_KIT_ACCEPT_EULA=YES /home/monad/env_isaacsim-c22/bin/python -c 'from pathlib import Path; from flow_localize import run_one_phase; raise SystemExit(run_one_phase(\"chute_inlet\",38400,0.0025,Path(\"/tmp/ppr_chute_long_20260927.json\"),cycles=8))'"
+  },
+  "geometry_screen": {
+    "rotor_reach_radius_mm": 62.0,
+    "fixed_shell_relief_radius_mm": 63.5,
+    "cap_bore_radius_mm": 65.6,
+    "outlet_floor_box_mm": {"x": [350.0, 359.7], "y": [250.3, 258.0], "z": [311.8, 317.3]},
+    "outlet_floor_max_radius_from_s2_pivot_mm": 63.289981,
+    "outlet_floor_entirely_inside_rotor_relief": true,
+    "receiving_flight_ymax_mm": 234.671,
+    "coupling_web_ymin_mm": 235.0,
+    "tail_to_rotor_envelope_margin_mm": 0.59,
+    "source": "c2.1/src/chute.py:888-914; c2.1/src/build_machine_integration.py:196-251; c2.1/results/machine_integration.json"
+  },
+  "conclusion": "LOCALIZED_BLOCKED; added dwell alone did not provide an actual +Y S2-mouth transfer. The nominal outlet-floor box is removed by the current rotor relief; local flight growth has only 0.329 mm receiving axial or 0.09 mm tail radial margin against the existing conservative design gates. This is a model-geometry diagnosis, not a proof that all alternative layouts fail or that physical feeding fails.",
+  "product_flow_verified": false,
+  "physical_test": "DID_NOT_RUN"
+}

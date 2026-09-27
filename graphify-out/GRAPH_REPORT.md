@@ -1,17 +1,12 @@
 # Graph Report - PPR-c2.1-codex-20260921  (2026-09-27)
 
 ## Corpus Check
-- cluster-only mode — file stats not available
+- Incremental host semantic refresh: 2 current documents; corpus-wide statistics were not recomputed.
 
 ## Summary
-- 2023 nodes · 3719 edges · 192 communities (107 shown, 85 thin omitted)
+- 2025 nodes · 3721 edges · 192 communities (107 shown, 85 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 301 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
-
-## Graph Freshness
-- Built from commit: `04f415be`
-- Run `git rev-parse HEAD` and compare to check if the graph is stale.
-- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - architectures.py
@@ -216,8 +211,8 @@
   README.md → drawings/PPR_C1_dimensioned_review.pdf
 - `Evidence and Safety Boundaries` --semantically_similar_to--> `Safety-Preserving Cost Reduction Order`  [INFERRED] [semantically similar]
   AGENTS.md → c2/docs/CALIBRATION_AND_RFQ.md
-- `Separate puller idler rotation and vertical compliance` --semantically_similar_to--> `Corrected vertical puller idler and motor clearance`  [INFERRED] [semantically similar]
-  STATUS.md → docs/decisions/filament-quality-route.md
+- `Open Physical Actions Register` --semantically_similar_to--> `Nominal Drawing Fabrication Hold`  [INFERRED] [semantically similar]
+  c2.1/docs/OPEN_ACTIONS_KO.md → c2.1/drawings/PPR_C2_1_P6_nominal_plate_review.pdf
 
 ## Import Cycles
 - None detected.
@@ -591,8 +586,8 @@ Cohesion: 0.20
 Nodes (4): I6 surrogate + Pareto + robustness regressions (stdlib+numpy+unittest).…, TestGroupedSplit, TestRobustnessBounds, TestSchema
 
 ### Community 95 - "STATUS.md"
-Cohesion: 0.28
-Nodes (8): User accepted NVIDIA EULA and matched Isaac native trial ran, 100 g/h feed window and same-particle S1-S2-buffer HOLD, Phase-sampled S2 feed and BRep geometry screen, Current same-ID S1 to S2 to buffer native flow remains HOLD, Isaac matched eight-cycle connected flow stops before S2 mouth, 상류 연결 및 인수 경계, Modeled spool radius starts growing only after material reaches nip, 100 g/h design feed and no flake or moisture specification
+Cohesion: 0.22
+Nodes (10): User accepted NVIDIA EULA and matched Isaac native trial ran, 100 g/h feed window and same-particle S1-S2-buffer HOLD, Phase-sampled S2 feed and BRep geometry screen, Current same-ID S1 to S2 to buffer native flow remains HOLD, Isaac matched eight-cycle connected flow stops before S2 mouth, 상류 연결 및 인수 경계, Modeled spool radius starts growing only after material reaches nip, 100 g/h design feed and no flake or moisture specification (+2 more)
 
 ### Community 96 - "test_benchmark.py"
 Cohesion: 0.15
@@ -663,19 +658,19 @@ Cohesion: 0.67
 Nodes (3): Chiron donor reuse is conditional on interface and condition, PSU and stop button listings are fallback purchases only, 6. 경제성 및 다음 작업
 
 ## Knowledge Gaps
-- **242 isolated node(s):** `검증 경계`, `주요 경로`, `runs`, `schema`, `runs` (+237 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 842 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **244 isolated node(s):** `검증 경계`, `주요 경로`, `runs`, `schema`, `runs` (+239 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 844 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **85 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `C2.1 Active Digital Iteration` connect `PPR KODEX — 쓸 수 있는 필라멘트를 만드는 가상제품` to `filament-quality-route.md`, `STATUS.md`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
 - **Why does `7. 같은 제품의 기준 원료 모델·제어·비용 비교 (VP1)` connect `winder.py` to `filament-quality-route.md`?**
-  _High betweenness centrality (0.028) - this node is a cross-community bridge._
-- **Why does `S2` connect `S2` to `c2/src/build_cad.py`, `c2.1/src/build_cad.py`, `convert.py`, `run_study.py`, `engineering.py`?**
-  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+  _High betweenness centrality (0.018) - this node is a cross-community bridge._
 - **What connects `검증 경계`, `주요 경로`, `runs` to the rest of the system?**
-  _242 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _244 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `process_model.py` be split into smaller, more focused modules?**
   _Cohesion score 0.05336538461538461 - nodes in this community are weakly interconnected._
 - **Should `verify_contract.py` be split into smaller, more focused modules?**
