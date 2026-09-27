@@ -57,6 +57,20 @@
       ]
     },
     {
+      "name": "PULL_COOL_MOUNT",
+      "group": "puller",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        545.0,
+        260.0,
+        75.0,
+        842.0,
+        395.0,
+        115.0
+      ]
+    },
+    {
       "name": "PULL_MOTOR_REF",
       "group": "puller",
       "solids": 1,
@@ -96,6 +110,20 @@
         712.0,
         178.0,
         232.0
+      ]
+    },
+    {
+      "name": "WIND_MOUNT",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        590.0,
+        60.0,
+        177.0,
+        720.0,
+        212.0,
+        208.0
       ]
     },
     {
@@ -216,9 +244,11 @@
     "c2.1/cad/parts_stage1/PULL_ROLLER_FIXED.step",
     "c2.1/cad/parts_stage1/PULL_ROLLER_ADJ.step",
     "c2.1/cad/parts_stage1/PULL_NIP_STOP.step",
+    "c2.1/cad/parts_stage1/PULL_COOL_MOUNT.step",
     "c2.1/cad/parts_stage1/PULL_MOTOR_REF.step",
     "c2.1/cad/parts_stage1/WIND_SPOOL_SHAFT.step",
     "c2.1/cad/parts_stage1/WIND_SPOOL_BEARINGS.step",
+    "c2.1/cad/parts_stage1/WIND_MOUNT.step",
     "c2.1/cad/parts_stage1/WIND_SPOOL_DRUM.step",
     "c2.1/cad/parts_stage1/WIND_CLUTCH_REF.step",
     "c2.1/cad/parts_stage1/WIND_FLANGE_L.step",
@@ -241,5 +271,13 @@
     1.9
   ],
   "grip_ok": true,
+  "steel_mass_screen_g": {
+    "density_g_mm3": 0.00785,
+    "old_solid_annulus_and_flange_g": 3117.86,
+    "hollow_tube_web_and_flange_g": 1813.98,
+    "mount_g": 294.96,
+    "pull_cool_mount_g": 707.4,
+    "cost_and_weld_rating": "HOLD: no quotes or measured joints"
+  },
   "passed": true
 }

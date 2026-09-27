@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 7288790,
-  "usd_sha256": "66b097f6e214ef3fd740fb8ffb13ecb128b54319dff0bbf1bde64c01a9b3af05",
+  "usd_bytes": 7342964,
+  "usd_sha256": "4ce33f3ed495fb3bd4c52bee71fe37eb08a8f73e44df82beda3175930ac5aee3",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -217,39 +217,39 @@
   },
   "mass_material_status": "PART_SPECIFIC_DESIGN_ASSUMPTIONS_UNRATED",
   "material_model": "c2.2/sim/assets/materials.py",
-  "material_model_sha256": "f74f15d9569692d8783f1e2bc58a83103ab06368d7b3439cca07aa96b84a0068",
+  "material_model_sha256": "99cc88b4a33656986c50e9cbaaf1436f59a121e676292b16fed4a934f528eeec",
   "material_scope": {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. The VP1 WIND_SPOOL_DRUM is now a weldable steel tube candidate, not the former ABS print; flange seam, loose shaft bore, friction-clutch preload and balance remain HOLD.",
+    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. Profile joints, tray attachment, flange seams, loose shaft bore, friction-clutch preload and balance remain HOLD.",
     "excluded": "PLA excluded from hot/load paths and permanent guards; ABS excluded from heater/cutter/feed throat. PC lower containment and thermal exposure require material and process qualification. No printed keys or bearing seats.",
     "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation and six walls; bed fit is not impact, layer or seam qualification. Printed ABS eyelet on WIND_TRAVERSE_RIDER is folded into a bounded steel/polymer proxy, not counted twice. No ABS spool drum remains in this VP1 candidate.",
     "boundary": "All materials are screening choices; profile web/slot metal area, mixed sensor/clutch mass, printed wall mass and real motor/fan internals require measured or vendor inputs. No strength, safety or fabrication release."
   },
   "mass_kg_by_body": {
     "STATIC": {
-      "mass_kg": 46.784748641809934,
+      "mass_kg": 46.48222517743338,
       "mass_bounds_kg": [
-        39.17753966768815,
-        59.94189759155615
+        38.87501620331159,
+        59.639374127179586
       ],
       "center_of_mass_mm": [
-        299.8905525259259,
-        238.63665363735706,
-        191.48514142968807
+        296.89914127683653,
+        242.24408900602396,
+        189.22476150310445
       ],
       "inertia_kg_mm2": [
-        1441290.2836725488,
-        2783311.1657016026,
-        2308334.7319043144
+        1441518.5654741558,
+        2730618.102706675,
+        2246132.0221043485
       ],
       "inertia_upper_bound_kg_mm2": [
-        3072399.4127212423,
-        6039633.848979964,
-        5519156.316977243
+        3089608.338044566,
+        6069958.60475305,
+        5567593.825048556
       ],
       "mass_status": "BOUNDED_PROXY_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
-      "solid_count": 191
+      "solid_count": 193
     },
     "IN_SHAFT": {
       "mass_kg": 0.43057552236117447,
@@ -861,11 +861,11 @@
       ]
     },
     "STEEL": {
-      "solid_count": 190,
-      "mass_kg": 43.97095719109318,
+      "solid_count": 192,
+      "mass_kg": 43.66843372671662,
       "mass_bounds_kg": [
-        43.97095719109318,
-        43.97095719109318
+        43.66843372671662,
+        43.66843372671662
       ]
     },
     "PURCHASED_BEARING": {
@@ -965,10 +965,10 @@
       ]
     }
   },
-  "modeled_inventory_mass_kg": 61.361615305672004,
+  "modeled_inventory_mass_kg": 61.05909184129545,
   "modeled_inventory_mass_bounds_kg": [
-    53.72136155205529,
-    74.55652971769814
+    53.41883808767873,
+    74.25400625332158
   ],
   "mass_provenance": "per-solid STEP BRep volume and actual solid bbox in bodies.json; effective density by named part. Static mass is inventory only; Machine root 1 kg / 10000 kg.mm2 is a solver anchor, not a manufactured part. Purchased boundaries are bounded proxies, not solid steel or measured.",
   "derived_transfer_spec": {
@@ -1002,8 +1002,8 @@
     "note": "2mm below split hopper shell top; lateral spread set by verify_full.py across the mouth cross-section, not flow proof"
   },
   "source_bodies": {
-    "step_sha256": "762909f469e517dcfe39a87536a3b701119b6e2eaa86825d59a147c229a92a2d",
-    "solids": 289,
+    "step_sha256": "10e0ba67d3d0b97137654050ad5ebaba408940b1eab1d807198fd67171746e99",
+    "solids": 291,
     "moving_bodies": [
       "AUGER",
       "BELT",
@@ -1030,7 +1030,7 @@
       "TRANSFER_IDLER"
     ]
   },
-  "revision": "92e4470163e946b619a0baa74b3a4a428cce72a6",
+  "revision": "51de78623e8de7b6866bc80c42cb3898fea9ee86",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",
@@ -4436,8 +4436,8 @@
       "mesh": "c2.2/sim/assets/out/full/PULL_FRAME__coarse.stl",
       "prim": "/World/F0/Static/mesh_PULL_FRAME",
       "approx": "triangleMesh",
-      "verts": 212,
-      "faces": 428
+      "verts": 316,
+      "faces": 644
     },
     {
       "mesh": "c2.2/sim/assets/out/full/PULL_ROLLER_FIXED__coarse.stl",
@@ -4461,6 +4461,13 @@
       "faces": 12
     },
     {
+      "mesh": "c2.2/sim/assets/out/full/PULL_COOL_MOUNT__coarse.stl",
+      "prim": "/World/F0/Static/mesh_PULL_COOL_MOUNT",
+      "approx": "triangleMesh",
+      "verts": 397,
+      "faces": 818
+    },
+    {
       "mesh": "c2.2/sim/assets/out/full/PULL_MOTOR_REF__coarse.stl",
       "prim": "/World/F0/Static/mesh_PULL_MOTOR_REF",
       "approx": "triangleMesh",
@@ -4475,13 +4482,6 @@
       "faces": 136
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step257__coarse.stl",
-      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step257",
-      "approx": "triangleMesh",
-      "verts": 60,
-      "faces": 120
-    },
-    {
       "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl",
       "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step258",
       "approx": "triangleMesh",
@@ -4489,11 +4489,25 @@
       "faces": 120
     },
     {
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step259__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_SPOOL_BEARINGS_step259",
+      "approx": "triangleMesh",
+      "verts": 60,
+      "faces": 120
+    },
+    {
+      "mesh": "c2.2/sim/assets/out/full/WIND_MOUNT__coarse.stl",
+      "prim": "/World/F0/Static/mesh_WIND_MOUNT",
+      "approx": "triangleMesh",
+      "verts": 144,
+      "faces": 292
+    },
+    {
       "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_DRUM__coarse.stl",
       "prim": "/World/F0/Static/mesh_WIND_SPOOL_DRUM",
       "approx": "triangleMesh",
-      "verts": 104,
-      "faces": 208
+      "verts": 312,
+      "faces": 624
     },
     {
       "mesh": "c2.2/sim/assets/out/full/WIND_CLUTCH_REF__coarse.stl",
@@ -4636,15 +4650,15 @@
       "faces": 564
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step280__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GAUGE_FRAME_step280",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step282__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GAUGE_FRAME_step282",
       "approx": "triangleMesh",
       "verts": 14,
       "faces": 24
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step281__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GAUGE_FRAME_step281",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step283__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GAUGE_FRAME_step283",
       "approx": "triangleMesh",
       "verts": 12,
       "faces": 20
@@ -4664,15 +4678,15 @@
       "faces": 310
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step284__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GAUGE_OPTICAL_B_step284",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step286__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GAUGE_OPTICAL_B_step286",
       "approx": "triangleMesh",
       "verts": 18,
       "faces": 32
     },
     {
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step285__coarse.stl",
-      "prim": "/World/F0/Static/mesh_GAUGE_OPTICAL_B_step285",
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step287__coarse.stl",
+      "prim": "/World/F0/Static/mesh_GAUGE_OPTICAL_B_step287",
       "approx": "triangleMesh",
       "verts": 18,
       "faces": 32

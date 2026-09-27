@@ -73,7 +73,7 @@ class LineParams:
     spool_core_radius_mm: float = 35.0
     spool_width_mm: float = 55.0
     spool_fill_fraction: float = 0.8
-    clutch_torque_Nmm: float = 70.0  # ASSUMED; ~2 N at empty spool
+    clutch_torque_Nmm: float = 70.0  # ASSUMED quasistatic; inertia excluded
     tensioner_limit_N: float = 6.0
     grip_envelope_N: float = 8.0
     ovality_bias_mm: float = 0.0  # half difference; area remains mass-conserving

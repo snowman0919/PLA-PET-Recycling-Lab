@@ -1,10 +1,10 @@
 {
   "schema": "full_machine_bodies/1",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "762909f469e517dcfe39a87536a3b701119b6e2eaa86825d59a147c229a92a2d",
-  "source_step_solid_count": 289,
-  "reconstructed_solid_count": 289,
-  "revision": "92e4470163e946b619a0baa74b3a4a428cce72a6",
+  "source_step_sha256": "10e0ba67d3d0b97137654050ad5ebaba408940b1eab1d807198fd67171746e99",
+  "source_step_solid_count": 291,
+  "reconstructed_solid_count": 291,
+  "revision": "51de78623e8de7b6866bc80c42cb3898fea9ee86",
   "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
   "solids": [
     {
@@ -17850,7 +17850,7 @@
         150.0000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "7a8aaf90358aa9b7b426f14f86fb787228a03f9b31f665daef3405ecf5b5c8c4",
+      "mesh_sha256": "07a90b92cfe82e9b3998977fb830dba30d289edd1c4b3ba0e9500f0a980ca32f",
       "material": "STEEL",
       "source_material_label": "steel plate 5 mm + 3 mm",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -17866,7 +17866,7 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 4063.5745767603853,
+      "volume_mm3": 3936.340074290005,
       "solid_bbox_mm": [
         821.9999999,
         260.9999999,
@@ -17875,10 +17875,10 @@
         289.0000001,
         150.0000001
       ],
-      "mass_kg": 0.03189906042756903,
+      "mass_kg": 0.03090026958317654,
       "mass_bounds_kg": [
-        0.03189906042756903,
-        0.03189906042756903
+        0.03090026958317654,
+        0.03090026958317654
       ],
       "center_of_mass_mm": [
         834.0,
@@ -17886,14 +17886,14 @@
         125.0
       ],
       "inertia_kg_mm2": [
-        8.729709619948952,
-        8.176792568284531,
-        3.615226903749526
+        8.456373856270018,
+        7.920769179374907,
+        3.502030606320473
       ],
       "inertia_upper_bound_kg_mm2": [
-        26.189128859846857,
-        24.530377704853596,
-        10.845680711248578
+        25.369121568810055,
+        23.76230753812472,
+        10.50609181896142
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -18113,10 +18113,81 @@
       "mesh": "c2.2/sim/assets/out/full/PULL_NIP_STOP__coarse.stl"
     },
     {
-      "name": "PULL_MOTOR_REF",
+      "name": "PULL_COOL_MOUNT",
       "group": "puller",
       "body": "STATIC",
       "step_index": 255,
+      "part_bbox": [
+        544.99999985,
+        259.99999985,
+        74.99999985,
+        842.00000015,
+        395.00000015,
+        115.00000015
+      ],
+      "solid_bbox": [
+        544.9999999,
+        259.9999999,
+        74.9999999,
+        842.0000001,
+        395.0000001,
+        115.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "9fce9ea91b460c47fb6e79e310fe5149ed18ba83fa1beb7f54b9850069061050",
+      "material": "STEEL",
+      "source_material_label": "steel tube + plate/bar candidate",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=PULL_COOL_MOUNT",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 90114.30425349102,
+      "solid_bbox_mm": [
+        544.9999999,
+        259.9999999,
+        74.9999999,
+        842.0000001,
+        395.0000001,
+        115.0000001
+      ],
+      "mass_kg": 0.7073972883899046,
+      "mass_bounds_kg": [
+        0.7073972883899046,
+        0.7073972883899046
+      ],
+      "center_of_mass_mm": [
+        693.5,
+        327.5,
+        95.0
+      ],
+      "inertia_kg_mm2": [
+        1168.6792743206395,
+        5294.220264030506,
+        6274.260259560779
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        3506.0378229619187,
+        15882.660792091518,
+        18822.780778682336
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/PULL_COOL_MOUNT__coarse.stl"
+    },
+    {
+      "name": "PULL_MOTOR_REF",
+      "group": "puller",
+      "body": "STATIC",
+      "step_index": 256,
       "part_bbox": [
         820.99999985,
         201.99999985,
@@ -18187,7 +18258,7 @@
       "name": "WIND_SPOOL_SHAFT",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 256,
+      "step_index": 257,
       "part_bbox": [
         691.9999999,
         86.9999999,
@@ -18258,7 +18329,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 257,
+      "step_index": 258,
       "part_bbox": [
         687.9999999,
         87.9999999,
@@ -18323,13 +18394,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step257__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl"
     },
     {
       "name": "WIND_SPOOL_BEARINGS",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 258,
+      "step_index": 259,
       "part_bbox": [
         687.9999999,
         169.9999999,
@@ -18394,20 +18465,91 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/WIND_SPOOL_BEARINGS_step259__coarse.stl"
+    },
+    {
+      "name": "WIND_MOUNT",
+      "group": "spool",
+      "body": "STATIC",
+      "step_index": 260,
+      "part_bbox": [
+        589.99999985,
+        59.99999985,
+        176.99999985,
+        720.00000015,
+        212.00000015,
+        208.00000015
+      ],
+      "solid_bbox": [
+        589.9999999,
+        59.9999999,
+        176.9999999,
+        720.0000001,
+        212.0000001,
+        208.0000001
+      ],
+      "bbox_ok": true,
+      "mesh_sha256": "0eea760bf60c3af3317de2b95f15640cf547b39fc2b25a3784772fed0a87114a",
+      "material": "STEEL",
+      "source_material_label": "steel plate/bar 4-8 mm + M5 candidate clearances",
+      "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+      "thermal_condition": "hot-zone grade and measured temperature HOLD",
+      "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=WIND_MOUNT",
+      "model_source": "c2.2/sim/assets/materials.py",
+      "nominal_density_kg_m3": 7850.0,
+      "effective_fraction": 1.0,
+      "effective_density_kg_m3": 7850.0,
+      "effective_density_bounds_kg_m3": [
+        7850.0,
+        7850.0
+      ],
+      "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+      "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+      "volume_mm3": 37574.054497236466,
+      "solid_bbox_mm": [
+        589.9999999,
+        59.9999999,
+        176.9999999,
+        720.0000001,
+        212.0000001,
+        208.0000001
+      ],
+      "mass_kg": 0.2949563278033063,
+      "mass_bounds_kg": [
+        0.2949563278033063,
+        0.2949563278033063
+      ],
+      "center_of_mass_mm": [
+        655.0,
+        136.0,
+        192.5
+      ],
+      "inertia_kg_mm2": [
+        591.5103375147806,
+        439.0179158241696,
+        983.2860808928776
+      ],
+      "inertia_upper_bound_kg_mm2": [
+        1774.531012544342,
+        1317.0537474725088,
+        2949.858242678633
+      ],
+      "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+      "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+      "mesh": "c2.2/sim/assets/out/full/WIND_MOUNT__coarse.stl"
     },
     {
       "name": "WIND_SPOOL_DRUM",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 259,
+      "step_index": 261,
       "part_bbox": [
-        664.9999999,
-        105.9999999,
-        184.9999999,
-        735.0000001,
-        164.0000001,
-        255.0000001
+        664.9999998999999,
+        105.99999989999998,
+        184.99999989999998,
+        735.0000001000001,
+        164.00000010000002,
+        255.00000010000002
       ],
       "solid_bbox": [
         664.9999999,
@@ -18418,9 +18560,9 @@
         255.0000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "c1fe0339284d6962494b74820c6f18908313f079088121f86967abf9378a9ca6",
+      "mesh_sha256": "2f5673f8a150118c2967acce3d4622a0f2a607cfe7d4b8341567082c696e858d",
       "material": "STEEL",
-      "source_material_label": "steel tube candidate",
+      "source_material_label": "steel tube + steel webs candidate",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
       "thermal_condition": "hot-zone grade and measured temperature HOLD",
       "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
@@ -18434,7 +18576,7 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 210045.31402269143,
+      "volume_mm3": 43946.16883474539,
       "solid_bbox_mm": [
         664.9999999,
         105.9999999,
@@ -18443,10 +18585,10 @@
         164.0000001,
         255.0000001
       ],
-      "mass_kg": 1.6488557150781278,
+      "mass_kg": 0.34497742535275133,
       "mass_bounds_kg": [
-        1.6488557150781278,
-        1.6488557150781278
+        0.34497742535275133,
+        0.34497742535275133
       ],
       "center_of_mass_mm": [
         700.0,
@@ -18454,14 +18596,14 @@
         220.0
       ],
       "inertia_kg_mm2": [
-        1135.5119761522546,
-        1346.5655083417962,
-        1135.5119761522535
+        237.57445506483168,
+        281.7315656479746,
+        237.57445506483145
       ],
       "inertia_upper_bound_kg_mm2": [
-        3406.535928456764,
-        4039.696525025389,
-        3406.5359284567608
+        712.723365194495,
+        845.1946969439239,
+        712.7233651944944
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -18471,7 +18613,7 @@
       "name": "WIND_CLUTCH_REF",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 260,
+      "step_index": 262,
       "part_bbox": [
         669.99999985,
         96.99999985,
@@ -18542,7 +18684,7 @@
       "name": "WIND_FLANGE_L",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 261,
+      "step_index": 263,
       "part_bbox": [
         599.9999999,
         102.9999999,
@@ -18613,7 +18755,7 @@
       "name": "WIND_FLANGE_R",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 262,
+      "step_index": 264,
       "part_bbox": [
         599.9999999,
         163.9999999,
@@ -18684,7 +18826,7 @@
       "name": "WIND_MOTOR_REF",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 263,
+      "step_index": 265,
       "part_bbox": [
         679.9999999,
         181.9999999,
@@ -18755,7 +18897,7 @@
       "name": "WIND_TRAVERSE_SCREW",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 264,
+      "step_index": 266,
       "part_bbox": [
         737.9999999,
         94.9999999,
@@ -18826,7 +18968,7 @@
       "name": "WIND_TRAVERSE_RIDER",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 265,
+      "step_index": 267,
       "part_bbox": [
         733.99999985,
         109.99999985,
@@ -18897,7 +19039,7 @@
       "name": "WIND_TENSIONER",
       "group": "spool",
       "body": "STATIC",
-      "step_index": 266,
+      "step_index": 268,
       "part_bbox": [
         743.9999999,
         192.9999999,
@@ -18968,7 +19110,7 @@
       "name": "EL_DIN_RAIL",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 267,
+      "step_index": 269,
       "part_bbox": [
         384.9999999,
         41.9999999,
@@ -19039,7 +19181,7 @@
       "name": "EL_DRIVER_1",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 268,
+      "step_index": 270,
       "part_bbox": [
         389.9999999,
         41.9999999,
@@ -19110,7 +19252,7 @@
       "name": "EL_DRIVER_2",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 269,
+      "step_index": 271,
       "part_bbox": [
         444.9999999,
         41.9999999,
@@ -19181,7 +19323,7 @@
       "name": "EL_DRIVER_3",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 270,
+      "step_index": 272,
       "part_bbox": [
         499.9999999,
         41.9999999,
@@ -19252,7 +19394,7 @@
       "name": "EL_CONTACTOR",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 271,
+      "step_index": 273,
       "part_bbox": [
         549.9999999,
         41.9999999,
@@ -19323,7 +19465,7 @@
       "name": "EL_ESTOP_BOX",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 272,
+      "step_index": 274,
       "part_bbox": [
         389.9999999,
         99.9999999,
@@ -19394,7 +19536,7 @@
       "name": "EL_OVERTEMP_BOX",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 273,
+      "step_index": 275,
       "part_bbox": [
         439.9999999,
         99.9999999,
@@ -19465,7 +19607,7 @@
       "name": "EL_CURRENT_LIMITER",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 274,
+      "step_index": 276,
       "part_bbox": [
         489.9999999,
         99.9999999,
@@ -19536,7 +19678,7 @@
       "name": "EL_WIRE_DUCT",
       "group": "electrical",
       "body": "STATIC",
-      "step_index": 275,
+      "step_index": 277,
       "part_bbox": [
         384.9999999,
         139.9999999,
@@ -19607,7 +19749,7 @@
       "name": "HOPPER_PANEL_L",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 276,
+      "step_index": 278,
       "part_bbox": [
         0.7417106707409999,
         162.399995,
@@ -19678,7 +19820,7 @@
       "name": "HOPPER_PANEL_R",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 277,
+      "step_index": 279,
       "part_bbox": [
         0.7417106707409999,
         162.399995,
@@ -19749,7 +19891,7 @@
       "name": "HOPPER_SEAM_FRONT",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 278,
+      "step_index": 280,
       "part_bbox": [
         99.99999985,
         168.13865833862812,
@@ -19820,7 +19962,7 @@
       "name": "HOPPER_SEAM_REAR",
       "group": "feed",
       "body": "STATIC",
-      "step_index": 279,
+      "step_index": 281,
       "part_bbox": [
         99.99999985,
         310.81752599610627,
@@ -19891,7 +20033,7 @@
       "name": "GAUGE_FRAME",
       "group": "gauge",
       "body": "STATIC",
-      "step_index": 280,
+      "step_index": 282,
       "part_bbox": [
         804.9999999,
         236.9999999,
@@ -19956,13 +20098,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step280__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step282__coarse.stl"
     },
     {
       "name": "GAUGE_FRAME",
       "group": "gauge",
       "body": "STATIC",
-      "step_index": 281,
+      "step_index": 283,
       "part_bbox": [
         800.9999999,
         236.9999999,
@@ -20027,13 +20169,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step281__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_FRAME_step283__coarse.stl"
     },
     {
       "name": "GAUGE_GUIDES",
       "group": "gauge",
       "body": "STATIC",
-      "step_index": 282,
+      "step_index": 284,
       "part_bbox": [
         802.2999999,
         236.9999993,
@@ -20104,7 +20246,7 @@
       "name": "GAUGE_CONTACT_A",
       "group": "gauge",
       "body": "STATIC",
-      "step_index": 283,
+      "step_index": 285,
       "part_bbox": [
         804.9999999,
         264.9999999,
@@ -20175,7 +20317,7 @@
       "name": "GAUGE_OPTICAL_B",
       "group": "gauge",
       "body": "STATIC",
-      "step_index": 284,
+      "step_index": 286,
       "part_bbox": [
         804.9999999,
         294.9999999,
@@ -20240,13 +20382,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step284__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step286__coarse.stl"
     },
     {
       "name": "GAUGE_OPTICAL_B",
       "group": "gauge",
       "body": "STATIC",
-      "step_index": 285,
+      "step_index": 287,
       "part_bbox": [
         804.9999999,
         240.9999999,
@@ -20311,13 +20453,13 @@
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
-      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step285__coarse.stl"
+      "mesh": "c2.2/sim/assets/out/full/GAUGE_OPTICAL_B_step287__coarse.stl"
     },
     {
       "name": "GAUGE_REF_STANDARD",
       "group": "gauge",
       "body": "STATIC",
-      "step_index": 286,
+      "step_index": 288,
       "part_bbox": [
         806.9999999,
         314.9999999,
@@ -20388,7 +20530,7 @@
       "name": "COOL-DUCT",
       "group": "cooling",
       "body": "STATIC",
-      "step_index": 287,
+      "step_index": 289,
       "part_bbox": [
         544.9999999,
         234.9999999,
@@ -20459,7 +20601,7 @@
       "name": "COOL-FAN-3_REF",
       "group": "cooling",
       "body": "STATIC",
-      "step_index": 288,
+      "step_index": 290,
       "part_bbox": [
         629.9999999,
         234.9999999,
@@ -20528,10 +20670,10 @@
     }
   ],
   "material_model": "c2.2/sim/assets/materials.py",
-  "material_model_sha256": "f74f15d9569692d8783f1e2bc58a83103ab06368d7b3439cca07aa96b84a0068",
+  "material_model_sha256": "99cc88b4a33656986c50e9cbaaf1436f59a121e676292b16fed4a934f528eeec",
   "material_scope": {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. The VP1 WIND_SPOOL_DRUM is now a weldable steel tube candidate, not the former ABS print; flange seam, loose shaft bore, friction-clutch preload and balance remain HOLD.",
+    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. Profile joints, tray attachment, flange seams, loose shaft bore, friction-clutch preload and balance remain HOLD.",
     "excluded": "PLA excluded from hot/load paths and permanent guards; ABS excluded from heater/cutter/feed throat. PC lower containment and thermal exposure require material and process qualification. No printed keys or bearing seats.",
     "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation and six walls; bed fit is not impact, layer or seam qualification. Printed ABS eyelet on WIND_TRAVERSE_RIDER is folded into a bounded steel/polymer proxy, not counted twice. No ABS spool drum remains in this VP1 candidate.",
     "boundary": "All materials are screening choices; profile web/slot metal area, mixed sensor/clutch mass, printed wall mass and real motor/fan internals require measured or vendor inputs. No strength, safety or fabrication release."
@@ -22577,8 +22719,8 @@
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/PULL_FRAME__coarse.stl",
-      "bytes": 21484,
-      "sha256": "7a8aaf90358aa9b7b426f14f86fb787228a03f9b31f665daef3405ecf5b5c8c4"
+      "bytes": 32284,
+      "sha256": "07a90b92cfe82e9b3998977fb830dba30d289edd1c4b3ba0e9500f0a980ca32f"
     },
     {
       "name": "PULL_ROLLER_FIXED",
@@ -22605,6 +22747,14 @@
       "sha256": "5bb9fc3793871021bf31ce58643b4f4b220fe7777d25fb9764b2d6429836d156"
     },
     {
+      "name": "PULL_COOL_MOUNT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/PULL_COOL_MOUNT__coarse.stl",
+      "bytes": 40984,
+      "sha256": "9fce9ea91b460c47fb6e79e310fe5149ed18ba83fa1beb7f54b9850069061050"
+    },
+    {
       "name": "PULL_MOTOR_REF",
       "body": "STATIC",
       "lod": "coarse",
@@ -22624,7 +22774,7 @@
       "name": "WIND_SPOOL_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step257__coarse.stl",
+      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl",
       "bytes": 6084,
       "sha256": "12b8e8640d7a37a427248de4332821f2faeea8aaf01ecc5938950b52ae364188"
     },
@@ -22632,17 +22782,25 @@
       "name": "WIND_SPOOL_BEARINGS",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step258__coarse.stl",
+      "stl": "sim/assets/out/full/WIND_SPOOL_BEARINGS_step259__coarse.stl",
       "bytes": 6084,
       "sha256": "dd7bc8bba58c15a1037a5803d1c0466987b4e4d00a8494b09deccb654df4dc19"
+    },
+    {
+      "name": "WIND_MOUNT",
+      "body": "STATIC",
+      "lod": "coarse",
+      "stl": "sim/assets/out/full/WIND_MOUNT__coarse.stl",
+      "bytes": 14684,
+      "sha256": "0eea760bf60c3af3317de2b95f15640cf547b39fc2b25a3784772fed0a87114a"
     },
     {
       "name": "WIND_SPOOL_DRUM",
       "body": "STATIC",
       "lod": "coarse",
       "stl": "sim/assets/out/full/WIND_SPOOL_DRUM__coarse.stl",
-      "bytes": 10484,
-      "sha256": "c1fe0339284d6962494b74820c6f18908313f079088121f86967abf9378a9ca6"
+      "bytes": 31284,
+      "sha256": "2f5673f8a150118c2967acce3d4622a0f2a607cfe7d4b8341567082c696e858d"
     },
     {
       "name": "WIND_CLUTCH_REF",
@@ -22808,7 +22966,7 @@
       "name": "GAUGE_FRAME",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/GAUGE_FRAME_step280__coarse.stl",
+      "stl": "sim/assets/out/full/GAUGE_FRAME_step282__coarse.stl",
       "bytes": 1284,
       "sha256": "1688d83fa8c4d42dd8ea9544003c794887a2f0a4eec8f3e41aade6b0ee5467d2"
     },
@@ -22816,7 +22974,7 @@
       "name": "GAUGE_FRAME",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/GAUGE_FRAME_step281__coarse.stl",
+      "stl": "sim/assets/out/full/GAUGE_FRAME_step283__coarse.stl",
       "bytes": 1084,
       "sha256": "8135bbe45a9cb5fe9f5bc59a3663bf3740e9a69cb26a3689678c1a0198c0d47f"
     },
@@ -22840,7 +22998,7 @@
       "name": "GAUGE_OPTICAL_B",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/GAUGE_OPTICAL_B_step284__coarse.stl",
+      "stl": "sim/assets/out/full/GAUGE_OPTICAL_B_step286__coarse.stl",
       "bytes": 1684,
       "sha256": "258eff4b8e288a0d9546a80d162ab0b1c2c6b8e6d40f30c8fb7d79ff4c401850"
     },
@@ -22848,7 +23006,7 @@
       "name": "GAUGE_OPTICAL_B",
       "body": "STATIC",
       "lod": "coarse",
-      "stl": "sim/assets/out/full/GAUGE_OPTICAL_B_step285__coarse.stl",
+      "stl": "sim/assets/out/full/GAUGE_OPTICAL_B_step287__coarse.stl",
       "bytes": 1684,
       "sha256": "64376d36678dc437aa52831cc5f763168fab45fc63c6e7ed9d66dd2ea1fdb153"
     },
@@ -24155,17 +24313,17 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "PULL_MOTOR_REF",
+      "part": "PULL_COOL_MOUNT",
       "step_index": 255,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_SHAFT",
+      "part": "PULL_MOTOR_REF",
       "step_index": 256,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_BEARINGS",
+      "part": "WIND_SPOOL_SHAFT",
       "step_index": 257,
       "centre_dist_mm": 0.0
     },
@@ -24175,155 +24333,165 @@
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_SPOOL_DRUM",
+      "part": "WIND_SPOOL_BEARINGS",
       "step_index": 259,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_CLUTCH_REF",
+      "part": "WIND_MOUNT",
       "step_index": 260,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_FLANGE_L",
+      "part": "WIND_SPOOL_DRUM",
       "step_index": 261,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_FLANGE_R",
+      "part": "WIND_CLUTCH_REF",
       "step_index": 262,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_MOTOR_REF",
+      "part": "WIND_FLANGE_L",
       "step_index": 263,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TRAVERSE_SCREW",
+      "part": "WIND_FLANGE_R",
       "step_index": 264,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TRAVERSE_RIDER",
+      "part": "WIND_MOTOR_REF",
       "step_index": 265,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "WIND_TENSIONER",
+      "part": "WIND_TRAVERSE_SCREW",
       "step_index": 266,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DIN_RAIL",
+      "part": "WIND_TRAVERSE_RIDER",
       "step_index": 267,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_1",
+      "part": "WIND_TENSIONER",
       "step_index": 268,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_2",
+      "part": "EL_DIN_RAIL",
       "step_index": 269,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_DRIVER_3",
+      "part": "EL_DRIVER_1",
       "step_index": 270,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_CONTACTOR",
+      "part": "EL_DRIVER_2",
       "step_index": 271,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_ESTOP_BOX",
+      "part": "EL_DRIVER_3",
       "step_index": 272,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_OVERTEMP_BOX",
+      "part": "EL_CONTACTOR",
       "step_index": 273,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_CURRENT_LIMITER",
+      "part": "EL_ESTOP_BOX",
       "step_index": 274,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "EL_WIRE_DUCT",
+      "part": "EL_OVERTEMP_BOX",
       "step_index": 275,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOPPER_PANEL_L",
+      "part": "EL_CURRENT_LIMITER",
       "step_index": 276,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOPPER_PANEL_R",
+      "part": "EL_WIRE_DUCT",
       "step_index": 277,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOPPER_SEAM_FRONT",
+      "part": "HOPPER_PANEL_L",
       "step_index": 278,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "HOPPER_SEAM_REAR",
+      "part": "HOPPER_PANEL_R",
       "step_index": 279,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GAUGE_FRAME",
+      "part": "HOPPER_SEAM_FRONT",
       "step_index": 280,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GAUGE_FRAME",
+      "part": "HOPPER_SEAM_REAR",
       "step_index": 281,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GAUGE_GUIDES",
+      "part": "GAUGE_FRAME",
       "step_index": 282,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GAUGE_CONTACT_A",
+      "part": "GAUGE_FRAME",
       "step_index": 283,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GAUGE_OPTICAL_B",
+      "part": "GAUGE_GUIDES",
       "step_index": 284,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GAUGE_OPTICAL_B",
+      "part": "GAUGE_CONTACT_A",
       "step_index": 285,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "GAUGE_REF_STANDARD",
+      "part": "GAUGE_OPTICAL_B",
       "step_index": 286,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "COOL-DUCT",
+      "part": "GAUGE_OPTICAL_B",
       "step_index": 287,
       "centre_dist_mm": 0.0
     },
     {
-      "part": "COOL-FAN-3_REF",
+      "part": "GAUGE_REF_STANDARD",
       "step_index": 288,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "COOL-DUCT",
+      "step_index": 289,
+      "centre_dist_mm": 0.0
+    },
+    {
+      "part": "COOL-FAN-3_REF",
+      "step_index": 290,
       "centre_dist_mm": 0.0
     }
   ],
-  "wall_time_s": 59.36503601074219
+  "wall_time_s": 55.48235368728638
 }

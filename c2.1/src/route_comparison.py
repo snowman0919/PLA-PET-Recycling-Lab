@@ -169,6 +169,7 @@ def compare():
         "limitations": [
             "Reference-feed 100 g/h is a design target; screw throughput unmeasured.",
             "Solid density, conductivity, convection, grip, clutch and temperature-flow sensitivity are assumed, not measured on PPR.",
+            "Spool torque/radius gives quasistatic tension only; the lighter CAD drum does not validate acceleration, inertia, welds, bearing load or clutch transient torque.",
             "The puller's influence on the molten draw point is instantaneous here; strand elasticity, melt swelling, pressure and contact deformation are omitted.",
             "PI arithmetic uses the host-built C++ firmware kernel; a >1s post-start missing gauge sample stops this model. Other firmware safety, power and motor I/O are NOT exercised in the parcel simulation.",
             "Fixed-speed baseline uses the same diagnostic gauge for after-the-fact scoring, not as a live motor interlock.",

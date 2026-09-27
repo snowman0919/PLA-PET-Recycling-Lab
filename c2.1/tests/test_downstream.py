@@ -96,6 +96,78 @@ class DownstreamGeometryTests(unittest.TestCase):
                                w.spool_flange_l().BoundingBox().ymin)
 
     @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
+    def test_pull_and_cooling_tray_share_rear_metal_frame_path(self):
+        import build_machine_integration as machine
+        cfg = json.loads((R / "design/machine_integration.json").read_text())
+        master = json.loads((R.parent / "design/assembly.json").read_text())
+        placed = {p["name"]: p["shape"]
+                  for p in machine.legacy_parts(master, cfg)}
+        rack, pull = w.pull_cool_mount(), w.pull_frame()
+        self.assertTrue(rack.isValid())
+        self.assertEqual(len(rack.Solids()), 1)
+        for target, point, span in (
+                (placed["FR-2040-400_002"], (630, 380, 110), (0.02, 2, 2)),
+                (placed["COOL-TRAY_001"], (700, 307, 103), (2, 2, 0.02)),
+                (pull, (832, 275, 100), (2, 2, 0.02))):
+            probe = cadquery.Solid.makeBox(
+                *span, cadquery.Vector(*(v - s / 2 for v, s in zip(point, span))))
+            self.assertGreater(rack.intersect(probe).Volume(), 0.001)
+            self.assertGreater(target.intersect(probe).Volume(), 0.001)
+            self.assertLess(rack.intersect(target).Volume(), 0.001)
+        for y in (268, 282):
+            recessed_bolt = cadquery.Solid.makeCylinder(
+                2.25, 7, cadquery.Vector(833, y, 97),
+                cadquery.Vector(0, 0, 1))
+            self.assertLess(recessed_bolt.intersect(rack).Volume(), 0.001)
+            self.assertLess(recessed_bolt.intersect(pull).Volume(), 0.001)
+            self.assertLess(recessed_bolt.intersect(
+                w.pull_roller_fixed()).Volume(), 0.001)
+        air = cadquery.Solid.makeBox(
+            10, 8, 8, cadquery.Vector(700, 371, 86))
+        self.assertLess(rack.intersect(air).Volume(), 0.001)
+        self.assertLess(rack.intersect(w.pull_roller_fixed()).Volume(), 0.001)
+
+    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
+    def test_winder_load_path_and_hollow_spool_clear_rotating_faces(self):
+        import build_machine_integration as machine
+        cfg = json.loads((R / "design/machine_integration.json").read_text())
+        master = json.loads((R.parent / "design/assembly.json").read_text())
+        front = next(p["shape"] for p in machine.legacy_parts(master, cfg)
+                     if p["name"] == "FR-2020-400_001")
+        mount, bearings, motor = (w.winder_mount(), w.spool_bearing_blocks(),
+                                  w.winder_motor_ref())
+        self.assertTrue(mount.isValid())
+        self.assertEqual(len(mount.Solids()), 1)
+        # Each probe crosses the actual face; a floating reference loses it.
+        for target, point, span in (
+                (front, (620, 60, 190), (2, 0.02, 2)),
+                (bearings, (700, 92, 208), (2, 2, 0.02)),
+                (bearings, (700, 174, 208), (2, 2, 0.02)),
+                (motor, (700, 200, 200), (2, 2, 0.02))):
+            probe = cadquery.Solid.makeBox(
+                *span, cadquery.Vector(*(v - s / 2 for v, s in zip(point, span))))
+            self.assertGreater(mount.intersect(probe).Volume(), 0.001)
+            self.assertGreater(target.intersect(probe).Volume(), 0.001)
+            self.assertLess(mount.intersect(target).Volume(), 0.001)
+        for z in (185, 200):
+            clearance = cadquery.Solid.makeCylinder(
+                2.75, 4, cadquery.Vector(620, 60, z),
+                cadquery.Vector(0, 1, 0))
+            self.assertLess(mount.intersect(clearance).Volume(), 0.001)
+        for moving in (w.spool_drum(), w.spool_flange_l(),
+                       w.spool_flange_r(), w.spool_shaft()):
+            self.assertLess(mount.intersect(moving).Volume(), 0.001)
+        drum = w.spool_drum()
+        self.assertEqual(len(drum.Solids()), 1)
+        self.assertLess(drum.Volume() * 0.00785, 500)  # g at steel proxy rho
+        middle = cadquery.Solid.makeCylinder(
+            5, 2, cadquery.Vector(720, 134, 220), cadquery.Vector(0, 1, 0))
+        self.assertLess(drum.intersect(middle).Volume(), 0.001)
+        web = cadquery.Solid.makeCylinder(
+            2, 2, cadquery.Vector(720, 109, 220), cadquery.Vector(0, 1, 0))
+        self.assertGreater(drum.intersect(web).Volume(), 1)
+
+    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
     def test_reference_hopper_has_open_throat_and_clears_retained_machine(self):
         import build_machine_integration as machine
         hopper = dd.service_hopper()

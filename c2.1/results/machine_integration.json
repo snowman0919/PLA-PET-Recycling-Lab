@@ -25,9 +25,9 @@
   "legacy_s2_instances_excluded": 44,
   "legacy_instances_retained": 151,
   "c21_instances_inserted": 40,
-  "assembly_objects": 264,
-  "expected_solids": 289,
-  "reimported_solids": 289,
+  "assembly_objects": 266,
+  "expected_solids": 291,
+  "reimported_solids": 291,
   "step_reimport_valid": true,
   "assembly_step": "c2.1/cad/PPR_VP1.step",
   "assembly_geometry_checks": {
@@ -60,8 +60,8 @@
     "tail_radial_margin_mm": 0.59,
     "shell_radial_margin_mm": 1.5
   },
-  "assembly_step_sha256": "762909f469e517dcfe39a87536a3b701119b6e2eaa86825d59a147c229a92a2d",
-  "assembly_step_bytes": 100799205,
+  "assembly_step_sha256": "10e0ba67d3d0b97137654050ad5ebaba408940b1eab1d807198fd67171746e99",
+  "assembly_step_bytes": 101129364,
   "groups": [
     "S1",
     "S2-C2.1",
@@ -222,9 +222,11 @@
       "PULL_ROLLER_FIXED",
       "PULL_ROLLER_ADJ",
       "PULL_NIP_STOP",
+      "PULL_COOL_MOUNT",
       "PULL_MOTOR_REF",
       "WIND_SPOOL_SHAFT",
       "WIND_SPOOL_BEARINGS",
+      "WIND_MOUNT",
       "WIND_SPOOL_DRUM",
       "WIND_CLUTCH_REF",
       "WIND_FLANGE_L",
@@ -540,8 +542,8 @@
     },
     "vp1_against_retained": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 14376,
-      "bbox_candidates": 127,
+      "pair_checks": 14740,
+      "bbox_candidates": 129,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",
@@ -585,8 +587,8 @@
     },
     "vp1_internal": {
       "method": "BREP_EXACT_AFTER_BBOX",
-      "pair_checks": 6162,
-      "bbox_candidates": 284,
+      "pair_checks": 6480,
+      "bbox_candidates": 302,
       "unexpected": [],
       "functional_allowed": [
         "AUG_BEARINGS/AUG_SHAFT",

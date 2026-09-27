@@ -25,11 +25,18 @@ Puller (x 815..845, y 240..278, z 100..150):
   - real contact, adjustable pressure, rotation and tension transfer.
   Stock window: 1.5-2.0 mm filament gripped; 1.75 mm nominal.
 - PULL_MOTOR_REF: small gearmotor reference belt-driving the fixed roller.
+- PULL_COOL_MOUNT: welded steel tube rack fixed to the rear Al upright.
+  It carries the puller frame directly, with a separate underside ledge for
+  the sheet cooling tray. Bolts, tube welds and tray attachment remain HOLD.
 
-Winder (axis Y at x=700, z=220; north of the cooling fans, clear of
-COOL-FAN_001/002 and COOL-TRAY):
-- WIND_SPOOL_SHAFT supported in bearings BOTH ends; WIND_SPOOL_DRUM
-  floats on it and is joined to the flanges (weld/joint rating HOLD).
+Winder (axis Y at x=700, z=220; north of the cooling fans):
+- WIND_MOUNT: a steel cantilever from the front aluminium upright's y=60
+  face to both bearing seats and the motor bed; two clearance holes mark
+  an M5 candidate interface. Profile slot, fasteners, joint strength and
+  vibration/guard qualification remain HOLD.
+- WIND_SPOOL_SHAFT supported in bearings BOTH ends; WIND_SPOOL_DRUM is
+  a hollow steel tube with two internal end webs, loose on the shaft and
+  joined to the flanges (weld/joint rating HOLD).
 - WIND_CLUTCH_REF: shaft key -> keyed collar -> wave-spring envelope ->
   friction pad against the left flange. Axial preload/retention, torque
   and wear are NOT specified; 70 Nmm in the model is only a sensitivity.
@@ -93,8 +100,34 @@ def pull_frame():
     frame = side_a.fuse(side_b).fuse(base).fuse(bridge).fuse(seat_a).fuse(seat_b)
     for y in (y0, y1 - 3.0):
         frame = frame.cut(_cyl(4.2, 3.0, PULL["x"], y, PULL_ROLLER_Z[0]))
+    for y in (268.0, 282.0):
+        frame = frame.cut(_cyl(2.25, 6.0, 833, y, 99, axis=(0, 0, 1)))
     return frame.clean()
 
+
+def pull_cool_mount():
+    """Rear-profile rack carries the thin cooling tray and puller separately.
+
+    Face x=630 mates FR-2040-400_002; the 20x20x2 boom and 18x16x2
+    transverse tube are steel candidates. The 8 mm tray ledge touches
+    its 2 mm underside, not the moving strand. Profile slots/fasteners,
+    welded joints, puller countersunk bolt heads and tray joint are HOLD.
+    """
+    plate = _box(630, 634, 365, 395, 75, 115)
+    boom = _box(634, 836, 365, 385, 80, 100)
+    boom = boom.cut(_box(634, 836, 367, 383, 82, 98))
+    pull_tube = _box(824, 842, 260, 385, 84, 100)
+    pull_tube = pull_tube.cut(_box(826, 840, 260, 385, 86, 98))
+    tray_ledge = _box(545, 820, 300, 315, 95, 103)
+    tray_spur = _box(630, 650, 310, 380, 95, 103)
+    rack = plate.fuse(boom).fuse(pull_tube).fuse(tray_ledge)
+    rack = rack.fuse(tray_spur)
+    for y in (370, 390):
+        for z in (85, 105):
+            rack = rack.cut(_cyl(2.75, 6, 629, y, z, axis=(1, 0, 0)))
+    for y in (268, 282):
+        rack = rack.cut(_cyl(2.25, 4, 833, y, 97, axis=(0, 0, 1)))
+    return rack.clean()
 
 def pull_roller_fixed():
     """Dia-20 drive roller on a supported axle (bearing seats BOTH ends),
@@ -175,11 +208,43 @@ def spool_bearing_blocks():
     return b0.fuse(b1).clean()
 
 
+def winder_mount():
+    """Steel bearing/motor load path to the front 20 mm Al upright.
+
+    The flange sweeps through y=103..167, so the two narrow bearing rails
+    flank it and join outside its x=600 radial extremity. The motor bed
+    stays above the adjacent cooling fan. Attachment holes are only
+    candidate Ø5.5 clearances; the owned profile slot and fasteners must
+    be measured/selected before fabrication.
+    """
+    # Face at y=60 bears on FR-2020-400_001 (x610..630, z20..420).
+    foot = _box(610, 630, 60, 64, 177, 208)
+    reach = _box(590, 630, 64, 88, 200, 208)
+    outer_tie = _box(590, 600, 88, 178, 200, 208)
+    left = _box(590, 712, 88, 96, 200, 208)
+    right = _box(590, 712, 170, 178, 200, 208)
+    tab = _box(680, 712, 174, 178, 196, 201)
+    motor_bed = _box(680, 720, 174, 212, 196, 200)
+    mount = foot.fuse(reach).fuse(outer_tie).fuse(left).fuse(right)
+    mount = mount.fuse(tab).fuse(motor_bed)
+    for z in (185, 200):
+        mount = mount.cut(_cyl(2.75, 6, 620, 59, z))
+    return mount.clean()
+
+
 def spool_drum():
-    d = _cyl(WIND["drum_r"], 58.0, WIND["x"], WIND["y0"] + 6.0, WIND["z"])
-    bore = _cyl(WIND["shaft_r"] + 0.5, 60.0, WIND["x"], WIND["y0"] + 5.0,
-                WIND["z"])
-    return d.cut(bore).clean()
+    """Ø70×58 steel tube, 2 mm wall, with two 3 mm internal steel webs.
+
+    The Ø17 web bores clear the Ø16 shaft. The unselected web/tube and
+    flange welds, runout and dynamic balance are not strength-qualified.
+    """
+    x, y, z = WIND["x"], WIND["y0"] + 6.0, WIND["z"]
+    tube = _cyl(35.0, 58.0, x, y, z).cut(_cyl(33.0, 58.0, x, y, z))
+    for web_y in (y + 3.0, y + 52.0):
+        web = _cyl(33.0, 3.0, x, web_y, z)
+        web = web.cut(_cyl(WIND["shaft_r"] + 0.5, 3.0, x, web_y, z))
+        tube = tube.fuse(web)
+    return tube.clean()
 
 
 def _flange(y):
@@ -251,9 +316,11 @@ def components():
             ("PULL_ROLLER_FIXED", pull_roller_fixed(), "puller"),
             ("PULL_ROLLER_ADJ", pull_roller_adj(), "puller"),
             ("PULL_NIP_STOP", pull_nip_stop(), "puller"),
+            ("PULL_COOL_MOUNT", pull_cool_mount(), "puller"),
             ("PULL_MOTOR_REF", pull_motor_ref(), "puller"),
             ("WIND_SPOOL_SHAFT", spool_shaft(), "spool"),
             ("WIND_SPOOL_BEARINGS", spool_bearing_blocks(), "spool"),
+            ("WIND_MOUNT", winder_mount(), "spool"),
             ("WIND_SPOOL_DRUM", spool_drum(), "spool"),
             ("WIND_CLUTCH_REF", spool_clutch_ref(), "spool"),
             ("WIND_FLANGE_L", spool_flange_l(), "spool"),
@@ -279,9 +346,10 @@ def nip_range_mm():
 if __name__ == "__main__":
     import json
     from build_machine_integration import bounds
+    solids = components()
     recs = []
     fails = []
-    for name, solid, group in components():
+    for name, solid, group in solids:
         ok = solid.isValid() and len(solid.Solids()) >= 1
         recs.append({"name": name, "group": group,
                      "solids": len(solid.Solids()),
@@ -291,11 +359,19 @@ if __name__ == "__main__":
     out_dir = ROOT / "cad" / "parts_stage1"
     out_dir.mkdir(parents=True, exist_ok=True)
     exported = []
-    for name, solid, group in components():
+    for name, solid, group in solids:
         path = out_dir / (name + ".step")
         cq.exporters.export(cq.Compound.makeCompound([solid]), str(path))
         exported.append(str(path.relative_to(REPO)))
     lo, hi = nip_range_mm()
+    by_name = {name: solid for name, solid, _ in solids}
+    density_g_mm3 = 0.00785  # candidate steel, not measured material grade
+    old_solid_annulus = (_cyl(35, 58, WIND["x"], 106, WIND["z"])
+                         .cut(_cyl(8.5, 58, WIND["x"], 106, WIND["z"])))
+    rotating = ("WIND_SPOOL_DRUM", "WIND_FLANGE_L", "WIND_FLANGE_R")
+    old_rotating_g = (old_solid_annulus.Volume()
+                      + sum(by_name[n].Volume() for n in rotating[1:])) * density_g_mm3
+    new_rotating_g = sum(by_name[n].Volume() for n in rotating) * density_g_mm3
     result = {"parts": recs, "exported_step": exported,
               "filament_spec_mm": FILAMENT_MM,
               "filament_spec_source": "design/parameters.json filament_mm "
@@ -305,6 +381,15 @@ if __name__ == "__main__":
               "grip_window_mm": [1.5, 2.0],
               "compressed_nip_mm": [1.55, 1.9],
               "grip_ok": lo <= FILAMENT_MM and hi >= FILAMENT_MM,
+              "steel_mass_screen_g": {
+                  "density_g_mm3": density_g_mm3,
+                  "old_solid_annulus_and_flange_g": round(old_rotating_g, 2),
+                  "hollow_tube_web_and_flange_g": round(new_rotating_g, 2),
+                  "mount_g": round(by_name["WIND_MOUNT"].Volume()
+                                   * density_g_mm3, 2),
+                  "pull_cool_mount_g": round(by_name["PULL_COOL_MOUNT"].Volume()
+                                             * density_g_mm3, 2),
+                  "cost_and_weld_rating": "HOLD: no quotes or measured joints"},
               "passed": not fails and nip_opening_mm() <= FILAMENT_MM}
     (ROOT / "results" / "winder_geometry.json").write_text(
         json.dumps(result, indent=2) + "\n")
