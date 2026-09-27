@@ -1,17 +1,17 @@
 # Graph Report - PPR-c2.1-codex-20260921  (2026-09-27)
 
 ## Corpus Check
-- 1164 files · ~14,083,395 words
+- 1164 files · ~14,083,425 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 1464 file(s) not represented in the graph (top: .stl 681, .step 238, .log 204)
 
 ## Summary
-- 1969 nodes · 3623 edges · 189 communities (99 shown, 90 thin omitted)
+- 1969 nodes · 3624 edges · 190 communities (100 shown, 90 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 293 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `92e44701`
+- Built from commit: `d081a020`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -41,7 +41,7 @@
 - components
 - main
 - ControllerTests
-- subprocess
+- hashlib
 - d3_bond.py
 - d4_accounting.py
 - run_case.py
@@ -50,7 +50,7 @@
 - approx
 - C2 Engineering Contracts
 - Controller
-- hashlib
+- materials.py
 - BondManager
 - route_comparison.py
 - generate
@@ -70,7 +70,7 @@
 - build_machine_integration.py
 - VP1 whole-machine Isaac Sim validation
 - ChuteGeometry
-- run_combo
+- i3_coupon.py
 - ADR-002: VP1 체인 경로 vs 동결된 C1 구조물 릴리프 (chain routing reliefs)
 - build_freecad.py
 - run_r1.py
@@ -193,6 +193,7 @@
 - S1 Cutter Parameters
 - S2 Local Frame Definition
 - Shaft work threshold
+- d1_contact.py
 
 ## God Nodes (most connected - your core abstractions)
 1. `components()` - 41 edges
@@ -231,15 +232,15 @@
 - **Diagnostic Outcomes relate to Requirements** — c2_3_revisions_r1_diagnostic_summary [INFERRED 0.85]
 - **Digital Evidence Without External Hardware Release** — _github_workflows_c2_engineering_no_hardware_approval_gate, _github_workflows_c2_engineering_dynamic_evidence_count_contract, _github_workflows_c2_engineering_procurement_fabrication_energization_hold_contract [INFERRED 0.95]
 
-## Communities (189 total, 90 thin omitted)
+## Communities (190 total, 90 thin omitted)
 
 ### Community 0 - "engineering.py"
 Cohesion: 0.06
-Nodes (47): Any, box(), cylinder(), from_c1(), main(), primitive(), C2 S2 thermal/fixed-shear development module. Not an assembly release. C1…, sector() (+39 more)
+Nodes (45): Any, box(), cylinder(), from_c1(), main(), primitive(), C2 S2 thermal/fixed-shear development module. Not an assembly release. C1…, sector() (+37 more)
 
 ### Community 1 - "json"
-Cohesion: 0.08
-Nodes (32): VP1 Stage 4 rev 2: S2 negative-rotation direction audit (Isaac evidence). The…, PowerGateTests, Behavioral regressions for reference-feed extrusion and gauge geometry., VP1 Stage 1: real drivetrain geometry + S1->S2 chute tests. CAD-dependent tests…, VP1 material choices and bounded mass properties for STEP-derived solids. These…, I3 single-event fracture smoke benchmark (Isaac-independent, numpy-only). 12…, I4 cheap geometric/kinematic screening (Isaac-independent, numpy LHS). Samples…, I5 low-resolution end-to-end S1->S2 benchmark (Isaac-independent, numpy).… (+24 more)
+Cohesion: 0.09
+Nodes (29): VP1 Stage 4 rev 2: S2 negative-rotation direction audit (Isaac evidence). The…, PowerGateTests, Behavioral regressions for reference-feed extrusion and gauge geometry., VP1 Stage 1: real drivetrain geometry + S1->S2 chute tests. CAD-dependent tests…, I4 cheap geometric/kinematic screening (Isaac-independent, numpy LHS). Samples…, I5 low-resolution end-to-end S1->S2 benchmark (Isaac-independent, numpy).…, I3 fallback bond manager over the I2 BondGraph data model. Same…, Full-machine USD emission for the CAD-derived integrated assembly. Reads… (+21 more)
 
 ### Community 2 - "verify_contract.py"
 Cohesion: 0.06
@@ -306,8 +307,8 @@ Cohesion: 0.12
 Nodes (23): bo_search(), build_pareto(), dominates(), evaluate_on_rows(), features(), load_i5_rows(), main(), pareto_front() (+15 more)
 
 ### Community 18 - "os"
-Cohesion: 0.10
-Nodes (18): argparse, Gate A loader: open c2.2/sim/assets/usd/machine.usda headless, report stage…, fail(), main(), I0 SimulationApp smoke: headless stage + one rigid cube, 60 physics steps. Gate…, # NOTE: close() os._exit()s via fast shutdown on success, so the JSON, Gate B: PhysX S1 twin-shaft (S1-A) + waste fragment clusters + breaking bonds.…, # NOTE: NO use_backend("tensor") scope: the ContactSensor (+10 more)
+Cohesion: 0.09
+Nodes (16): argparse, Gate A loader: open c2.2/sim/assets/usd/machine.usda headless, report stage…, fail(), main(), I0 SimulationApp smoke: headless stage + one rigid cube, 60 physics steps. Gate…, # NOTE: close() os._exit()s via fast shutdown on success, so the JSON, Gate E: 3-level dt sweep on one W1 + one W4 case (thin driver over s1_physx).…, main() (+8 more)
 
 ### Community 19 - "Inputs"
 Cohesion: 0.07
@@ -333,9 +334,9 @@ Nodes (20): main(), mesh_volume(), Path, FIX B(1): convex-hull fidelity audit fo
 Cohesion: 0.15
 Nodes (5): allocate_power(), Controller, Reference admission only; PSU 792 W rating does not raise this budget., controller(), ControllerTests
 
-### Community 25 - "subprocess"
-Cohesion: 0.11
-Nodes (15): Host-build the portable controller core; no target flash or energization., Gate E: 3-level dt sweep on one W1 + one W4 case (thin driver over s1_physx).…, main(), Gate F: real gap x screen sweep on survivors (thin driver). S1 gap sweep: shaft…, run(), A4 verifier tests (>=8): tamper detection, recompute checks. Forbidden terminal…, deck(), main() (+7 more)
+### Community 25 - "hashlib"
+Cohesion: 0.13
+Nodes (17): Host-build the portable controller core; no target flash or energization., load(), main(), Build deterministic P0-P6 + VP1 digital status and artifact manifests., sha256(), A4 verifier tests (>=8): tamper detection, recompute checks. Forbidden terminal…, deck(), main() (+9 more)
 
 ### Community 26 - "d3_bond.py"
 Cohesion: 0.12
@@ -369,13 +370,13 @@ Nodes (18): Run C2.1 Artifact Verification, Run C2.1 Transmission Analysis, Run 
 Cohesion: 0.12
 Nodes (18): Controller, BAND_ROTATION_PERIOD_MS, command_, gauge_gate_, gauge_seen_, integral_, latched_, limits_ (+10 more)
 
-### Community 34 - "hashlib"
-Cohesion: 0.13
-Nodes (12): load(), main(), Build deterministic P0-P6 + VP1 digital status and artifact manifests., sha256(), Verify the C2.1 P0-P6 digital package without granting hardware approval., csv, hashlib, Small geometric surrogate trained from actual sampled pin/profile distances.… (+4 more)
+### Community 34 - "materials.py"
+Cohesion: 0.15
+Nodes (8): Verify the C2.1 P0-P6 digital package without granting hardware approval., VP1 material choices and bounded mass properties for STEP-derived solids. These…, csv, functools, Small geometric surrogate trained from actual sampled pin/profile distances.…, torch, xml_etree_elementtree, zipfile
 
 ### Community 35 - "BondManager"
 Cohesion: 0.20
-Nodes (10): load_dir_for(), BondManager, Deterministic fallback fracture over a BondGraph., fixed_lattice(), TestDeterminism, TestInvalidInput, TestMassConservation, TestOrientationDependence (+2 more)
+Nodes (9): BondManager, Deterministic fallback fracture over a BondGraph., fixed_lattice(), TestDeterminism, TestInvalidInput, TestMassConservation, TestOrientationDependence, TestW1ZFirst (+1 more)
 
 ### Community 36 - "route_comparison.py"
 Cohesion: 0.17
@@ -430,8 +431,8 @@ Cohesion: 0.21
 Nodes (14): boundary_work(), _cross(), _dot(), _isaac_child(), on_post(), main(), D2 torque/work semantics diagnostic (Goal R0 section 4, D2). Definitions…, Axial contact torque on ONE shaft. contacts: iterable of (position_p,… (+6 more)
 
 ### Community 49 - "run_study.py"
-Cohesion: 0.19
-Nodes (11): Fail-closed control reference. NOT deployable motor/heater firmware., evaluate(), main(), Full incremental procurement coverage. A missing quotation is not zero cost., candidate_hashes(), canonical_sha256(), Verified performance ingestion and model gate. Geometry is never a breakage…, Reproduce C2 numerical results without CAD or any fabricated performance labels. (+3 more)
+Cohesion: 0.17
+Nodes (13): Fail-closed control reference. NOT deployable motor/heater firmware., evaluate(), main(), Full incremental procurement coverage. A missing quotation is not zero cost., candidate_hashes(), canonical_sha256(), Verified performance ingestion and model gate. Geometry is never a breakage…, _canon() (+5 more)
 
 ### Community 50 - "C2.1 S2 Transmission Schematic"
 Cohesion: 0.15
@@ -449,9 +450,9 @@ Nodes (14): Connected particulate transport HOLD, CROSS_FEED_SHAFT transverse sc
 Cohesion: 0.14
 Nodes (4): ChainGeometry, ChuteGeometry, GearGeometry, skipUnless
 
-### Community 54 - "run_combo"
-Cohesion: 0.16
-Nodes (11): check_ordering(), main(), OrderingError, RuntimeError, Fixed-lattice probe: identical geometry+seed, class strengths vary. Elementwise…, P0/P1 strand bundles carry no fracture claim (wrap risk only)., Nominal class ordering violated — nonphysical configuration., run_combo() (+3 more)
+### Community 54 - "i3_coupon.py"
+Cohesion: 0.19
+Nodes (13): check_ordering(), load_dir_for(), main(), OrderingError, RuntimeError, I3 single-event fracture smoke benchmark (Isaac-independent, numpy-only). 12…, Fixed-lattice probe: identical geometry+seed, class strengths vary. Elementwise…, P0/P1 strand bundles carry no fracture claim (wrap risk only). (+5 more)
 
 ### Community 55 - "ADR-002: VP1 체인 경로 vs 동결된 C1 구조물 릴리프 (chain routing reliefs)"
 Cohesion: 0.15
@@ -629,6 +630,10 @@ Nodes (3): S2 single-input reference kinematics, Shared M1 one-degree-of-freedom
 Cohesion: 0.67
 Nodes (3): build_library(), main(), Build the same C++ PI kernel used by the host controller self-test.
 
+### Community 189 - "d1_contact.py"
+Cohesion: 0.36
+Nodes (6): _isaac_child(), main(), D1 contact units + isolation diagnostic (Goal R0 section 4, D1). Exact…, run_one(), run_paths(), sha256_file()
+
 ## Knowledge Gaps
 - **235 isolated node(s):** `$schema`, `coordinate_units`, `date`, `included_severities`, `kicad_version` (+230 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 826 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
@@ -646,8 +651,8 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `$schema`, `coordinate_units`, `date` to the rest of the system?**
   _235 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `engineering.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.05612694681163679 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.058333333333333334 - nodes in this community are weakly interconnected._
 - **Should `json` be split into smaller, more focused modules?**
-  _Cohesion score 0.07948568088836938 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08525506638714186 - nodes in this community are weakly interconnected._
 - **Should `verify_contract.py` be split into smaller, more focused modules?**
   _Cohesion score 0.06259426847662142 - nodes in this community are weakly interconnected._

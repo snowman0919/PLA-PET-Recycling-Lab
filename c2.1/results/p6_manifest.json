@@ -1,7 +1,7 @@
 {
   "revision": "C2.1-P6+VP1-STAGE6",
   "scope": "P0-P6 + VP1 integrated digital review package",
-  "artifact_count": 187,
+  "artifact_count": 186,
   "artifacts": [
     {
       "file": "c2.1/bom/quality_component_candidates.csv",
@@ -62,11 +62,6 @@
       "file": "c2.1/cad/candidates/relocated_gravity.py",
       "bytes": 21186,
       "sha256": "4c24c927555c79f510e1021ef8e278274c9e4e334bce2cffc313704494849fee"
-    },
-    {
-      "file": "c2.1/cad/candidates/relocated_gravity.step",
-      "bytes": 92211749,
-      "sha256": "607015bbd1e070c880a549737bdfcbf27fdbc3d1e640c17bc2928d2607075e85"
     },
     {
       "file": "c2.1/cad/parts_stage1/AUG_BEARINGS.step",
@@ -830,8 +825,8 @@
     },
     {
       "file": "c2.1/src/build_release_manifest.py",
-      "bytes": 7007,
-      "sha256": "81a6d5da60423cdc2c26f4b537cfb93c4f08157cb7b7b078b5845d5bcdc2cc5a"
+      "bytes": 7340,
+      "sha256": "ba8545f903f27670713da460d9daf8fce4162fa232c4061c1ec45ebe8212f6c9"
     },
     {
       "file": "c2.1/src/build_system_bom.py",
