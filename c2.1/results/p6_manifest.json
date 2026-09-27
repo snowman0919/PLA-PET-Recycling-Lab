@@ -1,7 +1,7 @@
 {
   "revision": "C2.1-P6+VP1-STAGE6",
   "scope": "P0-P6 + VP1 integrated digital review package",
-  "artifact_count": 188,
+  "artifact_count": 189,
   "artifacts": [
     {
       "file": "c2.1/bom/quality_component_candidates.csv",
@@ -10,13 +10,13 @@
     },
     {
       "file": "c2.1/bom/system_bom.csv",
-      "bytes": 60801,
-      "sha256": "2b6c5425a28eceb110991d5222a132ddff23da77affb7641224f0db5bca66783"
+      "bytes": 61359,
+      "sha256": "0a04fb39dc969f3a7f11381879e5c4279b5c1cfe4e65bcf1f747e5e71fdd0913"
     },
     {
       "file": "c2.1/bom/system_bom.xlsx",
-      "bytes": 25562,
-      "sha256": "d143df815dc8c86f60c606ddc587d4fc4bc7527820869bd2c01d38aed559dd0a"
+      "bytes": 25828,
+      "sha256": "db50a47dc8f412910b336268f7f01ac6f8f98823afc0770ff8dd6d77a5d27a04"
     },
     {
       "file": "c2.1/bom/transmission_bom.csv",
@@ -25,8 +25,8 @@
     },
     {
       "file": "c2.1/bom/vp1_bom_delta.csv",
-      "bytes": 17721,
-      "sha256": "3fad96e53e1e20c5a5f8b79696c6e1ace8e2cee5c55c888378a53fac82bba686"
+      "bytes": 18250,
+      "sha256": "bb170ca5d208f1de017f43e1f1086a9c4c1af430aa84e680099417b2f17ca219"
     },
     {
       "file": "c2.1/cad/PPR_C2_1_S2_transmission.step",
@@ -45,13 +45,13 @@
     },
     {
       "file": "c2.1/cad/PPR_C2_1_machine_integration.FCStd",
-      "bytes": 6204575,
-      "sha256": "cae77586210d3104dbc74bed57c7032162a0c08088f692c64475cb0c47c20b34"
+      "bytes": 6207323,
+      "sha256": "69d641eafdf2836b55cc43db78803242e8216d747e4f5302ae207e8cfbb91191"
     },
     {
       "file": "c2.1/cad/PPR_VP1.step",
-      "bytes": 101129364,
-      "sha256": "10e0ba67d3d0b97137654050ad5ebaba408940b1eab1d807198fd67171746e99"
+      "bytes": 101197283,
+      "sha256": "79b6dbcb72775f53abab8c3c8bf14e01985b91f75e11f8d2ccb2c029cd9a815f"
     },
     {
       "file": "c2.1/cad/candidates/relocated_gravity.json",
@@ -569,9 +569,14 @@
       "sha256": "d88ad5ff54b6b9e86b938a275bf44ed079be729391639d109e93a1d869683ba1"
     },
     {
+      "file": "c2.1/cad/parts_stage1/WIND_SPOOL_RETENTION.step",
+      "bytes": 46899,
+      "sha256": "a1e447c8b540cd3a1ce57a7bb7a91f0a3cc7a318d5364ff448504e9bd19d958c"
+    },
+    {
       "file": "c2.1/cad/parts_stage1/WIND_SPOOL_SHAFT.step",
-      "bytes": 23144,
-      "sha256": "a6ca6891340f8560422bcb8c256aa5b7112f33df92fb49f75f3942085c7a896e"
+      "bytes": 35141,
+      "sha256": "23f7cb7aeac40849a4330b8e18450f5bfae2cc29fa67b8a89b5073f80a2c658f"
     },
     {
       "file": "c2.1/cad/parts_stage1/WIND_TENSIONER.step",
@@ -736,12 +741,12 @@
     {
       "file": "c2.1/results/machine_freecad.json",
       "bytes": 743,
-      "sha256": "4e9be8f1ee1265bc87908cd051e425ccd92caf3453ec593db77cfc50229957a5"
+      "sha256": "43c31b831f6ef1bf65e95a6f3fc6d74e9e92deaa6bf8ba808548acd167d34730"
     },
     {
       "file": "c2.1/results/machine_integration.json",
-      "bytes": 21843,
-      "sha256": "13a9edc690ff6aa997294fccd3cade82171ea6a5320f12cf2719b0a3314ce841"
+      "bytes": 21873,
+      "sha256": "9de71a2afbb1d86e87f71de3ad8d3a1cfa54847d252d0e4f377b97aa1b6b35de"
     },
     {
       "file": "c2.1/results/machine_wiring.json",
@@ -765,8 +770,8 @@
     },
     {
       "file": "c2.1/results/path_check.json",
-      "bytes": 10646,
-      "sha256": "ba09a7715b662bd7881ff55cdc5e5501c374b1781e910da7ca85ca0cb2178b08"
+      "bytes": 10708,
+      "sha256": "728979ba6d834b71711446bd1f4a0ccf9518c5cc194a8e1e1ad940e357571363"
     },
     {
       "file": "c2.1/results/power_sim.json",
@@ -786,17 +791,17 @@
     {
       "file": "c2.1/results/system_bom_summary.json",
       "bytes": 1461,
-      "sha256": "617b2e5d6f68201b1048b19064d854d4179b827b19002cccf595728750a60c73"
+      "sha256": "adac28c79443f05da90e9947a92db6cd85fc079cbdab7b14502eaede6ce6869a"
     },
     {
       "file": "c2.1/results/validation_summary.json",
       "bytes": 1780,
-      "sha256": "d0641df47d463e0b4b3511811e949e0e4ccbe45db4b38db4aca0c6313b0b569e"
+      "sha256": "239704396885e71edf2f64fb7b152d793788d44249a8ee58e38911309c382428"
     },
     {
       "file": "c2.1/results/winder_geometry.json",
-      "bytes": 5360,
-      "sha256": "5db7bb04b2ea9b06b21a76fbffe9bb17e75eb1a4daf397a9a1ab7376cb2962c3"
+      "bytes": 5685,
+      "sha256": "4524381facf8ec6280ba32bc052634eeaff4d3c538df686f250afdc25d26b0d5"
     },
     {
       "file": "c2.1/sources/register.json",
@@ -815,8 +820,8 @@
     },
     {
       "file": "c2.1/src/build_machine_freecad.py",
-      "bytes": 7669,
-      "sha256": "a76513a9538b7fa9e553bc928a218bd379cdab7c724c3abc5a1f2f72082ba725"
+      "bytes": 7714,
+      "sha256": "041556832b5de1d4ba8573d20cc226b1b8a17f4adaf382e6ae1d8da3f618cecb"
     },
     {
       "file": "c2.1/src/build_machine_integration.py",
@@ -885,8 +890,8 @@
     },
     {
       "file": "c2.1/src/path_check.py",
-      "bytes": 20546,
-      "sha256": "bfbb8a99160bb0fb44d6b9f6772d961e172c6f6d75c71afcac9be8d04756f7ef"
+      "bytes": 20620,
+      "sha256": "33cc009418c55d5a2ada4fb669bdf6d78d64e8d9e65e7d3fda2437f7149f9ae1"
     },
     {
       "file": "c2.1/src/power_sim.py",
@@ -925,13 +930,13 @@
     },
     {
       "file": "c2.1/src/winder.py",
-      "bytes": 18389,
-      "sha256": "b50567867d90b6adc222d2fa29696c0cf088f961f392151ee2da254c104634e5"
+      "bytes": 20088,
+      "sha256": "f95187c51a2658026c1807bc6174cda391e3c0e48ecc2fc766edd8c6573089f9"
     },
     {
       "file": "c2.1/tests/test_downstream.py",
-      "bytes": 15782,
-      "sha256": "3d9a610d521ddc8fbab9db658922d94cdc7d54a392648520dbb46574f8cf4492"
+      "bytes": 17574,
+      "sha256": "925bfbf70d863f4af598a4846c78929a7385c1cd717494c49a6dab3927b25277"
     },
     {
       "file": "c2.1/tests/test_transmission.py",

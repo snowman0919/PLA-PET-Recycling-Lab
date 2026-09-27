@@ -96,6 +96,35 @@ class DownstreamGeometryTests(unittest.TestCase):
                                w.spool_flange_l().BoundingBox().ymin)
 
     @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
+    def test_spool_axial_stops_react_clutch_and_capture_loose_flange(self):
+        shaft = w.spool_shaft()
+        left, right, washer = w.spool_retention()
+        collar, flange = w.spool_clutch_ref(), w.spool_flange_r()
+        # External rings sit in shaft grooves, not a full-diameter journal.
+        for ring in (left, right):
+            self.assertTrue(ring.isValid())
+            self.assertLess(shaft.intersect(ring).Volume(), 0.001)
+            self.assertLess(w.spool_bearing_blocks().intersect(ring).Volume(), 0.001)
+        self.assertLess(shaft.intersect(washer).Volume(), 0.001)
+        self.assertLess(right.intersect(washer).Volume(), 0.001)
+        self.assertLess(washer.intersect(flange).Volume(), 0.001)
+        self.assertAlmostEqual(left.BoundingBox().ymax, collar.BoundingBox().ymin)
+        self.assertAlmostEqual(flange.BoundingBox().ymax, washer.BoundingBox().ymin)
+        self.assertAlmostEqual(washer.BoundingBox().ymax, right.BoundingBox().ymin)
+        # A 0.5 mm rightward escape must meet a positive stop; the original
+        # flange could move 3 mm without contacting stationary metal.
+        self.assertGreater(
+            flange.translate((0, 0.5, 0)).intersect(washer).Volume(), 0.1)
+        # Both split rings occupy their grooves rather than floating outside
+        # the journal; a local probe at radius 7.5 intersects ring, not shaft.
+        for y, ring in ((96.5, left), (168.5, right)):
+            probe = cadquery.Solid.makeCylinder(
+                0.1, 0.2, cadquery.Vector(706, y - 0.1, 224.5),
+                cadquery.Vector(0, 1, 0))
+            self.assertLess(shaft.intersect(probe).Volume(), 0.001)
+            self.assertGreater(ring.intersect(probe).Volume(), 0.001)
+
+    @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
     def test_pull_and_cooling_tray_share_rear_metal_frame_path(self):
         import build_machine_integration as machine
         cfg = json.loads((R / "design/machine_integration.json").read_text())

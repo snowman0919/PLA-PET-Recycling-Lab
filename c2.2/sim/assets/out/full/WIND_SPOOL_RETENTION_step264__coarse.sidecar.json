@@ -1,0 +1,98 @@
+{
+  "asset_id": "WIND_SPOOL_RETENTION",
+  "group": "spool",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 264,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.264",
+  "mesh_file": "sim/assets/out/full/WIND_SPOOL_RETENTION_step264__coarse.stl",
+  "mesh_bytes": 10284,
+  "mesh_sha256": "3a9cbac3c0272f1ce1ed547e24791dcfed88c84298a0dd64b4b75d9dd62686fb",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "79b6dbcb72775f53abab8c3c8bf14e01985b91f75e11f8d2ccb2c029cd9a815f",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    687.9999999,
+    167.9999999,
+    207.9999999,
+    712.0000001,
+    169.0000001,
+    231.95826084310139
+  ],
+  "revision": "4e62bf9eb0be2c47a0b54d1e7edbde9893f60003",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "material": "STEEL",
+  "source_material_label": "steel ring + washer candidate",
+  "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
+  "thermal_condition": "hot-zone grade and measured temperature HOLD",
+  "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=WIND_SPOOL_RETENTION",
+  "model_source": "c2.2/sim/assets/materials.py",
+  "nominal_density_kg_m3": 7850.0,
+  "effective_fraction": 1.0,
+  "effective_density_kg_m3": 7850.0,
+  "effective_density_bounds_kg_m3": [
+    7850.0,
+    7850.0
+  ],
+  "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
+  "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
+  "volume_mm3": 279.910554552678,
+  "solid_bbox_mm": [
+    687.9999999,
+    167.9999999,
+    207.9999999,
+    712.0000001,
+    169.0000001,
+    231.9582608431014
+  ],
+  "mass_kg": 0.0021972978532385223,
+  "mass_bounds_kg": [
+    0.0021972978532385223,
+    0.0021972978532385223
+  ],
+  "center_of_mass_mm": [
+    700.0,
+    168.5,
+    219.9791303715507
+  ],
+  "inertia_kg_mm2": [
+    0.10528687162431545,
+    0.21057406210992238,
+    0.10565340694096655
+  ],
+  "inertia_upper_bound_kg_mm2": [
+    0.31586061487294637,
+    0.6317221863297672,
+    0.31696022082289965
+  ],
+  "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
+  "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
+  "inertia": {
+    "diagonal_kg_mm2": [
+      0.10528687162431545,
+      0.21057406210992238,
+      0.10565340694096655
+    ],
+    "upper_bound_kg_mm2": [
+      0.31586061487294637,
+      0.6317221863297672,
+      0.31696022082289965
+    ],
+    "center_of_mass_mm": [
+      700.0,
+      168.5,
+      219.9791303715507
+    ],
+    "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
+  },
+  "evidence_level": "MASS_AND_INERTIA_SCREENING_ASSUMPTION"
+}

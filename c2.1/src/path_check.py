@@ -254,8 +254,9 @@ def downstream_checks():
     _add("spool_winder", 58.0, 8.0, span_ok, "BREP_GEOMETRY",
          "A midpoint route probe from (829,275,125) to eyelet "
          "(742,128,245) avoids listed metal: %s. The drum rides freely "
-         "on its shaft; WIND_CLUTCH_REF contacts its steel flange, but "
-         "unselected motor, axial preload, joining and torque remain HOLD"
+         "on its shaft; WIND_CLUTCH_REF contacts its steel flange with "
+         "candidate groove-backed axial stops, but unselected motor, actual "
+         "spring preload, ring rating, joining and torque remain HOLD"
          % (blocked or "no blockage"))
     return worst
 

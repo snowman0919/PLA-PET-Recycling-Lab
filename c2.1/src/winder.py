@@ -38,8 +38,10 @@ Winder (axis Y at x=700, z=220; north of the cooling fans):
   a hollow steel tube with two internal end webs, loose on the shaft and
   joined to the flanges (weld/joint rating HOLD).
 - WIND_CLUTCH_REF: shaft key -> keyed collar -> wave-spring envelope ->
-  friction pad against the left flange. Axial preload/retention, torque
-  and wear are NOT specified; 70 Nmm in the model is only a sensitivity.
+  friction pad against the left flange. Two groove-backed external rings
+  and a loose-flange thrust washer close the axial reaction path geometrically.
+  Spring preload, groove/ring ratings, torque and wear remain unqualified;
+  70 Nmm in the model is only a sensitivity.
 - WIND_MOTOR_REF drives the shaft; winding is through the friction clutch,
   not through a fictitious rigid bond from the loose drum bore to the shaft.
 - WIND_TRAVERSE_SCREW + rider eyelet lays the filament.
@@ -193,8 +195,16 @@ def pull_motor_ref():
 
 
 def spool_shaft():
-    """Supported driven shaft, with a positive key at the clutch collar."""
+    """Supported driven shaft with a clutch key and two retaining-ring grooves.
+
+    Candidate 1 mm grooves at y96..97 and y168..169 have root radius 7.2 mm;
+    selected ring/groove tolerances, shaft fatigue and bearing thrust HOLD.
+    """
     shaft = _cyl(WIND["shaft_r"], 98.0, WIND["x"], 87.0, WIND["z"])
+    for y in (96.0, 168.0):
+        groove = _cyl(8.1, 1.0, WIND["x"], y, WIND["z"]).cut(
+            _cyl(7.2, 1.0, WIND["x"], y, WIND["z"]))
+        shaft = shaft.cut(groove)
     key = _box(698.5, 701.5, 97.0, 100.0, 227.0, 229.5)
     return shaft.fuse(key).clean()
 
@@ -268,8 +278,8 @@ def spool_flange_r():
 def spool_clutch_ref():
     """Reference friction path from keyed shaft to freely riding spool.
 
-    3 mm keyed collar, 1 mm spring envelope, 2 mm friction washer;
-    no axial preload/retention or torque limit has been established.
+    3 mm keyed collar, 1 mm spring envelope, 2 mm friction washer.
+    Axial stops are separate; no actual spring force or torque limit established.
     The collar's radial keyslot clears the separate shaft key.
     """
     bore = _cyl(8.1, 7.0, WIND["x"], 96.5, WIND["z"])
@@ -278,6 +288,29 @@ def spool_clutch_ref():
     spring = _cyl(13.0, 1.0, WIND["x"], 100.0, WIND["z"]).cut(bore)
     pad = _cyl(30.0, 2.0, WIND["x"], 101.0, WIND["z"]).cut(bore)
     return collar.fuse(spring).fuse(pad).clean()
+
+def spool_retention():
+    """Candidate groove-backed split rings and right loose-flange thrust washer.
+
+    Axial chain: left ring -> keyed collar -> spring/pad -> left flange ->
+    welded drum/right flange -> washer -> right ring -> shaft. At nominal
+    position all faces touch; a measured spring compression, a selected ring
+    specification, axial clearance stack and bearing thrust path are HOLD.
+    """
+    rings = []
+    for y in (96.0, 168.0):
+        ring = _cyl(12.0, 1.0, WIND["x"], y, WIND["z"]).cut(
+            _cyl(7.2, 1.0, WIND["x"], y, WIND["z"]))
+        # Open split allows radial installation without sliding over the key.
+        ring = ring.cut(_box(699.0, 701.0, y, y + 1.0, 227.0, 233.0))
+        rings.append(ring.clean())
+    washer = _cyl(15.0, 1.0, WIND["x"], 167.0, WIND["z"]).cut(
+        _cyl(8.5, 1.0, WIND["x"], 167.0, WIND["z"]))
+    return rings[0], rings[1], washer.clean()
+
+
+def spool_retention_parts():
+    return cq.Compound.makeCompound(spool_retention())
 
 
 def winder_motor_ref():
@@ -323,6 +356,7 @@ def components():
             ("WIND_MOUNT", winder_mount(), "spool"),
             ("WIND_SPOOL_DRUM", spool_drum(), "spool"),
             ("WIND_CLUTCH_REF", spool_clutch_ref(), "spool"),
+            ("WIND_SPOOL_RETENTION", spool_retention_parts(), "spool"),
             ("WIND_FLANGE_L", spool_flange_l(), "spool"),
             ("WIND_FLANGE_R", spool_flange_r(), "spool"),
             ("WIND_MOTOR_REF", winder_motor_ref(), "spool"),
@@ -389,6 +423,8 @@ if __name__ == "__main__":
                                    * density_g_mm3, 2),
                   "pull_cool_mount_g": round(by_name["PULL_COOL_MOUNT"].Volume()
                                              * density_g_mm3, 2),
+                  "retention_ring_and_washer_g": round(
+                      by_name["WIND_SPOOL_RETENTION"].Volume() * density_g_mm3, 2),
                   "cost_and_weld_rating": "HOLD: no quotes or measured joints"},
               "passed": not fails and nip_opening_mm() <= FILAMENT_MM}
     (ROOT / "results" / "winder_geometry.json").write_text(
