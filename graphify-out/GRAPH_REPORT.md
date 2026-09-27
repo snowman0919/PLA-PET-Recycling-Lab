@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d891e350`
+- Built from commit: `dcf5f3b8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -253,7 +253,7 @@ Nodes (14): _load(), Gate A-F dynamics contract tests (no SimulationApp: manifes
 
 ### Community 4 - "guards.py"
 Cohesion: 0.18
-Nodes (16): _box(), components(), guard_chain_a(), guard_chain_b(), guard_lid_interlock_seat(), guard_s2_ring(), VP1 Stage 2: real containment guards, E-stop mounts and interlock seats.…, Named guard parts in absolute machine coordinates (group 'guard'). (+8 more)
+Nodes (16): _box(), components(), guard_chain_a(), guard_chain_b(), guard_lid_interlock_seat(), guard_s2_ring(), VP1 Stage 2: containment guards and lid-interlock seat. Replaces the…, Named guard parts in absolute machine coordinates (group 'guard'). (+8 more)
 
 ### Community 5 - "performance.py"
 Cohesion: 0.12

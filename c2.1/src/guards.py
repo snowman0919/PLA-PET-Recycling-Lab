@@ -1,4 +1,4 @@
-"""VP1 Stage 2: real containment guards, E-stop mounts and interlock seats.
+"""VP1 Stage 2: containment guards and lid-interlock seat.
 
 Replaces the placeholder GUARD_SECTION_ENVELOPE_HOLD instance (excluded in
 build_machine_integration.py) with real guard solids:
@@ -15,8 +15,9 @@ build_machine_integration.py) with real guard solids:
   chain-vs-layout contacts (S1-ROOF-R_001, S1-STUD, DRV-B12, DRV-DECK,
   DRV-JACK) - those remain known contacts in machine_integration.json and
   are restated in the guard results block.
-- EL interlocks/E-stops live in electrical_bay.py; the lid interlock seat
-  GUARD_LID_INTERLOCK_SEAT is here (hopper lid edge).
+- EL_ESTOP_BOX in electrical_bay.py is the safety relay enclosure, not the
+  physical stop-button mount; its panel cutout and mounting depth are unknown.
+  The lid-interlock seat GUARD_LID_INTERLOCK_SEAT is here (hopper lid edge).
 
 Service sweep (ASSEMBLY_SERVICE_KO.md): screen cleaning, jam clearing,
 blade/shim adjustment and sensor replacement require the shafts locked and

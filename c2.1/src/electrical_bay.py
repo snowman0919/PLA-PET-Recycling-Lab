@@ -1,7 +1,8 @@
 """VP1 Stage 2: electrical bay CAD (above the owned PSU) + aggregate load.
 
-The owned PSU (240x120x65 box) sits at (370..610, 40..160, 30..95); the bay
-occupies the free volume directly above it (z 95..165).  Parts:
+The user-reported PSU exterior (240x120x65 box) sits at (370..610, 40..160,
+30..95); neither mounting pattern nor cooling/protection is qualified. The bay
+occupies the free volume directly above it (z 95..165). Parts:
 - EL_DIN_RAIL: 35 mm top-hat rail (simplified prism) x 385..595.
 - EL_DRIVER_1/2/3: stepper/BLDC driver bodies clipped on the rail
   (M1, M2, spool/puller accessory drives).

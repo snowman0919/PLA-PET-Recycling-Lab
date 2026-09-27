@@ -110,25 +110,27 @@ def main():
             status = "OWNED_REPORTED_RATING_HOLD"
             landed, cost_state = "", "OWNED_BUTTON_NO_NEW_PURCHASE_UNQUALIFIED"
             evidence = "USER_REPORTED_2NC_BUTTON_MODEL_UNVERIFIED"
-            notes = (notes + " One 2NC button reported owned; model, contact "
-                     "rating, positive opening, wiring and hard-cut contactor "
-                     "unverified. No additional button purchase assumed; "
-                     "full safety circuit still unquoted.")
+            notes = (notes + " One 2NC button reported owned, with a reported "
+                     "35x35 mm size (which face, body depth and panel cutout "
+                     "unidentified); model, contact rating, positive opening, "
+                     "wiring and hard-cut contactor unverified. No additional "
+                     "button purchase assumed; full safety circuit unquoted.")
         elif part_id == "EL-PSU":
-            # The Chiron donor PSU exists; the historical rating and modeled
-            # envelope are not label measurements or a qualified power circuit.
+            # The donor rating and exterior size are user-reported, not a
+            # nameplate, mount-hole, protection or power-circuit qualification.
             description = "User-reported Anycubic Chiron donor PSU, 24V 800W (label unverified)"
             material = "Donor PSU (unverified)"
             status = "OWNED_REPORTED_RATING_HOLD"
             landed, cost_state = "", "OWNED_DONOR_PSU_NO_NEW_PURCHASE_UNQUALIFIED"
             evidence = "USER_REPORTED_CHIRON_PSU_LABEL_UNVERIFIED"
             notes = (notes.replace("120x240x65 user measurement",
-                                   "120x240x65 historical modeled envelope")
-                     + " Chiron donor PSU reported owned; 24V 800W is "
-                     "historical user report and 240x120x65 mm is a modeled "
-                     "envelope, not a measured nameplate or fit. Check label, "
-                     "dimensions, condition, protection and 500W staged duty; "
-                     "no replacement PSU purchase assumed.")
+                                   "240x120x65 mm user-reported exterior")
+                     .replace("model contains true body only",
+                              "CAD box is an exterior envelope only")
+                     + " Chiron donor PSU reported owned; 24V 800W is user-"
+                     "reported. Label, mounting pattern, condition, protection "
+                     "and 500W staged duty remain unverified; no replacement "
+                     "PSU purchase assumed.")
         elif cost.get("owned_verified") == "True" or status.startswith("OWNED"):
             # Historical handover inventory is not current qualified stock.
             # Other donor subparts require an individual interface check.
