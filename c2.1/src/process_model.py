@@ -234,9 +234,10 @@ def simulate(p: LineParams, t_total_s=180.0, controller=None,
 
     Disturbance callable receives {t_s, heater_W, barrel_C, spool_radius_mm,
     tension_N, v_pull}; can return mdot_factor, ambient_shift_C,
-    sensor_bias_mm, sensor_dropout, sensor_major_dropout,
-    sensor_minor_dropout, clutch_failed, tension_N and barrel_loss_extra_W.
-    Unmeasured/uncooled elements are NEVER credited.
+    sensor_bias_mm, sensor_dropout (no new sample), sensor_major_dropout or
+    sensor_minor_dropout (explicit invalid axis), clutch_failed, tension_N
+    and barrel_loss_extra_W. Unmeasured/uncooled elements are NEVER credited.
+    Controller receives (latest measurement, t_s, explicit_axis_invalid).
     """
     mat = MATERIALS[p.material]
     barrel = [mat["T_die"] - 30, mat["T_die"] - 15,
@@ -265,7 +266,9 @@ def simulate(p: LineParams, t_total_s=180.0, controller=None,
         if not env.get("clutch_failed", False):
             tension = min(tension, p.clutch_torque_Nmm / radius,
                           p.tensioner_limit_N)
-        v_cmd = controller(measured, t) if controller else p.v_line_mm_s
+        v_cmd = (controller(measured, t, bool(
+            env.get("sensor_major_dropout") or env.get("sensor_minor_dropout")))
+                 if controller else p.v_line_mm_s)
         if getattr(controller, "halted_at_s", None) is not None:
             # A latched gauge loss stops the process. The strand still between
             # die and nip cannot be credited without a restart/purge.

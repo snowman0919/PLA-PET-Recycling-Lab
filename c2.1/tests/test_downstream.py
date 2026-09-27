@@ -337,7 +337,7 @@ class ProcessModelPhysicsTests(unittest.TestCase):
         controller = rc.PIController(p.v_line_mm_s)
         samples = pm.simulate(p, 75, controller=controller,
                               disturbance=minor_dropout)
-        self.assertIsNotNone(controller.halted_at_s)
+        self.assertAlmostEqual(controller.halted_at_s, 40.0)
         self.assertTrue(all(s["t_s"] < controller.halted_at_s for s in samples))
 
     def test_barrel_loss_changes_heat_and_mass_flow_under_staging(self):
@@ -375,6 +375,22 @@ class FeedbackTests(unittest.TestCase):
         self.assertEqual(ctrl(None, 10.1), updated)
         self.assertEqual(ctrl(None, 11.0), updated)
 
+    def test_short_invalid_axis_halts_but_short_absent_sample_does_not(self):
+        p = pm.LineParams()
+        def fault(field):
+            return lambda env: {**env, field: 40 <= env["t_s"] < 40.4}
+        invalid = rc.PIController(p.v_line_mm_s)
+        _, pending = pm.simulate(
+            p, 70, controller=invalid,
+            disturbance=fault("sensor_minor_dropout"), return_pending=True)
+        self.assertAlmostEqual(invalid.halted_at_s, 40.0)
+        self.assertGreater(pending, 280)
+        absent = rc.PIController(p.v_line_mm_s)
+        recovered = pm.simulate(
+            p, 70, controller=absent, disturbance=fault("sensor_dropout"))
+        self.assertIsNone(absent.halted_at_s)
+        self.assertGreater(pm.quality_summary(recovered)["unmeasured_length_mm"], 0)
+
     def test_sensor_dropout_latches_feedback_and_cuts_product_length(self):
         fixed, _ = rc.run_route("fixed", rc.fixed_speed_controller, "transient")
         feedback, samples = rc.run_route(
@@ -396,7 +412,7 @@ class FeedbackTests(unittest.TestCase):
             "feedback", lambda p: rc.PIController(p.v_line_mm_s),
             "minor_axis_dropout")
         self.assertGreater(fixed["unmeasured_length_mm"], 70)
-        self.assertGreater(feedback["controller_halted_at_s"], 146)
+        self.assertAlmostEqual(feedback["controller_halted_at_s"], 145.0)
         self.assertGreater(feedback["pending_unqualified_length_mm"], 280)
         self.assertLess(feedback["qualified_fraction_of_produced"], 0.80)
         self.assertLess(feedback["in_spec_length_mm"], fixed["in_spec_length_mm"])

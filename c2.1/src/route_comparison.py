@@ -38,15 +38,16 @@ TOL_MM = 0.05
 
 
 def fixed_speed_controller(p):
-    return lambda measured_mm, t_s: p.v_line_mm_s
+    return lambda measured_mm, t_s, gauge_invalid=False: p.v_line_mm_s
 
 
 class PIController:
     """Host model runs the C++ controller's PI kernel, not a Python replica.
 
-    The C++ controller also latches quality_hold if feedback goes stale.
-    This simplified parcel model stops at >1s missing observations after the
-    first crossing. It does not claim to emulate the entire safety allocator.
+    The C++ controller latches quality_hold immediately on an explicitly
+    invalid axis after feedback is armed, or after a stale valid reading.
+    This parcel model uses >1s without a new sample for the latter case.
+    It does not emulate the entire safety allocator.
     """
     def __init__(self, v_nominal):
         self.v_nominal = v_nominal
@@ -55,8 +56,11 @@ class PIController:
         self.last_time = None
         self.halted_at_s = None
 
-    def __call__(self, measured_mm, t_s):
+    def __call__(self, measured_mm, t_s, gauge_invalid=False):
         if self.halted_at_s is not None:
+            return 0.0
+        if gauge_invalid and self.last_time is not None:
+            self.halted_at_s = t_s
             return 0.0
         if measured_mm is None:
             if self.last_time is not None and t_s - self.last_time > 1.0:
@@ -189,10 +193,10 @@ def compare():
             "Solid density, conductivity, convection, grip, clutch and temperature-flow sensitivity are assumed, not measured on PPR.",
             "Spool torque/radius gives quasistatic tension only; the lighter CAD drum does not validate acceleration, inertia, welds, bearing load or clutch transient torque.",
             "The puller's influence on the molten draw point is instantaneous here; strand elasticity, melt swelling, pressure and contact deformation are omitted.",
-            "PI arithmetic uses the host-built C++ firmware kernel; a >1s post-start missing gauge sample stops this model. Other firmware safety, power and motor I/O are NOT exercised in the parcel simulation.",
+            "PI arithmetic uses the host-built C++ firmware kernel; a >1s post-start absence of new gauge samples or an explicitly invalid axis after arming stops this model. Other firmware safety, power and motor I/O are NOT exercised in the parcel simulation.",
             "The composite transient's clutch fault at 170..178 s occurs after the feedback route halts on missing gauge at 146 s; the isolated clutch_fault scenario exposes both routes to that fault without bypassing the HOLD.",
             "Fixed-speed baseline uses the same diagnostic gauge for after-the-fact scoring, not as a live motor interlock.",
-            "The modeled nip quality gate checks both true axes and both biased gauge axes; a missing axis disqualifies length and halts feedback after >1s. The PI arithmetic uses their area-equivalent diameter, matching the C++ reference controller but not proving physical calibration.",
+            "The modeled nip quality gate checks both true axes and both biased gauge axes; an invalid axis immediately halts armed feedback, while a short absence of new samples does not. The PI arithmetic uses their area-equivalent diameter, matching the C++ reference controller but not proving physical calibration.",
             "Two-axis sensor accuracy and native continuous production remain unverified.",
             "In-spec fractions are scenario sensitivity, not physical yield or economic acceptance.",
         ],
