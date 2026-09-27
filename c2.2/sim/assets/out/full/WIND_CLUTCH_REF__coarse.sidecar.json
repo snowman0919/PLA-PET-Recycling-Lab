@@ -10,7 +10,7 @@
   "mesh_sha256": "e8fee7c7f282b04df2da086433f7072f5b72870f27d29489fc9e81dea7af0512",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "79b6dbcb72775f53abab8c3c8bf14e01985b91f75e11f8d2ccb2c029cd9a815f",
+  "source_step_sha256": "069526490adaf17397491c91e29b4ef5d546f059e48e417fcd9486a379671b8f",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
@@ -21,7 +21,7 @@
     103.00000015,
     250.00000015
   ],
-  "revision": "4e62bf9eb0be2c47a0b54d1e7edbde9893f60003",
+  "revision": "f958f28f7d1b20500a35606f3e1a57fdf801381b",
   "conversion_script": "c2.2/sim/assets/convert.py",
   "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
   "tessellation": {
@@ -31,7 +31,7 @@
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
   "material": "MIXED_CLUTCH_PROXY",
-  "source_material_label": "steel collar + friction pad + spring reference",
+  "source_material_label": "steel collar + friction pad + spring unselected",
   "manufacturing_process": "steel keyed collar with unresolved friction pad and spring stack; no qualified preload, torque or material split",
   "thermal_condition": "slip heating, wear and guard qualification HOLD",
   "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",

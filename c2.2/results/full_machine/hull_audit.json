@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_hull_audit/1",
   "bodies_json": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/out/full/bodies.json",
-  "step_sha256": "79b6dbcb72775f53abab8c3c8bf14e01985b91f75e11f8d2ccb2c029cd9a815f",
-  "revision": "4e62bf9eb0be2c47a0b54d1e7edbde9893f60003",
+  "step_sha256": "069526490adaf17397491c91e29b4ef5d546f059e48e417fcd9486a379671b8f",
+  "revision": "f958f28f7d1b20500a35606f3e1a57fdf801381b",
   "method": "closed-mesh volume (divergence theorem) of the converted STL vs scipy ConvexHull volume; occlusion ratio = hull/mesh; ratio 1.0 = convex solid, >1.05 flagged as an occluded pocket/aperture",
   "summary": {
     "solids": 294,
@@ -1664,19 +1664,19 @@
     {
       "name": "WIND_SPOOL_RETENTION",
       "body": "STATIC",
-      "occlusion_ratio": 1.61703,
+      "occlusion_ratio": 3.59521,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "WIND_SPOOL_RETENTION",
       "body": "STATIC",
-      "occlusion_ratio": 1.61703,
+      "occlusion_ratio": 3.59521,
       "decision": "triangleMesh_concave"
     },
     {
       "name": "WIND_SPOOL_RETENTION",
       "body": "STATIC",
-      "occlusion_ratio": 1.47299,
+      "occlusion_ratio": 1.41163,
       "decision": "triangleMesh_concave"
     },
     {
@@ -4608,9 +4608,9 @@
       "name": "WIND_SPOOL_SHAFT",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 19465.9,
+      "mesh_volume_mm3": 19494.3,
       "hull_volume_mm3": 20107.5,
-      "occlusion_ratio": 1.03296,
+      "occlusion_ratio": 1.03146,
       "occlusion_flag": false,
       "hull_vertices": 74,
       "decision": "triangleMesh_concave"
@@ -4674,9 +4674,9 @@
       "name": "WIND_SPOOL_RETENTION",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 277.0,
-      "hull_volume_mm3": 448.0,
-      "occlusion_ratio": 1.61703,
+      "mesh_volume_mm3": 61.1,
+      "hull_volume_mm3": 219.8,
+      "occlusion_ratio": 3.59521,
       "occlusion_flag": true,
       "hull_vertices": 52,
       "decision": "triangleMesh_concave"
@@ -4685,9 +4685,9 @@
       "name": "WIND_SPOOL_RETENTION",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 277.0,
-      "hull_volume_mm3": 448.0,
-      "occlusion_ratio": 1.61703,
+      "mesh_volume_mm3": 61.1,
+      "hull_volume_mm3": 219.8,
+      "occlusion_ratio": 3.59521,
       "occlusion_flag": true,
       "hull_vertices": 52,
       "decision": "triangleMesh_concave"
@@ -4696,9 +4696,9 @@
       "name": "WIND_SPOOL_RETENTION",
       "body": "STATIC",
       "lod": "coarse",
-      "mesh_volume_mm3": 475.2,
+      "mesh_volume_mm3": 495.9,
       "hull_volume_mm3": 700.0,
-      "occlusion_ratio": 1.47299,
+      "occlusion_ratio": 1.41163,
       "occlusion_flag": true,
       "hull_vertices": 52,
       "decision": "triangleMesh_concave"

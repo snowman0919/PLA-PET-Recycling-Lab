@@ -1,10 +1,10 @@
 {
   "schema": "full_machine_bodies/1",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "79b6dbcb72775f53abab8c3c8bf14e01985b91f75e11f8d2ccb2c029cd9a815f",
+  "source_step_sha256": "069526490adaf17397491c91e29b4ef5d546f059e48e417fcd9486a379671b8f",
   "source_step_solid_count": 294,
   "reconstructed_solid_count": 294,
-  "revision": "4e62bf9eb0be2c47a0b54d1e7edbde9893f60003",
+  "revision": "f958f28f7d1b20500a35606f3e1a57fdf801381b",
   "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
   "solids": [
     {
@@ -18276,7 +18276,7 @@
         229.5000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "f234ab66111207691e67cd35135df2a4806904e8a92faeb879069189a73b7ee8",
+      "mesh_sha256": "f87817c0b3ab0789d0b57cc896650e3c27f89f127ce9a26042fba397417c54c4",
       "material": "STEEL",
       "source_material_label": "C45 candidate",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
@@ -18292,7 +18292,7 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 19641.589718131796,
+      "volume_mm3": 19670.241671451073,
       "solid_bbox_mm": [
         691.9999999,
         86.9999999,
@@ -18301,10 +18301,10 @@
         185.0000001,
         229.5000001
       ],
-      "mass_kg": 0.1541864792873346,
+      "mass_kg": 0.15441139712089091,
       "mass_bounds_kg": [
-        0.1541864792873346,
-        0.1541864792873346
+        0.15441139712089091,
+        0.15441139712089091
       ],
       "center_of_mass_mm": [
         700.0,
@@ -18312,14 +18312,14 @@
         220.75
       ],
       "inertia_kg_mm2": [
-        127.3355469567269,
-        7.224279170450192,
-        126.68989106700182
+        127.52129628759296,
+        7.234817508361104,
+        126.87469855442862
       ],
       "inertia_upper_bound_kg_mm2": [
-        382.0066408701807,
-        21.672837511350576,
-        380.06967320100546
+        382.56388886277887,
+        21.704452525083312,
+        380.62409566328586
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -18633,7 +18633,7 @@
       "bbox_ok": true,
       "mesh_sha256": "e8fee7c7f282b04df2da086433f7072f5b72870f27d29489fc9e81dea7af0512",
       "material": "MIXED_CLUTCH_PROXY",
-      "source_material_label": "steel collar + friction pad + spring reference",
+      "source_material_label": "steel collar + friction pad + spring unselected",
       "manufacturing_process": "steel keyed collar with unresolved friction pad and spring stack; no qualified preload, torque or material split",
       "thermal_condition": "slip heating, wear and guard qualification HOLD",
       "material_source": "c2.1/bom/vp1_bom_delta.csv; design choice in c2.2/sim/assets/materials.py",
@@ -18686,25 +18686,25 @@
       "body": "STATIC",
       "step_index": 263,
       "part_bbox": [
-        687.9999999,
-        95.9999999,
-        207.9999999,
-        712.0000001,
-        97.0000001,
-        231.95826084310139
+        691.0899999000001,
+        96.05499990000001,
+        211.0899999,
+        708.9100000999999,
+        96.9450001,
+        228.85370553896735
       ],
       "solid_bbox": [
-        687.9999999,
-        95.9999999,
-        207.9999999,
-        712.0000001,
-        97.0000001,
-        231.9582608431014
+        691.0899999000001,
+        96.05499990000001,
+        211.0899999,
+        708.9100000999999,
+        96.9450001,
+        228.85370553896772
       ],
       "bbox_ok": true,
-      "mesh_sha256": "b3fa8804dc0095653224f5d4a6556fc5b111d631a68d2d6779202a67c036de0d",
+      "mesh_sha256": "7a86282ce09d8ad1a694c4bdf669e1188763cdf1c2ad30bebf584d0c37807598",
       "material": "STEEL",
-      "source_material_label": "steel ring + washer candidate",
+      "source_material_label": "ring spring steel candidate + steel washer",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
       "thermal_condition": "hot-zone grade and measured temperature HOLD",
       "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=WIND_SPOOL_RETENTION",
@@ -18718,34 +18718,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 279.910554552678,
+      "volume_mm3": 61.7765999106437,
       "solid_bbox_mm": [
-        687.9999999,
-        95.9999999,
-        207.9999999,
-        712.0000001,
-        97.0000001,
-        231.9582608431014
+        691.0899999000001,
+        96.05499990000001,
+        211.0899999,
+        708.9100000999999,
+        96.9450001,
+        228.85370553896772
       ],
-      "mass_kg": 0.0021972978532385223,
+      "mass_kg": 0.00048494630929855307,
       "mass_bounds_kg": [
-        0.0021972978532385223,
-        0.0021972978532385223
+        0.00048494630929855307,
+        0.00048494630929855307
       ],
       "center_of_mass_mm": [
         700.0,
         96.5,
-        219.9791303715507
+        219.97185271948388
       ],
       "inertia_kg_mm2": [
-        0.10528687162431545,
-        0.21057406210992238,
-        0.10565340694096655
+        0.01278404704398614,
+        0.02558502551909919,
+        0.012864999499152428
       ],
       "inertia_upper_bound_kg_mm2": [
-        0.31586061487294637,
-        0.6317221863297672,
-        0.31696022082289965
+        0.038352141131958416,
+        0.07675507655729757,
+        0.03859499849745728
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -18757,25 +18757,25 @@
       "body": "STATIC",
       "step_index": 264,
       "part_bbox": [
-        687.9999999,
-        167.9999999,
-        207.9999999,
-        712.0000001,
-        169.0000001,
-        231.95826084310139
+        691.0899999000001,
+        168.0549999,
+        211.0899999,
+        708.9100000999999,
+        168.9450001,
+        228.85370553896735
       ],
       "solid_bbox": [
-        687.9999999,
-        167.9999999,
-        207.9999999,
-        712.0000001,
-        169.0000001,
-        231.9582608431014
+        691.0899999000001,
+        168.0549999,
+        211.0899999,
+        708.9100000999999,
+        168.9450001,
+        228.85370553896772
       ],
       "bbox_ok": true,
-      "mesh_sha256": "3a9cbac3c0272f1ce1ed547e24791dcfed88c84298a0dd64b4b75d9dd62686fb",
+      "mesh_sha256": "d29f03e3fd3f3ba8232cc617bedd0ee15f6ddc46850580e0c362efab8037fd46",
       "material": "STEEL",
-      "source_material_label": "steel ring + washer candidate",
+      "source_material_label": "ring spring steel candidate + steel washer",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
       "thermal_condition": "hot-zone grade and measured temperature HOLD",
       "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=WIND_SPOOL_RETENTION",
@@ -18789,34 +18789,34 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 279.910554552678,
+      "volume_mm3": 61.77659991064367,
       "solid_bbox_mm": [
-        687.9999999,
-        167.9999999,
-        207.9999999,
-        712.0000001,
-        169.0000001,
-        231.9582608431014
+        691.0899999000001,
+        168.0549999,
+        211.0899999,
+        708.9100000999999,
+        168.9450001,
+        228.85370553896772
       ],
-      "mass_kg": 0.0021972978532385223,
+      "mass_kg": 0.00048494630929855285,
       "mass_bounds_kg": [
-        0.0021972978532385223,
-        0.0021972978532385223
+        0.00048494630929855285,
+        0.00048494630929855285
       ],
       "center_of_mass_mm": [
         700.0,
         168.5,
-        219.9791303715507
+        219.97185271948388
       ],
       "inertia_kg_mm2": [
-        0.10528687162431545,
-        0.21057406210992238,
-        0.10565340694096655
+        0.012784047043986134,
+        0.025585025519099178,
+        0.012864999499152421
       ],
       "inertia_upper_bound_kg_mm2": [
-        0.31586061487294637,
-        0.6317221863297672,
-        0.31696022082289965
+        0.0383521411319584,
+        0.07675507655729753,
+        0.03859499849745726
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -18844,9 +18844,9 @@
         235.0000001
       ],
       "bbox_ok": true,
-      "mesh_sha256": "5147eaf7a862da3d52d3ac0f14394d0652121bc0b397c92d18c34adaf3d77ec6",
+      "mesh_sha256": "8adab0bdc213bc275ed3b6fd05dcf6b63a1ae582aa386f9ad2db0e3c21848e57",
       "material": "STEEL",
-      "source_material_label": "steel ring + washer candidate",
+      "source_material_label": "ring spring steel candidate + steel washer",
       "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
       "thermal_condition": "hot-zone grade and measured temperature HOLD",
       "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=WIND_SPOOL_RETENTION",
@@ -18860,7 +18860,7 @@
       ],
       "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
       "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-      "volume_mm3": 479.8782778358512,
+      "volume_mm3": 500.7384530556881,
       "solid_bbox_mm": [
         684.9999999,
         166.9999999,
@@ -18869,10 +18869,10 @@
         168.0000001,
         235.0000001
       ],
-      "mass_kg": 0.003767044481011432,
+      "mass_kg": 0.003930796856487152,
       "mass_bounds_kg": [
-        0.003767044481011432,
-        0.003767044481011432
+        0.003930796856487152,
+        0.003930796856487152
       ],
       "center_of_mass_mm": [
         700.0,
@@ -18880,14 +18880,14 @@
         220.0
       ],
       "inertia_kg_mm2": [
-        0.2828422603418874,
-        0.5650566796858022,
-        0.28284226034188636
+        0.29513733470306686,
+        0.5896195363346649,
+        0.29513733470306575
       ],
       "inertia_upper_bound_kg_mm2": [
-        0.8485267810256623,
-        1.6951700390574067,
-        0.848526781025659
+        0.8854120041092006,
+        1.7688586090039948,
+        0.8854120041091973
       ],
       "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
       "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
@@ -20883,10 +20883,10 @@
     }
   ],
   "material_model": "c2.2/sim/assets/materials.py",
-  "material_model_sha256": "7170bcff8985bfcdd05e4257b7b77eabc8de3d163bae2a90993539124e0524be",
+  "material_model_sha256": "0ac129aba9246dc518ccea53d463a8648c36e38b24b0e09d2a439f1cba953210",
   "material_scope": {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. WIND_SPOOL_RETENTION is a steel split-ring/washer geometry candidate with two shaft grooves, not selected hardware. Profile joints, tray attachment, flange seams, ring/groove fatigue, spring preload, bearing thrust and balance remain HOLD.",
+    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. WIND_SPOOL_RETENTION is an ES-16 two-turn spring-steel dimensional envelope and steel thrust washer with two shaft grooves, not selected hardware or a rated preload; the catalog spiral detail is unmodeled. Profile joints, tray attachment, flange seams, ring/groove fatigue, spring preload, bearing thrust and balance remain HOLD.",
     "excluded": "PLA excluded from hot/load paths and permanent guards; ABS excluded from heater/cutter/feed throat. PC lower containment and thermal exposure require material and process qualification. No printed keys or bearing seats.",
     "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation and six walls; bed fit is not impact, layer or seam qualification. Printed ABS eyelet on WIND_TRAVERSE_RIDER is folded into a bounded steel/polymer proxy, not counted twice. No ABS spool drum remains in this VP1 candidate.",
     "boundary": "All materials are screening choices; profile web/slot metal area, mixed sensor/clutch mass, printed wall mass and real motor/fan internals require measured or vendor inputs. No strength, safety or fabrication release."
@@ -22981,7 +22981,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/WIND_SPOOL_SHAFT__coarse.stl",
       "bytes": 26884,
-      "sha256": "f234ab66111207691e67cd35135df2a4806904e8a92faeb879069189a73b7ee8"
+      "sha256": "f87817c0b3ab0789d0b57cc896650e3c27f89f127ce9a26042fba397417c54c4"
     },
     {
       "name": "WIND_SPOOL_BEARINGS",
@@ -23029,7 +23029,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/WIND_SPOOL_RETENTION_step263__coarse.stl",
       "bytes": 10284,
-      "sha256": "b3fa8804dc0095653224f5d4a6556fc5b111d631a68d2d6779202a67c036de0d"
+      "sha256": "7a86282ce09d8ad1a694c4bdf669e1188763cdf1c2ad30bebf584d0c37807598"
     },
     {
       "name": "WIND_SPOOL_RETENTION",
@@ -23037,7 +23037,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/WIND_SPOOL_RETENTION_step264__coarse.stl",
       "bytes": 10284,
-      "sha256": "3a9cbac3c0272f1ce1ed547e24791dcfed88c84298a0dd64b4b75d9dd62686fb"
+      "sha256": "d29f03e3fd3f3ba8232cc617bedd0ee15f6ddc46850580e0c362efab8037fd46"
     },
     {
       "name": "WIND_SPOOL_RETENTION",
@@ -23045,7 +23045,7 @@
       "lod": "coarse",
       "stl": "sim/assets/out/full/WIND_SPOOL_RETENTION_step265__coarse.stl",
       "bytes": 10484,
-      "sha256": "5147eaf7a862da3d52d3ac0f14394d0652121bc0b397c92d18c34adaf3d77ec6"
+      "sha256": "8adab0bdc213bc275ed3b6fd05dcf6b63a1ae582aa386f9ad2db0e3c21848e57"
     },
     {
       "name": "WIND_FLANGE_L",
@@ -24745,5 +24745,5 @@
       "centre_dist_mm": 0.0
     }
   ],
-  "wall_time_s": 54.1575973033905
+  "wall_time_s": 52.69940495491028
 }

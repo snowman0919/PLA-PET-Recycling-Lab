@@ -96,30 +96,34 @@ class DownstreamGeometryTests(unittest.TestCase):
                                w.spool_flange_l().BoundingBox().ymin)
 
     @unittest.skipUnless(HAVE_CQ, "cadquery unavailable")
-    def test_spool_axial_stops_react_clutch_and_capture_loose_flange(self):
+    def test_spool_catalog_ring_envelope_preserves_axial_float_and_contact(self):
         shaft = w.spool_shaft()
         left, right, washer = w.spool_retention()
         collar, flange = w.spool_clutch_ref(), w.spool_flange_r()
-        # External rings sit in shaft grooves, not a full-diameter journal.
         for ring in (left, right):
             self.assertTrue(ring.isValid())
             self.assertLess(shaft.intersect(ring).Volume(), 0.001)
             self.assertLess(w.spool_bearing_blocks().intersect(ring).Volume(), 0.001)
+            # ES-16 nominal ring thickness is 0.89 in a >=1.00 mm groove:
+            # a face-to-face stack cannot be called a compressed clutch.
+            self.assertAlmostEqual(ring.BoundingBox().ylen, 0.89)
+            self.assertLess(ring.BoundingBox().xlen, 18.0)
         self.assertLess(shaft.intersect(washer).Volume(), 0.001)
         self.assertLess(right.intersect(washer).Volume(), 0.001)
         self.assertLess(washer.intersect(flange).Volume(), 0.001)
-        self.assertAlmostEqual(left.BoundingBox().ymax, collar.BoundingBox().ymin)
+        self.assertGreater(collar.BoundingBox().ymin - left.BoundingBox().ymax, 0)
+        self.assertGreater(right.BoundingBox().ymin - washer.BoundingBox().ymax, 0)
         self.assertAlmostEqual(flange.BoundingBox().ymax, washer.BoundingBox().ymin)
-        self.assertAlmostEqual(washer.BoundingBox().ymax, right.BoundingBox().ymin)
-        # A 0.5 mm rightward escape must meet a positive stop; the original
-        # flange could move 3 mm without contacting stationary metal.
+        # Even with the loose washer offset radially by 0.1 mm, an
+        # outward-shifted flange still reaches the smaller catalog ring.
+        shifted = washer.translate((0.1, 0, 0))
         self.assertGreater(
-            flange.translate((0, 0.5, 0)).intersect(washer).Volume(), 0.1)
-        # Both split rings occupy their grooves rather than floating outside
-        # the journal; a local probe at radius 7.5 intersects ring, not shaft.
-        for y, ring in ((96.5, left), (168.5, right)):
+            shifted.translate((0, 0.5, 0)).intersect(right).Volume(), 0.01)
+        # The groove root accepts the catalog ring, not the old Ø14.4/Ø24
+        # oversize proxy. Probe a non-split angular position in each groove.
+        for y, ring in ((96.45, left), (168.55, right)):
             probe = cadquery.Solid.makeCylinder(
-                0.1, 0.2, cadquery.Vector(706, y - 0.1, 224.5),
+                0.08, 0.2, cadquery.Vector(707.7, y - 0.1, 220),
                 cadquery.Vector(0, 1, 0))
             self.assertLess(shaft.intersect(probe).Volume(), 0.001)
             self.assertGreater(ring.intersect(probe).Volume(), 0.001)

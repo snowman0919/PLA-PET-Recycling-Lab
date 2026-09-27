@@ -7,21 +7,21 @@
   "step_product_name": "Open CASCADE STEP translator 7.9 1.264",
   "mesh_file": "sim/assets/out/full/WIND_SPOOL_RETENTION_step264__coarse.stl",
   "mesh_bytes": 10284,
-  "mesh_sha256": "3a9cbac3c0272f1ce1ed547e24791dcfed88c84298a0dd64b4b75d9dd62686fb",
+  "mesh_sha256": "d29f03e3fd3f3ba8232cc617bedd0ee15f6ddc46850580e0c362efab8037fd46",
   "mesh_format": "STL",
   "source_step": "c2.1/cad/PPR_VP1.step",
-  "source_step_sha256": "79b6dbcb72775f53abab8c3c8bf14e01985b91f75e11f8d2ccb2c029cd9a815f",
+  "source_step_sha256": "069526490adaf17397491c91e29b4ef5d546f059e48e417fcd9486a379671b8f",
   "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
   "bbox_containment_ok": true,
   "part_bbox_mm": [
-    687.9999999,
-    167.9999999,
-    207.9999999,
-    712.0000001,
-    169.0000001,
-    231.95826084310139
+    691.0899999000001,
+    168.0549999,
+    211.0899999,
+    708.9100000999999,
+    168.9450001,
+    228.85370553896735
   ],
-  "revision": "4e62bf9eb0be2c47a0b54d1e7edbde9893f60003",
+  "revision": "f958f28f7d1b20500a35606f3e1a57fdf801381b",
   "conversion_script": "c2.2/sim/assets/convert.py",
   "conversion_script_sha256": "8ead70b835fd4c4b4cade6a4c9552ee1f85bdfc69145204358593295179ce1ec",
   "tessellation": {
@@ -31,7 +31,7 @@
   "coords": "F0 identity (no transform applied)",
   "units": "mm",
   "material": "STEEL",
-  "source_material_label": "steel ring + washer candidate",
+  "source_material_label": "ring spring steel candidate + steel washer",
   "manufacturing_process": "machined/formed/welded steel candidate; actual grade, weld and heat treatment per part RFQ",
   "thermal_condition": "hot-zone grade and measured temperature HOLD",
   "material_source": "c2.1/bom/vp1_bom_delta.csv item_id=WIND_SPOOL_RETENTION",
@@ -45,52 +45,52 @@
   ],
   "bounds_basis": "single nominal design assumption; actual grade and geometry unmeasured",
   "mass_material_status": "DESIGN_ASSUMPTION_UNRATED",
-  "volume_mm3": 279.910554552678,
+  "volume_mm3": 61.77659991064367,
   "solid_bbox_mm": [
-    687.9999999,
-    167.9999999,
-    207.9999999,
-    712.0000001,
-    169.0000001,
-    231.9582608431014
+    691.0899999000001,
+    168.0549999,
+    211.0899999,
+    708.9100000999999,
+    168.9450001,
+    228.85370553896772
   ],
-  "mass_kg": 0.0021972978532385223,
+  "mass_kg": 0.00048494630929855285,
   "mass_bounds_kg": [
-    0.0021972978532385223,
-    0.0021972978532385223
+    0.00048494630929855285,
+    0.00048494630929855285
   ],
   "center_of_mass_mm": [
     700.0,
     168.5,
-    219.9791303715507
+    219.97185271948388
   ],
   "inertia_kg_mm2": [
-    0.10528687162431545,
-    0.21057406210992238,
-    0.10565340694096655
+    0.012784047043986134,
+    0.025585025519099178,
+    0.012864999499152421
   ],
   "inertia_upper_bound_kg_mm2": [
-    0.31586061487294637,
-    0.6317221863297672,
-    0.31696022082289965
+    0.0383521411319584,
+    0.07675507655729753,
+    0.03859499849745726
   ],
   "inertia_basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)",
   "mass_source": "imported STEP solid BRep volume x effective material density; no per-solid BRep inertia extraction",
   "inertia": {
     "diagonal_kg_mm2": [
-      0.10528687162431545,
-      0.21057406210992238,
-      0.10565340694096655
+      0.012784047043986134,
+      0.025585025519099178,
+      0.012864999499152421
     ],
     "upper_bound_kg_mm2": [
-      0.31586061487294637,
-      0.6317221863297672,
-      0.31696022082289965
+      0.0383521411319584,
+      0.07675507655729753,
+      0.03859499849745726
     ],
     "center_of_mass_mm": [
       700.0,
       168.5,
-      219.9791303715507
+      219.97185271948388
     ],
     "basis": "bbox-center assumed COM; uniform box diagonal estimate at BRep-volume mass; true COM/tensor unmeasured, per-axis upper bound for any mass within bbox (at bbox center)"
   },

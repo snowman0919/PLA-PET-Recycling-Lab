@@ -161,10 +161,10 @@
       "valid": true,
       "bounds": [
         685.0,
-        96.0,
+        96.055,
         205.0,
         715.0,
-        169.0,
+        168.945,
         235.0
       ]
     },
@@ -292,8 +292,28 @@
     "hollow_tube_web_and_flange_g": 1813.98,
     "mount_g": 294.96,
     "pull_cool_mount_g": 707.4,
-    "retention_ring_and_washer_g": 8.16,
+    "retention_ring_and_washer_g": 4.9,
     "cost_and_weld_rating": "HOLD: no quotes or measured joints"
+  },
+  "retention_fit_screen": {
+    "ring_candidate": "Smalley ES-16; two-turn detail not modeled",
+    "ring_source": "https://www.smalley.com/ring/es-16",
+    "groove_d_nominal_mm": 15.02,
+    "groove_width_nominal_mm": 1.0,
+    "ring_thickness_nominal_mm": 0.89,
+    "axial_clearance_per_ring_mm": [
+      0.06,
+      0.24
+    ],
+    "max_two_ring_clearance_mm": 0.48,
+    "washer_bore_nominal_mm": 16.2,
+    "washer_overlap_catalog_ring_min_mm_at_nominal_bore_and_eccentricity_0_1": 0.5425,
+    "spring_candidate": "SSB-0087; PUBLISHED_WORK_HEIGHT_INCOMPATIBLE",
+    "spring_source": "https://www.smalley.com/wave-spring/ssb-0087",
+    "spring_work_height_mm": 1.57,
+    "spring_seat_mm": 1.0,
+    "spring_height_shortfall_mm": 0.57,
+    "status": "AXIAL_FLOAT_AND_PRELOAD_HOLD; unquoted and unrated"
   },
   "passed": true
 }

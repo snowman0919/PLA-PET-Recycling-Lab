@@ -1,8 +1,8 @@
 {
   "schema": "full_machine_usd/1",
   "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
-  "usd_bytes": 7376596,
-  "usd_sha256": "aa1075324863b745d6cfb4fb283cb0a47c8d68bbd9b141000dbc41ef34c9eac4",
+  "usd_bytes": 7377424,
+  "usd_sha256": "b82e116cfa3a60730f0bf0ba2cfaba257cce3bd6a15e9a78271f21d72b2d833b",
   "stage_meters_per_unit": 0.001,
   "gravity_mm_s2": 9810.0,
   "articulation_root": "/World/F0/Machine",
@@ -217,35 +217,35 @@
   },
   "mass_material_status": "PART_SPECIFIC_DESIGN_ASSUMPTIONS_UNRATED",
   "material_model": "c2.2/sim/assets/materials.py",
-  "material_model_sha256": "7170bcff8985bfcdd05e4257b7b77eabc8de3d163bae2a90993539124e0524be",
+  "material_model_sha256": "0ac129aba9246dc518ccea53d463a8648c36e38b24b0e09d2a439f1cba953210",
   "material_scope": {
     "feedstock_vs_construction": "PLA/PET/TPU are input waste feedstocks, not permission to print load-bearing machine parts; TPU tread is a separate commercial elastomer boundary.",
-    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. WIND_SPOOL_RETENTION is a steel split-ring/washer geometry candidate with two shaft grooves, not selected hardware. Profile joints, tray attachment, flange seams, ring/groove fatigue, spring preload, bearing thrust and balance remain HOLD.",
+    "selected": "HOPPER_PANEL_L/R ~3 mm FDM PC shell segments; steel upper seam rails are NOT a lower safety liner. FEED-BUF saddle and throat are steel candidates. VP1 PULL_COOL_MOUNT is a steel tube rack on the rear Al upright; WIND_SPOOL_DRUM is a 2 mm wall steel tube with two 3 mm internal webs; WIND_MOUNT is a steel welded/fastened candidate on the front upright. WIND_SPOOL_RETENTION is an ES-16 two-turn spring-steel dimensional envelope and steel thrust washer with two shaft grooves, not selected hardware or a rated preload; the catalog spiral detail is unmodeled. Profile joints, tray attachment, flange seams, ring/groove fatigue, spring preload, bearing thrust and balance remain HOLD.",
     "excluded": "PLA excluded from hot/load paths and permanent guards; ABS excluded from heater/cutter/feed throat. PC lower containment and thermal exposure require material and process qualification. No printed keys or bearing seats.",
     "printed_limits": "PC panels assume dry filament, heated enclosed printer, face-supported orientation and six walls; bed fit is not impact, layer or seam qualification. Printed ABS eyelet on WIND_TRAVERSE_RIDER is folded into a bounded steel/polymer proxy, not counted twice. No ABS spool drum remains in this VP1 candidate.",
     "boundary": "All materials are screening choices; profile web/slot metal area, mixed sensor/clutch mass, printed wall mass and real motor/fan internals require measured or vendor inputs. No strength, safety or fabrication release."
   },
   "mass_kg_by_body": {
     "STATIC": {
-      "mass_kg": 46.48978704988418,
+      "mass_kg": 46.48675101700533,
       "mass_bounds_kg": [
-        38.882578075762396,
-        59.646935999630394
+        38.87954204288355,
+        59.64389996675155
       ],
       "center_of_mass_mm": [
-        296.9647083071868,
-        242.2290292804807,
-        189.22975565135744
+        296.9383862182013,
+        242.2363358673853,
+        189.22775107221648
       ],
       "inertia_kg_mm2": [
-        1441598.5782438263,
-        2731854.7190272664,
-        2247433.442059745
+        1441553.5077019099,
+        2731358.3262578226,
+        2246898.032624728
       ],
       "inertia_upper_bound_kg_mm2": [
-        3089638.0570172532,
-        6070892.002298302,
-        5568506.91374544
+        3089618.2271037004,
+        6070519.24364994,
+        5568133.994931741
       ],
       "mass_status": "BOUNDED_PROXY_UNRATED",
       "inertia_basis": "bbox-center assumed per solid; uniform-box diagonal plus parallel axes about estimated body COM; off-diagonals omitted",
@@ -862,10 +862,10 @@
     },
     "STEEL": {
       "solid_count": 195,
-      "mass_kg": 43.675995599167415,
+      "mass_kg": 43.672959566288576,
       "mass_bounds_kg": [
-        43.675995599167415,
-        43.675995599167415
+        43.672959566288576,
+        43.672959566288576
       ]
     },
     "PURCHASED_BEARING": {
@@ -965,10 +965,10 @@
       ]
     }
   },
-  "modeled_inventory_mass_kg": 61.06665371374625,
+  "modeled_inventory_mass_kg": 61.0636176808674,
   "modeled_inventory_mass_bounds_kg": [
-    53.42639996012954,
-    74.26156812577238
+    53.42336392725069,
+    74.25853209289355
   ],
   "mass_provenance": "per-solid STEP BRep volume and actual solid bbox in bodies.json; effective density by named part. Static mass is inventory only; Machine root 1 kg / 10000 kg.mm2 is a solver anchor, not a manufactured part. Purchased boundaries are bounded proxies, not solid steel or measured.",
   "derived_transfer_spec": {
@@ -1002,7 +1002,7 @@
     "note": "2mm below split hopper shell top; lateral spread set by verify_full.py across the mouth cross-section, not flow proof"
   },
   "source_bodies": {
-    "step_sha256": "79b6dbcb72775f53abab8c3c8bf14e01985b91f75e11f8d2ccb2c029cd9a815f",
+    "step_sha256": "069526490adaf17397491c91e29b4ef5d546f059e48e417fcd9486a379671b8f",
     "solids": 294,
     "moving_bodies": [
       "AUGER",
@@ -1030,7 +1030,7 @@
       "TRANSFER_IDLER"
     ]
   },
-  "revision": "4e62bf9eb0be2c47a0b54d1e7edbde9893f60003",
+  "revision": "f958f28f7d1b20500a35606f3e1a57fdf801381b",
   "emitted": [
     {
       "mesh": "c2.2/sim/assets/out/full/FR-2040-630_001__coarse.stl",

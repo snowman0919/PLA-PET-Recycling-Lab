@@ -37,11 +37,11 @@ Winder (axis Y at x=700, z=220; north of the cooling fans):
 - WIND_SPOOL_SHAFT supported in bearings BOTH ends; WIND_SPOOL_DRUM is
   a hollow steel tube with two internal end webs, loose on the shaft and
   joined to the flanges (weld/joint rating HOLD).
-- WIND_CLUTCH_REF: shaft key -> keyed collar -> wave-spring envelope ->
-  friction pad against the left flange. Two groove-backed external rings
-  and a loose-flange thrust washer close the axial reaction path geometrically.
-  Spring preload, groove/ring ratings, torque and wear remain unqualified;
-  70 Nmm in the model is only a sensitivity.
+- WIND_CLUTCH_REF: shaft key -> keyed collar -> unselected spring envelope ->
+  friction pad against the left flange. Two groove-backed external-ring
+  envelopes and a loose-flange thrust washer limit axial escape, but catalog
+  ring clearance prevents a claim of spring preload. Groove/ring ratings,
+  torque and wear remain unqualified; 70 Nmm is only a model sensitivity.
 - WIND_MOTOR_REF drives the shaft; winding is through the friction clutch,
   not through a fictitious rigid bond from the loose drum bore to the shaft.
 - WIND_TRAVERSE_SCREW + rider eyelet lays the filament.
@@ -84,6 +84,14 @@ PULL_ROLLER_Z = (PULL["line_z"] - (PULL["roller_r"] + PULL["nip_stop_min"] / 2.0
                  PULL["line_z"] + (PULL["roller_r"] + PULL["nip_stop_min"] / 2.0))
 WIND = dict(x=700.0, z=220.0, drum_r=35.0, flange_r=100.0, shaft_r=8.0,
             y0=100.0)
+
+# Dimensional candidates, not procurement or rated spring/ring selections.
+# ES-16: https://www.smalley.com/ring/es-16 (2-turn external Spirolox).
+# SSB-0087: https://www.smalley.com/wave-spring/ssb-0087
+ES16 = dict(groove_r_mm=15.02 / 2, groove_w_mm=1.00,
+            ring_thick_mm=0.89, radial_wall_mm=1.40)
+SSB0087_WORK_HEIGHT_MM = 1.57
+CLUTCH_SPRING_SEAT_MM = 1.0
 
 
 def pull_frame():
@@ -195,15 +203,16 @@ def pull_motor_ref():
 
 
 def spool_shaft():
-    """Supported driven shaft with a clutch key and two retaining-ring grooves.
+    """Driven shaft with ES-16 dimensional-candidate retaining-ring grooves.
 
-    Candidate 1 mm grooves at y96..97 and y168..169 have root radius 7.2 mm;
-    selected ring/groove tolerances, shaft fatigue and bearing thrust HOLD.
+    Ø15.02 root / 1.00 mm nominal grooves at y96..97 and y168..169;
+    supplier groove tolerances, shaft fatigue and bearing thrust HOLD.
     """
     shaft = _cyl(WIND["shaft_r"], 98.0, WIND["x"], 87.0, WIND["z"])
     for y in (96.0, 168.0):
-        groove = _cyl(8.1, 1.0, WIND["x"], y, WIND["z"]).cut(
-            _cyl(7.2, 1.0, WIND["x"], y, WIND["z"]))
+        groove = _cyl(8.1, ES16["groove_w_mm"], WIND["x"], y, WIND["z"]).cut(
+            _cyl(ES16["groove_r_mm"], ES16["groove_w_mm"],
+                 WIND["x"], y, WIND["z"]))
         shaft = shaft.cut(groove)
     key = _box(698.5, 701.5, 97.0, 100.0, 227.0, 229.5)
     return shaft.fuse(key).clean()
@@ -278,39 +287,76 @@ def spool_flange_r():
 def spool_clutch_ref():
     """Reference friction path from keyed shaft to freely riding spool.
 
-    3 mm keyed collar, 1 mm spring envelope, 2 mm friction washer.
-    Axial stops are separate; no actual spring force or torque limit established.
-    The collar's radial keyslot clears the separate shaft key.
+    3 mm keyed collar, 1 mm *unselected* spring envelope, 2 mm pad.
+    The SSB-0087 catalog spring clears Ø16, but its published work height
+    is 1.57 mm. Whether it can safely compress to this 1 mm seat is unknown;
+    no catalog load or torque is assigned. The keyslot clears the shaft key.
     """
     bore = _cyl(8.1, 7.0, WIND["x"], 96.5, WIND["z"])
     slot = _box(698.4, 701.6, 96.5, 100.1, 227.0, 230.0)
     collar = _cyl(15.0, 3.0, WIND["x"], 97.0, WIND["z"]).cut(bore).cut(slot)
-    spring = _cyl(13.0, 1.0, WIND["x"], 100.0, WIND["z"]).cut(bore)
+    spring = _cyl(13.0, CLUTCH_SPRING_SEAT_MM, WIND["x"], 100.0, WIND["z"]).cut(bore)
     pad = _cyl(30.0, 2.0, WIND["x"], 101.0, WIND["z"]).cut(bore)
     return collar.fuse(spring).fuse(pad).clean()
 
 def spool_retention():
-    """Candidate groove-backed split rings and right loose-flange thrust washer.
+    """ES-16 nominal annular envelopes and loose-flange thrust washer.
 
-    Axial chain: left ring -> keyed collar -> spring/pad -> left flange ->
-    welded drum/right flange -> washer -> right ring -> shaft. At nominal
-    position all faces touch; a measured spring compression, a selected ring
-    specification, axial clearance stack and bearing thrust path are HOLD.
+    Not the supplier's two-turn CAD. Rings are centered in their grooves:
+    each has 0.055 mm face clearance at nominal dimensions, up to 0.24 mm
+    total groove clearance per ring by catalog tolerances. The Ø16.2 washer
+    bore improves overlap with the smaller ring while clearing Ø16 nominally.
+    Axial clamp/preload, supplier fit/quote, washer eccentricity and bearing
+    thrust still require validation.
     """
     rings = []
     for y in (96.0, 168.0):
-        ring = _cyl(12.0, 1.0, WIND["x"], y, WIND["z"]).cut(
-            _cyl(7.2, 1.0, WIND["x"], y, WIND["z"]))
-        # Open split allows radial installation without sliding over the key.
-        ring = ring.cut(_box(699.0, 701.0, y, y + 1.0, 227.0, 233.0))
+        face_y = y + (ES16["groove_w_mm"] - ES16["ring_thick_mm"]) / 2
+        outer_r = ES16["groove_r_mm"] + ES16["radial_wall_mm"]
+        ring = _cyl(outer_r, ES16["ring_thick_mm"], WIND["x"], face_y,
+                    WIND["z"]).cut(_cyl(ES16["groove_r_mm"],
+                                      ES16["ring_thick_mm"], WIND["x"],
+                                      face_y, WIND["z"]))
+        # Cut is only an installation-clearance proxy, not a Spirolox spiral.
+        ring = ring.cut(_box(699.0, 701.0, face_y,
+                             face_y + ES16["ring_thick_mm"], 227.0, 233.0))
         rings.append(ring.clean())
     washer = _cyl(15.0, 1.0, WIND["x"], 167.0, WIND["z"]).cut(
-        _cyl(8.5, 1.0, WIND["x"], 167.0, WIND["z"]))
+        _cyl(8.1, 1.0, WIND["x"], 167.0, WIND["z"]))
     return rings[0], rings[1], washer.clean()
 
 
 def spool_retention_parts():
     return cq.Compound.makeCompound(spool_retention())
+
+def retention_fit_screen():
+    """Catalog dimensional screen, not a ring load or clutch torque rating."""
+    groove_width = ES16["groove_w_mm"]
+    ring_thickness = ES16["ring_thick_mm"]
+    groove_min_r = (15.02 - 0.075) / 2
+    wall_min = 1.40 - 0.13
+    return {
+        "ring_candidate": "Smalley ES-16; two-turn detail not modeled",
+        "ring_source": "https://www.smalley.com/ring/es-16",
+        "groove_d_nominal_mm": 2 * ES16["groove_r_mm"],
+        "groove_width_nominal_mm": groove_width,
+        "ring_thickness_nominal_mm": ring_thickness,
+        "axial_clearance_per_ring_mm": [
+            round(groove_width - (ring_thickness + 0.05), 3),
+            round((groove_width + 0.08) - (ring_thickness - 0.05), 3)],
+        "max_two_ring_clearance_mm": round(
+            2 * ((groove_width + 0.08) - (ring_thickness - 0.05)), 3),
+        "washer_bore_nominal_mm": 16.2,
+        "washer_overlap_catalog_ring_min_mm_at_nominal_bore_and_eccentricity_0_1":
+            round(groove_min_r + wall_min - 8.1 - 0.1, 4),
+        "spring_candidate": "SSB-0087; PUBLISHED_WORK_HEIGHT_INCOMPATIBLE",
+        "spring_source": "https://www.smalley.com/wave-spring/ssb-0087",
+        "spring_work_height_mm": SSB0087_WORK_HEIGHT_MM,
+        "spring_seat_mm": CLUTCH_SPRING_SEAT_MM,
+        "spring_height_shortfall_mm": round(
+            SSB0087_WORK_HEIGHT_MM - CLUTCH_SPRING_SEAT_MM, 3),
+        "status": "AXIAL_FLOAT_AND_PRELOAD_HOLD; unquoted and unrated",
+    }
 
 
 def winder_motor_ref():
@@ -426,6 +472,7 @@ if __name__ == "__main__":
                   "retention_ring_and_washer_g": round(
                       by_name["WIND_SPOOL_RETENTION"].Volume() * density_g_mm3, 2),
                   "cost_and_weld_rating": "HOLD: no quotes or measured joints"},
+              "retention_fit_screen": retention_fit_screen(),
               "passed": not fails and nip_opening_mm() <= FILAMENT_MM}
     (ROOT / "results" / "winder_geometry.json").write_text(
         json.dumps(result, indent=2) + "\n")
