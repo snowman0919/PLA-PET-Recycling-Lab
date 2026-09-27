@@ -293,26 +293,27 @@ def validate_case(c: Transmission, samples_per_orbit: int = 96) -> dict:
     }
 
 
-def _canon(v):
-    # CI frozen-hash determinism (STATUS.md defect 8): runner CPUs drift the
-    # last ULP of double results, so every serialized float is canonically
-    # rounded to 6 significant decimal digits.  6 digits is ~10^7x coarser
-    # than the 1-2 ULP (~16th digit) drift floor and far finer than every
-    # contract tolerance (asserted gates are >=1e-9 absolute; smallest margin
-    # ~1e-5), so no contract weakens.  verify_artifacts re-derives values and
-    # compares field-wise with tolerances, so rounded serialization is safe.
+def _canon(v, zero_below=0.0):
+    # Six significant digits cover the contract tolerances. Cardinal-axis
+    # trig results in motion traces can also leave ~1e-14 mm residuals
+    # whose leading digits differ across libm/NumPy runners; only the
+    # motion artifact snaps these physically zero coordinates below 1e-12.
+    # Validation residuals and other small physical signals remain intact.
     if isinstance(v, float):
+        if abs(v) < zero_below:
+            return 0.0
         return float(f"{v:.6g}")
     if isinstance(v, dict):
-        return {k: _canon(x) for k, x in v.items()}
+        return {k: _canon(x, zero_below) for k, x in v.items()}
     if isinstance(v, (list, tuple)):
-        return [_canon(x) for x in v]
+        return [_canon(x, zero_below) for x in v]
     return v
 
 
-def write_json(path: Path, value):
+def write_json(path: Path, value, *, zero_below=0.0):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(_canon(value), indent=2, ensure_ascii=False)+"\n", encoding="utf-8")
+    path.write_text(json.dumps(_canon(value, zero_below), indent=2,
+                               ensure_ascii=False)+"\n", encoding="utf-8")
 
 
 def main():
@@ -345,7 +346,9 @@ def main():
         "procurement": "HOLD", "fabrication": "HOLD", "energization": "HOLD",
     }
     write_json(ROOT/"results/kinematic_validation.json", summary)
-    write_json(ROOT/"results/motion_samples.json", {"frame": "F0", "nominal": asdict(nominal), "samples": motion})
+    write_json(ROOT/"results/motion_samples.json",
+               {"frame": "F0", "nominal": asdict(nominal), "samples": motion},
+               zero_below=1e-12)
     print(json.dumps({"cases": len(cases), "all_cases_passed": summary["all_cases_passed"],
                       "max_fd_error_mm_s": max(x["maximum_velocity_fd_error_mm_s"] for x in cases)}, indent=2))
 

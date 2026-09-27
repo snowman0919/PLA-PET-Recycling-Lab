@@ -3,6 +3,7 @@ import math
 from pathlib import Path
 import sys
 import unittest
+from tempfile import TemporaryDirectory
 
 import numpy as np
 
@@ -12,7 +13,24 @@ from transmission import (Transmission, cad_positive_y_rotation_xz,
                           cad_y_degrees_for_xz, coupling, external_mesh_sign,
                           ideal_virtual_work, loaded_contact_sweep, loaded_contact_takeup,
                           pose, rotation, rotor_force_virtual_work,
-                          rotor_point, rotor_point_velocity, validate_case)
+                          rotor_point, rotor_point_velocity, validate_case, write_json)
+
+
+class MotionArtifactTests(unittest.TestCase):
+    def test_roundoff_residue_is_zero_only_in_motion_artifact(self):
+        # Crossing an ideal cardinal axis can leave platform-dependent
+        # ~1e-14 mm trigonometric residue. Preserve physical small signals.
+        values = {"orbit_center_mm": [4e-14, -5e-14, 7.0],
+                  "velocity_error_mm_s": 2.65e-8}
+        with TemporaryDirectory() as directory:
+            motion = Path(directory) / "motion.json"
+            validation = Path(directory) / "validation.json"
+            write_json(motion, values, zero_below=1e-12)
+            write_json(validation, values)
+            m, v = json.loads(motion.read_text()), json.loads(validation.read_text())
+        self.assertEqual(m["orbit_center_mm"], [0.0, 0.0, 7.0])
+        self.assertEqual(v["orbit_center_mm"], [4e-14, -5e-14, 7.0])
+        self.assertEqual(m["velocity_error_mm_s"], 2.65e-8)
 
 
 class TransmissionContracts(unittest.TestCase):
