@@ -368,6 +368,25 @@ class FeedbackTests(unittest.TestCase):
         self.assertGreater(feedback["in_spec_fraction"], 0.5)
         self.assertLess(abs(samples[-1]["d_true_mm"] - 1.75), 0.02)
 
+    def test_clutch_fault_reaches_both_routes_after_composite_feedback_abort(self):
+        feedback_factory = lambda p: rc.PIController(p.v_line_mm_s)
+        composite, composite_samples = rc.run_route(
+            "feedback", feedback_factory, "transient")
+        self.assertLess(composite["controller_halted_at_s"], 170)
+        self.assertFalse(any(s["slip"] > 0 for s in composite_samples))
+        for name, factory in (("fixed", rc.fixed_speed_controller),
+                              ("feedback", feedback_factory)):
+            result, samples = rc.run_route(name, factory, "clutch_fault")
+            self.assertIsNone(result["controller_halted_at_s"])
+            self.assertGreater(samples[-1]["t_s"], 230)
+            fault = [s for s in samples if 170 <= s["t_s"] < 178]
+            self.assertTrue(fault)
+            self.assertTrue(all(s["slip"] > 0 for s in fault))
+            self.assertGreater(result["produced_length_mm"],
+                               result["in_spec_length_mm"])
+            self.assertTrue(any(s["d_true_mm"] > 1.80
+                                for s in samples if s["t_created_s"] >= 170))
+
 
 if __name__ == "__main__":
     unittest.main()

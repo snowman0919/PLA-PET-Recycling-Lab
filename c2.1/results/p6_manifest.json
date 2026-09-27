@@ -1,7 +1,7 @@
 {
   "revision": "C2.1-P6+VP1-STAGE6",
   "scope": "P0-P6 + VP1 integrated digital review package",
-  "artifact_count": 189,
+  "artifact_count": 191,
   "artifacts": [
     {
       "file": "c2.1/bom/quality_component_candidates.csv",
@@ -404,6 +404,16 @@
       "sha256": "99139a19ee1dbe7f919226ad2561c9e54b321e25c82686e54eda18e959380966"
     },
     {
+      "file": "c2.1/cad/parts_stage1/PULL_IDLER_CARRIAGE.step",
+      "bytes": 43595,
+      "sha256": "8c7da53be912ac0260fc272f18c066f461be8f935cab5afc6f6eef90f702dc4b"
+    },
+    {
+      "file": "c2.1/cad/parts_stage1/PULL_IDLER_SPRINGS.step",
+      "bytes": 21953,
+      "sha256": "c9fd8897be133c672c0a015a29cb0898f0ffae1cf84a75ffdff6b374b9b7d465"
+    },
+    {
       "file": "c2.1/cad/parts_stage1/PULL_MOTOR_REF.step",
       "bytes": 26599,
       "sha256": "3cb50f07df42d38f889df0b45dc2a93d9cd34fac00e7b3defc5c8f559191fe43"
@@ -705,8 +715,8 @@
     },
     {
       "file": "c2.1/results/downstream_route_comparison.json",
-      "bytes": 43994,
-      "sha256": "1b20334c66d411231607b0045b054364a035a713747b2303e75ccc1a65a6ad82"
+      "bytes": 57820,
+      "sha256": "5d912c128b1bbcb148e8e665944810a6f2b75d452563c4242f63abd2d2bcef3d"
     },
     {
       "file": "c2.1/results/drive_geometry.json",
@@ -905,8 +915,8 @@
     },
     {
       "file": "c2.1/src/route_comparison.py",
-      "bytes": 8452,
-      "sha256": "266cdd8fd686efdd9d9fd198278de27c0b2236ce86656eecf02882f2ab9f018d"
+      "bytes": 8917,
+      "sha256": "4dfd54fc2da2c932f1946836ebe02f74568201dd2d5eeae939ab967ce0afb8f2"
     },
     {
       "file": "c2.1/src/s2_direction_audit.py",
@@ -935,8 +945,8 @@
     },
     {
       "file": "c2.1/tests/test_downstream.py",
-      "bytes": 20120,
-      "sha256": "bbd37c331b83c2904d2576fbbe650988d0803de709ee4a00a0964e9b9e102f48"
+      "bytes": 21261,
+      "sha256": "f2ec51550a863092be56fbd5e37df03d5f2134ab96a97cdd32c429935cfd889e"
     },
     {
       "file": "c2.1/tests/test_transmission.py",

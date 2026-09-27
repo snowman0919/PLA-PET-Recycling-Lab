@@ -72,7 +72,7 @@ class PIController:
 
 def disturbance_script(step):
     t = step["t_s"]
-    env = dict(step)
+    env = clutch_fault_script(step)
     if 75 <= t < 90:
         env["mdot_factor"] = 1.35
     if 110 <= t < 125:
@@ -81,9 +81,6 @@ def disturbance_script(step):
         env["sensor_bias_mm"] = 0.015  # uncalibrated sensor offset
     if 145 <= t < 153:
         env["sensor_dropout"] = True
-    if 170 <= t < 178:
-        env["clutch_failed"] = True
-        env["tension_N"] = 10.0  # fault injection; working clutch caps at 6 N
     if 90 <= t < 110:
         env["ambient_shift_C"] = 8.0
         env["barrel_loss_extra_W"] = 25.0
@@ -94,11 +91,21 @@ def sustained_offset_script(step):
     return {**step, "mdot_factor": 1.2}
 
 
+def clutch_fault_script(step):
+    """Apply the same assumed winding-clutch fault in either scenario."""
+    env = dict(step)
+    if 170 <= step["t_s"] < 178:
+        env["clutch_failed"] = True
+        env["tension_N"] = 10.0  # fault injection; working clutch caps at 6 N
+    return env
+
+
 def run_route(name, controller_factory, scenario="transient", **overrides):
     p = pm.LineParams(material="PLA", **overrides)
     controller = controller_factory(p)
     script = {"transient": disturbance_script,
               "sustained_offset": sustained_offset_script,
+              "clutch_fault": clutch_fault_script,
               "nominal": None}[scenario]
     duration = 240.0 if scenario != "nominal" else 90.0
     samples, pending = pm.simulate(
@@ -143,7 +150,7 @@ def thermal_case(material, fans):
 def compare():
     results = []
     traces = {}
-    for scenario in ("nominal", "transient", "sustained_offset"):
+    for scenario in ("nominal", "transient", "sustained_offset", "clutch_fault"):
         for name, factory in (("C_fixed_speed", fixed_speed_controller),
                               ("A_diameter_feedback",
                                lambda p: PIController(p.v_line_mm_s))):
@@ -172,6 +179,7 @@ def compare():
             "Spool torque/radius gives quasistatic tension only; the lighter CAD drum does not validate acceleration, inertia, welds, bearing load or clutch transient torque.",
             "The puller's influence on the molten draw point is instantaneous here; strand elasticity, melt swelling, pressure and contact deformation are omitted.",
             "PI arithmetic uses the host-built C++ firmware kernel; a >1s post-start missing gauge sample stops this model. Other firmware safety, power and motor I/O are NOT exercised in the parcel simulation.",
+            "The composite transient's clutch fault at 170..178 s occurs after the feedback route halts on missing gauge at 146 s; the isolated clutch_fault scenario exposes both routes to that fault without bypassing the HOLD.",
             "Fixed-speed baseline uses the same diagnostic gauge for after-the-fact scoring, not as a live motor interlock.",
             "Two-axis sensor accuracy and native continuous production remain unverified.",
             "In-spec fractions are scenario sensitivity, not physical yield or economic acceptance.",
