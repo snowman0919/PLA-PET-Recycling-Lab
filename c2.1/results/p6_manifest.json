@@ -1,7 +1,7 @@
 {
   "revision": "C2.1-P6+VP1-STAGE6",
   "scope": "P0-P6 + VP1 integrated digital review package",
-  "artifact_count": 191,
+  "artifact_count": 192,
   "artifacts": [
     {
       "file": "c2.1/bom/quality_component_candidates.csv",
@@ -10,13 +10,13 @@
     },
     {
       "file": "c2.1/bom/system_bom.csv",
-      "bytes": 62397,
-      "sha256": "66fdcab934cfea608c8e58cdf5fdf9235de485a60d79d40f9c08cb3a3308a75d"
+      "bytes": 63488,
+      "sha256": "6a5ed8e3d43014c0219adb3fefc35ccb80f6f2b8fcdf546cf8b875635a7527d9"
     },
     {
       "file": "c2.1/bom/system_bom.xlsx",
-      "bytes": 26415,
-      "sha256": "1c72cc812c794583490dc6b5012be66ddf0691495f96467f1a9aa51bed165ccb"
+      "bytes": 26344,
+      "sha256": "2507d6748e8710bcbff95379780b49b1727f7adc4948b8b9993ff62f7add555f"
     },
     {
       "file": "c2.1/bom/transmission_bom.csv",
@@ -800,13 +800,13 @@
     },
     {
       "file": "c2.1/results/system_bom_summary.json",
-      "bytes": 1461,
-      "sha256": "f343fb5663afa134d0809b5c06b0d7eef97ee1433c9563662feea91c5652796d"
+      "bytes": 2177,
+      "sha256": "1967cb84d9f5c04f4ac5f5806cf3797c6283ecf949bd33b5c043c4c03494f269"
     },
     {
       "file": "c2.1/results/validation_summary.json",
-      "bytes": 1780,
-      "sha256": "8daf01d8ab6557aa0adff12d23bdbc4c79887c4100a67a9a3f5f52a14369647d"
+      "bytes": 1790,
+      "sha256": "7a538f7829234ab14538d238bc4d6ddb74a5f5103f59065f2646ebaf6cbd949f"
     },
     {
       "file": "c2.1/results/winder_geometry.json",
@@ -855,8 +855,8 @@
     },
     {
       "file": "c2.1/src/build_system_bom.py",
-      "bytes": 10608,
-      "sha256": "0722ea88611013f58eba59088acf373d13d5478d39a27ed6657910ac29dbdb27"
+      "bytes": 12753,
+      "sha256": "65c0017c1e558cb04dfeceb1b567b048083107adfcd7e27957dbd639209d7dba"
     },
     {
       "file": "c2.1/src/chain_relief.py",
@@ -935,13 +935,18 @@
     },
     {
       "file": "c2.1/src/verify_artifacts.py",
-      "bytes": 9107,
-      "sha256": "127ba32f98947dad1da04eadf451430c1a943cfb7c046cc952b8c76b2b8ce647"
+      "bytes": 9181,
+      "sha256": "03055d2874c40e3b484e68f18a1c3d6f5a07334c63d47ae6c49ebea628298ec9"
     },
     {
       "file": "c2.1/src/winder.py",
       "bytes": 22696,
       "sha256": "d394695d953d02c3c2affe21b361659d64f899b62d4d28911ce597f2a8b1d139"
+    },
+    {
+      "file": "c2.1/tests/test_bom_inventory.py",
+      "bytes": 1948,
+      "sha256": "d9d50a40e5d92f4a06a38a6c4a7a8f98b37995ea6ea5ac7971500171078aea2a"
     },
     {
       "file": "c2.1/tests/test_downstream.py",

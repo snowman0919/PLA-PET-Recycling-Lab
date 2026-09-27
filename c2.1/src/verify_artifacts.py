@@ -106,7 +106,8 @@ assert bom["active_rows"] == bom["unique_part_ids"]
 assert bom["known_cost_rows"] + bom["unknown_cost_rows"] == bom["active_rows"]
 assert bom["unknown_cost_rows"] > 0 and bom["procurement"] == "HOLD"
 assert bom["vp1_delta_rows"] > 0
-assert bom["unselected_motor_landed_floor_KRW"] > bom["soft_total_budget_KRW"]
+assert (bom["queried_motor_candidate_price_plus_base_shipping_KRW"]
+        - bom["soft_total_budget_KRW"] == bom["candidate_motor_budget_gap_KRW"] > 0)
 assert drawings["status"] == "NOMINAL_RFQ_REVIEW_ONLY_FABRICATION_RELEASE_HOLD"
 for item in drawings["dxf"].values():
     assert digest(REPO/item["file"]) == item["sha256"]
