@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-A",
+  "seed": 23,
+  "class": "P2",
+  "waste_id": "P2-failed_print_mass-00023",
+  "input_mass_g": 365.265,
+  "peak_proxy": 1.3988653046722184,
+  "work_proxy": 218.7525404209067,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "P2-failed_print_mass-00023:S1-A:F000",
+      "source_waste_id": "P2-failed_print_mass-00023",
+      "seed": 23,
+      "mass_g": 292.212,
+      "volume_mm3": 235654.839,
+      "com_mm": [
+        40.632,
+        34.345,
+        21.26
+      ],
+      "principal_dims_mm": [
+        71.106,
+        58.877,
+        35.433
+      ],
+      "equiv_diameter_mm": 76.635,
+      "aspect_ratio": 2.007,
+      "pose_quaternion_xyzw": [
+        -0.12593,
+        0.53,
+        0.51853,
+        -0.65907
+      ],
+      "velocity_proxy_mm_s": [
+        6.9943,
+        6.9943,
+        6.9943
+      ],
+      "bond_state": {
+        "failed_bonds": 397,
+        "first_kind": "in_raster"
+      },
+      "class": "P2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "P2-failed_print_mass-00023:S1-A:F001",
+      "source_waste_id": "P2-failed_print_mass-00023",
+      "seed": 23,
+      "mass_g": 73.053,
+      "volume_mm3": 58913.71,
+      "com_mm": [
+        91.422,
+        34.345,
+        21.26
+      ],
+      "principal_dims_mm": [
+        58.877,
+        35.433,
+        10.158
+      ],
+      "equiv_diameter_mm": 48.277,
+      "aspect_ratio": 5.796,
+      "pose_quaternion_xyzw": [
+        0.74508,
+        -0.13563,
+        -0.03837,
+        -0.65191
+      ],
+      "velocity_proxy_mm_s": [
+        6.9943,
+        6.9943,
+        6.9943
+      ],
+      "bond_state": {
+        "failed_bonds": 397,
+        "first_kind": "in_raster"
+      },
+      "class": "P2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.0,
+  "s1_multiplier_note": "inherited twin-shaft baseline",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

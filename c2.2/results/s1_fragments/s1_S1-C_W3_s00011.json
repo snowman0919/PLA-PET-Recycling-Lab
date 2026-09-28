@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-C",
+  "seed": 11,
+  "class": "W3",
+  "waste_id": "W3-ribbed-00011",
+  "input_mass_g": 99.446,
+  "peak_proxy": 0.5970528357620764,
+  "work_proxy": 74.69704276335285,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 1.4210854715202004e-14,
+  "fragments": [
+    {
+      "fragment_id": "W3-ribbed-00011:S1-C:F000",
+      "source_waste_id": "W3-ribbed-00011",
+      "seed": 11,
+      "mass_g": 33.148667,
+      "volume_mm3": 26732.796,
+      "com_mm": [
+        53.595,
+        29.765,
+        3.53
+      ],
+      "principal_dims_mm": [
+        97.445,
+        49.608,
+        3.53
+      ],
+      "equiv_diameter_mm": 37.098,
+      "aspect_ratio": 27.605,
+      "pose_quaternion_xyzw": [
+        -0.71307,
+        -0.50993,
+        0.40348,
+        -0.26212
+      ],
+      "velocity_proxy_mm_s": [
+        2.9853,
+        2.9853,
+        2.9853
+      ],
+      "bond_state": {
+        "failed_bonds": 319,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W3",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W3-ribbed-00011:S1-C:F001",
+      "source_waste_id": "W3-ribbed-00011",
+      "seed": 11,
+      "mass_g": 66.297333,
+      "volume_mm3": 53465.591,
+      "com_mm": [
+        53.595,
+        29.765,
+        14.12
+      ],
+      "principal_dims_mm": [
+        97.445,
+        49.608,
+        10.59
+      ],
+      "equiv_diameter_mm": 46.74,
+      "aspect_ratio": 9.202,
+      "pose_quaternion_xyzw": [
+        -0.93131,
+        -0.35149,
+        -0.03402,
+        0.08927
+      ],
+      "velocity_proxy_mm_s": [
+        2.9853,
+        2.9853,
+        2.9853
+      ],
+      "bond_state": {
+        "failed_bonds": 319,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W3",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 0.85,
+  "s1_multiplier_note": "buckling-assist under nip compression",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

@@ -1,0 +1,11 @@
+STEP_SHA256=e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12
+USDA=full_machine.usda (3976342 B) sha=b4bb1d68bdfb4d53807251889d46901d0a67d6f9f3b83ec226a5ccee4369ee24
+opening stage /home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda
+stage_id=9223002
+articulation metadata: links=0 dofs=[]
+EXCEPTION:
+Traceback (most recent call last):
+  File "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/verify_full.py", line 177, in main
+    raise RuntimeError(f"expected 5 DOFs, got {dof_paths}")
+RuntimeError: expected 5 DOFs, got []
+

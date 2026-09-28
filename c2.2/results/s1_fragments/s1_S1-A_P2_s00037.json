@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-A",
+  "seed": 37,
+  "class": "P2",
+  "waste_id": "P2-failed_print_mass-00037",
+  "input_mass_g": 171.899,
+  "peak_proxy": 1.288378716974399,
+  "work_proxy": 69.78200306938372,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "P2-failed_print_mass-00037:S1-A:F000",
+      "source_waste_id": "P2-failed_print_mass-00037",
+      "seed": 37,
+      "mass_g": 34.3798,
+      "volume_mm3": 27725.645,
+      "com_mm": [
+        30.465,
+        5.273,
+        21.965
+      ],
+      "principal_dims_mm": [
+        50.775,
+        36.608,
+        0.5
+      ],
+      "equiv_diameter_mm": 37.552,
+      "aspect_ratio": 101.55,
+      "pose_quaternion_xyzw": [
+        -0.40802,
+        0.16854,
+        -0.08851,
+        -0.89291
+      ],
+      "velocity_proxy_mm_s": [
+        6.4419,
+        6.4419,
+        6.4419
+      ],
+      "bond_state": {
+        "failed_bonds": 138,
+        "first_kind": "cross_raster"
+      },
+      "class": "P2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "P2-failed_print_mass-00037:S1-A:F001",
+      "source_waste_id": "P2-failed_print_mass-00037",
+      "seed": 37,
+      "mass_g": 137.5192,
+      "volume_mm3": 110902.581,
+      "com_mm": [
+        30.465,
+        31.638,
+        21.965
+      ],
+      "principal_dims_mm": [
+        50.775,
+        36.608,
+        31.638
+      ],
+      "equiv_diameter_mm": 59.609,
+      "aspect_ratio": 1.605,
+      "pose_quaternion_xyzw": [
+        -0.81306,
+        -0.14548,
+        0.33467,
+        0.45361
+      ],
+      "velocity_proxy_mm_s": [
+        6.4419,
+        6.4419,
+        6.4419
+      ],
+      "bond_state": {
+        "failed_bonds": 138,
+        "first_kind": "cross_raster"
+      },
+      "class": "P2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.0,
+  "s1_multiplier_note": "inherited twin-shaft baseline",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

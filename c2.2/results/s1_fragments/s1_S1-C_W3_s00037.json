@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-C",
+  "seed": 37,
+  "class": "W3",
+  "waste_id": "W3-ribbed-00037",
+  "input_mass_g": 116.313,
+  "peak_proxy": 0.5378652190210007,
+  "work_proxy": 72.23716303023721,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W3-ribbed-00037:S1-C:F000",
+      "source_waste_id": "W3-ribbed-00037",
+      "seed": 37,
+      "mass_g": 77.542,
+      "volume_mm3": 62533.871,
+      "com_mm": [
+        58.96,
+        19.577,
+        11.175
+      ],
+      "principal_dims_mm": [
+        108.093,
+        29.365,
+        18.625
+      ],
+      "equiv_diameter_mm": 49.246,
+      "aspect_ratio": 5.804,
+      "pose_quaternion_xyzw": [
+        -0.40802,
+        0.16854,
+        -0.08851,
+        -0.89291
+      ],
+      "velocity_proxy_mm_s": [
+        2.6893,
+        2.6893,
+        2.6893
+      ],
+      "bond_state": {
+        "failed_bonds": 342,
+        "first_kind": "cross_raster"
+      },
+      "class": "W3",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W3-ribbed-00037:S1-C:F001",
+      "source_waste_id": "W3-ribbed-00037",
+      "seed": 37,
+      "mass_g": 38.771,
+      "volume_mm3": 31266.935,
+      "com_mm": [
+        58.96,
+        48.942,
+        11.175
+      ],
+      "principal_dims_mm": [
+        108.093,
+        18.625,
+        9.788
+      ],
+      "equiv_diameter_mm": 39.087,
+      "aspect_ratio": 11.043,
+      "pose_quaternion_xyzw": [
+        -0.81306,
+        -0.14548,
+        0.33467,
+        0.45361
+      ],
+      "velocity_proxy_mm_s": [
+        2.6893,
+        2.6893,
+        2.6893
+      ],
+      "bond_state": {
+        "failed_bonds": 342,
+        "first_kind": "cross_raster"
+      },
+      "class": "W3",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 0.85,
+  "s1_multiplier_note": "buckling-assist under nip compression",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

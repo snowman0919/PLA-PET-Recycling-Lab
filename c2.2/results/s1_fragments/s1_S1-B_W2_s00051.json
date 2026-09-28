@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 51,
+  "class": "W2",
+  "waste_id": "W2-ribbed-00051",
+  "input_mass_g": 81.357,
+  "peak_proxy": 1.238830141294021,
+  "work_proxy": 172.6302897721306,
+  "bite_flag": true,
+  "bridge_flag": true,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W2-ribbed-00051:S1-B:F000",
+      "source_waste_id": "W2-ribbed-00051",
+      "seed": 51,
+      "mass_g": 14.792182,
+      "volume_mm3": 11929.179,
+      "com_mm": [
+        10.254,
+        22.985,
+        7.045
+      ],
+      "principal_dims_mm": [
+        36.776,
+        11.742,
+        10.254
+      ],
+      "equiv_diameter_mm": 28.349,
+      "aspect_ratio": 3.587,
+      "pose_quaternion_xyzw": [
+        -0.24406,
+        0.52486,
+        0.77406,
+        0.2565
+      ],
+      "velocity_proxy_mm_s": [
+        6.1942,
+        6.1942,
+        6.1942
+      ],
+      "bond_state": {
+        "failed_bonds": 354,
+        "first_kind": "in_raster"
+      },
+      "class": "W2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W2-ribbed-00051:S1-B:F001",
+      "source_waste_id": "W2-ribbed-00051",
+      "seed": 51,
+      "mass_g": 66.564818,
+      "volume_mm3": 53681.305,
+      "com_mm": [
+        66.649,
+        22.985,
+        7.045
+      ],
+      "principal_dims_mm": [
+        82.029,
+        36.776,
+        11.742
+      ],
+      "equiv_diameter_mm": 46.803,
+      "aspect_ratio": 6.986,
+      "pose_quaternion_xyzw": [
+        0.80529,
+        -0.38391,
+        0.44794,
+        0.05893
+      ],
+      "velocity_proxy_mm_s": [
+        6.1942,
+        6.1942,
+        6.1942
+      ],
+      "bond_state": {
+        "failed_bonds": 354,
+        "first_kind": "in_raster"
+      },
+      "class": "W2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

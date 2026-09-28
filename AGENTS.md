@@ -1,10 +1,7 @@
-# PPR C2 작업 규칙
-- Active baseline은 c2/design/requirements.json 및 c2/src. 루트 C1 소스/CAD/BOM은 frozen reference이며 C2 확정값이 아니다.
-- 공용 분쇄M1 한 개, 별도M2, 보유24V800W/240x120x65 PSU,500W 운전 cap, 전체 추가비100000KRW soft limit, PLA/PET/TPU를 유지한다. 모터 미선정.
-- 모든 새 기하/열/성능 가정을 출처 및 증거 등급과 함께 기록한다. Kinematics/합성 수식은 실제 분쇄 성능 label이 아니다.
-- ML은 보정된 DEM 또는 실험 응답에서만 성능을 학습한다. TPU의 파괴/인열/감김을 PLA 법칙으로 대체하지 않는다.
-- 본체700x420x520mm 상한/보유 프로파일 변경은 사용자와 합의한다. C2 전체 기계 간섭/가공승인 상태를 부분 CAD PASS로 덮지 않는다.
-- C1 root 검증/해시/기존 pre-push를 지우거나 우회하지 않는다. C2 tests 및 verify_artifacts를 함께 통과시킨다.
-- 원본 dirty worktree에는 reset/clean/stash/checkout/일괄커밋 금지. 작업은 별도 clean worktree에서 진행하고 보존 브랜치를 변경하지 않는다.
-- 구매/가공/통전은 승인 전 HOLD. 고하중 금속 지지, 가드, 비상정지, 독립 열차단과 인터록을 원가 절감용으로 삭제하지 않는다.
-- 한국어로 결과와 미종결 항목을 보고한다. 코드MIT/하드웨어LICENSE-HARDWARE를 유지한다.
+# PPR agent 진입점
+먼저 KODEX.md와 STATUS.md를 읽는다. 현재 구현 목표는 같은 통합제품에서 규격 내 1.75mm 필라멘트를 경제적으로 만드는 것이다.
+압출/직경 경로 선택 시 docs/decisions/filament-quality-route.md의 근거와 미확인을 참고한다. 자료는 정책을 추가하는 별도 Goal이 아니다.
+현재 개발 worktree의 미커밋 변경을 보존하고 이어간다. 원본 /home/monad/develop/PPR와 보존 브랜치는 변경하지 않는다.
+과거 C계열 계약, PASS, release 이름은 역사/실험 근거이지 현재 목표의 선행 승인조건이 아니다. 역사 파일 보존을 활성 설계 좌표 동결로 해석하지 않는다.
+실제 수정 범위의 회귀/형상/공정 검사를 수행하고 근거 없이 기존 검증을 우회하지 않는다. 실패 원인을 제품과 연결해 고친다.
+Graphify와 문서 자동화는 보조 수단이며 제품 작업을 막지 않는다. 결과는 한국어, 코드 MIT/하드웨어 LICENSE-HARDWARE를 유지한다.

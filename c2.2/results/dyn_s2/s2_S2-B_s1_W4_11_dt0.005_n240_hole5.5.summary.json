@@ -1,0 +1,30 @@
+{
+  "schema": "dyn_s2/1",
+  "arch": "S2-B",
+  "from_s1": "s1_W4_11_dt0.005_n240",
+  "hole_mm": 5.5,
+  "grid": 5,
+  "bar_mm": 2.0,
+  "frag_size_mm": 10.1275,
+  "n_frags": 12,
+  "frag_to_hole_ratio": 1.8413636363636363,
+  "evidence": "REAL_PHYSX_HEADLESS_HOLE_GEOMETRY",
+  "proxy_free": true,
+  "n_passed": 2,
+  "n_retained": 10,
+  "pass_rate": 0.16666666666666666,
+  "sliver_by_yaw_deg": {
+    "0.0": {
+      "passed": 1,
+      "total": 6
+    },
+    "45.0": {
+      "passed": 1,
+      "total": 6
+    }
+  },
+  "steps": 240,
+  "dt": 0.005,
+  "status": "PASS",
+  "failures": []
+}

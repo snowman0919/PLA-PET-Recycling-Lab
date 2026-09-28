@@ -1,0 +1,69 @@
+{
+  "schema": "vp1_layout_comparison/1",
+  "status": "BOTH_FUNCTIONAL_HOLD_SELECTED_BASELINE_UNCHANGED",
+  "protocol": {
+    "connected": "Isaac Sim native PhysX, one M1 input, five input cycles, 24000 steps at 0.0025 s, 200 probes; identical source injection protocol",
+    "local": "four independent phases, each 22 probes (ten diameter 3 mm, ten diameter 1.5 mm, two plate-like); do not add local phase counts into a connected flow claim",
+    "limits": "collision mesh and ideal dependent drive constraints; no fracture, melting, actual extrusion, thermal, physical load or filament validation"
+  },
+  "selected": {
+    "step": "c2.1/cad/PPR_VP1.step",
+    "step_sha256": "875551dd16512d60acd6c89dca085408710cb2620d332fdb4453e2b4a6ee8730",
+    "usd": "c2.2/sim/assets/usd/full_machine.usda",
+    "usd_sha256": "a4611f7de35448aa21b80cde6a49e366254dc785759244db7b7fca35b4b3482b",
+    "objects": 256,
+    "valid_step_solids": 280,
+    "mass_proxy_kg": 59.505593,
+    "local": "c2.2/results/full_machine/flow_localize/results.json",
+    "local_s1_discharge": {"out": 22, "broad_auger_pickup": 10, "advanced_past_x285": 1, "stuck": 9},
+    "local_chute": {"injected": 22, "x335_crossed": 2, "s2_mouth": 0},
+    "local_s2": {"injected": 22, "same_real_screen_bore_to_buffer_throat": 3},
+    "connected_file": "c2.2/results/full_machine/run_20260925_064856/results.json",
+    "connected_counts": {"s1_exit": 108, "auger_pickup": 42, "s2_mouth": 0, "same_screen_bore": 0, "buffer_upper": 0, "buffer_throat": 0},
+    "tracking_pass": true,
+    "verdict": "LOCALIZED_BLOCKED",
+    "repeat_file": "c2.2/results/full_machine/run_20260925_204530/results.json",
+    "repeat_connected_counts": {"s1_exit": 114, "auger_pickup": 21, "s2_mouth": 0, "same_screen_bore": 0, "buffer_upper": 0, "buffer_throat": 0},
+    "repeat_tracking_pass": true
+  },
+  "relocated_gravity": {
+    "source": "c2.1/cad/candidates/relocated_gravity.py",
+    "manifest": "c2.1/cad/candidates/relocated_gravity.json",
+    "step_sha256": "607015bbd1e070c880a549737bdfcbf27fdbc3d1e640c17bc2928d2607075e85",
+    "usd_sha256": "10d53fca653c9f1a9e94adde60ffd4e680d8c92bf7fe35f10fea0a0271f3eb58",
+    "objects": 246,
+    "valid_step_solids": 256,
+    "mass_proxy_kg": 56.147009,
+    "local": "c2.2/results/full_machine/candidates/relocated_gravity/flow_localize/results.json",
+    "local_s1_discharge": {"out": 22, "receiver": 2, "s2_mouth": 0, "lost_from_process": 14},
+    "local_receiver": {"injected": 22, "receiver": 22, "s2_mouth": 2, "stuck": 20},
+    "local_s2": {"injected": 22, "same_real_screen_bore_to_buffer_throat": 3},
+    "connected_file": "c2.2/results/full_machine/candidates/relocated_gravity/run_20260925_204332/results.json",
+    "connected_counts": {"s1_exit": 116, "gravity_receiver": 5, "s2_mouth": 2, "same_screen_bore": 1, "buffer_upper": 0, "buffer_throat": 0},
+    "lost_through_world": 59,
+    "tracking_pass": false,
+    "s1b_end_error_rad": 0.5482,
+    "end_error_tolerance_rad": 0.35,
+    "verdict": "FAIL",
+    "same_scene_local_reference": true
+  },
+  "comparison": {
+    "nominal_proxy_mass_delta_kg": -3.358584,
+    "step_solid_delta": -24,
+    "selected_bom_rows": 196,
+    "selected_bom_unknown_cost_rows": 185,
+    "unselected_motor_known_landed_floor_KRW": 110200,
+    "soft_total_budget_KRW": 100000,
+    "candidate_bom": "NOT_QUALIFIED; deleted transfer hardware and added steel mounts/welded receiver require quantity and price re-estimate, no savings claim",
+    "hard_operating_cap_W": 500,
+    "power_rating": "HOLD: selected virtual 416 W peak uses unrated motor/fan estimates; relocated M1 load not measured"
+  },
+  "reproduce": [
+    "PYTHONPATH=/usr/lib/freecad-python3/lib .codex-run/cad-env/bin/python c2.1/cad/candidates/relocated_gravity.py",
+    "PPR_LAYOUT=relocated_gravity PYTHONPATH=/usr/lib/freecad-python3/lib .codex-run/cad-env/bin/python c2.2/sim/assets/convert.py --full",
+    "PPR_LAYOUT=relocated_gravity /home/monad/env_isaacsim-c22/bin/python c2.2/sim/full_machine.py",
+    "PPR_LAYOUT=relocated_gravity OMNI_KIT_ACCEPT_EULA=YES /home/monad/env_isaacsim-c22/bin/python c2.2/sim/flow_localize.py",
+    "PPR_LAYOUT=relocated_gravity OMNI_KIT_ACCEPT_EULA=YES /home/monad/env_isaacsim-c22/bin/python c2.2/sim/verify_full.py"
+  ],
+  "physical_tests": "NOT_RUN; fabrication, energized operation and safety acceptance HOLD"
+}

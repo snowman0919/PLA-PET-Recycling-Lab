@@ -1,0 +1,93 @@
+{
+  "blockers": [
+    "VRAM 10GB below full Isaac Sim 16GB recommended tier: sensor-heavy RTX validation at risk; headless physics scope only",
+    "disk 97% full (35G left): no further large installs without freeing space",
+    "no display detected in headless session; GUI requires livestream client per compat log link"
+  ],
+  "compat_check": {
+    "display": "no display detected (headless); livestream methods per docs.omniverse.nvidia.com/isaacsim/latest/installation/manual_livestream_clients.html",
+    "exit_code": 0,
+    "log": "c2.2/logs/i0_compat_check.log",
+    "log_lines": 116,
+    "result": "PASSED",
+    "run": "2026-09-21T06:00:16Z OMNI_KIT_ACCEPT_EULA=YES $HOME/env_isaacsim-c22/bin/isaacsim isaacsim.exp.compatibility_check",
+    "verdicts": {
+      "cpu_cores": "excellent (total 16, minimum 4)",
+      "cpu_governor": "ideal (Performance)",
+      "cpu_processor": "supported (AMD Ryzen 7 9700X 8-Core Processor)",
+      "driver": "supported (installed 595.84, minimum 535.161)",
+      "gpu0": "supported (NVIDIA GeForce RTX 3080)",
+      "os": "supported (Ubuntu 24.04.4 LTS)",
+      "ram": "enough, more recommended (total 32.7 GB, minimum 32 GB)",
+      "storage": "enough, more recommended (available 59.27 GB, minimum 50 GB)",
+      "vram": "enough, more recommended (total 10.74 GB, minimum 10 GB)"
+    }
+  },
+  "date_utc": "2026-09-21",
+  "disk": {
+    "avail_before": "56G (df /: 901G total, 836G used, 94%)",
+    "avail_after": "35G (df /: 901G total, 857G used, 97%)",
+    "venv_du": "26G at $HOME/env_isaacsim-c22",
+    "ov_cache_du": "523M at ~/.local/share/ov",
+    "pip_packages": 171,
+    "abort_threshold": "15G avail \u2014 never reached (35G remaining)"
+  },
+  "files_written": [
+    "c2.2/logs/i0_compat_check.log",
+    "c2.2/results/i0_environment.json",
+    "c2.2/sim/bootstrap/smoke.py",
+    "c2.2/results/i0_smoke.json",
+    "c2.2/logs/i0_smoke.log"
+  ],
+  "host": {
+    "arch": "x86_64",
+    "cpu": "AMD Ryzen 7 9700X 8-Core Processor (8 cores / 16 threads)",
+    "distro": "Ubuntu 24.04.4 LTS (Noble Numbat)",
+    "gpu": "NVIDIA GeForce RTX 3080, 10240 MiB, compute capability 8.6",
+    "gpu_cuda_driver": "13.2 (driver-side via nvidia-smi; nvcc NOT installed)",
+    "gpu_driver": "595.84",
+    "kernel": "7.0.0-31-generic",
+    "ram_mib": "31187 total / 18323 free (per compat log at run time)",
+    "repo": "/home/monad/develop/PPR-c2.1-codex-20260921 (branch codex/c2.1-s2-transmission-20260921, HEAD d42f32f9; untouched except c2.2/)"
+  },
+  "isaac": {
+    "pinned_version": "6.1.0.0",
+    "bundle": "isaacsim[all,extscache]==6.1.0.0",
+    "extra_index": "https://pypi.nvidia.com",
+    "launcher": "isaacsim CLI + venv python",
+    "full_bundle_installed": true,
+    "eula": "OMNI_KIT_ACCEPT_EULA=YES"
+  },
+  "pip_freeze": {
+    "count": 87,
+    "deltas": [
+      "torch==2.11.0+cu130 (cu130 index, cuda.is_available()=True)",
+      "isaacsim==6.1.0.0, isaacsim-kernel==6.1.0.0, isaacsim-app==6.1.0.0",
+      "packaging==26.3 (manual fix for compat-check import)",
+      "numpy==2.3.1 (pulled by isaacsim deps; torch numpy warning resolved)"
+    ],
+    "full_freeze_source": "venv pip freeze at write time (87 lines; see task report)"
+  },
+  "schema": "i0_environment/1",
+  "smoke": {
+    "status": "PASS",
+    "log": "c2.2/logs/i0_smoke.log",
+    "result": "c2.2/results/i0_smoke.json",
+    "script": "c2.2/sim/bootstrap/smoke.py",
+    "seed": 20260921,
+    "steps": 60,
+    "z_drop": 1.7336,
+    "final_position": [
+      -0.0016,
+      0.001,
+      0.25
+    ],
+    "clean_shutdown": true
+  },
+  "toolchain": {
+    "pip": "26.2.1 (upgraded from 24.0, --no-cache-dir)",
+    "python": "/usr/bin/python3.12 == 3.12.3",
+    "torch": "2.11.0+cu130",
+    "venv": "/home/monad/env_isaacsim-c22 (dedicated, outside both repos)"
+  }
+}

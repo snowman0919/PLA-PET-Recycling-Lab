@@ -1,0 +1,215 @@
+{
+  "schema": "full_machine_verify/2",
+  "usd": "full_machine.usda",
+  "usd_sha256": "a45bee3c261d4f1821a7fe8aeaa5ad87b938aa5c7df6bb08fd48d8fcb240b5c1",
+  "step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12",
+  "dt_s": 0.005,
+  "steps": 40,
+  "omega_rad_s": 251.32741228718345,
+  "theta_total_rad": 50.26548245743669,
+  "ratios_commanded_per_input": {
+    "S1A": -0.375,
+    "S1B": 0.375,
+    "S2Ecc": 2.0,
+    "S2Carrier": -0.25
+  },
+  "ratio_tolerance_rad": 0.05,
+  "max_tracking_err_rad": {
+    "MachineJointIn": 50.265483,
+    "MachineJointS1A": 18.849554,
+    "MachineJointS1B": 18.849557,
+    "MachineJointS2Ecc": 100.530958,
+    "MachineJointS2Carrier": 12.56637
+  },
+  "tracking_pass": false,
+  "tracking_nan": false,
+  "torque_source": "get_dof_actuation_forces (raw tensor API)",
+  "torque_available": true,
+  "max_abs_torque_Nm": {
+    "MachineJointIn": 0.0,
+    "MachineJointS1A": 0.0,
+    "MachineJointS1B": 0.0,
+    "MachineJointS2Ecc": 0.0,
+    "MachineJointS2Carrier": 0.0
+  },
+  "torque_rows": [
+    {
+      "step": 1,
+      "torque_Nm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "step": 40,
+      "torque_Nm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "contact_events_total": 0,
+  "contact_pairs_by_design": [],
+  "unexpected_contact_count": 0,
+  "unexpected_contact_pairs": [],
+  "probe_test": {
+    "total": 200,
+    "d3mm": {
+      "reached": 0,
+      "total": 100
+    },
+    "d15mm": {
+      "reached": 0,
+      "total": 100
+    },
+    "reached_screen_total": 0,
+    "screen_bbox_mm": [
+      258.9297846749503,
+      254.9999999,
+      215.1999999,
+      358.2091447031718,
+      295.0000001,
+      239.63293821169236
+    ],
+    "spawn_z_mm": 471.0,
+    "sample_final_positions": [
+      {
+        "i": 0,
+        "class": "d3",
+        "final_pos_mm": [
+          136.7,
+          230.7,
+          470.3
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 1,
+        "class": "d3",
+        "final_pos_mm": [
+          104.1,
+          211.5,
+          470.3
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 2,
+        "class": "d3",
+        "final_pos_mm": [
+          118.2,
+          234.1,
+          470.3
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 3,
+        "class": "d3",
+        "final_pos_mm": [
+          107.0,
+          268.2,
+          470.3
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 4,
+        "class": "d3",
+        "final_pos_mm": [
+          122.9,
+          215.7,
+          470.3
+        ],
+        "reached_screen": false
+      },
+      {
+        "i": 5,
+        "class": "d3",
+        "final_pos_mm": [
+          149.1,
+          272.9,
+          470.3
+        ],
+        "reached_screen": false
+      }
+    ],
+    "note": "material-path smoke check, NOT grinding performance"
+  },
+  "telemetry_rows": [
+    {
+      "step": 1,
+      "t_s": 0.005,
+      "theta_cmd_rad": 1.2566370614359172,
+      "cmd_rad": [
+        1.25664,
+        -0.47124,
+        0.47124,
+        2.51327,
+        -0.31416
+      ],
+      "pos_rad": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1e-05,
+        -0.0
+      ],
+      "vel_rad_s": [
+        0.0113,
+        0.01128,
+        0.01128,
+        0.01121,
+        0.01129
+      ],
+      "err_rad": [
+        1.256637,
+        0.471237,
+        0.47124,
+        2.513268,
+        0.314158
+      ]
+    },
+    {
+      "step": 40,
+      "t_s": 0.2,
+      "theta_cmd_rad": 50.26548245743669,
+      "cmd_rad": [
+        50.26548,
+        -18.84956,
+        18.84956,
+        100.53096,
+        -12.56637
+      ],
+      "pos_rad": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1e-05,
+        -0.0
+      ],
+      "vel_rad_s": [
+        0.0113,
+        0.01128,
+        0.01128,
+        0.01121,
+        0.01129
+      ],
+      "err_rad": [
+        50.265483,
+        18.849554,
+        18.849557,
+        100.530958,
+        12.56637
+      ]
+    }
+  ],
+  "runner": "c2.2/sim/verify_full.py",
+  "api_path": "raw omni.physics.tensors after explicit physx_simulation_interface.attach_stage"
+}

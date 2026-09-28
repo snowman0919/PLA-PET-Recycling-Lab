@@ -1,0 +1,39 @@
+{
+  "asset_id": "PDL_SHAFT",
+  "group": "feed",
+  "kinematic_body": "STATIC",
+  "lod": "coarse",
+  "step_index": 194,
+  "step_product_name": "Open CASCADE STEP translator 7.9 1.194",
+  "mesh_file": "sim/assets/out/PDL_SHAFT__coarse.stl",
+  "mesh_bytes": 5084,
+  "mesh_sha256": "03c45b558dff8dfaceb09c00edd29a362bb1a475065aab638b3cfe138160bb01",
+  "mesh_format": "STL",
+  "source_step": "c2.1/cad/PPR_VP1.step",
+  "source_step_sha256": "9ac7e1bc4a18d0788f218301e829ab1294ff5bb5cd7b2244a263410b1aa52d16",
+  "naming_basis": "deterministic reconstruction order (design/assembly.json instances + build_cad.components); STEP product names are generic",
+  "bbox_containment_ok": true,
+  "part_bbox_mm": [
+    333.9999999,
+    211.9999999,
+    369.4999999,
+    344.0000001,
+    388.0000001,
+    379.5000001
+  ],
+  "revision": "2c51ed2ad7ad3f3f63c5248be430ebd9557f2247",
+  "conversion_script": "c2.2/sim/assets/convert.py",
+  "conversion_script_sha256": "5f38d7fee23c5b44b8267f361e7b897f7215512aa1c929587cbf41f625b949bd",
+  "tessellation": {
+    "linear_tolerance_mm": 0.5,
+    "angular_tolerance_rad": 0.5
+  },
+  "coords": "F0 identity (no transform applied)",
+  "units": "mm",
+  "volume_mm3": 13823.007675795105,
+  "mass_kg": null,
+  "inertia": null,
+  "material": null,
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "evidence_level": "GEOMETRIC_ONLY"
+}

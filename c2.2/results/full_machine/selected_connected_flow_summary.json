@@ -1,0 +1,73 @@
+{
+  "schema": "selected_connected_flow_summary/1",
+  "runner": "c2.2/sim/verify_full.py",
+  "run_args": {
+    "steps": 12800,
+    "dt_s": 0.005,
+    "cycles": 8,
+    "probes": 200
+  },
+  "full_result": "c2.2/results/full_machine/run_eula_ack_final_8cycles_20260927/results.json",
+  "full_result_sha256": "e6900c16e77d32584265c5fde66358ff62c598016350da88d79aad5e2cb189f4",
+  "step_sha256": "c3620578d5959b521daf76649fd6f6dd88610f5f3c3d7eda7b4e637ea6fcc48d",
+  "usd_sha256": "d528db253c81e3bfb41a016f1bbb5e0dceba97830dca9b3a5076b3bd3216d5e7",
+  "usd_source_linked": true,
+  "tracking_pass": true,
+  "flow_localization_reference": {
+    "path": "c2.2/results/full_machine/flow_localize/results.json",
+    "present": true,
+    "exact_scene_hash_match": true,
+    "step_sha256": "c3620578d5959b521daf76649fd6f6dd88610f5f3c3d7eda7b4e637ea6fcc48d",
+    "usda_sha256": "d528db253c81e3bfb41a016f1bbb5e0dceba97830dca9b3a5076b3bd3216d5e7",
+    "phase_reference_sha256": "62d2f012b590dd0e2b15f53c63559db52eedec569272ece65a4a2204365a8e59",
+    "explains": {
+      "blocked_phases": [
+        "hopper_mouth",
+        "s1_discharge",
+        "chute_inlet",
+        "s2_inlet"
+      ],
+      "top_blockers": {
+        "hopper_mouth": [],
+        "s1_discharge": [
+          "STATIC:CHUTE_BODY",
+          "TRANSFER_BELT:S1_TRANSFER_BELT",
+          "BELT:S1_BELT",
+          "SWEEP_NORTH:S1_SWEEP_NORTH"
+        ],
+        "chute_inlet": [
+          "TRANSFER_BELT:S1_TRANSFER_BELT",
+          "STATIC:CHUTE_BODY",
+          "CROSS_FEED:CROSS_FEED_SHAFT",
+          "AUGER:AUG_SHAFT",
+          "STATIC:CROSS_FEED_SHELL"
+        ],
+        "s2_inlet": [
+          "STATIC:EX-BARREL_001",
+          "STATIC:EX-SCREW_001",
+          "STATIC:FEED-BUF_001",
+          "STATIC:SUPPORT_TIE_3",
+          "STATIC:SUPPORT_TIE_1"
+        ]
+      },
+      "localizes_obstruction": true
+    }
+  },
+  "probe_test": {
+    "total": 200,
+    "reached_screen_total": 0,
+    "connected_stage_counts": {
+      "s1_exit": 115,
+      "auger_pickup": 33,
+      "s2_mouth": 0,
+      "same_screen_bore": 0,
+      "buffer_upper": 0,
+      "buffer_throat": 0
+    },
+    "same_probe_ids_screen_to_buffer": [],
+    "connected_buffer_verified": false
+  },
+  "product_flow_verified": false,
+  "verdict": "LOCALIZED_BLOCKED",
+  "physical_qualification": "HOLD"
+}

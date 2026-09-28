@@ -25,8 +25,10 @@ jobs:
           import json
           r=json.load(open('results/engineering.json'))
           assert r['power_allocator_exhaustive']['passed']
-          assert r['power']['psu_rated_W']==800
+          assert r['power']['psu_nameplate_W']==800
+          assert r['power']['psu_current_A']==33
           assert r['power']['operational_cap_W']==500
+          assert r['power']['psu_current_derived_ceiling_W']==792
           assert r['power']['actual_current_limit_and_transient_testing']=='NOT_RUN'
           print('Digital contracts only. Procurement, fabrication and energization: HOLD.')
           PYCODE

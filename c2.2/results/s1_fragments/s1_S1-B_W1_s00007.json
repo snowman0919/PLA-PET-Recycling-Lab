@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 7,
+  "class": "W1",
+  "waste_id": "W1-l_bracket-00007",
+  "input_mass_g": 90.717,
+  "peak_proxy": 0.21670577003439967,
+  "work_proxy": 44.0985357557542,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 1.4210854715202004e-14,
+  "fragments": [
+    {
+      "fragment_id": "W1-l_bracket-00007:S1-B:F000",
+      "source_waste_id": "W1-l_bracket-00007",
+      "seed": 7,
+      "mass_g": 20.159333,
+      "volume_mm3": 16257.527,
+      "com_mm": [
+        53.89,
+        9.78,
+        12.04
+      ],
+      "principal_dims_mm": [
+        97.982,
+        20.067,
+        9.78
+      ],
+      "equiv_diameter_mm": 31.431,
+      "aspect_ratio": 10.019,
+      "pose_quaternion_xyzw": [
+        0.65051,
+        -0.24048,
+        -0.29221,
+        0.65849
+      ],
+      "velocity_proxy_mm_s": [
+        1.0835,
+        1.0835,
+        1.0835
+      ],
+      "bond_state": {
+        "failed_bonds": 519,
+        "first_kind": "cross_raster"
+      },
+      "class": "W1",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W1-l_bracket-00007:S1-B:F001",
+      "source_waste_id": "W1-l_bracket-00007",
+      "seed": 7,
+      "mass_g": 70.557667,
+      "volume_mm3": 56901.344,
+      "com_mm": [
+        53.89,
+        53.79,
+        12.04
+      ],
+      "principal_dims_mm": [
+        97.982,
+        58.68,
+        20.067
+      ],
+      "equiv_diameter_mm": 47.721,
+      "aspect_ratio": 4.883,
+      "pose_quaternion_xyzw": [
+        0.42804,
+        0.17333,
+        0.70022,
+        0.54446
+      ],
+      "velocity_proxy_mm_s": [
+        1.0835,
+        1.0835,
+        1.0835
+      ],
+      "bond_state": {
+        "failed_bonds": 519,
+        "first_kind": "cross_raster"
+      },
+      "class": "W1",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

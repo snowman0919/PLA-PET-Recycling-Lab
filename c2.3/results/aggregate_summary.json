@@ -1,0 +1,560 @@
+{
+  "FDM": {
+    "0.01": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.090717,
+        "m_active_kg": 0.090717,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.090717,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 2.4081281177978964,
+        "by_class": {
+          "total": 2.4081281177978964,
+          "cutter": 2.4081281177978964,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.01
+      },
+      "work": {
+        "shaft_work_J": 0.4034857388681006,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.02,
+        "last_contact_t_s": 2.4,
+        "residence_time_s": 2.38
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 46,
+        "bonds_alive": 0,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.005": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.090717,
+        "m_active_kg": 0.090717,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.090717,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 1.466057341694832,
+        "by_class": {
+          "total": 1.466057341694832,
+          "cutter": 1.466057341694832,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.005
+      },
+      "work": {
+        "shaft_work_J": 0.24564026530185945,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.005,
+        "last_contact_t_s": 1.2,
+        "residence_time_s": 1.195
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 46,
+        "bonds_alive": 0,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.0025": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.090717,
+        "m_active_kg": 0.090717,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.090717,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 0.5060951111574832,
+        "by_class": {
+          "total": 0.5060951111574832,
+          "cutter": 0.5060951111574832,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.0025
+      },
+      "work": {
+        "shaft_work_J": 0.0847970497722698,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.0025,
+        "last_contact_t_s": 0.6,
+        "residence_time_s": 0.5975
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 43,
+        "bonds_alive": 3,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.00125": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.090717,
+        "m_active_kg": 0.090717,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.090717,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 0.24776656009860745,
+        "by_class": {
+          "total": 0.24776656009860745,
+          "cutter": 0.24776656009860745,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.00125
+      },
+      "work": {
+        "shaft_work_J": 0.04151368560058662,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.005,
+        "last_contact_t_s": 0.3,
+        "residence_time_s": 0.295
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 12,
+        "bonds_alive": 34,
+        "fragments": 24
+      },
+      "steps": 240
+    }
+  },
+  "PURGE": {
+    "0.01": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.107209,
+        "m_active_kg": 0.107209,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.107209,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 2.3707066677178954,
+        "by_class": {
+          "total": 2.3707066677178954,
+          "cutter": 2.3707066677178954,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.01
+      },
+      "work": {
+        "shaft_work_J": 0.3972157147263402,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.03,
+        "last_contact_t_s": 2.4,
+        "residence_time_s": 2.37
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 46,
+        "bonds_alive": 0,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.005": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.107209,
+        "m_active_kg": 0.107209,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.107209,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 1.1371136404131539,
+        "by_class": {
+          "total": 1.1371136404131539,
+          "cutter": 1.1371136404131539,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.005
+      },
+      "work": {
+        "shaft_work_J": 0.19052521914766452,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.035,
+        "last_contact_t_s": 1.2,
+        "residence_time_s": 1.165
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 46,
+        "bonds_alive": 0,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.0025": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.107209,
+        "m_active_kg": 0.107209,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.107209,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 0.5292751159910404,
+        "by_class": {
+          "total": 0.5292751159910404,
+          "cutter": 0.5292751159910404,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.0025
+      },
+      "work": {
+        "shaft_work_J": 0.08868089686001802,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.025,
+        "last_contact_t_s": 0.6,
+        "residence_time_s": 0.575
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 46,
+        "bonds_alive": 0,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.00125": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.107209,
+        "m_active_kg": 0.107209,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.107209,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 0.3151009362968034,
+        "by_class": {
+          "total": 0.3151009362968034,
+          "cutter": 0.3151009362968034,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.00125
+      },
+      "work": {
+        "shaft_work_J": 0.05279566861916282,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.00125,
+        "last_contact_t_s": 0.3,
+        "residence_time_s": 0.29875
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 5,
+        "bonds_alive": 41,
+        "fragments": 24
+      },
+      "steps": 240
+    }
+  },
+  "WRAP": {
+    "0.01": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.03581600000000001,
+        "m_active_kg": 0.03581600000000001,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.03581600000000001,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 0.8242467150936136,
+        "by_class": {
+          "total": 0.8242467150936136,
+          "cutter": 0.8242467150936136,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.01
+      },
+      "work": {
+        "shaft_work_J": 0.1381038626604595,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.02,
+        "last_contact_t_s": 2.4,
+        "residence_time_s": 2.38
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 46,
+        "bonds_alive": 0,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.005": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.03581600000000001,
+        "m_active_kg": 0.03581600000000001,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.03581600000000001,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 0.46290876465878683,
+        "by_class": {
+          "total": 0.46290876465878683,
+          "cutter": 0.46290876465878683,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.005
+      },
+      "work": {
+        "shaft_work_J": 0.07756110796449979,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.005,
+        "last_contact_t_s": 1.2,
+        "residence_time_s": 1.195
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 46,
+        "bonds_alive": 0,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.0025": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.03581600000000001,
+        "m_active_kg": 0.03581600000000001,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.03581600000000001,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 0.18784604879670952,
+        "by_class": {
+          "total": 0.18784604879670952,
+          "cutter": 0.18784604879670952,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.0025
+      },
+      "work": {
+        "shaft_work_J": 0.03147390756829933,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.01,
+        "last_contact_t_s": 0.6,
+        "residence_time_s": 0.59
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 16,
+        "bonds_alive": 30,
+        "fragments": 24
+      },
+      "steps": 240
+    },
+    "0.00125": {
+      "schema": "c2.3_aggregate/1",
+      "mass": {
+        "m_initial_kg": 0.03581600000000001,
+        "m_active_kg": 0.03581600000000001,
+        "m_output_kg": 0.0,
+        "m_lost_kg": 0.0,
+        "m_final_kg": 0.03581600000000001,
+        "rel_error": 0.0
+      },
+      "impulse": {
+        "J_total_Ns": 0.08824554906012054,
+        "by_class": {
+          "total": 0.08824554906012054,
+          "cutter": 0.08824554906012054,
+          "screen": 0.0,
+          "other": 0.0
+        },
+        "dt_s": 0.00125
+      },
+      "work": {
+        "shaft_work_J": 0.014785683660761191,
+        "torque_source": "CONTACT_DERIVED_MOMENT_ARM"
+      },
+      "residence": {
+        "first_contact_t_s": 0.00375,
+        "last_contact_t_s": 0.3,
+        "residence_time_s": 0.29625
+      },
+      "passage": {
+        "n_passed": 0,
+        "n_retained": 24,
+        "n_recirculated": 0,
+        "note": "NOT_APPLICABLE in S1-only runner; S2 screen passage recorded by the S2 stage"
+      },
+      "flags": {
+        "jam": false,
+        "wrap": false
+      },
+      "fragments": {
+        "breaks": 12,
+        "bonds_alive": 34,
+        "fragments": 24
+      },
+      "steps": 240
+    }
+  }
+}

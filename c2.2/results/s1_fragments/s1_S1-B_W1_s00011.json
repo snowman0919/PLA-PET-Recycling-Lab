@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-B",
+  "seed": 11,
+  "class": "W1",
+  "waste_id": "W1-hollow_box-00011",
+  "input_mass_g": 48.252,
+  "peak_proxy": 0.21053676648774097,
+  "work_proxy": 12.879976507115888,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 7.105427357601002e-15,
+  "fragments": [
+    {
+      "fragment_id": "W1-hollow_box-00011:S1-B:F000",
+      "source_waste_id": "W1-hollow_box-00011",
+      "seed": 11,
+      "mass_g": 32.168,
+      "volume_mm3": 25941.935,
+      "com_mm": [
+        38.495,
+        20.22,
+        13.33
+      ],
+      "principal_dims_mm": [
+        67.366,
+        30.33,
+        19.995
+      ],
+      "equiv_diameter_mm": 36.728,
+      "aspect_ratio": 3.369,
+      "pose_quaternion_xyzw": [
+        -0.71307,
+        -0.50993,
+        0.40348,
+        -0.26212
+      ],
+      "velocity_proxy_mm_s": [
+        1.0527,
+        1.0527,
+        1.0527
+      ],
+      "bond_state": {
+        "failed_bonds": 156,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W1",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W1-hollow_box-00011:S1-B:F001",
+      "source_waste_id": "W1-hollow_box-00011",
+      "seed": 11,
+      "mass_g": 16.084,
+      "volume_mm3": 12970.968,
+      "com_mm": [
+        38.495,
+        20.22,
+        33.325
+      ],
+      "principal_dims_mm": [
+        67.366,
+        30.33,
+        6.665
+      ],
+      "equiv_diameter_mm": 29.151,
+      "aspect_ratio": 10.107,
+      "pose_quaternion_xyzw": [
+        -0.93131,
+        -0.35149,
+        -0.03402,
+        0.08927
+      ],
+      "velocity_proxy_mm_s": [
+        1.0527,
+        1.0527,
+        1.0527
+      ],
+      "bond_state": {
+        "failed_bonds": 156,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W1",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.15,
+  "s1_multiplier_note": "localized shear concentration at breaker edge",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

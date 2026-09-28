@@ -1,0 +1,205 @@
+{
+  "schema": "dyn_gap_screen_sweep/1",
+  "centers_mm": [
+    59.2,
+    60.0,
+    60.8
+  ],
+  "holes_mm": [
+    3.0,
+    4.0,
+    5.5
+  ],
+  "s1": [
+    {
+      "class": "W1",
+      "seed": 7,
+      "center_mm": 59.2,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "torque_impulse_Nms": 0.04949454818568192,
+      "contact_steps": 240,
+      "tag": "s1_W1_7_dt0.005_n240_c59.2"
+    },
+    {
+      "class": "W1",
+      "seed": 7,
+      "center_mm": 60.0,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "torque_impulse_Nms": 0.05864229366779327,
+      "contact_steps": 239,
+      "tag": "s1_W1_7_dt0.005_n240_c60.0"
+    },
+    {
+      "class": "W1",
+      "seed": 7,
+      "center_mm": 60.8,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "torque_impulse_Nms": 0.06339902506938672,
+      "contact_steps": 239,
+      "tag": "s1_W1_7_dt0.005_n240_c60.8"
+    },
+    {
+      "class": "W4",
+      "seed": 11,
+      "center_mm": 59.2,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "torque_impulse_Nms": 0.04493760896167947,
+      "contact_steps": 235,
+      "tag": "s1_W4_11_dt0.005_n240_c59.2"
+    },
+    {
+      "class": "W4",
+      "seed": 11,
+      "center_mm": 60.0,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "torque_impulse_Nms": 0.04548454561652613,
+      "contact_steps": 233,
+      "tag": "s1_W4_11_dt0.005_n240_c60.0"
+    },
+    {
+      "class": "W4",
+      "seed": 11,
+      "center_mm": 60.8,
+      "exit": 0,
+      "status": "PASS",
+      "bond_breaks": 46,
+      "torque_impulse_Nms": 0.046342954775830746,
+      "contact_steps": 239,
+      "tag": "s1_W4_11_dt0.005_n240_c60.8"
+    }
+  ],
+  "s2": [
+    {
+      "from_s1": "s1_W1_7_dt0.005_n240_c60.0",
+      "arch": "S2-A",
+      "hole_mm": 3.0,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.5,
+      "n_passed": 6,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W1_7_dt0.005_n240_c60.0",
+      "arch": "S2-B",
+      "hole_mm": 3.0,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.3333333333333333,
+      "n_passed": 4,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W1_7_dt0.005_n240_c60.0",
+      "arch": "S2-A",
+      "hole_mm": 4.0,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.4166666666666667,
+      "n_passed": 5,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W1_7_dt0.005_n240_c60.0",
+      "arch": "S2-B",
+      "hole_mm": 4.0,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.3333333333333333,
+      "n_passed": 4,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W1_7_dt0.005_n240_c60.0",
+      "arch": "S2-A",
+      "hole_mm": 5.5,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.5,
+      "n_passed": 6,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W1_7_dt0.005_n240_c60.0",
+      "arch": "S2-B",
+      "hole_mm": 5.5,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.3333333333333333,
+      "n_passed": 4,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W4_11_dt0.005_n240_c60.0",
+      "arch": "S2-A",
+      "hole_mm": 3.0,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.4166666666666667,
+      "n_passed": 5,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W4_11_dt0.005_n240_c60.0",
+      "arch": "S2-B",
+      "hole_mm": 3.0,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.25,
+      "n_passed": 3,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W4_11_dt0.005_n240_c60.0",
+      "arch": "S2-A",
+      "hole_mm": 4.0,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.4166666666666667,
+      "n_passed": 5,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W4_11_dt0.005_n240_c60.0",
+      "arch": "S2-B",
+      "hole_mm": 4.0,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.16666666666666666,
+      "n_passed": 2,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W4_11_dt0.005_n240_c60.0",
+      "arch": "S2-A",
+      "hole_mm": 5.5,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.5,
+      "n_passed": 6,
+      "n_frags": 12
+    },
+    {
+      "from_s1": "s1_W4_11_dt0.005_n240_c60.0",
+      "arch": "S2-B",
+      "hole_mm": 5.5,
+      "exit": 0,
+      "status": "PASS",
+      "pass_rate": 0.16666666666666666,
+      "n_passed": 2,
+      "n_frags": 12
+    }
+  ],
+  "status": "PASS",
+  "failures": []
+}

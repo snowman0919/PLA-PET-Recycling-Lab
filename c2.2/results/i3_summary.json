@@ -1,0 +1,172 @@
+{
+  "evidence_level": "UNCALIBRATED_FRACTURE",
+  "seed": 7,
+  "combos": 12,
+  "ordering_probe": {
+    "0": {
+      "W1": 0.5083127087020146,
+      "W2": 0.5083127087020146,
+      "W3": 0.5083127087020146,
+      "W4": 0.5083127087020146
+    },
+    "45": {
+      "W1": 0.39508792624202355,
+      "W2": 0.5746733472611252,
+      "W3": 0.6105904314649454,
+      "W4": 0.6967914335541142
+    },
+    "90": {
+      "W1": 0.27936935181066536,
+      "W2": 0.40635542081551324,
+      "W3": 0.4317526346164828,
+      "W4": 0.49270594773880977
+    },
+    "W1_z_first": "inter_layer_z"
+  },
+  "runs": [
+    {
+      "run_id": "I3-W1-000-s00007",
+      "class": "W1",
+      "orientation_deg": 0,
+      "peak_proxy": 0.32579101326524945,
+      "work_proxy": 66.92171094125267,
+      "bonds_failed": 523,
+      "first_failure_kind": "in_raster",
+      "fragments": 2,
+      "mass_error_g": 0.0,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W1-045-s00007",
+      "class": "W1",
+      "orientation_deg": 45,
+      "peak_proxy": 0.2537781589770169,
+      "work_proxy": 51.64258070240108,
+      "bonds_failed": 519,
+      "first_failure_kind": "cross_raster",
+      "fragments": 2,
+      "mass_error_g": 1.4210854715202004e-14,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W1-090-s00007",
+      "class": "W1",
+      "orientation_deg": 90,
+      "peak_proxy": 0.17944825712968634,
+      "work_proxy": 36.516819012641335,
+      "bonds_failed": 519,
+      "first_failure_kind": "cross_raster",
+      "fragments": 2,
+      "mass_error_g": 1.4210854715202004e-14,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W2-000-s00007",
+      "class": "W2",
+      "orientation_deg": 0,
+      "peak_proxy": 0.8655690035249944,
+      "work_proxy": 86.32686330370593,
+      "bonds_failed": 254,
+      "first_failure_kind": "in_raster",
+      "fragments": 2,
+      "mass_error_g": 0.0,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W2-045-s00007",
+      "class": "W2",
+      "orientation_deg": 45,
+      "peak_proxy": 0.9789936026981931,
+      "work_proxy": 103.79532239313632,
+      "bonds_failed": 270,
+      "first_failure_kind": "cross_raster",
+      "fragments": 2,
+      "mass_error_g": 0.0,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W2-090-s00007",
+      "class": "W2",
+      "orientation_deg": 90,
+      "peak_proxy": 0.692253015206141,
+      "work_proxy": 73.3943763196306,
+      "bonds_failed": 270,
+      "first_failure_kind": "cross_raster",
+      "fragments": 2,
+      "mass_error_g": 0.0,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W3-000-s00007",
+      "class": "W3",
+      "orientation_deg": 0,
+      "peak_proxy": 0.7669083768012289,
+      "work_proxy": 76.48702107049856,
+      "bonds_failed": 254,
+      "first_failure_kind": "in_raster",
+      "fragments": 2,
+      "mass_error_g": 0.0,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W3-045-s00007",
+      "class": "W3",
+      "orientation_deg": 45,
+      "peak_proxy": 0.9216172149959928,
+      "work_proxy": 97.71213590152918,
+      "bonds_failed": 270,
+      "first_failure_kind": "cross_raster",
+      "fragments": 2,
+      "mass_error_g": 2.842170943040401e-14,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W3-090-s00007",
+      "class": "W3",
+      "orientation_deg": 90,
+      "peak_proxy": 0.6516817823819268,
+      "work_proxy": 69.09291390019277,
+      "bonds_failed": 270,
+      "first_failure_kind": "cross_raster",
+      "fragments": 2,
+      "mass_error_g": 2.842170943040401e-14,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W4-000-s00007",
+      "class": "W4",
+      "orientation_deg": 0,
+      "peak_proxy": 0.9787943879585348,
+      "work_proxy": 161.25131572279537,
+      "bonds_failed": 420,
+      "first_failure_kind": "in_raster",
+      "fragments": 2,
+      "mass_error_g": 0.0,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W4-045-s00007",
+      "class": "W4",
+      "orientation_deg": 45,
+      "peak_proxy": 1.3429567304960155,
+      "work_proxy": 272.84923171951374,
+      "bonds_failed": 516,
+      "first_failure_kind": "cross_raster",
+      "fragments": 2,
+      "mass_error_g": 0.0,
+      "stability": "CLEAN_SPLIT"
+    },
+    {
+      "run_id": "I3-W4-090-s00007",
+      "class": "W4",
+      "orientation_deg": 90,
+      "peak_proxy": 0.9496138109738472,
+      "work_proxy": 152.0777956898498,
+      "bonds_failed": 408,
+      "first_failure_kind": "cross_raster",
+      "fragments": 2,
+      "mass_error_g": 0.0,
+      "stability": "CLEAN_SPLIT"
+    }
+  ]
+}

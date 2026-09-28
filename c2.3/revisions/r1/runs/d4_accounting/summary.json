@@ -1,0 +1,102 @@
+{
+  "schema": "r03_d4/1",
+  "backend": "ISAAC_PHYSX",
+  "isaac_version": "6.1.0.0",
+  "isaac_runtime_version": "UNKNOWN",
+  "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+  "python": "/home/monad/env_isaacsim-c22/bin/python",
+  "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py",
+  "scene": "/World/DIAGNOSTIC_FIXTURE",
+  "physics_dt_s": 0.005,
+  "dt_readback_s": 0.005,
+  "dt_source_mapping": "SimulationManager.set_physics_dt(0.005) once pre-play; advance via SimulationManager.step(steps=1)",
+  "body_ids": [
+    "/World/DIAGNOSTIC_FIXTURE/D4_A",
+    "/World/DIAGNOSTIC_FIXTURE/D4_B",
+    "/World/DIAGNOSTIC_FIXTURE/D4_C"
+  ],
+  "design_mass_kg": 7.0,
+  "scale": 0.5,
+  "intended_masses_kg": {
+    "A": 1.0,
+    "B": 2.0,
+    "C": 0.5
+  },
+  "instantiated_masses_kg": {
+    "A": 1.0,
+    "B": 2.0,
+    "C": 0.5
+  },
+  "nominal_ledger": {
+    "intended_total": 3.5,
+    "instantiated_total": 3.5,
+    "unexplained": 0.0,
+    "rel_error": 0.0,
+    "within_tol": true
+  },
+  "bucket_partition": {
+    "active": [
+      "A",
+      "B",
+      "C"
+    ],
+    "output": [],
+    "removed": [],
+    "missing": []
+  },
+  "float_handling": {
+    "dtype": "float64 (Python float)",
+    "summation": "sequential add, sorted body-ID order",
+    "comparison": "|a-b|/max(|a|,1e-30)",
+    "tolerance": 1e-06
+  },
+  "fault_injection": {
+    "actor_disappearance": {
+      "injected": "disabled body C",
+      "enabled_ids": [
+        "A",
+        "B"
+      ],
+      "detected": true
+    },
+    "duplicate_entry": {
+      "injected": "body B counted twice",
+      "trial_total": 5.5,
+      "instantiated_total": 3.5,
+      "detected": true
+    },
+    "altered_mass": {
+      "injected": "body B mass 2.0 -> 2.5 kg",
+      "readback_kg": {
+        "A": 1.0,
+        "B": 2.5,
+        "C": 0.5
+      },
+      "detected": true
+    }
+  },
+  "all_faults_detected": true,
+  "observability": {
+    "wrap": [
+      null,
+      "NOT_IMPLEMENTED"
+    ],
+    "passage": [
+      null,
+      "NOT_APPLICABLE"
+    ],
+    "residence": [
+      null,
+      "RIGHT_CENSORED"
+    ],
+    "motor_jam": [
+      "NOT_OBSERVABLE",
+      []
+    ],
+    "unavailable_comparison": "NOT_EVALUABLE"
+  },
+  "scene_sha256": "4cdbdf86113bc6cb262ba777111398e1de0d77962b619c321981b54689588081",
+  "status": "RUN_OK",
+  "verdict": "IMPLEMENTED",
+  "failures": []
+}

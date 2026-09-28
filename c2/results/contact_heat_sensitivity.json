@@ -15,25 +15,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 49.83398567061729,
-    "final_metal_C": 43.34151007882335,
-    "final_shell_C": 39.7613233390939,
-    "steady_C": [
-      49.95060418589911,
-      43.445664604489025,
-      39.85160588065089
+    "final_polymer_C": 49.0319,
+    "final_metal_C": 42.4536,
+    "final_shell_C": 38.8649,
+    "final_motor_C": 25.3734,
+    "final_gear_C": 26.311,
+    "final_state_C": [
+      49.0319,
+      42.4536,
+      38.8649,
+      25.3734,
+      26.311
     ],
-    "energy_balance_residual_J": 6.737536750733852e-09,
-    "max_step_power_residual_W": 1.1876721828230075e-11,
+    "steady_C": [
+      49.1169,
+      42.5286,
+      38.9293,
+      25.3782,
+      26.3236
+    ],
+    "energy_balance_residual_J": 2.41889e-08,
+    "max_step_power_residual_W": 2.04246e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   },
   {
@@ -52,25 +74,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 60.439640738468185,
-    "final_metal_C": 43.00828185427362,
-    "final_shell_C": 39.49471404295346,
-    "steady_C": [
-      60.55892362594209,
-      43.11481598853631,
-      39.58705926119844
+    "final_polymer_C": 59.6529,
+    "final_metal_C": 42.1372,
+    "final_shell_C": 38.6151,
+    "final_motor_C": 25.3665,
+    "final_gear_C": 26.2871,
+    "final_state_C": [
+      59.6529,
+      42.1372,
+      38.6151,
+      25.3665,
+      26.2871
     ],
-    "energy_balance_residual_J": 7.043126970529556e-09,
-    "max_step_power_residual_W": 1.1528555887707626e-11,
+    "steady_C": [
+      59.7401,
+      42.2141,
+      38.6812,
+      25.3714,
+      26.3
+    ],
+    "energy_balance_residual_J": 2.38251e-08,
+    "max_step_power_residual_W": 1.91989e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   },
   {
@@ -89,25 +133,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 78.99953710720723,
-    "final_metal_C": 42.425132461311414,
-    "final_shell_C": 39.02814777470754,
-    "steady_C": [
-      79.12348264601732,
-      42.53583091061907,
-      39.12410267715667
+    "final_polymer_C": 78.2397,
+    "final_metal_C": 41.5835,
+    "final_shell_C": 38.1781,
+    "final_motor_C": 25.3545,
+    "final_gear_C": 26.2453,
+    "final_state_C": [
+      78.2397,
+      41.5835,
+      38.1781,
+      25.3545,
+      26.2453
     ],
-    "energy_balance_residual_J": 6.759364623576403e-09,
-    "max_step_power_residual_W": 1.155520124029863e-11,
+    "steady_C": [
+      78.3306,
+      41.6637,
+      38.247,
+      25.3596,
+      26.2588
+    ],
+    "energy_balance_residual_J": 2.33376e-08,
+    "max_step_power_residual_W": 2.05649e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   },
   {
@@ -126,25 +192,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 45.22645980503291,
-    "final_metal_C": 43.487566565474864,
-    "final_shell_C": 39.87822265465475,
-    "steady_C": [
-      45.331439533682556,
-      43.589725522024615,
-      39.96679701911013
+    "final_polymer_C": 44.3561,
+    "final_metal_C": 42.5941,
+    "final_shell_C": 38.9758,
+    "final_motor_C": 25.3764,
+    "final_gear_C": 26.3217,
+    "final_state_C": [
+      44.3561,
+      42.5941,
+      38.9758,
+      25.3764,
+      26.3217
     ],
-    "energy_balance_residual_J": -2.051820047199726e-09,
-    "max_step_power_residual_W": 1.1425527191022411e-11,
+    "steady_C": [
+      44.4315,
+      42.6673,
+      39.0388,
+      25.3811,
+      26.334
+    ],
+    "energy_balance_residual_J": 1.70585e-08,
+    "max_step_power_residual_W": 1.76357e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   },
   {
@@ -163,25 +251,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 48.06630334726883,
-    "final_metal_C": 43.3984352845927,
-    "final_shell_C": 39.80691646907752,
-    "steady_C": [
-      48.1718438722054,
-      43.50113996901053,
-      39.895963993211815
+    "final_polymer_C": 47.2003,
+    "final_metal_C": 42.5094,
+    "final_shell_C": 38.909,
+    "final_motor_C": 25.3746,
+    "final_gear_C": 26.3153,
+    "final_state_C": [
+      47.2003,
+      42.5094,
+      38.909,
+      25.3746,
+      26.3153
     ],
-    "energy_balance_residual_J": -1.6771082300692797e-09,
-    "max_step_power_residual_W": 1.0592415833343694e-11,
+    "steady_C": [
+      47.2762,
+      42.5831,
+      38.9723,
+      25.3793,
+      26.3277
+    ],
+    "energy_balance_residual_J": 1.75678e-08,
+    "max_step_power_residual_W": 2.34266e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   },
   {
@@ -200,25 +310,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 53.03602954618151,
-    "final_metal_C": 43.24245554304868,
-    "final_shell_C": 39.68213064431714,
-    "steady_C": [
-      53.14255146462036,
-      43.346115251235865,
-      39.772006197889745
+    "final_polymer_C": 52.1777,
+    "final_metal_C": 42.3613,
+    "final_shell_C": 38.7921,
+    "final_motor_C": 25.3714,
+    "final_gear_C": 26.3041,
+    "final_state_C": [
+      52.1777,
+      42.3613,
+      38.7921,
+      25.3714,
+      26.3041
     ],
-    "energy_balance_residual_J": -1.8408172763884068e-09,
-    "max_step_power_residual_W": 1.0794920513035322e-11,
+    "steady_C": [
+      52.2543,
+      42.4357,
+      38.856,
+      25.3762,
+      26.3166
+    ],
+    "energy_balance_residual_J": 1.70839e-08,
+    "max_step_power_residual_W": 1.80318e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   },
   {
@@ -237,25 +369,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 44.2248572160642,
-    "final_metal_C": 43.51924174004848,
-    "final_shell_C": 39.9035713035727,
-    "steady_C": [
-      44.327750716289486,
-      43.62102822345238,
-      39.99182666542919
+    "final_polymer_C": 43.3395,
+    "final_metal_C": 42.6246,
+    "final_shell_C": 38.9999,
+    "final_motor_C": 25.3771,
+    "final_gear_C": 26.324,
+    "final_state_C": [
+      43.3395,
+      42.6246,
+      38.9999,
+      25.3771,
+      26.324
     ],
-    "energy_balance_residual_J": -1.1459633242338896e-09,
-    "max_step_power_residual_W": 1.0389911153652065e-11,
+    "steady_C": [
+      43.4133,
+      42.6975,
+      39.0625,
+      25.3818,
+      26.3363
+    ],
+    "energy_balance_residual_J": 4.95493e-09,
+    "max_step_power_residual_W": 1.4758e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   },
   {
@@ -274,25 +428,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 45.377170179528534,
-    "final_metal_C": 43.483082338399036,
-    "final_shell_C": 39.87464375485677,
-    "steady_C": [
-      45.480280707637135,
-      43.5850835147135,
-      39.96308526913623
+    "final_polymer_C": 44.4937,
+    "final_metal_C": 42.5902,
+    "final_shell_C": 38.9728,
+    "final_motor_C": 25.3764,
+    "final_gear_C": 26.3214,
+    "final_state_C": [
+      44.4937,
+      42.5902,
+      38.9728,
+      25.3764,
+      26.3214
     ],
-    "energy_balance_residual_J": -8.840288501232862e-10,
-    "max_step_power_residual_W": 9.922729304889799e-12,
+    "steady_C": [
+      44.5676,
+      42.6633,
+      39.0356,
+      25.3811,
+      26.3337
+    ],
+    "energy_balance_residual_J": 4.4929e-09,
+    "max_step_power_residual_W": 1.59872e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   },
   {
@@ -311,25 +487,47 @@
       "metal_heat_capacity_J_K": 700,
       "shell_heat_capacity_J_K": 540,
       "mass_flow_g_h": 100,
-      "cp_J_kg_K": 1800
+      "cp_J_kg_K": 1800,
+      "natural_UA_W_K": 0.3,
+      "fan_factor": 1,
+      "motor_loss_W": 0,
+      "gear_loss_W": 0,
+      "motor_heat_capacity_J_K": 350,
+      "gear_heat_capacity_J_K": 500,
+      "motor_UA_W_K": 1.5,
+      "gear_UA_W_K": 1,
+      "motor_gear_G_W_K": 0.6,
+      "gear_shell_G_W_K": 0.15
     },
-    "final_polymer_C": 47.39371786559115,
-    "final_metal_C": 43.4198033855125,
-    "final_shell_C": 39.82402054460392,
-    "steady_C": [
-      47.497208192495506,
-      43.52218027442046,
-      39.912787825623546
+    "final_polymer_C": 46.5133,
+    "final_metal_C": 42.5301,
+    "final_shell_C": 38.9253,
+    "final_motor_C": 25.3751,
+    "final_gear_C": 26.3168,
+    "final_state_C": [
+      46.5133,
+      42.5301,
+      38.9253,
+      25.3751,
+      26.3168
     ],
-    "energy_balance_residual_J": -7.057678885757923e-10,
-    "max_step_power_residual_W": 1.042899100411887e-11,
+    "steady_C": [
+      46.5876,
+      42.6035,
+      38.9884,
+      25.3798,
+      26.3292
+    ],
+    "energy_balance_residual_J": 4.75484e-09,
+    "max_step_power_residual_W": 1.49409e-11,
     "evidence": "UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
     "excluded": [
       "local_flash_temperature",
       "fracture_heat_partition_calibration",
       "dust_flow",
       "nonlinear_temperature_dependent_properties",
-      "motor_thermal_network"
+      "measured_fan_curve",
+      "selected_motor_and_gear_thermal_parameters"
     ]
   }
 ]

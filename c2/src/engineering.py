@@ -4,7 +4,7 @@ import csv
 import hashlib
 import json
 import math
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 import numpy as np
@@ -198,28 +198,53 @@ class Thermal:
     shell_heat_capacity_J_K: float = 540
     mass_flow_g_h: float = 100
     cp_J_kg_K: float = 1800
+    natural_UA_W_K: float = .3
+    fan_factor: float = 1
+    motor_loss_W: float = 0
+    gear_loss_W: float = 0
+    motor_heat_capacity_J_K: float = 350
+    gear_heat_capacity_J_K: float = 500
+    motor_UA_W_K: float = 1.5
+    gear_UA_W_K: float = 1
+    motor_gear_G_W_K: float = .6
+    gear_shell_G_W_K: float = .15
 
     def __post_init__(self):
         if self.material not in {"PLA", "PET", "TPU"}:
             raise ValueError("Unsupported material; PET is not PETG")
         if min(self.chamber_UA_W_K,self.polymer_metal_G_W_K,self.metal_shell_G_W_K,
-               self.polymer_mass_kg,self.metal_heat_capacity_J_K,self.shell_heat_capacity_J_K,self.cp_J_kg_K) <= 0:
+               self.polymer_mass_kg,self.metal_heat_capacity_J_K,self.shell_heat_capacity_J_K,self.cp_J_kg_K,
+               self.natural_UA_W_K,self.motor_heat_capacity_J_K,self.gear_heat_capacity_J_K,
+               self.motor_UA_W_K,self.gear_UA_W_K,self.motor_gear_G_W_K,self.gear_shell_G_W_K) <= 0:
             raise ValueError("Thermal coefficients must be positive")
-        if not 0 <= self.heat_to_polymer_fraction <= 1 or self.chamber_heat_W < 0:
+        if (not 0 <= self.heat_to_polymer_fraction <= 1 or self.chamber_heat_W < 0
+                or self.motor_loss_W < 0 or self.gear_loss_W < 0
+                or self.mass_flow_g_h < 0 or not 0 <= self.fan_factor <= 1
+                or self.natural_UA_W_K > self.chamber_UA_W_K):
             raise ValueError("Invalid heat source")
 
 
 def thermal_matrix(c: Thermal):
     gp, gm, ua, gh = c.polymer_metal_G_W_K,c.metal_shell_G_W_K,c.chamber_UA_W_K,c.hotend_G_W_K
+    ua = c.natural_UA_W_K+c.fan_factor*(ua-c.natural_UA_W_K)
+    mg, gs = c.motor_gear_G_W_K,c.gear_shell_G_W_K
     flow = c.mass_flow_g_h/3.6e6*c.cp_J_kg_K
-    C = np.array([c.polymer_mass_kg*c.cp_J_kg_K,c.metal_heat_capacity_J_K,c.shell_heat_capacity_J_K])
-    K = np.array([[gp+flow,-gp,0],[-gp,gp+gm,-gm],[0,-gm,gm+ua+gh]])
+    C = np.array([c.polymer_mass_kg*c.cp_J_kg_K,c.metal_heat_capacity_J_K,c.shell_heat_capacity_J_K,
+                  c.motor_heat_capacity_J_K,c.gear_heat_capacity_J_K])
+    K = np.array([[gp+flow,-gp,0,0,0],
+                  [-gp,gp+gm,-gm,0,0],
+                  [0,-gm,gm+ua+gh+gs,0,-gs],
+                  [0,0,0,c.motor_UA_W_K+mg,-mg],
+                  [0,0,-gs,-mg,c.gear_UA_W_K+mg+gs]])
     b = np.array([c.chamber_heat_W*c.heat_to_polymer_fraction+flow*c.inlet_C,
-                  c.chamber_heat_W*(1-c.heat_to_polymer_fraction), ua*c.ambient_C+gh*c.hotend_C])
+                  c.chamber_heat_W*(1-c.heat_to_polymer_fraction), ua*c.ambient_C+gh*c.hotend_C,
+                  c.motor_loss_W+c.motor_UA_W_K*c.ambient_C,
+                  c.gear_loss_W+c.gear_UA_W_K*c.ambient_C])
     return C,K,b
 
 
-def thermal_run(c: Thermal, duration_s: float = 3600, dt_s: float = 1):
+def thermal_run(c: Thermal, duration_s: float = 3600, dt_s: float = 1,
+                initial_C: list[float] | None = None):
     if dt_s <= 0 or duration_s <= 0:
         raise ValueError("Positive integration interval required")
     C,K,b = thermal_matrix(c)
@@ -227,7 +252,9 @@ def thermal_run(c: Thermal, duration_s: float = 3600, dt_s: float = 1):
     dt = duration_s/n
     A = np.diag(C/dt)+K
     inv = np.linalg.inv(A)
-    T = np.full(3,c.ambient_C,dtype=float)
+    T = np.full(5,c.ambient_C,dtype=float) if initial_C is None else np.asarray(initial_C,dtype=float)
+    if T.shape != (5,) or not np.all(np.isfinite(T)):
+        raise ValueError("initial_C must contain five finite node temperatures")
     initial_E = float(C@T)
     net_E = 0.0
     max_balance = 0.0
@@ -241,13 +268,66 @@ def thermal_run(c: Thermal, duration_s: float = 3600, dt_s: float = 1):
         if j%max(1,round(30/dt)) == 0 or j == n-1:
             trace.append([round((j+1)*dt,8),*T.tolist()])
     return dict(parameters=asdict(c), final_polymer_C=float(T[0]), final_metal_C=float(T[1]),
-                final_shell_C=float(T[2]), steady_C=np.linalg.solve(K,b).tolist(),
+                final_shell_C=float(T[2]), final_motor_C=float(T[3]), final_gear_C=float(T[4]),
+                final_state_C=T.tolist(), steady_C=np.linalg.solve(K,b).tolist(),
                 energy_balance_residual_J=float(C@T)-initial_E-net_E,
                 max_step_power_residual_W=max_balance,
-                trace_columns=["time_s","polymer_C","metal_C","shell_C"],trace=trace,
+                trace_columns=["time_s","polymer_C","metal_C","shell_C","motor_C","gear_C"],trace=trace,
                 evidence="UNCALIBRATED_LUMPED_NETWORK_SENSITIVITY",
                 excluded=["local_flash_temperature","fracture_heat_partition_calibration","dust_flow",
-                          "nonlinear_temperature_dependent_properties","motor_thermal_network"])
+                          "nonlinear_temperature_dependent_properties","measured_fan_curve",
+                          "selected_motor_and_gear_thermal_parameters"])
+
+
+def thermal_duty_run(c: Thermal, segments: list[dict], dt_s: float = 1):
+    """Carry thermal state through batch/fan-fault segments; still uncalibrated."""
+    if not segments:
+        raise ValueError("At least one duty segment is required")
+    allowed={"chamber_heat_W","mass_flow_g_h","fan_factor","motor_loss_W","gear_loss_W","inlet_C"}
+    state=None
+    elapsed=0.0
+    peaks=np.full(5,-np.inf)
+    records=[]
+    energy_residual=0.0
+    for segment in segments:
+        duration=float(segment.get("duration_s",0))
+        values={k:v for k,v in segment.items() if k in allowed}
+        unknown=set(segment)-allowed-{"name","duration_s"}
+        if duration <= 0 or unknown:
+            raise ValueError(f"Invalid duty segment: {sorted(unknown)}")
+        cfg=replace(c,**values)
+        run=thermal_run(cfg,duration,dt_s,state)
+        state=np.asarray(run["final_state_C"])
+        peaks=np.maximum(peaks,state)
+        elapsed+=duration
+        energy_residual+=run["energy_balance_residual_J"]
+        records.append(dict(name=segment.get("name",f"segment_{len(records)+1}"),end_time_s=elapsed,
+                            fan_factor=cfg.fan_factor,chamber_heat_W=cfg.chamber_heat_W,
+                            motor_loss_W=cfg.motor_loss_W,gear_loss_W=cfg.gear_loss_W,
+                            final_state_C=state.tolist()))
+    return dict(node_order=["polymer","shear_metal","shell_spreader","motor_case","gear_case"],
+                segments=records,peak_node_C=peaks.tolist(),final_state_C=state.tolist(),
+                energy_balance_residual_J=energy_residual,
+                evidence="UNCALIBRATED_DUTY_AND_FAN_FAULT_SENSITIVITY_NOT_HARDWARE_TEST")
+
+
+def thermal_capacities_from_cad(cad: dict) -> dict:
+    """Lower-bound heat capacities from generated C2 metal volumes, not measured masses."""
+    records={r["part_id"]:r for r in cad["records"]}
+    steel_ids=("C1_SCREEN_REFERENCE","C1_LEFT_WEAR_SHELL","C2_RIGHT_WEAR_SHELL_1",
+               "C2_RIGHT_WEAR_SHELL_2","C2_FIXED_SHEAR")
+    aluminium_ids=("C2_THERMAL_SADDLE_L","C2_SADDLE_CAP_L","C2_THERMAL_SADDLE_R","C2_SADDLE_CAP_R")
+    def volume(ids):
+        return sum(records[x]["volume_mm3"]*records[x]["quantity"] for x in ids)
+    steel_volume=volume(steel_ids)
+    aluminium_volume=volume(aluminium_ids)
+    return dict(shear_metal_J_K=steel_volume*7.85e-6*500,
+                shell_spreader_J_K=aluminium_volume*2.70e-6*900,
+                steel_volume_mm3=steel_volume,aluminium_volume_mm3=aluminium_volume,
+                steel_part_ids=list(steel_ids),aluminium_part_ids=list(aluminium_ids),
+                assumptions={"steel_density_kg_mm3":7.85e-6,"steel_cp_J_kg_K":500,
+                             "aluminium_density_kg_mm3":2.70e-6,"aluminium_cp_J_kg_K":900},
+                status="CAD_VOLUME_DERIVED_ASSUMED_DENSITY_CP_NOT_MEASURED_MASS")
 
 
 def equivalent_motor_load(s1_torque_Nm: float, s2_torque_Nm: float,

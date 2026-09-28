@@ -1,0 +1,18 @@
+STEP_SHA256=e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12
+USDA=full_machine.usda (3976342 B) sha=b4bb1d68bdfb4d53807251889d46901d0a67d6f9f3b83ec226a5ccee4369ee24
+opening stage /home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda
+stage_id=9223002
+joint traversal: 5 revolute joints ['MachineJointIn', 'MachineJointS1A', 'MachineJointS1B', 'MachineJointS2Ecc', 'MachineJointS2Carrier']
+probes created: 200 (100x d=3mm, 100x d=1.5mm at z=499.0mm)
+physx stage attached (explicit; opened stages do not auto-attach)
+played + pumped 5 updates
+EXCEPTION:
+Traceback (most recent call last):
+  File "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/verify_full.py", line 224, in main
+    f"(count={av.count}, max_dofs={av.max_dofs})")
+              ^^^^^^^^
+  File "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/extscache/omni.physics.tensors-110.3.2+110.3.0.lx64.r.cp312.u7f4/omni/physics/tensors/api.py", line 609, in count
+    return self._backend.count
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'count'
+

@@ -1,0 +1,69 @@
+{
+  "checked_on": "2026-09-21",
+  "method": "Data plugin search; seller/manufacturer pages and official solver documentation",
+  "procurement": {
+    "budget_soft_limit_KRW": 100000,
+    "scope": "whole remaining machine, not M1 alone",
+    "candidates": [
+      {
+        "model": "BL6099-2420",
+        "seller": "Motorbank Korea",
+        "claimed_spec": "24V, 3000rpm, 200W, 11A, maximum torque 1.95Nm",
+        "motor_price_KRW": 106700,
+        "base_shipping_KRW": 3500,
+        "known_motor_landed_floor_KRW": 110200,
+        "whole_budget_fraction": 1.102,
+        "excluded": ["driver", "reduction", "mount", "tax differences", "remote-area surcharge"],
+        "url": "https://motorbank.kr/goods/goods_view.php?goodsNo=1000035815",
+        "decision": "OVER_WHOLE_MACHINE_SOFT_LIMIT_BEFORE_DRIVER_AND_REDUCTION"
+      },
+      {
+        "model": "BL9N 200W family",
+        "seller": "MD Robot Korea",
+        "claimed_spec": "24V, 3000rpm, 200W, 90mm frame",
+        "motor_price_KRW": 147400,
+        "base_shipping_KRW": 0,
+        "known_motor_landed_floor_KRW": 147400,
+        "whole_budget_fraction": 1.474,
+        "excluded": ["driver", "reduction", "mount"],
+        "url": "https://www.mdrobot.co.kr/shop_view/220",
+        "decision": "OVER_WHOLE_MACHINE_SOFT_LIMIT_BEFORE_DRIVER_AND_REDUCTION"
+      },
+      {
+        "model": "57BLY110-230",
+        "seller": "Dewo manufacturer marketplace page",
+        "claimed_spec": "24V, 3000rpm, 0.8Nm, 250W, 57mm, custom shaft",
+        "unit_price_USD_1_to_9": 35.5,
+        "shipping_KRW": null,
+        "driver_price_KRW": null,
+        "url": "https://dewomotor.en.made-in-china.com/product/VZzfEbScENkL/China-57mm-Round-Square-24V-3000rpm-0-8n-M-250W-DC-Brushless-Motor-with-Hall-Sensor.html",
+        "decision": "BASE_PRICE_ONLY_NOT_LANDED_QUOTE"
+      },
+      {
+        "model": "57BLY90-230",
+        "manufacturer": "JSS Motor",
+        "claimed_spec": "24V, 3000rpm, 188W, 0.6Nm, 10.4A, 57x94mm",
+        "unit_price": null,
+        "url": "https://www.jssmotor.com/57bly-series-bldc-motor",
+        "decision": "RFQ_REQUIRED_CURRENT_DEFINITION_AND_SHAFT_LENGTH_UNCONFIRMED"
+      }
+    ],
+    "conclusion": "No searched domestic 200W motor leaves budget for driver, reduction, metalwork, safety or shipping. Imported 57BLY base price is not a landed quote; M1 and complete budget remain HOLD."
+  },
+  "solver": {
+    "local": {
+      "CalculiX": "2.21 available and executed",
+      "Gmsh": "4.15.2-git available",
+      "FreeCAD": "0.21.2 available",
+      "LAMMPS": "DID_NOT_FIND_EXECUTABLE_ON_PATH",
+      "Chrono_DEM": "DID_NOT_FIND_EXECUTABLE_ON_PATH"
+    },
+    "sources": [
+      {"name": "LAMMPS BPM", "url": "https://docs.lammps.org/latest/Howto_bpm.html", "finding": "official bonded-particle fracture models and broken-bond output exist; calibration is still required"},
+      {"name": "Project Chrono DEM", "url": "https://api.chrono.projectchrono.org/module_dem_installation.html", "finding": "official GPU penalty DEM is available for granular contact; searched documentation did not establish a calibrated polymer cutting/fracture model"},
+      {"name": "CalculiX 2.21 manual", "url": "https://www.dhondt.de/ccx_2.21.pdf", "finding": "Neo-Hooke hyperelastic material model is supported"}
+    ],
+    "executed_evidence": "c2/results/coupon_fe_summary.json",
+    "qualification": "COUPON_SOLVER_SMOKE_AND_MESH_SENSITIVITY_ONLY; NOT_DEM; NOT_SHREDDING_PERFORMANCE"
+  }
+}

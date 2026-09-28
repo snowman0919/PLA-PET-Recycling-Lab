@@ -1,0 +1,49 @@
+{
+  "schema": "dyn_surrogate/1",
+  "evidence": "REAL_PHYSX_HEADLESS",
+  "i6_surrogate_mutated": false,
+  "i5_proxy_deleted": false,
+  "note": "Additive refit: I6 analytic surface untouched; deltas reported here for the next workstream to adopt.",
+  "anchors": {
+    "torque_impulse_Nms_mean_by_class": {
+      "W1": {
+        "59.2": 0.04949454818568192,
+        "60.0": 0.05864229366779327,
+        "60.8": 0.06339902506938672
+      },
+      "W4": {
+        "59.2": 0.04493760896167947,
+        "60.0": 0.04548454561652613,
+        "60.8": 0.046342954775830746
+      }
+    },
+    "pass_rate_mean_by_arch_hole": {
+      "S2-A": {
+        "3.0": 0.45833333333333337,
+        "4.0": 0.4166666666666667,
+        "5.5": 0.5
+      },
+      "S2-B": {
+        "3.0": 0.29166666666666663,
+        "4.0": 0.25,
+        "5.5": 0.25
+      }
+    },
+    "bond_breaks_mean_by_class_center": {
+      "W1": {
+        "59.2": 46.0,
+        "60.0": 46.0,
+        "60.8": 46.0
+      },
+      "W4": {
+        "59.2": 46.0,
+        "60.0": 46.0,
+        "60.8": 46.0
+      }
+    }
+  },
+  "n_s1": 6,
+  "n_s2": 12,
+  "status": "PASS",
+  "failures": []
+}

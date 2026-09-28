@@ -494,7 +494,19 @@
       "part": "FEED-BUF",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 69562.53274074069
+      "volume_mm3": 39631.270751356315
+    },
+    {
+      "part": "FEED-BUF-SADDLE",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 6480.7468427807235
+    },
+    {
+      "part": "FEED-BUF-CLAMP",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 6355.121449862571
     },
     {
       "part": "EX-SCREW",
@@ -701,7 +713,7 @@
       "volume_mm3": 576.0
     }
   ],
-  "objects": 199,
+  "objects": 201,
   "physical_release": "HOLD",
   "parity": [
     {
@@ -1107,7 +1119,17 @@
     {
       "part": "FEED-BUF",
       "method": "native_CSG",
-      "relative_volume_difference": 0.0
+      "relative_volume_difference": 3.6718265532449128e-16
+    },
+    {
+      "part": "FEED-BUF-SADDLE",
+      "method": "native_CSG",
+      "relative_volume_difference": 6.146446810540374e-09
+    },
+    {
+      "part": "FEED-BUF-CLAMP",
+      "method": "native_CSG",
+      "relative_volume_difference": 3.408801141354503e-11
     },
     {
       "part": "EX-SCREW",

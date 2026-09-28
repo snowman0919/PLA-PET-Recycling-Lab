@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-C",
+  "seed": 7,
+  "class": "P2",
+  "waste_id": "P2-failed_print_mass-00007",
+  "input_mass_g": 56.228,
+  "peak_proxy": 0.9832693388601947,
+  "work_proxy": 39.87230812898008,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 7.105427357601002e-15,
+  "fragments": [
+    {
+      "fragment_id": "P2-failed_print_mass-00007:S1-C:F000",
+      "source_waste_id": "P2-failed_print_mass-00007",
+      "seed": 7,
+      "mass_g": 37.485333,
+      "volume_mm3": 30230.108,
+      "com_mm": [
+        31.6,
+        20.03,
+        6.09
+      ],
+      "principal_dims_mm": [
+        52.667,
+        30.045,
+        9.135
+      ],
+      "equiv_diameter_mm": 38.65,
+      "aspect_ratio": 5.765,
+      "pose_quaternion_xyzw": [
+        0.65051,
+        -0.24048,
+        -0.29221,
+        0.65849
+      ],
+      "velocity_proxy_mm_s": [
+        4.9163,
+        4.9163,
+        4.9163
+      ],
+      "bond_state": {
+        "failed_bonds": 103,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "P2",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "P2-failed_print_mass-00007:S1-C:F001",
+      "source_waste_id": "P2-failed_print_mass-00007",
+      "seed": 7,
+      "mass_g": 18.742667,
+      "volume_mm3": 15115.054,
+      "com_mm": [
+        31.6,
+        20.03,
+        15.225
+      ],
+      "principal_dims_mm": [
+        52.667,
+        30.045,
+        3.045
+      ],
+      "equiv_diameter_mm": 30.676,
+      "aspect_ratio": 17.296,
+      "pose_quaternion_xyzw": [
+        0.42804,
+        0.17333,
+        0.70022,
+        0.54446
+      ],
+      "velocity_proxy_mm_s": [
+        4.9163,
+        4.9163,
+        4.9163
+      ],
+      "bond_state": {
+        "failed_bonds": 103,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "P2",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 0.85,
+  "s1_multiplier_note": "buckling-assist under nip compression",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

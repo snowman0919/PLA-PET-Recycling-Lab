@@ -1,0 +1,46 @@
+{
+ "blockers": [
+  {
+   "detail": "RESOLVED/CLOSED: SimulationApp headless smoke PASSED (fast workstream, director-verified). Evidence: c2.2/results/i0_smoke.json (schema i0_smoke/1, Isaac 6.1.0.0, seed 20260921, 60 steps, z_drop 1.7336, final z 0.25, clean_shutdown true, status PASS), runner c2.2/sim/bootstrap/smoke.py (212 lines), log c2.2/logs/i0_smoke.log (exit 0).",
+   "id": "SIM_SMOKE_RESOLVED",
+   "severity": "CLOSED"
+  },
+  {
+   "detail": "RESOLVED/CLOSED by C2.2b Gate A: pxr PRESENT in $HOME/env_isaacsim-c22 (Usd/UsdGeom/UsdPhysics standalone; PhysxSchema inside SimApp; Isaac 6.1.0.0). Evidence: c2.2/sim/assets/usd/machine.usda + machine.sidecar.json (dyn_usd_manifest/1 PASS, mm/F0, Hopper+ShaftA+CutterA00+Rotor+4 DERIVED transfer boxes), c2.2/results/dyn_usd_load.json PASS (24 prims, 8 meshes, 584 verts, 10 steps).",
+   "id": "BLAST_PXR_ABSENT",
+   "severity": "CLOSED"
+  },
+  {
+   "detail": "RESOLVED/CLOSED as DERIVED-ONLY by C2.2b Gate C (C2.1 CAD unmutated): S1_DISCHARGE 120x100x30 @ (120,243.5,428), CHUTE 110x90x120 @ (200,243.5,350), S2_ENTRY 90x45x25 @ (308.6,275,330), S2_EXIT 90x45x40 @ (308.6,275,200). Evidence: c2.2/results/dyn_transfer.json PASS (c21_mutated false); C2.1-native geometry still MISSING (no C2.1 CAD claim).",
+   "id": "CHUTE_DISCHARGE_MISSING",
+   "severity": "CLOSED"
+  },
+  {
+   "detail": "Performance gate BLOCKED_PERFORMANCE_DATA. Zero physical shredding tests; DEM uncalibrated; no torque/throughput/yield/jam/residence/energy measurements. All C2.2 numbers are UNCALIBRATED_DIGITAL_SENSITIVITY ordering smoke.",
+   "id": "ZERO_PHYSICAL_TESTS",
+   "severity": "OPEN"
+  },
+  {
+   "detail": "M1_selected=false; cheapest domestic 200W unit 110,200 KRW exceeds 100,000 KRW soft limit; M2 reference-only. No selection made or authorized.",
+   "id": "NO_MOTOR_SELECTION",
+   "severity": "HOLD"
+  },
+  {
+   "detail": "124/135 BOM rows cost-unknown; landed quote with delivery/tax/safety incomplete.",
+   "id": "COST_OPEN",
+   "severity": "HOLD"
+  },
+  {
+   "detail": "Bearings/rollers are envelopes (no MPN/L10); guard is section envelope (not containment); screen attachment/sensor/thermal integration HOLD; 7 physical test stages DID_NOT_RUN.",
+   "id": "SAFETY_MECHANICAL_HOLD",
+   "severity": "HOLD"
+  }
+ ],
+ "deploy": {
+  "energize": "HOLD",
+  "fabricate": "HOLD",
+  "merge": "HOLD (no branches/commits/pushes in this workstream)",
+  "purchase": "HOLD"
+ },
+ "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

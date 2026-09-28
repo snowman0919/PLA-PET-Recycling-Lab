@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-A",
+  "seed": 51,
+  "class": "W1",
+  "waste_id": "W1-hollow_box-00051",
+  "input_mass_g": 57.135,
+  "peak_proxy": 0.16426530640140571,
+  "work_proxy": 25.116884066270003,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W1-hollow_box-00051:S1-A:F000",
+      "source_waste_id": "W1-hollow_box-00051",
+      "seed": 51,
+      "mass_g": 9.5225,
+      "volume_mm3": 7679.435,
+      "com_mm": [
+        48.61,
+        40.155,
+        1.732
+      ],
+      "principal_dims_mm": [
+        87.498,
+        70.271,
+        0.5
+      ],
+      "equiv_diameter_mm": 24.478,
+      "aspect_ratio": 174.996,
+      "pose_quaternion_xyzw": [
+        -0.24406,
+        0.52486,
+        0.77406,
+        0.2565
+      ],
+      "velocity_proxy_mm_s": [
+        0.8213,
+        0.8213,
+        0.8213
+      ],
+      "bond_state": {
+        "failed_bonds": 390,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W1",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W1-hollow_box-00051:S1-A:F001",
+      "source_waste_id": "W1-hollow_box-00051",
+      "seed": 51,
+      "mass_g": 47.6125,
+      "volume_mm3": 38397.177,
+      "com_mm": [
+        48.61,
+        40.155,
+        12.127
+      ],
+      "principal_dims_mm": [
+        87.498,
+        70.271,
+        13.86
+      ],
+      "equiv_diameter_mm": 41.857,
+      "aspect_ratio": 6.313,
+      "pose_quaternion_xyzw": [
+        0.80529,
+        -0.38391,
+        0.44794,
+        0.05893
+      ],
+      "velocity_proxy_mm_s": [
+        0.8213,
+        0.8213,
+        0.8213
+      ],
+      "bond_state": {
+        "failed_bonds": 390,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W1",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.0,
+  "s1_multiplier_note": "inherited twin-shaft baseline",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

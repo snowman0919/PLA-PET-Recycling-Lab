@@ -1,0 +1,254 @@
+{
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY",
+  "method": "analytic response surface + 8-member ensemble; NO fitted ML; coefficients from I5 descriptive anchors",
+  "splits": {
+    "train": [
+      7,
+      11,
+      23
+    ],
+    "val": [
+      37
+    ],
+    "test": [
+      51
+    ]
+  },
+  "metrics_train": {
+    "yield_frac": {
+      "MAE": 0.02422,
+      "R2": 0.0,
+      "n": 204
+    },
+    "specific_energy": {
+      "MAE": 0.23843,
+      "R2": 0.0098,
+      "n": 204
+    },
+    "peak_torque": {
+      "MAE": 0.00373,
+      "R2": -0.1721,
+      "n": 204
+    },
+    "sliver_frac": {
+      "MAE": 0.31478,
+      "R2": -0.0275,
+      "n": 204
+    },
+    "jam_prob": {
+      "MAE": 0.02,
+      "R2": 0.0,
+      "n": 204
+    }
+  },
+  "metrics_test": {
+    "yield_frac": {
+      "MAE": 0.02415,
+      "R2": 0.0,
+      "n": 60
+    },
+    "specific_energy": {
+      "MAE": 0.415,
+      "R2": -0.549,
+      "n": 60
+    },
+    "peak_torque": {
+      "MAE": 0.00287,
+      "R2": -0.3102,
+      "n": 60
+    },
+    "sliver_frac": {
+      "MAE": 0.36987,
+      "R2": 0.0351,
+      "n": 60
+    },
+    "jam_prob": {
+      "MAE": 0.02,
+      "R2": 0.0,
+      "n": 60
+    }
+  },
+  "bo_top12": [
+    {
+      "s1": "S1-C",
+      "s2": "S2-A",
+      "class": "P2",
+      "gap": 1.052,
+      "screen": 4.825,
+      "score": -0.32721,
+      "pred": {
+        "yield_frac": 0.07339,
+        "specific_energy": 0.47044,
+        "peak_torque": 0.00527,
+        "sliver_frac": 0.70757,
+        "jam_prob": 0.00107
+      }
+    },
+    {
+      "s1": "S1-C",
+      "s2": "S2-A",
+      "class": "P2",
+      "gap": 0.856,
+      "screen": 5.5,
+      "score": -0.3281,
+      "pred": {
+        "yield_frac": 0.08125,
+        "specific_energy": 0.49513,
+        "peak_torque": 0.00549,
+        "sliver_frac": 0.69983,
+        "jam_prob": 0.01565
+      }
+    },
+    {
+      "s1": "S1-C",
+      "s2": "S2-A",
+      "class": "P2",
+      "gap": 0.919,
+      "screen": 5.172,
+      "score": -0.33727,
+      "pred": {
+        "yield_frac": 0.07496,
+        "specific_energy": 0.48721,
+        "peak_torque": 0.00542,
+        "sliver_frac": 0.70602,
+        "jam_prob": 0.01097
+      }
+    },
+    {
+      "s1": "S1-B",
+      "s2": "S2-D",
+      "class": "W4",
+      "gap": 1.021,
+      "screen": 5.064,
+      "score": -0.34071,
+      "pred": {
+        "yield_frac": 0.08217,
+        "specific_energy": 0.62586,
+        "peak_torque": 0.0072,
+        "sliver_frac": 0.68394,
+        "jam_prob": 0.00337
+      }
+    },
+    {
+      "s1": "S1-C",
+      "s2": "S2-D",
+      "class": "P2",
+      "gap": 0.857,
+      "screen": 5.387,
+      "score": -0.34078,
+      "pred": {
+        "yield_frac": 0.07652,
+        "specific_energy": 0.49498,
+        "peak_torque": 0.00578,
+        "sliver_frac": 0.70348,
+        "jam_prob": 0.01556
+      }
+    },
+    {
+      "s1": "S1-C",
+      "s2": "S2-D",
+      "class": "P2",
+      "gap": 0.794,
+      "screen": 5.5,
+      "score": -0.34969,
+      "pred": {
+        "yield_frac": 0.07558,
+        "specific_energy": 0.50281,
+        "peak_torque": 0.00585,
+        "sliver_frac": 0.70441,
+        "jam_prob": 0.02019
+      }
+    },
+    {
+      "s1": "S1-C",
+      "s2": "S2-D",
+      "class": "P2",
+      "gap": 0.792,
+      "screen": 5.5,
+      "score": -0.3505,
+      "pred": {
+        "yield_frac": 0.07538,
+        "specific_energy": 0.50315,
+        "peak_torque": 0.00585,
+        "sliver_frac": 0.70461,
+        "jam_prob": 0.02039
+      }
+    },
+    {
+      "s1": "S1-C",
+      "s2": "S2-A",
+      "class": "P2",
+      "gap": 0.883,
+      "screen": 5.07,
+      "score": -0.35639,
+      "pred": {
+        "yield_frac": 0.06882,
+        "specific_energy": 0.49166,
+        "peak_torque": 0.00546,
+        "sliver_frac": 0.71207,
+        "jam_prob": 0.0136
+      }
+    },
+    {
+      "s1": "S1-C",
+      "s2": "S2-D",
+      "class": "P2",
+      "gap": 1.102,
+      "screen": 4.308,
+      "score": -0.36231,
+      "pred": {
+        "yield_frac": 0.05872,
+        "specific_energy": 0.46417,
+        "peak_torque": 0.00549,
+        "sliver_frac": 0.72102,
+        "jam_prob": 0.0
+      }
+    },
+    {
+      "s1": "S1-B",
+      "s2": "S2-B",
+      "class": "P2",
+      "gap": 0.885,
+      "screen": 5.206,
+      "score": -0.36735,
+      "pred": {
+        "yield_frac": 0.07558,
+        "specific_energy": 0.64844,
+        "peak_torque": 0.0064,
+        "sliver_frac": 0.68943,
+        "jam_prob": 0.01348
+      }
+    },
+    {
+      "s1": "S1-B",
+      "s2": "S2-D",
+      "class": "P2",
+      "gap": 0.9,
+      "screen": 5.243,
+      "score": -0.37075,
+      "pred": {
+        "yield_frac": 0.07494,
+        "specific_energy": 0.64591,
+        "peak_torque": 0.00738,
+        "sliver_frac": 0.68707,
+        "jam_prob": 0.01235
+      }
+    },
+    {
+      "s1": "S1-A",
+      "s2": "S2-B",
+      "class": "P2",
+      "gap": 0.826,
+      "screen": 5.5,
+      "score": -0.37223,
+      "pred": {
+        "yield_frac": 0.08104,
+        "specific_energy": 0.5869,
+        "peak_torque": 0.00621,
+        "sliver_frac": 0.73897,
+        "jam_prob": 0.01783
+      }
+    }
+  ],
+  "uncertainty": "ensemble spread (\u00b15% coeff jitter); robustness proxy, NOT calibrated posterior"
+}

@@ -1,0 +1,1406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/home/monad/develop/PPR-c2.1-codex-20260921/c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch</source>
+    <date>2026-09-21T13:09:23+0900</date>
+    <tool>Eeschema 9.0.9-9.0.9~ubuntu24.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>PPR C2.1 machine wiring - REVIEW ONLY / RELEASE HOLD</title>
+        <company>PPR</company>
+        <rev>C2.1-P6</rev>
+        <date>2026-09-21</date>
+        <source>PPR_C2_1_machine_wiring.kicad_sch</source>
+        <comment number="1" value="Actual functional nets; all TBD ratings/MPNs must be resolved before energization"/>
+        <comment number="2" value="24V 33A PSU, 800W nameplate; 500W soft operating target; 792W current-derived ceiling; no automatic restart/reverse"/>
+        <comment number="3" value="Independent safety relay/contactor/overtemp chain; MCU monitoring only"/>
+        <comment number="4" value="Machine harness review schematic; no PCB or energization approval"/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="A1">
+      <value>ARDUINO_MEGA_OWNED_LOGIC_ONLY</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">OWNED_PIN_ASSIGNMENT_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x24" description="Generic connector, single row, 01x24, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="OWNED_PIN_ASSIGNMENT_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>648cbc91-ccd1-5d4a-9c3a-70d9537239c3</tstamps>
+    </comp>
+    <comp ref="AUX1">
+      <value>FAN_PULLER_SPOOL_DRIVERS_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x09" description="Generic connector, single row, 01x09, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>40def1eb-c13c-573f-91a5-8663bf7c1a43</tstamps>
+    </comp>
+    <comp ref="D1">
+      <value>K1_COIL_SUPPRESSOR_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>715ea398-1449-54ea-bd7c-ae127664354c</tstamps>
+    </comp>
+    <comp ref="DRV1">
+      <value>M1_DRIVER_HW_CURRENT_LIMIT_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x08" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9f42f967-496f-538a-917f-74876fe07531</tstamps>
+    </comp>
+    <comp ref="DRV2">
+      <value>M2_DRIVER_HW_CURRENT_LIMIT_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x08" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cbb5e5e8-5df7-559f-9450-a5ee772ef2c3</tstamps>
+    </comp>
+    <comp ref="F1">
+      <value>CONTROL_BRANCH_FUSE_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bd358223-90fc-55aa-a79d-524d8cacd392</tstamps>
+    </comp>
+    <comp ref="F2">
+      <value>M1_BRANCH_FUSE_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ec3faf84-c8b2-58ab-8a93-cbbc2f34da3f</tstamps>
+    </comp>
+    <comp ref="F3">
+      <value>M2_BRANCH_FUSE_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8a432fcd-cc57-5798-b073-a63dc1c5a148</tstamps>
+    </comp>
+    <comp ref="F4">
+      <value>HEATER_BRANCH_FUSE_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4deac5d9-5fbd-59f1-ad88-9e2e4359285a</tstamps>
+    </comp>
+    <comp ref="F5">
+      <value>AUX_BRANCH_FUSE_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>42371bab-584a-5779-ad13-dab074b05fec</tstamps>
+    </comp>
+    <comp ref="H1">
+      <value>BARREL_HEATER_100W_REQUIREMENT</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ece2359d-38e3-5dd1-9450-176bfcf2f65b</tstamps>
+    </comp>
+    <comp ref="H2">
+      <value>BARREL_HEATER_100W_REQUIREMENT</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>47fbe2b1-83db-57b8-b117-96aac4e87c54</tstamps>
+    </comp>
+    <comp ref="H3">
+      <value>BARREL_HEATER_100W_REQUIREMENT</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>94747403-9b0c-5b5a-a390-72b245ad6d53</tstamps>
+    </comp>
+    <comp ref="H4">
+      <value>DIE_HEATER_60W_REQUIREMENT</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9f1af6c5-6e8a-51b4-8ea7-cb238006e3aa</tstamps>
+    </comp>
+    <comp ref="J1">
+      <value>AC_INPUT_L_N_PE</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">FIELD_TERMINAL_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="FIELD_TERMINAL_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>477c8e22-c213-546d-8b0c-995d2d1efebf</tstamps>
+    </comp>
+    <comp ref="J2">
+      <value>AUX_LOAD_HARNESS</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0f089c47-f109-58f9-a1d8-626e2e531603</tstamps>
+    </comp>
+    <comp ref="J3">
+      <value>SIX_TEMPERATURE_SENSOR_HARNESS</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x06" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f413c7c6-7e86-500a-a868-48d37d695d2e</tstamps>
+    </comp>
+    <comp ref="J4">
+      <value>BUFFER_AND_RUN_INPUTS</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8a5262cf-14bd-5497-bbda-2b5f1166cc50</tstamps>
+    </comp>
+    <comp ref="K1">
+      <value>DC_MAIN_CONTACT_35A_MIN_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>97bf2084-a49a-5047-bbfb-f545b646779b</tstamps>
+    </comp>
+    <comp ref="K2">
+      <value>K1_24V_DC_SAFETY_CONTACTOR_COIL_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>de667b0c-dd55-5dba-9eda-fa30c3102e7c</tstamps>
+    </comp>
+    <comp ref="K3">
+      <value>K1_FORCE_GUIDED_NC_EDM</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>25941688-55fb-53a3-a4c2-b74b1c578c84</tstamps>
+    </comp>
+    <comp ref="M1">
+      <value>SHARED_S1_S2_MOTOR_UNSELECTED</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ebd34792-0749-5b7e-bfa6-60a78c102b1e</tstamps>
+    </comp>
+    <comp ref="M2">
+      <value>EXTRUDER_MOTOR_UNSELECTED</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6ba9823d-2269-5ec0-910e-3ceeaf60d24f</tstamps>
+    </comp>
+    <comp ref="PS1">
+      <value>OWNED_24V_800W_PSU_RATING_MOUNT_VERIFY</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">OWNED_RATING_VERIFY</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x05" description="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="OWNED_RATING_VERIFY"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>93b49c29-6bca-5525-91df-2e7ebcd96a67</tstamps>
+    </comp>
+    <comp ref="QF1">
+      <value>2P_MAINS_ISOLATOR_BREAKER_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b1e0ccfa-2f4c-5d19-bbc8-82df1763255a</tstamps>
+    </comp>
+    <comp ref="QH1">
+      <value>HEATER1_LOW_SIDE_SWITCH_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>dc5c7cc2-6eba-51f7-86a2-344d5a434696</tstamps>
+    </comp>
+    <comp ref="QH2">
+      <value>HEATER2_LOW_SIDE_SWITCH_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>137cc150-40e6-538e-a364-e2122e61eca3</tstamps>
+    </comp>
+    <comp ref="QH3">
+      <value>HEATER3_LOW_SIDE_SWITCH_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f9aeb715-ed26-5c46-849d-60a514a88c2e</tstamps>
+    </comp>
+    <comp ref="QH4">
+      <value>HEATER4_LOW_SIDE_SWITCH_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>77fcc8ce-8de4-5659-9011-265a3d01798f</tstamps>
+    </comp>
+    <comp ref="S1">
+      <value>E_STOP_NC_CHANNEL_1</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">OWNED_CONTACT_VERIFY</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="OWNED_CONTACT_VERIFY"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3dcef5f2-bce3-507e-aba5-b5ee5928e5b5</tstamps>
+    </comp>
+    <comp ref="S2">
+      <value>LID_INTERLOCK_NC_CHANNEL_1</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0cba03eb-1d40-504e-9eb8-a678c763d154</tstamps>
+    </comp>
+    <comp ref="S3">
+      <value>SERVICE_INTERLOCK_NC_CHANNEL_1</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>461a62cb-96f2-55fd-92fa-81a1d964655d</tstamps>
+    </comp>
+    <comp ref="S4">
+      <value>E_STOP_NC_CHANNEL_2</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">OWNED_CONTACT_VERIFY</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="OWNED_CONTACT_VERIFY"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>27a8859c-4364-529a-a243-b21003267909</tstamps>
+    </comp>
+    <comp ref="S5">
+      <value>LID_INTERLOCK_NC_CHANNEL_2</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b53bb4b8-9ea8-5408-b2c4-761e11cab3e3</tstamps>
+    </comp>
+    <comp ref="S6">
+      <value>SERVICE_INTERLOCK_NC_CHANNEL_2</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7b76c137-0497-57e4-b317-7e7b4f1893b2</tstamps>
+    </comp>
+    <comp ref="S7">
+      <value>MANUAL_RESET_NO</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6ccc0d99-9426-58bc-9f5a-d331db096350</tstamps>
+    </comp>
+    <comp ref="SR1">
+      <value>DUAL_CHANNEL_SAFETY_RELAY_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x12" description="Generic connector, single row, 01x12, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>289f68d9-4cd1-5378-afea-6e9a252c8bc5</tstamps>
+    </comp>
+    <comp ref="TB1">
+      <value>PROTECTIVE_EARTH_BAR</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x05" description="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4c6212a5-60e3-5b23-b918-038dcdc2fedd</tstamps>
+    </comp>
+    <comp ref="TF1">
+      <value>ONE_SHOT_THERMAL_FUSE_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>46cce44c-e425-564d-9f72-bbadc45a6571</tstamps>
+    </comp>
+    <comp ref="TS1">
+      <value>MANUAL_RESET_OVERTEMP_NC_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b3495aa4-2f67-5641-a41c-bdacfeff83ed</tstamps>
+    </comp>
+    <comp ref="TVS1">
+      <value>24V_BUS_OVERVOLTAGE_CLAMP_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>acd011ab-c7e7-5f7f-bbd3-533af5daebb3</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>24V_TO_5V_DC_DC_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3c43bbdd-675c-508d-a9a0-a4cd642ae4f7</tstamps>
+    </comp>
+    <comp ref="U2">
+      <value>6CH_TEMPERATURE_FRONTEND_TBD</value>
+      <datasheet>~</datasheet>
+      <description>Machine equipment terminal representation</description>
+      <fields>
+        <field name="Status">SELECTION_HOLD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Machine equipment terminal representation</field>
+      </fields>
+      <libsource lib="Connector_Generic" part="Conn_01x11" description="Generic connector, single row, 01x11, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Status" value="SELECTION_HOLD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="c2.1/electrical/PPR_C2_1_machine_wiring.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4e427724-04be-568a-b99b-c732d4b2931d</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector_Generic" part="Conn_01x02">
+      <description>Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x02</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x03">
+      <description>Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x03</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x04">
+      <description>Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x04</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x05">
+      <description>Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x05</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x06">
+      <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x06</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x08">
+      <description>Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x08</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x09">
+      <description>Generic connector, single row, 01x09, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x09</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x09, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x11">
+      <description>Generic connector, single row, 01x11, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x11</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x11, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x12">
+      <description>Generic connector, single row, 01x12, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x12</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x12, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x24">
+      <description>Generic connector, single row, 01x24, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x24</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Generic connector, single row, 01x24, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+        <pin num="13" name="Pin_13" type="passive"/>
+        <pin num="14" name="Pin_14" type="passive"/>
+        <pin num="15" name="Pin_15" type="passive"/>
+        <pin num="16" name="Pin_16" type="passive"/>
+        <pin num="17" name="Pin_17" type="passive"/>
+        <pin num="18" name="Pin_18" type="passive"/>
+        <pin num="19" name="Pin_19" type="passive"/>
+        <pin num="20" name="Pin_20" type="passive"/>
+        <pin num="21" name="Pin_21" type="passive"/>
+        <pin num="22" name="Pin_22" type="passive"/>
+        <pin num="23" name="Pin_23" type="passive"/>
+        <pin num="24" name="Pin_24" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector_Generic">
+      <uri>/usr/share/kicad/symbols//Connector_Generic.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/+5V_CTRL" class="Default">
+      <node ref="A1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="U2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="2" name="/+24V_AUX" class="Default">
+      <node ref="AUX1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="F5" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="3" name="/+24V_CTRL_FUSED" class="Default">
+      <node ref="F1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="4" name="/+24V_HEAT" class="Default">
+      <node ref="F4" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="TF1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="5" name="/+24V_HEAT_SAFE" class="Default">
+      <node ref="H1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="H2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="H3" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="H4" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="TF1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="6" name="/+24V_M1" class="Default">
+      <node ref="DRV1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="F2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="7" name="/+24V_M2" class="Default">
+      <node ref="DRV2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="F3" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="8" name="/+24V_RAW" class="Default">
+      <node ref="F1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="K1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="PS1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="SR1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="9" name="/+24V_SAFE" class="Default">
+      <node ref="F2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="F3" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="F4" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="F5" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="K1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="TVS1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="10" name="/0V" class="Default">
+      <node ref="A1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="AUX1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="D1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="DRV1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="DRV2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="J2" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="J4" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="K2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="PS1" pin="5" pinfunction="Pin_5" pintype="passive"/>
+      <node ref="QH1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QH1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="QH2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QH2" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="QH3" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QH3" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="QH4" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QH4" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="SR1" pin="12" pinfunction="Pin_12" pintype="passive"/>
+      <node ref="SR1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="TVS1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="U2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="11" name="/AC_L_IN" class="Default">
+      <node ref="J1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="QF1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="12" name="/AC_L_PROTECTED" class="Default">
+      <node ref="PS1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="QF1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="13" name="/AC_N_IN" class="Default">
+      <node ref="J1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QF1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="14" name="/AC_N_PROTECTED" class="Default">
+      <node ref="PS1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QF1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+    </net>
+    <net code="15" name="/BUFFER_LEVEL" class="Default">
+      <node ref="A1" pin="21" pinfunction="Pin_21" pintype="passive"/>
+      <node ref="J4" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="16" name="/EDM_IN" class="Default">
+      <node ref="A1" pin="23" pinfunction="Pin_23" pintype="passive"/>
+      <node ref="K3" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="SR1" pin="10" pinfunction="Pin_10" pintype="passive"/>
+    </net>
+    <net code="17" name="/EDM_OUT" class="Default">
+      <node ref="K3" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="SR1" pin="9" pinfunction="Pin_9" pintype="passive"/>
+    </net>
+    <net code="18" name="/ESTOP_CH1" class="Default">
+      <node ref="S1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="S2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="19" name="/ESTOP_CH2" class="Default">
+      <node ref="S4" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="S5" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="20" name="/FAN_CMD" class="Default">
+      <node ref="A1" pin="11" pinfunction="Pin_11" pintype="passive"/>
+      <node ref="AUX1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="21" name="/FAN_OUT" class="Default">
+      <node ref="AUX1" pin="6" pinfunction="Pin_6" pintype="passive"/>
+      <node ref="J2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="22" name="/FAN_TACH" class="Default">
+      <node ref="A1" pin="22" pinfunction="Pin_22" pintype="passive"/>
+      <node ref="AUX1" pin="9" pinfunction="Pin_9" pintype="passive"/>
+    </net>
+    <net code="23" name="/H1_LOW" class="Default">
+      <node ref="H1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QH1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="24" name="/H1_PWM" class="Default">
+      <node ref="A1" pin="7" pinfunction="Pin_7" pintype="passive"/>
+      <node ref="QH1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="25" name="/H2_LOW" class="Default">
+      <node ref="H2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QH2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="26" name="/H2_PWM" class="Default">
+      <node ref="A1" pin="8" pinfunction="Pin_8" pintype="passive"/>
+      <node ref="QH2" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="27" name="/H3_LOW" class="Default">
+      <node ref="H3" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QH3" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="28" name="/H3_PWM" class="Default">
+      <node ref="A1" pin="9" pinfunction="Pin_9" pintype="passive"/>
+      <node ref="QH3" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="29" name="/H4_LOW" class="Default">
+      <node ref="H4" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="QH4" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="30" name="/H4_PWM" class="Default">
+      <node ref="A1" pin="10" pinfunction="Pin_10" pintype="passive"/>
+      <node ref="QH4" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="31" name="/K1_COIL_POS" class="Default">
+      <node ref="D1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="K2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="TS1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="32" name="/LID_CH1" class="Default">
+      <node ref="S2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="S3" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="33" name="/LID_CH2" class="Default">
+      <node ref="S5" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="S6" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="34" name="/M1_A" class="Default">
+      <node ref="DRV1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="M1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="35" name="/M1_B" class="Default">
+      <node ref="DRV1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="M1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="36" name="/M1_CURRENT" class="Default">
+      <node ref="A1" pin="17" pinfunction="Pin_17" pintype="passive"/>
+      <node ref="DRV1" pin="7" pinfunction="Pin_7" pintype="passive"/>
+    </net>
+    <net code="37" name="/M1_ENABLE" class="Default">
+      <node ref="A1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="DRV1" pin="5" pinfunction="Pin_5" pintype="passive"/>
+    </net>
+    <net code="38" name="/M1_PWM" class="Default">
+      <node ref="A1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="DRV1" pin="6" pinfunction="Pin_6" pintype="passive"/>
+    </net>
+    <net code="39" name="/M1_RPM" class="Default">
+      <node ref="A1" pin="18" pinfunction="Pin_18" pintype="passive"/>
+      <node ref="DRV1" pin="8" pinfunction="Pin_8" pintype="passive"/>
+    </net>
+    <net code="40" name="/M2_A" class="Default">
+      <node ref="DRV2" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="M2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="41" name="/M2_B" class="Default">
+      <node ref="DRV2" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="M2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="42" name="/M2_CURRENT" class="Default">
+      <node ref="A1" pin="19" pinfunction="Pin_19" pintype="passive"/>
+      <node ref="DRV2" pin="7" pinfunction="Pin_7" pintype="passive"/>
+    </net>
+    <net code="43" name="/M2_ENABLE" class="Default">
+      <node ref="A1" pin="5" pinfunction="Pin_5" pintype="passive"/>
+      <node ref="DRV2" pin="5" pinfunction="Pin_5" pintype="passive"/>
+    </net>
+    <net code="44" name="/M2_PWM" class="Default">
+      <node ref="A1" pin="6" pinfunction="Pin_6" pintype="passive"/>
+      <node ref="DRV2" pin="6" pinfunction="Pin_6" pintype="passive"/>
+    </net>
+    <net code="45" name="/M2_RPM" class="Default">
+      <node ref="A1" pin="20" pinfunction="Pin_20" pintype="passive"/>
+      <node ref="DRV2" pin="8" pinfunction="Pin_8" pintype="passive"/>
+    </net>
+    <net code="46" name="/PE" class="Default">
+      <node ref="J1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="M1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="M2" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="PS1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="TB1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="TB1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="TB1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="TB1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="TB1" pin="5" pinfunction="Pin_5" pintype="passive"/>
+    </net>
+    <net code="47" name="/PULLER_CMD" class="Default">
+      <node ref="A1" pin="12" pinfunction="Pin_12" pintype="passive"/>
+      <node ref="AUX1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+    </net>
+    <net code="48" name="/PULLER_OUT" class="Default">
+      <node ref="AUX1" pin="7" pinfunction="Pin_7" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="49" name="/RESET_IN" class="Default">
+      <node ref="S7" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="SR1" pin="8" pinfunction="Pin_8" pintype="passive"/>
+    </net>
+    <net code="50" name="/RESET_OUT" class="Default">
+      <node ref="S7" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="SR1" pin="7" pinfunction="Pin_7" pintype="passive"/>
+    </net>
+    <net code="51" name="/RUN_COMMAND" class="Default">
+      <node ref="A1" pin="24" pinfunction="Pin_24" pintype="passive"/>
+      <node ref="J4" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="52" name="/SAFE_CH1_OUT" class="Default">
+      <node ref="S1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="SR1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="53" name="/SAFE_CH1_RETURN" class="Default">
+      <node ref="S3" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="SR1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+    </net>
+    <net code="54" name="/SAFE_CH2_OUT" class="Default">
+      <node ref="S4" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="SR1" pin="5" pinfunction="Pin_5" pintype="passive"/>
+    </net>
+    <net code="55" name="/SAFE_CH2_RETURN" class="Default">
+      <node ref="S6" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="SR1" pin="6" pinfunction="Pin_6" pintype="passive"/>
+    </net>
+    <net code="56" name="/SAFE_RELAY_OUT" class="Default">
+      <node ref="SR1" pin="11" pinfunction="Pin_11" pintype="passive"/>
+      <node ref="TS1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="57" name="/SPOOL_CMD" class="Default">
+      <node ref="A1" pin="13" pinfunction="Pin_13" pintype="passive"/>
+      <node ref="AUX1" pin="5" pinfunction="Pin_5" pintype="passive"/>
+    </net>
+    <net code="58" name="/SPOOL_OUT" class="Default">
+      <node ref="AUX1" pin="8" pinfunction="Pin_8" pintype="passive"/>
+      <node ref="J2" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="59" name="/TEMP1_RAW" class="Default">
+      <node ref="J3" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="U2" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="60" name="/TEMP2_RAW" class="Default">
+      <node ref="J3" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U2" pin="4" pinfunction="Pin_4" pintype="passive"/>
+    </net>
+    <net code="61" name="/TEMP3_RAW" class="Default">
+      <node ref="J3" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="U2" pin="5" pinfunction="Pin_5" pintype="passive"/>
+    </net>
+    <net code="62" name="/TEMP4_RAW" class="Default">
+      <node ref="J3" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="Pin_6" pintype="passive"/>
+    </net>
+    <net code="63" name="/TEMP5_RAW" class="Default">
+      <node ref="J3" pin="5" pinfunction="Pin_5" pintype="passive"/>
+      <node ref="U2" pin="7" pinfunction="Pin_7" pintype="passive"/>
+    </net>
+    <net code="64" name="/TEMP6_RAW" class="Default">
+      <node ref="J3" pin="6" pinfunction="Pin_6" pintype="passive"/>
+      <node ref="U2" pin="8" pinfunction="Pin_8" pintype="passive"/>
+    </net>
+    <net code="65" name="/TEMP_CLK" class="Default">
+      <node ref="A1" pin="14" pinfunction="Pin_14" pintype="passive"/>
+      <node ref="U2" pin="9" pinfunction="Pin_9" pintype="passive"/>
+    </net>
+    <net code="66" name="/TEMP_DATA" class="Default">
+      <node ref="A1" pin="15" pinfunction="Pin_15" pintype="passive"/>
+      <node ref="U2" pin="10" pinfunction="Pin_10" pintype="passive"/>
+    </net>
+    <net code="67" name="/TEMP_FAULT" class="Default">
+      <node ref="A1" pin="16" pinfunction="Pin_16" pintype="passive"/>
+      <node ref="U2" pin="11" pinfunction="Pin_11" pintype="passive"/>
+    </net>
+  </nets>
+</export>

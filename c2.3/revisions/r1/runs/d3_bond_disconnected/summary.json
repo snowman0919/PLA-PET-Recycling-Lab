@@ -1,0 +1,64 @@
+{
+  "schema": "r03_d3/1",
+  "backend": "ISAAC_PHYSX",
+  "isaac_version": "6.1.0.0",
+  "isaac_runtime_version": "UNKNOWN",
+  "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+  "python": "/home/monad/env_isaacsim-c22/bin/python",
+  "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py",
+  "scene": "/World/DIAGNOSTIC_FIXTURE",
+  "condition": "disconnected",
+  "constraint": "PhysicsFixedJoint AB_Joint (UsdPhysics.FixedJoint); transmitted force = m_A*a_A residual, gravity removed on z",
+  "loads": {
+    "force_Bx_N": 4.0,
+    "gravity": 9.81,
+    "mass_kg_each": 1.0
+  },
+  "physics_dt_s": 0.005,
+  "dt_readback_s": 0.005,
+  "dt_source_mapping": "SimulationManager.set_physics_dt(0.005) once pre-play; advance via SimulationManager.step(steps=1)",
+  "n0": 35,
+  "t0_s": 0.175,
+  "n1": 235,
+  "t1_s": 1.175,
+  "dx0_m": 0.14650000259280205,
+  "dx_final_m": 2.756497908383608,
+  "F_transmit_mean_N": 3.9656448364198126e-05,
+  "disable_step": null,
+  "disable_t": 0.5,
+  "body_ids": [
+    "/World/DIAGNOSTIC_FIXTURE/A",
+    "/World/DIAGNOSTIC_FIXTURE/B"
+  ],
+  "atomic_body_count": 2,
+  "connected_components": 2,
+  "n_constraints_active_final": 0,
+  "mass_total_kg": 2.0,
+  "vel_final": [
+    [
+      0.0,
+      0.0,
+      -11.526764869689941
+    ],
+    [
+      4.599996566772461,
+      0.0,
+      -11.526764869689941
+    ]
+  ],
+  "pos_final": [
+    [
+      -0.05000000074505806,
+      0.0,
+      -6.300783157348633
+    ],
+    [
+      2.70649790763855,
+      0.0,
+      -6.300783157348633
+    ]
+  ],
+  "scene_sha256": "9d82e1abc718756de4cfc57bf4f95f46db805db7f70d56bb3e3ea8abc67af07b",
+  "status": "RUN_OK",
+  "failures": []
+}

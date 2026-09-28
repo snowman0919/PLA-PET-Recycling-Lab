@@ -1,0 +1,88 @@
+{
+  "revision": "C2.1-P6+VP1-STAGE6",
+  "active_rows": 210,
+  "unique_part_ids": 210,
+  "legacy_instances_removed": 52,
+  "legacy_part_quantities_removed": {
+    "BR-6001": 2,
+    "BR-6007": 2,
+    "BR-625": 18,
+    "DRV-SH15R": 1,
+    "DRV-SH40L": 1,
+    "DRV-SP24-B12": 1,
+    "HOPPER": 1,
+    "KEY-4-16": 2,
+    "KEY-4-78": 1,
+    "PULL-ROLLER": 2,
+    "S2-CASE-L": 1,
+    "S2-CASE-R": 1,
+    "S2-ECC": 1,
+    "S2-GUIDE": 1,
+    "S2-PIN": 9,
+    "S2-PIN-F": 1,
+    "S2-PIN-R": 1,
+    "S2-ROTOR": 1,
+    "S2-SCREEN": 1,
+    "S2-SHAFT": 1,
+    "S2-SUP": 2,
+    "SPOOL-ENV": 1
+  },
+  "adjusted_shared_quantities": {
+    "BR-6001": 2
+  },
+  "c21_rows_added": 19,
+  "vp1_delta_rows": 80,
+  "vp1_delta_source": "c2.1/bom/vp1_bom_delta.csv",
+  "known_cost_rows": 0,
+  "unknown_cost_rows": 210,
+  "known_landed_total_KRW": null,
+  "queried_motor_candidate_price_plus_base_shipping_KRW": 110200,
+  "soft_total_budget_KRW": 100000,
+  "current_inventory": {
+    "status": "USER_REPORTED_2NC_BUTTON_AND_CHIRON_PSU_DONOR_UNQUALIFIED",
+    "reported_owned_button_rows": 1,
+    "reported_owned_psu_rows": 1,
+    "qualified_stock_rows": 0,
+    "historical_owned_rows_reclassified": 9,
+    "donor_printer": {
+      "model": "Anycubic Chiron",
+      "availability": "USER_REPORTED",
+      "other_subparts": "UNALLOCATED_PENDING_LABEL_AND_DIMENSIONS",
+      "profile_lengths": "UNMEASURED",
+      "motor_driver_interfaces": "UNVERIFIED"
+    },
+    "feedstock": "NO_REFERENCE_PELLETS_REPORTED"
+  },
+  "candidate_motor_budget_gap_KRW": 10200,
+  "minimum_functional_route": {
+    "same_product": "reference_feed_same_extrusion_cooling_gauge_puller_winder",
+    "staging": "upstream S1/S2 held during reference-feed qualification; not a substitute finished product",
+    "cost_status": "UNPRICED_TWO_REPORTED_PARTS_UNQUALIFIED_NO_BUDGET_COMPLIANCE_PROVEN",
+    "safety": "independent interlocks, fuses and lockout cannot be omitted"
+  },
+  "cost_conclusion": "BUTTON_AND_DONOR_PSU_REPORTED_OTHER_ACTIVE_ROWS_UNQUOTED_MOTOR_CANDIDATE_EXCEEDS_SOFT_BUDGET",
+  "profile_cut_plan": {
+    "rows": 14,
+    "stock_conservation_passed": true,
+    "stock_available": null,
+    "stock_confirmation_status": "DONOR_PROFILE_LENGTHS_UNMEASURED",
+    "scheduled_stock_mm_by_profile": {
+      "2020": 4530,
+      "2040": 3680
+    },
+    "source_owned_flags": "HISTORICAL_C1_NOT_CURRENT_DONOR_STOCK",
+    "basis": "cut layout conserves nominal stock; donor extrusion stock unmeasured",
+    "source": "bom/profile_cut_plan.csv"
+  },
+  "csv": {
+    "file": "c2.1/bom/system_bom.csv",
+    "sha256": "d3ed9504b6efd400027e032999b030c57c27d98eb72f0e5c932fd667ce8b5215"
+  },
+  "xlsx": {
+    "file": "c2.1/bom/system_bom.xlsx",
+    "sha256": "ae78b27614080566e63713df9c6b4d24a8e072e4289693be6df061f6dc5c0462",
+    "zip_test": null
+  },
+  "procurement": "HOLD",
+  "fabrication": "HOLD"
+}

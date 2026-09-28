@@ -10,22 +10,54 @@ import numpy as np
 TARGETS=('target_yield_mass_fraction','throughput_g_h','peak_torque_Nm',
          'rms_torque_Nm','jam_probability','specific_energy_J_g','max_polymer_C')
 ALLOWED_EVIDENCE={'CALIBRATED_DEM','PHYSICAL_EXPERIMENT'}
+RAW_EVIDENCE=ALLOWED_EVIDENCE|{'UNCALIBRATED_DEM'}
 
 class EvidenceError(ValueError):
     pass
 
 
-def validate_record(record: dict, evidence_root: Path):
-    if record.get('evidence_type') not in ALLOWED_EVIDENCE:
-        raise EvidenceError('Kinematics, analytical pseudo-labels and uncalibrated DEM are not qualified performance data')
+def canonical_sha256(value) -> str:
+    return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+
+def candidate_hashes(candidates: list[dict]) -> dict[str,str]:
+    return {row['design']['candidate_id']:canonical_sha256(row['design']) for row in candidates}
+
+
+def validate_evidence_record(record: dict, evidence_root: Path,
+                             geometry_hashes: dict[str,str]|None=None,
+                             expected_cad_revision: str|None=None):
+    evidence_type=record.get('evidence_type')
+    if evidence_type not in RAW_EVIDENCE:
+        raise EvidenceError('Unknown or non-executed evidence type')
     if record.get('material') not in ('PLA','PET','TPU'):
         raise EvidenceError('Unknown material')
     for k in ('candidate_id','material_grade','material_lot','feed_distribution_id',
-              'calibration_id','cad_revision','raw_data_path','raw_data_sha256'):
+              'cad_revision','geometry_sha256','raw_data_path','raw_data_sha256'):
         if not record.get(k):
             raise EvidenceError('Missing provenance: '+k)
-    if record['evidence_type']=='CALIBRATED_DEM' and not record.get('calibration_validation_id'):
-        raise EvidenceError('DEM calibration needs a separate held-out coupon validation record')
+    if expected_cad_revision and record['cad_revision']!=expected_cad_revision:
+        raise EvidenceError('Result CAD revision does not match active revision')
+    if geometry_hashes is not None:
+        expected=geometry_hashes.get(record['candidate_id'])
+        if expected is None or record['geometry_sha256']!=expected:
+            raise EvidenceError('Result geometry hash does not match active candidate')
+    if evidence_type.endswith('_DEM'):
+        for k in ('solver','solver_version','input_deck_path','input_deck_sha256'):
+            if not record.get(k):
+                raise EvidenceError('Missing solver provenance: '+k)
+        deck=(evidence_root.resolve()/record['input_deck_path']).resolve()
+        if not deck.is_relative_to(evidence_root.resolve()) or not deck.is_file():
+            raise EvidenceError('Missing or out-of-scope solver input deck')
+        if hashlib.sha256(deck.read_bytes()).hexdigest()!=record['input_deck_sha256']:
+            raise EvidenceError('Solver input hash mismatch')
+    if evidence_type=='CALIBRATED_DEM':
+        if not record.get('calibration_id') or not record.get('calibration_validation_id'):
+            raise EvidenceError('DEM calibration needs a separate held-out coupon validation record')
+    if evidence_type=='PHYSICAL_EXPERIMENT':
+        for k in ('physical_test_id','specimen_id','procedure_revision','instrument_ids'):
+            if not record.get(k):
+                raise EvidenceError('Physical label lacks test provenance: '+k)
     root=evidence_root.resolve()
     path=(root/record['raw_data_path']).resolve()
     if not path.is_relative_to(root) or not path.is_file():
@@ -47,8 +79,34 @@ def validate_record(record: dict, evidence_root: Path):
     return record
 
 
-def training_gate(records: list[dict], evidence_root: Path, minimum_unique_per_material: int = 20):
-    valid=[validate_record(r,evidence_root) for r in records]
+def validate_record(record: dict, evidence_root: Path,
+                    geometry_hashes: dict[str,str]|None=None,
+                    expected_cad_revision: str|None=None):
+    validate_evidence_record(record,evidence_root,geometry_hashes,expected_cad_revision)
+    if record['evidence_type'] not in ALLOWED_EVIDENCE:
+        raise EvidenceError('Uncalibrated DEM is exploratory evidence, not qualified performance data')
+    return record
+
+
+def evidence_inventory(records: list[dict], evidence_root: Path,
+                       geometry_hashes: dict[str,str]|None=None,
+                       expected_cad_revision: str|None=None):
+    actual=[r for r in records if r.get('fixture_scope')!='SYNTHETIC_TEST_ONLY']
+    valid=[validate_evidence_record(r,evidence_root,geometry_hashes,expected_cad_revision) for r in actual]
+    return dict(
+        actual_dem_runs=sum(r['evidence_type'].endswith('_DEM') for r in valid),
+        uncalibrated_dem_runs=sum(r['evidence_type']=='UNCALIBRATED_DEM' for r in valid),
+        calibrated_dem_runs=sum(r['evidence_type']=='CALIBRATED_DEM' for r in valid),
+        actual_physical_tests=sum(r['evidence_type']=='PHYSICAL_EXPERIMENT' for r in valid),
+        qualified_records=sum(r['evidence_type'] in ALLOWED_EVIDENCE for r in valid),
+        synthetic_fixture_records_excluded=len(records)-len(actual))
+
+
+def training_gate(records: list[dict], evidence_root: Path, minimum_unique_per_material: int = 20,
+                  geometry_hashes: dict[str,str]|None=None,
+                  expected_cad_revision: str|None=None):
+    valid=[validate_record(r,evidence_root,geometry_hashes,expected_cad_revision) for r in records
+           if r.get('fixture_scope')!='SYNTHETIC_TEST_ONLY']
     counts={m:len({r['candidate_id'] for r in valid if r['material']==m}) for m in ('PLA','PET','TPU')}
     return dict(status='READY_FOR_GROUP_SPLIT' if all(n>=minimum_unique_per_material for n in counts.values())
                 else 'BLOCKED_PERFORMANCE_DATA',unique_designs_by_material=counts,

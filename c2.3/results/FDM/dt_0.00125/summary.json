@@ -1,0 +1,39 @@
+{
+  "schema": "c2.3_run/1",
+  "backend": "ISAAC_PHYSX",
+  "isaac_version": "6.1.0.0 (unqueried)",
+  "physics_dt_s": 0.00125,
+  "dt_source_mapping": {
+    "physics_dt_s": 0.00125,
+    "set_call": "SimulationManager.set_physics_dt(0.00125) once pre-play",
+    "updates": 240,
+    "sim_time_s": 0.3,
+    "advance_rule": "each sim.update() advances physics_dt_s; telemetry t=(step+1)*dt"
+  },
+  "case": "FDM",
+  "waste_class": "W1",
+  "seed": 7,
+  "steps": 240,
+  "sim_time_s": 0.3,
+  "torque_source": "CONTACT_DERIVED_MOMENT_ARM",
+  "torque_equation": "tau(t) = CUTTER_R_M * sum_i |F_contact,i(t)|; W = sum_t tau(t)*omega*dt",
+  "contact_impulse_Ns": 0.24776656009860745,
+  "shaft_work_J": 0.04151368560058663,
+  "torque_impulse_Nms": 0.009910662403944297,
+  "bond_breaks": 12,
+  "bonds_alive": 34,
+  "max_frag_displacement_m": 1.7532171428104164,
+  "mass_initial_kg": 0.090717,
+  "mass_final_kg": 0.090717,
+  "first_contact_t_s": 0.005,
+  "last_contact_t_s": 0.3,
+  "freeze_hashes": {
+    "CONTRACT.md": "836ccab58b59eac73ea818dd76edfa3b7ac512481c9f429afb5ecbd39498d17d",
+    "STATE.json": "fe9be0bd7b4cc8795db736df730291d5de2058599890152d4f0676bdbbcee275",
+    "NEXT.md": "522d761ae251572d327dbf8cc4cd875ffddd0297dbbb458b086cb8df260a5b66",
+    "configs/baseline.json": "5b10ae082bc255eb9b9259b7d2712de10c074b26a51c942258f0f0abc9c96b6c",
+    "configs/cases.json": "a44ce3b50624bd48c6d28d38c3277cbce77a976eb74d51ba1f8c8c93395fffe6"
+  },
+  "status": "RUN_OK",
+  "failures": []
+}

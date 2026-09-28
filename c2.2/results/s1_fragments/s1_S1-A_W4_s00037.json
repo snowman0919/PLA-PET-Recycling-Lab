@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-A",
+  "seed": 37,
+  "class": "W4",
+  "waste_id": "W4-purge_bundle-00037",
+  "input_mass_g": 150.625,
+  "peak_proxy": 1.2351009125256296,
+  "work_proxy": 134.16369992367453,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W4-purge_bundle-00037:S1-A:F000",
+      "source_waste_id": "W4-purge_bundle-00037",
+      "seed": 37,
+      "mass_g": 129.107143,
+      "volume_mm3": 104118.664,
+      "com_mm": [
+        40.255,
+        29.211,
+        11.64
+      ],
+      "principal_dims_mm": [
+        70.446,
+        48.686,
+        19.4
+      ],
+      "equiv_diameter_mm": 58.368,
+      "aspect_ratio": 3.631,
+      "pose_quaternion_xyzw": [
+        -0.40802,
+        0.16854,
+        -0.08851,
+        -0.89291
+      ],
+      "velocity_proxy_mm_s": [
+        6.1755,
+        6.1755,
+        6.1755
+      ],
+      "bond_state": {
+        "failed_bonds": 277,
+        "first_kind": "cross_raster"
+      },
+      "class": "W4",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W4-purge_bundle-00037:S1-A:F001",
+      "source_waste_id": "W4-purge_bundle-00037",
+      "seed": 37,
+      "mass_g": 21.517857,
+      "volume_mm3": 17353.111,
+      "com_mm": [
+        40.255,
+        63.291,
+        11.64
+      ],
+      "principal_dims_mm": [
+        70.446,
+        19.4,
+        0.5
+      ],
+      "equiv_diameter_mm": 32.121,
+      "aspect_ratio": 140.893,
+      "pose_quaternion_xyzw": [
+        -0.81306,
+        -0.14548,
+        0.33467,
+        0.45361
+      ],
+      "velocity_proxy_mm_s": [
+        6.1755,
+        6.1755,
+        6.1755
+      ],
+      "bond_state": {
+        "failed_bonds": 277,
+        "first_kind": "cross_raster"
+      },
+      "class": "W4",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.0,
+  "s1_multiplier_note": "inherited twin-shaft baseline",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

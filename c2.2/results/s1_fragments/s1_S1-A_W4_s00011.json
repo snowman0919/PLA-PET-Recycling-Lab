@@ -1,0 +1,91 @@
+{
+  "s1_arch": "S1-A",
+  "seed": 11,
+  "class": "W4",
+  "waste_id": "W4-purge_bundle-00011",
+  "input_mass_g": 107.209,
+  "peak_proxy": 1.2948078933568083,
+  "work_proxy": 43.31565563832699,
+  "bite_flag": true,
+  "bridge_flag": false,
+  "jam_flag": false,
+  "wrap_metric": 0.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "W4-purge_bundle-00011:S1-A:F000",
+      "source_waste_id": "W4-purge_bundle-00011",
+      "seed": 11,
+      "mass_g": 71.472667,
+      "volume_mm3": 57639.247,
+      "com_mm": [
+        20.255,
+        26.89,
+        13.423
+      ],
+      "principal_dims_mm": [
+        43.024,
+        30.383,
+        20.135
+      ],
+      "equiv_diameter_mm": 47.926,
+      "aspect_ratio": 2.137,
+      "pose_quaternion_xyzw": [
+        -0.71307,
+        -0.50993,
+        0.40348,
+        -0.26212
+      ],
+      "velocity_proxy_mm_s": [
+        6.474,
+        6.474,
+        6.474
+      ],
+      "bond_state": {
+        "failed_bonds": 85,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W4",
+      "material": "PLA"
+    },
+    {
+      "fragment_id": "W4-purge_bundle-00011:S1-A:F001",
+      "source_waste_id": "W4-purge_bundle-00011",
+      "seed": 11,
+      "mass_g": 35.736333,
+      "volume_mm3": 28819.624,
+      "com_mm": [
+        20.255,
+        26.89,
+        33.558
+      ],
+      "principal_dims_mm": [
+        43.024,
+        30.383,
+        6.712
+      ],
+      "equiv_diameter_mm": 38.039,
+      "aspect_ratio": 6.41,
+      "pose_quaternion_xyzw": [
+        -0.93131,
+        -0.35149,
+        -0.03402,
+        0.08927
+      ],
+      "velocity_proxy_mm_s": [
+        6.474,
+        6.474,
+        6.474
+      ],
+      "bond_state": {
+        "failed_bonds": 85,
+        "first_kind": "inter_layer_z"
+      },
+      "class": "W4",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 1.0,
+  "s1_multiplier_note": "inherited twin-shaft baseline",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

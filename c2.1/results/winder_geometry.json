@@ -1,0 +1,349 @@
+{
+  "parts": [
+    {
+      "name": "PULL_FRAME",
+      "group": "puller",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        823.0,
+        249.0,
+        100.0,
+        846.0,
+        302.0,
+        153.5
+      ]
+    },
+    {
+      "name": "PULL_ROLLER_FIXED",
+      "group": "puller",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        819.0,
+        256.0,
+        104.25,
+        839.0,
+        294.0,
+        124.25
+      ]
+    },
+    {
+      "name": "PULL_ROLLER_ADJ",
+      "group": "puller",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        819.0,
+        249.0,
+        125.75,
+        839.0,
+        301.0,
+        145.75
+      ]
+    },
+    {
+      "name": "PULL_IDLER_CARRIAGE",
+      "group": "puller",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        823.0,
+        249.0,
+        131.0,
+        846.0,
+        301.0,
+        141.0
+      ]
+    },
+    {
+      "name": "PULL_IDLER_SPRINGS",
+      "group": "puller",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        834.5,
+        249.0,
+        141.0,
+        843.5,
+        301.0,
+        149.5
+      ]
+    },
+    {
+      "name": "PULL_NIP_STOP",
+      "group": "puller",
+      "solids": 4,
+      "valid": true,
+      "bounds": [
+        823.0,
+        249.0,
+        127.0,
+        841.0,
+        301.0,
+        146.0
+      ]
+    },
+    {
+      "name": "PULL_COOL_MOUNT",
+      "group": "puller",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        545.0,
+        260.0,
+        75.0,
+        842.0,
+        395.0,
+        115.0
+      ]
+    },
+    {
+      "name": "PULL_MOTOR_REF",
+      "group": "puller",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        821.0,
+        202.0,
+        112.0,
+        847.0,
+        248.0,
+        142.0
+      ]
+    },
+    {
+      "name": "WIND_SPOOL_SHAFT",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        692.0,
+        87.0,
+        212.0,
+        708.0,
+        185.0,
+        229.5
+      ]
+    },
+    {
+      "name": "WIND_SPOOL_BEARINGS",
+      "group": "spool",
+      "solids": 2,
+      "valid": true,
+      "bounds": [
+        688.0,
+        88.0,
+        208.0,
+        712.0,
+        178.0,
+        232.0
+      ]
+    },
+    {
+      "name": "WIND_MOUNT",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        590.0,
+        60.0,
+        177.0,
+        720.0,
+        212.0,
+        208.0
+      ]
+    },
+    {
+      "name": "WIND_SPOOL_DRUM",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        665.0,
+        106.0,
+        185.0,
+        735.0,
+        164.0,
+        255.0
+      ]
+    },
+    {
+      "name": "WIND_CLUTCH_REF",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        670.0,
+        97.0,
+        190.0,
+        730.0,
+        103.0,
+        250.0
+      ]
+    },
+    {
+      "name": "WIND_SPOOL_RETENTION",
+      "group": "spool",
+      "solids": 3,
+      "valid": true,
+      "bounds": [
+        685.0,
+        96.055,
+        205.0,
+        715.0,
+        168.945,
+        235.0
+      ]
+    },
+    {
+      "name": "WIND_FLANGE_L",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        600.0,
+        103.0,
+        120.0,
+        800.0,
+        106.0,
+        320.0
+      ]
+    },
+    {
+      "name": "WIND_FLANGE_R",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        600.0,
+        164.0,
+        120.0,
+        800.0,
+        167.0,
+        320.0
+      ]
+    },
+    {
+      "name": "WIND_MOTOR_REF",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        680.0,
+        182.0,
+        200.0,
+        720.0,
+        212.0,
+        240.0
+      ]
+    },
+    {
+      "name": "WIND_TRAVERSE_SCREW",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        738.0,
+        95.0,
+        321.0,
+        746.0,
+        175.0,
+        329.0
+      ]
+    },
+    {
+      "name": "WIND_TRAVERSE_RIDER",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        733.9999999,
+        110.0,
+        236.9999999,
+        750.0000001,
+        160.0,
+        333.0
+      ]
+    },
+    {
+      "name": "WIND_TENSIONER",
+      "group": "spool",
+      "solids": 1,
+      "valid": true,
+      "bounds": [
+        744.0,
+        193.0,
+        175.0,
+        784.0,
+        203.0,
+        215.0
+      ]
+    }
+  ],
+  "exported_step": [
+    "c2.1/cad/parts_stage1/PULL_FRAME.step",
+    "c2.1/cad/parts_stage1/PULL_ROLLER_FIXED.step",
+    "c2.1/cad/parts_stage1/PULL_ROLLER_ADJ.step",
+    "c2.1/cad/parts_stage1/PULL_IDLER_CARRIAGE.step",
+    "c2.1/cad/parts_stage1/PULL_IDLER_SPRINGS.step",
+    "c2.1/cad/parts_stage1/PULL_NIP_STOP.step",
+    "c2.1/cad/parts_stage1/PULL_COOL_MOUNT.step",
+    "c2.1/cad/parts_stage1/PULL_MOTOR_REF.step",
+    "c2.1/cad/parts_stage1/WIND_SPOOL_SHAFT.step",
+    "c2.1/cad/parts_stage1/WIND_SPOOL_BEARINGS.step",
+    "c2.1/cad/parts_stage1/WIND_MOUNT.step",
+    "c2.1/cad/parts_stage1/WIND_SPOOL_DRUM.step",
+    "c2.1/cad/parts_stage1/WIND_CLUTCH_REF.step",
+    "c2.1/cad/parts_stage1/WIND_SPOOL_RETENTION.step",
+    "c2.1/cad/parts_stage1/WIND_FLANGE_L.step",
+    "c2.1/cad/parts_stage1/WIND_FLANGE_R.step",
+    "c2.1/cad/parts_stage1/WIND_MOTOR_REF.step",
+    "c2.1/cad/parts_stage1/WIND_TRAVERSE_SCREW.step",
+    "c2.1/cad/parts_stage1/WIND_TRAVERSE_RIDER.step",
+    "c2.1/cad/parts_stage1/WIND_TENSIONER.step"
+  ],
+  "filament_spec_mm": 1.75,
+  "filament_spec_source": "design/parameters.json filament_mm (c2/src/design.py:34); c2.1/bom/system_bom.csv EX-DIE note",
+  "nip_min_mm": 1.5,
+  "nip_max_mm": 3.0,
+  "nominal_diameter_within_travel": true,
+  "idler_stroke_mm": 1.5,
+  "motor_to_moving_idler_nominal_y_gap_mm": 1.0,
+  "spring_installed_height_mm": [
+    7.0,
+    8.5
+  ],
+  "grip_qualified": false,
+  "steel_mass_screen_g": {
+    "density_g_mm3": 0.00785,
+    "old_solid_annulus_and_flange_g": 3117.86,
+    "hollow_tube_web_and_flange_g": 1813.98,
+    "mount_g": 294.96,
+    "pull_cool_mount_g": 707.4,
+    "retention_ring_and_washer_g": 4.9,
+    "cost_and_weld_rating": "HOLD: no quotes or measured joints"
+  },
+  "retention_fit_screen": {
+    "ring_candidate": "Smalley ES-16; two-turn detail not modeled",
+    "ring_source": "https://www.smalley.com/ring/es-16",
+    "groove_d_nominal_mm": 15.02,
+    "groove_width_nominal_mm": 1.0,
+    "ring_thickness_nominal_mm": 0.89,
+    "axial_clearance_per_ring_mm": [
+      0.06,
+      0.24
+    ],
+    "max_two_ring_clearance_mm": 0.48,
+    "washer_bore_nominal_mm": 16.2,
+    "washer_overlap_catalog_ring_min_mm_at_nominal_bore_and_eccentricity_0_1": 0.5425,
+    "spring_candidate": "SSB-0087; PUBLISHED_WORK_HEIGHT_INCOMPATIBLE",
+    "spring_source": "https://www.smalley.com/wave-spring/ssb-0087",
+    "spring_work_height_mm": 1.57,
+    "spring_seat_mm": 1.0,
+    "spring_height_shortfall_mm": 0.57,
+    "status": "AXIAL_FLOAT_AND_PRELOAD_HOLD; unquoted and unrated"
+  },
+  "status": "GEOMETRY_ONLY_NIP_FORCE_HOLD",
+  "geometry_passed": true
+}

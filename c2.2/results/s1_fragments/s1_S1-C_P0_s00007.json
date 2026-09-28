@@ -1,0 +1,55 @@
+{
+  "s1_arch": "S1-C",
+  "seed": 7,
+  "class": "P0",
+  "waste_id": "P0-purge_bundle-00007",
+  "input_mass_g": 35.816,
+  "peak_proxy": 0.0,
+  "work_proxy": 0.0,
+  "bite_flag": false,
+  "bridge_flag": true,
+  "jam_flag": true,
+  "wrap_metric": 1.0,
+  "mass_error_g": 0.0,
+  "fragments": [
+    {
+      "fragment_id": "P0-purge_bundle-00007:S1-C:F000",
+      "source_waste_id": "P0-purge_bundle-00007",
+      "seed": 7,
+      "mass_g": 35.816,
+      "volume_mm3": 28883.871,
+      "com_mm": [
+        49.03,
+        39.55,
+        25.2
+      ],
+      "principal_dims_mm": [
+        88.254,
+        69.213,
+        42.0
+      ],
+      "equiv_diameter_mm": 38.067,
+      "aspect_ratio": 2.101,
+      "pose_quaternion_xyzw": [
+        0.65051,
+        -0.24048,
+        -0.29221,
+        0.65849
+      ],
+      "velocity_proxy_mm_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bond_state": {
+        "failed_bonds": 0,
+        "first_kind": null
+      },
+      "class": "P0",
+      "material": "PLA"
+    }
+  ],
+  "s1_multiplier": 0.85,
+  "s1_multiplier_note": "buckling-assist under nip compression",
+  "evidence_level": "UNCALIBRATED_DIGITAL_SENSITIVITY"
+}

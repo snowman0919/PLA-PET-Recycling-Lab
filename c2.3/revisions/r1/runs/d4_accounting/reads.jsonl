@@ -1,0 +1,5 @@
+{"kind": "stage_read", "body_ids": ["/World/DIAGNOSTIC_FIXTURE/D4_A", "/World/DIAGNOSTIC_FIXTURE/D4_B", "/World/DIAGNOSTIC_FIXTURE/D4_C"], "masses_kg": {"A": 1.0, "B": 2.0, "C": 0.5}, "positions_m": {"A": [-0.20000000298023224, 0.0, 0.1454925537109375], "B": [0.0, 0.0, 0.1454925537109375], "C": [0.20000000298023224, 0.0, 0.1454925537109375]}, "orientations_wxyz": {"A": [1.0, 0.0, 0.0, 0.0], "B": [1.0, 0.0, 0.0, 0.0], "C": [1.0, 0.0, 0.0, 0.0]}}
+{"kind": "nominal_ledger", "nominal": {"intended_total": 3.5, "instantiated_total": 3.5, "unexplained": 0.0, "rel_error": 0.0, "within_tol": true}}
+{"kind": "fault_F1", "enabled_ids": ["A", "B"], "detected": true}
+{"kind": "fault_F2", "trial_total": 5.5, "detected": true}
+{"kind": "fault_F3", "readback_kg": {"A": 1.0, "B": 2.5, "C": 0.5}, "detected": true}

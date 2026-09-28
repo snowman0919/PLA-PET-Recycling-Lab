@@ -1,0 +1,422 @@
+{
+  "revision": "C2.1",
+  "mechanism": "SINGLE_DOF_FIXED_RING_CYCLOID_WITH_OUTPUT_PIN_OFFSET_ACCOMMODATION",
+  "independent_drive_dof": 1,
+  "roles": {
+    "input": "M1-driven concentric shaft and eccentric journal",
+    "output": "fixed-axis pin carrier witness/load-extraction candidate, signed -1/q; not independently powered",
+    "carrier": "output pin carrier centred on F0 origin",
+    "fixed_reaction": "q+1 stationary ring pins and metal support plates",
+    "rotor_connection": "single fused CAD envelope for cycloid disc, hook rotor and coupling web; physical bolts/retention HOLD"
+  },
+  "gear_mesh_parity": {
+    "one_external_mesh": -1,
+    "one_idler_two_external_meshes": 1
+  },
+  "nominal_coupling": {
+    "relative_center_rotor_frame_mm": [
+      -7.0,
+      0.0
+    ],
+    "center_excursion_mm": 7.0,
+    "diametral_stroke_mm": 14.0,
+    "window_radius_mm": 12.2,
+    "roller_radius_mm": 5.0,
+    "nominal_radial_clearance_mm": 0.2,
+    "relative_center_speed_mm_s": 98.9602,
+    "ideal_roller_spin_relative_carrier_rpm": -189.0,
+    "ideal_roller_absolute_spin_rpm": -204.0,
+    "ideal_spin_assumption": "NO_SLIP_SINGLE_CONTACT_ONLY_NOT_MEASURED_OR_RATED",
+    "loaded_contact_transfer_status": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_ELASTIC_SHARING_RATING_HOLD",
+    "rating_status": "HOLD_UNVERIFIED_ROLLER_BEARING_AND_CONTACT_PRESSURE"
+  },
+  "loaded_contact_takeup": {
+    "input_turns": 8,
+    "positions": 193,
+    "directions_per_position": 2,
+    "samples": 386,
+    "clearance_mm": 0.2,
+    "phase_takeup_deg": {
+      "min": 0.301558,
+      "max": 0.346031
+    },
+    "single_contact_force_per_output_Nm_N": {
+      "min": 26.3161,
+      "max": 30.0147
+    },
+    "torque_sensitivity": [
+      {
+        "output_torque_Nm": 1.0,
+        "single_contact_force_range_N": [
+          26.3161,
+          30.0147
+        ]
+      },
+      {
+        "output_torque_Nm": 3.0,
+        "single_contact_force_range_N": [
+          78.9484,
+          90.044
+        ]
+      },
+      {
+        "output_torque_Nm": 8.0,
+        "single_contact_force_range_N": [
+          210.529,
+          240.117
+        ]
+      }
+    ],
+    "maximum_equilibrium_residual_Nm": 2.22045e-16,
+    "result": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD",
+    "not_verified": [
+      "elastic_pin_load_sharing",
+      "contact_pressure",
+      "friction_and_slip",
+      "roller_bearing_rating",
+      "window_edge_stress",
+      "manufacturing_tolerance_and_wear"
+    ]
+  },
+  "ideal_virtual_work": {
+    "omega_rad_s": {
+      "input": 12.5664,
+      "output_carrier": -1.5708,
+      "fixed_ring": 0.0
+    },
+    "torque_on_mechanism_Nm": {
+      "input": 1.0,
+      "output_load": 8.0,
+      "fixed_ring_reaction": -9.0
+    },
+    "power_on_mechanism_W": {
+      "input_W": 12.5664,
+      "output_load_on_mechanism_W": -12.5664,
+      "fixed_ring_W": -0.0
+    },
+    "power_residual_W": 0.0,
+    "torque_balance_residual_Nm": 0.0,
+    "evidence": "IDEAL_VIRTUAL_WORK_NO_EFFICIENCY_OR_RATING"
+  },
+  "rotor_force_virtual_work": {
+    "force_xz_N": [
+      -120.0,
+      35.0
+    ],
+    "point_local_mm": [
+      55.0,
+      0.0
+    ],
+    "theta_rad": 0.71,
+    "external_moment_Nm": 2.0,
+    "contact_velocity_xz_mm_s": [
+      -64.9957,
+      -19.3448
+    ],
+    "force_power_W": 7.12241,
+    "moment_power_W": -3.14159,
+    "load_power_W": 3.98082,
+    "generalized_load_torque_at_input_Nm": 0.316784,
+    "balancing_input_torque_Nm": -0.316784,
+    "input_power_W": -3.98082,
+    "power_residual_W": -4.44089e-16,
+    "evidence": "POINT_FORCE_JACOBIAN_AND_EXTERNAL_MOMENT_NOT_LOAD_SIZING"
+  },
+  "cases": [
+    {
+      "parameters": {
+        "q": 6,
+        "eccentric_mm": 7.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 125.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -20.0,
+        "output_carrier": -20.0,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 6,
+      "sampled_positions": 577,
+      "full_cycle_closure_error_mm": 3.18408e-15,
+      "one_orbit_labeled_point_displacement_mm": 55.0,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 2.14309e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 102.625,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    },
+    {
+      "parameters": {
+        "q": 8,
+        "eccentric_mm": 7.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 125.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -15.0,
+        "output_carrier": -15.0,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 8,
+      "sampled_positions": 769,
+      "full_cycle_closure_error_mm": 2.44929e-16,
+      "one_orbit_labeled_point_displacement_mm": 42.0952,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 9.37856e-09,
+      "maximum_relative_coupling_center_speed_mm_s": 98.9602,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    },
+    {
+      "parameters": {
+        "q": 16,
+        "eccentric_mm": 7.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 125.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -7.5,
+        "output_carrier": -7.5,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 16,
+      "sampled_positions": 1537,
+      "full_cycle_closure_error_mm": 1.3961e-14,
+      "one_orbit_labeled_point_displacement_mm": 21.4599,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 1.00192e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 93.4624,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    },
+    {
+      "parameters": {
+        "q": 6,
+        "eccentric_mm": 10.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 131.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -20.0,
+        "output_carrier": -20.0,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 6,
+      "sampled_positions": 577,
+      "full_cycle_closure_error_mm": 1.22465e-15,
+      "one_orbit_labeled_point_displacement_mm": 55.0,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 2.32082e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 146.608,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    },
+    {
+      "parameters": {
+        "q": 8,
+        "eccentric_mm": 10.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 131.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -15.0,
+        "output_carrier": -15.0,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 8,
+      "sampled_positions": 769,
+      "full_cycle_closure_error_mm": 6.12323e-15,
+      "one_orbit_labeled_point_displacement_mm": 42.0952,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 1.11237e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 141.372,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    },
+    {
+      "parameters": {
+        "q": 16,
+        "eccentric_mm": 10.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 131.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -7.5,
+        "output_carrier": -7.5,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 16,
+      "sampled_positions": 1537,
+      "full_cycle_closure_error_mm": 2.57176e-14,
+      "one_orbit_labeled_point_displacement_mm": 21.4599,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 1.14909e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 133.518,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    },
+    {
+      "parameters": {
+        "q": 6,
+        "eccentric_mm": 14.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 139.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -20.0,
+        "output_carrier": -20.0,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 6,
+      "sampled_positions": 577,
+      "full_cycle_closure_error_mm": 7.10295e-15,
+      "one_orbit_labeled_point_displacement_mm": 55.0,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 2.65894e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 205.251,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    },
+    {
+      "parameters": {
+        "q": 8,
+        "eccentric_mm": 14.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 139.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -15.0,
+        "output_carrier": -15.0,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 8,
+      "sampled_positions": 769,
+      "full_cycle_closure_error_mm": 1.3961e-14,
+      "one_orbit_labeled_point_displacement_mm": 42.0952,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 1.22397e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 197.92,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    },
+    {
+      "parameters": {
+        "q": 16,
+        "eccentric_mm": 14.0,
+        "input_rpm": 120.0,
+        "rotor_tip_diameter_mm": 110.0,
+        "chamber_diameter_mm": 139.6,
+        "output_pin_pitch_radius_mm": 38.0,
+        "output_pin_count": 6,
+        "output_roller_radius_mm": 5.0,
+        "coupling_radial_clearance_mm": 0.2
+      },
+      "signed_speed_rpm": {
+        "input": 120.0,
+        "orbit": 120.0,
+        "rotor_self": -7.5,
+        "output_carrier": -7.5,
+        "fixed_ring": 0.0
+      },
+      "full_labeled_cycle_input_turns": 16,
+      "sampled_positions": 1537,
+      "full_cycle_closure_error_mm": 4.13931e-14,
+      "one_orbit_labeled_point_displacement_mm": 21.4599,
+      "minimum_nominal_coupling_clearance_mm": 0.2,
+      "loaded_output_contact_status": "HOLD_PHASE_TAKEUP_AND_CONTACT_SHARING_UNVERIFIED",
+      "maximum_velocity_fd_error_mm_s": 1.17836e-08,
+      "maximum_relative_coupling_center_speed_mm_s": 186.925,
+      "rotor_to_chamber_radial_gap_mm": 0.8,
+      "kinematic_clearance_passed": true,
+      "passed": true,
+      "evidence": "DETERMINISTIC_KINEMATICS_NOT_SHREDDING_PERFORMANCE"
+    }
+  ],
+  "all_cases_passed": true,
+  "performance_gate": "BLOCKED_PERFORMANCE_DATA",
+  "loaded_output_contact": "RIGID_FIRST_CONTACT_EQUILIBRIUM_PASS_RATING_HOLD",
+  "bearing_and_coupling_rating": "HOLD",
+  "procurement": "HOLD",
+  "fabrication": "HOLD",
+  "energization": "HOLD"
+}

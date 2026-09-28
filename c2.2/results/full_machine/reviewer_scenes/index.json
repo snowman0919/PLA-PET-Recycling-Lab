@@ -1,0 +1,50 @@
+{
+  "schema": "reviewer_scenes/1",
+  "machine_usd": "c2.2/sim/assets/usd/full_machine.usda",
+  "usd_sha256": "b62544c09d1f44a89b397d9c904993ee719a216d0633150da633d798e5a10ad4",
+  "source_step_sha256": "1d45ad9aa8f404310df5ec6821c524d00ab518d67468598b0e13e860d83f1fe0",
+  "resolution": "640x480",
+  "scene_list": [
+    "a_full_assembly",
+    "b_drivetrain_mid_rotation",
+    "c_transfer_chute_probes",
+    "d_puller_winder"
+  ],
+  "scenes": [
+    {
+      "id": "a_full_assembly",
+      "title": "PPR VP1 full machine - assembly 3/4 view",
+      "image": "a_full_assembly.png",
+      "producing_tool": "deterministic software render (painter's algorithm, numpy+PIL, 640x480) of the USDA collision meshes, produced by c2.2/sim/render_reviewer_scenes.py",
+      "status": "ok"
+    },
+    {
+      "id": "b_drivetrain_mid_rotation",
+      "title": "Drivetrain close-up - mid-rotation (input theta=pi)",
+      "image": "b_drivetrain_mid_rotation.png",
+      "producing_tool": "deterministic software render (painter's algorithm, numpy+PIL, 640x480) of the USDA collision meshes, produced by c2.2/sim/render_reviewer_scenes.py",
+      "status": "ok"
+    },
+    {
+      "id": "c_transfer_chute_probes",
+      "title": "Transfer and discharge - cutaway (walls/supports hidden)",
+      "image": "c_transfer_chute_probes.png",
+      "producing_tool": "deterministic software render (painter's algorithm, numpy+PIL, 640x480) of the USDA collision meshes, produced by c2.2/sim/render_reviewer_scenes.py",
+      "status": "ok"
+    },
+    {
+      "id": "d_puller_winder",
+      "title": "Puller/winder end of the line",
+      "image": "d_puller_winder.png",
+      "producing_tool": "deterministic software render (painter's algorithm, numpy+PIL, 640x480) of the USDA collision meshes, produced by c2.2/sim/render_reviewer_scenes.py",
+      "status": "ok"
+    }
+  ],
+  "note": "Isaac RTX capture skipped (PPR_FORCE_SOFTWARE_SCENES); software rendering only, not a physics run.",
+  "probe_spheres": {
+    "count_rendered": 6,
+    "of_total_dropped": 200,
+    "positions_source": "c2.2/results/full_machine/run_20260924_233634/results.json probe_test.sample_final_positions",
+    "render_mode": "projected recorded final positions, always visible"
+  }
+}

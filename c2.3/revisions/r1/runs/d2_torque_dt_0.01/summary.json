@@ -1,0 +1,60 @@
+{
+  "schema": "r02_d2/1",
+  "backend": "ISAAC_PHYSX",
+  "isaac_version": "6.1.0.0",
+  "isaac_runtime_version": "UNKNOWN",
+  "isaac_build": "6.1.0-rc.26+release.49347.2d230af4.gl",
+  "python": "/home/monad/env_isaacsim-c22/bin/python",
+  "simulation_manager": "/home/monad/env_isaacsim-c22/lib/python3.12/site-packages/isaacsim/exts/isaacsim.core.simulation_manager/isaacsim/core/simulation_manager/__init__.py",
+  "scene": "/World/DIAGNOSTIC_FIXTURE",
+  "physics_dt_s": 0.01,
+  "dt_readback_s": 0.01,
+  "dt_source_mapping": "SimulationManager.set_physics_dt(0.01) once pre-play; advance via SimulationManager.step(steps=1)",
+  "torque_definition": "tau_contact = dot(sum(cross(p_i - o, F_on_shaft_i)), a); shaft contacts only; action-reaction signs; counter-rotating shafts separate",
+  "kinematic_boundary": "signed work ON body = dot(J_on_body, v_point); stationary boundary -> 0",
+  "dynamic_shaft": "UNAVAILABLE: no articulation joint/drive/joint-effort readout on the kinematic-pose path; not estimated",
+  "axis_origin": [
+    2.0,
+    0.0,
+    0.5
+  ],
+  "axis_dir": [
+    0.0,
+    1.0,
+    0.0
+  ],
+  "cutter_work_J": 0.0,
+  "support_impulse_Ns": 19.619999434798988,
+  "legacy_RsumF_diagnostics_only": 3.162730710804487,
+  "energy_t0t1": {
+    "t0_s": 3.03,
+    "t1_s": 4.03,
+    "shared": true,
+    "mass_kg": 2.0,
+    "inertia_box": 0.0008333333333333335,
+    "pos_t1_m": [
+      5.986082669551251e-07,
+      -7.173356948442233e-07,
+      0.02500000409781933
+    ],
+    "vel_t1_m_s": [
+      0.0001418719912180677,
+      1.2619420886039734e-07,
+      -0.0001650659687584266
+    ],
+    "angvel_t1_rad_s": [
+      0.0009650358115322888,
+      0.005986820440739393,
+      -1.2750530913763214e-05
+    ],
+    "ke_trans_J": 4.73744518593157e-08,
+    "ke_rot_J": 1.532228153468058e-08,
+    "pe_grav_J": 0.4905000803992152
+  },
+  "ledger": "PARTIAL",
+  "residual": "residual_unclassified (never heat/fracture)",
+  "scene_sha256": "250670754926986c39c1f0e726ee91a160a879b5c057e2e73508c83eeda25c4e",
+  "status": "RUN_OK",
+  "verdict": "IMPLEMENTED",
+  "failures": []
+}

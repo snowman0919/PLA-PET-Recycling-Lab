@@ -9,16 +9,19 @@ import unittest
 import numpy as np
 R=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(R/'src'))
-from engineering import S2,Thermal,design_set,packaging,hook_polygon,transform,kinematics,thermal_run,equivalent_motor_load,generalized_torque,point_jacobian
+from engineering import (S2,Thermal,design_set,packaging,hook_polygon,transform,kinematics,
+                         thermal_run,thermal_duty_run,thermal_capacities_from_cad,
+                         equivalent_motor_load,generalized_torque,point_jacobian)
 from control import Controller,allocate_power,REQUIRED_SENSORS
-from performance import validate_record,training_gate,EvidenceError,nondominated,TARGETS
+from performance import (candidate_hashes,evidence_inventory,validate_evidence_record,
+                         validate_record,training_gate,EvidenceError,nondominated,TARGETS)
 from costing import evaluate
 from pin_constraint import verify
 
 class GeometryTests(unittest.TestCase):
     def test_psu_and_total_budget(self):
         c=json.loads((R/'design/requirements.json').read_text())['user_constraints']
-        self.assertEqual((c['psu_V'],c['psu_rated_W'],c['operational_cap_W']),(24,800,500))
+        self.assertEqual((c['psu_V'],c['psu_current_A'],c['psu_nameplate_W'],c['operational_cap_W'],c['psu_current_derived_ceiling_W']),(24,33,800,500,792))
         self.assertEqual(c['psu_body_mm'],[240,120,65])
         self.assertEqual(c['budget_soft_limit_KRW'],100000)
         self.assertFalse(c['motor_M1_frozen'])
@@ -94,8 +97,8 @@ class ThermalTests(unittest.TestCase):
         r=thermal_run(Thermal(),300)
         self.assertGreater(r['final_polymer_C'],r['final_shell_C'])
     def test_fan_failure_sensitivity(self):
-        a=thermal_run(Thermal(chamber_UA_W_K=.5),1000)
-        b=thermal_run(Thermal(chamber_UA_W_K=4),1000)
+        a=thermal_run(Thermal(chamber_UA_W_K=4,fan_factor=0),1000)
+        b=thermal_run(Thermal(chamber_UA_W_K=4,fan_factor=1),1000)
         self.assertGreater(a['final_shell_C'],b['final_shell_C'])
     def test_hotend_bridge(self):
         a=thermal_run(Thermal(hotend_G_W_K=.005),300)
@@ -103,11 +106,34 @@ class ThermalTests(unittest.TestCase):
         self.assertGreater(b['final_shell_C'],a['final_shell_C'])
     def test_not_PETG(self):
         with self.assertRaises(ValueError):Thermal(material='PETG')
+    def test_drive_heat_is_separate_from_chamber_heat(self):
+        a=thermal_run(Thermal(motor_loss_W=0,gear_loss_W=0),300)
+        b=thermal_run(Thermal(motor_loss_W=25,gear_loss_W=10),300)
+        self.assertGreater(b['final_motor_C'],a['final_motor_C'])
+        self.assertGreater(b['final_gear_C'],a['final_gear_C'])
+    def test_repeated_batch_carries_heat_and_fan_fault_is_worse(self):
+        segments=[dict(name='run1',duration_s=300,chamber_heat_W=30,motor_loss_W=25,gear_loss_W=10),
+                  dict(name='idle',duration_s=120,chamber_heat_W=2,mass_flow_g_h=0),
+                  dict(name='run2',duration_s=300,chamber_heat_W=30,motor_loss_W=25,gear_loss_W=10)]
+        clean=thermal_duty_run(Thermal(ambient_C=35,inlet_C=35,chamber_UA_W_K=4),segments)
+        failed=thermal_duty_run(Thermal(ambient_C=35,inlet_C=35,chamber_UA_W_K=4),
+                                [{**x,'fan_factor':0} for x in segments])
+        self.assertGreater(clean['segments'][2]['final_state_C'][0],clean['segments'][0]['final_state_C'][0])
+        self.assertGreater(failed['peak_node_C'][2],clean['peak_node_C'][2])
+    def test_cad_volume_capacity_basis(self):
+        r=thermal_capacities_from_cad(json.loads((R/'results/cad_validation.json').read_text()))
+        self.assertGreater(r['shear_metal_J_K'],0)
+        self.assertGreater(r['shell_spreader_J_K'],0)
+        self.assertEqual(r['status'],'CAD_VOLUME_DERIVED_ASSUMED_DENSITY_CP_NOT_MEASURED_MASS')
 
 class ControllerTests(unittest.TestCase):
     def setUp(self):
         self.args=dict(material='PLA',temperatures={k:25. for k in REQUIRED_SENSORS},sensor_age_s=0,
-                       estop_closed=True,guards_closed=True,fan_ok=True,jam_detected=False)
+                       estop_closed=True,guards_closed=True,fan_ok=True,jam_detected=False,
+                       drive_current_A=1,drive_rpm=120,drive_sample_age_s=0)
+    def controller(self):
+        return Controller(qualified=True,motor_limit_C=60,gear_limit_C=60,
+                          current_limit_A=10,minimum_running_rpm=10)
     def test_default_qualification_hold(self):
         self.assertEqual(Controller().evaluate(**self.args)['state'],'QUALIFICATION_HOLD')
     def test_estop_disables_heat_and_motor(self):
@@ -122,7 +148,7 @@ class ControllerTests(unittest.TestCase):
     def test_stale_sensor(self):
         self.assertEqual(Controller().evaluate(**{**self.args,'sensor_age_s':2})['state'],'FAULT')
     def test_hot_requires_reset(self):
-        c=Controller(qualified=True,motor_limit_C=60,gear_limit_C=60)
+        c=self.controller()
         a=dict(self.args);a['temperatures']=dict(self.args['temperatures'],s2_shear=51)
         self.assertEqual(c.evaluate(**a)['state'],'FAULT')
         self.assertEqual(c.evaluate(**self.args)['state'],'FAULT')
@@ -132,26 +158,63 @@ class ControllerTests(unittest.TestCase):
         r=Controller().evaluate(**{**self.args,'jam_detected':True})
         self.assertEqual(r['reason'],'JAM_NO_AUTOMATIC_REVERSE')
     def test_derate_changes_common_drive(self):
-        c=Controller(qualified=True,motor_limit_C=60,gear_limit_C=60)
+        c=self.controller()
         a=dict(self.args);a['temperatures']=dict(self.args['temperatures'],s2_shear=45)
         r=c.evaluate(**a,start_edge=True,run_request=True)
         self.assertEqual(r['m1_fraction'],.5)
         self.assertEqual(r['coupled_axes'],'S1_AND_S2_COMMON_SPEED_ONLY')
     def test_run_continues_without_repeated_start_edge(self):
-        c=Controller(qualified=True,motor_limit_C=60,gear_limit_C=60)
+        c=self.controller()
         self.assertEqual(c.evaluate(**self.args,start_edge=True,run_request=True)['state'],'RUN')
         self.assertEqual(c.evaluate(**self.args,run_request=True)['state'],'RUN')
         self.assertEqual(c.evaluate(**self.args,run_request=False)['state'],'IDLE')
-    def test_power_cap_many_cases(self):
+    def test_hardware_overtemp_chain_is_fail_closed(self):
+        r=self.controller().evaluate(**self.args,hardware_overtemp_closed=False)
+        self.assertEqual(r['reason'],'HARDWARE_OVERTEMP_CHAIN_OPEN')
+    def test_drive_feedback_required_to_run(self):
+        a=dict(self.args);a['drive_current_A']=None
+        self.assertEqual(self.controller().evaluate(**a,start_edge=True,run_request=True)['reason'],
+                         'INVALID_DRIVE_FEEDBACK')
+    def test_stale_drive_feedback(self):
+        r=self.controller().evaluate(**{**self.args,'drive_sample_age_s':2},start_edge=True,run_request=True)
+        self.assertEqual(r['reason'],'STALE_DRIVE_FEEDBACK')
+    def test_current_and_rpm_detect_jam_without_reverse(self):
+        r=self.controller().evaluate(**{**self.args,'drive_current_A':8.5,'drive_rpm':2},
+                                     start_edge=True,run_request=True)
+        self.assertEqual(r['reason'],'JAM_NO_AUTOMATIC_REVERSE')
+        self.assertEqual(r['m1_fraction'],0)
+    def test_operating_budget_derates_heater_without_exceeding_cap(self):
         for a in range(0,601,25):
             for b in range(0,121,20):
                 for c in range(0,401,40):
                     r=allocate_power(a,b,30,c)
                     self.assertLessEqual(r['total_W'],500)
+                    self.assertLessEqual(r['heater_W'],c)
+        self.assertEqual(allocate_power(450,40,0,10)['total_W'],500)
+        r=allocate_power(450,40,0,11)
+        self.assertEqual((r['heater_W'],r['total_W'],r['reason']),
+                         (10,500,'HEATER_DERATED_AT_OPERATING_CAP'))
+        self.assertFalse(allocate_power(450,40,30,46)['admitted'])
+        self.assertFalse(allocate_power(760,20,20,0)['admitted'])
+        with self.assertRaises(ValueError):
+            allocate_power(316,0,150,100,budget_W=792)
     def test_reject_phase_current_as_negative_power(self):
         with self.assertRaises(ValueError):allocate_power(-1,10,10,50)
 
 class EvidenceTests(unittest.TestCase):
+    def setUp(self):
+        self.design={'candidate_id':'TEST-ONLY','tip_mm':100}
+        self.hashes=candidate_hashes([{'design':self.design}])
+
+    def record(self,root,evidence_type='UNCALIBRATED_DEM'):
+        raw=root/'raw.csv';raw.write_text('t,torque\n0,0\n')
+        deck=root/'input.in';deck.write_text('run 1\n')
+        return dict(evidence_type=evidence_type,candidate_id='TEST-ONLY',material='PLA',material_grade='test',material_lot='test',
+                    feed_distribution_id='test',cad_revision='C2.0',geometry_sha256=self.hashes['TEST-ONLY'],
+                    raw_data_path='raw.csv',raw_data_sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),
+                    solver='test-solver',solver_version='1',input_deck_path='input.in',
+                    input_deck_sha256=hashlib.sha256(deck.read_bytes()).hexdigest(),outputs={k:0 for k in TARGETS})
+
     def test_empty_records_do_not_train(self):
         self.assertFalse(training_gate([],R)['trained'])
         self.assertEqual(training_gate([],R)['status'],'BLOCKED_PERFORMANCE_DATA')
@@ -161,21 +224,56 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaises(EvidenceError):validate_record({'evidence_type':'UNCALIBRATED_DEM'},R)
     def test_verified_experimental_fixture(self):
         with tempfile.TemporaryDirectory() as td:
-            p=Path(td)/'raw.csv';p.write_text('t,torque\n0,0\n')
-            r=dict(evidence_type='PHYSICAL_EXPERIMENT',candidate_id='TEST-ONLY',material='PLA',material_grade='test',material_lot='test',
-                   feed_distribution_id='test',calibration_id='test',cad_revision='test',raw_data_path='raw.csv',
-                   raw_data_sha256=hashlib.sha256(p.read_bytes()).hexdigest(),outputs={k:0 for k in TARGETS})
-            self.assertEqual(validate_record(r,Path(td)),r)
+            root=Path(td);r=self.record(root,'PHYSICAL_EXPERIMENT')
+            r.update(physical_test_id='run-1',specimen_id='coupon-1',procedure_revision='p1',instrument_ids=['loadcell-1'])
+            self.assertEqual(validate_record(r,root,self.hashes,'C2.0'),r)
             r['raw_data_sha256']='bad'
-            with self.assertRaises(EvidenceError):validate_record(r,Path(td))
+            with self.assertRaises(EvidenceError):validate_record(r,root,self.hashes,'C2.0')
+    def test_legitimate_uncalibrated_simulation_is_counted_but_not_qualified(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);r=self.record(root)
+            self.assertEqual(evidence_inventory([r],root,self.hashes,'C2.0')['actual_dem_runs'],1)
+            with self.assertRaises(EvidenceError):validate_record(r,root,self.hashes,'C2.0')
+    def test_calibration_promotes_dem_only_with_validation(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);r=self.record(root,'CALIBRATED_DEM');r['calibration_id']='cal-1'
+            with self.assertRaises(EvidenceError):validate_record(r,root,self.hashes,'C2.0')
+            r['calibration_validation_id']='held-out-1'
+            self.assertEqual(validate_record(r,root,self.hashes,'C2.0'),r)
+    def test_fake_physical_label_is_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            with self.assertRaises(EvidenceError):validate_record(self.record(Path(td),'PHYSICAL_EXPERIMENT'),Path(td),self.hashes,'C2.0')
+    def test_missing_raw_and_hash_tamper_are_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);r=self.record(root);(root/'raw.csv').unlink()
+            with self.assertRaises(EvidenceError):validate_evidence_record(r,root,self.hashes,'C2.0')
+            r=self.record(root);r['input_deck_sha256']='bad'
+            with self.assertRaises(EvidenceError):validate_evidence_record(r,root,self.hashes,'C2.0')
+    def test_old_cad_or_geometry_result_is_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);r=self.record(root);r['cad_revision']='C1'
+            with self.assertRaises(EvidenceError):validate_evidence_record(r,root,self.hashes,'C2.0')
+            r=self.record(root);r['geometry_sha256']='bad'
+            with self.assertRaises(EvidenceError):validate_evidence_record(r,root,self.hashes,'C2.0')
+    def test_synthetic_fixture_is_not_an_actual_run(self):
+        r={'fixture_scope':'SYNTHETIC_TEST_ONLY'}
+        self.assertEqual(evidence_inventory([r],R,self.hashes,'C2.0')['actual_dem_runs'],0)
     def test_pareto_preserves_tradeoff(self):
         self.assertEqual(nondominated(np.array([[1,3],[2,2],[3,3]])).tolist(),[True,True,False])
     def test_unknown_cost_not_zero_total(self):
         r=evaluate([dict(item_id='motor',owned_verified=False,landed_line_KRW=None)])
         self.assertIsNone(r['total_KRW']);self.assertIsNone(r['within_budget'])
     def test_soft_limit_accounting(self):
-        r=evaluate([dict(item_id='motor',owned_verified=False,landed_line_KRW=100001)])
+        r=evaluate([dict(item_id='motor',owned_verified=False,landed_line_KRW=100001,
+                         quote_status='QUOTED_LANDED',source='seller quote')])
         self.assertEqual(r['status'],'OVER_SOFT_LIMIT')
+    def test_valid_quote_reduces_unknown_coverage(self):
+        r=evaluate([dict(item_id='motor',owned_verified=False,landed_line_KRW=12345,
+                         quote_status='QUOTED_LANDED',source='seller quote')])
+        self.assertEqual((r['unknown_cost_lines'],r['total_KRW']),([],12345.0))
+        with self.assertRaises(ValueError):
+            evaluate([dict(item_id='bad',owned_verified=False,landed_line_KRW=True,
+                           quote_status='QUOTED_LANDED',source='seller quote')])
     def test_owned_only_does_not_imply_unowned_free(self):
         rows=json.loads((R/'bom/cost_ledger.json').read_text())
         self.assertGreater(len(rows),130)

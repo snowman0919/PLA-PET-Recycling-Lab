@@ -1,0 +1,13 @@
+{
+  "revision": "C2.1-P6+VP1-STAGE4",
+  "module": "c2.1/src/s2_direction_audit.py",
+  "direction": "negative (S2Ecc = -0.75 x input, chain B jack-driven)",
+  "method": "BREP_EXACT_AFTER_BBOX, full q=8 cycle, 64 states",
+  "pair_checks_per_state": 310,
+  "states": 64,
+  "interference_events": 0,
+  "details": [],
+  "conclusion": "DIRECTION_SYMMETRIC_NO_RELIEF_NEEDED",
+  "note": "positive-direction 33-state sweep: cad_validation.json dynamic_collision (executed, 0 unexpected)",
+  "passed": true
+}

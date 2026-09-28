@@ -1,0 +1,204 @@
+{
+  "schema": "full_machine_usd/1",
+  "usd_file": "/home/monad/develop/PPR-c2.1-codex-20260921/c2.2/sim/assets/usd/full_machine.usda",
+  "usd_bytes": 3976995,
+  "stage_meters_per_unit": 0.001,
+  "gravity_mm_s2": 9810.0,
+  "articulation_root": "/World/F0/Machine",
+  "joints": [
+    {
+      "name": "MachineJointIn",
+      "body1": "IN_SHAFT",
+      "axis": "Y",
+      "pivot_mm": [
+        80.0,
+        300.0,
+        65.0
+      ]
+    },
+    {
+      "name": "MachineJointS1A",
+      "body1": "S1A",
+      "axis": "Y",
+      "pivot_mm": [
+        130.0,
+        230.0,
+        398.30275184708404
+      ]
+    },
+    {
+      "name": "MachineJointS1B",
+      "body1": "S1B",
+      "axis": "Y",
+      "pivot_mm": [
+        190.0,
+        230.0,
+        398.30275184708404
+      ]
+    },
+    {
+      "name": "MachineJointS2Ecc",
+      "body1": "S2_ECC",
+      "axis": "Y",
+      "pivot_mm": [
+        308.56946468906176,
+        299.0,
+        280.0
+      ]
+    },
+    {
+      "name": "MachineJointS2Carrier",
+      "body1": "S2_CARRIER",
+      "axis": "Y",
+      "pivot_mm": [
+        308.56946468906176,
+        299.0,
+        280.0
+      ]
+    }
+  ],
+  "ratios_from_input": {
+    "S1A": -0.375,
+    "S1B": 0.375,
+    "S2_ECC": 2.0,
+    "S2_CARRIER": -0.25
+  },
+  "ratio_sources": [
+    "design/parameters.json drive block",
+    "c2.1/src/transmission.py pose() q=8",
+    "design/assembly.json drive instances"
+  ],
+  "pivot_mm": {
+    "IN_SHAFT": [
+      80.0,
+      300.0,
+      65.0
+    ],
+    "S1A": [
+      130.0,
+      230.0,
+      398.30275184708404
+    ],
+    "S1B": [
+      190.0,
+      230.0,
+      398.30275184708404
+    ],
+    "S2_ECC": [
+      308.56946468906176,
+      299.0,
+      280.0
+    ],
+    "S2_CARRIER": [
+      308.56946468906176,
+      299.0,
+      280.0
+    ],
+    "S2_ROTOR": [
+      308.56946468906176,
+      299.0,
+      280.0
+    ]
+  },
+  "contact_offset_mm": 0.2,
+  "rest_offset_mm": 0.0,
+  "collision_note": "moving solids = convexHull (emit_usd.py convention); static solids = triangleMesh; convex-hull overestimation of non-convex moving solids is reported, not hidden",
+  "mass_material_status": "ASSUMPTION_UNCHOSEN",
+  "density_assumption": "PhysX default 1000 kg/m^3 (no material chosen)",
+  "derived_transfer_spec": [
+    {
+      "name": "S1_DISCHARGE",
+      "center_mm": [
+        120.0,
+        243.5,
+        428.0
+      ],
+      "dims_mm": [
+        120.0,
+        100.0,
+        30.0
+      ],
+      "note": "outlet under S1 chamber datum Y162.4..324.6"
+    },
+    {
+      "name": "CHUTE",
+      "center_mm": [
+        200.0,
+        243.5,
+        350.0
+      ],
+      "dims_mm": [
+        110.0,
+        90.0,
+        120.0
+      ],
+      "note": "45deg-class gravity slide S1 outlet -> S2 entry"
+    },
+    {
+      "name": "S2_ENTRY",
+      "center_mm": [
+        308.6,
+        275.0,
+        330.0
+      ],
+      "dims_mm": [
+        90.0,
+        45.0,
+        25.0
+      ],
+      "note": "throat above S2 bay"
+    },
+    {
+      "name": "S2_EXIT",
+      "center_mm": [
+        308.6,
+        275.0,
+        200.0
+      ],
+      "dims_mm": [
+        90.0,
+        45.0,
+        40.0
+      ],
+      "note": "duct below screen arc"
+    }
+  ],
+  "probe_spawn": {
+    "hopper_bbox_mm": [
+      0.741715570741,
+      162.3999999,
+      443.50275174707997,
+      237.0000001,
+      324.60000010000005,
+      501.0000001
+    ],
+    "spawn_z_mm": 499.0000001,
+    "spawn_center_mm": [
+      118.8708578353705,
+      243.50000000000003,
+      499.0000001
+    ],
+    "note": "2mm below hopper solid top; lateral spread set by verify_full.py across the mouth cross-section"
+  },
+  "source_bodies": {
+    "step_sha256": "e1756cac72a5426bc24bcdba21e919d9355be8d8eddaa61a69a516eabe38cb12",
+    "solids": 196,
+    "moving_bodies": [
+      "IN_SHAFT",
+      "S1A",
+      "S1B",
+      "S2_CARRIER",
+      "S2_ECC",
+      "S2_ROLLER_1",
+      "S2_ROLLER_2",
+      "S2_ROLLER_3",
+      "S2_ROLLER_4",
+      "S2_ROLLER_5",
+      "S2_ROLLER_6",
+      "S2_ROTOR"
+    ]
+  },
+  "revision": "fc9eeba13a569748d9a1101aaef01f987d5906c1",
+  "failures": [],
+  "status": "PASS"
+}
